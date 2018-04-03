@@ -21,6 +21,10 @@ tr {
   border-bottom: var(--unit-line) dotted var(--border-color);
 }
 
+.table-striped tr:nth-child(even) {
+  background-color: var(--color-alt);
+}
+
 .table-sans tr {
   border-bottom: var(--unit-line) dotted var(--border-bg);
 }
@@ -28,9 +32,12 @@ tr {
 td,
 th {
   vertical-align: top;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: nowrap;
   padding-bottom: var(--unit-s);
   padding-top: calc(var(--unit-s) - var(--unit-line));
+  padding-left: var(--unit-s);
+  padding-right: var(--unit-s);
 }
 
 .table-xs td,
@@ -48,4 +55,12 @@ th {
 .table-fixed {
   display: table;
   table-layout: fixed;
+}
+
+.tr-link {
+  cursor: pointer;
+}
+
+.tr-link:hover {
+  background-color: var(--color-alt);
 }

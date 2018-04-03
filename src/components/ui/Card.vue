@@ -1,11 +1,11 @@
 <template>
-  <div class="bg-bg p shadow mb rnd">
+  <div class="bg-bg p mb">
     <slot />
   </div>
 </template>
 
 <script>
 export default {
-
+  name: "UiSystemCard"
 }
 </script>

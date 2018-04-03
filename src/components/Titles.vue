@@ -3,32 +3,33 @@
   <loader v-if="!loaded" />
   <card v-else >
     <h2>Titres</h2>
-    <table>
-      <tr>
-        <th>Nom</th>
-        <th>Type</th>
-        <th>Statut</th>
-        <th>Substances</th>
-        <th />
-      </tr>
-      <tr 
-        v-for="titre in titres"
-        :key="titre.id">
-        <td class="bold">{{ titre.nom }}</td>
-        <td>{{ titre.type }}</td>
-        <td><title-status :status="titre.statut" />{{ titre.statut }}</td>
-        <td>
-          <tag-list
-            v-if="titre.substances && titre.substances.principales"
-            :elements="titre.substances.principales"
-            class="mb--xs" />
-        </td>
-        <td>
-          <router-link
-            :to="{ name: 'titre', params: { id: titre.id }}"
-            class="btn h5 px-s py-xs my--s">Details</router-link></td>
-      </tr>
-    </table>
+    <div class="overflow-scroll-x">
+      <table>
+        <tr>
+          <th>Nom</th>
+          <th>Type</th>
+          <th>Statut</th>
+          <th>Substances</th>
+        </tr>
+        <router-link
+          v-for="titre in titres"
+          :key="titre.id"
+          :to="{ name: 'titre', params: { id: titre.id }}"
+          tag="tr"
+          class="tr-link">
+          <td class="bold">{{ titre.nom }}</td>
+          <td>{{ titre.type }}</td>
+          <td><title-status :status="titre.statut" />{{ titre.statut }}</td>
+          <td>
+            <tag-list
+              v-if="titre.substances && titre.substances.principales"
+              :elements="titre.substances.principales"
+              class="mb--xs" />
+          </td>
+        </router-link>
+      </table>
+
+    </div>
   </card>
 </template>
 

@@ -1,22 +1,26 @@
 <template>
-  <div class="page">
-    <topbar />
-    <main class="content container pt">
-      <router-view />
-    </main>
-    <div class="footer">
-      <div class="container p">footer</div>
-    </div>
-  </div>
+  <page>
+    <template slot="header">
+      <topbar />
+    </template>
+
+    <router-view />
+    
+    <template slot="footer">
+      <div class="p">Footer</div>
+    </template>
+  </page>
 </template>
 
 <script>
+import Page from './components/ui/Page.vue'
 import Topbar from './components/Topbar.vue'
 
 export default {
   name: 'App',
 
   components: {
+    Page,
     Topbar
   }
 }

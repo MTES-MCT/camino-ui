@@ -6,6 +6,8 @@
 
 <script>
 export default {
+  name: "UiSystemDot",
+
   props: {
     color: {
       type: String,

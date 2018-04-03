@@ -10,6 +10,14 @@ https://github.com/francoisromain/postcss-grid-fluid
   display: flex;
 }
 
+.container {
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
 .blobs {
   gf: row;
 }
@@ -87,6 +95,10 @@ https://github.com/francoisromain/postcss-grid-fluid
 }
 
 @media (--viewport-tablet) {
+  .container {
+    width: calc(2 * var(--col-width) + var(--gutter));
+  }
+
   .blobs-tablet {
     gf: row;
   }
@@ -134,5 +146,11 @@ https://github.com/francoisromain/postcss-grid-fluid
 
   .blob-tablet-5-6 {
     gf: blob 3/4;
+  }
+}
+
+@media (--viewport-desktop) {
+  .container {
+    width: calc(3 * var(--col-width) + var(--gutter));
   }
 }
