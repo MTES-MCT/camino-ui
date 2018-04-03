@@ -1,0 +1,187 @@
+.icon {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  background-size: cover;
+}
+
+.icon-8 {
+  width: calc(var(--base-font-size) / 2);
+  height: calc(var(--base-font-size) / 2);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.icon-24 {
+  width: var(--unit);
+  height: var(--unit);
+  display: inline-block;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+}
+
+.icon-48 {
+  width: var(--unit-xl);
+  height: var(--unit-xl);
+  display: inline-block;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+}
+
+.icon-24-close {
+  background-image: svg-load(
+    './icons/24-close.svg',
+    fill=none,
+    stroke='#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
+}
+
+.btn-border:hover .icon-24-close {
+  background-image: svg-load(
+    './icons/24-close.svg',
+    fill=none,
+    stroke='white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
+}
+
+.icon-24-plus {
+  background-image: svg-load(
+    './icons/24-plus.svg',
+    fill=none,
+    stroke='#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
+}
+
+.btn-alt .icon-24-plus,
+.btn-alt:hover .icon-24-plus,
+.btn-border:hover .icon-24-plus {
+  background-image: svg-load(
+    './icons/24-plus.svg',
+    fill=none,
+    stroke='white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
+}
+
+.btn-alt .icon-24-minus,
+.btn-alt:hover .icon-24-minus {
+  background-image: svg-load(
+    './icons/24-minus.svg',
+    fill=none,
+    stroke='white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
+}
+
+.btn-menubar .icon-24-dot {
+  background-image: svg-load(
+    './icons/24-dot.svg',
+    fill=none,
+    stroke='white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
+}
+
+.icon-24-chevron-b {
+  background-image: svg-load(
+    './icons/24-chevron-b.svg',
+    fill=none,
+    stroke='#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=2px
+  );
+}
+
+
+.btn:hover .icon-24-chevron-b {
+  background-image: svg-load(
+    './icons/24-chevron-b.svg',
+    fill=none,
+    stroke='white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=2px
+  );
+}
+
+.icon-24-download {
+  background-image: svg-load(
+    './icons/24-download.svg',
+    fill=none,
+    stroke='#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=2px
+  );
+}
+
+.icon-24-view {
+  background-image: svg-load(
+    './icons/24-view.svg',
+    fill=none,
+    stroke='#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=2px
+  );
+}
+
+.icon-24-dot.blink {
+  animation: blinker 0.2s ease infinite;
+}
+
+@keyframes blinker {
+  50% {
+    background-image: svg-load('./icons/24-dot.svg', fill='white');
+  }
+}
+
+/* .icon-48-close {
+  background-image: svg-load(
+    './icons/48-close.svg',
+    fill=none,
+    stroke=var(--color-highlight),
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
+}
+
+.btn-icon:hover .icon-48-close {
+  background-image: svg-load(
+    './icons/48-close.svg',
+    stroke=var(--color-bg),
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
+} */

@@ -1,0 +1,505 @@
+{
+  "id": "conc-laconquillie",
+  "nom": "La Conquillie",
+  "type": "Concession",
+  "statut": "Valide",
+  "travaux": "En cours",
+  "substances": {
+    "principales": ["Hydrocarbures liquides ou gazeux"]
+  },
+  "références": {
+    "métier": "C 79"
+  },
+  "validité": {
+    "début": "2018-02-04",
+    "durée": 15
+  },
+  "geojson": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.173541636232701, 48.68993674997124]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.191542035009233, 48.68993730950939]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.191542052766129, 48.68093730566811]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.218544261639781, 48.68093658587118]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.21854429272969, 48.67193751637976]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.245545047187876, 48.67193680888667]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.245545159341878, 48.61793781793066]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.173543383948531, 48.61793724269859]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.173541636232701, 48.68993674997124]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      }
+    ]
+  },
+  "surface": 36.39,
+  "communes": {
+    "Ile-de-France": {
+      "Seine-et-Marne": [
+        "Bannost-Villegagnon",
+        "Bézalles",
+        "Boisdon",
+        "Chenoise",
+        "Jouy-le-Châtel",
+        "Saint-Hilliers"
+      ]
+    }
+  },
+  "emprises": ["À terre"],
+
+  "titulaires": [
+    {
+      "id": "titulaire-id-1",
+      "nom": "Vermilion REP",
+      "siret": "41096483700026",
+      "adresse": {
+        "ligne_1": "1762 RTE DE PONTENX",
+        "code_postal": "40160",
+        "ville": "PARENTIS EN BORN"
+      },
+      "contact": {
+        "prenom": "Pantxika",
+        "nom": "Etcheverry",
+        "service": "Direction",
+        "email": "petcheverry@vermilionenergy.com",
+        "telephone": "+33558829579",
+        "mobile": "+336XXXXXXXX"
+      }
+    }
+  ],
+  "administrations": [
+    {
+      "id": "001",
+      "nom": "Ministère de la Transition écologique et solidaire",
+      "adresse": {
+        "ligne_1": "Tour Séquoia",
+        "ligne_2": "",
+        "code postal": "92055",
+        "ville": "LA DEFENSE CEDEX"
+      },
+      "contact": {
+        "nom": "BUI",
+        "prenom": "Hoang",
+        "service": "MTES/DGEC/DE/SD2/BRESS",
+        "telephone": "+33 (0)1 40 81 95 20",
+        "email": "hoang.bui@developement-durable.gouv.fr"
+      }
+    },
+    {
+      "id": "003",
+      "nom": "DRIEE Ile-de-France",
+      "adresse": {
+        "ligne_1": "12 Cours Louis Lumière",
+        "ligne_2": "CS 70027",
+        "code postal": "94307 ",
+        "ville": "VINCENNES CEDEX"
+      },
+      "contact": {
+        "nom": "VAN DEN BOGAARD",
+        "prenom": "Michel",
+        "service": "DRIEE Ile-de-France SESS/PSS",
+        "telephone": "+33171284724",
+        "email": "michel.van-den-bogarrd@developpement-durable.gouv.fr"
+      }
+    },
+    {
+      "id": "002",
+      "nom": "Préfecture de Seine-et-Marne",
+      "adresse": {
+        "ligne_1": "",
+        "ligne_2": "",
+        "code postal": "77010",
+        "ville": "MELUN"
+      },
+      "contact": {
+        "nom": "CAZALIERES",
+        "prenom": "Annie",
+        "service": "77 - PREFECTURE/DCSE/PPPUP",
+        "telephone": "+33164717726",
+        "email": "annie.cazalieres@seine-et-marne.gouv.fr"
+      }
+    }
+  ],
+  "démarches en cours": [
+    {
+      "id": "activite-01",
+      "type": "Travaux",
+      "nom": "Exemple - Demande d'autorisation",
+      "statut": "En attente de pièces…"
+    }
+  ],
+  "démarches": {
+    "statut": [
+      {
+        "id": "evt-1",
+        "type": "Octroi",
+        "statut": "Validé",
+        "dates": {
+          "ouverture": "",
+          "fermeture": "2018-02-04",
+          "décision": "2018-02-02"
+        },
+        "silence": {
+          "date": "",
+          "acceptation": false
+        },
+        "documents": [
+          {
+            "id": "doc-id-evt-2",
+            "nom": "Publication au Journal Officiel",
+            "date": "2018-02-04",
+            "acte": false,
+            "public": true,
+            "organisme": "Journal Officiel",
+            "fichier": {
+              "type": "pdf",
+              "url":
+                "https://www.legifrance.gouv.fr/eli/decret/2018/2/2/TRER1725238D/jo/texte",
+              "disponible": true
+            },
+            "étiquettes": ["journal officiel", "arrêté", "extrait"]
+          },
+          {
+            "id": "doc-id-evt-1",
+            "nom": "Décret du 2 février 2018 accordant la concession de mines",
+            "date": "2018-02-02",
+            "acte": true,
+            "public": true,
+            "organisme": "Ministère de la transition écologique et solidaire",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["décret", "original"],
+            "auteur": {
+              "nom": "",
+              "prénom": "",
+              "service": ""
+            },
+            "signataire": {
+              "prénom": "Nicolas",
+              "nom": "HULOT",
+              "fonction":
+                "Ministre d'Etat, Ministre de la transition écologique et solidaire"
+            }
+          }
+        ]
+      }
+    ],
+    "travaux": [
+      {
+        "id": "evt-3",
+        "type": "Autorisation d'ouverture de travaux de forage d'exploitation",
+        "statut": "En instruction…",
+        "dates": {
+          "ouverture": "2018-02-15",
+          "fermeture": "",
+          "décision": ""
+        },
+        "silence": {
+          "date": "2019-02-15",
+          "acceptation": false
+        },
+        "documents": [
+          {
+            "id": "doc-id-trv-106",
+            "nom": "Demande d’autorisation d’ouverture de travaux miniers",
+            "date": "2017-02-XX",
+            "acte": false,
+            "public": true,
+            "organisme": "Vermilion REP",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          }
+        ]
+      },
+      {
+        "id": "evt-2",
+        "type": "Autorisation d'ouverture de travaux de forage de recherches",
+        "statut": "Validé",
+        "dates": {
+          "ouverture": "2014-12-19",
+          "fermeture": "2015-09-15",
+          "décision": "2015-09-15"
+        },
+        "silence": {
+          "date": "2015-02-19",
+          "acceptation": false
+        },
+        "documents": [
+          {
+            "id": "doc-id-trv-10",
+            "nom":
+              "Arrêté préfectoral du 15 septembre 2015 - ouverture de travaux de forage de recherches",
+            "date": "2004-12-12",
+            "acte": true,
+            "public": true,
+            "organisme": "Préfecture de Seine-et-Marne",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-100",
+            "nom": "Avis du CODERST",
+            "date": "2015-09-10",
+            "acte": false,
+            "public": true,
+            "organisme": "CODERST",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-101",
+            "nom": "Rapport de la DRIEE",
+            "date": "2015-08-13",
+            "acte": false,
+            "public": true,
+            "organisme": "DRIEE",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-102",
+            "nom": "Rapport et conclusions du commissaire enquêteur",
+            "date": "2015-07-02",
+            "acte": false,
+            "public": true,
+            "organisme": "Préfecture de Seine-et-Marne",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-103",
+            "nom":
+              "Arrêté préfectoral portant ouverture d’une enquête publique",
+            "date": "2015-03-19",
+            "acte": true,
+            "public": true,
+            "organisme": "Préfecture de Seine-et-Marne",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-104",
+            "nom":
+              "Avis de l’Autorité administrative compétente en matière d’environnement",
+            "date": "2015-03-11",
+            "acte": false,
+            "public": true,
+            "organisme": "Autorité environnementale",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-105",
+            "nom": "Rapport de recevabilité de la DRIEE",
+            "date": "2015-01-26",
+            "acte": false,
+            "public": true,
+            "organisme": "Autorité environnementale",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-106",
+            "nom": "Demande d’autorisation d’ouverture de travaux miniers",
+            "date": "2014-12-19",
+            "acte": false,
+            "public": true,
+            "organisme": "Vermilion REP",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          }
+        ]
+      },
+      {
+        "id": "evt-1",
+        "type":
+          "Déclaration d’ouverture de travaux miniers - Campagne d’acquisition de données sismiques 3D",
+        "statut": "Validé",
+        "dates": {
+          "ouverture": "2014-04-09",
+          "fermeture": "2014-07-29",
+          "décision": "2014-07-29"
+        },
+        "silence": {
+          "date": "2014-06-09",
+          "acceptation": false
+        },
+        "documents": [
+          {
+            "id": "doc-id-trv-15",
+            "nom": "Arrêté préfectoral donnant acte",
+            "date": "2014-07-29",
+            "acte": true,
+            "public": true,
+            "organisme": "Préfecture de Seine-et-Marne",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-16",
+            "nom": "Avis de la DRIEE",
+            "date": "2014-07-21",
+            "acte": false,
+            "public": true,
+            "organisme": "DRIEE",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-17",
+            "nom": "Rapport de la DRIEE",
+            "date": "2014-04-28",
+            "acte": false,
+            "public": true,
+            "organisme": "DRIEE",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-18",
+            "nom": "Déclaration d’ouverture de travaux",
+            "date": "2014-04-09",
+            "acte": false,
+            "public": true,
+            "organisme": "Vermilion REP",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          }
+        ]
+      }
+    ],
+    "activités": []
+  }
+}

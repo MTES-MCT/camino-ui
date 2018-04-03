@@ -1,0 +1,97 @@
+/*
+    Utils
+-------------------------------
+*/
+
+/*
+http://cssmojo.com/the-very-latest-clearfix-reloaded/
+*/
+
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.dot {
+  display: inline-block;
+  width: var(--unit-s);
+  height: var(--unit-s);
+}
+
+.hide {
+  display: none;
+  visibility: hidden;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.pointer-none {
+  pointer-events: none;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-start {
+  align-items: flex-start;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.flex-right {
+  margin-left: auto;
+}
+
+.relative {
+  position: relative;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.center {
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.full {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.full-x {
+  width: 100%;
+}
+
+.full-y {
+  height: 100%;
+}

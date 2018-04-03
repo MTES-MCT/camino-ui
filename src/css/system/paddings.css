@@ -1,0 +1,180 @@
+/*
+    Padding
+-------------------------------
+*/
+
+.p {
+  padding: var(--unit);
+}
+
+.p-xxs {
+  padding: var(--unit-xxs);
+}
+
+.p-xs {
+  padding: var(--unit-xs);
+}
+
+.p-s {
+  padding: var(--unit-s);
+}
+
+.p-m {
+  padding: var(--unit-m);
+}
+
+.p-l {
+  padding: var(--unit-l);
+}
+
+.p-xl {
+  padding: var(--unit-xl);
+}
+
+.p-xxl {
+  padding: var(--unit-xxl);
+}
+
+.px {
+  padding-left: var(--unit);
+  padding-right: var(--unit);
+}
+
+.px-xxs {
+  padding-left: var(--unit-xxs);
+  padding-right: var(--unit-xxs);
+}
+
+.px-xs {
+  padding-left: var(--unit-xs);
+  padding-right: var(--unit-xs);
+}
+
+.px-s {
+  padding-left: var(--unit-s);
+  padding-right: var(--unit-s);
+}
+
+.px-m {
+  padding-left: var(--unit-m);
+  padding-right: var(--unit-m);
+}
+
+.px-l {
+  padding-left: var(--unit-l);
+  padding-right: var(--unit-l);
+}
+
+.px-xl {
+  padding-left: var(--unit-xl);
+  padding-right: var(--unit-xl);
+}
+
+.px-xxl {
+  padding-left: var(--unit-xxl);
+  padding-right: var(--unit-xxl);
+}
+
+.py {
+  padding-top: var(--unit);
+  padding-bottom: var(--unit);
+}
+
+.py-xxs {
+  padding-top: var(--unit-xxs);
+  padding-bottom: var(--unit-xxs);
+}
+
+.py-xs {
+  padding-top: var(--unit-xs);
+  padding-bottom: var(--unit-xs);
+}
+
+.py-s {
+  padding-top: var(--unit-s);
+  padding-bottom: var(--unit-s);
+}
+
+.py-m {
+  padding-top: var(--unit-m);
+  padding-bottom: var(--unit-m);
+}
+
+.py-l {
+  padding-top: var(--unit-l);
+  padding-bottom: var(--unit-l);
+}
+
+.py-xl {
+  padding-top: var(--unit-xl);
+  padding-bottom: var(--unit-xl);
+}
+
+.py-xxl {
+  padding-top: var(--unit-xxl);
+  padding-bottom: var(--unit-xxl);
+}
+
+.pt {
+  padding-top: var(--unit);
+}
+
+.pt-xxs {
+  padding-top: var(--unit-xxs);
+}
+
+.pt-xs {
+  padding-top: var(--unit-xs);
+}
+
+.pt-s {
+  padding-top: var(--unit-s);
+}
+
+.pt-m {
+  padding-top: var(--unit-m);
+}
+
+.pt-l {
+  padding-top: var(--unit-l);
+}
+
+.pt-xl {
+  padding-top: var(--unit-xl);
+}
+
+.pt-xxl {
+  padding-top: var(--unit-xxl);
+}
+
+.pb {
+  padding-bottom: var(--unit);
+}
+
+.pb-xxs {
+  padding-bottom: var(--unit-xxs);
+}
+
+.pb-xs {
+  padding-bottom: var(--unit-xs);
+}
+
+.pb-s {
+  padding-bottom: var(--unit-s);
+}
+
+.pb-m {
+  padding-bottom: var(--unit-m);
+}
+
+.pb-l {
+  padding-bottom: var(--unit-l);
+}
+
+.pb-xl {
+  padding-bottom: var(--unit-xl);
+}
+
+.pb-xxl {
+  padding-bottom: var(--unit-xxl);
+}

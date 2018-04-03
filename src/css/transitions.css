@@ -1,0 +1,31 @@
+.transition-bottom-enter-active,
+.transition-bottom-leave-active,
+.transition-fade-enter-active,
+.transition-fade-leave-active,
+.transition-top-enter-active,
+.transition-top-leave-active,
+.transition-top-enter-active .pophover,
+.transition-top-leave-active .pophover {
+  transition: all 0.5s;
+}
+
+.transition-bottom-enter,
+.transition-bottom-leave-to {
+  opacity: 0;
+  margin-bottom: calc(var(--unit-xxl) * -1);
+}
+
+.transition-fade-enter,
+.transition-fade-leave-to {
+  opacity: 0;
+}
+
+.transition-top-enter,
+.transition-top-leave-to {
+  opacity: 0;
+}
+
+.transition-top-enter .pophover,
+.transition-top-leave-to .pophover {
+  margin-top: calc(var(--unit-xxl) * -1);
+}

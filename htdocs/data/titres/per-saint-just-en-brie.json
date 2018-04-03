@@ -1,0 +1,801 @@
+{
+  "id": "per-saint-just-en-brie",
+  "nom": "Saint-Just-en-Brie",
+  "type": "Permis exclusif de recherches",
+  "statut": "Echu",
+  "travaux": "En cours",
+  "substances": {
+    "principales": ["Hydrocarbures liquides ou gazeux"],
+    "connexes": [""]
+  },
+  "références": {
+    "métier": "P-560",
+    "rntm": ""
+  },
+  "validité": {
+    "début": "2000-07-06",
+    "durée": "16"
+  },
+  "geojson": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.173541636232701, 48.689936749971238]
+        },
+        "properties": {
+          "type": "contour",
+          "name": "A",
+          "id": "ID-point-00001",
+          "lambert-93": ["3°10'25\"", "48°41'24\""]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.191542035009233, 48.689937309509389]
+        },
+        "properties": {
+          "type": "contour",
+          "name": "B",
+          "id": "ID-point-00002",
+          "lambert-93": ["3°11'30\"", "48°41'24\""]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.191542052766129, 48.68093730566811]
+        },
+        "properties": {
+          "type": "contour",
+          "name": "C",
+          "id": "ID-point-00003",
+          "lambert-93": ["3°11'30\"", "48°40'51\""]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.218544261639781, 48.68093658587118]
+        },
+        "properties": {
+          "type": "contour",
+          "name": "D",
+          "id": "ID-point-00004",
+          "lambert-93": ["3°13'07\"", "48°40'51\""]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.21854429272969, 48.671937516379757]
+        },
+        "properties": {
+          "type": "contour",
+          "name": "E",
+          "id": "ID-point-00005",
+          "lambert-93": ["3°13'07\"", "48°40'19\""]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.245545047187876, 48.67193680888667]
+        },
+        "properties": {
+          "type": "contour",
+          "name": "F",
+          "id": "ID-point-00006",
+          "lambert-93": ["3°14'44\"", "48°40'19\""]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.245545159341878, 48.61793781793066]
+        },
+        "properties": {
+          "type": "contour",
+          "name": "G",
+          "id": "ID-point-00007",
+          "lambert-93": ["3°14'44\"", "48°37'05\""]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [3.173543383948531, 48.617937242698588]
+        },
+        "properties": {
+          "type": "contour",
+          "name": "H",
+          "id": "ID-point-00007",
+          "lambert-93": ["3°10'25\"", "48°37'05\""]
+        }
+      }
+    ]
+  },
+  "surface": 36.39,
+  "communes": {
+    "Ile-de-France": {
+      "Seine-et-Marne": [
+        "Bannost-Villegagnon",
+        "Bézalles",
+        "Boisdon",
+        "Chenoise",
+        "Jouy-le-Châtel",
+        "Saint-Hilliers"
+      ]
+    }
+  },
+  "emprises": ["À terre"],
+  "titulaires": [
+    {
+      "id": "titulaire-id-1",
+      "nom": "Vermilion REP",
+      "siret": "41096483700026",
+      "adresse": {
+        "ligne_1": "1762 RTE DE PONTENX",
+        "code_postal": "40160",
+        "ville": "PARENTIS EN BORN"
+      },
+      "contact": {
+        "prenom": "Pantxika",
+        "nom": "Etcheverry",
+        "service": "Direction",
+        "email": "petcheverry@vermilionenergy.com",
+        "telephone": "+33558829579",
+        "mobile": "+336XXXXXXXX"
+      }
+    }
+  ],
+  "administrations": [
+    {
+      "id": "001",
+      "nom": "Ministère de la Transition écologique et solidaire",
+      "adresse": {
+        "ligne_1": "Tour Séquoia",
+        "ligne_2": "",
+        "code postal": "92055",
+        "ville": "LA DEFENSE CEDEX"
+      },
+      "contact": {
+        "nom": "BUI",
+        "prenom": "Hoang",
+        "service": "MTES/DGEC/DE/SD2/BRESS",
+        "telephone": "+33 (0)1 40 81 95 20",
+        "email": "hoang.bui@developement-durable.gouv.fr"
+      }
+    },
+    {
+      "id": "003",
+      "nom": "DRIEE Ile-de-France",
+      "adresse": {
+        "ligne_1": "12 Cours Louis Lumière",
+        "ligne_2": "CS 70027",
+        "code postal": "94307 ",
+        "ville": "VINCENNES CEDEX"
+      },
+      "contact": {
+        "nom": "VAN DEN BOGAARD",
+        "prenom": "Michel",
+        "service": "DRIEE Ile-de-France SESS/PSS",
+        "telephone": "+33171284724",
+        "email": "michel.van-den-bogarrd@developpement-durable.gouv.fr"
+      }
+    },
+    {
+      "id": "002",
+      "nom": "Préfecture de Seine-et-Marne",
+      "adresse": {
+        "ligne_1": "",
+        "ligne_2": "",
+        "code postal": "77010",
+        "ville": "MELUN"
+      },
+      "contact": {
+        "nom": "CAZALIERES",
+        "prenom": "Annie",
+        "service": "77 - PREFECTURE/DCSE/PPPUP",
+        "telephone": "+33164717726",
+        "email": "annie.cazalieres@seine-et-marne.gouv.fr"
+      }
+    }
+  ],
+  "démarches en cours": [
+    {
+      "id": "activite-01",
+      "type": "Activités",
+      "nom": "Exemple - Rapport d'activité",
+      "statut": "En attente de pièces…"
+    }
+  ],
+  "démarches": {
+    "statut": [
+      {
+        "id": "evt-4",
+        "type": "Prolongation exceptionnelle",
+        "statut": "Validé",
+        "dates": {
+          "ouverture": "2013-07-08",
+          "fermeture": "2017-08-17",
+          "décision": "2015-02-23"
+        },
+        "silence": {
+          "date": "2014-10-08",
+          "acceptation": false
+        },
+        "documents": [
+          {
+            "id": "doc-id-evt-12",
+            "nom": "Publication au Journal Officel",
+            "date": "2015-03-04",
+            "acte": false,
+            "public": true,
+            "organisme": "Journal Officiel",
+            "fichier": {
+              "type": "pdf",
+              "url":
+                "https://www.legifrance.gouv.fr/eli/arrete/2015/2/23/DEVR1415015A/jo/texte ",
+              "disponible": true
+            },
+            "étiquettes": ["journal officiel", "arrêté", "extrait"]
+          },
+          {
+            "id": "doc-id-evt-11",
+            "nom": "Décision de prolongation exceptionnelle",
+            "date": "2015-02-23",
+            "acte": true,
+            "public": true,
+            "organisme":
+              "Ministère de l'écologie, du développement durable et de l'énergie",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["arrêté", "original"],
+            "auteur": {
+              "nom": "",
+              "prénom": "",
+              "service": ""
+            },
+            "signataire": {
+              "prénom": "Ségolène",
+              "nom": "ROYAL",
+              "fonction":
+                "Ministre de l'écologie, du développement durable et de l'énergie"
+            },
+            "signataire2": {
+              "prénom": "Emmanuel",
+              "nom": "MACRON",
+              "fonction":
+                "Ministre de l'économie, de l'industrie et du numérique"
+            }
+          },
+          {
+            "id": "doc-id-evt-10",
+            "nom": "Avis du CGEIET",
+            "date": "2014-03-13",
+            "acte": false,
+            "public": true,
+            "organisme":
+              "Conseil général de l'économie de l'industrie de l'énergie et des technologies",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["avis", "CGEIET", "favorable"],
+            "auteur": {
+              "nom": "LIGER",
+              "prénom": "Alain",
+              "service": "CGEIET/Section régulation ressources"
+            },
+            "signataire": {
+              "nom": "LANSIAUX",
+              "prénom": "Didier",
+              "fonction": "Secrétaire général"
+            }
+          },
+          {
+            "id": "doc-id-evt-9",
+            "nom": "Avis Préfet",
+            "date": "2014-01-23",
+            "acte": false,
+            "public": true,
+            "organisme": "Préfecture de Seine-et-Marne",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["avis", "Préfet", "favorable"],
+            "auteur": {
+              "nom": "CAZALIERES",
+              "prénom": "Annie",
+              "service": "77 PREFECTURE/DCSE/PPPUP"
+            },
+            "signataire": {
+              "nom": "KLEIN",
+              "prénom": "Nicole",
+              "fonction": "Préfète de Seine-et-Marne"
+            }
+          },
+          {
+            "id": "doc-id-evt-8",
+            "nom": "Dossier de demande",
+            "date": "2013-07-03",
+            "acte": false,
+            "public": true,
+            "organisme": "Vermilion REP SAS",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": [
+              "dossier",
+              "demande",
+              "capacités techniques",
+              "capacités financières"
+            ],
+            "auteur": {
+              "prénom": "Pantxika",
+              "nom": "ETCHEVERRY",
+              "service": "Direction"
+            },
+            "signataire": {
+              "prénom": "Gérard",
+              "nom": "SCHUT",
+              "fonction": "Président directeur général"
+            }
+          },
+          {
+            "id": "doc-id-evt-7",
+            "nom": "Lettre de demande",
+            "date": "2013-07-03",
+            "acte": false,
+            "public": true,
+            "organisme": "Vermilion REP SAS",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["original", "demande"],
+            "auteur": {
+              "prénom": "Pantxika",
+              "nom": "ETCHEVERRY",
+              "service": "Direction"
+            },
+            "signataire": {
+              "prénom": "Gérard",
+              "nom": "SCHUT",
+              "fonction": "Président directeur général"
+            }
+          }
+        ]
+      },
+      {
+        "id": "evt-3",
+        "type": "Prolongation",
+        "statut": "Validé",
+        "dates": {
+          "ouverture": "",
+          "fermeture": "",
+          "décision": "2009-01-28"
+        },
+        "silence": {
+          "date": "",
+          "acceptation": false
+        },
+        "documents": [
+          {
+            "id": "doc-id-evt-6",
+            "nom": "Publication au Journal Officel",
+            "date": "2009-02-14",
+            "acte": false,
+            "public": true,
+            "organisme": "Journal Officiel",
+            "fichier": {
+              "type": "pdf",
+              "url":
+                "https://www.legifrance.gouv.fr/eli/arrete/2009/1/28/DEVE0903213A/jo/texte",
+              "disponible": true
+            },
+            "étiquettes": ["journal officiel", "arrêté", "extrait"]
+          },
+          {
+            "id": "doc-id-evt-5",
+            "nom": "Décision de prolongation",
+            "date": "2009-01-28",
+            "acte": true,
+            "public": true,
+            "organisme":
+              "Ministre de l'écologie, de l'énergie, du développement durable et de l'aménagement du territoire",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["arrêté", "original"],
+            "auteur": {
+              "nom": "",
+              "prénom": "",
+              "service": ""
+            },
+            "signataire": {
+              "prénom": "Pierre-Marie",
+              "nom": "ABADIE",
+              "fonction": "Directeur de l'énergie"
+            }
+          }
+        ]
+      },
+      {
+        "id": "evt-2",
+        "type": "Prolongation",
+        "statut": "Validé",
+        "dates": {
+          "ouverture": "",
+          "fermeture": "",
+          "décision": "2004-12-17"
+        },
+        "silence": {
+          "date": "",
+          "acceptation": false
+        },
+        "documents": [
+          {
+            "id": "doc-id-evt-4",
+            "nom": "Publication au Journal Officel",
+            "date": "2005-01-13",
+            "acte": false,
+            "public": true,
+            "organisme": "Journal Officiel",
+            "fichier": {
+              "type": "pdf",
+              "url":
+                "https://www.legifrance.gouv.fr/eli/arrete/2004/12/17/INDI0404387A/jo/texte",
+              "disponible": true
+            },
+            "étiquettes": ["journal officiel", "arrêté", "extrait"]
+          },
+          {
+            "id": "doc-id-evt-3",
+            "nom": "Décision de prolongation",
+            "date": "2004-12-17",
+            "acte": true,
+            "public": true,
+            "organisme":
+              "Ministère de l’économie, des finances et de l’industrie",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["arrêté", "original"],
+            "auteur": {
+              "nom": "",
+              "prénom": "",
+              "service": ""
+            },
+            "signataire": {
+              "prénom": "Patrick",
+              "nom": "DEVEDJIAN",
+              "fonction":
+                "Ministre de l’économie, des finances et de l’industrie"
+            }
+          }
+        ]
+      },
+      {
+        "id": "evt-1",
+        "type": "Octroi",
+        "statut": "Validé",
+        "dates": {
+          "ouverture": "",
+          "fermeture": "",
+          "décision": "2000-06-23"
+        },
+        "silence": {
+          "date": "",
+          "acceptation": false
+        },
+        "documents": [
+          {
+            "id": "doc-id-evt-2",
+            "nom": "Publication au Journal Officel",
+            "date": "2000-07-06",
+            "acte": false,
+            "public": true,
+            "organisme": "Journal Officiel",
+            "fichier": {
+              "type": "pdf",
+              "url":
+                "https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000217961&categorieLien=id",
+              "disponible": true
+            },
+            "étiquettes": ["journal officiel", "arrêté", "extrait"]
+          },
+          {
+            "id": "doc-id-evt-1",
+            "nom": "Décision d'octroi",
+            "date": "2000-06-23",
+            "acte": true,
+            "public": true,
+            "organisme": "Secrétaire d'Etat à l'industrie",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["arrêté", "original"],
+            "auteur": {
+              "nom": "",
+              "prénom": "",
+              "service": ""
+            },
+            "signataire": {
+              "prénom": "Christian",
+              "nom": "PIERRET",
+              "fonction": "Secrétaire d'Etat à l'industrie"
+            }
+          }
+        ]
+      }
+    ],
+    "travaux": [
+      {
+        "id": "evt-2",
+        "type": "Autorisation d'ouverture de travaux de forage de recherches",
+        "statut": "Validé",
+        "dates": {
+          "ouverture": "2014-12-19",
+          "fermeture": "2015-09-15",
+          "décision": "2015-09-15"
+        },
+        "silence": {
+          "date": "2015-02-19",
+          "acceptation": false
+        },
+        "documents": [
+          {
+            "id": "doc-id-trv-10",
+            "nom":
+              "Arrêté préfectoral du 15 septembre 2015 - ouverture de travaux de forage de recherches",
+            "date": "2004-12-12",
+            "acte": true,
+            "public": true,
+            "organisme": "Préfecture de Seine-et-Marne",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-100",
+            "nom": "Avis du CODERST",
+            "date": "2015-09-10",
+            "acte": false,
+            "public": true,
+            "organisme": "CODERST",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-101",
+            "nom": "Rapport de la DRIEE",
+            "date": "2015-08-13",
+            "acte": false,
+            "public": true,
+            "organisme": "DRIEE",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-102",
+            "nom": "Rapport et conclusions du commissaire enquêteur",
+            "date": "2015-07-02",
+            "acte": false,
+            "public": true,
+            "organisme": "Préfecture de Seine-et-Marne",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-103",
+            "nom":
+              "Arrêté préfectoral portant ouverture d’une enquête publique",
+            "date": "2015-03-19",
+            "acte": true,
+            "public": true,
+            "organisme": "Préfecture de Seine-et-Marne",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-104",
+            "nom":
+              "Avis de l’Autorité administrative compétente en matière d’environnement",
+            "date": "2015-03-11",
+            "acte": false,
+            "public": true,
+            "organisme": "Autorité environnementale",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-105",
+            "nom": "Rapport de recevabilité de la DRIEE",
+            "date": "2015-01-26",
+            "acte": false,
+            "public": true,
+            "organisme": "Autorité environnementale",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-106",
+            "nom": "Demande d’autorisation d’ouverture de travaux miniers",
+            "date": "2014-12-19",
+            "acte": false,
+            "public": true,
+            "organisme": "Vermilion REP",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          }
+        ]
+      },
+      {
+        "id": "evt-1",
+        "type":
+          "Déclaration d’ouverture de travaux miniers - Campagne d’acquisition de données sismiques 3D",
+        "statut": "Validé",
+        "dates": {
+          "ouverture": "2014-04-09",
+          "fermeture": "2014-07-29",
+          "décision": "2014-07-29"
+        },
+        "silence": {
+          "date": "2014-06-09",
+          "acceptation": false
+        },
+        "documents": [
+          {
+            "id": "doc-id-trv-15",
+            "nom": "Arrêté préfectoral donnant acte",
+            "date": "2014-07-29",
+            "acte": true,
+            "public": true,
+            "organisme": "Préfecture de Seine-et-Marne",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-16",
+            "nom": "Avis de la DRIEE",
+            "date": "2014-07-21",
+            "acte": false,
+            "public": true,
+            "organisme": "DRIEE",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-17",
+            "nom": "Rapport de la DRIEE",
+            "date": "2014-04-28",
+            "acte": false,
+            "public": true,
+            "organisme": "DRIEE",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          },
+          {
+            "id": "doc-id-trv-18",
+            "nom": "Déclaration d’ouverture de travaux",
+            "date": "2014-04-09",
+            "acte": false,
+            "public": true,
+            "organisme": "Vermilion REP",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["RAA", "arrêté", "original", "Régime d'autorisation"]
+          }
+        ]
+      }
+    ],
+    "activités": [
+      {
+        "id": "evt-4",
+        "type": "Rapport d'activité 2017",
+        "statut": "En instruction…",
+        "dates": {
+          "ouverture": "2018-01-01"
+        },
+        "documents": []
+      },
+      {
+        "id": "evt-3",
+        "type": "Rapport d'activité 2016",
+        "statut": "Validé",
+        "dates": {
+          "ouverture": "2017-01-15"
+        },
+        "documents": [
+          {
+            "id": "doc-id-act-17",
+            "nom": "Rapport d'activité 2016",
+            "date": "2017-01-15",
+            "acte": false,
+            "public": true,
+            "organisme": "Vermilion REP",
+            "fichier": {
+              "type": "pdf",
+              "url": "",
+              "disponible": true
+            },
+            "étiquettes": ["Rapport"]
+          }
+        ]
+      }
+    ]
+  }
+}

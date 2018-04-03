@@ -1,0 +1,60 @@
+/*
+    UI elements
+-------------------------------
+*/
+
+.pill {
+  border-radius: var(--unit-infinity);
+}
+
+.rnd {
+  border-radius: var(--unit-xs);
+}
+
+.border-bottom {
+  border-bottom: var(--unit-line) dotted;
+  margin-bottom: calc(var(--unit) - var(--unit-line));
+  border-color: var(--border-color);
+}
+
+.border {
+  border: var(--unit-line) dotted;
+  border-color: var(--border-color);
+  padding: calc(var(--unit) - var(--unit-line))
+    calc(var(--unit) - var(--unit-line)) var(--unit);
+  margin-bottom: calc(var(--unit) - var(--unit-line));
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip span {
+  position: absolute;
+  color: var(--color-alt);
+  background: var(--color-neutral);
+  text-align: center;
+  border-radius: var(--unit-xs);
+  top: calc(var(--unit-xl) * -1);
+  right: 0;
+  padding: var(--unit-xs);
+  z-index: 999;
+}
+
+.tooltip span::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: var(--unit);
+  border-top: var(--unit-xs) solid var(--color-neutral);
+  border-right: var(--unit-xs) solid transparent;
+  border-left: var(--unit-xs) solid transparent;
+}
+
+.shadow {
+  box-shadow: var(--unit-xs) var(--unit-xs) var(--unit) color-mod(var(--color-neutral) alpha(0.25))
+}
+
+.shadow-inset {
+  box-shadow: inset var(--unit-xs) var(--unit-xs) var(--unit) color-mod(var(--color-neutral) alpha(0.25));
+}

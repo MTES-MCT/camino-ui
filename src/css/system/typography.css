@@ -1,0 +1,189 @@
+/*
+    Typography
+-------------------------------
+*/
+
+@typescale {
+  scale: 1.25;
+  font-size: var(--base-font-size);
+  line-height: var(--unit);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+ul,
+ol,
+dl,
+blockquote,
+p,
+address,
+table,
+fieldset,
+figure,
+pre {
+  margin-bottom: var(--unit);
+}
+
+.h0 {
+  typescale: 8 6;
+}
+
+h1,
+.h1 {
+  typescale: 4 2;
+}
+
+h2,
+.h2 {
+  typescale: 2 1;
+}
+
+h3,
+h4,
+h5,
+.h5 {
+  font-weight: 700;
+}
+
+h3,
+.h3 {
+  typescale: 1 1;
+}
+
+h4,
+.h4 {
+  typescale: 0 1;
+}
+
+h5,
+.h5 {
+  typescale: -1 1;
+}
+
+h6,
+.h6,
+small {
+  typescale: -1 1;
+}
+
+label,
+h6,
+h5 {
+  margin-bottom: var(--unit-xs);
+}
+
+h1 {
+  font-weight: 200;
+}
+
+h2,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+h6 {
+  color: var(--color-neutral);
+}
+
+blockquote {
+  typescale: 0.5 1.5;
+  font-style: italic;
+  background: var(--color-alt);
+  padding: var(--unit);
+  border-left: var(--unit-line) dotted var(--border-color);
+}
+
+blockquote :last-child {
+  margin-bottom: 0;
+}
+
+hr {
+  clear: both;
+  border: 0;
+  height: 0;
+  border-top-width: var(--border-width);
+  border-top-style: dotted;
+  border-top-color: var(--border-color);
+  margin-bottom: calc(var(--unit) - var(--border-width));
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-highlight);
+
+  &:visited {
+    color: var(--color-highlight);
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: var(--color-highlight);
+  }
+}
+
+b,
+strong,
+.strong,
+.bold {
+  font-weight: 700;
+}
+
+i,
+.italic {
+  font-style: italic;
+}
+
+.cap {
+  text-transform: capitalize;
+}
+
+.caps {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+
+.line-through {
+  color: var(--color-neutral);
+  text-decoration: line-through;
+}
+
+.underline {
+  border-bottom: 1px solid;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: right;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mono {
+  font-family: 'Lucida Sans Typewriter', monaco, 'Lucida Console', monospace;
+  font-weight: bold;
+}
+
+dt {
+  display: inline-block;
+}

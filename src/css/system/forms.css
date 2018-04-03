@@ -1,0 +1,107 @@
+/*
+      Forms
+-------------------------------
+*/
+
+input[type='text'],
+input[type='email'],
+input[type='search'],
+input[type='password'],
+input[type='tel'],
+select,
+textarea {
+  width: 100%;
+  padding: var(--unit-s);
+  border: 0 none;
+  background-color: var(--color-alt);
+  height: auto;
+  color: inherit;
+}
+
+select {
+  background-image: svg-load(
+    './icons/24-chevron-b.svg',
+    fill=none,
+    stroke='#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
+  background-position: right var(--unit-s) center;
+  background-repeat: no-repeat;
+
+  /* for FF: http://stackoverflow.com/a/18317228/2112538 */
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  text-overflow: ellipsis;
+}
+
+textarea {
+  /* http://stackoverflow.com/a/5196591/2112538 */
+  vertical-align: top;
+  resize: vertical;
+}
+
+textarea:focus,
+input:focus,
+select:focus {
+  border-right: var(--unit-s) solid var(--color-highlight);
+}
+
+input[type='text'].bg-bg,
+input[type='email'].bg-bg,
+input[type='search'].bg-bg,
+input[type='password'].bg-bg,
+input[type='tel'].bg-bg,
+select.bg-bg,
+textarea.bg-bg {
+  background-color: var(--color-bg);
+}
+
+input.success {
+  border-right: var(--unit-s) solid var(--color-success);
+}
+
+input.error {
+  border-right: var(--unit-s) solid var(--color-error);
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: color-mod(var(--color-alt) alpha(50%));
+}
+
+input.bg-bg:disabled,
+textarea.bg-bg:disabled,
+select.bg-bg:disabled {
+  background-color: color-mod(var(--color-bg) alpha(50%));
+}
+
+*::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: var(--color-neutral);
+}
+
+*:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: var(--color-neutral);
+  opacity: 1;
+}
+
+*::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: var(--color-neutral);
+  opacity: 1;
+}
+
+*:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--color-neutral);
+}
+
+*::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--color-neutral);
+}

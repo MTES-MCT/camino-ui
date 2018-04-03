@@ -1,0 +1,82 @@
+{
+  "id": "conc-grand-serre",
+  "nom": "Grand Serre",
+  "type": "Stockage cavité saline",
+  "statut": "Valide",
+  "substances": {
+    "principales": ["Propylène"]
+  },
+  "volume": 60000,
+  "références": {
+    "métier": "CS200"
+  },
+  "validité": {
+    "début": "1978-03-07",
+    "durée": 40
+  },
+  "surface": 0.824,
+  "geojson": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [5.073697655818809, 45.267732054254466]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [5.084687451211904, 45.268534749489014]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [5.08433161016373, 45.26134849484107]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [5.070248639265093, 45.25944002979361]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [5.073697655818809, 45.267732054254466]
+        },
+        "properties": {
+          "type": "contour-0"
+        }
+      }
+    ]
+  },
+  "titulaires": [
+    {
+      "index": "NOVAPEX",
+      "nom": "NOVAPEX",
+      "siret": "",
+      "adresse": {},
+      "contact": {}
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+/*
+    Table
+-------------------------------
+*/
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: none;
+}
+
+th {
+  text-align: left;
+  font-weight: 700;
+  typescale: -1 1;
+  color: var(--color-neutral);
+}
+
+tr {
+  border-bottom: var(--unit-line) dotted var(--border-color);
+}
+
+.table-sans tr {
+  border-bottom: var(--unit-line) dotted var(--border-bg);
+}
+
+td,
+th {
+  vertical-align: top;
+  word-wrap: break-word;
+  padding-bottom: var(--unit-s);
+  padding-top: calc(var(--unit-s) - var(--unit-line));
+}
+
+.table-xs td,
+.table-xs th {
+  padding-top: var(--unit-xs);
+  padding-bottom: calc(var(--unit-xs) - var(--unit-line));
+}
+
+.table-xxs td,
+.table-xxs th {
+  padding-top: var(--unit-xxs);
+  padding-bottom: calc(var(--unit-xxs) - var(--unit-line));
+}
+
+.table-fixed {
+  display: table;
+  table-layout: fixed;
+}

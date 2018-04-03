@@ -1,0 +1,89 @@
+{
+  "name": "camino-front",
+  "version": "0.1.25",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve --open",
+    "build": "vue-cli-service build && rm -rf htdocs && cp .htaccess dist/.htaccess && mv dist htdocs",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "vue": "^2.5.16"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0-beta.6",
+    "@vue/cli-plugin-eslint": "^3.0.0-beta.6",
+    "@vue/cli-service": "^3.0.0-beta.6",
+    "leaflet": "^1.3.1",
+    "nprogress": "^0.2.0",
+    "pixrem": "^4.0.1",
+    "pleeease-filters": "^4.0.0",
+    "postcss-button": "^0.3.10",
+    "postcss-calc": "^6.0.1",
+    "postcss-color-mod-function": "^2.4.2",
+    "postcss-custom-media": "^6.0.0",
+    "postcss-custom-properties": "^7.0.0",
+    "postcss-custom-selectors": "^4.0.1",
+    "postcss-font-family-system-ui": "^3.0.0",
+    "postcss-font-variant": "^3.0.0",
+    "postcss-grid-fluid": "^0.2.1",
+    "postcss-grid-system": "^0.4.11",
+    "postcss-image-set-polyfill": "^0.4.4",
+    "postcss-import": "^11.1.0",
+    "postcss-inline-svg": "^3.1.1",
+    "postcss-loader": "^2.1.3",
+    "postcss-media-minmax": "^3.0.0",
+    "postcss-nesting": "^4.2.1",
+    "postcss-normalize": "^4.0.0",
+    "postcss-selector-matches": "^3.0.1",
+    "postcss-selector-not": "^3.0.1",
+    "postcss-typescale": "^0.2.1",
+    "postcss-url": "^7.3.1",
+    "vue-meta": "^1.5.0",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.16",
+    "vuex": "^3.0.1"
+  },
+  "babel": {
+    "presets": [
+      "@vue/app"
+    ]
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "plugin:vue/recommended",
+      "eslint:recommended"
+    ]
+  },
+  "postcss": {
+    "plugins": {
+      "postcss-normalize": {},
+      "postcss-import": {},
+      "postcss-typescale": {},
+      "postcss-custom-properties": {},
+      "postcss-calc": {},
+      "postcss-image-set-polyfill": {},
+      "postcss-nesting": {},
+      "postcss-custom-media": {},
+      "postcss-media-minmax": {},
+      "postcss-custom-selectors": {},
+      "postcss-color-mod-function": {},
+      "postcss-font-family-system-ui": {},
+      "postcss-font-variant": {},
+      "pleeease-filters": {},
+      "pixrem": {
+        "html": false
+      },
+      "postcss-selector-matches": {},
+      "postcss-selector-not": {},
+      "postcss-grid-system": {},
+      "postcss-grid-fluid": {},
+      "postcss-button": {},
+      "postcss-inline-svg": {}
+    }
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}

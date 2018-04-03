@@ -1,0 +1,127 @@
+/*
+    Theme
+-------------------------------
+*/
+
+:root {
+  --header-height: calc(var(--unit) * 2);
+}
+
+[v-cloak] {
+  display: none;
+}
+
+.container {
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.messages {
+  bottom: 0;
+}
+
+.dropdown {
+  margin-bottom: var(--unit);
+  background-color: var(--color-alt);
+}
+
+.pophover hr {
+  border-top-width: var(--unit-xxs);
+  border-top-style: solid;
+  border-top-color: var(--color-alt);
+  margin-bottom: calc(var(--unit) - var(--unit-xxs));
+  margin-left: calc(var(--unit-l) * -1);
+  margin-right: calc(var(--unit-l) * -1);
+}
+
+.map {
+  height: calc(var(--unit) * 10);
+  z-index: 0;
+}
+
+.border-card {
+  clear: both;
+  border: 0;
+  height: 0;
+  border-top-width: var(--unit-xxs);
+  border-top-style: solid;
+  border-top-color: var(--color-alt);
+  margin-bottom: calc(var(--unit) - var(--unit-xxs));
+  margin-left: calc(var(--unit) * -1);
+  margin-right: calc(var(--unit) * -1);
+}
+
+.height-0 {
+  height: 0;
+  overflow: hidden;
+}
+
+.sticky-bottom {
+  bottom: 0;
+  right: 0;
+  position: sticky;
+  background-color: var(--color-neutral);
+  color: var(--color-bg);
+  padding: var(--unit);
+  margin-left: calc(var(--unit) * -1);
+  margin-right: calc(var(--unit) * -1);
+}
+
+
+.menu ul {
+  padding: 0;
+  list-style: none;
+  margin-bottom: 0;
+
+  & > li {
+    margin-bottom: 0;
+    margin-right: var(--unit-xs);
+    float: left;
+  }
+}
+
+
+@media (--viewport-tablet) {
+  --header-height: calc(var(--unit) * 2);
+
+  .container {
+    width: calc(2 * var(--col-width) + var(--gutter));
+  }
+
+  .menubar-infos {
+    padding-top: var(--unit-m);
+    margin-top: 0;
+  }
+
+  .pophover {
+    width: calc(2 * var(--col-width) - var(--gutter));
+    transform: translate(-50%, 0);
+    top: var(--header-height);
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    z-index: 2;
+  }
+
+  .messages {
+    width: calc(2 * var(--col-width) - var(--gutter));
+  }
+
+  .dropdown {
+    position: absolute;
+    right: var(--gutter);
+    top: 0;
+  }
+
+  .map {
+    height: calc(var(--unit) * 16);
+  }
+}
+
+@media (--viewport-desktop) {
+  .container {
+    width: calc(3 * var(--col-width) + var(--gutter));
+  }
+}

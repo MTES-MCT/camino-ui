@@ -1,0 +1,68 @@
+/*
+    Colors
+-------------------------------
+*/
+
+.color-bg {
+  color: var(--color-bg);
+}
+
+.color-highlight {
+  color: var(--color-highlight);
+}
+
+.color-alt {
+  color: var(--color-alt);
+}
+
+.color-neutral {
+  color: var(--color-neutral);
+}
+
+.color-inverse {
+  color: var(--color-inverse);
+}
+
+.bg-bg {
+  background-color: var(--color-bg);
+}
+
+.bg-highlight {
+  background-color: var(--color-highlight);
+}
+
+.bg-alt {
+  background-color: var(--color-alt);
+}
+
+.bg-neutral {
+  background-color: var(--color-neutral);
+}
+
+.bg-inverse {
+  background-color: var(--color-inverse);
+}
+
+.bg-info {
+  background: var(--color-info);
+}
+
+.bg-error {
+  background: var(--color-error);
+}
+
+.bg-warning {
+  background: var(--color-warning);
+}
+
+.bg-success {
+  background: var(--color-success);
+}
+
+.bg-bg-alpha {
+  background-color: color-mod(var(--color-bg) alpha(50%));
+}
+
+.bg-alt-alpha {
+  background-color: color-mod(var(--color-alt) alpha(50%));
+}

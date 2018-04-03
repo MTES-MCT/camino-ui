@@ -1,0 +1,12 @@
+pre code {
+  display: block;
+}
+
+code {
+  background-color: var(--color-alt);
+  padding: var(--unit-xs) var(--unit-s);
+  border-radius: var(--unit-xs);
+  white-space: pre;
+  hyphens: none;
+  word-wrap: break-word;
+}

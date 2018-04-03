@@ -1,0 +1,33 @@
+/*
+    Sticky footer
+-------------------------------
+http://mystrd.at/modern-clean-css-sticky-footer/
+*/
+
+:root {
+  --footer-height: calc(var(--unit) * 10);
+}
+
+html {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+.page {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer {
+  background-color: var(--color-inverse);
+  height: calc(var(--unit) * 4);
+}
