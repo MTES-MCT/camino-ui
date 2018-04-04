@@ -20,7 +20,7 @@
   background-color: var(--color-alt);
 }
 
-.pophover hr {
+.popup hr {
   border-top-width: var(--unit-xxs);
   border-top-style: solid;
   border-top-color: var(--color-alt);
@@ -84,7 +84,7 @@
     margin-top: 0;
   }
 
-  .pophover {
+  .popup {
     width: calc(2 * var(--col-width) - var(--gutter));
     transform: translate(-50%, 0);
     top: var(--header-height);

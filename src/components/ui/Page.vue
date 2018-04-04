@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page relative">
     <div class="topbar bg-bg">
       <div class="container">
         <slot name="header" />
