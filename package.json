@@ -38,11 +38,12 @@
     "postcss-selector-matches": "^3.0.1",
     "postcss-selector-not": "^3.0.1",
     "postcss-typescale": "^0.2.1",
-    "postcss-url": "^7.3.1",
+    "postcss-url": "^7.3.2",
     "vue-meta": "^1.5.0",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.5.16",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "webpack-jarvis": "^0.3.2"
   },
   "babel": {
     "presets": [

@@ -1,4 +1,7 @@
+/*eslint-env node*/
+
 const appConfig = require('./src/app.config')
+const Jarvis = require('webpack-jarvis')
 
 module.exports = {
   configureWebpack: {
@@ -8,7 +11,12 @@ module.exports = {
     // Set up all the aliases we use in our app.
     resolve: {
       alias: require('./aliases.config').webpack
-    }
+    },
+    plugins: [
+      new Jarvis({
+        port: 1337 // optional: set a port
+      })
+    ]
   },
   productionSourceMap: false,
   css: {
