@@ -9,11 +9,10 @@
     <template slot="footer">
       <div class="p">Footer</div>
     </template>
-    
+
     <popup
       v-if="popupVisible" 
       :config="popupConfig"
-      @popup-open="popupOpen"
       @popup-close="popupClose" />
   </page>
 </template>
@@ -35,12 +34,20 @@ export default {
 
   data () {
     return {
-      popupVisible: true,
-      popupConfig: {
-        title: "title",
+      popupVisible: false,
+      popupConfig: null
+    }
+  },
+
+  mounted () {
+    if (this.$cookies.get('camino')) {
+      console.log('cookie: ', this.$cookies.get('camino'))
+    } else {
+      this.popupOpen({
+        title: 'Bienvenue sur Camino',
         component: PopupDisclaimer,
-        close: true
-      }
+        close: false
+      })
     }
   },
 
@@ -50,7 +57,6 @@ export default {
       this.popupConfig = config
     },
     popupClose () {
-      console.log('popup close')
       this.popupVisible = false
     }
   }

@@ -66,3 +66,7 @@
 .bg-alt-alpha {
   background-color: color-mod(var(--color-alt) alpha(50%));
 }
+
+.bg-inverse-alpha {
+  background-color: color-mod(var(--color-inverse) alpha(50%));
+}
