@@ -4,6 +4,7 @@
       <topbar />
     </template>
 
+    <ribbon value="beta"/>
     <router-view />
     
     <template slot="footer">
@@ -20,6 +21,7 @@
 <script>
 import Page from './components/ui/Page.vue'
 import Popup from './components/ui/Popup.vue'
+import Ribbon from './components/ui/Ribbon.vue'
 import Topbar from './components/Topbar.vue'
 import PopupDisclaimer from './components/camino/PopupDisclaimer.vue'
 
@@ -29,6 +31,7 @@ export default {
   components: {
     Page,
     Popup,
+    Ribbon,
     Topbar
   },
 

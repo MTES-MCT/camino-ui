@@ -58,3 +58,24 @@
 .shadow-inset {
   box-shadow: inset var(--unit-xs) var(--unit-xs) var(--unit) color-mod(var(--color-neutral) alpha(0.25));
 }
+
+.ribbon {
+  position: absolute;
+  overflow: hidden;
+  top:0;
+  right:0;
+  width: 200px;
+  height: 200px;
+}
+
+.ribbon-bloc {
+  transform: rotate(45deg); 
+}
+
+.ribbon span {
+  display: inline-block;
+  width: 100%;
+  color: var(--color-bg);
+  background-color: var(--color-warning); 
+  text-align: center;
+}
