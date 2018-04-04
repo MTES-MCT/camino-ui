@@ -27,6 +27,12 @@
   button-class: active disabled true;
 }
 
+.btn-menu {
+  button-color: var(--color-text) var(--color-text) var(--color-bg);
+  button-background: var(--color-transparent) var(--color-transparent) var(--color-highlight);
+  button-class: active disabled true;
+}
+
 .btn,
 .btn-alt,
 .btn-border,

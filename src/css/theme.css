@@ -11,6 +11,15 @@
   display: none;
 }
 
+.logo {
+  typescale: 2 0.75;
+}
+
+.active .btn-menu {
+  border-bottom: solid var(--color-text) var(--unit-line);
+  padding-bottom: calc(var(--unit-m) - var(--unit-line))
+}
+
 .messages {
   bottom: 0;
 }

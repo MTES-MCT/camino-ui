@@ -1,6 +1,6 @@
 <template>
   <div class="page relative">
-    <div class="topbar bg-bg">
+    <div class="topbar">
       <div class="container">
         <slot name="header" />
       </div>

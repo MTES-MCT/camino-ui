@@ -178,3 +178,67 @@
 .pb-xxl {
   padding-bottom: var(--unit-xxl);
 }
+
+.pr {
+  padding-right: var(--unit);
+}
+
+.pr-xxs {
+  padding-right: var(--unit-xxs);
+}
+
+.pr-xs {
+  padding-right: var(--unit-xs);
+}
+
+.pr-s {
+  padding-right: var(--unit-s);
+}
+
+.pr-m {
+  padding-right: var(--unit-m);
+}
+
+.pr-l {
+  padding-right: var(--unit-l);
+}
+
+.pr-xl {
+  padding-right: var(--unit-xl);
+}
+
+.pr-xxl {
+  padding-right: var(--unit-xxl);
+}
+
+.pl {
+  padding-left: var(--unit);
+}
+
+.pl-xxs {
+  padding-left: var(--unit-xxs);
+}
+
+.pl-xs {
+  padding-left: var(--unit-xs);
+}
+
+.pl-s {
+  padding-left: var(--unit-s);
+}
+
+.pl-m {
+  padding-left: var(--unit-m);
+}
+
+.pl-l {
+  padding-left: var(--unit-l);
+}
+
+.pl-xl {
+  padding-left: var(--unit-xl);
+}
+
+.pl-xxl {
+  padding-left: var(--unit-xxl);
+}
