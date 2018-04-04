@@ -4,6 +4,10 @@
   "type": "Permis exclusif de recherches",
   "statut": "Valide",
   "travaux": "En cours",
+  "domaine": {
+    "nom": "Minéraux et métaux",
+    "code": "M"
+  },
   "substances": {
     "principales": ["Or", "Argent"],
     "connexes": ["Non précisées"]

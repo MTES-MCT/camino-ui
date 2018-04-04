@@ -4,6 +4,10 @@
   "type": "Concession",
   "statut": "Valide",
   "travaux": "En cours",
+  "domaine": {
+    "nom": "Substances énergétiques",
+    "code": "E"
+  },
   "substances": {
     "principales": ["Hydrocarbures liquides ou gazeux"]
   },

@@ -3,8 +3,12 @@
   "nom": "Lauterbourg",
   "type": "Permis exclusif de recherches",
   "statut": "Valide",
+  "domaine": {
+    "nom": "Géothermie",
+    "code": "G"
+  },
   "substances": {
-    "principales": ["Géothermie haute temperature"]
+    "principales": ["Haute température"]
   },
   "références": {
     "métier": "PG-B005"

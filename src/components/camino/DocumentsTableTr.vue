@@ -42,13 +42,13 @@ export default {
 
   computed: {
     selected () {
-      return this.$store.getters['titre/documentSelected'](this.document.id)
+      return this.$store.getters['title/documentSelected'](this.document.id)
     }
   },
 
   methods: {
     select (e) {
-      this.$store.dispatch('titre/documentSelect', { documentId: this.document.id, selected: e.target.checked })
+      this.$store.dispatch('title/documentSelect', { documentId: this.document.id, selected: e.target.checked })
     }
   }
 }

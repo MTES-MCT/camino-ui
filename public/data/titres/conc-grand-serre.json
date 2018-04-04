@@ -1,8 +1,12 @@
 {
   "id": "conc-grand-serre",
   "nom": "Grand Serre",
-  "type": "Stockage cavité saline",
+  "type": "Concession cavité saline",
   "statut": "Valide",
+  "domaine": {
+    "nom": "Stockage",
+    "code": "S"
+  },
   "substances": {
     "principales": ["Propylène"]
   },

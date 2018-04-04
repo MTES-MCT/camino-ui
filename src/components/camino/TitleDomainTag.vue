@@ -1,17 +1,17 @@
 <template>
-  <dot :color="colorGet(status)" />
+  <tag :color="colorGet(status)" />
 </template>
 
 <script>
-import Dot from '@components/ui/Dot.vue'
+import Tag from '@components/ui/Tag.vue'
 
 export default {
   components: {
-    Dot
+    Tag
   },
 
   props: {
-    status: {
+    domain: {
       type: String,
       default: 'neutral'
     }
@@ -19,7 +19,7 @@ export default {
 
   computed: {
     colors () {
-      return this.$store.state.lib['titre']['statuts']
+      return this.$store.state.lib['titre']['domains']
     }
   },
 

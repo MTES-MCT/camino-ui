@@ -1,6 +1,6 @@
 export const state = {
   titre: {
-    couleurs: {
+    statuts: {
       neutral: ['neutral'],
       error: ['error', 'En attente de pièces…'],
       warning: ['warning', 'En instruction…'],

@@ -3,6 +3,10 @@
   "nom": "Cerville Buissoncourt",
   "type": "Concession",
   "statut": "Valide",
+  "domaine": {
+    "nom": "Minéraux et métaux",
+    "code": "M"
+  },
   "substances": {
     "principales": ["Sel"]
   },

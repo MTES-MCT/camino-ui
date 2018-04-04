@@ -3,6 +3,10 @@
   "nom": "Saint-Just-en-Brie",
   "type": "Permis exclusif de recherches",
   "statut": "Echu",
+  "domaine": {
+    "nom": "Substances énergétiques",
+    "code": "E"
+  },
   "travaux": "En cours",
   "substances": {
     "principales": ["Hydrocarbures liquides ou gazeux"],

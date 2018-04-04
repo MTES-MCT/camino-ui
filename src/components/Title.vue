@@ -91,7 +91,7 @@
 
       <div class="blobs-tablet">
         <div class="blob-tablet-1-2">
-          <h6>Titulaires</h6>
+          <h6>Titulaire s</h6>
           <company
             v-for="titulaire in titre.titulaires"
             :key="titulaire['id']"
@@ -100,7 +100,7 @@
         </div>
 
         <div class="blob-tablet-1-2">
-          <h6>Administration</h6>
+          <h6>Administrations</h6>
           <company
             v-for="referent in titre['administrations']"
             :key="referent['id']"
@@ -169,7 +169,7 @@ export default {
 
   computed: {
     titre () {
-      return this.$store.state.titre.current
+      return this.$store.state.title.current
     },
     loaded () {
       return !!this.titre
@@ -186,7 +186,7 @@ export default {
 
   methods: {
     get () {
-      this.$store.dispatch('titre/get', { id: this.$route.params.id })
+      this.$store.dispatch('title/get', { id: this.$route.params.id })
     }
   }
 }

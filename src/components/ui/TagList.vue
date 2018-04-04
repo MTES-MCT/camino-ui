@@ -3,7 +3,7 @@
     <li
       v-for="element in elements"
       :key="element">
-      <tag :value="element" />
+      <tag :color="element.color">{{ element }}</tag>
     </li>
   </ul>
 </template>

@@ -154,3 +154,9 @@ https://github.com/francoisromain/postcss-grid-fluid
     width: calc(3 * var(--col-width) + var(--gutter));
   }
 }
+
+@media (--viewport-large) {
+  .container {
+    width: calc(4 * var(--col-width) + var(--gutter));
+  }
+}

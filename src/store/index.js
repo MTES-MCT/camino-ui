@@ -2,13 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import lib from './lib'
-import titre from './titre'
-import titres from './titres'
+import title from './title'
+import titles from './titles'
 
 const modules = {
   lib,
-  titre,
-  titres
+  title,
+  titles
 }
 export const state = {
   config: {}

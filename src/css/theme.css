@@ -75,6 +75,22 @@
   }
 }
 
+.bg-title-domain-m {
+  background: var(--color-title-domain-m);
+}
+
+.bg-title-domain-e {
+  background: var(--color-title-domain-e);
+}
+
+.bg-title-domain-g {
+  background: var(--color-title-domain-g);
+}
+
+.bg-title-domain-s {
+  background: var(--color-title-domain-s);
+}
+
 
 @media (--viewport-tablet) {
   --header-height: calc(var(--unit) * 2);

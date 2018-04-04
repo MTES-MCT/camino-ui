@@ -1,21 +1,17 @@
 <template>
   <span
-    :class="`bg-${color}`"
+    :class="`${color}`"
     class="h6 bold color-bg py-xs px-s rnd">
-    {{ value }}
+    <slot />
   </span>
 </template>
 
 <script>
 export default {
   props: {
-    value: {
-      type: String,
-      default: ''
-    },
     color: {
       type: String,
-      default: 'neutral'
+      default: 'bg-neutral'
     }
   }
 }
