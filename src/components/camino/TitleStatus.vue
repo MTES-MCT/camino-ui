@@ -28,7 +28,7 @@ export default {
       const res = Object.keys(this.colors).find(color =>
         this.colors[color].find(v => v === value)
       )
-      return this.colors ? res : 'neutral'
+      return this.colors && res ? `bg-${res}` : 'bg-neutral'
     }
   }
 }

@@ -15,7 +15,7 @@
         <button
           class="btn p-s full-x"
           @click="cookieSet"
-          @keyup.enter="cookieSet">Je comprend</button>
+          @keyup.enter="cookieSet">Je comprends</button>
       </div>
     </div>
   </div>

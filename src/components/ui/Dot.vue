@@ -1,6 +1,6 @@
 <template>
   <span
-    :class="`bg-${color}`"
+    :class="`${color}`"
     class="pill dot inline-block mr-xs" />
 </template>
 
@@ -11,7 +11,7 @@ export default {
   props: {
     color: {
       type: String,
-      default: 'neutral'
+      default: 'bg-neutral'
     }
   }
 }

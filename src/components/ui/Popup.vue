@@ -3,7 +3,7 @@
     <div
       class="absolute full bg-inverse-alpha" 
       @click="closeDefault" />
-    <div class="popup fixed shadow full bg-bg p-l pb-s">
+    <div class="popup fixed shadow full bg-bg p-l pb-s rnd">
       <div class="flex flex-start">
         <h2>{{ config.title }}</h2>
         <button
