@@ -156,13 +156,13 @@
 </template>
 
 <script>
-import Card from '@components/ui/Card.vue'
-import Loader from '@components/ui/Loader.vue'
-import TagList from '@components/ui/TagList.vue'
-import Tag from '@components/ui/Tag.vue'
-import Dot from '@components/ui/Dot.vue'
-import BtnToggle from '@components/ui/BtnToggle.vue'
-import TitleStatus from '@components/camino/TitleStatus.vue'
+import Card from '@/components/ui/Card.vue'
+import Loader from '@/components/ui/Loader.vue'
+import TagList from '@/components/ui/TagList.vue'
+import Tag from '@/components/ui/Tag.vue'
+import Dot from '@/components/ui/Dot.vue'
+import BtnToggle from '@/components/ui/BtnToggle.vue'
+import TitleStatus from '@/components/camino/TitleStatus.vue'
 
 export default {
   name: 'Titres',

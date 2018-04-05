@@ -2,10 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueMeta from 'vue-meta'
 import NProgress from 'nprogress/nprogress'
-import Title from '@components/Title.vue'
-// import TitleDetails from '@components/TitleDetails.vue'
-import Titles from '@components/Titles.vue'
-import Error from '@components/Error.vue'
+import Title from '@/components/Title.vue'
+// import TitleDetails from '@/components/TitleDetails.vue'
+import Titles from '@/components/Titles.vue'
+import Error from '@/components/Error.vue'
 
 Vue.use(VueRouter)
 

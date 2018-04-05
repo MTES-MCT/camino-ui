@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import BtnToggle from '@components/ui/BtnToggle.vue'
+import BtnToggle from '@/components/ui/BtnToggle.vue'
 
 export default {
   components: {

@@ -144,14 +144,14 @@
 </template>
 
 <script>
-import Card from '@components/ui/Card.vue'
-import Lmap from '@components/ui/Lmap.vue'
-import Tag from '@components/ui/Tag.vue'
-import TagList from '@components/ui/TagList.vue'
-import Loader from '@components/ui/Loader.vue'
-import TitleStatus from '@components/camino/TitleStatus.vue'
-import Company from '@components/camino/Company.vue'
-import TitleToolbar from '@components/camino/TitleToolbar.vue'
+import Card from '@/components/ui/Card.vue'
+import Lmap from '@/components/ui/Lmap.vue'
+import Tag from '@/components/ui/Tag.vue'
+import TagList from '@/components/ui/TagList.vue'
+import Loader from '@/components/ui/Loader.vue'
+import TitleStatus from '@/components/camino/TitleStatus.vue'
+import Company from '@/components/camino/Company.vue'
+import TitleToolbar from '@/components/camino/TitleToolbar.vue'
 import TitleTimeline from './TitleTimeline.vue'
 
 export default {

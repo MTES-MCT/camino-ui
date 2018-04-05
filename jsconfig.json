@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "checkJs": true,
-    "target": "es2017",
+    "target": "es2015",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
+      "@/*": ["./src/*"]
     },
     "allowSyntheticDefaultImports": true
   },

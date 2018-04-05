@@ -1,5 +1,5 @@
 /*eslint-env node*/
-
+const path = require('path')
 const appConfig = require('./src/app.config')
 const Jarvis = require('webpack-jarvis')
 
@@ -10,7 +10,9 @@ module.exports = {
     name: appConfig.title,
     // Set up all the aliases we use in our app.
     resolve: {
-      alias: require('./aliases.config').webpack
+      alias: {
+        '@': path.join(__dirname, 'src')
+      }
     },
     plugins: [
       new Jarvis({

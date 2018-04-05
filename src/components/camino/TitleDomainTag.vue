@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Tag from '@components/ui/Tag.vue'
+import Tag from '@/components/ui/Tag.vue'
 
 export default {
   components: {

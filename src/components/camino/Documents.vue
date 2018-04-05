@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import BtnToggle from '@components/ui/BtnToggle.vue'
-import DocumentsTable from '@components/camino/DocumentsTable.vue'
+import BtnToggle from '@/components/ui/BtnToggle.vue'
+import DocumentsTable from '@/components/camino/DocumentsTable.vue'
 
 export default {
   components: {

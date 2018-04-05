@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import Card from '@components/ui/Card.vue'
-import Documents from '@components/camino/Documents.vue'
-import TitleStatus from '@components/camino/TitleStatus.vue'
+import Card from '@/components/ui/Card.vue'
+import Documents from '@/components/camino/Documents.vue'
+import TitleStatus from '@/components/camino/TitleStatus.vue'
 
 export default {
   components: {
