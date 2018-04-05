@@ -18,11 +18,7 @@
 }
 
 .border {
-  border: var(--unit-line) dotted;
-  border-color: var(--border-color);
-  padding: calc(var(--unit) - var(--unit-line))
-    calc(var(--unit) - var(--unit-line)) var(--unit);
-  margin-bottom: calc(var(--unit) - var(--unit-line));
+  box-shadow: inset 0 0 0 var(--unit-line) var(--color-alt);
 }
 
 .tooltip {
