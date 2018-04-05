@@ -2,27 +2,27 @@
   <div>
     <loader v-if="!loaded" />
     <card v-else >
-      <div class="blobs-tablet">
-        <div class="blob-tablet-1-2">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-2">
           <h6>Titre</h6>
           <h1 class="mb-s">{{ titre.nom }}</h1>
           <h2>{{ titre.type }}</h2>
           <div
             v-if="titre.substances"
-            class="blobs-tablet">
-            <div class="blob-tablet-1-2 mb-0">
+            class="tablet-blobs">
+            <div class="tablet-blob-1-2 mb-0">
               <h6>Substances principales</h6>
               <tag-list :elements="titre.substances.principales" />
             </div>
             <div 
               v-if="titre.substances.connexes"
-              class="blob-tablet-1-2 mb-0" >
+              class="tablet-blob-1-2 mb-0" >
               <h6>Substances connexes</h6>
               <tag-list :elements="titre.substances.connexes" />
             </div>
           </div>
         </div>
-        <div class="blob-tablet-1-2">
+        <div class="tablet-blob-1-2">
           <div class="blobs">
             <div class="blob-1-2">
               <h6>Références</h6>
@@ -67,14 +67,14 @@
         :geojson="titre.geojson"
         class="mb" />
 
-      <div class="blobs-tablet">
-        <div class="blob-tablet-1-4">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-4">
           <h6>Surface</h6>
           <p>{{ titre.surface }}</p>
           <h6>Emprise</h6>
           <tag-list :elements="titre.emprises" />
         </div>
-        <div class="blob-tablet-3-4">
+        <div class="tablet-blob-3-4">
           <h6>Communes</h6>
           <div
             v-for="(departements, region) in titre.communes"
@@ -89,8 +89,8 @@
         </div>
       </div>
 
-      <div class="blobs-tablet">
-        <div class="blob-tablet-1-2">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-2">
           <h6>Titulaire s</h6>
           <company
             v-for="titulaire in titre.titulaires"
@@ -99,7 +99,7 @@
             class="mb" />
         </div>
 
-        <div class="blob-tablet-1-2">
+        <div class="tablet-blob-1-2">
           <h6>Administrations</h6>
           <company
             v-for="referent in titre['administrations']"
@@ -124,7 +124,7 @@
             v-for="d in titre['démarches en cours']"
             :key="d.id"
             class="h5">
-            <td><tag :value="d.type"/></td>
+            <td><tag>{{ d.type }}</tag></td>
             <td>{{ d.nom }}</td>
             <td>
               <title-status :status="d['statut']" />

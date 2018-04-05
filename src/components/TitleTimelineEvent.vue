@@ -1,11 +1,11 @@
 <template>
   <div class="mb">
     <div class="border-card" />
-    <div class="blobs-tablet">
-      <div class="blob-tablet-1-2">
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-2">
         <h3>{{ event.type }}</h3>
       </div>
-      <div class="blob-tablet-1-2">
+      <div class="tablet-blob-1-2">
         <div class="blobs">
           <div class="blob-1-2 mb-0">
             <h6>Statut</h6>

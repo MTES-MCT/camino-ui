@@ -33,14 +33,14 @@ https://github.com/francoisromain/postcss-grid-fluid
 .blob-5-4,
 .blob-btn,
 .blob-3-4-btn,
-.blob-tablet-1,
-.blob-tablet-1-2,
-.blob-tablet-1-3,
-.blob-tablet-2-3,
-.blob-tablet-1-4,
-.blob-tablet-3-4,
-.blob-tablet-1-6,
-.blob-tablet-5-4 {
+.tablet-blob-1,
+.tablet-blob-1-2,
+.tablet-blob-1-3,
+.tablet-blob-2-3,
+.tablet-blob-1-4,
+.tablet-blob-3-4,
+.tablet-blob-1-6,
+.tablet-blob-5-4 {
   margin-bottom: var(--unit);
 }
 
@@ -99,52 +99,52 @@ https://github.com/francoisromain/postcss-grid-fluid
     width: calc(2 * var(--col-width) + var(--gutter));
   }
 
-  .blobs-tablet {
+  .tablet-blobs {
     gf: row;
   }
 
-  .blob-tablet {
+  .tablet-blob {
     margin-right: var(--gutter);
     margin-bottom: var(--gutter);
     flex: 0 1 0;
   }
 
-  .blob-tablet-auto {
+  .tablet-blob-auto {
     margin-right: var(--gutter);
     margin-bottom: var(--gutter);
     flex: 0 1 auto;
   }
 
-  .blob-tablet-1 {
+  .tablet-blob-1 {
     gf: blob 1;
   }
 
-  .blob-tablet-code,
-  .blob-tablet-1-2 {
+  .tablet-blob-code,
+  .tablet-blob-1-2 {
     gf: blob 1/2;
   }
 
-  .blob-tablet-1-3 {
+  .tablet-blob-1-3 {
     gf: blob 1/3;
   }
 
-  .blob-tablet-2-3 {
+  .tablet-blob-2-3 {
     gf: blob 2/3;
   }
 
-  .blob-tablet-1-4 {
+  .tablet-blob-1-4 {
     gf: blob 1/4;
   }
 
-  .blob-tablet-3-4 {
+  .tablet-blob-3-4 {
     gf: blob 3/4;
   }
 
-  .blob-tablet-1-6 {
+  .tablet-blob-1-6 {
     gf: blob 1/4;
   }
 
-  .blob-tablet-5-6 {
+  .tablet-blob-5-6 {
     gf: blob 3/4;
   }
 }

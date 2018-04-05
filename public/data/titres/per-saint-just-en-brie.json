@@ -2,10 +2,10 @@
   "id": "per-saint-just-en-brie",
   "nom": "Saint-Just-en-Brie",
   "type": "Permis exclusif de recherches",
-  "statut": "Echu",
+  "statut": "Échu",
   "domaine": {
     "nom": "Substances énergétiques",
-    "code": "E"
+    "code": "H"
   },
   "travaux": "En cours",
   "substances": {

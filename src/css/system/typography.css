@@ -69,7 +69,6 @@ small {
   typescale: -1 1;
 }
 
-label,
 h6,
 h5 {
   margin-bottom: var(--unit-xs);
@@ -136,6 +135,10 @@ strong,
 i,
 .italic {
   font-style: italic;
+}
+
+label {
+  margin-bottom: var(--unit-s);
 }
 
 .cap {
