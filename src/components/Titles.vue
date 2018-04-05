@@ -128,7 +128,29 @@
           </td>
         </router-link>
       </table>
-
+      <ul class="list-inline">
+        <li class="active">
+          <a
+            href="#"
+            class="btn px-s py-xs">
+            1
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="btn px-s py-xs">
+            2
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="btn px-s py-xs">
+            3
+          </a>
+        </li>
+      </ul>
     </div>
   </card>
 </template>
