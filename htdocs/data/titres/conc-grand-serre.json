@@ -25,11 +25,28 @@
       {
         "type": "Feature",
         "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [5.073697655818809, 45.267732054254466],
+                [5.084687451211904, 45.268534749489014],
+                [5.08433161016373, 45.26134849484107],
+                [5.070248639265093, 45.25944002979361],
+                [5.073697655818809, 45.267732054254466]
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
           "type": "Point",
           "coordinates": [5.073697655818809, 45.267732054254466]
         },
         "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       },
       {
@@ -39,7 +56,7 @@
           "coordinates": [5.084687451211904, 45.268534749489014]
         },
         "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       },
       {
@@ -49,7 +66,7 @@
           "coordinates": [5.08433161016373, 45.26134849484107]
         },
         "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       },
       {
@@ -59,17 +76,7 @@
           "coordinates": [5.070248639265093, 45.25944002979361]
         },
         "properties": {
-          "type": "contour-0"
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [5.073697655818809, 45.267732054254466]
-        },
-        "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       }
     ]

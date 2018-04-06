@@ -26,11 +26,58 @@
       {
         "type": "Feature",
         "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [1.023665, 45.51009],
+                [1.071191, 45.54335],
+                [1.086013, 45.59674],
+                [1.223941, 45.59675],
+                [1.240353, 45.62538],
+                [1.35519, 45.62712],
+                [1.452006, 45.56185],
+                [1.396144, 45.52053]
+              ],
+              [
+                [1.227273, 45.5637],
+                [1.252499, 45.5767],
+                [1.259169, 45.56102],
+                [1.242387, 45.55536]
+              ],
+              [
+                [1.351369, 45.59025],
+                [1.392001, 45.56686],
+                [1.304928, 45.54273],
+                [1.261237, 45.53655],
+                [1.304565, 45.58456]
+              ],
+              [
+                [1.139266, 45.54286],
+                [1.147389, 45.55803],
+                [1.170797, 45.56735],
+                [1.177874, 45.55896],
+                [1.178607, 45.55174]
+              ],
+              [
+                [1.178607, 45.55174],
+                [1.177874, 45.55896],
+                [1.170837, 45.5673],
+                [1.196852, 45.57167],
+                [1.195645, 45.55741]
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
           "type": "Point",
           "coordinates": [1.023665, 45.51009]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "A",
           "id": "ID-point-00001",
           "lambert-93": ["545700", "6492000"]
@@ -43,7 +90,7 @@
           "coordinates": [1.071191, 45.54335]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "B",
           "id": "ID-point-00002",
           "lambert-93": ["549500", "6495600"]
@@ -56,7 +103,7 @@
           "coordinates": [1.086013, 45.59674]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "C",
           "id": "ID-point-00003",
           "lambert-93": ["550800", "6501500"]
@@ -69,7 +116,7 @@
           "coordinates": [1.223941, 45.59675]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "D",
           "id": "ID-point-00004",
           "lambert-93": ["561550", "6501250"]
@@ -82,7 +129,7 @@
           "coordinates": [1.240353, 45.62538]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "E",
           "id": "ID-point-00005",
           "lambert-93": ["562900", "6504400"]
@@ -95,7 +142,7 @@
           "coordinates": [1.35519, 45.62712]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "F",
           "id": "ID-point-00006",
           "lambert-93": ["571850", "6504400"]
@@ -108,7 +155,7 @@
           "coordinates": [1.452006, 45.56185]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "G",
           "id": "ID-point-00007",
           "lambert-93": ["579250", "6497000"]
@@ -121,7 +168,7 @@
           "coordinates": [1.396144, 45.52053]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "H",
           "id": "ID-point-00008",
           "lambert-93": ["574800", "6492500"]
@@ -134,7 +181,7 @@
           "coordinates": [1.227273, 45.5637]
         },
         "properties": {
-          "type": "trou-1",
+          "groupe": "trou-1",
           "name": "A",
           "id": "ID-point-00009",
           "lambert-93": ["561731", "6497760"]
@@ -147,7 +194,7 @@
           "coordinates": [1.252499, 45.5767]
         },
         "properties": {
-          "type": "trou-1",
+          "groupe": "trou-1",
           "name": "B",
           "id": "ID-point-00010",
           "lambert-93": ["563727", "6498974"]
@@ -160,7 +207,7 @@
           "coordinates": [1.259169, 45.56102]
         },
         "properties": {
-          "type": "trou-1",
+          "groupe": "trou-1",
           "name": "C",
           "id": "ID-point-00011",
           "lambert-93": ["564208", "6497222"]
@@ -173,7 +220,7 @@
           "coordinates": [1.242387, 45.55536]
         },
         "properties": {
-          "type": "trou-1",
+          "groupe": "trou-1",
           "name": "D",
           "id": "ID-point-00012",
           "lambert-93": ["562885", "6496623"]
@@ -186,7 +233,7 @@
           "coordinates": [1.351369, 45.59025]
         },
         "properties": {
-          "type": "trou-2",
+          "groupe": "trou-2",
           "name": "A",
           "id": "ID-point-00013",
           "lambert-93": ["571467", "6500313"]
@@ -199,7 +246,7 @@
           "coordinates": [1.392001, 45.56686]
         },
         "properties": {
-          "type": "trou-2",
+          "groupe": "trou-2",
           "name": "B",
           "id": "ID-point-00014",
           "lambert-93": ["574581", "6497650"]
@@ -212,7 +259,7 @@
           "coordinates": [1.304928, 45.54273]
         },
         "properties": {
-          "type": "trou-2",
+          "groupe": "trou-2",
           "name": "C",
           "id": "ID-point-00015",
           "lambert-93": ["567733", "6495113"]
@@ -225,7 +272,7 @@
           "coordinates": [1.261237, 45.53655]
         },
         "properties": {
-          "type": "trou-2",
+          "groupe": "trou-2",
           "name": "D",
           "id": "ID-point-00016",
           "lambert-93": ["564310", "6494501"]
@@ -238,7 +285,7 @@
           "coordinates": [1.304565, 45.58456]
         },
         "properties": {
-          "type": "trou-2",
+          "groupe": "trou-2",
           "name": "E",
           "id": "ID-point-00017",
           "lambert-93": ["567805", "6499758"]
@@ -251,7 +298,7 @@
           "coordinates": [1.139266, 45.54286]
         },
         "properties": {
-          "type": "trou-3",
+          "groupe": "trou-3",
           "name": "A",
           "id": "ID-point-00018",
           "lambert-93": ["554809", "6495418"]
@@ -264,7 +311,7 @@
           "coordinates": [1.147389, 45.55803]
         },
         "properties": {
-          "type": "trou-3",
+          "groupe": "trou-3",
           "name": "B",
           "id": "ID-point-00019",
           "lambert-93": ["555483", "6497088"]
@@ -277,7 +324,7 @@
           "coordinates": [1.170797, 45.56735]
         },
         "properties": {
-          "type": "trou-3",
+          "groupe": "trou-3",
           "name": "C",
           "id": "ID-point-00020",
           "lambert-93": ["557332", "6498080"]
@@ -290,7 +337,7 @@
           "coordinates": [1.177874, 45.55896]
         },
         "properties": {
-          "type": "trou-3",
+          "groupe": "trou-3",
           "name": "D",
           "id": "ID-point-00021",
           "lambert-93": ["557863", "6497136"]
@@ -303,7 +350,7 @@
           "coordinates": [1.178607, 45.55174]
         },
         "properties": {
-          "type": "trou-3",
+          "groupe": "trou-3",
           "name": "E",
           "id": "ID-point-00022",
           "lambert-93": ["557901", "6496333"]
@@ -316,7 +363,7 @@
           "coordinates": [1.178607, 45.55174]
         },
         "properties": {
-          "type": "trou-4",
+          "groupe": "trou-4",
           "name": "A",
           "id": "ID-point-00023",
           "lambert-93": ["557901", "6496333"]
@@ -329,7 +376,7 @@
           "coordinates": [1.177874, 45.55896]
         },
         "properties": {
-          "type": "trou-4",
+          "groupe": "trou-4",
           "name": "B",
           "id": "ID-point-00024",
           "lambert-93": ["557863", "6497136"]
@@ -342,7 +389,7 @@
           "coordinates": [1.170837, 45.5673]
         },
         "properties": {
-          "type": "trou-4",
+          "groupe": "trou-4",
           "name": "C",
           "id": "ID-point-00025",
           "lambert-93": ["557335", "6498075"]
@@ -355,7 +402,7 @@
           "coordinates": [1.196852, 45.57167]
         },
         "properties": {
-          "type": "trou-4",
+          "groupe": "trou-4",
           "name": "D",
           "id": "ID-point-00026",
           "lambert-93": ["559375", "6498513"]
@@ -368,7 +415,7 @@
           "coordinates": [1.195645, 45.55741]
         },
         "properties": {
-          "type": "trou-4",
+          "groupe": "trou-4",
           "name": "E",
           "id": "ID-point-00027",
           "lambert-93": ["559245", "6496932"]

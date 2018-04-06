@@ -24,11 +24,32 @@
       {
         "type": "Feature",
         "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [3.173541636232701, 48.68993674997124],
+                [3.191542035009233, 48.68993730950939],
+                [3.191542052766129, 48.68093730566811],
+                [3.218544261639781, 48.68093658587118],
+                [3.21854429272969, 48.67193751637976],
+                [3.245545047187876, 48.67193680888667],
+                [3.245545159341878, 48.61793781793066],
+                [3.173543383948531, 48.61793724269859],
+                [3.173541636232701, 48.68993674997124]
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
           "type": "Point",
           "coordinates": [3.173541636232701, 48.68993674997124]
         },
         "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       },
       {
@@ -38,7 +59,7 @@
           "coordinates": [3.191542035009233, 48.68993730950939]
         },
         "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       },
       {
@@ -48,7 +69,7 @@
           "coordinates": [3.191542052766129, 48.68093730566811]
         },
         "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       },
       {
@@ -58,7 +79,7 @@
           "coordinates": [3.218544261639781, 48.68093658587118]
         },
         "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       },
       {
@@ -68,7 +89,7 @@
           "coordinates": [3.21854429272969, 48.67193751637976]
         },
         "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       },
       {
@@ -78,7 +99,7 @@
           "coordinates": [3.245545047187876, 48.67193680888667]
         },
         "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       },
       {
@@ -88,7 +109,7 @@
           "coordinates": [3.245545159341878, 48.61793781793066]
         },
         "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       },
       {
@@ -98,17 +119,7 @@
           "coordinates": [3.173543383948531, 48.61793724269859]
         },
         "properties": {
-          "type": "contour-0"
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [3.173541636232701, 48.68993674997124]
-        },
-        "properties": {
-          "type": "contour-0"
+          "groupe": "contour"
         }
       }
     ]

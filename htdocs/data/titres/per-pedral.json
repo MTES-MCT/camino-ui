@@ -26,12 +26,30 @@
       {
         "type": "Feature",
         "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [-53.38968586248483, 4.958185236718157],
+                [-53.31935144155668, 4.958435924385591],
+                [-53.3177360574643, 4.908499454301041],
+                [-53.350134459480415, 4.908386129530585],
+                [-53.35003742596226, 4.88059122624596],
+                [-53.38945859822642, 4.894579730225456]
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
           "type": "Point",
           "coordinates": [-53.389685862484832, 4.958185236718157]
         },
         "properties": {
-          "type": "contour",
-          "name": "A",
+          "groupe": "contour",
+          "nom": "A",
           "id": "ID-point-00001",
           "RGFG-95": ["235000", "235000"]
         }
@@ -43,8 +61,8 @@
           "coordinates": [-53.319351441556677, 4.958435924385591]
         },
         "properties": {
-          "type": "contour",
-          "name": "B",
+          "groupe": "contour",
+          "nom": "B",
           "id": "ID-point-00002",
           "RGFG-95": ["242804", "548520"]
         }
@@ -56,8 +74,8 @@
           "coordinates": [-53.317736057464302, 4.908499454301041]
         },
         "properties": {
-          "type": "contour",
-          "name": "C",
+          "groupe": "contour",
+          "nom": "C",
           "id": "ID-point-00003",
           "RGFG-95": ["242964", "545995"]
         }
@@ -69,8 +87,8 @@
           "coordinates": [-53.350134459480415, 4.908386129530585]
         },
         "properties": {
-          "type": "contour",
-          "name": "D",
+          "groupe": "contour",
+          "nom": "D",
           "id": "ID-point-00004",
           "RGFG-95": ["239369", "542995"]
         }
@@ -82,8 +100,8 @@
           "coordinates": [-53.350037425962263, 4.88059122624596]
         },
         "properties": {
-          "type": "contour",
-          "name": "E",
+          "groupe": "contour",
+          "nom": "E",
           "id": "ID-point-00005",
           "RGFG-95": ["239369", "539920"]
         }
@@ -95,8 +113,8 @@
           "coordinates": [-53.389458598226419, 4.894579730225456]
         },
         "properties": {
-          "type": "contour",
-          "name": "F",
+          "groupe": "contour",
+          "nom": "F",
           "id": "ID-point-00006",
           "RGFG-95": ["235000", "541483"]
         }
