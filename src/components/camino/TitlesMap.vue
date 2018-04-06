@@ -55,11 +55,23 @@ export default {
     initLayers () {
       const polygons = []
       this.titles.forEach(title => {
-        polygons.push(title.geojson.features.find(feature => feature.geometry.type === 'MultiPolygon'))
+        const geojson = title.geojson.features.find(feature => feature.geometry.type === 'MultiPolygon')
+        geojson.properties = geojson.properties || {}
+        geojson.properties.id = title.id
+        polygons.push(geojson)
 
       })
 
-      const n = L.geoJSON(polygons).addTo(this.map)
+      const n = L.geoJSON(polygons, {
+        onEachFeature: (feature, layer) => {
+          layer.on({
+            click: (e) => {
+              console.log(e)
+              this.$router.push({ name: 'titre', params: { id: feature.properties.id } })
+            }
+          })
+        }
+      }).addTo(this.map)
 
       this.map.fitBounds(n.getBounds())
     }
