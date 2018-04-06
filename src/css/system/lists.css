@@ -54,6 +54,10 @@ li {
   }
 }
 
+.list-inline.flex-right {
+  margin-right: calc(-1 * var(--unit-xs));
+}
+
 .list-inline::after {
   content: '';
   display: block;

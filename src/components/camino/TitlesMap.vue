@@ -2,7 +2,7 @@
   <div 
     id="map"
     ref="map"
-    class="map" />
+    class="map mb" />
 </template>
 
 <script>
@@ -24,9 +24,9 @@ L.Marker.prototype.options.icon = L.icon({
 
 export default {
   props: {
-    geojson: {
-      type: Object,
-      default: () => { }
+    titles: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -46,16 +46,22 @@ export default {
     initMap () {
       this.map = L.map('map')
       this.tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-        maxZoom: 13,
-        minZoom: 9,
+        maxZoom: 20,
         attribution: '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       })
       this.tileLayer.addTo(this.map)
     },
 
     initLayers () {
-      const geogsonLayer = L.geoJSON(this.geojson).addTo(this.map)
-      this.map.fitBounds(geogsonLayer.getBounds())
+      const polygons = []
+      this.titles.forEach(title => {
+        polygons.push(title.geojson.features.find(feature => feature.geometry.type === 'MultiPolygon'))
+
+      })
+
+      const n = L.geoJSON(polygons).addTo(this.map)
+
+      this.map.fitBounds(n.getBounds())
     }
   }
 

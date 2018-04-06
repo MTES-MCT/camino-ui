@@ -136,6 +136,6 @@
   }
 
   .map {
-    height: calc(var(--unit) * 16);
+    height: calc(var(--unit) * 20);
   }
 }

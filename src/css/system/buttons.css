@@ -28,8 +28,8 @@
 }
 
 .btn-menu {
-  button-color: var(--color-text) var(--color-text) var(--color-bg);
-  button-background: var(--color-transparent) var(--color-transparent) var(--color-highlight);
+  button-color: var(--color-text) var(--color-text) var(--color-text);
+  button-background: var(--color-transparent) var(--color-transparent) var(--color-bg);
   button-class: active disabled true;
 }
 

@@ -2,7 +2,22 @@
   
   <loader v-if="!loaded" />
   <card v-else >
-    <h2 class="mt-xs">Titres</h2>
+
+    <div class="flex">
+      <h2 class="mt-s">Titres</h2>
+      <ul class="list-inline flex-right">
+        <li>
+          <button
+            class="btn-border px-m py-s"
+            @click="viewSet('carte')">Carte</button>
+        </li>
+        <li>
+          <button
+            class="btn-border px-m py-s"
+            @click="viewSet('liste')">Liste</button>
+        </li>
+      </ul>
+    </div>
 
     <accordion class="mb">
       <template slot="title">Filtres</template>
@@ -77,7 +92,9 @@
         </div>
       </div>
     </accordion>
-    <titles-table :titles="titres" />
+    <component
+      :titles="titres"
+      :is="viewCurrent" />
   </card>
 </template>
 
@@ -88,6 +105,7 @@ import Tag from '@/components/ui/Tag.vue'
 import Accordion from '@/components/ui/Accordion.vue'
 import TitleStatus from '@/components/camino/TitleStatus.vue'
 import TitlesTable from '@/components/camino/TitlesTable.vue'
+import TitlesMap from '@/components/camino/TitlesMap.vue'
 
 export default {
   name: 'Titres',
@@ -97,13 +115,13 @@ export default {
     Card,
     Tag,
     Accordion,
-    TitleStatus,
-    TitlesTable
+    TitleStatus
   },
 
   data () {
     return {
-      filtersOpened: false
+      filtersOpened: false,
+      viewCurrent: TitlesMap
     }
   },
 
@@ -130,6 +148,13 @@ export default {
   methods: {
     get () {
       this.$store.dispatch('titles/get')
+    },
+    viewSet (viewNew) {
+      if (viewNew === 'carte') {
+        this.viewCurrent = TitlesMap
+      } else {
+        this.viewCurrent = TitlesTable
+      }
     }
   }
 
