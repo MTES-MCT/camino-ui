@@ -62,7 +62,8 @@
 
 .sticky-bottom {
   bottom: 0;
-  right: 0;
+  right: calc(var(--unit) * -1);
+  left: calc(var(--unit) * -1);
   position: sticky;
   background-color: var(--color-neutral);
   color: var(--color-bg);

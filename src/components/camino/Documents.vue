@@ -1,27 +1,18 @@
 <template>
-  <div>
-    <div class="flex">
-      <h4 class="mt-s">Documents</h4>
-      <div class="flex-right">
-        <btn-toggle
-          :opened="opened"
-          @click.native="opened = !opened" />
-      </div>
-    </div>
-    <hr class="mb-0">
+  <accordion class="mb">
+    <template slot="title">Documents</template>
     <documents-table
-      :documents="documents"
-      :opened="opened" />
-  </div>
+      :documents="documents" />
+  </accordion>
 </template>
 
 <script>
-import BtnToggle from '@/components/ui/BtnToggle.vue'
+import Accordion from '@/components/ui/Accordion.vue'
 import DocumentsTable from '@/components/camino/DocumentsTable.vue'
 
 export default {
   components: {
-    BtnToggle,
+    Accordion,
     DocumentsTable
   },
 
@@ -29,12 +20,6 @@ export default {
     documents: {
       type: Array,
       default: () => []
-    }
-  },
-
-  data () {
-    return {
-      opened: false
     }
   }
 }
