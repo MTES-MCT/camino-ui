@@ -7,13 +7,13 @@ export const state = {
 }
 
 export const actions = {
-  get ({ commit }, { id }) {
+  get({ commit }, { id }) {
     return api.titreGet(id).then(r => {
       commit('set', r)
     })
   },
 
-  documentSelect ({ commit }, { documentId, selected }) {
+  documentSelect({ commit }, { documentId, selected }) {
     if (selected) {
       commit('documentSelectionAdd', documentId)
     } else {
@@ -26,29 +26,34 @@ export const getters = {
   documentsTotal: state =>
     state.current && state.current['démarches']
       ? Object.keys(state.current['démarches']).reduce(
-        (total, type) =>
-          (total += state.current['démarches'][type].reduce(
-            (subtotal, d) =>
-              (subtotal += d.documents ? d.documents.length : 0),
-            0
-          )),
-        0
-      )
+          (total, type) =>
+            (total += state.current['démarches'][type].reduce(
+              (subtotal, d) =>
+                (subtotal += d.documents ? d.documents.length : 0),
+              0
+            )),
+          0
+        )
       : 0,
 
-  documentSelected: state => documentId => state.documents.find(id => id === documentId)
+  documentSelected: state => documentId =>
+    state.documents.find(id => id === documentId)
 }
 
 export const mutations = {
-  set (state, titre) {
+  set(state, titre) {
     Vue.set(state, 'current', titre)
   },
 
-  documentSelectionAdd (state, documentId) {
+  reset(state) {
+    Vue.set(state, 'current', null)
+  },
+
+  documentSelectionAdd(state, documentId) {
     state.documents.push(documentId)
   },
 
-  documentSelectionRemove (state, documentId) {
+  documentSelectionRemove(state, documentId) {
     const index = state.documents.findIndex(id => id === documentId)
     Vue.delete(state.documents, index)
   }

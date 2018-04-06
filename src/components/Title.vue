@@ -1,7 +1,7 @@
 <template>
   <div>
     <loader v-if="!loaded" />
-    <card v-else >
+    <card v-else>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-2">
           <h6>Titre</h6>
@@ -61,7 +61,6 @@
           </div>
         </div>
       </div>
-
       <lmap
         v-if="titre.geojson"
         :geojson="titre.geojson"
@@ -182,6 +181,10 @@ export default {
 
   created () {
     this.get()
+  },
+
+  beforeDestroy () {
+    this.$store.commit('title/reset')
   },
 
   methods: {
