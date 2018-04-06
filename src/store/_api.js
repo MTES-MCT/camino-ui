@@ -8,7 +8,9 @@ const titres = [
   'conc-laconquillie',
   'per-lauterbourg',
   'per-pedral',
-  'conc-saint-elie'
+  'conc-saint-elie',
+  'aex-crique-serpent',
+  'aex-georgeon'
 ]
 
 const api = {

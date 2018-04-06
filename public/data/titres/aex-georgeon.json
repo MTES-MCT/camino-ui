@@ -1,0 +1,454 @@
+{
+    "id": "aex-georgeon",
+    "nom": "Georgeon",
+    "type": "Autorisation d'exploitation",
+    "statut": "Valide",
+    "travaux": "En cours",
+    "domaine": {
+        "nom": "Minéraux et métaux",
+        "code": "M"
+    },
+    "substances": {
+        "principales": [
+            "Or"
+        ],
+        "connexes": [
+            "Non précisées"
+        ]
+    },
+    "références": {
+        "id-TM-973": "21/2017"
+    },
+    "validité": {
+        "début": "2017-12-12",
+        "durée": 4
+    },
+    "geojson": {
+        "type": "FeatureCollection",
+        "features": [
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        -52.477465001525545,
+                        4.265063636469709
+                    ]
+                },
+                "properties": {
+                    "type": "contour",
+                    "name": "A",
+                    "id": "ID-point-00001",
+                    "RGFG-95": [
+                        "235000",
+                        "235000"
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        -52.469906403458815,
+                        4.269916884270525
+                    ]
+                },
+                "properties": {
+                    "type": "contour",
+                    "name": "B",
+                    "id": "ID-point-00002",
+                    "RGFG-95": [
+                        "242804",
+                        "548520"
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        -52.464965750957447,
+                        4.262481071571115
+                    ]
+                },
+                "properties": {
+                    "type": "contour",
+                    "name": "C",
+                    "id": "ID-point-00003",
+                    "RGFG-95": [
+                        "242964",
+                        "545995"
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        -52.472633647938906,
+                        4.257456657595089
+                    ]
+                },
+                "properties": {
+                    "type": "contour",
+                    "name": "D",
+                    "id": "ID-point-00004",
+                    "RGFG-95": [
+                        "239369",
+                        "542995"
+                    ]
+                }
+            }
+        ]
+    },
+    "surface": "1,00 km2",
+    "communes": {
+        "Guyane": {
+            "Guyane": [
+                "Roura"
+            ]
+        }
+    },
+    "emprises": [
+        "À terre"
+    ],
+    "titulaires": [
+        {
+            "id": "titulaire-id-1",
+            "nom": "Amazone Gold",
+            "siret": "791 652 399 00019",
+            "adresse": {
+                "ligne_1": "21 Résident Elvina",
+                "code_postal": "97354",
+                "ville": "REMIRE-MONTJOLY"
+            },
+            "contact": {
+                "prenom": "Remi",
+                "nom": "PERNOD",
+                "service": "Président",
+                "email": "amazonegold@gmail.com",
+                "telephone": "+594 594XXXXX",
+                "mobile": "+594 694XXXXX"
+            }
+        }
+    ],
+    "administrations": [
+        {
+            "id": "003",
+            "nom": "Déal Guyane",
+            "adresse": {
+                "ligne_1": "rue Carlos Fineley - Pointe Buzaré",
+                "ligne_2": "CS 76003",
+                "code postal": "97306",
+                "ville": "Cayenne Cedex"
+            },
+            "contact": {
+                "nom": "ORTELLI",
+                "prenom": "Adrien",
+                "service": "Déal Guyane / Service risques, énergie, mines et déchets / Unité mines et carrières",
+                "telephone": "+594 (0)5 94 29 75 42",
+                "email": "adrien.ortelli@developpement-durable.gouv.fr"
+            }
+        },
+        {
+            "id": "002",
+            "nom": "Préfecture de Guyane",
+            "adresse": {
+                "ligne_1": "Rue Friedmond",
+                "ligne_2": "BP 7008",
+                "code postal": "97307",
+                "ville": "Cayenne Cedex"
+            },
+            "contact": {
+                "nom": "NNNNNNN",
+                "prenom": "PPPPPPPP",
+                "service": "973 GUYANE/PREFECTURE",
+                "telephone": "+594 (0)5 94 00 00 00",
+                "email": "pppp.nnnnn@guyane.pref.gouv.fr"
+            }
+        }
+    ],
+    "démarches en cours": [
+        {
+            "id": "activite-01",
+            "type": "Activités",
+            "nom": "Rapport d'activité janvier à mars 2018",
+            "statut": "En attente de pièces…"
+        }
+    ],
+    "démarches": {
+        "statut": [
+            {
+                "id": "evt-1",
+                "type": "Octroi",
+                "statut": "Terminé",
+                "dates": {
+                    "ouverture": "2017-07-05",
+                    "fermeture": "",
+                    "décision": ""
+                },
+                "silence": {
+                    "date": "2017-09-13",
+                    "acceptation": false
+                },
+                "documents": [
+                    {
+                        "id": "doc-id-stt-4",
+                        "nom": "Arrêté d'octroi d'une autorisation d'exploitation",
+                        "date": "2017-12-12",
+                        "acte": true,
+                        "public": true,
+                        "organisme": "Préfecture de Guyane",
+                        "fichier": {
+                            "type": "pdf",
+                            "url": "",
+                            "disponible": true
+                        },
+                        "étiquettes": [
+                            "",
+                            "",
+                            ""
+                        ],
+                        "auteur": {
+                            "nom": "",
+                            "prénom": "",
+                            "service": ""
+                        },
+                        "signataire": {
+                            "nom": "",
+                            "prénom": "",
+                            "fonction": ""
+                        }
+                    },
+                    {
+                        "id": "doc-id-stt-3",
+                        "nom": "Avis de la commission départementale des mines",
+                        "date": "2017-12-13",
+                        "acte": false,
+                        "public": true,
+                        "organisme": "Commission départementale des mines",
+                        "fichier": {
+                            "type": "pdf",
+                            "url": "",
+                            "disponible": true
+                        },
+                        "étiquettes": [
+                            "",
+                            "",
+                            ""
+                        ],
+                        "auteur": {
+                            "nom": "",
+                            "prénom": "",
+                            "service": ""
+                        },
+                        "signataire": {
+                            "nom": "",
+                            "prénom": "",
+                            "fonction": ""
+                        }
+                    },
+                    {
+                        "id": "doc-id-stt-2",
+                        "nom": "Accusé de réception",
+                        "date": "2017-07-05",
+                        "acte": false,
+                        "public": true,
+                        "organisme": "Déal Guyane",
+                        "fichier": {
+                            "type": "pdf",
+                            "url": "",
+                            "disponible": true
+                        },
+                        "étiquettes": [
+                            "",
+                            ""
+                        ],
+                        "auteur": {
+                            "prénom": "",
+                            "nom": "",
+                            "service": ""
+                        },
+                        "signataire": {
+                            "prénom": "",
+                            "nom": "",
+                            "fonction": ""
+                        }
+                    },
+                    {
+                        "id": "doc-id-stt-1",
+                        "nom": "Lettre de demande",
+                        "date": "2017-07-05",
+                        "acte": false,
+                        "public": true,
+                        "organisme": "Amazone Gold",
+                        "fichier": {
+                            "type": "pdf",
+                            "url": "",
+                            "disponible": true
+                        },
+                        "étiquettes": [
+                            "original",
+                            "demande"
+                        ],
+                        "auteur": {
+                            "prénom": "Rémi",
+                            "nom": "PERNOD",
+                            "service": "Président"
+                        },
+                        "signataire": {
+                            "prénom": "Rémi",
+                            "nom": "PERNOD",
+                            "fonction": "Directeur général"
+                        }
+                    }
+                ]
+            }
+        ],
+        "travaux": [
+            {
+                "id": "evt-2",
+                "type": "Déclaration - Levé géophysique",
+                "statut": "Validé",
+                "dates": {
+                    "ouverture": "2017-11-12",
+                    "fermeture": "2017-12-12",
+                    "décision": "2017-12-12"
+                },
+                "silence": {
+                    "date": "2017-12-16",
+                    "acceptation": true
+                },
+                "documents": [
+                    {
+                        "id": "doc-id-trv-7",
+                        "nom": "Donné acte",
+                        "date": "2017-10-10",
+                        "acte": true,
+                        "public": true,
+                        "organisme": "Amazone Gold",
+                        "fichier": {
+                            "type": "pdf",
+                            "url": "",
+                            "disponible": true
+                        },
+                        "étiquettes": [
+                            "capacités techniques",
+                            "capacités financières"
+                        ],
+                        "auteur": {
+                            "nom": "",
+                            "prénom": "",
+                            "service": "973 GUYANE/PREFECTURE"
+                        },
+                        "signataire": {
+                            "nom": "SPITZ",
+                            "prénom": "Eric",
+                            "fonction": "Préfet de Guyane"
+                        }
+                    },
+                    {
+                        "id": "doc-id-trv-6",
+                        "nom": "Déclaration - Levé géochimique",
+                        "date": "2017-08-08",
+                        "acte": false,
+                        "public": true,
+                        "organisme": "Amazone Gold",
+                        "fichier": {
+                            "type": "pdf",
+                            "url": "",
+                            "disponible": true
+                        },
+                        "étiquettes": [
+                            "original",
+                            "demande"
+                        ],
+                        "auteur": {
+                            "prénom": "Rémi",
+                            "nom": "PERNOD",
+                            "service": "Président"
+                        },
+                        "signataire": {
+                            "prénom": "Rémi",
+                            "nom": "PERNOD",
+                            "fonction": "Président"
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "evt-1",
+                "type": "Déclaration - Levé géochimique",
+                "statut": "Terminé",
+                "dates": {
+                    "ouverture": "2015-02-23",
+                    "fermeture": "2017-08-17",
+                    "décision": "2016-12-22"
+                },
+                "silence": {
+                    "date": "2017-02-23",
+                    "acceptation": false
+                },
+                "documents": [
+                    {
+                        "id": "doc-id-trv-5",
+                        "nom": "Donné acte",
+                        "date": "2017-01-07",
+                        "acte": true,
+                        "public": true,
+                        "organisme": "Préfecture de Guyane",
+                        "fichier": {
+                            "type": "pdf",
+                            "url": "",
+                            "disponible": true
+                        },
+                        "étiquettes": [
+                            "arrêté",
+                            "extrait"
+                        ]
+                    },
+                    {
+                        "id": "doc-id-trv-4",
+                        "nom": "Déclaration levé géochimique",
+                        "date": "2016-12-22",
+                        "acte": true,
+                        "public": true,
+                        "organisme": "Amazon Gold",
+                        "fichier": {
+                            "type": "pdf",
+                            "url": "",
+                            "disponible": true
+                        },
+                        "étiquettes": [
+                            "arrêté",
+                            "original"
+                        ],
+                        "auteur": {
+                            "nom": "",
+                            "prénom": "",
+                            "service": ""
+                        },
+                        "signataire": {
+                            "prénom": "",
+                            "nom": "",
+                            "fonction": ""
+                        }
+                    }
+                ]
+            } 
+        ],
+        "activités": [
+            {
+                "id": "evt-3",
+                "type": "Rapport d'activité janvier à mars 2018",
+                "statut": "En attente de pièces…",
+                "dates": {
+                    "ouverture": "2018-04-01"
+                }
+            }
+        ]
+    }
+}
