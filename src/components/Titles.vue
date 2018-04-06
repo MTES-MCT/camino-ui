@@ -3,37 +3,25 @@
   <loader v-if="!loaded" />
   <card v-else >
     <h2 class="mt-xs">Titres</h2>
-    <div class="filters p-m bg-alt mb">
-      <div class="flex">
-        <h4 class="mt-s mb-0">Filtres</h4>
-        <div class="flex-right">
-          <btn-toggle
-            :opened="filtersOpened"
-            @click.native="filtersOpened = !filtersOpened" />
-        </div>
-      </div>
-      
-      <div
-        :class="{ 'height-0': !filtersOpened}"
-        class="tablet-blobs">
+
+    <accordion class="mb">
+      <template slot="title">Filtres</template>
+      <div class="tablet-blobs">
         <div class="tablet-blob-1-2 desktop-blob-1-3">
           <div class="mb">
             <h6>Localisation</h6>
             <input
-              type="text"
-              class="bg-bg">
+              type="text">
           </div>
           <div class="mb">
             <h6>Titulaire</h6>
             <input
-              type="text"
-              class="bg-bg">
+              type="text">
           </div>
           <div class="mb">
             <h6>Substances</h6>
             <input
-              type="text"
-              class="bg-bg">
+              type="text">
           </div>
         </div>
         <div class="tablet-blob-1-2 desktop-blob-1-3">
@@ -88,7 +76,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </accordion>
     <titles-table :titles="titres" />
   </card>
 </template>
@@ -97,7 +85,7 @@
 import Card from '@/components/ui/Card.vue'
 import Loader from '@/components/ui/Loader.vue'
 import Tag from '@/components/ui/Tag.vue'
-import BtnToggle from '@/components/ui/BtnToggle.vue'
+import Accordion from '@/components/ui/Accordion.vue'
 import TitleStatus from '@/components/camino/TitleStatus.vue'
 import TitlesTable from '@/components/camino/TitlesTable.vue'
 
@@ -108,7 +96,7 @@ export default {
     Loader,
     Card,
     Tag,
-    BtnToggle,
+    Accordion,
     TitleStatus,
     TitlesTable
   },

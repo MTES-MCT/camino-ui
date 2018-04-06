@@ -1,7 +1,7 @@
 <template>
-  <div class="border">
+  <div class="border overflow-hidden">
     <button
-      class="btn p-s flex full-x"
+      class="btn-border py-s px-m flex full-x"
       @click="opened = !opened">
       <h4 class="mb-0"><slot name="title"/></h4>
       <div class="flex-right">
@@ -9,8 +9,8 @@
       </div>
     </button>
     <div
-      :class="{ 'height-0': !opened, 'py-s': opened }"
-      class="px-s">
+      :class="{ 'height-0': !opened, 'pt': opened }"
+      class="px-m">
       <slot />
     </div>
   </div>
