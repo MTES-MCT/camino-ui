@@ -1,18 +1,20 @@
 <template>
-  <table>
-    <tr>
-      <th />
-      <th>Organisme</th>
-      <th>Acte</th>
-      <th>Nom</th>
-      <th>Date</th>
-      <th />
-    </tr>
-    <documents-table-tr
-      v-for="document in documents"
-      :key="document.id"
-      :document="document" />
-  </table>
+  <div class="overflow-scroll-x">
+    <table>
+      <tr>
+        <th />
+        <th>Organisme</th>
+        <th>Acte</th>
+        <th>Nom</th>
+        <th>Date</th>
+        <th />
+      </tr>
+      <documents-table-tr
+        v-for="document in documents"
+        :key="document.id"
+        :document="document" />
+    </table>
+  </div>
 </template>
 
 <script>

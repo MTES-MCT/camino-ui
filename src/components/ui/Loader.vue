@@ -1,8 +1,6 @@
 <template>
   <card>
-    <div class="mb clearfix"> 
-      Loading…
-    </div>
+    Loading…
   </card>
 </template>
 

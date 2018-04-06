@@ -2,7 +2,7 @@
   <div 
     id="map"
     ref="map"
-    class="map mb" />
+    class="map" />
 </template>
 
 <script>

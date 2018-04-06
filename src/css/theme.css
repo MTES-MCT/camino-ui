@@ -58,7 +58,7 @@
   position: sticky;
   background-color: var(--color-neutral);
   color: var(--color-bg);
-  padding: var(--unit);
+  padding: var(--unit) var(--unit);
   margin-left: calc(var(--unit) * -1);
   margin-right: calc(var(--unit) * -1);
 }

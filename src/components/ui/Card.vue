@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-bg px pt mb rnd overflow-hidden">
+  <div class="bg-bg p mb rnd">
     <slot />
   </div>
 </template>

@@ -113,24 +113,26 @@
         class="mb-xxl">
         <h4 class="mt-s">Démarches en cours</h4>
         <hr class="mb-0">
-        <table>
-          <tr>
-            <th>Type</th>
-            <th>Nom</th>
-            <th>Statut</th>
-          </tr>
-          <tr
-            v-for="d in titre['démarches en cours']"
-            :key="d.id"
-            class="h5">
-            <td><tag>{{ d.type }}</tag></td>
-            <td>{{ d.nom }}</td>
-            <td>
-              <title-status :status="d['statut']" />
-              {{ d['statut'] }}
-            </td>
-          </tr>
-        </table>
+        <div class="overflow-scroll-x">
+          <table>
+            <tr>
+              <th>Type</th>
+              <th>Nom</th>
+              <th>Statut</th>
+            </tr>
+            <tr
+              v-for="d in titre['démarches en cours']"
+              :key="d.id"
+              class="h5">
+              <td><tag>{{ d.type }}</tag></td>
+              <td>{{ d.nom }}</td>
+              <td>
+                <title-status :status="d['statut']" />
+                {{ d['statut'] }}
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
 
       <title-timeline
