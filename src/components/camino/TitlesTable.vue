@@ -62,13 +62,12 @@
           <ul class="list-sans">
             <li
               v-for="column in columns"
-              :key="column">
-
+              :key="column.type">
               <label>
                 <input
                   type="checkbox"
                   class="mr-s">
-                {{ column }}
+                {{ column.name }}
               </label>
             </li>
           </ul>
@@ -105,7 +104,25 @@ export default {
     return {
       pages: [1, 2, 3, 4, 5],
       pageActive: 1,
-      columns: ['domain', 'name', 'owner', 'type', 'status', 'substances']
+      columns: [{
+        type: 'domain',
+        name: 'Domaine'
+      }, {
+        type: 'name',
+        name: 'Nom'
+      }, {
+        type: 'owner',
+        name: 'Titulaires'
+      }, {
+        type: 'type',
+        name: 'Type'
+      }, {
+        type: 'status',
+        name: 'Statut'
+      }, {
+        type: 'substances',
+        name: 'Substances'
+      }]
     }
   }
 

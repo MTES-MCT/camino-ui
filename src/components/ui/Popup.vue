@@ -3,18 +3,19 @@
     <div
       class="absolute full bg-inverse-alpha" 
       @click="closeDefault" />
-    <div class="popup fixed shadow full bg-bg p-l pb-s rnd">
-      <div class="flex flex-start">
-        <h2>{{ config.title }}</h2>
+    <div class="popup fixed shadow full bg-bg">
+      <div class="popup-header flex flex-start p-l">
+        <h2 class="mb-0">{{ config.title }}</h2>
         <button
           v-if="config.close"
           class="btn flex-right px-s py-xs mt--s"
           @click="closeDefault"><i class="icon-24 icon-24-close" /></button>
       </div>
-      <hr>
-      <component
-        :is="config.component"
-        @popup-close="close" />
+      <div class="popup-content px-l pb-s pt">
+        <component
+          :is="config.component"
+          @popup-close="close" />
+      </div>
     </div>
   </div>
 </template>

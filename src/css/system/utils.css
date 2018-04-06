@@ -40,6 +40,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   overflow-x: auto;
 }
 
+.overflow-scroll-y {
+  overflow-y: auto;
+}
+
 .inline-block {
   display: inline-block;
 }
