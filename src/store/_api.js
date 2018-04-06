@@ -6,7 +6,8 @@ const titres = [
   'per-saint-just-en-brie',
   'conc-grand-serre',
   'conc-laconquillie',
-  'per-lauterbourg'
+  'per-lauterbourg',
+  'per-pedral'
 ]
 
 const api = {
