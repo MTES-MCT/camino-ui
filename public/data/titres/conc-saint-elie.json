@@ -26,12 +26,29 @@
       {
         "type": "Feature",
         "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [-53.34999904783266, 4.807578944001259],
+                [-53.35034739639907, 4.908114758095491],
+                [-53.26918891132737, 4.908395685012133],
+                [-53.26885256577197, 4.807854090232222],
+                [-53.34999904783266, 4.807578944001259]
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
           "type": "Point",
           "coordinates": [-53.349999047832661, 4.807578944001259]
         },
         "properties": {
-          "type": "contour",
-          "name": "A",
+          "groupe": "contour",
+          "nom": "A",
           "id": "ID-point-00001",
           "RGFG-95": ["235000", "235000"]
         }
@@ -43,8 +60,8 @@
           "coordinates": [-53.350347396399073, 4.908114758095491]
         },
         "properties": {
-          "type": "contour",
-          "name": "B",
+          "groupe": "contour",
+          "nom": "B",
           "id": "ID-point-00002",
           "RGFG-95": ["242804", "548520"]
         }
@@ -56,8 +73,8 @@
           "coordinates": [-53.269188911327369, 4.908395685012133]
         },
         "properties": {
-          "type": "contour",
-          "name": "C",
+          "groupe": "contour",
+          "nom": "C",
           "id": "ID-point-00003",
           "RGFG-95": ["242964", "545995"]
         }
@@ -69,8 +86,8 @@
           "coordinates": [-53.268852565771972, 4.807854090232222]
         },
         "properties": {
-          "type": "contour",
-          "name": "D",
+          "groupe": "contour",
+          "nom": "D",
           "id": "ID-point-00004",
           "RGFG-95": ["239369", "542995"]
         }

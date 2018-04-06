@@ -26,11 +26,31 @@
       {
         "type": "Feature",
         "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": [
+            [
+              [
+                [3.173541636232701, 48.68993674997124],
+                [3.191542035009233, 48.68993730950939],
+                [3.191542052766129, 48.68093730566811],
+                [3.218544261639781, 48.68093658587118],
+                [3.21854429272969, 48.67193751637976],
+                [3.245545047187876, 48.67193680888667],
+                [3.245545159341878, 48.61793781793066],
+                [3.173543383948531, 48.61793724269859]
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": {
           "type": "Point",
           "coordinates": [3.173541636232701, 48.689936749971238]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "A",
           "id": "ID-point-00001",
           "lambert-93": ["3°10'25\"", "48°41'24\""]
@@ -43,7 +63,7 @@
           "coordinates": [3.191542035009233, 48.689937309509389]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "B",
           "id": "ID-point-00002",
           "lambert-93": ["3°11'30\"", "48°41'24\""]
@@ -56,7 +76,7 @@
           "coordinates": [3.191542052766129, 48.68093730566811]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "C",
           "id": "ID-point-00003",
           "lambert-93": ["3°11'30\"", "48°40'51\""]
@@ -69,7 +89,7 @@
           "coordinates": [3.218544261639781, 48.68093658587118]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "D",
           "id": "ID-point-00004",
           "lambert-93": ["3°13'07\"", "48°40'51\""]
@@ -82,7 +102,7 @@
           "coordinates": [3.21854429272969, 48.671937516379757]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "E",
           "id": "ID-point-00005",
           "lambert-93": ["3°13'07\"", "48°40'19\""]
@@ -95,7 +115,7 @@
           "coordinates": [3.245545047187876, 48.67193680888667]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "F",
           "id": "ID-point-00006",
           "lambert-93": ["3°14'44\"", "48°40'19\""]
@@ -108,7 +128,7 @@
           "coordinates": [3.245545159341878, 48.61793781793066]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "G",
           "id": "ID-point-00007",
           "lambert-93": ["3°14'44\"", "48°37'05\""]
@@ -121,7 +141,7 @@
           "coordinates": [3.173543383948531, 48.617937242698588]
         },
         "properties": {
-          "type": "contour",
+          "groupe": "contour",
           "name": "H",
           "id": "ID-point-00007",
           "lambert-93": ["3°10'25\"", "48°37'05\""]
