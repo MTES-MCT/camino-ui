@@ -1,9 +1,17 @@
 <template>
   <accordion
-    :sub="true"
+    :sub="false"
     class="mb">
     <template slot="title">Filtres</template>
-    <template slot="sub">Filtres</template>
+    <template slot="sub">
+      <ul class="list-sans mb-xxs">
+        <li
+          v-for="filterSelected in filterSelecteds"
+          :key="filterSelected.name">
+          <tag>{{ filterSelected.name }}</tag>
+        </li>
+      </ul>
+    </template>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2 desktop-blob-1-3 mb-0">
         <div class="mb">
@@ -87,6 +95,14 @@ export default {
     Tag,
     TitleStatus,
     Accordion,
+  },
+
+  data () {
+    return {
+      filterSelecteds: [{
+        name: 'test'
+      }]
+    }
   },
 
   computed: {

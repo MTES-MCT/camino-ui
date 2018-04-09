@@ -26,10 +26,16 @@
 export default {
   name: 'UiSytemAccordion',
 
+  props: {
+    sub: {
+      type: Boolean,
+      default: false
+    }
+  },
+
   data () {
     return {
-      opened: false,
-      sub: false
+      opened: false
     }
   }
 
