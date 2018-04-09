@@ -1,31 +1,27 @@
 .icon {
   width: 100%;
   height: 100%;
-  display: inline-block;
-  vertical-align: middle;
+  display: block;
   background-size: cover;
 }
 
 .icon-8 {
   width: calc(var(--base-font-size) / 2);
   height: calc(var(--base-font-size) / 2);
-  display: inline-block;
-  vertical-align: middle;
+  display: block;
 }
 
 .icon-24 {
   width: var(--unit);
   height: var(--unit);
-  display: inline-block;
-  vertical-align: middle;
+  display: block;
   background-repeat: no-repeat;
 }
 
 .icon-48 {
   width: var(--unit-xl);
   height: var(--unit-xl);
-  display: inline-block;
-  vertical-align: middle;
+  display: block;
   background-repeat: no-repeat;
 }
 
