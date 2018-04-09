@@ -9,7 +9,12 @@
       </div>
     </button>
     <div
-      :class="{ 'height-0': !opened, 'pt': opened }"
+      :class="{ 'height-0': !sub, 'py-s': sub }"
+      class="px-m">
+      <slot name="sub" />
+    </div>
+    <div
+      :class="{ 'height-0': !opened, 'pt-m': opened }"
       class="px-m">
       <slot />
     </div>
@@ -23,7 +28,8 @@ export default {
 
   data () {
     return {
-      opened: false
+      opened: false,
+      sub: false
     }
   }
 
