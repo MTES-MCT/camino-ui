@@ -14,11 +14,11 @@
     </td>
     <td>{{ document.nom }}</td>
     <td>{{ document.date | dateFormat }}</td>
-    <td class="right">
-      <button class="btn h5 px-xs py-xs my--s mr-xs">
+    <td class="flex">
+      <button class="btn h5 px-xs py-xs my--xs mr-xs">
         <i class="icon-24 icon-24-view"/>
       </button>
-      <button class="btn h5 px-xs py-xs my--s">
+      <button class="btn h5 px-xs py-xs my--xs">
         <i class="icon-24 icon-24-download"/>
       </button>
     </td>
