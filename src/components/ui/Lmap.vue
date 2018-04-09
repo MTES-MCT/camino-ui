@@ -38,12 +38,12 @@ export default {
   },
 
   mounted () {
-    this.initMap()
-    this.initLayers()
+    this.mapInit()
+    this.layersInit()
   },
 
   methods: {
-    initMap () {
+    mapInit () {
       this.map = L.map('map')
       this.tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
         maxZoom: 13,
@@ -53,9 +53,9 @@ export default {
       this.tileLayer.addTo(this.map)
     },
 
-    initLayers () {
-      const geogsonLayer = L.geoJSON(this.geojson).addTo(this.map)
-      this.map.fitBounds(geogsonLayer.getBounds())
+    layersInit () {
+      const geojsonLayer = L.geoJSON(this.geojson).addTo(this.map)
+      this.map.fitBounds(geojsonLayer.getBounds())
     }
   }
 

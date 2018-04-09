@@ -1,8 +1,28 @@
 <template>
-  <div 
-    id="map"
-    ref="map"
-    class="map" />
+  <div>
+    <div 
+      id="map"
+      ref="map"
+      class="map mb" />
+    
+    <ul class="list-inline">
+      <li>
+        <button
+          class="btn-border px-m py-s"
+          @click="mapFit('global')">Ensemble</button>
+      </li>
+      <li>
+        <button
+          class="btn-border px-m py-s"
+          @click="mapFit('fr')">Métropole</button>
+      </li>
+      <li>
+        <button
+          class="btn-border px-m py-s"
+          @click="mapFit('gf')">Guyane</button>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -33,17 +53,26 @@ export default {
   data () {
     return {
       map: null,
-      tileLayer: null
+      tileLayer: null,
+      geojsons: {
+        fr: {
+          type: "LineString", coordinates: [[-5.1406, 41.3337], [9.5593, 51.0891]]
+        },
+        gf: {
+          type: 'LineString', coordinates: [[-54.5425, 2.1271], [-51.6139, 5.7765]]
+        },
+        global: []
+      }
     }
   },
 
   mounted () {
-    this.initMap()
-    this.initLayers()
+    this.mapInit()
+    this.layerInit()
   },
 
   methods: {
-    initMap () {
+    mapInit () {
       this.map = L.map('map')
       this.tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
         maxZoom: 20,
@@ -52,17 +81,16 @@ export default {
       this.tileLayer.addTo(this.map)
     },
 
-    initLayers () {
-      const polygons = []
+    layerInit () {
+      this.geojsons.global = []
       this.titles.forEach(title => {
         const geojson = title.geojson.features.find(feature => feature.geometry.type === 'MultiPolygon')
         geojson.properties = geojson.properties || {}
         geojson.properties.id = title.id
-        polygons.push(geojson)
-
+        this.geojsons.global.push(geojson)
       })
 
-      const n = L.geoJSON(polygons, {
+      const geojsonLayer = L.geoJSON(this.geojsons.global, {
         onEachFeature: (feature, layer) => {
           layer.on({
             click: (e) => {
@@ -73,7 +101,12 @@ export default {
         }
       }).addTo(this.map)
 
-      this.map.fitBounds(n.getBounds())
+      this.map.fitBounds(geojsonLayer.getBounds())
+    },
+
+    mapFit (zone) {
+      const geojsonLayer = L.geoJSON(this.geojsons[zone])
+      this.map.fitBounds(geojsonLayer.getBounds())
     }
   }
 
