@@ -1,5 +1,5 @@
 <template>
-  <div class="border">
+  <div class="border flex flex-direction-column">
     <button
       class="btn-border py-s px-m flex full-x"
       @click="opened = !opened">
