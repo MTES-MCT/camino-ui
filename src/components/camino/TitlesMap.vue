@@ -74,11 +74,14 @@ export default {
   methods: {
     mapInit () {
       this.map = L.map('map')
-      this.tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+      this.tileLayer = L.tileLayer("https://wxs.ign.fr/pratique/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", {
         maxZoom: 20,
         attribution: '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       })
       this.tileLayer.addTo(this.map)
+      L.control.scale({
+        imperial: false
+      }).addTo(this.map)
     },
 
     layerInit () {
