@@ -5,7 +5,7 @@
       ref="map"
       class="map mb" />
     <div class="tablet-blobs">
-      <div class="tablet-blob-3-4">
+      <div class="tablet-blob-1-2">
         <ul class="list-inline">
           <li>
             <button
@@ -19,7 +19,7 @@
           </li>
         </ul>
       </div>
-      <div class="tablet-blob-1-4">
+      <div class="tablet-blob-1-2">
         <accordion>
           <template slot="title">Fond de carte</template>
           <ul class="list-sans">
@@ -95,8 +95,16 @@ export default {
           url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
           attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
         },
-        'IGN': {
-          url: 'https://wxs.ign.fr/pratique/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+        'Géoportail / Cartes IGN': {
+          url: 'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+          attribution: 'IGN-F/Geoportail'
+        },
+        'Géoportail / Cartes SCAN Express Standard': {
+          url: 'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+          attribution: 'IGN-F/Geoportail'
+        },
+        'Géoportail / Plan IGN': {
+          url: 'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
           attribution: 'IGN-F/Geoportail'
         }
       },
