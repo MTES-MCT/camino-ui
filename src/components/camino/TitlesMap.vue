@@ -115,6 +115,7 @@ export default {
   mounted () {
     this.mapInit()
     this.layerInit()
+    this.mapFit('fr')
   },
 
   methods: {
@@ -146,7 +147,7 @@ export default {
         this.geojsons.global.push(geojson)
       })
 
-      const geojsonLayer = L.geoJSON(this.geojsons.global, {
+      L.geoJSON(this.geojsons.global, {
         onEachFeature: (feature, layer) => {
           layer.on({
             click: (e) => {
@@ -156,8 +157,6 @@ export default {
           })
         }
       }).addTo(this.map)
-
-      this.map.fitBounds(geojsonLayer.getBounds())
     },
 
     mapFit (zone) {
