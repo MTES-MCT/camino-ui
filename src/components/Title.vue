@@ -42,21 +42,21 @@
           <div class="blobs">
             <div class="blob-1-2">
               <h6>Début</h6>
-              <h4 class="mb-0">{{ titre['validité']['début'] | dateFormat }}</h4>
+              <h4>{{ titre['validité']['début'] | dateFormat }}</h4>
             </div>
             <div class="blob-1-2">
               <h6>Durée</h6>
-              <h4 class="mb-0">{{ `${titre['validité']['durée']} ans` }}</h4>
+              <h4>{{ `${titre['validité']['durée']} ans` }}</h4>
             </div>
           </div>
           <div class="blobs">
             <div class="blob-1-2 mb-0">
               <h6>Statut</h6>
-              <h4 class="mb-0"><title-status :status="titre.statut" />{{ titre.statut }}</h4>
+              <h4><title-status :status="titre.statut" />{{ titre.statut }}</h4>
             </div>
             <div class="blob-1-2 mb-0">
               <h6>Travaux</h6>
-              <h4 class="mb-0"><title-status :status="titre.travaux" />{{ titre.travaux }}</h4>
+              <h4><title-status :status="titre.travaux" />{{ titre.travaux }}</h4>
             </div>
           </div>
         </div>
