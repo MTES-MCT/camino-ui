@@ -26,7 +26,7 @@
       </div>
       <div class="tablet-blob-1-4">
         <accordion>
-          <template slot="title">Carte</template>
+          <template slot="title">Fond de carte</template>
           <ul class="list-sans">
             <li
               v-for="(tile, tileName ) in tiles"

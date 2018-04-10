@@ -6,15 +6,15 @@
     <div class="flex">
       <h2 class="mt-s">Titres</h2>
       <ul class="list-inline flex-right">
-        <li>
+        <li :class="{ active: viewCurrent === 'map' }">
           <button
             class="btn-border px-m py-s"
-            @click="viewSet('carte')">Carte</button>
+            @click="viewSet('map')"><i class="icon-24 icon-24-globe" /></button>
         </li>
-        <li>
+        <li :class="{ active: viewCurrent === 'list' }">
           <button
             class="btn-border px-m py-s"
-            @click="viewSet('liste')">Liste</button>
+            @click="viewSet('list')"><i class="icon-24 icon-24-list" /></button>
         </li>
       </ul>
     </div>
@@ -23,7 +23,7 @@
 
     <component
       :titles="titres"
-      :is="viewCurrent" />
+      :is="viewComponent" />
   </card>
 </template>
 
@@ -46,7 +46,7 @@ export default {
   data () {
     return {
       filtersOpened: false,
-      viewCurrent: TitlesMap
+      viewCurrent: 'map'
     }
   },
 
@@ -59,6 +59,9 @@ export default {
     },
     loaded () {
       return !!this.titres
+    },
+    viewComponent () {
+      return this.viewCurrent === 'map' ? TitlesMap : TitlesTable
     }
   },
 
@@ -75,11 +78,7 @@ export default {
       this.$store.dispatch('titles/get')
     },
     viewSet (viewNew) {
-      if (viewNew === 'carte') {
-        this.viewCurrent = TitlesMap
-      } else {
-        this.viewCurrent = TitlesTable
-      }
+      this.viewCurrent = viewNew
     }
   }
 

@@ -1,6 +1,7 @@
 <template>
   <div class="border flex flex-direction-column">
     <button
+      :class="{ 'rnd-top': opened }"
       class="btn-border py-s px-m flex full-x"
       @click="opened = !opened">
       <h4 class="mb-0"><slot name="title"/></h4>

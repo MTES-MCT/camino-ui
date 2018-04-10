@@ -42,6 +42,13 @@
   font-weight: 700;
 }
 
+.btn,
+.btn-alt,
+.btn-border,
+.btn-transparent {
+  border-radius: var(--unit-xs);
+}
+
 .btn-icon {
   line-height: 1rem;
 }

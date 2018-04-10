@@ -159,11 +159,11 @@
   }
 }
 
-/* .icon-48-close {
+.icon-24-globe {
   background-image: svg-load(
-    './icons/48-close.svg',
+    './icons/globe-3.svg',
     fill=none,
-    stroke=var(--color-highlight),
+    stroke='#666',
     stroke-linecap=round,
     stroke-linejoin=round,
     stroke-miterlimit=10,
@@ -171,13 +171,42 @@
   );
 }
 
-.btn-icon:hover .icon-48-close {
+
+.active .icon-24-globe,
+.btn-border:hover .icon-24-globe {
   background-image: svg-load(
-    './icons/48-close.svg',
-    stroke=var(--color-bg),
+    './icons/globe-3.svg',
+    fill=none,
+    stroke='white',
     stroke-linecap=round,
     stroke-linejoin=round,
     stroke-miterlimit=10,
     stroke-width=1px
   );
-} */
+}
+
+.icon-24-list {
+  background-image: svg-load(
+    './icons/folder.svg',
+    fill=none,
+    stroke='#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
+}
+
+
+.active .icon-24-list,
+.btn-border:hover .icon-24-list {
+  background-image: svg-load(
+    './icons/folder.svg',
+    fill=none,
+    stroke='white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
+}
