@@ -10,11 +10,6 @@
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="mapFit('global')">Monde</button>
-          </li>
-          <li>
-            <button
-              class="btn-border px-m py-s"
               @click="mapFit('fr')">Métropole</button>
           </li>
           <li>

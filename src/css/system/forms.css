@@ -79,29 +79,7 @@ select.bg-bg:disabled {
   background-color: color-mod(var(--color-bg) alpha(50%));
 }
 
-*::-webkit-input-placeholder {
-  /* WebKit, Blink, Edge */
-  color: var(--color-neutral);
-}
-
-*:-moz-placeholder {
-  /* Mozilla Firefox 4 to 18 */
-  color: var(--color-neutral);
-  opacity: 1;
-}
-
-*::-moz-placeholder {
-  /* Mozilla Firefox 19+ */
-  color: var(--color-neutral);
-  opacity: 1;
-}
-
-*:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
-  color: var(--color-neutral);
-}
-
-*::-ms-input-placeholder {
-  /* Microsoft Edge */
+*::placeholder {
+  font-style: italic;
   color: var(--color-neutral);
 }

@@ -17,17 +17,20 @@
         <div class="mb">
           <h6>Localisation</h6>
           <input
-            type="text">
+            type="text"
+            placeholder="Région, département, commune…">
         </div>
         <div class="mb">
           <h6>Titulaire</h6>
           <input
-            type="text">
+            type="text"
+            placeholder="Nom du titulaire…">
         </div>
         <div class="mb">
           <h6>Substances</h6>
           <input
-            type="text">
+            type="text"
+            placeholder="Or, Argent, Ag…">
         </div>
       </div>
       <div class="tablet-blob-1-2 desktop-blob-1-3 mb-0">

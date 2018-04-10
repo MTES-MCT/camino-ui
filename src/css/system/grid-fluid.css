@@ -33,6 +33,14 @@ https://github.com/francoisromain/postcss-grid-fluid
 .blob-5-6,
 .blob-btn,
 .blob-3-4-btn,
+.phone-blob-1,
+.phone-blob-1-2,
+.phone-blob-1-3,
+.phone-blob-2-3,
+.phone-blob-1-4,
+.phone-blob-3-4,
+.phone-blob-1-6,
+.phone-blob-5-6,
 .tablet-blob-1,
 .tablet-blob-1-2,
 .tablet-blob-1-3,
@@ -100,6 +108,56 @@ https://github.com/francoisromain/postcss-grid-fluid
   margin-right: var(--gutter);
   margin-bottom: var(--gutter);
   flex: 0 1 calc(75% - var(--gutter) - 3rem - var(--gutter));
+}
+
+@media (--viewport-mobile) {
+  .mobile-blobs {
+    gf: row;
+  }
+
+  .mobile-blob {
+    margin-right: var(--gutter);
+    margin-bottom: var(--gutter);
+    flex: 0 1 0;
+  }
+
+  .mobile-blob-auto {
+    margin-right: var(--gutter);
+    margin-bottom: var(--gutter);
+    flex: 0 1 auto;
+  }
+
+  .mobile-blob-1 {
+    gf: blob 1;
+  }
+
+  .mobile-blob-1-2 {
+    gf: blob 1/2;
+  }
+
+  .mobile-blob-1-3 {
+    gf: blob 1/3;
+  }
+
+  .mobile-blob-2-3 {
+    gf: blob 2/3;
+  }
+
+  .mobile-blob-1-4 {
+    gf: blob 1/4;
+  }
+
+  .mobile-blob-3-4 {
+    gf: blob 3/4;
+  }
+
+  .mobile-blob-1-6 {
+    gf: blob 1/4;
+  }
+
+  .mobile-blob-5-6 {
+    gf: blob 3/4;
+  }
 }
 
 @media (--viewport-tablet) {

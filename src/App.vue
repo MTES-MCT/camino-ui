@@ -1,14 +1,14 @@
 <template>
   <page>
     <template slot="header">
-      <topbar />
+      <page-header />
     </template>
 
     <ribbon value="beta"/>
     <router-view />
     
     <template slot="footer">
-      <div class="p">Footer</div>
+      <page-footer />
     </template>
 
     <popup
@@ -22,7 +22,8 @@
 import Page from './components/ui/Page.vue'
 import Popup from './components/ui/Popup.vue'
 import Ribbon from './components/ui/Ribbon.vue'
-import Topbar from './components/Topbar.vue'
+import PageHeader from './components/PageHeader.vue'
+import PageFooter from './components/PageFooter.vue'
 import PopupDisclaimer from './components/camino/PopupDisclaimer.vue'
 
 export default {
@@ -32,7 +33,8 @@ export default {
     Page,
     Popup,
     Ribbon,
-    Topbar
+    PageHeader,
+    PageFooter
   },
 
   data () {

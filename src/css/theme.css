@@ -12,7 +12,15 @@
 }
 
 .logo {
-  typescale: 2 0.75;
+  typescale: 3 0.75;
+}
+
+a.logo {
+  color: var(--color-inverse);
+}
+
+.sponsor {
+  max-height: calc(var(--unit) * 3);
 }
 
 .active .btn-menu {

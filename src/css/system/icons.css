@@ -112,7 +112,7 @@
   );
 }
 
-
+.btn-border:hover .icon-24-chevron-b,
 .btn:hover .icon-24-chevron-b {
   background-image: svg-load(
     './icons/24-chevron-b.svg',
