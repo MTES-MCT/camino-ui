@@ -4,6 +4,7 @@
       id="map"
       ref="map"
       class="map mb" />
+    <pre>{{ mockGeodata }}</pre>
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <ul class="list-inline">
@@ -112,16 +113,29 @@ export default {
     }
   },
 
+  computed: {
+    mockGeodata () {
+      return this.$store.state.titles.mockGeodata
+    }
+  },
+
   mounted () {
+    this.mockGeodataGet().then(mockGeodata => {
+      this.mockLayerInit(mockGeodata)
+    })
     this.mapInit()
-    this.layerInit()
+    // this.layerInit()
+    this.mockLayerInit()
     this.mapFit('fr')
   },
 
   methods: {
+    mockGeodataGet () {
+      return this.$store.dispatch('titles/mocksGet')
+    },
+
     mapInit () {
       this.map = L.map('map')
-
       this.mapTileAdd()
 
       L.control.scale({
@@ -155,6 +169,18 @@ export default {
               this.$router.push({ name: 'titre', params: { id: feature.properties.id } })
             }
           })
+        }
+      }).addTo(this.map)
+    },
+
+    mockLayerInit (mockGeodata) {
+      L.geoJSON(mockGeodata, {
+        style: {
+          fillColor: 'blue',
+          weight: 0,
+          opacity: 1,
+          color: 'white',
+          fillOpacity: 0.5
         }
       }).addTo(this.map)
     },

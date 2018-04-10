@@ -13,6 +13,8 @@ const titres = [
   'aex-georgeon'
 ]
 
+const mocks = ['geothermie']
+
 const api = {
   titresGet() {
     return Promise.all([
@@ -24,6 +26,18 @@ const api = {
 
   titreGet(id) {
     return fetch(`${baseUrl}data/titres/${id}.json`).then(r => r.json())
+  },
+
+  mocksGet() {
+    return Promise.all([
+      ...mocks.map(id =>
+        fetch(`${baseUrl}data/mocks/${id}.json`).then(r => r.json())
+      )
+    ]).then(r => r)
+  },
+
+  mockGeodataGet() {
+    return fetch(`${baseUrl}data/mock-geodata.json`).then(r => r.json())
   }
 }
 

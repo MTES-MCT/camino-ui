@@ -32,7 +32,7 @@
               src="../../public/img/logo-betagouv.svg">
           </div>
         </div>
-        <p class="h6 color-neutral"><b>Camino</b> imaginé par <b>&hearts;</b> du service public à la <i> Fabrique numérique</i><br>des Ministère de la Transition écologique et solidaire</p>
+        <p class="h6 color-neutral">Imaginé par <b>&hearts;</b> du service public à la <i> Fabrique numérique</i><br>des Ministère de la Transition écologique et solidaire.</p>
       </div>
 
     </div>
