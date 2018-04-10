@@ -22,44 +22,6 @@ https://github.com/francoisromain/postcss-grid-fluid
   gf: row;
 }
 
-.blob,
-.blob-1,
-.blob-1-2,
-.blob-1-3,
-.blob-2-3,
-.blob-1-4,
-.blob-3-4,
-.blob-1-6,
-.blob-5-6,
-.blob-btn,
-.blob-3-4-btn,
-.phone-blob-1,
-.phone-blob-1-2,
-.phone-blob-1-3,
-.phone-blob-2-3,
-.phone-blob-1-4,
-.phone-blob-3-4,
-.phone-blob-1-6,
-.phone-blob-5-6,
-.tablet-blob-1,
-.tablet-blob-1-2,
-.tablet-blob-1-3,
-.tablet-blob-2-3,
-.tablet-blob-1-4,
-.tablet-blob-3-4,
-.tablet-blob-1-6,
-.tablet-blob-5-6,
-.desktop-blob-1,
-.desktop-blob-1-2,
-.desktop-blob-1-3,
-.desktop-blob-2-3,
-.desktop-blob-1-4,
-.desktop-blob-3-4,
-.desktop-blob-1-6,
-.desktop-blob-5-6 {
-  margin-bottom: var(--unit);
-}
-
 .blob {
   margin-right: var(--gutter);
   flex: 0 1 0;
@@ -91,11 +53,11 @@ https://github.com/francoisromain/postcss-grid-fluid
 }
 
 .blob-1-6 {
-  gf: blob 1/4;
+  gf: blob 1/6;
 }
 
 .blob-5-6 {
-  gf: blob 3/4;
+  gf: blob 5/6;
 }
 
 .blob-btn {
@@ -152,11 +114,11 @@ https://github.com/francoisromain/postcss-grid-fluid
   }
 
   .mobile-blob-1-6 {
-    gf: blob 1/4;
+    gf: blob 1/6;
   }
 
   .mobile-blob-5-6 {
-    gf: blob 3/4;
+    gf: blob 5/6;
   }
 }
 
@@ -206,17 +168,21 @@ https://github.com/francoisromain/postcss-grid-fluid
   }
 
   .tablet-blob-1-6 {
-    gf: blob 1/4;
+    gf: blob 1/6;
   }
 
   .tablet-blob-5-6 {
-    gf: blob 3/4;
+    gf: blob 5/6;
   }
 }
 
 @media (--viewport-desktop) {
   .container {
     width: calc(3 * var(--col-width) + var(--gutter));
+  }
+
+  .desktop-blobs {
+    gf: row;
   }
 
   .desktop-blob-1 {
@@ -244,16 +210,52 @@ https://github.com/francoisromain/postcss-grid-fluid
   }
 
   .desktop-blob-1-6 {
-    gf: blob 1/4;
+    gf: blob 1/6;
   }
 
   .desktop-blob-5-6 {
-    gf: blob 3/4;
+    gf: blob 5/6;
   }
 }
 
 @media (--viewport-large) {
   .container {
     width: calc(4 * var(--col-width) + var(--gutter));
+  }
+
+  .large-blobs {
+    gf: row;
+  }
+
+  .large-blob-1 {
+    gf: blob 1;
+  }
+
+  .large-blob-1-2 {
+    gf: blob 1/2;
+  }
+
+  .large-blob-1-3 {
+    gf: blob 1/3;
+  }
+
+  .large-blob-2-3 {
+    gf: blob 2/3;
+  }
+
+  .large-blob-1-4 {
+    gf: blob 1/4;
+  }
+
+  .large-blob-3-4 {
+    gf: blob 3/4;
+  }
+
+  .large-blob-1-6 {
+    gf: blob 1/6;
+  }
+
+  .large-blob-5-6 {
+    gf: blob 5/6;
   }
 }

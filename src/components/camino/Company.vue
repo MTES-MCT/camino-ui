@@ -1,52 +1,50 @@
 <template>
   <accordion class="mb">
     <template slot="title">{{ company.nom }}</template>
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-6 mb-s">
-        <h6 class="mt-xs">Adresse</h6>
+    <div class="large-blobs">
+      <div class="large-blob-1-6">
+        <h6>Adresse</h6>
       </div>
-      <div class="tablet-blob-5-6 mb-s">
+      <div class="large-blob-5-6 mb">
         {{ company.adresse.ligne_1 }}
         <br v-if="company.adresse.ligne_2">{{ company.adresse.ligne_2 }}
         <br>{{ company.adresse.code_postal }} {{ company.adresse.ville }}
       </div>
     </div>
-    <table class="table-xs table-sans">
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-6 mb-s"><h6 class="mt-xs">Service</h6></div>
-        <div class="tablet-blob-5-6 mb-s">
-          {{ company.contact.service }}
-        </div>
+    <div class="large-blobs">
+      <div class="large-blob-1-6"><h6>Service</h6></div>
+      <div class="large-blob-5-6 mb">
+        {{ company.contact.service }}
       </div>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-6 mb-s"><h6 class="mt-xs">Nom</h6></div>
-        <div class="tablet-blob-5-6 mb-s">
-          {{ company.contact.prenom }} {{ company.contact.nom }}
-        </div>
+    </div>
+    <div class="large-blobs">
+      <div class="large-blob-1-6"><h6>Nom</h6></div>
+      <div class="large-blob-5-6 mb">
+        {{ company.contact.prenom }} {{ company.contact.nom }}
       </div>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-6 mb-s"><h6 class="mt-xs">Téléphone</h6></div>
-        <div class="tablet-blob-5-6 mb-s">
-          {{ company.contact.telephone }}
-        </div>
+    </div>
+    <div class="large-blobs">
+      <div class="large-blob-1-6"><h6>Téléphone</h6></div>
+      <div class="large-blob-5-6 mb">
+        {{ company.contact.telephone }}
       </div>
-      <div 
-        v-if="company.contact.mobile"
-        class="tablet-blobs" >
-        <div class="tablet-blob-1-6 mb-s"><h6 class="mt-xs">Mobile</h6></div>
-        <div class="tablet-blob-5-6 mb-s">
-          {{ company.contact.mobile }}
-        </div>
+    </div>
+    <div 
+      v-if="company.contact.mobile"
+      class="large-blobs" >
+      <div class="large-blob-1-6"><h6>Mobile</h6></div>
+      <div class="large-blob-5-6 mb">
+        {{ company.contact.mobile }}
       </div>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-6 mb-s"><h6 class="mt-xs">Email</h6></div>
-        <div class="tablet-blob-5-6 mb-s">
-          <a 
-            :href="`mailto:${company.contact.email}`"
-            class="btn h6 bold py-xs px-s rnd">{{ company.contact.email }}</a>
-        </div>
+    </div>
+    <div class="large-blobs">
+      <div class="large-blob-1-6"><h6>Email</h6></div>
+      <div class="large-blob-5-6 mb">
+        <a 
+          :href="`mailto:${company.contact.email}`"
+          class="btn h6 bold py-xs px-s rnd word-break">{{ company.contact.email }}</a>
       </div>
-    </table>
+    </div>
   </accordion>
 </template>
 

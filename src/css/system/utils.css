@@ -32,6 +32,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   pointer-events: none;
 }
 
+.word-break {
+  word-break: break-all;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }

@@ -4,8 +4,8 @@
       id="map"
       ref="map"
       class="map mb" />
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-2">
+    <div class="desktop-blobs">
+      <div class="desktop-blob-1-2">
         <ul class="list-inline">
           <li>
             <button
@@ -19,8 +19,8 @@
           </li>
         </ul>
       </div>
-      <div class="tablet-blob-1-2">
-        <accordion>
+      <div class="desktop-blob-1-2">
+        <accordion class="mb">
           <template slot="title">Fond de carte</template>
           <ul class="list-sans">
             <li

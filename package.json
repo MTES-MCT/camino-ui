@@ -27,7 +27,7 @@
     "postcss-custom-selectors": "^4.0.1",
     "postcss-font-family-system-ui": "^3.0.0",
     "postcss-font-variant": "^3.0.0",
-    "postcss-grid-fluid": "^0.2.1",
+    "postcss-grid-fluid": "^0.3.0",
     "postcss-grid-system": "^0.4.11",
     "postcss-image-set-polyfill": "^0.4.4",
     "postcss-import": "^11.1.0",

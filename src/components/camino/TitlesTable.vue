@@ -40,9 +40,9 @@
         </router-link>
       </table>
     </div>
-    <div class="tablet-blobs">
-      <div class="tablet-blob-3-4">
-        <ul class="list-inline mb-0">
+    <div class="desktop-blobs">
+      <div class="desktop-blob-3-4">
+        <ul class="list-inline">
           <li
             v-for="page in pages"
             :key="page"
@@ -56,8 +56,8 @@
           </li>
         </ul>
       </div>
-      <div class="tablet-blob-1-4">
-        <accordion>
+      <div class="desktop-blob-1-4">
+        <accordion class="mb">
           <template slot="title">Affichage</template>
           <ul class="list-sans">
             <li

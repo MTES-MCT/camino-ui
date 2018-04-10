@@ -7,13 +7,13 @@
       </div>
       <div class="tablet-blob-1-2">
         <div class="blobs">
-          <div class="blob-1-2 mb-0">
+          <div class="blob-1-2">
             <h6>Statut</h6>
-            <h4 class="mb-0"><title-status :status="event.statut" />{{ event.statut }}</h4>
+            <h4><title-status :status="event.statut" />{{ event.statut }}</h4>
           </div>
-          <div class="blob-1-2 mb-0">
+          <div class="blob-1-2">
             <h6>Date</h6>
-            <h4 class="mb-0">{{ date | dateFormat }}</h4>
+            <h4>{{ date | dateFormat }}</h4>
           </div>
         </div>
       </div>

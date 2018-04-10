@@ -1,6 +1,6 @@
 <template>
   <card>
-    Loading…
+    <div class="mb">Loading…</div>
   </card>
 </template>
 

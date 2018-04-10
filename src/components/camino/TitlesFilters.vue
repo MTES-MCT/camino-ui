@@ -13,7 +13,7 @@
       </ul>
     </template>
     <div class="tablet-blobs">
-      <div class="tablet-blob-1-2 desktop-blob-1-3 mb-0">
+      <div class="tablet-blob-1-2 desktop-blob-1-3">
         <div class="mb">
           <h6>Localisation</h6>
           <input
@@ -33,7 +33,7 @@
             placeholder="Or, Argent, Ag…">
         </div>
       </div>
-      <div class="tablet-blob-1-2 desktop-blob-1-3 mb-0">
+      <div class="tablet-blob-1-2 desktop-blob-1-3">
         <h6>Domaine</h6>
         <ul class="list-sans">
           <li
@@ -51,7 +51,7 @@
           </li>
         </ul>
       </div>
-      <div class="tablet-blob-1-2 desktop-blob-1-3 mb-0">
+      <div class="tablet-blob-1-2 desktop-blob-1-3">
         <div class="mb">
           <h6>Type</h6>
           <ul class="list-sans">
