@@ -14,19 +14,19 @@
     <div class="large-blobs">
       <div class="large-blob-1-6"><h6>Service</h6></div>
       <div class="large-blob-5-6 mb">
-        {{ company.contact.service }}
+        <p class="word-break">{{ company.contact.service }}</p>
       </div>
     </div>
     <div class="large-blobs">
       <div class="large-blob-1-6"><h6>Nom</h6></div>
       <div class="large-blob-5-6 mb">
-        {{ company.contact.prenom }} {{ company.contact.nom }}
+        <p class="word-break">{{ company.contact.prenom }} {{ company.contact.nom }}</p>
       </div>
     </div>
     <div class="large-blobs">
       <div class="large-blob-1-6"><h6>Téléphone</h6></div>
       <div class="large-blob-5-6 mb">
-        {{ company.contact.telephone }}
+        <p class="word-break">{{ company.contact.telephone }}</p>
       </div>
     </div>
     <div 
@@ -34,15 +34,19 @@
       class="large-blobs" >
       <div class="large-blob-1-6"><h6>Mobile</h6></div>
       <div class="large-blob-5-6 mb">
-        {{ company.contact.mobile }}
+        <p class="word-break">{{ company.contact.mobile }}</p>
       </div>
     </div>
     <div class="large-blobs">
       <div class="large-blob-1-6"><h6>Email</h6></div>
-      <div class="large-blob-5-6 mb">
-        <a 
-          :href="`mailto:${company.contact.email}`"
-          class="btn h6 bold py-xs px-s rnd word-break">{{ company.contact.email }}</a>
+      <div class="large-blob-5-6">
+        <p class="word-break">
+          <a 
+            :href="`mailto:${company.contact.email}`"
+            class="btn h6 bold py-xs px-s rnd">
+            {{ company.contact.email }}
+          </a>
+        </p>
       </div>
     </div>
   </accordion>

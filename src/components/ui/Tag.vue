@@ -1,9 +1,9 @@
 <template>
-  <span
+  <div
     :class="`${color}`"
-    class="h6 bold color-bg py-xs px-s pill">
+    class="h6 bold color-bg py-xs px-s pill inline-block">
     <slot />
-  </span>
+  </div>
 </template>
 
 <script>

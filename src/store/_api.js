@@ -13,7 +13,7 @@ const titres = [
   'aex-georgeon'
 ]
 
-const mocks = ['geothermie', 'hydrocarbures', 'mineraux', 'stockage']
+const mocks = ['geothermie', 'hydrocarbures', 'mineraux', 'mineraux-rntm', 'stockage']
 
 const api = {
   titresGet() {

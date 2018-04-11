@@ -123,8 +123,8 @@ export default {
       this.mockLayerInit(mockGeodata)
     })
     this.mapInit()
-    this.layerInit()
     this.mockLayerInit()
+    this.layerInit()
     this.mapFit('fr')
   },
 
@@ -201,6 +201,15 @@ export default {
                 color: 'white'
               }
             case 'mineraux':
+              return {
+                fillColor: '#498bd6',
+                fillOpacity: 0.75,
+                weight: 0,
+                opacity: 1,
+                color: 'white'
+              }
+            
+            default:
               return {
                 fillColor: '#498bd6',
                 fillOpacity: 0.5,

@@ -26,7 +26,7 @@
           <div class="blobs">
             <div class="blob-1-2">
               <h6>Références</h6>
-              <p class="mb-0">
+              <p>
                 {{ titre['références']['métier'] }}
               </p>
             </div>
@@ -34,7 +34,7 @@
               v-if="titre['références']['rntm']"
               class="blob-1-2">
               <h6>RNTM</h6>
-              <p class="mb-0">
+              <p>
                 {{ titre['références']['rntm'] }}
               </p>
             </div>

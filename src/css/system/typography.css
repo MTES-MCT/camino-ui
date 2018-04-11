@@ -60,13 +60,13 @@ h4,
 
 h5,
 .h5 {
-  typescale: -1 1;
+  typescale: -1 0.75;
 }
 
 h6,
 .h6,
 small {
-  typescale: -1 1;
+  typescale: -1 0.75;
 }
 
 h6,
