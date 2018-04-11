@@ -20,8 +20,9 @@ export const actions = {
     })
   },
 
-  mocksGet() {
-    return api.mockGeodataGet().then(geodata => {
+  mocksGet({ commit }) {
+    return api.mocksGet().then(geodata => {
+      commit('mockGeodataSet', geodata)
       return geodata
     })
   }

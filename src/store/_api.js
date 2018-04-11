@@ -13,7 +13,7 @@ const titres = [
   'aex-georgeon'
 ]
 
-const mocks = ['geothermie']
+const mocks = ['geothermie', 'hydrocarbures', 'mineraux', 'stockage']
 
 const api = {
   titresGet() {
@@ -33,7 +33,10 @@ const api = {
       ...mocks.map(id =>
         fetch(`${baseUrl}data/mocks/${id}.json`).then(r => r.json())
       )
-    ]).then(r => r)
+    ]).then(r => ({
+      type: 'FeatureCollection',
+      features: r
+    }))
   },
 
   mockGeodataGet() {

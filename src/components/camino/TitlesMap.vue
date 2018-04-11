@@ -4,7 +4,6 @@
       id="map"
       ref="map"
       class="map mb" />
-    <pre>{{ mockGeodata }}</pre>
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <ul class="list-inline">
@@ -109,7 +108,7 @@ export default {
           attribution: 'IGN-F/Geoportail'
         }
       },
-      tileCurrent: 'osm / fr'
+      tileCurrent: 'Géoportail / Plan IGN'
     }
   },
 
@@ -124,7 +123,7 @@ export default {
       this.mockLayerInit(mockGeodata)
     })
     this.mapInit()
-    // this.layerInit()
+    this.layerInit()
     this.mockLayerInit()
     this.mapFit('fr')
   },
@@ -175,12 +174,41 @@ export default {
 
     mockLayerInit (mockGeodata) {
       L.geoJSON(mockGeodata, {
-        style: {
-          fillColor: 'blue',
-          weight: 0,
-          opacity: 1,
-          color: 'white',
-          fillOpacity: 0.5
+        style: function (feature) {
+          switch (feature.properties.type) {
+            case 'hydrocarbures':
+              return {
+                fillColor: '#856940',
+                fillOpacity: 0.5,
+                weight: 0,
+                opacity: 1,
+                color: 'white'
+              }
+            case 'stockage':
+              return {
+                fillColor: '#8468b1',
+                fillOpacity: 0.5,
+                weight: 0,
+                opacity: 1,
+                color: 'white'
+              }
+            case 'geothermie':
+              return {
+                fillColor: '#d16c3e',
+                fillOpacity: 0.5,
+                weight: 0,
+                opacity: 1,
+                color: 'white'
+              }
+            case 'mineraux':
+              return {
+                fillColor: '#498bd6',
+                fillOpacity: 0.5,
+                weight: 0,
+                opacity: 1,
+                color: 'white'
+              }
+          }
         }
       }).addTo(this.map)
     },
