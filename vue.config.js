@@ -1,4 +1,4 @@
-/*eslint-env node*/
+/* eslint-env node */
 const path = require('path')
 const appConfig = require('./src/app.config')
 const Jarvis = require('webpack-jarvis')
