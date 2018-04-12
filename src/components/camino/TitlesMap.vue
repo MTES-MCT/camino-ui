@@ -73,38 +73,45 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       map: null,
       tileLayer: null,
       geojsons: {
         fr: {
-          type: "LineString", coordinates: [[-5.1406, 41.3337], [9.5593, 51.0891]]
+          type: 'LineString',
+          coordinates: [[-5.1406, 41.3337], [9.5593, 51.0891]]
         },
         gf: {
-          type: 'LineString', coordinates: [[-54.5425, 2.1271], [-51.6139, 5.7765]]
+          type: 'LineString',
+          coordinates: [[-54.5425, 2.1271], [-51.6139, 5.7765]]
         },
         global: []
       },
       tiles: {
         'osm / fr': {
           url: 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
-          attribution: '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          attribution:
+            '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         },
         'osm / hot': {
           url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+          attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
         },
         'Géoportail / Cartes IGN': {
-          url: 'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+          url:
+            'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
           attribution: 'IGN-F/Geoportail'
         },
         'Géoportail / Cartes SCAN Express Standard': {
-          url: 'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+          url:
+            'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
           attribution: 'IGN-F/Geoportail'
         },
         'Géoportail / Plan IGN': {
-          url: 'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+          url:
+            'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
           attribution: 'IGN-F/Geoportail'
         }
       },
@@ -113,36 +120,37 @@ export default {
   },
 
   computed: {
-    mockGeodata () {
+    mockGeodata() {
       return this.$store.state.titles.mockGeodata
     }
   },
 
-  mounted () {
-    this.mockGeodataGet().then(mockGeodata => {
-      this.mockLayerInit(mockGeodata)
-    })
+  mounted() {
     this.mapInit()
-    this.mockLayerInit()
-    this.layerInit()
     this.mapFit('fr')
+    this.layerInit()
+    this.mockGeodataGet().then(() => {
+      this.mockLayerInit()
+    })
   },
 
   methods: {
-    mockGeodataGet () {
+    mockGeodataGet() {
       return this.$store.dispatch('titles/mocksGet')
     },
 
-    mapInit () {
+    mapInit() {
       this.map = L.map('map')
       this.mapTileAdd()
 
-      L.control.scale({
-        imperial: false
-      }).addTo(this.map)
+      L.control
+        .scale({
+          imperial: false
+        })
+        .addTo(this.map)
     },
 
-    mapTileAdd () {
+    mapTileAdd() {
       this.tileLayer = L.tileLayer(this.tiles[this.tileCurrent].url, {
         maxZoom: 20,
         attribution: this.tiles[this.tileCurrent].attribution
@@ -151,10 +159,12 @@ export default {
       this.tileLayer.addTo(this.map)
     },
 
-    layerInit () {
+    layerInit() {
       this.geojsons.global = []
       this.titles.forEach(title => {
-        const geojson = title.geojson.features.find(feature => feature.geometry.type === 'MultiPolygon')
+        const geojson = title.geojson.features.find(
+          feature => feature.geometry.type === 'MultiPolygon'
+        )
         geojson.properties = geojson.properties || {}
         geojson.properties.id = title.id
         this.geojsons.global.push(geojson)
@@ -163,18 +173,21 @@ export default {
       L.geoJSON(this.geojsons.global, {
         onEachFeature: (feature, layer) => {
           layer.on({
-            click: (e) => {
+            click: e => {
               console.log(e)
-              this.$router.push({ name: 'titre', params: { id: feature.properties.id } })
+              this.$router.push({
+                name: 'titre',
+                params: { id: feature.properties.id }
+              })
             }
           })
         }
       }).addTo(this.map)
     },
 
-    mockLayerInit (mockGeodata) {
-      L.geoJSON(mockGeodata, {
-        style: function (feature) {
+    mockLayerInit() {
+      L.geoJSON(this.mockGeodata, {
+        style: function(feature) {
           switch (feature.properties.type) {
             case 'hydrocarbures':
               return {
@@ -208,7 +221,7 @@ export default {
                 opacity: 1,
                 color: 'white'
               }
-            
+
             default:
               return {
                 fillColor: '#498bd6',
@@ -222,16 +235,15 @@ export default {
       }).addTo(this.map)
     },
 
-    mapFit (zone) {
+    mapFit(zone) {
       const geojsonLayer = L.geoJSON(this.geojsons[zone])
       this.map.fitBounds(geojsonLayer.getBounds())
     },
 
-    mapChange () {
+    mapChange() {
       this.tileLayer.removeFrom(this.map)
       this.mapTileAdd()
     }
   }
-
 }
 </script>
