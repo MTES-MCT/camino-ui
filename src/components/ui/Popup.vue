@@ -11,7 +11,7 @@
           class="btn flex-right px-s py-xs mt--s"
           @click="closeDefault"><i class="icon-24 icon-24-close" /></button>
       </div>
-      <div class="popup-content px-l pb-s pt">
+      <div class="popup-content p-l">
         <component
           :is="config.component"
           @popup-close="close" />
