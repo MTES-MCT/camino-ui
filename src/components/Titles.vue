@@ -43,7 +43,7 @@ export default {
     TitlesFilters
   },
 
-  data () {
+  data() {
     return {
       filtersOpened: false,
       viewCurrent: 'map'
@@ -51,36 +51,35 @@ export default {
   },
 
   computed: {
-    titres () {
+    titres() {
       return this.$store.state.titles.list
     },
-    filtres () {
+    filtres() {
       return this.$store.state.lib.titre.filtres
     },
-    loaded () {
+    loaded() {
       return !!this.titres
     },
-    viewComponent () {
+    viewComponent() {
       return this.viewCurrent === 'map' ? TitlesMap : TitlesTable
     }
   },
 
   watch: {
-    '$route': 'get'
+    $route: 'get'
   },
 
-  created () {
+  created() {
     this.get()
   },
 
   methods: {
-    get () {
+    get() {
       this.$store.dispatch('titles/get')
     },
-    viewSet (viewNew) {
+    viewSet(viewNew) {
       this.viewCurrent = viewNew
     }
   }
-
 }
 </script>

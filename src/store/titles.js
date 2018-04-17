@@ -3,7 +3,7 @@ import api from './_api.js'
 
 export const state = {
   list: null,
-  mockGeodata: null
+  mocks: {}
 }
 
 export const actions = {
@@ -13,16 +13,16 @@ export const actions = {
     })
   },
 
-  mockGeodataGet({ commit }) {
-    return api.mockGeodataGet().then(geodata => {
-      commit('mockGeodataSet', geodata)
+  mockRntmGet({ commit }) {
+    return api.mockRntmGet().then(geodata => {
+      commit('mockRntmSet', geodata)
       return geodata
     })
   },
 
-  mocksGet({ commit }) {
-    return api.mocksGet().then(geodata => {
-      commit('mockGeodataSet', geodata)
+  mockGet({ commit }, id) {
+    return api.mockGet(id).then(geodata => {
+      commit('mockSet', { id, geodata })
       return geodata
     })
   }
@@ -35,8 +35,8 @@ export const mutations = {
     Vue.set(state, 'list', titres)
   },
 
-  mockGeodataSet(state, geodata) {
-    Vue.set(state, 'mockGeodata', geodata)
+  mockSet(state, { id, geodata }) {
+    Vue.set(state.mocks, id, geodata)
   }
 }
 

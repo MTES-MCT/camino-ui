@@ -1,18 +1,20 @@
 <template>
   <div class="page relative">
-    <div class="topbar">
+    <header class="topbar">
       <div class="container">
         <slot name="header" />
       </div>
-    </div>
-    <main class="content container pt">
-      <slot />
+    </header>
+    <main class="main">
+      <div class="container">
+        <slot />
+      </div>
     </main>
-    <div class="footer">
+    <footer class="footer">
       <div class="container">
         <slot name="footer" />
       </div>
-    </div>
+    </footer>
   </div>
 </template>
 

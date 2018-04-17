@@ -6,15 +6,14 @@
 
     <ribbon value="beta"/>
     <router-view />
-    
-    <template slot="footer">
-      <page-footer />
-    </template>
-
     <popup
       v-if="popupVisible" 
       :config="popupConfig"
       @popup-close="popupClose" />
+    
+    <template slot="footer">
+      <page-footer />
+    </template>
   </page>
 </template>
 

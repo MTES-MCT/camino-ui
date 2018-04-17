@@ -1,0 +1,10 @@
+.leaflet-marker::before {
+  display: block;
+  position: absolute;
+  top: 30px;
+  left: 15px;
+  background-color: var(--color-inverse);
+  height: 8px;
+  width: 2px;
+  content: '';
+}

@@ -3,7 +3,11 @@
     <div 
       id="map"
       ref="map"
-      class="map mb" />
+      class="map mb">
+      <div class="absolute px-s py-xs map-loader">
+        <div class="h6">Loading…</div>
+      </div>
+    </div>
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <ul class="list-inline">
@@ -24,16 +28,16 @@
           <template slot="title">Fond de carte</template>
           <ul class="list-sans">
             <li
-              v-for="(tile, tileName ) in tiles"
+              v-for="tile in tiles"
               :key="tile.type">
               <label>
                 <input
                   v-model="tileCurrent"
-                  :value="tileName"
+                  :value="tile.name"
                   type="radio"
                   class="mr-s"
                   @change="mapChange">
-                {{ tileName }}
+                {{ tile.name }}
               </label>
             </li>
           </ul>
@@ -45,6 +49,7 @@
 
 <script>
 import L from 'leaflet'
+import mapTiles from '@/conf/mapTiles.json'
 import Accordion from '@/components/ui/Accordion.vue'
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
@@ -85,43 +90,38 @@ export default {
         gf: {
           type: 'LineString',
           coordinates: [[-54.5425, 2.1271], [-51.6139, 5.7765]]
-        },
-        global: []
-      },
-      tiles: {
-        'osm / fr': {
-          url: 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
-          attribution:
-            '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        },
-        'osm / hot': {
-          url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-          attribution:
-            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
-        },
-        'Géoportail / Cartes IGN': {
-          url:
-            'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
-          attribution: 'IGN-F/Geoportail'
-        },
-        'Géoportail / Cartes SCAN Express Standard': {
-          url:
-            'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
-          attribution: 'IGN-F/Geoportail'
-        },
-        'Géoportail / Plan IGN': {
-          url:
-            'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
-          attribution: 'IGN-F/Geoportail'
         }
       },
-      tileCurrent: 'Géoportail / Plan IGN'
-    }
-  },
-
-  computed: {
-    mockGeodata() {
-      return this.$store.state.titles.mockGeodata
+      tiles: mapTiles,
+      tileCurrent: 'Géoportail / Plan IGN',
+      colors: {
+        mineraux: '#498bd6',
+        hydrocarbures: '#856940',
+        stockage: '#8468b1',
+        geothermie: '#d16c3e'
+      },
+      layers: [
+        {
+          id: 'mineraux-rntm',
+          opacity: 0.5
+        },
+        {
+          id: 'mineraux',
+          opacity: 0.75
+        },
+        {
+          id: 'hydrocarbures',
+          opacity: 0.75
+        },
+        {
+          id: 'stockage',
+          opacity: 0.75
+        },
+        {
+          id: 'geothermie',
+          opacity: 0.5
+        }
+      ]
     }
   },
 
@@ -129,18 +129,18 @@ export default {
     this.mapInit()
     this.mapFit('fr')
     this.layerInit()
-    this.mockGeodataGet().then(() => {
-      this.mockLayerInit()
+    this.layers.forEach(l => {
+      this.mockGet(l.id).then(geojson => {
+        this.mockLayerInit(l, geojson)
+      })
     })
   },
 
   methods: {
-    mockGeodataGet() {
-      return this.$store.dispatch('titles/mocksGet')
-    },
-
     mapInit() {
-      this.map = L.map('map')
+      this.map = L.map(this.$refs.map, {
+        doubleClickZoom: false
+      })
       this.mapTileAdd()
 
       L.control
@@ -148,91 +148,6 @@ export default {
           imperial: false
         })
         .addTo(this.map)
-    },
-
-    mapTileAdd() {
-      this.tileLayer = L.tileLayer(this.tiles[this.tileCurrent].url, {
-        maxZoom: 20,
-        attribution: this.tiles[this.tileCurrent].attribution
-      })
-
-      this.tileLayer.addTo(this.map)
-    },
-
-    layerInit() {
-      this.geojsons.global = []
-      this.titles.forEach(title => {
-        const geojson = title.geojson.features.find(
-          feature => feature.geometry.type === 'MultiPolygon'
-        )
-        geojson.properties = geojson.properties || {}
-        geojson.properties.id = title.id
-        this.geojsons.global.push(geojson)
-      })
-
-      L.geoJSON(this.geojsons.global, {
-        onEachFeature: (feature, layer) => {
-          layer.on({
-            click: e => {
-              console.log(e)
-              this.$router.push({
-                name: 'titre',
-                params: { id: feature.properties.id }
-              })
-            }
-          })
-        }
-      }).addTo(this.map)
-    },
-
-    mockLayerInit() {
-      L.geoJSON(this.mockGeodata, {
-        style: function(feature) {
-          switch (feature.properties.type) {
-            case 'hydrocarbures':
-              return {
-                fillColor: '#856940',
-                fillOpacity: 0.5,
-                weight: 0,
-                opacity: 1,
-                color: 'white'
-              }
-            case 'stockage':
-              return {
-                fillColor: '#8468b1',
-                fillOpacity: 0.5,
-                weight: 0,
-                opacity: 1,
-                color: 'white'
-              }
-            case 'geothermie':
-              return {
-                fillColor: '#d16c3e',
-                fillOpacity: 0.5,
-                weight: 0,
-                opacity: 1,
-                color: 'white'
-              }
-            case 'mineraux':
-              return {
-                fillColor: '#498bd6',
-                fillOpacity: 0.75,
-                weight: 0,
-                opacity: 1,
-                color: 'white'
-              }
-
-            default:
-              return {
-                fillColor: '#498bd6',
-                fillOpacity: 0.5,
-                weight: 0,
-                opacity: 1,
-                color: 'white'
-              }
-          }
-        }
-      }).addTo(this.map)
     },
 
     mapFit(zone) {
@@ -243,6 +158,72 @@ export default {
     mapChange() {
       this.tileLayer.removeFrom(this.map)
       this.mapTileAdd()
+    },
+
+    mapTileAdd() {
+      const tile = this.tiles.find(t => t.name === this.tileCurrent)
+      this.tileLayer = L.tileLayer(tile.url, {
+        maxZoom: 20,
+        attribution: tile.attribution
+      })
+
+      this.tileLayer.addTo(this.map)
+    },
+
+    layerInit() {
+      this.titles.forEach(title => {
+        L.geoJSON(title.geojson, {
+          filter: feature => feature.geometry.type === 'MultiPolygon',
+          style: {
+            fillColor: this.colors[title.domaine.id],
+            fillOpacity: 0.75,
+            weight: 0
+          },
+          onEachFeature: (feature, layer) => {
+            L.marker(
+              L.geoJSON(feature)
+                .getBounds()
+                .getCenter(),
+              {
+                icon: L.divIcon({
+                  className: `h6 mono border-inverse color-bg py-xs px-s pill inline-block bg-title-domain-${title.domaine.code.toLowerCase()} leaflet-marker`,
+                  html: title.domaine.code,
+                  iconSize: null,
+                  iconAnchor: [15.5, 36]
+                })
+              }
+            ).addTo(this.map)
+
+            layer.on({
+              click: e => {
+                console.log(e)
+                this.$router.push({
+                  name: 'titre',
+                  params: { id: title.id }
+                })
+              }
+            })
+            layer.bindPopup('<p>name: ' + title.id + '</p>')
+          }
+        }).addTo(this.map)
+      })
+    },
+
+    mockGet(id) {
+      return this.$store.dispatch('titles/mockGet', id)
+    },
+
+    mockLayerInit(layer, geojson) {
+      L.geoJSON(geojson, {
+        style: {
+          fillColor: this.colors[layer.id],
+          fillOpacity: layer.opacity,
+          weight: 0,
+          opacity: 1,
+          color: 'white'
+        },
+        onEachFeature: (feature, layer) => {}
+      }).addTo(this.map)
     }
   }
 }

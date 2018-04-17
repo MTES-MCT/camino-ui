@@ -4,6 +4,7 @@
   "type": "Permis exclusif de recherches",
   "statut": "Échu",
   "domaine": {
+    "id": "hydrocarbures",
     "nom": "Substances énergétiques",
     "code": "H"
   },

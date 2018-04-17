@@ -19,7 +19,7 @@
           <td>
             <tag
               :color="`bg-title-domain-${title.domaine.code.toLowerCase()}`"
-              class="mono">{{ title.domaine.code }}</tag>
+              class="mono border-inverse">{{ title.domaine.code }}</tag>
           </td>
           <td class="bold">{{ title.nom }}</td>
           <td>
@@ -100,31 +100,37 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       pages: [1, 2, 3, 4, 5],
       pageActive: 1,
-      columns: [{
-        type: 'domain',
-        name: 'Domaine'
-      }, {
-        type: 'name',
-        name: 'Nom'
-      }, {
-        type: 'owner',
-        name: 'Titulaires'
-      }, {
-        type: 'type',
-        name: 'Type'
-      }, {
-        type: 'status',
-        name: 'Statut'
-      }, {
-        type: 'substances',
-        name: 'Substances'
-      }]
+      columns: [
+        {
+          type: 'domain',
+          name: 'Domaine'
+        },
+        {
+          type: 'name',
+          name: 'Nom'
+        },
+        {
+          type: 'owner',
+          name: 'Titulaires'
+        },
+        {
+          type: 'type',
+          name: 'Type'
+        },
+        {
+          type: 'status',
+          name: 'Statut'
+        },
+        {
+          type: 'substances',
+          name: 'Substances'
+        }
+      ]
     }
   }
-
 }
 </script>

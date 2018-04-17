@@ -4,6 +4,7 @@
   "type": "Permis exclusif de recherches",
   "statut": "Valide",
   "domaine": {
+    "id": "geothermie",
     "nom": "Géothermie",
     "code": "G"
   },

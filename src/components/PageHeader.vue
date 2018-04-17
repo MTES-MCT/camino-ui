@@ -4,9 +4,9 @@
       <router-link
         :to="{ name: 'titres' }"
         class="logo pb-xs pt pr-m">
-        Camino
+        <h1 class="mb-xs">Camino</h1>
       </router-link>
-      <p class="pr-m mb-0 h5 color-highlight">Cadastre minier numérique ouvert</p>
+      <p class="pr-m h5 color-highlight">Cadastre minier numérique ouvert</p>
     </div>
     <div class="menu hide">
       <ul>

@@ -1,5 +1,5 @@
 <template>
-  <div class="border flex flex-direction-column">
+  <div class="border rnd flex flex-direction-column">
     <button
       :class="{ 'rnd-top': opened }"
       class="btn-border py-s px-m flex full-x"
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'UiSytemAccordion',
 
@@ -34,11 +33,10 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       opened: false
     }
   }
-
 }
 </script>

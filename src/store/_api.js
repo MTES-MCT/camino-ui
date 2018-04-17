@@ -13,7 +13,7 @@ const titres = [
   'aex-georgeon'
 ]
 
-const mocks = ['geothermie', 'hydrocarbures', 'mineraux', 'mineraux-rntm', 'stockage']
+const mocks = ['geothermie', 'hydrocarbures', 'mineraux', 'stockage']
 
 const api = {
   titresGet() {
@@ -39,8 +39,12 @@ const api = {
     }))
   },
 
-  mockGeodataGet() {
-    return fetch(`${baseUrl}data/mock-geodata.json`).then(r => r.json())
+  mockRntmGet(id) {
+    return fetch(`${baseUrl}data/mocks/mineraux-rntm.json`).then(r => r.json())
+  },
+
+  mockGet(id) {
+    return fetch(`${baseUrl}data/mocks/${id}.json`).then(r => r.json())
   }
 }
 

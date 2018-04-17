@@ -4,6 +4,7 @@
   "type": "Concession cavité saline",
   "statut": "Valide",
   "domaine": {
+    "id": "stockage",
     "nom": "Stockage",
     "code": "S"
   },

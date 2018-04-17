@@ -27,6 +27,11 @@ https://github.com/francoisromain/postcss-grid-fluid
   flex: 0 1 0;
 }
 
+.blob-auto {
+  margin-right: var(--gutter);
+  flex: 0 1 auto;
+}
+
 .blob-1 {
   gf: blob 1;
 }
@@ -62,13 +67,11 @@ https://github.com/francoisromain/postcss-grid-fluid
 
 .blob-btn {
   margin-right: var(--gutter);
-  margin-bottom: var(--gutter);
   flex: 0 1 3rem;
 }
 
 .blob-3-4-btn {
   margin-right: var(--gutter);
-  margin-bottom: var(--gutter);
   flex: 0 1 calc(75% - var(--gutter) - 3rem - var(--gutter));
 }
 
@@ -79,13 +82,11 @@ https://github.com/francoisromain/postcss-grid-fluid
 
   .mobile-blob {
     margin-right: var(--gutter);
-    margin-bottom: var(--gutter);
     flex: 0 1 0;
   }
 
   .mobile-blob-auto {
     margin-right: var(--gutter);
-    margin-bottom: var(--gutter);
     flex: 0 1 auto;
   }
 
@@ -133,13 +134,11 @@ https://github.com/francoisromain/postcss-grid-fluid
 
   .tablet-blob {
     margin-right: var(--gutter);
-    margin-bottom: var(--gutter);
     flex: 0 1 0;
   }
 
   .tablet-blob-auto {
     margin-right: var(--gutter);
-    margin-bottom: var(--gutter);
     flex: 0 1 auto;
   }
 

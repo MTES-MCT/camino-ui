@@ -4,6 +4,7 @@
   "type": "Concession",
   "statut": "Valide",
   "domaine": {
+    "id": "mineraux",
     "nom": "Minéraux et métaux",
     "code": "M"
   },

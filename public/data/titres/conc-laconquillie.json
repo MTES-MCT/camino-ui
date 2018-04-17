@@ -5,6 +5,7 @@
   "statut": "Valide",
   "travaux": "En cours",
   "domaine": {
+    "id": "hydrocarbures",
     "nom": "Substances énergétiques",
     "code": "H"
   },

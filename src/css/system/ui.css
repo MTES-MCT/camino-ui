@@ -23,7 +23,10 @@
 
 .border {
   box-shadow: inset 0 0 0 var(--unit-line) var(--color-alt);
-  border-radius: var(--unit-xs);
+}
+
+.border-inverse {
+  box-shadow: inset 0 0 0 var(--unit-line) var(--color-inverse);
 }
 
 .tooltip {
@@ -53,30 +56,32 @@
 }
 
 .shadow {
-  box-shadow: var(--unit-xs) var(--unit-xs) var(--unit) color-mod(var(--color-neutral) alpha(0.25))
+  box-shadow: var(--unit-xs) var(--unit-xs) var(--unit)
+    color-mod(var(--color-neutral) alpha(0.25));
 }
 
 .shadow-inset {
-  box-shadow: inset var(--unit-xs) var(--unit-xs) var(--unit) color-mod(var(--color-neutral) alpha(0.25));
+  box-shadow: inset var(--unit-xs) var(--unit-xs) var(--unit)
+    color-mod(var(--color-neutral) alpha(0.25));
 }
 
 .ribbon {
   position: absolute;
   overflow: hidden;
-  top:0;
-  right:0;
+  top: 0;
+  right: 0;
   width: 150px;
   height: 150px;
 }
 
 .ribbon-bloc {
-  transform: rotate(45deg); 
+  transform: rotate(45deg);
 }
 
 .ribbon span {
   display: inline-block;
   width: 100%;
   color: var(--color-bg);
-  background-color: var(--color-warning); 
+  background-color: var(--color-warning);
   text-align: center;
 }

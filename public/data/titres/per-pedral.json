@@ -5,6 +5,7 @@
   "statut": "Valide",
   "travaux": "En cours",
   "domaine": {
+    "id": "mineraux",
     "nom": "Minéraux et métaux",
     "code": "M"
   },

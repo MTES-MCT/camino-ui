@@ -11,10 +11,6 @@
   display: none;
 }
 
-.logo {
-  typescale: 3 0.75;
-}
-
 a.logo {
   color: var(--color-inverse);
 }
@@ -25,7 +21,7 @@ a.logo {
 
 .active .btn-menu {
   border-bottom: solid var(--color-text) var(--unit-line);
-  padding-bottom: calc(var(--unit-m) - var(--unit-line))
+  padding-bottom: calc(var(--unit-m) - var(--unit-line));
 }
 
 .messages {
@@ -71,7 +67,6 @@ a.logo {
   margin-right: calc(var(--unit) * -1);
 }
 
-
 .menu ul {
   padding: 0;
   list-style: none;
@@ -113,10 +108,14 @@ a.logo {
   overflow-y: auto;
 }
 
+.map-loader {
+  z-index: 500;
+  background-color: var(--color-bg);
+  right: 0;
+  top: 0;
+}
 
 @media (--viewport-tablet) {
-  --header-height: calc(var(--unit) * 2);
-
   .menubar-infos {
     padding-top: var(--unit-m);
     margin-top: 0;
