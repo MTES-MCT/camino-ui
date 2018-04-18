@@ -1,10 +1,16 @@
-.leaflet-marker::before {
+.leaflet-marker-title::before {
   display: block;
   position: absolute;
-  top: 30px;
-  left: 15px;
-  background-color: var(--color-inverse);
-  height: 8px;
-  width: 2px;
+  top: 29px;
+  left: 10px;
   content: '';
+  width: 0;
+  height: 0;
+  border-left: 5.5px solid transparent;
+  border-right: 5.5px solid transparent;
+  border-top: 8px solid var(--color-bg);
+}
+
+.leaflet-marker-title {
+  filter: drop-shadow(4px 4px 4px color-mod(var(--color-inverse) alpha(50%)));
 }

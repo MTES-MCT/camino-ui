@@ -44,6 +44,7 @@
     "postcss-typescale": "^0.2.1",
     "postcss-url": "^7.3.2",
     "stylelint": "^9.2.0",
+    "stylelint-config-prettier": "^3.2.0",
     "stylelint-config-standard": "^18.2.0",
     "vue-meta": "^1.5.0",
     "vue-router": "^3.0.1",
@@ -66,7 +67,10 @@
     ]
   },
   "stylelint": {
-    "extends": "stylelint-config-standard",
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-prettier"
+    ],
     "rules": {
       "property-no-unknown": [
         true,

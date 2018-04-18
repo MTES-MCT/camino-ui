@@ -19,7 +19,7 @@
           <td>
             <tag
               :color="`bg-title-domain-${title.domaine.code.toLowerCase()}`"
-              class="mono border-inverse">{{ title.domaine.code }}</tag>
+              class="mono">{{ title.domaine.code }}</tag>
           </td>
           <td class="bold">{{ title.nom }}</td>
           <td>
