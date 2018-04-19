@@ -12,83 +12,88 @@
     "principales": ["Propylène"]
   },
   "volume": 60000,
-  "références": {
-    "métier": "CS200"
-  },
-  "validité": {
-    "début": "1978-03-07",
-    "durée": 40
-  },
-  "surface": 0.824,
-  "geojson": {
-    "type": "FeatureCollection",
-    "features": [
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "MultiPolygon",
-          "coordinates": [
-            [
-              [
-                [5.073697655818809, 45.267732054254466],
-                [5.084687451211904, 45.268534749489014],
-                [5.08433161016373, 45.26134849484107],
-                [5.070248639265093, 45.25944002979361],
-                [5.073697655818809, 45.267732054254466]
+  "références": [
+    {
+      "valeur": "CS200"
+    }
+  ],
+  "phases": [
+    {
+      "nom": "octroi",
+      "date": "1978-03-07",
+      "durée": 40,
+      "surface": 0.824,
+      "geojson": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [5.073697655818809, 45.267732054254466],
+                    [5.084687451211904, 45.268534749489014],
+                    [5.08433161016373, 45.26134849484107],
+                    [5.070248639265093, 45.25944002979361],
+                    [5.073697655818809, 45.267732054254466]
+                  ]
+                ]
               ]
-            ]
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [5.073697655818809, 45.267732054254466]
-        },
-        "properties": {
-          "groupe": "contour"
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [5.084687451211904, 45.268534749489014]
-        },
-        "properties": {
-          "groupe": "contour"
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [5.08433161016373, 45.26134849484107]
-        },
-        "properties": {
-          "groupe": "contour"
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [5.070248639265093, 45.25944002979361]
-        },
-        "properties": {
-          "groupe": "contour"
-        }
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [5.073697655818809, 45.267732054254466]
+            },
+            "properties": {
+              "groupe": "contour"
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [5.084687451211904, 45.268534749489014]
+            },
+            "properties": {
+              "groupe": "contour"
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [5.08433161016373, 45.26134849484107]
+            },
+            "properties": {
+              "groupe": "contour"
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [5.070248639265093, 45.25944002979361]
+            },
+            "properties": {
+              "groupe": "contour"
+            }
+          }
+        ]
       }
-    ]
-  },
+    }
+  ],
   "titulaires": [
     {
       "index": "NOVAPEX",
       "nom": "NOVAPEX",
       "siret": "",
       "adresse": {},
-      "contact": {}
+      "contacts": [{}]
     }
   ]
 }

@@ -196,7 +196,6 @@ export default {
           name: 'titre',
           params: { id: title.id }
         }
-
         const methods = {
           click: () => {
             this.$router.push(titleRoute)
@@ -209,7 +208,7 @@ export default {
           }
         }
 
-        return L.geoJSON(title.geojson, {
+        return L.geoJSON(title['phases'][0].geojson, {
           filter: feature => feature.geometry.type === 'MultiPolygon',
           style: {
             fillColor: this.colors[title.domaine.id],

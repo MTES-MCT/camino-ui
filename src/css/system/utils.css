@@ -107,3 +107,8 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 .full-y {
   height: 100%;
 }
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
