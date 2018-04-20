@@ -5,6 +5,7 @@
   "statut": "Valide",
   "travaux": "En cours",
   "domaine": {
+    "id": "mineraux",
     "nom": "Minéraux et métaux",
     "code": "M"
   },
@@ -12,523 +13,595 @@
     "principales": ["Or", "Argent"],
     "connexes": ["Non précisées"]
   },
-  "références": {
-    "métier": "2015-0004-MI",
-    "rntm": "0987654"
-  },
-  "validité": {
-    "début": "2017-01-07",
-    "durée": 5
-  },
-  "geojson": {
-    "type": "FeatureCollection",
-    "features": [
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "MultiPolygon",
-          "coordinates": [
-            [
-              [
-                [1.023665, 45.51009],
-                [1.071191, 45.54335],
-                [1.086013, 45.59674],
-                [1.223941, 45.59675],
-                [1.240353, 45.62538],
-                [1.35519, 45.62712],
-                [1.452006, 45.56185],
-                [1.396144, 45.52053]
-              ],
-              [
-                [1.227273, 45.5637],
-                [1.252499, 45.5767],
-                [1.259169, 45.56102],
-                [1.242387, 45.55536]
-              ],
-              [
-                [1.351369, 45.59025],
-                [1.392001, 45.56686],
-                [1.304928, 45.54273],
-                [1.261237, 45.53655],
-                [1.304565, 45.58456]
-              ],
-              [
-                [1.139266, 45.54286],
-                [1.147389, 45.55803],
-                [1.170797, 45.56735],
-                [1.177874, 45.55896],
-                [1.178607, 45.55174]
-              ],
-              [
-                [1.178607, 45.55174],
-                [1.177874, 45.55896],
-                [1.170837, 45.5673],
-                [1.196852, 45.57167],
-                [1.195645, 45.55741]
-              ]
-            ]
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.023665, 45.51009]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "A",
-          "id": "ID-point-00001",
-          "lambert-93": ["545700", "6492000"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.071191, 45.54335]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "B",
-          "id": "ID-point-00002",
-          "lambert-93": ["549500", "6495600"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.086013, 45.59674]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "C",
-          "id": "ID-point-00003",
-          "lambert-93": ["550800", "6501500"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.223941, 45.59675]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "D",
-          "id": "ID-point-00004",
-          "lambert-93": ["561550", "6501250"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.240353, 45.62538]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "E",
-          "id": "ID-point-00005",
-          "lambert-93": ["562900", "6504400"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.35519, 45.62712]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "F",
-          "id": "ID-point-00006",
-          "lambert-93": ["571850", "6504400"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.452006, 45.56185]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "G",
-          "id": "ID-point-00007",
-          "lambert-93": ["579250", "6497000"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.396144, 45.52053]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "H",
-          "id": "ID-point-00008",
-          "lambert-93": ["574800", "6492500"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.227273, 45.5637]
-        },
-        "properties": {
-          "groupe": "trou-1",
-          "name": "A",
-          "id": "ID-point-00009",
-          "lambert-93": ["561731", "6497760"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.252499, 45.5767]
-        },
-        "properties": {
-          "groupe": "trou-1",
-          "name": "B",
-          "id": "ID-point-00010",
-          "lambert-93": ["563727", "6498974"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.259169, 45.56102]
-        },
-        "properties": {
-          "groupe": "trou-1",
-          "name": "C",
-          "id": "ID-point-00011",
-          "lambert-93": ["564208", "6497222"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.242387, 45.55536]
-        },
-        "properties": {
-          "groupe": "trou-1",
-          "name": "D",
-          "id": "ID-point-00012",
-          "lambert-93": ["562885", "6496623"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.351369, 45.59025]
-        },
-        "properties": {
-          "groupe": "trou-2",
-          "name": "A",
-          "id": "ID-point-00013",
-          "lambert-93": ["571467", "6500313"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.392001, 45.56686]
-        },
-        "properties": {
-          "groupe": "trou-2",
-          "name": "B",
-          "id": "ID-point-00014",
-          "lambert-93": ["574581", "6497650"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.304928, 45.54273]
-        },
-        "properties": {
-          "groupe": "trou-2",
-          "name": "C",
-          "id": "ID-point-00015",
-          "lambert-93": ["567733", "6495113"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.261237, 45.53655]
-        },
-        "properties": {
-          "groupe": "trou-2",
-          "name": "D",
-          "id": "ID-point-00016",
-          "lambert-93": ["564310", "6494501"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.304565, 45.58456]
-        },
-        "properties": {
-          "groupe": "trou-2",
-          "name": "E",
-          "id": "ID-point-00017",
-          "lambert-93": ["567805", "6499758"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.139266, 45.54286]
-        },
-        "properties": {
-          "groupe": "trou-3",
-          "name": "A",
-          "id": "ID-point-00018",
-          "lambert-93": ["554809", "6495418"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.147389, 45.55803]
-        },
-        "properties": {
-          "groupe": "trou-3",
-          "name": "B",
-          "id": "ID-point-00019",
-          "lambert-93": ["555483", "6497088"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.170797, 45.56735]
-        },
-        "properties": {
-          "groupe": "trou-3",
-          "name": "C",
-          "id": "ID-point-00020",
-          "lambert-93": ["557332", "6498080"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.177874, 45.55896]
-        },
-        "properties": {
-          "groupe": "trou-3",
-          "name": "D",
-          "id": "ID-point-00021",
-          "lambert-93": ["557863", "6497136"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.178607, 45.55174]
-        },
-        "properties": {
-          "groupe": "trou-3",
-          "name": "E",
-          "id": "ID-point-00022",
-          "lambert-93": ["557901", "6496333"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.178607, 45.55174]
-        },
-        "properties": {
-          "groupe": "trou-4",
-          "name": "A",
-          "id": "ID-point-00023",
-          "lambert-93": ["557901", "6496333"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.177874, 45.55896]
-        },
-        "properties": {
-          "groupe": "trou-4",
-          "name": "B",
-          "id": "ID-point-00024",
-          "lambert-93": ["557863", "6497136"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.170837, 45.5673]
-        },
-        "properties": {
-          "groupe": "trou-4",
-          "name": "C",
-          "id": "ID-point-00025",
-          "lambert-93": ["557335", "6498075"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.196852, 45.57167]
-        },
-        "properties": {
-          "groupe": "trou-4",
-          "name": "D",
-          "id": "ID-point-00026",
-          "lambert-93": ["559375", "6498513"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [1.195645, 45.55741]
-        },
-        "properties": {
-          "groupe": "trou-4",
-          "name": "E",
-          "id": "ID-point-00027",
-          "lambert-93": ["559245", "6496932"]
-        }
-      }
-    ]
-  },
-  "surface": 262,
-  "communes": {
-    "Nouvelle-Aquitaine": {
-      "Haute-Vienne": [
-        "Coussac-Bonneval",
-        "Château-Chervix",
-        "La Meyze",
-        "La Roche-l’Abeille",
-        "Ladignac-le-Long",
-        "Le Chalard",
-        "Meuzac",
-        "Saint-Priest-Ligoure",
-        "Saint-Yrieix-la-Perche"
-      ],
-      "Dordogne": ["Jumilhac-le-Grand"]
+  "références": [
+    {
+      "valeur": "2015-0004-MI"
+    },
+    {
+      "type": "RNTM",
+      "valeur": "0987654"
     }
-  },
-  "emprises": ["À terre"],
+  ],
+  "phases": [
+    {
+      "nom": "Octroi",
+      "date": "2017-01-07",
+      "durée": 5,
+      "geojson": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [1.023665, 45.51009],
+                    [1.071191, 45.54335],
+                    [1.086013, 45.59674],
+                    [1.223941, 45.59675],
+                    [1.240353, 45.62538],
+                    [1.35519, 45.62712],
+                    [1.452006, 45.56185],
+                    [1.396144, 45.52053]
+                  ],
+                  [
+                    [1.227273, 45.5637],
+                    [1.252499, 45.5767],
+                    [1.259169, 45.56102],
+                    [1.242387, 45.55536]
+                  ],
+                  [
+                    [1.351369, 45.59025],
+                    [1.392001, 45.56686],
+                    [1.304928, 45.54273],
+                    [1.261237, 45.53655],
+                    [1.304565, 45.58456]
+                  ],
+                  [
+                    [1.139266, 45.54286],
+                    [1.147389, 45.55803],
+                    [1.170797, 45.56735],
+                    [1.177874, 45.55896],
+                    [1.178607, 45.55174]
+                  ],
+                  [
+                    [1.178607, 45.55174],
+                    [1.177874, 45.55896],
+                    [1.170837, 45.5673],
+                    [1.196852, 45.57167],
+                    [1.195645, 45.55741]
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.023665, 45.51009]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "A",
+              "id": "ID-point-00001",
+              "lambert-93": ["545700", "6492000"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.071191, 45.54335]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "B",
+              "id": "ID-point-00002",
+              "lambert-93": ["549500", "6495600"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.086013, 45.59674]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "C",
+              "id": "ID-point-00003",
+              "lambert-93": ["550800", "6501500"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.223941, 45.59675]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "D",
+              "id": "ID-point-00004",
+              "lambert-93": ["561550", "6501250"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.240353, 45.62538]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "E",
+              "id": "ID-point-00005",
+              "lambert-93": ["562900", "6504400"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.35519, 45.62712]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "F",
+              "id": "ID-point-00006",
+              "lambert-93": ["571850", "6504400"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.452006, 45.56185]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "G",
+              "id": "ID-point-00007",
+              "lambert-93": ["579250", "6497000"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.396144, 45.52053]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "H",
+              "id": "ID-point-00008",
+              "lambert-93": ["574800", "6492500"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.227273, 45.5637]
+            },
+            "properties": {
+              "groupe": "trou-1",
+              "name": "A",
+              "id": "ID-point-00009",
+              "lambert-93": ["561731", "6497760"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.252499, 45.5767]
+            },
+            "properties": {
+              "groupe": "trou-1",
+              "name": "B",
+              "id": "ID-point-00010",
+              "lambert-93": ["563727", "6498974"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.259169, 45.56102]
+            },
+            "properties": {
+              "groupe": "trou-1",
+              "name": "C",
+              "id": "ID-point-00011",
+              "lambert-93": ["564208", "6497222"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.242387, 45.55536]
+            },
+            "properties": {
+              "groupe": "trou-1",
+              "name": "D",
+              "id": "ID-point-00012",
+              "lambert-93": ["562885", "6496623"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.351369, 45.59025]
+            },
+            "properties": {
+              "groupe": "trou-2",
+              "name": "A",
+              "id": "ID-point-00013",
+              "lambert-93": ["571467", "6500313"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.392001, 45.56686]
+            },
+            "properties": {
+              "groupe": "trou-2",
+              "name": "B",
+              "id": "ID-point-00014",
+              "lambert-93": ["574581", "6497650"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.304928, 45.54273]
+            },
+            "properties": {
+              "groupe": "trou-2",
+              "name": "C",
+              "id": "ID-point-00015",
+              "lambert-93": ["567733", "6495113"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.261237, 45.53655]
+            },
+            "properties": {
+              "groupe": "trou-2",
+              "name": "D",
+              "id": "ID-point-00016",
+              "lambert-93": ["564310", "6494501"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.304565, 45.58456]
+            },
+            "properties": {
+              "groupe": "trou-2",
+              "name": "E",
+              "id": "ID-point-00017",
+              "lambert-93": ["567805", "6499758"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.139266, 45.54286]
+            },
+            "properties": {
+              "groupe": "trou-3",
+              "name": "A",
+              "id": "ID-point-00018",
+              "lambert-93": ["554809", "6495418"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.147389, 45.55803]
+            },
+            "properties": {
+              "groupe": "trou-3",
+              "name": "B",
+              "id": "ID-point-00019",
+              "lambert-93": ["555483", "6497088"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.170797, 45.56735]
+            },
+            "properties": {
+              "groupe": "trou-3",
+              "name": "C",
+              "id": "ID-point-00020",
+              "lambert-93": ["557332", "6498080"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.177874, 45.55896]
+            },
+            "properties": {
+              "groupe": "trou-3",
+              "name": "D",
+              "id": "ID-point-00021",
+              "lambert-93": ["557863", "6497136"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.178607, 45.55174]
+            },
+            "properties": {
+              "groupe": "trou-3",
+              "name": "E",
+              "id": "ID-point-00022",
+              "lambert-93": ["557901", "6496333"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.178607, 45.55174]
+            },
+            "properties": {
+              "groupe": "trou-4",
+              "name": "A",
+              "id": "ID-point-00023",
+              "lambert-93": ["557901", "6496333"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.177874, 45.55896]
+            },
+            "properties": {
+              "groupe": "trou-4",
+              "name": "B",
+              "id": "ID-point-00024",
+              "lambert-93": ["557863", "6497136"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.170837, 45.5673]
+            },
+            "properties": {
+              "groupe": "trou-4",
+              "name": "C",
+              "id": "ID-point-00025",
+              "lambert-93": ["557335", "6498075"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.196852, 45.57167]
+            },
+            "properties": {
+              "groupe": "trou-4",
+              "name": "D",
+              "id": "ID-point-00026",
+              "lambert-93": ["559375", "6498513"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [1.195645, 45.55741]
+            },
+            "properties": {
+              "groupe": "trou-4",
+              "name": "E",
+              "id": "ID-point-00027",
+              "lambert-93": ["559245", "6496932"]
+            }
+          }
+        ]
+      },
+      "surface": 262,
+      "communes": {
+        "Nouvelle-Aquitaine": {
+          "Haute-Vienne": [
+            "Coussac-Bonneval",
+            "Château-Chervix",
+            "La Meyze",
+            "La Roche-l’Abeille",
+            "Ladignac-le-Long",
+            "Le Chalard",
+            "Meuzac",
+            "Saint-Priest-Ligoure",
+            "Saint-Yrieix-la-Perche"
+          ],
+          "Dordogne": ["Jumilhac-le-Grand"]
+        }
+      },
+      "emprises": ["À terre"]
+    }
+  ],
   "titulaires": [
     {
       "id": "titulaire-id-1",
       "nom": "Cordier mines",
+      "service": "Direction",
       "siret": "803975135",
       "adresse": {
         "ligne_1": "6 rue Maurice Hurel",
         "code_postal": "31500",
         "ville": "Toulouse"
       },
-      "contact": {
-        "prenom": "Yves",
-        "nom": "Hirbec",
-        "service": "Direction",
-        "email": "yhirbec@cordiermines.fr",
-        "telephone": "+33954645654",
-        "mobile": "+336XXXXXXXX"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-15",
+          "prénom": "Yves",
+          "nom": "Hirbec",
+          "poste": "Directeur",
+          "email": "yhirbec@cordiermines.fr",
+          "telephone": "+33954645654",
+          "mobile": "+336XXXXXXXX"
+        }
+      ]
+    }
+  ],
+  "amodiataires": [
+    {
+      "id": "amodiataire-id-1",
+      "opérateur": true,
+      "nom": "Amod mines",
+      "service": "Direction",
+      "siret": "803975135",
+      "adresse": {
+        "ligne_1": "6 rue Maurice Hurel",
+        "code_postal": "31500",
+        "ville": "Toulouse"
+      },
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-15",
+          "prénom": "Yves",
+          "nom": "Hirbec",
+          "poste": "Directeur",
+          "email": "yhirbec@cordiermines.fr",
+          "telephone": "+33954645654",
+          "mobile": "+336XXXXXXXX"
+        }
+      ]
     }
   ],
   "administrations": [
     {
       "id": "001",
       "nom": "Ministère de la Transition écologique et solidaire",
+      "service": "MTES/DGALN/DEB/EARM2",
       "adresse": {
         "ligne_1": "Hôtel de Roquelaure",
         "ligne_2": "246 boulevard Saint-Germain",
         "code postal": "75007",
         "ville": "Paris"
       },
-      "contact": {
-        "nom": "LEVIEUX",
-        "prenom": "Guillaume",
-        "service": "MTES/DGALN/DEB/EARM2",
-        "telephone": "+33 (0)1 40 81 95 86",
-        "email": "guillaume.levieux@developement-durable.gouv.fr"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-16",
+          "nom": "LEVIEUX",
+          "prénom": "Guillaume",
+          "poste": "nom du poste",
+          "telephone": "+33 (0)1 40 81 95 86",
+          "email": "guillaume.levieux@developement-durable.gouv.fr"
+        }
+      ]
     },
     {
       "id": "003",
       "nom": "Dréal Nouvelle-Aquitaine",
+      "service": "DREAL Nouvelle-Aquitaine/SEI/DE3S/DMAM",
       "adresse": {
         "ligne_1": "Hôtel de Roquelaure",
         "ligne_2": "246 boulevard Saint-Germain",
         "code postal": "75007",
         "ville": "Paris"
       },
-      "contact": {
-        "nom": "BROCARD",
-        "prenom": "Pierre",
-        "service": "DREAL Nouvelle-Aquitaine/SEI/DE3S/DMAM",
-        "telephone": "+33 (0)1 40 81 95 86",
-        "email": "pierre.brocard@developpement-durable.gouv.fr"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-17",
+          "nom": "BROCARD",
+          "prénom": "Pierre",
+          "poste": "nom du poste",
+          "telephone": "+33 (0)1 40 81 95 86",
+          "email": "pierre.brocard@developpement-durable.gouv.fr"
+        }
+      ]
     },
     {
       "id": "002",
+      "coordinateur": true,
       "nom": "Préfecture de la Haute-Vienne",
+      "service": "87 HAUTE-VIENNE/PREFECTURE/DCE/BPE",
       "adresse": {
         "ligne_1": "1 rue de la Préfecture",
         "ligne_2": "BP 87031",
         "code postal": "87031",
         "ville": "Limoges Cedex 1"
       },
-      "contact": {
-        "nom": "LABRO",
-        "prenom": "Jérôme",
-        "service": "87 HAUTE-VIENNE/PREFECTURE/DCE/BPE",
-        "telephone": "+33 (0)5 55 44 19 40",
-        "email": "jerome.labro@haute-vienne.gouv.fr"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-18",
+          "nom": "LABRO",
+          "prénom": "Jérôme",
+          "poste": "nom du poste",
+          "telephone": "+33 (0)5 55 44 19 40",
+          "email": "jerome.labro@haute-vienne.gouv.fr"
+        }
+      ]
     },
     {
       "id": "004",
       "nom": "Préfecture de Dordogne",
+      "service": "24 DORDOGNE/PREFECTURE/DCE/BPE",
       "adresse": {
         "ligne_1": "Cité administrative",
         "ligne_2": "2 rue Paul-Louis-Courier",
         "code postal": "24024",
         "ville": "Périgueux Cedex"
       },
-      "contact": {
-        "nom": "LABRO",
-        "prenom": "Jérôme",
-        "service": "24 DORDOGNE/PREFECTURE/DCE/BPE",
-        "telephone": "+33 XX XX XX XX XX",
-        "email": "jerome.labro@haute-vienne.gouv.fr"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-19",
+          "nom": "LABRO",
+          "prénom": "Jérôme",
+          "poste": "nom du poste",
+          "telephone": "+33 XX XX XX XX XX",
+          "email": "jerome.labro@haute-vienne.gouv.fr"
+        }
+      ]
     }
   ],
   "démarches en cours": [

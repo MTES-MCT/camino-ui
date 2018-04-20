@@ -5,6 +5,7 @@
   "statut": "Valide",
   "travaux": "En cours",
   "domaine": {
+    "id": "mineraux",
     "nom": "Minéraux et métaux",
     "code": "M"
   },
@@ -12,194 +13,230 @@
     "principales": ["Or"],
     "connexes": ["Non précisées"]
   },
-  "références": {
-    "métier": "2013-0061-MI",
-    "id-TM-973": "05-2016"
-  },
-  "validité": {
-    "début": "2016-01-20",
-    "durée": 5
-  },
-  "geojson": {
-    "type": "FeatureCollection",
-    "features": [
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "MultiPolygon",
-          "coordinates": [
-            [
-              [
-                [-53.38968586248483, 4.958185236718157],
-                [-53.31935144155668, 4.958435924385591],
-                [-53.3177360574643, 4.908499454301041],
-                [-53.350134459480415, 4.908386129530585],
-                [-53.35003742596226, 4.88059122624596],
-                [-53.38945859822642, 4.894579730225456]
-              ]
-            ]
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-53.389685862484832, 4.958185236718157]
-        },
-        "properties": {
-          "groupe": "contour",
-          "nom": "A",
-          "id": "ID-point-00001",
-          "RGFG-95": ["235000", "235000"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-53.319351441556677, 4.958435924385591]
-        },
-        "properties": {
-          "groupe": "contour",
-          "nom": "B",
-          "id": "ID-point-00002",
-          "RGFG-95": ["242804", "548520"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-53.317736057464302, 4.908499454301041]
-        },
-        "properties": {
-          "groupe": "contour",
-          "nom": "C",
-          "id": "ID-point-00003",
-          "RGFG-95": ["242964", "545995"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-53.350134459480415, 4.908386129530585]
-        },
-        "properties": {
-          "groupe": "contour",
-          "nom": "D",
-          "id": "ID-point-00004",
-          "RGFG-95": ["239369", "542995"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-53.350037425962263, 4.88059122624596]
-        },
-        "properties": {
-          "groupe": "contour",
-          "nom": "E",
-          "id": "ID-point-00005",
-          "RGFG-95": ["239369", "539920"]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [-53.389458598226419, 4.894579730225456]
-        },
-        "properties": {
-          "groupe": "contour",
-          "nom": "F",
-          "id": "ID-point-00006",
-          "RGFG-95": ["235000", "541483"]
-        }
-      }
-    ]
-  },
-  "surface": "53,130 km2",
-  "communes": {
-    "Guyane": {
-      "Guyane": ["Iracoubo", "Mana", "Saint-Elie"]
+  "références": [
+    {
+      "valeur": "2013-0061-MI"
+    },
+    {
+      "type": "id-TM-973",
+      "valeur": "05-2016"
     }
-  },
-  "emprises": ["À terre"],
+  ],
+  "phases": [
+    {
+      "nom": "octroi",
+      "date": "2016-01-20",
+      "durée": 5,
+      "geojson": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [-53.38968586248483, 4.958185236718157],
+                    [-53.31935144155668, 4.958435924385591],
+                    [-53.3177360574643, 4.908499454301041],
+                    [-53.350134459480415, 4.908386129530585],
+                    [-53.35003742596226, 4.88059122624596],
+                    [-53.38945859822642, 4.894579730225456]
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-53.389685862484832, 4.958185236718157]
+            },
+            "properties": {
+              "groupe": "contour",
+              "nom": "A",
+              "id": "ID-point-00001",
+              "RGFG-95": ["235000", "235000"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-53.319351441556677, 4.958435924385591]
+            },
+            "properties": {
+              "groupe": "contour",
+              "nom": "B",
+              "id": "ID-point-00002",
+              "RGFG-95": ["242804", "548520"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-53.317736057464302, 4.908499454301041]
+            },
+            "properties": {
+              "groupe": "contour",
+              "nom": "C",
+              "id": "ID-point-00003",
+              "RGFG-95": ["242964", "545995"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-53.350134459480415, 4.908386129530585]
+            },
+            "properties": {
+              "groupe": "contour",
+              "nom": "D",
+              "id": "ID-point-00004",
+              "RGFG-95": ["239369", "542995"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-53.350037425962263, 4.88059122624596]
+            },
+            "properties": {
+              "groupe": "contour",
+              "nom": "E",
+              "id": "ID-point-00005",
+              "RGFG-95": ["239369", "539920"]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-53.389458598226419, 4.894579730225456]
+            },
+            "properties": {
+              "groupe": "contour",
+              "nom": "F",
+              "id": "ID-point-00006",
+              "RGFG-95": ["235000", "541483"]
+            }
+          }
+        ]
+      },
+      "surface": 53.13,
+      "communes": {
+        "Guyane": {
+          "Guyane": ["Iracoubo", "Mana", "Saint-Elie"]
+        }
+      },
+      "emprises": ["À terre"]
+    }
+  ],
   "titulaires": [
     {
       "id": "titulaire-id-1",
       "nom": "Société des Mines de Saint-Elie",
+      "service": "Direction",
       "siret": "398 522 037 00058",
       "adresse": {
         "ligne_1": "Bourg de Saint-Elie",
         "code_postal": "97312",
         "ville": "SAINT-ELIE"
       },
-      "contact": {
-        "prenom": "Alexandre",
-        "nom": "CAILLEAU",
-        "service": "Direction",
-        "email": "cme.alexandre.cailleau@wanadoo.fr",
-        "telephone": "+594 594XXXXX",
-        "mobile": "+594 694XXXXX"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-20",
+          "prénom": "Alexandre",
+          "nom": "CAILLEAU",
+          "poste": "Direction",
+          "email": "cme.alexandre.cailleau@wanadoo.fr",
+          "telephone": "+594 594XXXXX",
+          "mobile": "+594 694XXXXX"
+        }
+      ]
     }
   ],
   "administrations": [
     {
       "id": "001",
       "nom": "Ministère de l'Economie et des Finances",
+      "service": "MTES/DGALN/DEB/EARM2",
       "adresse": {
         "ligne_1": "1 place carpeaux",
         "ligne_2": "1 place carpeaux",
         "code postal": "92000",
         "ville": "PARIS"
       },
-      "contact": {
-        "nom": "LE ROUX",
-        "prenom": "Yann",
-        "service": "MTES/DGALN/DEB/EARM2",
-        "telephone": "+33 (0)1 40 81 70 11",
-        "email": "y.le-roux@developement-durable.gouv.fr"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-21",
+          "nom": "LE ROUX",
+          "prénom": "Yann",
+          "poste": "poste",
+          "telephone": "+33 (0)1 40 81 70 11",
+          "email": "y.le-roux@developement-durable.gouv.fr"
+        }
+      ]
     },
     {
       "id": "003",
       "nom": "Déal Guyane",
+      "service":
+        "Déal Guyane / Service risques, énergie, mines et déchets / Unité mines et carrières",
       "adresse": {
         "ligne_1": "rue Carlos Fineley - Pointe Buzaré",
         "ligne_2": "CS 76003",
         "code postal": "97306",
         "ville": "Cayenne Cedex"
       },
-      "contact": {
-        "nom": "ORTELLI",
-        "prenom": "Adrien",
-        "service":
-          "Déal Guyane / Service risques, énergie, mines et déchets / Unité mines et carrières",
-        "telephone": "+594 (0)5 94 29 75 42",
-        "email": "adrien.ortelli@developpement-durable.gouv.fr"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-22",
+          "nom": "ORTELLI",
+          "prénom": "Adrien",
+          "poste": "nom du poste",
+          "telephone": "+594 (0)5 94 29 75 42",
+          "email": "adrien.ortelli@developpement-durable.gouv.fr"
+        }
+      ]
     },
     {
       "id": "002",
       "nom": "Préfecture de Guyane",
+      "service": "973 GUYANE/PREFECTURE",
       "adresse": {
         "ligne_1": "Rue Friedmond",
         "ligne_2": "BP 7008",
         "code postal": "97307",
         "ville": "Cayenne Cedex"
       },
-      "contact": {
-        "nom": "NNNNNNN",
-        "prenom": "PPPPPPPP",
-        "service": "973 GUYANE/PREFECTURE",
-        "telephone": "+594 (0)5 94 00 00 00",
-        "email": "pppp.nnnnn@guyane.pref.gouv.fr"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-23",
+          "nom": "NNNNNNN",
+          "prénom": "PPPPPPPP",
+          "poste": "nom du poste",
+          "telephone": "+594 (0)5 94 00 00 00",
+          "email": "pppp.nnnnn@guyane.pref.gouv.fr"
+        }
+      ]
     }
   ],
   "démarches en cours": [

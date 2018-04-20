@@ -4,236 +4,276 @@
   "type": "Permis exclusif de recherches",
   "statut": "Échu",
   "domaine": {
+    "id": "hydrocarbures",
     "nom": "Substances énergétiques",
     "code": "H"
   },
   "travaux": "En cours",
   "substances": {
     "principales": ["Hydrocarbures liquides ou gazeux"],
-    "connexes": [""]
+    "connexes": []
   },
-  "références": {
-    "métier": "P-560",
-    "rntm": ""
-  },
-  "validité": {
-    "début": "2000-07-06",
-    "durée": "16"
-  },
-  "geojson": {
-    "type": "FeatureCollection",
-    "features": [
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "MultiPolygon",
-          "coordinates": [
-            [
-              [
-                [3.173541636232701, 48.68993674997124],
-                [3.191542035009233, 48.68993730950939],
-                [3.191542052766129, 48.68093730566811],
-                [3.218544261639781, 48.68093658587118],
-                [3.21854429272969, 48.67193751637976],
-                [3.245545047187876, 48.67193680888667],
-                [3.245545159341878, 48.61793781793066],
-                [3.173543383948531, 48.61793724269859]
+  "références": [
+    {
+      "valeur": "P-560"
+    }
+  ],
+  "liens": [
+    {
+      "id": "conc-laconquillie",
+      "nom": "La Conquillie",
+      "type": "Concession"
+    }
+  ],
+  "phases": [
+    {
+      "nom": "octroi",
+      "date": "2000-07-06",
+      "durée": 16,
+      "geojson": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [3.173541636232701, 48.68993674997124],
+                    [3.191542035009233, 48.68993730950939],
+                    [3.191542052766129, 48.68093730566811],
+                    [3.218544261639781, 48.68093658587118],
+                    [3.21854429272969, 48.67193751637976],
+                    [3.245545047187876, 48.67193680888667],
+                    [3.245545159341878, 48.61793781793066],
+                    [3.173543383948531, 48.61793724269859]
+                  ]
+                ]
               ]
-            ]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [3.173541636232701, 48.689936749971238]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "A",
+              "id": "ID-point-00001",
+              "lambert-93": ["3°10'25\"", "48°41'24\""]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [3.191542035009233, 48.689937309509389]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "B",
+              "id": "ID-point-00002",
+              "lambert-93": ["3°11'30\"", "48°41'24\""]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [3.191542052766129, 48.68093730566811]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "C",
+              "id": "ID-point-00003",
+              "lambert-93": ["3°11'30\"", "48°40'51\""]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [3.218544261639781, 48.68093658587118]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "D",
+              "id": "ID-point-00004",
+              "lambert-93": ["3°13'07\"", "48°40'51\""]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [3.21854429272969, 48.671937516379757]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "E",
+              "id": "ID-point-00005",
+              "lambert-93": ["3°13'07\"", "48°40'19\""]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [3.245545047187876, 48.67193680888667]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "F",
+              "id": "ID-point-00006",
+              "lambert-93": ["3°14'44\"", "48°40'19\""]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [3.245545159341878, 48.61793781793066]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "G",
+              "id": "ID-point-00007",
+              "lambert-93": ["3°14'44\"", "48°37'05\""]
+            }
+          },
+          {
+            "type": "Feature",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [3.173543383948531, 48.617937242698588]
+            },
+            "properties": {
+              "groupe": "contour",
+              "name": "H",
+              "id": "ID-point-00007",
+              "lambert-93": ["3°10'25\"", "48°37'05\""]
+            }
+          }
+        ]
+      },
+      "surface": 36.39,
+      "communes": {
+        "Ile-de-France": {
+          "Seine-et-Marne": [
+            "Bannost-Villegagnon",
+            "Bézalles",
+            "Boisdon",
+            "Chenoise",
+            "Jouy-le-Châtel",
+            "Saint-Hilliers"
           ]
         }
       },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [3.173541636232701, 48.689936749971238]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "A",
-          "id": "ID-point-00001",
-          "lambert-93": ["3°10'25\"", "48°41'24\""]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [3.191542035009233, 48.689937309509389]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "B",
-          "id": "ID-point-00002",
-          "lambert-93": ["3°11'30\"", "48°41'24\""]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [3.191542052766129, 48.68093730566811]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "C",
-          "id": "ID-point-00003",
-          "lambert-93": ["3°11'30\"", "48°40'51\""]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [3.218544261639781, 48.68093658587118]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "D",
-          "id": "ID-point-00004",
-          "lambert-93": ["3°13'07\"", "48°40'51\""]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [3.21854429272969, 48.671937516379757]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "E",
-          "id": "ID-point-00005",
-          "lambert-93": ["3°13'07\"", "48°40'19\""]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [3.245545047187876, 48.67193680888667]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "F",
-          "id": "ID-point-00006",
-          "lambert-93": ["3°14'44\"", "48°40'19\""]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [3.245545159341878, 48.61793781793066]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "G",
-          "id": "ID-point-00007",
-          "lambert-93": ["3°14'44\"", "48°37'05\""]
-        }
-      },
-      {
-        "type": "Feature",
-        "geometry": {
-          "type": "Point",
-          "coordinates": [3.173543383948531, 48.617937242698588]
-        },
-        "properties": {
-          "groupe": "contour",
-          "name": "H",
-          "id": "ID-point-00007",
-          "lambert-93": ["3°10'25\"", "48°37'05\""]
-        }
-      }
-    ]
-  },
-  "surface": 36.39,
-  "communes": {
-    "Ile-de-France": {
-      "Seine-et-Marne": [
-        "Bannost-Villegagnon",
-        "Bézalles",
-        "Boisdon",
-        "Chenoise",
-        "Jouy-le-Châtel",
-        "Saint-Hilliers"
-      ]
+      "emprises": ["À terre"]
     }
-  },
-  "emprises": ["À terre"],
+  ],
   "titulaires": [
     {
       "id": "titulaire-id-1",
       "nom": "Vermilion REP",
+      "service": "Direction",
       "siret": "41096483700026",
       "adresse": {
         "ligne_1": "1762 RTE DE PONTENX",
         "code_postal": "40160",
         "ville": "PARENTIS EN BORN"
       },
-      "contact": {
-        "prenom": "Pantxika",
-        "nom": "Etcheverry",
-        "service": "Direction",
-        "email": "petcheverry@vermilionenergy.com",
-        "telephone": "+33558829579",
-        "mobile": "+336XXXXXXXX"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-24",
+          "prénom": "Pantxika",
+          "nom": "Etcheverry",
+          "poste": "Directrice",
+          "email": "petcheverry@vermilionenergy.com",
+          "telephone": "+33558829579",
+          "mobile": "+336XXXXXXXX"
+        }
+      ]
     }
   ],
   "administrations": [
     {
       "id": "001",
       "nom": "Ministère de la Transition écologique et solidaire",
+      "service": "MTES/DGEC/DE/SD2/BRESS",
       "adresse": {
         "ligne_1": "Tour Séquoia",
         "ligne_2": "",
         "code postal": "92055",
         "ville": "LA DEFENSE CEDEX"
       },
-      "contact": {
-        "nom": "BUI",
-        "prenom": "Hoang",
-        "service": "MTES/DGEC/DE/SD2/BRESS",
-        "telephone": "+33 (0)1 40 81 95 20",
-        "email": "hoang.bui@developement-durable.gouv.fr"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-25",
+          "nom": "BUI",
+          "prénom": "Hoang",
+          "poste": "nom du poste",
+          "telephone": "+33 (0)1 40 81 95 20",
+          "email": "hoang.bui@developement-durable.gouv.fr"
+        }
+      ]
     },
     {
       "id": "003",
       "nom": "DRIEE Ile-de-France",
+      "service": "DRIEE Ile-de-France SESS/PSS",
       "adresse": {
         "ligne_1": "12 Cours Louis Lumière",
         "ligne_2": "CS 70027",
         "code postal": "94307 ",
         "ville": "VINCENNES CEDEX"
       },
-      "contact": {
-        "nom": "VAN DEN BOGAARD",
-        "prenom": "Michel",
-        "service": "DRIEE Ile-de-France SESS/PSS",
-        "telephone": "+33171284724",
-        "email": "michel.van-den-bogarrd@developpement-durable.gouv.fr"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-26",
+          "nom": "VAN DEN BOGAARD",
+          "prénom": "Michel",
+          "poste": "nom du poste",
+          "telephone": "+33171284724",
+          "email": "michel.van-den-bogarrd@developpement-durable.gouv.fr"
+        }
+      ]
     },
     {
       "id": "002",
       "nom": "Préfecture de Seine-et-Marne",
+      "service": "77 - PREFECTURE/DCSE/PPPUP",
       "adresse": {
         "ligne_1": "",
         "ligne_2": "",
         "code postal": "77010",
         "ville": "MELUN"
       },
-      "contact": {
-        "nom": "CAZALIERES",
-        "prenom": "Annie",
-        "service": "77 - PREFECTURE/DCSE/PPPUP",
-        "telephone": "+33164717726",
-        "email": "annie.cazalieres@seine-et-marne.gouv.fr"
-      }
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-27",
+          "nom": "CAZALIERES",
+          "prénom": "Annie",
+          "poste": "nom du poste",
+          "telephone": "+33164717726",
+          "email": "annie.cazalieres@seine-et-marne.gouv.fr"
+        }
+      ]
     }
   ],
   "démarches en cours": [
