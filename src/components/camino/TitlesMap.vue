@@ -4,7 +4,7 @@
       id="map"
       ref="map"
       class="map mb">
-      <div class="absolute px-s py-xs map-loader">
+      <div class="absolute px-s py-xs map-loader hide">
         <div class="h6">Loading…</div>
       </div>
     </div>

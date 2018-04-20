@@ -192,7 +192,7 @@
       "id": "activite-01",
       "type": "Activités",
       "nom": "Rapport d'activité janvier à mars 2018",
-      "statut": "En attente de pièces…"
+      "statut": "En attente…"
     }
   ],
   "démarches": {
@@ -434,7 +434,7 @@
       {
         "id": "evt-3",
         "type": "Rapport d'activité 2017",
-        "statut": "En attente de pièces…",
+        "statut": "En attente…",
         "dates": {
           "ouverture": "2018-04-01"
         }

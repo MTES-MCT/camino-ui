@@ -615,13 +615,13 @@
       "id": "travaux-03",
       "type": "Travaux",
       "nom": "Exemple - Travaux 2",
-      "statut": "En attente de pièces…"
+      "statut": "En attente…"
     },
     {
       "id": "activite-01",
       "type": "Activités",
       "nom": "Exemple - Rapport d'activité",
-      "statut": "En attente de pièces…"
+      "statut": "En attente…"
     }
   ],
   "démarches": {
@@ -752,7 +752,16 @@
               "fonction": "Président"
             }
           }
-        ]
+        ],
+        "recours": {
+          "type": "Contentieux",
+          "requérant": "Tiers",
+          "tribunal": "Tribunal administratif de …",
+          "dates": {
+            "enregistrement": "2017-02-21"
+          },
+          "statut": "En instruction…"
+        }
       }
     ],
     "travaux": [
@@ -953,7 +962,7 @@
       {
         "id": "evt-3",
         "type": "Rapport d'activité 2017",
-        "statut": "En attente de pièces…",
+        "statut": "En attente…",
         "dates": {
           "ouverture": "2018-02-23"
         }

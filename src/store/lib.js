@@ -1,11 +1,5 @@
 export const state = {
   titre: {
-    statuts: {
-      neutral: ['neutral'],
-      error: ['error', 'En attente de pièces…'],
-      warning: ['warning', 'En instruction…'],
-      success: ['success', 'Valide', 'En cours', 'Validé']
-    },
     filtres: {
       domaines: {
         H: 'Substances énergétiques',
@@ -22,6 +16,12 @@ export const state = {
         ECH: 'Échu'
       }
     }
+  },
+  statuts: {
+    neutral: ['neutral'],
+    error: ['error', 'En attente…'],
+    warning: ['warning', 'En instruction…'],
+    success: ['success', 'Valide', 'En cours', 'Validé']
   }
 }
 

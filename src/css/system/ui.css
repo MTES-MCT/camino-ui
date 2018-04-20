@@ -91,3 +91,8 @@
   background-color: var(--color-warning);
   text-align: center;
 }
+
+.fixed-width {
+  width: calc(var(--col-width) * 1 / 4);
+  display: inline-block;
+}

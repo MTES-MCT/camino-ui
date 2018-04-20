@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import TitleTimelineEvent from './TitleTimelineEvent.vue'
+import TitleTimelineEvent from '@/components/camino/TitleTimelineEvent.vue'
 
 export default {
   components: {

@@ -17,7 +17,7 @@
                 :key="reference['valeur']">
                 <span
                   v-if="reference['type']"
-                  class="h5 word-break">{{ reference['type'] }} </span>{{ reference['valeur'] }}
+                  class="h5 word-break color-neutral fixed-width">{{ reference['type'] }} </span>{{ reference['valeur'] }}
               </li>
             </ul>
           </div>
@@ -36,11 +36,11 @@
           <div class="blobs">
             <div class="blob-1-2">
               <h6>Statut</h6>
-              <h4><title-status :status="title.statut" />{{ title.statut }}</h4>
+              <h4><status-dot :status="title.statut" />{{ title.statut }}</h4>
             </div>
             <div class="blob-1-2">
               <h6>Travaux</h6>
-              <h4><title-status :status="title.travaux" />{{ title.travaux }}</h4>
+              <h4><status-dot :status="title.travaux" />{{ title.travaux }}</h4>
             </div>
           </div>
           <div>
@@ -157,7 +157,7 @@
               <td><pill class="mt--s mb--s">{{ d.type }}</pill></td>
               <td>{{ d.nom }}</td>
               <td>
-                <title-status :status="d['statut']" />
+                <status-dot :status="d['statut']" />
                 {{ d['statut'] }}
               </td>
             </tr>
@@ -180,10 +180,10 @@ import Lmap from '@/components/ui/Lmap.vue'
 import Pill from '@/components/ui/Pill.vue'
 import PillList from '@/components/ui/PillList.vue'
 import Loader from '@/components/ui/Loader.vue'
-import TitleStatus from '@/components/camino/TitleStatus.vue'
+import StatusDot from '@/components/camino/StatusDot.vue'
 import Company from '@/components/camino/Company.vue'
 import TitleToolbar from '@/components/camino/TitleToolbar.vue'
-import TitleTimeline from './TitleTimeline.vue'
+import TitleTimeline from '@/components/camino/TitleTimeline.vue'
 
 export default {
   components: {
@@ -193,7 +193,7 @@ export default {
     Company,
     Card,
     Lmap,
-    TitleStatus,
+    StatusDot,
     TitleToolbar,
     TitleTimeline
   },

@@ -30,7 +30,7 @@
             </div>
           </td>
           <td>{{ title.type }}</td>
-          <td><title-status :status="title.statut" />{{ title.statut }}</td>
+          <td><status-dot :status="title.statut" />{{ title.statut }}</td>
           <td>
             <pill-list
               v-if="title.substances && title.substances.principales"
@@ -81,7 +81,7 @@
 import PillList from '@/components/ui/PillList.vue'
 import Pill from '@/components/ui/Pill.vue'
 import Accordion from '@/components/ui/Accordion.vue'
-import TitleStatus from '@/components/camino/TitleStatus.vue'
+import StatusDot from '@/components/camino/StatusDot.vue'
 
 export default {
   name: 'Titres',
@@ -90,7 +90,7 @@ export default {
     PillList,
     Pill,
     Accordion,
-    TitleStatus
+    StatusDot
   },
 
   props: {

@@ -19,7 +19,7 @@ export default {
 
   computed: {
     colors () {
-      return this.$store.state.lib['titre']['statuts']
+      return this.$store.state.lib['statuts']
     }
   },
 
