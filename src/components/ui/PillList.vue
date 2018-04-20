@@ -3,17 +3,17 @@
     <li
       v-for="element in elements"
       :key="element">
-      <tag :color="element.color">{{ element }}</tag>
+      <pill :color="element.color">{{ element }}</pill>
     </li>
   </ul>
 </template>
 
 <script>
-import Tag from './Tag.vue'
+import Pill from './Pill.vue'
 
 export default {
   components: {
-    Tag
+    Pill
   },
 
   props: {

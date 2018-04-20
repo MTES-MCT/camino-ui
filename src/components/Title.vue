@@ -5,44 +5,31 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-2">
           <h1 class="mt-xs">{{ title['nom'] }}</h1>
-          <h4 class="mb"><tag
+          <h4 class="mb"><pill
             :color="`bg-title-domain-${title['domaine']['code'].toLowerCase()}`"
-            class="mono mr-s mt--s">{{ title['domaine']['code'] }}</tag>{{ title['type'] }}
+            class="mono mr-s mt--s">{{ title['domaine']['code'] }}</pill>{{ title['type'] }}
           </h4>
-          <div class="blobs">
-            <div class="blob-1-2">
-              <h6>{{ title['références'].length > 1 ? 'Références' : 'Référence' }}</h6>
-              <ul class="list-prefix">
-                <li 
-                  v-for="reference in title['références']"
-                  :key="reference['valeur']">
-                  <span
-                    v-if="reference['type']"
-                    class="h5">{{ reference['type'] }}</span>{{ reference['valeur'] }}
-                </li>
-              </ul>
-            </div>
-            <div class="blob-1-2">
-              <h6>{{ title['titulaires'].length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
-              <ul class="list-prefix">
-                <li 
-                  v-for="titulaire in title['titulaires']"
-                  :key="titulaire.id">
-                  {{ titulaire['nom'] }}
-                </li>
-              </ul>
-
-            </div>
+          <div>
+            <h6>{{ title['références'].length > 1 ? 'Références' : 'Référence' }}</h6>
+            <ul class="list-prefix">
+              <li 
+                v-for="reference in title['références']"
+                :key="reference['valeur']">
+                <span
+                  v-if="reference['type']"
+                  class="h5 word-break">{{ reference['type'] }} </span>{{ reference['valeur'] }}
+              </li>
+            </ul>
           </div>
           <div
             v-if="title['substances']['principales'] && title['substances']['principales'].length > 0">
             <h6>Substances principales</h6>
-            <tag-list :elements="title['substances']['principales']" />
+            <pill-list :elements="title['substances']['principales']" />
           </div>
           <div 
             v-if="title['substances']['connexes'] && title['substances']['connexes'].length > 0" >
             <h6>Substances connexes</h6>
-            <tag-list :elements="title['substances']['connexes']" />
+            <pill-list :elements="title['substances']['connexes']" />
           </div>
         </div>
         <div class="tablet-blob-1-2">
@@ -55,6 +42,16 @@
               <h6>Travaux</h6>
               <h4><title-status :status="title.travaux" />{{ title.travaux }}</h4>
             </div>
+          </div>
+          <div>
+            <h6>{{ title['titulaires'].length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
+            <ul class="list-prefix">
+              <li 
+                v-for="titulaire in title['titulaires']"
+                :key="titulaire.id">
+                {{ titulaire['nom'] }}
+              </li>
+            </ul>
           </div>
           <div>
             <table class="table-xxs">
@@ -94,7 +91,7 @@
           <h6>Surface</h6>
           <p>{{ phaseCurrent.surface }} Km²</p>
           <h6>Emprise</h6>
-          <tag-list :elements="phaseCurrent.emprises" />
+          <pill-list :elements="phaseCurrent.emprises" />
         </div>
         <div class="tablet-blob-3-4">
           <h6>Communes</h6>
@@ -105,7 +102,7 @@
               v-for="(communes, departement) in departements"
               :key="departement">
               <h5 class="mb-xs">{{ region }} / {{ departement }}</h5>
-              <tag-list :elements="communes" />
+              <pill-list :elements="communes" />
             </div>
           </div>
         </div>
@@ -113,12 +110,22 @@
 
       <div class="tablet-blobs">
         <div class="tablet-blob-1-2">
-          <h6>{{ title['titulaires'].length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
-          <company
-            v-for="titulaire in title.titulaires"
-            :key="titulaire['id']"
-            :company="titulaire"
-            class="mb" />
+          <div>
+            <h6>{{ title['titulaires'].length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
+            <company
+              v-for="holder in title['titulaires']"
+              :key="holder['id']"
+              :company="holder"
+              class="mb" />
+          </div>
+          <div v-if="title['amodiataires']">
+            <h6>{{ title['amodiataires'].length > 1 ? 'Amodiataires' : 'Amodiataire' }}</h6>
+            <company
+              v-for="holder in title['amodiataires']"
+              :key="holder['id']"
+              :company="holder"
+              class="mb" />
+          </div>
         </div>
 
         <div class="tablet-blob-1-2">
@@ -147,7 +154,7 @@
               v-for="d in title['démarches en cours']"
               :key="d.id"
               class="h5">
-              <td><tag>{{ d.type }}</tag></td>
+              <td><pill class="mt--s mb--s">{{ d.type }}</pill></td>
               <td>{{ d.nom }}</td>
               <td>
                 <title-status :status="d['statut']" />
@@ -170,8 +177,8 @@
 <script>
 import Card from '@/components/ui/Card.vue'
 import Lmap from '@/components/ui/Lmap.vue'
-import Tag from '@/components/ui/Tag.vue'
-import TagList from '@/components/ui/TagList.vue'
+import Pill from '@/components/ui/Pill.vue'
+import PillList from '@/components/ui/PillList.vue'
 import Loader from '@/components/ui/Loader.vue'
 import TitleStatus from '@/components/camino/TitleStatus.vue'
 import Company from '@/components/camino/Company.vue'
@@ -180,8 +187,8 @@ import TitleTimeline from './TitleTimeline.vue'
 
 export default {
   components: {
-    Tag,
-    TagList,
+    Pill,
+    PillList,
     Loader,
     Company,
     Card,

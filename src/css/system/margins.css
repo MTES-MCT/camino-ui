@@ -270,6 +270,10 @@
   margin-top: calc(var(--unit-m) * -1);
 }
 
+.mb--s {
+  margin-bottom: calc(var(--unit-s) * -1);
+}
+
 .mb--xs {
   margin-bottom: calc(var(--unit-xs) * -1);
 }

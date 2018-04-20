@@ -1227,7 +1227,8 @@
       "service": "Direction",
       "siret": "",
       "adresse": {},
-      "contacts": [{}]
+      "site": "http://example.com",
+      "contacts": []
     },
     {
       "index": "GEOPETROL",
@@ -1235,7 +1236,8 @@
       "service": "Direction",
       "siret": "",
       "adresse": {},
-      "contacts": [{}]
+      "site": "http://example.com",
+      "contacts": []
     }
   ]
 }

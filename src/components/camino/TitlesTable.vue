@@ -17,9 +17,9 @@
           tag="tr"
           class="tr-link">
           <td>
-            <tag
+            <pill
               :color="`bg-title-domain-${title.domaine.code.toLowerCase()}`"
-              class="mono">{{ title.domaine.code }}</tag>
+              class="mono">{{ title.domaine.code }}</pill>
           </td>
           <td class="bold">{{ title.nom }}</td>
           <td>
@@ -32,7 +32,7 @@
           <td>{{ title.type }}</td>
           <td><title-status :status="title.statut" />{{ title.statut }}</td>
           <td>
-            <tag-list
+            <pill-list
               v-if="title.substances && title.substances.principales"
               :elements="title.substances.principales"
               class="mb--xs" />
@@ -78,8 +78,8 @@
 </template>
 
 <script>
-import TagList from '@/components/ui/TagList.vue'
-import Tag from '@/components/ui/Tag.vue'
+import PillList from '@/components/ui/PillList.vue'
+import Pill from '@/components/ui/Pill.vue'
 import Accordion from '@/components/ui/Accordion.vue'
 import TitleStatus from '@/components/camino/TitleStatus.vue'
 
@@ -87,8 +87,8 @@ export default {
   name: 'Titres',
 
   components: {
-    TagList,
-    Tag,
+    PillList,
+    Pill,
     Accordion,
     TitleStatus
   },
@@ -100,7 +100,7 @@ export default {
     }
   },
 
-  data() {
+  data () {
     return {
       pages: [1, 2, 3, 4, 5],
       pageActive: 1,

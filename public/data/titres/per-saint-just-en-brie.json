@@ -188,9 +188,11 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
+      "site": "http://example.com",
       "contacts": [
         {
-          "prenom": "Pantxika",
+          "id": "user-id-24",
+          "prénom": "Pantxika",
           "nom": "Etcheverry",
           "poste": "Directrice",
           "email": "petcheverry@vermilionenergy.com",
@@ -213,10 +215,12 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
+      "site": "http://example.com",
       "contacts": [
         {
+          "id": "user-id-25",
           "nom": "BUI",
-          "prenom": "Hoang",
+          "prénom": "Hoang",
           "poste": "nom du poste",
           "telephone": "+33 (0)1 40 81 95 20",
           "email": "hoang.bui@developement-durable.gouv.fr"
@@ -235,10 +239,12 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
+      "site": "http://example.com",
       "contacts": [
         {
+          "id": "user-id-26",
           "nom": "VAN DEN BOGAARD",
-          "prenom": "Michel",
+          "prénom": "Michel",
           "poste": "nom du poste",
           "telephone": "+33171284724",
           "email": "michel.van-den-bogarrd@developpement-durable.gouv.fr"
@@ -257,10 +263,12 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
+      "site": "http://example.com",
       "contacts": [
         {
+          "id": "user-id-27",
           "nom": "CAZALIERES",
-          "prenom": "Annie",
+          "prénom": "Annie",
           "poste": "nom du poste",
           "telephone": "+33164717726",
           "email": "annie.cazalieres@seine-et-marne.gouv.fr"

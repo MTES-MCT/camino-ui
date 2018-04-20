@@ -93,7 +93,8 @@
       "nom": "NOVAPEX",
       "siret": "",
       "adresse": {},
-      "contacts": [{}]
+      "site": "http://example.com",
+      "contacts": []
     }
   ]
 }

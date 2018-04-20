@@ -463,9 +463,39 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
+      "site": "http://example.com",
       "contacts": [
         {
-          "prenom": "Yves",
+          "id": "user-id-15",
+          "prénom": "Yves",
+          "nom": "Hirbec",
+          "poste": "Directeur",
+          "email": "yhirbec@cordiermines.fr",
+          "telephone": "+33954645654",
+          "mobile": "+336XXXXXXXX"
+        }
+      ]
+    }
+  ],
+  "amodiataires": [
+    {
+      "id": "amodiataire-id-1",
+      "opérateur": true,
+      "nom": "Amod mines",
+      "service": "Direction",
+      "siret": "803975135",
+      "adresse": {
+        "ligne_1": "6 rue Maurice Hurel",
+        "code_postal": "31500",
+        "ville": "Toulouse"
+      },
+      "téléphone": "+594 594XXXXX",
+      "email": "contact@email.com",
+      "site": "http://example.com",
+      "contacts": [
+        {
+          "id": "user-id-15",
+          "prénom": "Yves",
           "nom": "Hirbec",
           "poste": "Directeur",
           "email": "yhirbec@cordiermines.fr",
@@ -488,11 +518,12 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
-
+      "site": "http://example.com",
       "contacts": [
         {
+          "id": "user-id-16",
           "nom": "LEVIEUX",
-          "prenom": "Guillaume",
+          "prénom": "Guillaume",
           "poste": "nom du poste",
           "telephone": "+33 (0)1 40 81 95 86",
           "email": "guillaume.levieux@developement-durable.gouv.fr"
@@ -511,11 +542,12 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
-
+      "site": "http://example.com",
       "contacts": [
         {
+          "id": "user-id-17",
           "nom": "BROCARD",
-          "prenom": "Pierre",
+          "prénom": "Pierre",
           "poste": "nom du poste",
           "telephone": "+33 (0)1 40 81 95 86",
           "email": "pierre.brocard@developpement-durable.gouv.fr"
@@ -524,6 +556,7 @@
     },
     {
       "id": "002",
+      "coordinateur": true,
       "nom": "Préfecture de la Haute-Vienne",
       "service": "87 HAUTE-VIENNE/PREFECTURE/DCE/BPE",
       "adresse": {
@@ -534,11 +567,12 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
-
+      "site": "http://example.com",
       "contacts": [
         {
+          "id": "user-id-18",
           "nom": "LABRO",
-          "prenom": "Jérôme",
+          "prénom": "Jérôme",
           "poste": "nom du poste",
           "telephone": "+33 (0)5 55 44 19 40",
           "email": "jerome.labro@haute-vienne.gouv.fr"
@@ -557,11 +591,12 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
-
+      "site": "http://example.com",
       "contacts": [
         {
+          "id": "user-id-19",
           "nom": "LABRO",
-          "prenom": "Jérôme",
+          "prénom": "Jérôme",
           "poste": "nom du poste",
           "telephone": "+33 XX XX XX XX XX",
           "email": "jerome.labro@haute-vienne.gouv.fr"

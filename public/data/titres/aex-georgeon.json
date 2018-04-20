@@ -121,9 +121,11 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
+      "site": "http://example.com",
       "contacts": [
         {
-          "prenom": "Remi",
+          "id": "user-id-4",
+          "prénom": "Remi",
           "nom": "PERNOD",
           "poste": "Président",
           "email": "amazonegold@gmail.com",
@@ -147,11 +149,13 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
+      "site": "http://example.com",
 
       "contacts": [
         {
+          "id": "user-id-5",
           "nom": "ORTELLI",
-          "prenom": "Adrien",
+          "prénom": "Adrien",
           "poste": "nom du poste",
           "telephone": "+594 (0)5 94 29 75 42",
           "email": "adrien.ortelli@developpement-durable.gouv.fr"
@@ -170,11 +174,13 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
+      "site": "http://example.com",
 
       "contacts": [
         {
+          "id": "user-id-6",
           "nom": "NNNNNNN",
-          "prenom": "PPPPPPPP",
+          "prénom": "PPPPPPPP",
           "poste": "nom du poste",
           "telephone": "+594 (0)5 94 00 00 00",
           "email": "pppp.nnnnn@guyane.pref.gouv.fr"

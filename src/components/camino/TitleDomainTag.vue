@@ -1,13 +1,13 @@
 <template>
-  <tag :color="colorGet(status)" />
+  <pill :color="colorGet(status)" />
 </template>
 
 <script>
-import Tag from '@/components/ui/Tag.vue'
+import Pill from '@/components/ui/Pill.vue'
 
 export default {
   components: {
-    Tag
+    Pill
   },
 
   props: {

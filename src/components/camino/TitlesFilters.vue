@@ -8,7 +8,7 @@
         <li
           v-for="filterSelected in filterSelecteds"
           :key="filterSelected.name">
-          <tag>{{ filterSelected.name }}</tag>
+          <pill>{{ filterSelected.name }}</pill>
         </li>
       </ul>
     </template>
@@ -43,9 +43,9 @@
               <input
                 type="checkbox"
                 class="mr-s">
-              <tag
+              <pill
                 :color="`bg-title-domain-${domaineCode.toLowerCase()}`"
-                class="mr-xs mono">{{ domaineCode }}</tag>
+                class="mr-xs mono">{{ domaineCode }}</pill>
               {{ domaine }}
             </label>
           </li>
@@ -90,12 +90,12 @@
 
 <script>
 import TitleStatus from '@/components/camino/TitleStatus.vue'
-import Tag from '@/components/ui/Tag.vue'
+import Pill from '@/components/ui/Pill.vue'
 import Accordion from '@/components/ui/Accordion.vue'
 
 export default {
   components: {
-    Tag,
+    Pill,
     TitleStatus,
     Accordion,
   },

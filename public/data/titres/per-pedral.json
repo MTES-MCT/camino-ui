@@ -150,9 +150,11 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
+      "site": "http://example.com",
       "contacts": [
         {
-          "prenom": "Alexandre",
+          "id": "user-id-20",
+          "prénom": "Alexandre",
           "nom": "CAILLEAU",
           "poste": "Direction",
           "email": "cme.alexandre.cailleau@wanadoo.fr",
@@ -175,10 +177,12 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
+      "site": "http://example.com",
       "contacts": [
         {
+          "id": "user-id-21",
           "nom": "LE ROUX",
-          "prenom": "Yann",
+          "prénom": "Yann",
           "poste": "poste",
           "telephone": "+33 (0)1 40 81 70 11",
           "email": "y.le-roux@developement-durable.gouv.fr"
@@ -198,10 +202,12 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
+      "site": "http://example.com",
       "contacts": [
         {
+          "id": "user-id-22",
           "nom": "ORTELLI",
-          "prenom": "Adrien",
+          "prénom": "Adrien",
           "poste": "nom du poste",
           "telephone": "+594 (0)5 94 29 75 42",
           "email": "adrien.ortelli@developpement-durable.gouv.fr"
@@ -220,11 +226,12 @@
       },
       "téléphone": "+594 594XXXXX",
       "email": "contact@email.com",
-
+      "site": "http://example.com",
       "contacts": [
         {
+          "id": "user-id-23",
           "nom": "NNNNNNN",
-          "prenom": "PPPPPPPP",
+          "prénom": "PPPPPPPP",
           "poste": "nom du poste",
           "telephone": "+594 (0)5 94 00 00 00",
           "email": "pppp.nnnnn@guyane.pref.gouv.fr"
