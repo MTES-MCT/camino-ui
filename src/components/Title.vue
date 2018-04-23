@@ -90,8 +90,6 @@
         <div class="tablet-blob-1-4">
           <h6>Surface</h6>
           <p>{{ phaseCurrent.surface }} Km²</p>
-          <h6>Emprise</h6>
-          <pill-list :elements="phaseCurrent.emprises" />
         </div>
         <div class="tablet-blob-3-4">
           <h6>Communes</h6>

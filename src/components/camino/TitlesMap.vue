@@ -36,7 +36,7 @@
                   :value="tile.name"
                   type="radio"
                   class="mr-s"
-                  @change="mapChange">
+                  @change="mapTilesChange">
                 {{ tile.name }}
               </label>
             </li>
@@ -81,7 +81,7 @@ export default {
   data () {
     return {
       map: null,
-      tileLayer: null,
+      tilesLayer: null,
       zones: {
         fr: {
           type: 'LineString',
@@ -150,7 +150,7 @@ export default {
       this.map = L.map(this.$refs.map, {
         doubleClickZoom: false
       })
-      this.mapTileAdd()
+      this.mapTilesAdd()
 
       L.control
         .scale({
@@ -164,19 +164,19 @@ export default {
       this.map.fitBounds(zoneLayer.getBounds())
     },
 
-    mapChange () {
-      this.tileLayer.removeFrom(this.map)
-      this.mapTileAdd()
+    mapTilesChange () {
+      this.tilesLayer.removeFrom(this.map)
+      this.mapTilesAdd()
     },
 
-    mapTileAdd () {
+    mapTilesAdd () {
       const tile = this.tiles.find(t => t.name === this.tileCurrent)
-      this.tileLayer = L.tileLayer(tile.url, {
+      this.tilesLayer = L.tileLayer(tile.url, {
         maxZoom: 20,
         attribution: tile.attribution
       })
 
-      this.tileLayer.addTo(this.map)
+      this.tilesLayer.addTo(this.map)
     },
 
     titleLayersInit () {

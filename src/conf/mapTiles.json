@@ -1,5 +1,11 @@
 [
   {
+    "name": "osm / mapnik",
+    "url": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    "attribution":
+      "&copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>"
+  },
+  {
     "name": "osm / fr",
     "url": "https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png",
     "attribution":

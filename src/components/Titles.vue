@@ -31,7 +31,7 @@
 import Card from '@/components/ui/Card.vue'
 import Loader from '@/components/ui/Loader.vue'
 import TitlesTable from '@/components/camino/TitlesTable.vue'
-import TitlesMap from '@/components/camino/TitlesMap.vue'
+import TitlesMap from '@/components/camino/TitlesMap-1.vue'
 import TitlesFilters from '@/components/camino/TitlesFilters.vue'
 
 export default {
@@ -43,7 +43,7 @@ export default {
     TitlesFilters
   },
 
-  data() {
+  data () {
     return {
       filtersOpened: false,
       viewCurrent: 'map'
@@ -51,16 +51,16 @@ export default {
   },
 
   computed: {
-    titres() {
+    titres () {
       return this.$store.state.titles.list
     },
-    filtres() {
+    filtres () {
       return this.$store.state.lib.titre.filtres
     },
-    loaded() {
+    loaded () {
       return !!this.titres
     },
-    viewComponent() {
+    viewComponent () {
       return this.viewCurrent === 'map' ? TitlesMap : TitlesTable
     }
   },
@@ -69,15 +69,15 @@ export default {
     $route: 'get'
   },
 
-  created() {
+  created () {
     this.get()
   },
 
   methods: {
-    get() {
+    get () {
       this.$store.dispatch('titles/get')
     },
-    viewSet(viewNew) {
+    viewSet (viewNew) {
       this.viewCurrent = viewNew
     }
   }
