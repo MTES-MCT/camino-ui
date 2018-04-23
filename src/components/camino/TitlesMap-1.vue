@@ -1,22 +1,22 @@
 <template>
   <div>
     <leaflet-map
-      :tiles="tiles.find(t => t.name === tileCurrent)"
+      :tiles="tilesCurrent"
       :layers="[]"
       :markers="[]"
-      :bounds="boundsList[boundsCurrent]" />
+      :bounds="boundsCurrent" />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <ul class="list-inline">
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="boundsCurrent = 'fr'">Métropole</button>
+              @click="boundsCurrentName = 'fr'">Métropole</button>
           </li>
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="boundsCurrent = 'gf'">Guyane</button>
+              @click="boundsCurrentName = 'gf'">Guyane</button>
           </li>
         </ul>
       </div>
@@ -29,11 +29,11 @@
               :key="tile.type">
               <label>
                 <input
-                  v-model="tileCurrent"
+                  v-model="tilesCurrentName"
                   :value="tile.name"
                   type="radio"
                   class="mr-s"
-                  @change="tileCurrent = tile.name">
+                  @change="tilesCurrentName = tile.name">
                 {{ tile.name }}
               </label>
             </li>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import L from 'leaflet'
 import mapTiles from '@/conf/mapTiles.json'
 import Accordion from '@/components/ui/Accordion.vue'
 import LeafletMap from '@/components/ui/LeafletMap.vue'
@@ -64,8 +65,6 @@ export default {
 
   data () {
     return {
-      map: null,
-      tileLayer: null,
       boundsList: {
         fr: {
           type: 'LineString',
@@ -76,9 +75,9 @@ export default {
           coordinates: [[-54.5425, 2.1271], [-51.6139, 5.7765]]
         }
       },
-      boundsCurrent: 'fr',
+      boundsCurrentName: 'fr',
       tiles: mapTiles,
-      tileCurrent: 'Géoportail / Plan IGN',
+      tilesCurrentName: 'Géoportail / Plan IGN',
       colors: {
         mineraux: '#498bd6',
         'mineraux-rntm': '#498bd6',
@@ -113,12 +112,83 @@ export default {
     }
   },
 
+  computed: {
+    tilesCurrent () {
+      const t = this.tiles.find(t => t.name === this.tilesCurrentName)
+      return L.tileLayer(t.url, {
+        maxZoom: 20,
+        attribution: t.attribution
+      })
+    },
+    boundsCurrent () {
+      const b = this.boundsList[this.boundsCurrentName]
+      return L.geoJSON(b).getBounds()
+
+    }
+  },
+
   mounted () {
 
   },
 
   methods: {
-    mapChange () {
+    tilesSet () {
+
+    },
+    titleLayersInit () {
+      this.titleLayers = this.titles.map(title => {
+        const icon = L.divIcon({
+          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domain-${title.domaine.code.toLowerCase()} leaflet-marker-title`,
+          html: title.domaine.code,
+          iconSize: null,
+          iconAnchor: [15.5, 38]
+        })
+        const popupHtml = `<h4 class="mb-s">${title['nom']}</h4>`
+        const popupOptions = {
+          closeButton: false,
+          offset: [0, -24]
+        }
+        const titleRoute = {
+          name: 'titre',
+          params: { id: title.id }
+        }
+        const methods = {
+          click: () => {
+            this.$router.push(titleRoute)
+          },
+          mouseover (e) {
+            this.openPopup()
+          },
+          mouseout (e) {
+            this.closePopup()
+          }
+        }
+
+        return L.geoJSON(title['phases'][0].geojson, {
+          filter: feature => feature.geometry.type === 'MultiPolygon',
+          style: {
+            fillColor: this.colors[title.domaine.id],
+            fillOpacity: 0.75,
+            weight: 0
+          },
+          onEachFeature: (feature, layer) => {
+            const titleMarker = L.marker(
+              L.geoJSON(feature)
+                .getBounds()
+                .getCenter(),
+              { icon }
+            )
+
+            titleMarker.bindPopup(popupHtml, popupOptions)
+            titleMarker.on(methods)
+
+            layer.bindPopup(popupHtml, popupOptions)
+            layer.on(methods)
+
+            this.titleMarkers.push(titleMarker)
+          }
+        })
+      })
     }
   }
 }

@@ -38,19 +38,17 @@ export default {
     },
     tiles: {
       type: Object,
-      default: () => ({
-        'name': 'osm / mapnik',
-        'url':
-          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        'attribution': '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      default: () => L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 20,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       })
     },
     bounds: {
       type: Object,
-      default: () => ({
+      default: () => L.geoJSON({
         type: 'LineString',
         coordinates: [[-85, 60], [85, -30]]
-      })
+      }).getBounds()
     }
   },
 
@@ -88,8 +86,9 @@ export default {
     },
 
     mapFit () {
-      const zoneLayer = L.geoJSON(this.bounds)
-      this.map.fitBounds(zoneLayer.getBounds())
+      console.log('b', this.bounds)
+
+      this.map.fitBounds(this.bounds)
     },
 
     mapTilesChange () {
@@ -98,13 +97,7 @@ export default {
     },
 
     mapTilesAdd () {
-      this.tilesLayer = L.tileLayer(this.tiles.url, {
-        maxZoom: 20,
-        attribution: this.tiles.attribution
-      })
-
-      console.log('t', typeof this.tilesLayer)
-
+      this.tilesLayer = this.tiles
       this.tilesLayer.addTo(this.map)
     },
 
