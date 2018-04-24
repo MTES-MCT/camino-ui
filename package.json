@@ -37,7 +37,7 @@
     "postcss-inline-svg": "^3.1.1",
     "postcss-loader": "^2.1.4",
     "postcss-media-minmax": "^3.0.0",
-    "postcss-nesting": "^4.2.1",
+    "postcss-nesting": "^5.0.0",
     "postcss-normalize": "^4.0.0",
     "postcss-selector-matches": "^3.0.1",
     "postcss-selector-not": "^3.0.1",
