@@ -1,12 +1,6 @@
 export const state = {
   titre: {
     filtres: {
-      domaines: {
-        H: 'Substances énergétiques',
-        M: 'Minéraux et métaux',
-        G: 'Géothermie',
-        S: 'Stockage'
-      },
       types: {
         CNC: 'Concession',
         PER: 'Permis exclusif de recherches'
@@ -15,7 +9,33 @@ export const state = {
         VAL: 'Valide',
         ECH: 'Échu'
       }
-    }
+    },
+    domaines: [
+      {
+        id: 'mineraux',
+        code: 'M',
+        nom: 'Minéraux et métaux',
+        couleur: '#498bd6'
+      },
+      {
+        id: 'hydrocarbures',
+        nom: 'Substances énergétiques',
+        code: 'H',
+        couleur: '#856940'
+      },
+      {
+        id: 'stockage',
+        nom: 'Stockage',
+        code: 'S',
+        couleur: '#8468b1'
+      },
+      {
+        id: 'geothermie',
+        nom: 'Géothermie',
+        code: 'G',
+        couleur: '#d16c3e'
+      }
+    ]
   },
   statuts: {
     neutral: ['neutral'],

@@ -81,7 +81,7 @@
           </div>
         </div>
       </div>
-      <lmap
+      <title-map
         v-if="phaseCurrent.geojson"
         :geojson="phaseCurrent.geojson"
         class="mb" />
@@ -174,10 +174,10 @@
 
 <script>
 import Card from '@/components/ui/Card.vue'
-import Lmap from '@/components/ui/Lmap.vue'
 import Pill from '@/components/ui/Pill.vue'
 import PillList from '@/components/ui/PillList.vue'
 import Loader from '@/components/ui/Loader.vue'
+import TitleMap from '@/components/camino/TitleMap.vue'
 import StatusDot from '@/components/camino/StatusDot.vue'
 import Company from '@/components/camino/Company.vue'
 import TitleToolbar from '@/components/camino/TitleToolbar.vue'
@@ -190,7 +190,7 @@ export default {
     Loader,
     Company,
     Card,
-    Lmap,
+    TitleMap,
     StatusDot,
     TitleToolbar,
     TitleTimeline

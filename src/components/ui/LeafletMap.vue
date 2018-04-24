@@ -28,7 +28,7 @@ L.Marker.prototype.options.icon = L.icon({
 
 export default {
   props: {
-    layers: {
+    geojsons: {
       type: Array,
       default: () => []
     },
@@ -55,19 +55,25 @@ export default {
   data () {
     return {
       map: null,
-      tilesLayer: null,
+      layers: {
+        tiles: {},
+        geojsons: [],
+        markers: []
+      }
     }
   },
 
   watch: {
     bounds: 'mapFit',
-    tiles: 'mapTilesChange'
+    tiles: 'tilesUpdate',
+    geojsons: 'geojsonsUpdate',
+    markers: 'markersUpdate'
   },
 
   mounted () {
     this.mapInit()
     this.mapFit()
-    this.layersAdd()
+    this.geojsonsAdd()
     this.markersAdd()
   },
 
@@ -76,7 +82,7 @@ export default {
       this.map = L.map(this.$refs.map, {
         doubleClickZoom: false
       })
-      this.mapTilesAdd()
+      this.tilesAdd()
 
       L.control
         .scale({
@@ -86,35 +92,37 @@ export default {
     },
 
     mapFit () {
-      console.log('b', this.bounds)
-
       this.map.fitBounds(this.bounds)
     },
 
-    mapTilesChange () {
-      this.tilesLayer.removeFrom(this.map)
-      this.mapTilesAdd()
+    tilesUpdate () {
+      this.layers.tiles.removeFrom(this.map)
+      this.tilesAdd()
     },
 
-    mapTilesAdd () {
-      this.tilesLayer = this.tiles
-      this.tilesLayer.addTo(this.map)
+    tilesAdd () {
+      this.layers.tiles = this.tiles
+      this.layers.tiles.addTo(this.map)
     },
 
-    layersAdd () {
-      this.layers.forEach(l => l.addTo(this.map))
+    geojsonsAdd () {
+      this.layers.geojsons = this.geojsons
+      this.layers.geojsons.forEach(l => l.addTo(this.map))
+    },
+
+    geojsonsUpdate () {
+      this.layers.geojsons.forEach(l => l.remove())
+      this.geojsonsAdd()
     },
 
     markersAdd () {
-      this.markers.forEach(m => m.addTo(this.map))
+      this.layers.markers = this.markers
+      this.layers.markers.forEach(m => m.addTo(this.map))
     },
 
-    layersRemove () {
-      this.layers.forEach(l => l.remove())
-    },
-
-    markersRemove () {
-      this.markers.forEach(m => m.remove())
+    markersUpdate () {
+      this.layers.markers.forEach(m => m.remove())
+      this.markersAdd()
     }
   }
 }

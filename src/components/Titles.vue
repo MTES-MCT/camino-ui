@@ -31,7 +31,7 @@
 import Card from '@/components/ui/Card.vue'
 import Loader from '@/components/ui/Loader.vue'
 import TitlesTable from '@/components/camino/TitlesTable.vue'
-import TitlesMap from '@/components/camino/TitlesMap-1.vue'
+import TitlesMap from '@/components/camino/TitlesMap.vue'
 import TitlesFilters from '@/components/camino/TitlesFilters.vue'
 
 export default {

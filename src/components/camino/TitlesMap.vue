@@ -1,25 +1,22 @@
 <template>
   <div>
-    <div 
-      id="map"
-      ref="map"
-      class="map mb">
-      <div class="absolute px-s py-xs map-loader hide">
-        <div class="h6">Loading…</div>
-      </div>
-    </div>
+    <leaflet-map
+      :tiles="tilesCurrent"
+      :geojsons="titleGeojsons"
+      :markers="titleMarkers"
+      :bounds="boundsCurrent" />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <ul class="list-inline">
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="mapFit('fr')">Métropole</button>
+              @click="boundsCurrentName = 'fr'">Métropole</button>
           </li>
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="mapFit('gf')">Guyane</button>
+              @click="boundsCurrentName = 'gf'">Guyane</button>
           </li>
         </ul>
       </div>
@@ -32,11 +29,11 @@
               :key="tile.type">
               <label>
                 <input
-                  v-model="tileCurrent"
+                  v-model="tilesCurrentName"
                   :value="tile.name"
                   type="radio"
                   class="mr-s"
-                  @change="mapTilesChange">
+                  @change="tilesCurrentName = tile.name">
                 {{ tile.name }}
               </label>
             </li>
@@ -51,24 +48,12 @@
 import L from 'leaflet'
 import mapTiles from '@/conf/mapTiles.json'
 import Accordion from '@/components/ui/Accordion.vue'
-import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
-import iconUrl from 'leaflet/dist/images/marker-icon.png'
-import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
-
-L.Marker.prototype.options.icon = L.icon({
-  iconRetinaUrl,
-  iconUrl,
-  shadowUrl,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  tooltipAnchor: [16, -28],
-  shadowSize: [41, 41]
-})
+import LeafletMap from '@/components/ui/LeafletMap.vue'
 
 export default {
   components: {
-    Accordion
+    Accordion,
+    LeafletMap
   },
 
   props: {
@@ -80,9 +65,7 @@ export default {
 
   data () {
     return {
-      map: null,
-      tilesLayer: null,
-      zones: {
+      boundsList: {
         fr: {
           type: 'LineString',
           coordinates: [[-5.1406, 41.3337], [9.5593, 51.0891]]
@@ -92,95 +75,73 @@ export default {
           coordinates: [[-54.5425, 2.1271], [-51.6139, 5.7765]]
         }
       },
+      boundsCurrentName: 'fr',
       tiles: mapTiles,
-      tileCurrent: 'Géoportail / Plan IGN',
-      colors: {
-        mineraux: '#498bd6',
-        'mineraux-rntm': '#498bd6',
-        hydrocarbures: '#856940',
-        stockage: '#8468b1',
-        geothermie: '#d16c3e'
-      },
-      layers: [
+      tilesCurrentName: 'osm / mapnik',
+      mocks: [
         {
           id: 'mineraux-rntm',
+          type: 'mineraux',
           opacity: 0.25
         },
         {
           id: 'mineraux',
+          type: 'mineraux',
           opacity: 0.5
         },
         {
           id: 'hydrocarbures',
+          type: 'hydrocarbures',
           opacity: 0.5
         },
         {
           id: 'stockage',
+          type: 'stockage',
           opacity: 0.5
         },
         {
           id: 'geothermie',
+          type: 'geothermie',
           opacity: 0.5
         }
       ],
-      titleLayers: [],
+      titleGeojsons: [],
       titleMarkers: []
     }
   },
 
+  computed: {
+    tilesCurrent () {
+      const t = this.tiles.find(t => t.name === this.tilesCurrentName)
+      return L.tileLayer(t.url, {
+        maxZoom: 20,
+        attribution: t.attribution
+      })
+    },
+    boundsCurrent () {
+      const b = this.boundsList[this.boundsCurrentName]
+      return L.geoJSON(b).getBounds()
+    },
+    domains () {
+      return this.$store.state.lib.titre['domaines']
+    }
+  },
+
   mounted () {
-    this.mapInit()
-    this.mapFit('fr')
-    this.titleLayersInit()
-    this.titleLayersAdd()
-    this.titleMarkersAdd()
-    this.layers.forEach(l => {
+    this.titlesInit()
+    this.mocks.forEach(l => {
       this.mockGet(l.id).then(geojson => {
-        this.mockLayersInit(l, geojson)
-        this.titleLayersRemove()
-        this.titleMarkersRemove()
-        this.titleLayersAdd()
-        this.titleMarkersAdd()
+        this.mocksInit(l, geojson)
       })
     })
   },
 
   methods: {
-    mapInit () {
-      this.map = L.map(this.$refs.map, {
-        doubleClickZoom: false
-      })
-      this.mapTilesAdd()
+    tilesSet () {
 
-      L.control
-        .scale({
-          imperial: false
-        })
-        .addTo(this.map)
     },
-
-    mapFit (zone) {
-      const zoneLayer = L.geoJSON(this.zones[zone])
-      this.map.fitBounds(zoneLayer.getBounds())
-    },
-
-    mapTilesChange () {
-      this.tilesLayer.removeFrom(this.map)
-      this.mapTilesAdd()
-    },
-
-    mapTilesAdd () {
-      const tile = this.tiles.find(t => t.name === this.tileCurrent)
-      this.tilesLayer = L.tileLayer(tile.url, {
-        maxZoom: 20,
-        attribution: tile.attribution
-      })
-
-      this.tilesLayer.addTo(this.map)
-    },
-
-    titleLayersInit () {
-      this.titleLayers = this.titles.map(title => {
+    titlesInit () {
+      this.titles.forEach(title => {
         const icon = L.divIcon({
           className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domain-${title.domaine.code.toLowerCase()} leaflet-marker-title`,
           html: title.domaine.code,
@@ -208,10 +169,10 @@ export default {
           }
         }
 
-        return L.geoJSON(title['phases'][0].geojson, {
+        const geojsonLayer = L.geoJSON(title['phases'][0].geojson, {
           filter: feature => feature.geometry.type === 'MultiPolygon',
           style: {
-            fillColor: this.colors[title.domaine.id],
+            fillColor: this.domains.find(d => d.id === title.domaine.id)['couleur'],
             fillOpacity: 0.75,
             weight: 0
           },
@@ -232,40 +193,28 @@ export default {
             this.titleMarkers.push(titleMarker)
           }
         })
+
+        this.titleGeojsons.push(geojsonLayer)
       })
-    },
-
-    titleLayersAdd () {
-      this.titleLayers.forEach(l => l.addTo(this.map))
-    },
-
-    titleMarkersAdd () {
-      this.titleMarkers.forEach(m => m.addTo(this.map))
-    },
-
-    titleLayersRemove () {
-      this.titleLayers.forEach(l => l.remove())
-    },
-
-    titleMarkersRemove () {
-      this.titleMarkers.forEach(m => m.remove())
     },
 
     mockGet (id) {
       return this.$store.dispatch('titles/mockGet', id)
     },
 
-    mockLayersInit (layer, geojson) {
-      L.geoJSON(geojson, {
+    mocksInit (mock, geojson) {
+      const geojsonLayer = L.geoJSON(geojson, {
         style: {
-          fillColor: this.colors[layer.id],
-          fillOpacity: layer.opacity,
+          fillColor: this.domains.find(d => d.id === mock.type)['couleur'],
+          fillOpacity: mock.opacity,
           weight: 0,
           opacity: 1,
           color: 'white'
         },
-        onEachFeature: (feature, layer) => { }
-      }).addTo(this.map)
+        onEachFeature: (feature, mock) => { }
+      })
+
+      this.titleGeojsons.unshift(geojsonLayer)
     }
   }
 }

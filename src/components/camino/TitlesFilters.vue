@@ -37,16 +37,16 @@
         <h6>Domaine</h6>
         <ul class="list-sans">
           <li
-            v-for="(domaine, domaineCode) in filtres.domaines"
-            :key="domaineCode">
+            v-for="domaine in domaines"
+            :key="domaine['code']">
             <label>
               <input
                 type="checkbox"
                 class="mr-s">
               <pill
-                :color="`bg-title-domain-${domaineCode.toLowerCase()}`"
-                class="mr-xs mono">{{ domaineCode }}</pill>
-              {{ domaine }}
+                :color="`bg-title-domain-${domaine['code'].toLowerCase()}`"
+                class="mr-xs mono">{{ domaine['code'] }}</pill>
+              {{ domaine['nom'] }}
             </label>
           </li>
         </ul>
@@ -110,7 +110,10 @@ export default {
 
   computed: {
     filtres () {
-      return this.$store.state.lib.titre.filtres
+      return this.$store.state.lib.titre['filtres']
+    },
+    domaines () {
+      return this.$store.state.lib.titre['domaines']
     }
   }
 
