@@ -1,6 +1,7 @@
 <template>
   <div>
     <leaflet-map
+      ref="map"
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
@@ -11,12 +12,12 @@
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="boundsName = 'fr'">Métropole</button>
+              @click="mapFit('fr')">Métropole</button>
           </li>
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="boundsName = 'gf'">Guyane</button>
+              @click="mapFit('gf')">Guyane</button>
           </li>
         </ul>
       </div>
@@ -199,6 +200,15 @@ export default {
       })
 
       this.geojsonLayers.unshift(geojsonLayer)
+    },
+
+    mapFit (zone) {
+      console.log('map', zone, this.boundsName);
+      if (this.boundsName === zone) {
+        this.$refs.map.fit()
+      } else {
+        this.boundsName = zone
+      }
     }
   }
 }
