@@ -94,10 +94,16 @@ export default {
 
   computed: {
     tilesLayer () {
-      const t = this.$store.getters['map/tilesActive']
-      return L.tileLayer(t.url, {
-        attribution: t.attribution
-      })
+      const tiles = this.$store.getters['map/tilesActive']
+      return tiles.type === 'wms'
+        ?
+        L.tileLayer.wms(tiles.url, {
+          layers: tiles.layers,
+          format: 'image/png',
+          attribution: tiles.attribution
+        }) : L.tileLayer(tiles.url, {
+          attribution: tiles.attribution
+        })
     },
     bounds () {
       const b = this.boundsList[this.boundsName]
@@ -118,9 +124,6 @@ export default {
   },
 
   methods: {
-    tilesSet () {
-
-    },
     titlesInit () {
       this.titles.forEach(title => {
         const icon = L.divIcon({

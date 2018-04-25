@@ -4,7 +4,7 @@
     <ul class="list-sans">
       <li
         v-for="tile in tiles"
-        :key="tile.type">
+        :key="tile.name">
         <label>
           <input
             :value="tile.name"

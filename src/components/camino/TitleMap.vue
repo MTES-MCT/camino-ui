@@ -48,16 +48,16 @@ export default {
       return this.geojsonLayers[0].getBounds()
     },
     tilesLayer () {
-      const t = this.$store.getters['map/tilesActive']
-      return L.tileLayer(t.url, {
-        attribution: t.attribution
-      })
-    }
-  },
-
-  methods: {
-    truc () {
-      this.$refs.map.mapFit()
+      const tiles = this.$store.getters['map/tilesActive']
+      return tiles.type === 'wms'
+        ?
+        L.tileLayer.wms(tiles.url, {
+          layers: tiles.layers,
+          format: 'image/png',
+          attribution: tiles.attribution
+        }) : L.tileLayer(tiles.url, {
+          attribution: tiles.attribution
+        })
     }
   }
 
