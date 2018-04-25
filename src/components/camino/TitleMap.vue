@@ -1,6 +1,6 @@
 <template>
   <leaflet-map
-    :geojsons="geojsonLayers"/>
+    :geojson-layers="geojsonLayers"/>
 </template>
 
 <script>

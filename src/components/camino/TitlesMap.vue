@@ -1,22 +1,22 @@
 <template>
   <div>
     <leaflet-map
-      :tiles="tilesCurrent"
-      :geojsons="titleGeojsons"
-      :markers="titleMarkers"
-      :bounds="boundsCurrent" />
+      :tiles-layer="tilesLayer"
+      :geojson-layers="geojsonLayers"
+      :marker-layers="markerLayers"
+      :bounds="bounds" />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <ul class="list-inline">
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="boundsCurrentName = 'fr'">Métropole</button>
+              @click="boundsName = 'fr'">Métropole</button>
           </li>
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="boundsCurrentName = 'gf'">Guyane</button>
+              @click="boundsName = 'gf'">Guyane</button>
           </li>
         </ul>
       </div>
@@ -29,11 +29,11 @@
               :key="tile.type">
               <label>
                 <input
-                  v-model="tilesCurrentName"
+                  v-model="tilesName"
                   :value="tile.name"
                   type="radio"
                   class="mr-s"
-                  @change="tilesCurrentName = tile.name">
+                  @change="tilesName = tile.name">
                 {{ tile.name }}
               </label>
             </li>
@@ -75,9 +75,9 @@ export default {
           coordinates: [[-54.5425, 2.1271], [-51.6139, 5.7765]]
         }
       },
-      boundsCurrentName: 'fr',
+      boundsName: 'fr',
       tiles: mapTiles,
-      tilesCurrentName: 'osm / mapnik',
+      tilesName: 'osm / mapnik',
       mocks: [
         {
           id: 'mineraux-rntm',
@@ -105,21 +105,21 @@ export default {
           opacity: 0.5
         }
       ],
-      titleGeojsons: [],
-      titleMarkers: []
+      geojsonLayers: [],
+      markerLayers: []
     }
   },
 
   computed: {
-    tilesCurrent () {
-      const t = this.tiles.find(t => t.name === this.tilesCurrentName)
+    tilesLayer () {
+      const t = this.tiles.find(t => t.name === this.tilesName)
       return L.tileLayer(t.url, {
         maxZoom: 20,
         attribution: t.attribution
       })
     },
-    boundsCurrent () {
-      const b = this.boundsList[this.boundsCurrentName]
+    bounds () {
+      const b = this.boundsList[this.boundsName]
       return L.geoJSON(b).getBounds()
     },
     domains () {
@@ -190,11 +190,11 @@ export default {
             layer.bindPopup(popupHtml, popupOptions)
             layer.on(methods)
 
-            this.titleMarkers.push(titleMarker)
+            this.markerLayers.push(titleMarker)
           }
         })
 
-        this.titleGeojsons.push(geojsonLayer)
+        this.geojsonLayers.push(geojsonLayer)
       })
     },
 
@@ -214,7 +214,7 @@ export default {
         onEachFeature: (feature, mock) => { }
       })
 
-      this.titleGeojsons.unshift(geojsonLayer)
+      this.geojsonLayers.unshift(geojsonLayer)
     }
   }
 }

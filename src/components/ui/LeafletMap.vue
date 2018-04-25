@@ -3,7 +3,7 @@
     id="map"
     ref="map"
     class="map mb">
-    <div class="absolute px-s py-xs map-loader hide">
+    <div class="absolute px-s py-xs map-loader">
       <div class="h6">Loading…</div>
     </div>
   </div>
@@ -28,15 +28,15 @@ L.Marker.prototype.options.icon = L.icon({
 
 export default {
   props: {
-    geojsons: {
+    geojsonLayers: {
       type: Array,
       default: () => []
     },
-    markers: {
+    markerLayers: {
       type: Array,
       default: () => []
     },
-    tiles: {
+    tilesLayer: {
       type: Object,
       default: () => L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 20,
@@ -65,9 +65,9 @@ export default {
 
   watch: {
     bounds: 'mapFit',
-    tiles: 'tilesUpdate',
-    geojsons: 'geojsonsUpdate',
-    markers: 'markersUpdate'
+    tilesLayer: 'tilesUpdate',
+    geojsonLayers: 'geojsonsUpdate',
+    markerLayers: 'markersUpdate'
   },
 
   mounted () {
@@ -101,12 +101,12 @@ export default {
     },
 
     tilesAdd () {
-      this.layers.tiles = this.tiles
+      this.layers.tiles = this.tilesLayer
       this.layers.tiles.addTo(this.map)
     },
 
     geojsonsAdd () {
-      this.layers.geojsons = this.geojsons
+      this.layers.geojsons = this.geojsonLayers
       this.layers.geojsons.forEach(l => l.addTo(this.map))
     },
 
@@ -116,7 +116,7 @@ export default {
     },
 
     markersAdd () {
-      this.layers.markers = this.markers
+      this.layers.markers = this.markerLayers
       this.layers.markers.forEach(m => m.addTo(this.map))
     },
 
