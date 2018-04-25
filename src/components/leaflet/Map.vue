@@ -3,8 +3,8 @@
     id="map"
     ref="map"
     class="map mb">
-    <div class="absolute px-s py-xs map-loader hide">
-      <div class="h6">Loading…</div>
+    <div class="absolute px-s py-xs map-loader">
+      <div class="h6">Zoom: {{ zoomLevel }}</div>
     </div>
   </div>
 </template>
@@ -52,6 +52,7 @@ export default {
   data () {
     return {
       map: null,
+      zoomLevel: 0,
       layers: {
         tiles: {},
         geojsons: [],
@@ -70,6 +71,8 @@ export default {
   mounted () {
     this.init()
     this.fit()
+    this.scaleAdd()
+    this.tilesAdd()
     this.geojsonsAdd()
     this.markersAdd()
   },
@@ -79,17 +82,22 @@ export default {
       this.map = L.map(this.$refs.map, {
         doubleClickZoom: false
       })
-      this.tilesAdd()
 
+      this.map.on('zoomend', () => {
+        this.zoomLevel = this.map.getZoom()
+      })
+    },
+
+    fit () {
+      this.map.fitBounds(this.bounds)
+    },
+
+    scaleAdd () {
       L.control
         .scale({
           imperial: false
         })
         .addTo(this.map)
-    },
-
-    fit () {
-      this.map.fitBounds(this.bounds)
     },
 
     tilesUpdate () {
