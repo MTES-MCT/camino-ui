@@ -21,24 +21,7 @@
         </ul>
       </div>
       <div class="desktop-blob-1-2">
-        <accordion class="mb">
-          <template slot="title">Fond de carte</template>
-          <ul class="list-sans">
-            <li
-              v-for="tile in tiles"
-              :key="tile.type">
-              <label>
-                <input
-                  v-model="tilesName"
-                  :value="tile.name"
-                  type="radio"
-                  class="mr-s"
-                  @change="tilesName = tile.name">
-                {{ tile.name }}
-              </label>
-            </li>
-          </ul>
-        </accordion>
+        <Leaflet-tiles-selector />
       </div>
     </div>
   </div>
@@ -46,14 +29,15 @@
 
 <script>
 import L from 'leaflet'
-import mapTiles from '@/conf/mapTiles.json'
 import Accordion from '@/components/ui/Accordion.vue'
-import LeafletMap from '@/components/ui/LeafletMap.vue'
+import LeafletMap from '@/components/leaflet/Map.vue'
+import LeafletTilesSelector from '@/components/leaflet/TilesSelector.vue'
 
 export default {
   components: {
     Accordion,
-    LeafletMap
+    LeafletMap,
+    LeafletTilesSelector
   },
 
   props: {
@@ -76,8 +60,6 @@ export default {
         }
       },
       boundsName: 'fr',
-      tiles: mapTiles,
-      tilesName: 'osm / mapnik',
       mocks: [
         {
           id: 'mineraux-rntm',
@@ -112,9 +94,8 @@ export default {
 
   computed: {
     tilesLayer () {
-      const t = this.tiles.find(t => t.name === this.tilesName)
+      const t = this.$store.getters['map/tilesActive']
       return L.tileLayer(t.url, {
-        maxZoom: 20,
         attribution: t.attribution
       })
     },

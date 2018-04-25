@@ -3,8 +3,11 @@
     id="map"
     ref="map"
     class="map mb">
-    <div class="absolute px-s py-xs map-loader hide">
+    <div class="absolute px-s py-xs map-loader">
       <div class="h6">Loading…</div>
+      <button
+        class="btn-border px-m py-s"
+        @click="fit">Init</button>
     </div>
   </div>
 </template>
@@ -61,21 +64,21 @@ export default {
   },
 
   watch: {
-    bounds: 'mapFit',
+    bounds: 'fit',
     tilesLayer: 'tilesUpdate',
     geojsonLayers: 'geojsonsUpdate',
     markerLayers: 'markersUpdate'
   },
 
   mounted () {
-    this.mapInit()
-    this.mapFit()
+    this.init()
+    this.fit()
     this.geojsonsAdd()
     this.markersAdd()
   },
 
   methods: {
-    mapInit () {
+    init () {
       this.map = L.map(this.$refs.map, {
         doubleClickZoom: false
       })
@@ -88,7 +91,7 @@ export default {
         .addTo(this.map)
     },
 
-    mapFit () {
+    fit () {
       this.map.fitBounds(this.bounds)
     },
 
