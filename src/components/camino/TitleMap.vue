@@ -1,6 +1,7 @@
 <template>
   <leaflet-map
-    :geojson-layers="geojsonLayers"/>
+    :geojson-layers="geojsonLayers"
+    :bounds="bounds" />
 </template>
 
 <script>
@@ -22,18 +23,13 @@ export default {
   data () {
     return {
       map: null,
-      geojsonLayers: []
+      geojsonLayers: [L.geoJSON(this.geojson)]
     }
   },
 
-  mounted () {
-    this.layersInit()
-  },
-
-  methods: {
-    layersInit () {
-      this.geojsonLayers.push(L.geoJSON(this.geojson))
-      // this.map.fitBounds(geojsonLayer.getBounds())
+  computed: {
+    bounds () {
+      return this.geojsonLayers[0].getBounds()
     }
   }
 

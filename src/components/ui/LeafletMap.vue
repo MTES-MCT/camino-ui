@@ -3,7 +3,7 @@
     id="map"
     ref="map"
     class="map mb">
-    <div class="absolute px-s py-xs map-loader">
+    <div class="absolute px-s py-xs map-loader hide">
       <div class="h6">Loading…</div>
     </div>
   </div>
@@ -45,10 +45,7 @@ export default {
     },
     bounds: {
       type: Object,
-      default: () => L.geoJSON({
-        type: 'LineString',
-        coordinates: [[-85, 60], [85, -30]]
-      }).getBounds()
+      default: () => L.latLngBounds(L.latLng(60, -85), L.latLng(-30, 85))
     }
   },
 
