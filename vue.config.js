@@ -1,7 +1,6 @@
 /* eslint-env node */
 const path = require('path')
 const appConfig = require('./src/app.config')
-const Jarvis = require('webpack-jarvis')
 
 module.exports = {
   configureWebpack: {
@@ -13,12 +12,7 @@ module.exports = {
       alias: {
         '@': path.join(__dirname, 'src')
       }
-    },
-    plugins: [
-      new Jarvis({
-        port: 1337 // optional: set a port
-      })
-    ]
+    }
   },
   productionSourceMap: false,
   css: {
