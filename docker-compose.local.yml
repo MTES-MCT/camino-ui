@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+
+  api:
+    image: node:alpine
+    volumes:
+      - ./:/app
+    working_dir: /app
+    environment:
+      NODE_ENV: development
+      VIRTUAL_HOST: camino.local
+      VIRTUAL_PORT: 8080
+      DEV_SERVER_DISABLE_HOST_CHECK: 1
+    expose:
+      - 8080
+    command: npm run serve
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

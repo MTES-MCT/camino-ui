@@ -24,6 +24,20 @@ npm run lint
 
 ---
 
+## Dev local avec docker-compose
+
+Un environement de dévelopement doit être configuré comme indiqué ici: [Set a local web development environment with custom Urls and HTTPS](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
+
+L'url de dévelopement est `camino.local`.
+
+Pour lancer l'application dans un container:
+
+```bash
+docker-compose -f ./docker-compose.local.yml up --build
+```
+
+---
+
 ## Contribution
 
 Voir `contributing.md` (en anglais) pour plus d'infos.
