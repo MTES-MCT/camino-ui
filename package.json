@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --open",
-    "build": "vue-cli-service build && rm -rf htdocs && cp .htaccess dist/.htaccess && mv dist htdocs",
+    "build": "vue-cli-service build",
+    "gandi": "npm run build && rm -rf htdocs && mv dist htdocs",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
