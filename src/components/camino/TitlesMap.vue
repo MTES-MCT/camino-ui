@@ -128,8 +128,8 @@ export default {
     titlesInit () {
       this.titles.forEach(title => {
         const icon = L.divIcon({
-          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domain-${title.domaine.code.toLowerCase()} leaflet-marker-title`,
-          html: title.domaine.code,
+          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domain-${title['domaine']['code'].toLowerCase()} leaflet-marker-title`,
+          html: title['domaine']['code'],
           iconSize: null,
           iconAnchor: [15.5, 38]
         })

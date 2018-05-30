@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+
+  front:
+    image: node:alpine
+    volumes:
+      - ./:/app
+    working_dir: /app
+    environment:
+      NODE_ENV: development
+      DEV_SERVER_DISABLE_HOST_CHECK: 1
+    ports:
+      - ${NODE_PORT}:${NODE_PORT}
+    command: npm run dev

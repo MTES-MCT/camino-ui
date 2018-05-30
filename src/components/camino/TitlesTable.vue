@@ -18,8 +18,8 @@
           class="tr-link">
           <td>
             <pill
-              :color="`bg-title-domain-${title.domaine.code.toLowerCase()}`"
-              class="mono">{{ title.domaine.code }}</pill>
+              :color="`bg-title-domain-${titletitle['domaine']['code'].toLowerCase()}`"
+              class="mono">{{ title['domaine']['code'] }}</pill>
           </td>
           <td class="bold">{{ title.nom }}</td>
           <td>
