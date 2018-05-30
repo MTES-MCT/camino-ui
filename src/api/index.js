@@ -4,9 +4,11 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import gql from 'graphql-tag'
 
 const graphqlClient = new ApolloClient({
-  link: new HttpLink({ uri: 'http://localhost:4000' }),
+  link: new HttpLink({ uri: process.env.VUE_APP_API_URL }),
   cache: new InMemoryCache()
 })
+
+console.log('api:', process.env.VUE_APP_API_URL)
 
 const api = {
   async titresGet() {
@@ -87,7 +89,7 @@ const api = {
   },
 
   async titreGet(id) {
-    const res = graphqlClient.query({
+    const res = await graphqlClient.query({
       query: gql`
         query Titre($id: String!) {
           titre(id: $id) {
@@ -106,6 +108,28 @@ const api = {
               nom
             }
             police
+            phases {
+              id
+              date
+              duree
+              geojsonPoints {
+                type
+                features {
+                  type
+                  geometry {
+                    type
+                    coordinates
+                  }
+                }
+              }
+              geojsonMultiPolygon {
+                type
+                geometry {
+                  type
+                  coordinates
+                }
+              }
+            }
             substancesPrincipales {
               id
               nom

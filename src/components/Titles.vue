@@ -54,9 +54,6 @@ export default {
     titres () {
       return this.$store.state.titles.list
     },
-    filtres () {
-      return this.$store.state.lib.titre.filtres
-    },
     loaded () {
       return !!this.titres
     },

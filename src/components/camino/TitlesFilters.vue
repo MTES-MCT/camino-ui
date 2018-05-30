@@ -38,14 +38,14 @@
         <ul class="list-sans">
           <li
             v-for="domain in domains"
-            :key="domain['code']">
+            :key="domain.id">
             <label>
               <input
                 type="checkbox"
                 class="mr-s">
               <pill
-                :color="`bg-title-domain-${domain['code'].toLowerCase()}`"
-                class="mr-xs mono">{{ domain['code'] }}</pill>
+                :color="`bg-title-domain-${domain.id}`"
+                class="mr-xs mono">{{ domain.id }}</pill>
               {{ domain['nom'] }}
             </label>
           </li>

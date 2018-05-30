@@ -61,33 +61,6 @@ export default {
         }
       },
       boundsName: 'fr',
-      mocks: [
-        {
-          id: 'mineraux-rntm',
-          type: 'mineraux',
-          opacity: 0.25
-        },
-        {
-          id: 'mineraux',
-          type: 'mineraux',
-          opacity: 0.5
-        },
-        {
-          id: 'hydrocarbures',
-          type: 'hydrocarbures',
-          opacity: 0.5
-        },
-        {
-          id: 'stockage',
-          type: 'stockage',
-          opacity: 0.5
-        },
-        {
-          id: 'geothermie',
-          type: 'geothermie',
-          opacity: 0.5
-        }
-      ],
       geojsonLayers: [],
       markerLayers: []
     }
@@ -111,29 +84,24 @@ export default {
       return L.geoJSON(b).getBounds()
     },
     domains () {
-      return this.$store.state.lib.titre['domaines']
+      return this.$store.state.lib.titre.domaines
     }
   },
 
   mounted () {
     this.titlesInit()
-    this.mocks.forEach(l => {
-      this.mockGet(l.id).then(geojson => {
-        this.mocksInit(l, geojson)
-      })
-    })
   },
 
   methods: {
     titlesInit () {
       this.titles.forEach(title => {
         const icon = L.divIcon({
-          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domain-${title['domaine']['code'].toLowerCase()} leaflet-marker-title`,
-          html: title['domaine']['code'],
+          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domain-${title.domaine.id} leaflet-marker-title`,
+          html: title.domaine.id,
           iconSize: null,
           iconAnchor: [15.5, 38]
         })
-        const popupHtml = `<h4 class="mb-s">${title['nom']}</h4>`
+        const popupHtml = `<h4 class="mb-s">${title.nom}</h4>`
         const popupOptions = {
           closeButton: false,
           offset: [0, -24]
@@ -154,7 +122,7 @@ export default {
           }
         }
 
-        const geojsonLayer = L.geoJSON(title['phases'][0].geojson, {
+        const geojsonLayer = L.geoJSON(title['phases'][0].geojsonMultiPolygon, {
           filter: feature => feature.geometry.type === 'MultiPolygon',
           style: {
             fillColor: this.domains.find(d => d.id === title.domaine.id)['couleur'],
@@ -181,25 +149,6 @@ export default {
 
         this.geojsonLayers.push(geojsonLayer)
       })
-    },
-
-    mockGet (id) {
-      return this.$store.dispatch('titles/mockGet', id)
-    },
-
-    mocksInit (mock, geojson) {
-      const geojsonLayer = L.geoJSON(geojson, {
-        style: {
-          fillColor: this.domains.find(d => d.id === mock.type)['couleur'],
-          fillOpacity: mock.opacity,
-          weight: 0,
-          opacity: 1,
-          color: 'white'
-        },
-        onEachFeature: (feature, mock) => { }
-      })
-
-      this.geojsonLayers.unshift(geojsonLayer)
     },
 
     mapFit (zone) {

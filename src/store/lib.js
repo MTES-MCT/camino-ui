@@ -12,27 +12,28 @@ export const state = {
     },
     domaines: [
       {
-        id: 'mineraux',
-        code: 'M',
+        id: 'm',
         nom: 'Minéraux et métaux',
         couleur: '#498bd6'
       },
       {
-        id: 'hydrocarbures',
+        id: 'h',
         nom: 'Substances énergétiques',
-        code: 'H',
         couleur: '#856940'
       },
       {
-        id: 'stockage',
+        id: 's',
         nom: 'Stockage',
-        code: 'S',
         couleur: '#8468b1'
       },
       {
-        id: 'geothermie',
+        id: 'g',
         nom: 'Géothermie',
-        code: 'G',
+        couleur: '#d16c3e'
+      },
+      {
+        id: 'c',
+        nom: 'Carrières et granulats marins',
         couleur: '#d16c3e'
       }
     ]

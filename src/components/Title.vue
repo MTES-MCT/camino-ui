@@ -6,11 +6,11 @@
         <div class="tablet-blob-1-2">
           <h1 class="mt-xs">{{ title['nom'] }}</h1>
           <h4 class="mb"><pill
-            :color="`bg-title-domain-${title['domaine']['code'].toLowerCase()}`"
-            class="mono mr-s mt--s">{{ title['domaine']['code'] }}</pill>{{ title['type'] }}
+            :color="`bg-title-domain-${title.domaine.id}`"
+            class="mono mr-s mt--s">{{ title.domaine.id }}</pill>{{ title.type.nom }}
           </h4>
-          <div>
-            <h6>{{ title['références'].length > 1 ? 'Références' : 'Référence' }}</h6>
+          <div v-if="title.references">
+            <h6>{{ title.references.length > 1 ? 'Références' : 'Référence' }}</h6>
             <ul class="list-prefix">
               <li 
                 v-for="reference in title['références']"
@@ -22,32 +22,32 @@
             </ul>
           </div>
           <div
-            v-if="title['substances']['principales'] && title['substances']['principales'].length > 0">
+            v-if="title.substancesPrincipales && title.substancesPrincipales.length > 0">
             <h6>Substances principales</h6>
-            <pill-list :elements="title['substances']['principales']" />
+            <pill-list :elements="title.substancesPrincipales.map(s=>s.nom)" />
           </div>
           <div 
-            v-if="title['substances']['connexes'] && title['substances']['connexes'].length > 0" >
+            v-if="title.substancesSecondaires && title.substancesSecondaires.length > 0" >
             <h6>Substances connexes</h6>
-            <pill-list :elements="title['substances']['connexes']" />
+            <pill-list :elements="title.substancesSecondaires" />
           </div>
         </div>
         <div class="tablet-blob-1-2">
           <div class="blobs">
             <div class="blob-1-2">
               <h6>Statut</h6>
-              <h4><status-dot :status="title.statut" />{{ title.statut }}</h4>
+              <h4><status-dot :status="title.statut.id" />{{ title.statut.nom }}</h4>
             </div>
             <div class="blob-1-2">
-              <h6>Travaux</h6>
-              <h4><status-dot :status="title.travaux" />{{ title.travaux }}</h4>
+              <h6>Police</h6>
+              <h4><status-dot :status="title.police" />{{ title.police }}</h4>
             </div>
           </div>
-          <div>
-            <h6>{{ title['titulaires'].length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
+          <div v-if="title.titulaires">
+            <h6>{{ title.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
             <ul class="list-prefix">
               <li 
-                v-for="titulaire in title['titulaires']"
+                v-for="titulaire in title.titulaires"
                 :key="titulaire.id">
                 {{ titulaire['nom'] }}
               </li>
@@ -61,9 +61,9 @@
               <tr
                 v-for="phase in title.phases"
                 :key="phase.date">
-                <td>{{ phaseCurrent['nom'] }}</td>
-                <td>{{ phaseCurrent['date'] | dateFormat }}</td>
-                <td>{{ `${phaseCurrent['durée']} ans` }}</td>
+                <td>{{ phase['nom'] }}</td>
+                <td>{{ phase['date'] | dateFormat }}</td>
+                <td>{{ `${phase['duree']} ans` }}</td>
               </tr>
             </table>
           </div>
@@ -82,8 +82,8 @@
         </div>
       </div>
       <title-map
-        v-if="phaseCurrent.geojson"
-        :geojson="phaseCurrent.geojson"
+        v-if="phaseCurrent.geojsonMultiPolygon"
+        :geojson="phaseCurrent.geojsonMultiPolygon"
         class="mb" />
 
       <div class="tablet-blobs">
@@ -108,18 +108,18 @@
 
       <div class="tablet-blobs">
         <div class="tablet-blob-1-2">
-          <div>
-            <h6>{{ title['titulaires'].length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
+          <div v-if="title.titulaires">
+            <h6>{{ title.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
             <company
-              v-for="holder in title['titulaires']"
+              v-for="holder in title.titulaires"
               :key="holder['id']"
               :company="holder"
               class="mb" />
           </div>
-          <div v-if="title['amodiataires']">
-            <h6>{{ title['amodiataires'].length > 1 ? 'Amodiataires' : 'Amodiataire' }}</h6>
+          <div v-if="title.amodiataires">
+            <h6>{{ title.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}</h6>
             <company
-              v-for="holder in title['amodiataires']"
+              v-for="holder in title.amodiataires"
               :key="holder['id']"
               :company="holder"
               class="mb" />
@@ -201,7 +201,7 @@ export default {
       return this.$store.state.title.current
     },
     phaseCurrent () {
-      return this.title['phases'][this.title['phases'].length - 1]
+      return this.title && this.title.phases[this.title.phases.length - 1]
     },
     loaded () {
       return !!this.title

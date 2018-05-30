@@ -18,23 +18,23 @@
           class="tr-link">
           <td>
             <pill
-              :color="`bg-title-domain-${titletitle['domaine']['code'].toLowerCase()}`"
-              class="mono">{{ title['domaine']['code'] }}</pill>
+              :color="`bg-title-domain-${title.domaine.id}`"
+              class="mono">{{ title.domaine.id }}</pill>
           </td>
           <td class="bold">{{ title.nom }}</td>
-          <td>
+          <td v-if="title.titulaires">
             <div
               v-for="titulaire in title.titulaires"
               :key="titulaire.id">
               {{ titulaire.nom }}
             </div>
           </td>
-          <td>{{ title.type }}</td>
-          <td><status-dot :status="title.statut" />{{ title.statut }}</td>
+          <td>{{ title.type.nom }}</td>
+          <td><status-dot :status="title.statut.id" />{{ title.statut.nom }}</td>
           <td>
             <pill-list
-              v-if="title.substances && title.substances.principales"
-              :elements="title.substances.principales"
+              v-if="title.substancesPrincipales"
+              :elements="title.substancesPrincipales.map(s=>s.nom)"
               class="mb--xs" />
           </td>
         </router-link>

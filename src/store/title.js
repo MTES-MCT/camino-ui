@@ -7,10 +7,9 @@ export const state = {
 }
 
 export const actions = {
-  get({ commit }, { id }) {
-    return api.titreGet(id).then(r => {
-      commit('set', r)
-    })
+  async get({ commit }, { id }) {
+    const titre = await api.titreGet(id)
+    commit('set', titre)
   },
 
   documentSelect({ commit }, { documentId, selected }) {
