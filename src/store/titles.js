@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import api from './_api.js'
+import api from '../api'
 
 export const state = {
   list: null,
@@ -7,10 +7,9 @@ export const state = {
 }
 
 export const actions = {
-  get({ commit }) {
-    return api.titresGet().then(titres => {
-      commit('set', titres)
-    })
+  async get({ commit }) {
+    const titres = await api.titresGet()
+    commit('set', titres)
   },
 
   mockRntmGet({ commit }) {

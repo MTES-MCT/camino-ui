@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import api from './_api.js'
+import api from '../api'
 
 export const state = {
   current: null,
