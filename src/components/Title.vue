@@ -27,9 +27,9 @@
             <pill-list :elements="title.substancesPrincipales.map(s=>s.nom)" />
           </div>
           <div 
-            v-if="title.substancesSecondaires && title.substancesSecondaires.length > 0" >
+            v-if="title.substancesConnexes && title.substancesConnexes.length > 0" >
             <h6>Substances connexes</h6>
-            <pill-list :elements="title.substancesSecondaires" />
+            <pill-list :elements="title.substancesConnexes" />
           </div>
         </div>
         <div class="tablet-blob-1-2">

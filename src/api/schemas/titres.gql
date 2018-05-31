@@ -14,7 +14,7 @@ type Titre {
   statut: Statut!
   police: Boolean!
   substancesPrincipales: [Substance]
-  substancesSecondaires: [Substance]
+  substancesConnexes: [Substance]
   references: [Reference]
   phases: [Phase]
 }
@@ -78,7 +78,7 @@ input InputTitre {
   statut: InputStatut!
   police: Boolean!
   substancesPrincipales: [InputSubstanceId!]
-  substancesSecondaires: [InputSubstanceId!]
+  substancesConnexes: [InputSubstanceId!]
   references: [InputReference]
   phases: [InputPhases]
 }

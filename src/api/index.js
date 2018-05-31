@@ -58,7 +58,7 @@ const api = {
             substancesPrincipales {
               ...sub
             }
-            substancesSecondaires {
+            substancesConnexes {
               ...sub
             }
           }
