@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  front:
+  ui:
     build: .
     environment:
       VIRTUAL_HOST: camino.pw

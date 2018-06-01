@@ -1,39 +1,87 @@
-# Camino front
+# Camino UI
+
+> Interface web de [Camino](https://camino.beta.gouv.fr).
 
 Application en cours de développement, provisoirement accessible [ici](https://camino.site).
 
-Plus d'infos sur le projet [ici](http://camino.beta.gouv.fr/).
+---
+
+## Technologies
+
+* Vue.js
+* Vuex
+* Leaflet.js
+* Apollo GraphQl client
+* Postcss
+* Docker
+* Vue-cli / webpack
+* Babel
+* Postcss-preset-env
+* Eslint
+* Prettier
+* Standardjs
+* Stylelint
+
+---
+
+## Configuration
+
+* Renommer le fichier `.env.example` en `.env`.
+* Compléter le fichier `env`.
 
 ---
 
 ## Npm scripts
 
 ```bash
-# Install dependencies.
+# installe les dépendances
 npm install
 
-# Serve with hot reload at localhost:8080
+# lance un serveur de développement avec webpack-dev-server
+# accessible à localhost:8080
 npm run serve
 
-# Build for production
+# crée les fichiers de production dans le répertoire dist
 npm run dist
-
-# Run lint
-npm run lint
 ```
 
 ---
 
-## Dev local avec docker-compose
+## Docker
 
-Un environement de dévelopement doit être configuré comme indiqué ici: [Set a local web development environment with custom Urls and HTTPS](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
-
-L'url de dévelopement est `camino.local`.
-
-Pour lancer l'application dans un container:
+### Serveur local dans un container docker
 
 ```bash
+# démarre l'application dans un conteneur Docker
+# avec webpack-dev-server en mode `development`
+# accessible à http://localhost:NODE_PORT
+docker-compose -f ./docker-compose.localhost.yml up --build
+```
+
+### Tester l'application en local dans un environement de production
+
+Pré-requis:
+
+* une installation locale active de https://github.com/jwilder/nginx-proxy
+* un certificat ssl auto-signé
+* [instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
+
+```bash
+# Démarre l'application dans un container Docker
+# avec un serveur express.js en mode `production`
+# accessible à https://camino.local
 docker-compose -f ./docker-compose.local.yml up --build
+```
+
+### Serveur de production
+
+Pré-requis:
+
+* une installation active de https://github.com/jwilder/nginx-proxy
+* [instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
+
+```bash
+docker-compose -f ./docker-compose.yml up --build
 ```
 
 ---
@@ -46,12 +94,12 @@ Voir `contributing.md` (en anglais) pour plus d'infos.
 
 ## Credits
 
-#### Production
+### Production
 
 * [La Fabrique Numérique, Ministère de la transition écologique et solidaire](https://www.ecologique-solidaire.gouv.fr/inauguration-fabrique-numerique-lincubateur-des-ministeres-charges-lecologie-et-des-territoires)
 
-#### Équipe
+### Équipe
 
 * Guillaume Levieux, intrapreneur
 * Joeffrey Arruyer, coach
-* [François Romain](http://francoisromain.com), dévelopeur
+* [François Romain](http://francoisromain.com), développeur
