@@ -97,6 +97,10 @@ a.logo {
   background: var(--color-title-domain-s);
 }
 
+.bg-title-domain-c {
+  background: var(--color-title-domain-c);
+}
+
 .popup-header {
   height: calc(4 * var(--unit));
   border-bottom-width: var(--unit-xxs);

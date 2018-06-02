@@ -34,7 +34,7 @@ export const state = {
       {
         id: 'c',
         nom: 'Carrières et granulats marins',
-        couleur: '#d16c3e'
+        couleur: '#3ed1ac'
       }
     ]
   },
