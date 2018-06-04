@@ -1,16 +1,18 @@
 // import Vue from 'vue'
-import tiles from '../conf/mapTiles.json'
+import tuiles from '../conf/carteTuiles.json'
 
 export const state = {
   current: null,
-  tiles: tiles
+  tuiles: tuiles
 }
 
 export const actions = {}
 
 export const getters = {
-  tilesActive: (state, getters, rootState) =>
-    state.tiles.find(t => t.name === rootState.user.preferences.map.tilesName)
+  tuilesActive: (state, getters, rootState) =>
+    state.tuiles.find(
+      t => t.name === rootState.utilisateur.preferences.carte.tuilesNom
+    )
 }
 
 export const mutations = {}

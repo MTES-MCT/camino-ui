@@ -11,7 +11,7 @@
             :checked="tile.name === tilesName"
             type="radio"
             class="mr-s"
-            @change="tilesNameSet(tile.name)">
+            @change="$emit('tiles-name-set', tile.name)">
           {{ tile.name }}
         </label>
       </li>
@@ -27,18 +27,14 @@ export default {
     Accordion
   },
 
-  computed: {
-    tiles () {
-      return this.$store.state.map.tiles
+  props: {
+    tiles: {
+      type: Array,
+      default: () => []
     },
-    tilesName () {
-      return this.$store.state.user.preferences.map.tilesName
-    }
-  },
-
-  methods: {
-    tilesNameSet (tileName) {
-      this.$store.commit('user/preferencesMapTilesNameSet', tileName)
+    tilesName: {
+      type: String,
+      default: 'osm / mapnik'
     }
   }
 }

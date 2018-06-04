@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import api from '../api'
+import { titre } from '../api'
 
 export const state = {
   current: null,
@@ -8,8 +8,8 @@ export const state = {
 
 export const actions = {
   async get({ commit }, { id }) {
-    const titre = await api.titreGet(id)
-    commit('set', titre)
+    const t = await titre(id)
+    commit('set', t)
   },
 
   documentSelect({ commit }, { documentId, selected }) {

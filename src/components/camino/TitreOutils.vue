@@ -23,10 +23,10 @@ export default {
   },
   computed: {
     documentsSelected () {
-      return this.$store.state.title.documents.length
+      return this.$store.state.titre.documents.length
     },
     documentsTotal () {
-      return this.$store.getters['title/documentsTotal']
+      return this.$store.getters['titre/documentsTotal']
     },
     total () {
       return this.documentsSelected > 0 ? `${this.documentsSelected} / ${this.documentsTotal}` : this.documentsTotal

@@ -2,17 +2,17 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import lib from './lib'
-import title from './title'
-import titles from './titles'
-import map from './map'
-import user from './user'
+import titre from './titre'
+import titres from './titres'
+import carte from './carte'
+import utilisateur from './utilisateur'
 
 const modules = {
   lib,
-  title,
-  titles,
-  map,
-  user
+  titre,
+  titres,
+  carte,
+  utilisateur
 }
 
 export const state = {

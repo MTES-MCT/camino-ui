@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import api from '../api'
+import { titres } from '../api'
 
 export const state = {
   list: null
@@ -7,8 +7,8 @@ export const state = {
 
 export const actions = {
   async get({ commit }) {
-    const titres = await api.titresGet()
-    commit('set', titres)
+    const t = await titres()
+    commit('set', t)
   }
 }
 

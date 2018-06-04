@@ -1,6 +1,6 @@
 const baseUrl = process.env.BASE_URL
 
-const titres = [
+const titresNoms = [
   'per-bonneval',
   'conc-cerville-buissoncourt',
   'per-saint-just-en-brie',
@@ -13,24 +13,24 @@ const titres = [
   'aex-georgeon'
 ]
 
-const mocks = ['geothermie', 'hydrocarbures', 'mineraux', 'stockage']
+const mocksNoms = ['geothermie', 'hydrocarbures', 'mineraux', 'stockage']
 
 const api = {
-  titresGet() {
+  titres() {
     return Promise.all([
-      ...titres.map(id =>
+      ...titresNoms.map(id =>
         fetch(`${baseUrl}data/titres/${id}.json`).then(r => r.json())
       )
     ]).then(r => r)
   },
 
-  titreGet(id) {
+  titre(id) {
     return fetch(`${baseUrl}data/titres/${id}.json`).then(r => r.json())
   },
 
-  mocksGet() {
+  mocks() {
     return Promise.all([
-      ...mocks.map(id =>
+      ...mocksNoms.map(id =>
         fetch(`${baseUrl}data/mocks/${id}.json`).then(r => r.json())
       )
     ]).then(r => ({
@@ -39,11 +39,7 @@ const api = {
     }))
   },
 
-  mockRntmGet(id) {
-    return fetch(`${baseUrl}data/mocks/mineraux-rntm.json`).then(r => r.json())
-  },
-
-  mockGet(id) {
+  mock(id) {
     return fetch(`${baseUrl}data/mocks/${id}.json`).then(r => r.json())
   }
 }

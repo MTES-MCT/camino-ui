@@ -23,7 +23,7 @@ import Popup from './components/ui/Popup.vue'
 import Ribbon from './components/ui/Ribbon.vue'
 import PageHeader from './components/PageHeader.vue'
 import PageFooter from './components/PageFooter.vue'
-import PopupDisclaimer from './components/camino/PopupDisclaimer.vue'
+import PopupAvertissement from './components/camino/PopupAvertissement.vue'
 
 export default {
   name: 'App',
@@ -49,7 +49,7 @@ export default {
     } else {
       this.popupOpen({
         title: 'Bienvenue sur Camino',
-        component: PopupDisclaimer,
+        component: PopupAvertissement,
         close: false
       })
     }

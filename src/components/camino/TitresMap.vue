@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div >
     <leaflet-map
       ref="map"
-      :tiles-layer="tilesLayer"
-      :geojson-layers="geojsonLayers"
-      :marker-layers="markerLayers"
+      :tiles-layer="tuilesCalque"
+      :geojson-layers="geojsonCalques"
+      :marker-layers="marqueurCalques"
       :bounds="bounds" />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
@@ -12,17 +12,20 @@
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="mapFit('fr')">Métropole</button>
+              @click="carteCentrer('fr')">Métropole</button>
           </li>
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="mapFit('gf')">Guyane</button>
+              @click="carteCentrer('gf')">Guyane</button>
           </li>
         </ul>
       </div>
       <div class="desktop-blob-1-2">
-        <Leaflet-tiles-selector />
+        <Leaflet-tiles-selector
+          :tiles="tuiles"
+          :tiles-name="tuilesNom"
+          @tiles-name-set="tuilesNomSelectionner" />
       </div>
     </div>
   </div>
@@ -42,7 +45,7 @@ export default {
   },
 
   props: {
-    titles: {
+    titres: {
       type: Array,
       default: () => []
     }
@@ -50,7 +53,7 @@ export default {
 
   data () {
     return {
-      boundsList: {
+      bords: {
         fr: {
           type: 'LineString',
           coordinates: [[-5.1406, 41.3337], [9.5593, 51.0891]]
@@ -60,41 +63,47 @@ export default {
           coordinates: [[-54.5425, 2.1271], [-51.6139, 5.7765]]
         }
       },
-      boundsName: 'fr',
-      geojsonLayers: [],
-      markerLayers: []
+      bordsNom: 'fr',
+      geojsonCalques: [],
+      marqueurCalques: []
     }
   },
 
   computed: {
-    tilesLayer () {
-      const tiles = this.$store.getters['map/tilesActive']
-      return tiles.type === 'wms'
+    tuilesCalque () {
+      const tuiles = this.$store.getters['carte/tuilesActive']
+      return tuiles.type === 'wms'
         ?
-        L.tileLayer.wms(tiles.url, {
-          layers: tiles.layers,
+        L.tileLayer.wms(tuiles.url, {
+          layers: tuiles.layers,
           format: 'image/png',
-          attribution: tiles.attribution
-        }) : L.tileLayer(tiles.url, {
-          attribution: tiles.attribution
+          attribution: tuiles.attribution
+        }) : L.tileLayer(tuiles.url, {
+          attribution: tuiles.attribution
         })
     },
     bounds () {
-      const b = this.boundsList[this.boundsName]
+      const b = this.bords[this.bordsNom]
       return L.geoJSON(b).getBounds()
     },
-    domains () {
+    domaines () {
       return this.$store.state.lib.titre.domaines
+    },
+    tuiles () {
+      return this.$store.state.carte.tuiles
+    },
+    tuilesNom () {
+      return this.$store.state.utilisateur.preferences.carte.tuilesNom
     }
   },
 
   mounted () {
-    this.titlesInit()
+    this.titresInit()
   },
 
   methods: {
-    titlesInit () {
-      this.titles.forEach(title => {
+    titresInit () {
+      this.titres.forEach(title => {
         const icon = L.divIcon({
           className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domain-${title.domaine.id} leaflet-marker-title`,
           html: title.domaine.id,
@@ -125,7 +134,7 @@ export default {
         const geojsonLayer = L.geoJSON(title['phases'][0].geojsonMultiPolygon, {
           filter: feature => feature.geometry.type === 'MultiPolygon',
           style: {
-            fillColor: this.domains.find(d => d.id === title.domaine.id)['couleur'],
+            fillColor: this.domaines.find(d => d.id === title.domaine.id)['couleur'],
             fillOpacity: 0.75,
             weight: 0
           },
@@ -143,21 +152,25 @@ export default {
             layer.bindPopup(popupHtml, popupOptions)
             layer.on(methods)
 
-            this.markerLayers.push(titleMarker)
+            this.marqueurCalques.push(titleMarker)
           }
         })
 
-        this.geojsonLayers.push(geojsonLayer)
+        this.geojsonCalques.push(geojsonLayer)
       })
     },
 
-    mapFit (zone) {
-      console.log('map', zone, this.boundsName);
-      if (this.boundsName === zone) {
+    carteCentrer (zone) {
+      if (this.bordsNom === zone) {
         this.$refs.map.fit()
       } else {
-        this.boundsName = zone
+        this.bordsNom = zone
       }
+    },
+
+    tuilesNomSelectionner (tuileNom) {
+      console.log('tuilesNomSelectionner', tuileNom);
+      this.$store.commit('utilisateur/preferencesCarteTuilesNomSelectionner', tuileNom)
     }
   }
 }

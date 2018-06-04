@@ -17,10 +17,8 @@ query tasksForUser {
 }
 `
 const api = {
-  async titresGet() {
-    const titres = await graphql(schema, query)
-
-    return titres
+  async titres() {
+    return graphql(schema, query)
   }
 }
 

@@ -4,16 +4,16 @@
     <card v-else>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-2">
-          <h1 class="mt-xs">{{ title['nom'] }}</h1>
+          <h1 class="mt-xs">{{ titre['nom'] }}</h1>
           <h4 class="mb"><pill
-            :color="`bg-title-domain-${title.domaine.id}`"
-            class="mono mr-s mt--s">{{ title.domaine.id }}</pill>{{ title.type.nom }}
+            :color="`bg-title-domain-${titre.domaine.id}`"
+            class="mono mr-s mt--s">{{ titre.domaine.id }}</pill>{{ titre.type.nom }}
           </h4>
-          <div v-if="title.references">
-            <h6>{{ title.references.length > 1 ? 'Références' : 'Référence' }}</h6>
+          <div v-if="titre.references">
+            <h6>{{ titre.references.length > 1 ? 'Références' : 'Référence' }}</h6>
             <ul class="list-prefix">
               <li 
-                v-for="reference in title['références']"
+                v-for="reference in titre['références']"
                 :key="reference['valeur']">
                 <span
                   v-if="reference['type']"
@@ -22,32 +22,32 @@
             </ul>
           </div>
           <div
-            v-if="title.substancesPrincipales && title.substancesPrincipales.length > 0">
+            v-if="titre.substancesPrincipales && titre.substancesPrincipales.length > 0">
             <h6>Substances principales</h6>
-            <pill-list :elements="title.substancesPrincipales.map(s=>s.nom)" />
+            <pill-list :elements="titre.substancesPrincipales.map(s=>s.nom)" />
           </div>
           <div 
-            v-if="title.substancesConnexes && title.substancesConnexes.length > 0" >
+            v-if="titre.substancesConnexes && titre.substancesConnexes.length > 0" >
             <h6>Substances connexes</h6>
-            <pill-list :elements="title.substancesConnexes" />
+            <pill-list :elements="titre.substancesConnexes" />
           </div>
         </div>
         <div class="tablet-blob-1-2">
           <div class="blobs">
             <div class="blob-1-2">
               <h6>Statut</h6>
-              <h4><status-dot :status="title.statut.id" />{{ title.statut.nom }}</h4>
+              <h4><statut-dot :statut="titre.statut.id" />{{ titre.statut.nom }}</h4>
             </div>
             <div class="blob-1-2">
               <h6>Police</h6>
-              <h4><status-dot :status="title.police" />{{ title.police }}</h4>
+              <h4><dot :color="titre.police ? 'bg-success' : 'bg-neutral'" />{{ titre.police ? 'Ouverte' : 'Fermée' }}</h4>
             </div>
           </div>
-          <div v-if="title.titulaires">
-            <h6>{{ title.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
+          <div v-if="titre.titulaires">
+            <h6>{{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
             <ul class="list-prefix">
               <li 
-                v-for="titulaire in title.titulaires"
+                v-for="titulaire in titre.titulaires"
                 :key="titulaire.id">
                 {{ titulaire['nom'] }}
               </li>
@@ -59,7 +59,7 @@
                 <th>Phase</th><th>Date</th><th>Durée</th>
               </tr>
               <tr
-                v-for="phase in title.phases"
+                v-for="phase in titre.phases"
                 :key="phase.date">
                 <td>{{ phase['nom'] }}</td>
                 <td>{{ phase['date'] | dateFormat }}</td>
@@ -67,11 +67,11 @@
               </tr>
             </table>
           </div>
-          <div v-if="title['liens']">
+          <div v-if="titre['liens']">
             <h6>Liens</h6>
             <ul class="list-sans">
               <li 
-                v-for="link in title['liens']"
+                v-for="link in titre['liens']"
                 :key="link.id"
                 class="mb-xs">
                 <router-link
@@ -81,7 +81,7 @@
           </div>
         </div>
       </div>
-      <title-map
+      <titre-map
         v-if="phaseCurrent.geojsonMultiPolygon"
         :geojson="phaseCurrent.geojsonMultiPolygon"
         class="mb" />
@@ -108,18 +108,18 @@
 
       <div class="tablet-blobs">
         <div class="tablet-blob-1-2">
-          <div v-if="title.titulaires">
-            <h6>{{ title.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
+          <div v-if="titre.titulaires">
+            <h6>{{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
             <company
-              v-for="holder in title.titulaires"
+              v-for="holder in titre.titulaires"
               :key="holder['id']"
               :company="holder"
               class="mb" />
           </div>
-          <div v-if="title.amodiataires">
-            <h6>{{ title.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}</h6>
+          <div v-if="titre.amodiataires">
+            <h6>{{ titre.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}</h6>
             <company
-              v-for="holder in title.amodiataires"
+              v-for="holder in titre.amodiataires"
               :key="holder['id']"
               :company="holder"
               class="mb" />
@@ -129,7 +129,7 @@
         <div class="tablet-blob-1-2">
           <h6>Administrations</h6>
           <company
-            v-for="referent in title['administrations']"
+            v-for="referent in titre['administrations']"
             :key="referent['id']"
             :company="referent"
             class="mb" />
@@ -137,7 +137,7 @@
       </div>
 
       <div
-        v-if="title['démarches en cours']"
+        v-if="titre['démarches en cours']"
         class="mb-xxl">
         <h4 class="mt-s">Démarches en cours</h4>
         <hr class="mb-0">
@@ -149,13 +149,13 @@
               <th>Statut</th>
             </tr>
             <tr
-              v-for="d in title['démarches en cours']"
+              v-for="d in titre['démarches en cours']"
               :key="d.id"
               class="h5">
               <td><pill class="mt--s mb--s">{{ d.type }}</pill></td>
               <td>{{ d.nom }}</td>
               <td>
-                <status-dot :status="d['statut']" />
+                <statut-dot :statut="d['statut']" />
                 {{ d['statut'] }}
               </td>
             </tr>
@@ -163,11 +163,11 @@
         </div>
       </div>
 
-      <title-timeline
-        v-if="title['démarches']"
-        :event-types="title['démarches']" />
+      <titre-chronologie
+        v-if="titre['démarches']"
+        :event-types="titre['démarches']" />
 
-      <title-toolbar />
+      <titre-outils />
     </card>
   </div>
 </template>
@@ -177,34 +177,36 @@ import Card from '@/components/ui/Card.vue'
 import Pill from '@/components/ui/Pill.vue'
 import PillList from '@/components/ui/PillList.vue'
 import Loader from '@/components/ui/Loader.vue'
-import TitleMap from '@/components/camino/TitleMap.vue'
-import StatusDot from '@/components/camino/StatusDot.vue'
+import Dot from '@/components/ui/Dot.vue'
+import TitreMap from '@/components/camino/TitreMap.vue'
+import StatutDot from '@/components/camino/StatutDot.vue'
 import Company from '@/components/camino/Company.vue'
-import TitleToolbar from '@/components/camino/TitleToolbar.vue'
-import TitleTimeline from '@/components/camino/TitleTimeline.vue'
+import TitreOutils from '@/components/camino/TitreOutils.vue'
+import TitreChronologie from '@/components/camino/TitreChronologie.vue'
 
 export default {
   components: {
     Pill,
     PillList,
     Loader,
+    Dot,
     Company,
     Card,
-    TitleMap,
-    StatusDot,
-    TitleToolbar,
-    TitleTimeline
+    TitreMap,
+    StatutDot,
+    TitreOutils,
+    TitreChronologie
   },
 
   computed: {
-    title () {
-      return this.$store.state.title.current
+    titre () {
+      return this.$store.state.titre.current
     },
     phaseCurrent () {
-      return this.title && this.title.phases[this.title.phases.length - 1]
+      return this.titre && this.titre.phases[this.titre.phases.length - 1]
     },
     loaded () {
-      return !!this.title
+      return !!this.titre
     }
   },
 
@@ -217,12 +219,12 @@ export default {
   },
 
   beforeDestroy () {
-    this.$store.commit('title/reset')
+    this.$store.commit('titre/reset')
   },
 
   methods: {
     get () {
-      this.$store.dispatch('title/get', { id: this.$route.params.id })
+      this.$store.dispatch('titre/get', { id: this.$route.params.id })
     }
   }
 }

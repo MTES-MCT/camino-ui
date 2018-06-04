@@ -10,7 +10,7 @@
           @click="set(eventType)">{{ eventType }}</button>
       </li>
     </ul>
-    <title-timeline-event
+    <titre-chronologie-evenement
       v-for="event in eventTypes[eventTypeCurrent]"
       :key="event.id" 
       :event="event" />
@@ -18,11 +18,11 @@
 </template>
 
 <script>
-import TitleTimelineEvent from '@/components/camino/TitleTimelineEvent.vue'
+import TitreChronologieEvenement from '@/components/camino/TitreChronologieEvenement.vue'
 
 export default {
   components: {
-    TitleTimelineEvent
+    TitreChronologieEvenement
   },
 
   props: {

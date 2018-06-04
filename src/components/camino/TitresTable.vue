@@ -11,30 +11,30 @@
           <th>Substances</th>
         </tr>
         <router-link
-          v-for="title in titles"
-          :key="title.id"
-          :to="{ name: 'titre', params: { id: title.id }}"
+          v-for="titre in titres"
+          :key="titre.id"
+          :to="{ name: 'titre', params: { id: titre.id }}"
           tag="tr"
           class="tr-link">
           <td>
             <pill
-              :color="`bg-title-domain-${title.domaine.id}`"
-              class="mono">{{ title.domaine.id }}</pill>
+              :color="`bg-title-domain-${titre.domaine.id}`"
+              class="mono">{{ titre.domaine.id }}</pill>
           </td>
-          <td class="bold">{{ title.nom }}</td>
-          <td v-if="title.titulaires">
+          <td class="bold">{{ titre.nom }}</td>
+          <td v-if="titre.titulaires">
             <div
-              v-for="titulaire in title.titulaires"
+              v-for="titulaire in titre.titulaires"
               :key="titulaire.id">
               {{ titulaire.nom }}
             </div>
           </td>
-          <td>{{ title.type.nom }}</td>
-          <td><status-dot :status="title.statut.id" />{{ title.statut.nom }}</td>
+          <td>{{ titre.type.nom }}</td>
+          <td><statut-dot :status="titre.statut.id" />{{ titre.statut.nom }}</td>
           <td>
             <pill-list
-              v-if="title.substancesPrincipales"
-              :elements="title.substancesPrincipales.map(s=>s.nom)"
+              v-if="titre.substancesPrincipales"
+              :elements="titre.substancesPrincipales.map(s=>s.nom)"
               class="mb--xs" />
           </td>
         </router-link>
@@ -61,13 +61,13 @@
           <template slot="title">Affichage</template>
           <ul class="list-sans">
             <li
-              v-for="column in columns"
-              :key="column.type">
+              v-for="colonne in colonnes"
+              :key="colonne.type">
               <label>
                 <input
                   type="checkbox"
                   class="mr-s">
-                {{ column.name }}
+                {{ colonne.name }}
               </label>
             </li>
           </ul>
@@ -81,7 +81,7 @@
 import PillList from '@/components/ui/PillList.vue'
 import Pill from '@/components/ui/Pill.vue'
 import Accordion from '@/components/ui/Accordion.vue'
-import StatusDot from '@/components/camino/StatusDot.vue'
+import StatutDot from '@/components/camino/StatutDot.vue'
 
 export default {
   name: 'Titres',
@@ -90,11 +90,11 @@ export default {
     PillList,
     Pill,
     Accordion,
-    StatusDot
+    StatutDot
   },
 
   props: {
-    titles: {
+    titres: {
       type: Array,
       default: () => []
     }
@@ -104,7 +104,7 @@ export default {
     return {
       pages: [1, 2, 3, 4, 5],
       pageActive: 1,
-      columns: [
+      colonnes: [
         {
           type: 'domain',
           name: 'Domaine'

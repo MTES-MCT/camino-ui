@@ -19,10 +19,10 @@
       </ul>
     </div>
 
-    <titles-filters />
+    <titres-filtres />
 
     <component
-      :titles="titres"
+      :titres="titres"
       :is="viewComponent" />
   </card>
 </template>
@@ -30,9 +30,9 @@
 <script>
 import Card from '@/components/ui/Card.vue'
 import Loader from '@/components/ui/Loader.vue'
-import TitlesTable from '@/components/camino/TitlesTable.vue'
-import TitlesMap from '@/components/camino/TitlesMap.vue'
-import TitlesFilters from '@/components/camino/TitlesFilters.vue'
+import TitresTable from '@/components/camino/TitresTable.vue'
+import TitresMap from '@/components/camino/TitresMap.vue'
+import TitresFiltres from '@/components/camino/TitresFiltres.vue'
 
 export default {
   name: 'Titres',
@@ -40,7 +40,7 @@ export default {
   components: {
     Loader,
     Card,
-    TitlesFilters
+    TitresFiltres
   },
 
   data () {
@@ -52,13 +52,13 @@ export default {
 
   computed: {
     titres () {
-      return this.$store.state.titles.list
+      return this.$store.state.titres.list
     },
     loaded () {
       return !!this.titres
     },
     viewComponent () {
-      return this.viewCurrent === 'map' ? TitlesMap : TitlesTable
+      return this.viewCurrent === 'map' ? TitresMap : TitresTable
     }
   },
 
@@ -72,7 +72,7 @@ export default {
 
   methods: {
     get () {
-      this.$store.dispatch('titles/get')
+      this.$store.dispatch('titres/get')
     },
     viewSet (viewNew) {
       this.viewCurrent = viewNew

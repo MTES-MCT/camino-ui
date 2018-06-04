@@ -1,5 +1,5 @@
 <template>
-  <dot :color="colorGet(status)" />
+  <dot :color="colorGet(statut)" />
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
   },
 
   props: {
-    status: {
+    statut: {
       type: String,
       default: 'neutral'
     }

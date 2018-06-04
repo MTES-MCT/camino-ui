@@ -77,7 +77,7 @@
                 <input
                   type="checkbox"
                   class="mr-s">
-                <status-dot :status="statut" />
+                <statut-dot :status="statut" />
                 {{ statut }}
               </label>
             </li>
@@ -89,14 +89,14 @@
 </template>
 
 <script>
-import StatusDot from '@/components/camino/StatusDot.vue'
+import StatutDot from '@/components/camino/StatutDot.vue'
 import Pill from '@/components/ui/Pill.vue'
 import Accordion from '@/components/ui/Accordion.vue'
 
 export default {
   components: {
     Pill,
-    StatusDot,
+    StatutDot,
     Accordion,
   },
 
