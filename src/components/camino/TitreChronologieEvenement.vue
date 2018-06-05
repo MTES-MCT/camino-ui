@@ -9,7 +9,7 @@
         <div class="blobs">
           <div class="blob-1-2">
             <h6>Statut</h6>
-            <h4><statut-dot :status="event['statut']" />{{ event['statut'] }}</h4>
+            <h4><dot :color="event['statut']" />{{ event['statut'] }}</h4>
           </div>
           <div class="blob-1-2">
             <h6>Date</h6>
@@ -21,7 +21,7 @@
         <accordion
           v-if="event['recours']"
           class="mb">
-          <template slot="title"><statut-dot :status="event['recours']['statut']" /> Recours</template>
+          <template slot="title"><dot :status="event['recours']['statut']" /> Recours</template>
           <div class="large-blobs">
             <div class="large-blob-1-6"><h6>Statut</h6></div>
             <div class="large-blob-5-6">
@@ -65,14 +65,12 @@
 import Dot from '@/components/ui/Dot.vue'
 import Accordion from '@/components/ui/Accordion.vue'
 import Documents from '@/components/camino/Documents.vue'
-import StatutDot from '@/components/camino/StatutDot.vue'
 
 export default {
   components: {
     Dot,
     Accordion,
-    Documents,
-    StatutDot
+    Documents
   },
 
   props: {

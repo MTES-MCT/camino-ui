@@ -36,7 +36,7 @@
           <div class="blobs">
             <div class="blob-1-2">
               <h6>Statut</h6>
-              <h4><statut-dot :statut="titre.statut.id" />{{ titre.statut.nom }}</h4>
+              <h4><dot :color="titre.statut.couleur" />{{ titre.statut.nom }}</h4>
             </div>
             <div class="blob-1-2">
               <h6>Police</h6>
@@ -155,8 +155,8 @@
               <td><pill class="mt--s mb--s">{{ d.type }}</pill></td>
               <td>{{ d.nom }}</td>
               <td>
-                <statut-dot :statut="d['statut']" />
-                {{ d['statut'] }}
+                <dot :color="d.statut.couleur" />
+                {{ d.statut.nom }}
               </td>
             </tr>
           </table>
@@ -179,7 +179,6 @@ import PillList from '@/components/ui/PillList.vue'
 import Loader from '@/components/ui/Loader.vue'
 import Dot from '@/components/ui/Dot.vue'
 import TitreMap from '@/components/camino/TitreMap.vue'
-import StatutDot from '@/components/camino/StatutDot.vue'
 import Company from '@/components/camino/Company.vue'
 import TitreOutils from '@/components/camino/TitreOutils.vue'
 import TitreChronologie from '@/components/camino/TitreChronologie.vue'
@@ -193,7 +192,6 @@ export default {
     Company,
     Card,
     TitreMap,
-    StatutDot,
     TitreOutils,
     TitreChronologie
   },

@@ -1,6 +1,6 @@
 <template>
   <span
-    :class="`${color}`"
+    :class="color"
     class="pill dot inline-block mr-xs" />
 </template>
 

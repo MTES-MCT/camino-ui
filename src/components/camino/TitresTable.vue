@@ -30,7 +30,7 @@
             </div>
           </td>
           <td>{{ titre.type.nom }}</td>
-          <td><statut-dot :status="titre.statut.id" />{{ titre.statut.nom }}</td>
+          <td><dot :coulor="titre.statut.couleur" />{{ titre.statut.nom }}</td>
           <td>
             <pill-list
               v-if="titre.substancesPrincipales"
@@ -81,7 +81,7 @@
 import PillList from '@/components/ui/PillList.vue'
 import Pill from '@/components/ui/Pill.vue'
 import Accordion from '@/components/ui/Accordion.vue'
-import StatutDot from '@/components/camino/StatutDot.vue'
+import Dot from '@/components/ui/Dot.vue'
 
 export default {
   name: 'Titres',
@@ -90,7 +90,7 @@ export default {
     PillList,
     Pill,
     Accordion,
-    StatutDot
+    Dot
   },
 
   props: {

@@ -37,16 +37,19 @@
         <h6>Domaine</h6>
         <ul class="list-sans">
           <li
-            v-for="domain in domains"
-            :key="domain.id">
+            v-for="domaine in domaines"
+            :key="domaine.id">
             <label>
               <input
+                :value="domaine.id"
+                :checked="domaine.checked"
                 type="checkbox"
-                class="mr-s">
+                class="mr-s"
+                @change="domaineToggle">
               <pill
-                :color="`bg-title-domain-${domain.id}`"
-                class="mr-xs mono">{{ domain.id }}</pill>
-              {{ domain['nom'] }}
+                :color="`bg-title-domain-${domaine.id}`"
+                class="mr-xs mono">{{ domaine.id }}</pill>
+              {{ domaine.nom }}
             </label>
           </li>
         </ul>
@@ -56,29 +59,37 @@
           <h6>Type</h6>
           <ul class="list-sans">
             <li
-              v-for="(type, typeCode) in filtres.types"
-              :key="typeCode">
+              v-for="type in types"
+              :key="type.nom">
               <label>
                 <input
+                  :value="type.nom"
+                  :checked="type.checked"
                   type="checkbox"
-                  class="mr-s">
-                {{ type }}
+                  class="mr-s"
+                  @change="typeToggle">
+                <span class="cap-first">{{ type.nom }}</span>
               </label>
             </li>
           </ul>
         </div>
+      </div>
+      <div class="tablet-blob-1-2 desktop-blob-1-3">
         <div class="mb">
           <h6>Statuts</h6>
           <ul class="list-sans">
             <li
-              v-for="(statut, statutCode) in filtres.statuts"
-              :key="statutCode">
+              v-for="statut in statuts"
+              :key="statut.id">
               <label>
                 <input
+                  :value="statut.id"
+                  :checked="statut.checked"
                   type="checkbox"
-                  class="mr-s">
-                <statut-dot :status="statut" />
-                {{ statut }}
+                  class="mr-s"
+                  @change="statutToggle">
+                <dot :color="`bg-${statut.couleur}`" />
+                {{ statut.nom }}
               </label>
             </li>
           </ul>
@@ -89,14 +100,14 @@
 </template>
 
 <script>
-import StatutDot from '@/components/camino/StatutDot.vue'
+import Dot from '@/components/ui/Dot.vue'
 import Pill from '@/components/ui/Pill.vue'
 import Accordion from '@/components/ui/Accordion.vue'
 
 export default {
   components: {
     Pill,
-    StatutDot,
+    Dot,
     Accordion,
   },
 
@@ -109,11 +120,29 @@ export default {
   },
 
   computed: {
-    filtres () {
-      return this.$store.state.lib.titre['filtres']
+    domaines () {
+      return this.$store.state.titres.domaines
     },
-    domains () {
-      return this.$store.state.lib.titre['domaines']
+    types () {
+      return this.$store.state.titres.types.reduce((res, cur) => {
+        const e = res.find(e => e.nom === cur.nom)
+        return e ? res : [...res, cur]
+      }, [])
+    },
+    statuts () {
+      return this.$store.state.titres.statuts
+    }
+  },
+
+  methods: {
+    typeToggle (t) {
+      this.$store.dispatch('titres/filterToggle', { name: 'types', value: t.target.value, property: 'nom' })
+    },
+    statutToggle (t) {
+      this.$store.dispatch('titres/filterToggle', { name: 'statuts', value: t.target.value, property: 'id' })
+    },
+    domaineToggle (t) {
+      this.$store.dispatch('titres/filterToggle', { name: 'domaines', value: t.target.value, property: 'id' })
     }
   }
 

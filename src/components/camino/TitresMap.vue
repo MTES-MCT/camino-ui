@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <leaflet-map
       ref="map"
       :tiles-layer="tuilesCalque"
@@ -87,7 +87,7 @@ export default {
       return L.geoJSON(b).getBounds()
     },
     domaines () {
-      return this.$store.state.lib.titre.domaines
+      return this.$store.state.titres.domaines
     },
     tuiles () {
       return this.$store.state.carte.tuiles
@@ -97,12 +97,18 @@ export default {
     }
   },
 
+  watch: {
+    titres: 'titresInit'
+  },
+
   mounted () {
     this.titresInit()
   },
 
   methods: {
     titresInit () {
+      this.marqueurCalques = []
+      this.geojsonCalques = []
       this.titres.forEach(title => {
         const icon = L.divIcon({
           className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domain-${title.domaine.id} leaflet-marker-title`,
@@ -134,7 +140,7 @@ export default {
         const geojsonLayer = L.geoJSON(title['phases'][0].geojsonMultiPolygon, {
           filter: feature => feature.geometry.type === 'MultiPolygon',
           style: {
-            fillColor: this.domaines.find(d => d.id === title.domaine.id)['couleur'],
+            fillColor: this.domaines.couleur,
             fillOpacity: 0.75,
             weight: 0
           },

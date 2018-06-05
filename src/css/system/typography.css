@@ -144,6 +144,10 @@ label {
   text-transform: capitalize;
 }
 
+.cap-first::first-letter {
+  text-transform: capitalize;
+}
+
 .caps {
   text-transform: uppercase;
   letter-spacing: 0.25em;
