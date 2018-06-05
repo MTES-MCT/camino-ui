@@ -95,6 +95,27 @@
           </ul>
         </div>
       </div>
+      <div class="tablet-blob-1-2 desktop-blob-1-3">
+        <div class="mb">
+          <h6>Polices</h6>
+          <ul class="list-sans">
+            <li
+              v-for="police in polices"
+              :key="police.id">
+              <label>
+                <input
+                  :value="police.valeur"
+                  :checked="police.checked"
+                  type="checkbox"
+                  class="mr-s"
+                  @change="policeToggle">
+                <dot :color="`bg-${police.couleur}`" />
+                {{ police.nom }}
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </accordion>
 </template>
@@ -131,6 +152,9 @@ export default {
     },
     statuts () {
       return this.$store.state.titres.statuts
+    },
+    polices () {
+      return this.$store.state.titres.polices
     }
   },
 
@@ -143,6 +167,9 @@ export default {
     },
     domaineToggle (t) {
       this.$store.dispatch('titres/filterToggle', { name: 'domaines', value: t.target.value, property: 'id' })
+    },
+    policeToggle (t) {
+      this.$store.dispatch('titres/filterToggle', { name: 'polices', value: t.target.value, property: 'valeur' })
     }
   }
 

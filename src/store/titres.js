@@ -123,11 +123,13 @@ export const state = {
     {
       nom: 'ouverte',
       valeur: true,
+      couleur: 'success',
       checked: true
     },
     {
       nom: 'fermée',
       valeur: false,
+      couleur: 'neutral',
       checked: true
     }
   ]
@@ -135,8 +137,9 @@ export const state = {
 
 export const actions = {
   filterToggle({ state, dispatch, commit }, { name, value, property }) {
-    const f = state[name].filter(e => e[property] === value)
-    f.forEach(fi => commit('filterToggle', fi))
+    state[name]
+      .filter(e => e[property].toString() === value)
+      .forEach(fi => commit('filterToggle', fi))
     dispatch('get')
   },
   async get({ state, commit }) {
