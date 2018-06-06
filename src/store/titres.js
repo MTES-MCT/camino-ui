@@ -146,9 +146,17 @@ export const actions = {
     const typeIds = state.types.filter(e => e.checked).map(e => e.id)
     const domaineIds = state.domaines.filter(e => e.checked).map(e => e.id)
     const statutIds = state.statuts.filter(e => e.checked).map(e => e.id)
-    const policeIds = state.polices.filter(e => e.checked).map(e => e.valeur)
+    const polices = state.polices.filter(e => e.checked).map(e => e.valeur)
 
-    const t = await titres({ typeIds, domaineIds, statutIds, policeIds })
+    const substances = []
+
+    const t = await titres({
+      typeIds,
+      domaineIds,
+      statutIds,
+      polices,
+      substances
+    })
     commit('set', t)
   }
 }

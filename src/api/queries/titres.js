@@ -5,13 +5,15 @@ const titres = gql`
     $typeIds: [TypeId!]
     $domaineIds: [DomaineId]
     $statutIds: [StatutId!]
-    $policeIds: [Boolean!]
+    $polices: [Boolean!]
+    $substances: [String]
   ) {
     titres(
-      typeId: $typeIds
-      domaineId: $domaineIds
-      statutId: $statutIds
-      police: $policeIds
+      typeIds: $typeIds
+      domaineIds: $domaineIds
+      statutIds: $statutIds
+      polices: $polices
+      substances: $substances
     ) {
       id
       nom

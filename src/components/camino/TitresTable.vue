@@ -11,7 +11,7 @@
           <th>Substances</th>
         </tr>
         <router-link
-          v-for="titre in titres"
+          v-for="titre in titresPages[pageActive]"
           :key="titre.id"
           :to="{ name: 'titre', params: { id: titre.id }}"
           tag="tr"
@@ -42,19 +42,10 @@
     </div>
     <div class="desktop-blobs">
       <div class="desktop-blob-3-4">
-        <ul class="list-inline">
-          <li
-            v-for="page in pages"
-            :key="page"
-            :class="{ active: pageActive === page }"
-            class="mb-0">
-            <a
-              href="#"
-              class="btn-border px-m py-s">
-              {{ page }}
-            </a>
-          </li>
-        </ul>
+        <pagination
+          :page-active="pageActive"
+          :pages-length="titresPages.length"
+          @page-change="pageChange" />
       </div>
       <div class="desktop-blob-1-4">
         <accordion class="mb">
@@ -82,6 +73,7 @@ import PillList from '@/components/ui/PillList.vue'
 import Pill from '@/components/ui/Pill.vue'
 import Accordion from '@/components/ui/Accordion.vue'
 import Dot from '@/components/ui/Dot.vue'
+import Pagination from '@/components/ui/Pagination.vue'
 
 export default {
   name: 'Titres',
@@ -90,7 +82,8 @@ export default {
     PillList,
     Pill,
     Accordion,
-    Dot
+    Dot,
+    Pagination
   },
 
   props: {
@@ -102,8 +95,8 @@ export default {
 
   data () {
     return {
-      pages: [1, 2, 3, 4, 5],
       pageActive: 1,
+      elementsParPage: 10,
       colonnes: [
         {
           type: 'domain',
@@ -131,6 +124,27 @@ export default {
         }
       ]
     }
+  },
+
+  computed: {
+    titresPages () {
+      return this.titres.reduce((res, cur, i) => {
+        const page = Math.ceil((i + 1) / this.elementsParPage)
+
+        res[page] = res[page] || []
+        res[page].push(cur)
+        return res
+      }, [])
+    }
+  },
+
+  methods: {
+    pageChange (p) {
+
+      this.pageActive = p
+    }
   }
+
+
 }
 </script>
