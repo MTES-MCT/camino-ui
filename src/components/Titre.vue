@@ -38,10 +38,6 @@
               <h6>Statut</h6>
               <h4><dot :color="titre.statut.couleur" />{{ titre.statut.nom }}</h4>
             </div>
-            <div class="blob-1-2">
-              <h6>Police</h6>
-              <h4><dot :color="titre.police ? 'bg-success' : 'bg-neutral'" />{{ titre.police ? 'Ouverte' : 'Fermée' }}</h4>
-            </div>
           </div>
           <div v-if="titre.titulaires">
             <h6>{{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>

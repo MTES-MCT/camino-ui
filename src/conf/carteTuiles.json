@@ -42,13 +42,6 @@
     "attribution": "IGN-F/Geoportail"
   },
   {
-    "name": "BRGM / Cartes géologiques 1/50 000 (relief)",
-    "type": "wms",
-    "url": "https://geoservices.brgm.fr/geologie",
-    "layers": "SCAN_H_RELIEF_GEOL50",
-    "attribution": "BRGM"
-  },
-  {
     "name": "BRGM / Cartes géologiques 1/50 000",
     "type": "wms",
     "url": "https://geoservices.brgm.fr/geologie",

@@ -121,6 +121,10 @@ a.logo {
   top: 0;
 }
 
+.footer a {
+  color: var(--color-bg);
+}
+
 @media (--viewport-tablet) {
   .menubar-infos {
     padding-top: var(--unit-m);
