@@ -121,13 +121,13 @@ export const state = {
   ],
   polices: [
     {
-      nom: 'ouverte',
+      nom: 'active',
       valeur: true,
       couleur: 'success',
       checked: true
     },
     {
-      nom: 'fermée',
+      nom: 'inactive',
       valeur: false,
       couleur: 'neutral',
       checked: true

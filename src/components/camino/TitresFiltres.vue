@@ -97,7 +97,7 @@
       </div>
       <div class="tablet-blob-1-2 desktop-blob-1-3">
         <div class="mb">
-          <h6>Polices</h6>
+          <h6>Police des mines</h6>
           <ul class="list-sans">
             <li
               v-for="police in polices"
