@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { titre } from '../api'
+import { titre } from '../api/index.js'
 
 export const state = {
   current: null,

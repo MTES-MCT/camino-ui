@@ -6,7 +6,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node"
   },
   "exclude": ["node_modules", "**/node_modules/*", "dist", "example/dist"],
   "include": ["./src/**/*"]

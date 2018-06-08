@@ -1,5 +1,5 @@
 // import Vue from 'vue'
-import tuiles from '../conf/carteTuiles.json'
+import tuiles from '../conf/carteTuiles.js'
 
 export const state = {
   current: null,

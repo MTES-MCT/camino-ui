@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { titres } from '../api'
+import { titres } from '../api/index.js'
 
 export const state = {
   liste: null,
