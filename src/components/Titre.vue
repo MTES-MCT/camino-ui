@@ -78,19 +78,19 @@
         </div>
       </div>
       <titre-map
-        v-if="phaseCurrent.geojsonMultiPolygon"
-        :geojson="phaseCurrent.geojsonMultiPolygon"
+        v-if="perimetreCurrent.geojsonMultiPolygon"
+        :geojson="perimetreCurrent.geojsonMultiPolygon"
         class="mb" />
 
       <div class="tablet-blobs">
         <div class="tablet-blob-1-4">
           <h6>Surface</h6>
-          <p>{{ phaseCurrent.surface }} Km²</p>
+          <p>{{ perimetreCurrent.surface }} Km²</p>
         </div>
         <div class="tablet-blob-3-4">
           <h6>Communes</h6>
           <div
-            v-for="(departements, region) in phaseCurrent.communes"
+            v-for="(departements, region) in perimetreCurrent.communes"
             :key="region">
             <div
               v-for="(communes, departement) in departements"
@@ -192,12 +192,21 @@ export default {
     TitreChronologie
   },
 
+  data () {
+    return {
+      perimetreCurrentIndex: 0
+    }
+  },
+
   computed: {
     titre () {
       return this.$store.state.titre.current
     },
-    phaseCurrent () {
-      return this.titre && this.titre.phases[this.titre.phases.length - 1]
+    perimetres () {
+      return this.titre && this.titre.perimetres
+    },
+    perimetreCurrent () {
+      return this.perimetres && this.perimetres[this.perimetreCurrentIndex]
     },
     loaded () {
       return !!this.titre

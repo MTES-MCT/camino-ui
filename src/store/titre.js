@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { titre } from '../api/index.js'
+import { titreFormat } from './_utils.js'
 
 export const state = {
   current: null,
@@ -9,7 +10,7 @@ export const state = {
 export const actions = {
   async get({ commit }, { id }) {
     const t = await titre(id)
-    commit('set', t)
+    commit('set', titreFormat(t))
   },
 
   documentSelect({ commit }, { documentId, selected }) {

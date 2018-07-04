@@ -1,12 +1,8 @@
 import gql from 'graphql-tag'
 
-const titres = gql`
-  query Titres(
-    $typeIds: [TypeId!]
-    $domaineIds: [DomaineId]
-    $statutIds: [StatutId!]
-  ) {
-    titres(typeIds: $typeIds, domaineIds: $domaineIds, statutIds: $statutIds) {
+const titre = gql`
+  query Titre($id: String!) {
+    titre(id: $id) {
       id
       nom
       type {
@@ -112,4 +108,4 @@ const titres = gql`
   }
 `
 
-export default titres
+export default titre

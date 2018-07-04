@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { titres } from '../api/index.js'
+import { titreFormat } from './_utils.js'
 
 export const state = {
   liste: null,
@@ -118,20 +119,6 @@ export const state = {
       couleur: 'neutral',
       checked: true
     }
-  ],
-  polices: [
-    {
-      nom: 'active',
-      valeur: true,
-      couleur: 'success',
-      checked: true
-    },
-    {
-      nom: 'inactive',
-      valeur: false,
-      couleur: 'neutral',
-      checked: true
-    }
   ]
 }
 
@@ -146,18 +133,16 @@ export const actions = {
     const typeIds = state.types.filter(e => e.checked).map(e => e.id)
     const domaineIds = state.domaines.filter(e => e.checked).map(e => e.id)
     const statutIds = state.statuts.filter(e => e.checked).map(e => e.id)
-    const polices = state.polices.filter(e => e.checked).map(e => e.valeur)
-
     const substances = []
 
-    const t = await titres({
+    const ts = await titres({
       typeIds,
       domaineIds,
       statutIds,
-      polices,
       substances
     })
-    commit('set', t)
+
+    commit('set', ts.map(t => titreFormat(t)))
   }
 }
 

@@ -109,21 +109,21 @@ export default {
     titresInit () {
       this.marqueurCalques = []
       this.geojsonCalques = []
-      this.titres.forEach(title => {
+      this.titres.forEach(titre => {
         const icon = L.divIcon({
-          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domain-${title.domaine.id} leaflet-marker-title`,
-          html: title.domaine.id,
+          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domain-${titre.domaine.id} leaflet-marker-title`,
+          html: titre.domaine.id,
           iconSize: null,
           iconAnchor: [15.5, 38]
         })
-        const popupHtml = `<h4 class="mb-s">${title.nom}</h4>`
+        const popupHtml = `<h4 class="mb-s">${titre.nom}</h4>`
         const popupOptions = {
           closeButton: false,
           offset: [0, -24]
         }
         const titleRoute = {
           name: 'titre',
-          params: { id: title.id }
+          params: { id: titre.id }
         }
         const methods = {
           click: () => {
@@ -137,7 +137,7 @@ export default {
           }
         }
 
-        const geojsonLayer = L.geoJSON(title['phases'][0].geojsonMultiPolygon, {
+        const geojsonLayer = L.geoJSON(titre.perimetres[0].geojsonMultiPolygon, {
           filter: feature => feature.geometry.type === 'MultiPolygon',
           style: {
             fillColor: this.domaines.couleur,
