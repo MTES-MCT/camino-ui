@@ -142,10 +142,15 @@ label {
 
 .cap {
   text-transform: capitalize;
+  display: inline-block;
+}
+
+.cap-first {
+  display: inline-block;
 }
 
 .cap-first::first-letter {
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 .caps {

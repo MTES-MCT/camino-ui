@@ -7,7 +7,8 @@
           <h1 class="mt-xs">{{ titre['nom'] }}</h1>
           <h4 class="mb"><pill
             :color="`bg-title-domain-${titre.domaine.id}`"
-            class="mono mr-s mt--s">{{ titre.domaine.id }}</pill>{{ titre.type.nom }}
+            class="mono mr-s mt--s">{{ titre.domaine.id }}</pill>
+            <span class="cap-first">{{ titre.type.nom }}</span>
           </h4>
           <div v-if="titre.references">
             <h6>{{ titre.references.length > 1 ? 'Références' : 'Référence' }}</h6>
@@ -36,7 +37,7 @@
           <div class="blobs">
             <div class="blob-1-2">
               <h6>Statut</h6>
-              <h4><dot :color="titre.statut.couleur" />{{ titre.statut.nom }}</h4>
+              <h4 class="cap"><dot :color="`bg-${titre.statut.couleur}`" />{{ titre.statut.nom }}</h4>
             </div>
           </div>
           <div v-if="titre.titulaires">
@@ -57,7 +58,7 @@
               <tr
                 v-for="phase in titre.phases"
                 :key="phase.date">
-                <td>{{ phase['nom'] }}</td>
+                <td class="cap-first">{{ phase['nom'] }}</td>
                 <td>{{ phase['date'] | dateFormat }}</td>
                 <td>{{ `${phase['duree']} ans` }}</td>
               </tr>

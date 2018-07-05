@@ -1,7 +1,7 @@
 <template>
   <div
     :class="`${color}`"
-    class="h6 bold color-bg py-xs px-s pill inline-block">
+    class="h6 bold color-bg py-xs px-s pill inline-block cap">
     <slot />
   </div>
 </template>
