@@ -66,4 +66,9 @@ const titreFormat = t => {
   )
 }
 
-export { titreFormat }
+const metaFormat = s => {
+  const checked = true
+  return Object.assign({ checked }, s)
+}
+
+export { titreFormat, metaFormat }

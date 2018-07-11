@@ -23,7 +23,7 @@ const titres = async ({ typeIds, domaineIds, statutIds, substances }) => {
     }
   })
 
-  return res.data.titres
+  return res.data
 }
 
 const titre = async id => {

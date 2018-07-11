@@ -6,6 +6,11 @@ const titres = gql`
     $domaineIds: [DomaineId]
     $statutIds: [StatutId!]
   ) {
+    statuts {
+      id
+      nom
+      couleur
+    }
     titres(typeIds: $typeIds, domaineIds: $domaineIds, statutIds: $statutIds) {
       id
       nom

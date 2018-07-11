@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { titres } from '../api/index.js'
-import { titreFormat } from './_utils.js'
+import { titreFormat, metaFormat } from './_utils.js'
 
 export const state = {
   liste: null,
@@ -108,7 +108,7 @@ export const state = {
       checked: true
     },
     {
-      id: 'mdi',
+      id: 'mod',
       nom: 'modification en instance',
       couleur: 'warning',
       checked: true
@@ -135,14 +135,15 @@ export const actions = {
     const statutIds = state.statuts.filter(e => e.checked).map(e => e.id)
     const substances = []
 
-    const ts = await titres({
+    const data = await titres({
       typeIds,
       domaineIds,
       statutIds,
       substances
     })
 
-    commit('set', ts.map(t => titreFormat(t)))
+    commit('set', data.titres.map(t => titreFormat(t)))
+    commit('statutsSet', data.statuts.map(s => metaFormat(s)))
   }
 }
 
@@ -151,6 +152,9 @@ export const getters = {}
 export const mutations = {
   set(state, titres) {
     Vue.set(state, 'liste', titres)
+  },
+  statutsSet(state, statuts) {
+    // Vue.set(state, 'statuts', statuts)
   },
   filterToggle(state, f) {
     Vue.set(f, 'checked', !f.checked)
