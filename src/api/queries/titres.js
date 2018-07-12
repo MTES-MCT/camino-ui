@@ -103,7 +103,6 @@ const titres = gql`
       nom
     }
     type
-    usage
     symbole
     alias
     gerep
