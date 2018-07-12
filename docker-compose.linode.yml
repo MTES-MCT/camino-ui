@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+
+  ui:
+    build: .
+    environment:
+      VIRTUAL_HOST: camino.site
+      VIRTUAL_PORT: ${NODE_PORT}
+      LETSENCRYPT_HOST: camino.site
+      LETSENCRYPT_EMAIL: francoisromain@gmail.com
+      NODE_PORT: ${NODE_PORT}
+    expose:
+      - ${NODE_PORT}
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

@@ -8,26 +8,26 @@ Application en cours de développement, provisoirement accessible [ici](https://
 
 ## Technologies
 
-* Vue.js
-* Vuex
-* Leaflet.js
-* Apollo GraphQl client
-* Postcss
-* Docker
-* Vue-cli / webpack
-* Babel
-* Postcss-preset-env
-* Eslint
-* Prettier
-* Standardjs
-* Stylelint
+- Vue.js
+- Vuex
+- Leaflet.js
+- Apollo GraphQl client
+- Postcss
+- Docker
+- Vue-cli / webpack
+- Babel
+- Postcss-preset-env
+- Eslint
+- Prettier
+- Standardjs
+- Stylelint
 
 ---
 
 ## Configuration
 
-* Renommer le fichier `.env.example` en `.env`.
-* Compléter le fichier `env`.
+- Renommer le fichier `.env.example` en `.env`.
+- Compléter le fichier `env`.
 
 ---
 
@@ -62,9 +62,9 @@ docker-compose -f ./docker-compose.localhost.yml up --build
 
 Pré-requis:
 
-* une installation locale active de https://github.com/jwilder/nginx-proxy
-* un certificat ssl auto-signé
-* [instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
+- une installation locale active de https://github.com/jwilder/nginx-proxy
+- un certificat ssl auto-signé
+- [instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
 
 ```bash
 # Démarre l'application dans un container Docker
@@ -77,11 +77,14 @@ docker-compose -f ./docker-compose.local.yml up --build
 
 Pré-requis:
 
-* une installation active de https://github.com/jwilder/nginx-proxy
-* [instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
+- une installation active de https://github.com/jwilder/nginx-proxy
+- [instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
 
 ```bash
-docker-compose -f ./docker-compose.yml up --build
+# démarre l'application dans un container Docker
+# en mode `production`
+# accessible à http://flux.camino.pw
+docker-compose -f ./docker-compose.ovh.yml up --build
 ```
 
 ---
@@ -96,10 +99,10 @@ Voir `contributing.md` (en anglais) pour plus d'infos.
 
 ### Production
 
-* [La Fabrique Numérique, Ministère de la transition écologique et solidaire](https://www.ecologique-solidaire.gouv.fr/inauguration-fabrique-numerique-lincubateur-des-ministeres-charges-lecologie-et-des-territoires)
+- [La Fabrique Numérique, Ministère de la transition écologique et solidaire](https://www.ecologique-solidaire.gouv.fr/inauguration-fabrique-numerique-lincubateur-des-ministeres-charges-lecologie-et-des-territoires)
 
 ### Équipe
 
-* Guillaume Levieux, intrapreneur
-* Joeffrey Arruyer, coach
-* [François Romain](http://francoisromain.com), développeur
+- Guillaume Levieux, intrapreneur
+- Joeffrey Arruyer, coach
+- [François Romain](http://francoisromain.com), développeur
