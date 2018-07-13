@@ -7,12 +7,12 @@ COPY package*.json ./
 
 RUN npm install
 
+COPY .env ./
 COPY .env.production ./
 COPY index.js ./
 COPY vue.config.js ./
 COPY src src/
 COPY public public/
-COPY .env ./
 
 RUN npm run build
 
