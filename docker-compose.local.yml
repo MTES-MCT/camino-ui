@@ -8,7 +8,6 @@ services:
       NODE_ENV: production
       VIRTUAL_HOST: camino.local
       VIRTUAL_PORT: ${NODE_PORT}
-      NODE_PORT: ${NODE_PORT}
     expose:
       - ${NODE_PORT}
 

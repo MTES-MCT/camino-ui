@@ -2,12 +2,18 @@
 
 FROM node:alpine
 WORKDIR /app
+
 COPY package*.json ./
+
 RUN npm install
+
 COPY .env.production ./
 COPY index.js ./
 COPY vue.config.js ./
 COPY src src/
 COPY public public/
+COPY .env ./
+
 RUN npm run build
+
 CMD ["npm", "start"]

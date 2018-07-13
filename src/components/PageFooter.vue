@@ -32,7 +32,7 @@
               src="../../public/img/logo-betagouv.svg">
           </div>
         </div>
-        <p class="h6 color-neutral">Imaginé par <b>&hearts;</b> du service public à la <i> Fabrique numérique</i><br>des ministères de la Transition écologique et solidaire et de la Cohésion des territoires.</p>
+        <p class="h6 color-neutral">Imaginé par <b>&hearts;</b> du service public à la <i> Fabrique numérique</i><br>des ministères de la Transition écologique et solidaire et de la Cohésion des territoires. (ovh)</p>
       </div>
 
     </div>
