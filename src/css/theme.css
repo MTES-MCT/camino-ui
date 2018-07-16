@@ -101,6 +101,14 @@ a.logo {
   background: var(--color-title-domain-c);
 }
 
+.bg-title-domain-w {
+  background: var(--color-title-domain-w);
+}
+
+.bg-title-domain-a {
+  background: var(--color-title-domain-a);
+}
+
 .popup-header {
   height: calc(4 * var(--unit));
   border-bottom-width: var(--unit-xxs);

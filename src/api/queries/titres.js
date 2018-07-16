@@ -2,16 +2,32 @@ import gql from 'graphql-tag'
 
 const titres = gql`
   query Titres(
+    $filtrer: Boolean
     $typeIds: [TypeId!]
     $domaineIds: [DomaineId]
     $statutIds: [StatutId!]
   ) {
-    statuts {
-      id
-      nom
-      couleur
+    metas {
+      types {
+        id
+        nom
+      }
+      domaines {
+        id
+        nom
+      }
+      statuts {
+        id
+        nom
+        couleur
+      }
     }
-    titres(typeIds: $typeIds, domaineIds: $domaineIds, statutIds: $statutIds) {
+    titres(
+      filtrer: $filtrer
+      typeIds: $typeIds
+      domaineIds: $domaineIds
+      statutIds: $statutIds
+    ) {
       id
       nom
       type {
@@ -42,7 +58,6 @@ const titres = gql`
           id
           date
           duree
-          surface
           type {
             id
             nom
@@ -57,8 +72,13 @@ const titres = gql`
             nom
           }
           titulaires {
-            id
-            nom
+            ...entreprise
+          }
+          amodiataires {
+            ...entreprise
+          }
+          utilisateurs {
+            ...utilisateur
           }
           geojsonPoints {
             ...geojsonPoints
@@ -72,6 +92,31 @@ const titres = gql`
         }
       }
     }
+  }
+
+  fragment utilisateur on Utilisateur {
+    id
+    nom
+    prenom
+    email
+    telephoneMobile
+    telephoneFixe
+    administrationId
+    entrepriseId
+  }
+
+  fragment entreprise on Entreprise {
+    id
+    nom
+    service
+    site
+    email
+    telephone
+    adresse1
+    adresse2
+    codePostal
+    ville
+    cedex
   }
 
   fragment geojsonMultiPolygon on GeojsonMultiPolygon {
