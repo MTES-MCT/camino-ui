@@ -106,3 +106,11 @@ Voir `contributing.md` (en anglais) pour plus d'infos.
 - Guillaume Levieux, intrapreneur
 - Joeffrey Arruyer, coach
 - [François Romain](http://francoisromain.com), développeur
+
+---
+
+## Licence
+
+Camino API, le cadastre minier numérique ouvert
+
+[AGPL 3 ou plus récent](https://spdx.org/licenses/AGPL-3.0-or-later.html)
