@@ -2,9 +2,8 @@ import gql from 'graphql-tag'
 
 const titres = gql`
   query Titres(
-    $filtrer: Boolean
     $typeIds: [TypeId!]
-    $domaineIds: [DomaineId]
+    $domaineIds: [DomaineId!]
     $statutIds: [StatutId!]
   ) {
     metas {
@@ -22,12 +21,7 @@ const titres = gql`
         couleur
       }
     }
-    titres(
-      filtrer: $filtrer
-      typeIds: $typeIds
-      domaineIds: $domaineIds
-      statutIds: $statutIds
-    ) {
+    titres(typeIds: $typeIds, domaineIds: $domaineIds, statutIds: $statutIds) {
       id
       nom
       type {

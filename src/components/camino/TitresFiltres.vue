@@ -145,7 +145,7 @@ export default {
       return this.$store.state.titres.domaines
     },
     types () {
-      return this.$store.state.titres.types.reduce((res, cur) => {
+      return this.$store.state.titres.types && this.$store.state.titres.types.reduce((res, cur) => {
         const e = res.find(e => e.nom === cur.nom)
         return e ? res : [...res, cur]
       }, [])

@@ -1,12 +1,12 @@
 import Vue from 'vue'
-import { titres } from '../api/index.js'
-import { titreFormat, metaFormat } from './_utils.js'
+import { titres } from '@/api'
+import { titreFormat, metaFormat } from '@/store/_utils'
 
 export const state = {
   liste: null,
-  domaines: [],
-  types: [],
-  statuts: []
+  domaines: null,
+  types: null,
+  statuts: null
 }
 
 export const actions = {
@@ -17,37 +17,32 @@ export const actions = {
     dispatch('get')
   },
   async get({ state, commit }) {
-    const filtrer =
-      state.types.length !== 0 &&
-      state.domaines.length !== 0 &&
-      state.statuts.length !== 0
-    const typeIds = state.types.filter(e => e.checked).map(e => e.id)
-    const domaineIds = state.domaines.filter(e => e.checked).map(e => e.id)
-    const statutIds = state.statuts.filter(e => e.checked).map(e => e.id)
-    const substances = []
+    const args = {
+      typeIds: state.types && state.types.filter(e => e.checked).map(e => e.id),
+      domaineIds:
+        state.domaines && state.domaines.filter(e => e.checked).map(e => e.id),
+      statutIds:
+        state.statuts && state.statuts.filter(e => e.checked).map(e => e.id),
+      substances: []
+    }
 
-    const data = await titres({
-      filtrer,
-      typeIds,
-      domaineIds,
-      statutIds,
-      substances
-    })
+    const a = Object.keys(args).reduce(
+      (res, key) =>
+        args[key] ? Object.assign(res, { [key]: args[key] }) : res,
+      {}
+    )
+
+    const data = await titres(a)
 
     commit('set', data.titres.map(t => titreFormat(t)))
-    if (!filtrer) {
-      commit(
-        'metasSet',
-        Object.keys(data.metas).reduce(
-          (acc, key) =>
-            Array.isArray(data.metas[key])
-              ? Object.assign(acc, {
-                  [key]: data.metas[key].map(d => metaFormat(d))
-                })
-              : acc,
-          {}
-        )
-      )
+    if (!args.typeIds) {
+      commit('typesSet', data.metas.types.map(v => metaFormat(v)))
+    }
+    if (!args.domaineIds) {
+      commit('domainesSet', data.metas.domaines.map(v => metaFormat(v)))
+    }
+    if (!args.statutIds) {
+      commit('statutsSet', data.metas.statuts.map(v => metaFormat(v)))
     }
   }
 }
@@ -58,11 +53,15 @@ export const mutations = {
   set(state, titres) {
     Vue.set(state, 'liste', titres)
   },
-  metasSet(state, metas) {
-    console.log(metas)
-    Vue.set(state, 'statuts', metas.statuts)
-    Vue.set(state, 'types', metas.types)
-    Vue.set(state, 'domaines', metas.domaines)
+  typesSet(state, types) {
+    console.log(types)
+    Vue.set(state, 'types', types)
+  },
+  domainesSet(state, domaines) {
+    Vue.set(state, 'domaines', domaines)
+  },
+  statutsSet(state, statuts) {
+    Vue.set(state, 'statuts', statuts)
   },
   filterToggle(state, f) {
     Vue.set(f, 'checked', !f.checked)
