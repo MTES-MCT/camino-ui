@@ -18,12 +18,12 @@
 </template>
 
 <script>
-import Page from './components/ui/Page.vue'
-import Popup from './components/ui/Popup.vue'
-import Ribbon from './components/ui/Ribbon.vue'
-import PageHeader from './components/PageHeader.vue'
-import PageFooter from './components/PageFooter.vue'
-import PopupAvertissement from './components/camino/PopupAvertissement.vue'
+import Page from './components/ui/page.vue'
+import Popup from './components/ui/popup.vue'
+import Ribbon from './components/ui/ribbon.vue'
+import PageHeader from './components/page-header.vue'
+import PageFooter from './components/page-footer.vue'
+import PopupAvertissement from './components/camino/popup-warning.vue'
 
 export default {
   name: 'App',

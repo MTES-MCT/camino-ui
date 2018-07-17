@@ -62,9 +62,9 @@
 </template>
 
 <script>
-import Dot from '@/components/ui/Dot.vue'
-import Accordion from '@/components/ui/Accordion.vue'
-import Documents from '@/components/camino/Documents.vue'
+import Dot from '@/components/ui/dot.vue'
+import Accordion from '@/components/ui/accordion.vue'
+import Documents from '@/components/camino/documents.vue'
 
 export default {
   components: {

@@ -19,7 +19,7 @@
       </ul>
     </div>
 
-    <titres-filtres />
+    <titres-filters />
 
     <component
       :titres="titres"
@@ -28,11 +28,11 @@
 </template>
 
 <script>
-import Card from '@/components/ui/Card.vue'
-import Loader from '@/components/ui/Loader.vue'
-import TitresTable from '@/components/camino/TitresTable.vue'
-import TitresMap from '@/components/camino/TitresMap.vue'
-import TitresFiltres from '@/components/camino/TitresFiltres.vue'
+import Card from '@/components/ui/card.vue'
+import Loader from '@/components/ui/loader.vue'
+import TitresTable from '@/components/camino/titres-table.vue'
+import TitresMap from '@/components/camino/titres-map.vue'
+import TitresFilters from '@/components/camino/titres-filters.vue'
 
 export default {
   name: 'Titres',
@@ -40,7 +40,7 @@ export default {
   components: {
     Loader,
     Card,
-    TitresFiltres
+    TitresFilters
   },
 
   data () {

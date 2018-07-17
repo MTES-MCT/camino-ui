@@ -69,11 +69,11 @@
 </template>
 
 <script>
-import PillList from '@/components/ui/PillList.vue'
-import Pill from '@/components/ui/Pill.vue'
-import Accordion from '@/components/ui/Accordion.vue'
-import Dot from '@/components/ui/Dot.vue'
-import Pagination from '@/components/ui/Pagination.vue'
+import PillList from '@/components/ui/pill-list.vue'
+import Pill from '@/components/ui/pill.vue'
+import Accordion from '@/components/ui/accordion.vue'
+import Dot from '@/components/ui/dot.vue'
+import Pagination from '@/components/ui/pagination.vue'
 
 export default {
   name: 'Titres',

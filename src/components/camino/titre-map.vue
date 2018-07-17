@@ -23,8 +23,8 @@
 
 <script>
 import L from 'leaflet'
-import LeafletMap from '@/components/leaflet/Map.vue'
-import LeafletTilesSelector from '@/components/leaflet/TilesSelector.vue'
+import LeafletMap from '@/components/leaflet/map.vue'
+import LeafletTilesSelector from '@/components/leaflet/tiles-selector.vue'
 
 export default {
   components: {

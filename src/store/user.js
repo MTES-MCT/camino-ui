@@ -15,7 +15,7 @@ export const getters = {}
 
 export const mutations = {
   preferencesMapTilesNameSelect(state, tilesName) {
-    Vue.set(state.preferences.carte, 'tilesName', tilesName)
+    Vue.set(state.preferences.map, 'tilesName', tilesName)
   }
 }
 

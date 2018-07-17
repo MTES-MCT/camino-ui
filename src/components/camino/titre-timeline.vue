@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import TitreChronologieEvenement from '@/components/camino/TitreChronologieEvenement.vue'
+import TitreChronologieEvenement from '@/components/camino/titre-timeline-event.vue'
 
 export default {
   components: {

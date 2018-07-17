@@ -121,9 +121,9 @@
 </template>
 
 <script>
-import Dot from '@/components/ui/Dot.vue'
-import Pill from '@/components/ui/Pill.vue'
-import Accordion from '@/components/ui/Accordion.vue'
+import Dot from '@/components/ui/dot.vue'
+import Pill from '@/components/ui/pill.vue'
+import Accordion from '@/components/ui/accordion.vue'
 
 export default {
   components: {

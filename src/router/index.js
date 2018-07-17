@@ -2,10 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueMeta from 'vue-meta'
 import NProgress from 'nprogress'
-import Titre from '@/components/Titre.vue'
+import Titre from '@/components/titre.vue'
 // import TitleDetails from '@/components/TitleDetails.vue'
-import Titres from '@/components/Titres.vue'
-import Erreur from '@/components/Erreur.vue'
+import Titres from '@/components/titres.vue'
+import Error from '@/components/error.vue'
 
 Vue.use(VueRouter)
 
@@ -31,8 +31,8 @@ const routes = [
   },
   {
     path: '/Erreur',
-    name: 'erreur',
-    component: Erreur,
+    name: 'error',
+    component: Error,
     // Allows props to be passed to the 404 page through route
     // params, such as `resource` to define what wasn't found.
     props: true
@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: '*',
-    redirect: 'erreur'
+    redirect: 'error'
   }
 ]
 

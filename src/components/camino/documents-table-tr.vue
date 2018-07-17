@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import Dot from '@/components/ui/Dot.vue'
+import Dot from '@/components/ui/dot.vue'
 
 export default {
   components: {
