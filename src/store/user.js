@@ -3,8 +3,8 @@ import Vue from 'vue'
 export const state = {
   current: null,
   preferences: {
-    carte: {
-      tuilesNom: 'osm / mapnik'
+    map: {
+      tilesName: 'osm / mapnik'
     }
   }
 }
@@ -14,8 +14,8 @@ export const actions = {}
 export const getters = {}
 
 export const mutations = {
-  preferencesCarteTuilesNomSelectionner(state, tuilesNom) {
-    Vue.set(state.preferences.carte, 'tuilesNom', tuilesNom)
+  preferencesMapTilesNameSelect(state, tilesName) {
+    Vue.set(state.preferences.carte, 'tilesName', tilesName)
   }
 }
 

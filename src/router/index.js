@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueMeta from 'vue-meta'
-import NProgress from 'nprogress/nprogress'
+import NProgress from 'nprogress'
 import Titre from '@/components/Titre.vue'
 // import TitleDetails from '@/components/TitleDetails.vue'
 import Titres from '@/components/Titres.vue'

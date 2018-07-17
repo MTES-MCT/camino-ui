@@ -81,32 +81,60 @@ a.logo {
   }
 }
 
-.bg-title-domain-m {
-  background: var(--color-title-domain-m);
-}
-
-.bg-title-domain-h {
-  background: var(--color-title-domain-h);
-}
-
-.bg-title-domain-g {
-  background: var(--color-title-domain-g);
-}
-
-.bg-title-domain-s {
-  background: var(--color-title-domain-s);
+.bg-title-domain-a {
+  background: var(--color-title-domain-a);
 }
 
 .bg-title-domain-c {
   background: var(--color-title-domain-c);
 }
 
+.bg-title-domain-g {
+  background: var(--color-title-domain-g);
+}
+
+.bg-title-domain-h {
+  background: var(--color-title-domain-h);
+}
+
+.bg-title-domain-m {
+  background: var(--color-title-domain-m);
+}
+
+.bg-title-domain-s {
+  background: var(--color-title-domain-s);
+}
+
 .bg-title-domain-w {
   background: var(--color-title-domain-w);
 }
 
-.bg-title-domain-a {
+.svg-fill-domaine-a {
   background: var(--color-title-domain-a);
+}
+
+.svg-fill-domaine-c {
+  fill: var(--color-title-domain-c);
+}
+
+.svg-fill-domaine-g {
+  fill: var(--color-title-domain-g);
+}
+
+.svg-fill-domaine-h {
+  fill: var(--color-title-domain-h);
+}
+
+.svg-fill-domaine-m {
+  fill: var(--color-title-domain-m);
+}
+
+.svg-fill-domaine-s {
+  fill: var(--color-title-domain-s);
+}
+
+.svg-fill-domaine-w {
+  fill: var(--color-title-domain-w);
 }
 
 .popup-header {

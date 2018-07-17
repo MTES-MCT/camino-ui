@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import titre from './titre.js'
-import titres from './titres.js'
-import carte from './carte.js'
-import utilisateur from './utilisateur.js'
+import titre from '@/store/titre'
+import titres from '@/store/titres'
+import map from '@/store/map'
+import user from '@/store/user'
 
 const modules = {
   titre,
   titres,
-  carte,
-  utilisateur
+  map,
+  user
 }
 
 export const state = {

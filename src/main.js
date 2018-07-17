@@ -3,8 +3,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueCookies from 'vue-cookies'
 
-import router from './router/index.js'
-import store from './store/index.js'
+import router from '@/router'
+import store from '@/store'
 
 Vue.config.productionTip = false
 

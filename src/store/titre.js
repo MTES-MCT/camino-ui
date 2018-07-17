@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import { titre } from '../api/index.js'
-import { titreFormat } from './_utils.js'
+import { titre } from '@/api'
+import { titreFormat } from '@/store/_utils'
 
 export const state = {
   current: null,
