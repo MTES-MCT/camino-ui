@@ -5,6 +5,7 @@ const titres = gql`
     $typeIds: [TypeId!]
     $domaineIds: [DomaineId!]
     $statutIds: [StatutId!]
+    $substances: [String!]
   ) {
     metas {
       types {
@@ -21,7 +22,12 @@ const titres = gql`
         couleur
       }
     }
-    titres(typeIds: $typeIds, domaineIds: $domaineIds, statutIds: $statutIds) {
+    titres(
+      typeIds: $typeIds
+      domaineIds: $domaineIds
+      statutIds: $statutIds
+      substances: $substances
+    ) {
       id
       nom
       type {
