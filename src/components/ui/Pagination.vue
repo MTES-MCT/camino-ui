@@ -1,5 +1,28 @@
 <template>
-  <ul class="list-inline">
+  <ul 
+    v-if="pagesTotal > 1" 
+    class="list-inline">
+    <li class="mb-0">
+      <button
+        :disabled="pageActive <= delta + 1"
+        class="btn-border px-m py-s"
+        @click="$emit('page-change', 1)">
+        «
+      </button>
+    </li>
+    <li class="mb-0">
+      <button
+        :disabled="pageActive === 1"
+        class="btn-border px-m py-s"
+        @click="$emit('page-change', pageActive - 1)">
+        ‹
+      </button>
+    </li>
+    <li 
+      v-if="pageActive >= delta + 1" 
+      class="mb-0">
+      <div class="px-m py-s">…</div>
+    </li>
     <li
       v-for="page in pages"
       :key="page"
@@ -11,6 +34,27 @@
         {{ page }}
       </button>
     </li>
+    <li 
+      v-if="pageActive < pagesTotal - delta" 
+      class="mb-0">
+      <div class="px-m py-s">…</div>
+    </li>
+    <li class="mb-0">
+      <button
+        :disabled="pageActive === pagesTotal"
+        class="btn-border px-m py-s"
+        @click="$emit('page-change', pageActive + 1)">
+        › 
+      </button>
+    </li>
+    <li class="mb-0">
+      <button
+        :disabled="pageActive >= pagesTotal - delta"
+        class="btn-border px-m py-s"
+        @click="$emit('page-change', pagesTotal)">
+        »
+      </button>
+    </li>
   </ul>
 </template>
 
@@ -20,47 +64,34 @@ export default {
   name: 'UiPagination',
 
   props: {
-    titres: {
-      type: Array,
-      default: () => []
-    },
-    pagesLength: {
+    pagesTotal: {
       type: Number,
       default: 2
     },
     pageActive: {
       type: Number,
       default: 1
-    }
-  },
-
-  data () {
-    return {
-      delta: 2
-
+    },
+    pagesVisible: {
+      type: Number,
+      default: 1
     }
   },
 
   computed: {
+    delta () {
+      return Math.round((this.pagesVisible - 1) / 2)
+    },
     pages () {
-      return Array.from(Array(this.pagesLength).keys()).map(n => n + 1)
-    },
-
-    ellipsis () {
-      return this.pagesLength > this.delta * 2 + 3
-    },
-
-    pagesVisibles () {
-      // if (this.ellipsis) {
-      //   const prev = this.pageCurrent - this.delta
-
-      //   const next = this.pageCurrent + this.delta
-
-      // }
-      // return this.pages.reduce((res, cur) => {
-
-      // }, [])
-      return this.pages
+      let filter
+      if (this.pageActive <= this.delta) {
+        filter = n => n <= (this.delta * 2 + 1)
+      } else if (this.pageActive >= this.pagesTotal - this.delta) {
+        filter = n => n >= this.pagesTotal - (this.delta * 2)
+      } else {
+        filter = n => n >= this.pageActive - this.delta && n <= this.pageActive + this.delta
+      }
+      return Array.from(Array(this.pagesTotal).keys()).map(n => n + 1).filter(filter)
     }
   }
 }

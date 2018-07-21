@@ -5,21 +5,34 @@ import { titreFormat, metaFormat } from '@/store/_utils'
 export const state = {
   liste: null,
   domaines: null,
+  // [
+  //   {
+  //     checked: true,
+  //     id: 'h',
+  //     nom: 'hydrocarbures liquides ou gazeux'
+  //   }
+  // ],
   types: null,
-  statuts: null,
+  statuts: [
+    {
+      checked: true,
+      couleur: 'success',
+      id: 'val',
+      nom: 'valide'
+    }
+  ],
   substances: null
 }
 
 export const actions = {
   filterInput({ state, dispatch, commit }, { name, value }) {
     const values = value ? value.split(/[ ,]+/) : null
-    console.log(typeof values, values)
     commit('filterInput', { name, values })
     dispatch('get')
   },
   filterToggle({ state, dispatch, commit }, { name, value, property }) {
     state[name]
-      .find(e => e[property].toString() === value)
+      .filter(e => e[property].toString() === value)
       .forEach(f => commit('filterToggle', f))
     dispatch('get')
   },
@@ -73,7 +86,6 @@ export const mutations = {
     Vue.set(f, 'checked', !f.checked)
   },
   filterInput(state, { name, values }) {
-    console.log(name, values)
     Vue.set(state, name, values)
   }
 }

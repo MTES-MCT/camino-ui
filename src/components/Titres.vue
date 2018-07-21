@@ -46,7 +46,7 @@ export default {
   data () {
     return {
       filtersOpened: false,
-      viewCurrent: 'map'
+      viewCurrent: 'list'
     }
   },
 

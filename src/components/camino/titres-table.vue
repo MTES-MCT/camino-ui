@@ -44,7 +44,8 @@
       <div class="desktop-blob-3-4">
         <pagination
           :page-active="pageActive"
-          :pages-length="titresPages.length"
+          :pages-total="titresPages.length - 1"
+          :pages-visible="5"
           @page-change="pageChange" />
       </div>
       <div class="desktop-blob-1-4">
@@ -142,6 +143,7 @@ export default {
     pageChange (p) {
 
       this.pageActive = p
+      this.$router.push({ query: { page: p } })
     }
   }
 
