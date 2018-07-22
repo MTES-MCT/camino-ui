@@ -6,15 +6,15 @@
     <div class="flex">
       <h2 class="mt-s">Titres miniers</h2>
       <ul class="list-inline flex-right">
-        <li :class="{ active: viewCurrent === 'map' }">
+        <li
+          v-for="component in viewComponents"
+          :key="component.name" 
+          :class="{ active: viewActive === component.name }">
           <button
             class="btn-border px-m py-s"
-            @click="viewSet('map')"><i class="icon-24 icon-24-globe" /></button>
-        </li>
-        <li :class="{ active: viewCurrent === 'list' }">
-          <button
-            class="btn-border px-m py-s"
-            @click="viewSet('list')"><i class="icon-24 icon-24-list" /></button>
+            @click="viewSet(component.name)">
+            <i :class="`icon-24 icon-24-${component.icon}`" />
+          </button>
         </li>
       </ul>
     </div>
@@ -22,6 +22,7 @@
     <titres-filters />
 
     <component
+      v-if="viewActive"
       :titres="titres"
       :is="viewComponent" />
   </card>
@@ -46,7 +47,16 @@ export default {
   data () {
     return {
       filtersOpened: false,
-      viewCurrent: 'list'
+      viewActive: 'carte',
+      viewComponents: [{
+        name: 'liste',
+        component: TitresTable,
+        icon: 'list'
+      }, {
+        name: 'carte',
+        component: TitresMap,
+        icon: 'globe'
+      }]
     }
   },
 
@@ -58,16 +68,16 @@ export default {
       return !!this.titres
     },
     viewComponent () {
-      return this.viewCurrent === 'map' ? TitresMap : TitresTable
+      return this.viewComponents.find(c => c.name === this.viewActive).component
     }
-  },
-
-  watch: {
-    $route: 'get'
   },
 
   created () {
     this.get()
+
+    if (this.$route.query.vue) {
+      this.viewActive = this.$route.query.vue
+    }
   },
 
   methods: {
@@ -75,8 +85,10 @@ export default {
       this.$store.dispatch('titres/get')
     },
     viewSet (viewNew) {
-      this.viewCurrent = viewNew
+      this.viewActive = viewNew
+      this.$router.push({ query: { vue: this.viewActive } })
     }
-  }
+  },
+
 }
 </script>

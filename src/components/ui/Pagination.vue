@@ -4,9 +4,9 @@
     class="list-inline">
     <li class="mb-0">
       <button
-        :disabled="pageActive <= delta + 1"
+        :disabled="pageActive === 1"
         class="btn-border px-m py-s"
-        @click="$emit('page-change', 1)">
+        @click="pageChange(1)">
         «
       </button>
     </li>
@@ -14,12 +14,12 @@
       <button
         :disabled="pageActive === 1"
         class="btn-border px-m py-s"
-        @click="$emit('page-change', pageActive - 1)">
+        @click="pageChange(pageActive - 1)">
         ‹
       </button>
     </li>
     <li 
-      v-if="pageActive >= delta + 1" 
+      v-if="pageActive > delta + 1" 
       class="mb-0">
       <div class="px-m py-s">…</div>
     </li>
@@ -30,7 +30,7 @@
       class="mb-0">
       <button
         class="btn-border px-m py-s"
-        @click="$emit('page-change', page)">
+        @click="pageChange(page)">
         {{ page }}
       </button>
     </li>
@@ -43,15 +43,15 @@
       <button
         :disabled="pageActive === pagesTotal"
         class="btn-border px-m py-s"
-        @click="$emit('page-change', pageActive + 1)">
+        @click="pageChange(pageActive + 1)">
         › 
       </button>
     </li>
     <li class="mb-0">
       <button
-        :disabled="pageActive >= pagesTotal - delta"
+        :disabled="pageActive === pagesTotal"
         class="btn-border px-m py-s"
-        @click="$emit('page-change', pagesTotal)">
+        @click="pageChange(pagesTotal)">
         »
       </button>
     </li>
@@ -92,6 +92,12 @@ export default {
         filter = n => n >= this.pageActive - this.delta && n <= this.pageActive + this.delta
       }
       return Array.from(Array(this.pagesTotal).keys()).map(n => n + 1).filter(filter)
+    }
+  },
+
+  methods: {
+    pageChange (page) {
+      this.$emit('page-change', page)
     }
   }
 }

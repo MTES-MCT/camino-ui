@@ -49,6 +49,11 @@
           @page-change="pageChange" />
       </div>
       <div class="desktop-blob-1-4">
+        <pagination-ranges 
+          :ranges="pagesRanges" 
+          :range-active="pagesRangeActive"
+          @page-range-change="pageRangeChange" />
+          
         <accordion class="mb">
           <template slot="title">Affichage</template>
           <ul class="list-sans">
@@ -75,6 +80,7 @@ import Pill from '@/components/ui/pill.vue'
 import Accordion from '@/components/ui/accordion.vue'
 import Dot from '@/components/ui/dot.vue'
 import Pagination from '@/components/ui/pagination.vue'
+import PaginationRanges from '@/components/ui/pagination-ranges.vue'
 
 export default {
   name: 'Titres',
@@ -84,7 +90,8 @@ export default {
     Pill,
     Accordion,
     Dot,
-    Pagination
+    Pagination,
+    PaginationRanges
   },
 
   props: {
@@ -97,7 +104,6 @@ export default {
   data () {
     return {
       pageActive: 1,
-      elementsParPage: 10,
       colonnes: [
         {
           type: 'domain',
@@ -123,14 +129,16 @@ export default {
           type: 'substances',
           name: 'Substances'
         }
-      ]
+      ],
+      pagesRanges: [10, 50, 200, this.titres.length],
+      pagesRangeActive: 10
     }
   },
 
   computed: {
     titresPages () {
       return this.titres.reduce((res, cur, i) => {
-        const page = Math.ceil((i + 1) / this.elementsParPage)
+        const page = Math.ceil((i + 1) / this.pagesRangeActive)
 
         res[page] = res[page] || []
         res[page].push(cur)
@@ -139,14 +147,28 @@ export default {
     }
   },
 
-  methods: {
-    pageChange (p) {
+  created () {
+    if (this.$route.query.pages) {
+      this.pagesRangeActive = Number(this.$route.query.pages)
+    }
 
-      this.pageActive = p
-      this.$router.push({ query: { page: p } })
+    if (this.$route.query.page) {
+      this.pageActive = Number(this.$route.query.page)
+    }
+  },
+
+  methods: {
+    pageChange (page) {
+      this.pageActive = page
+      const query = Object.assign({}, this.$route.query, { page })
+      this.$router.push({ query })
+    },
+    pageRangeChange (pages) {
+      this.pagesRangeActive = Number(pages)
+      this.pageChange(1)
+      const query = Object.assign({}, this.$route.query, { pages })
+      this.$router.push({ query })
     }
   }
-
-
 }
 </script>

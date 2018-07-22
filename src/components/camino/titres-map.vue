@@ -82,16 +82,20 @@ export default {
           attribution: tiles.attribution
         })
     },
+
     boundsSelected () {
       const b = this.bounds[this.boundsName]
       return L.geoJSON(b).getBounds()
     },
+
     domaines () {
       return this.$store.state.titres.domaines
     },
+
     tiles () {
       return this.$store.state.map.tiles
     },
+
     tilesName () {
       return this.$store.state.user.preferences.map.tilesName
     }
