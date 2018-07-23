@@ -1,46 +1,48 @@
 <template>
-  <div class="tablet-blobs">
-    <div class="tablet-blob-1 desktop-blob-1-3 pt-l">
-      <p class="subtitle">Nous sommes à votre écoute <br>du
-        <strong>lundi au vendredi</strong>, de 9h30 à 18h00.
-      </p>
-      <ul class="list-prefix">
-        <li>
-          <strong>Téléphone</strong> :
-          <a href="tel:+33140819586">+33 (0)1 40 81 95 86</a>
-        </li>
-        <li>
-          <strong>Email</strong> :
-          <a href="mailto:contact@camino.beta.gouv.fr">contact@camino.beta.gouv.fr</a>
-        </li>
-      </ul>
-    </div>
-    <div class="tablet-blob-1 desktop-blob-2-3">
+  <div class="tablet-blobs pt">
+    <div class="tablet-blob-1 desktop-blob-1-3">
+      <img 
+        class="sponsor mb"
+        src="../../public/img/logo-mtes-mef.svg">
 
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-2 pt-l">
-          <div class="text-center">
-            <img
-              class="sponsor mb"
-              src="../../public/img/logo-fabnum.svg">
-          </div>
+      <div class="blobs">
+        <div class="blob-1-3">
+          <img
+            class="sponsor mb"
+            src="../../public/img/logo-fabnum.svg">
         </div>
-        <div class="tablet-blob-1-2 pt-l">
-          <div class="text-center px">
-            <img 
-              class="sponsor mb"
-              src="../../public/img/logo-betagouv.svg">
-          </div>
+        <div class="blob-2-3">
+          <p class="h6 color-neutral">Camino est un service numérique de l’Etat incubé à la Fabrique numérique du Ministère de la Transition écologique et solidaire, membre du réseau d’incubateurs <a href="http://beta.gouv.fr">beta.gouv.fr</a></p>
         </div>
-        <p class="h6 color-neutral">Imaginé par <b>&hearts;</b> du service public à la <i> Fabrique numérique</i><br>des ministères de la Transition écologique et solidaire et de la Cohésion des territoires. (ovh)</p>
       </div>
+    </div>
+    <div class="tablet-blob-1 desktop-blob-1-3">
+      <p>Newsletter</p>
+      <newsletter-form />
 
+      <ul class="list-prefix text-decoration-none mb-0">
+        <li><a href="a-propos">À propos</a></li>
+        <li><a href="a-propos#contact">Contact</a></li>
+      </ul>
+
+    </div>
+    <div class="tablet-blob-1 desktop-blob-1-3">
+      <ul class="list-prefix text-decoration-none">
+        <li><a href="http://api.camino.beta.gouv.fr">API</a></li>
+        <li><a href="">CGU</a></li>
+        <li><a href="">Mentions légales</a></li>
+        <li><a href="accessibilite">Accessibilité</a></li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import NewsletterForm from '@/components/camino/newsletter-form.vue'
 
+export default {
+  components: {
+    NewsletterForm
+  }
 }
 </script>

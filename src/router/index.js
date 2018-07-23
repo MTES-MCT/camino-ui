@@ -6,6 +6,8 @@ import Titre from '@/components/titre.vue'
 // import TitleDetails from '@/components/TitleDetails.vue'
 import Titres from '@/components/titres.vue'
 import Error from '@/components/error.vue'
+import About from '@/components/camino-content/about.vue'
+import Accessibilite from '@/components/camino-content/accessibilite.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +30,16 @@ const routes = [
     //     component: TitleDetails
     //   }
     // ]
+  },
+  {
+    path: '/a-propos',
+    name: 'a-propos',
+    component: About
+  },
+  {
+    path: '/accessibilite',
+    name: 'accessibilite',
+    component: Accessibilite
   },
   {
     path: '/Erreur',

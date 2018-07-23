@@ -6,7 +6,8 @@
 @button default {
   button-border-width: 0;
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
-  button-background: var(--color-alt) var(--color-neutral) var(--color-highlight);
+  button-background: var(--color-alt) var(--color-neutral)
+    var(--color-highlight);
   button-class: active disabled true;
 }
 
@@ -15,9 +16,11 @@
 }
 
 .btn-border {
-  button-border: var(--unit-line) var(--color-alt) var(--color-neutral) var(--color-highlight);
+  button-border: var(--unit-line) var(--color-alt) var(--color-neutral)
+    var(--color-highlight);
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
-  button-background: var(--color-transparent) var(--color-neutral) var(--color-highlight);
+  button-background: var(--color-transparent) var(--color-neutral)
+    var(--color-highlight);
   button-class: active disabled;
 }
 
@@ -27,9 +30,17 @@
   button-class: active disabled true;
 }
 
+.btn-brand {
+  button-color: var(--color-bg) var(--color-bg) var(--color-bg);
+  button-background: var(--color-highlight) var(--color-neutral)
+    var(--color-highlight);
+  button-class: active disabled true;
+}
+
 .btn-menu {
   button-color: var(--color-text) var(--color-text) var(--color-text);
-  button-background: var(--color-transparent) var(--color-transparent) var(--color-bg);
+  button-background: var(--color-transparent) var(--color-transparent)
+    var(--color-bg);
   button-class: active disabled true;
 }
 
@@ -37,7 +48,8 @@
 .btn-alt,
 .btn-border,
 .btn-menu,
-.btn-transparent {
+.btn-transparent,
+.btn-brand {
   transition: var(--transition);
   font-weight: 700;
 }

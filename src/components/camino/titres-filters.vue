@@ -14,17 +14,19 @@
     </template>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2 large-blob-1-3">
-        <div class="mb">
+        <div class="mb hide">
           <h6>Localisation</h6>
           <input
             type="text"
-            placeholder="Région, département, commune…">
+            placeholder="Région, département, commune…"
+            class="p-s">
         </div>
-        <div class="mb">
+        <div class="mb hide">
           <h6>Titulaire</h6>
           <input
             type="text"
-            placeholder="Nom du titulaire…">
+            placeholder="Nom du titulaire…"
+            class="p-s">
         </div>
         <div class="mb">
           <h6>Substances</h6>
@@ -32,6 +34,7 @@
             :value="substances"
             type="text"
             placeholder="Or, Argent, Ag…"
+            class="p-s"
             @blur="substancesInput">
         </div>
       </div>

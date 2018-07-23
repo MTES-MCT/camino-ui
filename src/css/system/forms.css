@@ -11,7 +11,6 @@ input[type='tel'],
 select,
 textarea {
   width: 100%;
-  padding: var(--unit-s);
   border: 0 none;
   background-color: var(--color-alt);
   height: auto;
@@ -22,7 +21,7 @@ select {
   background-image: svg-load(
     './icons/24-chevron-b.svg',
     fill=none,
-    stroke='#666',
+    stroke= '#666',
     stroke-linecap=round,
     stroke-linejoin=round,
     stroke-miterlimit=10,

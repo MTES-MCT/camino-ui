@@ -161,6 +161,23 @@ a.logo {
   color: var(--color-bg);
 }
 
+.separator {
+  display: block;
+  width: calc(var(--col-width) / 2 - var(--gutter));
+  height: 3px;
+  margin-top: calc(var(--unit) * 2);
+  margin-bottom: calc(var(--unit) * 2);
+  background: #3f51b5;
+  background: linear-gradient(to right, #3f51b5, #76b6bd);
+}
+
+.lead {
+  typescale: 1 1.25;
+  padding: var(--unit);
+  color: var(--color-neutral);
+  font-style: italic;
+}
+
 @media (--viewport-tablet) {
   .menubar-infos {
     padding-top: var(--unit-m);
@@ -190,5 +207,13 @@ a.logo {
 
   .map {
     height: calc(var(--unit) * 20);
+  }
+
+  .form-blobs {
+    gf: row 0;
+  }
+
+  .form-blob {
+    gf: blob 1/2 0;
   }
 }

@@ -6,6 +6,9 @@
 .color-bg {
   color: var(--color-bg);
 }
+.color-text {
+  color: var(--color-text);
+}
 
 .color-highlight {
   color: var(--color-highlight);
