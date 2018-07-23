@@ -5,6 +5,7 @@ services:
   app:
     build: .
     environment:
+      NODE_ENV: production
       VIRTUAL_HOST: camino.pw
       VIRTUAL_PORT: ${NODE_PORT}
       LETSENCRYPT_HOST: camino.pw
