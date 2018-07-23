@@ -1,14 +1,14 @@
 <template>
-  <div class="flex">
-    <div class="flex flex-direction-column">
+  <div class="tablet-blobs">
+    <div class="tablet-blob-1-3">
       <router-link
         :to="{ name: 'titres' }"
-        class="logo pb-xs pt pr-m">
-        <div class="logo mb-xs">Camino</div>
+        class="pt pr-m mb-xs inline-block full-x">
+        <img src="../../public/img/logo-camino.svg">
       </router-link>
-      <p class="pr-m h5 color-highlight">Cadastre minier numérique ouvert</p>
+      <p class="h5 color-highlight">Le cadastre minier numérique ouvert</p>
     </div>
-    <div class="menu hide">
+    <div class="tablet-blob-1-3 menu hide">
       <ul>
         <li :class="{ active: $route.name === 'titres' || $route.name === 'titre' }">
           <router-link

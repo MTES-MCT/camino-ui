@@ -11,12 +11,6 @@
   display: none;
 }
 
-a.logo {
-  typescale: 4 1;
-  text-decoration: none;
-  font-weight: 200;
-}
-
 .sponsor {
   max-height: calc(var(--unit) * 3);
 }
