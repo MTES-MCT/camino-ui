@@ -22,7 +22,8 @@ export const state = {
       nom: 'valide'
     }
   ],
-  substances: null
+  substances: null,
+  noms: null
 }
 
 export const actions = {
@@ -44,7 +45,8 @@ export const actions = {
         state.domaines && state.domaines.filter(e => e.checked).map(e => e.id),
       statutIds:
         state.statuts && state.statuts.filter(e => e.checked).map(e => e.id),
-      substances: state.substances
+      substances: state.substances,
+      noms: state.noms
     }
 
     const a = Object.keys(args).reduce(
@@ -75,7 +77,6 @@ export const mutations = {
     Vue.set(state, 'liste', titres)
   },
   typesSet(state, types) {
-    console.log(types)
     Vue.set(state, 'types', types)
   },
   domainesSet(state, domaines) {

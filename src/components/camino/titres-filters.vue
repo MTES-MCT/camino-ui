@@ -29,6 +29,15 @@
             class="p-s">
         </div>
         <div class="mb">
+          <h6>Noms</h6>
+          <input
+            :value="noms"
+            type="text"
+            placeholder="…"
+            class="p-s"
+            @blur="nomsInput">
+        </div>
+        <div class="mb">
           <h6>Substances</h6>
           <input
             :value="substances"
@@ -139,6 +148,9 @@ export default {
     },
     substances () {
       return this.$store.state.titres.substances
+    },
+    noms () {
+      return this.$store.state.titres.noms
     }
   },
 
@@ -154,6 +166,9 @@ export default {
     },
     substancesInput (t) {
       this.$store.dispatch('titres/filterInput', { name: 'substances', value: t.target.value })
+    },
+    nomsInput (t) {
+      this.$store.dispatch('titres/filterInput', { name: 'noms', value: t.target.value })
     }
   }
 

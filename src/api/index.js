@@ -12,14 +12,15 @@ const graphqlClient = new ApolloClient({
 
 console.log('api:', process.env.VUE_APP_API_URL)
 
-const titres = async ({ typeIds, domaineIds, statutIds, substances }) => {
+const titres = async ({ typeIds, domaineIds, statutIds, substances, noms }) => {
   const res = await graphqlClient.query({
     query: queryTitres,
     variables: {
       typeIds,
       domaineIds,
       statutIds,
-      substances
+      substances,
+      noms
     }
   })
 

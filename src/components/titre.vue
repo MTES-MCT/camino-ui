@@ -24,13 +24,8 @@
           </div>
           <div
             v-if="titre.substancesPrincipales && titre.substancesPrincipales.length > 0">
-            <h6>Substances principales</h6>
+            <h6>Substances</h6>
             <pill-list :elements="titre.substancesPrincipales.map(s=>s.nom)" />
-          </div>
-          <div 
-            v-if="titre.substancesConnexes && titre.substancesConnexes.length > 0" >
-            <h6>Substances connexes</h6>
-            <pill-list :elements="titre.substancesConnexes" />
           </div>
         </div>
         <div class="tablet-blob-1-2">
@@ -85,8 +80,8 @@
 
       <div class="tablet-blobs">
         <div class="tablet-blob-1-4">
-          <h6>Surface</h6>
-          <p>{{ perimetreCurrent.surface }} Km²</p>
+          <h6>Surface légale</h6>
+          <p>{{ perimetreCurrent.surface }} km²</p>
         </div>
         <div class="tablet-blob-3-4 hide">
           <h6>Communes</h6>

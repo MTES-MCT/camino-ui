@@ -33,7 +33,6 @@ const titre = gql`
           id
           date
           duree
-          surface
           type {
             id
             nom
@@ -48,8 +47,13 @@ const titre = gql`
             nom
           }
           titulaires {
-            id
-            nom
+            ...entreprise
+          }
+          amodiataires {
+            ...entreprise
+          }
+          utilisateurs {
+            ...utilisateur
           }
           geojsonPoints {
             ...geojsonPoints
@@ -63,6 +67,31 @@ const titre = gql`
         }
       }
     }
+  }
+
+  fragment utilisateur on Utilisateur {
+    id
+    nom
+    prenom
+    email
+    telephoneMobile
+    telephoneFixe
+    administrationId
+    entrepriseId
+  }
+
+  fragment entreprise on Entreprise {
+    id
+    nom
+    service
+    site
+    email
+    telephone
+    adresse1
+    adresse2
+    codePostal
+    ville
+    cedex
   }
 
   fragment geojsonMultiPolygon on GeojsonMultiPolygon {
@@ -89,20 +118,23 @@ const titre = gql`
     nom
     connexe
     ordre
-    domaine {
-      id
-      nom
-    }
-    type
     symbole
-    alias
     gerep
     description
     legal {
       id
       nom
       description
-      lien
+      domaine {
+        id
+        nom
+      }
+      code {
+        id
+        nom
+        description
+        lien
+      }
     }
   }
 `
