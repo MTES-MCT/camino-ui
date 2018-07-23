@@ -4,14 +4,15 @@ import { titreFormat, metaFormat } from './_utils'
 
 export const state = {
   liste: null,
-  domaines: null,
-  // [
-  //   {
-  //     checked: true,
-  //     id: 'h',
-  //     nom: 'hydrocarbures liquides ou gazeux'
-  //   }
-  // ],
+  domaines:
+    // null,
+    [
+      {
+        checked: true,
+        id: 'h',
+        nom: 'hydrocarbures liquides ou gazeux'
+      }
+    ],
   types: null,
   statuts: [
     {
