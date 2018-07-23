@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
-    "gandi": "npm run build && rm -rf htdocs && mv dist htdocs",
     "start": "node ./index.js",
     "lint": "vue-cli-service lint"
   },
