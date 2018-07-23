@@ -21,8 +21,8 @@
       <newsletter-form />
 
       <ul class="list-prefix text-decoration-none mb-0">
-        <li><a href="a-propos">À propos</a></li>
-        <li><a href="a-propos#contact">Contact</a></li>
+        <li><a href="/a-propos">À propos</a></li>
+        <li><a href="/a-propos#contact">Contact</a></li>
       </ul>
 
     </div>
@@ -31,7 +31,7 @@
         <li><a href="http://api.camino.beta.gouv.fr">API</a></li>
         <li><a href="#">CGU</a></li>
         <li><a href="#">Mentions légales</a></li>
-        <li><a href="accessibilite">Accessibilité</a></li>
+        <li><a href="/accessibilite">Accessibilité</a></li>
       </ul>
     </div>
   </div>

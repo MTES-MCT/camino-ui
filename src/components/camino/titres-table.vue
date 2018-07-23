@@ -5,7 +5,7 @@
         <tr>
           <th />
           <th>Nom</th>
-          <th>Titulaires</th>
+          <th class="hide">Titulaires</th>
           <th>Type</th>
           <th>Statut</th>
           <th>Substances</th>
@@ -22,7 +22,9 @@
               class="mono">{{ titre.domaine.id }}</pill>
           </td>
           <td class="bold">{{ titre.nom }}</td>
-          <td v-if="titre.titulaires">
+          <td 
+            v-if="titre.titulaires" 
+            class="hide">
             <div
               v-for="titulaire in titre.titulaires"
               :key="titulaire.id">

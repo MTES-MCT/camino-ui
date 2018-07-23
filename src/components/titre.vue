@@ -88,7 +88,7 @@
           <h6>Surface</h6>
           <p>{{ perimetreCurrent.surface }} Km²</p>
         </div>
-        <div class="tablet-blob-3-4">
+        <div class="tablet-blob-3-4 hide">
           <h6>Communes</h6>
           <div
             v-for="(departements, region) in perimetreCurrent.communes"
@@ -103,7 +103,7 @@
         </div>
       </div>
 
-      <div class="tablet-blobs">
+      <div class="tablet-blobs hide">
         <div class="tablet-blob-1-2">
           <div v-if="titre.titulaires">
             <h6>{{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
