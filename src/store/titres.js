@@ -52,6 +52,7 @@ export const actions = {
         args[key] ? Object.assign(res, { [key]: args[key] }) : res,
       {}
     )
+
     const data = await titres(a)
 
     commit('set', data.titres.map(t => titreFormat(t)))

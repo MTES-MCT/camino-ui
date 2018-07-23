@@ -54,7 +54,7 @@
           :range-active="pagesRangeActive"
           @page-range-change="pageRangeChange" />
           
-        <accordion class="mb">
+        <accordion class="mb hide">
           <template slot="title">Affichage</template>
           <ul class="list-sans">
             <li

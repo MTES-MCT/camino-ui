@@ -3,7 +3,7 @@
     <div 
       id="irritants" 
       class="mb-xxl">
-      <h4 class="mb-s">Ce qu'il faut changer</h4>
+      <h4 class="mb-s text-neutral">Ce qu'il faut changer</h4>
       <h2>L'accès aux informations sur les projets miniers
       <br class="hide desktop-static">est trop complexe.</h2>
       <span class="separator"/>
@@ -56,7 +56,7 @@
       id="utilisateurs" 
       class="mb-xxl">
 
-      <h4 class="mb-s">Camino numérise l'administration des mines</h4>
+      <h4 class="mb-s text-neutral">Camino numérise l'administration des mines</h4>
 
       <h2>Pour simplifier la vie de toutes les parties prenantes</h2>
 
@@ -117,7 +117,7 @@
       id="services" 
       class="mb-xxl">
 
-      <h4 class="mb-s">Camino change l'administration des mines</h4>
+      <h4 class="mb-s text-neutral">Camino change l'administration des mines</h4>
 
       <h2>Avec de nouveaux services numériques</h2>
 
@@ -175,7 +175,7 @@
       id="activites" 
       class="mb-xxl">
 
-      <h4 class="mb-s">Tous les projets miniers concernés</h4>
+      <h4 class="mb-s text-neutral">Tous les projets miniers concernés</h4>
       <h2>D'ici 2022 l'ensemble des procédures du code minier devront être numériques.</h2>
       <span class="separator"/>
       <div class="blobs">
@@ -273,7 +273,7 @@
       id="fabricants" 
       class="mb-xxl">
 
-      <h4 class="mb-s">Les fabricants</h4>
+      <h4 class="mb-s text-neutral">Les fabricants</h4>
 
       <h2>Les membres de l'équipe Camino</h2>
 
@@ -356,7 +356,7 @@
       id="contact" 
       class="mb-xxl">
 
-      <h4 class="mb-s">Nous écrire</h4>
+      <h4 class="mb-s text-neutral">Nous écrire</h4>
 
       <h2>Partagez votre expérience avec nous</h2>
 

@@ -18,7 +18,9 @@ th {
 }
 
 tr {
-  border-bottom: var(--unit-line) dotted var(--border-color);
+  border-bottom-color: var(--border-color);
+  border-bottom-width: var(--unit-line);
+  border-bottom-style: dotted;
 }
 
 .table-striped tr:nth-child(even) {
