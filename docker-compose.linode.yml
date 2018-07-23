@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  ui:
+  app:
     build: .
     environment:
       VIRTUAL_HOST: camino.site
