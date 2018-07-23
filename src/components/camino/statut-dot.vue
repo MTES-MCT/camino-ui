@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Dot from '@/components/ui/dot.vue'
+import Dot from '../ui/dot.vue'
 
 export default {
   components: {

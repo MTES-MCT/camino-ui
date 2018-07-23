@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import titre from '@/store/titre'
-import titres from '@/store/titres'
-import map from '@/store/map'
-import user from '@/store/user'
+import titre from './titre'
+import titres from './titres'
+import map from './map'
+import user from './user'
 
 const modules = {
   titre,

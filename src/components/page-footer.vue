@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import NewsletterForm from '@/components/camino/newsletter-form.vue'
+import NewsletterForm from './camino/newsletter-form.vue'
 
 export default {
   components: {

@@ -1,5 +1,5 @@
 // import Vue from 'vue'
-import tiles from '@/conf/map-tiles'
+import tiles from '../conf/map-tiles'
 
 export const state = {
   current: null,

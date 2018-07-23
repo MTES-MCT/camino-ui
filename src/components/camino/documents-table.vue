@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import DocumentsTableTr from '@/components/camino/documents-table-tr.vue'
+import DocumentsTableTr from './documents-table-tr.vue'
 
 export default {
   components: {

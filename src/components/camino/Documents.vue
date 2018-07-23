@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Accordion from '@/components/ui/accordion.vue'
-import DocumentsTable from '@/components/camino/documents-table.vue'
+import Accordion from '../ui/accordion.vue'
+import DocumentsTable from '../camino/documents-table.vue'
 
 export default {
   components: {

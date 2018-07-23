@@ -78,8 +78,8 @@
 </template>
 
 <script>
-import Accordion from '@/components/ui/accordion.vue'
-import Tag from '@/components/ui/tag.vue'
+import Accordion from '../ui/accordion.vue'
+import Tag from '../ui/tag.vue'
 
 export default {
   components: {

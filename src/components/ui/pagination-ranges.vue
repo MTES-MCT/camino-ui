@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Accordion from '@/components/ui/accordion.vue'
+import Accordion from './accordion.vue'
 
 export default {
   name: 'UiPagination',

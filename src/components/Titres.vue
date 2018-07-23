@@ -29,11 +29,11 @@
 </template>
 
 <script>
-import Card from '@/components/ui/card.vue'
-import Loader from '@/components/ui/loader.vue'
-import TitresTable from '@/components/camino/titres-table.vue'
-import TitresMap from '@/components/camino/titres-map.vue'
-import TitresFilters from '@/components/camino/titres-filters.vue'
+import Card from './ui/card.vue'
+import Loader from './ui/loader.vue'
+import TitresTable from './camino/titres-table.vue'
+import TitresMap from './camino/titres-map.vue'
+import TitresFilters from './camino/titres-filters.vue'
 
 export default {
   name: 'Titres',

@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import { titres } from '@/api'
-import { titreFormat, metaFormat } from '@/store/_utils'
+import { titres } from '../api'
+import { titreFormat, metaFormat } from './_utils'
 
 export const state = {
   liste: null,

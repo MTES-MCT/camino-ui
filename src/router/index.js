@@ -2,12 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueMeta from 'vue-meta'
 import NProgress from 'nprogress'
-import Titre from '@/components/titre.vue'
-// import TitleDetails from '@/components/TitleDetails.vue'
-import Titres from '@/components/titres.vue'
-import Error from '@/components/error.vue'
-import About from '@/components/camino-content/about.vue'
-import Accessibilite from '@/components/camino-content/accessibilite.vue'
+import Titre from '../components/titre.vue'
+// import TitleDetails from '../components/TitleDetails.vue'
+import Titres from '../components/titres.vue'
+import Error from '../components/error.vue'
+import About from '../components/camino-content/about.vue'
+import Accessibilite from '../components/camino-content/accessibilite.vue'
 
 Vue.use(VueRouter)
 

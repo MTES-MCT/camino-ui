@@ -170,15 +170,15 @@
 </template>
 
 <script>
-import Card from '@/components/ui/card.vue'
-import Pill from '@/components/ui/pill.vue'
-import PillList from '@/components/ui/pill-list.vue'
-import Loader from '@/components/ui/loader.vue'
-import Dot from '@/components/ui/dot.vue'
-import TitreMap from '@/components/camino/titre-map.vue'
-import Company from '@/components/camino/company.vue'
-import TitreOutils from '@/components/camino/titre-tools.vue'
-import TitreChronologie from '@/components/camino/titre-timeline.vue'
+import Card from './ui/card.vue'
+import Pill from './ui/pill.vue'
+import PillList from './ui/pill-list.vue'
+import Loader from './ui/loader.vue'
+import Dot from './ui/dot.vue'
+import TitreMap from './camino/titre-map.vue'
+import Company from './camino/company.vue'
+import TitreOutils from './camino/titre-tools.vue'
+import TitreChronologie from './camino/titre-timeline.vue'
 
 export default {
   components: {

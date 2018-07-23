@@ -33,9 +33,9 @@
 
 <script>
 import L from 'leaflet'
-import Accordion from '@/components/ui/accordion.vue'
-import LeafletMap from '@/components/leaflet/map.vue'
-import LeafletTilesSelector from '@/components/leaflet/tiles-selector.vue'
+import Accordion from '../ui/accordion.vue'
+import LeafletMap from '../leaflet/map.vue'
+import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 
 export default {
   components: {

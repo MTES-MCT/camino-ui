@@ -75,12 +75,12 @@
 </template>
 
 <script>
-import PillList from '@/components/ui/pill-list.vue'
-import Pill from '@/components/ui/pill.vue'
-import Accordion from '@/components/ui/accordion.vue'
-import Dot from '@/components/ui/dot.vue'
-import Pagination from '@/components/ui/pagination.vue'
-import PaginationRanges from '@/components/ui/pagination-ranges.vue'
+import PillList from '../ui/pill-list.vue'
+import Pill from '../ui/pill.vue'
+import Accordion from '../ui/accordion.vue'
+import Dot from '../ui/dot.vue'
+import Pagination from '../ui/pagination.vue'
+import PaginationRanges from '../ui/pagination-ranges.vue'
 
 export default {
   name: 'Titres',
