@@ -26,8 +26,8 @@ Application en cours de développement, provisoirement accessible [ici](https://
 
 ## Configuration
 
-- Renommer le fichier `.env.example` en `.env`.
-- Compléter le fichier `env`.
+- Renommer les fichier `.env.example` et `.env.development-example` en `.env` et `.env.development`.
+- Compléter les fichier `.env` et `.env.development`.
 
 ---
 
