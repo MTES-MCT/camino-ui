@@ -39,10 +39,13 @@ npm install
 
 # lance un serveur de développement avec webpack-dev-server
 # accessible à localhost:8080
-npm run serve
+npm run dev
 
 # crée les fichiers de production dans le répertoire dist
-npm run dist
+npm run build
+
+# lance le serveur de production
+npm run start
 ```
 
 ---
