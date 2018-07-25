@@ -26,8 +26,9 @@ Application en cours de développement, provisoirement accessible [ici](https://
 
 ## Configuration
 
-- Renommer les fichier `.env.example` et `.env.development-example` en `.env` et `.env.development`.
-- Compléter les fichier `.env` et `.env.development`.
+- Renommer les fichier `.env.example` en `.env` et le compléter.
+- Pour la version de développement, renommer le fichier et `.env.development-example` en `.env.development` et compléter.
+- Pour la version de production, renommer le fichier et `.env.production-example` en `.env.production` et compléter.
 
 ---
 
