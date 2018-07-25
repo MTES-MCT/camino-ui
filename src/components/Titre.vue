@@ -14,11 +14,11 @@
             <h6>{{ titre.references.length > 1 ? 'Références' : 'Référence' }}</h6>
             <ul class="list-prefix">
               <li 
-                v-for="reference in titre['références']"
-                :key="reference['valeur']">
+                v-for="reference in titre.references"
+                :key="reference.valeur">
                 <span
-                  v-if="reference['type']"
-                  class="h5 word-break color-neutral fixed-width">{{ reference['type'] }} </span>{{ reference['valeur'] }}
+                  v-if="reference.type"
+                  class="h5 word-break color-neutral fixed-width">{{ reference.type }} </span>{{ reference.valeur }}
               </li>
             </ul>
           </div>

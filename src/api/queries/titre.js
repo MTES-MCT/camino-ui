@@ -18,6 +18,10 @@ const titre = gql`
         nom
         couleur
       }
+      references {
+        type
+        valeur
+      }
       demarches {
         id
         type {
