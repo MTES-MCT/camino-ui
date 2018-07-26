@@ -30,6 +30,8 @@ Application en cours de développement, provisoirement accessible [ici](https://
 - Pour la version de développement, renommer le fichier et `.env.development-example` en `.env.development` et compléter.
 - Pour la version de production, renommer le fichier et `.env.production-example` en `.env.production` et compléter.
 
+Pour plus d'informations sur les variables d'environnement, voir la doc de [vue-cli](https://cli.vuejs.org/guide/mode-and-env.html#modes).
+
 ---
 
 ## Npm scripts
