@@ -2,7 +2,7 @@
 
 ## Git setup
 
-From the browser, go to the project repo on [Github](https://github.com): `https://github.com/MTES-MCT/camino-front`
+From the browser, go to the project repo on [Github](https://github.com): `https://github.com/MTES-MCT/camino-ui`
 
 Click on the `fork` button to create your own fork of the project.
 
@@ -10,13 +10,13 @@ Then, from the terminal:
 
 ```bash
 # Clone your fork locally. This add a remote named 'origin' pointing to your fork.
-git clone git@github.com:<your-user-name>/camino-front.git
+git clone git@github.com:<your-user-name>/camino-ui.git
 
 # Go to the project directory
-cd camino-front
+cd camino-ui
 
 # Define the main repo as a remote named 'upstream'.
-git remote add upstream https://github.com/MTES-MCT/camino-front.git
+git remote add upstream https://github.com/MTES-MCT/camino-ui.git
 
 # Now you have two remotes: 'orign' (your fork) and 'upstream' (main repo).
 ```
@@ -71,7 +71,7 @@ git push origin <my-fixes>
 
 ### 5. Make a merge request
 
-Go to [github.com/MTES-MCT/camino-front](https://github.com/MTES-MCT/camino-front/).
+Go to [github.com/MTES-MCT/camino-ui](https://github.com/MTES-MCT/camino-ui/).
 Make a new merge request from your `<my-fixes>` branch against the `master` branch from the main repo. See [Github Doc](http://docs.github.com/ce/github-basics/add-merge-request.html) for more details.
 
 **For the next fix, start over at 1.**
