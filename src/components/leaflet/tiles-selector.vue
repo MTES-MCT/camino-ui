@@ -4,14 +4,16 @@
     <ul class="list-sans">
       <li
         v-for="tile in tiles"
-        :key="tile.name">
+        :key="tile.name"
+      >
         <label>
           <input
             :value="tile.name"
             :checked="tile.name === tilesName"
             type="radio"
             class="mr-s"
-            @change="$emit('tiles-name-set', tile.name)">
+            @change="$emit('tiles-name-set', tile.name)"
+          >
           {{ tile.name }}
         </label>
       </li>

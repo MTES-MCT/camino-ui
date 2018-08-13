@@ -1,7 +1,7 @@
 <template>
   
   <loader v-if="!loaded" />
-  <card v-else >
+  <card v-else>
 
     <div class="flex">
       <h2 class="mt-s">Titres miniers</h2>
@@ -9,10 +9,12 @@
         <li
           v-for="component in viewComponents"
           :key="component.name" 
-          :class="{ active: viewActive === component.name }">
+          :class="{ active: viewActive === component.name }"
+        >
           <button
             class="btn-border px-m py-s"
-            @click="viewSet(component.name)">
+            @click="viewSet(component.name)"
+          >
             <i :class="`icon-24 icon-24-${component.icon}`" />
           </button>
         </li>
@@ -22,9 +24,10 @@
     <titres-filters />
 
     <component
+      :is="viewComponent"
       v-if="viewActive"
       :titres="titres"
-      :is="viewComponent" />
+    />
   </card>
 </template>
 

@@ -1,7 +1,8 @@
 <template>
   <span
     :class="`${color}`"
-    class="h5 py-xxs px-xs color-bg rnd ml-xs">
+    class="h5 py-xxs px-xs color-bg rnd ml-xs"
+  >
     <slot />
   </span>
 </template>

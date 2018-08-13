@@ -20,7 +20,8 @@
       <div class="tablet-blob-1-2">
         <accordion
           v-if="event['recours']"
-          class="mb">
+          class="mb"
+        >
           <template slot="title"><dot :status="event['recours']['statut']" /> Recours</template>
           <div class="large-blobs">
             <div class="large-blob-1-6"><h6>Statut</h6></div>
@@ -51,13 +52,15 @@
       </div>
       <div
         v-if="event['publique']"
-        class="tablet-blob-1-2">
+        class="tablet-blob-1-2"
+      >
         <h6>Participation publique</h6>
       </div>
     </div>
     <documents
       v-if="event['documents']"
-      :documents="event['documents']" />
+      :documents="event['documents']"
+    />
   </div>
 </template>
 

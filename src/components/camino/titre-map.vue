@@ -4,18 +4,21 @@
       ref="map" 
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
-      :bounds="bounds" />
+      :bounds="bounds"
+    />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <button
           class="btn-border px-m py-s"
-          @click="$refs.map.fit()">Centrer</button>
+          @click="$refs.map.fit()"
+        >Centrer</button>
       </div>
       <div class="desktop-blob-1-2">
         <Leaflet-tiles-selector
           :tiles="tiles"
           :tiles-name="tilesName"
-          @tiles-name-set="tilesNameSelect" />
+          @tiles-name-set="tilesNameSelect"
+        />
       </div>
     </div>
   </div>

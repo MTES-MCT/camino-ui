@@ -4,16 +4,19 @@
       <li
         v-for="(events, eventType) in eventTypes"
         :key="eventType"
-        :class="{ active: eventTypeCurrent === eventType}">
+        :class="{ active: eventTypeCurrent === eventType}"
+      >
         <button
           class="btn px py-s cap"
-          @click="set(eventType)">{{ eventType }}</button>
+          @click="set(eventType)"
+        >{{ eventType }}</button>
       </li>
     </ul>
     <titre-chronologie-evenement
       v-for="event in eventTypes[eventTypeCurrent]"
       :key="event.id" 
-      :event="event" />
+      :event="event"
+    />
   </div>
 </template>
 

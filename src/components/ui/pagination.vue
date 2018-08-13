@@ -1,58 +1,61 @@
 <template>
   <ul 
     v-if="pagesTotal > 1" 
-    class="list-inline">
+    class="list-inline"
+  >
     <li class="mb-0">
       <button
         :disabled="pageActive === 1"
         class="btn-border px-m py-s"
-        @click="pageChange(1)">
-        «
+        @click="pageChange(1)"
+      >«
       </button>
     </li>
     <li class="mb-0">
       <button
         :disabled="pageActive === 1"
         class="btn-border px-m py-s"
-        @click="pageChange(pageActive - 1)">
-        ‹
+        @click="pageChange(pageActive - 1)"
+      >‹
       </button>
     </li>
     <li 
       v-if="pageActive > delta + 1" 
-      class="mb-0">
+      class="mb-0"
+    >
       <div class="px-m py-s">…</div>
     </li>
     <li
       v-for="page in pages"
       :key="page"
       :class="{ active: pageActive === page }"
-      class="mb-0">
+      class="mb-0"
+    >
       <button
         class="btn-border px-m py-s"
-        @click="pageChange(page)">
-        {{ page }}
+        @click="pageChange(page)"
+      >{{ page }}
       </button>
     </li>
     <li 
       v-if="pageActive < pagesTotal - delta" 
-      class="mb-0">
-      <div class="px-m py-s">…</div>
+      class="mb-0"
+    ><div class="px-m py-s">…</div>
     </li>
     <li class="mb-0">
       <button
         :disabled="pageActive === pagesTotal"
         class="btn-border px-m py-s"
-        @click="pageChange(pageActive + 1)">
-        › 
+        @click="pageChange(pageActive + 1)"
+      >› 
       </button>
     </li>
     <li class="mb-0">
       <button
         :disabled="pageActive === pagesTotal"
         class="btn-border px-m py-s"
-        @click="pageChange(pagesTotal)">
-        »
+        @click="pageChange(pagesTotal)"
+      >»
       </button>
     </li>
   </ul>

@@ -2,7 +2,8 @@
   <accordion class="mb">
     <template slot="title">Documents</template>
     <documents-table
-      :documents="documents" />
+      :documents="documents"
+    />
   </accordion>
 </template>
 

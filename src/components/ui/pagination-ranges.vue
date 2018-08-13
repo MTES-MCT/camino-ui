@@ -4,14 +4,16 @@
     <ul class="list-sans">
       <li
         v-for="range in ranges"
-        :key="range">
+        :key="range"
+      >
         <label>
           <input
             :checked="range === rangeActive"
             :value="range"
             type="radio"
             class="mr-s"
-            @change="pageRangeChange">
+            @change="pageRangeChange"
+          >
           {{ range }}
         </label>
       </li>

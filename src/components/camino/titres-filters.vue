@@ -1,13 +1,15 @@
 <template>
   <accordion
     :sub="false"
-    class="mb">
+    class="mb"
+  >
     <template slot="title">Filtres</template>
     <template slot="sub">
       <ul class="list-sans mb-xxs">
         <li
           v-for="filterSelected in filterSelecteds"
-          :key="filterSelected.name">
+          :key="filterSelected.name"
+        >
           <pill>{{ filterSelected.name }}</pill>
         </li>
       </ul>
@@ -19,14 +21,16 @@
           <input
             type="text"
             placeholder="Région, département, commune…"
-            class="p-s">
+            class="p-s"
+          >
         </div>
         <div class="mb hide">
           <h6>Titulaire</h6>
           <input
             type="text"
             placeholder="Nom du titulaire…"
-            class="p-s">
+            class="p-s"
+          >
         </div>
         <div class="mb">
           <h6>Noms</h6>
@@ -35,7 +39,8 @@
             type="text"
             placeholder="…"
             class="p-s"
-            @blur="nomsInput">
+            @blur="nomsInput"
+          >
         </div>
         <div class="mb">
           <h6>Substances</h6>
@@ -44,7 +49,8 @@
             type="text"
             placeholder="Or, Argent, Ag…"
             class="p-s"
-            @blur="substancesInput">
+            @blur="substancesInput"
+          >
         </div>
       </div>
       <div class="tablet-blob-1-2 large-blob-1-3">
@@ -52,17 +58,20 @@
         <ul class="list-sans">
           <li
             v-for="domaine in domaines"
-            :key="domaine.id">
+            :key="domaine.id"
+          >
             <label>
               <input
                 :value="domaine.id"
                 :checked="domaine.checked"
                 type="checkbox"
                 class="mr-s"
-                @change="domaineToggle">
+                @change="domaineToggle"
+              >
               <pill
                 :color="`bg-title-domain-${domaine.id}`"
-                class="mr-xs mono">{{ domaine.id }}</pill>
+                class="mr-xs mono"
+              >{{ domaine.id }}</pill>
               {{ domaine.nom }}
             </label>
           </li>
@@ -74,14 +83,16 @@
           <ul class="list-sans">
             <li
               v-for="type in types"
-              :key="type.nom">
+              :key="type.nom"
+            >
               <label>
                 <input
                   :value="type.nom"
                   :checked="type.checked"
                   type="checkbox"
                   class="mr-s"
-                  @change="typeToggle">
+                  @change="typeToggle"
+                >
                 <span class="cap-first">{{ type.nom }}</span>
               </label>
             </li>
@@ -94,14 +105,16 @@
           <ul class="list-sans">
             <li
               v-for="statut in statuts"
-              :key="statut.id">
+              :key="statut.id"
+            >
               <label>
                 <input
                   :value="statut.id"
                   :checked="statut.checked"
                   type="checkbox"
                   class="mr-s"
-                  @change="statutToggle">
+                  @change="statutToggle"
+                >
                 <dot :color="`bg-${statut.couleur}`" />
                 {{ statut.nom }}
               </label>

@@ -1,7 +1,8 @@
 <template>
   <div 
     id="activites" 
-    class="mb-xxl">
+    class="mb-xxl"
+  >
     <h2>Accessibilité</h2>
     <p>Nous travaillons à améliorer le niveau d'accessibilité du site et sa conformité avec les normes en la matière. Notre objectif est d’atteindre le niveau de conformité RGAA fin 2018.</p>
     <h3>Signaler un dysfonctionnement</h3>

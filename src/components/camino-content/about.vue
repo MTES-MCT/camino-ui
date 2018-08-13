@@ -2,11 +2,12 @@
   <div>
     <div 
       id="irritants" 
-      class="mb-xxl">
+      class="mb-xxl"
+    >
       <h4 class="mb-s text-neutral">Ce qu'il faut changer</h4>
       <h2>L'accès aux informations sur les projets miniers
       <br class="hide desktop-static">est trop complexe.</h2>
-      <span class="separator"/>
+      <span class="separator" />
       <p class="lead">Pour les entreprises minières, gérer un projet d’exploration ou d’exploitation est un parcours du combattant, de la
       conception du projet jusqu'à la gestion de l'après-mine.
       </p>
@@ -54,13 +55,14 @@
 
     <div 
       id="utilisateurs" 
-      class="mb-xxl">
+      class="mb-xxl"
+    >
 
       <h4 class="mb-s text-neutral">Camino numérise l'administration des mines</h4>
 
       <h2>Pour simplifier la vie de toutes les parties prenantes</h2>
 
-      <span class="separator"/>
+      <span class="separator" />
 
       <p class="lead">Camino va simplifier les démarches des entreprises,
       <br class="hide desktop-static">ouvrir les données aux citoyens et faciliter le travail des agents publics impliqués dans ces projets.</p>
@@ -71,7 +73,7 @@
 
 
           <div class="p-l">
-            <i class="icon-128 icon-128-business"/>
+            <i class="icon-128 icon-128-business" />
           </div>
 
           <h3>Les entreprises</h3>
@@ -84,7 +86,7 @@
 
         <div class="desktop-blob-1-3">
           <div class="p-l">
-            <i class="icon-128 icon-128-ngo"/>
+            <i class="icon-128 icon-128-ngo" />
           </div>
 
           <h3>Les ONG, les citoyens et leurs élus</h3>
@@ -97,7 +99,7 @@
         <div class="desktop-blob-1-3">
 
           <div class="p-l">
-            <i class="icon-128 icon-128-user"/>
+            <i class="icon-128 icon-128-user" />
           </div>
 
 
@@ -115,14 +117,15 @@
 
     <div 
       id="services" 
-      class="mb-xxl">
+      class="mb-xxl"
+    >
 
       <h4 class="mb-s text-neutral">Camino change l'administration des mines</h4>
 
       <h2>Avec de nouveaux services numériques</h2>
 
 
-      <span class="separator"/>
+      <span class="separator" />
 
       <p class="lead">Avec Camino, il sera enfin possible de consulter les caractéristiques des titres miniers sur une carte à jour et de
       suivre les projets en cours à chaque étape importante de leur vie.</p>
@@ -131,7 +134,7 @@
 
         <div class="desktop-blob-1-3">
           <div class="p-l">
-            <i class="icon-128 icon-128-map"/>
+            <i class="icon-128 icon-128-map" />
           </div>
           <h3>Une carte interactive</h3>
 
@@ -141,7 +144,7 @@
 
         <div class="desktop-blob-1-3">
           <div class="p-l">
-            <i class="icon-128 icon-128-dashboard"/>
+            <i class="icon-128 icon-128-dashboard" />
           </div>
 
           <h3>Des tableaux de bord</h3>
@@ -154,7 +157,7 @@
         <div class="desktop-blob-1-3">
 
           <div class="p-l">
-            <i class="icon-128 icon-128-api"/>
+            <i class="icon-128 icon-128-api" />
           </div>
 
           <h3>Une API ouverte</h3>
@@ -173,11 +176,12 @@
 
     <div 
       id="activites" 
-      class="mb-xxl">
+      class="mb-xxl"
+    >
 
       <h4 class="mb-s text-neutral">Tous les projets miniers concernés</h4>
       <h2>D'ici 2022 l'ensemble des procédures du code minier devront être numériques.</h2>
-      <span class="separator"/>
+      <span class="separator" />
       <div class="blobs">
         <div class="blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <h3>
@@ -185,7 +189,8 @@
           <img 
             src="../../../public/img/about/gallery-non-energetique.jpg" 
             alt="Mine de sel" 
-            class="mb" >
+            class="mb"
+          >
 
           <p>Les matières premières minérales sont à la base du développement de l’humanité. En 200 ans, l’ère industrielle
           puis la croissance économique des pays émergents ont accéléré l’utilisation de ces ressources non renouvelables
@@ -199,7 +204,8 @@
           <img 
             src="../../../public/img/about/gallery-energetique.jpg" 
             alt="Forage" 
-            class="mb" >
+            class="mb"
+          >
 
           <p>Les matières premières énergétiques comme le charbon, le pétrole ou le gaz se sont imposées en tant que source
           d’énergie au cours du 20ème siècle. Formées dans des processus géologiques qui ont duré plusieurs millions d’années,
@@ -216,7 +222,8 @@
           <img 
             src="../../../public/img/about/gallery-stockages.jpg" 
             alt="Station de contrôle" 
-            class="mb" >
+            class="mb"
+          >
 
           <p>Les capacités de stockage dans le sous-sol profond ont d’abord été utilisées pour compléter le dispositif de sécurité
           d’approvisionnement dans des territoires ne disposant pas ou peu de matières premières énergétiques. Ces capacités
@@ -233,7 +240,8 @@
           <img 
             src="../../../public/img/about/gallery-geothermie.jpg" 
             alt="Centrale géothermique" 
-            class="mb" >
+            class="mb"
+          >
 
           <p>Provenant des sources de chaleur interne de la Terre, cette énergie abondante mais de faible intensité est en train
           de trouver sa place dans le mix énergétique du 21ème siècle.</p>
@@ -244,7 +252,8 @@
           <img 
             src="../../../public/img/about/gallery-travaux.jpg" 
             alt="Centrale géothermique" 
-            class="mb" >
+            class="mb"
+          >
 
           <p>Les travaux de recherche ou d’exploitation de substances minières sont encadrés par la police des mines, mission
           confiée à l’État, qui a pour objet de prévenir et faire cesser les dommages et nuisances liées aux activités
@@ -257,7 +266,8 @@
           <img 
             src="../../../public/img/about/gallery-apresmine.jpg" 
             alt="Centrale géothermique" 
-            class="mb" >
+            class="mb"
+          >
 
           <p>L’arrêt de l’activité minière n’induit pas pour autant la disparition des phénomènes susceptibles d’affecter les
           terrains de surface situés dans l’emprise de l’ancienne exploitation. Ainsi, durant la période qui suit l’exploitation,
@@ -271,14 +281,15 @@
 
     <div 
       id="fabricants" 
-      class="mb-xxl">
+      class="mb-xxl"
+    >
 
       <h4 class="mb-s text-neutral">Les fabricants</h4>
 
       <h2>Les membres de l'équipe Camino</h2>
 
 
-      <span class="separator"/>
+      <span class="separator" />
 
       <div class="desktop-blobs">
 
@@ -287,7 +298,8 @@
             <div class="pill overflow-hidden">
               <img 
                 src="../../../public/img/about/member-guillaume-levieux.jpg" 
-                alt="Portrait Guillaume" >
+                alt="Portrait Guillaume"
+              >
             </div>
           </div>
 
@@ -309,7 +321,8 @@
             <div class="pill overflow-hidden">
               <img 
                 src="../../../public/img/about/member-joeffrey-arruyer.jpg" 
-                alt="Portrait Joeffrey" >
+                alt="Portrait Joeffrey"
+              >
             </div>
           </div>
           <h3 class="mb-0">Joeffrey Arruyer</h3>
@@ -330,7 +343,8 @@
             <div class="pill overflow-hidden">
               <img 
                 src="../../../public/img/about/member-francois-romain.jpg" 
-                alt="Portrait François Romain" >
+                alt="Portrait François Romain"
+              >
             </div>
           </div>
 
@@ -354,13 +368,14 @@
 
     <div 
       id="contact" 
-      class="mb-xxl">
+      class="mb-xxl"
+    >
 
       <h4 class="mb-s text-neutral">Nous écrire</h4>
 
       <h2>Partagez votre expérience avec nous</h2>
 
-      <span class="separator"/>
+      <span class="separator" />
 
       <p class="subtitle">Nous sommes à votre écoute du
         <strong>lundi au vendredi</strong>, de 9h30 à 18h00.

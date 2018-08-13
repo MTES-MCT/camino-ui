@@ -2,7 +2,8 @@
   <div 
     id="map"
     ref="map"
-    class="map mb">
+    class="map mb"
+  >
     <div class="absolute px-s py-xs map-loader">
       <div class="h6">Zoom: {{ zoomLevel }}</div>
     </div>

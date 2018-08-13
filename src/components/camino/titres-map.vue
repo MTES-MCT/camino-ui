@@ -5,19 +5,22 @@
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
-      :bounds="boundsSelected" />
+      :bounds="boundsSelected"
+    />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <ul class="list-inline">
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="mapCenter('fr')">Métropole</button>
+              @click="mapCenter('fr')"
+            >Métropole</button>
           </li>
           <li>
             <button
               class="btn-border px-m py-s"
-              @click="mapCenter('gf')">Guyane</button>
+              @click="mapCenter('gf')"
+            >Guyane</button>
           </li>
         </ul>
       </div>
@@ -25,7 +28,8 @@
         <Leaflet-tiles-selector
           :tiles="tiles"
           :tiles-name="tilesName"
-          @tiles-name-set="tilesNameSelect" />
+          @tiles-name-set="tilesNameSelect"
+        />
       </div>
     </div>
   </div>

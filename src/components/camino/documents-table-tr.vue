@@ -4,22 +4,24 @@
       <input
         :checked="selected"
         type="checkbox"
-        @change="select">
+        @change="select"
+      >
     </td>
     <td>{{ document.organisme }}</td>
     <td>
       <dot
         v-if="document.acte"
-        :color="'inverse'"/>
+        :color="'inverse'"
+      />
     </td>
     <td>{{ document.nom }}</td>
     <td>{{ document.date | dateFormat }}</td>
     <td class="flex">
       <button class="btn h5 px-xs py-xs my--xs mr-xs">
-        <i class="icon-24 icon-24-view"/>
+        <i class="icon-24 icon-24-view" />
       </button>
       <button class="btn h5 px-xs py-xs my--xs">
-        <i class="icon-24 icon-24-download"/>
+        <i class="icon-24 icon-24-download" />
       </button>
     </td>
   </tr>

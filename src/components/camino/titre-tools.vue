@@ -4,7 +4,8 @@
       <li>
         <button 
           class="btn-alt p-s" 
-          @click="emailSend">Signaler une erreur</button>
+          @click="emailSend"
+        >Signaler une erreur</button>
       </li>
       <li>
         <button class="btn-alt p-s hide">Télécharger ({{ total }})</button>

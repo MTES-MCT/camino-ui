@@ -1,7 +1,8 @@
 <template>
   <span
     :class="color"
-    class="pill dot inline-block mr-xs" />
+    class="pill dot inline-block mr-xs"
+  />
 </template>
 
 <script>

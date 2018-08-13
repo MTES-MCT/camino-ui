@@ -12,7 +12,8 @@
       <documents-table-tr
         v-for="document in documents"
         :key="document.id"
-        :document="document" />
+        :document="document"
+      />
     </table>
   </div>
 </template>

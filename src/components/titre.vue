@@ -7,7 +7,8 @@
           <h1 class="mt-xs">{{ titre['nom'] }}</h1>
           <h4 class="mb"><pill
             :color="`bg-title-domain-${titre.domaine.id}`"
-            class="mono mr-s mt--s">{{ titre.domaine.id }}</pill>
+            class="mono mr-s mt--s"
+          >{{ titre.domaine.id }}</pill>
             <span class="cap-first">{{ titre.type.nom }}</span>
           </h4>
           <div v-if="titre.references">
@@ -15,15 +16,18 @@
             <ul class="list-prefix">
               <li 
                 v-for="reference in titre.references"
-                :key="reference.valeur">
+                :key="reference.valeur"
+              >
                 <span
                   v-if="reference.type"
-                  class="h5 word-break color-neutral fixed-width">{{ reference.type }} </span>{{ reference.valeur }}
+                  class="h5 word-break color-neutral fixed-width"
+                >{{ reference.type }} </span>{{ reference.valeur }}
               </li>
             </ul>
           </div>
           <div
-            v-if="titre.substancesPrincipales && titre.substancesPrincipales.length > 0">
+            v-if="titre.substancesPrincipales && titre.substancesPrincipales.length > 0"
+          >
             <h6>Substances</h6>
             <pill-list :elements="titre.substancesPrincipales.map(s=>s.nom)" />
           </div>
@@ -40,7 +44,8 @@
             <ul class="list-prefix">
               <li 
                 v-for="titulaire in titre.titulaires"
-                :key="titulaire.id">
+                :key="titulaire.id"
+              >
                 {{ titulaire['nom'] }}
               </li>
             </ul>
@@ -52,7 +57,8 @@
               </tr>
               <tr
                 v-for="phase in titre.phases"
-                :key="phase.date">
+                :key="phase.date"
+              >
                 <td class="cap-first">{{ phase['nom'] }}</td>
                 <td>{{ phase['date'] | dateFormat }}</td>
                 <td>{{ `${phase['duree']} ans` }}</td>
@@ -65,10 +71,12 @@
               <li 
                 v-for="link in titre['liens']"
                 :key="link.id"
-                class="mb-xs">
+                class="mb-xs"
+              >
                 <router-link
                   :to="{ name: 'titre', params: { id: link.id }}"
-                  class="btn h6 bold py-xs px-s rnd">{{ link['type'] }} : {{ link['nom'] }}</router-link></li>
+                  class="btn h6 bold py-xs px-s rnd"
+              >{{ link['type'] }} : {{ link['nom'] }}</router-link></li>
             </ul>
           </div>
         </div>
@@ -76,7 +84,8 @@
       <titre-map
         v-if="perimetreCurrent.geojsonMultiPolygon"
         :geojson="perimetreCurrent.geojsonMultiPolygon"
-        class="mb" />
+        class="mb"
+      />
 
       <div class="tablet-blobs">
         <div class="tablet-blob-1-4">
@@ -87,10 +96,12 @@
           <h6>Communes</h6>
           <div
             v-for="(departements, region) in perimetreCurrent.communes"
-            :key="region">
+            :key="region"
+          >
             <div
               v-for="(communes, departement) in departements"
-              :key="departement">
+              :key="departement"
+            >
               <h5 class="mb-xs">{{ region }} / {{ departement }}</h5>
               <pill-list :elements="communes" />
             </div>
@@ -106,7 +117,8 @@
               v-for="holder in titre.titulaires"
               :key="holder['id']"
               :company="holder"
-              class="mb" />
+              class="mb"
+            />
           </div>
           <div v-if="titre.amodiataires">
             <h6>{{ titre.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}</h6>
@@ -114,7 +126,8 @@
               v-for="holder in titre.amodiataires"
               :key="holder['id']"
               :company="holder"
-              class="mb" />
+              class="mb"
+            />
           </div>
         </div>
 
@@ -124,13 +137,15 @@
             v-for="referent in titre['administrations']"
             :key="referent['id']"
             :company="referent"
-            class="mb" />
+            class="mb"
+          />
         </div>
       </div>
 
       <div
         v-if="titre['démarches en cours']"
-        class="mb-xxl">
+        class="mb-xxl"
+      >
         <h4 class="mt-s">Démarches en cours</h4>
         <hr class="mb-0">
         <div class="overflow-scroll-x">
@@ -143,7 +158,8 @@
             <tr
               v-for="d in titre['démarches en cours']"
               :key="d.id"
-              class="h5">
+              class="h5"
+            >
               <td><pill class="mt--s mb--s">{{ d.type }}</pill></td>
               <td>{{ d.nom }}</td>
               <td>
@@ -157,7 +173,8 @@
 
       <titre-chronologie
         v-if="titre['démarches']"
-        :event-types="titre['démarches']" />
+        :event-types="titre['démarches']"
+      />
 
       <titre-outils />
     </card>

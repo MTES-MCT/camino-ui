@@ -15,19 +15,23 @@
           :key="titre.id"
           :to="{ name: 'titre', params: { id: titre.id }}"
           tag="tr"
-          class="tr-link">
+          class="tr-link"
+        >
           <td>
             <pill
               :color="`bg-title-domain-${titre.domaine.id}`"
-              class="mono">{{ titre.domaine.id }}</pill>
+              class="mono"
+            >{{ titre.domaine.id }}</pill>
           </td>
           <td class="bold">{{ titre.nom }}</td>
           <td 
             v-if="titre.titulaires" 
-            class="hide">
+            class="hide"
+          >
             <div
               v-for="titulaire in titre.titulaires"
-              :key="titulaire.id">
+              :key="titulaire.id"
+            >
               {{ titulaire.nom }}
             </div>
           </td>
@@ -37,7 +41,8 @@
             <pill-list
               v-if="titre.substancesPrincipales"
               :elements="titre.substancesPrincipales.map(s=>s.nom)"
-              class="mb--xs" />
+              class="mb--xs"
+            />
           </td>
         </router-link>
       </table>
@@ -48,24 +53,28 @@
           :page-active="pageActive"
           :pages-total="titresPages.length - 1"
           :pages-visible="5"
-          @page-change="pageChange" />
+          @page-change="pageChange"
+        />
       </div>
       <div class="desktop-blob-1-4">
         <pagination-ranges 
           :ranges="pagesRanges" 
           :range-active="pagesRangeActive"
-          @page-range-change="pageRangeChange" />
+          @page-range-change="pageRangeChange"
+        />
           
         <accordion class="mb hide">
           <template slot="title">Affichage</template>
           <ul class="list-sans">
             <li
               v-for="colonne in colonnes"
-              :key="colonne.type">
+              :key="colonne.type"
+            >
               <label>
                 <input
                   type="checkbox"
-                  class="mr-s">
+                  class="mr-s"
+                >
                 {{ colonne.name }}
               </label>
             </li>
