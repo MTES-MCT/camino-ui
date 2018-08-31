@@ -1,7 +1,7 @@
 const titreFormat = t => {
   const perimetres = []
   const substancesPrincipales = []
-  const substancesSecondaires = []
+  const substancesConnexes = []
   const titulaires = []
   const phases = []
 
@@ -26,30 +26,28 @@ const titreFormat = t => {
                 date: e.date
               })
             }
+          }
 
-            if (e.geojsonPoints) {
-              perimetres.push({
-                date: e.date,
-                demarche: {
-                  type: d.type,
-                  statut: d.statut
-                },
-                geojsonMultiPolygon: e.geojsonMultiPolygon,
-                geojsonPoints: e.geojsonPoints,
-                surface: e.surface
-              })
-            }
+          if (e.geojsonPoints) {
+            perimetres.push({
+              date: e.date,
+              demarche: {
+                type: d.type,
+                statut: d.statut
+              },
+              geojsonMultiPolygon: e.geojsonMultiPolygon,
+              geojsonPoints: e.geojsonPoints,
+              surface: e.surface
+            })
+          }
 
-            if (e.substances) {
-              substancesPrincipales.push(
-                ...e.substances.filter(s => !s.connexe)
-              )
-              substancesSecondaires.push(...e.substances.filter(s => s.connexe))
-            }
+          if (e.substances) {
+            substancesPrincipales.push(...e.substances.filter(s => !s.connexe))
+            substancesConnexes.push(...e.substances.filter(s => s.connexe))
+          }
 
-            if (e.titulaires) {
-              titulaires.push(...e.titulaires)
-            }
+          if (e.titulaires) {
+            titulaires.push(...e.titulaires)
           }
         })
     })
@@ -58,7 +56,7 @@ const titreFormat = t => {
     {
       perimetres,
       substancesPrincipales,
-      substancesSecondaires,
+      substancesConnexes,
       titulaires,
       phases
     },

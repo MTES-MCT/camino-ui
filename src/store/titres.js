@@ -14,14 +14,7 @@ export const state = {
       }
     ],
   types: null,
-  statuts: [
-    {
-      checked: true,
-      couleur: 'success',
-      id: 'val',
-      nom: 'valide'
-    }
-  ],
+  statuts: null,
   substances: null,
   noms: null
 }
@@ -58,6 +51,7 @@ export const actions = {
     const data = await titres(a)
 
     commit('set', data.titres.map(t => titreFormat(t)))
+
     if (!args.typeIds) {
       commit('typesSet', data.metas.types.map(v => metaFormat(v)))
     }

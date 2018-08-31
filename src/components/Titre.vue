@@ -82,17 +82,23 @@
         </div>
       </div>
       <titre-map
-        v-if="perimetreCurrent.geojsonMultiPolygon"
-        :geojson="perimetreCurrent.geojsonMultiPolygon"
+        v-if="perimetreCurrent && perimetreCurrent.geojsonMultiPolygon"
+        :geojson="perimetreCurrent && perimetreCurrent.geojsonMultiPolygon"
         class="mb"
       />
 
       <div class="tablet-blobs">
-        <div class="tablet-blob-1-4">
+        <div 
+          v-if="perimetreCurrent && perimetreCurrent.surface" 
+          class="tablet-blob-1-4"
+        >
           <h6>Surface légale</h6>
           <p>{{ perimetreCurrent.surface }} km²</p>
         </div>
-        <div class="tablet-blob-3-4 hide">
+        <div 
+          v-if="perimetreCurrent && perimetreCurrent.surface" 
+          class="tablet-blob-3-4 hide"
+        >
           <h6>Communes</h6>
           <div
             v-for="(departements, region) in perimetreCurrent.communes"
@@ -232,6 +238,7 @@ export default {
 
   created () {
     this.get()
+    console.log('boum', this.perimetres);
   },
 
   beforeDestroy () {

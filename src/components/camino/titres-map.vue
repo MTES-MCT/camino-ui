@@ -145,32 +145,36 @@ export default {
           }
         }
 
-        const geojsonLayer = L.geoJSON(titre.perimetres[0].geojsonMultiPolygon, {
-          filter: feature => feature.geometry.type === 'MultiPolygon',
-          style: {
-            fillOpacity: 0.75,
-            weight: 0,
-            className: `svg-fill-domaine-${titre.domaine.id}`
-          },
-          onEachFeature: (feature, layer) => {
-            const titleMarker = L.marker(
-              L.geoJSON(feature)
-                .getBounds()
-                .getCenter(),
-              { icon }
-            )
+        const perimetre = titre.perimetres.find(p => p)
 
-            titleMarker.bindPopup(popupHtml, popupOptions)
-            titleMarker.on(methods)
+        if (perimetre) {
+          const geojsonLayer = L.geoJSON(perimetre.geojsonMultiPolygon, {
+            filter: feature => feature.geometry.type === 'MultiPolygon',
+            style: {
+              fillOpacity: 0.75,
+              weight: 0,
+              className: `svg-fill-domaine-${titre.domaine.id}`
+            },
+            onEachFeature: (feature, layer) => {
+              const titleMarker = L.marker(
+                L.geoJSON(feature)
+                  .getBounds()
+                  .getCenter(),
+                { icon }
+              )
 
-            layer.bindPopup(popupHtml, popupOptions)
-            layer.on(methods)
+              titleMarker.bindPopup(popupHtml, popupOptions)
+              titleMarker.on(methods)
 
-            this.markerLayers.push(titleMarker)
-          }
-        })
+              layer.bindPopup(popupHtml, popupOptions)
+              layer.on(methods)
 
-        this.geojsonLayers.push(geojsonLayer)
+              this.markerLayers.push(titleMarker)
+            }
+          })
+          this.geojsonLayers.push(geojsonLayer)
+
+        }
       })
     },
 
