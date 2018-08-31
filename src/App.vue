@@ -4,12 +4,13 @@
       <page-header />
     </template>
 
-    <ribbon value="beta"/>
+    <ribbon value="beta" />
     <router-view />
     <popup
       v-if="popupVisible" 
       :config="popupConfig"
-      @popup-close="popupClose" />
+      @popup-close="popupClose"
+    />
     
     <template slot="footer">
       <page-footer />

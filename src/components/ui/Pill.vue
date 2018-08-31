@@ -1,7 +1,8 @@
 <template>
   <div
     :class="`${color}`"
-    class="h6 bold color-bg py-xs px-s pill inline-block cap">
+    class="h6 bold color-bg py-xs px-s pill inline-block cap"
+  >
     <slot />
   </div>
 </template>
