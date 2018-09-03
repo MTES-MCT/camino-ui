@@ -238,7 +238,6 @@ export default {
 
   created () {
     this.get()
-    console.log('boum', this.perimetres);
   },
 
   beforeDestroy () {

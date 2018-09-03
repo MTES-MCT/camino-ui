@@ -75,7 +75,6 @@ export default {
 
   methods: {
     tilesNameSelect (tuileNom) {
-      console.log('tilesNameSelect', tuileNom);
       this.$store.commit('user/preferencesMapTilesNameSelect', tuileNom)
     }
   }

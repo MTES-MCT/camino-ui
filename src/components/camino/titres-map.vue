@@ -187,7 +187,6 @@ export default {
     },
 
     tilesNameSelect (tuileNom) {
-      console.log('tilesNameSelect', tuileNom);
       this.$store.commit('user/preferencesMapTilesNameSelect', tuileNom)
     }
   }

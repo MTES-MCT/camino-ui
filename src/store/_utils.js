@@ -42,12 +42,27 @@ const titreFormat = t => {
           }
 
           if (e.substances) {
-            substancesPrincipales.push(...e.substances.filter(s => !s.connexe))
-            substancesConnexes.push(...e.substances.filter(s => s.connexe))
+            e.substances.forEach(s => {
+              if (
+                !s.connexe &&
+                !substancesPrincipales.find(su => su.id === s.id)
+              ) {
+                substancesPrincipales.push(s)
+              } else if (
+                s.connexe &&
+                !substancesConnexes.find(su => su.id === s.id)
+              ) {
+                substancesConnexes.push(s)
+              }
+            })
           }
 
           if (e.titulaires) {
-            titulaires.push(...e.titulaires)
+            e.titulaires.forEach(t => {
+              if (!titulaires.find(ti => ti.id === t.id)) {
+                titulaires.push(t)
+              }
+            })
           }
         })
     })
