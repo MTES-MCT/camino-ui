@@ -1,7 +1,7 @@
 <template>
   <div class="border rnd flex flex-direction-column">
     <button
-      :class="{ 'rnd-top': opened }"
+      :class="{ 'rnd-top': opened || sub }"
       class="btn-border py-s px-m flex full-x"
       @click="opened = !opened"
     >
@@ -11,13 +11,13 @@
       </div>
     </button>
     <div
-      :class="{ 'height-0': !sub, 'py-s': sub }"
-      class="px-m"
+      v-if="sub"
+      class="px-m pt-s"
     >
       <slot name="sub" />
     </div>
     <div
-      :class="{ 'height-0': !opened, 'pt-m': opened }"
+      :class="{ 'height-0': !opened, 'pt-m': opened && !sub }"
       class="px-m"
     >
       <slot />

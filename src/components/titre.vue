@@ -176,13 +176,12 @@
           </table>
         </div>
       </div>
-
-      <titre-chronologie
-        v-if="titre['démarches']"
-        :event-types="titre['démarches']"
+      <demarches
+        v-if="titre.demarches"
+        :demarches="titre.demarches"
       />
 
-      <titre-outils />
+      <outils />
     </card>
   </div>
 </template>
@@ -195,8 +194,8 @@ import Loader from './ui/loader.vue'
 import Dot from './ui/dot.vue'
 import TitreMap from './camino/titre-map.vue'
 import Company from './camino/company.vue'
-import TitreOutils from './camino/titre-tools.vue'
-import TitreChronologie from './camino/titre-timeline.vue'
+import Outils from './camino/outils.vue'
+import Demarches from './camino/demarches.vue'
 
 export default {
   components: {
@@ -207,8 +206,8 @@ export default {
     Company,
     Card,
     TitreMap,
-    TitreOutils,
-    TitreChronologie
+    Outils,
+    Demarches
   },
 
   data () {

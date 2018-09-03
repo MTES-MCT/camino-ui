@@ -3,63 +3,57 @@
     <div class="border-card" />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2">
-        <h3>{{ event['type'] }}</h3>
+        <h3>{{ demarche.type.nom }}</h3>
       </div>
       <div class="tablet-blob-1-2">
-        <div class="blobs">
-          <div class="blob-1-2">
-            <h6>Statut</h6>
-            <h4><dot :color="event['statut']" />{{ event['statut'] }}</h4>
-          </div>
-          <div class="blob-1-2">
-            <h6>Date</h6>
-            <h4>{{ date | dateFormat }}</h4>
-          </div>
-        </div>
+        <h6>Statut</h6>
+        <h4><dot :color="`color-${demarche.statut.couleur}`" />{{ demarche.statut.nom }}</h4>
       </div>
       <div class="tablet-blob-1-2">
         <accordion
-          v-if="event['recours']"
+          v-if="demarche['recours']"
           class="mb"
         >
-          <template slot="title"><dot :status="event['recours']['statut']" /> Recours</template>
+          <template slot="title"><dot :status="demarche['recours']['statut']" /> Recours</template>
           <div class="large-blobs">
             <div class="large-blob-1-6"><h6>Statut</h6></div>
             <div class="large-blob-5-6">
-              <p class="word-break">{{ event['recours']['statut'] }}</p>
+              <p class="word-break">{{ demarche['recours']['statut'] }}</p>
             </div>
           </div>
           <div class="large-blobs">
             <div class="large-blob-1-6"><h6>Type</h6></div>
             <div class="large-blob-5-6">
-              <p class="word-break">{{ event['recours']['type'] }}</p>
+              <p class="word-break">{{ demarche['recours']['type'] }}</p>
             </div>
           </div>
           <div class="large-blobs">
             <div class="large-blob-1-6"><h6>Requérant</h6></div>
             <div class="large-blob-5-6">
-              <p class="word-break">{{ event['recours']['requérant'] }}</p>
+              <p class="word-break">{{ demarche['recours']['requérant'] }}</p>
             </div>
           </div>
           <div class="large-blobs">
             <div class="large-blob-1-6"><h6>Tribunal</h6></div>
             <div class="large-blob-5-6">
-              <p class="word-break">{{ event['recours']['tribunal'] }}</p>
+              <p class="word-break">{{ demarche['recours']['tribunal'] }}</p>
             </div>
           </div>
         </accordion>
 
       </div>
       <div
-        v-if="event['publique']"
+        v-if="demarche['publique']"
         class="tablet-blob-1-2"
       >
         <h6>Participation publique</h6>
       </div>
+      
     </div>
-    <documents
-      v-if="event['documents']"
-      :documents="event['documents']"
+    <titre-etape 
+      v-for="etape in demarche.etapes"
+      :key="etape.id"
+      :etape="etape"
     />
   </div>
 </template>
@@ -67,25 +61,19 @@
 <script>
 import Dot from '../ui/dot.vue'
 import Accordion from '../ui/accordion.vue'
-import Documents from '../camino/documents.vue'
+import titreEtape from '../camino/etape.vue'
 
 export default {
   components: {
     Dot,
     Accordion,
-    Documents
+    titreEtape
   },
 
   props: {
-    event: {
+    demarche: {
       type: Object,
       default: () => { }
-    }
-  },
-
-  computed: {
-    date () {
-      return this.event.dates['décision'] || this.event.dates['ouverture']
     }
   }
 }

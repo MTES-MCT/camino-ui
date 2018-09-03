@@ -22,6 +22,22 @@
   color: var(--color-neutral);
 }
 
+.color-info {
+  background: var(--color-info);
+}
+
+.color-error {
+  background: var(--color-error);
+}
+
+.color-warning {
+  background: var(--color-warning);
+}
+
+.color-success {
+  background: var(--color-success);
+}
+
 .color-inverse {
   color: var(--color-inverse);
 }

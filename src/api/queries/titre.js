@@ -68,6 +68,9 @@ const titre = gql`
           substances {
             ...substance
           }
+          documents {
+            ...document
+          }
         }
       }
     }
@@ -140,6 +143,17 @@ const titre = gql`
         lien
       }
     }
+  }
+
+  fragment document on Document {
+    id
+    nom
+    type
+    url
+    uri
+    fichier
+    jorf
+    nor
   }
 `
 

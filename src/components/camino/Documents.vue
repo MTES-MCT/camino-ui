@@ -1,20 +1,25 @@
 <template>
-  <accordion class="mb">
-    <template slot="title">Documents</template>
-    <documents-table
-      :documents="documents"
-    />
-  </accordion>
+  <div class="overflow-scroll-x">
+    <table>
+      <tr>
+        <th>Nom</th>
+        <th />
+      </tr>
+      <document-tr
+        v-for="document in documents"
+        :key="document.id"
+        :document="document"
+      />
+    </table>
+  </div>
 </template>
 
 <script>
-import Accordion from '../ui/accordion.vue'
-import DocumentsTable from '../camino/documents-table.vue'
+import DocumentTr from './document-tr.vue'
 
 export default {
   components: {
-    Accordion,
-    DocumentsTable
+    DocumentTr
   },
 
   props: {

@@ -35,7 +35,6 @@ td,
 th {
   vertical-align: top;
   overflow-wrap: break-word;
-  white-space: nowrap;
   padding-bottom: var(--unit-s);
   padding-top: calc(var(--unit-s) - var(--unit-line));
   padding-left: var(--unit-s);
