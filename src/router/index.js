@@ -8,6 +8,8 @@ import Titres from '../components/titres.vue'
 import Error from '../components/error.vue'
 import About from '../components/camino-content/about.vue'
 import Accessibilite from '../components/camino-content/accessibilite.vue'
+import Cgu from '../components/camino-content/cgu.vue'
+import MentionsLegales from '../components/camino-content/mentions-legales.vue'
 
 Vue.use(VueRouter)
 
@@ -40,6 +42,16 @@ const routes = [
     path: '/accessibilite',
     name: 'accessibilite',
     component: Accessibilite
+  },
+  {
+    path: '/cgu',
+    name: 'cgu',
+    component: Cgu
+  },
+  {
+    path: '/mentions-legales',
+    name: 'mentions-legales',
+    component: MentionsLegales
   },
   {
     path: '/Erreur',
