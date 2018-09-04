@@ -3,7 +3,7 @@
     class="mb" 
     :sub="true"
   >
-    <template slot="title">{{ etape.type.nom }}</template>
+    <template slot="title"><dot :color="`color-${etape.statut.couleur}`" />{{ etape.type.nom }}</template>
     <template slot="sub">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-4">
@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import Dot from '../ui/dot.vue'
 import Accordion from '../ui/accordion.vue'
 import Documents from '../camino/documents.vue'
 
@@ -61,6 +62,7 @@ export default {
   name: 'CaminoTitreEtape',
 
   components: {
+    Dot,
     Accordion,
     Documents
   },
