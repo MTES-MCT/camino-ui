@@ -24,6 +24,7 @@ const titre = gql`
       }
       demarches {
         id
+        ordre
         type {
           id
           nom

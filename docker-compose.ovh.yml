@@ -1,14 +1,13 @@
-version: "3"
+version: '3'
 
 services:
-
   app:
     build: .
     environment:
       NODE_ENV: production
-      VIRTUAL_HOST: camino.pw
+      VIRTUAL_HOST: camino.beta.gouv.fr
       VIRTUAL_PORT: ${NODE_PORT}
-      LETSENCRYPT_HOST: camino.pw
+      LETSENCRYPT_HOST: camino.beta.gouv.fr
       LETSENCRYPT_EMAIL: francoisromain@gmail.com
     expose:
       - ${NODE_PORT}
