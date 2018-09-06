@@ -12,7 +12,6 @@ Vue.use(VueCookies)
 
 Vue.filter('dateFormat', date => {
   const d = new Date(Number(date))
-  console.log('d', d)
   var dd = d.getDate()
   var mm = d.getMonth() + 1
   var yyyy = d.getFullYear()
