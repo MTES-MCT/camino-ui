@@ -36,11 +36,11 @@
             </div>
           </td>
           <td>{{ titre.type.nom }}</td>
-          <td><dot :coulor="titre.statut.couleur" />{{ titre.statut.nom }}</td>
+          <td><dot :color="`bg-${titre.statut.couleur}`" />{{ titre.statut.nom }}</td>
           <td>
             <pill-list
               v-if="titre.substancesPrincipales"
-              :elements="titre.substancesPrincipales.map(s=>s.nom)"
+              :elements="titre.substancesPrincipales.map(s=>s.legal.nom)"
               class="mb--xs"
             />
           </td>

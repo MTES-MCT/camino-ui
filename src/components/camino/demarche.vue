@@ -3,11 +3,11 @@
     <div class="border-card" />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2">
-        <h3>{{ demarche.type.nom }}</h3>
+        <h3 class="cap-first">{{ demarche.type.nom }}</h3>
       </div>
       <div class="tablet-blob-1-2">
         <h6>Statut</h6>
-        <h4><dot :color="`color-${demarche.statut.couleur}`" />{{ demarche.statut.nom }}</h4>
+        <h4><dot :color="`bg-${demarche.statut.couleur}`" /><span class="cap-first">{{ demarche.statut.nom }}</span></h4>
       </div>
       <div class="tablet-blob-1-2">
         <accordion

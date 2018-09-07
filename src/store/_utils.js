@@ -41,7 +41,7 @@ const titreFormat = t => {
             })
           }
 
-          if (e.substances) {
+          if (e.substances && substancesPrincipales.length === 0) {
             e.substances.forEach(s => {
               if (
                 !s.connexe &&
@@ -57,7 +57,7 @@ const titreFormat = t => {
             })
           }
 
-          if (e.titulaires) {
+          if (e.titulaires && titulaires.length === 0) {
             e.titulaires.forEach(t => {
               if (!titulaires.find(ti => ti.id === t.id)) {
                 titulaires.push(t)

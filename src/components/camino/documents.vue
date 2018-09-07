@@ -2,7 +2,7 @@
   <div class="overflow-scroll-x">
     <table>
       <tr>
-        <th>Nom</th>
+        <th>Documents</th>
         <th />
       </tr>
       <document-tr

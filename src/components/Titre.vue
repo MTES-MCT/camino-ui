@@ -29,7 +29,7 @@
             v-if="titre.substancesPrincipales && titre.substancesPrincipales.length > 0"
           >
             <h6>Substances</h6>
-            <pill-list :elements="titre.substancesPrincipales.map(s=>s.nom)" />
+            <pill-list :elements="titre.substancesPrincipales.map(s=>s.legal.nom)" />
           </div>
         </div>
         <div class="tablet-blob-1-2">

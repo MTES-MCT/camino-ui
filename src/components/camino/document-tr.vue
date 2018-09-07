@@ -20,15 +20,6 @@
       >
         <i class="icon-24 icon-24-view" />
       </a>
-      <a 
-        v-if="document.uri" 
-        class="btn h5 px-xs py-xs my--xs mr-xs" 
-        :href="document.uri"
-        target="_blank"
-        alt="Uri"
-      >
-        <i class="icon-24 icon-24-view" />
-      </a>
     </td>
   </tr>
 </template>
