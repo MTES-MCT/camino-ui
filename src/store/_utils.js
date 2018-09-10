@@ -11,8 +11,8 @@ const titreFormat = t => {
         d.etapes.forEach(e => {
           if (
             d.statut.id === 'acc' &&
-            e.type.id === 'dpu' &&
-            e.statut.id === 'ter'
+            e.statut.id === 'acc' &&
+            e.type.id === 'dpu'
           ) {
             if (
               d.type.nom === 'octroi' ||
