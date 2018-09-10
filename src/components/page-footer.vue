@@ -33,6 +33,7 @@
         <li><a href="/cgu">CGU</a></li>
         <li><a href="/mentions-legales">Mentions légales</a></li>
         <li><a href="/accessibilite">Accessibilité</a></li>
+        <li><a href="/contribution">Contribuez</a></li>
       </ul>
     </div>
   </div>

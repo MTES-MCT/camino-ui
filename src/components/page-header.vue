@@ -7,7 +7,7 @@
       >
         <img src="../../public/img/logo-camino.svg">
       </router-link>
-      <p class="h5 color-highlight">Le cadastre minier numérique ouvert</p>
+      <p class="h5 color-neutral">Le cadastre minier numérique ouvert</p>
     </div>
     <div class="tablet-blob-1-2  large-blob-2-3 menu hide">
       <ul>

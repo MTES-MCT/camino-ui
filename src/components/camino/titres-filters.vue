@@ -42,7 +42,7 @@
             @blur="nomsInput"
           >
         </div>
-        <div class="mb">
+        <div class="mb hide">
           <h6>Substances</h6>
           <input
             :value="substances"
@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="tablet-blob-1-2 large-blob-1-3">
-        <h6>Domaine</h6>
+        <h6>Domaines</h6>
         <ul class="list-sans">
           <li
             v-for="domaine in domaines"
@@ -79,7 +79,7 @@
       </div>
       <div class="tablet-blob-1-2 large-blob-1-3">
         <div class="mb">
-          <h6>Type</h6>
+          <h6>Types</h6>
           <ul class="list-sans">
             <li
               v-for="type in types"

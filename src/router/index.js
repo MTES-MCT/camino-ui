@@ -8,6 +8,7 @@ import Titres from '../components/titres.vue'
 import Error from '../components/error.vue'
 import About from '../components/camino-content/about.vue'
 import Accessibilite from '../components/camino-content/accessibilite.vue'
+import Contribution from '../components/camino-content/contribution.vue'
 import Cgu from '../components/camino-content/cgu.vue'
 import MentionsLegales from '../components/camino-content/mentions-legales.vue'
 
@@ -42,6 +43,11 @@ const routes = [
     path: '/accessibilite',
     name: 'accessibilite',
     component: Accessibilite
+  },
+  {
+    path: '/contribution',
+    name: 'contribution',
+    component: Contribution
   },
   {
     path: '/cgu',

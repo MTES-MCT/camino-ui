@@ -13,7 +13,19 @@ export const state = {
         nom: 'hydrocarbures liquides ou gazeux'
       }
     ],
-  types: null,
+  types: [
+    { checked: true, id: 'cxx', nom: 'concession' },
+    {
+      checked: true,
+      id: 'prh',
+      nom: 'permis exclusif de recherches'
+    },
+    {
+      checked: true,
+      id: 'pxh',
+      nom: "permis d'exploitation"
+    }
+  ],
   statuts: null,
   substances: null,
   noms: null
