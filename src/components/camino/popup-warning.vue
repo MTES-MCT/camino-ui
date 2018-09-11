@@ -2,11 +2,11 @@
   <div>
     <p class="bold">Le cadastre minier numérique ouvert</p>
     <p>
-      Ce nouveau service ambitionne d'ouvrir les projets miniers à tous les acteurs pour mieux les gérer.</p>
-    <p>Nous développons un premier service en version <i>beta</i>. Cela signifie deux choses :</p>
+      Ce nouveau service de l'administration ambitionne d'ouvrir les projets miniers à tous les acteurs pour mieux les gérer.</p>
+    <p>Le service <i>beta</i> est en amélioration continue. Cela signifie deux choses :</p>
     <ul class="list-prefix">
-      <li>Les informations sur les titres miniers affichées ne peuvent en aucun cas être considérées comme vérifiées : elles ont une simple fonction d'illustration pour le moment.</li>
-      <li>Nous avons besoin de vos retours utilisateurs. N'hésitez pas à naviguer sur le site et à nous faire part de tous vos commentaires en nous écrivant à contact@camino.beta.gouv.fr.</li>
+      <li>Nous nous efforçons de livrer des données valides et complètes. Mais il reste encore des lacunes et des erreurs ! N'hésitez pas à nous les signaler en un clic sur le bouton "Signaler une erreur" en bas de chaque page.</li>
+      <li>Nous avons besoin de votre expérience d'utilisateurs du service. N'hésitez pas à nous faire part de tous vos commentaires en nous écrivant à contact@camino.beta.gouv.fr où en nous appelant au 01 40 81 95 86.</li>
     </ul>
 
     <div class="blobs">
