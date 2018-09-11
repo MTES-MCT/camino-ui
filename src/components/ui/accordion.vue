@@ -1,6 +1,7 @@
 <template>
   <div class="border rnd flex flex-direction-column">
     <button
+      v-if="$slots.default"
       :class="{ 'rnd-top': opened || sub }"
       class="btn-border py-s px-m flex full-x"
       @click="opened = !opened"
@@ -10,6 +11,12 @@
         <i class="icon-24 icon-24-chevron-b" />
       </div>
     </button>
+    <div 
+      v-else
+      class="py-s px-m"
+    >
+      <h4 class="mb-0"><slot name="title" /></h4>
+    </div>
     <div
       v-if="sub"
       class="px-m pt-s"

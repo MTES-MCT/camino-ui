@@ -44,7 +44,8 @@
           class="tablet-blob-1-4"
         >
           <h6>Amodiataires</h6>
-          <p>{{ etape.amodiataires.map(t => t.nom).join(', ') }}</p>
+          <p>–</p>
+          <p class="hide">{{ etape.amodiataires.map(t => t.nom).join(', ') }}</p>
         </div>
         <div 
           v-if="etape.substances.length > 0" 
@@ -55,7 +56,8 @@
         </div>
       </div>
     </template>
-    <documents
+    <documents 
+      v-if="etape.documents.length > 0"
       :documents="etape.documents"
     />
   </accordion>

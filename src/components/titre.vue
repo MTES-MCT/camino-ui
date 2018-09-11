@@ -36,7 +36,7 @@
           <div class="blobs">
             <div class="blob-1-2">
               <h6>Statut</h6>
-              <h4 class="cap"><dot :color="`bg-${titre.statut.couleur}`" />{{ titre.statut.nom }}</h4>
+              <h4 class="cap-first"><dot :color="`bg-${titre.statut.couleur}`" />{{ titre.statut.nom }}</h4>
             </div>
           </div>
           <div v-if="titre.titulaires">
