@@ -13,20 +13,55 @@ export const state = {
         nom: 'hydrocarbures liquides ou gazeux'
       }
     ],
-  types: [
-    { checked: true, id: 'cxx', nom: 'concession' },
-    {
-      checked: true,
-      id: 'prh',
-      nom: 'permis exclusif de recherches'
-    },
-    {
-      checked: true,
-      id: 'pxh',
-      nom: "permis d'exploitation"
-    }
-  ],
-  statuts: null,
+  types:
+    // null,
+    [
+      { checked: true, id: 'cxx', nom: 'concession' },
+      {
+        checked: true,
+        id: 'prh',
+        nom: 'permis exclusif de recherches'
+      },
+      {
+        checked: true,
+        id: 'pxh',
+        nom: "permis d'exploitation"
+      }
+    ],
+  statuts:
+    // null,
+    [
+      {
+        checked: true,
+        id: 'dmc',
+        nom: 'demande classée',
+        couleur: 'neutral'
+      },
+      {
+        checked: true,
+        id: 'dmi',
+        nom: 'demande initiale',
+        couleur: 'warning'
+      },
+      {
+        checked: true,
+        id: 'ind',
+        nom: 'indéterminé',
+        couleur: 'warning'
+      },
+      {
+        checked: true,
+        id: 'mod',
+        nom: 'modification en instance',
+        couleur: 'warning'
+      },
+      {
+        checked: true,
+        id: 'val',
+        nom: 'valide',
+        couleur: 'success'
+      }
+    ],
   substances: null,
   noms: null
 }
