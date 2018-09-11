@@ -228,3 +228,9 @@
     margin-top: -1.25rem;
   }
 }
+
+@media (--viewport-large) {
+  .camino-header-baseline {
+    padding-left: 7.5rem;
+  }
+}
