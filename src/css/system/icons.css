@@ -157,6 +157,18 @@
   );
 }
 
+.icon-24-link {
+  background-image: svg-load(
+    './icons/24-link.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=2px
+  );
+}
+
 .icon-24-dot.blink {
   animation: blinker 0.2s ease infinite;
 }

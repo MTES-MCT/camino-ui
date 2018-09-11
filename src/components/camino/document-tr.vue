@@ -13,12 +13,12 @@
       </a>
       <a 
         v-if="document.url" 
-        class="btn h5 px-xs py-xs my--xs mr-xs" 
+        class="btn h5 p-xs my--xs mr-xs" 
         :href="document.url"
         target="_blank"
         alt="Url"
       >
-        <i class="icon-24 icon-24-view" />
+        <i class="icon-24 icon-24-link" />
       </a>
     </td>
   </tr>
