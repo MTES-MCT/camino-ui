@@ -172,6 +172,11 @@
   font-style: italic;
 }
 
+.camino-header-baseline {
+  padding-left: 29.5%;
+  margin-top: -1.2rem;
+}
+
 @media (--viewport-tablet) {
   .menubar-infos {
     padding-top: var(--unit-m);
@@ -209,5 +214,17 @@
 
   .form-blob {
     gf: blob 1/2 0;
+  }
+
+  .camino-header-baseline {
+    padding-left: 5.5rem;
+    margin-top: -1rem;
+  }
+}
+
+@media (--viewport-desktop) {
+  .camino-header-baseline {
+    padding-left: 8.75rem;
+    margin-top: -1.25rem;
   }
 }
