@@ -86,6 +86,7 @@ export default {
 
       this.map.on('zoomend', () => {
         this.zoomLevel = this.map.getZoom()
+        this.$emit('zoom-level', this.zoomLevel)
       })
     },
 

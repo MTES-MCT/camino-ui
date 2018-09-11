@@ -5,6 +5,11 @@
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
       :bounds="bounds"
+      @zoom-level="zoomLevelGet"
+    />
+    <titre-map-warning-brgm 
+      :zoom-level="zoomLevel"
+      :tiles-name="tilesName"
     />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
@@ -26,11 +31,13 @@
 
 <script>
 import L from 'leaflet'
+import titreMapWarningBrgm from './titre-map-warning-brgm.vue'
 import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 
 export default {
   components: {
+    titreMapWarningBrgm,
     LeafletMap,
     LeafletTilesSelector
   },
@@ -45,7 +52,8 @@ export default {
   data () {
     return {
       map: null,
-      geojsonLayers: [L.geoJSON(this.geojson)]
+      geojsonLayers: [L.geoJSON(this.geojson)],
+      zoomLevel: 0
     }
   },
 
@@ -53,6 +61,7 @@ export default {
     bounds () {
       return this.geojsonLayers[0].getBounds()
     },
+
     tilesLayer () {
       const tiles = this.$store.getters['map/tilesActive']
       return tiles.type === 'wms'
@@ -65,17 +74,27 @@ export default {
           attribution: tiles.attribution
         })
     },
+
     tiles () {
       return this.$store.state.map.tiles
     },
+
     tilesName () {
       return this.$store.state.user.preferences.map.tilesName
+    },
+
+    brgmWarning () {
+      return this.tilesName === "BRGM / Cartes géologiques 1/50 000" && (this.zoomLevel < 12 || this.zoomLevel > 16)
     }
   },
 
   methods: {
     tilesNameSelect (tuileNom) {
       this.$store.commit('user/preferencesMapTilesNameSelect', tuileNom)
+    },
+
+    zoomLevelGet (zoomLevel) {
+      this.zoomLevel = zoomLevel
     }
   }
 

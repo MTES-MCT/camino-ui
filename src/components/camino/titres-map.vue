@@ -6,6 +6,11 @@
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
       :bounds="boundsSelected"
+      @zoom-level="zoomLevelGet"
+    />
+    <titre-map-warning-brgm 
+      :zoom-level="zoomLevel"
+      :tiles-name="tilesName"
     />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
@@ -37,12 +42,14 @@
 
 <script>
 import L from 'leaflet'
+import titreMapWarningBrgm from './titre-map-warning-brgm.vue'
 import Accordion from '../ui/accordion.vue'
 import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 
 export default {
   components: {
+    titreMapWarningBrgm,
     Accordion,
     LeafletMap,
     LeafletTilesSelector
@@ -69,7 +76,8 @@ export default {
       },
       boundsName: 'fr',
       geojsonLayers: [],
-      markerLayers: []
+      markerLayers: [],
+      zoomLevel: 0
     }
   },
 
@@ -102,6 +110,10 @@ export default {
 
     tilesName () {
       return this.$store.state.user.preferences.map.tilesName
+    },
+
+    brgmWarning () {
+      return this.tilesName === "BRGM / Cartes géologiques 1/50 000" && (this.zoomLevel < 12 || this.zoomLevel > 16)
     }
   },
 
@@ -188,6 +200,10 @@ export default {
 
     tilesNameSelect (tuileNom) {
       this.$store.commit('user/preferencesMapTilesNameSelect', tuileNom)
+    },
+
+    zoomLevelGet (zoomLevel) {
+      this.zoomLevel = zoomLevel
     }
   }
 }
