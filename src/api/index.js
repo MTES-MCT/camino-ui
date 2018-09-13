@@ -2,11 +2,14 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
+// for safari 11
+import fetch from 'unfetch'
+
 import queryTitres from './queries/titres'
 import queryTitre from './queries/titre'
 
 const graphqlClient = new ApolloClient({
-  link: new HttpLink({ uri: process.env.VUE_APP_API_URL }),
+  link: new HttpLink({ uri: process.env.VUE_APP_API_URL, fetch }),
   cache: new InMemoryCache()
 })
 
