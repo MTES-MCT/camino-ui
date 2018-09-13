@@ -51,7 +51,6 @@ export default {
     } else {
       this.popupOpen()
     }
-    this.popupOpen()
   },
 
   methods: {
