@@ -6,18 +6,18 @@
     />
     <div class="popup fixed shadow full bg-bg">
       <div class="popup-header flex flex-start p-l">
-        <h2 class="mb-0">{{ config.title }}</h2>
+        <h2 class="mb-0"><slot name="header" /></h2>
         <button
-          v-if="config.close"
+          v-if="closeBtn"
           class="btn flex-right px-s py-xs mt--s"
           @click="closeDefault"
         ><i class="icon-24 icon-24-close" /></button>
       </div>
       <div class="popup-content p-l">
-        <component
-          :is="config.component"
-          @popup-close="close"
-        />
+        <slot />
+      </div>
+      <div class="popup-footer px-l py-m">
+        <slot name="footer" />
       </div>
     </div>
   </div>
@@ -28,20 +28,20 @@ export default {
   name: 'UiSystemPopup',
 
   props: {
-    config: {
-      type: Object,
-      default: () => ({})
+    closeBtn: {
+      type: Boolean,
+      default: false
     }
   },
 
   created () {
-    if (this.config.close) {
+    if (this.closeBtn) {
       document.addEventListener('keyup', this.keyup)
     }
   },
 
   beforeDestroy () {
-    if (this.config.close) {
+    if (this.closeBtn) {
       document.removeEventListener('keyup', this.keyup)
     }
   },
@@ -51,7 +51,7 @@ export default {
       this.$emit('popup-close')
     },
     closeDefault () {
-      if (this.config.close) {
+      if (this.closeBtn) {
         this.close()
       }
     },

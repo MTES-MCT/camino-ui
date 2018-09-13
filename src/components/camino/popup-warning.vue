@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <popup>
+    <template slot="header">
+      Bienvenue sur Camino
+    </template>
     <p class="bold">Le cadastre minier numérique ouvert</p>
     <p>
       Ce nouveau service de l'administration ambitionne d'ouvrir les projets miniers à tous les acteurs pour mieux les gérer.</p>
@@ -9,22 +12,27 @@
       <li>Nous avons besoin de votre expérience d'utilisateurs du service. N'hésitez pas à nous faire part de tous vos commentaires en nous écrivant à <a mailto="contact@camino.beta.gouv.fr">contact@camino.beta.gouv.fr</a> où en nous appelant au 01 40 81 95 86.</li>
     </ul>
 
-    <div class="blobs">
-      <div class="blob-1-4" />
-      <div class="blob-3-4">
-        <button
-          class="btn p-s full-x"
-          @click="cookieSet"
-          @keyup.enter="cookieSet"
-        >Je comprends</button>
-      </div>
-    </div>
-  </div>
+
+    <template slot="footer">
+      <button
+        class="btn p-s full-x"
+        @click="cookieSet"
+        @keyup.enter="cookieSet"
+      >Je comprends</button>
+    </template>
+  </popup>
 </template>
 
 <script>
+import Popup from '../ui/popup.vue'
+
+
 export default {
   name: 'CaminoPopupAvertissement',
+
+  components: {
+    Popup
+  },
 
   methods: {
     cookieSet () {

@@ -140,8 +140,16 @@
 }
 
 .popup-content {
-  height: calc(100% - 4 * var(--unit));
+  height: calc(100% - 8 * var(--unit));
   overflow-y: auto;
+}
+
+.popup-footer {
+  height: calc(4 * var(--unit));
+  border-top-width: var(--unit-xxs);
+  border-top-style: solid;
+  border-top-color: var(--color-alt);
+  margin-top: calc(-1 * var(--unit-xxs));
 }
 
 .map-loader {

@@ -6,9 +6,9 @@
 
     <ribbon value="beta" />
     <router-view />
-    <popup
-      v-if="popupVisible" 
-      :config="popupConfig"
+    <component
+      :is="popupComponent" 
+      v-if="popupVisible"
       @popup-close="popupClose"
     />
     
@@ -40,7 +40,8 @@ export default {
   data () {
     return {
       popupVisible: false,
-      popupConfig: null
+      popupConfig: null,
+      popupComponent: PopupAvertissement
     }
   },
 
@@ -48,18 +49,14 @@ export default {
     if (this.$cookies.get('camino')) {
       console.log('cookie: ', this.$cookies.get('camino'))
     } else {
-      this.popupOpen({
-        title: 'Bienvenue sur Camino',
-        component: PopupAvertissement,
-        close: false
-      })
+      this.popupOpen()
     }
+    this.popupOpen()
   },
 
   methods: {
-    popupOpen (config) {
+    popupOpen () {
       this.popupVisible = true
-      this.popupConfig = config
     },
     popupClose () {
       this.popupVisible = false
