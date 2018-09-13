@@ -191,17 +191,6 @@
     margin-top: 0;
   }
 
-  .popup {
-    width: calc(2 * var(--col-width) - var(--gutter));
-    transform: translate(-50%, 0);
-    top: var(--header-height);
-    left: 50%;
-    right: auto;
-    bottom: auto;
-    z-index: 2;
-    border-radius: var(--unit-xs);
-  }
-
   .messages {
     width: calc(2 * var(--col-width) - var(--gutter));
   }
@@ -231,6 +220,17 @@
 }
 
 @media (--viewport-desktop) {
+  .popup {
+    width: calc(2 * var(--col-width) - var(--gutter));
+    transform: translate(-50%, 0);
+    top: calc(var(--unit) * 2);
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    z-index: 2;
+    border-radius: var(--unit-xs);
+  }
+
   .camino-header-baseline {
     padding-left: 8.75rem;
     margin-top: -1.25rem;
