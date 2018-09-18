@@ -9,25 +9,6 @@ const titreFormat = t => {
     t.demarches.forEach(d => {
       d.etapes &&
         d.etapes.forEach(e => {
-          if (
-            d.statut.id === 'acc' &&
-            e.statut.id === 'acc' &&
-            e.type.id === 'dpu'
-          ) {
-            if (
-              d.type.nom === 'octroi' ||
-              d.type.nom === 'prolongation' ||
-              d.type.nom === 'prolongation 1' ||
-              d.type.nom === 'prolongation 2'
-            ) {
-              phases.push({
-                nom: d.type.nom,
-                duree: e.duree,
-                date: e.date
-              })
-            }
-          }
-
           if (e.geojsonPoints) {
             perimetres.push({
               date: e.date,

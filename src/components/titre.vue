@@ -50,18 +50,19 @@
               </li>
             </ul>
           </div>
-          <div class="hide">
+          <div>
             <table class="table-xxs">
               <tr>
-                <th>Phase</th><th>Date</th><th>Durée</th>
+                <th>Statut</th><th>Phase</th><th>Début</th><th>Fin</th>
               </tr>
               <tr
-                v-for="phase in titre.phases"
-                :key="phase.date"
+                v-for="demarche in titre.demarches.filter(d => d.phase)"
+                :key="demarche.id"
               >
-                <td class="cap-first">{{ phase['nom'] }}</td>
-                <td>{{ phase['date'] | dateFormat }}</td>
-                <td>{{ `${phase['duree']} ans` }}</td>
+                <td><dot :color="`bg-${demarche.phase.statut.couleur}`" /></td>
+                <td><span class="cap-first">{{ demarche.type.nom }}</span></td>
+                <td>{{ demarche.phase.dateDebut | dateFormat }}</td>
+                <td>{{ demarche.phase.dateFin | dateFormat }}</td>
               </tr>
             </table>
           </div>
