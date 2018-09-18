@@ -18,11 +18,18 @@
           <p>{{ etape.duree }} ans</p>
         </div>
         <div 
-          v-if="etape.echeance" 
+          v-if="etape.dateDebut" 
+          class="tablet-blob-1-4"
+        >
+          <h6>Date de début</h6>
+          <p>{{ etape.dateDebut | dateFormat }}</p>
+        </div>
+        <div 
+          v-if="etape.dateFin" 
           class="tablet-blob-1-4"
         >
           <h6>Date d'échéance</h6>
-          <p>{{ etape.echeance | dateFormat }}</p>
+          <p>{{ etape.dateFin | dateFormat }}</p>
         </div>
         <div 
           v-if="etape.geojsonMultiPolygon" 
