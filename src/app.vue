@@ -51,6 +51,8 @@ export default {
     } else {
       this.popupOpen()
     }
+    localStorage.setItem('token',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0.Lz4SVrc7UJWCwTQ3gCnYQ98-_QFg7kG4LZsR4tyJecU')
   },
 
   methods: {

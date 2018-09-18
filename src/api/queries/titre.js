@@ -38,7 +38,7 @@ const titre = gql`
           id
           date
           duree
-          echeance
+          dateFin
           type {
             id
             nom

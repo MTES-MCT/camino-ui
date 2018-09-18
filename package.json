@@ -24,6 +24,7 @@
     "@vue/eslint-config-standard": "^3.0.3",
     "apollo-cache-inmemory": "^1.2.10",
     "apollo-client": "^2.4.2",
+    "apollo-link-context": "^1.0.8",
     "apollo-link-http": "^1.5.4",
     "babel-plugin-graphql-tag": "^1.6.0",
     "eslint": "^5.5.0",

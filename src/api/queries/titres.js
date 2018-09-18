@@ -60,9 +60,20 @@ const titres = gql`
           nom
           couleur
         }
+        phase {
+          dateDebut
+          dateFin
+          statut {
+            id
+            nom
+            couleur
+          }
+        }
         etapes {
           id
           date
+          dateDebut
+          dateFin
           duree
           type {
             id

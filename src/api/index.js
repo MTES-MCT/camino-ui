@@ -1,5 +1,6 @@
 import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
+import { createHttpLink } from 'apollo-link-http'
+import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 // for safari 11
@@ -8,12 +9,29 @@ import fetch from 'unfetch'
 import queryTitres from './queries/titres'
 import queryTitre from './queries/titre'
 
-const graphqlClient = new ApolloClient({
-  link: new HttpLink({ uri: process.env.VUE_APP_API_URL, fetch }),
-  cache: new InMemoryCache()
+console.log('api:', process.env.VUE_APP_API_URL)
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('token')
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  }
 })
 
-console.log('api:', process.env.VUE_APP_API_URL)
+const httpLink = createHttpLink({
+  uri: process.env.VUE_APP_API_URL,
+  fetch
+})
+
+const graphqlClient = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
+})
 
 const titres = async ({ typeIds, domaineIds, statutIds, substances, noms }) => {
   const res = await graphqlClient.query({
