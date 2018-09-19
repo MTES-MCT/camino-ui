@@ -53,7 +53,10 @@
           <div>
             <table class="table-xxs">
               <tr>
-                <th>Statut</th><th>Phase</th><th>Début</th><th>Fin</th>
+                <th />
+                <th>Phase</th>
+                <th>Début</th>
+                <th>Fin</th>
               </tr>
               <tr
                 v-for="demarche in titre.demarches.filter(d => d.phase)"
