@@ -15,17 +15,14 @@
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <ul class="list-inline">
-          <li>
+          <li 
+            v-for="(bound, key) in bounds" 
+            :key="key"
+          >
             <button
               class="btn-border px-m py-s"
-              @click="mapCenter('fr')"
-            >Métropole</button>
-          </li>
-          <li>
-            <button
-              class="btn-border px-m py-s"
-              @click="mapCenter('gf')"
-            >Guyane</button>
+              @click="mapCenter(key)"
+            >{{ bound.name }}</button>
           </li>
         </ul>
       </div>
@@ -66,12 +63,19 @@ export default {
     return {
       bounds: {
         fr: {
+          name: 'Métropole',
           type: 'LineString',
-          coordinates: [[-5.1406, 41.3337], [9.5593, 51.0891]]
+          coordinates: [[-5, 41], [10, 51]]
         },
         gf: {
+          name: 'Guyane',
           type: 'LineString',
-          coordinates: [[-54.5425, 2.1271], [-51.6139, 5.7765]]
+          coordinates: [[-54, 3], [-51, 6]]
+        },
+        oi: {
+          name: 'Océan Indien',
+          type: 'LineString',
+          coordinates: [[34, -22], [46, -12]]
         }
       },
       boundsName: 'fr',

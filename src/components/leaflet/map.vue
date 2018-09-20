@@ -54,6 +54,7 @@ export default {
     return {
       map: null,
       zoomLevel: 0,
+      position: null,
       layers: {
         tiles: {},
         geojsons: [],
@@ -87,6 +88,10 @@ export default {
       this.map.on('zoomend', () => {
         this.zoomLevel = this.map.getZoom()
         this.$emit('zoom-level', this.zoomLevel)
+      })
+
+      this.map.on('moveend', () => {
+        this.position = this.map.getBounds()
       })
     },
 
