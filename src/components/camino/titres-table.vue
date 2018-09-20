@@ -19,7 +19,7 @@
         >
           <td>
             <pill
-              :color="`bg-title-domain-${titre.domaine.id}`"
+              :color="`bg-title-domaine-${titre.domaine.id}`"
               class="mono"
             >{{ titre.domaine.id }}</pill>
           </td>

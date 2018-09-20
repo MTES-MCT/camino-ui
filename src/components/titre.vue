@@ -6,7 +6,7 @@
         <div class="tablet-blob-1-2">
           <h1 class="mt-xs">{{ titre['nom'] }}</h1>
           <h4 class="mb"><pill
-            :color="`bg-title-domain-${titre.domaine.id}`"
+            :color="`bg-title-domaine-${titre.domaine.id}`"
             class="mono mr-s mt--s"
           >{{ titre.domaine.id }}</pill>
             <span class="cap-first">{{ titre.type.nom }}</span>

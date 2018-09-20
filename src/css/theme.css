@@ -75,60 +75,60 @@
   }
 }
 
-.bg-title-domain-a {
-  background: var(--color-title-domain-a);
+.bg-title-domaine-c {
+  background: var(--color-title-domaine-c);
 }
 
-.bg-title-domain-c {
-  background: var(--color-title-domain-c);
+.bg-title-domaine-g {
+  background: var(--color-title-domaine-g);
 }
 
-.bg-title-domain-g {
-  background: var(--color-title-domain-g);
+.bg-title-domaine-h {
+  background: var(--color-title-domaine-h);
 }
 
-.bg-title-domain-h {
-  background: var(--color-title-domain-h);
+.bg-title-domaine-m {
+  background: var(--color-title-domaine-m);
 }
 
-.bg-title-domain-m {
-  background: var(--color-title-domain-m);
+.bg-title-domaine-r {
+  background: var(--color-title-domaine-r);
 }
 
-.bg-title-domain-s {
-  background: var(--color-title-domain-s);
+.bg-title-domaine-s {
+  background: var(--color-title-domaine-s);
 }
 
-.bg-title-domain-w {
-  background: var(--color-title-domain-w);
-}
-
-.svg-fill-domaine-a {
-  background: var(--color-title-domain-a);
+.bg-title-domaine-w {
+  background: var(--color-title-domaine-w);
 }
 
 .svg-fill-domaine-c {
-  fill: var(--color-title-domain-c);
+  fill: var(--color-title-domaine-c);
 }
 
 .svg-fill-domaine-g {
-  fill: var(--color-title-domain-g);
+  fill: var(--color-title-domaine-g);
 }
 
 .svg-fill-domaine-h {
-  fill: var(--color-title-domain-h);
+  fill: var(--color-title-domaine-h);
 }
 
 .svg-fill-domaine-m {
-  fill: var(--color-title-domain-m);
+  fill: var(--color-title-domaine-m);
+}
+
+.svg-fill-domaine-r {
+  fill: var(--color-title-domaine-r);
 }
 
 .svg-fill-domaine-s {
-  fill: var(--color-title-domain-s);
+  fill: var(--color-title-domaine-s);
 }
 
 .svg-fill-domaine-w {
-  fill: var(--color-title-domain-w);
+  fill: var(--color-title-domaine-w);
 }
 
 .popup-header {

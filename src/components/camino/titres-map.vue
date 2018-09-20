@@ -131,7 +131,7 @@ export default {
       this.geojsonLayers = []
       this.titres.forEach(titre => {
         const icon = L.divIcon({
-          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domain-${titre.domaine.id} leaflet-marker-title cap`,
+          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domaine-${titre.domaine.id} leaflet-marker-title cap`,
           html: titre.domaine.id,
           iconSize: null,
           iconAnchor: [15.5, 38]
@@ -164,7 +164,8 @@ export default {
             filter: feature => feature.geometry.type === 'MultiPolygon',
             style: {
               fillOpacity: 0.75,
-              weight: 0,
+              weight: 1,
+              color: 'white',
               className: `svg-fill-domaine-${titre.domaine.id}`
             },
             onEachFeature: (feature, layer) => {

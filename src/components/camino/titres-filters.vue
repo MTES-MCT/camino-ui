@@ -69,7 +69,7 @@
                 @change="domaineToggle"
               >
               <pill
-                :color="`bg-title-domain-${domaine.id}`"
+                :color="`bg-title-domaine-${domaine.id}`"
                 class="mr-xs mono"
               >{{ domaine.id }}</pill>
               {{ domaine.nom }}
