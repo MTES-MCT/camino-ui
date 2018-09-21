@@ -39,15 +39,13 @@
 
 <script>
 import L from 'leaflet'
-import titreMapWarningBrgm from './titre-map-warning-brgm.vue'
-import Accordion from '../ui/accordion.vue'
+import TitreMapWarningBrgm from './titre-map-warning-brgm.vue'
 import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 
 export default {
   components: {
-    titreMapWarningBrgm,
-    Accordion,
+    TitreMapWarningBrgm,
     LeafletMap,
     LeafletTilesSelector
   },

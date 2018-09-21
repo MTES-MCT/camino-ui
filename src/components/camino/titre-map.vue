@@ -31,13 +31,13 @@
 
 <script>
 import L from 'leaflet'
-import titreMapWarningBrgm from './titre-map-warning-brgm.vue'
+import TitreMapWarningBrgm from './titre-map-warning-brgm.vue'
 import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 
 export default {
   components: {
-    titreMapWarningBrgm,
+    TitreMapWarningBrgm,
     LeafletMap,
     LeafletTilesSelector
   },

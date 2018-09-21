@@ -18,13 +18,8 @@
 </template>
 
 <script>
-import Card from '../ui/card.vue'
 
 export default {
-  components: {
-    Card
-  },
-
   computed: {
     documentsSelected () {
       return this.$store.state.titre.documents.length
