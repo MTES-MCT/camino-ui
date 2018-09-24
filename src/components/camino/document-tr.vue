@@ -25,13 +25,8 @@
 </template>
 
 <script>
-import Dot from '../ui/dot.vue'
 
 export default {
-  components: {
-    Dot
-  },
-
   props: {
     document: {
       type: Object,

@@ -61,13 +61,13 @@
 <script>
 import Dot from '../ui/dot.vue'
 import Accordion from '../ui/accordion.vue'
-import titreEtape from '../camino/etape.vue'
+import TitreEtape from '../camino/etape.vue'
 
 export default {
   components: {
     Dot,
     Accordion,
-    titreEtape
+    TitreEtape
   },
 
   props: {

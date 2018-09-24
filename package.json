@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.2.0",
-    "@types/node": "^10.10.1",
+    "@types/node": "^10.10.3",
     "@vue/cli-plugin-babel": "^3.0.3",
     "@vue/cli-plugin-eslint": "^3.0.3",
     "@vue/cli-service": "^3.0.3",
@@ -37,8 +37,8 @@
     "pleeease-filters": "^4.0.0",
     "postcss-button": "^0.3.16",
     "postcss-calc": "^6.0.1",
-    "postcss-color-mod-function": "^3.0.1",
-    "postcss-custom-media": "^7.0.3",
+    "postcss-color-mod-function": "^3.0.3",
+    "postcss-custom-media": "^7.0.4",
     "postcss-custom-properties": "^8.0.5",
     "postcss-custom-selectors": "^5.1.2",
     "postcss-font-family-system-ui": "^4.1.0",
@@ -62,7 +62,7 @@
     "unfetch": "^4.0.1",
     "vue": "^2.5.17",
     "vue-cookies": "^1.5.7",
-    "vue-meta": "^1.5.3",
+    "vue-meta": "^1.5.4",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.5.17",
     "vuex": "^3.0.1"
