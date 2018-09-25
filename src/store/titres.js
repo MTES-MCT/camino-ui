@@ -78,7 +78,7 @@ export const actions = {
       .forEach(f => commit('filterToggle', f))
     dispatch('get')
   },
-  async get({ state, commit }) {
+  async get({ state, dispatch, commit }) {
     const args = {
       typeIds: state.types && state.types.filter(e => e.checked).map(e => e.id),
       domaineIds:
@@ -97,16 +97,20 @@ export const actions = {
 
     const data = await titres(a)
 
-    commit('set', data.titres.map(t => titreFormat(t)))
+    if (data) {
+      commit('set', data.titres.map(t => titreFormat(t)))
 
-    if (!args.typeIds) {
-      commit('typesSet', data.metas.types.map(v => metaFormat(v)))
-    }
-    if (!args.domaineIds) {
-      commit('domainesSet', data.metas.domaines.map(v => metaFormat(v)))
-    }
-    if (!args.statutIds) {
-      commit('statutsSet', data.metas.statuts.map(v => metaFormat(v)))
+      if (!args.typeIds) {
+        commit('typesSet', data.metas.types.map(v => metaFormat(v)))
+      }
+      if (!args.domaineIds) {
+        commit('domainesSet', data.metas.domaines.map(v => metaFormat(v)))
+      }
+      if (!args.statutIds) {
+        commit('statutsSet', data.metas.statuts.map(v => metaFormat(v)))
+      }
+    } else {
+      dispatch('errorApi', null, { root: true })
     }
   }
 }

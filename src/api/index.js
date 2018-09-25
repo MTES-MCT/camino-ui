@@ -34,27 +34,35 @@ const graphqlClient = new ApolloClient({
 })
 
 const titres = async ({ typeIds, domaineIds, statutIds, substances, noms }) => {
-  const res = await graphqlClient.query({
-    query: queryTitres,
-    variables: {
-      typeIds,
-      domaineIds,
-      statutIds,
-      substances,
-      noms
-    }
-  })
+  try {
+    const res = await graphqlClient.query({
+      query: queryTitres,
+      variables: {
+        typeIds,
+        domaineIds,
+        statutIds,
+        substances,
+        noms
+      }
+    })
 
-  return res.data
+    return res && res.data
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 const titre = async id => {
-  const res = await graphqlClient.query({
-    query: queryTitre,
-    variables: { id }
-  })
+  try {
+    const res = await graphqlClient.query({
+      query: queryTitre,
+      variables: { id }
+    })
 
-  return res.data.titre
+    return res && res.data.titre
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 export { titres, titre }

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { titre } from '../api'
 import { titreFormat } from './_utils'
+import router from '../router'
 
 export const state = {
   current: null,
@@ -8,9 +9,17 @@ export const state = {
 }
 
 export const actions = {
-  async get({ commit }, { id }) {
+  async get({ commit, dispatch }, { id }) {
     const t = await titre(id)
-    commit('set', titreFormat(t))
+
+    console.log(t)
+    if (t) {
+      commit('set', titreFormat(t))
+    } else if (t === null) {
+      router.push({ name: 'error' })
+    } else {
+      dispatch('errorApi', null, { root: true })
+    }
   },
 
   documentSelect({ commit }, { documentId, selected }) {

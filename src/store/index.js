@@ -14,16 +14,31 @@ const modules = {
 }
 
 export const state = {
-  config: {}
+  config: {},
+  erreurs: []
 }
 
-export const actions = {}
+export const actions = {
+  errorApi({ commit }) {
+    commit(
+      'errorSet',
+      `Erreur: impossible de se connecter à l'API (${
+        process.env.VUE_APP_API_URL
+      })`
+    )
+  }
+}
 
-export const mutations = {}
+export const mutations = {
+  errorSet(state, message) {
+    state.erreurs.push(message)
+  }
+}
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  state,
   actions,
   mutations,
   modules

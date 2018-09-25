@@ -5,7 +5,12 @@
     </template>
 
     <ribbon value="beta" />
-    <router-view />
+
+    <error 
+      v-if="erreurs.length > 0" 
+      :messages="erreurs"
+    />
+    <router-view v-else />
     <component
       :is="popupComponent" 
       v-if="popupVisible"
@@ -20,7 +25,7 @@
 
 <script>
 import Page from './components/ui/page.vue'
-import Popup from './components/ui/popup.vue'
+import Error from './components/ui/error.vue'
 import Ribbon from './components/ui/ribbon.vue'
 import PageHeader from './components/page-header.vue'
 import PageFooter from './components/page-footer.vue'
@@ -31,7 +36,7 @@ export default {
 
   components: {
     Page,
-    Popup,
+    Error,
     Ribbon,
     PageHeader,
     PageFooter
@@ -42,6 +47,12 @@ export default {
       popupVisible: false,
       popupConfig: null,
       popupComponent: PopupAvertissement
+    }
+  },
+
+  computed: {
+    erreurs () {
+      return this.$store.state.erreurs
     }
   },
 

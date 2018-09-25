@@ -2,7 +2,6 @@
   
   <loader v-if="!loaded" />
   <card v-else>
-
     <div class="flex">
       <h2 class="mt-s">Titres miniers</h2>
       <ul class="list-inline flex-right">
