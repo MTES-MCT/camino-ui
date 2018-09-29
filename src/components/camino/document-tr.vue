@@ -1,10 +1,10 @@
 <template>
   <tr class="h5">
     <td>{{ document.nom }}</td>
-    <td class="flex">
+    <td class="flex text-right">
       <a 
         v-if="document.fichier" 
-        class="btn h5 px-xs py-xs my--xs mr-xs" 
+        class="btn rnd h5 px-xs py-xs my--xs ml-xs" 
         :href="document.fichier"
         target="_blank"
         alt="Fichier"
@@ -13,7 +13,7 @@
       </a>
       <a 
         v-if="document.url" 
-        class="btn h5 p-xs my--xs mr-xs" 
+        class="btn rnd h5 p-xs my--xs ml-xs" 
         :href="document.url"
         target="_blank"
         alt="Url"

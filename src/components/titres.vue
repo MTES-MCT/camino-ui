@@ -5,16 +5,23 @@
     <div class="flex">
       <h2 class="mt-s">Titres miniers</h2>
       <ul class="list-inline flex-right">
-        <li
-          v-for="component in viewComponents"
-          :key="component.name" 
-          :class="{ active: viewActive === component.name }"
+        <li 
+          class="mr-0" 
+          :class="{ active: viewActive === 'liste' }"
         >
           <button
-            class="btn-border px-m py-s"
-            @click="viewSet(component.name)"
+            class="btn-border pill-left px-m py-s"
+            @click="viewSet('liste')"
           >
-            <i :class="`icon-24 icon-24-${component.icon}`" />
+            <i class="icon-24 icon-24-list" />
+          </button>
+        </li>
+        <li :class="{ active: viewActive === 'carte' }">
+          <button
+            class="btn-border pill-right px-m py-s"
+            @click="viewSet('carte')"
+          >
+            <i class="icon-24 icon-24-globe" />
           </button>
         </li>
       </ul>

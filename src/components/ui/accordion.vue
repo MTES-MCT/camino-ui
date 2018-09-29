@@ -3,12 +3,15 @@
     <button
       v-if="$slots.default"
       :class="{ 'rnd-top': opened || sub }"
-      class="btn-border py-s px-m flex full-x"
+      class="btn-border rnd py-s px-m flex full-x"
       @click="opened = !opened"
     >
       <h4 class="mb-0"><slot name="title" /></h4>
       <div class="flex-right">
-        <i class="icon-24 icon-24-chevron-b" />
+        <i 
+          class="icon-24"
+          :class="{ 'icon-24-chevron-b': !opened, 'icon-24-chevron-t': opened }"
+        />
       </div>
     </button>
     <div 

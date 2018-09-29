@@ -1,14 +1,11 @@
 import './css/styles.css'
 import Vue from 'vue'
 import App from './app.vue'
-import VueCookies from 'vue-cookies'
 
 import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
-
-Vue.use(VueCookies)
 
 Vue.filter('dateFormat', date => {
   const d = new Date(Number(date))

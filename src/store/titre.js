@@ -12,13 +12,12 @@ export const actions = {
   async get({ commit, dispatch }, { id }) {
     const t = await titre(id)
 
-    console.log(t)
     if (t) {
       commit('set', titreFormat(t))
     } else if (t === null) {
       router.push({ name: 'error' })
     } else {
-      dispatch('errorApi', null, { root: true })
+      dispatch('apiError', null, { root: true })
     }
   },
 

@@ -8,10 +8,7 @@ export const state = {
 
 export const actions = {}
 
-export const getters = {
-  tilesActive: (state, getters, rootState) =>
-    state.tiles.find(t => t.name === rootState.user.preferences.map.tilesName)
-}
+export const getters = {}
 
 export const mutations = {}
 

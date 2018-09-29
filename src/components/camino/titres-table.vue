@@ -35,8 +35,13 @@
               {{ titulaire.nom }}
             </div>
           </td>
-          <td>{{ titre.type.nom }}</td>
-          <td><dot :color="`bg-${titre.statut.couleur}`" />{{ titre.statut.nom }}</td>
+          <td>
+            <span class="cap-first">{{ titre.type.nom }}</span>
+          </td>
+          <td>
+            <dot :color="`bg-${titre.statut.couleur}`" />
+            <span class="cap-first">{{ titre.statut.nom }}</span>
+          </td>
           <td>
             <pill-list
               v-if="titre.substancesPrincipales"
@@ -62,24 +67,25 @@
           :range-active="pagesRangeActive"
           @page-range-change="pageRangeChange"
         />
-          
-        <accordion class="mb hide">
-          <template slot="title">Affichage</template>
-          <ul class="list-sans">
-            <li
-              v-for="colonne in colonnes"
-              :key="colonne.type"
-            >
-              <label>
-                <input
-                  type="checkbox"
-                  class="mr-s"
-                >
-                {{ colonne.name }}
-              </label>
-            </li>
-          </ul>
-        </accordion>
+        <div class="hide">
+          <accordion class="mb">
+            <template slot="title">Affichage</template>
+            <ul class="list-sans">
+              <li
+                v-for="colonne in colonnes"
+                :key="colonne.type"
+              >
+                <label>
+                  <input
+                    type="checkbox"
+                    class="mr-s"
+                  >
+                  {{ colonne.name }}
+                </label>
+              </li>
+            </ul>
+          </accordion>
+        </div>
       </div>
     </div>
   </div>

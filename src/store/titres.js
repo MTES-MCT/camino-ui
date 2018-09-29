@@ -4,64 +4,9 @@ import { titreFormat, metaFormat } from './_utils'
 
 export const state = {
   liste: null,
-  domaines:
-    // null,
-    [
-      {
-        checked: true,
-        id: 'h',
-        nom: 'hydrocarbures liquides ou gazeux'
-      }
-    ],
-  types:
-    // null,
-    [
-      { checked: true, id: 'cxx', nom: 'concession' },
-      {
-        checked: true,
-        id: 'prh',
-        nom: 'permis exclusif de recherches'
-      },
-      {
-        checked: true,
-        id: 'pxh',
-        nom: "permis d'exploitation"
-      }
-    ],
-  statuts:
-    // null,
-    [
-      {
-        checked: true,
-        id: 'dmc',
-        nom: 'demande classée',
-        couleur: 'neutral'
-      },
-      {
-        checked: true,
-        id: 'dmi',
-        nom: 'demande initiale',
-        couleur: 'warning'
-      },
-      {
-        checked: true,
-        id: 'ind',
-        nom: 'indéterminé',
-        couleur: 'warning'
-      },
-      {
-        checked: true,
-        id: 'mod',
-        nom: 'modification en instance',
-        couleur: 'warning'
-      },
-      {
-        checked: true,
-        id: 'val',
-        nom: 'valide',
-        couleur: 'success'
-      }
-    ],
+  domaines: null,
+  types: null,
+  statuts: null,
   substances: null,
   noms: null
 }
@@ -110,7 +55,7 @@ export const actions = {
         commit('statutsSet', data.metas.statuts.map(v => metaFormat(v)))
       }
     } else {
-      dispatch('errorApi', null, { root: true })
+      dispatch('apiError', null, { root: true })
     }
   }
 }

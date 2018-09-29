@@ -63,7 +63,7 @@
   margin-right: calc(var(--unit) * -1);
 }
 
-.menu ul {
+.header-menu {
   padding: 0;
   list-style: none;
   margin-bottom: 0;
@@ -73,6 +73,10 @@
     margin-right: var(--unit-xs);
     float: left;
   }
+}
+
+.header-login {
+  margin-left: auto;
 }
 
 .bg-title-domaine-c {
@@ -213,9 +217,13 @@
     gf: blob 1/2 0;
   }
 
+  .blobs-header {
+    flex-direction: row-reverse;
+  }
+
   .camino-header-baseline {
-    padding-left: 5.5rem;
-    margin-top: -1rem;
+    padding-left: 8.75rem;
+    margin-top: -1.25rem;
   }
 }
 
@@ -229,11 +237,6 @@
     bottom: auto;
     z-index: 2;
     border-radius: var(--unit-xs);
-  }
-
-  .camino-header-baseline {
-    padding-left: 8.75rem;
-    margin-top: -1.25rem;
   }
 }
 

@@ -4,34 +4,61 @@ import Vuex from 'vuex'
 import titre from './titre'
 import titres from './titres'
 import map from './map'
-import user from './user'
+import utilisateur from './utilisateur'
 
 const modules = {
   titre,
   titres,
   map,
-  user
+  utilisateur
 }
 
 export const state = {
   config: {},
-  erreurs: []
+  messages: [],
+  popup: {
+    component: null,
+    closeBtn: false
+  },
+  apiError: undefined
 }
 
 export const actions = {
-  errorApi({ commit }) {
-    commit(
-      'errorSet',
-      `Erreur: impossible de se connecter à l'API (${
+  apiError({ commit }) {
+    commit('messageAdd', {
+      type: 'error',
+      value: `Erreur: impossible de se connecter à l'API (${
         process.env.VUE_APP_API_URL
       })`
-    )
+    })
+    commit('apiError', true)
+  },
+
+  messageAdd({ commit }, message) {
+    const id = new Date().valueOf()
+    message.id = id
+    commit('messageAdd', message)
+    setTimeout(() => {
+      commit('messageRemove', id)
+    }, 3000)
   }
 }
 
 export const mutations = {
-  errorSet(state, message) {
-    state.erreurs.push(message)
+  messageAdd(state, message) {
+    state.messages.push(message)
+  },
+  messageRemove(state, id) {
+    Vue.delete(state.messages, state.messages.findIndex(m => m.id === id))
+  },
+  popupOpen(state, { component, closeBtn }) {
+    state.popup = { component, closeBtn }
+  },
+  popupClose(state) {
+    state.popup = { component: null, closeBtn: false }
+  },
+  apiError(state, status) {
+    state.apiError = status
   }
 }
 

@@ -30,13 +30,6 @@
   button-class: active disabled true;
 }
 
-.btn-brand {
-  button-color: var(--color-bg) var(--color-bg) var(--color-bg);
-  button-background: var(--color-highlight) var(--color-neutral)
-    var(--color-highlight);
-  button-class: active disabled true;
-}
-
 .btn-menu {
   button-color: var(--color-text) var(--color-text) var(--color-text);
   button-background: var(--color-transparent) var(--color-transparent)
@@ -48,17 +41,9 @@
 .btn-alt,
 .btn-border,
 .btn-menu,
-.btn-transparent,
-.btn-brand {
+.btn-transparent {
   transition: var(--transition);
   font-weight: 700;
-}
-
-.btn,
-.btn-alt,
-.btn-border,
-.btn-transparent {
-  border-radius: var(--unit-xs);
 }
 
 .btn-icon {

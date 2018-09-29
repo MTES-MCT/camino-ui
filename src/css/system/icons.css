@@ -40,8 +40,7 @@
     stroke= '#666',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=1px
+    stroke-width=1.25px
   );
 }
 
@@ -52,8 +51,7 @@
     stroke= 'white',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=1px
+    stroke-width=1.25px
   );
 }
 
@@ -64,8 +62,7 @@
     stroke= '#666',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=1px
+    stroke-width=1.25px
   );
 }
 
@@ -78,8 +75,7 @@
     stroke= 'white',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=1px
+    stroke-width=1.25px
   );
 }
 
@@ -91,7 +87,6 @@
     stroke= 'white',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
     stroke-width=1px
   );
 }
@@ -103,7 +98,6 @@
     stroke= 'white',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
     stroke-width=1px
   );
 }
@@ -115,8 +109,7 @@
     stroke= '#666',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=2px
+    stroke-width=1.25px
   );
 }
 
@@ -128,8 +121,30 @@
     stroke= 'white',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=2px
+    stroke-width=1.25px
+  );
+}
+
+.icon-24-chevron-t {
+  background-image: svg-load(
+    './icons/24-chevron-t.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn-border:hover .icon-24-chevron-t,
+.btn:hover .icon-24-chevron-t {
+  background-image: svg-load(
+    './icons/24-chevron-t.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
   );
 }
 
@@ -140,8 +155,7 @@
     stroke= '#666',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=2px
+    stroke-width=1.25px
   );
 }
 
@@ -152,8 +166,7 @@
     stroke= '#666',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=2px
+    stroke-width=1.25px
   );
 }
 
@@ -164,8 +177,62 @@
     stroke= '#666',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=2px
+    stroke-width=1.25px
+  );
+}
+
+.btn:hover .icon-24-link {
+  background-image: svg-load(
+    './icons/24-link.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.icon-24-login {
+  background-image: svg-load(
+    './icons/24-login.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn-alt:hover .icon-24-login {
+  background-image: svg-load(
+    './icons/24-login.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.icon-24-user {
+  background-image: svg-load(
+    './icons/24-user.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn-alt:hover .icon-24-user {
+  background-image: svg-load(
+    './icons/24-user.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
   );
 }
 
@@ -186,8 +253,7 @@
     stroke= '#666',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=1px
+    stroke-width=1.25px
   );
 }
 
@@ -199,8 +265,7 @@
     stroke= 'white',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=1px
+    stroke-width=1.25px
   );
 }
 
@@ -211,8 +276,7 @@
     stroke= '#666',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=1px
+    stroke-width=1.25px
   );
 }
 
@@ -224,8 +288,7 @@
     stroke= 'white',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=1px
+    stroke-width=1.25px
   );
 }
 
@@ -236,7 +299,6 @@
     stroke= '#76b6bd',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
     stroke-width=1px
   );
 }
@@ -248,7 +310,6 @@
     stroke= '#76b6bd',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
     stroke-width=1px
   );
 }
@@ -260,7 +321,6 @@
     stroke= '#76b6bd',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
     stroke-width=1px
   );
 }
@@ -272,7 +332,6 @@
     stroke= '#76b6bd',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
     stroke-width=1px
   );
 }
@@ -284,7 +343,6 @@
     stroke= '#76b6bd',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
     stroke-width=1px
   );
 }
@@ -296,7 +354,6 @@
     stroke= '#76b6bd',
     stroke-linecap=round,
     stroke-linejoin=round,
-    stroke-miterlimit=10,
     stroke-width=1px
   );
 }

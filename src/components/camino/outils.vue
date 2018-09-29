@@ -3,15 +3,15 @@
     <ul class="list-inline mb-0">
       <li>
         <button 
-          class="btn-alt p-s" 
+          class="btn-alt rnd py-s px-m" 
           @click="emailSend"
         >Signaler une erreur</button>
       </li>
       <li>
-        <button class="btn-alt p-s hide">Télécharger ({{ total }})</button>
+        <button class="btn-alt rnd p-s hide">Télécharger ({{ total }})</button>
       </li>
       <li>
-        <button class="btn-alt p-s hide">Imprimer</button>
+        <button class="btn-alt rnd p-s hide">Imprimer</button>
       </li>
     </ul>
   </div>

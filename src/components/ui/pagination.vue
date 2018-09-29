@@ -3,25 +3,25 @@
     v-if="pagesTotal > 1" 
     class="list-inline"
   >
-    <li class="mb-0">
+    <li class="mb-0 mr-xs">
       <button
         :disabled="pageActive === 1"
-        class="btn-border px-m py-s"
+        class="btn-border rnd px-m py-s"
         @click="pageChange(1)"
       >«
       </button>
     </li>
-    <li class="mb-0">
+    <li class="mb-0 mr-xs">
       <button
         :disabled="pageActive === 1"
-        class="btn-border px-m py-s"
+        class="btn-border rnd px-m py-s"
         @click="pageChange(pageActive - 1)"
       >‹
       </button>
     </li>
     <li 
       v-if="pageActive > delta + 1" 
-      class="mb-0"
+      class="mb-0 mr-xs"
     >
       <div class="px-m py-s">…</div>
     </li>
@@ -29,31 +29,31 @@
       v-for="page in pages"
       :key="page"
       :class="{ active: pageActive === page }"
-      class="mb-0"
+      class="mb-0 mr-xs"
     >
       <button
-        class="btn-border px-m py-s"
+        class="btn-border rnd px-m py-s"
         @click="pageChange(page)"
       >{{ page }}
       </button>
     </li>
     <li 
       v-if="pageActive < pagesTotal - delta" 
-      class="mb-0"
+      class="mb-0 mr-xs"
     ><div class="px-m py-s">…</div>
     </li>
-    <li class="mb-0">
+    <li class="mb-0 mr-xs">
       <button
         :disabled="pageActive === pagesTotal"
-        class="btn-border px-m py-s"
+        class="btn-border rnd px-m py-s"
         @click="pageChange(pageActive + 1)"
       >› 
       </button>
     </li>
-    <li class="mb-0">
+    <li class="mb-0 mr-xs">
       <button
         :disabled="pageActive === pagesTotal"
-        class="btn-border px-m py-s"
+        class="btn-border rnd px-m py-s"
         @click="pageChange(pagesTotal)"
       >»
       </button>

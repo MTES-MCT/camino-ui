@@ -14,7 +14,7 @@
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <button
-          class="btn-border px-m py-s"
+          class="btn-border pill px-m py-s"
           @click="$refs.map.fit()"
         >Centrer</button>
       </div>
@@ -63,7 +63,7 @@ export default {
     },
 
     tilesLayer () {
-      const tiles = this.$store.getters['map/tilesActive']
+      const tiles = this.$store.getters['utilisateur/tilesActive']
       return tiles.type === 'wms'
         ?
         L.tileLayer.wms(tiles.url, {
@@ -80,7 +80,7 @@ export default {
     },
 
     tilesName () {
-      return this.$store.state.user.preferences.map.tilesName
+      return this.$store.state.utilisateur.preferences.map.tilesName
     },
 
     brgmWarning () {
@@ -90,7 +90,7 @@ export default {
 
   methods: {
     tilesNameSelect (tuileNom) {
-      this.$store.commit('user/preferencesMapTilesNameSelect', tuileNom)
+      this.$store.commit('utilisateur/preferencesMapTilesNameSelect', tuileNom)
     },
 
     zoomLevelGet (zoomLevel) {

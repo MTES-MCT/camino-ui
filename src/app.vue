@@ -6,17 +6,17 @@
 
     <ribbon value="beta" />
 
-    <error 
-      v-if="erreurs.length > 0" 
-      :messages="erreurs"
+    <messages 
+      v-if="messages.length > 0" 
+      :messages="messages"
     />
-    <router-view v-else />
+    <router-view v-if="!apiError" />
     <component
-      :is="popupComponent" 
-      v-if="popupVisible"
-      @popup-close="popupClose"
+      :is="popup.component"
+      v-if="popup.component"
+      :close-btn="popup.closeBtn"
     />
-    
+
     <template slot="footer">
       <page-footer />
     </template>
@@ -25,7 +25,7 @@
 
 <script>
 import Page from './components/ui/page.vue'
-import Error from './components/ui/error.vue'
+import Messages from './components/ui/messages.vue'
 import Ribbon from './components/ui/ribbon.vue'
 import PageHeader from './components/page-header.vue'
 import PageFooter from './components/page-footer.vue'
@@ -36,42 +36,38 @@ export default {
 
   components: {
     Page,
-    Error,
+    Messages,
     Ribbon,
     PageHeader,
     PageFooter
   },
 
-  data () {
-    return {
-      popupVisible: false,
-      popupConfig: null,
-      popupComponent: PopupAvertissement
-    }
-  },
-
   computed: {
-    erreurs () {
-      return this.$store.state.erreurs
+    apiError () {
+      return this.$store.state.apiError
+    },
+    messages () {
+      return this.$store.state.messages
+    },
+    popup () {
+      return this.$store.state.popup
     }
   },
 
   mounted () {
-    if (this.$cookies.get('camino')) {
-      console.log('cookie: ', this.$cookies.get('camino'))
-    } else {
+    const date = new Date().getTime()
+    const threedays = 1000 * 60 * 60
+    if (!localStorage.getItem('conditions') || Number(localStorage.getItem('conditions')) + threedays < date) {
       this.popupOpen()
     }
-    localStorage.setItem('token',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFkbWluIiwicm9sZSI6ImFkbWluIn0.Lz4SVrc7UJWCwTQ3gCnYQ98-_QFg7kG4LZsR4tyJecU')
+    if (localStorage.getItem('token')) {
+      this.$store.dispatch('utilisateur/identifier')
+    }
   },
 
   methods: {
     popupOpen () {
-      this.popupVisible = true
-    },
-    popupClose () {
-      this.popupVisible = false
+      this.$store.commit('popupOpen', { component: PopupAvertissement, closeBtn: false })
     }
   }
 }

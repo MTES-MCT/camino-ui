@@ -45,9 +45,16 @@ const titre = gql`
         }
         etapes {
           id
+          ordre
           date
           duree
-          dateFin
+          surface
+          volume
+          volumeUnite
+          visas
+          engagement
+          engagementDevise
+          sourceIndisponible
           type {
             id
             nom
@@ -61,14 +68,14 @@ const titre = gql`
             id
             nom
           }
+          administrations {
+            ...administration
+          }
           titulaires {
             ...entreprise
           }
           amodiataires {
             ...entreprise
-          }
-          utilisateurs {
-            ...utilisateur
           }
           geojsonPoints {
             ...geojsonPoints
@@ -87,29 +94,62 @@ const titre = gql`
     }
   }
 
-  fragment utilisateur on Utilisateur {
-    id
-    nom
-    prenom
-    email
-    telephoneMobile
-    telephoneFixe
-    administrationId
-    entrepriseId
-  }
-
-  fragment entreprise on Entreprise {
+  fragment administration on Administration {
     id
     nom
     service
-    site
-    email
-    telephone
     adresse1
     adresse2
     codePostal
     ville
     cedex
+    url
+    telephone
+    email
+    utilisateurs {
+      ...utilisateur
+    }
+  }
+
+  fragment entreprise on Entreprise {
+    id
+    nom
+    raisonSociale
+    paysId
+    legalSiren
+    legalEtranger
+    legalForme
+    voieNumero
+    voieType
+    voieNom
+    adresseComplement
+    codePostal
+    ville
+    cedex
+    url
+    telephone
+    email
+    utilisateurs {
+      ...utilisateur
+    }
+  }
+
+  fragment utilisateur on Utilisateur {
+    id
+    email
+    nom
+    prenom
+    telephoneMobile
+    telephoneFixe
+    entrepriseId
+    groupes {
+      ...groupe
+    }
+  }
+
+  fragment groupe on Groupe {
+    id
+    nom
   }
 
   fragment geojsonMultiPolygon on GeojsonMultiPolygon {

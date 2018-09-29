@@ -44,7 +44,6 @@ li {
 
   & > li {
     margin-bottom: var(--unit-xs);
-    margin-right: var(--unit-xs);
   }
 
   & > li:not(.right) {

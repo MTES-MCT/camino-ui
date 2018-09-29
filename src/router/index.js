@@ -5,7 +5,7 @@ import NProgress from 'nprogress'
 import Titre from '../components/titre.vue'
 // import TitleDetails from '../components/TitleDetails.vue'
 import Titres from '../components/titres.vue'
-import Error from '../components/ui/error.vue'
+import Error from '../components/error.vue'
 import About from '../components/camino-content/about.vue'
 import Accessibilite from '../components/camino-content/accessibilite.vue'
 import Contribution from '../components/camino-content/contribution.vue'
@@ -64,15 +64,10 @@ const routes = [
     redirect: 'titres'
   },
   {
-    path: '/erreur',
+    path: '/messages',
     alias: '*',
     name: 'error',
-    component: Error,
-    // Allows props to be passed to the 404 page through route
-    // params, such as `resource` to define what wasn't found.
-    props: {
-      messages: ['Erreur: page introuvable']
-    }
+    component: Error
   }
 ]
 

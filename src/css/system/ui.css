@@ -7,6 +7,14 @@
   border-radius: var(--unit-infinity);
 }
 
+.pill-left {
+  border-radius: var(--unit-infinity) 0 0 var(--unit-infinity);
+}
+
+.pill-right {
+  border-radius: 0 var(--unit-infinity) var(--unit-infinity) 0;
+}
+
 .rnd {
   border-radius: var(--unit-xs);
 }

@@ -9,11 +9,11 @@
         <h2 class="mb-0"><slot name="header" /></h2>
         <button
           v-if="closeBtn"
-          class="btn flex-right px-s py-xs mt--s"
+          class="btn rnd flex-right p-s mt--s"
           @click="closeDefault"
         ><i class="icon-24 icon-24-close" /></button>
       </div>
-      <div class="popup-content p-l">
+      <div class="popup-content px-l pt-l">
         <slot />
       </div>
       <div class="popup-footer px-l py-m">
@@ -27,10 +27,9 @@
 export default {
   name: 'UiSystemPopup',
 
-  props: {
-    closeBtn: {
-      type: Boolean,
-      default: false
+  computed: {
+    closeBtn () {
+      return this.$store.state.popup.closeBtn
     }
   },
 
@@ -49,6 +48,7 @@ export default {
   methods: {
     close () {
       this.$emit('popup-close')
+      this.$store.commit('popupClose')
     },
     closeDefault () {
       if (this.closeBtn) {

@@ -15,9 +15,9 @@
 
     <template slot="footer">
       <button
-        class="btn p-s full-x"
-        @click="cookieSet"
-        @keyup.enter="cookieSet"
+        class="btn rnd p-s full-x"
+        @click="set"
+        @keyup.enter="set"
       >Je comprends</button>
     </template>
   </popup>
@@ -35,9 +35,9 @@ export default {
   },
 
   methods: {
-    cookieSet () {
-      this.$cookies.set('camino', 'session', 0)
-      this.$emit('popup-close')
+    set () {
+      localStorage.setItem('conditions', new Date().getTime())
+      this.$store.commit('popupClose')
     }
   }
 }

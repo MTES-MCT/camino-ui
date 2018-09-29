@@ -3,6 +3,7 @@
     <li
       v-for="element in elements"
       :key="element"
+      class="mr-xs"
     ><pill :color="element.color">{{ element }}</pill>
     </li>
   </ul>

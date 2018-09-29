@@ -37,7 +37,15 @@ th {
   overflow-wrap: break-word;
   padding-bottom: var(--unit-s);
   padding-top: calc(var(--unit-s) - var(--unit-line));
+}
+
+td:not(:first-child) ,
+th:not(:first-child) {
   padding-left: var(--unit-s);
+}
+
+td:not(:last-child) ,
+th:not(:last-child) {
   padding-right: var(--unit-s);
 }
 
@@ -51,8 +59,6 @@ th {
 .table-xxs th {
   padding-top: var(--unit-xxs);
   padding-bottom: calc(var(--unit-xxs) - var(--unit-line));
-  padding-left: 0;
-  padding-right: 0;
 }
 
 .table-fixed {
