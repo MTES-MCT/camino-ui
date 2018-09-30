@@ -44,7 +44,7 @@
   );
 }
 
-.btn-border:hover .icon-24-close {
+.btn-alt:hover .icon-24-close {
   background-image: svg-load(
     './icons/24-close.svg',
     fill=none,
@@ -114,7 +114,8 @@
 }
 
 .btn-border:hover .icon-24-chevron-b,
-.btn:hover .icon-24-chevron-b {
+.btn:hover .icon-24-chevron-b,
+.btn-alt:hover .icon-24-chevron-b {
   background-image: svg-load(
     './icons/24-chevron-b.svg',
     fill=none,
@@ -137,7 +138,8 @@
 }
 
 .btn-border:hover .icon-24-chevron-t,
-.btn:hover .icon-24-chevron-t {
+.btn:hover .icon-24-chevron-t,
+.btn-alt:hover .icon-24-chevron-t {
   background-image: svg-load(
     './icons/24-chevron-t.svg',
     fill=none,
@@ -181,7 +183,7 @@
   );
 }
 
-.btn:hover .icon-24-link {
+.btn-alt:hover .icon-24-link {
   background-image: svg-load(
     './icons/24-link.svg',
     fill=none,
@@ -228,6 +230,28 @@
 .btn-alt:hover .icon-24-user {
   background-image: svg-load(
     './icons/24-user.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.icon-24-edit {
+  background-image: svg-load(
+    './icons/24-pencil.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn-alt:hover .icon-24-edit {
+  background-image: svg-load(
+    './icons/24-pencil.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,

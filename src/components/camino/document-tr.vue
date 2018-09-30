@@ -13,7 +13,7 @@
       </a>
       <a 
         v-if="document.url" 
-        class="btn rnd h5 p-xs my--xs ml-xs" 
+        class="btn-alt rnd h5 p-xs my--xs ml-xs" 
         :href="document.url"
         target="_blank"
         alt="Url"

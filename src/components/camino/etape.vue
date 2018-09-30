@@ -3,7 +3,25 @@
     class="mb" 
     :sub="true"
   >
-    <template slot="title"><dot :color="`bg-${etape.statut.couleur}`" /><span class="cap-first">{{ etape.type.nom }}</span></template>
+    <template slot="title">
+      <dot :color="`bg-${etape.statut.couleur}`" />
+      <span class="cap-first">{{ etape.type.nom }}</span>
+    </template>
+
+    <template 
+      v-if="utilisateur.id" 
+      slot="buttons"
+    >
+      <button
+        class="btn-alt py-s px-m border-t"
+        @click="editPopupOpen"
+      >
+        <i 
+          class="icon-24 icon-24-edit"
+        />
+      </button>
+    </template>
+
     <template slot="sub">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-4">
@@ -63,6 +81,7 @@
         </div>
       </div>
     </template>
+    
     <documents 
       v-if="etape.documents.length > 0"
       :documents="etape.documents"
@@ -73,8 +92,9 @@
 <script>
 import Dot from '../ui/dot.vue'
 import Accordion from '../ui/accordion.vue'
-import Documents from '../camino/documents.vue'
 import PillList from '../ui/pill-list.vue'
+import Documents from '../camino/documents.vue'
+import EtapeEditPopup from './etape-edit-popup.vue'
 
 export default {
   name: 'CaminoTitreEtape',
@@ -90,6 +110,22 @@ export default {
       type: Object,
       default: () => { }
     }
+  },
+
+  computed: {
+    utilisateur () {
+      return this.$store.state.utilisateur
+    }
+  },
+
+  methods: {
+    editPopupOpen () {
+      this.$store.dispatch('titre/etapeEdit', { etape: this.etape })
+      this.$store.commit('popupOpen', { component: EtapeEditPopup, closeBtn: true })
+    },
+    editPopupClose () {
+      this.$store.commit('popupClose')
+    },
   }
 }
 </script>

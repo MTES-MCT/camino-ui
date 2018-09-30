@@ -19,14 +19,35 @@
   border-radius: var(--unit-xs);
 }
 
-.rnd-top {
+.rnd-t {
   border-radius: var(--unit-xs) var(--unit-xs) 0 0;
 }
 
-.border-bottom {
-  border-bottom: var(--unit-line) dotted;
+.rnd-t-r {
+  border-radius: 0 var(--unit-xs) 0 0;
+}
+
+.border-b {
+  border-bottom: var(--unit-line) solid;
   margin-bottom: calc(var(--unit) - var(--unit-line));
-  border-color: var(--border-color);
+  border-color: var(--color-alt);
+}
+
+.border-t {
+  border-top: var(--unit-line) solid;
+  border-color: var(--color-alt);
+}
+
+.border-b-s {
+  border-bottom: var(--unit-line) solid;
+  margin-bottom: calc(-1 * var(--unit-line));
+  border-color: var(--color-alt);
+}
+
+.border-t-r {
+  border-top: var(--unit-line) solid;
+  border-right: var(--unit-line) solid;
+  border-color: var(--color-alt);
 }
 
 .border {

@@ -31,7 +31,7 @@ export const actions = {
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
-        { value: 'Connexion réussie', type: 'success' },
+        { value: `Bienvenue ${id}`, type: 'success' },
         { root: true }
       )
     } catch (e) {

@@ -6,12 +6,14 @@
     />
     <div class="popup fixed shadow full bg-bg">
       <div class="popup-header flex flex-start p-l">
-        <h2 class="mb-0"><slot name="header" /></h2>
+        <h2 class="mb-0 cap-first"><slot name="header" /></h2>
         <button
           v-if="closeBtn"
-          class="btn rnd flex-right p-s mt--s"
+          class="btn-alt rnd flex-right p-s mt--s"
           @click="closeDefault"
-        ><i class="icon-24 icon-24-close" /></button>
+        >
+          <i class="icon-24 icon-24-close" />
+        </button>
       </div>
       <div class="popup-content px-l pt-l">
         <slot />

@@ -3,29 +3,21 @@
     @popup-close="errorsRemove"
   >
     <template slot="header">
-      Connexion
+      {{ etape.type.nom }}
     </template>
 
-    <div class="tablet-blobs mb">
+    <h4>{{ titre.nom }}</h4>
+    <div 
+      v-if="etape.date" 
+      class="tablet-blobs mb"
+    >
       <div class="tablet-blob-1-3 py-s">
-        Id
+        Date
       </div>
       <div class="tablet-blob-2-3">
         <input 
-          v-model="id"
+          v-model="etape.date"
           type="text" 
-          class="p-s"
-        >
-      </div>
-    </div>
-    <div class="tablet-blobs mb">
-      <div class="tablet-blob-1-3 py-s">
-        Mot de passe
-      </div>
-      <div class="tablet-blob-2-3">
-        <input 
-          v-model="motDePasse"
-          type="password" 
           class="p-s"
         >
       </div>
@@ -38,18 +30,19 @@
         class="btn rnd p-s full-x"
         @click="login"
         @keyup.enter="login"
-      >M'identifier</button>
+      >Enregistrer</button>
     </template>
   </popup>
 </template>
 
 <script>
-import Popup from './popup.vue'
-import Messages from './messages.vue'
+import Popup from '../ui/popup.vue'
+import Messages from '../ui/messages.vue'
+import { dateFormat } from '../../utils'
 
 
 export default {
-  name: 'UiPopupLogin',
+  name: 'CaminoEtapeEditPopup',
 
   components: {
     Popup,
@@ -66,16 +59,26 @@ export default {
   computed: {
     messages () {
       return this.$store.state.utilisateur.loginMessages
+    },
+    titre () {
+      return this.$store.state.titre.current
+    },
+    etape () {
+      return this.$store.state.titre.etapeEdit
     }
   },
 
   methods: {
     login () {
-      this.$store.dispatch('utilisateur/connecter', { id: this.id, motDePasse: this.motDePasse })
+      // this.$store.dispatch('utilisateur/connecter', { id: this.id, motDePasse: this.motDePasse })
     },
 
     errorsRemove () {
-      this.$store.commit('utilisateur/loginMessagesRemove')
+      // this.$store.commit('utilisateur/loginMessagesRemove')
+    },
+
+    dateFormat (date) {
+      return dateFormat(date)
     }
   }
 }

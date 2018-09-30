@@ -5,7 +5,8 @@ import router from '../router'
 
 export const state = {
   current: null,
-  documents: []
+  documents: [],
+  etapeEdit: null
 }
 
 export const actions = {
@@ -27,6 +28,10 @@ export const actions = {
     } else {
       commit('documentSelectionRemove', documentId)
     }
+  },
+
+  etapeEdit({ commit }, { etape }) {
+    commit('etapeEdit', etape)
   }
 }
 
@@ -64,6 +69,10 @@ export const mutations = {
   documentSelectionRemove(state, documentId) {
     const index = state.documents.findIndex(id => id === documentId)
     Vue.delete(state.documents, index)
+  },
+
+  etapeEdit(state, etape) {
+    Vue.set(state, 'etapeEdit', etape)
   }
 }
 

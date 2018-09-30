@@ -5,15 +5,11 @@ import App from './app.vue'
 import router from './router'
 import store from './store'
 
+import { dateFormat } from './utils'
+
 Vue.config.productionTip = false
 
-Vue.filter('dateFormat', date => {
-  const d = new Date(Number(date))
-  var dd = d.getDate()
-  var mm = d.getMonth() + 1
-  var yyyy = d.getFullYear()
-  return `${dd} . ${mm} . ${yyyy}`
-})
+Vue.filter('dateFormat', dateFormat)
 
 new Vue({
   router,

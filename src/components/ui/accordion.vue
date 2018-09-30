@@ -1,8 +1,29 @@
 <template>
   <div class="border rnd flex flex-direction-column">
+    <div 
+      v-if="$slots.default && $slots.buttons" 
+      class="flex full-x border-b-s"
+      :class="{ 'rnd-t': opened || sub }"
+    >
+     
+      <h4 class="mb-0 py-s px-m"><slot name="title" /></h4>
+      <div class="flex-right">
+        <slot name="buttons" />
+        <button
+          class="btn-alt py-s px-m rnd-t-r border-t-r"
+          @click="opened = !opened"
+        >
+          <i 
+            class="icon-24"
+            :class="{ 'icon-24-chevron-b': !opened, 'icon-24-chevron-t': opened }"
+          />
+        </button>
+      </div>
+    </div>
+
     <button
-      v-if="$slots.default"
-      :class="{ 'rnd-top': opened || sub }"
+      v-else-if="$slots.default && !$slots.buttons"
+      :class="{ 'rnd-t': opened || sub }"
       class="btn-border rnd py-s px-m flex full-x"
       @click="opened = !opened"
     >

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import PopupLogin from './popup-login.vue'
+import LoginPopup from './login-popup.vue'
 
 export default {
   data () {
@@ -37,7 +37,7 @@ export default {
 
   methods: {
     popupOpen () {
-      this.$store.commit('popupOpen', { component: PopupLogin, closeBtn: true })
+      this.$store.commit('popupOpen', { component: LoginPopup, closeBtn: true })
     },
     popupClose () {
       this.$store.commit('popupClose')
