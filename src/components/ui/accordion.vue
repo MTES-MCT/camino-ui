@@ -1,7 +1,7 @@
 <template>
   <div class="border rnd flex flex-direction-column">
     <div 
-      v-if="$slots.default && $slots.buttons" 
+      v-if="$slots.buttons" 
       class="flex full-x border-b-s"
       :class="{ 'rnd-t': opened || sub }"
     >
@@ -9,7 +9,8 @@
       <h4 class="mb-0 py-s px-m"><slot name="title" /></h4>
       <div class="flex-right">
         <slot name="buttons" />
-        <button
+        <button 
+          v-if="$slots.default"
           class="btn-alt py-s px-m rnd-t-r border-t-r"
           @click="opened = !opened"
         >
