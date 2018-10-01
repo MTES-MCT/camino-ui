@@ -28,26 +28,22 @@
 }
 
 .border-b {
-  border-bottom: var(--unit-line) solid;
+  border-bottom: var(--unit-line) solid var(--color-alt);
   margin-bottom: calc(var(--unit) - var(--unit-line));
-  border-color: var(--color-alt);
 }
 
 .border-t {
-  border-top: var(--unit-line) solid;
-  border-color: var(--color-alt);
+  border-top: var(--unit-line) solid var(--color-alt);
 }
 
 .border-b-s {
-  border-bottom: var(--unit-line) solid;
+  border-bottom: var(--unit-line) solid var(--color-alt);
   margin-bottom: calc(-1 * var(--unit-line));
-  border-color: var(--color-alt);
 }
 
 .border-t-r {
-  border-top: var(--unit-line) solid;
-  border-right: var(--unit-line) solid;
-  border-color: var(--color-alt);
+  border-top: var(--unit-line) solid var(--color-alt);
+  border-right: var(--unit-line) solid var(--color-alt);
 }
 
 .border {
