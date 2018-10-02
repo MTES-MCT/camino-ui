@@ -8,7 +8,8 @@
         <h2 class="cap-first mb-0">{{ etape.type.nom }}</h2>
       </div>
     </template>
-    <div v-if="etape.date">
+
+    <div>
       <div class="tablet-blobs mb">
         <div class="tablet-blob-1-3 py-s">
           <h6>Date</h6>
@@ -25,58 +26,55 @@
     </div>
 
 
-    <div 
-      v-if="etape.duree" 
-      class="tablet-blobs mb"
-    >
-      <div class="tablet-blob-1-3 py-s">
-        <h6>Durée (années)</h6>
-      </div>
-      <div class="tablet-blob-2-3">
-        <input 
-          v-model="etape.duree"
-          type="text" 
-          class="p-s"
-        >
+    <div>
+      <div class="tablet-blobs mb">
+        <div class="tablet-blob-1-3 py-s">
+          <h6>Durée (années)</h6>
+        </div>
+        <div class="tablet-blob-2-3">
+          <input 
+            v-model="etape.duree"
+            type="text" 
+            class="p-s"
+          >
+        </div>
       </div>
       <hr>
     </div>
 
-    <div 
-      v-if="etape.dateDebut" 
-      class="tablet-blobs mb"
-    >
-      <div class="tablet-blob-1-3 py-s">
-        <h6>Date de début</h6>
+    <div>
+      <div class="tablet-blobs mb">
+        <div class="tablet-blob-1-3 py-s">
+          <h6>Date de début</h6>
+        </div>
+        <div class="tablet-blob-2-3">
+          <input 
+            v-model="etape.dateDebut"
+            type="text" 
+            class="p-s"
+          >
+        </div>
       </div>
-      <div class="tablet-blob-2-3">
-        <input 
-          v-model="etape.dateDebut"
-          type="text" 
-          class="p-s"
-        >
-      </div>
+      <hr>
     </div>
 
-    <div 
-      v-if="etape.dateFin" 
-      class="tablet-blobs mb"
-    >
-      <div class="tablet-blob-1-3 py-s">
-        <h6>Date d'échéance</h6>
+    <div>
+      <div class="tablet-blobs mb">
+        <div class="tablet-blob-1-3 py-s">
+          <h6>Date d'échéance</h6>
+        </div>
+        <div class="tablet-blob-2-3">
+          <input 
+            v-model="etape.dateFin"
+            type="text" 
+            class="p-s"
+          >
+        </div>
       </div>
-      <div class="tablet-blob-2-3">
-        <input 
-          v-model="etape.dateFin"
-          type="text" 
-          class="p-s"
-        >
-      </div>
+      <hr>
     </div>
 
-    <div
-      v-if="etape.points.length"
-    >
+    <div>
       <h4 class="mb-s">Périmètre ({{ etape.points.length }} points)</h4>
       <div class="h5 mb-s">
         <ul class="list-prefix">
@@ -232,23 +230,28 @@
         class="btn-border rnd p-s full-x mb  flex" 
         @click="pointAdd"
       >Ajouter un point<i class="icon-24 icon-24-plus flex-right" /></button>
+      <hr>
     </div>
     
 
-    <div 
-      v-if="etape.titulaires" 
-      class="tablet-blobs mb"
-    >
-      <div class="tablet-blob-1-3 py-s">
-        Titulaires
+    <div>
+      <h4 class="mb-s">Titulaires</h4>
+      <div 
+        v-if="etape.titulaires" 
+        class="tablet-blobs mb"
+      >
+        <div class="tablet-blob-1-3 py-s">
+          Titulaires
+        </div>
+        <div class="tablet-blob-2-3">
+          <input 
+            v-model="etape.titulaires"
+            type="text" 
+            class="p-s"
+          >
+        </div>
       </div>
-      <div class="tablet-blob-2-3">
-        <input 
-          v-model="etape.titulaires"
-          type="text" 
-          class="p-s"
-        >
-      </div>
+      <hr>
     </div>
 
     <div 
