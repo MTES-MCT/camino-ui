@@ -5,9 +5,9 @@ services:
     build: .
     environment:
       NODE_ENV: production
-      VIRTUAL_HOST: camino.beta.gouv.fr
+      VIRTUAL_HOST: test.camino.beta.gouv.fr
       VIRTUAL_PORT: ${NODE_PORT}
-      LETSENCRYPT_HOST: camino.beta.gouv.fr
+      LETSENCRYPT_HOST: test.camino.beta.gouv.fr
       LETSENCRYPT_EMAIL: francoisromain@gmail.com
     expose:
       - ${NODE_PORT}
