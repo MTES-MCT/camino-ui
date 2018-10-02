@@ -77,6 +77,9 @@ const titre = gql`
           amodiataires {
             ...entreprise
           }
+          points {
+            ...point
+          }
           geojsonPoints {
             ...geojsonPoints
           }
@@ -150,6 +153,32 @@ const titre = gql`
   fragment groupe on Groupe {
     id
     nom
+  }
+
+  fragment point on Point {
+    id
+    coordonees {
+      x
+      y
+    }
+    groupe
+    contour
+    point
+    nom
+    description
+    securite
+    references {
+      ...pointReference
+    }
+  }
+
+  fragment pointReference on PointReference {
+    id
+    systeme
+    coordonees {
+      x
+      y
+    }
   }
 
   fragment geojsonMultiPolygon on GeojsonMultiPolygon {

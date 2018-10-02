@@ -2,6 +2,7 @@ import Vue from 'vue'
 import { titre } from '../api'
 import { titreFormat } from './_utils'
 import router from '../router'
+import { dateFormat } from '../utils'
 
 export const state = {
   current: null,
@@ -31,7 +32,17 @@ export const actions = {
   },
 
   etapeEdit({ commit }, { etape }) {
-    commit('etapeEdit', etape)
+    const etapeTmp = JSON.parse(JSON.stringify(etape))
+    if (etapeTmp.date) {
+      etapeTmp.date = dateFormat(etapeTmp.date)
+    }
+    if (etapeTmp.dateDebut) {
+      etapeTmp.date = dateFormat(etapeTmp.dateDebut)
+    }
+    if (etapeTmp.dateFin) {
+      etapeTmp.date = dateFormat(etapeTmp.dateFin)
+    }
+    commit('etapeEdit', etapeTmp)
   }
 }
 

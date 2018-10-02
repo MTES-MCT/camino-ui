@@ -4,7 +4,7 @@
     <td class="flex text-right">
       <a 
         v-if="document.fichier" 
-        class="btn rnd h5 px-xs py-xs my--xs ml-xs" 
+        class="btn rnd px-xs py-xs my--xs ml-xs" 
         :href="document.fichier"
         target="_blank"
         alt="Fichier"
@@ -13,7 +13,7 @@
       </a>
       <a 
         v-if="document.url" 
-        class="btn-alt rnd h5 p-xs my--xs ml-xs" 
+        class="btn-alt rnd p-xs my--xs ml-xs" 
         :href="document.url"
         target="_blank"
         alt="Url"

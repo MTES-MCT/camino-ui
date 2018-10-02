@@ -1,7 +1,7 @@
 <template>
   <popup>
     <template slot="header">
-      Bienvenue sur Camino
+      <h2 class="mb-0">Bienvenue sur Camino</h2>
     </template>
     <p class="bold">Le cadastre minier numérique ouvert</p>
     <p>
@@ -15,7 +15,7 @@
 
     <template slot="footer">
       <button
-        class="btn rnd p-s full-x"
+        class="btn-flash rnd p-s full-x"
         @click="set"
         @keyup.enter="set"
       >Je comprends</button>

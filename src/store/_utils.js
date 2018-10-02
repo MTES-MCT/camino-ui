@@ -3,7 +3,6 @@ const titreFormat = t => {
   const substancesPrincipales = []
   const substancesConnexes = []
   const titulaires = []
-  const phases = []
 
   t.demarches &&
     t.demarches.forEach(d => {
@@ -53,8 +52,7 @@ const titreFormat = t => {
       perimetres,
       substancesPrincipales,
       substancesConnexes,
-      titulaires,
-      phases
+      titulaires
     },
     t
   )

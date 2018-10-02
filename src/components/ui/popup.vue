@@ -4,9 +4,11 @@
       class="absolute full bg-inverse-alpha" 
       @click="closeDefault"
     />
-    <div class="popup fixed shadow full bg-bg">
-      <div class="popup-header flex flex-start p-l">
-        <h2 class="mb-0 cap-first"><slot name="header" /></h2>
+    <div 
+      class="popup fixed shadow full bg-bg"
+    >
+      <div class="popup-header flex flex-start px-l pt-l pb">
+        <slot name="header" />
         <button
           v-if="closeBtn"
           class="btn-alt rnd flex-right p-s mt--s"
@@ -18,7 +20,7 @@
       <div class="popup-content px-l pt-l">
         <slot />
       </div>
-      <div class="popup-footer px-l py-m">
+      <div class="popup-footer px-l pt pb-l">
         <slot name="footer" />
       </div>
     </div>

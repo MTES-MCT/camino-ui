@@ -30,6 +30,13 @@
   button-class: active disabled true;
 }
 
+.btn-flash {
+  button-color: var(--color-bg) var(--color-bg) var(--color-bg);
+  button-background: var(--color-neutral) var(--color-neutral)
+    var(--color-highlight);
+  button-class: active disabled true;
+}
+
 .btn-menu {
   button-color: var(--color-text) var(--color-text) var(--color-text);
   button-background: var(--color-transparent) var(--color-transparent)
@@ -41,7 +48,7 @@
 .btn-alt,
 .btn-border,
 .btn-menu,
-.btn-transparent {
+.btn-flash {
   transition: var(--transition);
   font-weight: 700;
 }

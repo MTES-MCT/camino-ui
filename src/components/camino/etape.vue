@@ -13,7 +13,8 @@
       slot="buttons"
     >
       <button
-        class="btn-alt py-s px-m border-t"
+        class="btn-alt py-s px-m"
+        :class="[ etape.documents.length ? 'border-t' : 'border-t-r', !etape.documents.length && 'rnd-t-r' ]"
         @click="editPopupOpen"
       >
         <i 
