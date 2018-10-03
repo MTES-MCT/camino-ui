@@ -4,9 +4,36 @@ import { titreFormat, metaFormat } from './_utils'
 
 export const state = {
   liste: null,
-  domaines: null,
+  domaines: [
+    { id: 'g', nom: 'géothermie', checked: true },
+    {
+      id: 'h',
+      nom: 'hydrocarbures liquides ou gazeux',
+      checked: true
+    },
+    { id: 'w', nom: 'granulats marins', checked: true }
+  ],
   types: null,
-  statuts: null,
+  statuts: [
+    {
+      id: 'dmi',
+      nom: 'demande initiale',
+      couleur: 'warning',
+      checked: true
+    },
+    {
+      id: 'mod',
+      nom: 'modification en instance',
+      couleur: 'warning',
+      checked: true
+    },
+    {
+      id: 'val',
+      nom: 'valide',
+      couleur: 'success',
+      checked: true
+    }
+  ],
   substances: null,
   noms: null
 }
