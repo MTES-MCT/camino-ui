@@ -42,7 +42,7 @@
             @blur="nomsInput"
           >
         </div>
-        <div class="mb hide">
+        <div class="mb">
           <h6>Substances</h6>
           <input
             :value="substances"
