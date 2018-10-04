@@ -29,7 +29,7 @@
             v-if="titre.substances && titre.substances.length > 0"
           >
             <h6>Substances</h6>
-            <pill-list :elements="titre.substances.reduce((res, s) => [...res, ...s.legales.map(l => l.nom)], [])" />
+            <pill-list :elements="titre.substances.map(s => s.nom)" />
           </div>
         </div>
         <div class="tablet-blob-1-2">
