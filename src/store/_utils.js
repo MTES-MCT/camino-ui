@@ -1,8 +1,5 @@
 const titreFormat = t => {
   const perimetres = []
-  const substancesPrincipales = []
-  const substancesConnexes = []
-  const titulaires = []
 
   t.demarches &&
     t.demarches.forEach(d => {
@@ -20,39 +17,12 @@ const titreFormat = t => {
               surface: e.surface
             })
           }
-
-          if (e.substances && substancesPrincipales.length === 0) {
-            e.substances.forEach(s => {
-              if (
-                !s.connexe &&
-                !substancesPrincipales.find(su => su.id === s.id)
-              ) {
-                substancesPrincipales.push(s)
-              } else if (
-                s.connexe &&
-                !substancesConnexes.find(su => su.id === s.id)
-              ) {
-                substancesConnexes.push(s)
-              }
-            })
-          }
-
-          if (e.titulaires && titulaires.length === 0) {
-            e.titulaires.forEach(t => {
-              if (!titulaires.find(ti => ti.id === t.id)) {
-                titulaires.push(t)
-              }
-            })
-          }
         })
     })
 
   return Object.assign(
     {
-      perimetres,
-      substancesPrincipales,
-      substancesConnexes,
-      titulaires
+      perimetres
     },
     t
   )

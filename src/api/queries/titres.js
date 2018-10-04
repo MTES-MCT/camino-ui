@@ -9,19 +9,7 @@ const titres = gql`
     $noms: [String!]
   ) {
     metas {
-      types {
-        id
-        nom
-      }
-      domaines {
-        id
-        nom
-      }
-      statuts {
-        id
-        nom
-        couleur
-      }
+      ...meta
     }
     titres(
       typeIds: $typeIds
@@ -30,94 +18,56 @@ const titres = gql`
       substances: $substances
       noms: $noms
     ) {
+      ...titre
+    }
+  }
+
+  fragment meta on Metas {
+    types {
       id
       nom
-      type {
-        id
-        nom
-      }
-      domaine {
-        id
-        nom
-      }
-      statut {
-        id
-        nom
-        couleur
-      }
-      references {
-        type
-        valeur
-      }
-      demarches {
-        id
-        ordre
-        type {
-          id
-          nom
-        }
-        statut {
-          id
-          nom
-          couleur
-        }
-        phase {
-          dateDebut
-          dateFin
-          statut {
-            id
-            nom
-            couleur
-          }
-        }
-        etapes {
-          id
-          ordre
-          date
-          duree
-          surface
-          volume
-          volumeUnite
-          visas
-          engagement
-          engagementDevise
-          sourceIndisponible
-          type {
-            id
-            nom
-          }
-          statut {
-            id
-            nom
-            couleur
-          }
-          emprise {
-            id
-            nom
-          }
-          administrations {
-            ...administration
-          }
-          titulaires {
-            ...entreprise
-          }
-          amodiataires {
-            ...entreprise
-          }
-          geojsonPoints {
-            ...geojsonPoints
-          }
-          geojsonMultiPolygon {
-            ...geojsonMultiPolygon
-          }
-          substances {
-            ...substance
-          }
-          documents {
-            ...document
-          }
-        }
-      }
+    }
+    domaines {
+      id
+      nom
+    }
+    statuts {
+      id
+      nom
+      couleur
+    }
+  }
+
+  fragment titre on Titre {
+    id
+    nom
+    type {
+      id
+      nom
+    }
+    domaine {
+      id
+      nom
+    }
+    statut {
+      id
+      nom
+      couleur
+    }
+    substances {
+      ...substance
+    }
+    administrations {
+      ...administration
+    }
+    titulaires {
+      ...entreprise
+    }
+    amodiataires {
+      ...entreprise
+    }
+    geojsonMultiPolygon {
+      ...geojsonMultiPolygon
     }
   }
 
@@ -133,9 +83,6 @@ const titres = gql`
     url
     telephone
     email
-    utilisateurs {
-      ...utilisateur
-    }
   }
 
   fragment entreprise on Entreprise {
@@ -156,27 +103,6 @@ const titres = gql`
     url
     telephone
     email
-    utilisateurs {
-      ...utilisateur
-    }
-  }
-
-  fragment utilisateur on Utilisateur {
-    id
-    email
-    nom
-    prenom
-    telephoneMobile
-    telephoneFixe
-    entrepriseId
-    groupes {
-      ...groupe
-    }
-  }
-
-  fragment groupe on Groupe {
-    id
-    nom
   }
 
   fragment geojsonMultiPolygon on GeojsonMultiPolygon {
@@ -187,26 +113,13 @@ const titres = gql`
     }
   }
 
-  fragment geojsonPoints on GeojsonPoints {
-    type
-    features {
-      type
-      geometry {
-        type
-        coordinates
-      }
-    }
-  }
-
   fragment substance on TitreSubstance {
     id
     nom
     connexe
-    ordre
-    symbole
     gerep
     description
-    legal {
+    legales {
       id
       nom
       description
@@ -221,17 +134,6 @@ const titres = gql`
         lien
       }
     }
-  }
-
-  fragment document on Document {
-    id
-    nom
-    type
-    url
-    uri
-    fichier
-    jorf
-    nor
   }
 `
 

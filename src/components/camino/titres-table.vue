@@ -44,8 +44,8 @@
           </td>
           <td>
             <pill-list
-              v-if="titre.substancesPrincipales"
-              :elements="titre.substancesPrincipales.map(s=>s.legal.nom)"
+              v-if="titre.substances"
+              :elements="titre.substances.reduce((res, s) => [...res, ...s.legales.map(l => l.nom)], [])"
               class="mb--xs"
             />
           </td>

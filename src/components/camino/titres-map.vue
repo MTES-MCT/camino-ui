@@ -160,10 +160,8 @@ export default {
           }
         }
 
-        const perimetre = titre.perimetres.find(p => p)
-
-        if (perimetre) {
-          const geojsonLayer = L.geoJSON(perimetre.geojsonMultiPolygon, {
+        if (titre.geojsonMultiPolygon) {
+          const geojsonLayer = L.geoJSON(titre.geojsonMultiPolygon, {
             filter: feature => feature.geometry.type === 'MultiPolygon',
             style: {
               fillOpacity: 0.75,

@@ -26,10 +26,10 @@
             </ul>
           </div>
           <div
-            v-if="titre.substancesPrincipales && titre.substancesPrincipales.length > 0"
+            v-if="titre.substances && titre.substances.length > 0"
           >
             <h6>Substances</h6>
-            <pill-list :elements="titre.substancesPrincipales.reduce((res, s) => [...res, ...s.legal.map(l => l.nom)], [])" />
+            <pill-list :elements="titre.substances.reduce((res, s) => [...res, ...s.legales.map(l => l.nom)], [])" />
           </div>
         </div>
         <div class="tablet-blob-1-2">
