@@ -78,7 +78,7 @@
           class="tablet-blob-1-2 large-blob-1-4"
         >
           <h6>Substances</h6>
-          <pill-list :elements="etape.substances.map((s) => s.nom)" />
+          <pill-list :elements="etape.substances.map(s => s.nom)" />
         </div>
       </div>
     </template>
