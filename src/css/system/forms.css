@@ -9,7 +9,8 @@ input[type='search'],
 input[type='password'],
 input[type='tel'],
 select,
-textarea {
+textarea,
+.input {
   width: 100%;
   border: 0 none;
   background-color: var(--color-alt);
@@ -68,7 +69,8 @@ input.error {
 
 input:disabled,
 textarea:disabled,
-select:disabled {
+select:disabled,
+.input-disabled {
   background-color: color-mod(var(--color-alt) alpha(50%));
 }
 

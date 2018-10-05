@@ -10,15 +10,16 @@
     </template>
 
     <div>
-      <div class="tablet-blobs mb">
-        <div class="tablet-blob-1-3 py-s">
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Date</h6>
         </div>
-        <div class="tablet-blob-2-3">
+        <div class="mb tablet-blob-2-3">
           <input 
             v-model="etape.date"
             type="text" 
             class="p-s"
+            placeholder="jj-mm-aaaa"
           >
         </div>
       </div>
@@ -27,11 +28,11 @@
 
 
     <div>
-      <div class="tablet-blobs mb">
-        <div class="tablet-blob-1-3 py-s">
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Durée (années)</h6>
         </div>
-        <div class="tablet-blob-2-3">
+        <div class="mb tablet-blob-2-3">
           <input 
             v-model="etape.duree"
             type="text" 
@@ -43,15 +44,16 @@
     </div>
 
     <div>
-      <div class="tablet-blobs mb">
-        <div class="tablet-blob-1-3 py-s">
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Date de début</h6>
         </div>
-        <div class="tablet-blob-2-3">
+        <div class="mb tablet-blob-2-3">
           <input 
             v-model="etape.dateDebut"
             type="text" 
             class="p-s"
+            placeholder="jj-mm-aaaa"
           >
         </div>
       </div>
@@ -59,15 +61,16 @@
     </div>
 
     <div>
-      <div class="tablet-blobs mb">
-        <div class="tablet-blob-1-3 py-s">
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Date d'échéance</h6>
         </div>
-        <div class="tablet-blob-2-3">
+        <div class="mb tablet-blob-2-3">
           <input 
             v-model="etape.dateFin"
             type="text" 
             class="p-s"
+            placeholder="jj-mm-aaaa"
           >
         </div>
       </div>
@@ -91,18 +94,18 @@
         :key="point.id"
       >
         <div class="flex full-x">
-          <h4 class="mb-s">Point</h4>
+          <h4>Point</h4>
           <div class="flex-right">
             <button
-              class="btn-alt p-s rnd mt--s"
+              class="btn-border p-s rnd mt--s"
               @click="pointRemove(point)"
             >
               <i class="icon-24 icon-24-minus" />
             </button>
           </div>
         </div>
-        <div class="tablet-blobs mb">
-          <div class="tablet-blob-1-3">
+        <div class="tablet-blobs">
+          <div class="mb tablet-blob-1-3">
             <h6>
               Point
             </h6>
@@ -112,7 +115,7 @@
               class="p-s"
             >
           </div>
-          <div class="tablet-blob-1-3">
+          <div class="mb tablet-blob-1-3">
             <h6>
               Contour
             </h6>
@@ -122,7 +125,7 @@
               class="p-s"
             >
           </div>
-          <div class="tablet-blob-1-3">
+          <div class="mb tablet-blob-1-3">
             <h6>
               Groupe
             </h6>
@@ -134,8 +137,8 @@
           </div>
         </div>
 
-        <div class="tablet-blobs mb">
-          <div class="tablet-blob-1-3">
+        <div class="tablet-blobs">
+          <div class="mb tablet-blob-1-3">
             <h6>Nom</h6>
             <input 
               v-model="point.nom"
@@ -143,7 +146,7 @@
               class="p-s"
             >
           </div>
-          <div class="tablet-blob-1-3">
+          <div class="mb tablet-blob-1-3">
             <h6>Longitude</h6>
             <input 
               v-model="point.coordonees.x"
@@ -151,7 +154,7 @@
               class="p-s"
             >
           </div>
-          <div class="tablet-blob-1-3">
+          <div class="mb tablet-blob-1-3">
             <h6>Latitude</h6>
             <input 
               v-model="point.coordonees.y"
@@ -161,9 +164,9 @@
           </div>
         </div>
 
-        <div class="tablet-blobs mb">
+        <div class="tablet-blobs">
           
-          <div class="tablet-blob-1">
+          <div class="mb tablet-blob-1">
             <h6>Description</h6>
             <input 
               v-model="point.description"
@@ -178,18 +181,18 @@
           :key="reference.id"
         >
           <div class="flex full-x">
-            <h4 class="mb-s">Reference</h4>
+            <h4>Reference</h4>
             <div class="flex-right">
               <button
-                class="btn-alt p-s rnd mt--s"
+                class="btn-border p-s rnd mt--s"
                 @click="pointReferenceRemove(point, reference)"
               >
                 <i class="icon-24 icon-24-minus" />
               </button>
             </div>
           </div>
-          <div class="tablet-blobs mb">
-            <div class="tablet-blob-1-3">
+          <div class="tablet-blobs">
+            <div class="mb tablet-blob-1-3">
               <h6>
                 Système
               </h6>
@@ -199,7 +202,7 @@
                 class="p-s"
               >
             </div>
-            <div class="tablet-blob-1-3">
+            <div class="mb tablet-blob-1-3">
               <h6>Longitude</h6>
               <input 
                 v-model="reference.coordonees.x"
@@ -207,7 +210,7 @@
                 class="p-s"
               >
             </div>
-            <div class="tablet-blob-1-3">
+            <div class="mb tablet-blob-1-3">
               <h6>Latitude</h6>
               <input 
                 v-model="reference.coordonees.y"
@@ -235,33 +238,58 @@
     
 
     <div>
-      <h4 class="mb-s">Titulaires</h4>
-      <div 
-        v-if="etape.titulaires" 
-        class="tablet-blobs mb"
+      <h4 class="mb-s">Titulaires ({{ etape.titulaires.length }})</h4>
+      <hr>
+      <div
+        v-for="titulaire in etape.titulaires"
+        :key="titulaire.id"
       >
-        <div class="tablet-blob-1-3 py-s">
-          Titulaires
+        <div class="flex full-x">
+          <h4>Titulaire</h4>
+          <div class="flex-right">
+            <button
+              class="btn-border p-s rnd mt--s"
+              @click="titulaireRemove()"
+            >
+              <i class="icon-24 icon-24-minus" />
+            </button>
+          </div>
         </div>
-        <div class="tablet-blob-2-3">
-          <input 
-            v-model="etape.titulaires"
-            type="text" 
-            class="p-s"
-          >
+        <div class="tablet-blobs">
+
+          <div class="mb tablet-blob-2-3">
+            <h6>Nom</h6>
+            <input 
+              v-model="titulaire.nom"
+              type="text" 
+              class="p-s"
+            >
+          </div>
+          <div class="mb tablet-blob-1-3">
+            <h6>Siret (ou équivalent)</h6>
+            <div 
+              class="full-x p-s bg-alt-alpha"
+            >{{ titulaire.legalSiret || titulaire.legalEtranger }}&nbsp;
+            </div>
+          </div>
         </div>
+        <hr>
       </div>
+      <button 
+        class="btn-border rnd p-s full-x mb  flex" 
+        @click="titulaireAdd"
+      >Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" /></button>
       <hr>
     </div>
 
     <div 
       v-if="etape.amodiataires" 
-      class="tablet-blobs mb"
+      class="tablet-blobs"
     >
-      <div class="tablet-blob-1-3 py-s">
+      <div class="mb tablet-blob-1-3 py-s">
         Amodiataires
       </div>
-      <div class="tablet-blob-2-3">
+      <div class="mb tablet-blob-2-3">
         <input 
           v-model="etape.amodiataires"
           type="text" 
@@ -272,12 +300,12 @@
 
     <div 
       v-if="etape.substances" 
-      class="tablet-blobs mb"
+      class="tablet-blobs"
     >
-      <div class="tablet-blob-1-3 py-s">
+      <div class="mb tablet-blob-1-3 py-s">
         Substances
       </div>
-      <div class="tablet-blob-2-3">
+      <div class="mb tablet-blob-2-3">
         <input 
           v-model="etape.substances"
           type="text" 
@@ -293,7 +321,7 @@
 
     <template slot="footer">
       <div class="tablet-blobs">
-        <div class="tablet-blob-1-3">
+        <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
             class="btn-border rnd p-s full-x"
             @click="login"
@@ -370,6 +398,14 @@ export default {
     pointReferenceRemove (point, reference) {
       const index = point.references.findIndex(r => r.id === reference.id)
       point.references.splice(index, 1)
+    },
+    titulaireAdd () {
+      const titulaire = { id: '', nom: '' }
+      this.etape.titulaires.push(titulaire)
+    },
+    titulaireRemove () {
+      const titulaire = { id: '', nom: '' }
+      this.etape.titulaires.push(titulaire)
     }
   }
 }

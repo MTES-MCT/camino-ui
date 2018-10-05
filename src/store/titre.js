@@ -31,7 +31,7 @@ export const actions = {
     }
   },
 
-  etapeEdit({ commit }, { etape }) {
+  etapeEdit({ commit, dispatch }, { etape }) {
     const etapeTmp = JSON.parse(JSON.stringify(etape))
     if (etapeTmp.date) {
       etapeTmp.date = dateFormat(etapeTmp.date)

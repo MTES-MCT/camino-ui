@@ -199,6 +199,14 @@
 }
 
 @media (--viewport-tablet) {
+  .tablet-pt-s {
+    padding-top: var(--unit-s);
+  }
+
+  .tablet-mb-0 {
+    margin-bottom: 0;
+  }
+
   .menubar-infos {
     padding-top: var(--unit-m);
     margin-top: 0;

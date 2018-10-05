@@ -4,8 +4,6 @@
       <page-header />
     </template>
 
-    <ribbon value="beta" />
-
     <messages 
       v-if="messages.length > 0" 
       :messages="messages"
@@ -26,7 +24,6 @@
 <script>
 import Page from './components/ui/page.vue'
 import Messages from './components/ui/messages.vue'
-import Ribbon from './components/ui/ribbon.vue'
 import PageHeader from './components/page-header.vue'
 import PageFooter from './components/page-footer.vue'
 import PopupAvertissement from './components/camino/popup-warning.vue'
@@ -37,7 +34,6 @@ export default {
   components: {
     Page,
     Messages,
-    Ribbon,
     PageHeader,
     PageFooter
   },
