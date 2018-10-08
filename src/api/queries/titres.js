@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import titreFragments from './titre-fragments'
 
 const titres = gql`
   query Titres(
@@ -38,103 +39,7 @@ const titres = gql`
     }
   }
 
-  fragment titre on Titre {
-    id
-    nom
-    type {
-      id
-      nom
-    }
-    domaine {
-      id
-      nom
-    }
-    statut {
-      id
-      nom
-      couleur
-    }
-    substances {
-      ...substance
-    }
-    administrations {
-      ...administration
-    }
-    titulaires {
-      ...entreprise
-    }
-    amodiataires {
-      ...entreprise
-    }
-    geojsonMultiPolygon {
-      ...geojsonMultiPolygon
-    }
-  }
-
-  fragment administration on Administration {
-    id
-    nom
-    service
-    adresse1
-    adresse2
-    codePostal
-    ville
-    cedex
-    url
-    telephone
-    email
-  }
-
-  fragment entreprise on Entreprise {
-    id
-    nom
-    raisonSociale
-    paysId
-    legalSiren
-    legalEtranger
-    legalForme
-    voieNumero
-    voieType
-    voieNom
-    adresseComplement
-    codePostal
-    ville
-    cedex
-    url
-    telephone
-    email
-  }
-
-  fragment geojsonMultiPolygon on GeojsonMultiPolygon {
-    type
-    geometry {
-      type
-      coordinates
-    }
-  }
-
-  fragment substance on TitreSubstance {
-    id
-    nom
-    connexe
-    gerep
-    description
-    legales {
-      id
-      nom
-      description
-      domaine {
-        id
-        nom
-      }
-      code {
-        id
-        nom
-        description
-        lien
-      }
-    }
-  }
+  ${titreFragments}
 `
 
 export default titres
