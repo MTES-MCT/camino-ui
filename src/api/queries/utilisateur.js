@@ -7,7 +7,7 @@ const mutationUtilisateurConnecter = gql`
         id
         nom
         email
-        groupes {
+        permissions {
           id
           nom
         }
@@ -22,7 +22,7 @@ const queryUtilisateurIdentifier = gql`
     utilisateurIdentifier {
       id
       nom
-      groupes {
+      permissions {
         id
         nom
       }

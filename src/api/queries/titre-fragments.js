@@ -24,6 +24,9 @@ const titreFragments = gql`
     substances {
       ...substance
     }
+    surface
+    volume
+    volumeUnite
     administrations {
       ...administration
     }
@@ -172,12 +175,12 @@ const titreFragments = gql`
     telephoneMobile
     telephoneFixe
     entrepriseId
-    groupes {
-      ...groupe
+    permissions {
+      ...permission
     }
   }
 
-  fragment groupe on Groupe {
+  fragment permission on Permission {
     id
     nom
   }

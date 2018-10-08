@@ -86,26 +86,33 @@
         </div>
       </div>
       <titre-map
-        v-if="perimetreCurrent && perimetreCurrent.geojsonMultiPolygon"
-        :geojson="perimetreCurrent && perimetreCurrent.geojsonMultiPolygon"
+        v-if="titre.geojsonMultiPolygon"
+        :geojson="titre.geojsonMultiPolygon"
         class="mb"
       />
 
       <div class="tablet-blobs">
         <div 
-          v-if="perimetreCurrent && perimetreCurrent.surface" 
+          v-if="titre.surface" 
           class="tablet-blob-1-4"
         >
-          <h6>Surface légale</h6>
-          <p>{{ perimetreCurrent.surface }} km²</p>
+          <h6>Surface</h6>
+          <p>{{ titre.surface }} km² environ</p>
         </div>
         <div 
-          v-if="perimetreCurrent && perimetreCurrent.surface" 
+          v-if="titre.volume" 
+          class="tablet-blob-1-4"
+        >
+          <h6>Volume</h6>
+          <p>{{ titre.volume }} {{ titre.volumeUnite }}</p>
+        </div>
+        <div 
+          v-if="titre && titre.communes" 
           class="tablet-blob-3-4 hide"
         >
           <h6>Communes</h6>
           <div
-            v-for="(departements, region) in perimetreCurrent.communes"
+            v-for="(departements, region) in titre.communes"
             :key="region"
           >
             <div
@@ -214,21 +221,12 @@ export default {
     Demarches
   },
 
-  data () {
-    return {
-      perimetreCurrentIndex: 0
-    }
-  },
-
   computed: {
     titre () {
       return this.$store.state.titre.current
     },
     perimetres () {
       return this.titre && this.titre.perimetres
-    },
-    perimetreCurrent () {
-      return this.perimetres && this.perimetres[this.perimetreCurrentIndex]
     },
     loaded () {
       return !!this.titre
