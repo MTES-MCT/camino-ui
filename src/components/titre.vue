@@ -98,7 +98,7 @@
       <div class="tablet-blobs">
         <div 
           v-if="titre.surface" 
-          class="tablet-blob-1-4 hide"
+          class="tablet-blob-1-4"
         >
           <h6>Surface</h6>
           <p>{{ titre.surface }} km² environ</p>
