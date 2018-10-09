@@ -1,5 +1,11 @@
 <template>
   <div class="page relative">
+    <div class="menu-top bg-bg hide">
+      <div class="container">
+        menu top
+      </div>
+    </div>
+
     <header class="topbar">
       <div class="container">
         <slot name="header" />

@@ -70,7 +70,6 @@
 
   & > li {
     margin-bottom: 0;
-    margin-right: var(--unit-xs);
     float: left;
   }
 }

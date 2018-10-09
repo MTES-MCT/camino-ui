@@ -13,6 +13,12 @@
                 class="btn-menu px pb-m pt-xl"
               >Titres</router-link>
             </li>
+            <li :class="{ active: $route.name === 'utilisateurs' || $route.name === 'utilisateur' }">
+              <router-link
+                :to="{ name: 'utilisateurs' }"
+                class="btn-menu px pb-m pt-xl"
+              >Utilisateurs</router-link>
+            </li>
           </ul>
           <login class="mt-l header-login" />
         </div>

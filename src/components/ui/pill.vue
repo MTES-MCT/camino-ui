@@ -1,7 +1,7 @@
 <template>
   <span
     :class="`${color}`"
-    class="h6 bold color-bg py-xs px-s pill inline-block cap-first"
+    class="h6 bold color-bg py-xs px-s pill cap-first"
   >
     <slot />
   </span>
