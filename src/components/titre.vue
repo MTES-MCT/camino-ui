@@ -12,11 +12,19 @@
           >{{ titre.domaine.id }}</pill>
             <span class="cap-first">{{ titre.type.nom }}</span>
           </h4>
-          <div
-            v-if="titre.substances && titre.substances.length > 0"
-          >
-            <h6>Substances</h6>
-            <pill-list :elements="titre.substances.map(s => s.nom)" />
+          <div v-if="titre.references">
+            <h6>{{ titre.references.length > 1 ? 'Références' : 'Référence' }}</h6>
+            <ul class="list-prefix">
+              <li 
+                v-for="reference in titre.references"
+                :key="reference.valeur"
+              >
+                <span
+                  v-if="reference.type"
+                  class="h5 word-break color-neutral fixed-width"
+                >{{ reference.type }} </span>{{ reference.valeur }}
+              </li>
+            </ul>
           </div>
         </div>
         <div class="desktop-blob-1-2">
@@ -46,19 +54,11 @@
       </div>
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2">
-          <div v-if="titre.references">
-            <h6>{{ titre.references.length > 1 ? 'Références' : 'Référence' }}</h6>
-            <ul class="list-prefix">
-              <li 
-                v-for="reference in titre.references"
-                :key="reference.valeur"
-              >
-                <span
-                  v-if="reference.type"
-                  class="h5 word-break color-neutral fixed-width"
-                >{{ reference.type }} </span>{{ reference.valeur }}
-              </li>
-            </ul>
+          <div
+            v-if="titre.substances && titre.substances.length > 0"
+          >
+            <h6>Substances</h6>
+            <pill-list :elements="titre.substances.map(s => s.nom)" />
           </div>
         </div>
         <div class="desktop-blob-1-2">
