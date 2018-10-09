@@ -97,7 +97,7 @@
           <h4>Point</h4>
           <div class="flex-right">
             <button
-              class="btn-border p-s rnd mt--s"
+              class="btn-border p-s rnd-xs mt--s"
               @click="pointRemove(point)"
             >
               <i class="icon-24 icon-24-minus" />
@@ -184,7 +184,7 @@
             <h4>Reference</h4>
             <div class="flex-right">
               <button
-                class="btn-border p-s rnd mt--s"
+                class="btn-border p-s rnd-xs mt--s"
                 @click="pointReferenceRemove(point, reference)"
               >
                 <i class="icon-24 icon-24-minus" />
@@ -221,7 +221,7 @@
           </div>
         </div>
         <button 
-          class="btn-border rnd p-s full-x mb flex" 
+          class="btn-border rnd-xs p-s full-x mb flex" 
           @click="pointReferenceAdd(point)"
         > 
           Ajouter une référence
@@ -230,7 +230,7 @@
         <hr>
       </div>
       <button 
-        class="btn-border rnd p-s full-x mb  flex" 
+        class="btn-border rnd-xs p-s full-x mb  flex" 
         @click="pointAdd"
       >Ajouter un point<i class="icon-24 icon-24-plus flex-right" /></button>
       <hr>
@@ -248,7 +248,7 @@
           <h4>Titulaire</h4>
           <div class="flex-right">
             <button
-              class="btn-border p-s rnd mt--s"
+              class="btn-border p-s rnd-xs mt--s"
               @click="titulaireRemove()"
             >
               <i class="icon-24 icon-24-minus" />
@@ -276,7 +276,7 @@
         <hr>
       </div>
       <button 
-        class="btn-border rnd p-s full-x mb  flex" 
+        class="btn-border rnd-xs p-s full-x mb  flex" 
         @click="titulaireAdd"
       >Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" /></button>
       <hr>
@@ -323,14 +323,14 @@
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
-            class="btn-border rnd p-s full-x"
+            class="btn-border rnd-xs p-s full-x"
             @click="login"
             @keyup.enter="login"
           >Annuler</button>
         </div>
         <div class="tablet-blob-2-3">
           <button
-            class="btn-flash rnd p-s full-x"
+            class="btn-flash rnd-xs p-s full-x"
             @click="login"
             @keyup.enter="login"
           >Enregistrer</button>

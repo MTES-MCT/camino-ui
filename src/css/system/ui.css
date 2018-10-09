@@ -18,14 +18,18 @@
 }
 
 .rnd {
+  border-radius: var(--unit);
+}
+
+.rnd-xs {
   border-radius: var(--unit-xs);
 }
 
-.rnd-t {
+.rnd-xs-t {
   border-radius: var(--unit-xs) var(--unit-xs) 0 0;
 }
 
-.rnd-t-r {
+.rnd-xs-t-r {
   border-radius: 0 var(--unit-xs) 0 0;
 }
 

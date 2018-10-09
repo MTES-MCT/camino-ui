@@ -15,7 +15,7 @@
 
     <template slot="footer">
       <button
-        class="btn-flash rnd p-s full-x"
+        class="btn-flash rnd-xs p-s full-x"
         @click="set"
         @keyup.enter="set"
       >Je comprends</button>

@@ -2,8 +2,9 @@
   <div>
     <loader v-if="!loaded" />
     <card v-else>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-2">
+
+      <div class="desktop-blobs">
+        <div class="desktop-blob-1-2">
           <h1 class="mt-xs">{{ titre['nom'] }}</h1>
           <h4 class="mb"><pill
             :color="`bg-title-domaine-${titre.domaine.id}`"
@@ -11,20 +12,6 @@
           >{{ titre.domaine.id }}</pill>
             <span class="cap-first">{{ titre.type.nom }}</span>
           </h4>
-          <div v-if="titre.references">
-            <h6>{{ titre.references.length > 1 ? 'Références' : 'Référence' }}</h6>
-            <ul class="list-prefix">
-              <li 
-                v-for="reference in titre.references"
-                :key="reference.valeur"
-              >
-                <span
-                  v-if="reference.type"
-                  class="h5 word-break color-neutral fixed-width"
-                >{{ reference.type }} </span>{{ reference.valeur }}
-              </li>
-            </ul>
-          </div>
           <div
             v-if="titre.substances && titre.substances.length > 0"
           >
@@ -32,24 +19,10 @@
             <pill-list :elements="titre.substances.map(s => s.nom)" />
           </div>
         </div>
-        <div class="tablet-blob-1-2">
-          <div class="blobs">
-            <div class="blob-1-2">
-              <h6>Statut</h6>
-              <h4><dot :color="`bg-${titre.statut.couleur}`" /><span class="cap-first">{{ titre.statut.nom }}</span></h4>
-            </div>
-          </div>
-          <div v-if="titre.titulaires">
-            <h6>{{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
-            <ul class="list-prefix">
-              <li 
-                v-for="titulaire in titre.titulaires"
-                :key="titulaire.id"
-              >
-                {{ titulaire['nom'] }}
-              </li>
-            </ul>
-          </div>
+        <div class="desktop-blob-1-2">
+          <h6>Statut</h6>
+          <h4><dot :color="`bg-${titre.statut.couleur}`" /><span class="cap-first">{{ titre.statut.nom }}</span></h4>
+
           <div>
             <table class="table-xxs">
               <tr>
@@ -68,6 +41,37 @@
                 <td>{{ demarche.phase.dateFin | dateFormat }}</td>
               </tr>
             </table>
+          </div>
+        </div>
+      </div>
+      <div class="desktop-blobs">
+        <div class="desktop-blob-1-2">
+          <div v-if="titre.references">
+            <h6>{{ titre.references.length > 1 ? 'Références' : 'Référence' }}</h6>
+            <ul class="list-prefix">
+              <li 
+                v-for="reference in titre.references"
+                :key="reference.valeur"
+              >
+                <span
+                  v-if="reference.type"
+                  class="h5 word-break color-neutral fixed-width"
+                >{{ reference.type }} </span>{{ reference.valeur }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="desktop-blob-1-2">
+          <div v-if="titre.titulaires">
+            <h6>{{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
+            <ul class="list-prefix">
+              <li 
+                v-for="titulaire in titre.titulaires"
+                :key="titulaire.id"
+              >
+                {{ titulaire['nom'] }}
+              </li>
+            </ul>
           </div>
           <div v-if="titre['liens']">
             <h6>Liens</h6>

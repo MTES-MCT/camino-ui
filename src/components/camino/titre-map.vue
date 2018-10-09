@@ -12,7 +12,7 @@
       :tiles-name="tilesName"
     />
     <div class="desktop-blobs">
-      <div class="desktop-blob-1-2">
+      <div class="desktop-blob-1-2 mb">
         <button
           class="btn-border pill px-m py-s"
           @click="$refs.map.fit()"

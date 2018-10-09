@@ -1,9 +1,9 @@
 <template>
-  <div class="border rnd flex flex-direction-column">
+  <div class="border rnd-xs flex flex-direction-column">
     <div 
       v-if="$slots.buttons" 
       class="flex full-x border-b-s"
-      :class="{ 'rnd-t': opened || sub }"
+      :class="{ 'rnd-xs-t': opened || sub }"
     >
      
       <h4 class="mb-0 py-s px-m"><slot name="title" /></h4>
@@ -11,7 +11,7 @@
         <slot name="buttons" />
         <button 
           v-if="$slots.default"
-          class="btn-alt py-s px-m rnd-t-r border-t-r"
+          class="btn-alt py-s px-m rnd-xs-t-r border-t-r"
           @click="opened = !opened"
         >
           <i 
@@ -24,8 +24,8 @@
 
     <button
       v-else-if="$slots.default && !$slots.buttons"
-      :class="{ 'rnd-t': opened || sub }"
-      class="btn-border rnd py-s px-m flex full-x"
+      :class="{ 'rnd-xs-t': opened || sub, 'rnd-xs': !opened && !sub }"
+      class="btn-border py-s px-m flex full-x"
       @click="opened = !opened"
     >
       <h4 class="mb-0"><slot name="title" /></h4>

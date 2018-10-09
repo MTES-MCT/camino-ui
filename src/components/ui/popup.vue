@@ -11,7 +11,7 @@
         <slot name="header" />
         <button
           v-if="closeBtn"
-          class="btn-alt rnd flex-right p-s mt--s"
+          class="btn-alt rnd-xs flex-right p-s"
           @click="closeDefault"
         >
           <i class="icon-24 icon-24-close" />

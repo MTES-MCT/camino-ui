@@ -6,7 +6,7 @@
     <li class="mb-0 mr-xs">
       <button
         :disabled="pageActive === 1"
-        class="btn-border rnd px-m py-s"
+        class="btn-border rnd-xs px-m py-s"
         @click="pageChange(1)"
       >«
       </button>
@@ -14,7 +14,7 @@
     <li class="mb-0 mr-xs">
       <button
         :disabled="pageActive === 1"
-        class="btn-border rnd px-m py-s"
+        class="btn-border rnd-xs px-m py-s"
         @click="pageChange(pageActive - 1)"
       >‹
       </button>
@@ -32,7 +32,7 @@
       class="mb-0 mr-xs"
     >
       <button
-        class="btn-border rnd px-m py-s"
+        class="btn-border rnd-xs px-m py-s"
         @click="pageChange(page)"
       >{{ page }}
       </button>
@@ -45,7 +45,7 @@
     <li class="mb-0 mr-xs">
       <button
         :disabled="pageActive === pagesTotal"
-        class="btn-border rnd px-m py-s"
+        class="btn-border rnd-xs px-m py-s"
         @click="pageChange(pageActive + 1)"
       >› 
       </button>
@@ -53,7 +53,7 @@
     <li class="mb-0 mr-xs">
       <button
         :disabled="pageActive === pagesTotal"
-        class="btn-border rnd px-m py-s"
+        class="btn-border rnd-xs px-m py-s"
         @click="pageChange(pagesTotal)"
       >»
       </button>

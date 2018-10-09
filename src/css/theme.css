@@ -253,7 +253,7 @@
     bottom: auto;
     left: 50%;
     z-index: 2;
-    border-radius: var(--unit-xs);
+    border-radius: var(--unit);
   }
 }
 

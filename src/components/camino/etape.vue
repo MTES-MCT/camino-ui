@@ -14,7 +14,7 @@
     >
       <button
         class="btn-alt py-s px-m"
-        :class="[ etape.documents.length ? 'border-t' : 'border-t-r', !etape.documents.length && 'rnd-t-r' ]"
+        :class="[ etape.documents.length ? 'border-t' : 'border-t-r', !etape.documents.length && 'rnd-xs-t-r' ]"
         @click="editPopupOpen"
       >
         <i 

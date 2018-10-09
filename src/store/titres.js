@@ -5,6 +5,7 @@ import { titreFormat, metaFormat } from './_utils'
 export const state = {
   liste: null,
   domaines: [
+    { id: 'g', nom: 'géothermie', checked: true },
     {
       id: 'h',
       nom: 'hydrocarbures liquides ou gazeux',
