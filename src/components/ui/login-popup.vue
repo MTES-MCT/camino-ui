@@ -3,7 +3,7 @@
     @popup-close="errorsRemove"
   >
     <template slot="header">
-      <h2 class="mb-0">Connexion</h2>
+      <h2 class="mb-0 mt-xs">Connexion</h2>
     </template>
 
     <div class="tablet-blobs mb">
@@ -35,7 +35,7 @@
 
     <template slot="footer">
       <button
-        class="btn-flash rnd p-s full-x"
+        class="btn-flash rnd-xs p-s full-x"
         @click="login"
         @keyup.enter="login"
       >M'identifier</button>
