@@ -3,8 +3,9 @@
     <button
       v-if="utilisateur.id" 
       class="btn-alt pill h5 p-s my--xs ml-xs"
+      :class="{'active': menu.component && menu.component.name === 'MenuUser'}"
       alt="Url"
-      @click="logout"
+      @click="menuToggle"
     >
       <i class="icon-24 icon-24-user " />
     </button>
@@ -21,6 +22,7 @@
 
 <script>
 import LoginPopup from './login-popup.vue'
+import menuUser from './menu-user.vue'
 
 export default {
   data () {
@@ -32,6 +34,9 @@ export default {
   computed: {
     utilisateur () {
       return this.$store.state.utilisateur
+    },
+    menu () {
+      return this.$store.state.menu
     }
   },
 
@@ -44,6 +49,19 @@ export default {
     },
     logout () {
       this.$store.dispatch('utilisateur/logout')
+    },
+    menuOpen () {
+      this.$store.commit('menuOpen', { component: menuUser})
+    },
+    menuClose () {
+      this.$store.commit('menuClose')
+    },
+    menuToggle () {
+      if (this.menu.component && this.menu.component.name === 'MenuUser') {
+        this.menuClose()
+      } else {
+        this.menuOpen()
+      }
     }
   }
 }

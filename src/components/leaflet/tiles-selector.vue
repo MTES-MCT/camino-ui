@@ -1,7 +1,7 @@
 <template>
   <accordion class="mb">
     <template slot="title">Fond de carte</template>
-    <ul class="list-sans">
+    <ul class="list-sans mt-m">
       <li
         v-for="tile in tiles"
         :key="tile.name"

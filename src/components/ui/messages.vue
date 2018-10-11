@@ -1,7 +1,8 @@
 <template>
-  <ul 
-    v-if="messages.length > 0" 
+  <transition-group 
+    name="slide" 
     class="list-sans mb-0"
+    tag="ul"
   >
     <li 
       v-for="(message, index) in messages" 
@@ -9,7 +10,7 @@
       class="mb p-s color-bg"
       :class="`bg-${message.type}`"
     >{{ message.value }}</li>
-  </ul>
+  </transition-group>
 </template>
 
 <script>

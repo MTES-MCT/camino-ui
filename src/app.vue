@@ -1,23 +1,26 @@
 <template>
   <page>
-    <template slot="header">
-      <page-header />
-    </template>
+    <component
+      :is="menu.component"
+      slot="menu"
+    />
+
+    <page-header slot="header" />
 
     <messages 
-      v-if="messages.length > 0" 
+      slot="messages" 
       :messages="messages"
     />
+    
     <router-view v-if="!apiError" />
+    
     <component
       :is="popup.component"
-      v-if="popup.component"
+      slot="popup"
       :close-btn="popup.closeBtn"
     />
-
-    <template slot="footer">
-      <page-footer />
-    </template>
+    
+    <page-footer slot="footer" />
   </page>
 </template>
 
@@ -47,6 +50,9 @@ export default {
     },
     popup () {
       return this.$store.state.popup
+    },
+    menu () {
+      return this.$store.state.menu
     }
   },
 

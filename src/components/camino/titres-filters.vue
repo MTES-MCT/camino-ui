@@ -14,7 +14,7 @@
         </li>
       </ul>
     </template>
-    <div class="tablet-blobs">
+    <div class="tablet-blobs mt">
       <div class="tablet-blob-1-2 large-blob-1-3">
         <div class="mb hide">
           <h6>Localisation</h6>

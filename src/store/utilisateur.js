@@ -50,9 +50,14 @@ export const actions = {
     }
   },
 
-  logout({ commit }) {
+  logout({ commit, dispatch }) {
     commit('tokenRemove')
     commit('utilisateurRemove')
+    dispatch(
+      'messageAdd',
+      { value: `Vous êtes déconnecté.`, type: 'success' },
+      { root: true }
+    )
   }
 }
 

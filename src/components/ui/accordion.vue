@@ -48,11 +48,11 @@
     >
       <slot name="sub" />
     </div>
-    <div
-      :class="{ 'height-0': !opened, 'pt-m': opened && !sub }"
-      class="px-m"
-    >
-      <slot />
+    
+    <div class="px-m overflow-hidden">
+      <transition name="slide">
+        <slot v-if="opened" />>
+      </transition>
     </div>
   </div>
 </template>

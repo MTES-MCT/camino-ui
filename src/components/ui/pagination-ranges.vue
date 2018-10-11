@@ -1,7 +1,7 @@
 <template>
   <accordion class="mb">
     <template slot="title">Pages</template>
-    <ul class="list-sans">
+    <ul class="list-sans mt-m">
       <li
         v-for="range in ranges"
         :key="range"

@@ -20,7 +20,10 @@ export const state = {
     component: null,
     closeBtn: false
   },
-  apiError: undefined
+  apiError: undefined,
+  menu: {
+    component: null
+  }
 }
 
 export const actions = {
@@ -59,6 +62,12 @@ export const mutations = {
   },
   apiError(state, status) {
     state.apiError = status
+  },
+  menuOpen(state, { component }) {
+    state.menu.component = component
+  },
+  menuClose (state) {
+    state.menu.component = null
   }
 }
 

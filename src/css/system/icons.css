@@ -238,7 +238,8 @@
   );
 }
 
-.btn-alt:hover .icon-24-user {
+.btn-alt:hover .icon-24-user,
+.btn-alt.active .icon-24-user {
   background-image: svg-load(
     './icons/24-user.svg',
     fill=none,

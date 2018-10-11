@@ -27,7 +27,7 @@
 .btn-alt {
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
   button-background: var(--color-bg) var(--color-neutral) var(--color-highlight);
-  button-class: active disabled true;
+  button-class: active disabled false;
 }
 
 .btn-flash {
