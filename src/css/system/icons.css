@@ -250,6 +250,29 @@
   );
 }
 
+.icon-24-menu {
+  background-image: svg-load(
+    './icons/24-menu.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn-alt:hover .icon-24-menu,
+.btn-alt.active .icon-24-menu {
+  background-image: svg-load(
+    './icons/24-menu.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
 .icon-24-edit {
   background-image: svg-load(
     './icons/24-pencil.svg',

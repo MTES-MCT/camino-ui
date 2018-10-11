@@ -1,13 +1,11 @@
 <template>
   <div class="page relative">
 
-    <transition name="slide">
-      <div
-        v-if="$slots.menu"
-        class="menu bg-bg"
-      >
-        <slot name="menu" />
-      </div>
+    <transition 
+      name="slide" 
+      mode="out-in"
+    >
+      <slot name="menu" />
     </transition>
 
     <header class="header">

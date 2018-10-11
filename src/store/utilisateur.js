@@ -11,7 +11,7 @@ export const state = {
   telephoneFixe: undefined,
   administrationId: undefined,
   entrepriseId: undefined,
-  groupes: [],
+  permissions: [],
   preferences: {
     map: {
       tilesName: 'osm / mapnik'
@@ -51,6 +51,7 @@ export const actions = {
   },
 
   logout({ commit, dispatch }) {
+    commit('menuClose', null, { root: true })
     commit('tokenRemove')
     commit('utilisateurRemove')
     dispatch(
@@ -87,7 +88,7 @@ export const mutations = {
       telephoneFixe,
       administrationId,
       entrepriseId,
-      groupes
+      permissions
     }
   ) {
     state.id = id
@@ -98,7 +99,7 @@ export const mutations = {
     state.telephoneFixe = telephoneFixe
     state.administrationId = administrationId
     state.entrepriseId = entrepriseId
-    state.groupes = groupes
+    state.permissions = permissions
   },
   utilisateurRemove(state, utilisateur) {
     state.id = undefined
@@ -109,7 +110,7 @@ export const mutations = {
     state.telephoneFixe = undefined
     state.administrationId = undefined
     state.entrepriseId = undefined
-    state.groupes = []
+    state.permissions = []
   },
   loginMessagesRemove(state) {
     state.loginMessages = []

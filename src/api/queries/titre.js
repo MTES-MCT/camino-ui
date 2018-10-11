@@ -1,14 +1,14 @@
 import gql from 'graphql-tag'
-import titreFragments from './titre-fragments'
+import titreFragment from './titre-fragment'
 
 const titre = gql`
-  query Titre($id: String!) {
+  query Titre($id: ID!) {
     titre(id: $id) {
       ...titre
     }
   }
 
-  ${titreFragments}
+  ${titreFragment}
 `
 
 export default titre

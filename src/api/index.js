@@ -1,4 +1,9 @@
 import { titres, titre } from './titres'
-import { connecter, identifier } from '@/api/utilisateur'
+import {
+  utilisateur,
+  utilisateurs,
+  connecter,
+  identifier
+} from '@/api/utilisateurs'
 
-export { titres, titre, connecter, identifier }
+export { titre, titres, utilisateur, utilisateurs, connecter, identifier }

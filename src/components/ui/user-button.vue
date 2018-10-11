@@ -3,7 +3,7 @@
     <button
       v-if="utilisateur.id" 
       class="btn-alt pill h5 p-s my--xs ml-xs"
-      :class="{'active': menu.component && menu.component.name === 'MenuUser'}"
+      :class="{'active': menu.component && menu.component.name === 'UserMenu'}"
       alt="Url"
       @click="menuToggle"
     >
@@ -22,7 +22,7 @@
 
 <script>
 import LoginPopup from './login-popup.vue'
-import menuUser from './menu-user.vue'
+import UserMenu from './user-menu.vue'
 
 export default {
   data () {
@@ -50,18 +50,8 @@ export default {
     logout () {
       this.$store.dispatch('utilisateur/logout')
     },
-    menuOpen () {
-      this.$store.commit('menuOpen', { component: menuUser})
-    },
-    menuClose () {
-      this.$store.commit('menuClose')
-    },
     menuToggle () {
-      if (this.menu.component && this.menu.component.name === 'MenuUser') {
-        this.menuClose()
-      } else {
-        this.menuOpen()
-      }
+      this.$store.dispatch('menuToggle', UserMenu)
     }
   }
 }

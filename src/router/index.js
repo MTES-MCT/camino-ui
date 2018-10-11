@@ -3,8 +3,9 @@ import VueRouter from 'vue-router'
 import VueMeta from 'vue-meta'
 import NProgress from 'nprogress'
 import Titre from '../components/titre.vue'
-// import TitleDetails from '../components/TitleDetails.vue'
 import Titres from '../components/titres.vue'
+import Utilisateur from '../components/utilisateur.vue'
+import Utilisateurs from '../components/utilisateurs.vue'
 import Error from '../components/error.vue'
 import About from '../components/camino-content/about.vue'
 import Accessibilite from '../components/camino-content/accessibilite.vue'
@@ -26,6 +27,23 @@ const routes = [
     path: '/titres/:id',
     name: 'titre',
     component: Titre
+    // children: [
+    //   {
+    //     path: 'activite',
+    //     name: 'activite',
+    //     component: TitleDetails
+    //   }
+    // ]
+  },
+  {
+    path: '/utilisateurs',
+    name: 'utilisateurs',
+    component: Utilisateurs
+  },
+  {
+    path: '/utilisateurs/:id',
+    name: 'utilisateur',
+    component: Utilisateur
     // children: [
     //   {
     //     path: 'activite',

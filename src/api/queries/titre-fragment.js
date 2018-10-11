@@ -1,6 +1,9 @@
 import gql from 'graphql-tag'
+import entrepriseFragment from './entreprise-fragment'
+import administrationFragment from './administration-fragment'
+import utilisateurFragment from './utilisateur-fragment'
 
-const titreFragments = gql`
+const titreFragment = gql`
   fragment titre on Titre {
     id
     nom
@@ -127,58 +130,11 @@ const titreFragments = gql`
     }
   }
 
-  fragment administration on Administration {
-    id
-    nom
-    service
-    adresse1
-    adresse2
-    codePostal
-    ville
-    cedex
-    url
-    telephone
-    email
-    utilisateurs {
-      ...utilisateur
-    }
-  }
+  ${administrationFragment}
 
-  fragment entreprise on Entreprise {
-    id
-    nom
-    raisonSociale
-    paysId
-    legalSiren
-    legalEtranger
-    legalForme
-    voieNumero
-    voieType
-    voieNom
-    adresseComplement
-    codePostal
-    ville
-    cedex
-    url
-    telephone
-    email
-    utilisateurs {
-      ...utilisateur
-    }
-  }
+  ${entrepriseFragment}
 
-  fragment utilisateur on Utilisateur {
-    id
-    email
-    nom
-    prenom
-    telephoneMobile
-    telephoneFixe
-    entrepriseId
-    permissions {
-      ...permission
-    }
-  }
+  ${utilisateurFragment}
 
   fragment permission on Permission {
     id
@@ -265,4 +221,4 @@ const titreFragments = gql`
   }
 `
 
-export default titreFragments
+export default titreFragment

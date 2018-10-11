@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import titreFragments from './titre-fragments'
+import titreFragment from './titre-fragment'
 
 const titres = gql`
   query Titres(
@@ -39,7 +39,7 @@ const titres = gql`
     }
   }
 
-  ${titreFragments}
+  ${titreFragment}
 `
 
 export default titres

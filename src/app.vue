@@ -2,6 +2,7 @@
   <page>
     <component
       :is="menu.component"
+      v-if="menu.component"
       slot="menu"
     />
 

@@ -5,12 +5,14 @@ import titre from './titre'
 import titres from './titres'
 import map from './map'
 import utilisateur from './utilisateur'
+import utilisateurs from './utilisateurs'
 
 const modules = {
   titre,
   titres,
   map,
-  utilisateur
+  utilisateur,
+  utilisateurs
 }
 
 export const state = {
@@ -44,6 +46,17 @@ export const actions = {
     setTimeout(() => {
       commit('messageRemove', id)
     }, 3000)
+  },
+
+  menuToggle({ state, commit }, component) {
+    if (state.menu.component && state.menu.component.name === component.name) {
+      commit('menuClose')
+    } else if (state.menu.component) {
+      commit('menuClose')
+      commit('menuOpen', component)
+    } else {
+      commit('menuOpen', component)
+    }
   }
 }
 
@@ -63,10 +76,10 @@ export const mutations = {
   apiError(state, status) {
     state.apiError = status
   },
-  menuOpen(state, { component }) {
+  menuOpen(state, component) {
     state.menu.component = component
   },
-  menuClose (state) {
+  menuClose(state) {
     state.menu.component = null
   }
 }

@@ -3,7 +3,7 @@ import { titres } from '../api'
 import { titreFormat, metaFormat } from './_utils'
 
 export const state = {
-  liste: null,
+  list: null,
   domaines: [
     { id: 'g', nom: 'géothermie', checked: true },
     {
@@ -91,7 +91,7 @@ export const getters = {}
 
 export const mutations = {
   set(state, titres) {
-    Vue.set(state, 'liste', titres)
+    Vue.set(state, 'list', titres)
   },
   typesSet(state, types) {
     Vue.set(state, 'types', types)

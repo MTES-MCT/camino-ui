@@ -71,7 +71,7 @@ export default {
 
   computed: {
     titres () {
-      return this.$store.state.titres.liste
+      return this.$store.state.titres.list
     },
     loaded () {
       return !!this.titres

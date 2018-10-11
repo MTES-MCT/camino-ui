@@ -13,7 +13,12 @@
             >Titres</router-link>
           </li>
         </ul>
-        <login class="mt-l header-login" />
+        <div class="flex-right">
+          <ul class="list-inline">
+            <li v-if="permissions.map(p => p.id).some(e => ['super', 'admin'].includes(e))"><main-button class="mt-l" /></li>
+            <li><user-button class="mt-l" /></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="tablet-blob-3-4 desktop-blob-1-2 large-blob-1-3">
@@ -30,18 +35,23 @@
 </template>
 
 <script>
-import Login from './ui/login.vue'
+import UserButton from './ui/user-button.vue'
+import MainButton from './ui/main-button.vue'
 
 export default {
   name: 'PageHeader',
 
   components: {
-    Login
+    UserButton,
+    MainButton
   },
 
   computed: {
     apiError () {
       return this.$store.state.apiError
+    },
+    permissions () {
+      return this.$store.state.utilisateur.permissions
     }
   }
 }

@@ -1,8 +1,40 @@
 import graphqlClient from '@/api/_graphql-client'
 import {
+  queryUtilisateur,
+  queryUtilisateurs,
   mutationUtilisateurConnecter,
   queryUtilisateurIdentifier
-} from '@/api/queries/utilisateur'
+} from '@/api/queries/utilisateurs'
+
+const utilisateur = async id => {
+  try {
+    const res = await graphqlClient.query({
+      query: queryUtilisateur,
+      variables: { id }
+    })
+
+    return res && res.data.utilisateur
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+const utilisateurs = async ({ entrepriseIds, administrationIds, noms }) => {
+  try {
+    const res = await graphqlClient.query({
+      query: queryUtilisateurs,
+      variables: {
+        entrepriseIds,
+        administrationIds,
+        noms
+      }
+    })
+
+    return res && res.data.utilisateurs
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 const connecter = async ({ id, motDePasse }) => {
   try {
@@ -29,4 +61,4 @@ const identifier = async () => {
     throw e
   }
 }
-export { connecter, identifier }
+export { utilisateur, utilisateurs, connecter, identifier }
