@@ -1,7 +1,18 @@
 import gql from 'graphql-tag'
 import titreFragment from './titre-fragment'
+import titresFragment from './titres-fragment'
 
-const titres = gql`
+const queryTitre = gql`
+  query Titre($id: ID!) {
+    titre(id: $id) {
+      ...titre
+    }
+  }
+
+  ${titreFragment}
+`
+
+const queryTitres = gql`
   query Titres(
     $typeIds: [TypeId!]
     $domaineIds: [DomaineId!]
@@ -39,7 +50,7 @@ const titres = gql`
     }
   }
 
-  ${titreFragment}
+  ${titresFragment}
 `
 
-export default titres
+export { queryTitre, queryTitres }

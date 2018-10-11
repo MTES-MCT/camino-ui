@@ -17,9 +17,13 @@ const utilisateurFragment = gql`
       nom
     }
     permissions {
-      id
-      nom
+      ...permission
     }
+  }
+
+  fragment permission on Permission {
+    id
+    nom
   }
 `
 

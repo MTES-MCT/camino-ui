@@ -1,6 +1,5 @@
 import graphqlClient from './_graphql-client'
-import queryTitre from './queries/titre'
-import queryTitres from './queries/titres'
+import { queryTitre, queryTitres } from './queries/titres'
 
 const titre = async id => {
   try {
