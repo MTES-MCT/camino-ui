@@ -20,7 +20,12 @@
           <td>{{ utilisateur.nom }}</td>
           <td>{{ utilisateur.prenom }}</td>
           <td>{{ utilisateur.email }}</td>
-          <td><pill-list :elements="utilisateur.permissions.map(p => p.nom)" /></td>
+          <td>
+            <pill-list 
+              :elements="utilisateur.permissions.map(p => p.nom)" 
+              class="mb--xs"
+            />
+          </td>
         </router-link>
       </table>
     </div>

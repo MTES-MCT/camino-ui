@@ -7,6 +7,10 @@
   padding: var(--unit);
 }
 
+.p-0 {
+  padding: 0;
+}
+
 .p-xxs {
   padding: var(--unit-xxs);
 }

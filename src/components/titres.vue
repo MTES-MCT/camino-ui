@@ -40,9 +40,9 @@
 <script>
 import Card from './ui/card.vue'
 import Loader from './ui/loader.vue'
-import TitresTable from './camino/titres-table.vue'
-import TitresMap from './camino/titres-map.vue'
-import TitresFilters from './camino/titres-filters.vue'
+import TitresTable from './titres/table.vue'
+import TitresMap from './titres/map.vue'
+import TitresFilters from './titres/filters.vue'
 
 export default {
   name: 'Titres',

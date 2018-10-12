@@ -352,6 +352,13 @@ export default {
     Popup,
     Messages
   },
+  
+  props: {
+    etape: {
+      type: Object,
+      default: () => ({})
+    }
+  },
 
   data () {
     return {
@@ -365,9 +372,6 @@ export default {
     },
     titre () {
       return this.$store.state.titre.current
-    },
-    etape () {
-      return this.$store.state.titre.etapeEdit
     },
     demarche () {
       return this.titre.demarches.find(d => d.etapes.find(e => e.id === this.etape.id))

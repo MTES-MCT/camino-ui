@@ -2,12 +2,10 @@ import Vue from 'vue'
 import { titre } from '../api'
 import { titreFormat } from './_utils'
 import router from '../router'
-import { dateFormat } from '../utils'
 
 export const state = {
   current: null,
-  documents: [],
-  etapeEdit: null
+  documents: []
 }
 
 export const actions = {
@@ -19,6 +17,7 @@ export const actions = {
     } else if (t === null) {
       router.push({ name: 'error' })
     } else {
+      console.log('fix me')
       dispatch('apiError', null, { root: true })
     }
   },
@@ -29,20 +28,6 @@ export const actions = {
     } else {
       commit('documentSelectionRemove', documentId)
     }
-  },
-
-  etapeEdit({ commit, dispatch }, { etape }) {
-    const etapeTmp = JSON.parse(JSON.stringify(etape))
-    if (etapeTmp.date) {
-      etapeTmp.date = dateFormat(etapeTmp.date)
-    }
-    if (etapeTmp.dateDebut) {
-      etapeTmp.date = dateFormat(etapeTmp.dateDebut)
-    }
-    if (etapeTmp.dateFin) {
-      etapeTmp.date = dateFormat(etapeTmp.dateFin)
-    }
-    commit('etapeEdit', etapeTmp)
   }
 }
 
@@ -80,10 +65,6 @@ export const mutations = {
   documentSelectionRemove(state, documentId) {
     const index = state.documents.findIndex(id => id === documentId)
     Vue.delete(state.documents, index)
-  },
-
-  etapeEdit(state, etape) {
-    Vue.set(state, 'etapeEdit', etape)
   }
 }
 

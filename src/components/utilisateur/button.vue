@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import LoginPopup from './login-popup.vue'
-import UserMenu from './user-menu.vue'
+import UserLoginPopup from './login-popup.vue'
+import UserMenu from './menu.vue'
 
 export default {
   data () {
@@ -42,7 +42,7 @@ export default {
 
   methods: {
     popupOpen () {
-      this.$store.commit('popupOpen', { component: LoginPopup, closeBtn: true })
+      this.$store.commit('popupOpen', { component: UserLoginPopup })
     },
     popupClose () {
       this.$store.commit('popupClose')

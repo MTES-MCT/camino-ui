@@ -9,12 +9,11 @@
     </template>
 
     <template 
-      v-if="utilisateur.id" 
+      v-if="permissions(['super', 'admin'])" 
       slot="buttons"
     >
       <button
         class="btn-alt py-s px-m"
-        :class="[ etape.documents.length ? 'border-t' : 'border-t-r', !etape.documents.length && 'rnd-xs-t-r' ]"
         @click="editPopupOpen"
       >
         <i 
@@ -94,8 +93,9 @@
 import Dot from '../ui/dot.vue'
 import Accordion from '../ui/accordion.vue'
 import PillList from '../ui/pill-list.vue'
-import Documents from '../camino/documents.vue'
-import EtapeEditPopup from './etape-edit-popup.vue'
+import Documents from './documents.vue'
+import EditPopup from './etape-edit-popup.vue'
+import { dateFormat } from '../../utils'
 
 export default {
   name: 'CaminoTitreEtape',
@@ -113,16 +113,30 @@ export default {
     }
   },
 
-  computed: {
-    utilisateur () {
-      return this.$store.state.utilisateur
-    }
-  },
-
   methods: {
     editPopupOpen () {
-      this.$store.dispatch('titre/etapeEdit', { etape: this.etape })
-      this.$store.commit('popupOpen', { component: EtapeEditPopup, closeBtn: true })
+      const etapeClone = (etape) => {
+        const etapeTmp = JSON.parse(JSON.stringify(etape))
+        if (etapeTmp.date) {
+          etapeTmp.date = dateFormat(etapeTmp.date)
+        }
+        if (etapeTmp.dateDebut) {
+          etapeTmp.date = dateFormat(etapeTmp.dateDebut)
+        }
+        if (etapeTmp.dateFin) {
+          etapeTmp.date = dateFormat(etapeTmp.dateFin)
+        }
+        
+        return etapeTmp
+      }
+  
+      this.$store.commit('popupOpen', { 
+        component: EditPopup, 
+        closeBtn: true, 
+        props: { 
+          etape: etapeClone(this.etape) 
+        } 
+      })
     },
     editPopupClose () {
       this.$store.commit('popupClose')

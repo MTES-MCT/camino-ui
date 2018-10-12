@@ -19,6 +19,7 @@
       :is="popup.component"
       slot="popup"
       :close-btn="popup.closeBtn"
+      v-bind="popup.props"
     />
     
     <page-footer slot="footer" />
@@ -30,7 +31,7 @@ import Page from './components/ui/page.vue'
 import Messages from './components/ui/messages.vue'
 import PageHeader from './components/page-header.vue'
 import PageFooter from './components/page-footer.vue'
-import PopupAvertissement from './components/camino/popup-warning.vue'
+import PopupAvertissement from './components/content/warning-popup.vue'
 
 export default {
   name: 'App',

@@ -36,6 +36,10 @@
   margin: 0;
 }
 
+.mr-line {
+  margin-right: var(--unit-line);
+}
+
 .mr {
   margin-right: var(--unit);
 }
@@ -102,6 +106,10 @@
 
 .mt {
   margin-top: var(--unit);
+}
+
+.mt-line {
+  margin-top: var(--unit-line);
 }
 
 .mt-xxs {

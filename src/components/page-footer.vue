@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import NewsletterForm from './camino/newsletter-form.vue'
+import NewsletterForm from './footer/newsletter-form.vue'
 
 export default {
   components: {

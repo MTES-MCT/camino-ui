@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueMeta from 'vue-meta'
-import NProgress from 'nprogress'
 import Titre from '../components/titre.vue'
 import Titres from '../components/titres.vue'
 import Utilisateur from '../components/utilisateur.vue'
 import Utilisateurs from '../components/utilisateurs.vue'
 import Error from '../components/error.vue'
-import About from '../components/camino-content/about.vue'
-import Accessibilite from '../components/camino-content/accessibilite.vue'
-import Contribution from '../components/camino-content/contribution.vue'
-import Cgu from '../components/camino-content/cgu.vue'
-import MentionsLegales from '../components/camino-content/mentions-legales.vue'
+import About from '../components/content/about.vue'
+import Accessibilite from '../components/content/accessibilite.vue'
+import Contribution from '../components/content/contribution.vue'
+import Cgu from '../components/content/cgu.vue'
+import MentionsLegales from '../components/content/mentions-legales.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -102,15 +102,10 @@ const router = new VueRouter({
 })
 
 router.beforeEach((routeTo, routeFrom, next) => {
-  if (routeFrom.name) {
-    NProgress.start()
-  }
-
+  store.commit('menuClose')
   return next()
 })
 
-router.afterEach(() => {
-  NProgress.done()
-})
+router.afterEach(() => {})
 
 export default router

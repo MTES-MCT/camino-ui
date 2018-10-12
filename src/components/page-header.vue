@@ -9,14 +9,15 @@
           <li :class="{ active: $route.name === 'titres' || $route.name === 'titre' }">
             <router-link
               :to="{ name: 'titres' }"
-              class="btn-menu px pb-m pt-xl"
+              class="btn-transparent px pb-m pt-xl"
+              active-class="active"
             >Titres</router-link>
           </li>
         </ul>
         <div class="flex-right">
           <ul class="list-inline">
-            <li v-if="permissions.map(p => p.id).some(e => ['super', 'admin'].includes(e))"><main-button class="mt-l" /></li>
-            <li><user-button class="mt-l" /></li>
+            <li v-if="permissions(['super', 'admin'])"><menu-button class="mt-l" /></li>
+            <li><utilisateur-button class="mt-l" /></li>
           </ul>
         </div>
       </div>
@@ -35,23 +36,20 @@
 </template>
 
 <script>
-import UserButton from './ui/user-button.vue'
-import MainButton from './ui/main-button.vue'
+import UtilisateurButton from './utilisateur/button.vue'
+import MenuButton from './menu/button.vue'
 
 export default {
   name: 'PageHeader',
 
   components: {
-    UserButton,
-    MainButton
+    UtilisateurButton,
+    MenuButton
   },
 
   computed: {
     apiError () {
       return this.$store.state.apiError
-    },
-    permissions () {
-      return this.$store.state.utilisateur.permissions
     }
   }
 }

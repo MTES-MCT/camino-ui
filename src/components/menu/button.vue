@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import MainMenu from './main-menu.vue'
+import MainMenu from './menu.vue'
 
 export default {
   data () {

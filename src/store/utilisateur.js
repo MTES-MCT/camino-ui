@@ -1,6 +1,7 @@
 import Vue from 'vue'
+import router from '../router'
 
-import { connecter, identifier } from '@/api'
+import { utilisateur, connecter, identifier } from '@/api'
 
 export const state = {
   id: undefined,
@@ -17,17 +18,30 @@ export const state = {
       tilesName: 'osm / mapnik'
     }
   },
-  loginMessages: []
+  popupMessages: []
 }
 
 export const actions = {
+  async get({ commit, dispatch }, { id }) {
+    const u = await utilisateur(id)
+
+    if (u) {
+      commit('set', u)
+    } else if (u === null) {
+      router.push({ name: 'error' })
+    } else {
+      console.log('fix me')
+      dispatch('apiError', null, { root: true })
+    }
+  },
+
   async connecter({ commit, dispatch }, { id, motDePasse }) {
-    commit('loginMessagesRemove')
+    commit('popupMessagesRemove')
     try {
       const { token, utilisateur } = await connecter({ id, motDePasse })
 
       commit('tokenAdd', token)
-      commit('utilisateurAdd', utilisateur)
+      commit('set', utilisateur)
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
@@ -36,24 +50,24 @@ export const actions = {
       )
     } catch (e) {
       commit('tokenRemove')
-      commit('utilisateurRemove')
-      commit('loginMessageAdd', { value: e, type: 'error' })
+      commit('reset')
+      commit('popupMessageAdd', { value: e, type: 'error' })
     }
   },
 
   async identifier({ commit }) {
     try {
       const utilisateur = await identifier()
-      commit('utilisateurAdd', utilisateur)
+      commit('set', utilisateur)
     } catch (e) {
-      commit('utilisateurRemove')
+      commit('reset')
     }
   },
 
   logout({ commit, dispatch }) {
     commit('menuClose', null, { root: true })
     commit('tokenRemove')
-    commit('utilisateurRemove')
+    commit('reset')
     dispatch(
       'messageAdd',
       { value: `Vous êtes déconnecté.`, type: 'success' },
@@ -77,7 +91,7 @@ export const mutations = {
   tokenRemove(state) {
     localStorage.removeItem('token')
   },
-  utilisateurAdd(
+  set(
     state,
     {
       id,
@@ -101,7 +115,7 @@ export const mutations = {
     state.entrepriseId = entrepriseId
     state.permissions = permissions
   },
-  utilisateurRemove(state, utilisateur) {
+  reset(state) {
     state.id = undefined
     state.email = undefined
     state.nom = undefined
@@ -112,11 +126,11 @@ export const mutations = {
     state.entrepriseId = undefined
     state.permissions = []
   },
-  loginMessagesRemove(state) {
-    state.loginMessages = []
+  popupMessagesRemove(state) {
+    state.popupMessages = []
   },
-  loginMessageAdd(state, message) {
-    state.loginMessages.push(message)
+  popupMessageAdd(state, message) {
+    state.popupMessages.push(message)
   }
 }
 

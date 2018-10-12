@@ -13,7 +13,7 @@
 <script>
 import Card from './ui/card.vue'
 import Loader from './ui/loader.vue'
-import UtilisateursTable from './admin/utilisateurs-table.vue'
+import UtilisateursTable from './utilisateurs/table.vue'
 
 export default {
   name: 'Utilisateurs',

@@ -2,7 +2,6 @@
   <div>
     <loader v-if="!loaded" />
     <card v-else>
-
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2">
           <h1 class="mt-xs">{{ titre['nom'] }}</h1>
@@ -207,10 +206,10 @@ import Pill from './ui/pill.vue'
 import PillList from './ui/pill-list.vue'
 import Loader from './ui/loader.vue'
 import Dot from './ui/dot.vue'
-import TitreMap from './camino/titre-map.vue'
-import Company from './camino/company.vue'
-import Outils from './camino/outils.vue'
-import Demarches from './camino/demarches.vue'
+import TitreMap from './titre/map.vue'
+import Company from './titre/company.vue'
+import Outils from './titre/outils.vue'
+import Demarches from './titre/demarches.vue'
 
 export default {
   components: {

@@ -7,7 +7,7 @@
       :bounds="bounds"
       @zoom-level="zoomLevelGet"
     />
-    <titre-map-warning-brgm 
+    <map-warning-brgm 
       :zoom-level="zoomLevel"
       :tiles-name="tilesName"
     />
@@ -31,13 +31,13 @@
 
 <script>
 import L from 'leaflet'
-import TitreMapWarningBrgm from './titre-map-warning-brgm.vue'
 import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
+import MapWarningBrgm from '../leaflet/warning-brgm.vue'
 
 export default {
   components: {
-    TitreMapWarningBrgm,
+    MapWarningBrgm,
     LeafletMap,
     LeafletTilesSelector
   },

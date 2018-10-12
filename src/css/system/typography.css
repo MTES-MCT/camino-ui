@@ -129,7 +129,11 @@ a {
   &:hover,
   &:active,
   &:focus {
-    color: var(--color-inverse);
+    color: var(--color-highlight);
+  }
+
+  &.active {
+    color: var(--color-neutral);
   }
 }
 

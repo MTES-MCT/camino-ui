@@ -24,15 +24,15 @@
       </div>
     </main>
 
-    <transition name="slide-top">
-      <slot name="popup" />
-    </transition>
-
     <transition name="fade">
       <div
         v-if="$slots.popup"
         class="absolute full bg-inverse-alpha" 
       />
+    </transition>
+
+    <transition name="slide-top">
+      <slot name="popup" />
     </transition>
 
     <footer class="footer">

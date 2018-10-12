@@ -44,9 +44,8 @@
 </template>
 
 <script>
-import Popup from './popup.vue'
-import Messages from './messages.vue'
-
+import Popup from '../ui/popup.vue'
+import Messages from '../ui/messages.vue'
 
 export default {
   name: 'UiPopupLogin',
@@ -65,7 +64,7 @@ export default {
 
   computed: {
     messages () {
-      return this.$store.state.utilisateur.loginMessages
+      return this.$store.state.utilisateur.popupMessages
     }
   },
 
@@ -75,7 +74,7 @@ export default {
     },
 
     errorsRemove () {
-      this.$store.commit('utilisateur/loginMessagesRemove')
+      this.$store.commit('utilisateur/popupMessagesRemove')
     }
   }
 }

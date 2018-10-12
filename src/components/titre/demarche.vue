@@ -1,6 +1,6 @@
 <template>
   <div class="mb">
-    <div class="border-card" />
+    <div class="card-border" />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2">
         <h3 class="cap-first">{{ demarche.type.nom }}</h3>
@@ -61,7 +61,7 @@
 <script>
 import Dot from '../ui/dot.vue'
 import Accordion from '../ui/accordion.vue'
-import TitreEtape from '../camino/etape.vue'
+import TitreEtape from './etape.vue'
 
 export default {
   components: {

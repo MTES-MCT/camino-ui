@@ -102,17 +102,6 @@
   );
 }
 
-.btn-menubar .icon-24-dot {
-  background-image: svg-load(
-    './icons/24-dot.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1px
-  );
-}
-
 .icon-24-chevron-b {
   background-image: svg-load(
     './icons/24-chevron-b.svg',
