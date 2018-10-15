@@ -2,15 +2,8 @@
   <div 
     class="popup fixed shadow full bg-bg"
   >
-    <div class="popup-header flex flex-start px-l pt-l pb">
+    <div class="popup-header px-l pt-l pb">
       <slot name="header" />
-      <button
-        v-if="closeBtn"
-        class="btn-alt rnd-xs flex-right p-s"
-        @click="close"
-      >
-        <i class="icon-24 icon-24-close" />
-      </button>
     </div>
     <div class="popup-content px-l pt-l">
       <slot />
@@ -23,39 +16,6 @@
 
 <script>
 export default {
-  name: 'UiSystemPopup',
-
-  computed: {
-    closeBtn () {
-      return this.$store.state.popup.closeBtn
-    },
-    closeKey () {
-      return this.$store.state.popup.closeKey
-    }
-  },
-
-  created () {
-    if (this.closeKey) {
-      document.addEventListener('keyup', this.keyup)
-    }
-  },
-
-  beforeDestroy () {
-    if (this.closeKey) {
-      document.removeEventListener('keyup', this.keyup)
-    }
-  },
-
-  methods: {
-    close () {
-      this.$emit('popup-close')
-      this.$store.commit('popupClose')
-    },
-    keyup (e) {
-      if ((e.which || e.keyCode) === 27) {
-        this.close()
-      }
-    }
-  }
+  name: 'UiSystemPopup'
 }
 </script>

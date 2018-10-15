@@ -1,7 +1,5 @@
 <template>
-  <popup
-    @popup-close="errorsRemove"
-  >
+  <popup>
     <template slot="header">
       <div>
         <h5><span class="cap-first">{{ titre.nom }}</span><span class="color-neutral"> | </span><span class="cap-first">{{ demarche.type.nom }}</span></h5>
@@ -325,14 +323,12 @@
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="login"
-            @keyup.enter="login"
           >Annuler</button>
         </div>
         <div class="tablet-blob-2-3">
           <button
             class="btn-flash rnd-xs p-s full-x"
             @click="login"
-            @keyup.enter="login"
           >Enregistrer</button>
         </div>
       </div>
@@ -388,7 +384,6 @@ export default {
     },
     pointRemove (point) {
       const index = this.etape.points.findIndex(p => p.id === point.id)
-      console.log(index);
       this.etape.points.splice(index, 1)
     },
     pointReferenceAdd (point) {

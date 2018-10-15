@@ -17,7 +17,7 @@
         @click="editPopupOpen"
       >
         <i 
-          class="icon-24 icon-24-edit"
+          class="icon-24 icon-24-pencil"
         />
       </button>
     </template>

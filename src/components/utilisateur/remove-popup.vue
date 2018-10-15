@@ -1,33 +1,12 @@
 <template>
   <popup>
     <template slot="header">
-      <h2 class="mb-0 mt-xs">Connexion</h2>
+      <div>
+        <h2 class="mb-0">Suppression d'un utilisateur</h2>
+      </div>
     </template>
 
-    <div class="tablet-blobs mb">
-      <div class="tablet-blob-1-3 py-s">
-        Identifiant
-      </div>
-      <div class="tablet-blob-2-3">
-        <input 
-          v-model="id"
-          type="text" 
-          class="p-s"
-        >
-      </div>
-    </div>
-    <div class="tablet-blobs mb">
-      <div class="tablet-blob-1-3 py-s">
-        Mot de passe
-      </div>
-      <div class="tablet-blob-2-3">
-        <input 
-          v-model="motDePasse"
-          type="password" 
-          class="p-s"
-        >
-      </div>
-    </div>
+    <p class="mb-l">Souhaitez vous supprimer {{ utilisateur.id }} ?</p>
 
     <messages :messages="messages" />
 
@@ -42,8 +21,8 @@
         <div class="tablet-blob-2-3">
           <button
             class="btn-flash rnd-xs p-s full-x"
-            @click="login"
-          >M'identifier</button>
+            @click="remove"
+          >Supprimer</button>
         </div>
       </div>
     </template>
@@ -54,24 +33,31 @@
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 
+
 export default {
-  name: 'UiPopupLogin',
+  name: 'CaminoUtilisateurEditPopup',
 
   components: {
     Popup,
     Messages
-  },
-
-  data () {
-    return {
-      id: '',
-      motDePasse: ''
+  }, 
+  
+  props: {
+    utilisateur: {
+      type: Object,
+      default: () => ({})
     }
   },
 
   computed: {
     messages () {
-      return this.$store.state.user.popupMessages
+      return this.$store.state.utilisateurs.popupMessages
+    },
+    permissionList () {
+      return this.$store.state.utilisateurs.permissions
+    },
+    complete () {
+      return this.creation ? this.utilisateur.id && this.utilisateur.email && this.utilisateur.motDePasse :  this.utilisateur.id && this.utilisateur.email
     }
   },
 
@@ -84,8 +70,8 @@ export default {
   },
 
   methods: {
-    login () {
-      this.$store.dispatch('user/login', { id: this.id, motDePasse: this.motDePasse })
+    remove() {
+      this.$store.dispatch('utilisateurs/remove', this.utilisateur.id)
     },
 
     cancel() {
@@ -94,14 +80,14 @@ export default {
     },
 
     errorsRemove () {
-      this.$store.commit('user/popupMessagesRemove')
+      this.$store.commit('utilisateurs/popupMessagesRemove')
     },
 
     keyup (e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
-        this.login()
+        this.remove()
       }
     }
   }

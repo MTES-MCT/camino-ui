@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import router from '../router'
 
-import { utilisateur, utilisateurUpdate } from '@/api'
+import { utilisateur } from '@/api'
 
 export const state = {
-  current: null,
-  popupMessages: []
+  current: null
 }
 
 export const actions = {
@@ -25,21 +24,6 @@ export const actions = {
     } catch (e) {
       dispatch('apiError', e, { root: true })
     }
-  },
-
-  async update({ commit, dispatch }, utilisateur) {
-    try {
-      const u = await utilisateurUpdate({ utilisateur })
-      commit('set', u)
-      commit('popupClose', null, { root: true })
-      dispatch(
-        'messageAdd',
-        { value: `Utilisateur ${u.id} mis à jour.`, type: 'success' },
-        { root: true }
-      )
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' })
-    }
   }
 }
 
@@ -50,14 +34,6 @@ export const mutations = {
 
   reset(state) {
     Vue.set(state, 'current', null)
-  },
-
-  popupMessagesRemove(state) {
-    state.popupMessages = []
-  },
-
-  popupMessageAdd(state, message) {
-    state.popupMessages.push(message)
   }
 }
 

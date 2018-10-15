@@ -5,6 +5,7 @@ import {
   utilisateurLogin,
   utilisateurUpdate,
   utilisateurAdd,
+  utilisateurRemove,
   identifier
 } from '@/api/utilisateurs'
 
@@ -16,5 +17,6 @@ export {
   utilisateurLogin,
   utilisateurUpdate,
   utilisateurAdd,
+  utilisateurRemove,
   identifier
 }

@@ -10,7 +10,7 @@ const titre = async id => {
 
     return res && res.data.titre
   } catch (e) {
-    console.log(e)
+    console.log({ e })
   }
 }
 
@@ -29,7 +29,7 @@ const titres = async ({ typeIds, domaineIds, statutIds, substances, noms }) => {
 
     return res && res.data
   } catch (e) {
-    console.log(e)
+    console.log({ e })
   }
 }
 

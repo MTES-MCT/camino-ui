@@ -1,15 +1,8 @@
 <template>
-  <card>
-    <div class="mb">Loading…</div>
-  </card>
+  <div class="mb">Loading…</div>
 </template>
 
 <script>
-import Card from './card.vue'
-
 export default {
-  components: {
-    Card
-  }
 }
 </script>

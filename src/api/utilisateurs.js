@@ -5,7 +5,8 @@ import {
   queryUtilisateurIdentifier,
   mutationUtilisateurConnecter,
   mutationUtilisateurModifier,
-  mutationUtilisateurAjouter
+  mutationUtilisateurAjouter,
+  mutationUtilisateurSupprimer
 } from '@/api/queries/utilisateurs'
 // import { removeTypename } from './_utils'
 
@@ -35,7 +36,7 @@ const utilisateurs = async ({ entrepriseIds, administrationIds, noms }) => {
 
     return res && res.data
   } catch (e) {
-    console.log(e)
+    console.log({ e })
   }
 }
 
@@ -67,6 +68,7 @@ const identifier = async () => {
 
 const utilisateurUpdate = async ({ utilisateur }) => {
   // const u = removeTypename(utilisateur)
+  console.log('utilisateurUpdate', utilisateur)
 
   try {
     const res = await graphqlClient.mutate({
@@ -92,6 +94,24 @@ const utilisateurAdd = async ({ utilisateur }) => {
 
     return res && res.data
   } catch (e) {
+    console.log({ e })
+    throw (e.graphQLErrors &&
+      e.graphQLErrors[0] &&
+      e.graphQLErrors[0].message) ||
+      (e.message && e.message)
+  }
+}
+
+const utilisateurRemove = async ({ id }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationUtilisateurSupprimer,
+      variables: { id }
+    })
+
+    return res && res.data
+  } catch (e) {
+    console.log({ e })
     throw (e.graphQLErrors &&
       e.graphQLErrors[0] &&
       e.graphQLErrors[0].message) ||
@@ -105,5 +125,6 @@ export {
   utilisateurLogin,
   identifier,
   utilisateurUpdate,
-  utilisateurAdd
+  utilisateurAdd,
+  utilisateurRemove
 }

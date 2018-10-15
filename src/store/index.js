@@ -22,8 +22,6 @@ export const state = {
   messages: [],
   popup: {
     component: null,
-    closeBtn: false,
-    closeKey: false,
     props: null
   },
   apiError: undefined,
@@ -71,14 +69,12 @@ export const mutations = {
   messageRemove(state, id) {
     Vue.delete(state.messages, state.messages.findIndex(m => m.id === id))
   },
-  popupOpen(state, { component, closeBtn, closeKey, props }) {
-    state.popup = { component, closeBtn, closeKey, props }
+  popupOpen(state, { component, props }) {
+    state.popup = { component, props }
   },
   popupClose(state) {
     state.popup = {
       component: null,
-      closeBtn: false,
-      closeKey: false,
       props: null
     }
   },

@@ -1,7 +1,6 @@
 <template>
   
-  <loader v-if="!loaded" />
-  <card v-else>
+  <card>
     <div class="flex">
       <h2 class="mt-s">Utilisateurs</h2>
 
@@ -11,7 +10,11 @@
       ><i class="icon-24 icon-24-plus" /></button>
     </div>
 
-    <utilisateurs-table :utilisateurs="utilisateurs" />
+    <loader v-if="!loaded" />
+    <utilisateurs-table 
+      v-else
+      :utilisateurs="utilisateurs"
+    />
   </card>
 </template>
 
@@ -42,9 +45,6 @@ export default {
     },
     loaded () {
       return !!this.utilisateurs
-    },
-    permissionList () {
-      return this.$store.state.utilisateurs.permissions
     }
   },
 
@@ -61,10 +61,8 @@ export default {
         component: EditPopup,
         props: {
           utilisateur: { permissions: []},
-          permissionList: JSON.parse(JSON.stringify(this.permissionList)),
           creation: true
-        }, 
-        closeKey: true
+        }
       })
     }
   },

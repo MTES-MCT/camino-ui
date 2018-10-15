@@ -80,8 +80,18 @@ const mutationUtilisateurModifier = gql`
 `
 
 const mutationUtilisateurAjouter = gql`
-  mutation UtilisateurAjouter($utilisateur: InputUtilisateur!) {
+  mutation UtilisateurAjouter($utilisateur: InputUtilisateurAjouter!) {
     utilisateurAjouter(utilisateur: $utilisateur) {
+      ...utilisateur
+    }
+  }
+
+  ${utilisateurFragment}
+`
+
+const mutationUtilisateurSupprimer = gql`
+  mutation UtilisateurSupprimer($id: ID!) {
+    utilisateurSupprimer(id: $id) {
       ...utilisateur
     }
   }
@@ -95,5 +105,6 @@ export {
   queryUtilisateurIdentifier,
   mutationUtilisateurConnecter,
   mutationUtilisateurModifier,
-  mutationUtilisateurAjouter
+  mutationUtilisateurAjouter,
+  mutationUtilisateurSupprimer
 }

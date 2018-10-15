@@ -17,7 +17,6 @@
       <button
         class="btn-flash rnd-xs p-s full-x"
         @click="set"
-        @keyup.enter="set"
       >Je comprends</button>
     </template>
   </popup>
@@ -34,11 +33,25 @@ export default {
     Popup
   },
 
+  created () {
+    document.addEventListener('keyup', this.keyup)
+  },
+
+  beforeDestroy () {
+    document.removeEventListener('keyup', this.keyup)
+  },
+
   methods: {
     set () {
       localStorage.setItem('conditions', new Date().getTime())
       this.$store.commit('popupClose')
-    }
+    },
+
+    keyup (e) {
+      if ((e.which || e.keyCode) === 13) {
+        this.set()
+      }
+    }    
   }
 }
 </script>

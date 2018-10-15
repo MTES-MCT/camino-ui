@@ -1,9 +1,17 @@
 import Vue from 'vue'
-import { utilisateurs, utilisateurAdd } from '../api'
+import {
+  utilisateurs,
+  utilisateurAdd,
+  utilisateurUpdate,
+  utilisateurRemove
+} from '../api'
+
+import router from '../router'
 
 export const state = {
   list: [],
-  permissions: []
+  permissions: [],
+  popupMessages: []
 }
 
 export const actions = {
@@ -23,14 +31,66 @@ export const actions = {
   },
 
   async add({ commit, dispatch }, utilisateur) {
+    commit('popupMessagesRemove')
     try {
       const data = await utilisateurAdd({ utilisateur })
 
+      commit('popupClose', null, { root: true })
+
       if (data.utilisateurAjouter) {
         commit('add', data.utilisateurAjouter)
+        dispatch(
+          'messageAdd',
+          {
+            value: `Utilisateur ${data.utilisateurAjouter.id} ajouté.`,
+            type: 'success'
+          },
+          { root: true }
+        )
       }
     } catch (e) {
-      dispatch('apiError', e, { root: true })
+      commit('popupMessageAdd', { value: e, type: 'error' })
+    }
+  },
+
+  async update({ commit, dispatch }, utilisateur) {
+    commit('popupMessagesRemove')
+    try {
+      const u = await utilisateurUpdate({ utilisateur })
+
+      commit('utilisateur/set', u, { root: true })
+      commit('popupClose', null, { root: true })
+      dispatch(
+        'messageAdd',
+        { value: `Utilisateur ${u.id} mis à jour.`, type: 'success' },
+        { root: true }
+      )
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' })
+    }
+  },
+
+  async remove({ commit, dispatch }, id) {
+    commit('popupMessagesRemove')
+    try {
+      const data = await utilisateurRemove({ id })
+
+      if (data.utilisateurSupprimer) {
+        commit('remove', data.utilisateurSupprimer)
+        commit('popupClose', null, { root: true })
+        dispatch(
+          'messageAdd',
+          {
+            value: `Utilisateur ${data.utilisateurSupprimer.id} supprimé.`,
+            type: 'success'
+          },
+          { root: true }
+        )
+
+        router.push({ name: 'utilisateurs' })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' })
     }
   }
 }
@@ -50,6 +110,21 @@ export const mutations = {
 
   add(state, utilisateur) {
     state.list.push(utilisateur)
+  },
+
+  remove(state, id) {
+    const index = state.list.findIndex(u => u.id === id)
+    if (index > 0) {
+      state.list.splice(index, 1)
+    }
+  },
+
+  popupMessagesRemove(state) {
+    state.popupMessages = []
+  },
+
+  popupMessageAdd(state, message) {
+    state.popupMessages.push(message)
   }
 }
 

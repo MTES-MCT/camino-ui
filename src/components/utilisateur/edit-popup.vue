@@ -1,7 +1,5 @@
 <template>
-  <popup
-    @popup-close="cancel"
-  >
+  <popup>
     <template slot="header">
       <div>
         <h5>Utilisateur</h5>
@@ -10,6 +8,7 @@
     </template>
 
     <div v-if="creation">
+      <p>Renseignez au moins l'id, l'email et le mot de passe. </p>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Id</h6>
@@ -20,6 +19,38 @@
             type="text" 
             class="p-s"
             placeholder="Id"
+          >
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div class="tablet-blobs">
+      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Email</h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <input 
+          v-model="utilisateur.email"
+          type="text" 
+          class="p-s"
+          placeholder="Email"
+        >
+      </div>
+    </div>
+    <hr>
+
+    <div v-if="creation">
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Mot de passe</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input 
+            v-model="utilisateur.motDePasse"
+            type="password" 
+            class="p-s"
+            placeholder="Mot de passe"
           >
         </div>
       </div>
@@ -51,21 +82,6 @@
           type="text" 
           class="p-s"
           placeholder="Prénom"
-        >
-      </div>
-    </div>
-    <hr>
-
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Email</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input 
-          v-model="utilisateur.email"
-          type="text" 
-          class="p-s"
-          placeholder="Email"
         >
       </div>
     </div>
@@ -129,14 +145,17 @@
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
-            @keyup.enter="cancel"
+            @keyup.esc.native="cancel"
           >Annuler</button>
         </div>
-        <div class="tablet-blob-2-3">
+        <div 
+          class="tablet-blob-2-3"
+          :class="{ disabled: !complete }"
+        >
           <button
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
-            @keyup.enter="save"
+            @keyup.enter.native="save"
           >Enregistrer</button>
         </div>
       </div>
@@ -162,10 +181,6 @@ export default {
       type: Object,
       default: () => ({})
     },
-    permissionList: {
-      type: Array,
-      default: () => []
-    },
     creation: {
       type: Boolean,
       default: false
@@ -180,18 +195,33 @@ export default {
 
   computed: {
     messages () {
-      return this.$store.state.utilisateur.popupMessages
+      return this.$store.state.utilisateurs.popupMessages
+    },
+    permissionList () {
+      return this.$store.state.utilisateurs.permissions
+    },
+    complete () {
+      return this.creation ? this.utilisateur.id && this.utilisateur.email && this.utilisateur.motDePasse :  this.utilisateur.id && this.utilisateur.email
     }
+  },
+
+  created () {
+    document.addEventListener('keyup', this.keyup)
+  },
+
+  beforeDestroy () {
+    document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
     save() {
-      if (this.creation) {
-        this.$store.dispatch('utilisateurs/add', this.utilisateur)
-      } else {
-        this.$store.dispatch('utilisateur/update', this.utilisateur)
+      if (this.complete) {
+       if (this.creation) {
+          this.$store.dispatch('utilisateurs/add', this.utilisateur)
+        } else {
+          this.$store.dispatch('utilisateurs/update', this.utilisateur)
+        }
       }
-      
     },
 
     cancel() {
@@ -199,8 +229,16 @@ export default {
       this.$store.commit('popupClose')
     },
 
+    keyup (e) {
+      if ((e.which || e.keyCode) === 27) {
+        this.cancel()
+      } else if ((e.which || e.keyCode) === 13) {
+        this.save()
+      }
+    },
+
     errorsRemove () {
-      this.$store.commit('utilisateur/popupMessagesRemove')
+      this.$store.commit('utilisateurs/popupMessagesRemove')
     },
 
     permissionToggle(permission) {
