@@ -6,6 +6,11 @@ const queryUtilisateur = gql`
     utilisateur(id: $id) {
       ...utilisateur
     }
+
+    permissions {
+      id
+      nom
+    }
   }
 
   ${utilisateurFragment}
@@ -23,6 +28,11 @@ const queryUtilisateurs = gql`
       noms: $noms
     ) {
       ...utilisateur
+    }
+
+    permissions {
+      id
+      nom
     }
   }
 
@@ -59,9 +69,31 @@ const queryUtilisateurIdentifier = gql`
   }
 `
 
+const mutationUtilisateurModifier = gql`
+  mutation UtilisateurModifier($utilisateur: InputUtilisateur!) {
+    utilisateurModifier(utilisateur: $utilisateur) {
+      ...utilisateur
+    }
+  }
+
+  ${utilisateurFragment}
+`
+
+const mutationUtilisateurAjouter = gql`
+  mutation UtilisateurAjouter($utilisateur: InputUtilisateur!) {
+    utilisateurAjouter(utilisateur: $utilisateur) {
+      ...utilisateur
+    }
+  }
+
+  ${utilisateurFragment}
+`
+
 export {
   queryUtilisateur,
   queryUtilisateurs,
+  queryUtilisateurIdentifier,
   mutationUtilisateurConnecter,
-  queryUtilisateurIdentifier
+  mutationUtilisateurModifier,
+  mutationUtilisateurAjouter
 }

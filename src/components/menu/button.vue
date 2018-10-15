@@ -22,9 +22,6 @@ export default {
   },
 
   computed: {
-    utilisateur () {
-      return this.$store.state.utilisateur
-    },
     menu () {
       return this.$store.state.menu
     }

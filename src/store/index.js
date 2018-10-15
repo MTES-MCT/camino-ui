@@ -6,13 +6,15 @@ import titres from './titres'
 import map from './map'
 import utilisateur from './utilisateur'
 import utilisateurs from './utilisateurs'
+import user from './user'
 
 const modules = {
   titre,
   titres,
   map,
   utilisateur,
-  utilisateurs
+  utilisateurs,
+  user
 }
 
 export const state = {
@@ -21,6 +23,7 @@ export const state = {
   popup: {
     component: null,
     closeBtn: false,
+    closeKey: false,
     props: null
   },
   apiError: undefined,
@@ -68,11 +71,16 @@ export const mutations = {
   messageRemove(state, id) {
     Vue.delete(state.messages, state.messages.findIndex(m => m.id === id))
   },
-  popupOpen(state, { component, closeBtn, props }) {
-    state.popup = { component, closeBtn, props }
+  popupOpen(state, { component, closeBtn, closeKey, props }) {
+    state.popup = { component, closeBtn, closeKey, props }
   },
   popupClose(state) {
-    state.popup = { component: null, closeBtn: false, props: null }
+    state.popup = {
+      component: null,
+      closeBtn: false,
+      closeKey: false,
+      props: null
+    }
   },
   apiError(state, status) {
     state.apiError = status

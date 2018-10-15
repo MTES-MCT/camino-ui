@@ -65,7 +65,7 @@ export default {
       this.popupOpen()
     }
     if (localStorage.getItem('token')) {
-      this.$store.dispatch('utilisateur/identifier')
+      this.$store.dispatch('user/identifier')
     }
   },
 

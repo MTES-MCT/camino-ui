@@ -1,9 +1,12 @@
 var mixins = {
   methods: {
     permissions(permissions) {
-      return this.$store.state.utilisateur.permissions
-        .map(p => p.id)
-        .some(e => permissions.includes(e))
+      return (
+        this.$store.state.user.current &&
+        this.$store.state.user.current.permissions
+          .map(p => p.id)
+          .some(e => permissions.includes(e))
+      )
     }
   }
 }

@@ -2,21 +2,16 @@
   <div class="bg-bg">
     <div class="container pt">
       <div class="tablet-blobs">
-        <div class="tablet-blob-1-3">
-          <ul class="list-sans">
-            <li>{{ utilisateur.id }}</li>
-          </ul>
-        </div>
 
         <div class="tablet-blob-1-3">
           <ul class="list-sans">
             <li>
               <router-link
-                :key="utilisateur.id"
-                :to="{ name: 'utilisateur', params: { id: utilisateur.id }}"
+                :key="user.id"
+                :to="{ name: 'utilisateur', params: { id: user.id }}"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
-            >Profil</router-link></li>
+            >{{ user.id }}</router-link></li>
             <li><a href="" /></li>
             <li><a href="" /></li>
             <li>
@@ -38,8 +33,8 @@ export default {
   name: 'UserMenu',
 
   computed: {
-    utilisateur () {
-      return this.$store.state.utilisateur
+    user () {
+      return this.$store.state.user.current
     },
     menu () {
       return this.$store.state.menu
@@ -51,7 +46,7 @@ export default {
       if (this.menu.component && this.menu.component.name === 'MenuUser') {
         this.$store.commit('menuClose')
       }
-      this.$store.dispatch('utilisateur/logout')
+      this.$store.dispatch('user/logout')
     }
   }
 }

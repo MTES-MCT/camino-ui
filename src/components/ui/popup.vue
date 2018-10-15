@@ -7,7 +7,7 @@
       <button
         v-if="closeBtn"
         class="btn-alt rnd-xs flex-right p-s"
-        @click="closeDefault"
+        @click="close"
       >
         <i class="icon-24 icon-24-close" />
       </button>
@@ -28,17 +28,20 @@ export default {
   computed: {
     closeBtn () {
       return this.$store.state.popup.closeBtn
+    },
+    closeKey () {
+      return this.$store.state.popup.closeKey
     }
   },
 
   created () {
-    if (this.closeBtn) {
+    if (this.closeKey) {
       document.addEventListener('keyup', this.keyup)
     }
   },
 
   beforeDestroy () {
-    if (this.closeBtn) {
+    if (this.closeKey) {
       document.removeEventListener('keyup', this.keyup)
     }
   },
@@ -47,11 +50,6 @@ export default {
     close () {
       this.$emit('popup-close')
       this.$store.commit('popupClose')
-    },
-    closeDefault () {
-      if (this.closeBtn) {
-        this.close()
-      }
     },
     keyup (e) {
       if ((e.which || e.keyCode) === 27) {

@@ -34,11 +34,22 @@
     <messages :messages="messages" />
 
     <template slot="footer">
-      <button
-        class="btn-flash rnd-xs p-s full-x"
-        @click="login"
-        @keyup.enter="login"
-      >M'identifier</button>
+      <div class="tablet-blobs">
+        <div class="mb tablet-mb-0 tablet-blob-1-3">
+          <button
+            class="btn-border rnd-xs p-s full-x"
+            @click="cancel"
+            @keyup.enter="cancel"
+          >Annuler</button>
+        </div>
+        <div class="tablet-blob-2-3">
+          <button
+            class="btn-flash rnd-xs p-s full-x"
+            @click="login"
+            @keyup.enter="login"
+          >M'identifier</button>
+        </div>
+      </div>
     </template>
   </popup>
 </template>
@@ -64,17 +75,22 @@ export default {
 
   computed: {
     messages () {
-      return this.$store.state.utilisateur.popupMessages
+      return this.$store.state.user.popupMessages
     }
   },
 
   methods: {
     login () {
-      this.$store.dispatch('utilisateur/connecter', { id: this.id, motDePasse: this.motDePasse })
+      this.$store.dispatch('user/login', { id: this.id, motDePasse: this.motDePasse })
+    },
+
+    cancel() {
+      this.errorsRemove()
+      this.$store.commit('popupClose')
     },
 
     errorsRemove () {
-      this.$store.commit('utilisateur/popupMessagesRemove')
+      this.$store.commit('user/popupMessagesRemove')
     }
   }
 }

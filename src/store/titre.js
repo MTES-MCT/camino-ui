@@ -10,15 +10,17 @@ export const state = {
 
 export const actions = {
   async get({ commit, dispatch }, { id }) {
-    const t = await titre(id)
+    try {
+      const t = await titre(id)
 
-    if (t) {
-      commit('set', titreFormat(t))
-    } else if (t === null) {
-      router.push({ name: 'error' })
-    } else {
+      if (t) {
+        commit('set', titreFormat(t))
+      } else {
+        router.push({ name: 'error' })
+      }
+    } catch (e) {
       console.log('fix me')
-      dispatch('apiError', null, { root: true })
+      dispatch('apiError', e, { root: true })
     }
   },
 

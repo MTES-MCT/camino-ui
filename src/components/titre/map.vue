@@ -63,7 +63,7 @@ export default {
     },
 
     tilesLayer () {
-      const tiles = this.$store.getters['utilisateur/tilesActive']
+      const tiles = this.$store.getters['user/tilesActive']
       return tiles.type === 'wms'
         ?
         L.tileLayer.wms(tiles.url, {
@@ -80,7 +80,7 @@ export default {
     },
 
     tilesName () {
-      return this.$store.state.utilisateur.preferences.map.tilesName
+      return this.$store.state.user.preferences.map.tilesName
     },
 
     brgmWarning () {
@@ -90,7 +90,7 @@ export default {
 
   methods: {
     tilesNameSelect (tuileNom) {
-      this.$store.commit('utilisateur/preferencesMapTilesNameSelect', tuileNom)
+      this.$store.commit('user/preferencesMapTilesNameSelect', tuileNom)
     },
 
     zoomLevelGet (zoomLevel) {

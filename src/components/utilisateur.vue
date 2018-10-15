@@ -48,7 +48,7 @@
               <h6 class="mt-xs">Email</h6>
             </div>
             <div class="tablet-blob-3-4">
-              <p>{{ utilisateur.email }}</p>
+              <p>{{ utilisateur.email || '–' }}</p>
             </div>
           </div>
           <div class="tablet-blobs">
@@ -99,7 +99,10 @@ export default {
 
   computed: {
     utilisateur () {
-      return this.$store.state.utilisateur
+      return this.$store.state.utilisateur.current
+    },
+    permissionList () {
+      return this.$store.state.utilisateurs.permissions
     },
     loaded () {
       return !!this.utilisateur
@@ -123,12 +126,13 @@ export default {
       this.$store.dispatch('utilisateur/get', { id: this.$route.params.id })
     },
     editPopupOpen () {
-
       this.$store.commit('popupOpen', { 
         component: EditPopup,
         props: {
-          utilisateur: JSON.parse(JSON.stringify(this.utilisateur)) 
-        } 
+          utilisateur: JSON.parse(JSON.stringify(this.utilisateur)),
+          permissionList: JSON.parse(JSON.stringify(this.permissionList))
+        }, 
+        closeKey: true
       })
     },
     editPopupClose () {

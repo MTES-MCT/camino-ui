@@ -2,9 +2,12 @@ import graphqlClient from '@/api/_graphql-client'
 import {
   queryUtilisateur,
   queryUtilisateurs,
+  queryUtilisateurIdentifier,
   mutationUtilisateurConnecter,
-  queryUtilisateurIdentifier
+  mutationUtilisateurModifier,
+  mutationUtilisateurAjouter
 } from '@/api/queries/utilisateurs'
+// import { removeTypename } from './_utils'
 
 const utilisateur = async id => {
   try {
@@ -13,9 +16,9 @@ const utilisateur = async id => {
       variables: { id }
     })
 
-    return res && res.data.utilisateur
+    return res && res.data
   } catch (e) {
-    console.log(e)
+    throw e
   }
 }
 
@@ -30,13 +33,13 @@ const utilisateurs = async ({ entrepriseIds, administrationIds, noms }) => {
       }
     })
 
-    return res && res.data.utilisateurs
+    return res && res.data
   } catch (e) {
     console.log(e)
   }
 }
 
-const connecter = async ({ id, motDePasse }) => {
+const utilisateurLogin = async ({ id, motDePasse }) => {
   try {
     const res = await graphqlClient.mutate({
       mutation: mutationUtilisateurConnecter,
@@ -61,4 +64,46 @@ const identifier = async () => {
     throw e
   }
 }
-export { utilisateur, utilisateurs, connecter, identifier }
+
+const utilisateurUpdate = async ({ utilisateur }) => {
+  // const u = removeTypename(utilisateur)
+
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationUtilisateurModifier,
+      variables: { utilisateur }
+    })
+
+    return res && res.data && res.data.utilisateurModifier
+  } catch (e) {
+    throw (e.graphQLErrors &&
+      e.graphQLErrors[0] &&
+      e.graphQLErrors[0].message) ||
+      (e.message && e.message)
+  }
+}
+
+const utilisateurAdd = async ({ utilisateur }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationUtilisateurAjouter,
+      variables: { utilisateur }
+    })
+
+    return res && res.data
+  } catch (e) {
+    throw (e.graphQLErrors &&
+      e.graphQLErrors[0] &&
+      e.graphQLErrors[0].message) ||
+      (e.message && e.message)
+  }
+}
+
+export {
+  utilisateur,
+  utilisateurs,
+  utilisateurLogin,
+  identifier,
+  utilisateurUpdate,
+  utilisateurAdd
+}

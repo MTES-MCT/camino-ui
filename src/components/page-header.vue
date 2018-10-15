@@ -17,7 +17,7 @@
         <div class="flex-right">
           <ul class="list-inline">
             <li v-if="permissions(['super', 'admin'])"><menu-button class="mt-l" /></li>
-            <li><utilisateur-button class="mt-l" /></li>
+            <li><user-button class="mt-l" /></li>
           </ul>
         </div>
       </div>
@@ -36,14 +36,14 @@
 </template>
 
 <script>
-import UtilisateurButton from './utilisateur/button.vue'
+import UserButton from './user/button.vue'
 import MenuButton from './menu/button.vue'
 
 export default {
   name: 'PageHeader',
 
   components: {
-    UtilisateurButton,
+    UserButton,
     MenuButton
   },
 

@@ -368,7 +368,7 @@ export default {
 
   computed: {
     messages () {
-      return this.$store.state.utilisateur.loginMessages
+      return this.$store.state.utilisateur.popupMessages
     },
     titre () {
       return this.$store.state.titre.current
@@ -379,10 +379,6 @@ export default {
   },
 
   methods: {
-    login () {
-      // this.$store.dispatch('utilisateur/connecter', { id: this.id, motDePasse: this.motDePasse })
-    },
-
     errorsRemove () {
       // this.$store.commit('utilisateur/loginMessagesRemove')
     },
