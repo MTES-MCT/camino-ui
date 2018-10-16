@@ -4,36 +4,9 @@ import { titreFormat, metaFormat } from './_utils'
 
 export const state = {
   list: null,
-  domaines: [
-    { id: 'g', nom: 'géothermie', checked: true },
-    {
-      id: 'h',
-      nom: 'hydrocarbures liquides ou gazeux',
-      checked: true
-    },
-    { id: 'w', nom: 'granulats marins', checked: true }
-  ],
+  domaines: null,
   types: null,
-  statuts: [
-    {
-      id: 'dmi',
-      nom: 'demande initiale',
-      couleur: 'warning',
-      checked: true
-    },
-    {
-      id: 'mod',
-      nom: 'modification en instance',
-      couleur: 'warning',
-      checked: true
-    },
-    {
-      id: 'val',
-      nom: 'valide',
-      couleur: 'success',
-      checked: true
-    }
-  ],
+  statuts: null,
   substances: null,
   noms: null
 }
@@ -68,7 +41,6 @@ export const actions = {
     )
 
     const data = await titres(a)
-
     if (data) {
       commit('set', data.titres.map(t => titreFormat(t)))
 

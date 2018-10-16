@@ -17,7 +17,7 @@
         slot="buttons"
       >
         <button
-          class="btn-alt py-s px-m"
+          class="btn-alt py-s px-m hide"
           @click="editPopupOpen"
         >
           <i class="icon-24 icon-24-key" />

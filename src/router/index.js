@@ -82,7 +82,7 @@ const routes = [
     redirect: 'titres'
   },
   {
-    path: '/messages',
+    path: '/error',
     alias: '*',
     name: 'error',
     component: Error

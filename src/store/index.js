@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '../router'
 
 import titre from './titre'
 import titres from './titres'
@@ -58,6 +59,18 @@ export const actions = {
       commit('menuOpen', component)
     } else {
       commit('menuOpen', component)
+    }
+  },
+
+  reload({ dispatch }) {
+    if (router.currentRoute.name === 'titres') {
+      dispatch('titres/get', null, { root: true })
+    } else if (router.currentRoute.name === 'titre') {
+      dispatch('titre/get', router.currentRoute.params.id, { root: true })
+    } else if (router.currentRoute.name === 'utilisateurs') {
+      dispatch('utilisateurs/get', null, { root: true })
+    } else if (router.currentRoute.name === 'utilisateur') {
+      dispatch('utilisateur/get', null, { root: true })
     }
   }
 }
