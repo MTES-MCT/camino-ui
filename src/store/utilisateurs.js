@@ -18,8 +18,11 @@ export const actions = {
   async get({ dispatch, commit }) {
     try {
       const data = await utilisateurs({})
+
       if (data.utilisateurs) {
         commit('set', data.utilisateurs)
+      } else {
+        router.push({ name: 'erreur' })
       }
 
       if (data.permissions) {

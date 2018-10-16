@@ -67,7 +67,7 @@ export default {
     if (localStorage.getItem('token')) {
       this.$store.dispatch('user/identifier')
     } else {
-      localStorage.removeItem('token')
+      this.$store.commit('user/tokenRemove')
     }
   },
 

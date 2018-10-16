@@ -14,24 +14,33 @@ const utilisateur = async id => {
   try {
     const res = await graphqlClient.query({
       query: queryUtilisateur,
-      variables: { id }
+      variables: { id },
+      fetchPolicy: 'network-only'
     })
 
     return res && res.data
   } catch (e) {
+    console.log({ e })
     throw e
   }
 }
 
-const utilisateurs = async ({ entrepriseIds, administrationIds, noms }) => {
+const utilisateurs = async ({
+  entrepriseIds,
+  administrationIds,
+  permissionIds,
+  noms
+}) => {
   try {
     const res = await graphqlClient.query({
       query: queryUtilisateurs,
       variables: {
         entrepriseIds,
         administrationIds,
+        permissionIds,
         noms
-      }
+      },
+      fetchPolicy: 'network-only'
     })
 
     return res && res.data
@@ -49,7 +58,7 @@ const utilisateurLogin = async ({ id, motDePasse }) => {
 
     return res && res.data && res.data.utilisateurConnecter
   } catch (e) {
-    // console.log({ e })
+    console.log({ e })
     throw e.graphQLErrors && e.graphQLErrors[0] && e.graphQLErrors[0].message
   }
 }
@@ -67,9 +76,6 @@ const identifier = async () => {
 }
 
 const utilisateurUpdate = async ({ utilisateur }) => {
-  // const u = removeTypename(utilisateur)
-  console.log('utilisateurUpdate', utilisateur)
-
   try {
     const res = await graphqlClient.mutate({
       mutation: mutationUtilisateurModifier,

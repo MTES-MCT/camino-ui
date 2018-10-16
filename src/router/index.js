@@ -38,7 +38,8 @@ const routes = [
   {
     path: '/utilisateurs',
     name: 'utilisateurs',
-    component: Utilisateurs
+    component: Utilisateurs,
+    meta: { permissions: ['super', 'admin'] }
   },
   {
     path: '/utilisateurs/:id',
@@ -82,9 +83,9 @@ const routes = [
     redirect: 'titres'
   },
   {
-    path: '/error',
+    path: '/erreur',
     alias: '*',
-    name: 'error',
+    name: 'erreur',
     component: Error
   }
 ]
@@ -101,9 +102,9 @@ const router = new VueRouter({
   }
 })
 
-router.beforeEach((routeTo, routeFrom, next) => {
+router.beforeEach((to, from, next) => {
   store.commit('menuClose')
-  return next()
+  next()
 })
 
 router.afterEach(() => {})

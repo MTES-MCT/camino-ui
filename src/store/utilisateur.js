@@ -8,14 +8,14 @@ export const state = {
 }
 
 export const actions = {
-  async get({ commit, dispatch }, { id }) {
+  async get({ commit, dispatch }, id) {
     try {
       const res = await utilisateur(id)
 
       if (res.utilisateur) {
         commit('set', res.utilisateur)
       } else {
-        router.push({ name: 'error' })
+        router.push({ name: 'erreur' })
       }
 
       if (res.permissions) {

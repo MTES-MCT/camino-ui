@@ -20,11 +20,13 @@ const queryUtilisateurs = gql`
   query Utilisateurs(
     $administrationIds: [ID!]
     $entrepriseIds: [ID!]
+    $permissionIds: [ID!]
     $noms: [String!]
   ) {
     utilisateurs(
       administrationIds: $administrationIds
       entrepriseIds: $entrepriseIds
+      permissionIds: $permissionIds
       noms: $noms
     ) {
       ...utilisateur

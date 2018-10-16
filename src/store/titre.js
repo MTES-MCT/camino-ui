@@ -16,7 +16,7 @@ export const actions = {
       if (t) {
         commit('set', titreFormat(t))
       } else {
-        router.push({ name: 'error' })
+        router.push({ name: 'erreur' })
       }
     } catch (e) {
       console.log('fix me')

@@ -23,7 +23,7 @@ export const actions = {
       .forEach(f => commit('filterToggle', f))
     dispatch('get')
   },
-  async get({ state, dispatch, commit }) {
+  async get({ state, dispatch, commit }, fetchPolicy) {
     const args = {
       typeIds: state.types && state.types.filter(e => e.checked).map(e => e.id),
       domaineIds:
@@ -40,7 +40,7 @@ export const actions = {
       {}
     )
 
-    const data = await titres(a)
+    const data = await titres(a, fetchPolicy)
     if (data) {
       commit('set', data.titres.map(t => titreFormat(t)))
 

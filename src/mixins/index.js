@@ -1,11 +1,11 @@
+import { permissions } from '../utils'
+
 var mixins = {
   methods: {
-    permissions(permissions) {
+    permissions(p) {
       return (
         this.$store.state.user.current &&
-        this.$store.state.user.current.permissions
-          .map(p => p.id)
-          .some(e => permissions.includes(e))
+        permissions(this.$store.state.user.current.permissions, p)
       )
     }
   }

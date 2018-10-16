@@ -16,10 +16,10 @@ export const actions = {
   async login({ commit, dispatch }, { id, motDePasse }) {
     commit('popupMessagesRemove')
     try {
-      const { token, utilisateur } = await utilisateurLogin({ id, motDePasse })
+      const res = await utilisateurLogin({ id, motDePasse })
 
-      commit('tokenAdd', token)
-      commit('set', utilisateur)
+      commit('tokenAdd', res.token)
+      commit('set', res.utilisateur)
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
@@ -39,6 +39,7 @@ export const actions = {
       const user = await identifier()
       commit('set', user)
     } catch (e) {
+      commit('tokenRemove')
       commit('reset')
     }
   },

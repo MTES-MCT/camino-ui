@@ -59,21 +59,6 @@
 
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Nom</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input 
-          v-model="utilisateur.nom"
-          type="text" 
-          class="p-s"
-          placeholder="Nom"
-        >
-      </div>
-    </div>
-    <hr>
-
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Prénom</h6>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -82,6 +67,21 @@
           type="text" 
           class="p-s"
           placeholder="Prénom"
+        >
+      </div>
+    </div>
+    <hr>
+
+    <div class="tablet-blobs">
+      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Nom</h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <input 
+          v-model="utilisateur.nom"
+          type="text" 
+          class="p-s"
+          placeholder="Nom"
         >
       </div>
     </div>

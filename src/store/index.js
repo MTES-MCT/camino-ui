@@ -64,13 +64,13 @@ export const actions = {
 
   reload({ dispatch }) {
     if (router.currentRoute.name === 'titres') {
-      dispatch('titres/get', null, { root: true })
+      dispatch('titres/get', 'network-only', { root: true })
     } else if (router.currentRoute.name === 'titre') {
       dispatch('titre/get', router.currentRoute.params.id, { root: true })
     } else if (router.currentRoute.name === 'utilisateurs') {
       dispatch('utilisateurs/get', null, { root: true })
     } else if (router.currentRoute.name === 'utilisateur') {
-      dispatch('utilisateur/get', null, { root: true })
+      dispatch('utilisateur/get', router.currentRoute.params.id, { root: true })
     }
   }
 }

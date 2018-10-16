@@ -142,7 +142,7 @@ export default {
 
   methods: {
     get () {
-      this.$store.dispatch('utilisateur/get', { id: this.$route.params.id })
+      this.$store.dispatch('utilisateur/get', this.$route.params.id)
     },
     editPopupOpen () {
       this.$store.commit('popupOpen', { 

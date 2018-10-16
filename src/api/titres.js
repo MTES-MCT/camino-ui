@@ -14,9 +14,12 @@ const titre = async id => {
   }
 }
 
-const titres = async ({ typeIds, domaineIds, statutIds, substances, noms }) => {
+const titres = async (
+  { typeIds, domaineIds, statutIds, substances, noms },
+  fetchPolicy
+) => {
   try {
-    const res = await graphqlClient.query({
+    const options = {
       query: queryTitres,
       variables: {
         typeIds,
@@ -25,7 +28,13 @@ const titres = async ({ typeIds, domaineIds, statutIds, substances, noms }) => {
         substances,
         noms
       }
-    })
+    }
+
+    if (fetchPolicy) {
+      options.fetchPolicy = fetchPolicy
+    }
+
+    const res = await graphqlClient.query(options)
 
     return res && res.data
   } catch (e) {
