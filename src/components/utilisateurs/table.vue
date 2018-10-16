@@ -4,8 +4,8 @@
       <table>
         <tr>
           <th>Id</th>
-          <th>Nom</th>
           <th>Prenom</th>
+          <th>Nom</th>
           <th>Email</th>
           <th>Permissions</th>
         </tr>
@@ -17,12 +17,12 @@
           class="tr-link"
         >
           <td class="bold">{{ utilisateur.id }}</td>
-          <td>{{ utilisateur.nom }}</td>
           <td>{{ utilisateur.prenom }}</td>
+          <td>{{ utilisateur.nom }}</td>
           <td>{{ utilisateur.email }}</td>
           <td>
             <pill v-if="utilisateur.permission">
-              :elements="utilisateur.permission.nom"
+              {{ utilisateur.permission.nom }}
             </pill>
           </td>
         </router-link>

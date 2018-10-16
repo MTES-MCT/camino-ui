@@ -84,10 +84,11 @@
             <h6 class="mt-xs">Permissions</h6>
           </div>
           <div class="tablet-blob-3-4">
-            <pill
+            <pill 
               v-if="utilisateur.permission"
+              class="mb"
             >
-              :elements="utilisateur.permission.nom"
+              {{ utilisateur.permission.nom }}
             </pill>
             <div 
               v-else
