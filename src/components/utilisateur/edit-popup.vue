@@ -126,7 +126,7 @@
           <li 
             v-for="permission in permissionList" 
             :key="permission.id"
-            :class="{ active: utilisateur.permissions.find(p => p.id === permission.id) }"
+            :class="{ active: utilisateur.permission.id === permission.id }"
           >
             <button 
               class="btn-flash py-xs px-s pill cap-first h6 mr-xs"
@@ -242,15 +242,7 @@ export default {
     },
 
     permissionToggle(permission) {
-      const index = this.utilisateur.permissions.findIndex(p => {
-        return p.id === permission.id
-      })
-
-      if (index === -1) {
-        this.utilisateur.permissions.push(permission)
-      } else {
-        this.utilisateur.permissions.splice(index, 1)
-      }
+      this.utilisateur.permission = permission
     }
   }
 }

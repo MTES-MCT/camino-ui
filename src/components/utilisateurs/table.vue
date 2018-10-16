@@ -21,10 +21,9 @@
           <td>{{ utilisateur.prenom }}</td>
           <td>{{ utilisateur.email }}</td>
           <td>
-            <pill-list 
-              :elements="utilisateur.permissions.map(p => p.nom)" 
-              class="mb--xs"
-            />
+            <pill v-if="utilisateur.permission">
+              :elements="utilisateur.permission.nom"
+            </pill>
           </td>
         </router-link>
       </table>
@@ -50,7 +49,7 @@
 </template>
 
 <script>
-import PillList from '../ui/pill-list.vue'
+import Pill from '../ui/pill.vue'
 import Pagination from '../ui/pagination.vue'
 import PaginationRanges from '../ui/pagination-ranges.vue'
 
@@ -58,7 +57,7 @@ export default {
   name: 'Utilisateurs',
 
   components: {
-    PillList,
+    Pill,
     Pagination,
     PaginationRanges
   },

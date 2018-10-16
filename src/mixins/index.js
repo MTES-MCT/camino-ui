@@ -5,7 +5,7 @@ var mixins = {
     permissions(p) {
       return (
         this.$store.state.user.current &&
-        permissions(this.$store.state.user.current.permissions, p)
+        permissions(this.$store.state.user.current.permission, p)
       )
     }
   }

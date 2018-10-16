@@ -48,7 +48,7 @@ const mutationUtilisateurConnecter = gql`
         id
         nom
         email
-        permissions {
+        permission {
           id
           nom
         }
@@ -63,7 +63,7 @@ const queryUtilisateurIdentifier = gql`
     utilisateurIdentifier {
       id
       nom
-      permissions {
+      permission {
         id
         nom
       }

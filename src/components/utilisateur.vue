@@ -84,10 +84,11 @@
             <h6 class="mt-xs">Permissions</h6>
           </div>
           <div class="tablet-blob-3-4">
-            <pill-list
-              v-if="utilisateur.permissions.length"
-              :elements="utilisateur.permissions.map(p => p.nom)"
-            />
+            <pill
+              v-if="utilisateur.permission"
+            >
+              :elements="utilisateur.permission.nom"
+            </pill>
             <div 
               v-else
               class="mb"
@@ -102,7 +103,7 @@
 <script>
 import Card from './ui/card.vue'
 import Accordion from './ui/accordion.vue'
-import PillList from './ui/pill-list.vue'
+import Pill from './ui/pill.vue'
 import Loader from './ui/loader.vue'
 import EditPopup from './utilisateur/edit-popup.vue'
 import RemovePopup from './utilisateur/remove-popup.vue'
@@ -111,7 +112,7 @@ import RemovePopup from './utilisateur/remove-popup.vue'
 export default {
   components: {
     Accordion,
-    PillList,
+    Pill,
     Loader,
     Card
   },
@@ -119,9 +120,6 @@ export default {
   computed: {
     utilisateur () {
       return this.$store.state.utilisateur.current
-    },
-    permissionList () {
-      return this.$store.state.utilisateurs.permissions
     },
     loaded () {
       return !!this.utilisateur

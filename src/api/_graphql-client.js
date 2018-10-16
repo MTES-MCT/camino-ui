@@ -3,24 +3,24 @@ import { ApolloLink } from 'apollo-link'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-// import { onError } from 'apollo-link-error'
+import { onError } from 'apollo-link-error'
 
 // for safari 11
 import fetch from 'unfetch'
 
-// const errorLink = onError(({ graphQLErrors, networkError }) => {
-//   if (graphQLErrors) {
-//     graphQLErrors.map(({ message, locations, path }) =>
-//       console.log(
-//         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-//       )
-//     )
-//   }
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    )
+  }
 
-//   if (networkError) {
-//     console.log(`[Network error]: ${networkError}`)
-//   }
-// })
+  if (networkError) {
+    console.log(`[Network error]: ${networkError}`)
+  }
+})
 
 console.log('api:', process.env.VUE_APP_API_URL)
 
@@ -67,7 +67,7 @@ const omitTypenameLink = new ApolloLink((operation, forward) => {
 //   })
 // })
 
-const link = ApolloLink.from([authLink, omitTypenameLink, httpLink])
+const link = ApolloLink.from([authLink, omitTypenameLink, errorLink, httpLink])
 const cache = new InMemoryCache()
 
 const graphqlClient = new ApolloClient({

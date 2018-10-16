@@ -38,8 +38,7 @@ const routes = [
   {
     path: '/utilisateurs',
     name: 'utilisateurs',
-    component: Utilisateurs,
-    meta: { permissions: ['super', 'admin'] }
+    component: Utilisateurs
   },
   {
     path: '/utilisateurs/:id',
