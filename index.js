@@ -19,7 +19,7 @@ const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
   setHeaders: (res, path, stat) => {
     res.set({
       'Content-Security-Policy':
-        "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; connect-src 'api.camino.beta.gouv.fr' 'test.api.camino.beta.gouv.fr'",
+        "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; connect-src 'https://api.camino.beta.gouv.fr' 'https://test.api.camino.beta.gouv.fr'",
       'X-Frame-Options': 'DENY',
       'X-Content-Type-Options': 'nosniff',
       'X-XSS-Protection': '1; mode=block'
