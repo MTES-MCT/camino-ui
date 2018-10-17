@@ -1,6 +1,6 @@
 <template>
   <card>
-    <h1 class="mt-xs">{{ utilisateur ? `${utilisateur.prenom} ${utilisateur.nom}` : '–' }}</h1>
+    <h1 class="mt-xs">{{ utilisateur ? `${utilisateur.prenom || '–' } ${utilisateur.nom || '–' }` : '–' }}</h1>
   
     <loader v-if="!loaded" />
     <accordion 
@@ -17,8 +17,8 @@
         slot="buttons"
       >
         <button
-          class="btn-alt py-s px-m hide"
-          @click="editPopupOpen"
+          class="btn-alt py-s px-m"
+          @click="passwordPopupOpen"
         >
           <i class="icon-24 icon-24-key" />
         </button>
@@ -108,6 +108,7 @@ import Pill from './ui/pill.vue'
 import Loader from './ui/loader.vue'
 import EditPopup from './utilisateur/edit-popup.vue'
 import RemovePopup from './utilisateur/remove-popup.vue'
+import PasswordPopup from './utilisateur/password-popup.vue'
 
 
 export default {
@@ -154,6 +155,14 @@ export default {
     removePopupOpen () {
       this.$store.commit('popupOpen', { 
         component: RemovePopup,
+        props: {
+          utilisateur: JSON.parse(JSON.stringify(this.utilisateur))
+        }
+      })
+    },
+    passwordPopupOpen () {
+      this.$store.commit('popupOpen', { 
+        component: PasswordPopup,
         props: {
           utilisateur: JSON.parse(JSON.stringify(this.utilisateur))
         }

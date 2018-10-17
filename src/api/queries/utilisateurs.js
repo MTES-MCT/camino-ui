@@ -119,6 +119,8 @@ const mutationUtilisateurMotDePasseModifier = gql`
       ...utilisateur
     }
   }
+
+  ${utilisateurFragment}
 `
 
 export {

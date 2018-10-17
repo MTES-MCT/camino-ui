@@ -2,8 +2,7 @@
   <popup>
     <template slot="header">
       <div>
-        <h5>Utilisateur</h5>
-        <h2 class="mb-0">{{ creation ? 'Ajouter un utilisateur' : utilisateur.id }}</h2>
+        <h2 class="mb-0">{{ creation ? "Ajout d'un utilisateur" : 'Modification du profil utilisateur' }}</h2>
       </div>
     </template>
 
@@ -21,9 +20,10 @@
         >
       </div>
     </div>
-    <hr>
 
     <div v-if="creation">
+
+      <hr>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Mot de passe</h6>
@@ -37,9 +37,9 @@
           >
         </div>
       </div>
-      <hr>
     </div>
 
+    <hr>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Prénom</h6>
@@ -53,8 +53,8 @@
         >
       </div>
     </div>
-    <hr>
 
+    <hr>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Nom</h6>
@@ -68,8 +68,8 @@
         >
       </div>
     </div>
-    <hr>
 
+    <hr>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone fixe</h6>
@@ -83,8 +83,8 @@
         >
       </div>
     </div>
-    <hr>
 
+    <hr>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone mobile</h6>
@@ -98,25 +98,31 @@
         >
       </div>
     </div>
-    <hr>
 
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Permissions</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <ul class="list-inline mb-0">
-          <li 
-            v-for="permission in permissionList" 
-            :key="permission.id"
-            :class="{ active: utilisateur.permission.id === permission.id }"
-          >
-            <button 
-              class="btn-flash py-xs px-s pill cap-first h6 mr-xs"
-              @click="permissionToggle(permission)"
-            >{{ permission.nom }}</button>
-          </li>
-        </ul>
+
+    <div
+      v-if="permissions(['super', 'admin'])"
+      class="tablet-blobs"
+    >
+      <hr>
+      <div>
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Permissions</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <ul class="list-inline mb-0">
+            <li 
+              v-for="permission in permissionList" 
+              :key="permission.id"
+              :class="{ active: utilisateur.permission.id === permission.id }"
+            >
+              <button 
+                class="btn-flash py-xs px-s pill cap-first h6 mr-xs"
+                @click="permissionToggle(permission)"
+              >{{ permission.nom }}</button>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
 

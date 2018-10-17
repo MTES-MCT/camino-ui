@@ -2,12 +2,12 @@
   <popup>
     <template slot="header">
       <div>
-        <h2 class="mb-0">Suppression d'un utilisateur</h2>
+        <h2 class="mb-0">Suppression du compte utilisateur</h2>
       </div>
     </template>
 
-    <p class="mb-l">Souhaitez vous supprimer {{ utilisateur.id }} ?</p>
-
+    <p class="bold">Souhaitez vous supprimer le compte de {{ utilisateur.prenom }} {{ utilisateur.nom }} ?</p>
+    <div class="bg-warning color-bg p-s mb-l"><span class="bold">Attention</span>: cette opération est définitive et ne peut pas être annulée.</div>
     <messages :messages="messages" />
 
     <template slot="footer">

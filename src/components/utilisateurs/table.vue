@@ -15,8 +15,8 @@
           tag="tr"
           class="tr-link"
         >
-          <td>{{ utilisateur.prenom }}</td>
-          <td>{{ utilisateur.nom }}</td>
+          <td>{{ utilisateur.prenom || '–' }}</td>
+          <td>{{ utilisateur.nom || '–' }}</td>
           <td>{{ utilisateur.email }}</td>
           <td>
             <pill v-if="utilisateur.permission">

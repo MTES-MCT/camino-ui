@@ -6,7 +6,8 @@ import {
   mutationUtilisateurConnecter,
   mutationUtilisateurModifier,
   mutationUtilisateurAjouter,
-  mutationUtilisateurSupprimer
+  mutationUtilisateurSupprimer,
+  mutationUtilisateurMotDePasseModifier
 } from '@/api/queries/utilisateurs'
 // import { removeTypename } from './_utils'
 
@@ -98,7 +99,7 @@ const utilisateurAdd = async ({ utilisateur }) => {
       variables: { utilisateur }
     })
 
-    return res && res.data
+    return res && res.data && res.data.utilisateurAjouter
   } catch (e) {
     console.log({ e })
     throw (e.graphQLErrors &&
@@ -115,7 +116,34 @@ const utilisateurRemove = async ({ id }) => {
       variables: { id }
     })
 
-    return res && res.data
+    return res && res.data && res.data.utilisateurSupprimer
+  } catch (e) {
+    console.log({ e })
+    throw (e.graphQLErrors &&
+      e.graphQLErrors[0] &&
+      e.graphQLErrors[0].message) ||
+      (e.message && e.message)
+  }
+}
+
+const utilisateurPasswordUpdate = async ({
+  id,
+  motDePasse,
+  motDePasseNouveau1,
+  motDePasseNouveau2
+}) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationUtilisateurMotDePasseModifier,
+      variables: {
+        id,
+        motDePasse,
+        motDePasseNouveau1,
+        motDePasseNouveau2
+      }
+    })
+
+    return res && res.data && res.data.utilisateurMotDePasseModifier
   } catch (e) {
     console.log({ e })
     throw (e.graphQLErrors &&
@@ -132,5 +160,6 @@ export {
   identifier,
   utilisateurUpdate,
   utilisateurAdd,
-  utilisateurRemove
+  utilisateurRemove,
+  utilisateurPasswordUpdate
 }

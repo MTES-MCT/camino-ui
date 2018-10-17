@@ -3,7 +3,8 @@ import {
   utilisateurs,
   utilisateurAdd,
   utilisateurUpdate,
-  utilisateurRemove
+  utilisateurRemove,
+  utilisateurPasswordUpdate
 } from '../api'
 
 import router from '../router'
@@ -36,16 +37,16 @@ export const actions = {
   async add({ commit, dispatch }, utilisateur) {
     commit('popupMessagesRemove')
     try {
-      const data = await utilisateurAdd({ utilisateur })
+      const u = await utilisateurAdd({ utilisateur })
 
       commit('popupClose', null, { root: true })
 
-      if (data.utilisateurAjouter) {
-        commit('add', data.utilisateurAjouter)
+      if (u) {
+        commit('add', u)
         dispatch(
           'messageAdd',
           {
-            value: `Utilisateur ${data.utilisateurAjouter.id} ajouté.`,
+            value: `Utilisateur ${u.id} ajouté.`,
             type: 'success'
           },
           { root: true }
@@ -61,7 +62,9 @@ export const actions = {
     try {
       const u = await utilisateurUpdate({ utilisateur })
 
+      console.log(u)
       commit('utilisateur/set', u, { root: true })
+
       if (utilisateur.id === rootState.user.current.id) {
         commit('user/set', u, { root: true })
       }
@@ -76,18 +79,22 @@ export const actions = {
     }
   },
 
-  async remove({ commit, dispatch }, id) {
+  async remove({ commit, dispatch, rootState }, id) {
     commit('popupMessagesRemove')
     try {
-      const data = await utilisateurRemove({ id })
+      const utilisateur = await utilisateurRemove({ id })
 
-      if (data.utilisateurSupprimer) {
-        commit('remove', data.utilisateurSupprimer)
+      if (utilisateur) {
+        commit('remove', utilisateur)
+
+        if (utilisateur === rootState.user.current.id) {
+          commit('user/logout', null, { root: true })
+        }
         commit('popupClose', null, { root: true })
         dispatch(
           'messageAdd',
           {
-            value: `Utilisateur ${data.utilisateurSupprimer.id} supprimé.`,
+            value: `Utilisateur ${utilisateur.id} supprimé.`,
             type: 'success'
           },
           { root: true }
@@ -96,6 +103,37 @@ export const actions = {
         router.push({ name: 'utilisateurs' })
       }
     } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' })
+    }
+  },
+
+  async passwordUpdate(
+    { commit, dispatch },
+    { id, motDePasse, motDePasseNouveau1, motDePasseNouveau2 }
+  ) {
+    commit('popupMessagesRemove')
+
+    try {
+      const utilisateur = await utilisateurPasswordUpdate({
+        id,
+        motDePasse,
+        motDePasseNouveau1,
+        motDePasseNouveau2
+      })
+
+      if (utilisateur) {
+        commit('popupClose', null, { root: true })
+        dispatch(
+          'messageAdd',
+          {
+            value: `Mot de passe modifié.`,
+            type: 'success'
+          },
+          { root: true }
+        )
+      }
+    } catch (e) {
+      console.log('eeee', e)
       commit('popupMessageAdd', { value: e, type: 'error' })
     }
   }
