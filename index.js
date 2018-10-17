@@ -19,7 +19,7 @@ const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
   setHeaders: (res, path, stat) => {
     res.set({
       'Content-Security-Policy':
-        "default-src 'self' app.mailjet.com; img-src data: 'self' a.tile.openstreetmap.org  b.tile.openstreetmap.org  c.tile.openstreetmap.org  a.tile.openstreetmap.fr  b.tile.openstreetmap.fr  c.tile.openstreetmap.fr wxs.ign.fr geoservices.brgm.fr; script-src 'self'; style-src 'self'; connect-src api.camino.beta.gouv.fr test.api.camino.beta.gouv.fr",
+        "default-src 'self' app.mailjet.com wxs.ign.fr; img-src data: 'self' a.tile.openstreetmap.org  b.tile.openstreetmap.org  c.tile.openstreetmap.org  a.tile.openstreetmap.fr  b.tile.openstreetmap.fr  c.tile.openstreetmap.fr geoservices.brgm.fr; script-src 'self''unsafe-eval'; style-src 'self'; connect-src api.camino.beta.gouv.fr test.api.camino.beta.gouv.fr",
       'X-Frame-Options': 'DENY',
       'X-Content-Type-Options': 'nosniff',
       'X-XSS-Protection': '1; mode=block'
