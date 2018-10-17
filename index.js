@@ -15,7 +15,16 @@ const history = require('connect-history-api-fallback')
 const compression = require('compression')
 
 const app = express()
-const staticFileMiddleware = express.static(path.join(__dirname, 'dist'))
+const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
+  setHeaders: (res, path, stat) => {
+    res.set({
+      'Content-Security-Policy': 'default-src: https:',
+      'X-Frame-Options': 'DENY',
+      'X-Content-Type-Options': 'nosniff',
+      'X-XSS-Protection': '1; mode=block'
+    })
+  }
+})
 const port = process.env.NODE_PORT
 
 app.use(compression())
@@ -24,10 +33,6 @@ app.use(history())
 app.use(staticFileMiddleware)
 
 app.get('/', (req, res) => {
-  res.set('Content-Security-Policy', 'default-src: https:')
-  res.set('X-Frame-Options', 'DENY')
-  res.set('X-Content-Type-Options', 'nosniff')
-  res.set('X-XSS-Protection', '1; mode=block')
   res.render(path.join(__dirname + '/dist/index.html'))
 })
 
