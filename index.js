@@ -23,10 +23,15 @@ app.use(staticFileMiddleware)
 app.use(history())
 app.use(staticFileMiddleware)
 
-app.get('/', (req, res) => {
+app.use((req, res, next) => {
   res.setHeader('Content-Security-Policy', 'default-src: https:')
   res.setHeader('X-Frame-Options', 'DENY')
   res.setHeader('X-Content-Type-Options', 'nosniff')
+  res.setHeader('X-XSS-Protection', '1; mode=block')
+  next()
+})
+
+app.get('/', (req, res) => {
   res.render(path.join(__dirname + '/dist/index.html'))
 })
 
