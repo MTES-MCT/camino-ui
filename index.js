@@ -24,7 +24,9 @@ app.use(history())
 app.use(staticFileMiddleware)
 
 app.get('/', (req, res) => {
-  res.set('Content-Security-Policy', 'default-src: https:')
+  res.setHeader('Content-Security-Policy', 'default-src: https:')
+  res.setHeader('X-Frame-Options', 'DENY')
+  res.setHeader('X-Content-Type-Options', 'nosniff')
   res.render(path.join(__dirname + '/dist/index.html'))
 })
 
