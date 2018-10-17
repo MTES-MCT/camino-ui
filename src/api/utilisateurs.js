@@ -49,11 +49,11 @@ const utilisateurs = async ({
   }
 }
 
-const utilisateurLogin = async ({ id, motDePasse }) => {
+const utilisateurLogin = async ({ email, motDePasse }) => {
   try {
     const res = await graphqlClient.mutate({
       mutation: mutationUtilisateurConnecter,
-      variables: { id, motDePasse }
+      variables: { email, motDePasse }
     })
 
     return res && res.data && res.data.utilisateurConnecter

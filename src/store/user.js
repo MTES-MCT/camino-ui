@@ -13,17 +13,20 @@ export const state = {
 }
 
 export const actions = {
-  async login({ commit, dispatch }, { id, motDePasse }) {
+  async login({ commit, dispatch }, { email, motDePasse }) {
     commit('popupMessagesRemove')
     try {
-      const res = await utilisateurLogin({ id, motDePasse })
+      const res = await utilisateurLogin({ email, motDePasse })
 
       commit('tokenAdd', res.token)
       commit('set', res.utilisateur)
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
-        { value: `Bienvenue ${id}`, type: 'success' },
+        {
+          value: `Bienvenue  ${res.utilisateur.prenom} ${res.utilisateur.nom}`,
+          type: 'success'
+        },
         { root: true }
       )
       dispatch('reload', null, { root: true })
@@ -37,6 +40,7 @@ export const actions = {
   async identifier({ commit }) {
     try {
       const user = await identifier()
+
       commit('set', user)
     } catch (e) {
       commit('tokenRemove')
@@ -76,7 +80,11 @@ export const mutations = {
   },
 
   set(state, user) {
-    Vue.set(state, 'current', user)
+    Vue.set(state, 'current', {})
+    Vue.set(state.current, 'id', user.id)
+    Vue.set(state.current, 'prenom', user.prenom)
+    Vue.set(state.current, 'nom', user.nom)
+    Vue.set(state.current, 'permission', user.permission)
   },
 
   reset(state) {

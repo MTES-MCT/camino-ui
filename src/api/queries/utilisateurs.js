@@ -42,11 +42,12 @@ const queryUtilisateurs = gql`
 `
 
 const mutationUtilisateurConnecter = gql`
-  mutation UtilisateurConnecter($id: ID!, $motDePasse: String!) {
-    utilisateurConnecter(id: $id, motDePasse: $motDePasse) {
+  mutation UtilisateurConnecter($email: String!, $motDePasse: String!) {
+    utilisateurConnecter(email: $email, motDePasse: $motDePasse) {
       utilisateur {
         id
         nom
+        prenom
         email
         permission {
           id
@@ -63,6 +64,7 @@ const queryUtilisateurIdentifier = gql`
     utilisateurIdentifier {
       id
       nom
+      prenom
       permission {
         id
         nom
@@ -101,6 +103,24 @@ const mutationUtilisateurSupprimer = gql`
   ${utilisateurFragment}
 `
 
+const mutationUtilisateurMotDePasseModifier = gql`
+  mutation UtilisateurMotDePasseModifier(
+    $id: ID!
+    $motDePasse: String!
+    $motDePasseNouveau1: String!
+    $motDePasseNouveau2: String!
+  ) {
+    utilisateurMotDePasseModifier(
+      id: $id
+      motDePasse: $motDePasse
+      motDePasseNouveau1: $motDePasseNouveau1
+      motDePasseNouveau2: $motDePasseNouveau2
+    ) {
+      ...utilisateur
+    }
+  }
+`
+
 export {
   queryUtilisateur,
   queryUtilisateurs,
@@ -108,5 +128,6 @@ export {
   mutationUtilisateurConnecter,
   mutationUtilisateurModifier,
   mutationUtilisateurAjouter,
-  mutationUtilisateurSupprimer
+  mutationUtilisateurSupprimer,
+  mutationUtilisateurMotDePasseModifier
 }

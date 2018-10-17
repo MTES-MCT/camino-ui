@@ -56,12 +56,15 @@ export const actions = {
     }
   },
 
-  async update({ commit, dispatch }, utilisateur) {
+  async update({ commit, dispatch, rootState }, utilisateur) {
     commit('popupMessagesRemove')
     try {
       const u = await utilisateurUpdate({ utilisateur })
 
       commit('utilisateur/set', u, { root: true })
+      if (utilisateur.id === rootState.user.current.id) {
+        commit('user/set', u, { root: true })
+      }
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',

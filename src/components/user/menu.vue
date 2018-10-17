@@ -11,7 +11,7 @@
                 :to="{ name: 'utilisateur', params: { id: user.id }}"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
-            >{{ user.id }}</router-link></li>
+            >{{ user.prenom }} {{ user.nom }}</router-link></li>
             <li><a href="" /></li>
             <li><a href="" /></li>
             <li>

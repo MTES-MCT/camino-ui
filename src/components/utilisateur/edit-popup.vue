@@ -7,24 +7,7 @@
       </div>
     </template>
 
-    <div v-if="creation">
-      <p>Renseignez au moins l'id, l'email et le mot de passe. </p>
-      <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Id</h6>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <input 
-            v-model="utilisateur.id"
-            type="text" 
-            class="p-s"
-            placeholder="Id"
-          >
-        </div>
-      </div>
-      <hr>
-    </div>
-
+    <p v-if="creation">Renseignez au moins le prénom, le nom, l'email et le mot de passe. </p>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Email</h6>
@@ -166,6 +149,7 @@
 <script>
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
+import slugify from 'slugify'
 
 
 export default {
@@ -201,7 +185,7 @@ export default {
       return this.$store.state.utilisateurs.permissions
     },
     complete () {
-      return this.creation ? this.utilisateur.id && this.utilisateur.email && this.utilisateur.motDePasse :  this.utilisateur.id && this.utilisateur.email
+      return this.creation ? this.utilisateur.nom && this.utilisateur.prenom && this.utilisateur.email && this.utilisateur.motDePasse :  this.utilisateur.id && this.utilisateur.email
     }
   },
 
@@ -217,6 +201,11 @@ export default {
     save() {
       if (this.complete) {
        if (this.creation) {
+          this.utilisateur.id = slugify(`${this.utilisateur.prenom} ${this.utilisateur.nom}`, {
+            replacement: '-',
+            remove: null,
+            lower: true
+          })
           this.$store.dispatch('utilisateurs/add', this.utilisateur)
         } else {
           this.$store.dispatch('utilisateurs/update', this.utilisateur)

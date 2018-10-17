@@ -6,11 +6,11 @@
 
     <div class="tablet-blobs mb">
       <div class="tablet-blob-1-3 py-s">
-        Identifiant
+        Email
       </div>
       <div class="tablet-blob-2-3">
         <input 
-          v-model="id"
+          v-model="email"
           type="text" 
           class="p-s"
         >
@@ -64,7 +64,7 @@ export default {
 
   data () {
     return {
-      id: '',
+      email: '',
       motDePasse: ''
     }
   },
@@ -85,7 +85,7 @@ export default {
 
   methods: {
     login () {
-      this.$store.dispatch('user/login', { id: this.id, motDePasse: this.motDePasse })
+      this.$store.dispatch('user/login', { email: this.email, motDePasse: this.motDePasse })
     },
 
     cancel() {

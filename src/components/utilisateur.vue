@@ -1,6 +1,6 @@
 <template>
   <card>
-    <h1 class="mt-xs">{{ utilisateur ? utilisateur.id : '–' }}</h1>
+    <h1 class="mt-xs">{{ utilisateur ? `${utilisateur.prenom} ${utilisateur.nom}` : '–' }}</h1>
   
     <loader v-if="!loaded" />
     <accordion 
@@ -41,18 +41,18 @@
       <template slot="sub">
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">Nom</h6>
-          </div>
-          <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.nom || '–' }}</p>
-          </div>
-        </div>
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
             <h6 class="mt-xs">Prénom</h6>
           </div>
           <div class="tablet-blob-3-4">
             <p>{{ utilisateur.prenom || '–' }}</p>
+          </div>
+        </div>
+        <div class="tablet-blobs">
+          <div class="tablet-blob-1-4">
+            <h6 class="mt-xs">Nom</h6>
+          </div>
+          <div class="tablet-blob-3-4">
+            <p>{{ utilisateur.nom || '–' }}</p>
           </div>
         </div>
         <div class="tablet-blobs">

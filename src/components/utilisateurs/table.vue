@@ -3,7 +3,6 @@
     <div class="overflow-scroll-x mb">
       <table>
         <tr>
-          <th>Id</th>
           <th>Prenom</th>
           <th>Nom</th>
           <th>Email</th>
@@ -16,7 +15,6 @@
           tag="tr"
           class="tr-link"
         >
-          <td class="bold">{{ utilisateur.id }}</td>
           <td>{{ utilisateur.prenom }}</td>
           <td>{{ utilisateur.nom }}</td>
           <td>{{ utilisateur.email }}</td>
