@@ -18,7 +18,8 @@ const app = express()
 const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
   setHeaders: (res, path, stat) => {
     res.set({
-      'Content-Security-Policy': 'default-src https:',
+      'Content-Security-Policy':
+        "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'",
       'X-Frame-Options': 'DENY',
       'X-Content-Type-Options': 'nosniff',
       'X-XSS-Protection': '1; mode=block'
