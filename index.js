@@ -24,6 +24,7 @@ app.use(history())
 app.use(staticFileMiddleware)
 
 app.get('/', (req, res) => {
+  res.set('Content-Security-Policy', 'default-src: https:')
   res.render(path.join(__dirname + '/dist/index.html'))
 })
 
