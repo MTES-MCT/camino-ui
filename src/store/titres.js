@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { titres } from '../api'
-import { titreFormat, metaFormat } from './_utils'
+import { metaFormat } from './_utils'
 
 export const state = {
   list: null,
@@ -31,7 +31,7 @@ export const actions = {
 
     const data = await titres(a, fetchPolicy)
     if (data) {
-      commit('set', data.titres.map(t => titreFormat(t)))
+      commit('set', data.titres.map(t => t))
 
       if (!args.typeIds) {
         commit('typesSet', data.metas.types.map(v => metaFormat(v)))
@@ -47,13 +47,13 @@ export const actions = {
     }
   },
 
-  filterInput ({ state, dispatch, commit }, { name, value }) {
+  filterInput({ state, dispatch, commit }, { name, value }) {
     const values = value ? value.split(/[ ,]+/) : null
     commit('filterInput', { name, values })
     dispatch('get')
   },
 
-  filterToggle ({ state, dispatch, commit }, { name, value, property }) {
+  filterToggle({ state, dispatch, commit }, { name, value, property }) {
     state[name]
       .filter(e => e[property].toString() === value)
       .forEach(f => commit('filterToggle', f))

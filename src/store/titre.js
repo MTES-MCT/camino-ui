@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import { titre } from '../api'
-import { titreFormat } from './_utils'
 import router from '../router'
 
 export const state = {
@@ -14,7 +13,7 @@ export const actions = {
       const t = await titre(id)
 
       if (t) {
-        commit('set', titreFormat(t))
+        commit('set', t)
       } else {
         router.push({ name: 'erreur' })
       }

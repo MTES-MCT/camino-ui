@@ -228,9 +228,6 @@ export default {
     titre () {
       return this.$store.state.titre.current
     },
-    perimetres () {
-      return this.titre && this.titre.perimetres
-    },
     loaded () {
       return !!this.titre
     }
