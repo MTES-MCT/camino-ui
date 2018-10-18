@@ -12,14 +12,10 @@ export const actions = {
     try {
       const res = await utilisateur(id)
 
-      if (res.utilisateur) {
-        commit('set', res.utilisateur)
+      if (res) {
+        commit('set', res)
       } else {
         router.push({ name: 'erreur' })
-      }
-
-      if (res.permissions) {
-        commit('utilisateurs/permissionsSet', res.permissions, { root: true })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })

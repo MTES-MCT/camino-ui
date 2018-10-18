@@ -19,7 +19,7 @@ const utilisateur = async id => {
       fetchPolicy: 'network-only'
     })
 
-    return res && res.data
+    return res && res.data && res.data.utilisateur
   } catch (e) {
     console.log({ e })
     throw e
@@ -44,7 +44,7 @@ const utilisateurs = async ({
       fetchPolicy: 'network-only'
     })
 
-    return res && res.data
+    return res && res.data && res.data.utilisateurs
   } catch (e) {
     console.log({ e })
   }
@@ -64,7 +64,7 @@ const utilisateurLogin = async ({ email, motDePasse }) => {
   }
 }
 
-const identifier = async () => {
+const utilisateurIdentify = async () => {
   try {
     const res = await await graphqlClient.query({
       query: queryUtilisateurIdentifier
@@ -157,7 +157,7 @@ export {
   utilisateur,
   utilisateurs,
   utilisateurLogin,
-  identifier,
+  utilisateurIdentify,
   utilisateurUpdate,
   utilisateurAdd,
   utilisateurRemove,

@@ -1,6 +1,7 @@
 import gql from 'graphql-tag'
+import fragmentPermission from './permission'
 
-const utilisateurFragment = gql`
+const fragmentUtilisateur = gql`
   fragment utilisateur on Utilisateur {
     id
     email
@@ -21,10 +22,7 @@ const utilisateurFragment = gql`
     }
   }
 
-  fragment permission on Permission {
-    id
-    nom
-  }
+  ${fragmentPermission}
 `
 
-export default utilisateurFragment
+export default fragmentUtilisateur

@@ -18,16 +18,12 @@ export const state = {
 export const actions = {
   async get({ dispatch, commit }) {
     try {
-      const data = await utilisateurs({})
+      const res = await utilisateurs({})
 
-      if (data.utilisateurs) {
-        commit('set', data.utilisateurs)
+      if (res) {
+        commit('set', res)
       } else {
         router.push({ name: 'erreur' })
-      }
-
-      if (data.permissions) {
-        commit('permissionsSet', data.permissions)
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -62,7 +58,6 @@ export const actions = {
     try {
       const u = await utilisateurUpdate({ utilisateur })
 
-      console.log(u)
       commit('utilisateur/set', u, { root: true })
 
       if (utilisateur.id === rootState.user.current.id) {

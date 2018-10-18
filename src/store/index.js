@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router'
 
+import { init } from '../api'
+
 import titre from './titre'
 import titres from './titres'
 import map from './map'
@@ -32,6 +34,27 @@ export const state = {
 }
 
 export const actions = {
+  async init({ commit, dispatch }) {
+    try {
+      const res = await init()
+
+      if (res.permissions) {
+        commit('utilisateurs/permissionsSet', res.permissions, { root: true })
+      }
+
+      if (res.substances) {
+        // console.log(res.substances)
+      }
+
+      if (res.entreprises) {
+        // console.log(res.entreprises)
+      }
+    } catch (e) {
+      console.log('fix me')
+      dispatch('apiError', e, { root: true })
+    }
+  },
+
   apiError({ commit }) {
     commit('messageAdd', {
       type: 'error',
@@ -63,6 +86,7 @@ export const actions = {
   },
 
   reload({ dispatch }) {
+    dispatch('init')
     if (router.currentRoute.name === 'titres') {
       dispatch('titres/get', 'network-only', { root: true })
     } else if (router.currentRoute.name === 'titre') {

@@ -12,17 +12,6 @@ export const state = {
 }
 
 export const actions = {
-  filterInput({ state, dispatch, commit }, { name, value }) {
-    const values = value ? value.split(/[ ,]+/) : null
-    commit('filterInput', { name, values })
-    dispatch('get')
-  },
-  filterToggle({ state, dispatch, commit }, { name, value, property }) {
-    state[name]
-      .filter(e => e[property].toString() === value)
-      .forEach(f => commit('filterToggle', f))
-    dispatch('get')
-  },
   async get({ state, dispatch, commit }, fetchPolicy) {
     const args = {
       typeIds: state.types && state.types.filter(e => e.checked).map(e => e.id),
@@ -56,6 +45,19 @@ export const actions = {
     } else {
       dispatch('apiError', null, { root: true })
     }
+  },
+
+  filterInput ({ state, dispatch, commit }, { name, value }) {
+    const values = value ? value.split(/[ ,]+/) : null
+    commit('filterInput', { name, values })
+    dispatch('get')
+  },
+
+  filterToggle ({ state, dispatch, commit }, { name, value, property }) {
+    state[name]
+      .filter(e => e[property].toString() === value)
+      .forEach(f => commit('filterToggle', f))
+    dispatch('get')
   }
 }
 

@@ -1,3 +1,5 @@
+import { init } from './init'
+
 import { titres, titre } from './titres'
 import {
   utilisateur,
@@ -7,10 +9,11 @@ import {
   utilisateurAdd,
   utilisateurRemove,
   utilisateurPasswordUpdate,
-  identifier
+  utilisateurIdentify
 } from '@/api/utilisateurs'
 
 export {
+  init,
   titre,
   titres,
   utilisateur,
@@ -20,5 +23,5 @@ export {
   utilisateurAdd,
   utilisateurRemove,
   utilisateurPasswordUpdate,
-  identifier
+  utilisateurIdentify
 }

@@ -61,14 +61,18 @@ export default {
   mounted () {
     const date = new Date().getTime()
     const threedays = 1000 * 60 * 60
+    
     if (!localStorage.getItem('conditions') || Number(localStorage.getItem('conditions')) + threedays < date) {
       this.popupOpen()
     }
+
     if (localStorage.getItem('token')) {
       this.$store.dispatch('user/identifier')
     } else {
       this.$store.commit('user/tokenRemove')
     }
+
+    this.$store.dispatch('init')
   },
 
   methods: {

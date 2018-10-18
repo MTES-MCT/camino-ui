@@ -1,9 +1,10 @@
 import gql from 'graphql-tag'
-import entrepriseFragment from './entreprise-fragment'
-import administrationFragment from './administration-fragment'
-import utilisateurFragment from './utilisateur-fragment'
+import fragmentEntreprise from './entreprise'
+import fragmentAdministration from './administration'
+import fragmentTitreSubstance from './titre-substance'
+import fragmentPoint from './point'
 
-const titreFragment = gql`
+const fragmentTitre = gql`
   fragment titre on Titre {
     id
     nom
@@ -130,79 +131,13 @@ const titreFragment = gql`
     }
   }
 
-  ${administrationFragment}
+  ${fragmentAdministration}
 
-  ${entrepriseFragment}
+  ${fragmentEntreprise}
 
-  ${utilisateurFragment}
+  ${fragmentPoint}
 
-  fragment point on Point {
-    id
-    coordonees {
-      x
-      y
-    }
-    groupe
-    contour
-    point
-    nom
-    description
-    securite
-    references {
-      ...pointReference
-    }
-  }
-
-  fragment pointReference on PointReference {
-    id
-    systeme
-    coordonees {
-      x
-      y
-    }
-  }
-
-  fragment geojsonMultiPolygon on GeojsonMultiPolygon {
-    type
-    geometry {
-      type
-      coordinates
-    }
-  }
-
-  fragment geojsonPoints on GeojsonPoints {
-    type
-    features {
-      type
-      geometry {
-        type
-        coordinates
-      }
-    }
-  }
-
-  fragment substance on TitreSubstance {
-    id
-    nom
-    connexe
-    gerep
-    description
-    legales {
-      id
-      nom
-      description
-      domaine {
-        id
-        nom
-      }
-      code {
-        id
-        nom
-        description
-        lien
-      }
-    }
-  }
+  ${fragmentTitreSubstance}
 
   fragment document on Document {
     id
@@ -216,4 +151,4 @@ const titreFragment = gql`
   }
 `
 
-export default titreFragment
+export default fragmentTitre

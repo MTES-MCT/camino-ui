@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { utilisateurLogin, identifier } from '@/api'
+import { utilisateurLogin, utilisateurIdentify } from '@/api'
 
 export const state = {
   current: null,
@@ -13,6 +13,17 @@ export const state = {
 }
 
 export const actions = {
+  async identifier({ commit }) {
+    try {
+      const user = await utilisateurIdentify()
+
+      commit('set', user)
+    } catch (e) {
+      commit('tokenRemove')
+      commit('reset')
+    }
+  },
+
   async login({ commit, dispatch }, { email, motDePasse }) {
     commit('popupMessagesRemove')
     try {
@@ -34,17 +45,6 @@ export const actions = {
       commit('tokenRemove')
       commit('reset')
       commit('popupMessageAdd', { value: e, type: 'error' })
-    }
-  },
-
-  async identifier({ commit }) {
-    try {
-      const user = await identifier()
-
-      commit('set', user)
-    } catch (e) {
-      commit('tokenRemove')
-      commit('reset')
     }
   },
 

@@ -74,6 +74,10 @@
   background: var(--color-title-domaine-c);
 }
 
+.bg-title-domaine-f {
+  background: var(--color-title-domaine-f);
+}
+
 .bg-title-domaine-g {
   background: var(--color-title-domaine-g);
 }
@@ -100,6 +104,10 @@
 
 .svg-fill-domaine-c {
   fill: var(--color-title-domaine-c);
+}
+
+.svg-fill-domaine-f {
+  fill: var(--color-title-domaine-f);
 }
 
 .svg-fill-domaine-g {

@@ -1,19 +1,14 @@
 import gql from 'graphql-tag'
-import utilisateurFragment from './utilisateur-fragment'
+import fragmentUtilisateur from './fragments/utilisateur'
 
 const queryUtilisateur = gql`
   query Utilisateur($id: ID!) {
     utilisateur(id: $id) {
       ...utilisateur
     }
-
-    permissions {
-      id
-      nom
-    }
   }
 
-  ${utilisateurFragment}
+  ${fragmentUtilisateur}
 `
 
 const queryUtilisateurs = gql`
@@ -31,14 +26,9 @@ const queryUtilisateurs = gql`
     ) {
       ...utilisateur
     }
-
-    permissions {
-      id
-      nom
-    }
   }
 
-  ${utilisateurFragment}
+  ${fragmentUtilisateur}
 `
 
 const mutationUtilisateurConnecter = gql`
@@ -80,7 +70,7 @@ const mutationUtilisateurModifier = gql`
     }
   }
 
-  ${utilisateurFragment}
+  ${fragmentUtilisateur}
 `
 
 const mutationUtilisateurAjouter = gql`
@@ -90,7 +80,7 @@ const mutationUtilisateurAjouter = gql`
     }
   }
 
-  ${utilisateurFragment}
+  ${fragmentUtilisateur}
 `
 
 const mutationUtilisateurSupprimer = gql`
@@ -100,7 +90,7 @@ const mutationUtilisateurSupprimer = gql`
     }
   }
 
-  ${utilisateurFragment}
+  ${fragmentUtilisateur}
 `
 
 const mutationUtilisateurMotDePasseModifier = gql`
@@ -120,7 +110,7 @@ const mutationUtilisateurMotDePasseModifier = gql`
     }
   }
 
-  ${utilisateurFragment}
+  ${fragmentUtilisateur}
 `
 
 export {
