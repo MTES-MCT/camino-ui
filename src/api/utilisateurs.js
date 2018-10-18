@@ -9,7 +9,6 @@ import {
   mutationUtilisateurSupprimer,
   mutationUtilisateurMotDePasseModifier
 } from '@/api/queries/utilisateurs'
-// import { removeTypename } from './_utils'
 
 const utilisateur = async id => {
   try {

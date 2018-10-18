@@ -26,7 +26,7 @@ const fragmentTitre = gql`
       valeur
     }
     substances {
-      ...substance
+      ...titreSubstance
     }
     surface
     volume
@@ -124,7 +124,7 @@ const fragmentTitre = gql`
       ...geojsonMultiPolygon
     }
     substances {
-      ...substance
+      ...titreSubstance
     }
     documents {
       ...document

@@ -1,7 +1,6 @@
 import Vue from 'vue'
 
 export const state = {
-  current: null,
   list: []
 }
 
@@ -10,8 +9,8 @@ export const actions = {}
 export const getters = {}
 
 export const mutations = {
-  set(state, entreprises) {
-    Vue.set(state, 'list', entreprises)
+  set(state, substances) {
+    Vue.set(state, 'list', substances)
   }
 }
 

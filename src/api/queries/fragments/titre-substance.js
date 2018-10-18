@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 const fragmentTitreSubstance = gql`
-  fragment substance on TitreSubstance {
+  fragment titreSubstance on TitreSubstance {
     id
     nom
     connexe

@@ -56,15 +56,18 @@ export const mutations = {
   set(state, titres) {
     Vue.set(state, 'list', titres)
   },
+
   metasSet(state, { name, values }) {
     // ici on pourrait faire mieux, en
     // - n'ajoutant que les valeurs qui n'existent pas déjà
     // - et ainsi conserver leur état checked
     Vue.set(state, name, values.map(v => Object.assign({ checked: true }, v)))
   },
+
   filterToggle(state, f) {
     Vue.set(f, 'checked', !f.checked)
   },
+
   filterInput(state, { name, values }) {
     Vue.set(state, name, values)
   }

@@ -9,6 +9,8 @@ import titres from './titres'
 import map from './map'
 import utilisateur from './utilisateur'
 import utilisateurs from './utilisateurs'
+import entreprises from './entreprises'
+import substances from './substances'
 import user from './user'
 
 const modules = {
@@ -17,6 +19,8 @@ const modules = {
   map,
   utilisateur,
   utilisateurs,
+  entreprises,
+  substances,
   user
 }
 
@@ -43,11 +47,11 @@ export const actions = {
       }
 
       if (res.substances) {
-        // console.log(res.substances)
+        commit('substances/set', res.substances, { root: true })
       }
 
       if (res.entreprises) {
-        // console.log(res.entreprises)
+        commit('entreprises/set', res.entreprises, { root: true })
       }
 
       if (res.metas) {

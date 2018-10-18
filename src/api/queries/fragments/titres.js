@@ -26,7 +26,7 @@ const fragmentTitre = gql`
       valeur
     }
     substances {
-      ...substance
+      ...titreSubstance
     }
     surface
     volume
