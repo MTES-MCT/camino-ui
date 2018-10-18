@@ -49,6 +49,24 @@ export const actions = {
       if (res.entreprises) {
         // console.log(res.entreprises)
       }
+
+      if (res.metas) {
+        commit(
+          'titres/metasSet',
+          { values: res.metas.types, name: 'types' },
+          { root: true }
+        )
+        commit(
+          'titres/metasSet',
+          { values: res.metas.domaines, name: 'domaines' },
+          { root: true }
+        )
+        commit(
+          'titres/metasSet',
+          { values: res.metas.statuts, name: 'statuts' },
+          { root: true }
+        )
+      }
     } catch (e) {
       console.log('fix me')
       dispatch('apiError', e, { root: true })
@@ -85,8 +103,8 @@ export const actions = {
     }
   },
 
-  reload({ dispatch }) {
-    dispatch('init')
+  async reload({ dispatch }) {
+    await dispatch('init')
     if (router.currentRoute.name === 'titres') {
       dispatch('titres/get', 'network-only', { root: true })
     } else if (router.currentRoute.name === 'titre') {

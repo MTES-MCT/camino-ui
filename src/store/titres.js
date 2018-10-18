@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import { titres } from '../api'
-import { metaFormat } from './_utils'
 
 export const state = {
   list: null,
@@ -29,19 +28,9 @@ export const actions = {
       {}
     )
 
-    const data = await titres(a, fetchPolicy)
-    if (data) {
-      commit('set', data.titres.map(t => t))
-
-      if (!args.typeIds) {
-        commit('typesSet', data.metas.types.map(v => metaFormat(v)))
-      }
-      if (!args.domaineIds) {
-        commit('domainesSet', data.metas.domaines.map(v => metaFormat(v)))
-      }
-      if (!args.statutIds) {
-        commit('statutsSet', data.metas.statuts.map(v => metaFormat(v)))
-      }
+    const res = await titres(a, fetchPolicy)
+    if (res) {
+      commit('set', res.map(t => t))
     } else {
       dispatch('apiError', null, { root: true })
     }
@@ -67,14 +56,11 @@ export const mutations = {
   set(state, titres) {
     Vue.set(state, 'list', titres)
   },
-  typesSet(state, types) {
-    Vue.set(state, 'types', types)
-  },
-  domainesSet(state, domaines) {
-    Vue.set(state, 'domaines', domaines)
-  },
-  statutsSet(state, statuts) {
-    Vue.set(state, 'statuts', statuts)
+  metasSet(state, { name, values }) {
+    // ici on pourrait faire mieux, en
+    // - n'ajoutant que les valeurs qui n'existent pas déjà
+    // - et ainsi conserver leur état checked
+    Vue.set(state, name, values.map(v => Object.assign({ checked: true }, v)))
   },
   filterToggle(state, f) {
     Vue.set(f, 'checked', !f.checked)

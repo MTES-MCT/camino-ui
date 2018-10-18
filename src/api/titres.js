@@ -36,7 +36,7 @@ const titres = async (
 
     const res = await graphqlClient.query(options)
 
-    return res && res.data
+    return res && res.data && res.data.titres
   } catch (e) {
     console.log({ e })
   }

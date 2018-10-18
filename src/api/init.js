@@ -5,7 +5,8 @@ const init = async () => {
   try {
     const res = await graphqlClient.query({
       query: queryInit,
-      variables: {}
+      variables: {},
+      fetchPolicy: 'network-only'
     })
 
     return res && res.data

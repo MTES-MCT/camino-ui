@@ -20,9 +20,6 @@ const queryTitres = gql`
     $substances: [String!]
     $noms: [String!]
   ) {
-    metas {
-      ...meta
-    }
     titres(
       typeIds: $typeIds
       domaineIds: $domaineIds
@@ -31,22 +28,6 @@ const queryTitres = gql`
       noms: $noms
     ) {
       ...titre
-    }
-  }
-
-  fragment meta on Metas {
-    types {
-      id
-      nom
-    }
-    domaines {
-      id
-      nom
-    }
-    statuts {
-      id
-      nom
-      couleur
     }
   }
 
