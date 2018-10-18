@@ -6,7 +6,7 @@ const dateFormat = date => {
   return `${dd}-${mm}-${yyyy}`
 }
 
-const permissions = (userPermission, permissions) =>
+const permissionsCheck = (userPermission, permissions) =>
   permissions.includes(userPermission.id)
 
-export { dateFormat, permissions }
+export { dateFormat, permissionsCheck }
