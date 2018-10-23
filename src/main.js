@@ -1,6 +1,6 @@
 import './css/styles.css'
 import Vue from 'vue'
-import VueMatomo from 'vue-matomo'
+import VueMatomo from './stats'
 import App from './app.vue'
 
 import router from './router'
