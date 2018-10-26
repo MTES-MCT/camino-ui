@@ -76,7 +76,7 @@
     </div>
 
     <div>
-      <h4 class="mb-s">Périmètre ({{ etape.points.length }} points)</h4>
+      <h3 class="mb-s">Périmètre ({{ etape.points.length }} points)</h3>
       <div class="h5 mb-s">
         <ul class="list-prefix">
           <li><b>Point</b>: le sommet d'un contour défini par des coordoonnées dans le système WGS 84.</li>
@@ -162,8 +162,7 @@
           </div>
         </div>
 
-        <div class="tablet-blobs">
-          
+        <div class="tablet-blobs">      
           <div class="mb tablet-blob-1">
             <h6>Description</h6>
             <input 
@@ -218,61 +217,63 @@
             </div>
           </div>
         </div>
-        <button 
-          class="btn-border rnd-xs p-s full-x mb flex" 
-          @click="pointReferenceAdd(point)"
-        > 
-          Ajouter une référence
-          <i class="icon-24 icon-24-plus flex-right" />
-        </button>
-        <hr>
+
+        <div v-if="!point.references.find(r => r.id ==='')">
+          <button 
+            class="btn-border rnd-xs p-s full-x mb flex" 
+            @click="pointReferenceAdd(point)"
+          > 
+            Ajouter une référence
+            <i class="icon-24 icon-24-plus flex-right" />
+          </button>
+          <hr>
+        </div>
+
       </div>
+    </div>
+
+    <div v-if="!etape.points.find(t => t.id ==='')">
       <button 
         class="btn-border rnd-xs p-s full-x mb  flex" 
         @click="pointAdd"
       >Ajouter un point<i class="icon-24 icon-24-plus flex-right" /></button>
       <hr>
     </div>
-    
 
     <div>
-      <h4 class="mb-s">Titulaires ({{ etape.titulaires.length }})</h4>
+      <h3 class="mb-s">Titulaires ({{ etape.titulaires.length }})</h3>
       <hr>
       <div
         v-for="titulaire in etape.titulaires"
         :key="titulaire.id"
       >
-        <div class="flex full-x">
-          <h4>Titulaire</h4>
+        <div class="flex full-x mb">
+          <select 
+            v-model="titulaire.id"
+            type="text" 
+            class="p-s mr"
+          >
+            <option
+              v-for="entreprise in entreprises"
+              :key="entreprise.id"
+              :value="entreprise.id"
+            >{{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
+            </option>
+          </select>
           <div class="flex-right">
             <button
-              class="btn-border p-s rnd-xs mt--s"
-              @click="titulaireRemove()"
+              class="btn-border p-s rnd-xs"
+              @click="titulaireRemove(titulaire.id)"
             >
               <i class="icon-24 icon-24-minus" />
             </button>
           </div>
         </div>
-        <div class="tablet-blobs">
-
-          <div class="mb tablet-blob-2-3">
-            <h6>Nom</h6>
-            <input 
-              v-model="titulaire.nom"
-              type="text" 
-              class="p-s"
-            >
-          </div>
-          <div class="mb tablet-blob-1-3">
-            <h6>Siret (ou équivalent)</h6>
-            <div 
-              class="full-x p-s bg-alt-alpha"
-            >{{ titulaire.legalSiret || titulaire.legalEtranger }}&nbsp;
-            </div>
-          </div>
-        </div>
         <hr>
       </div>
+    </div>
+
+    <div v-if="!etape.titulaires.find(t => t.id ==='')">  
       <button 
         class="btn-border rnd-xs p-s full-x mb  flex" 
         @click="titulaireAdd"
@@ -280,40 +281,89 @@
       <hr>
     </div>
 
-    <div 
-      v-if="etape.amodiataires" 
-      class="tablet-blobs"
-    >
-      <div class="mb tablet-blob-1-3 py-s">
-        Amodiataires
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input 
-          v-model="etape.amodiataires"
-          type="text" 
-          class="p-s"
-        >
+    
+    <div>
+      <h3 class="mb-s">Amodiataires ({{ etape.amodiataires.length }})</h3>
+      <hr>
+      <div
+        v-for="amodiataire in etape.amodiataires"
+        :key="amodiataire.id"
+      >
+        <div class="flex full-x mb">
+          <select 
+            v-model="amodiataire.id"
+            type="text" 
+            class="p-s mr"
+          >
+            <option
+              v-for="entreprise in entreprises"
+              :key="entreprise.id"
+              :value="entreprise.id"
+            >{{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
+            </option>
+          </select>
+
+          <div class="flex-right">
+            <button
+              class="btn-border p-s rnd-xs"
+              @click="amodiataireRemove(amodiataire.id)"
+            >
+              <i class="icon-24 icon-24-minus" />
+            </button>
+          </div>
+        </div>
+        <hr>
       </div>
     </div>
 
-    <div 
-      v-if="etape.substances" 
-      class="tablet-blobs"
-    >
-      <div class="mb tablet-blob-1-3 py-s">
-        Substances
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input 
-          v-model="etape.substances"
-          type="text" 
-          class="p-s"
-        >
+    <div v-if="!etape.amodiataires.find(t => t.id ==='')">  
+      <button 
+        class="btn-border rnd-xs p-s full-x mb  flex" 
+        @click="amodiataireAdd"
+      >Ajouter un amodiataire<i class="icon-24 icon-24-plus flex-right" /></button>
+      <hr>
+    </div>
+
+    <div>
+      <h3 class="mb-s">Substances ({{ etape.substances.length }})</h3>
+      <hr>
+      <div
+        v-for="etapeSubstance in etape.substances"
+        :key="etapeSubstance.id"
+      >
+        <div class="flex full-x mb">
+          <select 
+            v-model="etapeSubstance.id"
+            type="text" 
+            class="p-s mr"
+          >
+            <option
+              v-for="substance in substances"
+              :key="substance.id"
+              :value="substance.id"
+            >{{ substance.nom }}
+            </option>
+          </select>
+          <div class="flex-right">
+            <button
+              class="btn-border p-s rnd-xs"
+              @click="substanceRemove(etapeSubstance.id)"
+            >
+              <i class="icon-24 icon-24-minus" />
+            </button>
+          </div>
+        </div>
+        <hr>
       </div>
     </div>
 
-
-
+    <div v-if="!etape.substances.find(t => t.id ==='')">  
+      <button 
+        class="btn-border rnd-xs p-s full-x mb  flex" 
+        @click="substanceAdd"
+      >Ajouter une substance<i class="icon-24 icon-24-plus flex-right" /></button>
+      <hr>
+    </div>
 
     <messages :messages="messages" />
 
@@ -322,13 +372,13 @@
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
             class="btn-border rnd-xs p-s full-x"
-            @click="login"
+            @click="cancel"
           >Annuler</button>
         </div>
         <div class="tablet-blob-2-3">
           <button
             class="btn-flash rnd-xs p-s full-x"
-            @click="login"
+            @click="save"
           >Enregistrer</button>
         </div>
       </div>
@@ -371,36 +421,93 @@ export default {
     },
     demarche () {
       return this.titre.demarches.find(d => d.etapes.find(e => e.id === this.etape.id))
+    },
+    entreprises () {
+      return this.$store.state.entreprises.list
+    },
+    substances () {
+      return this.$store.state.substances.list
     }
   },
 
+  created () {
+    document.addEventListener('keyup', this.keyup)
+  },
+
+  beforeDestroy () {
+    document.removeEventListener('keyup', this.keyup)
+  },
+
   methods: {
+    save() {
+      this.$store.dispatch('titre/etapeUpdate', this.etape)   
+    },
+
+    cancel() {
+      this.errorsRemove()
+      this.$store.commit('popupClose')
+    },
+
+    keyup (e) {
+      if ((e.which || e.keyCode) === 27) {
+        this.cancel()
+      } else if ((e.which || e.keyCode) === 13) {
+        this.save()
+      }
+    },
+
     errorsRemove () {
       // this.$store.commit('utilisateur/loginMessagesRemove')
     },
+
     pointAdd () {
-      const point = { coordonees: { x: '', y: '' }, references: [] }
+      const point = { id: '', coordonees: { x: '', y: '' }, references: [] }
       this.etape.points.push(point)
     },
+
     pointRemove (point) {
       const index = this.etape.points.findIndex(p => p.id === point.id)
       this.etape.points.splice(index, 1)
     },
+
     pointReferenceAdd (point) {
-      const reference = { coordonees: { x: '', y: '' } }
+      const reference = { id: '', coordonees: { x: '', y: '' } }
       point.references.push(reference)
     },
+
     pointReferenceRemove (point, reference) {
       const index = point.references.findIndex(r => r.id === reference.id)
       point.references.splice(index, 1)
     },
+
     titulaireAdd () {
       const titulaire = { id: '', nom: '' }
       this.etape.titulaires.push(titulaire)
     },
-    titulaireRemove () {
-      const titulaire = { id: '', nom: '' }
-      this.etape.titulaires.push(titulaire)
+
+    titulaireRemove (id) {
+      const index = this.etape.titulaires.findIndex(t => t.id === id)
+      this.etape.titulaires.splice(index, 1)
+    },
+
+    amodiataireAdd () {
+      const amodiataire = { id: '', nom: '' }
+      this.etape.amodiataires.push(amodiataire)
+    },
+
+    amodiataireRemove (id) {
+      const index = this.etape.amodiataires.findIndex(t => t.id === id)
+      this.etape.amodiataires.splice(index, 1)
+    },
+
+    substanceAdd () {
+      const substance = { id: '', nom: '' }
+      this.etape.substances.push(substance)
+    },
+
+    substanceRemove (id) {
+      const index = this.etape.substances.findIndex(t => t.id === id)
+      this.etape.substances.splice(index, 1)
     }
   }
 }

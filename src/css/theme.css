@@ -137,6 +137,7 @@
 .popup {
   display: flex;
   flex-direction: column;
+  z-index: 2;
 }
 
 .popup-header {
@@ -288,7 +289,6 @@
     right: auto;
     bottom: auto;
     left: 50%;
-    z-index: 2;
     border-radius: var(--unit);
   }
 }

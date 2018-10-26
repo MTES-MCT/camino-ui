@@ -72,7 +72,6 @@ export const actions = {
         )
       }
     } catch (e) {
-      console.log('fix me')
       dispatch('apiError', e, { root: true })
     }
   },
@@ -107,8 +106,9 @@ export const actions = {
     }
   },
 
-  async reload({ dispatch }) {
+  async load({ dispatch }) {
     await dispatch('init')
+
     if (router.currentRoute.name === 'titres') {
       dispatch('titres/get', 'network-only', { root: true })
     } else if (router.currentRoute.name === 'titre') {

@@ -1,4 +1,6 @@
 import graphqlClient from '@/api/_graphql-client'
+import errorLog from '@/api/_error-log'
+
 import {
   queryUtilisateur,
   queryUtilisateurs,
@@ -20,8 +22,7 @@ const utilisateur = async id => {
 
     return res && res.data && res.data.utilisateur
   } catch (e) {
-    console.log({ e })
-    throw e
+    errorLog(e, 'utilisateur')
   }
 }
 
@@ -45,7 +46,7 @@ const utilisateurs = async ({
 
     return res && res.data && res.data.utilisateurs
   } catch (e) {
-    console.log({ e })
+    errorLog(e, 'utilisateurs')
   }
 }
 
@@ -58,8 +59,7 @@ const utilisateurLogin = async ({ email, motDePasse }) => {
 
     return res && res.data && res.data.utilisateurConnecter
   } catch (e) {
-    console.log({ e })
-    throw e.graphQLErrors && e.graphQLErrors[0] && e.graphQLErrors[0].message
+    errorLog(e, 'utilisateurLogin')
   }
 }
 
@@ -71,7 +71,7 @@ const utilisateurIdentify = async () => {
 
     return res && res.data && res.data.utilisateurIdentifier
   } catch (e) {
-    throw e
+    errorLog(e, 'utilisateurIdentify')
   }
 }
 
@@ -84,10 +84,7 @@ const utilisateurUpdate = async ({ utilisateur }) => {
 
     return res && res.data && res.data.utilisateurModifier
   } catch (e) {
-    throw (e.graphQLErrors &&
-      e.graphQLErrors[0] &&
-      e.graphQLErrors[0].message) ||
-      (e.message && e.message)
+    errorLog(e, 'utilisateurUpdate')
   }
 }
 
@@ -100,11 +97,7 @@ const utilisateurAdd = async ({ utilisateur }) => {
 
     return res && res.data && res.data.utilisateurAjouter
   } catch (e) {
-    console.log({ e })
-    throw (e.graphQLErrors &&
-      e.graphQLErrors[0] &&
-      e.graphQLErrors[0].message) ||
-      (e.message && e.message)
+    errorLog(e, 'utilisateurAdd')
   }
 }
 
@@ -117,11 +110,7 @@ const utilisateurRemove = async ({ id }) => {
 
     return res && res.data && res.data.utilisateurSupprimer
   } catch (e) {
-    console.log({ e })
-    throw (e.graphQLErrors &&
-      e.graphQLErrors[0] &&
-      e.graphQLErrors[0].message) ||
-      (e.message && e.message)
+    errorLog(e, 'utilisateurRemove')
   }
 }
 
@@ -144,11 +133,7 @@ const utilisateurPasswordUpdate = async ({
 
     return res && res.data && res.data.utilisateurMotDePasseModifier
   } catch (e) {
-    console.log({ e })
-    throw (e.graphQLErrors &&
-      e.graphQLErrors[0] &&
-      e.graphQLErrors[0].message) ||
-      (e.message && e.message)
+    errorLog(e, 'utilisateurPasswordUpdate')
   }
 }
 

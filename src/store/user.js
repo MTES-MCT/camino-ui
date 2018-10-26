@@ -40,7 +40,7 @@ export const actions = {
         },
         { root: true }
       )
-      dispatch('reload', null, { root: true })
+      dispatch('load', null, { root: true })
     } catch (e) {
       commit('tokenRemove')
       commit('reset')
@@ -57,7 +57,7 @@ export const actions = {
       { value: `Vous êtes déconnecté.`, type: 'success' },
       { root: true }
     )
-    dispatch('reload', null, { root: true })
+    dispatch('load', null, { root: true })
   }
 }
 

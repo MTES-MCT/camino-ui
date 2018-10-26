@@ -247,7 +247,7 @@ export default {
 
   methods: {
     get () {
-      this.$store.dispatch('titre/get', { id: this.$route.params.id })
+      this.$store.dispatch('titre/get', this.$route.params.id)
     }
   }
 }

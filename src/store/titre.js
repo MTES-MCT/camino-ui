@@ -8,7 +8,7 @@ export const state = {
 }
 
 export const actions = {
-  async get({ commit, dispatch }, { id }) {
+  async get({ commit, dispatch }, id) {
     try {
       const t = await titre(id)
 
@@ -22,6 +22,8 @@ export const actions = {
       dispatch('apiError', e, { root: true })
     }
   },
+
+  async etapeUpdate({ commit }, etape) {},
 
   documentSelect({ commit }, { documentId, selected }) {
     if (selected) {

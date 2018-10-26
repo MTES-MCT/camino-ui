@@ -1,4 +1,6 @@
 import graphqlClient from './_graphql-client'
+import errorLog from '@/api/_error-log'
+
 import { queryTitre, queryTitres } from './queries/titres'
 
 const titre = async id => {
@@ -10,7 +12,7 @@ const titre = async id => {
 
     return res && res.data.titre
   } catch (e) {
-    console.log({ e })
+    errorLog(e, 'titre')
   }
 }
 
@@ -38,7 +40,7 @@ const titres = async (
 
     return res && res.data && res.data.titres
   } catch (e) {
-    console.log({ e })
+    errorLog(e, 'titres')
   }
 }
 

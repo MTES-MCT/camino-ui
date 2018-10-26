@@ -115,7 +115,7 @@ export default {
 
   methods: {
     editPopupOpen () {
-      const etapeClone = (etape) => {
+      const etapeClone = etape => {
         const etapeTmp = JSON.parse(JSON.stringify(etape))
         if (etapeTmp.date) {
           etapeTmp.date = dateFormat(etapeTmp.date)

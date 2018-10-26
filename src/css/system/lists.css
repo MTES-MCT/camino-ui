@@ -7,8 +7,6 @@
 ul,
 ol,
 dd {
-  list-style-position: inside;
-
   /* overflow: auto; */
 }
 
@@ -66,11 +64,14 @@ li {
 }
 
 .list-prefix {
-  list-style: none;
+  list-style-type: none;
+  margin-left: var(--unit);
 
   & > li::before {
     content: var(--list-prefix);
-    margin-right: var(--unit-xs);
+    margin-left: calc(var(--unit) * -1);
+    width: var(--unit);
+    display: inline-block;
     color: var(--color-neutral);
   }
 }

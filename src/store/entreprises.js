@@ -11,7 +11,11 @@ export const getters = {}
 
 export const mutations = {
   set(state, entreprises) {
-    Vue.set(state, 'list', entreprises)
+    Vue.set(
+      state,
+      'list',
+      entreprises.sort((a, b) => (a.nom ? (a.nom > b.nom ? 1 : -1) : 0))
+    )
   }
 }
 

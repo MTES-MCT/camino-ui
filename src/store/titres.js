@@ -28,11 +28,15 @@ export const actions = {
       {}
     )
 
-    const res = await titres(a, fetchPolicy)
-    if (res) {
-      commit('set', res.map(t => t))
-    } else {
-      dispatch('apiError', null, { root: true })
+    try {
+      const res = await titres(a, fetchPolicy)
+      if (res) {
+        commit('set', res.map(t => t))
+      } else {
+        console.log('pas de titres…')
+      }
+    } catch (e) {
+      dispatch('apiError', e, { root: true })
     }
   },
 

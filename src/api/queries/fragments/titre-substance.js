@@ -5,6 +5,7 @@ const fragmentTitreSubstance = gql`
     id
     nom
     connexe
+    ordre
     symbole
     gerep
     description
