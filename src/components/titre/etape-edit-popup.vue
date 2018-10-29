@@ -244,19 +244,20 @@
       <h3 class="mb-s">Titulaires ({{ etape.titulaires.length }})</h3>
       <hr>
       <div
-        v-for="titulaire in etape.titulaires"
-        :key="titulaire.id"
+        v-for="(titulaire, n) in etape.titulaires"
+        :key="`titluaire-${titulaire.id}`"
       >
         <div class="flex full-x mb">
           <select 
-            v-model="titulaire.id"
+            v-model="etape.titulaires[n]"
             type="text" 
             class="p-s mr"
           >
             <option
               v-for="entreprise in entreprises"
-              :key="entreprise.id"
-              :value="entreprise.id"
+              :key="`titulaire-${titulaire.id}-entreprise-${entreprise.id}`"
+              :value="entreprise"
+              :disabled="etape.titulaires.find(t => t.id === entreprise.id)"
             >{{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
             </option>
           </select>
@@ -286,20 +287,21 @@
       <h3 class="mb-s">Amodiataires ({{ etape.amodiataires.length }})</h3>
       <hr>
       <div
-        v-for="amodiataire in etape.amodiataires"
-        :key="amodiataire.id"
+        v-for="(amodiataire, n) in etape.amodiataires"
+        :key="`amodiataire-${amodiataire.id}`"
       >
         <div class="flex full-x mb">
           <select 
-            v-model="amodiataire.id"
+            v-model="etape.amodiataires[n]"
             type="text" 
             class="p-s mr"
           >
             <option
               v-for="entreprise in entreprises"
-              :key="entreprise.id"
+              :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
               :value="entreprise.id"
-            >{{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
+              :disabled="etape.amodiataires.find(a => a.id === entreprise.id)"
+            >{{ entreprise.id }}, {{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
             </option>
           </select>
 
@@ -328,12 +330,12 @@
       <h3 class="mb-s">Substances ({{ etape.substances.length }})</h3>
       <hr>
       <div
-        v-for="etapeSubstance in etape.substances"
+        v-for="(etapeSubstance, n) in etape.substances"
         :key="etapeSubstance.id"
       >
         <div class="flex full-x mb">
           <select 
-            v-model="etapeSubstance.id"
+            v-model="etape.substances[n]"
             type="text" 
             class="p-s mr"
           >
@@ -341,6 +343,7 @@
               v-for="substance in substances"
               :key="substance.id"
               :value="substance.id"
+              :disabled="etape.substances.find(s => s.id === substance.id)"
             >{{ substance.nom }}
             </option>
           </select>
@@ -481,8 +484,13 @@ export default {
     },
 
     titulaireAdd () {
-      const titulaire = { id: '', nom: '' }
-      this.etape.titulaires.push(titulaire)
+      this.etape.titulaires.push({ id: '' })
+    }, 
+    
+    titulaireSet(titulaireId) {
+      const index = this.etape.titulaires.findIndex(t => t.id === titulaireId)
+      const entreprise = this.entreprises.find(e => e.id === titulaireId)
+      this.$set(this.etape.titulaires, index, entreprise)
     },
 
     titulaireRemove (id) {

@@ -1,8 +1,6 @@
 import gql from 'graphql-tag'
-import fragmentEntreprise from './entreprise'
-import fragmentAdministration from './administration'
-import fragmentTitreSubstance from './titre-substance'
-import fragmentPoint from './point'
+
+import fragmentTitreDemarche from './titre-demarche'
 
 const fragmentTitre = gql`
   fragment titre on Titre {
@@ -54,101 +52,7 @@ const fragmentTitre = gql`
     }
   }
 
-  fragment demarche on Demarche {
-    id
-    ordre
-    type {
-      id
-      nom
-    }
-    statut {
-      id
-      nom
-      couleur
-    }
-    phase {
-      dateDebut
-      dateFin
-      statut {
-        id
-        nom
-        couleur
-      }
-    }
-    etapes {
-      ...etape
-    }
-  }
-
-  fragment etape on Etape {
-    id
-    ordre
-    date
-    duree
-    surface
-    volume
-    volumeUnite
-    visas
-    engagement
-    engagementDevise
-    sourceIndisponible
-    type {
-      id
-      nom
-    }
-    statut {
-      id
-      nom
-      couleur
-    }
-    emprise {
-      id
-      nom
-    }
-    administrations {
-      ...administration
-    }
-    titulaires {
-      ...entreprise
-    }
-    amodiataires {
-      ...entreprise
-    }
-    points {
-      ...point
-    }
-    geojsonPoints {
-      ...geojsonPoints
-    }
-    geojsonMultiPolygon {
-      ...geojsonMultiPolygon
-    }
-    substances {
-      ...titreSubstance
-    }
-    documents {
-      ...document
-    }
-  }
-
-  ${fragmentAdministration}
-
-  ${fragmentEntreprise}
-
-  ${fragmentPoint}
-
-  ${fragmentTitreSubstance}
-
-  fragment document on Document {
-    id
-    nom
-    type
-    url
-    uri
-    fichier
-    jorf
-    nor
-  }
+  ${fragmentTitreDemarche}
 `
 
 export default fragmentTitre

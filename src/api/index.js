@@ -1,5 +1,5 @@
 import { init } from './init'
-import { titres, titre } from './titres'
+import { titres, titre, titreEtapeUpdate } from './titres'
 import {
   utilisateur,
   utilisateurs,
@@ -14,6 +14,7 @@ import {
 export {
   init,
   titre,
+  titreEtapeUpdate,
   titres,
   utilisateur,
   utilisateurs,

@@ -1,7 +1,11 @@
 import graphqlClient from './_graphql-client'
 import errorLog from '@/api/_error-log'
 
-import { queryTitre, queryTitres } from './queries/titres'
+import {
+  queryTitre,
+  queryTitres,
+  mutationTitreEtapeModifier
+} from './queries/titres'
 
 const titre = async id => {
   try {
@@ -44,4 +48,17 @@ const titres = async (
   }
 }
 
-export { titre, titres }
+const titreEtapeUpdate = async ({ etape }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationTitreEtapeModifier,
+      variables: { etape }
+    })
+
+    return res && res.data && res.data.titreEtapeModifier
+  } catch (e) {
+    errorLog(e, 'utilisateurUpdate')
+  }
+}
+
+export { titre, titres, titreEtapeUpdate }
