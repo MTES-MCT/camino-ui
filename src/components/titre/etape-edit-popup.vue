@@ -2,8 +2,8 @@
   <popup>
     <template slot="header">
       <div>
-        <h5><span class="cap-first">{{ titre.nom }}</span><span class="color-neutral"> | </span><span class="cap-first">{{ demarche.type.nom }}</span></h5>
-        <h2 class="cap-first mb-0">{{ etape.type.nom }}</h2>
+        <h5><span class="cap-first">{{ titreNom }}</span><span class="color-neutral"> | </span><span class="cap-first">{{ demarcheNom }}</span></h5>
+        <h2 class="cap-first mb-0">{{ etape && etape.type.nom }}</h2>
       </div>
     </template>
 
@@ -299,7 +299,7 @@
             <option
               v-for="entreprise in entreprises"
               :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
-              :value="entreprise.id"
+              :value="entreprise"
               :disabled="etape.amodiataires.find(a => a.id === entreprise.id)"
             >{{ entreprise.id }}, {{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
             </option>
@@ -342,7 +342,7 @@
             <option
               v-for="substance in substances"
               :key="substance.id"
-              :value="substance.id"
+              :value="substance"
               :disabled="etape.substances.find(s => s.id === substance.id)"
             >{{ substance.nom }}
             </option>
@@ -406,6 +406,14 @@ export default {
     etape: {
       type: Object,
       default: () => ({})
+    },
+    demarcheNom: {
+      type: String,
+      default: ''
+    },
+    titreNom: {
+      type: String,
+      default: ''
     }
   },
 
@@ -418,12 +426,6 @@ export default {
   computed: {
     messages () {
       return this.$store.state.utilisateur.popupMessages
-    },
-    titre () {
-      return this.$store.state.titre.current
-    },
-    demarche () {
-      return this.titre.demarches.find(d => d.etapes.find(e => e.id === this.etape.id))
     },
     entreprises () {
       return this.$store.state.entreprises.list

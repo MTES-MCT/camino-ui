@@ -129,12 +129,22 @@ export default {
         
         return etapeTmp
       }
+
+      const demarche = this.$store.state.titre.current.demarches.find(d => d.etapes.find(e => e.id === this.etape.id))
+
+      const titre = this.$store.state.titre.current
+
+
+
+      console.log(titre.id);
   
       this.$store.commit('popupOpen', { 
         component: EditPopup, 
         closeBtn: true, 
         props: { 
-          etape: etapeClone(this.etape) 
+          etape: etapeClone(this.etape),
+          demarcheNom: demarche && demarche.type.nom,
+          titreNom: titre && titre.nom,
         } 
       })
     },

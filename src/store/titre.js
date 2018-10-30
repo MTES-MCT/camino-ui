@@ -3,30 +3,6 @@ import { titre, titreEtapeUpdate } from '../api'
 import router from '../router'
 
 const etapeFormat = etape => {
-  console.log(etape.documents)
-  // etape.typeId = etape.type.id
-  // delete etape.type
-
-  // etape.statutId = etape.statut.id
-  // delete etape.statut
-
-  // etape.titulairesIds = etape.titulaires && etape.titulaires.map(t => t.id)
-  // delete etape.titulaires
-
-  // etape.amodiatairesIds =
-  //   etape.amodiataires && etape.amodiataires.map(t => t.id)
-  // delete etape.amodiataires
-
-  // etape.administrationsIds =
-  //   etape.administrations && etape.administrations.map(t => t.id)
-  // delete etape.administrations
-
-  // etape.substancesIds = etape.substances && etape.substances.map(t => t.id)
-  // delete etape.substances
-
-  // etape.emprisesIds = etape.emprises.id
-  // delete etape.emprises
-
   etape.titulaires = etape.titulaires.filter(t => t.id)
   etape.amodiataires = etape.amodiataires.filter(t => t.id)
   etape.administrations = etape.administrations.filter(t => t.id)
@@ -49,10 +25,10 @@ export const state = {
 export const actions = {
   async get({ commit, dispatch }, id) {
     try {
-      const t = await titre(id)
+      const res = await titre(id)
 
-      if (t) {
-        commit('set', t)
+      if (res) {
+        commit('set', res)
       } else {
         router.push({ name: 'erreur' })
       }
@@ -62,16 +38,14 @@ export const actions = {
     }
   },
 
-  async etapeUpdate({ commit, dispatch }, etape) {
-    console.log(etape)
-
+  async etapeUpdate({ state, dispatch }, etape) {
     try {
       etape = etapeFormat(etape)
       const res = await titreEtapeUpdate({ etape })
 
       if (res) {
         console.log(res)
-        // commit('set', t)
+        dispatch('get', state.current.id)
       } else {
         router.push({ name: 'erreur' })
       }
