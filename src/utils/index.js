@@ -1,20 +1,20 @@
-const dateFormat = timestamp => {
-  const d = new Date(Number(timestamp))
+const dateFormat = isoDate => {
+  const d = new Date(isoDate)
   var dd = d.getDate()
   var mm = d.getMonth() + 1
   var yyyy = d.getFullYear()
   return `${dd}-${mm}-${yyyy}`
 }
 
-const timestampFormat = date =>
+const isoDateFormat = date =>
   new Date(
     date
       .split('-')
       .reverse()
       .join('-')
-  ).getTime()
+  )
 
 const permissionsCheck = (userPermission, permissions) =>
   permissions.includes(userPermission.id)
 
-export { dateFormat, timestampFormat, permissionsCheck }
+export { dateFormat, isoDateFormat, permissionsCheck }

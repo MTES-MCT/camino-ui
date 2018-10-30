@@ -115,17 +115,21 @@ export default {
 
   methods: {
     editPopupOpen () {
-      const etapeClone = etape => {
+      const etapeCloneAndFormat = etape => {
         const etapeTmp = JSON.parse(JSON.stringify(etape))
         if (etapeTmp.date) {
           etapeTmp.date = dateFormat(etapeTmp.date)
         }
         if (etapeTmp.dateDebut) {
-          etapeTmp.date = dateFormat(etapeTmp.dateDebut)
+          etapeTmp.dateDebut = dateFormat(etapeTmp.dateDebut)
         }
         if (etapeTmp.dateFin) {
-          etapeTmp.date = dateFormat(etapeTmp.dateFin)
+          etapeTmp.dateFin = dateFormat(etapeTmp.dateFin)
         }
+
+        delete etapeTmp.geojsonPoints
+        delete etapeTmp.geojsonMultiPolygon
+        delete etapeTmp.documents
         
         return etapeTmp
       }
@@ -133,16 +137,12 @@ export default {
       const demarche = this.$store.state.titre.current.demarches.find(d => d.etapes.find(e => e.id === this.etape.id))
 
       const titre = this.$store.state.titre.current
-
-
-
-      console.log(titre.id);
   
       this.$store.commit('popupOpen', { 
         component: EditPopup, 
         closeBtn: true, 
         props: { 
-          etape: etapeClone(this.etape),
+          etape: etapeCloneAndFormat(this.etape),
           demarcheNom: demarche && demarche.type.nom,
           titreNom: titre && titre.nom,
         } 

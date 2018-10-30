@@ -301,7 +301,7 @@
               :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
               :value="entreprise"
               :disabled="etape.amodiataires.find(a => a.id === entreprise.id)"
-            >{{ entreprise.id }}, {{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
+            >{{ entreprise.nom }} ({{ entreprise.id }})
             </option>
           </select>
 
@@ -335,14 +335,15 @@
       >
         <div class="flex full-x mb">
           <select 
-            v-model="etape.substances[n]"
+            v-model="etapeSubstance.id"
             type="text" 
             class="p-s mr"
+            @change="substanceUpdate(n, etapeSubstance.id)"
           >
             <option
               v-for="substance in substances"
               :key="substance.id"
-              :value="substance"
+              :value="substance.id"
               :disabled="etape.substances.find(s => s.id === substance.id)"
             >{{ substance.nom }}
             </option>
@@ -390,6 +391,7 @@
 </template>
 
 <script>
+import { isoDateFormat } from '../../utils'
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 
@@ -445,7 +447,30 @@ export default {
 
   methods: {
     save() {
-      this.$store.dispatch('titre/etapeUpdate', this.etape)   
+      const etapeCloneAndFormat = etape => {
+        JSON.parse(JSON.stringify(etape))
+        etape.titulaires = etape.titulaires.filter(t => t.id)
+        etape.amodiataires = etape.amodiataires.filter(t => t.id)
+        etape.administrations = etape.administrations.filter(t => t.id)
+        etape.substances = etape.substances.filter(t => t.id)
+        etape.emprises = etape.emprises.filter(t => t.id)
+        etape.points = etape.points.filter(t => t.id)
+
+        if (etape.date) {
+          etape.date = isoDateFormat(etape.date)
+        }
+
+        if (etape.dateDebut) {
+          etape.dateDebut = isoDateFormat(etape.dateDebut)
+        }
+        if (etape.dateFin) {
+          etape.dateFin = isoDateFormat(etape.dateFin)
+        }
+
+        return etape
+      }
+
+      this.$store.dispatch('titre/etapeUpdate', etapeCloneAndFormat(this.etape))  
     },
 
     cancel() {
@@ -511,8 +536,12 @@ export default {
     },
 
     substanceAdd () {
-      const substance = { id: '', nom: '' }
+      const substance = { id: '', nom: ''}
       this.etape.substances.push(substance)
+    },
+    
+    substanceUpdate (etapeSubstanceIndex, substanceId) {
+      this.etape.substances[etapeSubstanceIndex] = this.substances.find(s => s.id === substanceId)
     },
 
     substanceRemove (id) {

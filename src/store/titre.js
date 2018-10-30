@@ -2,21 +2,6 @@ import Vue from 'vue'
 import { titre, titreEtapeUpdate } from '../api'
 import router from '../router'
 
-const etapeFormat = etape => {
-  etape.titulaires = etape.titulaires.filter(t => t.id)
-  etape.amodiataires = etape.amodiataires.filter(t => t.id)
-  etape.administrations = etape.administrations.filter(t => t.id)
-  etape.substances = etape.substances.filter(t => t.id)
-  etape.emprises = etape.emprises.filter(t => t.id)
-  etape.points = etape.points.filter(t => t.id)
-
-  delete etape.geojsonPoints
-  delete etape.geojsonMultiPolygon
-  delete etape.documents
-
-  return etape
-}
-
 export const state = {
   current: null,
   documents: []
@@ -40,11 +25,10 @@ export const actions = {
 
   async etapeUpdate({ state, dispatch }, etape) {
     try {
-      etape = etapeFormat(etape)
       const res = await titreEtapeUpdate({ etape })
 
+      console.log(res)
       if (res) {
-        console.log(res)
         dispatch('get', state.current.id)
       } else {
         router.push({ name: 'erreur' })
