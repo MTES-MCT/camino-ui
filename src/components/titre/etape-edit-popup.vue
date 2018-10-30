@@ -32,7 +32,7 @@
         </div>
         <div class="mb tablet-blob-2-3">
           <input 
-            v-model="etape.duree"
+            v-model.number="etape.duree"
             type="text" 
             class="p-s"
           >
@@ -473,8 +473,7 @@ export default {
         } else if (etapeTmp.dateFin === '') {
           etapeTmp.dateFin = null
         }
-
-        console.log(etapeTmp.date, etapeTmp.dateDebut, etapeTmp.dateFin);
+        console.log(etape.points);
 
         return etapeTmp
       }
