@@ -448,26 +448,35 @@ export default {
   methods: {
     save() {
       const etapeCloneAndFormat = etape => {
-        JSON.parse(JSON.stringify(etape))
-        etape.titulaires = etape.titulaires.filter(t => t.id)
-        etape.amodiataires = etape.amodiataires.filter(t => t.id)
-        etape.administrations = etape.administrations.filter(t => t.id)
-        etape.substances = etape.substances.filter(t => t.id)
-        etape.emprises = etape.emprises.filter(t => t.id)
-        etape.points = etape.points.filter(t => t.id)
+        const etapeTmp = JSON.parse(JSON.stringify(etape))
+        etapeTmp.titulaires = etapeTmp.titulaires.filter(t => t.id)
+        etapeTmp.amodiataires = etapeTmp.amodiataires.filter(t => t.id)
+        etapeTmp.administrations = etapeTmp.administrations.filter(t => t.id)
+        etapeTmp.substances = etapeTmp.substances.filter(t => t.id)
+        etapeTmp.emprises = etapeTmp.emprises.filter(t => t.id)
+        etapeTmp.points = etapeTmp.points.filter(t => t.id)
 
-        if (etape.date) {
-          etape.date = isoDateFormat(etape.date)
+        if (etapeTmp.date) {
+          etapeTmp.date = isoDateFormat(etapeTmp.date)
+        } else if (etapeTmp.date === '') {
+          etapeTmp.date = null
         }
 
-        if (etape.dateDebut) {
-          etape.dateDebut = isoDateFormat(etape.dateDebut)
-        }
-        if (etape.dateFin) {
-          etape.dateFin = isoDateFormat(etape.dateFin)
+        if (etapeTmp.dateDebut) {
+          etapeTmp.dateDebut = isoDateFormat(etapeTmp.dateDebut)
+        } else if (etapeTmp.dateDebut === '') {
+          etapeTmp.dateDebut = null
         }
 
-        return etape
+        if (etapeTmp.dateFin) {
+          etapeTmp.dateFin = isoDateFormat(etapeTmp.dateFin)
+        } else if (etapeTmp.dateFin === '') {
+          etapeTmp.dateFin = null
+        }
+
+        console.log(etapeTmp.date, etapeTmp.dateDebut, etapeTmp.dateFin);
+
+        return etapeTmp
       }
 
       this.$store.dispatch('titre/etapeUpdate', etapeCloneAndFormat(this.etape))  

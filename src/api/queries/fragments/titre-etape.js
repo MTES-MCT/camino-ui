@@ -9,6 +9,8 @@ const fragmentEtape = gql`
     id
     ordre
     date
+    dateDebut
+    dateFin
     duree
     surface
     volume
