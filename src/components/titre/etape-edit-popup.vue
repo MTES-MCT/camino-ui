@@ -108,7 +108,7 @@
               Point
             </h6>
             <input 
-              v-model="point.point"
+              v-model.number="point.point"
               type="text" 
               class="p-s"
             >
@@ -118,7 +118,7 @@
               Contour
             </h6>
             <input 
-              v-model="point.contour"
+              v-model.number="point.contour"
               type="text" 
               class="p-s"
             >
@@ -128,7 +128,7 @@
               Groupe
             </h6>
             <input 
-              v-model="point.groupe"
+              v-model.number="point.groupe"
               type="text" 
               class="p-s"
             >
@@ -147,7 +147,7 @@
           <div class="mb tablet-blob-1-3">
             <h6>Longitude</h6>
             <input 
-              v-model="point.coordonees.x"
+              v-model.number="point.coordonees.x"
               type="text" 
               class="p-s"
             >
@@ -155,7 +155,7 @@
           <div class="mb tablet-blob-1-3">
             <h6>Latitude</h6>
             <input 
-              v-model="point.coordonees.y"
+              v-model.number="point.coordonees.y"
               type="text" 
               class="p-s"
             >
@@ -202,7 +202,7 @@
             <div class="mb tablet-blob-1-3">
               <h6>Longitude</h6>
               <input 
-                v-model="reference.coordonees.x"
+                v-model.number="reference.coordonees.x"
                 type="text" 
                 class="p-s"
               >
@@ -210,7 +210,7 @@
             <div class="mb tablet-blob-1-3">
               <h6>Latitude</h6>
               <input 
-                v-model="reference.coordonees.y"
+                v-model.number="reference.coordonees.y"
                 type="text" 
                 class="p-s"
               >
@@ -456,24 +456,22 @@ export default {
         etapeTmp.emprises = etapeTmp.emprises.filter(t => t.id)
         etapeTmp.points = etapeTmp.points.filter(t => t.id)
 
-        if (etapeTmp.date) {
-          etapeTmp.date = isoDateFormat(etapeTmp.date)
-        } else if (etapeTmp.date === '') {
-          etapeTmp.date = null
-        }
+        const prop1s = ['date', 'dateDebut', 'dateFin']
+        const prop2s = ['surface', 'volume', 'volumeUnite']
+        prop1s.forEach(prop => {
+          if (etapeTmp[prop]) {
+            etapeTmp[prop] = isoDateFormat(etapeTmp[prop])
+          } else if (etapeTmp[prop] === '') {
+            etapeTmp[prop] = null
+          }
+        })
 
-        if (etapeTmp.dateDebut) {
-          etapeTmp.dateDebut = isoDateFormat(etapeTmp.dateDebut)
-        } else if (etapeTmp.dateDebut === '') {
-          etapeTmp.dateDebut = null
-        }
-
-        if (etapeTmp.dateFin) {
-          etapeTmp.dateFin = isoDateFormat(etapeTmp.dateFin)
-        } else if (etapeTmp.dateFin === '') {
-          etapeTmp.dateFin = null
-        }
-        console.log(etape.points);
+        prop2s.forEach(prop => {
+          if (etapeTmp[prop] === '') {
+            etapeTmp[prop] = null
+          }
+        })
+        console.log(etape);
 
         return etapeTmp
       }

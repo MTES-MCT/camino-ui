@@ -11,7 +11,8 @@ const titre = async id => {
   try {
     const res = await graphqlClient.query({
       query: queryTitre,
-      variables: { id }
+      variables: { id },
+      fetchPolicy: 'network-only'
     })
 
     return res && res.data.titre
