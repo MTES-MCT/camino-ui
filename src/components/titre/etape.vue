@@ -139,8 +139,7 @@ export default {
       const titre = this.$store.state.titre.current
   
       this.$store.commit('popupOpen', { 
-        component: EditPopup, 
-        closeBtn: true, 
+        component: EditPopup,
         props: { 
           etape: etapeCloneAndFormat(this.etape),
           demarcheNom: demarche && demarche.type.nom,

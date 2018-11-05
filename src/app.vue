@@ -18,7 +18,6 @@
     <component
       :is="popup.component"
       slot="popup"
-      :close-btn="popup.closeBtn"
       v-bind="popup.props"
     />
     

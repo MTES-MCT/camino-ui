@@ -1,16 +1,22 @@
 <template>
   <div class="sticky-bottom">
     <ul class="list-inline mb-0">
-      <li>
+      <li class="mr-s">
         <button 
           class="btn-alt rnd-xs py-s px-m" 
           @click="emailSend"
         >Signaler une erreur</button>
       </li>
-      <li>
+      <li class="mr-s hide">
+        <button 
+          class="btn-alt rnd-xs p-s" 
+          @click="declarationPopupOpen"
+        >Déclarer</button>
+      </li>
+      <li class="mr-s">
         <button class="btn-alt rnd-xs p-s hide">Télécharger ({{ total }})</button>
       </li>
-      <li>
+      <li class="mr-s">
         <button class="btn-alt rnd-xs p-s hide">Imprimer</button>
       </li>
     </ul>
@@ -18,6 +24,7 @@
 </template>
 
 <script>
+import DeclarationPopup from './declaration-popup.vue'
 
 export default {
   computed: {
@@ -35,6 +42,21 @@ export default {
   methods: {
     emailSend () {
       window.location.href = `mailto:camino@beta.gouv.fr?subject=Erreur ${this.$route.params.id}&body=Bonjour, j'ai repéré une erreur sur le titre ${this.$route.params.id} : `
+    },
+
+
+    declarationPopupOpen () {
+      this.$store.commit('popupOpen', { 
+        component: DeclarationPopup, 
+        props: { 
+          declaration: {},
+          titreNom: this.$store.state.titre.current.nom,
+          declarationPeriode: 'test',
+        } 
+      })
+    },
+    editPopupClose () {
+      this.$store.commit('popupClose')
     }
   }
 }
