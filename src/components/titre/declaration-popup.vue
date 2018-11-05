@@ -3,39 +3,24 @@
     <template slot="header">
       <div>
         <h5><span class="cap-first">{{ titreNom }}</span></h5>
-        <h2 class="cap-first mb-0">{{ declarationPeriode }}</h2>
+        <h2 class="cap-first mb-0">Déclaration trimestrielle {{ declarationPeriode }}</h2>
       </div>
     </template>
 
     <div>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Or net extrait</h6>
+          <h6>Or net extrait (g)</h6>
         </div>
         <div class="mb tablet-blob-2-3">
           <input 
-            v-model="etape.date"
+            v-model="declaration.masse"
             type="text" 
-            class="p-s"
-            placeholder="jj-mm-aaaa"
+            class="p-s mb-s"
+            placeholder="…"
           >
-        </div>
-      </div>
-      <hr>
-    </div>
-
-
-    <div>
-      <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Durée (années)</h6>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <input 
-            v-model.number="etape.duree"
-            type="text" 
-            class="p-s"
-          >
+          <p class="h5 mb-0">Masse d’or obtenu après fonderie ou affinage. L'article 318 B de l'annexe II au CGI précise que la masse nette de l'or extrait chaque année est définie d'après la quantité d'or effectivement extraite par un traitement métallurgique.
+          </p>
         </div>
       </div>
       <hr>
@@ -44,15 +29,16 @@
     <div>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Date de début</h6>
+          <h6>Mercure récupéré (g)</h6>
         </div>
         <div class="mb tablet-blob-2-3">
           <input 
-            v-model="etape.dateDebut"
+            v-model="declaration.mercure"
             type="text" 
-            class="p-s"
-            placeholder="jj-mm-aaaa"
+            class="p-s mb-s"
+            placeholder="…"
           >
+          <p class="h5 mb-0">Ensemble des produits contaminés envoyés en traitement.</p>
         </div>
       </div>
       <hr>
@@ -61,154 +47,280 @@
     <div>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Date d'échéance</h6>
+          <h6>Carburant détaxé consommé (l)</h6>
         </div>
         <div class="mb tablet-blob-2-3">
           <input 
-            v-model="etape.dateFin"
+            v-model="declaration.carburantDetaxe"
             type="text" 
-            class="p-s"
-            placeholder="jj-mm-aaaa"
+            class="p-s mb-s"
+            placeholder="…"
           >
+          <p class="h5 mb-0">Volume total de carburant détaxé consommé lié aux travaux réalisés sur le titre objet de la déclaration.</p>
         </div>
       </div>
-      <hr>
-    </div>
-
-    <div v-if="!etape.points.find(t => t.id ==='')">
-      <button 
-        class="btn-border rnd-xs p-s full-x mb  flex" 
-        @click="pointAdd"
-      >Ajouter un point<i class="icon-24 icon-24-plus flex-right" /></button>
       <hr>
     </div>
 
     <div>
-      <h3 class="mb-s">Titulaires ({{ etape.titulaires.length }})</h3>
-      <hr>
-      <div
-        v-for="(titulaire, n) in etape.titulaires"
-        :key="`titluaire-${titulaire.id}`"
-      >
-        <div class="flex full-x mb">
-          <select 
-            v-model="etape.titulaires[n]"
-            type="text" 
-            class="p-s mr"
-          >
-            <option
-              v-for="entreprise in entreprises"
-              :key="`titulaire-${titulaire.id}-entreprise-${entreprise.id}`"
-              :value="entreprise"
-              :disabled="etape.titulaires.find(t => t.id === entreprise.id)"
-            >{{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
-            </option>
-          </select>
-          <div class="flex-right">
-            <button
-              class="btn-border p-s rnd-xs"
-              @click="titulaireRemove(titulaire.id)"
-            >
-              <i class="icon-24 icon-24-minus" />
-            </button>
-          </div>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Carburant conventionnel consommé (l)</h6>
         </div>
-        <hr>
-      </div>
-    </div>
-
-    <div v-if="!etape.titulaires.find(t => t.id ==='')">  
-      <button 
-        class="btn-border rnd-xs p-s full-x mb  flex" 
-        @click="titulaireAdd"
-      >Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" /></button>
-      <hr>
-    </div>
-
-    
-    <div>
-      <h3 class="mb-s">Amodiataires ({{ etape.amodiataires.length }})</h3>
-      <hr>
-      <div
-        v-for="(amodiataire, n) in etape.amodiataires"
-        :key="`amodiataire-${amodiataire.id}`"
-      >
-        <div class="flex full-x mb">
-          <select 
-            v-model="etape.amodiataires[n]"
+        <div class="mb tablet-blob-2-3">
+          <input 
+            v-model="declaration.carburantConventionnel"
             type="text" 
-            class="p-s mr"
+            class="p-s mb-s"
+            placeholder="…"
           >
-            <option
-              v-for="entreprise in entreprises"
-              :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
-              :value="entreprise"
-              :disabled="etape.amodiataires.find(a => a.id === entreprise.id)"
-            >{{ entreprise.nom }} ({{ entreprise.id }})
-            </option>
-          </select>
-
-          <div class="flex-right">
-            <button
-              class="btn-border p-s rnd-xs"
-              @click="amodiataireRemove(amodiataire.id)"
-            >
-              <i class="icon-24 icon-24-minus" />
-            </button>
-          </div>
+          <p class="h5 mb-0">Volume total de carburant conventionnel consommé lié aux travaux réalisés sur le titre objet de la déclaration.</p>
         </div>
-        <hr>
       </div>
-    </div>
-
-    <div v-if="!etape.amodiataires.find(t => t.id ==='')">  
-      <button 
-        class="btn-border rnd-xs p-s full-x mb  flex" 
-        @click="amodiataireAdd"
-      >Ajouter un amodiataire<i class="icon-24 icon-24-plus flex-right" /></button>
       <hr>
     </div>
 
     <div>
-      <h3 class="mb-s">Substances ({{ etape.substances.length }})</h3>
-      <hr>
-      <div
-        v-for="(etapeSubstance, n) in etape.substances"
-        :key="etapeSubstance.id"
-      >
-        <div class="flex full-x mb">
-          <select 
-            v-model="etapeSubstance.id"
-            type="text" 
-            class="p-s mr"
-            @change="substanceUpdate(n, etapeSubstance.id)"
-          >
-            <option
-              v-for="substance in substances"
-              :key="substance.id"
-              :value="substance.id"
-              :disabled="etape.substances.find(s => s.id === substance.id)"
-            >{{ substance.nom }}
-            </option>
-          </select>
-          <div class="flex-right">
-            <button
-              class="btn-border p-s rnd-xs"
-              @click="substanceRemove(etapeSubstance.id)"
-            >
-              <i class="icon-24 icon-24-minus" />
-            </button>
-          </div>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Pompes actives</h6>
         </div>
-        <hr>
+        <div class="mb tablet-blob-2-3">
+          <input 
+            v-model="declaration.pompes"
+            type="text" 
+            class="p-s mb-s"
+            placeholder="…"
+          >
+          <p class="h5 mb-0">Nombre moyen de pompes actives sur le trimestre.
+
+          La moyenne se calcule en sommant le nombre de pompe active pendant chacun des mois du trimestre considéré. Cette somme est ensuite divisée par trois.
+
+          Les pompes à comptabiliser sont celles utilisées au niveau du chantier (pompe à gravier, pompe de relevage…).
+          </p>
+        </div>
       </div>
+      <hr>
     </div>
 
-    <div v-if="!etape.substances.find(t => t.id ==='')">  
-      <button 
-        class="btn-border rnd-xs p-s full-x mb  flex" 
-        @click="substanceAdd"
-      >Ajouter une substance<i class="icon-24 icon-24-plus flex-right" /></button>
+    <div>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Pelles actives</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input 
+            v-model="declaration.pelles"
+            type="text" 
+            class="p-s mb-s"
+            placeholder="…"
+          >
+          <p class="h5 mb-0">Nombre moyen de pelles actives sur le trimestre.
+
+          La moyenne se calcule en sommant le nombre de pelle active pendant chacun des mois du trimestre considéré. Cette somme est ensuite divisée par trois.
+
+          Les pelles à comptabiliser sont toutes celles utilisées au niveau du chantier (aménagement, exploitation, réhabilitation).
+
+          </p>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Effectif moyen sur le chantier</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input 
+            v-model="declaration.pelles"
+            type="text" 
+            class="p-s mb-s"
+            placeholder="…"
+          >
+          <p class="h5 mb-0">Nombre moyen de salariés sur le titre objet de la déclaration.
+
+          La moyenne se calcule en sommant le nombre de salariés pendant chacun des mois du trimestre considéré. Cette somme est ensuite divisée par trois.
+          </p>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Travaux de réhabilitation effectués (mois 1)</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <label> <input 
+            v-model="declaration.travaux1_1" 
+            type="checkbox" 
+            value="Jack"
+          >
+            Travaux non débutés</label>
+          <label><input 
+            v-model="declaration.travaux1_2" 
+            type="checkbox" 
+            value="John"
+          >
+            Travaux d’exploitation en cours</label>
+          <label><input 
+            v-model="declaration.travaux1_3" 
+            type="checkbox" 
+            value="Mike"
+          >
+            Arrêt temporaire des travaux</label>
+          <label><input 
+            v-model="declaration.travaux1_4" 
+            type="checkbox" 
+            value="Mike"
+          >
+            Travaux de réhabilitation</label>
+          <label><input 
+            v-model="declaration.travaux1_5" 
+            type="checkbox" 
+            value="Mike"
+          >
+            Arrêt définitif (après réhabilitation)
+          </label>
+          <p class="h5 mb-0">Nombre moyen de salariés sur le titre objet de la déclaration.
+
+          La moyenne se calcule en sommant le nombre de salariés pendant chacun des mois du trimestre considéré. Cette somme est ensuite divisée par trois.
+          </p>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Travaux de réhabilitation effectués (mois 2)</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <label> <input 
+            v-model="declaration.travaux2_1" 
+            type="checkbox" 
+            value="Jack"
+          >
+            Travaux non débutés</label>
+          <label><input 
+            v-model="declaration.travaux2_2" 
+            type="checkbox" 
+            value="John"
+          >
+            Travaux d’exploitation en cours</label>
+          <label><input 
+            v-model="declaration.travaux2_3" 
+            type="checkbox" 
+            value="Mike"
+          >
+            Arrêt temporaire des travaux</label>
+          <label><input 
+            v-model="declaration.travaux2_4" 
+            type="checkbox" 
+            value="Mike"
+          >
+            Travaux de réhabilitation</label>
+          <label><input 
+            v-model="declaration.travaux2_5" 
+            type="checkbox" 
+            value="Mike"
+          >
+            Arrêt définitif (après réhabilitation)
+          </label>
+          <p class="h5 mb-0">Nombre moyen de salariés sur le titre objet de la déclaration.
+
+          La moyenne se calcule en sommant le nombre de salariés pendant chacun des mois du trimestre considéré. Cette somme est ensuite divisée par trois.
+          </p>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Travaux de réhabilitation effectués (mois 3)</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <label> <input 
+            v-model="declaration.travaux3_1" 
+            type="checkbox" 
+            value="Jack"
+          >
+            Travaux non débutés</label>
+          <label><input 
+            v-model="declaration.travaux3_2" 
+            type="checkbox" 
+            value="John"
+          >
+            Travaux d’exploitation en cours</label>
+          <label><input 
+            v-model="declaration.travaux3_3" 
+            type="checkbox" 
+            value="Mike"
+          >
+            Arrêt temporaire des travaux</label>
+          <label><input 
+            v-model="declaration.travaux3_4" 
+            type="checkbox" 
+            value="Mike"
+          >
+            Travaux de réhabilitation</label>
+          <label><input 
+            v-model="declaration.travaux3_5" 
+            type="checkbox" 
+            value="Mike"
+          >
+            Arrêt définitif (après réhabilitation)
+          </label>
+          <p class="h5 mb-0">Nombre moyen de salariés sur le titre objet de la déclaration.
+
+          La moyenne se calcule en sommant le nombre de salariés pendant chacun des mois du trimestre considéré. Cette somme est ensuite divisée par trois.
+          </p>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Dépenses relatives à la protection de l’environnement (euros)</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input 
+            v-model="declaration.depensesEnvironnement"
+            type="text" 
+            class="p-s mb-s"
+            placeholder="…"
+          >
+          <p class="h5 mb-0">Sont concernés les investissements listés à l’article 318 C de l’annexe II du CGI. Afin de bénéficier des déductions fiscales afférentes, les bénéficiaires doivent présenter, tous les ans, aux services déconcentrés chargés des mines les justificatifs attestant de la réalisation effective des investissements qui ont fait l'objet de déduction.
+          </p>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Informations complémentaires</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input 
+            v-model="declaration.complement"
+            type="text" 
+            class="p-s mb-s"
+            placeholder="…"
+          >
+          <p class="h5 mb-0">Toute information sur les événements marquants du trimestre (accident, incident, arrêt ou suspension d’activité en précisant les raisons, changement de phase d’exploitation, difficultés rencontrées, etc.…).
+          </p>
+        </div>
+      </div>
       <hr>
     </div>
 
@@ -264,7 +376,7 @@ export default {
 
   data () {
     return {
-      id: ''
+      declaration: {}
     }
   },
 

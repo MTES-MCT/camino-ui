@@ -7,7 +7,10 @@
           @click="emailSend"
         >Signaler une erreur</button>
       </li>
-      <li class="mr-s hide">
+      <li 
+        v-if="permissions(['super', 'admin'])"
+        class="mr-s"
+      >
         <button 
           class="btn-alt rnd-xs p-s" 
           @click="declarationPopupOpen"
@@ -51,7 +54,7 @@ export default {
         props: { 
           declaration: {},
           titreNom: this.$store.state.titre.current.nom,
-          declarationPeriode: 'test',
+          declarationPeriode: '1er trimestre 2018',
         } 
       })
     },
