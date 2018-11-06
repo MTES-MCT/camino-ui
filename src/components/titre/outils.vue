@@ -12,7 +12,7 @@
         class="mr-s"
       >
         <button 
-          class="btn-alt rnd-xs p-s" 
+          class="btn-alt rnd-xs py-s px-m" 
           @click="declarationPopupOpen"
         >Remplir un rapport…</button>
       </li>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import DeclarationPopup from './declaration-popup.vue'
+import RapportPopup from './rapport-popup.vue'
 
 export default {
   computed: {
@@ -50,11 +50,11 @@ export default {
 
     declarationPopupOpen () {
       this.$store.commit('popupOpen', { 
-        component: DeclarationPopup, 
+        component: RapportPopup, 
         props: { 
-          declaration: {},
+          rapport: {},
           titreNom: this.$store.state.titre.current.nom,
-          declarationPeriode: '1er trimestre 2018',
+          periode: '1er trimestre 2018',
         } 
       })
     },
