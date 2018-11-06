@@ -279,12 +279,10 @@
         <h6>Informations complémentaires</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <textarea 
           v-model="declaration.complement"
-          type="text" 
           class="p-s mb-s"
-          placeholder="…"
-        >
+        />
         <p class="h5 mb-0">Toute information sur les événements marquants du trimestre (accident, incident, arrêt ou suspension d’activité en précisant les raisons, changement de phase d’exploitation, difficultés rencontrées, etc.…).
         </p>
       </div>
