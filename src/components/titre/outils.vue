@@ -8,7 +8,7 @@
         >Signaler une erreur…</button>
       </li>
       <li 
-        v-if="permissions(['super', 'admin'])"
+        v-if="permissions(['super', 'admin', 'user'])"
         class="mr-s"
       >
         <button 

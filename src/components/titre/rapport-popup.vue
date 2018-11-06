@@ -18,7 +18,7 @@
           class="p-s mb-s"
           placeholder="…"
         >
-        <p class="h5 mb-0">Masse d’or en gramme obtenu après fonderie ou affinage (au sens de l’<a 
+        <p class="h5 mb-0">Masse d’or en gramme obtenue au cours du trimestre après fonderie ou affinage (au sens de l’<a 
           href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850943&cidTexte=LEGITEXT000006069569" 
           target="_blank"
         >article 318 B de l'annexe II au code général des impôts, annexe 2</a>).
@@ -37,7 +37,7 @@
           class="p-s mb-s"
           placeholder="…"
         >
-        <p class="h5 mb-0">Masse en gramme de l’ensemble des produits contaminés envoyés en traitement.</p>
+        <p class="h5 mb-0">Masse en gramme de l’ensemble des produits contaminés envoyés en traitement au cours du trimestre.</p>
       </div>
     </div>
 
@@ -53,7 +53,7 @@
           class="p-s mb-s"
           placeholder="…"
         >
-        <p class="h5 mb-0">Volume total en litre de carburant détaxé consommé par les travaux réalisés sur le chantier.</p>
+        <p class="h5 mb-0">Volume total en litre de carburant détaxé consommé au cours du trimestre par les travaux réalisés sur le chantier.</p>
       </div>
     </div>
 
@@ -69,7 +69,7 @@
           class="p-s mb-s"
           placeholder="…"
         >
-        <p class="h5 mb-0">Volume total en litre de carburant conventionnel consommé par les travaux réalisés sur le chantier.</p>
+        <p class="h5 mb-0">Volume total en litre de carburant conventionnel consommé au cours du trimestre par les travaux réalisés sur le chantier.</p>
       </div>
     </div>
 
@@ -134,7 +134,7 @@
           class="p-s mb-s"
           placeholder="…"
         >
-        <p class="h5 mb-0">Montant en euros des investissements listés à l’<a 
+        <p class="h5 mb-0">Montant en euros des investissements consentis au cours du trimestre listés à l’<a 
           href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850940&cidTexte=LEGITEXT000006069569" 
           target="_blank"
         >article 318 C de l’annexe II du code général des impôts</a>. Afin de bénéficier des déductions fiscales afférentes, les justificatifs attestant de la réalisation effective des investissements sont susceptibles de vous êtres demandés par l’administration.</p>
