@@ -3,7 +3,7 @@
     <template slot="header">
       <div>
         <h5><span class="cap-first">{{ titreNom }} | Rapport trimestriel d'activité</span></h5>
-        <h2 class="cap-first mb-0">{{ declarationPeriode }}</h2>
+        <h2 class="cap-first mb-0">{{ periode }}</h2>
       </div>
     </template>
 
