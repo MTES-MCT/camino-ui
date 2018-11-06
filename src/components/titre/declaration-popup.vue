@@ -2,8 +2,8 @@
   <popup>
     <template slot="header">
       <div>
-        <h5><span class="cap-first">{{ titreNom }}</span></h5>
-        <h2 class="cap-first mb-0">Déclaration trimestrielle {{ declarationPeriode }}</h2>
+        <h5><span class="cap-first">{{ titreNom }} | Rapport trimestriel d'activité</span></h5>
+        <h2 class="cap-first mb-0">{{ declarationPeriode }}</h2>
       </div>
     </template>
 
@@ -132,10 +132,28 @@
         </p>
       </div>
     </div>
+     
+
+    <hr>
+    <div class="tablet-blobs">
+      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Dépenses relatives à la protection de l’environnement (euros)</h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <input 
+          v-model="declaration.depensesEnvironnement"
+          type="text" 
+          class="p-s mb-s"
+          placeholder="…"
+        >
+        <p class="h5 mb-0">Sont concernés les investissements listés à l’article 318 C de l’annexe II du CGI. Afin de bénéficier des déductions fiscales afférentes, les bénéficiaires doivent présenter, tous les ans, aux services déconcentrés chargés des mines les justificatifs attestant de la réalisation effective des investissements qui ont fait l'objet de déduction.
+        </p>
+      </div>
+    </div>
 
     <hr>
 
-    <h4>Travaux de réhabilitation effectués</h4>
+    <h4>Statut des travaux</h4>
       
     <hr>
     <div class="tablet-blobs">
@@ -257,36 +275,17 @@
       </div>
     </div>
 
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Dépenses relatives à la protection de l’environnement (euros)</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input 
-          v-model="declaration.depensesEnvironnement"
-          type="text" 
-          class="p-s mb-s"
-          placeholder="…"
-        >
-        <p class="h5 mb-0">Sont concernés les investissements listés à l’article 318 C de l’annexe II du CGI. Afin de bénéficier des déductions fiscales afférentes, les bénéficiaires doivent présenter, tous les ans, aux services déconcentrés chargés des mines les justificatifs attestant de la réalisation effective des investissements qui ont fait l'objet de déduction.
-        </p>
-      </div>
-    </div>
 
     <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Informations complémentaires</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <textarea 
-          v-model="declaration.complement"
-          class="p-s mb-s"
-        />
-        <p class="h5 mb-0">Toute information sur les événements marquants du trimestre (accident, incident, arrêt ou suspension d’activité en précisant les raisons, changement de phase d’exploitation, difficultés rencontrées, etc.).
-        </p>
-      </div>
+    <h4>Informations complémentaires</h4>
+    <hr>
+    <div class="mb">
+      <textarea 
+        v-model="declaration.complement"
+        class="p-s mb-s"
+      />
+      <p class="h5 mb-0">Toute information sur les événements marquants du trimestre (accident, incident, arrêt ou suspension d’activité en précisant les raisons, changement de phase d’exploitation, difficultés rencontrées, etc.).
+      </p>
     </div>
 
     <messages :messages="messages" />
