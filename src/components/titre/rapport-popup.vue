@@ -156,25 +156,25 @@
           type="checkbox" 
           value="Jack"
         >
-          Travaux non débutés</label>
+          Non débutés</label>
         <label><input 
           v-model="rapport.travaux1_2" 
           type="checkbox" 
           value="John"
         >
-          Travaux d’exploitation en cours</label>
+          Exploitation en cours</label>
         <label><input 
           v-model="rapport.travaux1_3" 
           type="checkbox" 
           value="Mike"
         >
-          Arrêt temporaire des travaux</label>
+          Arrêt temporaire</label>
         <label><input 
           v-model="rapport.travaux1_4" 
           type="checkbox" 
           value="Mike"
         >
-          Travaux de réhabilitation</label>
+          Réhabilitation</label>
         <label><input 
           v-model="rapport.travaux1_5" 
           type="checkbox" 
@@ -196,25 +196,25 @@
           type="checkbox" 
           value="Jack"
         >
-          Travaux non débutés</label>
+          Non débutés</label>
         <label><input 
           v-model="rapport.travaux2_2" 
           type="checkbox" 
           value="John"
         >
-          Travaux d’exploitation en cours</label>
+          Exploitation en cours</label>
         <label><input 
           v-model="rapport.travaux2_3" 
           type="checkbox" 
           value="Mike"
         >
-          Arrêt temporaire des travaux</label>
+          Arrêt temporaire</label>
         <label><input 
           v-model="rapport.travaux2_4" 
           type="checkbox" 
           value="Mike"
         >
-          Travaux de réhabilitation</label>
+          Réhabilitation</label>
         <label><input 
           v-model="rapport.travaux2_5" 
           type="checkbox" 
@@ -236,25 +236,25 @@
           type="checkbox" 
           value="Jack"
         >
-          Travaux non débutés</label>
+          Non débutés</label>
         <label><input 
           v-model="rapport.travaux3_2" 
           type="checkbox" 
           value="John"
         >
-          Travaux d’exploitation en cours</label>
+          Exploitation en cours</label>
         <label><input 
           v-model="rapport.travaux3_3" 
           type="checkbox" 
           value="Mike"
         >
-          Arrêt temporaire des travaux</label>
+          Arrêt temporaire</label>
         <label><input 
           v-model="rapport.travaux3_4" 
           type="checkbox" 
           value="Mike"
         >
-          Travaux de réhabilitation</label>
+          Réhabilitation</label>
         <label><input 
           v-model="rapport.travaux3_5" 
           type="checkbox" 
