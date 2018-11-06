@@ -42,7 +42,7 @@
     <hr>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Carburant détaxé consommé (l)</h6>
+        <h6>Carburant détaxé (l)</h6>
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
@@ -58,7 +58,7 @@
     <hr>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Carburant conventionnel consommé (l)</h6>
+        <h6>Carburant conventionnel (l)</h6>
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
@@ -116,7 +116,7 @@
     <hr>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Effectif moyen sur le chantier</h6>
+        <h6>Effectif</h6>
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
