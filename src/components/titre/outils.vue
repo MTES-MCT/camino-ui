@@ -14,7 +14,7 @@
         <button 
           class="btn-alt rnd-xs p-s" 
           @click="declarationPopupOpen"
-        >Remplir une déclaration…</button>
+        >Remplir un rapport…</button>
       </li>
       <li class="mr-s">
         <button class="btn-alt rnd-xs p-s hide">Télécharger ({{ total }})</button>
