@@ -92,6 +92,7 @@
       </div>
     </div>
 
+    <hr>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Pelles actives</h6>
@@ -116,7 +117,7 @@
     <hr>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Effectif</h6>
+        <h6>Effectifs</h6>
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
@@ -283,7 +284,7 @@
           v-model="declaration.complement"
           class="p-s mb-s"
         />
-        <p class="h5 mb-0">Toute information sur les événements marquants du trimestre (accident, incident, arrêt ou suspension d’activité en précisant les raisons, changement de phase d’exploitation, difficultés rencontrées, etc.…).
+        <p class="h5 mb-0">Toute information sur les événements marquants du trimestre (accident, incident, arrêt ou suspension d’activité en précisant les raisons, changement de phase d’exploitation, difficultés rencontrées, etc.).
         </p>
       </div>
     </div>
