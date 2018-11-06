@@ -402,36 +402,7 @@ export default {
 
   methods: {
     save() {
-      const etapeCloneAndFormat = etape => {
-        const etapeTmp = JSON.parse(JSON.stringify(etape))
-        etapeTmp.titulaires = etapeTmp.titulaires.filter(t => t.id)
-        etapeTmp.amodiataires = etapeTmp.amodiataires.filter(t => t.id)
-        etapeTmp.administrations = etapeTmp.administrations.filter(t => t.id)
-        etapeTmp.substances = etapeTmp.substances.filter(t => t.id)
-        etapeTmp.emprises = etapeTmp.emprises.filter(t => t.id)
-        etapeTmp.points = etapeTmp.points.filter(t => t.id)
-
-        const prop1s = ['date', 'dateDebut', 'dateFin']
-        const prop2s = ['surface', 'volume', 'volumeUnite']
-        prop1s.forEach(prop => {
-          if (etapeTmp[prop]) {
-            etapeTmp[prop] = isoDateFormat(etapeTmp[prop])
-          } else if (etapeTmp[prop] === '') {
-            etapeTmp[prop] = null
-          }
-        })
-
-        prop2s.forEach(prop => {
-          if (etapeTmp[prop] === '') {
-            etapeTmp[prop] = null
-          }
-        })
-        console.log(etape);
-
-        return etapeTmp
-      }
-
-      this.$store.dispatch('titre/etapeUpdate', etapeCloneAndFormat(this.etape))  
+        console.log(this.declaration); 
     },
 
     cancel() {
@@ -449,65 +420,6 @@ export default {
 
     errorsRemove () {
       // this.$store.commit('utilisateur/loginMessagesRemove')
-    },
-
-    pointAdd () {
-      const point = { id: '', coordonees: { x: '', y: '' }, references: [] }
-      this.etape.points.push(point)
-    },
-
-    pointRemove (point) {
-      const index = this.etape.points.findIndex(p => p.id === point.id)
-      this.etape.points.splice(index, 1)
-    },
-
-    pointReferenceAdd (point) {
-      const reference = { id: '', coordonees: { x: '', y: '' } }
-      point.references.push(reference)
-    },
-
-    pointReferenceRemove (point, reference) {
-      const index = point.references.findIndex(r => r.id === reference.id)
-      point.references.splice(index, 1)
-    },
-
-    titulaireAdd () {
-      this.etape.titulaires.push({ id: '' })
-    }, 
-    
-    titulaireSet(titulaireId) {
-      const index = this.etape.titulaires.findIndex(t => t.id === titulaireId)
-      const entreprise = this.entreprises.find(e => e.id === titulaireId)
-      this.$set(this.etape.titulaires, index, entreprise)
-    },
-
-    titulaireRemove (id) {
-      const index = this.etape.titulaires.findIndex(t => t.id === id)
-      this.etape.titulaires.splice(index, 1)
-    },
-
-    amodiataireAdd () {
-      const amodiataire = { id: '', nom: '' }
-      this.etape.amodiataires.push(amodiataire)
-    },
-
-    amodiataireRemove (id) {
-      const index = this.etape.amodiataires.findIndex(t => t.id === id)
-      this.etape.amodiataires.splice(index, 1)
-    },
-
-    substanceAdd () {
-      const substance = { id: '', nom: ''}
-      this.etape.substances.push(substance)
-    },
-    
-    substanceUpdate (etapeSubstanceIndex, substanceId) {
-      this.etape.substances[etapeSubstanceIndex] = this.substances.find(s => s.id === substanceId)
-    },
-
-    substanceRemove (id) {
-      const index = this.etape.substances.findIndex(t => t.id === id)
-      this.etape.substances.splice(index, 1)
     }
   }
 }

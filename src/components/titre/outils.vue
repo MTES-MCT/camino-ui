@@ -5,7 +5,7 @@
         <button 
           class="btn-alt rnd-xs py-s px-m" 
           @click="emailSend"
-        >Signaler une erreur</button>
+        >Signaler une erreur…</button>
       </li>
       <li 
         v-if="permissions(['super', 'admin'])"
@@ -14,7 +14,7 @@
         <button 
           class="btn-alt rnd-xs p-s" 
           @click="declarationPopupOpen"
-        >Déclarer</button>
+        >Remplir une déclaration…</button>
       </li>
       <li class="mr-s">
         <button class="btn-alt rnd-xs p-s hide">Télécharger ({{ total }})</button>
