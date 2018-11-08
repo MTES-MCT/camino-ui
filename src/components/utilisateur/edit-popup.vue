@@ -101,7 +101,7 @@
 
 
     <div
-      v-if="permissions(['super', 'admin'])"
+      v-if="permissionsCheck(['super', 'admin'])"
       class="tablet-blobs"
     >
       <hr>

@@ -2,10 +2,10 @@ import { permissionsCheck } from '../utils'
 
 var mixins = {
   methods: {
-    permissions(p) {
+    permissionsCheck(permissions) {
       return (
         this.$store.state.user.current &&
-        permissionsCheck(this.$store.state.user.current.permission, p)
+        permissionsCheck(this.$store.state.user.current.permission, permissions)
       )
     }
   }

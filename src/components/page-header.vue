@@ -16,7 +16,7 @@
         </ul>
         <div class="flex-right">
           <ul class="list-inline">
-            <li v-if="permissions(['super', 'admin'])"><menu-button class="mt-l" /></li>
+            <li v-if="permissionsCheck(['super', 'admin'])"><menu-button class="mt-l" /></li>
             <li><user-button class="mt-l" /></li>
           </ul>
         </div>

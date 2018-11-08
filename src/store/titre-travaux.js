@@ -4,7 +4,7 @@ import { titreTravauxRapportAdd } from '../api'
 
 export const state = {
   current: null,
-  calendrier: [
+  rapportCalendrier: [
     {
       numero: '01',
       nom: '1er trimestre',

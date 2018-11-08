@@ -9,7 +9,7 @@
     </template>
 
     <template 
-      v-if="permissions(['super', 'admin'])" 
+      v-if="permissionsCheck(['super', 'admin'])" 
       slot="buttons"
     >
       <button
