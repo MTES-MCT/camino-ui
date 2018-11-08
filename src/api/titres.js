@@ -58,7 +58,7 @@ const titreEtapeUpdate = async ({ etape }) => {
 
     return res && res.data && res.data.titreEtapeModifier
   } catch (e) {
-    errorLog(e, 'titreEtapeModifier')
+    errorLog(e, 'titreEtapeUpdate')
   }
 }
 

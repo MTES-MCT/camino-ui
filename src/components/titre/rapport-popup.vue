@@ -3,7 +3,7 @@
     <template slot="header">
       <div>
         <h5><span class="cap-first">{{ titreNom }} | Rapport trimestriel d'activité</span></h5>
-        <h2 class="cap-first mb-0">{{ periode }}</h2>
+        <h2 class="cap-first mb-0">{{ trimestre.nom }}</h2>
       </div>
     </template>
 
@@ -13,7 +13,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
-          v-model="rapport.masse"
+          v-model="rapport.contenu.or"
           type="text" 
           class="p-s mb-s"
           placeholder="…"
@@ -32,7 +32,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
-          v-model="rapport.mercure"
+          v-model="rapport.contenu.mercure"
           type="text" 
           class="p-s mb-s"
           placeholder="…"
@@ -48,7 +48,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
-          v-model="rapport.carburantDetaxe"
+          v-model="rapport.contenu.carburantDetaxe"
           type="text" 
           class="p-s mb-s"
           placeholder="…"
@@ -64,7 +64,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
-          v-model="rapport.carburantConventionnel"
+          v-model="rapport.contenu.carburantConventionnel"
           type="text" 
           class="p-s mb-s"
           placeholder="…"
@@ -80,7 +80,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
-          v-model="rapport.pompes"
+          v-model="rapport.contenu.pompes"
           type="text" 
           class="p-s mb-s"
           placeholder="…"
@@ -96,7 +96,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
-          v-model="rapport.pelles"
+          v-model="rapport.contenu.pelles"
           type="text" 
           class="p-s mb-s"
           placeholder="…"
@@ -112,7 +112,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
-          v-model="rapport.pelles"
+          v-model="rapport.contenu.effectifs"
           type="text" 
           class="p-s mb-s"
           placeholder="…"
@@ -129,7 +129,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input 
-          v-model="rapport.depensesEnvironnement"
+          v-model="rapport.contenu.environnement"
           type="text" 
           class="p-s mb-s"
           placeholder="…"
@@ -144,134 +144,52 @@
     <hr>
 
     <h4>Statut des travaux</h4>
-      
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Janvier</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <label><input 
-          v-model="rapport.travaux1_1" 
-          type="checkbox" 
-          value="Jack"
-        >
-          Non débutés</label>
-        <label><input 
-          v-model="rapport.travaux1_2" 
-          type="checkbox" 
-          value="John"
-        >
-          Exploitation en cours</label>
-        <label><input 
-          v-model="rapport.travaux1_3" 
-          type="checkbox" 
-          value="Mike"
-        >
-          Arrêt temporaire</label>
-        <label><input 
-          v-model="rapport.travaux1_4" 
-          type="checkbox" 
-          value="Mike"
-        >
-          Réhabilitation</label>
-        <label><input 
-          v-model="rapport.travaux1_5" 
-          type="checkbox" 
-          value="Mike"
-        >
-          Arrêt définitif (après réhabilitation)
-        </label>
-      </div>
-    </div>
-
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Février</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <label> <input 
-          v-model="rapport.travaux2_1" 
-          type="checkbox" 
-          value="Jack"
-        >
-          Non débutés</label>
-        <label><input 
-          v-model="rapport.travaux2_2" 
-          type="checkbox" 
-          value="John"
-        >
-          Exploitation en cours</label>
-        <label><input 
-          v-model="rapport.travaux2_3" 
-          type="checkbox" 
-          value="Mike"
-        >
-          Arrêt temporaire</label>
-        <label><input 
-          v-model="rapport.travaux2_4" 
-          type="checkbox" 
-          value="Mike"
-        >
-          Réhabilitation</label>
-        <label><input 
-          v-model="rapport.travaux2_5" 
-          type="checkbox" 
-          value="Mike"
-        >
-          Arrêt définitif (après réhabilitation)
-        </label>
+    <div 
+      v-for="mois in rapport.contenu.travaux" 
+      :key="mois.numero"
+    >
+      <hr>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>{{ mois.nom }}
+        </h6></div>
+        <div class="mb tablet-blob-2-3">
+          <label><input 
+            v-model="mois.nonDebutes"
+            type="checkbox"
+          >
+            Non débutés</label>
+          <label><input 
+            v-model="mois.exploitationEnCours"
+            type="checkbox"
+          >
+            Exploitation en cours</label>
+          <label><input 
+            v-model="mois.arretTemporaire"
+            type="checkbox"
+          >
+            Arrêt temporaire</label>
+          <label><input 
+            v-model="mois.rehabilitation"
+            type="checkbox"
+          >
+            Réhabilitation</label>
+          <label><input 
+            v-model="mois.arretDefinitif"
+            type="checkbox"
+          >
+            Arrêt définitif (après réhabilitation)
+          </label>
+        </div>
       </div>
     </div>
-
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Mars</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <label> <input 
-          v-model="rapport.travaux3_1" 
-          type="checkbox" 
-          value="Jack"
-        >
-          Non débutés</label>
-        <label><input 
-          v-model="rapport.travaux3_2" 
-          type="checkbox" 
-          value="John"
-        >
-          Exploitation en cours</label>
-        <label><input 
-          v-model="rapport.travaux3_3" 
-          type="checkbox" 
-          value="Mike"
-        >
-          Arrêt temporaire</label>
-        <label><input 
-          v-model="rapport.travaux3_4" 
-          type="checkbox" 
-          value="Mike"
-        >
-          Réhabilitation</label>
-        <label><input 
-          v-model="rapport.travaux3_5" 
-          type="checkbox" 
-          value="Mike"
-        >
-          Arrêt définitif (après réhabilitation)
-        </label>
-      </div>
-    </div>
-
 
     <hr>
     <h4>Informations complémentaires</h4>
     <hr>
     <div class="mb">
       <textarea 
-        v-model="rapport.complement"
+        v-model="rapport.contenu.complement"
         class="p-s mb-s"
       />
       <p class="h5 mb-0">Toute information sur les événements marquants du trimestre (accident, incident, arrêt ou suspension d’activité en précisant les raisons, évolution de l’exploitation, difficultés rencontrées, etc.).</p>
@@ -287,7 +205,10 @@
             @click="cancel"
           >Annuler</button>
         </div>
-        <div class="tablet-blob-2-3">
+        <div 
+          class="tablet-blob-2-3"
+          :class="{ disabled: !complete }"
+        >
           <button
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
@@ -312,13 +233,13 @@ export default {
   },
   
   props: {
-    etape: {
+    rapport: {
       type: Object,
       default: () => ({})
     },
-    periode: {
-      type: String,
-      default: ''
+    trimestre: {
+      type: Object,
+      default: () => ({})
     },
     titreNom: {
       type: String,
@@ -326,21 +247,25 @@ export default {
     }
   },
 
-  data () {
-    return {
-      rapport: {}
-    }
-  },
-
   computed: {
     messages () {
-      return this.$store.state.utilisateur.popupMessages
+      return this.$store.state.titreTravaux.popupMessages
     },
     entreprises () {
       return this.$store.state.entreprises.list
     },
     substances () {
       return this.$store.state.substances.list
+    },
+    complete () {
+      return this.rapport.contenu.or 
+        && this.rapport.contenu.mercure 
+        && this.rapport.contenu.carburantDetaxe 
+        && this.rapport.contenu.carburantConventionnel
+        && this.rapport.contenu.pompes
+        && this.rapport.contenu.pelles
+        && this.rapport.contenu.effectifs
+        && this.rapport.contenu.environnement
     }
   },
 
@@ -354,7 +279,11 @@ export default {
 
   methods: {
     save() {
-        console.log(this.rapport); 
+      if (this.complete) {
+        this.rapport.date = new Date()
+        
+        this.$store.dispatch('titreTravaux/rapportAdd', this.rapport)
+      }
     },
 
     cancel() {
@@ -371,7 +300,7 @@ export default {
     },
 
     errorsRemove () {
-      // this.$store.commit('utilisateur/loginMessagesRemove')
+      this.$store.commit('titreTravaux/popupMessagesRemove')
     }
   }
 }

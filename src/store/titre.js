@@ -29,6 +29,14 @@ export const actions = {
 
       console.log(res)
       if (res) {
+        dispatch(
+          'messageAdd',
+          {
+            value: `L'étape a été mise à jour`,
+            type: 'success'
+          },
+          { root: true }
+        )
         dispatch('get', state.current.id)
       } else {
         router.push({ name: 'erreur' })

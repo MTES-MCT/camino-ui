@@ -11,6 +11,8 @@ import {
   utilisateurIdentify
 } from '@/api/utilisateurs'
 
+import { titreTravauxRapportAdd } from './titre-travaux'
+
 export {
   init,
   titre,
@@ -23,5 +25,6 @@ export {
   utilisateurAdd,
   utilisateurRemove,
   utilisateurPasswordUpdate,
-  utilisateurIdentify
+  utilisateurIdentify,
+  titreTravauxRapportAdd
 }

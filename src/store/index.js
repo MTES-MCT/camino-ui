@@ -12,6 +12,7 @@ import utilisateurs from './utilisateurs'
 import entreprises from './entreprises'
 import substances from './substances'
 import user from './user'
+import titreTravaux from './titre-travaux'
 
 const modules = {
   titre,
@@ -21,7 +22,8 @@ const modules = {
   utilisateurs,
   entreprises,
   substances,
-  user
+  user,
+  titreTravaux
 }
 
 export const state = {

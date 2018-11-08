@@ -39,6 +39,9 @@ export default {
     },
     total () {
       return this.documentsSelected > 0 ? `${this.documentsSelected} / ${this.documentsTotal}` : this.documentsTotal
+    },
+    calendrier () {
+      return this.$store.state.titreTravaux.calendrier
     }
   },
 
@@ -47,14 +50,20 @@ export default {
       window.location.href = `mailto:camino@beta.gouv.fr?subject=Erreur ${this.$route.params.id}&body=Bonjour, j'ai repéré une erreur sur le titre ${this.$route.params.id} : `
     },
 
-
     declarationPopupOpen () {
       this.$store.commit('popupOpen', { 
         component: RapportPopup, 
-        props: { 
-          rapport: {},
+        props: {
+          rapport: { 
+            id: `${this.$store.state.titre.current.id}-${this.calendrier[0].numero}`,
+            titreId: this.$store.state.titre.current.id,
+            contenu: {
+              trimestre: this.calendrier[0].numero, 
+              travaux: JSON.parse(JSON.stringify(this.calendrier[0].mois))
+            }
+          },
           titreNom: this.$store.state.titre.current.nom,
-          periode: '1er trimestre 2018',
+          trimestre: this.calendrier[0],
         } 
       })
     },
