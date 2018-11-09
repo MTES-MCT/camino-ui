@@ -98,14 +98,10 @@
         >
       </div>
     </div>
-
-    <hr>
-    <div
-      v-if="permissionsCheck(['super', 'admin'])"
-      class="tablet-blobs"
-    >
+    
+    <div v-if="permissionsCheck(['super', 'admin'])">
       <hr>
-      <div>
+      <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Permissions</h6>
         </div>
@@ -124,60 +120,61 @@
           </ul>
         </div>
       </div>
-    </div>
-
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Lien</h6>
-      </div>
-
-      <div class="tablet-blob-2-3">
-        <ul class="list-inline">
-          <li class="mr">
-            <label><input 
-              v-model="lien"
-              type="radio"
-              :value="'aucun'"
-              :checked="lien === 'aucun'"
-              @change="lienReset"
-            >Aucun</label>
-          </li>
-          <li class="mr">
-            <label><input 
-              v-model="lien"
-              type="radio"
-              :value="'entreprise'"
-              :checked="lien === 'entreprise'"
-              @change="lienReset"
-            >Entreprise</label>
-          </li>
-        </ul>
-      </div>
-    </div>
-    
-    <div v-if="lien === 'entreprise'">
+      
       <hr>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Entreprise</h6>
+          <h6>Lien</h6>
         </div>
 
-        <div class="mb tablet-blob-2-3">
-          <select 
-            v-model="utilisateur.entreprise.id"
-            type="text" 
-            class="p-s mr"
-          >
-            <option
-              v-for="entreprise in entreprises"
-              :key="entreprise.id"
-              :value="entreprise.id"
-            >{{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
-            </option>
-          </select>
+        <div class="tablet-blob-2-3">
+          <ul class="list-inline">
+            <li class="mr">
+              <label><input 
+                v-model="lien"
+                type="radio"
+                :value="'aucun'"
+                :checked="lien === 'aucun'"
+                @change="lienReset"
+              >Aucun</label>
+            </li>
+            <li class="mr">
+              <label><input 
+                v-model="lien"
+                type="radio"
+                :value="'entreprise'"
+                :checked="lien === 'entreprise'"
+                @change="lienReset"
+              >Entreprise</label>
+            </li>
+          </ul>
         </div>
       </div>
+    
+      <div v-if="lien === 'entreprise'">
+        <hr>
+        <div class="tablet-blobs">
+          <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+            <h6>Entreprise</h6>
+          </div>
+
+          <div class="mb tablet-blob-2-3">
+            <select 
+              v-model="utilisateur.entreprise.id"
+              type="text" 
+              class="p-s mr"
+            >
+              <option
+                v-for="entreprise in entreprises"
+                :key="entreprise.id"
+                :value="entreprise.id"
+              >{{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <messages :messages="messages" />
