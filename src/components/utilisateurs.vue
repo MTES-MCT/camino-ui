@@ -60,7 +60,7 @@ export default {
       this.$store.commit('popupOpen', { 
         component: EditPopup,
         props: {
-          utilisateur: { permission: { id: 'lecteur' }},
+          utilisateur: { permission: { id: 'defaut' }},
           creation: true
         }
       })

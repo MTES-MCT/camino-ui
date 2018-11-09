@@ -55,6 +55,7 @@
             <p>{{ utilisateur.nom || '–' }}</p>
           </div>
         </div>
+      
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <h6 class="mt-xs">Email</h6>
@@ -63,6 +64,7 @@
             <p>{{ utilisateur.email || '–' }}</p>
           </div>
         </div>
+
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <h6 class="mt-xs">Téléphone fixe</h6>
@@ -71,6 +73,7 @@
             <p>{{ utilisateur.telephoneFixe || '–' }}</p>
           </div>
         </div>
+
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <h6 class="mt-xs">Téléphone mobile</h6>
@@ -79,6 +82,7 @@
             <p>{{ utilisateur.telephoneMobile || '–' }}</p>
           </div>
         </div>
+
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <h6 class="mt-xs">Permissions</h6>
@@ -94,6 +98,18 @@
               v-else
               class="mb"
             >–</div>
+          </div>
+        </div>
+
+        <div 
+          v-if="utilisateur.entreprise" 
+          class="tablet-blobs"
+        >
+          <div class="tablet-blob-1-4">
+            <h6 class="mt-xs">Entreprise</h6>
+          </div>
+          <div class="tablet-blob-3-4">
+            <p>{{ utilisateur.entreprise.nom || '–' }}</p>
           </div>
         </div>
       </template>

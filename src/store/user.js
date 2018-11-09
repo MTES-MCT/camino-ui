@@ -16,7 +16,7 @@ export const actions = {
   async identifier({ commit }) {
     try {
       const user = await utilisateurIdentify()
-
+      console.log(user);
       commit('set', user)
     } catch (e) {
       commit('tokenRemove')

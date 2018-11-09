@@ -83,7 +83,6 @@ export default {
 
   created () {
     this.get()
-
     if (this.$route.query.vue) {
       this.viewActive = this.$route.query.vue
     }

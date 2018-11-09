@@ -99,7 +99,7 @@
       </div>
     </div>
 
-
+    <hr>
     <div
       v-if="permissionsCheck(['super', 'admin'])"
       class="tablet-blobs"
@@ -122,6 +122,60 @@
               >{{ permission.nom }}</button>
             </li>
           </ul>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <div class="tablet-blobs">
+      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Lien</h6>
+      </div>
+
+      <div class="tablet-blob-2-3">
+        <ul class="list-inline">
+          <li class="mr">
+            <label><input 
+              v-model="lien"
+              type="radio"
+              :value="'aucun'"
+              :checked="lien === 'aucun'"
+              @change="lienReset"
+            >Aucun</label>
+          </li>
+          <li class="mr">
+            <label><input 
+              v-model="lien"
+              type="radio"
+              :value="'entreprise'"
+              :checked="lien === 'entreprise'"
+              @change="lienReset"
+            >Entreprise</label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div v-if="lien === 'entreprise'">
+      <hr>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Entreprise</h6>
+        </div>
+
+        <div class="mb tablet-blob-2-3">
+          <select 
+            v-model="utilisateur.entreprise.id"
+            type="text" 
+            class="p-s mr"
+          >
+            <option
+              v-for="entreprise in entreprises"
+              :key="entreprise.id"
+              :value="entreprise.id"
+            >{{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
+            </option>
+          </select>
         </div>
       </div>
     </div>
@@ -179,7 +233,7 @@ export default {
 
   data () {
     return {
-      id: ''
+      lien: 'aucun'
     }
   },
 
@@ -191,12 +245,20 @@ export default {
       return this.$store.state.utilisateurs.permissions
     },
     complete () {
-      return this.creation ? this.utilisateur.nom && this.utilisateur.prenom && this.utilisateur.email && this.utilisateur.motDePasse :  this.utilisateur.id && this.utilisateur.email
+      return this.creation ? this.utilisateur.nom && this.utilisateur.prenom && this.utilisateur.email && this.utilisateur.motDePasse : this.utilisateur.id && this.utilisateur.email
+    },
+    entreprises () {
+      return this.$store.state.entreprises.list
     }
-  },
-
+  }, 
+  
   created () {
     document.addEventListener('keyup', this.keyup)
+
+    if (this.utilisateur.entreprise) {
+      this.utilisateur.entreprise = this.entreprises.find(e => e.id === this.utilisateur.entreprise.id)
+      this.lien = 'entreprise'
+    }
   },
 
   beforeDestroy () {
@@ -238,6 +300,11 @@ export default {
 
     permissionToggle(permission) {
       this.utilisateur.permission = permission
+    },
+
+    lienReset () {
+      this.utilisateur.entreprise = this.lien === 'entreprise' ? {} : null
+      this.utilisateur.administration = this.lien === 'administration' ? {} : null
     }
   }
 }

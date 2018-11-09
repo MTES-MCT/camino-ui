@@ -78,12 +78,14 @@ export const actions = {
     }
   },
 
-  apiError({ commit }) {
+  apiError({ commit }, error) {
     commit('messageAdd', {
       type: 'error',
-      value: `Erreur: impossible de se connecter à l'API (${
-        process.env.VUE_APP_API_URL
-      })`
+      value:
+        error ||
+        `Erreur: impossible de se connecter à l'API (${
+          process.env.VUE_APP_API_URL
+        })`
     })
     commit('apiError', true)
   },
