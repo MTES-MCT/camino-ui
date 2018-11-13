@@ -151,7 +151,7 @@
     <h4>Statut des travaux</h4>
     <div 
       v-for="mois in rapport.contenu.travaux" 
-      :key="mois.numero"
+      :key="mois.id"
     >
       <hr>
       <div class="tablet-blobs">

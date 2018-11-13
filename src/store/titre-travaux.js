@@ -10,73 +10,73 @@ export const state = {
   },
   rapportCalendrier: [
     {
-      numero: 1,
+      id: 1,
       nom: '1er trimestre',
       mois: [
         {
-          numero: 1,
+          id: 1,
           nom: 'Janvier'
         },
         {
-          numero: 2,
+          id: 2,
           nom: 'Février'
         },
         {
-          numero: 3,
+          id: 3,
           nom: 'Mars'
         }
       ]
     },
     {
-      numero: 2,
+      id: 2,
       nom: '2nd trimestre',
       mois: [
         {
-          numero: 4,
+          id: 4,
           nom: 'Avril'
         },
         {
-          numero: 5,
+          id: 5,
           nom: 'Mai'
         },
         {
-          numero: 6,
+          id: 6,
           nom: 'Juin'
         }
       ]
     },
     {
-      numero: 3,
+      id: 3,
       nom: '3ème trimestre',
       mois: [
         {
-          numero: 7,
+          id: 7,
           nom: 'Juillet'
         },
         {
-          numero: 8,
+          id: 8,
           nom: 'Août'
         },
         {
-          numero: 9,
+          id: 9,
           nom: 'Septembre'
         }
       ]
     },
     {
-      numero: 4,
+      id: 4,
       nom: '4ème trimestre',
       mois: [
         {
-          numero: 10,
+          id: 10,
           nom: 'Octobre'
         },
         {
-          numero: 11,
+          id: 11,
           nom: 'Novembre'
         },
         {
-          numero: 12,
+          id: 12,
           nom: 'Décembre'
         }
       ]
