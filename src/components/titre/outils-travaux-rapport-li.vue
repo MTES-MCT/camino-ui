@@ -11,10 +11,14 @@
 </template>
 
 <script>
+import leftPad from 'left-pad'
 import RapportPopup from './rapport-popup.vue'
 
 export default {
   computed: {
+    periode () {
+      return this.$store.state.titreTravaux.periode
+    },
     titre () {
       return this.$store.state.titre.current
     }, 
@@ -28,7 +32,10 @@ export default {
       return (this.permissionsCheck(['super', 'admin', 'editeur']) || this.permissionsCheck(['societe']) && this.user.entreprise.id === this.titre.titluaire.id)
     },
     isVisible () {
-      return this.hasPermissions && this.hasRapport
+      return this.hasPermissions && this.hasRapport && !this.rapportExists
+    },
+    rapportExists () {
+      return this.titre.travauxRapports && this.titre.travauxRapports.find(tr => tr.contenu.trimestre === this.periode.trimestre && tr.contenu.annee === this.periode.annee)
     },
     rapportCalendrier () {
       return this.$store.state.titreTravaux.rapportCalendrier
@@ -41,15 +48,16 @@ export default {
         component: RapportPopup, 
         props: {
           rapport: { 
-            id: `${this.$store.state.titre.current.id}-${this.rapportCalendrier[0].numero}`,
+            id: `${this.$store.state.titre.current.id}-${this.periode.annee}-${leftPad(this.periode.trimestre, 2, '0')}`,
             titreId: this.$store.state.titre.current.id,
             contenu: {
-              trimestre: this.rapportCalendrier[0].numero, 
-              travaux: JSON.parse(JSON.stringify(this.rapportCalendrier[0].mois))
+              trimestre: this.periode.trimestre, 
+              annee: this.periode.annee,
+              travaux: JSON.parse(JSON.stringify(this.rapportCalendrier[this.periode.trimestre - 1].mois))
             }
           },
           titreNom: this.$store.state.titre.current.nom,
-          trimestre: this.rapportCalendrier[0],
+          trimestreNom: this.rapportCalendrier[this.periode.trimestre - 1].nom,
         } 
       })
     }

@@ -50,6 +50,12 @@ const fragmentTitre = gql`
     demarches {
       ...demarche
     }
+    travauxRapports {
+      id
+      titreId
+      date
+      contenu
+    }
   }
 
   ${fragmentTitreDemarche}

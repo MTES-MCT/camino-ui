@@ -8,6 +8,7 @@ input[type='email'],
 input[type='search'],
 input[type='password'],
 input[type='tel'],
+input[type='number'],
 select,
 textarea,
 .input {
@@ -54,6 +55,7 @@ input[type='email'].bg-bg,
 input[type='search'].bg-bg,
 input[type='password'].bg-bg,
 input[type='tel'].bg-bg,
+input[type='number'].bg-bg,
 select.bg-bg,
 textarea.bg-bg {
   background-color: var(--color-bg);

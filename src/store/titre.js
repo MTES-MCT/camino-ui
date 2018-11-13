@@ -23,7 +23,15 @@ export const actions = {
     }
   },
 
-  async etapeUpdate({ state, dispatch }, etape) {
+  async reload({ dispatch, state }) {
+    try {
+      await dispatch('get', state.current.id)
+    } catch (e) {
+      console.log(e)
+    }
+  },
+
+  async etapeUpdate({ dispatch }, etape) {
     try {
       const res = await titreEtapeUpdate({ etape })
 
@@ -37,7 +45,7 @@ export const actions = {
           },
           { root: true }
         )
-        dispatch('get', state.current.id)
+        dispatch('reload')
       } else {
         router.push({ name: 'erreur' })
       }
