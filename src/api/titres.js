@@ -1,5 +1,5 @@
 import graphqlClient from './_graphql-client'
-import errorLog from '@/api/_error-log'
+import graphqlErrorThrow from '@/api/_error-throw'
 
 import {
   queryTitre,
@@ -17,7 +17,8 @@ const titre = async id => {
 
     return res && res.data.titre
   } catch (e) {
-    errorLog(e, 'titre')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 
@@ -45,7 +46,8 @@ const titres = async (
 
     return res && res.data && res.data.titres
   } catch (e) {
-    errorLog(e, 'titres')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 
@@ -58,7 +60,8 @@ const titreEtapeUpdate = async ({ etape }) => {
 
     return res && res.data && res.data.titreEtapeModifier
   } catch (e) {
-    errorLog(e, 'titreEtapeUpdate')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 

@@ -33,7 +33,7 @@ export const state = {
     component: null,
     props: null
   },
-  apiError: undefined,
+  error: null,
   menu: {
     component: null
   }
@@ -87,7 +87,13 @@ export const actions = {
           process.env.VUE_APP_API_URL
         })`
     })
-    commit('apiError', true)
+  },
+
+  pageError({ commit }) {
+    commit('errorAdd', {
+      type: 'error',
+      value: `Erreur: page introuvable`
+    })
   },
 
   messageAdd({ commit }, message) {
@@ -110,7 +116,8 @@ export const actions = {
     }
   },
 
-  async load({ dispatch }) {
+  async load({ dispatch, commit }) {
+    commit('errorRemove')
     await dispatch('init')
 
     if (router.currentRoute.name === 'titres') {
@@ -141,8 +148,11 @@ export const mutations = {
       props: null
     }
   },
-  apiError(state, status) {
-    state.apiError = status
+  errorAdd(state, error) {
+    state.error = error
+  },
+  errorRemove(state) {
+    state.error = null
   },
   menuOpen(state, component) {
     state.menu.component = component

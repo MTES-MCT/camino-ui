@@ -1,5 +1,5 @@
 import graphqlClient from '@/api/_graphql-client'
-import errorLog from '@/api/_error-log'
+import graphqlErrorThrow from '@/api/_error-throw'
 
 import {
   queryUtilisateur,
@@ -22,7 +22,8 @@ const utilisateur = async id => {
 
     return res && res.data && res.data.utilisateur
   } catch (e) {
-    errorLog(e, 'utilisateur')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 
@@ -46,7 +47,8 @@ const utilisateurs = async ({
 
     return res && res.data && res.data.utilisateurs
   } catch (e) {
-    errorLog(e, 'utilisateurs')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 
@@ -59,7 +61,8 @@ const utilisateurLogin = async ({ email, motDePasse }) => {
 
     return res && res.data && res.data.utilisateurConnecter
   } catch (e) {
-    errorLog(e, 'utilisateurLogin')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 
@@ -71,7 +74,8 @@ const utilisateurIdentify = async () => {
 
     return res && res.data && res.data.utilisateurIdentifier
   } catch (e) {
-    errorLog(e, 'utilisateurIdentify')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 
@@ -84,7 +88,8 @@ const utilisateurUpdate = async ({ utilisateur }) => {
 
     return res && res.data && res.data.utilisateurModifier
   } catch (e) {
-    errorLog(e, 'utilisateurUpdate')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 
@@ -97,7 +102,8 @@ const utilisateurAdd = async ({ utilisateur }) => {
 
     return res && res.data && res.data.utilisateurAjouter
   } catch (e) {
-    errorLog(e, 'utilisateurAdd')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 
@@ -110,7 +116,8 @@ const utilisateurRemove = async ({ id }) => {
 
     return res && res.data && res.data.utilisateurSupprimer
   } catch (e) {
-    errorLog(e, 'utilisateurRemove')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 
@@ -133,7 +140,8 @@ const utilisateurPasswordUpdate = async ({
 
     return res && res.data && res.data.utilisateurMotDePasseModifier
   } catch (e) {
-    errorLog(e, 'utilisateurPasswordUpdate')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 

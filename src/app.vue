@@ -12,8 +12,13 @@
       slot="messages" 
       :messages="messages"
     />
+
+    <error 
+      v-if="error" 
+      :message="error"
+    />
     
-    <router-view v-if="!apiError" />
+    <router-view v-if="!error" />
     
     <component
       :is="popup.component"
@@ -30,6 +35,7 @@ import Page from './components/ui/page.vue'
 import Messages from './components/ui/messages.vue'
 import PageHeader from './components/page-header.vue'
 import PageFooter from './components/page-footer.vue'
+import Error from './components/error.vue'
 import PopupAvertissement from './components/content/warning-popup.vue'
 
 export default {
@@ -39,12 +45,13 @@ export default {
     Page,
     Messages,
     PageHeader,
-    PageFooter
+    PageFooter,
+    Error
   },
 
   computed: {
-    apiError () {
-      return this.$store.state.apiError
+    error () {
+      return this.$store.state.error
     },
     messages () {
       return this.$store.state.messages

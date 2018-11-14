@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import { titre, titreEtapeUpdate } from '../api'
-import router from '../router'
 
 export const state = {
   current: null,
@@ -15,10 +14,9 @@ export const actions = {
       if (res) {
         commit('set', res)
       } else {
-        router.push({ name: 'erreur' })
+        dispatch('pageError', null, { root: true })
       }
     } catch (e) {
-      console.log('fix me')
       dispatch('apiError', e, { root: true })
     }
   },
@@ -35,7 +33,6 @@ export const actions = {
     try {
       const res = await titreEtapeUpdate({ etape })
 
-      console.log(res)
       if (res) {
         dispatch(
           'messageAdd',
@@ -47,7 +44,7 @@ export const actions = {
         )
         dispatch('reload')
       } else {
-        router.push({ name: 'erreur' })
+        dispatch('pageError', null, { root: true })
       }
     } catch (e) {
       console.log('fix me')

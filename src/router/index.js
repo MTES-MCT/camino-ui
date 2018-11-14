@@ -85,7 +85,13 @@ const routes = [
     path: '/erreur',
     alias: '*',
     name: 'erreur',
-    component: Error
+    component: Error,
+    props: {
+      message: {
+        type: 'error',
+        value: 'Page introuvable'
+      }
+    }
   }
 ]
 
@@ -103,6 +109,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   store.commit('menuClose')
+  if (store.state.error) {
+    store.commit('errorRemove')
+  }
   next()
 })
 

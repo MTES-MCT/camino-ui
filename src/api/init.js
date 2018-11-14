@@ -1,5 +1,5 @@
 import graphqlClient from './_graphql-client'
-import errorLog from '@/api/_error-log'
+import graphqlErrorThrow from '@/api/_error-throw'
 import { queryInit } from './queries/init'
 
 const init = async () => {
@@ -12,7 +12,8 @@ const init = async () => {
 
     return res && res.data
   } catch (e) {
-    errorLog(e, 'init')
+    console.log({ e })
+    graphqlErrorThrow(e)
   }
 }
 

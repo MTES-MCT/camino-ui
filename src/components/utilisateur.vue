@@ -1,10 +1,10 @@
 <template>
-  <card>
+  <card v-if="!loaded">
+    <loader />
+  </card>
+  <card v-else>
     <h1 class="mt-xs">{{ utilisateur ? `${utilisateur.prenom || '–' } ${utilisateur.nom || '–' }` : '–' }}</h1>
-  
-    <loader v-if="!loaded" />
     <accordion 
-      v-else
       class="mb" 
       :sub="true"
     >

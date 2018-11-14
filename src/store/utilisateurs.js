@@ -23,7 +23,7 @@ export const actions = {
       if (res) {
         commit('set', res)
       } else {
-        router.push({ name: 'erreur' })
+        dispatch('pageError', null, { root: true })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })

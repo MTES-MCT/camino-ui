@@ -1,29 +1,26 @@
 <template>
   <card>
-    <messages :messages="messages" />
+    <div 
+      class="mb p-s color-bg"
+      :class="`bg-${message.type}`"
+    >{{ message.value }}</div>
   </card>
 </template>
 
 <script>
 import Card from './ui/card.vue'
-import Messages from './ui/messages.vue'
+
 export default {
   components: {
-    Card,
-    Messages
+    Card
   },
-
-  data () {
-    return {
-      messages: [
-        {
-          type: 'error',
-          value: 'Erreur: page introuvable.'
-        }
-      ]
+  
+  props: {
+    message: {
+      type: Object,
+      default: () => ({})
     }
   }
-
 }
 </script>
 
