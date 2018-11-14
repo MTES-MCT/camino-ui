@@ -16,7 +16,6 @@ export const actions = {
   async identifier({ commit }) {
     try {
       const user = await utilisateurIdentify()
-      console.log(user);
       commit('set', user)
     } catch (e) {
       commit('tokenRemove')
@@ -85,6 +84,9 @@ export const mutations = {
     Vue.set(state.current, 'prenom', user.prenom)
     Vue.set(state.current, 'nom', user.nom)
     Vue.set(state.current, 'permission', user.permission)
+    if (user.entreprise) {
+      Vue.set(state.current, 'entreprise', user.entreprise)
+    }
   },
 
   reset(state) {
