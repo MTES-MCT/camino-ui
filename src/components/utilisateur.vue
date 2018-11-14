@@ -83,7 +83,10 @@
           </div>
         </div>
 
-        <div class="tablet-blobs">
+        <div 
+          v-if="permissionsCheck(['super', 'admin'])" 
+          class="tablet-blobs"
+        >
           <div class="tablet-blob-1-4">
             <h6 class="mt-xs">Permissions</h6>
           </div>

@@ -33,7 +33,7 @@
 
     <template slot="footer">
       <div class="tablet-blobs">
-        <div class="mb tablet-mb-0 tablet-blob-1-3">
+        <div class="mb tablet-blob-1-3">
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
@@ -46,6 +46,14 @@
           >M'identifier</button>
         </div>
       </div>
+      <button 
+        class="btn-alt rnd-xs p-s h5 mr-s" 
+        @click="userAddPopupOpen"
+      >Créer un compte…</button>
+      <button 
+        class="btn-alt rnd-xs p-s h5 mr-s hide" 
+        @click="userPasswordRecoverPopupOpen"
+      >Réinitialiser votre mot de passe…</button>
     </template>
   </popup>
 </template>
@@ -53,6 +61,7 @@
 <script>
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
+import UtilisateurEditPopup from '../utilisateur/edit-popup.vue'
 
 export default {
   name: 'UiPopupLogin',
@@ -103,6 +112,26 @@ export default {
       } else if ((e.which || e.keyCode) === 13) {
         this.login()
       }
+    },
+
+    userAddPopupOpen () {
+      this.$store.commit('popupOpen', { 
+        component: UtilisateurEditPopup,
+        props: {
+          utilisateur: { permission: { id: 'defaut' }},
+          creation: true
+        }
+      })
+    }, 
+
+    userPasswordRecoverPopupOpen () {
+      this.$store.commit('popupOpen', { 
+        component: UtilisateurEditPopup,
+        props: {
+          utilisateur: { permission: { id: 'defaut' }},
+          creation: true
+        }
+      })
     }
   }
 }

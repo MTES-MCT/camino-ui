@@ -5,8 +5,10 @@
         <h2 class="mb-0">{{ creation ? "Ajout d'un utilisateur" : 'Modification du profil utilisateur' }}</h2>
       </div>
     </template>
-
-    <p v-if="creation">Renseignez au moins le prénom, le nom, l'email et le mot de passe. </p>
+    <div v-if="creation">
+      <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom. </p>
+      <hr>
+    </div>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Email</h6>
