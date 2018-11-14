@@ -49,11 +49,11 @@
       <button 
         class="btn-alt rnd-xs p-s h5 mr-s" 
         @click="userAddPopupOpen"
-      >Créer un compte…</button>
+      >Créer votre compte…</button>
       <button 
         class="btn-alt rnd-xs p-s h5 mr-s hide" 
         @click="userPasswordRecoverPopupOpen"
-      >Réinitialiser votre mot de passe…</button>
+      >Initialiser votre mot de passe…</button>
     </template>
   </popup>
 </template>
@@ -62,6 +62,7 @@
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 import UtilisateurEditPopup from '../utilisateur/edit-popup.vue'
+import UtilisateurPasswordRecoverPopup from './password-recover-popup.vue'
 
 export default {
   name: 'UiPopupLogin',
@@ -126,11 +127,7 @@ export default {
 
     userPasswordRecoverPopupOpen () {
       this.$store.commit('popupOpen', { 
-        component: UtilisateurEditPopup,
-        props: {
-          utilisateur: { permission: { id: 'defaut' }},
-          creation: true
-        }
+        component: UtilisateurPasswordRecoverPopup
       })
     }
   }

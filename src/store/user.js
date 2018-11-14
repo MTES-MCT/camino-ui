@@ -57,7 +57,9 @@ export const actions = {
       { root: true }
     )
     dispatch('load', null, { root: true })
-  }
+  },
+
+  passwordRecover({ commit, dispatch }) {}
 }
 
 export const getters = {

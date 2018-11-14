@@ -119,6 +119,12 @@ const mutationUtilisateurMotDePasseModifier = gql`
   ${fragmentUtilisateur}
 `
 
+const mutationUtilisateurMotDePasseInitialiser = gql`
+  mutation UtilisateurMotDePasseInitialiser($email: String!) {
+    utilisateurMotDePasseInitialiser(email: $email)
+  }
+`
+
 export {
   queryUtilisateur,
   queryUtilisateurs,
@@ -127,5 +133,6 @@ export {
   mutationUtilisateurModifier,
   mutationUtilisateurAjouter,
   mutationUtilisateurSupprimer,
-  mutationUtilisateurMotDePasseModifier
+  mutationUtilisateurMotDePasseModifier,
+  mutationUtilisateurMotDePasseInitialiser
 }
