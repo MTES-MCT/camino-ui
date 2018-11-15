@@ -291,6 +291,10 @@
     left: 50%;
     border-radius: var(--unit);
   }
+
+  .popup-content {
+    height: initial;
+  }
 }
 
 @media (--viewport-large) {
