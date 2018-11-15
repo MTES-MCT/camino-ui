@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 const fragmentPoint = gql`
   fragment point on Point {
     id
-    coordonees {
+    coordonnees {
       x
       y
     }
@@ -21,7 +21,7 @@ const fragmentPoint = gql`
   fragment pointReference on PointReference {
     id
     systeme
-    coordonees {
+    coordonnees {
       x
       y
     }

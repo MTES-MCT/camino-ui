@@ -147,7 +147,7 @@
           <div class="mb tablet-blob-1-3">
             <h6>Longitude</h6>
             <input 
-              v-model.number="point.coordonees.x"
+              v-model.number="point.coordonnees.x"
               type="text" 
               class="p-s"
             >
@@ -155,7 +155,7 @@
           <div class="mb tablet-blob-1-3">
             <h6>Latitude</h6>
             <input 
-              v-model.number="point.coordonees.y"
+              v-model.number="point.coordonnees.y"
               type="text" 
               class="p-s"
             >
@@ -202,7 +202,7 @@
             <div class="mb tablet-blob-1-3">
               <h6>Longitude</h6>
               <input 
-                v-model.number="reference.coordonees.x"
+                v-model.number="reference.coordonnees.x"
                 type="text" 
                 class="p-s"
               >
@@ -210,7 +210,7 @@
             <div class="mb tablet-blob-1-3">
               <h6>Latitude</h6>
               <input 
-                v-model.number="reference.coordonees.y"
+                v-model.number="reference.coordonnees.y"
                 type="text" 
                 class="p-s"
               >
@@ -497,7 +497,7 @@ export default {
     },
 
     pointAdd () {
-      const point = { id: '', coordonees: { x: '', y: '' }, references: [] }
+      const point = { id: '', coordonnees: { x: '', y: '' }, references: [] }
       this.etape.points.push(point)
     },
 
@@ -507,7 +507,7 @@ export default {
     },
 
     pointReferenceAdd (point) {
-      const reference = { id: '', coordonees: { x: '', y: '' } }
+      const reference = { id: '', coordonnees: { x: '', y: '' } }
       point.references.push(reference)
     },
 
