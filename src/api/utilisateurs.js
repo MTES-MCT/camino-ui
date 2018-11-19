@@ -9,7 +9,8 @@ import {
   mutationUtilisateurModifier,
   mutationUtilisateurAjouter,
   mutationUtilisateurSupprimer,
-  mutationUtilisateurMotDePasseModifier
+  mutationUtilisateurMotDePasseModifier,
+  mutationUtilisateurMotDePasseInitialiser
 } from '@/api/queries/utilisateurs'
 
 const utilisateur = async id => {
@@ -145,6 +146,22 @@ const utilisateurPasswordUpdate = async ({
   }
 }
 
+const utilisateurPasswordRecover = async ({ email }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationUtilisateurMotDePasseInitialiser,
+      variables: {
+        email
+      }
+    })
+
+    return res && res.data && res.data.utilisateurMotDePasseInitialiser
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
 export {
   utilisateur,
   utilisateurs,
@@ -153,5 +170,6 @@ export {
   utilisateurUpdate,
   utilisateurAdd,
   utilisateurRemove,
-  utilisateurPasswordUpdate
+  utilisateurPasswordUpdate,
+  utilisateurPasswordRecover
 }

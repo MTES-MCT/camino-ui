@@ -51,7 +51,7 @@
         @click="userAddPopupOpen"
       >Créer votre compte…</button>
       <button 
-        class="btn-alt rnd-xs p-s h5 mr-s hide" 
+        class="btn-alt rnd-xs p-s h5 mr-s" 
         @click="userPasswordRecoverPopupOpen"
       >Initialiser votre mot de passe…</button>
     </template>

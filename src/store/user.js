@@ -1,6 +1,10 @@
 import Vue from 'vue'
 
-import { utilisateurLogin, utilisateurIdentify } from '@/api'
+import {
+  utilisateurLogin,
+  utilisateurIdentify,
+  utilisateurPasswordRecover
+} from '@/api'
 
 export const state = {
   current: null,
@@ -59,7 +63,10 @@ export const actions = {
     dispatch('load', null, { root: true })
   },
 
-  passwordRecover({ commit, dispatch }) {}
+  async passwordRecover({ commit, dispatch }, { email }) {
+    const res = await utilisateurPasswordRecover({ email })
+    console.log(res)
+  }
 }
 
 export const getters = {

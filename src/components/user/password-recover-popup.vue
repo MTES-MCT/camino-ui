@@ -33,7 +33,7 @@
         </div>
         <div 
           class="tablet-blob-2-3"
-          :class="{ disabled: !email }"
+          :class="{ disabled: !complete }"
         >
           <button
             class="btn-flash rnd-xs p-s full-x"
@@ -65,6 +65,10 @@ export default {
   },
 
   computed: {
+    complete () {
+      return !!this.email
+    },
+
     messages () {
       return this.$store.state.utilisateurs.popupMessages
     }
@@ -81,9 +85,9 @@ export default {
   methods: {
     save() {
       if (this.complete) {
-          this.$store.dispatch('user/passwordRecover', {
-            email: this.email
-          })
+        this.$store.dispatch('user/passwordRecover', {
+          email: this.email
+        })
       }
     },
 
