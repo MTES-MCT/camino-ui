@@ -11,7 +11,7 @@ import Accessibilite from '../components/content/accessibilite.vue'
 import Contribution from '../components/content/contribution.vue'
 import Cgu from '../components/content/cgu.vue'
 import MentionsLegales from '../components/content/mentions-legales.vue'
-import MotDePasse from '../components/content/mot-de-passe.vue'
+import PasswordInit from '../components/user/password-init.vue'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -81,7 +81,7 @@ const routes = [
   {
     path: '/mot-de-passe',
     name: 'mot-de-passe',
-    component: MotDePasse
+    component: PasswordInit
   },
   {
     path: '/',
