@@ -5,7 +5,7 @@
     class="map mb"
   >
     <div class="absolute px-s py-xs map-loader">
-      <div class="h6">Zoom: {{ zoomLevel }}, bounds: {{ boundsGet }}</div>
+      <div class="h6">Zoom: {{ zoomLevel }}</div>
     </div>
   </div>
 </template>
@@ -82,9 +82,8 @@ export default {
   methods: {
     init () {
       this.map = L.map(this.$refs.map, {
-        doubleClickZoom: false,
-
-        zoomControl: false
+        doubleClickZoom: false
+        // zoomControl: false
       })
 
       this.map.on('zoomend', () => {
