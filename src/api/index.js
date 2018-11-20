@@ -9,7 +9,8 @@ import {
   utilisateurRemove,
   utilisateurPasswordUpdate,
   utilisateurIdentify,
-  utilisateurPasswordRecover
+  utilisateurPasswordInit,
+  utilisateurPasswordInitEmail
 } from '@/api/utilisateurs'
 
 import { titreTravauxRapportAdd } from './titre-travaux'
@@ -28,5 +29,6 @@ export {
   utilisateurPasswordUpdate,
   utilisateurIdentify,
   titreTravauxRapportAdd,
-  utilisateurPasswordRecover
+  utilisateurPasswordInit,
+  utilisateurPasswordInitEmail
 }

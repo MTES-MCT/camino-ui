@@ -37,7 +37,7 @@ export const actions = {
         dispatch(
           'messageAdd',
           {
-            value: `L'étape a été mise à jour`,
+            value: `l'étape a été mise à jour`,
             type: 'success'
           },
           { root: true }

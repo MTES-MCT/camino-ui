@@ -9,7 +9,7 @@
       :key="index" 
       class="mb p-s color-bg"
       :class="`bg-${message.type}`"
-    >{{ message.value }}</li>
+    ><span class="cap-first">{{ message.value }}</span></li>
   </transition-group>
 </template>
 

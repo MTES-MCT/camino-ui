@@ -6,6 +6,7 @@
       </div>
     </template>
 
+    <p>Pour initialiser votre mot de passe, envoyez votre adresse email. </p>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Email</h6>
@@ -39,7 +40,7 @@
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
             @keyup.enter.native="save"
-          >Enregistrer</button>
+          >Envoyer</button>
         </div>
       </div>
     </template>
@@ -51,7 +52,7 @@ import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 
 export default {
-  name: 'CaminoUtilisateurEditPopup',
+  name: 'CaminoUtilisateurPasswordInitPopup',
 
   components: {
     Popup,
@@ -70,7 +71,7 @@ export default {
     },
 
     messages () {
-      return this.$store.state.utilisateurs.popupMessages
+      return this.$store.state.user.popupMessages
     }
   },
 
@@ -85,7 +86,7 @@ export default {
   methods: {
     save() {
       if (this.complete) {
-        this.$store.dispatch('user/passwordRecover', {
+        this.$store.dispatch('user/passwordInitEmail', {
           email: this.email
         })
       }

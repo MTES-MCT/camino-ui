@@ -120,8 +120,20 @@ const mutationUtilisateurMotDePasseModifier = gql`
 `
 
 const mutationUtilisateurMotDePasseInitialiser = gql`
-  mutation UtilisateurMotDePasseInitialiser($email: String!) {
-    utilisateurMotDePasseInitialiser(email: $email)
+  mutation UtilisateurMotDePasseInitialiser(
+    $motDePasse1: String!
+    $motDePasse2: String!
+  ) {
+    utilisateurMotDePasseInitialiser(
+      motDePasse1: $motDePasse1
+      motDePasse2: $motDePasse2
+    )
+  }
+`
+
+const mutationUtilisateurMotDePasseEmailEnvoyer = gql`
+  mutation UtilisateurMotDePasseEmailEnvoyer($email: String!) {
+    utilisateurMotDePasseEmailEnvoyer(email: $email)
   }
 `
 
@@ -134,5 +146,6 @@ export {
   mutationUtilisateurAjouter,
   mutationUtilisateurSupprimer,
   mutationUtilisateurMotDePasseModifier,
-  mutationUtilisateurMotDePasseInitialiser
+  mutationUtilisateurMotDePasseInitialiser,
+  mutationUtilisateurMotDePasseEmailEnvoyer
 }

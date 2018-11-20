@@ -42,7 +42,7 @@ export const actions = {
         dispatch(
           'messageAdd',
           {
-            value: `Utilisateur ${u.id} ajouté.`,
+            value: `utilisateur ${u.id} ajouté`,
             type: 'success'
           },
           { root: true }
@@ -66,7 +66,7 @@ export const actions = {
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
-        { value: `Utilisateur ${u.id} mis à jour.`, type: 'success' },
+        { value: `utilisateur ${u.id} mis à jour`, type: 'success' },
         { root: true }
       )
     } catch (e) {
@@ -89,7 +89,7 @@ export const actions = {
         dispatch(
           'messageAdd',
           {
-            value: `Utilisateur ${utilisateur.id} supprimé.`,
+            value: `utilisateur ${utilisateur.id} supprimé`,
             type: 'success'
           },
           { root: true }
@@ -121,14 +121,13 @@ export const actions = {
         dispatch(
           'messageAdd',
           {
-            value: `Mot de passe modifié.`,
+            value: `mot de passe modifié`,
             type: 'success'
           },
           { root: true }
         )
       }
     } catch (e) {
-      console.log('eeee', e)
       commit('popupMessageAdd', { value: e, type: 'error' })
     }
   }

@@ -3,7 +3,8 @@ import Vue from 'vue'
 import {
   utilisateurLogin,
   utilisateurIdentify,
-  utilisateurPasswordRecover
+  utilisateurPasswordInit,
+  utilisateurPasswordInitEmail
 } from '@/api'
 
 export const state = {
@@ -57,15 +58,53 @@ export const actions = {
     commit('reset')
     dispatch(
       'messageAdd',
-      { value: `Vous êtes déconnecté.`, type: 'success' },
+      { value: `Vous êtes déconnecté`, type: 'success' },
       { root: true }
     )
     dispatch('load', null, { root: true })
   },
 
-  async passwordRecover({ commit, dispatch }, { email }) {
-    const res = await utilisateurPasswordRecover({ email })
-    console.log(res)
+  async passwordInitEmail({ commit, dispatch }, { email }) {
+    commit('popupMessagesRemove')
+    try {
+      const res = await utilisateurPasswordInitEmail({ email })
+      commit('popupClose', null, { root: true })
+      dispatch(
+        'messageAdd',
+        {
+          value: `${res}`,
+          type: 'success'
+        },
+        { root: true }
+      )
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' })
+    }
+  },
+
+  async passwordInit({ commit, dispatch }, { motDePasse1, motDePasse2 }) {
+    try {
+      const res = await utilisateurPasswordInit({ motDePasse1, motDePasse2 })
+
+      dispatch(
+        'messageAdd',
+        {
+          value: `${res}`,
+          type: 'success'
+        },
+        { root: true }
+      )
+      return res
+    } catch (e) {
+      dispatch(
+        'messageAdd',
+        {
+          value: `Erreur: ${e}`,
+          type: 'error'
+        },
+        { root: true }
+      )
+    }
   }
 }
 
