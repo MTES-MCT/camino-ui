@@ -5,7 +5,7 @@
     class="map mb"
   >
     <div class="absolute px-s py-xs map-loader">
-      <div class="h6">Zoom: {{ zoomLevel }}</div>
+      <div class="h6">Zoom: {{ zoomLevel }}, bounds: {{ boundsGet }}</div>
     </div>
   </div>
 </template>
@@ -54,12 +54,12 @@ export default {
     return {
       map: null,
       zoomLevel: 0,
-      position: null,
       layers: {
         tiles: {},
         geojsons: [],
         markers: []
-      }
+      },
+      boundsGet: null
     }
   },
 
@@ -82,7 +82,9 @@ export default {
   methods: {
     init () {
       this.map = L.map(this.$refs.map, {
-        doubleClickZoom: false
+        doubleClickZoom: false,
+
+        zoomControl: false
       })
 
       this.map.on('zoomend', () => {
@@ -91,7 +93,7 @@ export default {
       })
 
       this.map.on('moveend', () => {
-        this.position = this.map.getBounds()
+        this.boundsGet = this.map.getBounds()
       })
     },
 

@@ -69,12 +69,17 @@ export default {
         gf: {
           name: 'Guyane',
           type: 'LineString',
-          coordinates: [[-54, 3], [-51, 6]]
+          coordinates: [[-55, 4], [-50, 7]]
         },
         oi: {
           name: 'Océan Indien',
           type: 'LineString',
-          coordinates: [[34, -22], [46, -12]]
+          coordinates: [[39, -23], [58, -13]]
+        },
+        an: {
+          name: 'Antilles',
+          type: 'LineString',
+          coordinates: [[-64, 15], [-59, 16]]
         }
       },
       boundsName: 'fr',

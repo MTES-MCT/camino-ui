@@ -5,6 +5,7 @@
         class="sponsor mb"
         src="../../public/img/logo-mtes-mef.svg"
       >
+
       <div class="blobs">
         <div class="blob-1-3">
           <img
@@ -17,25 +18,41 @@
         </div>
       </div>
     </div>
-    <div class="tablet-blob-1 desktop-blob-1-3">
-      <p>Newsletter</p>
-      <newsletter-form />
 
+    <div class="tablet-blob-1-2 desktop-blob-1-3">
       <ul class="list-prefix text-decoration-none mb-0">
-        <li><a href="/a-propos">À propos</a></li>
         <li><a href="/a-propos#contact">Contact</a></li>
-      </ul>
-
-    </div>
-    <div class="tablet-blob-1 desktop-blob-1-3">
-      <ul class="list-prefix text-decoration-none">
+        <li><a href="/a-propos">À propos</a></li>
         <li><a href="/cgu">CGU</a></li>
-        <li><a href="http://api.camino.beta.gouv.fr">API (GraphQL)</a></li>
         <li><a href="/mentions-legales">Mentions légales</a></li>
         <li><a href="/accessibilite">Accessibilité</a></li>
         <li><a href="/contribution">Contribuez</a></li>
       </ul>
     </div>
+
+    <div class="tablet-blob-1-2 desktop-blob-1-3">
+      <ul class="list-prefix text-decoration-none">
+        <li><a 
+          href="http://api.camino.beta.gouv.fr" 
+          target="_blank"
+        >API (GraphQL)</a></li>
+        <li><a 
+          href="http://flux.camino.beta.gouv.fr" 
+          target="_blank"
+        >Flux (GeoJson)</a></li>
+        <li><a 
+          href="https://trello.com/b/cwXWMqGz/camino-roadmap-ouverte" 
+          target="_blank" 
+        >Roadmap</a></li>
+        <li><a 
+          href="https://github.com/MTES-MCT?utf8=%E2%9C%93&q=camino" 
+          target="_blank" 
+        >Code source</a></li>
+      </ul>
+      <p class="mb-s">Newsletter</p>
+      <newsletter-form />
+    </div>
+
   </div>
 </template>
 

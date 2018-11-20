@@ -2,7 +2,7 @@
   <popup>
     <template slot="header">
       <div>
-        <h2 class="mb-0">{{ creation ? "Ajout d'un utilisateur" : 'Modification du profil utilisateur' }}</h2>
+        <h2 class="mb-0">{{ creation ? "Création d'un compte utilisateur" : 'Modification du compte utilisateur' }}</h2>
       </div>
     </template>
     <div v-if="creation">
@@ -179,6 +179,17 @@
 
     </div>
 
+    <div 
+      v-if="creation" 
+      class="mb"
+    >
+      <hr>   
+      <input 
+        v-model="cgu"
+        type="checkbox"
+      >Vous avez lu et vous acceptez les <a href="/cgu">conditions générales d'utilisation</a>.
+    </div>
+
     <messages :messages="messages" />
 
     <template slot="footer">
@@ -232,7 +243,8 @@ export default {
 
   data () {
     return {
-      lien: 'aucun'
+      lien: 'aucun',
+      cgu: null
     }
   },
 
@@ -244,7 +256,7 @@ export default {
       return this.$store.state.utilisateurs.permissions
     },
     complete () {
-      return this.creation ? this.utilisateur.nom && this.utilisateur.prenom && this.utilisateur.email && this.utilisateur.motDePasse : this.utilisateur.id && this.utilisateur.email
+      return this.creation ? this.utilisateur.nom && this.utilisateur.prenom && this.utilisateur.email && this.utilisateur.motDePasse && this.cgu : this.utilisateur.id && this.utilisateur.email
     },
     entreprises () {
       return this.$store.state.entreprises.list
