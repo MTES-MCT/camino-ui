@@ -21,7 +21,7 @@ export default {
     },
     titre () {
       return this.$store.state.titre.current
-    }, 
+    },
     user () {
       return this.$store.state.user.current
     },
@@ -44,21 +44,21 @@ export default {
 
   methods: {
     rapportPopupOpen () {
-      this.$store.commit('popupOpen', { 
-        component: RapportPopup, 
+      this.$store.commit('popupOpen', {
+        component: RapportPopup,
         props: {
-          rapport: { 
+          rapport: {
             id: `${this.$store.state.titre.current.id}-${this.periode.annee}-${leftPad(this.periode.trimestre, 2, '0')}`,
             titreId: this.$store.state.titre.current.id,
             contenu: {
-              trimestre: this.periode.trimestre, 
+              trimestre: this.periode.trimestre,
               annee: this.periode.annee,
               travaux: JSON.parse(JSON.stringify(this.rapportCalendrier[this.periode.trimestre - 1].mois))
             }
           },
           titreNom: this.$store.state.titre.current.nom,
           trimestreNom: this.rapportCalendrier[this.periode.trimestre - 1].nom,
-        } 
+        }
       })
     }
   }

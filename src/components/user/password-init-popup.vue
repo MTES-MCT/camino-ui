@@ -84,7 +84,7 @@ export default {
   },
 
   methods: {
-    save() {
+    save () {
       if (this.complete) {
         this.$store.dispatch('user/passwordInitEmail', {
           email: this.email
@@ -92,7 +92,7 @@ export default {
       }
     },
 
-    cancel() {
+    cancel () {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },

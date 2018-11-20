@@ -51,7 +51,7 @@ export default {
       if ((e.which || e.keyCode) === 13) {
         this.set()
       }
-    }    
+    }
   }
 }
 </script>

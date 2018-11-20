@@ -86,8 +86,8 @@ export default {
   components: {
     Popup,
     Messages
-  }, 
-  
+  },
+
   props: {
     utilisateur: {
       type: Object,
@@ -108,7 +108,7 @@ export default {
       return this.$store.state.utilisateurs.popupMessages
     },
     complete () {
-      return this.motDePasse && this.motDePasseNouveau1 && this.motDePasseNouveau2 
+      return this.motDePasse && this.motDePasseNouveau1 && this.motDePasseNouveau2
     }
   },
 
@@ -121,18 +121,18 @@ export default {
   },
 
   methods: {
-    save() {
+    save () {
       if (this.complete) {
-          this.$store.dispatch('utilisateurs/passwordUpdate', {
-            id: this.utilisateur.id, 
-            motDePasse: this.motDePasse, 
-            motDePasseNouveau1: this.motDePasseNouveau1, 
-            motDePasseNouveau2: this.motDePasseNouveau2
-          })
+        this.$store.dispatch('utilisateurs/passwordUpdate', {
+          id: this.utilisateur.id,
+          motDePasse: this.motDePasse,
+          motDePasseNouveau1: this.motDePasseNouveau1,
+          motDePasseNouveau2: this.motDePasseNouveau2
+        })
       }
     },
 
-    cancel() {
+    cancel () {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },
@@ -149,7 +149,7 @@ export default {
       this.$store.commit('utilisateurs/popupMessagesRemove')
     },
 
-    permissionToggle(permission) {
+    permissionToggle (permission) {
       this.utilisateur.permission = permission
     }
   }

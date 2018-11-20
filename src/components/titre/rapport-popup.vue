@@ -162,29 +162,23 @@
           <label><input 
             v-model="mois.nonDebutes"
             type="checkbox"
-          >
-            Non débutés</label>
+          >Non débutés</label>
           <label><input 
             v-model="mois.exploitationEnCours"
             type="checkbox"
-          >
-            Exploitation en cours</label>
+          >Exploitation en cours</label>
           <label><input 
             v-model="mois.arretTemporaire"
             type="checkbox"
-          >
-            Arrêt temporaire</label>
+          >Arrêt temporaire</label>
           <label><input 
             v-model="mois.rehabilitation"
             type="checkbox"
-          >
-            Réhabilitation</label>
+          >Réhabilitation</label>
           <label><input 
             v-model="mois.arretDefinitif"
             type="checkbox"
-          >
-            Arrêt définitif (après réhabilitation)
-          </label>
+          >Arrêt définitif (après réhabilitation)</label>
         </div>
       </div>
     </div>
@@ -238,7 +232,7 @@ export default {
     Popup,
     Messages
   },
-  
+
   props: {
     rapport: {
       type: Object,
@@ -265,9 +259,9 @@ export default {
       return this.$store.state.substances.list
     },
     complete () {
-      return this.rapport.contenu.or 
-        && this.rapport.contenu.mercure 
-        && this.rapport.contenu.carburantDetaxe 
+      return this.rapport.contenu.or
+        && this.rapport.contenu.mercure
+        && this.rapport.contenu.carburantDetaxe
         && this.rapport.contenu.carburantConventionnel
         && this.rapport.contenu.pompes
         && this.rapport.contenu.pelles
@@ -285,15 +279,15 @@ export default {
   },
 
   methods: {
-    save() {
+    save () {
       if (this.complete) {
         this.rapport.date = new Date()
-        
+
         this.$store.dispatch('titreTravaux/rapportAdd', this.rapport)
       }
     },
 
-    cancel() {
+    cancel () {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },

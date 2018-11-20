@@ -169,16 +169,12 @@
         </div>
 
       </div>
-
-
     </div>
-
 
     <div 
       id="activites" 
       class="mb-xxl"
     >
-
       <h4 class="mb-s text-neutral">Tous les projets miniers concernés</h4>
       <h2>D'ici 2022 l'ensemble des procédures du code minier devront être numériques.</h2>
       <span class="separator" />
@@ -287,7 +283,6 @@
       <h4 class="mb-s text-neutral">Les fabricants</h4>
 
       <h2>Les membres de l'équipe Camino</h2>
-
 
       <span class="separator" />
 

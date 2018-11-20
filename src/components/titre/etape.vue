@@ -130,21 +130,21 @@ export default {
         delete etapeTmp.geojsonPoints
         delete etapeTmp.geojsonMultiPolygon
         delete etapeTmp.documents
-        
+
         return etapeTmp
       }
 
       const demarche = this.$store.state.titre.current.demarches.find(d => d.etapes.find(e => e.id === this.etape.id))
 
       const titre = this.$store.state.titre.current
-  
-      this.$store.commit('popupOpen', { 
+
+      this.$store.commit('popupOpen', {
         component: EditPopup,
-        props: { 
+        props: {
           etape: etapeCloneAndFormat(this.etape),
           demarcheNom: demarche && demarche.type.nom,
           titreNom: titre && titre.nom,
-        } 
+        }
       })
     },
     editPopupClose () {

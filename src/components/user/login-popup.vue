@@ -98,7 +98,7 @@ export default {
       this.$store.dispatch('user/login', { email: this.email, motDePasse: this.motDePasse })
     },
 
-    cancel() {
+    cancel () {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },
@@ -116,17 +116,17 @@ export default {
     },
 
     userAddPopupOpen () {
-      this.$store.commit('popupOpen', { 
+      this.$store.commit('popupOpen', {
         component: UtilisateurEditPopup,
         props: {
-          utilisateur: { permission: { id: 'defaut' }},
+          utilisateur: { permission: { id: 'defaut' } },
           creation: true
         }
       })
-    }, 
+    },
 
     userPasswordInitPopupOpen () {
-      this.$store.commit('popupOpen', { 
+      this.$store.commit('popupOpen', {
         component: UtilisateurPasswordInitPopup
       })
     }

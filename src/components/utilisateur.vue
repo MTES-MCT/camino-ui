@@ -164,7 +164,7 @@ export default {
       this.$store.dispatch('utilisateur/get', this.$route.params.id)
     },
     editPopupOpen () {
-      this.$store.commit('popupOpen', { 
+      this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
           utilisateur: JSON.parse(JSON.stringify(this.utilisateur))
@@ -172,7 +172,7 @@ export default {
       })
     },
     removePopupOpen () {
-      this.$store.commit('popupOpen', { 
+      this.$store.commit('popupOpen', {
         component: RemovePopup,
         props: {
           utilisateur: JSON.parse(JSON.stringify(this.utilisateur))
@@ -180,7 +180,7 @@ export default {
       })
     },
     passwordPopupOpen () {
-      this.$store.commit('popupOpen', { 
+      this.$store.commit('popupOpen', {
         component: PasswordPopup,
         props: {
           utilisateur: JSON.parse(JSON.stringify(this.utilisateur))

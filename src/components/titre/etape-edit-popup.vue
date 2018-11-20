@@ -403,7 +403,7 @@ export default {
     Popup,
     Messages
   },
-  
+
   props: {
     etape: {
       type: Object,
@@ -446,7 +446,7 @@ export default {
   },
 
   methods: {
-    save() {
+    save () {
       const etapeCloneAndFormat = etape => {
         const etapeTmp = JSON.parse(JSON.stringify(etape))
         etapeTmp.titulaires = etapeTmp.titulaires.filter(t => t.id)
@@ -476,10 +476,10 @@ export default {
         return etapeTmp
       }
 
-      this.$store.dispatch('titre/etapeUpdate', etapeCloneAndFormat(this.etape))  
+      this.$store.dispatch('titre/etapeUpdate', etapeCloneAndFormat(this.etape))
     },
 
-    cancel() {
+    cancel () {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },
@@ -518,9 +518,9 @@ export default {
 
     titulaireAdd () {
       this.etape.titulaires.push({ id: '' })
-    }, 
-    
-    titulaireSet(titulaireId) {
+    },
+
+    titulaireSet (titulaireId) {
       const index = this.etape.titulaires.findIndex(t => t.id === titulaireId)
       const entreprise = this.entreprises.find(e => e.id === titulaireId)
       this.$set(this.etape.titulaires, index, entreprise)
@@ -542,10 +542,10 @@ export default {
     },
 
     substanceAdd () {
-      const substance = { id: '', nom: ''}
+      const substance = { id: '', nom: '' }
       this.etape.substances.push(substance)
     },
-    
+
     substanceUpdate (etapeSubstanceIndex, substanceId) {
       this.etape.substances[etapeSubstanceIndex] = this.substances.find(s => s.id === substanceId)
     },

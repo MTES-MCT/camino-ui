@@ -29,8 +29,8 @@
     </div>
     <div class="tablet-blob-1 desktop-blob-1-3">
       <ul class="list-prefix text-decoration-none">
-        <li><a href="http://api.camino.beta.gouv.fr">API</a></li>
         <li><a href="/cgu">CGU</a></li>
+        <li><a href="http://api.camino.beta.gouv.fr">API (GraphQL)</a></li>
         <li><a href="/mentions-legales">Mentions légales</a></li>
         <li><a href="/accessibilite">Accessibilité</a></li>
         <li><a href="/contribution">Contribuez</a></li>

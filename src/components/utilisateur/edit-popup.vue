@@ -217,8 +217,8 @@ export default {
   components: {
     Popup,
     Messages
-  }, 
-  
+  },
+
   props: {
     utilisateur: {
       type: Object,
@@ -249,8 +249,8 @@ export default {
     entreprises () {
       return this.$store.state.entreprises.list
     }
-  }, 
-  
+  },
+
   created () {
     document.addEventListener('keyup', this.keyup)
 
@@ -265,9 +265,9 @@ export default {
   },
 
   methods: {
-    save() {
+    save () {
       if (this.complete) {
-       if (this.creation) {
+        if (this.creation) {
           this.utilisateur.id = slugify(`${this.utilisateur.prenom} ${this.utilisateur.nom}`, {
             replacement: '-',
             remove: null,
@@ -280,7 +280,7 @@ export default {
       }
     },
 
-    cancel() {
+    cancel () {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },
@@ -297,7 +297,7 @@ export default {
       this.$store.commit('utilisateurs/popupMessagesRemove')
     },
 
-    permissionToggle(permission) {
+    permissionToggle (permission) {
       this.utilisateur.permission = permission
     },
 

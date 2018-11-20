@@ -57,7 +57,7 @@
 export default {
   name: 'CaminoPassordInit',
 
-  data() {
+  data () {
     return {
       motDePasse1: '',
       motDePasse2: '',
@@ -66,7 +66,7 @@ export default {
   },
 
   computed: {
-    complete() {
+    complete () {
       return this.motDePasse1 && this.motDePasse2
     }
   },
@@ -82,7 +82,7 @@ export default {
   methods: {
     save () {
       if (this.complete && !this.done) {
-        localStorage.setItem('token', this.$route.query.token)       
+        localStorage.setItem('token', this.$route.query.token)
         this.$store.dispatch('user/passwordInit', { motDePasse1: this.motDePasse1, motDePasse2: this.motDePasse2 }).then(r => {
           if (r) {
             this.done = true
@@ -95,7 +95,7 @@ export default {
       if ((e.which || e.keyCode) === 13) {
         this.save()
       }
-    }    
+    }
   }
 }
 

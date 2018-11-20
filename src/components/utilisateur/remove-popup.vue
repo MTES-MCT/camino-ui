@@ -40,8 +40,8 @@ export default {
   components: {
     Popup,
     Messages
-  }, 
-  
+  },
+
   props: {
     utilisateur: {
       type: Object,
@@ -57,7 +57,7 @@ export default {
       return this.$store.state.utilisateurs.permissions
     },
     complete () {
-      return this.creation ? this.utilisateur.id && this.utilisateur.email && this.utilisateur.motDePasse :  this.utilisateur.id && this.utilisateur.email
+      return this.creation ? this.utilisateur.id && this.utilisateur.email && this.utilisateur.motDePasse : this.utilisateur.id && this.utilisateur.email
     }
   },
 
@@ -70,11 +70,11 @@ export default {
   },
 
   methods: {
-    remove() {
+    remove () {
       this.$store.dispatch('utilisateurs/remove', this.utilisateur.id)
     },
 
-    cancel() {
+    cancel () {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },

@@ -14,7 +14,7 @@ export default {
   components: {
     Card
   },
-  
+
   props: {
     message: {
       type: Object,
