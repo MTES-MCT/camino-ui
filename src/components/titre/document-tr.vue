@@ -7,6 +7,7 @@
         class="btn rnd-xs px-xs py-xs my--xs ml-xs" 
         :href="document.fichier"
         target="_blank"
+        rel="noopener noreferrer"
         alt="Fichier"
       >
         <i class="icon-24 icon-24-download" />
@@ -16,6 +17,7 @@
         class="btn-alt rnd-xs p-xs my--xs ml-xs" 
         :href="document.url"
         target="_blank"
+        rel="noopener noreferrer"
         alt="Url"
       >
         <i class="icon-24 icon-24-link" />
