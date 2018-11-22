@@ -130,7 +130,7 @@
         </div>
 
         <div class="tablet-blob-2-3">
-          <ul class="list-inline">
+          <ul class="list-inline pt-s">
             <li class="mr">
               <label><input 
                 v-model="lien"
@@ -162,14 +162,14 @@
 
           <div class="mb tablet-blob-2-3">
             <select 
-              v-model="utilisateur.entreprise.id"
+              v-model="utilisateur.entreprise"
               type="text" 
               class="p-s mr"
             >
               <option
                 v-for="entreprise in entreprises"
                 :key="entreprise.id"
-                :value="entreprise.id"
+                :value="entreprise"
               >{{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
               </option>
             </select>
