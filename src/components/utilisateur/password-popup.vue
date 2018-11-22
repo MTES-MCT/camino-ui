@@ -50,9 +50,8 @@
       </div>
     </div>
 
-    <messages :messages="messages" />
-
     <template slot="footer">
+      <messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -105,7 +104,7 @@ export default {
 
   computed: {
     messages () {
-      return this.$store.state.utilisateurs.popupMessages
+      return this.$store.state.popup.messages
     },
     complete () {
       return this.motDePasse && this.motDePasseNouveau1 && this.motDePasseNouveau2
@@ -146,7 +145,7 @@ export default {
     },
 
     errorsRemove () {
-      this.$store.commit('utilisateurs/popupMessagesRemove')
+      this.$store.commit('popupMessagesRemove')
     },
 
     permissionToggle (permission) {

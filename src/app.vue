@@ -67,9 +67,9 @@ export default {
   mounted () {
     const date = new Date().getTime()
     const threedays = 1000 * 60 * 60
-    
+
     if (!localStorage.getItem('conditions') || Number(localStorage.getItem('conditions')) + threedays < date) {
-      this.popupOpen()
+      this.warningPopupOpen()
     }
 
     if (localStorage.getItem('token')) {
@@ -82,7 +82,7 @@ export default {
   },
 
   methods: {
-    popupOpen () {
+    warningPopupOpen () {
       this.$store.commit('popupOpen', { component: PopupAvertissement, closeBtn: false })
     }
   }

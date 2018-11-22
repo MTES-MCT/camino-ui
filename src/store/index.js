@@ -31,7 +31,8 @@ export const state = {
   messages: [],
   popup: {
     component: null,
-    props: null
+    props: null,
+    messages: []
   },
   error: null,
   menu: {
@@ -136,29 +137,45 @@ export const mutations = {
   messageAdd(state, message) {
     state.messages.push(message)
   },
+
   messageRemove(state, id) {
     Vue.delete(state.messages, state.messages.findIndex(m => m.id === id))
   },
+
   popupOpen(state, { component, props }) {
-    state.popup = { component, props }
+    state.popup = { component, props, messages: [] }
   },
+
   popupClose(state) {
     state.popup = {
       component: null,
-      props: null
+      props: null,
+      messages: []
     }
   },
+
   errorAdd(state, error) {
     state.error = error
   },
+
   errorRemove(state) {
     state.error = null
   },
+
   menuOpen(state, component) {
     state.menu.component = component
   },
+
   menuClose(state) {
     state.menu.component = null
+  },
+
+  popupMessagesRemove(state) {
+    state.popup.messages = []
+  },
+
+  popupMessageAdd(state, message) {
+    state.popup.messages.push(message)
   }
 }
 

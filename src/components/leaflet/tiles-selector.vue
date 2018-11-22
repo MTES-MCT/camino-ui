@@ -36,7 +36,7 @@ export default {
     },
     tilesName: {
       type: String,
-      default: 'osm / mapnik'
+      default: 'osm / fr'
     }
   }
 }

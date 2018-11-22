@@ -198,9 +198,8 @@
 
     <div class="p-s bg-warning color-bg bold mb">Une fois enregistré ce formulaire ne sera plus modifiable.</div>
 
-    <messages :messages="messages" />
-
     <template slot="footer">
+      <messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -252,7 +251,7 @@ export default {
 
   computed: {
     messages () {
-      return this.$store.state.titreTravaux.popupMessages
+      return this.$store.state.popup.messages
     },
     entreprises () {
       return this.$store.state.entreprises.list
@@ -303,7 +302,7 @@ export default {
     },
 
     errorsRemove () {
-      this.$store.commit('titreTravaux/popupMessagesRemove')
+      this.$store.commit('popupMessagesRemove')
     }
   }
 }

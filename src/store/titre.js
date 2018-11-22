@@ -29,7 +29,8 @@ export const actions = {
     }
   },
 
-  async etapeUpdate({ dispatch }, etape) {
+  async etapeUpdate({ commit, dispatch }, etape) {
+    commit('popupMessagesRemove', null, { root: true })
     try {
       const res = await titreEtapeUpdate({ etape })
 
@@ -48,7 +49,7 @@ export const actions = {
       }
     } catch (e) {
       console.log('fix me')
-      dispatch('apiError', e, { root: true })
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     }
   },
 

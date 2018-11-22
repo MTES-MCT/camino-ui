@@ -11,8 +11,7 @@ import router from '../router'
 
 export const state = {
   list: [],
-  permissions: [],
-  popupMessages: []
+  permissions: []
 }
 
 export const actions = {
@@ -31,7 +30,7 @@ export const actions = {
   },
 
   async add({ commit, dispatch }, utilisateur) {
-    commit('popupMessagesRemove')
+    commit('popupMessagesRemove', null, { root: true })
     try {
       const u = await utilisateurAdd({ utilisateur })
 
@@ -49,12 +48,12 @@ export const actions = {
         )
       }
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' })
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     }
   },
 
   async update({ commit, dispatch, rootState }, utilisateur) {
-    commit('popupMessagesRemove')
+    commit('popupMessagesRemove', null, { root: true })
     try {
       const u = await utilisateurUpdate({ utilisateur })
 
@@ -70,12 +69,13 @@ export const actions = {
         { root: true }
       )
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' })
+      console.log('object')
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     }
   },
 
   async remove({ commit, dispatch, rootState }, id) {
-    commit('popupMessagesRemove')
+    commit('popupMessagesRemove', null, { root: true })
     try {
       const utilisateur = await utilisateurRemove({ id })
 
@@ -98,7 +98,7 @@ export const actions = {
         router.push({ name: 'utilisateurs' })
       }
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' })
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     }
   },
 
@@ -106,7 +106,7 @@ export const actions = {
     { commit, dispatch },
     { id, motDePasse, motDePasseNouveau1, motDePasseNouveau2 }
   ) {
-    commit('popupMessagesRemove')
+    commit('popupMessagesRemove', null, { root: true })
 
     try {
       const utilisateur = await utilisateurPasswordUpdate({
@@ -128,7 +128,7 @@ export const actions = {
         )
       }
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' })
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     }
   }
 }
@@ -155,14 +155,6 @@ export const mutations = {
     if (index > 0) {
       state.list.splice(index, 1)
     }
-  },
-
-  popupMessagesRemove(state) {
-    state.popupMessages = []
-  },
-
-  popupMessageAdd(state, message) {
-    state.popupMessages.push(message)
   }
 }
 

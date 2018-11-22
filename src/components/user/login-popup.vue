@@ -29,9 +29,8 @@
       </div>
     </div>
 
-    <messages :messages="messages" />
-
     <template slot="footer">
+      <messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3">
           <button
@@ -39,11 +38,14 @@
             @click="cancel"
           >Annuler</button>
         </div>
-        <div class="tablet-blob-2-3">
+        <div 
+          class="tablet-blob-2-3"
+          :class="{ disabled: !complete }"
+        >
           <button
             class="btn-flash rnd-xs p-s full-x"
             @click="login"
-          >M'identifier</button>
+          >Se connecter</button>
         </div>
       </div>
       <button 
@@ -81,7 +83,10 @@ export default {
 
   computed: {
     messages () {
-      return this.$store.state.user.popupMessages
+      return this.$store.state.popup.messages
+    },
+    complete () {
+      return !!this.email && !!this.motDePasse
     }
   },
 
@@ -95,7 +100,9 @@ export default {
 
   methods: {
     login () {
-      this.$store.dispatch('user/login', { email: this.email, motDePasse: this.motDePasse })
+      if (this.complete) {
+        this.$store.dispatch('user/login', { email: this.email, motDePasse: this.motDePasse })
+      }
     },
 
     cancel () {
@@ -104,7 +111,7 @@ export default {
     },
 
     errorsRemove () {
-      this.$store.commit('user/popupMessagesRemove')
+      this.$store.commit('popupMessagesRemove')
     },
 
     keyup (e) {

@@ -11,10 +11,9 @@ export const state = {
   current: null,
   preferences: {
     map: {
-      tilesName: 'osm / mapnik'
+      tilesName: 'osm / fr'
     }
-  },
-  popupMessages: []
+  }
 }
 
 export const actions = {
@@ -29,7 +28,8 @@ export const actions = {
   },
 
   async login({ commit, dispatch }, { email, motDePasse }) {
-    commit('popupMessagesRemove')
+    console.log('object')
+    commit('popupMessagesRemove', null, { root: true })
     try {
       const res = await utilisateurLogin({ email, motDePasse })
 
@@ -48,7 +48,7 @@ export const actions = {
     } catch (e) {
       commit('tokenRemove')
       commit('reset')
-      commit('popupMessageAdd', { value: e, type: 'error' })
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     }
   },
 
@@ -65,7 +65,7 @@ export const actions = {
   },
 
   async passwordInitEmail({ commit, dispatch }, { email }) {
-    commit('popupMessagesRemove')
+    commit('popupMessagesRemove', null, { root: true })
     try {
       const res = await utilisateurPasswordInitEmail({ email })
       commit('popupClose', null, { root: true })
@@ -78,7 +78,7 @@ export const actions = {
         { root: true }
       )
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' })
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     }
   },
 
@@ -139,14 +139,6 @@ export const mutations = {
 
   reset(state) {
     Vue.set(state, 'current', null)
-  },
-
-  popupMessagesRemove(state) {
-    state.popupMessages = []
-  },
-
-  popupMessageAdd(state, message) {
-    state.popupMessages.push(message)
   }
 }
 

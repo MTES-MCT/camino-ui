@@ -81,14 +81,12 @@ export const state = {
         }
       ]
     }
-  ],
-  popupMessages: []
+  ]
 }
 
 export const actions = {
   async rapportAdd({ commit, dispatch }, rapport) {
-    console.log(this.rapport)
-    commit('popupMessagesRemove')
+    commit('popupMessagesRemove', null, { root: true })
     try {
       const res = await titreTravauxRapportAdd({ rapport })
 
@@ -106,22 +104,14 @@ export const actions = {
         dispatch('titre/reload', null, { root: true })
       }
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' })
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     }
   }
 }
 
 export const getters = {}
 
-export const mutations = {
-  popupMessagesRemove(state) {
-    state.popupMessages = []
-  },
-
-  popupMessageAdd(state, message) {
-    state.popupMessages.push(message)
-  }
-}
+export const mutations = {}
 
 export default {
   namespaced: true,
