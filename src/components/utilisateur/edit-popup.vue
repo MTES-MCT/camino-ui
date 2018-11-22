@@ -187,7 +187,11 @@
       <input 
         v-model="cgu"
         type="checkbox"
-      >Vous avez lu et vous acceptez les <a href="/cgu">conditions générales d'utilisation</a>.
+      >Vous avez lu et vous acceptez les <a 
+        href="/cgu" 
+        target="_blank" 
+        rel="noopener noreferrer"
+      >conditions générales d'utilisation</a>.
     </div>
 
     <messages :messages="messages" />
