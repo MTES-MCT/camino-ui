@@ -2,11 +2,11 @@
   <popup>
     <template slot="header">
       <div>
-        <h2 class="mb-0">Initialisation du mot de passe</h2>
+        <h2 class="mb-0">Réinitialisation du mot de passe</h2>
       </div>
     </template>
 
-    <p>Pour initialiser votre mot de passe, envoyez votre adresse email. </p>
+    <p>Pour réinitialiser votre mot de passe, renseignez votre adresse email. </p>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Email</h6>

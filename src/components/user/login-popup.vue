@@ -53,7 +53,7 @@
       <button 
         class="btn-alt rnd-xs p-s h5 mr-s" 
         @click="userPasswordInitPopupOpen"
-      >Initialiser votre mot de passe…</button>
+      >Réinitialiser votre mot de passe…</button>
     </template>
   </popup>
 </template>
