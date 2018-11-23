@@ -259,6 +259,9 @@ export default {
     substances () {
       return this.$store.state.substances.list
     },
+    travauxComplete () {
+      return this.rapport.contenu.travaux.reduce((res, mois) => res && (mois.nonDebutes || mois.exploitationEnCours || mois.arretTemporaire || mois.rehabilitation || mois.arretDefinitif), true)
+    },
     complete () {
       return (this.rapport.contenu.or || this.rapport.contenu.or === 0)
         && (this.rapport.contenu.mercure || this.rapport.contenu.mercure === 0)
@@ -268,6 +271,7 @@ export default {
         && (this.rapport.contenu.pelles || this.rapport.contenu.pelles === 0)
         && (this.rapport.contenu.effectifs || this.rapport.contenu.effectifs === 0)
         && (this.rapport.contenu.environnement || this.rapport.contenu.environnement === 0)
+        && this.travauxComplete
     }
   },
 
