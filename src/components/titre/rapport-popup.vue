@@ -260,14 +260,14 @@ export default {
       return this.$store.state.substances.list
     },
     complete () {
-      return this.rapport.contenu.or
-        && this.rapport.contenu.mercure
-        && this.rapport.contenu.carburantDetaxe
-        && this.rapport.contenu.carburantConventionnel
-        && this.rapport.contenu.pompes
-        && this.rapport.contenu.pelles
-        && this.rapport.contenu.effectifs
-        && this.rapport.contenu.environnement
+      return this.rapport.contenu.or || this.rapport.contenu.or === 0
+        && this.rapport.contenu.mercure || this.rapport.contenu.mercure === 0
+        && this.rapport.contenu.carburantDetaxe || this.rapport.contenu.carburantDetaxe === 0
+        && this.rapport.contenu.carburantConventionnel || this.rapport.contenu.carburantConventionnel === 0
+        && this.rapport.contenu.pompes || this.rapport.contenu.pompes === 0
+        && this.rapport.contenu.pelles || this.rapport.contenu.pelles === 0
+        && this.rapport.contenu.effectifs || this.rapport.contenu.effectifs === 0
+        && this.rapport.contenu.environnement || this.rapport.contenu.environnement === 0
     }
   },
 
