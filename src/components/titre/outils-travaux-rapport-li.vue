@@ -29,7 +29,7 @@ export default {
       return this.titre.domaine.id === 'm' && (this.titre.type.id === 'cxx' || this.titre.type.id === 'pxm' || this.titre.type.id === 'axm')
     },
     hasPermissions () {
-      return (this.permissionsCheck(['super', 'admin', 'editeur']) || this.permissionsCheck(['entreprise']) && this.user.entreprise && !!this.titre.titulaires.find(t => t.id === this.user.entreprise.id))
+      return (this.permissionsCheck(['super', 'admin']) || this.permissionsCheck(['entreprise']) && this.user.entreprise && !!this.titre.titulaires.find(t => t.id === this.user.entreprise.id))
     },
     isVisible () {
       return this.hasPermissions && this.hasRapport && !this.rapportExists
