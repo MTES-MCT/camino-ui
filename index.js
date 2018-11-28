@@ -34,7 +34,7 @@ app.use(history())
 app.use(staticFileMiddleware)
 
 app.get('/', (req, res) => {
-  res.render(path.join(__dirname + '/dist/index.html'))
+  res.render(path.join(__dirname, '/dist/index.html'))
 })
 
 app.listen(port, () => {
