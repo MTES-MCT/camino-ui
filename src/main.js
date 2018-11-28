@@ -1,5 +1,7 @@
 import './css/styles.css'
 import Vue from 'vue'
+import * as Sentry from '@sentry/browser'
+
 import VueMatomo from './stats'
 import App from './app.vue'
 
@@ -8,6 +10,13 @@ import store from './store'
 import mixins from './mixins'
 
 import { dateFormat } from './utils'
+
+if (process.env.VUE_APP_SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.VUE_APP_SENTRY_DSN,
+    integrations: [new Sentry.Integrations.Vue({ Vue })]
+  })
+}
 
 Vue.config.productionTip = false
 
