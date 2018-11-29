@@ -5,30 +5,35 @@
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2">
           <h1 class="mt-xs">{{ titre['nom'] }}</h1>
-          <h4 class="mb"><pill
-            :color="`bg-title-domaine-${titre.domaine.id}`"
-            class="mono mr-s mt--s"
-          >{{ titre.domaine.id }}</pill>
+          <h4 class="mb">
+            <pill
+              :color="`bg-title-domaine-${titre.domaine.id}`"
+              class="mono mr-s mt--s"
+            >{{ titre.domaine.id }}</pill>
             <span class="cap-first">{{ titre.type.nom }}</span>
           </h4>
           <div v-if="titre.references">
             <h6>{{ titre.references.length > 1 ? 'Références' : 'Référence' }}</h6>
             <ul class="list-prefix">
               <li 
-                v-for="reference in titre.references"
+                v-for="reference in titre.references" 
                 :key="reference.valeur"
               >
                 <span
                   v-if="reference.type"
                   class="h5 word-break color-neutral fixed-width"
-                >{{ reference.type }} </span>{{ reference.valeur }}
+                >{{ reference.type }}</span>
+                {{ reference.valeur }}
               </li>
             </ul>
           </div>
         </div>
         <div class="desktop-blob-1-2">
           <h6>Statut</h6>
-          <h4><dot :color="`bg-${titre.statut.couleur}`" /><span class="cap-first">{{ titre.statut.nom }}</span></h4>
+          <h4>
+            <dot :color="`bg-${titre.statut.couleur}`" />
+            <span class="cap-first">{{ titre.statut.nom }}</span>
+          </h4>
 
           <div>
             <table class="table-xxs">
@@ -38,12 +43,16 @@
                 <th>Début</th>
                 <th>Fin</th>
               </tr>
-              <tr
-                v-for="demarche in titre.demarches.filter(d => d.phase)"
+              <tr 
+                v-for="demarche in titre.demarches.filter(d => d.phase)" 
                 :key="demarche.id"
               >
-                <td><dot :color="`bg-${demarche.phase.statut.couleur}`" /></td>
-                <td><span class="cap-first">{{ demarche.type.nom }}</span></td>
+                <td>
+                  <dot :color="`bg-${demarche.phase.statut.couleur}`" />
+                </td>
+                <td>
+                  <span class="cap-first">{{ demarche.type.nom }}</span>
+                </td>
                 <td>{{ demarche.phase.dateDebut | dateFormat }}</td>
                 <td>{{ demarche.phase.dateFin | dateFormat }}</td>
               </tr>
@@ -53,9 +62,7 @@
       </div>
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2">
-          <div
-            v-if="titre.substances && titre.substances.length > 0"
-          >
+          <div v-if="titre.substances && titre.substances.length > 0">
             <h6>Substances</h6>
             <pill-list :elements="titre.substances.map(s => s.nom)" />
           </div>
@@ -65,32 +72,31 @@
             <h6>{{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
             <ul class="list-prefix">
               <li 
-                v-for="titulaire in titre.titulaires"
+                v-for="titulaire in titre.titulaires" 
                 :key="titulaire.id"
-              >
-                {{ titulaire['nom'] }}
-              </li>
+              >{{ titulaire['nom'] }}</li>
             </ul>
           </div>
           <div v-if="titre['liens']">
             <h6>Liens</h6>
             <ul class="list-sans">
               <li 
-                v-for="link in titre['liens']"
-                :key="link.id"
+                v-for="link in titre['liens']" 
+                :key="link.id" 
                 class="mb-xs"
               >
                 <router-link
                   :to="{ name: 'titre', params: { id: link.id }}"
                   class="btn h6 bold py-xs px-s rnd"
-              >{{ link['type'] }} : {{ link['nom'] }}</router-link></li>
+                >{{ link['type'] }} : {{ link['nom'] }}</router-link>
+              </li>
             </ul>
           </div>
         </div>
       </div>
-      <titre-map
-        v-if="titre.geojsonMultiPolygon"
-        :geojson="titre.geojsonMultiPolygon"
+      <titre-map 
+        v-if="titre.geojsonMultiPolygon" 
+        :geojson="titre.geojsonMultiPolygon" 
         class="mb"
       />
 
@@ -114,12 +120,12 @@
           class="tablet-blob-3-4 hide"
         >
           <h6>Communes</h6>
-          <div
-            v-for="(departements, region) in titre.communes"
+          <div 
+            v-for="(departements, region) in titre.communes" 
             :key="region"
           >
-            <div
-              v-for="(communes, departement) in departements"
+            <div 
+              v-for="(communes, departement) in departements" 
               :key="departement"
             >
               <h5 class="mb-xs">{{ region }} / {{ departement }}</h5>
@@ -162,8 +168,8 @@
         </div>
       </div>
 
-      <div
-        v-if="titre['démarches en cours']"
+      <div 
+        v-if="titre['démarches en cours']" 
         class="mb-xxl"
       >
         <h4 class="mt-s">Démarches en cours</h4>
@@ -175,12 +181,14 @@
               <th>Nom</th>
               <th>Statut</th>
             </tr>
-            <tr
-              v-for="d in titre['démarches en cours']"
-              :key="d.id"
+            <tr 
+              v-for="d in titre['démarches en cours']" 
+              :key="d.id" 
               class="h5"
             >
-              <td><pill class="mt--s mb--s">{{ d.type }}</pill></td>
+              <td>
+                <pill class="mt--s mb--s">{{ d.type }}</pill>
+              </td>
               <td>{{ d.nom }}</td>
               <td>
                 <dot :color="d.statut.couleur" />
@@ -190,8 +198,8 @@
           </table>
         </div>
       </div>
-      <demarches
-        v-if="titre.demarches"
+      <demarches 
+        v-if="titre.demarches" 
         :demarches="titre.demarches"
       />
 
