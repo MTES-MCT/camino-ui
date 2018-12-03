@@ -242,7 +242,7 @@ export default {
   },
 
   watch: {
-    '$route': 'get'
+    $route: 'get'
   },
 
   created () {

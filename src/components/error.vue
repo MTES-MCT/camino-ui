@@ -1,7 +1,7 @@
 <template>
   <card>
     <div 
-      class="mb p-s color-bg"
+      class="mb p-s color-bg" 
       :class="`bg-${message.type}`"
     >{{ message.value }}</div>
   </card>
