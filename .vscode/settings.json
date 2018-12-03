@@ -1,17 +1,14 @@
 {
-  "editor.insertSpaces": true,
-  "editor.tabSize": 2,
-  "editor.trimAutoWhitespace": true,
-  "editor.formatOnSave": true,
   "eslint.autoFixOnSave": true,
+  "eslint.enable": true,
   "eslint.run": "onSave",
   "eslint.validate": [
     {
-      "language": "javascript",
+      "language": "html",
       "autoFix": true
     },
     {
-      "language": "javascriptreact",
+      "language": "javascript",
       "autoFix": true
     },
     {
@@ -21,23 +18,7 @@
     {
       "language": "vue-html",
       "autoFix": true
-    },
-    {
-      "language": "html",
-      "autoFix": true
     }
   ],
-  "vetur.completion.useScaffoldSnippets": false,
-  "html.format.enable": false,
-  "vetur.validation.template": false,
-  "emmet.triggerExpansionOnTab": true,
-  "emmet.includeLanguages": {
-    "vue-html": "html"
-  },
-  "javascript.format.enable": false,
-  "json.format.enable": false,
-  "vetur.validation.script": false,
-  "stylelint.enable": true,
-  "css.validate": false,
-  "vetur.validation.style": false
+  "vetur.format.defaultFormatter.html": "none"
 }
