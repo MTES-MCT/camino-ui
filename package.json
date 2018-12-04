@@ -18,7 +18,7 @@
   "devDependencies": {
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.2.0",
     "@sentry/browser": "^4.4.1",
-    "@types/node": "^10.12.11",
+    "@types/node": "^10.12.12",
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-plugin-eslint": "^3.2.1",
     "@vue/cli-service": "^3.2.0",
@@ -35,7 +35,7 @@
     "babel-plugin-graphql-tag": "^1.6.0",
     "crypto-random-string": "^1.0.0",
     "eslint": "^5.9.0",
-    "eslint-plugin-vue": "^5.0.0-beta.3",
+    "eslint-plugin-vue": "^5.0.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
     "jest": "^23.6.0",
