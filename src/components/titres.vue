@@ -1,9 +1,10 @@
 <template>
-  
-  <loader v-if="!loaded" />
-  <card v-else>
+  <Loader v-if="!loaded" />
+  <Card v-else>
     <div class="flex">
-      <h2 class="mt-s">Titres miniers</h2>
+      <h2 class="mt-s">
+        Titres miniers
+      </h2>
       <ul class="list-inline flex-right">
         <li 
           class="mr-0" 
@@ -27,14 +28,14 @@
       </ul>
     </div>
 
-    <titres-filters />
+    <TitresFilters />
 
-    <component
+    <Component
       :is="viewComponent"
       v-if="viewActive"
       :titres="titres"
     />
-  </card>
+  </Card>
 </template>
 
 <script>

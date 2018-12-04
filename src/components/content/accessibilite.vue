@@ -6,7 +6,11 @@
     <h2>Accessibilité</h2>
     <p>Nous travaillons à améliorer le niveau d'accessibilité du site et sa conformité avec les normes en la matière. Notre objectif est d’atteindre le niveau de conformité RGAA fin 2018.</p>
     <h3>Signaler un dysfonctionnement</h3>
-    <p>Si, malgré notre vigilance, vous rencontriez le moindre problème d’accessibilité sur notre site, n’hésitez pas à nous écrire à <a href="mailto:contact@camino.beta.gouv.fr">contact@camino.beta.gouv.fr</a></p>
+    <p>
+      Si, malgré notre vigilance, vous rencontriez le moindre problème d’accessibilité sur notre site, n’hésitez pas à nous écrire à <a href="mailto:contact@camino.beta.gouv.fr">
+        contact@camino.beta.gouv.fr
+      </a>
+    </p>
     <h3>Défenseur des droits</h3>
     <p>Si vous constatez un défaut d'accessibilité vous empêchant d'accéder à un contenu ou une fonctionnalité du site, que vous nous le signalez et que vous ne parvenez pas à obtenir une réponse rapide de notre part, vous êtes en droit de faire parvenir vos doléances ou une demande de saisine au Défenseur des droits. Plusieurs moyens sont à votre disposition :</p>
     <ul class="list-prefix">

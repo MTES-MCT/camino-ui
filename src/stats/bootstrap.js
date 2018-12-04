@@ -1,4 +1,4 @@
-export default function(options) {
+export default function (options) {
   const { host, trackerFileName } = options
   const filename = `${host}/${trackerFileName}.js`
 

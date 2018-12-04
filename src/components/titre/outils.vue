@@ -1,13 +1,17 @@
 <template>
   <div class="sticky-bottom">
     <ul class="list-inline mb-0">
-      <outils-erreur-li />
-      <outils-travaux-rapport-li />
+      <OutilsErreurLi />
+      <OutilsTravauxRapportLi />
       <li class="mr-s hide">
-        <button class="btn-alt rnd-xs p-s">Télécharger ({{ total }})</button>
+        <button class="btn-alt rnd-xs p-s">
+          Télécharger ({{ total }})
+        </button>
       </li>
       <li class="mr-s hide">
-        <button class="btn-alt rnd-xs p-s">Imprimer</button>
+        <button class="btn-alt rnd-xs p-s">
+          Imprimer
+        </button>
       </li>
     </ul>
   </div>

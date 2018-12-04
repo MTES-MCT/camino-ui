@@ -41,7 +41,7 @@ export const state = {
 }
 
 export const actions = {
-  async init({ commit, dispatch }) {
+  async init ({ commit, dispatch }) {
     try {
       const res = await init()
 
@@ -79,7 +79,7 @@ export const actions = {
     }
   },
 
-  apiError({ commit }, error) {
+  apiError ({ commit }, error) {
     commit('messageAdd', {
       type: 'error',
       value:
@@ -90,14 +90,14 @@ export const actions = {
     })
   },
 
-  pageError({ commit }) {
+  pageError ({ commit }) {
     commit('errorAdd', {
       type: 'error',
       value: `Erreur: page introuvable`
     })
   },
 
-  messageAdd({ commit }, message) {
+  messageAdd ({ commit }, message) {
     const id = new Date().valueOf()
     message.id = id
     commit('messageAdd', message)
@@ -106,7 +106,7 @@ export const actions = {
     }, 3000)
   },
 
-  menuToggle({ state, commit }, component) {
+  menuToggle ({ state, commit }, component) {
     if (state.menu.component && state.menu.component.name === component.name) {
       commit('menuClose')
     } else if (state.menu.component) {
@@ -117,7 +117,7 @@ export const actions = {
     }
   },
 
-  async load({ dispatch, commit }) {
+  async load ({ dispatch, commit }) {
     commit('errorRemove')
     await dispatch('init')
 
@@ -134,19 +134,19 @@ export const actions = {
 }
 
 export const mutations = {
-  messageAdd(state, message) {
+  messageAdd (state, message) {
     state.messages.push(message)
   },
 
-  messageRemove(state, id) {
+  messageRemove (state, id) {
     Vue.delete(state.messages, state.messages.findIndex(m => m.id === id))
   },
 
-  popupOpen(state, { component, props }) {
+  popupOpen (state, { component, props }) {
     state.popup = { component, props, messages: [] }
   },
 
-  popupClose(state) {
+  popupClose (state) {
     state.popup = {
       component: null,
       props: null,
@@ -154,27 +154,27 @@ export const mutations = {
     }
   },
 
-  errorAdd(state, error) {
+  errorAdd (state, error) {
     state.error = error
   },
 
-  errorRemove(state) {
+  errorRemove (state) {
     state.error = null
   },
 
-  menuOpen(state, component) {
+  menuOpen (state, component) {
     state.menu.component = component
   },
 
-  menuClose(state) {
+  menuClose (state) {
     state.menu.component = null
   },
 
-  popupMessagesRemove(state) {
+  popupMessagesRemove (state) {
     state.popup.messages = []
   },
 
-  popupMessageAdd(state, message) {
+  popupMessageAdd (state, message) {
     state.popup.messages.push(message)
   }
 }

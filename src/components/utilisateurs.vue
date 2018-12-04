@@ -1,21 +1,24 @@
 <template>
-  
-  <card>
+  <Card>
     <div class="flex">
-      <h2 class="mt-s">Utilisateurs</h2>
+      <h2 class="mt-s">
+        Utilisateurs
+      </h2>
 
       <button 
         class="btn-border rnd-xs p-s mb flex-right" 
         @click="addPopupOpen"
-      ><i class="icon-24 icon-24-plus" /></button>
+      >
+        <i class="icon-24 icon-24-plus" />
+      </button>
     </div>
 
-    <loader v-if="!loaded" />
-    <utilisateurs-table 
+    <Loader v-if="!loaded" />
+    <UtilisateursTable 
       v-else
       :utilisateurs="utilisateurs"
     />
-  </card>
+  </Card>
 </template>
 
 <script>

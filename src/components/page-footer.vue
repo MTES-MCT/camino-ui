@@ -14,49 +14,94 @@
           >
         </div>
         <div class="blob-2-3">
-          <p class="h6 color-neutral">Camino est un service numérique de l’Etat incubé à la Fabrique numérique du Ministère de la Transition écologique et solidaire, membre du réseau d’incubateurs <a href="http://beta.gouv.fr">beta.gouv.fr</a></p>
+          <p class="h6 color-neutral">
+            Camino est un service numérique de l’Etat incubé à la Fabrique numérique du Ministère de la Transition écologique et solidaire, membre du réseau d’incubateurs <a href="http://beta.gouv.fr">
+              beta.gouv.fr
+            </a>
+          </p>
         </div>
       </div>
     </div>
 
     <div class="tablet-blob-1-2 desktop-blob-1-3">
       <ul class="list-prefix text-decoration-none mb-0">
-        <li><a href="/a-propos#contact">Contact</a></li>
-        <li><a href="/a-propos">À propos</a></li>
-        <li><a href="/cgu">CGU</a></li>
-        <li><a href="/mentions-legales">Mentions légales</a></li>
-        <li><a href="/accessibilite">Accessibilité</a></li>
-        <li><a href="/contribution">Contribuez</a></li>
+        <li>
+          <a href="/a-propos#contact">
+            Contact
+          </a>
+        </li>
+        <li>
+          <a href="/a-propos">
+            À propos
+          </a>
+        </li>
+        <li>
+          <a href="/cgu">
+            CGU
+          </a>
+        </li>
+        <li>
+          <a href="/mentions-legales">
+            Mentions légales
+          </a>
+        </li>
+        <li>
+          <a href="/accessibilite">
+            Accessibilité
+          </a>
+        </li>
+        <li>
+          <a href="/contribution">
+            Contribuez
+          </a>
+        </li>
       </ul>
     </div>
 
     <div class="tablet-blob-1-2 desktop-blob-1-3">
       <ul class="list-prefix text-decoration-none">
-        <li><a 
-          href="http://api.camino.beta.gouv.fr" 
-          target="_blank"
-          rel="noopener noreferrer"
-        >API (GraphQL)</a></li>
-        <li><a 
-          href="http://flux.camino.beta.gouv.fr" 
-          target="_blank"
-          rel="noopener noreferrer"
-        >Flux (GeoJson)</a></li>
-        <li><a 
-          href="https://trello.com/b/cwXWMqGz/camino-roadmap-ouverte" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >Roadmap</a></li>
-        <li><a 
-          href="https://github.com/MTES-MCT?utf8=%E2%9C%93&q=camino" 
-          target="_blank" 
-          rel="noopener noreferrer"
-        >Code source</a></li>
+        <li>
+          <a 
+            href="http://api.camino.beta.gouv.fr" 
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            API (GraphQL)
+          </a>
+        </li>
+        <li>
+          <a 
+            href="http://flux.camino.beta.gouv.fr" 
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Flux (GeoJson)
+          </a>
+        </li>
+        <li>
+          <a 
+            href="https://trello.com/b/cwXWMqGz/camino-roadmap-ouverte" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            Roadmap
+          </a>
+        </li>
+        <li>
+          <a 
+            href="https://github.com/MTES-MCT?utf8=%E2%9C%93&q=camino" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            Code source
+          </a>
+        </li>
       </ul>
-      <p class="mb-s">Newsletter</p>
-      <newsletter-form />
+      <p class="mb-s">
+        Newsletter
+      </p>
+      <NewsletterForm />
     </div>
-
   </div>
 </template>
 

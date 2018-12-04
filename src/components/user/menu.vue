@@ -2,23 +2,27 @@
   <div class="bg-bg">
     <div class="container pt">
       <div class="tablet-blobs">
-
         <div class="tablet-blob-1-3">
           <ul class="list-sans">
             <li>
-              <router-link
+              <RouterLink
                 :key="user.id"
                 :to="{ name: 'utilisateur', params: { id: user.id }}"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
-            >{{ user.prenom }} {{ user.nom }}</router-link></li>
+              >
+                {{ user.prenom }} {{ user.nom }}
+              </RouterLink>
+            </li>
             <li><a href="" /></li>
             <li><a href="" /></li>
             <li>
               <button 
                 class="btn-transparent text-decoration-none bold p-0" 
                 @click="logout"
-              >Deconnexion</button>
+              >
+                Deconnexion
+              </button>
             </li>
           </ul>
         </div>

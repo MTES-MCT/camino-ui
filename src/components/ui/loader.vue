@@ -1,5 +1,7 @@
 <template>
-  <div class="mb">Loading…</div>
+  <div class="mb">
+    Loading…
+  </div>
 </template>
 
 <script>

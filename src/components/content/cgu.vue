@@ -76,8 +76,10 @@
     <p>Les courriels et leurs pièces jointes que vous nous adressez sont enregistrées dans un centre de données sécurisé.</p>
 
     <h3>Crédits photo</h3>
-    <p>Les photos présentes sur la page A propos sont à créditer aux auteurs suivants :
-    © bastan ; © BRGM ; © Joeffrey Arruyer ; © Guillaume Levieux ; © François Romain.</p>
+    <p>
+      Les photos présentes sur la page A propos sont à créditer aux auteurs suivants :
+      © bastan ; © BRGM ; © Joeffrey Arruyer ; © Guillaume Levieux ; © François Romain.
+    </p>
 
     <h3>Vie privée</h3>
     <h4>Données à caractère personnel</h4>
@@ -126,8 +128,6 @@
     <h3>Evolution des conditions d’utilisation</h3>
     <p>Les termes des présentes conditions d’utilisation peuvent être amendés à tout moment, sans préavis, en fonction des modifications apportées au service, de l’évolution de la législation ou pour tout autre motif jugé nécessaire.</p>
     <p>Nous rendons librement accessible l’historique de ces conditions.</p>
-
-    
   </div>
 </template>
 

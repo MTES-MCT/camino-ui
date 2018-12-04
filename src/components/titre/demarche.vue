@@ -3,44 +3,67 @@
     <div class="card-border" />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2">
-        <h3 class="cap-first">{{ demarche.type.nom }}</h3>
+        <h3 class="cap-first">
+          {{ demarche.type.nom }}
+        </h3>
       </div>
       <div class="tablet-blob-1-2">
         <h6>Statut</h6>
-        <h4><dot :color="`bg-${demarche.statut.couleur}`" /><span class="cap-first">{{ demarche.statut.nom }}</span></h4>
+        <h4>
+          <Dot :color="`bg-${demarche.statut.couleur}`" /><span class="cap-first">
+            {{ demarche.statut.nom }}
+          </span>
+        </h4>
       </div>
       <div class="tablet-blob-1-2">
-        <accordion
+        <Accordion
           v-if="demarche['recours']"
           class="mb"
         >
-          <template slot="title"><dot :status="demarche['recours']['statut']" /> Recours</template>
+          <template slot="title">
+            <Dot :status="demarche['recours']['statut']" /> Recours
+          </template>
           <div class="large-blobs">
-            <div class="large-blob-1-6"><h6>Statut</h6></div>
+            <div class="large-blob-1-6">
+              <h6>Statut</h6>
+            </div>
             <div class="large-blob-5-6">
-              <p class="word-break">{{ demarche['recours']['statut'] }}</p>
+              <p class="word-break">
+                {{ demarche['recours']['statut'] }}
+              </p>
             </div>
           </div>
           <div class="large-blobs">
-            <div class="large-blob-1-6"><h6>Type</h6></div>
+            <div class="large-blob-1-6">
+              <h6>Type</h6>
+            </div>
             <div class="large-blob-5-6">
-              <p class="word-break">{{ demarche['recours']['type'] }}</p>
+              <p class="word-break">
+                {{ demarche['recours']['type'] }}
+              </p>
             </div>
           </div>
           <div class="large-blobs">
-            <div class="large-blob-1-6"><h6>Requérant</h6></div>
+            <div class="large-blob-1-6">
+              <h6>Requérant</h6>
+            </div>
             <div class="large-blob-5-6">
-              <p class="word-break">{{ demarche['recours']['requérant'] }}</p>
+              <p class="word-break">
+                {{ demarche['recours']['requérant'] }}
+              </p>
             </div>
           </div>
           <div class="large-blobs">
-            <div class="large-blob-1-6"><h6>Tribunal</h6></div>
+            <div class="large-blob-1-6">
+              <h6>Tribunal</h6>
+            </div>
             <div class="large-blob-5-6">
-              <p class="word-break">{{ demarche['recours']['tribunal'] }}</p>
+              <p class="word-break">
+                {{ demarche['recours']['tribunal'] }}
+              </p>
             </div>
           </div>
-        </accordion>
-
+        </Accordion>
       </div>
       <div
         v-if="demarche['publique']"
@@ -48,9 +71,8 @@
       >
         <h6>Participation publique</h6>
       </div>
-      
     </div>
-    <titre-etape 
+    <TitreEtape 
       v-for="etape in demarche.etapes"
       :key="etape.id"
       :etape="etape"

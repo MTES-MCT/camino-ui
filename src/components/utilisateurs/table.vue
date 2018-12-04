@@ -8,7 +8,7 @@
           <th>Email</th>
           <th>Permissions</th>
         </tr>
-        <router-link
+        <RouterLink
           v-for="utilisateur in utilisateursPages[pageActive]"
           :key="utilisateur.id"
           :to="{ name: 'utilisateur', params: { id: utilisateur.id }}"
@@ -19,16 +19,16 @@
           <td>{{ utilisateur.nom || '–' }}</td>
           <td>{{ utilisateur.email }}</td>
           <td>
-            <pill v-if="utilisateur.permission">
+            <Pill v-if="utilisateur.permission">
               {{ utilisateur.permission.nom }}
-            </pill>
+            </Pill>
           </td>
-        </router-link>
+        </RouterLink>
       </table>
     </div>
     <div class="desktop-blobs">
       <div class="desktop-blob-3-4">
-        <pagination
+        <Pagination
           :page-active="pageActive"
           :pages-total="utilisateursPages.length - 1"
           :pages-visible="5"
@@ -36,7 +36,7 @@
         />
       </div>
       <div class="desktop-blob-1-4">
-        <pagination-ranges 
+        <PaginationRanges 
           :ranges="pagesRanges" 
           :range-active="pagesRangeActive"
           @page-range-change="pageRangeChange"

@@ -5,7 +5,7 @@
         <th>Documents</th>
         <th />
       </tr>
-      <document-tr
+      <DocumentTr
         v-for="document in documents"
         :key="document.id"
         :document="document"

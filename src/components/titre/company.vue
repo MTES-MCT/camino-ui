@@ -1,22 +1,31 @@
 <template>
-  <accordion>
-    <template slot="title">{{ company['nom'] }}
-      <tag
+  <Accordion>
+    <template slot="title">
+      {{ company['nom'] }}
+      <Tag
         v-if="company['coordinateur']"
         :color="'bg-highlight'"
-      >Coord.</tag>
-      <tag
+      >
+        Coord.
+      </Tag>
+      <Tag
         v-if="company['opérateur']"
         :color="'bg-highlight'"
-      >Opé.</tag>
+      >
+        Opé.
+      </Tag>
     </template>
     <div 
       v-if="company['service']"
       class="large-blobs"
     >
-      <div class="large-blob-1-6"><h6>Service</h6></div>
+      <div class="large-blob-1-6">
+        <h6>Service</h6>
+      </div>
       <div class="large-blob-5-6">
-        <p class="word-break">{{ company['service'] }}</p>
+        <p class="word-break">
+          {{ company['service'] }}
+        </p>
       </div>
     </div>
     <div class="large-blobs">
@@ -36,33 +45,49 @@
       v-if="company['téléphone']"
       class="large-blobs"
     >
-      <div class="large-blob-1-6"><h6>Téléphone</h6></div>
+      <div class="large-blob-1-6">
+        <h6>Téléphone</h6>
+      </div>
       <div class="large-blob-5-6">
-        <p class="word-break">{{ company['téléphone'] }}</p>
+        <p class="word-break">
+          {{ company['téléphone'] }}
+        </p>
       </div>
     </div>
     <div
       v-if="company['email']"
       class="large-blobs"
     >
-      <div class="large-blob-1-6"><h6>Email</h6></div>
+      <div class="large-blob-1-6">
+        <h6>Email</h6>
+      </div>
       <div class="large-blob-5-6">
-        <p class="word-break"><a 
-          :href="`mailto:${company['email']}`"
-          class="btn h6 bold py-xs px-s rnd"
-        >{{ company['email'] }}</a></p>
+        <p class="word-break">
+          <a 
+            :href="`mailto:${company['email']}`"
+            class="btn h6 bold py-xs px-s rnd"
+          >
+            {{ company['email'] }}
+          </a>
+        </p>
       </div>
     </div>
     <div
       v-if="company['site']"
       class="large-blobs"
     >
-      <div class="large-blob-1-6"><h6>Site</h6></div>
+      <div class="large-blob-1-6">
+        <h6>Site</h6>
+      </div>
       <div class="large-blob-5-6">
-        <p class="word-break"><a 
-          :href="company['site']"
-          class="btn h6 bold py-xs px-s rnd"
-        >{{ company['site'] }}</a></p>
+        <p class="word-break">
+          <a 
+            :href="company['site']"
+            class="btn h6 bold py-xs px-s rnd"
+          >
+            {{ company['site'] }}
+          </a>
+        </p>
       </div>
     </div>
 
@@ -71,21 +96,24 @@
       v-if="company['contacts']"
       class="large-blobs"
     >
-      <div class="large-blob-1-6"><h6>{{ company['contacts'] && company['contacts'].length > 1 ? 'Contacts' : 'Contact' }}</h6></div>
+      <div class="large-blob-1-6">
+        <h6>{{ company['contacts'] && company['contacts'].length > 1 ? 'Contacts' : 'Contact' }}</h6>
+      </div>
       <div class="large-blob-5-6">
         <ul class="list-inline">
           <li
             v-for="contact in company['contacts']"
             :key="contact.id"
             class="word-break"
-          ><button class="btn h6 bold py-xs px-s rnd">{{ contact['prénom'] }} {{ contact['nom'] }}</button>
+          >
+            <button class="btn h6 bold py-xs px-s rnd">
+              {{ contact['prénom'] }} {{ contact['nom'] }}
+            </button>
           </li>
         </ul>
       </div>
     </div>
-
-
-  </accordion>
+  </Accordion>
 </template>
 
 <script>

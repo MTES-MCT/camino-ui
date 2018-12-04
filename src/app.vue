@@ -1,33 +1,33 @@
 <template>
-  <page>
-    <component
+  <Page>
+    <Component
       :is="menu.component"
       v-if="menu.component"
       slot="menu"
     />
 
-    <page-header slot="header" />
+    <PageHeader slot="header" />
 
-    <messages 
+    <Messages 
       slot="messages" 
       :messages="messages"
     />
 
-    <error 
+    <Error 
       v-if="error" 
       :message="error"
     />
     
-    <router-view v-if="!error" />
+    <RouterView v-if="!error" />
     
-    <component
+    <Component
       :is="popup.component"
       slot="popup"
       v-bind="popup.props"
     />
     
-    <page-footer slot="footer" />
-  </page>
+    <PageFooter slot="footer" />
+  </Page>
 </template>
 
 <script>

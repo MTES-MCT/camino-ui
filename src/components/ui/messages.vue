@@ -1,5 +1,5 @@
 <template>
-  <transition-group 
+  <TransitionGroup 
     name="slide" 
     class="list-sans mb-0"
     tag="ul"
@@ -9,8 +9,12 @@
       :key="index" 
       class="mb p-s color-bg"
       :class="`bg-${message.type}`"
-    ><span class="cap-first">{{ message.value }}</span></li>
-  </transition-group>
+    >
+      <span class="cap-first">
+        {{ message.value }}
+      </span>
+    </li>
+  </TransitionGroup>
 </template>
 
 <script>

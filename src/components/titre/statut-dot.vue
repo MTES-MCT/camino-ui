@@ -1,5 +1,5 @@
 <template>
-  <dot :color="colorGet(statut)" />
+  <Dot :color="colorGet(statut)" />
 </template>
 
 <script>

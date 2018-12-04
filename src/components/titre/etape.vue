@@ -1,11 +1,13 @@
 <template>
-  <accordion 
+  <Accordion 
     class="mb" 
     :sub="true"
   >
     <template slot="title">
-      <dot :color="`bg-${etape.statut.couleur}`" />
-      <span class="cap-first">{{ etape.type.nom }}</span>
+      <Dot :color="`bg-${etape.statut.couleur}`" />
+      <span class="cap-first">
+        {{ etape.type.nom }}
+      </span>
     </template>
 
     <template 
@@ -62,7 +64,9 @@
         >
           <h6>Titulaires</h6>
           <p>–</p>
-          <p class="hide">{{ etape.titulaires.map(t => t.nom).join(', ') }}</p>
+          <p class="hide">
+            {{ etape.titulaires.map(t => t.nom).join(', ') }}
+          </p>
         </div>
         <div 
           v-if="etape.amodiataires.length > 0" 
@@ -70,23 +74,25 @@
         >
           <h6>Amodiataires</h6>
           <p>–</p>
-          <p class="hide">{{ etape.amodiataires.map(t => t.nom).join(', ') }}</p>
+          <p class="hide">
+            {{ etape.amodiataires.map(t => t.nom).join(', ') }}
+          </p>
         </div>
         <div 
           v-if="etape.substances.length > 0" 
           class="tablet-blob-1-2 large-blob-1-4"
         >
           <h6>Substances</h6>
-          <pill-list :elements="etape.substances.map(s => s.nom)" />
+          <PillList :elements="etape.substances.map(s => s.nom)" />
         </div>
       </div>
     </template>
     
-    <documents 
+    <Documents 
       v-if="etape.documents.length > 0"
       :documents="etape.documents"
     />
-  </accordion>
+  </Accordion>
 </template>
 
 <script>

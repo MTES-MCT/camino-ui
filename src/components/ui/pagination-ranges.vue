@@ -1,6 +1,8 @@
 <template>
-  <accordion class="mb">
-    <template slot="title">Pages</template>
+  <Accordion class="mb">
+    <template slot="title">
+      Pages
+    </template>
     <ul class="list-sans mt-m">
       <li
         v-for="range in ranges"
@@ -18,7 +20,7 @@
         </label>
       </li>
     </ul>
-  </accordion>
+  </Accordion>
 </template>
 
 <script>

@@ -1,9 +1,19 @@
 <template>
-  <popup>
+  <Popup>
     <template slot="header">
       <div>
-        <h5><span class="cap-first">{{ titreNom }}</span><span class="color-neutral"> | </span><span class="cap-first">{{ demarcheNom }}</span></h5>
-        <h2 class="cap-first mb-0">{{ etape && etape.type.nom }}</h2>
+        <h5>
+          <span class="cap-first">
+            {{ titreNom }}
+          </span><span class="color-neutral">
+            |
+          </span><span class="cap-first">
+            {{ demarcheNom }}
+          </span>
+        </h5>
+        <h2 class="cap-first mb-0">
+          {{ etape && etape.type.nom }}
+        </h2>
       </div>
     </template>
 
@@ -76,14 +86,15 @@
     </div>
 
     <div>
-      <h3 class="mb-s">Périmètre ({{ etape.points.length }} points)</h3>
+      <h3 class="mb-s">
+        Périmètre ({{ etape.points.length }} points)
+      </h3>
       <div class="h5 mb-s">
         <ul class="list-prefix">
           <li><b>Point</b>: le sommet d'un contour défini par des coordoonnées dans le système WGS 84.</li>
           <li><b>Contour</b>: un ensemble de points. Le premier et le dernier points doivent être identiques.</li>
           <li><b>Groupe</b>: un ensemble de contours. Le premier contour d'un groupe définit un périmètre, les contours suivants au sein du groupe définissent des trous dans ce périmètre.</li>
           <li><b>Références</b>: les coordonnées du point dans un système autre que WGS 84.</li>
-
         </ul>
       </div>
       <hr>
@@ -228,7 +239,6 @@
           </button>
           <hr>
         </div>
-
       </div>
     </div>
 
@@ -236,12 +246,16 @@
       <button 
         class="btn-border rnd-xs p-s full-x mb  flex" 
         @click="pointAdd"
-      >Ajouter un point<i class="icon-24 icon-24-plus flex-right" /></button>
+      >
+        Ajouter un point<i class="icon-24 icon-24-plus flex-right" />
+      </button>
       <hr>
     </div>
 
     <div>
-      <h3 class="mb-s">Titulaires ({{ etape.titulaires.length }})</h3>
+      <h3 class="mb-s">
+        Titulaires ({{ etape.titulaires.length }})
+      </h3>
       <hr>
       <div
         v-for="(titulaire, n) in etape.titulaires"
@@ -258,7 +272,8 @@
               :key="`titulaire-${titulaire.id}-entreprise-${entreprise.id}`"
               :value="entreprise"
               :disabled="etape.titulaires.find(t => t.id === entreprise.id)"
-            >{{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
+            >
+              {{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
             </option>
           </select>
           <div class="flex-right">
@@ -278,13 +293,17 @@
       <button 
         class="btn-border rnd-xs p-s full-x mb  flex" 
         @click="titulaireAdd"
-      >Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" /></button>
+      >
+        Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" />
+      </button>
       <hr>
     </div>
 
     
     <div>
-      <h3 class="mb-s">Amodiataires ({{ etape.amodiataires.length }})</h3>
+      <h3 class="mb-s">
+        Amodiataires ({{ etape.amodiataires.length }})
+      </h3>
       <hr>
       <div
         v-for="(amodiataire, n) in etape.amodiataires"
@@ -301,7 +320,8 @@
               :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
               :value="entreprise"
               :disabled="etape.amodiataires.find(a => a.id === entreprise.id)"
-            >{{ entreprise.nom }} ({{ entreprise.id }})
+            >
+              {{ entreprise.nom }} ({{ entreprise.id }})
             </option>
           </select>
 
@@ -322,12 +342,16 @@
       <button 
         class="btn-border rnd-xs p-s full-x mb  flex" 
         @click="amodiataireAdd"
-      >Ajouter un amodiataire<i class="icon-24 icon-24-plus flex-right" /></button>
+      >
+        Ajouter un amodiataire<i class="icon-24 icon-24-plus flex-right" />
+      </button>
       <hr>
     </div>
 
     <div>
-      <h3 class="mb-s">Substances ({{ etape.substances.length }})</h3>
+      <h3 class="mb-s">
+        Substances ({{ etape.substances.length }})
+      </h3>
       <hr>
       <div
         v-for="(etapeSubstance, n) in etape.substances"
@@ -345,7 +369,8 @@
               :key="substance.id"
               :value="substance.id"
               :disabled="etape.substances.find(s => s.id === substance.id)"
-            >{{ substance.nom }}
+            >
+              {{ substance.nom }}
             </option>
           </select>
           <div class="flex-right">
@@ -365,28 +390,34 @@
       <button 
         class="btn-border rnd-xs p-s full-x mb  flex" 
         @click="substanceAdd"
-      >Ajouter une substance<i class="icon-24 icon-24-plus flex-right" /></button>
+      >
+        Ajouter une substance<i class="icon-24 icon-24-plus flex-right" />
+      </button>
       <hr>
     </div>
 
     <template slot="footer">
-      <messages :messages="messages" />
+      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
-          >Annuler</button>
+          >
+            Annuler
+          </button>
         </div>
         <div class="tablet-blob-2-3">
           <button
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
-          >Enregistrer</button>
+          >
+            Enregistrer
+          </button>
         </div>
       </div>
     </template>
-  </popup>
+  </Popup>
 </template>
 
 <script>

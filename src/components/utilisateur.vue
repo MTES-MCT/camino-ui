@@ -1,15 +1,19 @@
 <template>
-  <card v-if="!loaded">
-    <loader />
-  </card>
-  <card v-else>
-    <h1 class="mt-xs">{{ utilisateur ? `${utilisateur.prenom || '–' } ${utilisateur.nom || '–' }` : '–' }}</h1>
-    <accordion 
+  <Card v-if="!loaded">
+    <Loader />
+  </Card>
+  <Card v-else>
+    <h1 class="mt-xs">
+      {{ utilisateur ? `${utilisateur.prenom || '–' } ${utilisateur.nom || '–' }` : '–' }}
+    </h1>
+    <Accordion 
       class="mb" 
       :sub="true"
     >
       <template slot="title">
-        <span class="cap-first">Profil</span>
+        <span class="cap-first">
+          Profil
+        </span>
       </template>
   
       <template 
@@ -41,7 +45,9 @@
       <template slot="sub">
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">Prénom</h6>
+            <h6 class="mt-xs">
+              Prénom
+            </h6>
           </div>
           <div class="tablet-blob-3-4">
             <p>{{ utilisateur.prenom || '–' }}</p>
@@ -49,7 +55,9 @@
         </div>
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">Nom</h6>
+            <h6 class="mt-xs">
+              Nom
+            </h6>
           </div>
           <div class="tablet-blob-3-4">
             <p>{{ utilisateur.nom || '–' }}</p>
@@ -58,7 +66,9 @@
       
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">Email</h6>
+            <h6 class="mt-xs">
+              Email
+            </h6>
           </div>
           <div class="tablet-blob-3-4">
             <p>{{ utilisateur.email || '–' }}</p>
@@ -67,7 +77,9 @@
 
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">Téléphone fixe</h6>
+            <h6 class="mt-xs">
+              Téléphone fixe
+            </h6>
           </div>
           <div class="tablet-blob-3-4">
             <p>{{ utilisateur.telephoneFixe || '–' }}</p>
@@ -76,7 +88,9 @@
 
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">Téléphone mobile</h6>
+            <h6 class="mt-xs">
+              Téléphone mobile
+            </h6>
           </div>
           <div class="tablet-blob-3-4">
             <p>{{ utilisateur.telephoneMobile || '–' }}</p>
@@ -88,19 +102,23 @@
           class="tablet-blobs"
         >
           <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">Permissions</h6>
+            <h6 class="mt-xs">
+              Permissions
+            </h6>
           </div>
           <div class="tablet-blob-3-4">
-            <pill 
+            <Pill 
               v-if="utilisateur.permission"
               class="mb"
             >
               {{ utilisateur.permission.nom }}
-            </pill>
+            </Pill>
             <div 
               v-else
               class="mb"
-            >–</div>
+            >
+              –
+            </div>
           </div>
         </div>
 
@@ -109,15 +127,17 @@
           class="tablet-blobs"
         >
           <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">Entreprise</h6>
+            <h6 class="mt-xs">
+              Entreprise
+            </h6>
           </div>
           <div class="tablet-blob-3-4">
             <p>{{ utilisateur.entreprise.nom || '–' }}</p>
           </div>
         </div>
       </template>
-    </accordion>
-  </card>
+    </Accordion>
+  </Card>
 </template>
 
 <script>

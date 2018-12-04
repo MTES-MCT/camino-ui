@@ -1,12 +1,11 @@
 <template>
   <div class="page relative">
-
-    <transition 
+    <Transition 
       name="slide" 
       mode="out-in"
     >
       <slot name="menu" />
-    </transition>
+    </Transition>
 
     <header class="header">
       <div class="container">
@@ -24,16 +23,16 @@
       </div>
     </main>
 
-    <transition name="fade">
+    <Transition name="fade">
       <div
         v-if="$slots.popup"
         class="absolute full bg-inverse-alpha" 
       />
-    </transition>
+    </Transition>
 
-    <transition name="slide-top">
+    <Transition name="slide-top">
       <slot name="popup" />
-    </transition>
+    </Transition>
 
     <footer class="footer">
       <div class="container">

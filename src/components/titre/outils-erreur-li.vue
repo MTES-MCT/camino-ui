@@ -3,7 +3,9 @@
     <button 
       class="btn-alt rnd-xs py-s px-m" 
       @click="emailSend"
-    >Signaler une erreur…</button>
+    >
+      Signaler une erreur…
+    </button>
   </li>
 </template>
 

@@ -1,7 +1,9 @@
 <template>
-  <popup>
+  <Popup>
     <template slot="header">
-      <h2 class="mb-0 mt-xs">Connexion</h2>
+      <h2 class="mb-0 mt-xs">
+        Connexion
+      </h2>
     </template>
 
     <div class="tablet-blobs mb">
@@ -30,13 +32,15 @@
     </div>
 
     <template slot="footer">
-      <messages :messages="messages" />
+      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3">
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
-          >Annuler</button>
+          >
+            Annuler
+          </button>
         </div>
         <div 
           class="tablet-blob-2-3"
@@ -45,19 +49,25 @@
           <button
             class="btn-flash rnd-xs p-s full-x"
             @click="login"
-          >Se connecter</button>
+          >
+            Se connecter
+          </button>
         </div>
       </div>
       <button 
         class="btn-alt rnd-xs p-s h5 mr-s" 
         @click="userAddPopupOpen"
-      >Créer votre compte…</button>
+      >
+        Créer votre compte…
+      </button>
       <button 
         class="btn-alt rnd-xs p-s h5 mr-s" 
         @click="userPasswordInitPopupOpen"
-      >Réinitialiser votre mot de passe…</button>
+      >
+        Réinitialiser votre mot de passe…
+      </button>
     </template>
-  </popup>
+  </Popup>
 </template>
 
 <script>

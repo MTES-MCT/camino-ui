@@ -5,12 +5,14 @@
         <tr>
           <th />
           <th>Nom</th>
-          <th class="hide">Titulaires</th>
+          <th class="hide">
+            Titulaires
+          </th>
           <th>Type</th>
           <th>Statut</th>
           <th>Substances</th>
         </tr>
-        <router-link
+        <RouterLink
           v-for="titre in titresPages[pageActive]"
           :key="titre.id"
           :to="{ name: 'titre', params: { id: titre.id }}"
@@ -18,12 +20,16 @@
           class="tr-link"
         >
           <td>
-            <pill
+            <Pill
               :color="`bg-title-domaine-${titre.domaine.id}`"
               class="mono"
-            >{{ titre.domaine.id }}</pill>
+            >
+              {{ titre.domaine.id }}
+            </Pill>
           </td>
-          <td class="bold">{{ titre.nom }}</td>
+          <td class="bold">
+            {{ titre.nom }}
+          </td>
           <td 
             v-if="titre.titulaires" 
             class="hide"
@@ -36,25 +42,29 @@
             </div>
           </td>
           <td>
-            <span class="cap-first">{{ titre.type.nom }}</span>
+            <span class="cap-first">
+              {{ titre.type.nom }}
+            </span>
           </td>
           <td>
-            <dot :color="`bg-${titre.statut.couleur}`" />
-            <span class="cap-first">{{ titre.statut.nom }}</span>
+            <Dot :color="`bg-${titre.statut.couleur}`" />
+            <span class="cap-first">
+              {{ titre.statut.nom }}
+            </span>
           </td>
           <td>
-            <pill-list
+            <PillList
               v-if="titre.substances"
               :elements="titre.substances.map(s => s.nom)"
               class="mb--xs"
             />
           </td>
-        </router-link>
+        </RouterLink>
       </table>
     </div>
     <div class="desktop-blobs">
       <div class="desktop-blob-3-4">
-        <pagination
+        <Pagination
           :page-active="pageActive"
           :pages-total="titresPages.length - 1"
           :pages-visible="5"
@@ -62,14 +72,16 @@
         />
       </div>
       <div class="desktop-blob-1-4">
-        <pagination-ranges 
+        <PaginationRanges 
           :ranges="pagesRanges" 
           :range-active="pagesRangeActive"
           @page-range-change="pageRangeChange"
         />
         <div class="hide">
-          <accordion class="mb">
-            <template slot="title">Affichage</template>
+          <Accordion class="mb">
+            <template slot="title">
+              Affichage
+            </template>
             <ul class="list-sans">
               <li
                 v-for="colonne in colonnes"
@@ -84,7 +96,7 @@
                 </label>
               </li>
             </ul>
-          </accordion>
+          </Accordion>
         </div>
       </div>
     </div>

@@ -7,7 +7,8 @@
     <ul>
       <li>Monsieur Paul Delduc, directeur général de l’aménagement, du logement et de la nature (DGALN) </li>
       <li>
-        Monsieur Laurent Michel, directeur général de l’énergie et du climat (DGEC).</li>
+        Monsieur Laurent Michel, directeur général de l’énergie et du climat (DGEC).
+      </li>
     </ul>
     <h3>Prestataire d’hébergement</h3>
     <p>

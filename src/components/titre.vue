@@ -1,16 +1,22 @@
 <template>
   <div>
-    <loader v-if="!loaded" />
-    <card v-else>
+    <Loader v-if="!loaded" />
+    <Card v-else>
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2">
-          <h1 class="mt-xs">{{ titre['nom'] }}</h1>
+          <h1 class="mt-xs">
+            {{ titre['nom'] }}
+          </h1>
           <h4 class="mb">
-            <pill
+            <Pill
               :color="`bg-title-domaine-${titre.domaine.id}`"
               class="mono mr-s mt--s"
-            >{{ titre.domaine.id }}</pill>
-            <span class="cap-first">{{ titre.type.nom }}</span>
+            >
+              {{ titre.domaine.id }}
+            </Pill>
+            <span class="cap-first">
+              {{ titre.type.nom }}
+            </span>
           </h4>
           <div v-if="titre.references">
             <h6>{{ titre.references.length > 1 ? 'Références' : 'Référence' }}</h6>
@@ -22,7 +28,9 @@
                 <span
                   v-if="reference.type"
                   class="h5 word-break color-neutral fixed-width"
-                >{{ reference.type }}</span>
+                >
+                  {{ reference.type }}
+                </span>
                 {{ reference.valeur }}
               </li>
             </ul>
@@ -31,8 +39,10 @@
         <div class="desktop-blob-1-2">
           <h6>Statut</h6>
           <h4>
-            <dot :color="`bg-${titre.statut.couleur}`" />
-            <span class="cap-first">{{ titre.statut.nom }}</span>
+            <Dot :color="`bg-${titre.statut.couleur}`" />
+            <span class="cap-first">
+              {{ titre.statut.nom }}
+            </span>
           </h4>
 
           <div>
@@ -48,10 +58,12 @@
                 :key="demarche.id"
               >
                 <td>
-                  <dot :color="`bg-${demarche.phase.statut.couleur}`" />
+                  <Dot :color="`bg-${demarche.phase.statut.couleur}`" />
                 </td>
                 <td>
-                  <span class="cap-first">{{ demarche.type.nom }}</span>
+                  <span class="cap-first">
+                    {{ demarche.type.nom }}
+                  </span>
                 </td>
                 <td>{{ demarche.phase.dateDebut | dateFormat }}</td>
                 <td>{{ demarche.phase.dateFin | dateFormat }}</td>
@@ -64,7 +76,7 @@
         <div class="desktop-blob-1-2">
           <div v-if="titre.substances && titre.substances.length > 0">
             <h6>Substances</h6>
-            <pill-list :elements="titre.substances.map(s => s.nom)" />
+            <PillList :elements="titre.substances.map(s => s.nom)" />
           </div>
         </div>
         <div class="desktop-blob-1-2">
@@ -74,7 +86,9 @@
               <li 
                 v-for="titulaire in titre.titulaires" 
                 :key="titulaire.id"
-              >{{ titulaire['nom'] }}</li>
+              >
+                {{ titulaire['nom'] }}
+              </li>
             </ul>
           </div>
           <div v-if="titre['liens']">
@@ -85,16 +99,18 @@
                 :key="link.id" 
                 class="mb-xs"
               >
-                <router-link
+                <RouterLink
                   :to="{ name: 'titre', params: { id: link.id }}"
                   class="btn h6 bold py-xs px-s rnd"
-                >{{ link['type'] }} : {{ link['nom'] }}</router-link>
+                >
+                  {{ link['type'] }} : {{ link['nom'] }}
+                </RouterLink>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <titre-map 
+      <TitreMap 
         v-if="titre.geojsonMultiPolygon" 
         :geojson="titre.geojsonMultiPolygon" 
         class="mb"
@@ -128,8 +144,10 @@
               v-for="(communes, departement) in departements" 
               :key="departement"
             >
-              <h5 class="mb-xs">{{ region }} / {{ departement }}</h5>
-              <pill-list :elements="communes" />
+              <h5 class="mb-xs">
+                {{ region }} / {{ departement }}
+              </h5>
+              <PillList :elements="communes" />
             </div>
           </div>
         </div>
@@ -139,7 +157,7 @@
         <div class="tablet-blob-1-2">
           <div v-if="titre.titulaires">
             <h6>{{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
-            <company
+            <Company
               v-for="holder in titre.titulaires"
               :key="holder['id']"
               :company="holder"
@@ -148,7 +166,7 @@
           </div>
           <div v-if="titre.amodiataires">
             <h6>{{ titre.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}</h6>
-            <company
+            <Company
               v-for="holder in titre.amodiataires"
               :key="holder['id']"
               :company="holder"
@@ -159,7 +177,7 @@
 
         <div class="tablet-blob-1-2">
           <h6>Administrations</h6>
-          <company
+          <Company
             v-for="referent in titre['administrations']"
             :key="referent['id']"
             :company="referent"
@@ -172,7 +190,9 @@
         v-if="titre['démarches en cours']" 
         class="mb-xxl"
       >
-        <h4 class="mt-s">Démarches en cours</h4>
+        <h4 class="mt-s">
+          Démarches en cours
+        </h4>
         <hr class="mb-0">
         <div class="overflow-scroll-x">
           <table>
@@ -187,24 +207,26 @@
               class="h5"
             >
               <td>
-                <pill class="mt--s mb--s">{{ d.type }}</pill>
+                <Pill class="mt--s mb--s">
+                  {{ d.type }}
+                </Pill>
               </td>
               <td>{{ d.nom }}</td>
               <td>
-                <dot :color="d.statut.couleur" />
+                <Dot :color="d.statut.couleur" />
                 {{ d.statut.nom }}
               </td>
             </tr>
           </table>
         </div>
       </div>
-      <demarches 
+      <Demarches 
         v-if="titre.demarches" 
         :demarches="titre.demarches"
       />
 
-      <outils />
-    </card>
+      <Outils />
+    </Card>
   </div>
 </template>
 

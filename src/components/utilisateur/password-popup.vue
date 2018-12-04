@@ -1,8 +1,10 @@
 <template>
-  <popup>
+  <Popup>
     <template slot="header">
       <div>
-        <h2 class="mb-0">Modification du mot de passe</h2>
+        <h2 class="mb-0">
+          Modification du mot de passe
+        </h2>
       </div>
     </template>
 
@@ -51,14 +53,16 @@
     </div>
 
     <template slot="footer">
-      <messages :messages="messages" />
+      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
             @keyup.esc.native="cancel"
-          >Annuler</button>
+          >
+            Annuler
+          </button>
         </div>
         <div 
           class="tablet-blob-2-3"
@@ -68,11 +72,13 @@
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
             @keyup.enter.native="save"
-          >Enregistrer</button>
+          >
+            Enregistrer
+          </button>
         </div>
       </div>
     </template>
-  </popup>
+  </Popup>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <titre-demarche
+    <TitreDemarche
       v-for="demarche in demarches"
       :key="demarche.id" 
       :demarche="demarche"

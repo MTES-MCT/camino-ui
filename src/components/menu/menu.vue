@@ -4,19 +4,23 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3">
           <ul class="list-sans">
-
             <li>
-              <router-link
+              <RouterLink
                 :to="{ name: 'titres' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
-              >Titres miniers</router-link>
+              >
+                Titres miniers
+              </RouterLink>
             </li>
-            <li><router-link
-              :to="{ name: 'utilisateurs' }"
-              class="btn-transparent text-decoration-none bold"
-              active-class="active"
-            >Utilisateurs</router-link>
+            <li>
+              <RouterLink
+                :to="{ name: 'utilisateurs' }"
+                class="btn-transparent text-decoration-none bold"
+                active-class="active"
+              >
+                Utilisateurs
+              </RouterLink>
             </li>
             <li><a href="" /></li>
           </ul>
@@ -24,7 +28,6 @@
       </div>
     </div>
   </div>
-  
 </template>
 
 <script>

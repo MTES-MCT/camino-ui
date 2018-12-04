@@ -1,16 +1,18 @@
 <template>
-  <accordion
+  <Accordion
     :sub="false"
     class="mb"
   >
-    <template slot="title">Filtres</template>
+    <template slot="title">
+      Filtres
+    </template>
     <template slot="sub">
       <ul class="list-sans mb-xxs">
         <li
           v-for="filterSelected in filterSelecteds"
           :key="filterSelected.name"
         >
-          <pill>{{ filterSelected.name }}</pill>
+          <Pill>{{ filterSelected.name }}</Pill>
         </li>
       </ul>
     </template>
@@ -68,10 +70,12 @@
                 class="mr-s"
                 @change="domaineToggle"
               >
-              <pill
+              <Pill
                 :color="`bg-title-domaine-${domaine.id}`"
                 class="mr-xs mono"
-              >{{ domaine.id }}</pill>
+              >
+                {{ domaine.id }}
+              </Pill>
               {{ domaine.nom }}
             </label>
           </li>
@@ -93,7 +97,9 @@
                   class="mr-s"
                   @change="typeToggle"
                 >
-                <span class="cap-first">{{ type.nom }}</span>
+                <span class="cap-first">
+                  {{ type.nom }}
+                </span>
               </label>
             </li>
           </ul>
@@ -115,7 +121,7 @@
                   class="mr-s"
                   @change="statutToggle"
                 >
-                <dot :color="`bg-${statut.couleur}`" />
+                <Dot :color="`bg-${statut.couleur}`" />
                 {{ statut.nom }}
               </label>
             </li>
@@ -123,7 +129,7 @@
         </div>
       </div>
     </div>
-  </accordion>
+  </Accordion>
 </template>
 
 <script>

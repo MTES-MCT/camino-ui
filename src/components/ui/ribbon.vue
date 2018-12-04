@@ -2,7 +2,9 @@
   <div class="ribbon pointer-none">
     <div class="relative full-y">
       <div class="absolute full ribbon-bloc">
-        <span class="p-xs">{{ value }}</span>
+        <span class="p-xs">
+          {{ value }}
+        </span>
       </div>
     </div>
   </div>

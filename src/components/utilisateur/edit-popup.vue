@@ -1,8 +1,10 @@
 <template>
-  <popup>
+  <Popup>
     <template slot="header">
       <div>
-        <h2 class="mb-0">{{ creation ? "Création d'un compte utilisateur" : 'Modification du compte utilisateur' }}</h2>
+        <h2 class="mb-0">
+          {{ creation ? "Création d'un compte utilisateur" : 'Modification du compte utilisateur' }}
+        </h2>
       </div>
     </template>
     <div v-if="creation">
@@ -24,7 +26,6 @@
     </div>
 
     <div v-if="creation">
-
       <hr>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
@@ -117,7 +118,9 @@
               <button 
                 class="btn-flash py-xs px-s pill cap-first h6 mr-xs"
                 @click="permissionToggle(permission)"
-              >{{ permission.nom }}</button>
+              >
+                {{ permission.nom }}
+              </button>
             </li>
           </ul>
         </div>
@@ -132,22 +135,26 @@
         <div class="tablet-blob-2-3">
           <ul class="list-inline pt-s">
             <li class="mr">
-              <label><input 
-                v-model="lien"
-                type="radio"
-                :value="'aucun'"
-                :checked="lien === 'aucun'"
-                @change="lienReset"
-              >Aucun</label>
+              <label>
+                <input 
+                  v-model="lien"
+                  type="radio"
+                  :value="'aucun'"
+                  :checked="lien === 'aucun'"
+                  @change="lienReset"
+                >Aucun
+              </label>
             </li>
             <li class="mr">
-              <label><input 
-                v-model="lien"
-                type="radio"
-                :value="'entreprise'"
-                :checked="lien === 'entreprise'"
-                @change="lienReset"
-              >Entreprise</label>
+              <label>
+                <input 
+                  v-model="lien"
+                  type="radio"
+                  :value="'entreprise'"
+                  :checked="lien === 'entreprise'"
+                  @change="lienReset"
+                >Entreprise
+              </label>
             </li>
           </ul>
         </div>
@@ -170,13 +177,13 @@
                 v-for="entreprise in entreprises"
                 :key="entreprise.id"
                 :value="entreprise"
-              >{{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
+              >
+                {{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
               </option>
             </select>
           </div>
         </div>
       </div>
-
     </div>
 
     <div 
@@ -191,18 +198,22 @@
         href="/cgu" 
         target="_blank" 
         rel="noopener noreferrer"
-      >conditions générales d'utilisation</a>.
+      >
+        conditions générales d'utilisation
+      </a>.
     </div>
 
     <template slot="footer">
-      <messages :messages="messages" />
+      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
             @keyup.esc.native="cancel"
-          >Annuler</button>
+          >
+            Annuler
+          </button>
         </div>
         <div 
           class="tablet-blob-2-3"
@@ -212,11 +223,13 @@
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
             @keyup.enter.native="save"
-          >Enregistrer</button>
+          >
+            Enregistrer
+          </button>
         </div>
       </div>
     </template>
-  </popup>
+  </Popup>
 </template>
 
 <script>

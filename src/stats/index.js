@@ -6,7 +6,7 @@ const defaultOptions = {
   trackerFileName: 'piwik'
 }
 
-export default function install(Vue, setupOptions = {}) {
+export default function install (Vue, setupOptions = {}) {
   const options = Object.assign({}, defaultOptions, setupOptions)
 
   bootstrap(options)

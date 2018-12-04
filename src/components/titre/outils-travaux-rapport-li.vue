@@ -6,7 +6,9 @@
     <button 
       class="btn-alt rnd-xs py-s px-m" 
       @click="rapportPopupOpen"
-    >Remplir un rapport…</button>
+    >
+      Remplir un rapport…
+    </button>
   </li>
 </template>
 

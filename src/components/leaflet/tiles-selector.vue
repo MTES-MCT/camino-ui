@@ -1,6 +1,8 @@
 <template>
-  <accordion class="mb">
-    <template slot="title">Fond de carte</template>
+  <Accordion class="mb">
+    <template slot="title">
+      Fond de carte
+    </template>
     <ul class="list-sans mt-m">
       <li
         v-for="tile in tiles"
@@ -18,7 +20,7 @@
         </label>
       </li>
     </ul>
-  </accordion>
+  </Accordion>
 </template>
 
 <script>

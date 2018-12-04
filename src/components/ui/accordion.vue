@@ -1,12 +1,12 @@
 <template>
   <div class="border rnd-xs flex flex-direction-column">
-    
     <div 
       v-if="$slots.buttons" 
       class="flex full-x border-b-s accordion-header"
     >
-     
-      <h4 class="mb-0 py-s px-m"><slot name="title" /></h4>
+      <h4 class="mb-0 py-s px-m">
+        <slot name="title" />
+      </h4>
       <div class="flex-right accordion-buttons">
         <slot name="buttons" />
         <button 
@@ -28,7 +28,9 @@
       class="btn-border py-s px-m flex full-x accordion-header"
       @click="opened = !opened"
     >
-      <h4 class="mb-0"><slot name="title" /></h4>
+      <h4 class="mb-0">
+        <slot name="title" />
+      </h4>
       <div class="flex-right">
         <i  
           class="icon-24"
@@ -41,7 +43,9 @@
       v-else
       class="py-s px-m"
     >
-      <h4 class="mb-0"><slot name="title" /></h4>
+      <h4 class="mb-0">
+        <slot name="title" />
+      </h4>
     </div>
 
     <div
@@ -52,11 +56,10 @@
     </div>
     
     <div class="px-m overflow-hidden">
-      <transition name="slide">
+      <Transition name="slide">
         <slot v-if="opened" />>
-      </transition>
+      </Transition>
     </div>
-
   </div>
 </template>
 

@@ -1,32 +1,44 @@
 <template>
-  <popup>
+  <Popup>
     <template slot="header">
       <div>
-        <h2 class="mb-0">Suppression du compte utilisateur</h2>
+        <h2 class="mb-0">
+          Suppression du compte utilisateur
+        </h2>
       </div>
     </template>
 
-    <p class="bold">Souhaitez vous supprimer le compte de {{ utilisateur.prenom }} {{ utilisateur.nom }} ?</p>
-    <div class="bg-warning color-bg p-s mb-l"><span class="bold">Attention</span>: cette opération est définitive et ne peut pas être annulée.</div>
+    <p class="bold">
+      Souhaitez vous supprimer le compte de {{ utilisateur.prenom }} {{ utilisateur.nom }} ?
+    </p>
+    <div class="bg-warning color-bg p-s mb-l">
+      <span class="bold">
+        Attention
+      </span>: cette opération est définitive et ne peut pas être annulée.
+    </div>
 
     <template slot="footer">
-      <messages :messages="messages" />
+      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
-          >Annuler</button>
+          >
+            Annuler
+          </button>
         </div>
         <div class="tablet-blob-2-3">
           <button
             class="btn-flash rnd-xs p-s full-x"
             @click="remove"
-          >Supprimer</button>
+          >
+            Supprimer
+          </button>
         </div>
       </div>
     </template>
-  </popup>
+  </Popup>
 </template>
 
 <script>
