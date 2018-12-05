@@ -1,34 +1,37 @@
 <template>
   <div>
-    <leaflet-map
+    <LeafletMap
       ref="map"
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
-      :bounds="boundsSelected"
-      @zoom-level="zoomLevelGet"
+      :bounds="bounds"
+      @map-zoom="zoomGet"
+      @map-center="centerGet"
     />
-    <titre-map-warning-brgm 
-      :zoom-level="zoomLevel"
+    <TitreMapWarningBrgm 
+      :zoom="zoom"
       :tiles-name="tilesName"
     />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <ul class="list-inline">
           <li 
-            v-for="(bound, key) in bounds" 
-            :key="key"
+            v-for="z in zones" 
+            :key="z.id"
             class="mr-xs"
           >
             <button
               class="btn-border pill px-m py-s"
-              @click="mapCenter(key)"
-            >{{ bound.name }}</button>
+              @click="mapCenter(z.id)"
+            >
+              {{ z.name }}
+            </button>
           </li>
         </ul>
       </div>
       <div class="desktop-blob-1-2">
-        <Leaflet-tiles-selector
+        <LeafletTilesSelector
           :tiles="tiles"
           :tiles-name="tilesName"
           @tiles-name-set="tilesNameSelect"
@@ -60,32 +63,36 @@ export default {
 
   data () {
     return {
-      bounds: {
-        fr: {
+      zones: [
+        {
+          id: 'fr',
           name: 'Métropole',
           type: 'LineString',
           coordinates: [[-5, 41], [10, 51]]
         },
-        gf: {
+        {
+          id: 'gf',
           name: 'Guyane',
           type: 'LineString',
           coordinates: [[-55, 4], [-50, 7]]
         },
-        oi: {
+        {
+          id: 'oi',
           name: 'Océan Indien',
           type: 'LineString',
           coordinates: [[39, -23], [58, -13]]
         },
-        an: {
+        {
+          id: 'an',
           name: 'Antilles',
           type: 'LineString',
           coordinates: [[-64, 15], [-59, 16]]
         }
-      },
-      boundsName: 'fr',
+      ],
+      zoneId: 'fr',
       geojsonLayers: [],
       markerLayers: [],
-      zoomLevel: 0
+      zoom: 5
     }
   },
 
@@ -93,19 +100,22 @@ export default {
     tilesLayer () {
       const tiles = this.$store.getters['user/tilesActive']
       return tiles.type === 'wms'
-        ?
-        L.tileLayer.wms(tiles.url, {
-          layers: tiles.layers,
-          format: 'image/png',
-          attribution: tiles.attribution
-        }) : L.tileLayer(tiles.url, {
-          attribution: tiles.attribution
-        })
+        ? L.tileLayer.wms(tiles.url, {
+            layers: tiles.layers,
+            format: 'image/png',
+            attribution: tiles.attribution
+          })
+        : L.tileLayer(tiles.url, {
+            attribution: tiles.attribution
+          })
     },
 
-    boundsSelected () {
-      const b = this.bounds[this.boundsName]
-      return L.geoJSON(b).getBounds()
+    zone () {
+      return this.zones.find(z => z.id === this.zoneId)
+    },
+
+    bounds () {
+      return L.geoJSON(this.zone).getBounds()
     },
 
     domaines () {
@@ -121,7 +131,10 @@ export default {
     },
 
     brgmWarning () {
-      return this.tilesName === "BRGM / Cartes géologiques 1/50 000" && (this.zoomLevel < 12 || this.zoomLevel > 16)
+      return (
+        this.tilesName === 'BRGM / Cartes géologiques 1/50 000' &&
+        (this.zoom < 12 || this.zoom > 16)
+      )
     }
   },
 
@@ -131,6 +144,13 @@ export default {
 
   mounted () {
     this.titresInit()
+    const query = this.$route.query
+    if (query.zoom && query.center) {
+      this.$refs.map.setZoom(query.zoom)
+      this.$refs.map.panTo(query.center.split(','))
+    } else {
+      this.$refs.map.fitBounds(this.bounds)
+    }
   },
 
   methods: {
@@ -139,7 +159,9 @@ export default {
       this.geojsonLayers = []
       this.titres.forEach(titre => {
         const icon = L.divIcon({
-          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domaine-${titre.domaine.id} leaflet-marker-title cap`,
+          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domaine-${
+            titre.domaine.id
+          } leaflet-marker-title cap`,
           html: titre.domaine.id,
           iconSize: null,
           iconAnchor: [15.5, 38]
@@ -192,25 +214,40 @@ export default {
             }
           })
           this.geojsonLayers.push(geojsonLayer)
-
         }
       })
     },
 
-    mapCenter (zone) {
-      if (this.boundsName === zone) {
-        this.$refs.map.fit()
+    mapCenter (zoneId) {
+      if (this.zoneId === zoneId) {
+        this.$refs.map.fitBounds(this.bounds)
       } else {
-        this.boundsName = zone
+        this.zoneId = zoneId
       }
     },
 
     tilesNameSelect (tuileNom) {
-      this.$store.commit('user/preferencesMapTilesNameSelect', tuileNom)
+      this.$store.commit('user/preferencesUpdate', {
+        key: 'tilesName',
+        value: tuileNom
+      })
     },
 
-    zoomLevelGet (zoomLevel) {
-      this.zoomLevel = zoomLevel
+    zoomGet (zoom) {
+      this.routeQueryUpdate({ zoom })
+      this.zoom = zoom
+    },
+
+    centerGet (center) {
+      this.routeQueryUpdate({
+        center: `${center.lat.toFixed(7)},${center.lng.toFixed(7)}`
+      })
+    },
+
+    routeQueryUpdate (query) {
+      this.$router.push({
+        query: Object.assign({}, this.$route.query, query)
+      })
     }
   }
 }

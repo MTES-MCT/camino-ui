@@ -17,7 +17,7 @@ export const state = {
 }
 
 export const actions = {
-  async identifier({ commit }) {
+  async identifier ({ commit }) {
     try {
       const user = await utilisateurIdentify()
       commit('set', user)
@@ -27,7 +27,7 @@ export const actions = {
     }
   },
 
-  async login({ commit, dispatch }, { email, motDePasse }) {
+  async login ({ commit, dispatch }, { email, motDePasse }) {
     console.log('object')
     commit('popupMessagesRemove', null, { root: true })
     try {
@@ -52,7 +52,7 @@ export const actions = {
     }
   },
 
-  logout({ commit, dispatch }) {
+  logout ({ commit, dispatch }) {
     commit('menuClose', null, { root: true })
     commit('tokenRemove')
     commit('reset')
@@ -64,7 +64,7 @@ export const actions = {
     dispatch('load', null, { root: true })
   },
 
-  async passwordInitEmail({ commit, dispatch }, { email }) {
+  async passwordInitEmail ({ commit, dispatch }, { email }) {
     commit('popupMessagesRemove', null, { root: true })
     try {
       const res = await utilisateurPasswordInitEmail({ email })
@@ -82,7 +82,7 @@ export const actions = {
     }
   },
 
-  async passwordInit({ commit, dispatch }, { motDePasse1, motDePasse2 }) {
+  async passwordInit ({ commit, dispatch }, { motDePasse1, motDePasse2 }) {
     try {
       const res = await utilisateurPasswordInit({ motDePasse1, motDePasse2 })
 
@@ -114,19 +114,19 @@ export const getters = {
 }
 
 export const mutations = {
-  preferencesMapTilesNameSelect(state, tilesName) {
-    Vue.set(state.preferences.map, 'tilesName', tilesName)
+  preferencesUpdate (state, prop) {
+    Vue.set(state.preferences.map, prop.key, prop.value)
   },
 
-  tokenAdd(state, token) {
+  tokenAdd (state, token) {
     localStorage.setItem('token', token)
   },
 
-  tokenRemove(state) {
+  tokenRemove (state) {
     localStorage.removeItem('token')
   },
 
-  set(state, user) {
+  set (state, user) {
     Vue.set(state, 'current', {})
     Vue.set(state.current, 'id', user.id)
     Vue.set(state.current, 'prenom', user.prenom)
@@ -137,7 +137,7 @@ export const mutations = {
     }
   },
 
-  reset(state) {
+  reset (state) {
     Vue.set(state, 'current', null)
   }
 }

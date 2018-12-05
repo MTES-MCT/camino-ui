@@ -1,25 +1,27 @@
 <template>
   <div>
-    <leaflet-map
+    <LeafletMap
       ref="map" 
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
       :bounds="bounds"
-      @zoom-level="zoomLevelGet"
+      @map-zoom="zoomGet"
     />
-    <map-warning-brgm 
-      :zoom-level="zoomLevel"
+    <MapWarningBrgm 
+      :zoom="zoom"
       :tiles-name="tilesName"
     />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2 mb">
         <button
           class="btn-border pill px-m py-s"
-          @click="$refs.map.fit()"
-        >Centrer</button>
+          @click="center"
+        >
+          Centrer
+        </button>
       </div>
       <div class="desktop-blob-1-2">
-        <Leaflet-tiles-selector
+        <LeafletTilesSelector
           :tiles="tiles"
           :tiles-name="tilesName"
           @tiles-name-set="tilesNameSelect"
@@ -45,7 +47,7 @@ export default {
   props: {
     geojson: {
       type: Object,
-      default: () => { }
+      default: () => {}
     }
   },
 
@@ -53,7 +55,7 @@ export default {
     return {
       map: null,
       geojsonLayers: [L.geoJSON(this.geojson)],
-      zoomLevel: 0
+      zoom: 0
     }
   },
 
@@ -65,14 +67,14 @@ export default {
     tilesLayer () {
       const tiles = this.$store.getters['user/tilesActive']
       return tiles.type === 'wms'
-        ?
-        L.tileLayer.wms(tiles.url, {
-          layers: tiles.layers,
-          format: 'image/png',
-          attribution: tiles.attribution
-        }) : L.tileLayer(tiles.url, {
-          attribution: tiles.attribution
-        })
+        ? L.tileLayer.wms(tiles.url, {
+            layers: tiles.layers,
+            format: 'image/png',
+            attribution: tiles.attribution
+          })
+        : L.tileLayer(tiles.url, {
+            attribution: tiles.attribution
+          })
     },
 
     tiles () {
@@ -84,19 +86,33 @@ export default {
     },
 
     brgmWarning () {
-      return this.tilesName === "BRGM / Cartes géologiques 1/50 000" && (this.zoomLevel < 12 || this.zoomLevel > 16)
+      return (
+        this.tilesName === 'BRGM / Cartes géologiques 1/50 000' &&
+        (this.zoom < 12 || this.zoom > 16)
+      )
     }
+  },
+
+  mounted () {
+    this.center()
   },
 
   methods: {
     tilesNameSelect (tuileNom) {
-      this.$store.commit('user/preferencesMapTilesNameSelect', tuileNom)
+      console.log(tuileNom)
+      this.$store.commit('user/preferencesUpdate', {
+        key: 'tilesName',
+        value: tuileNom
+      })
     },
 
-    zoomLevelGet (zoomLevel) {
-      this.zoomLevel = zoomLevel
+    zoomGet (zoom) {
+      this.zoom = zoom
+    },
+
+    center () {
+      this.$refs.map.fitBounds(this.bounds)
     }
   }
-
 }
 </script>

@@ -14,7 +14,7 @@ export default {
       type: String,
       default: ''
     },
-    zoomLevel: {
+    zoom: {
       type: Number,
       default: 0
     }
@@ -22,7 +22,10 @@ export default {
 
   computed: {
     brgmWarning () {
-      return this.tilesName === "BRGM / Cartes géologiques 1/50 000" && (this.zoomLevel < 12 || this.zoomLevel > 16)
+      return (
+        this.tilesName === 'BRGM / Cartes géologiques 1/50 000' &&
+        (this.zoom < 12 || this.zoom > 16)
+      )
     }
   }
 }

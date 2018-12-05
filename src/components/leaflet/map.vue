@@ -5,7 +5,9 @@
     class="map mb"
   >
     <div class="absolute px-s py-xs map-loader">
-      <div class="h6">Zoom: {{ zoomLevel }}</div>
+      <div class="h6">
+        Zoom: {{ zoom }}
+      </div>
     </div>
   </div>
 </template>
@@ -39,32 +41,29 @@ export default {
     },
     tilesLayer: {
       type: Object,
-      default: () => L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 20,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      })
-    },
-    bounds: {
-      type: Object,
-      default: () => L.latLngBounds(L.latLng(60, -85), L.latLng(-30, 85))
+      default: () =>
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 20,
+          attribution:
+            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        })
     }
   },
 
   data () {
     return {
       map: null,
-      zoomLevel: 0,
+      zoom: 0,
       layers: {
         tiles: {},
         geojsons: [],
         markers: []
       },
-      boundsGet: null
+      center: null
     }
   },
 
   watch: {
-    bounds: 'fit',
     tilesLayer: 'tilesUpdate',
     geojsonLayers: 'geojsonsUpdate',
     markerLayers: 'markersUpdate'
@@ -72,7 +71,6 @@ export default {
 
   mounted () {
     this.init()
-    this.fit()
     this.scaleAdd()
     this.tilesAdd()
     this.geojsonsAdd()
@@ -82,22 +80,32 @@ export default {
   methods: {
     init () {
       this.map = L.map(this.$refs.map, {
-        doubleClickZoom: false
+        doubleClickZoom: false,
+        minZoom: 3
         // zoomControl: false
       })
 
       this.map.on('zoomend', () => {
-        this.zoomLevel = this.map.getZoom()
-        this.$emit('zoom-level', this.zoomLevel)
+        this.zoom = this.map.getZoom()
+        this.$emit('map-zoom', this.zoom)
       })
 
       this.map.on('moveend', () => {
-        this.boundsGet = this.map.getBounds()
+        this.center = this.map.getCenter()
+        this.$emit('map-center', this.center)
       })
     },
 
-    fit () {
-      this.map.fitBounds(this.bounds)
+    fitBounds (bounds) {
+      this.map.fitBounds(bounds)
+    },
+
+    panTo (center) {
+      this.map.panTo(center)
+    },
+
+    setZoom (zoom) {
+      this.map.setZoom(zoom)
     },
 
     scaleAdd () {
