@@ -1,9 +1,10 @@
 <template>
-  <div 
+  <div
     v-if="brgmWarning"
     class="bg-warning p-s color-bg mb"
   >
-    Le fond de carte selectionné n'est visible que si le zoom est compris entre 12 et 16.
+    Le fond de carte selectionné n'est visible que si le zoom est compris entre
+    12 et 16.
   </div>
 </template>
 

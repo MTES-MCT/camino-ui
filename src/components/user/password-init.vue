@@ -9,24 +9,24 @@
           <h6>Nouveau mot de passe</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <input 
+          <input
             v-model="motDePasse1"
-            type="password" 
+            type="password"
             class="p-s bg-bg"
             placeholder="Mot de passe"
           >
         </div>
       </div>
       <hr>
-  
+
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Nouveau mot de passe (vérification)</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <input 
+          <input
             v-model="motDePasse2"
-            type="password" 
+            type="password"
             class="p-s bg-bg"
             placeholder="Mot de passe"
           >
@@ -35,7 +35,7 @@
       <hr>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3" />
-        <div 
+        <div
           class="tablet-blob-2-3"
           :class="{ disabled: !complete }"
         >
@@ -84,12 +84,17 @@ export default {
   methods: {
     save () {
       if (this.complete && !this.done) {
-        localStorage.setItem('token', this.$route.query.token)
-        this.$store.dispatch('user/passwordInit', { motDePasse1: this.motDePasse1, motDePasse2: this.motDePasse2 }).then(r => {
-          if (r) {
-            this.done = true
-          }
-        })
+        this.$store.dispatch('user/tokenSet', this.$route.query.token)
+        this.$store
+          .dispatch('user/passwordInit', {
+            motDePasse1: this.motDePasse1,
+            motDePasse2: this.motDePasse2
+          })
+          .then(r => {
+            if (r) {
+              this.done = true
+            }
+          })
       }
     },
 
@@ -100,10 +105,4 @@ export default {
     }
   }
 }
-
 </script>
-
-
-
-
-

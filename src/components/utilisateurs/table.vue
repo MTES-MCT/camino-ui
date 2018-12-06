@@ -11,12 +11,12 @@
         <RouterLink
           v-for="utilisateur in utilisateursPages[pageActive]"
           :key="utilisateur.id"
-          :to="{ name: 'utilisateur', params: { id: utilisateur.id }}"
+          :to="{ name: 'utilisateur', params: { id: utilisateur.id } }"
           tag="tr"
           class="tr-link"
         >
-          <td>{{ utilisateur.prenom || '–' }}</td>
-          <td>{{ utilisateur.nom || '–' }}</td>
+          <td>{{ utilisateur.prenom || "–" }}</td>
+          <td>{{ utilisateur.nom || "–" }}</td>
           <td>{{ utilisateur.email }}</td>
           <td>
             <Pill v-if="utilisateur.permission">
@@ -36,8 +36,8 @@
         />
       </div>
       <div class="desktop-blob-1-4">
-        <PaginationRanges 
-          :ranges="pagesRanges" 
+        <PaginationRanges
+          :ranges="pagesRanges"
           :range-active="pagesRangeActive"
           @page-range-change="pageRangeChange"
         />

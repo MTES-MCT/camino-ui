@@ -3,12 +3,16 @@
     <template slot="header">
       <div>
         <h2 class="mb-0">
-          {{ creation ? "Création d'un compte utilisateur" : 'Modification du compte utilisateur' }}
+          {{
+            creation
+              ? "Création d'un compte utilisateur"
+              : "Modification du compte utilisateur"
+          }}
         </h2>
       </div>
     </template>
     <div v-if="creation">
-      <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom. </p>
+      <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom.</p>
       <hr>
     </div>
     <div class="tablet-blobs">
@@ -16,9 +20,9 @@
         <h6>Email</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model="utilisateur.email"
-          type="text" 
+          type="text"
           class="p-s"
           placeholder="Email"
         >
@@ -32,9 +36,9 @@
           <h6>Mot de passe</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <input 
+          <input
             v-model="utilisateur.motDePasse"
-            type="password" 
+            type="password"
             class="p-s"
             placeholder="Mot de passe"
           >
@@ -48,9 +52,9 @@
         <h6>Prénom</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model="utilisateur.prenom"
-          type="text" 
+          type="text"
           class="p-s"
           placeholder="Prénom"
         >
@@ -63,9 +67,9 @@
         <h6>Nom</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model="utilisateur.nom"
-          type="text" 
+          type="text"
           class="p-s"
           placeholder="Nom"
         >
@@ -78,9 +82,9 @@
         <h6>Téléphone fixe</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model="utilisateur.telephoneFixe"
-          type="text" 
+          type="text"
           class="p-s"
           placeholder="0100000000"
         >
@@ -93,15 +97,15 @@
         <h6>Téléphone mobile</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model="utilisateur.telephoneMobile"
-          type="text" 
+          type="text"
           class="p-s"
           placeholder="0100000000"
         >
       </div>
     </div>
-    
+
     <div v-if="permissionsCheck(['super', 'admin'])">
       <hr>
       <div class="tablet-blobs">
@@ -110,12 +114,12 @@
         </div>
         <div class="mb tablet-blob-2-3">
           <ul class="list-inline mb-0">
-            <li 
-              v-for="permission in permissionList" 
+            <li
+              v-for="permission in permissionList"
               :key="permission.id"
               :class="{ active: utilisateur.permission.id === permission.id }"
             >
-              <button 
+              <button
                 class="btn-flash py-xs px-s pill cap-first h6 mr-xs"
                 @click="permissionToggle(permission)"
               >
@@ -125,7 +129,7 @@
           </ul>
         </div>
       </div>
-      
+
       <hr>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
@@ -136,7 +140,7 @@
           <ul class="list-inline pt-s">
             <li class="mr">
               <label>
-                <input 
+                <input
                   v-model="lien"
                   type="radio"
                   :value="'aucun'"
@@ -147,7 +151,7 @@
             </li>
             <li class="mr">
               <label>
-                <input 
+                <input
                   v-model="lien"
                   type="radio"
                   :value="'entreprise'"
@@ -159,7 +163,7 @@
           </ul>
         </div>
       </div>
-    
+
       <div v-if="lien === 'entreprise'">
         <hr>
         <div class="tablet-blobs">
@@ -168,9 +172,9 @@
           </div>
 
           <div class="mb tablet-blob-2-3">
-            <select 
+            <select
               v-model="utilisateur.entreprise"
-              type="text" 
+              type="text"
               class="p-s mr"
             >
               <option
@@ -178,7 +182,12 @@
                 :key="entreprise.id"
                 :value="entreprise"
               >
-                {{ entreprise.nom }} {{ entreprise.legalSiren || entreprise.legalEtranger || entreprise.id }}
+                {{ entreprise.nom }}
+                {{
+                  entreprise.legalSiren ||
+                    entreprise.legalEtranger ||
+                    entreprise.id
+                }}
               </option>
             </select>
           </div>
@@ -186,17 +195,18 @@
       </div>
     </div>
 
-    <div 
-      v-if="creation" 
+    <div
+      v-if="creation"
       class="mb"
     >
-      <hr>   
-      <input 
+      <hr>
+      <input
         v-model="cgu"
         type="checkbox"
-      >Vous avez lu et vous acceptez les <a 
-        href="/cgu" 
-        target="_blank" 
+      >Vous avez lu et vous acceptez les
+      <a
+        href="/cgu"
+        target="_blank"
         rel="noopener noreferrer"
       >
         conditions générales d'utilisation
@@ -215,7 +225,7 @@
             Annuler
           </button>
         </div>
-        <div 
+        <div
           class="tablet-blob-2-3"
           :class="{ disabled: !complete }"
         >
@@ -236,7 +246,6 @@
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 import slugify from 'slugify'
-
 
 export default {
   name: 'CaminoUtilisateurEditPopup',
@@ -272,7 +281,13 @@ export default {
       return this.$store.state.utilisateurs.permissions
     },
     complete () {
-      return this.creation ? this.utilisateur.nom && this.utilisateur.prenom && this.utilisateur.email && this.utilisateur.motDePasse && this.cgu : this.utilisateur.id && this.utilisateur.email
+      return this.creation
+        ? this.utilisateur.nom &&
+            this.utilisateur.prenom &&
+            this.utilisateur.email &&
+            this.utilisateur.motDePasse &&
+            this.cgu
+        : this.utilisateur.id && this.utilisateur.email
     },
     entreprises () {
       return this.$store.state.entreprises.list
@@ -283,7 +298,9 @@ export default {
     document.addEventListener('keyup', this.keyup)
 
     if (this.utilisateur.entreprise) {
-      this.utilisateur.entreprise = this.entreprises.find(e => e.id === this.utilisateur.entreprise.id)
+      this.utilisateur.entreprise = this.entreprises.find(
+        e => e.id === this.utilisateur.entreprise.id
+      )
       this.lien = 'entreprise'
     }
   },
@@ -296,11 +313,14 @@ export default {
     save () {
       if (this.complete) {
         if (this.creation) {
-          this.utilisateur.id = slugify(`${this.utilisateur.prenom} ${this.utilisateur.nom}`, {
-            replacement: '-',
-            remove: null,
-            lower: true
-          })
+          this.utilisateur.id = slugify(
+            `${this.utilisateur.prenom} ${this.utilisateur.nom}`,
+            {
+              replacement: '-',
+              remove: null,
+              lower: true
+            }
+          )
           this.$store.dispatch('utilisateurs/add', this.utilisateur)
         } else {
           this.$store.dispatch('utilisateurs/update', this.utilisateur)
@@ -331,7 +351,8 @@ export default {
 
     lienReset () {
       this.utilisateur.entreprise = this.lien === 'entreprise' ? {} : null
-      this.utilisateur.administration = this.lien === 'administration' ? {} : null
+      this.utilisateur.administration =
+        this.lien === 'administration' ? {} : null
     }
   }
 }

@@ -10,7 +10,9 @@
       <div class="tablet-blob-1-2">
         <h6>Statut</h6>
         <h4>
-          <Dot :color="`bg-${demarche.statut.couleur}`" /><span class="cap-first">
+          <Dot :color="`bg-${demarche.statut.couleur}`" /><span
+            class="cap-first"
+          >
             {{ demarche.statut.nom }}
           </span>
         </h4>
@@ -29,7 +31,7 @@
             </div>
             <div class="large-blob-5-6">
               <p class="word-break">
-                {{ demarche['recours']['statut'] }}
+                {{ demarche["recours"]["statut"] }}
               </p>
             </div>
           </div>
@@ -39,7 +41,7 @@
             </div>
             <div class="large-blob-5-6">
               <p class="word-break">
-                {{ demarche['recours']['type'] }}
+                {{ demarche["recours"]["type"] }}
               </p>
             </div>
           </div>
@@ -49,7 +51,7 @@
             </div>
             <div class="large-blob-5-6">
               <p class="word-break">
-                {{ demarche['recours']['requérant'] }}
+                {{ demarche["recours"]["requérant"] }}
               </p>
             </div>
           </div>
@@ -59,7 +61,7 @@
             </div>
             <div class="large-blob-5-6">
               <p class="word-break">
-                {{ demarche['recours']['tribunal'] }}
+                {{ demarche["recours"]["tribunal"] }}
               </p>
             </div>
           </div>
@@ -72,7 +74,7 @@
         <h6>Participation publique</h6>
       </div>
     </div>
-    <TitreEtape 
+    <TitreEtape
       v-for="etape in demarche.etapes"
       :key="etape.id"
       :etape="etape"
@@ -95,7 +97,7 @@ export default {
   props: {
     demarche: {
       type: Object,
-      default: () => { }
+      default: () => {}
     }
   }
 }

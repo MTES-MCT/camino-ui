@@ -1,6 +1,6 @@
 <template>
-  <ul 
-    v-if="pagesTotal > 1" 
+  <ul
+    v-if="pagesTotal > 1"
     class="list-inline"
   >
     <li class="mb-0 mr-xs">
@@ -21,8 +21,8 @@
         ‹
       </button>
     </li>
-    <li 
-      v-if="pageActive > delta + 1" 
+    <li
+      v-if="pageActive > delta + 1"
       class="mb-0 mr-xs"
     >
       <div class="px-m py-s">
@@ -42,8 +42,8 @@
         {{ page }}
       </button>
     </li>
-    <li 
-      v-if="pageActive < pagesTotal - delta" 
+    <li
+      v-if="pageActive < pagesTotal - delta"
       class="mb-0 mr-xs"
     >
       <div class="px-m py-s">
@@ -56,7 +56,7 @@
         class="btn-border rnd-xs px-m py-s"
         @click="pageChange(pageActive + 1)"
       >
-        › 
+        ›
       </button>
     </li>
     <li class="mb-0 mr-xs">
@@ -72,7 +72,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'UiPagination',
 
@@ -98,13 +97,17 @@ export default {
     pages () {
       let filter
       if (this.pageActive <= this.delta) {
-        filter = n => n <= (this.delta * 2 + 1)
+        filter = n => n <= this.delta * 2 + 1
       } else if (this.pageActive >= this.pagesTotal - this.delta) {
-        filter = n => n >= this.pagesTotal - (this.delta * 2)
+        filter = n => n >= this.pagesTotal - this.delta * 2
       } else {
-        filter = n => n >= this.pageActive - this.delta && n <= this.pageActive + this.delta
+        filter = n =>
+          n >= this.pageActive - this.delta &&
+          n <= this.pageActive + this.delta
       }
-      return Array.from(Array(this.pagesTotal).keys()).map(n => n + 1).filter(filter)
+      return Array.from(Array(this.pagesTotal).keys())
+        .map(n => n + 1)
+        .filter(filter)
     }
   },
 

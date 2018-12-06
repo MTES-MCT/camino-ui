@@ -9,12 +9,14 @@
     </template>
 
     <p class="bold">
-      Souhaitez vous supprimer le compte de {{ utilisateur.prenom }} {{ utilisateur.nom }} ?
+      Souhaitez vous supprimer le compte de {{ utilisateur.prenom }}
+                                         {{ utilisateur.nom }} ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
       <span class="bold">
         Attention
-      </span>: cette opération est définitive et ne peut pas être annulée.
+      </span>: cette opération est définitive et
+      ne peut pas être annulée.
     </div>
 
     <template slot="footer">
@@ -45,7 +47,6 @@
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 
-
 export default {
   name: 'CaminoUtilisateurEditPopup',
 
@@ -69,7 +70,11 @@ export default {
       return this.$store.state.utilisateurs.permissions
     },
     complete () {
-      return this.creation ? this.utilisateur.id && this.utilisateur.email && this.utilisateur.motDePasse : this.utilisateur.id && this.utilisateur.email
+      return this.creation
+        ? this.utilisateur.id &&
+            this.utilisateur.email &&
+            this.utilisateur.motDePasse
+        : this.utilisateur.id && this.utilisateur.email
     }
   },
 

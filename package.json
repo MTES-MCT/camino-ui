@@ -3,16 +3,16 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
-    "start": "node ./index.js",
+    "test": "jest",
     "lint": "vue-cli-service lint",
-    "test": "jest"
+    "dev": "vue-cli-service serve --open",
+    "start": "node ./index.js"
   },
   "dependencies": {
     "compression": "^1.7.3",
     "connect-history-api-fallback": "^1.5.0",
-    "dotenv": "^6.1.0",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4"
   },
   "devDependencies": {
@@ -32,6 +32,7 @@
     "apollo-link-error": "^1.1.2",
     "apollo-link-http": "^1.5.7",
     "apollo-utilities": "^1.0.26",
+    "babel-eslint": "^10.0.1",
     "babel-plugin-graphql-tag": "^1.6.0",
     "crypto-random-string": "^1.0.0",
     "eslint": "^5.9.0",
@@ -54,7 +55,7 @@
     "postcss-preset-env": "^6.4.0",
     "postcss-typescale": "^0.2.1",
     "prettier": "^1.15.3",
-    "slugify": "^1.3.3",
+    "slugify": "^1.3.4",
     "stylelint": "^9.9.0",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
@@ -75,6 +76,9 @@
   },
   "eslintConfig": {
     "root": true,
+    "env": {
+      "node": true
+    },
     "extends": [
       "plugin:vue/recommended",
       "standard",
@@ -82,37 +86,22 @@
       "prettier/standard"
     ],
     "rules": {
+      "no-console": 0,
       "space-before-function-paren": [
         "error",
         "always"
       ]
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
     }
   },
   "prettier": {
     "semi": false,
     "singleQuote": true,
-    "proseWrap": "never"
-  },
-  "stylelint": {
-    "extends": [
-      "stylelint-config-standard",
-      "stylelint-config-prettier"
-    ],
-    "rules": {
-      "property-no-unknown": [
-        true,
-        {
-          "ignoreProperties": [
-            "typescale",
-            "gf",
-            "/button-/"
-          ]
-        }
-      ]
-    },
-    "ignoreFiles": [
-      "./dist/**/*"
-    ]
+    "arrowParens": "avoid",
+    "proseWrap": "never",
+    "bracketSpacing": true
   },
   "postcss": {
     "plugins": {
@@ -136,5 +125,26 @@
   "browserslist": [
     ">0.25%",
     "not op_mini all"
-  ]
+  ],
+  "stylelint": {
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-prettier"
+    ],
+    "rules": {
+      "property-no-unknown": [
+        true,
+        {
+          "ignoreProperties": [
+            "typescale",
+            "gf",
+            "/button-/"
+          ]
+        }
+      ]
+    },
+    "ignoreFiles": [
+      "./dist/**/*"
+    ]
+  }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="page relative">
-    <Transition 
-      name="slide" 
+    <Transition
+      name="slide"
       mode="out-in"
     >
       <slot name="menu" />
@@ -26,7 +26,7 @@
     <Transition name="fade">
       <div
         v-if="$slots.popup"
-        class="absolute full bg-inverse-alpha" 
+        class="absolute full bg-inverse-alpha"
       />
     </Transition>
 

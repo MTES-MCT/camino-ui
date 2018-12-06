@@ -17,12 +17,20 @@ export const state = {
 }
 
 export const actions = {
-  async identifier ({ commit }) {
+  init ({ dispatch }) {
+    if (localStorage.getItem('token')) {
+      dispatch('identifier')
+    } else {
+      dispatch('tokenRemove')
+    }
+  },
+
+  async identifier ({ commit, dispatch }) {
     try {
       const user = await utilisateurIdentify()
       commit('set', user)
     } catch (e) {
-      commit('tokenRemove')
+      dispatch('tokenRemove')
       commit('reset')
     }
   },
@@ -33,7 +41,7 @@ export const actions = {
     try {
       const res = await utilisateurLogin({ email, motDePasse })
 
-      commit('tokenAdd', res.token)
+      dispatch('tokenSet', res.token)
       commit('set', res.utilisateur)
       commit('popupClose', null, { root: true })
       dispatch(
@@ -46,7 +54,7 @@ export const actions = {
       )
       dispatch('load', null, { root: true })
     } catch (e) {
-      commit('tokenRemove')
+      dispatch('tokenRemove')
       commit('reset')
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     }
@@ -105,25 +113,51 @@ export const actions = {
         { root: true }
       )
     }
+  },
+
+  preferenceSet ({ state, commit }, { section, key, value }) {
+    commit('preferenceSet', { section, key, value })
+  },
+
+  tokenSet ({ commit }, token) {
+    localStorage.setItem('token', token)
+  },
+
+  tokenRemove () {
+    localStorage.removeItem('token')
   }
 }
 
 export const getters = {
-  tilesActive: (state, getters, rootState) =>
+  tilesActive (state, getters, rootState) {
     rootState.map.tiles.find(t => t.name === state.preferences.map.tilesName)
+  },
+
+  preferencesConditions (state) {
+    if (state.current) {
+      return true
+    }
+
+    const threedays = 1000 * 60 * 60
+
+    if (
+      state.preferences.conditions ||
+      state.preferences.conditions + threedays < new Date().getTime()
+    ) {
+      return true
+    }
+
+    return false
+  }
 }
 
 export const mutations = {
-  preferencesUpdate (state, prop) {
-    Vue.set(state.preferences.map, prop.key, prop.value)
-  },
-
-  tokenAdd (state, token) {
-    localStorage.setItem('token', token)
-  },
-
-  tokenRemove (state) {
-    localStorage.removeItem('token')
+  preferenceSet (state, { section, key, value }) {
+    if (section) {
+      Vue.set(state.preferences[section], key, value)
+    } else {
+      Vue.set(state.preferences, key, value)
+    }
   },
 
   set (state, user) {

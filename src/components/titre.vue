@@ -5,7 +5,7 @@
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2">
           <h1 class="mt-xs">
-            {{ titre['nom'] }}
+            {{ titre["nom"] }}
           </h1>
           <h4 class="mb">
             <Pill
@@ -19,10 +19,12 @@
             </span>
           </h4>
           <div v-if="titre.references">
-            <h6>{{ titre.references.length > 1 ? 'Références' : 'Référence' }}</h6>
+            <h6>
+              {{ titre.references.length > 1 ? "Références" : "Référence" }}
+            </h6>
             <ul class="list-prefix">
-              <li 
-                v-for="reference in titre.references" 
+              <li
+                v-for="reference in titre.references"
                 :key="reference.valeur"
               >
                 <span
@@ -53,13 +55,11 @@
                 <th>Début</th>
                 <th>Fin</th>
               </tr>
-              <tr 
-                v-for="demarche in titre.demarches.filter(d => d.phase)" 
+              <tr
+                v-for="demarche in titre.demarches.filter(d => d.phase)"
                 :key="demarche.id"
               >
-                <td>
-                  <Dot :color="`bg-${demarche.phase.statut.couleur}`" />
-                </td>
+                <td><Dot :color="`bg-${demarche.phase.statut.couleur}`" /></td>
                 <td>
                   <span class="cap-first">
                     {{ demarche.type.nom }}
@@ -81,67 +81,69 @@
         </div>
         <div class="desktop-blob-1-2">
           <div v-if="titre.titulaires">
-            <h6>{{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
+            <h6>
+              {{ titre.titulaires.length > 1 ? "Titulaires" : "Titulaire" }}
+            </h6>
             <ul class="list-prefix">
-              <li 
-                v-for="titulaire in titre.titulaires" 
+              <li
+                v-for="titulaire in titre.titulaires"
                 :key="titulaire.id"
               >
-                {{ titulaire['nom'] }}
+                {{ titulaire["nom"] }}
               </li>
             </ul>
           </div>
           <div v-if="titre['liens']">
             <h6>Liens</h6>
             <ul class="list-sans">
-              <li 
-                v-for="link in titre['liens']" 
-                :key="link.id" 
+              <li
+                v-for="link in titre['liens']"
+                :key="link.id"
                 class="mb-xs"
               >
                 <RouterLink
-                  :to="{ name: 'titre', params: { id: link.id }}"
+                  :to="{ name: 'titre', params: { id: link.id } }"
                   class="btn h6 bold py-xs px-s rnd"
                 >
-                  {{ link['type'] }} : {{ link['nom'] }}
+                  {{ link["type"] }} : {{ link["nom"] }}
                 </RouterLink>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <TitreMap 
-        v-if="titre.geojsonMultiPolygon" 
-        :geojson="titre.geojsonMultiPolygon" 
+      <TitreMap
+        v-if="titre.geojsonMultiPolygon"
+        :geojson="titre.geojsonMultiPolygon"
         class="mb"
       />
 
       <div class="tablet-blobs">
-        <div 
-          v-if="titre.surface" 
+        <div
+          v-if="titre.surface"
           class="tablet-blob-1-4"
         >
           <h6>Surface</h6>
           <p>{{ titre.surface }} km² environ</p>
         </div>
-        <div 
-          v-if="titre.volume" 
+        <div
+          v-if="titre.volume"
           class="tablet-blob-1-4"
         >
           <h6>Volume</h6>
           <p>{{ titre.volume }} {{ titre.volumeUnite }}</p>
         </div>
-        <div 
-          v-if="titre && titre.communes" 
+        <div
+          v-if="titre && titre.communes"
           class="tablet-blob-3-4 hide"
         >
           <h6>Communes</h6>
-          <div 
-            v-for="(departements, region) in titre.communes" 
+          <div
+            v-for="(departements, region) in titre.communes"
             :key="region"
           >
-            <div 
-              v-for="(communes, departement) in departements" 
+            <div
+              v-for="(communes, departement) in departements"
               :key="departement"
             >
               <h5 class="mb-xs">
@@ -156,7 +158,9 @@
       <div class="tablet-blobs hide">
         <div class="tablet-blob-1-2">
           <div v-if="titre.titulaires">
-            <h6>{{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}</h6>
+            <h6>
+              {{ titre.titulaires.length > 1 ? "Titulaires" : "Titulaire" }}
+            </h6>
             <Company
               v-for="holder in titre.titulaires"
               :key="holder['id']"
@@ -165,7 +169,11 @@
             />
           </div>
           <div v-if="titre.amodiataires">
-            <h6>{{ titre.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}</h6>
+            <h6>
+              {{
+                titre.amodiataires.length > 1 ? "Amodiataires" : "Amodiataire"
+              }}
+            </h6>
             <Company
               v-for="holder in titre.amodiataires"
               :key="holder['id']"
@@ -186,8 +194,8 @@
         </div>
       </div>
 
-      <div 
-        v-if="titre['démarches en cours']" 
+      <div
+        v-if="titre['démarches en cours']"
         class="mb-xxl"
       >
         <h4 class="mt-s">
@@ -201,9 +209,9 @@
               <th>Nom</th>
               <th>Statut</th>
             </tr>
-            <tr 
-              v-for="d in titre['démarches en cours']" 
-              :key="d.id" 
+            <tr
+              v-for="d in titre['démarches en cours']"
+              :key="d.id"
               class="h5"
             >
               <td>
@@ -220,8 +228,8 @@
           </table>
         </div>
       </div>
-      <Demarches 
-        v-if="titre.demarches" 
+      <Demarches
+        v-if="titre.demarches"
         :demarches="titre.demarches"
       />
 

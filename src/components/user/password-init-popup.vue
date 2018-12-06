@@ -8,15 +8,17 @@
       </div>
     </template>
 
-    <p>Pour réinitialiser votre mot de passe, renseignez votre adresse email. </p>
+    <p>
+      Pour réinitialiser votre mot de passe, renseignez votre adresse email.
+    </p>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Email</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model="email"
-          type="text" 
+          type="text"
           class="p-s"
           placeholder="Email"
         >
@@ -35,7 +37,7 @@
             Annuler
           </button>
         </div>
-        <div 
+        <div
           class="tablet-blob-2-3"
           :class="{ disabled: !complete }"
         >

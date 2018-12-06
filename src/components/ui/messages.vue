@@ -1,12 +1,12 @@
 <template>
-  <TransitionGroup 
-    name="slide" 
+  <TransitionGroup
+    name="slide"
     class="list-sans mb-0"
     tag="ul"
   >
-    <li 
-      v-for="(message, index) in messages" 
-      :key="index" 
+    <li
+      v-for="(message, index) in messages"
+      :key="index"
       class="mb p-s color-bg"
       :class="`bg-${message.type}`"
     >
@@ -27,4 +27,3 @@ export default {
   }
 }
 </script>
-

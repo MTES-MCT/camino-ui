@@ -1,6 +1,6 @@
 <template>
-  <Accordion 
-    class="mb" 
+  <Accordion
+    class="mb"
     :sub="true"
   >
     <template slot="title">
@@ -10,17 +10,15 @@
       </span>
     </template>
 
-    <template 
-      v-if="permissionsCheck(['super', 'admin'])" 
+    <template
+      v-if="permissionsCheck(['super', 'admin'])"
       slot="buttons"
     >
       <button
         class="btn-alt py-s px-m"
         @click="editPopupOpen"
       >
-        <i 
-          class="icon-24 icon-24-pencil"
-        />
+        <i class="icon-24 icon-24-pencil" />
       </button>
     </template>
 
@@ -30,56 +28,56 @@
           <h6>Date</h6>
           <p>{{ etape.date | dateFormat }}</p>
         </div>
-        <div 
-          v-if="etape.duree" 
+        <div
+          v-if="etape.duree"
           class="tablet-blob-1-4"
         >
           <h6>Durée</h6>
           <p>{{ etape.duree }} ans</p>
         </div>
-        <div 
-          v-if="etape.dateDebut" 
+        <div
+          v-if="etape.dateDebut"
           class="tablet-blob-1-4"
         >
           <h6>Date de début</h6>
           <p>{{ etape.dateDebut | dateFormat }}</p>
         </div>
-        <div 
-          v-if="etape.dateFin" 
+        <div
+          v-if="etape.dateFin"
           class="tablet-blob-1-4"
         >
           <h6>Date d'échéance</h6>
           <p>{{ etape.dateFin | dateFormat }}</p>
         </div>
-        <div 
-          v-if="etape.geojsonMultiPolygon" 
+        <div
+          v-if="etape.geojsonMultiPolygon"
           class="tablet-blob-1-4"
         >
           <h6>Périmètre</h6>
           <p>–</p>
         </div>
-        <div 
-          v-if="etape.titulaires.length > 0" 
+        <div
+          v-if="etape.titulaires.length > 0"
           class="tablet-blob-1-4"
         >
           <h6>Titulaires</h6>
           <p>–</p>
           <p class="hide">
-            {{ etape.titulaires.map(t => t.nom).join(', ') }}
+            {{ etape.titulaires.map(t => t.nom).join(", ") }}
           </p>
         </div>
-        <div 
-          v-if="etape.amodiataires.length > 0" 
+        <div
+          v-if="etape.amodiataires.length > 0"
           class="tablet-blob-1-4"
         >
           <h6>Amodiataires</h6>
           <p>–</p>
           <p class="hide">
-            {{ etape.amodiataires.map(t => t.nom).join(', ') }}
+            {{ etape.amodiataires.map(t => t.nom).join(", ") }}
           </p>
         </div>
-        <div 
-          v-if="etape.substances.length > 0" 
+        <div
+          v-if="etape.substances.length > 0"
           class="tablet-blob-1-2 large-blob-1-4"
         >
           <h6>Substances</h6>
@@ -87,8 +85,8 @@
         </div>
       </div>
     </template>
-    
-    <Documents 
+
+    <Documents
       v-if="etape.documents.length > 0"
       :documents="etape.documents"
     />
@@ -109,13 +107,14 @@ export default {
   components: {
     Dot,
     Accordion,
-    Documents, PillList
+    Documents,
+    PillList
   },
 
   props: {
     etape: {
       type: Object,
-      default: () => { }
+      default: () => {}
     }
   },
 
@@ -140,7 +139,9 @@ export default {
         return etapeTmp
       }
 
-      const demarche = this.$store.state.titre.current.demarches.find(d => d.etapes.find(e => e.id === this.etape.id))
+      const demarche = this.$store.state.titre.current.demarches.find(d =>
+        d.etapes.find(e => e.id === this.etape.id)
+      )
 
       const titre = this.$store.state.titre.current
 
@@ -149,13 +150,13 @@ export default {
         props: {
           etape: etapeCloneAndFormat(this.etape),
           demarcheNom: demarche && demarche.type.nom,
-          titreNom: titre && titre.nom,
+          titreNom: titre && titre.nom
         }
       })
     },
     editPopupClose () {
       this.$store.commit('popupClose')
-    },
+    }
   }
 }
 </script>

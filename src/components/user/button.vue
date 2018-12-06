@@ -1,9 +1,9 @@
 <template>
-  <div> 
+  <div>
     <button
-      v-if="user" 
+      v-if="user"
       class="btn-alt pill h5 p-s my--xs ml-xs"
-      :class="{'active': menu.component && menu.component.name === 'UserMenu'}"
+      :class="{ active: menu.component && menu.component.name === 'UserMenu' }"
       alt="Url"
       @click="menuToggle"
     >
@@ -56,4 +56,3 @@ export default {
   }
 }
 </script>
-  

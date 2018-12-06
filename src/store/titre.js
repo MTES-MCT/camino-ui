@@ -66,14 +66,14 @@ export const getters = {
   documentsTotal: state =>
     state.current && state.current['démarches']
       ? Object.keys(state.current['démarches']).reduce(
-          (total, type) =>
-            (total += state.current['démarches'][type].reduce(
-              (subtotal, d) =>
-                (subtotal += d.documents ? d.documents.length : 0),
-              0
-            )),
-          0
-        )
+        (total, type) =>
+          (total += state.current['démarches'][type].reduce(
+            (subtotal, d) =>
+              (subtotal += d.documents ? d.documents.length : 0),
+            0
+          )),
+        0
+      )
       : 0,
 
   documentSelected: state => documentId =>

@@ -128,7 +128,9 @@ export const actions = {
     } else if (router.currentRoute.name === 'utilisateurs') {
       dispatch('utilisateurs/get', null, { root: true })
     } else if (router.currentRoute.name === 'utilisateur') {
-      dispatch('utilisateur/get', router.currentRoute.params.id, { root: true })
+      dispatch('utilisateur/get', router.currentRoute.params.id, {
+        root: true
+      })
     }
   }
 }

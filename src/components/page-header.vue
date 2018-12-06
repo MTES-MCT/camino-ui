@@ -1,12 +1,16 @@
 <template>
   <div class="tablet-blobs header-blobs">
     <div class="tablet-blob-1-4 desktop-blob-1-2 large-blob-2-3">
-      <div  
-        v-if="!apiError" 
+      <div
+        v-if="!apiError"
         class="flex"
       >
         <ul class="header-menu hide">
-          <li :class="{ active: $route.name === 'titres' || $route.name === 'titre' }">
+          <li
+            :class="{
+              active: $route.name === 'titres' || $route.name === 'titre'
+            }"
+          >
             <RouterLink
               :to="{ name: 'titres' }"
               class="btn-transparent px pb-m pt-xl"

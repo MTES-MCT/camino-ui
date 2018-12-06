@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "UiSystemDot",
+  name: 'UiSystemDot',
 
   props: {
     color: {

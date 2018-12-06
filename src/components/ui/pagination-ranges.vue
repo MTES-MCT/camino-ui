@@ -36,7 +36,7 @@ export default {
   props: {
     ranges: {
       type: Array,
-      default: () => ([])
+      default: () => []
     },
     rangeActive: {
       type: Number,

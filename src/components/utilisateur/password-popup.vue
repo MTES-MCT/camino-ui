@@ -13,9 +13,9 @@
         <h6>Mot de passe actuel</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model="motDePasse"
-          type="password" 
+          type="password"
           class="p-s"
           placeholder="Mot de passe"
         >
@@ -28,9 +28,9 @@
         <h6>Nouveau mot de passe</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model="motDePasseNouveau1"
-          type="password" 
+          type="password"
           class="p-s"
           placeholder="Mot de passe"
         >
@@ -43,9 +43,9 @@
         <h6>Nouveau mot de passe (vérification)</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model="motDePasseNouveau2"
-          type="password" 
+          type="password"
           class="p-s"
           placeholder="Mot de passe"
         >
@@ -64,7 +64,7 @@
             Annuler
           </button>
         </div>
-        <div 
+        <div
           class="tablet-blob-2-3"
           :class="{ disabled: !complete }"
         >
@@ -113,7 +113,9 @@ export default {
       return this.$store.state.popup.messages
     },
     complete () {
-      return this.motDePasse && this.motDePasseNouveau1 && this.motDePasseNouveau2
+      return (
+        this.motDePasse && this.motDePasseNouveau1 && this.motDePasseNouveau2
+      )
     }
   },
 

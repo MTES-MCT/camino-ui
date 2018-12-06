@@ -141,14 +141,16 @@ export default {
   components: {
     Pill,
     Dot,
-    Accordion,
+    Accordion
   },
 
   data () {
     return {
-      filterSelecteds: [{
-        name: 'test'
-      }]
+      filterSelecteds: [
+        {
+          name: 'test'
+        }
+      ]
     }
   },
 
@@ -157,10 +159,13 @@ export default {
       return this.$store.state.titres.domaines
     },
     types () {
-      return this.$store.state.titres.types && this.$store.state.titres.types.reduce((res, cur) => {
-        const e = res.find(e => e.nom === cur.nom)
-        return e ? res : [...res, cur]
-      }, [])
+      return (
+        this.$store.state.titres.types &&
+        this.$store.state.titres.types.reduce((res, cur) => {
+          const e = res.find(e => e.nom === cur.nom)
+          return e ? res : [...res, cur]
+        }, [])
+      )
     },
     statuts () {
       return this.$store.state.titres.statuts
@@ -175,22 +180,38 @@ export default {
 
   methods: {
     typeToggle (t) {
-      this.$store.dispatch('titres/filterToggle', { name: 'types', value: t.target.value, property: 'nom' })
+      this.$store.dispatch('titres/filterToggle', {
+        name: 'types',
+        value: t.target.value,
+        property: 'nom'
+      })
     },
     statutToggle (t) {
-      this.$store.dispatch('titres/filterToggle', { name: 'statuts', value: t.target.value, property: 'id' })
+      this.$store.dispatch('titres/filterToggle', {
+        name: 'statuts',
+        value: t.target.value,
+        property: 'id'
+      })
     },
     domaineToggle (t) {
-      this.$store.dispatch('titres/filterToggle', { name: 'domaines', value: t.target.value, property: 'id' })
+      this.$store.dispatch('titres/filterToggle', {
+        name: 'domaines',
+        value: t.target.value,
+        property: 'id'
+      })
     },
     substancesInput (t) {
-      this.$store.dispatch('titres/filterInput', { name: 'substances', value: t.target.value })
+      this.$store.dispatch('titres/filterInput', {
+        name: 'substances',
+        value: t.target.value
+      })
     },
     nomsInput (t) {
-      this.$store.dispatch('titres/filterInput', { name: 'noms', value: t.target.value })
+      this.$store.dispatch('titres/filterInput', {
+        name: 'noms',
+        value: t.target.value
+      })
     }
   }
-
 }
 </script>
-

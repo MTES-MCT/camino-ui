@@ -2,7 +2,7 @@
   <div>
     <TitreDemarche
       v-for="demarche in demarches"
-      :key="demarche.id" 
+      :key="demarche.id"
       :demarche="demarche"
     />
   </div>

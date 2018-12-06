@@ -1,7 +1,7 @@
 <template>
   <Card>
-    <div 
-      class="mb p-s color-bg" 
+    <div
+      class="mb p-s color-bg"
       :class="`bg-${message.type}`"
     >
       {{ message.value }}
@@ -25,4 +25,3 @@ export default {
   }
 }
 </script>
-

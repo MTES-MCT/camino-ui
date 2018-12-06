@@ -1,7 +1,5 @@
 <template>
-  <div 
-    class="popup fixed shadow full bg-bg"
-  >
+  <div class="popup fixed shadow full bg-bg">
     <div class="popup-header px-l pt-l pb">
       <slot name="header" />
     </div>

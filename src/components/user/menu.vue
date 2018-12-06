@@ -7,7 +7,7 @@
             <li>
               <RouterLink
                 :key="user.id"
-                :to="{ name: 'utilisateur', params: { id: user.id }}"
+                :to="{ name: 'utilisateur', params: { id: user.id } }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
               >
@@ -17,8 +17,8 @@
             <li><a href="" /></li>
             <li><a href="" /></li>
             <li>
-              <button 
-                class="btn-transparent text-decoration-none bold p-0" 
+              <button
+                class="btn-transparent text-decoration-none bold p-0"
                 @click="logout"
               >
                 Deconnexion
@@ -32,7 +32,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'UserMenu',
 

@@ -35,7 +35,9 @@ export default {
       return this.$store.getters['titre/documentsTotal']
     },
     total () {
-      return this.documentsSelected > 0 ? `${this.documentsSelected} / ${this.documentsTotal}` : this.documentsTotal
+      return this.documentsSelected > 0
+        ? `${this.documentsSelected} / ${this.documentsTotal}`
+        : this.documentsTotal
     }
   }
 }

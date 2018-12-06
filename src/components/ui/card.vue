@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "UiSystemCard"
+  name: 'UiSystemCard'
 }
 </script>

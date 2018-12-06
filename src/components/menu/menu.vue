@@ -31,7 +31,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'MainMenu',
 
@@ -41,7 +40,6 @@ export default {
     }
   },
 
-  methods: {
-  }
+  methods: {}
 }
 </script>

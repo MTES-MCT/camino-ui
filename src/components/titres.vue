@@ -6,8 +6,8 @@
         Titres miniers
       </h2>
       <ul class="list-inline flex-right">
-        <li 
-          class="mr-0" 
+        <li
+          class="mr-0"
           :class="{ active: viewActive === 'liste' }"
         >
           <button
@@ -58,15 +58,18 @@ export default {
     return {
       filtersOpened: false,
       viewActive: 'carte',
-      viewComponents: [{
-        name: 'liste',
-        component: TitresTable,
-        icon: 'list'
-      }, {
-        name: 'carte',
-        component: TitresMap,
-        icon: 'globe'
-      }]
+      viewComponents: [
+        {
+          name: 'liste',
+          component: TitresTable,
+          icon: 'list'
+        },
+        {
+          name: 'carte',
+          component: TitresMap,
+          icon: 'globe'
+        }
+      ]
     }
   },
 
@@ -97,7 +100,6 @@ export default {
       this.viewActive = viewNew
       this.$router.push({ query: { vue: this.viewActive } })
     }
-  },
-
+  }
 }
 </script>

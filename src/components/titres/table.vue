@@ -15,7 +15,7 @@
         <RouterLink
           v-for="titre in titresPages[pageActive]"
           :key="titre.id"
-          :to="{ name: 'titre', params: { id: titre.id }}"
+          :to="{ name: 'titre', params: { id: titre.id } }"
           tag="tr"
           class="tr-link"
         >
@@ -30,8 +30,8 @@
           <td class="bold">
             {{ titre.nom }}
           </td>
-          <td 
-            v-if="titre.titulaires" 
+          <td
+            v-if="titre.titulaires"
             class="hide"
           >
             <div
@@ -72,8 +72,8 @@
         />
       </div>
       <div class="desktop-blob-1-4">
-        <PaginationRanges 
-          :ranges="pagesRanges" 
+        <PaginationRanges
+          :ranges="pagesRanges"
           :range-active="pagesRangeActive"
           @page-range-change="pageRangeChange"
         />
@@ -91,8 +91,7 @@
                   <input
                     type="checkbox"
                     class="mr-s"
-                  >
-                  {{ colonne.name }}
+                  > {{ colonne.name }}
                 </label>
               </li>
             </ul>

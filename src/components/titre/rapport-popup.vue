@@ -22,15 +22,16 @@
         <h6>Or net extrait (g)</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model.number="rapport.contenu.or"
-          type="number" 
+          type="number"
           class="p-s mb-s"
           placeholder="…"
         >
         <p class="h5 mb-0">
-          Masse d’or en gramme obtenue au cours du trimestre après fonderie ou affinage (au sens de l’<a 
-            href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850943&cidTexte=LEGITEXT000006069569" 
+          Masse d’or en gramme obtenue au cours du trimestre après fonderie ou
+          affinage (au sens de l’<a
+            href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850943&cidTexte=LEGITEXT000006069569"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -46,14 +47,15 @@
         <h6>Mercure récupéré (g)</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model.number="rapport.contenu.mercure"
-          type="number" 
+          type="number"
           class="p-s mb-s"
           placeholder="…"
         >
         <p class="h5 mb-0">
-          Masse en gramme de l’ensemble des produits contaminés envoyés en traitement au cours du trimestre.
+          Masse en gramme de l’ensemble des produits contaminés envoyés en
+          traitement au cours du trimestre.
         </p>
       </div>
     </div>
@@ -64,14 +66,15 @@
         <h6>Carburant détaxé (l)</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model.number="rapport.contenu.carburantDetaxe"
-          type="number" 
+          type="number"
           class="p-s mb-s"
           placeholder="…"
         >
         <p class="h5 mb-0">
-          Volume total en litre de carburant détaxé consommé au cours du trimestre par les travaux réalisés sur le chantier.
+          Volume total en litre de carburant détaxé consommé au cours du
+          trimestre par les travaux réalisés sur le chantier.
         </p>
       </div>
     </div>
@@ -82,14 +85,15 @@
         <h6>Carburant conventionnel (l)</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model.number="rapport.contenu.carburantConventionnel"
-          type="number" 
+          type="number"
           class="p-s mb-s"
           placeholder="…"
         >
         <p class="h5 mb-0">
-          Volume total en litre de carburant conventionnel consommé au cours du trimestre par les travaux réalisés sur le chantier.
+          Volume total en litre de carburant conventionnel consommé au cours du
+          trimestre par les travaux réalisés sur le chantier.
         </p>
       </div>
     </div>
@@ -100,15 +104,16 @@
         <h6>Pompes actives</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model.number="rapport.contenu.pompes"
-          type="number" 
+          type="number"
           class="p-s mb-s"
           placeholder="…"
           step="0.01"
         >
         <p class="h5 mb-0">
-          Nombre moyen de pompes actives au cours du trimestre utilisées sur le chantier (pompe à gravier, pompe de relevage…).
+          Nombre moyen de pompes actives au cours du trimestre utilisées sur le
+          chantier (pompe à gravier, pompe de relevage…).
         </p>
       </div>
     </div>
@@ -119,15 +124,16 @@
         <h6>Pelles actives</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model.number="rapport.contenu.pelles"
-          type="number" 
+          type="number"
           class="p-s mb-s"
           placeholder="…"
           step="0.01"
         >
         <p class="h5 mb-0">
-          Nombre moyen de pelles actives au cours du trimestre utilisées sur le chantier (aménagement, exploitation, réhabilitation).
+          Nombre moyen de pelles actives au cours du trimestre utilisées sur le
+          chantier (aménagement, exploitation, réhabilitation).
         </p>
       </div>
     </div>
@@ -138,9 +144,9 @@
         <h6>Effectifs</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model.number="rapport.contenu.effectifs"
-          type="number" 
+          type="number"
           class="p-s mb-s"
           placeholder="…"
           step="0.01"
@@ -150,7 +156,6 @@
         </p>
       </div>
     </div>
-     
 
     <hr>
     <div class="tablet-blobs">
@@ -158,20 +163,24 @@
         <h6>Dépenses relatives à la protection de l’environnement (euros)</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input 
+        <input
           v-model.number="rapport.contenu.environnement"
-          type="number" 
+          type="number"
           class="p-s mb-s"
           placeholder="…"
         >
         <p class="h5 mb-0">
-          Montant en euros des investissements consentis au cours du trimestre listés à l’<a 
-            href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850940&cidTexte=LEGITEXT000006069569" 
+          Montant en euros des investissements consentis au cours du trimestre
+          listés à l’<a
+            href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850940&cidTexte=LEGITEXT000006069569"
             target="_blank"
             rel="noopener noreferrer"
           >
             article 318 C de l’annexe II du code général des impôts
-          </a>. Afin de bénéficier des déductions fiscales afférentes, les justificatifs attestant de la réalisation effective des investissements sont susceptibles de vous êtres demandés par l’administration.
+          </a>. Afin de bénéficier des déductions fiscales afférentes, les
+          justificatifs attestant de la réalisation effective des
+          investissements sont susceptibles de vous êtres demandés par
+          l’administration.
         </p>
       </div>
     </div>
@@ -179,47 +188,47 @@
     <hr>
 
     <h4>Statut des travaux</h4>
-    <div 
-      v-for="mois in rapport.contenu.travaux" 
+    <div
+      v-for="mois in rapport.contenu.travaux"
       :key="mois.id"
     >
       <hr>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>
-            {{ mois.nom }}
-          </h6>
+          <h6>{{ mois.nom }}</h6>
         </div>
         <div class="mb tablet-blob-2-3">
           <label>
-            <input 
+            <input
               v-model="mois.nonDebutes"
               type="checkbox"
             >Non débutés
           </label>
           <label>
-            <input 
+            <input
               v-model="mois.exploitationEnCours"
               type="checkbox"
             >Exploitation en cours
           </label>
           <label>
-            <input 
+            <input
               v-model="mois.arretTemporaire"
               type="checkbox"
-            >Arrêt temporaire
+            >Arrêt
+            temporaire
           </label>
           <label>
-            <input 
+            <input
               v-model="mois.rehabilitation"
               type="checkbox"
             >Réhabilitation
           </label>
           <label>
-            <input 
+            <input
               v-model="mois.arretDefinitif"
               type="checkbox"
-            >Arrêt définitif (après réhabilitation)
+            >Arrêt
+            définitif (après réhabilitation)
           </label>
         </div>
       </div>
@@ -229,12 +238,14 @@
     <h4>Informations complémentaires</h4>
     <hr>
     <div class="mb">
-      <textarea 
+      <textarea
         v-model="rapport.contenu.complement"
         class="p-s mb-s"
       />
       <p class="h5 mb-0">
-        Toute information sur les événements marquants du trimestre (accident, incident, arrêt ou suspension d’activité en précisant les raisons, évolution de l’exploitation, difficultés rencontrées, etc.).
+        Toute information sur les événements marquants du trimestre (accident,
+        incident, arrêt ou suspension d’activité en précisant les raisons,
+        évolution de l’exploitation, difficultés rencontrées, etc.).
       </p>
     </div>
 
@@ -253,7 +264,7 @@
             Annuler
           </button>
         </div>
-        <div 
+        <div
           class="tablet-blob-2-3"
           :class="{ disabled: !complete }"
         >
@@ -272,7 +283,6 @@
 <script>
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
-
 
 export default {
   name: 'CaminoEtapeEditPopup',
@@ -308,18 +318,33 @@ export default {
       return this.$store.state.substances.list
     },
     travauxComplete () {
-      return this.rapport.contenu.travaux.reduce((res, mois) => res && (mois.nonDebutes || mois.exploitationEnCours || mois.arretTemporaire || mois.rehabilitation || mois.arretDefinitif), true)
+      return this.rapport.contenu.travaux.reduce(
+        (res, mois) =>
+          res &&
+          (mois.nonDebutes ||
+            mois.exploitationEnCours ||
+            mois.arretTemporaire ||
+            mois.rehabilitation ||
+            mois.arretDefinitif),
+        true
+      )
     },
     complete () {
-      return (this.rapport.contenu.or || this.rapport.contenu.or === 0)
-        && (this.rapport.contenu.mercure || this.rapport.contenu.mercure === 0)
-        && (this.rapport.contenu.carburantDetaxe || this.rapport.contenu.carburantDetaxe === 0)
-        && (this.rapport.contenu.carburantConventionnel || this.rapport.contenu.carburantConventionnel === 0)
-        && (this.rapport.contenu.pompes || this.rapport.contenu.pompes === 0)
-        && (this.rapport.contenu.pelles || this.rapport.contenu.pelles === 0)
-        && (this.rapport.contenu.effectifs || this.rapport.contenu.effectifs === 0)
-        && (this.rapport.contenu.environnement || this.rapport.contenu.environnement === 0)
-        && this.travauxComplete
+      return (
+        (this.rapport.contenu.or || this.rapport.contenu.or === 0) &&
+        (this.rapport.contenu.mercure || this.rapport.contenu.mercure === 0) &&
+        (this.rapport.contenu.carburantDetaxe ||
+          this.rapport.contenu.carburantDetaxe === 0) &&
+        (this.rapport.contenu.carburantConventionnel ||
+          this.rapport.contenu.carburantConventionnel === 0) &&
+        (this.rapport.contenu.pompes || this.rapport.contenu.pompes === 0) &&
+        (this.rapport.contenu.pelles || this.rapport.contenu.pelles === 0) &&
+        (this.rapport.contenu.effectifs ||
+          this.rapport.contenu.effectifs === 0) &&
+        (this.rapport.contenu.environnement ||
+          this.rapport.contenu.environnement === 0) &&
+        this.travauxComplete
+      )
     }
   },
 

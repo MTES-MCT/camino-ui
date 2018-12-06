@@ -4,10 +4,14 @@
   </Card>
   <Card v-else>
     <h1 class="mt-xs">
-      {{ utilisateur ? `${utilisateur.prenom || '–' } ${utilisateur.nom || '–' }` : '–' }}
+      {{
+        utilisateur
+          ? `${utilisateur.prenom || "–"} ${utilisateur.nom || "–"}`
+          : "–"
+      }}
     </h1>
-    <Accordion 
-      class="mb" 
+    <Accordion
+      class="mb"
       :sub="true"
     >
       <template slot="title">
@@ -15,9 +19,9 @@
           Profil
         </span>
       </template>
-  
-      <template 
-        v-if="utilisateur.id" 
+
+      <template
+        v-if="utilisateur.id"
         slot="buttons"
       >
         <button
@@ -26,14 +30,14 @@
         >
           <i class="icon-24 icon-24-key" />
         </button>
-  
+
         <button
           class="btn-alt py-s px-m"
           @click="removePopupOpen"
         >
           <i class="icon-24 icon-24-trash" />
         </button>
-  
+
         <button
           class="btn-alt py-s px-m"
           @click="editPopupOpen"
@@ -41,7 +45,7 @@
           <i class="icon-24 icon-24-pencil" />
         </button>
       </template>
-  
+
       <template slot="sub">
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
@@ -50,7 +54,7 @@
             </h6>
           </div>
           <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.prenom || '–' }}</p>
+            <p>{{ utilisateur.prenom || "–" }}</p>
           </div>
         </div>
         <div class="tablet-blobs">
@@ -60,10 +64,10 @@
             </h6>
           </div>
           <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.nom || '–' }}</p>
+            <p>{{ utilisateur.nom || "–" }}</p>
           </div>
         </div>
-      
+
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <h6 class="mt-xs">
@@ -71,7 +75,7 @@
             </h6>
           </div>
           <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.email || '–' }}</p>
+            <p>{{ utilisateur.email || "–" }}</p>
           </div>
         </div>
 
@@ -82,7 +86,7 @@
             </h6>
           </div>
           <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.telephoneFixe || '–' }}</p>
+            <p>{{ utilisateur.telephoneFixe || "–" }}</p>
           </div>
         </div>
 
@@ -93,12 +97,12 @@
             </h6>
           </div>
           <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.telephoneMobile || '–' }}</p>
+            <p>{{ utilisateur.telephoneMobile || "–" }}</p>
           </div>
         </div>
 
-        <div 
-          v-if="permissionsCheck(['super', 'admin'])" 
+        <div
+          v-if="permissionsCheck(['super', 'admin'])"
           class="tablet-blobs"
         >
           <div class="tablet-blob-1-4">
@@ -107,13 +111,13 @@
             </h6>
           </div>
           <div class="tablet-blob-3-4">
-            <Pill 
+            <Pill
               v-if="utilisateur.permission"
               class="mb"
             >
               {{ utilisateur.permission.nom }}
             </Pill>
-            <div 
+            <div
               v-else
               class="mb"
             >
@@ -122,8 +126,8 @@
           </div>
         </div>
 
-        <div 
-          v-if="utilisateur.entreprise" 
+        <div
+          v-if="utilisateur.entreprise"
           class="tablet-blobs"
         >
           <div class="tablet-blob-1-4">
@@ -132,7 +136,7 @@
             </h6>
           </div>
           <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.entreprise.nom || '–' }}</p>
+            <p>{{ utilisateur.entreprise.nom || "–" }}</p>
           </div>
         </div>
       </template>
@@ -148,7 +152,6 @@ import Loader from './ui/loader.vue'
 import EditPopup from './utilisateur/edit-popup.vue'
 import RemovePopup from './utilisateur/remove-popup.vue'
 import PasswordPopup from './utilisateur/password-popup.vue'
-
 
 export default {
   components: {
@@ -168,7 +171,7 @@ export default {
   },
 
   watch: {
-    '$route': 'get'
+    $route: 'get'
   },
 
   created () {

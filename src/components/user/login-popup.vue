@@ -11,9 +11,9 @@
         Email
       </div>
       <div class="tablet-blob-2-3">
-        <input 
+        <input
           v-model="email"
-          type="text" 
+          type="text"
           class="p-s"
         >
       </div>
@@ -23,9 +23,9 @@
         Mot de passe
       </div>
       <div class="tablet-blob-2-3">
-        <input 
+        <input
           v-model="motDePasse"
-          type="password" 
+          type="password"
           class="p-s"
         >
       </div>
@@ -42,7 +42,7 @@
             Annuler
           </button>
         </div>
-        <div 
+        <div
           class="tablet-blob-2-3"
           :class="{ disabled: !complete }"
         >
@@ -54,14 +54,14 @@
           </button>
         </div>
       </div>
-      <button 
-        class="btn-alt rnd-xs p-s h5 mr-s" 
+      <button
+        class="btn-alt rnd-xs p-s h5 mr-s"
         @click="userAddPopupOpen"
       >
         Créer votre compte…
       </button>
-      <button 
-        class="btn-alt rnd-xs p-s h5 mr-s" 
+      <button
+        class="btn-alt rnd-xs p-s h5 mr-s"
         @click="userPasswordInitPopupOpen"
       >
         Réinitialiser votre mot de passe…
@@ -111,7 +111,10 @@ export default {
   methods: {
     login () {
       if (this.complete) {
-        this.$store.dispatch('user/login', { email: this.email, motDePasse: this.motDePasse })
+        this.$store.dispatch('user/login', {
+          email: this.email,
+          motDePasse: this.motDePasse
+        })
       }
     },
 
