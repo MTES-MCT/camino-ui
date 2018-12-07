@@ -15,9 +15,9 @@ export const state = {
 }
 
 export const actions = {
-  init ({ dispatch }) {
+  async init ({ dispatch }) {
     if (localStorage.getItem('token')) {
-      dispatch('identifier')
+      await dispatch('identifier')
     } else {
       dispatch('tokenRemove')
     }
@@ -114,6 +114,9 @@ export const actions = {
 
   preferenceSet ({ state, commit }, { section, key, value }) {
     commit('preferenceSet', { section, key, value })
+    if (key === 'conditions') {
+      localStorage.setItem('conditions', value)
+    }
   },
 
   tokenSet ({ commit }, token) {
@@ -138,8 +141,9 @@ export const getters = {
     const threedays = 1000 * 60 * 60
 
     if (
-      state.preferences.conditions ||
-      state.preferences.conditions + threedays < new Date().getTime()
+      localStorage.getItem('conditions') &&
+      Number(localStorage.getItem('conditions')) + threedays <
+        new Date().getTime()
     ) {
       return true
     }
