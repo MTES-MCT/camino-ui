@@ -41,7 +41,7 @@
             type="text"
             placeholder="…"
             class="p-s"
-            @blur="nomsInput"
+            @blur="filterInput($event, 'noms')"
           >
         </div>
         <div class="mb">
@@ -51,7 +51,7 @@
             type="text"
             placeholder="Or, Argent, Ag…"
             class="p-s"
-            @blur="substancesInput"
+            @blur="filterInput($event, 'substances')"
           >
         </div>
       </div>
@@ -68,7 +68,7 @@
                 :checked="domaine.checked"
                 type="checkbox"
                 class="mr-s"
-                @change="domaineToggle"
+                @change="filterToggle($event, 'domaines', 'id')"
               >
               <Pill
                 :color="`bg-title-domaine-${domaine.id}`"
@@ -95,7 +95,7 @@
                   :checked="type.checked"
                   type="checkbox"
                   class="mr-s"
-                  @change="typeToggle"
+                  @change="filterToggle($event, 'types', 'nom')"
                 >
                 <span class="cap-first">
                   {{ type.nom }}
@@ -119,7 +119,7 @@
                   :checked="statut.checked"
                   type="checkbox"
                   class="mr-s"
-                  @change="statutToggle"
+                  @change="filterToggle($event, 'statuts', 'id')"
                 >
                 <Dot :color="`bg-${statut.couleur}`" />
                 {{ statut.nom }}
@@ -179,37 +179,17 @@ export default {
   },
 
   methods: {
-    typeToggle (t) {
+    filterToggle (e, name, property) {
       this.$store.dispatch('titres/filterToggle', {
-        name: 'types',
-        value: t.target.value,
-        property: 'nom'
+        name,
+        value: e.target.value,
+        property
       })
     },
-    statutToggle (t) {
-      this.$store.dispatch('titres/filterToggle', {
-        name: 'statuts',
-        value: t.target.value,
-        property: 'id'
-      })
-    },
-    domaineToggle (t) {
-      this.$store.dispatch('titres/filterToggle', {
-        name: 'domaines',
-        value: t.target.value,
-        property: 'id'
-      })
-    },
-    substancesInput (t) {
+    filterInput (e, name) {
       this.$store.dispatch('titres/filterInput', {
-        name: 'substances',
-        value: t.target.value
-      })
-    },
-    nomsInput (t) {
-      this.$store.dispatch('titres/filterInput', {
-        name: 'noms',
-        value: t.target.value
+        name,
+        value: e.target.value
       })
     }
   }
