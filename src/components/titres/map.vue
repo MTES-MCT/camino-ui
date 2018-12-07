@@ -127,7 +127,7 @@ export default {
     },
 
     tilesId () {
-      return this.$store.state.user.preferences.map.tilesId
+      return this.$store.state.user.preferences.titres.map.tilesId
     }
   },
 
@@ -140,10 +140,11 @@ export default {
 
     const zoom = this.$route.query.zoom
       ? Number(this.$route.query.zoom)
-      : this.$store.state.user.preferences.map.zoom
+      : this.$store.state.user.preferences.titres.map.zoom
 
     const centre =
-      this.$route.query.centre || this.$store.state.user.preferences.map.centre
+      this.$route.query.centre ||
+      this.$store.state.user.preferences.titres.map.centre
 
     if (zoom && centre) {
       this.$refs.map.zoomSet(zoom)
@@ -227,8 +228,7 @@ export default {
 
     tilesIdSelect (tilesId) {
       this.$store.dispatch('user/preferenceSet', {
-        section: 'map',
-        key: 'tilesId',
+        section: 'titres.map.tilesId',
         value: tilesId
       })
     },
@@ -236,8 +236,7 @@ export default {
     zoomGet (zoom) {
       this.zoom = zoom
       this.$store.dispatch('user/preferenceSet', {
-        section: 'map',
-        key: 'zoom',
+        section: 'titres.map.zoom',
         value: zoom
       })
 
@@ -249,8 +248,7 @@ export default {
       const c = `${center.lat.toFixed(7)},${center.lng.toFixed(7)}`
 
       this.$store.dispatch('user/preferenceSet', {
-        section: 'map',
-        key: 'centre',
+        section: 'titres.map.centre',
         value: c
       })
 

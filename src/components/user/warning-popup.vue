@@ -66,7 +66,7 @@ export default {
   methods: {
     set () {
       this.$store.dispatch('user/preferenceSet', {
-        key: 'conditions',
+        section: 'conditions',
         value: new Date().getTime()
       })
       this.$store.commit('popupClose')

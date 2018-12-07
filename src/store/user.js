@@ -10,7 +10,10 @@ import {
 export const state = {
   current: null,
   preferences: {
-    map: { tilesId: 'osm-fr' }
+    titres: {
+      map: { tilesId: 'osm-fr' },
+      vue: 'carte'
+    }
   }
 }
 
@@ -113,9 +116,9 @@ export const actions = {
     }
   },
 
-  preferenceSet ({ state, commit }, { section, key, value }) {
-    commit('preferenceSet', { section, key, value })
-    if (key === 'conditions') {
+  preferenceSet ({ state, commit }, { section, value }) {
+    commit('preferenceSet', { section, value })
+    if (section === 'conditions') {
       localStorage.setItem('conditions', value)
     }
   },
@@ -131,7 +134,9 @@ export const actions = {
 
 export const getters = {
   tilesActive (state, getters, rootState) {
-    return rootState.map.tiles.find(t => t.id === state.preferences.map.tilesId)
+    return rootState.map.tiles.find(
+      t => t.id === state.preferences.titres.map.tilesId
+    )
   },
 
   preferencesConditions (state) {
@@ -154,12 +159,11 @@ export const getters = {
 }
 
 export const mutations = {
-  preferenceSet (state, { section, key, value }) {
-    if (section) {
-      Vue.set(state.preferences[section], key, value)
-    } else {
-      Vue.set(state.preferences, key, value)
-    }
+  preferenceSet (state, { section, value }) {
+    const path = section.split('.')
+    const key = path.pop()
+    const p = path.reduce((res, el) => res[el], state.preferences)
+    Vue.set(p, key, value)
   },
 
   set (state, user) {
