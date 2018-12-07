@@ -17,175 +17,32 @@
       Besoin d'aide pour remplir ce rapport ? Appelez le 06.61.26.42.89
     </div>
 
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Or net extrait (g)</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model.number="rapport.contenu.or"
-          type="number"
-          class="p-s mb-s"
-          placeholder="…"
-        >
-        <p class="h5 mb-0">
-          Masse d’or en gramme obtenue au cours du trimestre après fonderie ou
-          affinage (au sens de l’<a
-            href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850943&cidTexte=LEGITEXT000006069569"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div
+      v-for="contenu in contenus"
+      :key="contenu.id"
+    >
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>{{ contenu.nom }}</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input
+            v-model.number="rapport.contenu[contenu.id]"
+            type="number"
+            class="p-s mb-s"
+            placeholder="…"
           >
-            article 318 B de l'annexe II au code général des impôts, annexe 2
-          </a>).
-        </p>
+          <!-- eslint-disable vue/no-v-html -->
+          <p
+            class="h5 mb-0"
+            v-html="contenu.description"
+          />
+        </div>
       </div>
+
+      <hr>
     </div>
 
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Mercure récupéré (g)</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model.number="rapport.contenu.mercure"
-          type="number"
-          class="p-s mb-s"
-          placeholder="…"
-        >
-        <p class="h5 mb-0">
-          Masse en gramme de l’ensemble des produits contaminés envoyés en
-          traitement au cours du trimestre.
-        </p>
-      </div>
-    </div>
-
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Carburant détaxé (l)</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model.number="rapport.contenu.carburantDetaxe"
-          type="number"
-          class="p-s mb-s"
-          placeholder="…"
-        >
-        <p class="h5 mb-0">
-          Volume total en litre de carburant détaxé consommé au cours du
-          trimestre par les travaux réalisés sur le chantier.
-        </p>
-      </div>
-    </div>
-
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Carburant conventionnel (l)</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model.number="rapport.contenu.carburantConventionnel"
-          type="number"
-          class="p-s mb-s"
-          placeholder="…"
-        >
-        <p class="h5 mb-0">
-          Volume total en litre de carburant conventionnel consommé au cours du
-          trimestre par les travaux réalisés sur le chantier.
-        </p>
-      </div>
-    </div>
-
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Pompes actives</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model.number="rapport.contenu.pompes"
-          type="number"
-          class="p-s mb-s"
-          placeholder="…"
-          step="0.01"
-        >
-        <p class="h5 mb-0">
-          Nombre moyen de pompes actives au cours du trimestre utilisées sur le
-          chantier (pompe à gravier, pompe de relevage…).
-        </p>
-      </div>
-    </div>
-
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Pelles actives</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model.number="rapport.contenu.pelles"
-          type="number"
-          class="p-s mb-s"
-          placeholder="…"
-          step="0.01"
-        >
-        <p class="h5 mb-0">
-          Nombre moyen de pelles actives au cours du trimestre utilisées sur le
-          chantier (aménagement, exploitation, réhabilitation).
-        </p>
-      </div>
-    </div>
-
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Effectifs</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model.number="rapport.contenu.effectifs"
-          type="number"
-          class="p-s mb-s"
-          placeholder="…"
-          step="0.01"
-        >
-        <p class="h5 mb-0">
-          Nombre moyen de salariés sur le chantier au cours du trimestre.
-        </p>
-      </div>
-    </div>
-
-    <hr>
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Dépenses relatives à la protection de l’environnement (euros)</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model.number="rapport.contenu.environnement"
-          type="number"
-          class="p-s mb-s"
-          placeholder="…"
-        >
-        <p class="h5 mb-0">
-          Montant en euros des investissements consentis au cours du trimestre
-          listés à l’<a
-            href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850940&cidTexte=LEGITEXT000006069569"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            article 318 C de l’annexe II du code général des impôts
-          </a>. Afin de bénéficier des déductions fiscales afférentes, les
-          justificatifs attestant de la réalisation effective des
-          investissements sont susceptibles de vous êtres demandés par
-          l’administration.
-        </p>
-      </div>
-    </div>
-
-    <hr>
 
     <h4>Statut des travaux</h4>
     <div
@@ -198,37 +55,14 @@
           <h6>{{ mois.nom }}</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <label>
+          <label
+            v-for="statut in travauxStatuts"
+            :key="statut.id"
+          >
             <input
-              v-model="mois.nonDebutes"
+              v-model="mois[statut.id]"
               type="checkbox"
-            >Non débutés
-          </label>
-          <label>
-            <input
-              v-model="mois.exploitationEnCours"
-              type="checkbox"
-            >Exploitation en cours
-          </label>
-          <label>
-            <input
-              v-model="mois.arretTemporaire"
-              type="checkbox"
-            >Arrêt
-            temporaire
-          </label>
-          <label>
-            <input
-              v-model="mois.rehabilitation"
-              type="checkbox"
-            >Réhabilitation
-          </label>
-          <label>
-            <input
-              v-model="mois.arretDefinitif"
-              type="checkbox"
-            >Arrêt
-            définitif (après réhabilitation)
+            >{{ statut.nom }}
           </label>
         </div>
       </div>
@@ -285,7 +119,7 @@ import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 
 export default {
-  name: 'CaminoEtapeEditPopup',
+  name: 'CaminoTitreTravauxRapportEditPopup',
 
   components: {
     Popup,
@@ -316,6 +150,12 @@ export default {
     },
     substances () {
       return this.$store.state.substances.list
+    },
+    travauxStatuts () {
+      return this.$store.state.titreTravaux.rapportStatuts
+    },
+    contenus () {
+      return this.$store.state.titreTravaux.rapportContenus
     },
     travauxComplete () {
       return this.rapport.contenu.travaux.reduce(

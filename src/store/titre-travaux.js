@@ -81,6 +81,67 @@ export const state = {
         }
       ]
     }
+  ],
+  rapportStatuts: [
+    {
+      id: 'nonDebutes',
+      nom: 'Non débutés'
+    },
+    {
+      id: 'exploitationEnCours',
+      nom: 'Exploitation en cours'
+    },
+    {
+      id: 'arretTemporaire',
+      nom: 'Arrêt temporaire'
+    },
+    { id: 'rehabilitation', nom: 'Réhabilitation' },
+    {
+      id: 'arretDefinitif',
+      nom: 'Arrêt définitif (après réhabilitation)'
+    }
+  ],
+  rapportContenus: [
+    {
+      nom: 'Or net extrait (g)',
+      id: 'or',
+      description: `Masse d’or en gramme obtenue au cours du trimestre après fonderie ou affinage (au sens de l’<a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850943&cidTexte=LEGITEXT000006069569" target="_blank" rel="noopener noreferrer">article 318 B de l'annexe II au code général des impôts, annexe 2 </a>).`
+    },
+    {
+      id: 'mercure',
+      nom: 'Mercure récupéré (g)',
+      description: `Masse en gramme de l’ensemble des produits contaminés envoyés en traitement au cours du trimestre.`
+    },
+    {
+      id: 'carburantDetaxe',
+      nom: 'Carburant détaxé (l)',
+      description: `Volume total en litre de carburant détaxé consommé au cours du trimestre par les travaux réalisés sur le chantier.`
+    },
+    {
+      id: 'carburantConventionnel',
+      nom: 'Carburant conventionnel (l)',
+      description: `Volume total en litre de carburant conventionnel consommé au cours du trimestre par les travaux réalisés sur le chantier.`
+    },
+    {
+      id: 'pompes',
+      nom: 'Pompes actives',
+      description: `Nombre moyen de pompes actives au cours du trimestre utilisées sur le chantier (pompe à gravier, pompe de relevage…).`
+    },
+    {
+      id: 'pelles',
+      nom: 'Pelles actives',
+      description: `Nombre moyen de pelles actives au cours du trimestre utilisées sur le chantier (aménagement, exploitation, réhabilitation).`
+    },
+    {
+      id: 'effectifs',
+      nom: 'Effectifs',
+      description: `Nombre moyen de salariés sur le chantier au cours du trimestre.`
+    },
+    {
+      id: 'environnement',
+      nom: 'Dépenses relatives à la protection de l’environnement (euros)',
+      description: ` Montant en euros des investissements consentis au cours du trimestre listés à l’<a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850940&cidTexte=LEGITEXT000006069569" target="_blank" rel="noopener noreferrer">article 318 C de l’annexe II du code général des impôts</a>. Afin de bénéficier des déductions fiscales afférentes, les justificatifs attestant de la réalisation effective des investissements sont susceptibles de vous êtres demandés par l’administration.`
+    }
   ]
 }
 
@@ -90,7 +151,6 @@ export const actions = {
     try {
       const res = await titreTravauxRapportAdd({ rapport })
 
-      console.log(res)
       if (res) {
         commit('popupClose', null, { root: true })
         dispatch(
