@@ -7,17 +7,17 @@
       </h2>
       <ul class="list-inline flex-right">
         <li
-          v-for="view in views"
-          :key="view.id"
+          v-for="v in views"
+          :key="v.id"
           class="mr-0 pill-list"
-          :class="{ active: viewId === view.id }"
+          :class="{ active: viewId === v.id }"
         >
           <button
             class="btn-border px-m py-s"
-            @click="viewSet(view.id)"
+            @click="viewSet(v.id)"
           >
             <i
-              :class="`icon-24-${view.icon}`"
+              :class="`icon-24-${v.icon}`"
               class="icon-24"
             />
           </button>
@@ -28,7 +28,7 @@
     <TitresFilters />
 
     <Component
-      :is="viewComponent"
+      :is="view.component"
       v-if="viewId"
       :titres="titres"
     />
@@ -59,12 +59,14 @@ export default {
         {
           id: 'liste',
           component: TitresTable,
-          icon: 'list'
+          icon: 'list',
+          params: []
         },
         {
           id: 'carte',
           component: TitresMap,
-          icon: 'globe'
+          icon: 'globe',
+          params: ['centre', 'zoom']
         }
       ]
     }
@@ -77,8 +79,8 @@ export default {
     loaded () {
       return !!this.titres
     },
-    viewComponent () {
-      return this.views.find(c => c.id === this.viewId).component
+    view () {
+      return this.views.find(c => c.id === this.viewId)
     }
   },
 
@@ -98,9 +100,24 @@ export default {
     get () {
       this.$store.dispatch('titres/get')
     },
-    viewSet (view) {
-      this.viewId = view
-      this.$router.push({ query: { vue: this.viewId } })
+    viewSet (viewId) {
+      this.viewId = viewId
+
+      const pick = (obj, keys) =>
+        Object.keys(obj)
+          .filter(key => keys.includes(key))
+          .reduce((res, key) => {
+            res[key] = obj[key]
+            return res
+          }, {})
+
+      const query = Object.assign(
+        {},
+        pick(this.$route.query, this.view.params),
+        { vue: this.viewId }
+      )
+
+      this.$router.push({ query })
     }
   }
 }

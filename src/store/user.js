@@ -26,6 +26,7 @@ export const actions = {
   async identifier ({ commit, dispatch }) {
     try {
       const user = await utilisateurIdentify()
+      console.log('user', user)
       commit('set', user)
     } catch (e) {
       dispatch('tokenRemove')
@@ -142,7 +143,7 @@ export const getters = {
 
     if (
       localStorage.getItem('conditions') &&
-      Number(localStorage.getItem('conditions')) + threedays <
+      Number(localStorage.getItem('conditions')) + threedays >
         new Date().getTime()
     ) {
       return true

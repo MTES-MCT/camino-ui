@@ -234,30 +234,30 @@ export default {
     },
 
     zoomGet (zoom) {
-      this.routeQueryUpdate({ zoom })
       this.zoom = zoom
       this.$store.dispatch('user/preferenceSet', {
         section: 'map',
         key: 'zoom',
         value: zoom
       })
+
+      const query = Object.assign({}, this.$route.query, { zoom })
+      this.$router.push({ query })
     },
 
     centerGet (center) {
       const c = `${center.lat.toFixed(7)},${center.lng.toFixed(7)}`
-      this.routeQueryUpdate({ centre: c })
 
       this.$store.dispatch('user/preferenceSet', {
         section: 'map',
         key: 'centre',
         value: c
       })
-    },
 
-    routeQueryUpdate (query) {
-      this.$router.push({
-        query: Object.assign({}, this.$route.query, query)
-      })
+      const query = Object.assign({}, this.$route.query, { centre: c })
+
+      console.log('query', query)
+      this.$router.push({ query })
     }
   }
 }
