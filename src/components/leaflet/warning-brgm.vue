@@ -11,7 +11,7 @@
 <script>
 export default {
   props: {
-    tilesName: {
+    tilesId: {
       type: String,
       default: ''
     },
@@ -23,10 +23,7 @@ export default {
 
   computed: {
     brgmWarning () {
-      return (
-        this.tilesName === 'BRGM / Cartes géologiques 1/50 000' &&
-        (this.zoom < 12 || this.zoom > 16)
-      )
+      return this.tilesId === 'brgm-geo' && (this.zoom < 12 || this.zoom > 16)
     }
   }
 }

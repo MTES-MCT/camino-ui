@@ -9,11 +9,11 @@
   box-decoration-break: clone;
 }
 
-.pill-left {
+.pill-list:first-child > * {
   border-radius: var(--unit-infinity) 0 0 var(--unit-infinity);
 }
 
-.pill-right {
+.pill-list:last-child > * {
   border-radius: 0 var(--unit-infinity) var(--unit-infinity) 0;
 }
 

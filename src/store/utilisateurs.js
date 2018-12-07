@@ -69,7 +69,6 @@ export const actions = {
         { root: true }
       )
     } catch (e) {
-      console.log('object')
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     }
   },

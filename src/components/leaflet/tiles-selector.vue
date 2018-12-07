@@ -10,11 +10,11 @@
       >
         <label>
           <input
-            :value="tile.name"
-            :checked="tile.name === tilesName"
+            :value="tile.id"
+            :checked="tile.id === tilesId"
             type="radio"
             class="mr-s"
-            @change="$emit('tiles-name-set', tile.name)"
+            @change="select(tile.id)"
           >
           {{ tile.name }}
         </label>
@@ -36,9 +36,15 @@ export default {
       type: Array,
       default: () => []
     },
-    tilesName: {
+    tilesId: {
       type: String,
-      default: 'osm / fr'
+      default: 'osm-fr'
+    }
+  },
+
+  methods: {
+    select (tilesId) {
+      this.$emit('tiles-id-set', tilesId)
     }
   }
 }

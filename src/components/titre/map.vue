@@ -1,15 +1,15 @@
 <template>
   <div>
     <LeafletMap
-      ref="map" 
+      ref="map"
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
       :bounds="bounds"
       @map-zoom="zoomGet"
     />
-    <MapWarningBrgm 
+    <MapWarningBrgm
       :zoom="zoom"
-      :tiles-name="tilesName"
+      :tiles-id="tilesId"
     />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2 mb">
@@ -23,8 +23,8 @@
       <div class="desktop-blob-1-2">
         <LeafletTilesSelector
           :tiles="tiles"
-          :tiles-name="tilesName"
-          @tiles-name-set="tilesNameSelect"
+          :tiles-id="tilesId"
+          @tiles-id-set="tilesIdSelect"
         />
       </div>
     </div>
@@ -81,15 +81,8 @@ export default {
       return this.$store.state.map.tiles
     },
 
-    tilesName () {
-      return this.$store.state.user.preferences.map.tilesName
-    },
-
-    brgmWarning () {
-      return (
-        this.tilesName === 'BRGM / Cartes géologiques 1/50 000' &&
-        (this.zoom < 12 || this.zoom > 16)
-      )
+    tilesId () {
+      return this.$store.state.user.preferences.map.tilesId
     }
   },
 
@@ -98,10 +91,11 @@ export default {
   },
 
   methods: {
-    tilesNameSelect (tuileNom) {
+    tilesIdSelect (tuileNom) {
       console.log(tuileNom)
-      this.$store.commit('user/preferencesUpdate', {
-        key: 'tilesName',
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'map',
+        key: 'tilesId',
         value: tuileNom
       })
     },

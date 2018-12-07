@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     id="map"
     ref="map"
     class="map mb"
@@ -100,12 +100,14 @@ export default {
       this.map.fitBounds(bounds)
     },
 
-    panTo (center) {
+    centerSet (center) {
       this.map.panTo(center)
     },
 
-    setZoom (zoom) {
+    zoomSet (zoom) {
       this.map.setZoom(zoom)
+      this.zoom = this.map.getZoom()
+      this.$emit('map-zoom', this.zoom)
     },
 
     scaleAdd () {

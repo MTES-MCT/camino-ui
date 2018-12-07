@@ -9,15 +9,15 @@
       @map-zoom="zoomGet"
       @map-center="centerGet"
     />
-    <TitreMapWarningBrgm 
+    <TitreMapWarningBrgm
       :zoom="zoom"
-      :tiles-name="tilesName"
+      :tiles-id="tilesId"
     />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <ul class="list-inline">
-          <li 
-            v-for="z in zones" 
+          <li
+            v-for="z in zones"
             :key="z.id"
             class="mr-xs"
           >
@@ -33,8 +33,8 @@
       <div class="desktop-blob-1-2">
         <LeafletTilesSelector
           :tiles="tiles"
-          :tiles-name="tilesName"
-          @tiles-name-set="tilesNameSelect"
+          :tiles-id="tilesId"
+          @tiles-id-set="tilesIdSelect"
         />
       </div>
     </div>
@@ -126,15 +126,8 @@ export default {
       return this.$store.state.map.tiles
     },
 
-    tilesName () {
-      return this.$store.state.user.preferences.map.tilesName
-    },
-
-    brgmWarning () {
-      return (
-        this.tilesName === 'BRGM / Cartes géologiques 1/50 000' &&
-        (this.zoom < 12 || this.zoom > 16)
-      )
+    tilesId () {
+      return this.$store.state.user.preferences.map.tilesId
     }
   },
 
@@ -144,10 +137,17 @@ export default {
 
   mounted () {
     this.titresInit()
-    const query = this.$route.query
-    if (query.zoom && query.center) {
-      this.$refs.map.setZoom(query.zoom)
-      this.$refs.map.panTo(query.center.split(','))
+
+    const zoom = this.$route.query.zoom
+      ? Number(this.$route.query.zoom)
+      : this.$store.state.user.preferences.map.zoom
+
+    const centre =
+      this.$route.query.centre || this.$store.state.user.preferences.map.centre
+
+    if (zoom && centre) {
+      this.$refs.map.zoomSet(zoom)
+      this.$refs.map.centerSet(centre.split(','))
     } else {
       this.$refs.map.fitBounds(this.bounds)
     }
@@ -219,28 +219,38 @@ export default {
     },
 
     mapCenter (zoneId) {
-      if (this.zoneId === zoneId) {
-        this.$refs.map.fitBounds(this.bounds)
-      } else {
+      if (this.zoneId !== zoneId) {
         this.zoneId = zoneId
       }
+      this.$refs.map.fitBounds(this.bounds)
     },
 
-    tilesNameSelect (tuileNom) {
-      this.$store.commit('user/preferencesUpdate', {
-        key: 'tilesName',
-        value: tuileNom
+    tilesIdSelect (tilesId) {
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'map',
+        key: 'tilesId',
+        value: tilesId
       })
     },
 
     zoomGet (zoom) {
       this.routeQueryUpdate({ zoom })
       this.zoom = zoom
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'map',
+        key: 'zoom',
+        value: zoom
+      })
     },
 
     centerGet (center) {
-      this.routeQueryUpdate({
-        center: `${center.lat.toFixed(7)},${center.lng.toFixed(7)}`
+      const c = `${center.lat.toFixed(7)},${center.lng.toFixed(7)}`
+      this.routeQueryUpdate({ centre: c })
+
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'map',
+        key: 'centre',
+        value: c
       })
     },
 

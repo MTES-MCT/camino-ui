@@ -10,9 +10,7 @@ import {
 export const state = {
   current: null,
   preferences: {
-    map: {
-      tilesName: 'osm / fr'
-    }
+    map: { tilesId: 'osm-fr' }
   }
 }
 
@@ -36,7 +34,6 @@ export const actions = {
   },
 
   async login ({ commit, dispatch }, { email, motDePasse }) {
-    console.log('object')
     commit('popupMessagesRemove', null, { root: true })
     try {
       const res = await utilisateurLogin({ email, motDePasse })
@@ -130,7 +127,7 @@ export const actions = {
 
 export const getters = {
   tilesActive (state, getters, rootState) {
-    rootState.map.tiles.find(t => t.name === state.preferences.map.tilesName)
+    return rootState.map.tiles.find(t => t.id === state.preferences.map.tilesId)
   },
 
   preferencesConditions (state) {

@@ -7,22 +7,19 @@
       </h2>
       <ul class="list-inline flex-right">
         <li
-          class="mr-0"
-          :class="{ active: viewActive === 'liste' }"
+          v-for="view in views"
+          :key="view.id"
+          class="mr-0 pill-list"
+          :class="{ active: viewId === view.id }"
         >
           <button
-            class="btn-border pill-left px-m py-s"
-            @click="viewSet('liste')"
+            class="btn-border px-m py-s"
+            @click="viewSet(view.id)"
           >
-            <i class="icon-24 icon-24-list" />
-          </button>
-        </li>
-        <li :class="{ active: viewActive === 'carte' }">
-          <button
-            class="btn-border pill-right px-m py-s"
-            @click="viewSet('carte')"
-          >
-            <i class="icon-24 icon-24-globe" />
+            <i
+              :class="`icon-24-${view.icon}`"
+              class="icon-24"
+            />
           </button>
         </li>
       </ul>
@@ -32,7 +29,7 @@
 
     <Component
       :is="viewComponent"
-      v-if="viewActive"
+      v-if="viewId"
       :titres="titres"
     />
   </Card>
@@ -57,15 +54,15 @@ export default {
   data () {
     return {
       filtersOpened: false,
-      viewActive: 'carte',
-      viewComponents: [
+      viewId: 'carte',
+      views: [
         {
-          name: 'liste',
+          id: 'liste',
           component: TitresTable,
           icon: 'list'
         },
         {
-          name: 'carte',
+          id: 'carte',
           component: TitresMap,
           icon: 'globe'
         }
@@ -81,14 +78,19 @@ export default {
       return !!this.titres
     },
     viewComponent () {
-      return this.viewComponents.find(c => c.name === this.viewActive).component
+      return this.views.find(c => c.id === this.viewId).component
     }
   },
 
   created () {
     this.get()
-    if (this.$route.query.vue) {
-      this.viewActive = this.$route.query.vue
+    if (
+      this.$route.query.vue &&
+      this.views.find(v => v.id === this.$route.query.vue)
+    ) {
+      this.viewSet(this.$route.query.vue)
+    } else {
+      this.viewSet(this.viewId)
     }
   },
 
@@ -96,9 +98,9 @@ export default {
     get () {
       this.$store.dispatch('titres/get')
     },
-    viewSet (viewNew) {
-      this.viewActive = viewNew
-      this.$router.push({ query: { vue: this.viewActive } })
+    viewSet (view) {
+      this.viewId = view
+      this.$router.push({ query: { vue: this.viewId } })
     }
   }
 }

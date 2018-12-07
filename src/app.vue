@@ -8,24 +8,24 @@
 
     <PageHeader slot="header" />
 
-    <Messages 
-      slot="messages" 
+    <Messages
+      slot="messages"
       :messages="messages"
     />
 
-    <Error 
-      v-if="error" 
+    <Error
+      v-if="error"
       :message="error"
     />
-    
+
     <RouterView v-if="!error" />
-    
+
     <Component
       :is="popup.component"
       slot="popup"
       v-bind="popup.props"
     />
-    
+
     <PageFooter slot="footer" />
   </Page>
 </template>
@@ -65,25 +65,21 @@ export default {
   },
 
   mounted () {
-    const date = new Date().getTime()
-    const threedays = 1000 * 60 * 60
+    this.$store.dispatch('user/init').then(r => {
+      if (!this.$store.getters['user/preferencesConditions']) {
+        this.warningPopupOpen()
+      }
 
-    if (!localStorage.getItem('conditions') || Number(localStorage.getItem('conditions')) + threedays < date) {
-      this.warningPopupOpen()
-    }
-
-    if (localStorage.getItem('token')) {
-      this.$store.dispatch('user/identifier')
-    } else {
-      this.$store.commit('user/tokenRemove')
-    }
-
-    this.$store.dispatch('init')
+      this.$store.dispatch('init')
+    })
   },
 
   methods: {
     warningPopupOpen () {
-      this.$store.commit('popupOpen', { component: PopupAvertissement, closeBtn: false })
+      this.$store.commit('popupOpen', {
+        component: PopupAvertissement,
+        closeBtn: false
+      })
     }
   }
 }
