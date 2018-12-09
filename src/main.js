@@ -24,14 +24,16 @@ Vue.filter('dateFormat', dateFormat)
 
 Vue.mixin(mixins)
 
-Vue.use(VueMatomo, {
-  host: 'https://stats.data.gouv.fr',
-  siteId: 70,
-  router,
-  requireConsent: false,
-  trackInitialView: true,
-  trackerFileName: 'piwik'
-})
+if (process.env.VUE_APP_MATOMO_HOST) {
+  Vue.use(VueMatomo, {
+    host: process.env.VUE_APP_MATOMO_HOST,
+    siteId: 70,
+    router,
+    requireConsent: false,
+    trackInitialView: true,
+    trackerFileName: 'piwik'
+  })
+}
 
 new Vue({
   router,
