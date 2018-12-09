@@ -2,8 +2,6 @@
 
 > Interface web de [Camino](https://camino.beta.gouv.fr).
 
-Application en cours de développement, provisoirement accessible [ici](https://camino.beta.gouv.fr).
-
 ---
 
 ## Technologies

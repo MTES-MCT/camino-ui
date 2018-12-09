@@ -16,7 +16,8 @@
     "test": "jest",
     "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve --open",
-    "start": "node ./index.js"
+    "start": "node ./index.js",
+    "commit": "npx git-cz"
   },
   "dependencies": {
     "compression": "^1.7.3",
