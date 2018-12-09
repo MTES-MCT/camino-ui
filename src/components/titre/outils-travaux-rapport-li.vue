@@ -18,16 +18,16 @@ import RapportPopup from './rapport-popup.vue'
 
 export default {
   computed: {
-    periode () {
+    periode() {
       return this.$store.state.titreTravaux.periode
     },
-    titre () {
+    titre() {
       return this.$store.state.titre.current
     },
-    user () {
+    user() {
       return this.$store.state.user.current
     },
-    hasRapport () {
+    hasRapport() {
       return (
         this.titre.domaine.id === 'm' &&
         (this.titre.type.id === 'cxx' ||
@@ -35,7 +35,7 @@ export default {
           this.titre.type.id === 'axm')
       )
     },
-    hasPermissions () {
+    hasPermissions() {
       return (
         this.permissionsCheck(['super', 'admin']) ||
         (this.permissionsCheck(['entreprise']) &&
@@ -43,10 +43,10 @@ export default {
           !!this.titre.titulaires.find(t => t.id === this.user.entreprise.id))
       )
     },
-    isVisible () {
+    isVisible() {
       return this.hasPermissions && this.hasRapport && !this.rapportExists
     },
-    rapportExists () {
+    rapportExists() {
       return (
         this.titre.travauxRapports &&
         this.titre.travauxRapports.find(
@@ -56,13 +56,13 @@ export default {
         )
       )
     },
-    rapportCalendrier () {
+    rapportCalendrier() {
       return this.$store.state.titreTravaux.rapportCalendrier
     }
   },
 
   methods: {
-    rapportPopupOpen () {
+    rapportPopupOpen() {
       this.$store.commit('popupOpen', {
         component: RapportPopup,
         props: {

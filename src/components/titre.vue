@@ -263,10 +263,10 @@ export default {
   },
 
   computed: {
-    titre () {
+    titre() {
       return this.$store.state.titre.current
     },
-    loaded () {
+    loaded() {
       return !!this.titre
     }
   },
@@ -275,16 +275,16 @@ export default {
     $route: 'get'
   },
 
-  created () {
+  created() {
     this.get()
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     this.$store.commit('titre/reset')
   },
 
   methods: {
-    get () {
+    get() {
       this.$store.dispatch('titre/get', this.$route.params.id)
     }
   }

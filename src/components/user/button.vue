@@ -25,32 +25,32 @@ import UserLoginPopup from './login-popup.vue'
 import UserMenu from './menu.vue'
 
 export default {
-  data () {
+  data() {
     return {
       popupVisible: false
     }
   },
 
   computed: {
-    user () {
+    user() {
       return this.$store.state.user.current
     },
-    menu () {
+    menu() {
       return this.$store.state.menu
     }
   },
 
   methods: {
-    popupOpen () {
+    popupOpen() {
       this.$store.commit('popupOpen', { component: UserLoginPopup })
     },
-    popupClose () {
+    popupClose() {
       this.$store.commit('popupClose')
     },
-    logout () {
+    logout() {
       this.$store.dispatch('user/logout')
     },
-    menuToggle () {
+    menuToggle() {
       this.$store.dispatch('menuToggle', UserMenu)
     }
   }

@@ -50,7 +50,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       map: null,
       zoom: 0,
@@ -69,7 +69,7 @@ export default {
     markerLayers: 'markersUpdate'
   },
 
-  mounted () {
+  mounted() {
     this.init()
     this.scaleAdd()
     this.tilesAdd()
@@ -78,7 +78,7 @@ export default {
   },
 
   methods: {
-    init () {
+    init() {
       this.map = L.map(this.$refs.map, {
         doubleClickZoom: false,
         minZoom: 3
@@ -96,21 +96,21 @@ export default {
       })
     },
 
-    fitBounds (bounds) {
+    fitBounds(bounds) {
       this.map.fitBounds(bounds)
     },
 
-    centerSet (center) {
+    centerSet(center) {
       this.map.panTo(center)
     },
 
-    zoomSet (zoom) {
+    zoomSet(zoom) {
       this.map.setZoom(zoom)
       this.zoom = this.map.getZoom()
       this.$emit('map-zoom', this.zoom)
     },
 
-    scaleAdd () {
+    scaleAdd() {
       L.control
         .scale({
           imperial: false
@@ -118,32 +118,32 @@ export default {
         .addTo(this.map)
     },
 
-    tilesUpdate () {
+    tilesUpdate() {
       this.layers.tiles.removeFrom(this.map)
       this.tilesAdd()
     },
 
-    tilesAdd () {
+    tilesAdd() {
       this.layers.tiles = this.tilesLayer
       this.layers.tiles.addTo(this.map)
     },
 
-    geojsonsAdd () {
+    geojsonsAdd() {
       this.layers.geojsons = this.geojsonLayers
       this.layers.geojsons.forEach(l => l.addTo(this.map))
     },
 
-    geojsonsUpdate () {
+    geojsonsUpdate() {
       this.layers.geojsons.forEach(l => l.remove())
       this.geojsonsAdd()
     },
 
-    markersAdd () {
+    markersAdd() {
       this.layers.markers = this.markerLayers
       this.layers.markers.forEach(m => m.addTo(this.map))
     },
 
-    markersUpdate () {
+    markersUpdate() {
       this.layers.markers.forEach(m => m.remove())
       this.markersAdd()
     }

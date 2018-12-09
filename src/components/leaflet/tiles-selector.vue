@@ -43,7 +43,7 @@ export default {
   },
 
   methods: {
-    select (tilesId) {
+    select(tilesId) {
       this.$emit('tiles-id-set', tilesId)
     }
   }

@@ -15,20 +15,20 @@
 import MainMenu from './menu.vue'
 
 export default {
-  data () {
+  data() {
     return {
       popupVisible: false
     }
   },
 
   computed: {
-    menu () {
+    menu() {
       return this.$store.state.menu
     }
   },
 
   methods: {
-    menuToggle () {
+    menuToggle() {
       this.$store.dispatch('menuToggle', MainMenu)
     }
   }

@@ -84,7 +84,7 @@ export default {
     Messages
   },
 
-  data () {
+  data() {
     return {
       email: '',
       motDePasse: ''
@@ -92,24 +92,24 @@ export default {
   },
 
   computed: {
-    messages () {
+    messages() {
       return this.$store.state.popup.messages
     },
-    complete () {
+    complete() {
       return !!this.email && !!this.motDePasse
     }
   },
 
-  created () {
+  created() {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
-    login () {
+    login() {
       if (this.complete) {
         this.$store.dispatch('user/login', {
           email: this.email,
@@ -118,16 +118,16 @@ export default {
       }
     },
 
-    cancel () {
+    cancel() {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
-    errorsRemove () {
+    errorsRemove() {
       this.$store.commit('popupMessagesRemove')
     },
 
-    keyup (e) {
+    keyup(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
@@ -135,7 +135,7 @@ export default {
       }
     },
 
-    userAddPopupOpen () {
+    userAddPopupOpen() {
       this.$store.commit('popupOpen', {
         component: UtilisateurEditPopup,
         props: {
@@ -145,7 +145,7 @@ export default {
       })
     },
 
-    userPasswordInitPopupOpen () {
+    userPasswordInitPopupOpen() {
       this.$store.commit('popupOpen', {
         component: UtilisateurPasswordInitPopup
       })

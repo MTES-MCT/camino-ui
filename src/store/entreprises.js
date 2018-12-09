@@ -10,7 +10,7 @@ export const actions = {}
 export const getters = {}
 
 export const mutations = {
-  set (state, entreprises) {
+  set(state, entreprises) {
     Vue.set(
       state,
       'list',

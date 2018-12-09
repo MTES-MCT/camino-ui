@@ -129,7 +129,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       pageActive: 1,
       colonnes: [
@@ -164,7 +164,7 @@ export default {
   },
 
   computed: {
-    titresPages () {
+    titresPages() {
       return this.titres.reduce((res, cur, i) => {
         const page = Math.ceil((i + 1) / this.pagesRangeActive)
 
@@ -175,7 +175,7 @@ export default {
     }
   },
 
-  created () {
+  created() {
     if (this.$route.query.pages) {
       this.pagesRangeActive = Number(this.$route.query.pages)
     }
@@ -186,12 +186,12 @@ export default {
   },
 
   methods: {
-    pageChange (page) {
+    pageChange(page) {
       this.pageActive = page
       const query = Object.assign({}, this.$route.query, { page })
       this.$router.push({ query })
     },
-    pageRangeChange (pages) {
+    pageRangeChange(pages) {
       this.pagesRangeActive = Number(pages)
       this.pageChange(1)
       const query = Object.assign({}, this.$route.query, { pages })

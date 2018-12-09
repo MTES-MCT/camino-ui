@@ -144,7 +144,7 @@ export default {
     Accordion
   },
 
-  data () {
+  data() {
     return {
       filterSelecteds: [
         {
@@ -155,10 +155,10 @@ export default {
   },
 
   computed: {
-    domaines () {
+    domaines() {
       return this.$store.state.titres.domaines
     },
-    types () {
+    types() {
       return (
         this.$store.state.titres.types &&
         this.$store.state.titres.types.reduce((res, cur) => {
@@ -167,26 +167,26 @@ export default {
         }, [])
       )
     },
-    statuts () {
+    statuts() {
       return this.$store.state.titres.statuts
     },
-    substances () {
+    substances() {
       return this.$store.state.titres.substances
     },
-    noms () {
+    noms() {
       return this.$store.state.titres.noms
     }
   },
 
   methods: {
-    filterToggle (e, name, property) {
+    filterToggle(e, name, property) {
       this.$store.dispatch('titres/filterToggle', {
         name,
         value: e.target.value,
         property
       })
     },
-    filterInput (e, name) {
+    filterInput(e, name) {
       this.$store.dispatch('titres/filterInput', {
         name,
         value: e.target.value

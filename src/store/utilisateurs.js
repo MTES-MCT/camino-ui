@@ -15,7 +15,7 @@ export const state = {
 }
 
 export const actions = {
-  async get ({ dispatch, commit }) {
+  async get({ dispatch, commit }) {
     try {
       const res = await utilisateurs({})
 
@@ -29,7 +29,7 @@ export const actions = {
     }
   },
 
-  async add ({ commit, dispatch }, utilisateur) {
+  async add({ commit, dispatch }, utilisateur) {
     commit('popupMessagesRemove', null, { root: true })
     try {
       const u = await utilisateurAdd({ utilisateur })
@@ -52,7 +52,7 @@ export const actions = {
     }
   },
 
-  async update ({ commit, dispatch, rootState }, utilisateur) {
+  async update({ commit, dispatch, rootState }, utilisateur) {
     commit('popupMessagesRemove', null, { root: true })
     try {
       const u = await utilisateurUpdate({ utilisateur })
@@ -73,7 +73,7 @@ export const actions = {
     }
   },
 
-  async remove ({ commit, dispatch, rootState }, id) {
+  async remove({ commit, dispatch, rootState }, id) {
     commit('popupMessagesRemove', null, { root: true })
     try {
       const utilisateur = await utilisateurRemove({ id })
@@ -101,7 +101,7 @@ export const actions = {
     }
   },
 
-  async passwordUpdate (
+  async passwordUpdate(
     { commit, dispatch },
     { id, motDePasse, motDePasseNouveau1, motDePasseNouveau2 }
   ) {
@@ -133,23 +133,23 @@ export const actions = {
 }
 
 export const mutations = {
-  set (state, titres) {
+  set(state, titres) {
     Vue.set(state, 'list', titres)
   },
 
-  permissionsSet (state, permissions) {
+  permissionsSet(state, permissions) {
     Vue.set(state, 'permissions', permissions)
   },
 
-  reset (state) {
+  reset(state) {
     Vue.set(state, 'permissions', [])
   },
 
-  add (state, utilisateur) {
+  add(state, utilisateur) {
     state.list.push(utilisateur)
   },
 
-  remove (state, id) {
+  remove(state, id) {
     const index = state.list.findIndex(u => u.id === id)
     if (index > 0) {
       state.list.splice(index, 1)

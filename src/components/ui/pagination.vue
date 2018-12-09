@@ -91,10 +91,10 @@ export default {
   },
 
   computed: {
-    delta () {
+    delta() {
       return Math.round((this.pagesVisible - 1) / 2)
     },
-    pages () {
+    pages() {
       let filter
       if (this.pageActive <= this.delta) {
         filter = n => n <= this.delta * 2 + 1
@@ -102,8 +102,7 @@ export default {
         filter = n => n >= this.pagesTotal - this.delta * 2
       } else {
         filter = n =>
-          n >= this.pageActive - this.delta &&
-          n <= this.pageActive + this.delta
+          n >= this.pageActive - this.delta && n <= this.pageActive + this.delta
       }
       return Array.from(Array(this.pagesTotal).keys())
         .map(n => n + 1)
@@ -112,7 +111,7 @@ export default {
   },
 
   methods: {
-    pageChange (page) {
+    pageChange(page) {
       this.$emit('page-change', page)
     }
   }

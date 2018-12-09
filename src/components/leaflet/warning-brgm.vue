@@ -22,7 +22,7 @@ export default {
   },
 
   computed: {
-    brgmWarning () {
+    brgmWarning() {
       return this.tilesId === 'brgm-geo' && (this.zoom < 12 || this.zoom > 16)
     }
   }

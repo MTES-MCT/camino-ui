@@ -119,7 +119,7 @@ export default {
   },
 
   methods: {
-    editPopupOpen () {
+    editPopupOpen() {
       const etapeCloneAndFormat = etape => {
         const etapeTmp = JSON.parse(JSON.stringify(etape))
         if (etapeTmp.date) {
@@ -154,7 +154,7 @@ export default {
         }
       })
     },
-    editPopupClose () {
+    editPopupClose() {
       this.$store.commit('popupClose')
     }
   }

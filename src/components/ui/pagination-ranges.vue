@@ -45,7 +45,7 @@ export default {
   },
 
   methods: {
-    pageRangeChange (event) {
+    pageRangeChange(event) {
       this.$emit('page-range-change', event.target.value)
     }
   }

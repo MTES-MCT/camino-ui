@@ -142,22 +142,22 @@ export default {
   },
 
   computed: {
-    messages () {
+    messages() {
       return this.$store.state.popup.messages
     },
-    entreprises () {
+    entreprises() {
       return this.$store.state.entreprises.list
     },
-    substances () {
+    substances() {
       return this.$store.state.substances.list
     },
-    travauxStatuts () {
+    travauxStatuts() {
       return this.$store.state.titreTravaux.rapportStatuts
     },
-    contenus () {
+    contenus() {
       return this.$store.state.titreTravaux.rapportContenus
     },
-    travauxComplete () {
+    travauxComplete() {
       return this.rapport.contenu.travaux.reduce(
         (res, mois) =>
           res &&
@@ -169,7 +169,7 @@ export default {
         true
       )
     },
-    complete () {
+    complete() {
       return (
         (this.rapport.contenu.or || this.rapport.contenu.or === 0) &&
         (this.rapport.contenu.mercure || this.rapport.contenu.mercure === 0) &&
@@ -188,16 +188,16 @@ export default {
     }
   },
 
-  created () {
+  created() {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
-    save () {
+    save() {
       if (this.complete) {
         this.rapport.date = new Date()
 
@@ -205,12 +205,12 @@ export default {
       }
     },
 
-    cancel () {
+    cancel() {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
-    keyup (e) {
+    keyup(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
@@ -218,7 +218,7 @@ export default {
       }
     },
 
-    errorsRemove () {
+    errorsRemove() {
       this.$store.commit('popupMessagesRemove')
     }
   }

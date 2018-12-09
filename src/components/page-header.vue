@@ -57,7 +57,7 @@ export default {
   },
 
   computed: {
-    apiError () {
+    apiError() {
       return this.$store.state.apiError
     }
   }

@@ -36,16 +36,16 @@ export default {
   name: 'UserMenu',
 
   computed: {
-    user () {
+    user() {
       return this.$store.state.user.current
     },
-    menu () {
+    menu() {
       return this.$store.state.menu
     }
   },
 
   methods: {
-    logout () {
+    logout() {
       if (this.menu.component && this.menu.component.name === 'MenuUser') {
         this.$store.commit('menuClose')
       }

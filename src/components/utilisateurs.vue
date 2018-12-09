@@ -36,30 +36,30 @@ export default {
     UtilisateursTable
   },
 
-  data () {
+  data() {
     return {
       filtersOpened: false
     }
   },
 
   computed: {
-    utilisateurs () {
+    utilisateurs() {
       return this.$store.state.utilisateurs.list
     },
-    loaded () {
+    loaded() {
       return !!this.utilisateurs
     }
   },
 
-  created () {
+  created() {
     this.get()
   },
 
   methods: {
-    get () {
+    get() {
       this.$store.dispatch('utilisateurs/get')
     },
-    addPopupOpen () {
+    addPopupOpen() {
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {

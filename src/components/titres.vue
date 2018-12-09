@@ -51,7 +51,7 @@ export default {
     TitresFilters
   },
 
-  data () {
+  data() {
     return {
       filtersOpened: false,
       viewId: 'carte',
@@ -73,18 +73,18 @@ export default {
   },
 
   computed: {
-    titres () {
+    titres() {
       return this.$store.state.titres.list
     },
-    loaded () {
+    loaded() {
       return !!this.titres
     },
-    view () {
+    view() {
       return this.views.find(c => c.id === this.viewId)
     }
   },
 
-  created () {
+  created() {
     this.get()
     if (
       this.$route.query.vue &&
@@ -97,10 +97,10 @@ export default {
   },
 
   methods: {
-    get () {
+    get() {
       this.$store.dispatch('titres/get')
     },
-    viewSet (viewId) {
+    viewSet(viewId) {
       this.viewId = viewId
 
       const pick = (obj, keys) =>

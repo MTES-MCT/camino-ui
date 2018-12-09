@@ -61,7 +61,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       zones: [
         {
@@ -97,7 +97,7 @@ export default {
   },
 
   computed: {
-    tilesLayer () {
+    tilesLayer() {
       const tiles = this.$store.getters['user/tilesActive']
       return tiles.type === 'wms'
         ? L.tileLayer.wms(tiles.url, {
@@ -110,23 +110,23 @@ export default {
           })
     },
 
-    zone () {
+    zone() {
       return this.zones.find(z => z.id === this.zoneId)
     },
 
-    bounds () {
+    bounds() {
       return L.geoJSON(this.zone).getBounds()
     },
 
-    domaines () {
+    domaines() {
       return this.$store.state.titres.domaines
     },
 
-    tiles () {
+    tiles() {
       return this.$store.state.map.tiles
     },
 
-    tilesId () {
+    tilesId() {
       return this.$store.state.user.preferences.titres.map.tilesId
     }
   },
@@ -135,7 +135,7 @@ export default {
     titres: 'titresInit'
   },
 
-  mounted () {
+  mounted() {
     this.titresInit()
 
     const zoom = this.$route.query.zoom
@@ -155,7 +155,7 @@ export default {
   },
 
   methods: {
-    titresInit () {
+    titresInit() {
       this.markerLayers = []
       this.geojsonLayers = []
       this.titres.forEach(titre => {
@@ -180,10 +180,10 @@ export default {
           click: () => {
             this.$router.push(titleRoute)
           },
-          mouseover (e) {
+          mouseover(e) {
             this.openPopup()
           },
-          mouseout (e) {
+          mouseout(e) {
             this.closePopup()
           }
         }
@@ -219,21 +219,21 @@ export default {
       })
     },
 
-    mapCenter (zoneId) {
+    mapCenter(zoneId) {
       if (this.zoneId !== zoneId) {
         this.zoneId = zoneId
       }
       this.$refs.map.fitBounds(this.bounds)
     },
 
-    tilesIdSelect (tilesId) {
+    tilesIdSelect(tilesId) {
       this.$store.dispatch('user/preferenceSet', {
         section: 'titres.map.tilesId',
         value: tilesId
       })
     },
 
-    zoomGet (zoom) {
+    zoomGet(zoom) {
       this.zoom = zoom
       this.$store.dispatch('user/preferenceSet', {
         section: 'titres.map.zoom',
@@ -244,7 +244,7 @@ export default {
       this.$router.push({ query })
     },
 
-    centerGet (center) {
+    centerGet(center) {
       const c = `${center.lat.toFixed(7)},${center.lng.toFixed(7)}`
 
       this.$store.dispatch('user/preferenceSet', {

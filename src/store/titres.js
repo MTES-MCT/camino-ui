@@ -11,7 +11,7 @@ export const state = {
 }
 
 export const actions = {
-  async get ({ state, dispatch, commit }, fetchPolicy) {
+  async get({ state, dispatch, commit }, fetchPolicy) {
     const args = {
       typeIds: state.types && state.types.filter(e => e.checked).map(e => e.id),
       domaineIds:
@@ -40,13 +40,13 @@ export const actions = {
     }
   },
 
-  filterInput ({ state, dispatch, commit }, { name, value }) {
+  filterInput({ state, dispatch, commit }, { name, value }) {
     const values = value ? value.split(/[ ,]+/) : null
     commit('filterInput', { name, values })
     dispatch('get')
   },
 
-  filterToggle ({ state, dispatch, commit }, { name, value, property }) {
+  filterToggle({ state, dispatch, commit }, { name, value, property }) {
     state[name]
       .filter(e => e[property].toString() === value)
       .forEach(f => commit('filterToggle', f))
@@ -57,22 +57,22 @@ export const actions = {
 export const getters = {}
 
 export const mutations = {
-  set (state, titres) {
+  set(state, titres) {
     Vue.set(state, 'list', titres)
   },
 
-  metasSet (state, { name, values }) {
+  metasSet(state, { name, values }) {
     // ici on pourrait faire mieux, en
     // - n'ajoutant que les valeurs qui n'existent pas déjà
     // - et ainsi conserver leur état checked
     Vue.set(state, name, values.map(v => Object.assign({ checked: true }, v)))
   },
 
-  filterToggle (state, f) {
+  filterToggle(state, f) {
     Vue.set(f, 'checked', !f.checked)
   },
 
-  filterInput (state, { name, values }) {
+  filterInput(state, { name, values }) {
     Vue.set(state, name, values)
   }
 }

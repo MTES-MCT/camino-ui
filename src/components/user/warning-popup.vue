@@ -55,16 +55,16 @@ export default {
     Popup
   },
 
-  created () {
+  created() {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
-    set () {
+    set() {
       this.$store.dispatch('user/preferenceSet', {
         section: 'conditions',
         value: new Date().getTime()
@@ -72,7 +72,7 @@ export default {
       this.$store.commit('popupClose')
     },
 
-    keyup (e) {
+    keyup(e) {
       if ((e.which || e.keyCode) === 13) {
         this.set()
       }

@@ -18,7 +18,7 @@ export const state = {
 }
 
 export const actions = {
-  async init ({ dispatch }) {
+  async init({ dispatch }) {
     if (localStorage.getItem('token')) {
       await dispatch('identifier')
     } else {
@@ -26,7 +26,7 @@ export const actions = {
     }
   },
 
-  async identifier ({ commit, dispatch }) {
+  async identifier({ commit, dispatch }) {
     try {
       const user = await utilisateurIdentify()
       console.log('user', user)
@@ -37,7 +37,7 @@ export const actions = {
     }
   },
 
-  async login ({ commit, dispatch }, { email, motDePasse }) {
+  async login({ commit, dispatch }, { email, motDePasse }) {
     commit('popupMessagesRemove', null, { root: true })
     try {
       const res = await utilisateurLogin({ email, motDePasse })
@@ -61,7 +61,7 @@ export const actions = {
     }
   },
 
-  logout ({ commit, dispatch }) {
+  logout({ commit, dispatch }) {
     commit('menuClose', null, { root: true })
     commit('tokenRemove')
     commit('reset')
@@ -73,7 +73,7 @@ export const actions = {
     dispatch('load', null, { root: true })
   },
 
-  async passwordInitEmail ({ commit, dispatch }, { email }) {
+  async passwordInitEmail({ commit, dispatch }, { email }) {
     commit('popupMessagesRemove', null, { root: true })
     try {
       const res = await utilisateurPasswordInitEmail({ email })
@@ -91,7 +91,7 @@ export const actions = {
     }
   },
 
-  async passwordInit ({ commit, dispatch }, { motDePasse1, motDePasse2 }) {
+  async passwordInit({ commit, dispatch }, { motDePasse1, motDePasse2 }) {
     try {
       const res = await utilisateurPasswordInit({ motDePasse1, motDePasse2 })
 
@@ -116,30 +116,30 @@ export const actions = {
     }
   },
 
-  preferenceSet ({ state, commit }, { section, value }) {
+  preferenceSet({ state, commit }, { section, value }) {
     commit('preferenceSet', { section, value })
     if (section === 'conditions') {
       localStorage.setItem('conditions', value)
     }
   },
 
-  tokenSet ({ commit }, token) {
+  tokenSet({ commit }, token) {
     localStorage.setItem('token', token)
   },
 
-  tokenRemove () {
+  tokenRemove() {
     localStorage.removeItem('token')
   }
 }
 
 export const getters = {
-  tilesActive (state, getters, rootState) {
+  tilesActive(state, getters, rootState) {
     return rootState.map.tiles.find(
       t => t.id === state.preferences.titres.map.tilesId
     )
   },
 
-  preferencesConditions (state) {
+  preferencesConditions(state) {
     if (state.current) {
       return true
     }
@@ -159,14 +159,14 @@ export const getters = {
 }
 
 export const mutations = {
-  preferenceSet (state, { section, value }) {
+  preferenceSet(state, { section, value }) {
     const path = section.split('.')
     const key = path.pop()
     const p = path.reduce((res, el) => res[el], state.preferences)
     Vue.set(p, key, value)
   },
 
-  set (state, user) {
+  set(state, user) {
     Vue.set(state, 'current', {})
     Vue.set(state.current, 'id', user.id)
     Vue.set(state.current, 'prenom', user.prenom)
@@ -177,7 +177,7 @@ export const mutations = {
     }
   },
 
-  reset (state) {
+  reset(state) {
     Vue.set(state, 'current', null)
   }
 }

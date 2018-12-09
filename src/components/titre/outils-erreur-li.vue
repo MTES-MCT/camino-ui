@@ -12,7 +12,7 @@
 <script>
 export default {
   methods: {
-    emailSend () {
+    emailSend() {
       window.location.href = `mailto:camino@beta.gouv.fr?subject=Erreur ${
         this.$route.params.id
       }&body=Bonjour, j'ai repéré une erreur sur le titre ${

@@ -7,7 +7,7 @@ export const state = {
 }
 
 export const actions = {
-  async get ({ commit, dispatch }, id) {
+  async get({ commit, dispatch }, id) {
     try {
       const res = await titre(id)
 
@@ -21,7 +21,7 @@ export const actions = {
     }
   },
 
-  async reload ({ dispatch, state }) {
+  async reload({ dispatch, state }) {
     try {
       await dispatch('get', state.current.id)
     } catch (e) {
@@ -29,7 +29,7 @@ export const actions = {
     }
   },
 
-  async etapeUpdate ({ commit, dispatch }, etape) {
+  async etapeUpdate({ commit, dispatch }, etape) {
     commit('popupMessagesRemove', null, { root: true })
     try {
       const res = await titreEtapeUpdate({ etape })
@@ -53,7 +53,7 @@ export const actions = {
     }
   },
 
-  documentSelect ({ commit }, { documentId, selected }) {
+  documentSelect({ commit }, { documentId, selected }) {
     if (selected) {
       commit('documentSelectionAdd', documentId)
     } else {
@@ -66,14 +66,14 @@ export const getters = {
   documentsTotal: state =>
     state.current && state.current['démarches']
       ? Object.keys(state.current['démarches']).reduce(
-        (total, type) =>
-          (total += state.current['démarches'][type].reduce(
-            (subtotal, d) =>
-              (subtotal += d.documents ? d.documents.length : 0),
-            0
-          )),
-        0
-      )
+          (total, type) =>
+            (total += state.current['démarches'][type].reduce(
+              (subtotal, d) =>
+                (subtotal += d.documents ? d.documents.length : 0),
+              0
+            )),
+          0
+        )
       : 0,
 
   documentSelected: state => documentId =>
@@ -81,19 +81,19 @@ export const getters = {
 }
 
 export const mutations = {
-  set (state, titre) {
+  set(state, titre) {
     Vue.set(state, 'current', titre)
   },
 
-  reset (state) {
+  reset(state) {
     Vue.set(state, 'current', null)
   },
 
-  documentSelectionAdd (state, documentId) {
+  documentSelectionAdd(state, documentId) {
     state.documents.push(documentId)
   },
 
-  documentSelectionRemove (state, documentId) {
+  documentSelectionRemove(state, documentId) {
     const index = state.documents.findIndex(id => id === documentId)
     Vue.delete(state.documents, index)
   }

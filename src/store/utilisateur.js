@@ -7,7 +7,7 @@ export const state = {
 }
 
 export const actions = {
-  async get ({ commit, dispatch }, id) {
+  async get({ commit, dispatch }, id) {
     try {
       const res = await utilisateur(id)
 
@@ -23,11 +23,11 @@ export const actions = {
 }
 
 export const mutations = {
-  set (state, utilisateur) {
+  set(state, utilisateur) {
     Vue.set(state, 'current', utilisateur)
   },
 
-  reset (state) {
+  reset(state) {
     Vue.set(state, 'current', null)
   }
 }

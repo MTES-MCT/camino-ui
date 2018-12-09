@@ -66,32 +66,32 @@ export default {
     Messages
   },
 
-  data () {
+  data() {
     return {
       email: ''
     }
   },
 
   computed: {
-    complete () {
+    complete() {
       return !!this.email
     },
 
-    messages () {
+    messages() {
       return this.$store.state.popup.messages
     }
   },
 
-  created () {
+  created() {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
-    save () {
+    save() {
       if (this.complete) {
         this.$store.dispatch('user/passwordInitEmail', {
           email: this.email
@@ -99,12 +99,12 @@ export default {
       }
     },
 
-    cancel () {
+    cancel() {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
-    keyup (e) {
+    keyup(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
@@ -112,7 +112,7 @@ export default {
       }
     },
 
-    errorsRemove () {
+    errorsRemove() {
       this.$store.commit('popupMessagesRemove')
     }
   }

@@ -50,21 +50,21 @@ export default {
   },
 
   computed: {
-    error () {
+    error() {
       return this.$store.state.error
     },
-    messages () {
+    messages() {
       return this.$store.state.messages
     },
-    popup () {
+    popup() {
       return this.$store.state.popup
     },
-    menu () {
+    menu() {
       return this.$store.state.menu
     }
   },
 
-  mounted () {
+  mounted() {
     this.$store.dispatch('user/init').then(r => {
       if (!this.$store.getters['user/preferencesConditions']) {
         this.warningPopupOpen()
@@ -75,7 +75,7 @@ export default {
   },
 
   methods: {
-    warningPopupOpen () {
+    warningPopupOpen() {
       this.$store.commit('popupOpen', {
         component: PopupAvertissement,
         closeBtn: false

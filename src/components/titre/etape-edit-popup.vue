@@ -455,34 +455,34 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       id: ''
     }
   },
 
   computed: {
-    messages () {
+    messages() {
       return this.$store.state.popup.messages
     },
-    entreprises () {
+    entreprises() {
       return this.$store.state.entreprises.list
     },
-    substances () {
+    substances() {
       return this.$store.state.substances.list
     }
   },
 
-  created () {
+  created() {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
-    save () {
+    save() {
       const etapeCloneAndFormat = etape => {
         const etapeTmp = JSON.parse(JSON.stringify(etape))
         etapeTmp.titulaires = etapeTmp.titulaires.filter(t => t.id)
@@ -512,18 +512,15 @@ export default {
         return etapeTmp
       }
 
-      this.$store.dispatch(
-        'titre/etapeUpdate',
-        etapeCloneAndFormat(this.etape)
-      )
+      this.$store.dispatch('titre/etapeUpdate', etapeCloneAndFormat(this.etape))
     },
 
-    cancel () {
+    cancel() {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
-    keyup (e) {
+    keyup(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
@@ -531,67 +528,67 @@ export default {
       }
     },
 
-    errorsRemove () {
+    errorsRemove() {
       // this.$store.commit('utilisateur/loginMessagesRemove')
     },
 
-    pointAdd () {
+    pointAdd() {
       const point = { id: '', coordonnees: { x: '', y: '' }, references: [] }
       this.etape.points.push(point)
     },
 
-    pointRemove (point) {
+    pointRemove(point) {
       const index = this.etape.points.findIndex(p => p.id === point.id)
       this.etape.points.splice(index, 1)
     },
 
-    pointReferenceAdd (point) {
+    pointReferenceAdd(point) {
       const reference = { id: '', coordonnees: { x: '', y: '' } }
       point.references.push(reference)
     },
 
-    pointReferenceRemove (point, reference) {
+    pointReferenceRemove(point, reference) {
       const index = point.references.findIndex(r => r.id === reference.id)
       point.references.splice(index, 1)
     },
 
-    titulaireAdd () {
+    titulaireAdd() {
       this.etape.titulaires.push({ id: '' })
     },
 
-    titulaireSet (titulaireId) {
+    titulaireSet(titulaireId) {
       const index = this.etape.titulaires.findIndex(t => t.id === titulaireId)
       const entreprise = this.entreprises.find(e => e.id === titulaireId)
       this.$set(this.etape.titulaires, index, entreprise)
     },
 
-    titulaireRemove (id) {
+    titulaireRemove(id) {
       const index = this.etape.titulaires.findIndex(t => t.id === id)
       this.etape.titulaires.splice(index, 1)
     },
 
-    amodiataireAdd () {
+    amodiataireAdd() {
       const amodiataire = { id: '', nom: '' }
       this.etape.amodiataires.push(amodiataire)
     },
 
-    amodiataireRemove (id) {
+    amodiataireRemove(id) {
       const index = this.etape.amodiataires.findIndex(t => t.id === id)
       this.etape.amodiataires.splice(index, 1)
     },
 
-    substanceAdd () {
+    substanceAdd() {
       const substance = { id: '', nom: '' }
       this.etape.substances.push(substance)
     },
 
-    substanceUpdate (etapeSubstanceIndex, substanceId) {
+    substanceUpdate(etapeSubstanceIndex, substanceId) {
       this.etape.substances[etapeSubstanceIndex] = this.substances.find(
         s => s.id === substanceId
       )
     },
 
-    substanceRemove (id) {
+    substanceRemove(id) {
       const index = this.etape.substances.findIndex(t => t.id === id)
       this.etape.substances.splice(index, 1)
     }

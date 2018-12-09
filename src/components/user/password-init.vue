@@ -59,7 +59,7 @@
 export default {
   name: 'CaminoPassordInit',
 
-  data () {
+  data() {
     return {
       motDePasse1: '',
       motDePasse2: '',
@@ -68,21 +68,21 @@ export default {
   },
 
   computed: {
-    complete () {
+    complete() {
       return this.motDePasse1 && this.motDePasse2
     }
   },
 
-  created () {
+  created() {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
-    save () {
+    save() {
       if (this.complete && !this.done) {
         this.$store.dispatch('user/tokenSet', this.$route.query.token)
         this.$store
@@ -98,7 +98,7 @@ export default {
       }
     },
 
-    keyup (e) {
+    keyup(e) {
       if ((e.which || e.keyCode) === 13) {
         this.save()
       }

@@ -162,10 +162,10 @@ export default {
   },
 
   computed: {
-    utilisateur () {
+    utilisateur() {
       return this.$store.state.utilisateur.current
     },
-    loaded () {
+    loaded() {
       return !!this.utilisateur
     }
   },
@@ -174,19 +174,19 @@ export default {
     $route: 'get'
   },
 
-  created () {
+  created() {
     this.get()
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     this.$store.commit('utilisateur/reset')
   },
 
   methods: {
-    get () {
+    get() {
       this.$store.dispatch('utilisateur/get', this.$route.params.id)
     },
-    editPopupOpen () {
+    editPopupOpen() {
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
@@ -194,7 +194,7 @@ export default {
         }
       })
     },
-    removePopupOpen () {
+    removePopupOpen() {
       this.$store.commit('popupOpen', {
         component: RemovePopup,
         props: {
@@ -202,7 +202,7 @@ export default {
         }
       })
     },
-    passwordPopupOpen () {
+    passwordPopupOpen() {
       this.$store.commit('popupOpen', {
         component: PasswordPopup,
         props: {

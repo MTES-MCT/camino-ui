@@ -35,7 +35,7 @@ export default {
   name: 'MainMenu',
 
   computed: {
-    menu () {
+    menu() {
       return this.$store.state.menu
     }
   },

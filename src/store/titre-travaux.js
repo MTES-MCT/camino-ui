@@ -146,7 +146,7 @@ export const state = {
 }
 
 export const actions = {
-  async rapportAdd ({ commit, dispatch }, rapport) {
+  async rapportAdd({ commit, dispatch }, rapport) {
     commit('popupMessagesRemove', null, { root: true })
     try {
       const res = await titreTravauxRapportAdd({ rapport })

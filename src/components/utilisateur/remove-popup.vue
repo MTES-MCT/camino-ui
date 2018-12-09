@@ -63,13 +63,13 @@ export default {
   },
 
   computed: {
-    messages () {
+    messages() {
       return this.$store.state.popup.messages
     },
-    permissionList () {
+    permissionList() {
       return this.$store.state.utilisateurs.permissions
     },
-    complete () {
+    complete() {
       return this.creation
         ? this.utilisateur.id &&
             this.utilisateur.email &&
@@ -78,29 +78,29 @@ export default {
     }
   },
 
-  created () {
+  created() {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
-    remove () {
+    remove() {
       this.$store.dispatch('utilisateurs/remove', this.utilisateur.id)
     },
 
-    cancel () {
+    cancel() {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
-    errorsRemove () {
+    errorsRemove() {
       this.$store.commit('popupMessagesRemove')
     },
 
-    keyup (e) {
+    keyup(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {

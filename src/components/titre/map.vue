@@ -51,7 +51,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       map: null,
       geojsonLayers: [L.geoJSON(this.geojson)],
@@ -60,11 +60,11 @@ export default {
   },
 
   computed: {
-    bounds () {
+    bounds() {
       return this.geojsonLayers[0].getBounds()
     },
 
-    tilesLayer () {
+    tilesLayer() {
       const tiles = this.$store.getters['user/tilesActive']
       return tiles.type === 'wms'
         ? L.tileLayer.wms(tiles.url, {
@@ -77,21 +77,21 @@ export default {
           })
     },
 
-    tiles () {
+    tiles() {
       return this.$store.state.map.tiles
     },
 
-    tilesId () {
+    tilesId() {
       return this.$store.state.user.preferences.titres.map.tilesId
     }
   },
 
-  mounted () {
+  mounted() {
     this.center()
   },
 
   methods: {
-    tilesIdSelect (tuileNom) {
+    tilesIdSelect(tuileNom) {
       console.log(tuileNom)
       this.$store.dispatch('user/preferenceSet', {
         section: 'map.tilesId',
@@ -99,11 +99,11 @@ export default {
       })
     },
 
-    zoomGet (zoom) {
+    zoomGet(zoom) {
       this.zoom = zoom
     },
 
-    center () {
+    center() {
       this.$refs.map.fitBounds(this.bounds)
     }
   }

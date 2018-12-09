@@ -100,7 +100,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       motDePasse: '',
       motDePasseNouveau1: '',
@@ -109,26 +109,26 @@ export default {
   },
 
   computed: {
-    messages () {
+    messages() {
       return this.$store.state.popup.messages
     },
-    complete () {
+    complete() {
       return (
         this.motDePasse && this.motDePasseNouveau1 && this.motDePasseNouveau2
       )
     }
   },
 
-  created () {
+  created() {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
-    save () {
+    save() {
       if (this.complete) {
         this.$store.dispatch('utilisateurs/passwordUpdate', {
           id: this.utilisateur.id,
@@ -139,12 +139,12 @@ export default {
       }
     },
 
-    cancel () {
+    cancel() {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
-    keyup (e) {
+    keyup(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
@@ -152,11 +152,11 @@ export default {
       }
     },
 
-    errorsRemove () {
+    errorsRemove() {
       this.$store.commit('popupMessagesRemove')
     },
 
-    permissionToggle (permission) {
+    permissionToggle(permission) {
       this.utilisateur.permission = permission
     }
   }

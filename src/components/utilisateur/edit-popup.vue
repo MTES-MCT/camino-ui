@@ -266,7 +266,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       lien: 'aucun',
       cgu: null
@@ -274,13 +274,13 @@ export default {
   },
 
   computed: {
-    messages () {
+    messages() {
       return this.$store.state.popup.messages
     },
-    permissionList () {
+    permissionList() {
       return this.$store.state.utilisateurs.permissions
     },
-    complete () {
+    complete() {
       return this.creation
         ? this.utilisateur.nom &&
             this.utilisateur.prenom &&
@@ -289,12 +289,12 @@ export default {
             this.cgu
         : this.utilisateur.id && this.utilisateur.email
     },
-    entreprises () {
+    entreprises() {
       return this.$store.state.entreprises.list
     }
   },
 
-  created () {
+  created() {
     document.addEventListener('keyup', this.keyup)
 
     if (this.utilisateur.entreprise) {
@@ -305,12 +305,12 @@ export default {
     }
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
-    save () {
+    save() {
       if (this.complete) {
         if (this.creation) {
           this.utilisateur.id = slugify(
@@ -328,12 +328,12 @@ export default {
       }
     },
 
-    cancel () {
+    cancel() {
       this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
-    keyup (e) {
+    keyup(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
@@ -341,15 +341,15 @@ export default {
       }
     },
 
-    errorsRemove () {
+    errorsRemove() {
       this.$store.commit('popupMessagesRemove')
     },
 
-    permissionToggle (permission) {
+    permissionToggle(permission) {
       this.utilisateur.permission = permission
     },
 
-    lienReset () {
+    lienReset() {
       this.utilisateur.entreprise = this.lien === 'entreprise' ? {} : null
       this.utilisateur.administration =
         this.lien === 'administration' ? {} : null

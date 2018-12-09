@@ -28,13 +28,13 @@ export default {
   },
 
   computed: {
-    documentsSelected () {
+    documentsSelected() {
       return this.$store.state.titre.documents.length
     },
-    documentsTotal () {
+    documentsTotal() {
       return this.$store.getters['titre/documentsTotal']
     },
-    total () {
+    total() {
       return this.documentsSelected > 0
         ? `${this.documentsSelected} / ${this.documentsTotal}`
         : this.documentsTotal

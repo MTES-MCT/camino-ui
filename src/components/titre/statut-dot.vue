@@ -18,13 +18,13 @@ export default {
   },
 
   computed: {
-    colors () {
+    colors() {
       return this.$store.state.lib['statuts']
     }
   },
 
   methods: {
-    colorGet (value) {
+    colorGet(value) {
       const res = Object.keys(this.colors).find(color =>
         this.colors[color].find(v => v === value)
       )
