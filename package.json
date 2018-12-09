@@ -140,7 +140,7 @@
     }
   },
   "browserslist": [
-    ">0.25%",
+    ">10%",
     "not op_mini all"
   ],
   "stylelint": {
