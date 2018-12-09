@@ -24,12 +24,10 @@ module.exports = {
   // collectCoverageFrom: null,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: 'coverage',
+  coverageDirectory: '<rootDir>/coverage/',
 
   // An array of regexp pattern strings used to skip coverage collection
-  // coveragePathIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
+  coveragePathIgnorePatterns: ['/node_modules/', 'dist'],
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -63,15 +61,14 @@ module.exports = {
   // ],
 
   // An array of file extensions your modules use
-  // moduleFileExtensions: [
-  //   "js",
-  //   "json",
-  //   "jsx",
-  //   "node"
-  // ],
+  moduleFileExtensions: ['js', 'json', 'vue', 'node'],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    // '^vue$': 'vue/dist/vue.runtime.min.js',
+    // '^.+\\.(css)$': '<rootDir>/src/__mocks__/css.js',
+    '§@/(.*)$': '<rootDir>/src/$1'
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -107,9 +104,7 @@ module.exports = {
   // rootDir: null,
 
   // A list of paths to directories that Jest should use to search for files in
-  // roots: [
-  //   "<rootDir>"
-  // ],
+  // roots: ['<rootDir>/src/'],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: "jest-runner",
@@ -121,10 +116,10 @@ module.exports = {
   // setupTestFrameworkScriptFile: null,
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
-  // snapshotSerializers: [],
+  snapshotSerializers: ['jest-serializer-vue'],
 
   // The test environment that will be used for testing
-  testEnvironment: 'node'
+  testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -159,7 +154,10 @@ module.exports = {
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
-  // transform: null,
+  transform: {
+    '^.+\\.js$': 'babel-jest',
+    '.*\\.(vue)$': 'jest-vue-preprocessor'
+  }
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
