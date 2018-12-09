@@ -35,7 +35,7 @@
     "babel-eslint": "^10.0.1",
     "babel-plugin-graphql-tag": "^1.6.0",
     "crypto-random-string": "^1.0.0",
-    "eslint": "^5.9.0",
+    "eslint": "^5.10.0",
     "eslint-plugin-vue": "^5.0.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
@@ -60,10 +60,10 @@
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.2.0",
     "unfetch": "^4.0.1",
-    "vue": "^2.5.17",
+    "vue": "^2.5.18",
     "vue-meta": "^1.5.6",
     "vue-router": "^3.0.2",
-    "vue-template-compiler": "^2.5.17",
+    "vue-template-compiler": "^2.5.18",
     "vuex": "^3.0.1"
   },
   "babel": {
@@ -86,11 +86,7 @@
       "prettier/standard"
     ],
     "rules": {
-      "no-console": 0,
-      "space-before-function-paren": [
-        "error",
-        "always"
-      ]
+      "no-console": 0
     },
     "parserOptions": {
       "parser": "babel-eslint"
