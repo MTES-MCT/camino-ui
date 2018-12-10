@@ -18,7 +18,6 @@
     "dev": "vue-cli-service serve --open",
     "start": "node ./index.js",
     "commit": "npx git-cz",
-    "semantic-release": "npx semantic-release",
     "release": "standard-version"
   },
   "dependencies": {
@@ -29,8 +28,6 @@
   },
   "devDependencies": {
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.2.0",
-    "@semantic-release/changelog": "^3.0.1",
-    "@semantic-release/github": "^5.2.5",
     "@sentry/browser": "^4.4.1",
     "@types/node": "^10.12.12",
     "@vue/cli-plugin-babel": "^3.2.0",
@@ -71,7 +68,6 @@
     "postcss-preset-env": "^6.4.0",
     "postcss-typescale": "^0.2.1",
     "prettier": "^1.15.3",
-    "semantic-release": "^15.12.4",
     "slugify": "^1.3.4",
     "standard-version": "^4.4.0",
     "stylelint": "^9.9.0",
@@ -153,13 +149,5 @@
     "ignoreFiles": [
       "./dist/**/*"
     ]
-  },
-  "release": {
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog"
-    ],
-    "dryRun": false
   }
 }
