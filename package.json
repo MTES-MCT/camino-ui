@@ -29,7 +29,7 @@
   "devDependencies": {
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.2.0",
     "@sentry/browser": "^4.4.1",
-    "@types/node": "^10.12.12",
+    "@types/webpack-env": "^1.13.6",
     "@vue/cli-plugin-babel": "^3.2.0",
     "@vue/cli-plugin-eslint": "^3.2.1",
     "@vue/cli-service": "^3.2.0",

@@ -14,6 +14,8 @@ import substances from './substances'
 import user from './user'
 import titreTravaux from './titre-travaux'
 
+/* global npmVersion */
+
 const modules = {
   titre,
   titres,
@@ -29,14 +31,12 @@ const modules = {
 export const state = {
   config: {},
   messages: [],
-  popup: {
-    component: null,
-    props: null,
-    messages: []
-  },
+  popup: { component: null, props: null, messages: [] },
   error: null,
-  menu: {
-    component: null
+  menu: { component: null },
+  versions: {
+    api: null, // eslint-disable-next-line camelcase
+    ui: `${npmVersion}`
   }
 }
 
@@ -44,6 +44,10 @@ export const actions = {
   async init({ commit, dispatch }) {
     try {
       const res = await init()
+
+      if (res.version) {
+        commit('apiVersionSet', res.version)
+      }
 
       if (res.permissions) {
         commit('utilisateurs/permissionsSet', res.permissions, { root: true })
@@ -136,6 +140,10 @@ export const actions = {
 }
 
 export const mutations = {
+  apiVersionSet(state, version) {
+    state.versions.api = version
+  },
+
   messageAdd(state, message) {
     state.messages.push(message)
   },

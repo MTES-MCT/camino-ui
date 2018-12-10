@@ -65,6 +65,15 @@
       <ul class="list-prefix text-decoration-none">
         <li>
           <a
+            href="https://trello.com/b/cwXWMqGz/camino-roadmap-ouverte"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Roadmap
+          </a>
+        </li>
+        <li>
+          <a
             href="http://api.camino.beta.gouv.fr"
             target="_blank"
             rel="noopener noreferrer"
@@ -83,15 +92,6 @@
         </li>
         <li>
           <a
-            href="https://trello.com/b/cwXWMqGz/camino-roadmap-ouverte"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Roadmap
-          </a>
-        </li>
-        <li>
-          <a
             href="https://github.com/MTES-MCT?utf8=%E2%9C%93&q=camino"
             target="_blank"
             rel="noopener noreferrer"
@@ -100,10 +100,11 @@
           </a>
         </li>
       </ul>
-      <p class="mb-s">
-        Newsletter
-      </p>
       <NewsletterForm />
+
+      <p class="h5">
+        UI v.{{ versions.ui }} / API v.{{ versions.api }}
+      </p>
     </div>
   </div>
 </template>
@@ -114,6 +115,12 @@ import NewsletterForm from './footer/newsletter-form.vue'
 export default {
   components: {
     NewsletterForm
+  },
+
+  computed: {
+    versions() {
+      return this.$store.state.versions
+    }
   }
 }
 </script>

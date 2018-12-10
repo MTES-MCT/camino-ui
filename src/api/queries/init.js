@@ -6,6 +6,8 @@ import fragmentMeta from './fragments/meta'
 
 const queryInit = gql`
   query Init {
+    version
+
     substances {
       ...substance
     }

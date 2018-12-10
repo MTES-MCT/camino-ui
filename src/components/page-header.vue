@@ -25,7 +25,9 @@
             <li v-if="permissionsCheck(['super', 'admin'])">
               <MenuButton class="mt-l" />
             </li>
-            <li><UserButton class="mt-l" /></li>
+            <li>
+              <UserButton class="mt-l" />
+            </li>
           </ul>
         </div>
       </div>
