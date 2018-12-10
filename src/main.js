@@ -34,6 +34,11 @@ if (process.env.VUE_APP_MATOMO_HOST) {
     trackerFileName: 'piwik'
   })
 }
+/* global npmName npmVersion webpackDate __webpack_hash__ */
+console.log('Name', npmName)
+console.log('Version', npmVersion)
+console.log('Build', __webpack_hash__)
+console.log('Date', webpackDate)
 
 new Vue({
   router,

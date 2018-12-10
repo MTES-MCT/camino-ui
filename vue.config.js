@@ -1,5 +1,8 @@
 /* eslint-env node */
 const path = require('path')
+const webpack = require('webpack')
+const npmPackage = require('./package.json')
+const date = new Date().toISOString().slice(0, 10)
 
 module.exports = {
   configureWebpack: {
@@ -11,7 +14,15 @@ module.exports = {
       alias: {
         '@': path.join(__dirname, 'src')
       }
-    }
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        npmVersion: JSON.stringify(npmPackage.version),
+        webpackDate: JSON.stringify(date),
+        npmName: JSON.stringify(npmPackage.name),
+        npmAuthorUrl: JSON.stringify(npmPackage.author.url)
+      })
+    ]
   },
   productionSourceMap: false,
   css: {
