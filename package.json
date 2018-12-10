@@ -45,7 +45,9 @@
     "apollo-utilities": "^1.0.26",
     "babel-eslint": "^10.0.1",
     "babel-plugin-graphql-tag": "^1.6.0",
+    "commitizen": "^3.0.5",
     "crypto-random-string": "^1.0.0",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.10.0",
     "eslint-plugin-vue": "^5.0.0",
     "graphql": "^14.0.2",
@@ -149,5 +151,10 @@
     "ignoreFiles": [
       "./dist/**/*"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
