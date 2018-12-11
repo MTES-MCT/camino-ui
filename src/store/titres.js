@@ -7,7 +7,8 @@ export const state = {
   types: null,
   statuts: null,
   substances: null,
-  noms: null
+  noms: null,
+  entreprises: null
 }
 
 export const actions = {
@@ -19,7 +20,8 @@ export const actions = {
       statutIds:
         state.statuts && state.statuts.filter(e => e.checked).map(e => e.id),
       substances: state.substances,
-      noms: state.noms
+      noms: state.noms,
+      entreprises: state.entreprises
     }
 
     const a = Object.keys(args).reduce(
@@ -40,7 +42,7 @@ export const actions = {
     }
   },
 
-  filterInput({ state, dispatch, commit }, { name, value }) {
+  filterInput({ dispatch, commit }, { name, value }) {
     const values = value ? value.split(/[ ,]+/) : null
     commit('filterInput', { name, values })
     dispatch('get')

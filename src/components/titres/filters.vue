@@ -54,6 +54,16 @@
             @blur="filterInput($event, 'substances')"
           >
         </div>
+        <div class="mb">
+          <h6>Entreprises</h6>
+          <input
+            :value="entreprises"
+            type="text"
+            placeholder="Nom ou siret…"
+            class="p-s"
+            @blur="filterInput($event, 'entreprises')"
+          >
+        </div>
       </div>
       <div class="tablet-blob-1-2 large-blob-1-3">
         <h6>Domaines</h6>
@@ -172,6 +182,9 @@ export default {
     },
     substances() {
       return this.$store.state.titres.substances
+    },
+    entreprises() {
+      return this.$store.state.titres.entreprises
     },
     noms() {
       return this.$store.state.titres.noms
