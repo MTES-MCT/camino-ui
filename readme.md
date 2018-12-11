@@ -2,6 +2,8 @@
 
 > Interface web de [Camino](https://camino.beta.gouv.fr).
 
+![camino screenshot](camino-screenshot.png)
+
 ---
 
 ## Technologies
@@ -21,10 +23,6 @@
 - [Docker](https://www.docker.com/products/docker-engine)
 - [Standard version](https://github.com/conventional-changelog/standard-version)
 - [Commitizen](http://commitizen.github.io/cz-cli/)
-
----
-
-![camino screenshot](camino-screenshot.png)
 
 ---
 
