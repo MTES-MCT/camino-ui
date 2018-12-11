@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/MTES-MCT/camino-ui/compare/v0.2.1...v0.3.0) (2018-12-11)
+
+
+### Features
+
+* **footer:** ajoute un lien vers les releases github ([2222446](https://github.com/MTES-MCT/camino-ui/commit/2222446))
+* filtre les titres par entreprises ([9fa9b5d](https://github.com/MTES-MCT/camino-ui/commit/9fa9b5d))
+
+
+
 <a name="0.2.1"></a>
 
 ## [0.2.1](https://github.com/MTES-MCT/camino-ui/compare/v0.2.0...v0.2.1) (2018-12-10)
