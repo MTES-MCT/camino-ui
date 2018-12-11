@@ -102,7 +102,7 @@
       </ul>
       <NewsletterForm />
 
-      <p class="h5">
+      <p class="h5 mb-0">
         <a
           href="https://github.com/MTES-MCT/camino-ui/releases"
           target="_blank"
