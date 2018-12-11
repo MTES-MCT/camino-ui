@@ -103,7 +103,21 @@
       <NewsletterForm />
 
       <p class="h5">
-        UI v.{{ versions.ui }} / API v.{{ versions.api }}
+        <a
+          href="https://github.com/MTES-MCT/camino-ui/releases"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-decoration-none"
+        >
+          UI v.{{ versions.ui }}
+        </a>, <a
+          href="https://github.com/MTES-MCT/camino-api/releases"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-decoration-none"
+        >
+          API v.{{ versions.api }}
+        </a>
       </p>
     </div>
   </div>
