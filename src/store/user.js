@@ -63,7 +63,7 @@ export const actions = {
 
   logout({ commit, dispatch }) {
     commit('menuClose', null, { root: true })
-    commit('tokenRemove')
+    dispatch('tokenRemove')
     commit('reset')
     dispatch(
       'messageAdd',
