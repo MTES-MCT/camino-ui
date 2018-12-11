@@ -18,9 +18,7 @@ module.exports = {
     plugins: [
       new webpack.DefinePlugin({
         npmVersion: JSON.stringify(npmPackage.version),
-        webpackDate: JSON.stringify(date),
-        npmName: JSON.stringify(npmPackage.name),
-        npmAuthorUrl: JSON.stringify(npmPackage.author.url)
+        webpackDate: JSON.stringify(date)
       })
     ]
   },

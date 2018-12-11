@@ -6,19 +6,25 @@
 
 ## Technologies
 
-- Vue.js
-- Vuex
-- Leaflet.js
-- Apollo GraphQl client
-- Postcss
-- Docker
-- Vue-cli / webpack
-- Babel
-- Postcss-preset-env
-- Eslint
-- Prettier
-- Standardjs
-- Stylelint
+- [Vue.js](https://vuejs.org/)
+- [Vuex](https://vuex.vuejs.org/)
+- [Leaflet.js](https://leafletjs.com/)
+- [Apollo GraphQl client](https://www.apollographql.com/docs/react/)
+- [Vue-cli / webpack](https://cli.vuejs.org/)
+- [Babel](https://babeljs.io/)
+- [Postcss](https://postcss.org/)
+- [Postcss-preset-env](https://preset-env.cssdb.org/)
+- [Eslint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [Standardjs](https://standardjs.com/)
+- [Stylelint](https://stylelint.io/)
+- [Docker](https://www.docker.com/products/docker-engine)
+- [Standard version](https://github.com/conventional-changelog/standard-version)
+- [Commitizen](http://commitizen.github.io/cz-cli/)
+
+---
+
+![camino screenshot](camino-screenshot.png)
 
 ---
 

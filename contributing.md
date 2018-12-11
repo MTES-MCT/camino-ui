@@ -18,7 +18,7 @@ cd camino-ui
 # Define the main repo as a remote named 'upstream'.
 git remote add upstream https://github.com/MTES-MCT/camino-ui.git
 
-# Now you have two remotes: 'orign' (your fork) and 'upstream' (main repo).
+# Now you have two remotes: 'origin' (your fork) and 'upstream' (main repo).
 ```
 
 ---
@@ -60,7 +60,7 @@ git commit -a -m "fix: my fix message"
 git pull --rebase upstream master
 ```
 
-**This can result in conflicts** and this is normal. Fixing them is part of the process. To avoid conflicts, **warn your collegues so you don't work on the same files**.
+**This can result in conflicts** and this is normal. Fixing them is part of the process. To avoid conflicts, **warn your co-workers so you don't work on the same files**.
 
 ### 4. Push your changes to your remote
 
@@ -71,8 +71,7 @@ git push origin <my-fixes>
 
 ### 5. Make a merge request
 
-Go to [github.com/MTES-MCT/camino-ui](https://github.com/MTES-MCT/camino-ui/).
-Make a new merge request from your `<my-fixes>` branch against the `master` branch from the main repo. See [Github Doc](http://docs.github.com/ce/github-basics/add-merge-request.html) for more details.
+Go to [github.com/MTES-MCT/camino-ui](https://github.com/MTES-MCT/camino-ui/). Make a new merge request from your `<my-fixes>` branch against the `master` branch from the main repo. See [Github Doc](http://docs.github.com/ce/github-basics/add-merge-request.html) for more details.
 
 **For the next fix, start over at 1.**
 
