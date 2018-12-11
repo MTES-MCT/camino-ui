@@ -86,7 +86,9 @@
               >
                 {{ domaine.id }}
               </Pill>
-              {{ domaine.nom }}
+              <span class="cap-first">
+                {{ domaine.nom }}
+              </span>
             </label>
           </li>
         </ul>
@@ -132,7 +134,9 @@
                   @change="filterToggle($event, 'statuts', 'id')"
                 >
                 <Dot :color="`bg-${statut.couleur}`" />
-                {{ statut.nom }}
+                <span class="cap-first">
+                  {{ statut.nom }}
+                </span>
               </label>
             </li>
           </ul>
