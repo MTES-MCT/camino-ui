@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/MTES-MCT/camino-ui/compare/v0.3.0...v0.4.0) (2018-12-12)
+
+
+### Bug Fixes
+
+* **auth:** le token n'est pas effacé quand l'utilisateur de déconnecte ([9096905](https://github.com/MTES-MCT/camino-ui/commit/9096905))
+* **filtres:** ajoute une majuscule à la première lettre des noms des filtres ([f1e25cc](https://github.com/MTES-MCT/camino-ui/commit/f1e25cc))
+* **footer:** supprime la marge en bas de page ([085742f](https://github.com/MTES-MCT/camino-ui/commit/085742f))
+
+
+### Features
+
+* ajoute le hash de webpack au numéro de release ([302210c](https://github.com/MTES-MCT/camino-ui/commit/302210c))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/MTES-MCT/camino-ui/compare/v0.2.1...v0.3.0) (2018-12-11)
 
