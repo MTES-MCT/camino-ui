@@ -363,7 +363,7 @@
 
 .icon-24-list {
   background-image: svg-load(
-    './icons/folder.svg',
+    './icons/list-bullets.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -375,7 +375,7 @@
 .active .icon-24-list,
 .btn-border:hover .icon-24-list {
   background-image: svg-load(
-    './icons/folder.svg',
+    './icons/list-bullets.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
