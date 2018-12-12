@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.1"></a>
+## [0.4.1](https://github.com/MTES-MCT/camino-ui/compare/v0.4.0...v0.4.1) (2018-12-12)
+
+
+### Reverts
+
+* supprime webpack_hash qui n'existe pas dans le bundle de prod ([1e89fad](https://github.com/MTES-MCT/camino-ui/commit/1e89fad))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/MTES-MCT/camino-ui/compare/v0.3.0...v0.4.0) (2018-12-12)
 
