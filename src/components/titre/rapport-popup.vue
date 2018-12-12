@@ -8,7 +8,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ trimestreNom }}
+          {{ trimestreNom }} {{ rapport.contenu.annee }}
         </h2>
       </div>
     </template>
