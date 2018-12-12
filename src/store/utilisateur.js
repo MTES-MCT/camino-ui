@@ -8,8 +8,11 @@ export const state = {
 
 export const actions = {
   async get({ commit, dispatch }, id) {
+    commit('loadingAdd', 'utilisateur', { root: true })
+
     try {
       const res = await utilisateur(id)
+      commit('loadingRemove', 'utilisateur', { root: true })
 
       if (res) {
         commit('set', res)
@@ -18,6 +21,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+      commit('loadingRemove', 'utilisateur', { root: true })
     }
   }
 }

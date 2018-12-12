@@ -87,7 +87,10 @@ export default {
   },
 
   created() {
-    this.get()
+    if (!this.titres) {
+      this.get()
+    }
+
     if (
       this.$route.query.vue &&
       this.views.find(v => v.id === this.$route.query.vue)

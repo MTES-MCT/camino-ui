@@ -2,7 +2,7 @@
   <div>
     <button
       v-if="user"
-      class="btn-alt pill h5 p-s my--xs ml-xs"
+      class="btn-alt pill h5 p-s"
       :class="{ active: menu.component && menu.component.name === 'UserMenu' }"
       alt="Url"
       @click="menuToggle"
@@ -11,7 +11,7 @@
     </button>
     <button
       v-else
-      class="btn-alt pill h5 py-s px-m my--xs ml-xs"
+      class="btn-alt pill h5 py-s px-m"
       alt="Url"
       @click="popupOpen"
     >

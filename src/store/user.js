@@ -39,8 +39,11 @@ export const actions = {
 
   async login({ commit, dispatch }, { email, motDePasse }) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurLogin', { root: true })
+
     try {
       const res = await utilisateurLogin({ email, motDePasse })
+      commit('loadingRemove', 'utilisateurLogin', { root: true })
 
       dispatch('tokenSet', res.token)
       commit('set', res.utilisateur)
@@ -58,6 +61,7 @@ export const actions = {
       dispatch('tokenRemove')
       commit('reset')
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      commit('loadingRemove', 'utilisateurLogin', { root: true })
     }
   },
 
@@ -75,8 +79,10 @@ export const actions = {
 
   async passwordInitEmail({ commit, dispatch }, { email }) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurPasswordInitEmail', { root: true })
     try {
       const res = await utilisateurPasswordInitEmail({ email })
+      commit('loadingRemove', 'utilisateurPasswordInitEmail', { root: true })
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
@@ -88,12 +94,15 @@ export const actions = {
       )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      commit('loadingRemove', 'utilisateurPasswordInitEmail', { root: true })
     }
   },
 
   async passwordInit({ commit, dispatch }, { motDePasse1, motDePasse2 }) {
+    commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
     try {
       const res = await utilisateurPasswordInit({ motDePasse1, motDePasse2 })
+      commit('loadingRemove', 'utilisateurPasswordInit', { root: true })
 
       dispatch(
         'messageAdd',
@@ -113,6 +122,7 @@ export const actions = {
         },
         { root: true }
       )
+      commit('loadingRemove', 'utilisateurPasswordInit', { root: true })
     }
   },
 

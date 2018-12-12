@@ -21,12 +21,21 @@
           </li>
         </ul>
         <div class="flex-right">
-          <ul class="list-inline">
-            <li v-if="permissionsCheck(['super', 'admin'])">
-              <MenuButton class="mt-l" />
+          <ul class="list-inline mt-l">
+            <li class="ml-xs">
+              <div
+                v-if="loading"
+                class="loader"
+              />
             </li>
-            <li>
-              <UserButton class="mt-l" />
+            <li
+              v-if="permissionsCheck(['super', 'admin'])"
+              class="ml-xs"
+            >
+              <MenuButton />
+            </li>
+            <li class="ml-xs">
+              <UserButton />
             </li>
           </ul>
         </div>
@@ -61,6 +70,10 @@ export default {
   computed: {
     apiError() {
       return this.$store.state.apiError
+    },
+
+    loading() {
+      return this.$store.state.loading.length > 0
     }
   }
 }

@@ -54,9 +54,12 @@ export const actions = {
 
   async update({ commit, dispatch, rootState }, utilisateur) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurUpdate', { root: true })
+
     try {
       const u = await utilisateurUpdate({ utilisateur })
 
+      commit('loadingRemove', 'utilisateurUpdate', { root: true })
       commit('utilisateur/set', u, { root: true })
 
       if (utilisateur.id === rootState.user.current.id) {
@@ -70,13 +73,17 @@ export const actions = {
       )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      commit('loadingRemove', 'utilisateurUpdate', { root: true })
     }
   },
 
   async remove({ commit, dispatch, rootState }, id) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurRemove', { root: true })
+
     try {
       const utilisateur = await utilisateurRemove({ id })
+      commit('loadingRemove', 'utilisateurRemove', { root: true })
 
       if (utilisateur) {
         commit('remove', utilisateur)
@@ -98,6 +105,7 @@ export const actions = {
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      commit('loadingRemove', 'utilisateurRemove', { root: true })
     }
   },
 
@@ -106,6 +114,7 @@ export const actions = {
     { id, motDePasse, motDePasseNouveau1, motDePasseNouveau2 }
   ) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurPasswordUpdate', { root: true })
 
     try {
       const utilisateur = await utilisateurPasswordUpdate({
@@ -114,6 +123,7 @@ export const actions = {
         motDePasseNouveau1,
         motDePasseNouveau2
       })
+      commit('loadingRemove', 'utilisateurPasswordUpdate', { root: true })
 
       if (utilisateur) {
         commit('popupClose', null, { root: true })
@@ -128,6 +138,7 @@ export const actions = {
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      commit('loadingRemove', 'utilisateurPasswordUpdate', { root: true })
     }
   }
 }

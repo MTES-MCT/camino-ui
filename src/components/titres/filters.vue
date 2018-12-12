@@ -158,16 +158,6 @@ export default {
     Accordion
   },
 
-  data() {
-    return {
-      filterSelecteds: [
-        {
-          name: 'test'
-        }
-      ]
-    }
-  },
-
   computed: {
     domaines() {
       return this.$store.state.titres.domaines
@@ -233,7 +223,7 @@ export default {
     },
 
     keyup(e) {
-      if ((e.which || e.keyCode) === 13) {
+      if ((e.which || e.keyCode) === 13 && this.$refs.filters.opened) {
         this.get()
       }
     }

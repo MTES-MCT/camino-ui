@@ -13,6 +13,7 @@ export const state = {
 
 export const actions = {
   async get({ state, dispatch, commit }, fetchPolicy) {
+    commit('loadingAdd', 'titres', { root: true })
     const args = {
       typeIds: state.types && state.types.filter(e => e.checked).map(e => e.id),
       domaineIds:
@@ -32,6 +33,19 @@ export const actions = {
 
     try {
       const res = await titres(a, fetchPolicy)
+      commit('loadingRemove', 'titres', { root: true })
+
+      if (state.list) {
+        dispatch(
+          'messageAdd',
+          {
+            value: `liste de titres mise à jour`,
+            type: 'success'
+          },
+          { root: true }
+        )
+      }
+
       if (res) {
         commit('set', res.map(t => t))
       } else {
@@ -39,6 +53,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+      commit('loadingRemove', 'titres', { root: true })
     }
   },
 

@@ -8,8 +8,11 @@ export const state = {
 
 export const actions = {
   async get({ commit, dispatch }, id) {
+    commit('loadingAdd', 'titre', { root: true })
+
     try {
       const res = await titre(id)
+      commit('loadingRemove', 'titre', { root: true })
 
       if (res) {
         commit('set', res)
@@ -18,6 +21,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+      commit('loadingRemove', 'titre', { root: true })
     }
   },
 
@@ -31,8 +35,10 @@ export const actions = {
 
   async etapeUpdate({ commit, dispatch }, etape) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'titreEtapeUpdate', { root: true })
     try {
       const res = await titreEtapeUpdate({ etape })
+      commit('loadingRemove', 'titreEtapeUpdate', { root: true })
 
       if (res) {
         dispatch(
@@ -46,6 +52,7 @@ export const actions = {
         dispatch('reload')
       } else {
         dispatch('pageError', null, { root: true })
+        commit('loadingRemove', 'titreEtapeUpdate', { root: true })
       }
     } catch (e) {
       console.log('fix me')

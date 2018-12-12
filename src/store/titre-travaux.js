@@ -148,8 +148,11 @@ export const state = {
 export const actions = {
   async rapportAdd({ commit, dispatch }, rapport) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'titreTravauxRapportAdd', { root: true })
+
     try {
       const res = await titreTravauxRapportAdd({ rapport })
+      commit('loadingRemove', 'titreTravauxRapportAdd', { root: true })
 
       if (res) {
         commit('popupClose', null, { root: true })
@@ -165,6 +168,7 @@ export const actions = {
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      commit('loadingRemove', 'titreTravauxRapportAdd', { root: true })
     }
   }
 }

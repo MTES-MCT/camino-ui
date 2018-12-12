@@ -36,13 +36,16 @@ export const state = {
   versions: {
     api: null, // eslint-disable-next-line camelcase
     ui: `${npmVersion}`
-  }
+  },
+  loading: []
 }
 
 export const actions = {
   async init({ commit, dispatch }) {
+    commit('loadingAdd', 'init')
     try {
       const res = await init()
+      commit('loadingRemove', 'init')
 
       if (res.version) {
         commit('apiVersionSet', res.version)
@@ -79,6 +82,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+      commit('loadingRemove', 'init')
     }
   },
 
@@ -106,7 +110,7 @@ export const actions = {
     commit('messageAdd', message)
     setTimeout(() => {
       commit('messageRemove', id)
-    }, 3000)
+    }, 4500)
   },
 
   menuToggle({ state, commit }, component) {
@@ -185,6 +189,18 @@ export const mutations = {
 
   popupMessageAdd(state, message) {
     state.popup.messages.push(message)
+  },
+
+  loadingAdd(state, name) {
+    state.loading.push(name)
+  },
+
+  loadingRemove(state, name) {
+    const index = state.loading.indexOf(name)
+
+    if (index > -1) {
+      state.loading.splice(index, 1)
+    }
   }
 }
 
