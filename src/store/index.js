@@ -26,7 +26,7 @@ const modules = {
   titreTravaux
 }
 
-/* global npmVersion __webpack_hash__ */
+/* global npmVersion */
 export const state = {
   config: {},
   messages: [],
@@ -35,7 +35,7 @@ export const state = {
   menu: { component: null },
   versions: {
     api: null, // eslint-disable-next-line camelcase
-    ui: `${npmVersion}.${__webpack_hash__.slice(0, 6)}`
+    ui: `${npmVersion}`
   }
 }
 
