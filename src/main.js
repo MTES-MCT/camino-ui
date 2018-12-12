@@ -11,10 +11,13 @@ import mixins from './mixins'
 
 import { dateFormat } from './utils'
 
+/* global npmVersion __webpack_hash__ */
 if (process.env.VUE_APP_SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.VUE_APP_SENTRY_DSN,
-    integrations: [new Sentry.Integrations.Vue({ Vue })]
+    integrations: [new Sentry.Integrations.Vue({ Vue })],
+    // eslint-disable-next-line camelcase
+    release: `camino-ui-${npmVersion}.${__webpack_hash__.slice(0, 6)}`
   })
 }
 

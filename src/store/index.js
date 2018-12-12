@@ -14,8 +14,6 @@ import substances from './substances'
 import user from './user'
 import titreTravaux from './titre-travaux'
 
-/* global npmVersion */
-
 const modules = {
   titre,
   titres,
@@ -28,6 +26,7 @@ const modules = {
   titreTravaux
 }
 
+/* global npmVersion __webpack_hash__ */
 export const state = {
   config: {},
   messages: [],
@@ -36,7 +35,7 @@ export const state = {
   menu: { component: null },
   versions: {
     api: null, // eslint-disable-next-line camelcase
-    ui: `${npmVersion}`
+    ui: `${npmVersion}.${__webpack_hash__.slice(0, 6)}`
   }
 }
 
