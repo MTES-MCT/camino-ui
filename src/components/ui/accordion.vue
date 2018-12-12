@@ -27,7 +27,7 @@
 
     <button
       v-else-if="$slots.default && !$slots.buttons"
-      :class="{ 'rnd-xs-t': opened || sub, 'rnd-xs': !opened && !sub }"
+      :class="{ 'rnd-xs-t': opened || $slots.sub, 'rnd-xs': !opened && !$slots.sub }"
       class="btn-border py-s px-m flex full-x accordion-header"
       @click="opened = !opened"
     >
@@ -52,7 +52,7 @@
     </div>
 
     <div
-      v-if="sub"
+      v-if="$slots.sub"
       class="px-m pt-m"
     >
       <slot name="sub" />
@@ -70,16 +70,15 @@
 export default {
   name: 'UiSytemAccordion',
 
-  props: {
-    sub: {
-      type: Boolean,
-      default: false
-    }
-  },
-
   data() {
     return {
       opened: false
+    }
+  },
+
+  methods: {
+    close() {
+      this.opened = false
     }
   }
 }

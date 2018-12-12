@@ -26,7 +26,9 @@
     </div>
 
     <TitresFilters />
-
+    <p class="mb">
+      {{ titres.length }} titre{{ titres.length > 1 ? 's' : '' }}
+    </p>
     <Component
       :is="view.component"
       v-if="viewId"

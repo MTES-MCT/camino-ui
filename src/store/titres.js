@@ -45,14 +45,12 @@ export const actions = {
   filterInput({ dispatch, commit }, { name, value }) {
     const values = value ? value.split(/[ ,]+/) : null
     commit('filterInput', { name, values })
-    dispatch('get')
   },
 
   filterToggle({ state, dispatch, commit }, { name, value, property }) {
     state[name]
       .filter(e => e[property].toString() === value)
       .forEach(f => commit('filterToggle', f))
-    dispatch('get')
   }
 }
 
