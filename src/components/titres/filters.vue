@@ -185,13 +185,21 @@ export default {
       return this.$store.state.titres.statuts
     },
     substances() {
-      return this.$store.state.titres.substances
+      return (
+        this.$store.state.titres.substances &&
+        this.$store.state.titres.substances.join(' ')
+      )
     },
     entreprises() {
-      return this.$store.state.titres.entreprises
+      return (
+        this.$store.state.titres.entreprises &&
+        this.$store.state.titres.entreprises.join(' ')
+      )
     },
     noms() {
-      return this.$store.state.titres.noms
+      return (
+        this.$store.state.titres.noms && this.$store.state.titres.noms.join(' ')
+      )
     }
   },
 
