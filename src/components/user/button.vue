@@ -11,11 +11,11 @@
     </button>
     <button
       v-else
-      class="btn-alt pill h5 p-s my--xs ml-xs"
+      class="btn-alt pill h5 py-s px-m my--xs ml-xs"
       alt="Url"
       @click="popupOpen"
     >
-      <i class="icon-24 icon-24-login" />
+      Connexion
     </button>
   </div>
 </template>
