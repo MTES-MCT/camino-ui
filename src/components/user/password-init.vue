@@ -12,9 +12,12 @@
           <input
             v-model="motDePasse1"
             type="password"
-            class="p-s bg-bg"
+            class="p-s bg-bg mb-s"
             placeholder="Mot de passe"
           >
+          <p class="h5 mb-0">
+            8 carctères minimum.
+          </p>
         </div>
       </div>
       <hr>
