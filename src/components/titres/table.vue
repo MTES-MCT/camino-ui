@@ -33,21 +33,22 @@
           <td
             v-if="titre.titulaires"
           >
-            <div
+            <p
               v-for="titulaire in titre.titulaires"
               :key="titulaire.id"
+              class="h5 mb-0"
             >
               {{ titulaire.nom }}
-            </div>
+            </p>
           </td>
           <td>
-            <span class="cap-first">
+            <p class="cap-first h5 mb-0">
               {{ titre.type.nom }}
-            </span>
+            </p>
           </td>
           <td>
             <Dot :color="`bg-${titre.statut.couleur}`" />
-            <span class="cap-first">
+            <span class="cap-first h5 mb-0">
               {{ titre.statut.nom }}
             </span>
           </td>
