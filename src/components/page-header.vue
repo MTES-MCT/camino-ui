@@ -1,6 +1,6 @@
 <template>
   <div class="tablet-blobs header-blobs">
-    <div class="tablet-blob-1-4 desktop-blob-1-2 large-blob-2-3">
+    <div class="tablet-blob-1-3 desktop-blob-1-2 large-blob-2-3">
       <div
         v-if="!apiError"
         class="flex"
@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <div class="tablet-blob-3-4 desktop-blob-1-2 large-blob-1-3">
+    <div class="tablet-blob-2-3 desktop-blob-1-2 large-blob-1-3">
       <RouterLink
         :to="{ name: 'titres' }"
         class="pt pr-m mb-xs inline-block full-x"
