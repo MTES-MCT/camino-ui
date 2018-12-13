@@ -1,6 +1,6 @@
 <template>
   <span
-    class="cap-first h6 bold"
+    class="cap-first h6 bold lh-2"
   >
     <span
       :class="`${color}`"
