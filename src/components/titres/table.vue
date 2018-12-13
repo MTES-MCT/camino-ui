@@ -5,7 +5,7 @@
         <tr>
           <th />
           <th>Nom</th>
-          <th class="hide">
+          <th>
             Titulaires
           </th>
           <th>Type</th>
@@ -32,7 +32,6 @@
           </td>
           <td
             v-if="titre.titulaires"
-            class="hide"
           >
             <div
               v-for="titulaire in titre.titulaires"
