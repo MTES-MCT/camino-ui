@@ -1,19 +1,24 @@
-#loader-app {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+.loader {
+  border: var(--color-neutral) 6px solid;
+  width: calc(var(--unit) * 2);
+  height: calc(var(--unit) * 2);
+  margin: auto;
+  border-radius: 100%;
+  animation: grow 1.5s infinite;
+  transition: opacity 0.5s;
 }
 
-#loader-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background-color: var(--color-bg);
-}
-
-#app {
-  overflow: hidden;
+@keyframes grow {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
 }

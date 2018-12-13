@@ -136,7 +136,7 @@
             </h6>
           </div>
           <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.entreprise.nom || "–" }}</p>
+            <p>{{ utilisateur.entreprise.nom || "–" }} ({{ utilisateur.entreprise.siret }})</p>
           </div>
         </div>
       </template>

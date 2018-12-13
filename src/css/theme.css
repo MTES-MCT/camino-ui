@@ -215,33 +215,8 @@
   border-right: var(--unit-line) solid var(--color-alt);
 }
 
-.loader {
-  border: var(--color-bg) 6px solid;
-  width: calc(var(--unit) * 2);
-  height: calc(var(--unit) * 2);
-  margin: auto;
-  border-radius: 100%;
-  animation: grow 1.5s infinite;
-  transition: opacity 0.5s;
-}
-
 .lh-2 {
   line-height: 2;
-}
-
-@keyframes grow {
-  0% {
-    opacity: 1;
-    transform: scale(0);
-  }
-  70% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0);
-  }
 }
 
 @media (--viewport-tablet) {
