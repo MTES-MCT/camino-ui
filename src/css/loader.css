@@ -5,7 +5,6 @@
   margin: auto;
   border-radius: 100%;
   animation: grow 1.5s infinite;
-  transition: opacity 0.5s;
 }
 
 @keyframes grow {
