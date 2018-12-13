@@ -11,7 +11,7 @@
     </button>
     <button
       v-else
-      class="btn-alt pill h5 py-s px-m"
+      class="btn-alt pill h5 lh-2 py-s px-m"
       alt="Url"
       @click="popupOpen"
     >
