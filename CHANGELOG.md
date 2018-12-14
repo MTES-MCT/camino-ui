@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/MTES-MCT/camino-ui/compare/v0.4.1...v0.5.0) (2018-12-14)
+
+
+### Bug Fixes
+
+* agrandi l'interlignage dans les pills ([20d5894](https://github.com/MTES-MCT/camino-ui/commit/20d5894))
+* diminue la taille du texte sur la vue liste ([ce95ba1](https://github.com/MTES-MCT/camino-ui/commit/ce95ba1))
+* hauteur du bouton connexion et du loader ([e5c03d2](https://github.com/MTES-MCT/camino-ui/commit/e5c03d2))
+* indique la langue à la page dans le document html ([f51f311](https://github.com/MTES-MCT/camino-ui/commit/f51f311))
+* retour à la ligne dans les pills ([d1de30a](https://github.com/MTES-MCT/camino-ui/commit/d1de30a))
+* **header:** logo trop large au format tablette ([1eec463](https://github.com/MTES-MCT/camino-ui/commit/1eec463))
+* **loader:** change la couleur du loader qui n'est pas assez visible en blanc ([06a529a](https://github.com/MTES-MCT/camino-ui/commit/06a529a))
+
+
+### Features
+
+* affiche le nom du titulaire dans la liste de titres ([34a757a](https://github.com/MTES-MCT/camino-ui/commit/34a757a))
+* affiche un loader lors des reuietes à l'API ([f33c081](https://github.com/MTES-MCT/camino-ui/commit/f33c081))
+* affiche une information de taille minimum sous les champs de mot de passe ([11ab0dc](https://github.com/MTES-MCT/camino-ui/commit/11ab0dc))
+* génère l'id utilisateur côté serveur ([e53ac10](https://github.com/MTES-MCT/camino-ui/commit/e53ac10))
+* **filtres:** ajoute un bouton de validation sur les filtres ([34ba2af](https://github.com/MTES-MCT/camino-ui/commit/34ba2af))
+* **filtres:** sépare les mots par un espace au lieu d'une virgule ([bf1a48f](https://github.com/MTES-MCT/camino-ui/commit/bf1a48f))
+* **header:** remplace l'icone de connexion par du texte ([79f181a](https://github.com/MTES-MCT/camino-ui/commit/79f181a))
+* remplace l'icone de la vue liste ([0e651ac](https://github.com/MTES-MCT/camino-ui/commit/0e651ac))
+
+
+
 <a name="0.4.1"></a>
 ## [0.4.1](https://github.com/MTES-MCT/camino-ui/compare/v0.4.0...v0.4.1) (2018-12-12)
 
