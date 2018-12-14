@@ -16,9 +16,11 @@ export const state = {
 
 export const actions = {
   async get({ dispatch, commit }) {
+    commit('loadingAdd', 'utilisateurs', { root: true })
+
     try {
       const res = await utilisateurs({})
-
+      commit('loadingRemove', 'utilisateurs', { root: true })
       if (res) {
         commit('set', res)
       } else {
@@ -26,22 +28,25 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+      commit('loadingRemove', 'utilisateurs', { root: true })
     }
   },
 
   async add({ commit, dispatch }, utilisateur) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurAdd', { root: true })
     try {
       const u = await utilisateurAdd({ utilisateur })
 
       commit('popupClose', null, { root: true })
+      commit('loadingRemove', 'utilisateurAdd', { root: true })
 
       if (u) {
         commit('add', u)
         dispatch(
           'messageAdd',
           {
-            value: `utilisateur ${u.id} ajouté`,
+            value: `utilisateur ${u.prenom} ${u.nom} ajouté`,
             type: 'success'
           },
           { root: true }
@@ -49,6 +54,7 @@ export const actions = {
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      commit('loadingRemove', 'utilisateurAdd', { root: true })
     }
   },
 
@@ -68,7 +74,10 @@ export const actions = {
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
-        { value: `utilisateur ${u.id} mis à jour`, type: 'success' },
+        {
+          value: `utilisateur ${u.prenom} ${u.nom} mis à jour`,
+          type: 'success'
+        },
         { root: true }
       )
     } catch (e) {
@@ -95,7 +104,9 @@ export const actions = {
         dispatch(
           'messageAdd',
           {
-            value: `utilisateur ${utilisateur.id} supprimé`,
+            value: `utilisateur ${utilisateur.prenom} ${
+              utilisateur.nom
+            } supprimé`,
             type: 'success'
           },
           { root: true }

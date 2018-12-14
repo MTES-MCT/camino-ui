@@ -149,9 +149,9 @@ import Card from './ui/card.vue'
 import Accordion from './ui/accordion.vue'
 import Pill from './ui/pill.vue'
 import Loader from './ui/loader.vue'
-import EditPopup from './utilisateur/edit-popup.vue'
-import RemovePopup from './utilisateur/remove-popup.vue'
-import PasswordPopup from './utilisateur/password-popup.vue'
+import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
+import UtilisateurRemovePopup from './utilisateur/remove-popup.vue'
+import UtilisateurPasswordPopup from './utilisateur/password-popup.vue'
 
 export default {
   components: {
@@ -188,15 +188,16 @@ export default {
     },
     editPopupOpen() {
       this.$store.commit('popupOpen', {
-        component: EditPopup,
+        component: UtilisateurEditPopup,
         props: {
-          utilisateur: JSON.parse(JSON.stringify(this.utilisateur))
+          utilisateur: JSON.parse(JSON.stringify(this.utilisateur)),
+          action: 'edit'
         }
       })
     },
     removePopupOpen() {
       this.$store.commit('popupOpen', {
-        component: RemovePopup,
+        component: UtilisateurRemovePopup,
         props: {
           utilisateur: JSON.parse(JSON.stringify(this.utilisateur))
         }
@@ -204,7 +205,7 @@ export default {
     },
     passwordPopupOpen() {
       this.$store.commit('popupOpen', {
-        component: PasswordPopup,
+        component: UtilisateurPasswordPopup,
         props: {
           utilisateur: JSON.parse(JSON.stringify(this.utilisateur))
         }

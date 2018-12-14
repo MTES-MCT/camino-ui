@@ -25,7 +25,7 @@
 import Card from './ui/card.vue'
 import Loader from './ui/loader.vue'
 import UtilisateursTable from './utilisateurs/table.vue'
-import EditPopup from './utilisateur/edit-popup.vue'
+import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
 
 export default {
   name: 'Utilisateurs',
@@ -61,10 +61,10 @@ export default {
     },
     addPopupOpen() {
       this.$store.commit('popupOpen', {
-        component: EditPopup,
+        component: UtilisateurEditPopup,
         props: {
           utilisateur: { permission: { id: 'defaut' } },
-          creation: true
+          action: 'create'
         }
       })
     }

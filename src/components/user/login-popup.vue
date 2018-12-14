@@ -140,7 +140,7 @@ export default {
         component: UtilisateurEditPopup,
         props: {
           utilisateur: { permission: { id: 'defaut' } },
-          creation: true
+          action: 'email'
         }
       })
     },

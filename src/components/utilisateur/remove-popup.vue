@@ -48,7 +48,7 @@ import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 
 export default {
-  name: 'CaminoUtilisateurEditPopup',
+  name: 'CaminoUtilisateurRemovePopup',
 
   components: {
     Popup,
@@ -68,13 +68,6 @@ export default {
     },
     permissionList() {
       return this.$store.state.utilisateurs.permissions
-    },
-    complete() {
-      return this.creation
-        ? this.utilisateur.id &&
-            this.utilisateur.email &&
-            this.utilisateur.motDePasse
-        : this.utilisateur.id && this.utilisateur.email
     }
   },
 

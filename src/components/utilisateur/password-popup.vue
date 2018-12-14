@@ -89,7 +89,7 @@ import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 
 export default {
-  name: 'CaminoUtilisateurEditPopup',
+  name: 'CaminoUtilisateurPasswordPopup',
 
   components: {
     Popup,

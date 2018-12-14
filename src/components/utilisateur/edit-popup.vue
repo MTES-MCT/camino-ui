@@ -3,15 +3,16 @@
     <template slot="header">
       <div>
         <h2 class="mb-0">
+          {{ action }}
           {{
-            creation
+            action === 'create' || action === 'email'
               ? "Création d'un compte utilisateur"
               : "Modification du compte utilisateur"
           }}
         </h2>
       </div>
     </template>
-    <div v-if="creation">
+    <div v-if="action === 'create' || action === 'email'">
       <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom.</p>
       <hr>
     </div>
@@ -29,7 +30,7 @@
       </div>
     </div>
 
-    <div v-if="creation">
+    <div v-if="action === 'create' || action === 'email'">
       <hr>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
@@ -199,7 +200,7 @@
     </div>
 
     <div
-      v-if="creation"
+      v-if="action === 'email'"
       class="mb"
     >
       <hr>
@@ -248,7 +249,6 @@
 <script>
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
-import slugify from 'slugify'
 
 export default {
   name: 'CaminoUtilisateurEditPopup',
@@ -263,9 +263,10 @@ export default {
       type: Object,
       default: () => ({})
     },
-    creation: {
-      type: Boolean,
-      default: false
+    action: {
+      type: String,
+      default: 'edit',
+      validator: val => ['edit', 'create', 'email'].includes(val)
     }
   },
 
@@ -284,13 +285,31 @@ export default {
       return this.$store.state.utilisateurs.permissions
     },
     complete() {
-      return this.creation
-        ? this.utilisateur.nom &&
-            this.utilisateur.prenom &&
-            this.utilisateur.email &&
-            this.utilisateur.motDePasse &&
-            this.cgu
-        : this.utilisateur.id && this.utilisateur.email
+      if (this.action === 'create') {
+        return (
+          this.utilisateur.nom &&
+          this.utilisateur.prenom &&
+          this.utilisateur.email &&
+          this.utilisateur.motDePasse
+        )
+      }
+
+      if (this.action === 'email') {
+        return (
+          this.utilisateur.nom &&
+          this.utilisateur.prenom &&
+          this.utilisateur.email &&
+          this.utilisateur.motDePasse &&
+          this.cgu
+        )
+      }
+
+      return (
+        this.utilisateur.nom &&
+        this.utilisateur.prenom &&
+        this.utilisateur.id &&
+        this.utilisateur.email
+      )
     },
     entreprises() {
       return this.$store.state.entreprises.list
@@ -315,15 +334,9 @@ export default {
   methods: {
     save() {
       if (this.complete) {
-        if (this.creation) {
-          this.utilisateur.id = slugify(
-            `${this.utilisateur.prenom} ${this.utilisateur.nom}`,
-            {
-              replacement: '-',
-              remove: null,
-              lower: true
-            }
-          )
+        if (this.action === 'email') {
+          this.$store.dispatch('utilisateurs/add', this.utilisateur)
+        } else if (this.action === 'create') {
           this.$store.dispatch('utilisateurs/add', this.utilisateur)
         } else {
           this.$store.dispatch('utilisateurs/update', this.utilisateur)
