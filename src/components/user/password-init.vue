@@ -16,7 +16,7 @@
             placeholder="Mot de passe"
           >
           <p class="h5 mb-0">
-            8 carctères minimum.
+            8 caractères minimum.
           </p>
         </div>
       </div>

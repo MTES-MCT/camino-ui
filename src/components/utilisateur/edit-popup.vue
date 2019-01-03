@@ -3,7 +3,6 @@
     <template slot="header">
       <div>
         <h2 class="mb-0">
-          {{ action }}
           {{
             action === 'create' || action === 'email'
               ? "Création d'un compte utilisateur"
@@ -44,7 +43,7 @@
             placeholder="Mot de passe"
           >
           <p class="h5 mb-0">
-            8 carctères minimum.
+            8 caractères minimum.
           </p>
         </div>
       </div>
