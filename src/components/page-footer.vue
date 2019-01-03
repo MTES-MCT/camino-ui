@@ -1,5 +1,5 @@
 <template>
-  <div class="tablet-blobs pt">
+  <div class="tablet-blobs pt flex-align-items-stretch">
     <div class="tablet-blob-1 desktop-blob-1-3">
       <img
         class="sponsor mb"
@@ -27,7 +27,7 @@
     </div>
 
     <div class="tablet-blob-1-2 desktop-blob-1-3">
-      <ul class="list-prefix text-decoration-none mb-0">
+      <ul class="list-prefix text-decoration-none">
         <li>
           <a href="/a-propos#contact">
             Contact
@@ -55,14 +55,9 @@
         </li>
         <li>
           <a href="/contribution">
-            Contribuez
+            Contribution
           </a>
         </li>
-      </ul>
-    </div>
-
-    <div class="tablet-blob-1-2 desktop-blob-1-3">
-      <ul class="list-prefix text-decoration-none">
         <li>
           <a
             href="https://trello.com/b/cwXWMqGz/camino-roadmap-ouverte"
@@ -87,7 +82,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            Flux (GeoJson)
+            Flux géographiques
           </a>
         </li>
         <li>
@@ -100,9 +95,32 @@
           </a>
         </li>
       </ul>
-      <NewsletterForm />
+    </div>
 
-      <p class="h5 mb-0">
+    <div class="tablet-blob-1-2 desktop-blob-1-3 flex flex-direction-column">
+      <NewsletterForm />
+      <ul class="list-prefix text-decoration-none">
+        <li>
+          <a
+            href="http://www.mineralinfo.fr/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            MineralInfo
+          </a>
+        </li>
+        <li>
+          <a
+            href="http://www.minergies.fr/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Minergies
+          </a>
+        </li>
+      </ul>
+
+      <p class="h5 flex-bottom">
         <a
           href="https://github.com/MTES-MCT/camino-ui/releases"
           target="_blank"

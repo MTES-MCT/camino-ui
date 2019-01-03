@@ -64,6 +64,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   flex-direction: column;
 }
 
+.flex-align-items-stretch {
+  align-items: stretch;
+}
+
 .left {
   float: left;
 }
@@ -74,6 +78,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 
 .flex-right {
   margin-left: auto;
+}
+
+.flex-bottom {
+  margin-top: auto;
 }
 
 .relative {
