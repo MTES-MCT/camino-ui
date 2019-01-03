@@ -18,7 +18,9 @@
             Camino est un service numérique de l’Etat incubé à la Fabrique
             numérique du Ministère de la Transition écologique et solidaire,
             membre du réseau d’incubateurs
-            <a href="http://beta.gouv.fr">
+            <a
+              href="http://beta.gouv.fr"
+            >
               beta.gouv.fr
             </a>
           </p>
@@ -128,7 +130,8 @@
           class="text-decoration-none"
         >
           UI v.{{ versions.ui }}
-        </a>, <a
+        </a>|
+        <a
           href="https://github.com/MTES-MCT/camino-api/releases"
           target="_blank"
           rel="noopener noreferrer"
