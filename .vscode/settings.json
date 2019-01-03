@@ -19,5 +19,6 @@
       "autoFix": true
     }
   ],
-  "vetur.format.defaultFormatter.html": "none"
+  "vetur.format.defaultFormatter.html": "none",
+  "vetur.validation.template": false
 }
