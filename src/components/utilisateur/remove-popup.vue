@@ -10,7 +10,7 @@
 
     <p class="bold">
       Souhaitez vous supprimer le compte de {{ utilisateur.prenom }}
-                                         {{ utilisateur.nom }} ?
+      {{ utilisateur.nom }} ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
       <span class="bold">
