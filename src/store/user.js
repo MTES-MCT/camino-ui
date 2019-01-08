@@ -7,6 +7,8 @@ import {
   utilisateurPasswordInitEmail
 } from '@/api'
 
+import router from '../router'
+
 export const state = {
   current: null,
   preferences: {
@@ -40,7 +42,7 @@ export const actions = {
   async login({ commit, dispatch }, { email, motDePasse }) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'utilisateurLogin', { root: true })
-
+    console.log('login', email, motDePasse)
     try {
       const res = await utilisateurLogin({ email, motDePasse })
       commit('loadingRemove', 'utilisateurLogin', { root: true })
@@ -98,7 +100,10 @@ export const actions = {
     }
   },
 
-  async passwordInit({ commit, dispatch }, { motDePasse1, motDePasse2 }) {
+  async passwordInit(
+    { commit, dispatch },
+    { motDePasse1, motDePasse2, email }
+  ) {
     commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
     try {
       const res = await utilisateurPasswordInit({ motDePasse1, motDePasse2 })
@@ -112,6 +117,11 @@ export const actions = {
         },
         { root: true }
       )
+
+      router.push({ name: 'titres' })
+
+      dispatch('login', { email, motDePasse: motDePasse1 })
+
       return res
     } catch (e) {
       dispatch(

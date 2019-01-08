@@ -3,57 +3,52 @@
     <h2>Initialisation du mot de passe</h2>
 
     <hr>
-    <div v-if="!done">
-      <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Nouveau mot de passe</h6>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <input
-            v-model="motDePasse1"
-            type="password"
-            class="p-s bg-bg mb-s"
-            placeholder="Mot de passe"
-          >
-          <p class="h5 mb-0">
-            8 caractères minimum.
-          </p>
-        </div>
+    <div class="tablet-blobs">
+      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Nouveau mot de passe</h6>
       </div>
-      <hr>
-
-      <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Nouveau mot de passe (vérification)</h6>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <input
-            v-model="motDePasse2"
-            type="password"
-            class="p-s bg-bg"
-            placeholder="Mot de passe"
-          >
-        </div>
-      </div>
-      <hr>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3" />
-        <div
-          class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
+      <div class="mb tablet-blob-2-3">
+        <input
+          v-model="motDePasse1"
+          type="password"
+          class="p-s bg-bg mb-s"
+          placeholder="Mot de passe"
         >
-          <button
-            class="btn-flash rnd-xs p-s full-x"
-            @click="save"
-            @keyup.enter.native="save"
-          >
-            Enregistrer
-          </button>
-        </div>
+        <p class="h5 mb-0">
+          8 caractères minimum.
+        </p>
       </div>
     </div>
-    <div v-else>
-      <p>Vous pouvez maintenant vous connecter à votre compte.</p>
+    <hr>
+
+    <div class="tablet-blobs">
+      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Nouveau mot de passe (vérification)</h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <input
+          v-model="motDePasse2"
+          type="password"
+          class="p-s bg-bg"
+          placeholder="Mot de passe"
+        >
+      </div>
+    </div>
+    <hr>
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3" />
+      <div
+        class="tablet-blob-2-3"
+        :class="{ disabled: !complete }"
+      >
+        <button
+          class="btn-flash rnd-xs p-s full-x"
+          @click="save"
+          @keyup.enter.native="save"
+        >
+          Enregistrer
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -65,8 +60,7 @@ export default {
   data() {
     return {
       motDePasse1: '',
-      motDePasse2: '',
-      done: false
+      motDePasse2: ''
     }
   },
 
@@ -86,18 +80,13 @@ export default {
 
   methods: {
     save() {
-      if (this.complete && !this.done) {
+      if (this.complete) {
         this.$store.dispatch('user/tokenSet', this.$route.query.token)
-        this.$store
-          .dispatch('user/passwordInit', {
-            motDePasse1: this.motDePasse1,
-            motDePasse2: this.motDePasse2
-          })
-          .then(r => {
-            if (r) {
-              this.done = true
-            }
-          })
+        this.$store.dispatch('user/passwordInit', {
+          motDePasse1: this.motDePasse1,
+          motDePasse2: this.motDePasse2,
+          email: this.$route.query.email
+        })
       }
     },
 
