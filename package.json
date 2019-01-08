@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "compression": "^1.7.3",
-    "connect-history-api-fallback": "^1.5.0",
+    "connect-history-api-fallback": "^1.6.0",
     "dotenv": "^6.2.0",
     "express": "^4.16.4"
   },
@@ -31,9 +31,9 @@
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.2.0",
     "@sentry/browser": "^4.4.2",
     "@types/webpack-env": "^1.13.6",
-    "@vue/cli-plugin-babel": "^3.2.2",
-    "@vue/cli-plugin-eslint": "^3.2.2",
-    "@vue/cli-service": "^3.2.3",
+    "@vue/cli-plugin-babel": "^3.3.0",
+    "@vue/cli-plugin-eslint": "^3.3.0",
+    "@vue/cli-service": "^3.3.0",
     "@vue/eslint-config-prettier": "^4.0.1",
     "@vue/eslint-config-standard": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.28",
