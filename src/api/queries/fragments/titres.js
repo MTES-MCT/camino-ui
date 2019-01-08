@@ -4,8 +4,8 @@ import fragmentAdministration from './administration'
 import fragmentTitreSubstance from './titre-substance'
 import fragmentPoint from './point'
 
-const fragmentTitre = gql`
-  fragment titre on Titre {
+const fragmentTitreSimple = gql`
+  fragment titreSimple on Titre {
     id
     nom
     type {
@@ -60,4 +60,4 @@ const fragmentTitre = gql`
   ${fragmentTitreSubstance}
 `
 
-export default fragmentTitre
+export default fragmentTitreSimple
