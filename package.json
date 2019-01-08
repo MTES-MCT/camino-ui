@@ -127,7 +127,7 @@
   "browserslist": [
     ">0.25%",
     "not op_mini all",
-    "Firefox > 52"
+    "Firefox > 51"
   ],
   "stylelint": {
     "extends": [
