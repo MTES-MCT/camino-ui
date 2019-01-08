@@ -19,7 +19,7 @@ const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
   setHeaders: (res, path, stat) => {
     res.set({
       'Content-Security-Policy':
-        "default-src 'none'; frame-src app.mailjet.com; img-src data: 'self' a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org  a.tile.openstreetmap.fr b.tile.openstreetmap.fr c.tile.openstreetmap.fr geoservices.brgm.fr wxs.ign.fr stats.data.gouv.fr; script-src 'self' stats.data.gouv.fr; style-src 'self'; connect-src api.camino.beta.gouv.fr test.api.camino.beta.gouv.fr",
+        "default-src 'none'; frame-src app.mailjet.com; img-src data: 'self' a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org  a.tile.openstreetmap.fr b.tile.openstreetmap.fr c.tile.openstreetmap.fr geoservices.brgm.fr wxs.ign.fr stats.data.gouv.fr; script-src 'self' stats.data.gouv.fr; style-src 'self'; connect-src api.camino.beta.gouv.fr test.api.camino.beta.gouv.fr api.camino.local",
       'X-Frame-Options': 'DENY',
       'X-Content-Type-Options': 'nosniff',
       'X-XSS-Protection': '1; mode=block'
@@ -34,7 +34,8 @@ app.use(history())
 app.use(staticFileMiddleware)
 
 app.get('/', (req, res) => {
-  res.render(path.join(__dirname, '/dist/index.html'))
+  const p = path.join(__dirname, '/dist/index.html')
+  res.render(p)
 })
 
 app.listen(port, () => {
