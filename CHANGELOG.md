@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/MTES-MCT/camino-ui/compare/v0.5.0...v0.6.0) (2019-01-09)
+
+
+### Bug Fixes
+
+* ajoute un espace avant les : ([052586f](https://github.com/MTES-MCT/camino-ui/commit/052586f))
+* bug ff 52: supprime code incompatible ([41f05ea](https://github.com/MTES-MCT/camino-ui/commit/41f05ea))
+* bug ff 52: supprime la csp ([e3dcf6b](https://github.com/MTES-MCT/camino-ui/commit/e3dcf6b))
+* bug ff52: ajoute une csp child-policy ([c8c0e8b](https://github.com/MTES-MCT/camino-ui/commit/c8c0e8b))
+* compatibilité firefox 52 ([268a442](https://github.com/MTES-MCT/camino-ui/commit/268a442))
+* deux fragments GraphQl portent le même nom: titre ([e089140](https://github.com/MTES-MCT/camino-ui/commit/e089140))
+* formatage ([c7d3d93](https://github.com/MTES-MCT/camino-ui/commit/c7d3d93))
+* modifie la config browslerslist pour être compatible avec firefox 52 ([8d226a6](https://github.com/MTES-MCT/camino-ui/commit/8d226a6))
+* orthographe ([65c1a53](https://github.com/MTES-MCT/camino-ui/commit/65c1a53))
+* typo ([05de287](https://github.com/MTES-MCT/camino-ui/commit/05de287))
+
+
+### Features
+
+* après l'init du mot de passe, redirige vers la home et identifie l'utilisateur ([7af5929](https://github.com/MTES-MCT/camino-ui/commit/7af5929))
+* **footer:** affiche les liens vers mineralinfo et minergies ([264373f](https://github.com/MTES-MCT/camino-ui/commit/264373f))
+* **titres:** affiche le mot 'résultats' devant le nombre de titres ([fd02715](https://github.com/MTES-MCT/camino-ui/commit/fd02715))
+
+
+### Performance Improvements
+
+* active vue-cli modern mode ([a82f175](https://github.com/MTES-MCT/camino-ui/commit/a82f175))
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/MTES-MCT/camino-ui/compare/v0.4.1...v0.5.0) (2018-12-14)
 
