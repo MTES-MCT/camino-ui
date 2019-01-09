@@ -13,7 +13,7 @@
     "url": "https://francoisromain.com"
   },
   "scripts": {
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --modern",
     "test": "jest",
     "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve --open",
