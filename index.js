@@ -15,7 +15,17 @@ const history = require('connect-history-api-fallback')
 const compression = require('compression')
 
 const app = express()
-const staticFileMiddleware = express.static(path.join(__dirname, 'dist'))
+const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
+  setHeaders: (res, path, stat) => {
+    res.set({
+      'Content-Security-Policy':
+        "default-src 'none'; script-src 'self' 'sha256-4RS22DYeB7U14dra4KcQYxmwt5HkOInieXK1NUMBmQI=' stats.data.gouv.fr; style-src 'self'; connect-src api.camino.beta.gouv.fr test.api.camino.beta.gouv.fr api.camino.local; img-src data: 'self' a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org  a.tile.openstreetmap.fr b.tile.openstreetmap.fr c.tile.openstreetmap.fr geoservices.brgm.fr wxs.ign.fr stats.data.gouv.fr; frame-src app.mailjet.com; child-src app.mailjet.com;",
+      'X-Frame-Options': 'DENY',
+      'X-Content-Type-Options': 'nosniff',
+      'X-XSS-Protection': '1; mode=block'
+    })
+  }
+})
 const port = process.env.NODE_PORT
 
 app.use(compression())
