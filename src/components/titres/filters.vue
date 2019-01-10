@@ -137,6 +137,7 @@
       </div>
 
       <button
+        ref="button"
         class="btn-flash p-s rnd-xs full-x mb"
         @click="get"
       >
@@ -218,6 +219,7 @@ export default {
     },
 
     get() {
+      this.$refs.button.focus()
       this.$store.dispatch('titres/get')
       this.$refs.filters.close()
     },
