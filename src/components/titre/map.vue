@@ -82,7 +82,7 @@ export default {
     },
 
     tilesId() {
-      return this.$store.state.user.preferences.titres.map.tilesId
+      return this.$store.state.user.preferences.map.tilesId
     }
   },
 

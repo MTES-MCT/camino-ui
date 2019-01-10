@@ -78,9 +78,11 @@ export default {
     titres() {
       return this.$store.state.titres.list
     },
+
     loaded() {
       return !!this.titres
     },
+
     view() {
       return this.views.find(c => c.id === this.viewId)
     }
@@ -105,6 +107,7 @@ export default {
     get() {
       this.$store.dispatch('titres/get')
     },
+
     viewSet(viewId) {
       this.viewId = viewId
 

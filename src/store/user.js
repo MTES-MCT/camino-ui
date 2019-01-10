@@ -12,8 +12,8 @@ import router from '../router'
 export const state = {
   current: null,
   preferences: {
+    map: { tilesId: 'osm-fr' },
     titres: {
-      map: { tilesId: 'osm-fr' },
       vue: 'carte'
     }
   }
@@ -154,9 +154,7 @@ export const actions = {
 
 export const getters = {
   tilesActive(state, getters, rootState) {
-    return rootState.map.tiles.find(
-      t => t.id === state.preferences.titres.map.tilesId
-    )
+    return rootState.map.tiles.find(t => t.id === state.preferences.map.tilesId)
   },
 
   preferencesConditions(state) {
