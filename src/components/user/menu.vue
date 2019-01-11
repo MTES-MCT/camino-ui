@@ -11,9 +11,13 @@
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
               >
-                {{ user.prenom }} {{ user.nom }} <span v-if="user.entreprise">
-                  ({{ user.entreprise.nom }})
-                </span>
+                {{ user.prenom }} {{ user.nom }}
+                <div
+                  v-if="user.entreprise"
+                  class="h5 color-neutral"
+                >
+                  {{ user.entreprise.nom }}
+                </div>
               </RouterLink>
             </li>
             <li><a href="" /></li>

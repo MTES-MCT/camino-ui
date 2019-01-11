@@ -61,9 +61,11 @@ const queryUtilisateurIdentifier = gql`
       prenom
       entreprise {
         id
+        nom
       }
       administration {
         id
+        nom
       }
       permission {
         id
