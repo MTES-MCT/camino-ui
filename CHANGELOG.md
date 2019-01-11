@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/MTES-MCT/camino-ui/compare/v0.6.0...v0.7.0) (2019-01-11)
+
+
+### Bug Fixes
+
+* **carte:** erreur lors du changement de fond de carte sur la page titre ([7cc8c60](https://github.com/MTES-MCT/camino-ui/commit/7cc8c60))
+* **csp:** erreur dans la console de Firefox ([d0fe448](https://github.com/MTES-MCT/camino-ui/commit/d0fe448))
+* **csp:** supprime child-src ([8468aea](https://github.com/MTES-MCT/camino-ui/commit/8468aea))
+* **filtres:** met le focus sur le bouton de validation lorsqu'on valide au clavier ([5684c2d](https://github.com/MTES-MCT/camino-ui/commit/5684c2d))
+* **menu:** le nom de l'entreprise ne s'affiche pas si l'utilisateur est déja loggué ([59622fa](https://github.com/MTES-MCT/camino-ui/commit/59622fa))
+* ajoute sentry.io dans la csp ([eb0dc73](https://github.com/MTES-MCT/camino-ui/commit/eb0dc73))
+
+
+### Features
+
+* met à jour le titre et la description ([7dd0eea](https://github.com/MTES-MCT/camino-ui/commit/7dd0eea))
+* renseigne la description de Camino qui apparait si js est désactivé (pe: google) ([7b232c1](https://github.com/MTES-MCT/camino-ui/commit/7b232c1))
+* **menu:** affiche le nom de l'entreprise à côté du nom de l'utilisateur ([0c2e960](https://github.com/MTES-MCT/camino-ui/commit/0c2e960))
+* **utilisateur:** affiche le numéro de siren à côté du nom de l'entreprise ([be83083](https://github.com/MTES-MCT/camino-ui/commit/be83083))
+* **utilisateurs:** affiche le nom de l'entreprise dans la liste ([788b995](https://github.com/MTES-MCT/camino-ui/commit/788b995))
+* envoie un email avant de créer un compte ([3b0381f](https://github.com/MTES-MCT/camino-ui/commit/3b0381f))
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/MTES-MCT/camino-ui/compare/v0.5.0...v0.6.0) (2019-01-09)
 
