@@ -7,6 +7,7 @@
           <th>Nom</th>
           <th>Email</th>
           <th>Permissions</th>
+          <th>Lien</th>
         </tr>
         <RouterLink
           v-for="utilisateur in utilisateursPages[pageActive]"
@@ -17,11 +18,23 @@
         >
           <td>{{ utilisateur.prenom || "–" }}</td>
           <td>{{ utilisateur.nom || "–" }}</td>
-          <td>{{ utilisateur.email }}</td>
+          <td>
+            <span class="h5">
+              {{ utilisateur.email }}
+            </span>
+          </td>
           <td>
             <Pill v-if="utilisateur.permission">
               {{ utilisateur.permission.nom }}
             </Pill>
+          </td>
+          <td>
+            <span
+              v-if="utilisateur.entreprise"
+              class="h5"
+            >
+              {{ utilisateur.entreprise.nom }}
+            </span>
           </td>
         </RouterLink>
       </table>
