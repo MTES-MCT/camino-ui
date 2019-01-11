@@ -11,7 +11,9 @@
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
               >
-                {{ user.prenom }} {{ user.nom }}
+                {{ user.prenom }} {{ user.nom }} <span v-if="user.entreprise">
+                  ({{ user.entreprise.nom }})
+                </span>
               </RouterLink>
             </li>
             <li><a href="" /></li>

@@ -45,6 +45,7 @@ const mutationUtilisateurConnecter = gql`
         }
         entreprise {
           id
+          nom
         }
       }
       token
