@@ -4,7 +4,9 @@ import {
   utilisateurLogin,
   utilisateurIdentify,
   utilisateurPasswordInit,
-  utilisateurPasswordInitEmail
+  utilisateurPasswordInitEmail,
+  utilisateurAddEmail,
+  utilisateurAdd
 } from '@/api'
 
 import router from '../router'
@@ -22,16 +24,15 @@ export const state = {
 export const actions = {
   async init({ dispatch }) {
     if (localStorage.getItem('token')) {
-      await dispatch('identifier')
+      await dispatch('identify')
     } else {
       dispatch('tokenRemove')
     }
   },
 
-  async identifier({ commit, dispatch }) {
+  async identify({ commit, dispatch }) {
     try {
       const user = await utilisateurIdentify()
-      console.log('user', user)
       commit('set', user)
     } catch (e) {
       dispatch('tokenRemove')
@@ -42,7 +43,7 @@ export const actions = {
   async login({ commit, dispatch }, { email, motDePasse }) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'utilisateurLogin', { root: true })
-    console.log('login', email, motDePasse)
+
     try {
       const res = await utilisateurLogin({ email, motDePasse })
       commit('loadingRemove', 'utilisateurLogin', { root: true })
@@ -79,9 +80,69 @@ export const actions = {
     dispatch('load', null, { root: true })
   },
 
-  async passwordInitEmail({ commit, dispatch }, { email }) {
+  async addEmail({ commit, dispatch }, email) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurAddEmail', { root: true })
+
+    try {
+      const res = await utilisateurAddEmail({ email })
+      commit('loadingRemove', 'utilisateurAddEmail', { root: true })
+      commit('popupClose', null, { root: true })
+      dispatch(
+        'messageAdd',
+        {
+          value: `${res}`,
+          type: 'success'
+        },
+        { root: true }
+      )
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      commit('loadingRemove', 'utilisateurAddEmail', { root: true })
+    }
+  },
+
+  async add({ commit, dispatch }, utilisateur) {
+    commit('loadingAdd', 'userAdd', { root: true })
+
+    try {
+      const u = await utilisateurAdd({ utilisateur })
+      commit('loadingRemove', 'userAdd', { root: true })
+
+      if (u) {
+        dispatch(
+          'messageAdd',
+          {
+            value: `utilisateur ${u.prenom} ${u.nom} ajouté`,
+            type: 'success'
+          },
+          { root: true }
+        )
+
+        router.push({ name: 'titres' })
+
+        dispatch('login', {
+          email: u.email,
+          motDePasse: utilisateur.motDePasse
+        })
+      }
+    } catch (e) {
+      dispatch(
+        'messageAdd',
+        {
+          value: `Erreur: ${e}`,
+          type: 'error'
+        },
+        { root: true }
+      )
+      commit('loadingRemove', 'userAdd', { root: true })
+    }
+  },
+
+  async passwordInitEmail({ commit, dispatch }, email) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'utilisateurPasswordInitEmail', { root: true })
+
     try {
       const res = await utilisateurPasswordInitEmail({ email })
       commit('loadingRemove', 'utilisateurPasswordInitEmail', { root: true })
@@ -105,6 +166,7 @@ export const actions = {
     { motDePasse1, motDePasse2, email }
   ) {
     commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
+
     try {
       const res = await utilisateurPasswordInit({ motDePasse1, motDePasse2 })
       commit('loadingRemove', 'utilisateurPasswordInit', { root: true })

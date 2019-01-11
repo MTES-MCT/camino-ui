@@ -10,7 +10,8 @@ import {
   utilisateurPasswordUpdate,
   utilisateurIdentify,
   utilisateurPasswordInit,
-  utilisateurPasswordInitEmail
+  utilisateurPasswordInitEmail,
+  utilisateurAddEmail
 } from '@/api/utilisateurs'
 
 import { titreTravauxRapportAdd } from './titre-travaux'
@@ -30,5 +31,6 @@ export {
   utilisateurIdentify,
   titreTravauxRapportAdd,
   utilisateurPasswordInit,
-  utilisateurPasswordInitEmail
+  utilisateurPasswordInitEmail,
+  utilisateurAddEmail
 }

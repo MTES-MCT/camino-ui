@@ -11,7 +11,8 @@ import {
   mutationUtilisateurSupprimer,
   mutationUtilisateurMotDePasseModifier,
   mutationUtilisateurMotDePasseInitialiser,
-  mutationUtilisateurMotDePasseEmailEnvoyer
+  mutationUtilisateurMotDePasseEmailEnvoyer,
+  mutationUtilisateurAjoutEmailEnvoyer
 } from '@/api/queries/utilisateurs'
 
 const utilisateur = async id => {
@@ -177,6 +178,20 @@ const utilisateurPasswordInit = async ({ motDePasse1, motDePasse2 }) => {
   }
 }
 
+const utilisateurAddEmail = async ({ email }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationUtilisateurAjoutEmailEnvoyer,
+      variables: { email }
+    })
+
+    return res && res.data && res.data.utilisateurAjoutEmailEnvoyer
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
 export {
   utilisateur,
   utilisateurs,
@@ -187,5 +202,6 @@ export {
   utilisateurRemove,
   utilisateurPasswordUpdate,
   utilisateurPasswordInit,
-  utilisateurPasswordInitEmail
+  utilisateurPasswordInitEmail,
+  utilisateurAddEmail
 }

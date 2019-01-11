@@ -73,8 +73,8 @@
 <script>
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
-import UtilisateurEditPopup from '../utilisateur/edit-popup.vue'
-import UtilisateurPasswordInitPopup from './password-init-popup.vue'
+import UserAdd from './add-popup.vue'
+import UserPasswordInitPopup from './password-init-popup.vue'
 
 export default {
   name: 'UiPopupLogin',
@@ -95,6 +95,7 @@ export default {
     messages() {
       return this.$store.state.popup.messages
     },
+
     complete() {
       return !!this.email && !!this.motDePasse
     }
@@ -137,17 +138,13 @@ export default {
 
     userAddPopupOpen() {
       this.$store.commit('popupOpen', {
-        component: UtilisateurEditPopup,
-        props: {
-          utilisateur: { permission: { id: 'defaut' } },
-          action: 'email'
-        }
+        component: UserAdd
       })
     },
 
     userPasswordInitPopupOpen() {
       this.$store.commit('popupOpen', {
-        component: UtilisateurPasswordInitPopup
+        component: UserPasswordInitPopup
       })
     }
   }

@@ -3,14 +3,17 @@
     <template slot="header">
       <div>
         <h2 class="mb-0">
-          Réinitialisation du mot de passe
+          Création d'un compte utilisateur
         </h2>
       </div>
     </template>
 
-    <p>
-      Pour réinitialiser votre mot de passe, renseignez votre adresse email.
-    </p>
+
+    <div>
+      <p>Renseignez votre email pour créer votre compte.</p>
+      <hr>
+    </div>
+
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Email</h6>
@@ -46,7 +49,7 @@
             @click="save"
             @keyup.enter.native="save"
           >
-            Envoyer
+            Valider
           </button>
         </div>
       </div>
@@ -57,9 +60,10 @@
 <script>
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
+import emailRegex from 'email-regex'
 
 export default {
-  name: 'CaminoUtilisateurPasswordInitPopup',
+  name: 'CaminoUserAccountCreatePopup',
 
   components: {
     Popup,
@@ -73,12 +77,12 @@ export default {
   },
 
   computed: {
-    complete() {
-      return !!this.email
-    },
-
     messages() {
       return this.$store.state.popup.messages
+    },
+
+    complete() {
+      return emailRegex({ exact: true }).test(this.email)
     }
   },
 
@@ -93,7 +97,7 @@ export default {
   methods: {
     save() {
       if (this.complete) {
-        this.$store.dispatch('user/passwordInitEmail', this.email)
+        this.$store.dispatch('user/addEmail', this.email)
       }
     },
 

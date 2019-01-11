@@ -4,14 +4,14 @@
       <div>
         <h2 class="mb-0">
           {{
-            action === 'create' || action === 'email'
+            action === 'create'
               ? "Création d'un compte utilisateur"
               : "Modification du compte utilisateur"
           }}
         </h2>
       </div>
     </template>
-    <div v-if="action === 'create' || action === 'email'">
+    <div v-if="action === 'create'">
       <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom.</p>
       <hr>
     </div>
@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <div v-if="action === 'create' || action === 'email'">
+    <div v-if="action === 'create'">
       <hr>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
@@ -198,24 +198,6 @@
       </div>
     </div>
 
-    <div
-      v-if="action === 'email'"
-      class="mb"
-    >
-      <hr>
-      <input
-        v-model="cgu"
-        type="checkbox"
-      >Vous avez lu et vous acceptez les
-      <a
-        href="/cgu"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        conditions générales d'utilisation
-      </a>.
-    </div>
-
     <template slot="footer">
       <Messages :messages="messages" />
       <div class="tablet-blobs">
@@ -265,7 +247,7 @@ export default {
     action: {
       type: String,
       default: 'edit',
-      validator: val => ['edit', 'create', 'email'].includes(val)
+      validator: val => ['edit', 'create'].includes(val)
     }
   },
 
@@ -290,16 +272,6 @@ export default {
           this.utilisateur.prenom &&
           this.utilisateur.email &&
           this.utilisateur.motDePasse
-        )
-      }
-
-      if (this.action === 'email') {
-        return (
-          this.utilisateur.nom &&
-          this.utilisateur.prenom &&
-          this.utilisateur.email &&
-          this.utilisateur.motDePasse &&
-          this.cgu
         )
       }
 
@@ -333,9 +305,7 @@ export default {
   methods: {
     save() {
       if (this.complete) {
-        if (this.action === 'email') {
-          this.$store.dispatch('utilisateurs/add', this.utilisateur)
-        } else if (this.action === 'create') {
+        if (this.action === 'create') {
           this.$store.dispatch('utilisateurs/add', this.utilisateur)
         } else {
           this.$store.dispatch('utilisateurs/update', this.utilisateur)

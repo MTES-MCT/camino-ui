@@ -4,7 +4,7 @@
 
     <hr>
     <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Nouveau mot de passe</h6>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -22,7 +22,7 @@
     <hr>
 
     <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Nouveau mot de passe (vérification)</h6>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -55,7 +55,7 @@
 
 <script>
 export default {
-  name: 'CaminoPassordInit',
+  name: 'CaminoUserPassordInit',
 
   data() {
     return {

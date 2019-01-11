@@ -140,6 +140,12 @@ const mutationUtilisateurMotDePasseEmailEnvoyer = gql`
   }
 `
 
+const mutationUtilisateurAjoutEmailEnvoyer = gql`
+  mutation UtilisateurAjoutEmailEnvoyer($email: String!) {
+    utilisateurAjoutEmailEnvoyer(email: $email)
+  }
+`
+
 export {
   queryUtilisateur,
   queryUtilisateurs,
@@ -150,5 +156,6 @@ export {
   mutationUtilisateurSupprimer,
   mutationUtilisateurMotDePasseModifier,
   mutationUtilisateurMotDePasseInitialiser,
-  mutationUtilisateurMotDePasseEmailEnvoyer
+  mutationUtilisateurMotDePasseEmailEnvoyer,
+  mutationUtilisateurAjoutEmailEnvoyer
 }
