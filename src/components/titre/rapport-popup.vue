@@ -19,7 +19,7 @@
       </div>
 
       <div
-        v-for="contenu in contenus"
+        v-for="contenu in contenus.filter(c => !c.trimestres || c.trimestres.find(tr => tr === rapport.contenu.trimestre))"
         :key="contenu.id"
       >
         <div class="tablet-blobs">

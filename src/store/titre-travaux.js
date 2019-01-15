@@ -103,9 +103,15 @@ export const state = {
   ],
   rapportContenus: [
     {
+      nom: 'Or brut extrait (g)',
+      id: 'orBrut',
+      description: `Masse d'or but en sortie de mine extrait au cours du trimestre (exemple : masse sous la forme de concentré gravimétrique).`
+    },
+    {
       nom: 'Or net extrait (g)',
-      id: 'or',
-      description: `Masse d’or en gramme obtenue au cours du trimestre après fonderie ou affinage (au sens de l’<a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850943&cidTexte=LEGITEXT000006069569" target="_blank" rel="noopener noreferrer">article 318 B de l'annexe II au code général des impôts, annexe 2 </a>).`
+      id: 'orNet',
+      description: `Masse d’or en gramme obtenue au cours de l'année après traitement métallurgique (au sens de l’<a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850943&cidTexte=LEGITEXT000006069569" target="_blank" rel="noopener noreferrer">article 318 B de l'annexe II au code général des impôts, annexe 2 </a>). Cette masse sera prise en compte pour le calcul de la taxe sur l'or et des différentes redevances associées.`,
+      trimestres: [4]
     },
     {
       id: 'mercure',
