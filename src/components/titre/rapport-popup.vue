@@ -23,7 +23,7 @@
         :key="contenu.id"
       >
         <div class="tablet-blobs">
-          <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <div class="tablet-blob-1-3 tablet-pt-s pb-s">
             <h6>{{ contenu.nom }}</h6>
           </div>
           <div class="mb tablet-blob-2-3">
@@ -149,13 +149,12 @@
         </div>
         <div
           class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
         >
           <button
             class="btn-flash rnd-xs p-s full-x"
             @click="preview"
           >
-            Pré-visualiser
+            Prévisualiser
           </button>
         </div>
       </div>
@@ -163,7 +162,7 @@
         v-else
         class="tablet-blobs"
       >
-        <div class="mb tablet-mb-0 tablet-blob-1-3">
+        <div class="mb tablet-blob-1-3 tablet-mb-0">
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="edit"
@@ -172,7 +171,7 @@
           </button>
         </div>
         <div
-          class="mb tablet-blob-1-3"
+          class="mb tablet-blob-1-3 tablet-mb-0"
         >
           <button
             class="btn-border rnd-xs p-s full-x"
