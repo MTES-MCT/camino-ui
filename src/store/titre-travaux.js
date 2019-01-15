@@ -165,9 +165,7 @@ export const actions = {
         dispatch(
           'messageAdd',
           {
-            value: res.confirmation
-              ? `le rapport a été validé`
-              : `le rapport a été enregistré`,
+            value: `le rapport a été enregistré`,
             type: 'success'
           },
           { root: true }
