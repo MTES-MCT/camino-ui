@@ -1,6 +1,6 @@
 // import Vue from 'vue'
 
-import { titreTravauxRapportAdd } from '../api'
+import { titreTravauxRapportUpdate } from '../api'
 
 export const state = {
   current: null,
@@ -146,20 +146,22 @@ export const state = {
 }
 
 export const actions = {
-  async rapportAdd({ commit, dispatch }, rapport) {
+  async rapportUpdate({ commit, dispatch }, rapport) {
     commit('popupMessagesRemove', null, { root: true })
-    commit('loadingAdd', 'titreTravauxRapportAdd', { root: true })
-
+    commit('loadingAdd', 'titreTravauxRapportUpdate', { root: true })
     try {
-      const res = await titreTravauxRapportAdd({ rapport })
-      commit('loadingRemove', 'titreTravauxRapportAdd', { root: true })
+      const res = await titreTravauxRapportUpdate({ rapport })
+
+      commit('loadingRemove', 'titreTravauxRapportUpdate', { root: true })
 
       if (res) {
         commit('popupClose', null, { root: true })
         dispatch(
           'messageAdd',
           {
-            value: `le rapport a été enregistré`,
+            value: res.confirmation
+              ? `le rapport a été validé`
+              : `le rapport a été enregistré`,
             type: 'success'
           },
           { root: true }
@@ -168,7 +170,7 @@ export const actions = {
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-      commit('loadingRemove', 'titreTravauxRapportAdd', { root: true })
+      commit('loadingRemove', 'titreTravauxRapportUpdate', { root: true })
     }
   }
 }

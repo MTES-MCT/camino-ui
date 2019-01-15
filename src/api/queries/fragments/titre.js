@@ -1,6 +1,7 @@
 import gql from 'graphql-tag'
 
 import fragmentTitreDemarche from './titre-demarche'
+import fragmentTitreTravauxRapport from './titre-travaux-rapport'
 
 const fragmentTitre = gql`
   fragment titre on Titre {
@@ -51,14 +52,13 @@ const fragmentTitre = gql`
       ...demarche
     }
     travauxRapports {
-      id
-      titreId
-      date
-      contenu
+      ...travauxRapport
     }
   }
 
   ${fragmentTitreDemarche}
+
+  ${fragmentTitreTravauxRapport}
 `
 
 export default fragmentTitre

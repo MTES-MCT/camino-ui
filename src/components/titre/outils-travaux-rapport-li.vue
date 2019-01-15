@@ -44,7 +44,7 @@ export default {
       )
     },
     isVisible() {
-      return this.hasPermissions && this.hasRapport && !this.rapportExists
+      return this.hasPermissions && this.hasRapport && !this.rapportConfirmed
     },
     rapportExists() {
       return (
@@ -56,6 +56,9 @@ export default {
         )
       )
     },
+    rapportConfirmed() {
+      return this.rapportExists && this.rapportExists.confirmation
+    },
     rapportCalendrier() {
       return this.$store.state.titreTravaux.rapportCalendrier
     }
@@ -63,10 +66,9 @@ export default {
 
   methods: {
     rapportPopupOpen() {
-      this.$store.commit('popupOpen', {
-        component: RapportPopup,
-        props: {
-          rapport: {
+      const rapport = this.rapportExists
+        ? JSON.parse(JSON.stringify(this.rapportExists))
+        : {
             id: `${this.$store.state.titre.current.id}-${
               this.periode.annee
             }-${leftPad(this.periode.trimestre, 2, '0')}`,
@@ -80,7 +82,11 @@ export default {
                 )
               )
             }
-          },
+          }
+      this.$store.commit('popupOpen', {
+        component: RapportPopup,
+        props: {
+          rapport,
           titreNom: this.$store.state.titre.current.nom,
           trimestreNom: this.rapportCalendrier[this.periode.trimestre - 1].nom
         }

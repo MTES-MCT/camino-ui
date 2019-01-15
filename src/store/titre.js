@@ -12,6 +12,7 @@ export const actions = {
 
     try {
       const res = await titre(id)
+
       commit('loadingRemove', 'titre', { root: true })
 
       if (res) {
