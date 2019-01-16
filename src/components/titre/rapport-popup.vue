@@ -19,7 +19,7 @@
       </div>
 
       <div
-        v-for="contenu in contenus.filter(c => !c.trimestres || c.trimestres.find(tr => tr === rapport.contenu.trimestre))"
+        v-for="contenu in contenus"
         :key="contenu.id"
       >
         <div class="tablet-blobs">
@@ -87,7 +87,7 @@
 
     <div v-else>
       <div
-        v-for="contenu in contenus.filter(c => !c.trimestres || c.trimestres.find(tr => tr === rapport.contenu.trimestre))"
+        v-for="contenu in contenus"
         :key="contenu.id"
       >
         <div class="tablet-blobs">
@@ -95,7 +95,9 @@
             <h6>{{ contenu.nom }}</h6>
           </div>
           <div class="tablet-blob-2-3">
-            <p>{{ rapport.contenu[contenu.id] }}</p>
+            <p :class="{'color-warning': !rapport.contenu[contenu.id]}">
+              {{ rapport.contenu[contenu.id] || 'À compléter pour valider' }}
+            </p>
           </div>
         </div>
 
@@ -113,7 +115,9 @@
             <h6>{{ mois.nom }}</h6>
           </div>
           <div class="tablet-blob-2-3">
-            <p>{{ travauxStatuts.filter(ts => mois[ts.id]).map(ts => ts.nom).join(', ') }}</p>
+            <p :class="{'color-warning': !travauxStatuts.filter(ts => mois[ts.id]).length}">
+              {{ travauxStatuts.filter(ts => mois[ts.id]).map(ts => ts.nom).join(', ') || 'À compléter pour valider' }}
+            </p>
           </div>
         </div>
       </div>
@@ -127,7 +131,10 @@
         </div>
       </div>
 
-      <div class="p-s bg-warning color-bg bold mb">
+      <div
+        class="p-s bg-warning color-bg bold mb"
+        :class="{ hide: !complete }"
+      >
         Une fois validé ce formulaire ne sera plus modifiable.
       </div>
     </div>
@@ -174,7 +181,8 @@
           class="mb tablet-blob-1-3 tablet-mb-0"
         >
           <button
-            class="btn-border rnd-xs p-s full-x"
+            class="rnd-xs p-s full-x"
+            :class="{ 'btn-flash': !complete, 'btn-border': complete }"
             @click="save(false)"
           >
             Enregistrer
@@ -186,7 +194,7 @@
         >
           <button
             class="btn-flash rnd-xs p-s full-x"
-            @click="save(true)"
+            @click="complete && save(true)"
           >
             Valider
           </button>
@@ -243,7 +251,11 @@ export default {
       return this.$store.state.titreTravaux.rapportStatuts
     },
     contenus() {
-      return this.$store.state.titreTravaux.rapportContenus
+      return this.$store.state.titreTravaux.rapportContenus.filter(
+        c =>
+          !c.trimestres ||
+          c.trimestres.find(tr => tr === this.rapport.contenu.trimestre)
+      )
     },
     travauxComplete() {
       return this.rapport.contenu.travaux.reduce(
@@ -257,22 +269,16 @@ export default {
         true
       )
     },
-    complete() {
-      return (
-        (this.rapport.contenu.orBrut || this.rapport.contenu.orBrut === 0) &&
-        (this.rapport.contenu.mercure || this.rapport.contenu.mercure === 0) &&
-        (this.rapport.contenu.carburantDetaxe ||
-          this.rapport.contenu.carburantDetaxe === 0) &&
-        (this.rapport.contenu.carburantConventionnel ||
-          this.rapport.contenu.carburantConventionnel === 0) &&
-        (this.rapport.contenu.pompes || this.rapport.contenu.pompes === 0) &&
-        (this.rapport.contenu.pelles || this.rapport.contenu.pelles === 0) &&
-        (this.rapport.contenu.effectifs ||
-          this.rapport.contenu.effectifs === 0) &&
-        (this.rapport.contenu.environnement ||
-          this.rapport.contenu.environnement === 0) &&
-        this.travauxComplete
+    contenuComplete() {
+      return this.contenus.reduce(
+        (res, c) =>
+          res &&
+          (this.rapport.contenu[c.id] || this.rapport.contenu[c.id] === 0),
+        true
       )
+    },
+    complete() {
+      return this.contenuComplete && this.travauxComplete
     }
   },
 
@@ -313,9 +319,21 @@ export default {
 
     keyup(e) {
       if ((e.which || e.keyCode) === 27) {
-        this.cancel()
+        if (this.editable) {
+          this.cancel()
+        } else {
+          this.edit()
+        }
       } else if ((e.which || e.keyCode) === 13) {
-        this.save()
+        if (this.editable) {
+          this.preview()
+        } else {
+          if (this.complete) {
+            this.save(true)
+          } else {
+            this.save(false)
+          }
+        }
       }
     },
 
