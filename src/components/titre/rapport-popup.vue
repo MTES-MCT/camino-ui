@@ -87,7 +87,7 @@
 
     <div v-else>
       <div
-        v-for="contenu in contenus"
+        v-for="contenu in contenus.filter(c => !c.trimestres || c.trimestres.find(tr => tr === rapport.contenu.trimestre))"
         :key="contenu.id"
       >
         <div class="tablet-blobs">
@@ -259,7 +259,7 @@ export default {
     },
     complete() {
       return (
-        (this.rapport.contenu.or || this.rapport.contenu.or === 0) &&
+        (this.rapport.contenu.orBrut || this.rapport.contenu.orBrut === 0) &&
         (this.rapport.contenu.mercure || this.rapport.contenu.mercure === 0) &&
         (this.rapport.contenu.carburantDetaxe ||
           this.rapport.contenu.carburantDetaxe === 0) &&
