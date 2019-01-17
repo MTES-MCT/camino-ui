@@ -8,7 +8,8 @@ export const state = {
   statuts: null,
   substances: null,
   noms: null,
-  entreprises: null
+  entreprises: null,
+  references: null
 }
 
 export const actions = {
@@ -22,7 +23,8 @@ export const actions = {
         state.statuts && state.statuts.filter(e => e.checked).map(e => e.id),
       substances: state.substances,
       noms: state.noms,
-      entreprises: state.entreprises
+      entreprises: state.entreprises,
+      references: state.references
     }
 
     const a = Object.keys(args).reduce(

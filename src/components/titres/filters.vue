@@ -51,9 +51,19 @@
             <input
               :value="entreprises"
               type="text"
-              placeholder="Nom ou siret…"
+              placeholder="Nom ou siret"
               class="p-s"
               @blur="filterInput($event, 'entreprises')"
+            >
+          </div>
+          <div class="mb">
+            <h6>Références</h6>
+            <input
+              :value="references"
+              type="text"
+              placeholder="Référence DGEC, DEB, BRGM, Ifremer, etc."
+              class="p-s"
+              @blur="filterInput($event, 'references')"
             >
           </div>
         </div>
@@ -185,6 +195,12 @@ export default {
       return (
         this.$store.state.titres.entreprises &&
         this.$store.state.titres.entreprises.join(' ')
+      )
+    },
+    references() {
+      return (
+        this.$store.state.titres.references &&
+        this.$store.state.titres.references.join(' ')
       )
     },
     noms() {

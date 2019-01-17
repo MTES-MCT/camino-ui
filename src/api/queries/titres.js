@@ -21,6 +21,7 @@ const queryTitres = gql`
     $substances: [String!]
     $noms: [String!]
     $entreprises: [String!]
+    $references: [String!]
   ) {
     titres(
       typeIds: $typeIds
@@ -29,6 +30,7 @@ const queryTitres = gql`
       substances: $substances
       noms: $noms
       entreprises: $entreprises
+      references: $references
     ) {
       ...titreSimple
     }
