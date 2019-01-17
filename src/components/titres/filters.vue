@@ -61,7 +61,7 @@
             <input
               :value="references"
               type="text"
-              placeholder="Référence DGEC, DEB, BRGM, Ifremer, etc."
+              placeholder="Référence DGEC, DEAL, DEB, BRGM, Ifremer, etc."
               class="p-s"
               @blur="filterInput($event, 'references')"
             >
