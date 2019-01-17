@@ -95,8 +95,8 @@
             <h6>{{ contenu.nom }}</h6>
           </div>
           <div class="tablet-blob-2-3">
-            <p :class="{'color-warning': !rapport.contenu[contenu.id]}">
-              {{ rapport.contenu[contenu.id] || 'À compléter pour valider' }}
+            <p :class="{'color-warning': !(rapport.contenu[contenu.id] || rapport.contenu[contenu.id] === 0) }">
+              {{ rapport.contenu[contenu.id] || rapport.contenu[contenu.id] === 0 ? rapport.contenu[contenu.id] : 'À compléter pour valider' }}
             </p>
           </div>
         </div>
