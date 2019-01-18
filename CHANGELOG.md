@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/MTES-MCT/camino-ui/compare/v0.7.0...v0.8.0) (2019-01-18)
+
+
+### Bug Fixes
+
+* **rapports:** affiche l'alerte quand un champs vut 0 ([c1266f4](https://github.com/MTES-MCT/camino-ui/commit/c1266f4))
+* **rapports:** erreur si lors de la création de rapport ([c835242](https://github.com/MTES-MCT/camino-ui/commit/c835242))
+* **rapports:** modifications graphiques sur le formulaire ([9a869bf](https://github.com/MTES-MCT/camino-ui/commit/9a869bf))
+* **rapports:** n'affiche pas l'or net dans le récapitulatif ([9c19db2](https://github.com/MTES-MCT/camino-ui/commit/9c19db2))
+
+
+### Features
+
+* ajoute DEAL dans le placeholder du champs de filtre references ([07aa359](https://github.com/MTES-MCT/camino-ui/commit/07aa359))
+* filtre la liste de titres par référence métier ([47b7d81](https://github.com/MTES-MCT/camino-ui/commit/47b7d81))
+* **rapports:** ajoute un champs or net pour la déclaration du 4ème trimestre ([3403d65](https://github.com/MTES-MCT/camino-ui/commit/3403d65))
+* **rapports:** permet de prévisualiser et d'enregistrer avant de valider ([871c957](https://github.com/MTES-MCT/camino-ui/commit/871c957))
+
+
+### Reverts
+
+* **rapports:** message de confirmation différent selon que l'on enregistre ou valide ([8714355](https://github.com/MTES-MCT/camino-ui/commit/8714355))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/MTES-MCT/camino-ui/compare/v0.6.0...v0.7.0) (2019-01-11)
 
