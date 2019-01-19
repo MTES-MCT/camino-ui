@@ -2,34 +2,48 @@ import Vue from 'vue'
 import { titres } from '../api'
 
 export const state = {
-  list: null,
-  domaines: null,
-  types: null,
-  statuts: null,
-  substances: null,
-  noms: null,
-  entreprises: null,
-  references: null
+  list: [],
+  filterCheckboxes: {
+    domaines: { name: 'Domaines', ids: [] },
+    types: { name: 'Types', ids: [] },
+    statuts: { name: 'Statuts', ids: [] }
+  },
+  filterInputs: {
+    substances: {
+      name: 'Substances',
+      values: [],
+      placeholder: 'Or, Argent, Ag, …'
+    },
+    noms: { name: 'Noms', values: [], placeholder: '…' },
+    entreprises: {
+      name: 'Entreprises',
+      values: [],
+      placeholder: 'Nom ou siret'
+    },
+    references: {
+      name: 'Références',
+      values: [],
+      placeholder: 'Référence DGEC, DEAL, DEB, BRGM, Ifremer, …'
+    }
+  }
 }
 
 export const actions = {
   async get({ state, dispatch, commit }, fetchPolicy) {
     commit('loadingAdd', 'titres', { root: true })
     const args = {
-      typeIds: state.types && state.types.filter(e => e.checked).map(e => e.id),
-      domaineIds:
-        state.domaines && state.domaines.filter(e => e.checked).map(e => e.id),
-      statutIds:
-        state.statuts && state.statuts.filter(e => e.checked).map(e => e.id),
-      substances: state.substances,
-      noms: state.noms,
-      entreprises: state.entreprises,
-      references: state.references
+      typeIds: state.filterCheckboxes.types.ids,
+      domaineIds: state.filterCheckboxes.domaines.ids,
+      statutIds: state.filterCheckboxes.statuts.ids,
+      substances: state.filterInputs.substances.values,
+      noms: state.filterInputs.noms.values,
+      entreprises: state.filterInputs.entreprises.values,
+      references: state.filterInputs.references.values
     }
 
     const a = Object.keys(args).reduce(
       (res, key) =>
-        args[key] ? Object.assign(res, { [key]: args[key] }) : res,
+        args[key].length ? Object.assign(res, { [key]: args[key] }) : res,
       {}
     )
 
@@ -37,7 +51,7 @@ export const actions = {
       const res = await titres(a, fetchPolicy)
       commit('loadingRemove', 'titres', { root: true })
 
-      if (state.list) {
+      if (state.list.length) {
         dispatch(
           'messageAdd',
           {
@@ -51,7 +65,7 @@ export const actions = {
       if (res) {
         commit('set', res.map(t => t))
       } else {
-        console.log('pas de titres…')
+        console.log('aucun titres…')
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -59,15 +73,17 @@ export const actions = {
     }
   },
 
-  filterInput({ dispatch, commit }, { name, value }) {
-    const values = value ? value.split(/[ ,]+/) : null
-    commit('filterInput', { name, values })
+  filterInputSet({ commit }, { name, value }) {
+    const values = value ? value.split(/[ ,]+/) : []
+    commit('filterInputSet', { name, values })
   },
 
-  filterToggle({ state, dispatch, commit }, { name, value, property }) {
-    state[name]
-      .filter(e => e[property].toString() === value)
-      .forEach(f => commit('filterToggle', f))
+  filterCheckboxToggle({ state, commit }, { name, id }) {
+    if (state.filterCheckboxes[name].ids.find(i => i === id)) {
+      commit('filterCheckboxUnset', { name, id })
+    } else {
+      commit('filterCheckboxSet', { name, id })
+    }
   }
 }
 
@@ -78,19 +94,20 @@ export const mutations = {
     Vue.set(state, 'list', titres)
   },
 
-  metasSet(state, { name, values }) {
-    // ici on pourrait faire mieux, en
-    // - n'ajoutant que les valeurs qui n'existent pas déjà
-    // - et ainsi conserver leur état checked
-    Vue.set(state, name, values.map(v => Object.assign({ checked: true }, v)))
+  filterInputSet(state, { name, values }) {
+    Vue.set(state.filterInputs[name], 'values', values)
   },
 
-  filterToggle(state, f) {
-    Vue.set(f, 'checked', !f.checked)
+  filterCheckboxSet(state, { name, id }) {
+    state.filterCheckboxes[name].ids.push(id)
   },
 
-  filterInput(state, { name, values }) {
-    Vue.set(state, name, values)
+  filterCheckboxUnset(state, { name, id }) {
+    const index = state.filterCheckboxes[name].ids.indexOf(id)
+
+    if (index > -1) {
+      state.filterCheckboxes[name].ids.splice(index, 1)
+    }
   }
 }
 

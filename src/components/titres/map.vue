@@ -253,7 +253,6 @@ export default {
 
       const query = Object.assign({}, this.$route.query, { centre: c })
 
-      console.log('query', query)
       this.$router.push({ query })
     }
   }

@@ -6,6 +6,7 @@ import { init } from '../api'
 
 import titre from './titre'
 import titres from './titres'
+import metas from './metas'
 import map from './map'
 import utilisateur from './utilisateur'
 import utilisateurs from './utilisateurs'
@@ -17,6 +18,7 @@ import titreTravaux from './titre-travaux'
 const modules = {
   titre,
   titres,
+  metas,
   map,
   utilisateur,
   utilisateurs,
@@ -64,21 +66,15 @@ export const actions = {
       }
 
       if (res.metas) {
-        commit(
-          'titres/metasSet',
-          { values: res.metas.types, name: 'types' },
-          { root: true }
-        )
-        commit(
-          'titres/metasSet',
-          { values: res.metas.domaines, name: 'domaines' },
-          { root: true }
-        )
-        commit(
-          'titres/metasSet',
-          { values: res.metas.statuts, name: 'statuts' },
-          { root: true }
-        )
+        const metaNames = ['types', 'domaines', 'statuts']
+
+        metaNames.forEach(name => {
+          dispatch(
+            'metas/set',
+            { name, values: res.metas[name] },
+            { root: true }
+          )
+        })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })

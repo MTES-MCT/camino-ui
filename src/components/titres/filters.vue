@@ -10,60 +10,19 @@
     <div>
       <div class="tablet-blobs mt">
         <div class="tablet-blob-1-2 large-blob-1-3">
-          <div class="mb hide">
-            <h6>Localisation</h6>
+          <div
+            v-for="(filterInput, key) in filterInputs"
+            :key="key"
+            class="mb"
+          >
+            <h6>{{ filterInput.name }}</h6>
+
             <input
+              :value="filterInput.values.join(' ')"
               type="text"
-              placeholder="Région, département, commune…"
+              :placeholder="filterInput.placeholder"
               class="p-s"
-            >
-          </div>
-          <div class="mb hide">
-            <h6>Titulaire</h6>
-            <input
-              type="text"
-              placeholder="Nom du titulaire…"
-              class="p-s"
-            >
-          </div>
-          <div class="mb">
-            <h6>Noms</h6>
-            <input
-              :value="noms"
-              type="text"
-              placeholder="…"
-              class="p-s"
-              @blur="filterInput($event, 'noms')"
-            >
-          </div>
-          <div class="mb">
-            <h6>Substances</h6>
-            <input
-              :value="substances"
-              type="text"
-              placeholder="Or, Argent, Ag…"
-              class="p-s"
-              @blur="filterInput($event, 'substances')"
-            >
-          </div>
-          <div class="mb">
-            <h6>Entreprises</h6>
-            <input
-              :value="entreprises"
-              type="text"
-              placeholder="Nom ou siret"
-              class="p-s"
-              @blur="filterInput($event, 'entreprises')"
-            >
-          </div>
-          <div class="mb">
-            <h6>Références</h6>
-            <input
-              :value="references"
-              type="text"
-              placeholder="Référence DGEC, DEAL, DEB, BRGM, Ifremer, etc."
-              class="p-s"
-              @blur="filterInput($event, 'references')"
+              @blur="filterInputSet($event, key)"
             >
           </div>
         </div>
@@ -77,10 +36,10 @@
               <label>
                 <input
                   :value="domaine.id"
-                  :checked="domaine.checked"
+                  :checked="filterCheckboxes.domaines.ids.find(id => domaine.id === id)"
                   type="checkbox"
                   class="mr-s"
-                  @change="filterToggle($event, 'domaines', 'id')"
+                  @change="filterCheckboxToggle($event, 'domaines', 'id')"
                 >
                 <Pill
                   :color="`bg-title-domaine-${domaine.id}`"
@@ -105,11 +64,11 @@
               >
                 <label>
                   <input
-                    :value="type.nom"
-                    :checked="type.checked"
+                    :value="type.id"
+                    :checked="filterCheckboxes.types.ids.find(id => type.id === id)"
                     type="checkbox"
                     class="mr-s"
-                    @change="filterToggle($event, 'types', 'nom')"
+                    @change="filterCheckboxToggle($event, 'types')"
                   >
                   <span class="cap-first">
                     {{ type.nom }}
@@ -130,10 +89,10 @@
                 <label>
                   <input
                     :value="statut.id"
-                    :checked="statut.checked"
+                    :checked="filterCheckboxes.statuts.ids.find(id => statut.id === id)"
                     type="checkbox"
                     class="mr-s"
-                    @change="filterToggle($event, 'statuts', 'id')"
+                    @change="filterCheckboxToggle($event, 'statuts', 'id')"
                   >
                   <Dot :color="`bg-${statut.couleur}`" />
                   <span class="cap-first">
@@ -170,43 +129,28 @@ export default {
   },
 
   computed: {
+    filterInputs() {
+      return this.$store.state.titres.filterInputs
+    },
+
+    filterCheckboxes() {
+      return this.$store.state.titres.filterCheckboxes
+    },
+
     domaines() {
-      return this.$store.state.titres.domaines
+      return this.$store.state.metas.domaines
     },
     types() {
       return (
-        this.$store.state.titres.types &&
-        this.$store.state.titres.types.reduce((res, cur) => {
+        this.$store.state.metas.types &&
+        this.$store.state.metas.types.reduce((res, cur) => {
           const e = res.find(e => e.nom === cur.nom)
           return e ? res : [...res, cur]
         }, [])
       )
     },
     statuts() {
-      return this.$store.state.titres.statuts
-    },
-    substances() {
-      return (
-        this.$store.state.titres.substances &&
-        this.$store.state.titres.substances.join(' ')
-      )
-    },
-    entreprises() {
-      return (
-        this.$store.state.titres.entreprises &&
-        this.$store.state.titres.entreprises.join(' ')
-      )
-    },
-    references() {
-      return (
-        this.$store.state.titres.references &&
-        this.$store.state.titres.references.join(' ')
-      )
-    },
-    noms() {
-      return (
-        this.$store.state.titres.noms && this.$store.state.titres.noms.join(' ')
-      )
+      return this.$store.state.metas.statuts
     }
   },
 
@@ -219,16 +163,32 @@ export default {
   },
 
   methods: {
-    filterToggle(e, name, property) {
-      this.$store.dispatch('titres/filterToggle', {
-        name,
-        value: e.target.value,
-        property
-      })
+    filterCheckboxToggle(e, name) {
+      const filterCheckboxToggle = (name, id) => {
+        this.$store.dispatch('titres/filterCheckboxToggle', {
+          name,
+          id
+        })
+      }
+
+      if (name === 'types') {
+        const nom = this.$store.state.metas.types.find(
+          type => type.id === e.target.value
+        ).nom
+        const ids = this.$store.state.metas.types
+          .filter(type => type.nom === nom)
+          .map(type => type.id)
+
+        ids.forEach(id => {
+          filterCheckboxToggle(name, id)
+        })
+      } else {
+        filterCheckboxToggle(name, e.target.value)
+      }
     },
 
-    filterInput(e, name) {
-      this.$store.dispatch('titres/filterInput', {
+    filterInputSet(e, name) {
+      this.$store.dispatch('titres/filterInputSet', {
         name,
         value: e.target.value
       })

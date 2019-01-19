@@ -89,7 +89,7 @@ export default {
   },
 
   created() {
-    if (!this.titres) {
+    if (!this.titres.length) {
       this.get()
     }
 
