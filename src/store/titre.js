@@ -42,10 +42,11 @@ export const actions = {
       commit('loadingRemove', 'titreEtapeUpdate', { root: true })
 
       if (res) {
+        commit('popupClose', null, { root: true })
         dispatch(
           'messageAdd',
           {
-            value: `l'étape a été mise à jour`,
+            value: `le titre a été mis à jour`,
             type: 'success'
           },
           { root: true }

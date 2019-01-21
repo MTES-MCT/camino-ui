@@ -66,7 +66,7 @@ export const actions = {
       }
 
       if (res.metas) {
-        const metaNames = ['types', 'domaines', 'statuts']
+        const metaNames = ['types', 'domaines', 'statuts', 'demarchesTypes']
 
         metaNames.forEach(name => {
           dispatch(

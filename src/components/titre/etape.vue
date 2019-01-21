@@ -115,6 +115,10 @@ export default {
     etape: {
       type: Object,
       default: () => {}
+    },
+    demarcheId: {
+      type: String,
+      default: ''
     }
   },
 
@@ -139,18 +143,10 @@ export default {
         return etapeTmp
       }
 
-      const demarche = this.$store.state.titre.current.demarches.find(d =>
-        d.etapes.find(e => e.id === this.etape.id)
-      )
-
-      const titre = this.$store.state.titre.current
-
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
-          etape: etapeCloneAndFormat(this.etape),
-          demarcheNom: demarche && demarche.type.nom,
-          titreNom: titre && titre.nom
+          etape: etapeCloneAndFormat(this.etape)
         }
       })
     },

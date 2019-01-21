@@ -15,6 +15,24 @@ const fragmentMeta = gql`
       nom
       couleur
     }
+    demarchesTypes {
+      id
+      nom
+      ordre
+      duree
+      points
+      substances
+      titulaires
+      renouvelable
+      exception
+      etapesTypes {
+        id
+        nom
+        acceptationAuto
+        ordre
+        typeId
+      }
+    }
   }
 `
 

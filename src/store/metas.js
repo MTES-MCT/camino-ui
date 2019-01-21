@@ -4,9 +4,7 @@ export const state = {
   types: [],
   domaines: [],
   statuts: [],
-  demarchesTypes: [],
-  etapesTypes: [],
-  demarchesTypesEtapesTypes: []
+  demarchesTypes: []
 }
 
 export const actions = {

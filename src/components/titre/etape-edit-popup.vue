@@ -4,11 +4,11 @@
       <div>
         <h5>
           <span class="cap-first">
-            {{ titreNom }}
+            {{ titre.nom }}
           </span><span class="color-neutral">
             |
           </span><span class="cap-first">
-            {{ demarcheNom }}
+            {{ demarche.type.nom }}
           </span>
         </h5>
         <h2 class="cap-first mb-0">
@@ -16,6 +16,32 @@
         </h2>
       </div>
     </template>
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Type</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <select
+            v-model="etape.type.id"
+            type="text"
+            class="p-s mr"
+            @change="typeUpdate(etape.type.id)"
+          >
+            <option
+              v-for="etapeType in etapesTypes"
+              :key="etapeType.id"
+              :value="etapeType.id"
+              :disabled="etape.type.id === etapeType.id"
+            >
+              {{ etapeType.nom }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <hr>
+    </div>
 
     <div>
       <div class="tablet-blobs">
@@ -445,11 +471,7 @@ export default {
       type: Object,
       default: () => ({})
     },
-    demarcheNom: {
-      type: String,
-      default: ''
-    },
-    titreNom: {
+    demarcheId: {
       type: String,
       default: ''
     }
@@ -470,6 +492,36 @@ export default {
     },
     substances() {
       return this.$store.state.substances.list
+    },
+    demarcheType() {
+      return (
+        this.demarche &&
+        this.$store.state.metas.demarchesTypes &&
+        this.$store.state.metas.demarchesTypes.find(
+          dt => dt.id === this.demarche.type.id
+        )
+      )
+    },
+    etapesTypes() {
+      return (
+        this.titre &&
+        this.demarcheType &&
+        this.demarcheType.etapesTypes &&
+        this.demarcheType.etapesTypes
+          .filter(et => et.typeId === this.titre.type.id)
+          .map(et => ({ id: et.id, nom: et.nom }))
+      )
+    },
+    titre() {
+      return this.$store.state.titre.current
+    },
+    demarche() {
+      return (
+        this.titre &&
+        this.titre.demarches.find(d =>
+          d.etapes.find(e => e.id === this.etape.id)
+        )
+      )
     }
   },
 
@@ -530,6 +582,10 @@ export default {
 
     errorsRemove() {
       // this.$store.commit('utilisateur/loginMessagesRemove')
+    },
+
+    typeUpdate(etapeTypeId) {
+      this.etape.type = this.etapesTypes.find(et => et.id === etapeTypeId)
     },
 
     pointAdd() {

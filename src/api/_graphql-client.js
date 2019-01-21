@@ -2,7 +2,7 @@ import { ApolloClient } from 'apollo-client'
 import { ApolloLink } from 'apollo-link'
 import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
 
 // for safari 11
@@ -67,7 +67,16 @@ const omitTypenameLink = new ApolloLink((operation, forward) => {
 // })
 
 const link = ApolloLink.from([authLink, omitTypenameLink, errorLink, httpLink])
-const cache = new InMemoryCache()
+const cache = new InMemoryCache({
+  dataIdFromObject: object => {
+    switch (object.__typename) {
+      case 'EtapeType':
+        return `${object.typeId}-${object.id}` // use `key` as the primary key
+      default:
+        return defaultDataIdFromObject(object) // fall back to default handling
+    }
+  }
+})
 
 const graphqlClient = new ApolloClient({
   link,
