@@ -43,6 +43,34 @@
       <hr>
     </div>
 
+
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Statut</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <select
+            v-model="etape.statut.id"
+            type="text"
+            class="p-s mr"
+            @change="statutUpdate(etape.statut.id)"
+          >
+            <option
+              v-for="etapeStatut in etapesStatuts"
+              :key="etapeStatut.id"
+              :value="etapeStatut.id"
+              :disabled="etape.statut.id === etapeStatut.id"
+            >
+              {{ etapeStatut.nom }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <hr>
+    </div>
+
     <div>
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
@@ -502,15 +530,23 @@ export default {
         )
       )
     },
-    etapesTypes() {
+    types() {
       return (
         this.titre &&
         this.demarcheType &&
         this.demarcheType.etapesTypes &&
-        this.demarcheType.etapesTypes
-          .filter(et => et.typeId === this.titre.type.id)
-          .map(et => ({ id: et.id, nom: et.nom }))
+        this.demarcheType.etapesTypes.filter(
+          et => et.typeId === this.titre.type.id
+        )
       )
+    },
+    etapesTypes() {
+      return this.types && this.types.map(et => ({ id: et.id, nom: et.nom }))
+    },
+    etapesStatuts() {
+      const etapeType =
+        this.types && this.types.find(t => t.id === this.etape.type.id)
+      return etapeType && etapeType.etapesStatuts
     },
     titre() {
       return this.$store.state.titre.current
@@ -586,6 +622,12 @@ export default {
 
     typeUpdate(etapeTypeId) {
       this.etape.type = this.etapesTypes.find(et => et.id === etapeTypeId)
+    },
+
+    statutUpdate(etapeStatutId) {
+      this.etape.statut = this.etapesTypes.etapesStatuts.find(
+        es => es.id === etapeStatutId
+      )
     },
 
     pointAdd() {

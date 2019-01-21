@@ -31,6 +31,11 @@ const fragmentMeta = gql`
         acceptationAuto
         ordre
         typeId
+        etapesStatuts {
+          id
+          nom
+          couleur
+        }
       }
     }
   }
