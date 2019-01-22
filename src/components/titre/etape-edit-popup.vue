@@ -30,12 +30,12 @@
             @change="typeUpdate(etape.type.id)"
           >
             <option
-              v-for="etapeType in etapesTypes"
-              :key="etapeType.id"
-              :value="etapeType.id"
-              :disabled="etape.type.id === etapeType.id"
+              v-for="et in etapesTypes"
+              :key="et.id"
+              :value="et.id"
+              :disabled="etape.type.id === et.id"
             >
-              {{ etapeType.nom }}
+              {{ et.nom }}
             </option>
           </select>
         </div>
@@ -543,10 +543,11 @@ export default {
     etapesTypes() {
       return this.types && this.types.map(et => ({ id: et.id, nom: et.nom }))
     },
+    etapeType() {
+      return this.types && this.types.find(t => t.id === this.etape.type.id)
+    },
     etapesStatuts() {
-      const etapeType =
-        this.types && this.types.find(t => t.id === this.etape.type.id)
-      return etapeType && etapeType.etapesStatuts
+      return this.etapeType && this.etapeType.etapesStatuts
     },
     titre() {
       return this.$store.state.titre.current
@@ -625,9 +626,7 @@ export default {
     },
 
     statutUpdate(etapeStatutId) {
-      this.etape.statut = this.etapesTypes.etapesStatuts.find(
-        es => es.id === etapeStatutId
-      )
+      this.etape.statut = this.etapesStatuts.find(es => es.id === etapeStatutId)
     },
 
     pointAdd() {
