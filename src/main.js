@@ -15,7 +15,10 @@ import { dateFormat } from './utils'
 if (process.env.VUE_APP_SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.VUE_APP_SENTRY_DSN,
-    integrations: [new Sentry.Integrations.Vue({ Vue })],
+    integrations: [
+      new Sentry.Integrations.Vue({ Vue }),
+      new Sentry.Integrations.RewriteFrames()
+    ],
     // eslint-disable-next-line camelcase
     release: `camino-ui-${npmVersion}`
   })

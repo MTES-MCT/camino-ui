@@ -22,7 +22,7 @@ module.exports = {
       })
     ]
   },
-  productionSourceMap: false,
+  productionSourceMap: true,
   css: {
     sourceMap: true
     // Enable CSS modules for all CSS/pre-processor files.
