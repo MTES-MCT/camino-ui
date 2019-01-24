@@ -46,7 +46,6 @@ export const actions = {
 
     try {
       const res = await utilisateurLogin({ email, motDePasse })
-      commit('loadingRemove', 'utilisateurLogin', { root: true })
 
       dispatch('tokenSet', res.token)
       commit('set', res.utilisateur)
@@ -64,6 +63,7 @@ export const actions = {
       dispatch('tokenRemove')
       commit('reset')
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
       commit('loadingRemove', 'utilisateurLogin', { root: true })
     }
   },
@@ -86,7 +86,6 @@ export const actions = {
 
     try {
       const res = await utilisateurAddEmail({ email })
-      commit('loadingRemove', 'utilisateurAddEmail', { root: true })
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
@@ -98,6 +97,7 @@ export const actions = {
       )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
       commit('loadingRemove', 'utilisateurAddEmail', { root: true })
     }
   },
@@ -107,7 +107,6 @@ export const actions = {
 
     try {
       const u = await utilisateurAdd({ utilisateur })
-      commit('loadingRemove', 'userAdd', { root: true })
 
       if (u) {
         dispatch(
@@ -135,6 +134,7 @@ export const actions = {
         },
         { root: true }
       )
+    } finally {
       commit('loadingRemove', 'userAdd', { root: true })
     }
   },
@@ -145,7 +145,6 @@ export const actions = {
 
     try {
       const res = await utilisateurPasswordInitEmail({ email })
-      commit('loadingRemove', 'utilisateurPasswordInitEmail', { root: true })
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
@@ -157,6 +156,7 @@ export const actions = {
       )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
       commit('loadingRemove', 'utilisateurPasswordInitEmail', { root: true })
     }
   },
@@ -169,7 +169,6 @@ export const actions = {
 
     try {
       const res = await utilisateurPasswordInit({ motDePasse1, motDePasse2 })
-      commit('loadingRemove', 'utilisateurPasswordInit', { root: true })
 
       dispatch(
         'messageAdd',
@@ -194,6 +193,7 @@ export const actions = {
         },
         { root: true }
       )
+    } finally {
       commit('loadingRemove', 'utilisateurPasswordInit', { root: true })
     }
   },

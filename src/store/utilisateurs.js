@@ -20,7 +20,6 @@ export const actions = {
 
     try {
       const res = await utilisateurs({})
-      commit('loadingRemove', 'utilisateurs', { root: true })
       if (res) {
         commit('set', res)
       } else {
@@ -28,6 +27,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+    } finally {
       commit('loadingRemove', 'utilisateurs', { root: true })
     }
   },
@@ -39,7 +39,6 @@ export const actions = {
       const u = await utilisateurAdd({ utilisateur })
 
       commit('popupClose', null, { root: true })
-      commit('loadingRemove', 'utilisateurAdd', { root: true })
 
       if (u) {
         commit('add', u)
@@ -54,6 +53,7 @@ export const actions = {
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
       commit('loadingRemove', 'utilisateurAdd', { root: true })
     }
   },
@@ -65,7 +65,6 @@ export const actions = {
     try {
       const u = await utilisateurUpdate({ utilisateur })
 
-      commit('loadingRemove', 'utilisateurUpdate', { root: true })
       commit('utilisateur/set', u, { root: true })
 
       if (utilisateur.id === rootState.user.current.id) {
@@ -82,6 +81,7 @@ export const actions = {
       )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
       commit('loadingRemove', 'utilisateurUpdate', { root: true })
     }
   },
@@ -92,7 +92,6 @@ export const actions = {
 
     try {
       const utilisateur = await utilisateurRemove({ id })
-      commit('loadingRemove', 'utilisateurRemove', { root: true })
 
       if (utilisateur) {
         commit('remove', utilisateur)
@@ -116,6 +115,7 @@ export const actions = {
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
       commit('loadingRemove', 'utilisateurRemove', { root: true })
     }
   },
@@ -134,7 +134,6 @@ export const actions = {
         motDePasseNouveau1,
         motDePasseNouveau2
       })
-      commit('loadingRemove', 'utilisateurPasswordUpdate', { root: true })
 
       if (utilisateur) {
         commit('popupClose', null, { root: true })
@@ -149,6 +148,7 @@ export const actions = {
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
       commit('loadingRemove', 'utilisateurPasswordUpdate', { root: true })
     }
   }

@@ -49,7 +49,6 @@ export const actions = {
 
     try {
       const res = await titres(a, fetchPolicy)
-      commit('loadingRemove', 'titres', { root: true })
 
       if (state.list.length) {
         dispatch(
@@ -69,6 +68,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+    } finally {
       commit('loadingRemove', 'titres', { root: true })
     }
   },

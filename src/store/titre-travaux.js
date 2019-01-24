@@ -158,8 +158,6 @@ export const actions = {
     try {
       const res = await titreTravauxRapportUpdate({ rapport })
 
-      commit('loadingRemove', 'titreTravauxRapportUpdate', { root: true })
-
       if (res) {
         commit('popupClose', null, { root: true })
         dispatch(
@@ -177,6 +175,7 @@ export const actions = {
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
       commit('loadingRemove', 'titreTravauxRapportUpdate', { root: true })
     }
   }

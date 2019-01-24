@@ -12,7 +12,6 @@ export const actions = {
 
     try {
       const res = await utilisateur(id)
-      commit('loadingRemove', 'utilisateur', { root: true })
 
       if (res) {
         commit('set', res)
@@ -21,6 +20,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+    } finally {
       commit('loadingRemove', 'utilisateur', { root: true })
     }
   }

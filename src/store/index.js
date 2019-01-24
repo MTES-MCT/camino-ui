@@ -47,7 +47,6 @@ export const actions = {
     commit('loadingAdd', 'init')
     try {
       const res = await init()
-      commit('loadingRemove', 'init')
 
       if (res.version) {
         commit('apiVersionSet', res.version)
@@ -78,6 +77,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+    } finally {
       commit('loadingRemove', 'init')
     }
   },

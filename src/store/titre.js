@@ -13,8 +13,6 @@ export const actions = {
     try {
       const res = await titre(id)
 
-      commit('loadingRemove', 'titre', { root: true })
-
       if (res) {
         commit('set', res)
       } else {
@@ -22,6 +20,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+    } finally {
       commit('loadingRemove', 'titre', { root: true })
     }
   },
@@ -37,9 +36,9 @@ export const actions = {
   async etapeUpdate({ commit, dispatch }, etape) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'titreEtapeUpdate', { root: true })
+
     try {
       const res = await titreEtapeUpdate({ etape })
-      commit('loadingRemove', 'titreEtapeUpdate', { root: true })
 
       if (res) {
         commit('popupClose', null, { root: true })
@@ -54,11 +53,12 @@ export const actions = {
         dispatch('reload')
       } else {
         dispatch('pageError', null, { root: true })
-        commit('loadingRemove', 'titreEtapeUpdate', { root: true })
       }
     } catch (e) {
       console.log('fix me')
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeUpdate', { root: true })
     }
   },
 
