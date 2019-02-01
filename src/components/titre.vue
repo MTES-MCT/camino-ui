@@ -93,6 +93,21 @@
               </li>
             </ul>
           </div>
+
+          <div v-if="titre.amodiataires">
+            <h6>
+              {{ titre.amodiataires.length > 1 ? "Amodiataires" : "Amodiataire" }}
+            </h6>
+            <ul class="list-prefix">
+              <li
+                v-for="amodiataire in titre.amodiataires"
+                :key="amodiataire.id"
+              >
+                {{ amodiataire["nom"] }}
+              </li>
+            </ul>
+          </div>
+
           <div v-if="titre['liens']">
             <h6>Liens</h6>
             <ul class="list-sans">
