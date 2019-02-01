@@ -80,7 +80,7 @@
           </div>
         </div>
         <div class="desktop-blob-1-2">
-          <div v-if="titre.titulaires">
+          <div v-if="titre.titulaires.length">
             <h6>
               {{ titre.titulaires.length > 1 ? "Titulaires" : "Titulaire" }}
             </h6>
@@ -94,7 +94,7 @@
             </ul>
           </div>
 
-          <div v-if="titre.amodiataires">
+          <div v-if="titre.amodiataires.length">
             <h6>
               {{ titre.amodiataires.length > 1 ? "Amodiataires" : "Amodiataire" }}
             </h6>
