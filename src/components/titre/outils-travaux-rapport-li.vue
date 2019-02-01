@@ -36,13 +36,15 @@ export default {
       )
     },
     hasPermissions() {
-      const isAmodiataire = this.titre.amodiataires.some(
-        t => t.id === this.user.entreprise.id
-      )
+      const isAmodiataire =
+        this.user &&
+        this.user.entreprise &&
+        this.titre.amodiataires.some(t => t.id === this.user.entreprise.id)
 
-      const isTitulaire = this.titre.titulaires.some(
-        t => t.id === this.user.entreprise.id
-      )
+      const isTitulaire =
+        this.user &&
+        this.user.entreprise &&
+        this.titre.titulaires.some(t => t.id === this.user.entreprise.id)
 
       return (
         this.permissionsCheck(['super', 'admin']) ||
