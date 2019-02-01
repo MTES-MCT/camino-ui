@@ -56,21 +56,21 @@ const mutationUtilisateurConnecter = gql`
 const queryUtilisateurIdentifier = gql`
   query UtilisateurIdentifier {
     utilisateurIdentifier {
-      id
-      nom
-      prenom
-      entreprise {
+      utilisateur {
         id
         nom
+        prenom
+        email
+        permission {
+          id
+          nom
+        }
+        entreprise {
+          id
+          nom
+        }
       }
-      administration {
-        id
-        nom
-      }
-      permission {
-        id
-        nom
-      }
+      token
     }
   }
 `

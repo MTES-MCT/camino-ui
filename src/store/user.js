@@ -25,6 +25,7 @@ export const actions = {
   async init({ dispatch }) {
     if (localStorage.getItem('token')) {
       await dispatch('identify')
+      dispatch('init', null, { root: true })
     } else {
       dispatch('tokenRemove')
     }
@@ -32,8 +33,10 @@ export const actions = {
 
   async identify({ commit, dispatch }) {
     try {
-      const user = await utilisateurIdentify()
-      commit('set', user)
+      const res = await utilisateurIdentify()
+
+      commit('set', res.utilisateur)
+      dispatch('tokenSet', res.token)
     } catch (e) {
       dispatch('tokenRemove')
       commit('reset')

@@ -69,8 +69,6 @@ export default {
       if (!this.$store.getters['user/preferencesConditions']) {
         this.warningPopupOpen()
       }
-
-      this.$store.dispatch('init')
     })
   },
 
