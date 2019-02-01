@@ -96,8 +96,8 @@ export const actions = {
       if (utilisateur) {
         commit('remove', utilisateur)
 
-        if (utilisateur === rootState.user.current.id) {
-          commit('user/logout', null, { root: true })
+        if (utilisateur.id === rootState.user.current.id) {
+          dispatch('user/logout', null, { root: true })
         }
         commit('popupClose', null, { root: true })
         dispatch(
