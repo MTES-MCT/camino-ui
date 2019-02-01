@@ -36,11 +36,19 @@ export default {
       )
     },
     hasPermissions() {
+      const isAmodiataire = this.titre.amodiataires.some(
+        t => t.id === this.user.entreprise.id
+      )
+
+      const isTitulaire = this.titre.titulaires.some(
+        t => t.id === this.user.entreprise.id
+      )
+
       return (
         this.permissionsCheck(['super', 'admin']) ||
         (this.permissionsCheck(['entreprise']) &&
           this.user.entreprise &&
-          !!this.titre.titulaires.find(t => t.id === this.user.entreprise.id))
+          (isAmodiataire || (!this.titre.amodiataires.length && isTitulaire)))
       )
     },
     isVisible() {
