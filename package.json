@@ -1,6 +1,6 @@
 {
   "name": "camino-ui",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Interface web de Camino, le cadastre minier numérique ouvert",
   "license": "AGPL-3.0-or-later",
   "repository": {

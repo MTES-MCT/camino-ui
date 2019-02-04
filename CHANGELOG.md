@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/MTES-MCT/camino-ui/compare/v0.8.0...v0.9.0) (2019-02-04)
+
+
+### Bug Fixes
+
+* les mots amodiataires et titulaires s'affichent même si le champs est vide ([fc665a8](https://github.com/MTES-MCT/camino-ui/commit/fc665a8))
+* **rapports:** typerror sur la page titre si aucun utilisateur est connecté ([2ab9a2c](https://github.com/MTES-MCT/camino-ui/commit/2ab9a2c))
+* erreur lors de la mise à jour d'un statut d'étape ([de93d8b](https://github.com/MTES-MCT/camino-ui/commit/de93d8b))
+* lorsqu'un utilisateur supprime son compte, il n'est pas dé-loggué ([a9565b4](https://github.com/MTES-MCT/camino-ui/commit/a9565b4))
+
+
+### Features
+
+* **rapports:** donne la permission d'éditer un rapport à l'amodiataire si il existe ([6454837](https://github.com/MTES-MCT/camino-ui/commit/6454837))
+* affiche les amodiataires dans l'entête du titre ([a8fa4b4](https://github.com/MTES-MCT/camino-ui/commit/a8fa4b4))
+* mise à jour du type de l'étape ([d6057a0](https://github.com/MTES-MCT/camino-ui/commit/d6057a0))
+* modifie le statut d'une étape ([56ccb6d](https://github.com/MTES-MCT/camino-ui/commit/56ccb6d))
+* récupère le token lors de l'identification d'un utilisateur déjà loggué ([6a0268c](https://github.com/MTES-MCT/camino-ui/commit/6a0268c))
+
+
+
 <a name="0.8.0"></a>
 # [0.8.0](https://github.com/MTES-MCT/camino-ui/compare/v0.7.0...v0.8.0) (2019-01-18)
 
