@@ -25,7 +25,6 @@ export const actions = {
   async init({ dispatch }) {
     if (localStorage.getItem('token')) {
       await dispatch('identify')
-      dispatch('init', null, { root: true })
     } else {
       dispatch('tokenRemove')
     }
