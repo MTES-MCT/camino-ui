@@ -48,6 +48,22 @@ const fragmentTitre = gql`
     geojsonMultiPolygon {
       ...geojsonMultiPolygon
     }
+    pays {
+      id
+      nom
+      regions {
+        id
+        nom
+        departements {
+          id
+          nom
+          communes {
+            id
+            nom
+          }
+        }
+      }
+    }
     demarches {
       ...demarche
     }

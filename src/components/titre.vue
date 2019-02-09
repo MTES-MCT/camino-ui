@@ -134,37 +134,30 @@
       />
 
       <div class="tablet-blobs">
-        <div
-          v-if="titre.surface"
-          class="tablet-blob-1-4"
-        >
-          <h6>Surface</h6>
-          <p>{{ titre.surface }} km² environ</p>
+        <div class="tablet-blob-1-4">
+          <div v-if="titre.surface">
+            <h6>Surface</h6>
+            <p>{{ titre.surface }} km² environ</p>
+          </div>
+          <div v-if="titre.volume">
+            <h6>Volume</h6>
+            <p>{{ titre.volume }} {{ titre.volumeUnite }}</p>
+          </div>
         </div>
-        <div
-          v-if="titre.volume"
-          class="tablet-blob-1-4"
-        >
-          <h6>Volume</h6>
-          <p>{{ titre.volume }} {{ titre.volumeUnite }}</p>
-        </div>
-        <div
-          v-if="titre && titre.communes"
-          class="tablet-blob-3-4 hide"
-        >
+        <div class="tablet-blob-3-4">
           <h6>Communes</h6>
           <div
-            v-for="(departements, region) in titre.communes"
-            :key="region"
+            v-for="region in titre.pays[0].regions"
+            :key="region.id"
           >
             <div
-              v-for="(communes, departement) in departements"
-              :key="departement"
+              v-for="departement in region.departements"
+              :key="departement.id"
             >
-              <h5 class="mb-xs">
-                {{ region }} / {{ departement }}
+              <h5 class="mb-s">
+                {{ titre.pays[0].nom === 'République Française' ? region.nom + ' / ' + departement.nom : region.nom }}
               </h5>
-              <PillList :elements="communes" />
+              <PillList :elements="departement.communes.map(c => c.nom).sort()" />
             </div>
           </div>
         </div>
