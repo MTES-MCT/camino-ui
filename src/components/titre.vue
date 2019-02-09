@@ -144,7 +144,10 @@
             <p>{{ titre.volume }} {{ titre.volumeUnite }}</p>
           </div>
         </div>
-        <div class="tablet-blob-3-4">
+        <div
+          v-if="titre.pays && titre.pays.length"
+          class="tablet-blob-3-4"
+        >
           <h6>Communes</h6>
           <div
             v-for="region in titre.pays[0].regions"
