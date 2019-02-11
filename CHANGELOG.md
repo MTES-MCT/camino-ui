@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/MTES-MCT/camino-ui/compare/v0.9.0...v0.10.0) (2019-02-11)
+
+
+### Bug Fixes
+
+* corrige une erreur si le titre n'a pas de communes ([ea296cd](https://github.com/MTES-MCT/camino-ui/commit/ea296cd))
+* les metas ne s'ffichent pas dans les filtres ([75fc117](https://github.com/MTES-MCT/camino-ui/commit/75fc117))
+
+
+### Features
+
+* affiche les communes sur une page du titre ([6f4deaf](https://github.com/MTES-MCT/camino-ui/commit/6f4deaf))
+* renomme communes en territoires ([baebcc5](https://github.com/MTES-MCT/camino-ui/commit/baebcc5))
+* supprime le tri des communes par ordre alphabétique (fait par l'API) ([ad04b60](https://github.com/MTES-MCT/camino-ui/commit/ad04b60))
+
+
+
 <a name="0.9.0"></a>
 # [0.9.0](https://github.com/MTES-MCT/camino-ui/compare/v0.8.0...v0.9.0) (2019-02-04)
 
