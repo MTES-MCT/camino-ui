@@ -148,7 +148,7 @@
           v-if="titre.pays && titre.pays.length"
           class="tablet-blob-3-4"
         >
-          <h6>Communes</h6>
+          <h6>Territoires</h6>
           <div
             v-for="region in titre.pays[0].regions"
             :key="region.id"
