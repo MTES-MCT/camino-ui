@@ -23,7 +23,16 @@ const titre = async id => {
 }
 
 const titres = async (
-  { typeIds, domaineIds, statutIds, substances, noms, entreprises, references },
+  {
+    typeIds,
+    domaineIds,
+    statutIds,
+    substances,
+    noms,
+    entreprises,
+    references,
+    territoires
+  },
   fetchPolicy
 ) => {
   try {
@@ -36,7 +45,8 @@ const titres = async (
         substances,
         noms,
         entreprises,
-        references
+        references,
+        territoires
       }
     }
 

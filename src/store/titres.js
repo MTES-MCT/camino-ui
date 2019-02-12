@@ -9,12 +9,12 @@ export const state = {
     statuts: { name: 'Statuts', ids: [] }
   },
   filterInputs: {
+    noms: { name: 'Nom', values: [], placeholder: '…' },
     substances: {
       name: 'Substances',
       values: [],
       placeholder: 'Or, Argent, Ag, …'
     },
-    noms: { name: 'Noms', values: [], placeholder: '…' },
     entreprises: {
       name: 'Entreprises',
       values: [],
@@ -24,6 +24,11 @@ export const state = {
       name: 'Références',
       values: [],
       placeholder: 'Référence DGEC, DEAL, DEB, BRGM, Ifremer, …'
+    },
+    territoires: {
+      name: 'Territoires',
+      values: [],
+      placeholder: 'Commune, département, région, …'
     }
   }
 }
@@ -38,7 +43,8 @@ export const actions = {
       substances: state.filterInputs.substances.values,
       noms: state.filterInputs.noms.values,
       entreprises: state.filterInputs.entreprises.values,
-      references: state.filterInputs.references.values
+      references: state.filterInputs.references.values,
+      territoires: state.filterInputs.territoires.values
     }
 
     const a = Object.keys(args).reduce(
