@@ -10,7 +10,7 @@
         <div class="blob-1-3">
           <img
             class="sponsor mb"
-            src="../../public/img/logo-fabnum.svg"
+            src="../../public/img/logo-fabriquenumerique.svg"
           >
         </div>
         <div class="blob-2-3">
