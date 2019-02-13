@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/MTES-MCT/camino-ui/compare/v0.10.0...v0.11.0) (2019-02-13)
+
+
+### Features
+
+* filtre la liste de titres par territoires ([c3ab3d8](https://github.com/MTES-MCT/camino-ui/commit/c3ab3d8))
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/MTES-MCT/camino-ui/compare/v0.9.0...v0.10.0) (2019-02-11)
 
