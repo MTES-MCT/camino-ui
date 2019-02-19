@@ -29,7 +29,10 @@ const fragmentTitre = gql`
     }
     surface
     volume
-    volumeUnite
+    volumeUnite {
+      id
+      nom
+    }
     administrations {
       ...administration
     }

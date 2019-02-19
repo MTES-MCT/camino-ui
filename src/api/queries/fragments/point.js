@@ -20,7 +20,12 @@ const fragmentPoint = gql`
 
   fragment pointReference on PointReference {
     id
-    systeme
+    geoSysteme {
+      id
+      nom
+      zone
+      unite
+    }
     coordonnees {
       x
       y

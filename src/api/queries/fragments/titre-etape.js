@@ -14,10 +14,16 @@ const fragmentEtape = gql`
     duree
     surface
     volume
-    volumeUnite
+    volumeUnite {
+      id
+      nom
+    }
     visas
     engagement
-    engagementDevise
+    engagementDevise {
+      id
+      nom
+    }
     sourceIndisponible
     type {
       id

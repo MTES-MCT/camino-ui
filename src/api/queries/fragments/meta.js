@@ -38,6 +38,20 @@ const fragmentMeta = gql`
         }
       }
     }
+    devises {
+      id
+      nom
+    }
+    volumeUnites {
+      id
+      nom
+    }
+    geoSystemes {
+      id
+      nom
+      zone
+      unite
+    }
   }
 `
 

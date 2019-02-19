@@ -141,7 +141,7 @@
           </div>
           <div v-if="titre.volume">
             <h6>Volume</h6>
-            <p>{{ titre.volume }} {{ titre.volumeUnite }}</p>
+            <p>{{ titre.volume }} {{ titre.volumeUnite.nom }}</p>
           </div>
         </div>
         <div
