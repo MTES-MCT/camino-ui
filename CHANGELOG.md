@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.12.0](https://github.com/MTES-MCT/camino-ui/compare/v0.11.0...v0.12.0) (2019-02-20)
+
+
+### Features
+
+* met à jour le logo de la Fabrique Numérique ([f583de2](https://github.com/MTES-MCT/camino-ui/commit/f583de2))
+* requiert la liste des systèmes géodésiques, les unités de volume et les devises ([869c21c](https://github.com/MTES-MCT/camino-ui/commit/869c21c))
+
+
+
 <a name="0.11.0"></a>
 # [0.11.0](https://github.com/MTES-MCT/camino-ui/compare/v0.10.0...v0.11.0) (2019-02-13)
 
