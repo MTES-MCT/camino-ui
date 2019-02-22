@@ -63,7 +63,7 @@
           <h6>Titulaires</h6>
           <p>–</p>
           <p class="hide">
-            {{ etape.titulaires.map(t => t.nom).join(", ") }}
+            {{ etape.titulaires.map(t => t.nom).join(', ') }}
           </p>
         </div>
         <div
@@ -73,7 +73,7 @@
           <h6>Amodiataires</h6>
           <p>–</p>
           <p class="hide">
-            {{ etape.amodiataires.map(t => t.nom).join(", ") }}
+            {{ etape.amodiataires.map(t => t.nom).join(', ') }}
           </p>
         </div>
         <div
@@ -99,7 +99,6 @@ import Accordion from '../ui/accordion.vue'
 import PillList from '../ui/pill-list.vue'
 import Documents from './documents.vue'
 import EditPopup from './etape-edit-popup.vue'
-import { dateFormat } from '../../utils'
 
 export default {
   name: 'CaminoTitreEtape',
@@ -126,19 +125,43 @@ export default {
     editPopupOpen() {
       const etapeCloneAndFormat = etape => {
         const etapeTmp = JSON.parse(JSON.stringify(etape))
+        const dateEditFormat = date => date.split('T')[0]
+
         if (etapeTmp.date) {
-          etapeTmp.date = dateFormat(etapeTmp.date)
+          etapeTmp.date = dateEditFormat(etapeTmp.date)
         }
         if (etapeTmp.dateDebut) {
-          etapeTmp.dateDebut = dateFormat(etapeTmp.dateDebut)
+          etapeTmp.dateDebut = dateEditFormat(etapeTmp.dateDebut)
         }
         if (etapeTmp.dateFin) {
-          etapeTmp.dateFin = dateFormat(etapeTmp.dateFin)
+          etapeTmp.dateFin = dateEditFormat(etapeTmp.dateFin)
         }
 
+        if (etapeTmp.points) {
+          etapeTmp.groupes = etapeTmp.points.reduce((groupes, point) => {
+            groupes[point.groupe - 1] = groupes[point.groupe - 1] || []
+            groupes[point.groupe - 1][point.contour - 1] =
+              groupes[point.groupe - 1][point.contour - 1] || []
+            groupes[point.groupe - 1][point.contour - 1][point.point - 1] = {
+              id: point.id,
+              nom: point.nom,
+              groupe: point.groupe,
+              contour: point.contour,
+              point: point.point,
+              coordonnees: point.coordonnees,
+              description: point.description,
+              references: point.references
+            }
+            return groupes
+          }, [])
+        }
+
+        console.log(etapeTmp.groupes)
+
+        delete etapeTmp.points
         delete etapeTmp.geojsonPoints
         delete etapeTmp.geojsonMultiPolygon
-        delete etapeTmp.documents
+        delete etapeTmp.Documents
 
         return etapeTmp
       }

@@ -38,6 +38,16 @@ export const actions = {
     commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
     try {
+      const propsMandatory = ['date', 'type', 'statut']
+      const propsMissing = propsMandatory.reduce(
+        (acc, prop) => (etape[prop] ? acc : [...acc, prop]),
+        []
+      )
+      if (propsMissing.length > 1) {
+        throw `les champs ${propsMissing.join(', ')} sont requis`
+      } else if (propsMissing.length > 0) {
+        throw `le champ ${propsMissing[0]} est requis`
+      }
       const res = await titreEtapeUpdate({ etape })
 
       if (res) {
@@ -55,7 +65,6 @@ export const actions = {
         dispatch('pageError', null, { root: true })
       }
     } catch (e) {
-      console.log('fix me')
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeUpdate', { root: true })

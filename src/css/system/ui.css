@@ -32,6 +32,14 @@
   border-radius: 0 var(--unit-xs) 0 0;
 }
 
+.rnd-xs-t-l {
+  border-radius: var(--unit-xs) 0 0 0;
+}
+
+.rnd-xs-l {
+  border-radius: var(--unit-xs) 0 0 var(--unit-xs);
+}
+
 .border-b {
   border-bottom: var(--unit-line) solid var(--color-alt);
   margin-bottom: calc(var(--unit) - var(--unit-line));

@@ -31,7 +31,7 @@
           <td>
             <span
               v-if="utilisateur.entreprise"
-              class="h5"
+              class="h5 word-break"
             >
               {{ utilisateur.entreprise.nom }}
             </span>

@@ -19,7 +19,7 @@
 
     <div>
       <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Type</h6>
         </div>
         <div class="mb tablet-blob-2-3">
@@ -47,7 +47,7 @@
 
     <div>
       <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Statut</h6>
         </div>
         <div class="mb tablet-blob-2-3">
@@ -73,15 +73,15 @@
 
     <div>
       <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Date</h6>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
             v-model="etape.date"
-            type="text"
+            type="date"
             class="p-s"
-            placeholder="jj-mm-aaaa"
+            placeholder="aaaa-mm-jj"
           >
         </div>
       </div>
@@ -90,13 +90,16 @@
 
     <div>
       <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Durée (années)</h6>
+          <p class="h6 italic mb-0">
+            Optionel
+          </p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
             v-model.number="etape.duree"
-            type="text"
+            type="number"
             class="p-s"
           >
         </div>
@@ -106,15 +109,18 @@
 
     <div>
       <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Date de début</h6>
+          <p class="h6 italic mb-0">
+            Optionel
+          </p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
             v-model="etape.dateDebut"
-            type="text"
+            type="date"
             class="p-s"
-            placeholder="jj-mm-aaaa"
+            placeholder="aaaa-mm-jj"
           >
         </div>
       </div>
@@ -123,15 +129,38 @@
 
     <div>
       <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Date d'échéance</h6>
+          <p class="h6 italic mb-0">
+            Optionel
+          </p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
             v-model="etape.dateFin"
-            type="text"
+            type="date"
             class="p-s"
-            placeholder="jj-mm-aaaa"
+            placeholder="aaaa-mm-jj"
+          >
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Engagement</h6>
+          <p class="h6 italic mb-0">
+            Optionel
+          </p>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input
+            v-model.number="etape.engagement"
+            class="p-s"
+            type="number"
+            placeholder="0"
           >
         </div>
       </div>
@@ -140,174 +169,217 @@
 
     <div>
       <h3 class="mb-s">
-        Périmètre ({{ etape.points.length }} points)
+        Périmètre ({{ etape.groupes.length }} points)
       </h3>
       <div class="h5 mb-s">
         <ul class="list-prefix">
           <li>
-            <b>Point</b>: le sommet d'un contour défini par des coordoonnées
-            dans le système WGS 84.
-          </li>
-          <li>
-            <b>Contour</b>: un ensemble de points. Le premier et le dernier
-            points doivent être identiques.
-          </li>
-          <li>
-            <b>Groupe</b>: un ensemble de contours. Le premier contour d'un
+            <b>Groupe</b>: ensemble de contours. Le premier contour d'un
             groupe définit un périmètre, les contours suivants au sein du groupe
             définissent des trous dans ce périmètre.
           </li>
           <li>
-            <b>Références</b>: les coordonnées du point dans un système autre
+            <b>Contour</b>: ensemble de points. Le premier et le dernier
+            points doivent être identiques.
+          </li>
+          <li>
+            <b>Point</b>: sommet d'un contour défini par ses coordoonnées
+            dans le système WGS 84.
+          </li>
+          <li>
+            <b>Références</b>: coordonnées du point dans des systèmes autre
             que WGS 84.
+          </li>
+          <li>
+            <b>Système</b>: système géodésique de la référence.
           </li>
         </ul>
       </div>
       <hr>
+
       <div
-        v-for="point in etape.points"
-        :key="point.id"
+        v-for="(contours, groupeIndex) in etape.groupes"
+        :key="groupeIndex + 1"
+        class="pt pb-s pl-s border mb rnd-xs-l"
       >
-        <div class="flex full-x">
-          <h4>Point</h4>
-          <div class="flex-right">
-            <button
-              class="btn-border p-s rnd-xs mt--s"
-              @click="pointRemove(point)"
-            >
-              <i class="icon-24 icon-24-minus" />
-            </button>
-          </div>
-        </div>
-        <div class="tablet-blobs">
-          <div class="mb tablet-blob-1-3">
-            <h6>Point</h6>
-            <input
-              v-model.number="point.point"
-              type="text"
-              class="p-s"
-            >
-          </div>
-          <div class="mb tablet-blob-1-3">
-            <h6>Contour</h6>
-            <input
-              v-model.number="point.contour"
-              type="text"
-              class="p-s"
-            >
-          </div>
-          <div class="mb tablet-blob-1-3">
-            <h6>Groupe</h6>
-            <input
-              v-model.number="point.groupe"
-              type="text"
-              class="p-s"
-            >
-          </div>
-        </div>
-
-        <div class="tablet-blobs">
-          <div class="mb tablet-blob-1-3">
-            <h6>Nom</h6>
-            <input
-              v-model="point.nom"
-              type="text"
-              class="p-s"
-            >
-          </div>
-          <div class="mb tablet-blob-1-3">
-            <h6>Longitude</h6>
-            <input
-              v-model.number="point.coordonnees.x"
-              type="text"
-              class="p-s"
-            >
-          </div>
-          <div class="mb tablet-blob-1-3">
-            <h6>Latitude</h6>
-            <input
-              v-model.number="point.coordonnees.y"
-              type="text"
-              class="p-s"
-            >
-          </div>
-        </div>
-
-        <div class="tablet-blobs">
-          <div class="mb tablet-blob-1">
-            <h6>Description</h6>
-            <input
-              v-model="point.description"
-              type="text"
-              class="p-s"
-            >
-          </div>
-        </div>
-
+        <h4>Groupe {{ groupeIndex + 1 }}</h4>
         <div
-          v-for="reference in point.references"
-          :key="reference.id"
+          v-for="(points, contourIndex) in contours"
+          :key="contourIndex + 1"
+          class="pt pb-s pl-s border mb rnd-xs-l"
         >
-          <div class="flex full-x">
-            <h4>Reference</h4>
-            <div class="flex-right">
+          <h4>Contour {{ contourIndex + 1 }}</h4>
+          <div
+            v-for="(point, pointIndex) in points"
+            :key="pointIndex + 1"
+            class="pt pb-s pl-s pr-s border mb rnd-xs-l"
+          >
+            <div class="flex full-x">
+              <h4>Point {{ pointIndex + 1 }}</h4>
+              <div class="flex-right">
+                <button
+                  class="btn-border p-s rnd-xs mt--s"
+                  @click="pointRemove(point)"
+                >
+                  <i class="icon-24 icon-24-minus" />
+                </button>
+              </div>
+            </div>
+
+            <div class="tablet-blobs">
+              <div class="mb tablet-blob-1-3">
+                <h6>Groupe</h6>
+                <select
+                  v-model="point.groupe"
+                  type="text"
+                  class="p-s mr"
+                >
+                  <option
+                    v-for="g in arrayOfNumbersCreate(etape.groupes.length + 1)"
+                    :key="`g-${g}`"
+                    :value="g"
+                  >
+                    {{ g }}
+                  </option>
+                </select>
+              </div>
+              <div class="mb tablet-blob-1-3">
+                <h6>Contour</h6>
+                <select
+                  v-model="point.contour"
+                  type="text"
+                  class="p-s mr"
+                >
+                  <option
+                    v-for="c in arrayOfNumbersCreate(contours.length + 1)"
+                    :key="`g-${point.groupe}-c-${c}`"
+                    :value="c"
+                  >
+                    {{ c }}
+                  </option>
+                </select>
+              </div>
+              <div class="mb tablet-blob-1-3">
+                <h6>Point</h6>
+                <select
+                  v-model="point.point"
+                  type="text"
+                  class="p-s mr"
+                >
+                  <option
+                    v-for="p in arrayOfNumbersCreate(points.length + 1)"
+                    :key="`g-${point.groupe}-c-${point.contour}-p-${p}`"
+                    :value="p"
+                  >
+                    {{ p }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="tablet-blobs">
+              <div class="mb tablet-blob-1-3">
+                <h6>Nom</h6>
+                <input
+                  v-model="point.nom"
+                  type="text"
+                  class="p-s"
+                >
+              </div>
+              <div class="mb tablet-blob-1-3">
+                <h6>Longitude</h6>
+                <input
+                  v-model.number="point.coordonnees.x"
+                  type="text"
+                  class="p-s"
+                >
+              </div>
+              <div class="mb tablet-blob-1-3">
+                <h6>Latitude</h6>
+                <input
+                  v-model.number="point.coordonnees.y"
+                  type="text"
+                  class="p-s"
+                >
+              </div>
+            </div>
+
+            <div class="tablet-blobs">
+              <div class="mb tablet-blob-1">
+                <h6>Description</h6>
+                <input
+                  v-model="point.description"
+                  type="text"
+                  class="p-s"
+                >
+              </div>
+            </div>
+
+            <div
+              v-for="reference in point.references"
+              :key="reference.id"
+            >
+              <div class="flex full-x">
+                <h4>References</h4>
+                <div class="flex-right">
+                  <button
+                    class="btn-border p-s rnd-xs mt--s"
+                    @click="pointReferenceRemove(point, reference)"
+                  >
+                    <i class="icon-24 icon-24-minus" />
+                  </button>
+                </div>
+              </div>
+              <div class="tablet-blobs">
+                <div class="mb tablet-blob-1-3">
+                  <h6>Système</h6>
+                  <input
+                    v-model="reference.systeme"
+                    type="text"
+                    class="p-s"
+                  >
+                </div>
+                <div class="mb tablet-blob-1-3">
+                  <h6>Longitude</h6>
+                  <input
+                    v-model.number="reference.coordonnees.x"
+                    type="text"
+                    class="p-s"
+                  >
+                </div>
+                <div class="mb tablet-blob-1-3">
+                  <h6>Latitude</h6>
+                  <input
+                    v-model.number="reference.coordonnees.y"
+                    type="text"
+                    class="p-s"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div v-if="!point.references.find(r => r.id === '')">
               <button
-                class="btn-border p-s rnd-xs mt--s"
-                @click="pointReferenceRemove(point, reference)"
+                class="btn-border rnd-xs p-s full-x mb flex"
+                @click="pointReferenceAdd(point)"
               >
-                <i class="icon-24 icon-24-minus" />
+                Ajouter une référence <i class="icon-24 icon-24-plus flex-right" />
               </button>
             </div>
           </div>
-          <div class="tablet-blobs">
-            <div class="mb tablet-blob-1-3">
-              <h6>Système</h6>
-              <input
-                v-model="reference.systeme"
-                type="text"
-                class="p-s"
-              >
-            </div>
-            <div class="mb tablet-blob-1-3">
-              <h6>Longitude</h6>
-              <input
-                v-model.number="reference.coordonnees.x"
-                type="text"
-                class="p-s"
-              >
-            </div>
-            <div class="mb tablet-blob-1-3">
-              <h6>Latitude</h6>
-              <input
-                v-model.number="reference.coordonnees.y"
-                type="text"
-                class="p-s"
-              >
-            </div>
-          </div>
-        </div>
-
-        <div v-if="!point.references.find(r => r.id === '')">
-          <button
-            class="btn-border rnd-xs p-s full-x mb flex"
-            @click="pointReferenceAdd(point)"
-          >
-            Ajouter une référence <i class="icon-24 icon-24-plus flex-right" />
-          </button>
-          <hr>
         </div>
       </div>
     </div>
 
-    <div v-if="!etape.points.find(t => t.id === '')">
+    <div>
       <button
         class="btn-border rnd-xs p-s full-x mb  flex"
         @click="pointAdd"
       >
         Ajouter un point<i class="icon-24 icon-24-plus flex-right" />
       </button>
-      <hr>
     </div>
+
 
     <div>
       <h3 class="mb-s">
@@ -482,7 +554,6 @@
 </template>
 
 <script>
-import { isoDateFormat } from '../../utils'
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 
@@ -579,24 +650,40 @@ export default {
         etapeTmp.administrations = etapeTmp.administrations.filter(t => t.id)
         etapeTmp.substances = etapeTmp.substances.filter(t => t.id)
         etapeTmp.emprises = etapeTmp.emprises.filter(t => t.id)
-        etapeTmp.points = etapeTmp.points.filter(t => t.id)
 
-        const prop1s = ['date', 'dateDebut', 'dateFin']
-        const prop2s = ['surface', 'volume', 'volumeUnite']
-        prop1s.forEach(prop => {
-          if (etapeTmp[prop]) {
-            etapeTmp[prop] = isoDateFormat(etapeTmp[prop])
-          } else if (etapeTmp[prop] === '') {
-            etapeTmp[prop] = null
-          }
-        })
+        if (etapeTmp.groupes) {
+          etapeTmp.points = etapeTmp.groupes.reduce(
+            (points, groupe) => [
+              ...points,
+              groupe.reduce(
+                (pos, contour) => [
+                  ...pos,
+                  contour.reduce((ps, point) => [...ps, point], [])
+                ],
+                []
+              )
+            ],
+            []
+          )
 
-        prop2s.forEach(prop => {
+          delete etapeTmp.groupes
+        }
+
+        const props = [
+          'date',
+          'dateDebut',
+          'dateFin',
+          'surface',
+          'volume',
+          'volumeUnite'
+        ]
+
+        props.forEach(prop => {
           if (etapeTmp[prop] === '') {
             etapeTmp[prop] = null
           }
         })
-        console.log(etape)
+        console.log(JSON.stringify(etapeTmp, null, 2))
 
         return etapeTmp
       }
@@ -630,8 +717,17 @@ export default {
     },
 
     pointAdd() {
-      const point = { id: '', coordonnees: { x: '', y: '' }, references: [] }
-      this.etape.points.push(point)
+      const contours = this.etape.groupes[this.etape.groupes.length - 1]
+      const points = contours[contours.length - 1]
+      const point = {
+        id: '',
+        groupe: this.etape.groupes.length,
+        contour: contours.length,
+        point: points.length + 1,
+        coordonnees: { x: '', y: '' },
+        references: []
+      }
+      points.push(point)
     },
 
     pointRemove(point) {
@@ -688,6 +784,10 @@ export default {
     substanceRemove(id) {
       const index = this.etape.substances.findIndex(t => t.id === id)
       this.etape.substances.splice(index, 1)
+    },
+
+    arrayOfNumbersCreate(length) {
+      return [...Array(length).keys()].map(i => i + 1)
     }
   }
 }

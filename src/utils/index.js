@@ -6,15 +6,7 @@ const dateFormat = isoDate => {
   return `${dd}-${mm}-${yyyy}`
 }
 
-const isoDateFormat = date =>
-  new Date(
-    date
-      .split('-')
-      .reverse()
-      .join('-')
-  )
-
 const permissionsCheck = (userPermission, permissions) =>
   permissions.includes(userPermission.id)
 
-export { dateFormat, isoDateFormat, permissionsCheck }
+export { dateFormat, permissionsCheck }

@@ -9,6 +9,7 @@ input[type='search'],
 input[type='password'],
 input[type='tel'],
 input[type='number'],
+input[type='date'],
 select,
 textarea,
 .input {
@@ -56,6 +57,7 @@ input[type='search'].bg-bg,
 input[type='password'].bg-bg,
 input[type='tel'].bg-bg,
 input[type='number'].bg-bg,
+input[type='date'].bg-bg,
 select.bg-bg,
 textarea.bg-bg {
   background-color: var(--color-bg);
