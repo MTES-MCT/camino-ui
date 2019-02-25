@@ -81,7 +81,7 @@
           class="tablet-blob-1-4"
         >
           <h6>Engagement</h6>
-          <p>{{ etape.engagement }} {{ etape.engagementDevise.id }}</p>
+          <p>{{ numberFormat(etape.engagement) }} {{ etape.engagementDevise.id }}</p>
         </div>
         <div
           v-if="etape.substances.length"

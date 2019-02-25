@@ -108,6 +108,12 @@
             </ul>
           </div>
 
+
+          <div v-if="titre.engagement">
+            <h6>Engagement</h6>
+            <p>{{ numberFormat(titre.engagement) }} {{ titre.engagementDevise.id }}</p>
+          </div>
+
           <div v-if="titre['liens']">
             <h6>Liens</h6>
             <ul class="list-sans">
@@ -132,7 +138,6 @@
         :geojson="titre.geojsonMultiPolygon"
         class="mb"
       />
-
       <div class="tablet-blobs">
         <div class="tablet-blob-1-4">
           <div v-if="titre.surface">
@@ -142,10 +147,6 @@
           <div v-if="titre.volume">
             <h6>Volume</h6>
             <p>{{ titre.volume }} {{ titre.volumeUnite.nom }}</p>
-          </div>
-          <div v-if="titre.engagement">
-            <h6>Engagement</h6>
-            <p>{{ titre.engagement }} {{ titre.engagementDevise.id }}</p>
           </div>
         </div>
         <div

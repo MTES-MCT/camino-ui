@@ -1,4 +1,4 @@
-import { permissionsCheck } from '../utils'
+import { permissionsCheck, numberFormat } from '../utils'
 
 var mixins = {
   methods: {
@@ -7,6 +7,9 @@ var mixins = {
         !!this.$store.state.user.current &&
         permissionsCheck(this.$store.state.user.current.permission, permissions)
       )
+    },
+    numberFormat(number) {
+      return numberFormat(number)
     }
   }
 }

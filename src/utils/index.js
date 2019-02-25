@@ -6,7 +6,11 @@ const dateFormat = isoDate => {
   return `${dd}-${mm}-${yyyy}`
 }
 
+function numberFormat(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+}
+
 const permissionsCheck = (userPermission, permissions) =>
   permissions.includes(userPermission.id)
 
-export { dateFormat, permissionsCheck }
+export { dateFormat, permissionsCheck, numberFormat }
