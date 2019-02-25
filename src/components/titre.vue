@@ -143,6 +143,10 @@
             <h6>Volume</h6>
             <p>{{ titre.volume }} {{ titre.volumeUnite.nom }}</p>
           </div>
+          <div v-if="titre.engagement">
+            <h6>Engagement</h6>
+            <p>{{ titre.engagement }} {{ titre.engagementDevise.id }}</p>
+          </div>
         </div>
         <div
           v-if="titre.pays && titre.pays.length"

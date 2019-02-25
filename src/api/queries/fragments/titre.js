@@ -33,6 +33,11 @@ const fragmentTitre = gql`
       id
       nom
     }
+    engagement
+    engagementDevise {
+      id
+      nom
+    }
     administrations {
       ...administration
     }

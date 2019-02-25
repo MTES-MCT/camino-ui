@@ -57,7 +57,7 @@
           <p>–</p>
         </div>
         <div
-          v-if="etape.titulaires.length > 0"
+          v-if="etape.titulaires.length"
           class="tablet-blob-1-4"
         >
           <h6>Titulaires</h6>
@@ -67,7 +67,7 @@
           </p>
         </div>
         <div
-          v-if="etape.amodiataires.length > 0"
+          v-if="etape.amodiataires.length"
           class="tablet-blob-1-4"
         >
           <h6>Amodiataires</h6>
@@ -77,7 +77,14 @@
           </p>
         </div>
         <div
-          v-if="etape.substances.length > 0"
+          v-if="etape.engagement"
+          class="tablet-blob-1-4"
+        >
+          <h6>Engagement</h6>
+          <p>{{ etape.engagement }} {{ etape.engagementDevise.id }}</p>
+        </div>
+        <div
+          v-if="etape.substances.length"
           class="tablet-blob-1-2 large-blob-1-4"
         >
           <h6>Substances</h6>
@@ -87,7 +94,7 @@
     </template>
 
     <Documents
-      v-if="etape.documents.length > 0"
+      v-if="etape.documents.length"
       :documents="etape.documents"
     />
   </Accordion>

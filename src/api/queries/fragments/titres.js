@@ -34,6 +34,11 @@ const fragmentTitreSimple = gql`
       id
       nom
     }
+    engagement
+    engagementDevise {
+      id
+      nom
+    }
     administrations {
       ...administration
     }
