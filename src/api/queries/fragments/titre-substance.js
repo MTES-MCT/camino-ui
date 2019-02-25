@@ -27,4 +27,11 @@ const fragmentTitreSubstance = gql`
   }
 `
 
-export default fragmentTitreSubstance
+const fragmentTitreListSubstance = gql`
+  fragment titreListSubstance on TitreSubstance {
+    id
+    nom
+  }
+`
+
+export { fragmentTitreSubstance, fragmentTitreListSubstance }

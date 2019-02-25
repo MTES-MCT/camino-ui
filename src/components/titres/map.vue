@@ -22,7 +22,7 @@
             class="mr-xs"
           >
             <button
-              class="btn-border pill px-m py-s"
+              class="btn-border pill px-m py-s h5"
               @click="mapCenter(z.id)"
             >
               {{ z.name }}

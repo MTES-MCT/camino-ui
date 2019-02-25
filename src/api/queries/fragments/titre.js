@@ -2,6 +2,10 @@ import gql from 'graphql-tag'
 
 import fragmentTitreDemarche from './titre-demarche'
 import fragmentTitreTravauxRapport from './titre-travaux-rapport'
+import { fragmentTitreSubstance } from './titre-substance'
+import fragmentPoint from './point'
+
+import { fragmentGeojsonPoints } from './geojson'
 
 const fragmentTitre = gql`
   fragment titre on Titre {
@@ -83,6 +87,12 @@ const fragmentTitre = gql`
   ${fragmentTitreDemarche}
 
   ${fragmentTitreTravauxRapport}
+
+  ${fragmentTitreSubstance}
+
+  ${fragmentPoint}
+
+  ${fragmentGeojsonPoints}
 `
 
 export default fragmentTitre

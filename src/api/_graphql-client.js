@@ -40,33 +40,21 @@ const httpLink = createHttpLink({
   fetch
 })
 
-const omitTypename = (key, value) => {
-  return key === '__typename' ? undefined : value
-}
+const typenameOmit = (key, value) => (key === '__typename' ? undefined : value)
+
+const jsonTypenameOmit = json => JSON.parse(JSON.stringify(json), typenameOmit)
 
 // supprime les propriétés ___typename lors des mutations
-const omitTypenameLink = new ApolloLink((operation, forward) => {
+const typenameOmitLink = new ApolloLink((operation, forward) => {
   if (operation.variables) {
-    operation.variables = JSON.parse(
-      JSON.stringify(operation.variables),
-      omitTypename
-    )
+    operation.variables = jsonTypenameOmit(operation.variables)
   }
 
   return forward(operation)
 })
 
-// supprime les propriétés ___typename lors des requêtes
-// const removeTypenameLink = new ApolloLink((operation, forward) => {
-//   return forward(operation).map(response => {
-//     console.log(response.data)
-//     response.data = JSON.parse(JSON.stringify(response.data), omitTypename)
+const link = ApolloLink.from([authLink, typenameOmitLink, errorLink, httpLink])
 
-//     return response
-//   })
-// })
-
-const link = ApolloLink.from([authLink, omitTypenameLink, errorLink, httpLink])
 const cache = new InMemoryCache({
   dataIdFromObject: object => {
     switch (object.__typename) {
@@ -95,5 +83,7 @@ const graphqlClient = new ApolloClient({
   //   }
   // }
 })
+
+export { jsonTypenameOmit }
 
 export default graphqlClient

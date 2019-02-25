@@ -128,6 +128,14 @@ https://github.com/francoisromain/postcss-grid-fluid
     width: calc(2 * var(--col-width) + var(--gutter));
   }
 
+  .tablet-flex {
+    display: flex;
+  }
+
+  .tablet-flex-right {
+    margin-left: auto;
+  }
+
   .tablet-blobs {
     gf: row;
   }

@@ -26,9 +26,22 @@
     </div>
 
     <TitresFilters />
-    <p class="mb">
-      Résultat : {{ titres.length }} titre{{ titres.length > 1 ? 's' : '' }} minier{{ titres.length > 1 ? 's' : '' }}
-    </p>
+
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-2">
+        <p>
+          Résultat : {{ titres.length }} titre{{ titres.length > 1 ? 's' : '' }} minier{{ titres.length > 1 ? 's' : '' }}
+        </p>
+      </div>
+      <div class="tablet-blob-1-2 tablet-flex">
+        <div class="tablet-flex-right mt--s mb-s">
+          <titres-csv-download
+            :json="titres"
+            :name="'camino-titres-export'"
+          />
+        </div>
+      </div>
+    </div>
     <Component
       :is="view.component"
       v-if="viewId"
@@ -43,6 +56,7 @@ import Loader from './ui/loader.vue'
 import TitresTable from './titres/table.vue'
 import TitresMap from './titres/map.vue'
 import TitresFilters from './titres/filters.vue'
+import TitresCsvDownload from './titres/csv-download.vue'
 
 export default {
   name: 'Titres',
@@ -50,7 +64,8 @@ export default {
   components: {
     Loader,
     Card,
-    TitresFilters
+    TitresFilters,
+    TitresCsvDownload
   },
 
   data() {
