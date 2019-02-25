@@ -33,7 +33,10 @@
           Résultat : {{ titres.length }} titre{{ titres.length > 1 ? 's' : '' }} minier{{ titres.length > 1 ? 's' : '' }}
         </p>
       </div>
-      <div class="tablet-blob-1-2 tablet-flex">
+      <div
+        v-if="titres.length"
+        class="tablet-blob-1-2 tablet-flex"
+      >
         <div class="tablet-flex-right mt--s mb-s">
           <titres-csv-download
             :json="titres"
