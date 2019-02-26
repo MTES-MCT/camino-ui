@@ -39,8 +39,7 @@
       >
         <div class="tablet-flex-right mt--s mb-s">
           <titres-csv-download
-            :json="titres"
-            :name="'camino-titres-export'"
+            :titres="titres"
           />
         </div>
       </div>

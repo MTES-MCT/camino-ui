@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-import fragmentTitreDemarche from './titre-demarche'
+import { fragmentTitreDemarche } from './titre-demarche'
 import fragmentTitreTravauxRapport from './titre-travaux-rapport'
 import { fragmentTitreSubstance } from './titre-substance'
 import fragmentPoint from './point'
@@ -77,7 +77,7 @@ const fragmentTitre = gql`
       }
     }
     demarches {
-      ...demarche
+      ...titreDemarche
     }
     travauxRapports {
       ...travauxRapport
