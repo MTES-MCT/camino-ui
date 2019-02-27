@@ -73,7 +73,9 @@ export default {
           amodiataires_legal: titre.amodiataires
             .map(e => e.legalEtranger || e.legalSiren)
             .join(';'),
-          geojson: titre.geojsonMultiPolygon
+          geojson: titre.geojsonMultiPolygon,
+          engagement: titre.engagement,
+          engagement_devise: titre.engagementDevise && titre.engagementDevise.id
         }
 
         titre.references.forEach(reference => {
