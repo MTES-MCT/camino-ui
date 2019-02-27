@@ -80,7 +80,7 @@
           v-if="etape.engagement"
           class="tablet-blob-1-4"
         >
-          <h6>Engagement</h6>
+          <h6>Engagement financier</h6>
           <p>{{ numberFormat(etape.engagement) }} {{ etape.engagementDevise.id }}</p>
         </div>
         <div

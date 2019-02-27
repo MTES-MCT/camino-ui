@@ -110,7 +110,7 @@
 
 
           <div v-if="titre.engagement">
-            <h6>Engagement</h6>
+            <h6>Engagement financier</h6>
             <p>{{ numberFormat(titre.engagement) }} {{ titre.engagementDevise.id }}</p>
           </div>
 
