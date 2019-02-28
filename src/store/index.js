@@ -13,7 +13,7 @@ import utilisateurs from './utilisateurs'
 import entreprises from './entreprises'
 import substances from './substances'
 import user from './user'
-import titreTravaux from './titre-travaux'
+import titreActivites from './titre-activites'
 
 const modules = {
   titre,
@@ -25,7 +25,7 @@ const modules = {
   entreprises,
   substances,
   user,
-  titreTravaux
+  titreActivites
 }
 
 /* global npmVersion */

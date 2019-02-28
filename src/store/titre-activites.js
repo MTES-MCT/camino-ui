@@ -1,9 +1,8 @@
 // import Vue from 'vue'
 
-import { titreTravauxRapportUpdate } from '../api'
+import { titreActivitesRapportUpdate } from '../api'
 
 export const state = {
-  current: null,
   periode: {
     trimestre: 1,
     annee: 2018
@@ -154,9 +153,9 @@ export const state = {
 export const actions = {
   async rapportUpdate({ commit, dispatch }, rapport) {
     commit('popupMessagesRemove', null, { root: true })
-    commit('loadingAdd', 'titreTravauxRapportUpdate', { root: true })
+    commit('loadingAdd', 'titreActivitesRapportUpdate', { root: true })
     try {
-      const res = await titreTravauxRapportUpdate({ rapport })
+      const res = await titreActivitesRapportUpdate({ rapport })
 
       if (res) {
         commit('popupClose', null, { root: true })
@@ -176,7 +175,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreTravauxRapportUpdate', { root: true })
+      commit('loadingRemove', 'titreActivitesRapportUpdate', { root: true })
     }
   }
 }

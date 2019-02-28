@@ -209,7 +209,7 @@ import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 
 export default {
-  name: 'CaminoTitreTravauxRapportEditPopup',
+  name: 'CaminoTitreActivitesRapportEditPopup',
 
   components: {
     Popup,
@@ -248,10 +248,10 @@ export default {
       return this.$store.state.substances.list
     },
     travauxStatuts() {
-      return this.$store.state.titreTravaux.rapportStatuts
+      return this.$store.state.titreActivites.rapportStatuts
     },
     contenus() {
-      return this.$store.state.titreTravaux.rapportContenus.filter(
+      return this.$store.state.titreActivites.rapportContenus.filter(
         c =>
           !c.trimestres ||
           c.trimestres.find(tr => tr === this.rapport.contenu.trimestre)
@@ -304,11 +304,11 @@ export default {
       if (confirmation && this.complete) {
         this.rapport.confirmation = confirmation
 
-        this.$store.dispatch('titreTravaux/rapportUpdate', this.rapport)
+        this.$store.dispatch('titreActivites/rapportUpdate', this.rapport)
       } else {
         this.rapport.confirmation = false
 
-        this.$store.dispatch('titreTravaux/rapportUpdate', this.rapport)
+        this.$store.dispatch('titreActivites/rapportUpdate', this.rapport)
       }
     },
 

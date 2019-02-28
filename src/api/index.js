@@ -14,7 +14,7 @@ import {
   utilisateurAddEmail
 } from '@/api/utilisateurs'
 
-import { titreTravauxRapportUpdate } from './titre-travaux'
+import { titreActivitesRapportUpdate } from './titre-activites'
 
 export {
   init,
@@ -29,7 +29,7 @@ export {
   utilisateurRemove,
   utilisateurPasswordUpdate,
   utilisateurIdentify,
-  titreTravauxRapportUpdate,
+  titreActivitesRapportUpdate,
   utilisateurPasswordInit,
   utilisateurPasswordInitEmail,
   utilisateurAddEmail

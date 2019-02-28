@@ -19,7 +19,7 @@ import RapportPopup from './rapport-popup.vue'
 export default {
   computed: {
     periode() {
-      return this.$store.state.titreTravaux.periode
+      return this.$store.state.titreActivites.periode
     },
     titre() {
       return this.$store.state.titre.current
@@ -58,8 +58,8 @@ export default {
     },
     rapportExists() {
       return (
-        this.titre.travauxRapports &&
-        this.titre.travauxRapports.find(
+        this.titre.activitesRapports &&
+        this.titre.activitesRapports.find(
           tr =>
             tr.contenu.trimestre === this.periode.trimestre &&
             tr.contenu.annee === this.periode.annee
@@ -70,7 +70,7 @@ export default {
       return this.rapportExists && this.rapportExists.confirmation
     },
     rapportCalendrier() {
-      return this.$store.state.titreTravaux.rapportCalendrier
+      return this.$store.state.titreActivites.rapportCalendrier
     }
   },
 
