@@ -2,13 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-# [0.12.0](https://github.com/MTES-MCT/camino-ui/compare/v0.11.0...v0.12.0) (2019-02-20)
+# [0.13.0](https://github.com/MTES-MCT/camino-ui/compare/v0.12.0...v0.13.0) (2019-02-28)
+
+
+### Bug Fixes
+
+* n'affiche le bouton télécharger que si les titres sont chargés ([198e294](https://github.com/MTES-MCT/camino-ui/commit/198e294))
+* remplace l'intitulé engagement par engagement financier ([f93aee8](https://github.com/MTES-MCT/camino-ui/commit/f93aee8))
 
 
 ### Features
 
-* met à jour le logo de la Fabrique Numérique ([f583de2](https://github.com/MTES-MCT/camino-ui/commit/f583de2))
-* requiert la liste des systèmes géodésiques, les unités de volume et les devises ([869c21c](https://github.com/MTES-MCT/camino-ui/commit/869c21c))
+* affiche l'engagement financier sur la page d'un titre ([4c624bd](https://github.com/MTES-MCT/camino-ui/commit/4c624bd))
+* ajoute l'engagement financier dans l'export csv ([505e204](https://github.com/MTES-MCT/camino-ui/commit/505e204))
+* améliore l'ergonomie du formulaire d'édition d'étape ([b1ec692](https://github.com/MTES-MCT/camino-ui/commit/b1ec692))
+* formate l'export csv de la liste des titres ([9d430ca](https://github.com/MTES-MCT/camino-ui/commit/9d430ca))
+* formatte la valeur de l'engagement financier ([ae7965a](https://github.com/MTES-MCT/camino-ui/commit/ae7965a))
+* télécharge la liste des titres en csv ([a5474ea](https://github.com/MTES-MCT/camino-ui/commit/a5474ea))
 
 
 
