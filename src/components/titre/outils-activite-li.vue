@@ -5,7 +5,7 @@
   >
     <button
       class="btn-alt rnd-xs py-s px-m"
-      @click="rapportPopupOpen"
+      @click="activitePopupOpen"
     >
       Remplir un rapport…
     </button>
@@ -14,7 +14,7 @@
 
 <script>
 import leftPad from 'left-pad'
-import RapportPopup from './rapport-popup.vue'
+import activitePopup from './activite-popup.vue'
 
 export default {
   computed: {
@@ -27,7 +27,7 @@ export default {
     user() {
       return this.$store.state.user.current
     },
-    hasRapport() {
+    hasActivite() {
       return (
         this.titre.domaine.id === 'm' &&
         (this.titre.type.id === 'cxx' ||
@@ -54,7 +54,7 @@ export default {
       )
     },
     isVisible() {
-      return this.hasPermissions && this.hasRapport && !this.rapportConfirmed
+      return this.hasPermissions && this.hasActivite && !this.rapportConfirmed
     },
     rapportExists() {
       return (
@@ -75,7 +75,7 @@ export default {
   },
 
   methods: {
-    rapportPopupOpen() {
+    activitePopupOpen() {
       const rapport = this.rapportExists
         ? JSON.parse(JSON.stringify(this.rapportExists))
         : {
@@ -94,7 +94,7 @@ export default {
             }
           }
       this.$store.commit('popupOpen', {
-        component: RapportPopup,
+        component: activitePopup,
         props: {
           rapport,
           titreNom: this.$store.state.titre.current.nom,

@@ -20,6 +20,14 @@
   border-radius: var(--unit);
 }
 
+.rnd-s {
+  border-radius: var(--unit-s);
+}
+
+.rnd-s-l {
+  border-radius: var(--unit-s) 0 0 var(--unit-s);
+}
+
 .rnd-xs {
   border-radius: var(--unit-xs);
 }

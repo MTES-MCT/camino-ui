@@ -2,7 +2,7 @@
   <div class="sticky-bottom">
     <ul class="list-inline mb-0">
       <OutilsErreurLi />
-      <OutilsActivitesRapportLi />
+      <OutilsActivitesLi />
       <li class="mr-s hide">
         <button class="btn-alt rnd-xs p-s">
           Télécharger ({{ total }})
@@ -19,11 +19,11 @@
 
 <script>
 import OutilsErreurLi from './outils-erreur-li.vue'
-import OutilsActivitesRapportLi from './outils-activites-rapport-li.vue'
+import OutilsActivitesLi from './outils-activite-li.vue'
 
 export default {
   components: {
-    OutilsActivitesRapportLi,
+    OutilsActivitesLi,
     OutilsErreurLi
   },
 

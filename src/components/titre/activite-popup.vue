@@ -241,12 +241,6 @@ export default {
     messages() {
       return this.$store.state.popup.messages
     },
-    entreprises() {
-      return this.$store.state.entreprises.list
-    },
-    substances() {
-      return this.$store.state.substances.list
-    },
     travauxStatuts() {
       return this.$store.state.titreActivites.rapportStatuts
     },

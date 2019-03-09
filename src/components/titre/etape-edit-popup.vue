@@ -169,26 +169,21 @@
 
     <div>
       <h3 class="mb-s">
-        Périmètre ({{ etape.groupes.length }} points)
+        Périmètre ({{ pointsTotal.length }} points)
       </h3>
       <div class="h5 mb-s">
         <ul class="list-prefix">
           <li>
-            <b>Groupe</b>: ensemble de contours. Le premier contour d'un
-            groupe définit un périmètre, les contours suivants au sein du groupe
-            définissent des trous dans ce périmètre.
+            <b>Groupe</b>: ensemble de contours. Le premier contour du groupe définit un périmètre, les contours suivants définissent des trous dans ce périmètre.
           </li>
           <li>
-            <b>Contour</b>: ensemble de points. Le premier et le dernier
-            points doivent être identiques.
+            <b>Contour</b>: ensemble de points.
           </li>
           <li>
-            <b>Point</b>: sommet d'un contour défini par ses coordoonnées
-            dans le système WGS 84.
+            <b>Point</b>: sommet d'un contour défini par ses coordoonnées dans le système WGS 84.
           </li>
           <li>
-            <b>Références</b>: coordonnées du point dans des systèmes autre
-            que WGS 84.
+            <b>Références</b>: coordonnées du point dans des systèmes autre que WGS 84.
           </li>
           <li>
             <b>Système</b>: système géodésique de la référence.
@@ -200,25 +195,27 @@
       <div
         v-for="(contours, groupeIndex) in etape.groupes"
         :key="groupeIndex + 1"
-        class="pt pb-s pl-s border mb rnd-xs-l"
+        class="pt pb-s pl-s border mb rnd-s bg-neutral"
       >
-        <h4>Groupe {{ groupeIndex + 1 }}</h4>
+        <h4 class="color-bg">
+          Groupe {{ groupeIndex + 1 }}
+        </h4>
         <div
           v-for="(points, contourIndex) in contours"
           :key="contourIndex + 1"
-          class="pt pb-s pl-s border mb rnd-xs-l"
+          class="pt pb-s pl-s border mb-s rnd-s-l bg-alt"
         >
           <h4>Contour {{ contourIndex + 1 }}</h4>
           <div
             v-for="(point, pointIndex) in points"
             :key="pointIndex + 1"
-            class="pt pb-s pl-s pr-s border mb rnd-xs-l"
+            class="pt pb-s pl-s pr-s border mb-s rnd-s-l bg-bg"
           >
             <div class="flex full-x">
-              <h4>Point {{ pointIndex + 1 }}</h4>
+              <h4>Point {{ point.nom }}</h4>
               <div class="flex-right">
                 <button
-                  class="btn-border p-s rnd-xs mt--s"
+                  class="btn-border p-s rnd-s mt--s"
                   @click="pointRemove(point)"
                 >
                   <i class="icon-24 icon-24-minus" />
@@ -235,7 +232,7 @@
                   class="p-s mr"
                 >
                   <option
-                    v-for="g in arrayOfNumbersCreate(etape.groupes.length + 1)"
+                    v-for="g in arrayOfNumbersCreate(points.length > 1 ? etape.groupes.length + 1: etape.groupes.length)"
                     :key="`g-${g}`"
                     :value="g"
                   >
@@ -251,7 +248,7 @@
                   class="p-s mr"
                 >
                   <option
-                    v-for="c in arrayOfNumbersCreate(contours.length + 1)"
+                    v-for="c in arrayOfNumbersCreate(points.length > 1 ? contours.length + 1: contours.length)"
                     :key="`g-${point.groupe}-c-${c}`"
                     :value="c"
                   >
@@ -267,7 +264,7 @@
                   class="p-s mr"
                 >
                   <option
-                    v-for="p in arrayOfNumbersCreate(points.length + 1)"
+                    v-for="p in arrayOfNumbersCreate(points.length > 1 ? points.length + 1: points.length)"
                     :key="`g-${point.groupe}-c-${point.contour}-p-${p}`"
                     :value="p"
                   >
@@ -320,7 +317,7 @@
               :key="reference.id"
             >
               <div class="flex full-x">
-                <h4>References</h4>
+                <h4>Reference</h4>
                 <div class="flex-right">
                   <button
                     class="btn-border p-s rnd-xs mt--s"
@@ -360,7 +357,7 @@
 
             <div v-if="!point.references.find(r => r.id === '')">
               <button
-                class="btn-border rnd-xs p-s full-x mb flex"
+                class="btn-border rnd-xs p-s full-x flex"
                 @click="pointReferenceAdd(point)"
               >
                 Ajouter une référence <i class="icon-24 icon-24-plus flex-right" />
@@ -629,6 +626,15 @@ export default {
         this.titre.demarches.find(d =>
           d.etapes.find(e => e.id === this.etape.id)
         )
+      )
+    },
+    pointsTotal() {
+      return this.etape.groupes.reduce(
+        (points, contours) => [
+          ...points,
+          ...contours.reduce((pointsTotal, ps) => [...pointsTotal, ...ps], [])
+        ],
+        []
       )
     }
   },

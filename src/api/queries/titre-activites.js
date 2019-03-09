@@ -1,16 +1,14 @@
 import gql from 'graphql-tag'
-import fragmentTitreActivitesRapport from './fragments/titre-activites-rapport'
+import fragmentTitreActivite from './fragments/titre'
 
-const mutationTitreActivitesRapportModifier = gql`
-  mutation TitreActivitesRapportModifier(
-    $rapport: InputTitreActivitesRapport!
-  ) {
-    titreActivitesRapportModifier(rapport: $rapport) {
-      ...activitesRapport
+const mutationTitreActiviteModifier = gql`
+  mutation TitreActiviteModifier($activite: InputTitreActivite!) {
+    titreActiviteModifier(activite: $activite) {
+      ...activite
     }
   }
 
-  ${fragmentTitreActivitesRapport}
+  ${fragmentTitreActivite}
 `
 
-export { mutationTitreActivitesRapportModifier }
+export { mutationTitreActiviteModifier }

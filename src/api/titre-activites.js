@@ -1,20 +1,20 @@
 import graphqlClient from './_graphql-client'
 import graphqlErrorThrow from '@/api/_error-throw'
 
-import { mutationTitreActivitesRapportModifier } from './queries/titre-activites'
+import { mutationTitreActiviteModifier } from './queries/titre-activites'
 
-const titreActivitesRapportUpdate = async ({ rapport }) => {
+const titreActiviteUpdate = async ({ activite }) => {
   try {
     const res = await graphqlClient.mutate({
-      mutation: mutationTitreActivitesRapportModifier,
-      variables: { rapport }
+      mutation: mutationTitreActiviteModifier,
+      variables: { activite }
     })
 
-    return res && res.data && res.data.titreActivitesRapportModifier
+    return res && res.data && res.data.titreActiviteModifier
   } catch (e) {
     console.log({ e })
     graphqlErrorThrow(e)
   }
 }
 
-export { titreActivitesRapportUpdate }
+export { titreActiviteUpdate }
