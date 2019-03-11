@@ -18,14 +18,22 @@
       />
 
       <TitreRepertoire
+        class="hide"
         :titulaires="titre.titulaires"
         :amodiataires="titre.amodiataires"
         :administrations="titre.administrations"
       />
 
+
+
       <TitreDemarches
-        v-if="titre.demarches"
+        v-if="titre.demarches.length"
         :demarches="titre.demarches"
+      />
+
+      <TitreActivites
+        v-if="titre.activites.length"
+        :activites="titre.activites"
       />
 
       <TitreOutils />
@@ -38,10 +46,11 @@ import Loader from './ui/loader.vue'
 import Card from './ui/card.vue'
 import TitreHeader from './titre/header.vue'
 import TitreMap from './titre/map.vue'
-import TitreOutils from './titre/outils.vue'
+import TitreTerritoires from './titre/territoires.vue'
 import TitreRepertoire from './titre/repertoire.vue'
 import TitreDemarches from './titre/demarches.vue'
-import TitreTerritoires from './titre/territoires.vue'
+import TitreActivites from './titre/activites.vue'
+import TitreOutils from './titre/outils.vue'
 
 export default {
   components: {
@@ -49,10 +58,11 @@ export default {
     Card,
     TitreHeader,
     TitreMap,
-    TitreOutils,
+    TitreTerritoires,
     TitreRepertoire,
     TitreDemarches,
-    TitreTerritoires
+    TitreActivites,
+    TitreOutils
   },
 
   computed: {

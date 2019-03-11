@@ -10,6 +10,8 @@ const fragmentTitreActivite = gql`
       nom
       couleur
     }
+    periode
+    annee
     type {
       id
       nom
