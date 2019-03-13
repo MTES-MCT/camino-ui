@@ -9,7 +9,14 @@ export const actions = {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'titreActiviteUpdate', { root: true })
     try {
-      const res = await titreActiviteUpdate({ activite })
+      console.log(activite)
+      const res = await titreActiviteUpdate({
+        activite: {
+          id: activite.id,
+          contenu: activite.contenu,
+          activiteStatutId: activite.statut.id
+        }
+      })
 
       if (res) {
         commit('popupClose', null, { root: true })

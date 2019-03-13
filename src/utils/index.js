@@ -3,7 +3,7 @@ const dateFormat = isoDate => {
   var dd = d.getDate()
   var mm = d.getMonth() + 1
   var yyyy = d.getFullYear()
-  return `${dd}-${mm}-${yyyy}`
+  return `${dd} / ${mm} / ${yyyy}`
 }
 
 function numberFormat(x) {

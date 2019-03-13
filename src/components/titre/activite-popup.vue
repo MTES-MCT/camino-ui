@@ -4,7 +4,7 @@
       <div>
         <h5>
           <span class="cap-first">
-            {{ activite.type.nom }}
+            {{ activite.type.nom }} complete: {{ complete }}
           </span>
         </h5>
         <h2 class="cap-first mb-0">
@@ -22,80 +22,83 @@
     </div>
 
     <div
-      v-for="section in sections"
-      :key="section.id"
+      v-for="s in activite.sections"
+      :key="s.id"
     >
-      <h4 v-if="section.nom">
-        {{ section.nom }}
+      <h4 v-if="s.nom">
+        {{ s.nom }}
       </h4>
       <div
-        v-for="element in section.elements"
-        :key="element.id"
+        v-for="e in s.elements"
+        :key="e.id"
       >
         <div class="tablet-blobs">
           <div
-            v-if="element.nom"
+            v-if="e.nom"
             class="tablet-blob-1-3 tablet-pt-s pb-s"
           >
-            <h6>{{ element.nom }}</h6>
+            <h6>{{ e.nom }}</h6>
           </div>
           <div
             class="mb"
-            :class="{'tablet-blob-2-3': element.nom, 'tablet-blob-1': !element.nom }"
+            :class="{'tablet-blob-2-3': e.nom, 'tablet-blob-1': !e.nom }"
           >
-            <div v-if="element.type === 'number'">
+            <div v-if="e.type === 'number'">
               <input
                 v-if="editable"
-                v-model.number="activite.contenu[section.id][element.id]"
+                v-model.number="activite.contenu[s.id][e.id]"
                 type="number"
                 class="p-s mb-s"
                 placeholder="…"
               >
               <p
                 v-else
-                :class="{'color-warning': !(activite.contenu[section.id][element.id] || activite.contenu[section.id][element.id] === 0) }"
+                :class="{'color-warning': !activite.contenu[s.id] || !(activite.contenu[s.id][e.id] || activite.contenu[s.id][e.id] === 0) }"
                 class="pt-xs"
               >
-                {{ activite.contenu[section.id][element.id] || activite.contenu[section.id][element.id] === 0 ? numberFormat(activite.contenu[section.id][element.id]) : 'À compléter pour valider' }}
+                {{ activite.contenu[s.id] && (activite.contenu[s.id][e.id] || activite.contenu[s.id][e.id] === 0) ? numberFormat(activite.contenu[s.id][e.id]) : 'À compléter pour valider' }}
               </p>
             </div>
 
 
             <div
-              v-else-if="element.type === 'checkbox'"
+              v-else-if="e.type === 'checkbox'"
             >
               <div
                 v-if="editable"
               >
                 <label
-                  v-for="valeur in element.valeurs"
-                  :key="valeur.id"
+                  v-for="(nom, id) in e.valeurs"
+                  :key="id"
                 >
                   <input
-                    v-model="activite.contenu[section.id][element.id][valeur.id]"
+                    v-model="checkboxesValues[s.id][e.id][id]"
                     type="checkbox"
-                  >{{ valeur.nom }}
+                    @change="checkboxUpdate($event, s.id, e.id, id)"
+                  >{{ nom }}
                 </label>
               </div>
 
               <p
                 v-else
-                :class="{'color-warning': !Object.keys(activite.contenu[section.id][element.id]).filter(val => activite.contenu[section.id][element.id][val]).length}"
+                :class="{'color-warning': !(activite.contenu[s.id] && activite.contenu[s.id][e.id] && Object.keys(activite.contenu[s.id][e.id]).filter(val => activite.contenu[s.id][e.id][val]).length)}"
+                class="cap-first"
               >
-                {{ element.valeurs.filter(v => Object.keys(activite.contenu[section.id][element.id]).filter(id => activite.contenu[section.id][element.id][id]).find(id => id === v.id)).map(v => v.nom).join(', ') || 'À compléter pour valider' }}
+                {{ activite.contenu[s.id] && activite.contenu[s.id][e.id] && activite.contenu[s.id][e.id].split(',').map(id => e.valeurs[id]).join(', ') || 'À compléter pour valider' }}
               </p>
             </div>
 
 
             <textarea
-              v-else-if="element.type === 'textarea'"
-              v-model="activite.contenu[section.id][element.id]"
+              v-else-if="e.type === 'textarea'"
+              v-model="activite.contenu[s.id][e.id]"
               class="p-s mb-s"
             />
             <!-- eslint-disable vue/no-v-html -->
             <p
+              v-if="editable"
               class="h5 mb-0"
-              v-html="element.description"
+              v-html="e.description"
             />
           </div>
         </div>
@@ -197,7 +200,8 @@ export default {
 
   data() {
     return {
-      editable: true
+      editable: true,
+      checkboxesValues: []
     }
   },
 
@@ -206,35 +210,16 @@ export default {
       return this.$store.state.popup.messages
     },
 
-    sections() {
-      return this.activite.type.champs.sections.map(s => {
-        s.elements = s.elements.reduce(
-          (elements, e) =>
-            !e.frequenceElementIds ||
-            (e.frequenceElementIds &&
-              e.frequenceElementIds.find(
-                id => id === this.activite.periode.id
-              ) > 0)
-              ? [...elements, e]
-              : elements,
-          []
-        )
-
-        return s
-      })
-    },
-
     complete() {
-      return this.sections.reduce(
-        (res, s) =>
-          s.elements.reduce((bool, e) => {
-            const value = this.activite.contenu[s.id][e.id]
-            if (typeof value === 'object' && value !== null) {
-              return bool && Object.keys(value).length > 0
-            } else {
-              return bool && (value || value === 0)
-            }
-          }, res),
+      return this.activite.sections.reduce(
+        (activiteComplete, s) =>
+          s.elements.reduce((sectionComplete, e) => {
+            const value =
+              this.activite.contenu[s.id] && this.activite.contenu[s.id][e.id]
+
+            console.log('complete', value, sectionComplete)
+            return sectionComplete && !!(value || value === 0)
+          }, activiteComplete),
         true
       )
     }
@@ -243,25 +228,30 @@ export default {
   created() {
     document.addEventListener('keyup', this.keyup)
 
-    this.sections.forEach(s => {
-      s.elements.forEach(e => {
-        if (e.type === 'checkbox') {
-          if (
-            this.activite.contenu[s.id] &&
-            this.activite.contenu[s.id][e.id]
-          ) {
-            this.activite.contenu[s.id][e.id] = this.activite.contenu[s.id][
-              e.id
-            ]
-              .split(',')
-              .reduce((r, k) => Object.assign(r, { [k]: true }), {})
-          } else {
-            this.activite.contenu[s.id] = this.activite.contenu[s.id] || {}
-            this.activite.contenu[s.id][e.id] = {}
-          }
-        }
-      })
-    })
+    this.checkboxesValues = this.activite.sections.reduce((sectionIds, s) => {
+      const elementIds = s.elements.reduce(
+        (elementIds, e) =>
+          e.type === 'checkbox'
+            ? Object.assign(elementIds, {
+                [e.id]: Object.keys(e.valeurs).reduce((valeurIds, id) => {
+                  const value = !!(
+                    this.activite.contenu[s.id] &&
+                    this.activite.contenu[s.id][e.id] &&
+                    this.activite.contenu[s.id][e.id]
+                      .split(',')
+                      .find(vId => vId === id)
+                  )
+                  return Object.assign(valeurIds, { [id]: value })
+                }, {})
+              })
+            : elementIds,
+        {}
+      )
+
+      return Object.keys(elementIds).length
+        ? Object.assign(sectionIds, { [s.id]: elementIds })
+        : sectionIds
+    }, {})
   },
 
   beforeDestroy() {
@@ -278,18 +268,6 @@ export default {
     },
 
     save(confirmation) {
-      this.activite.type.champs.sections.forEach(s => {
-        s.elements.forEach(e => {
-          if (e.type === 'checkbox') {
-            this.activite.contenu[s.id][e.id] = Object.keys(
-              this.activite.contenu[s.id][e.id]
-            )
-              .filter(id => this.activite.contenu[s.id][e.id][id])
-              .join(',')
-          }
-        })
-      })
-
       if (confirmation && this.complete) {
         this.activite.statut.id = 'dep'
       } else {
@@ -328,8 +306,31 @@ export default {
       this.$store.commit('popupMessagesRemove')
     },
 
-    checkboxChange(v) {
-      console.log(v)
+    checkboxUpdate(event, sectionId, elementId, valeurId) {
+      if (event.target.checked) {
+        this.activite.contenu[sectionId] =
+          this.activite.contenu[sectionId] || {}
+
+        this.activite.contenu[sectionId][elementId] = this.activite.contenu[
+          sectionId
+        ][elementId]
+          ? this.activite.contenu[sectionId][elementId]
+              .split(',')
+              .concat(valeurId)
+              .join(',')
+          : valeurId
+      } else {
+        this.activite.contenu[sectionId][elementId] = this.activite.contenu[
+          sectionId
+        ][elementId]
+          .split(',')
+          .filter(e => e !== valeurId)
+          .join(',')
+
+        if (!this.activite.contenu[sectionId][elementId]) {
+          delete this.activite.contenu[sectionId][elementId]
+        }
+      }
     }
   }
 }

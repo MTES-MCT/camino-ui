@@ -3,9 +3,10 @@
     <div class="card-border" />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2">
-        <h3 class="cap-first">
+        <h6 class="cap-first">
           {{ activite.type.nom }}
-        </h3>
+        </h6>
+        <h3><span v-if="activite.periode">{{ activite.periode.nom }}</span> {{ activite.annee }}</h3>
       </div>
       <div class="tablet-blob-1-2">
         <h6>Statut</h6>
@@ -18,9 +19,44 @@
         </h4>
       </div>
     </div>
-    <ActiviteButton
-      :activite="activite"
-    />
+    <div class="border rnd-xs flex flex-direction-column mb">
+      <div class="border-b-s px-m pt-m">
+        <div class="tablet-blobs">
+          <div class="tablet-blob-1-2">
+            <h6>Date</h6>
+            <p>{{ activite.date | dateFormat }}</p>
+          </div>
+          <div class="tablet-blob-1-2">
+            <ActiviteButton
+              v-if="editable"
+              :activite="activite"
+              class="full-x"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        v-for="s in activite.sections"
+        :key="s.id"
+        class="border-b-s px-m pt-m"
+      >
+        <h4>{{ s.nom }}</h4>
+        <div class="tablet-blobs">
+          <div
+            v-for="e in s.elements"
+            :key="e.id"
+            class="tablet-blob-1-4"
+          >
+            <h6>
+              {{ e.nom }}
+            </h6>
+            <p class="cap-first">
+              {{ activite.contenu && activite.contenu[s.id] && (activite.contenu[s.id][e.id] || activite.contenu[s.id][e.id] === 0) ? e.type === 'checkbox' ? e.valeurs[activite.contenu[s.id][e.id]] : activite.contenu[s.id][e.id] : '–' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -33,10 +69,17 @@ export default {
     Dot,
     ActiviteButton
   },
+
   props: {
     activite: {
       type: Object,
       default: () => ({})
+    }
+  },
+
+  computed: {
+    editable() {
+      return this.activite.statut.id !== 'dep'
     }
   }
 }

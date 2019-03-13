@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import fragmentTitreActivite from './fragments/titre'
+import fragmentTitreActivite from './fragments/titre-activite'
 
 const mutationTitreActiviteModifier = gql`
   mutation TitreActiviteModifier($activite: InputTitreActivite!) {

@@ -12,6 +12,7 @@ const fragmentTitreActivite = gql`
     }
     periode
     annee
+    sections
     type {
       id
       nom
