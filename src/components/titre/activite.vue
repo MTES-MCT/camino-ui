@@ -22,9 +22,15 @@
     <div class="border rnd-xs flex flex-direction-column mb">
       <div class="border-b-s px-m pt-m">
         <div class="tablet-blobs">
-          <div class="tablet-blob-1-2">
-            <h6>Date</h6>
+          <div class="tablet-blob-1-4">
+            <h6>Création</h6>
             <p>{{ activite.date | dateFormat }}</p>
+          </div>
+          <div class="tablet-blob-1-4">
+            <div v-if="activite.dateSaisie">
+              <h6>Modification</h6>
+              <p>{{ activite.dateSaisie | dateFormat }}</p>
+            </div>
           </div>
           <div class="tablet-blob-1-2">
             <ActiviteButton
