@@ -112,7 +112,6 @@ export default {
   watch: {
     $route: 'get',
     tabsActives: function(tabsActivesNew) {
-      console.log(tabsActivesNew)
       const tabsActivesIds = Object.keys(tabsActivesNew)
       if (!tabsActivesIds.find(tabId => tabId === this.tabActive)) {
         this.tabActive = tabsActivesIds[0]

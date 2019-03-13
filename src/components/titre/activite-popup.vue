@@ -223,7 +223,6 @@ export default {
             const value =
               this.activite.contenu[s.id] && this.activite.contenu[s.id][e.id]
 
-            console.log('complete', value, sectionComplete)
             return sectionComplete && !!(value || value === 0)
           }, activiteComplete),
         true
