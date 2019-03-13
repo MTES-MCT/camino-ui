@@ -33,7 +33,8 @@ export default {
 
   computed: {
     activitesByYear() {
-      return this.activites.reduce((annees, activite) => {
+      const activites = this.activites.slice().reverse()
+      return activites.reduce((annees, activite) => {
         annees[activite.annee] = annees[activite.annee] || []
         annees[activite.annee].push(activite)
         return annees
