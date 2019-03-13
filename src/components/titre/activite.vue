@@ -23,12 +23,12 @@
       <div class="border-b-s px-m pt-m">
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
-            <h6>Création</h6>
+            <h6>Date de création</h6>
             <p>{{ activite.date | dateFormat }}</p>
           </div>
           <div class="tablet-blob-1-4">
             <div v-if="activite.dateSaisie">
-              <h6>Modification</h6>
+              <h6>Date de modification</h6>
               <p>{{ activite.dateSaisie | dateFormat }}</p>
             </div>
           </div>
@@ -46,7 +46,9 @@
         :key="s.id"
         class="border-b-s px-m pt-m"
       >
-        <h4>{{ s.nom }}</h4>
+        <h4 v-if="s.nom">
+          {{ s.nom }}
+        </h4>
         <div class="tablet-blobs">
           <div
             v-for="e in s.elements"

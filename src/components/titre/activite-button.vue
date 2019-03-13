@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn rnd-xs py-s px-m"
+    class="btn-flash rnd-xs py-s px-m"
     @click="activitePopupOpen"
   >
     {{ buttonText }}

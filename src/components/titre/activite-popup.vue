@@ -88,12 +88,18 @@
               </p>
             </div>
 
-
-            <textarea
+            <div
               v-else-if="e.type === 'textarea'"
-              v-model="activite.contenu[s.id][e.id]"
-              class="p-s mb-s"
-            />
+            >
+              <textarea
+                v-if="editable"
+                v-model="activite.contenu[s.id][e.id]"
+                class="p-s mb-s"
+              />
+              <p v-else-if="activite.contenu[s.id][e.id]">
+                {{ activite.contenu[s.id][e.id] }}
+              </p>
+            </div>
             <!-- eslint-disable vue/no-v-html -->
             <p
               v-if="editable"

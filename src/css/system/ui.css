@@ -24,6 +24,10 @@
   border-radius: var(--unit-s);
 }
 
+.rnd-s-t {
+  border-radius: var(--unit-s) var(--unit-s) 0 0;
+}
+
 .rnd-s-l {
   border-radius: var(--unit-s) 0 0 var(--unit-s);
 }
@@ -57,7 +61,7 @@
   border-top: var(--unit-line) solid var(--color-alt);
 }
 
-.border-b-s {
+.border-b-s:not(:last-child) {
   border-bottom: var(--unit-line) solid var(--color-alt);
   margin-bottom: calc(-1 * var(--unit-line));
 }

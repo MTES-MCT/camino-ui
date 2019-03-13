@@ -24,15 +24,32 @@
         :administrations="titre.administrations"
       />
 
-
+      <div
+        v-if="titre.demarches.length && titre.activites.length"
+        class="flex"
+      >
+        <div
+          v-for="(tabName, tabId) in tabsActives"
+          :key="tabId"
+          class="mr-xs"
+          :class="{ active: tabActive === tabId}"
+        >
+          <button
+            class="p-m btn-tab rnd-s-t"
+            @click="tabToggle(tabId)"
+          >
+            {{ tabName }}
+          </button>
+        </div>
+      </div>
 
       <TitreDemarches
-        v-if="titre.demarches.length"
+        v-if="titre.demarches.length && tabActive === 'demarches'"
         :demarches="titre.demarches"
       />
 
       <TitreActivites
-        v-if="titre.activites && titre.activites.length"
+        v-if="titre.activites.length && tabActive === 'activites'"
         :activites="titre.activites"
       />
 
@@ -65,12 +82,28 @@ export default {
     TitreOutils
   },
 
+  data() {
+    return {
+      tabActive: 'demarches',
+      tabs: { demarches: 'Démarches', activites: 'Activités' }
+    }
+  },
+
   computed: {
     titre() {
       return this.$store.state.titre.current
     },
     loaded() {
       return !!this.titre
+    },
+    tabsActives() {
+      return Object.keys(this.tabs).reduce(
+        (tabs, tabId) =>
+          this.titre[tabId].length
+            ? Object.assign(tabs, { [tabId]: this.tabs[tabId] })
+            : tabs,
+        {}
+      )
     }
   },
 
@@ -89,6 +122,10 @@ export default {
   methods: {
     get() {
       this.$store.dispatch('titre/get', this.$route.params.id)
+    },
+
+    tabToggle(tabId) {
+      this.tabActive = tabId
     }
   }
 }
