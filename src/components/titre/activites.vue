@@ -1,10 +1,18 @@
 <template>
   <div>
-    <Activite
-      v-for="activite in activites"
-      :key="activite.id"
-      :activite="activite"
-    />
+    <div
+      v-for="(activitesAnnee, annee) in activitesByYear"
+      :key="annee"
+    >
+      <div class="card-border" />
+      <h2>{{ annee }}</h2>
+
+      <Activite
+        v-for="activite in activitesAnnee"
+        :key="activite.id"
+        :activite="activite"
+      />
+    </div>
   </div>
 </template>
 
@@ -20,6 +28,16 @@ export default {
     activites: {
       type: Array,
       default: () => []
+    }
+  },
+
+  computed: {
+    activitesByYear() {
+      return this.activites.reduce((annees, activite) => {
+        annees[activite.annee] = annees[activite.annee] || []
+        annees[activite.annee].push(activite)
+        return annees
+      }, {})
     }
   }
 }

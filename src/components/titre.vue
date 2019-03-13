@@ -97,18 +97,27 @@ export default {
       return !!this.titre
     },
     tabsActives() {
-      return Object.keys(this.tabs).reduce(
+      const tabsActives = Object.keys(this.tabs).reduce(
         (tabs, tabId) =>
-          this.titre[tabId].length
+          this.titre && this.titre[tabId].length
             ? Object.assign(tabs, { [tabId]: this.tabs[tabId] })
             : tabs,
         {}
       )
+
+      return tabsActives
     }
   },
 
   watch: {
-    $route: 'get'
+    $route: 'get',
+    tabsActives: function(tabsActivesNew) {
+      console.log(tabsActivesNew)
+      const tabsActivesIds = Object.keys(tabsActivesNew)
+      if (!tabsActivesIds.find(tabId => tabId === this.tabActive)) {
+        this.tabActive = tabsActivesIds[0]
+      }
+    }
   },
 
   created() {

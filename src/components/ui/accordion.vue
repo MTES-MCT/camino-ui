@@ -4,10 +4,18 @@
       v-if="$slots.buttons"
       class="flex full-x border-b-s accordion-header"
     >
-      <h4 class="mb-0 py-s px-m">
-        <slot name="title" />
-      </h4>
-      <div class="flex-right accordion-buttons">
+      <div class="py-s px-m">
+        <h6
+          v-if="$slots.titleSection"
+          class="cap-first"
+        >
+          <slot name="titleSection" />
+        </h6>
+        <h4 class="mb-0">
+          <slot name="title" />
+        </h4>
+      </div>
+      <div class="flex-right accordion-buttons flex flex-start">
         <slot name="buttons" />
         <button
           v-if="$slots.default"
@@ -31,9 +39,17 @@
       class="btn-border py-s px-m flex full-x accordion-header"
       @click="opened = !opened"
     >
-      <h4 class="mb-0">
-        <slot name="title" />
-      </h4>
+      <div>
+        <h6
+          v-if="$slots.titleSection"
+          class="cap-first"
+        >
+          <slot name="titleSection" />
+        </h6>
+        <h4 class="mb-0">
+          <slot name="title" />
+        </h4>
+      </div>
       <div class="flex-right">
         <i
           class="icon-24"

@@ -60,6 +60,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   align-items: flex-start;
 }
 
+.flex-align-self-flex-start {
+  align-self: flex-start;
+}
+
 .flex-direction-column {
   flex-direction: column;
 }
