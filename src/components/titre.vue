@@ -32,7 +32,7 @@
       />
 
       <TitreActivites
-        v-if="titre.activites.length"
+        v-if="titre.activites && titre.activites.length"
         :activites="titre.activites"
       />
 

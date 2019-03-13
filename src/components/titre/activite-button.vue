@@ -35,6 +35,7 @@ export default {
               (elementsObj, e) =>
                 Object.assign(elementsObj, {
                   [e.id]:
+                    this.activite.contenu &&
                     this.activite.contenu[s.id] &&
                     this.activite.contenu[s.id][e.id]
                 }),
