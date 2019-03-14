@@ -2,11 +2,11 @@
   <Popup>
     <template slot="header">
       <div>
-        <h5>
+        <h6>
           <span class="cap-first">
-            {{ activite.type.nom }} complete: {{ complete }}
+            {{ activite.type.nom }}
           </span>
-        </h5>
+        </h6>
         <h2 class="cap-first mb-0">
           <span v-if="activite.periode">{{ activite.periode.nom }}</span> {{ activite.annee }}
         </h2>

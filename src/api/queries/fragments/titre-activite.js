@@ -16,7 +16,6 @@ const fragmentTitreActivite = gql`
     type {
       id
       nom
-      champs
       pays {
         id
         nom

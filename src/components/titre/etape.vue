@@ -11,7 +11,7 @@
     </template>
 
     <template
-      v-if="permissionsCheck(['super', 'admin'])"
+      v-if="permissionsCheck(['super'])"
       slot="buttons"
     >
       <button
