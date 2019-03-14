@@ -1,14 +1,14 @@
 <template>
   <div>
     <div
-      v-for="(activitesAnnee, annee) in activitesByYear"
-      :key="annee"
+      v-for="annee in activitesByYear"
+      :key="annee.id"
     >
       <div class="card-border" />
-      <h2>{{ annee }}</h2>
+      <h2>{{ annee.id }}</h2>
 
       <Activite
-        v-for="activite in activitesAnnee"
+        v-for="activite in annee.elements"
         :key="activite.id"
         :activite="activite"
       />
@@ -33,12 +33,19 @@ export default {
 
   computed: {
     activitesByYear() {
-      const activites = this.activites.slice().reverse()
-      return activites.reduce((annees, activite) => {
-        annees[activite.annee] = annees[activite.annee] || []
-        annees[activite.annee].push(activite)
+      return this.activites.reduce((annees, activite) => {
+        let annee = annees.find(annee => annee && annee.id === activite.annee)
+        if (!annee) {
+          annee = {
+            id: activite.annee,
+            elements: []
+          }
+          annees.push(annee)
+        }
+
+        annee.elements.push(activite)
         return annees
-      }, {})
+      }, [])
     }
   }
 }

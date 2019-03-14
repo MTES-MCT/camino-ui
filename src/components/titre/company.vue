@@ -17,7 +17,7 @@
     </template>
     <div
       v-if="company['service']"
-      class="large-blobs"
+      class="large-blobs px-m"
     >
       <div class="large-blob-1-6">
         <h6>Service</h6>

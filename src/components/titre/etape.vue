@@ -96,6 +96,7 @@
     <Documents
       v-if="etape.documents.length"
       :documents="etape.documents"
+      class="px-m"
     />
   </Accordion>
 </template>

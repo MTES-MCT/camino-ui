@@ -1,9 +1,7 @@
+import dateFormatLib from 'date-format'
+
 const dateFormat = isoDate => {
-  const d = new Date(isoDate)
-  var dd = d.getDate()
-  var mm = d.getMonth() + 1
-  var yyyy = d.getFullYear()
-  return `${dd} / ${mm} / ${yyyy}`
+  return dateFormatLib('yyyy-MM-dd', new Date(isoDate))
 }
 
 function numberFormat(x) {

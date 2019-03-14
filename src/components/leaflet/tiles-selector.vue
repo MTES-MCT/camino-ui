@@ -3,7 +3,7 @@
     <template slot="title">
       Fond de carte
     </template>
-    <ul class="list-sans mt-m">
+    <ul class="list-sans mt-m px-m">
       <li
         v-for="tile in tiles"
         :key="tile.name"

@@ -3,7 +3,7 @@
     <template slot="title">
       Pages
     </template>
-    <ul class="list-sans mt-m">
+    <ul class="list-sans mt-m px-m">
       <li
         v-for="range in ranges"
         :key="range"

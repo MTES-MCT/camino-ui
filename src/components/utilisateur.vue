@@ -128,7 +128,7 @@
 
         <div
           v-if="utilisateur.entreprise"
-          class="tablet-blobs"
+          class="tablet-blobs px-m"
         >
           <div class="tablet-blob-1-4">
             <h6 class="mt-xs">

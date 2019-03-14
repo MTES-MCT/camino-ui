@@ -70,13 +70,14 @@
     <div
       v-if="$slots.sub"
       class="px-m pt-m"
+      :class="{'border-b-s': opened}"
     >
       <slot name="sub" />
     </div>
 
-    <div class="px-m overflow-hidden">
+    <div class="overflow-hidden">
       <Transition name="slide">
-        <slot v-if="opened" />>
+        <slot v-if="opened" />
       </Transition>
     </div>
   </div>

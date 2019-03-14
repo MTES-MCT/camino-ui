@@ -25,7 +25,8 @@
           <template slot="title">
             <Dot :status="demarche['recours']['statut']" /> Recours
           </template>
-          <div class="large-blobs">
+
+          <div class="large-blobs px-m">
             <div class="large-blob-1-6">
               <h6>Statut</h6>
             </div>

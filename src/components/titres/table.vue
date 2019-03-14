@@ -82,7 +82,7 @@
             <template slot="title">
               Affichage
             </template>
-            <ul class="list-sans">
+            <ul class="list-sans px-m">
               <li
                 v-for="colonne in colonnes"
                 :key="colonne.type"

@@ -22,7 +22,9 @@
           class="btn-alt py-s px-m flex-align-self-flex-start"
         />
       </template>
-      <template slot="sub">
+      <template
+        slot="sub"
+      >
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <h6>Date d'ouverture</h6>
@@ -38,9 +40,6 @@
         </div>
       </template>
 
-
-
-
       <div>
         <div
           v-for="s in activite.sections"
@@ -52,7 +51,7 @@
           </h4>
           <div class="tablet-blobs">
             <div
-              v-for="e in s.elements"
+              v-for="e in s.elements.filter(e => !e.archiveDate || e.archiveDate > dateFormat(activite.date))"
               :key="e.id"
               class="tablet-blob-1-4"
             >

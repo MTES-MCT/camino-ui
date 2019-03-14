@@ -7,7 +7,8 @@
     <template slot="title">
       Filtres
     </template>
-    <div>
+
+    <div class="px-m">
       <div class="tablet-blobs mt">
         <div class="tablet-blob-1-2 large-blob-1-3">
           <div
