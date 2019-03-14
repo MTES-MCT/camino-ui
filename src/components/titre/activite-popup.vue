@@ -96,8 +96,11 @@
                 v-model="activite.contenu[s.id][e.id]"
                 class="p-s mb-s"
               />
-              <p v-else-if="activite.contenu[s.id][e.id]">
-                {{ activite.contenu[s.id][e.id] }}
+              <p
+                v-else
+                class="mb-0"
+              >
+                {{ activite.contenu[s.id][e.id] || '–' }}
               </p>
             </div>
             <!-- eslint-disable vue/no-v-html -->
@@ -114,8 +117,8 @@
     </div>
 
     <div
+      v-if="!editable && complete"
       class="p-s bg-warning color-bg bold mb"
-      :class="{ hide: !complete }"
     >
       Une fois validé ce formulaire ne sera plus modifiable.
     </div>
@@ -223,7 +226,7 @@ export default {
             const value =
               this.activite.contenu[s.id] && this.activite.contenu[s.id][e.id]
 
-            return sectionComplete && !!(value || value === 0)
+            return sectionComplete && !!(value || value === 0 || e.optionel)
           }, activiteComplete),
         true
       )
