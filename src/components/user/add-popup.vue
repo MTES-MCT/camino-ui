@@ -60,7 +60,7 @@
 <script>
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
-import emailRegex from 'email-regex'
+import emailValidator from 'email-validator'
 
 export default {
   name: 'CaminoUserAccountCreatePopup',
@@ -82,7 +82,7 @@ export default {
     },
 
     complete() {
-      return emailRegex({ exact: true }).test(this.email)
+      return emailValidator.validate(this.email)
     }
   },
 

@@ -50,7 +50,7 @@
     "commitizen": "^3.0.7",
     "cz-conventional-changelog": "^2.1.0",
     "date-format": "^2.0.0",
-    "email-regex": "^3.0.0",
+    "email-validator": "^2.0.4",
     "eslint": "^5.15.1",
     "eslint-plugin-vue": "^5.2.2",
     "graphql": "^14.1.1",
