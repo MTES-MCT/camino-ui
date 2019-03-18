@@ -87,7 +87,7 @@
               v-for="titulaire in titre.titulaires"
               :key="titulaire.id"
             >
-              {{ titulaire["nom"] }}
+              {{ titulaire.etablissements[0].nom }}
             </li>
           </ul>
         </div>
@@ -101,7 +101,7 @@
               v-for="amodiataire in titre.amodiataires"
               :key="amodiataire.id"
             >
-              {{ amodiataire["nom"] }}
+              {{ amodiataire.etablissements[0].nom }}
             </li>
           </ul>
         </div>
