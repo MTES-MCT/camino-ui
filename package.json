@@ -22,7 +22,7 @@
     "release": "standard-version && git push --follow-tags origin master && conventional-github-releaser"
   },
   "dependencies": {
-    "compression": "^1.7.3",
+    "compression": "^1.7.4",
     "connect-history-api-fallback": "^1.6.0",
     "dotenv": "^7.0.0",
     "express": "^4.16.4"
@@ -51,7 +51,7 @@
     "cz-conventional-changelog": "^2.1.0",
     "date-format": "^2.0.0",
     "email-validator": "^2.0.4",
-    "eslint": "^5.15.1",
+    "eslint": "^5.15.3",
     "eslint-plugin-vue": "^5.2.2",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
@@ -70,8 +70,7 @@
     "postcss-normalize": "^7.0.1",
     "postcss-preset-env": "^6.6.0",
     "postcss-typescale": "^0.2.1",
-    "prettier": "^1.16.4",
-    "standard-version": "^5.0.1",
+    "standard-version": "^5.0.2",
     "stylelint": "^9.10.1",
     "stylelint-config-prettier": "^5.0.0",
     "stylelint-config-standard": "^18.2.0",
@@ -133,7 +132,7 @@
     ">0.25%",
     "not op_mini all",
     "Firefox > 51",
-    "iOS >= 9"
+    "iOS > 8"
   ],
   "stylelint": {
     "extends": [
