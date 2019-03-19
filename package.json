@@ -19,7 +19,7 @@
     "dev": "vue-cli-service serve --open",
     "start": "node ./index.js",
     "commit": "npx git-cz",
-    "release": "standard-version && git push --follow-tags origin master && conventional-github-releaser"
+    "release": "standard-version && git push --follow-tags origin master && npx conventional-github-releaser"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -48,6 +48,7 @@
     "babel-eslint": "^10.0.1",
     "babel-plugin-graphql-tag": "^2.0.0",
     "commitizen": "^3.0.7",
+    "conventional-github-releaser": "^3.1.2",
     "cz-conventional-changelog": "^2.1.0",
     "date-format": "^2.0.0",
     "email-validator": "^2.0.4",
