@@ -15,8 +15,11 @@ const fragmentUtilisateur = gql`
     }
     entreprise {
       id
-      nom
       legalSiren
+      etablissements {
+        id
+        nom
+      }
     }
     permission {
       ...permission

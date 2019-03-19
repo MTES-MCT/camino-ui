@@ -399,7 +399,7 @@
               :value="entreprise"
               :disabled="etape.titulaires.find(t => t.id === entreprise.id)"
             >
-              {{ entreprise.nom }}
+              {{ entreprise.etablissements.length && entreprise.etablissements[0].nom }}
               {{
                 entreprise.legalSiren ||
                   entreprise.legalEtranger ||
@@ -451,7 +451,7 @@
               :value="entreprise"
               :disabled="etape.amodiataires.find(a => a.id === entreprise.id)"
             >
-              {{ entreprise.nom }} ({{ entreprise.id }})
+              {{ entreprise.etablissements[0].nom }} ({{ entreprise.id }})
             </option>
           </select>
 

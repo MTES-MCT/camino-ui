@@ -33,7 +33,7 @@
 
     <template slot="footer">
       <Messages :messages="messages" />
-      <div class="tablet-blobs">
+      <div class="tablet-blobs mb tablet-mb-0">
         <div class="mb tablet-blob-1-3">
           <button
             class="btn-border rnd-xs p-s full-x"

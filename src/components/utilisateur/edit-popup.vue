@@ -32,7 +32,7 @@
     <div v-if="action === 'create'">
       <hr>
       <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Mot de passe</h6>
         </div>
         <div class="mb tablet-blob-2-3">
@@ -51,7 +51,7 @@
 
     <hr>
     <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Prénom</h6>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -66,7 +66,7 @@
 
     <hr>
     <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Nom</h6>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -81,7 +81,7 @@
 
     <hr>
     <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone fixe</h6>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -96,7 +96,7 @@
 
     <hr>
     <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone mobile</h6>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -112,7 +112,7 @@
     <div v-if="permissionsCheck(['super', 'admin'])">
       <hr>
       <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Permissions</h6>
         </div>
         <div class="mb tablet-blob-2-3">
@@ -135,7 +135,7 @@
 
       <hr>
       <div class="tablet-blobs">
-        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Lien</h6>
         </div>
 
@@ -170,7 +170,7 @@
       <div v-if="lien === 'entreprise'">
         <hr>
         <div class="tablet-blobs">
-          <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <div class="tablet-blob-1-3 tablet-pt-s pb-s">
             <h6>Entreprise</h6>
           </div>
 
@@ -185,7 +185,7 @@
                 :key="entreprise.id"
                 :value="entreprise"
               >
-                {{ entreprise.nom }}
+                {{ entreprise.etablissements.length && entreprise.etablissements[0].nom }}
                 {{
                   entreprise.legalSiren ||
                     entreprise.legalEtranger ||

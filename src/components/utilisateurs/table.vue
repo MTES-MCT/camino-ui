@@ -33,7 +33,7 @@
               v-if="utilisateur.entreprise"
               class="h5 word-break"
             >
-              {{ utilisateur.entreprise.nom }}
+              {{ utilisateur.entreprise && utilisateur.entreprise.etablissements.length && utilisateur.entreprise.etablissements[0].nom }}
             </span>
           </td>
         </RouterLink>

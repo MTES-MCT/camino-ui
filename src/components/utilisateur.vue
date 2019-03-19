@@ -128,16 +128,17 @@
 
         <div
           v-if="utilisateur.entreprise"
-          class="tablet-blobs px-m"
+          class="tablet-blobs"
         >
           <div class="tablet-blob-1-4">
             <h6 class="mt-xs">
               Entreprise
             </h6>
           </div>
+
           <div class="tablet-blob-3-4">
             <p>
-              {{ utilisateur.entreprise.nom || "–" }} <span
+              {{ utilisateur.entreprise.etablissements && utilisateur.entreprise.etablissements.length && utilisateur.entreprise.etablissements[0].nom || "–" }} <span
                 v-if="utilisateur.entreprise.legalSiren"
                 class="h5"
               >

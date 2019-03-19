@@ -45,7 +45,10 @@ const mutationUtilisateurConnecter = gql`
         }
         entreprise {
           id
-          nom
+          etablissements {
+            id
+            nom
+          }
         }
       }
       token
@@ -67,7 +70,10 @@ const queryUtilisateurIdentifier = gql`
         }
         entreprise {
           id
-          nom
+          etablissements {
+            id
+            nom
+          }
         }
       }
       token
