@@ -14,6 +14,4 @@ COPY vue.config.js ./
 COPY src src/
 COPY public public/
 
-RUN npm run build
-
 CMD ["npm", "start"]

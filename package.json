@@ -17,7 +17,7 @@
     "test": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve --open",
-    "start": "node ./index.js",
+    "start": "npm run build && node ./index.js",
     "commit": "npx git-cz",
     "release": "standard-version && git push --follow-tags origin master && npx conventional-github-releaser"
   },
@@ -75,11 +75,11 @@
     "stylelint-config-prettier": "^5.0.0",
     "stylelint-config-standard": "^18.2.0",
     "unfetch": "^4.1.0",
-    "vue": "^2.6.9",
+    "vue": "^2.6.10",
     "vue-jest": "^3.0.4",
     "vue-meta": "^1.5.8",
     "vue-router": "^3.0.2",
-    "vue-template-compiler": "^2.6.9",
+    "vue-template-compiler": "^2.6.10",
     "vuex": "^3.1.0"
   },
   "eslintConfig": {
