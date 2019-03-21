@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 const fragmentEntreprise = gql`
   fragment entreprise on Entreprise {
     id
+    nom
     etablissements {
       id
       nom
@@ -10,7 +11,6 @@ const fragmentEntreprise = gql`
       dateFin
       legalSiret
     }
-    raisonSociale
     paysId
     legalSiren
     legalEtranger

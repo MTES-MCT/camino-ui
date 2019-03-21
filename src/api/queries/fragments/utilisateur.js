@@ -29,4 +29,27 @@ const fragmentUtilisateur = gql`
   ${fragmentPermission}
 `
 
-export default fragmentUtilisateur
+const fragmentUtilisateurToken = gql`
+  fragment utilisateurToken on UtilisateurToken {
+    utilisateur {
+      id
+      nom
+      prenom
+      email
+      permission {
+        id
+        nom
+      }
+      entreprise {
+        id
+        etablissements {
+          id
+          nom
+        }
+      }
+    }
+    token
+  }
+`
+
+export { fragmentUtilisateur, fragmentUtilisateurToken }

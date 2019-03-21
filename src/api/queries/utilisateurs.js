@@ -1,5 +1,8 @@
 import gql from 'graphql-tag'
-import fragmentUtilisateur from './fragments/utilisateur'
+import {
+  fragmentUtilisateur,
+  fragmentUtilisateurToken
+} from './fragments/utilisateur'
 
 const queryUtilisateur = gql`
   query Utilisateur($id: ID!) {
@@ -34,51 +37,21 @@ const queryUtilisateurs = gql`
 const mutationUtilisateurConnecter = gql`
   mutation UtilisateurConnecter($email: String!, $motDePasse: String!) {
     utilisateurConnecter(email: $email, motDePasse: $motDePasse) {
-      utilisateur {
-        id
-        nom
-        prenom
-        email
-        permission {
-          id
-          nom
-        }
-        entreprise {
-          id
-          etablissements {
-            id
-            nom
-          }
-        }
-      }
-      token
+      ...utilisateurToken
     }
   }
+
+  ${fragmentUtilisateurToken}
 `
 
 const queryUtilisateurIdentifier = gql`
   query UtilisateurIdentifier {
     utilisateurIdentifier {
-      utilisateur {
-        id
-        nom
-        prenom
-        email
-        permission {
-          id
-          nom
-        }
-        entreprise {
-          id
-          etablissements {
-            id
-            nom
-          }
-        }
-      }
-      token
+      ...utilisateurToken
     }
   }
+
+  ${fragmentUtilisateurToken}
 `
 
 const mutationUtilisateurModifier = gql`
