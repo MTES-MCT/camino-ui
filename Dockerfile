@@ -11,7 +11,10 @@ COPY .env ./
 COPY .env.production ./
 COPY index.js ./
 COPY vue.config.js ./
+COPY babel.config.js ./
 COPY src src/
 COPY public public/
+
+RUN npm run build
 
 CMD ["npm", "start"]

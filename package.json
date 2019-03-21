@@ -17,7 +17,7 @@
     "test": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve --open",
-    "start": "npm run build && node ./index.js",
+    "start": "node ./index.js",
     "commit": "npx git-cz",
     "release": "standard-version && git push --follow-tags origin master && npx conventional-github-releaser"
   },
