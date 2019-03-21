@@ -25,9 +25,6 @@ module.exports = {
   productionSourceMap: true,
   css: {
     sourceMap: true
-    // Enable CSS modules for all CSS/pre-processor files.
-    // This option does not affect *.vue files.
-    // modules: true
   },
   // Split dependencies into their own bundle.
   // https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#dll-mode
@@ -43,5 +40,18 @@ module.exports = {
     //     { proxy: { '/api': { target: process.env.API_BASE_URL } } }
     //   : // Proxy API endpoints a local mock API.
     //     { before: require('./tests/mock-api') })
-  }
+  },
+  transpileDependencies: [
+    'apollo-cache-inmemory',
+    'apollo-client',
+    'apollo-link',
+    'apollo-link-context',
+    'apollo-link-error',
+    'apollo-link-http',
+    'apollo-utilities',
+    'graphql',
+    'graphql-tag',
+    'unfetch',
+    'vuex'
+  ]
 }
