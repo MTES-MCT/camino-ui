@@ -185,9 +185,12 @@ export default {
     etablissementNameFind(etablissements, date) {
       const etablissement = etablissements.find(
         e =>
-          this.dateFormat(e.dateDebut) < this.dateFormat(date) &&
-          (!e.dateFin || this.dateFormat(e.dateFin) > this.dateFormat(date))
+          (this.dateFormat(e.dateDebut) < this.dateFormat(date) &&
+            (!e.dateFin ||
+              this.dateFormat(e.dateFin) > this.dateFormat(date))) ||
+          !e.dateDebut
       )
+
       return (etablissement && etablissement.nom) || '–'
     }
   }

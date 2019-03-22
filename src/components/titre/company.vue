@@ -33,6 +33,29 @@
       </div>
 
       <div
+        v-if="entreprise.etablissements.length"
+        class="large-blobs"
+      >
+        <div class="large-blob-1-6">
+          <h6>Établissements</h6>
+        </div>
+        <div
+          class="large-blob-5-6"
+        >
+          <ul class="list-sans">
+            <li
+              v-for="e in entreprise.etablissements"
+              :key="e.id"
+            >
+              <h5 class="inline-block">
+                {{ e.dateDebut | dateFormat }}
+              </h5> : {{ e.nom }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
         v-if="entreprise.adresse"
         class="large-blobs"
       >
