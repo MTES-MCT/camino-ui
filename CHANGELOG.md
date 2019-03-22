@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.14.0](https://github.com/MTES-MCT/camino-ui/compare/v0.13.0...v0.14.0) (2019-03-22)
+
+
+### Bug Fixes
+
+* **activités:** affiche la liste des travaux ([c4de22a](https://github.com/MTES-MCT/camino-ui/commit/c4de22a))
+* **build:** fonctionne avec les anciens navigateurs ([a34b2ce](https://github.com/MTES-MCT/camino-ui/commit/a34b2ce))
+* corrige une typeError sur les anciens navigateurs ([5dd872e](https://github.com/MTES-MCT/camino-ui/commit/5dd872e))
+* prend en compte les établissements d'une entreprise sur une requête utilisateur ([d5c4c18](https://github.com/MTES-MCT/camino-ui/commit/d5c4c18))
+* **activités:** classe les années par ordre desc ([c7b3a2d](https://github.com/MTES-MCT/camino-ui/commit/c7b3a2d))
+* **activités:** ouverture de la popup sur une activité dont le statut est absent ([289be48](https://github.com/MTES-MCT/camino-ui/commit/289be48))
+* **activités:** prend en compte les champs optionels ([2049178](https://github.com/MTES-MCT/camino-ui/commit/2049178))
+* **compat:** compatibilité avec iOs 9 ([1445e4e](https://github.com/MTES-MCT/camino-ui/commit/1445e4e))
+
+
+### Features
+
+* **activités:** affiche la date de modification si elle existe ([1d8f616](https://github.com/MTES-MCT/camino-ui/commit/1d8f616))
+* **activités:** affiche le formulaire d'édition d'activité ([1b685dc](https://github.com/MTES-MCT/camino-ui/commit/1b685dc))
+* **activités:** affiche les activités dans un onglet ([39480a0](https://github.com/MTES-MCT/camino-ui/commit/39480a0))
+* **activités:** affiche une pastille avec le nombre d'erreurs dans l'onglet ([af954a8](https://github.com/MTES-MCT/camino-ui/commit/af954a8))
+* **activités:** amélioration du design ([c9bc98b](https://github.com/MTES-MCT/camino-ui/commit/c9bc98b))
+* **activités:** enregistre une activité après modification ([4ed603c](https://github.com/MTES-MCT/camino-ui/commit/4ed603c))
+* **activités:** n'affiche un élément archivé que sur les activités concernées ([cd35d56](https://github.com/MTES-MCT/camino-ui/commit/cd35d56))
+* **api:** prend en compte les établissements d'une entreprise ([923f342](https://github.com/MTES-MCT/camino-ui/commit/923f342))
+* **api:** supprime le champs raisonSociale d'une entreprise ([fb8887f](https://github.com/MTES-MCT/camino-ui/commit/fb8887f))
+* **entreprises:** affiche le bloc répertoire ([73e2e79](https://github.com/MTES-MCT/camino-ui/commit/73e2e79))
+* met à jour le schema graphql suivant les évolution de l'API ([fb02f9e](https://github.com/MTES-MCT/camino-ui/commit/fb02f9e))
+
+
+
 # [0.13.0](https://github.com/MTES-MCT/camino-ui/compare/v0.12.0...v0.13.0) (2019-02-28)
 
 
