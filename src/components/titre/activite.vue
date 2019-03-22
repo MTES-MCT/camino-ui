@@ -59,7 +59,7 @@
                 {{ e.nom }}
               </h6>
               <p class="cap-first">
-                {{ activite.contenu && activite.contenu[s.id] && (activite.contenu[s.id][e.id] || activite.contenu[s.id][e.id] === 0) ? e.type === 'checkbox' ? e.valeurs[activite.contenu[s.id][e.id]] : activite.contenu[s.id][e.id] : '–' }}
+                {{ activite.contenu && activite.contenu[s.id] && (activite.contenu[s.id][e.id] || activite.contenu[s.id][e.id] === 0) ? e.type === 'checkbox' ? activite.contenu[s.id][e.id].split(',').map(c => e.valeurs[c]).join(', ') : activite.contenu[s.id][e.id] : '–' }}
               </p>
             </div>
           </div>
