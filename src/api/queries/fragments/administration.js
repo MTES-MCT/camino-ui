@@ -8,7 +8,7 @@ const fragmentAdministration = gql`
     adresse1
     adresse2
     codePostal
-    ville
+    commune
     cedex
     url
     telephone

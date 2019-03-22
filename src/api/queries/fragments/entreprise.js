@@ -15,12 +15,9 @@ const fragmentEntreprise = gql`
     legalSiren
     legalEtranger
     legalForme
-    voieNumero
-    voieType
-    voieNom
-    adresseComplement
+    adresse
     codePostal
-    ville
+    commune
     cedex
     url
     telephone

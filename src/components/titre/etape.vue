@@ -61,9 +61,8 @@
           class="tablet-blob-1-4"
         >
           <h6>Titulaires</h6>
-          <p>–</p>
-          <p class="hide">
-            {{ etape.titulaires.map(t => t.nom).join(', ') }}
+          <p>
+            {{ etape.titulaires.map(t => etablissementNameFind(t.etablissements, etape.date)).join(', ') }}
           </p>
         </div>
         <div
@@ -71,9 +70,8 @@
           class="tablet-blob-1-4"
         >
           <h6>Amodiataires</h6>
-          <p>–</p>
-          <p class="hide">
-            {{ etape.amodiataires.map(t => t.nom).join(', ') }}
+          <p>
+            {{ etape.amodiataires.map(a => etablissementNameFind(a.etablissements, etape.dateDebut)).join(', ') }}
           </p>
         </div>
         <div
@@ -183,6 +181,14 @@ export default {
     },
     editPopupClose() {
       this.$store.commit('popupClose')
+    },
+    etablissementNameFind(etablissements, date) {
+      const etablissement = etablissements.find(
+        e =>
+          this.dateFormat(e.dateDebut) < this.dateFormat(date) &&
+          (!e.dateFin || this.dateFormat(e.dateFin) > this.dateFormat(date))
+      )
+      return (etablissement && etablissement.nom) || '–'
     }
   }
 }

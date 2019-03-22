@@ -1,124 +1,102 @@
 <template>
-  <Accordion>
+  <Accordion class="mb">
     <template slot="title">
-      {{ company["nom"] }}
+      <span>{{ entrepriseNameFind(entreprise) }}</span>
       <Tag
-        v-if="company['coordinateur']"
+        v-if="entreprise['coordinateur']"
         :color="'bg-highlight'"
       >
         Coord.
       </Tag>
       <Tag
-        v-if="company['opérateur']"
+        v-if="entreprise['opérateur']"
         :color="'bg-highlight'"
       >
         Opé.
       </Tag>
     </template>
     <div
-      v-if="company['service']"
-      class="large-blobs px-m"
+      class="px-m pt-m"
     >
-      <div class="large-blob-1-6">
-        <h6>Service</h6>
+      <div
+        v-if="entreprise.legalForme"
+        class="large-blobs"
+      >
+        <div class="large-blob-1-6">
+          <h6>Forme juridique</h6>
+        </div>
+        <div
+          class="large-blob-5-6"
+        >
+          <p>{{ entreprise.legalForme }}</p>
+        </div>
       </div>
-      <div class="large-blob-5-6">
-        <p class="word-break">
-          {{ company["service"] }}
-        </p>
-      </div>
-    </div>
-    <div class="large-blobs">
-      <div class="large-blob-1-6">
-        <h6>Adresse</h6>
+
+      <div
+        v-if="entreprise.adresse"
+        class="large-blobs"
+      >
+        <div class="large-blob-1-6">
+          <h6>Adresse</h6>
+        </div>
+        <div
+          class="large-blob-5-6"
+        >
+          <p>
+            {{ entreprise.adresse }}
+            <br>{{ entreprise.codePostal }}
+            {{ entreprise.commune }}
+          </p>
+        </div>
       </div>
       <div
-        v-if="company['adresse']"
-        class="large-blob-5-6"
+        v-if="entreprise.telephone"
+        class="large-blobs"
       >
-        {{ company["adresse"]["ligne_1"] }}
-        <br v-if="company['adresse']['ligne_2']">{{
-          company["adresse"]["ligne_2"]
-        }}
-        <br>{{ company["adresse"]["code_postal"] }}
-        {{ company["adresse"]["ville"] }}
+        <div class="large-blob-1-6">
+          <h6>Téléphone</h6>
+        </div>
+        <div class="large-blob-5-6">
+          <p class="word-break">
+            {{ entreprise.telephone }}
+          </p>
+        </div>
       </div>
-    </div>
-    <div
-      v-if="company['téléphone']"
-      class="large-blobs"
-    >
-      <div class="large-blob-1-6">
-        <h6>Téléphone</h6>
+      <div
+        v-if="entreprise.email"
+        class="large-blobs"
+      >
+        <div class="large-blob-1-6">
+          <h6>Email</h6>
+        </div>
+        <div class="large-blob-5-6">
+          <p class="word-break">
+            <a
+              :href="`mailto:${entreprise.email}`"
+              class="btn h6 bold py-xs px-s rnd"
+            >
+              {{ entreprise.email }}
+            </a>
+          </p>
+        </div>
       </div>
-      <div class="large-blob-5-6">
-        <p class="word-break">
-          {{ company["téléphone"] }}
-        </p>
-      </div>
-    </div>
-    <div
-      v-if="company['email']"
-      class="large-blobs"
-    >
-      <div class="large-blob-1-6">
-        <h6>Email</h6>
-      </div>
-      <div class="large-blob-5-6">
-        <p class="word-break">
-          <a
-            :href="`mailto:${company['email']}`"
-            class="btn h6 bold py-xs px-s rnd"
-          >
-            {{ company["email"] }}
-          </a>
-        </p>
-      </div>
-    </div>
-    <div
-      v-if="company['site']"
-      class="large-blobs"
-    >
-      <div class="large-blob-1-6">
-        <h6>Site</h6>
-      </div>
-      <div class="large-blob-5-6">
-        <p class="word-break">
-          <a
-            :href="company['site']"
-            class="btn h6 bold py-xs px-s rnd"
-          >
-            {{ company["site"] }}
-          </a>
-        </p>
-      </div>
-    </div>
-
-    <div
-      v-if="company['contacts']"
-      class="large-blobs"
-    >
-      <div class="large-blob-1-6">
-        <h6>
-          {{
-            company["contacts"] && company["contacts"].length > 1
-              ? "Contacts"
-              : "Contact"
-          }}
-        </h6>
-      </div>
-      <div class="large-blob-5-6">
-        <ul class="list-inline">
-          <li
-            v-for="contact in company['contacts']"
-            :key="contact.id"
-            class="word-break"
-          >
-            <button class="btn h6 bold py-xs px-s rnd">
-              {{ contact["prénom"] }} {{ contact["nom"] }}
-            </button>
-          </li>
-        </ul>
+      <div
+        v-if="entreprise.url"
+        class="large-blobs"
+      >
+        <div class="large-blob-1-6">
+          <h6>Site</h6>
+        </div>
+        <div class="large-blob-5-6">
+          <p class="word-break">
+            <a
+              :href="entreprise.url"
+              class="btn h6 bold py-xs px-s rnd"
+            >
+              {{ entreprise.url }}
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   </Accordion>
@@ -135,9 +113,25 @@ export default {
   },
 
   props: {
-    company: {
+    entreprise: {
       type: Object,
       default: () => {}
+    }
+  },
+
+  methods: {
+    entrepriseNameFind(entreprise) {
+      return (
+        entreprise.nom ||
+        // trouve l'établissement le plus récent
+        entreprise.etablissements.reduce(
+          (res, e) =>
+            res && this.dateFormat(res.dateDebut) > this.dateFormat(e.dateDebut)
+              ? res
+              : e,
+          null
+        ).nom
+      )
     }
   }
 }

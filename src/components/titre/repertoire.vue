@@ -1,33 +1,33 @@
 <template>
-  <div class="tablet-blobs">
+  <div class="tablet-blobs mb">
     <div class="tablet-blob-1-2">
-      <div v-if="titulaires">
+      <div v-if="titulaires.length">
         <h6>
           {{ titulaires.length > 1 ? "Titulaires" : "Titulaire" }}
         </h6>
         <Company
-          v-for="holder in titulaires"
-          :key="holder['id']"
-          :company="holder"
+          v-for="titulaire in titulaires"
+          :key="titulaire.id"
+          :entreprise="titulaire"
           class="mb"
         />
       </div>
-      <div v-if="amodiataires">
+      <div v-if="amodiataires.length">
         <h6>
           {{
             amodiataires.length > 1 ? "Amodiataires" : "Amodiataire"
           }}
         </h6>
         <Company
-          v-for="holder in amodiataires"
-          :key="holder['id']"
-          :company="holder"
+          v-for="amodiatiare in amodiataires"
+          :key="amodiatiare.id"
+          :entreprise="amodiatiare"
           class="mb"
         />
       </div>
     </div>
 
-    <div class="tablet-blob-1-2">
+    <div class="tablet-blob-1-2 hide">
       <h6>Administrations</h6>
       <Company
         v-for="referent in administrations"

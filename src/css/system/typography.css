@@ -87,7 +87,7 @@ blockquote {
   typescale: 0.5 1;
   font-style: italic;
   padding: var(--unit);
-  quotes: '«\00A0' '\00A0»';
+  quotes: '«\00A0''\00A0»';
 }
 
 blockquote::before,
@@ -151,6 +151,10 @@ i,
 
 label {
   margin-bottom: var(--unit-s);
+}
+
+.lower {
+  text-transform: lowercase;
 }
 
 .cap {

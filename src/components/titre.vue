@@ -18,7 +18,6 @@
       />
 
       <TitreRepertoire
-        class="hide"
         :titulaires="titre.titulaires"
         :amodiataires="titre.amodiataires"
         :administrations="titre.administrations"
@@ -85,7 +84,7 @@ export default {
   data() {
     return {
       tabActive: 'demarches',
-      tabs: { demarches: 'Démarches', activites: 'Activités' }
+      tabs: { demarches: 'Titre', activites: 'Activités' }
     }
   },
 
