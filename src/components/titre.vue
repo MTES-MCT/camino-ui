@@ -28,7 +28,7 @@
         class="flex"
       >
         <div
-          v-for="(tabName, tabId) in tabsActives"
+          v-for="(tab, tabId) in tabsActives"
           :key="tabId"
           class="mr-xs"
           :class="{ active: tabActive === tabId}"
@@ -37,7 +37,14 @@
             class="p-m btn-tab rnd-s-t"
             @click="tabToggle(tabId)"
           >
-            {{ tabName }}
+            {{ tab.nom }}
+            <Pill
+              v-if="titre[tabId] && titre[tabId].filter(e => e.statut.couleur === 'error').length"
+              :color="'bg-error'"
+              class="mb--s"
+            >
+              {{ titre[tabId] && titre[tabId].filter(e => e.statut.couleur === 'error').length }}
+            </Pill>
           </button>
         </div>
       </div>
@@ -60,6 +67,7 @@
 <script>
 import Loader from './ui/loader.vue'
 import Card from './ui/card.vue'
+import Pill from './ui/pill.vue'
 import TitreHeader from './titre/header.vue'
 import TitreMap from './titre/map.vue'
 import TitreTerritoires from './titre/territoires.vue'
@@ -72,6 +80,7 @@ export default {
   components: {
     Loader,
     Card,
+    Pill,
     TitreHeader,
     TitreMap,
     TitreTerritoires,
@@ -84,7 +93,7 @@ export default {
   data() {
     return {
       tabActive: 'demarches',
-      tabs: { demarches: 'Titre', activites: 'Activités' }
+      tabs: { demarches: { nom: 'Titre' }, activites: { nom: 'Activités' } }
     }
   },
 
