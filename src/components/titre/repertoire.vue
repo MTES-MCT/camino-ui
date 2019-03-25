@@ -27,12 +27,12 @@
       </div>
     </div>
 
-    <div class="tablet-blob-1-2 hide">
+    <div class="tablet-blob-1-2">
       <h6>Administrations</h6>
-      <Company
-        v-for="referent in administrations"
-        :key="referent['id']"
-        :company="referent"
+      <Administration
+        v-for="administration in administrations"
+        :key="administration.id"
+        :administration="administration"
         class="mb"
       />
     </div>
@@ -41,10 +41,12 @@
 
 <script>
 import Company from '../titre/company.vue'
+import Administration from '../titre/administration.vue'
 
 export default {
   components: {
-    Company
+    Company,
+    Administration
   },
   props: {
     titulaires: {
@@ -64,4 +66,3 @@ export default {
   }
 }
 </script>
-
