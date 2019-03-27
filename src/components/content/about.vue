@@ -359,9 +359,7 @@
 
           <ul class="list-prefix">
             <li>
-              <a href="https://www.linkedin.com/in/levieuxguillaume/">
-                LinkedIn
-              </a>
+              <a href="https://www.linkedin.com/in/levieuxguillaume/">LinkedIn</a>
             </li>
           </ul>
         </div>
@@ -385,9 +383,7 @@
           </blockquote>
           <ul class="list-prefix">
             <li>
-              <a href="https://www.linkedin.com/in/joeffrey-arruyer-5392a744">
-                LinkedIn
-              </a>
+              <a href="https://www.linkedin.com/in/joeffrey-arruyer-5392a744">LinkedIn</a>
             </li>
           </ul>
         </div>
@@ -411,9 +407,55 @@
           </blockquote>
           <ul class="list-prefix">
             <li>
-              <a href="https://twitter.com/francoisromain">
-                Twitter
-              </a>
+              <a href="https://twitter.com/francoisromain">Twitter</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                 src="../../../public/img/about/member-adrien-risser.jpg"
+                 alt="Portrait Adrien Risser"
+                 >
+            </div>
+          </div>
+
+          <h3 class="mb-0">
+            Adrien Risser
+          </h3>
+          <h5>Développeur</h5>
+          <blockquote>
+            Participer au bien commun, ligne de code par ligne de code.
+          </blockquote>
+          <ul class="list-prefix">
+            <li>
+              <a href="https://www.linkedin.com/in/adrienrisser">LinkedIn</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                 src="../../../public/img/about/member-florent-chalvet.jpg"
+                 alt="Portrait Florent Chalvet"
+                 >
+            </div>
+          </div>
+
+          <h3 class="mb-0">
+            Florent Chalvet
+          </h3>
+          <h5>Développeur</h5>
+          <blockquote>
+            Assurer la qualité des données pour certifier celle du service public.
+          </blockquote>
+          <ul class="list-prefix">
+            <li>
+              <a href="https://twitter.com/">Twitter</a>
             </li>
           </ul>
         </div>
