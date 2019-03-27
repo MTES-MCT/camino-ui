@@ -167,7 +167,7 @@ export default {
         delete etapeTmp.points
         delete etapeTmp.geojsonPoints
         delete etapeTmp.geojsonMultiPolygon
-        delete etapeTmp.Documents
+        delete etapeTmp.documents
 
         return etapeTmp
       }
