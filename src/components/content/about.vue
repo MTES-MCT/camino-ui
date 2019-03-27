@@ -347,17 +347,17 @@
             </div>
           </div>
 
-          <h3 class="mb-0">
+          <h3 class="mb-s">
             Guillaume Levieux
           </h3>
-          <h5>Intrapreneur</h5>
-          <blockquote class="p-s">
-            Avec Camino, je souhaite démontrer qu'un produit numérique construit
+          <h6>Intrapreneur</h6>
+          <blockquote>
+            Démontrer qu'un produit numérique construit
             par les agents publics et avec les usagers permet de délivrer un
             meilleur service public.
           </blockquote>
 
-          <ul class="list-prefix">
+          <ul class="list-prefix mb-0">
             <li>
               <a href="https://www.linkedin.com/in/levieuxguillaume/">LinkedIn</a>
             </li>
@@ -373,15 +373,15 @@
               >
             </div>
           </div>
-          <h3 class="mb-0">
+          <h3 class="mb-s">
             Joeffrey Arruyer
           </h3>
-          <h5>Coach Startup d'État</h5>
-          <blockquote class="p-s">
+          <h6>Coach Startup d'État</h6>
+          <blockquote>
             Mettre en place avec Guillaume, les conditions optimales pour
             l’accomplissement de sa mission.
           </blockquote>
-          <ul class="list-prefix">
+          <ul class="list-prefix mb-0">
             <li>
               <a href="https://www.linkedin.com/in/joeffrey-arruyer-5392a744">LinkedIn</a>
             </li>
@@ -398,16 +398,16 @@
             </div>
           </div>
 
-          <h3 class="mb-0">
+          <h3 class="mb-s">
             François Romain
           </h3>
-          <h5>Développeur</h5>
+          <h6>Développeur</h6>
           <blockquote>
             Contribuer à un service public plus ouvert et accessible.
           </blockquote>
-          <ul class="list-prefix">
+          <ul class="list-prefix mb-0">
             <li>
-              <a href="https://twitter.com/francoisromain">Twitter</a>
+              <a href="https://francoisromain.com">Site</a>
             </li>
           </ul>
         </div>
@@ -416,20 +416,20 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                 src="../../../public/img/about/member-adrien-risser.jpg"
-                 alt="Portrait Adrien Risser"
-                 >
+                src="../../../public/img/about/member-adrien-risser.jpg"
+                alt="Portrait Adrien Risser"
+              >
             </div>
           </div>
 
-          <h3 class="mb-0">
+          <h3 class="mb-s">
             Adrien Risser
           </h3>
-          <h5>Développeur</h5>
+          <h6>Développeur</h6>
           <blockquote>
             Participer au bien commun, ligne de code par ligne de code.
           </blockquote>
-          <ul class="list-prefix">
+          <ul class="list-prefix mb-0">
             <li>
               <a href="https://www.linkedin.com/in/adrienrisser">LinkedIn</a>
             </li>
@@ -440,22 +440,22 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                 src="../../../public/img/about/member-florent-chalvet.jpg"
-                 alt="Portrait Florent Chalvet"
-                 >
+                src="../../../public/img/about/member-florent-chalvet.jpg"
+                alt="Portrait Florent Chalvet"
+              >
             </div>
           </div>
 
-          <h3 class="mb-0">
+          <h3 class="mb-s">
             Florent Chalvet
           </h3>
-          <h5>Développeur</h5>
+          <h6>Développeur</h6>
           <blockquote>
             Assurer la qualité des données pour certifier celle du service public.
           </blockquote>
-          <ul class="list-prefix">
+          <ul class="list-prefix mb-0">
             <li>
-              <a href="https://twitter.com/">Twitter</a>
+              <a href="https://fr.linkedin.com/in/florent-chalvet">LinkedIn</a>
             </li>
           </ul>
         </div>

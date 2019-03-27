@@ -86,7 +86,7 @@ h6 {
 blockquote {
   typescale: 0.5 1;
   font-style: italic;
-  padding: var(--unit);
+  padding: var(--unit-s);
   quotes: '«\00A0''\00A0»';
 }
 
