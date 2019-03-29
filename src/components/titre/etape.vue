@@ -61,18 +61,29 @@
           class="tablet-blob-1-4"
         >
           <h6>Titulaires</h6>
-          <p>
-            {{ etape.titulaires.map(t => etablissementNameFind(t.etablissements, etape.date)).join(', ') }}
-          </p>
+          <ul class="list-prefix">
+            <li
+              v-for="t in etape.titulaires"
+              :key="t.id"
+            >
+              {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
+            </li>
+          </ul>
         </div>
         <div
           v-if="etape.amodiataires.length"
           class="tablet-blob-1-4"
         >
           <h6>Amodiataires</h6>
-          <p>
-            {{ etape.amodiataires.map(a => etablissementNameFind(a.etablissements, etape.dateDebut)).join(', ') }}
-          </p>
+
+          <ul class="list-prefix">
+            <li
+              v-for="t in etape.amodiataires"
+              :key="t.id"
+            >
+              {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
+            </li>
+          </ul>
         </div>
         <div
           v-if="etape.engagement"
@@ -87,6 +98,21 @@
         >
           <h6>Substances</h6>
           <PillList :elements="etape.substances.map(s => s.nom)" />
+        </div>
+
+        <div
+          v-if="etape.visas && etape.visas.length"
+          class="tablet-blob-1 large-blob-1-2"
+        >
+          <h6>Visas</h6>
+          <ul class="list-prefix h5">
+            <li
+              v-for="(visa, i) in etape.visas"
+              :key="i"
+            >
+              {{ visa }}
+            </li>
+          </ul>
         </div>
       </div>
     </template>
@@ -121,9 +147,9 @@ export default {
       type: Object,
       default: () => {}
     },
-    demarcheId: {
-      type: String,
-      default: ''
+    demarcheType: {
+      type: Object,
+      default: () => {}
     }
   },
 
@@ -131,17 +157,27 @@ export default {
     editPopupOpen() {
       const etapeCloneAndFormat = etape => {
         const etapeTmp = JSON.parse(JSON.stringify(etape))
-        const dateEditFormat = date => date.split('T')[0]
 
         if (etapeTmp.date) {
-          etapeTmp.date = dateEditFormat(etapeTmp.date)
+          etapeTmp.date = this.dateFormat(etapeTmp.date)
         }
+
         if (etapeTmp.dateDebut) {
-          etapeTmp.dateDebut = dateEditFormat(etapeTmp.dateDebut)
+          etapeTmp.dateDebut = this.dateFormat(etapeTmp.dateDebut)
         }
+
         if (etapeTmp.dateFin) {
-          etapeTmp.dateFin = dateEditFormat(etapeTmp.dateFin)
+          etapeTmp.dateFin = this.dateFormat(etapeTmp.dateFin)
         }
+
+        etapeTmp.visas = etapeTmp.visas
+          ? etapeTmp.visas.map((texte, id) => ({
+              id,
+              texte
+            }))
+          : []
+
+        console.log(etapeTmp.visas)
 
         if (etapeTmp.points) {
           etapeTmp.groupes = etapeTmp.points.reduce((groupes, point) => {
@@ -158,11 +194,10 @@ export default {
               description: point.description,
               references: point.references
             }
+
             return groupes
           }, [])
         }
-
-        console.log(etapeTmp.groupes)
 
         delete etapeTmp.points
         delete etapeTmp.geojsonPoints
@@ -175,7 +210,10 @@ export default {
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
-          etape: etapeCloneAndFormat(this.etape)
+          etape: etapeCloneAndFormat(this.etape),
+          domaineId: this.$store.state.titre.current.domaine.id,
+          demarcheType: this.demarcheType,
+          titreNom: this.$store.state.titre.current.nom
         }
       })
     },
@@ -191,7 +229,7 @@ export default {
           !e.dateDebut
       )
 
-      return (etablissement && etablissement.nom) || '–'
+      return etablissement && etablissement.nom
     }
   }
 }

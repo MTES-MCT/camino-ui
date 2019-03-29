@@ -38,7 +38,7 @@
               :key="titulaire.id"
               class="h5 mb-0"
             >
-              {{ titulaire.etablissements[0].nom }}
+              {{ titulaire.etablissements.nom }}
             </p>
           </td>
           <td>

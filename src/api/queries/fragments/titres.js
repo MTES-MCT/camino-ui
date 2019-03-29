@@ -1,9 +1,10 @@
 import gql from 'graphql-tag'
 import fragmentEntreprise from './entreprise'
 import fragmentAdministration from './administration'
-import { fragmentTitreListSubstance } from './titre-substance'
+import { fragmentTitresSubstance } from './titre-substance'
 import { fragmentGeojsonMultiPolygon } from './geojson'
-import { fragmentTitreListDemarche } from './titre-demarche'
+import { fragmentTitresDemarche } from './titre-demarche'
+import { fragmentTitresActivite } from './titre-activite'
 
 const fragmentTitreList = gql`
   fragment titreList on Titre {
@@ -27,7 +28,7 @@ const fragmentTitreList = gql`
       valeur
     }
     substances {
-      ...titreListSubstance
+      ...titresSubstance
     }
     surface
     volume
@@ -51,7 +52,10 @@ const fragmentTitreList = gql`
       ...geojsonMultiPolygon
     }
     demarches {
-      ...titreListDemarche
+      ...titresDemarche
+    }
+    activites {
+      ...titresActivite
     }
   }
 
@@ -59,11 +63,13 @@ const fragmentTitreList = gql`
 
   ${fragmentEntreprise}
 
-  ${fragmentTitreListSubstance}
+  ${fragmentTitresSubstance}
 
-  ${fragmentTitreListDemarche}
+  ${fragmentTitresDemarche}
 
   ${fragmentGeojsonMultiPolygon}
+
+  ${fragmentTitresActivite}
 `
 
 export default fragmentTitreList

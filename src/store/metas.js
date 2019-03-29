@@ -3,8 +3,7 @@ import Vue from 'vue'
 export const state = {
   types: [],
   domaines: [],
-  statuts: [],
-  demarchesTypes: []
+  statuts: []
 }
 
 export const actions = {

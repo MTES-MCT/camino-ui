@@ -2,6 +2,7 @@ import dateFormatLib from 'date-format'
 
 const dateFormat = isoDate => {
   return dateFormatLib('yyyy-MM-dd', new Date(isoDate))
+  // .replace(/ *\([^)]*\) */g,'')
 }
 
 function numberFormat(x) {

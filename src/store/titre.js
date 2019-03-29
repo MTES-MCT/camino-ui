@@ -12,7 +12,7 @@ export const actions = {
 
     try {
       const res = await titre(id)
-      
+
       if (res) {
         commit('set', res)
       } else {
@@ -38,16 +38,6 @@ export const actions = {
     commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
     try {
-      const propsMandatory = ['date', 'type', 'statut']
-      const propsMissing = propsMandatory.reduce(
-        (acc, prop) => (etape[prop] ? acc : [...acc, prop]),
-        []
-      )
-      if (propsMissing.length > 1) {
-        throw `les champs ${propsMissing.join(', ')} sont requis`
-      } else if (propsMissing.length > 0) {
-        throw `le champ ${propsMissing[0]} est requis`
-      }
       const res = await titreEtapeUpdate({ etape })
 
       if (res) {

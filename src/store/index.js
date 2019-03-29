@@ -69,7 +69,6 @@ export const actions = {
           'types',
           'domaines',
           'statuts',
-          'demarchesTypes',
           'devises',
           'volumeUnites',
           'geoSystemes'

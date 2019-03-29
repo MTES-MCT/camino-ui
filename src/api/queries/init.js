@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 import fragmentSubstance from './fragments/substance'
 import fragmentEntreprise from './fragments/entreprise'
 import fragmentPermission from './fragments/permission'
-import fragmentMeta from './fragments/meta'
+import { fragmentMeta } from './fragments/metas'
 
 const queryInit = gql`
   query Init {

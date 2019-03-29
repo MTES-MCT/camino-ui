@@ -27,11 +27,11 @@ const fragmentTitreSubstance = gql`
   }
 `
 
-const fragmentTitreListSubstance = gql`
-  fragment titreListSubstance on TitreSubstance {
+const fragmentTitresSubstance = gql`
+  fragment titresSubstance on TitreSubstance {
     id
     nom
   }
 `
 
-export { fragmentTitreSubstance, fragmentTitreListSubstance }
+export { fragmentTitreSubstance, fragmentTitresSubstance }

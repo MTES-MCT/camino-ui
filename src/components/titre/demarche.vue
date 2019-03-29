@@ -79,7 +79,7 @@
       v-for="etape in demarche.etapes"
       :key="etape.id"
       :etape="etape"
-      :demarche-id="demarche.id"
+      :demarche-type="demarche.type"
     />
   </div>
 </template>

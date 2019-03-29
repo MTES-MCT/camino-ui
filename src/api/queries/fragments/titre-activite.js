@@ -38,4 +38,40 @@ const fragmentTitreActivite = gql`
   }
 `
 
-export default fragmentTitreActivite
+const fragmentTitresActivite = gql`
+  fragment titresActivite on TitreActivite {
+    id
+    titreId
+    date
+    statut {
+      id
+    }
+    periode
+    annee
+    sections
+    type {
+      id
+      nom
+      pays {
+        id
+        nom
+      }
+      frequence {
+        id
+        nom
+        trimestres {
+          id
+          nom
+          mois {
+            id
+            nom
+          }
+        }
+      }
+    }
+    dateSaisie
+    contenu
+  }
+`
+
+export { fragmentTitreActivite, fragmentTitresActivite }

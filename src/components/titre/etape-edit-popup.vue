@@ -4,11 +4,11 @@
       <div>
         <h5>
           <span class="cap-first">
-            {{ titre.nom }}
+            {{ titreNom }}
           </span><span class="color-neutral">
             |
           </span><span class="cap-first">
-            {{ demarche.type.nom }}
+            {{ demarcheType.nom }}
           </span>
         </h5>
         <h2 class="cap-first mb-0">
@@ -169,6 +169,44 @@
 
     <div>
       <h3 class="mb-s">
+        Visas ({{ etape.visas.filter(({ texte }) => texte).length }})
+      </h3>
+      <p class="h6 italic mb-s">
+        Optionel
+      </p>
+      <hr>
+      <div
+        v-for="visa in etape.visas"
+        :key="visa.id"
+        class="flex full-x mb"
+      >
+        <textarea
+          v-model="visa.texte"
+          class="p-s mr"
+        />
+        <div class="flex-right">
+          <button
+            class="btn-border p-s rnd-xs"
+            @click="visaRemove(visa.id)"
+          >
+            <i class="icon-24 icon-24-minus" />
+          </button>
+        </div>
+      </div>
+
+      <button
+        v-if="etape.visas && !etape.visas.find(v => !v.texte)"
+        class="btn-border rnd-xs p-s full-x mb flex"
+        @click="visaAdd"
+      >
+        Ajouter un visa<i class="icon-24 icon-24-plus flex-right" />
+      </button>
+
+      <hr>
+    </div>
+
+    <div class="hide">
+      <h3 class="mb-s">
         Périmètre ({{ pointsTotal.length }} points)
       </h3>
       <div class="h5 mb-s">
@@ -191,7 +229,6 @@
         </ul>
       </div>
       <hr>
-
       <div
         v-for="(contours, groupeIndex) in etape.groupes"
         :key="groupeIndex + 1"
@@ -366,9 +403,7 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div>
       <button
         class="btn-border rnd-xs p-s full-x mb  flex"
         @click="pointAdd"
@@ -380,7 +415,7 @@
 
     <div>
       <h3 class="mb-s">
-        Titulaires ({{ etape.titulaires.length }})
+        Titulaires ({{ etape.titulaires.filter(({ id }) => id).length }})
       </h3>
       <hr>
       <div
@@ -399,12 +434,7 @@
               :value="entreprise"
               :disabled="etape.titulaires.find(t => t.id === entreprise.id)"
             >
-              {{ entreprise.etablissements.length && entreprise.etablissements[0].nom }}
-              {{
-                entreprise.legalSiren ||
-                  entreprise.legalEtranger ||
-                  entreprise.id
-              }}
+              {{ entreprise.nom }} ({{ entreprise.id }})
             </option>
           </select>
           <div class="flex-right">
@@ -432,7 +462,7 @@
 
     <div>
       <h3 class="mb-s">
-        Amodiataires ({{ etape.amodiataires.length }})
+        Amodiataires ({{ etape.amodiataires.filter(({ id }) => id).length }})
       </h3>
       <hr>
       <div
@@ -451,7 +481,7 @@
               :value="entreprise"
               :disabled="etape.amodiataires.find(a => a.id === entreprise.id)"
             >
-              {{ entreprise.etablissements[0].nom }} ({{ entreprise.id }})
+              {{ entreprise.nom }} ({{ entreprise.id }})
             </option>
           </select>
 
@@ -485,14 +515,14 @@
       <hr>
       <div
         v-for="(etapeSubstance, n) in etape.substances"
-        :key="etapeSubstance.id"
+        :key="n"
       >
         <div class="flex full-x mb">
           <select
             v-model="etapeSubstance.id"
             type="text"
             class="p-s mr"
-            @change="substanceUpdate(n, etapeSubstance.id)"
+            @change="substanceUpdate(n, $event)"
           >
             <option
               v-for="substance in substances"
@@ -506,7 +536,7 @@
           <div class="flex-right">
             <button
               class="btn-border p-s rnd-xs"
-              @click="substanceRemove(etapeSubstance.id)"
+              @click="substanceRemove(n)"
             >
               <i class="icon-24 icon-24-minus" />
             </button>
@@ -516,7 +546,7 @@
       </div>
     </div>
 
-    <div v-if="!etape.substances.find(t => t.id === '')">
+    <div v-if="etape.substances && !etape.substances.find(t => t.id === '')">
       <button
         class="btn-border rnd-xs p-s full-x mb  flex"
         @click="substanceAdd"
@@ -567,7 +597,15 @@ export default {
       type: Object,
       default: () => ({})
     },
-    demarcheId: {
+    demarcheType: {
+      type: Object,
+      default: () => ({})
+    },
+    domaineId: {
+      type: String,
+      default: ''
+    },
+    titreNom: {
       type: String,
       default: ''
     }
@@ -583,49 +621,21 @@ export default {
     messages() {
       return this.$store.state.popup.messages
     },
+    etapesTypes() {
+      return this.demarcheType.etapesTypes && this.demarcheType.etapesTypes
+    },
+    etapesStatuts() {
+      const etapeType =
+        this.etapesTypes &&
+        this.etapesTypes.find(t => t.id === this.etape.type.id)
+      return etapeType && etapeType.etapesStatuts
+    },
     entreprises() {
       return this.$store.state.entreprises.list
     },
     substances() {
-      return this.$store.state.substances.list
-    },
-    demarcheType() {
-      return (
-        this.demarche &&
-        this.$store.state.metas.demarchesTypes &&
-        this.$store.state.metas.demarchesTypes.find(
-          dt => dt.id === this.demarche.type.id
-        )
-      )
-    },
-    types() {
-      return (
-        this.titre &&
-        this.demarcheType &&
-        this.demarcheType.etapesTypes &&
-        this.demarcheType.etapesTypes.filter(
-          et => et.typeId === this.titre.type.id
-        )
-      )
-    },
-    etapesTypes() {
-      return this.types && this.types.map(et => ({ id: et.id, nom: et.nom }))
-    },
-    etapeType() {
-      return this.types && this.types.find(t => t.id === this.etape.type.id)
-    },
-    etapesStatuts() {
-      return this.etapeType && this.etapeType.etapesStatuts
-    },
-    titre() {
-      return this.$store.state.titre.current
-    },
-    demarche() {
-      return (
-        this.titre &&
-        this.titre.demarches.find(d =>
-          d.etapes.find(e => e.id === this.etape.id)
-        )
+      return this.$store.state.substances.list.filter(su =>
+        su.legales.find(sl => sl.domaine.id === this.domaineId)
       )
     },
     pointsTotal() {
@@ -651,26 +661,50 @@ export default {
     save() {
       const etapeCloneAndFormat = etape => {
         const etapeTmp = JSON.parse(JSON.stringify(etape))
-        etapeTmp.titulaires = etapeTmp.titulaires.filter(t => t.id)
-        etapeTmp.amodiataires = etapeTmp.amodiataires.filter(t => t.id)
-        etapeTmp.administrations = etapeTmp.administrations.filter(t => t.id)
-        etapeTmp.substances = etapeTmp.substances.filter(t => t.id)
-        etapeTmp.emprises = etapeTmp.emprises.filter(t => t.id)
+        etapeTmp.titulaires = etapeTmp.titulaires.reduce(
+          (r, { id }) => (id ? [...r, { id }] : r),
+          []
+        )
+        etapeTmp.amodiataires = etapeTmp.amodiataires.reduce(
+          (r, { id }) => (id ? [...r, { id }] : r),
+          []
+        )
+        etapeTmp.administrations = etapeTmp.administrations.reduce(
+          (r, { id }) => (id ? [...r, { id }] : r),
+          []
+        )
+        etapeTmp.substances = etapeTmp.substances.reduce(
+          (r, { id }) => (id ? [...r, { id }] : r),
+          []
+        )
+        etapeTmp.emprises = etapeTmp.emprises.reduce(
+          (r, { id }) => (id ? [...r, { id }] : r),
+          []
+        )
+        etapeTmp.typeId = etapeTmp.type.id
+        etapeTmp.statutId = etapeTmp.statut.id
+        etapeTmp.visas = etapeTmp.visas.reduce(
+          (res, { texte }) => (texte ? [...res, texte] : res),
+          []
+        )
+
+        delete etapeTmp.type
+        delete etapeTmp.statut
 
         if (etapeTmp.groupes) {
-          etapeTmp.points = etapeTmp.groupes.reduce(
-            (points, groupe) => [
-              ...points,
-              groupe.reduce(
-                (pos, contour) => [
-                  ...pos,
-                  contour.reduce((ps, point) => [...ps, point], [])
-                ],
-                []
-              )
-            ],
-            []
-          )
+          // etapeTmp.points = etapeTmp.groupes.reduce(
+          //   (points, groupe) => [
+          //     ...points,
+          //     groupe.reduce(
+          //       (pos, contour) => [
+          //         ...pos,
+          //         contour.reduce((ps, point) => [...ps, point], [])
+          //       ],
+          //       []
+          //     )
+          //   ],
+          //   []
+          // )
 
           delete etapeTmp.groupes
         }
@@ -715,15 +749,26 @@ export default {
     },
 
     typeUpdate(etapeTypeId) {
-      this.etape.type = this.etapesTypes.find(et => et.id === etapeTypeId)
+      this.etape.type = Object.assign(
+        {},
+        this.etapesTypes.find(et => et.id === etapeTypeId)
+      )
     },
 
     statutUpdate(etapeStatutId) {
-      this.etape.statut = this.etapesStatuts.find(es => es.id === etapeStatutId)
+      this.etape.statut = Object.assign(
+        {},
+        this.etapesStatuts.find(es => es.id === etapeStatutId)
+      )
     },
 
     pointAdd() {
+      if (!this.etape.groupes.length) {
+        this.etape.groupes = [[[]]]
+      }
       const contours = this.etape.groupes[this.etape.groupes.length - 1]
+      console.log(this.etape.groupes, contours)
+
       const points = contours[contours.length - 1]
       const point = {
         id: '',
@@ -781,19 +826,28 @@ export default {
       this.etape.substances.push(substance)
     },
 
-    substanceUpdate(etapeSubstanceIndex, substanceId) {
-      this.etape.substances[etapeSubstanceIndex] = this.substances.find(
-        s => s.id === substanceId
+    substanceUpdate(etapeSubstanceIndex, e) {
+      const substanceId = e.target.value
+      this.etape.substances[etapeSubstanceIndex] = Object.assign(
+        {},
+        this.substances.find(s => s.id === substanceId)
       )
     },
 
-    substanceRemove(id) {
-      const index = this.etape.substances.findIndex(t => t.id === id)
+    substanceRemove(index) {
       this.etape.substances.splice(index, 1)
     },
 
     arrayOfNumbersCreate(length) {
       return [...Array(length).keys()].map(i => i + 1)
+    },
+
+    visaAdd() {
+      this.etape.visas.push({ id: this.etape.visas.length, texte: '' })
+    },
+
+    visaRemove(id) {
+      this.etape.visas.splice(id, 1)
     }
   }
 }

@@ -87,7 +87,7 @@
               v-for="titulaire in titre.titulaires"
               :key="titulaire.id"
             >
-              {{ entrepriseNameFind(titulaire) }}
+              {{ titulaire.nom }}
             </li>
           </ul>
         </div>
@@ -101,7 +101,7 @@
               v-for="amodiataire in titre.amodiataires"
               :key="amodiataire.id"
             >
-              {{ entrepriseNameFind(amodiataire) }}
+              {{ amodiataire.nom }}
             </li>
           </ul>
         </div>
@@ -146,22 +146,6 @@ export default {
     titre: {
       type: Object,
       default: () => ({})
-    }
-  },
-
-  methods: {
-    entrepriseNameFind(entreprise) {
-      return (
-        entreprise.nom ||
-        // trouve l'établissement le plus récent
-        entreprise.etablissements.reduce(
-          (res, e) =>
-            res && this.dateFormat(res.dateDebut) > this.dateFormat(e.dateDebut)
-              ? res
-              : e,
-          null
-        ).nom
-      )
     }
   }
 }
