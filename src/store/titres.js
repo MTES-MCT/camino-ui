@@ -10,15 +10,15 @@ export const state = {
   },
   filterInputs: {
     noms: { name: 'Nom', values: [], placeholder: '…' },
-    substances: {
-      name: 'Substances',
-      values: [],
-      placeholder: 'Or, Argent, Ag, …'
-    },
     entreprises: {
       name: 'Entreprises',
       values: [],
       placeholder: 'Nom ou siret'
+    },
+    substances: {
+      name: 'Substances',
+      values: [],
+      placeholder: 'Or, Argent, Ag, …'
     },
     references: {
       name: 'Références',
