@@ -3,17 +3,18 @@
     <template slot="title">
       <span>{{ administration.nom }}</span>
       <Tag
-        v-if="administration['coordinateur']"
+        v-if="administration.coordinateur"
         :color="'bg-highlight'"
       >
         Coord.
       </Tag>
     </template>
     <div
+      v-if="content"
       class="px-m pt-m"
     >
       <div
-        v-if="administration.adresse1"
+        v-if="administration.adresse1 || administration.adresse2"
         class="large-blobs"
       >
         <div class="large-blob-1-6">
@@ -24,6 +25,7 @@
         >
           <p>
             {{ administration.adresse1 }}
+            <span v-if="administration.adresse2"><br>{{ administration.adresse2 }}</span>
             <br>{{ administration.codePostal }}
             {{ administration.commune }}
           </p>
@@ -61,7 +63,7 @@
         </div>
       </div>
       <div
-        v-if="administration.site"
+        v-if="administration.url"
         class="large-blobs"
       >
         <div class="large-blob-1-6">
@@ -70,10 +72,12 @@
         <div class="large-blob-5-6">
           <p class="word-break">
             <a
-              :href="administration.site"
+              :href="administration.url"
               class="btn h6 bold py-xs px-s rnd"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {{ administration.site }}
+              {{ administration.url }}
             </a>
           </p>
         </div>
@@ -99,7 +103,21 @@ export default {
     }
   },
 
-  methods: {
-  }
+  computed: {
+    content() {
+      return (
+        this.administration.legalForme ||
+        this.administration.adresse1 ||
+        this.administration.adresse2 ||
+        this.administration.codePostal ||
+        this.administration.commune ||
+        this.administration.telephone ||
+        this.administration.email ||
+        this.administration.url
+      )
+    }
+  },
+
+  methods: {}
 }
 </script>

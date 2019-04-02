@@ -3,9 +3,9 @@
     <div class="tablet-blob-1-2">
       <div v-if="titulaires.length">
         <h6>
-          {{ titulaires.length > 1 ? "Titulaires" : "Titulaire" }}
+          Titulaire{{ titulaires.length > 1 ? 's' : '' }}
         </h6>
-        <Company
+        <Entreprise
           v-for="titulaire in titulaires"
           :key="titulaire.id"
           :entreprise="titulaire"
@@ -14,11 +14,9 @@
       </div>
       <div v-if="amodiataires.length">
         <h6>
-          {{
-            amodiataires.length > 1 ? "Amodiataires" : "Amodiataire"
-          }}
+          Amodiataire{{ amodiataires.length > 1 ? 's' : '' }}
         </h6>
-        <Company
+        <Entreprise
           v-for="amodiatiare in amodiataires"
           :key="amodiatiare.id"
           :entreprise="amodiatiare"
@@ -28,24 +26,26 @@
     </div>
 
     <div class="tablet-blob-1-2">
-      <h6>Administrations</h6>
-      <Administration
-        v-for="administration in administrations"
-        :key="administration.id"
-        :administration="administration"
-        class="mb"
-      />
+      <div v-if="administrations.length">
+        <h6>Administrations</h6>
+        <Administration
+          v-for="administration in administrations"
+          :key="administration.id"
+          :administration="administration"
+          class="mb"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Company from '../titre/company.vue'
+import Entreprise from '../titre/entreprise.vue'
 import Administration from '../titre/administration.vue'
 
 export default {
   components: {
-    Company,
+    Entreprise,
     Administration
   },
   props: {

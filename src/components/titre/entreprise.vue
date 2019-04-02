@@ -3,19 +3,14 @@
     <template slot="title">
       <span>{{ entrepriseNameFind(entreprise) }}</span>
       <Tag
-        v-if="entreprise['coordinateur']"
-        :color="'bg-highlight'"
-      >
-        Coord.
-      </Tag>
-      <Tag
-        v-if="entreprise['opérateur']"
+        v-if="entreprise.operateur"
         :color="'bg-highlight'"
       >
         Opé.
       </Tag>
     </template>
     <div
+      v-if="content"
       class="px-m pt-m"
     >
       <div
@@ -139,6 +134,21 @@ export default {
     entreprise: {
       type: Object,
       default: () => {}
+    }
+  },
+
+  computed: {
+    content() {
+      return (
+        this.entreprise.legalForme ||
+        this.entreprise.etablissements.length ||
+        this.entreprise.adresse ||
+        this.entreprise.codePostal ||
+        this.entreprise.commune ||
+        this.entreprise.telephone ||
+        this.entreprise.email ||
+        this.entreprise.url
+      )
     }
   },
 
