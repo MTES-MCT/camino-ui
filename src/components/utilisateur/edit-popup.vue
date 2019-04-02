@@ -185,7 +185,7 @@
                 :key="entreprise.id"
                 :value="entreprise"
               >
-                {{ entreprise.etablissements.length && entreprise.etablissements[0].nom }}
+                {{ entreprise.nom }}
                 {{
                   entreprise.legalSiren ||
                     entreprise.legalEtranger ||
@@ -305,6 +305,10 @@ export default {
   methods: {
     save() {
       if (this.complete) {
+        if (this.utilisateur.entreprise) {
+          this.utilisateur.entreprise = { id: this.utilisateur.entreprise.id }
+        }
+
         if (this.action === 'create') {
           this.$store.dispatch('utilisateurs/add', this.utilisateur)
         } else {

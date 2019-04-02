@@ -1,9 +1,8 @@
 import gql from 'graphql-tag'
 
 const fragmentTitreActivite = gql`
-  fragment activite on TitreActivite {
+  fragment titreActivite on TitreActivite {
     id
-    titreId
     date
     statut {
       id
@@ -41,36 +40,11 @@ const fragmentTitreActivite = gql`
 const fragmentTitresActivite = gql`
   fragment titresActivite on TitreActivite {
     id
-    titreId
     date
     statut {
       id
+      couleur
     }
-    periode
-    annee
-    sections
-    type {
-      id
-      nom
-      pays {
-        id
-        nom
-      }
-      frequence {
-        id
-        nom
-        trimestres {
-          id
-          nom
-          mois {
-            id
-            nom
-          }
-        }
-      }
-    }
-    dateSaisie
-    contenu
   }
 `
 

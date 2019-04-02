@@ -80,7 +80,7 @@ const fragmentTitre = gql`
       ...titreDemarche
     }
     activites {
-      ...activite
+      ...titreActivite
     }
   }
 

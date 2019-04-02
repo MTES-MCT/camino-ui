@@ -5,11 +5,14 @@
         <tr>
           <th />
           <th>Nom</th>
+          <th>Type</th>
+          <th>Statut</th>
+          <th v-if="activitesCol">
+            À traiter
+          </th>
           <th>
             Titulaires
           </th>
-          <th>Type</th>
-          <th>Statut</th>
           <th>Substances</th>
         </tr>
         <RouterLink
@@ -30,17 +33,6 @@
           <td class="bold">
             {{ titre.nom }}
           </td>
-          <td
-            v-if="titre.titulaires"
-          >
-            <p
-              v-for="titulaire in titre.titulaires"
-              :key="titulaire.id"
-              class="h5 mb-0"
-            >
-              {{ titulaire.nom }}
-            </p>
-          </td>
           <td>
             <p class="cap-first h5 mb-0">
               {{ titre.type.nom }}
@@ -51,6 +43,26 @@
             <span class="cap-first h5 mb-0">
               {{ titre.statut.nom }}
             </span>
+          </td>
+          <td v-if="activitesCol">
+            <Pill
+              v-if="titreHasActivitesFind(titre.activites)"
+              :color="'bg-error'"
+              class="mb--xs"
+            >
+              {{ titreHasActivitesFind(titre.activites) }}
+            </Pill>
+          </td>
+          <td
+            v-if="titre.titulaires"
+          >
+            <p
+              v-for="titulaire in titre.titulaires"
+              :key="titulaire.id"
+              class="h5 mb-0"
+            >
+              {{ titulaire.nom }}
+            </p>
           </td>
           <td>
             <PillList
@@ -172,6 +184,9 @@ export default {
         res[page].push(cur)
         return res
       }, [])
+    },
+    activitesCol() {
+      return this.titres.find(t => this.titreHasActivitesFind(t.activites))
     }
   },
 
@@ -196,6 +211,11 @@ export default {
       this.pageChange(1)
       const query = Object.assign({}, this.$route.query, { pages })
       this.$router.push({ query })
+    },
+    titreHasActivitesFind(titreActivites) {
+      return titreActivites.filter(
+        e => e.statut.couleur === 'error' || e.statut.couleur === 'warning'
+      ).length
     }
   }
 }
