@@ -12,20 +12,20 @@ import mixins from './mixins'
 import { dateFormat } from './utils'
 
 /* global npmVersion */
-if (process.env.VUE_APP_SENTRY_DSN) {
-  Sentry.init({
-    dsn: process.env.VUE_APP_SENTRY_DSN,
-    integrations: [
-      new Sentry.Integrations.Vue({
-        Vue,
-        attachProps: true
-      }),
-      new Sentry.Integrations.RewriteFrames()
-    ],
-    // eslint-disable-next-line camelcase
-    release: `camino-ui-${npmVersion}`
-  })
-}
+// if (process.env.VUE_APP_SENTRY_DSN) {
+//   Sentry.init({
+//     dsn: process.env.VUE_APP_SENTRY_DSN,
+//     integrations: [
+//       new Sentry.Integrations.Vue({
+//         Vue,
+//         attachProps: true
+//       }),
+//       new Sentry.Integrations.RewriteFrames()
+//     ],
+//     // eslint-disable-next-line camelcase
+//     release: `camino-ui-${npmVersion}`
+//   })
+// }
 
 Vue.config.productionTip = false
 
