@@ -37,7 +37,7 @@
         class="large-blobs"
       >
         <div class="large-blob-1-6">
-          <h6>Établissements</h6>
+          <h6>Établissement{{ entreprise.etablissements.length > 1 ? 's' : '' }}</h6>
         </div>
         <div
           class="large-blob-5-6"
