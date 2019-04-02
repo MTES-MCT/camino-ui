@@ -1,6 +1,6 @@
 # Camino UI
 
-> Interface web de [Camino](https://camino.beta.gouv.fr).
+> Interface web de [Camino](https://camino.beta.gouv.fr), le cadastre minier numérique.
 
 ![camino screenshot](camino-screenshot.png)
 
