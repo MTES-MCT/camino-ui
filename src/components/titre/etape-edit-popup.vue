@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ etape && etape.type.nom }}
+          {{ etapeTypeNom }}
         </h2>
       </div>
     </template>
@@ -24,18 +24,17 @@
         </div>
         <div class="mb tablet-blob-2-3">
           <select
-            v-model="etape.type.id"
+            v-model="etape.typeId"
             type="text"
             class="p-s mr"
-            @change="typeUpdate(etape.type.id)"
           >
             <option
-              v-for="et in etapesTypes"
-              :key="et.id"
-              :value="et.id"
-              :disabled="etape.type.id === et.id"
+              v-for="etapeType in etapesTypes"
+              :key="etapeType.id"
+              :value="etapeType.id"
+              :disabled="etape.typeId === etapeType.id"
             >
-              {{ et.nom }}
+              {{ etapeType.nom }}
             </option>
           </select>
         </div>
@@ -52,16 +51,15 @@
         </div>
         <div class="mb tablet-blob-2-3">
           <select
-            v-model="etape.statut.id"
+            v-model="etape.statutId"
             type="text"
             class="p-s mr"
-            @change="statutUpdate(etape.statut.id)"
           >
             <option
               v-for="etapeStatut in etapesStatuts"
               :key="etapeStatut.id"
               :value="etapeStatut.id"
-              :disabled="etape.statut.id === etapeStatut.id"
+              :disabled="etape.statutId === etapeStatut.id"
             >
               {{ etapeStatut.nom }}
             </option>
@@ -155,13 +153,75 @@
             Optionel
           </p>
         </div>
-        <div class="mb tablet-blob-2-3">
-          <input
-            v-model.number="etape.engagement"
-            class="p-s"
-            type="number"
-            placeholder="0"
-          >
+        <div class="tablet-blob-2-3">
+          <div class="tablet-blobs">
+            <div class="mb tablet-blob-2-3">
+              <input
+                v-model.number="etape.engagement"
+                class="p-s"
+                type="number"
+                placeholder="0"
+              >
+            </div>
+
+            <div class="mb tablet-blob-1-3">
+              <select
+                v-model="etape.engagementDeviseId"
+                type="text"
+                class="p-s mr"
+              >
+                <option
+                  v-for="devise in devises"
+                  :key="devise.id"
+                  :value="devise.id"
+                  :disabled="etape.engagementDeviseId === devise.id"
+                >
+                  {{ devise.nom }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Volume</h6>
+          <p class="h6 italic mb-0">
+            Optionel
+          </p>
+        </div>
+        <div class="tablet-blob-2-3">
+          <div class="tablet-blobs">
+            <div class="mb tablet-blob-2-3">
+              <input
+                v-model.number="etape.volume"
+                class="p-s"
+                type="number"
+                placeholder="0"
+              >
+            </div>
+
+            <div class="mb tablet-blob-1-3">
+              <select
+                v-model="etape.volumeUniteId"
+                type="text"
+                class="p-s mr"
+              >
+                <option
+                  v-for="volumeUnite in volumeUnites"
+                  :key="volumeUnite.id"
+                  :value="volumeUnite.id"
+                  :disabled="etape.volumeUniteId === volumeUnite.id"
+                >
+                  {{ volumeUnite.nom }}
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
       <hr>
@@ -415,24 +475,24 @@
 
     <div>
       <h3 class="mb-s">
-        Titulaires ({{ etape.titulaires.filter(({ id }) => id).length }})
+        Titulaires ({{ etape.titulairesIds.filter(id => id).length }})
       </h3>
       <hr>
       <div
-        v-for="(titulaire, n) in etape.titulaires"
-        :key="`titluaire-${titulaire.id}`"
+        v-for="(titulaireId, n) in etape.titulairesIds"
+        :key="`titluaire-${titulaireId}`"
       >
         <div class="flex full-x mb">
           <select
-            v-model="etape.titulaires[n]"
+            v-model="etape.titulairesIds[n]"
             type="text"
             class="p-s mr"
           >
             <option
               v-for="entreprise in entreprises"
-              :key="`titulaire-${titulaire.id}-entreprise-${entreprise.id}`"
-              :value="entreprise"
-              :disabled="etape.titulaires.find(t => t.id === entreprise.id)"
+              :key="`titulaire-${titulaireId}-entreprise-${entreprise.id}`"
+              :value="entreprise.id"
+              :disabled="etape.titulairesIds.find(id => id === entreprise.id)"
             >
               {{ entreprise.nom }} ({{ entreprise.id }})
             </option>
@@ -440,7 +500,7 @@
           <div class="flex-right">
             <button
               class="btn-border p-s rnd-xs"
-              @click="titulaireRemove(titulaire.id)"
+              @click="titulaireRemove(titulaireId)"
             >
               <i class="icon-24 icon-24-minus" />
             </button>
@@ -450,7 +510,7 @@
       </div>
     </div>
 
-    <div v-if="!etape.titulaires.find(t => t.id === '')">
+    <div v-if="!etape.titulairesIds.find(t => t.id === '')">
       <button
         class="btn-border rnd-xs p-s full-x mb  flex"
         @click="titulaireAdd"
@@ -462,24 +522,24 @@
 
     <div>
       <h3 class="mb-s">
-        Amodiataires ({{ etape.amodiataires.filter(({ id }) => id).length }})
+        Amodiataires ({{ etape.amodiatairesIds.filter(id => id).length }})
       </h3>
       <hr>
       <div
-        v-for="(amodiataire, n) in etape.amodiataires"
+        v-for="(amodiataire, n) in etape.amodiatairesIds"
         :key="`amodiataire-${amodiataire.id}`"
       >
         <div class="flex full-x mb">
           <select
-            v-model="etape.amodiataires[n]"
+            v-model="etape.amodiatairesIds[n]"
             type="text"
             class="p-s mr"
           >
             <option
               v-for="entreprise in entreprises"
               :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
-              :value="entreprise"
-              :disabled="etape.amodiataires.find(a => a.id === entreprise.id)"
+              :value="entreprise.id"
+              :disabled="etape.amodiatairesIds.find(a => a.id === entreprise.id)"
             >
               {{ entreprise.nom }} ({{ entreprise.id }})
             </option>
@@ -498,7 +558,7 @@
       </div>
     </div>
 
-    <div v-if="!etape.amodiataires.find(t => t.id === '')">
+    <div v-if="!etape.amodiatairesIds.find(t => t.id === '')">
       <button
         class="btn-border rnd-xs p-s full-x mb  flex"
         @click="amodiataireAdd"
@@ -510,25 +570,24 @@
 
     <div>
       <h3 class="mb-s">
-        Substances ({{ etape.substances.length }})
+        Substances ({{ etape.substancesIds.filter(id => id).length }})
       </h3>
       <hr>
       <div
-        v-for="(etapeSubstance, n) in etape.substances"
+        v-for="(substanceId, n) in etape.substancesIds"
         :key="n"
       >
         <div class="flex full-x mb">
           <select
-            v-model="etapeSubstance.id"
+            v-model="etape.substancesIds[n]"
             type="text"
             class="p-s mr"
-            @change="substanceUpdate(n, $event)"
           >
             <option
               v-for="substance in substances"
               :key="substance.id"
               :value="substance.id"
-              :disabled="etape.substances.find(s => s.id === substance.id)"
+              :disabled="etape.substancesIds.find(id => id === substance.id)"
             >
               {{ substance.nom }}
             </option>
@@ -546,7 +605,7 @@
       </div>
     </div>
 
-    <div v-if="etape.substances && !etape.substances.find(t => t.id === '')">
+    <div v-if="etape.substancesIds && !etape.substancesIds.find(t => t.id === '')">
       <button
         class="btn-border rnd-xs p-s full-x mb  flex"
         @click="substanceAdd"
@@ -622,12 +681,12 @@ export default {
       return this.$store.state.popup.messages
     },
     etapesTypes() {
-      return this.demarcheType.etapesTypes && this.demarcheType.etapesTypes
+      return this.demarcheType.etapesTypes
     },
     etapesStatuts() {
       const etapeType =
         this.etapesTypes &&
-        this.etapesTypes.find(t => t.id === this.etape.type.id)
+        this.etapesTypes.find(t => t.id === this.etape.typeId)
       return etapeType && etapeType.etapesStatuts
     },
     entreprises() {
@@ -638,6 +697,12 @@ export default {
         su.legales.find(sl => sl.domaine.id === this.domaineId)
       )
     },
+    devises() {
+      return this.$store.state.metas.devises
+    },
+    volumeUnites() {
+      return this.$store.state.metas.volumeUnites
+    },
     pointsTotal() {
       return this.etape.groupes.reduce(
         (points, contours) => [
@@ -646,6 +711,10 @@ export default {
         ],
         []
       )
+    },
+    etapeTypeNom() {
+      const etapeType = this.etapesTypes.find(et => et.id === this.etape.typeId)
+      return etapeType && etapeType.nom
     }
   },
 
@@ -659,76 +728,50 @@ export default {
 
   methods: {
     save() {
-      const etapeCloneAndFormat = etape => {
-        const etapeTmp = JSON.parse(JSON.stringify(etape))
-        etapeTmp.titulaires = etapeTmp.titulaires.reduce(
-          (r, { id }) => (id ? [...r, { id }] : r),
-          []
-        )
-        etapeTmp.amodiataires = etapeTmp.amodiataires.reduce(
-          (r, { id }) => (id ? [...r, { id }] : r),
-          []
-        )
-        etapeTmp.administrations = etapeTmp.administrations.reduce(
-          (r, { id }) => (id ? [...r, { id }] : r),
-          []
-        )
-        etapeTmp.substances = etapeTmp.substances.reduce(
-          (r, { id }) => (id ? [...r, { id }] : r),
-          []
-        )
-        etapeTmp.emprises = etapeTmp.emprises.reduce(
-          (r, { id }) => (id ? [...r, { id }] : r),
-          []
-        )
-        etapeTmp.typeId = etapeTmp.type.id
-        etapeTmp.statutId = etapeTmp.statut.id
-        etapeTmp.visas = etapeTmp.visas.reduce(
-          (res, { texte }) => (texte ? [...res, texte] : res),
-          []
-        )
+      const etape = JSON.parse(JSON.stringify(this.etape))
 
-        delete etapeTmp.type
-        delete etapeTmp.statut
+      const propsFilter = (obj, prop, key) =>
+        obj[prop].reduce((r, o) => (o[key] ? [...r, o[key]] : r), [])
 
-        if (etapeTmp.groupes) {
-          // etapeTmp.points = etapeTmp.groupes.reduce(
-          //   (points, groupe) => [
-          //     ...points,
-          //     groupe.reduce(
-          //       (pos, contour) => [
-          //         ...pos,
-          //         contour.reduce((ps, point) => [...ps, point], [])
-          //       ],
-          //       []
-          //     )
-          //   ],
-          //   []
-          // )
+      etape.visas = propsFilter(etape, 'visas', 'texte')
 
-          delete etapeTmp.groupes
-        }
+      if (etape.groupes) {
+        // etape.points = etape.groupes.reduce(
+        //   (points, groupe) => [
+        //     ...points,
+        //     groupe.reduce(
+        //       (pos, contour) => [
+        //         ...pos,
+        //         contour.reduce((ps, point) => [...ps, point], [])
+        //       ],
+        //       []
+        //     )
+        //   ],
+        //   []
+        // )
 
-        const props = [
-          'date',
-          'dateDebut',
-          'dateFin',
-          'surface',
-          'volume',
-          'volumeUnite'
-        ]
-
-        props.forEach(prop => {
-          if (etapeTmp[prop] === '') {
-            etapeTmp[prop] = null
-          }
-        })
-        console.log(JSON.stringify(etapeTmp, null, 2))
-
-        return etapeTmp
+        delete etape.groupes
       }
 
-      this.$store.dispatch('titre/etapeUpdate', etapeCloneAndFormat(this.etape))
+      const props = [
+        'date',
+        'dateDebut',
+        'dateFin',
+        'surface',
+        'volume',
+        'volumeUniteId',
+        'engagement',
+        'engagementDeviseId'
+      ]
+
+      props.forEach(prop => {
+        if (etape[prop] === '') {
+          etape[prop] = null
+        }
+      })
+      console.log(JSON.stringify(etape, null, 2))
+
+      this.$store.dispatch('titre/etapeUpdate', etape)
     },
 
     cancel() {
@@ -746,20 +789,6 @@ export default {
 
     errorsRemove() {
       // this.$store.commit('utilisateur/loginMessagesRemove')
-    },
-
-    typeUpdate(etapeTypeId) {
-      this.etape.type = Object.assign(
-        {},
-        this.etapesTypes.find(et => et.id === etapeTypeId)
-      )
-    },
-
-    statutUpdate(etapeStatutId) {
-      this.etape.statut = Object.assign(
-        {},
-        this.etapesStatuts.find(es => es.id === etapeStatutId)
-      )
     },
 
     pointAdd() {
@@ -797,45 +826,45 @@ export default {
     },
 
     titulaireAdd() {
-      this.etape.titulaires.push({ id: '' })
+      this.etape.titulairesIds.push('')
     },
 
     titulaireSet(titulaireId) {
-      const index = this.etape.titulaires.findIndex(t => t.id === titulaireId)
+      const index = this.etape.titulairesIds.findIndex(id => id === titulaireId)
       const entreprise = this.entreprises.find(e => e.id === titulaireId)
-      this.$set(this.etape.titulaires, index, entreprise)
+      this.$set(this.etape.titulairesIds, index, entreprise)
     },
 
-    titulaireRemove(id) {
-      const index = this.etape.titulaires.findIndex(t => t.id === id)
-      this.etape.titulaires.splice(index, 1)
+    titulaireRemove(titulaireId) {
+      const index = this.etape.titulairesIds.findIndex(id => id === titulaireId)
+      this.etape.titulairesIds.splice(index, 1)
     },
 
     amodiataireAdd() {
-      const amodiataire = { id: '', nom: '' }
-      this.etape.amodiataires.push(amodiataire)
+      this.etape.amodiatairesIds.push('')
     },
 
-    amodiataireRemove(id) {
-      const index = this.etape.amodiataires.findIndex(t => t.id === id)
-      this.etape.amodiataires.splice(index, 1)
+    amodiataireRemove(amodiataireId) {
+      const index = this.etape.amodiatairesIds.findIndex(
+        id => id === amodiataireId
+      )
+      this.etape.amodiatairesIds.splice(index, 1)
     },
 
     substanceAdd() {
-      const substance = { id: '', nom: '' }
-      this.etape.substances.push(substance)
+      this.etape.substancesIds.push('')
     },
 
-    substanceUpdate(etapeSubstanceIndex, e) {
+    substanceSet(etapeSubstanceIndex, e) {
       const substanceId = e.target.value
-      this.etape.substances[etapeSubstanceIndex] = Object.assign(
+      this.etape.substancesIds[etapeSubstanceIndex] = Object.assign(
         {},
         this.substances.find(s => s.id === substanceId)
       )
     },
 
     substanceRemove(index) {
-      this.etape.substances.splice(index, 1)
+      this.etape.substancesIds.splice(index, 1)
     },
 
     arrayOfNumbersCreate(length) {

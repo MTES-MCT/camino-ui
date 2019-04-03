@@ -109,7 +109,10 @@
 
         <div v-if="titre.engagement">
           <h6>Engagement financier</h6>
-          <p>{{ numberFormat(titre.engagement) }} {{ titre.engagementDevise.id }}</p>
+          <p>
+            {{ numberFormat(titre.engagement) }}
+            <span v-if="titre.engagementDevise"> {{ titre.engagementDevise.id }}</span>
+          </p>
         </div>
 
         <div v-if="titre['liens']">

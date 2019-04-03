@@ -90,7 +90,20 @@
           class="tablet-blob-1-4"
         >
           <h6>Engagement financier</h6>
-          <p>{{ numberFormat(etape.engagement) }} {{ etape.engagementDevise.id }}</p>
+          <p>
+            {{ numberFormat(etape.engagement) }}
+            <span v-if="etape.engagementDevise"> {{ etape.engagementDevise.id }}</span>
+          </p>
+        </div>
+        <div
+          v-if="etape.volume"
+          class="tablet-blob-1-4"
+        >
+          <h6>Volume</h6>
+          <p>
+            {{ numberFormat(etape.volume) }}
+            <span v-if="etape.volumeUnite"> {{ etape.volumeUnite.nom }}</span>
+          </p>
         </div>
         <div
           v-if="etape.substances.length"
@@ -155,62 +168,85 @@ export default {
 
   methods: {
     editPopupOpen() {
-      const etapeCloneAndFormat = etape => {
-        const etapeTmp = JSON.parse(JSON.stringify(etape))
+      const etape = JSON.parse(JSON.stringify(this.etape))
 
-        if (etapeTmp.date) {
-          etapeTmp.date = this.dateFormat(etapeTmp.date)
-        }
+      etape.typeId = etape.type.id
+      delete etape.type
 
-        if (etapeTmp.dateDebut) {
-          etapeTmp.dateDebut = this.dateFormat(etapeTmp.dateDebut)
-        }
+      etape.statutId = etape.statut.id
+      delete etape.statut
 
-        if (etapeTmp.dateFin) {
-          etapeTmp.dateFin = this.dateFormat(etapeTmp.dateFin)
-        }
+      const joinTable = [
+        'titulaires',
+        'amodiataires',
+        'administrations',
+        'substances',
+        'emprises'
+      ]
 
-        etapeTmp.visas = etapeTmp.visas
-          ? etapeTmp.visas.map((texte, id) => ({
-              id,
-              texte
-            }))
+      joinTable.forEach(prop => {
+        etape[`${prop}Ids`] = etape[prop]
+          ? etape[prop].reduce((r, { id }) => (id ? [...r, id] : r), [])
           : []
 
-        console.log(etapeTmp.visas)
+        delete etape[prop]
+      })
 
-        if (etapeTmp.points) {
-          etapeTmp.groupes = etapeTmp.points.reduce((groupes, point) => {
-            groupes[point.groupe - 1] = groupes[point.groupe - 1] || []
-            groupes[point.groupe - 1][point.contour - 1] =
-              groupes[point.groupe - 1][point.contour - 1] || []
-            groupes[point.groupe - 1][point.contour - 1][point.point - 1] = {
-              id: point.id,
-              nom: point.nom,
-              groupe: point.groupe,
-              contour: point.contour,
-              point: point.point,
-              coordonnees: point.coordonnees,
-              description: point.description,
-              references: point.references
-            }
-
-            return groupes
-          }, [])
-        }
-
-        delete etapeTmp.points
-        delete etapeTmp.geojsonPoints
-        delete etapeTmp.geojsonMultiPolygon
-        delete etapeTmp.documents
-
-        return etapeTmp
+      if (etape.date) {
+        etape.date = this.dateFormat(etape.date)
       }
+
+      if (etape.dateDebut) {
+        etape.dateDebut = this.dateFormat(etape.dateDebut)
+      }
+
+      if (etape.dateFin) {
+        etape.dateFin = this.dateFormat(etape.dateFin)
+      }
+
+      etape.visas = etape.visas
+        ? etape.visas.map((texte, id) => ({
+            id,
+            texte
+          }))
+        : []
+
+      etape.engagementDeviseId =
+        etape.engagementDevise && etape.engagementDevise.id
+      delete etape.engagementDevise
+
+      etape.volumeUniteId = etape.volumeUnite && etape.volumeUnite.id
+      delete etape.volumeUnite
+
+      if (etape.points) {
+        etape.groupes = etape.points.reduce((groupes, point) => {
+          groupes[point.groupe - 1] = groupes[point.groupe - 1] || []
+          groupes[point.groupe - 1][point.contour - 1] =
+            groupes[point.groupe - 1][point.contour - 1] || []
+          groupes[point.groupe - 1][point.contour - 1][point.point - 1] = {
+            id: point.id,
+            nom: point.nom,
+            groupe: point.groupe,
+            contour: point.contour,
+            point: point.point,
+            coordonnees: point.coordonnees,
+            description: point.description,
+            references: point.references
+          }
+
+          return groupes
+        }, [])
+      }
+
+      delete etape.points
+      delete etape.geojsonPoints
+      delete etape.geojsonMultiPolygon
+      delete etape.documents
 
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
-          etape: etapeCloneAndFormat(this.etape),
+          etape,
           domaineId: this.$store.state.titre.current.domaine.id,
           demarcheType: this.demarcheType,
           titreNom: this.$store.state.titre.current.nom

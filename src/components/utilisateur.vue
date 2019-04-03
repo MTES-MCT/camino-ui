@@ -195,10 +195,24 @@ export default {
       this.$store.dispatch('utilisateur/get', this.$route.params.id)
     },
     editPopupOpen() {
+      const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
+
+      if (utilisateur.entreprise) {
+        utilisateur.entrepriseId = utilisateur.entreprise.id
+      }
+
+      delete utilisateur.entreprise
+
+      if (utilisateur.administration) {
+        utilisateur.administrationId = utilisateur.administration.id
+      }
+
+      delete utilisateur.administration
+
       this.$store.commit('popupOpen', {
         component: UtilisateurEditPopup,
         props: {
-          utilisateur: JSON.parse(JSON.stringify(this.utilisateur)),
+          utilisateur,
           action: 'edit'
         }
       })

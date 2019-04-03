@@ -176,14 +176,14 @@
 
           <div class="mb tablet-blob-2-3">
             <select
-              v-model="utilisateur.entreprise"
+              v-model="utilisateur.entrepriseId"
               type="text"
               class="p-s mr"
             >
               <option
                 v-for="entreprise in entreprises"
                 :key="entreprise.id"
-                :value="entreprise"
+                :value="entreprise.id"
               >
                 {{ entreprise.nom }}
                 {{
@@ -290,10 +290,7 @@ export default {
   created() {
     document.addEventListener('keyup', this.keyup)
 
-    if (this.utilisateur.entreprise) {
-      this.utilisateur.entreprise = this.entreprises.find(
-        e => e.id === this.utilisateur.entreprise.id
-      )
+    if (this.utilisateur.entrepriseId) {
       this.lien = 'entreprise'
     }
   },
@@ -305,10 +302,6 @@ export default {
   methods: {
     save() {
       if (this.complete) {
-        if (this.utilisateur.entreprise) {
-          this.utilisateur.entreprise = { id: this.utilisateur.entreprise.id }
-        }
-
         if (this.action === 'create') {
           this.$store.dispatch('utilisateurs/add', this.utilisateur)
         } else {
@@ -339,9 +332,9 @@ export default {
     },
 
     lienReset() {
-      this.utilisateur.entreprise = this.lien === 'entreprise' ? {} : null
-      this.utilisateur.administration =
-        this.lien === 'administration' ? {} : null
+      this.utilisateur.entrepriseId = this.lien === 'entreprise' ? '' : null
+      this.utilisateur.administrationId =
+        this.lien === 'administration' ? '' : null
     }
   }
 }
