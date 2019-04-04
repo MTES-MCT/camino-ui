@@ -72,9 +72,9 @@
                   :key="id"
                 >
                   <input
-                    v-model="checkboxesValues[s.id][e.id][id]"
+                    v-model="activite.contenu[s.id][e.id]"
                     type="checkbox"
-                    @change="checkboxUpdate($event, s.id, e.id, id)"
+                    :value="id"
                   >{{ nom }}
                 </label>
               </div>
@@ -84,7 +84,7 @@
                 :class="{'color-warning': !(activite.contenu[s.id] && activite.contenu[s.id][e.id] && Object.keys(activite.contenu[s.id][e.id]).filter(val => activite.contenu[s.id][e.id][val]).length)}"
                 class="cap-first"
               >
-                {{ activite.contenu[s.id] && activite.contenu[s.id][e.id] && activite.contenu[s.id][e.id].split(',').map(id => e.valeurs[id]).join(', ') || 'À compléter pour valider' }}
+                {{ activite.contenu[s.id] && activite.contenu[s.id][e.id] && activite.contenu[s.id][e.id].map(id => e.valeurs[id]).join(', ') || 'À compléter pour valider' }}
               </p>
             </div>
 
@@ -235,31 +235,6 @@ export default {
 
   created() {
     document.addEventListener('keyup', this.keyup)
-
-    this.checkboxesValues = this.activite.sections.reduce((sectionIds, s) => {
-      const elementIds = s.elements.reduce(
-        (elementIds, e) =>
-          e.type === 'checkbox'
-            ? Object.assign(elementIds, {
-                [e.id]: Object.keys(e.valeurs).reduce((valeurIds, id) => {
-                  const value = !!(
-                    this.activite.contenu[s.id] &&
-                    this.activite.contenu[s.id][e.id] &&
-                    this.activite.contenu[s.id][e.id]
-                      .split(',')
-                      .find(vId => vId === id)
-                  )
-                  return Object.assign(valeurIds, { [id]: value })
-                }, {})
-              })
-            : elementIds,
-        {}
-      )
-
-      return Object.keys(elementIds).length
-        ? Object.assign(sectionIds, { [s.id]: elementIds })
-        : sectionIds
-    }, {})
   },
 
   beforeDestroy() {
@@ -312,33 +287,6 @@ export default {
 
     errorsRemove() {
       this.$store.commit('popupMessagesRemove')
-    },
-
-    checkboxUpdate(event, sectionId, elementId, valeurId) {
-      if (event.target.checked) {
-        this.activite.contenu[sectionId] =
-          this.activite.contenu[sectionId] || {}
-
-        this.activite.contenu[sectionId][elementId] = this.activite.contenu[
-          sectionId
-        ][elementId]
-          ? this.activite.contenu[sectionId][elementId]
-              .split(',')
-              .concat(valeurId)
-              .join(',')
-          : valeurId
-      } else {
-        this.activite.contenu[sectionId][elementId] = this.activite.contenu[
-          sectionId
-        ][elementId]
-          .split(',')
-          .filter(e => e !== valeurId)
-          .join(',')
-
-        if (!this.activite.contenu[sectionId][elementId]) {
-          delete this.activite.contenu[sectionId][elementId]
-        }
-      }
     }
   }
 }

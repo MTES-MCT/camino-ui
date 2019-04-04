@@ -6,9 +6,8 @@
     >
       <div class="card-border" />
       <h2>{{ annee.id }}</h2>
-
       <Activite
-        v-for="activite in annee.elements"
+        v-for="activite in annee.activites"
         :key="activite.id"
         :activite="activite"
       />
@@ -38,12 +37,12 @@ export default {
         if (!annee) {
           annee = {
             id: activite.annee,
-            elements: []
+            activites: []
           }
           annees.push(annee)
         }
 
-        annee.elements.push(activite)
+        annee.activites.push(activite)
         return annees
       }, [])
     }

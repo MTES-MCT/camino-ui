@@ -28,16 +28,16 @@ export default {
       activite.contenu = this.activite.sections.reduce(
         (sectionsObj, s) =>
           Object.assign(sectionsObj, {
-            [s.id]: s.elements.reduce(
-              (elementsObj, e) =>
-                Object.assign(elementsObj, {
-                  [e.id]:
-                    this.activite.contenu &&
-                    this.activite.contenu[s.id] &&
-                    this.activite.contenu[s.id][e.id]
-                }),
-              {}
-            )
+            [s.id]: s.elements.reduce((elementsObj, e) => {
+              const value =
+                this.activite.contenu &&
+                this.activite.contenu[s.id] &&
+                this.activite.contenu[s.id][e.id]
+
+              return Object.assign(elementsObj, {
+                [e.id]: value || e.type !== 'checkbox' ? value : []
+              })
+            }, {})
           }),
         {}
       )
