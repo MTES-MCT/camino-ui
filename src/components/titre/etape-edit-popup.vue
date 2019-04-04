@@ -171,6 +171,9 @@
                 class="p-s mr"
               >
                 <option
+                  :value="''"
+                />
+                <option
                   v-for="devise in devises"
                   :key="devise.id"
                   :value="devise.id"
@@ -212,6 +215,9 @@
                 class="p-s mr"
               >
                 <option
+                  :value="''"
+                />
+                <option
                   v-for="volumeUnite in volumeUnites"
                   :key="volumeUnite.id"
                   :value="volumeUnite.id"
@@ -222,6 +228,31 @@
               </select>
             </div>
           </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Emprises</h6>
+          <p class="h6 italic mb-0">
+            Optionel
+          </p>
+          {{ etape.emprisesIds }}
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <label
+            v-for="emprise in emprises"
+            :key="emprise.id"
+          >
+            <input
+              v-model="etape.emprisesIds"
+              type="checkbox"
+              :value="emprise.id"
+            > <span class="cap-first">{{ emprise.nom }}</span>
+          </label>
         </div>
       </div>
       <hr>
@@ -702,6 +733,9 @@ export default {
     },
     volumeUnites() {
       return this.$store.state.metas.volumeUnites
+    },
+    emprises() {
+      return this.$store.state.metas.emprises
     },
     pointsTotal() {
       return this.etape.groupes.reduce(

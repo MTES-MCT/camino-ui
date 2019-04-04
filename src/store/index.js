@@ -71,7 +71,8 @@ export const actions = {
           'statuts',
           'devises',
           'volumeUnites',
-          'geoSystemes'
+          'geoSystemes',
+          'emprises'
         ]
 
         metaNames.forEach(name => {

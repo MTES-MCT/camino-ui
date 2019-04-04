@@ -55,6 +55,10 @@ const fragmentMeta = gql`
       zone
       unite
     }
+    emprises {
+      id 
+      nom
+    }
   }
 `
 
