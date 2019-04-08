@@ -253,9 +253,6 @@ export default {
         }
       })
     },
-    editPopupClose() {
-      this.$store.commit('popupClose')
-    },
     etablissementNameFind(etablissements, date) {
       const etablissement = etablissements.find(
         e =>

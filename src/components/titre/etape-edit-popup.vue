@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ etapeTypeNom }}
+          {{ etapeTypeNom || '–' }}
         </h2>
       </div>
     </template>
@@ -240,7 +240,6 @@
           <p class="h6 italic mb-0">
             Optionel
           </p>
-          {{ etape.emprisesIds }}
         </div>
         <div class="mb tablet-blob-2-3">
           <label
@@ -296,7 +295,7 @@
       <hr>
     </div>
 
-    <div class="hide">
+    <div>
       <h3 class="mb-s">
         Périmètre ({{ pointsTotal.length }} points)
       </h3>
@@ -792,6 +791,7 @@ export default {
         'dateDebut',
         'dateFin',
         'surface',
+        'duree',
         'volume',
         'volumeUniteId',
         'engagement',
