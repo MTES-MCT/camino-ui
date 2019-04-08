@@ -27,6 +27,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+      console.log(e)
     } finally {
       commit('loadingRemove', 'utilisateurs', { root: true })
     }
@@ -173,7 +174,7 @@ export const mutations = {
 
   remove(state, id) {
     const index = state.list.findIndex(u => u.id === id)
-    if (index > 0) {
+    if (index > -1) {
       state.list.splice(index, 1)
     }
   }

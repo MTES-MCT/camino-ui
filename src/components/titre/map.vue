@@ -82,7 +82,7 @@ export default {
     },
 
     tilesId() {
-      return this.$store.state.user.preferences.map.tilesId
+      return this.$store.state.user.preferences.carte.tilesId
     }
   },
 
@@ -92,9 +92,8 @@ export default {
 
   methods: {
     tilesIdSelect(tuileNom) {
-      console.log(tuileNom)
       this.$store.dispatch('user/preferenceSet', {
-        section: 'map.tilesId',
+        section: 'carte.tilesId',
         value: tuileNom
       })
     },

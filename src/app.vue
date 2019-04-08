@@ -64,16 +64,20 @@ export default {
     }
   },
 
-  mounted() {
-    this.$store.dispatch('user/init').then(r => {
-      this.$store.dispatch('init')
-      if (!this.$store.getters['user/preferencesConditions']) {
-        this.warningPopupOpen()
-      }
-    })
+  created() {
+    this.appInit()
   },
 
   methods: {
+    appInit() {
+      this.$store.dispatch('user/init').then(r => {
+        this.$store.dispatch('init')
+        if (!this.$store.getters['user/preferencesConditions']) {
+          this.warningPopupOpen()
+        }
+      })
+    },
+
     warningPopupOpen() {
       this.$store.commit('popupOpen', {
         component: PopupAvertissement,

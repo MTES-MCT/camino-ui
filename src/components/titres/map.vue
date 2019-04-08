@@ -127,7 +127,7 @@ export default {
     },
 
     tilesId() {
-      return this.$store.state.user.preferences.map.tilesId
+      return this.$store.state.user.preferences.carte.tilesId
     }
   },
 
@@ -135,22 +135,19 @@ export default {
     titres: 'titresInit'
   },
 
-  mounted() {
+  created() {
     this.titresInit()
+  },
 
-    const zoom = this.$route.query.zoom
-      ? Number(this.$route.query.zoom)
-      : this.$store.state.user.preferences.map.zoom
+  mounted() {
+    this.paramsInit()
+  },
 
-    const centre =
-      this.$route.query.centre || this.$store.state.user.preferences.map.centre
-
-    if (zoom && centre) {
-      this.$refs.map.zoomSet(zoom)
-      this.$refs.map.centerSet(centre.split(','))
-    } else {
-      this.$refs.map.fitBounds(this.bounds)
-    }
+  beforeDestroy() {
+    const query = Object.assign({}, this.$route.query)
+    delete query.zoom
+    delete query.centre
+    this.$router.push({ query })
   },
 
   methods: {
@@ -218,6 +215,23 @@ export default {
       })
     },
 
+    paramsInit() {
+      const zoom = this.$route.query.zoom
+        ? Number(this.$route.query.zoom)
+        : this.$store.state.user.preferences.carte.zoom
+
+      const centre =
+        this.$route.query.centre ||
+        this.$store.state.user.preferences.carte.centre
+
+      if (zoom && centre) {
+        this.$refs.map.zoomSet(zoom)
+        this.$refs.map.centerSet(centre.split(','))
+      } else {
+        this.$refs.map.fitBounds(this.bounds)
+      }
+    },
+
     mapCenter(zoneId) {
       if (this.zoneId !== zoneId) {
         this.zoneId = zoneId
@@ -227,7 +241,7 @@ export default {
 
     tilesIdSelect(tilesId) {
       this.$store.dispatch('user/preferenceSet', {
-        section: 'map.tilesId',
+        section: 'carte.tilesId',
         value: tilesId
       })
     },
@@ -235,7 +249,7 @@ export default {
     zoomGet(zoom) {
       this.zoom = zoom
       this.$store.dispatch('user/preferenceSet', {
-        section: 'map.zoom',
+        section: 'carte.zoom',
         value: zoom
       })
 
@@ -247,7 +261,7 @@ export default {
       const c = `${center.lat.toFixed(7)},${center.lng.toFixed(7)}`
 
       this.$store.dispatch('user/preferenceSet', {
-        section: 'map.centre',
+        section: 'carte.centre',
         value: c
       })
 

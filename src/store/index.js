@@ -82,9 +82,12 @@ export const actions = {
             { root: true }
           )
         })
+
+        commit('metas/loaded', null, { root: true })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+      console.log(e)
     } finally {
       commit('loadingRemove', 'init')
     }

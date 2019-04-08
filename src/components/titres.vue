@@ -78,14 +78,12 @@ export default {
         {
           id: 'liste',
           component: TitresTable,
-          icon: 'list',
-          params: []
+          icon: 'list'
         },
         {
           id: 'carte',
           component: TitresMap,
-          icon: 'globe',
-          params: ['centre', 'zoom']
+          icon: 'globe'
         }
       ]
     }
@@ -106,18 +104,12 @@ export default {
   },
 
   created() {
-    if (!this.titres.length) {
-      this.get()
-    }
+    const viewId =
+      this.$route.query.vue ||
+      this.$store.state.user.preferences.titres.vue ||
+      this.viewId
 
-    if (
-      this.$route.query.vue &&
-      this.views.find(v => v.id === this.$route.query.vue)
-    ) {
-      this.viewSet(this.$route.query.vue)
-    } else {
-      this.viewSet(this.viewId)
-    }
+    this.viewSet(viewId)
   },
 
   methods: {
@@ -127,22 +119,12 @@ export default {
 
     viewSet(viewId) {
       this.viewId = viewId
+      this.$route.query.vue = viewId
 
-      const pick = (obj, keys) =>
-        Object.keys(obj)
-          .filter(key => keys.includes(key))
-          .reduce((res, key) => {
-            res[key] = obj[key]
-            return res
-          }, {})
-
-      const query = Object.assign(
-        {},
-        pick(this.$route.query, this.view.params),
-        { vue: this.viewId }
-      )
-
-      this.$router.push({ query })
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'titres.vue',
+        value: viewId
+      })
     }
   }
 }

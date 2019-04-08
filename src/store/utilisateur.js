@@ -20,6 +20,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
+      console.log(e)
     } finally {
       commit('loadingRemove', 'utilisateur', { root: true })
     }
