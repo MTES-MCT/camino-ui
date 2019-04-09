@@ -190,32 +190,34 @@ export default {
     },
 
     pagesRanges() {
-      return [10, 50, 200, this.titres.length].filter(
-        r => r <= this.titres.length
-      )
+      return [10, 50, 200, 500]
     }
   },
 
   watch: {
     titres: {
       handler: function(titres) {
-        if (this.pagesRangeActive > titres.length) {
-          this.pageRangeActiveChange(titres.length)
-        } else {
-          this.pageChange(1)
-        }
+        this.pageChange(1)
       },
       immediate: true
     }
   },
 
   created() {
-    if (this.$route.query.pages) {
-      this.pagesRangeActive = Number(this.$route.query.pages)
+    const query = Object.assign({}, this.$route.query)
+    query.vue = 'liste'
+    if (this.$route.query.vue) {
+      this.$router.push({ query })
+    } else {
+      this.$router.replace({ query })
     }
 
-    if (this.$route.query.page) {
-      this.pageActive = Number(this.$route.query.page)
+    if (query.pages) {
+      this.pagesRangeActive = Number(query.pages)
+    }
+
+    if (query.page) {
+      this.pageActive = Number(query.page)
     }
   },
 
@@ -224,7 +226,7 @@ export default {
     delete query.pages
     delete query.page
 
-    this.$router.push({ query })
+    this.$router.replace({ query })
   },
 
   methods: {

@@ -36,7 +36,6 @@ import Messages from './components/ui/messages.vue'
 import PageHeader from './components/page-header.vue'
 import PageFooter from './components/page-footer.vue'
 import Error from './components/error.vue'
-import PopupAvertissement from './components/user/warning-popup.vue'
 
 export default {
   name: 'App',
@@ -72,16 +71,6 @@ export default {
     appInit() {
       this.$store.dispatch('user/init').then(r => {
         this.$store.dispatch('init')
-        if (!this.$store.getters['user/preferencesConditions']) {
-          this.warningPopupOpen()
-        }
-      })
-    },
-
-    warningPopupOpen() {
-      this.$store.commit('popupOpen', {
-        component: PopupAvertissement,
-        closeBtn: false
       })
     }
   }

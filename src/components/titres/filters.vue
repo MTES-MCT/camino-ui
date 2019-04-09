@@ -232,6 +232,29 @@ export default {
   },
 
   watch: {
+    $route(to, from) {
+      const { filtres, changed } = Object.keys(this.filtres).reduce(
+        (acc, name) => {
+          if (to.query[name] !== this.filtres[name]) {
+            acc.changed = true
+          }
+          acc.filtres[name] = to.query[name]
+          return acc
+        },
+        {
+          changed: false,
+          filtres: {}
+        }
+      )
+
+      if (changed) {
+        this.filtresSet(filtres)
+        this.userPreferencesSet(filtres)
+      }
+    },
+
+    // attend que les metas soient chargées
+    // pour initialiser les filtres
     metasLoaded: {
       handler: function(isLoaded, wasLoaded) {
         if (isLoaded && !wasLoaded !== undefined && !wasLoaded) {
@@ -246,7 +269,7 @@ export default {
             this.filtres[name] = value ? value.split(',') : []
           })
 
-          this.paramsUpdate()
+          this.urlSet(true)
 
           this.$emit('titres-load')
         }
@@ -254,6 +277,7 @@ export default {
       immediate: true
     },
 
+    // met à jour les filtres
     // lorsque les metas sont mises à jour
     // par exemple connexion / deconnexion utilisateur
     metas: {
@@ -266,7 +290,7 @@ export default {
           this.filtres[name] = value ? value.split(',') : []
         })
 
-        this.paramsUpdate()
+        this.urlSet()
       },
       deep: true
     }
@@ -363,30 +387,43 @@ export default {
       })
     },
 
-    paramsUpdate() {
-      const value = {}
-      let query = Object.assign({}, this.$route.query)
+    filtresSet(values) {
+      Object.keys(this.filtres).forEach(name => {
+        const value = values[name]
+        this.filtres[name] = value ? value.split(',') : []
+      })
+    },
+
+    urlSet(firstTime) {
+      const query = Object.assign({}, this.$route.query)
 
       Object.keys(this.filtres).forEach(name => {
         const values = this.filtres[name]
 
         if (values.length) {
-          value[name] = values.join(',')
-          query = Object.assign({}, query, { [name]: value[name] })
+          query[name] = values.join(',')
         } else {
-          value[name] = ''
           delete query[name]
         }
       })
 
-      this.$store.dispatch('user/preferenceSet', { section: 'filtres', value })
+      if (firstTime) {
+        this.$router.replace({ query })
+      } else {
+        this.$router.push({ query })
+      }
+    },
 
-      this.$router.push({ query })
+    userPreferencesSet(value) {
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'filtres',
+        value
+      })
     },
 
     validate() {
       this.$refs.button.focus()
-      this.paramsUpdate()
+      this.urlSet()
       this.$emit('titres-load')
       this.$refs.filters.close()
       window.scrollTo({ top: 0, behavior: 'smooth' })

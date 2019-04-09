@@ -116,6 +116,7 @@ export default {
       const query = Object.assign({}, this.$route.query, { page })
       this.$router.push({ query })
     },
+
     pageRangeChange(pages) {
       this.pagesRangeActive = Number(pages)
       this.pageChange(1)

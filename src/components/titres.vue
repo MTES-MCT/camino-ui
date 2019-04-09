@@ -14,7 +14,7 @@
         >
           <button
             class="btn-border px-m py-s"
-            @click="viewSet(v.id)"
+            @click="viewLoad(v.id)"
           >
             <i
               :class="`icon-24-${v.icon}`"
@@ -103,13 +103,12 @@ export default {
     }
   },
 
-  created() {
-    const viewId =
-      this.$route.query.vue ||
-      this.$store.state.user.preferences.titres.vue ||
-      this.viewId
-
-    this.viewSet(viewId)
+  watch: {
+    $route(to, from) {
+      if (to.query.vue !== from.query.vue) {
+        this.viewLoad(to.query.vue)
+      }
+    }
   },
 
   methods: {
@@ -117,13 +116,12 @@ export default {
       this.$store.dispatch('titres/get')
     },
 
-    viewSet(viewId) {
-      this.viewId = viewId
-      this.$route.query.vue = viewId
+    viewLoad(value) {
+      this.viewId = value
 
       this.$store.dispatch('user/preferenceSet', {
         section: 'titres.vue',
-        value: viewId
+        value
       })
     },
 

@@ -136,6 +136,15 @@ export default {
   },
 
   created() {
+    const query = Object.assign({}, this.$route.query)
+
+    query.vue = 'carte'
+    if (this.$route.query.vue) {
+      this.$router.push({ query })
+    } else {
+      this.$router.replace({ query })
+    }
+
     this.titresInit()
   },
 
@@ -147,7 +156,8 @@ export default {
     const query = Object.assign({}, this.$route.query)
     delete query.zoom
     delete query.centre
-    this.$router.push({ query })
+
+    this.$router.replace({ query })
   },
 
   methods: {
@@ -163,15 +173,19 @@ export default {
           iconSize: null,
           iconAnchor: [15.5, 38]
         })
+
         const popupHtml = `<h4 class="mb-s">${titre.nom}</h4>`
+
         const popupOptions = {
           closeButton: false,
           offset: [0, -24]
         }
+
         const titleRoute = {
           name: 'titre',
           params: { id: titre.id }
         }
+
         const methods = {
           click: () => {
             this.$router.push(titleRoute)
@@ -254,7 +268,12 @@ export default {
       })
 
       const query = Object.assign({}, this.$route.query, { zoom })
-      this.$router.push({ query })
+
+      if (this.$route.query.zoom) {
+        this.$router.push({ query })
+      } else {
+        this.$router.replace({ query })
+      }
     },
 
     centerGet(center) {
@@ -267,7 +286,11 @@ export default {
 
       const query = Object.assign({}, this.$route.query, { centre: c })
 
-      this.$router.push({ query })
+      if (this.$route.query.centre) {
+        this.$router.push({ query })
+      } else {
+        this.$router.replace({ query })
+      }
     }
   }
 }
