@@ -87,7 +87,7 @@
         <PaginationRanges
           :ranges="pagesRanges"
           :range-active="pagesRangeActive"
-          @page-range-change="pageRangeChange"
+          @page-range-change="pageRangeActiveChange"
         />
         <div class="hide">
           <Accordion class="mb">
@@ -170,8 +170,7 @@ export default {
           name: 'Substances'
         }
       ],
-      pagesRanges: [10, 50, 200, this.titres.length],
-      pagesRangeActive: 10
+      pagesRangeActive: 50
     }
   },
 
@@ -185,8 +184,28 @@ export default {
         return res
       }, [])
     },
+
     activitesCol() {
       return this.titres.find(t => this.titreHasActivitesFind(t.activites))
+    },
+
+    pagesRanges() {
+      return [10, 50, 200, this.titres.length].filter(
+        r => r <= this.titres.length
+      )
+    }
+  },
+
+  watch: {
+    titres: {
+      handler: function(titres) {
+        if (this.pagesRangeActive > titres.length) {
+          this.pageRangeActiveChange(titres.length)
+        } else {
+          this.pageChange(1)
+        }
+      },
+      immediate: true
     }
   },
 
@@ -200,18 +219,28 @@ export default {
     }
   },
 
+  beforeDestroy() {
+    const query = Object.assign({}, this.$route.query)
+    delete query.pages
+    delete query.page
+
+    this.$router.push({ query })
+  },
+
   methods: {
     pageChange(page) {
       this.pageActive = page
       const query = Object.assign({}, this.$route.query, { page })
       this.$router.push({ query })
     },
-    pageRangeChange(pages) {
+
+    pageRangeActiveChange(pages) {
       this.pagesRangeActive = Number(pages)
       this.pageChange(1)
       const query = Object.assign({}, this.$route.query, { pages })
       this.$router.push({ query })
     },
+
     titreHasActivitesFind(titreActivites) {
       return titreActivites.filter(
         e => e.statut.couleur === 'error' || e.statut.couleur === 'warning'

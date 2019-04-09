@@ -247,7 +247,8 @@ export default {
           })
 
           this.paramsUpdate()
-          this.get()
+
+          this.$emit('titres-load')
         }
       },
       immediate: true
@@ -386,15 +387,9 @@ export default {
     validate() {
       this.$refs.button.focus()
       this.paramsUpdate()
-      this.get()
+      this.$emit('titres-load')
       this.$refs.filters.close()
       window.scrollTo({ top: 0, behavior: 'smooth' })
-    },
-
-    reset() {},
-
-    get() {
-      this.$store.dispatch('titres/get')
     },
 
     keyup(e) {
