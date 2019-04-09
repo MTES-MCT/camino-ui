@@ -76,13 +76,6 @@
           >
             Tous
           </button>
-          <button
-            ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mb mr-xs"
-            @click="checkboxesSelect('domaineIds', 'inverse')"
-          >
-            Inverse
-          </button>
         </div>
 
         <div class="tablet-blob-1-2 large-blob-1-3 mb">
@@ -119,13 +112,6 @@
             @click="checkboxesSelect('typeIds', 'all')"
           >
             Tous
-          </button>
-          <button
-            ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mb mr-xs"
-            @click="checkboxesSelect('typeIds', 'inverse')"
-          >
-            Inverse
           </button>
         </div>
 
@@ -164,13 +150,6 @@
             @click="checkboxesSelect('statutIds', 'all')"
           >
             Tous
-          </button>
-          <button
-            ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mb mr-xs"
-            @click="checkboxesSelect('statutIds', 'inverse')"
-          >
-            Inverse
           </button>
         </div>
       </div>
@@ -409,6 +388,7 @@ export default {
       this.paramsUpdate()
       this.get()
       this.$refs.filters.close()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     },
 
     reset() {},
