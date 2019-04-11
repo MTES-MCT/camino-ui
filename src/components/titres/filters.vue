@@ -166,6 +166,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Dot from '../ui/dot.vue'
 import Pill from '../ui/pill.vue'
 import Accordion from '../ui/accordion.vue'
@@ -232,6 +233,8 @@ export default {
   },
 
   watch: {
+    // si les paramètre d'url correspondant aux filtres changent
+    // - met à jour les paramètres d'url et les prefs utilisateur
     $route(to, from) {
       const { filtres, changed } = Object.keys(this.filtres).reduce(
         (acc, name) => {
@@ -248,13 +251,14 @@ export default {
       )
 
       if (changed) {
-        this.filtresSet(filtres)
-        this.userPreferencesSet(filtres)
+        this.paramsSet(filtres)
       }
     },
 
-    // attend que les metas soient chargées
-    // pour initialiser les filtres
+    // si les metas sont chargées
+    // - initialise les filtres
+    // - complète l'url
+    // - fait une requête sur les titres
     metasLoaded: {
       handler: function(isLoaded, wasLoaded) {
         if (isLoaded && !wasLoaded !== undefined && !wasLoaded) {
@@ -270,16 +274,15 @@ export default {
           })
 
           this.urlSet(true)
-
-          this.$emit('titres-load')
+          this.titresGet()
         }
       },
       immediate: true
     },
 
-    // met à jour les filtres
-    // lorsque les metas sont mises à jour
-    // par exemple connexion / deconnexion utilisateur
+    // si les metas sont mises à jour
+    // (par exemple connexion / deconnexion utilisateur)
+    // - met à jour les filtres
     metas: {
       handler: function() {
         Object.keys(this.filtres).forEach(name => {
@@ -318,22 +321,24 @@ export default {
         const index = ids.indexOf(id)
 
         if (name !== 'typeIds') {
+          // si la checkbox était false
           if (index > -1) {
             ids.splice(index, 1)
             return ids
           }
 
+          // sinon ajoute la checkbox
           return [...ids, id]
         }
 
         // s'il s'agit d'une checkbox sur les types
-        // ajoute
         const nom = this.$store.state.metas.types.find(type => type.id === id)
           .nom
         const typeIds = this.$store.state.metas.types
           .filter(type => type.nom === nom)
           .map(type => type.id)
 
+        // si la checkbox était false
         if (index > -1) {
           typeIds.forEach(i => {
             const index = ids.indexOf(i)
@@ -343,6 +348,7 @@ export default {
           return ids
         }
 
+        // sinon ajoute la checkbox
         return [...ids, ...typeIds]
       }
 
@@ -387,13 +393,6 @@ export default {
       })
     },
 
-    filtresSet(values) {
-      Object.keys(this.filtres).forEach(name => {
-        const value = values[name]
-        this.filtres[name] = value ? value.split(',') : []
-      })
-    },
-
     urlSet(firstTime) {
       const query = Object.assign({}, this.$route.query)
 
@@ -414,17 +413,28 @@ export default {
       }
     },
 
-    userPreferencesSet(value) {
+    titresGet(fetchPolicy) {
+      Vue.nextTick(() => {
+        this.$emit('titres-get')
+      })
+    },
+
+    paramsSet(values) {
+      Object.keys(this.filtres).forEach(name => {
+        const value = values[name]
+        this.filtres[name] = value ? value.split(',') : []
+      })
+
       this.$store.dispatch('user/preferenceSet', {
         section: 'filtres',
-        value
+        value: values
       })
     },
 
     validate() {
       this.$refs.button.focus()
       this.urlSet()
-      this.$emit('titres-load')
+      this.titresGet()
       this.$refs.filters.close()
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },

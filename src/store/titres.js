@@ -42,11 +42,7 @@ export const actions = {
         )
       }
 
-      if (res) {
-        commit('set', res.map(t => t))
-      } else {
-        console.log('aucun titres…')
-      }
+      commit('set', res)
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.log(e)

@@ -25,7 +25,7 @@
       </ul>
     </div>
 
-    <TitresFilters @titres-load="load" />
+    <TitresFilters @titres-get="get" />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2">
@@ -123,10 +123,6 @@ export default {
         section: 'titres.vue',
         value
       })
-    },
-
-    load() {
-      this.get()
     }
   }
 }
