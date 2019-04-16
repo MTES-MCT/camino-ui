@@ -1,8 +1,10 @@
 <template>
   <div class="mb-xxl">
     <h2>Conditions générales d’utilisation</h2>
-    		<p>CGU v.1.0</br>
-    valables du 16 octobre 2018 au 15 avril 2019</p>
+    <p>
+      CGU v.1.0<br>
+      valables du 16 octobre 2018 au 15 avril 2019
+    </p>
 
     <h3>Présentation</h3>
 
