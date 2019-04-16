@@ -245,7 +245,8 @@ export default {
       )
 
       if (changed) {
-        this.init()
+        console.log('$route changed')
+        this.init(true)
       }
     },
 
@@ -258,7 +259,7 @@ export default {
         // - complète l'url
         // - fait une requête sur les titres
         if (firstTime) {
-          this.init()
+          this.init(true)
         }
 
         // si les metas sont mises à jour
@@ -293,13 +294,14 @@ export default {
   },
 
   methods: {
-    init() {
+    init(routeOnly) {
       Object.keys(this.filtres).forEach(name => {
         // récupère les paramètres d'url
         // ou des préférences utilisateur
-        const value =
-          this.$route.query[name] ||
-          this.$store.state.user.preferences.filtres[name]
+        const value = routeOnly
+          ? this.$route.query[name]
+          : this.$route.query[name] ||
+            this.$store.state.user.preferences.filtres[name]
 
         // si il y a des paramètres
         this.filtreSet(name, value)
@@ -412,6 +414,7 @@ export default {
 
     urlChange() {
       const query = Object.assign({}, this.$route.query)
+
       Object.keys(this.filtres).forEach(id => {
         const value = this.filtres[id].length
           ? this.filtres[id].join(',')
