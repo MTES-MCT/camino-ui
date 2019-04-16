@@ -15,6 +15,7 @@
           </th>
           <th>Substances</th>
         </tr>
+
         <RouterLink
           v-for="titre in titresPages[pageActive]"
           :key="titre.id"
@@ -80,14 +81,14 @@
           :page-active="pageActive"
           :pages-total="titresPages.length - 1"
           :pages-visible="5"
-          @page-change="pageChange"
+          @page-change="pageActiveUrlSet"
         />
       </div>
       <div class="desktop-blob-1-4">
         <PaginationRanges
           :ranges="pagesRanges"
-          :range-active="pagesRangeActive"
-          @page-range-change="pageRangeActiveChange"
+          :range-active="pagesRange"
+          @pages-range-change="pagesRangeChange"
         />
         <div class="hide">
           <Accordion class="mb">
@@ -143,7 +144,7 @@ export default {
 
   data() {
     return {
-      pageActive: 1,
+      pagesRanges: [10, 50, 200, 500],
       colonnes: [
         {
           type: 'domain',
@@ -169,15 +170,14 @@ export default {
           type: 'substances',
           name: 'Substances'
         }
-      ],
-      pagesRangeActive: 50
+      ]
     }
   },
 
   computed: {
     titresPages() {
       return this.titres.reduce((res, cur, i) => {
-        const page = Math.ceil((i + 1) / this.pagesRangeActive)
+        const page = Math.ceil((i + 1) / this.pagesRange)
 
         res[page] = res[page] || []
         res[page].push(cur)
@@ -189,39 +189,55 @@ export default {
       return this.titres.find(t => this.titreHasActivitesFind(t.activites))
     },
 
-    pagesRanges() {
-      return [10, 50, 200, 500]
+    pageActive() {
+      return this.$store.state.user.preferences.titres.pageActive || 1
+    },
+
+    pagesRange() {
+      return this.$store.state.user.preferences.titres.pagesRange || 200
     }
   },
 
   watch: {
-    titres: {
-      handler: function(titres) {
-        this.pageChange(1)
-      },
-      immediate: true
+    titres: function(to, from) {
+      if (from.length) {
+        this.pageActiveUrlSet(1)
+      }
+    },
+
+    $route: function(to, from) {
+      if (to.query.page !== from.query.page) {
+        this.pageActiveSet(to.query.page)
+      }
+
+      if (to.query.pages !== from.query.pages) {
+        this.pagesRangeSet(to.query.pages)
+      }
     }
   },
 
   created() {
-    const query = Object.assign({}, this.$route.query)
-    query.vue = 'liste'
-    if (this.$route.query.vue) {
-      this.$router.push({ query })
-    } else {
-      this.$router.replace({ query })
+    const pageActive = Number(this.$route.query.page) || this.pageActive
+    const pagesRange = Number(this.$route.query.pages) || this.pagesRange
+
+    if (!this.$route.query.pages) {
+      this.pagesRangeUrlSet(pagesRange)
     }
 
-    if (query.pages) {
-      this.pagesRangeActive = Number(query.pages)
+    if (pagesRange && this.pagesRange !== pagesRange) {
+      this.pagesRangeSet(pagesRange)
     }
 
-    if (query.page) {
-      this.pageActive = Number(query.page)
+    if (!this.$route.query.page) {
+      this.pageActiveUrlSet(pageActive)
+    }
+
+    if (pageActive && this.pageActive !== pageActive) {
+      this.pageActiveSet(pageActive)
     }
   },
 
-  beforeDestroy() {
+  destroyed() {
     const query = Object.assign({}, this.$route.query)
     delete query.pages
     delete query.page
@@ -230,17 +246,31 @@ export default {
   },
 
   methods: {
-    pageChange(page) {
-      this.pageActive = page
-      const query = Object.assign({}, this.$route.query, { page })
-      this.$router.push({ query })
+    pageActiveSet(pageActive) {
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'titres.pageActive',
+        value: Number(pageActive)
+      })
     },
 
-    pageRangeActiveChange(pages) {
-      this.pagesRangeActive = Number(pages)
-      this.pageChange(1)
-      const query = Object.assign({}, this.$route.query, { pages })
-      this.$router.push({ query })
+    pageActiveUrlSet(pageActive) {
+      this.urlParamSet('page', pageActive)
+    },
+
+    pagesRangeSet(pagesRange) {
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'titres.pagesRange',
+        value: Number(pagesRange)
+      })
+    },
+
+    pagesRangeChange(pagesRange) {
+      this.pagesRangeUrlSet(pagesRange)
+      this.pageActiveUrlSet(1)
+    },
+
+    pagesRangeUrlSet(pagesRange) {
+      this.urlParamSet('pages', pagesRange)
     },
 
     titreHasActivitesFind(titreActivites) {

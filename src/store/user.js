@@ -16,7 +16,9 @@ export const state = {
   preferences: {
     carte: { tilesId: 'osm-fr' },
     filtres: {},
-    titres: {}
+    titres: {
+      vueId: 'carte'
+    }
   }
 }
 
@@ -248,9 +250,9 @@ export const getters = {
 export const mutations = {
   preferenceSet(state, { section, value }) {
     const path = section.split('.')
-    const key = path.pop()
+    const id = path.pop()
     const p = path.reduce((res, el) => res[el], state.preferences)
-    Vue.set(p, key, value)
+    Vue.set(p, id, value)
   },
 
   preferenceReset(state, { section }) {

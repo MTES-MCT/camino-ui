@@ -7,10 +7,10 @@ export const state = {
 }
 
 export const actions = {
-  set({ state, commit, dispatch, rootState }, { name, values }) {
+  set({ state, commit, dispatch, rootState }, { id, values }) {
     const metasFilters = ['types', 'domaines', 'statuts']
 
-    if (metasFilters.find(n => name === n)) {
+    if (metasFilters.find(n => id === n)) {
       // si il y a déjà des filtres dans les préférences utilisateur (ex: url)
       // on supprime les préférences utilisateurs,
       // qui ne sont plus présent dans les metas
@@ -23,18 +23,15 @@ export const actions = {
           )
 
         const idsCurrent =
-          (rootState.user.preferences.filtres[`${name.slice(0, -1)}Ids`] &&
-            rootState.user.preferences.filtres[`${name.slice(0, -1)}Ids`].split(
-              ','
-            )) ||
-          []
+          rootState.user.preferences.filtres[id] &&
+          rootState.user.preferences.filtres[id].split(',')
 
-        const idsToRemove = state[name]
+        const idsToRemove = state[id]
           .filter(v => !values.find(value => v.id === value.id))
           .map(({ id }) => id)
 
-        if (idsCurrent.length) {
-          return idsRemove(idsCurrent, idsToRemove, [])
+        if (idsCurrent) {
+          return idsRemove(idsCurrent, idsToRemove)
         }
       }
 
@@ -43,25 +40,21 @@ export const actions = {
       if (ids) {
         dispatch(
           'user/preferenceSet',
-          { section: `filtres.${name.slice(0, -1)}Ids`, value: ids.join(',') },
+          { section: `filtres.${id}`, value: ids.join(',') || null },
           { root: true }
         )
       }
     }
 
-    commit('set', { name, values })
+    commit('set', { id, values })
   }
 }
 
 export const getters = {}
 
 export const mutations = {
-  loaded(state) {
-    state.loaded = true
-  },
-
-  set(state, { name, values }) {
-    Vue.set(state, name, values)
+  set(state, { id, values }) {
+    Vue.set(state, id, values)
   }
 }
 

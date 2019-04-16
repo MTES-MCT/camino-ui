@@ -6,8 +6,8 @@
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
       :bounds="bounds"
-      @map-zoom="zoomGet"
-      @map-center="centerGet"
+      @map-zoom="zoomUrlSet"
+      @map-center="centreUrlSet"
     />
     <TitreMapWarningBrgm
       :zoom="zoom"
@@ -91,8 +91,7 @@ export default {
       ],
       zoneId: 'fr',
       geojsonLayers: [],
-      markerLayers: [],
-      zoom: 5
+      markerLayers: []
     }
   },
 
@@ -128,31 +127,66 @@ export default {
 
     tilesId() {
       return this.$store.state.user.preferences.carte.tilesId
+    },
+
+    centre() {
+      return this.$store.state.user.preferences.carte.centre
+    },
+
+    zoom() {
+      return this.$store.state.user.preferences.carte.zoom
     }
   },
 
   watch: {
-    titres: 'titresInit'
+    titres: 'titresInit',
+
+    $route: function(to, from) {
+      if (to.query.zoom !== from.query.zoom) {
+        const zoom = Number(to.query.zoom)
+        this.zoomSet(zoom)
+        this.$refs.map.zoomSet(zoom)
+      }
+
+      if (to.query.centre !== from.query.centre) {
+        const centre = to.query.centre.split(',').map(Number)
+        this.centreSet(centre)
+        this.$refs.map.centerSet(centre)
+      }
+    }
   },
 
   created() {
-    const query = Object.assign({}, this.$route.query)
-
-    query.vue = 'carte'
-    if (this.$route.query.vue) {
-      this.$router.push({ query })
-    } else {
-      this.$router.replace({ query })
-    }
-
     this.titresInit()
   },
 
   mounted() {
-    this.paramsInit()
+    const zoom = this.$route.query.zoom
+      ? Number(this.$route.query.zoom)
+      : this.zoom
+
+    const centre =
+      (this.$route.query.centre &&
+        this.$route.query.centre.split(',').map(Number)) ||
+      this.centre
+
+    if (zoom && this.zoom !== zoom) {
+      this.zoomSet(zoom)
+    }
+
+    if (centre && this.centre !== centre) {
+      this.centreSet(centre)
+    }
+
+    if (zoom && centre) {
+      this.$refs.map.zoomSet(zoom)
+      this.$refs.map.centerSet(centre)
+    } else {
+      this.$refs.map.fitBounds(this.bounds)
+    }
   },
 
-  beforeDestroy() {
+  destroyed() {
     const query = Object.assign({}, this.$route.query)
     delete query.zoom
     delete query.centre
@@ -229,27 +263,11 @@ export default {
       })
     },
 
-    paramsInit() {
-      const zoom = this.$route.query.zoom
-        ? Number(this.$route.query.zoom)
-        : this.$store.state.user.preferences.carte.zoom
-
-      const centre =
-        this.$route.query.centre ||
-        this.$store.state.user.preferences.carte.centre
-
-      if (zoom && centre) {
-        this.$refs.map.zoomSet(zoom)
-        this.$refs.map.centerSet(centre.split(','))
-      } else {
-        this.$refs.map.fitBounds(this.bounds)
-      }
-    },
-
     mapCenter(zoneId) {
       if (this.zoneId !== zoneId) {
         this.zoneId = zoneId
       }
+
       this.$refs.map.fitBounds(this.bounds)
     },
 
@@ -260,37 +278,26 @@ export default {
       })
     },
 
-    zoomGet(zoom) {
-      this.zoom = zoom
+    zoomSet(zoom) {
       this.$store.dispatch('user/preferenceSet', {
         section: 'carte.zoom',
         value: zoom
       })
-
-      const query = Object.assign({}, this.$route.query, { zoom })
-
-      if (this.$route.query.zoom) {
-        this.$router.push({ query })
-      } else {
-        this.$router.replace({ query })
-      }
     },
 
-    centerGet(center) {
-      const c = `${center.lat.toFixed(7)},${center.lng.toFixed(7)}`
-
+    centreSet(centre) {
       this.$store.dispatch('user/preferenceSet', {
         section: 'carte.centre',
-        value: c
+        value: centre
       })
+    },
 
-      const query = Object.assign({}, this.$route.query, { centre: c })
+    zoomUrlSet(zoom) {
+      this.urlParamSet('zoom', zoom)
+    },
 
-      if (this.$route.query.centre) {
-        this.$router.push({ query })
-      } else {
-        this.$router.replace({ query })
-      }
+    centreUrlSet(centre) {
+      this.urlParamSet('centre', centre)
     }
   }
 }

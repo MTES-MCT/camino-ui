@@ -52,7 +52,7 @@
         <PaginationRanges
           :ranges="pagesRanges"
           :range-active="pagesRangeActive"
-          @page-range-change="pageRangeChange"
+          @pages-range-change="pageRangeChange"
         />
       </div>
     </div>

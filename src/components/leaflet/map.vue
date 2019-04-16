@@ -92,7 +92,11 @@ export default {
 
       this.map.on('moveend', () => {
         this.center = this.map.getCenter()
-        this.$emit('map-center', this.center)
+        const centre = `${this.center.lat.toFixed(7)},${this.center.lng.toFixed(
+          7
+        )}`
+
+        this.$emit('map-center', centre)
       })
     },
 

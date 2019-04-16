@@ -3,7 +3,7 @@ import { titres } from '../api'
 
 export const state = {
   list: [],
-  filterNames: [
+  filterIds: [
     'substances',
     'noms',
     'entreprises',
@@ -16,20 +16,25 @@ export const state = {
 }
 
 export const actions = {
-  async get({ state, dispatch, commit, rootState }, fetchPolicy) {
+  async get({ state, dispatch, commit, rootState }) {
     commit('loadingAdd', 'titres', { root: true })
 
     try {
-      const params = state.filterNames.reduce((params, name) => {
+      // récupère les paramètres depuis les préférences utilisateurs
+      const params = state.filterIds.reduce((params, id) => {
+        const i = id.replace(/Id/g, '')
         const values =
-          rootState.user.preferences.filtres[name] &&
-          rootState.user.preferences.filtres[name].split(',')
+          rootState.user.preferences.filtres[i] &&
+          rootState.user.preferences.filtres[i].split(',')
+
         return values && values.length
-          ? Object.assign(params, { [name]: values })
+          ? Object.assign(params, { [id]: values })
           : params
       }, {})
 
-      const res = await titres(params, fetchPolicy)
+      console.log(params)
+
+      const res = await titres(params, 'network-only')
 
       if (state.list.length) {
         dispatch(

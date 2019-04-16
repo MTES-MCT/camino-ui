@@ -7,14 +7,14 @@
       </h2>
       <ul class="list-inline flex-right">
         <li
-          v-for="v in views"
+          v-for="v in vues"
           :key="v.id"
           class="mr-0 pill-list"
-          :class="{ active: viewId === v.id }"
+          :class="{ active: vueId === v.id }"
         >
           <button
             class="btn-border px-m py-s"
-            @click="viewLoad(v.id)"
+            @click="urlSet(v.id)"
           >
             <i
               :class="`icon-24-${v.icon}`"
@@ -45,8 +45,8 @@
       </div>
     </div>
     <Component
-      :is="view.component"
-      v-if="viewId"
+      :is="vue.component"
+      v-if="vueId"
       :titres="titres"
     />
   </Card>
@@ -73,8 +73,7 @@ export default {
   data() {
     return {
       filtersOpened: false,
-      viewId: 'carte',
-      views: [
+      vues: [
         {
           id: 'liste',
           component: TitresTable,
@@ -98,16 +97,32 @@ export default {
       return !!this.titres
     },
 
-    view() {
-      return this.views.find(c => c.id === this.viewId)
+    vueId() {
+      return this.$store.state.user.preferences.titres.vueId
+    },
+
+    vue() {
+      return this.vues.find(c => c.id === this.vueId)
     }
   },
 
   watch: {
-    $route(to, from) {
+    $route: function(to, from) {
       if (to.query.vue !== from.query.vue) {
-        this.viewLoad(to.query.vue)
+        this.vueSet(to.query.vue)
       }
+    }
+  },
+
+  created() {
+    const vueId = this.$route.query.vue || this.vueId
+
+    if (!this.$route.query.vue) {
+      this.urlSet(vueId)
+    }
+
+    if (this.vueId !== vueId) {
+      this.vueSet(vueId)
     }
   },
 
@@ -116,13 +131,15 @@ export default {
       this.$store.dispatch('titres/get')
     },
 
-    viewLoad(value) {
-      this.viewId = value
-
+    vueSet(value) {
       this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.vue',
+        section: 'titres.vueId',
         value
       })
+    },
+
+    urlSet(value) {
+      this.urlParamSet('vue', value)
     }
   }
 }

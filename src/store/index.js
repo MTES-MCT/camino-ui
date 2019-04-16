@@ -65,7 +65,7 @@ export const actions = {
       }
 
       if (res.metas) {
-        const metaNames = [
+        const metasIds = [
           'types',
           'domaines',
           'statuts',
@@ -75,15 +75,9 @@ export const actions = {
           'emprises'
         ]
 
-        metaNames.forEach(name => {
-          dispatch(
-            'metas/set',
-            { name, values: res.metas[name] },
-            { root: true }
-          )
+        metasIds.forEach(id => {
+          dispatch('metas/set', { id, values: res.metas[id] }, { root: true })
         })
-
-        commit('metas/loaded', null, { root: true })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
