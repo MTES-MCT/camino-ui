@@ -32,8 +32,6 @@ export const actions = {
           : params
       }, {})
 
-      console.log(params)
-
       const res = await titres(params, 'network-only')
 
       if (state.list.length) {

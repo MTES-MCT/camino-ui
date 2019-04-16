@@ -39,7 +39,8 @@ export const state = {
     api: null, // eslint-disable-next-line camelcase
     ui: `${npmVersion}`
   },
-  loading: []
+  loading: [],
+  loaded: false
 }
 
 export const actions = {
@@ -78,6 +79,8 @@ export const actions = {
         metasIds.forEach(id => {
           dispatch('metas/set', { id, values: res.metas[id] }, { root: true })
         })
+
+        commit('loaded')
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -146,6 +149,10 @@ export const actions = {
 export const mutations = {
   apiVersionSet(state, version) {
     state.versions.api = version
+  },
+
+  loaded(state) {
+    state.loaded = true
   },
 
   messageAdd(state, message) {

@@ -142,16 +142,20 @@ export default {
     titres: 'titresInit',
 
     $route: function(to, from) {
-      if (to.query.zoom !== from.query.zoom) {
+      if (to.query.zoom && to.query.zoom !== from.query.zoom) {
         const zoom = Number(to.query.zoom)
         this.zoomSet(zoom)
         this.$refs.map.zoomSet(zoom)
       }
 
-      if (to.query.centre !== from.query.centre) {
+      if (to.query.centre && to.query.centre !== from.query.centre) {
         const centre = to.query.centre.split(',').map(Number)
         this.centreSet(centre)
         this.$refs.map.centerSet(centre)
+      }
+
+      if (!to.query.centre && !to.query.zoom) {
+        this.init()
       }
     }
   },
@@ -161,29 +165,7 @@ export default {
   },
 
   mounted() {
-    const zoom = this.$route.query.zoom
-      ? Number(this.$route.query.zoom)
-      : this.zoom
-
-    const centre =
-      (this.$route.query.centre &&
-        this.$route.query.centre.split(',').map(Number)) ||
-      this.centre
-
-    if (zoom && this.zoom !== zoom) {
-      this.zoomSet(zoom)
-    }
-
-    if (centre && this.centre !== centre) {
-      this.centreSet(centre)
-    }
-
-    if (zoom && centre) {
-      this.$refs.map.zoomSet(zoom)
-      this.$refs.map.centerSet(centre)
-    } else {
-      this.$refs.map.fitBounds(this.bounds)
-    }
+    this.init()
   },
 
   destroyed() {
@@ -195,6 +177,32 @@ export default {
   },
 
   methods: {
+    init() {
+      const zoom = this.$route.query.zoom
+        ? Number(this.$route.query.zoom)
+        : this.zoom
+
+      const centre =
+        (this.$route.query.centre &&
+          this.$route.query.centre.split(',').map(Number)) ||
+        this.centre
+
+      if (zoom && this.zoom !== zoom) {
+        this.zoomSet(zoom)
+      }
+
+      if (centre && this.centre !== centre) {
+        this.centreSet(centre)
+      }
+
+      if (zoom && centre) {
+        this.$refs.map.zoomSet(zoom)
+        this.$refs.map.centerSet(centre)
+      } else {
+        this.$refs.map.fitBounds(this.bounds)
+      }
+    },
+
     titresInit() {
       this.markerLayers = []
       this.geojsonLayers = []

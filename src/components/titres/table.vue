@@ -206,35 +206,22 @@ export default {
     },
 
     $route: function(to, from) {
-      if (to.query.page !== from.query.page) {
+      if (to.query.page && to.query.page !== from.query.page) {
         this.pageActiveSet(to.query.page)
       }
 
-      if (to.query.pages !== from.query.pages) {
+      if (to.query.pages && to.query.pages !== from.query.pages) {
         this.pagesRangeSet(to.query.pages)
+      }
+
+      if (!to.query.pages && !to.query.page) {
+        this.init()
       }
     }
   },
 
   created() {
-    const pageActive = Number(this.$route.query.page) || this.pageActive
-    const pagesRange = Number(this.$route.query.pages) || this.pagesRange
-
-    if (!this.$route.query.pages) {
-      this.pagesRangeUrlSet(pagesRange)
-    }
-
-    if (pagesRange && this.pagesRange !== pagesRange) {
-      this.pagesRangeSet(pagesRange)
-    }
-
-    if (!this.$route.query.page) {
-      this.pageActiveUrlSet(pageActive)
-    }
-
-    if (pageActive && this.pageActive !== pageActive) {
-      this.pageActiveSet(pageActive)
-    }
+    this.init()
   },
 
   destroyed() {
@@ -246,6 +233,27 @@ export default {
   },
 
   methods: {
+    init() {
+      const pageActive = Number(this.$route.query.page) || this.pageActive
+      const pagesRange = Number(this.$route.query.pages) || this.pagesRange
+
+      if (!this.$route.query.pages) {
+        this.pagesRangeUrlSet(pagesRange)
+      }
+
+      if (pagesRange && this.pagesRange !== pagesRange) {
+        this.pagesRangeSet(pagesRange)
+      }
+
+      if (!this.$route.query.page) {
+        this.pageActiveUrlSet(pageActive)
+      }
+
+      if (pageActive && this.pageActive !== pageActive) {
+        this.pageActiveSet(pageActive)
+      }
+    },
+
     pageActiveSet(pageActive) {
       this.$store.dispatch('user/preferenceSet', {
         section: 'titres.pageActive',

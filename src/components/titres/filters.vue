@@ -238,64 +238,33 @@ export default {
     // - met à jour les prefs utilisateur
     // - met à jour les titres
     $route(to, from) {
-      let changed = false
-
-      Object.keys(this.filtres).forEach(name => {
-        const value = to.query[name] || null
-        const valueOld = this.$store.state.user.preferences.filtres[name]
-
-        if (value !== valueOld) {
-          changed = true
-        }
-
-        this.filtreSet(name, value)
-      })
+      const changed = Object.keys(this.filtres).some(
+        id =>
+          to.query[id] !==
+          (this.$store.state.user.preferences.filtres[id] || undefined)
+      )
 
       if (changed) {
-        this.urlSet()
-        this.preferencesSet()
-        this.titresGet()
+        this.init()
       }
     },
 
     metas: {
       handler: function(metas, metasOld) {
-        const firsTime = Object.keys(metasOld).reduce(
-          (res, id) => res && !metasOld[id].length,
-          true
-        )
+        const firstTime = Object.keys(metasOld).some(id => !metasOld[id].length)
 
         // si les metas sont chargées
         // - initialise les filtres
         // - complète l'url
         // - fait une requête sur les titres
-        if (firsTime) {
-          console.log('first time')
-          Object.keys(this.filtres).forEach(name => {
-            // récupère les paramètres d'url
-            // ou des préférences utilisateur
-            const value = this.$route.query[name]
-              ? this.$route.query[name]
-              : this.$store.state.user.preferences.filtres[name]
-
-            // si il y a des paramètres
-            this.filtreSet(name, value)
-          })
-
-          // re set l'url pour le cas exceptionnel ou
-          // l'utilisateur a cliqué sur le bouton 'back'
-          // après s'être déconnecté et l'url contient
-          // des paramètres auquels l'utilisateur n'a plus accès
-          this.urlSet()
-          this.preferencesSet()
-          this.titresGet()
+        if (firstTime) {
+          this.init()
         }
 
         // si les metas sont mises à jour
         // (par exemple connexion / deconnexion utilisateur)
         // - met à jour les filtres
         else {
-          console.log('next time ...')
           Object.keys(this.filtres).forEach(name => {
             // récupère les préférences utilisateur
             const value = this.$store.state.user.preferences.filtres[name]
@@ -312,6 +281,10 @@ export default {
   },
 
   created() {
+    if (this.loaded) {
+      this.init()
+    }
+
     document.addEventListener('keyup', this.keyup)
   },
 
@@ -320,6 +293,23 @@ export default {
   },
 
   methods: {
+    init() {
+      Object.keys(this.filtres).forEach(name => {
+        // récupère les paramètres d'url
+        // ou des préférences utilisateur
+        const value =
+          this.$route.query[name] ||
+          this.$store.state.user.preferences.filtres[name]
+
+        // si il y a des paramètres
+        this.filtreSet(name, value)
+      })
+
+      this.urlSet()
+      this.preferencesSet()
+      this.titresGet()
+    },
+
     checkboxesTypesReduce(types) {
       // pour les types, plusieurs id correspondent à un même nom
       return types.reduce((res, type) => {
@@ -420,6 +410,23 @@ export default {
       })
     },
 
+    urlChange() {
+      const query = Object.assign({}, this.$route.query)
+      Object.keys(this.filtres).forEach(id => {
+        const value = this.filtres[id].length
+          ? this.filtres[id].join(',')
+          : null
+
+        if (value) {
+          query[id] = value
+        } else {
+          delete query[id]
+        }
+      })
+
+      this.$router.push({ query })
+    },
+
     titresGet() {
       Vue.nextTick(() => {
         this.$emit('titres-get')
@@ -439,7 +446,7 @@ export default {
 
     validate() {
       this.$refs.button.focus()
-      this.urlSet()
+      this.urlChange()
       this.$refs.filters.close()
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },

@@ -108,25 +108,31 @@ export default {
 
   watch: {
     $route: function(to, from) {
-      if (to.query.vue !== from.query.vue) {
+      if (to.query.vue && to.query.vue !== from.query.vue) {
         this.vueSet(to.query.vue)
+      } else if (!to.query.vue) {
+        this.init()
       }
     }
   },
 
   created() {
-    const vueId = this.$route.query.vue || this.vueId
-
-    if (!this.$route.query.vue) {
-      this.urlSet(vueId)
-    }
-
-    if (this.vueId !== vueId) {
-      this.vueSet(vueId)
-    }
+    this.init()
   },
 
   methods: {
+    init() {
+      const vueId = this.$route.query.vue || this.vueId
+
+      if (!this.$route.query.vue) {
+        this.urlSet(vueId)
+      }
+
+      if (this.vueId !== vueId) {
+        this.vueSet(vueId)
+      }
+    },
+
     get() {
       this.$store.dispatch('titres/get')
     },
