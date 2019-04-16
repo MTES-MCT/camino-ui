@@ -10,6 +10,7 @@ import About from '../components/content/about.vue'
 import Accessibilite from '../components/content/accessibilite.vue'
 import Contribution from '../components/content/contribution.vue'
 import Cgu from '../components/content/cgu.vue'
+import Cgu1 from '../components/content/cgu-1-0-0.vue'
 import MentionsLegales from '../components/content/mentions-legales.vue'
 import UserPasswordInit from '../components/user/password-init.vue'
 import UserAdd from '../components/user/add.vue'
@@ -73,6 +74,11 @@ const routes = [
     path: '/cgu',
     name: 'cgu',
     component: Cgu
+  },
+  {
+    path: '/cgu/1-0-0',
+    name: 'cgu-1-0-0',
+    component: Cgu1
   },
   {
     path: '/mentions-legales',
