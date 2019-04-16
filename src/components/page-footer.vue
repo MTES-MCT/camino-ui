@@ -31,34 +31,34 @@
     <div class="tablet-blob-1-2 desktop-blob-1-3">
       <ul class="list-prefix text-decoration-none">
         <li>
-          <a href="/a-propos#contact">
+          <router-link to="/a-propos#contact">
             Contact
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="/a-propos">
+          <router-link to="/a-propos">
             À propos
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="/cgu">
+          <router-link to="/cgu">
             CGU
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="/mentions-legales">
+          <router-link to="/mentions-legales">
             Mentions légales
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="/accessibilite">
+          <router-link to="/accessibilite">
             Accessibilité
-          </a>
+          </router-link>
         </li>
         <li>
-          <a href="/contribution">
+          <router-link to="/contribution">
             Contribution
-          </a>
+          </router-link>
         </li>
         <li>
           <a
