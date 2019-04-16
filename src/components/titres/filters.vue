@@ -245,7 +245,6 @@ export default {
       )
 
       if (changed) {
-        console.log('$route changed')
         this.init(true)
       }
     },
