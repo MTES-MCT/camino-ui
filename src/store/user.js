@@ -17,7 +17,9 @@ export const state = {
     carte: { tilesId: 'osm-fr' },
     filtres: {},
     titres: {
-      vueId: 'carte'
+      vueId: 'carte',
+      pageActive: 1,
+      pagesRange: 200
     }
   }
 }

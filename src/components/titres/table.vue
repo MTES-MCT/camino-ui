@@ -190,28 +190,28 @@ export default {
     },
 
     pageActive() {
-      return this.$store.state.user.preferences.titres.pageActive || 1
+      return this.$store.state.user.preferences.titres.pageActive
     },
 
     pagesRange() {
-      return this.$store.state.user.preferences.titres.pagesRange || 200
+      return this.$store.state.user.preferences.titres.pagesRange
     }
   },
 
   watch: {
     titres: function(to, from) {
-      if (from.length) {
+      if (from.length && from.length !== to.length) {
         this.pageActiveUrlSet(1)
       }
     },
 
     $route: function(to, from) {
       if (to.query.page && to.query.page !== from.query.page) {
-        this.pageActiveSet(to.query.page)
+        this.pageActiveSet(Number(to.query.page))
       }
 
       if (to.query.pages && to.query.pages !== from.query.pages) {
-        this.pagesRangeSet(to.query.pages)
+        this.pagesRangeSet(Number(to.query.pages))
       }
 
       if (!to.query.pages && !to.query.page) {
@@ -234,30 +234,32 @@ export default {
 
   methods: {
     init() {
-      const pageActive = Number(this.$route.query.page) || this.pageActive
-      const pagesRange = Number(this.$route.query.pages) || this.pagesRange
+      const pageActive =
+        this.$route.query.page && Number(this.$route.query.page)
+      const pagesRange =
+        this.$route.query.pages && Number(this.$route.query.pages)
 
-      if (!this.$route.query.pages) {
-        this.pagesRangeUrlSet(pagesRange)
+      if (pageActive && pageActive !== this.pageActive) {
+        this.pageActiveSet(pageActive)
       }
 
-      if (pagesRange && this.pagesRange !== pagesRange) {
+      if (!pageActive) {
+        this.pageActiveUrlSet(this.pageActive)
+      }
+
+      if (pagesRange && pagesRange !== this.pagesRange) {
         this.pagesRangeSet(pagesRange)
       }
 
-      if (!this.$route.query.page) {
-        this.pageActiveUrlSet(pageActive)
-      }
-
-      if (pageActive && this.pageActive !== pageActive) {
-        this.pageActiveSet(pageActive)
+      if (!pagesRange) {
+        this.pagesRangeUrlSet(this.pagesRange)
       }
     },
 
     pageActiveSet(pageActive) {
       this.$store.dispatch('user/preferenceSet', {
         section: 'titres.pageActive',
-        value: Number(pageActive)
+        value: pageActive
       })
     },
 
@@ -268,7 +270,7 @@ export default {
     pagesRangeSet(pagesRange) {
       this.$store.dispatch('user/preferenceSet', {
         section: 'titres.pagesRange',
-        value: Number(pagesRange)
+        value: pagesRange
       })
     },
 
