@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.15.0](https://github.com/MTES-MCT/camino-ui/compare/v0.14.0...v0.15.0) (2019-04-17)
+
+
+### Bug Fixes
+
+* **cgu:** corrige la mise en page ([f5aae66](https://github.com/MTES-MCT/camino-ui/commit/f5aae66))
+* supprime un log ([d432516](https://github.com/MTES-MCT/camino-ui/commit/d432516))
+* **filtres:** supprime le bouton inverse ([e2080c7](https://github.com/MTES-MCT/camino-ui/commit/e2080c7))
+* **url:** charge les paramètre de filtres lorsqu'on revient sur la page liste ([8d4bb35](https://github.com/MTES-MCT/camino-ui/commit/8d4bb35))
+* affiche 'établissement' au singulier si il n'y en a qu'un ([17717ce](https://github.com/MTES-MCT/camino-ui/commit/17717ce))
+* change la structure des activités de type checkbox en tableau ([bbbf70b](https://github.com/MTES-MCT/camino-ui/commit/bbbf70b))
+* évite de scroller en haut de page lorsque les paramètres d'url changent ([a553914](https://github.com/MTES-MCT/camino-ui/commit/a553914))
+* gère l'historique des urls ([32cfd34](https://github.com/MTES-MCT/camino-ui/commit/32cfd34))
+* met à jour le contenu de la page si l'url change (bouton back) ([df7bbf3](https://github.com/MTES-MCT/camino-ui/commit/df7bbf3))
+* n'affiche l'accordéon que si une entreprise contient des informations ([a16f120](https://github.com/MTES-MCT/camino-ui/commit/a16f120))
+* retourne des ids sur les éléments lié lors de la mise à jour d'étapes ([63d8e8e](https://github.com/MTES-MCT/camino-ui/commit/63d8e8e))
+* **sentry:** change la config sentry pour être compatible avec la v.5 ([48e0743](https://github.com/MTES-MCT/camino-ui/commit/48e0743))
+* **sentry:** config sentry ([e7becd8](https://github.com/MTES-MCT/camino-ui/commit/e7becd8))
+* **sentry:** désactive sentry qui plante tout ([e8e94fd](https://github.com/MTES-MCT/camino-ui/commit/e8e94fd))
+* met en page ([5fe4eaf](https://github.com/MTES-MCT/camino-ui/commit/5fe4eaf))
+
+
+### Features
+
+* ajoute une nouvelle étape ([2859a6f](https://github.com/MTES-MCT/camino-ui/commit/2859a6f))
+* édite l'emprise territoriale d'une étape ([208149c](https://github.com/MTES-MCT/camino-ui/commit/208149c))
+* injecte les paramètres de filtre dans l'url ([92aec76](https://github.com/MTES-MCT/camino-ui/commit/92aec76))
+* met à jour une étape ([f02c0dc](https://github.com/MTES-MCT/camino-ui/commit/f02c0dc))
+* mise à jour des CGU et mentions légales ([cab8881](https://github.com/MTES-MCT/camino-ui/commit/cab8881))
+* **a-propos:** ajout de Florent et d'Adrien ([b085617](https://github.com/MTES-MCT/camino-ui/commit/b085617))
+* **activités:** affiche les activités à traiter dans la liste des titres ([a95e0e1](https://github.com/MTES-MCT/camino-ui/commit/a95e0e1))
+* **activités:** limite l'édition des activités à certains rôles ([ea66c35](https://github.com/MTES-MCT/camino-ui/commit/ea66c35))
+* **entreprises:** affiche la liste des établissements dans l'encart entreprises ([b35e195](https://github.com/MTES-MCT/camino-ui/commit/b35e195))
+* **titre:** affiche les administrations ([79b4e3a](https://github.com/MTES-MCT/camino-ui/commit/79b4e3a))
+
+
+
 # [0.14.0](https://github.com/MTES-MCT/camino-ui/compare/v0.13.0...v0.14.0) (2019-03-22)
 
 
