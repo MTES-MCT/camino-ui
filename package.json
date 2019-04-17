@@ -58,7 +58,7 @@
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
     "jest": "^24.7.1",
-    "json2csv": "^4.4.1",
+    "json2csv": "^4.5.0",
     "leaflet": "^1.4.0",
     "pixrem": "^5.0.0",
     "postcss-button": "^0.3.16",
