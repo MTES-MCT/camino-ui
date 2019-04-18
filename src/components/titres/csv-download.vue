@@ -78,9 +78,10 @@ export default {
           engagement_devise: titre.engagementDevise && titre.engagementDevise.id
         }
 
-        titre.references.forEach(reference => {
-          titreNew[`reference_${reference.type}`] = reference.valeur
-        })
+        titre.references &&
+          titre.references.forEach(reference => {
+            titreNew[`reference_${reference.type}`] = reference.valeur
+          })
 
         return titreNew
       })
