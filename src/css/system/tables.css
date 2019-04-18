@@ -3,24 +3,64 @@
 -------------------------------
 */
 
-table {
+table,
+.table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
   border: none;
 }
 
-th {
+.table {
+  display: table;
+}
+
+tr,
+.tr {
+  border-bottom-color: var(--border-color);
+  border-bottom-width: var(--unit-line);
+  border-bottom-style: dotted;
+}
+
+.tr {
+  display: table-row;
+}
+
+th,
+.th {
   text-align: left;
   font-weight: 700;
   typescale: -1 1;
   color: var(--color-neutral);
 }
 
-tr {
-  border-bottom-color: var(--border-color);
-  border-bottom-width: var(--unit-line);
-  border-bottom-style: dotted;
+td,
+th,
+.td,
+.th {
+  vertical-align: top;
+  overflow-wrap: break-word;
+  padding-bottom: var(--unit-s);
+  padding-top: calc(var(--unit-s) - var(--unit-line));
+}
+
+.th,
+.td {
+  display: table-cell;
+}
+
+td:not(:first-child),
+th:not(:first-child),
+.td:not(:first-child),
+.th:not(:first-child) {
+  padding-left: var(--unit-s);
+}
+
+td:not(:last-child),
+th:not(:last-child),
+.td:not(:last-child),
+.th:not(:last-child) {
+  padding-right: var(--unit-s);
 }
 
 .table-striped tr:nth-child(even) {
@@ -29,24 +69,6 @@ tr {
 
 .table-sans tr {
   border-bottom: var(--unit-line) dotted var(--border-bg);
-}
-
-td,
-th {
-  vertical-align: top;
-  overflow-wrap: break-word;
-  padding-bottom: var(--unit-s);
-  padding-top: calc(var(--unit-s) - var(--unit-line));
-}
-
-td:not(:first-child) ,
-th:not(:first-child) {
-  padding-left: var(--unit-s);
-}
-
-td:not(:last-child) ,
-th:not(:last-child) {
-  padding-right: var(--unit-s);
 }
 
 .table-xs td,
@@ -64,10 +86,6 @@ th:not(:last-child) {
 .table-fixed {
   display: table;
   table-layout: fixed;
-}
-
-.tr-link {
-  cursor: pointer;
 }
 
 .tr-link:hover {

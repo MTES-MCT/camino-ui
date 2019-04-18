@@ -1,43 +1,56 @@
 <template>
   <div>
     <div class="overflow-scroll-x mb">
-      <table>
-        <tr>
-          <th>Prenom</th>
-          <th>Nom</th>
-          <th>Email</th>
-          <th>Permissions</th>
-          <th>Lien</th>
-        </tr>
+      <div class="table">
+        <div class="tr">
+          <div class="th">
+            Prenom
+          </div>
+          <div class="th">
+            Nom
+          </div>
+          <div class="th">
+            Email
+          </div>
+          <div class="th">
+            Permissions
+          </div>
+          <div class="th">
+            Lien
+          </div>
+        </div>
         <RouterLink
           v-for="utilisateur in utilisateursPages[pageActive]"
           :key="utilisateur.id"
           :to="{ name: 'utilisateur', params: { id: utilisateur.id } }"
-          tag="tr"
-          class="tr-link"
+          class="tr tr-link text-decoration-none"
         >
-          <td>{{ utilisateur.prenom || "–" }}</td>
-          <td>{{ utilisateur.nom || "–" }}</td>
-          <td>
+          <div class="td">
+            {{ utilisateur.prenom || "–" }}
+          </div>
+          <div class="td">
+            {{ utilisateur.nom || "–" }}
+          </div>
+          <div class="td">
             <span class="h5">
               {{ utilisateur.email }}
             </span>
-          </td>
-          <td>
+          </div>
+          <div class="td">
             <Pill v-if="utilisateur.permission">
               {{ utilisateur.permission.nom }}
             </Pill>
-          </td>
-          <td>
+          </div>
+          <div class="td">
             <span
               v-if="utilisateur.entreprise"
               class="h5 word-break"
             >
               {{ utilisateur.entreprise && utilisateur.entreprise.etablissements.length && utilisateur.entreprise.etablissements[0].nom }}
             </span>
-          </td>
+          </div>
         </RouterLink>
-      </table>
+      </div>
     </div>
     <div class="desktop-blobs">
       <div class="desktop-blob-3-4">

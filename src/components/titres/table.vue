@@ -1,51 +1,64 @@
 <template>
   <div>
     <div class="overflow-scroll-x mb">
-      <table>
-        <tr>
-          <th />
-          <th>Nom</th>
-          <th>Type</th>
-          <th>Statut</th>
-          <th v-if="activitesCol">
+      <div class="table">
+        <div class="tr">
+          <div class="th" />
+          <div class="th">
+            Nom
+          </div>
+          <div class="th">
+            Type
+          </div>
+          <div class="th">
+            Statut
+          </div>
+          <div
+            v-if="activitesCol"
+            class="th"
+          >
             À traiter
-          </th>
-          <th>
+          </div>
+          <div class="th">
             Titulaires
-          </th>
-          <th>Substances</th>
-        </tr>
+          </div>
+          <div class="th">
+            Substances
+          </div>
+        </div>
 
         <RouterLink
           v-for="titre in titresPages[pageActive]"
           :key="titre.id"
           :to="{ name: 'titre', params: { id: titre.id } }"
-          tag="tr"
-          class="tr-link"
+          class="tr tr-link text-decoration-none"
         >
-          <td>
+          <div class="td">
             <Pill
               :color="`bg-title-domaine-${titre.domaine.id}`"
               class="mono"
             >
               {{ titre.domaine.id }}
             </Pill>
-          </td>
-          <td class="bold">
+          </div>
+          <div class="td bold">
             {{ titre.nom }}
-          </td>
-          <td>
+          </div>
+          <div class="td">
             <p class="cap-first h5 mb-0">
               {{ titre.type.nom }}
             </p>
-          </td>
-          <td>
+          </div>
+          <div class="td">
             <Dot :color="`bg-${titre.statut.couleur}`" />
             <span class="cap-first h5 mb-0">
               {{ titre.statut.nom }}
             </span>
-          </td>
-          <td v-if="activitesCol">
+          </div>
+          <div
+            v-if="activitesCol"
+            class="td"
+          >
             <Pill
               v-if="titreHasActivitesFind(titre.activites)"
               :color="'bg-error'"
@@ -53,9 +66,10 @@
             >
               {{ titreHasActivitesFind(titre.activites) }}
             </Pill>
-          </td>
-          <td
+          </div>
+          <div
             v-if="titre.titulaires"
+            class="td"
           >
             <p
               v-for="titulaire in titre.titulaires"
@@ -64,16 +78,16 @@
             >
               {{ titulaire.nom }}
             </p>
-          </td>
-          <td>
+          </div>
+          <div class="td">
             <PillList
               v-if="titre.substances"
               :elements="titre.substances.map(s => s.nom)"
               class="mb--xs"
             />
-          </td>
+          </div>
         </RouterLink>
-      </table>
+      </div>
     </div>
     <div class="desktop-blobs">
       <div class="desktop-blob-3-4">
