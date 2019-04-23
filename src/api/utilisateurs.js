@@ -110,11 +110,11 @@ const utilisateurAdd = async ({ utilisateur }) => {
   }
 }
 
-const utilisateurRemove = async ({ id }) => {
+const utilisateurRemove = async ({ utilisateurId }) => {
   try {
     const res = await graphqlClient.mutate({
       mutation: mutationUtilisateurSupprimer,
-      variables: { id }
+      variables: { utilisateurId }
     })
 
     return res && res.data && res.data.utilisateurSupprimer

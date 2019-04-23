@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { titre, titreEtapeUpdate } from '../api'
+import { titre, titreEtapeUpdate, titreEtapeRemove } from '../api'
 
 export const state = {
   current: null,
@@ -59,6 +59,34 @@ export const actions = {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeUpdate', { root: true })
+    }
+  },
+
+  async etapeRemove({ commit, dispatch }, etapeId) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'titreEtapeRemove', { root: true })
+
+    try {
+      const res = await titreEtapeRemove({ etapeId })
+
+      if (res) {
+        commit('popupClose', null, { root: true })
+        dispatch(
+          'messageAdd',
+          {
+            value: `le titre a été mis à jour`,
+            type: 'success'
+          },
+          { root: true }
+        )
+        dispatch('reload')
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeRemove', { root: true })
     }
   },
 

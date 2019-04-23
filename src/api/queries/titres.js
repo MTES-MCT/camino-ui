@@ -51,4 +51,19 @@ const mutationTitreEtapeModifier = gql`
   ${fragmentEtape}
 `
 
-export { queryTitre, queryTitres, mutationTitreEtapeModifier }
+const mutationTitreEtapeSupprimer = gql`
+  mutation TitreEtapeModifier($etapeId: ID!) {
+    titreEtapeSupprimer(etapeId: $etapeId) {
+      ...etape
+    }
+  }
+
+  ${fragmentEtape}
+`
+
+export {
+  queryTitre,
+  queryTitres,
+  mutationTitreEtapeModifier,
+  mutationTitreEtapeSupprimer
+}

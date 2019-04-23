@@ -4,7 +4,8 @@ import graphqlErrorThrow from '@/api/_error-throw'
 import {
   queryTitre,
   queryTitres,
-  mutationTitreEtapeModifier
+  mutationTitreEtapeModifier,
+  mutationTitreEtapeSupprimer
 } from './queries/titres'
 
 const titre = async id => {
@@ -77,4 +78,18 @@ const titreEtapeUpdate = async ({ etape }) => {
   }
 }
 
-export { titre, titres, titreEtapeUpdate }
+const titreEtapeRemove = async ({ etapeId }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationTitreEtapeSupprimer,
+      variables: { etapeId }
+    })
+
+    return res && res.data && res.data.titreEtapeSupprimer
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
+export { titre, titres, titreEtapeUpdate, titreEtapeRemove }

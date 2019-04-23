@@ -16,6 +16,13 @@
     >
       <button
         class="btn-alt py-s px-m"
+        @click="removePopupOpen"
+      >
+        <i class="icon-24 icon-24-trash" />
+      </button>
+
+      <button
+        class="btn-alt py-s px-m"
         @click="editPopupOpen"
       >
         <i class="icon-24 icon-24-pencil" />
@@ -144,6 +151,7 @@ import Accordion from '../ui/accordion.vue'
 import PillList from '../ui/pill-list.vue'
 import Documents from './documents.vue'
 import EditPopup from './etape-edit-popup.vue'
+import RemovePopup from './etape-remove-popup.vue'
 
 export default {
   name: 'CaminoTitreEtape',
@@ -253,6 +261,19 @@ export default {
         }
       })
     },
+
+    removePopupOpen() {
+      this.$store.commit('popupOpen', {
+        component: RemovePopup,
+        props: {
+          etapeTypeNom: this.etape.type.nom,
+          etapeId: this.etape.id,
+          demarcheTypeNom: this.demarcheType.nom,
+          titreNom: this.$store.state.titre.current.nom
+        }
+      })
+    },
+
     etablissementNameFind(etablissements, date) {
       const etablissement = etablissements.find(
         e =>
