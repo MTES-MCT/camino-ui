@@ -89,13 +89,12 @@ export default {
 
   methods: {
     editPopupOpen() {
-      const demarche = JSON.parse(JSON.stringify(this.demarche))
+      const demarche = {}
 
-      demarche.typeId = demarche.type.id
-      delete demarche.type
-
-      demarche.statutId = demarche.statut.id
-      delete demarche.statut
+      demarche.typeId = this.demarche.type.id
+      demarche.statutId = this.demarche.statut.id
+      demarche.titreId = this.titre.id
+      demarche.id = this.demarche.id
 
       this.$store.commit('popupOpen', {
         component: EditPopup,
