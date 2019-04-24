@@ -1,15 +1,28 @@
 <template>
   <div>
+    <div
+      v-if="permissionsCheck(['super'])"
+    >
+      <div class="card-border" />
+      <button
+        class="btn-border rnd-xs p-s full-x flex mb"
+        @click="demarcheAddPopupOpen"
+      >
+        Ajouter une démarche <i class="icon-24 icon-24-plus flex-right" />
+      </button>
+    </div>
     <TitreDemarche
       v-for="demarche in demarches"
       :key="demarche.id"
       :demarche="demarche"
+      :type="titre.type"
     />
   </div>
 </template>
 
 <script>
 import TitreDemarche from './demarche.vue'
+import EditPopup from './demarche-edit-popup.vue'
 
 export default {
   components: {
@@ -20,6 +33,32 @@ export default {
     demarches: {
       type: Array,
       default: () => []
+    }
+  },
+
+  computed: {
+    titre() {
+      return this.$store.state.titre.current
+    }
+  },
+
+  methods: {
+    demarcheAddPopupOpen() {
+      const demarche = {
+        id: `${this.titre.id}-ooo00`,
+        ordre: 0,
+        typeId: null,
+        statutId: null
+      }
+
+      this.$store.commit('popupOpen', {
+        component: EditPopup,
+        props: {
+          demarche,
+          domaineId: this.titre.domaine.id,
+          titreNom: this.titre.nom
+        }
+      })
     }
   }
 }

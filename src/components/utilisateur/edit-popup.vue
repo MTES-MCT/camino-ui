@@ -302,10 +302,18 @@ export default {
   methods: {
     save() {
       if (this.complete) {
+        const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
+
+        if (utilisateur.permission) {
+          utilisateur.permissionId = utilisateur.permission.id
+
+          delete utilisateur.permission
+        }
+
         if (this.action === 'create') {
-          this.$store.dispatch('utilisateurs/add', this.utilisateur)
+          this.$store.dispatch('utilisateurs/add', utilisateur)
         } else {
-          this.$store.dispatch('utilisateurs/update', this.utilisateur)
+          this.$store.dispatch('utilisateurs/update', utilisateur)
         }
       }
     },

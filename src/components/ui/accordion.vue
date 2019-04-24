@@ -35,7 +35,7 @@
 
     <button
       v-else-if="$slots.default && !$slots.buttons"
-      :class="{ 'rnd-xs-t': opened || $slots.sub, 'rnd-xs': !opened && !$slots.sub }"
+      :class="{ 'rnd-t-xs': opened || $slots.sub, 'rnd-xs': !opened && !$slots.sub }"
       class="btn-border py-s px-m flex full-x accordion-header"
       @click="opened = !opened"
     >

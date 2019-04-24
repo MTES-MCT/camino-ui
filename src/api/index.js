@@ -1,5 +1,12 @@
 import { init } from './init'
-import { titres, titre, titreEtapeUpdate, titreEtapeRemove } from './titres'
+import {
+  titres,
+  titre,
+  titreDemarcheUpdate,
+  titreDemarcheRemove,
+  titreEtapeUpdate,
+  titreEtapeRemove
+} from './titres'
 import {
   utilisateur,
   utilisateurs,
@@ -19,6 +26,8 @@ import { titreActiviteUpdate } from './titre-activites'
 export {
   init,
   titre,
+  titreDemarcheUpdate,
+  titreDemarcheRemove,
   titreEtapeUpdate,
   titreEtapeRemove,
   titres,

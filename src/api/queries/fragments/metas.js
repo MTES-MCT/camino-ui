@@ -1,5 +1,28 @@
 import gql from 'graphql-tag'
 
+const fragmentEtapeType = gql`
+  fragment etapeType on EtapeType {
+    id
+    nom
+    acceptationAuto
+    ordre
+    typeId
+    etapesStatuts {
+      id
+      nom
+      couleur
+    }
+  }
+`
+
+const fragmentDemarcheStatut = gql`
+  fragment demarcheStatut on DemarcheStatut {
+    id
+    nom
+    couleur
+  }
+`
+
 const fragmentDemarcheType = gql`
   fragment demarcheType on DemarcheType {
     id
@@ -11,19 +34,16 @@ const fragmentDemarcheType = gql`
     titulaires
     renouvelable
     exception
+    demarchesStatuts {
+      ...demarcheStatut
+    }
     etapesTypes {
-      id
-      nom
-      acceptationAuto
-      ordre
-      typeId
-      etapesStatuts {
-        id
-        nom
-        couleur
-      }
+      ...etapeType
     }
   }
+
+  ${fragmentEtapeType}
+  ${fragmentDemarcheStatut}
 `
 
 const fragmentMeta = gql`
@@ -56,10 +76,10 @@ const fragmentMeta = gql`
       unite
     }
     emprises {
-      id 
+      id
       nom
     }
   }
 `
 
-export { fragmentMeta, fragmentDemarcheType }
+export { fragmentMeta, fragmentDemarcheType, fragmentDemarcheStatut }

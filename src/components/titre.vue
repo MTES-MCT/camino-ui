@@ -34,7 +34,7 @@
           :class="{ active: tabActive === tabId}"
         >
           <button
-            class="p-m btn-tab rnd-s-t"
+            class="p-m btn-tab rnd-t-xs"
             @click="tabToggle(tabId)"
           >
             {{ tab.nom }}

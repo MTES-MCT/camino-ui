@@ -4,7 +4,7 @@ import fragmentAdministration from './administration'
 import { fragmentTitreSubstance } from './titre-substance'
 import fragmentPoint from './point'
 
-const fragmentEtape = gql`
+const fragmentTitreEtape = gql`
   fragment etape on Etape {
     id
     ordre
@@ -84,4 +84,4 @@ const fragmentEtape = gql`
   }
 `
 
-export default fragmentEtape
+export default fragmentTitreEtape

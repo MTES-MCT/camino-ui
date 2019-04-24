@@ -4,6 +4,8 @@ import graphqlErrorThrow from '@/api/_error-throw'
 import {
   queryTitre,
   queryTitres,
+  mutationTitreDemarcheModifier,
+  mutationTitreDemarcheSupprimer,
   mutationTitreEtapeModifier,
   mutationTitreEtapeSupprimer
 } from './queries/titres'
@@ -78,11 +80,11 @@ const titreEtapeUpdate = async ({ etape }) => {
   }
 }
 
-const titreEtapeRemove = async ({ etapeId }) => {
+const titreEtapeRemove = async ({ id }) => {
   try {
     const res = await graphqlClient.mutate({
       mutation: mutationTitreEtapeSupprimer,
-      variables: { etapeId }
+      variables: { id }
     })
 
     return res && res.data && res.data.titreEtapeSupprimer
@@ -92,4 +94,39 @@ const titreEtapeRemove = async ({ etapeId }) => {
   }
 }
 
-export { titre, titres, titreEtapeUpdate, titreEtapeRemove }
+const titreDemarcheUpdate = async ({ demarche }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationTitreDemarcheModifier,
+      variables: { demarche }
+    })
+
+    return res && res.data && res.data.titreDemarcheModifier
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
+const titreDemarcheRemove = async ({ demarcheId }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationTitreDemarcheSupprimer,
+      variables: { demarcheId }
+    })
+
+    return res && res.data && res.data.titreDemarcheSupprimer
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
+export {
+  titre,
+  titres,
+  titreDemarcheUpdate,
+  titreDemarcheRemove,
+  titreEtapeUpdate,
+  titreEtapeRemove
+}

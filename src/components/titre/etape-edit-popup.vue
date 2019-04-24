@@ -330,13 +330,13 @@
         <div
           v-for="(points, contourIndex) in contours"
           :key="contourIndex + 1"
-          class="pt pb-s pl-s border mb-s rnd-s-l bg-alt"
+          class="pt pb-s pl-s border mb-s rnd-l-s bg-alt"
         >
           <h4>Contour {{ contourIndex + 1 }}</h4>
           <div
             v-for="(point, pointIndex) in points"
             :key="pointIndex + 1"
-            class="pt pb-s pl-s pr-s border mb-s rnd-s-l bg-bg"
+            class="pt pb-s pl-s pr-s border mb-s rnd-l-s bg-bg"
           >
             <div class="flex full-x">
               <h4>Point {{ point.nom }}</h4>
@@ -686,23 +686,20 @@ export default {
       type: Object,
       default: () => ({})
     },
+
     demarcheType: {
       type: Object,
       default: () => ({})
     },
+
     domaineId: {
       type: String,
       default: ''
     },
+
     titreNom: {
       type: String,
       default: ''
-    }
-  },
-
-  data() {
-    return {
-      id: ''
     }
   },
 
@@ -710,32 +707,40 @@ export default {
     messages() {
       return this.$store.state.popup.messages
     },
+
     etapesTypes() {
       return this.demarcheType.etapesTypes
     },
+
     etapesStatuts() {
       const etapeType =
         this.etapesTypes &&
         this.etapesTypes.find(t => t.id === this.etape.typeId)
       return etapeType && etapeType.etapesStatuts
     },
+
     entreprises() {
       return this.$store.state.entreprises.list
     },
+
     substances() {
       return this.$store.state.substances.list.filter(su =>
         su.legales.find(sl => sl.domaine.id === this.domaineId)
       )
     },
+
     devises() {
       return this.$store.state.metas.devises
     },
+
     volumeUnites() {
       return this.$store.state.metas.volumeUnites
     },
+
     emprises() {
       return this.$store.state.metas.emprises
     },
+
     pointsTotal() {
       return this.etape.groupes.reduce(
         (points, contours) => [
@@ -745,6 +750,7 @@ export default {
         []
       )
     },
+
     etapeTypeNom() {
       const etapeType = this.etapesTypes.find(et => et.id === this.etape.typeId)
       return etapeType && etapeType.nom

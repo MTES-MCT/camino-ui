@@ -273,7 +273,8 @@
   );
 }
 
-.btn-alt:hover .icon-24-pencil {
+.btn-alt:hover .icon-24-pencil,
+.btn-border:hover .icon-24-pencil {
   background-image: svg-load(
     './icons/24-pencil.svg',
     fill=none,
@@ -317,7 +318,8 @@
   );
 }
 
-.btn-alt:hover .icon-24-trash {
+.btn-alt:hover .icon-24-trash,
+.btn-border:hover .icon-24-trash {
   background-image: svg-load(
     './icons/24-trash.svg',
     fill=none,

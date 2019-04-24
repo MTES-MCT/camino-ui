@@ -1,5 +1,11 @@
 import Vue from 'vue'
-import { titre, titreEtapeUpdate, titreEtapeRemove } from '../api'
+import {
+  titre,
+  titreDemarcheUpdate,
+  titreDemarcheRemove,
+  titreEtapeUpdate,
+  titreEtapeRemove
+} from '../api'
 
 export const state = {
   current: null,
@@ -29,8 +35,56 @@ export const actions = {
   async reload({ dispatch, state }) {
     try {
       await dispatch('get', state.current.id)
+      dispatch(
+        'messageAdd',
+        {
+          value: `le titre a été mis à jour`,
+          type: 'success'
+        },
+        { root: true }
+      )
     } catch (e) {
       console.log(e)
+    }
+  },
+
+  async demarcheUpdate({ commit, dispatch }, demarche) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'titreDemarcheUpdate', { root: true })
+
+    try {
+      const res = await titreDemarcheUpdate({ demarche })
+
+      if (res) {
+        commit('popupClose', null, { root: true })
+        dispatch('reload')
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreDemarcheUpdate', { root: true })
+    }
+  },
+
+  async demarcheRemove({ commit, dispatch }, demarcheId) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'titreDemarcheRemove', { root: true })
+
+    try {
+      const res = await titreDemarcheRemove({ demarcheId })
+
+      if (res) {
+        commit('popupClose', null, { root: true })
+        dispatch('reload')
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreDemarcheRemove', { root: true })
     }
   },
 
@@ -43,14 +97,6 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch(
-          'messageAdd',
-          {
-            value: `le titre a été mis à jour`,
-            type: 'success'
-          },
-          { root: true }
-        )
         dispatch('reload')
       } else {
         dispatch('pageError', null, { root: true })
@@ -62,23 +108,15 @@ export const actions = {
     }
   },
 
-  async etapeRemove({ commit, dispatch }, etapeId) {
+  async etapeRemove({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'titreEtapeRemove', { root: true })
 
     try {
-      const res = await titreEtapeRemove({ etapeId })
+      const res = await titreEtapeRemove({ id })
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch(
-          'messageAdd',
-          {
-            value: `le titre a été mis à jour`,
-            type: 'success'
-          },
-          { root: true }
-        )
         dispatch('reload')
       } else {
         dispatch('pageError', null, { root: true })

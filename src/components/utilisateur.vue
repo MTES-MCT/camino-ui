@@ -138,7 +138,7 @@
 
           <div class="tablet-blob-3-4">
             <p>
-              {{ utilisateur.entreprise.etablissements && utilisateur.entreprise.etablissements.length && utilisateur.entreprise.etablissements[0].nom || "–" }} <span
+              {{ utilisateur.entreprise.nom }} <span
                 v-if="utilisateur.entreprise.legalSiren"
                 class="h5"
               >

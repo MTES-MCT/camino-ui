@@ -24,11 +24,11 @@
   border-radius: var(--unit-s);
 }
 
-.rnd-s-t {
+.rnd-t-s {
   border-radius: var(--unit-s) var(--unit-s) 0 0;
 }
 
-.rnd-s-l {
+.rnd-l-s {
   border-radius: var(--unit-s) 0 0 var(--unit-s);
 }
 
@@ -36,20 +36,24 @@
   border-radius: var(--unit-xs);
 }
 
-.rnd-xs-t {
+.rnd-t-xs {
   border-radius: var(--unit-xs) var(--unit-xs) 0 0;
 }
 
-.rnd-xs-t-r {
+.rnd-t-xs-r {
   border-radius: 0 var(--unit-xs) 0 0;
 }
 
-.rnd-xs-t-l {
+.rnd-t-xs-l {
   border-radius: var(--unit-xs) 0 0 0;
 }
 
-.rnd-xs-l {
+.rnd-l-xs {
   border-radius: var(--unit-xs) 0 0 var(--unit-xs);
+}
+
+.rnd-r-xs {
+  border-radius: 0 var(--unit-xs) var(--unit-xs) 0;
 }
 
 .border-b {

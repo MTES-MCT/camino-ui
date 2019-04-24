@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 
+import { fragmentDemarcheType } from './metas'
 import { fragmentTitreDemarche } from './titre-demarche'
 import { fragmentTitreActivite } from './titre-activite'
 import { fragmentTitreSubstance } from './titre-substance'
@@ -14,6 +15,9 @@ const fragmentTitre = gql`
     type {
       id
       nom
+      demarchesTypes {
+        ...demarcheType
+      }
     }
     domaine {
       id
@@ -83,6 +87,9 @@ const fragmentTitre = gql`
       ...titreActivite
     }
   }
+
+
+  ${fragmentDemarcheType}
 
   ${fragmentTitreDemarche}
 

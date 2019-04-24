@@ -13,10 +13,10 @@
               >
                 {{ user.prenom }} {{ user.nom }}
                 <div
-                  v-if="user.entreprise && user.entreprise.etablissements.length"
+                  v-if="user.entreprise"
                   class="h5 color-neutral"
                 >
-                  {{ user.entreprise.etablissements[0].nom }}
+                  {{ user.entreprise.nom }}
                 </div>
               </RouterLink>
             </li>

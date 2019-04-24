@@ -171,12 +171,18 @@ export default {
     demarcheType: {
       type: Object,
       default: () => {}
+    },
+    demarcheId: {
+      type: String,
+      default: ''
     }
   },
 
   methods: {
     editPopupOpen() {
       const etape = JSON.parse(JSON.stringify(this.etape))
+
+      etape.titreDemarcheId = this.demarcheId
 
       etape.typeId = etape.type.id
       delete etape.type

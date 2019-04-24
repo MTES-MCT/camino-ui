@@ -87,12 +87,12 @@ export const actions = {
     }
   },
 
-  async remove({ commit, dispatch, rootState }, utilisateurId) {
+  async remove({ commit, dispatch, rootState }, id) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'utilisateurRemove', { root: true })
 
     try {
-      const utilisateur = await utilisateurRemove({ utilisateurId })
+      const utilisateur = await utilisateurRemove({ id })
 
       if (utilisateur) {
         commit('remove', utilisateur)
