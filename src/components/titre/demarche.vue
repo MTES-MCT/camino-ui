@@ -18,19 +18,24 @@
         </h4>
       </div>
       <div class="desktop-blob-1-4 flex">
-        <button
-          class="btn-border rnd-l-xs py-s px-m mb flex-right"
-          @click="removePopupOpen"
+        <div
+          v-if="permissionsCheck(['super'])"
+          class="flex-right"
         >
-          <i class="icon-24 icon-24-trash" />
-        </button>
+          <button
+            class="btn-border rnd-l-xs py-s px-m mb"
+            @click="removePopupOpen"
+          >
+            <i class="icon-24 icon-24-trash" />
+          </button>
 
-        <button
-          class="btn-border rnd-r-xs py-s px-m mb"
-          @click="editPopupOpen"
-        >
-          <i class="icon-24 icon-24-pencil" />
-        </button>
+          <button
+            class="btn-border rnd-r-xs py-s px-m mb"
+            @click="editPopupOpen"
+          >
+            <i class="icon-24 icon-24-pencil" />
+          </button>
+        </div>
       </div>
     </div>
 
@@ -93,7 +98,6 @@ export default {
       const demarche = {}
 
       demarche.typeId = this.demarche.type.id
-      demarche.statutId = this.demarche.statut.id
       demarche.titreId = this.titre.id
       demarche.id = this.demarche.id
 
@@ -101,7 +105,8 @@ export default {
         component: EditPopup,
         props: {
           demarche,
-          type: this.type,
+          typeNom: this.type.nom,
+          demarchesTypes: this.type.demarchesTypes,
           titreNom: this.titre.nom
         }
       })

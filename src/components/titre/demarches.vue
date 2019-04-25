@@ -46,16 +46,16 @@ export default {
     demarcheAddPopupOpen() {
       const demarche = {
         id: `${this.titre.id}-ooo00`,
-        ordre: 0,
         typeId: null,
-        statutId: null
+        titreId: this.titre.id
       }
 
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
           demarche,
-          domaineId: this.titre.domaine.id,
+          typeNom: this.titre.type.nom,
+          demarchesTypes: this.titre.type.demarchesTypes,
           titreNom: this.titre.nom
         }
       })

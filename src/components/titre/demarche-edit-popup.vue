@@ -8,7 +8,7 @@
           </span><span class="color-neutral">
             |
           </span><span class="cap-first">
-            {{ type.nom }}
+            {{ typeNom }}
           </span>
           </span>
         </h5>
@@ -35,33 +35,6 @@
               :disabled="demarche.typeId === demarcheType.id"
             >
               {{ demarcheType.nom }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <hr>
-    </div>
-
-
-
-    <div>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Statut</h6>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <select
-            v-model="demarche.statutId"
-            type="text"
-            class="p-s mr"
-          >
-            <option
-              v-for="demarcheStatut in demarchesStatuts"
-              :key="demarcheStatut.id"
-              :value="demarcheStatut.id"
-              :disabled="demarche.statutId === demarcheStatut.id"
-            >
-              {{ demarcheStatut.nom }}
             </option>
           </select>
         </div>
@@ -116,26 +89,20 @@ export default {
       default: ''
     },
 
-    type: {
-      type: Object,
-      default: () => ({})
+    typeNom: {
+      type: String,
+      default: ''
+    },
+
+    demarchesTypes: {
+      type: Array,
+      default: () => []
     }
   },
 
   computed: {
     messages() {
       return this.$store.state.popup.messages
-    },
-
-    demarchesTypes() {
-      return this.type.demarchesTypes
-    },
-
-    demarchesStatuts() {
-      const demarcheType =
-        this.demarchesTypes &&
-        this.demarchesTypes.find(t => t.id === this.demarche.typeId)
-      return demarcheType && demarcheType.demarchesStatuts
     },
 
     demarcheTypeNom() {
