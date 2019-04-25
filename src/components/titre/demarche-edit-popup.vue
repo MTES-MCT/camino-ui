@@ -39,7 +39,6 @@
           </select>
         </div>
       </div>
-      <hr>
     </div>
 
     <template slot="footer">
