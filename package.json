@@ -31,6 +31,7 @@
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.2.0",
     "@sentry/browser": "^5.1.1",
     "@sentry/integrations": "^5.1.0",
+    "@types/jest": "^24.0.11",
     "@types/webpack-env": "^1.13.9",
     "@vue/cli-plugin-babel": "^3.6.0",
     "@vue/cli-plugin-eslint": "^3.6.0",
@@ -54,6 +55,8 @@
     "date-format": "^2.0.0",
     "email-validator": "^2.0.4",
     "eslint": "^5.16.0",
+    "eslint-plugin-jest": "^22.5.1",
+    "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-vue": "^5.2.2",
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
@@ -87,7 +90,7 @@
     "root": true,
     "env": {
       "node": true,
-      "jest": true
+      "jest/globals": true
     },
     "extends": [
       "plugin:vue/recommended",
@@ -101,7 +104,11 @@
     },
     "parserOptions": {
       "parser": "babel-eslint"
-    }
+    },
+    "plugins": [
+      "prettier",
+      "jest"
+    ]
   },
   "prettier": {
     "semi": false,
