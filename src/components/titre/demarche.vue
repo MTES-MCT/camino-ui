@@ -57,6 +57,7 @@ import Dot from '../ui/dot.vue'
 import EtapeEditPopup from './etape-edit-popup.vue'
 import TitreEtape from './etape.vue'
 import EditPopup from './demarche-edit-popup.vue'
+import RemovePopup from './demarche-remove-popup.vue'
 
 export default {
   components: {
@@ -106,7 +107,17 @@ export default {
       })
     },
 
-    removePopupOpen() {},
+    removePopupOpen() {
+      this.$store.commit('popupOpen', {
+        component: RemovePopup,
+        props: {
+          demarcheTypeNom: this.demarche.type.nom,
+          titreNom: this.titre.nom,
+          demarcheId: this.demarche.id,
+          typeNom: this.titre.type.nom
+        }
+      })
+    },
 
     etapeAddPopupOpen() {
       const etape = {

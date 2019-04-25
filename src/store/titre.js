@@ -68,12 +68,12 @@ export const actions = {
     }
   },
 
-  async demarcheRemove({ commit, dispatch }, demarcheId) {
+  async demarcheRemove({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'titreDemarcheRemove', { root: true })
 
     try {
-      const res = await titreDemarcheRemove({ demarcheId })
+      const res = await titreDemarcheRemove({ id })
 
       if (res) {
         commit('popupClose', null, { root: true })

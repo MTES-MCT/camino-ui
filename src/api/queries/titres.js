@@ -73,8 +73,8 @@ const mutationTitreDemarcheModifier = gql`
 `
 
 const mutationTitreDemarcheSupprimer = gql`
-  mutation TitreDemarcheModifier($demarcheId: ID!) {
-    titreDemarcheSupprimer(demarcheId: $demarcheId) {
+  mutation TitreDemarcheModifier($id: ID!) {
+    titreDemarcheSupprimer(id: $id) {
       ...titreDemarche
     }
   }

@@ -108,11 +108,11 @@ const titreDemarcheUpdate = async ({ demarche }) => {
   }
 }
 
-const titreDemarcheRemove = async ({ demarcheId }) => {
+const titreDemarcheRemove = async ({ id }) => {
   try {
     const res = await graphqlClient.mutate({
       mutation: mutationTitreDemarcheSupprimer,
-      variables: { demarcheId }
+      variables: { id }
     })
 
     return res && res.data && res.data.titreDemarcheSupprimer
