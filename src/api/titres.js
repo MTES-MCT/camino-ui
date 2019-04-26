@@ -4,6 +4,8 @@ import graphqlErrorThrow from '@/api/_error-throw'
 import {
   queryTitre,
   queryTitres,
+  mutationTitreModifier,
+  mutationTitreSupprimer,
   mutationTitreDemarcheModifier,
   mutationTitreDemarcheSupprimer,
   mutationTitreEtapeModifier,
@@ -66,28 +68,28 @@ const titres = async (
   }
 }
 
-const titreEtapeUpdate = async ({ etape }) => {
+const titreUpdate = async ({ titre }) => {
   try {
     const res = await graphqlClient.mutate({
-      mutation: mutationTitreEtapeModifier,
-      variables: { etape }
+      mutation: mutationTitreModifier,
+      variables: { titre }
     })
 
-    return res && res.data && res.data.titreEtapeModifier
+    return res && res.data && res.data.titreModifier
   } catch (e) {
     console.log({ e })
     graphqlErrorThrow(e)
   }
 }
 
-const titreEtapeRemove = async ({ id }) => {
+const titreRemove = async ({ id }) => {
   try {
     const res = await graphqlClient.mutate({
-      mutation: mutationTitreEtapeSupprimer,
+      mutation: mutationTitreSupprimer,
       variables: { id }
     })
 
-    return res && res.data && res.data.titreEtapeSupprimer
+    return res && res.data && res.data.titreSupprimer
   } catch (e) {
     console.log({ e })
     graphqlErrorThrow(e)
@@ -122,9 +124,39 @@ const titreDemarcheRemove = async ({ id }) => {
   }
 }
 
+const titreEtapeUpdate = async ({ etape }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationTitreEtapeModifier,
+      variables: { etape }
+    })
+
+    return res && res.data && res.data.titreEtapeModifier
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
+const titreEtapeRemove = async ({ id }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationTitreEtapeSupprimer,
+      variables: { id }
+    })
+
+    return res && res.data && res.data.titreEtapeSupprimer
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
 export {
   titre,
   titres,
+  titreUpdate,
+  titreRemove,
   titreDemarcheUpdate,
   titreDemarcheRemove,
   titreEtapeUpdate,

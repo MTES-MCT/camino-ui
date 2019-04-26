@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import {
   titre,
+  titreUpdate,
+  titreRemove,
   titreDemarcheUpdate,
   titreDemarcheRemove,
   titreEtapeUpdate,
@@ -45,6 +47,46 @@ export const actions = {
       )
     } catch (e) {
       console.log(e)
+    }
+  },
+
+  async titreUpdate({ commit, dispatch }, titre) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'titreUpdate', { root: true })
+
+    try {
+      const res = await titreUpdate({ titre })
+
+      if (res) {
+        commit('popupClose', null, { root: true })
+        dispatch('reload')
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreUpdate', { root: true })
+    }
+  },
+
+  async titreRemove({ commit, dispatch }, id) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'titreRemove', { root: true })
+
+    try {
+      const res = await titreRemove({ id })
+
+      if (res) {
+        commit('popupClose', null, { root: true })
+        dispatch('reload')
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreRemove', { root: true })
     }
   },
 

@@ -3,8 +3,34 @@
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <h1 class="mt-xs">
-          {{ titre["nom"] }}
+          {{ titre.nom }}
         </h1>
+      </div>
+      <div class="desktop-blob-1-2 flex">
+        <div
+          v-if="permissionsCheck(['super'])"
+          class="flex-right"
+        >
+          <button
+            class="btn-border rnd-l-xs py-s px-m mb"
+            @click="removePopupOpen"
+          >
+            <i class="icon-24 icon-24-trash" />
+          </button>
+
+          <button
+            class="btn-border rnd-r-xs py-s px-m mb"
+            @click="editPopupOpen"
+          >
+            <i class="icon-24 icon-24-pencil" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="desktop-blobs">
+      <div class="desktop-blob-1-2">
         <h4 class="mb">
           <Pill
             :color="`bg-title-domaine-${titre.domaine.id}`"
@@ -16,6 +42,20 @@
             {{ titre.type.nom }}
           </span>
         </h4>
+      </div>
+      <div class="desktop-blob-1-2">
+        <h6>Statut</h6>
+        <h4>
+          <Dot :color="`bg-${titre.statut.couleur}`" />
+          <span class="cap-first">
+            {{ titre.statut.nom }}
+          </span>
+        </h4>
+      </div>
+    </div>
+
+    <div class="desktop-blobs">
+      <div class="desktop-blob-1-2">
         <div v-if="titre.references">
           <h6>
             {{ titre.references.length > 1 ? "Références" : "Référence" }}
@@ -37,39 +77,30 @@
         </div>
       </div>
       <div class="desktop-blob-1-2">
-        <h6>Statut</h6>
-        <h4>
-          <Dot :color="`bg-${titre.statut.couleur}`" />
-          <span class="cap-first">
-            {{ titre.statut.nom }}
-          </span>
-        </h4>
-
-        <div>
-          <table class="table-xxs">
-            <tr>
-              <th />
-              <th>Phase</th>
-              <th>Début</th>
-              <th>Fin</th>
-            </tr>
-            <tr
-              v-for="demarche in titre.demarches.filter(d => d.phase)"
-              :key="demarche.id"
-            >
-              <td><Dot :color="`bg-${demarche.phase.statut.couleur}`" /></td>
-              <td>
-                <span class="cap-first">
-                  {{ demarche.type.nom }}
-                </span>
-              </td>
-              <td>{{ demarche.phase.dateDebut | dateFormat }}</td>
-              <td>{{ demarche.phase.dateFin | dateFormat }}</td>
-            </tr>
-          </table>
-        </div>
+        <table class="table-xxs">
+          <tr>
+            <th />
+            <th>Phase</th>
+            <th>Début</th>
+            <th>Fin</th>
+          </tr>
+          <tr
+            v-for="demarche in titre.demarches.filter(d => d.phase)"
+            :key="demarche.id"
+          >
+            <td><Dot :color="`bg-${demarche.phase.statut.couleur}`" /></td>
+            <td>
+              <span class="cap-first">
+                {{ demarche.type.nom }}
+              </span>
+            </td>
+            <td>{{ demarche.phase.dateDebut | dateFormat }}</td>
+            <td>{{ demarche.phase.dateFin | dateFormat }}</td>
+          </tr>
+        </table>
       </div>
     </div>
+
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <div v-if="titre.substances && titre.substances.length > 0">
@@ -141,6 +172,8 @@
 import Pill from '../ui/pill.vue'
 import PillList from '../ui/pill-list.vue'
 import Dot from '../ui/dot.vue'
+import EditPopup from './edit-popup.vue'
+import RemovePopup from './remove-popup.vue'
 
 export default {
   components: { Pill, Dot, PillList },
@@ -149,6 +182,38 @@ export default {
     titre: {
       type: Object,
       default: () => ({})
+    }
+  },
+
+  methods: {
+    editPopupOpen() {
+      const titre = {}
+
+      titre.id = this.titre.id
+      titre.nom = this.titre.nom
+      titre.typeId = this.titre.type.id
+      titre.domaineId = this.titre.domaine.id
+      titre.references = this.titre.references
+
+      this.$store.commit('popupOpen', {
+        component: EditPopup,
+        props: {
+          titre,
+          types: this.$store.state.metas.types,
+          domaines: this.$store.state.metas.domaines
+        }
+      })
+    },
+
+    removePopupOpen() {
+      this.$store.commit('popupOpen', {
+        component: RemovePopup,
+        props: {
+          titreNom: this.titre.nom,
+          titreId: this.titre.id,
+          typeNom: this.titre.type.nom
+        }
+      })
     }
   }
 }

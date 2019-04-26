@@ -2,11 +2,14 @@ import { init } from './init'
 import {
   titres,
   titre,
+  titreUpdate,
+  titreRemove,
   titreDemarcheUpdate,
   titreDemarcheRemove,
   titreEtapeUpdate,
   titreEtapeRemove
 } from './titres'
+
 import {
   utilisateur,
   utilisateurs,
@@ -26,6 +29,8 @@ import { titreActiviteUpdate } from './titre-activites'
 export {
   init,
   titre,
+  titreUpdate,
+  titreRemove,
   titreDemarcheUpdate,
   titreDemarcheRemove,
   titreEtapeUpdate,
