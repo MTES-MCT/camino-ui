@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { utilisateur } from '@/api'
+import { utilisateur } from '../api'
 
 export const state = {
   current: null

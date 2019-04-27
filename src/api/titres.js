@@ -1,5 +1,5 @@
 import graphqlClient from './_graphql-client'
-import graphqlErrorThrow from '@/api/_error-throw'
+import graphqlErrorThrow from './_error-throw'
 
 import {
   queryTitre,

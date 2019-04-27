@@ -1,5 +1,5 @@
-import graphqlClient from '@/api/_graphql-client'
-import graphqlErrorThrow from '@/api/_error-throw'
+import graphqlClient from './_graphql-client'
+import graphqlErrorThrow from './_error-throw'
 
 import {
   queryUtilisateur,
@@ -13,7 +13,7 @@ import {
   mutationUtilisateurMotDePasseInitialiser,
   mutationUtilisateurMotDePasseEmailEnvoyer,
   mutationUtilisateurAjoutEmailEnvoyer
-} from '@/api/queries/utilisateurs'
+} from './queries/utilisateurs'
 
 const utilisateur = async id => {
   try {

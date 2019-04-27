@@ -22,7 +22,7 @@ import {
   utilisateurPasswordInit,
   utilisateurPasswordInitEmail,
   utilisateurAddEmail
-} from '@/api/utilisateurs'
+} from './utilisateurs'
 
 import { titreActiviteUpdate } from './titre-activites'
 

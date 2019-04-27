@@ -7,7 +7,7 @@ import {
   utilisateurPasswordInitEmail,
   utilisateurAddEmail,
   utilisateurAdd
-} from '@/api'
+} from '../api'
 
 import router from '../router'
 
