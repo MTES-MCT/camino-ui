@@ -89,8 +89,9 @@ export default {
   computed: {
     editable() {
       return (
-        this.activite.statut.id !== 'dep' &&
-        this.permissionsCheck(['super', 'admin', 'entreprise'])
+        this.permissionsCheck(['super', 'admin']) ||
+        (this.activite.statut.id !== 'dep' &&
+          this.permissionsCheck(['entreprise']))
       )
     }
   }
