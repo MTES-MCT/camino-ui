@@ -9,6 +9,8 @@ import {
   titreEtapeRemove
 } from '../api'
 
+import router from '../router'
+
 export const state = {
   current: null,
   documents: []
@@ -50,7 +52,7 @@ export const actions = {
     }
   },
 
-  async titreUpdate({ commit, dispatch }, titre) {
+  async titreUpdate({ commit, dispatch }, { titre, creation }) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'titreUpdate', { root: true })
 
@@ -59,7 +61,11 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload')
+        if (creation) {
+          router.push({ name: 'titre', params: { id: res.id } })
+        } else {
+          dispatch('reload')
+        }
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -79,7 +85,16 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload')
+        dispatch(
+          'messageAdd',
+          {
+            value: `le titre a été supprimé`,
+            type: 'success'
+          },
+          { root: true }
+        )
+
+        router.push({ name: 'titres' })
       } else {
         dispatch('pageError', null, { root: true })
       }

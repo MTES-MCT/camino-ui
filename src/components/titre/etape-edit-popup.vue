@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ etapeTypeNom || '–' }}
+          {{ creation ? 'Ajout' : 'Modification' }} d'une étape
         </h2>
       </div>
     </template>
@@ -234,30 +234,6 @@
     </div>
 
     <div>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Emprises</h6>
-          <p class="h6 italic mb-0">
-            Optionel
-          </p>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <label
-            v-for="emprise in emprises"
-            :key="emprise.id"
-          >
-            <input
-              v-model="etape.emprisesIds"
-              type="checkbox"
-              :value="emprise.id"
-            > <span class="cap-first">{{ emprise.nom }}</span>
-          </label>
-        </div>
-      </div>
-      <hr>
-    </div>
-
-    <div>
       <h3 class="mb-s">
         Visas ({{ etape.visas.filter(({ texte }) => texte).length }})
       </h3>
@@ -286,7 +262,7 @@
 
       <button
         v-if="etape.visas && !etape.visas.find(v => !v.texte)"
-        class="btn-border rnd-xs p-s full-x mb flex"
+        class="btn-border rnd-xs py-s px-m full-x mb flex"
         @click="visaAdd"
       >
         Ajouter un visa<i class="icon-24 icon-24-plus flex-right" />
@@ -484,7 +460,7 @@
 
             <div v-if="!point.references.find(r => r.id === '')">
               <button
-                class="btn-border rnd-xs p-s full-x flex"
+                class="btn-border rnd-xs py-s px-m full-x flex"
                 @click="pointReferenceAdd(point)"
               >
                 Ajouter une référence <i class="icon-24 icon-24-plus flex-right" />
@@ -495,7 +471,7 @@
       </div>
 
       <button
-        class="btn-border rnd-xs p-s full-x mb  flex"
+        class="btn-border rnd-xs py-s px-m full-x mb  flex"
         @click="pointAdd"
       >
         Ajouter un point<i class="icon-24 icon-24-plus flex-right" />
@@ -542,7 +518,7 @@
 
     <div v-if="!etape.titulairesIds.find(t => t.id === '')">
       <button
-        class="btn-border rnd-xs p-s full-x mb  flex"
+        class="btn-border rnd-xs py-s px-m full-x mb  flex"
         @click="titulaireAdd"
       >
         Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" />
@@ -590,7 +566,7 @@
 
     <div v-if="!etape.amodiatairesIds.find(t => t.id === '')">
       <button
-        class="btn-border rnd-xs p-s full-x mb  flex"
+        class="btn-border rnd-xs py-s px-m full-x mb  flex"
         @click="amodiataireAdd"
       >
         Ajouter un amodiataire<i class="icon-24 icon-24-plus flex-right" />
@@ -637,7 +613,7 @@
 
     <div v-if="etape.substancesIds && !etape.substancesIds.find(t => t.id === '')">
       <button
-        class="btn-border rnd-xs p-s full-x mb  flex"
+        class="btn-border rnd-xs py-s px-m full-x mb  flex"
         @click="substanceAdd"
       >
         Ajouter une substance<i class="icon-24 icon-24-plus flex-right" />
@@ -700,6 +676,11 @@ export default {
     titreNom: {
       type: String,
       default: ''
+    },
+
+    creation: {
+      type: Boolean,
+      default: false
     }
   },
 

@@ -5,42 +5,52 @@
       <h2 class="mt-s">
         Titres miniers
       </h2>
-      <ul class="list-inline flex-right">
-        <li
-          v-for="v in vues"
-          :key="v.id"
-          class="mr-0 pill-list"
-          :class="{ active: vueId === v.id }"
-        >
-          <button
-            class="btn-border px-m py-s"
-            @click="urlSet(v.id)"
-          >
-            <i
-              :class="`icon-24-${v.icon}`"
-              class="icon-24"
-            />
-          </button>
-        </li>
-      </ul>
     </div>
+
+    <button
+      v-if="permissionsCheck(['super'])"
+      class="btn-border rnd-xs py-s px-m full-x flex mb"
+      @click="addPopupOpen"
+    >
+      Ajouter un titre <i class="icon-24 icon-24-plus flex-right" />
+    </button>
 
     <TitresFilters @titres-get="get" />
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-2">
+    <div class="desktop-blobs">
+      <div class="desktop-blob-1-2">
         <p>
           Résultat : {{ titres.length }} titre{{ titres.length > 1 ? 's' : '' }} minier{{ titres.length > 1 ? 's' : '' }}
         </p>
       </div>
       <div
         v-if="titres.length"
-        class="tablet-blob-1-2 tablet-flex"
+        class="desktop-blob-1-2 flex"
       >
-        <div class="tablet-flex-right mt--s mb-s">
+        <div class="flex-right mt--s mb-s flex">
           <titres-csv-download
             :titres="titres"
+            class="mr-s"
           />
+
+          <div class="flex">
+            <div
+              v-for="v in vues"
+              :key="v.id"
+              class="mr-0 pill-list"
+              :class="{ active: vueId === v.id }"
+            >
+              <button
+                class="btn-border px-m py-s"
+                @click="urlSet(v.id)"
+              >
+                <i
+                  :class="`icon-24-${v.icon}`"
+                  class="icon-24"
+                />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -55,6 +65,7 @@
 <script>
 import Card from './ui/card.vue'
 import Loader from './ui/loader.vue'
+import EditPopup from './titre/edit-popup.vue'
 import TitresTable from './titres/table.vue'
 import TitresMap from './titres/map.vue'
 import TitresFilters from './titres/filters.vue'
@@ -146,6 +157,20 @@ export default {
 
     urlSet(value) {
       this.urlParamSet('vue', value)
+    },
+
+    addPopupOpen() {
+      const titre = { references: [] }
+
+      this.$store.commit('popupOpen', {
+        component: EditPopup,
+        props: {
+          titre,
+          types: this.$store.state.metas.types,
+          domaines: this.$store.state.metas.domaines,
+          creation: true
+        }
+      })
     }
   }
 }

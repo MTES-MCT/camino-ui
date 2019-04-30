@@ -13,7 +13,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ demarcheTypeNom || '–' }}
+          {{ creation ? 'Ajout' : 'Modification' }} d'une démarche
         </h2>
       </div>
     </template>
@@ -96,6 +96,11 @@ export default {
     demarchesTypes: {
       type: Array,
       default: () => []
+    },
+
+    creation: {
+      type: Boolean,
+      default: false
     }
   },
 

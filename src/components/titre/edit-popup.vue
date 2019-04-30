@@ -3,7 +3,7 @@
     <template slot="header">
       <div>
         <h2 class="cap-first mb-0">
-          {{ titre.nom || '–' }}
+          {{ creation ? 'Ajout' : 'Modification' }} d'un titre
         </h2>
       </div>
     </template>
@@ -112,7 +112,7 @@
 
       <button
         v-if="titre.references && !titre.references.find(r => !r.type || !r.valeur)"
-        class="btn-border rnd-xs p-s full-x mb flex"
+        class="btn-border rnd-xs py-s px-m full-x mb flex"
         @click="referenceAdd"
       >
         Ajouter une référence<i class="icon-24 icon-24-plus flex-right" />
@@ -133,6 +133,7 @@
         <div class="tablet-blob-2-3">
           <button
             class="btn-flash rnd-xs p-s full-x"
+            :disabled="!complete"
             @click="save"
           >
             Enregistrer
@@ -146,6 +147,7 @@
 <script>
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
+import slugify from 'slugify'
 
 export default {
   name: 'CaminoDemarcheEditPopup',
@@ -169,6 +171,11 @@ export default {
     domaines: {
       type: Array,
       default: () => []
+    },
+
+    creation: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -182,6 +189,10 @@ export default {
         et => et.id === this.demarche.typeId
       )
       return demarcheType && demarcheType.nom
+    },
+
+    complete() {
+      return !!this.titre.nom && !!this.titre.typeId && !!this.titre.domaineId
     }
   },
 
@@ -204,7 +215,14 @@ export default {
           }
         })
 
-      this.$store.dispatch('titre/titreUpdate', titre)
+      if (this.creation) {
+        titre.id = slugify(`${titre.nom}-${new Date().getFullYear()}`)
+      }
+
+      this.$store.dispatch('titre/titreUpdate', {
+        titre,
+        creation: this.creation
+      })
     },
 
     cancel() {

@@ -5,12 +5,13 @@
     >
       <div class="card-border" />
       <button
-        class="btn-border rnd-xs p-s full-x flex mb"
+        class="btn-border rnd-xs py-s px-m full-x flex mb"
         @click="demarcheAddPopupOpen"
       >
         Ajouter une démarche <i class="icon-24 icon-24-plus flex-right" />
       </button>
     </div>
+
     <TitreDemarche
       v-for="demarche in demarches"
       :key="demarche.id"
@@ -56,7 +57,8 @@ export default {
           demarche,
           typeNom: this.titre.type.nom,
           demarchesTypes: this.titre.type.demarchesTypes,
-          titreNom: this.titre.nom
+          titreNom: this.titre.nom,
+          creation: true
         }
       })
     }

@@ -12,13 +12,13 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ demarcheTypeNom || '–' }}
+          Suppression d'un titre
         </h2>
       </div>
     </template>
 
     <p class="bold">
-      Souhaitez vous supprimer la démarche <span class="color-inverse">{{ demarcheTypeNom }}</span>  du <span class="color-inverse">{{ typeNom }} </span> <span class="color-inverse">{{ titreNom }}</span>  ?
+      Souhaitez vous supprimer le titre <span class="color-inverse">{{ titreNom }}</span> (<span class="color-inverse">{{ typeNom }}</span>) ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
       <span class="bold">
@@ -63,17 +63,12 @@ export default {
   },
 
   props: {
-    demarcheTypeNom: {
+    titreId: {
       type: String,
       default: ''
     },
 
     titreNom: {
-      type: String,
-      default: ''
-    },
-
-    demarcheId: {
       type: String,
       default: ''
     },
@@ -100,7 +95,7 @@ export default {
 
   methods: {
     remove() {
-      this.$store.dispatch('titre/demarcheRemove', this.demarcheId)
+      this.$store.dispatch('titre/titreRemove', this.titreId)
     },
 
     cancel() {

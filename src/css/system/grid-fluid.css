@@ -188,6 +188,14 @@ https://github.com/francoisromain/postcss-grid-fluid
     width: calc(3 * var(--col-width) + var(--gutter));
   }
 
+  .desktop-flex {
+    display: flex;
+  }
+
+  .desktop-flex-right {
+    margin-left: auto;
+  }
+
   .desktop-blobs {
     gf: row;
   }

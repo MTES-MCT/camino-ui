@@ -50,7 +50,7 @@
       </div>
 
       <TitreDemarches
-        v-if="titre.demarches.length && tabActive === 'demarches'"
+        v-if="tabActive === 'demarches'"
         :demarches="titre.demarches"
       />
 
@@ -106,10 +106,7 @@ export default {
     },
     tabsActives() {
       const tabsActives = Object.keys(this.tabs).reduce(
-        (tabs, tabId) =>
-          this.titre && this.titre[tabId].length
-            ? Object.assign(tabs, { [tabId]: this.tabs[tabId] })
-            : tabs,
+        (tabs, tabId) => Object.assign(tabs, { [tabId]: this.tabs[tabId] }),
         {}
       )
 

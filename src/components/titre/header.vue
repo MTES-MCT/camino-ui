@@ -56,7 +56,7 @@
 
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
-        <div v-if="titre.references">
+        <div v-if="titre.references && titre.references.length">
           <h6>
             {{ titre.references.length > 1 ? "Références" : "Référence" }}
           </h6>
@@ -76,7 +76,10 @@
           </ul>
         </div>
       </div>
-      <div class="desktop-blob-1-2">
+      <div
+        v-if="phases && phases.length"
+        class="desktop-blob-1-2"
+      >
         <table class="table-xxs">
           <tr>
             <th />
@@ -85,7 +88,7 @@
             <th>Fin</th>
           </tr>
           <tr
-            v-for="demarche in titre.demarches.filter(d => d.phase)"
+            v-for="demarche in phases"
             :key="demarche.id"
           >
             <td><Dot :color="`bg-${demarche.phase.statut.couleur}`" /></td>
@@ -182,6 +185,12 @@ export default {
     titre: {
       type: Object,
       default: () => ({})
+    }
+  },
+
+  computed: {
+    phases() {
+      return this.titre.demarches.filter(d => d.phase)
     }
   },
 

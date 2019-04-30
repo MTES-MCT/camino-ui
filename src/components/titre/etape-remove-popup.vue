@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ etapeTypeNom }}
+          Suppression d'une étape
         </h2>
       </div>
     </template>

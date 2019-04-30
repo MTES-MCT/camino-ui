@@ -194,8 +194,7 @@ export default {
         'titulaires',
         'amodiataires',
         'administrations',
-        'substances',
-        'emprises'
+        'substances'
       ]
 
       joinTable.forEach(prop => {
@@ -256,6 +255,8 @@ export default {
       delete etape.geojsonPoints
       delete etape.geojsonMultiPolygon
       delete etape.documents
+
+      console.log(JSON.stringify(etape, null, 2))
 
       this.$store.commit('popupOpen', {
         component: EditPopup,

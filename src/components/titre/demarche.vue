@@ -41,7 +41,7 @@
 
     <button
       v-if="permissionsCheck(['super'])"
-      class="btn-border rnd-xs p-s full-x flex mb"
+      class="btn-border rnd-xs py-s px-m full-x flex mb"
       @click="etapeAddPopupOpen"
     >
       Ajouter une étape <i class="icon-24 icon-24-plus flex-right" />
@@ -144,7 +144,8 @@ export default {
           etape,
           domaineId: this.$store.state.titre.current.domaine.id,
           demarcheType: this.demarche.type,
-          titreNom: this.$store.state.titre.current.nom
+          titreNom: this.$store.state.titre.current.nom,
+          creation: true
         }
       })
     }

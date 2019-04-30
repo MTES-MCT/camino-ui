@@ -12,13 +12,13 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ demarcheTypeNom || '–' }}
+          Suppression d'une démarche
         </h2>
       </div>
     </template>
 
     <p class="bold">
-      Souhaitez vous supprimer la démarche <span class="color-inverse">{{ demarcheTypeNom }}</span>  du <span class="color-inverse">{{ typeNom }} </span> <span class="color-inverse">{{ titreNom }}</span>  ?
+      Souhaitez vous supprimer la démarche <span class="color-inverse">{{ demarcheTypeNom }}</span> du titre <span class="color-inverse">{{ titreNom }}</span> (<span class="color-inverse">{{ typeNom }}</span>) ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
       <span class="bold">
