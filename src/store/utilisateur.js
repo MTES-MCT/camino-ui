@@ -13,8 +13,6 @@ export const actions = {
     try {
       const res = await utilisateur(id)
 
-      console.log(res)
-
       if (res) {
         commit('set', res)
       } else {

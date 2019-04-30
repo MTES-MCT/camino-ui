@@ -53,7 +53,7 @@ module.exports = {
   // globalTeardown: null,
 
   // A set of global variables that need to be available in all test environments
-  // globals: {},
+  globals: { npmVersion: true },
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
@@ -65,6 +65,8 @@ module.exports = {
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/src/__mocks__/file-mock.js',
     // '^vue$': 'vue/dist/vue.runtime.min.js',
     // '^.+\\.(css)$': '<rootDir>/src/__mocks__/css.js',
     '§@/(.*)$': '<rootDir>/src/$1'
