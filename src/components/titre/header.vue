@@ -187,13 +187,18 @@ export default {
 
   methods: {
     editPopupOpen() {
-      const titre = {}
+      const titre = JSON.parse(JSON.stringify(this.titre))
 
-      titre.id = this.titre.id
-      titre.nom = this.titre.nom
-      titre.typeId = this.titre.type.id
-      titre.domaineId = this.titre.domaine.id
-      titre.references = this.titre.references
+      const keys = ['id', 'nom', 'typeId', 'domaineId', 'references']
+
+      titre.domaineId = titre.domaine.id
+      titre.typeId = titre.type.id
+
+      Object.keys(titre).forEach(key => {
+        if (!keys.find(k => k === key)) {
+          delete titre[key]
+        }
+      })
 
       this.$store.commit('popupOpen', {
         component: EditPopup,
