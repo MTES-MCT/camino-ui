@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.16.0](https://github.com/MTES-MCT/camino-ui/compare/v0.15.0...v0.16.0) (2019-04-30)
+
+
+### Bug Fixes
+
+* converti les évènements click sur les lignes des tableaux en liens ([2bb312c](https://github.com/MTES-MCT/camino-ui/commit/2bb312c))
+* créé une copie du titre avant de le modifier ([1094287](https://github.com/MTES-MCT/camino-ui/commit/1094287))
+* édite une démarche ([df14ed4](https://github.com/MTES-MCT/camino-ui/commit/df14ed4))
+* supprime un filet inutile ([d424d29](https://github.com/MTES-MCT/camino-ui/commit/d424d29))
+* **csv:** exporte le csv si les titres n'ont pas de références ([78f47c4](https://github.com/MTES-MCT/camino-ui/commit/78f47c4))
+
+
+### Features
+
+* **activités:** autorise un utilisateur admin à modifier une activité ([ba48d03](https://github.com/MTES-MCT/camino-ui/commit/ba48d03))
+* ajoute une nouvelle démarche ([0260a20](https://github.com/MTES-MCT/camino-ui/commit/0260a20))
+* édite et supprime un titre ([edcdacd](https://github.com/MTES-MCT/camino-ui/commit/edcdacd))
+* édite les démarches ([f21b938](https://github.com/MTES-MCT/camino-ui/commit/f21b938))
+* supprime une démarche ([210f951](https://github.com/MTES-MCT/camino-ui/commit/210f951))
+* supprime une étape ([93a5fbf](https://github.com/MTES-MCT/camino-ui/commit/93a5fbf))
+
+
+
 # [0.15.0](https://github.com/MTES-MCT/camino-ui/compare/v0.14.0...v0.15.0) (2019-04-17)
 
 
