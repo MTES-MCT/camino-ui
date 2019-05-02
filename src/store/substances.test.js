@@ -16,12 +16,12 @@ describe('substances', () => {
     store = new Vuex.Store({ modules: { substances } })
   })
 
-  test('teste les actions', async () => {
+  test('ajoute des substances (actions)', async () => {
     await store.dispatch('substances/set', values)
     expect(store.state.substances.list).toEqual(values)
   })
 
-  test('ajoute des substances', () => {
+  test('ajoute des substances (mutations)', () => {
     store.commit('substances/set', values)
     expect(store.state.substances.list).toEqual(values)
   })

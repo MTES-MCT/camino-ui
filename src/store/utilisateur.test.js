@@ -12,7 +12,7 @@ localVue.use(Vuex)
 
 console.log = jest.fn()
 
-describe("regarde si l'utilisateur s'affiche", () => {
+describe('utilisateur/actions', () => {
   let idVariable
   let returnVariable
   let store
@@ -41,7 +41,7 @@ describe("regarde si l'utilisateur s'affiche", () => {
     expect(store.state.utilisateur.current).toEqual(returnVariable)
   })
 
-  test("ne trouve pas d'utilisateur dans l'api", async () => {
+  test("ne trouve pas d'utilisateur dans l'api (id n'existe pas)", async () => {
     returnVariable = false
     const apiSpy = apiUtilisateurs.utilisateur.mockImplementation(
       async idVariable => returnVariable
@@ -53,8 +53,8 @@ describe("regarde si l'utilisateur s'affiche", () => {
   })
 })
 
-describe('affichage de la vue utilisateur', () => {
-  test('set: ajoute un utilisateur', () => {
+describe('utilisateur/mutations', () => {
+  test('ajoute un utilisateur', () => {
     const idUtilisateur = 71
     utilisateur.state = { current: null }
     const store = new Vuex.Store({ modules: { utilisateur } })
@@ -62,7 +62,7 @@ describe('affichage de la vue utilisateur', () => {
     expect(store.state.utilisateur.current).toEqual(idUtilisateur)
   })
 
-  test('reset: supprime les utilisateurs', () => {
+  test("supprime l'utilisateur", () => {
     utilisateur.state = { current: 71 }
     const store = new Vuex.Store({ modules: { utilisateur } })
     store.commit('utilisateur/reset')
