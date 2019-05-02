@@ -4,7 +4,11 @@ export const state = {
   list: []
 }
 
-export const actions = {}
+export const actions = {
+  set({ commit }, substances) {
+    commit('set', substances)
+  }
+}
 
 export const getters = {}
 
