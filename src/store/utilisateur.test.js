@@ -48,6 +48,17 @@ describe('utilisateur/actions', () => {
     expect(store.state.utilisateur.current).toBeNull()
   })
 
+  test("le chargement de l'utilisateur renvoie une erreur", async () => {
+    const apiMock = api.utilisateur.mockRejectedValue(
+      new Error('erreur utilisateur')
+    )
+    await store.dispatch('utilisateur/get', utilisateurId)
+
+    expect(apiMock).toHaveBeenCalledTimes(1)
+    expect(apiMock).toHaveBeenCalledWith(utilisateurId)
+    expect(console.log).toHaveBeenCalledTimes(1)
+  })
+
   test('ajoute un utilisateur', () => {
     const utilisateur = { id: 71, nom: 'toto', prenom: 'asticot' }
     store.commit('utilisateur/set', utilisateur)
