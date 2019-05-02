@@ -1,9 +1,9 @@
 import utilisateur from './utilisateur'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import * as apiUtilisateurs from '../api/utilisateurs'
+import * as api from '../api'
 
-jest.mock('../api/utilisateurs', () => ({
+jest.mock('../api', () => ({
   utilisateur: jest.fn()
 }))
 
@@ -13,12 +13,11 @@ localVue.use(Vuex)
 console.log = jest.fn()
 
 describe('utilisateur/actions', () => {
-  let idVariable
-  let returnVariable
+  let utilisateurId
   let store
 
   beforeEach(() => {
-    idVariable = '71'
+    utilisateurId = 71
     utilisateur.state = { current: null }
     store = new Vuex.Store({
       modules: { utilisateur },
@@ -31,41 +30,36 @@ describe('utilisateur/actions', () => {
   })
 
   test("charge un utilisateur depuis l'api", async () => {
-    returnVariable = 71
-    const apiSpy = apiUtilisateurs.utilisateur.mockImplementation(
-      async idVariable => returnVariable
-    )
-    await store.dispatch('utilisateur/get', idVariable)
-    expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(apiSpy).toHaveBeenCalledWith(idVariable)
-    expect(store.state.utilisateur.current).toEqual(returnVariable)
+    const utilisateur = { id: 71, nom: 'toto', prenom: 'asticot' }
+    const apiMock = api.utilisateur.mockResolvedValue(utilisateur)
+    await store.dispatch('utilisateur/get', utilisateurId)
+
+    expect(apiMock).toHaveBeenCalledTimes(1)
+    expect(apiMock).toHaveBeenCalledWith(utilisateurId)
+    expect(store.state.utilisateur.current).toEqual(utilisateur)
   })
 
   test("ne trouve pas d'utilisateur dans l'api (id n'existe pas)", async () => {
-    returnVariable = false
-    const apiSpy = apiUtilisateurs.utilisateur.mockImplementation(
-      async idVariable => returnVariable
-    )
-    await store.dispatch('utilisateur/get', idVariable)
-    expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(apiSpy).toHaveBeenCalledWith(idVariable)
-    expect(store.state.utilisateur.current).toEqual(null)
-  })
-})
+    const apiMock = api.utilisateur.mockResolvedValue(null)
+    await store.dispatch('utilisateur/get', utilisateurId)
 
-describe('utilisateur/mutations', () => {
+    expect(apiMock).toHaveBeenCalledTimes(1)
+    expect(apiMock).toHaveBeenCalledWith(utilisateurId)
+    expect(store.state.utilisateur.current).toBeNull()
+  })
+
   test('ajoute un utilisateur', () => {
-    const idUtilisateur = 71
-    utilisateur.state = { current: null }
-    const store = new Vuex.Store({ modules: { utilisateur } })
-    store.commit('utilisateur/set', idUtilisateur)
-    expect(store.state.utilisateur.current).toEqual(idUtilisateur)
+    const utilisateur = { id: 71, nom: 'toto', prenom: 'asticot' }
+    store.commit('utilisateur/set', utilisateur)
+
+    expect(store.state.utilisateur.current).toEqual(utilisateur)
   })
 
   test("supprime l'utilisateur", () => {
-    utilisateur.state = { current: 71 }
-    const store = new Vuex.Store({ modules: { utilisateur } })
+    const utilisateur = { id: 71, nom: 'toto', prenom: 'asticot' }
+    store.commit('utilisateur/set', utilisateur)
     store.commit('utilisateur/reset')
-    expect(store.state.utilisateur.current).toEqual(null)
+
+    expect(store.state.utilisateur.current).toBeNull()
   })
 })

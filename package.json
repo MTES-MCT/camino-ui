@@ -14,8 +14,8 @@
   },
   "scripts": {
     "build": "vue-cli-service build --modern",
-    "test": "vue-cli-service test:unit",
-    "jest": "vue-cli-service test:unit --watch",
+    "test": "vue-cli-service test:unit --verbose",
+    "jest": "vue-cli-service test:unit --watch --verbose",
     "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve --open",
     "start": "node ./index.js",
