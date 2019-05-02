@@ -48,11 +48,15 @@ const fragmentDemarcheType = gql`
 
 const fragmentMeta = gql`
   fragment meta on Metas {
-    types {
+    domaines {
       id
       nom
+      types {
+        id
+        nom
+      }
     }
-    domaines {
+    types {
       id
       nom
     }

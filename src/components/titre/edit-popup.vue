@@ -60,6 +60,7 @@
             v-model="titre.typeId"
             type="text"
             class="p-s mr"
+            :disabled="!types"
           >
             <option
               v-for="type in types"
@@ -163,11 +164,6 @@ export default {
       default: () => ({})
     },
 
-    types: {
-      type: Array,
-      default: () => []
-    },
-
     domaines: {
       type: Array,
       default: () => []
@@ -184,11 +180,9 @@ export default {
       return this.$store.state.popup.messages
     },
 
-    demarcheTypeNom() {
-      const demarcheType = this.demarchesTypes.find(
-        et => et.id === this.demarche.typeId
-      )
-      return demarcheType && demarcheType.nom
+    types() {
+      const domaine = this.domaines.find(d => d.id === this.titre.domaineId)
+      return domaine && domaine.types
     },
 
     complete() {
