@@ -1,88 +1,71 @@
 import utilisateur from './utilisateur'
-import * as Vue from 'vue'
+import { createLocalVue } from '@vue/test-utils'
+import Vuex from 'vuex'
 import * as apiUtilisateurs from '../api/utilisateurs'
 
-// import { mockUtilisateur } from './__mocks__/utilisateur-user'
 jest.mock('../api/utilisateurs', () => ({
   utilisateur: jest.fn()
 }))
 
-jest.mock('vue', () => ({
-  set: jest.fn()
-}))
+const localVue = createLocalVue()
+localVue.use(Vuex)
+
+console.log = jest.fn()
 
 describe("regarde si l'utilisateur s'affiche", () => {
-  test("l'utilisateur existe", async () => {
-    const commitSpy = jest.fn()
-    const dispatchSpy = jest.fn()
+  let idVariable
+  let returnVariable
+  let store
 
-    const returnVariable = true
-    const idVariable = '71'
-    const apiSpy = apiUtilisateurs.utilisateur.mockImplementation(
-      async idVariable => returnVariable
-    )
-    await utilisateur.actions.get(
-      { commit: commitSpy, dispatch: dispatchSpy },
-      idVariable
-    )
-    expect(commitSpy).toHaveBeenCalledTimes(3)
-    expect(dispatchSpy).toHaveBeenCalledTimes(0)
-    expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(apiSpy).toHaveBeenCalledWith(idVariable)
-    expect(commitSpy).toHaveBeenNthCalledWith(1, 'loadingAdd', 'utilisateur', {
-      root: true
+  beforeEach(() => {
+    idVariable = '71'
+    utilisateur.state = { current: null }
+    store = new Vuex.Store({
+      modules: { utilisateur },
+      mutations: {
+        loadingAdd: jest.fn(),
+        loadingRemove: jest.fn()
+      },
+      actions: { pageError: jest.fn(), apiError: jest.fn() }
     })
-    expect(commitSpy).toHaveBeenNthCalledWith(2, 'set', returnVariable)
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      3,
-      'loadingRemove',
-      'utilisateur',
-      { root: true }
-    )
   })
-  test("l'utilisateur n'existe pas", async () => {
-    const commitSpy = jest.fn()
-    const dispatchSpy = jest.fn()
-    const returnVariable = false
-    const idVariable = '71'
+
+  test("charge un utilisateur depuis l'api", async () => {
+    returnVariable = 71
     const apiSpy = apiUtilisateurs.utilisateur.mockImplementation(
       async idVariable => returnVariable
     )
-    await utilisateur.actions.get(
-      { commit: commitSpy, dispatch: dispatchSpy },
-      idVariable
-    )
-    expect(commitSpy).toHaveBeenCalledTimes(2)
-    expect(dispatchSpy).toHaveBeenCalledTimes(1)
+    await store.dispatch('utilisateur/get', idVariable)
     expect(apiSpy).toHaveBeenCalledTimes(1)
     expect(apiSpy).toHaveBeenCalledWith(idVariable)
-    expect(commitSpy).toHaveBeenNthCalledWith(1, 'loadingAdd', 'utilisateur', {
-      root: true
-    })
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      2,
-      'loadingRemove',
-      'utilisateur',
-      { root: true }
+    expect(store.state.utilisateur.current).toEqual(returnVariable)
+  })
+
+  test("ne trouve pas d'utilisateur dans l'api", async () => {
+    returnVariable = false
+    const apiSpy = apiUtilisateurs.utilisateur.mockImplementation(
+      async idVariable => returnVariable
     )
-    expect(dispatchSpy).toHaveBeenCalledWith('pageError', null, { root: true })
+    await store.dispatch('utilisateur/get', idVariable)
+    expect(apiSpy).toHaveBeenCalledTimes(1)
+    expect(apiSpy).toHaveBeenCalledWith(idVariable)
+    expect(store.state.utilisateur.current).toEqual(null)
   })
 })
 
 describe('affichage de la vue utilisateur', () => {
-  test('la vue se set correctement', () => {
-    const idUtilisateur = '589'
-    const apiSpy = Vue.set.mockImplementation(
-      (state, current, utilisateur) => true
-    )
-    utilisateur.mutations.set('state', idUtilisateur)
-    expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(apiSpy).toHaveBeenCalledWith('state', 'current', idUtilisateur)
+  test('set: ajoute un utilisateur', () => {
+    const idUtilisateur = 71
+    utilisateur.state = { current: null }
+    const store = new Vuex.Store({ modules: { utilisateur } })
+    store.commit('utilisateur/set', idUtilisateur)
+    expect(store.state.utilisateur.current).toEqual(idUtilisateur)
   })
-  test('la vue se reset correctement', () => {
-    const apiSpy = Vue.set.mockImplementation((state, current) => true)
-    utilisateur.mutations.reset('state')
-    expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(apiSpy).toHaveBeenCalledWith('state', 'current', null)
+
+  test('reset: supprime les utilisateurs', () => {
+    utilisateur.state = { current: 71 }
+    const store = new Vuex.Store({ modules: { utilisateur } })
+    store.commit('utilisateur/reset')
+    expect(store.state.utilisateur.current).toEqual(null)
   })
 })

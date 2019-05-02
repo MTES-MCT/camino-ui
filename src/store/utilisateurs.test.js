@@ -2,6 +2,8 @@ import utilisateurs from './utilisateurs'
 import * as Vue from 'vue'
 import * as api from '../api/utilisateurs'
 import * as router from '../router'
+import { createLocalVue } from '@vue/test-utils'
+import Vuex from 'vuex'
 
 jest.mock('../api/utilisateurs', () => ({
   utilisateurs: jest.fn(),
@@ -11,56 +13,49 @@ jest.mock('../api/utilisateurs', () => ({
   utilisateurPasswordUpdate: jest.fn()
 }))
 
+const localVue = createLocalVue()
+localVue.use(Vuex)
+
+console.log = jest.fn()
+
 jest.mock('../router', () => [])
 
-jest.mock('vue', () => ({
-  set: jest.fn()
-}))
-
 describe('regarde si actions marche', () => {
-  test("get: l'utilisateur existe", async () => {
-    const commitSpy = jest.fn()
-    const dispatchSpy = jest.fn()
-    const returnVariable = true
+  let store
+  beforeEach(() => {
+    utilisateurs.state = { list: [], permissions: [] }
+    store = new Vuex.Store({
+      modules: { utilisateurs },
+      mutations: {
+        loadingAdd: jest.fn(),
+        loadingRemove: jest.fn(),
+        popupMessagesRemove: jest.fn(),
+        popupClose: jest.fn()
+      },
+      actions: {
+        pageError: jest.fn(),
+        apiError: jest.fn(),
+        messageAdd: jest.fn()
+      }
+    })
+  })
+  test('obtient la liste des utilisateurs', async () => {
+    const returnVariable = [71, 21, 854, 5]
     const apiSpy = api.utilisateurs.mockImplementation(
       async ({}) => returnVariable
     )
-    await utilisateurs.actions.get({ commit: commitSpy, dispatch: dispatchSpy })
-    expect(commitSpy).toHaveBeenCalledTimes(3)
-    expect(dispatchSpy).toHaveBeenCalledTimes(0)
+    await store.dispatch('utilisateurs/get')
     expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(commitSpy).toHaveBeenNthCalledWith(1, 'loadingAdd', 'utilisateurs', {
-      root: true
-    })
-    expect(commitSpy).toHaveBeenNthCalledWith(2, 'set', returnVariable)
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      3,
-      'loadingRemove',
-      'utilisateurs',
-      { root: true }
-    )
+    expect(store.state.utilisateurs.list).toEqual(returnVariable)
   })
-  test("get: l'utilisateur n'existe pas", async () => {
-    const commitSpy = jest.fn()
-    const dispatchSpy = jest.fn()
+  test("aucun utilisateur dans l'api", async () => {
     const returnVariable = false
     const apiSpy = api.utilisateurs.mockImplementation(
       async ({}) => returnVariable
     )
-    await utilisateurs.actions.get({ commit: commitSpy, dispatch: dispatchSpy })
-    expect(commitSpy).toHaveBeenCalledTimes(2)
-    expect(dispatchSpy).toHaveBeenCalledTimes(1)
+    await store.dispatch('utilisateurs/get')
     expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(commitSpy).toHaveBeenNthCalledWith(1, 'loadingAdd', 'utilisateurs', {
-      root: true
-    })
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      2,
-      'loadingRemove',
-      'utilisateurs',
-      { root: true }
-    )
-    expect(dispatchSpy).toHaveBeenCalledWith('pageError', null, { root: true })
+    expect(store.state.utilisateurs.list).toEqual([])
   })
 
   test("add: l'utilisateur existe et est ajouté", async () => {
@@ -75,39 +70,8 @@ describe('regarde si actions marche', () => {
       { commit: commitSpy, dispatch: dispatchSpy },
       userId
     )
-    expect(commitSpy).toHaveBeenCalledTimes(5)
-    expect(dispatchSpy).toHaveBeenCalledTimes(1)
     expect(apiSpy).toHaveBeenCalledTimes(1)
     expect(apiSpy).toHaveBeenCalledWith({ utilisateur: userId })
-    expect(dispatchSpy).toHaveBeenCalledWith(
-      'messageAdd',
-      {
-        value: `utilisateur ${returnVariable.prenom} ${
-          returnVariable.nom
-        } ajouté`,
-        type: 'success'
-      },
-      { root: true }
-    )
-    expect(commitSpy).toHaveBeenNthCalledWith(1, 'popupMessagesRemove', null, {
-      root: true
-    })
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      2,
-      'loadingAdd',
-      'utilisateurAdd',
-      { root: true }
-    )
-    expect(commitSpy).toHaveBeenNthCalledWith(3, 'popupClose', null, {
-      root: true
-    })
-    expect(commitSpy).toHaveBeenNthCalledWith(4, 'add', returnVariable)
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      5,
-      'loadingRemove',
-      'utilisateurAdd',
-      { root: true }
-    )
   })
   test("add: l'utilisateur n'existe pas", async () => {
     const commitSpy = jest.fn()
@@ -479,45 +443,44 @@ describe('regarde si actions marche', () => {
   })
 })
 
-describe('affichage de la vue utilisateur', () => {
-  test('la vue se set correctement', () => {
-    const titres = []
-    const apiSpy = Vue.set.mockImplementation((state, current, titres) => true)
-    utilisateurs.mutations.set('state', titres)
-    expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(apiSpy).toHaveBeenCalledWith('state', 'list', titres)
+describe('test des mutations', () => {
+  let store
+  beforeEach(() => {
+    utilisateurs.state = { list: [], permissions: [] }
+    store = new Vuex.Store({
+      modules: { utilisateurs }
+    })
   })
-  test('les permissions se set correctement', () => {
-    const permissions = []
-    const apiSpy = Vue.set.mockImplementation(
-      (state, current, permissions) => true
-    )
-    utilisateurs.mutations.permissionsSet('state', permissions)
-    expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(apiSpy).toHaveBeenCalledWith('state', 'permissions', permissions)
+  test('set: update les utilisateurs', () => {
+    const titres = [78, 1, 4, 541, 5]
+    store.commit('set', titres)
+    expect(store.state.utilisateurs.list).toEqual(titres)
   })
-  test('la vue se reset correctement', () => {
-    const apiSpy = Vue.set.mockImplementation((state, current, titres) => true)
-    utilisateurs.mutations.reset('state')
-    expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(apiSpy).toHaveBeenCalledWith('state', 'permissions', [])
+  test('set: update les permissions', () => {
+    const permissions = ['admin', 'user', 'super']
+    store.commit('permissionsSet', permissions)
+    expect(store.state.utilisateurs.permissions).toEqual(permissions)
   })
-  test('on ajoute un utilisateur', () => {
-    const state = { list: [] }
-    utilisateurs.mutations.add(state, { id: '31' })
-    expect(state.list).toHaveLength(1)
-    expect(state.list).toMatchObject([{ id: '31' }])
+  test('reset les permissions', () => {
+    store.state.utilisateurs.permissions = ['admin', 'user', 'super']
+    store.commit('reset')
+    expect(store.state.utilisateurs.permissions).toEqual([])
   })
-  test('on enleve un utilisateur qui se trouve dans la liste', () => {
-    const state = { list: [{ id: 31 }] }
-    utilisateurs.mutations.remove(state, 31)
-    expect(state.list).toHaveLength(0)
-    expect(state.list).toMatchObject([])
+  test("ajout d'un utilisateur", () => {
+    const utilisateur = 95
+    store.commit('add', utilisateur)
+    expect(store.state.utilisateurs.list).toEqual([95])
   })
-  test('on enleve un utilisateur inexistant', () => {
-    const state = { list: [{ id: 31 }] }
-    utilisateurs.mutations.remove(state, 32)
-    expect(state.list).toHaveLength(1)
-    expect(state.list).toMatchObject([{ id: 31 }])
+  test("on enleve un utilisateur de l'api", () => {
+    store.state.utilisateurs.list = [38, 95]
+    const userToRemove = 38
+    store.commit('remove', userToRemove)
+    expect(store.state.utilisateurs.list).toEqual([95])
+  })
+  test("on enleve un utilisateur n'existant pas dans l'api", () => {
+    store.state.utilisateurs.list = [38, 95]
+    const userToRemove = 47
+    store.commit('remove', userToRemove)
+    expect(store.state.utilisateurs.list).toEqual([38, 95])
   })
 })
