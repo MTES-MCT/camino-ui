@@ -65,6 +65,7 @@
     "graphql-tag": "^2.10.1",
     "json2csv": "^4.5.1",
     "leaflet": "^1.4.0",
+    "leaflet-gesture-handling": "^1.1.8",
     "pixrem": "^5.0.0",
     "postcss-button": "^0.3.16",
     "postcss-color-mod-function": "^3.0.3",

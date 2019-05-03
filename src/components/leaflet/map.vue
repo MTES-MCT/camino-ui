@@ -14,6 +14,9 @@
 
 <script>
 import L from 'leaflet'
+
+import { GestureHandling } from 'leaflet-gesture-handling'
+
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
@@ -79,13 +82,21 @@ export default {
 
   methods: {
     init() {
+      L.Map.addInitHook('addHandler', 'gestureHandling', GestureHandling)
+
       this.map = L.map(this.$refs.map, {
         doubleClickZoom: false,
-        minZoom: 3
-        // zoomControl: false
+        minZoom: 3,
+        gestureHandling: true,
+        gestureHandlingOptions: {
+          text: {
+            touch: 'Utilisez deux doigts pour zoomer',
+            scroll: 'Utilisez ctrl + scroll pour zoomer',
+            scrollMac: 'Utilisez \u2318 + scroll pour zoomer'
+          }
+        },
+        zoomControl: false
       })
-
-      this.map.scrollWheelZoom.disable()
 
       this.map.on('zoomend', () => {
         this.zoom = this.map.getZoom()
