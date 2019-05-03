@@ -192,6 +192,26 @@
     <div>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Surface (Km²)</h6>
+          <p class="h6 italic mb-0">
+            Optionel
+          </p>
+        </div>
+        <div class="tablet-blob-2-3">
+          <input
+            v-model.number="etape.surface"
+            class="p-s"
+            type="number"
+            placeholder="0"
+          >
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div>
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Volume</h6>
           <p class="h6 italic mb-0">
             Optionel
@@ -240,7 +260,6 @@
       <p class="h6 italic mb-s">
         Optionel
       </p>
-      <hr>
       <div
         v-for="visa in etape.visas"
         :key="visa.id"
@@ -252,7 +271,7 @@
         />
         <div class="flex-right">
           <button
-            class="btn-border p-s rnd-xs"
+            class="btn-border py-s px-m rnd-xs"
             @click="visaRemove(visa.id)"
           >
             <i class="icon-24 icon-24-minus" />
@@ -318,7 +337,7 @@
               <h4>Point {{ point.nom }}</h4>
               <div class="flex-right">
                 <button
-                  class="btn-border p-s rnd-s mt--s"
+                  class="btn-border py-s px-m rnd-s mt--s"
                   @click="pointRemove(point)"
                 >
                   <i class="icon-24 icon-24-minus" />
@@ -423,7 +442,7 @@
                 <h4>Reference</h4>
                 <div class="flex-right">
                   <button
-                    class="btn-border p-s rnd-xs mt--s"
+                    class="btn-border py-s px-m rnd-xs mt--s"
                     @click="pointReferenceRemove(point, reference)"
                   >
                     <i class="icon-24 icon-24-minus" />
@@ -471,19 +490,20 @@
       </div>
 
       <button
-        class="btn-border rnd-xs py-s px-m full-x mb  flex"
+        class="btn-border rnd-xs py-s px-m full-x mb flex"
         @click="pointAdd"
       >
         Ajouter un point<i class="icon-24 icon-24-plus flex-right" />
       </button>
     </div>
 
-
     <div>
       <h3 class="mb-s">
         Titulaires ({{ etape.titulairesIds.filter(id => id).length }})
       </h3>
-      <hr>
+      <p class="h6 italic mb-s">
+        Optionel
+      </p>
       <div
         v-for="(titulaireId, n) in etape.titulairesIds"
         :key="`titluaire-${titulaireId}`"
@@ -505,24 +525,23 @@
           </select>
           <div class="flex-right">
             <button
-              class="btn-border p-s rnd-xs"
-              @click="titulaireRemove(titulaireId)"
+              class="btn-border py-s px-m rnd-xs"
+              @click="titulaireRemove(n)"
             >
               <i class="icon-24 icon-24-minus" />
             </button>
           </div>
         </div>
-        <hr>
       </div>
-    </div>
 
-    <div v-if="!etape.titulairesIds.find(t => t.id === '')">
-      <button
-        class="btn-border rnd-xs py-s px-m full-x mb  flex"
-        @click="titulaireAdd"
-      >
-        Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" />
-      </button>
+      <div v-if="!etape.titulairesIds.includes('')">
+        <button
+          class="btn-border rnd-xs py-s px-m full-x mb flex"
+          @click="titulaireAdd"
+        >
+          Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" />
+        </button>
+      </div>
       <hr>
     </div>
 
@@ -530,10 +549,12 @@
       <h3 class="mb-s">
         Amodiataires ({{ etape.amodiatairesIds.filter(id => id).length }})
       </h3>
-      <hr>
+      <p class="h6 italic mb-s">
+        Optionel
+      </p>
       <div
-        v-for="(amodiataire, n) in etape.amodiatairesIds"
-        :key="`amodiataire-${amodiataire.id}`"
+        v-for="(amodiataireId, n) in etape.amodiatairesIds"
+        :key="`amodiataire-${amodiataireId}`"
       >
         <div class="flex full-x mb">
           <select
@@ -543,9 +564,9 @@
           >
             <option
               v-for="entreprise in entreprises"
-              :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
+              :key="`amodiataire-${amodiataireId}-entreprise-${entreprise.id}`"
               :value="entreprise.id"
-              :disabled="etape.amodiatairesIds.find(a => a.id === entreprise.id)"
+              :disabled="etape.amodiatairesIds.find(id => id === entreprise.id)"
             >
               {{ entreprise.nom }} ({{ entreprise.id }})
             </option>
@@ -553,24 +574,23 @@
 
           <div class="flex-right">
             <button
-              class="btn-border p-s rnd-xs"
-              @click="amodiataireRemove(amodiataire.id)"
+              class="btn-border py-s px-m rnd-xs"
+              @click="amodiataireRemove(n)"
             >
               <i class="icon-24 icon-24-minus" />
             </button>
           </div>
         </div>
-        <hr>
       </div>
-    </div>
 
-    <div v-if="!etape.amodiatairesIds.find(t => t.id === '')">
-      <button
-        class="btn-border rnd-xs py-s px-m full-x mb  flex"
-        @click="amodiataireAdd"
-      >
-        Ajouter un amodiataire<i class="icon-24 icon-24-plus flex-right" />
-      </button>
+      <div v-if="!etape.amodiatairesIds.includes('')">
+        <button
+          class="btn-border rnd-xs py-s px-m full-x mb flex"
+          @click="amodiataireAdd"
+        >
+          Ajouter un amodiataire<i class="icon-24 icon-24-plus flex-right" />
+        </button>
+      </div>
       <hr>
     </div>
 
@@ -578,7 +598,9 @@
       <h3 class="mb-s">
         Substances ({{ etape.substancesIds.filter(id => id).length }})
       </h3>
-      <hr>
+      <p class="h6 italic mb-s">
+        Optionel
+      </p>
       <div
         v-for="(substanceId, n) in etape.substancesIds"
         :key="n"
@@ -600,24 +622,23 @@
           </select>
           <div class="flex-right">
             <button
-              class="btn-border p-s rnd-xs"
+              class="btn-border py-s px-m rnd-xs"
               @click="substanceRemove(n)"
             >
               <i class="icon-24 icon-24-minus" />
             </button>
           </div>
         </div>
-        <hr>
       </div>
-    </div>
 
-    <div v-if="etape.substancesIds && !etape.substancesIds.find(t => t.id === '')">
-      <button
-        class="btn-border rnd-xs py-s px-m full-x mb  flex"
-        @click="substanceAdd"
-      >
-        Ajouter une substance<i class="icon-24 icon-24-plus flex-right" />
-      </button>
+      <div v-if="!etape.substancesIds.includes('')">
+        <button
+          class="btn-border rnd-xs py-s px-m full-x mb flex"
+          @click="substanceAdd"
+        >
+          Ajouter une substance<i class="icon-24 icon-24-plus flex-right" />
+        </button>
+      </div>
       <hr>
     </div>
 
@@ -716,10 +737,6 @@ export default {
 
     volumeUnites() {
       return this.$store.state.metas.volumeUnites
-    },
-
-    emprises() {
-      return this.$store.state.metas.emprises
     },
 
     pointsTotal() {
@@ -850,14 +867,7 @@ export default {
       this.etape.titulairesIds.push('')
     },
 
-    titulaireSet(titulaireId) {
-      const index = this.etape.titulairesIds.findIndex(id => id === titulaireId)
-      const entreprise = this.entreprises.find(e => e.id === titulaireId)
-      this.$set(this.etape.titulairesIds, index, entreprise)
-    },
-
-    titulaireRemove(titulaireId) {
-      const index = this.etape.titulairesIds.findIndex(id => id === titulaireId)
+    titulaireRemove(index) {
       this.etape.titulairesIds.splice(index, 1)
     },
 
@@ -865,23 +875,12 @@ export default {
       this.etape.amodiatairesIds.push('')
     },
 
-    amodiataireRemove(amodiataireId) {
-      const index = this.etape.amodiatairesIds.findIndex(
-        id => id === amodiataireId
-      )
+    amodiataireRemove(index) {
       this.etape.amodiatairesIds.splice(index, 1)
     },
 
     substanceAdd() {
       this.etape.substancesIds.push('')
-    },
-
-    substanceSet(etapeSubstanceIndex, e) {
-      const substanceId = e.target.value
-      this.etape.substancesIds[etapeSubstanceIndex] = Object.assign(
-        {},
-        this.substances.find(s => s.id === substanceId)
-      )
     },
 
     substanceRemove(index) {

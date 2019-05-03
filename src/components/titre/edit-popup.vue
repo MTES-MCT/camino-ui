@@ -103,7 +103,7 @@
         >
         <div class="flex-right">
           <button
-            class="btn-border p-s rnd-xs"
+            class="btn-border py-s px-m rnd-xs"
             @click="referenceRemove(index)"
           >
             <i class="icon-24 icon-24-minus" />

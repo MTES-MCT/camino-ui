@@ -24,11 +24,11 @@
         </p>
       </div>
       <div
-        v-if="titres.length"
         class="desktop-blob-1-2 flex"
       >
         <div class="flex-right mt--s mb-s flex">
           <titres-csv-download
+            v-if="titres.length"
             :titres="titres"
             class="mr-s"
           />

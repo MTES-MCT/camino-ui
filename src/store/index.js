@@ -72,8 +72,7 @@ export const actions = {
           'statuts',
           'devises',
           'volumeUnites',
-          'geoSystemes',
-          'emprises'
+          'geoSystemes'
         ]
 
         metasIds.forEach(id => {
