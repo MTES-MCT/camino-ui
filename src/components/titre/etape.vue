@@ -277,7 +277,8 @@ export default {
           etapeTypeNom: this.etape.type.nom,
           etapeId: this.etape.id,
           demarcheTypeNom: this.demarcheType.nom,
-          titreNom: this.$store.state.titre.current.nom
+          titreNom: this.$store.state.titre.current.nom,
+          titreType: this.$store.state.titre.current.type.nom
         }
       })
     },
