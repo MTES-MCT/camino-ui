@@ -5,6 +5,7 @@
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
       :bounds="bounds"
+      class="map-detail"
       @map-zoom="zoomGet"
     />
     <MapWarningBrgm

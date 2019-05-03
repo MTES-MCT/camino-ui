@@ -85,6 +85,8 @@ export default {
         // zoomControl: false
       })
 
+      this.map.scrollWheelZoom.disable()
+
       this.map.on('zoomend', () => {
         this.zoom = this.map.getZoom()
         this.$emit('map-zoom', this.zoom)

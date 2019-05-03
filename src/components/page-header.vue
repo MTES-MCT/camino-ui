@@ -5,50 +5,33 @@
         v-if="!apiError"
         class="flex"
       >
-        <ul class="header-menu hide">
-          <li
-            :class="{
-              active: $route.name === 'titres' || $route.name === 'titre'
-            }"
-          >
-            <RouterLink
-              :to="{ name: 'titres' }"
-              class="btn-transparent px pb-m pt-xl"
-              active-class="active"
-            >
-              Titres
-            </RouterLink>
-          </li>
-        </ul>
         <div class="flex-right">
-          <ul class="list-inline mt-l">
-            <li class="ml-xs">
-              <div
-                v-if="loading"
-                class="loader"
-              />
-            </li>
-            <li
+          <div class="mt tablet-mb flex">
+            <div
+              v-if="loading"
+              class="loader"
+            />
+            <div
               v-if="permissionsCheck(['super', 'admin'])"
               class="ml-xs"
             >
               <MenuButton />
-            </li>
-            <li class="ml-xs">
+            </div>
+            <div class="ml-xs">
               <UserButton />
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="tablet-blob-2-3 desktop-blob-1-2 large-blob-1-3">
       <RouterLink
         :to="{ name: 'titres' }"
-        class="pt pr-m mb-xs inline-block full-x"
+        class="pt-m pr-m inline-block full-x"
       >
         <img src="../../public/img/logo-camino.svg">
       </RouterLink>
-      <p class="h5 color-neutral camino-header-baseline">
+      <p class="h5 color-neutral camino-header-baseline tablet-mb-s">
         Le cadastre minier numérique ouvert
       </p>
     </div>
