@@ -1,5 +1,4 @@
 import utilisateurs from './utilisateurs'
-import * as Vue from 'vue'
 import * as api from '../api'
 import * as router from '../router'
 import { createLocalVue } from '@vue/test-utils'
@@ -43,7 +42,7 @@ describe("interagit avec la création et l'obtention d'un utilisateur", () => {
   })
 
   test('obtient la liste des utilisateurs', async () => {
-    const apiMock = api.utilisateurs.mockResolvedValue(utilisateurId)
+    const apiMock = api.utilisateurs.mockResolvedValue([utilisateurId])
     await store.dispatch('utilisateurs/get')
 
     expect(apiMock).toHaveBeenCalledTimes(1)
@@ -123,10 +122,12 @@ describe('interagit avec les utilisateurs deja existant', () => {
     })
   })
 
-  test("modifie l'utilisateur actif", async () => {
+  test("change l'utilisateur actif", async () => {
     const utilisateurNewId = {
       id: 46,
-      prenom: 'neimarre'
+      prenom: 'neimarre',
+      nom: 'jean',
+      mdp: 'bon'
     }
     const apiMock = api.utilisateurUpdate.mockResolvedValue(utilisateurNewId)
     await store.dispatch('utilisateurs/update', utilisateurNewId)
@@ -135,7 +136,7 @@ describe('interagit avec les utilisateurs deja existant', () => {
     expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurNewId })
     expect(store.state.utilisateurs.list).toEqual([
       { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' },
-      { id: 46, nom: 'neimarre', prenom: 'jean', mdp: 'bon' }
+      { id: 46, nom: 'jean', prenom: 'neimarre', mdp: 'bon' }
     ])
   })
 
@@ -149,15 +150,10 @@ describe('interagit avec les utilisateurs deja existant', () => {
     expect(store.state.utilisateurs.list).toEqual(utilisateursIds)
   })
 
-  test("remove: l'utilisateur a enlever existe et est l'utilisateur actif", async () => {
-    const commitSpy = jest.fn()
-    const dispatchSpy = jest.fn()
-    const returnVariable = { prenom: 'jean', nom: 'peuplut', id: '31' }
-    const userId = '31'
-    const rootState = { user: { current: { id: '31' } } }
-    const apiMock = api.utilisateurRemove.mockResolvedValue(
-      async ({ userId }) => returnVariable
-    )
+  test('on supprime un utilisateur', async () => {
+    const apiMock = api.utilisateurRemove.mockResolvedValue([
+      { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' }
+    ])
     await utilisateurs.actions.remove(
       { commit: commitSpy, dispatch: dispatchSpy, rootState },
       userId
@@ -371,44 +367,60 @@ describe('interagit avec les utilisateurs deja existant', () => {
   })
 })
 
-describe('test des mutations', () => {
+describe('test des mutations sur les utilisateurs', () => {
   let store
+  let utilisateursIds
+  let permissions
+  let utilisateurId
   beforeEach(() => {
+    permissions = ['admin', 'user', 'super']
+    utilisateurId = { id: 25, nom: 'nanard', prenom: 'nanere', mdp: 'nana' }
+    utilisateursIds = [
+      { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' },
+      { id: 46, prenom: 'peuplut', nom: 'jean', mdp: 'bon' }
+    ]
     utilisateurs.state = { list: [], permissions: [] }
     store = new Vuex.Store({
       modules: { utilisateurs }
     })
   })
-  test('set: update les utilisateurs', () => {
-    const titres = [78, 1, 4, 541, 5]
-    store.commit('set', titres)
-    expect(store.state.utilisateurs.list).toEqual(titres)
+
+  test('met à jour la liste des utilisateurs', () => {
+    store.commit('utilisateurs/set', utilisateursIds)
+
+    expect(store.state.utilisateurs.list).toEqual(utilisateursIds)
   })
-  test('set: update les permissions', () => {
-    const permissions = ['admin', 'user', 'super']
-    store.commit('permissionsSet', permissions)
+
+  test('met à jour les permissions des utilisateurs', () => {
+    store.commit('utilisateurs/permissionsSet', permissions)
+
     expect(store.state.utilisateurs.permissions).toEqual(permissions)
   })
+
   test('reset les permissions', () => {
-    store.state.utilisateurs.permissions = ['admin', 'user', 'super']
-    store.commit('reset')
+    store.commit('utilisateurs/permissionsSet', permissions)
+    store.commit('utilisateurs/reset')
+
     expect(store.state.utilisateurs.permissions).toEqual([])
   })
+
   test("ajout d'un utilisateur", () => {
-    const utilisateur = 95
-    store.commit('add', utilisateur)
-    expect(store.state.utilisateurs.list).toEqual([95])
+    store.commit('utilisateurs/add', utilisateurId)
+
+    expect(store.state.utilisateurs.list).toEqual([utilisateurId])
   })
+
   test("on enleve un utilisateur de l'api", () => {
-    store.state.utilisateurs.list = [38, 95]
-    const userToRemove = 38
-    store.commit('remove', userToRemove)
-    expect(store.state.utilisateurs.list).toEqual([95])
+    store.commit('utilisateurs/add', utilisateurId)
+    store.commit('utilisateurs/remove', 25)
+
+    expect(store.state.utilisateurs.list).toEqual([])
   })
+
   test("on enleve un utilisateur n'existant pas dans l'api", () => {
-    store.state.utilisateurs.list = [38, 95]
-    const userToRemove = 47
-    store.commit('remove', userToRemove)
-    expect(store.state.utilisateurs.list).toEqual([38, 95])
+    store.commit('utilisateurs/set', utilisateursIds)
+    store.commit('utilisateurs/remove', 25)
+
+    expect(store.state.utilisateurs.list).toEqual(utilisateursIds)
   })
 })

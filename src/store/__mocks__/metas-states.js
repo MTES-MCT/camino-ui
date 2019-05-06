@@ -1,11 +1,5 @@
-const state = {
-  domaines: [{ id: 'c' }, { id: 'w' }],
-  statuts: [],
-  types: []
-}
-
-const rootState = {
-  user: {
+const user = {
+  state: {
     preferences: {
       filtres: {
         domaines: 'c,w',
@@ -16,4 +10,4 @@ const rootState = {
   }
 }
 
-export { state, rootState }
+export { user }
