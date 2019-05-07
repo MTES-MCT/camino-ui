@@ -10,15 +10,24 @@ describe('teste les metas et les preferences utilisateurs', () => {
   let id
   let domaines
   let user
+  let actions
+
   beforeEach(() => {
     domaines = [{ id: 'c' }, { id: 'w' }]
     id = 'domaines'
+
     metas.state = {
       types: [],
       domaines: [],
       statuts: []
     }
+
+    actions = {
+      preferenceSet: jest.fn()
+    }
+
     user = {
+      namespaced: true,
       state: {
         preferences: {
           filtres: {
@@ -27,8 +36,10 @@ describe('teste les metas et les preferences utilisateurs', () => {
             types: null
           }
         }
-      }
+      },
+      actions
     }
+
     store = new Vuex.Store({
       modules: { metas, user }
     })
@@ -38,6 +49,7 @@ describe('teste les metas et les preferences utilisateurs', () => {
     await store.dispatch('metas/set', { id, values: domaines })
 
     expect(store.state.metas.domaines).toEqual([{ id: 'c' }, { id: 'w' }])
+    expect(actions.preferenceSet).toHaveBeenCalled()
   })
 
   test('ajoute des elements dans les metas', () => {

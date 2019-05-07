@@ -1,26 +1,59 @@
-import index from './index'
+import { actions, mutations, state } from '.index'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import * as routerApi from '../router'
-import * as titresApi from './titres'
-import * as metasApi from './metas'
-import * as titre from './titre'
-import * as mapApi from './map'
-import * as utilisateurApi from './utilisateur'
-import * as utilisateursApi from './utilisateurs'
-import * as entreprisesApi from './entreprises'
-import * as substancesApi from './substances'
-import * as userApi from './user'
-import * as titreActivitesApi from './titre-activites'
-import { init } from '../api'
 
-jest.mock('./titres', () => ({ titres: jest.fn() }))
-jest.mock('./metas', () => ({ metas: jest.fn() }))
-jest.mock('./titre', () => ({ titre: jest.fn() }))
-jest.mock('./map', () => ({ map: jest.fn() }))
-jest.mock('./utilisateur', () => ({ titutilisateurres: jest.fn() }))
-jest.mock('./utilisateurs', () => ({ utilisateurs: jest.fn() }))
-jest.mock('./entreprises', () => ({ entreprises: jest.fn() }))
-jest.mock('./substances', () => ({ substances: jest.fn() }))
-jest.mock('./user', () => ({ user: jest.fn() }))
-jest.mock('./titre-activites', () => ({ titreActivites: jest.fn() }))
+jest.mock('../router', () => ({ router: [] }))
+
+const localVue = createLocalVue()
+localVue.use(Vuex)
+
+console.log = jest.fn()
+
+describe('teste les fonctions utilisées dans les autres scripts', () => {
+  let store
+  beforeEach(() => {
+    store = new Vuex.Store({ state, actions, mutations })
+  })
+
+  test("renvoie une erreur definie de l'api", async () => {
+    const error = "test de l'erreur OK"
+    await index.dispatch('apiError', error)
+
+    expect(index.state.messages).toEqual([{ type: 'error', value: error }])
+  })
+
+  test("renvoie une erreur de connexion indefiniz de l'api", async () => {
+    await index.dispatch('apiError')
+
+    expect(index.state.messages).toEqual([
+      {
+        type: 'error',
+        value: `Erreur: impossible de se connecter à l'API (undefined)`
+      }
+    ])
+  })
+
+  test('renvoie une erreur de la page', async () => {
+    await index.dispatch('pageError')
+
+    expect(index.state.error).toEqual({
+      type: 'error',
+      value: `Erreur: page introuvable`
+    })
+  })
+})
+
+describe('teste les fonctions utilisant les autres scripts', () => {
+  beforeEach(() => {
+    index.state = {
+      config: {},
+      messages: [],
+      popup: { component: null, props: null, messages: [] },
+      error: null,
+      menu: { component: null },
+      loading: [],
+      loaded: false
+    }
+  })
+})

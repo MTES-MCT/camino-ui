@@ -63,7 +63,6 @@ describe('utilisateur/actions', () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith(utilisateurId)
-    // expect(apiMock).toThrowError("l'api ne répond pas")
     expect(console.log).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })

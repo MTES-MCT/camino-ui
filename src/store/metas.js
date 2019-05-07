@@ -36,7 +36,6 @@ export const actions = {
       }
 
       const ids = idsFind()
-
       if (ids) {
         dispatch(
           'user/preferenceSet',

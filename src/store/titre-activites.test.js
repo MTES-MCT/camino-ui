@@ -15,6 +15,8 @@ describe("update des activités d'un titre", () => {
   let activite
   let mutations
   let actions
+  let actionsTitre
+  let titre
   beforeEach(() => {
     mutations = {
       popupMessagesRemove: jest.fn(),
@@ -23,11 +25,15 @@ describe("update des activités d'un titre", () => {
       popupClose: jest.fn(),
       popupMessageAdd: jest.fn()
     }
-    actions = { messageAdd: jest.fn() }
+    actions = {
+      messageAdd: jest.fn()
+    }
+    actionsTitre = { reload: jest.fn() }
     activite = { id: 27, contenu: [], statut: { id: 28 } }
     titreActivites.state = {}
+    titre = { namespaced: true, actions: actionsTitre }
     store = new Vuex.Store({
-      modules: { titreActivites },
+      modules: { titreActivites, titre },
       mutations,
       actions
     })
@@ -39,11 +45,16 @@ describe("update des activités d'un titre", () => {
     })
     await store.dispatch('titreActivites/update', activite)
 
+    expect(mutations.popupMessagesRemove).toHaveBeenCalled()
+    expect(mutations.loadingAdd).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({
       activite: { id: 27, contenu: [], activiteStatutId: 28 }
     })
+    expect(mutations.popupClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
+    expect(actionsTitre.reload).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
   test("n'affiche pas l'activite", async () => {

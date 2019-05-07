@@ -22,22 +22,26 @@ jest.mock('../router', () => [])
 describe("interagit avec la création et l'obtention d'un utilisateur", () => {
   let store
   let utilisateurId
+  let actions
+  let mutations
   beforeEach(() => {
     utilisateurId = { id: 71, nom: 'toto', prenom: 'asticot' }
     utilisateurs.state = { list: [], permissions: [] }
+    actions = {
+      pageError: jest.fn(),
+      apiError: jest.fn(),
+      messageAdd: jest.fn()
+    }
+    mutations = {
+      loadingAdd: jest.fn(),
+      loadingRemove: jest.fn(),
+      popupMessagesRemove: jest.fn(),
+      popupClose: jest.fn()
+    }
     store = new Vuex.Store({
       modules: { utilisateurs },
-      mutations: {
-        loadingAdd: jest.fn(),
-        loadingRemove: jest.fn(),
-        popupMessagesRemove: jest.fn(),
-        popupClose: jest.fn()
-      },
-      actions: {
-        pageError: jest.fn(),
-        apiError: jest.fn(),
-        messageAdd: jest.fn()
-      }
+      mutations,
+      actions
     })
   })
 
@@ -45,7 +49,7 @@ describe("interagit avec la création et l'obtention d'un utilisateur", () => {
     const apiMock = api.utilisateurs.mockResolvedValue([utilisateurId])
     await store.dispatch('utilisateurs/get')
 
-    expect(apiMock).toHaveBeenCalledTimes(1)
+    expect(apiMock).toHaveBeenCalled()
     expect(store.state.utilisateurs.list).toEqual([utilisateurId])
   })
 
@@ -53,25 +57,24 @@ describe("interagit avec la création et l'obtention d'un utilisateur", () => {
     const apiMock = api.utilisateurs.mockResolvedValue(null)
     await store.dispatch('utilisateurs/get')
 
-    expect(apiMock).toHaveBeenCalledTimes(1)
+    expect(apiMock).toHaveBeenCalled()
     expect(store.state.utilisateurs.list).toEqual([])
   })
 
   test("erreur dans l'obtention des utilisateurs", async () => {
-    const apiMock = api.utilisateurs.mockRejectedValue(
-      new Error('erreur utilisateurs')
-    )
+    const apiMock = api.utilisateurs.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('utilisateurs/get')
 
-    expect(apiMock).toHaveBeenCalledTimes(1)
-    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(apiMock).toHaveBeenCalled()
+    expect(console.log).toHaveBeenCalled()
+    expect(actions.apiError).toHaveBeenCalled()
   })
 
   test("ajout d'un utilisateur", async () => {
     const apiMock = api.utilisateurAdd.mockResolvedValue(utilisateurId)
     await store.dispatch('utilisateurs/add', utilisateurId)
 
-    expect(apiMock).toHaveBeenCalledTimes(1)
+    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurId })
     expect(store.state.utilisateurs.list).toEqual([utilisateurId])
   })
@@ -82,7 +85,7 @@ describe("interagit avec la création et l'obtention d'un utilisateur", () => {
     )
     await store.dispatch('utilisateurs/add', utilisateurId)
 
-    expect(apiMock).toHaveBeenCalledTimes(1)
+    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurId })
     expect(store.state.utilisateurs.list).toEqual([])
   })
@@ -91,7 +94,7 @@ describe("interagit avec la création et l'obtention d'un utilisateur", () => {
     const apiMock = api.utilisateurAdd.mockRejectedValue(null)
     await store.dispatch('utilisateurs/add', utilisateurId)
 
-    expect(apiMock).toHaveBeenCalledTimes(1)
+    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurId })
     expect(store.state.utilisateurs.list).toEqual([])
   })
@@ -100,270 +103,218 @@ describe("interagit avec la création et l'obtention d'un utilisateur", () => {
 describe('interagit avec les utilisateurs deja existant', () => {
   let store
   let utilisateursIds
+  let utilisateurId
+  let actions
+  let mutations
+  let utilisateur
+  let mutationsUtilisateur
+  let user
+  let mutationsUser
+  let actionsUser
   beforeEach(() => {
     utilisateursIds = [
       { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' },
       { id: 46, prenom: 'peuplut', nom: 'jean', mdp: 'bon' }
     ]
+    utilisateurId = { id: 46, prenom: 'peuplut', nom: 'jean', mdp: 'bon' }
     utilisateurs.state = { list: utilisateursIds, permissions: [] }
-    store = new Vuex.Store({
-      modules: { utilisateurs },
-      mutations: {
-        loadingAdd: jest.fn(),
-        loadingRemove: jest.fn(),
-        popupMessagesRemove: jest.fn(),
-        popupClose: jest.fn()
+
+    actions = {
+      pageError: jest.fn(),
+      apiError: jest.fn(),
+      messageAdd: jest.fn()
+    }
+    mutations = {
+      loadingAdd: jest.fn(),
+      loadingRemove: jest.fn(),
+      popupMessagesRemove: jest.fn(),
+      popupClose: jest.fn(),
+      popupMessageAdd: jest.fn()
+    }
+    mutationsUtilisateur = { set: jest.fn() }
+    mutationsUser = { set: jest.fn() }
+    actionsUser = { logout: jest.fn() }
+
+    user = {
+      namespaced: true,
+      state: {
+        current: { id: undefined }
       },
-      actions: {
-        pageError: jest.fn(),
-        apiError: jest.fn(),
-        messageAdd: jest.fn()
-      }
+      mutations: mutationsUser,
+      actions: actionsUser
+    }
+    utilisateur = { namespaced: true, mutations: mutationsUtilisateur }
+    store = new Vuex.Store({
+      modules: { utilisateurs, utilisateur, user },
+      mutations,
+      actions
     })
   })
 
-  test("change l'utilisateur actif", async () => {
-    const utilisateurNewId = {
-      id: 46,
-      prenom: 'neimarre',
-      nom: 'jean',
-      mdp: 'bon'
-    }
-    const apiMock = api.utilisateurUpdate.mockResolvedValue(utilisateurNewId)
-    await store.dispatch('utilisateurs/update', utilisateurNewId)
+  test("change l'utilisateur actif sans changer l'user", async () => {
+    const apiMock = api.utilisateurUpdate.mockResolvedValue(utilisateurId)
+    await store.dispatch('utilisateurs/update', utilisateurId)
 
-    expect(apiMock).toHaveBeenCalledTimes(1)
-    expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurNewId })
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurId })
+    expect(mutationsUtilisateur.set).toHaveBeenCalled()
+    expect(mutationsUser.set).not.toHaveBeenCalled()
+    expect(mutations.popupClose).toHaveBeenCalled()
+  })
+
+  test("change l'utilisateur actif en changeant l'user", async () => {
+    user.state.current = utilisateurId
+    store = new Vuex.Store({
+      modules: { utilisateurs, utilisateur, user },
+      mutations,
+      actions
+    })
+    const apiMock = api.utilisateurUpdate.mockResolvedValue(utilisateurId)
+    await store.dispatch('utilisateurs/update', utilisateurId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurId })
+    expect(mutationsUtilisateur.set).toHaveBeenCalled()
+    expect(mutationsUser.set).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalled()
+  })
+
+  test("erreur api lors du changement d'utilisateur actif", async () => {
+    const apiMock = api.utilisateurUpdate.mockRejectedValue(
+      new Error("erreur dans l'api")
+    )
+    await store.dispatch('utilisateurs/update', utilisateurId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurId })
+    expect(mutationsUtilisateur.set).not.toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test("supprime un utilisateur sans deconnecter l'user", async () => {
+    const apiMock = api.utilisateurRemove.mockResolvedValue(utilisateurId)
+    await store.dispatch('utilisateurs/remove', 46)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: 46 })
     expect(store.state.utilisateurs.list).toEqual([
-      { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' },
-      { id: 46, nom: 'jean', prenom: 'neimarre', mdp: 'bon' }
-    ])
-  })
-
-  test("l'utilisateur à modifier n'est pas l'utilisateur actif", async () => {
-    const utilisateurNewId = { id: 46, prenom: 'neimarre' }
-    const apiMock = api.utilisateurUpdate.mockResolvedValue(null)
-    store.dispatch('utilisateurs/set', utilisateurNewId)
-
-    expect(apiMock).toHaveBeenCalledTimes(1)
-    expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurNewId })
-    expect(store.state.utilisateurs.list).toEqual(utilisateursIds)
-  })
-
-  test('on supprime un utilisateur', async () => {
-    const apiMock = api.utilisateurRemove.mockResolvedValue([
       { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' }
     ])
-    await utilisateurs.actions.remove(
-      { commit: commitSpy, dispatch: dispatchSpy, rootState },
-      userId
-    )
-    expect(commitSpy).toHaveBeenCalledTimes(5)
-    expect(dispatchSpy).toHaveBeenCalledTimes(2)
-    expect(apiMock).toHaveBeenCalledTimes(1)
-    expect(apiMock).toHaveBeenCalledWith({ id: userId })
-    expect(dispatchSpy).toHaveBeenNthCalledWith(1, 'user/logout', null, {
-      root: true
-    })
-    expect(dispatchSpy).toHaveBeenNthCalledWith(
-      2,
-      'messageAdd',
-      {
-        value: `utilisateur ${returnVariable.prenom} ${
-          returnVariable.nom
-        } supprimé`,
-        type: 'success'
-      },
-      { root: true }
-    )
-    expect(commitSpy).toHaveBeenNthCalledWith(1, 'popupMessagesRemove', null, {
-      root: true
-    })
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      2,
-      'loadingAdd',
-      'utilisateurRemove',
-      { root: true }
-    )
-    expect(commitSpy).toHaveBeenNthCalledWith(3, 'remove', returnVariable)
-    expect(commitSpy).toHaveBeenNthCalledWith(4, 'popupClose', null, {
-      root: true
-    })
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      5,
-      'loadingRemove',
-      'utilisateurRemove',
-      { root: true }
-    )
-    expect(router.default).toHaveLength(1)
-    expect(router.default).toMatchObject([{ name: 'utilisateurs' }])
-  })
-  test("remove: l'utilisateur a enlever n'existe pas", async () => {
-    const commitSpy = jest.fn()
-    const dispatchSpy = jest.fn()
-    const returnVariable = false
-    const userId = '31'
-    const rootState = { user: { current: { id: '31' } } }
-    const apiMock = api.utilisateurRemove.mockResolvedValue(
-      async ({ userId }) => returnVariable
-    )
-    await utilisateurs.actions.remove(
-      { commit: commitSpy, dispatch: dispatchSpy, rootState },
-      userId
-    )
-    expect(commitSpy).toHaveBeenCalledTimes(3)
-    expect(dispatchSpy).toHaveBeenCalledTimes(0)
-    expect(apiMock).toHaveBeenCalledTimes(1)
-    expect(apiMock).toHaveBeenCalledWith({ id: userId })
-    expect(commitSpy).toHaveBeenNthCalledWith(1, 'popupMessagesRemove', null, {
-      root: true
-    })
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      2,
-      'loadingAdd',
-      'utilisateurRemove',
-      { root: true }
-    )
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      3,
-      'loadingRemove',
-      'utilisateurRemove',
-      { root: true }
-    )
-  })
-  test("remove: l'utilisateur a enlever existe mais n'est pas l'utilisateur actif", async () => {
-    const commitSpy = jest.fn()
-    const dispatchSpy = jest.fn()
-    const returnVariable = { prenom: 'jean', nom: 'peuplut', id: '32' }
-    const userId = '31'
-    const rootState = { user: { current: { id: '31' } } }
-    const apiMock = api.utilisateurRemove.mockResolvedValue(
-      async ({ userId }) => returnVariable
-    )
-    await utilisateurs.actions.remove(
-      { commit: commitSpy, dispatch: dispatchSpy, rootState },
-      userId
-    )
-    expect(commitSpy).toHaveBeenCalledTimes(5)
-    expect(dispatchSpy).toHaveBeenCalledTimes(1)
-    expect(apiMock).toHaveBeenCalledTimes(1)
-    expect(apiMock).toHaveBeenCalledWith({ id: userId })
-    expect(dispatchSpy).toHaveBeenNthCalledWith(
-      1,
-      'messageAdd',
-      {
-        value: `utilisateur ${returnVariable.prenom} ${
-          returnVariable.nom
-        } supprimé`,
-        type: 'success'
-      },
-      { root: true }
-    )
-    expect(commitSpy).toHaveBeenNthCalledWith(1, 'popupMessagesRemove', null, {
-      root: true
-    })
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      2,
-      'loadingAdd',
-      'utilisateurRemove',
-      { root: true }
-    )
-    expect(commitSpy).toHaveBeenNthCalledWith(3, 'remove', returnVariable)
-    expect(commitSpy).toHaveBeenNthCalledWith(4, 'popupClose', null, {
-      root: true
-    })
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      5,
-      'loadingRemove',
-      'utilisateurRemove',
-      { root: true }
-    )
+    expect(actionsUser.logout).not.toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalled()
+    expect(router.default).toEqual([{ name: 'utilisateurs' }])
   })
 
-  test('passwordUpdate: le mot de passe a ete modifie', async () => {
-    const commitSpy = jest.fn()
-    const dispatchSpy = jest.fn()
-    const returnVariable = true
-    const userMdp = {
-      id: '31',
-      motDePasse: 'mdp',
-      motDePasseNouveau1: 'mdpNew',
-      motDePasseNouveau2: 'mdpNew'
-    }
-    const apiMock = api.utilisateurPasswordUpdate.mockResolvedValue(
-      async userMdp => returnVariable
-    )
-    await utilisateurs.actions.passwordUpdate(
-      { commit: commitSpy, dispatch: dispatchSpy },
-      userMdp
-    )
-    expect(commitSpy).toHaveBeenCalledTimes(4)
-    expect(dispatchSpy).toHaveBeenCalledTimes(1)
-    expect(apiMock).toHaveBeenCalledTimes(1)
-    expect(apiMock).toHaveBeenCalledWith(userMdp)
-    expect(dispatchSpy).toHaveBeenCalledWith(
-      'messageAdd',
-      {
-        value: `mot de passe modifié`,
-        type: 'success'
-      },
-      { root: true }
-    )
-    expect(commitSpy).toHaveBeenNthCalledWith(1, 'popupMessagesRemove', null, {
-      root: true
+  test("supprime un utilisateur en deconnectant l'user", async () => {
+    const apiMock = api.utilisateurRemove.mockResolvedValue(utilisateurId)
+    user.state.current = utilisateurId
+    store = new Vuex.Store({
+      modules: { utilisateurs, utilisateur, user },
+      mutations,
+      actions
     })
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      2,
-      'loadingAdd',
-      'utilisateurPasswordUpdate',
-      { root: true }
-    )
-    expect(commitSpy).toHaveBeenNthCalledWith(3, 'popupClose', null, {
-      root: true
-    })
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      4,
-      'loadingRemove',
-      'utilisateurPasswordUpdate',
-      { root: true }
-    )
+    await store.dispatch('utilisateurs/remove', 46)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: 46 })
+    expect(store.state.utilisateurs.list).toEqual([
+      { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' }
+    ])
+    expect(actionsUser.logout).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalled()
   })
-  test("passwordUpdate: l'utilisateur n'existe pas", async () => {
-    const commitSpy = jest.fn()
-    const dispatchSpy = jest.fn()
-    const returnVariable = false
-    const userMdp = {
-      id: '31',
-      motDePasse: 'mdp',
-      motDePasseNouveau1: 'mdpNew',
-      motDePasseNouveau2: 'mdpNew'
-    }
-    const apiMock = api.utilisateurPasswordUpdate.mockResolvedValue(
-      async userMdp => returnVariable
+
+  test("l'utilisateur a supprimer n'existe pas", async () => {
+    const apiMock = api.utilisateurRemove.mockResolvedValue(null)
+    await store.dispatch('utilisateurs/remove', 28)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: 28 })
+    expect(store.state.utilisateurs.list).toEqual(utilisateursIds)
+    expect(actionsUser.logout).not.toHaveBeenCalled()
+    expect(mutations.popupClose).not.toHaveBeenCalled()
+    expect(actions.messageAdd).not.toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).not.toHaveBeenCalled()
+  })
+
+  test("erreur api dans la suppression de l'utilisateur", async () => {
+    const apiMock = api.utilisateurRemove.mockRejectedValue(
+      new Error("erreur dans l'api")
     )
-    await utilisateurs.actions.passwordUpdate(
-      { commit: commitSpy, dispatch: dispatchSpy },
-      userMdp
-    )
-    expect(commitSpy).toHaveBeenCalledTimes(3)
-    expect(dispatchSpy).toHaveBeenCalledTimes(0)
-    expect(apiMock).toHaveBeenCalledTimes(1)
-    expect(apiMock).toHaveBeenCalledWith(userMdp)
-    expect(commitSpy).toHaveBeenNthCalledWith(1, 'popupMessagesRemove', null, {
-      root: true
+    await store.dispatch('utilisateurs/remove', 46)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: 46 })
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test("modifie le mot de passe d'un utilisateur", async () => {
+    const apiMock = api.utilisateurPasswordUpdate.mockResolvedValue({
+      id: 46,
+      mdp: 'jour',
+      nom: 'jean',
+      prenom: 'peuplut'
     })
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      2,
-      'loadingAdd',
-      'utilisateurPasswordUpdate',
-      { root: true }
+    await store.dispatch('utilisateurs/passwordUpdate', {
+      id: 46,
+      motDePasse: 'bon',
+      motDePasseNouveau1: 'jour',
+      motDePasseNouveau2: 'jour'
+    })
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({
+      id: 46,
+      motDePasse: 'bon',
+      motDePasseNouveau1: 'jour',
+      motDePasseNouveau2: 'jour'
+    })
+    expect(mutations.popupClose).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("ne trouve pas l'utilisateur à modifier le mot de passe", async () => {
+    const apiMock = api.utilisateurPasswordUpdate.mockResolvedValue(null)
+    await store.dispatch('utilisateurs/passwordUpdate', {
+      id: 24,
+      motDePasse: 'bon',
+      motDePasseNouveau1: 'jour',
+      motDePasseNouveau2: 'jour'
+    })
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({
+      id: 24,
+      motDePasse: 'bon',
+      motDePasseNouveau1: 'jour',
+      motDePasseNouveau2: 'jour'
+    })
+    expect(mutations.popupClose).not.toHaveBeenCalled()
+    expect(actions.messageAdd).not.toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test('erreur api dans la modification du mot de passe', async () => {
+    const apiMock = api.utilisateurPasswordUpdate.mockRejectedValue(
+      new Error("erreur dans l'api")
     )
-    expect(commitSpy).toHaveBeenNthCalledWith(
-      3,
-      'loadingRemove',
-      'utilisateurPasswordUpdate',
-      { root: true }
-    )
+    await store.dispatch('utilisateurs/passwordUpdate', {
+      id: 46,
+      motDePasse: 'bon',
+      motDePasseNouveau1: 'jour',
+      motDePasseNouveau2: 'jour'
+    })
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({
+      id: 46,
+      motDePasse: 'bon',
+      motDePasseNouveau1: 'jour',
+      motDePasseNouveau2: 'jour'
+    })
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 })
 

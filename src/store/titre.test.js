@@ -2,9 +2,9 @@ import titre from './titre'
 import * as api from '../api'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import * as routerApi from '../router'
+import * as router from '../router'
 
-jest.mock('../router', () => ({ router: [] }))
+jest.mock('../router', () => [])
 
 jest.mock('../api', () => ({
   titre: jest.fn(),
@@ -28,9 +28,17 @@ describe('teste les actions', () => {
   let actions
   let mutations
   let titreInfo
+  let demarcheId
+  let demarcheInfo
+  let etapeId
+  let etapeInfo
   beforeEach(() => {
     titreInfo = { id: 83, nom: 'marne' }
     titreId = 83
+    demarcheInfo = { id: 52, nom: 'val' }
+    demarcheId = 52
+    etapeInfo = { id: 14, nom: 'champs' }
+    etapeId = 14
     documentId = 62
     titre.state = {
       current: null,
@@ -46,7 +54,7 @@ describe('teste les actions', () => {
       loadingRemove: jest.fn(),
       popupMessagesRemove: jest.fn(),
       popupClose: jest.fn(),
-      popupMessagesAdd: jest.fn()
+      popupMessageAdd: jest.fn()
     }
     store = new Vuex.Store({
       modules: { titre },
@@ -96,14 +104,15 @@ describe('teste les actions', () => {
 
   test("echec de l'api dans le reload du titre en cours", async () => {
     store.state.titre.current = titreInfo
-    api.titre.mockRejectedValue(new Error("erreur de l'api"))
+    const actionGet = jest.fn().mockRejectedValue(new Error("echech de l'api"))
+    titre.actions.get = actionGet
+    store = new Vuex.Store({ modules: { titre }, actions, mutations })
     await store.dispatch('titre/reload')
 
-    expect(actions.messageAdd).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalled()
   })
 
-  test('met à jour le titre', async () => {
+  test('cree le titre', async () => {
     const creation = true
     const apiMock = api.titreUpdate.mockResolvedValue(titreInfo)
     await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
@@ -111,18 +120,21 @@ describe('teste les actions', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ titre: titreInfo })
     expect(mutations.popupClose).toHaveBeenCalled()
-    expect(router).toEqual([{ name: 'titre', params: { id: titreId } }])
+    expect(router.default).toEqual([{ name: 'titre', params: { id: titreId } }])
   })
 
-  test('cree le titre', async () => {
+  test('met à jour le titre', async () => {
     const creation = false
+    const actionReload = jest.fn()
+    titre.actions.reload = actionReload
+    store = new Vuex.Store({ modules: { titre }, actions, mutations })
     const apiMock = api.titreUpdate.mockResolvedValue(titreInfo)
     await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ titre: titreInfo })
     expect(mutations.popupClose).toHaveBeenCalled()
-    expect(actions.reload).toHaveBeenCalled()
+    expect(actionReload).toHaveBeenCalled()
   })
 
   test('le titre ne peut etre mis à jour', async () => {
@@ -132,7 +144,7 @@ describe('teste les actions', () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ titre: titreInfo })
-    expect(mutations.popupMessagesAdd).toHaveBeenCalled()
+    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("erreur de l'api dans la mise à jour du titre", async () => {
@@ -142,17 +154,155 @@ describe('teste les actions', () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ titre: titreInfo })
-    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test("erreur de l'api dans la mise à jour du titre", async () => {
-    const creation = true
-    const apiMock = api.titreUpdate.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
+  test("suppression d'un titre", async () => {
+    const apiMock = api.titreRemove.mockResolvedValue(true)
+    await store.dispatch('titre/titreRemove', titreId)
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ titre: titreInfo })
-    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: titreId })
+    expect(router.default).toEqual([
+      { name: 'titre', params: { id: 83 } },
+      { name: 'titres' }
+    ])
+  })
+
+  test("erreur de la page dans la suppression d'un titre", async () => {
+    const apiMock = api.titreRemove.mockResolvedValue(null)
+    await store.dispatch('titre/titreRemove', titreId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: titreId })
+    expect(actions.pageError).toHaveBeenCalled()
+  })
+
+  test("erreur de l'api dans la suppression d'un titre", async () => {
+    const apiMock = api.titreRemove.mockRejectedValue(
+      new Error("error de l'api")
+    )
+    await store.dispatch('titre/titreRemove', titreId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: titreId })
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test("update d'une demarche", async () => {
+    const apiMock = api.titreDemarcheUpdate.mockResolvedValue(demarcheInfo)
+    await store.dispatch('titre/demarcheUpdate', demarcheInfo)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ demarche: demarcheInfo })
+    expect(mutations.popupClose).toHaveBeenCalled()
+  })
+
+  test("erreur de la page lors de l'update d'une demarche", async () => {
+    const apiMock = api.titreDemarcheUpdate.mockResolvedValue(null)
+    await store.dispatch('titre/demarcheUpdate', demarcheInfo)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ demarche: demarcheInfo })
+    expect(actions.pageError).toHaveBeenCalled()
+  })
+
+  test("erreur de l'api lors de l'update d'une demarche", async () => {
+    const apiMock = api.titreDemarcheUpdate.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+    await store.dispatch('titre/demarcheUpdate', demarcheInfo)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ demarche: demarcheInfo })
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test("Supression d'une demarche", async () => {
+    const apiMock = api.titreDemarcheRemove.mockResolvedValue(demarcheId)
+    await store.dispatch('titre/demarcheRemove', demarcheId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: demarcheId })
+    expect(mutations.popupClose).toHaveBeenCalled()
+  })
+
+  test("erreur de la page lors de la suppression d'une demarche", async () => {
+    const apiMock = api.titreDemarcheRemove.mockResolvedValue(null)
+    await store.dispatch('titre/demarcheRemove', demarcheId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: demarcheId })
+    expect(actions.pageError).toHaveBeenCalled()
+  })
+
+  test("erreur de l'api lors de la suppression d'une demarche", async () => {
+    const apiMock = api.titreDemarcheRemove.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+    await store.dispatch('titre/demarcheRemove', demarcheId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: demarcheId })
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test("update d'une etape", async () => {
+    const apiMock = api.titreEtapeUpdate.mockResolvedValue(etapeInfo)
+    await store.dispatch('titre/etapeUpdate', etapeInfo)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ etape: etapeInfo })
+    expect(mutations.popupClose).toHaveBeenCalled()
+  })
+
+  test("erreur de la page lors de l'update d'une etape", async () => {
+    const apiMock = api.titreEtapeUpdate.mockResolvedValue(null)
+    await store.dispatch('titre/etapeUpdate', etapeInfo)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ etape: etapeInfo })
+    expect(actions.pageError).toHaveBeenCalled()
+  })
+
+  test("erreur de l'api lors de l'update d'une etape", async () => {
+    const apiMock = api.titreEtapeUpdate.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+    await store.dispatch('titre/etapeUpdate', etapeInfo)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ etape: etapeInfo })
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test("Supression d'une etape", async () => {
+    const apiMock = api.titreEtapeRemove.mockResolvedValue(etapeId)
+    await store.dispatch('titre/etapeRemove', etapeId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: etapeId })
+    expect(mutations.popupClose).toHaveBeenCalled()
+  })
+
+  test("erreur de la page lors de la suppression d'une etape", async () => {
+    const apiMock = api.titreEtapeRemove.mockResolvedValue(null)
+    await store.dispatch('titre/etapeRemove', etapeId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: etapeId })
+    expect(actions.pageError).toHaveBeenCalled()
+  })
+
+  test("erreur de l'api lors de la suppression d'une etape", async () => {
+    const apiMock = api.titreEtapeRemove.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+    await store.dispatch('titre/etapeRemove', etapeId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ id: etapeId })
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('On ajoute le document', () => {
@@ -172,25 +322,29 @@ describe('teste les actions', () => {
   })
 })
 
-describe('tests sur getters', () => {
-  test('documentsTotal: current state is null', () => {
-    const state = {
+describe('teste le getters', () => {
+  test('documentsTotal: teste si le document en cours existe ou non', () => {
+    titre.state = {
       current: null,
       documents: []
     }
-    const result = titre.getters.documentsTotal(state)
-    expect(result).toEqual(0)
+    const store = new Vuex.Store({ modules: { titre } })
+
+    expect(store.getters['titre/documentsTotal']).toEqual(0)
   })
+
   test('documentsTotal: pas de demarches', () => {
-    const state = {
+    titre.state = {
       current: { démarches: null },
       documents: []
     }
-    const result = titre.getters.documentsTotal(state)
-    expect(result).toEqual(0)
+    const store = new Vuex.Store({ modules: { titre } })
+
+    expect(store.getters['titre/documentsTotal']).toEqual(0)
   })
+
   test('documentsTotal: obtient le nombre de documents exact', () => {
-    const state = {
+    titre.state = {
       current: {
         démarches: {
           m: [{ documents: [1, 2, 3] }],
@@ -200,25 +354,29 @@ describe('tests sur getters', () => {
       },
       documents: []
     }
-    const result = titre.getters.documentsTotal(state)
-    expect(result).toEqual(3)
+    const store = new Vuex.Store({ modules: { titre } })
+
+    expect(store.getters['titre/documentsTotal']).toEqual(3)
   })
 
-  test('documentSelected: fonctionne correctement', () => {
-    const state = {
+  test('documentSelected: trouve les documents selectionnes', () => {
+    titre.state = {
       current: null,
       documents: [12]
     }
-    const result = titre.getters.documentSelected(state)(12)
-    expect(result).toBeDefined()
+    const store = new Vuex.Store({ modules: { titre } })
+
+    expect(store.getters['titre/documentSelected'](12)).toBeDefined()
   })
-  test('documentSelected: pas de resultats dans les documents', () => {
-    const state = {
+
+  test('documentSelected: ne trouve pas de resultats dans les documents', () => {
+    titre.state = {
       current: null,
       documents: [12]
     }
-    const result = titre.getters.documentSelected(state)(11)
-    expect(result).toBeUndefined()
+    const store = new Vuex.Store({ modules: { titre } })
+
+    expect(store.getters['titre/documentSelected'](11)).toBeUndefined()
   })
 })
 
