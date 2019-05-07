@@ -1,6 +1,35 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [0.17.0](https://github.com/MTES-MCT/camino-ui/compare/v0.16.0...v0.17.0) (2019-05-07)
+
+
+### Bug Fixes
+
+* affiche le type de titre lors de la suppression d'une étape ([64676ae](https://github.com/MTES-MCT/camino-ui/commit/64676ae))
+* **édition:** corrige des erreurs dans le formulaire d'ajout d'étapes ([024d036](https://github.com/MTES-MCT/camino-ui/commit/024d036))
+* **édition:** limite les types de titre au domaine selectionné ([816d170](https://github.com/MTES-MCT/camino-ui/commit/816d170))
+
+
+### Build System
+
+* met à jour les dépendances ([c6c63d0](https://github.com/MTES-MCT/camino-ui/commit/c6c63d0))
+* met à jour les dépendances ([b5947e3](https://github.com/MTES-MCT/camino-ui/commit/b5947e3))
+
+
+### Features
+
+* **carte:** utilise ctrl + click pour zoomer (ou 2 doigts sur support tactile) ([3901ee4](https://github.com/MTES-MCT/camino-ui/commit/3901ee4))
+* **design:** agrandit la carte ([e3cb612](https://github.com/MTES-MCT/camino-ui/commit/e3cb612))
+* ajoute un nouveau titre ([038134b](https://github.com/MTES-MCT/camino-ui/commit/038134b))
+
+
+### Tests
+
+* **store:** teste utilisateur et substances ([c8f96c9](https://github.com/MTES-MCT/camino-ui/commit/c8f96c9))
+
+
 
 # [0.16.0](https://github.com/MTES-MCT/camino-ui/compare/v0.15.0...v0.16.0) (2019-04-30)
 
