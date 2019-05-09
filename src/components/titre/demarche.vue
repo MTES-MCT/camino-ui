@@ -79,11 +79,6 @@ export default {
     type: {
       type: Object,
       default: () => ({})
-    },
-
-    titreId: {
-      type: String,
-      default: ''
     }
   },
 
@@ -142,9 +137,9 @@ export default {
         component: EtapeEditPopup,
         props: {
           etape,
-          domaineId: this.$store.state.titre.current.domaine.id,
+          domaineId: this.titre.domaine.id,
           demarcheType: this.demarche.type,
-          titreNom: this.$store.state.titre.current.nom,
+          titreNom: this.titre.nom,
           creation: true
         }
       })

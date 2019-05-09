@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { saveAs } from 'file-saver'
 import router from '../router'
 
 import { init } from '../api'
@@ -90,7 +91,9 @@ export const actions = {
   },
 
   apiError({ commit }, error) {
+    const id = new Date().valueOf()
     commit('messageAdd', {
+      id,
       type: 'error',
       value:
         error ||
@@ -98,6 +101,10 @@ export const actions = {
           process.env.VUE_APP_API_URL
         })`
     })
+
+    setTimeout(() => {
+      commit('messageRemove', id)
+    }, 4500)
   },
 
   pageError({ commit }) {
@@ -141,6 +148,37 @@ export const actions = {
       dispatch('utilisateur/get', router.currentRoute.params.id, {
         root: true
       })
+    }
+  },
+
+  async pdfDownload({ dispatch }, { fileName, titreId, titreDocumentId }) {
+    try {
+      const token = localStorage.getItem('token')
+      const headers = new Headers({
+        'Content-Type': 'application/pdf',
+        authorization: token ? `Bearer ${token}` : '',
+        'X-titre-id': titreId,
+        'X-titre-document-id': titreDocumentId
+      })
+      const url = `${process.env.VUE_APP_API_URL}/fichiers/${fileName}.pdf`
+      const method = 'GET'
+
+      const res = await fetch(url, { method, headers })
+
+      if (res.status !== 200) {
+        const text = await res.text()
+        throw text
+      }
+
+      const body = await res.blob()
+      saveAs(body, fileName)
+
+      dispatch('messageAdd', {
+        type: 'success',
+        value: `fichier téléchargé : ${fileName}.pdf`
+      })
+    } catch (e) {
+      dispatch('apiError', `fichier introuvable : ${e}`)
     }
   }
 }

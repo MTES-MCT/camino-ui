@@ -2,16 +2,13 @@
   <tr class="h5">
     <td>{{ document.nom }}</td>
     <td class="flex text-right">
-      <a
+      <button
         v-if="document.fichier"
-        class="btn rnd-xs px-xs py-xs my--xs ml-xs"
-        :href="document.fichier"
-        target="_blank"
-        rel="noopener noreferrer"
-        alt="Fichier"
+        class="btn-alt rnd-xs px-xs py-xs my--xs ml-xs"
+        @click="download(document.fichier)"
       >
         <i class="icon-24 icon-24-download" />
-      </a>
+      </button>
       <a
         v-if="document.url"
         class="btn-alt rnd-xs p-xs my--xs ml-xs"
@@ -32,6 +29,22 @@ export default {
     document: {
       type: Object,
       default: () => {}
+    }
+  },
+
+  computed: {
+    titre() {
+      return this.$store.state.titre.current
+    }
+  },
+
+  methods: {
+    async download(fileName) {
+      await this.$store.dispatch('pdfDownload', {
+        fileName,
+        titreId: this.titre.id,
+        titreDocumentId: this.document.id
+      })
     }
   }
 }

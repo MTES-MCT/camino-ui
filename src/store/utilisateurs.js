@@ -95,7 +95,7 @@ export const actions = {
       const utilisateur = await utilisateurRemove({ id })
 
       if (utilisateur) {
-        commit('remove', utilisateur)
+        commit('remove', utilisateur.id)
 
         if (utilisateur.id === rootState.user.current.id) {
           dispatch('user/logout', null, { root: true })

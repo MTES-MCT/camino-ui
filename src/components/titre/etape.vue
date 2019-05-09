@@ -168,10 +168,12 @@ export default {
       type: Object,
       default: () => {}
     },
+
     demarcheType: {
       type: Object,
       default: () => {}
     },
+
     demarcheId: {
       type: String,
       default: ''
