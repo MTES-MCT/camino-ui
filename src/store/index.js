@@ -91,7 +91,7 @@ export const actions = {
   },
 
   apiError({ commit }, error) {
-    const id = new Date().valueOf()
+    const id = Date.now()
     commit('messageAdd', {
       id,
       type: 'error',
@@ -115,7 +115,7 @@ export const actions = {
   },
 
   messageAdd({ commit }, message) {
-    const id = new Date().valueOf()
+    const id = Date.now()
     message.id = id
     commit('messageAdd', message)
     setTimeout(() => {
@@ -169,7 +169,7 @@ export const actions = {
       }
 
       const body = await res.blob()
-      saveAs(body, fileName)
+      saveAs(body, `${fileName}.pdf`)
 
       dispatch('messageAdd', {
         type: 'success',
