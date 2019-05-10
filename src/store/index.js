@@ -151,16 +151,14 @@ export const actions = {
     }
   },
 
-  async pdfDownload({ dispatch }, { fileName, titreId, titreDocumentId }) {
+  async documentDownload({ dispatch }, { titreDocumentId, fileName }) {
     try {
       const token = localStorage.getItem('token')
       const headers = new Headers({
         'Content-Type': 'application/pdf',
-        authorization: token ? `Bearer ${token}` : '',
-        'X-titre-id': titreId,
-        'X-titre-document-id': titreDocumentId
+        authorization: token ? `Bearer ${token}` : ''
       })
-      const url = `${process.env.VUE_APP_API_URL}/fichiers/${fileName}.pdf`
+      const url = `${process.env.VUE_APP_API_URL}/documents/${titreDocumentId}`
       const method = 'GET'
 
       const res = await fetch(url, { method, headers })
@@ -178,7 +176,7 @@ export const actions = {
         value: `fichier téléchargé : ${fileName}.pdf`
       })
     } catch (e) {
-      dispatch('apiError', `fichier introuvable : ${e}`)
+      dispatch('apiError', `erreur de téléchargement : ${fileName}.pdf, ${e}`)
     }
   }
 }

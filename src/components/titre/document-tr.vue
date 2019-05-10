@@ -32,17 +32,10 @@ export default {
     }
   },
 
-  computed: {
-    titre() {
-      return this.$store.state.titre.current
-    }
-  },
-
   methods: {
     async download(fileName) {
-      await this.$store.dispatch('pdfDownload', {
+      await this.$store.dispatch('documentDownload', {
         fileName,
-        titreId: this.titre.id,
         titreDocumentId: this.document.id
       })
     }
