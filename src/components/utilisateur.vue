@@ -173,13 +173,20 @@ export default {
     utilisateur() {
       return this.$store.state.utilisateur.current
     },
+
+    user() {
+      return this.$store.state.user.current
+    },
+
     loaded() {
       return !!this.utilisateur
     }
   },
 
   watch: {
-    $route: 'get'
+    $route: 'get',
+
+    user: 'get'
   },
 
   created() {

@@ -108,6 +108,10 @@ export default {
       return !!this.titres
     },
 
+    user() {
+      return this.$store.state.user.current
+    },
+
     vueId() {
       return this.$store.state.user.preferences.titres.vueId
     },
@@ -124,7 +128,9 @@ export default {
       } else if (!to.query.vue) {
         this.init()
       }
-    }
+    },
+
+    user: 'get'
   },
 
   created() {

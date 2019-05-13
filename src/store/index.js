@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { saveAs } from 'file-saver'
-import router from '../router'
 
 import { init } from '../api'
 
@@ -41,12 +40,14 @@ export const state = {
     ui: `${npmVersion}`
   },
   loading: [],
-  loaded: false
+  loaded: false,
+  route: null
 }
 
 export const actions = {
   async init({ commit, dispatch }) {
     commit('loadingAdd', 'init')
+    commit('errorRemove')
     try {
       const res = await init()
 
@@ -131,23 +132,6 @@ export const actions = {
       commit('menuOpen', component)
     } else {
       commit('menuOpen', component)
-    }
-  },
-
-  async load({ dispatch, commit }) {
-    commit('errorRemove')
-    await dispatch('init')
-
-    if (router.currentRoute.name === 'titres') {
-      dispatch('titres/get', 'network-only', { root: true })
-    } else if (router.currentRoute.name === 'titre') {
-      dispatch('titre/get', router.currentRoute.params.id, { root: true })
-    } else if (router.currentRoute.name === 'utilisateurs') {
-      dispatch('utilisateurs/get', null, { root: true })
-    } else if (router.currentRoute.name === 'utilisateur') {
-      dispatch('utilisateur/get', router.currentRoute.params.id, {
-        root: true
-      })
     }
   },
 

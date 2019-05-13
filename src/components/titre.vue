@@ -101,9 +101,15 @@ export default {
     titre() {
       return this.$store.state.titre.current
     },
+
+    user() {
+      return this.$store.state.user.current
+    },
+
     loaded() {
       return !!this.titre
     },
+
     tabsActives() {
       const tabsActives = Object.keys(this.tabs).reduce(
         (tabs, tabId) => Object.assign(tabs, { [tabId]: this.tabs[tabId] }),
@@ -116,12 +122,15 @@ export default {
 
   watch: {
     $route: 'get',
+
     tabsActives: function(tabsActivesNew) {
       const tabsActivesIds = Object.keys(tabsActivesNew)
       if (!tabsActivesIds.find(tabId => tabId === this.tabActive)) {
         this.tabActive = tabsActivesIds[0]
       }
-    }
+    },
+
+    user: 'get'
   },
 
   created() {

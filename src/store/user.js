@@ -63,7 +63,7 @@ export const actions = {
         },
         { root: true }
       )
-      dispatch('load', null, { root: true })
+      dispatch('init', null, { root: true })
     } catch (e) {
       dispatch('tokenRemove')
       commit('reset')
@@ -82,7 +82,7 @@ export const actions = {
       { value: `Vous êtes déconnecté`, type: 'success' },
       { root: true }
     )
-    dispatch('load', null, { root: true })
+    dispatch('init', null, { root: true })
   },
 
   async addEmail({ commit, dispatch }, email) {

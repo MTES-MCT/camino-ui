@@ -46,9 +46,18 @@ export default {
     utilisateurs() {
       return this.$store.state.utilisateurs.list
     },
+
+    user() {
+      return this.$store.state.user.current
+    },
+
     loaded() {
       return !!this.utilisateurs
     }
+  },
+
+  watch: {
+    user: 'get'
   },
 
   created() {
