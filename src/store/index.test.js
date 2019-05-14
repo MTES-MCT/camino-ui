@@ -67,6 +67,7 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
       mutations
     })
     localStorage.clear()
+    // fetch.resetMocks()
   })
 
   test("ecrit la version de l'api", () => {
@@ -202,10 +203,7 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
   //       json: () => Promise.resolve({})
   //     })
   //   )
-  //   localStorage.setItem(
-  //     'token',
-  //     'privateToken'
-  //   )
+  //   localStorage.setItem('token', 'privateToken')
   //   await store.dispatch('documentDownload', { titreDocumentId, fileName })
 
   //   expect(global.fetch).toHaveBeenCalled()

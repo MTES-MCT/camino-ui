@@ -46,7 +46,7 @@ describe('teste user', () => {
       }
     }
     actions = {
-      load: jest.fn(),
+      init: jest.fn(),
       messageAdd: jest.fn()
     }
     mutations = {
@@ -125,7 +125,7 @@ describe('teste user', () => {
     expect(apiMock).toHaveBeenCalledWith({ email, motDePasse })
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
-    expect(actions.load).toHaveBeenCalled()
+    expect(actions.init).toHaveBeenCalled()
     expect(localStorage.getItem('token')).toEqual('rene')
     expect(store.state.user.current).toEqual({
       id: 66,
@@ -158,7 +158,7 @@ describe('teste user', () => {
 
     expect(mutations.menuClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
-    expect(actions.load).toHaveBeenCalled()
+    expect(actions.init).toHaveBeenCalled()
     expect(localStorage.getItem('token')).toBeNull()
     expect(store.state.user.current).toBeNull()
   })
