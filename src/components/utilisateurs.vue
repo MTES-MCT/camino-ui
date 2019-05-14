@@ -1,9 +1,7 @@
 <template>
   <Card>
     <div class="flex">
-      <h2 class="mt-s">
-        Utilisateurs
-      </h2>
+      <h1>Utilisateurs</h1>
 
       <button
         class="btn-border rnd-xs py-s px-m mb flex-right"

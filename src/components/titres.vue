@@ -2,9 +2,7 @@
   <Loader v-if="!loaded" />
   <Card v-else>
     <div class="flex">
-      <h2 class="mt-s">
-        Titres miniers
-      </h2>
+      <h1>Titres miniers</h1>
     </div>
 
     <button

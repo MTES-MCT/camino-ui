@@ -35,7 +35,7 @@
         >
           <div class="td">
             <Pill
-              :color="`bg-title-domaine-${titre.domaine.id}`"
+              :color="`bg-titre-domaine-${titre.domaine.id}`"
               class="mono"
             >
               {{ titre.domaine.id }}

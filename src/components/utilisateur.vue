@@ -3,7 +3,7 @@
     <Loader />
   </Card>
   <Card v-else>
-    <h1 class="mt-xs">
+    <h1>
       {{
         utilisateur
           ? `${utilisateur.prenom || "–"} ${utilisateur.nom || "–"}`

@@ -51,7 +51,7 @@
                   @change="checkboxToggle('domaines', $event)"
                 >
                 <Pill
-                  :color="`bg-title-domaine-${domaine.id}`"
+                  :color="`bg-titre-domaine-${domaine.id}`"
                   class="mr-xs mono"
                 >
                   {{ domaine.id }}

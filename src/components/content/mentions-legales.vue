@@ -1,7 +1,10 @@
 <template>
-  <div class="mb-xxl">
-    <h2>Mentions légales</h2>
-    <h3>Editeurs</h3>
+  <div class="content mb-xxl">
+    <h1 class="mb-xl">
+      Mentions légales
+    </h1>
+    <hr class="mb-xl">
+    <h3>Éditeurs</h3>
     <p>
       Camino est édité par la Fabrique numérique des ministères de la Transition
       écologique et solidaire et de la Cohésion des territoires, sise 1 place
@@ -10,7 +13,7 @@
       du système d’information et de communication de l’État (DINSIC).
     </p>
     <h3>Directeurs de la publication</h3>
-    <ul>
+    <ul class="list-prefix">
       <li>
         Monsieur Paul Delduc, directeur général de l’aménagement, du logement et
         de la nature (DGALN)

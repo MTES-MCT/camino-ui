@@ -14,6 +14,7 @@ import Cgu1 from '../components/content/cgu-1-0-0.vue'
 import MentionsLegales from '../components/content/mentions-legales.vue'
 import UserPasswordInit from '../components/user/password-init.vue'
 import UserAdd from '../components/user/add.vue'
+import Stats from '../components/content/stats.vue'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -94,6 +95,11 @@ const routes = [
     path: '/creation-de-compte',
     name: 'creation-de-compte',
     component: UserAdd
+  },
+  {
+    path: '/stats',
+    name: 'stats',
+    component: Stats
   },
   {
     path: '/',

@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div class="content">
+    <h1 class="mb-xl">
+      À propos
+    </h1>
+    <hr class="mb-xl">
     <div
       id="irritants"
       class="mb-xxl"
     >
-      <h4 class="mb-s text-neutral">
+      <h4 class="mb-s color-neutral">
         Ce qu'il faut changer
       </h4>
       <h2>
@@ -77,7 +81,7 @@
       id="utilisateurs"
       class="mb-xxl"
     >
-      <h4 class="mb-s text-neutral">
+      <h4 class="mb-s color-neutral">
         Camino numérise l'administration des mines
       </h4>
 
@@ -146,7 +150,7 @@
       id="services"
       class="mb-xxl"
     >
-      <h4 class="mb-s text-neutral">
+      <h4 class="mb-s color-neutral">
         Camino change l'administration des mines
       </h4>
 
@@ -208,7 +212,7 @@
       id="activites"
       class="mb-xxl"
     >
-      <h4 class="mb-s text-neutral">
+      <h4 class="mb-s color-neutral">
         Tous les projets miniers concernés
       </h4>
       <h2>
@@ -328,7 +332,7 @@
       id="fabricants"
       class="mb-xxl"
     >
-      <h4 class="mb-s text-neutral">
+      <h4 class="mb-s color-neutral">
         Les fabricants
       </h4>
 
@@ -466,7 +470,7 @@
       id="contact"
       class="mb-xxl"
     >
-      <h4 class="mb-s text-neutral">
+      <h4 class="mb-s color-neutral">
         Nous écrire
       </h4>
 

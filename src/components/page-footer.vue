@@ -61,6 +61,11 @@
           </router-link>
         </li>
         <li>
+          <router-link to="/stats">
+            Stats
+          </router-link>
+        </li>
+        <li>
           <a
             href="https://trello.com/b/cwXWMqGz/camino-roadmap-ouverte"
             target="_blank"
@@ -85,15 +90,6 @@
             rel="noopener noreferrer"
           >
             Flux géographiques
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/MTES-MCT?utf8=%E2%9C%93&q=camino"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Code source
           </a>
         </li>
       </ul>

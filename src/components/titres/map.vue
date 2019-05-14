@@ -209,7 +209,7 @@ export default {
       this.geojsonLayers = []
       this.titres.forEach(titre => {
         const icon = L.divIcon({
-          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-title-domaine-${
+          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-titre-domaine-${
             titre.domaine.id
           } leaflet-marker-title cap`,
           html: titre.domaine.id,

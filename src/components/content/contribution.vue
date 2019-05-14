@@ -1,9 +1,9 @@
 <template>
-  <div
-    id="activites"
-    class="mb-xxl"
-  >
-    <h2>Contribuez à Camino</h2>
+  <div class="content mb-xxl">
+    <h1 class="mb-xl">
+      Contribuez à Camino
+    </h1>
+    <hr class="mb-xl">
     <p>
       L'équipe de Camino travaille à vous fournir des données de la meilleure
       qualité qui soit. Mais la tâche est d'ampleur. Elles sont souvent

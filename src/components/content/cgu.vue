@@ -1,6 +1,9 @@
 <template>
-  <div class="mb-xxl">
-    <h2>Conditions générales d’utilisation</h2>
+  <div class="content mb-xxl">
+    <h1 class="mb-xl">
+      Conditions générales d’utilisation
+    </h1>
+    <hr class="mb-xl">
     <p>
       CGU v.2.0<br>
       valables à compter du 16 avril 2019
@@ -294,7 +297,7 @@
     <ul class="list-prefix">
       <li>
         <router-link to="/cgu/1-0-0">
-          CGU v.1.0 vrouter-linklables du 16 octobre 2018 au 15 avril 2019
+          CGU v.1.0 valables du 16 octobre 2018 au 15 avril 2019
         </router-link>
       </li>
     </ul>

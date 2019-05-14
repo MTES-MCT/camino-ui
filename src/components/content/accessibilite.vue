@@ -1,9 +1,9 @@
 <template>
-  <div
-    id="activites"
-    class="mb-xxl"
-  >
-    <h2>Accessibilité</h2>
+  <div class="content mb-xxl">
+    <h1 class="mb-xl">
+      Accessibilité
+    </h1>
+    <hr class="mb-xl">
     <p>
       Nous travaillons à améliorer le niveau d'accessibilité du site et sa
       conformité avec les normes en la matière. Notre objectif est d’atteindre

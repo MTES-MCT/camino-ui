@@ -2,9 +2,7 @@
   <div>
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
-        <h1 class="mt-xs">
-          {{ titre.nom }}
-        </h1>
+        <h1>{{ titre.nom }}</h1>
       </div>
       <div class="desktop-blob-1-2 flex">
         <div
@@ -33,7 +31,7 @@
       <div class="desktop-blob-1-2">
         <h4 class="mb">
           <Pill
-            :color="`bg-title-domaine-${titre.domaine.id}`"
+            :color="`bg-titre-domaine-${titre.domaine.id}`"
             class="mono mr-s mt--s"
           >
             {{ titre.domaine.id }}

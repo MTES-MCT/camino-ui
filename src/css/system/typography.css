@@ -28,7 +28,8 @@ pre {
 }
 
 .h0 {
-  typescale: 8 6;
+  typescale: 7 6;
+  color: var(--color-brand);
 }
 
 h1,
@@ -71,6 +72,7 @@ h1 {
   font-weight: 200;
 }
 
+.h0,
 h2,
 h3,
 h4,
