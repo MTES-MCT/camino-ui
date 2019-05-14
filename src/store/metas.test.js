@@ -5,7 +5,7 @@ import Vuex from 'vuex'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-describe('teste les metas et les preferences utilisateurs', () => {
+describe('metas', () => {
   let store
   let id
   let domaines
@@ -18,7 +18,7 @@ describe('teste les metas et les preferences utilisateurs', () => {
 
     metas.state = {
       types: [],
-      domaines: [],
+      domaines: [{ id: 'h' }],
       statuts: []
     }
 
@@ -31,7 +31,7 @@ describe('teste les metas et les preferences utilisateurs', () => {
       state: {
         preferences: {
           filtres: {
-            domaines: 'c,w',
+            domaines: 'c,w,h',
             statuts: 'val',
             types: null
           }
@@ -45,20 +45,33 @@ describe('teste les metas et les preferences utilisateurs', () => {
     })
   })
 
-  test('les preferences utilisateurs sont correctement modifiés', async () => {
+  test('ajoute des metas dans le state et met à jour les préférences utilisateurs', async () => {
+    await store.dispatch('metas/set', { id, values: domaines })
+
+    expect(actions.preferenceSet).toHaveBeenCalled()
+    expect(store.state.metas.domaines).toEqual([{ id: 'c' }, { id: 'w' }])
+  })
+
+  test('ajoute des metas dans le state', async () => {
+    user.state.preferences.filtres.domaines = ''
     await store.dispatch('metas/set', { id, values: domaines })
 
     expect(store.state.metas.domaines).toEqual([{ id: 'c' }, { id: 'w' }])
-    expect(actions.preferenceSet).toHaveBeenCalled()
   })
 
-  test('ajoute des elements dans les metas', () => {
-    store.commit('metas/set', { id, values: domaines })
+  test('retire des metas du state', async () => {
+    metas.state.domaines = [{ id: 'h' }]
+    await store.dispatch('metas/set', { id, values: [] })
 
-    expect(store.state.metas).toEqual({
-      types: [],
-      domaines: [{ id: 'c' }, { id: 'w' }],
-      statuts: []
+    expect(store.state.metas.domaines).toEqual([])
+  })
+
+  test('ajoute des metas dans le state (sans incidence sur les préférences utilisateurs)', async () => {
+    await store.dispatch('metas/set', {
+      id: 'devises',
+      values: [{ id: 'euro' }]
     })
+
+    expect(store.state.metas.devises).toEqual([{ id: 'euro' }])
   })
 })
