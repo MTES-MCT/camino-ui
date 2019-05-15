@@ -147,11 +147,6 @@ export const actions = {
 
       const res = await fetch(url, { method, headers })
 
-      if (res.status !== 200) {
-        const text = await res.text()
-        throw text
-      }
-
       const body = await res.blob()
       saveAs(body, `${fileName}.pdf`)
 

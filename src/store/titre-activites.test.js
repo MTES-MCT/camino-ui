@@ -10,7 +10,7 @@ jest.mock('../api', () => ({
   titreActiviteUpdate: jest.fn()
 }))
 
-describe("update des activités d'un titre", () => {
+describe('interaction entre un titre et ses activités', () => {
   let store
   let activite
   let mutations
@@ -39,7 +39,7 @@ describe("update des activités d'un titre", () => {
     })
   })
 
-  test("affiche l'activite selectionnee", async () => {
+  test("valide l'activité pour le titre", async () => {
     const apiMock = api.titreActiviteUpdate.mockResolvedValue({
       confirmation: true
     })
@@ -57,7 +57,16 @@ describe("update des activités d'un titre", () => {
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
-  test("n'affiche pas l'activite", async () => {
+  test("enregistre l'activité pour le titre", async () => {
+    api.titreActiviteUpdate.mockResolvedValue({
+      confirmation: false
+    })
+    await store.dispatch('titreActivites/update', activite)
+
+    expect(actions.messageAdd).toHaveBeenCalled()
+  })
+
+  test("n'enregistre pas l'activité", async () => {
     const apiMock = api.titreActiviteUpdate.mockResolvedValue(null)
     await store.dispatch('titreActivites/update', activite)
 
@@ -68,7 +77,7 @@ describe("update des activités d'un titre", () => {
     expect(actions.messageAdd).not.toHaveBeenCalled()
   })
 
-  test("erreur dans l'api", async () => {
+  test("erreur dans l'api lors de l'enregistrement de l'activité", async () => {
     const apiMock = api.titreActiviteUpdate.mockRejectedValue(
       new Error("l'api ne répond pas")
     )

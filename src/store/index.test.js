@@ -3,7 +3,9 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import * as api from '../api'
+import * as fileSaver from 'file-saver'
 
+jest.mock('file-saver', () => ({ saveAs: jest.fn() }))
 jest.mock('../api', () => ({ init: jest.fn() }))
 jest.mock('./titre', () => ({ titre: jest.fn() }))
 jest.mock('./titres', () => ({ titres: jest.fn() }))
@@ -24,7 +26,7 @@ console.log = jest.fn()
 
 jest.useFakeTimers()
 
-describe('teste les fonctions utilisées dans les autres scripts', () => {
+describe("état général de l'application", () => {
   let state
   let store
   let modules
@@ -67,20 +69,14 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
       mutations
     })
     localStorage.clear()
-    // fetch.resetMocks()
+    fetch.resetMocks()
   })
 
-  test("ecrit la version de l'api", () => {
+  test("retourne la version de l'api", () => {
     const version = '10.4'
     store.commit('apiVersionSet', version)
 
     expect(state.versions.api).toEqual(version)
-  })
-
-  test("charge l'etat", () => {
-    store.commit('loaded')
-
-    expect(state.loaded).toBeTruthy()
   })
 
   test('ajoute un message', () => {
@@ -93,25 +89,12 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
   test('supprime un message', () => {
     const message = { id: 42, message: 'message très important' }
     store.commit('messageAdd', message)
-    expect(state.messages).toEqual([message])
     store.commit('messageRemove', 42)
 
     expect(state.messages).toEqual([])
   })
 
-  test('ouvre une pop up', () => {
-    const component = 'open'
-    const props = 'open'
-    store.commit('popupOpen', { component, props })
-
-    expect(state.popup).toEqual({
-      component: 'open',
-      props: 'open',
-      messages: []
-    })
-  })
-
-  test('ferme les pops up', () => {
+  test('ferme la pop-up', () => {
     const component = 'open'
     const props = 'open'
     store.commit('popupOpen', { component, props })
@@ -124,13 +107,6 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
     })
   })
 
-  test('ajoute une erreur', () => {
-    const error = 'erreur api'
-    store.commit('errorAdd', error)
-
-    expect(state.error).toEqual(error)
-  })
-
   test('supprime les erreurs', () => {
     const error = 'erreur api'
     store.commit('errorAdd', error)
@@ -139,29 +115,14 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
     expect(state.error).toBeNull()
   })
 
-  test('ouvre le menu', () => {
-    const component = 'component'
-    store.commit('menuOpen', component)
-
-    expect(state.menu.component).toEqual(component)
-  })
-
-  test('ferme le menu', () => {
-    const component = 'component'
-    store.commit('menuOpen', component)
-    store.commit('menuClose')
-
-    expect(state.menu.component).toBeNull()
-  })
-
-  test('ajoute un message de popup', () => {
+  test('ajoute un message sur la pop-up', () => {
     const message = 'message très important'
     store.commit('popupMessageAdd', message)
 
     expect(state.popup.messages).toEqual([message])
   })
 
-  test('supprime les messages de popup', () => {
+  test('supprime les messages sur la pop-up', () => {
     const message = 'message très important'
     store.commit('popupMessageAdd', message)
     store.commit('popupMessagesRemove')
@@ -169,24 +130,7 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
     expect(state.popup.messages).toEqual([])
   })
 
-  test("charge le nom d'un element", () => {
-    const name = 'nom'
-    store.commit('loadingAdd', name)
-
-    expect(state.loading).toEqual([name])
-  })
-
-  test("supprime le nom d'un element", () => {
-    const name1 = 'nom1'
-    const name2 = 'nom2'
-    store.commit('loadingAdd', name1)
-    store.commit('loadingAdd', name2)
-    store.commit('loadingRemove', name1)
-
-    expect(state.loading).toEqual([name2])
-  })
-
-  test("supprime le nom d'un element n'existant pas", () => {
+  test("trace si l'appel à l'api est en cours", () => {
     const name1 = 'nom1'
     const name2 = 'nom2'
     store.commit('loadingAdd', name1)
@@ -195,21 +139,7 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
     expect(state.loading).toEqual([name1])
   })
 
-  // test('documentDownload', async () => {
-  //   const titreDocumentId = 'crique-sophie'
-  //   const fileName = 'criqueSophie'
-  //   jest.spyOn(global, 'fetch').mockResolvedValue(
-  //     Promise.resolve({
-  //       json: () => Promise.resolve({})
-  //     })
-  //   )
-  //   localStorage.setItem('token', 'privateToken')
-  //   await store.dispatch('documentDownload', { titreDocumentId, fileName })
-
-  //   expect(global.fetch).toHaveBeenCalled()
-  // })
-
-  test('initie tout les différents types de composants', async () => {
+  test("initialise l'application", async () => {
     const errorRemoveMock = jest.fn()
     mutations.errorRemove = errorRemoveMock
     const apiVersionSetMock = jest.fn()
@@ -232,7 +162,7 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
     expect(setMetas).toHaveBeenCalled()
   })
 
-  test('initie sans composants', async () => {
+  test("initialise l'application à vide", async () => {
     api.init.mockResolvedValue({})
     await store.dispatch('init')
 
@@ -243,7 +173,7 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
     expect(setMetas).not.toHaveBeenCalled()
   })
 
-  test("erreur api lors de l'initiation", async () => {
+  test("retourne une erreur de l'api lors de l'initialisation", async () => {
     api.init.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('init')
 
@@ -251,17 +181,7 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
     expect(console.log).toHaveBeenCalled()
   })
 
-  test("renvoie une erreur definie de l'api", async () => {
-    Date.now = jest.fn(() => 1487076708000)
-    const error = 'erreur api'
-    await store.dispatch('apiError', error)
-
-    expect(state.messages).toEqual([
-      { id: 1487076708000, type: 'error', value: 'erreur api' }
-    ])
-  })
-
-  test("renvoie une erreur indefinie de l'api", async () => {
+  test("retourne une erreur de l'api", async () => {
     Date.now = jest.fn(() => 1487076708000)
     process.env.VUE_APP_API_URL = 'http://api.camino-test-url.dev'
     await store.dispatch('apiError')
@@ -276,7 +196,7 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
     ])
   })
 
-  test('renvoie une erreur de la page', async () => {
+  test('retourne une erreur 404', async () => {
     await store.dispatch('pageError')
 
     expect(state.error).toEqual({
@@ -285,18 +205,23 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
     })
   })
 
-  test('ajoute un message et le supprime plus tard', async () => {
+  test('supprime un message', async () => {
+    const messageRemoveMock = jest.fn()
+    mutations.messageRemove = messageRemoveMock
+    store = new Vuex.Store({ modules, actions, state, mutations })
     const message = { id: 14, message: 'message important' }
     await store.dispatch('messageAdd', message)
 
     const res = state.messages.pop()
     expect(res.message).toEqual('message important')
-    expect(res.id).toBeLessThanOrEqual(new Date().valueOf())
+    expect(res.id).toBeLessThanOrEqual(Date.now())
+    jest.advanceTimersByTime(4500)
     expect(setTimeout).toHaveBeenCalled()
     expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 4500)
+    expect(messageRemoveMock).toHaveBeenCalled()
   })
 
-  test('ferme le menu deja ouvert', async () => {
+  test('ferme le menu', async () => {
     store.state.menu.component = { name: 'menu' }
     const component = { name: 'menu' }
 
@@ -305,7 +230,7 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
     expect(state.menu.component).toBeNull()
   })
 
-  test('ferme le menu pour en rouvrir un autre', async () => {
+  test('ferme le menu pour en ouvrir un autre', async () => {
     store.state.menu.component = { name: 'bonjour' }
     const component = { name: 'hello' }
 
@@ -319,5 +244,34 @@ describe('teste les fonctions utilisées dans les autres scripts', () => {
     await store.dispatch('menuToggle', component)
 
     expect(state.menu.component).toEqual(component)
+  })
+
+  test('télécharge un document', async () => {
+    const messageAddMock = jest.fn()
+    actions.messageAdd = messageAddMock
+    store = new Vuex.Store({ modules, state, actions, mutations })
+    const titreDocumentId = 'crique-sophie'
+    const fileName = 'criqueSophie'
+    localStorage.setItem('token', 'privateToken')
+    fetch.mockResponseOnce(JSON.stringify({ status: 200 }))
+    await store.dispatch('documentDownload', { titreDocumentId, fileName })
+
+    expect(fetch).toHaveBeenCalled()
+    expect(fileSaver.saveAs).toHaveBeenCalled()
+    expect(messageAddMock).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur lors du téléchargement d'un document", async () => {
+    const apiErrorMock = jest.fn()
+    actions.apiError = apiErrorMock
+    store = new Vuex.Store({ modules, state, actions, mutations })
+    const titreDocumentId = 'crique-sophie'
+    const fileName = 'criqueSophie'
+    localStorage.removeItem('token')
+    fetch.mockReject(new Error('erreur api'))
+    await store.dispatch('documentDownload', { titreDocumentId, fileName })
+
+    expect(fetch).toHaveBeenCalled()
+    expect(apiErrorMock).toHaveBeenCalled()
   })
 })

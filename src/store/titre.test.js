@@ -2,7 +2,6 @@ import titre from './titre'
 import * as api from '../api'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import * as router from '../router'
 
 jest.mock('../router', () => [])
 
@@ -21,7 +20,7 @@ localVue.use(Vuex)
 
 console.log = jest.fn()
 
-describe('teste les actions', () => {
+describe('gestion des titres/démarches/étapes', () => {
   let store
   let titreId
   let documentId
@@ -72,7 +71,7 @@ describe('teste les actions', () => {
     expect(store.state.titre.current).toEqual(titreInfo)
   })
 
-  test('le titre en cours ne peut etre affiché', async () => {
+  test("n'affiche pas le titre", async () => {
     const apiMock = api.titre.mockResolvedValue(null)
     await store.dispatch('titre/get', titreId)
 
@@ -82,7 +81,7 @@ describe('teste les actions', () => {
     expect(actions.pageError).toHaveBeenCalled()
   })
 
-  test("erreur de l'api lors de l'obtention du titre", async () => {
+  test("retourne une erreur de l'api lors de l'obtention du titre", async () => {
     const apiMock = api.titre.mockRejectedValue(new Error("erreur de l'api"))
     await store.dispatch('titre/get', titreId)
 
@@ -93,7 +92,7 @@ describe('teste les actions', () => {
     expect(console.log).toHaveBeenCalled()
   })
 
-  test('reload le titre en cours', async () => {
+  test('recharge le titre affiché', async () => {
     store.state.titre.current = titreInfo
     api.titre.mockResolvedValue(titreInfo)
     await store.dispatch('titre/reload')
@@ -102,7 +101,7 @@ describe('teste les actions', () => {
     expect(console.log).not.toHaveBeenCalled()
   })
 
-  test("echec de l'api dans le reload du titre en cours", async () => {
+  test("retourne une erreur de l'api lors du chargement d'un titre", async () => {
     store.state.titre.current = titreInfo
     const actionGet = jest.fn().mockRejectedValue(new Error("echech de l'api"))
     titre.actions.get = actionGet
@@ -112,7 +111,7 @@ describe('teste les actions', () => {
     expect(console.log).toHaveBeenCalled()
   })
 
-  test('cree le titre', async () => {
+  test('crée un titre', async () => {
     const creation = true
     const apiMock = api.titreUpdate.mockResolvedValue(titreInfo)
     await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
@@ -120,7 +119,6 @@ describe('teste les actions', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ titre: titreInfo })
     expect(mutations.popupClose).toHaveBeenCalled()
-    expect(router.default).toEqual([{ name: 'titre', params: { id: titreId } }])
   })
 
   test('met à jour le titre', async () => {
@@ -137,7 +135,7 @@ describe('teste les actions', () => {
     expect(actionReload).toHaveBeenCalled()
   })
 
-  test('le titre ne peut etre mis à jour', async () => {
+  test("n'arrive pas à mettre à jour le titre", async () => {
     const creation = true
     const apiMock = api.titreUpdate.mockResolvedValue(null)
     await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
@@ -147,7 +145,7 @@ describe('teste les actions', () => {
     expect(actions.pageError).toHaveBeenCalled()
   })
 
-  test("erreur de l'api dans la mise à jour du titre", async () => {
+  test("retourne une erreur de l'api dans la mise à jour d'un titre", async () => {
     const creation = true
     const apiMock = api.titreUpdate.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
@@ -157,19 +155,15 @@ describe('teste les actions', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test("suppression d'un titre", async () => {
+  test('supprime un titre', async () => {
     const apiMock = api.titreRemove.mockResolvedValue(true)
     await store.dispatch('titre/titreRemove', titreId)
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: titreId })
-    expect(router.default).toEqual([
-      { name: 'titre', params: { id: 83 } },
-      { name: 'titres' }
-    ])
   })
 
-  test("erreur de la page dans la suppression d'un titre", async () => {
+  test("retourne une erreur 404 lors de la suppression d'un titre", async () => {
     const apiMock = api.titreRemove.mockResolvedValue(null)
     await store.dispatch('titre/titreRemove', titreId)
 
@@ -178,7 +172,7 @@ describe('teste les actions', () => {
     expect(actions.pageError).toHaveBeenCalled()
   })
 
-  test("erreur de l'api dans la suppression d'un titre", async () => {
+  test("retourne une erreur de l'api lors de la suppression d'un titre", async () => {
     const apiMock = api.titreRemove.mockRejectedValue(
       new Error("error de l'api")
     )
@@ -189,7 +183,7 @@ describe('teste les actions', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test("update d'une demarche", async () => {
+  test('met à jour une démarche', async () => {
     const apiMock = api.titreDemarcheUpdate.mockResolvedValue(demarcheInfo)
     await store.dispatch('titre/demarcheUpdate', demarcheInfo)
 
@@ -198,7 +192,7 @@ describe('teste les actions', () => {
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test("erreur de la page lors de l'update d'une demarche", async () => {
+  test("retourne une erreur 404 lors de l'update d'une démarche", async () => {
     const apiMock = api.titreDemarcheUpdate.mockResolvedValue(null)
     await store.dispatch('titre/demarcheUpdate', demarcheInfo)
 
@@ -207,7 +201,7 @@ describe('teste les actions', () => {
     expect(actions.pageError).toHaveBeenCalled()
   })
 
-  test("erreur de l'api lors de l'update d'une demarche", async () => {
+  test("retourne une erreur de l'api lors de l'update d'une démarche", async () => {
     const apiMock = api.titreDemarcheUpdate.mockRejectedValue(
       new Error("erreur de l'api")
     )
@@ -218,7 +212,7 @@ describe('teste les actions', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test("Supression d'une demarche", async () => {
+  test('supprime une démarche', async () => {
     const apiMock = api.titreDemarcheRemove.mockResolvedValue(demarcheId)
     await store.dispatch('titre/demarcheRemove', demarcheId)
 
@@ -227,7 +221,7 @@ describe('teste les actions', () => {
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test("erreur de la page lors de la suppression d'une demarche", async () => {
+  test("retourne une erreur 404 lors de la suppression d'une démarche", async () => {
     const apiMock = api.titreDemarcheRemove.mockResolvedValue(null)
     await store.dispatch('titre/demarcheRemove', demarcheId)
 
@@ -236,7 +230,7 @@ describe('teste les actions', () => {
     expect(actions.pageError).toHaveBeenCalled()
   })
 
-  test("erreur de l'api lors de la suppression d'une demarche", async () => {
+  test("retourne une erreur de l'api lors de la suppression d'une démarche", async () => {
     const apiMock = api.titreDemarcheRemove.mockRejectedValue(
       new Error("erreur de l'api")
     )
@@ -247,7 +241,7 @@ describe('teste les actions', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test("update d'une etape", async () => {
+  test('met à jour une étape', async () => {
     const apiMock = api.titreEtapeUpdate.mockResolvedValue(etapeInfo)
     await store.dispatch('titre/etapeUpdate', etapeInfo)
 
@@ -256,7 +250,7 @@ describe('teste les actions', () => {
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test("erreur de la page lors de l'update d'une etape", async () => {
+  test("retourne une erreur 404 lors de l'update d'une étape", async () => {
     const apiMock = api.titreEtapeUpdate.mockResolvedValue(null)
     await store.dispatch('titre/etapeUpdate', etapeInfo)
 
@@ -265,7 +259,7 @@ describe('teste les actions', () => {
     expect(actions.pageError).toHaveBeenCalled()
   })
 
-  test("erreur de l'api lors de l'update d'une etape", async () => {
+  test("retourne une erreur de l'api lors de l'update d'une étape", async () => {
     const apiMock = api.titreEtapeUpdate.mockRejectedValue(
       new Error("erreur de l'api")
     )
@@ -276,7 +270,7 @@ describe('teste les actions', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test("Supression d'une etape", async () => {
+  test('supprime une étape', async () => {
     const apiMock = api.titreEtapeRemove.mockResolvedValue(etapeId)
     await store.dispatch('titre/etapeRemove', etapeId)
 
@@ -285,7 +279,7 @@ describe('teste les actions', () => {
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test("erreur de la page lors de la suppression d'une etape", async () => {
+  test("retourne une erreur 404 lors de la suppression d'une étape", async () => {
     const apiMock = api.titreEtapeRemove.mockResolvedValue(null)
     await store.dispatch('titre/etapeRemove', etapeId)
 
@@ -294,7 +288,7 @@ describe('teste les actions', () => {
     expect(actions.pageError).toHaveBeenCalled()
   })
 
-  test("erreur de l'api lors de la suppression d'une etape", async () => {
+  test("retourne une erreur de l'api lors de la suppression d'une étape", async () => {
     const apiMock = api.titreEtapeRemove.mockRejectedValue(
       new Error("erreur de l'api")
     )
@@ -305,14 +299,14 @@ describe('teste les actions', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test('On ajoute le document', () => {
+  test('ajoute un document', () => {
     const selected = true
     store.dispatch('titre/documentSelect', { documentId, selected })
 
     expect(store.state.titre.documents).toEqual([documentId])
   })
 
-  test('On supprime le document', () => {
+  test('supprime le document', () => {
     const selected = false
     store.commit('titre/documentSelectionAdd', documentId)
     expect(store.state.titre.documents).toEqual([documentId])
@@ -320,35 +314,24 @@ describe('teste les actions', () => {
 
     expect(store.state.titre.documents).toEqual([])
   })
-})
 
-describe('teste le getters', () => {
-  test('documentsTotal: teste si le document en cours existe ou non', () => {
-    titre.state = {
-      current: null,
-      documents: []
-    }
-    const store = new Vuex.Store({ modules: { titre } })
+  test("met à 0 l'utilisateur courant", () => {
+    store.commit('titre/set', titreId)
+    store.commit('titre/reset')
 
+    expect(store.state.titre.current).toBeNull()
+  })
+
+  test("vérifie que le document n'existe pas ", () => {
     expect(store.getters['titre/documentsTotal']).toEqual(0)
   })
 
-  test('documentsTotal: pas de demarches', () => {
-    titre.state = {
-      current: { démarches: null },
-      documents: []
-    }
-    const store = new Vuex.Store({ modules: { titre } })
-
-    expect(store.getters['titre/documentsTotal']).toEqual(0)
-  })
-
-  test('documentsTotal: obtient le nombre de documents exact', () => {
+  test('obtient le nombre exacts de documents', () => {
     titre.state = {
       current: {
         démarches: {
           m: [{ documents: [1, 2, 3] }],
-          h: [{ documents: [] }],
+          h: [{ documents: '' }],
           w: []
         }
       },
@@ -359,71 +342,9 @@ describe('teste le getters', () => {
     expect(store.getters['titre/documentsTotal']).toEqual(3)
   })
 
-  test('documentSelected: trouve les documents selectionnes', () => {
-    titre.state = {
-      current: null,
-      documents: [12]
-    }
-    const store = new Vuex.Store({ modules: { titre } })
+  test('sélectionne des documents', () => {
+    store.commit('titre/documentSelectionAdd', 12)
 
     expect(store.getters['titre/documentSelected'](12)).toBeDefined()
-  })
-
-  test('documentSelected: ne trouve pas de resultats dans les documents', () => {
-    titre.state = {
-      current: null,
-      documents: [12]
-    }
-    const store = new Vuex.Store({ modules: { titre } })
-
-    expect(store.getters['titre/documentSelected'](11)).toBeUndefined()
-  })
-})
-
-describe('teste les mutations liées à un titre', () => {
-  let store
-  let titreId
-  let documentId
-  beforeEach(() => {
-    titreId = 83
-    documentId = 62
-    titre.state = {
-      current: null,
-      documents: [12, 54, 213]
-    }
-    store = new Vuex.Store({
-      modules: { titre }
-    })
-  })
-
-  test('met à jour le titre', () => {
-    store.commit('titre/set', titreId)
-
-    expect(store.state.titre.current).toEqual(83)
-  })
-
-  test("reset l'utilisateur courant", () => {
-    store.commit('titre/set', titreId)
-    store.commit('titre/reset')
-
-    expect(store.state.titre.current).toBeNull()
-  })
-
-  test("ajout d'un document", () => {
-    store.commit('titre/documentSelectionAdd', documentId)
-
-    expect(store.state.titre.documents).toEqual([12, 54, 213, 62])
-  })
-
-  test('on enleve un utilisateur qui se trouve dans la liste', () => {
-    store.commit('titre/documentSelectionRemove', 54)
-
-    expect(store.state.titre.documents).toEqual([12, 213])
-  })
-
-  test('on enleve un utilisateur inexistant', () => {
-    store.commit('titre/documentSelectionRemove', 99)
-
-    expect(store.state.titre.documents).toEqual([12, 54, 213])
   })
 })

@@ -12,7 +12,7 @@ localVue.use(Vuex)
 
 console.log = jest.fn()
 
-describe('teste les titres', () => {
+describe('état de la liste des titres', () => {
   let actions
   let mutations
   let store
@@ -64,7 +64,7 @@ describe('teste les titres', () => {
     })
   })
 
-  test('recupere les bons parametres et cree la liste des titres', async () => {
+  test('récupere des paramètres et crée la liste des titres', async () => {
     const apiMock = api.titres.mockResolvedValue(titresListe)
     await store.dispatch('titres/get')
 
@@ -77,7 +77,7 @@ describe('teste les titres', () => {
     expect(store.state.titres.list).toEqual(titresListe)
   })
 
-  test('recupere les parametres et modifie la liste de titres', async () => {
+  test('récupere des paramètres et modifie la liste de titres', async () => {
     const apiMock = api.titres.mockResolvedValue(titresListe.slice(1, 3))
     store.commit('titres/set', titresListe.slice(0, 1))
     await store.dispatch('titres/get')
@@ -104,11 +104,5 @@ describe('teste les titres', () => {
     )
     expect(console.log).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
-  })
-
-  test('met à jour les titres', () => {
-    store.commit('titres/set', titresListe)
-
-    expect(store.state.titres.list).toEqual(titresListe)
   })
 })

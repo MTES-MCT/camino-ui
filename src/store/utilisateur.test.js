@@ -1,4 +1,4 @@
-import utilisateur, { actions } from './utilisateur'
+import utilisateur from './utilisateur'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import * as api from '../api'
@@ -12,7 +12,7 @@ localVue.use(Vuex)
 
 console.log = jest.fn()
 
-describe('utilisateur/actions', () => {
+describe("obtention des données d'un utilisateur dans l'UI", () => {
   let utilisateurId
   let store
   let actions
@@ -35,7 +35,7 @@ describe('utilisateur/actions', () => {
     })
   })
 
-  test("charge un utilisateur depuis l'api", async () => {
+  test("obtient les données d'un utilisateur", async () => {
     const utilisateur = { id: 71, nom: 'toto', prenom: 'asticot' }
     const apiMock = api.utilisateur.mockResolvedValue(utilisateur)
     await store.dispatch('utilisateur/get', utilisateurId)
@@ -45,7 +45,7 @@ describe('utilisateur/actions', () => {
     expect(store.state.utilisateur.current).toEqual(utilisateur)
   })
 
-  test("ne trouve pas d'utilisateur dans l'api (id n'existe pas)", async () => {
+  test("n'obtient pas d'utilisateur: il n'existe pas", async () => {
     const apiMock = api.utilisateur.mockResolvedValue(null)
     await store.dispatch('utilisateur/get', utilisateurId)
 
@@ -55,7 +55,7 @@ describe('utilisateur/actions', () => {
     expect(store.state.utilisateur.current).toBeNull()
   })
 
-  test("retourne une erreur si l'api ne répond pas", async () => {
+  test("retourne une erreur de l'api dans l'obtention de l'utilisateur", async () => {
     const apiMock = api.utilisateur.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
@@ -67,13 +67,7 @@ describe('utilisateur/actions', () => {
     expect(actions.apiError).toHaveBeenCalled()
   })
 
-  test('ajoute un utilisateur', () => {
-    store.commit('utilisateur/set', utilisateurInfo)
-
-    expect(store.state.utilisateur.current).toEqual(utilisateurInfo)
-  })
-
-  test("supprime l'utilisateur", () => {
+  test("supprime les données d'utilisateur", () => {
     store.commit('utilisateur/set', utilisateurInfo)
     store.commit('utilisateur/reset')
 

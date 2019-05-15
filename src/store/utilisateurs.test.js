@@ -19,7 +19,7 @@ console.log = jest.fn()
 
 jest.mock('../router', () => [])
 
-describe("interagit avec la création et l'obtention d'un utilisateur", () => {
+describe('création et obtention des utilisateurs', () => {
   let store
   let utilisateurId
   let actions
@@ -53,7 +53,7 @@ describe("interagit avec la création et l'obtention d'un utilisateur", () => {
     expect(store.state.utilisateurs.list).toEqual([utilisateurId])
   })
 
-  test("aucun utilisateur dans l'api", async () => {
+  test("n'obtient aucun utilisateur: il n'en existe pas", async () => {
     const apiMock = api.utilisateurs.mockResolvedValue(null)
     await store.dispatch('utilisateurs/get')
 
@@ -61,7 +61,7 @@ describe("interagit avec la création et l'obtention d'un utilisateur", () => {
     expect(store.state.utilisateurs.list).toEqual([])
   })
 
-  test("erreur dans l'obtention des utilisateurs", async () => {
+  test("retourne une erreur de l'api dans l'obtention des utilisateurs", async () => {
     const apiMock = api.utilisateurs.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('utilisateurs/get')
 
@@ -77,9 +77,11 @@ describe("interagit avec la création et l'obtention d'un utilisateur", () => {
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurId })
     expect(store.state.utilisateurs.list).toEqual([utilisateurId])
+    expect(mutations.popupClose).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalled()
   })
 
-  test("echec de l'ajout d'un utilisateur. Erreur", async () => {
+  test("retourne une erreur lors de l'ajout d'un utilisateur", async () => {
     const apiMock = api.utilisateurAdd.mockRejectedValue(
       new Error('utilisateurs erreur')
     )
@@ -90,17 +92,18 @@ describe("interagit avec la création et l'obtention d'un utilisateur", () => {
     expect(store.state.utilisateurs.list).toEqual([])
   })
 
-  test("echec de l'ajout d'un utilisateur. Deja existant", async () => {
-    const apiMock = api.utilisateurAdd.mockRejectedValue(null)
+  test("n'ajoute pas d'utilisateur car déjà existant", async () => {
+    const apiMock = api.utilisateurAdd.mockResolvedValue(null)
     await store.dispatch('utilisateurs/add', utilisateurId)
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurId })
     expect(store.state.utilisateurs.list).toEqual([])
+    expect(actions.messageAdd).not.toHaveBeenCalled()
   })
 })
 
-describe('interagit avec les utilisateurs deja existant', () => {
+describe('interactions avec les utilisateurs', () => {
   let store
   let utilisateursIds
   let utilisateurId
@@ -111,7 +114,9 @@ describe('interagit avec les utilisateurs deja existant', () => {
   let user
   let mutationsUser
   let actionsUser
+  let permissions
   beforeEach(() => {
+    permissions = ['admin', 'user', 'super']
     utilisateursIds = [
       { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' },
       { id: 46, prenom: 'peuplut', nom: 'jean', mdp: 'bon' }
@@ -151,7 +156,7 @@ describe('interagit avec les utilisateurs deja existant', () => {
     })
   })
 
-  test("change l'utilisateur actif sans changer l'user", async () => {
+  test("modifie l'utilisateur actif", async () => {
     const apiMock = api.utilisateurUpdate.mockResolvedValue(utilisateurId)
     await store.dispatch('utilisateurs/update', utilisateurId)
 
@@ -162,7 +167,7 @@ describe('interagit avec les utilisateurs deja existant', () => {
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test("change l'utilisateur actif en changeant l'user", async () => {
+  test("modifie l'utilisateur actif ainsi que la page de cet utilisateur", async () => {
     user.state.current = utilisateurId
     store = new Vuex.Store({
       modules: { utilisateurs, utilisateur, user },
@@ -179,7 +184,7 @@ describe('interagit avec les utilisateurs deja existant', () => {
     expect(actions.messageAdd).toHaveBeenCalled()
   })
 
-  test("erreur api lors du changement d'utilisateur actif", async () => {
+  test("retourne une erreur de l'api lors du changement d'utilisateur", async () => {
     const apiMock = api.utilisateurUpdate.mockRejectedValue(
       new Error("erreur dans l'api")
     )
@@ -191,7 +196,7 @@ describe('interagit avec les utilisateurs deja existant', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test("supprime un utilisateur sans deconnecter l'user", async () => {
+  test('supprime un utilisateur', async () => {
     const apiMock = api.utilisateurRemove.mockResolvedValue(utilisateurId)
     await store.dispatch('utilisateurs/remove', 46)
 
@@ -205,7 +210,7 @@ describe('interagit avec les utilisateurs deja existant', () => {
     expect(router.default).toEqual([{ name: 'utilisateurs' }])
   })
 
-  test("supprime un utilisateur en deconnectant l'user", async () => {
+  test('supprime un utilisateur tout en le deconnectant de sa page utilisateur', async () => {
     const apiMock = api.utilisateurRemove.mockResolvedValue(utilisateurId)
     user.state.current = utilisateurId
     store = new Vuex.Store({
@@ -224,7 +229,7 @@ describe('interagit avec les utilisateurs deja existant', () => {
     expect(actions.messageAdd).toHaveBeenCalled()
   })
 
-  test("l'utilisateur a supprimer n'existe pas", async () => {
+  test("supprime un utilisateur n'existant pas", async () => {
     const apiMock = api.utilisateurRemove.mockResolvedValue(null)
     await store.dispatch('utilisateurs/remove', 28)
 
@@ -237,7 +242,7 @@ describe('interagit avec les utilisateurs deja existant', () => {
     expect(mutations.popupMessageAdd).not.toHaveBeenCalled()
   })
 
-  test("erreur api dans la suppression de l'utilisateur", async () => {
+  test("retourne une erreur de l'api dans la suppression de l'utilisateur", async () => {
     const apiMock = api.utilisateurRemove.mockRejectedValue(
       new Error("erreur dans l'api")
     )
@@ -274,7 +279,7 @@ describe('interagit avec les utilisateurs deja existant', () => {
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
-  test("ne trouve pas l'utilisateur à modifier le mot de passe", async () => {
+  test("ne trouve pas l'utilisateur dont le mot de passe est à modifier", async () => {
     const apiMock = api.utilisateurPasswordUpdate.mockResolvedValue(null)
     await store.dispatch('utilisateurs/passwordUpdate', {
       id: 24,
@@ -295,7 +300,7 @@ describe('interagit avec les utilisateurs deja existant', () => {
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
-  test('erreur api dans la modification du mot de passe', async () => {
+  test("retourne une erreur de l'api dans la modification du mot de passe", async () => {
     const apiMock = api.utilisateurPasswordUpdate.mockRejectedValue(
       new Error("erreur dans l'api")
     )
@@ -316,59 +321,21 @@ describe('interagit avec les utilisateurs deja existant', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
-})
 
-describe('test des mutations sur les utilisateurs', () => {
-  let store
-  let utilisateursIds
-  let permissions
-  let utilisateurId
-  beforeEach(() => {
-    permissions = ['admin', 'user', 'super']
-    utilisateurId = { id: 25, nom: 'nanard', prenom: 'nanere', mdp: 'nana' }
-    utilisateursIds = [
-      { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' },
-      { id: 46, prenom: 'peuplut', nom: 'jean', mdp: 'bon' }
-    ]
-    utilisateurs.state = { list: [], permissions: [] }
-    store = new Vuex.Store({
-      modules: { utilisateurs }
-    })
-  })
-
-  test('met à jour la liste des utilisateurs', () => {
-    store.commit('utilisateurs/set', utilisateursIds)
-
-    expect(store.state.utilisateurs.list).toEqual(utilisateursIds)
-  })
-
-  test('met à jour les permissions des utilisateurs', () => {
+  test("met à jour les permissions de l'utilisateur", () => {
     store.commit('utilisateurs/permissionsSet', permissions)
 
     expect(store.state.utilisateurs.permissions).toEqual(permissions)
   })
 
-  test('reset les permissions', () => {
+  test("met à 0 les permissions de l'utilisateur", () => {
     store.commit('utilisateurs/permissionsSet', permissions)
     store.commit('utilisateurs/reset')
 
     expect(store.state.utilisateurs.permissions).toEqual([])
   })
 
-  test("ajout d'un utilisateur", () => {
-    store.commit('utilisateurs/add', utilisateurId)
-
-    expect(store.state.utilisateurs.list).toEqual([utilisateurId])
-  })
-
-  test("on enleve un utilisateur de l'api", () => {
-    store.commit('utilisateurs/add', utilisateurId)
-    store.commit('utilisateurs/remove', 25)
-
-    expect(store.state.utilisateurs.list).toEqual([])
-  })
-
-  test("on enleve un utilisateur n'existant pas dans l'api", () => {
+  test("enlève un utilisateur n'existant pas dans l'api", () => {
     store.commit('utilisateurs/set', utilisateursIds)
     store.commit('utilisateurs/remove', 25)
 

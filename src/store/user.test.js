@@ -17,7 +17,7 @@ localVue.use(Vuex)
 
 jest.mock('../router', () => [])
 
-describe('teste user', () => {
+describe('interface utilisateur', () => {
   let store
   let actions
   let mutations
@@ -62,7 +62,7 @@ describe('teste user', () => {
     localStorage.clear()
   })
 
-  test("initialise l'user si un token existe", async () => {
+  test('affiche la page utilisateur si ce dernier est connecté', async () => {
     localStorage.setItem('token', 'rene')
     const apiMock = api.utilisateurIdentify.mockResolvedValue({
       token: 'rene',
@@ -75,37 +75,18 @@ describe('teste user', () => {
     expect(apiMock).toHaveBeenCalledWith()
   })
 
-  test("n'initialise pas l'user si aucun token n'existe", async () => {
+  test("n'affiche pas la page utilisateur si aucun n'est connecté", async () => {
     await store.dispatch('user/init')
 
     expect(localStorage.getItem('token')).toBeNull()
   })
 
-  test("identifie l'user", async () => {
-    const apiMock = api.utilisateurIdentify.mockResolvedValue({
-      token: 'rene',
-      utilisateur: userInfo
-    })
-    await store.dispatch('user/identify', { email, motDePasse })
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith()
-    expect(localStorage.getItem('token')).toEqual('rene')
-    expect(store.state.user.current).toEqual({
-      id: 66,
-      prenom: 'rene',
-      nom: 'lataupe',
-      permission: 'admin',
-      entreprise: 'macdo'
-    })
-  })
-
-  test("erreur de l'api lors de l'identification de l'user", async () => {
+  test("retourne une erreur de l'api lors de l'obtention de l'utilisateur", async () => {
     const apiMock = api.utilisateurIdentify.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     localStorage.setItem('token', 'rene')
-    store.commit('set', userInfo)
+    store.commit('user/set', userInfo)
     await store.dispatch('user/identify', { email, motDePasse })
 
     expect(apiMock).toHaveBeenCalled()
@@ -114,7 +95,7 @@ describe('teste user', () => {
     expect(store.state.user.current).toBeNull()
   })
 
-  test('login un user', async () => {
+  test('connecte un utilisateur', async () => {
     const apiMock = api.utilisateurLogin.mockResolvedValue({
       token: 'rene',
       utilisateur: userInfo
@@ -136,9 +117,9 @@ describe('teste user', () => {
     })
   })
 
-  test("erreur de l'api lors du login d'un user", async () => {
+  test("retourne une erreur de l'api lors de la connection d'un utilisateur", async () => {
     localStorage.setItem('token', 'rene')
-    store.commit('set', userInfo)
+    store.commit('user/set', userInfo)
     const apiMock = api.utilisateurLogin.mockRejectedValue(
       new Error("erreur dans l'api")
     )
@@ -151,7 +132,7 @@ describe('teste user', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test('logout un user', () => {
+  test('deconnecte un utilisateur', () => {
     localStorage.setItem('token', 'value')
     store.commit('user/set', userInfo)
     store.dispatch('user/logout')
@@ -173,7 +154,7 @@ describe('teste user', () => {
     expect(actions.messageAdd).toHaveBeenCalled()
   })
 
-  test("erreur de l'api lors de l'ajout d'un email", async () => {
+  test("retourne une erreur de l'api lors de l'ajout d'un email", async () => {
     const apiMock = api.utilisateurAddEmail.mockRejectedValue(
       new Error("erreur dans l'api")
     )
@@ -185,7 +166,7 @@ describe('teste user', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test('ajoute un user', async () => {
+  test('ajoute un utilisateur', async () => {
     const loginMock = jest.fn()
     user.actions.login = loginMock
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
@@ -207,7 +188,7 @@ describe('teste user', () => {
     expect(actions.messageAdd).not.toHaveBeenCalled()
   })
 
-  test("erreur api lors de l'ajout d'un user", async () => {
+  test("retourne une erreur api lors de l'ajout d'un utilisateur", async () => {
     const loginMock = jest.fn()
     user.actions.login = loginMock
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
@@ -222,7 +203,7 @@ describe('teste user', () => {
     expect(loginMock).not.toHaveBeenCalled()
   })
 
-  test("inite l'email d'un user", async () => {
+  test("crée l'email d'un utilisateur", async () => {
     const apiMock = api.utilisateurPasswordInitEmail.mockResolvedValue(userInfo)
     await store.dispatch('user/passwordInitEmail', email)
 
@@ -232,7 +213,7 @@ describe('teste user', () => {
     expect(actions.messageAdd).toHaveBeenCalled()
   })
 
-  test("erreur api dans la création de l'email de l'user", async () => {
+  test("returne une erreur api dans la création de l'email de l'utilisateur", async () => {
     const apiMock = api.utilisateurPasswordInitEmail.mockRejectedValue(
       new Error("erreur dans l'api")
     )
@@ -244,7 +225,7 @@ describe('teste user', () => {
     expect(actions.messageAdd).not.toHaveBeenCalled()
   })
 
-  test("initie le mot de passe d'un user", async () => {
+  test("initialise le mot de passe d'un user", async () => {
     const loginMock = jest.fn()
     user.actions.login = loginMock
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
@@ -265,7 +246,7 @@ describe('teste user', () => {
     expect(res).toEqual(userInfo)
   })
 
-  test("erreur api dans la création du mot de passe de l'user", async () => {
+  test("retourne une erreur api dans la création du mot de passe de l'utilisateur", async () => {
     const motDePasse1 = 'mignon'
     const motDePasse2 = 'mignon'
     const loginMock = jest.fn()
@@ -287,16 +268,7 @@ describe('teste user', () => {
     expect(res).toBeUndefined()
   })
 
-  test("set les preferences de l'utilisateur sans conditions", async () => {
-    const section = 'filtres.domaines'
-    const value = 'c,w'
-    await store.dispatch('user/preferenceSet', { section, value })
-
-    expect(store.state.user.preferences.filtres.domaines).toEqual(value)
-    expect(localStorage.getItem('conditions')).toBeNull()
-  })
-
-  test("set les preferences de l'utilisateur avec conditions", async () => {
+  test("initialise les preferences de l'utilisateur", async () => {
     const section = 'conditions'
     const value = 'conditionValue'
     await store.dispatch('user/preferenceSet', { section, value })
@@ -305,7 +277,7 @@ describe('teste user', () => {
     expect(localStorage.getItem('conditions')).toEqual(value)
   })
 
-  test('reset les preferences', async () => {
+  test('remet à 0 les preferences', async () => {
     const section = 'filtres.domaines'
     const value = 'c,w'
     await store.dispatch('user/preferenceSet', { section, value })
@@ -314,83 +286,31 @@ describe('teste user', () => {
     expect(store.state.user.preferences.filtres.domaines).toBeUndefined()
   })
 
-  test('cree le token', async () => {
-    await store.dispatch('user/tokenSet', 'value')
-
-    expect(localStorage.getItem('token')).toEqual('value')
-  })
-
-  test('enleve le token', async () => {
-    localStorage.setItem('token', 'value')
-    await store.dispatch('user/tokenRemove')
-
-    expect(localStorage.getItem('token')).toBeNull()
-  })
-
-  test('regarde si la tuile active appartient aux tuiles de la carte', () => {
-    expect(store.getters['user/tilesActive']).toEqual({ id: 'osm-fr' })
-  })
-
-  test("la tuile active n'appartient pas aux tuiles de la carte", () => {
+  test("regarde si la tuile active n'appartient pas aux tuiles de la carte", () => {
     map = { state: { tiles: [{ id: 'geoportail' }] } }
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
 
     expect(store.getters['user/tilesActive']).toBeUndefined()
   })
 
-  test("teste si l'user est connecté", () => {
+  test("regarde si l'utilisateur est connecté", () => {
     user.state.current = {}
     store = new Vuex.Store({ modules: { user } })
 
     expect(store.getters['user/preferencesConditions']).toBeTruthy()
   })
 
-  test('pas de préferences sauvegardées', () => {
-    expect(store.getters['user/preferencesConditions']).toBeFalsy()
-  })
-
-  test('des preferences sauvegardées existent mais sont vieilles de plus de 3 jours', () => {
+  test('ne recupere pas les preferences sauvegardées: vieilles de plus de 3 jours', () => {
     localStorage.setItem('conditions', '3')
     expect(store.getters['user/preferencesConditions']).toBeFalsy()
   })
 
-  test('des preferences sauvegardées existent depuis moins 3 jours', () => {
+  test('recupere les preferences sauvegardées', () => {
     localStorage.setItem('conditions', new Date().getTime().toString())
     expect(store.getters['user/preferencesConditions']).toBeTruthy()
   })
 
-  test("set les preferences de l'user", () => {
-    const section = 'filtres.domaines'
-    const value = 'c,w'
-    store.commit('user/preferenceSet', { section, value })
-
-    expect(store.state.user.preferences.filtres.domaines).toBeDefined()
-    expect(store.state.user.preferences.filtres.domaines).toEqual(value)
-  })
-
-  test("reset les preferences de l'user", () => {
-    const section = 'filtres.domaines'
-    const value = 'c,w'
-    store.commit('user/preferenceSet', { section, value })
-    expect(store.state.user.preferences.filtres.domaines).toEqual(value)
-    store.commit('user/preferenceReset', { section })
-
-    expect(store.state.user.preferences.filtres.domaines).toBeUndefined()
-  })
-
-  test("set le statut de l'user avec une entreprise", () => {
-    store.commit('user/set', userInfo)
-
-    expect(store.state.user.current).toEqual({
-      id: 66,
-      prenom: 'rene',
-      nom: 'lataupe',
-      permission: 'admin',
-      entreprise: 'macdo'
-    })
-  })
-
-  test("set le statut de l'user sans entreprises", () => {
+  test("initialise le statut de l'user sans entreprises", () => {
     store.commit('user/set', {
       id: 66,
       prenom: 'rene',
@@ -405,19 +325,5 @@ describe('teste user', () => {
       permission: 'admin'
     })
     expect(store.state.user.current.entreprise).toBeUndefined()
-  })
-
-  test("reset le statut de l'user", () => {
-    store.commit('user/set', userInfo)
-    expect(store.state.user.current).toEqual({
-      id: 66,
-      prenom: 'rene',
-      nom: 'lataupe',
-      permission: 'admin',
-      entreprise: 'macdo'
-    })
-    store.commit('user/reset')
-
-    expect(store.state.user.current).toBeNull()
   })
 })

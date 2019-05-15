@@ -5,7 +5,7 @@ import Vuex from 'vuex'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-describe('metas', () => {
+describe('gère les préférences utilisateurs', () => {
   let store
   let id
   let domaines
