@@ -32,42 +32,84 @@
     <template slot="sub">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-4">
-          <h6>Date</h6>
+          <h6>
+            Date <Tag
+              v-if="etape.incertitudes && etape.incertitudes.date"
+              :color="'bg-warning'"
+            >
+              Présumée
+            </Tag>
+          </h6>
           <p>{{ etape.date | dateFormat }}</p>
         </div>
         <div
           v-if="etape.duree"
           class="tablet-blob-1-4"
         >
-          <h6>Durée</h6>
+          <h6>
+            Durée <Tag
+              v-if="etape.incertitudes && etape.incertitudes.durée"
+              :color="'bg-warning'"
+            >
+              Présumée
+            </Tag>
+          </h6>
           <p>{{ etape.duree }} ans</p>
         </div>
         <div
           v-if="etape.dateDebut"
           class="tablet-blob-1-4"
         >
-          <h6>Date de début</h6>
+          <h6>
+            Date de début <Tag
+              v-if="etape.incertitudes && etape.incertitudes.dateDebut"
+              :color="'bg-warning'"
+            >
+              Présumée
+            </Tag>
+          </h6>
           <p>{{ etape.dateDebut | dateFormat }}</p>
         </div>
         <div
           v-if="etape.dateFin"
           class="tablet-blob-1-4"
         >
-          <h6>Date d'échéance</h6>
+          <h6>
+            Date d'échéance <Tag
+              v-if="etape.incertitudes && etape.incertitudes.dateFin"
+              :color="'bg-warning'"
+            >
+              Présumée
+            </Tag>
+          </h6>
           <p>{{ etape.dateFin | dateFormat }}</p>
         </div>
         <div
-          v-if="etape.geojsonMultiPolygon"
+          v-if="etape.points"
           class="tablet-blob-1-4"
         >
-          <h6>Périmètre</h6>
+          <h6>
+            Périmètre <Tag
+              v-if="etape.incertitudes && etape.incertitudes.points"
+              :color="'bg-warning'"
+            >
+              Présumé
+            </Tag>
+          </h6>
           <p>–</p>
         </div>
         <div
           v-if="etape.titulaires.length"
           class="tablet-blob-1-4"
         >
-          <h6>Titulaires</h6>
+          <h6>
+            Titulaire{{ etape.titulaires.length > 1 ? 's' : '' }} <Tag
+              v-if="etape.incertitudes && etape.incertitudes.titulaires"
+              :color="'bg-warning'"
+            >
+              Présumé{{ etape.titulaires.length > 1 ? 's' : '' }}
+            </Tag>
+          </h6>
           <ul class="list-prefix">
             <li
               v-for="t in etape.titulaires"
@@ -81,7 +123,14 @@
           v-if="etape.amodiataires.length"
           class="tablet-blob-1-4"
         >
-          <h6>Amodiataires</h6>
+          <h6>
+            Amodiataire{{ etape.amodiataires.length > 1 ? 's' : '' }} <Tag
+              v-if="etape.incertitudes && etape.incertitudes.amodiataires"
+              :color="'bg-warning'"
+            >
+              Présumé{{ etape.amodiataires.length > 1 ? 's' : '' }}
+            </Tag>
+          </h6>
 
           <ul class="list-prefix">
             <li
@@ -96,7 +145,14 @@
           v-if="etape.engagement"
           class="tablet-blob-1-4"
         >
-          <h6>Engagement financier</h6>
+          <h6>
+            Engagement financier <Tag
+              v-if="etape.incertitudes && etape.incertitudes.engagement"
+              :color="'bg-warning'"
+            >
+              Présumé
+            </Tag>
+          </h6>
           <p>
             {{ numberFormat(etape.engagement) }}
             <span v-if="etape.engagementDevise"> {{ etape.engagementDevise.id }}</span>
@@ -106,7 +162,14 @@
           v-if="etape.volume"
           class="tablet-blob-1-4"
         >
-          <h6>Volume</h6>
+          <h6>
+            Volume <Tag
+              v-if="etape.incertitudes && etape.incertitudes.volume"
+              :color="'bg-warning'"
+            >
+              Présumé
+            </Tag>
+          </h6>
           <p>
             {{ numberFormat(etape.volume) }}
             <span v-if="etape.volumeUnite"> {{ etape.volumeUnite.nom }}</span>
@@ -116,7 +179,14 @@
           v-if="etape.substances.length"
           class="tablet-blob-1-2 large-blob-1-4"
         >
-          <h6>Substances</h6>
+          <h6>
+            Substance{{ etape.substances.length > 1 ? 's' : '' }} <Tag
+              v-if="etape.incertitudes && etape.incertitudes.substances"
+              :color="'bg-warning'"
+            >
+              Présumée{{ etape.substances.length > 1 ? 's' : '' }}
+            </Tag>
+          </h6>
           <PillList :elements="etape.substances.map(s => s.nom)" />
         </div>
 
@@ -152,6 +222,7 @@ import PillList from '../ui/pill-list.vue'
 import Documents from './documents.vue'
 import EditPopup from './etape-edit-popup.vue'
 import RemovePopup from './etape-remove-popup.vue'
+import Tag from '../ui/tag.vue'
 
 export default {
   name: 'CaminoTitreEtape',
@@ -160,7 +231,8 @@ export default {
     Dot,
     Accordion,
     Documents,
-    PillList
+    PillList,
+    Tag
   },
 
   props: {

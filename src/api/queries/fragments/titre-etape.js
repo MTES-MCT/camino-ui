@@ -24,7 +24,6 @@ const fragmentTitreEtape = gql`
       id
       nom
     }
-    sourceIndisponible
     type {
       id
       nom
@@ -62,6 +61,9 @@ const fragmentTitreEtape = gql`
     documents {
       ...document
     }
+    incertitudes {
+      ...incertitudes
+    }
   }
 
   ${fragmentAdministration}
@@ -81,6 +83,21 @@ const fragmentTitreEtape = gql`
     fichier
     jorf
     nor
+  }
+
+  fragment incertitudes on Incertitudes {
+    date
+    dateDebut
+    dateFin
+    duree
+    surface
+    volume
+    engagement
+    points
+    substances
+    titulaires
+    amodiataires
+    administrations
   }
 `
 
