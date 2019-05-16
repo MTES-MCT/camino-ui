@@ -14,8 +14,8 @@
   },
   "scripts": {
     "build": "vue-cli-service build --modern",
-    "test": "vue-cli-service test:unit",
-    "jest": "vue-cli-service test:unit --watch",
+    "test": "vue-cli-service test:unit --verbose",
+    "jest": "vue-cli-service test:unit --watch --verbose",
     "lint": "vue-cli-service lint",
     "dev": "vue-cli-service serve --open",
     "start": "node ./index.js",
@@ -64,6 +64,7 @@
     "file-saver": "^2.0.1",
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
+    "jest-fetch-mock": "^2.1.2",
     "json2csv": "^4.5.1",
     "leaflet": "^1.4.0",
     "leaflet-gesture-handling": "^1.1.8",

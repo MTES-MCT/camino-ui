@@ -30,17 +30,17 @@ export const actions = {
           .filter(v => !values.find(value => v.id === value.id))
           .map(({ id }) => id)
 
-        if (idsCurrent) {
-          return idsRemove(idsCurrent, idsToRemove)
+        if (!idsCurrent) {
+          return null
         }
+        return idsRemove(idsCurrent, idsToRemove)
       }
 
       const ids = idsFind()
-
       if (ids) {
         dispatch(
           'user/preferenceSet',
-          { section: `filtres.${id}`, value: ids.join(',') || null },
+          { section: `filtres.${id}`, value: ids.join(',') },
           { root: true }
         )
       }

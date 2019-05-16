@@ -1,9 +1,9 @@
 import utilisateur from './utilisateur'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import * as apiUtilisateurs from '../api/utilisateurs'
+import * as api from '../api'
 
-jest.mock('../api/utilisateurs', () => ({
+jest.mock('../api', () => ({
   utilisateur: jest.fn()
 }))
 
@@ -12,60 +12,65 @@ localVue.use(Vuex)
 
 console.log = jest.fn()
 
-describe('utilisateur/actions', () => {
-  let idVariable
-  let returnVariable
+describe("obtention des données d'un utilisateur dans l'UI", () => {
+  let utilisateurId
   let store
+  let actions
+  let mutations
+  let utilisateurInfo
 
   beforeEach(() => {
-    idVariable = '71'
+    utilisateurId = 71
+    utilisateurInfo = { id: 71, nom: 'toto', prenom: 'asticot' }
     utilisateur.state = { current: null }
+    mutations = {
+      loadingAdd: jest.fn(),
+      loadingRemove: jest.fn()
+    }
+    actions = { pageError: jest.fn(), apiError: jest.fn() }
     store = new Vuex.Store({
       modules: { utilisateur },
-      mutations: {
-        loadingAdd: jest.fn(),
-        loadingRemove: jest.fn()
-      },
-      actions: { pageError: jest.fn(), apiError: jest.fn() }
+      mutations,
+      actions
     })
   })
 
-  test("charge un utilisateur depuis l'api", async () => {
-    returnVariable = 71
-    const apiSpy = apiUtilisateurs.utilisateur.mockImplementation(
-      async idVariable => returnVariable
+  test("obtient les données d'un utilisateur", async () => {
+    const utilisateur = { id: 71, nom: 'toto', prenom: 'asticot' }
+    const apiMock = api.utilisateur.mockResolvedValue(utilisateur)
+    await store.dispatch('utilisateur/get', utilisateurId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith(utilisateurId)
+    expect(store.state.utilisateur.current).toEqual(utilisateur)
+  })
+
+  test("n'obtient pas d'utilisateur: il n'existe pas", async () => {
+    const apiMock = api.utilisateur.mockResolvedValue(null)
+    await store.dispatch('utilisateur/get', utilisateurId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith(utilisateurId)
+    expect(actions.pageError).toHaveBeenCalled()
+    expect(store.state.utilisateur.current).toBeNull()
+  })
+
+  test("retourne une erreur de l'api dans l'obtention de l'utilisateur", async () => {
+    const apiMock = api.utilisateur.mockRejectedValue(
+      new Error("l'api ne répond pas")
     )
-    await store.dispatch('utilisateur/get', idVariable)
-    expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(apiSpy).toHaveBeenCalledWith(idVariable)
-    expect(store.state.utilisateur.current).toEqual(returnVariable)
+    await store.dispatch('utilisateur/get', utilisateurId)
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith(utilisateurId)
+    expect(console.log).toHaveBeenCalled()
+    expect(actions.apiError).toHaveBeenCalled()
   })
 
-  test("ne trouve pas d'utilisateur dans l'api (id n'existe pas)", async () => {
-    returnVariable = false
-    const apiSpy = apiUtilisateurs.utilisateur.mockImplementation(
-      async idVariable => returnVariable
-    )
-    await store.dispatch('utilisateur/get', idVariable)
-    expect(apiSpy).toHaveBeenCalledTimes(1)
-    expect(apiSpy).toHaveBeenCalledWith(idVariable)
-    expect(store.state.utilisateur.current).toEqual(null)
-  })
-})
-
-describe('utilisateur/mutations', () => {
-  test('ajoute un utilisateur', () => {
-    const idUtilisateur = 71
-    utilisateur.state = { current: null }
-    const store = new Vuex.Store({ modules: { utilisateur } })
-    store.commit('utilisateur/set', idUtilisateur)
-    expect(store.state.utilisateur.current).toEqual(idUtilisateur)
-  })
-
-  test("supprime l'utilisateur", () => {
-    utilisateur.state = { current: 71 }
-    const store = new Vuex.Store({ modules: { utilisateur } })
+  test("supprime les données d'utilisateur", () => {
+    store.commit('utilisateur/set', utilisateurInfo)
     store.commit('utilisateur/reset')
-    expect(store.state.utilisateur.current).toEqual(null)
+
+    expect(store.state.utilisateur.current).toBeNull()
   })
 })
