@@ -35,6 +35,7 @@
           <h6>
             Date
             <span
+              v-if="etape.incertitudes && etape.incertitudes.date"
               class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
               ?
@@ -49,6 +50,7 @@
           <h6>
             Durée
             <span
+              v-if="etape.incertitudes && etape.incertitudes.duree"
               class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
               ?
@@ -63,6 +65,7 @@
           <h6>
             Date de début
             <span
+              v-if="etape.incertitudes && etape.incertitudes.dateDebut"
               class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
               ?
@@ -77,6 +80,7 @@
           <h6>
             Date d'échéance
             <span
+              v-if="etape.incertitudes && etape.incertitudes.dateFin"
               class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
               ?
@@ -91,6 +95,7 @@
           <h6>
             Périmètre
             <span
+              v-if="etape.incertitudes && etape.incertitudes.points"
               class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
               ?
@@ -105,6 +110,7 @@
           <h6>
             Titulaire{{ etape.titulaires.length > 1 ? 's' : '' }}
             <span
+              v-if="etape.incertitudes && etape.incertitudes.titulaires"
               class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
               ?
@@ -126,6 +132,7 @@
           <h6>
             Amodiataire{{ etape.amodiataires.length > 1 ? 's' : '' }}
             <span
+              v-if="etape.incertitudes && etape.incertitudes.amodiataires"
               class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
               ?
@@ -148,6 +155,7 @@
           <h6>
             Engagement financier
             <span
+              v-if="etape.incertitudes && etape.incertitudes.engagement"
               class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
               ?
@@ -165,6 +173,7 @@
           <h6>
             Volume
             <span
+              v-if="etape.incertitudes && etape.incertitudes.volume"
               class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
               ?
@@ -182,6 +191,7 @@
           <h6>
             Substance{{ etape.substances.length > 1 ? 's' : '' }}
             <span
+              v-if="etape.incertitudes && etape.incertitudes.substances"
               class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
               ?
