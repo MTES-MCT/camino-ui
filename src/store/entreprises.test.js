@@ -11,7 +11,9 @@ describe("état de la liste d'entreprises", () => {
       { nom: 'Petite Souris' },
       'Koala',
       { nom: 'Canard' },
-      { nom: 'Monstres & Cie' }
+      { nom: 'Monstres & Cie' },
+      'Escargot tout chaud',
+      'Koala'
     ]
     entreprises.state = { current: null, list: [] }
     const store = new Vuex.Store({ modules: { entreprises } })
@@ -21,6 +23,8 @@ describe("état de la liste d'entreprises", () => {
       { nom: 'Canard' },
       { nom: 'Monstres & Cie' },
       { nom: 'Petite Souris' },
+      'Escargot tout chaud',
+      'Koala',
       'Koala'
     ])
   })
