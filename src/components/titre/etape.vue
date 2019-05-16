@@ -33,12 +33,12 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-4">
           <h6>
-            Date <Tag
-              v-if="etape.incertitudes && etape.incertitudes.date"
-              :color="'bg-warning'"
+            Date
+            <span
+              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
-              Présumée
-            </Tag>
+              ?
+            </span>
           </h6>
           <p>{{ etape.date | dateFormat }}</p>
         </div>
@@ -47,12 +47,12 @@
           class="tablet-blob-1-4"
         >
           <h6>
-            Durée <Tag
-              v-if="etape.incertitudes && etape.incertitudes.durée"
-              :color="'bg-warning'"
+            Durée
+            <span
+              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
-              Présumée
-            </Tag>
+              ?
+            </span>
           </h6>
           <p>{{ etape.duree }} ans</p>
         </div>
@@ -61,12 +61,12 @@
           class="tablet-blob-1-4"
         >
           <h6>
-            Date de début <Tag
-              v-if="etape.incertitudes && etape.incertitudes.dateDebut"
-              :color="'bg-warning'"
+            Date de début
+            <span
+              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
-              Présumée
-            </Tag>
+              ?
+            </span>
           </h6>
           <p>{{ etape.dateDebut | dateFormat }}</p>
         </div>
@@ -75,12 +75,12 @@
           class="tablet-blob-1-4"
         >
           <h6>
-            Date d'échéance <Tag
-              v-if="etape.incertitudes && etape.incertitudes.dateFin"
-              :color="'bg-warning'"
+            Date d'échéance
+            <span
+              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
-              Présumée
-            </Tag>
+              ?
+            </span>
           </h6>
           <p>{{ etape.dateFin | dateFormat }}</p>
         </div>
@@ -89,12 +89,12 @@
           class="tablet-blob-1-4"
         >
           <h6>
-            Périmètre <Tag
-              v-if="etape.incertitudes && etape.incertitudes.points"
-              :color="'bg-warning'"
+            Périmètre
+            <span
+              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
-              Présumé
-            </Tag>
+              ?
+            </span>
           </h6>
           <p>–</p>
         </div>
@@ -103,12 +103,12 @@
           class="tablet-blob-1-4"
         >
           <h6>
-            Titulaire{{ etape.titulaires.length > 1 ? 's' : '' }} <Tag
-              v-if="etape.incertitudes && etape.incertitudes.titulaires"
-              :color="'bg-warning'"
+            Titulaire{{ etape.titulaires.length > 1 ? 's' : '' }}
+            <span
+              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
-              Présumé{{ etape.titulaires.length > 1 ? 's' : '' }}
-            </Tag>
+              ?
+            </span>
           </h6>
           <ul class="list-prefix">
             <li
@@ -124,12 +124,12 @@
           class="tablet-blob-1-4"
         >
           <h6>
-            Amodiataire{{ etape.amodiataires.length > 1 ? 's' : '' }} <Tag
-              v-if="etape.incertitudes && etape.incertitudes.amodiataires"
-              :color="'bg-warning'"
+            Amodiataire{{ etape.amodiataires.length > 1 ? 's' : '' }}
+            <span
+              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
-              Présumé{{ etape.amodiataires.length > 1 ? 's' : '' }}
-            </Tag>
+              ?
+            </span>
           </h6>
 
           <ul class="list-prefix">
@@ -146,12 +146,12 @@
           class="tablet-blob-1-4"
         >
           <h6>
-            Engagement financier <Tag
-              v-if="etape.incertitudes && etape.incertitudes.engagement"
-              :color="'bg-warning'"
+            Engagement financier
+            <span
+              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
-              Présumé
-            </Tag>
+              ?
+            </span>
           </h6>
           <p>
             {{ numberFormat(etape.engagement) }}
@@ -163,12 +163,12 @@
           class="tablet-blob-1-4"
         >
           <h6>
-            Volume <Tag
-              v-if="etape.incertitudes && etape.incertitudes.volume"
-              :color="'bg-warning'"
+            Volume
+            <span
+              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
-              Présumé
-            </Tag>
+              ?
+            </span>
           </h6>
           <p>
             {{ numberFormat(etape.volume) }}
@@ -180,12 +180,12 @@
           class="tablet-blob-1-2 large-blob-1-4"
         >
           <h6>
-            Substance{{ etape.substances.length > 1 ? 's' : '' }} <Tag
-              v-if="etape.incertitudes && etape.incertitudes.substances"
-              :color="'bg-warning'"
+            Substance{{ etape.substances.length > 1 ? 's' : '' }}
+            <span
+              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
             >
-              Présumée{{ etape.substances.length > 1 ? 's' : '' }}
-            </Tag>
+              ?
+            </span>
           </h6>
           <PillList :elements="etape.substances.map(s => s.nom)" />
         </div>
@@ -222,7 +222,6 @@ import PillList from '../ui/pill-list.vue'
 import Documents from './documents.vue'
 import EditPopup from './etape-edit-popup.vue'
 import RemovePopup from './etape-remove-popup.vue'
-import Tag from '../ui/tag.vue'
 
 export default {
   name: 'CaminoTitreEtape',
@@ -231,8 +230,7 @@ export default {
     Dot,
     Accordion,
     Documents,
-    PillList,
-    Tag
+    PillList
   },
 
   props: {
