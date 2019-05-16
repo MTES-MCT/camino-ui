@@ -36,6 +36,7 @@ describe('création et obtention des utilisateurs', () => {
       loadingAdd: jest.fn(),
       loadingRemove: jest.fn(),
       popupMessagesRemove: jest.fn(),
+      popupMessageAdd: jest.fn(),
       popupClose: jest.fn()
     }
     store = new Vuex.Store({
