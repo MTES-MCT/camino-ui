@@ -1,5 +1,14 @@
 # Camino UI
 
+[![Build Status][ci-img]][ci] [![codecov][codecov-img]][codecov] [![Dependency Status][dep-img]][dep]
+
+[ci-img]: https://travis-ci.org/MTES-MCT/camino-ui.svg?branch=master
+[ci]: https://travis-ci.org/MTES-MCT/camino-ui
+[codecov-img]: https://codecov.io/gh/MTES-MCT/camino-ui/branch/master/graph/badge.svg
+[codecov]: https://codecov.io/gh/MTES-MCT/camino-ui
+[dep-img]: https://david-dm.org/MTES-MCT/camino-ui.svg
+[dep]: https://david-dm.org/MTES-MCT/camino-ui
+
 > Interface web de [Camino](https://camino.beta.gouv.fr), le cadastre minier numérique.
 
 ![camino screenshot](camino-screenshot.png)

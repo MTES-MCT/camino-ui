@@ -20,7 +20,7 @@ localVue.use(Vuex)
 
 console.log = jest.fn()
 
-describe('gestion des titres/démarches/étapes', () => {
+describe('état du titre sélectionné', () => {
   let store
   let titreId
   let documentId
@@ -71,7 +71,7 @@ describe('gestion des titres/démarches/étapes', () => {
     expect(store.state.titre.current).toEqual(titreInfo)
   })
 
-  test("n'affiche pas le titre", async () => {
+  test("retourne une erreur si l'api retourne null", async () => {
     const apiMock = api.titre.mockResolvedValue(null)
     await store.dispatch('titre/get', titreId)
 
@@ -81,7 +81,7 @@ describe('gestion des titres/démarches/étapes', () => {
     expect(actions.pageError).toHaveBeenCalled()
   })
 
-  test("retourne une erreur de l'api lors de l'obtention du titre", async () => {
+  test("retourne une erreur si de l'api ne répond pas", async () => {
     const apiMock = api.titre.mockRejectedValue(new Error("erreur de l'api"))
     await store.dispatch('titre/get', titreId)
 
@@ -101,9 +101,9 @@ describe('gestion des titres/démarches/étapes', () => {
     expect(console.log).not.toHaveBeenCalled()
   })
 
-  test("retourne une erreur de l'api lors du chargement d'un titre", async () => {
+  test("retourne une erreur si l'API retourne une erreur", async () => {
     store.state.titre.current = titreInfo
-    const actionGet = jest.fn().mockRejectedValue(new Error("echech de l'api"))
+    const actionGet = jest.fn().mockRejectedValue(new Error("echec de l'api"))
     titre.actions.get = actionGet
     store = new Vuex.Store({ modules: { titre }, actions, mutations })
     await store.dispatch('titre/reload')
@@ -121,7 +121,7 @@ describe('gestion des titres/démarches/étapes', () => {
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test('met à jour le titre', async () => {
+  test('met à jour un titre', async () => {
     const creation = false
     const actionReload = jest.fn()
     titre.actions.reload = actionReload
@@ -135,7 +135,7 @@ describe('gestion des titres/démarches/étapes', () => {
     expect(actionReload).toHaveBeenCalled()
   })
 
-  test("n'arrive pas à mettre à jour le titre", async () => {
+  test("retourne une erreur 404 si l'API retourne null lors de la mise à jour", async () => {
     const creation = true
     const apiMock = api.titreUpdate.mockResolvedValue(null)
     await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
@@ -145,7 +145,7 @@ describe('gestion des titres/démarches/étapes', () => {
     expect(actions.pageError).toHaveBeenCalled()
   })
 
-  test("retourne une erreur de l'api dans la mise à jour d'un titre", async () => {
+  test("retourne une erreur si l'API retourne une erreur lors de la mise à jour", async () => {
     const creation = true
     const apiMock = api.titreUpdate.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
@@ -163,7 +163,7 @@ describe('gestion des titres/démarches/étapes', () => {
     expect(apiMock).toHaveBeenCalledWith({ id: titreId })
   })
 
-  test("retourne une erreur 404 lors de la suppression d'un titre", async () => {
+  test("retourne une erreur 404 si l'API retourne null lors de la suppression d'un titre", async () => {
     const apiMock = api.titreRemove.mockResolvedValue(null)
     await store.dispatch('titre/titreRemove', titreId)
 
@@ -172,7 +172,7 @@ describe('gestion des titres/démarches/étapes', () => {
     expect(actions.pageError).toHaveBeenCalled()
   })
 
-  test("retourne une erreur de l'api lors de la suppression d'un titre", async () => {
+  test("retourne une erreur si l'API si l'API retourne une erreur lors de la suppression d'un titre", async () => {
     const apiMock = api.titreRemove.mockRejectedValue(
       new Error("error de l'api")
     )

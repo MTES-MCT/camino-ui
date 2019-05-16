@@ -115,14 +115,14 @@ describe("état général de l'application", () => {
     expect(state.error).toBeNull()
   })
 
-  test('ajoute un message sur la pop-up', () => {
+  test('ajoute un message de la pop-up', () => {
     const message = 'message très important'
     store.commit('popupMessageAdd', message)
 
     expect(state.popup.messages).toEqual([message])
   })
 
-  test('supprime les messages sur la pop-up', () => {
+  test('supprime les messages de la pop-up', () => {
     const message = 'message très important'
     store.commit('popupMessageAdd', message)
     store.commit('popupMessagesRemove')
@@ -130,7 +130,7 @@ describe("état général de l'application", () => {
     expect(state.popup.messages).toEqual([])
   })
 
-  test("trace si l'appel à l'api est en cours", () => {
+  test("trace si un appel à l'api est en cours", () => {
     const name1 = 'nom1'
     const name2 = 'nom2'
     store.commit('loadingAdd', name1)
@@ -162,7 +162,7 @@ describe("état général de l'application", () => {
     expect(setMetas).toHaveBeenCalled()
   })
 
-  test("initialise l'application à vide", async () => {
+  test("initialise l'application sans métas", async () => {
     api.init.mockResolvedValue({})
     await store.dispatch('init')
 
@@ -230,7 +230,7 @@ describe("état général de l'application", () => {
     expect(state.menu.component).toBeNull()
   })
 
-  test('ferme le menu pour en ouvrir un autre', async () => {
+  test('ferme le menu et en ouvre un autre', async () => {
     store.state.menu.component = { name: 'bonjour' }
     const component = { name: 'hello' }
 

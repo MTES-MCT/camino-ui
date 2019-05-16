@@ -5,7 +5,7 @@ import Vuex from 'vuex'
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-describe('gère les préférences utilisateurs', () => {
+describe('état de la liste des métas', () => {
   let store
   let id
   let domaines
@@ -45,28 +45,28 @@ describe('gère les préférences utilisateurs', () => {
     })
   })
 
-  test('ajoute des metas dans le state et met à jour les préférences utilisateurs', async () => {
+  test('ajoute des métas et met à jour des préférences utilisateurs', async () => {
     await store.dispatch('metas/set', { id, values: domaines })
 
     expect(actions.preferenceSet).toHaveBeenCalled()
     expect(store.state.metas.domaines).toEqual([{ id: 'c' }, { id: 'w' }])
   })
 
-  test('ajoute des metas dans le state', async () => {
+  test('ajoute des métas', async () => {
     user.state.preferences.filtres.domaines = ''
     await store.dispatch('metas/set', { id, values: domaines })
 
     expect(store.state.metas.domaines).toEqual([{ id: 'c' }, { id: 'w' }])
   })
 
-  test('retire des metas du state', async () => {
+  test('supprime des métas', async () => {
     metas.state.domaines = [{ id: 'h' }]
     await store.dispatch('metas/set', { id, values: [] })
 
     expect(store.state.metas.domaines).toEqual([])
   })
 
-  test('ajoute des metas dans le state (sans incidence sur les préférences utilisateurs)', async () => {
+  test('ajoute des metas (sans incidence sur les préférences utilisateurs)', async () => {
     await store.dispatch('metas/set', {
       id: 'devises',
       values: [{ id: 'euro' }]
