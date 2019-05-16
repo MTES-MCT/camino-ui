@@ -325,6 +325,10 @@ export default {
         }, [])
       }
 
+      if (!etape.incertitudes) {
+        etape.incertitudes = {}
+      }
+
       delete etape.points
       delete etape.geojsonPoints
       delete etape.geojsonMultiPolygon

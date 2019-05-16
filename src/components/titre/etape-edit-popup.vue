@@ -26,7 +26,7 @@
           <select
             v-model="etape.typeId"
             type="text"
-            class="p-s mr"
+            class="p-s"
           >
             <option
               v-for="etapeType in etapesTypes"
@@ -53,7 +53,7 @@
           <select
             v-model="etape.statutId"
             type="text"
-            class="p-s mr"
+            class="p-s"
           >
             <option
               v-for="etapeStatut in etapesStatuts"
@@ -74,13 +74,20 @@
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Date</h6>
         </div>
-        <div class="mb tablet-blob-2-3">
+        <div class="tablet-blob-2-3">
           <input
             v-model="etape.date"
             type="date"
             class="p-s"
+            :class="{'mb-s': etape.date, 'mb': !etape.date}"
             placeholder="aaaa-mm-jj"
           >
+          <label v-if="etape.date">
+            <input
+              v-model="etape.incertitudes.date"
+              type="checkbox"
+            >présumée
+          </label>
         </div>
       </div>
       <hr>
@@ -94,12 +101,19 @@
             Optionel
           </p>
         </div>
-        <div class="mb tablet-blob-2-3">
+        <div class="tablet-blob-2-3">
           <input
             v-model.number="etape.duree"
             type="number"
             class="p-s"
+            :class="{'mb-s': etape.duree, 'mb': !etape.duree}"
           >
+          <label v-if="etape.duree">
+            <input
+              v-model="etape.incertitudes.duree"
+              type="checkbox"
+            >présumée
+          </label>
         </div>
       </div>
       <hr>
@@ -113,13 +127,20 @@
             Optionel
           </p>
         </div>
-        <div class="mb tablet-blob-2-3">
+        <div class="tablet-blob-2-3">
           <input
             v-model="etape.dateDebut"
             type="date"
             class="p-s"
             placeholder="aaaa-mm-jj"
+            :class="{'mb-s': etape.dateDebut, 'mb': !etape.dateDebut}"
           >
+          <label v-if="etape.dateDebut">
+            <input
+              v-model="etape.incertitudes.dateDebut"
+              type="checkbox"
+            >présumée
+          </label>
         </div>
       </div>
       <hr>
@@ -133,13 +154,20 @@
             Optionel
           </p>
         </div>
-        <div class="mb tablet-blob-2-3">
+        <div class="tablet-blob-2-3">
           <input
             v-model="etape.dateFin"
             type="date"
             class="p-s"
             placeholder="aaaa-mm-jj"
+            :class="{'mb-s': etape.dateFin, 'mb': !etape.dateFin}"
           >
+          <label v-if="etape.dateFin">
+            <input
+              v-model="etape.incertitudes.dateFin"
+              type="checkbox"
+            >présumée
+          </label>
         </div>
       </div>
       <hr>
@@ -155,20 +183,21 @@
         </div>
         <div class="tablet-blob-2-3">
           <div class="tablet-blobs">
-            <div class="mb tablet-blob-2-3">
+            <div class="tablet-blob-2-3">
               <input
                 v-model.number="etape.engagement"
-                class="p-s"
+                class="p-s mb-s"
                 type="number"
                 placeholder="0"
               >
             </div>
 
-            <div class="mb tablet-blob-1-3">
+            <div class="tablet-blob-1-3">
               <select
                 v-model="etape.engagementDeviseId"
                 type="text"
-                class="p-s mr"
+                class="p-s"
+                :class="{'mb-s': etape.engagement, 'mb': !etape.engagement}"
               >
                 <option
                   :value="''"
@@ -184,6 +213,12 @@
               </select>
             </div>
           </div>
+          <label v-if="etape.engagement">
+            <input
+              v-model="etape.incertitudes.engagement"
+              type="checkbox"
+            >présumé
+          </label>
         </div>
       </div>
       <hr>
@@ -203,7 +238,14 @@
             class="p-s"
             type="number"
             placeholder="0"
+            :class="{'mb-s': etape.surface, 'mb': !etape.surface}"
           >
+          <label v-if="etape.surface">
+            <input
+              v-model="etape.incertitudes.surface"
+              type="checkbox"
+            >présumée
+          </label>
         </div>
       </div>
       <hr>
@@ -219,20 +261,21 @@
         </div>
         <div class="tablet-blob-2-3">
           <div class="tablet-blobs">
-            <div class="mb tablet-blob-2-3">
+            <div class="tablet-blob-2-3">
               <input
                 v-model.number="etape.volume"
-                class="p-s"
+                class="p-s mb-s"
                 type="number"
                 placeholder="0"
               >
             </div>
 
-            <div class="mb tablet-blob-1-3">
+            <div class="tablet-blob-1-3">
               <select
                 v-model="etape.volumeUniteId"
                 type="text"
-                class="p-s mr"
+                class="p-s"
+                :class="{'mb-s': etape.volume, 'mb': !etape.volume}"
               >
                 <option
                   :value="''"
@@ -248,6 +291,12 @@
               </select>
             </div>
           </div>
+          <label v-if="etape.volume">
+            <input
+              v-model="etape.incertitudes.volume"
+              type="checkbox"
+            >présumé
+          </label>
         </div>
       </div>
       <hr>
@@ -267,7 +316,7 @@
       >
         <textarea
           v-model="visa.texte"
-          class="p-s mr"
+          class="p-s mr-s"
         />
         <div class="flex-right">
           <button
@@ -351,7 +400,7 @@
                 <select
                   v-model="point.groupe"
                   type="text"
-                  class="p-s mr"
+                  class="p-s mr-s"
                 >
                   <option
                     v-for="g in arrayOfNumbersCreate(points.length > 1 ? etape.groupes.length + 1: etape.groupes.length)"
@@ -367,7 +416,7 @@
                 <select
                   v-model="point.contour"
                   type="text"
-                  class="p-s mr"
+                  class="p-s mr-s"
                 >
                   <option
                     v-for="c in arrayOfNumbersCreate(points.length > 1 ? contours.length + 1: contours.length)"
@@ -383,7 +432,7 @@
                 <select
                   v-model="point.point"
                   type="text"
-                  class="p-s mr"
+                  class="p-s mr-s"
                 >
                   <option
                     v-for="p in arrayOfNumbersCreate(points.length > 1 ? points.length + 1: points.length)"
@@ -499,7 +548,7 @@
 
     <div>
       <h3 class="mb-s">
-        Titulaires ({{ etape.titulairesIds.filter(id => id).length }})
+        Titulaires ({{ titulairesLength }})
       </h3>
       <p class="h6 italic mb-s">
         Optionel
@@ -508,11 +557,14 @@
         v-for="(titulaireId, n) in etape.titulairesIds"
         :key="`titluaire-${titulaireId}`"
       >
-        <div class="flex full-x mb">
+        <div
+          class="flex full-x"
+          :class="{'mb-s': titulairesLength, 'mb': !titulairesLength}"
+        >
           <select
             v-model="etape.titulairesIds[n]"
             type="text"
-            class="p-s mr"
+            class="p-s mr-s"
           >
             <option
               v-for="entreprise in entreprises"
@@ -534,20 +586,27 @@
         </div>
       </div>
 
-      <div v-if="!etape.titulairesIds.includes('')">
-        <button
-          class="btn-border rnd-xs py-s px-m full-x mb flex"
-          @click="titulaireAdd"
-        >
-          Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" />
-        </button>
-      </div>
+      <button
+        v-if="!etape.titulairesIds.includes('')"
+        class="btn-border rnd-xs py-s px-m full-x flex"
+        :class="{'mb-s': titulairesLength, 'mb': !titulairesLength}"
+        @click="titulaireAdd"
+      >
+        Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" />
+      </button>
+
+      <label v-if="titulairesLength">
+        <input
+          v-model="etape.incertitudes.titulaires"
+          type="checkbox"
+        >présumé{{ titulairesLength > 1 ? 's' : '' }}
+      </label>
       <hr>
     </div>
 
     <div>
       <h3 class="mb-s">
-        Amodiataires ({{ etape.amodiatairesIds.filter(id => id).length }})
+        Amodiataires ({{ amodiatairesLength }})
       </h3>
       <p class="h6 italic mb-s">
         Optionel
@@ -556,11 +615,14 @@
         v-for="(amodiataireId, n) in etape.amodiatairesIds"
         :key="`amodiataire-${amodiataireId}`"
       >
-        <div class="flex full-x mb">
+        <div
+          class="flex full-x"
+          :class="{'mb-s': amodiatairesLength, 'mb': !amodiatairesLength}"
+        >
           <select
             v-model="etape.amodiatairesIds[n]"
             type="text"
-            class="p-s mr"
+            class="p-s mr-s"
           >
             <option
               v-for="entreprise in entreprises"
@@ -583,20 +645,27 @@
         </div>
       </div>
 
-      <div v-if="!etape.amodiatairesIds.includes('')">
-        <button
-          class="btn-border rnd-xs py-s px-m full-x mb flex"
-          @click="amodiataireAdd"
-        >
-          Ajouter un amodiataire<i class="icon-24 icon-24-plus flex-right" />
-        </button>
-      </div>
+      <button
+        v-if="!etape.amodiatairesIds.includes('')"
+        class="btn-border rnd-xs py-s px-m full-x flex"
+        :class="{'mb-s': amodiatairesLength, 'mb': !amodiatairesLength}"
+        @click="amodiataireAdd"
+      >
+        Ajouter un amodiataire<i class="icon-24 icon-24-plus flex-right" />
+      </button>
+
+      <label v-if="amodiatairesLength">
+        <input
+          v-model="etape.incertitudes.amodiataires"
+          type="checkbox"
+        >présumé{{ amodiatairesLength > 1 ? 's' : '' }}
+      </label>
       <hr>
     </div>
 
     <div>
       <h3 class="mb-s">
-        Substances ({{ etape.substancesIds.filter(id => id).length }})
+        Substances ({{ substancesLength }})
       </h3>
       <p class="h6 italic mb-s">
         Optionel
@@ -605,11 +674,14 @@
         v-for="(substanceId, n) in etape.substancesIds"
         :key="n"
       >
-        <div class="flex full-x mb">
+        <div
+          class="flex full-x"
+          :class="{'mb-s': substancesLength, 'mb': !substancesLength}"
+        >
           <select
             v-model="etape.substancesIds[n]"
             type="text"
-            class="p-s mr"
+            class="p-s mr-s"
           >
             <option
               v-for="substance in substances"
@@ -631,14 +703,22 @@
         </div>
       </div>
 
-      <div v-if="!etape.substancesIds.includes('')">
-        <button
-          class="btn-border rnd-xs py-s px-m full-x mb flex"
-          @click="substanceAdd"
-        >
-          Ajouter une substance<i class="icon-24 icon-24-plus flex-right" />
-        </button>
-      </div>
+      <button
+        v-if="!etape.substancesIds.includes('')"
+        class="btn-border rnd-xs py-s px-m full-x flex"
+
+        :class="{'mb-s': substancesLength, 'mb': !substancesLength}"
+        @click="substanceAdd"
+      >
+        Ajouter une substance<i class="icon-24 icon-24-plus flex-right" />
+      </button>
+
+      <label v-if="substancesLength">
+        <input
+          v-model="etape.incertitudes.substances"
+          type="checkbox"
+        >présumée{{ substancesLength > 1 ? 's' : '' }}
+      </label>
       <hr>
     </div>
 
@@ -752,6 +832,18 @@ export default {
     etapeTypeNom() {
       const etapeType = this.etapesTypes.find(et => et.id === this.etape.typeId)
       return etapeType && etapeType.nom
+    },
+
+    titulairesLength() {
+      return this.etape.titulairesIds.filter(id => id).length
+    },
+
+    amodiatairesLength() {
+      return this.etape.amodiatairesIds.filter(id => id).length
+    },
+
+    substancesLength() {
+      return this.etape.substancesIds.filter(id => id).length
     }
   },
 
