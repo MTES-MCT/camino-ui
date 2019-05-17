@@ -179,21 +179,20 @@
           </h6>
           <PillList :elements="etape.substances.map(s => s.nom)" />
         </div>
+      </div>
 
-        <div
-          v-if="etape.visas && etape.visas.length"
-          class="tablet-blob-1 large-blob-1-2"
-        >
-          <h6>Visas</h6>
-          <ul class="list-prefix h5">
-            <li
-              v-for="(visa, i) in etape.visas"
-              :key="i"
-            >
-              {{ visa }}
-            </li>
-          </ul>
-        </div>
+      <div
+        v-if="etape.visas && etape.visas.length"
+      >
+        <h6>Visas</h6>
+        <ul class="list-prefix h5">
+          <li
+            v-for="(visa, i) in etape.visas"
+            :key="i"
+          >
+            {{ visa }}
+          </li>
+        </ul>
       </div>
 
       <p
@@ -201,7 +200,7 @@
         class="h5"
       >
         <span
-          class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg bold"
+          class="bg-info py-xxs px-xs rnd-xs color-bg bold"
         >?</span>&nbsp;: source indisponible
       </p>
     </template>
