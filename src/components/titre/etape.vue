@@ -36,10 +36,8 @@
             Date
             <span
               v-if="etape.incertitudes && etape.incertitudes.date"
-              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
-            >
-              ?
-            </span>
+              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+            >?</span>
           </h6>
           <p>{{ etape.date | dateFormat }}</p>
         </div>
@@ -51,10 +49,8 @@
             Durée
             <span
               v-if="etape.incertitudes && etape.incertitudes.duree"
-              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
-            >
-              ?
-            </span>
+              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+            >?</span>
           </h6>
           <p>{{ etape.duree }} ans</p>
         </div>
@@ -66,10 +62,8 @@
             Date de début
             <span
               v-if="etape.incertitudes && etape.incertitudes.dateDebut"
-              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
-            >
-              ?
-            </span>
+              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+            >?</span>
           </h6>
           <p>{{ etape.dateDebut | dateFormat }}</p>
         </div>
@@ -81,10 +75,8 @@
             Date d'échéance
             <span
               v-if="etape.incertitudes && etape.incertitudes.dateFin"
-              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
-            >
-              ?
-            </span>
+              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+            >?</span>
           </h6>
           <p>{{ etape.dateFin | dateFormat }}</p>
         </div>
@@ -96,10 +88,8 @@
             Périmètre
             <span
               v-if="etape.incertitudes && etape.incertitudes.points"
-              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
-            >
-              ?
-            </span>
+              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+            >?</span>
           </h6>
           <p>–</p>
         </div>
@@ -111,10 +101,8 @@
             Titulaire{{ etape.titulaires.length > 1 ? 's' : '' }}
             <span
               v-if="etape.incertitudes && etape.incertitudes.titulaires"
-              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
-            >
-              ?
-            </span>
+              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+            >?</span>
           </h6>
           <ul class="list-prefix">
             <li
@@ -133,10 +121,8 @@
             Amodiataire{{ etape.amodiataires.length > 1 ? 's' : '' }}
             <span
               v-if="etape.incertitudes && etape.incertitudes.amodiataires"
-              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
-            >
-              ?
-            </span>
+              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+            >?</span>
           </h6>
 
           <ul class="list-prefix">
@@ -156,10 +142,8 @@
             Engagement financier
             <span
               v-if="etape.incertitudes && etape.incertitudes.engagement"
-              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
-            >
-              ?
-            </span>
+              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+            >?</span>
           </h6>
           <p>
             {{ numberFormat(etape.engagement) }}
@@ -174,10 +158,8 @@
             Volume
             <span
               v-if="etape.incertitudes && etape.incertitudes.volume"
-              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
-            >
-              ?
-            </span>
+              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+            >?</span>
           </h6>
           <p>
             {{ numberFormat(etape.volume) }}
@@ -192,10 +174,8 @@
             Substance{{ etape.substances.length > 1 ? 's' : '' }}
             <span
               v-if="etape.incertitudes && etape.incertitudes.substances"
-              class="bg-warning py-xxs px-xs rnd-xs ml-xs color-bg"
-            >
-              ?
-            </span>
+              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+            >?</span>
           </h6>
           <PillList :elements="etape.substances.map(s => s.nom)" />
         </div>
@@ -215,6 +195,15 @@
           </ul>
         </div>
       </div>
+
+      <p
+        v-if="incertitudes"
+        class="h5"
+      >
+        <span
+          class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg bold"
+        >?</span>&nbsp;: source indisponible
+      </p>
     </template>
 
     <Documents
@@ -257,6 +246,20 @@ export default {
     demarcheId: {
       type: String,
       default: ''
+    }
+  },
+
+  computed: {
+    incertitudes() {
+      return (
+        this.etape.incertitudes &&
+        Object.keys(this.etape.incertitudes).reduce((res, i) => {
+          if (this.etape.incertitudes[i]) {
+            res++
+          }
+          return res
+        }, 0)
+      )
     }
   },
 

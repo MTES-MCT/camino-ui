@@ -82,11 +82,14 @@
             :class="{'mb-s': etape.date, 'mb': !etape.date}"
             placeholder="aaaa-mm-jj"
           >
-          <label v-if="etape.date">
+          <label
+            v-if="etape.date"
+            class="h5"
+          >
             <input
               v-model="etape.incertitudes.date"
               type="checkbox"
-            >présumée
+            >source indisponible
           </label>
         </div>
       </div>
@@ -108,11 +111,14 @@
             class="p-s"
             :class="{'mb-s': etape.duree, 'mb': !etape.duree}"
           >
-          <label v-if="etape.duree">
+          <label
+            v-if="etape.duree"
+            class="h5"
+          >
             <input
               v-model="etape.incertitudes.duree"
               type="checkbox"
-            >présumée
+            >source indisponible
           </label>
         </div>
       </div>
@@ -135,11 +141,14 @@
             placeholder="aaaa-mm-jj"
             :class="{'mb-s': etape.dateDebut, 'mb': !etape.dateDebut}"
           >
-          <label v-if="etape.dateDebut">
+          <label
+            v-if="etape.dateDebut"
+            class="h5"
+          >
             <input
               v-model="etape.incertitudes.dateDebut"
               type="checkbox"
-            >présumée
+            >source indisponible
           </label>
         </div>
       </div>
@@ -162,11 +171,14 @@
             placeholder="aaaa-mm-jj"
             :class="{'mb-s': etape.dateFin, 'mb': !etape.dateFin}"
           >
-          <label v-if="etape.dateFin">
+          <label
+            v-if="etape.dateFin"
+            class="h5"
+          >
             <input
               v-model="etape.incertitudes.dateFin"
               type="checkbox"
-            >présumée
+            >source indisponible
           </label>
         </div>
       </div>
@@ -213,11 +225,14 @@
               </select>
             </div>
           </div>
-          <label v-if="etape.engagement">
+          <label
+            v-if="etape.engagement"
+            class="h5"
+          >
             <input
               v-model="etape.incertitudes.engagement"
               type="checkbox"
-            >présumé
+            >source indisponible
           </label>
         </div>
       </div>
@@ -240,11 +255,14 @@
             placeholder="0"
             :class="{'mb-s': etape.surface, 'mb': !etape.surface}"
           >
-          <label v-if="etape.surface">
+          <label
+            v-if="etape.surface"
+            class="h5"
+          >
             <input
               v-model="etape.incertitudes.surface"
               type="checkbox"
-            >présumée
+            >source indisponible
           </label>
         </div>
       </div>
@@ -291,11 +309,14 @@
               </select>
             </div>
           </div>
-          <label v-if="etape.volume">
+          <label
+            v-if="etape.volume"
+            class="h5"
+          >
             <input
               v-model="etape.incertitudes.volume"
               type="checkbox"
-            >présumé
+            >source indisponible
           </label>
         </div>
       </div>
@@ -595,11 +616,14 @@
         Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" />
       </button>
 
-      <label v-if="titulairesLength">
+      <label
+        v-if="titulairesLength"
+        class="h5"
+      >
         <input
           v-model="etape.incertitudes.titulaires"
           type="checkbox"
-        >présumé{{ titulairesLength > 1 ? 's' : '' }}
+        >source indisponible
       </label>
       <hr>
     </div>
@@ -654,11 +678,14 @@
         Ajouter un amodiataire<i class="icon-24 icon-24-plus flex-right" />
       </button>
 
-      <label v-if="amodiatairesLength">
+      <label
+        v-if="amodiatairesLength"
+        class="h5"
+      >
         <input
           v-model="etape.incertitudes.amodiataires"
           type="checkbox"
-        >présumé{{ amodiatairesLength > 1 ? 's' : '' }}
+        >source indisponible
       </label>
       <hr>
     </div>
@@ -713,11 +740,14 @@
         Ajouter une substance<i class="icon-24 icon-24-plus flex-right" />
       </button>
 
-      <label v-if="substancesLength">
+      <label
+        v-if="substancesLength"
+        class="h5"
+      >
         <input
           v-model="etape.incertitudes.substances"
           type="checkbox"
-        >présumée{{ substancesLength > 1 ? 's' : '' }}
+        >source indisponible
       </label>
       <hr>
     </div>
