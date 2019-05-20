@@ -41,8 +41,7 @@ describe('état de la page de stats', () => {
       loadingRemove: jest.fn()
     }
     actions = {
-      apiError: jest.fn(),
-      pageError: jest.fn()
+      apiError: jest.fn()
     }
     store = new Vuex.Store({
       modules: { stats },
@@ -57,35 +56,26 @@ describe('état de la page de stats', () => {
 
     expect(mutations.loadingAdd).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalled()
-    expect(actions.pageError).not.toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
     expect(store.state.stats.titreActivites2018Ratio).toEqual(50)
     expect(store.state.stats.loaded).toBeTruthy()
   })
 
-  test("retourne une erreur de la page lors de l'obtention des stats", async () => {
+  test("charge la page si l'api répond", async () => {
     const apiMock = api.stats.mockResolvedValue(null)
     await store.dispatch('stats/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(actions.pageError).toHaveBeenCalled()
-    expect(store.state.stats.loaded).toBeFalsy()
+    expect(store.state.stats.titreActivites2018Ratio).toEqual(0)
+    expect(store.state.stats.loaded).toBeTruthy()
   })
 
-  test("retourne une erreur 404 si l'api ne répond pas", async () => {
+  test("retourne une erreur si l'api ne répond pas", async () => {
     const apiMock = api.stats.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('stats/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(actions.pageError).not.toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
     expect(store.state.stats.loaded).toBeFalsy()
-  })
-
-  test("met à jour les statistiques si l'api ne renvoie rien", async () => {
-    await store.commit('stats/set', {})
-
-    expect(store.state.stats.titreActivites2018Ratio).toEqual(0)
-    expect(store.state.stats.loaded).toBeTruthy()
   })
 })

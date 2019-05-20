@@ -18,11 +18,7 @@ export const actions = {
     try {
       const res = await stats()
 
-      if (res) {
-        commit('set', res)
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      res ? commit('set', res) : commit('set', {})
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.log(e)
