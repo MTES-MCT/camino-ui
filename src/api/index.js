@@ -26,6 +26,8 @@ import {
 
 import { titreActiviteUpdate } from './titre-activites'
 
+import { stats } from './stats'
+
 export {
   init,
   titre,
@@ -47,5 +49,6 @@ export {
   titreActiviteUpdate,
   utilisateurPasswordInit,
   utilisateurPasswordInitEmail,
-  utilisateurAddEmail
+  utilisateurAddEmail,
+  stats
 }
