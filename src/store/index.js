@@ -14,6 +14,7 @@ import entreprises from './entreprises'
 import substances from './substances'
 import user from './user'
 import titreActivites from './titre-activites'
+import stats from './stats'
 
 const modules = {
   titre,
@@ -25,7 +26,8 @@ const modules = {
   entreprises,
   substances,
   user,
-  titreActivites
+  titreActivites,
+  stats
 }
 
 /* global npmVersion */
