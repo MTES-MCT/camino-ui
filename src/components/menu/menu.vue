@@ -10,7 +10,7 @@
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
               >
-                Titres miniers
+                Titres miniers et autorisations
               </RouterLink>
             </li>
             <li>

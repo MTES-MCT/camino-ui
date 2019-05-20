@@ -93,7 +93,10 @@ export default {
   data() {
     return {
       tabActive: 'demarches',
-      tabs: { demarches: { nom: 'Titre' }, activites: { nom: 'Activités' } }
+      tabs: {
+        demarches: { nom: 'Droits miniers' },
+        activites: { nom: 'Activités' }
+      }
     }
   },
 

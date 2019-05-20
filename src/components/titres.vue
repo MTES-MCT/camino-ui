@@ -2,7 +2,7 @@
   <Loader v-if="!loaded" />
   <Card v-else>
     <div class="flex">
-      <h1>Titres miniers</h1>
+      <h1>Titres miniers et autorisations</h1>
     </div>
 
     <button
