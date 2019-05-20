@@ -25,7 +25,9 @@ export const actions = {
         const i = id.replace(/Id/g, '')
         const values =
           rootState.user.preferences.filtres[i] &&
-          rootState.user.preferences.filtres[i].split(',')
+          rootState.user.preferences.filtres[i]
+            .split(',')
+            .map(v => v.replace(/^"(.*)"$/, '$1'))
 
         return values && values.length
           ? Object.assign(params, { [id]: values })

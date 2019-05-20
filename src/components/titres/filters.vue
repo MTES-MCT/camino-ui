@@ -359,7 +359,9 @@ export default {
     },
 
     inputChange(name, e) {
-      const values = e.target.value ? e.target.value.split(/[ ,]+/) : []
+      const values = e.target.value
+        ? e.target.value.match(/\w+|"(?:\\"|[^"])+"/g)
+        : []
 
       this.filtres[name] = values
     },
@@ -384,13 +386,10 @@ export default {
 
     filtreSet(name, value) {
       this.filtres[name] = value ? value.split(',') : []
-      this.filtreCheckboxClean(name)
-    },
 
-    filtreCheckboxClean(id) {
-      if (this.metas[id]) {
-        this.filtres[id] = this.filtres[id].filter(filtreId =>
-          this.metas[id].find(meta => meta.id === filtreId)
+      if (this.metas[name]) {
+        this.filtres[name] = this.filtres[name].filter(filtreId =>
+          this.metas[name].find(meta => meta.id === filtreId)
         )
       }
     },
