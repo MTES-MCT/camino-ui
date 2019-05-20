@@ -51,7 +51,7 @@ describe('état de la page de stats', () => {
     })
   })
 
-  test('récupere les statistiques et les affichent dans la page', async () => {
+  test('récupère les statistiques et les affiche dans la page', async () => {
     const apiMock = api.stats.mockResolvedValue(statsReturned)
     await store.dispatch('stats/get')
 
@@ -59,10 +59,11 @@ describe('état de la page de stats', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(actions.pageError).not.toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(store.state.stats.titreActivites2018Ratio).toEqual(50)
     expect(store.state.stats.loaded).toBeTruthy()
   })
 
-  test("retourne une erreur de l'api lors de l'obtention des stats", async () => {
+  test("retourne une erreur de la page lors de l'obtention des stats", async () => {
     const apiMock = api.stats.mockResolvedValue(null)
     await store.dispatch('stats/get')
 
@@ -71,7 +72,7 @@ describe('état de la page de stats', () => {
     expect(store.state.stats.loaded).toBeFalsy()
   })
 
-  test("retourne une erreur de l'api lors de l'obtention des stats", async () => {
+  test("retourne une erreur 404 si l'api ne répond pas", async () => {
     const apiMock = api.stats.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('stats/get')
 
