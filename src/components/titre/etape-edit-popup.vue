@@ -44,7 +44,7 @@
 
 
 
-    <div>
+    <div v-if="etape.typeId">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Statut</h6>

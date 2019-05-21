@@ -130,7 +130,8 @@ export default {
         titulairesIds: [],
         amodiatairesIds: [],
         substancesIds: [],
-        groupes: []
+        groupes: [],
+        incertitudes: {}
       }
 
       this.$store.commit('popupOpen', {

@@ -36,9 +36,9 @@ export const actions = {
     }
   },
 
-  async reload({ dispatch, state }) {
+  async reload({ dispatch, id }) {
     try {
-      await dispatch('get', state.current.id)
+      router.push({ name: 'titre', params: { id } })
       dispatch(
         'messageAdd',
         {
@@ -61,11 +61,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        if (creation) {
-          router.push({ name: 'titre', params: { id: res.id } })
-        } else {
-          dispatch('reload')
-        }
+        dispatch('reload', res.id)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -114,7 +110,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload')
+        dispatch('reload', res.id)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -134,7 +130,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload')
+        dispatch('reload', res.id)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -154,7 +150,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload')
+        dispatch('reload', res.id)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -174,7 +170,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload')
+        dispatch('reload', res.id)
       } else {
         dispatch('pageError', null, { root: true })
       }
