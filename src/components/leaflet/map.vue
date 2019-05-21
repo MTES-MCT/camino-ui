@@ -20,6 +20,8 @@ import { GestureHandling } from 'leaflet-gesture-handling'
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
+import 'leaflet.markercluster/dist/leaflet.markercluster-src.js'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
 
 L.Marker.prototype.options.icon = L.icon({
   iconRetinaUrl,
@@ -60,7 +62,8 @@ export default {
       layers: {
         tiles: {},
         geojsons: [],
-        markers: []
+        markers: [],
+        markersClusters: {}
       },
       center: null
     }
@@ -101,6 +104,16 @@ export default {
       this.map.on('zoomend', () => {
         this.zoom = this.map.getZoom()
         this.$emit('map-zoom', this.zoom)
+        if (this.zoom > 7) {
+          this.layers.geojsons.forEach(geojson => {
+            this.map.addLayer(geojson)
+          })
+        }
+        if (this.zoom <= 7) {
+          this.layers.geojsons.forEach(geojson => {
+            this.map.removeLayer(geojson)
+          })
+        }
       })
 
       this.map.on('moveend', () => {
@@ -147,7 +160,7 @@ export default {
 
     geojsonsAdd() {
       this.layers.geojsons = this.geojsonLayers
-      this.layers.geojsons.forEach(l => l.addTo(this.map))
+      if (this.zoom > 7) this.layers.geojsons.forEach(l => l.addTo(this.map))
     },
 
     geojsonsUpdate() {
@@ -157,7 +170,60 @@ export default {
 
     markersAdd() {
       this.layers.markers = this.markerLayers
-      this.layers.markers.forEach(m => m.addTo(this.map))
+      this.layers.markers.forEach(marker => {
+        const domaine = marker._popup._source.options.icon.options.html
+        if (!this.layers.markersClusters[domaine])
+          this.layers.markersClusters[domaine] = L.markerClusterGroup({
+            iconCreateFunction: cluster => {
+              const childCount = cluster.getChildCount()
+
+              let c = 'marker-cluster-size-'
+              childCount < 5
+                ? (c += 'mini')
+                : childCount < 15
+                ? (c += 'small')
+                : childCount < 30
+                ? (c += 'medium')
+                : childCount < 50
+                ? (c += 'large')
+                : (c += 'extra')
+
+              return new L.DivIcon({
+                html: `<div><span>${domaine.toUpperCase()}</span></div>`,
+                className: `mono border-bg color-bg py-xs px-s  circle bg-titre-domaine-${domaine} ${c}`,
+                iconSize: null,
+                iconAnchor: [0, 0]
+              })
+            }
+          })
+        this.layers.markersClusters[domaine].addLayer(marker)
+      })
+      Object.keys(this.layers.markersClusters).forEach(d => {
+        const markerCluster = this.layers.markersClusters[d]
+        markerCluster.options.showCoverageOnHover = false
+
+        let clusterPopup
+        markerCluster.on('clustermouseover', cluster => {
+          clusterPopup = L.popup({
+            closeButton: false,
+            offset: [20, 6],
+            autoPan: false
+          })
+            .setLatLng(cluster.layer.getLatLng())
+            .setContent(
+              `<h4 class="mb-s">${
+                cluster.layer.getAllChildMarkers().length
+              } titres</h4>`
+            )
+          this.map.addLayer(clusterPopup)
+        })
+
+        markerCluster.on('clustermouseout', cluster => {
+          this.map.removeLayer(clusterPopup)
+        })
+
+        this.map.addLayer(markerCluster)
+      })
     },
 
     markersUpdate() {

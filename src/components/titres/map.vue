@@ -221,7 +221,8 @@ export default {
 
         const popupOptions = {
           closeButton: false,
-          offset: [0, -24]
+          offset: [0, -24],
+          autoPan: false
         }
 
         const titleRoute = {
