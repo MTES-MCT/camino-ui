@@ -201,7 +201,7 @@
       >
         <span
           class="bg-info py-xxs px-xs rnd-xs color-bg bold"
-        >?</span>&nbsp;: source indisponible
+        >?</span>&nbsp;: donnée incertaine
       </p>
     </template>
 
@@ -253,7 +253,7 @@ export default {
       return (
         this.etape.incertitudes &&
         Object.keys(this.etape.incertitudes).reduce((res, i) => {
-          if (this.etape.incertitudes[i]) {
+          if (this.etape.incertitudes[i] && i !== '__typename') {
             res++
           }
           return res

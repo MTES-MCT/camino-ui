@@ -3,7 +3,10 @@ import * as api from '../api'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
-jest.mock('../router', () => [])
+jest.mock('../router', () => ({
+  push: () => {},
+  replace: () => {}
+}))
 
 jest.mock('../api', () => ({
   titre: jest.fn(),
@@ -31,6 +34,7 @@ describe('état du titre sélectionné', () => {
   let demarcheInfo
   let etapeId
   let etapeInfo
+
   beforeEach(() => {
     titreInfo = { id: 83, nom: 'marne' }
     titreId = 83
@@ -95,20 +99,10 @@ describe('état du titre sélectionné', () => {
   test('recharge le titre affiché', async () => {
     store.state.titre.current = titreInfo
     api.titre.mockResolvedValue(titreInfo)
-    await store.dispatch('titre/reload')
+    await store.dispatch('titre/reload', titreInfo.id)
 
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur", async () => {
-    store.state.titre.current = titreInfo
-    const actionGet = jest.fn().mockRejectedValue(new Error("echec de l'api"))
-    titre.actions.get = actionGet
-    store = new Vuex.Store({ modules: { titre }, actions, mutations })
-    await store.dispatch('titre/reload')
-
-    expect(console.log).toHaveBeenCalled()
   })
 
   test('crée un titre', async () => {

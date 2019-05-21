@@ -1,8 +1,6 @@
 import gql from 'graphql-tag'
 import fragmentTitre from './fragments/titre'
 import fragmentTitreList from './fragments/titres'
-import { fragmentTitreDemarche } from './fragments/titre-demarche'
-import fragmentTitreEtape from './fragments/titre-etape'
 
 const queryTitre = gql`
   query Titre($id: ID!) {
@@ -65,41 +63,41 @@ const mutationTitreSupprimer = gql`
 const mutationTitreDemarcheModifier = gql`
   mutation TitreDemarcheModifier($demarche: InputDemarche!) {
     titreDemarcheModifier(demarche: $demarche) {
-      ...titreDemarche
+      ...titre
     }
   }
 
-  ${fragmentTitreDemarche}
+  ${fragmentTitre}
 `
 
 const mutationTitreDemarcheSupprimer = gql`
   mutation TitreDemarcheSupprimer($id: ID!) {
     titreDemarcheSupprimer(id: $id) {
-      ...titreDemarche
+      ...titre
     }
   }
 
-  ${fragmentTitreDemarche}
+  ${fragmentTitre}
 `
 
 const mutationTitreEtapeModifier = gql`
   mutation TitreEtapeModifier($etape: InputEtape!) {
     titreEtapeModifier(etape: $etape) {
-      ...etape
+      ...titre
     }
   }
 
-  ${fragmentTitreEtape}
+  ${fragmentTitre}
 `
 
 const mutationTitreEtapeSupprimer = gql`
   mutation TitreEtapeSupprimer($id: ID!) {
     titreEtapeSupprimer(id: $id) {
-      ...etape
+      ...titre
     }
   }
 
-  ${fragmentTitreEtape}
+  ${fragmentTitre}
 `
 
 export {
