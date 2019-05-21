@@ -36,20 +36,18 @@ export const actions = {
     }
   },
 
-  async reload({ dispatch, id }) {
-    try {
-      router.push({ name: 'titre', params: { id } })
-      dispatch(
-        'messageAdd',
-        {
-          value: `le titre a été mis à jour`,
-          type: 'success'
-        },
-        { root: true }
-      )
-    } catch (e) {
-      console.log(e)
-    }
+  async reload({ dispatch }, id) {
+    router.replace({ name: 'titre', params: { id } })
+    await dispatch('get', id)
+
+    dispatch(
+      'messageAdd',
+      {
+        value: `le titre a été mis à jour`,
+        type: 'success'
+      },
+      { root: true }
+    )
   },
 
   async titreUpdate({ commit, dispatch }, { titre, creation }) {
@@ -81,6 +79,8 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
+        router.push({ name: 'titres' })
+
         dispatch(
           'messageAdd',
           {
@@ -89,8 +89,6 @@ export const actions = {
           },
           { root: true }
         )
-
-        router.push({ name: 'titres' })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -147,7 +145,7 @@ export const actions = {
 
     try {
       const res = await titreEtapeUpdate({ etape })
-
+      console.log(res)
       if (res) {
         commit('popupClose', null, { root: true })
         dispatch('reload', res.id)

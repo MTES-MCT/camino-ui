@@ -89,7 +89,7 @@
             <input
               v-model="etape.incertitudes.date"
               type="checkbox"
-            >source indisponible
+            >donnée incertaine
           </label>
         </div>
       </div>
@@ -118,7 +118,7 @@
             <input
               v-model="etape.incertitudes.duree"
               type="checkbox"
-            >source indisponible
+            >donnée incertaine
           </label>
         </div>
       </div>
@@ -148,7 +148,7 @@
             <input
               v-model="etape.incertitudes.dateDebut"
               type="checkbox"
-            >source indisponible
+            >donnée incertaine
           </label>
         </div>
       </div>
@@ -178,7 +178,7 @@
             <input
               v-model="etape.incertitudes.dateFin"
               type="checkbox"
-            >source indisponible
+            >donnée incertaine
           </label>
         </div>
       </div>
@@ -232,7 +232,7 @@
             <input
               v-model="etape.incertitudes.engagement"
               type="checkbox"
-            >source indisponible
+            >donnée incertaine
           </label>
         </div>
       </div>
@@ -262,7 +262,7 @@
             <input
               v-model="etape.incertitudes.surface"
               type="checkbox"
-            >source indisponible
+            >donnée incertaine
           </label>
         </div>
       </div>
@@ -316,7 +316,7 @@
             <input
               v-model="etape.incertitudes.volume"
               type="checkbox"
-            >source indisponible
+            >donnée incertaine
           </label>
         </div>
       </div>
@@ -623,7 +623,7 @@
         <input
           v-model="etape.incertitudes.titulaires"
           type="checkbox"
-        >source indisponible
+        >donnée incertaine
       </label>
       <hr>
     </div>
@@ -685,7 +685,7 @@
         <input
           v-model="etape.incertitudes.amodiataires"
           type="checkbox"
-        >source indisponible
+        >donnée incertaine
       </label>
       <hr>
     </div>
@@ -747,7 +747,7 @@
         <input
           v-model="etape.incertitudes.substances"
           type="checkbox"
-        >source indisponible
+        >donnée incertaine
       </label>
       <hr>
     </div>

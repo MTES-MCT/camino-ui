@@ -85,6 +85,7 @@ export default {
       L.Map.addInitHook('addHandler', 'gestureHandling', GestureHandling)
 
       this.map = L.map(this.$refs.map, {
+        zoomControl: true,
         doubleClickZoom: false,
         minZoom: 3,
         gestureHandling: true,
@@ -94,8 +95,7 @@ export default {
             scroll: 'Utilisez ctrl + scroll pour zoomer',
             scrollMac: 'Utilisez \u2318 + scroll pour zoomer'
           }
-        },
-        zoomControl: false
+        }
       })
 
       this.map.on('zoomend', () => {
