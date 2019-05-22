@@ -5,7 +5,7 @@ import { titreActiviteUpdate } from '../api'
 export const state = {}
 
 export const actions = {
-  async update({ commit, dispatch }, activite) {
+  async update({ commit, dispatch, rootState }, activite) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'titreActiviteUpdate', { root: true })
     try {
@@ -30,7 +30,7 @@ export const actions = {
           },
           { root: true }
         )
-        dispatch('titre/reload', null, { root: true })
+        dispatch('titre/reload', rootState.titre.current.id, { root: true })
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })

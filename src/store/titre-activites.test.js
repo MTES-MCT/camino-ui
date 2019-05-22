@@ -53,7 +53,6 @@ describe('état des activités', () => {
     })
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
-    expect(actionsTitre.reload).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
