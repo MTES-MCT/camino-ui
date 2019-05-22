@@ -155,7 +155,7 @@ export const actions = {
       }
 
       const body = await res.blob()
-      saveAs(body, `${fileName}`)
+      saveAs(body, fileName)
 
       dispatch('messageAdd', {
         type: 'success',
