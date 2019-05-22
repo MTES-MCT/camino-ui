@@ -35,7 +35,7 @@ export default {
   methods: {
     async download(fileName) {
       await this.$store.dispatch('documentDownload', {
-        fileName,
+        fileName: `${fileName}.pdf`,
         titreDocumentId: this.document.id
       })
     }
