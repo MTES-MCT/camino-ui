@@ -47,6 +47,7 @@ import L from 'leaflet'
 import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 import TitreMapWarningBrgm from '../leaflet/warning-brgm.vue'
+import {pointOnFeature} from '@turf/turf'
 
 export default {
   components: {
@@ -252,12 +253,12 @@ export default {
               className: `svg-fill-domaine-${titre.domaine.id}`
             },
             onEachFeature: (feature, layer) => {
-              const titleMarker = L.marker(
-                L.geoJSON(feature)
-                  .getBounds()
-                  .getCenter(),
-                { icon }
-              )
+              const markerCoord = pointOnFeature(
+                L.geoJSON(feature).getLayers()[0].feature
+              ).geometry.coordinates
+              const titleMarker = L.marker([markerCoord[1], markerCoord[0]], {
+                icon
+              })
 
               titleMarker.bindPopup(popupHtml, popupOptions)
               titleMarker.on(methods)

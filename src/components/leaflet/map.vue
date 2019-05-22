@@ -171,7 +171,7 @@ export default {
     markersAdd() {
       this.layers.markers = this.markerLayers
       this.layers.markers.forEach(marker => {
-        const domaine = marker._popup._source.options.icon.options.html
+        const domaine = marker.getPopup()._source.options.icon.options.html
         if (!this.layers.markersClusters[domaine])
           this.layers.markersClusters[domaine] = L.markerClusterGroup({
             iconCreateFunction: cluster => {
@@ -198,6 +198,7 @@ export default {
           })
         this.layers.markersClusters[domaine].addLayer(marker)
       })
+
       Object.keys(this.layers.markersClusters).forEach(d => {
         const markerCluster = this.layers.markersClusters[d]
         markerCluster.options.showCoverageOnHover = false
@@ -228,6 +229,10 @@ export default {
 
     markersUpdate() {
       this.layers.markers.forEach(m => m.remove())
+      Object.keys(this.layers.markersClusters).forEach(domaine => {
+        this.map.removeLayer(this.layers.markersClusters[domaine])
+        delete this.layers.markersClusters[domaine]
+      })
       this.markersAdd()
     }
   }
