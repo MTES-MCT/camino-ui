@@ -274,4 +274,19 @@ describe("état général de l'application", () => {
     expect(fetch).toHaveBeenCalled()
     expect(apiErrorMock).toHaveBeenCalled()
   })
+
+  test('retourne une erreur si un document est introuvable', async () => {
+    const messageAddMock = jest.fn()
+    actions.messageAdd = messageAddMock
+    store = new Vuex.Store({ modules, state, actions, mutations })
+    const titreDocumentId = 'crique-sophie'
+    const fileName = 'criqueSophie'
+    localStorage.setItem('token', 'privateToken')
+    fetch.mockResponseOnce('fichier introuvable', { status: 404 })
+    await store.dispatch('documentDownload', { titreDocumentId, fileName })
+
+    expect(fetch).toHaveBeenCalled()
+    expect(fileSaver.saveAs).not.toHaveBeenCalled()
+    expect(messageAddMock).not.toHaveBeenCalled()
+  })
 })

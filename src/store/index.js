@@ -149,15 +149,20 @@ export const actions = {
 
       const res = await fetch(url, { method, headers })
 
+      if (res.status !== 200) {
+        const error = await res.text()
+        throw error
+      }
+
       const body = await res.blob()
-      saveAs(body, `${fileName}.pdf`)
+      saveAs(body, `${fileName}`)
 
       dispatch('messageAdd', {
         type: 'success',
-        value: `fichier téléchargé : ${fileName}.pdf`
+        value: `fichier téléchargé : ${fileName}`
       })
     } catch (e) {
-      dispatch('apiError', `erreur de téléchargement : ${fileName}.pdf, ${e}`)
+      dispatch('apiError', `erreur de téléchargement : ${fileName}, ${e}`)
     }
   }
 }
