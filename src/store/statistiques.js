@@ -18,7 +18,13 @@ export const actions = {
     try {
       const res = await statistiques()
 
-      res ? commit('set', res) : commit('set', {})
+      console.log(res)
+
+      if (res) {
+        commit('set', res)
+      } else {
+        commit('set', {})
+      }
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.log(e)
