@@ -1,17 +1,21 @@
 <template>
   <Loader v-if="!loaded" />
   <Card v-else>
-    <div class="flex">
-      <h1>Titres miniers et autorisations</h1>
-    </div>
+    <div class="desktop-blobs">
+      <div class="desktop-blob-2-3">
+        <h1>Titres miniers et autorisations</h1>
+      </div>
 
-    <button
-      v-if="permissionsCheck(['super'])"
-      class="btn-border rnd-xs py-s px-m full-x flex mb"
-      @click="addPopupOpen"
-    >
-      Ajouter un titre <i class="icon-24 icon-24-plus flex-right" />
-    </button>
+      <div class="desktop-blob-1-3">
+        <button
+          v-if="permissionsCheck(['super'])"
+          class="btn-border rnd-xs py-s px-m full-x flex mb"
+          @click="addPopupOpen"
+        >
+          Ajouter un titre <i class="icon-24 icon-24-plus flex-right" />
+        </button>
+      </div>
+    </div>
 
     <TitresFilters @titres-get="get" />
 
