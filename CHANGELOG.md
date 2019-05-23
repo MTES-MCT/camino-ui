@@ -2,6 +2,61 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.18.0](https://github.com/MTES-MCT/camino-ui/compare/v0.17.0...v0.18.0) (2019-05-23)
+
+
+### Bug Fixes
+
+* corrige un problème de chargement des titres lors de la création de compte ([1e83fbc](https://github.com/MTES-MCT/camino-ui/commit/1e83fbc))
+* **fichiers:** affiche l'extension pdf ([8b917fd](https://github.com/MTES-MCT/camino-ui/commit/8b917fd))
+* **fichiers:** retourne une erreur si le fichier est introuvable ([e1cdbcd](https://github.com/MTES-MCT/camino-ui/commit/e1cdbcd))
+* activtés ([780d37e](https://github.com/MTES-MCT/camino-ui/commit/780d37e))
+* affiche les bouton de zoom sur la carte ([a444d13](https://github.com/MTES-MCT/camino-ui/commit/a444d13))
+* affiche une légende "source indisponible" ([10d08f1](https://github.com/MTES-MCT/camino-ui/commit/10d08f1))
+* corrige la fonction de tri des entreprises ([143e98b](https://github.com/MTES-MCT/camino-ui/commit/143e98b))
+* remplace le label "présumé" par une icone ([a03429c](https://github.com/MTES-MCT/camino-ui/commit/a03429c))
+* **fichiers:** ajoute l'extension pdf au fichier téléchargé ([00f01b6](https://github.com/MTES-MCT/camino-ui/commit/00f01b6))
+
+
+### Build System
+
+* ajoute codecov ([0ce0930](https://github.com/MTES-MCT/camino-ui/commit/0ce0930))
+* met à jour les dépendances ([f2d126c](https://github.com/MTES-MCT/camino-ui/commit/f2d126c))
+* met à jour les dépendances ([e7383c7](https://github.com/MTES-MCT/camino-ui/commit/e7383c7))
+
+
+### Features
+
+* redirige vers la page du titre avec sa nouvelle id lors de la mise à jour ([37fc1d3](https://github.com/MTES-MCT/camino-ui/commit/37fc1d3))
+* renomme l'onglet titres en droits miniers ([af579e5](https://github.com/MTES-MCT/camino-ui/commit/af579e5))
+* **recherche:** permet de combiner des mots dans un filtre de recherche ([d1018ee](https://github.com/MTES-MCT/camino-ui/commit/d1018ee))
+* dynamise certaines statistiques ([#17](https://github.com/MTES-MCT/camino-ui/issues/17)) ([424de04](https://github.com/MTES-MCT/camino-ui/commit/424de04))
+* édite les incertitudes au sein d'une étape ([cecc0fc](https://github.com/MTES-MCT/camino-ui/commit/cecc0fc))
+* remplace le champs source indisponible par des champs incertitudes ([9753029](https://github.com/MTES-MCT/camino-ui/commit/9753029))
+* **activités:** prend en compte la date de fin d'une activité ([ae3c560](https://github.com/MTES-MCT/camino-ui/commit/ae3c560))
+* **fichiers:** met à jour le téléchargement selon la nouvelle api ([e1662a8](https://github.com/MTES-MCT/camino-ui/commit/e1662a8))
+* **fichiers:** télécharge un fichier pdf ([b297721](https://github.com/MTES-MCT/camino-ui/commit/b297721))
+* **stats:** ajout d'une page de stats ([10d98ac](https://github.com/MTES-MCT/camino-ui/commit/10d98ac))
+
+
+### Tests
+
+* Ajoute des tests ([2d755aa](https://github.com/MTES-MCT/camino-ui/commit/2d755aa))
+* corrige la config jest et ajoute les badges ([23ca762](https://github.com/MTES-MCT/camino-ui/commit/23ca762))
+* elabore router sur index ([6fbb9b6](https://github.com/MTES-MCT/camino-ui/commit/6fbb9b6))
+* modifie user,index ([022d598](https://github.com/MTES-MCT/camino-ui/commit/022d598))
+* modify index ([cc64e1c](https://github.com/MTES-MCT/camino-ui/commit/cc64e1c))
+* supprime un message d'erreur ([1cff0a2](https://github.com/MTES-MCT/camino-ui/commit/1cff0a2))
+* supprime un message d'erreur [#16](https://github.com/MTES-MCT/camino-ui/issues/16) ([5ad8370](https://github.com/MTES-MCT/camino-ui/commit/5ad8370))
+* termine les tests sur le store ([1d5793a](https://github.com/MTES-MCT/camino-ui/commit/1d5793a))
+* teste en cours ([663505a](https://github.com/MTES-MCT/camino-ui/commit/663505a))
+* teste partiellement utilisateurs ([de3f943](https://github.com/MTES-MCT/camino-ui/commit/de3f943))
+* teste titre,utilisateurs,metas,titre-activites,utilisateur ([02047c8](https://github.com/MTES-MCT/camino-ui/commit/02047c8))
+* teste user,index ([62a92b2](https://github.com/MTES-MCT/camino-ui/commit/62a92b2))
+* update metas ([1d0f707](https://github.com/MTES-MCT/camino-ui/commit/1d0f707))
+
+
+
 ## [0.17.0](https://github.com/MTES-MCT/camino-ui/compare/v0.16.0...v0.17.0) (2019-05-07)
 
 
