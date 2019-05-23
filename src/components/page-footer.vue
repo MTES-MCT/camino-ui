@@ -61,8 +61,8 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/stats">
-            Stats
+          <router-link to="/statistiques">
+            Statistiques
           </router-link>
         </li>
         <li>

@@ -1,21 +1,21 @@
 import graphqlClient from './_graphql-client'
 import graphqlErrorThrow from './_error-throw'
 
-import { queryStats } from './queries/stats'
+import { queryStatistiques } from './queries/statistiques'
 
-const stats = async () => {
+const statistiques = async () => {
   try {
     const res = await graphqlClient.query({
-      query: queryStats,
+      query: queryStatistiques,
       variables: {},
       fetchPolicy: 'network-only'
     })
 
-    return res && res.data.stats
+    return res && res.data.statistiques
   } catch (e) {
     console.log({ e })
     graphqlErrorThrow(e)
   }
 }
 
-export { stats }
+export { statistiques }

@@ -6,7 +6,7 @@
       class="content"
     >
       <h1 class="mb-xl">
-        Stats
+        Statistiques
       </h1>
       <hr class="mb-xl">
       <div
@@ -31,7 +31,7 @@
           </div>
           <div class="desktop-blob-1-4">
             <p class="h0 text-center mb-0">
-              {{ stats.titresValide }}
+              {{ statistiques.titresValide }}
             </p>
             <p class="bold text-center ">
               titres et autorisations valides et demandes en cours d’instruction publiés
@@ -45,7 +45,7 @@
           </div>
           <div class="desktop-blob-1-4">
             <p class="h0 text-center mb-0">
-              {{ stats.titresTotal }}
+              {{ statistiques.titresTotal }}
             </p>
             <p class="bold text-center ">
               titres, autorisations et demandes disponibles
@@ -67,7 +67,7 @@
           </div>
         </div>
       </div>
-  
+
       <div
         id="usages"
         class="mb-xxl"
@@ -90,7 +90,7 @@
           </div>
           <div class="desktop-blob-1-4">
             <p class="h0 text-center mb-0">
-              {{ stats.titresActivites2018Depose }}
+              {{ statistiques.titresActivites2018Depose }}
             </p>
             <p class="bold text-center ">
               rapports trimestriels d’activité de production d’or collectés en Guyane
@@ -101,7 +101,7 @@
           </div>
           <div class="desktop-blob-1-4">
             <p class="h0 text-center mb-0">
-              {{ stats.titreActivites2018Ratio }}%
+              {{ statistiques.titreActivites2018Ratio }}%
             </p>
             <p class="bold text-center ">
               des rapports trimestriels d’activité de production d’or requis en Guyane sont collectés
@@ -123,7 +123,7 @@
           </div>
         </div>
       </div>
-  
+
       <div
         id="gains"
         class="mb-xxl"
@@ -146,7 +146,7 @@
           </div>
           <div class="desktop-blob-1-3">
             <p class="h0 text-center mb-0">
-              {{ stats.titresActivites2018BeneficesEntreprise }}
+              {{ statistiques.titresActivites2018BeneficesEntreprise }}
             </p>
             <p class="bold text-center ">
               jours de travail sans valeur ajoutée économisés par les entreprises en Guyane
@@ -157,7 +157,7 @@
           </div>
           <div class="desktop-blob-1-3">
             <p class="h0 text-center mb-0">
-              {{ stats.titresActivites2018BeneficesAdministration }}
+              {{ statistiques.titresActivites2018BeneficesAdministration }}
             </p>
             <p class="bold text-center ">
               jours de travail à faible valeur ajoutée économisés par l’administration
@@ -176,16 +176,16 @@
 import Loader from '../ui/loader.vue'
 
 export default {
-  name: 'CaminoStats',
+  name: 'CaminoStatistiques',
 
   components: { Loader },
 
   computed: {
-    stats() {
-      return this.$store.state.stats
+    statistiques() {
+      return this.$store.state.statistiques
     },
     loaded() {
-      return !!this.stats.loaded
+      return !!this.statistiques.loaded
     }
   },
 
@@ -195,7 +195,7 @@ export default {
 
   methods: {
     get() {
-      this.$store.dispatch('stats/get')
+      this.$store.dispatch('statistiques/get')
     }
   }
 }
