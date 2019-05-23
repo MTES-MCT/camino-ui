@@ -22,6 +22,14 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png'
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
 import 'leaflet.markercluster/dist/leaflet.markercluster-src.js'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
+import {
+  voronoi,
+  getCoords,
+  bbox,
+  feature,
+  featureCollection,
+  featureEach
+} from '@turf/turf'
 
 L.Marker.prototype.options.icon = L.icon({
   iconRetinaUrl,
@@ -63,7 +71,8 @@ export default {
         tiles: {},
         geojsons: [],
         markers: [],
-        markersClusters: {}
+        markersClusters: {},
+        voronois: []
       },
       center: null
     }
@@ -79,8 +88,8 @@ export default {
     this.init()
     this.scaleAdd()
     this.tilesAdd()
-    this.geojsonsAdd()
     this.markersAdd()
+    this.geojsonsAdd()
   },
 
   methods: {
@@ -108,10 +117,16 @@ export default {
           this.layers.geojsons.forEach(geojson => {
             this.map.addLayer(geojson)
           })
+          this.layers.voronois.forEach(vorLayer => {
+            this.map.addLayer(vorLayer)
+          })
         }
         if (this.zoom <= 7) {
           this.layers.geojsons.forEach(geojson => {
             this.map.removeLayer(geojson)
+          })
+          this.layers.voronois.forEach(vorLayer => {
+            this.map.removeLayer(vorLayer)
           })
         }
       })
@@ -160,11 +175,39 @@ export default {
 
     geojsonsAdd() {
       this.layers.geojsons = this.geojsonLayers
-      if (this.zoom > 7) this.layers.geojsons.forEach(l => l.addTo(this.map))
+      this.layers.geojsons.forEach(l => {
+        const feat = l.getLayers()[0].feature
+        const options = {
+          bbox: bbox(feat)
+        }
+        const collection = featureCollection(
+          getCoords(feat)
+            .reduce((arr, elem) => [...arr, ...elem])
+            .reduce((arr, elem) => [...arr, ...elem])
+            .map(coord => {
+              var geometry = {
+                type: 'Point',
+                coordinates: coord
+              }
+              return feature(geometry)
+            })
+        )
+        const vor = voronoi(collection, options)
+        featureEach(vor, feat => {
+          const featLayer = L.geoJSON(feat)
+          this.layers.voronois.push(featLayer)
+          if (this.zoom > 7) featLayer.addTo(this.map)
+        })
+        if (this.zoom > 7) l.addTo(this.map)
+      })
     },
 
     geojsonsUpdate() {
       this.layers.geojsons.forEach(l => l.remove())
+      this.layers.voronois.forEach(feat => {
+        this.map.removeLayer(feat)
+      })
+      this.layers.voronois = []
       this.geojsonsAdd()
     },
 

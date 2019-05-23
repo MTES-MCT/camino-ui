@@ -47,7 +47,12 @@ import L from 'leaflet'
 import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 import TitreMapWarningBrgm from '../leaflet/warning-brgm.vue'
-import {pointOnFeature} from '@turf/turf'
+import {
+  pointOnFeature,
+  getCoord,
+  feature,
+  featureCollection
+} from '@turf/turf'
 
 export default {
   components: {
@@ -244,8 +249,16 @@ export default {
         }
 
         if (titre.geojsonMultiPolygon) {
-          const geojsonLayer = L.geoJSON(titre.geojsonMultiPolygon, {
-            filter: feature => feature.geometry.type === 'MultiPolygon',
+          const featureCollec = featureCollection(
+            titre.geojsonMultiPolygon.geometry.coordinates.map(coords =>
+              feature({
+                type: 'MultiPolygon',
+                coordinates: [coords]
+              })
+            )
+          )
+          let hasMarker = false
+          const geojsonLayer = L.geoJSON(featureCollec, {
             style: {
               fillOpacity: 0.75,
               weight: 1,
@@ -253,20 +266,23 @@ export default {
               className: `svg-fill-domaine-${titre.domaine.id}`
             },
             onEachFeature: (feature, layer) => {
-              const markerCoord = pointOnFeature(
-                L.geoJSON(feature).getLayers()[0].feature
-              ).geometry.coordinates
+              const markerCoord = getCoord(
+                pointOnFeature(L.geoJSON(feature).getLayers()[0].feature)
+              )
               const titleMarker = L.marker([markerCoord[1], markerCoord[0]], {
                 icon
               })
 
-              titleMarker.bindPopup(popupHtml, popupOptions)
-              titleMarker.on(methods)
-
               layer.bindPopup(popupHtml, popupOptions)
               layer.on(methods)
 
-              this.markerLayers.push(titleMarker)
+              if (!hasMarker) {
+                titleMarker.bindPopup(popupHtml, popupOptions)
+                titleMarker.on(methods)
+
+                this.markerLayers.push(titleMarker)
+                hasMarker = true
+              }
             }
           })
           this.geojsonLayers.push(geojsonLayer)
