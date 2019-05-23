@@ -124,10 +124,6 @@ https://github.com/francoisromain/postcss-grid-fluid
 }
 
 @media (--viewport-tablet) {
-  .container {
-    width: calc(2 * var(--col-width) + var(--gutter));
-  }
-
   .tablet-flex {
     display: flex;
   }
