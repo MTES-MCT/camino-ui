@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
-const queryStats = gql`
-  query Stats {
-    stats {
+const queryStatistiques = gql`
+  query Statistiques {
+    statistiques {
       titresTotal
       titresValide
       titresActivites2018Depose
@@ -13,4 +13,4 @@ const queryStats = gql`
   }
 `
 
-export { queryStats }
+export { queryStatistiques }

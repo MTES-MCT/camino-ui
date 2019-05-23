@@ -81,7 +81,7 @@
           <p>{{ etape.dateFin | dateFormat }}</p>
         </div>
         <div
-          v-if="etape.points"
+          v-if="etape.points.length"
           class="tablet-blob-1-4"
         >
           <h6>
