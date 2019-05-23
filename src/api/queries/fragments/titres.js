@@ -33,6 +33,7 @@ const fragmentTitreList = gql`
     surface
     volume
     volumeUnite {
+      id
       nom
     }
     engagement
