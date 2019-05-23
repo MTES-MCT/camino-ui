@@ -123,12 +123,12 @@ export const actions = {
           { root: true }
         )
 
-        router.push({ name: 'titres' })
-
-        dispatch('login', {
+        await dispatch('login', {
           email: u.email,
           motDePasse: utilisateur.motDePasse
         })
+
+        router.push({ name: 'titres' })
       }
     } catch (e) {
       dispatch(
