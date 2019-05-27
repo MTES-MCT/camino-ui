@@ -76,8 +76,8 @@ export default {
     this.init()
     this.scaleAdd()
     this.tilesAdd()
-    this.geojsonsAdd()
     this.markersAdd()
+    this.geojsonsAdd()
   },
 
   methods: {
@@ -147,7 +147,9 @@ export default {
 
     geojsonsAdd() {
       this.layers.geojsons = this.geojsonLayers
-      this.layers.geojsons.forEach(l => l.addTo(this.map))
+      this.layers.geojsons.forEach(l => {
+        l.addTo(this.map)
+      })
     },
 
     geojsonsUpdate() {
@@ -157,11 +159,16 @@ export default {
 
     markersAdd() {
       this.layers.markers = this.markerLayers
-      this.layers.markers.forEach(m => m.addTo(this.map))
+
+      this.layers.markers.forEach(marker => {
+        this.map.addLayer(marker)
+      })
     },
 
     markersUpdate() {
-      this.layers.markers.forEach(m => m.remove())
+      this.layers.markers.forEach(marker => {
+        this.map.removeLayer(marker)
+      })
       this.markersAdd()
     }
   }
