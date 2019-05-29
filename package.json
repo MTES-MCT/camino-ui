@@ -71,6 +71,7 @@
     "json2csv": "^4.5.1",
     "leaflet": "^1.5.1",
     "leaflet-gesture-handling": "^1.1.8",
+    "leaflet.markercluster": "^1.4.1",
     "pixrem": "^5.0.0",
     "postcss-button": "^0.3.16",
     "postcss-color-mod-function": "^3.0.3",
