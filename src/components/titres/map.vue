@@ -272,19 +272,15 @@ export default {
                     const childCount = cluster.getChildCount()
 
                     let c = 'marker-cluster-size-'
-                    childCount < 5
-                      ? (c += 'mini')
-                      : childCount < 15
-                      ? (c += 'small')
-                      : childCount < 30
-                      ? (c += 'medium')
-                      : childCount < 50
-                      ? (c += 'large')
-                      : (c += 'extra')
+                    if (childCount < 5) c += 'mini'
+                    else if (childCount < 15) c += 'small'
+                    else if (childCount < 30) c += 'medium'
+                    else if (childCount < 50) c += 'large'
+                    else c += 'extra'
 
                     return new L.DivIcon({
                       html: `<div><span>${domaine.toUpperCase()}</span></div>`,
-                      className: `h6 mono border-bg color-bg py-xs px-s inline-block circle bg-titre-domaine-${domaine} ${c}`,
+                      className: `h6 mono border-bg color-bg py-xs px-s inline-block pill bg-titre-domaine-${domaine} ${c}`,
                       iconSize: null,
                       iconAnchor: [0, 0]
                     })
@@ -305,7 +301,7 @@ export default {
             .bindPopup(
               `<h4 class="mb-s">${
                 cluster.layer.getAllChildMarkers().length
-              } titres</h4>`,
+              }</h4>`,
               {
                 closeButton: false,
                 offset: [20, 6],

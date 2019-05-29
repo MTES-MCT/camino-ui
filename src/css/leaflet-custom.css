@@ -15,10 +15,6 @@
   filter: drop-shadow(4px 4px 4px color-mod(var(--color-inverse) alpha(50%)));
 }
 
-.circle {
-  border-radius: 50%;
-}
-
 .leaflet-marker-icon.marker-cluster-size-mini {
   height: 35px;
   width: 35px;
