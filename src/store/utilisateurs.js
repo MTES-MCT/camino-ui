@@ -71,6 +71,7 @@ export const actions = {
       if (utilisateur.id === rootState.user.current.id) {
         commit('user/set', u, { root: true })
       }
+      
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',

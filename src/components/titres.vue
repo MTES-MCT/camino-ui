@@ -9,7 +9,7 @@
       <div class="desktop-blob-1-3">
         <button
           v-if="permissionsCheck(['super'])"
-          class="btn-border rnd-xs py-s px-m full-x flex mb"
+          class="btn-border rnd-xs py-s px-m full-x flex mb-s"
           @click="addPopupOpen"
         >
           Ajouter un titre <i class="icon-24 icon-24-plus flex-right" />
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <TitresFilters @titres-get="get" />
+    <TitresFilters />
 
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
@@ -114,12 +114,20 @@ export default {
       return this.$store.state.user.current
     },
 
+    userLoaded() {
+      return this.$store.state.user.loaded
+    },
+
     vueId() {
       return this.$store.state.user.preferences.titres.vueId
     },
 
     vue() {
       return this.vues.find(c => c.id === this.vueId)
+    },
+
+    filtres() {
+      return this.$store.state.user.preferences.filtres
     }
   },
 
@@ -132,7 +140,9 @@ export default {
       }
     },
 
-    user: 'get'
+    user: 'get',
+
+    filtres: 'get'
   },
 
   created() {
@@ -153,7 +163,9 @@ export default {
     },
 
     get() {
-      this.$store.dispatch('titres/get')
+      if (this.userLoaded) {
+        this.$store.dispatch('titres/get')
+      }
     },
 
     vueSet(value) {

@@ -21,16 +21,18 @@ export const state = {
       pageActive: 1,
       pagesRange: 200
     }
-  }
+  },
+  loaded: false
 }
 
 export const actions = {
-  async init({ dispatch }) {
+  async init({ commit, dispatch }) {
     if (localStorage.getItem('token')) {
       await dispatch('identify')
     } else {
       dispatch('tokenRemove')
     }
+    commit('load')
   },
 
   async identify({ commit, dispatch }) {
@@ -250,6 +252,10 @@ export const getters = {
 }
 
 export const mutations = {
+  load(state) {
+    state.loaded = true
+  },
+
   preferenceSet(state, { section, value }) {
     const path = section.split('.')
     const id = path.pop()
@@ -265,14 +271,7 @@ export const mutations = {
   },
 
   set(state, user) {
-    Vue.set(state, 'current', {})
-    Vue.set(state.current, 'id', user.id)
-    Vue.set(state.current, 'prenom', user.prenom)
-    Vue.set(state.current, 'nom', user.nom)
-    Vue.set(state.current, 'permission', user.permission)
-    if (user.entreprise) {
-      Vue.set(state.current, 'entreprise', user.entreprise)
-    }
+    Vue.set(state, 'current', user)
   },
 
   reset(state) {

@@ -166,15 +166,9 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import Dot from '../ui/dot.vue'
 import Pill from '../ui/pill.vue'
 import Accordion from '../ui/accordion.vue'
-
-// const dedup = arr =>
-//   Object.keys(
-//     arr.reduce((res, element) => Object.assign(res, { [element]: true }), {})
-//   )
 
 export default {
   components: {
@@ -308,7 +302,6 @@ export default {
 
       this.urlSet()
       this.preferencesSet()
-      this.titresGet()
     },
 
     checkboxesTypesReduce(types) {
@@ -426,12 +419,6 @@ export default {
       })
 
       this.$router.push({ query })
-    },
-
-    titresGet() {
-      Vue.nextTick(() => {
-        this.$emit('titres-get')
-      })
     },
 
     preferencesSet() {

@@ -17,7 +17,7 @@ localVue.use(Vuex)
 
 jest.mock('../router', () => [])
 
-describe('interface utilisateur', () => {
+describe("état de l'utilisateur connecté", () => {
   let store
   let actions
   let mutations
@@ -25,6 +25,7 @@ describe('interface utilisateur', () => {
   let map
   let email
   let motDePasse
+
   beforeEach(() => {
     email = 'rene@la.taupe'
     motDePasse = 'mignon'
@@ -34,9 +35,9 @@ describe('interface utilisateur', () => {
       nom: 'lataupe',
       permission: 'admin',
       entreprise: 'macdo',
-      email: 'rene@la.taupe',
-      motDePasse: 'mignon'
+      email: 'rene@la.taupe'
     }
+
     user.state = {
       current: null,
       preferences: {
@@ -45,10 +46,12 @@ describe('interface utilisateur', () => {
         titres: { vueId: 'carte', pageActive: 1, pagesRange: 200 }
       }
     }
+
     actions = {
       init: jest.fn(),
       messageAdd: jest.fn()
     }
+
     mutations = {
       popupMessagesRemove: jest.fn(),
       loadingAdd: jest.fn(),
@@ -57,22 +60,33 @@ describe('interface utilisateur', () => {
       loadingRemove: jest.fn(),
       menuClose: jest.fn()
     }
+
     map = { state: { tiles: [{ id: 'osm-fr' }, { id: 'geoportail' }] } }
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
     localStorage.clear()
   })
 
-  test('affiche la page utilisateur si ce dernier est connecté', async () => {
+  test("identifie l'utilisateur si un token valide est présent", async () => {
     localStorage.setItem('token', 'rene')
     const apiMock = api.utilisateurIdentify.mockResolvedValue({
       token: 'rene',
       utilisateur: userInfo
     })
+
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
+
     await store.dispatch('user/init')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith()
+    expect(store.state.user.current).toEqual({
+      id: 66,
+      prenom: 'rene',
+      nom: 'lataupe',
+      email: 'rene@la.taupe',
+      permission: 'admin',
+      entreprise: 'macdo'
+    })
+    expect(store.state.user.loaded).toBeTruthy()
   })
 
   test("n'affiche pas la page utilisateur si aucun n'est connecté", async () => {
@@ -100,6 +114,7 @@ describe('interface utilisateur', () => {
       token: 'rene',
       utilisateur: userInfo
     })
+
     await store.dispatch('user/login', { email, motDePasse })
 
     expect(apiMock).toHaveBeenCalled()
@@ -112,6 +127,7 @@ describe('interface utilisateur', () => {
       id: 66,
       prenom: 'rene',
       nom: 'lataupe',
+      email: 'rene@la.taupe',
       permission: 'admin',
       entreprise: 'macdo'
     })
