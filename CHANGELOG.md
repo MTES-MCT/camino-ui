@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.19.0](https://github.com/MTES-MCT/camino-ui/compare/v0.18.0...v0.19.0) (2019-06-04)
+
+
+### Bug Fixes
+
+* **carte:** ajoute la dépendance à leaflet.markercluster ([d3d1fe8](https://github.com/MTES-MCT/camino-ui/commit/d3d1fe8))
+* **titres:** corrige la liste des titres qui se charge 2 fois si un utilisateur est connecté ([4c4b513](https://github.com/MTES-MCT/camino-ui/commit/4c4b513))
+* corrige la position du bouton "ajouter un titre" ([8cb7b57](https://github.com/MTES-MCT/camino-ui/commit/8cb7b57))
+* corrige une erreur graphql lors du passage des titres à un titre ([bed037d](https://github.com/MTES-MCT/camino-ui/commit/bed037d))
+
+
+### Build System
+
+* met à jour les dépendances ([f7a14c1](https://github.com/MTES-MCT/camino-ui/commit/f7a14c1))
+* met à jour les dépendances (vue-cli@4-alpha) ([e0082e7](https://github.com/MTES-MCT/camino-ui/commit/e0082e7))
+
+
+### Features
+
+* **carte:** regroupe les marqueurs en groupes ([#19](https://github.com/MTES-MCT/camino-ui/issues/19)) ([5851251](https://github.com/MTES-MCT/camino-ui/commit/5851251))
+
+
+
 ## [0.18.0](https://github.com/MTES-MCT/camino-ui/compare/v0.17.0...v0.18.0) (2019-05-23)
 
 
