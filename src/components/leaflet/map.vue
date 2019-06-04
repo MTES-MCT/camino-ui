@@ -2,7 +2,6 @@
   <div
     id="map"
     ref="map"
-    class="map mb"
   >
     <div class="absolute px-s py-xs map-loader">
       <div class="h6">
@@ -85,16 +84,18 @@ export default {
       L.Map.addInitHook('addHandler', 'gestureHandling', GestureHandling)
 
       this.map = L.map(this.$refs.map, {
+        // preferCanvas: true,
         zoomControl: true,
         doubleClickZoom: false,
-        minZoom: 3,
+        minZoom: 4,
         gestureHandling: true,
         gestureHandlingOptions: {
           text: {
             touch: 'Utilisez deux doigts pour zoomer',
             scroll: 'Utilisez ctrl + scroll pour zoomer',
             scrollMac: 'Utilisez \u2318 + scroll pour zoomer'
-          }
+          },
+          duration: 500
         }
       })
 

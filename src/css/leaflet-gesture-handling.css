@@ -20,8 +20,14 @@
   animation: leaflet-gestures-fadein 0.8s backwards;
   color: #fff;
   font-size: 22px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 15px;
   position: absolute;

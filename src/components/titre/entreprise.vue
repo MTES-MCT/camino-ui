@@ -14,6 +14,20 @@
       class="px-m pt-m"
     >
       <div
+        v-if="entreprise.legalSiren"
+        class="large-blobs"
+      >
+        <div class="large-blob-1-6">
+          <h6>Siren</h6>
+        </div>
+        <div
+          class="large-blob-5-6"
+        >
+          <p>{{ entreprise.legalSiren }}</p>
+        </div>
+      </div>
+
+      <div
         v-if="entreprise.legalForme"
         class="large-blobs"
       >
@@ -140,6 +154,7 @@ export default {
   computed: {
     content() {
       return (
+        this.entreprise.legalSiren ||
         this.entreprise.legalForme ||
         this.entreprise.etablissements.length ||
         this.entreprise.adresse ||

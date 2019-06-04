@@ -25,6 +25,11 @@
   user-select: none;
 }
 
+/* Prevents IE11 from highlighting tiles in blue */
+.leaflet-tile::selection {
+  background: transparent;
+}
+
 /* Safari renders non-retina tile on retina better with this, but Chrome is worse */
 .leaflet-safari .leaflet-tile {
   image-rendering: -webkit-optimize-contrast;
@@ -34,7 +39,7 @@
 .leaflet-safari .leaflet-tile-container {
   width: 1600px;
   height: 1600px;
-  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
 }
 
 .leaflet-marker-icon,
@@ -43,28 +48,31 @@
 }
 
 /* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
-
 /* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */
 .leaflet-container .leaflet-overlay-pane svg,
 .leaflet-container .leaflet-marker-pane img,
 .leaflet-container .leaflet-shadow-pane img,
 .leaflet-container .leaflet-tile-pane img,
-.leaflet-container img.leaflet-image-layer {
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
   max-width: none !important;
   max-height: none !important;
 }
 
 .leaflet-container.leaflet-touch-zoom {
+  -ms-touch-action: pan-x pan-y;
   touch-action: pan-x pan-y;
 }
 
 .leaflet-container.leaflet-touch-drag {
+  -ms-touch-action: pinch-zoom;
   /* Fallback for FF which doesn't support pinch-zoom */
   touch-action: none;
   touch-action: pinch-zoom;
 }
 
 .leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+  -ms-touch-action: none;
   touch-action: none;
 }
 
@@ -246,6 +254,7 @@
 .leaflet-grab {
   cursor: -webkit-grab;
   cursor: -moz-grab;
+  cursor: grab;
 }
 
 .leaflet-crosshair,
@@ -264,6 +273,7 @@
   cursor: move;
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
+  cursor: grabbing;
 }
 
 /* marker & overlays interactivity */
@@ -277,7 +287,8 @@
 
 .leaflet-marker-icon.leaflet-interactive,
 .leaflet-image-layer.leaflet-interactive,
-.leaflet-pane > svg path.leaflet-interactive {
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
   pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
   pointer-events: auto;
 }
@@ -557,7 +568,6 @@
   text-align: center;
   width: 18px;
   height: 14px;
-  font: 16px/14px Tahoma, Verdana, sans-serif;
   color: #c3c3c3;
   text-decoration: none;
   font-weight: bold;
@@ -604,7 +614,6 @@
 }
 
 /* Tooltip */
-
 /* Base styles for the element that has a tooltip */
 .leaflet-tooltip {
   position: absolute;

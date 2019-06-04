@@ -256,6 +256,7 @@
 
   .map-list {
     height: calc(100vh - (17.5 * var(--unit)));
+    padding-bottom: 75%;
   }
 
   .form-blobs {

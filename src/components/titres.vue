@@ -19,14 +19,14 @@
 
     <TitresFilters />
 
-    <div class="desktop-blobs">
-      <div class="desktop-blob-1-2">
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-2">
         <p>
           Résultat : {{ titres.length }} titre{{ titres.length > 1 ? 's' : '' }} minier{{ titres.length > 1 ? 's' : '' }}
         </p>
       </div>
       <div
-        class="desktop-blob-1-2 flex"
+        class="tablet-blob-1-2 flex"
       >
         <div class="flex-right mt--s mb-s flex">
           <titres-csv-download
@@ -56,6 +56,7 @@
         </div>
       </div>
     </div>
+
     <Component
       :is="vue.component"
       v-if="vueId"
@@ -186,7 +187,6 @@ export default {
         component: EditPopup,
         props: {
           titre,
-          types: this.$store.state.metas.types,
           domaines: this.$store.state.metas.domaines,
           creation: true
         }
