@@ -12,7 +12,7 @@
           class="btn-border rnd-xs py-s px-m full-x flex mb-s"
           @click="addPopupOpen"
         >
-          Ajouter un titre <i class="icon-24 icon-24-plus flex-right" />
+          Ajouter un titre <i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
     </div>
@@ -47,7 +47,7 @@
                 @click="urlSet(v.id)"
               >
                 <i
-                  :class="`icon-24-${v.icon}`"
+                  :class="`icon-${v.icon}`"
                   class="icon-24"
                 />
               </button>

@@ -13,14 +13,14 @@
             class="btn-border rnd-l-xs py-s px-m mb"
             @click="removePopupOpen"
           >
-            <i class="icon-24 icon-24-trash" />
+            <i class="icon-24 icon-trash" />
           </button>
 
           <button
             class="btn-border rnd-r-xs py-s px-m mb"
             @click="editPopupOpen"
           >
-            <i class="icon-24 icon-24-pencil" />
+            <i class="icon-24 icon-pencil" />
           </button>
         </div>
       </div>

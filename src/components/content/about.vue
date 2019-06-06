@@ -98,7 +98,7 @@
       <div class="desktop-blobs">
         <div class="desktop-blob-1-3">
           <div class="p-l">
-            <i class="icon-128 icon-128-business" />
+            <i class="icon-128 icon-business" />
           </div>
 
           <h3>Les entreprises</h3>
@@ -114,7 +114,7 @@
 
         <div class="desktop-blob-1-3">
           <div class="p-l">
-            <i class="icon-128 icon-128-ngo" />
+            <i class="icon-128 icon-ngo" />
           </div>
 
           <h3>Les ONG, les citoyens et leurs élus</h3>
@@ -129,7 +129,7 @@
 
         <div class="desktop-blob-1-3">
           <div class="p-l">
-            <i class="icon-128 icon-128-user" />
+            <i class="icon-128 icon-user-check" />
           </div>
 
           <h3>Les agents publics</h3>
@@ -167,7 +167,7 @@
       <div class="desktop-blobs">
         <div class="desktop-blob-1-3">
           <div class="p-l">
-            <i class="icon-128 icon-128-map" />
+            <i class="icon-128 icon-map" />
           </div>
           <h3>Une carte interactive</h3>
 
@@ -179,7 +179,7 @@
 
         <div class="desktop-blob-1-3">
           <div class="p-l">
-            <i class="icon-128 icon-128-dashboard" />
+            <i class="icon-128 icon-dashboard" />
           </div>
 
           <h3>Des tableaux de bord</h3>
@@ -193,7 +193,7 @@
 
         <div class="desktop-blob-1-3">
           <div class="p-l">
-            <i class="icon-128 icon-128-api" />
+            <i class="icon-128 icon-api" />
           </div>
 
           <h3>Une API ouverte</h3>

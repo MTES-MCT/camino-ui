@@ -344,7 +344,7 @@
             class="btn-border py-s px-m rnd-xs"
             @click="visaRemove(visa.id)"
           >
-            <i class="icon-24 icon-24-minus" />
+            <i class="icon-24 icon-minus" />
           </button>
         </div>
       </div>
@@ -354,7 +354,7 @@
         class="btn-border rnd-xs py-s px-m full-x mb flex"
         @click="visaAdd"
       >
-        Ajouter un visa<i class="icon-24 icon-24-plus flex-right" />
+        Ajouter un visa<i class="icon-24 icon-plus flex-right" />
       </button>
 
       <hr>
@@ -410,7 +410,7 @@
                   class="btn-border py-s px-m rnd-s mt--s"
                   @click="pointRemove(point)"
                 >
-                  <i class="icon-24 icon-24-minus" />
+                  <i class="icon-24 icon-minus" />
                 </button>
               </div>
             </div>
@@ -515,7 +515,7 @@
                     class="btn-border py-s px-m rnd-xs mt--s"
                     @click="pointReferenceRemove(point, reference)"
                   >
-                    <i class="icon-24 icon-24-minus" />
+                    <i class="icon-24 icon-minus" />
                   </button>
                 </div>
               </div>
@@ -552,7 +552,7 @@
                 class="btn-border rnd-xs py-s px-m full-x flex"
                 @click="pointReferenceAdd(point)"
               >
-                Ajouter une référence <i class="icon-24 icon-24-plus flex-right" />
+                Ajouter une référence <i class="icon-24 icon-plus flex-right" />
               </button>
             </div>
           </div>
@@ -563,7 +563,7 @@
         class="btn-border rnd-xs py-s px-m full-x mb flex"
         @click="pointAdd"
       >
-        Ajouter un point<i class="icon-24 icon-24-plus flex-right" />
+        Ajouter un point<i class="icon-24 icon-plus flex-right" />
       </button>
     </div>
 
@@ -601,7 +601,7 @@
               class="btn-border py-s px-m rnd-xs"
               @click="titulaireRemove(n)"
             >
-              <i class="icon-24 icon-24-minus" />
+              <i class="icon-24 icon-minus" />
             </button>
           </div>
         </div>
@@ -613,7 +613,7 @@
         :class="{'mb-s': titulairesLength, 'mb': !titulairesLength}"
         @click="titulaireAdd"
       >
-        Ajouter un titulaire<i class="icon-24 icon-24-plus flex-right" />
+        Ajouter un titulaire<i class="icon-24 icon-plus flex-right" />
       </button>
 
       <label
@@ -663,7 +663,7 @@
               class="btn-border py-s px-m rnd-xs"
               @click="amodiataireRemove(n)"
             >
-              <i class="icon-24 icon-24-minus" />
+              <i class="icon-24 icon-minus" />
             </button>
           </div>
         </div>
@@ -675,7 +675,7 @@
         :class="{'mb-s': amodiatairesLength, 'mb': !amodiatairesLength}"
         @click="amodiataireAdd"
       >
-        Ajouter un amodiataire<i class="icon-24 icon-24-plus flex-right" />
+        Ajouter un amodiataire<i class="icon-24 icon-plus flex-right" />
       </button>
 
       <label
@@ -724,7 +724,7 @@
               class="btn-border py-s px-m rnd-xs"
               @click="substanceRemove(n)"
             >
-              <i class="icon-24 icon-24-minus" />
+              <i class="icon-24 icon-minus" />
             </button>
           </div>
         </div>
@@ -737,7 +737,7 @@
         :class="{'mb-s': substancesLength, 'mb': !substancesLength}"
         @click="substanceAdd"
       >
-        Ajouter une substance<i class="icon-24 icon-24-plus flex-right" />
+        Ajouter une substance<i class="icon-24 icon-plus flex-right" />
       </button>
 
       <label

@@ -25,8 +25,8 @@
           <i
             class="icon-24"
             :class="{
-              'icon-24-chevron-b': !opened,
-              'icon-24-chevron-t': opened
+              'icon-chevron-b': !opened,
+              'icon-chevron-t': opened
             }"
           />
         </button>
@@ -53,7 +53,7 @@
       <div class="flex-right">
         <i
           class="icon-24"
-          :class="{ 'icon-24-chevron-b': !opened, 'icon-24-chevron-t': opened }"
+          :class="{ 'icon-chevron-b': !opened, 'icon-chevron-t': opened }"
         />
       </div>
     </button>

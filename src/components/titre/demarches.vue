@@ -8,7 +8,7 @@
         class="btn-border rnd-xs py-s px-m full-x flex mb"
         @click="demarcheAddPopupOpen"
       >
-        Ajouter une démarche <i class="icon-24 icon-24-plus flex-right" />
+        Ajouter une démarche <i class="icon-24 icon-plus flex-right" />
       </button>
     </div>
 

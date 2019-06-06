@@ -7,7 +7,7 @@
         class="btn-border rnd-xs py-s px-m mb flex-right"
         @click="addPopupOpen"
       >
-        <i class="icon-24 icon-24-plus" />
+        <i class="icon-24 icon-plus" />
       </button>
     </div>
 

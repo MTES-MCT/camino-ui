@@ -6,7 +6,7 @@
       alt="Url"
       @click="menuToggle"
     >
-      <i class="icon-24 icon-24-menu" />
+      <i class="icon-24 icon-menu" />
     </button>
   </div>
 </template>

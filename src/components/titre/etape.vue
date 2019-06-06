@@ -18,14 +18,14 @@
         class="btn-alt py-s px-m"
         @click="removePopupOpen"
       >
-        <i class="icon-24 icon-24-trash" />
+        <i class="icon-24 icon-trash" />
       </button>
 
       <button
         class="btn-alt py-s px-m"
         @click="editPopupOpen"
       >
-        <i class="icon-24 icon-24-pencil" />
+        <i class="icon-24 icon-pencil" />
       </button>
     </template>
 

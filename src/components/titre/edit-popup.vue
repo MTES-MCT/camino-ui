@@ -106,7 +106,7 @@
             class="btn-border py-s px-m rnd-xs"
             @click="referenceRemove(index)"
           >
-            <i class="icon-24 icon-24-minus" />
+            <i class="icon-24 icon-minus" />
           </button>
         </div>
       </div>
@@ -116,7 +116,7 @@
         class="btn-border rnd-xs py-s px-m full-x mb flex"
         @click="referenceAdd"
       >
-        Ajouter une référence<i class="icon-24 icon-24-plus flex-right" />
+        Ajouter une référence<i class="icon-24 icon-plus flex-right" />
       </button>
     </div>
 

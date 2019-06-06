@@ -33,7 +33,7 @@
   background-repeat: no-repeat;
 }
 
-.icon-24-close {
+.icon-close {
   background-image: svg-load(
     './icons/24-close.svg',
     fill=none,
@@ -44,7 +44,7 @@
   );
 }
 
-.btn-alt:hover .icon-24-close {
+.btn-alt:hover .icon-close {
   background-image: svg-load(
     './icons/24-close.svg',
     fill=none,
@@ -55,7 +55,7 @@
   );
 }
 
-.icon-24-plus {
+.icon-plus {
   background-image: svg-load(
     './icons/24-plus.svg',
     fill=none,
@@ -66,9 +66,9 @@
   );
 }
 
-.btn-alt .icon-24-plus,
-.btn-alt:hover .icon-24-plus,
-.btn-border:hover .icon-24-plus {
+.btn-alt .icon-plus,
+.btn-alt:hover .icon-plus,
+.btn-border:hover .icon-plus {
   background-image: svg-load(
     './icons/24-plus.svg',
     fill=none,
@@ -79,7 +79,7 @@
   );
 }
 
-.icon-24-minus {
+.icon-minus {
   background-image: svg-load(
     './icons/24-minus.svg',
     fill=none,
@@ -90,8 +90,8 @@
   );
 }
 
-.btn-alt:hover .icon-24-minus,
-.btn-border:hover .icon-24-minus {
+.btn-alt:hover .icon-minus,
+.btn-border:hover .icon-minus {
   background-image: svg-load(
     './icons/24-minus.svg',
     fill=none,
@@ -102,7 +102,7 @@
   );
 }
 
-.icon-24-chevron-b {
+.icon-chevron-b {
   background-image: svg-load(
     './icons/24-chevron-b.svg',
     fill=none,
@@ -113,9 +113,9 @@
   );
 }
 
-.btn-border:hover .icon-24-chevron-b,
-.btn:hover .icon-24-chevron-b,
-.btn-alt:hover .icon-24-chevron-b {
+.btn-border:hover .icon-chevron-b,
+.btn:hover .icon-chevron-b,
+.btn-alt:hover .icon-chevron-b {
   background-image: svg-load(
     './icons/24-chevron-b.svg',
     fill=none,
@@ -126,7 +126,7 @@
   );
 }
 
-.icon-24-chevron-t {
+.icon-chevron-t {
   background-image: svg-load(
     './icons/24-chevron-t.svg',
     fill=none,
@@ -137,9 +137,9 @@
   );
 }
 
-.btn-border:hover .icon-24-chevron-t,
-.btn:hover .icon-24-chevron-t,
-.btn-alt:hover .icon-24-chevron-t {
+.btn-border:hover .icon-chevron-t,
+.btn:hover .icon-chevron-t,
+.btn-alt:hover .icon-chevron-t {
   background-image: svg-load(
     './icons/24-chevron-t.svg',
     fill=none,
@@ -150,7 +150,7 @@
   );
 }
 
-.icon-24-download {
+.icon-download {
   background-image: svg-load(
     './icons/24-download.svg',
     fill=none,
@@ -161,7 +161,7 @@
   );
 }
 
-.btn-alt:hover .icon-24-download {
+.btn-alt:hover .icon-download {
   background-image: svg-load(
     './icons/24-download.svg',
     fill=none,
@@ -172,7 +172,7 @@
   );
 }
 
-.icon-24-view {
+.icon-view {
   background-image: svg-load(
     './icons/24-view.svg',
     fill=none,
@@ -183,7 +183,7 @@
   );
 }
 
-.icon-24-link {
+.icon-link {
   background-image: svg-load(
     './icons/24-link.svg',
     fill=none,
@@ -194,7 +194,7 @@
   );
 }
 
-.btn-alt:hover .icon-24-link {
+.btn-alt:hover .icon-link {
   background-image: svg-load(
     './icons/24-link.svg',
     fill=none,
@@ -205,7 +205,7 @@
   );
 }
 
-.icon-24-login {
+.icon-login {
   background-image: svg-load(
     './icons/24-login.svg',
     fill=none,
@@ -216,7 +216,7 @@
   );
 }
 
-.btn-alt:hover .icon-24-login {
+.btn-alt:hover .icon-login {
   background-image: svg-load(
     './icons/24-login.svg',
     fill=none,
@@ -227,7 +227,7 @@
   );
 }
 
-.icon-24-user {
+.icon-user {
   background-image: svg-load(
     './icons/24-user.svg',
     fill=none,
@@ -238,8 +238,8 @@
   );
 }
 
-.btn-alt:hover .icon-24-user,
-.btn-alt.active .icon-24-user {
+.btn-alt:hover .icon-user,
+.btn-alt.active .icon-user {
   background-image: svg-load(
     './icons/24-user.svg',
     fill=none,
@@ -250,7 +250,7 @@
   );
 }
 
-.icon-24-menu {
+.icon-menu {
   background-image: svg-load(
     './icons/24-menu.svg',
     fill=none,
@@ -261,8 +261,8 @@
   );
 }
 
-.btn-alt:hover .icon-24-menu,
-.btn-alt.active .icon-24-menu {
+.btn-alt:hover .icon-menu,
+.btn-alt.active .icon-menu {
   background-image: svg-load(
     './icons/24-menu.svg',
     fill=none,
@@ -273,7 +273,7 @@
   );
 }
 
-.icon-24-pencil {
+.icon-pencil {
   background-image: svg-load(
     './icons/24-pencil.svg',
     fill=none,
@@ -284,8 +284,8 @@
   );
 }
 
-.btn-alt:hover .icon-24-pencil,
-.btn-border:hover .icon-24-pencil {
+.btn-alt:hover .icon-pencil,
+.btn-border:hover .icon-pencil {
   background-image: svg-load(
     './icons/24-pencil.svg',
     fill=none,
@@ -296,7 +296,7 @@
   );
 }
 
-.icon-24-key {
+.icon-key {
   background-image: svg-load(
     './icons/24-key.svg',
     fill=none,
@@ -307,7 +307,7 @@
   );
 }
 
-.btn-alt:hover .icon-24-key {
+.btn-alt:hover .icon-key {
   background-image: svg-load(
     './icons/24-key.svg',
     fill=none,
@@ -318,7 +318,7 @@
   );
 }
 
-.icon-24-trash {
+.icon-trash {
   background-image: svg-load(
     './icons/24-trash.svg',
     fill=none,
@@ -329,8 +329,8 @@
   );
 }
 
-.btn-alt:hover .icon-24-trash,
-.btn-border:hover .icon-24-trash {
+.btn-alt:hover .icon-trash,
+.btn-border:hover .icon-trash {
   background-image: svg-load(
     './icons/24-trash.svg',
     fill=none,
@@ -351,7 +351,7 @@
   }
 }
 
-.icon-24-globe {
+.icon-globe {
   background-image: svg-load(
     './icons/globe-3.svg',
     fill=none,
@@ -362,8 +362,8 @@
   );
 }
 
-.active .icon-24-globe,
-.btn-border:hover .icon-24-globe {
+.active .icon-globe,
+.btn-border:hover .icon-globe {
   background-image: svg-load(
     './icons/globe-3.svg',
     fill=none,
@@ -374,7 +374,7 @@
   );
 }
 
-.icon-24-list {
+.icon-list {
   background-image: svg-load(
     './icons/list-bullets.svg',
     fill=none,
@@ -385,8 +385,8 @@
   );
 }
 
-.active .icon-24-list,
-.btn-border:hover .icon-24-list {
+.active .icon-list,
+.btn-border:hover .icon-list {
   background-image: svg-load(
     './icons/list-bullets.svg',
     fill=none,
@@ -397,7 +397,7 @@
   );
 }
 
-.icon-128-map {
+.icon-map {
   background-image: svg-load(
     './icons/map-pin-2.svg',
     fill=none,
@@ -408,7 +408,7 @@
   );
 }
 
-.icon-128-dashboard {
+.icon-dashboard {
   background-image: svg-load(
     './icons/window-speedtest.svg',
     fill=none,
@@ -419,7 +419,7 @@
   );
 }
 
-.icon-128-api {
+.icon-api {
   background-image: svg-load(
     './icons/cloud-setting.svg',
     fill=none,
@@ -430,7 +430,7 @@
   );
 }
 
-.icon-128-user {
+.icon-user-check {
   background-image: svg-load(
     './icons/business-check.svg',
     fill=none,
@@ -441,7 +441,7 @@
   );
 }
 
-.icon-128-ngo {
+.icon-ngo {
   background-image: svg-load(
     './icons/group-global.svg',
     fill=none,
@@ -452,7 +452,7 @@
   );
 }
 
-.icon-128-business {
+.icon-business {
   background-image: svg-load(
     './icons/building-2.svg',
     fill=none,
