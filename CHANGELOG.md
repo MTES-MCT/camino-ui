@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.20.0](https://github.com/MTES-MCT/camino-ui/compare/v0.19.0...v0.20.0) (2019-06-11)
+
+
+### Build System
+
+* met à jour les dépendances ([481eee7](https://github.com/MTES-MCT/camino-ui/commit/481eee7))
+* met à jour les dépendances ([08c70e9](https://github.com/MTES-MCT/camino-ui/commit/08c70e9))
+
+
+### Features
+
+* utilise les date de demande, de début et de fin exposées par l'api ([c64a6f9](https://github.com/MTES-MCT/camino-ui/commit/c64a6f9))
+
+
+
 ## [0.19.0](https://github.com/MTES-MCT/camino-ui/compare/v0.18.0...v0.19.0) (2019-06-04)
 
 
