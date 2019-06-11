@@ -35,6 +35,9 @@ const fragmentTitre = gql`
     substances {
       ...titreSubstance
     }
+    dateDebut
+    dateFin
+    dateDemande
     surface
     volume
     volumeUnite {
@@ -87,7 +90,6 @@ const fragmentTitre = gql`
       ...titreActivite
     }
   }
-
 
   ${fragmentDemarcheType}
 

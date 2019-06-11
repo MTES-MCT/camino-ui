@@ -42,25 +42,15 @@ export default {
     },
 
     titresFormat(titres) {
-      const dateFormat = date => {
-        const d = new Date(date)
-        var dd = d.getDate()
-        var mm = d.getMonth() + 1
-        var yyyy = d.getFullYear()
-        return `${yyyy}-${mm}-${dd}`
-      }
-
       return titres.map(titre => {
-        const phases = titre.demarches.filter(d => d.phase).map(d => d.phase)
-
         const titreNew = {
           id: titre.id,
           nom: titre.nom,
           type: titre.type.nom,
           domaine: titre.domaine.nom,
-          date_debut: phases.length && dateFormat(phases[0].dateDebut),
-          date_fin:
-            phases.length && dateFormat(phases[phases.length - 1].dateFin),
+          date_debut: titre.dateDebut && this.dateFormat(titre.dateDebut),
+          date_fin: titre.dateFin && this.dateFormat(titre.dateFin),
+          date_demande: titre.dateDemande && this.dateFormat(titre.dateDemande),
           statut: titre.statut.nom,
           substances: titre.substances.map(s => s.nom).join(';'),
           surface_km2: titre.surface,

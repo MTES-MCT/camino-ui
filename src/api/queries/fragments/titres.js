@@ -3,7 +3,6 @@ import fragmentEntreprise from './entreprise'
 import fragmentAdministration from './administration'
 import { fragmentTitresSubstance } from './titre-substance'
 import { fragmentGeojsonMultiPolygon } from './geojson'
-import { fragmentTitresDemarche } from './titre-demarche'
 import { fragmentTitresActivite } from './titre-activite'
 
 const fragmentTitreList = gql`
@@ -30,6 +29,9 @@ const fragmentTitreList = gql`
     substances {
       ...titresSubstance
     }
+    dateDebut
+    dateFin
+    dateDemande
     surface
     volume
     volumeUnite {
@@ -52,9 +54,6 @@ const fragmentTitreList = gql`
     geojsonMultiPolygon {
       ...geojsonMultiPolygon
     }
-    demarches {
-      ...titresDemarche
-    }
     activites {
       ...titresActivite
     }
@@ -65,8 +64,6 @@ const fragmentTitreList = gql`
   ${fragmentEntreprise}
 
   ${fragmentTitresSubstance}
-
-  ${fragmentTitresDemarche}
 
   ${fragmentGeojsonMultiPolygon}
 
