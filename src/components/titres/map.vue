@@ -94,7 +94,8 @@ export default {
       zoneId: 'fr',
       geojsonLayers: [],
       markerLayers: [],
-      geojsonLayersDisplayed: []
+      geojsonLayersDisplayed: [],
+      geojsonListeDisplayed: []
     }
   },
 
@@ -211,54 +212,54 @@ export default {
       this.geojsonLayers = []
 
       // crée les clusters
-      // const markerClusters = {}
+      const markerClusters = {}
 
-      // this.domaines.forEach(domaine => {
-      //   markerClusters[domaine.id] = L.markerClusterGroup({
-      //     iconCreateFunction(cluster) {
-      //       const childCount = cluster.getChildCount()
+      this.domaines.forEach(domaine => {
+        markerClusters[domaine.id] = L.markerClusterGroup({
+          iconCreateFunction(cluster) {
+            const childCount = cluster.getChildCount()
 
-      //       let c = 'marker-cluster-size-'
-      //       if (childCount < 5) c += 'mini'
-      //       else if (childCount < 15) c += 'small'
-      //       else if (childCount < 30) c += 'medium'
-      //       else if (childCount < 50) c += 'large'
-      //       else c += 'extra'
+            let c = 'marker-cluster-size-'
+            if (childCount < 5) c += 'mini'
+            else if (childCount < 15) c += 'small'
+            else if (childCount < 30) c += 'medium'
+            else if (childCount < 50) c += 'large'
+            else c += 'extra'
 
-      //       return new L.DivIcon({
-      //         html: `<div><span>${domaine.id.toUpperCase()}</span></div>`,
-      //         className: `h6 mono border-bg color-bg py-xs px-s inline-block pill bg-titre-domaine-${
-      //           domaine.id
-      //         } ${c}`,
-      //         iconSize: null,
-      //         iconAnchor: [0, 0]
-      //       })
-      //     },
-      //     disableClusteringAtZoom: 12,
-      //     animate: false
-      //     // zoomToBoundsOnClick: false,
-      //     // spiderfyOnMaxZoom: false,
-      //     // showCoverageOnHover: false
-      //   })
+            return new L.DivIcon({
+              html: `<div><span>${domaine.id.toUpperCase()}</span></div>`,
+              className: `h6 mono border-bg color-bg py-xs px-s inline-block pill bg-titre-domaine-${
+                domaine.id
+              } ${c}`,
+              iconSize: null,
+              iconAnchor: [0, 0]
+            })
+          },
+          disableClusteringAtZoom: 12,
+          animate: false,
+          // zoomToBoundsOnClick: false,
+          spiderfyOnMaxZoom: false,
+          showCoverageOnHover: false
+        })
 
-      //   const popupOptions = {
-      //     closeButton: false,
-      //     offset: [20, 6],
-      //     autoPan: false
-      //   }
+        const popupOptions = {
+          closeButton: false,
+          offset: [20, 6],
+          autoPan: false
+        }
 
-      //   markerClusters[domaine.id].on('clustermouseover', cluster => {
-      //     const popupHtml = `<h4 class="mb-s">${
-      //       cluster.layer.getAllChildMarkers().length
-      //     }</h4>`
+        markerClusters[domaine.id].on('clustermouseover', cluster => {
+          const popupHtml = `<h4 class="mb-s">${
+            cluster.layer.getAllChildMarkers().length
+          }</h4>`
 
-      //     cluster.sourceTarget.bindPopup(popupHtml, popupOptions).openPopup()
-      //   })
+          cluster.sourceTarget.bindPopup(popupHtml, popupOptions).openPopup()
+        })
 
-      //   markerClusters[domaine.id].on('clustermouseout', cluster => {
-      //     cluster.sourceTarget.closePopup()
-      //   })
-      // })
+        markerClusters[domaine.id].on('clustermouseout', cluster => {
+          cluster.sourceTarget.closePopup()
+        })
+      })
 
       this.titres.forEach(titre => {
         const domaineId = titre.domaine.id
@@ -291,6 +292,20 @@ export default {
           },
           mouseout(e) {
             this.closePopup()
+          },
+          add: e => {
+            this.geojsonLayers.forEach(geojson => {
+              if (
+                e.target.id === geojson.id &&
+                !this.geojsonListeDisplayed.includes(geojson)
+              )
+                this.geojsonListeDisplayed.push(geojson)
+            })
+          },
+          remove: e => {
+            this.geojsonListeDisplayed = this.geojsonListeDisplayed.filter(
+              geojson => e.target.id !== geojson.id
+            )
           }
         }
 
@@ -315,19 +330,21 @@ export default {
 
               titleMarker.bindPopup(popupHtml, popupOptions)
               titleMarker.on(methods)
+              titleMarker.id = titre.id
 
-              this.markerLayers.push(titleMarker)
+              // this.markerLayers.push(titleMarker)
 
-              // markerClusters[domaineId].addLayer(titleMarker)
+              markerClusters[domaineId].addLayer(titleMarker)
             }
           })
+          geojsonLayer.id = titre.id
           this.geojsonLayers.push(geojsonLayer)
         }
       })
 
-      // this.markerLayers = Object.keys(markerClusters).map(
-      //   domaineId => markerClusters[domaineId]
-      // )
+      this.markerLayers = Object.keys(markerClusters).map(
+        domaineId => markerClusters[domaineId]
+      )
 
       this.geojsonLayersDisplay()
     },
@@ -362,8 +379,8 @@ export default {
     },
 
     zoomUrlSet(zoom) {
-      this.geojsonLayersDisplay()
       this.urlParamSet('zoom', zoom)
+      this.geojsonLayersDisplay()
     },
 
     centreUrlSet(centre) {
@@ -371,7 +388,8 @@ export default {
     },
 
     geojsonLayersDisplay() {
-      this.geojsonLayersDisplayed = this.zoom > 7 ? this.geojsonLayers : []
+      this.geojsonLayersDisplayed =
+        this.zoom > 11 ? this.geojsonLayers : this.geojsonListeDisplayed
     }
   }
 }
