@@ -169,32 +169,51 @@
 
       <div v-if="lien === 'entreprise'">
         <hr>
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-            <h6>Entreprise</h6>
-          </div>
-
-          <div class="mb tablet-blob-2-3">
+        <h3 class="mb-s">
+          Entreprises
+        </h3>
+        <div
+          v-for="(entrepriseId, n) in utilisateur.entreprisesIds"
+          :key="n"
+        >
+          <div
+            class="flex full-x"
+            :class="{'mb-s': entreprisesLength, 'mb': !entreprisesLength}"
+          >
             <select
-              v-model="utilisateur.entrepriseId"
+              v-model="utilisateur.entreprisesIds[n]"
               type="text"
-              class="p-s mr"
+              class="p-s mr-s"
             >
               <option
                 v-for="entreprise in entreprises"
                 :key="entreprise.id"
                 :value="entreprise.id"
+                :disabled="utilisateur.entreprisesIds.find(id => id === entreprise.id)"
               >
                 {{ entreprise.nom }}
-                {{
-                  entreprise.legalSiren ||
-                    entreprise.legalEtranger ||
-                    entreprise.id
-                }}
               </option>
             </select>
+            <div class="flex-right">
+              <button
+                class="btn-border py-s px-m rnd-xs"
+                @click="entrepriseRemove(n)"
+              >
+                <i class="icon-24 icon-minus" />
+              </button>
+            </div>
           </div>
         </div>
+
+        <button
+          v-if="!utilisateur.entreprisesIds.includes('')"
+          class="btn-border rnd-xs py-s px-m full-x flex"
+
+          :class="{'mb-s': entreprisesLength, 'mb': !entreprisesLength}"
+          @click="entrepriseAdd"
+        >
+          Ajouter une entreprise<i class="icon-24 icon-plus flex-right" />
+        </button>
       </div>
     </div>
 
@@ -284,13 +303,17 @@ export default {
     },
     entreprises() {
       return this.$store.state.entreprises.list
+    },
+
+    entreprisesLength() {
+      return this.utilisateur.entreprisesIds.filter(id => id).length
     }
   },
 
   created() {
     document.addEventListener('keyup', this.keyup)
 
-    if (this.utilisateur.entrepriseId) {
+    if (this.entreprisesLength) {
       this.lien = 'entreprise'
     }
   },
@@ -303,6 +326,8 @@ export default {
     save() {
       if (this.complete) {
         const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
+
+        console.log(this.action, utilisateur)
 
         if (utilisateur.permission) {
           utilisateur.permissionId = utilisateur.permission.id
@@ -340,9 +365,17 @@ export default {
     },
 
     lienReset() {
-      this.utilisateur.entrepriseId = this.lien === 'entreprise' ? '' : null
+      this.utilisateur.entreprisesIds = []
       this.utilisateur.administrationId =
         this.lien === 'administration' ? '' : null
+    },
+
+    entrepriseAdd() {
+      this.utilisateur.entreprisesIds.push('')
+    },
+
+    entrepriseRemove(index) {
+      this.utilisateur.entreprisesIds.splice(index, 1)
     }
   }
 }

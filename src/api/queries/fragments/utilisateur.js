@@ -13,7 +13,7 @@ const fragmentUtilisateur = gql`
       id
       nom
     }
-    entreprise {
+    entreprises {
       id
       legalSiren
       nom
@@ -41,7 +41,7 @@ const fragmentUtilisateurToken = gql`
         id
         nom
       }
-      entreprise {
+      entreprises {
         id
         nom
         etablissements {

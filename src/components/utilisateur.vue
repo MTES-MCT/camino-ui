@@ -127,7 +127,7 @@
         </div>
 
         <div
-          v-if="utilisateur.entreprise"
+          v-if="utilisateur.entreprises"
           class="tablet-blobs"
         >
           <div class="tablet-blob-1-4">
@@ -138,12 +138,7 @@
 
           <div class="tablet-blob-3-4">
             <p>
-              {{ utilisateur.entreprise.nom }} <span
-                v-if="utilisateur.entreprise.legalSiren"
-                class="h5"
-              >
-                - {{ utilisateur.entreprise.legalSiren }}
-              </span>
+              {{ utilisateur.entreprises.map(({nom, legalSiren}) => `${nom} (${legalSiren})`).join(', ') }}
             </p>
           </div>
         </div>
@@ -204,11 +199,9 @@ export default {
     editPopupOpen() {
       const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
 
-      if (utilisateur.entreprise) {
-        utilisateur.entrepriseId = utilisateur.entreprise.id
-      }
+      utilisateur.entreprisesIds = utilisateur.entreprises.map(({ id }) => id)
 
-      delete utilisateur.entreprise
+      delete utilisateur.entreprises
 
       if (utilisateur.administration) {
         utilisateur.administrationId = utilisateur.administration.id

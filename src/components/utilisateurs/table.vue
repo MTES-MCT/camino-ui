@@ -43,10 +43,10 @@
           </div>
           <div class="td">
             <span
-              v-if="utilisateur.entreprise"
+              v-if="utilisateur.entreprises && utilisateur.entreprises.length"
               class="h5 word-break"
             >
-              {{ utilisateur.entreprise && utilisateur.entreprise.etablissements.length && utilisateur.entreprise.etablissements[0].nom }}
+              {{ utilisateur.entreprises.map(({nom}) => nom).join(', ') }}
             </span>
           </div>
         </RouterLink>
