@@ -12,7 +12,7 @@ localVue.use(Vuex)
 
 console.log = jest.fn()
 
-describe("obtention des données d'un utilisateur dans l'UI", () => {
+describe("état de l'utilisateur consulté", () => {
   let utilisateurId
   let store
   let actions

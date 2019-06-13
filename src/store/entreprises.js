@@ -2,7 +2,6 @@ import Vue from 'vue'
 import { entreprises } from '../api'
 
 export const state = {
-  current: null,
   list: []
 }
 
