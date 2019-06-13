@@ -54,7 +54,7 @@ describe('état de la liste des utilisateurs', () => {
     expect(store.state.utilisateurs.list).toEqual([utilisateurObj])
   })
 
-  test("n'obtient aucun utilisateur: il n'en existe pas", async () => {
+  test("retourne une erruer 404 si l'api retourne null", async () => {
     const apiMock = api.utilisateurs.mockResolvedValue(null)
     await store.dispatch('utilisateurs/get')
 

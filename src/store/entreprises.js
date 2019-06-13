@@ -11,7 +11,11 @@ export const actions = {
 
     try {
       const res = await entreprises({})
-      commit('set', res)
+      if (res) {
+        commit('set', res)
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.log(e)

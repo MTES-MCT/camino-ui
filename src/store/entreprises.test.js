@@ -69,6 +69,14 @@ describe("état de la liste d'entreprises", () => {
     expect(store.state.entreprises.list).toEqual(response)
   })
 
+  test("retourne une erreur 404 si l'api retourne null", async () => {
+    const apiMock = api.entreprises.mockResolvedValue(null)
+    await store.dispatch('entreprises/get')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.entreprises.list).toEqual([])
+  })
+
   test("retourne une erreur si l'api retourne une erreur pour obtenir des utilisateurs", async () => {
     const apiMock = api.entreprises.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('entreprises/get')
