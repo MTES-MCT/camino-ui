@@ -49,3 +49,9 @@
   line-height: 45px;
   text-align: center;
 }
+
+.leaflet-marker-icon.marker-titre {
+  height: 15px;
+  width: 15px;
+  background-color: #bedadc;
+}

@@ -4,6 +4,7 @@
       ref="map"
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
+      :marker-layers="markerLayers"
       :bounds="bounds"
       class="map map-detail mb"
       @map-zoom="zoomGet"
@@ -56,7 +57,8 @@ export default {
     return {
       map: null,
       geojsonLayers: [L.geoJSON(this.geojson)],
-      zoom: 0
+      zoom: 0,
+      markerLayers: []
     }
   },
 
@@ -87,11 +89,40 @@ export default {
     }
   },
 
+  created() {
+    this.markersInit()
+  },
+
   mounted() {
     this.center()
   },
 
   methods: {
+    markersInit() {
+      const icon = L.divIcon({
+        className: `mono border-bg color-bg marker-titre pill`,
+        html: ``,
+        iconSize: null,
+        iconAnchor: [7, 7]
+      })
+      const coordsGeojson = this.geojsonLayers[0].getLayers()[0].feature
+        .geometry.coordinates
+      coordsGeojson.forEach(coordsPoly =>
+        coordsPoly.forEach(coordsContour =>
+          coordsContour.forEach(coordsPoint => {
+            const lat = coordsPoint[0]
+            const lon = coordsPoint[1]
+            const titleMarker = L.marker([lon, lat], { icon })
+            titleMarker.bindPopup(
+              `<h4 class="mb-s">lat: ${Math.round(lat * 1000) /
+                1000}°<br />lon: ${Math.round(lon * 1000) / 1000}°</h4>`
+            )
+            this.markerLayers.push(titleMarker)
+          })
+        )
+      )
+    },
+
     tilesIdSelect(tuileNom) {
       this.$store.dispatch('user/preferenceSet', {
         section: 'carte.tilesId',

@@ -203,7 +203,6 @@ export default {
     },
 
     titresInit() {
-      this.markerLayers = []
       this.geojsonLayers = []
 
       // crée les clusters
