@@ -10,6 +10,7 @@ import metas from './metas'
 import map from './map'
 import utilisateur from './utilisateur'
 import utilisateurs from './utilisateurs'
+import entreprise from './entreprise'
 import entreprises from './entreprises'
 import substances from './substances'
 import user from './user'
@@ -23,6 +24,7 @@ const modules = {
   map,
   utilisateur,
   utilisateurs,
+  entreprise,
   entreprises,
   substances,
   user,
@@ -53,38 +55,28 @@ export const actions = {
     try {
       const res = await init()
 
-      if (res.version) {
-        commit('apiVersionSet', res.version)
-      }
+      commit('apiVersionSet', res.version)
 
-      if (res.permissions) {
-        commit('utilisateurs/permissionsSet', res.permissions, { root: true })
-      }
+      commit('utilisateurs/permissionsSet', res.permissions, { root: true })
 
-      if (res.substances) {
-        commit('substances/set', res.substances, { root: true })
-      }
+      commit('substances/set', res.substances, { root: true })
 
-      if (res.entreprises) {
-        commit('entreprises/set', res.entreprises, { root: true })
-      }
+      commit('entreprises/set', res.entreprises, { root: true })
 
-      if (res.metas) {
-        const metasIds = [
-          'types',
-          'domaines',
-          'statuts',
-          'devises',
-          'volumeUnites',
-          'geoSystemes'
-        ]
+      const metasIds = [
+        'types',
+        'domaines',
+        'statuts',
+        'devises',
+        'volumeUnites',
+        'geoSystemes'
+      ]
 
-        metasIds.forEach(id => {
-          dispatch('metas/set', { id, values: res.metas[id] }, { root: true })
-        })
+      metasIds.forEach(id => {
+        dispatch('metas/set', { id, values: res.metas[id] }, { root: true })
+      })
 
-        commit('loaded')
-      }
+      commit('loaded')
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.log(e)

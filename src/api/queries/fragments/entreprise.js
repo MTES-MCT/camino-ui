@@ -22,7 +22,36 @@ const fragmentEntreprise = gql`
     url
     telephone
     email
+    utilisateurs {
+      id
+      email
+      nom
+      prenom
+    }
   }
 `
 
-export default fragmentEntreprise
+const fragmentEntrepriseList = gql`
+  fragment entrepriseList on Entreprise {
+    id
+    nom
+    etablissements {
+      id
+      nom
+      dateDebut
+      dateFin
+      legalSiret
+    }
+    paysId
+    legalSiren
+    legalEtranger
+    legalForme
+    adresse
+    codePostal
+    commune
+    cedex
+    url
+  }
+`
+
+export { fragmentEntreprise, fragmentEntrepriseList }

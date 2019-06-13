@@ -5,6 +5,8 @@ import Titre from '../components/titre.vue'
 import Titres from '../components/titres.vue'
 import Utilisateur from '../components/utilisateur.vue'
 import Utilisateurs from '../components/utilisateurs.vue'
+import Entreprise from '../components/entreprise.vue'
+import Entreprises from '../components/entreprises.vue'
 import Error from '../components/error.vue'
 import About from '../components/content/about.vue'
 import Accessibilite from '../components/content/accessibilite.vue'
@@ -48,13 +50,16 @@ const routes = [
     path: '/utilisateurs/:id',
     name: 'utilisateur',
     component: Utilisateur
-    // children: [
-    //   {
-    //     path: 'activite',
-    //     name: 'activite',
-    //     component: TitleDetails
-    //   }
-    // ]
+  },
+  {
+    path: '/entreprises',
+    name: 'entreprises',
+    component: Entreprises
+  },
+  {
+    path: '/entreprises/:id',
+    name: 'entreprise',
+    component: Entreprise
   },
   {
     path: '/a-propos',

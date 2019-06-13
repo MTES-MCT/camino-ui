@@ -22,6 +22,15 @@
                 Utilisateurs
               </RouterLink>
             </li>
+            <li>
+              <RouterLink
+                :to="{ name: 'entreprises' }"
+                class="btn-transparent text-decoration-none bold"
+                active-class="active"
+              >
+                Entreprises
+              </RouterLink>
+            </li>
             <li><a href="" /></li>
           </ul>
         </div>

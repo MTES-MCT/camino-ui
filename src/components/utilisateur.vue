@@ -3,6 +3,7 @@
     <Loader />
   </Card>
   <Card v-else>
+    <h6>Utilisateur</h6>
     <h1>
       {{
         utilisateur
@@ -127,7 +128,7 @@
         </div>
 
         <div
-          v-if="utilisateur.entreprises"
+          v-if="utilisateur.entreprises.length"
           class="tablet-blobs"
         >
           <div class="tablet-blob-1-4">

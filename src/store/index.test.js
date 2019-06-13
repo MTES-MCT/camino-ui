@@ -30,7 +30,7 @@ describe("état général de l'application", () => {
   let state
   let store
   let modules
-  let setMetas, permissionsSetUtilisateurs, setSubstances, setEntreprises
+  let metasSet, utilisateursPermissionsSet, substancesSet, entreprisesSet
 
   beforeEach(() => {
     state = {
@@ -47,19 +47,19 @@ describe("état général de l'application", () => {
       loaded: false,
       route: null
     }
-    setMetas = jest.fn()
-    permissionsSetUtilisateurs = jest.fn()
-    setSubstances = jest.fn()
-    setEntreprises = jest.fn()
+    metasSet = jest.fn()
+    utilisateursPermissionsSet = jest.fn()
+    substancesSet = jest.fn()
+    entreprisesSet = jest.fn()
 
     modules = {
-      metas: { namespaced: true, actions: { set: setMetas } },
+      metas: { namespaced: true, actions: { set: metasSet } },
       utilisateurs: {
         namespaced: true,
-        mutations: { permissionsSet: permissionsSetUtilisateurs }
+        mutations: { permissionsSet: utilisateursPermissionsSet }
       },
-      entreprises: { namespaced: true, mutations: { set: setEntreprises } },
-      substances: { namespaced: true, mutations: { set: setSubstances } }
+      entreprises: { namespaced: true, mutations: { set: entreprisesSet } },
+      substances: { namespaced: true, mutations: { set: substancesSet } }
     }
 
     store = new Vuex.Store({
@@ -156,10 +156,10 @@ describe("état général de l'application", () => {
 
     expect(errorRemoveMock).toHaveBeenCalled()
     expect(apiVersionSetMock).toHaveBeenCalled()
-    expect(permissionsSetUtilisateurs).toHaveBeenCalled()
-    expect(setSubstances).toHaveBeenCalled()
-    expect(setEntreprises).toHaveBeenCalled()
-    expect(setMetas).toHaveBeenCalled()
+    expect(utilisateursPermissionsSet).toHaveBeenCalled()
+    expect(substancesSet).toHaveBeenCalled()
+    expect(entreprisesSet).toHaveBeenCalled()
+    expect(metasSet).toHaveBeenCalled()
   })
 
   test("initialise l'application sans métas", async () => {
@@ -167,10 +167,10 @@ describe("état général de l'application", () => {
     await store.dispatch('init')
 
     expect(state.versions.api).toBeNull()
-    expect(permissionsSetUtilisateurs).not.toHaveBeenCalled()
-    expect(setSubstances).not.toHaveBeenCalled()
-    expect(setEntreprises).not.toHaveBeenCalled()
-    expect(setMetas).not.toHaveBeenCalled()
+    expect(utilisateursPermissionsSet).toHaveBeenCalled()
+    expect(substancesSet).toHaveBeenCalled()
+    expect(entreprisesSet).toHaveBeenCalled()
+    expect(metasSet).not.toHaveBeenCalled()
   })
 
   test("retourne une erreur de l'api lors de l'initialisation", async () => {

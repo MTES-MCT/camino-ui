@@ -24,6 +24,8 @@ import {
   utilisateurAddEmail
 } from './utilisateurs'
 
+import { entreprise, entreprises } from './entreprises'
+
 import { titreActiviteUpdate } from './titre-activites'
 
 import { statistiques } from './statistiques'
@@ -40,6 +42,8 @@ export {
   titres,
   utilisateur,
   utilisateurs,
+  entreprise,
+  entreprises,
   utilisateurLogin,
   utilisateurUpdate,
   utilisateurAdd,
