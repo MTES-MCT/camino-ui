@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.21.0](https://github.com/MTES-MCT/camino-ui/compare/v0.20.0...v0.21.0) (2019-06-17)
+
+
+### Bug Fixes
+
+* désactive le lien sur le logo sur la pages titres ([aff40a7](https://github.com/MTES-MCT/camino-ui/commit/aff40a7))
+* supprime un test inutile ([f1e27ee](https://github.com/MTES-MCT/camino-ui/commit/f1e27ee))
+
+
+### Build System
+
+* met à jour les dépendances ([8320b8b](https://github.com/MTES-MCT/camino-ui/commit/8320b8b))
+
+
+### Features
+
+* affiche la durée en mois ([a6e15c4](https://github.com/MTES-MCT/camino-ui/commit/a6e15c4))
+* ajoute une page entreprise ([18e84ae](https://github.com/MTES-MCT/camino-ui/commit/18e84ae))
+* autorise plusieurs entreprises par utilisateurs ([99661ad](https://github.com/MTES-MCT/camino-ui/commit/99661ad))
+
+
+### Tests
+
+* teste l'état des entreprises ([418dffa](https://github.com/MTES-MCT/camino-ui/commit/418dffa))
+* teste si l'api retourne null sur une liste d'entreprises ([5167791](https://github.com/MTES-MCT/camino-ui/commit/5167791))
+
+
+
 ## [0.20.0](https://github.com/MTES-MCT/camino-ui/compare/v0.19.0...v0.20.0) (2019-06-11)
 
 
