@@ -47,7 +47,7 @@
 }
 
 .btn-transparent {
-  button-color: var(--color-inverse) var(--color-neutral) var(--color-highlight);
+  button-color: var(--color-neutral) var(--color-inverse) var(--color-text);
   button-background: var(--color-transparent) var(--color-transparent)
     var(--color-transparent);
   button-class: active disabled false;

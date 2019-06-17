@@ -26,11 +26,18 @@
     </div>
     <div class="tablet-blob-2-3 desktop-blob-1-2 large-blob-1-3">
       <RouterLink
+        v-if="$route.name !== 'titres'"
         :to="{ name: 'titres' }"
         class="pt-m pr-m inline-block full-x"
       >
         <img src="../../public/img/logo-camino.svg">
       </RouterLink>
+      <span
+        v-else
+        class="pt-m pr-m inline-block full-x"
+      >
+        <img src="../../public/img/logo-camino.svg">
+      </span>
       <p class="h5 color-neutral camino-header-baseline tablet-mb-s">
         Le cadastre minier numérique ouvert
       </p>
