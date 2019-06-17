@@ -52,7 +52,7 @@
               class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
             >?</span>
           </h6>
-          <p>{{ etape.duree }} ans</p>
+          <p>{{ etape.duree }} mois</p>
         </div>
         <div
           v-if="etape.dateDebut"

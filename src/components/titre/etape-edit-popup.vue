@@ -99,7 +99,7 @@
     <div>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Durée (années)</h6>
+          <h6>Durée (mois)</h6>
           <p class="h6 italic mb-0">
             Optionel
           </p>
