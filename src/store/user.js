@@ -55,6 +55,7 @@ export const actions = {
       const res = await utilisateurLogin({ email, motDePasse })
 
       dispatch('tokenSet', res.token)
+      await dispatch('init', null, { root: true })
       commit('set', res.utilisateur)
       commit('popupClose', null, { root: true })
       dispatch(
@@ -65,7 +66,6 @@ export const actions = {
         },
         { root: true }
       )
-      dispatch('init', null, { root: true })
     } catch (e) {
       dispatch('tokenRemove')
       commit('reset')
@@ -75,16 +75,16 @@ export const actions = {
     }
   },
 
-  logout({ commit, dispatch }) {
+  async logout({ commit, dispatch }) {
     commit('menuClose', null, { root: true })
     dispatch('tokenRemove')
+    await dispatch('init', null, { root: true })
     commit('reset')
     dispatch(
       'messageAdd',
       { value: `Vous êtes déconnecté`, type: 'success' },
       { root: true }
     )
-    dispatch('init', null, { root: true })
   },
 
   async addEmail({ commit, dispatch }, email) {

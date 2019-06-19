@@ -249,8 +249,6 @@ export default {
 
         // si les metas sont chargées
         // - initialise les filtres
-        // - complète l'url
-        // - fait une requête sur les titres
         if (firstTime) {
           this.init(true)
         }
@@ -277,6 +275,7 @@ export default {
   created() {
     if (this.loaded) {
       this.init()
+      this.urlSet()
     }
 
     document.addEventListener('keyup', this.keyup)
@@ -296,11 +295,10 @@ export default {
           : this.$route.query[name] ||
             this.$store.state.user.preferences.filtres[name]
 
-        // si il y a des paramètres
+        // assigne les paramètres au filtre
         this.filtreSet(name, value)
       })
 
-      this.urlSet()
       this.preferencesSet()
     },
 
@@ -380,6 +378,7 @@ export default {
     filtreSet(name, value) {
       this.filtres[name] = value ? value.split(',') : []
 
+      // supprime du filtre si la valeur n'est pas présente dans les metas
       if (this.metas[name]) {
         this.filtres[name] = this.filtres[name].filter(filtreId =>
           this.metas[name].find(meta => meta.id === filtreId)
@@ -394,16 +393,6 @@ export default {
     },
 
     urlSet() {
-      Object.keys(this.filtres).forEach(id => {
-        const value = this.filtres[id].length
-          ? this.filtres[id].join(',')
-          : null
-
-        this.urlParamSet(id, value)
-      })
-    },
-
-    urlChange() {
       const query = Object.assign({}, this.$route.query)
 
       Object.keys(this.filtres).forEach(id => {
@@ -434,7 +423,7 @@ export default {
 
     validate() {
       this.$refs.button.focus()
-      this.urlChange()
+      this.urlSet()
       this.$refs.filters.close()
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
