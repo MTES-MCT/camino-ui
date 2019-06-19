@@ -107,6 +107,10 @@ const routes = [
     component: Statistiques
   },
   {
+    path: '/stats',
+    redirect: 'statistiques'
+  },
+  {
     path: '/',
     redirect: 'titres'
   },
