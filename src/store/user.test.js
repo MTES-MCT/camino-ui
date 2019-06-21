@@ -44,7 +44,8 @@ describe("état de l'utilisateur connecté", () => {
         carte: { tilesId: 'osm-fr' },
         filtres: {},
         titres: { vueId: 'carte', pageActive: 1, pagesRange: 200 }
-      }
+      },
+      loaded: false
     }
 
     actions = {
@@ -141,21 +142,21 @@ describe("état de l'utilisateur connecté", () => {
     )
     await store.dispatch('user/login', { email, motDePasse })
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ email, motDePasse })
     expect(localStorage.getItem('token')).toBeNull()
     expect(store.state.user.current).toBeNull()
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test('deconnecte un utilisateur', () => {
+  test('déconnecte un utilisateur', async () => {
+    const initMock = actions.init.mockResolvedValue(Promise.resolve())
     localStorage.setItem('token', 'value')
     store.commit('user/set', userInfo)
-    store.dispatch('user/logout')
+    await store.dispatch('user/logout')
 
     expect(mutations.menuClose).toHaveBeenCalled()
+    expect(initMock).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
-    expect(actions.init).toHaveBeenCalled()
     expect(localStorage.getItem('token')).toBeNull()
     expect(store.state.user.current).toBeNull()
   })

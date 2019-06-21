@@ -49,9 +49,13 @@ export const state = {
 }
 
 export const actions = {
-  async init({ commit, dispatch }) {
+  async init({ state, commit, dispatch }) {
     commit('loadingAdd', 'init')
-    commit('errorRemove')
+
+    if (state.error) {
+      commit('errorRemove')
+    }
+
     try {
       const res = await init()
 
@@ -63,18 +67,7 @@ export const actions = {
 
       commit('entreprises/set', res.entreprises, { root: true })
 
-      const metasIds = [
-        'types',
-        'domaines',
-        'statuts',
-        'devises',
-        'volumeUnites',
-        'geoSystemes'
-      ]
-
-      metasIds.forEach(id => {
-        dispatch('metas/set', { id, values: res.metas[id] }, { root: true })
-      })
+      commit('metas/set', res.metas, { root: true })
 
       commit('loaded')
     } catch (e) {

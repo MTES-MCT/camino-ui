@@ -68,6 +68,7 @@ describe("état général de l'application", () => {
       actions,
       mutations
     })
+
     localStorage.clear()
     fetch.resetMocks()
   })
@@ -140,11 +141,7 @@ describe("état général de l'application", () => {
   })
 
   test("initialise l'application", async () => {
-    const errorRemoveMock = jest.fn()
-    mutations.errorRemove = errorRemoveMock
-    const apiVersionSetMock = jest.fn()
-    mutations.apiVersionSet = apiVersionSetMock
-    store = new Vuex.Store({ modules, state, actions, mutations })
+    state.error = true
     api.init.mockResolvedValue({
       version: '10.4',
       metas: { domaines: 'c,w', statuts: 'val' },
@@ -154,8 +151,6 @@ describe("état général de l'application", () => {
     })
     await store.dispatch('init')
 
-    expect(errorRemoveMock).toHaveBeenCalled()
-    expect(apiVersionSetMock).toHaveBeenCalled()
     expect(utilisateursPermissionsSet).toHaveBeenCalled()
     expect(substancesSet).toHaveBeenCalled()
     expect(entreprisesSet).toHaveBeenCalled()
@@ -163,14 +158,14 @@ describe("état général de l'application", () => {
   })
 
   test("initialise l'application sans métas", async () => {
-    api.init.mockResolvedValue({})
+    api.init.mockResolvedValue({ version: null })
     await store.dispatch('init')
 
     expect(state.versions.api).toBeNull()
     expect(utilisateursPermissionsSet).toHaveBeenCalled()
     expect(substancesSet).toHaveBeenCalled()
     expect(entreprisesSet).toHaveBeenCalled()
-    expect(metasSet).not.toHaveBeenCalled()
+    expect(metasSet).toHaveBeenCalled()
   })
 
   test("retourne une erreur de l'api lors de l'initialisation", async () => {

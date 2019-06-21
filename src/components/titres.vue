@@ -149,9 +149,15 @@ export default {
       }
     },
 
-    user: 'get',
+    user: function(to, from) {
+      console.log('user watch from component', to, from)
+      this.get()
+    },
 
-    filtres: 'get'
+    filtres: function(to, from) {
+      console.log('filtres watch from component')
+      this.get()
+    }
   },
 
   created() {
@@ -173,6 +179,7 @@ export default {
 
     get() {
       if (this.userLoaded) {
+        console.log('get')
         this.$store.dispatch('titres/get')
       }
     },
