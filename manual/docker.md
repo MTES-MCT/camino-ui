@@ -39,5 +39,5 @@ Pré-requis:
 # démarre l'application dans un container Docker
 # en mode `production`
 # accessible à http://flux.camino.pw
-docker-compose -f ./docker-compose.prod.yml up --build
+docker-compose -f ./docker-compose.yml up --build
 ```

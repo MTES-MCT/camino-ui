@@ -4,10 +4,10 @@ services:
   app:
     build: .
     environment:
-      VIRTUAL_HOST: test.camino.beta.gouv.fr
+      VIRTUAL_HOST: ${URL}
       VIRTUAL_PORT: ${NODE_PORT}
-      LETSENCRYPT_HOST: test.camino.beta.gouv.fr
-      LETSENCRYPT_EMAIL: francoisromain@gmail.com
+      LETSENCRYPT_HOST: ${URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
     expose:
       - ${NODE_PORT}
 
