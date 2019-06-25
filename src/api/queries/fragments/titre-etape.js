@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { fragmentEntrepriseList } from './entreprise'
+import { fragmentEntreprise } from './entreprise'
 import fragmentAdministration from './administration'
 import { fragmentTitreSubstance } from './titre-substance'
 import fragmentPoint from './point'
@@ -41,10 +41,10 @@ const fragmentTitreEtape = gql`
       ...administration
     }
     titulaires {
-      ...entrepriseList
+      ...entreprise
     }
     amodiataires {
-      ...entrepriseList
+      ...entreprise
     }
     points {
       ...point
@@ -68,7 +68,7 @@ const fragmentTitreEtape = gql`
 
   ${fragmentAdministration}
 
-  ${fragmentEntrepriseList}
+  ${fragmentEntreprise}
 
   ${fragmentPoint}
 

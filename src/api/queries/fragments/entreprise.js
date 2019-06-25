@@ -35,13 +35,6 @@ const fragmentEntrepriseList = gql`
   fragment entrepriseList on Entreprise {
     id
     nom
-    etablissements {
-      id
-      nom
-      dateDebut
-      dateFin
-      legalSiret
-    }
     paysId
     legalSiren
     legalEtranger

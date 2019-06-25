@@ -12,18 +12,18 @@
       <div class="tablet-blobs mt">
         <div class="tablet-blob-1-2 large-blob-1-3">
           <div
-            v-for="(filterInput, name) in filterInputs"
-            :key="name"
+            v-for="filterInput in filterInputs"
+            :key="filterInput.id"
             class="mb"
           >
             <h6>{{ filterInput.name }}</h6>
 
             <input
-              :value="filtres[name].join(' ')"
+              :value="filtres[filterInput.id].join(' ')"
               type="text"
               :placeholder="filterInput.placeholder"
               class="p-s"
-              @blur="inputChange(name, $event)"
+              @blur="inputChange(filterInput.id, $event)"
             >
           </div>
           <button
@@ -190,33 +190,29 @@ export default {
         territoires: []
       },
 
-      filterInputs: {
-        noms: { name: 'Nom', placeholder: '…' },
-        entreprises: {
-          name: 'Entreprises',
-          placeholder: 'Nom ou siret'
-        },
-        substances: {
+      filterInputs: [
+        { id: 'noms', name: 'Nom', placeholder: '…' },
+        { id: 'entreprises', name: 'Entreprises', placeholder: 'Nom ou siret' },
+        {
+          id: 'substances',
           name: 'Substances',
           placeholder: 'Or, Argent, Ag, …'
         },
-        references: {
+        {
+          id: 'references',
           name: 'Références',
           placeholder: 'Référence DGEC, DEAL, DEB, BRGM, Ifremer, …'
         },
-        territoires: {
+        {
+          id: 'territoires',
           name: 'Territoires',
           placeholder: 'Commune, département, région, …'
         }
-      }
+      ]
     }
   },
 
   computed: {
-    loaded() {
-      return this.$store.state.loaded
-    },
-
     metas() {
       return {
         domaines: this.$store.state.metas.domaines,
@@ -273,7 +269,7 @@ export default {
   },
 
   created() {
-    if (this.loaded) {
+    if (!Object.keys(this.metas).some(id => !this.metas[id].length)) {
       this.init()
       this.urlSet()
     }
@@ -387,7 +383,7 @@ export default {
     },
 
     inputsErase() {
-      Object.keys(this.filterInputs).forEach(name => {
+      this.filterInputs.forEach(({ name }) => {
         this.filtres[name] = []
       })
     },

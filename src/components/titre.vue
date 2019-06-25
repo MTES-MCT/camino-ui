@@ -39,11 +39,18 @@
           >
             {{ tab.nom }}
             <Pill
-              v-if="tabId === 'activites' && titre.activites.filter(e => e.statut.couleur === 'error' || e.statut.couleur === 'warning').length"
+              v-if="tabId === 'activites' && titre.activitesAbsentes"
               :color="'bg-error'"
-              class="mb--xs"
+              class="mb--xs mr-xs"
             >
-              {{ titre.activites && titre.activites.filter(e => e.statut.couleur === 'error' || e.statut.couleur === 'warning').length }}
+              {{ titre.activites && titre.activitesAbsentes }}
+            </Pill>
+            <Pill
+              v-if="tabId === 'activites' && titre.activitesEnConstruction"
+              :color="'bg-warning'"
+              class="mb--xs mr-xs"
+            >
+              {{ titre.activites && titre.activitesEnConstruction }}
             </Pill>
           </button>
         </div>

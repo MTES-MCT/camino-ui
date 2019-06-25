@@ -59,13 +59,28 @@
             v-if="activitesCol"
             class="td"
           >
-            <Pill
-              v-if="titreHasActivitesFind(titre.activites)"
-              :color="'bg-error'"
-              class="mb--xs"
-            >
-              {{ titreHasActivitesFind(titre.activites) }}
-            </Pill>
+            <ul class="list-inline mb--xs">
+              <li
+                v-if="titre.activitesAbsentes"
+                class="mr-xs"
+              >
+                <Pill
+                  :color="'bg-error'"
+                >
+                  {{ titre.activitesAbsentes }}
+                </Pill>
+              </li>
+              <li
+                v-if="titre.activitesEnConstruction"
+                class="mr-xs"
+              >
+                <Pill
+                  :color="'bg-warning'"
+                >
+                  {{ titre.activitesEnConstruction }}
+                </Pill>
+              </li>
+            </ul>
           </div>
           <div
             v-if="titre.titulaires"
@@ -200,7 +215,9 @@ export default {
     },
 
     activitesCol() {
-      return this.titres.find(t => this.titreHasActivitesFind(t.activites))
+      return this.titres.some(
+        t => t.activitesAbsentes || t.activitesEnConstruction
+      )
     },
 
     pageActive() {

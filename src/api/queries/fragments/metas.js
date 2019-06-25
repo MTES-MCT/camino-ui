@@ -34,9 +34,6 @@ const fragmentDemarcheType = gql`
     titulaires
     renouvelable
     exception
-    demarchesStatuts {
-      ...demarcheStatut
-    }
     etapesTypes {
       ...etapeType
     }

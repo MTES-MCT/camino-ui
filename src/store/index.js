@@ -44,7 +44,6 @@ export const state = {
     ui: `${npmVersion}`
   },
   loading: [],
-  loaded: false,
   route: null
 }
 
@@ -68,8 +67,6 @@ export const actions = {
       commit('entreprises/set', res.entreprises, { root: true })
 
       commit('metas/set', res.metas, { root: true })
-
-      commit('loaded')
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.log(e)

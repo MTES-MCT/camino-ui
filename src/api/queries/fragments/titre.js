@@ -4,7 +4,7 @@ import { fragmentDemarcheType } from './metas'
 import { fragmentTitreDemarche } from './titre-demarche'
 import { fragmentTitreActivite } from './titre-activite'
 import { fragmentTitreSubstance } from './titre-substance'
-import { fragmentEntrepriseList } from './entreprise'
+import { fragmentEntreprise } from './entreprise'
 import fragmentPoint from './point'
 
 import { fragmentGeojsonPoints } from './geojson'
@@ -39,6 +39,9 @@ const fragmentTitre = gql`
     dateDebut
     dateFin
     dateDemande
+    activitesEnConstruction
+    activitesAbsentes
+    activitesDeposees
     surface
     volume
     volumeUnite {
@@ -54,10 +57,10 @@ const fragmentTitre = gql`
       ...administration
     }
     titulaires {
-      ...entrepriseList
+      ...entreprise
     }
     amodiataires {
-      ...entrepriseList
+      ...entreprise
     }
     points {
       ...point
@@ -92,7 +95,7 @@ const fragmentTitre = gql`
     }
   }
 
-  ${fragmentEntrepriseList}
+  ${fragmentEntreprise}
 
   ${fragmentDemarcheType}
 
