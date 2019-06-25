@@ -35,6 +35,12 @@
             class="mr-s"
           />
 
+          <titres-geojson-download
+            v-if="titres.length"
+            :titres="titres"
+            class="mr-s"
+          />
+
           <div class="flex">
             <div
               v-for="v in vues"
@@ -73,6 +79,7 @@ import TitresTable from './titres/table.vue'
 import TitresMap from './titres/map.vue'
 import TitresFilters from './titres/filters.vue'
 import TitresCsvDownload from './titres/csv-download.vue'
+import TitresGeojsonDownload from './titres/geojson-download.vue'
 
 export default {
   name: 'Titres',
@@ -81,7 +88,8 @@ export default {
     Loader,
     Card,
     TitresFilters,
-    TitresCsvDownload
+    TitresCsvDownload,
+    TitresGeojsonDownload
   },
 
   data() {
