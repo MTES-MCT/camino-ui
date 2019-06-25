@@ -55,22 +55,28 @@ export default {
               date_demande:
                 titre.dateDemande && this.dateFormat(titre.dateDemande),
               statut: titre.statut.nom,
-              substances: titre.substances.map(s => s.nom).join(';'),
+              volume: titre.volume,
+              volume_unite: titre.volumeUnite,
+              substances: titre.substances.map(s => s.nom),
               surface_km2: titre.surface,
-              administrations_noms: titre.administrations
-                .map(a => a.nom)
-                .join(';'),
-              titulaires_noms: titre.titulaires.map(e => e.nom).join(';'),
-              titulaires_legal: titre.titulaires
-                .map(e => e.legalEtranger || e.legalSiren)
-                .join(';'),
-              amodiataires_noms: titre.amodiataires.map(e => e.nom).join(';'),
-              amodiataires_legal: titre.amodiataires
-                .map(e => e.legalEtranger || e.legalSiren)
-                .join(';'),
+              administrations_noms: titre.administrations.map(a => a.nom),
+              titulaires_noms: titre.titulaires.map(e => e.nom),
+              titulaires_legal: titre.titulaires.map(
+                e => e.legalEtranger || e.legalSiren
+              ),
+              amodiataires_noms: titre.amodiataires.map(e => e.nom),
+              amodiataires_legal: titre.amodiataires.map(
+                e => e.legalEtranger || e.legalSiren
+              ),
               engagement: titre.engagement,
               engagement_devise:
-                titre.engagementDevise && titre.engagementDevise.id
+                titre.engagementDevise && titre.engagementDevise.id,
+              references:
+                titre.references &&
+                titre.references.reduce((obj, reference) => {
+                  obj[reference.type] = reference.valeur
+                  return obj
+                }, {})
             },
             type: 'Feature',
             geometry: titre.geojsonMultiPolygon.geometry

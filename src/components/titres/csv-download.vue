@@ -52,6 +52,8 @@ export default {
           date_fin: titre.dateFin && this.dateFormat(titre.dateFin),
           date_demande: titre.dateDemande && this.dateFormat(titre.dateDemande),
           statut: titre.statut.nom,
+          volume: titre.volume,
+          volume_unite: titre.volumeUnite,
           substances: titre.substances.map(s => s.nom).join(';'),
           surface_km2: titre.surface,
           administrations_noms: titre.administrations.map(a => a.nom).join(';'),
