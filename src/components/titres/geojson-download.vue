@@ -25,7 +25,7 @@ export default {
         const yyyy = d.getFullYear()
         const hh = d.getHours()
         const mi = d.getMinutes()
-        return `${yyyy}${mm}${dd}-${hh}-${mi}-camino-titre-geojson.geojson`
+        return `${yyyy}${mm}${dd}-${hh}-${mi}-camino-titre-export.geojson`
       })()
 
       const link = document.createElement('a')
@@ -45,7 +45,33 @@ export default {
         type: 'FeatureCollection',
         features: titres.map(titre => {
           return {
-            properties: {},
+            properties: {
+              id: titre.id,
+              nom: titre.nom,
+              type: titre.type.nom,
+              domaine: titre.domaine.nom,
+              date_debut: titre.dateDebut && this.dateFormat(titre.dateDebut),
+              date_fin: titre.dateFin && this.dateFormat(titre.dateFin),
+              date_demande:
+                titre.dateDemande && this.dateFormat(titre.dateDemande),
+              statut: titre.statut.nom,
+              substances: titre.substances.map(s => s.nom).join(';'),
+              surface_km2: titre.surface,
+              administrations_noms: titre.administrations
+                .map(a => a.nom)
+                .join(';'),
+              titulaires_noms: titre.titulaires.map(e => e.nom).join(';'),
+              titulaires_legal: titre.titulaires
+                .map(e => e.legalEtranger || e.legalSiren)
+                .join(';'),
+              amodiataires_noms: titre.amodiataires.map(e => e.nom).join(';'),
+              amodiataires_legal: titre.amodiataires
+                .map(e => e.legalEtranger || e.legalSiren)
+                .join(';'),
+              engagement: titre.engagement,
+              engagement_devise:
+                titre.engagementDevise && titre.engagementDevise.id
+            },
             type: 'Feature',
             geometry: titre.geojsonMultiPolygon.geometry
           }
