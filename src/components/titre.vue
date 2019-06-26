@@ -7,6 +7,7 @@
       <TitreMap
         v-if="titre.geojsonMultiPolygon"
         :geojson="titre.geojsonMultiPolygon"
+        :points="titre.points"
         class="mb"
       />
 

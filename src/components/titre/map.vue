@@ -50,6 +50,10 @@ export default {
     geojson: {
       type: Object,
       default: () => {}
+    },
+    points: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -99,28 +103,31 @@ export default {
 
   methods: {
     markersInit() {
-      const icon = L.divIcon({
-        className: `mono border-bg color-bg marker-titre pill`,
-        html: ``,
-        iconSize: null,
-        iconAnchor: [7, 7]
+      this.points.forEach(point => {
+        const icon = L.divIcon({
+          className: ` h5 mono border-bg color-bg marker-titre pill`,
+          html: `${point.nom}`,
+          iconSize: null,
+          iconAnchor: [7, 7]
+        })
+        const titleMarker = L.marker([point.coordonnees.y, point.coordonnees.x], { icon })
+
+        let popupRef = ``
+        
+        point.references.forEach(ref => {
+          popupRef = `${popupRef}<br />${ref.geoSysteme.nom} (EPSG ${
+            ref.geoSysteme.id
+          }): x= ${ref.coordonnees.x}, y= ${ref.coordonnees.y}`
+        })
+        if (popupRef.length !== 0)
+          popupRef = `<h5 class="mb-s">Références:${popupRef}</h5>`
+
+        titleMarker.bindPopup(`<h5 class="mb-s">
+          id: ${point.id}
+          ${point.description ? `<br />description: ${point.description}` : ``}${popupRef}
+          </h5>`)
+        this.markerLayers.push(titleMarker)
       })
-      const coordsGeojson = this.geojsonLayers[0].getLayers()[0].feature
-        .geometry.coordinates
-      coordsGeojson.forEach(coordsPoly =>
-        coordsPoly.forEach(coordsContour =>
-          coordsContour.forEach(coordsPoint => {
-            const lat = coordsPoint[0]
-            const lon = coordsPoint[1]
-            const titleMarker = L.marker([lon, lat], { icon })
-            titleMarker.bindPopup(
-              `<h4 class="mb-s">lat: ${Math.round(lat * 1000) /
-                1000}°<br />lon: ${Math.round(lon * 1000) / 1000}°</h4>`
-            )
-            this.markerLayers.push(titleMarker)
-          })
-        )
-      )
     },
 
     tilesIdSelect(tuileNom) {
