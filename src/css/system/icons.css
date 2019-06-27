@@ -160,7 +160,7 @@
     stroke-width=1.25px
   );
 }
-
+.btn-border:hover .icon-download,
 .btn-alt:hover .icon-download {
   background-image: svg-load(
     './icons/24-download.svg',

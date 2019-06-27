@@ -1,9 +1,9 @@
 <template>
   <button
-    class="btn-border pill px-m py-s h5"
+    class="btn-border pill px-m py-s h5 flex"
     @click="download"
   >
-    Télécharger (.geojson)
+    <span class="mt-xxs mr-xs">geojson</span> <i class="icon-24 icon-download" />
   </button>
 </template>
 
@@ -25,7 +25,7 @@ export default {
         const yyyy = d.getFullYear()
         const hh = d.getHours()
         const mi = d.getMinutes()
-        return `${yyyy}${mm}${dd}-${hh}-${mi}-camino-titre-export.geojson`
+        return `${yyyy}${mm}${dd}-${hh}-${mi}-camino-export.geojson`
       })()
 
       const link = document.createElement('a')
@@ -38,6 +38,11 @@ export default {
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
+
+      this.$store.dispatch('messageAdd', {
+        value: `fichier ${name} téléchargé`,
+        type: 'success'
+      })
     },
 
     titresFormatGeojson(titres) {
@@ -45,6 +50,9 @@ export default {
         type: 'FeatureCollection',
         features: titres.map(titre => {
           return {
+            type: 'Feature',
+            geometry:
+              titre.geojsonMultiPolygon && titre.geojsonMultiPolygon.geometry,
             properties: {
               id: titre.id,
               nom: titre.nom,
@@ -80,9 +88,7 @@ export default {
                 titre.references
                   .map(reference => `${reference.type}: ${reference.valeur}`)
                   .join(', ')
-            },
-            type: 'Feature',
-            geometry: titre.geojsonMultiPolygon.geometry
+            }
           }
         })
       }

@@ -1,7 +1,6 @@
-version: "3"
+version: '3'
 
 services:
-
   app:
     image: node:alpine
     volumes:

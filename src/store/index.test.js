@@ -41,11 +41,11 @@ describe("état général de l'application", () => {
       menu: { component: null },
       versions: {
         api: null,
+        /* global npmVersion */
         ui: `${npmVersion}`
       },
       loading: [],
-      loaded: false,
-      route: null
+      loaded: false
     }
     metasSet = jest.fn()
     utilisateursPermissionsSet = jest.fn()
@@ -53,7 +53,7 @@ describe("état général de l'application", () => {
     entreprisesSet = jest.fn()
 
     modules = {
-      metas: { namespaced: true, actions: { set: metasSet } },
+      metas: { namespaced: true, mutations: { set: metasSet } },
       utilisateurs: {
         namespaced: true,
         mutations: { permissionsSet: utilisateursPermissionsSet }
@@ -158,6 +158,7 @@ describe("état général de l'application", () => {
   })
 
   test("initialise l'application sans métas", async () => {
+    state.loaded = true
     api.init.mockResolvedValue({ version: null })
     await store.dispatch('init')
 

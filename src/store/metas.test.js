@@ -43,41 +43,16 @@ describe('état de la liste des métas', () => {
     })
   })
 
-  test('ajoute des métas et met à jour des préférences utilisateurs', async () => {
-    await store.dispatch('metas/set', values)
-
-    expect(actions.preferenceSet).toHaveBeenCalled()
-    expect(store.state.metas.domaines).toEqual([{ id: 'c' }, { id: 'w' }])
-  })
-
-  test('ajoute des métas et ne met à jour pas à jour les préférences utilisateurs', async () => {
-    await store.dispatch('metas/set', {
-      domaines: [{ id: 'h' }]
-    })
-
-    expect(actions.preferenceSet).not.toHaveBeenCalled()
-    expect(store.state.metas.domaines).toEqual([{ id: 'h' }])
-  })
-
-  test('ajoute des métas', async () => {
-    user.state.preferences.filtres.domaines = ''
-    await store.dispatch('metas/set', values)
+  test('ajoute des métas', () => {
+    store.commit('metas/set', values)
 
     expect(store.state.metas.domaines).toEqual([{ id: 'c' }, { id: 'w' }])
   })
 
-  test('supprime des métas', async () => {
+  test('supprime des métas', () => {
     metas.state.domaines = [{ id: 'h' }]
-    await store.dispatch('metas/set', { domaines: [] })
+    store.commit('metas/set', { domaines: [] })
 
     expect(store.state.metas.domaines).toEqual([])
-  })
-
-  test('ajoute des metas (sans incidence sur les préférences utilisateurs)', async () => {
-    await store.dispatch('metas/set', {
-      devises: [{ id: 'euro' }]
-    })
-
-    expect(store.state.metas.devises).toEqual([{ id: 'euro' }])
   })
 })

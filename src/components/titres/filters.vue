@@ -12,18 +12,18 @@
       <div class="tablet-blobs mt">
         <div class="tablet-blob-1-2 large-blob-1-3">
           <div
-            v-for="filterInput in filterInputs"
-            :key="filterInput.id"
+            v-for="filtre in filtres.filter(({type}) => type === 'input')"
+            :key="filtre.id"
             class="mb"
           >
-            <h6>{{ filterInput.name }}</h6>
+            <h6>{{ filtre.name }}</h6>
 
             <input
-              :value="filtres[filterInput.id].join(' ')"
+              :value="filtre.values.join(' ')"
               type="text"
-              :placeholder="filterInput.placeholder"
+              :placeholder="filtre.placeholder"
               class="p-s"
-              @blur="inputChange(filterInput.id, $event)"
+              @blur="inputChange(filtre.id, $event)"
             >
           </div>
           <button
@@ -45,7 +45,7 @@
               <label>
                 <input
                   :value="domaine.id"
-                  :checked="filtres.domaines.find(id => domaine.id === id)"
+                  :checked="filtres.find(({id}) => id === 'domaines').values.find(id => domaine.id === id)"
                   type="checkbox"
                   class="mr-s"
                   @change="checkboxToggle('domaines', $event)"
@@ -88,7 +88,7 @@
               <label>
                 <input
                   :value="type.id"
-                  :checked="filtres.types.find(id => type.id === id)"
+                  :checked="filtres.find(({id}) => id === 'types').values.find(id => type.id === id)"
                   type="checkbox"
                   class="mr-s"
                   @change="checkboxToggle('types', $event)"
@@ -125,7 +125,7 @@
               <label>
                 <input
                   :value="statut.id"
-                  :checked="filtres.statuts.find(id => statut.id === id)"
+                  :checked="filtres.find(({id}) => id === 'statuts').values.find(id => statut.id === id)"
                   type="checkbox"
                   class="mr-s"
                   @change="checkboxToggle('statuts', $event)"
@@ -179,32 +179,42 @@ export default {
 
   data() {
     return {
-      filtres: {
-        types: [],
-        domaines: [],
-        statuts: [],
-        substances: [],
-        noms: [],
-        entreprises: [],
-        references: [],
-        territoires: []
-      },
-
-      filterInputs: [
-        { id: 'noms', name: 'Nom', placeholder: '…' },
-        { id: 'entreprises', name: 'Entreprises', placeholder: 'Nom ou siret' },
+      filtres: [
+        { id: 'types', type: 'checkbox', values: [] },
+        { id: 'domaines', type: 'checkbox', values: [] },
+        { id: 'statuts', type: 'checkbox', values: [] },
         {
           id: 'substances',
+          type: 'input',
+          values: [],
           name: 'Substances',
           placeholder: 'Or, Argent, Ag, …'
         },
         {
+          id: 'noms',
+          type: 'input',
+          values: [],
+          name: 'Nom',
+          placeholder: '…'
+        },
+        {
+          id: 'entreprises',
+          type: 'input',
+          values: [],
+          name: 'Entreprises',
+          placeholder: 'Nom ou siret'
+        },
+        {
           id: 'references',
+          type: 'input',
+          values: [],
           name: 'Références',
           placeholder: 'Référence DGEC, DEAL, DEB, BRGM, Ifremer, …'
         },
         {
           id: 'territoires',
+          type: 'input',
+          values: [],
           name: 'Territoires',
           placeholder: 'Commune, département, région, …'
         }
@@ -219,48 +229,50 @@ export default {
         types: this.$store.state.metas.types,
         statuts: this.$store.state.metas.statuts
       }
+    },
+
+    loaded() {
+      return this.$store.state.loaded
+    },
+
+    userPreferencesFiltres() {
+      return this.$store.state.user.preferences.filtres
     }
   },
 
   watch: {
     // si les paramètre d'url correspondant aux filtres changent
     // (pe: bouton back du navigateur)
+    // - met à jour les filtres
     // - met à jour les prefs utilisateur
-    // - met à jour les titres
     $route(to, from) {
-      const changed = Object.keys(this.filtres).some(
-        id =>
-          to.query[id] !==
-          (this.$store.state.user.preferences.filtres[id] || undefined)
+      const changed = this.filtres.some(
+        ({ id }) => to.query[id] !== this.userPreferencesFiltres[id]
       )
 
       if (changed) {
-        this.init(true)
+        this.filtresSet('fromRoute')
+        this.preferencesSet()
       }
     },
 
     metas: {
       handler: function(metas, metasOld) {
-        const firstTime = Object.keys(metasOld).some(id => !metasOld[id].length)
+        const firstLoad = Object.keys(metasOld).some(id => !metasOld[id].length)
 
-        // si les metas sont chargées
-        // - initialise les filtres
-        if (firstTime) {
-          this.init(true)
+        // si les metas sont chargées pour la première fois
+        // - initialise les filtres depuis les paramètre de route
+        if (firstLoad) {
+          this.filtresSet('fromRoute')
+          this.preferencesSet()
         }
 
         // si les metas sont mises à jour
         // (par exemple connexion / deconnexion utilisateur)
-        // - met à jour les filtres
+        // - met à jour les filtres depuis les préférences utilisateur
         else {
-          Object.keys(this.filtres).forEach(name => {
-            // récupère les préférences utilisateur
-            const value = this.$store.state.user.preferences.filtres[name]
-
-            // si il y a des paramètres
-            this.filtreSet(name, value)
-          })
-
+          this.preferencesSet()
+          this.filtresSet('fromPreferences')
           this.urlSet()
         }
       },
@@ -269,8 +281,10 @@ export default {
   },
 
   created() {
-    if (!Object.keys(this.metas).some(id => !this.metas[id].length)) {
-      this.init()
+    // si les metas sont chargées
+    if (this.loaded) {
+      this.filtresSet()
+      this.preferencesSet()
       this.urlSet()
     }
 
@@ -282,119 +296,82 @@ export default {
   },
 
   methods: {
-    init(routeOnly) {
-      Object.keys(this.filtres).forEach(name => {
+    filtresSet(source) {
+      const valueSet = (source, id) => {
+        if (source === 'fromRoute') {
+          return this.$route.query[id]
+        }
+        if (source === 'fromPreferences') {
+          return this.userPreferencesFiltres[id]
+        }
+
+        return this.$route.query[id] || this.userPreferencesFiltres[id]
+      }
+
+      const filtreSet = (id, value) => {
+        const filtre = this.filtres.find(filtre => filtre.id === id)
+        filtre.values = value ? value.split(',') : []
+
+        // supprime du filtre si la valeur n'est pas présente dans les metas
+        if (this.metas[id]) {
+          filtre.values = filtre.values.filter(filtreId =>
+            this.metas[id].find(meta => meta.id === filtreId)
+          )
+        }
+      }
+
+      this.filtres.forEach(({ id }) => {
         // récupère les paramètres d'url
         // ou des préférences utilisateur
-        const value = routeOnly
-          ? this.$route.query[name]
-          : this.$route.query[name] ||
-            this.$store.state.user.preferences.filtres[name]
-
         // assigne les paramètres au filtre
-        this.filtreSet(name, value)
+        filtreSet(id, valueSet(source, id))
       })
-
-      this.preferencesSet()
     },
 
-    checkboxesTypesReduce(types) {
-      // pour les types, plusieurs id correspondent à un même nom
-      return types.reduce((res, type) => {
-        const e = res.find(e => e.nom === type.nom)
-        return e ? res : [...res, type]
-      }, [])
-    },
+    preferencesSet() {
+      this.filtres.forEach(({ id, type }) => {
+        const filtre = this.filtres.find(filtre => filtre.id === id)
+        // les préférences de filtres actuelles de l'utilisateurs
+        const userPreferencesFiltresIds =
+          this.userPreferencesFiltres[id] &&
+          this.userPreferencesFiltres[id]
+            .split(',')
+            .sort()
+            .join(',')
 
-    checkboxToggle(name, e) {
-      const idsSet = (id, ids) => {
-        const index = ids.indexOf(id)
+        const filtresIdsNew =
+          type === 'checkbox'
+            ? // si le filtre est une checkbox
+              // - supprime les ids qui ne sont plus dans les métas
+              this.metas[id]
+                .filter(meta => filtre.values.find(value => value === meta.id))
+                .map(({ id }) => id)
+                .sort()
+                .join(',')
+            : filtre.values.sort().join(',') || null
 
-        if (name !== 'types') {
-          // si la checkbox était false
-          if (index > -1) {
-            ids.splice(index, 1)
-            return ids
-          }
-
-          // sinon ajoute la checkbox
-          return [...ids, id]
-        }
-
-        // s'il s'agit d'une checkbox sur les types
-        const nom = this.$store.state.metas.types.find(type => type.id === id)
-          .nom
-        const types = this.$store.state.metas.types
-          .filter(type => type.nom === nom)
-          .map(type => type.id)
-
-        // si la checkbox était false
-        if (index > -1) {
-          types.forEach(i => {
-            const index = ids.indexOf(i)
-            ids.splice(index, 1)
+        // si
+        // - les preférences utilisateur ne sont pas définies
+        // - ou elles sont différentes des filtres,
+        // met à jour les préférences utilisateur
+        if (
+          userPreferencesFiltresIds === undefined ||
+          filtresIdsNew !== userPreferencesFiltresIds
+        ) {
+          this.$store.dispatch('user/preferenceSet', {
+            section: `filtres.${id}`,
+            value: filtresIdsNew
           })
-
-          return ids
         }
-
-        // sinon ajoute la checkbox
-        return [...ids, ...types]
-      }
-
-      this.filtres[name] = idsSet(e.target.value, this.filtres[name])
-    },
-
-    inputChange(name, e) {
-      const values = e.target.value
-        ? e.target.value.match(/\w+|"(?:\\"|[^"])+"/g)
-        : []
-
-      this.filtres[name] = values
-    },
-
-    checkboxesSelect(name, action) {
-      if (action === 'none') {
-        this.filtres[name] = []
-      }
-
-      if (action === 'all') {
-        this.filtres[name] = this.metas[name].map(({ id }) => id)
-      }
-
-      if (action === 'inverse') {
-        this.filtres[name] = this.metas[name].reduce(
-          (ids, { id }) =>
-            this.filtres[name].find(i => i === id) ? ids : [...ids, id],
-          []
-        )
-      }
-    },
-
-    filtreSet(name, value) {
-      this.filtres[name] = value ? value.split(',') : []
-
-      // supprime du filtre si la valeur n'est pas présente dans les metas
-      if (this.metas[name]) {
-        this.filtres[name] = this.filtres[name].filter(filtreId =>
-          this.metas[name].find(meta => meta.id === filtreId)
-        )
-      }
-    },
-
-    inputsErase() {
-      this.filterInputs.forEach(({ name }) => {
-        this.filtres[name] = []
       })
     },
 
     urlSet() {
       const query = Object.assign({}, this.$route.query)
 
-      Object.keys(this.filtres).forEach(id => {
-        const value = this.filtres[id].length
-          ? this.filtres[id].join(',')
-          : null
+      this.filtres.forEach(({ id }) => {
+        const filtre = this.filtres.find(filtre => filtre.id === id)
+        const value = filtre.values.length ? filtre.values.join(',') : null
 
         if (value) {
           query[id] = value
@@ -406,15 +383,89 @@ export default {
       this.$router.push({ query })
     },
 
-    preferencesSet() {
-      this.$store.dispatch('user/preferenceSet', {
-        section: 'filtres',
-        value: Object.keys(this.filtres).reduce(
-          (values, id) =>
-            Object.assign(values, { [id]: this.filtres[id].join(',') || null }),
-          {}
+    checkboxesTypesReduce(types) {
+      // pour les types, plusieurs id correspondent à un même nom
+      return types.reduce((res, type) => {
+        const e = res.find(e => e.nom === type.nom)
+        return e ? res : [...res, type]
+      }, [])
+    },
+
+    checkboxToggle(id, e) {
+      const filtre = this.filtres.find(filtre => filtre.id === id)
+      const idsSet = (value, values) => {
+        const index = values.indexOf(value)
+
+        if (name !== 'types') {
+          // si la checkbox était false
+          if (index > -1) {
+            values.splice(index, 1)
+            return values
+          }
+
+          // sinon ajoute la checkbox
+          return [...values, value]
+        }
+
+        // s'il s'agit d'une checkbox sur les types
+        const nom = this.$store.state.metas.types.find(
+          type => type.id === value
+        ).nom
+        const types = this.$store.state.metas.types
+          .filter(type => type.nom === nom)
+          .map(type => type.id)
+
+        // si la checkbox était false
+        if (index > -1) {
+          types.forEach(i => {
+            const index = values.indexOf(i)
+            values.splice(index, 1)
+          })
+
+          return values
+        }
+
+        // sinon ajoute la checkbox
+        return [...values, ...types]
+      }
+
+      filtre.values = idsSet(e.target.value, filtre.values)
+    },
+
+    inputChange(id, e) {
+      const filtre = this.filtres.find(filtre => filtre.id === id)
+      const values = e.target.value
+        ? e.target.value.match(/\w+|"(?:\\"|[^"])+"/g)
+        : []
+
+      filtre.values = values
+    },
+
+    checkboxesSelect(id, action) {
+      const filtre = this.filtres.find(filtre => filtre.id === id)
+      if (action === 'none') {
+        filtre.values = []
+      }
+
+      if (action === 'all') {
+        filtre.values = this.metas[name].map(({ id }) => id)
+      }
+
+      if (action === 'inverse') {
+        filtre.values = this.metas[name].reduce(
+          (ids, { id }) =>
+            filtre.values.find(i => i === id) ? ids : [...ids, id],
+          []
         )
-      })
+      }
+    },
+
+    inputsErase() {
+      this.filtres
+        .filter(({ type }) => type === 'input')
+        .forEach(({ values }) => {
+          values = []
+        })
     },
 
     validate() {

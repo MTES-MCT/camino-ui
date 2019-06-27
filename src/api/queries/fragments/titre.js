@@ -6,6 +6,7 @@ import { fragmentTitreActivite } from './titre-activite'
 import { fragmentTitreSubstance } from './titre-substance'
 import { fragmentEntreprise } from './entreprise'
 import fragmentPoint from './point'
+import fragmentPays from './pays'
 
 import { fragmentGeojsonPoints } from './geojson'
 
@@ -72,20 +73,7 @@ const fragmentTitre = gql`
       ...geojsonMultiPolygon
     }
     pays {
-      id
-      nom
-      regions {
-        id
-        nom
-        departements {
-          id
-          nom
-          communes {
-            id
-            nom
-          }
-        }
-      }
+      ...pays
     }
     demarches {
       ...titreDemarche
@@ -108,6 +96,8 @@ const fragmentTitre = gql`
   ${fragmentPoint}
 
   ${fragmentGeojsonPoints}
+
+  ${fragmentPays}
 `
 
 export default fragmentTitre

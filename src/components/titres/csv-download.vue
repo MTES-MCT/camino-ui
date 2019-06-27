@@ -1,9 +1,9 @@
 <template>
   <button
-    class="btn-border pill px-m py-s h5"
+    class="btn-border pill px-m py-s h5 flex"
     @click="download"
   >
-    Télécharger (.csv)
+    <span class="mt-xxs mr-xs">csv</span> <i class="icon-24 icon-download" />
   </button>
 </template>
 
@@ -28,7 +28,7 @@ export default {
         const yyyy = d.getFullYear()
         const hh = d.getHours()
         const mi = d.getMinutes()
-        return `${yyyy}${mm}${dd}-${hh}-${mi}-camino-titre-export.csv`
+        return `${yyyy}${mm}${dd}-${hh}-${mi}-camino-export.csv`
       })()
 
       const link = document.createElement('a')
@@ -39,6 +39,11 @@ export default {
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
+
+      this.$store.dispatch('messageAdd', {
+        value: `fichier ${name} téléchargé`,
+        type: 'success'
+      })
     },
 
     titresFormat(titres) {

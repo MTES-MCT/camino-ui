@@ -150,13 +150,14 @@ export default {
     },
 
     user: function(to, from) {
-      console.log('user watch from component', to, from)
       this.get()
     },
 
-    filtres: function(to, from) {
-      console.log('filtres watch from component')
-      this.get()
+    filtres: {
+      handler: function(to, from) {
+        this.get()
+      },
+      deep: true
     }
   },
 
@@ -179,7 +180,6 @@ export default {
 
     get() {
       if (this.userLoaded) {
-        console.log('get')
         this.$store.dispatch('titres/get')
       }
     },

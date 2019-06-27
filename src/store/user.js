@@ -29,11 +29,9 @@ export const actions = {
   async init({ commit, dispatch }) {
     if (localStorage.getItem('token')) {
       await dispatch('identify')
-      console.log('identified')
     } else {
       dispatch('tokenRemove')
     }
-    console.log('user load')
     commit('load')
   },
 

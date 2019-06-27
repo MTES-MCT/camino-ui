@@ -3,6 +3,7 @@ import { fragmentEntreprise } from './entreprise'
 import fragmentAdministration from './administration'
 import { fragmentTitreSubstance } from './titre-substance'
 import fragmentPoint from './point'
+import fragmentPays from './pays'
 
 const fragmentTitreEtape = gql`
   fragment etape on Etape {
@@ -64,6 +65,9 @@ const fragmentTitreEtape = gql`
     incertitudes {
       ...incertitudes
     }
+    pays {
+      ...pays
+    }
   }
 
   ${fragmentAdministration}
@@ -73,6 +77,8 @@ const fragmentTitreEtape = gql`
   ${fragmentPoint}
 
   ${fragmentTitreSubstance}
+
+  ${fragmentPays}
 
   fragment document on Document {
     id

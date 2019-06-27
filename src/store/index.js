@@ -40,11 +40,12 @@ export const state = {
   error: null,
   menu: { component: null },
   versions: {
-    api: null, // eslint-disable-next-line camelcase
+    api: null,
+    /* global npmVersion */
     ui: `${npmVersion}`
   },
   loading: [],
-  route: null
+  loaded: false
 }
 
 export const actions = {
@@ -67,6 +68,10 @@ export const actions = {
       commit('entreprises/set', res.entreprises, { root: true })
 
       commit('metas/set', res.metas, { root: true })
+
+      if (!state.loaded) {
+        commit('loaded')
+      }
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.log(e)
