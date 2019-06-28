@@ -35,119 +35,43 @@
           </button>
         </div>
 
-        <div class="tablet-blob-1-2 large-blob-1-3 mb">
-          <h6>Domaines</h6>
+        <div
+          v-for="filtre in filtres.filter(({type}) => type === 'checkbox')"
+          :key="filtre.id === 'types' ? filtre.nom : filtre.id"
+          class="tablet-blob-1-2 large-blob-1-3 mb"
+        >
+          <h6>{{ filtre.name }}</h6>
           <ul class="list-sans">
             <li
-              v-for="domaine in metas.domaines"
-              :key="domaine.id"
+              v-for="element in filtre.id === 'types' ? checkboxesTypesReduce(metas[filtre.id]) : metas[filtre.id]"
+              :key="element.id"
             >
               <label>
                 <input
-                  :value="domaine.id"
-                  :checked="filtres.find(({id}) => id === 'domaines').values.find(id => domaine.id === id)"
+                  :value="element.id"
+                  :checked="filtres.find(({id}) => id === filtre.id).values.find(id => element.id === id)"
                   type="checkbox"
                   class="mr-s"
-                  @change="checkboxToggle('domaines', $event)"
+                  @change="checkboxToggle(filtre.id, $event)"
                 >
-                <Pill
-                  :color="`bg-titre-domaine-${domaine.id}`"
-                  class="mr-xs mono"
-                >
-                  {{ domaine.id }}
-                </Pill>
-                <span class="cap-first">
-                  {{ domaine.nom }}
-                </span>
+                <component
+                  :is="filtre.component"
+                  :element="element"
+                />
               </label>
             </li>
           </ul>
           <button
             ref="button"
             class="btn-border h5 px-s p-xs rnd-xs mb mr-xs"
-            @click="checkboxesSelect('domaines', 'none')"
+            @click="checkboxesSelect(filtre.id, 'none')"
           >
             Aucun
           </button>
           <button
             ref="button"
             class="btn-border h5 px-s p-xs rnd-xs mb mr-xs"
-            @click="checkboxesSelect('domaines', 'all')"
-          >
-            Tous
-          </button>
-        </div>
-
-        <div class="tablet-blob-1-2 large-blob-1-3 mb">
-          <h6>Types</h6>
-          <ul class="list-sans">
-            <li
-              v-for="type in checkboxesTypesReduce(metas.types)"
-              :key="type.nom"
-            >
-              <label>
-                <input
-                  :value="type.id"
-                  :checked="filtres.find(({id}) => id === 'types').values.find(id => type.id === id)"
-                  type="checkbox"
-                  class="mr-s"
-                  @change="checkboxToggle('types', $event)"
-                >
-                <span class="cap-first">
-                  {{ type.nom }}
-                </span>
-              </label>
-            </li>
-          </ul>
-          <button
-            ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mb mr-xs"
-            @click="checkboxesSelect('types', 'none')"
-          >
-            Aucun
-          </button>
-          <button
-            ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mb mr-xs"
-            @click="checkboxesSelect('types', 'all')"
-          >
-            Tous
-          </button>
-        </div>
-
-        <div class="tablet-blob-1-2 large-blob-1-3 mb">
-          <h6>Statuts</h6>
-          <ul class="list-sans">
-            <li
-              v-for="statut in metas.statuts"
-              :key="statut.id"
-            >
-              <label>
-                <input
-                  :value="statut.id"
-                  :checked="filtres.find(({id}) => id === 'statuts').values.find(id => statut.id === id)"
-                  type="checkbox"
-                  class="mr-s"
-                  @change="checkboxToggle('statuts', $event)"
-                >
-                <Dot :color="`bg-${statut.couleur}`" />
-                <span class="cap-first">
-                  {{ statut.nom }}
-                </span>
-              </label>
-            </li>
-          </ul>
-          <button
-            ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mb mr-xs"
-            @click="checkboxesSelect('statuts', 'none')"
-          >
-            Aucun
-          </button>
-          <button
-            ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mb mr-xs"
-            @click="checkboxesSelect('statuts', 'all')"
+            @click="checkboxesSelect(filtre.id, 'all')"
           >
             Tous
           </button>
@@ -166,23 +90,37 @@
 </template>
 
 <script>
-import Dot from '../ui/dot.vue'
-import Pill from '../ui/pill.vue'
 import Accordion from '../ui/accordion.vue'
+import FiltresDomaines from './filtres-domaines.vue'
+import FiltresStatuts from './filtres-statuts.vue'
+import FiltresTypes from './filtres-types.vue'
 
 export default {
   components: {
-    Pill,
-    Dot,
     Accordion
   },
 
   data() {
     return {
       filtres: [
-        { id: 'types', type: 'checkbox', values: [] },
-        { id: 'domaines', type: 'checkbox', values: [] },
-        { id: 'statuts', type: 'checkbox', values: [] },
+        {
+          id: 'types',
+          type: 'checkbox',
+          values: [],
+          component: FiltresTypes
+        },
+        {
+          id: 'domaines',
+          type: 'checkbox',
+          values: [],
+          component: FiltresDomaines
+        },
+        {
+          id: 'statuts',
+          type: 'checkbox',
+          values: [],
+          component: FiltresStatuts
+        },
         {
           id: 'substances',
           type: 'input',
@@ -258,22 +196,26 @@ export default {
 
     metas: {
       handler: function(metas, metasOld) {
-        const firstLoad = Object.keys(metasOld).some(id => !metasOld[id].length)
+        if (this.loaded) {
+          const firstLoad = Object.keys(metasOld).some(
+            id => !metasOld[id].length
+          )
 
-        // si les metas sont chargées pour la première fois
-        // - initialise les filtres depuis les paramètre de route
-        if (firstLoad) {
-          this.filtresSet('fromRoute')
-          this.preferencesSet()
-        }
+          // si les metas sont chargées pour la première fois
+          // - initialise les filtres depuis les paramètre de route
+          if (firstLoad) {
+            this.filtresSet('fromRoute')
+            this.preferencesSet()
+          }
 
-        // si les metas sont mises à jour
-        // (par exemple connexion / deconnexion utilisateur)
-        // - met à jour les filtres depuis les préférences utilisateur
-        else {
-          this.preferencesSet()
-          this.filtresSet('fromPreferences')
-          this.urlSet()
+          // si les metas sont mises à jour
+          // (par exemple connexion / deconnexion utilisateur)
+          // - met à jour les filtres depuis les préférences utilisateur
+          else {
+            this.preferencesSet()
+            this.filtresSet('fromPreferences')
+            this.urlSet()
+          }
         }
       },
       deep: true
@@ -396,7 +338,7 @@ export default {
       const idsSet = (value, values) => {
         const index = values.indexOf(value)
 
-        if (name !== 'types') {
+        if (id !== 'types') {
           // si la checkbox était false
           if (index > -1) {
             values.splice(index, 1)
@@ -408,12 +350,12 @@ export default {
         }
 
         // s'il s'agit d'une checkbox sur les types
-        const nom = this.$store.state.metas.types.find(
-          type => type.id === value
-        ).nom
-        const types = this.$store.state.metas.types
+        const nom = this.metas.types.find(type => type.id === value).nom
+        const types = this.metas.types
           .filter(type => type.nom === nom)
           .map(type => type.id)
+
+        console.log(nom, types)
 
         // si la checkbox était false
         if (index > -1) {
@@ -448,11 +390,11 @@ export default {
       }
 
       if (action === 'all') {
-        filtre.values = this.metas[name].map(({ id }) => id)
+        filtre.values = this.metas[id].map(({ id }) => id)
       }
 
       if (action === 'inverse') {
-        filtre.values = this.metas[name].reduce(
+        filtre.values = this.metas[id].reduce(
           (ids, { id }) =>
             filtre.values.find(i => i === id) ? ids : [...ids, id],
           []
@@ -463,8 +405,8 @@ export default {
     inputsErase() {
       this.filtres
         .filter(({ type }) => type === 'input')
-        .forEach(({ values }) => {
-          values = []
+        .forEach(filtre => {
+          filtre.values = []
         })
     },
 

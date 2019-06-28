@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <TitresFilters />
+    <TitresFiltres />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2">
@@ -77,7 +77,7 @@ import Loader from './ui/loader.vue'
 import EditPopup from './titre/edit-popup.vue'
 import TitresTable from './titres/table.vue'
 import TitresMap from './titres/map.vue'
-import TitresFilters from './titres/filters.vue'
+import TitresFiltres from './titres/filtres.vue'
 import TitresCsvDownload from './titres/csv-download.vue'
 import TitresGeojsonDownload from './titres/geojson-download.vue'
 
@@ -87,7 +87,7 @@ export default {
   components: {
     Loader,
     Card,
-    TitresFilters,
+    TitresFiltres,
     TitresCsvDownload,
     TitresGeojsonDownload
   },
@@ -137,6 +137,10 @@ export default {
 
     filtres() {
       return this.$store.state.user.preferences.filtres
+    },
+
+    metasLoaded() {
+      return this.$store.state.loaded
     }
   },
 
@@ -179,7 +183,7 @@ export default {
     },
 
     get() {
-      if (this.userLoaded) {
+      if (this.userLoaded && this.metasLoaded) {
         this.$store.dispatch('titres/get')
       }
     },
