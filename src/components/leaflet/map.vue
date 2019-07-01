@@ -56,12 +56,12 @@ export default {
     return {
       map: null,
       zoom: 0,
+      preventMoveend: false,
       layers: {
         tiles: {},
         geojsons: [],
         markers: []
-      },
-      center: null
+      }
     }
   },
 
@@ -84,34 +84,25 @@ export default {
       L.Map.addInitHook('addHandler', 'gestureHandling', GestureHandling)
 
       this.map = L.map(this.$refs.map, {
-        // preferCanvas: true,
-        zoomControl: true,
+        // zoomControl: true,
         doubleClickZoom: false,
         minZoom: 4,
-        gestureHandling: true,
-        gestureHandlingOptions: {
-          text: {
-            touch: 'Utilisez deux doigts pour zoomer',
-            scroll: 'Utilisez ctrl + scroll pour zoomer',
-            scrollMac: 'Utilisez \u2318 + scroll pour zoomer'
-          },
-          duration: 500
-        }
-      })
-
-      this.map.on('zoomend', () => {
-        this.zoom = this.map.getZoom()
-        this.$emit('map-zoom', this.zoom)
+        gestureHandling: true
       })
 
       this.map.on('moveend', () => {
-        this.center = this.map.getCenter()
-        const centre = `${this.center.lat.toFixed(7)},${this.center.lng.toFixed(
-          7
-        )}`
-
-        this.$emit('map-center', centre)
+        if (this.preventMoveend) {
+          this.preventMoveend = false
+        } else {
+          const center = [this.map.getCenter().lat, this.map.getCenter().lng]
+          const zoom = this.map.getZoom()
+          this.zoom = zoom
+          this.$emit('update', { center, zoom })
+          // L.Util.throttle(this.$emit('update', { center, zoom }), 2000, this)
+        }
       })
+
+      this.zoom = this.map.getZoom()
     },
 
     fitBounds(bounds) {
@@ -119,21 +110,25 @@ export default {
     },
 
     centerSet(center) {
-      this.map.panTo(center)
+      if (JSON.stringify(center) !== JSON.stringify(this.center)) {
+        this.map.panTo(center)
+      }
     },
 
     zoomSet(zoom) {
-      this.map.setZoom(zoom)
-      this.zoom = this.map.getZoom()
-      this.$emit('map-zoom', this.zoom)
+      if (zoom !== this.zoom) {
+        this.map.setZoom(zoom)
+      }
+    },
+
+    positionSet({ zoom, center }) {
+      this.preventMoveend = true
+      this.map.setView(center, zoom)
+      this.zoom = zoom
     },
 
     scaleAdd() {
-      L.control
-        .scale({
-          imperial: false
-        })
-        .addTo(this.map)
+      L.control.scale({ imperial: false }).addTo(this.map)
     },
 
     tilesUpdate() {

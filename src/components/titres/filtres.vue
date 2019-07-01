@@ -355,8 +355,6 @@ export default {
           .filter(type => type.nom === nom)
           .map(type => type.id)
 
-        console.log(nom, types)
-
         // si la checkbox était false
         if (index > -1) {
           types.forEach(i => {

@@ -20,16 +20,18 @@ var mixins = {
     urlParamSet(id, value) {
       const query = Object.assign({}, this.$route.query)
 
-      if (value) {
-        query[id] = value
-      } else {
-        delete query[id]
-      }
+      if (query[id] !== value) {
+        if (value) {
+          query[id] = value
+        } else {
+          delete query[id]
+        }
 
-      if (this.$route.query[id]) {
-        this.$router.push({ query })
-      } else {
-        this.$router.replace({ query })
+        if (this.$route.query[id]) {
+          this.$router.push({ query })
+        } else {
+          this.$router.replace({ query })
+        }
       }
     }
   }
