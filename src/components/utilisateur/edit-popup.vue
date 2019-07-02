@@ -335,6 +335,8 @@ export default {
           delete utilisateur.permission
         }
 
+        utilisateur.entreprisesIds = utilisateur.entreprisesIds.filter(id => id)
+
         if (this.action === 'create') {
           this.$store.dispatch('utilisateurs/add', utilisateur)
         } else {
