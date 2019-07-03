@@ -26,7 +26,6 @@
       </div>
     </div>
 
-
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <h4 class="mb">
@@ -137,7 +136,6 @@
             </li>
           </ul>
         </div>
-
 
         <div v-if="titre.engagement">
           <h6>Engagement financier</h6>

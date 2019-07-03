@@ -51,8 +51,6 @@
 }
 
 .leaflet-marker-icon.marker-titre {
-  height: 15px;
-  width: 15px;
   background-color: #bedadc;
   text-align: center;
 }

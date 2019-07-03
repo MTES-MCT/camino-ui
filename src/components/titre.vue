@@ -4,11 +4,32 @@
     <Card v-else>
       <TitreHeader :titre="titre" />
 
+      <div class="flex mb-s">
+        <div
+          v-for="(tab, tabId) in geoTabs"
+          :key="tabId"
+          class="mr-xs"
+          :class="{ active: geoTabActive === tabId}"
+        >
+          <button
+            class="p-m btn-tab rnd-t-xs"
+            @click="geoTabToggle(tabId)"
+          >
+            {{ tab.nom }}
+          </button>
+        </div>
+      </div>
+
       <TitreMap
-        v-if="titre.geojsonMultiPolygon"
+        v-if="titre.geojsonMultiPolygon && geoTabActive === 'carte'"
         :geojson="titre.geojsonMultiPolygon"
         :points="titre.points"
         class="mb"
+      />
+
+      <TitreSommets 
+        v-if="geoTabActive === 'sommets'"
+        :points="titre.points"
       />
 
       <TitreTerritoires
@@ -83,6 +104,7 @@ import TitreRepertoire from './titre/repertoire.vue'
 import TitreDemarches from './titre/demarches.vue'
 import TitreActivites from './titre/activites.vue'
 import TitreOutils from './titre/outils.vue'
+import TitreSommets from './titre/sommets.vue'
 
 export default {
   components: {
@@ -95,15 +117,21 @@ export default {
     TitreRepertoire,
     TitreDemarches,
     TitreActivites,
-    TitreOutils
+    TitreOutils,
+    TitreSommets
   },
 
   data() {
     return {
       tabActive: 'demarches',
+      geoTabActive: 'sommets',
       tabs: {
         demarches: { nom: 'Droits miniers' },
         activites: { nom: 'Activités' }
+      },
+      geoTabs: {
+        carte: { nom: 'Carte' },
+        sommets: { nom: 'Sommets' }
       }
     }
   },
@@ -159,6 +187,10 @@ export default {
 
     tabToggle(tabId) {
       this.tabActive = tabId
+    },
+
+    geoTabToggle(tabId) {
+      this.geoTabActive = tabId
     }
   }
 }

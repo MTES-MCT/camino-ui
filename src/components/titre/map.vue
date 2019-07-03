@@ -15,12 +15,19 @@
     />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2 mb">
-        <button
-          class="btn-border pill px-m py-s"
-          @click="center"
-        >
-          Centrer
-        </button>
+        <div class="flex">
+          <button
+            class="btn-border pill px-m py-s"
+            @click="center"
+          >
+            Centrer
+          </button>
+
+        <!-- <TitreCsvDownload
+          :titre="titre"
+          class="mr-s"
+        /> -->
+        </div>
       </div>
       <div class="desktop-blob-1-2">
         <LeafletTilesSelector
@@ -38,12 +45,14 @@ import L from 'leaflet'
 import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 import MapWarningBrgm from '../leaflet/warning-brgm.vue'
+// import TitreCsvDownload from './csv-download.vue'
 
 export default {
   components: {
     MapWarningBrgm,
     LeafletMap,
     LeafletTilesSelector
+    // TitreCsvDownload
   },
 
   props: {
@@ -105,27 +114,30 @@ export default {
     markersInit() {
       this.points.forEach(point => {
         const icon = L.divIcon({
-          className: ` h5 mono border-bg color-bg marker-titre pill`,
+          className: `h6 mono border-bg color-bg py-xs px-s inline-block leaflet-marker-title cap pill marker-titre`,
           html: `${point.nom}`,
           iconSize: null,
-          iconAnchor: [7, 7]
+          iconAnchor: [15.5, 38]
         })
-        const titleMarker = L.marker([point.coordonnees.y, point.coordonnees.x], { icon })
+        const titleMarker = L.marker(
+          [point.coordonnees.y, point.coordonnees.x],
+          { icon }
+        )
 
-        let popupRef = ``
-        
-        point.references.forEach(ref => {
-          popupRef = `${popupRef}<br />${ref.geoSysteme.nom} (EPSG ${
-            ref.geoSysteme.id
-          }): x= ${ref.coordonnees.x}, y= ${ref.coordonnees.y}`
-        })
-        if (popupRef.length !== 0)
-          popupRef = `<h5 class="mb-s">Références:${popupRef}</h5>`
+        // let popupRef = ``
 
-        titleMarker.bindPopup(`<h5 class="mb-s">
-          id: ${point.id}
-          ${point.description ? `<br />description: ${point.description}` : ``}${popupRef}
-          </h5>`)
+        // point.references.forEach(ref => {
+        //   popupRef = `${popupRef}<br />${ref.geoSysteme.nom} (EPSG ${
+        //     ref.geoSysteme.id
+        //   }): x= ${ref.coordonnees.x}, y= ${ref.coordonnees.y}`
+        // })
+        // if (popupRef.length !== 0)
+        //   popupRef = `<h5 class="mb-s">Références:${popupRef}</h5>`
+
+        // titleMarker.bindPopup(`<h5 class="mb-s">
+        //   id: ${point.id}
+        //   ${point.description ? `<br />description: ${point.description}` : ``}${popupRef}
+        //   </h5>`)
         this.markerLayers.push(titleMarker)
       })
     },
