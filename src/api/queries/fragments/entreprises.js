@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
-const fragmentEntreprise = gql`
-  fragment entreprise on Entreprise {
+const fragmentEntreprises = gql`
+  fragment entreprises on Entreprise {
     id
     nom
     paysId
@@ -13,22 +13,12 @@ const fragmentEntreprise = gql`
     commune
     cedex
     url
-    telephone
-    email
     etablissements {
       id
       nom
       dateDebut
       dateFin
-      legalSiret
-    }
-    utilisateurs {
-      id
-      email
-      nom
-      prenom
     }
   }
 `
-
-export default fragmentEntreprise
+export default fragmentEntreprises

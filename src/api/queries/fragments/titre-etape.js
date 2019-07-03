@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { fragmentEntreprise } from './entreprise'
+import fragmentEntreprise from './entreprise'
 import fragmentAdministration from './administration'
 import { fragmentTitreSubstance } from './titre-substance'
 import fragmentPoint from './point'

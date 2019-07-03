@@ -1,11 +1,11 @@
 import gql from 'graphql-tag'
-import { fragmentEntrepriseList } from './entreprise'
+import fragmentEntreprises from './entreprises'
 import fragmentAdministration from './administration'
 import { fragmentTitresSubstance } from './titre-substance'
 import { fragmentGeojsonMultiPolygon } from './geojson'
 
-const fragmentTitreList = gql`
-  fragment titreList on Titre {
+const fragmentTitres = gql`
+  fragment titres on Titre {
     id
     nom
     type {
@@ -48,10 +48,10 @@ const fragmentTitreList = gql`
       ...administration
     }
     titulaires {
-      ...entrepriseList
+      ...entreprises
     }
     amodiataires {
-      ...entrepriseList
+      ...entreprises
     }
     geojsonMultiPolygon {
       ...geojsonMultiPolygon
@@ -60,11 +60,11 @@ const fragmentTitreList = gql`
 
   ${fragmentAdministration}
 
-  ${fragmentEntrepriseList}
+  ${fragmentEntreprises}
 
   ${fragmentTitresSubstance}
 
   ${fragmentGeojsonMultiPolygon}
 `
 
-export default fragmentTitreList
+export default fragmentTitres

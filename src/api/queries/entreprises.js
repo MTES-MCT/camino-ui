@@ -1,8 +1,6 @@
 import gql from 'graphql-tag'
-import {
-  fragmentEntreprise,
-  fragmentEntrepriseList
-} from './fragments/entreprise'
+import fragmentEntreprise from './fragments/entreprise'
+import fragmentEntreprises from './fragments/entreprises'
 
 const queryEntreprise = gql`
   query Entreprise($id: ID!) {
@@ -17,11 +15,11 @@ const queryEntreprise = gql`
 const queryEntreprises = gql`
   query Entreprises {
     entreprises {
-      ...entrepriseList
+      ...entreprises
     }
   }
 
-  ${fragmentEntrepriseList}
+  ${fragmentEntreprises}
 `
 
 export { queryEntreprise, queryEntreprises }

@@ -56,7 +56,7 @@
           </div>
           <div class="desktop-blob-1-4">
             <p class="h0 text-center mb-0">
-              22
+              23
             </p>
             <p class="bold text-center ">
               sources de données distinctes consolidées et redistribuées
@@ -90,7 +90,7 @@
           </div>
           <div class="desktop-blob-1-4">
             <p class="h0 text-center mb-0">
-              {{ statistiques.titresActivites2018Depose }}
+              {{ statistiques.titresActivitesDepose }}
             </p>
             <p class="bold text-center ">
               rapports trimestriels d’activité de production d’or collectés en Guyane
@@ -104,7 +104,7 @@
               {{ statistiques.titreActivites2018Ratio }}%
             </p>
             <p class="bold text-center ">
-              des rapports trimestriels d’activité de production d’or requis en Guyane sont collectés
+              des rapports trimestriels d’activité de production d’or requis en Guyane pour 2018 sont collectés
             </p>
             <p>
               La pénétration de ce service numérique ouvert en Guyane depuis janvier 2019 progresse auprès des opérateurs miniers locaux. L’objectif est de le généraliser à court terme à l'échelle nationale.
@@ -112,7 +112,7 @@
           </div>
           <div class="desktop-blob-1-4">
             <p class="h0 text-center mb-0">
-              5
+              6
             </p>
             <p class="bold text-center ">
               réutilisations connues des données ouvertes distribuées
@@ -135,7 +135,7 @@
         <div class="desktop-blobs">
           <div class="desktop-blob-1-3">
             <p class="h0 text-center mb-0">
-              75
+              90
             </p>
             <p class="bold text-center ">
               erreurs signalées par les utilisateurs et corrigées améliorent la qualité des données
@@ -146,7 +146,7 @@
           </div>
           <div class="desktop-blob-1-3">
             <p class="h0 text-center mb-0">
-              {{ statistiques.titresActivites2018BeneficesEntreprise }}
+              {{ statistiques.titresActivitesBeneficesEntreprise }}
             </p>
             <p class="bold text-center ">
               jours de travail sans valeur ajoutée économisés par les entreprises en Guyane
@@ -157,7 +157,7 @@
           </div>
           <div class="desktop-blob-1-3">
             <p class="h0 text-center mb-0">
-              {{ statistiques.titresActivites2018BeneficesAdministration }}
+              {{ statistiques.titresActivitesBeneficesAdministration }}
             </p>
             <p class="bold text-center ">
               jours de travail à faible valeur ajoutée économisés par l’administration

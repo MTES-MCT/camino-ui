@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 import fragmentTitre from './fragments/titre'
-import fragmentTitreList from './fragments/titres'
+import fragmentTitres from './fragments/titres'
 
 const queryTitre = gql`
   query Titre($id: ID!) {
@@ -33,11 +33,11 @@ const queryTitres = gql`
       references: $references
       territoires: $territoires
     ) {
-      ...titreList
+      ...titres
     }
   }
 
-  ${fragmentTitreList}
+  ${fragmentTitres}
 `
 
 const mutationTitreModifier = gql`

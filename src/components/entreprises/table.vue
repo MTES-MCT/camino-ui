@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ entreprises.length }}
     <div class="overflow-scroll-x mb">
       <div class="table">
         <div class="tr">
@@ -25,7 +26,7 @@
         </RouterLink>
       </div>
     </div>
-    <div class="desktop-blobs hide">
+    <div class="desktop-blobs">
       <div class="desktop-blob-3-4">
         <Pagination
           :page-active="pageActive"

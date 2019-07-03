@@ -5,10 +5,10 @@ const queryStatistiques = gql`
     statistiques {
       titresTotal
       titresValide
-      titresActivites2018Depose
+      titresActivitesDepose
       titreActivites2018Ratio
-      titresActivites2018BeneficesEntreprise
-      titresActivites2018BeneficesAdministration
+      titresActivitesBeneficesEntreprise
+      titresActivitesBeneficesAdministration
     }
   }
 `

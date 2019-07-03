@@ -21,19 +21,19 @@ describe('état de la page de statistiques', () => {
     statistiquesReturned = {
       titresTotal: 30,
       titresValide: 20,
-      titresActivites2018Depose: 10,
+      titresActivitesDepose: 10,
       titreActivites2018Ratio: 50,
-      titresActivites2018BeneficesEntreprise: 4800,
-      titresActivites2018BeneficesAdministration: 2400,
+      titresActivitesBeneficesEntreprise: 4800,
+      titresActivitesBeneficesAdministration: 2400,
       loaded: true
     }
     statistiques.state = {
       titresTotal: 0,
       titresValide: 0,
-      titresActivites2018Depose: 0,
+      titresActivitesDepose: 0,
       titreActivites2018Ratio: 0,
-      titresActivites2018BeneficesEntreprise: 0,
-      titresActivites2018BeneficesAdministration: 0,
+      titresActivitesBeneficesEntreprise: 0,
+      titresActivitesBeneficesAdministration: 0,
       loaded: false
     }
     mutations = {

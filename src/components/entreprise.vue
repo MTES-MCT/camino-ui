@@ -139,6 +139,10 @@
         </div>
       </template>
     </Accordion>
+
+    titres:  {{ entreprise.titresTitulaire.length }}
+
+    <TitresTable :titres="entreprise.titresTitulaire" />
   </Card>
 </template>
 
@@ -146,12 +150,14 @@
 import Card from './ui/card.vue'
 import Accordion from './ui/accordion.vue'
 import Loader from './ui/loader.vue'
+import TitresTable from './titres/table.vue'
 
 export default {
   components: {
     Accordion,
     Loader,
-    Card
+    Card,
+    TitresTable
   },
 
   computed: {

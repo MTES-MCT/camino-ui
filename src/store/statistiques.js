@@ -4,10 +4,10 @@ import { statistiques } from '../api'
 export const state = {
   titresTotal: 0,
   titresValide: 0,
-  titresActivites2018Depose: 0,
+  titresActivitesDepose: 0,
   titreActivites2018Ratio: 0,
-  titresActivites2018BeneficesEntreprise: 0,
-  titresActivites2018BeneficesAdministration: 0,
+  titresActivitesBeneficesEntreprise: 0,
+  titresActivitesBeneficesAdministration: 0,
   loaded: false
 }
 
@@ -42,11 +42,11 @@ export const mutations = {
       Vue.set(state, 'titresTotal', statistiques.titresTotal)
     if (statistiques.titresValide)
       Vue.set(state, 'titresValide', statistiques.titresValide)
-    if (statistiques.titresActivites2018Depose)
+    if (statistiques.titresActivitesDepose)
       Vue.set(
         state,
-        'titresActivites2018Depose',
-        statistiques.titresActivites2018Depose
+        'titresActivitesDepose',
+        statistiques.titresActivitesDepose
       )
     if (statistiques.titreActivites2018Ratio)
       Vue.set(
@@ -54,17 +54,17 @@ export const mutations = {
         'titreActivites2018Ratio',
         statistiques.titreActivites2018Ratio
       )
-    if (statistiques.titresActivites2018BeneficesEntreprise)
+    if (statistiques.titresActivitesBeneficesEntreprise)
       Vue.set(
         state,
-        'titresActivites2018BeneficesEntreprise',
-        statistiques.titresActivites2018BeneficesEntreprise
+        'titresActivitesBeneficesEntreprise',
+        statistiques.titresActivitesBeneficesEntreprise
       )
-    if (statistiques.titresActivites2018BeneficesAdministration)
+    if (statistiques.titresActivitesBeneficesAdministration)
       Vue.set(
         state,
-        'titresActivites2018BeneficesAdministration',
-        statistiques.titresActivites2018BeneficesAdministration
+        'titresActivitesBeneficesAdministration',
+        statistiques.titresActivitesBeneficesAdministration
       )
 
     Vue.set(state, 'loaded', true)
