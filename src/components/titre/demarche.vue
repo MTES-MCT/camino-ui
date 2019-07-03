@@ -129,6 +129,7 @@ export default {
         visas: [],
         titulairesIds: [],
         amodiatairesIds: [],
+        administrationsIds: [],
         substancesIds: [],
         groupes: [],
         incertitudes: {}
