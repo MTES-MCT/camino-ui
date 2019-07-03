@@ -894,6 +894,16 @@ export default {
 
       etape.visas = propsFilter(etape, 'visas', 'texte')
 
+      const propsIds = [
+        'substancesIds',
+        'titulairesIds',
+        'amodiatairesIds',
+        'administrationsIds'
+      ]
+      propsIds.forEach(propId => {
+        if (etape[propId]) etape[propId] = etape[propId].filter(({ id }) => id)
+      })
+
       if (etape.groupes) {
         // etape.points = etape.groupes.reduce(
         //   (points, groupe) => [

@@ -339,6 +339,7 @@ export default {
         etape.incertitudes = {}
       }
 
+      delete etape.pays
       delete etape.points
       delete etape.geojsonPoints
       delete etape.geojsonMultiPolygon
