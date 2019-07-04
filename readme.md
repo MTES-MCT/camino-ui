@@ -37,24 +37,31 @@
 
 ## Configuration
 
-- Renommer les fichier `.env.example` en `.env` et le compléter.
+- Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-ui.git`
+- Renommer les fichier `.env-example` en `.env` et le compléter.
 - Pour la version de développement, renommer le fichier et `.env.development-example` en `.env.development` et compléter.
 - Pour la version de production, renommer le fichier et `.env.production-example` en `.env.production` et compléter.
 
 Pour plus d'informations sur les variables d'environnement, voir la doc de [vue-cli](https://cli.vuejs.org/guide/mode-and-env.html#modes).
 
----
-
-## Npm scripts
+### Installation
 
 ```bash
 # installe les dépendances
 npm install
+```
 
+### Développement
+
+```bash
 # lance un serveur de développement avec webpack-dev-server
 # accessible à localhost:8080
 npm run dev
+```
 
+### Production
+
+```bash
 # crée les fichiers de production dans le répertoire dist
 npm run build
 
