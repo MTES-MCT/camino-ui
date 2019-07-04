@@ -15,6 +15,7 @@
 import L from 'leaflet'
 
 import { GestureHandling } from 'leaflet-gesture-handling'
+import 'leaflet.fullscreen'
 
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
@@ -85,6 +86,7 @@ export default {
 
       this.map = L.map(this.$refs.map, {
         // zoomControl: true,
+        fullscreenControl: true,
         doubleClickZoom: false,
         minZoom: 4,
         gestureHandling: true
@@ -170,3 +172,5 @@ export default {
   }
 }
 </script>
+
+<style src="../../../node_modules/leaflet.fullscreen/Control.FullScreen.css" />
