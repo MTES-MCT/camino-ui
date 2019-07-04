@@ -4,22 +4,25 @@
     <Card v-else>
       <TitreHeader :titre="titre" />
 
-      <div class="flex mb-s">
-        <div
-          v-for="(tab, tabId) in geoTabs"
-          :key="tabId"
-          class="mr-xs"
-          :class="{ active: geoTabActive === tabId}"
-        >
-          <button
-            class="p-m btn-tab rnd-t-xs"
-            @click="geoTabToggle(tabId)"
+      <div v-if="titre.geojsonMultiPolygon && titre.points">
+        <div class="flex mb-s">
+          <div
+            v-for="(tab, tabId) in geoTabs"
+            :key="tabId"
+            class="mr-xs"
+            :class="{ active: geoTabActive === tabId}"
           >
-            {{ tab.nom }}
-          </button>
+            <button
+              class="p-m btn-tab rnd-t-xs"
+              @click="geoTabToggle(tabId)"
+            >
+              {{ tab.nom }}
+            </button>
+          </div>
         </div>
       </div>
 
+      
       <TitreMap
         v-if="titre.geojsonMultiPolygon && geoTabActive === 'carte'"
         :geojson="titre.geojsonMultiPolygon"
@@ -28,8 +31,9 @@
       />
 
       <TitreSommets 
-        v-if="geoTabActive === 'sommets'"
+        v-if="titre.points && geoTabActive === 'sommets'"
         :points="titre.points"
+        class="mb"
       />
 
       <TitreTerritoires
