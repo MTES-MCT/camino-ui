@@ -37,10 +37,10 @@
 
 ## Configuration
 
-- Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-ui.git`
-- Renommer les fichier `.env-example` en `.env` et le compléter.
-- Pour la version de développement, renommer le fichier et `.env.development-example` en `.env.development` et compléter.
-- Pour la version de production, renommer le fichier et `.env.production-example` en `.env.production` et compléter.
+1. Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-ui.git`
+2. Renommer les fichier `.env-example` en `.env` et le compléter.
+3. Pour la version de développement, renommer le fichier et `.env.development-example` en `.env.development` et compléter.
+4. Pour la version de production, renommer le fichier et `.env.production-example` en `.env.production` et compléter.
 
 Pour plus d'informations sur les variables d'environnement, voir la doc de [vue-cli](https://cli.vuejs.org/guide/mode-and-env.html#modes).
 
