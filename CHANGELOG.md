@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.22.0](https://github.com/MTES-MCT/camino-ui/compare/v0.21.0...v0.22.0) (2019-07-04)
+
+
+### Bug Fixes
+
+* corrige un bug lors de l'ajout d'une entreprise vide à un utilisateur ([#24](https://github.com/MTES-MCT/camino-ui/issues/24)) ([97b16a4](https://github.com/MTES-MCT/camino-ui/commit/97b16a4))
+* **export:** corrige le format de la date dans le nom du fichier ([#21](https://github.com/MTES-MCT/camino-ui/issues/21)) ([4905d9b](https://github.com/MTES-MCT/camino-ui/commit/4905d9b))
+* corrige la navigation dans l'historique du navigateur ([747bc10](https://github.com/MTES-MCT/camino-ui/commit/747bc10))
+* **firefox:** prévient un double appel à l'api sur la liste des titres ([4e33bd2](https://github.com/MTES-MCT/camino-ui/commit/4e33bd2))
+* ajoute l'api de preprod à la csp ([a570525](https://github.com/MTES-MCT/camino-ui/commit/a570525))
+* met à jour les filtres lorsqu'un utilisateur se connecte / déconnecte ([3ec6ccd](https://github.com/MTES-MCT/camino-ui/commit/3ec6ccd))
+
+
+### Build System
+
+* met à jour les dépendances ([e2a89b1](https://github.com/MTES-MCT/camino-ui/commit/e2a89b1))
+* revient à eslint 5 ([cf19557](https://github.com/MTES-MCT/camino-ui/commit/cf19557))
+
+
+### Features
+
+* ajoute le docker-compose de preprod ([2262d71](https://github.com/MTES-MCT/camino-ui/commit/2262d71))
+* ajoute une redirection de stats vers statistiques ([ae94755](https://github.com/MTES-MCT/camino-ui/commit/ae94755))
+* corrige l'édition des étapes ([#25](https://github.com/MTES-MCT/camino-ui/issues/25)) ([c17456e](https://github.com/MTES-MCT/camino-ui/commit/c17456e))
+* télécharge un geojson des titres ([#22](https://github.com/MTES-MCT/camino-ui/issues/22)) ([fb2d9ab](https://github.com/MTES-MCT/camino-ui/commit/fb2d9ab))
+
+
+
 ## [0.21.0](https://github.com/MTES-MCT/camino-ui/compare/v0.20.0...v0.21.0) (2019-06-17)
 
 
