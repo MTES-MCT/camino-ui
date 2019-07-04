@@ -60,7 +60,7 @@
     "cz-conventional-changelog": "^2.1.0",
     "date-format": "^2.0.0",
     "email-validator": "^2.0.4",
-    "eslint": "^6.0.1",
+    "eslint": "^5.16.0",
     "eslint-plugin-jest": "^22.7.2",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-vue": "^5.2.3",
