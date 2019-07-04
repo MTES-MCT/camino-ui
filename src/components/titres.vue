@@ -22,7 +22,7 @@
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2">
         <p>
-          Résultat : {{ titres.length }} titre{{ titres.length > 1 ? 's' : '' }} minier{{ titres.length > 1 ? 's' : '' }}
+          {{ titres.length }} résultat{{ titres.length > 1 ? 's' : '' }}
         </p>
       </div>
       <div
@@ -32,20 +32,20 @@
           <titres-csv-download
             v-if="titres.length"
             :titres="titres"
-            class="mr-s"
+            class="mr-s mb-s"
           />
 
           <titres-geojson-download
             v-if="titres.length"
             :titres="titres"
-            class="mr-s"
+            class="mr-s mb-s"
           />
 
           <div class="flex">
             <div
               v-for="v in vues"
               :key="v.id"
-              class="mr-0 pill-list"
+              class="pill-list mb-s"
               :class="{ active: vueId === v.id }"
             >
               <button
