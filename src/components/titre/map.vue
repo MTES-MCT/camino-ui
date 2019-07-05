@@ -22,11 +22,6 @@
           >
             Centrer
           </button>
-
-        <!-- <TitreCsvDownload
-          :titre="titre"
-          class="mr-s"
-        /> -->
         </div>
       </div>
       <div class="desktop-blob-1-2">
@@ -45,14 +40,12 @@ import L from 'leaflet'
 import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 import MapWarningBrgm from '../leaflet/warning-brgm.vue'
-// import TitreCsvDownload from './csv-download.vue'
 
 export default {
   components: {
     MapWarningBrgm,
     LeafletMap,
     LeafletTilesSelector
-    // TitreCsvDownload
   },
 
   props: {

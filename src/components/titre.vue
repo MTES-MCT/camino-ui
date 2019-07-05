@@ -4,20 +4,40 @@
     <Card v-else>
       <TitreHeader :titre="titre" />
 
-      <div v-if="titre.geojsonMultiPolygon && titre.points">
-        <div class="flex mb-s">
-          <div
-            v-for="(tab, tabId) in geoTabs"
-            :key="tabId"
-            class="mr-xs"
-            :class="{ active: geoTabActive === tabId}"
-          >
-            <button
-              class="p-m btn-tab rnd-t-xs"
-              @click="geoTabToggle(tabId)"
-            >
-              {{ tab.nom }}
-            </button>
+      <div class="desktop-blobs">
+        <div class="desktop-blobs-1-2">
+          <div v-if="titre.geojsonMultiPolygon && titre.points">
+            <div class="flex mb-s">
+              <div
+                v-for="(tab, tabId) in geoTabs"
+                :key="tabId"
+                class="mr-xs"
+                :class="{ active: geoTabActive === tabId}"
+              >
+                <button
+                  class="p-m btn-tab rnd-t-xs"
+                  @click="geoTabToggle(tabId)"
+                >
+                  {{ tab.nom }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="desktop-blob-1-3">
+          <div class="mobile-blobs">
+            <div class="mobile-blob-1-2">
+              <TitreCsvDownload
+                :titre="titre"
+              />
+            </div>
+
+            <div class="mobile-blob-1-2">
+              <TitreGeojsonDownload
+                :titre="titre"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -109,6 +129,8 @@ import TitreDemarches from './titre/demarches.vue'
 import TitreActivites from './titre/activites.vue'
 import TitreOutils from './titre/outils.vue'
 import TitreSommets from './titre/sommets.vue'
+import TitreCsvDownload from './titre/csv-download.vue'
+import TitreGeojsonDownload from './titre/geojson-download.vue'
 
 export default {
   components: {
@@ -122,7 +144,9 @@ export default {
     TitreDemarches,
     TitreActivites,
     TitreOutils,
-    TitreSommets
+    TitreSommets,
+    TitreCsvDownload,
+    TitreGeojsonDownload
   },
 
   data() {

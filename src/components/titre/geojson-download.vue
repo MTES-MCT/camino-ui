@@ -3,13 +3,11 @@
     class="btn-border pill px-m py-s h5 flex"
     @click="download"
   >
-    <span class="mt-xxs mr-xs">csv</span> <i class="icon-24 icon-download" />
+    <span class="mt-xxs mr-xs">geojson</span> <i class="icon-24 icon-download" />
   </button>
 </template>
 
 <script>
-import { parse } from 'json2csv'
-
 export default {
   props: {
     titre: {
@@ -19,8 +17,7 @@ export default {
   },
   methods: {
     download() {
-      const titre = this.titreFormat(this.titre)
-      const csv = parse(titre, {})
+      const titreGeojson = this.titreFormatGeojson(this.titre)
       const name = (() => {
         const d = new Date()
         const dd = d
@@ -37,11 +34,13 @@ export default {
           .getMinutes()
           .toString()
           .padStart(2, '0')
-        return `${yyyy}${mm}${dd}-${hh}h${mi}-camino-${this.titre.nom}-export.csv`
+        return `${yyyy}${mm}${dd}-${hh}h${mi}-camino-titre-${this.titre.nom}.geojson`
       })()
 
       const link = document.createElement('a')
-      const data = `data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`
+      const data = `data:text/geojson;charset=utf-8,${encodeURIComponent(
+        JSON.stringify(titreGeojson)
+      )}`
       link.setAttribute('href', data)
       link.setAttribute('download', name)
       link.style.display = 'none'
@@ -55,10 +54,24 @@ export default {
       })
     },
 
-    titreFormat(titre) {
+    titreFormatGeojson(titre) {
+      console.log(titre)
       return {
-        id: titre.id,
-        nom: titre.nom
+        type: 'FeatureCollection',
+        properties: { id: titre.id, nom: titre.nom },
+        features: [
+          {
+            type: 'Feature',
+            geometry:
+              titre.geojsonMultiPolygon && titre.geojsonMultiPolygon.geometry,
+            properties: {}
+          },
+          {
+            type: 'FeatureCollection',
+            properties: {},
+            features: titre.geojsonPoints.features
+          }
+        ]
       }
     }
   }
