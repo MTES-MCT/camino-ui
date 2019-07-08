@@ -87,7 +87,9 @@ Voir `contributing.md` (en anglais) pour plus d'infos.
 
 - Guillaume Levieux, intrapreneur
 - Joeffrey Arruyer, coach
-- [François Romain](http://francoisromain.com), développeur
+- [François Romain](https://github.com/francoisromain), développeur (03/2018 -> …)
+- [Adrien Risser](https://github.com/risseraka), développeur (10/2018 -> …)
+- [Florent Chalvet](https://github.com/FChalvet), développeur (03/2019 -> 08/2019)
 
 ---
 
