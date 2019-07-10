@@ -1,18 +1,20 @@
+.leaflet-marker-title {
+  filter: drop-shadow(4px 4px 4px color-mod(var(--color-inverse) alpha(50%)));
+  font-weight: 700;
+}
+
 .leaflet-marker-title::before {
   display: block;
   position: absolute;
   top: 29px;
-  left: 10px;
+  left: 50%;
   content: '';
   width: 0;
   height: 0;
   border-left: 5.5px solid transparent;
   border-right: 5.5px solid transparent;
   border-top: 8px solid var(--color-bg);
-}
-
-.leaflet-marker-title {
-  filter: drop-shadow(4px 4px 4px color-mod(var(--color-inverse) alpha(50%)));
+  margin-left: -5.5px;
 }
 
 .leaflet-marker-icon.marker-cluster-size-mini {

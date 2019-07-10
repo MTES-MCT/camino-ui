@@ -1,6 +1,6 @@
 <template>
   <div class="mb">
-    <div class="card-border" />
+    <div class="card-border mb" />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <h3 class="cap-first">

@@ -3,12 +3,54 @@
     <Loader v-if="!loaded" />
     <Card v-else>
       <TitreHeader :titre="titre" />
+      <div class="tablet-blobs tablet-flex-direction-reverse">
+        <div class="tablet-blob-1-2 flex mb-s">
+          <TitreDownloadCsv
+            v-if="titre.points.length"
+            :titre="titre"
+            class="mr-s flex-right"
+          />
+          <TitreDownloadGeojson
+            v-if="titre.points.length"
+            :titre="titre"
+          />
+        </div>
+
+        <div
+          v-if="titre.geojsonMultiPolygon && titre.points"
+          class="tablet-blob-1-2 flex"
+        >
+          <div
+            v-for="(tab, tabId) in geoTabs"
+            :key="tabId"
+            class="mr-xs"
+            :class="{ active: geoTabActive === tabId}"
+          >
+            <button
+              class="p-m btn-tab rnd-t-xs"
+              @click="geoTabToggle(tabId)"
+            >
+              {{ tab.nom }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-border" />
 
       <TitreMap
-        v-if="titre.geojsonMultiPolygon"
+        v-if="titre.geojsonMultiPolygon && geoTabActive === 'carte'"
         :geojson="titre.geojsonMultiPolygon"
-        class="mb"
+        :points="titre.points"
+        :domaine-id="titre.domaine.id"
       />
+
+      <TitreSommets
+        v-if="titre.points && geoTabActive === 'sommets'"
+        :points="titre.points"
+      />
+
+      <div class="card-border mb" />
 
       <TitreTerritoires
         :pays="titre.pays"
@@ -54,6 +96,7 @@
             </Pill>
           </button>
         </div>
+        <div class="card-border" />
       </div>
 
       <TitreDemarches
@@ -82,6 +125,9 @@ import TitreRepertoire from './titre/repertoire.vue'
 import TitreDemarches from './titre/demarches.vue'
 import TitreActivites from './titre/activites.vue'
 import TitreOutils from './titre/outils.vue'
+import TitreSommets from './titre/sommets.vue'
+import TitreDownloadCsv from './titre/download-csv.vue'
+import TitreDownloadGeojson from './titre/download-geojson.vue'
 
 export default {
   components: {
@@ -94,15 +140,23 @@ export default {
     TitreRepertoire,
     TitreDemarches,
     TitreActivites,
-    TitreOutils
+    TitreOutils,
+    TitreSommets,
+    TitreDownloadCsv,
+    TitreDownloadGeojson
   },
 
   data() {
     return {
       tabActive: 'demarches',
+      geoTabActive: 'carte',
       tabs: {
         demarches: { nom: 'Droits miniers' },
         activites: { nom: 'Activités' }
+      },
+      geoTabs: {
+        carte: { nom: 'Carte' },
+        sommets: { nom: 'Sommets' }
       }
     }
   },
@@ -158,6 +212,10 @@ export default {
 
     tabToggle(tabId) {
       this.tabActive = tabId
+    },
+
+    geoTabToggle(tabId) {
+      this.geoTabActive = tabId
     }
   }
 }

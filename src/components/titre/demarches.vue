@@ -3,7 +3,6 @@
     <div
       v-if="permissionsCheck(['super'])"
     >
-      <div class="card-border" />
       <button
         class="btn-border rnd-xs py-s px-m full-x flex mb"
         @click="demarcheAddPopupOpen"

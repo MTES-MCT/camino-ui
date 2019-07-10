@@ -222,18 +222,16 @@ export default {
 
       //       return new L.DivIcon({
       //         html: `<div><span>${domaine.id.toUpperCase()}</span></div>`,
-      //         className: `h6 mono border-bg color-bg py-xs px-s inline-block pill bg-titre-domaine-${
-      //           domaine.id
-      //         } ${c}`,
+      //         className: `h6 mono border-bg color-bg py-xs px-s inline-block pill bg-titre-domaine-${domaine.id} ${c}`,
       //         iconSize: null,
       //         iconAnchor: [0, 0]
       //       })
       //     },
       //     disableClusteringAtZoom: 12,
-      //     animate: false
+      //     animate: false,
       //     // zoomToBoundsOnClick: false,
-      //     // spiderfyOnMaxZoom: false,
-      //     // showCoverageOnHover: false
+      //     spiderfyOnMaxZoom: false,
+      //     showCoverageOnHover: false
       //   })
 
       //   const popupOptions = {
@@ -310,12 +308,14 @@ export default {
 
               titleMarker.bindPopup(popupHtml, popupOptions)
               titleMarker.on(methods)
+              titleMarker.id = titre.id
 
               this.markerLayers.push(titleMarker)
 
               // markerClusters[domaineId].addLayer(titleMarker)
             }
           })
+          geojsonLayer.id = titre.id
           this.geojsonLayers.push(geojsonLayer)
         }
       })
@@ -357,8 +357,9 @@ export default {
       })
     },
 
-    urlZoomSet(zoom) {
+    zoomUrlSet(zoom) {
       this.urlParamSet('zoom', zoom)
+      this.geojsonLayersDisplay()
     },
 
     urlCentreSet(centreArray) {
@@ -389,8 +390,7 @@ export default {
     },
 
     geojsonLayersDisplay() {
-      this.geojsonLayersDisplayed =
-        this.preferencesZoom > 7 ? this.geojsonLayers : []
+      this.geojsonLayersDisplayed = this.zoom > 7 ? this.geojsonLayers : []
     }
   }
 }

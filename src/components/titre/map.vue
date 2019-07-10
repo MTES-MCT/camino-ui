@@ -4,6 +4,7 @@
       ref="map"
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
+      :marker-layers="markerLayers"
       :bounds="bounds"
       class="map map-detail mb"
       @map-zoom="zoomGet"
@@ -12,16 +13,18 @@
       :zoom="zoom"
       :tiles-id="tilesId"
     />
-    <div class="desktop-blobs">
-      <div class="desktop-blob-1-2 mb">
-        <button
-          class="btn-border pill px-m py-s"
-          @click="center"
-        >
-          Centrer
-        </button>
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-2 mb">
+        <div class="flex">
+          <button
+            class="btn-border pill px-m py-s"
+            @click="center"
+          >
+            Centrer
+          </button>
+        </div>
       </div>
-      <div class="desktop-blob-1-2">
+      <div class="tablet-blob-1-2">
         <LeafletTilesSelector
           :tiles="tiles"
           :tiles-id="tilesId"
@@ -49,14 +52,32 @@ export default {
     geojson: {
       type: Object,
       default: () => {}
+    },
+    points: {
+      type: Array,
+      default: () => []
+    },
+    domaineId: {
+      type: String,
+      default: 'm'
     }
   },
 
   data() {
     return {
       map: null,
-      geojsonLayers: [L.geoJSON(this.geojson)],
-      zoom: 0
+      geojsonLayers: [
+        L.geoJSON(this.geojson, {
+          style: {
+            fillOpacity: 0.75,
+            weight: 1,
+            color: 'white',
+            className: `svg-fill-domaine-${this.domaineId}`
+          }
+        })
+      ],
+      zoom: 0,
+      markerLayers: []
     }
   },
 
@@ -87,11 +108,32 @@ export default {
     }
   },
 
+  created() {
+    this.markersInit()
+  },
+
   mounted() {
     this.center()
   },
 
   methods: {
+    markersInit() {
+      this.points.forEach(point => {
+        const icon = L.divIcon({
+          className: `h6 mono border-bg color-text py-xs px-s inline-block leaflet-marker-title cap pill bg-bg`,
+          html: `${point.nom}`,
+          iconSize: null,
+          iconAnchor: [15.5, 38]
+        })
+        const titleMarker = L.marker(
+          [point.coordonnees.y, point.coordonnees.x],
+          { icon }
+        )
+
+        this.markerLayers.push(titleMarker)
+      })
+    },
+
     tilesIdSelect(tuileNom) {
       this.$store.dispatch('user/preferenceSet', {
         section: 'carte.tilesId',

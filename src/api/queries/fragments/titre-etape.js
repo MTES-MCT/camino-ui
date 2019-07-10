@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 import fragmentEntreprise from './entreprise'
 import fragmentAdministration from './administration'
 import { fragmentTitreSubstance } from './titre-substance'
-import fragmentPoint from './point'
+import { fragmentPoint } from './point'
 import fragmentPays from './pays'
 
 const fragmentTitreEtape = gql`

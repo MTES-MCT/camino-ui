@@ -177,6 +177,10 @@ https://github.com/francoisromain/postcss-grid-fluid
   .tablet-blob-5-6 {
     gf: blob 5/6;
   }
+
+  .tablet-blob-3-8 {
+    gf: blob 3/8;
+  }
 }
 
 @media (--viewport-desktop) {

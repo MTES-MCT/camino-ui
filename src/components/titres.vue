@@ -29,13 +29,13 @@
         class="tablet-blob-1-2 flex"
       >
         <div class="flex-right mt--s mb-s flex">
-          <titres-csv-download
+          <TitresDownloadCsv
             v-if="titres.length"
             :titres="titres"
             class="mr-s mb-s"
           />
 
-          <titres-geojson-download
+          <TitresDownloadGeojson
             v-if="titres.length"
             :titres="titres"
             class="mr-s mb-s"
@@ -74,12 +74,12 @@
 <script>
 import Card from './ui/card.vue'
 import Loader from './ui/loader.vue'
-import EditPopup from './titre/edit-popup.vue'
+import TitreEditPopup from './titre/edit-popup.vue'
 import TitresTable from './titres/table.vue'
 import TitresMap from './titres/map.vue'
 import TitresFiltres from './titres/filtres.vue'
-import TitresCsvDownload from './titres/csv-download.vue'
-import TitresGeojsonDownload from './titres/geojson-download.vue'
+import TitresDownloadCsv from './titres/download-csv.vue'
+import TitresDownloadGeojson from './titres/download-geojson.vue'
 
 export default {
   name: 'Titres',
@@ -88,8 +88,8 @@ export default {
     Loader,
     Card,
     TitresFiltres,
-    TitresCsvDownload,
-    TitresGeojsonDownload
+    TitresDownloadCsv,
+    TitresDownloadGeojson
   },
 
   data() {
@@ -203,7 +203,7 @@ export default {
       const titre = { references: [] }
 
       this.$store.commit('popupOpen', {
-        component: EditPopup,
+        component: TitreEditPopup,
         props: {
           titre,
           domaines: this.$store.state.metas.domaines,
