@@ -6,7 +6,7 @@
         class="flex"
       >
         <div class="flex-right">
-          <div class="mt tablet-mb flex">
+          <div class="mt-m tablet-mb-m flex">
             <div
               v-if="loading"
               class="loader"
@@ -28,13 +28,13 @@
       <RouterLink
         v-if="$route.name !== 'titres'"
         :to="{ name: 'titres' }"
-        class="pt-m pr-m inline-block full-x"
+        class="pt-s pr-m inline-block full-x"
       >
         <img src="../../public/img/logo-camino.svg">
       </RouterLink>
       <span
         v-else
-        class="pt-m pr-m inline-block full-x"
+        class="pt-s pr-m inline-block full-x"
       >
         <img src="../../public/img/logo-camino.svg">
       </span>

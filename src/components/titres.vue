@@ -19,49 +19,54 @@
 
     <TitresFiltres />
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-2">
-        <p>
-          {{ titres.length }} résultat{{ titres.length > 1 ? 's' : '' }}
-        </p>
+    <div class="tablet-blobs tablet-flex-direction-reverse">
+      <div class="tablet-blob-1-2 flex mb-s">
+        <TitresDownloadCsv
+          v-if="titres.length"
+          :titres="titres"
+          class="mr-s flex-right"
+        />
+
+        <TitresDownloadGeojson
+          v-if="titres.length"
+          :titres="titres"
+        />
       </div>
-      <div
-        class="tablet-blob-1-2 flex"
-      >
-        <div class="flex-right mt--s mb-s flex">
-          <TitresDownloadCsv
-            v-if="titres.length"
-            :titres="titres"
-            class="mr-s mb-s"
-          />
 
-          <TitresDownloadGeojson
-            v-if="titres.length"
-            :titres="titres"
-            class="mr-s mb-s"
-          />
-
-          <div class="flex">
-            <div
-              v-for="v in vues"
-              :key="v.id"
-              class="pill-list mb-s"
-              :class="{ active: vueId === v.id }"
-            >
-              <button
-                class="btn-border px-m py-s"
-                @click="urlSet(v.id)"
-              >
-                <i
-                  :class="`icon-${v.icon}`"
-                  class="icon-24"
-                />
-              </button>
-            </div>
+      <div class="tablet-blob-1-2 flex">
+        <div
+          v-for="v in vues"
+          :key="v.id"
+          class="mr-xs"
+          :class="{ active: vueId === v.id }"
+        >
+          <button
+            v-if="vueId !== v.id"
+            class="p-m btn-tab rnd-t-xs"
+            @click="urlSet(v.id)"
+          >
+            <i
+              :class="`icon-${v.icon}`"
+              class="icon-24"
+            />
+          </button>
+          <div
+            v-else
+            class="p-m span-tab rnd-t-xs"
+          >
+            <i
+              :class="`icon-${v.icon}`"
+              class="icon-24"
+            />
           </div>
+        </div>
+        <div class="p-m">
+          {{ titres.length }} résultat{{ titres.length > 1 ? 's' : '' }}
         </div>
       </div>
     </div>
+
+    <div class="card-border" />
 
     <Component
       :is="vue.component"
@@ -97,14 +102,14 @@ export default {
       filtersOpened: false,
       vues: [
         {
-          id: 'liste',
-          component: TitresTable,
-          icon: 'list'
-        },
-        {
           id: 'carte',
           component: TitresMap,
           icon: 'globe'
+        },
+        {
+          id: 'liste',
+          component: TitresTable,
+          icon: 'list'
         }
       ]
     }

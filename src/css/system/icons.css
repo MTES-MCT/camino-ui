@@ -362,8 +362,7 @@
   );
 }
 
-.active .icon-globe,
-.btn-border:hover .icon-globe {
+.btn-tab:hover .icon-globe {
   background-image: svg-load(
     './icons/globe-3.svg',
     fill=none,
@@ -385,8 +384,7 @@
   );
 }
 
-.active .icon-list,
-.btn-border:hover .icon-list {
+.btn-tab:hover .icon-list {
   background-image: svg-load(
     './icons/list-bullets.svg',
     fill=none,

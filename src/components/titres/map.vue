@@ -5,7 +5,7 @@
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayersDisplayed"
       :marker-layers="markerLayers"
-      class="map map-list mb"
+      class="map map-list mb-s"
       @update="urlUpdate"
     />
     <TitreMapWarningBrgm

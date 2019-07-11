@@ -1,5 +1,5 @@
 <template>
-  <div class="sommets">
+  <div class="points">
     <div
       v-for="(groupe, groupeIndex) in groupes"
       :key="groupeIndex + 1"

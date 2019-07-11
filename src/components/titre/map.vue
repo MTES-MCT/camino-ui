@@ -6,7 +6,7 @@
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
       :bounds="bounds"
-      class="map map-detail mb"
+      class="map map-detail mb-s"
       @map-zoom="zoomGet"
     />
     <MapWarningBrgm

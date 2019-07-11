@@ -33,10 +33,10 @@
 
 .map-detail,
 .map-list {
-  height: calc(var(--unit) * 20);
+  height: calc(var(--unit) * 20.5);
 }
 
-.sommets {
+.points {
   margin-left: calc(-1 * var(--unit));
   margin-right: calc(-1 * var(--unit));
   padding-top: var(--unit);
@@ -268,6 +268,12 @@
   width: 100%;
 }
 
+.span-tab {
+  color: var(--color-text);
+  background-color: var(--color-alt);
+  box-shadow: inset 0 0 0 var(--unit-line) var(--color-alt);
+}
+
 @media (--viewport-tablet) {
   .tablet-pt-s {
     padding-top: var(--unit-s);
@@ -283,6 +289,10 @@
 
   .tablet-mb-s {
     margin-bottom: var(--unit-s);
+  }
+
+  .tablet-mb-m {
+    margin-bottom: var(--unit-m);
   }
 
   .tablet-flex-direction-reverse {
@@ -301,7 +311,7 @@
   }
 
   .map-list {
-    height: calc(100vh - (17.5 * var(--unit)));
+    height: calc(100vh - (16.5 * var(--unit)));
     padding-bottom: 75%;
   }
 

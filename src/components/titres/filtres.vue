@@ -2,7 +2,7 @@
   <Accordion
     ref="filters"
     :sub="false"
-    class="mb"
+    class="mb-s"
   >
     <template slot="title">
       Filtres

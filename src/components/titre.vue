@@ -27,11 +27,24 @@
             :class="{ active: geoTabActive === tabId}"
           >
             <button
+              v-if="geoTabActive !== tabId"
               class="p-m btn-tab rnd-t-xs"
               @click="geoTabToggle(tabId)"
             >
-              {{ tab.nom }}
+              <i
+                :class="`icon-${tab.icon}`"
+                class="icon-24"
+              />
             </button>
+            <div
+              v-else
+              class="p-m span-tab rnd-t-xs"
+            >
+              <i
+                :class="`icon-${tab.icon}`"
+                class="icon-24"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -45,8 +58,8 @@
         :domaine-id="titre.domaine.id"
       />
 
-      <TitreSommets
-        v-if="titre.points && geoTabActive === 'sommets'"
+      <TitrePoints
+        v-if="titre.points && geoTabActive === 'points'"
         :points="titre.points"
       />
 
@@ -125,7 +138,7 @@ import TitreRepertoire from './titre/repertoire.vue'
 import TitreDemarches from './titre/demarches.vue'
 import TitreActivites from './titre/activites.vue'
 import TitreOutils from './titre/outils.vue'
-import TitreSommets from './titre/sommets.vue'
+import TitrePoints from './titre/points.vue'
 import TitreDownloadCsv from './titre/download-csv.vue'
 import TitreDownloadGeojson from './titre/download-geojson.vue'
 
@@ -141,7 +154,7 @@ export default {
     TitreDemarches,
     TitreActivites,
     TitreOutils,
-    TitreSommets,
+    TitrePoints,
     TitreDownloadCsv,
     TitreDownloadGeojson
   },
@@ -155,8 +168,8 @@ export default {
         activites: { nom: 'Activités' }
       },
       geoTabs: {
-        carte: { nom: 'Carte' },
-        sommets: { nom: 'Sommets' }
+        carte: { nom: 'Carte', icon: 'globe' },
+        points: { nom: 'Points', icon: 'list' }
       }
     }
   },
