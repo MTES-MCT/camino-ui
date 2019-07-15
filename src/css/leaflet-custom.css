@@ -17,21 +17,17 @@
 }
 
 .leaflet-marker-icon.marker-cluster-xs {
-  box-shadow: 0 0 0 5px color-mod(var(--color-bg) alpha(75%));
+  box-shadow: 0 0 0 var(--unit-xxs) color-mod(var(--color-bg) alpha(100%));
 }
 
 .leaflet-marker-icon.marker-cluster-s {
-  box-shadow: 0 0 0 10px color-mod(var(--color-bg) alpha(75%));
+  box-shadow: 0 0 0 var(--unit-xs) color-mod(var(--color-bg) alpha(90%));
 }
 
 .leaflet-marker-icon.marker-cluster-m {
-  box-shadow: 0 0 0 15px color-mod(var(--color-bg) alpha(75%));
+  box-shadow: 0 0 0 var(--unit-s) color-mod(var(--color-bg) alpha(80%));
 }
 
 .leaflet-marker-icon.marker-cluster-l {
-  box-shadow: 0 0 0 20px color-mod(var(--color-bg) alpha(75%));
-}
-
-.leaflet-marker-icon.marker-cluster-xl {
-  box-shadow: 0 0 0 25px color-mod(var(--color-bg) alpha(75%));
+  box-shadow: 0 0 0 var(--unit-m) color-mod(var(--color-bg) alpha(70%));
 }

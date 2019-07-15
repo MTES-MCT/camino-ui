@@ -11,9 +11,8 @@ const clustersBuild = domaines =>
         let size
         if (childCount < 5) size = 'xs'
         else if (childCount < 15) size = 's'
-        else if (childCount < 30) size = 'm'
-        else if (childCount < 50) size = 'l'
-        else size = 'xl'
+        else if (childCount < 40) size = 'm'
+        else size = 'l'
 
         return new L.DivIcon({
           html: `<div><span>${id.toUpperCase()}</span></div>`,
@@ -24,29 +23,10 @@ const clustersBuild = domaines =>
       },
       disableClusteringAtZoom: 10,
       animate: true,
-      // zoomToBoundsOnClick: false,
       spiderfyOnMaxZoom: false,
       showCoverageOnHover: false,
-      maxClusterRadius: 40
+      maxClusterRadius(x) { return 2048 / Math.pow(x, 2) }
     })
-
-    // const popupOptions = {
-    //   closeButton: false,
-    //   offset: [20, 6],
-    //   autoPan: false
-    // }
-
-    // cluster.on('clustermouseover', cluster => {
-    //   const popupHtml = `<h4 class="mb-s">${
-    //     cluster.layer.getAllChildMarkers().length
-    //   }</h4>`
-
-    //   cluster.sourceTarget.bindPopup(popupHtml, popupOptions).openPopup()
-    // })
-
-    // cluster.on('clustermouseout', cluster => {
-    //   cluster.sourceTarget.closePopup()
-    // })
 
     return Object.assign(clusters, { [id]: cluster })
   }, {})
