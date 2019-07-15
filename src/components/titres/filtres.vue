@@ -63,14 +63,14 @@
           </ul>
           <button
             ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mb mr-xs"
+            class="btn-border h5 px-s p-xs rnd-xs mr-xs"
             @click="checkboxesSelect(filtre.id, 'none')"
           >
             Aucun
           </button>
           <button
             ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mb mr-xs"
+            class="btn-border h5 px-s p-xs rnd-xs mr-xs"
             @click="checkboxesSelect(filtre.id, 'all')"
           >
             Tous
@@ -122,13 +122,6 @@ export default {
           component: FiltresStatuts
         },
         {
-          id: 'substances',
-          type: 'input',
-          values: [],
-          name: 'Substances',
-          placeholder: 'Or, Argent, Ag, …'
-        },
-        {
           id: 'noms',
           type: 'input',
           values: [],
@@ -141,6 +134,13 @@ export default {
           values: [],
           name: 'Entreprises',
           placeholder: 'Nom ou siret'
+        },
+        {
+          id: 'substances',
+          type: 'input',
+          values: [],
+          name: 'Substances',
+          placeholder: 'Or, Argent, Ag, …'
         },
         {
           id: 'references',

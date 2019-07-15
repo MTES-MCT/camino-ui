@@ -3,7 +3,7 @@
     <LeafletMap
       ref="map"
       :tiles-layer="tilesLayer"
-      :geojson-layers="geojsonLayersDisplayed"
+      :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
       class="map map-list mb-s"
       @update="urlUpdate"
@@ -29,10 +29,20 @@
           </li>
         </ul>
       </div>
-      <div class="desktop-blob-1-2">
+      <div class="desktop-blob-1-2 flex">
+        <button
+          class="btn-border pill px-m py-s mb mr-s"
+          @click="clustersDisplayToggle"
+        >
+          <i
+            :class="`icon-markers-${clustersDisplay ? 'ungrouped' : 'grouped'}`"
+            class="icon-24"
+          />
+        </button>
         <LeafletTilesSelector
           :tiles="tiles"
           :tiles-id="tilesId"
+          class="flex-grow"
           @tiles-id-set="tilesIdSelect"
         />
       </div>
@@ -41,11 +51,15 @@
 </template>
 
 <script>
-import L from 'leaflet'
 import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 import TitreMapWarningBrgm from '../leaflet/warning-brgm.vue'
-import 'leaflet.markercluster/dist/leaflet.markercluster-src.js'
+import {
+  clustersBuild,
+  layersBuild,
+  tilesBuild,
+  geojsonBoundsGet
+} from './map.js'
 
 export default {
   components: {
@@ -90,24 +104,22 @@ export default {
         }
       ],
       zoneId: 'fr',
-      geojsonLayers: [],
-      markerLayers: [],
-      geojsonLayersDisplayed: []
+      clustersDisplay: true,
+      geojsons: {},
+      clusters: [],
+      markers: [],
+      geojsonLayers: []
     }
   },
 
   computed: {
     tilesLayer() {
       const tiles = this.$store.getters['user/tilesActive']
-      return tiles.type === 'wms'
-        ? L.tileLayer.wms(tiles.url, {
-            layers: tiles.layers,
-            format: 'image/png',
-            attribution: tiles.attribution
-          })
-        : L.tileLayer(tiles.url, {
-            attribution: tiles.attribution
-          })
+      return tilesBuild(tiles)
+    },
+
+    markerLayers() {
+      return this.clustersDisplay ? this.clusters : this.markers
     },
 
     zone() {
@@ -115,7 +127,7 @@ export default {
     },
 
     bounds() {
-      return L.geoJSON(this.zone).getBounds()
+      return geojsonBoundsGet(this.zone)
     },
 
     domaines() {
@@ -202,127 +214,18 @@ export default {
     },
 
     titresInit() {
-      this.markerLayers = []
-      this.geojsonLayers = []
+      const clusters = clustersBuild(this.domaines)
+      const { geojsons, markers } = layersBuild(this.titres, this.$router)
 
-      // crée les clusters
-      // const markerClusters = {}
-
-      // this.domaines.forEach(domaine => {
-      //   markerClusters[domaine.id] = L.markerClusterGroup({
-      //     iconCreateFunction(cluster) {
-      //       const childCount = cluster.getChildCount()
-
-      //       let c = 'marker-cluster-size-'
-      //       if (childCount < 5) c += 'mini'
-      //       else if (childCount < 15) c += 'small'
-      //       else if (childCount < 30) c += 'medium'
-      //       else if (childCount < 50) c += 'large'
-      //       else c += 'extra'
-
-      //       return new L.DivIcon({
-      //         html: `<div><span>${domaine.id.toUpperCase()}</span></div>`,
-      //         className: `h6 mono border-bg color-bg py-xs px-s inline-block pill bg-titre-domaine-${domaine.id} ${c}`,
-      //         iconSize: null,
-      //         iconAnchor: [0, 0]
-      //       })
-      //     },
-      //     disableClusteringAtZoom: 12,
-      //     animate: false,
-      //     // zoomToBoundsOnClick: false,
-      //     spiderfyOnMaxZoom: false,
-      //     showCoverageOnHover: false
-      //   })
-
-      //   const popupOptions = {
-      //     closeButton: false,
-      //     offset: [20, 6],
-      //     autoPan: false
-      //   }
-
-      //   markerClusters[domaine.id].on('clustermouseover', cluster => {
-      //     const popupHtml = `<h4 class="mb-s">${
-      //       cluster.layer.getAllChildMarkers().length
-      //     }</h4>`
-
-      //     cluster.sourceTarget.bindPopup(popupHtml, popupOptions).openPopup()
-      //   })
-
-      //   markerClusters[domaine.id].on('clustermouseout', cluster => {
-      //     cluster.sourceTarget.closePopup()
-      //   })
-      // })
-
-      this.titres.forEach(titre => {
-        const domaineId = titre.domaine.id
-        const icon = L.divIcon({
-          className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-titre-domaine-${domaineId} leaflet-marker-title cap`,
-          html: domaineId,
-          iconSize: null,
-          iconAnchor: [15.5, 38]
-        })
-
-        const popupHtml = `<h4 class="mb-s">${titre.nom}</h4>`
-
-        const popupOptions = {
-          closeButton: false,
-          offset: [0, -24],
-          autoPan: false
-        }
-
-        const titreRoute = {
-          name: 'titre',
-          params: { id: titre.id }
-        }
-
-        const methods = {
-          click: () => {
-            this.$router.push(titreRoute)
-          },
-          mouseover(e) {
-            this.openPopup()
-          },
-          mouseout(e) {
-            this.closePopup()
-          }
-        }
-
-        if (titre.geojsonMultiPolygon) {
-          const geojsonLayer = L.geoJSON(titre.geojsonMultiPolygon, {
-            style: {
-              fillOpacity: 0.75,
-              weight: 1,
-              color: 'white',
-              className: `svg-fill-domaine-${domaineId}`
-            },
-            onEachFeature: (feature, layer) => {
-              const titleMarker = L.marker(
-                L.geoJSON(feature)
-                  .getBounds()
-                  .getCenter(),
-                { icon }
-              )
-
-              layer.bindPopup(popupHtml, popupOptions)
-              layer.on(methods)
-
-              titleMarker.bindPopup(popupHtml, popupOptions)
-              titleMarker.on(methods)
-              titleMarker.id = titre.id
-
-              this.markerLayers.push(titleMarker)
-
-              // markerClusters[domaineId].addLayer(titleMarker)
-            }
-          })
-          geojsonLayer.id = titre.id
-          this.geojsonLayers.push(geojsonLayer)
-        }
+      this.geojsons = geojsons
+      this.markers = markers
+      this.markers.forEach(marker => {
+        clusters[marker.domaineId].addLayer(marker)
       })
 
-      // this.markerLayers = Object.keys(markerClusters).map(
-      //   domaineId => markerClusters[domaineId]
-      // )
+      this.clusters = Object.keys(clusters).map(
+        domaineId => clusters[domaineId]
+      )
 
       this.geojsonLayersDisplay()
     },
@@ -359,7 +262,6 @@ export default {
 
     zoomUrlSet(zoom) {
       this.urlParamSet('zoom', zoom)
-      this.geojsonLayersDisplay()
     },
 
     urlCentreSet(centreArray) {
@@ -390,7 +292,19 @@ export default {
     },
 
     geojsonLayersDisplay() {
-      this.geojsonLayersDisplayed = this.zoom > 7 ? this.geojsonLayers : []
+      setTimeout(() => {
+        this.geojsonLayers = []
+        this.markers.forEach(marker => {
+          if (this.$refs.map.hasLayer(marker)) {
+            this.geojsonLayers.push(this.geojsons[marker.id])
+          }
+        })
+      }, 500)
+    },
+
+    clustersDisplayToggle() {
+      this.clustersDisplay = !this.clustersDisplay
+      this.geojsonLayersDisplay()
     }
   }
 }

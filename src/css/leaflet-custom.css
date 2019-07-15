@@ -1,6 +1,5 @@
 .leaflet-marker-title {
   filter: drop-shadow(4px 4px 4px color-mod(var(--color-inverse) alpha(50%)));
-  font-weight: 700;
 }
 
 .leaflet-marker-title::before {
@@ -17,37 +16,22 @@
   margin-left: -5.5px;
 }
 
-.leaflet-marker-icon.marker-cluster-size-mini {
-  height: 35px;
-  width: 35px;
-  line-height: 25px;
-  text-align: center;
+.leaflet-marker-icon.marker-cluster-xs {
+  box-shadow: 0 0 0 5px color-mod(var(--color-bg) alpha(75%));
 }
 
-.leaflet-marker-icon.marker-cluster-size-small {
-  height: 40px;
-  width: 40px;
-  line-height: 30px;
-  text-align: center;
+.leaflet-marker-icon.marker-cluster-s {
+  box-shadow: 0 0 0 10px color-mod(var(--color-bg) alpha(75%));
 }
 
-.leaflet-marker-icon.marker-cluster-size-medium {
-  height: 45px;
-  width: 45px;
-  line-height: 35px;
-  text-align: center;
+.leaflet-marker-icon.marker-cluster-m {
+  box-shadow: 0 0 0 15px color-mod(var(--color-bg) alpha(75%));
 }
 
-.leaflet-marker-icon.marker-cluster-size-large {
-  height: 50px;
-  width: 50px;
-  line-height: 40px;
-  text-align: center;
+.leaflet-marker-icon.marker-cluster-l {
+  box-shadow: 0 0 0 20px color-mod(var(--color-bg) alpha(75%));
 }
 
-.leaflet-marker-icon.marker-cluster-size-extra {
-  height: 55px;
-  width: 55px;
-  line-height: 45px;
-  text-align: center;
+.leaflet-marker-icon.marker-cluster-xl {
+  box-shadow: 0 0 0 25px color-mod(var(--color-bg) alpha(75%));
 }

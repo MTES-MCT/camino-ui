@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn-border pill px-m py-s h5 flex"
+    class="btn-border pill pl pr-m py-s h5 flex"
     @click="download"
   >
     <span class="mt-xxs mr-xs">{{ type }}</span> <i class="icon-24 icon-download" />

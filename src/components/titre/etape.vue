@@ -95,7 +95,7 @@
         </div>
         <div
           v-if="etape.titulaires.length"
-          class="tablet-blob-1-4"
+          class="tablet-blob-1-2"
         >
           <h6>
             Titulaire{{ etape.titulaires.length > 1 ? 's' : '' }}
@@ -115,7 +115,7 @@
         </div>
         <div
           v-if="etape.amodiataires.length"
-          class="tablet-blob-1-4"
+          class="tablet-blob-1-2"
         >
           <h6>
             Amodiataire{{ etape.amodiataires.length > 1 ? 's' : '' }}

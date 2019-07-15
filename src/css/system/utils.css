@@ -56,6 +56,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   display: flex;
 }
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 .flex-start {
   align-items: flex-start;
 }

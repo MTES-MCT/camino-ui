@@ -4,6 +4,7 @@
       v-for="annee in activitesByYear"
       :key="annee.id"
     >
+      <div class="card-border mb" />
       <h2>{{ annee.id }}</h2>
       <Activite
         v-for="activite in annee.activites"

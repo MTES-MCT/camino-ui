@@ -3,7 +3,7 @@
     <div
       v-for="(groupe, groupeIndex) in groupes"
       :key="groupeIndex + 1"
-      :class="{'geo-groupe': groupes.length > 1}"
+      class="geo-groupe"
     >
       <h4
         v-if="groupes.length > 1"
@@ -14,7 +14,7 @@
       <div
         v-for="(contour, contourIndex) in groupe"
         :key="contourIndex + 1"
-        :class="{'geo-contour': groupe.length > 1}"
+        class="geo-contour"
       >
         <h4
           v-if="groupe.length > 1 && contourIndex === 0"
