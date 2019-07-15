@@ -32,7 +32,6 @@ const modules = {
   statistiques
 }
 
-/* global npmVersion */
 export const state = {
   config: {},
   messages: [],
