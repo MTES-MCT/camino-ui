@@ -1,5 +1,7 @@
 import 'leaflet'
 import { GestureHandling } from 'leaflet-gesture-handling'
+import 'leaflet-fullscreen'
+
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png'
@@ -32,7 +34,11 @@ const leafletMap = map =>
     // zoomControl: true,
     doubleClickZoom: false,
     minZoom: 4,
-    gestureHandling: true
+    gestureHandling: true,
+    fullscreenControl: true,
+    fullscreenControlOptions: {
+      position: 'bottomRight'
+    }
   })
 
 const leafletScaleAdd = map => L.control.scale({ imperial: false }).addTo(map)
