@@ -3,8 +3,8 @@
     class="mb"
     sub="true"
   >
-    <template slot="titleSection">
-      {{ activite.type.nom }}
+    <template slot="section">
+      {{ activite.date | dateFormat }} | <span class="cap-first">{{ activite.type.nom }}</span>
     </template>
     <template slot="title">
       <Dot :color="`bg-${activite.statut.couleur}`" /><span
@@ -18,28 +18,20 @@
       <ActiviteButton
         v-if="editable"
         :activite="activite"
-        class="btn-alt py-s px-m flex-align-self-flex-start"
+        class="btn-alt py-s px-m"
       />
     </template>
-    <template
-      slot="sub"
-    >
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-4">
-          <h6>Date d'ouverture</h6>
-          <p>{{ activite.date | dateFormat }}</p>
-        </div>
-        <div class="tablet-blob-1-4">
-          <div v-if="activite.dateSaisie">
-            <h6>Date de {{ activite.statut.id === 'dep' ? 'dépôt' : 'modification' }}</h6>
-            <p>{{ activite.dateSaisie | dateFormat }}</p>
-          </div>
-        </div>
-        <div class="tablet-blob-1-2" />
-      </div>
-    </template>
+
+
 
     <div>
+      <div
+        v-if="activite.dateSaisie"
+        class="border-b-s px-m pt-m"
+      >
+        <h6>Date de {{ activite.statut.id === 'dep' ? 'dépôt' : 'modification' }}</h6>
+        <p>{{ activite.dateSaisie | dateFormat }}</p>
+      </div>
       <div
         v-for="s in activite.sections"
         :key="s.id"
@@ -48,6 +40,7 @@
         <h4 v-if="s.nom">
           {{ s.nom }}
         </h4>
+
         <div class="tablet-blobs">
           <div
             v-for="e in s.elements.filter(e => (!e.dateFin || e.dateFin >= dateFormat(activite.date)) && (!e.dateDebut || e.dateDebut < dateFormat(activite.date)))"

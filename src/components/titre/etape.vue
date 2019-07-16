@@ -3,6 +3,13 @@
     class="mb"
     :sub="true"
   >
+    <template slot="section">
+      {{ etape.date | dateFormat }}
+      <span
+        v-if="etape.incertitudes && etape.incertitudes.date"
+        class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
+      >?</span>
+    </template>
     <template slot="title">
       <Dot :color="`bg-${etape.statut.couleur}`" />
       <span class="cap-first">
@@ -29,180 +36,201 @@
       </button>
     </template>
 
-    <template slot="sub">
-      <div class="tablet-blobs">
+    <template
+      v-if="hasContent"
+      slot="sub"
+    >
+      <div
+        v-if="etape.duree"
+        class="tablet-blobs"
+      >
         <div class="tablet-blob-1-4">
           <h6>
-            Date
-            <span
-              v-if="etape.incertitudes && etape.incertitudes.date"
-              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
-            >?</span>
-          </h6>
-          <p>{{ etape.date | dateFormat }}</p>
-        </div>
-        <div
-          v-if="etape.duree"
-          class="tablet-blob-1-4"
-        >
-          <h6>
             Durée
+          </h6>
+        </div>
+        <div class="tablet-blob-3-4">
+          <p>
+            {{ etape.duree }} mois
             <span
               v-if="etape.incertitudes && etape.incertitudes.duree"
-              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+              class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
             >?</span>
-          </h6>
-          <p>{{ etape.duree }} mois</p>
+          </p>
         </div>
-        <div
-          v-if="etape.dateDebut"
-          class="tablet-blob-1-4"
-        >
+      </div>
+      <div
+        v-if="etape.dateDebut"
+        class="tablet-blobs"
+      >
+        <div class="tablet-blob-1-4">
           <h6>
             Date de début
+          </h6>
+        </div>
+        <div class="tablet-blob-3-4">
+          <p>
+            {{ etape.dateDebut | dateFormat }}
             <span
               v-if="etape.incertitudes && etape.incertitudes.dateDebut"
-              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+              class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
             >?</span>
-          </h6>
-          <p>{{ etape.dateDebut | dateFormat }}</p>
+          </p>
         </div>
-        <div
-          v-if="etape.dateFin"
-          class="tablet-blob-1-4"
-        >
+      </div>
+      <div
+        v-if="etape.dateFin"
+        class="tablet-blobs"
+      >
+        <div class="tablet-blob-1-4">
           <h6>
             Date d'échéance
+          </h6>
+        </div>
+        <div class="tablet-blob-3-4">
+          <p>
+            {{ etape.dateFin | dateFormat }}
             <span
               v-if="etape.incertitudes && etape.incertitudes.dateFin"
-              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+              class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
             >?</span>
-          </h6>
-          <p>{{ etape.dateFin | dateFormat }}</p>
+          </p>
         </div>
-        <div
-          v-if="etape.points.length"
-          class="tablet-blob-1-4"
-        >
+      </div>
+      <div
+        v-if="etape.points.length"
+        class="tablet-blobs"
+      >
+        <div class="tablet-blob-1-4">
           <h6>
             Périmètre
+          </h6>
+        </div>
+        <div class="tablet-blob-3-4">
+          <p>
+            –
             <span
               v-if="etape.incertitudes && etape.incertitudes.points"
-              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+              class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
             >?</span>
-          </h6>
-          <p>–</p>
+          </p>
         </div>
-        <div
-          v-if="etape.titulaires.length"
-          class="tablet-blob-1-2"
-        >
+      </div>
+      <div
+        v-if="etape.titulaires.length"
+        class="tablet-blobs"
+      >
+        <div class="tablet-blob-1-4">
           <h6>
             Titulaire{{ etape.titulaires.length > 1 ? 's' : '' }}
-            <span
-              v-if="etape.incertitudes && etape.incertitudes.titulaires"
-              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
-            >?</span>
           </h6>
-          <ul class="list-prefix">
+        </div>
+        <div class="tablet-blob-3-4">
+          <ul class="list-prefix mb">
             <li
               v-for="t in etape.titulaires"
               :key="t.id"
             >
               {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
+              <span
+                v-if="etape.incertitudes && etape.incertitudes.titulaires"
+                class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
+              >?</span>
             </li>
           </ul>
         </div>
-        <div
-          v-if="etape.amodiataires.length"
-          class="tablet-blob-1-2"
-        >
+      </div>
+      <div
+        v-if="etape.amodiataires.length"
+        class="tablet-blobs"
+      >
+        <div class="tablet-blob-1-4">
           <h6>
             Amodiataire{{ etape.amodiataires.length > 1 ? 's' : '' }}
-            <span
-              v-if="etape.incertitudes && etape.incertitudes.amodiataires"
-              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
-            >?</span>
           </h6>
-
+        </div>
+        <div class="tablet-blob-3-4">
           <ul class="list-prefix">
             <li
               v-for="t in etape.amodiataires"
               :key="t.id"
             >
               {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
+              <span
+                v-if="etape.incertitudes && etape.incertitudes.amodiataires"
+                class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
+              >?</span>
             </li>
           </ul>
         </div>
-        <div
-          v-if="etape.engagement"
-          class="tablet-blob-1-4"
-        >
+      </div>
+      <div
+        v-if="etape.engagement"
+        class="tablet-blobs"
+      >
+        <div class="tablet-blob-1-4">
           <h6>
             Engagement financier
-            <span
-              v-if="etape.incertitudes && etape.incertitudes.engagement"
-              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
-            >?</span>
           </h6>
+        </div>
+        <div class="tablet-blob-3-4">
           <p>
             {{ numberFormat(etape.engagement) }}
             <span v-if="etape.engagementDevise"> {{ etape.engagementDevise.id }}</span>
+            <span
+              v-if="etape.incertitudes && etape.incertitudes.engagement"
+              class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
+            >?</span>
           </p>
         </div>
-        <div
-          v-if="etape.volume"
-          class="tablet-blob-1-4"
-        >
+      </div>
+      <div
+        v-if="etape.volume"
+        class="tablet-blobs"
+      >
+        <div class="tablet-blob-1-4">
           <h6>
             Volume
-            <span
-              v-if="etape.incertitudes && etape.incertitudes.volume"
-              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
-            >?</span>
           </h6>
+        </div>
+        <div class="tablet-blob-3-4">
           <p>
             {{ numberFormat(etape.volume) }}
             <span v-if="etape.volumeUnite"> {{ etape.volumeUnite.nom }}</span>
+            <span
+              v-if="etape.incertitudes && etape.incertitudes.volume"
+              class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
+            >?</span>
           </p>
         </div>
-        <div
-          v-if="etape.substances.length"
-          class="tablet-blob-1-2 large-blob-1-4"
-        >
+      </div>
+      <div
+        v-if="etape.substances.length"
+        class="tablet-blobs"
+      >
+        <div class="tablet-blob-1-4 large-blob-1-4">
           <h6>
             Substance{{ etape.substances.length > 1 ? 's' : '' }}
-            <span
-              v-if="etape.incertitudes && etape.incertitudes.substances"
-              class="bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
-            >?</span>
           </h6>
+        </div>
+        <div class="tablet-blob-3-4">
           <PillList :elements="etape.substances.map(s => s.nom)" />
+          <span
+            v-if="etape.incertitudes && etape.incertitudes.substances"
+            class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
+          >?</span>
         </div>
       </div>
 
       <div
-        v-if="etape.visas && etape.visas.length"
-      >
-        <h6>Visas</h6>
-        <ul class="list-prefix h5">
-          <li
-            v-for="(visa, i) in etape.visas"
-            :key="i"
-          >
-            {{ visa }}
-          </li>
-        </ul>
-      </div>
-
-      <p
         v-if="incertitudes"
-        class="h5"
       >
-        <span
-          class="bg-info py-xxs px-xs rnd-xs color-bg bold"
-        >?</span>&nbsp;: donnée incertaine
-      </p>
+        <p class="h5">
+          <span
+            class="bg-info py-xxs px-xs rnd-xs color-bg bold"
+          >?</span>&nbsp;: Donnée incertaine
+        </p>
+      </div>
     </template>
 
     <Documents
@@ -210,6 +238,21 @@
       :documents="etape.documents"
       class="px-m"
     />
+
+    <div
+      v-if="etape.visas && etape.visas.length"
+      class="px-m"
+    >
+      <h6>Visas</h6>
+      <ul class="list-prefix h5">
+        <li
+          v-for="(visa, i) in etape.visas"
+          :key="i"
+        >
+          {{ visa }}
+        </li>
+      </ul>
+    </div>
   </Accordion>
 </template>
 
@@ -258,6 +301,18 @@ export default {
           }
           return res
         }, 0)
+      )
+    },
+
+    hasContent() {
+      return (
+        !!this.etape.duree ||
+        !!this.etape.dateDebut ||
+        !!this.etape.dateFin ||
+        !!this.etape.points.length ||
+        !!this.etape.substances.length ||
+        !!this.etape.titulaires.length ||
+        !!this.etape.amodiataires.length
       )
     }
   },

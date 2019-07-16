@@ -15,8 +15,8 @@ const clustersBuild = domaines =>
         else size = 'l'
 
         return new L.DivIcon({
-          html: `<div><span>${id.toUpperCase()}</span></div>`,
-          className: `h6 mono color-bg py-xs px-s inline-block pill bg-titre-domaine-${id} marker-cluster-${size} bold`,
+          html: id,
+          className: `py-xs px-s pill h6 mono color-bg cap bold bg-titre-domaine-${id} shadow-drop leaflet-marker-cluster-${size}`,
           iconSize: null,
           iconAnchor: [0, 0]
         })
@@ -38,7 +38,7 @@ const layersBuild = (titres, router) =>
 
       const domaineId = titre.domaine.id
       const icon = L.divIcon({
-        className: `h6 mono border-bg color-bg py-xs px-s pill inline-block bg-titre-domaine-${domaineId} leaflet-marker-title cap bold`,
+        className: `leaflet-marker-camino py-xs px-s pill h6 mono color-bg cap bold border-bg bg-titre-domaine-${domaineId} shadow-drop`,
         html: domaineId,
         iconSize: null,
         iconAnchor: [15.5, 38]

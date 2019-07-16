@@ -64,6 +64,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   align-items: flex-start;
 }
 
+.flex-end {
+  align-items: flex-end;
+}
+
 .flex-align-self-flex-start {
   align-self: flex-start;
 }
@@ -127,4 +131,8 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 .text-ellipsis {
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.align-y-bottom {
+  vertical-align: text-bottom;
 }

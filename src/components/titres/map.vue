@@ -29,7 +29,7 @@
           </li>
         </ul>
       </div>
-      <div class="desktop-blob-1-2 flex">
+      <div class="desktop-blob-1-2 flex flex-start">
         <button
           class="btn-border pill px-m py-s mb mr-s"
           @click="clustersDisplayToggle"
@@ -295,7 +295,7 @@ export default {
       setTimeout(() => {
         this.geojsonLayers = []
         this.markers.forEach(marker => {
-          if (this.$refs.map.hasLayer(marker)) {
+          if (this.$refs.map && this.$refs.map.hasLayer(marker)) {
             this.geojsonLayers.push(this.geojsons[marker.id])
           }
         })

@@ -17,11 +17,11 @@
         v-if="entreprise.legalSiren"
         class="large-blobs"
       >
-        <div class="large-blob-1-6">
+        <div class="large-blob-1-4">
           <h6>Siren</h6>
         </div>
         <div
-          class="large-blob-5-6"
+          class="large-blob-3-4"
         >
           <p>{{ entreprise.legalSiren }}</p>
         </div>
@@ -31,11 +31,11 @@
         v-if="entreprise.legalForme"
         class="large-blobs"
       >
-        <div class="large-blob-1-6">
+        <div class="large-blob-1-4">
           <h6>Forme juridique</h6>
         </div>
         <div
-          class="large-blob-5-6"
+          class="large-blob-3-4"
         >
           <p>{{ entreprise.legalForme }}</p>
         </div>
@@ -45,11 +45,11 @@
         v-if="entreprise.etablissements.length"
         class="large-blobs"
       >
-        <div class="large-blob-1-6">
+        <div class="large-blob-1-4">
           <h6>Établissement{{ entreprise.etablissements.length > 1 ? 's' : '' }}</h6>
         </div>
         <div
-          class="large-blob-5-6"
+          class="large-blob-3-4"
         >
           <ul class="list-sans">
             <li
@@ -68,11 +68,11 @@
         v-if="entreprise.adresse"
         class="large-blobs"
       >
-        <div class="large-blob-1-6">
+        <div class="large-blob-1-4">
           <h6>Adresse</h6>
         </div>
         <div
-          class="large-blob-5-6"
+          class="large-blob-3-4"
         >
           <p>
             {{ entreprise.adresse }}
@@ -85,10 +85,10 @@
         v-if="entreprise.telephone"
         class="large-blobs"
       >
-        <div class="large-blob-1-6">
+        <div class="large-blob-1-4">
           <h6>Téléphone</h6>
         </div>
-        <div class="large-blob-5-6">
+        <div class="large-blob-3-4">
           <p class="word-break">
             {{ entreprise.telephone }}
           </p>
@@ -98,10 +98,10 @@
         v-if="entreprise.email"
         class="large-blobs"
       >
-        <div class="large-blob-1-6">
+        <div class="large-blob-1-4">
           <h6>Email</h6>
         </div>
-        <div class="large-blob-5-6">
+        <div class="large-blob-3-4">
           <p class="word-break">
             <a
               :href="`mailto:${entreprise.email}`"
@@ -116,10 +116,10 @@
         v-if="entreprise.url"
         class="large-blobs"
       >
-        <div class="large-blob-1-6">
+        <div class="large-blob-1-4">
           <h6>Site</h6>
         </div>
-        <div class="large-blob-5-6">
+        <div class="large-blob-3-4">
           <p class="word-break">
             <a
               :href="entreprise.url"

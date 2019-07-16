@@ -1,21 +1,25 @@
 <template>
-  <div class="border rnd-xs flex flex-direction-column">
+  <div class="flex flex-direction-column rnd-xs border">
     <div
       v-if="$slots.buttons"
-      class="flex full-x border-b-s accordion-header"
+      class="accordion-header flex full-x border"
+      :class="{ 'rnd-t-xs': opened || $slots.sub, 'rnd-xs': !opened && !$slots.sub }"
     >
       <div class="py-s px-m">
         <h6
-          v-if="$slots.titleSection"
-          class="cap-first"
+          v-if="$slots.section"
+          class="cap-first accordion-section"
         >
-          <slot name="titleSection" />
+          <slot name="section" />
         </h6>
         <h4 class="mb-0">
           <slot name="title" />
         </h4>
       </div>
-      <div class="flex-right accordion-buttons flex flex-start">
+      <div
+        class="accordion-buttons flex flex-end flex-right"
+        :class="{'accordion-buttons-rnd': !$slots.sub && !opened}"
+      >
         <slot name="buttons" />
         <button
           v-if="$slots.default"
@@ -41,10 +45,10 @@
     >
       <div>
         <h6
-          v-if="$slots.titleSection"
-          class="cap-first"
+          v-if="$slots.section"
+          class="cap-first accordion-section"
         >
-          <slot name="titleSection" />
+          <slot name="section" />
         </h6>
         <h4 class="mb-0">
           <slot name="title" />

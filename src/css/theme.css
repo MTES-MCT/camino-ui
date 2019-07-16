@@ -230,9 +230,22 @@
   align-items: stretch;
 }
 
-.accordion-buttons > button:last-child {
-  border-right: var(--unit-line) solid var(--color-alt);
+.accordion-buttons {
+  overflow: hidden;
+  border-radius: 0 calc(var(--unit-xs) + var(--unit-line)) 0 0;
+  padding-right: var(--unit-line);
+  padding-top: var(--unit-line);
+  padding-bottom: var(--unit-line);
 }
+
+.accordion-buttons-rnd {
+  border-radius: 0 calc(var(--unit-xs) + var(--unit-line))
+    calc(var(--unit-xs) + var(--unit-line)) 0;
+}
+
+/* .accordion-buttons > button:last-child {
+  margin-right: calc(-1 * var(--unit-line));
+} */
 
 .lh-2 {
   line-height: 2;
@@ -346,13 +359,13 @@
     flex-direction: row;
   }
 
-  .accordion-buttons > button {
+  /* .accordion-buttons > button {
     border-top: var(--unit-line) solid var(--color-alt);
-  }
+  } */
 
-  .accordion-buttons > button:last-child {
+  /* .accordion-buttons > button:last-child {
     border-radius: 0 var(--unit-xs) 0 0;
-  }
+  } */
 }
 
 @media (--viewport-desktop) {
@@ -375,6 +388,10 @@
 @media (--viewport-large) {
   .camino-header-baseline {
     padding-left: 7.5rem;
+  }
+
+  .large-columns {
+    column-count: 2;
   }
 }
 
