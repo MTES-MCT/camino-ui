@@ -360,7 +360,7 @@
       <hr>
     </div>
 
-    <div class="hide">
+    <div>
       <h3 class="mb-s">
         Périmètre ({{ pointsTotal.length }} points)
       </h3>
@@ -522,11 +522,20 @@
               <div class="tablet-blobs">
                 <div class="mb tablet-blob-1-3">
                   <h6>Système</h6>
-                  <input
-                    v-model="reference.systeme"
+
+                  <select
+                    v-model="reference.geoSystemeId"
                     type="text"
-                    class="p-s"
+                    class="p-s mr-s"
                   >
+                    <option
+                      v-for="geoSysteme in geoSystemes"
+                      :key="`reference-${reference.id}-systeme-${geoSysteme.id}`"
+                      :value="geoSysteme.id"
+                    >
+                      {{ geoSysteme.nom }} ({{ geoSysteme.id }})
+                    </option>
+                  </select>
                 </div>
                 <div class="mb tablet-blob-1-3">
                   <h6>Longitude</h6>
@@ -835,6 +844,10 @@ export default {
       return this.$store.state.entreprises.list
     },
 
+    geoSystemes() {
+      return this.$store.state.metas.geoSystemes
+    },
+
     substances() {
       return this.$store.state.substances.list.filter(su =>
         su.legales.find(sl => sl.domaine.id === this.domaineId)
@@ -940,8 +953,11 @@ export default {
         }
       })
       console.log(JSON.stringify(etape, null, 2))
-
-      this.$store.dispatch('titre/etapeUpdate', etape)
+      if (this.creation) {
+        this.$store.dispatch('titre/etapeCreate', etape)
+      } else {
+        this.$store.dispatch('titre/etapeUpdate', etape)
+      }
     },
 
     cancel() {

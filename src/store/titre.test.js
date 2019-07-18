@@ -10,12 +10,15 @@ jest.mock('../router', () => ({
 
 jest.mock('../api', () => ({
   titre: jest.fn(),
+  titreCreate: jest.fn(),
   titreUpdate: jest.fn(),
-  titreRemove: jest.fn(),
+  titreDelete: jest.fn(),
+  titreDemarcheCreate: jest.fn(),
   titreDemarcheUpdate: jest.fn(),
-  titreDemarcheRemove: jest.fn(),
+  titreDemarcheDelete: jest.fn(),
+  titreEtapeCreate: jest.fn(),
   titreEtapeUpdate: jest.fn(),
-  titreEtapeRemove: jest.fn()
+  titreEtapeDelete: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -106,60 +109,52 @@ describe('état du titre sélectionné', () => {
   })
 
   test('crée un titre', async () => {
-    const creation = true
-    const apiMock = api.titreUpdate.mockResolvedValue(titreInfo)
-    await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
+    const apiMock = api.titreCreate.mockResolvedValue(titreInfo)
+    await store.dispatch('titre/titreCreate', titreInfo)
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ titre: titreInfo })
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
   test('met à jour un titre', async () => {
-    const creation = false
     const actionReload = jest.fn()
     titre.actions.reload = actionReload
     store = new Vuex.Store({ modules: { titre }, actions, mutations })
     const apiMock = api.titreUpdate.mockResolvedValue(titreInfo)
-    await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
+    await store.dispatch('titre/titreUpdate', titreInfo)
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ titre: titreInfo })
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(actionReload).toHaveBeenCalled()
   })
 
   test("retourne une erreur 404 si l'API retourne null lors de la mise à jour", async () => {
-    const creation = true
     const apiMock = api.titreUpdate.mockResolvedValue(null)
-    await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
+    await store.dispatch('titre/titreUpdate', titreInfo)
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ titre: titreInfo })
     expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour", async () => {
-    const creation = true
     const apiMock = api.titreUpdate.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('titre/titreUpdate', { titre: titreInfo, creation })
+    await store.dispatch('titre/titreUpdate', titreInfo)
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ titre: titreInfo })
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('supprime un titre', async () => {
-    const apiMock = api.titreRemove.mockResolvedValue(true)
-    await store.dispatch('titre/titreRemove', titreId)
+    const apiMock = api.titreDelete.mockResolvedValue(true)
+    await store.dispatch('titre/titreDelete', titreId)
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: titreId })
   })
 
   test("retourne une erreur 404 si l'API retourne null lors de la suppression d'un titre", async () => {
-    const apiMock = api.titreRemove.mockResolvedValue(null)
-    await store.dispatch('titre/titreRemove', titreId)
+    const apiMock = api.titreDelete.mockResolvedValue(null)
+    await store.dispatch('titre/titreDelete', titreId)
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: titreId })
@@ -167,10 +162,10 @@ describe('état du titre sélectionné', () => {
   })
 
   test("retourne une erreur si l'API si l'API retourne une erreur lors de la suppression d'un titre", async () => {
-    const apiMock = api.titreRemove.mockRejectedValue(
+    const apiMock = api.titreDelete.mockRejectedValue(
       new Error("error de l'api")
     )
-    await store.dispatch('titre/titreRemove', titreId)
+    await store.dispatch('titre/titreDelete', titreId)
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: titreId })
@@ -207,8 +202,8 @@ describe('état du titre sélectionné', () => {
   })
 
   test('supprime une démarche', async () => {
-    const apiMock = api.titreDemarcheRemove.mockResolvedValue(demarcheId)
-    await store.dispatch('titre/demarcheRemove', demarcheId)
+    const apiMock = api.titreDemarcheDelete.mockResolvedValue(demarcheId)
+    await store.dispatch('titre/demarcheDelete', demarcheId)
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: demarcheId })
@@ -216,8 +211,8 @@ describe('état du titre sélectionné', () => {
   })
 
   test("retourne une erreur 404 lors de la suppression d'une démarche", async () => {
-    const apiMock = api.titreDemarcheRemove.mockResolvedValue(null)
-    await store.dispatch('titre/demarcheRemove', demarcheId)
+    const apiMock = api.titreDemarcheDelete.mockResolvedValue(null)
+    await store.dispatch('titre/demarcheDelete', demarcheId)
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: demarcheId })
@@ -225,10 +220,10 @@ describe('état du titre sélectionné', () => {
   })
 
   test("retourne une erreur de l'api lors de la suppression d'une démarche", async () => {
-    const apiMock = api.titreDemarcheRemove.mockRejectedValue(
+    const apiMock = api.titreDemarcheDelete.mockRejectedValue(
       new Error("erreur de l'api")
     )
-    await store.dispatch('titre/demarcheRemove', demarcheId)
+    await store.dispatch('titre/demarcheDelete', demarcheId)
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: demarcheId })
@@ -265,8 +260,8 @@ describe('état du titre sélectionné', () => {
   })
 
   test('supprime une étape', async () => {
-    const apiMock = api.titreEtapeRemove.mockResolvedValue(etapeId)
-    await store.dispatch('titre/etapeRemove', etapeId)
+    const apiMock = api.titreEtapeDelete.mockResolvedValue(etapeId)
+    await store.dispatch('titre/etapeDelete', etapeId)
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: etapeId })
@@ -274,8 +269,8 @@ describe('état du titre sélectionné', () => {
   })
 
   test("retourne une erreur 404 lors de la suppression d'une étape", async () => {
-    const apiMock = api.titreEtapeRemove.mockResolvedValue(null)
-    await store.dispatch('titre/etapeRemove', etapeId)
+    const apiMock = api.titreEtapeDelete.mockResolvedValue(null)
+    await store.dispatch('titre/etapeDelete', etapeId)
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: etapeId })
@@ -283,10 +278,10 @@ describe('état du titre sélectionné', () => {
   })
 
   test("retourne une erreur de l'api lors de la suppression d'une étape", async () => {
-    const apiMock = api.titreEtapeRemove.mockRejectedValue(
+    const apiMock = api.titreEtapeDelete.mockRejectedValue(
       new Error("erreur de l'api")
     )
-    await store.dispatch('titre/etapeRemove', etapeId)
+    await store.dispatch('titre/etapeDelete', etapeId)
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: etapeId })

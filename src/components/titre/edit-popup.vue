@@ -148,7 +148,6 @@
 <script>
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
-import slugify from 'slugify'
 
 export default {
   name: 'CaminoDemarcheEditPopup',
@@ -202,7 +201,8 @@ export default {
     save() {
       const titre = JSON.parse(JSON.stringify(this.titre))
 
-      titre.references.length &&
+      titre.references &&
+        titre.references.length &&
         titre.references.forEach((r, index) => {
           if (!r.type || !r.valeur) {
             titre.references.splice(index, 1)
@@ -210,13 +210,10 @@ export default {
         })
 
       if (this.creation) {
-        titre.id = slugify(`${titre.nom}-${new Date().getFullYear()}`)
+        this.$store.dispatch('titre/titreCreate', titre)
+      } else {
+        this.$store.dispatch('titre/titreUpdate', titre)
       }
-
-      this.$store.dispatch('titre/titreUpdate', {
-        titre,
-        creation: this.creation
-      })
     },
 
     cancel() {

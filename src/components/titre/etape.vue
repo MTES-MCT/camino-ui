@@ -37,7 +37,7 @@
     </template>
 
     <template
-      v-if="hasContent"
+      v-if="hasSub"
       slot="sub"
     >
       <div
@@ -223,7 +223,7 @@
       </div>
 
       <div
-        v-if="incertitudes"
+        v-if="incertitudesLength"
       >
         <p class="h5">
           <span
@@ -264,6 +264,8 @@ import Documents from './documents.vue'
 import EditPopup from './etape-edit-popup.vue'
 import RemovePopup from './etape-remove-popup.vue'
 
+import { jsonTypenameOmit } from '../../utils/index'
+
 export default {
   name: 'CaminoTitreEtape',
 
@@ -292,7 +294,7 @@ export default {
   },
 
   computed: {
-    incertitudes() {
+    incertitudesLength() {
       return (
         this.etape.incertitudes &&
         Object.keys(this.etape.incertitudes).reduce((res, i) => {
@@ -304,7 +306,7 @@ export default {
       )
     },
 
-    hasContent() {
+    hasSub() {
       return (
         !!this.etape.duree ||
         !!this.etape.dateDebut ||
@@ -319,7 +321,7 @@ export default {
 
   methods: {
     editPopupOpen() {
-      const etape = JSON.parse(JSON.stringify(this.etape))
+      const etape = jsonTypenameOmit(this.etape)
 
       etape.titreDemarcheId = this.demarcheId
 
@@ -383,7 +385,12 @@ export default {
             point: point.point,
             coordonnees: point.coordonnees,
             description: point.description,
-            references: point.references
+            references: point.references.map(r => {
+              r.geoSystemeId = r.geoSysteme.id
+              delete r.geoSysteme
+
+              return r
+            })
           }
 
           return groupes

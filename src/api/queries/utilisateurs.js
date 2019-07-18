@@ -55,7 +55,7 @@ const queryUtilisateurIdentifier = gql`
 `
 
 const mutationUtilisateurModifier = gql`
-  mutation UtilisateurModifier($utilisateur: InputUtilisateur!) {
+  mutation UtilisateurModifier($utilisateur: InputUtilisateurModification!) {
     utilisateurModifier(utilisateur: $utilisateur) {
       ...utilisateur
     }
@@ -64,9 +64,9 @@ const mutationUtilisateurModifier = gql`
   ${fragmentUtilisateur}
 `
 
-const mutationUtilisateurAjouter = gql`
-  mutation UtilisateurAjouter($utilisateur: InputUtilisateurAjouter!) {
-    utilisateurAjouter(utilisateur: $utilisateur) {
+const mutationUtilisateurCreer = gql`
+  mutation UtilisateurCreer($utilisateur: InputUtilisateurCreation!) {
+    utilisateurCreer(utilisateur: $utilisateur) {
       ...utilisateur
     }
   }
@@ -122,9 +122,9 @@ const mutationUtilisateurMotDePasseEmailEnvoyer = gql`
   }
 `
 
-const mutationUtilisateurAjoutEmailEnvoyer = gql`
-  mutation UtilisateurAjoutEmailEnvoyer($email: String!) {
-    utilisateurAjoutEmailEnvoyer(email: $email)
+const mutationUtilisateurCreationEmailEnvoyer = gql`
+  mutation UtilisateurCreationEmailEnvoyer($email: String!) {
+    utilisateurCreationEmailEnvoyer(email: $email)
   }
 `
 
@@ -134,10 +134,10 @@ export {
   queryUtilisateurIdentifier,
   mutationUtilisateurConnecter,
   mutationUtilisateurModifier,
-  mutationUtilisateurAjouter,
+  mutationUtilisateurCreer,
   mutationUtilisateurSupprimer,
   mutationUtilisateurMotDePasseModifier,
   mutationUtilisateurMotDePasseInitialiser,
   mutationUtilisateurMotDePasseEmailEnvoyer,
-  mutationUtilisateurAjoutEmailEnvoyer
+  mutationUtilisateurCreationEmailEnvoyer
 }

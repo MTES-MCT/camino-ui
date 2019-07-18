@@ -8,6 +8,7 @@
 
 <script>
 import Download from '../ui/download.vue'
+import { jsonTypenameOmit } from '../../utils/index'
 
 export default {
   components: {
@@ -33,12 +34,6 @@ export default {
         },
         features: [titre.geojsonMultiPolygon, ...titre.geojsonPoints.features]
       })
-
-      const typenameOmit = (key, value) =>
-        key === '__typename' ? undefined : value
-
-      const jsonTypenameOmit = json =>
-        JSON.parse(JSON.stringify(json), typenameOmit)
 
       return JSON.stringify(
         jsonTypenameOmit(titresFormatGeojson(this.titre)),

@@ -5,11 +5,17 @@ const dateFormat = isoDate => {
   // .replace(/ *\([^)]*\) */g,'')
 }
 
-function numberFormat(x) {
+const numberFormat = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 }
 
 const permissionsCheck = (userPermission, permissions) =>
   permissions.includes(userPermission.id)
 
-export { dateFormat, permissionsCheck, numberFormat }
+const typenameOmit = (key, value) =>
+        key === '__typename' ? undefined : value
+
+const jsonTypenameOmit = json =>
+        JSON.parse(JSON.stringify(json), typenameOmit)
+
+export { dateFormat, permissionsCheck, numberFormat, jsonTypenameOmit }

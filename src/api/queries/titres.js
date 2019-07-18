@@ -39,9 +39,18 @@ const queryTitres = gql`
 
   ${fragmentTitres}
 `
+const mutationTitreCreer = gql`
+  mutation TitreCreer($titre: InputTitreCreation!) {
+    titreCreer(titre: $titre) {
+      ...titre
+    }
+  }
+
+  ${fragmentTitre}
+`
 
 const mutationTitreModifier = gql`
-  mutation TitreModifier($titre: InputTitre!) {
+  mutation TitreModifier($titre: InputTitreModification!) {
     titreModifier(titre: $titre) {
       ...titre
     }
@@ -60,8 +69,18 @@ const mutationTitreSupprimer = gql`
   ${fragmentTitre}
 `
 
+const mutationTitreDemarcheCreer = gql`
+  mutation TitreDemarcheCreer($demarche: InputDemarcheCreation!) {
+    titreDemarcheCreer(demarche: $demarche) {
+      ...titre
+    }
+  }
+
+  ${fragmentTitre}
+`
+
 const mutationTitreDemarcheModifier = gql`
-  mutation TitreDemarcheModifier($demarche: InputDemarche!) {
+  mutation TitreDemarcheModifier($demarche: InputDemarcheModification!) {
     titreDemarcheModifier(demarche: $demarche) {
       ...titre
     }
@@ -80,8 +99,18 @@ const mutationTitreDemarcheSupprimer = gql`
   ${fragmentTitre}
 `
 
+const mutationTitreEtapeCreer = gql`
+  mutation TitreEtapeCreer($etape: InputEtapeCreation!) {
+    titreEtapeCreer(etape: $etape) {
+      ...titre
+    }
+  }
+
+  ${fragmentTitre}
+`
+
 const mutationTitreEtapeModifier = gql`
-  mutation TitreEtapeModifier($etape: InputEtape!) {
+  mutation TitreEtapeModifier($etape: InputEtapeModification!) {
     titreEtapeModifier(etape: $etape) {
       ...titre
     }
@@ -102,11 +131,13 @@ const mutationTitreEtapeSupprimer = gql`
 
 export {
   queryTitre,
-  queryTitres,
+  queryTitres,mutationTitreCreer,
   mutationTitreModifier,
   mutationTitreSupprimer,
+  mutationTitreDemarcheCreer,
   mutationTitreDemarcheModifier,
   mutationTitreDemarcheSupprimer,
+  mutationTitreEtapeCreer,
   mutationTitreEtapeModifier,
   mutationTitreEtapeSupprimer
 }

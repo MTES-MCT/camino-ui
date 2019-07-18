@@ -55,7 +55,7 @@ import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 
 export default {
-  name: 'CaminoEtapeRemovePopup',
+  name: 'CaminoEtapeDeletePopup',
 
   components: {
     Popup,
@@ -101,7 +101,7 @@ export default {
 
   methods: {
     remove() {
-      this.$store.dispatch('titre/etapeRemove', this.etapeId)
+      this.$store.dispatch('titre/etapeDelete', this.etapeId)
     },
 
     cancel() {

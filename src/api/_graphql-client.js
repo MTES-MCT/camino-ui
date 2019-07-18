@@ -4,6 +4,7 @@ import { createHttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
+import { jsonTypenameOmit } from '../utils/index'
 
 // for safari 11
 import fetch from 'unfetch'
@@ -39,10 +40,6 @@ const httpLink = createHttpLink({
   uri: process.env.VUE_APP_API_URL,
   fetch
 })
-
-const typenameOmit = (key, value) => (key === '__typename' ? undefined : value)
-
-const jsonTypenameOmit = json => JSON.parse(JSON.stringify(json), typenameOmit)
 
 // supprime les propriétés ___typename lors des mutations
 const typenameOmitLink = new ApolloLink((operation, forward) => {
@@ -83,7 +80,5 @@ const graphqlClient = new ApolloClient({
   //   }
   // }
 })
-
-export { jsonTypenameOmit }
 
 export default graphqlClient

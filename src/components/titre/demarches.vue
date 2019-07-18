@@ -46,7 +46,6 @@ export default {
   methods: {
     demarcheAddPopupOpen() {
       const demarche = {
-        id: `${this.titre.id}-ooo00`,
         typeId: null,
         titreId: this.titre.id
       }

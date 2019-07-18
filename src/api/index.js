@@ -2,12 +2,15 @@ import { init } from './init'
 import {
   titres,
   titre,
+  titreCreate,
   titreUpdate,
-  titreRemove,
+  titreDelete,
+  titreDemarcheCreate,
   titreDemarcheUpdate,
-  titreDemarcheRemove,
+  titreDemarcheDelete,
+  titreEtapeCreate,
   titreEtapeUpdate,
-  titreEtapeRemove
+  titreEtapeDelete
 } from './titres'
 
 import {
@@ -33,12 +36,15 @@ import { statistiques } from './statistiques'
 export {
   init,
   titre,
+  titreCreate,
   titreUpdate,
-  titreRemove,
+  titreDelete,
+  titreDemarcheCreate,
   titreDemarcheUpdate,
-  titreDemarcheRemove,
+  titreDemarcheDelete,
+  titreEtapeCreate,
   titreEtapeUpdate,
-  titreEtapeRemove,
+  titreEtapeDelete,
   titres,
   utilisateur,
   utilisateurs,

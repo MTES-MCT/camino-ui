@@ -121,7 +121,6 @@ export default {
 
     etapeAddPopupOpen() {
       const etape = {
-        id: `${this.demarche.id}-ooo00`,
         ordre: 0,
         titreDemarcheId: this.demarche.id,
         typeId: null,

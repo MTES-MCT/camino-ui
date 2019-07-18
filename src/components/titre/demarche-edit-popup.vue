@@ -128,9 +128,12 @@ export default {
   methods: {
     save() {
       const demarche = JSON.parse(JSON.stringify(this.demarche))
-      console.log(JSON.stringify(demarche, null, 2))
 
-      this.$store.dispatch('titre/demarcheUpdate', demarche)
+      if (this.creation) {
+        this.$store.dispatch('titre/demarcheCreate', demarche)
+      } else {
+        this.$store.dispatch('titre/demarcheUpdate', demarche)
+      }
     },
 
     cancel() {

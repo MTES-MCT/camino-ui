@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import {
   titre,
+  titreCreate,
   titreUpdate,
-  titreRemove,
+  titreDelete,
+  titreDemarcheCreate,
   titreDemarcheUpdate,
-  titreDemarcheRemove,
+  titreDemarcheDelete,
+  titreEtapeCreate,
   titreEtapeUpdate,
-  titreEtapeRemove
+  titreEtapeDelete
 } from '../api'
 
 import router from '../router'
@@ -50,7 +53,27 @@ export const actions = {
     )
   },
 
-  async titreUpdate({ commit, dispatch }, { titre, creation }) {
+  async titreCreate({ commit, dispatch }, titre ) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'titreCreate', { root: true })
+
+    try {
+      const res = await titreCreate({ titre })
+
+      if (res) {
+        commit('popupClose', null, { root: true })
+        dispatch('reload', res.id)
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreCreate', { root: true })
+    }
+  },
+
+  async titreUpdate({ commit, dispatch }, titre ) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'titreUpdate', { root: true })
 
@@ -70,12 +93,12 @@ export const actions = {
     }
   },
 
-  async titreRemove({ commit, dispatch }, id) {
+  async titreDelete({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
-    commit('loadingAdd', 'titreRemove', { root: true })
+    commit('loadingAdd', 'titreDelete', { root: true })
 
     try {
-      const res = await titreRemove({ id })
+      const res = await titreDelete({ id })
 
       if (res) {
         commit('popupClose', null, { root: true })
@@ -95,7 +118,27 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreRemove', { root: true })
+      commit('loadingRemove', 'titreDelete', { root: true })
+    }
+  },
+
+  async demarcheCreate({ commit, dispatch }, demarche) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'titreDemarcheCreate', { root: true })
+
+    try {
+      const res = await titreDemarcheCreate({ demarche })
+
+      if (res) {
+        commit('popupClose', null, { root: true })
+        dispatch('reload', res.id)
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreDemarcheCreate', { root: true })
     }
   },
 
@@ -119,12 +162,12 @@ export const actions = {
     }
   },
 
-  async demarcheRemove({ commit, dispatch }, id) {
+  async demarcheDelete({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheRemove', { root: true })
+    commit('loadingAdd', 'titreDemarcheDelete', { root: true })
 
     try {
-      const res = await titreDemarcheRemove({ id })
+      const res = await titreDemarcheDelete({ id })
 
       if (res) {
         commit('popupClose', null, { root: true })
@@ -135,7 +178,27 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemarcheRemove', { root: true })
+      commit('loadingRemove', 'titreDemarcheDelete', { root: true })
+    }
+  },
+
+  async etapeCreate({ commit, dispatch }, etape) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'titreEtapeCreate', { root: true })
+
+    try {
+      const res = await titreEtapeCreate({ etape })
+      console.log(res)
+      if (res) {
+        commit('popupClose', null, { root: true })
+        dispatch('reload', res.id)
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeCreate', { root: true })
     }
   },
 
@@ -159,12 +222,12 @@ export const actions = {
     }
   },
 
-  async etapeRemove({ commit, dispatch }, id) {
+  async etapeDelete({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
-    commit('loadingAdd', 'titreEtapeRemove', { root: true })
+    commit('loadingAdd', 'titreEtapeDelete', { root: true })
 
     try {
-      const res = await titreEtapeRemove({ id })
+      const res = await titreEtapeDelete({ id })
 
       if (res) {
         commit('popupClose', null, { root: true })
@@ -175,7 +238,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreEtapeRemove', { root: true })
+      commit('loadingRemove', 'titreEtapeDelete', { root: true })
     }
   },
 
