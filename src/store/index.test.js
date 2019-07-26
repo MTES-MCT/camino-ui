@@ -42,6 +42,7 @@ describe("état général de l'application", () => {
       versions: {
         api: null,
         /* global npmVersion */
+        // @ts-ignore
         ui: `${npmVersion}`
       },
       loading: [],
