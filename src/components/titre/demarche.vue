@@ -131,7 +131,8 @@ export default {
         administrationsIds: [],
         substancesIds: [],
         groupes: [],
-        incertitudes: {}
+        incertitudes: {},
+        contenu: {}
       }
 
       this.$store.commit('popupOpen', {

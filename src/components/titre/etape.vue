@@ -294,6 +294,13 @@ export default {
   },
 
   computed: {
+    etapeType() {
+      return (
+        this.demarcheType.etapesTypes.find(et => et.id === this.etape.typeId) ||
+        {}
+      )
+    },
+
     incertitudesLength() {
       return (
         this.etape.incertitudes &&
@@ -399,6 +406,10 @@ export default {
 
       if (!etape.incertitudes) {
         etape.incertitudes = {}
+      }
+
+      if (!etape.contenu) {
+        etape.contenu = {}
       }
 
       delete etape.pays

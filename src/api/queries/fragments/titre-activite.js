@@ -1,4 +1,6 @@
 import gql from 'graphql-tag'
+import { fragmentActiviteType } from './metas-activites'
+
 
 const fragmentTitreActivite = gql`
   fragment titreActivite on TitreActivite {
@@ -11,30 +13,15 @@ const fragmentTitreActivite = gql`
     }
     periode
     annee
-    sections
     type {
-      id
-      nom
-      pays {
-        id
-        nom
-      }
-      frequence {
-        id
-        nom
-        trimestres {
-          id
-          nom
-          mois {
-            id
-            nom
-          }
-        }
-      }
+      ...activiteType
     }
     dateSaisie
+    sections
     contenu
   }
+
+  ${fragmentActiviteType}
 `
 
 const fragmentTitresActivite = gql`

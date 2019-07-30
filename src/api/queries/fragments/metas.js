@@ -12,6 +12,8 @@ const fragmentEtapeType = gql`
       nom
       couleur
     }
+    fondamentale
+    sections
   }
 `
 

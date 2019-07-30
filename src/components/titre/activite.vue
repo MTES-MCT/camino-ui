@@ -22,8 +22,6 @@
       />
     </template>
 
-
-
     <div>
       <div
         v-if="activite.dateSaisie"

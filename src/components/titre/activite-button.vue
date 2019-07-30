@@ -1,11 +1,11 @@
 <template>
-  <button @click="activitePopupOpen">
+  <button @click="activiteEditPopupOpen">
     {{ buttonText }}
   </button>
 </template>
 
 <script>
-import activitePopup from './activite-popup.vue'
+import activiteEditPopup from './activite-edit-popup.vue'
 
 export default {
   props: {
@@ -22,7 +22,7 @@ export default {
   },
 
   methods: {
-    activitePopupOpen() {
+    activiteEditPopupOpen() {
       const activite = JSON.parse(JSON.stringify(this.activite))
 
       activite.contenu = this.activite.sections.reduce(
@@ -35,7 +35,7 @@ export default {
                 this.activite.contenu[s.id][e.id]
 
               return Object.assign(elementsObj, {
-                [e.id]: value || e.type !== 'checkbox' ? value : []
+                [e.id]: value || e.type !== 'checkboxes' ? value : []
               })
             }, {})
           }),
@@ -43,7 +43,7 @@ export default {
       )
 
       this.$store.commit('popupOpen', {
-        component: activitePopup,
+        component: activiteEditPopup,
         props: {
           activite
         }
