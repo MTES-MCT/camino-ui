@@ -99,8 +99,8 @@
     />
 
     <EditSections
-      v-if="etape.sections"
-      :sections="etape.sections"
+      v-if="etapeType.sections"
+      :sections="etapeType.sections"
       :contenu.sync="contenu"
     />
 
@@ -117,11 +117,19 @@
         </div>
         <div class="tablet-blob-2-3">
           <button
+            v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
           >
             Enregistrer
           </button>
+
+          <div
+            v-else
+            class="rnd-xs p-s full-x bg-alt bold"
+          >
+            Enregistrement en cours…
+          </div>
         </div>
       </div>
     </template>
@@ -172,6 +180,12 @@ export default {
     }
   },
 
+  data() {
+    return {
+      loading: false
+    }
+  },
+
   computed: {
     messages() {
       return this.$store.state.popup.messages
@@ -189,12 +203,15 @@ export default {
     },
 
     contenu() {
-      return this.etapeType.sections.reduce(
-        (acc, { id }) =>
-          Object.assign(acc, {
-            [id]: (this.etape.contenu && this.etape.contenu[id]) || {}
-          }),
-        {}
+      return (
+        this.etapeType.sections &&
+        this.etapeType.sections.reduce(
+          (acc, { id }) =>
+            Object.assign(acc, {
+              [id]: (this.etape.contenu && this.etape.contenu[id]) || {}
+            }),
+          {}
+        )
       )
     }
   },
@@ -209,6 +226,7 @@ export default {
 
   methods: {
     save() {
+      this.loading = true
       const etape = JSON.parse(JSON.stringify(this.etape))
 
       const propsFilter = (obj, prop, key) =>
@@ -242,6 +260,14 @@ export default {
         // )
 
         delete etape.groupes
+      }
+
+      if (etape.duree.ans || etape.duree.mois) {
+        etape.duree =
+          (etape.duree.ans ? etape.duree.ans * 12 : 0) +
+          (etape.duree.mois ? etape.duree.mois : 0)
+      } else {
+        etape.duree = null
       }
 
       const props = [

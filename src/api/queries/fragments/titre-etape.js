@@ -68,7 +68,6 @@ const fragmentTitreEtape = gql`
     pays {
       ...pays
     }
-    sections
     contenu
   }
 

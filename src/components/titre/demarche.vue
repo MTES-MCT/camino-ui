@@ -125,6 +125,7 @@ export default {
         titreDemarcheId: this.demarche.id,
         typeId: null,
         statutId: null,
+        duree: { ans: null, mois: null },
         visas: [],
         titulairesIds: [],
         amodiatairesIds: [],

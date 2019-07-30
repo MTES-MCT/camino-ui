@@ -2,20 +2,33 @@
   <div>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Durée (mois)</h6>
+        <h6>Durée (années / mois)</h6>
         <p class="h6 italic mb-0">
           Optionel
         </p>
       </div>
       <div class="tablet-blob-2-3">
-        <input
-          v-model.number="etape.duree"
-          type="number"
-          class="p-s"
-          :class="{'mb-s': etape.duree, 'mb': !etape.duree}"
+        <div
+          class="tablet-blobs"
+          :class="{'mb-s': etape.duree.ans || etape.duree.mois, 'mb': !etape.duree.ans && !etape.duree.mois}"
         >
+          <div class="tablet-blob-1-2">
+            <input
+              v-model.number="etape.duree.ans"
+              type="number"
+              class="p-s"
+            >
+          </div>
+          <div class="tablet-blob-1-2">
+            <input
+              v-model.number="etape.duree.mois"
+              type="number"
+              class="p-s"
+            >
+          </div>
+        </div>
         <label
-          v-if="etape.duree"
+          v-if="etape.duree.ans || etape.duree.mois"
           class="h5"
         >
           <input

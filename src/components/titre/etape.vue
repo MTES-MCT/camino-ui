@@ -51,7 +51,8 @@
         </div>
         <div class="tablet-blob-3-4">
           <p>
-            {{ etape.duree }} mois
+            <span v-if="duree.ans">{{ `${duree.ans} an${duree.ans > 1 ? 's' : ''}` }}</span><span v-if="duree.ans && duree.mois"> et </span>
+            <span v-if="duree.mois">{{ `${duree.mois} mois` }}</span>
             <span
               v-if="etape.incertitudes && etape.incertitudes.duree"
               class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
@@ -323,6 +324,13 @@ export default {
         !!this.etape.titulaires.length ||
         !!this.etape.amodiataires.length
       )
+    },
+
+    duree() {
+      return {
+        ans: this.etape.duree && Math.floor(this.etape.duree / 12),
+        mois: this.etape.duree && Math.floor(this.etape.duree % 12)
+      }
     }
   },
 
@@ -363,6 +371,11 @@ export default {
 
       if (etape.dateFin) {
         etape.dateFin = this.dateFormat(etape.dateFin)
+      }
+
+      etape.duree = {
+        ans: this.etape.duree ? Math.floor(this.etape.duree / 12) : null,
+        mois: this.etape.duree ? Math.floor(this.etape.duree % 12) : null
       }
 
       etape.visas = etape.visas

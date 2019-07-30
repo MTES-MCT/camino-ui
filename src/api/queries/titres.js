@@ -131,7 +131,8 @@ const mutationTitreEtapeSupprimer = gql`
 
 export {
   queryTitre,
-  queryTitres,mutationTitreCreer,
+  queryTitres,
+  mutationTitreCreer,
   mutationTitreModifier,
   mutationTitreSupprimer,
   mutationTitreDemarcheCreer,

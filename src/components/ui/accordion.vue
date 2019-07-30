@@ -40,7 +40,7 @@
     <button
       v-else-if="$slots.default && !$slots.buttons"
       :class="{ 'rnd-t-xs': opened || $slots.sub, 'rnd-xs': !opened && !$slots.sub }"
-      class="btn-border py-s px-m flex full-x accordion-header"
+      class="accordion-header flex full-x btn-border py-s px-m"
       @click="opened = !opened"
     >
       <div>
@@ -54,7 +54,7 @@
           <slot name="title" />
         </h4>
       </div>
-      <div class="flex-right">
+      <div class="flex flex-right flex-end">
         <i
           class="icon-24"
           :class="{ 'icon-chevron-b': !opened, 'icon-chevron-t': opened }"
@@ -64,8 +64,14 @@
 
     <div
       v-else
-      class="py-s px-m"
+      class="accordion-header flex full-x py-s px-m"
     >
+      <h6
+        v-if="$slots.section"
+        class="cap-first accordion-section"
+      >
+        <slot name="section" />
+      </h6>
       <h4 class="mb-0">
         <slot name="title" />
       </h4>
