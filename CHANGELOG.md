@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.1](https://github.com/MTES-MCT/camino-ui/compare/v0.22.0...v0.22.1) (2019-07-31)
+
+
+### Bug Fixes
+
+* ajoute dynamiquement l'url de l'API à la CSP ([29dfc73](https://github.com/MTES-MCT/camino-ui/commit/29dfc73))
+* ajuste l'affichage des clusters ([2b74a41](https://github.com/MTES-MCT/camino-ui/commit/2b74a41))
+* corrige l'édition des points ([2b45137](https://github.com/MTES-MCT/camino-ui/commit/2b45137))
+* corrige la création d'un utilisateur ([213c0bb](https://github.com/MTES-MCT/camino-ui/commit/213c0bb))
+* corrige la création de titres, démarches, étapes ([b98fe00](https://github.com/MTES-MCT/camino-ui/commit/b98fe00))
+* corrige la mise en page de l'entête d'un accordéon ([e9226a2](https://github.com/MTES-MCT/camino-ui/commit/e9226a2))
+* supprime un composant inutile ([bfefc9d](https://github.com/MTES-MCT/camino-ui/commit/bfefc9d))
+
+
+### Features
+
+* affiche la carte en plein écran ([25f04f8](https://github.com/MTES-MCT/camino-ui/commit/25f04f8))
+* affiche la durée en années / mois ([328178f](https://github.com/MTES-MCT/camino-ui/commit/328178f))
+* affiche les infos géographiques sur un titre ([581eeed](https://github.com/MTES-MCT/camino-ui/commit/581eeed))
+* ajoute des champs dynamiques sur une étape (pe: ONF) ([b96e7df](https://github.com/MTES-MCT/camino-ui/commit/b96e7df))
+* ajoute une url de serveur d'api ([3daf611](https://github.com/MTES-MCT/camino-ui/commit/3daf611))
+* améliore la mise en page des étapes ([c8ce8b8](https://github.com/MTES-MCT/camino-ui/commit/c8ce8b8))
+* corrige l'extension lors du téléchargement du geojson ([#27](https://github.com/MTES-MCT/camino-ui/issues/27)) ([defa988](https://github.com/MTES-MCT/camino-ui/commit/defa988))
+* regroupe les marqueurs en clusters ([2ff959a](https://github.com/MTES-MCT/camino-ui/commit/2ff959a))
+* uniformise les boutons pour passer de la vue carte à la vue liste ([10d711d](https://github.com/MTES-MCT/camino-ui/commit/10d711d))
+
 ## [0.22.0](https://github.com/MTES-MCT/camino-ui/compare/v0.21.0...v0.22.0) (2019-07-04)
 
 
