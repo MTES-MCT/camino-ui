@@ -36,7 +36,7 @@ describe("état général de l'application", () => {
     state = {
       config: {},
       messages: [],
-      popup: { component: null, props: null, messages: [] },
+      popup: { component: null, props: null, messages: [], loading: false },
       error: null,
       menu: { component: null },
       versions: {
@@ -88,6 +88,12 @@ describe("état général de l'application", () => {
     expect(state.messages).toEqual([message])
   })
 
+  test('met la popup en état de chargement', () => {
+    store.commit('popupLoad')
+
+    expect(state.popup.loading).toBe(true)
+  })
+
   test('supprime un message', () => {
     const message = { id: 42, message: 'message très important' }
     store.commit('messageAdd', message)
@@ -105,7 +111,8 @@ describe("état général de l'application", () => {
     expect(state.popup).toEqual({
       component: null,
       props: null,
-      messages: []
+      messages: [],
+      loading: false
     })
   })
 

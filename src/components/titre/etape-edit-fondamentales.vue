@@ -269,7 +269,7 @@
 
     <hr>
 
-    <div class="hide">
+    <div>
       <h3 class="mb-s">
         Périmètre ({{ pointsTotal.length }} points)
       </h3>

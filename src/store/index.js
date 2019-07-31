@@ -35,7 +35,7 @@ const modules = {
 export const state = {
   config: {},
   messages: [],
-  popup: { component: null, props: null, messages: [] },
+  popup: { component: null, props: null, messages: [], loading: false },
   error: null,
   menu: { component: null },
   versions: {
@@ -171,15 +171,16 @@ export const mutations = {
   },
 
   popupOpen(state, { component, props }) {
-    state.popup = { component, props, messages: [] }
+    state.popup.component = component
+    state.popup.props = props
+    state.popup.messages = []
   },
 
   popupClose(state) {
-    state.popup = {
-      component: null,
-      props: null,
-      messages: []
-    }
+    state.popup.component = null
+    state.popup.props = null
+    state.popup.messages = []
+    state.popup.loading = false
   },
 
   errorAdd(state, error) {
@@ -198,12 +199,18 @@ export const mutations = {
     state.menu.component = null
   },
 
+  popupLoad(state) {
+    state.popup.loading = true
+  },
+
   popupMessagesRemove(state) {
     state.popup.messages = []
+    state.popup.loading = false
   },
 
   popupMessageAdd(state, message) {
     state.popup.messages.push(message)
+    state.popup.loading = false
   },
 
   loadingAdd(state, name) {

@@ -109,6 +109,7 @@
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
+            v-if="!loading"
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
           >
@@ -126,7 +127,7 @@
 
           <div
             v-else
-            class="rnd-xs p-s full-x bg-alt bold"
+            class="p-s full-x bold"
           >
             Enregistrement en cours…
           </div>
@@ -180,13 +181,11 @@ export default {
     }
   },
 
-  data() {
-    return {
-      loading: false
-    }
-  },
-
   computed: {
+    loading() {
+      return this.$store.state.popup.loading
+    },
+
     messages() {
       return this.$store.state.popup.messages
     },
@@ -226,7 +225,6 @@ export default {
 
   methods: {
     save() {
-      this.loading = true
       const etape = JSON.parse(JSON.stringify(this.etape))
 
       const propsFilter = (obj, prop, key) =>
@@ -234,30 +232,23 @@ export default {
 
       etape.visas = propsFilter(etape, 'visas', 'texte')
 
-      const propsIds = [
-        'substancesIds',
-        'titulairesIds',
-        'amodiatairesIds',
-        'administrationsIds'
-      ]
-      propsIds.forEach(propId => {
-        if (etape[propId]) etape[propId] = etape[propId].filter(({ id }) => id)
-      })
-
       if (etape.groupes) {
-        // etape.points = etape.groupes.reduce(
-        //   (points, groupe) => [
-        //     ...points,
-        //     groupe.reduce(
-        //       (pos, contour) => [
-        //         ...pos,
-        //         contour.reduce((ps, point) => [...ps, point], [])
-        //       ],
-        //       []
-        //     )
-        //   ],
-        //   []
-        // )
+        etape.points = etape.groupes.reduce((res, contours) => {
+          res.concat(
+            contours.reduce((pos, points) => {
+              pos.concat(
+                points.reduce((ps, point) => {
+                  point.titreEtapeId = 'point-id'
+                  delete point.id
+                  ps.push(point)
+                  return ps
+                }, pos)
+              )
+              return pos
+            }, res)
+          )
+          return res
+        }, [])
 
         delete etape.groupes
       }

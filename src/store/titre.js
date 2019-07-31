@@ -184,11 +184,12 @@ export const actions = {
 
   async etapeCreate({ commit, dispatch }, etape) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreEtapeCreate', { root: true })
 
     try {
       const res = await titreEtapeCreate({ etape })
-      console.log(res)
+
       if (res) {
         commit('popupClose', null, { root: true })
         dispatch('reload', res.id)
@@ -204,11 +205,12 @@ export const actions = {
 
   async etapeUpdate({ commit, dispatch }, etape) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
     try {
       const res = await titreEtapeUpdate({ etape })
-      console.log(res)
+
       if (res) {
         commit('popupClose', null, { root: true })
         dispatch('reload', res.id)

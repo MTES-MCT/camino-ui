@@ -70,7 +70,7 @@ export default {
       this.$store.commit('popupOpen', {
         component: UtilisateurEditPopup,
         props: {
-          utilisateur: { permission: { id: 'defaut' } },
+          utilisateur: { permission: { id: 'defaut' }, entreprisesIds: [] },
           action: 'create'
         }
       })
