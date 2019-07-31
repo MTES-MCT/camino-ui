@@ -64,7 +64,7 @@
 
     <div
       v-else
-      class="accordion-header flex full-x py-s px-m"
+      class="py-s px-m"
     >
       <h6
         v-if="$slots.section"
