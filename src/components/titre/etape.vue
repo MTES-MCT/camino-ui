@@ -398,7 +398,6 @@ export default {
           groupes[point.groupe - 1][point.contour - 1] =
             groupes[point.groupe - 1][point.contour - 1] || []
           groupes[point.groupe - 1][point.contour - 1][point.point - 1] = {
-            id: point.id,
             nom: point.nom,
             groupe: point.groupe,
             contour: point.contour,
@@ -408,6 +407,7 @@ export default {
             references: point.references.map(r => {
               r.geoSystemeId = r.geoSysteme.id
               delete r.geoSysteme
+              delete r.id
 
               return r
             })
@@ -415,6 +415,8 @@ export default {
 
           return groupes
         }, [])
+
+        delete etape.points
       }
 
       if (!etape.incertitudes) {

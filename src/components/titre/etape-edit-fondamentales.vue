@@ -271,7 +271,7 @@
 
     <div>
       <h3 class="mb-s">
-        Périmètre ({{ pointsTotal.length }} points)
+        Périmètre ({{ pointsTotal.length }} point{{ pointsTotal.length > 1 ? 's' : '' }})
       </h3>
       <div class="h5 mb-s">
         <ul class="list-prefix">
@@ -317,14 +317,14 @@
               <div class="flex-right">
                 <button
                   class="btn-border py-s px-m rnd-s mt--s"
-                  @click="pointRemove(point)"
+                  @click="pointRemove(groupeIndex, contourIndex, pointIndex)"
                 >
                   <i class="icon-24 icon-minus" />
                 </button>
               </div>
             </div>
 
-            <div class="tablet-blobs">
+            <div class="tablet-blobs hide">
               <div class="mb tablet-blob-1-3">
                 <h6>Groupe</h6>
                 <select
@@ -416,6 +416,7 @@
             <div
               v-for="reference in point.references"
               :key="reference.id"
+              class="hide"
             >
               <div class="flex full-x">
                 <h4>Reference</h4>
@@ -465,7 +466,10 @@
               </div>
             </div>
 
-            <div v-if="!point.references.find(r => r.id === '')">
+            <div
+              v-if="!point.references.find(r => r.id === '')"
+              class="hide"
+            >
               <button
                 class="btn-border rnd-xs py-s px-m full-x flex"
                 @click="pointReferenceAdd(point)"
@@ -704,13 +708,17 @@ export default {
     },
 
     pointsTotal() {
-      return this.etape.groupes.reduce(
-        (points, contours) => [
-          ...points,
-          ...contours.reduce((pointsTotal, ps) => [...pointsTotal, ...ps], [])
-        ],
-        []
-      )
+      return this.etape.groupes.reduce((pointsTotal, contours) => {
+        pointsTotal = pointsTotal.concat(
+          contours.reduce((pointsTotal, points) => {
+            pointsTotal = pointsTotal.concat(points)
+
+            return pointsTotal
+          }, [])
+        )
+
+        return pointsTotal
+      }, [])
     },
 
     titulairesLength() {
@@ -732,23 +740,23 @@ export default {
         this.etape.groupes = [[[]]]
       }
       const contours = this.etape.groupes[this.etape.groupes.length - 1]
-      console.log(this.etape.groupes, contours)
-
       const points = contours[contours.length - 1]
-      const point = {
-        id: '',
-        groupe: this.etape.groupes.length,
-        contour: contours.length,
-        point: points.length + 1,
+
+      const groupe = this.etape.groupes.length
+      const contour = contours.length
+      const point = points.length + 1
+
+      points.push({
+        groupe,
+        contour,
+        point,
         coordonnees: { x: '', y: '' },
         references: []
-      }
-      points.push(point)
+      })
     },
 
-    pointRemove(point) {
-      const index = this.etape.points.findIndex(p => p.id === point.id)
-      this.etape.points.splice(index, 1)
+    pointRemove(groupeIndex, contourIndex, pointIndex) {
+      this.etape.groupes[groupeIndex][contourIndex].splice(pointIndex, 1)
     },
 
     pointReferenceAdd(point) {

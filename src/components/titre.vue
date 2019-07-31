@@ -3,67 +3,67 @@
     <Loader v-if="!loaded" />
     <Card v-else>
       <TitreHeader :titre="titre" />
-      <div class="tablet-blobs tablet-flex-direction-reverse">
-        <div class="tablet-blob-1-2 flex mb-s">
-          <TitreDownloadCsv
-            v-if="titre.points.length"
-            :titre="titre"
-            class="mr-s flex-right"
-          />
-          <TitreDownloadGeojson
-            v-if="titre.points.length"
-            :titre="titre"
-          />
-        </div>
 
-        <div
-          v-if="titre.geojsonMultiPolygon && titre.points"
-          class="tablet-blob-1-2 flex"
-        >
-          <div
-            v-for="(tab, tabId) in geoTabs"
-            :key="tabId"
-            class="mr-xs"
-            :class="{ active: geoTabActive === tabId}"
-          >
-            <button
-              v-if="geoTabActive !== tabId"
-              class="p-m btn-tab rnd-t-xs"
-              @click="geoTabToggle(tabId)"
-            >
-              <i
-                :class="`icon-${tab.icon}`"
-                class="icon-24"
-              />
-            </button>
+      <div v-if="titre.geojsonMultiPolygon && titre.points">
+        <div class="tablet-blobs tablet-flex-direction-reverse">
+          <div class="tablet-blob-1-2 flex mb-s">
+            <TitreDownloadCsv
+              v-if="titre.points.length"
+              :titre="titre"
+              class="mr-s flex-right"
+            />
+            <TitreDownloadGeojson
+              v-if="titre.points.length"
+              :titre="titre"
+            />
+          </div>
+
+          <div class="tablet-blob-1-2 flex">
             <div
-              v-else
-              class="p-m span-tab rnd-t-xs"
+              v-for="(tab, tabId) in geoTabs"
+              :key="tabId"
+              class="mr-xs"
+              :class="{ active: geoTabActive === tabId}"
             >
-              <i
-                :class="`icon-${tab.icon}`"
-                class="icon-24"
-              />
+              <button
+                v-if="geoTabActive !== tabId"
+                class="p-m btn-tab rnd-t-xs"
+                @click="geoTabToggle(tabId)"
+              >
+                <i
+                  :class="`icon-${tab.icon}`"
+                  class="icon-24"
+                />
+              </button>
+              <div
+                v-else
+                class="p-m span-tab rnd-t-xs"
+              >
+                <i
+                  :class="`icon-${tab.icon}`"
+                  class="icon-24"
+                />
+              </div>
             </div>
           </div>
         </div>
+
+        <div class="card-border" />
+
+        <TitreMap
+          v-if="titre.geojsonMultiPolygon && geoTabActive === 'carte'"
+          :geojson="titre.geojsonMultiPolygon"
+          :points="titre.points"
+          :domaine-id="titre.domaine.id"
+        />
+
+        <TitrePoints
+          v-if="titre.points && geoTabActive === 'points'"
+          :points="titre.points"
+        />
+
+        <div class="card-border mb" />
       </div>
-
-      <div class="card-border" />
-
-      <TitreMap
-        v-if="titre.geojsonMultiPolygon && geoTabActive === 'carte'"
-        :geojson="titre.geojsonMultiPolygon"
-        :points="titre.points"
-        :domaine-id="titre.domaine.id"
-      />
-
-      <TitrePoints
-        v-if="titre.points && geoTabActive === 'points'"
-        :points="titre.points"
-      />
-
-      <div class="card-border mb" />
 
       <TitreTerritoires
         :pays="titre.pays"

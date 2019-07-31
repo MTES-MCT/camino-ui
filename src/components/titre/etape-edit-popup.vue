@@ -233,21 +233,24 @@ export default {
       etape.visas = propsFilter(etape, 'visas', 'texte')
 
       if (etape.groupes) {
-        etape.points = etape.groupes.reduce((res, contours) => {
-          res.concat(
-            contours.reduce((pos, points) => {
-              pos.concat(
-                points.reduce((ps, point) => {
-                  point.titreEtapeId = 'point-id'
-                  delete point.id
-                  ps.push(point)
-                  return ps
-                }, pos)
-              )
-              return pos
-            }, res)
-          )
-          return res
+        etape.points = etape.groupes.reduce((acc, contours) => {
+          const points = contours.reduce((acc, points) => {
+            const pointsValides = points.reduce((acc, point) => {
+              if (point.coordonnees.x && point.coordonnees.y) {
+                acc.push(point)
+              }
+
+              return acc
+            }, [])
+
+            acc = acc.concat(pointsValides)
+
+            return acc
+          }, [])
+
+          acc = acc.concat(points)
+
+          return acc
         }, [])
 
         delete etape.groupes
