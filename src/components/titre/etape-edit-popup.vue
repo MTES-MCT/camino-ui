@@ -232,6 +232,20 @@ export default {
 
       etape.visas = propsFilter(etape, 'visas', 'texte')
 
+      const propsIds = [
+        'substancesIds',
+        'titulairesIds',
+        'amodiatairesIds',
+        'administrationsIds'
+      ]
+
+      // supprime les champs dont les ids sont vides
+      propsIds.forEach(propId => {
+        if (etape[propId]) {
+          etape[propId] = etape[propId].filter(id => id)
+        }
+      })
+
       if (etape.groupes) {
         etape.points = etape.groupes.reduce((acc, contours) => {
           const points = contours.reduce((acc, points) => {
