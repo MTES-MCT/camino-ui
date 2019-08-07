@@ -1,167 +1,22 @@
 <template>
-  <div>
-    <div class="overflow-scroll-x mb">
-      <div class="table">
-        <div class="tr">
-          <div class="th" />
-          <div class="th">
-            Nom
-          </div>
-          <div class="th">
-            Type
-          </div>
-          <div class="th">
-            Statut
-          </div>
-          <div
-            v-if="activitesCol"
-            class="th"
-          >
-            À traiter
-          </div>
-          <div class="th">
-            Titulaires
-          </div>
-          <div class="th">
-            Substances
-          </div>
-        </div>
-
-        <RouterLink
-          v-for="titre in titresPages[pageActive]"
-          :key="titre.id"
-          :to="{ name: 'titre', params: { id: titre.id } }"
-          class="tr tr-link text-decoration-none"
-        >
-          <div class="td">
-            <Pill
-              :color="`bg-titre-domaine-${titre.domaine.id}`"
-              class="mono"
-            >
-              {{ titre.domaine.id }}
-            </Pill>
-          </div>
-          <div class="td bold">
-            {{ titre.nom }}
-          </div>
-          <div class="td">
-            <p class="cap-first h5 mb-0">
-              {{ titre.type.nom }}
-            </p>
-          </div>
-          <div class="td">
-            <Dot :color="`bg-${titre.statut.couleur}`" />
-            <span class="cap-first h5 mb-0">
-              {{ titre.statut.nom }}
-            </span>
-          </div>
-          <div
-            v-if="activitesCol"
-            class="td"
-          >
-            <ul class="list-inline mb--xs">
-              <li
-                v-if="titre.activitesAbsentes"
-                class="mr-xs"
-              >
-                <Pill
-                  :color="'bg-error'"
-                >
-                  {{ titre.activitesAbsentes }}
-                </Pill>
-              </li>
-              <li
-                v-if="titre.activitesEnConstruction"
-                class="mr-xs"
-              >
-                <Pill
-                  :color="'bg-warning'"
-                >
-                  {{ titre.activitesEnConstruction }}
-                </Pill>
-              </li>
-            </ul>
-          </div>
-          <div
-            v-if="titre.titulaires"
-            class="td"
-          >
-            <p
-              v-for="titulaire in titre.titulaires"
-              :key="titulaire.id"
-              class="h5 mb-0"
-            >
-              {{ titulaire.nom }}
-            </p>
-          </div>
-          <div class="td">
-            <PillList
-              v-if="titre.substances"
-              :elements="titre.substances.map(s => s.nom)"
-              class="mb--xs"
-            />
-          </div>
-        </RouterLink>
-      </div>
-    </div>
-    <div class="desktop-blobs">
-      <div class="desktop-blob-3-4">
-        <Pagination
-          :page-active="pageActive"
-          :pages-total="titresPages.length - 1"
-          :pages-visible="5"
-          @page-change="pageActiveUrlSet"
-        />
-      </div>
-      <div class="desktop-blob-1-4">
-        <PaginationRanges
-          :ranges="pagesRanges"
-          :range-active="pagesRange"
-          @pages-range-change="pagesRangeChange"
-        />
-        <div class="hide">
-          <Accordion class="mb">
-            <template slot="title">
-              Affichage
-            </template>
-            <ul class="list-sans px-m">
-              <li
-                v-for="colonne in colonnes"
-                :key="colonne.type"
-              >
-                <label>
-                  <input
-                    type="checkbox"
-                    class="mr-s"
-                  > {{ colonne.name }}
-                </label>
-              </li>
-            </ul>
-          </Accordion>
-        </div>
-      </div>
-    </div>
-  </div>
+  <Table
+    :elements="titresElements"
+    :columns="colonnes"
+  />
 </template>
 
 <script>
+import Vue from 'vue'
+import Table from '../ui/table.vue'
 import PillList from '../ui/pill-list.vue'
 import Pill from '../ui/pill.vue'
-import Accordion from '../ui/accordion.vue'
 import Dot from '../ui/dot.vue'
-import Pagination from '../ui/pagination.vue'
-import PaginationRanges from '../ui/pagination-ranges.vue'
 
 export default {
   name: 'Titres',
 
   components: {
-    PillList,
-    Pill,
-    Accordion,
-    Dot,
-    Pagination,
-    PaginationRanges
+    Table
   },
 
   props: {
@@ -204,6 +59,91 @@ export default {
   },
 
   computed: {
+    activteCol() {
+      return this.titres.some(
+        t => t.activitesAbsentes || t.activitesEnConstruction
+      )
+    },
+
+    titresElements() {
+      return this.titres.map(titre => {
+        const columns = {
+          domaine: {
+            component: Pill,
+            props: {
+              color: `bg-titre-domaine-${titre.domaine.id}`
+            },
+            class: 'mono'
+          },
+          nom: titre.nom,
+          titulaires: titre.type.nom,
+          type: titre.type.nom,
+          statuts: {
+            component: {
+              components: { Dot },
+              props: {
+                dotColor: { type: String, default: 'bg-text' }
+              },
+              template: `<div>
+<Dot :color="dotColor" />
+<span class="cap-first h5 mb-0">
+  {{ titre.statut.nom }}
+</span>
+</div>`
+            },
+            props: { dotColor: `bg-${titre.statut.couleur}` }
+          },
+          substances: {
+            component: PillList,
+            props: {
+              elements: titre.substances.map(s => s.nom)
+            },
+            class: 'mb--xs'
+          }
+        }
+
+        if (this.activteCol) {
+          columns.actvivites = {
+            component: Vue.component('ActivitesPill', {
+              components: { Pill },
+              props: {
+                activitesAbsentes: { type: Number, default: 0 },
+                activitesEnConstruction: { type: Number, default: 0 }
+              },
+              template: `<ul class="list-inline mb--xs">
+  <li
+    v-if="activitesAbsentes"
+    class="mr-xs"
+  >
+    <Pill
+      :color="'bg-error'"
+    >
+      {{ activitesAbsentes }}
+    </Pill>
+  </li>
+  <li
+    v-if="activitesEnConstruction"
+    class="mr-xs"
+  >
+    <Pill
+      :color="'bg-warning'"
+    >
+      {{ activitesEnConstruction }}
+    </Pill>
+  </li>
+</ul>`
+            })
+          }
+        }
+
+        return {
+          id: titre.id,
+          link: { name: 'titre', params: { id: titre.id } },
+          columns
+        }
+      })
+    },
+
     titresPages() {
       return this.titres.reduce((res, cur, i) => {
         const page = Math.ceil((i + 1) / this.pagesRange)
@@ -212,12 +152,6 @@ export default {
         res[page].push(cur)
         return res
       }, [])
-    },
-
-    activitesCol() {
-      return this.titres.some(
-        t => t.activitesAbsentes || t.activitesEnConstruction
-      )
     },
 
     pageActive() {

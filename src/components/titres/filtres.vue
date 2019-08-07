@@ -12,7 +12,7 @@
       <div class="tablet-blobs mt">
         <div class="tablet-blob-1-2 large-blob-1-3">
           <div
-            v-for="filtre in filtres.filter(({type}) => type === 'input')"
+            v-for="filtre in filtresInputs"
             :key="filtre.id"
             class="mb"
           >
@@ -36,7 +36,7 @@
         </div>
 
         <div
-          v-for="filtre in filtres.filter(({type}) => type === 'checkbox')"
+          v-for="filtre in filtresCheckboxes"
           :key="filtre.id === 'types' ? filtre.nom : filtre.id"
           class="tablet-blob-1-2 large-blob-1-3 mb"
         >
@@ -175,6 +175,14 @@ export default {
 
     userPreferencesFiltres() {
       return this.$store.state.user.preferences.filtres
+    },
+
+    filtresInputs() {
+      return this.filtres.filter(({ type }) => type === 'input')
+    },
+
+    filtresCheckboxes() {
+      return this.filtres.filter(({ type }) => type === 'checkbox')
     }
   },
 
@@ -238,6 +246,10 @@ export default {
   },
 
   methods: {
+    filtreFind(id) {
+      return this.filtres.find(filtre => filtre.id === id)
+    },
+
     filtresSet(source) {
       const valueSet = (source, id) => {
         if (source === 'fromRoute') {
@@ -251,7 +263,7 @@ export default {
       }
 
       const filtreSet = (id, value) => {
-        const filtre = this.filtres.find(filtre => filtre.id === id)
+        const filtre = this.filtreFind(id)
         filtre.values = value ? value.split(',') : []
 
         // supprime du filtre si la valeur n'est pas présente dans les metas
@@ -272,7 +284,7 @@ export default {
 
     preferencesSet() {
       this.filtres.forEach(({ id, type }) => {
-        const filtre = this.filtres.find(filtre => filtre.id === id)
+        const filtre = this.filtreFind(id)
         // les préférences de filtres actuelles de l'utilisateurs
         const userPreferencesFiltresIds =
           this.userPreferencesFiltres[id] &&
@@ -312,7 +324,7 @@ export default {
       const query = Object.assign({}, this.$route.query)
 
       this.filtres.forEach(({ id }) => {
-        const filtre = this.filtres.find(filtre => filtre.id === id)
+        const filtre = this.filtreFind(id)
         const value = filtre.values.length ? filtre.values.join(',') : null
 
         if (value) {
@@ -334,7 +346,7 @@ export default {
     },
 
     checkboxToggle(id, e) {
-      const filtre = this.filtres.find(filtre => filtre.id === id)
+      const filtre = this.filtreFind(id)
       const idsSet = (value, values) => {
         const index = values.indexOf(value)
 
@@ -373,7 +385,7 @@ export default {
     },
 
     inputChange(id, e) {
-      const filtre = this.filtres.find(filtre => filtre.id === id)
+      const filtre = this.filtreFind(id)
       const values = e.target.value
         ? e.target.value.match(/\w+|"(?:\\"|[^"])+"/g)
         : []
@@ -382,7 +394,7 @@ export default {
     },
 
     checkboxesSelect(id, action) {
-      const filtre = this.filtres.find(filtre => filtre.id === id)
+      const filtre = this.filtreFind(id)
       if (action === 'none') {
         filtre.values = []
       }
