@@ -62,10 +62,18 @@ export default {
 
   destroyed() {
     const query = Object.assign({}, this.$route.query)
-    delete query.range
-    delete query.page
 
-    this.$router.replace({ query })
+    if (query.range || query.page) {
+      if (query.range) {
+        delete query.range
+      }
+
+      if (query.page) {
+        delete query.page
+      }
+
+      this.$router.replace({ query })
+    }
   },
 
   methods: {

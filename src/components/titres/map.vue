@@ -185,10 +185,18 @@ export default {
 
   destroyed() {
     const query = Object.assign({}, this.$route.query)
-    delete query.zoom
-    delete query.centre
 
-    this.$router.replace({ query })
+    if (query.zoom || query.centre) {
+      if (query.zoom) {
+        delete query.zoom
+      }
+
+      if (query.centre) {
+        delete query.centre
+      }
+
+      this.$router.replace({ query })
+    }
   },
 
   methods: {

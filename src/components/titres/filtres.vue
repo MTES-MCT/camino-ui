@@ -247,7 +247,7 @@ export default {
 
   methods: {
     filtreFind(id) {
-      return this.filtres.find(filtre => filtre.id === id)
+      return this.filtres.find(f => f.id === id)
     },
 
     filtresSet(source) {
@@ -262,42 +262,40 @@ export default {
         return this.$route.query[id] || this.userPreferencesFiltres[id]
       }
 
-      const filtreSet = (id, value) => {
-        const filtre = this.filtreFind(id)
+      const filtreSet = (filtre, value) => {
         filtre.values = value ? value.split(',') : []
 
         // supprime du filtre si la valeur n'est pas présente dans les metas
-        if (this.metas[id]) {
+        if (this.metas[filtre.id]) {
           filtre.values = filtre.values.filter(filtreId =>
-            this.metas[id].find(meta => meta.id === filtreId)
+            this.metas[filtre.id].find(meta => meta.id === filtreId)
           )
         }
       }
 
-      this.filtres.forEach(({ id }) => {
+      this.filtres.forEach(filtre => {
         // récupère les paramètres d'url
         // ou des préférences utilisateur
         // assigne les paramètres au filtre
-        filtreSet(id, valueSet(source, id))
+        filtreSet(filtre, valueSet(source, filtre.id))
       })
     },
 
     preferencesSet() {
-      this.filtres.forEach(({ id, type }) => {
-        const filtre = this.filtreFind(id)
+      this.filtres.forEach(filtre => {
         // les préférences de filtres actuelles de l'utilisateurs
         const userPreferencesFiltresIds =
-          this.userPreferencesFiltres[id] &&
-          this.userPreferencesFiltres[id]
+          this.userPreferencesFiltres[filtre.id] &&
+          this.userPreferencesFiltres[filtre.id]
             .split(',')
             .sort()
             .join(',')
 
         const filtresIdsNew =
-          type === 'checkbox'
+          filtre.type === 'checkbox'
             ? // si le filtre est une checkbox
               // - supprime les ids qui ne sont plus dans les métas
-              this.metas[id]
+              this.metas[filtre.id]
                 .filter(meta => filtre.values.find(value => value === meta.id))
                 .map(({ id }) => id)
                 .sort()
@@ -313,7 +311,7 @@ export default {
           filtresIdsNew !== userPreferencesFiltresIds
         ) {
           this.$store.dispatch('user/preferenceSet', {
-            section: `filtres.${id}`,
+            section: `filtres.${filtre.id}`,
             value: filtresIdsNew
           })
         }
@@ -321,20 +319,28 @@ export default {
     },
 
     urlSet() {
+      let queryUpdated = false
       const query = Object.assign({}, this.$route.query)
 
-      this.filtres.forEach(({ id }) => {
-        const filtre = this.filtreFind(id)
+      this.filtres.forEach(filtre => {
         const value = filtre.values.length ? filtre.values.join(',') : null
+        const valueUpdated = value && query[filtre.id] !== value
+        const valueDeleted = !value && query[filtre.id]
 
-        if (value) {
-          query[id] = value
-        } else {
-          delete query[id]
+        if (valueUpdated || valueDeleted) {
+          queryUpdated = true
+        }
+
+        if (valueUpdated) {
+          query[filtre.id] = value
+        } else if (valueDeleted) {
+          delete query[filtre.id]
         }
       })
 
-      this.$router.push({ query })
+      if (queryUpdated) {
+        this.$router.push({ query })
+      }
     },
 
     checkboxesTypesReduce(types) {
