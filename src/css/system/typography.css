@@ -195,6 +195,9 @@ label {
   white-space: nowrap;
 }
 
+.nobreak {
+}
+
 .truncate {
   max-width: 100%;
   overflow: hidden;

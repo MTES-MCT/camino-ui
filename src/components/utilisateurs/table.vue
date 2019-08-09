@@ -62,7 +62,7 @@
         />
       </div>
       <div class="desktop-blob-1-4">
-        <PaginationRanges
+        <Ranges
           :ranges="pagesRanges"
           :range-active="pagesRange"
           @update:range="pageRangeChange"
@@ -75,7 +75,7 @@
 <script>
 import Pill from '../ui/pill.vue'
 import Pagination from '../ui/pagination.vue'
-import PaginationRanges from '../ui/pagination-ranges.vue'
+import Ranges from '../ui/ranges.vue'
 
 export default {
   name: 'Utilisateurs',
@@ -83,7 +83,7 @@ export default {
   components: {
     Pill,
     Pagination,
-    PaginationRanges
+    Ranges
   },
 
   props: {

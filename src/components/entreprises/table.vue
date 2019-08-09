@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ entreprises.length }}
     <div class="overflow-scroll-x mb">
       <div class="table">
         <div class="tr">
@@ -36,7 +35,7 @@
         />
       </div>
       <div class="desktop-blob-1-4">
-        <PaginationRanges
+        <Ranges
           :ranges="pagesRanges"
           :range-active="pagesRange"
           @update:range="pageRangeChange"
@@ -48,14 +47,14 @@
 
 <script>
 import Pagination from '../ui/pagination.vue'
-import PaginationRanges from '../ui/pagination-ranges.vue'
+import Ranges from '../ui/ranges.vue'
 
 export default {
   name: 'Entreprises',
 
   components: {
     Pagination,
-    PaginationRanges
+    Ranges
   },
 
   props: {

@@ -4,12 +4,26 @@
       <div class="table">
         <div class="tr">
           <div
-            v-for="col in columns"
+            v-for="(col, index) in columns"
             :key="col.id"
             class="th nowrap"
             :class="col.class"
+            @click="sort(index)"
           >
-            {{ col.name }}
+            <button
+              v-if="col.name"
+              class="btn-transparent full-x"
+            >
+              {{ col.name }}
+              <i
+                v-if="sortColumn === index"
+                class="icon-24 right"
+                :class="{
+                  'icon-chevron-b': sortOrder > 0 ,
+                  'icon-chevron-t': sortOrder < 0
+                }"
+              />
+            </button>
           </div>
         </div>
 
@@ -46,15 +60,15 @@
         />
       </div>
       <div class="desktop-blob-1-4">
-        <PaginationRanges
+        <Ranges
           :ranges="ranges"
           :range="range"
           @update:range="rangeUpdateEvent"
         />
-        <div class="hide">
+        <div>
           <Accordion class="mb">
             <template slot="title">
-              Affichage
+              Colonnes
             </template>
             <ul class="list-sans px-m">
               <li
@@ -79,7 +93,7 @@
 <script>
 import Accordion from './accordion.vue'
 import Pagination from './pagination.vue'
-import PaginationRanges from './pagination-ranges.vue'
+import Ranges from './ranges.vue'
 
 export default {
   name: 'Titres',
@@ -87,7 +101,7 @@ export default {
   components: {
     Accordion,
     Pagination,
-    PaginationRanges
+    Ranges
   },
 
   props: {
@@ -106,13 +120,25 @@ export default {
     return {
       ranges: [10, 50, 200, 500],
       range: 200,
-      page: 1
+      page: 1,
+      sortOrder: 1,
+      sortColumn: 0
     }
   },
 
   computed: {
+    elementsSorted() {
+      const id = this.columns[this.sortColumn].id
+      return this.elements.slice().sort((a, b) => {
+        const aValue = a.columns[id].value.toString()
+        const bValue = b.columns[id].value.toString()
+        // const result = aValue < bValue ? -1 : aValue > bValue ? 1 : 0
+        return aValue.localeCompare(bValue, 'fr') * this.sortOrder
+      })
+    },
+
     elementsPages() {
-      return this.elements.reduce((res, cur, i) => {
+      return this.elementsSorted.reduce((res, cur, i) => {
         const page = Math.ceil((i + 1) / this.range) - 1
 
         res[page] = res[page] || []
@@ -142,6 +168,14 @@ export default {
 
     rangeUpdate(range) {
       this.range = Number(range)
+    },
+
+    sort(colIndex) {
+      if (this.sortColumn === colIndex) {
+        this.sortOrder = -this.sortOrder
+      } else {
+        this.sortColumn = colIndex
+      }
     }
   }
 }

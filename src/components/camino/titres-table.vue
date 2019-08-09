@@ -65,7 +65,8 @@ export default {
         },
         {
           id: 'substances',
-          name: 'Substances'
+          name: 'Substances',
+          class: ['min-width-6']
         },
         {
           id: 'titulaires',
@@ -87,11 +88,13 @@ export default {
               render(h) {
                 return h('p', { class: ['bold', 'mb-0'] }, titre.nom)
               }
-            })
+            }),
+            value: titre.nom
           },
           domaine: {
             component: CaminoDomaine,
-            props: { domaine: titre.domaine.id }
+            props: { domaine: titre.domaine.id },
+            value: titre.domaine.id
           },
           type: {
             component: Vue.component('TitreTypeNom', {
@@ -102,7 +105,8 @@ export default {
                   titre.type.nom
                 )
               }
-            })
+            }),
+            value: titre.type.nom
           },
           statut: {
             component: TitreStatut,
@@ -110,12 +114,14 @@ export default {
               color: `bg-${titre.statut.couleur}`,
               nom: titre.statut.nom,
               mini: true
-            }
+            },
+            value: titre.statut.nom
           },
           substances: {
             component: PillList,
             props: { elements: titre.substances.map(s => s.nom) },
-            class: 'mb--xs'
+            class: 'mb--xs',
+            value: titre.substances.map(s => s.nom).join(', ')
           },
           titulaires: {
             component: List,
@@ -123,7 +129,8 @@ export default {
               elements: titre.titulaires.map(({ nom }) => nom),
               mini: true
             },
-            class: 'mb--xs'
+            class: 'mb--xs',
+            value: titre.titulaires.map(({ nom }) => nom).join(', ')
           }
         }
 
@@ -133,7 +140,8 @@ export default {
             props: {
               activitesAbsentes: titre.activitesAbsentes,
               activitesEnConstruction: titre.activitesEnConstruction
-            }
+            },
+            value: titre.activitesAbsentes + titre.activitesEnConstruction
           }
         }
 

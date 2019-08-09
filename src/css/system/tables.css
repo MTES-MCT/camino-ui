@@ -27,7 +27,8 @@ tr,
 }
 
 th,
-.th {
+.th,
+.th button {
   text-align: left;
   font-weight: 700;
   typescale: -1 1;

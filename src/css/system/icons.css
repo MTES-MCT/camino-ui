@@ -11,6 +11,13 @@
   display: block;
 }
 
+.icon-12 {
+  width: calc(var(--unit) / 2);
+  height: calc(var(--unit) / 2);
+  display: block;
+  background-repeat: no-repeat;
+}
+
 .icon-24 {
   width: var(--unit);
   height: var(--unit);

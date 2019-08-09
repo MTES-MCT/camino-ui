@@ -4,7 +4,7 @@
   >
     <span
       :class="`${color}`"
-      class="color-bg py-xs px-s pill"
+      class="color-bg pill py-xs px-s"
     >
       <slot />
     </span>

@@ -1,7 +1,7 @@
 <template>
   <Accordion class="mb">
     <template slot="title">
-      Pages
+      Éléments
     </template>
     <ul class="list-sans mt-m px-m">
       <li
