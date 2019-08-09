@@ -18,8 +18,8 @@ export const state = {
     filtres: {},
     titres: {
       vueId: 'carte',
-      pageActive: 1,
-      pagesRange: 200
+      page: 1,
+      range: 200
     }
   },
   loaded: false

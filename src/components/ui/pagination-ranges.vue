@@ -5,18 +5,18 @@
     </template>
     <ul class="list-sans mt-m px-m">
       <li
-        v-for="range in ranges"
-        :key="range"
+        v-for="r in ranges"
+        :key="r"
       >
         <label>
           <input
-            :checked="range === rangeActive"
-            :value="range"
+            :checked="r === range"
+            :value="r"
             type="radio"
             class="mr-s"
-            @change="pageRangeChange"
+            @change="rangeUpdate"
           >
-          {{ range }}
+          {{ r }}
         </label>
       </li>
     </ul>
@@ -38,15 +38,15 @@ export default {
       type: Array,
       default: () => []
     },
-    rangeActive: {
+    range: {
       type: Number,
       default: 10
     }
   },
 
   methods: {
-    pageRangeChange(event) {
-      this.$emit('pages-range-change', event.target.value)
+    rangeUpdate(event) {
+      this.$emit('update:range', event.target.value)
     }
   }
 }

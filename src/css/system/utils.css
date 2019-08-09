@@ -136,3 +136,19 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 .align-y-bottom {
   vertical-align: text-bottom;
 }
+
+.min-width-6 {
+  min-width: calc(6 * var(--unit));
+}
+
+.min-width-8 {
+  min-width: calc(8 * var(--unit));
+}
+
+.min-width-9 {
+  min-width: calc(9 * var(--unit));
+}
+
+.min-width-10 {
+  min-width: calc(10 * var(--unit));
+}

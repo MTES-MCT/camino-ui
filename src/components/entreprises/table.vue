@@ -32,14 +32,14 @@
           :page-active="pageActive"
           :pages-total="entreprisesPages.length - 1"
           :pages-visible="5"
-          @page-change="pageChange"
+          @update:page="pageChange"
         />
       </div>
       <div class="desktop-blob-1-4">
         <PaginationRanges
           :ranges="pagesRanges"
           :range-active="pagesRange"
-          @pages-range-change="pageRangeChange"
+          @update:range="pageRangeChange"
         />
       </div>
     </div>

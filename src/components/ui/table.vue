@@ -3,34 +3,35 @@
     <div class="overflow-scroll-x mb">
       <div class="table">
         <div class="tr">
-          <div class="th" />
           <div
             v-for="col in columns"
-            :key="col.name"
-            class="th"
+            :key="col.id"
+            class="th nowrap"
+            :class="col.class"
           >
-            {{ col }}
+            {{ col.name }}
           </div>
         </div>
 
         <RouterLink
-          v-for="element in elementsPages[pageActive]"
+          v-for="element in elementsPages[page - 1]"
           :key="element.id"
           :to="element.link"
           class="tr tr-link text-decoration-none"
         >
           <div
             v-for="col in columns"
-            :key="col"
+            :key="col.id"
             class="td"
+            :class="col.class"
           >
             <component
-              :is="element.columns[col].component"
-              v-if="element.columns[col].component"
-              v-bind="element.columns[col].props"
-              :class="element.columns[col].class"
+              :is="element.columns[col.id].component"
+              v-if="element.columns[col.id] && element.columns[col.id].component"
+              v-bind="element.columns[col.id].props"
+              :class="element.columns[col.id].class"
             />
-            <span v-else>{{ element.columns[col] }}</span>
+            <span v-else>{{ element.columns[col.id] }}</span>
           </div>
         </RouterLink>
       </div>
@@ -38,17 +39,17 @@
     <div class="desktop-blobs">
       <div class="desktop-blob-3-4">
         <Pagination
-          :page-active="pageActive"
+          :page-active="page"
           :pages-total="elementsPages.length - 1"
           :pages-visible="5"
-          @page-change="pageActiveUrlSet"
+          @update:page="pageUpdateEvent"
         />
       </div>
       <div class="desktop-blob-1-4">
         <PaginationRanges
-          :ranges="pagesRanges"
-          :range-active="pagesRange"
-          @pages-range-change="pagesRangeChange"
+          :ranges="ranges"
+          :range="range"
+          @update:range="rangeUpdateEvent"
         />
         <div class="hide">
           <Accordion class="mb">
@@ -57,7 +58,7 @@
             </template>
             <ul class="list-sans px-m">
               <li
-                v-for="colonne in colonnes"
+                v-for="colonne in columns"
                 :key="colonne.type"
               >
                 <label>
@@ -103,53 +104,44 @@ export default {
 
   data() {
     return {
-      pagesRanges: [10, 50, 200, 500]
+      ranges: [10, 50, 200, 500],
+      range: 200,
+      page: 1
     }
   },
 
   computed: {
     elementsPages() {
       return this.elements.reduce((res, cur, i) => {
-        const page = Math.ceil((i + 1) / this.pagesRange)
+        const page = Math.ceil((i + 1) / this.range) - 1
 
         res[page] = res[page] || []
         res[page].push(cur)
 
         return res
       }, [])
-    },
-
-    pageActive() {
-      return this.$store.state.user.preferences.elements.pageActive
-    },
-
-    pagesRange() {
-      return this.$store.state.user.preferences.elements.pagesRange
     }
   },
 
   methods: {
-    pageActiveSet(pageActive) {
-      this.$store.dispatch('user/preferenceSet', {
-        section: 'elements.pageActive',
-        value: pageActive
-      })
+    pageUpdateEvent(page) {
+      this.pageUpdate(page)
+      this.$emit('update:page', page)
     },
 
-    pagesRangeSet(pagesRange) {
-      this.$store.dispatch('user/preferenceSet', {
-        section: 'elements.pagesRange',
-        value: pagesRange
-      })
+    rangeUpdateEvent(range) {
+      this.rangeUpdate(range)
+      this.pageUpdate(1)
+      this.$emit('update:range', range)
+      this.$emit('update:page', 1)
     },
 
-    pagesRangeChange(pagesRange) {
-      this.pagesRangeUrlSet(pagesRange)
-      this.pageActiveUrlSet(1)
+    pageUpdate(page) {
+      this.page = page
     },
 
-    pagesRangeUrlSet(pagesRange) {
-      this.urlParamSet('pages', pagesRange)
+    rangeUpdate(range) {
+      this.range = Number(range)
     }
   }
 }

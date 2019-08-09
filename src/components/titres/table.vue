@@ -1,22 +1,20 @@
 <template>
-  <Table
-    :elements="titresElements"
-    :columns="colonnes"
+  <TitresTable
+    ref="table"
+    :titres="titres"
+    @update:page="urlPageUpdate"
+    @update:range="urlRangeUpdate"
   />
 </template>
 
 <script>
-import Vue from 'vue'
-import Table from '../ui/table.vue'
-import PillList from '../ui/pill-list.vue'
-import Pill from '../ui/pill.vue'
-import Dot from '../ui/dot.vue'
+import TitresTable from '../camino/titres-table.vue'
 
 export default {
   name: 'Titres',
 
   components: {
-    Table
+    TitresTable
   },
 
   props: {
@@ -26,172 +24,45 @@ export default {
     }
   },
 
-  data() {
-    return {
-      pagesRanges: [10, 50, 200, 500],
-      colonnes: [
-        {
-          type: 'domain',
-          name: 'Domaine'
-        },
-        {
-          type: 'name',
-          name: 'Nom'
-        },
-        {
-          type: 'owner',
-          name: 'Titulaires'
-        },
-        {
-          type: 'type',
-          name: 'Type'
-        },
-        {
-          type: 'status',
-          name: 'Statut'
-        },
-        {
-          type: 'substances',
-          name: 'Substances'
-        }
-      ]
-    }
-  },
-
   computed: {
-    activteCol() {
-      return this.titres.some(
-        t => t.activitesAbsentes || t.activitesEnConstruction
-      )
+    page() {
+      return this.$store.state.user.preferences.titres.page
     },
 
-    titresElements() {
-      return this.titres.map(titre => {
-        const columns = {
-          domaine: {
-            component: Pill,
-            props: {
-              color: `bg-titre-domaine-${titre.domaine.id}`
-            },
-            class: 'mono'
-          },
-          nom: titre.nom,
-          titulaires: titre.type.nom,
-          type: titre.type.nom,
-          statuts: {
-            component: {
-              components: { Dot },
-              props: {
-                dotColor: { type: String, default: 'bg-text' }
-              },
-              template: `<div>
-<Dot :color="dotColor" />
-<span class="cap-first h5 mb-0">
-  {{ titre.statut.nom }}
-</span>
-</div>`
-            },
-            props: { dotColor: `bg-${titre.statut.couleur}` }
-          },
-          substances: {
-            component: PillList,
-            props: {
-              elements: titre.substances.map(s => s.nom)
-            },
-            class: 'mb--xs'
-          }
-        }
-
-        if (this.activteCol) {
-          columns.actvivites = {
-            component: Vue.component('ActivitesPill', {
-              components: { Pill },
-              props: {
-                activitesAbsentes: { type: Number, default: 0 },
-                activitesEnConstruction: { type: Number, default: 0 }
-              },
-              template: `<ul class="list-inline mb--xs">
-  <li
-    v-if="activitesAbsentes"
-    class="mr-xs"
-  >
-    <Pill
-      :color="'bg-error'"
-    >
-      {{ activitesAbsentes }}
-    </Pill>
-  </li>
-  <li
-    v-if="activitesEnConstruction"
-    class="mr-xs"
-  >
-    <Pill
-      :color="'bg-warning'"
-    >
-      {{ activitesEnConstruction }}
-    </Pill>
-  </li>
-</ul>`
-            })
-          }
-        }
-
-        return {
-          id: titre.id,
-          link: { name: 'titre', params: { id: titre.id } },
-          columns
-        }
-      })
-    },
-
-    titresPages() {
-      return this.titres.reduce((res, cur, i) => {
-        const page = Math.ceil((i + 1) / this.pagesRange)
-
-        res[page] = res[page] || []
-        res[page].push(cur)
-        return res
-      }, [])
-    },
-
-    pageActive() {
-      return this.$store.state.user.preferences.titres.pageActive
-    },
-
-    pagesRange() {
-      return this.$store.state.user.preferences.titres.pagesRange
+    range() {
+      return this.$store.state.user.preferences.titres.range
     }
   },
 
   watch: {
     titres: function(to, from) {
       if (from.length && from.length !== to.length) {
-        this.pageActiveUrlSet(1)
+        this.urlPageUpdate(1)
       }
     },
 
     $route: function(to, from) {
       if (to.query.page && to.query.page !== from.query.page) {
-        this.pageActiveSet(Number(to.query.page))
+        this.preferencesPageUpdate(Number(to.query.page))
       }
 
-      if (to.query.pages && to.query.pages !== from.query.pages) {
-        this.pagesRangeSet(Number(to.query.pages))
+      if (to.query.range && to.query.range !== from.query.range) {
+        this.preferencesRangeUpdate(Number(to.query.range))
       }
 
-      if (!to.query.pages && !to.query.page) {
+      if (!to.query.range && !to.query.page) {
         this.init()
       }
     }
   },
 
-  created() {
+  mounted() {
     this.init()
   },
 
   destroyed() {
     const query = Object.assign({}, this.$route.query)
-    delete query.pages
+    delete query.range
     delete query.page
 
     this.$router.replace({ query })
@@ -199,59 +70,46 @@ export default {
 
   methods: {
     init() {
-      const pageActive =
-        this.$route.query.page && Number(this.$route.query.page)
-      const pagesRange =
-        this.$route.query.pages && Number(this.$route.query.pages)
+      const page = this.$route.query.page && Number(this.$route.query.page)
+      const range = this.$route.query.range && Number(this.$route.query.range)
 
-      if (pageActive && pageActive !== this.pageActive) {
-        this.pageActiveSet(pageActive)
+      if (!page) {
+        this.$refs.table.pageUpdate(this.page)
+        this.urlPageUpdate(this.page)
+      } else if (page !== this.page) {
+        this.$refs.table.pageUpdate(page)
+        this.preferencesPageUpdate(page)
       }
 
-      if (!pageActive) {
-        this.pageActiveUrlSet(this.pageActive)
-      }
-
-      if (pagesRange && pagesRange !== this.pagesRange) {
-        this.pagesRangeSet(pagesRange)
-      }
-
-      if (!pagesRange) {
-        this.pagesRangeUrlSet(this.pagesRange)
+      if (!range) {
+        this.$refs.table.rangeUpdate(this.range)
+        this.urlRangeUpdate(this.range)
+      } else if (range !== this.range) {
+        this.$refs.table.rangeUpdate(range)
+        this.preferencesRangeUpdate(range)
       }
     },
 
-    pageActiveSet(pageActive) {
+    preferencesPageUpdate(page) {
       this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.pageActive',
-        value: pageActive
+        section: 'titres.page',
+        value: page
       })
     },
 
-    pageActiveUrlSet(pageActive) {
-      this.urlParamSet('page', pageActive)
+    urlPageUpdate(page) {
+      this.urlParamSet('page', page)
     },
 
-    pagesRangeSet(pagesRange) {
+    preferencesRangeUpdate(range) {
       this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.pagesRange',
-        value: pagesRange
+        section: 'titres.range',
+        value: range
       })
     },
 
-    pagesRangeChange(pagesRange) {
-      this.pagesRangeUrlSet(pagesRange)
-      this.pageActiveUrlSet(1)
-    },
-
-    pagesRangeUrlSet(pagesRange) {
-      this.urlParamSet('pages', pagesRange)
-    },
-
-    titreHasActivitesFind(titreActivites) {
-      return titreActivites.filter(
-        e => e.statut.couleur === 'error' || e.statut.couleur === 'warning'
-      ).length
+    urlRangeUpdate(range) {
+      this.urlParamSet('range', range)
     }
   }
 }
