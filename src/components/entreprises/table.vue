@@ -1,60 +1,21 @@
 <template>
-  <div>
-    <div class="overflow-scroll-x mb">
-      <div class="table">
-        <div class="tr">
-          <div class="th">
-            Nom
-          </div>
-          <div class="th">
-            Siren
-          </div>
-        </div>
-        <RouterLink
-          v-for="entreprise in entreprisesPages[pageActive]"
-          :key="entreprise.id"
-          :to="{ name: 'entreprise', params: { id: entreprise.id } }"
-          class="tr tr-link text-decoration-none"
-        >
-          <div class="td">
-            {{ entreprise.nom || "–" }}
-          </div>
-          <div class="td">
-            {{ entreprise.legalEtranger || entreprise.legalSiren || "–" }}
-          </div>
-        </RouterLink>
-      </div>
-    </div>
-    <div class="desktop-blobs">
-      <div class="desktop-blob-3-4">
-        <Pagination
-          :page-active="pageActive"
-          :pages-total="entreprisesPages.length - 1"
-          :pages-visible="5"
-          @update:page="pageChange"
-        />
-      </div>
-      <div class="desktop-blob-1-4">
-        <Ranges
-          :ranges="pagesRanges"
-          :range-active="pagesRange"
-          @update:range="pageRangeChange"
-        />
-      </div>
-    </div>
-  </div>
+  <Table
+    ref="table"
+    :elements="elements"
+    :columns="colonnes"
+    @update:page="$emit('update:page', $event)"
+    @update:range="$emit('update:range', $event)"
+  />
 </template>
 
 <script>
-import Pagination from '../ui/pagination.vue'
-import Ranges from '../ui/ranges.vue'
+import Table from '../ui/table.vue'
 
 export default {
   name: 'Entreprises',
 
   components: {
-    Pagination,
-    Ranges
+    Table
   },
 
   props: {
@@ -66,46 +27,35 @@ export default {
 
   data() {
     return {
-      pageActive: 1,
-      pagesRanges: [10, 50, 200, 500],
-      pagesRange: 200
+      colonnes: [
+        {
+          id: 'nom',
+          name: 'Nom'
+        },
+        {
+          id: 'siren',
+          name: 'Siren'
+        }
+      ]
     }
   },
 
   computed: {
-    entreprisesPages() {
-      return this.entreprises.reduce((res, cur, i) => {
-        const page = Math.ceil((i + 1) / this.pagesRange)
+    elements() {
+      return this.entreprises.map(entreprise => {
+        const columns = {
+          nom: { value: entreprise.nom },
+          siren: {
+            value: entreprise.legalEtranger || entreprise.legalSiren || '–'
+          }
+        }
 
-        res[page] = res[page] || []
-        res[page].push(cur)
-        return res
-      }, [])
-    }
-  },
-
-  created() {
-    if (this.$route.query.pages) {
-      this.pagesRange = Number(this.$route.query.pages)
-    }
-
-    if (this.$route.query.page) {
-      this.pageActive = Number(this.$route.query.page)
-    }
-  },
-
-  methods: {
-    pageChange(page) {
-      this.pageActive = page
-      const query = Object.assign({}, this.$route.query, { page })
-      this.$router.push({ query })
-    },
-
-    pageRangeChange(pages) {
-      this.pagesRange = Number(pages)
-      this.pageChange(1)
-      const query = Object.assign({}, this.$route.query, { pages })
-      this.$router.push({ query })
+        return {
+          id: entreprise.id,
+          link: { name: 'entreprise', params: { id: entreprise.id } },
+          columns
+        }
+      })
     }
   }
 }

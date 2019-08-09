@@ -102,4 +102,4 @@ const fragmentTitre = gql`
   ${fragmentPays}
 `
 
-export default fragmentTitre
+export { fragmentTitre }

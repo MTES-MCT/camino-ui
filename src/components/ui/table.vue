@@ -12,7 +12,7 @@
           >
             <button
               v-if="col.name"
-              class="btn-transparent full-x"
+              class="btn-transparent full-x p-0"
             >
               {{ col.name }}
               <i
@@ -45,7 +45,10 @@
               v-bind="element.columns[col.id].props"
               :class="element.columns[col.id].class"
             />
-            <span v-else>{{ element.columns[col.id] }}</span>
+            <span
+              v-else
+              :class="element.columns[col.id].class"
+            >{{ element.columns[col.id].value }}</span>
           </div>
         </RouterLink>
       </div>
@@ -65,26 +68,11 @@
           :range="range"
           @update:range="rangeUpdateEvent"
         />
-        <div>
-          <Accordion class="mb">
-            <template slot="title">
-              Colonnes
-            </template>
-            <ul class="list-sans px-m">
-              <li
-                v-for="colonne in columns"
-                :key="colonne.type"
-              >
-                <label>
-                  <input
-                    type="checkbox"
-                    class="mr-s"
-                  > {{ colonne.name }}
-                </label>
-              </li>
-            </ul>
-          </Accordion>
-        </div>
+        <Columns
+          :columns="columns"
+          class="hide"
+          @update:columns="columnsUpdateEvent"
+        />
       </div>
     </div>
   </div>
@@ -94,6 +82,7 @@
 import Accordion from './accordion.vue'
 import Pagination from './pagination.vue'
 import Ranges from './ranges.vue'
+import Columns from './columns.vue'
 
 export default {
   name: 'Titres',
@@ -101,7 +90,8 @@ export default {
   components: {
     Accordion,
     Pagination,
-    Ranges
+    Ranges,
+    Columns
   },
 
   props: {
@@ -132,7 +122,6 @@ export default {
       return this.elements.slice().sort((a, b) => {
         const aValue = a.columns[id].value.toString()
         const bValue = b.columns[id].value.toString()
-        // const result = aValue < bValue ? -1 : aValue > bValue ? 1 : 0
         return aValue.localeCompare(bValue, 'fr') * this.sortOrder
       })
     },
@@ -160,6 +149,10 @@ export default {
       this.pageUpdate(1)
       this.$emit('update:range', range)
       this.$emit('update:page', 1)
+    },
+
+    columnsUpdateEvent(columnIds) {
+      console.log(columnIds)
     },
 
     pageUpdate(page) {

@@ -1,5 +1,7 @@
 import gql from 'graphql-tag'
 
+import fragmentTitres from './titres'
+
 const fragmentEntreprise = gql`
   fragment entreprise on Entreprise {
     id
@@ -28,7 +30,15 @@ const fragmentEntreprise = gql`
       nom
       prenom
     }
+    titresTitulaire {
+      ...titres
+    }
+    titresAmodiataire {
+      ...titres
+    }
   }
+
+  ${fragmentTitres}
 `
 
 export default fragmentEntreprise

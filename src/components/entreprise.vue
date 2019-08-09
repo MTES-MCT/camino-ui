@@ -139,6 +139,16 @@
         </div>
       </template>
     </Accordion>
+
+    <UtilisateursTable
+      v-if="utilisateurs && utilisateurs.length"
+      :utilisateurs="utilisateurs"
+    />
+
+    <TitresTable
+      v-if="titresTitulaire && titresTitulaire.length"
+      :titres="titresTitulaire"
+    />
   </Card>
 </template>
 
@@ -146,17 +156,29 @@
 import Card from './ui/card.vue'
 import Accordion from './ui/accordion.vue'
 import Loader from './ui/loader.vue'
+import UtilisateursTable from './utilisateurs/table.vue'
+import TitresTable from './titres/table.vue'
 
 export default {
   components: {
     Accordion,
     Loader,
-    Card
+    Card,
+    UtilisateursTable,
+    TitresTable
   },
 
   computed: {
     entreprise() {
       return this.$store.state.entreprise.current
+    },
+
+    utilisateurs() {
+      return this.entreprise.utilisateurs
+    },
+
+    titresTitulaire() {
+      return this.entreprise.titresTitulaire
     },
 
     user() {

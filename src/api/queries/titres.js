@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import fragmentTitre from './fragments/titre'
+import {fragmentTitre} from './fragments/titre'
 import fragmentTitres from './fragments/titres'
 
 const queryTitre = gql`

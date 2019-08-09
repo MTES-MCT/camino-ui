@@ -1,7 +1,7 @@
 <template>
   <Table
     ref="table"
-    :elements="titresElements"
+    :elements="elements"
     :columns="colonnes"
     @update:page="$emit('update:page', $event)"
     @update:range="$emit('update:range', $event)"
@@ -80,7 +80,7 @@ export default {
       )
     },
 
-    titresElements() {
+    elements() {
       return this.titres.map(titre => {
         const columns = {
           nom: {
