@@ -93,7 +93,7 @@ export default {
           },
           domaine: {
             component: CaminoDomaine,
-            props: { domaine: titre.domaine.id },
+            props: { domaineId: titre.domaine.id },
             value: titre.domaine.id
           },
           type: {

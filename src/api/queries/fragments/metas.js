@@ -42,7 +42,6 @@ const fragmentDemarcheType = gql`
   }
 
   ${fragmentEtapeType}
-  ${fragmentDemarcheStatut}
 `
 
 const fragmentMeta = gql`

@@ -2,7 +2,7 @@
     <g fill="none" stroke="#000" stroke-linejoin="round" stroke-miterlimit="10">
         <path stroke-linecap="round" d="M16 22.5l-3.5 1 1-3.5 7.502-7.502 2.5 2.5z"/>
         <path d="M19.002 14.498l2.5 2.5"/>
-        <path stroke-linecap="round" d="M13.5 20l2.5 2.5M9 10.5h4M9 14.5h4M7.5 8.5L5 11 3.5 9.5M7.5 12.515l-2.5 2.5-1.5-1.5"/>
+        <path stroke-linecap="round" d="M13.5 20l2.5 2.5m-7-12h4m-4 4h4m-5.5-6L5 11 3.5 9.5m4 3.015l-2.5 2.5-1.5-1.5"/>
         <g stroke-linecap="round">
             <path d="M9 21.5H.5V.5h10.999l5.001 5V13"/>
             <path d="M11.499.5l.001 5h5"/>

@@ -46,7 +46,7 @@
               :class="element.columns[col.id].class"
             />
             <span
-              v-else
+              v-else-if="element.columns[col.id] && element.columns[col.id].value"
               :class="element.columns[col.id].class"
             >{{ element.columns[col.id].value }}</span>
           </div>

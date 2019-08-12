@@ -1,6 +1,7 @@
 import gql from 'graphql-tag'
 
 import fragmentTitres from './titres'
+import {fragmentUtilisateur} from './utilisateur'
 
 const fragmentEntreprise = gql`
   fragment entreprise on Entreprise {
@@ -25,10 +26,7 @@ const fragmentEntreprise = gql`
       legalSiret
     }
     utilisateurs {
-      id
-      email
-      nom
-      prenom
+      ...utilisateur
     }
     titresTitulaire {
       ...titres
@@ -39,6 +37,7 @@ const fragmentEntreprise = gql`
   }
 
   ${fragmentTitres}
+  ${fragmentUtilisateur}
 `
 
 export default fragmentEntreprise

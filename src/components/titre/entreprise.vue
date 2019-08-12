@@ -9,6 +9,21 @@
         Opé.
       </Tag>
     </template>
+
+    <template
+      v-if="permissionsCheck(['super'])"
+      slot="buttons"
+    >
+      <RouterLink
+        :to="{ name: 'entreprise', params: {id: entreprise.id }}"
+        class="btn-alt py-s px-m"
+        tag="button"
+      >
+        <i class="icon-24 icon-window-link" />
+      </RouterLink>
+    </template>
+
+
     <div
       v-if="content"
       class="px-m pt-m"

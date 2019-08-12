@@ -140,11 +140,15 @@
       </template>
     </Accordion>
 
+    <div class="card-border mb" />
+    <h3>Utilisateurs</h3>
     <UtilisateursTable
       v-if="utilisateurs && utilisateurs.length"
       :utilisateurs="utilisateurs"
     />
 
+    <div class="card-border mb" />
+    <h3>Titres miniers et autorisations</h3>
     <TitresTable
       v-if="titresTitulaire && titresTitulaire.length"
       :titres="titresTitulaire"
@@ -157,7 +161,7 @@ import Card from './ui/card.vue'
 import Accordion from './ui/accordion.vue'
 import Loader from './ui/loader.vue'
 import UtilisateursTable from './utilisateurs/table.vue'
-import TitresTable from './titres/table.vue'
+import TitresTable from './camino/titres-table.vue'
 
 export default {
   components: {

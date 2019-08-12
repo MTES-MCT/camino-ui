@@ -228,6 +228,7 @@
 .accordion-header {
   flex-direction: column;
   align-items: stretch;
+  flex-wrap: wrap;
 }
 
 .accordion-buttons {

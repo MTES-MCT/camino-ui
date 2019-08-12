@@ -4,6 +4,7 @@ import { fragmentDemarcheType } from './metas'
 import { fragmentTitreDemarche } from './titre-demarche'
 import { fragmentTitreActivite } from './titre-activite'
 import { fragmentTitreSubstance } from './titre-substance'
+import fragmentAdministration from './administration'
 import fragmentEntreprises from './entreprises'
 import { fragmentPoint } from './point'
 import fragmentPays from './pays'
@@ -82,6 +83,8 @@ const fragmentTitre = gql`
       ...titreActivite
     }
   }
+
+  ${fragmentAdministration}
 
   ${fragmentEntreprises}
 

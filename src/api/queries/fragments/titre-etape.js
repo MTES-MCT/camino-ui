@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import fragmentEntreprise from './entreprise'
+import fragmentEntreprises from './entreprises'
 import fragmentAdministration from './administration'
 import { fragmentTitreSubstance } from './titre-substance'
 import { fragmentPoint } from './point'
@@ -42,19 +42,13 @@ const fragmentTitreEtape = gql`
       ...administration
     }
     titulaires {
-      ...entreprise
+      ...entreprises
     }
     amodiataires {
-      ...entreprise
+      ...entreprises
     }
     points {
       ...point
-    }
-    geojsonPoints {
-      ...geojsonPoints
-    }
-    geojsonMultiPolygon {
-      ...geojsonMultiPolygon
     }
     substances {
       ...titreSubstance
@@ -73,7 +67,7 @@ const fragmentTitreEtape = gql`
 
   ${fragmentAdministration}
 
-  ${fragmentEntreprise}
+  ${fragmentEntreprises}
 
   ${fragmentPoint}
 
