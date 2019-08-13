@@ -25,7 +25,7 @@
   background-color: var(--color-alt);
 }
 
-.map {
+.map:not(.leaflet-pseudo-fullscreen) {
   z-index: 0;
   margin-left: calc(-1 * var(--unit));
   margin-right: calc(-1 * var(--unit));

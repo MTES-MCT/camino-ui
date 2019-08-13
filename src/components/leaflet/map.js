@@ -1,5 +1,5 @@
 import 'leaflet'
-import { GestureHandling } from 'leaflet-gesture-handling'
+import 'leaflet-gesture-handling'
 import 'leaflet-fullscreen'
 
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
@@ -18,8 +18,6 @@ L.Marker.prototype.options.icon = L.icon({
   shadowSize: [41, 41]
 })
 
-L.Map.addInitHook('addHandler', 'gestureHandling', GestureHandling)
-
 const leafletTileLayerDefault = L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   {
@@ -29,15 +27,13 @@ const leafletTileLayerDefault = L.tileLayer(
   }
 )
 
-const leafletMap = map =>
-  L.map(map, {
+const leafletMap = map => L.map(map, {
     // zoomControl: true,
     doubleClickZoom: false,
     minZoom: 4,
     gestureHandling: true,
-    fullscreenControl: true,
-    fullscreenControlOptions: {
-      position: 'bottomRight'
+    fullscreenControl: {
+        pseudoFullscreen: true
     }
   })
 

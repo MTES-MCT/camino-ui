@@ -6,7 +6,7 @@
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
       class="map map-list mb-s"
-      @update="urlUpdate"
+      @update:map="urlUpdate"
     />
     <TitreMapWarningBrgm
       :zoom="preferencesZoom"
@@ -214,7 +214,7 @@ export default {
       } else if (this.preferencesZoom && this.preferencesCentre) {
         this.urlUpdate({
           zoom: this.preferencesZoom,
-          center: this.preferencesCentre
+          center: `${this.preferencesCentre[0]},${this.preferencesCentre[1]}`
         })
       } else {
         this.$refs.map.fitBounds(this.bounds)
@@ -272,29 +272,31 @@ export default {
       this.urlParamSet('zoom', zoom)
     },
 
-    urlCentreSet(centreArray) {
-      const centre = `${centreArray[0]},${centreArray[1]}`
-      if (centre !== this.$route.query.centre) {
-        this.urlParamSet('centre', centre)
-      }
-    },
-
     urlUpdate({ zoom, center }) {
       const query = Object.assign({}, this.$route.query)
 
-      const centre = `${center[0]},${center[1]}`
-
-      if (zoom && centre) {
+      if (zoom && center) {
         query.zoom = zoom
-        query.centre = centre
+        query.centre = center
       } else {
         delete query.zoom
         delete query.centre
       }
 
-      if (this.$route.query.zoom && this.$route.query.centre) {
+      const urlUpdated =
+        this.$route.query.zoom &&
+        this.$route.query.zoom !== query.zoom &&
+        this.$route.query.centre &&
+        this.$route.query.centre !== query.centre
+      const urlCreated =
+        !this.$route.query.zoom &&
+        query.zoom &&
+        !this.$route.query.centre &&
+        query.centre
+
+      if (urlUpdated) {
         this.$router.push({ query })
-      } else {
+      } else if (urlCreated) {
         this.$router.replace({ query })
       }
     },
