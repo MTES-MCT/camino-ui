@@ -26,7 +26,7 @@
           v-else-if="groupe.length > 1"
           class="pl-s mb-s"
         >
-          Trou {{ contourIndex }}
+          Lacune {{ contourIndex }}
         </h4>
         <div
           v-for="(point, pointIndex) in contour"
