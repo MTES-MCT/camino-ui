@@ -31,64 +31,57 @@
         <div
           v-for="(point, pointIndex) in contour"
           :key="pointIndex + 1"
-          class="geo-point"
+          class="geo-point flex"
         >
-          <div class="tablet-blobs">
-            <div class="tablet-blob-1-4">
-              <h4 class="mb-s inline-block">
-                {{ point.nom }}.
-              </h4> <h6 class="mb-s inline-block">
-                WGS84
-              </h6>
+          <h4 class="mb-s flex-self-start mr-s">
+            {{ point.nom }}
+          </h4>
+          <div class="flex-grow">
+            <div class="tablet-blobs">
+              <div class="tablet-blob-1-4">
+                <h6 class="mb-s mt-xs">
+                  WGS84 (degré)
+                </h6>
+              </div>
+              <div class="tablet-blob-3-8">
+                <p class="h5 flex mb-s mt-xs">
+                  X : <span class="flex-right mono bold">{{ point.coordonnees.x.toFixed(9) }}</span>
+                </p>
+              </div>
+              <div class="tablet-blob-3-8">
+                <p class="h5 flex mb-s mt-xs">
+                  Y : <span class="flex-right mono bold">{{ point.coordonnees.y.toFixed(9) }}</span>
+                </p>
+              </div>
             </div>
-            <div class="tablet-blob-3-8">
-              <p class="mb-s text-right mono">
-                {{ point.coordonnees.x.toFixed(9) }}
-              </p>
-            </div>
-            <div class="tablet-blob-3-8">
-              <p class="mb-s text-right mono">
-                {{ point.coordonnees.y.toFixed(9) }}
-              </p>
-            </div>
-          </div>
 
-          <div
-            v-for="reference in point.references"
-            :key="reference.id"
-            class="tablet-blobs"
-          >
-            <div class="tablet-blob-1-4">
-              <h6 class="mb-s">
-                {{ reference.geoSysteme.nom }}
-              </h6>
+            <div
+              v-for="reference in point.references"
+              :key="reference.id"
+              class="tablet-blobs"
+            >
+              <div class="tablet-blob-1-4">
+                <h6 class="mb-s mt-xs">
+                  {{ reference.geoSysteme.nom }} ({{ reference.geoSysteme.unite }})
+                </h6>
+              </div>
+              <div class="tablet-blob-3-8">
+                <p class="h5 flex mb-s mt-xs">
+                  X : <span class="flex-right mono bold">{{ reference.coordonnees.x }}</span>
+                </p>
+              </div>
+              <div class="tablet-blob-3-8">
+                <p class="h5 flex mb-s mt-xs">
+                  Y : <span class="flex-right mono bold">{{ reference.coordonnees.y }}</span>
+                </p>
+              </div>
             </div>
-            <div class="tablet-blob-3-8">
-              <p class="mb-s text-right mono">
-                {{ reference.coordonnees.x }}
-              </p>
-            </div>
-            <div class="tablet-blob-3-8">
-              <p class="mb-s text-right mono">
-                {{ reference.coordonnees.y }}
-              </p>
-            </div>
-          </div>
-
-          <div
-            v-if="point.description"
-            class="tablet-blobs"
-          >
-            <div class="mb tablet-blob-1-4">
-              <h6 class="mb-s">
-                Description
-              </h6>
-            </div>
-            <div class="mb tablet-blob-3-4">
-              <p class="mb-s h5">
-                {{ point.description }}
-              </p>
-            </div>
+            <p
+              v-if="point.description"
+              class="mb-s h5"
+            >
+              {{ point.description }}
+            </p>
           </div>
         </div>
       </div>

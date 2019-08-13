@@ -229,24 +229,15 @@
   flex-direction: column;
   align-items: stretch;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 
 .accordion-buttons {
   overflow: hidden;
-  border-radius: 0 calc(var(--unit-xs) + var(--unit-line)) 0 0;
   padding-right: var(--unit-line);
   padding-top: var(--unit-line);
   padding-bottom: var(--unit-line);
 }
-
-.accordion-buttons-rnd {
-  border-radius: 0 calc(var(--unit-xs) + var(--unit-line))
-    calc(var(--unit-xs) + var(--unit-line)) 0;
-}
-
-/* .accordion-buttons > button:last-child {
-  margin-right: calc(-1 * var(--unit-line));
-} */
 
 .lh-2 {
   line-height: 2;
@@ -278,7 +269,6 @@
   margin-bottom: var(--unit-s);
   border-radius: var(--unit-s);
   background-color: var(--color-bg);
-  display: inline-block;
   width: 100%;
 }
 

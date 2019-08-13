@@ -18,7 +18,6 @@
       </div>
       <div
         class="accordion-buttons flex flex-end flex-right"
-        :class="{'accordion-buttons-rnd': !$slots.sub && !opened}"
       >
         <slot name="buttons" />
         <button
