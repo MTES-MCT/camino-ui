@@ -14,9 +14,9 @@ const queryTitre = gql`
 
 const queryTitres = gql`
   query Titres(
-    $typeIds: [TypeId!]
-    $domaineIds: [DomaineId!]
-    $statutIds: [StatutId!]
+    $typeIds: [ID!]
+    $domaineIds: [ID!]
+    $statutIds: [ID!]
     $substances: [String!]
     $noms: [String!]
     $entreprises: [String!]
