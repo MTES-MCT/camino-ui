@@ -131,7 +131,8 @@ export default {
         amodiatairesIds: [],
         administrationsIds: [],
         substancesIds: [],
-        groupes: [],
+        groupes: [[[]]],
+        geoSystemeIds: [],
         incertitudes: {},
         contenu: {}
       }

@@ -6,47 +6,129 @@
     <div class="h5 mb-s">
       <ul class="list-prefix">
         <li>
-          <b>Groupe</b>: ensemble de contours. Le premier contour du groupe définit un périmètre, les contours suivants définissent des trous dans ce périmètre.
+          <b>Point</b>: sommet défini par une paire de coordoonnées.
         </li>
         <li>
-          <b>Contour</b>: ensemble de points.
+          <b>Contour ou lacune</b>: ensemble de points.
         </li>
         <li>
-          <b>Point</b>: sommet d'un contour défini par ses coordoonnées dans le système WGS 84.
-        </li>
-        <li>
-          <b>Références</b>: coordonnées du point dans des systèmes autre que WGS 84.
-        </li>
-        <li>
-          <b>Système</b>: système géodésique de la référence.
+          <b>Groupe</b>: ensemble de contours. Le premier contour du groupe définit un périmètre, les contours suivants définissent des lacunes au sein de ce périmètre.
         </li>
       </ul>
     </div>
-    <hr>
-    <div
-      v-for="(contours, groupeIndex) in etape.groupes"
-      :key="groupeIndex + 1"
-      class="pt pb-s pl-s border mb rnd-s bg-neutral"
-    >
-      <h4 class="color-bg">
-        Groupe {{ groupeIndex + 1 }}
+
+    <div class="mb">
+      <h4 class="mb-s">
+        Systèmes Epsg
       </h4>
       <div
-        v-for="(points, contourIndex) in contours"
-        :key="contourIndex + 1"
-        class="pt pb-s pl-s border mb-s rnd-l-s bg-alt"
+        v-for="(geoSystemeId, n) in etape.geoSystemeIds"
+        :key="geoSystemeId"
+        class="mb-s flex full-x"
       >
-        <h4>Contour {{ contourIndex + 1 }}</h4>
+        <select
+          v-model="etape.geoSystemeIds[n]"
+          type="text"
+          class="p-s mr-s"
+          @change="geoSystemeUpdate(etape.geoSystemeIds[n])"
+        >
+          <option
+            v-for="geoSysteme in geoSystemes"
+            :key="geoSysteme.id"
+            :value="geoSysteme.id"
+            :disabled="etape.geoSystemeIds.find(id => id === geoSysteme.id)"
+          >
+            {{ geoSysteme.nom }}
+          </option>
+        </select>
+        <div class="flex-right">
+          <button
+            class="btn-border py-s px-m rnd-xs"
+            @click="geoSystemeRemove(n)"
+          >
+            <i class="icon-24 icon-minus" />
+          </button>
+        </div>
+      </div>
+
+      <button
+        v-if="!etape.geoSystemeIds.includes('')"
+        class="btn-border rnd-xs py-s px-m full-x flex"
+        @click="geoSystemeAdd"
+      >
+        Ajouter un système Epsg<i class="icon-24 icon-plus flex-right" />
+      </button>
+    </div>
+
+    <div
+      v-for="(groupeContours, groupeIndex) in etape.groupes"
+      :key="groupeIndex + 1"
+      class="geo-groupe mb-s"
+    >
+      <div
+        v-if="etape.groupes.length > 1"
+        class="flex flex-full"
+      >
+        <h4 class="pl-s color-bg mb-s">
+          Groupe {{ groupeIndex + 1 }}
+        </h4>
+        <div class="flex-right hide">
+          <button
+            class="btn-border py-s px-m rnd-xs"
+            @click="groupeRemove(groupeIndex)"
+          >
+            <i class="icon-24 icon-minus" />
+          </button>
+        </div>
+      </div>
+      <div
+        v-for="(contourPoints, contourIndex) in groupeContours"
+        :key="contourIndex + 1"
+        class="geo-contour"
+      >
         <div
-          v-for="(point, pointIndex) in points"
+          v-if="groupeContours.length > 1"
+          class="flex flex-full"
+        >
+          <h4 class="pl-s mb-s">
+            {{ contourIndex === 0 ? 'Contour' : `Lacune ${contourIndex}` }}
+          </h4>
+          <div class="flex-right hide">
+            <button
+              class="btn-border py-s px-m rnd-xs"
+              @click="contourRemove(groupeIndex, contourIndex)"
+            >
+              <i class="icon-24 icon-minus" />
+            </button>
+          </div>
+        </div>
+        <div
+          v-for="(point, pointIndex) in contourPoints"
           :key="pointIndex + 1"
-          class="pt pb-s pl-s pr-s border mb-s rnd-l-s bg-bg"
+          class="geo-point"
         >
           <div class="flex full-x">
-            <h4>Point {{ point.nom }}</h4>
+            <h4 class="mt-s">
+              Point {{ point.nom }}
+            </h4>
             <div class="flex-right">
               <button
-                class="btn-border py-s px-m rnd-s mt--s"
+                v-if="!(etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)"
+                class="btn-border py-s px-m rnd-l-xs"
+                @click="pointMoveDown(groupeIndex, contourIndex, pointIndex)"
+              >
+                <i class="icon-24 icon-move-down" />
+              </button>
+              <button
+                v-if="!(groupeIndex === 0 && contourIndex === 0 && pointIndex === 0)"
+                :class="{'rnd-l-xs': (etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)}"
+                class="btn-border py-s px-m"
+                @click="pointMoveUp(groupeIndex, contourIndex, pointIndex)"
+              >
+                <i class="icon-24 icon-move-up" />
+              </button>
+              <button
+                class="btn-border py-s px-m rnd-r-xs"
                 @click="pointRemove(groupeIndex, contourIndex, pointIndex)"
               >
                 <i class="icon-24 icon-minus" />
@@ -56,84 +138,14 @@
 
           <div class="tablet-blobs">
             <div class="mb tablet-blob-1-3">
-              <h6>Groupe</h6>
-              <select
-                v-model="point.groupe"
-                type="text"
-                class="p-s mr-s"
-              >
-                <option
-                  v-for="g in arrayOfNumbersCreate(points.length > 1 ? etape.groupes.length + 1: etape.groupes.length)"
-                  :key="`g-${g}`"
-                  :value="g"
-                >
-                  {{ g }}
-                </option>
-              </select>
-            </div>
-            <div class="mb tablet-blob-1-3">
-              <h6>Contour</h6>
-              <select
-                v-model="point.contour"
-                type="text"
-                class="p-s mr-s"
-              >
-                <option
-                  v-for="c in arrayOfNumbersCreate(points.length > 1 ? contours.length + 1: contours.length)"
-                  :key="`g-${point.groupe}-c-${c}`"
-                  :value="c"
-                >
-                  {{ c }}
-                </option>
-              </select>
-            </div>
-            <div class="mb tablet-blob-1-3">
-              <h6>Point</h6>
-              <select
-                v-model="point.point"
-                type="text"
-                class="p-s mr-s"
-              >
-                <option
-                  v-for="p in arrayOfNumbersCreate(points.length > 1 ? points.length + 1: points.length)"
-                  :key="`g-${point.groupe}-c-${point.contour}-p-${p}`"
-                  :value="p"
-                >
-                  {{ p }}
-                </option>
-              </select>
-            </div>
-          </div>
-
-          <div class="tablet-blobs">
-            <div class="mb tablet-blob-1-3">
               <h6>Nom</h6>
               <input
-                v-model="point.nom"
+                v-model.lazy="point.nom"
                 type="text"
                 class="p-s"
               >
             </div>
-            <div class="mb tablet-blob-1-3">
-              <h6>Longitude</h6>
-              <input
-                v-model.number="point.coordonnees.x"
-                type="text"
-                class="p-s"
-              >
-            </div>
-            <div class="mb tablet-blob-1-3">
-              <h6>Latitude</h6>
-              <input
-                v-model.number="point.coordonnees.y"
-                type="text"
-                class="p-s"
-              >
-            </div>
-          </div>
-
-          <div class="tablet-blobs">
-            <div class="mb tablet-blob-1">
+            <div class="mb tablet-blob-2-3">
               <h6>Description</h6>
               <input
                 v-model="point.description"
@@ -144,79 +156,59 @@
           </div>
 
           <div
-            v-for="reference in point.references"
-            :key="reference.id"
+            v-for="geoSystemeId in geoSystemeIds"
+            :key="`${point.id}-${geoSystemeId}`"
+            class="tablet-blobs"
           >
-            <div class="flex full-x">
-              <h4>Reference</h4>
-              <div class="flex-right">
-                <button
-                  class="btn-border py-s px-m rnd-xs mt--s"
-                  @click="pointReferenceRemove(point, reference)"
-                >
-                  <i class="icon-24 icon-minus" />
-                </button>
-              </div>
-            </div>
-            <div class="tablet-blobs">
-              <div class="mb tablet-blob-1-3">
-                <h6>Système</h6>
+            <div class="mb tablet-blob-1-3">
+              <h6>Système</h6>
 
-                <select
-                  v-model="reference.geoSystemeId"
-                  type="text"
-                  class="p-s mr-s"
-                >
-                  <option
-                    v-for="geoSysteme in geoSystemes"
-                    :key="`reference-${reference.id}-systeme-${geoSysteme.id}`"
-                    :value="geoSysteme.id"
-                  >
-                    {{ geoSysteme.nom }} ({{ geoSysteme.id }})
-                  </option>
-                </select>
-              </div>
-              <div class="mb tablet-blob-1-3">
-                <h6>Longitude</h6>
-                <input
-                  v-model.number="reference.coordonnees.x"
-                  type="text"
-                  class="p-s"
-                >
-              </div>
-              <div class="mb tablet-blob-1-3">
-                <h6>Latitude</h6>
-                <input
-                  v-model.number="reference.coordonnees.y"
-                  type="text"
-                  class="p-s"
-                >
-              </div>
+              <p class="py-s mb-0 h5 bold mt-s">
+                {{ geoSystemes.find(({id}) => id === geoSystemeId).nom }}
+              </p>
             </div>
-          </div>
-
-          <div
-            v-if="!point.references.find(r => r.id === '')"
-            class="hide"
-          >
-            <button
-              class="btn-border rnd-xs py-s px-m full-x flex"
-              @click="pointReferenceAdd(point)"
-            >
-              Ajouter une référence <i class="icon-24 icon-plus flex-right" />
-            </button>
+            <div class="mb tablet-blob-1-3">
+              <h6>Longitude</h6>
+              <input
+                v-model.trim="point.references.find(r => r.geoSystemeId === geoSystemeId).coordonnees.x"
+                type="text"
+                class="p-s"
+              >
+            </div>
+            <div class="mb tablet-blob-1-3">
+              <h6>Latitude</h6>
+              <input
+                v-model.trim="point.references.find(r => r.geoSystemeId === geoSystemeId).coordonnees.y"
+                type="text"
+                class="p-s"
+              >
+            </div>
           </div>
         </div>
+
+        <button
+          class="btn-border rnd-s py-s px-m full-x mb-s flex"
+          @click="pointAdd(groupeIndex, contourIndex)"
+        >
+          Ajouter un point<i class="icon-24 icon-plus flex-right" />
+        </button>
       </div>
+
+      <button
+        class="btn-border rnd-s py-s px-m full-x mb-s flex"
+        @click="contourAdd(groupeIndex)"
+      >
+        Ajouter {{ groupeContours.length >= 1 ? 'une lacune' : 'un contour' }}<i class="icon-24 icon-plus flex-right" />
+      </button>
     </div>
 
+
     <button
-      class="btn-border rnd-xs py-s px-m full-x mb flex"
-      @click="pointAdd"
+      class="btn-border rnd-s py-s px-m full-x mb-s flex"
+      @click="groupeAdd"
     >
-      Ajouter un point<i class="icon-24 icon-plus flex-right" />
+      Ajouter un groupe<i class="icon-24 icon-plus flex-right" />
     </button>
-    <hr>
   </div>
 </template>
 
@@ -246,46 +238,157 @@ export default {
 
         return pointsTotal
       }, [])
+    },
+
+    geoSystemeIds() {
+      return this.etape.geoSystemeIds.filter(id => id)
+    },
+
+    geoSystemeIdsLength() {
+      return this.geoSystemeIds.length
     }
   },
 
   methods: {
-    arrayOfNumbersCreate(length) {
-      return [...Array(length).keys()].map(i => i + 1)
+    clean(groupes, groupeIndex, contourIndex) {
+      const contours = groupes[groupeIndex]
+      const points = contours[contourIndex]
+
+      if (
+        !points.length &&
+        (groupes.length > 1 || contours.some(points => points.length > 1))
+      ) {
+        contours.splice(contourIndex, 1)
+        if (!contours.length && groupes.length > 1) {
+          groupes.splice(groupeIndex, 1)
+        }
+      }
     },
 
-    pointAdd() {
-      if (!this.etape.groupes.length) {
-        this.etape.groupes = [[[]]]
-      }
-      const contours = this.etape.groupes[this.etape.groupes.length - 1]
-      const points = contours[contours.length - 1]
-
-      const groupe = this.etape.groupes.length
-      const contour = contours.length
-      const point = points.length + 1
-
-      points.push({
-        groupe,
-        contour,
-        point,
-        coordonnees: { x: '', y: '' },
-        references: []
+    pointAdd(groupeIndex, contourIndex) {
+      this.etape.groupes[groupeIndex][contourIndex].push({
+        groupe: groupeIndex + 1,
+        contour: contourIndex + 1,
+        point: this.etape.groupes[groupeIndex][contourIndex].length,
+        references: this.geoSystemeIds.map(geoSystemeId => ({
+          geoSystemeId,
+          coordonnees: { x: '', y: '' }
+        }))
       })
     },
 
     pointRemove(groupeIndex, contourIndex, pointIndex) {
-      this.etape.groupes[groupeIndex][contourIndex].splice(pointIndex, 1)
+      const groupes = this.etape.groupes
+      const contours = groupes[groupeIndex]
+      const points = contours[contourIndex]
+      points.splice(pointIndex, 1)
+
+      this.clean(groupes, groupeIndex, contourIndex)
     },
 
-    pointReferenceAdd(point) {
-      const reference = { id: '', coordonnees: { x: '', y: '' } }
-      point.references.push(reference)
+    pointMoveDown(groupeIndex, contourIndex, pointIndex) {
+      const groupes = this.etape.groupes
+      const contours = groupes[groupeIndex]
+      const points = contours[contourIndex]
+      if (points.length > pointIndex + 1) {
+        const point = points.splice(pointIndex, 1)[0]
+        points.splice(pointIndex + 1, 0, point)
+      } else if (contours.length > contourIndex + 1) {
+        const point = points.splice(pointIndex, 1)[0]
+        contours[contourIndex + 1].unshift(point)
+        this.clean(groupes, groupeIndex, contourIndex)
+      } else if (groupes.length > groupeIndex + 1) {
+        const point = points.splice(pointIndex, 1)[0]
+        groupes[groupeIndex + 1][0].unshift(point)
+        this.clean(groupes, groupeIndex, contourIndex)
+      }
     },
 
-    pointReferenceRemove(point, reference) {
-      const index = point.references.findIndex(r => r.id === reference.id)
-      point.references.splice(index, 1)
+    pointMoveUp(groupeIndex, contourIndex, pointIndex) {
+      const groupes = this.etape.groupes
+      const contours = groupes[groupeIndex]
+      const points = contours[contourIndex]
+      if (pointIndex > 0) {
+        const point = points.splice(pointIndex, 1)[0]
+        points.splice(pointIndex - 1, 0, point)
+      } else if (contourIndex > 0) {
+        const point = points.splice(pointIndex, 1)[0]
+        contours[contourIndex - 1].push(point)
+        this.clean(groupes, groupeIndex, contourIndex)
+      } else if (groupeIndex > 0) {
+        const point = points.splice(pointIndex, 1)[0]
+        groupes[groupeIndex - 1][groupes[groupeIndex - 1].length - 1].push(
+          point
+        )
+        this.clean(groupes, groupeIndex, contourIndex)
+      }
+    },
+
+    contourAdd(groupeIndex) {
+      this.etape.groupes[groupeIndex].push([
+        {
+          groupe: groupeIndex + 1,
+          contour: 1,
+          point: 1,
+          references: this.geoSystemeIds.map(geoSystemeId => ({
+            geoSystemeId,
+            coordonnees: { x: '', y: '' }
+          }))
+        }
+      ])
+    },
+
+    contourRemove(groupeIndex, contourIndex) {
+      this.etape.groupes[groupeIndex].splice(contourIndex, 1)
+    },
+
+    groupeAdd() {
+      this.etape.groupes.push([
+        [
+          {
+            groupe: this.etape.groupes.length,
+            contour: 1,
+            point: 1,
+            references: this.geoSystemeIds.map(geoSystemeId => ({
+              geoSystemeId,
+              coordonnees: { x: '', y: '' }
+            }))
+          }
+        ]
+      ])
+    },
+
+    groupeRemove(groupeIndex) {
+      this.etape.groupes.splice(groupeIndex, 1)
+    },
+
+    geoSystemeAdd() {
+      this.etape.geoSystemeIds.push('')
+    },
+
+    geoSystemeRemove(index) {
+      this.etape.geoSystemeIds.splice(index, 1)
+    },
+
+    geoSystemeUpdate(geoSystemeId) {
+      this.etape.groupes.forEach(contours => {
+        contours.forEach(points => {
+          points.forEach(point => {
+            const reference = point.references.find(
+              ({ id }) => id === geoSystemeId
+            )
+
+            if (reference) {
+              reference.geoSystemeId = geoSystemeId
+            } else {
+              point.references.push({
+                geoSystemeId,
+                coordonnees: { x: '', y: '' }
+              })
+            }
+          })
+        })
+      })
     }
   }
 }

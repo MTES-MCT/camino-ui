@@ -512,6 +512,17 @@
   );
 }
 
+.icon-window-link {
+  background-image: svg-load(
+    './icons/24-window-link.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
 .btn-alt:hover .icon-window-link {
   background-image: svg-load(
     './icons/24-window-link.svg',
@@ -523,11 +534,44 @@
   );
 }
 
-.icon-window-link {
+.icon-move-down {
   background-image: svg-load(
-    './icons/24-window-link.svg',
+    './icons/24-move-down.svg',
     fill=none,
     stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn-border:hover .icon-move-down {
+  background-image: svg-load(
+    './icons/24-move-down.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.icon-move-up {
+  background-image: svg-load(
+    './icons/24-move-up.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn-border:hover .icon-move-up {
+  background-image: svg-load(
+    './icons/24-move-up.svg',
+    fill=none,
+    stroke= 'white',
     stroke-linecap=round,
     stroke-linejoin=round,
     stroke-width=1.25px

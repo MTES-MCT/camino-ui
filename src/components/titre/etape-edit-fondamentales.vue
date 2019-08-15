@@ -16,13 +16,15 @@
             <input
               v-model.number="etape.duree.ans"
               type="number"
-              class="p-s"
+              placeholder="années"
+              class="p-s mb-s"
             >
           </div>
           <div class="tablet-blob-1-2">
             <input
               v-model.number="etape.duree.mois"
               type="number"
+              placeholder="mois"
               class="p-s"
             >
           </div>
@@ -270,6 +272,8 @@
     <hr>
 
     <EtapeEditPoints :etape.sync="etape" />
+
+    <hr>
 
     <h3 class="mb-s">
       Titulaires ({{ titulairesLength }})

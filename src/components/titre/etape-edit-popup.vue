@@ -250,7 +250,10 @@ export default {
         etape.points = etape.groupes.reduce((acc, contours) => {
           const points = contours.reduce((acc, points) => {
             const pointsValides = points.reduce((acc, point) => {
-              if (point.coordonnees.x && point.coordonnees.y) {
+              if (
+                point.references.length &&
+                point.references.every(r => r.coordonnees.x && r.coordonnees.y)
+              ) {
                 acc.push(point)
               }
 
@@ -268,6 +271,10 @@ export default {
         }, [])
 
         delete etape.groupes
+      }
+
+      if (etape.geoSystemeIds) {
+        delete etape.geoSystemeIds
       }
 
       if (etape.duree.ans || etape.duree.mois) {

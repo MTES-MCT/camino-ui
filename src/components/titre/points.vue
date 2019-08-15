@@ -1,9 +1,9 @@
 <template>
   <div class="points">
     <div
-      v-for="(groupe, groupeIndex) in groupes"
+      v-for="(groupeContours, groupeIndex) in groupes"
       :key="groupeIndex + 1"
-      class="geo-groupe"
+      class="geo-groupe mb"
     >
       <h4
         v-if="groupes.length > 1"
@@ -12,24 +12,18 @@
         Groupe {{ groupeIndex + 1 }}
       </h4>
       <div
-        v-for="(contour, contourIndex) in groupe"
+        v-for="(contourPoints, contourIndex) in groupeContours"
         :key="contourIndex + 1"
         class="geo-contour"
       >
         <h4
-          v-if="groupe.length > 1 && contourIndex === 0"
+          v-if="groupeContours.length > 1"
           class="pl-s mb-s"
         >
-          Contour
-        </h4>
-        <h4
-          v-else-if="groupe.length > 1"
-          class="pl-s mb-s"
-        >
-          Lacune {{ contourIndex }}
+          {{ contourIndex === 0 ? 'Contour' : `Lacune ${contourIndex}` }}
         </h4>
         <div
-          v-for="(point, pointIndex) in contour"
+          v-for="(point, pointIndex) in contourPoints"
           :key="pointIndex + 1"
           class="geo-point flex"
         >
@@ -37,24 +31,6 @@
             {{ point.nom }}
           </h4>
           <div class="flex-grow">
-            <div class="tablet-blobs">
-              <div class="tablet-blob-1-4">
-                <h6 class="mb-s mt-xs">
-                  WGS84 (degré)
-                </h6>
-              </div>
-              <div class="tablet-blob-3-8">
-                <p class="h5 flex mb-s mt-xs">
-                  X : <span class="flex-right mono bold">{{ point.coordonnees.x.toFixed(9) }}</span>
-                </p>
-              </div>
-              <div class="tablet-blob-3-8">
-                <p class="h5 flex mb-s mt-xs">
-                  Y : <span class="flex-right mono bold">{{ point.coordonnees.y.toFixed(9) }}</span>
-                </p>
-              </div>
-            </div>
-
             <div
               v-for="reference in point.references"
               :key="reference.id"

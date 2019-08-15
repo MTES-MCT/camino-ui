@@ -393,28 +393,43 @@ export default {
       delete etape.volumeUnite
 
       if (etape.points) {
-        etape.groupes = etape.points.reduce((groupes, point) => {
-          groupes[point.groupe - 1] = groupes[point.groupe - 1] || []
-          groupes[point.groupe - 1][point.contour - 1] =
-            groupes[point.groupe - 1][point.contour - 1] || []
-          groupes[point.groupe - 1][point.contour - 1][point.point - 1] = {
-            nom: point.nom,
-            groupe: point.groupe,
-            contour: point.contour,
-            point: point.point,
-            coordonnees: point.coordonnees,
-            description: point.description,
-            references: point.references.map(r => {
-              r.geoSystemeId = r.geoSysteme.id
-              delete r.geoSysteme
-              delete r.id
+        const { groupes, geoSystemeIds } = etape.points.reduce(
+          ({ groupes, geoSystemeIds }, point) => {
+            const { references, pointGeoSystemeIds } = point.references.reduce(
+              ({ pointGeoSystemeIds, references }, r) => {
+                pointGeoSystemeIds[r.geoSysteme.id] = true
+                r.geoSystemeId = r.geoSysteme.id
+                delete r.geoSysteme
+                delete r.id
+                references.push(r)
 
-              return r
-            })
-          }
+                return { pointGeoSystemeIds, references }
+              },
+              { pointGeoSystemeIds: {}, references: [] }
+            )
 
-          return groupes
-        }, [])
+            groupes[point.groupe - 1] = groupes[point.groupe - 1] || []
+            groupes[point.groupe - 1][point.contour - 1] =
+              groupes[point.groupe - 1][point.contour - 1] || []
+            groupes[point.groupe - 1][point.contour - 1][point.point - 1] = {
+              nom: point.nom,
+              groupe: point.groupe,
+              contour: point.contour,
+              point: point.point,
+              description: point.description,
+              references
+            }
+
+            return {
+              groupes,
+              geoSystemeIds: Object.assign(geoSystemeIds, pointGeoSystemeIds)
+            }
+          },
+          { groupes: [], geoSystemeIds: {} }
+        )
+
+        etape.groupes = groupes
+        etape.geoSystemeIds = Object.keys(geoSystemeIds)
 
         delete etape.points
       }
