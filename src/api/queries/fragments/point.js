@@ -13,6 +13,7 @@ const fragmentPointReference = gql`
       x
       y
     }
+    opposable
   }
 `
 
@@ -29,6 +30,7 @@ const fragmentPoint = gql`
     nom
     description
     securite
+    subsidiaire
     references {
       ...pointReference
     }

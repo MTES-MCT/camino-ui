@@ -24,30 +24,43 @@
       <div
         v-for="(geoSystemeId, n) in etape.geoSystemeIds"
         :key="geoSystemeId"
-        class="mb-s flex full-x"
+        class="mb-s"
       >
-        <select
-          v-model="etape.geoSystemeIds[n]"
-          type="text"
-          class="p-s mr-s"
-          @change="geoSystemeUpdate(etape.geoSystemeIds[n])"
-        >
-          <option
-            v-for="geoSysteme in geoSystemes"
-            :key="geoSysteme.id"
-            :value="geoSysteme.id"
-            :disabled="etape.geoSystemeIds.find(id => id === geoSysteme.id)"
+        <div class="flex full-x mb-s">
+          <select
+            v-model="etape.geoSystemeIds[n]"
+            type="text"
+            class="p-s mr-s"
+            @change="geoSystemeUpdate(etape.geoSystemeIds[n])"
           >
-            {{ geoSysteme.nom }}
-          </option>
-        </select>
-        <div class="flex-right">
-          <button
-            class="btn-border py-s px-m rnd-xs"
-            @click="geoSystemeRemove(n)"
+            <option
+              v-for="geoSysteme in geoSystemes"
+              :key="geoSysteme.id"
+              :value="geoSysteme.id"
+              :disabled="etape.geoSystemeIds.find(id => id === geoSysteme.id)"
+            >
+              {{ geoSysteme.nom }}
+            </option>
+          </select>
+          <div class="flex-right">
+            <button
+              class="btn-border py-s px-m rnd-xs"
+              @click="geoSystemeRemove(n)"
+            >
+              <i class="icon-24 icon-minus" />
+            </button>
+          </div>
+        </div>
+        <div v-if="geoSystemeIds.length > 1">
+          <label
+            class="h5 mb"
           >
-            <i class="icon-24 icon-minus" />
-          </button>
+            <input
+              v-model="etape.geoSystemeOpposableId"
+              type="radio"
+              :value="geoSystemeId"
+            > opposable
+          </label>
         </div>
       </div>
 
@@ -155,6 +168,13 @@
             </div>
           </div>
 
+          <label class="h5 mb">
+            <input
+              v-model="point.subsidiaire"
+              type="checkbox"
+            >subsidiaire
+          </label>
+
           <div
             v-for="geoSystemeId in geoSystemeIds"
             :key="`${point.id}-${geoSystemeId}`"
@@ -164,7 +184,10 @@
               <h6>Système</h6>
 
               <p class="py-s mb-0 h5 bold mt-s">
-                {{ geoSystemes.find(({id}) => id === geoSystemeId).nom }}
+                {{ geoSystemes.find(({id}) => id === geoSystemeId).nom }} <span
+                  v-if="etape.geoSystemeOpposableId === geoSystemeId"
+                  class="bg-info py-xxs px-xs rnd-xs color-bg bold"
+                >Opposable</span>
               </p>
             </div>
             <div class="mb tablet-blob-1-3">
@@ -209,6 +232,16 @@
     >
       Ajouter un groupe<i class="icon-24 icon-plus flex-right" />
     </button>
+
+    <label
+      v-if="pointsTotal.length"
+      class="h5"
+    >
+      <input
+        v-model="etape.incertitudes.points"
+        type="checkbox"
+      >donnée incertaine
+    </label>
   </div>
 </template>
 
@@ -367,7 +400,13 @@ export default {
     },
 
     geoSystemeRemove(index) {
+      const id = this.etape.geoSystemeIds[index]
       this.etape.geoSystemeIds.splice(index, 1)
+      if (this.geoSystemeIds.length < 2) {
+        this.etape.geoSystemeOpposableId = null
+      } else if (this.etape.geoSystemeOpposableId === id) {
+        this.etape.geoSystemeOpposableId = this.etape.geoSystemeIds[0]
+      }
     },
 
     geoSystemeUpdate(geoSystemeId) {

@@ -393,6 +393,15 @@ export default {
       delete etape.volumeUnite
 
       if (etape.points) {
+        if (
+          etape.points[0].references.length > 1 &&
+          etape.points[0].references.find(r => r.opposable)
+        ) {
+          etape.geoSystemeOpposableId = etape.points[0].references.find(
+            r => r.opposable
+          ).geoSysteme.id
+        }
+
         const { groupes, geoSystemeIds } = etape.points.reduce(
           ({ groupes, geoSystemeIds }, point) => {
             const { references, pointGeoSystemeIds } = point.references.reduce(

@@ -247,13 +247,23 @@ export default {
       })
 
       if (etape.groupes) {
-        etape.points = etape.groupes.reduce((acc, contours) => {
-          const points = contours.reduce((acc, points) => {
-            const pointsValides = points.reduce((acc, point) => {
+        etape.points = etape.groupes.reduce((acc, contours, groupeIndex) => {
+          const points = contours.reduce((acc, points, contourIndex) => {
+            const pointsValides = points.reduce((acc, point, pointIndex) => {
               if (
                 point.references.length &&
                 point.references.every(r => r.coordonnees.x && r.coordonnees.y)
               ) {
+                if (point.references.length > 1) {
+                  const reference = point.references.find(
+                    r => r.geoSystemeId === etape.geoSystemeOpposableId
+                  )
+                  reference.opposable = true
+                }
+                point.groupe = groupeIndex + 1
+                point.contour = contourIndex + 1
+                point.point = pointIndex + 1
+
                 acc.push(point)
               }
 
@@ -275,6 +285,10 @@ export default {
 
       if (etape.geoSystemeIds) {
         delete etape.geoSystemeIds
+      }
+
+      if (etape.geoSystemeOpposableId) {
+        delete etape.geoSystemeOpposableId
       }
 
       if (etape.duree.ans || etape.duree.mois) {
