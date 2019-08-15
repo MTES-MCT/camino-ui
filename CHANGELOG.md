@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.2](https://github.com/MTES-MCT/camino-ui/compare/v0.22.1...v0.22.2) (2019-08-15)
+
+
+### Bug Fixes
+
+* corrige les appels à l'API ([892e252](https://github.com/MTES-MCT/camino-ui/commit/892e252))
+* **édition d'étape:** supprime les champs dont les ids sont vides ([a47ec99](https://github.com/MTES-MCT/camino-ui/commit/a47ec99))
+
+
+### Features
+
+* affiche l'unités du sytème de coordonnées géo ([375c48b](https://github.com/MTES-MCT/camino-ui/commit/375c48b))
+* ajoute les tags coordonnées opposables et subsidiaires ([8894a41](https://github.com/MTES-MCT/camino-ui/commit/8894a41))
+* ajoute les utilisateurs et les titres dans la vue entreprise ([fe480e7](https://github.com/MTES-MCT/camino-ui/commit/fe480e7))
+* crée un composant table générique ([ba009fb](https://github.com/MTES-MCT/camino-ui/commit/ba009fb))
+* désactive gestureHandling sur la carte en plein écran ([1e77e52](https://github.com/MTES-MCT/camino-ui/commit/1e77e52))
+* édite les références des points géo ([8346309](https://github.com/MTES-MCT/camino-ui/commit/8346309))
+* met à jour l'API ([d19c60e](https://github.com/MTES-MCT/camino-ui/commit/d19c60e))
+* organise les tables par colonnes en clic ([e862856](https://github.com/MTES-MCT/camino-ui/commit/e862856))
+
 ### [0.22.1](https://github.com/MTES-MCT/camino-ui/compare/v0.22.0...v0.22.1) (2019-07-31)
 
 
