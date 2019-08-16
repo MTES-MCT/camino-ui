@@ -34,19 +34,22 @@
             <div
               v-for="reference in point.references"
               :key="reference.id"
-              class="tablet-blobs"
+              class="desktop-blobs"
             >
-              <div class="tablet-blob-1-4">
-                <h6 class="mb-s mt-xs">
-                  {{ reference.geoSysteme.nom }} ({{ reference.geoSysteme.unite }})
-                </h6>
+              <div class="desktop-blob-1-3">
+                <p class="h6 mb-s mt-xs inline-block">
+                  <span class="bold">{{ reference.geoSysteme.nom }} ({{ reference.geoSysteme.unite }})</span> <span
+                    v-if="reference.opposable"
+                    class="h5 bg-info py-xxs px-xs rnd-xs color-bg"
+                  >Opposable</span>
+                </p>
               </div>
-              <div class="tablet-blob-3-8">
+              <div class="desktop-blob-1-3">
                 <p class="h5 flex mb-s mt-xs">
                   X : <span class="flex-right mono bold">{{ reference.coordonnees.x }}</span>
                 </p>
               </div>
-              <div class="tablet-blob-3-8">
+              <div class="desktop-blob-1-3">
                 <p class="h5 flex mb-s mt-xs">
                   Y : <span class="flex-right mono bold">{{ reference.coordonnees.y }}</span>
                 </p>

@@ -183,10 +183,10 @@
             <div class="mb tablet-blob-1-3">
               <h6>Système</h6>
 
-              <p class="py-s mb-0 h5 bold mt-s">
-                {{ geoSystemes.find(({id}) => id === geoSystemeId).nom }} <span
+              <p class="py-s mb-0 h5">
+                <span class="bold">{{ geoSystemes.find(({id}) => id === geoSystemeId).nom }}</span> <span
                   v-if="etape.geoSystemeOpposableId === geoSystemeId"
-                  class="bg-info py-xxs px-xs rnd-xs color-bg bold"
+                  class="bg-info py-xxs px-xs rnd-xs color-bg"
                 >Opposable</span>
               </p>
             </div>
@@ -428,6 +428,10 @@ export default {
           })
         })
       })
+
+      if (this.geoSystemeIds.length > 1 && !this.etape.geoSystemeOpposableId) {
+        this.etape.geoSystemeOpposableId = this.etape.geoSystemeIds[0]
+      }
     }
   }
 }

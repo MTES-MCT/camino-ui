@@ -254,6 +254,9 @@ export default {
                 point.references.length &&
                 point.references.every(r => r.coordonnees.x && r.coordonnees.y)
               ) {
+                points.references = point.references.filter(r =>
+                  etape.geoSystemeIds.includes(r.geoSystemeId)
+                )
                 if (point.references.length > 1) {
                   const reference = point.references.find(
                     r => r.geoSystemeId === etape.geoSystemeOpposableId
