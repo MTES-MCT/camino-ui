@@ -191,7 +191,7 @@
               </p>
             </div>
             <div class="mb tablet-blob-1-3">
-              <h6>Longitude</h6>
+              <h6>X ({{ geoSystemes.find(({id}) => id === geoSystemeId).unite }})</h6>
               <input
                 v-model.trim="point.references.find(r => r.geoSystemeId === geoSystemeId).coordonnees.x"
                 type="text"
@@ -199,7 +199,7 @@
               >
             </div>
             <div class="mb tablet-blob-1-3">
-              <h6>Latitude</h6>
+              <h6>Y ({{ geoSystemes.find(({id}) => id === geoSystemeId).unite }})</h6>
               <input
                 v-model.trim="point.references.find(r => r.geoSystemeId === geoSystemeId).coordonnees.y"
                 type="text"
