@@ -394,6 +394,7 @@ export default {
 
       if (etape.points) {
         if (
+          etape.points.length &&
           etape.points[0].references.length > 1 &&
           etape.points[0].references.find(r => r.opposable)
         ) {
