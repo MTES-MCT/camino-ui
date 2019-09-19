@@ -38,7 +38,7 @@
             >
               <div class="tablet-blob-1-3">
                 <p class="h6 mb-s mt-xs inline-block">
-                  <span class="bold">{{ reference.geoSysteme.nom }}</span>  ({{ reference.geoSysteme.unite }}) <span
+                  <span class="bold">{{ reference.geoSysteme.nom }}</span>  ({{ reference.geoSysteme.uniteType }}) <span
                     v-if="reference.opposable"
                     class="h5 bg-info py-xxs px-xs rnd-xs color-bg"
                   >Opposable</span>

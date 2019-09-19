@@ -191,7 +191,7 @@
               </p>
             </div>
             <div class="mb tablet-blob-1-3">
-              <h6>X ({{ geoSystemes.find(({id}) => id === geoSystemeId).unite }})</h6>
+              <h6>X ({{ geoSystemes.find(({id}) => id === geoSystemeId).uniteType }})</h6>
               <input
                 v-model.trim="point.references.find(r => r.geoSystemeId === geoSystemeId).coordonnees.x"
                 type="text"
@@ -199,7 +199,7 @@
               >
             </div>
             <div class="mb tablet-blob-1-3">
-              <h6>Y ({{ geoSystemes.find(({id}) => id === geoSystemeId).unite }})</h6>
+              <h6>Y ({{ geoSystemes.find(({id}) => id === geoSystemeId).uniteType }})</h6>
               <input
                 v-model.trim="point.references.find(r => r.geoSystemeId === geoSystemeId).coordonnees.y"
                 type="text"
@@ -305,7 +305,7 @@ export default {
         point: this.etape.groupes[groupeIndex][contourIndex].length,
         references: this.geoSystemeIds.map(geoSystemeId => ({
           geoSystemeId,
-          coordonnees: { x: '', y: '' }
+          coordonnees: { x: 0, y: 0 }
         }))
       })
     },
@@ -365,7 +365,7 @@ export default {
           point: 1,
           references: this.geoSystemeIds.map(geoSystemeId => ({
             geoSystemeId,
-            coordonnees: { x: '', y: '' }
+            coordonnees: { x: 0, y: 0 }
           }))
         }
       ])
@@ -384,7 +384,7 @@ export default {
             point: 1,
             references: this.geoSystemeIds.map(geoSystemeId => ({
               geoSystemeId,
-              coordonnees: { x: '', y: '' }
+              coordonnees: { x: 0, y: 0 }
             }))
           }
         ]
@@ -422,7 +422,7 @@ export default {
             } else {
               point.references.push({
                 geoSystemeId,
-                coordonnees: { x: '', y: '' }
+                coordonnees: { x: 0, y: 0 }
               })
             }
           })

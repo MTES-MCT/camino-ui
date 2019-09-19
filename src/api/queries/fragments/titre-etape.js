@@ -34,10 +34,6 @@ const fragmentTitreEtape = gql`
       nom
       couleur
     }
-    emprises {
-      id
-      nom
-    }
     administrations {
       ...administration
     }

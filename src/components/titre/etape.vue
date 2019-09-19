@@ -457,7 +457,6 @@ export default {
       delete etape.geojsonPoints
       delete etape.geojsonMultiPolygon
       delete etape.documents
-      delete etape.emprises
 
       console.log(JSON.stringify(etape, null, 2))
 

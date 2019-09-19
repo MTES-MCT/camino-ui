@@ -7,12 +7,13 @@ const fragmentPointReference = gql`
       id
       nom
       zone
-      unite
+      uniteType
     }
     coordonnees {
       x
       y
     }
+    unite
     opposable
   }
 `

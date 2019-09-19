@@ -75,7 +75,7 @@ const fragmentMeta = gql`
       id
       nom
       zone
-      unite
+      uniteType
     }
   }
 `
