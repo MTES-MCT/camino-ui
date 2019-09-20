@@ -15,6 +15,7 @@
             </li>
             <li>
               <RouterLink
+                v-if="permissionsCheck(['super', 'admin'])"
                 :to="{ name: 'utilisateurs' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"

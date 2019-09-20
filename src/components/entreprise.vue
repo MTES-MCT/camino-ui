@@ -140,19 +140,25 @@
       </template>
     </Accordion>
 
-    <div class="card-border mb" />
-    <h3>Utilisateurs</h3>
-    <UtilisateursTable
+    <div
       v-if="utilisateurs && utilisateurs.length"
-      :utilisateurs="utilisateurs"
-    />
+    >
+      <div class="card-border mb" />
+      <h3>Utilisateurs</h3>
+      <UtilisateursTable
+        :utilisateurs="utilisateurs"
+      />
+    </div>
 
-    <div class="card-border mb" />
-    <h3>Titres miniers et autorisations</h3>
-    <TitresTable
+    <div
       v-if="titresTitulaire && titresTitulaire.length"
-      :titres="titresTitulaire"
-    />
+    >
+      <div class="card-border mb" />
+      <h3>Titres miniers et autorisations</h3>
+      <TitresTable
+        :titres="titresTitulaire"
+      />
+    </div>
   </Card>
 </template>
 
