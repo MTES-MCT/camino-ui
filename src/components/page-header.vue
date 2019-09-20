@@ -12,7 +12,6 @@
               class="loader"
             />
             <div
-              v-if="permissionsCheck(['super', 'admin'])"
               class="ml-xs"
             >
               <MenuButton />

@@ -22,7 +22,7 @@
       </template>
 
       <template
-        v-if="utilisateur.id"
+        v-if="permissionsCheck(['super', 'admin']) || user.id === utilisateur.id"
         slot="buttons"
       >
         <button
