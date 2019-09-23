@@ -64,6 +64,7 @@
       </div>
       <div class="desktop-blob-1-4">
         <Ranges
+          v-if="elements.length > 10"
           :ranges="ranges"
           :range="range"
           @update:range="rangeUpdateEvent"

@@ -10,10 +10,7 @@
       </Tag>
     </template>
 
-    <template
-      v-if="permissionsCheck(['super'])"
-      slot="buttons"
-    >
+    <template slot="buttons">
       <RouterLink
         :to="{ name: 'entreprise', params: {id: entreprise.id }}"
         class="btn-alt py-s px-m"
