@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.3](https://github.com/MTES-MCT/camino-ui/compare/v0.22.2...v0.22.3) (2019-09-23)
+
+
+### Bug Fixes
+
+* affiche le tag opposable dans le tableau de coordonnées ([8af9f40](https://github.com/MTES-MCT/camino-ui/commit/8af9f40))
+* corrige erreur Cannot read property 'references' of undefined ([fb8de80](https://github.com/MTES-MCT/camino-ui/commit/fb8de80))
+* définit le format des coordonnnées de références en nombres ([a88d251](https://github.com/MTES-MCT/camino-ui/commit/a88d251))
+* uniformise la description d'un point ([6cf326a](https://github.com/MTES-MCT/camino-ui/commit/6cf326a))
+
+
+### Features
+
+* affiche le lien vers la fiche entreprise depuis un titre ([64a3f3d](https://github.com/MTES-MCT/camino-ui/commit/64a3f3d))
+* **entreprise:** rend les entreprises visible au public ([#28](https://github.com/MTES-MCT/camino-ui/issues/28)) ([02501c6](https://github.com/MTES-MCT/camino-ui/commit/02501c6))
+
 ### [0.22.2](https://github.com/MTES-MCT/camino-ui/compare/v0.22.1...v0.22.2) (2019-08-15)
 
 
