@@ -118,18 +118,20 @@ export default {
   methods: {
     markersInit() {
       this.points.forEach(point => {
-        const icon = L.divIcon({
-          className: `h6 mono border-bg color-text py-xs px-s inline-block leaflet-marker-camino cap pill bg-bg`,
-          html: `${point.nom}`,
-          iconSize: null,
-          iconAnchor: [15.5, 38]
-        })
-        const titleMarker = L.marker(
-          [point.coordonnees.y, point.coordonnees.x],
-          { icon }
-        )
+        if (point.nom) {
+          const icon = L.divIcon({
+            className: `h6 mono border-bg color-text py-xs px-s inline-block leaflet-marker-camino cap pill bg-bg`,
+            html: `${point.nom}`,
+            iconSize: null,
+            iconAnchor: [15.5, 38]
+          })
+          const titleMarker = L.marker(
+            [point.coordonnees.y, point.coordonnees.x],
+            { icon }
+          )
 
-        this.markerLayers.push(titleMarker)
+          this.markerLayers.push(titleMarker)
+        }
       })
     },
 
