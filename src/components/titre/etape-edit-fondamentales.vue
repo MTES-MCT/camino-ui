@@ -217,7 +217,7 @@
                 :value="volumeUnite.id"
                 :disabled="etape.volumeUniteId === volumeUnite.id"
               >
-                {{ volumeUnite.nom }}
+                {{ volumeUnite.symbole }}
               </option>
             </select>
           </div>
@@ -491,7 +491,9 @@ export default {
     },
 
     volumeUnites() {
-      return this.$store.state.metas.volumeUnites
+      return this.$store.state.metas.unites.filter(
+        ({ type }) => type === 'volume'
+      )
     },
 
     titulairesLength() {

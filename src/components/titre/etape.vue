@@ -197,7 +197,7 @@
         <div class="tablet-blob-3-4">
           <p>
             {{ numberFormat(etape.volume) }}
-            <span v-if="etape.volumeUnite"> {{ etape.volumeUnite.nom }}</span>
+            <span v-if="etape.volumeUnite"> {{ etape.volumeUnite.symbole }}</span>
             <span
               v-if="etape.incertitudes && etape.incertitudes.volume"
               class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
