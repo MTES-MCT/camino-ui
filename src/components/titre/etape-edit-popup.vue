@@ -263,6 +263,12 @@ export default {
                   )
                   reference.opposable = true
                 }
+                point.references = point.references.map(pointReference => {
+                  pointReference.uniteId = pointReference.unite.id
+                  delete pointReference.unite
+
+                  return pointReference
+                })
                 point.groupe = groupeIndex + 1
                 point.contour = contourIndex + 1
                 point.point = pointIndex + 1
