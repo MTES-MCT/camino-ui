@@ -402,6 +402,14 @@ export default {
             r => r.opposable
           ).geoSysteme.id
         }
+        const pointsLot = {
+          id: 'pointsLot',
+          description: 'blabla',
+          groupe: 1,
+          contour: 1,
+          points: [[1, 1], [1, 2]],
+          lot: true
+        }
 
         const { groupes, geoSystemeIds } = etape.points.reduce(
           ({ groupes, geoSystemeIds }, point) => {
@@ -437,6 +445,7 @@ export default {
           },
           { groupes: [], geoSystemeIds: {} }
         )
+        groupes[0][0].push(pointsLot)
 
         etape.groupes = groupes
         etape.geoSystemeIds = Object.keys(geoSystemeIds)

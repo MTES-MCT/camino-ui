@@ -120,45 +120,125 @@
           :key="pointIndex + 1"
           class="geo-point"
         >
-          <div class="flex full-x">
-            <h4 class="mt-s">
-              Point {{ point.nom }}
-            </h4>
-            <div class="flex-right">
-              <button
-                v-if="!(etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)"
-                class="btn-border py-s px-m rnd-l-xs"
-                @click="pointMoveDown(groupeIndex, contourIndex, pointIndex)"
-              >
-                <i class="icon-24 icon-move-down" />
-              </button>
-              <button
-                v-if="!(groupeIndex === 0 && contourIndex === 0 && pointIndex === 0)"
-                :class="{'rnd-l-xs': (etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)}"
-                class="btn-border py-s px-m"
-                @click="pointMoveUp(groupeIndex, contourIndex, pointIndex)"
-              >
-                <i class="icon-24 icon-move-up" />
-              </button>
-              <button
-                class="btn-border py-s px-m rnd-r-xs"
-                @click="pointRemove(groupeIndex, contourIndex, pointIndex)"
-              >
-                <i class="icon-24 icon-minus" />
-              </button>
+          <div v-if="!point.lot">
+            <div class="flex full-x">
+              <h4 class="mt-s">
+                Point {{ point.nom }}
+              </h4>
+              <div class="flex-right">
+                <button
+                  v-if="!(etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)"
+                  class="btn-border py-s px-m rnd-l-xs"
+                  @click="pointMoveDown(groupeIndex, contourIndex, pointIndex)"
+                >
+                  <i class="icon-24 icon-move-down" />
+                </button>
+                <button
+                  v-if="!(groupeIndex === 0 && contourIndex === 0 && pointIndex === 0)"
+                  :class="{'rnd-l-xs': (etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)}"
+                  class="btn-border py-s px-m"
+                  @click="pointMoveUp(groupeIndex, contourIndex, pointIndex)"
+                >
+                  <i class="icon-24 icon-move-up" />
+                </button>
+                <button
+                  class="btn-border py-s px-m rnd-r-xs"
+                  @click="pointRemove(groupeIndex, contourIndex, pointIndex)"
+                >
+                  <i class="icon-24 icon-minus" />
+                </button>
+              </div>
+            </div>
+
+            <div class="tablet-blobs">
+              <div class="mb tablet-blob-1-3">
+                <h6>Nom</h6>
+                <input
+                  v-model.lazy="point.nom"
+                  type="text"
+                  class="p-s"
+                >
+              </div>
+              <div class="mb tablet-blob-2-3">
+                <h6>Description</h6>
+                <input
+                  v-model="point.description"
+                  type="text"
+                  class="p-s"
+                >
+              </div>
+            </div>
+
+            <label class="h5 mb">
+              <input
+                v-model="point.subsidiaire"
+                type="checkbox"
+              >subsidiaire
+            </label>
+
+            <div
+              v-for="geoSystemeId in geoSystemeIds"
+              :key="`${point.id}-${geoSystemeId}`"
+              class="tablet-blobs"
+            >
+              <div class="mb tablet-blob-1-3">
+                <h6>Système</h6>
+
+                <p class="py-s mb-0 h5">
+                  <span class="bold">{{ geoSystemes.find(({id}) => id === geoSystemeId).nom }}</span> <span
+                    v-if="etape.geoSystemeOpposableId === geoSystemeId"
+                    class="bg-info py-xxs px-xs rnd-xs color-bg"
+                  >Opposable</span>
+                </p>
+              </div>
+              <div class="mb tablet-blob-1-3">
+                <h6>X ({{ geoSystemes.find(({id}) => id === geoSystemeId).uniteType }})</h6>
+                <input
+                  v-model.trim="point.references.find(r => r.geoSystemeId === geoSystemeId).coordonnees.x"
+                  type="text"
+                  class="p-s"
+                >
+              </div>
+              <div class="mb tablet-blob-1-3">
+                <h6>Y ({{ geoSystemes.find(({id}) => id === geoSystemeId).uniteType }})</h6>
+                <input
+                  v-model.trim="point.references.find(r => r.geoSystemeId === geoSystemeId).coordonnees.y"
+                  type="text"
+                  class="p-s"
+                >
+              </div>
             </div>
           </div>
-
-          <div class="tablet-blobs">
-            <div class="mb tablet-blob-1-3">
-              <h6>Nom</h6>
-              <input
-                v-model.lazy="point.nom"
-                type="text"
-                class="p-s"
-              >
+          <div v-else>
+            <div class="flex full-x">
+              <h4 class="mt-s">
+                Lot
+              </h4>
+              <div class="flex-right">
+                <button
+                  v-if="!(etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)"
+                  class="btn-border py-s px-m rnd-l-xs"
+                  @click="pointMoveDown(groupeIndex, contourIndex, pointIndex)"
+                >
+                  <i class="icon-24 icon-move-down" />
+                </button>
+                <button
+                  v-if="!(groupeIndex === 0 && contourIndex === 0 && pointIndex === 0)"
+                  :class="{'rnd-l-xs': (etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)}"
+                  class="btn-border py-s px-m"
+                  @click="pointMoveUp(groupeIndex, contourIndex, pointIndex)"
+                >
+                  <i class="icon-24 icon-move-up" />
+                </button>
+                <button
+                  class="btn-border py-s px-m rnd-r-xs"
+                  @click="pointRemove(groupeIndex, contourIndex, pointIndex)"
+                >
+                  <i class="icon-24 icon-minus" />
+                </button>
+              </div>
             </div>
-            <div class="mb tablet-blob-2-3">
+            <div class="mb">
               <h6>Description</h6>
               <input
                 v-model="point.description"
@@ -166,48 +246,17 @@
                 class="p-s"
               >
             </div>
-          </div>
-
-          <label class="h5 mb">
-            <input
-              v-model="point.subsidiaire"
-              type="checkbox"
-            >subsidiaire
-          </label>
-
-          <div
-            v-for="geoSystemeId in geoSystemeIds"
-            :key="`${point.id}-${geoSystemeId}`"
-            class="tablet-blobs"
-          >
-            <div class="mb tablet-blob-1-3">
-              <h6>Système</h6>
-
-              <p class="py-s mb-0 h5">
-                <span class="bold">{{ geoSystemes.find(({id}) => id === geoSystemeId).nom }}</span> <span
-                  v-if="etape.geoSystemeOpposableId === geoSystemeId"
-                  class="bg-info py-xxs px-xs rnd-xs color-bg"
-                >Opposable</span>
-              </p>
+            <div class="mb">
+              <h6>Coordonnees</h6>
+              <textarea
+                :value="point.points.map(p => `${p[0]},${p[1]}`).join('\n')"
+                @blur="pointsLotUpdate($event, groupeIndex, contourIndex, pointIndex)"
+              />
             </div>
-            <div class="mb tablet-blob-1-3">
-              <h6>X ({{ geoSystemes.find(({id}) => id === geoSystemeId).uniteType }})</h6>
-              <input
-                v-model.trim="point.references.find(r => r.geoSystemeId === geoSystemeId).coordonnees.x"
-                type="text"
-                class="p-s"
-              >
-            </div>
-            <div class="mb tablet-blob-1-3">
-              <h6>Y ({{ geoSystemes.find(({id}) => id === geoSystemeId).uniteType }})</h6>
-              <input
-                v-model.trim="point.references.find(r => r.geoSystemeId === geoSystemeId).coordonnees.y"
-                type="text"
-                class="p-s"
-              >
-            </div>
+            {{ point }}
           </div>
         </div>
+
 
         <button
           class="btn-border rnd-s py-s px-m full-x mb-s flex"
@@ -432,6 +481,23 @@ export default {
       if (this.geoSystemeIds.length > 1 && !this.etape.geoSystemeOpposableId) {
         this.etape.geoSystemeOpposableId = this.etape.geoSystemeIds[0]
       }
+    },
+
+    pointsLotUpdate(event, groupeIndex, contourIndex, pointIndex) {
+      const coordonnees = event.target.value.split('\n')
+
+      // userInput doit être de la forme 1.2,2.3\n2,4\n4.5,6\n
+      const errors = coordonnees.map(input =>
+        input.match(/(\d+(\.\d+)?,\d+(\.\d+)?)+/)
+      )
+
+      console.log(errors)
+
+      coordonnees.forEach((tupleString, index) => {
+        this.etape.groupes[groupeIndex][contourIndex][pointIndex].points[
+          index
+        ] = tupleString.split(',')
+      })
     }
   }
 }
