@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import {fragmentUnite} from './metas'
 
 const fragmentPointReference = gql`
   fragment pointReference on PointReference {
@@ -13,9 +14,13 @@ const fragmentPointReference = gql`
       x
       y
     }
-    unite
+    unite {
+      ...unite
+    }
     opposable
   }
+
+  ${fragmentUnite}
 `
 
 const fragmentPoint = gql`

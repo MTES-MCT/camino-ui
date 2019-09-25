@@ -4,6 +4,7 @@ import fragmentAdministration from './administration'
 import { fragmentTitreSubstance } from './titre-substance'
 import { fragmentPoint } from './point'
 import fragmentPays from './pays'
+import {fragmentUnite} from './metas'
 
 const fragmentTitreEtape = gql`
   fragment etape on Etape {
@@ -16,8 +17,7 @@ const fragmentTitreEtape = gql`
     surface
     volume
     volumeUnite {
-      id
-      nom
+      ...unite
     }
     visas
     engagement
@@ -70,6 +70,8 @@ const fragmentTitreEtape = gql`
   ${fragmentTitreSubstance}
 
   ${fragmentPays}
+
+  ${fragmentUnite}
 
   fragment document on Document {
     id

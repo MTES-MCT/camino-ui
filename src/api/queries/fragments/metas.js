@@ -25,6 +25,15 @@ const fragmentDemarcheStatut = gql`
   }
 `
 
+const fragmentUnite = gql`
+  fragment unite on Unite {
+    id
+    nom
+    symbole
+    type
+  }
+`
+
 const fragmentDemarcheType = gql`
   fragment demarcheType on DemarcheType {
     id
@@ -67,9 +76,8 @@ const fragmentMeta = gql`
       id
       nom
     }
-    volumeUnites {
-      id
-      nom
+    unites {
+      ...unite
     }
     geoSystemes {
       id
@@ -78,6 +86,8 @@ const fragmentMeta = gql`
       uniteType
     }
   }
+
+  ${fragmentUnite}
 `
 
-export { fragmentMeta, fragmentDemarcheType, fragmentDemarcheStatut }
+export { fragmentMeta, fragmentUnite, fragmentDemarcheType, fragmentDemarcheStatut }
