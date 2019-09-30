@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout' : 'Modification' }} d'une étape
+          {{ creation ? 'Ajout d\'une ' : 'Modification de l\'' }}étape
         </h2>
       </div>
     </template>
@@ -246,59 +246,105 @@ export default {
         }
       })
 
-      if (etape.groupes) {
-        etape.points = etape.groupes.reduce((acc, contours, groupeIndex) => {
-          const points = contours.reduce((acc, points, contourIndex) => {
-            const pointsValides = points.reduce((acc, point, pointIndex) => {
-              if (
-                point.references.length &&
-                point.references.every(r => r.coordonnees.x && r.coordonnees.y)
-              ) {
-                points.references = point.references.filter(r =>
-                  etape.geoSystemeIds.includes(r.geoSystemeId)
+      const pointReferenceCreate = (
+        geoSystemeId,
+        uniteId,
+        coordonnees,
+        opposable
+      ) => ({
+        geoSystemeId,
+        uniteId,
+        coordonnees: { x: coordonnees[0], y: coordonnees[1] },
+        opposable: opposable || null
+      })
+
+      if (etape.geoSystemes.length && etape.groupes && etape.groupes.length) {
+        const etapeGeoSystemeOpposable = etape.geoSystemeOpposableId
+          ? etape.geoSystemes.find(
+              ({ id }) => id === etape.geoSystemeOpposableId
+            )
+          : etape.geoSystemes[0]
+
+        etape.points = etape.groupes.reduce((groupes, groupe) => {
+          const g = groupe.reduce((contours, contour) => {
+            const c = contour.reduce((points, point) => {
+              if (!point.lot) {
+                point.references = Object.keys(point.references).reduce(
+                  (references, geoSystemeId) => {
+                    const etapeGeoSysteme = etape.geoSystemes.find(
+                      ({ id }) => geoSystemeId === id
+                    )
+
+                    if (!etapeGeoSysteme) {
+                      return references
+                    }
+
+                    if (
+                      point.references[geoSystemeId][0] &&
+                      point.references[geoSystemeId][1] &&
+                      geoSystemeId
+                    ) {
+                      references.push(
+                        pointReferenceCreate(
+                          geoSystemeId,
+                          etapeGeoSysteme.uniteId,
+                          point.references[geoSystemeId],
+                          etape.geoSystemes.length > 1 &&
+                            geoSystemeId === etapeGeoSystemeOpposable.id
+                        )
+                      )
+                    }
+
+                    return references
+                  },
+                  []
                 )
-                if (point.references.length > 1) {
-                  const reference = point.references.find(
-                    r => r.geoSystemeId === etape.geoSystemeOpposableId
-                  )
-                  reference.opposable = true
+
+                if (point.references.length) {
+                  point.groupe = groupes.length + 1
+                  point.contour = contours.length + 1
+                  point.point = points.length + 1
+                  points.push(point)
                 }
-                point.references = point.references.map(pointReference => {
-                  pointReference.uniteId = pointReference.unite.id
-                  delete pointReference.unite
-
-                  return pointReference
-                })
-                point.groupe = groupeIndex + 1
-                point.contour = contourIndex + 1
-                point.point = pointIndex + 1
-
-                acc.push(point)
+              } else {
+                point.references &&
+                  point.references.forEach(coordonnees => {
+                    points.push({
+                      lot: true,
+                      subsidiaire: true,
+                      description: point.description,
+                      groupe: groupes.length + 1,
+                      contour: contours.length + 1,
+                      point: points.length + 1,
+                      references: [
+                        pointReferenceCreate(
+                          etapeGeoSystemeOpposable.id,
+                          etapeGeoSystemeOpposable.uniteId,
+                          coordonnees,
+                          etape.geoSystemes.length > 1
+                        )
+                      ]
+                    })
+                  })
               }
 
-              return acc
+              return points
             }, [])
+            contours = contours.concat(c)
 
-            acc = acc.concat(pointsValides)
-
-            return acc
+            return contours
           }, [])
+          groupes = groupes.concat(g)
 
-          acc = acc.concat(points)
-
-          return acc
+          return groupes
         }, [])
-
-        delete etape.groupes
+      } else {
+        etape.incertitudes.points = null
       }
 
-      if (etape.geoSystemeIds) {
-        delete etape.geoSystemeIds
-      }
-
-      if (etape.geoSystemeOpposableId) {
-        delete etape.geoSystemeOpposableId
-      }
+      delete etape.groupes
+      delete etape.geoSystemeOpposableId
+      delete etape.geoSystemes
 
       if (etape.duree.ans || etape.duree.mois) {
         etape.duree =

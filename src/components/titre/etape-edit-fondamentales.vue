@@ -276,7 +276,7 @@
     <hr>
 
     <h3 class="mb-s">
-      Titulaires ({{ titulairesLength }})
+      Titulaires
     </h3>
     <p class="h6 italic mb-s">
       Optionel
@@ -335,7 +335,7 @@
     <hr>
 
     <h3 class="mb-s">
-      Amodiataires ({{ amodiatairesLength }})
+      Amodiataires
     </h3>
     <p class="h6 italic mb-s">
       Optionel
@@ -395,7 +395,7 @@
     <hr>
 
     <h3 class="mb-s">
-      Substances ({{ substancesLength }})
+      Substances
     </h3>
     <p class="h6 italic mb-s">
       Optionel

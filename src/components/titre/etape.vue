@@ -223,9 +223,7 @@
         </div>
       </div>
 
-      <div
-        v-if="incertitudesLength"
-      >
+      <div v-if="incertitudesLength">
         <p class="h5">
           <span
             class="bg-info py-xxs px-xs rnd-xs color-bg bold"
@@ -392,65 +390,98 @@ export default {
       etape.volumeUniteId = etape.volumeUnite && etape.volumeUnite.id
       delete etape.volumeUnite
 
-      if (etape.points) {
-        if (
-          etape.points.length &&
-          etape.points[0].references.length > 1 &&
-          etape.points[0].references.find(r => r.opposable)
-        ) {
-          etape.geoSystemeOpposableId = etape.points[0].references.find(
-            r => r.opposable
-          ).geoSysteme.id
-        }
-        const pointsLot = {
-          id: 'pointsLot',
-          description: 'blabla',
-          groupe: 1,
-          contour: 1,
-          points: [[1, 1], [1, 2]],
-          lot: true
-        }
+      const referencesBuild = references =>
+        references.reduce(
+          (
+            { pointGeoSystemes, pointReferences },
+            { geoSysteme, unite, coordonnees }
+          ) => {
+            pointGeoSystemes[geoSysteme.id] = {
+              id: geoSysteme.id,
+              nom: geoSysteme.nom,
+              uniteId: unite.id,
+              uniteType: unite.type
+            }
 
-        const { groupes, geoSystemeIds } = etape.points.reduce(
-          ({ groupes, geoSystemeIds }, point) => {
-            const { references, pointGeoSystemeIds } = point.references.reduce(
-              ({ pointGeoSystemeIds, references }, r) => {
-                pointGeoSystemeIds[r.geoSysteme.id] = true
-                r.geoSystemeId = r.geoSysteme.id
-                delete r.geoSysteme
-                delete r.id
-                references.push(r)
+            pointReferences[geoSysteme.id] = [coordonnees.x, coordonnees.y]
 
-                return { pointGeoSystemeIds, references }
-              },
-              { pointGeoSystemeIds: {}, references: [] }
+            return { pointGeoSystemes, pointReferences }
+          },
+          { pointGeoSystemes: {}, pointReferences: {} }
+        )
+
+      const groupesBuild = (points, etapeGeoSystemeOpposableId) =>
+        points.reduce(
+          (
+            { groupes, etapeGeoSystemes, lotPointIndex },
+            { nom, description, point, contour, groupe, references, lot }
+          ) => {
+            const { pointReferences, pointGeoSystemes } = referencesBuild(
+              references
             )
 
-            groupes[point.groupe - 1] = groupes[point.groupe - 1] || []
-            groupes[point.groupe - 1][point.contour - 1] =
-              groupes[point.groupe - 1][point.contour - 1] || []
-            groupes[point.groupe - 1][point.contour - 1][point.point - 1] = {
-              nom: point.nom,
-              groupe: point.groupe,
-              contour: point.contour,
-              point: point.point,
-              description: point.description,
-              references
+            const lotGeoSystemeId =
+              etapeGeoSystemeOpposableId || Object.keys(pointGeoSystemes)[0]
+            console.log(lotGeoSystemeId)
+
+            if (!lot || !lotPointIndex) {
+              groupes[groupe - 1] = groupes[groupe - 1] || []
+              groupes[groupe - 1][contour - 1] =
+                groupes[groupe - 1][contour - 1] || []
+              groupes[groupe - 1][contour - 1][point - 1] = {
+                nom,
+                groupe,
+                contour,
+                point,
+                description,
+                lot,
+                references: lot
+                  ? [pointReferences[lotGeoSystemeId]]
+                  : pointReferences
+              }
+            } else {
+              groupes[groupe - 1][contour - 1][lotPointIndex].references.push(
+                pointReferences[lotGeoSystemeId]
+              )
             }
+
+            lotPointIndex = lot ? point - 1 : null
 
             return {
               groupes,
-              geoSystemeIds: Object.assign(geoSystemeIds, pointGeoSystemeIds)
+              etapeGeoSystemes: Object.assign(
+                etapeGeoSystemes,
+                pointGeoSystemes
+              ),
+              lotPointIndex
             }
           },
-          { groupes: [], geoSystemeIds: {} }
+          { groupes: [], etapeGeoSystemes: {}, lotPointIndex: null }
         )
-        groupes[0][0].push(pointsLot)
+
+      if (etape.points && etape.points.length) {
+        const etapeReferenceOpposable = etape.points[0].references.find(
+          r => r.opposable
+        )
+
+        const etapeGeoSystemeOpposableId = etapeReferenceOpposable
+          ? etapeReferenceOpposable.geoSysteme.id
+          : null
+
+        const { groupes, etapeGeoSystemes } = groupesBuild(
+          etape.points,
+          etapeGeoSystemeOpposableId
+        )
 
         etape.groupes = groupes
-        etape.geoSystemeIds = Object.keys(geoSystemeIds)
-
-        delete etape.points
+        etape.geoSystemes = Object.keys(etapeGeoSystemes).map(
+          etapeGeoSystemeId => etapeGeoSystemes[etapeGeoSystemeId]
+        )
+        etape.geoSystemeOpposableId = etapeGeoSystemeOpposableId
+      } else {
+        etape.groupes = []
+        etape.geoSystemes = []
+        etape.geoSystemeOpposableId = null
       }
 
       if (!etape.incertitudes) {

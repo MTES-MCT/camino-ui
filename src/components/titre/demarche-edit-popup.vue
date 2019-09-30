@@ -13,7 +13,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout' : 'Modification' }} d'une démarche
+          {{ creation ? 'Ajout d\'une' : 'Modification de la' }} démarche
         </h2>
       </div>
     </template>

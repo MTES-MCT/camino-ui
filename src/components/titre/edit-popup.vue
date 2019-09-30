@@ -3,7 +3,7 @@
     <template slot="header">
       <div>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout' : 'Modification' }} d'un titre
+          {{ creation ? 'Ajout d\'un' : 'Modification du' }} titre
         </h2>
       </div>
     </template>
