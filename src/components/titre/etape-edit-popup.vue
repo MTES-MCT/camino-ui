@@ -98,6 +98,14 @@
       :domaine-id="domaineId"
     />
 
+    <hr>
+
+    <EtapeEditPoints
+      v-if="etapeType.fondamentale"
+      :etape.sync="etape"
+      :events.sync="events"
+    />
+
     <EditSections
       v-if="etapeType.sections"
       :sections="etapeType.sections"
@@ -141,8 +149,10 @@
 import Popup from '../ui/popup.vue'
 import Messages from '../ui/messages.vue'
 import EtapeEditFondamentales from './etape-edit-fondamentales.vue'
-
+import EtapeEditPoints from './etape-edit-points.vue'
 import EditSections from './edit-sections.vue'
+
+import { etapeSaveFormat } from './etape-edit-popup'
 
 export default {
   name: 'CaminoEtapeEditPopup',
@@ -151,33 +161,27 @@ export default {
     Popup,
     Messages,
     EtapeEditFondamentales,
+    EtapeEditPoints,
     EditSections
   },
 
   props: {
-    etape: {
-      type: Object,
-      default: () => ({})
-    },
+    etape: { type: Object, default: () => ({}) },
 
-    demarcheType: {
-      type: Object,
-      default: () => ({})
-    },
+    demarcheType: { type: Object, default: () => ({}) },
 
-    domaineId: {
-      type: String,
-      default: ''
-    },
+    domaineId: { type: String, default: '' },
 
-    titreNom: {
-      type: String,
-      default: ''
-    },
+    titreNom: { type: String, default: '' },
 
-    creation: {
-      type: Boolean,
-      default: false
+    creation: { type: Boolean, default: false }
+  },
+
+  data() {
+    return {
+      events: {
+        saveKeyUp: true
+      }
     }
   },
 
@@ -225,156 +229,10 @@ export default {
 
   methods: {
     save() {
-      const etape = JSON.parse(JSON.stringify(this.etape))
-
-      const propsFilter = (obj, prop, key) =>
-        obj[prop].reduce((r, o) => (o[key] ? [...r, o[key]] : r), [])
-
-      etape.visas = propsFilter(etape, 'visas', 'texte')
-
-      const propsIds = [
-        'substancesIds',
-        'titulairesIds',
-        'amodiatairesIds',
-        'administrationsIds'
-      ]
-
-      // supprime les champs dont les ids sont vides
-      propsIds.forEach(propId => {
-        if (etape[propId]) {
-          etape[propId] = etape[propId].filter(id => id)
-        }
-      })
-
-      const pointReferenceCreate = (
-        geoSystemeId,
-        uniteId,
-        coordonnees,
-        opposable
-      ) => ({
-        geoSystemeId,
-        uniteId,
-        coordonnees: { x: coordonnees[0], y: coordonnees[1] },
-        opposable: opposable || null
-      })
-
-      if (etape.geoSystemes.length && etape.groupes && etape.groupes.length) {
-        const etapeGeoSystemeOpposable = etape.geoSystemeOpposableId
-          ? etape.geoSystemes.find(
-              ({ id }) => id === etape.geoSystemeOpposableId
-            )
-          : etape.geoSystemes[0]
-
-        etape.points = etape.groupes.reduce((groupes, groupe) => {
-          const g = groupe.reduce((contours, contour) => {
-            const c = contour.reduce((points, point) => {
-              if (!point.lot) {
-                point.references = Object.keys(point.references).reduce(
-                  (references, geoSystemeId) => {
-                    const etapeGeoSysteme = etape.geoSystemes.find(
-                      ({ id }) => geoSystemeId === id
-                    )
-
-                    if (!etapeGeoSysteme) {
-                      return references
-                    }
-
-                    if (
-                      point.references[geoSystemeId][0] &&
-                      point.references[geoSystemeId][1] &&
-                      geoSystemeId
-                    ) {
-                      references.push(
-                        pointReferenceCreate(
-                          geoSystemeId,
-                          etapeGeoSysteme.uniteId,
-                          point.references[geoSystemeId],
-                          etape.geoSystemes.length > 1 &&
-                            geoSystemeId === etapeGeoSystemeOpposable.id
-                        )
-                      )
-                    }
-
-                    return references
-                  },
-                  []
-                )
-
-                if (point.references.length) {
-                  point.groupe = groupes.length + 1
-                  point.contour = contours.length + 1
-                  point.point = points.length + 1
-                  points.push(point)
-                }
-              } else {
-                point.references &&
-                  point.references.forEach(coordonnees => {
-                    points.push({
-                      lot: true,
-                      subsidiaire: true,
-                      description: point.description,
-                      groupe: groupes.length + 1,
-                      contour: contours.length + 1,
-                      point: points.length + 1,
-                      references: [
-                        pointReferenceCreate(
-                          etapeGeoSystemeOpposable.id,
-                          etapeGeoSystemeOpposable.uniteId,
-                          coordonnees,
-                          etape.geoSystemes.length > 1
-                        )
-                      ]
-                    })
-                  })
-              }
-
-              return points
-            }, [])
-            contours = contours.concat(c)
-
-            return contours
-          }, [])
-          groupes = groupes.concat(g)
-
-          return groupes
-        }, [])
-      } else {
-        etape.incertitudes.points = null
-      }
-
-      delete etape.groupes
-      delete etape.geoSystemeOpposableId
-      delete etape.geoSystemes
-
-      if (etape.duree.ans || etape.duree.mois) {
-        etape.duree =
-          (etape.duree.ans ? etape.duree.ans * 12 : 0) +
-          (etape.duree.mois ? etape.duree.mois : 0)
-      } else {
-        etape.duree = null
-      }
-
-      const props = [
-        'date',
-        'dateDebut',
-        'dateFin',
-        'surface',
-        'duree',
-        'volume',
-        'volumeUniteId',
-        'engagement',
-        'engagementDeviseId'
-      ]
-
-      props.forEach(prop => {
-        if (etape[prop] === '') {
-          etape[prop] = null
-        }
-      })
-
+      const etape = etapeSaveFormat(this.etape)
       etape.contenu = this.contenu
 
-      console.log(JSON.stringify(etape, null, 2))
+      // console.log(JSON.stringify(etape, null, 2))
       if (this.creation) {
         this.$store.dispatch('titre/etapeCreate', etape)
       } else {
@@ -387,10 +245,10 @@ export default {
       this.$store.commit('popupClose')
     },
 
-    keyup(e) {
+    keyUp(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
-      } else if ((e.which || e.keyCode) === 13) {
+      } else if ((e.which || e.keyCode) === 13 && this.events.saveKeyUp) {
         this.save()
       }
     },

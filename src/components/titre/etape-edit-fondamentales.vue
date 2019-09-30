@@ -271,10 +271,6 @@
 
     <hr>
 
-    <EtapeEditPoints :etape.sync="etape" />
-
-    <hr>
-
     <h3 class="mb-s">
       Titulaires
     </h3>
@@ -452,17 +448,11 @@
         type="checkbox"
       >donnée incertaine
     </label>
-    <hr>
   </div>
 </template>
 
 <script>
-import EtapeEditPoints from './etape-edit-points.vue'
 export default {
-  components: {
-    EtapeEditPoints
-  },
-
   props: {
     etape: {
       type: Object,

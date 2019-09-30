@@ -237,7 +237,7 @@
                 <div class="mb tablet-blob-1-3">
                   <h6>X ({{ unites.find(({id}) => etapeGeoSysteme.uniteId === id).nom }})</h6>
                   <input
-                    v-model.trim="point.references[etapeGeoSysteme.id][0]"
+                    v-model.trim.number="point.references[etapeGeoSysteme.id][0]"
                     type="text"
                     class="p-s"
                   >
@@ -245,7 +245,7 @@
                 <div class="mb tablet-blob-1-3">
                   <h6>Y ({{ unites.find(({id}) => etapeGeoSysteme.uniteId === id).nom }})</h6>
                   <input
-                    v-model.trim="point.references[etapeGeoSysteme.id][1]"
+                    v-model.trim.number="point.references[etapeGeoSysteme.id][1]"
                     type="text"
                     class="p-s"
                   >
@@ -293,19 +293,22 @@
                 <h6>Coordonnées en {{ etapeGeoSystemeOpposable.nom }} ({{ unites.find(({id}) => etapeGeoSystemeOpposable.uniteId === id).nom }})</h6>
                 <textarea
                   class="p-s mb-s"
-                  :value="point.references.map(p => p ? `${p[0]},${p[1]}` : '').join('\n')"
-                  placeholder="1.47696,47.3469"
+                  :value="point.references.join('\n')"
+                  placeholder="1.4769,47.3469"
                   @blur="pointsLotUpdate($event, groupeIndex, contourIndex, pointIndex)"
+                  @focus="pointsLotEdit"
                 />
 
-                <div class="h5 mb-s">
+                <div class="h5 p-s">
                   <ul class="list-prefix">
-                    <li>Ce champs contient une paire de coordonnées par ligne.</li>
-                    <li>Les coordonnées <span class="mono bg-alt p-xxs">x,y</span> sont séparées par une virgule, sans espace.</li>
+                    <li>Ce champ contient une paire de coordonnées par ligne.</li>
+                    <li>Les coordonnées sont au format décimal, quelque soit l'unité.</li>
+                    <li>Les coordonnées <span class="mono bg-alt p-xxs color-text">x,y</span> sont séparées par une virgule, sans espace.</li>
                     <li>Le séparateur entre les unités et les décimales est un point.</li>
-                    <li>Quelque soit l'unité, les coordonnées sont au format décimal.</li>
                   </ul>
-                  <p>Exemple: <span class="mono bg-alt p-xxs">1.4769,47.3469</span></p>
+                  <p class="mb-0">
+                    Exemple: <span class="mono bg-alt px-xs py-xxs color-text">1.4769,47.3469</span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -358,10 +361,8 @@
 <script>
 export default {
   props: {
-    etape: {
-      type: Object,
-      default: () => ({})
-    }
+    etape: { type: Object, default: () => ({}) },
+    events: { type: Object, default: () => ({ saveKeyUp: true }) }
   },
 
   computed: {
@@ -580,16 +581,21 @@ export default {
       }
     },
 
-    pointsLotUpdate(event, groupeIndex, contourIndex, pointIndex) {
-      // userInput doit être de la forme 1.2,2.3\n2,4\n4.5,6\n
-      const coordonnees = event.target.value.split('\n').map(i =>
-        i.match(
-          // https://stackoverflow.com/a/18690202/2112538
-          /(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)/g
-        )
-      )
+    pointsLotEdit() {
+      // lorsque l'on édite un lot,
+      // désactive la validation du formulaire avec `enter`
+      this.events.saveKeyUp = false
+    },
 
-      this.etape.groupes[groupeIndex][contourIndex][pointIndex] = coordonnees
+    pointsLotUpdate(event, groupeIndex, contourIndex, pointIndex) {
+      const coordonnees = event.target.value.split('\n')
+
+      if (coordonnees) {
+        this.etape.groupes[groupeIndex][contourIndex][
+          pointIndex
+        ].references = coordonnees
+      }
+      this.events.saveKeyUp = true
     }
   }
 }
