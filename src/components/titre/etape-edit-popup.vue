@@ -227,11 +227,6 @@ export default {
     save() {
       const etape = JSON.parse(JSON.stringify(this.etape))
 
-      const propsFilter = (obj, prop, key) =>
-        obj[prop].reduce((r, o) => (o[key] ? [...r, o[key]] : r), [])
-
-      etape.visas = propsFilter(etape, 'visas', 'texte')
-
       const propsIds = [
         'substancesIds',
         'titulairesIds',

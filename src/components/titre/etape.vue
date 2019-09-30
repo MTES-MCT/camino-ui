@@ -239,21 +239,6 @@
       :documents="etape.documents"
       class="px-m"
     />
-
-    <div
-      v-if="etape.visas && etape.visas.length"
-      class="px-m"
-    >
-      <h6>Visas</h6>
-      <ul class="list-prefix h5">
-        <li
-          v-for="(visa, i) in etape.visas"
-          :key="i"
-        >
-          {{ visa }}
-        </li>
-      </ul>
-    </div>
   </Accordion>
 </template>
 
@@ -377,13 +362,6 @@ export default {
         ans: this.etape.duree ? Math.floor(this.etape.duree / 12) : null,
         mois: this.etape.duree ? Math.floor(this.etape.duree % 12) : null
       }
-
-      etape.visas = etape.visas
-        ? etape.visas.map((texte, id) => ({
-            id,
-            texte
-          }))
-        : []
 
       etape.engagementDeviseId =
         etape.engagementDevise && etape.engagementDevise.id

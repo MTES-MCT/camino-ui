@@ -236,41 +236,6 @@
 
     <hr>
 
-    <h3 class="mb-s">
-      Visas ({{ etape.visas.filter(({ texte }) => texte).length }})
-    </h3>
-    <p class="h6 italic mb-s">
-      Optionel
-    </p>
-    <div
-      v-for="visa in etape.visas"
-      :key="visa.id"
-      class="flex full-x mb"
-    >
-      <textarea
-        v-model="visa.texte"
-        class="p-s mr-s"
-      />
-      <div class="flex-right">
-        <button
-          class="btn-border py-s px-m rnd-xs"
-          @click="visaRemove(visa.id)"
-        >
-          <i class="icon-24 icon-minus" />
-        </button>
-      </div>
-    </div>
-
-    <button
-      v-if="etape.visas && !etape.visas.find(v => !v.texte)"
-      class="btn-border rnd-xs py-s px-m full-x mb flex"
-      @click="visaAdd"
-    >
-      Ajouter un visa<i class="icon-24 icon-plus flex-right" />
-    </button>
-
-    <hr>
-
     <EtapeEditPoints :etape.sync="etape" />
 
     <hr>
@@ -532,14 +497,6 @@ export default {
 
     substanceRemove(index) {
       this.etape.substancesIds.splice(index, 1)
-    },
-
-    visaAdd() {
-      this.etape.visas.push({ id: this.etape.visas.length, texte: '' })
-    },
-
-    visaRemove(id) {
-      this.etape.visas.splice(id, 1)
     }
   }
 }
