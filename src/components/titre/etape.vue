@@ -260,8 +260,8 @@ import Dot from '../ui/dot.vue'
 import Accordion from '../ui/accordion.vue'
 import PillList from '../ui/pill-list.vue'
 import Documents from './documents.vue'
-import EditPopup from './etape-edit-popup.vue'
-import RemovePopup from './etape-remove-popup.vue'
+import EditPopup from './etape/edit.vue'
+import RemovePopup from './etape/remove.vue'
 
 import { etapeEditFormat } from './etape'
 

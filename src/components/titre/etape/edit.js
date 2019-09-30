@@ -48,6 +48,7 @@ const lotPointsBuild = (
     ? references.reduce((points, coordonnees, index) => {
         // userInput doit être de la forme 1.2,2.3\n2,-4\n-4.5,6\n
         // https://stackoverflow.com/a/18690202/2112538
+        console.log(coordonnees)
         const isValid = coordonnees.match(/(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)/g)
 
         if (isValid) {

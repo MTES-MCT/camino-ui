@@ -59,7 +59,7 @@
 
 <script>
 import Dot from '../ui/dot.vue'
-import EtapeEditPopup from './etape-edit-popup.vue'
+import EtapeEditPopup from './etape/edit.vue'
 import TitreEtape from './etape.vue'
 import EditPopup from './demarche-edit-popup.vue'
 import RemovePopup from './demarche-remove-popup.vue'

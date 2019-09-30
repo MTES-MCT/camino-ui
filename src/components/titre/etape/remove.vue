@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
+import Popup from '../../ui/popup.vue'
+import Messages from '../../ui/messages.vue'
 
 export default {
   name: 'CaminoEtapeDeletePopup',

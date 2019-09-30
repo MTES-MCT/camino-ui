@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout d\'une ' : 'Modification de l\'' }}étape
+          {{ creation ? 'Ajout d\'une ' : "Modification de l\'" }}étape
         </h2>
       </div>
     </template>
@@ -146,13 +146,13 @@
 </template>
 
 <script>
-import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
-import EtapeEditFondamentales from './etape-edit-fondamentales.vue'
-import EtapeEditPoints from './etape-edit-points.vue'
-import EditSections from './edit-sections.vue'
+import Popup from '../../ui/popup.vue'
+import Messages from '../../ui/messages.vue'
+import EtapeEditFondamentales from './edit-fondamentales.vue'
+import EtapeEditPoints from './edit-points.vue'
+import EditSections from '../edit-sections.vue'
 
-import { etapeSaveFormat } from './etape-edit-popup'
+import { etapeSaveFormat } from './edit'
 
 export default {
   name: 'CaminoEtapeEditPopup',
