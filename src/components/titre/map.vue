@@ -65,18 +65,7 @@ export default {
   data() {
     return {
       map: null,
-      geojsonLayers: [
-        L.geoJSON(this.geojson, {
-          style: {
-            fillOpacity: 0.75,
-            weight: 1,
-            color: 'white',
-            className: `svg-fill-domaine-${this.domaineId}`
-          }
-        })
-      ],
-      zoom: 0,
-      markerLayers: []
+      zoom: 0
     }
   },
 
@@ -98,6 +87,43 @@ export default {
           })
     },
 
+    geojsonLayers() {
+      return [
+        L.geoJSON(this.geojson, {
+          style: {
+            fillOpacity: 0.75,
+            weight: 1,
+            color: 'white',
+            className: `svg-fill-domaine-${this.domaineId}`
+          }
+        })
+      ]
+    },
+
+    markerLayers() {
+      return this.points.reduce((markers, point) => {
+        if (!point.nom) {
+          return markers
+        }
+
+        const icon = L.divIcon({
+          className: `h6 mono border-bg color-text py-xs px-s inline-block leaflet-marker-camino cap pill bg-bg`,
+          html: `${point.nom}`,
+          iconSize: null,
+          iconAnchor: [15.5, 38]
+        })
+
+        const titleMarker = L.marker(
+          [point.coordonnees.y, point.coordonnees.x],
+          { icon }
+        )
+
+        markers.push(titleMarker)
+
+        return markers
+      }, [])
+    },
+
     tiles() {
       return this.$store.state.map.tiles
     },
@@ -107,8 +133,9 @@ export default {
     }
   },
 
-  created() {
-    this.markersInit()
+  watch: {
+    geojson: 'center',
+    points: 'center'
   },
 
   mounted() {
@@ -116,25 +143,6 @@ export default {
   },
 
   methods: {
-    markersInit() {
-      this.points.forEach(point => {
-        if (!point.nom) return
-
-        const icon = L.divIcon({
-          className: `h6 mono border-bg color-text py-xs px-s inline-block leaflet-marker-camino cap pill bg-bg`,
-          html: `${point.nom}`,
-          iconSize: null,
-          iconAnchor: [15.5, 38]
-        })
-        const titleMarker = L.marker(
-          [point.coordonnees.y, point.coordonnees.x],
-          { icon }
-        )
-
-        this.markerLayers.push(titleMarker)
-      })
-    },
-
     tilesIdSelect(tuileNom) {
       this.$store.dispatch('user/preferenceSet', {
         section: 'carte.tilesId',

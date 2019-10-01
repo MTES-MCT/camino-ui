@@ -151,6 +151,7 @@ export default {
       this.layers.markers.forEach(marker => {
         this.map.removeLayer(marker)
       })
+
       this.markersAdd()
     }
   }
