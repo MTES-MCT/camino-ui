@@ -9,7 +9,7 @@
 
     <EtapeEditPointsGeoSysteme
       :etape.sync="etape"
-      :etape-geo-systeme-ids.sync="etapeGeoSystemeIds"
+      :etape-geo-systeme-ids="etapeGeoSystemeIds"
     />
 
     <div v-if="etapeGeoSystemeIds.length">
@@ -123,7 +123,7 @@
               v-else
               :point.sync="point"
               :etape.sync="etape"
-              :etape-geo-systeme-ids="etapeGeoSystemeIds"
+              :etape-geo-systeme="etapeGeoSystemeOpposable"
               :events="events"
             />
           </div>
@@ -212,10 +212,33 @@ export default {
 
         return acc
       }, [])
+    },
+
+    etapeGeoSystemeOpposable() {
+      const geoSystemeId =
+        this.etape.geoSystemeOpposableId || this.etapeGeoSystemeIds[0]
+
+      return this.etape.geoSystemes.find(({ id }) => id === geoSystemeId)
     }
   },
 
+  watch: {
+    etapeGeoSystemeIds: 'etapeGeoSystemeOpposableIdUpdate'
+  },
+
   methods: {
+    etapeGeoSystemeOpposableIdUpdate() {
+      if (this.etapeGeoSystemeIds.length < 2) {
+        this.etape.geoSystemeOpposableId = null
+      } else if (
+        this.etapeGeoSystemeIds.length > 1 &&
+        (!this.etape.geoSystemeOpposableId ||
+          !this.etapeGeoSystemeIds.includes(this.etape.geoSystemeOpposableId))
+      ) {
+        this.etape.geoSystemeOpposableId = this.etapeGeoSystemeIds[0]
+      }
+    },
+
     clean(groupes, groupeIndex, contourIndex) {
       const contours = groupes[groupeIndex]
       const points = contours[contourIndex]

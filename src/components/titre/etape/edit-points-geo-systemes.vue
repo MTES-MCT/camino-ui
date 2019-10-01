@@ -116,14 +116,7 @@ export default {
     },
 
     geoSystemeRemove(etapeGeoSystemeIndex) {
-      const geoSystemeId = this.etape.geoSystemes[etapeGeoSystemeIndex].id
       this.etape.geoSystemes.splice(etapeGeoSystemeIndex, 1)
-
-      if (this.etapeGeoSystemeIds.length < 2) {
-        this.etape.geoSystemeOpposableId = null
-      } else if (this.etape.geoSystemeOpposableId === geoSystemeId) {
-        this.etape.geoSystemeOpposableId = this.etapeGeoSystemeIds[0]
-      }
     },
 
     geoSystemeUpdate(etapeGeoSystemeIndex) {
@@ -153,13 +146,6 @@ export default {
 
       if (!this.etape.groupes.length) {
         this.etape.groupes.push([[]])
-      }
-
-      if (
-        this.etapeGeoSystemeIds.length > 1 &&
-        !this.etape.geoSystemeOpposableId
-      ) {
-        this.etape.geoSystemeOpposableId = this.etapeGeoSystemeIds[0]
       }
     }
   }

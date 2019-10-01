@@ -23,8 +23,8 @@
           {{ contourIndex === 0 ? 'Contour' : `Lacune ${contourIndex}` }}
         </h4>
         <div
-          v-for="(point, pointIndex) in contourPoints"
-          :key="pointIndex + 1"
+          v-for="(point) in contourPoints"
+          :key="point.id"
           class="geo-point flex"
         >
           <h4 class="mb-s flex-self-start mr-s">
@@ -79,23 +79,25 @@ export default {
 
   computed: {
     groupes() {
-      return this.points.reduce((groupes, point) => {
-        groupes[point.groupe - 1] = groupes[point.groupe - 1] || []
-        groupes[point.groupe - 1][point.contour - 1] =
-          groupes[point.groupe - 1][point.contour - 1] || []
-        groupes[point.groupe - 1][point.contour - 1][point.point - 1] = {
-          id: point.id,
-          nom: point.nom,
-          groupe: point.groupe,
-          contour: point.contour,
-          point: point.point,
-          coordonnees: point.coordonnees,
-          description: point.description,
-          references: point.references
-        }
+      return this.points.reduce(
+        (
+          groupes,
+          { id, nom, description, references, point, contour, groupe }
+        ) => {
+          groupes[groupe - 1] = groupes[groupe - 1] || []
+          groupes[groupe - 1][contour - 1] =
+            groupes[groupe - 1][contour - 1] || []
+          groupes[groupe - 1][contour - 1][point - 1] = {
+            id,
+            nom,
+            description,
+            references
+          }
 
-        return groupes
-      }, [])
+          return groupes
+        },
+        []
+      )
     }
   }
 }

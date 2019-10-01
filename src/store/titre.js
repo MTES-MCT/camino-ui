@@ -39,8 +39,10 @@ export const actions = {
     }
   },
 
-  async reload({ dispatch }, id) {
-    router.replace({ name: 'titre', params: { id } })
+  async reload({ dispatch }, { id, idOld }) {
+    if (idOld && id !== idOld) {
+      router.replace({ name: 'titre', params: { id } })
+    }
     await dispatch('get', id)
 
     dispatch(
@@ -53,7 +55,7 @@ export const actions = {
     )
   },
 
-  async titreCreate({ commit, dispatch }, titre ) {
+  async titreCreate({ commit, dispatch }, titre) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'titreCreate', { root: true })
 
@@ -62,7 +64,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', res.id)
+        dispatch('reload', { id: res.id, idOld: titre.id })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -73,7 +75,7 @@ export const actions = {
     }
   },
 
-  async titreUpdate({ commit, dispatch }, titre ) {
+  async titreUpdate({ commit, dispatch }, titre) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'titreUpdate', { root: true })
 
@@ -82,7 +84,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', res.id)
+        dispatch('reload', { id: res.id, idOld: titre.id })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -131,7 +133,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', res.id)
+        dispatch('reload', { id: res.id, idOld: demarche.id.slice(0, -6) })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -151,7 +153,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', res.id)
+        dispatch('reload', { id: res.id, idOld: demarche.id.slice(0, -6) })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -171,7 +173,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', res.id)
+        dispatch('reload', { id: res.id, idOld: id.slice(0, -6) })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -192,7 +194,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', res.id)
+        dispatch('reload', { id: res.id, idOld: etape.id.slice(0, -12) })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -213,7 +215,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', res.id)
+        dispatch('reload', { id: res.id, idOld: etape.id.slice(0, -12) })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -233,7 +235,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', res.id)
+        dispatch('reload', { id: res.id, idOld: id.slice(0, -12) })
       } else {
         dispatch('pageError', null, { root: true })
       }

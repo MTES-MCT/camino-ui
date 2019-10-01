@@ -10,8 +10,9 @@
         class="p-s"
       >
     </div>
+
     <div class="mb">
-      <h6>Coordonnées en {{ etapeGeoSystemeOpposable.nom }} ({{ unites.find(({id}) => etapeGeoSystemeOpposable.uniteId === id).nom }})</h6>
+      <h6>Coordonnées en {{ etapeGeoSysteme.nom }} ({{ unites.find(({id}) => etapeGeoSysteme.uniteId === id).nom }})</h6>
       <textarea
         class="p-s mb-s mono"
         :value="point.references.join('\n')"
@@ -41,17 +42,10 @@ export default {
     point: { type: Object, default: () => ({}) },
     etape: { type: Object, default: () => ({}) },
     events: { type: Object, default: () => ({ saveKeyUp: true }) },
-    etapeGeoSystemeIds: { type: Array, default: () => [] }
+    etapeGeoSysteme: { type: Object, default: () => ({}) }
   },
 
   computed: {
-    etapeGeoSystemeOpposable() {
-      const geoSystemeId =
-        this.etape.geoSystemeOpposableId || this.etapeGeoSystemeIds[0]
-
-      return this.etape.geoSystemes.find(({ id }) => id === geoSystemeId)
-    },
-
     unites() {
       return this.$store.state.metas.unites
     }

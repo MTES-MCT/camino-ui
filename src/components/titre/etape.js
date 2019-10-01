@@ -26,19 +26,45 @@ const geoSystemeOpposableIdFind = references => {
   return referenceOpposable ? referenceOpposable.geoSysteme.id : null
 }
 
-const groupeBuild = (points, geoSystemeOpposableId) =>
-  points.reduce(
+const groupeBuild = (points, geoSystemeOpposableId) => {
+  const pointsOrdered = points.sort((a, b) => {
+    if (a.groupe > b.groupe) return 1
+    if (a.groupe < b.groupe) return -1
+
+    if (a.contour > b.contour) return 1
+    if (a.contour < b.contour) return -1
+
+    if (a.point > b.point) return 1
+    if (a.point < b.point) return -1
+
+    return 0
+  })
+
+  return pointsOrdered.reduce(
     (
-      { groupes, geoSystemes, lotPointIndex },
-      { nom, description, contour, groupe, references, lot }
+      {
+        groupes,
+        geoSystemes,
+        lotCurrent,
+        pointIndex,
+        contourIndexPrevious,
+        groupeIndexPrevious
+      },
+      { nom, description, point, contour, groupe, references, lot, subsidiaire }
     ) => {
       const { pointReferences, pointGeoSystemes } = referencesBuild(references)
 
       const lotGeoSystemeId =
         geoSystemeOpposableId || Object.keys(pointGeoSystemes)[0]
 
-      if (lot && lotPointIndex) {
-        groupes[groupe - 1][contour - 1][lotPointIndex].references.push(
+      if (
+        lot &&
+        lotCurrent &&
+        lotCurrent === lot &&
+        groupe === groupeIndexPrevious &&
+        contour === contourIndexPrevious
+      ) {
+        groupes[groupe - 1][contour - 1][pointIndex - 1].references.push(
           pointReferences[lotGeoSystemeId].join(',')
         )
       } else {
@@ -54,22 +80,37 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
           nom,
           description,
           lot,
+          subsidiaire,
           references: lot
             ? [pointReferences[lotGeoSystemeId].join(',')]
             : pointReferences
         })
-      }
 
-      lotPointIndex = lot ? groupes[groupe - 1][contour - 1].length - 1 : null
+        pointIndex = lot ? groupes[groupe - 1][contour - 1].length : null
+        lotCurrent = lot
+        contourIndexPrevious = contour
+        groupeIndexPrevious = groupe
+      }
 
       return {
         groupes,
         geoSystemes: Object.assign(geoSystemes, pointGeoSystemes),
-        lotPointIndex
+        lotCurrent,
+        pointIndex,
+        contourIndexPrevious,
+        groupeIndexPrevious
       }
     },
-    { groupes: [], geoSystemes: {}, lotPointIndex: null }
+    {
+      groupes: [],
+      geoSystemes: {},
+      lotCurrent: null,
+      pointIndex: 0,
+      contourIndexPrevious: 1,
+      groupeIndexPrevious: 1
+    }
   )
+}
 
 const etapeGroupesBuild = points => {
   const geoSystemeOpposableId = geoSystemeOpposableIdFind(points[0].references)
@@ -105,7 +146,11 @@ const etapeEditFormat = (etape, demarcheId) => {
 
   joinTable.forEach(prop => {
     etape[`${prop}Ids`] = etape[prop]
-      ? etape[prop].reduce((r, { id }) => (id ? [...r, id] : r), [])
+      ? etape[prop].reduce((r, { id }) => {
+          if (id) r.push(id)
+
+          return r
+        }, [])
       : []
 
     delete etape[prop]
@@ -127,13 +172,6 @@ const etapeEditFormat = (etape, demarcheId) => {
     ans: etape.duree ? Math.floor(etape.duree / 12) : null,
     mois: etape.duree ? Math.floor(etape.duree % 12) : null
   }
-
-  etape.visas = etape.visas
-    ? etape.visas.map((texte, id) => ({
-        id,
-        texte
-      }))
-    : []
 
   etape.engagementDeviseId = etape.engagementDevise && etape.engagementDevise.id
   delete etape.engagementDevise

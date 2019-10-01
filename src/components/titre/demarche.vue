@@ -126,7 +126,6 @@ export default {
         typeId: null,
         statutId: null,
         duree: { ans: null, mois: null },
-        visas: [],
         titulairesIds: [],
         amodiatairesIds: [],
         administrationsIds: [],

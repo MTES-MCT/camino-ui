@@ -220,11 +220,11 @@ export default {
   },
 
   created() {
-    document.addEventListener('keyup', this.keyup)
+    document.addEventListener('keyup', this.keyUp)
   },
 
   beforeDestroy() {
-    document.removeEventListener('keyup', this.keyup)
+    document.removeEventListener('keyup', this.keyUp)
   },
 
   methods: {

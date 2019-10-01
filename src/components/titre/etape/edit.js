@@ -1,14 +1,14 @@
+const geoSystemeOpposableFind = (geoSystemeOpposableId, geoSystemes) =>
+  geoSystemeOpposableId
+    ? geoSystemes.find(({ id }) => id === geoSystemeOpposableId)
+    : geoSystemes[0]
+
 const referenceBuild = (geoSystemeId, uniteId, coordonnees, opposable) => ({
   geoSystemeId,
   uniteId,
   coordonnees: { x: coordonnees[0], y: coordonnees[1] },
   opposable: opposable || null
 })
-
-const geoSystemeOpposableFind = (geoSystemeOpposableId, geoSystemes) =>
-  geoSystemeOpposableId
-    ? geoSystemes.find(({ id }) => id === geoSystemeOpposableId)
-    : geoSystemes[0]
 
 const pointReferencesBuild = (references, geoSystemes, geoSystemeOpposableId) =>
   Object.keys(references).reduce((pointReferences, geoSystemeId) => {
@@ -37,117 +37,146 @@ const pointReferencesBuild = (references, geoSystemes, geoSystemeOpposableId) =>
   }, [])
 
 const lotPointsBuild = (
+  { references, description, lot },
   pointsLength,
-  { references, description },
-  groupesLength,
-  contoursLength,
+  lotIndex,
+  contourIndex,
+  groupeIndex,
   geoSystemes,
   geoSystemeOpposable
 ) =>
-  references.length
-    ? references.reduce((points, coordonnees, index) => {
-        // userInput doit être de la forme 1.2,2.3\n2,-4\n-4.5,6\n
-        // https://stackoverflow.com/a/18690202/2112538
-        console.log(coordonnees)
-        const isValid = coordonnees.match(/(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)/g)
+  references.reduce((points, coordonnees) => {
+    // userInput doit être de la forme 1.2,2.3\n2,-4\n-4.5,6\n
+    // https://stackoverflow.com/a/18690202/2112538
+    const isValid =
+      coordonnees && coordonnees.match(/(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)/g)
 
-        if (isValid) {
-          points.push({
-            nom: null,
-            lot: true,
-            subsidiaire: true,
-            description: description,
-            groupe: groupesLength + 1,
-            contour: contoursLength + 1,
-            point: pointsLength + index + 1,
-            references: [
-              referenceBuild(
-                geoSystemeOpposable.id,
-                geoSystemeOpposable.uniteId,
-                coordonnees.split(',').map(parseFloat),
-                geoSystemes.length > 1
-              )
-            ]
-          })
-        }
-
-        return points
-      }, [])
-    : []
-
-const contourBuild = (
-  contour,
-  contoursLength,
-  groupesLength,
-  geoSystemes,
-  geoSystemeOpposable
-) =>
-  contour.reduce((points, point) => {
-    if (!point.lot) {
-      point.references = pointReferencesBuild(
-        point.references,
-        geoSystemes,
-        geoSystemeOpposable.id
-      )
-
-      if (point.references.length) {
-        point.groupe = groupesLength + 1
-        point.contour = contoursLength + 1
-        point.point = points.length + 1
-        points.push(point)
-      }
-    } else {
-      points = points.concat(
-        lotPointsBuild(
-          points.length,
-          point,
-          groupesLength,
-          contoursLength,
-          geoSystemes,
-          geoSystemeOpposable
-        )
-      )
+    if (isValid) {
+      points.push({
+        lot: lotIndex,
+        subsidiaire: true,
+        description: description,
+        groupe: groupeIndex,
+        contour: contourIndex,
+        point: pointsLength + points.length + 1,
+        references: [
+          referenceBuild(
+            geoSystemeOpposable.id,
+            geoSystemeOpposable.uniteId,
+            coordonnees.split(',').map(parseFloat),
+            geoSystemes.length > 1
+          )
+        ]
+      })
     }
 
     return points
   }, [])
 
-const groupeBuild = (groupe, groupesLength, geoSystemes, geoSystemeOpposable) =>
-  groupe.reduce((contours, contour) => {
-    contours = contours.concat(
-      contourBuild(
+const contourBuild = (
+  contour,
+  contourIndex,
+  groupeIndex,
+  geoSystemes,
+  geoSystemeOpposable
+) => {
+  const { points } = contour.reduce(
+    ({ points, lotIndex }, point) => {
+      if (!point.lot) {
+        point.references = pointReferencesBuild(
+          point.references,
+          geoSystemes,
+          geoSystemeOpposable.id
+        )
+
+        if (point.references.length) {
+          point.groupe = groupeIndex
+          point.contour = contourIndex
+          point.point = points.length + 1
+          points.push(point)
+        }
+      } else if (point.references.length) {
+        points = points.concat(
+          lotPointsBuild(
+            point,
+            points.length,
+            lotIndex,
+            contourIndex,
+            groupeIndex,
+            geoSystemes,
+            geoSystemeOpposable
+          )
+        )
+        lotIndex += 1
+      }
+
+      return { points, lotIndex }
+    },
+    { points: [], lotIndex: 1 }
+  )
+
+  return points
+}
+
+const groupeBuild = (
+  contours,
+  groupeIndex,
+  geoSystemes,
+  geoSystemeOpposable
+) => {
+  const { points } = contours.reduce(
+    ({ points, contourIndex }, contour) => {
+      const pointsNew = contourBuild(
         contour,
-        contours.length,
-        groupesLength,
+        contourIndex,
+        groupeIndex,
         geoSystemes,
         geoSystemeOpposable
       )
-    )
 
-    return contours
-  }, [])
+      if (pointsNew.length) {
+        points = points.concat(pointsNew)
+        contourIndex++
+      }
 
-const pointsBuild = (groupes, geoSystemes, geoSystemeOpposableId) =>
-  groupes.reduce((groupes, groupe) => {
-    const geoSystemeOpposable = geoSystemeOpposableFind(
-      geoSystemeOpposableId,
-      geoSystemes
-    )
+      return { points, contourIndex }
+    },
+    { points: [], contourIndex: 1 }
+  )
 
-    groupes = groupes.concat(
-      groupeBuild(groupe, groupes.length, geoSystemes, geoSystemeOpposable)
-    )
+  return points
+}
 
-    return groupes
-  }, [])
+const pointsBuild = (groupes, geoSystemes, geoSystemeOpposableId) => {
+  const geoSystemeOpposable = geoSystemeOpposableFind(
+    geoSystemeOpposableId,
+    geoSystemes
+  )
+
+  const { points } = groupes.reduce(
+    ({ points, groupeIndex }, groupe) => {
+      const pointsNew = groupeBuild(
+        groupe,
+        groupeIndex,
+        geoSystemes,
+        geoSystemeOpposable
+      )
+
+      if (pointsNew.length) {
+        points = points.concat(pointsNew)
+        groupeIndex++
+      }
+
+      return { points, groupeIndex }
+    },
+    { points: [], groupeIndex: 1 }
+  )
+
+  return points
+}
 
 const etapeSaveFormat = etape => {
   etape = JSON.parse(JSON.stringify(etape))
-
-  const propsFilter = (obj, prop, key) =>
-    obj[prop].reduce((r, o) => (o[key] ? [...r, o[key]] : r), [])
-
-  etape.visas = propsFilter(etape, 'visas', 'texte')
 
   const propsIds = [
     'substancesIds',
@@ -171,6 +200,7 @@ const etapeSaveFormat = etape => {
     )
   } else {
     etape.incertitudes.points = null
+    etape.points = null
   }
 
   delete etape.groupes

@@ -237,21 +237,6 @@
       :documents="etape.documents"
       class="px-m"
     />
-
-    <div
-      v-if="etape.visas && etape.visas.length"
-      class="px-m"
-    >
-      <h6>Visas</h6>
-      <ul class="list-prefix h5">
-        <li
-          v-for="(visa, i) in etape.visas"
-          :key="i"
-        >
-          {{ visa }}
-        </li>
-      </ul>
-    </div>
   </Accordion>
 </template>
 
@@ -336,7 +321,6 @@ export default {
     editPopupOpen() {
       const etape = etapeEditFormat(this.etape, this.demarcheId)
 
-      // console.log(JSON.stringify(etape, null, 2))
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
