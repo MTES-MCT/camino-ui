@@ -99,7 +99,16 @@ describe('état du titre sélectionné', () => {
   test('recharge le titre affiché', async () => {
     store.state.titre.current = titreInfo
     api.titre.mockResolvedValue(titreInfo)
-    await store.dispatch('titre/reload', titreInfo.id)
+    await store.dispatch('titre/reload', { id: 'id-test', idOld: 'id-tost' })
+
+    expect(actions.messageAdd).toHaveBeenCalled()
+    expect(console.log).not.toHaveBeenCalled()
+  })
+
+  test("ne recharge pas le titre affiché si l'id n'a pas changé", async () => {
+    store.state.titre.current = titreInfo
+    api.titre.mockResolvedValue(titreInfo)
+    await store.dispatch('titre/reload', { id: 'id-test', idOld: 'id-test' })
 
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
@@ -212,9 +221,7 @@ describe('état du titre sélectionné', () => {
   })
 
   test("retourne une erreur de l'api lors de la mise à jour d'une démarche", async () => {
-    api.titreDemarcheUpdate.mockRejectedValue(
-      new Error("erreur de l'api")
-    )
+    api.titreDemarcheUpdate.mockRejectedValue(new Error("erreur de l'api"))
     await store.dispatch('titre/demarcheUpdate', demarcheInfo)
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
@@ -235,9 +242,7 @@ describe('état du titre sélectionné', () => {
   })
 
   test("retourne une erreur de l'api lors de la suppression d'une démarche", async () => {
-    api.titreDemarcheDelete.mockRejectedValue(
-      new Error("erreur de l'api")
-    )
+    api.titreDemarcheDelete.mockRejectedValue(new Error("erreur de l'api"))
     await store.dispatch('titre/demarcheDelete', demarcheId)
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
@@ -279,9 +284,7 @@ describe('état du titre sélectionné', () => {
   })
 
   test("retourne une erreur de l'api lors de la mise à jour d'une étape", async () => {
-    api.titreEtapeUpdate.mockRejectedValue(
-      new Error("erreur de l'api")
-    )
+    api.titreEtapeUpdate.mockRejectedValue(new Error("erreur de l'api"))
     await store.dispatch('titre/etapeUpdate', etapeInfo)
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()

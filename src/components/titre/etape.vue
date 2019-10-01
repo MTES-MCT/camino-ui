@@ -223,9 +223,7 @@
         </div>
       </div>
 
-      <div
-        v-if="incertitudesLength"
-      >
+      <div v-if="incertitudesLength">
         <p class="h5">
           <span
             class="bg-info py-xxs px-xs rnd-xs color-bg bold"
@@ -239,21 +237,6 @@
       :documents="etape.documents"
       class="px-m"
     />
-
-    <div
-      v-if="etape.visas && etape.visas.length"
-      class="px-m"
-    >
-      <h6>Visas</h6>
-      <ul class="list-prefix h5">
-        <li
-          v-for="(visa, i) in etape.visas"
-          :key="i"
-        >
-          {{ visa }}
-        </li>
-      </ul>
-    </div>
   </Accordion>
 </template>
 
@@ -262,10 +245,10 @@ import Dot from '../ui/dot.vue'
 import Accordion from '../ui/accordion.vue'
 import PillList from '../ui/pill-list.vue'
 import Documents from './documents.vue'
-import EditPopup from './etape-edit-popup.vue'
-import RemovePopup from './etape-remove-popup.vue'
+import EditPopup from './etape/edit.vue'
+import RemovePopup from './etape/remove.vue'
 
-import { jsonTypenameOmit } from '../../utils/index'
+import { etapeEditFormat } from './etape'
 
 export default {
   name: 'CaminoTitreEtape',
@@ -336,129 +319,7 @@ export default {
 
   methods: {
     editPopupOpen() {
-      const etape = jsonTypenameOmit(this.etape)
-
-      etape.titreDemarcheId = this.demarcheId
-
-      etape.typeId = etape.type.id
-      delete etape.type
-
-      etape.statutId = etape.statut.id
-      delete etape.statut
-
-      const joinTable = [
-        'titulaires',
-        'amodiataires',
-        'administrations',
-        'substances'
-      ]
-
-      joinTable.forEach(prop => {
-        etape[`${prop}Ids`] = etape[prop]
-          ? etape[prop].reduce((r, { id }) => (id ? [...r, id] : r), [])
-          : []
-
-        delete etape[prop]
-      })
-
-      if (etape.date) {
-        etape.date = this.dateFormat(etape.date)
-      }
-
-      if (etape.dateDebut) {
-        etape.dateDebut = this.dateFormat(etape.dateDebut)
-      }
-
-      if (etape.dateFin) {
-        etape.dateFin = this.dateFormat(etape.dateFin)
-      }
-
-      etape.duree = {
-        ans: this.etape.duree ? Math.floor(this.etape.duree / 12) : null,
-        mois: this.etape.duree ? Math.floor(this.etape.duree % 12) : null
-      }
-
-      etape.visas = etape.visas
-        ? etape.visas.map((texte, id) => ({
-            id,
-            texte
-          }))
-        : []
-
-      etape.engagementDeviseId =
-        etape.engagementDevise && etape.engagementDevise.id
-      delete etape.engagementDevise
-
-      etape.volumeUniteId = etape.volumeUnite && etape.volumeUnite.id
-      delete etape.volumeUnite
-
-      if (etape.points) {
-        if (
-          etape.points.length &&
-          etape.points[0].references.length > 1 &&
-          etape.points[0].references.find(r => r.opposable)
-        ) {
-          etape.geoSystemeOpposableId = etape.points[0].references.find(
-            r => r.opposable
-          ).geoSysteme.id
-        }
-
-        const { groupes, geoSystemeIds } = etape.points.reduce(
-          ({ groupes, geoSystemeIds }, point) => {
-            const { references, pointGeoSystemeIds } = point.references.reduce(
-              ({ pointGeoSystemeIds, references }, r) => {
-                pointGeoSystemeIds[r.geoSysteme.id] = true
-                r.geoSystemeId = r.geoSysteme.id
-                delete r.geoSysteme
-                delete r.id
-                references.push(r)
-
-                return { pointGeoSystemeIds, references }
-              },
-              { pointGeoSystemeIds: {}, references: [] }
-            )
-
-            groupes[point.groupe - 1] = groupes[point.groupe - 1] || []
-            groupes[point.groupe - 1][point.contour - 1] =
-              groupes[point.groupe - 1][point.contour - 1] || []
-            groupes[point.groupe - 1][point.contour - 1][point.point - 1] = {
-              nom: point.nom,
-              groupe: point.groupe,
-              contour: point.contour,
-              point: point.point,
-              description: point.description,
-              references
-            }
-
-            return {
-              groupes,
-              geoSystemeIds: Object.assign(geoSystemeIds, pointGeoSystemeIds)
-            }
-          },
-          { groupes: [], geoSystemeIds: {} }
-        )
-
-        etape.groupes = groupes
-        etape.geoSystemeIds = Object.keys(geoSystemeIds)
-
-        delete etape.points
-      }
-
-      if (!etape.incertitudes) {
-        etape.incertitudes = {}
-      }
-
-      if (!etape.contenu) {
-        etape.contenu = {}
-      }
-
-      delete etape.pays
-      delete etape.points
-      delete etape.geojsonPoints
-      delete etape.geojsonMultiPolygon
-      delete etape.documents
-
-      console.log(JSON.stringify(etape, null, 2))
+      const etape = etapeEditFormat(this.etape, this.demarcheId)
 
       this.$store.commit('popupOpen', {
         component: EditPopup,

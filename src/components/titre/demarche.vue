@@ -59,7 +59,7 @@
 
 <script>
 import Dot from '../ui/dot.vue'
-import EtapeEditPopup from './etape-edit-popup.vue'
+import EtapeEditPopup from './etape/edit.vue'
 import TitreEtape from './etape.vue'
 import EditPopup from './demarche-edit-popup.vue'
 import RemovePopup from './demarche-remove-popup.vue'
@@ -126,13 +126,13 @@ export default {
         typeId: null,
         statutId: null,
         duree: { ans: null, mois: null },
-        visas: [],
         titulairesIds: [],
         amodiatairesIds: [],
         administrationsIds: [],
         substancesIds: [],
-        groupes: [[[]]],
-        geoSystemeIds: [],
+        groupes: [],
+        geoSystemes: [],
+        geoSystemeOpposableId: null,
         incertitudes: {},
         contenu: {}
       }

@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout' : 'Modification' }} d'une étape
+          {{ creation ? 'Ajout d\'une ' : "Modification de l\'" }}étape
         </h2>
       </div>
     </template>
@@ -98,6 +98,14 @@
       :domaine-id="domaineId"
     />
 
+    <hr>
+
+    <EtapeEditPoints
+      v-if="etapeType.fondamentale"
+      :etape.sync="etape"
+      :events.sync="events"
+    />
+
     <EditSections
       v-if="etapeType.sections"
       :sections="etapeType.sections"
@@ -138,11 +146,13 @@
 </template>
 
 <script>
-import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
-import EtapeEditFondamentales from './etape-edit-fondamentales.vue'
+import Popup from '../../ui/popup.vue'
+import Messages from '../../ui/messages.vue'
+import EtapeEditFondamentales from './edit-fondamentales.vue'
+import EtapeEditPoints from './edit-points.vue'
+import EditSections from '../edit-sections.vue'
 
-import EditSections from './edit-sections.vue'
+import { etapeSaveFormat } from './edit'
 
 export default {
   name: 'CaminoEtapeEditPopup',
@@ -151,33 +161,27 @@ export default {
     Popup,
     Messages,
     EtapeEditFondamentales,
+    EtapeEditPoints,
     EditSections
   },
 
   props: {
-    etape: {
-      type: Object,
-      default: () => ({})
-    },
+    etape: { type: Object, default: () => ({}) },
 
-    demarcheType: {
-      type: Object,
-      default: () => ({})
-    },
+    demarcheType: { type: Object, default: () => ({}) },
 
-    domaineId: {
-      type: String,
-      default: ''
-    },
+    domaineId: { type: String, default: '' },
 
-    titreNom: {
-      type: String,
-      default: ''
-    },
+    titreNom: { type: String, default: '' },
 
-    creation: {
-      type: Boolean,
-      default: false
+    creation: { type: Boolean, default: false }
+  },
+
+  data() {
+    return {
+      events: {
+        saveKeyUp: true
+      }
     }
   },
 
@@ -216,113 +220,19 @@ export default {
   },
 
   created() {
-    document.addEventListener('keyup', this.keyup)
+    document.addEventListener('keyup', this.keyUp)
   },
 
   beforeDestroy() {
-    document.removeEventListener('keyup', this.keyup)
+    document.removeEventListener('keyup', this.keyUp)
   },
 
   methods: {
     save() {
-      const etape = JSON.parse(JSON.stringify(this.etape))
-
-      const propsFilter = (obj, prop, key) =>
-        obj[prop].reduce((r, o) => (o[key] ? [...r, o[key]] : r), [])
-
-      etape.visas = propsFilter(etape, 'visas', 'texte')
-
-      const propsIds = [
-        'substancesIds',
-        'titulairesIds',
-        'amodiatairesIds',
-        'administrationsIds'
-      ]
-
-      // supprime les champs dont les ids sont vides
-      propsIds.forEach(propId => {
-        if (etape[propId]) {
-          etape[propId] = etape[propId].filter(id => id)
-        }
-      })
-
-      if (etape.groupes) {
-        etape.points = etape.groupes.reduce((acc, contours, groupeIndex) => {
-          const points = contours.reduce((acc, points, contourIndex) => {
-            const pointsValides = points.reduce((acc, point, pointIndex) => {
-              if (
-                point.references.length &&
-                point.references.every(r => r.coordonnees.x && r.coordonnees.y)
-              ) {
-                points.references = point.references.filter(r =>
-                  etape.geoSystemeIds.includes(r.geoSystemeId)
-                )
-                if (point.references.length > 1) {
-                  const reference = point.references.find(
-                    r => r.geoSystemeId === etape.geoSystemeOpposableId
-                  )
-                  reference.opposable = true
-                }
-                point.groupe = groupeIndex + 1
-                point.contour = contourIndex + 1
-                point.point = pointIndex + 1
-
-                acc.push(point)
-              }
-
-              return acc
-            }, [])
-
-            acc = acc.concat(pointsValides)
-
-            return acc
-          }, [])
-
-          acc = acc.concat(points)
-
-          return acc
-        }, [])
-
-        delete etape.groupes
-      }
-
-      if (etape.geoSystemeIds) {
-        delete etape.geoSystemeIds
-      }
-
-      if (etape.geoSystemeOpposableId) {
-        delete etape.geoSystemeOpposableId
-      }
-
-      if (etape.duree.ans || etape.duree.mois) {
-        etape.duree =
-          (etape.duree.ans ? etape.duree.ans * 12 : 0) +
-          (etape.duree.mois ? etape.duree.mois : 0)
-      } else {
-        etape.duree = null
-      }
-
-      const props = [
-        'date',
-        'dateDebut',
-        'dateFin',
-        'surface',
-        'duree',
-        'volume',
-        'volumeUniteId',
-        'engagement',
-        'engagementDeviseId'
-      ]
-
-      props.forEach(prop => {
-        if (etape[prop] === '') {
-          etape[prop] = null
-        }
-      })
-
+      const etape = etapeSaveFormat(this.etape)
       etape.contenu = this.contenu
 
-      console.log(JSON.stringify(etape, null, 2))
+      // console.log(JSON.stringify(etape, null, 2))
       if (this.creation) {
         this.$store.dispatch('titre/etapeCreate', etape)
       } else {
@@ -335,10 +245,10 @@ export default {
       this.$store.commit('popupClose')
     },
 
-    keyup(e) {
+    keyUp(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
-      } else if ((e.which || e.keyCode) === 13) {
+      } else if ((e.which || e.keyCode) === 13 && this.events.saveKeyUp) {
         this.save()
       }
     },

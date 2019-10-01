@@ -118,6 +118,8 @@ export default {
   methods: {
     markersInit() {
       this.points.forEach(point => {
+        if (!point.nom) return
+
         const icon = L.divIcon({
           className: `h6 mono border-bg color-text py-xs px-s inline-block leaflet-marker-camino cap pill bg-bg`,
           html: `${point.nom}`,

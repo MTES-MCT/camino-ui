@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          Suppression d'un titre
+          Suppression du titre
         </h2>
       </div>
     </template>

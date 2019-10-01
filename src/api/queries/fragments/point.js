@@ -37,6 +37,7 @@ const fragmentPoint = gql`
     description
     securite
     subsidiaire
+    lot
     references {
       ...pointReference
     }

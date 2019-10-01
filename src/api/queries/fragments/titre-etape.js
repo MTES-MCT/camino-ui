@@ -4,7 +4,7 @@ import fragmentAdministration from './administration'
 import { fragmentTitreSubstance } from './titre-substance'
 import { fragmentPoint } from './point'
 import fragmentPays from './pays'
-import {fragmentUnite} from './metas'
+import { fragmentUnite } from './metas'
 
 const fragmentTitreEtape = gql`
   fragment etape on Etape {
@@ -19,7 +19,6 @@ const fragmentTitreEtape = gql`
     volumeUnite {
       ...unite
     }
-    visas
     engagement
     engagementDevise {
       id

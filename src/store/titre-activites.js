@@ -30,7 +30,11 @@ export const actions = {
           },
           { root: true }
         )
-        dispatch('titre/reload', rootState.titre.current.id, { root: true })
+        dispatch(
+          'titre/reload',
+          { id: rootState.titre.current.id },
+          { root: true }
+        )
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })

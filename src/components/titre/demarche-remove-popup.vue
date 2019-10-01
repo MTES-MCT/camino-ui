@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          Suppression d'une démarche
+          Suppression de la démarche
         </h2>
       </div>
     </template>

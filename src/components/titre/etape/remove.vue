@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          Suppression d'une étape
+          Suppression de l'étape
         </h2>
       </div>
     </template>
@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
+import Popup from '../../ui/popup.vue'
+import Messages from '../../ui/messages.vue'
 
 export default {
   name: 'CaminoEtapeDeletePopup',
