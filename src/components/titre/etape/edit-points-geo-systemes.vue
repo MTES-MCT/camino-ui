@@ -21,7 +21,7 @@
             :value="geoSysteme.id"
             :disabled="etapeGeoSystemeIds.some(id => id === geoSysteme.id)"
           >
-            {{ geoSysteme.nom }}
+            {{ geoSysteme.nom }} ({{ geoSysteme.id }})
           </option>
         </select>
         <div class="flex-right">
