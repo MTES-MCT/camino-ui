@@ -36,20 +36,20 @@
               :key="reference.id"
               class="tablet-blobs"
             >
-              <div class="tablet-blob-1-3">
+              <div class="tablet-blob-1-2">
                 <p class="h6 mb-s mt-xs inline-block">
-                  <span class="bold">{{ reference.geoSysteme.nom }}</span>  ({{ reference.geoSysteme.uniteType }}) <span
+                  <span class="bold">{{ reference.geoSysteme.nom }}</span>  ({{ reference.unite.nom }}) <span
                     v-if="reference.opposable"
                     class="h5 bg-info py-xxs px-xs rnd-xs color-bg"
                   >Opposable</span>
                 </p>
               </div>
-              <div class="tablet-blob-1-3">
+              <div class="tablet-blob-1-4">
                 <p class="h5 flex mb-s mt-xs">
                   X : <span class="flex-right mono bold">{{ reference.coordonnees.x }}</span>
                 </p>
               </div>
-              <div class="tablet-blob-1-3">
+              <div class="tablet-blob-1-4">
                 <p class="h5 flex mb-s mt-xs">
                   Y : <span class="flex-right mono bold">{{ reference.coordonnees.y }}</span>
                 </p>
@@ -98,6 +98,26 @@ export default {
         },
         []
       )
+    },
+
+    geoSystemes() {
+      return this.points.reduce((geoSystemes, { references }) => {
+        const pointGeoSystemes = references.reduce(
+          (pointGeoSystemes, { geoSysteme, unite, coordonnees }) => {
+            pointGeoSystemes[geoSysteme.id] = {
+              id: geoSysteme.id,
+              nom: geoSysteme.nom,
+              uniteId: unite.id,
+              uniteType: unite.type
+            }
+
+            return pointGeoSystemes
+          },
+          {}
+        )
+
+        return Object.assign(geoSystemes, pointGeoSystemes)
+      }, {})
     }
   }
 }
