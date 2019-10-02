@@ -1,6 +1,6 @@
-const geoSystemeOpposableFind = (geoSystemeOpposableId, geoSystemes) =>
-  geoSystemeOpposableId
-    ? geoSystemes.find(({ id }) => id === geoSystemeOpposableId)
+const geoSystemeOpposableFind = (geoSystemeId, geoSystemes) =>
+  geoSystemeId
+    ? geoSystemes.find(({ id }) => id === geoSystemeId)
     : geoSystemes[0]
 
 const referenceBuild = (geoSystemeId, uniteId, coordonnees, opposable) => ({
@@ -12,13 +12,10 @@ const referenceBuild = (geoSystemeId, uniteId, coordonnees, opposable) => ({
 
 const pointReferencesBuild = (references, geoSystemes, geoSystemeOpposableId) =>
   Object.keys(references).reduce((pointReferences, geoSystemeId) => {
-    const etapeGeoSysteme = geoSystemes.find(({ id }) => geoSystemeId === id)
-
-    if (!etapeGeoSysteme) {
-      return pointReferences
-    }
+    const geoSysteme = geoSystemes.find(({ id }) => geoSystemeId === id)
 
     if (
+      geoSysteme &&
       references[geoSystemeId][0] &&
       references[geoSystemeId][1] &&
       geoSystemeId
@@ -26,7 +23,7 @@ const pointReferencesBuild = (references, geoSystemes, geoSystemeOpposableId) =>
       pointReferences.push(
         referenceBuild(
           geoSystemeId,
-          etapeGeoSysteme.uniteId,
+          geoSysteme.uniteId,
           references[geoSystemeId],
           geoSystemes.length > 1 && geoSystemeId === geoSystemeOpposableId
         )
@@ -37,34 +34,33 @@ const pointReferencesBuild = (references, geoSystemes, geoSystemeOpposableId) =>
   }, [])
 
 const lotPointsBuild = (
-  { references, description, lot },
+  { references, description },
   pointsLength,
-  lotIndex,
-  contourIndex,
-  groupeIndex,
-  geoSystemes,
-  geoSystemeOpposable
+  lot,
+  contour,
+  groupe,
+  opposable,
+  geoSysteme
 ) =>
   references.reduce((points, coordonnees) => {
-    // userInput doit être de la forme 1.2,2.3\n2,-4\n-4.5,6\n
-    // https://stackoverflow.com/a/18690202/2112538
+    // exemple de format valide: 1.2,2.3
     const isValid =
       coordonnees && coordonnees.match(/(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)/g)
 
     if (isValid) {
       points.push({
-        lot: lotIndex,
+        lot,
         subsidiaire: true,
-        description: description,
-        groupe: groupeIndex,
-        contour: contourIndex,
+        description,
+        groupe,
+        contour,
         point: pointsLength + points.length + 1,
         references: [
           referenceBuild(
-            geoSystemeOpposable.id,
-            geoSystemeOpposable.uniteId,
+            geoSysteme.id,
+            geoSysteme.uniteId,
             coordonnees.split(',').map(parseFloat),
-            geoSystemes.length > 1
+            opposable
           )
         ]
       })
@@ -103,7 +99,7 @@ const contourBuild = (
             lotIndex,
             contourIndex,
             groupeIndex,
-            geoSystemes,
+            geoSystemes.length > 1,
             geoSystemeOpposable
           )
         )

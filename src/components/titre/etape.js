@@ -26,21 +26,8 @@ const geoSystemeOpposableIdFind = references => {
   return referenceOpposable ? referenceOpposable.geoSysteme.id : null
 }
 
-const groupeBuild = (points, geoSystemeOpposableId) => {
-  const pointsOrdered = points.sort((a, b) => {
-    if (a.groupe > b.groupe) return 1
-    if (a.groupe < b.groupe) return -1
-
-    if (a.contour > b.contour) return 1
-    if (a.contour < b.contour) return -1
-
-    if (a.point > b.point) return 1
-    if (a.point < b.point) return -1
-
-    return 0
-  })
-
-  return pointsOrdered.reduce(
+const groupeBuild = (points, geoSystemeOpposableId) =>
+  points.reduce(
     (
       {
         groupes,
@@ -50,7 +37,7 @@ const groupeBuild = (points, geoSystemeOpposableId) => {
         contourIndexPrevious,
         groupeIndexPrevious
       },
-      { nom, description, point, contour, groupe, references, lot, subsidiaire }
+      { nom, description, contour, groupe, references, lot, subsidiaire }
     ) => {
       const { pointReferences, pointGeoSystemes } = referencesBuild(references)
 
@@ -110,7 +97,6 @@ const groupeBuild = (points, geoSystemeOpposableId) => {
       groupeIndexPrevious: 1
     }
   )
-}
 
 const etapeGroupesBuild = points => {
   const geoSystemeOpposableId = geoSystemeOpposableIdFind(points[0].references)
