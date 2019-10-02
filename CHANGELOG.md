@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.4](https://github.com/MTES-MCT/camino-ui/compare/v0.22.3...v0.22.4) (2019-10-02)
+
+
+### Bug Fixes
+
+* **carte:** rafraichit l'affichage après la mise à jour de points ([c1f1470](https://github.com/MTES-MCT/camino-ui/commit/c1f1470))
+
+
+### Features
+
+* affiche l'id du système géographique dans le sélecteur ([925a8b6](https://github.com/MTES-MCT/camino-ui/commit/925a8b6))
+* affiche le champs date au format français ([d9e78d1](https://github.com/MTES-MCT/camino-ui/commit/d9e78d1))
+* édite un lot de points de périmètre géo ([#30](https://github.com/MTES-MCT/camino-ui/issues/30)) ([67688fb](https://github.com/MTES-MCT/camino-ui/commit/67688fb))
+
 ### [0.22.3](https://github.com/MTES-MCT/camino-ui/compare/v0.22.2...v0.22.3) (2019-09-23)
 
 
