@@ -83,11 +83,18 @@ const fragmentMeta = gql`
       id
       nom
       zone
-      uniteType
+      unite {
+        ...unite
+      }
     }
   }
 
   ${fragmentUnite}
 `
 
-export { fragmentMeta, fragmentUnite, fragmentDemarcheType, fragmentDemarcheStatut }
+export {
+  fragmentMeta,
+  fragmentUnite,
+  fragmentDemarcheType,
+  fragmentDemarcheStatut
+}
