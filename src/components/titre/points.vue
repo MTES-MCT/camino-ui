@@ -1,47 +1,42 @@
 <template>
   <div class="points">
-    <h4 class="mb-s">
-      Systèmes géographiques
-    </h4>
-    <div class="full-x mb">
-      <select
-        v-if="geoSystemes.length > 1"
-        v-model="geoSystemeId"
-        type="text"
-        class="p-s mr-s"
-      >
-        <option
-          v-for="geoSysteme in geoSystemes"
-          :key="geoSysteme.id"
-          :value="geoSysteme.id"
-        >
-          {{ geoSysteme.nom }} ({{ geoSysteme.id }}) {{ geoSysteme.opposable ? '(opposable)' : '' }}
-        </option>
-      </select>
-      <div
-        v-else
-        class="full-x p-s bg-alt"
-      >
-        {{ geoSystemes[0].nom }} ({{ geoSystemes[0].id }})
-      </div>
-    </div>
-
     <div
       v-if="geoSystemeId"
     >
-      <div class="tablet-blobs px-l">
-        <div class="tablet-blob-1-2" />
+      <div class="tablet-blobs px-l flex-align-items-stretch">
         <div class="tablet-blob-1-2">
-          <div class="blobs">
-            <div class="blob-1-2">
-              <p class=" border-l pl-s">
+          <select
+            v-if="geoSystemes.length > 1"
+            v-model="geoSystemeId"
+            type="text"
+            class="p-s mr-s mb-s"
+          >
+            <option
+              v-for="geoSysteme in geoSystemes"
+              :key="geoSysteme.id"
+              :value="geoSysteme.id"
+            >
+              {{ geoSysteme.nom }} ({{ geoSysteme.id }}) {{ geoSysteme.opposable ? '(opposable)' : '' }}
+            </option>
+          </select>
+          <div
+            v-else
+            class="full-x p-s bg-alt mb-s"
+          >
+            {{ geoSystemes[0].nom }} ({{ geoSystemes[0].id }})
+          </div>
+        </div>
+        <div class="tablet-blob-1-2 flex flex-align-items-stretch">
+          <div class="blobs flex-grow flex-align-items-stretch mb-s">
+            <div class="blob-1-2 full-y">
+              <h6 class="full-y border-l pl-s pt-xs">
                 X
-              </p>
+              </h6>
             </div>
-            <div class="blob-1-2">
-              <p class=" border-l pl-s">
+            <div class="blob-1-2 full-y">
+              <h6 class="full-y border-l pl-s pt-xs">
                 Y
-              </p>
+              </h6>
             </div>
           </div>
         </div>
@@ -135,7 +130,9 @@ export default {
             nom,
             description,
             references: references.reduce((res, r) => {
-              res[r.geoSysteme.id] = r
+              if (!res[r.geoSysteme.id]) {
+                res[r.geoSysteme.id] = r
+              }
 
               return res
             }, {})
@@ -155,12 +152,14 @@ export default {
               pointGeoSystemes,
               { geoSysteme, unite, coordonnees, opposable }
             ) => {
-              pointGeoSystemes[geoSysteme.id] = {
-                id: geoSysteme.id,
-                nom: geoSysteme.nom,
-                uniteId: unite.id,
-                uniteType: unite.type,
-                opposable
+              if (!pointGeoSystemes[geoSysteme.id]) {
+                pointGeoSystemes[geoSysteme.id] = {
+                  id: geoSysteme.id,
+                  nom: geoSysteme.nom,
+                  uniteId: unite.id,
+                  uniteType: unite.type,
+                  opposable
+                }
               }
 
               return pointGeoSystemes

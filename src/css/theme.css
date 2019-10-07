@@ -37,11 +37,7 @@
 }
 
 .points {
-  margin-left: calc(-1 * var(--unit));
-  margin-right: calc(-1 * var(--unit));
   padding-top: var(--unit);
-  padding-left: var(--unit);
-  padding-right: var(--unit);
   height: calc(var(--unit) * 24);
   overflow-y: scroll;
 }
