@@ -4,13 +4,13 @@
       Systèmes géographiques
     </h4>
     <div
-      v-for="(etapeGeoSysteme, etapeGeoSystemeIndex) in etape.geoSystemes"
+      v-for="(etapeGeoSystemeId, etapeGeoSystemeIndex) in etape.geoSystemeIds"
       :key="etapeGeoSystemeIndex"
       class="mb-s"
     >
       <div class="flex full-x mb-s">
         <select
-          v-model="etape.geoSystemes[etapeGeoSystemeIndex].id"
+          v-model="etape.geoSystemeIds[etapeGeoSystemeIndex]"
           type="text"
           class="p-s mr-s"
           @change="geoSystemeUpdate(etapeGeoSystemeIndex)"
@@ -19,7 +19,7 @@
             v-for="geoSysteme in geoSystemes"
             :key="geoSysteme.id"
             :value="geoSysteme.id"
-            :disabled="etapeGeoSystemeIds.some(id => id === geoSysteme.id)"
+            :disabled="etape.geoSystemeIds.includes(geoSysteme.id)"
           >
             {{ geoSysteme.nom }} ({{ geoSysteme.id }})
           </option>
@@ -35,56 +35,25 @@
       </div>
 
       <div
-        v-if="etapeGeoSysteme.id"
+        v-if="etapeGeoSystemeId"
         class="tablet-blobs"
       >
-        <div class="tablet-blob-1-2">
-          <div class="blobs">
-            <div class="blob-1-3 pt-s pb-s">
-              <h6 class="mt-xs">
-                Unité
-              </h6>
-            </div>
-            <div class="blob-2-3">
-              <select
-                v-if="unites.filter(({type}) => etapeGeoSysteme.uniteType === type).length > 1"
-                v-model="etape.geoSystemes[etapeGeoSystemeIndex].uniteId"
-                type="text"
-                class="p-s"
-              >
-                <option
-                  v-for="unite in unites.filter(({type}) => etapeGeoSysteme.uniteType === type)"
-                  :key="unite.id"
-                  :value="unite.id"
-                  :disabled="etapeGeoSysteme.uniteId === unite.id"
-                >
-                  {{ unite.nom }}
-                </option>
-              </select>
-              <div v-else>
-                <div class="p-s bg-alt">
-                  {{ unites.find(({type}) => etapeGeoSysteme.uniteType === type).nom }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div
-          v-if="etapeGeoSystemeIds.length > 1"
+          v-if="etape.geoSystemeIds.length > 1"
           class="tablet-blob-1-2"
         >
           <label class="h5 pt-s mb">
             <input
               v-model="etape.geoSystemeOpposableId"
               type="radio"
-              :value="etapeGeoSysteme.id"
+              :value="etapeGeoSystemeId"
             > opposable
           </label>
         </div>
       </div>
     </div>
     <button
-      v-if="!etape.geoSystemes.some(({ id }) => !id)"
+      v-if="!etape.geoSystemeIds.some(id => !id)"
       class="btn-border rnd-xs py-s px-m full-x flex"
       @click="geoSystemeAdd"
     >
@@ -96,49 +65,32 @@
 <script>
 export default {
   props: {
-    etape: { type: Object, default: () => ({}) },
-    etapeGeoSystemeIds: { type: Array, default: () => [] }
+    etape: { type: Object, default: () => ({}) }
   },
 
   computed: {
     geoSystemes() {
       return this.$store.state.metas.geoSystemes
-    },
-
-    unites() {
-      return this.$store.state.metas.unites
     }
   },
 
   methods: {
     geoSystemeAdd() {
-      this.etape.geoSystemes.push({ id: '' })
+      this.etape.geoSystemeIds.push('')
     },
 
     geoSystemeRemove(etapeGeoSystemeIndex) {
-      this.etape.geoSystemes.splice(etapeGeoSystemeIndex, 1)
+      this.etape.geoSystemeIds.splice(etapeGeoSystemeIndex, 1)
     },
 
     geoSystemeUpdate(etapeGeoSystemeIndex) {
-      const etapeGeoSysteme = this.etape.geoSystemes[etapeGeoSystemeIndex]
-      const geoSysteme = this.geoSystemes.find(
-        ({ id }) => id === etapeGeoSysteme.id
-      )
-
-      const unite = this.unites.find(
-        ({ type }) => type === geoSysteme.uniteType
-      )
-
-      etapeGeoSysteme['nom'] = geoSysteme.nom
-      etapeGeoSysteme['uniteId'] = unite.id
-      etapeGeoSysteme['uniteNom'] = unite.nom
-      etapeGeoSysteme['uniteType'] = unite.type
+      const etapeGeoSystemeId = this.etape.geoSystemeIds[etapeGeoSystemeIndex]
 
       this.etape.groupes.forEach(contours => {
         contours.forEach(points => {
           points.forEach(point => {
-            if (!point.references[etapeGeoSysteme.id]) {
-              point.references[etapeGeoSysteme.id] = point.lot ? [] : [0, 0]
+            if (!point.references[etapeGeoSystemeId]) {
+              point.references[etapeGeoSystemeId] = point.lot ? [] : [0, 0]
             }
           })
         })

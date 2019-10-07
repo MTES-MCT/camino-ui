@@ -70,7 +70,10 @@
           >
             <div class="tablet-blobs">
               <div class="tablet-blob-1-2 flex">
-                <h4 class="mb-0 flex-self-start mr-s">
+                <h4
+                  v-if="point.nom"
+                  class="mb-0 flex-self-start mr-s"
+                >
                   {{ point.nom }}
                 </h4>
                 <p
@@ -148,16 +151,11 @@ export default {
       const geoSystemesObject = this.points.reduce(
         (geoSystemes, { references }) => {
           const pointGeoSystemes = references.reduce(
-            (
-              pointGeoSystemes,
-              { geoSysteme, unite, coordonnees, opposable }
-            ) => {
+            (pointGeoSystemes, { geoSysteme, coordonnees, opposable }) => {
               if (!pointGeoSystemes[geoSysteme.id]) {
                 pointGeoSystemes[geoSysteme.id] = {
                   id: geoSysteme.id,
                   nom: geoSysteme.nom,
-                  uniteId: unite.id,
-                  uniteType: unite.type,
                   opposable
                 }
               }

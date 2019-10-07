@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import {fragmentUnite} from './metas'
+import { fragmentUnite } from './metas'
 
 const fragmentPointReference = gql`
   fragment pointReference on PointReference {
@@ -8,14 +8,13 @@ const fragmentPointReference = gql`
       id
       nom
       zone
-      uniteType
+      unite {
+        ...unite
+      }
     }
     coordonnees {
       x
       y
-    }
-    unite {
-      ...unite
     }
     opposable
   }

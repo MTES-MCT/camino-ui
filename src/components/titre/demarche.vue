@@ -131,7 +131,7 @@ export default {
         administrationsIds: [],
         substancesIds: [],
         groupes: [],
-        geoSystemes: [],
+        geoSystemeIds: [],
         geoSystemeOpposableId: null,
         incertitudes: {},
         contenu: {}
