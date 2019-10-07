@@ -30,7 +30,6 @@ const fragmentUnite = gql`
     id
     nom
     symbole
-    type
   }
 `
 

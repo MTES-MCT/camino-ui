@@ -27,32 +27,32 @@
     </label>
 
     <div
-      v-for="etapeGeoSysteme in etape.geoSystemes.filter(({ id }) => id)"
-      :key="`${point.id}-${etapeGeoSysteme.id}`"
+      v-for="geoSysteme in geoSystemes.filter(({ id }) => etape.geoSystemeIds.includes(id))"
+      :key="`${point.id}-${geoSysteme.id}`"
       class="tablet-blobs"
     >
       <div class="mb tablet-blob-1-3">
         <h6>Système</h6>
 
         <p class="py-s mb-0 h5">
-          <span class="bold">{{ etapeGeoSysteme.nom }}</span> <span
-            v-if="etape.geoSystemeOpposableId === etapeGeoSysteme.id"
+          <span class="bold">{{ geoSysteme.nom }}</span> <span
+            v-if="etape.geoSystemeOpposableId === geoSysteme.id"
             class="bg-info py-xxs px-xs rnd-xs color-bg"
           >Opposable</span>
         </p>
       </div>
       <div class="mb tablet-blob-1-3">
-        <h6>X ({{ unites.find(({id}) => etapeGeoSysteme.uniteId === id).nom }})</h6>
+        <h6>X ({{ geoSysteme.unite.nom }})</h6>
         <input
-          v-model.trim.number="point.references[etapeGeoSysteme.id][0]"
+          v-model.trim.number="point.references[geoSysteme.id][0]"
           type="text"
           class="p-s"
         >
       </div>
       <div class="mb tablet-blob-1-3">
-        <h6>Y ({{ unites.find(({id}) => etapeGeoSysteme.uniteId === id).nom }})</h6>
+        <h6>Y ({{ geoSysteme.unite.nom }})</h6>
         <input
-          v-model.trim.number="point.references[etapeGeoSysteme.id][1]"
+          v-model.trim.number="point.references[geoSysteme.id][1]"
           type="text"
           class="p-s"
         >
@@ -69,8 +69,8 @@ export default {
   },
 
   computed: {
-    unites() {
-      return this.$store.state.metas.unites
+    geoSystemes() {
+      return this.$store.state.metas.geoSystemes
     }
   }
 }

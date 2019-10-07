@@ -9,10 +9,9 @@
 
     <EtapeEditPointsGeoSysteme
       :etape.sync="etape"
-      :etape-geo-systeme-ids="etapeGeoSystemeIds"
     />
 
-    <div v-if="etapeGeoSystemeIds.length">
+    <div v-if="etape.geoSystemeIds.length">
       <hr>
       <div class="h5 mb-s">
         <ul class="list-prefix">
@@ -123,7 +122,6 @@
               v-else
               :point.sync="point"
               :etape.sync="etape"
-              :etape-geo-systeme="etapeGeoSystemeOpposable"
               :events="events"
             />
           </div>
@@ -202,40 +200,23 @@ export default {
 
         return pointsTotal
       }, [])
-    },
-
-    etapeGeoSystemeIds() {
-      return this.etape.geoSystemes.reduce((acc, { id }) => {
-        if (id) {
-          acc.push(id)
-        }
-
-        return acc
-      }, [])
-    },
-
-    etapeGeoSystemeOpposable() {
-      const geoSystemeId =
-        this.etape.geoSystemeOpposableId || this.etapeGeoSystemeIds[0]
-
-      return this.etape.geoSystemes.find(({ id }) => id === geoSystemeId)
     }
   },
 
   watch: {
-    etapeGeoSystemeIds: 'etapeGeoSystemeOpposableIdUpdate'
+    'etape.geoSystemeIds': 'etapeGeoSystemeOpposableIdUpdate'
   },
 
   methods: {
     etapeGeoSystemeOpposableIdUpdate() {
-      if (this.etapeGeoSystemeIds.length < 2) {
+      if (this.etape.geoSystemeIds.length < 2) {
         this.etape.geoSystemeOpposableId = null
       } else if (
-        this.etapeGeoSystemeIds.length > 1 &&
+        this.etape.geoSystemeIds.length > 1 &&
         (!this.etape.geoSystemeOpposableId ||
-          !this.etapeGeoSystemeIds.includes(this.etape.geoSystemeOpposableId))
+          !this.etape.geoSystemeIds.includes(this.etape.geoSystemeOpposableId))
       ) {
-        this.etape.geoSystemeOpposableId = this.etapeGeoSystemeIds[0]
+        this.etape.geoSystemeOpposableId = this.etape.geoSystemeIds[0]
       }
     },
 
@@ -255,7 +236,7 @@ export default {
     },
 
     referencesInit() {
-      return this.etapeGeoSystemeIds.reduce((references, geoSystemeId) => {
+      return this.etape.geoSystemeIds.reduce((references, geoSystemeId) => {
         references[geoSystemeId] = [0, 0]
 
         return references
