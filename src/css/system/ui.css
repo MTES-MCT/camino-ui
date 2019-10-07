@@ -61,6 +61,10 @@
   margin-bottom: calc(var(--unit) - var(--unit-line));
 }
 
+.border-l {
+  border-left: var(--unit-line) solid var(--color-neutral);
+}
+
 .border-t {
   border-top: var(--unit-line) solid var(--color-alt);
 }
