@@ -393,7 +393,7 @@ export default {
     inputChange(id, e) {
       const filtre = this.filtreFind(id)
       const values = e.target.value
-        ? e.target.value.match(/\w+|"(?:\\"|[^"])+"/g)
+        ? e.target.value.match(/[\w/]+|"(?:\\"|[^"])+"/g)
         : []
 
       filtre.values = values
