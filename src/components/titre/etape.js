@@ -38,7 +38,8 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
         references
       )
 
-      const lotGeoSystemeId = geoSystemeOpposableId || pointGeoSystemeIndex[0]
+      const lotGeoSystemeId =
+        geoSystemeOpposableId || Object.keys(pointGeoSystemeIndex)[0]
 
       if (
         lot &&
@@ -59,15 +60,20 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
           groupes[groupe - 1][contour - 1] = []
         }
 
-        groupes[groupe - 1][contour - 1].push({
-          nom,
+        const point = {
           description,
           lot,
           subsidiaire,
           references: lot
             ? [pointReferences[lotGeoSystemeId].join(',')]
             : pointReferences
-        })
+        }
+
+        if (!lot) {
+          point.nom = nom
+        }
+
+        groupes[groupe - 1][contour - 1].push(point)
 
         pointIndex = lot ? groupes[groupe - 1][contour - 1].length : null
         lotCurrent = lot
