@@ -43,6 +43,7 @@ export const actions = {
     if (idOld && id !== idOld) {
       router.replace({ name: 'titre', params: { id } })
     }
+
     await dispatch('get', id)
 
     dispatch(
@@ -133,7 +134,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: res.id, idOld: demarche.id.slice(0, -6) })
+        dispatch('reload', { id: res.id, idOld: demarche.titreId })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -153,7 +154,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: res.id, idOld: demarche.id.slice(0, -6) })
+        dispatch('reload', { id: res.id, idOld: demarche.titreId })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -194,7 +195,10 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: res.id, idOld: etape.id.slice(0, -12) })
+        dispatch('reload', {
+          id: res.id,
+          idOld: etape.titreDemarcheId.slice(0, -6)
+        })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -215,7 +219,10 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: res.id, idOld: etape.id.slice(0, -12) })
+        dispatch('reload', {
+          id: res.id,
+          idOld: etape.titreDemarcheId.slice(0, -6)
+        })
       } else {
         dispatch('pageError', null, { root: true })
       }

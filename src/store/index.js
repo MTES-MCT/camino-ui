@@ -86,9 +86,7 @@ export const actions = {
       type: 'error',
       value:
         error ||
-        `Erreur: impossible de se connecter à l'API (${
-          process.env.VUE_APP_API_URL
-        })`
+        `Erreur: impossible de se connecter à l'API (${process.env.VUE_APP_API_URL})`
     })
 
     setTimeout(() => {

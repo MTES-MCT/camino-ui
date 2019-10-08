@@ -98,8 +98,6 @@
       :domaine-id="domaineId"
     />
 
-    <hr>
-
     <EtapeEditPoints
       v-if="etapeType.fondamentale"
       :etape.sync="etape"
