@@ -37,6 +37,10 @@
 }
 
 .points {
+  margin-left: calc(-1 * var(--unit));
+  margin-right: calc(-1 * var(--unit));
+  padding-left: var(--unit);
+  padding-right: var(--unit);
   padding-top: var(--unit);
   height: calc(var(--unit) * 24);
   overflow-y: scroll;
@@ -240,7 +244,7 @@
 }
 
 .geo-groupe {
-  padding: var(--unit-s) var(--unit-s) 0 var(--unit-s);
+  padding: var(--unit-xs) var(--unit-xs) 0 var(--unit-xs);
   box-shadow: inset 0 0 0 var(--unit-line) var(--color-alt);
   border-radius: var(--unit);
   background-color: var(--color-neutral);
@@ -248,10 +252,14 @@
   width: 100%;
 }
 
+.geo-groupe-edit {
+  border-radius: var(--unit) var(--unit) var(--unit-m) var(--unit-m);
+}
+
 .geo-contour {
-  padding: var(--unit-s) var(--unit-s) 0 var(--unit-s);
+  padding: var(--unit-xs) var(--unit-xs) 0 var(--unit-xs);
   box-shadow: inset 0 0 0 var(--unit-line) var(--color-alt);
-  margin-bottom: var(--unit-s);
+  margin-bottom: var(--unit-xs);
   border-radius: var(--unit-m);
   background-color: var(--color-alt);
   display: inline-block;
@@ -261,7 +269,7 @@
 .geo-point {
   padding: var(--unit-s) var(--unit-s) 0 var(--unit-s);
   box-shadow: inset 0 0 0 var(--unit-line) var(--color-alt);
-  margin-bottom: calc(var(--unit-s) - var(--unit-line));
+  margin-bottom: calc(var(--unit-xs) - var(--unit-line));
   border-radius: var(--unit-s);
   background-color: var(--color-bg);
   width: 100%;

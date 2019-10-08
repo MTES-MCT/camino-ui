@@ -31,13 +31,13 @@
       <div
         v-for="(groupeContours, groupeIndex) in etape.groupes"
         :key="groupeIndex + 1"
-        class="geo-groupe mb-s"
+        class="geo-groupe geo-groupe-edit mb-xs"
       >
         <div
           v-if="etape.groupes.length > 1"
           class="flex flex-full"
         >
-          <h4 class="pl-s color-bg mb-s">
+          <h4 class="color-bg pt-s pl-m mb-s">
             Groupe {{ groupeIndex + 1 }}
           </h4>
           <div class="flex-right hide">
@@ -58,7 +58,7 @@
             v-if="groupeContours.length > 1"
             class="flex flex-full"
           >
-            <h4 class="pl-s mb-s">
+            <h4 class="pt-xs pl-s mb-s">
               {{ contourIndex === 0 ? 'Contour' : `Lacune ${contourIndex}` }}
             </h4>
             <div class="flex-right hide">
@@ -127,14 +127,14 @@
           </div>
 
           <button
-            class="btn-border rnd-s py-s px-m full-x mb-s flex"
+            class="btn-border rnd-s py-s px-m full-x mb-xs flex"
             @click="pointAdd(groupeIndex, contourIndex)"
           >
             Ajouter un point<i class="icon-24 icon-plus flex-right" />
           </button>
 
           <button
-            class="btn-border rnd-s py-s px-m full-x mb-s flex"
+            class="btn-border rnd-s py-s px-m full-x mb-xs flex"
             @click="lotAdd(groupeIndex, contourIndex)"
           >
             Ajouter un lot de points<i class="icon-24 icon-plus flex-right" />
@@ -142,7 +142,7 @@
         </div>
         <button
           v-if="groupeContours.length && groupeContours[0].length"
-          class="btn-border rnd-s py-s px-m full-x mb-s flex"
+          class="btn-border rnd-s py-s px-m full-x mb-xs flex"
           @click="contourAdd(groupeIndex)"
         >
           Ajouter {{ groupeContours.length >= 1 ? 'une lacune' : 'un contour' }}<i class="icon-24 icon-plus flex-right" />

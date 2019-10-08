@@ -220,8 +220,8 @@
         numériques.
       </h2>
       <span class="separator" />
-      <div class="blobs">
-        <div class="blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <h3>Ressources minérales non-énergétiques</h3>
           <img
             src="../../../public/img/about/gallery-non-energetique.jpg"
@@ -239,7 +239,7 @@
             circulaire.
           </p>
         </div>
-        <div class="blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <h3>Matières premières énergétiques</h3>
           <img
             src="../../../public/img/about/gallery-energetique.jpg"
@@ -256,7 +256,7 @@
             usage rationnel.
           </p>
         </div>
-        <div class="blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <h3>Stockages souterrains</h3>
 
           <img
@@ -276,7 +276,7 @@
           </p>
         </div>
 
-        <div class="blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <h3>Géothermie profonde</h3>
 
           <img
@@ -291,7 +291,7 @@
             dans le mix énergétique du 21ème siècle.
           </p>
         </div>
-        <div class="blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <h3>Travaux miniers</h3>
           <img
             src="../../../public/img/about/gallery-travaux.jpg"
@@ -307,7 +307,7 @@
             de l’exploitant minier.
           </p>
         </div>
-        <div class="blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <h3>Après mines</h3>
 
           <img
