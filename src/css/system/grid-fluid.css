@@ -22,6 +22,18 @@ https://github.com/francoisromain/postcss-grid-fluid
   gf: row;
 }
 
+.blobs-packed {
+  clear: both;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.blob-packed-1-2 {
+  flex: 0 1 50%;
+}
+
 .blob {
   margin-right: var(--gutter);
   flex: 0 1 0;

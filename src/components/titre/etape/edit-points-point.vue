@@ -32,13 +32,15 @@
       class="tablet-blobs"
     >
       <div class="mb tablet-blob-1-3">
-        <h6>Système</h6>
-
-        <p class="py-s mb-0 h5">
-          <span class="bold">{{ geoSysteme.nom }}</span> <span
+        <h6>
+          Système <span
             v-if="etape.geoSystemeOpposableId === geoSysteme.id"
             class="bg-info py-xxs px-xs rnd-xs color-bg"
           >Opposable</span>
+        </h6>
+
+        <p class="py-s mb-0 h5 bold">
+          {{ geoSysteme.nom }}
         </p>
       </div>
       <div class="mb tablet-blob-1-3">

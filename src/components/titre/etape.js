@@ -193,4 +193,4 @@ const etapeEditFormat = (etape, demarcheId) => {
   return etape
 }
 
-export { etapeEditFormat }
+export { etapeEditFormat, etapeGroupesBuild }

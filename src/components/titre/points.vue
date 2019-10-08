@@ -3,7 +3,7 @@
     <div
       v-if="geoSystemeId"
     >
-      <div class="tablet-blobs px-l flex-align-items-stretch">
+      <div class="tablet-blobs px flex-align-items-stretch">
         <div class="tablet-blob-1-2">
           <select
             v-if="geoSystemes.length > 1"
@@ -12,31 +12,37 @@
             class="p-s mr-s mb-s"
           >
             <option
-              v-for="geoSysteme in geoSystemes"
-              :key="geoSysteme.id"
-              :value="geoSysteme.id"
+              v-for="systeme in geoSystemes"
+              :key="systeme.id"
+              :value="systeme.id"
             >
-              {{ geoSysteme.nom }} ({{ geoSysteme.id }}) {{ geoSysteme.opposable ? '(opposable)' : '' }}
+              {{ systeme.nom }} - {{ systeme.id }} {{ systeme.id === geoSystemeOpposableId ? '(opposable)' : '' }}
             </option>
           </select>
           <div
             v-else
             class="full-x p-s bg-alt mb-s"
           >
-            {{ geoSystemes[0].nom }} ({{ geoSystemes[0].id }})
+            {{ geoSysteme.nom }} ({{ geoSysteme.id }})
           </div>
         </div>
         <div class="tablet-blob-1-2 flex flex-align-items-stretch">
-          <div class="blobs flex-grow flex-align-items-stretch mb-s">
-            <div class="blob-1-2 full-y">
-              <h6 class="full-y border-l pl-s pt-xs">
-                X
+          <div class="blobs-packed flex-grow flex-align-items-stretch mb-s">
+            <div class="blob-packed-1-2 full-y border-l pl-s pt-xs">
+              <h6 class="mb-0">
+                {{ labels[0] }}
               </h6>
+              <p class="h6 italic mb-0">
+                {{ geoSysteme.unite.nom }}
+              </p>
             </div>
-            <div class="blob-1-2 full-y">
-              <h6 class="full-y border-l pl-s pt-xs">
-                Y
+            <div class="blob-packed-1-2 full-y border-l pl-s pt-xs">
+              <h6 class="mb-0">
+                {{ labels[1] }}
               </h6>
+              <p class="h6 italic mb-0">
+                {{ geoSysteme.unite.nom }}
+              </p>
             </div>
           </div>
         </div>
@@ -48,7 +54,7 @@
       >
         <h4
           v-if="groupes.length > 1"
-          class="color-bg pl-s mb-s"
+          class="color-bg pt-s pl-m mb-s"
         >
           Groupe {{ groupeIndex + 1 }}
         </h4>
@@ -59,7 +65,7 @@
         >
           <h4
             v-if="groupeContours.length > 1"
-            class="pl-s mb-s"
+            class="pt-xs pl-s mb-s"
           >
             {{ contourIndex === 0 ? 'Contour' : `Lacune ${contourIndex}` }}
           </h4>
@@ -72,27 +78,30 @@
               <div class="tablet-blob-1-2 flex">
                 <h4
                   v-if="point.nom"
-                  class="mb-0 flex-self-start mr-s"
+                  class="mb-s flex-self-start mr-s"
                 >
                   {{ point.nom }}
                 </h4>
                 <p
                   v-if="point.description"
-                  class="mb-0 h5 flex-grow pt-xs"
+                  class="mb-s h5 flex-grow pt-xs"
                 >
                   {{ point.description }}
                 </p>
               </div>
-              <div class="tablet-blob-1-2">
-                <div class="blobs">
-                  <div class="blob-1-2">
-                    <p class="h5 flex mb-s mt-xs border-l">
-                      <span class="flex-right mono bold">{{ Math.round(point.references[geoSystemeId].coordonnees.x * 1000000) / 1000000 }}</span>
+              <div
+                v-if="!point.lot"
+                class="tablet-blob-1-2"
+              >
+                <div class="blobs-packed mb-s">
+                  <div class="blob-packed-1-2 border-l px-s">
+                    <p class="h5 flex my-xxs">
+                      <span class="flex-right mono bold">{{ round(point.references[geoSystemeId][0]) }}</span>
                     </p>
                   </div>
-                  <div class="blob-1-2">
-                    <p class="h5 flex mb-s mt-xs border-l">
-                      <span class="flex-right mono bold">{{ Math.round(point.references[geoSystemeId].coordonnees.y * 1000000) / 1000000 }}</span>
+                  <div class="blob-packed-1-2 border-l px-s">
+                    <p class="h5 flex my-xxs">
+                      <span class="flex-right mono bold">{{ round(point.references[geoSystemeId][1]) }}</span>
                     </p>
                   </div>
                 </div>
@@ -106,6 +115,8 @@
 </template>
 
 <script>
+import { etapeGroupesBuild } from './etape'
+
 export default {
   props: {
     points: {
@@ -119,65 +130,46 @@ export default {
   },
 
   computed: {
+    index() {
+      return etapeGroupesBuild(this.points)
+    },
+
     groupes() {
-      return this.points.reduce(
-        (
-          groupes,
-          { id, nom, description, references, point, contour, groupe }
-        ) => {
-          groupes[groupe - 1] = groupes[groupe - 1] || []
-          groupes[groupe - 1][contour - 1] =
-            groupes[groupe - 1][contour - 1] || []
-          groupes[groupe - 1][contour - 1][point - 1] = {
-            id,
-            nom,
-            description,
-            references: references.reduce((res, r) => {
-              if (!res[r.geoSysteme.id]) {
-                res[r.geoSysteme.id] = r
-              }
-
-              return res
-            }, {})
-          }
-
-          return groupes
-        },
-        []
-      )
+      return this.index.groupes
     },
 
     geoSystemes() {
-      const geoSystemesObject = this.points.reduce(
-        (geoSystemes, { references }) => {
-          const pointGeoSystemes = references.reduce(
-            (pointGeoSystemes, { geoSysteme, coordonnees, opposable }) => {
-              if (!pointGeoSystemes[geoSysteme.id]) {
-                pointGeoSystemes[geoSysteme.id] = {
-                  id: geoSysteme.id,
-                  nom: geoSysteme.nom,
-                  opposable
-                }
-              }
-
-              return pointGeoSystemes
-            },
-            {}
-          )
-
-          return Object.assign(geoSystemes, pointGeoSystemes)
-        },
-        {}
+      return this.$store.state.metas.geoSystemes.filter(({ id }) =>
+        this.index.geoSystemeIds.includes(id)
       )
+    },
 
-      return Object.keys(geoSystemesObject).map(
-        geoSystemeId => geoSystemesObject[geoSystemeId]
+    geoSystemeOpposableId() {
+      return this.index.geoSystemeOpposableId
+    },
+
+    geoSysteme() {
+      return (
+        this.geoSystemeId &&
+        this.geoSystemes.find(({ id }) => id === this.geoSystemeId)
       )
+    },
+
+    labels() {
+      return this.geoSysteme.unite.id === 'met'
+        ? ['X', 'Y']
+        : ['Longitude', 'Latitude']
     }
   },
 
   created() {
-    this.geoSystemeId = this.geoSystemes[0].id
+    this.geoSystemeId = this.geoSystemeOpposableId || this.geoSystemes[0].id
+  },
+
+  methods: {
+    round(v) {
+      return Math.round(v * 1000000) / 1000000
+    }
   }
 }
 </script>
