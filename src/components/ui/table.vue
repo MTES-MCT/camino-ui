@@ -11,10 +11,9 @@
             @click="sort(index)"
           >
             <button
-              v-if="col.name"
               class="btn-transparent full-x p-0"
             >
-              {{ col.name }}
+              {{ col.name || (sortColumn === index ? '' : '–') }}
               <i
                 v-if="sortColumn === index"
                 class="icon-24 right"
@@ -170,6 +169,8 @@ export default {
       } else {
         this.sortColumn = colIndex
       }
+      this.pageUpdate(1)
+      this.$emit('update:page', 1)
     }
   }
 }
