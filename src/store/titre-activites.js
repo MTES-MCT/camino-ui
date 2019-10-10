@@ -23,7 +23,7 @@ export const actions = {
           'messageAdd',
           {
             value:
-              res && res.confirmation
+              res.statut.id === 'dep'
                 ? `l'activite a été validée`
                 : `l'activite a été enregistrée`,
             type: 'success'
