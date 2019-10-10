@@ -327,8 +327,6 @@ export default {
       if (this.complete) {
         const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
 
-        console.log(this.action, utilisateur)
-
         if (utilisateur.permission) {
           utilisateur.permissionId = utilisateur.permission.id
 

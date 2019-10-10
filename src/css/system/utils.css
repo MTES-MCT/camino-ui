@@ -137,6 +137,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   vertical-align: text-bottom;
 }
 
+.min-width-5 {
+  min-width: calc(5 * var(--unit));
+}
+
 .min-width-6 {
   min-width: calc(6 * var(--unit));
 }

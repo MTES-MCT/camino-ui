@@ -56,7 +56,7 @@
       <div class="desktop-blob-3-4">
         <Pagination
           :page-active="page"
-          :pages-total="elementsPages.length - 1"
+          :pages-total="elementsPages.length"
           :pages-visible="5"
           @update:page="pageUpdateEvent"
         />

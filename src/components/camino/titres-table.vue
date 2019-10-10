@@ -61,7 +61,8 @@ export default {
         },
         {
           id: 'activites',
-          name: 'Activités'
+          name: 'Activités',
+          class: ['min-width-5']
         },
         {
           id: 'substances',
