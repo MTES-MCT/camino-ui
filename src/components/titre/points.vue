@@ -78,7 +78,7 @@
               <div class="tablet-blob-1-2 flex">
                 <h4
                   v-if="point.nom"
-                  class="mb-s flex-self-start mr-s"
+                  class="mb-s flex-self-start mr-xs"
                 >
                   {{ point.nom }}
                 </h4>
@@ -86,6 +86,10 @@
                   v-if="point.description"
                   class="mb-s h5 flex-grow pt-xs"
                 >
+                  <span
+                    v-if="point.subsidiaire && !point.lot"
+                    class="bg-info py-xxs px-xs rnd-xs color-bg"
+                  >Subsidiaire</span>
                   {{ point.description }}
                 </p>
               </div>
