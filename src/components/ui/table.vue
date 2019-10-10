@@ -58,7 +58,7 @@
           :page-active="page"
           :pages-total="elementsPages.length"
           :pages-visible="5"
-          @update:page="pageUpdateEvent"
+          @page:update="pageUpdateEvent"
         />
       </div>
       <div class="desktop-blob-1-4">
@@ -66,12 +66,12 @@
           v-if="elements.length > 10"
           :ranges="ranges"
           :range="range"
-          @update:range="rangeUpdateEvent"
+          @range:update="rangeUpdateEvent"
         />
         <Columns
           :columns="columns"
           class="hide"
-          @update:columns="columnsUpdateEvent"
+          @columns:update="columnsUpdateEvent"
         />
       </div>
     </div>
@@ -141,14 +141,14 @@ export default {
   methods: {
     pageUpdateEvent(page) {
       this.pageUpdate(page)
-      this.$emit('update:page', page)
+      this.$emit('page:update', page)
     },
 
     rangeUpdateEvent(range) {
       this.rangeUpdate(range)
       this.pageUpdate(1)
-      this.$emit('update:range', range)
-      this.$emit('update:page', 1)
+      this.$emit('range:update', range)
+      this.$emit('page:update', 1)
     },
 
     columnsUpdateEvent(columnIds) {
@@ -170,7 +170,7 @@ export default {
         this.sortColumn = colIndex
       }
       this.pageUpdate(1)
-      this.$emit('update:page', 1)
+      this.$emit('page:update', 1)
     }
   }
 }

@@ -3,8 +3,8 @@
     ref="table"
     :elements="elements"
     :columns="colonnes"
-    @update:page="$emit('update:page', $event)"
-    @update:range="$emit('update:range', $event)"
+    @page:update="$emit('page:update', $event)"
+    @range:update="$emit('range:update', $event)"
   />
 </template>
 

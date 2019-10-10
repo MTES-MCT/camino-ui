@@ -2,8 +2,8 @@
   <TitresTable
     ref="table"
     :titres="titres"
-    @update:page="urlPageUpdate"
-    @update:range="urlRangeUpdate"
+    @page:update="urlPageUpdate"
+    @range:update="urlRangeUpdate"
   />
 </template>
 

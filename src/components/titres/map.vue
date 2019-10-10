@@ -55,6 +55,7 @@ import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 import TitreMapWarningBrgm from '../leaflet/warning-brgm.vue'
 import {
+  zones,
   clustersBuild,
   layersBuild,
   tilesBuild,
@@ -77,32 +78,7 @@ export default {
 
   data() {
     return {
-      zones: [
-        {
-          id: 'fr',
-          name: 'Métropole',
-          type: 'LineString',
-          coordinates: [[-5, 41], [10, 51]]
-        },
-        {
-          id: 'gf',
-          name: 'Guyane',
-          type: 'LineString',
-          coordinates: [[-55, 4], [-50, 7]]
-        },
-        {
-          id: 'oi',
-          name: 'Océan Indien',
-          type: 'LineString',
-          coordinates: [[39, -23], [58, -13]]
-        },
-        {
-          id: 'an',
-          name: 'Antilles',
-          type: 'LineString',
-          coordinates: [[-64, 15], [-59, 16]]
-        }
-      ],
+      zones,
       zoneId: 'fr',
       clustersDisplay: true,
       geojsons: {},

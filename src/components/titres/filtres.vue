@@ -1,162 +1,24 @@
 <template>
-  <Accordion
-    ref="filters"
-    :sub="false"
-    class="mb-s"
-  >
-    <template slot="title">
-      Filtres
-    </template>
-
-    <div class="px-m">
-      <div class="tablet-blobs mt">
-        <div class="tablet-blob-1-2 large-blob-1-3">
-          <div
-            v-for="filtre in filtresInputs"
-            :key="filtre.id"
-            class="mb"
-          >
-            <h6>{{ filtre.name }}</h6>
-
-            <input
-              :value="filtre.values.join(' ')"
-              type="text"
-              :placeholder="filtre.placeholder"
-              class="p-s"
-              @blur="inputChange(filtre.id, $event)"
-            >
-          </div>
-          <button
-            ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mb"
-            @click="inputsErase"
-          >
-            Tout effacer
-          </button>
-        </div>
-
-        <div
-          v-for="filtre in filtresCheckboxes"
-          :key="filtre.id === 'types' ? filtre.nom : filtre.id"
-          class="tablet-blob-1-2 large-blob-1-3 mb"
-        >
-          <h6>{{ filtre.name }}</h6>
-          <ul class="list-sans">
-            <li
-              v-for="element in filtre.id === 'types' ? checkboxesTypesReduce(metas[filtre.id]) : metas[filtre.id]"
-              :key="element.id"
-            >
-              <label>
-                <input
-                  :value="element.id"
-                  :checked="filtres.find(({id}) => id === filtre.id).values.find(id => element.id === id)"
-                  type="checkbox"
-                  class="mr-s"
-                  @change="checkboxToggle(filtre.id, $event)"
-                >
-                <component
-                  :is="filtre.component"
-                  :element="element"
-                />
-              </label>
-            </li>
-          </ul>
-          <button
-            ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mr-xs"
-            @click="checkboxesSelect(filtre.id, 'none')"
-          >
-            Aucun
-          </button>
-          <button
-            ref="button"
-            class="btn-border h5 px-s p-xs rnd-xs mr-xs"
-            @click="checkboxesSelect(filtre.id, 'all')"
-          >
-            Tous
-          </button>
-        </div>
-      </div>
-
-      <button
-        ref="button"
-        class="btn-flash p-s rnd-xs full-x mb"
-        @click="validate"
-      >
-        Valider
-      </button>
-    </div>
-  </Accordion>
+  <Filters
+    :filters.sync="filters"
+    title="Filtres"
+    button="Valider"
+    @filters:validate="validate"
+  />
 </template>
 
 <script>
-import Accordion from '../ui/accordion.vue'
-import FiltresDomaines from './filtres-domaines.vue'
-import FiltresStatuts from './filtres-statuts.vue'
-import FiltresTypes from './filtres-types.vue'
+import Filters from '../ui/filters.vue'
+import filtres from './filtres.js'
 
 export default {
   components: {
-    Accordion
+    Filters
   },
 
   data() {
     return {
-      filtres: [
-        {
-          id: 'types',
-          type: 'checkbox',
-          values: [],
-          component: FiltresTypes
-        },
-        {
-          id: 'domaines',
-          type: 'checkbox',
-          values: [],
-          component: FiltresDomaines
-        },
-        {
-          id: 'statuts',
-          type: 'checkbox',
-          values: [],
-          component: FiltresStatuts
-        },
-        {
-          id: 'noms',
-          type: 'input',
-          values: [],
-          name: 'Nom',
-          placeholder: '…'
-        },
-        {
-          id: 'entreprises',
-          type: 'input',
-          values: [],
-          name: 'Entreprises',
-          placeholder: 'Nom ou siret'
-        },
-        {
-          id: 'substances',
-          type: 'input',
-          values: [],
-          name: 'Substances',
-          placeholder: 'Or, Argent, Ag, …'
-        },
-        {
-          id: 'references',
-          type: 'input',
-          values: [],
-          name: 'Références',
-          placeholder: 'Référence DGEC, DEAL, DEB, BRGM, Ifremer, …'
-        },
-        {
-          id: 'territoires',
-          type: 'input',
-          values: [],
-          name: 'Territoires',
-          placeholder: 'Commune, département, région, …'
-        }
-      ]
+      filtres
     }
   },
 
@@ -173,35 +35,55 @@ export default {
       return this.$store.state.loaded
     },
 
-    userPreferencesFiltres() {
+    preferencesFiltres() {
       return this.$store.state.user.preferences.filtres
     },
 
-    filtresInputs() {
-      return this.filtres.filter(({ type }) => type === 'input')
-    },
+    filters() {
+      return this.filtres.map(filtre => {
+        if (filtre.type === 'checkboxes') {
+          filtre.elements = this.metas[filtre.id].reduce(
+            (elements, element) => {
+              element.name = element.nom
+              if (
+                filtre.id !== 'types' ||
+                // pour le filtre 'types', plusieurs ids correspondent à un même nom
+                // ne conserve que le premier id
+                !elements.find(({ nom }) => nom === element.nom)
+              ) {
+                elements.push(element)
+              }
 
-    filtresCheckboxes() {
-      return this.filtres.filter(({ type }) => type === 'checkbox')
+              return elements
+            },
+            []
+          )
+        }
+
+        return filtre
+      })
     }
   },
 
   watch: {
-    // si les paramètre d'url correspondant aux filtres changent
-    // (pe: bouton back du navigateur)
-    // - met à jour les filtres
+    // si les paramètre d'url changent (pe: bouton back du navigateur)
+    // - met à jour les filtres depuis les paramètre d'url
     // - met à jour les prefs utilisateur
     $route(to, from) {
       const changed = this.filtres.some(
-        ({ id }) => to.query[id] !== this.userPreferencesFiltres[id]
+        ({ id }) => to.query[id] !== this.preferencesFiltres[id]
       )
 
       if (changed) {
-        this.filtresSet('fromRoute')
+        this.filtresSet('url')
         this.preferencesSet()
       }
     },
 
+    // si les metas changent (appInit ou connexion / deconnexion utilisateur)
+    // - met à jour les filtres
+    // - met à jour les préfs utilisateur
+    // - met à jour les paramètre d'url
     metas: {
       handler: function(metas, metasOld) {
         if (this.loaded) {
@@ -210,20 +92,14 @@ export default {
           )
 
           // si les metas sont chargées pour la première fois
-          // - initialise les filtres depuis les paramètre de route
-          if (firstLoad) {
-            this.filtresSet('fromRoute')
-            this.preferencesSet()
-          }
+          // - source des valeurs de filtres: paramètre d'url
+          // sinon (pe: connexion / deconnexion utilisateur)
+          // - source des valeurs de filtres: prefs utilisateur
+          const source = firstLoad ? 'url' : 'preferences'
 
-          // si les metas sont mises à jour
-          // (par exemple connexion / deconnexion utilisateur)
-          // - met à jour les filtres depuis les préférences utilisateur
-          else {
-            this.preferencesSet()
-            this.filtresSet('fromPreferences')
-            this.urlSet()
-          }
+          this.filtresSet(source)
+          this.preferencesSet()
+          this.urlSet()
         }
       },
       deep: true
@@ -246,95 +122,86 @@ export default {
   },
 
   methods: {
-    filtreFind(id) {
-      return this.filtres.find(f => f.id === id)
+    validate() {
+      // formate les valeus des filtres
+      this.filtresValuesReduce()
+      // met à jour l'url
+      this.urlSet()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     },
 
-    filtresSet(source) {
-      const valueSet = (source, id) => {
-        if (source === 'fromRoute') {
-          return this.$route.query[id]
-        }
-        if (source === 'fromPreferences') {
-          return this.userPreferencesFiltres[id]
-        }
-
-        return this.$route.query[id] || this.userPreferencesFiltres[id]
+    keyup(e) {
+      if ((e.which || e.keyCode) === 13 && this.$refs.filters.opened) {
+        this.validate()
       }
+    },
 
-      const filtreSet = (filtre, value) => {
-        filtre.values = value ? value.split(',') : []
-
-        // supprime du filtre si la valeur n'est pas présente dans les metas
-        if (this.metas[filtre.id]) {
-          filtre.values = filtre.values.filter(filtreId =>
-            this.metas[filtre.id].find(meta => meta.id === filtreId)
-          )
+    // met à jour les filtres
+    // in: (String) source (optionel): 'url' ou 'preferences'
+    // si aucune source est définie, prend en priorité les valeurs définies
+    // - dans l'url
+    // - ou les préfs utilisateur
+    filtresSet(source) {
+      const valueFind = (filtreId, source) => {
+        if (source === 'url') {
+          return this.$route.query[filtreId]
         }
+
+        if (source === 'preferences') {
+          return this.preferencesFiltres[filtreId]
+        }
+
+        return this.$route.query[filtreId] || this.preferencesFiltres[filtreId]
       }
 
       this.filtres.forEach(filtre => {
-        // récupère les paramètres d'url
-        // ou des préférences utilisateur
-        // assigne les paramètres au filtre
-        filtreSet(filtre, valueSet(source, filtre.id))
+        const value = valueFind(filtre.id, source)
+        const values = value ? value.split(',') : []
+        filtre.values = this.valuesReduce(filtre.id, filtre.type, values)
       })
     },
 
+    // met à jour les préfs utilisateur
     preferencesSet() {
-      this.filtres.forEach(filtre => {
-        // les préférences de filtres actuelles de l'utilisateurs
-        const userPreferencesFiltresIds =
-          this.userPreferencesFiltres[filtre.id] &&
-          this.userPreferencesFiltres[filtre.id]
-            .split(',')
-            .sort()
-            .join(',')
+      this.filtres.forEach(({ id, values }) => {
+        // valeur du filtre
+        const value = values.sort().join(',') || null
 
-        const filtresIdsNew =
-          filtre.type === 'checkbox'
-            ? // si le filtre est une checkbox
-              // - supprime les ids qui ne sont plus dans les métas
-              this.metas[filtre.id]
-                .filter(meta => filtre.values.find(value => value === meta.id))
-                .map(({ id }) => id)
-                .sort()
-                .join(',')
-            : filtre.values.sort().join(',') || null
-
-        // si
-        // - les preférences utilisateur ne sont pas définies
-        // - ou elles sont différentes des filtres,
-        // met à jour les préférences utilisateur
+        // si la valeur du filtre dans les préfs utilisateurs
+        // - n'est pas définie
+        // - ou, elle est différente de la valeur dans le composant
+        // met à jour les préfs utilisateur
+        // avec la valeur du filtre dans le composant
         if (
-          userPreferencesFiltresIds === undefined ||
-          filtresIdsNew !== userPreferencesFiltresIds
+          this.preferencesFiltres[id] === undefined ||
+          this.preferencesFiltres[id] !== value
         ) {
           this.$store.dispatch('user/preferenceSet', {
-            section: `filtres.${filtre.id}`,
-            value: filtresIdsNew
+            section: `filtres.${id}`,
+            value: value
           })
         }
       })
     },
 
+    // met à jour les paramètres d'url
     urlSet() {
       let queryUpdated = false
       const query = Object.assign({}, this.$route.query)
 
-      this.filtres.forEach(filtre => {
-        const value = filtre.values.length ? filtre.values.join(',') : null
-        const valueUpdated = value && query[filtre.id] !== value
-        const valueDeleted = !value && query[filtre.id]
+      this.filtres.forEach(({ id, values }) => {
+        const value = values.length ? values.sort().join(',') : null
+        const valueUpdated = value && query[id] !== value
+        const valueDeleted = !value && query[id]
 
         if (valueUpdated || valueDeleted) {
           queryUpdated = true
         }
 
         if (valueUpdated) {
-          query[filtre.id] = value
+          query[id] = value
         } else if (valueDeleted) {
-          delete query[filtre.id]
+          delete query[id]
         }
       })
 
@@ -343,100 +210,44 @@ export default {
       }
     },
 
-    checkboxesTypesReduce(types) {
-      // pour les types, plusieurs id correspondent à un même nom
-      return types.reduce((res, type) => {
-        const e = res.find(e => e.nom === type.nom)
-        return e ? res : [...res, type]
-      }, [])
+    // formate les valeus des filtres dont
+    // - le type est 'checkboxes'
+    // - ou l'id est 'types'
+    filtresValuesReduce() {
+      this.filtres.forEach(filtre => {
+        filtre.values = this.valuesReduce(filtre.id, filtre.type, filtre.values)
+      })
     },
 
-    checkboxToggle(id, e) {
-      const filtre = this.filtreFind(id)
-      const idsSet = (value, values) => {
-        const index = values.indexOf(value)
-
-        if (id !== 'types') {
-          // si la checkbox était false
-          if (index > -1) {
-            values.splice(index, 1)
-            return values
-          }
-
-          // sinon ajoute la checkbox
-          return [...values, value]
-        }
-
-        // s'il s'agit d'une checkbox sur les types
-        const nom = this.metas.types.find(type => type.id === value).nom
-        const types = this.metas.types
-          .filter(type => type.nom === nom)
-          .map(type => type.id)
-
-        // si la checkbox était false
-        if (index > -1) {
-          types.forEach(i => {
-            const index = values.indexOf(i)
-            values.splice(index, 1)
-          })
-
-          return values
-        }
-
-        // sinon ajoute la checkbox
-        return [...values, ...types]
-      }
-
-      filtre.values = idsSet(e.target.value, filtre.values)
-    },
-
-    inputChange(id, e) {
-      const filtre = this.filtreFind(id)
-      const values = e.target.value
-        ? e.target.value.match(/[\w/]+|"(?:\\"|[^"])+"/g)
-        : []
-
-      filtre.values = values
-    },
-
-    checkboxesSelect(id, action) {
-      const filtre = this.filtreFind(id)
-      if (action === 'none') {
-        filtre.values = []
-      }
-
-      if (action === 'all') {
-        filtre.values = this.metas[id].map(({ id }) => id)
-      }
-
-      if (action === 'inverse') {
-        filtre.values = this.metas[id].reduce(
-          (ids, { id }) =>
-            filtre.values.find(i => i === id) ? ids : [...ids, id],
-          []
+    // pour les filtres dont le type est 'checkboxes
+    // - ne conserve que les valeurs qui sont présentes dans les métas
+    // pour le filtre dont l'id est 'types'
+    // - ajoute ou supprime les ids des éléments partageant le même nom
+    valuesReduce(id, type, values) {
+      const checkboxesValuesFilter = (filtreId, values) =>
+        values.filter(value =>
+          this.metas[filtreId].map(({ id }) => id).includes(value)
         )
+
+      const typesValuesReduce = values =>
+        values.reduce((acc, value) => {
+          const typeNom = this.metas.types.find(({ id }) => id === value).nom
+          const typeIds = this.metas.types
+            .filter(({ nom }) => nom === typeNom)
+            .map(({ id }) => id)
+
+          return typeIds.indexOf(value) === 0 ? acc.concat(typeIds) : acc
+        }, [])
+
+      if (type === 'checkboxes') {
+        if (id === 'types') {
+          values = typesValuesReduce(values)
+        }
+
+        values = checkboxesValuesFilter(id, values)
       }
-    },
 
-    inputsErase() {
-      this.filtres
-        .filter(({ type }) => type === 'input')
-        .forEach(filtre => {
-          filtre.values = []
-        })
-    },
-
-    validate() {
-      this.$refs.button.focus()
-      this.urlSet()
-      this.$refs.filters.close()
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    },
-
-    keyup(e) {
-      if ((e.which || e.keyCode) === 13 && this.$refs.filters.opened) {
-        this.validate()
-      }
+      return values
     }
   }
 }

@@ -2,6 +2,33 @@ import 'leaflet'
 import 'leaflet.markercluster'
 const L = window['L']
 
+const zones = [
+  {
+    id: 'fr',
+    name: 'Métropole',
+    type: 'LineString',
+    coordinates: [[-5, 41], [10, 51]]
+  },
+  {
+    id: 'gf',
+    name: 'Guyane',
+    type: 'LineString',
+    coordinates: [[-55, 4], [-50, 7]]
+  },
+  {
+    id: 'oi',
+    name: 'Océan Indien',
+    type: 'LineString',
+    coordinates: [[39, -23], [58, -13]]
+  },
+  {
+    id: 'an',
+    name: 'Antilles',
+    type: 'LineString',
+    coordinates: [[-64, 15], [-59, 16]]
+  }
+]
+
 const clustersBuild = domaines =>
   domaines.reduce((clusters, { id }) => {
     const cluster = L.markerClusterGroup({
@@ -25,7 +52,9 @@ const clustersBuild = domaines =>
       animate: true,
       spiderfyOnMaxZoom: false,
       showCoverageOnHover: false,
-      maxClusterRadius(x) { return 2048 / Math.pow(x, 2) }
+      maxClusterRadius(x) {
+        return 2048 / Math.pow(x, 2)
+      }
     })
 
     return Object.assign(clusters, { [id]: cluster })
@@ -96,9 +125,11 @@ const layersBuild = (titres, router) =>
         }
       })
 
+      markers.push(marker)
+
       return {
         geojsons: Object.assign(geojsons, { [titre.id]: geojson }),
-        markers: [...markers, marker]
+        markers
       }
     },
     { geojsons: {}, markers: [] }
@@ -117,4 +148,4 @@ const tilesBuild = tiles =>
 
 const geojsonBoundsGet = zone => L.geoJSON(zone).getBounds()
 
-export { clustersBuild, layersBuild, tilesBuild, geojsonBoundsGet }
+export { zones, clustersBuild, layersBuild, tilesBuild, geojsonBoundsGet }

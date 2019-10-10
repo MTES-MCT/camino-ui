@@ -112,7 +112,7 @@ export default {
 
   methods: {
     pageChange(page) {
-      this.$emit('update:page', page)
+      this.$emit('page:update', page)
     }
   }
 }

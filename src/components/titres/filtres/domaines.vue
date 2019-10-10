@@ -1,7 +1,7 @@
 <template>
   <span>
     <Pill
-      :color="color"
+      :color="`bg-titre-domaine-${element.id}`"
       class="mr-xs mono"
     >
       {{ element.id }}
@@ -10,19 +10,15 @@
 </template>
 
 <script>
-import Pill from '../ui/pill.vue'
+import Pill from '../../ui/pill.vue'
 
 export default {
   components: {
     Pill
   },
+
   props: {
     element: { type: Object, default: () => ({}) }
-  },
-  computed: {
-    color() {
-      return `bg-titre-domaine-${this.element.id}`
-    }
   }
 }
 </script>
