@@ -43,7 +43,8 @@ const lotPointsBuild = (
       coordonnees && coordonnees.match(/(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)/g)
 
     if (isValid) {
-      points.push({
+      const point = {
+        nom: null,
         lot,
         subsidiaire: true,
         description,
@@ -57,7 +58,9 @@ const lotPointsBuild = (
             opposable
           )
         ]
-      })
+      }
+
+      points.push(point)
     }
 
     return points
