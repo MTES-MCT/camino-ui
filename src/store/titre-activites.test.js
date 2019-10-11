@@ -29,7 +29,7 @@ describe('état des activités', () => {
       messageAdd: jest.fn()
     }
     actionsTitre = { reload: jest.fn() }
-    activite = { id: 27, contenu: [], statut: { id: 28 } }
+    activite = { id: 27, contenu: [], statut: { id: 'dep' } }
     titreActivites.state = {}
     titre = { namespaced: true, actions: actionsTitre }
     store = new Vuex.Store({
@@ -41,15 +41,14 @@ describe('état des activités', () => {
 
   test('valide une activité pour un titre', async () => {
     const apiMock = api.titreActiviteUpdate.mockResolvedValue({
-      confirmation: true
+      statut: { id: 'dep' }
     })
     await store.dispatch('titreActivites/update', activite)
 
     expect(mutations.popupMessagesRemove).toHaveBeenCalled()
     expect(mutations.loadingAdd).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({
-      activite: { id: 27, contenu: [], activiteStatutId: 28 }
+      activite: { id: 27, contenu: [], activiteStatutId: 'dep' }
     })
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
@@ -58,7 +57,7 @@ describe('état des activités', () => {
 
   test('enregistre une activité pour un titre', async () => {
     api.titreActiviteUpdate.mockResolvedValue({
-      confirmation: false
+      statut: { id: 'dep' }
     })
     await store.dispatch('titreActivites/update', activite)
 
@@ -71,7 +70,7 @@ describe('état des activités', () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({
-      activite: { id: 27, contenu: [], activiteStatutId: 28 }
+      activite: { id: 27, contenu: [], activiteStatutId: 'dep' }
     })
     expect(actions.messageAdd).not.toHaveBeenCalled()
   })
@@ -84,7 +83,7 @@ describe('état des activités', () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({
-      activite: { id: 27, contenu: [], activiteStatutId: 28 }
+      activite: { id: 27, contenu: [], activiteStatutId: 'dep' }
     })
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
