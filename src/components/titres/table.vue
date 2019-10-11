@@ -106,7 +106,7 @@ export default {
     },
 
     urlPageUpdate(page) {
-      this.urlParamSet('page', page)
+      this.urlParamSet('page', page.toString())
     },
 
     preferencesRangeUpdate(range) {
@@ -117,7 +117,7 @@ export default {
     },
 
     urlRangeUpdate(range) {
-      this.urlParamSet('range', range)
+      this.urlParamSet('range', range.toString())
     }
   }
 }
