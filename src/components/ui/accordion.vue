@@ -23,7 +23,7 @@
         <button
           v-if="$slots.default"
           class="btn-alt py-s px-m"
-          @click="opened = !opened"
+          @click="openToggle"
         >
           <i
             class="icon-24"
@@ -40,7 +40,7 @@
       v-else-if="$slots.default && !$slots.buttons"
       :class="{ 'rnd-t-xs': opened || $slots.sub, 'rnd-xs': !opened && !$slots.sub }"
       class="accordion-header flex full-x btn-border py-s px-m"
-      @click="opened = !opened"
+      @click="openToggle"
     >
       <div>
         <h6
@@ -105,6 +105,11 @@ export default {
   methods: {
     close() {
       this.opened = false
+    },
+
+    openToggle() {
+      this.opened = !this.opened
+      this.$emit('toggle', this.opened)
     }
   }
 }

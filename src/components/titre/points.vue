@@ -84,7 +84,7 @@
                 </h4>
                 <p
                   v-if="point.description"
-                  class="mb-s h5 flex-grow pt-xs"
+                  class="mb-s h5 flex-grow pt-xxs"
                 >
                   <span
                     v-if="point.subsidiaire && !point.lot"

@@ -1,8 +1,9 @@
 <template>
   <Accordion
-    ref="filters"
+    ref="accordion"
     :sub="false"
     class="mb-s"
+    @toggle="$emit('filters:toggle', $event)"
   >
     <template slot="title">
       {{ title }}
@@ -89,10 +90,12 @@ export default {
     },
 
     validate() {
-      this.$refs.button.focus()
-      this.$refs.filters.close()
-
       this.$emit('filters:validate')
+    },
+
+    close() {
+      this.$refs.button.focus()
+      this.$refs.accordion.close()
     }
   }
 }

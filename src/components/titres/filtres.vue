@@ -1,9 +1,11 @@
 <template>
   <Filters
+    ref="filters"
     :filters.sync="filters"
     title="Filtres"
     button="Valider"
     @filters:validate="validate"
+    @filters:toggle="toggle"
   />
 </template>
 
@@ -18,7 +20,8 @@ export default {
 
   data() {
     return {
-      filtres
+      filtres,
+      opened: false
     }
   },
 
@@ -128,11 +131,16 @@ export default {
       this.filtresValuesReduce()
       // met à jour l'url
       this.urlSet()
+      this.$refs.filters.close()
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
 
+    toggle(opened) {
+      this.opened = opened
+    },
+
     keyup(e) {
-      if ((e.which || e.keyCode) === 13 && this.$refs.filters.opened) {
+      if ((e.which || e.keyCode) === 13 && this.opened) {
         this.validate()
       }
     },
