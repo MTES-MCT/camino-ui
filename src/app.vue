@@ -64,14 +64,13 @@ export default {
   },
 
   created() {
-    this.appInit()
+    this.init()
   },
 
   methods: {
-    appInit() {
-      this.$store.dispatch('user/init').then(r => {
-        this.$store.dispatch('init')
-      })
+    async init() {
+      await this.$store.dispatch('user/init')
+      this.$store.dispatch('init')
     }
   }
 }

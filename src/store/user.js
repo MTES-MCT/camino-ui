@@ -39,8 +39,8 @@ export const actions = {
     try {
       const res = await utilisateurIdentify()
 
-      commit('set', res.utilisateur)
       dispatch('tokenSet', res.token)
+      commit('set', res.utilisateur)
     } catch (e) {
       dispatch('tokenRemove')
       commit('reset')
@@ -220,7 +220,7 @@ export const actions = {
     localStorage.setItem('token', token)
   },
 
-  tokenRemove() {
+  tokenRemove({ commit }) {
     localStorage.removeItem('token')
   }
 }
@@ -228,7 +228,7 @@ export const actions = {
 export const getters = {
   tilesActive(state, getters, rootState) {
     return rootState.map.tiles.find(
-      t => t.id === state.preferences.carte.tilesId
+      ({ id }) => id === state.preferences.carte.tilesId
     )
   },
 

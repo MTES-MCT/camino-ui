@@ -47,7 +47,8 @@ export default {
               element.name = element.nom
               if (
                 filtre.id !== 'types' ||
-                // pour le filtre 'types', plusieurs ids correspondent à un même nom
+                // pour le filtre dont l'id est 'types'
+                // plusieurs ids correspondent à un même nom
                 // ne conserve que le premier id
                 !elements.find(({ nom }) => nom === element.nom)
               ) {
@@ -67,22 +68,22 @@ export default {
 
   watch: {
     // si les paramètre d'url changent (pe: bouton back du navigateur)
-    // - met à jour les filtres depuis les paramètre d'url
-    // - met à jour les prefs utilisateur
+    // - met à jour les filtres
+    // - met à jour les prefs utilisateur -> recharge les titres
     $route(to, from) {
       const changed = this.filtres.some(
-        ({ id }) => to.query[id] !== this.preferencesFiltres[id]
+        ({ id }) => (to.query[id] || null) !== this.preferencesFiltres[id]
       )
 
-      if (changed) {
+      if (changed && this.loaded) {
         this.filtresSet('url')
         this.preferencesSet()
       }
     },
 
-    // si les metas changent (appInit ou connexion / deconnexion utilisateur)
+    // si les metas changent (app init ou connexion / deconnexion utilisateur)
     // - met à jour les filtres
-    // - met à jour les préfs utilisateur
+    // - met à jour les préfs utilisateur -> recharge les titres
     // - met à jour les paramètre d'url
     metas: {
       handler: function(metas, metasOld) {
@@ -91,10 +92,10 @@ export default {
             id => !metasOld[id].length
           )
 
-          // si les metas sont chargées pour la première fois
-          // - source des valeurs de filtres: paramètre d'url
+          // si c'est le premier chargement de l'app
+          // - source des filtres: paramètres d'url
           // sinon (pe: connexion / deconnexion utilisateur)
-          // - source des valeurs de filtres: prefs utilisateur
+          // - source des filtres: prefs utilisateur
           const source = firstLoad ? 'url' : 'preferences'
 
           this.filtresSet(source)
@@ -123,7 +124,7 @@ export default {
 
   methods: {
     validate() {
-      // formate les valeus des filtres
+      // formate les valeurs des filtres
       this.filtresValuesReduce()
       // met à jour l'url
       this.urlSet()
@@ -137,7 +138,7 @@ export default {
     },
 
     // met à jour les filtres
-    // in: (String) source (optionel): 'url' ou 'preferences'
+    // in: source (String, optionel) 'url' ou 'preferences'
     // si aucune source est définie, prend en priorité les valeurs définies
     // - dans l'url
     // - ou les préfs utilisateur
@@ -162,23 +163,23 @@ export default {
     },
 
     // met à jour les préfs utilisateur
+    // si elles changent,
+    // ça met à jour les titres (via /titres/watch/filtres)
     preferencesSet() {
       this.filtres.forEach(({ id, values }) => {
-        // valeur du filtre
         const value = values.sort().join(',') || null
 
-        // si la valeur du filtre dans les préfs utilisateurs
+        // si la préf utilisateur
         // - n'est pas définie
-        // - ou, elle est différente de la valeur dans le composant
-        // met à jour les préfs utilisateur
-        // avec la valeur du filtre dans le composant
+        // - ou, est différente du filtre
+        // met à jour la préf utilisateur
         if (
           this.preferencesFiltres[id] === undefined ||
           this.preferencesFiltres[id] !== value
         ) {
           this.$store.dispatch('user/preferenceSet', {
             section: `filtres.${id}`,
-            value: value
+            value
           })
         }
       })
@@ -186,7 +187,7 @@ export default {
 
     // met à jour les paramètres d'url
     urlSet() {
-      let queryUpdated = false
+      let changed = false
       const query = Object.assign({}, this.$route.query)
 
       this.filtres.forEach(({ id, values }) => {
@@ -194,23 +195,21 @@ export default {
         const valueUpdated = value && query[id] !== value
         const valueDeleted = !value && query[id]
 
-        if (valueUpdated || valueDeleted) {
-          queryUpdated = true
-        }
-
         if (valueUpdated) {
           query[id] = value
+          changed = true
         } else if (valueDeleted) {
           delete query[id]
+          changed = true
         }
       })
 
-      if (queryUpdated) {
+      if (changed) {
         this.$router.push({ query })
       }
     },
 
-    // formate les valeus des filtres dont
+    // formate les valeurs des filtres dont
     // - le type est 'checkboxes'
     // - ou l'id est 'types'
     filtresValuesReduce() {
@@ -231,12 +230,16 @@ export default {
 
       const typesValuesReduce = values =>
         values.reduce((acc, value) => {
-          const typeNom = this.metas.types.find(({ id }) => id === value).nom
-          const typeIds = this.metas.types
-            .filter(({ nom }) => nom === typeNom)
-            .map(({ id }) => id)
+          const type = this.metas.types.find(({ id }) => id === value)
+          const typeIds =
+            type &&
+            this.metas.types
+              .filter(({ nom }) => nom === type.nom)
+              .map(({ id }) => id)
 
-          return typeIds.indexOf(value) === 0 ? acc.concat(typeIds) : acc
+          return typeIds && typeIds.indexOf(value) === 0
+            ? acc.concat(typeIds)
+            : acc
         }, [])
 
       if (type === 'checkboxes') {
