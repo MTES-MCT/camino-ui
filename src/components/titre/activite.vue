@@ -41,7 +41,7 @@
 
         <div class="tablet-blobs">
           <div
-            v-for="e in s.elements.filter(e => (!e.dateFin || e.dateFin >= dateFormat(activite.date)) && (!e.dateDebut || e.dateDebut < dateFormat(activite.date)))"
+            v-for="e in s.elements.filter(e => (!e.dateFin || e.dateFin >= activite.date) && (!e.dateDebut || e.dateDebut < activite.date))"
             :key="e.id"
             class="tablet-blob-1-4"
           >

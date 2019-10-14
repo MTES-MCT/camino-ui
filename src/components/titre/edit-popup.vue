@@ -18,7 +18,6 @@
             v-model="titre.nom"
             type="text"
             class="p-s"
-            placeholder="–"
           >
         </div>
       </div>

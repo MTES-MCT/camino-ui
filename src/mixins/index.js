@@ -1,4 +1,4 @@
-import { permissionsCheck, numberFormat, dateFormat } from '../utils'
+import { permissionsCheck, numberFormat } from '../utils'
 
 var mixins = {
   methods: {
@@ -11,10 +11,6 @@ var mixins = {
 
     numberFormat(number) {
       return numberFormat(number)
-    },
-
-    dateFormat(date) {
-      return dateFormat(date)
     },
 
     urlParamSet(id, value) {

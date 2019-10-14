@@ -1,4 +1,4 @@
-import { jsonTypenameOmit, dateFormat } from '../../utils/index'
+import { jsonTypenameOmit } from '../../utils/index'
 
 const referencesBuild = references =>
   references.reduce(
@@ -144,18 +144,6 @@ const etapeEditFormat = (etape, demarcheId) => {
 
     delete etape[prop]
   })
-
-  if (etape.date) {
-    etape.date = dateFormat(etape.date)
-  }
-
-  if (etape.dateDebut) {
-    etape.dateDebut = dateFormat(etape.dateDebut)
-  }
-
-  if (etape.dateFin) {
-    etape.dateFin = dateFormat(etape.dateFin)
-  }
 
   etape.duree = {
     ans: etape.duree ? Math.floor(etape.duree / 12) : null,

@@ -185,10 +185,7 @@ export default {
         entreprise.nom ||
         // trouve l'établissement le plus récent
         entreprise.etablissements.reduce(
-          (res, e) =>
-            res && this.dateFormat(res.dateDebut) > this.dateFormat(e.dateDebut)
-              ? res
-              : e,
+          (res, e) => (res && res.dateDebut > e.dateDebut ? res : e),
           null
         ).nom
       )

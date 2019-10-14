@@ -228,6 +228,7 @@ export default {
   methods: {
     save() {
       const etape = etapeSaveFormat(this.etape)
+
       etape.contenu = this.contenu
 
       // console.log(JSON.stringify(etape, null, 2))

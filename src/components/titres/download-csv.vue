@@ -34,10 +34,9 @@ export default {
             nom: titre.nom,
             type: titre.type.nom,
             domaine: titre.domaine.nom,
-            date_debut: titre.dateDebut && this.dateFormat(titre.dateDebut),
-            date_fin: titre.dateFin && this.dateFormat(titre.dateFin),
-            date_demande:
-              titre.dateDemande && this.dateFormat(titre.dateDemande),
+            date_debut: titre.dateDebut,
+            date_fin: titre.dateFin,
+            date_demande: titre.dateDemande,
             statut: titre.statut.nom,
             volume: titre.volume,
             volume_unite: titre.volumeUnite,

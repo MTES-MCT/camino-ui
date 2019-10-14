@@ -40,7 +40,7 @@ export const actions = {
   },
 
   async reload({ dispatch }, { id, idOld }) {
-    if (idOld && id !== idOld) {
+    if (id !== idOld) {
       router.replace({ name: 'titre', params: { id } })
     }
 
