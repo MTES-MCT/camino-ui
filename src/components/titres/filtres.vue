@@ -79,8 +79,8 @@ export default {
       )
 
       if (changed && this.loaded) {
-        this.filtresSet('url')
-        this.preferencesSet()
+        this.filtresUpdate('url')
+        this.preferencesUpdate()
       }
     },
 
@@ -101,9 +101,9 @@ export default {
           // - source des filtres: prefs utilisateur
           const source = firstLoad ? 'url' : 'preferences'
 
-          this.filtresSet(source)
-          this.preferencesSet()
-          this.urlSet()
+          this.filtresUpdate(source)
+          this.preferencesUpdate()
+          this.urlUpdate()
         }
       },
       deep: true
@@ -113,9 +113,9 @@ export default {
   created() {
     // si les metas sont chargées
     if (this.loaded) {
-      this.filtresSet()
-      this.preferencesSet()
-      this.urlSet()
+      this.filtresUpdate()
+      this.preferencesUpdate()
+      this.urlUpdate()
     }
 
     document.addEventListener('keyup', this.keyup)
@@ -127,12 +127,14 @@ export default {
 
   methods: {
     validate() {
-      // formate les valeurs des filtres
-      this.filtresValuesReduce()
-      // met à jour l'url
-      this.urlSet()
+      // les champs textes sont mis à jour onBlur
+      // pour les prendre en compte lorsqu'on valide en appuyant sur "entréee"
+      // met le focus sur le bouton de validation (dans la méthode close())
       this.$refs.filters.close()
       window.scrollTo({ top: 0, behavior: 'smooth' })
+      // formate les valeurs des filtres
+      this.filtresValuesReduce()
+      this.urlUpdate()
     },
 
     toggle(opened) {
@@ -150,7 +152,7 @@ export default {
     // si aucune source est définie, prend en priorité les valeurs définies
     // - dans l'url
     // - ou les préfs utilisateur
-    filtresSet(source) {
+    filtresUpdate(source) {
       const valueFind = (filtreId, source) => {
         if (source === 'url') {
           return this.$route.query[filtreId]
@@ -173,7 +175,7 @@ export default {
     // met à jour les préfs utilisateur
     // si elles changent,
     // ça met à jour les titres (via /titres/watch/filtres)
-    preferencesSet() {
+    preferencesUpdate() {
       this.filtres.forEach(({ id, values }) => {
         const value = values.sort().join(',') || null
 
@@ -194,12 +196,13 @@ export default {
     },
 
     // met à jour les paramètres d'url
-    urlSet() {
+    urlUpdate() {
       let changed = false
       const query = Object.assign({}, this.$route.query)
 
       this.filtres.forEach(({ id, values }) => {
         const value = values.length ? values.sort().join(',') : null
+
         const valueUpdated = value && query[id] !== value
         const valueDeleted = !value && query[id]
 
