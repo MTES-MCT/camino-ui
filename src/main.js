@@ -10,7 +10,7 @@ import router from './router'
 import store from './store'
 import mixins from './mixins'
 
-import { dateFormatFr } from './utils'
+import { dateFormat } from './utils'
 
 /* global npmVersion */
 if (process.env.VUE_APP_SENTRY_DSN) {
@@ -30,7 +30,7 @@ if (process.env.VUE_APP_SENTRY_DSN) {
 
 Vue.config.productionTip = false
 
-Vue.filter('dateFormat', dateFormatFr)
+Vue.filter('dateFormat', dateFormat)
 
 Vue.mixin(mixins)
 

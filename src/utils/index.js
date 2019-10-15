@@ -1,12 +1,6 @@
-import dateFormatLib from 'date-format'
-
-const dateFormat = isoDate => {
-  return dateFormatLib('yyyy-MM-dd', new Date(isoDate))
-  // .replace(/ *\([^)]*\) */g,'')
-}
-
-const dateFormatFr = isoDate => {
-  return dateFormatLib('dd/MM/yyyy', new Date(isoDate))
+const dateFormat = dateString => {
+  const [y, m, d] = dateString.split('-')
+  return `${d} / ${m} / ${y}`
   // .replace(/ *\([^)]*\) */g,'')
 }
 
@@ -21,10 +15,4 @@ const typenameOmit = (key, value) => (key === '__typename' ? undefined : value)
 
 const jsonTypenameOmit = json => JSON.parse(JSON.stringify(json), typenameOmit)
 
-export {
-  dateFormatFr,
-  dateFormat,
-  permissionsCheck,
-  numberFormat,
-  jsonTypenameOmit
-}
+export { dateFormat, permissionsCheck, numberFormat, jsonTypenameOmit }
