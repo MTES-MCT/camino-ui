@@ -20,7 +20,7 @@
         <div class="desktop-blobs">
           <div class="desktop-blob-1-4">
             <p class="h0 text-center mb-0">
-              98%
+              99%
             </p>
             <p class="bold text-center ">
               du cadastre minier publié
@@ -56,7 +56,7 @@
           </div>
           <div class="desktop-blob-1-4">
             <p class="h0 text-center mb-0">
-              23
+              26
             </p>
             <p class="bold text-center ">
               sources de données distinctes consolidées et redistribuées
@@ -135,7 +135,7 @@
         <div class="desktop-blobs">
           <div class="desktop-blob-1-3">
             <p class="h0 text-center mb-0">
-              90
+              120
             </p>
             <p class="bold text-center ">
               erreurs signalées par les utilisateurs et corrigées améliorent la qualité des données
