@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.5](https://github.com/MTES-MCT/camino-ui/compare/v0.22.4...v0.22.5) (2019-10-16)
+
+
+### Bug Fixes
+
+* corrige l'affichage de la date ([6cce484](https://github.com/MTES-MCT/camino-ui/commit/6cce484))
+* **activités:** corrige l'affichage des listes ([5ef97f0](https://github.com/MTES-MCT/camino-ui/commit/5ef97f0))
+* **filtres:** prend en compte les champs textes lorsqu'on valide au clavier ([e9fed23](https://github.com/MTES-MCT/camino-ui/commit/e9fed23))
+* affiche les dates correctement quelque soit le fuseau horaire ([15ab04c](https://github.com/MTES-MCT/camino-ui/commit/15ab04c))
+* corrige la construction d'un groupe de points ([36fee75](https://github.com/MTES-MCT/camino-ui/commit/36fee75))
+* corrige un bug d'url qui empêche le chargement des titres ([53b9f11](https://github.com/MTES-MCT/camino-ui/commit/53b9f11))
+* corrige une alerte de vue-router NavigationDuplicated ([809c475](https://github.com/MTES-MCT/camino-ui/commit/809c475))
+* valide les filtres avec la touche "entrée" ([6fe3531](https://github.com/MTES-MCT/camino-ui/commit/6fe3531))
+* **édition d'activité:** affiche un message différent lors de l'enregistrement et de la validation ([4a6d5f2](https://github.com/MTES-MCT/camino-ui/commit/4a6d5f2))
+* **édition d'étape:** supprime le nom du point s'il fait parti d'un lot ([e9a8cff](https://github.com/MTES-MCT/camino-ui/commit/e9a8cff))
+* **table:** affiche le bouton de la dernière page manquant ([3869e73](https://github.com/MTES-MCT/camino-ui/commit/3869e73))
+* met à jour l'url de la page après l'ajout d'une étape ([d3daf6b](https://github.com/MTES-MCT/camino-ui/commit/d3daf6b))
+* **filtres:** corrige la recherche filtrée avec un slash ([#34](https://github.com/MTES-MCT/camino-ui/issues/34)) ([8fcb059](https://github.com/MTES-MCT/camino-ui/commit/8fcb059))
+
+
+### Features
+
+* **statistiques:** met à jour les données ([dd279d5](https://github.com/MTES-MCT/camino-ui/commit/dd279d5))
+* **table:** propose le tri par colonne pour une colonne sans intitulé (p.e.: "domaine") ([ccc3473](https://github.com/MTES-MCT/camino-ui/commit/ccc3473))
+* affiche l'étiquette "subsidiaire" dans la liste de points ([19f1390](https://github.com/MTES-MCT/camino-ui/commit/19f1390))
+* améliore la présentation de la liste de  points ([#36](https://github.com/MTES-MCT/camino-ui/issues/36)) ([480da0b](https://github.com/MTES-MCT/camino-ui/commit/480da0b))
+* change l'affichage de la liste de points [#33](https://github.com/MTES-MCT/camino-ui/issues/33) ([db1825e](https://github.com/MTES-MCT/camino-ui/commit/db1825e))
+* supprime les unités sur les références de points ([#35](https://github.com/MTES-MCT/camino-ui/issues/35)) ([0a55934](https://github.com/MTES-MCT/camino-ui/commit/0a55934))
+
 ### [0.22.4](https://github.com/MTES-MCT/camino-ui/compare/v0.22.3...v0.22.4) (2019-10-02)
 
 
