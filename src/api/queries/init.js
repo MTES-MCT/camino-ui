@@ -1,6 +1,7 @@
 import gql from 'graphql-tag'
 import fragmentSubstance from './fragments/substance'
 import fragmentEntreprises from './fragments/entreprises'
+import fragmentAdministrations from './fragments/administrations'
 import fragmentPermission from './fragments/permission'
 import { fragmentMeta } from './fragments/metas'
 
@@ -16,6 +17,10 @@ const queryInit = gql`
       ...entreprises
     }
 
+    administrations {
+      ...administrations
+    }
+
     permissions {
       ...permission
     }
@@ -26,6 +31,8 @@ const queryInit = gql`
   }
 
   ${fragmentEntreprises}
+
+  ${fragmentAdministrations}
 
   ${fragmentSubstance}
 

@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import { fragmentUtilisateur } from './utilisateur'
 
 const fragmentAdministration = gql`
   fragment administration on Administration {
@@ -13,7 +14,12 @@ const fragmentAdministration = gql`
     url
     telephone
     email
+    utilisateurs {
+      ...utilisateur
+    }
   }
+
+  ${fragmentUtilisateur}
 `
 
 export default fragmentAdministration

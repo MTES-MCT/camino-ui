@@ -62,6 +62,27 @@ export default {
   computed: {
     elements() {
       return this.utilisateurs.map(utilisateur => {
+        let elements
+
+        if (utilisateur.administrations && utilisateur.administrations.length) {
+          elements = utilisateur.administrations.map(({ nom }) => nom)
+        } else if (utilisateur.entreprises && utilisateur.entreprises.length) {
+          elements = utilisateur.entreprises.map(({ nom }) => nom)
+        }
+
+        const lien =
+          elements && elements.length
+            ? {
+                component: List,
+                props: {
+                  elements,
+                  mini: true
+                },
+                class: 'mb--xs',
+                value: elements.join(', ')
+              }
+            : { value: '' }
+
         const columns = {
           prenom: { value: utilisateur.prenom || '–' },
           nom: { value: utilisateur.nom || '–' },
@@ -79,20 +100,7 @@ export default {
                 value: utilisateur.permission.nom
               }
             : '',
-          lien:
-            utilisateur.entreprises && utilisateur.entreprises.length
-              ? {
-                  component: List,
-                  props: {
-                    elements: utilisateur.entreprises.map(({ nom }) => nom),
-                    mini: true
-                  },
-                  class: 'mb--xs',
-                  value: utilisateur.entreprises
-                    .map(({ nom }) => nom)
-                    .join(', ')
-                }
-              : { value: '' }
+          lien
         }
 
         return {

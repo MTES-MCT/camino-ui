@@ -12,6 +12,8 @@ import utilisateur from './utilisateur'
 import utilisateurs from './utilisateurs'
 import entreprise from './entreprise'
 import entreprises from './entreprises'
+import administration from './administration'
+import administrations from './administrations'
 import substances from './substances'
 import user from './user'
 import titreActivites from './titre-activites'
@@ -26,6 +28,8 @@ const modules = {
   utilisateurs,
   entreprise,
   entreprises,
+  administration,
+  administrations,
   substances,
   user,
   titreActivites,
@@ -66,6 +70,8 @@ export const actions = {
 
       commit('entreprises/set', res.entreprises, { root: true })
 
+      commit('administrations/set', res.administrations, { root: true })
+
       commit('metas/set', res.metas, { root: true })
 
       if (!state.loaded) {
@@ -86,7 +92,9 @@ export const actions = {
       type: 'error',
       value:
         error ||
-        `Erreur: impossible de se connecter à l'API (${process.env.VUE_APP_API_URL})`
+        `Erreur: impossible de se connecter à l'API (${
+          process.env.VUE_APP_API_URL
+        })`
     })
 
     setTimeout(() => {
