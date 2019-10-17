@@ -10,7 +10,10 @@ import {
   titreDemarcheDelete,
   titreEtapeCreate,
   titreEtapeUpdate,
-  titreEtapeDelete
+  titreEtapeDelete,
+  titreDocumentCreate,
+  titreDocumentUpdate,
+  titreDocumentDelete
 } from './titres'
 
 import {
@@ -47,6 +50,9 @@ export {
   titreEtapeCreate,
   titreEtapeUpdate,
   titreEtapeDelete,
+  titreDocumentCreate,
+  titreDocumentUpdate,
+  titreDocumentDelete,
   titres,
   utilisateur,
   utilisateurs,

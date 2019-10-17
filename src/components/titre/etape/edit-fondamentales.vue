@@ -122,7 +122,6 @@
           <div class="tablet-blob-1-3">
             <select
               v-model="etape.engagementDeviseId"
-              type="text"
               class="p-s"
               :class="{'mb-s': etape.engagement, 'mb': !etape.engagement}"
             >
@@ -204,7 +203,6 @@
           <div class="tablet-blob-1-3">
             <select
               v-model="etape.volumeUniteId"
-              type="text"
               class="p-s"
               :class="{'mb-s': etape.volume, 'mb': !etape.volume}"
             >
@@ -252,7 +250,6 @@
       >
         <select
           v-model="etape.titulairesIds[n]"
-          type="text"
           class="p-s mr-s"
         >
           <option
@@ -311,7 +308,6 @@
       >
         <select
           v-model="etape.amodiatairesIds[n]"
-          type="text"
           class="p-s mr-s"
         >
           <option
@@ -371,7 +367,6 @@
       >
         <select
           v-model="etape.substancesIds[n]"
-          type="text"
           class="p-s mr-s"
         >
           <option
@@ -419,15 +414,8 @@
 <script>
 export default {
   props: {
-    etape: {
-      type: Object,
-      default: () => ({})
-    },
-
-    domaineId: {
-      type: String,
-      default: ''
-    }
+    etape: { type: Object, default: () => ({}) },
+    domaineId: { type: String, default: '' }
   },
 
   computed: {

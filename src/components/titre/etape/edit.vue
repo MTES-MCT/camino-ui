@@ -24,7 +24,6 @@
       <div class="mb tablet-blob-2-3">
         <select
           v-model="etape.typeId"
-          type="text"
           class="p-s"
         >
           <option
@@ -48,7 +47,6 @@
         <div class="mb tablet-blob-2-3">
           <select
             v-model="etape.statutId"
-            type="text"
             class="p-s"
           >
             <option
@@ -165,13 +163,9 @@ export default {
 
   props: {
     etape: { type: Object, default: () => ({}) },
-
     demarcheType: { type: Object, default: () => ({}) },
-
     domaineId: { type: String, default: '' },
-
     titreNom: { type: String, default: '' },
-
     creation: { type: Boolean, default: false }
   },
 

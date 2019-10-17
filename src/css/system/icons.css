@@ -157,6 +157,50 @@
   );
 }
 
+.icon-file-chevron-b {
+  background-image: svg-load(
+    './icons/24-file-chevron-b.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn-alt:hover .icon-file-chevron-b {
+  background-image: svg-load(
+    './icons/24-file-chevron-b.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.icon-file-chevron-t {
+  background-image: svg-load(
+    './icons/24-file-chevron-t.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn-alt:hover .icon-file-chevron-t {
+  background-image: svg-load(
+    './icons/24-file-chevron-t.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
 .icon-download {
   background-image: svg-load(
     './icons/24-download.svg',
@@ -201,7 +245,7 @@
   );
 }
 
-.btn-alt:hover .icon-link {
+.btn-border:hover .icon-link {
   background-image: svg-load(
     './icons/24-link.svg',
     fill=none,

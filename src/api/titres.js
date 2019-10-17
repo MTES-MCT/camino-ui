@@ -12,7 +12,10 @@ import {
   mutationTitreDemarcheSupprimer,
   mutationTitreEtapeCreer,
   mutationTitreEtapeModifier,
-  mutationTitreEtapeSupprimer
+  mutationTitreEtapeSupprimer,
+  mutationTitreDocumentCreer,
+  mutationTitreDocumentModifier,
+  mutationTitreDocumentSupprimer
 } from './queries/titres'
 
 const titre = async id => {
@@ -197,6 +200,48 @@ const titreEtapeDelete = async ({ id }) => {
   }
 }
 
+const titreDocumentCreate = async ({ document }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationTitreDocumentCreer,
+      variables: { document }
+    })
+
+    return res && res.data && res.data.titreDocumentCreer
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
+const titreDocumentUpdate = async ({ document }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationTitreDocumentModifier,
+      variables: { document }
+    })
+
+    return res && res.data && res.data.titreDocumentModifier
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
+const titreDocumentDelete = async ({ id }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationTitreDocumentSupprimer,
+      variables: { id }
+    })
+
+    return res && res.data && res.data.titreDocumentSupprimer
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
 export {
   titre,
   titres,
@@ -208,5 +253,8 @@ export {
   titreDemarcheDelete,
   titreEtapeCreate,
   titreEtapeUpdate,
-  titreEtapeDelete
+  titreEtapeDelete,
+  titreDocumentCreate,
+  titreDocumentUpdate,
+  titreDocumentDelete
 }

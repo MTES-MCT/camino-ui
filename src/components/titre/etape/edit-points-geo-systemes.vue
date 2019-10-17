@@ -11,7 +11,6 @@
       <div class="flex full-x mb-s">
         <select
           v-model="etape.geoSystemeIds[etapeGeoSystemeIndex]"
-          type="text"
           class="p-s mr-s"
           @change="geoSystemeUpdate(etapeGeoSystemeIndex)"
         >
