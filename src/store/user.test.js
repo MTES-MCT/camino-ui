@@ -242,15 +242,16 @@ describe("état de l'utilisateur connecté", () => {
     expect(actions.messageAdd).not.toHaveBeenCalled()
   })
 
-  test("initialise le mot de passe d'un user", async () => {
-    const loginMock = jest.fn()
-    user.actions.login = loginMock
+  test("initialise le mot de passe d'un utilisateur", async () => {
+    const tokenSetMock = jest.fn()
+    user.actions.tokenSet = tokenSetMock
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
-    const apiMock = api.utilisateurPasswordInit.mockResolvedValue(userInfo)
+    const apiMock = api.utilisateurPasswordInit.mockResolvedValue({
+      utilisateur: userInfo
+    })
     const res = await store.dispatch('user/passwordInit', {
       motDePasse1: motDePasse,
-      motDePasse2: motDePasse,
-      email
+      motDePasse2: motDePasse
     })
 
     expect(apiMock).toHaveBeenCalled()
@@ -258,9 +259,9 @@ describe("état de l'utilisateur connecté", () => {
       motDePasse1: motDePasse,
       motDePasse2: motDePasse
     })
-    expect(actions.messageAdd).toHaveBeenCalled()
-    expect(loginMock).toHaveBeenCalled()
-    expect(res).toEqual(userInfo)
+    expect(actions.messageAdd).toHaveBeenCalledTimes(2)
+    expect(tokenSetMock).toHaveBeenCalled()
+    expect(res).toEqual({ utilisateur: userInfo })
   })
 
   test("retourne une erreur api dans la création du mot de passe de l'utilisateur", async () => {

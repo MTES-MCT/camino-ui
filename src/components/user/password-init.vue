@@ -84,8 +84,7 @@ export default {
         this.$store.dispatch('user/tokenSet', this.$route.query.token)
         this.$store.dispatch('user/passwordInit', {
           motDePasse1: this.motDePasse1,
-          motDePasse2: this.motDePasse2,
-          email: this.$route.query.email
+          motDePasse2: this.motDePasse2
         })
       }
     },
