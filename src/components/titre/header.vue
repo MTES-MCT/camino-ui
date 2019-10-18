@@ -6,7 +6,7 @@
       </div>
       <div class="desktop-blob-1-2 flex">
         <div
-          v-if="permissionsCheck(['super'])"
+          v-if="permissionsCheck(['super']) || permissionsTitreAdministrationsCheck(titre)"
           class="flex-right"
         >
           <button
@@ -228,4 +228,3 @@ export default {
   }
 }
 </script>
-

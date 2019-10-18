@@ -48,6 +48,10 @@ const fragmentUtilisateurToken = gql`
           nom
         }
       }
+      administrations {
+        id
+        nom
+      }
     }
     token
   }
