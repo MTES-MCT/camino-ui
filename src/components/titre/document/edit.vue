@@ -57,6 +57,34 @@
     </div>
     <hr>
 
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Fichier</h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <div
+          v-if="document.fichier"
+          class="flex"
+        >
+          <span class="h5">{{ document.fichier }}.pdf</span>
+          <button
+            v-if="permissionsCheck(['super'])"
+            class="btn-border py-s px-m my--xs rnd-xs flex-right"
+            @click="fileRemove"
+          >
+            <i class="icon-24 icon-trash" />
+          </button>
+        </div>
+        <input
+          v-else
+          type="file"
+          class="p-xs mb-0"
+          @change="fileChange"
+        >
+      </div>
+    </div>
+    <hr>
+
     <div v-if="document.typeId === 'dec' || document.typeId === 'arr'">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -215,8 +243,18 @@ export default {
   },
 
   methods: {
+    fileChange({
+      target: {
+        validity,
+        files: [file]
+      }
+    }) {
+      if (validity.valid) {
+        this.document.fichierNouveau = file
+      }
+    },
+
     save() {
-      // console.log(JSON.stringify(doc, null, 2))
       if (this.creation) {
         this.$store.dispatch('titre/documentCreate', this.document)
       } else {
@@ -235,6 +273,10 @@ export default {
       } else if ((e.which || e.keyCode) === 13 && this.events.saveKeyUp) {
         this.save()
       }
+    },
+
+    fileRemove() {
+      this.document.fichier = ''
     },
 
     errorsRemove() {}

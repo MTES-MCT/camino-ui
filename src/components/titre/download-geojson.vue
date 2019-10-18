@@ -26,17 +26,18 @@ export default {
     },
 
     content() {
-      const titresFormatGeojson = titre => ({
-        type: 'FeatureCollection',
-        properties: {
-          id: titre.id,
-          nom: titre.nom
-        },
-        features: [titre.geojsonMultiPolygon, ...titre.geojsonPoints.features]
-      })
-
       return JSON.stringify(
-        jsonTypenameOmit(titresFormatGeojson(this.titre)),
+        {
+          type: 'FeatureCollection',
+          properties: {
+            id: this.titre.id,
+            nom: this.titre.nom
+          },
+          features: jsonTypenameOmit([
+            this.titre.geojsonMultiPolygon,
+            ...this.titre.geojsonPoints.features
+          ])
+        },
         null,
         2
       )

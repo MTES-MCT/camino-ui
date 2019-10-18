@@ -1,8 +1,8 @@
 <template>
-  <div class="pt">
+  <div>
     <button
       v-if="permissionsCheck(['super'])"
-      class="btn-border rnd-xs py-s px-m full-x flex mb-s"
+      class="btn-border rnd-xs py-s px-m full-x flex mb-s mt"
       @click="addPopupOpen"
     >
       Ajouter un document <i class="icon-24 icon-plus flex-right" />

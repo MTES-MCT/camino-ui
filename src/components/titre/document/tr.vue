@@ -18,6 +18,7 @@
       >
         <i class="icon-24 icon-pencil" />
       </button>
+
       <button
         v-if="document.fichier"
         class="btn-border py-s px-m my--xs"
@@ -42,6 +43,7 @@
 </template>
 
 <script>
+import { jsonTypenameOmit } from '../../../utils/index'
 import DocumentEditPopup from './edit.vue'
 import DocumentRemovePopup from './remove.vue'
 
@@ -63,7 +65,7 @@ export default {
     },
 
     editPopupOpen() {
-      const document = JSON.parse(JSON.stringify(this.document))
+      const document = jsonTypenameOmit(this.document)
       document.typeId = document.type.id
       document.titreEtapeId = this.etapeId
 

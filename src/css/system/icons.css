@@ -168,6 +168,7 @@
   );
 }
 
+.btn-border:hover .icon-file-chevron-b,
 .btn-alt:hover .icon-file-chevron-b {
   background-image: svg-load(
     './icons/24-file-chevron-b.svg',
@@ -190,6 +191,7 @@
   );
 }
 
+.btn-border:hover .icon-file-chevron-t,
 .btn-alt:hover .icon-file-chevron-t {
   background-image: svg-load(
     './icons/24-file-chevron-t.svg',
