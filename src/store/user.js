@@ -61,7 +61,7 @@ export const actions = {
       dispatch(
         'messageAdd',
         {
-          value: `Bienvenue  ${res.utilisateur.prenom} ${res.utilisateur.nom}`,
+          value: `bienvenue ${res.utilisateur.prenom} ${res.utilisateur.nom}`,
           type: 'success'
         },
         { root: true }
@@ -168,10 +168,7 @@ export const actions = {
     }
   },
 
-  async passwordInit(
-    { commit, dispatch },
-    { motDePasse1, motDePasse2, email }
-  ) {
+  async passwordInit({ commit, dispatch }, { motDePasse1, motDePasse2 }) {
     commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
 
     try {
@@ -180,7 +177,7 @@ export const actions = {
       dispatch(
         'messageAdd',
         {
-          value: `${res}`,
+          value: 'mot de passe mis à jour',
           type: 'success'
         },
         { root: true }
@@ -188,7 +185,17 @@ export const actions = {
 
       router.push({ name: 'titres' })
 
-      dispatch('login', { email, motDePasse: motDePasse1 })
+      dispatch('tokenSet', res.token)
+      await dispatch('init', null, { root: true })
+      commit('set', res.utilisateur)
+      dispatch(
+        'messageAdd',
+        {
+          value: `bienvenue ${res.utilisateur.prenom} ${res.utilisateur.nom}`,
+          type: 'success'
+        },
+        { root: true }
+      )
 
       return res
     } catch (e) {

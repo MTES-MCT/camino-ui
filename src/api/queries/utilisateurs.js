@@ -112,8 +112,12 @@ const mutationUtilisateurMotDePasseInitialiser = gql`
     utilisateurMotDePasseInitialiser(
       motDePasse1: $motDePasse1
       motDePasse2: $motDePasse2
-    )
+    ) {
+      ...utilisateurToken
+    }
   }
+
+  ${fragmentUtilisateurToken}
 `
 
 const mutationUtilisateurMotDePasseEmailEnvoyer = gql`
