@@ -57,7 +57,7 @@ describe('état des activités', () => {
 
   test('enregistre une activité pour un titre', async () => {
     api.titreActiviteUpdate.mockResolvedValue({
-      statut: { id: 'dep' }
+      statut: { id: 'enc' }
     })
     await store.dispatch('titreActivites/update', activite)
 
@@ -75,7 +75,7 @@ describe('état des activités', () => {
     expect(actions.messageAdd).not.toHaveBeenCalled()
   })
 
-  test("erreur dans l'api lors de l'enregistrement de une activité", async () => {
+  test("erreur dans l'api lors de l'enregistrement d'une activité", async () => {
     const apiMock = api.titreActiviteUpdate.mockRejectedValue(
       new Error("l'api ne répond pas")
     )

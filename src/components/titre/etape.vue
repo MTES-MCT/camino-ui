@@ -18,7 +18,7 @@
     </template>
 
     <template
-      v-if="permissionsCheck(['super'])"
+      v-if="permissionsCheck(['super']) || permissionsTitreAdministrationsCheck(titre)"
       slot="buttons"
     >
       <button
@@ -278,6 +278,10 @@ export default {
   },
 
   computed: {
+    titre() {
+      return this.$store.state.titre.current
+    },
+
     etapeType() {
       return (
         this.demarcheType.etapesTypes.find(et => et.id === this.etape.typeId) ||

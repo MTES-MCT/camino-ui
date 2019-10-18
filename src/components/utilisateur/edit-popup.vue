@@ -163,6 +163,17 @@
                 >Entreprise
               </label>
             </li>
+            <li class="mr">
+              <label>
+                <input
+                  v-model="lien"
+                  type="radio"
+                  :value="'administration'"
+                  :checked="lien === 'administration'"
+                  @change="lienReset"
+                >Administration
+              </label>
+            </li>
           </ul>
         </div>
       </div>
@@ -213,6 +224,55 @@
           @click="entrepriseAdd"
         >
           Ajouter une entreprise<i class="icon-24 icon-plus flex-right" />
+        </button>
+      </div>
+
+      <div v-if="lien === 'administration'">
+        <hr>
+        <h3 class="mb-s">
+          Administrations
+        </h3>
+        <div
+          v-for="(administrationId, n) in utilisateur.administrationsIds"
+          :key="n"
+        >
+          <div
+            class="flex full-x"
+            :class="{'mb-s': administrationsLength, 'mb': !administrationsLength}"
+          >
+            <select
+              v-model="utilisateur.administrationsIds[n]"
+              type="text"
+              class="p-s mr-s"
+            >
+              <option
+                v-for="administration in administrations"
+                :key="administration.id"
+                :value="administration.id"
+                :disabled="utilisateur.administrationsIds.find(id => id === administration.id)"
+              >
+                {{ administration.nom }} {{ administration.service }}
+              </option>
+            </select>
+            <div class="flex-right">
+              <button
+                class="btn-border py-s px-m rnd-xs"
+                @click="administrationRemove(n)"
+              >
+                <i class="icon-24 icon-minus" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button
+          v-if="!utilisateur.administrationsIds.includes('')"
+          class="btn-border rnd-xs py-s px-m full-x flex"
+
+          :class="{'mb-s': administrationsLength, 'mb': !administrationsLength}"
+          @click="administrationAdd"
+        >
+          Ajouter une administration<i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
     </div>
@@ -301,19 +361,28 @@ export default {
         this.utilisateur.email
       )
     },
+
     entreprises() {
       return this.$store.state.entreprises.list
     },
-
     entreprisesLength() {
       return this.utilisateur.entreprisesIds.filter(id => id).length
+    },
+
+    administrations() {
+      return this.$store.state.administrations.list
+    },
+    administrationsLength() {
+      return this.utilisateur.administrationsIds.filter(id => id).length
     }
   },
 
   created() {
     document.addEventListener('keyup', this.keyup)
 
-    if (this.entreprisesLength) {
+    if (this.administrationsLength) {
+      this.lien = 'administration'
+    } else if (this.entreprisesLength) {
       this.lien = 'entreprise'
     }
   },
@@ -334,6 +403,8 @@ export default {
         }
 
         utilisateur.entreprisesIds = utilisateur.entreprisesIds.filter(id => id)
+
+        utilisateur.administrationsIds = utilisateur.administrationsIds.filter(id => id)
 
         if (this.action === 'create') {
           this.$store.dispatch('utilisateurs/add', utilisateur)
@@ -366,8 +437,7 @@ export default {
 
     lienReset() {
       this.utilisateur.entreprisesIds = []
-      this.utilisateur.administrationId =
-        this.lien === 'administration' ? '' : null
+      this.utilisateur.administrationsIds = []
     },
 
     entrepriseAdd() {
@@ -376,6 +446,14 @@ export default {
 
     entrepriseRemove(index) {
       this.utilisateur.entreprisesIds.splice(index, 1)
+    },
+
+    administrationAdd() {
+      this.utilisateur.administrationsIds.push('')
+    },
+
+    administrationRemove(index) {
+      this.utilisateur.administrationsIds.splice(index, 1)
     }
   }
 }

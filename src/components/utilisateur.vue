@@ -143,6 +143,23 @@
             </p>
           </div>
         </div>
+
+        <div
+          v-if="utilisateur.administrations.length"
+          class="tablet-blobs"
+        >
+          <div class="tablet-blob-1-4">
+            <h6 class="mt-xs">
+              Administration
+            </h6>
+          </div>
+
+          <div class="tablet-blob-3-4">
+            <p>
+              {{ utilisateur.administrations.map(({nom}) => `${nom})`).join(', ') }}
+            </p>
+          </div>
+        </div>
       </template>
     </Accordion>
   </Card>
@@ -204,11 +221,9 @@ export default {
 
       delete utilisateur.entreprises
 
-      if (utilisateur.administration) {
-        utilisateur.administrationId = utilisateur.administration.id
-      }
+      utilisateur.administrationsIds = utilisateur.administrations.map(({ id }) => id)
 
-      delete utilisateur.administration
+      delete utilisateur.administrations
 
       this.$store.commit('popupOpen', {
         component: UtilisateurEditPopup,

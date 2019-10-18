@@ -19,7 +19,7 @@
       </div>
       <div class="desktop-blob-1-4 flex">
         <div
-          v-if="permissionsCheck(['super'])"
+          v-if="permissionsCheck(['super']) || permissionsTitreAdministrationsCheck(titre)"
           class="flex-right"
         >
           <button
@@ -40,7 +40,7 @@
     </div>
 
     <button
-      v-if="permissionsCheck(['super'])"
+      v-if="permissionsCheck(['super']) || permissionsTitreAdministrationsCheck(titre)"
       class="btn-border rnd-xs py-s px-m full-x flex mb"
       @click="etapeAddPopupOpen"
     >

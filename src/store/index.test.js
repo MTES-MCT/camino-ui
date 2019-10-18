@@ -14,6 +14,7 @@ jest.mock('./map', () => ({ map: jest.fn() }))
 jest.mock('./utilisateur', () => ({ utilisateur: jest.fn() }))
 jest.mock('./utilisateurs', () => ({ utilisateurs: jest.fn() }))
 jest.mock('./entreprises', () => ({ entreprises: jest.fn() }))
+jest.mock('./administrations', () => ({ administrations: jest.fn() }))
 jest.mock('./substances', () => ({ substances: jest.fn() }))
 jest.mock('./user', () => ({ user: jest.fn() }))
 jest.mock('./titre-activites', () => ({ titreActivites: jest.fn() }))
@@ -30,7 +31,11 @@ describe("état général de l'application", () => {
   let state
   let store
   let modules
-  let metasSet, utilisateursPermissionsSet, substancesSet, entreprisesSet
+  let metasSet,
+    utilisateursPermissionsSet,
+    substancesSet,
+    entreprisesSet,
+    administrationsSet
 
   beforeEach(() => {
     state = {
@@ -52,6 +57,7 @@ describe("état général de l'application", () => {
     utilisateursPermissionsSet = jest.fn()
     substancesSet = jest.fn()
     entreprisesSet = jest.fn()
+    administrationsSet = jest.fn()
 
     modules = {
       metas: { namespaced: true, mutations: { set: metasSet } },
@@ -60,6 +66,10 @@ describe("état général de l'application", () => {
         mutations: { permissionsSet: utilisateursPermissionsSet }
       },
       entreprises: { namespaced: true, mutations: { set: entreprisesSet } },
+      administrations: {
+        namespaced: true,
+        mutations: { set: administrationsSet }
+      },
       substances: { namespaced: true, mutations: { set: substancesSet } }
     }
 
@@ -155,13 +165,15 @@ describe("état général de l'application", () => {
       metas: { domaines: 'c,w', statuts: 'val' },
       substances: 'or',
       permissions: 'admin',
-      entreprises: 'macdo'
+      entreprises: 'macdo',
+      administrations: 'ministere'
     })
     await store.dispatch('init')
 
     expect(utilisateursPermissionsSet).toHaveBeenCalled()
     expect(substancesSet).toHaveBeenCalled()
     expect(entreprisesSet).toHaveBeenCalled()
+    expect(administrationsSet).toHaveBeenCalled()
     expect(metasSet).toHaveBeenCalled()
   })
 
@@ -174,6 +186,7 @@ describe("état général de l'application", () => {
     expect(utilisateursPermissionsSet).toHaveBeenCalled()
     expect(substancesSet).toHaveBeenCalled()
     expect(entreprisesSet).toHaveBeenCalled()
+    expect(administrationsSet).toHaveBeenCalled()
     expect(metasSet).toHaveBeenCalled()
   })
 

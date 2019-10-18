@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 import fragmentPermission from './permission'
 import fragmentEntreprises from './entreprises'
-import fragmentAdministration from './administration'
+import fragmentAdministrations from './administrations'
 
 const fragmentUtilisateur = gql`
   fragment utilisateur on Utilisateur {
@@ -11,8 +11,8 @@ const fragmentUtilisateur = gql`
     prenom
     telephoneMobile
     telephoneFixe
-    administration {
-      ...administration
+    administrations {
+      ...administrations
     }
     entreprises {
       ...entreprises
@@ -22,7 +22,7 @@ const fragmentUtilisateur = gql`
     }
   }
 
-  ${fragmentAdministration}
+  ${fragmentAdministrations}
 
   ${fragmentEntreprises}
 
@@ -47,6 +47,10 @@ const fragmentUtilisateurToken = gql`
           id
           nom
         }
+      }
+      administrations {
+        id
+        nom
       }
     }
     token
