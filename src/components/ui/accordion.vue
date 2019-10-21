@@ -28,8 +28,8 @@
           <i
             class="icon-24"
             :class="{
-              'icon-chevron-b': !opened,
-              'icon-chevron-t': opened
+              [iconOpenedClass]: !opened,
+              [iconClosedClass]: opened
             }"
           />
         </button>
@@ -56,7 +56,7 @@
       <div class="flex flex-right flex-end">
         <i
           class="icon-24"
-          :class="{ 'icon-chevron-b': !opened, 'icon-chevron-t': opened }"
+          :class="{ [iconOpenedClass]: !opened, [iconClosedClass]: opened }"
         />
       </div>
     </button>
@@ -95,6 +95,18 @@
 <script>
 export default {
   name: 'UiSytemAccordion',
+
+  props: {
+    iconOpenedClass: {
+      type: String,
+      default: 'icon-chevron-b'
+    },
+
+    iconClosedClass: {
+      type: String,
+      default: 'icon-chevron-t'
+    }
+  },
 
   data() {
     return {

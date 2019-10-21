@@ -25,7 +25,6 @@
         <div class="mb tablet-blob-2-3">
           <select
             v-model="demarche.typeId"
-            type="text"
             class="p-s mr"
           >
             <option

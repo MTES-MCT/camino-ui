@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { jsonTypenameOmit } from '../../utils/index'
 import activiteEditPopup from './activite-edit-popup.vue'
 
 export default {
@@ -23,7 +24,7 @@ export default {
 
   methods: {
     activiteEditPopupOpen() {
-      const activite = JSON.parse(JSON.stringify(this.activite))
+      const activite = jsonTypenameOmit(this.activite)
 
       activite.contenu = this.activite.sections.reduce(
         (sectionsObj, s) =>

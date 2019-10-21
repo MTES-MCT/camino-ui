@@ -54,6 +54,10 @@ const fragmentDemarcheType = gql`
 
 const fragmentMeta = gql`
   fragment meta on Metas {
+    documentsTypes {
+      id
+      nom
+    }
     domaines {
       id
       nom

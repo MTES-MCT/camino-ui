@@ -32,7 +32,6 @@
         <div class="mb tablet-blob-2-3">
           <select
             v-model="titre.domaineId"
-            type="text"
             class="p-s mr"
           >
             <option
@@ -57,7 +56,6 @@
         <div class="mb tablet-blob-2-3">
           <select
             v-model="titre.typeId"
-            type="text"
             class="p-s mr"
             :disabled="!types"
           >

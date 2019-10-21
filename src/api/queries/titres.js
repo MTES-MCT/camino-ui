@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import {fragmentTitre} from './fragments/titre'
+import { fragmentTitre } from './fragments/titre'
 import fragmentTitres from './fragments/titres'
 
 const queryTitre = gql`
@@ -129,6 +129,36 @@ const mutationTitreEtapeSupprimer = gql`
   ${fragmentTitre}
 `
 
+const mutationTitreDocumentCreer = gql`
+  mutation TitreDocumentCreer($document: InputDocumentCreation!) {
+    titreDocumentCreer(document: $document) {
+      ...titre
+    }
+  }
+
+  ${fragmentTitre}
+`
+
+const mutationTitreDocumentModifier = gql`
+  mutation TitreDocumentModifier($document: InputDocumentModification!) {
+    titreDocumentModifier(document: $document) {
+      ...titre
+    }
+  }
+
+  ${fragmentTitre}
+`
+
+const mutationTitreDocumentSupprimer = gql`
+  mutation TitreDocumentSupprimer($id: ID!) {
+    titreDocumentSupprimer(id: $id) {
+      ...titre
+    }
+  }
+
+  ${fragmentTitre}
+`
+
 export {
   queryTitre,
   queryTitres,
@@ -140,5 +170,8 @@ export {
   mutationTitreDemarcheSupprimer,
   mutationTitreEtapeCreer,
   mutationTitreEtapeModifier,
-  mutationTitreEtapeSupprimer
+  mutationTitreEtapeSupprimer,
+  mutationTitreDocumentCreer,
+  mutationTitreDocumentModifier,
+  mutationTitreDocumentSupprimer
 }

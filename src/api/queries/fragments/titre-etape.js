@@ -75,10 +75,14 @@ const fragmentTitreEtape = gql`
   fragment document on Document {
     id
     nom
-    type
+    type {
+      id
+      nom
+    }
+    fichier
+    fichierTypeId
     url
     uri
-    fichier
     jorf
     nor
   }

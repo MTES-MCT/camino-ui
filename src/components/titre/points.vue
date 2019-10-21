@@ -8,7 +8,6 @@
           <select
             v-if="geoSystemes.length > 1"
             v-model="geoSystemeId"
-            type="text"
             class="p-s mr-s mb-s"
           >
             <option

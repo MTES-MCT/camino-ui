@@ -1,7 +1,8 @@
 <template>
   <Accordion
     class="mb"
-    :sub="true"
+    icon-opened-class="icon-file-chevron-b"
+    icon-closed-class="icon-file-chevron-t"
   >
     <template slot="section">
       {{ etape.date | dateFormat }}
@@ -234,7 +235,11 @@
 
     <Documents
       v-if="etape.documents.length"
+      :etape-id="etape.id"
       :documents="etape.documents"
+      :demarche-type-nom="demarcheType.nom"
+      :etape-type-nom="etape.type.nom"
+      :titre-nom="titreNom"
       class="px-m"
     />
   </Accordion>
@@ -318,6 +323,10 @@ export default {
         ans: this.etape.duree && Math.floor(this.etape.duree / 12),
         mois: this.etape.duree && Math.floor(this.etape.duree % 12)
       }
+    },
+
+    titreNom() {
+      return this.$store.state.titre.current.nom
     }
   },
 
@@ -331,7 +340,7 @@ export default {
           etape,
           domaineId: this.$store.state.titre.current.domaine.id,
           demarcheType: this.demarcheType,
-          titreNom: this.$store.state.titre.current.nom
+          titreNom: this.titreNom
         }
       })
     },
@@ -343,7 +352,7 @@ export default {
           etapeTypeNom: this.etape.type.nom,
           etapeId: this.etape.id,
           demarcheTypeNom: this.demarcheType.nom,
-          titreNom: this.$store.state.titre.current.nom,
+          titreNom: this.titreNom,
           titreType: this.$store.state.titre.current.type.nom
         }
       })

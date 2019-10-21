@@ -267,11 +267,11 @@ describe("état général de l'application", () => {
     const messageAddMock = jest.fn()
     actions.messageAdd = messageAddMock
     store = new Vuex.Store({ modules, state, actions, mutations })
-    const titreDocumentId = 'crique-sophie'
-    const fileName = 'criqueSophie'
+    const documentId = 'crique-sophie'
+    const fichierTypeId = 'pdf'
     localStorage.setItem('token', 'privateToken')
     fetch.mockResponseOnce(JSON.stringify({ status: 200 }))
-    await store.dispatch('documentDownload', { titreDocumentId, fileName })
+    await store.dispatch('documentDownload', { documentId, fichierTypeId })
 
     expect(fetch).toHaveBeenCalled()
     expect(fileSaver.saveAs).toHaveBeenCalled()
@@ -282,11 +282,11 @@ describe("état général de l'application", () => {
     const apiErrorMock = jest.fn()
     actions.apiError = apiErrorMock
     store = new Vuex.Store({ modules, state, actions, mutations })
-    const titreDocumentId = 'crique-sophie'
-    const fileName = 'criqueSophie'
+    const documentId = 'crique-sophie'
+    const fichierTypeId = 'pdf'
     localStorage.removeItem('token')
     fetch.mockReject(new Error('erreur api'))
-    await store.dispatch('documentDownload', { titreDocumentId, fileName })
+    await store.dispatch('documentDownload', { documentId, fichierTypeId })
 
     expect(fetch).toHaveBeenCalled()
     expect(apiErrorMock).toHaveBeenCalled()
@@ -296,11 +296,11 @@ describe("état général de l'application", () => {
     const messageAddMock = jest.fn()
     actions.messageAdd = messageAddMock
     store = new Vuex.Store({ modules, state, actions, mutations })
-    const titreDocumentId = 'crique-sophie'
-    const fileName = 'criqueSophie'
+    const documentId = 'crique-sophie'
+    const fichierTypeId = 'pdf'
     localStorage.setItem('token', 'privateToken')
     fetch.mockResponseOnce('fichier introuvable', { status: 404 })
-    await store.dispatch('documentDownload', { titreDocumentId, fileName })
+    await store.dispatch('documentDownload', { documentId, fichierTypeId })
 
     expect(fetch).toHaveBeenCalled()
     expect(fileSaver.saveAs).not.toHaveBeenCalled()

@@ -168,6 +168,7 @@
 </template>
 
 <script>
+import { jsonTypenameOmit } from '../../utils/index'
 import Pill from '../ui/pill.vue'
 import PillList from '../ui/pill-list.vue'
 import Dot from '../ui/dot.vue'
@@ -192,7 +193,7 @@ export default {
 
   methods: {
     editPopupOpen() {
-      const titre = JSON.parse(JSON.stringify(this.titre))
+      const titre = jsonTypenameOmit(this.titre)
 
       const keys = ['id', 'nom', 'typeId', 'domaineId', 'references']
 

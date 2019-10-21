@@ -9,7 +9,10 @@ import {
   titreDemarcheDelete,
   titreEtapeCreate,
   titreEtapeUpdate,
-  titreEtapeDelete
+  titreEtapeDelete,
+  titreDocumentCreate,
+  titreDocumentUpdate,
+  titreDocumentDelete
 } from '../api'
 
 import router from '../router'
@@ -253,31 +256,73 @@ export const actions = {
     }
   },
 
-  documentSelect({ commit }, { documentId, selected }) {
-    if (selected) {
-      commit('documentSelectionAdd', documentId)
-    } else {
-      commit('documentSelectionRemove', documentId)
+  async documentCreate({ commit, dispatch }, document) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
+    commit('loadingAdd', 'titreDocumentCreate', { root: true })
+
+    try {
+      const res = await titreDocumentCreate({ document })
+
+      if (res) {
+        commit('popupClose', null, { root: true })
+        dispatch('reload', {
+          id: res.id,
+          idOld: document.titreEtapeId.slice(0, -12)
+        })
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeCreate', { root: true })
+    }
+  },
+
+  async documentUpdate({ commit, dispatch }, document) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
+    commit('loadingAdd', 'titreDocumentUpdate', { root: true })
+
+    try {
+      const res = await titreDocumentUpdate({ document })
+
+      if (res) {
+        commit('popupClose', null, { root: true })
+        dispatch('reload', {
+          id: res.id,
+          idOld: document.titreEtapeId.slice(0, -12)
+        })
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreDocumentUpdate', { root: true })
+    }
+  },
+
+  async documentDelete({ commit, dispatch }, id) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'titreDocumentDelete', { root: true })
+
+    try {
+      const res = await titreDocumentDelete({ id })
+
+      if (res) {
+        commit('popupClose', null, { root: true })
+        dispatch('reload', { id: res.id, idOld: id.slice(0, -21) })
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreDocumentDelete', { root: true })
     }
   }
-}
-
-export const getters = {
-  documentsTotal: state =>
-    state.current && state.current['démarches']
-      ? Object.keys(state.current['démarches']).reduce(
-          (total, type) =>
-            (total += state.current['démarches'][type].reduce(
-              (subtotal, d) =>
-                (subtotal += d.documents ? d.documents.length : 0),
-              0
-            )),
-          0
-        )
-      : 0,
-
-  documentSelected: state => documentId =>
-    state.documents.find(id => id === documentId)
 }
 
 export const mutations = {
@@ -287,15 +332,6 @@ export const mutations = {
 
   reset(state) {
     Vue.set(state, 'current', null)
-  },
-
-  documentSelectionAdd(state, documentId) {
-    state.documents.push(documentId)
-  },
-
-  documentSelectionRemove(state, documentId) {
-    const index = state.documents.findIndex(id => id === documentId)
-    Vue.delete(state.documents, index)
   }
 }
 
@@ -303,6 +339,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  getters,
   mutations
 }

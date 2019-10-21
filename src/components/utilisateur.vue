@@ -166,6 +166,7 @@
 </template>
 
 <script>
+import { jsonTypenameOmit } from '../utils/index'
 import Card from './ui/card.vue'
 import Accordion from './ui/accordion.vue'
 import Pill from './ui/pill.vue'
@@ -214,14 +215,17 @@ export default {
     get() {
       this.$store.dispatch('utilisateur/get', this.$route.params.id)
     },
+
     editPopupOpen() {
-      const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
+      const utilisateur = jsonTypenameOmit(this.utilisateur)
 
       utilisateur.entreprisesIds = utilisateur.entreprises.map(({ id }) => id)
 
       delete utilisateur.entreprises
 
-      utilisateur.administrationsIds = utilisateur.administrations.map(({ id }) => id)
+      utilisateur.administrationsIds = utilisateur.administrations.map(
+        ({ id }) => id
+      )
 
       delete utilisateur.administrations
 
@@ -233,19 +237,21 @@ export default {
         }
       })
     },
+
     removePopupOpen() {
       this.$store.commit('popupOpen', {
         component: UtilisateurRemovePopup,
         props: {
-          utilisateur: JSON.parse(JSON.stringify(this.utilisateur))
+          utilisateur: jsonTypenameOmit(this.utilisateur)
         }
       })
     },
+
     passwordPopupOpen() {
       this.$store.commit('popupOpen', {
         component: UtilisateurPasswordPopup,
         props: {
-          utilisateur: JSON.parse(JSON.stringify(this.utilisateur))
+          utilisateur: jsonTypenameOmit(this.utilisateur)
         }
       })
     }
