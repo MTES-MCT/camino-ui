@@ -25,6 +25,7 @@
         <select
           v-model="etape.typeId"
           class="p-s"
+          @change="typeUpdate"
         >
           <option
             v-for="eType in demarcheType.etapesTypes"
@@ -243,6 +244,14 @@ export default {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13 && this.events.saveKeyUp) {
         this.save()
+      }
+    },
+
+    typeUpdate() {
+      if (this.etapesStatuts.length === 1) {
+        this.etape.statutId = this.etapesStatuts[0].id
+      } else {
+        this.etape.statutId = null
       }
     },
 
