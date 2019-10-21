@@ -10,7 +10,12 @@
         >
       </div>
       <div class="mb tablet-blob-2-3">
-        <h6>Description</h6>
+        <div class="flex">
+          <h6>Description</h6>
+          <p class="h6 italic mb-0 flex-right mr-xs">
+            Optionel
+          </p>
+        </div>
         <input
           v-model="point.description"
           type="text"
