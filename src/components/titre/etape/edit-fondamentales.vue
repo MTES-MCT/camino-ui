@@ -16,6 +16,7 @@
             <input
               v-model.number="etape.duree.ans"
               type="number"
+              min="0"
               placeholder="années"
               class="p-s mb-s"
             >
@@ -24,6 +25,7 @@
             <input
               v-model.number="etape.duree.mois"
               type="number"
+              min="0"
               placeholder="mois"
               class="p-s"
             >
@@ -115,6 +117,7 @@
               v-model.number="etape.engagement"
               class="p-s mb-s"
               type="number"
+              min="0"
               placeholder="0"
             >
           </div>
@@ -165,6 +168,7 @@
           v-model.number="etape.surface"
           class="p-s"
           type="number"
+          min="0"
           placeholder="0"
           :class="{'mb-s': etape.surface, 'mb': !etape.surface}"
         >
@@ -196,6 +200,7 @@
               v-model.number="etape.volume"
               class="p-s mb-s"
               type="number"
+              min="0"
               placeholder="0"
             >
           </div>

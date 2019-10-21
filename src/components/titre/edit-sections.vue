@@ -27,6 +27,7 @@
                 v-if="editable"
                 v-model.number="contenu[s.id][e.id]"
                 type="number"
+                min="0"
                 class="p-s"
                 :class="{ 'mb-s': e.description}"
                 placeholder="…"
