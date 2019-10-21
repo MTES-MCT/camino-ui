@@ -63,10 +63,10 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <div
-          v-if="document.fichier"
+          v-if="document.fichier || document.fichierNouveau"
           class="flex"
         >
-          <span class="h5">{{ document.fichier }}.pdf</span>
+          <span class="h5">{{ document.fichierNouveau && document.fichierNouveau.name || `${document.id}.${document.fichierTypeId}` }}</span>
           <button
             v-if="permissionsCheck(['super'])"
             class="btn-border py-s px-m my--xs rnd-xs flex-right"
@@ -75,15 +75,49 @@
             <i class="icon-24 icon-trash" />
           </button>
         </div>
-        <input
+        <div
           v-else
-          type="file"
-          class="p-xs mb-0"
-          @change="fileChange"
         >
+          <label
+            for="file"
+            class="btn-border p-s full-x rnd-xs mb-0"
+          >Choisir un fichier…</label>
+          <input
+            id="file"
+            type="file"
+            class="p-xs mb-0"
+            @change="fileChange"
+          >
+        </div>
       </div>
     </div>
+
     <hr>
+
+    <div v-if="document.fichierNouveau">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Type de fichier</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <select
+            v-model="document.fichierTypeId"
+            class="p-s"
+          >
+            <option
+              v-for="fichierTypeId in fichierTypeIds"
+              :key="fichierTypeId"
+              :value="fichierTypeId"
+              :disabled="document.fichierTypeId === fichierTypeId"
+            >
+              {{ fichierTypeId }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <hr>
+    </div>
 
     <div v-if="document.typeId === 'dec' || document.typeId === 'arr'">
       <div class="tablet-blobs">
@@ -157,7 +191,10 @@
         >
       </div>
     </div>
+
     <hr>
+
+    <Messages :messages="warnings" />
 
     <template slot="footer">
       <Messages :messages="messages" />
@@ -216,7 +253,9 @@ export default {
     return {
       events: {
         saveKeyUp: true
-      }
+      },
+      fichierTypeIds: ['pdf'],
+      warnings: []
     }
   },
 
@@ -249,8 +288,14 @@ export default {
         files: [file]
       }
     }) {
-      if (validity.valid) {
+      if (validity.valid && file.type === 'application/pdf') {
+        this.warnings = []
         this.document.fichierNouveau = file
+        this.document.fichierTypeId = 'pdf'
+      } else {
+        this.warnings = [
+          { type: 'warning', value: 'seuls les fichiers pdf sont acceptés' }
+        ]
       }
     },
 
@@ -276,7 +321,10 @@ export default {
     },
 
     fileRemove() {
-      this.document.fichier = ''
+      this.document.fichier = null
+      this.document.fichierNouveau = null
+      this.document.fichierTypeId = null
+      this.warnings = []
     },
 
     errorsRemove() {}

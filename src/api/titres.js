@@ -215,8 +215,6 @@ const titreDocumentCreate = async ({ document }) => {
 }
 
 const titreDocumentUpdate = async ({ document }) => {
-  console.log(document)
-
   try {
     const res = await graphqlClient.mutate({
       mutation: mutationTitreDocumentModifier,

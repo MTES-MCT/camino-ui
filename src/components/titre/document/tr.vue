@@ -23,14 +23,14 @@
         v-if="document.fichier"
         class="btn-border py-s px-m my--xs"
         :class="{ 'rnd-r-xs': !document.url, 'rnd-l-xs': !permissionsCheck(['super']) }"
-        @click="download(document.fichier)"
+        @click="download"
       >
         <i class="icon-24 icon-download" />
       </button>
       <a
         v-if="document.url"
         class="btn-border py-s px-m my--xs rnd-r-xs"
-        :class="{ 'rnd-l-xs': !permissionsCheck(['super']) && !document.url }"
+        :class="{ 'rnd-l-xs': !permissionsCheck(['super']) && !document.fichier }"
         :href="document.url"
         target="_blank"
         rel="noopener noreferrer"
@@ -57,17 +57,18 @@ export default {
   },
 
   methods: {
-    async download(fileName) {
+    async download() {
       await this.$store.dispatch('documentDownload', {
-        fileName: `${fileName}.pdf`,
-        titreDocumentId: this.document.id
+        fichierTypeId: this.document.fichierTypeId,
+        documentId: this.document.id
       })
     },
 
     editPopupOpen() {
       const document = jsonTypenameOmit(this.document)
-      document.typeId = document.type.id
       document.titreEtapeId = this.etapeId
+      document.typeId = document.type.id
+      document.fichierNouveau = null
 
       delete document.type
 

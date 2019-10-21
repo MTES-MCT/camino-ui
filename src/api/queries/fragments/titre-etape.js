@@ -79,9 +79,10 @@ const fragmentTitreEtape = gql`
       id
       nom
     }
+    fichier
+    fichierTypeId
     url
     uri
-    fichier
     jorf
     nor
   }

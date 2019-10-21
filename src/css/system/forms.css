@@ -90,3 +90,7 @@ select.bg-bg:disabled {
   font-style: italic;
   color: var(--color-neutral);
 }
+
+[type='file'] {
+  display: none;
+}

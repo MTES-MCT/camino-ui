@@ -48,7 +48,11 @@ export default {
   methods: {
     addPopupOpen() {
       const document = {
-        titreEtapeId: this.etapeId
+        titreEtapeId: this.etapeId,
+        typeId: '',
+        fichier: null,
+        fichierNouveau: null,
+        fichierTypeId: null
       }
 
       this.$store.commit('popupOpen', {

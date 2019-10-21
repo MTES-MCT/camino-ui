@@ -92,9 +92,7 @@ export const actions = {
       type: 'error',
       value:
         error ||
-        `Erreur: impossible de se connecter à l'API (${
-          process.env.VUE_APP_API_URL
-        })`
+        `Erreur: impossible de se connecter à l'API (${process.env.VUE_APP_API_URL})`
     })
 
     setTimeout(() => {
@@ -129,14 +127,14 @@ export const actions = {
     }
   },
 
-  async documentDownload({ dispatch }, { titreDocumentId, fileName }) {
+  async documentDownload({ dispatch }, { documentId, fichierTypeId }) {
     try {
       const token = localStorage.getItem('token')
       const headers = new Headers({
-        'Content-Type': 'application/pdf',
+        'Content-Type': `application/${fichierTypeId}`,
         authorization: token ? `Bearer ${token}` : ''
       })
-      const url = `${process.env.VUE_APP_API_URL}/documents/${titreDocumentId}`
+      const url = `${process.env.VUE_APP_API_URL}/documents/${documentId}`
       const method = 'GET'
 
       const res = await fetch(url, { method, headers })
@@ -147,14 +145,17 @@ export const actions = {
       }
 
       const body = await res.blob()
-      saveAs(body, fileName)
+      saveAs(body, `${documentId}.${fichierTypeId}`)
 
       dispatch('messageAdd', {
         type: 'success',
-        value: `fichier téléchargé : ${fileName}`
+        value: `fichier téléchargé : ${documentId}.${fichierTypeId}`
       })
     } catch (e) {
-      dispatch('apiError', `erreur de téléchargement : ${fileName}, ${e}`)
+      dispatch(
+        'apiError',
+        `erreur de téléchargement : ${documentId}.${fichierTypeId}, ${e}`
+      )
     }
   }
 }
