@@ -156,7 +156,7 @@
 
           <div class="tablet-blob-3-4">
             <p>
-              {{ utilisateur.administrations.map(({nom}) => `${nom})`).join(', ') }}
+              {{ utilisateur.administrations.map(({nom}) => `${nom}`).join(', ') }}
             </p>
           </div>
         </div>
