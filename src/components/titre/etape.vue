@@ -234,7 +234,7 @@
     </template>
 
     <Documents
-      v-if="etape.documents.length"
+      v-if="etape.documents.length || permissionsCheck(['super'])"
       :etape-id="etape.id"
       :documents="etape.documents"
       :demarche-type-nom="demarcheType.nom"
