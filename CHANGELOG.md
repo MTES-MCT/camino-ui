@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.6](https://github.com/MTES-MCT/camino-ui/compare/v0.22.5...v0.22.6) (2019-10-23)
+
+
+### Bug Fixes
+
+* affiche l'icône de dépliage de documents pour les super utilisateurs même s'il l'étape ne possède pas de documents ([5451226](https://github.com/MTES-MCT/camino-ui/commit/5451226))
+* enlève un caractère en trop dans l'affichage des administrations ([412535a](https://github.com/MTES-MCT/camino-ui/commit/412535a))
+* identifie l'utilisateur après un changement de mot de passe ([#38](https://github.com/MTES-MCT/camino-ui/issues/38)) ([5c314c4](https://github.com/MTES-MCT/camino-ui/commit/5c314c4))
+
+
+### Features
+
+* **édition d'étape:** sélectionne le statut s'il n'y a q'un seul choix ([72382fe](https://github.com/MTES-MCT/camino-ui/commit/72382fe))
+* ajoute les administrations aux utilisateurs ([#37](https://github.com/MTES-MCT/camino-ui/issues/37)) ([4a0405f](https://github.com/MTES-MCT/camino-ui/commit/4a0405f))
+* ajoute une mention "optionel" sur le champs description ([252ff01](https://github.com/MTES-MCT/camino-ui/commit/252ff01))
+* empêche les durées négatives sur les champs "number" ([5a2925a](https://github.com/MTES-MCT/camino-ui/commit/5a2925a))
+* téléverse des fichiers ([#39](https://github.com/MTES-MCT/camino-ui/issues/39)) ([27e6ad9](https://github.com/MTES-MCT/camino-ui/commit/27e6ad9))
+
 ### [0.22.5](https://github.com/MTES-MCT/camino-ui/compare/v0.22.4...v0.22.5) (2019-10-16)
 
 
