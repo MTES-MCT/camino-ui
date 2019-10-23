@@ -160,6 +160,7 @@ export default {
     },
 
     edit() {
+      this.errorsRemove()
       this.editable = true
     },
 
@@ -170,6 +171,7 @@ export default {
         this.activite.statut.id = 'enc'
       }
 
+      this.errorsRemove()
       this.$store.dispatch('titreActivites/update', this.activite)
     },
 
