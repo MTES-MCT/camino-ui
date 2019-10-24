@@ -78,7 +78,6 @@
 
     <div
       v-if="$slots.sub"
-      class="px-m pt-m"
       :class="{'border-b-s': opened}"
     >
       <slot name="sub" />

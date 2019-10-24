@@ -39,15 +39,21 @@
           {{ s.nom }}
         </h4>
 
-        <div class="tablet-blobs">
+        <div
+          v-for="e in s.elements.filter(e => (!e.dateFin || e.dateFin >= activite.date) && (!e.dateDebut || e.dateDebut < activite.date))"
+          :key="e.id"
+          class="tablet-blobs"
+        >
           <div
-            v-for="e in s.elements.filter(e => (!e.dateFin || e.dateFin >= activite.date) && (!e.dateDebut || e.dateDebut < activite.date))"
-            :key="e.id"
-            class="tablet-blob-1-4"
+            v-if="e.nom"
+            class="tablet-blob-1-3"
           >
             <h6>
               {{ e.nom }}
             </h6>
+          </div>
+
+          <div :class="{'tablet-blob-2-3': e.nom, 'tablet-blob-1': !e.nom}">
             <p class="cap-first">
               {{ activite.contenu && activite.contenu[s.id] && (activite.contenu[s.id][e.id] || activite.contenu[s.id][e.id] === 0) ? e.type === 'checkboxes' ? activite.contenu[s.id][e.id].map(c => e.valeurs[c]).join(', ') : activite.contenu[s.id][e.id] : '–' }}
             </p>

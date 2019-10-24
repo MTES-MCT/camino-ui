@@ -48,116 +48,119 @@
       </template>
 
       <template slot="sub">
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Prénom
-            </h6>
-          </div>
-          <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.prenom || "–" }}</p>
-          </div>
-        </div>
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Nom
-            </h6>
-          </div>
-          <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.nom || "–" }}</p>
-          </div>
-        </div>
-
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Email
-            </h6>
-          </div>
-          <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.email || "–" }}</p>
-          </div>
-        </div>
-
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Téléphone fixe
-            </h6>
-          </div>
-          <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.telephoneFixe || "–" }}</p>
-          </div>
-        </div>
-
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Téléphone mobile
-            </h6>
-          </div>
-          <div class="tablet-blob-3-4">
-            <p>{{ utilisateur.telephoneMobile || "–" }}</p>
-          </div>
-        </div>
-
-        <div
-          v-if="permissionsCheck(['super', 'admin'])"
-          class="tablet-blobs"
-        >
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Permissions
-            </h6>
-          </div>
-          <div class="tablet-blob-3-4">
-            <Pill
-              v-if="utilisateur.permission"
-              class="mb"
-            >
-              {{ utilisateur.permission.nom }}
-            </Pill>
-            <div
-              v-else
-              class="mb"
-            >
-              –
+        <div class="px-m pt-m">
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Prénom
+              </h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p>{{ utilisateur.prenom || "–" }}</p>
             </div>
           </div>
-        </div>
 
-        <div
-          v-if="utilisateur.entreprises.length"
-          class="tablet-blobs"
-        >
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Entreprise
-            </h6>
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Nom
+              </h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p>{{ utilisateur.nom || "–" }}</p>
+            </div>
           </div>
 
-          <div class="tablet-blob-3-4">
-            <p>
-              {{ utilisateur.entreprises.map(({nom, legalSiren}) => `${nom} (${legalSiren})`).join(', ') }}
-            </p>
-          </div>
-        </div>
-
-        <div
-          v-if="utilisateur.administrations.length"
-          class="tablet-blobs"
-        >
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Administration
-            </h6>
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Email
+              </h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p>{{ utilisateur.email || "–" }}</p>
+            </div>
           </div>
 
-          <div class="tablet-blob-3-4">
-            <p>
-              {{ utilisateur.administrations.map(({nom}) => `${nom}`).join(', ') }}
-            </p>
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Téléphone fixe
+              </h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p>{{ utilisateur.telephoneFixe || "–" }}</p>
+            </div>
+          </div>
+
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Téléphone mobile
+              </h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p>{{ utilisateur.telephoneMobile || "–" }}</p>
+            </div>
+          </div>
+
+          <div
+            v-if="permissionsCheck(['super', 'admin'])"
+            class="tablet-blobs"
+          >
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Permissions
+              </h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <Pill
+                v-if="utilisateur.permission"
+                class="mb"
+              >
+                {{ utilisateur.permission.nom }}
+              </Pill>
+              <div
+                v-else
+                class="mb"
+              >
+                –
+              </div>
+            </div>
+          </div>
+
+          <div
+            v-if="utilisateur.entreprises.length"
+            class="tablet-blobs"
+          >
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Entreprise
+              </h6>
+            </div>
+
+            <div class="tablet-blob-3-4">
+              <p>
+                {{ utilisateur.entreprises.map(({nom, legalSiren}) => `${nom} (${legalSiren})`).join(', ') }}
+              </p>
+            </div>
+          </div>
+
+          <div
+            v-if="utilisateur.administrations.length"
+            class="tablet-blobs"
+          >
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Administration
+              </h6>
+            </div>
+
+            <div class="tablet-blob-3-4">
+              <p>
+                {{ utilisateur.administrations.map(({nom}) => `${nom}`).join(', ') }}
+              </p>
+            </div>
           </div>
         </div>
       </template>

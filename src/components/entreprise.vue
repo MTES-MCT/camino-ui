@@ -22,119 +22,124 @@
       </template>
 
       <template slot="sub">
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Siren
-            </h6>
+        <div class="px-m pt-m">
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Siren
+              </h6>
+            </div>
+            <div
+              class="tablet-blob-3-4"
+            >
+              <p>{{ entreprise.legalSiren }}</p>
+            </div>
           </div>
-          <div
-            class="tablet-blob-3-4"
-          >
-            <p>{{ entreprise.legalSiren }}</p>
-          </div>
-        </div>
 
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Forme juridique
-            </h6>
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Forme juridique
+              </h6>
+            </div>
+            <div
+              class="tablet-blob-3-4"
+            >
+              <p>{{ entreprise.legalForme }}</p>
+            </div>
           </div>
-          <div
-            class="tablet-blob-3-4"
-          >
-            <p>{{ entreprise.legalForme }}</p>
-          </div>
-        </div>
 
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Établissement{{ entreprise.etablissements.length > 1 ? 's' : '' }}
-            </h6>
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Établissement{{ entreprise.etablissements.length > 1 ? 's' : '' }}
+              </h6>
+            </div>
+            <div
+              class="tablet-blob-3-4"
+            >
+              <ul class="list-sans">
+                <li
+                  v-for="e in entreprise.etablissements"
+                  :key="e.id"
+                >
+                  <h5 class="inline-block">
+                    {{ e.dateDebut | dateFormat }}
+                  </h5> : {{ e.nom }}
+                </li>
+              </ul>
+            </div>
           </div>
-          <div
-            class="tablet-blob-3-4"
-          >
-            <ul class="list-sans">
-              <li
-                v-for="e in entreprise.etablissements"
-                :key="e.id"
-              >
-                <h5 class="inline-block">
-                  {{ e.dateDebut | dateFormat }}
-                </h5> : {{ e.nom }}
-              </li>
-            </ul>
-          </div>
-        </div>
 
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Adresse
-            </h6>
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Adresse
+              </h6>
+            </div>
+            <div
+              class="tablet-blob-3-4"
+            >
+              <p>
+                {{ entreprise.adresse }}
+                <br>{{ entreprise.codePostal }}
+                {{ entreprise.commune }}
+              </p>
+            </div>
           </div>
-          <div
-            class="tablet-blob-3-4"
-          >
-            <p>
-              {{ entreprise.adresse }}
-              <br>{{ entreprise.codePostal }}
-              {{ entreprise.commune }}
-            </p>
+
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Téléphone
+              </h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p class="word-break">
+                <span v-if="entreprise.telephone">{{ entreprise.telephone }}</span>
+                <span v-else>–</span>
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Téléphone
-            </h6>
+
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Email
+              </h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p class="word-break">
+                <a
+                  v-if="entreprise.email"
+                  :href="`mailto:${entreprise.email}`"
+                  class="btn h6 bold py-xs px-s rnd"
+                >
+                  {{ entreprise.email }}
+                </a>
+                <span v-else>–</span>
+              </p>
+            </div>
           </div>
-          <div class="tablet-blob-3-4">
-            <p class="word-break">
-              <span v-if="entreprise.telephone">{{ entreprise.telephone }}</span>
-              <span v-else>–</span>
-            </p>
-          </div>
-        </div>
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Email
-            </h6>
-          </div>
-          <div class="tablet-blob-3-4">
-            <p class="word-break">
-              <a
-                v-if="entreprise.email"
-                :href="`mailto:${entreprise.email}`"
-                class="btn h6 bold py-xs px-s rnd"
-              >
-                {{ entreprise.email }}
-              </a>
-              <span v-else>–</span>
-            </p>
-          </div>
-        </div>
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h6 class="mt-xs">
-              Site
-            </h6>
-          </div>
-          <div class="tablet-blob-3-4">
-            <p class="word-break">
-              <a
-                v-if="entreprise.url"
-                :href="entreprise.url"
-                class="btn h6 bold py-xs px-s rnd"
-              >
-                {{ entreprise.url }}
-              </a>
-              <span v-else>–</span>
-            </p>
+
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">
+                Site
+              </h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p class="word-break">
+                <a
+                  v-if="entreprise.url"
+                  :href="entreprise.url"
+                  class="btn h6 bold py-xs px-s rnd"
+                >
+                  {{ entreprise.url }}
+                </a>
+                <span v-else>–</span>
+              </p>
+            </div>
           </div>
         </div>
       </template>
