@@ -61,6 +61,7 @@ export const actions = {
 
   async titreCreate({ commit, dispatch }, titre) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreCreate', { root: true })
 
     try {
@@ -81,6 +82,7 @@ export const actions = {
 
   async titreUpdate({ commit, dispatch }, titre) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreUpdate', { root: true })
 
     try {
@@ -101,6 +103,7 @@ export const actions = {
 
   async titreDelete({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreDelete', { root: true })
 
     try {
@@ -130,6 +133,7 @@ export const actions = {
 
   async demarcheCreate({ commit, dispatch }, demarche) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreDemarcheCreate', { root: true })
 
     try {
@@ -150,6 +154,7 @@ export const actions = {
 
   async demarcheUpdate({ commit, dispatch }, demarche) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreDemarcheUpdate', { root: true })
 
     try {
@@ -170,6 +175,7 @@ export const actions = {
 
   async demarcheDelete({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreDemarcheDelete', { root: true })
 
     try {

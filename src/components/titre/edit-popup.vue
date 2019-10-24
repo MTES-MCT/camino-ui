@@ -122,6 +122,7 @@
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
+            v-if="!loading"
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
           >
@@ -130,12 +131,19 @@
         </div>
         <div class="tablet-blob-2-3">
           <button
+            v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!complete"
             @click="save"
           >
             Enregistrer
           </button>
+          <div
+            v-else
+            class="p-s full-x bold"
+          >
+            Enregistrement en cours…
+          </div>
         </div>
       </div>
     </template>
@@ -172,6 +180,10 @@ export default {
   },
 
   computed: {
+    loading() {
+      return this.$store.state.popup.loading
+    },
+
     messages() {
       return this.$store.state.popup.messages
     },
