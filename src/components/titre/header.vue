@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="desktop-blobs">
-      <div class="desktop-blob-1-2">
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-2">
         <h1>{{ titre.nom }}</h1>
       </div>
-      <div class="desktop-blob-1-2 flex">
+      <div class="tablet-blob-1-2 flex">
         <div
           v-if="permissionsCheck(['super']) || permissionsTitreAdministrationsCheck(titre)"
           class="flex-right"

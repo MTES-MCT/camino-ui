@@ -1,14 +1,11 @@
 <template>
   <div class="mb">
     <div class="card-border mb" />
-    <div class="desktop-blobs">
-      <div class="desktop-blob-1-2">
-        <h3 class="cap-first">
+    <div class="tablet-blobs">
+      <div class="tablet-blob-3-4">
+        <h3 class="cap-first mb-s">
           {{ demarche.type.nom }}
         </h3>
-      </div>
-      <div class="desktop-blob-1-4">
-        <h6>Statut</h6>
         <h4>
           <Dot :color="`bg-${demarche.statut.couleur}`" /><span
             class="cap-first"
@@ -17,7 +14,7 @@
           </span>
         </h4>
       </div>
-      <div class="desktop-blob-1-4 flex">
+      <div class="tablet-blob-1-4 flex">
         <div
           v-if="permissionsCheck(['super']) || permissionsTitreAdministrationsCheck(titre)"
           class="flex-right"
