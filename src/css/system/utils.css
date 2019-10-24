@@ -124,6 +124,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   width: 100%;
 }
 
+.full-x- {
+  width: 99%;
+}
+
 .full-y {
   height: 100%;
 }
@@ -135,6 +139,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 
 .align-y-bottom {
   vertical-align: text-bottom;
+}
+
+.min-width-full {
+  min-width: 100%;
 }
 
 .min-width-5 {

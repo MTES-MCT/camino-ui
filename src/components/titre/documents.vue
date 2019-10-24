@@ -3,7 +3,9 @@
     <table>
       <tr>
         <th>Document</th>
-        <th>Nom</th>
+        <th class="full-x-">
+          Nom
+        </th>
         <th />
       </tr>
       <DocumentTr

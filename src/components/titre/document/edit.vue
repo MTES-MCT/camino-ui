@@ -194,6 +194,24 @@
 
     <hr>
 
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <label for="document-public"><h6>Public</h6></label>
+        <p class="h6 italic mb-0">
+          Optionel
+        </p>
+      </div>
+      <div class="mb tablet-blob-2-3 py-s">
+        <input
+          id="document-public"
+          v-model="document.public"
+          type="checkbox"
+        >
+      </div>
+    </div>
+
+    <hr>
+
     <Messages :messages="warnings" />
 
     <template slot="footer">
