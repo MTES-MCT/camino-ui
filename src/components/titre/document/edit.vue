@@ -46,6 +46,9 @@
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Nom</h6>
+        <p class="h6 italic mb-0">
+          Optionel
+        </p>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
