@@ -18,7 +18,6 @@
             :filter.sync="filter"
           />
           <button
-            ref="button"
             class="btn-border h5 px-s p-xs rnd-xs mb"
             @click="inputsErase"
           >
