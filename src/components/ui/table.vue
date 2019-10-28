@@ -169,6 +169,7 @@ export default {
       } else {
         this.sortColumn = colIndex
       }
+
       this.pageUpdate(1)
       this.$emit('page:update', 1)
     }

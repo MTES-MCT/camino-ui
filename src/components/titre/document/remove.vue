@@ -35,6 +35,7 @@
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
+            v-if="!loading"
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
           >
@@ -43,11 +44,18 @@
         </div>
         <div class="tablet-blob-2-3">
           <button
+            v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
             @click="remove"
           >
             Supprimer
           </button>
+          <div
+            v-else
+            class="p-s full-x bold"
+          >
+            Suppression en cours…
+          </div>
         </div>
       </div>
     </template>
@@ -76,6 +84,10 @@ export default {
   computed: {
     messages() {
       return this.$store.state.popup.messages
+    },
+
+    loading() {
+      return this.$store.state.popup.loading
     }
   },
 
