@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.7](https://github.com/MTES-MCT/camino-ui/compare/v0.22.6...v0.22.7) (2019-10-28)
+
+
+### Bug Fixes
+
+* **édition de documents:** masque le bouton pendant l'enregistrement ([0ff79b3](https://github.com/MTES-MCT/camino-ui/commit/0ff79b3))
+* classe les entreprises et les administrations par ordre alphabétique ([f60d920](https://github.com/MTES-MCT/camino-ui/commit/f60d920))
+* supprime une instruction erronée ([0d0cdd6](https://github.com/MTES-MCT/camino-ui/commit/0d0cdd6))
+* **édition de documents:** corrige des problèmes d'affichage ([8db280b](https://github.com/MTES-MCT/camino-ui/commit/8db280b))
+* ajoute l'option "public" à l'édition de document ([ad5ca69](https://github.com/MTES-MCT/camino-ui/commit/ad5ca69))
+* corrige la mise en page sur tablette ([dd7a75e](https://github.com/MTES-MCT/camino-ui/commit/dd7a75e))
+* **actvités:** supprime le cartouche d'erreur lors de la validation d'une activité ([3620b19](https://github.com/MTES-MCT/camino-ui/commit/3620b19))
+* **édition:** corrige une erreur lors de l'ajout d'un utilisateur ([7ac8daa](https://github.com/MTES-MCT/camino-ui/commit/7ac8daa))
+
+
+### Features
+
+* **édition de documents:** affiche "optionel" sur le champs nom ([ec95e67](https://github.com/MTES-MCT/camino-ui/commit/ec95e67))
+* rend visible le bouton d'ajout de document si la liste est masquée ([ea5d103](https://github.com/MTES-MCT/camino-ui/commit/ea5d103))
+* **édition:** désactive les boutons lors de l'enregistrement ([3cc92a9](https://github.com/MTES-MCT/camino-ui/commit/3cc92a9))
+
 ### [0.22.6](https://github.com/MTES-MCT/camino-ui/compare/v0.22.5...v0.22.6) (2019-10-23)
 
 
