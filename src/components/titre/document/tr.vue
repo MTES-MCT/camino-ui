@@ -1,7 +1,9 @@
 <template>
   <tr class="h5">
-    <td>{{ document.type.nom }}</td>
-    <td>{{ document.nom }}</td>
+    <td class="nowrap">
+      {{ document.type.nom }}
+    </td>
+    <td>{{ document.nom || '–' }}</td>
     <td class="flex text-right">
       <button
         v-if="permissionsCheck(['super'])"

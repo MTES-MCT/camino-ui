@@ -43,8 +43,8 @@
       slot="sub"
     >
       <div
-        class="px-m pt-m"
-        :class="{'border-b-s': permissionsCheck(['super'])}"
+        v-if="hasProps"
+        class="px-m pt-m border-b-s"
       >
         <div
           v-if="etape.duree"
@@ -326,9 +326,8 @@ export default {
       )
     },
 
-    hasSub() {
+    hasProps() {
       return (
-        this.permissionsCheck(['super']) ||
         !!this.etape.duree ||
         !!this.etape.dateDebut ||
         !!this.etape.dateFin ||
@@ -337,6 +336,10 @@ export default {
         !!this.etape.titulaires.length ||
         !!this.etape.amodiataires.length
       )
+    },
+
+    hasSub() {
+      return this.permissionsCheck(['super']) || this.hasProps
     },
 
     duree() {
