@@ -2,6 +2,13 @@
   <Card>
     <div class="flex">
       <h1>Entreprises</h1>
+
+      <button
+        class="btn-border rnd-xs py-s px-m mb flex-right"
+        @click="addPopupOpen"
+      >
+        <i class="icon-24 icon-plus" />
+      </button>
     </div>
 
     <Loader v-if="!loaded" />
@@ -16,6 +23,7 @@
 import Card from './ui/card.vue'
 import Loader from './ui/loader.vue'
 import EntreprisesTable from './entreprises/table.vue'
+import EntrepriseEditPopup from './entreprises/edit-popup.vue'
 
 export default {
   name: 'Entreprises',
@@ -57,6 +65,15 @@ export default {
   methods: {
     get() {
       this.$store.dispatch('entreprises/get')
+    },
+    addPopupOpen() {
+      this.$store.commit('popupOpen', {
+        component: EntrepriseEditPopup,
+        props: {
+          entreprise: {},
+          action: 'create'
+        }
+      })
     }
   }
 }
