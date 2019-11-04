@@ -33,9 +33,8 @@ import {
 import {
   entreprise,
   entreprises,
-  entrepriseSearchDatabase,
-  entrepriseAskApi,
-  entrepriseAdd
+  entrepriseCreate,
+  entrepriseUpdate
 } from './entreprises'
 
 import { administration, administrations } from './administrations'
@@ -64,9 +63,8 @@ export {
   utilisateurs,
   entreprise,
   entreprises,
-  entrepriseSearchDatabase,
-  entrepriseAskApi,
-  entrepriseAdd,
+  entrepriseCreate,
+  entrepriseUpdate,
   administration,
   administrations,
   utilisateurLogin,

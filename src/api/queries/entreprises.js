@@ -22,29 +22,19 @@ const queryEntreprises = gql`
   ${fragmentEntreprises}
 `
 
-const queryEntrepriseParSirenDatabase = gql`
-  query EntrepriseParSirenDatabase($siren: String!) {
-    entrepriseParSirenDatabase(siren: $siren) {
-      ...entreprise
-    }
-  }
-
-  ${fragmentEntreprise}
-`
-
-const queryEntrepriseParSirenApi = gql`
-  query EntrepriseParSirenApi($siren: String!) {
-    entrepriseParSirenApi(siren: $siren) {
-      ...entreprise
-    }
-  }
-
-  ${fragmentEntreprise}
-`
-
 const mutationEntrepriseCreer = gql`
-  mutation EntrepriseCreer($entreprise: InputEntreprise!) {
+  mutation EntrepriseCreer($entreprise: InputEntrepriseCreation!) {
     entrepriseCreer(entreprise: $entreprise) {
+      ...entreprise
+    }
+  }
+
+  ${fragmentEntreprise}
+`
+
+const mutationEntrepriseModifier = gql`
+  mutation EntrepriseModifier($entreprise: InputEntrepriseModification!) {
+    entrepriseModifier(entreprise: $entreprise) {
       ...entreprise
     }
   }
@@ -55,7 +45,6 @@ const mutationEntrepriseCreer = gql`
 export {
   queryEntreprise,
   queryEntreprises,
-  queryEntrepriseParSirenDatabase,
-  queryEntrepriseParSirenApi,
-  mutationEntrepriseCreer
+  mutationEntrepriseCreer,
+  mutationEntrepriseModifier
 }

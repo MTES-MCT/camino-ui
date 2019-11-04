@@ -4,9 +4,8 @@ import graphqlErrorThrow from './_error-throw'
 import {
   queryEntreprise,
   queryEntreprises,
-  queryEntrepriseParSirenDatabase,
-  queryEntrepriseParSirenApi,
-  mutationEntrepriseCreer
+  mutationEntrepriseCreer,
+  mutationEntrepriseModifier
 } from './queries/entreprises'
 
 const entreprise = async id => {
@@ -39,37 +38,7 @@ const entreprises = async () => {
   }
 }
 
-const entrepriseSearchDatabase = async siren => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryEntrepriseParSirenDatabase,
-      variables: { siren },
-      fetchPolicy: 'network-only'
-    })
-
-    return res && res.data && res.data.entrepriseParSirenDatabase
-  } catch (e) {
-    console.log({ e })
-    graphqlErrorThrow(e)
-  }
-}
-
-const entrepriseAskApi = async siren => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryEntrepriseParSirenApi,
-      variables: { siren },
-      fetchPolicy: 'network-only'
-    })
-
-    return res && res.data && res.data.entrepriseParSirenApi
-  } catch (e) {
-    console.log({ e })
-    graphqlErrorThrow(e)
-  }
-}
-
-const entrepriseAdd = async ({ entreprise }) => {
+const entrepriseCreate = async ({ entreprise }) => {
   try {
     const res = await graphqlClient.mutate({
       mutation: mutationEntrepriseCreer,
@@ -83,10 +52,18 @@ const entrepriseAdd = async ({ entreprise }) => {
   }
 }
 
-export {
-  entreprise,
-  entreprises,
-  entrepriseSearchDatabase,
-  entrepriseAskApi,
-  entrepriseAdd
+const entrepriseUpdate = async ({ entreprise }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationEntrepriseModifier,
+      variables: { entreprise }
+    })
+
+    return res && res.data && res.data.entrepriseModifier
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
 }
+
+export { entreprise, entreprises, entrepriseCreate, entrepriseUpdate }

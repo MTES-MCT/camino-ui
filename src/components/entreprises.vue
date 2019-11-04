@@ -4,6 +4,7 @@
       <h1>Entreprises</h1>
 
       <button
+        v-if="permissionsCheck(['super', 'admin', 'editeur'])"
         class="btn-border rnd-xs py-s px-m mb flex-right"
         @click="addPopupOpen"
       >
@@ -23,7 +24,7 @@
 import Card from './ui/card.vue'
 import Loader from './ui/loader.vue'
 import EntreprisesTable from './entreprises/table.vue'
-import EntrepriseEditPopup from './entreprises/edit-popup.vue'
+import EntrepriseAddPopup from './entreprise/add-popup.vue'
 
 export default {
   name: 'Entreprises',
@@ -66,13 +67,10 @@ export default {
     get() {
       this.$store.dispatch('entreprises/get')
     },
+
     addPopupOpen() {
       this.$store.commit('popupOpen', {
-        component: EntrepriseEditPopup,
-        props: {
-          entreprise: {},
-          action: 'create'
-        }
+        component: EntrepriseAddPopup
       })
     }
   }

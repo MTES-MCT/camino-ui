@@ -34,8 +34,6 @@ export const actions = {
   }
 }
 
-export const getters = {}
-
 export const mutations = {
   set(state, statistiques) {
     if (statistiques.titresTotal)
@@ -71,4 +69,4 @@ export const mutations = {
   }
 }
 
-export default { namespaced: true, state, actions, getters, mutations }
+export default { namespaced: true, state, actions, mutations }
