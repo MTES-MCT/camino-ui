@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 import fragmentTitres from './titres'
-import {fragmentUtilisateur} from './utilisateur'
+import { fragmentUtilisateur } from './utilisateur'
 
 const fragmentEntreprise = gql`
   fragment entreprise on Entreprise {

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 import fragmentEntreprises from './entreprises'
-import fragmentAdministration from './administration'
+import fragmentAdministrations from './administrations'
 import { fragmentTitresSubstance } from './titre-substance'
 import { fragmentGeojsonMultiPolygon } from './geojson'
 
@@ -45,7 +45,7 @@ const fragmentTitres = gql`
       id
     }
     administrations {
-      ...administration
+      ...administrations
     }
     titulaires {
       ...entreprises
@@ -58,7 +58,7 @@ const fragmentTitres = gql`
     }
   }
 
-  ${fragmentAdministration}
+  ${fragmentAdministrations}
 
   ${fragmentEntreprises}
 
