@@ -40,11 +40,11 @@ describe("état de la liste d'entreprises", () => {
   test('ajoute des entreprises et les tri par ordre alphabétique', () => {
     const entreprisesListe = [
       { nom: 'Petite Souris' },
-      'Koala',
+      { nom: 'Koala' },
       { nom: 'Canard' },
       { nom: 'Monstres & Cie' },
-      'Escargot tout chaud',
-      'Koala'
+      { nom: 'Escargot tout chaud' },
+      { nom: 'Koala' }
     ]
     entreprises.state = { current: null, list: [] }
     const store = new Vuex.Store({ modules: { entreprises } })
@@ -52,11 +52,11 @@ describe("état de la liste d'entreprises", () => {
 
     expect(store.state.entreprises.list).toEqual([
       { nom: 'Canard' },
+      { nom: 'Escargot tout chaud' },
+      { nom: 'Koala' },
+      { nom: 'Koala' },
       { nom: 'Monstres & Cie' },
-      { nom: 'Petite Souris' },
-      'Escargot tout chaud',
-      'Koala',
-      'Koala'
+      { nom: 'Petite Souris' }
     ])
   })
 

@@ -40,11 +40,11 @@ describe("état de la liste d'administrations", () => {
   test('ajoute des administrations et les tri par ordre alphabétique', () => {
     const administrationsListe = [
       { nom: 'Petite Souris' },
-      'Koala',
+      { nom: 'Koala' },
       { nom: 'Canard' },
       { nom: 'Monstres & Cie' },
-      'Escargot tout chaud',
-      'Koala'
+      { nom: 'Escargot tout chaud' },
+      { nom: 'Koala' }
     ]
     administrations.state = { current: null, list: [] }
     const store = new Vuex.Store({ modules: { administrations } })
@@ -52,11 +52,11 @@ describe("état de la liste d'administrations", () => {
 
     expect(store.state.administrations.list).toEqual([
       { nom: 'Canard' },
+      { nom: 'Escargot tout chaud' },
+      { nom: 'Koala' },
+      { nom: 'Koala' },
       { nom: 'Monstres & Cie' },
-      { nom: 'Petite Souris' },
-      'Escargot tout chaud',
-      'Koala',
-      'Koala'
+      { nom: 'Petite Souris' }
     ])
   })
 
