@@ -4,9 +4,6 @@ import { fragmentPointReference } from './point'
 const fragmentGeojsonMultiPolygon = gql`
   fragment geojsonMultiPolygon on GeojsonMultiPolygon {
     type
-    properties {
-      etapeId
-    }
     geometry {
       type
       coordinates
@@ -17,9 +14,6 @@ const fragmentGeojsonMultiPolygon = gql`
 const fragmentGeojsonPoints = gql`
   fragment geojsonPoints on GeojsonPoints {
     type
-    properties {
-      etapeId
-    }
     features {
       type
       properties {

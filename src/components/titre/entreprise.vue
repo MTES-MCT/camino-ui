@@ -54,7 +54,7 @@
       </div>
 
       <div
-        v-if="entreprise.etablissements.length"
+        v-if="entreprise.etablissements && entreprise.etablissements.length"
         class="large-blobs"
       >
         <div class="large-blob-1-4">

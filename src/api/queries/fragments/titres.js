@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
-import fragmentEntreprises from './entreprises'
-import fragmentAdministrations from './administrations'
+import { fragmentTitresEntreprises } from './titre-entreprise'
+import { fragmentTitresAdministrations } from './titre-administration'
 import { fragmentTitresSubstance } from './titre-substance'
 import { fragmentGeojsonMultiPolygon } from './geojson'
 
@@ -14,7 +14,6 @@ const fragmentTitres = gql`
     }
     domaine {
       id
-      nom
     }
     statut {
       id
@@ -34,33 +33,23 @@ const fragmentTitres = gql`
     activitesEnConstruction
     activitesAbsentes
     activitesDeposees
-    surface
-    volume
-    volumeUnite {
-      id
-      nom
-    }
-    engagement
-    engagementDevise {
-      id
-    }
     administrations {
-      ...administrations
+      ...titresAdministrations
     }
     titulaires {
-      ...entreprises
+      ...titresEntreprises
     }
     amodiataires {
-      ...entreprises
+      ...titresEntreprises
     }
     geojsonMultiPolygon {
       ...geojsonMultiPolygon
     }
   }
 
-  ${fragmentAdministrations}
+  ${fragmentTitresAdministrations}
 
-  ${fragmentEntreprises}
+  ${fragmentTitresEntreprises}
 
   ${fragmentTitresSubstance}
 

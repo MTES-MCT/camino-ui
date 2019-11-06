@@ -7,12 +7,6 @@ const fragmentEntreprises = gql`
     paysId
     legalSiren
     legalEtranger
-    legalForme
-    adresse
-    codePostal
-    commune
-    cedex
-    url
   }
 `
 export default fragmentEntreprises

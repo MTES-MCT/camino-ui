@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
-import fragmentEntreprises from './entreprises'
-import fragmentAdministration from './administration'
+import { fragmentTitreEntreprises } from './titre-entreprise'
+import { fragmentTitreAdministrations } from './titre-administration'
 import { fragmentTitreSubstance } from './titre-substance'
 import { fragmentPoint } from './point'
 import fragmentPays from './pays'
@@ -34,13 +34,13 @@ const fragmentTitreEtape = gql`
       couleur
     }
     administrations {
-      ...administration
+      ...titreAdministrations
     }
     titulaires {
-      ...entreprises
+      ...titreEntreprises
     }
     amodiataires {
-      ...entreprises
+      ...titreEntreprises
     }
     points {
       ...point
@@ -60,9 +60,9 @@ const fragmentTitreEtape = gql`
     contenu
   }
 
-  ${fragmentAdministration}
+  ${fragmentTitreAdministrations}
 
-  ${fragmentEntreprises}
+  ${fragmentTitreEntreprises}
 
   ${fragmentPoint}
 
