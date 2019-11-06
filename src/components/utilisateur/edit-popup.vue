@@ -21,11 +21,18 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input
+          v-if="permissionsCheck(['super', 'admin'])"
           v-model="utilisateur.email"
           type="email"
           class="p-s"
           placeholder="Email"
         >
+        <div
+          v-else
+          class="py-s"
+        >
+          {{ utilisateur.email }}
+        </div>
       </div>
     </div>
 
@@ -120,7 +127,7 @@
             <li
               v-for="permission in permissionList"
               :key="permission.id"
-              :class="{ active: utilisateur.permission.id === permission.id }"
+              :class="{ active: utilisateur.permissionId === permission.id }"
             >
               <button
                 class="btn-flash py-xs px-s pill cap-first h6 mr-xs"
@@ -133,52 +140,7 @@
         </div>
       </div>
 
-      <hr>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Lien</h6>
-        </div>
-
-        <div class="tablet-blob-2-3">
-          <ul class="list-inline pt-s">
-            <li class="mr">
-              <label>
-                <input
-                  v-model="lien"
-                  type="radio"
-                  :value="'aucun'"
-                  :checked="lien === 'aucun'"
-                  @change="lienReset"
-                >Aucun
-              </label>
-            </li>
-            <li class="mr">
-              <label>
-                <input
-                  v-model="lien"
-                  type="radio"
-                  :value="'entreprise'"
-                  :checked="lien === 'entreprise'"
-                  @change="lienReset"
-                >Entreprise
-              </label>
-            </li>
-            <li class="mr">
-              <label>
-                <input
-                  v-model="lien"
-                  type="radio"
-                  :value="'administration'"
-                  :checked="lien === 'administration'"
-                  @change="lienReset"
-                >Administration
-              </label>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div v-if="lien === 'entreprise'">
+      <div v-if="['entreprise'].includes(utilisateur.permissionId)">
         <hr>
         <h3 class="mb-s">
           Entreprises
@@ -218,16 +180,14 @@
 
         <button
           v-if="!utilisateur.entreprisesIds.includes('')"
-          class="btn-border rnd-xs py-s px-m full-x flex"
-
-          :class="{'mb-s': entreprisesLength, 'mb': !entreprisesLength}"
+          class="btn-border rnd-xs py-s px-m full-x flex mb"
           @click="entrepriseAdd"
         >
           Ajouter une entreprise<i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
 
-      <div v-if="lien === 'administration'">
+      <div v-if="['admin', 'editeur', 'lecteur'].includes(utilisateur.permissionId)">
         <hr>
         <h3 class="mb-s">
           Administrations
@@ -267,9 +227,7 @@
 
         <button
           v-if="!utilisateur.administrationsIds.includes('')"
-          class="btn-border rnd-xs py-s px-m full-x flex"
-
-          :class="{'mb-s': administrationsLength, 'mb': !administrationsLength}"
+          class="btn-border rnd-xs py-s px-m full-x flex mb"
           @click="administrationAdd"
         >
           Ajouter une administration<i class="icon-24 icon-plus flex-right" />
@@ -332,7 +290,6 @@ export default {
 
   data() {
     return {
-      lien: 'aucun',
       cgu: null
     }
   },
@@ -365,6 +322,7 @@ export default {
     entreprises() {
       return this.$store.state.entreprises.list
     },
+
     entreprisesLength() {
       return this.utilisateur.entreprisesIds.filter(id => id).length
     },
@@ -372,6 +330,7 @@ export default {
     administrations() {
       return this.$store.state.administrations.list
     },
+
     administrationsLength() {
       return this.utilisateur.administrationsIds.filter(id => id).length
     }
@@ -379,12 +338,6 @@ export default {
 
   created() {
     document.addEventListener('keyup', this.keyup)
-
-    if (this.administrationsLength) {
-      this.lien = 'administration'
-    } else if (this.entreprisesLength) {
-      this.lien = 'entreprise'
-    }
   },
 
   beforeDestroy() {
@@ -396,15 +349,23 @@ export default {
       if (this.complete) {
         const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
 
-        if (utilisateur.permission) {
-          utilisateur.permissionId = utilisateur.permission.id
-
-          delete utilisateur.permission
+        if (
+          ['admin', 'editeur', 'lecteur'].includes(utilisateur.permissionId)
+        ) {
+          utilisateur.administrationsIds = utilisateur.administrationsIds.filter(
+            id => id
+          )
+        } else {
+          utilisateur.administrationsIds = []
         }
 
-        utilisateur.entreprisesIds = utilisateur.entreprisesIds.filter(id => id)
-
-        utilisateur.administrationsIds = utilisateur.administrationsIds.filter(id => id)
+        if (['entreprise'].includes(utilisateur.permissionId)) {
+          utilisateur.entreprisesIds = utilisateur.entreprisesIds.filter(
+            id => id
+          )
+        } else {
+          utilisateur.entreprisesIds = []
+        }
 
         if (this.action === 'create') {
           this.$store.dispatch('utilisateurs/add', utilisateur)
@@ -432,12 +393,7 @@ export default {
     },
 
     permissionToggle(permission) {
-      this.utilisateur.permission = permission
-    },
-
-    lienReset() {
-      this.utilisateur.entreprisesIds = []
-      this.utilisateur.administrationsIds = []
+      this.utilisateur.permissionId = permission.id
     },
 
     entrepriseAdd() {

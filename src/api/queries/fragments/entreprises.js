@@ -13,12 +13,6 @@ const fragmentEntreprises = gql`
     commune
     cedex
     url
-    etablissements {
-      id
-      nom
-      dateDebut
-      dateFin
-    }
   }
 `
 export default fragmentEntreprises

@@ -232,6 +232,10 @@ export default {
 
       delete utilisateur.administrations
 
+      utilisateur.permissionId = utilisateur.permission.id
+
+      delete utilisateur.permission
+
       this.$store.commit('popupOpen', {
         component: UtilisateurEditPopup,
         props: {
