@@ -1,7 +1,6 @@
 import { actions, mutations } from './index'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import VueRouter from 'vue-router'
 import * as api from '../api'
 import * as fileSaver from 'file-saver'
 
@@ -14,6 +13,7 @@ jest.mock('./map', () => ({ map: jest.fn() }))
 jest.mock('./utilisateur', () => ({ utilisateur: jest.fn() }))
 jest.mock('./utilisateurs', () => ({ utilisateurs: jest.fn() }))
 jest.mock('./entreprises', () => ({ entreprises: jest.fn() }))
+jest.mock('./entreprise', () => ({ entreprise: jest.fn() }))
 jest.mock('./administrations', () => ({ administrations: jest.fn() }))
 jest.mock('./substances', () => ({ substances: jest.fn() }))
 jest.mock('./user', () => ({ user: jest.fn() }))
@@ -21,7 +21,6 @@ jest.mock('./titre-activites', () => ({ titreActivites: jest.fn() }))
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
-localVue.use(VueRouter)
 
 console.log = jest.fn()
 

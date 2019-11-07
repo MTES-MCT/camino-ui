@@ -1,7 +1,7 @@
-import entreprises from './entreprises'
-import * as api from '../api'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import * as api from '../api'
+import entreprises from './entreprises'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)

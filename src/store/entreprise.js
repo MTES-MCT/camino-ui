@@ -37,7 +37,7 @@ export const actions = {
     dispatch(
       'messageAdd',
       {
-        value: `l'entreprise a été mise à jour`,
+        value: `l'entreprise a été ${idOld ? 'mise à jour' : 'créée'}`,
         type: 'success'
       },
       { root: true }
@@ -54,15 +54,8 @@ export const actions = {
       if (res) {
         commit('popupClose', null, { root: true })
         dispatch('reload', { id: res.id })
-        dispatch(
-          'messageAdd',
-          {
-            value: `fiche entreprise ${res.nom} créée`,
-            type: 'success'
-          },
-          { root: true }
-        )
       } else {
+        dispatch('pageError', null, { root: true })
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
@@ -74,29 +67,20 @@ export const actions = {
   async update({ commit, dispatch }, entreprise) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'entrepriseUpsert', { root: true })
+    commit('loadingAdd', 'entrepriseUpdate', { root: true })
     try {
       const res = await entrepriseUpdate({ entreprise })
 
-      commit('popupClose', null, { root: true })
-
       if (res) {
-        commit('add', res)
         commit('popupClose', null, { root: true })
         dispatch('reload', { id: res.id, idOld: entreprise.id })
-        dispatch(
-          'messageAdd',
-          {
-            value: `fiche entreprise ${res.nom} modifiée`,
-            type: 'success'
-          },
-          { root: true }
-        )
+      } else {
+        dispatch('pageError', null, { root: true })
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'entrepriseUpsert', { root: true })
+      commit('loadingRemove', 'entrepriseUpdate', { root: true })
     }
   }
 }

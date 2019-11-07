@@ -1,33 +1,46 @@
-import entreprise from './entreprise'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import * as api from '../api'
-
-jest.mock('../api', () => ({
-  entreprise: jest.fn()
-}))
+import entreprise from './entreprise'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
+jest.mock('../router', () => ({
+  push: () => {},
+  replace: () => {}
+}))
+
+jest.mock('../api', () => ({
+  entreprise: jest.fn(),
+  entrepriseCreate: jest.fn(),
+  entrepriseUpdate: jest.fn()
+}))
+
 console.log = jest.fn()
 
-describe("état de l'entreprise consultée", () => {
-  let entrepriseId
+describe("état de l'entreprise sélectionnée", () => {
   let store
   let actions
   let mutations
-  let entrepriseInfo
 
   beforeEach(() => {
-    entrepriseId = 71
-    entrepriseInfo = { id: 71, nom: 'toto' }
     entreprise.state = { current: null }
+    actions = {
+      pageError: jest.fn(),
+      apiError: jest.fn(),
+      messageAdd: jest.fn()
+    }
+
     mutations = {
       loadingAdd: jest.fn(),
-      loadingRemove: jest.fn()
+      loadingRemove: jest.fn(),
+      popupLoad: jest.fn(),
+      popupMessagesRemove: jest.fn(),
+      popupClose: jest.fn(),
+      popupMessageAdd: jest.fn()
     }
-    actions = { pageError: jest.fn(), apiError: jest.fn() }
+
     store = new Vuex.Store({
       modules: { entreprise },
       mutations,
@@ -36,21 +49,20 @@ describe("état de l'entreprise consultée", () => {
   })
 
   test("obtient les données d'un entreprise", async () => {
-    const entreprise = { id: 71, nom: 'toto' }
-    const apiMock = api.entreprise.mockResolvedValue(entreprise)
-    await store.dispatch('entreprise/get', entrepriseId)
+    const apiMock = api.entreprise.mockResolvedValue({ id: 71, nom: 'toto' })
+    await store.dispatch('entreprise/get', 71)
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(entrepriseId)
-    expect(store.state.entreprise.current).toEqual(entreprise)
+    expect(apiMock).toHaveBeenCalledWith(71)
+    expect(store.state.entreprise.current).toEqual({ id: 71, nom: 'toto' })
   })
 
   test("n'obtient pas d'entreprise si l'api ne retourne rien pour cette id", async () => {
     const apiMock = api.entreprise.mockResolvedValue(null)
-    await store.dispatch('entreprise/get', entrepriseId)
+    await store.dispatch('entreprise/get', 71)
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(entrepriseId)
+    expect(apiMock).toHaveBeenCalledWith(71)
     expect(actions.pageError).toHaveBeenCalled()
     expect(store.state.entreprise.current).toBeNull()
   })
@@ -59,18 +71,148 @@ describe("état de l'entreprise consultée", () => {
     const apiMock = api.entreprise.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
-    await store.dispatch('entreprise/get', entrepriseId)
+    await store.dispatch('entreprise/get', 71)
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(entrepriseId)
+    expect(apiMock).toHaveBeenCalledWith(71)
     expect(console.log).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
 
   test("supprime les données d'entreprise", () => {
-    store.commit('entreprise/set', entrepriseInfo)
+    store.commit('entreprise/set', { id: 71, nom: 'toto' })
     store.commit('entreprise/reset')
 
     expect(store.state.entreprise.current).toBeNull()
+  })
+
+  test("recharge l'entreprise", async () => {
+    await store.dispatch('entreprise/reload', {
+      id: 'id-test',
+      idOld: 'id-tost'
+    })
+
+    expect(actions.messageAdd).toHaveBeenCalled()
+  })
+
+  test("ne recharge pas l'entreprise si l'id n'a pas changé", async () => {
+    await store.dispatch('entreprise/reload', {
+      id: 'id-test',
+      idOld: 'id-test'
+    })
+
+    expect(actions.messageAdd).toHaveBeenCalled()
+  })
+
+  test('ajoute une entreprise', async () => {
+    const apiMock = api.entrepriseCreate.mockResolvedValue({
+      id: 71,
+      nom: 'toto'
+    })
+
+    await store.dispatch('entreprise/create', {
+      legalSiren: '123456789',
+      paysId: 'fr'
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      entreprise: {
+        legalSiren: '123456789',
+        paysId: 'fr'
+      }
+    })
+    expect(mutations.popupClose).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'API retourne null lors de l'ajout d'une entreprise", async () => {
+    const apiMock = api.entrepriseCreate.mockResolvedValue(null)
+    await store.dispatch('entreprise/create', {
+      legalSiren: '123456789',
+      paysId: 'fr'
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      entreprise: {
+        legalSiren: '123456789',
+        paysId: 'fr'
+      }
+    })
+
+    expect(actions.pageError).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'API retourne une erreur lors de l'ajout d'une entreprise", async () => {
+    const apiMock = api.entrepriseCreate.mockRejectedValue(
+      new Error('erreur api')
+    )
+    await store.dispatch('entreprise/create', {
+      legalSiren: '123456789',
+      paysId: 'fr'
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      entreprise: {
+        legalSiren: '123456789',
+        paysId: 'fr'
+      }
+    })
+
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test('modifie une entreprise', async () => {
+    const apiMock = api.entrepriseUpdate.mockResolvedValue({
+      id: 71,
+      nom: 'toto'
+    })
+
+    await store.dispatch('entreprise/update', {
+      legalSiren: '123456789',
+      paysId: 'fr'
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      entreprise: {
+        legalSiren: '123456789',
+        paysId: 'fr'
+      }
+    })
+    expect(mutations.popupClose).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'API retourne null lors de la modification d'une entreprise", async () => {
+    const apiMock = api.entrepriseUpdate.mockResolvedValue(null)
+    await store.dispatch('entreprise/update', {
+      legalSiren: '123456789',
+      paysId: 'fr'
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      entreprise: {
+        legalSiren: '123456789',
+        paysId: 'fr'
+      }
+    })
+
+    expect(actions.pageError).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'API retourne une erreur lors de la modification d'une entreprise", async () => {
+    const apiMock = api.entrepriseUpdate.mockRejectedValue(
+      new Error('erreur api')
+    )
+    await store.dispatch('entreprise/update', {
+      legalSiren: '123456789',
+      paysId: 'fr'
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      entreprise: {
+        legalSiren: '123456789',
+        paysId: 'fr'
+      }
+    })
+
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 })

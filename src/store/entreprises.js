@@ -32,10 +32,6 @@ export const mutations = {
       'list',
       entreprises.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
     )
-  },
-
-  add(state, entreprise) {
-    state.list.push(entreprise)
   }
 }
 
