@@ -50,6 +50,7 @@
       :etape="etape"
       :demarche-type="demarche.type"
       :demarche-id="demarche.id"
+      :etapes-type-ids="etapesTypeIds"
     />
   </div>
 </template>
@@ -82,6 +83,10 @@ export default {
   computed: {
     titre() {
       return this.$store.state.titre.current
+    },
+
+    etapesTypeIds() {
+      return this.demarche.etapes.map(({ type }) => type.id)
     }
   },
 
@@ -121,6 +126,7 @@ export default {
         ordre: 0,
         titreDemarcheId: this.demarche.id,
         typeId: null,
+        typeIdOriginal: null,
         statutId: null,
         duree: { ans: null, mois: null },
         titulairesIds: [],
@@ -141,7 +147,8 @@ export default {
           domaineId: this.titre.domaine.id,
           demarcheType: this.demarche.type,
           titreNom: this.titre.nom,
-          creation: true
+          creation: true,
+          etapesTypeIds: this.etapesTypeIds
         }
       })
     }

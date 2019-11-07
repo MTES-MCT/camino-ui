@@ -121,6 +121,7 @@ const etapeEditFormat = (etape, demarcheId) => {
   etape.titreDemarcheId = demarcheId
 
   etape.typeId = etape.type.id
+  etape.typeIdOriginal = etape.type.id
   delete etape.type
 
   etape.statutId = etape.statut.id
