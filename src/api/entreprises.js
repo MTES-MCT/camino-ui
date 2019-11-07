@@ -1,7 +1,12 @@
 import graphqlClient from './_graphql-client'
 import graphqlErrorThrow from './_error-throw'
 
-import { queryEntreprise, queryEntreprises } from './queries/entreprises'
+import {
+  queryEntreprise,
+  queryEntreprises,
+  mutationEntrepriseCreer,
+  mutationEntrepriseModifier
+} from './queries/entreprises'
 
 const entreprise = async id => {
   try {
@@ -33,4 +38,32 @@ const entreprises = async () => {
   }
 }
 
-export { entreprise, entreprises }
+const entrepriseCreate = async ({ entreprise }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationEntrepriseCreer,
+      variables: { entreprise }
+    })
+
+    return res && res.data && res.data.entrepriseCreer
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
+const entrepriseUpdate = async ({ entreprise }) => {
+  try {
+    const res = await graphqlClient.mutate({
+      mutation: mutationEntrepriseModifier,
+      variables: { entreprise }
+    })
+
+    return res && res.data && res.data.entrepriseModifier
+  } catch (e) {
+    console.log({ e })
+    graphqlErrorThrow(e)
+  }
+}
+
+export { entreprise, entreprises, entrepriseCreate, entrepriseUpdate }

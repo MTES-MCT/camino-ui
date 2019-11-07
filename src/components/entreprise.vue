@@ -21,6 +21,18 @@
         </span>
       </template>
 
+      <template
+        v-if="permissionsCheck(['super', 'admin', 'editeur'])"
+        slot="buttons"
+      >
+        <button
+          class="btn-alt py-s px-m"
+          @click="editPopupOpen"
+        >
+          <i class="icon-24 icon-pencil" />
+        </button>
+      </template>
+
       <template slot="sub">
         <div class="px-m pt-m">
           <div class="tablet-blobs">
@@ -173,6 +185,7 @@ import Accordion from './ui/accordion.vue'
 import Loader from './ui/loader.vue'
 import UtilisateursTable from './utilisateurs/table.vue'
 import TitresTable from './camino/titres-table.vue'
+import EntrepriseEditPopup from './entreprise/edit-popup.vue'
 
 export default {
   components: {
@@ -222,6 +235,22 @@ export default {
   methods: {
     get() {
       this.$store.dispatch('entreprise/get', this.$route.params.id)
+    },
+
+    editPopupOpen() {
+      const entreprise = {
+        id: this.entreprise.id,
+        telephone: this.entreprise.telephone,
+        url: this.entreprise.url,
+        email: this.entreprise.email
+      }
+
+      this.$store.commit('popupOpen', {
+        component: EntrepriseEditPopup,
+        props: {
+          entreprise
+        }
+      })
     }
   }
 }

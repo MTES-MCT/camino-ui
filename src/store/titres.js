@@ -57,8 +57,6 @@ export const actions = {
   }
 }
 
-export const getters = {}
-
 export const mutations = {
   set(state, titres) {
     Vue.set(state, 'list', titres)
@@ -69,6 +67,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  getters,
   mutations
 }

@@ -30,7 +30,12 @@ import {
   utilisateurAddEmail
 } from './utilisateurs'
 
-import { entreprise, entreprises } from './entreprises'
+import {
+  entreprise,
+  entreprises,
+  entrepriseCreate,
+  entrepriseUpdate
+} from './entreprises'
 
 import { administration, administrations } from './administrations'
 
@@ -58,6 +63,8 @@ export {
   utilisateurs,
   entreprise,
   entreprises,
+  entrepriseCreate,
+  entrepriseUpdate,
   administration,
   administrations,
   utilisateurLogin,

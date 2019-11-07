@@ -1,0 +1,154 @@
+<template>
+  <Popup>
+    <template slot="header">
+      <div>
+        <h2 class="mb-0">
+          Modification d'une fiche entreprise
+        </h2>
+      </div>
+    </template>
+
+    <hr>
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Téléphone </h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <input
+          v-model="entreprise.telephone"
+          type="text"
+          class="p-s"
+          placeholder="0100000000"
+        >
+      </div>
+    </div>
+
+    <hr>
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Adresse électronique</h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <input
+          v-model="entreprise.email"
+          type="text"
+          class="p-s"
+          placeholder="email@domain.tld"
+        >
+      </div>
+    </div>
+
+    <hr>
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Site internet</h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <input
+          v-model="entreprise.url"
+          type="text"
+          class="p-s"
+          placeholder="http://…"
+        >
+      </div>
+    </div>
+
+    <template slot="footer">
+      <Messages :messages="messages" />
+      <div class="tablet-blobs">
+        <div class="mb tablet-mb-0 tablet-blob-1-3">
+          <button
+            v-if="!loading"
+            class="btn-border rnd-xs p-s full-x"
+            @click="cancel"
+            @keyup.esc.native="cancel"
+          >
+            Annuler
+          </button>
+        </div>
+        <div
+          class="tablet-blob-2-3"
+        >
+          <button
+            v-if="!loading"
+            class="btn-flash rnd-xs p-s full-x"
+            @click="save"
+            @keyup.enter.native="save"
+          >
+            Enregistrer
+          </button>
+          <div
+            v-else
+            class="p-s full-x bold"
+          >
+            Enregistrement en cours…
+          </div>
+        </div>
+      </div>
+    </template>
+  </Popup>
+</template>
+
+<script>
+import Popup from '../ui/popup.vue'
+import Messages from '../ui/messages.vue'
+
+export default {
+  name: 'CaminoEntrepriseEditPopup',
+
+  components: {
+    Popup,
+    Messages
+  },
+
+  props: {
+    entreprise: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+
+  computed: {
+    loading() {
+      return this.$store.state.popup.loading
+    },
+
+    messages() {
+      return this.$store.state.popup.messages
+    }
+  },
+
+  created() {
+    document.addEventListener('keyup', this.keyup)
+    this.current = null
+  },
+
+  beforeDestroy() {
+    document.removeEventListener('keyup', this.keyup)
+  },
+
+  methods: {
+    save() {
+      const entreprise = JSON.parse(JSON.stringify(this.entreprise))
+      this.$store.dispatch('entreprise/update', entreprise)
+    },
+
+    cancel() {
+      this.errorsRemove()
+      this.$store.commit('popupClose')
+    },
+
+    keyup(e) {
+      if ((e.which || e.keyCode) === 27) {
+        this.cancel()
+      } else if ((e.which || e.keyCode) === 13) {
+        this.save()
+      }
+    },
+
+    errorsRemove() {
+      this.$store.commit('popupMessagesRemove')
+    }
+  }
+}
+</script>

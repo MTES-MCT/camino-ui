@@ -22,4 +22,29 @@ const queryEntreprises = gql`
   ${fragmentEntreprises}
 `
 
-export { queryEntreprise, queryEntreprises }
+const mutationEntrepriseCreer = gql`
+  mutation EntrepriseCreer($entreprise: InputEntrepriseCreation!) {
+    entrepriseCreer(entreprise: $entreprise) {
+      ...entreprise
+    }
+  }
+
+  ${fragmentEntreprise}
+`
+
+const mutationEntrepriseModifier = gql`
+  mutation EntrepriseModifier($entreprise: InputEntrepriseModification!) {
+    entrepriseModifier(entreprise: $entreprise) {
+      ...entreprise
+    }
+  }
+
+  ${fragmentEntreprise}
+`
+
+export {
+  queryEntreprise,
+  queryEntreprises,
+  mutationEntrepriseCreer,
+  mutationEntrepriseModifier
+}

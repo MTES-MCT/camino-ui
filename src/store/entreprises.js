@@ -25,8 +25,6 @@ export const actions = {
   }
 }
 
-export const getters = {}
-
 export const mutations = {
   set(state, entreprises) {
     Vue.set(
@@ -34,6 +32,10 @@ export const mutations = {
       'list',
       entreprises.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
     )
+  },
+
+  add(state, entreprise) {
+    state.list.push(entreprise)
   }
 }
 
@@ -41,6 +43,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  getters,
   mutations
 }

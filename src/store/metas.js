@@ -8,8 +8,6 @@ export const state = {
 
 export const actions = {}
 
-export const getters = {}
-
 export const mutations = {
   set(state, response) {
     Object.keys(response).forEach(id => {
@@ -22,6 +20,5 @@ export default {
   namespaced: true,
   state,
   actions,
-  getters,
   mutations
 }
