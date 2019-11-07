@@ -21,8 +21,11 @@ const fragmentTitres = gql`
       couleur
     }
     references {
-      type
-      valeur
+      type {
+        id
+        nom
+      }
+      nom
     }
     substances {
       ...titresSubstance

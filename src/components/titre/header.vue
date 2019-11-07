@@ -60,15 +60,15 @@
           <ul class="list-prefix">
             <li
               v-for="reference in titre.references"
-              :key="reference.valeur"
+              :key="reference.nom"
             >
               <span
                 v-if="reference.type"
                 class="h5 word-break color-neutral fixed-width"
               >
-                {{ reference.type }}
+                {{ reference.type.nom }}
               </span>
-              {{ reference.valeur }}
+              {{ reference.nom }}
             </li>
           </ul>
         </div>
@@ -199,6 +199,10 @@ export default {
 
       titre.domaineId = titre.domaine.id
       titre.typeId = titre.type.id
+      titre.references.map(reference => {
+        reference.typeId = reference.type.id
+        delete reference.type
+      })
 
       Object.keys(titre).forEach(key => {
         if (!keys.find(k => k === key)) {
@@ -211,7 +215,8 @@ export default {
         props: {
           titre,
           types: this.$store.state.metas.types,
-          domaines: this.$store.state.metas.domaines
+          domaines: this.$store.state.metas.domaines,
+          referencesTypes: this.$store.state.metas.referencesTypes
         }
       })
     },
