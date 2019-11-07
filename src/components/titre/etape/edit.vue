@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout d\'une ' : "Modification de l\'" }}étape {{ etapesTypeIds }}
+          {{ creation ? 'Ajout d\'une ' : "Modification de l\'" }}étape
         </h2>
       </div>
     </template>
