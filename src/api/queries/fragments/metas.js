@@ -14,6 +14,7 @@ const fragmentEtapeType = gql`
     }
     fondamentale
     sections
+    unique
   }
 `
 

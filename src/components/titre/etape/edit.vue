@@ -12,7 +12,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout d\'une ' : "Modification de l\'" }}étape
+          {{ creation ? 'Ajout d\'une ' : "Modification de l\'" }}étape {{ etapesTypeIds }}
         </h2>
       </div>
     </template>
@@ -28,7 +28,7 @@
           @change="typeUpdate"
         >
           <option
-            v-for="eType in demarcheType.etapesTypes"
+            v-for="eType in etapesTypes"
             :key="eType.id"
             :value="eType.id"
             :disabled="etape.typeId === eType.id"
@@ -167,7 +167,8 @@ export default {
     demarcheType: { type: Object, default: () => ({}) },
     domaineId: { type: String, default: '' },
     titreNom: { type: String, default: '' },
-    creation: { type: Boolean, default: false }
+    creation: { type: Boolean, default: false },
+    etapesTypeIds: { type: Array, default: () => [] }
   },
 
   data() {
@@ -185,6 +186,15 @@ export default {
 
     messages() {
       return this.$store.state.popup.messages
+    },
+
+    etapesTypes() {
+      return this.demarcheType.etapesTypes.filter(
+        et =>
+          !et.unique ||
+          et.id === this.etape.typeIdOriginal ||
+          !this.etapesTypeIds.includes(et.id)
+      )
     },
 
     etapeType() {
