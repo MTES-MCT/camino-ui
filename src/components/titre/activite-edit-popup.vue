@@ -137,7 +137,10 @@ export default {
         (activiteComplete, s) =>
           s.elements.reduce((sectionComplete, e) => {
             const value =
-              this.activite.contenu[s.id] && this.activite.contenu[s.id][e.id]
+              this.activite.contenu[s.id] &&
+              (e.type === 'checkboxes'
+                ? this.activite.contenu[s.id][e.id].length || null
+                : this.activite.contenu[s.id][e.id])
 
             return sectionComplete && !!(value || value === 0 || e.optionel)
           }, activiteComplete),

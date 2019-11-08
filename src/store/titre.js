@@ -42,7 +42,7 @@ export const actions = {
     }
   },
 
-  async reload({ dispatch }, { id, idOld }) {
+  async reload({ dispatch }, { id, idOld, creation }) {
     if (id !== idOld) {
       router.replace({ name: 'titre', params: { id } })
     }
@@ -52,7 +52,7 @@ export const actions = {
     dispatch(
       'messageAdd',
       {
-        value: `le titre a été ${idOld ? 'mis à jour' : 'créé'}`,
+        value: `le titre a été ${creation ? 'créé' : 'mis à jour'}`,
         type: 'success'
       },
       { root: true }
@@ -69,7 +69,7 @@ export const actions = {
 
       if (res) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: res.id })
+        dispatch('reload', { id: res.id, creation: true })
       } else {
         dispatch('pageError', null, { root: true })
       }
