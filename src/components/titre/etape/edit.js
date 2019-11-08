@@ -191,6 +191,7 @@ const etapeSaveFormat = etape => {
     etape.points = null
   }
 
+  delete etape.typeIdOriginal
   delete etape.groupes
   delete etape.geoSystemeOpposableId
   delete etape.geoSystemeIds
