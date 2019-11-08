@@ -121,7 +121,10 @@
             Annuler
           </button>
         </div>
-        <div class="tablet-blob-2-3">
+        <div
+          class="tablet-blob-2-3"
+          :class="{ disabled: !complete }"
+        >
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
@@ -219,6 +222,10 @@ export default {
           {}
         )
       )
+    },
+
+    complete() {
+      return this.etape.typeId && this.etape.date && this.etape.statutId
     }
   },
 
@@ -232,15 +239,17 @@ export default {
 
   methods: {
     save() {
-      const etape = etapeSaveFormat(this.etape)
+      if (this.complete) {
+        const etape = etapeSaveFormat(this.etape)
 
-      etape.contenu = this.contenu
+        etape.contenu = this.contenu
 
-      // console.log(JSON.stringify(etape, null, 2))
-      if (this.creation) {
-        this.$store.dispatch('titre/etapeCreate', etape)
-      } else {
-        this.$store.dispatch('titre/etapeUpdate', etape)
+        // console.log(JSON.stringify(etape, null, 2))
+        if (this.creation) {
+          this.$store.dispatch('titre/etapeCreate', etape)
+        } else {
+          this.$store.dispatch('titre/etapeUpdate', etape)
+        }
       }
     },
 

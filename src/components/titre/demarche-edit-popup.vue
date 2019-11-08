@@ -52,7 +52,10 @@
             Annuler
           </button>
         </div>
-        <div class="tablet-blob-2-3">
+        <div
+          class="tablet-blob-2-3"
+          :class="{ disabled: !complete }"
+        >
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
@@ -126,6 +129,10 @@ export default {
         et => et.id === this.demarche.typeId
       )
       return demarcheType && demarcheType.nom
+    },
+
+    complete() {
+      return this.demarche.typeId
     }
   },
 
@@ -139,12 +146,14 @@ export default {
 
   methods: {
     save() {
-      const demarche = JSON.parse(JSON.stringify(this.demarche))
+      if (this.complete) {
+        const demarche = JSON.parse(JSON.stringify(this.demarche))
 
-      if (this.creation) {
-        this.$store.dispatch('titre/demarcheCreate', demarche)
-      } else {
-        this.$store.dispatch('titre/demarcheUpdate', demarche)
+        if (this.creation) {
+          this.$store.dispatch('titre/demarcheCreate', demarche)
+        } else {
+          this.$store.dispatch('titre/demarcheUpdate', demarche)
+        }
       }
     },
 
