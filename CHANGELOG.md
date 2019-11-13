@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.8](https://github.com/MTES-MCT/camino-ui/compare/v0.22.7...v0.22.8) (2019-11-13)
+
+
+### Bug Fixes
+
+* empêche de valider un rapport si il est incomplet ([4794720](https://github.com/MTES-MCT/camino-ui/commit/4794720))
+* **édition:** empêche de valider un formulaire incomplet ([9e5c2f0](https://github.com/MTES-MCT/camino-ui/commit/9e5c2f0))
+* corrige l'enregistrement d'une étape ([9820683](https://github.com/MTES-MCT/camino-ui/commit/9820683))
+* n'affiche pas les utilisateurs dans la requête sur les titres ([898fb60](https://github.com/MTES-MCT/camino-ui/commit/898fb60))
+* optimise les définitions graphql ([80da07c](https://github.com/MTES-MCT/camino-ui/commit/80da07c))
+* supprime un log inutile ([9da3068](https://github.com/MTES-MCT/camino-ui/commit/9da3068))
+
+
+### Features
+
+* **édition:** ajoute une entreprise ([#40](https://github.com/MTES-MCT/camino-ui/issues/40)) ([34e994f](https://github.com/MTES-MCT/camino-ui/commit/34e994f))
+* **édition:** gère l'unicité des étapes pendant l'édition ([#42](https://github.com/MTES-MCT/camino-ui/issues/42)) ([0d2f49e](https://github.com/MTES-MCT/camino-ui/commit/0d2f49e))
+* lie un utilisateur à des entreprises ou des administrations ([#41](https://github.com/MTES-MCT/camino-ui/issues/41)) ([828958c](https://github.com/MTES-MCT/camino-ui/commit/828958c))
+
 ### [0.22.7](https://github.com/MTES-MCT/camino-ui/compare/v0.22.6...v0.22.7) (2019-10-28)
 
 
