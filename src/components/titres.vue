@@ -212,6 +212,7 @@ export default {
         props: {
           titre,
           domaines: this.$store.state.metas.domaines,
+          referencesTypes: this.$store.state.metas.referencesTypes,
           creation: true
         }
       })

@@ -86,14 +86,20 @@
         :key="index"
         class="flex full-x mb"
       >
-        <input
-          v-model="reference.type"
-          type="text"
+        <select
+          v-model="reference.typeId"
           class="p-s mr"
-          placeholder="type"
         >
+          <option
+            v-for="referenceType in referencesTypes"
+            :key="referenceType.id"
+            :value="referenceType.id"
+          >
+            {{ referenceType.nom }}
+          </option>
+        </select>
         <input
-          v-model="reference.valeur"
+          v-model="reference.nom"
           type="text"
           class="p-s mr"
           placeholder="valeur"
@@ -109,7 +115,7 @@
       </div>
 
       <button
-        v-if="titre.references && !titre.references.find(r => !r.type || !r.valeur)"
+        v-if="titre.references && !titre.references.find(r => !r.typeId || !r.nom)"
         class="btn-border rnd-xs py-s px-m full-x mb flex"
         @click="referenceAdd"
       >
@@ -173,6 +179,11 @@ export default {
       default: () => []
     },
 
+    referencesTypes: {
+      type: Array,
+      default: () => []
+    },
+
     creation: {
       type: Boolean,
       default: false
@@ -209,14 +220,9 @@ export default {
   methods: {
     save() {
       const titre = JSON.parse(JSON.stringify(this.titre))
-
-      titre.references &&
-        titre.references.length &&
-        titre.references.forEach((r, index) => {
-          if (!r.type || !r.valeur) {
-            titre.references.splice(index, 1)
-          }
-        })
+      titre.references = titre.references.filter(reference => {
+        return reference.nom
+      })
 
       if (this.creation) {
         this.$store.dispatch('titre/titreCreate', titre)
@@ -243,7 +249,7 @@ export default {
     },
 
     referenceAdd() {
-      this.titre.references.push({ type: '', valeur: '' })
+      this.titre.references.push({ typeId: '', nom: '' })
     },
 
     referenceRemove(index) {

@@ -91,6 +91,10 @@ const fragmentMeta = gql`
         ...unite
       }
     }
+    referencesTypes {
+      id
+      nom
+    }
   }
 
   ${fragmentUnite}
