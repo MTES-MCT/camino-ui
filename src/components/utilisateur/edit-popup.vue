@@ -6,7 +6,7 @@
           {{
             action === 'create'
               ? "Création d'un compte utilisateur"
-              : "Modification du compte utilisateur"
+              : 'Modification du compte utilisateur'
           }}
         </h2>
       </div>
@@ -125,7 +125,7 @@
         <div class="mb tablet-blob-2-3">
           <ul class="list-inline mb-0">
             <li
-              v-for="permission in permissionList"
+              v-for="permission in permissions"
               :key="permission.id"
               :class="{ active: utilisateur.permissionId === permission.id }"
             >
@@ -140,7 +140,7 @@
         </div>
       </div>
 
-      <div v-if="['entreprise'].includes(utilisateur.permissionId)">
+      <div v-if="utilisateurIsEntreprise">
         <hr>
         <h3 class="mb-s">
           Entreprises
@@ -151,7 +151,10 @@
         >
           <div
             class="flex full-x"
-            :class="{'mb-s': entreprisesLength, 'mb': !entreprisesLength}"
+            :class="{
+              'mb-s': utilisateurEntreprisesLength,
+              mb: !utilisateurEntreprisesLength
+            }"
           >
             <select
               v-model="utilisateur.entreprisesIds[n]"
@@ -162,7 +165,9 @@
                 v-for="entreprise in entreprises"
                 :key="entreprise.id"
                 :value="entreprise.id"
-                :disabled="utilisateur.entreprisesIds.find(id => id === entreprise.id)"
+                :disabled="
+                  utilisateur.entreprisesIds.find(id => id === entreprise.id)
+                "
               >
                 {{ entreprise.nom }}
               </option>
@@ -187,7 +192,7 @@
         </button>
       </div>
 
-      <div v-if="['admin', 'editeur', 'lecteur'].includes(utilisateur.permissionId)">
+      <div v-if="utilisateurIsAdministration">
         <hr>
         <h3 class="mb-s">
           Administrations
@@ -198,7 +203,10 @@
         >
           <div
             class="flex full-x"
-            :class="{'mb-s': administrationsLength, 'mb': !administrationsLength}"
+            :class="{
+              'mb-s': utilisateurAdministrationsLength,
+              mb: !utilisateurAdministrationsLength
+            }"
           >
             <select
               v-model="utilisateur.administrationsIds[n]"
@@ -209,7 +217,11 @@
                 v-for="administration in administrations"
                 :key="administration.id"
                 :value="administration.id"
-                :disabled="utilisateur.administrationsIds.find(id => id === administration.id)"
+                :disabled="
+                  utilisateur.administrationsIds.find(
+                    id => id === administration.id
+                  )
+                "
               >
                 {{ administration.nom }} {{ administration.service }}
               </option>
@@ -281,6 +293,7 @@ export default {
       type: Object,
       default: () => ({})
     },
+
     action: {
       type: String,
       default: 'edit',
@@ -298,9 +311,19 @@ export default {
     messages() {
       return this.$store.state.popup.messages
     },
-    permissionList() {
-      return this.$store.state.utilisateurs.permissions
+
+    permissions() {
+      return this.$store.state.metas.permissions
     },
+
+    entreprises() {
+      return this.$store.state.metas.entreprises
+    },
+
+    administrations() {
+      return this.$store.state.metas.administrations
+    },
+
     complete() {
       if (this.action === 'create') {
         return (
@@ -319,24 +342,32 @@ export default {
       )
     },
 
-    entreprises() {
-      return this.$store.state.entreprises.list
-    },
-
-    entreprisesLength() {
+    utilisateurEntreprisesLength() {
       return this.utilisateur.entreprisesIds.filter(id => id).length
     },
 
-    administrations() {
-      return this.$store.state.administrations.list
+    utilisateurAdministrationsLength() {
+      return this.utilisateur.administrationsIds.filter(id => id).length
     },
 
-    administrationsLength() {
-      return this.utilisateur.administrationsIds.filter(id => id).length
+    utilisateurIsEntreprise() {
+      return ['entreprise'].includes(this.utilisateur.permissionId)
+    },
+
+    utilisateurIsAdministration() {
+      return ['admin', 'editeur', 'lecteur'].includes(
+        this.utilisateur.permissionId
+      )
     }
   },
 
+  watch: {
+    utilisateurIsEntreprise: 'get',
+    utilisateurIsAdministration: 'get'
+  },
+
   created() {
+    this.get()
     document.addEventListener('keyup', this.keyup)
   },
 
@@ -345,13 +376,14 @@ export default {
   },
 
   methods: {
+    get() {
+      this.$store.dispatch('metas/utilisateurGet')
+    },
     save() {
       if (this.complete) {
         const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
 
-        if (
-          ['admin', 'editeur', 'lecteur'].includes(utilisateur.permissionId)
-        ) {
+        if (this.utilisateurIsAdministration) {
           utilisateur.administrationsIds = utilisateur.administrationsIds.filter(
             id => id
           )
@@ -359,7 +391,7 @@ export default {
           utilisateur.administrationsIds = []
         }
 
-        if (['entreprise'].includes(utilisateur.permissionId)) {
+        if (this.utilisateurIsEntreprise) {
           utilisateur.entreprisesIds = utilisateur.entreprisesIds.filter(
             id => id
           )

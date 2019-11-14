@@ -35,7 +35,7 @@ export default {
     },
 
     loaded() {
-      return this.$store.state.loaded
+      return this.$store.state.metas.titresLoaded
     },
 
     preferencesFiltres() {
@@ -107,10 +107,15 @@ export default {
         }
       },
       deep: true
+    },
+
+    user: function(to, from) {
+      this.get()
     }
   },
 
   created() {
+    this.get()
     // si les metas sont chargées
     if (this.loaded) {
       this.filtresUpdate()
@@ -126,6 +131,10 @@ export default {
   },
 
   methods: {
+    get() {
+      this.$store.dispatch('metas/titresGet')
+    },
+
     validate() {
       // les champs textes sont mis à jour onBlur
       // pour les prendre en compte lorsqu'on valide en appuyant sur "entréee"

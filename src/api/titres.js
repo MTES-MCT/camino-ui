@@ -28,7 +28,7 @@ const titre = async id => {
 
     return res && res.data.titre
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -69,7 +69,7 @@ const titres = async (
 
     return res && res.data && res.data.titres
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -83,7 +83,7 @@ const titreCreate = async ({ titre }) => {
 
     return res && res.data && res.data.titreCreer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -97,7 +97,7 @@ const titreUpdate = async ({ titre }) => {
 
     return res && res.data && res.data.titreModifier
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -111,7 +111,7 @@ const titreDelete = async ({ id }) => {
 
     return res && res.data && res.data.titreSupprimer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -125,7 +125,7 @@ const titreDemarcheCreate = async ({ demarche }) => {
 
     return res && res.data && res.data.titreDemarcheCreer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -139,7 +139,7 @@ const titreDemarcheUpdate = async ({ demarche }) => {
 
     return res && res.data && res.data.titreDemarcheModifier
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -153,7 +153,7 @@ const titreDemarcheDelete = async ({ id }) => {
 
     return res && res.data && res.data.titreDemarcheSupprimer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -167,7 +167,7 @@ const titreEtapeCreate = async ({ etape }) => {
 
     return res && res.data && res.data.titreEtapeCreer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -181,7 +181,7 @@ const titreEtapeUpdate = async ({ etape }) => {
 
     return res && res.data && res.data.titreEtapeModifier
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -195,7 +195,7 @@ const titreEtapeDelete = async ({ id }) => {
 
     return res && res.data && res.data.titreEtapeSupprimer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -209,7 +209,7 @@ const titreDocumentCreate = async ({ document }) => {
 
     return res && res.data && res.data.titreDocumentCreer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -223,7 +223,7 @@ const titreDocumentUpdate = async ({ document }) => {
 
     return res && res.data && res.data.titreDocumentModifier
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -237,7 +237,7 @@ const titreDocumentDelete = async ({ id }) => {
 
     return res && res.data && res.data.titreDocumentSupprimer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }

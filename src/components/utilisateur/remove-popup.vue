@@ -65,9 +65,6 @@ export default {
   computed: {
     messages() {
       return this.$store.state.popup.messages
-    },
-    permissionList() {
-      return this.$store.state.utilisateurs.permissions
     }
   },
 

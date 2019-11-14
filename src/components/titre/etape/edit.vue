@@ -230,6 +230,7 @@ export default {
   },
 
   created() {
+    this.get()
     document.addEventListener('keyup', this.keyUp)
   },
 
@@ -238,6 +239,10 @@ export default {
   },
 
   methods: {
+    get() {
+      this.$store.dispatch('metas/titreEtapeGet')
+    },
+
     save() {
       if (this.complete) {
         const etape = etapeSaveFormat(this.etape)

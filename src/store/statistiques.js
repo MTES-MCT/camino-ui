@@ -18,8 +18,6 @@ export const actions = {
     try {
       const res = await statistiques()
 
-      console.log(res)
-
       if (res) {
         commit('set', res)
       } else {

@@ -25,7 +25,7 @@ const utilisateur = async id => {
 
     return res && res.data && res.data.utilisateur
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -50,7 +50,7 @@ const utilisateurs = async ({
 
     return res && res.data && res.data.utilisateurs
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -64,7 +64,7 @@ const utilisateurLogin = async ({ email, motDePasse }) => {
 
     return res && res.data && res.data.utilisateurConnecter
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -77,7 +77,7 @@ const utilisateurIdentify = async () => {
 
     return res && res.data && res.data.utilisateurIdentifier
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -91,7 +91,7 @@ const utilisateurUpdate = async ({ utilisateur }) => {
 
     return res && res.data && res.data.utilisateurModifier
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -105,7 +105,7 @@ const utilisateurAdd = async ({ utilisateur }) => {
 
     return res && res.data && res.data.utilisateurCreer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -119,7 +119,7 @@ const utilisateurRemove = async ({ id }) => {
 
     return res && res.data && res.data.utilisateurSupprimer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -143,7 +143,7 @@ const utilisateurPasswordUpdate = async ({
 
     return res && res.data && res.data.utilisateurMotDePasseModifier
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -159,7 +159,7 @@ const utilisateurPasswordInitEmail = async ({ email }) => {
 
     return res && res.data && res.data.utilisateurMotDePasseEmailEnvoyer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -173,7 +173,7 @@ const utilisateurPasswordInit = async ({ motDePasse1, motDePasse2 }) => {
 
     return res && res.data && res.data.utilisateurMotDePasseInitialiser
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -187,7 +187,7 @@ const utilisateurAddEmail = async ({ email }) => {
 
     return res && res.data && res.data.utilisateurCreationEmailEnvoyer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }

@@ -323,19 +323,6 @@ describe('interactions avec les utilisateurs', () => {
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
-  test("met à jour les permissions de l'utilisateur", () => {
-    store.commit('utilisateurs/permissionsSet', permissions)
-
-    expect(store.state.utilisateurs.permissions).toEqual(permissions)
-  })
-
-  test("met à 0 les permissions de l'utilisateur", () => {
-    store.commit('utilisateurs/permissionsSet', permissions)
-    store.commit('utilisateurs/reset')
-
-    expect(store.state.utilisateurs.permissions).toEqual([])
-  })
-
   test("enlève un utilisateur n'existant pas dans l'api", () => {
     store.commit('utilisateurs/set', utilisateursIds)
     store.commit('utilisateurs/remove', 25)

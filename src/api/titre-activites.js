@@ -12,7 +12,7 @@ const titreActiviteUpdate = async ({ activite }) => {
 
     return res && res.data && res.data.titreActiviteModifier
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }

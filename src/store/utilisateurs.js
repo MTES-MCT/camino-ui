@@ -10,8 +10,7 @@ import {
 import router from '../router'
 
 export const state = {
-  list: [],
-  permissions: []
+  list: []
 }
 
 export const actions = {
@@ -71,7 +70,7 @@ export const actions = {
       if (utilisateur.id === rootState.user.current.id) {
         commit('user/set', u, { root: true })
       }
-      
+
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
@@ -105,9 +104,7 @@ export const actions = {
         dispatch(
           'messageAdd',
           {
-            value: `utilisateur ${utilisateur.prenom} ${
-              utilisateur.nom
-            } supprimé`,
+            value: `utilisateur ${utilisateur.prenom} ${utilisateur.nom} supprimé`,
             type: 'success'
           },
           { root: true }
@@ -159,14 +156,6 @@ export const actions = {
 export const mutations = {
   set(state, titres) {
     Vue.set(state, 'list', titres)
-  },
-
-  permissionsSet(state, permissions) {
-    Vue.set(state, 'permissions', permissions)
-  },
-
-  reset(state) {
-    Vue.set(state, 'permissions', [])
   },
 
   add(state, utilisateur) {

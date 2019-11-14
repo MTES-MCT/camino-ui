@@ -12,10 +12,10 @@ jest.mock('../api', () => ({
   utilisateurAdd: jest.fn()
 }))
 
+jest.mock('../router', () => [])
+
 const localVue = createLocalVue()
 localVue.use(Vuex)
-
-jest.mock('../router', () => [])
 
 describe("état de l'utilisateur connecté", () => {
   let store
@@ -49,7 +49,6 @@ describe("état de l'utilisateur connecté", () => {
     }
 
     actions = {
-      init: jest.fn(),
       messageAdd: jest.fn()
     }
 
@@ -64,7 +63,6 @@ describe("état de l'utilisateur connecté", () => {
 
     map = { state: { tiles: [{ id: 'osm-fr' }, { id: 'geoportail' }] } }
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
-    localStorage.clear()
   })
 
   test("identifie l'utilisateur si un token valide est présent", async () => {
@@ -76,7 +74,7 @@ describe("état de l'utilisateur connecté", () => {
 
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
 
-    await store.dispatch('user/init')
+    await store.dispatch('user/identify')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.user.current).toEqual({
@@ -90,9 +88,14 @@ describe("état de l'utilisateur connecté", () => {
     expect(store.state.user.loaded).toBeTruthy()
   })
 
-  test("n'affiche pas la page utilisateur si aucun n'est connecté", async () => {
-    await store.dispatch('user/init')
+  test("ne stocke pas de token si aucun n'est connecté", async () => {
+    const apiMock = api.utilisateurIdentify.mockResolvedValue({
+      utilisateur: null,
+      token: null
+    })
+    await store.dispatch('user/identify')
 
+    expect(apiMock).toHaveBeenCalled()
     expect(localStorage.getItem('token')).toBeNull()
   })
 
@@ -122,7 +125,6 @@ describe("état de l'utilisateur connecté", () => {
     expect(apiMock).toHaveBeenCalledWith({ email, motDePasse })
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
-    expect(actions.init).toHaveBeenCalled()
     expect(localStorage.getItem('token')).toEqual('rene')
     expect(store.state.user.current).toEqual({
       id: 66,
@@ -149,13 +151,11 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test('déconnecte un utilisateur', async () => {
-    const initMock = actions.init.mockResolvedValue(Promise.resolve())
     localStorage.setItem('token', 'value')
     store.commit('user/set', userInfo)
     await store.dispatch('user/logout')
 
     expect(mutations.menuClose).toHaveBeenCalled()
-    expect(initMock).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(localStorage.getItem('token')).toBeNull()
     expect(store.state.user.current).toBeNull()

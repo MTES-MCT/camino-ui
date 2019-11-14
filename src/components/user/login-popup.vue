@@ -12,6 +12,7 @@
       </div>
       <div class="tablet-blob-2-3">
         <input
+          id="cmn-user-login-input-email"
           v-model="email"
           type="email"
           class="p-s"
@@ -24,6 +25,7 @@
       </div>
       <div class="tablet-blob-2-3">
         <input
+          id="cmn-user-login-input-password"
           v-model="motDePasse"
           type="password"
           class="p-s"
@@ -47,6 +49,7 @@
           :class="{ disabled: !complete }"
         >
           <button
+            id="cmn-user-login-button-connecter"
             class="btn-flash rnd-xs p-s full-x"
             @click="login"
           >
@@ -55,12 +58,14 @@
         </div>
       </div>
       <button
+        id="cmn-user-login-button-creer"
         class="btn-alt rnd-xs p-s h5 mr-s"
         @click="userAddPopupOpen"
       >
         Créer votre compte…
       </button>
       <button
+        id="cmn-user-login-button-initialiser"
         class="btn-alt rnd-xs p-s h5 mr-s"
         @click="userPasswordInitPopupOpen"
       >

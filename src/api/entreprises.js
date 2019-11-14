@@ -18,7 +18,7 @@ const entreprise = async id => {
 
     return res && res.data && res.data.entreprise
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -33,7 +33,7 @@ const entreprises = async () => {
 
     return res && res.data && res.data.entreprises
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -47,7 +47,7 @@ const entrepriseCreate = async ({ entreprise }) => {
 
     return res && res.data && res.data.entrepriseCreer
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -61,7 +61,7 @@ const entrepriseUpdate = async ({ entreprise }) => {
 
     return res && res.data && res.data.entrepriseModifier
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }

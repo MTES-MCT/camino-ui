@@ -13,7 +13,7 @@ const statistiques = async () => {
 
     return res && res.data.statistiques
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
