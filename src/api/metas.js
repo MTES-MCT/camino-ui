@@ -12,8 +12,7 @@ const metasInit = async () => {
   try {
     const res = await graphqlClient.query({
       query: queryMetasInit,
-      variables: {},
-      fetchPolicy: 'network-only'
+      variables: {}
     })
 
     return res && res.data
@@ -55,7 +54,8 @@ const metasTitres = async () => {
   try {
     const res = await graphqlClient.query({
       query: queryMetasTitres,
-      variables: {}
+      variables: {},
+      fetchPolicy: 'network-only'
     })
 
     return res && res.data
