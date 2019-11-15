@@ -26,24 +26,21 @@ export const state = {
 }
 
 export const actions = {
-  async init({ commit, dispatch }) {
-    if (localStorage.getItem('token')) {
-      await dispatch('identify')
-    } else {
-      dispatch('tokenRemove')
-    }
-    commit('load')
-  },
-
   async identify({ commit, dispatch }) {
     try {
       const res = await utilisateurIdentify()
 
-      dispatch('tokenSet', res.token)
-      commit('set', res.utilisateur)
+      if (res.utilisateur && res.token) {
+        dispatch('tokenSet', res.token)
+        commit('set', res.utilisateur)
+      } else {
+        throw new Error("l'utilisateur n'est pas connecté")
+      }
     } catch (e) {
       dispatch('tokenRemove')
       commit('reset')
+    } finally {
+      commit('load')
     }
   },
 
@@ -55,7 +52,6 @@ export const actions = {
       const res = await utilisateurLogin({ email, motDePasse })
 
       dispatch('tokenSet', res.token)
-      await dispatch('init', null, { root: true })
       commit('set', res.utilisateur)
       commit('popupClose', null, { root: true })
       dispatch(
@@ -78,7 +74,6 @@ export const actions = {
   async logout({ commit, dispatch }) {
     commit('menuClose', null, { root: true })
     dispatch('tokenRemove')
-    await dispatch('init', null, { root: true })
     commit('reset')
     dispatch(
       'messageAdd',
@@ -186,7 +181,6 @@ export const actions = {
       router.push({ name: 'titres' })
 
       dispatch('tokenSet', res.token)
-      await dispatch('init', null, { root: true })
       commit('set', res.utilisateur)
       dispatch(
         'messageAdd',

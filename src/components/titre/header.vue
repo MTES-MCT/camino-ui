@@ -213,10 +213,7 @@ export default {
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
-          titre,
-          types: this.$store.state.metas.types,
-          domaines: this.$store.state.metas.domaines,
-          referencesTypes: this.$store.state.metas.referencesTypes
+          titre
         }
       })
     },

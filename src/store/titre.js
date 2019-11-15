@@ -18,8 +18,7 @@ import {
 import router from '../router'
 
 export const state = {
-  current: null,
-  documents: []
+  current: null
 }
 
 export const actions = {

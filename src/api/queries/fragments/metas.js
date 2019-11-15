@@ -1,5 +1,12 @@
 import gql from 'graphql-tag'
 
+const fragmentPermission = gql`
+  fragment permission on Permission {
+    id
+    nom
+  }
+`
+
 const fragmentEtapeType = gql`
   fragment etapeType on EtapeType {
     id
@@ -53,55 +60,8 @@ const fragmentDemarcheType = gql`
   ${fragmentEtapeType}
 `
 
-const fragmentMeta = gql`
-  fragment meta on Metas {
-    documentsTypes {
-      id
-      nom
-    }
-    domaines {
-      id
-      nom
-      types {
-        id
-        nom
-      }
-    }
-    types {
-      id
-      nom
-    }
-    statuts {
-      id
-      nom
-      couleur
-    }
-    devises {
-      id
-      nom
-    }
-    unites {
-      ...unite
-    }
-    geoSystemes {
-      id
-      nom
-      zone
-      unite {
-        ...unite
-      }
-    }
-    referencesTypes {
-      id
-      nom
-    }
-  }
-
-  ${fragmentUnite}
-`
-
 export {
-  fragmentMeta,
+  fragmentPermission,
   fragmentUnite,
   fragmentDemarcheType,
   fragmentDemarcheStatut

@@ -1,11 +1,9 @@
 import { actions, mutations } from './index'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import * as api from '../api'
 import * as fileSaver from 'file-saver'
 
 jest.mock('file-saver', () => ({ saveAs: jest.fn() }))
-jest.mock('../api', () => ({ init: jest.fn() }))
 jest.mock('./titre', () => ({ titre: jest.fn() }))
 jest.mock('./titres', () => ({ titres: jest.fn() }))
 jest.mock('./metas', () => ({ metas: jest.fn() }))
@@ -14,10 +12,12 @@ jest.mock('./utilisateur', () => ({ utilisateur: jest.fn() }))
 jest.mock('./utilisateurs', () => ({ utilisateurs: jest.fn() }))
 jest.mock('./entreprises', () => ({ entreprises: jest.fn() }))
 jest.mock('./entreprise', () => ({ entreprise: jest.fn() }))
+jest.mock('./administration', () => ({ administration: jest.fn() }))
 jest.mock('./administrations', () => ({ administrations: jest.fn() }))
 jest.mock('./substances', () => ({ substances: jest.fn() }))
 jest.mock('./user', () => ({ user: jest.fn() }))
 jest.mock('./titre-activites', () => ({ titreActivites: jest.fn() }))
+jest.mock('./statistiques', () => ({ statistiques: jest.fn() }))
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -29,12 +29,6 @@ jest.useFakeTimers()
 describe("état général de l'application", () => {
   let state
   let store
-  let modules
-  let metasSet,
-    utilisateursPermissionsSet,
-    substancesSet,
-    entreprisesSet,
-    administrationsSet
 
   beforeEach(() => {
     state = {
@@ -43,51 +37,17 @@ describe("état général de l'application", () => {
       popup: { component: null, props: null, messages: [], loading: false },
       error: null,
       menu: { component: null },
-      versions: {
-        api: null,
-        /* global npmVersion */
-        // @ts-ignore
-        ui: `${npmVersion}`
-      },
       loading: [],
       loaded: false
     }
-    metasSet = jest.fn()
-    utilisateursPermissionsSet = jest.fn()
-    substancesSet = jest.fn()
-    entreprisesSet = jest.fn()
-    administrationsSet = jest.fn()
-
-    modules = {
-      metas: { namespaced: true, mutations: { set: metasSet } },
-      utilisateurs: {
-        namespaced: true,
-        mutations: { permissionsSet: utilisateursPermissionsSet }
-      },
-      entreprises: { namespaced: true, mutations: { set: entreprisesSet } },
-      administrations: {
-        namespaced: true,
-        mutations: { set: administrationsSet }
-      },
-      substances: { namespaced: true, mutations: { set: substancesSet } }
-    }
 
     store = new Vuex.Store({
-      modules,
       state,
       actions,
       mutations
     })
 
     localStorage.clear()
-    fetch.resetMocks()
-  })
-
-  test("retourne la version de l'api", () => {
-    const version = '10.4'
-    store.commit('apiVersionSet', version)
-
-    expect(state.versions.api).toEqual(version)
   })
 
   test('ajoute un message', () => {
@@ -149,52 +109,12 @@ describe("état général de l'application", () => {
   })
 
   test("trace si un appel à l'api est en cours", () => {
-    const name1 = 'nom1'
-    const name2 = 'nom2'
-    store.commit('loadingAdd', name1)
-    store.commit('loadingRemove', name2)
+    store.commit('loadingAdd', 'nom1')
+    store.commit('loadingAdd', 'nom2')
+    store.commit('loadingRemove', 'nom2')
+    store.commit('loadingRemove', 'nom3')
 
-    expect(state.loading).toEqual([name1])
-  })
-
-  test("initialise l'application", async () => {
-    state.error = true
-    api.init.mockResolvedValue({
-      version: '10.4',
-      metas: { domaines: 'c,w', statuts: 'val' },
-      substances: 'or',
-      permissions: 'admin',
-      entreprises: 'macdo',
-      administrations: 'ministere'
-    })
-    await store.dispatch('init')
-
-    expect(utilisateursPermissionsSet).toHaveBeenCalled()
-    expect(substancesSet).toHaveBeenCalled()
-    expect(entreprisesSet).toHaveBeenCalled()
-    expect(administrationsSet).toHaveBeenCalled()
-    expect(metasSet).toHaveBeenCalled()
-  })
-
-  test("initialise l'application sans métas", async () => {
-    state.loaded = true
-    api.init.mockResolvedValue({ version: null })
-    await store.dispatch('init')
-
-    expect(state.versions.api).toBeNull()
-    expect(utilisateursPermissionsSet).toHaveBeenCalled()
-    expect(substancesSet).toHaveBeenCalled()
-    expect(entreprisesSet).toHaveBeenCalled()
-    expect(administrationsSet).toHaveBeenCalled()
-    expect(metasSet).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur de l'api lors de l'initialisation", async () => {
-    api.init.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('init')
-
-    expect(state.messages.pop().type).toEqual('error')
-    expect(console.log).toHaveBeenCalled()
+    expect(state.loading).toEqual(['nom1'])
   })
 
   test("retourne une erreur de l'api", async () => {
@@ -221,22 +141,6 @@ describe("état général de l'application", () => {
     })
   })
 
-  test('supprime un message', async () => {
-    const messageRemoveMock = jest.fn()
-    mutations.messageRemove = messageRemoveMock
-    store = new Vuex.Store({ modules, actions, state, mutations })
-    const message = { id: 14, message: 'message important' }
-    await store.dispatch('messageAdd', message)
-
-    const res = state.messages.pop()
-    expect(res.message).toEqual('message important')
-    expect(res.id).toBeLessThanOrEqual(Date.now())
-    jest.advanceTimersByTime(4500)
-    expect(setTimeout).toHaveBeenCalled()
-    expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 4500)
-    expect(messageRemoveMock).toHaveBeenCalled()
-  })
-
   test('ferme le menu', async () => {
     store.state.menu.component = { name: 'menu' }
     const component = { name: 'menu' }
@@ -261,11 +165,41 @@ describe("état général de l'application", () => {
 
     expect(state.menu.component).toEqual(component)
   })
+})
+
+describe("état général de l'application", () => {
+  let state
+  let store
+
+  beforeEach(() => {
+    state = {
+      messages: []
+    }
+
+    localStorage.clear()
+    fetch.resetMocks()
+  })
+
+  test('supprime un message', async () => {
+    const messageRemoveMock = jest.fn()
+    mutations.messageRemove = messageRemoveMock
+    store = new Vuex.Store({ actions, state, mutations })
+    const message = { id: 14, message: 'message important' }
+    await store.dispatch('messageAdd', message)
+
+    const res = state.messages.pop()
+    expect(res.message).toEqual('message important')
+    expect(res.id).toBeLessThanOrEqual(Date.now())
+    jest.advanceTimersByTime(4500)
+    expect(setTimeout).toHaveBeenCalled()
+    expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 4500)
+    expect(messageRemoveMock).toHaveBeenCalled()
+  })
 
   test('télécharge un document', async () => {
     const messageAddMock = jest.fn()
     actions.messageAdd = messageAddMock
-    store = new Vuex.Store({ modules, state, actions, mutations })
+    store = new Vuex.Store({ state, actions, mutations })
     const documentId = 'crique-sophie'
     const fichierTypeId = 'pdf'
     localStorage.setItem('token', 'privateToken')
@@ -280,7 +214,7 @@ describe("état général de l'application", () => {
   test("retourne une erreur lors du téléchargement d'un document", async () => {
     const apiErrorMock = jest.fn()
     actions.apiError = apiErrorMock
-    store = new Vuex.Store({ modules, state, actions, mutations })
+    store = new Vuex.Store({ state, actions, mutations })
     const documentId = 'crique-sophie'
     const fichierTypeId = 'pdf'
     localStorage.removeItem('token')
@@ -294,7 +228,7 @@ describe("état général de l'application", () => {
   test('retourne une erreur si un document est introuvable', async () => {
     const messageAddMock = jest.fn()
     actions.messageAdd = messageAddMock
-    store = new Vuex.Store({ modules, state, actions, mutations })
+    store = new Vuex.Store({ state, actions, mutations })
     const documentId = 'crique-sophie'
     const fichierTypeId = 'pdf'
     localStorage.setItem('token', 'privateToken')

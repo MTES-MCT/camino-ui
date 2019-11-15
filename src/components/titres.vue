@@ -128,10 +128,6 @@ export default {
       return this.$store.state.user.current
     },
 
-    userLoaded() {
-      return this.$store.state.user.loaded
-    },
-
     vueId() {
       return this.$store.state.user.preferences.titres.vueId
     },
@@ -144,8 +140,12 @@ export default {
       return this.$store.state.user.preferences.filtres
     },
 
+    userLoaded() {
+      return this.$store.state.user.loaded
+    },
+
     metasLoaded() {
-      return this.$store.state.loaded
+      return this.$store.state.metas.titresLoaded
     }
   },
 
@@ -162,6 +162,14 @@ export default {
       this.get()
     },
 
+    userLoaded: function(to, from) {
+      this.get()
+    },
+
+    metasLoaded: function(to, from) {
+      this.get()
+    },
+
     filtres: {
       handler: function(to, from) {
         this.get()
@@ -172,6 +180,7 @@ export default {
 
   created() {
     this.init()
+    this.get()
   },
 
   methods: {
@@ -188,7 +197,7 @@ export default {
     },
 
     get() {
-      if (this.userLoaded && this.metasLoaded) {
+      if (this.metasLoaded && this.userLoaded) {
         this.$store.dispatch('titres/get')
       }
     },
@@ -211,8 +220,6 @@ export default {
         component: TitreEditPopup,
         props: {
           titre,
-          domaines: this.$store.state.metas.domaines,
-          referencesTypes: this.$store.state.metas.referencesTypes,
           creation: true
         }
       })

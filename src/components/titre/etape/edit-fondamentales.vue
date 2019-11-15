@@ -425,11 +425,11 @@ export default {
 
   computed: {
     entreprises() {
-      return this.$store.state.entreprises.list
+      return this.$store.state.metas.entreprises
     },
 
     substances() {
-      return this.$store.state.substances.list.filter(su =>
+      return this.$store.state.metas.substances.filter(su =>
         su.legales.find(sl => sl.domaine.id === this.domaineId)
       )
     },

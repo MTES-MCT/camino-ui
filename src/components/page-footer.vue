@@ -150,7 +150,7 @@ export default {
 
   computed: {
     versions() {
-      return this.$store.state.versions
+      return this.$store.state.metas.versions
     }
   }
 }

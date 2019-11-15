@@ -69,8 +69,8 @@ export default {
 
   methods: {
     async init() {
-      await this.$store.dispatch('user/init')
-      this.$store.dispatch('init')
+      this.$store.dispatch('user/identify')
+      this.$store.dispatch('metas/init')
     }
   }
 }

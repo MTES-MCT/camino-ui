@@ -2,8 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { saveAs } from 'file-saver'
 
-import { init } from '../api'
-
 import titre from './titre'
 import titres from './titres'
 import metas from './metas'
@@ -42,49 +40,11 @@ export const state = {
   popup: { component: null, props: null, messages: [], loading: false },
   error: null,
   menu: { component: null },
-  versions: {
-    api: null,
-    /* global npmVersion */
-    ui: `${npmVersion}`
-  },
   loading: [],
   loaded: false
 }
 
 export const actions = {
-  async init({ state, commit, dispatch }) {
-    commit('loadingAdd', 'init')
-
-    if (state.error) {
-      commit('errorRemove')
-    }
-
-    try {
-      const res = await init()
-
-      commit('apiVersionSet', res.version)
-
-      commit('utilisateurs/permissionsSet', res.permissions, { root: true })
-
-      commit('substances/set', res.substances, { root: true })
-
-      commit('entreprises/set', res.entreprises, { root: true })
-
-      commit('administrations/set', res.administrations, { root: true })
-
-      commit('metas/set', res.metas, { root: true })
-
-      if (!state.loaded) {
-        commit('loaded')
-      }
-    } catch (e) {
-      dispatch('apiError', e, { root: true })
-      console.log(e)
-    } finally {
-      commit('loadingRemove', 'init')
-    }
-  },
-
   apiError({ commit }, error) {
     const id = Date.now()
     commit('messageAdd', {
@@ -161,20 +121,15 @@ export const actions = {
 }
 
 export const mutations = {
-  apiVersionSet(state, version) {
-    state.versions.api = version
-  },
-
-  loaded(state) {
-    state.loaded = true
-  },
-
   messageAdd(state, message) {
     state.messages.push(message)
   },
 
   messageRemove(state, id) {
-    Vue.delete(state.messages, state.messages.findIndex(m => m.id === id))
+    Vue.delete(
+      state.messages,
+      state.messages.findIndex(m => m.id === id)
+    )
   },
 
   popupOpen(state, { component, props }) {

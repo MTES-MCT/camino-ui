@@ -16,7 +16,7 @@ const administration = async id => {
 
     return res && res.data && res.data.administration
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }
@@ -31,7 +31,7 @@ const administrations = async () => {
 
     return res && res.data && res.data.administrations
   } catch (e) {
-    console.log({ e })
+    console.error(e)
     graphqlErrorThrow(e)
   }
 }

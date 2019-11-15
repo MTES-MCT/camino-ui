@@ -128,6 +128,7 @@ export default {
       const demarcheType = this.demarchesTypes.find(
         et => et.id === this.demarche.typeId
       )
+
       return demarcheType && demarcheType.nom
     },
 

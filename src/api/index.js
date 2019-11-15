@@ -1,4 +1,10 @@
-import { init } from './init'
+import {
+  metasInit,
+  metasUtilisateur,
+  metasTitre,
+  metasTitreEtape,
+  metasTitres
+} from './metas'
 import {
   titres,
   titre,
@@ -44,7 +50,11 @@ import { titreActiviteUpdate } from './titre-activites'
 import { statistiques } from './statistiques'
 
 export {
-  init,
+  metasInit,
+  metasUtilisateur,
+  metasTitre,
+  metasTitreEtape,
+  metasTitres,
   titre,
   titreCreate,
   titreUpdate,

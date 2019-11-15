@@ -3,7 +3,7 @@
     <template slot="header">
       <div>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout d\'un' : 'Modification du' }} titre
+          {{ creation ? "Ajout d'un" : 'Modification du' }} titre
         </h2>
       </div>
     </template>
@@ -174,16 +174,6 @@ export default {
       default: () => ({})
     },
 
-    domaines: {
-      type: Array,
-      default: () => []
-    },
-
-    referencesTypes: {
-      type: Array,
-      default: () => []
-    },
-
     creation: {
       type: Boolean,
       default: false
@@ -199,6 +189,14 @@ export default {
       return this.$store.state.popup.messages
     },
 
+    domaines() {
+      return this.$store.state.metas.domaines
+    },
+
+    referencesTypes() {
+      return this.$store.state.metas.referencesTypes
+    },
+
     types() {
       const domaine = this.domaines.find(d => d.id === this.titre.domaineId)
       return domaine && domaine.types
@@ -210,6 +208,7 @@ export default {
   },
 
   created() {
+    this.get()
     document.addEventListener('keyup', this.keyup)
   },
 
@@ -218,6 +217,10 @@ export default {
   },
 
   methods: {
+    get() {
+      this.$store.dispatch('metas/titreGet')
+    },
+
     save() {
       const titre = JSON.parse(JSON.stringify(this.titre))
       titre.references = titre.references.filter(reference => {
