@@ -18,7 +18,6 @@ export const state = {
   substances: [],
   entreprises: [],
   administrations: [],
-  titresLoaded: false,
   versions: {
     api: null,
     /* global npmVersion */
@@ -115,7 +114,7 @@ export const mutations = {
   },
 
   titresLoaded(state) {
-    state.titresLoaded = true
+    state.titresLoaded++
   }
 }
 

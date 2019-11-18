@@ -124,10 +124,6 @@ export default {
       return !!this.titres
     },
 
-    user() {
-      return this.$store.state.user.current
-    },
-
     vueId() {
       return this.$store.state.user.preferences.titres.vueId
     },
@@ -136,16 +132,8 @@ export default {
       return this.vues.find(c => c.id === this.vueId)
     },
 
-    filtres() {
-      return this.$store.state.user.preferences.filtres
-    },
-
-    userLoaded() {
-      return this.$store.state.user.loaded
-    },
-
-    metasLoaded() {
-      return this.$store.state.metas.titresLoaded
+    filtresLoaded() {
+      return this.$store.state.user.titresFiltresLoaded
     }
   },
 
@@ -158,29 +146,11 @@ export default {
       }
     },
 
-    user: function(to, from) {
-      this.get()
-    },
-
-    userLoaded: function(to, from) {
-      this.get()
-    },
-
-    metasLoaded: function(to, from) {
-      this.get()
-    },
-
-    filtres: {
-      handler: function(to, from) {
-        this.get()
-      },
-      deep: true
-    }
+    filtresLoaded: 'get'
   },
 
   created() {
     this.init()
-    this.get()
   },
 
   methods: {
@@ -197,7 +167,7 @@ export default {
     },
 
     get() {
-      if (this.metasLoaded && this.userLoaded) {
+      if (this.filtresLoaded) {
         this.$store.dispatch('titres/get')
       }
     },

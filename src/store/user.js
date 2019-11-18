@@ -22,6 +22,7 @@ export const state = {
       range: 200
     }
   },
+  titresFiltresLoaded: 0,
   loaded: false
 }
 
@@ -277,6 +278,10 @@ export const mutations = {
 
   reset(state) {
     Vue.set(state, 'current', null)
+  },
+
+  titresFiltresLoaded(state) {
+    state.titresFiltresLoaded++
   }
 }
 

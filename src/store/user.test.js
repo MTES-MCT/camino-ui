@@ -45,7 +45,8 @@ describe("état de l'utilisateur connecté", () => {
         filtres: {},
         titres: { vueId: 'carte', pageActive: 1, pagesRange: 200 }
       },
-      loaded: false
+      loaded: false,
+      titresFiltresLoaded: 0
     }
 
     actions = {
@@ -230,7 +231,7 @@ describe("état de l'utilisateur connecté", () => {
     expect(actions.messageAdd).toHaveBeenCalled()
   })
 
-  test("returne une erreur api dans la création de l'email de l'utilisateur", async () => {
+  test("retourne une erreur api dans la création de l'email de l'utilisateur", async () => {
     const apiMock = api.utilisateurPasswordInitEmail.mockRejectedValue(
       new Error("erreur dans l'api")
     )
@@ -343,5 +344,11 @@ describe("état de l'utilisateur connecté", () => {
       permission: 'admin'
     })
     expect(store.state.user.current.entreprise).toBeUndefined()
+  })
+
+  test("initialise les préférences de filtres de l'utilisateur", () => {
+    store.commit('user/titresFiltresLoaded')
+
+    expect(store.state.user.titresFiltresLoaded).toEqual(1)
   })
 })

@@ -34,14 +34,6 @@ export default {
       }
     },
 
-    loaded() {
-      return this.$store.state.metas.titresLoaded
-    },
-
-    preferencesFiltres() {
-      return this.$store.state.user.preferences.filtres
-    },
-
     filters() {
       return this.filtres.map(filtre => {
         if (filtre.type === 'checkboxes') {
@@ -66,6 +58,22 @@ export default {
 
         return filtre
       })
+    },
+
+    user() {
+      return this.$store.state.user.current
+    },
+
+    preferencesFiltres() {
+      return this.$store.state.user.preferences.filtres
+    },
+
+    userLoaded() {
+      return this.$store.state.user.loaded
+    },
+
+    preferencesFiltresLoaded() {
+      return this.$store.state.user.titresFiltresLoaded
     }
   },
 
@@ -78,7 +86,7 @@ export default {
         ({ id }) => (to.query[id] || null) !== this.preferencesFiltres[id]
       )
 
-      if (changed && this.loaded) {
+      if (changed) {
         this.filtresUpdate('url')
         this.preferencesUpdate()
       }
@@ -90,26 +98,26 @@ export default {
     // - met à jour les paramètre d'url
     metas: {
       handler: function(metas, metasOld) {
-        if (this.loaded) {
-          const firstLoad = Object.keys(metasOld).some(
-            id => !metasOld[id].length
-          )
+        const firstLoad = Object.keys(metasOld).some(id => !metasOld[id].length)
 
-          // si c'est le premier chargement de l'app
-          // - source des filtres: paramètres d'url
-          // sinon (pe: connexion / deconnexion utilisateur)
-          // - source des filtres: prefs utilisateur
-          const source = firstLoad ? 'url' : 'preferences'
+        // si c'est le premier chargement de l'app
+        // - source des filtres: paramètres d'url
+        // sinon (pe: connexion / deconnexion utilisateur)
+        // - source des filtres: prefs utilisateur
+        const source = firstLoad ? 'url' : 'preferences'
 
-          this.filtresUpdate(source)
-          this.preferencesUpdate()
-          this.urlUpdate()
-        }
+        this.filtresUpdate(source)
+        this.preferencesUpdate()
+        this.urlUpdate()
       },
       deep: true
     },
 
     user: function(to, from) {
+      this.get()
+    },
+
+    userLoaded: function(to, from) {
       this.get()
     }
   },
@@ -117,9 +125,8 @@ export default {
   created() {
     this.get()
     // si les metas sont chargées
-    if (this.loaded) {
+    if (this.preferencesFiltresLoaded) {
       this.filtresUpdate()
-      this.preferencesUpdate()
       this.urlUpdate()
     }
 
@@ -132,7 +139,9 @@ export default {
 
   methods: {
     get() {
-      this.$store.dispatch('metas/titresGet')
+      if (this.userLoaded) {
+        this.$store.dispatch('metas/titresGet')
+      }
     },
 
     validate() {
@@ -202,6 +211,8 @@ export default {
           })
         }
       })
+
+      this.$store.commit('user/titresFiltresLoaded')
     },
 
     // met à jour les paramètres d'url
