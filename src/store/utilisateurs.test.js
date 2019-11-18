@@ -115,9 +115,7 @@ describe('interactions avec les utilisateurs', () => {
   let user
   let mutationsUser
   let actionsUser
-  let permissions
   beforeEach(() => {
-    permissions = ['admin', 'user', 'super']
     utilisateursIds = [
       { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' },
       { id: 46, prenom: 'peuplut', nom: 'jean', mdp: 'bon' }

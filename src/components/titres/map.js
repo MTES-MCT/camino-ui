@@ -1,6 +1,6 @@
 import 'leaflet'
 import 'leaflet.markercluster'
-const L = window['L']
+const L = window.L
 
 const zones = [
   {
