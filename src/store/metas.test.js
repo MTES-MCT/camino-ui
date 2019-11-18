@@ -8,7 +8,8 @@ jest.mock('../api', () => ({
   metasTitre: jest.fn(),
   metasTitres: jest.fn(),
   metasTitreEtape: jest.fn(),
-  metasUtilisateur: jest.fn()
+  metasUtilisateur: jest.fn(),
+  metasTitreEtapeDocument: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -191,6 +192,36 @@ describe('état de la liste des métas', () => {
     )
 
     await store.dispatch('metas/titreEtapeGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test('récupère les métas pour éditer un document', async () => {
+    const apiMock = api.metasTitreEtapeDocument.mockResolvedValue({
+      documentsTypes: [
+        { id: 'ifr', nom: 'Ifremer' },
+        { id: 'dge', nom: 'DGEC' }
+      ]
+    })
+
+    await store.dispatch('metas/titreEtapeDocumentGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.metas.documentsTypes).toEqual([
+      { id: 'dge', nom: 'DGEC' },
+      { id: 'ifr', nom: 'Ifremer' }
+    ])
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api ne répond pas", async () => {
+    const apiMock = api.metasTitreEtapeDocument.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+
+    await store.dispatch('metas/titreEtapeDocumentGet')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()

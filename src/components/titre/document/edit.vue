@@ -295,6 +295,7 @@ export default {
   },
 
   created() {
+    this.get()
     document.addEventListener('keyup', this.keyUp)
   },
 
@@ -303,6 +304,10 @@ export default {
   },
 
   methods: {
+    get() {
+      this.$store.dispatch('metas/titreEtapeDocumentGet')
+    },
+
     fileChange({
       target: {
         validity,

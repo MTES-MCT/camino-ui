@@ -5,7 +5,8 @@ import {
   queryMetasUtilisateur,
   queryMetasTitre,
   queryMetasTitreEtape,
-  queryMetasTitres
+  queryMetasTitres,
+  queryMetasDocument
 } from './queries/metas'
 
 const metasInit = async () => {
@@ -79,4 +80,25 @@ const metasTitreEtape = async () => {
   }
 }
 
-export { metasInit, metasUtilisateur, metasTitre, metasTitres, metasTitreEtape }
+const metasTitreEtapeDocument = async () => {
+  try {
+    const res = await graphqlClient.query({
+      query: queryMetasDocument,
+      variables: {}
+    })
+
+    return res && res.data
+  } catch (e) {
+    console.error(e)
+    graphqlErrorThrow(e)
+  }
+}
+
+export {
+  metasInit,
+  metasUtilisateur,
+  metasTitre,
+  metasTitres,
+  metasTitreEtape,
+  metasTitreEtapeDocument
+}

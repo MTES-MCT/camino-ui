@@ -4,6 +4,7 @@ import {
   metasTitre,
   metasTitres,
   metasTitreEtape,
+  metasTitreEtapeDocument,
   metasUtilisateur
 } from '../api'
 
@@ -79,6 +80,19 @@ export const actions = {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeMetasGet', { root: true })
+    }
+  },
+
+  async titreEtapeDocumentGet({ commit }) {
+    commit('loadingAdd', 'titreEtapeDocumentMetasGet', { root: true })
+
+    try {
+      const res = await metasTitreEtapeDocument()
+      commit('set', res)
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeDocumentMetasGet', { root: true })
     }
   },
 

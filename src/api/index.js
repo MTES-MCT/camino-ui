@@ -3,7 +3,8 @@ import {
   metasUtilisateur,
   metasTitre,
   metasTitreEtape,
-  metasTitres
+  metasTitres,
+  metasTitreEtapeDocument
 } from './metas'
 import {
   titres,
@@ -55,6 +56,7 @@ export {
   metasTitre,
   metasTitreEtape,
   metasTitres,
+  metasTitreEtapeDocument,
   titre,
   titreCreate,
   titreUpdate,
