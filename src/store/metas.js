@@ -113,12 +113,14 @@ export const actions = {
 }
 
 export const mutations = {
-  set(state, response) {
-    Object.keys(response).forEach(id => {
+  set(state, metaIndex) {
+    Object.keys(metaIndex).forEach(metaId => {
       Vue.set(
         state,
-        id,
-        response[id].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
+        metaId,
+        metaIndex[metaId]
+          ? metaIndex[metaId].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
+          : null
       )
     })
   },

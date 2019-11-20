@@ -117,6 +117,12 @@ export const actions = {
         `erreur de téléchargement : ${documentId}.${fichierTypeId}, ${e}`
       )
     }
+  },
+
+  errorRemove({ state, commit }) {
+    if (state.error) {
+      commit('errorRemove')
+    }
   }
 }
 

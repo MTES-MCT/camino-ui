@@ -50,7 +50,8 @@ describe("état de l'utilisateur connecté", () => {
     }
 
     actions = {
-      messageAdd: jest.fn()
+      messageAdd: jest.fn(),
+      errorRemove: jest.fn()
     }
 
     mutations = {
@@ -63,7 +64,11 @@ describe("état de l'utilisateur connecté", () => {
     }
 
     map = { state: { tiles: [{ id: 'osm-fr' }, { id: 'geoportail' }] } }
-    store = new Vuex.Store({ modules: { user, map }, actions, mutations })
+    store = new Vuex.Store({
+      modules: { user, map },
+      actions,
+      mutations
+    })
   })
 
   test("identifie l'utilisateur si un token valide est présent", async () => {

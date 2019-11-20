@@ -63,6 +63,7 @@ export const actions = {
         },
         { root: true }
       )
+      dispatch('errorRemove', null, { root: true })
     } catch (e) {
       dispatch('tokenRemove')
       commit('reset')

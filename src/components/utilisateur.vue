@@ -5,11 +5,9 @@
   <Card v-else>
     <h6>Utilisateur</h6>
     <h1>
-      {{
-        utilisateur
-          ? `${utilisateur.prenom || "–"} ${utilisateur.nom || "–"}`
-          : "–"
-      }}
+      {{ utilisateur
+        ? `${utilisateur.prenom || '–'} ${utilisateur.nom || '–'}`
+        : '–' }}
     </h1>
     <Accordion
       class="mb"
@@ -22,7 +20,7 @@
       </template>
 
       <template
-        v-if="permissionsCheck(['super', 'admin']) || user.id === utilisateur.id"
+        v-if="permissionsCheck(['super', 'admin']) || user && user.id === utilisateur.id"
         slot="buttons"
       >
         <button
@@ -56,7 +54,7 @@
               </h6>
             </div>
             <div class="tablet-blob-3-4">
-              <p>{{ utilisateur.prenom || "–" }}</p>
+              <p>{{ utilisateur.prenom || '–' }}</p>
             </div>
           </div>
 
@@ -67,7 +65,7 @@
               </h6>
             </div>
             <div class="tablet-blob-3-4">
-              <p>{{ utilisateur.nom || "–" }}</p>
+              <p>{{ utilisateur.nom || '–' }}</p>
             </div>
           </div>
 
@@ -78,7 +76,7 @@
               </h6>
             </div>
             <div class="tablet-blob-3-4">
-              <p>{{ utilisateur.email || "–" }}</p>
+              <p>{{ utilisateur.email || '–' }}</p>
             </div>
           </div>
 
@@ -89,7 +87,7 @@
               </h6>
             </div>
             <div class="tablet-blob-3-4">
-              <p>{{ utilisateur.telephoneFixe || "–" }}</p>
+              <p>{{ utilisateur.telephoneFixe || '–' }}</p>
             </div>
           </div>
 
@@ -100,7 +98,7 @@
               </h6>
             </div>
             <div class="tablet-blob-3-4">
-              <p>{{ utilisateur.telephoneMobile || "–" }}</p>
+              <p>{{ utilisateur.telephoneMobile || '–' }}</p>
             </div>
           </div>
 
@@ -141,7 +139,9 @@
 
             <div class="tablet-blob-3-4">
               <p>
-                {{ utilisateur.entreprises.map(({nom, legalSiren}) => `${nom} (${legalSiren})`).join(', ') }}
+                {{ utilisateur.entreprises
+                  .map(({ nom, legalSiren }) => `${nom} (${legalSiren})`)
+                  .join(', ') }}
               </p>
             </div>
           </div>
@@ -158,7 +158,9 @@
 
             <div class="tablet-blob-3-4">
               <p>
-                {{ utilisateur.administrations.map(({nom}) => `${nom}`).join(', ') }}
+                {{ utilisateur.administrations
+                  .map(({ nom }) => `${nom}`)
+                  .join(', ') }}
               </p>
             </div>
           </div>
@@ -201,8 +203,6 @@ export default {
   },
 
   watch: {
-    $route: 'get',
-
     user: 'get'
   },
 

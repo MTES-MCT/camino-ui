@@ -169,7 +169,8 @@ describe('état de la liste des métas', () => {
       referencesTypes: [
         { id: 'ifr', nom: 'Ifremer' },
         { id: 'dge', nom: 'DGEC' }
-      ]
+      ],
+      truc: null
     })
 
     await store.dispatch('metas/titreEtapeGet')

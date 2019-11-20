@@ -141,6 +141,19 @@ describe("état général de l'application", () => {
     })
   })
 
+  test("ne supprime pas d'erreur s'il n'y en a pas", async () => {
+    await store.dispatch('errorRemove')
+
+    expect(state.error).toEqual(null)
+  })
+
+  test('supprime une erreur', async () => {
+    store.commit('errorAdd', { id: 'erreur-test' })
+    await store.dispatch('errorRemove')
+
+    expect(state.error).toEqual(null)
+  })
+
   test('ferme le menu', async () => {
     store.state.menu.component = { name: 'menu' }
     const component = { name: 'menu' }
