@@ -8,7 +8,7 @@
 
       <div class="desktop-blob-1-3">
         <button
-          v-if="permissionsCheck(['super'])"
+          v-if="permissionsCheck(['super', 'admin'])"
           class="btn-border rnd-xs py-s px-m full-x flex mb-s"
           @click="addPopupOpen"
         >

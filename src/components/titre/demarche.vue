@@ -16,10 +16,11 @@
       </div>
       <div class="tablet-blob-1-4 flex">
         <div
-          v-if="permissionsCheck(['super']) || permissionsTitreAdministrationsCheck(titre)"
+          v-if="demarche.editable || demarche.supprimable"
           class="flex-right"
         >
           <button
+            v-if="demarche.supprimable"
             class="btn-border rnd-l-xs py-s px-m mb"
             @click="removePopupOpen"
           >
@@ -27,6 +28,7 @@
           </button>
 
           <button
+            v-if="demarche.editable"
             class="btn-border rnd-r-xs py-s px-m mb"
             @click="editPopupOpen"
           >
@@ -37,7 +39,7 @@
     </div>
 
     <button
-      v-if="permissionsCheck(['super']) || permissionsTitreAdministrationsCheck(titre)"
+      v-if="demarche.editable"
       class="btn-border rnd-xs py-s px-m full-x flex mb"
       @click="etapeAddPopupOpen"
     >

@@ -85,6 +85,9 @@ const fragmentTitre = gql`
     activites {
       ...titreActivite
     }
+
+    editable
+    supprimable
   }
 
   ${fragmentTitreAdministrations}

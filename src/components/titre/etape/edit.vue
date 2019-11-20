@@ -194,9 +194,10 @@ export default {
     etapesTypes() {
       return this.demarcheType.etapesTypes.filter(
         et =>
-          !et.unique ||
+          et.editable &&
+          (!et.unique ||
           et.id === this.etape.typeIdOriginal ||
-          !this.etapesTypeIds.includes(et.id)
+          !this.etapesTypeIds.includes(et.id))
       )
     },
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="permissionsCheck(['super'])"
+      v-if="titre.editable"
     >
       <div class="card-border mb" />
       <button
