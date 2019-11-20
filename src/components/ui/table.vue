@@ -163,15 +163,33 @@ export default {
       this.range = Number(range)
     },
 
+    columnUpdate(column) {
+      console.log(column)
+      console.log(this.columns)
+      console.log(this._props.columns)
+      // this.column = column
+      // TODO : trouver l'index de la column en fonction de son nom
+      this.sortColumn = 4
+      this.sortOrder = column.match('^-') ? -1 : 1
+    },
+
     sort(colIndex) {
       if (this.sortColumn === colIndex) {
         this.sortOrder = -this.sortOrder
       } else {
         this.sortColumn = colIndex
       }
+      this.$emit(
+        'column:update',
+        `${this.sortOrder < 0 ? '-' : ''}${this.columns[this.sortColumn].id}`
+      )
 
       this.pageUpdate(1)
       this.$emit('page:update', 1)
+      // console.log(this.sortColumn)
+      // console.log(this.sortOrder)
+      // console.log(this.columns)
+      // console.log(this.columns[this.sortColumn])
     }
   }
 }

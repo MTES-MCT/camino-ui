@@ -4,6 +4,7 @@
     :titres="titres"
     @page:update="urlPageUpdate"
     @range:update="urlRangeUpdate"
+    @column:update="urlColumnUpdate"
   />
 </template>
 
@@ -32,6 +33,10 @@ export default {
     range() {
       return this.$store.state.user.preferences.titres.table.range
     }
+
+    // column() {
+    //   return this.$store.state.user.preferences.titres.column
+    // }
   },
 
   watch: {
@@ -80,6 +85,7 @@ export default {
     init() {
       const page = this.$route.query.page && Number(this.$route.query.page)
       const range = this.$route.query.range && Number(this.$route.query.range)
+      const column = this.$route.query.sort && this.$route.query.sort
 
       if (!page) {
         this.$refs.table.pageUpdate(this.page)
@@ -95,6 +101,14 @@ export default {
       } else if (range !== this.range) {
         this.$refs.table.rangeUpdate(range)
         this.preferencesRangeUpdate(range)
+      }
+
+      if (!column) {
+        // this.$refs.table.columnUpdate(this.column)
+        // this.urlColumnUpdate(this.column)
+      } else if (column !== this.column) {
+        this.$refs.table.columnUpdate(column)
+        this.preferencesColumnUpdate(column)
       }
     },
 
@@ -118,6 +132,17 @@ export default {
 
     urlRangeUpdate(range) {
       this.urlParamSet('range', range.toString())
+    },
+
+    preferencesColumnUpdate(column) {
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'titres.column',
+        value: column
+      })
+    },
+
+    urlColumnUpdate(column) {
+      this.urlParamSet('sort', column.toString())
     }
   }
 }

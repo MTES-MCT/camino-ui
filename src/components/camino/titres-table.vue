@@ -5,6 +5,7 @@
     :columns="colonnes"
     @page:update="$emit('page:update', $event)"
     @range:update="$emit('range:update', $event)"
+    @column:update="$emit('column:update', $event)"
   />
 </template>
 
@@ -164,6 +165,11 @@ export default {
     rangeUpdate(range) {
       // called from parent component
       this.$refs.table.rangeUpdate(range)
+    },
+
+    columnUpdate(column) {
+      // called from parent component
+      this.$refs.table.columnUpdate(column)
     }
   }
 }
