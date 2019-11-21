@@ -58,6 +58,9 @@ const fragmentTitreEtape = gql`
       ...pays
     }
     contenu
+
+    editable
+    supprimable
   }
 
   ${fragmentTitreAdministrations}

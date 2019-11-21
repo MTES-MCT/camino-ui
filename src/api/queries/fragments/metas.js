@@ -14,6 +14,7 @@ const fragmentEtapeType = gql`
     acceptationAuto
     ordre
     typeId
+    demarcheTypeId
     etapesStatuts {
       id
       nom
@@ -22,6 +23,7 @@ const fragmentEtapeType = gql`
     fondamentale
     sections
     unique
+    editable
   }
 `
 
@@ -55,6 +57,7 @@ const fragmentDemarcheType = gql`
     etapesTypes {
       ...etapeType
     }
+    editable
   }
 
   ${fragmentEtapeType}

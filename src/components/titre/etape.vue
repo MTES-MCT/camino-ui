@@ -20,10 +20,11 @@
     </template>
 
     <template
-      v-if="permissionsCheck(['super']) || permissionsTitreAdministrationsCheck(titre)"
+      v-if="etape.editable || etape.supprimable"
       slot="buttons"
     >
       <button
+        v-if="etape.supprimable"
         class="btn-alt py-s px-m"
         @click="removePopupOpen"
       >
@@ -31,6 +32,7 @@
       </button>
 
       <button
+        v-if="etape.editable"
         class="btn-alt py-s px-m"
         @click="editPopupOpen"
       >
@@ -239,7 +241,7 @@
       </div>
 
       <div
-        v-if="permissionsCheck(['super'])"
+        v-if="etape.editable"
         class="px-m pt-m"
       >
         <DocumentButtonAdd

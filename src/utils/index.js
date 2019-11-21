@@ -11,28 +11,8 @@ const numberFormat = x => {
 const permissionsCheck = (userPermission, permissions) =>
   permissions.includes(userPermission.id)
 
-const permissionsTitreAdministrationsCheck = (
-  userAdministrations = [],
-  titreAdministrations = []
-) => {
-  if (!userAdministrations.length || !titreAdministrations.length) return false
-
-  const administrations = [
-    ...userAdministrations.map(a => a.id),
-    ...titreAdministrations.map(a => a.id)
-  ]
-
-  return new Set(administrations).length !== administrations.length
-}
-
 const typenameOmit = (key, value) => (key === '__typename' ? undefined : value)
 
 const jsonTypenameOmit = json => JSON.parse(JSON.stringify(json), typenameOmit)
 
-export {
-  dateFormat,
-  permissionsCheck,
-  permissionsTitreAdministrationsCheck,
-  numberFormat,
-  jsonTypenameOmit
-}
+export { dateFormat, permissionsCheck, numberFormat, jsonTypenameOmit }

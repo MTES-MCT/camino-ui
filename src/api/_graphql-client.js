@@ -42,8 +42,10 @@ const link = ApolloLink.from([linkAuth, linkError, linkUpload])
 const cache = new InMemoryCache({
   dataIdFromObject: object => {
     switch (object.__typename) {
+      // selon le type du titre et de la démarche,
+      // le type d'étape a des propriétés spécifiques
       case 'EtapeType':
-        return `${object.typeId}-${object.id}`
+        return `${object.typeId}-${object.demarcheTypeId}-${object.id}`
       default:
         return defaultDataIdFromObject(object) // fall back to default handling
     }
