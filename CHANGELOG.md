@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.9](https://github.com/MTES-MCT/camino-ui/compare/v0.22.8...v0.22.9) (2019-11-21)
+
+
+### Bug Fixes
+
+* **api:** contourne le cache sur certaines requêtes ([dde0ac3](https://github.com/MTES-MCT/camino-ui/commit/dde0ac3))
+* corrige l'édition de documents ([8746d7f](https://github.com/MTES-MCT/camino-ui/commit/8746d7f))
+* corrige la gestion des filtres ([dcd2558](https://github.com/MTES-MCT/camino-ui/commit/dcd2558))
+* supprime une erreur 404 si l'utilisateur se loggue ([76edccb](https://github.com/MTES-MCT/camino-ui/commit/76edccb))
+
+
+### Features
+
+* **ui:** limite la liste des types de références métier ([#43](https://github.com/MTES-MCT/camino-ui/issues/43)) ([1f1d2c7](https://github.com/MTES-MCT/camino-ui/commit/1f1d2c7))
+
 ### [0.22.8](https://github.com/MTES-MCT/camino-ui/compare/v0.22.7...v0.22.8) (2019-11-13)
 
 
