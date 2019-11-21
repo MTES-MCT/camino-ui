@@ -3,16 +3,16 @@ import { jsonTypenameOmit } from '../../utils/index'
 const referencesBuild = references =>
   references.reduce(
     (
-      { pointGeoSystemeIndex, pointReferences },
+      { pointGeoSystemesIndex, pointReferences },
       { geoSysteme, coordonnees }
     ) => {
-      pointGeoSystemeIndex[geoSysteme.id] = true
+      pointGeoSystemesIndex[geoSysteme.id] = geoSysteme
 
       pointReferences[geoSysteme.id] = [coordonnees.x, coordonnees.y]
 
-      return { pointGeoSystemeIndex, pointReferences }
+      return { pointGeoSystemesIndex, pointReferences }
     },
-    { pointGeoSystemeIndex: {}, pointReferences: {} }
+    { pointGeoSystemesIndex: {}, pointReferences: {} }
   )
 
 const geoSystemeOpposableIdFind = references => {
@@ -26,7 +26,7 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
     (
       {
         groupes,
-        geoSystemeIndex,
+        geoSystemesIndex,
         lotCurrent,
         pointIndex,
         contourIndexPrevious,
@@ -34,12 +34,12 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
       },
       { nom, description, contour, groupe, references, lot, subsidiaire }
     ) => {
-      const { pointReferences, pointGeoSystemeIndex } = referencesBuild(
+      const { pointReferences, pointGeoSystemesIndex } = referencesBuild(
         references
       )
 
       const lotGeoSystemeId =
-        geoSystemeOpposableId || Object.keys(pointGeoSystemeIndex)[0]
+        geoSystemeOpposableId || Object.keys(pointGeoSystemesIndex)[0]
 
       if (
         lot &&
@@ -83,7 +83,10 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
 
       return {
         groupes,
-        geoSystemeIndex: Object.assign(geoSystemeIndex, pointGeoSystemeIndex),
+        geoSystemesIndex: Object.assign(
+          geoSystemesIndex,
+          pointGeoSystemesIndex
+        ),
         lotCurrent,
         pointIndex,
         contourIndexPrevious,
@@ -92,7 +95,7 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
     },
     {
       groupes: [],
-      geoSystemeIndex: {},
+      geoSystemesIndex: {},
       lotCurrent: null,
       pointIndex: 0,
       contourIndexPrevious: 1,
@@ -103,14 +106,14 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
 const etapeGroupesBuild = points => {
   const geoSystemeOpposableId = geoSystemeOpposableIdFind(points[0].references)
 
-  const { groupes, geoSystemeIndex } = groupeBuild(
+  const { groupes, geoSystemesIndex } = groupeBuild(
     points,
     geoSystemeOpposableId
   )
 
   return {
     groupes,
-    geoSystemeIds: Object.keys(geoSystemeIndex),
+    geoSystemes: Object.keys(geoSystemesIndex).map(id => geoSystemesIndex[id]),
     geoSystemeOpposableId
   }
 }
@@ -158,12 +161,12 @@ const etapeEditFormat = (etape, demarcheId) => {
   delete etape.volumeUnite
 
   if (etape.points && etape.points.length) {
-    const { groupes, geoSystemeIds, geoSystemeOpposableId } = etapeGroupesBuild(
+    const { groupes, geoSystemes, geoSystemeOpposableId } = etapeGroupesBuild(
       etape.points
     )
 
     etape.groupes = groupes
-    etape.geoSystemeIds = geoSystemeIds
+    etape.geoSystemeIds = geoSystemes.map(({ id }) => id)
     etape.geoSystemeOpposableId = geoSystemeOpposableId
   } else {
     etape.groupes = []

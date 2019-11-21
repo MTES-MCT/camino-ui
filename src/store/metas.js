@@ -92,7 +92,9 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreEtapeDocumentMetasGet', { root: true })
+      commit('loadingRemove', 'titreEtapeDocumentMetasGet', {
+        root: true
+      })
     }
   },
 

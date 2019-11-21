@@ -1,7 +1,7 @@
 <template>
   <div class="points">
     <div
-      v-if="geoSystemeId"
+      v-if="geoSysteme"
     >
       <div class="tablet-blobs px flex-align-items-stretch">
         <div class="tablet-blob-1-2">
@@ -142,9 +142,7 @@ export default {
     },
 
     geoSystemes() {
-      return this.$store.state.metas.geoSystemes.filter(({ id }) =>
-        this.index.geoSystemeIds.includes(id)
-      )
+      return this.index.geoSystemes
     },
 
     geoSystemeOpposableId() {
@@ -166,7 +164,9 @@ export default {
   },
 
   created() {
-    this.geoSystemeId = this.geoSystemeOpposableId || this.geoSystemes[0].id
+    this.geoSystemeId =
+      this.geoSystemeOpposableId ||
+      (this.geoSystemes[0] && this.geoSystemes[0].id)
   },
 
   methods: {
