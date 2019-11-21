@@ -15,8 +15,9 @@
   "scripts": {
     "build": "vue-cli-service build --modern",
     "test": "vue-cli-service test:unit --verbose && codecov",
-    "dev:test": "vue-cli-service test:unit --watch --verbose",
     "dev:lint": "vue-cli-service lint",
+    "dev:test": "vue-cli-service test:unit --watch --verbose",
+    "dev:update": "npm-check-updates -u && npm install && npm audit fix",
     "dev": "vue-cli-service serve --open",
     "start": "node ./index.js",
     "commit": "npx git-cz",
