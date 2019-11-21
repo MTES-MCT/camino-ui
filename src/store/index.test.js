@@ -185,9 +185,7 @@ describe("état général de l'application", () => {
   let store
 
   beforeEach(() => {
-    state = {
-      messages: []
-    }
+    state = { messages: [] }
 
     localStorage.clear()
     fetch.resetMocks()

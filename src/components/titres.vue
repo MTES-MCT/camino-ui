@@ -134,6 +134,14 @@ export default {
 
     filtresLoaded() {
       return this.$store.state.user.titresFiltresLoaded
+    },
+
+    user() {
+      return this.$store.state.user.current
+    },
+
+    userLoaded() {
+      return this.$store.state.user.loaded
     }
   },
 
@@ -146,14 +154,29 @@ export default {
       }
     },
 
+    user: 'metasGet',
+
+    userLoaded: 'metasGet',
+
     filtresLoaded: 'get'
   },
 
   created() {
+    if (this.userLoaded) {
+      this.metasGet()
+    }
     this.init()
   },
 
   methods: {
+    get() {
+      this.$store.dispatch('titres/get')
+    },
+
+    metasGet() {
+      this.$store.dispatch('metas/titresGet')
+    },
+
     init() {
       const vueId = this.$route.query.vue || this.vueId
 
@@ -163,12 +186,6 @@ export default {
 
       if (this.vueId !== vueId) {
         this.vueSet(vueId)
-      }
-    },
-
-    get() {
-      if (this.filtresLoaded) {
-        this.$store.dispatch('titres/get')
       }
     },
 

@@ -26,11 +26,11 @@ export default {
 
   computed: {
     page() {
-      return this.$store.state.user.preferences.titres.page
+      return this.$store.state.user.preferences.titres.table.page
     },
 
     range() {
-      return this.$store.state.user.preferences.titres.range
+      return this.$store.state.user.preferences.titres.table.range
     }
   },
 
@@ -100,7 +100,7 @@ export default {
 
     preferencesPageUpdate(page) {
       this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.page',
+        section: 'titres.table.page',
         value: page
       })
     },
@@ -111,7 +111,7 @@ export default {
 
     preferencesRangeUpdate(range) {
       this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.range',
+        section: 'titres.table.range',
         value: range
       })
     },

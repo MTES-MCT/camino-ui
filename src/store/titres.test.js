@@ -23,15 +23,17 @@ describe('état de la liste des titres', () => {
     user = {
       state: {
         preferences: {
-          filtres: {
-            noms: 's',
-            entreprises: null,
-            domaines: 'c,w',
-            statuts: 'val',
-            types: null,
-            territoires: null,
-            substances: null,
-            references: null
+          titres: {
+            filtres: {
+              noms: 's',
+              entreprises: null,
+              domaines: 'c,w',
+              statuts: 'val',
+              types: null,
+              territoires: null,
+              substances: null,
+              references: null
+            }
           }
         }
       }

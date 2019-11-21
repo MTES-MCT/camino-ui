@@ -60,16 +60,8 @@ export default {
       })
     },
 
-    user() {
-      return this.$store.state.user.current
-    },
-
     preferencesFiltres() {
-      return this.$store.state.user.preferences.filtres
-    },
-
-    userLoaded() {
-      return this.$store.state.user.loaded
+      return this.$store.state.user.preferences.titres.filtres
     },
 
     preferencesFiltresLoaded() {
@@ -98,12 +90,11 @@ export default {
     // - met à jour les paramètre d'url
     metas: {
       handler: function(metas, metasOld) {
-        const firstLoad = Object.keys(metasOld).some(id => !metasOld[id].length)
-
         // si c'est le premier chargement de l'app
         // - source des filtres: paramètres d'url
         // sinon (pe: connexion / deconnexion utilisateur)
         // - source des filtres: prefs utilisateur
+        const firstLoad = Object.keys(metasOld).some(id => !metasOld[id].length)
         const source = firstLoad ? 'url' : 'preferences'
 
         this.filtresUpdate(source)
@@ -111,22 +102,13 @@ export default {
         this.urlUpdate()
       },
       deep: true
-    },
-
-    user: function(to, from) {
-      this.get()
-    },
-
-    userLoaded: function(to, from) {
-      this.get()
     }
   },
 
   created() {
-    this.get()
     // si les metas sont chargées
     if (this.preferencesFiltresLoaded) {
-      this.filtresUpdate()
+      this.filtresUpdate('preferences')
       this.urlUpdate()
     }
 
@@ -138,12 +120,6 @@ export default {
   },
 
   methods: {
-    get() {
-      if (this.userLoaded) {
-        this.$store.dispatch('metas/titresGet')
-      }
-    },
-
     validate() {
       // les champs textes sont mis à jour onBlur
       // pour les prendre en compte lorsqu'on valide en appuyant sur "entréee"
@@ -206,7 +182,7 @@ export default {
           this.preferencesFiltres[id] !== value
         ) {
           this.$store.dispatch('user/preferenceSet', {
-            section: `filtres.${id}`,
+            section: `titres.filtres.${id}`,
             value
           })
         }

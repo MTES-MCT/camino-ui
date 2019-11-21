@@ -42,8 +42,10 @@ describe("état de l'utilisateur connecté", () => {
       current: null,
       preferences: {
         carte: { tilesId: 'osm-fr' },
-        filtres: {},
-        titres: { vueId: 'carte', pageActive: 1, pagesRange: 200 }
+        titres: {
+          vueId: 'carte',
+          filtres: { domaines: null }
+        }
       },
       loaded: false,
       titresFiltresLoaded: 0
@@ -302,12 +304,12 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test('remet à 0 les preferences', async () => {
-    const section = 'filtres.domaines'
+    const section = 'titres.filtres.domaines'
     const value = 'c,w'
     await store.dispatch('user/preferenceSet', { section, value })
     await store.dispatch('user/preferenceReset', { section })
 
-    expect(store.state.user.preferences.filtres.domaines).toBeUndefined()
+    expect(store.state.user.preferences.titres.filtres.domaines).toBeUndefined()
   })
 
   test("regarde si la tuile active n'appartient pas aux tuiles de la carte", () => {

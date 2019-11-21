@@ -24,8 +24,8 @@ export const actions = {
       const params = state.filterIds.reduce((params, id) => {
         const i = id.replace(/Id/g, '')
         const values =
-          rootState.user.preferences.filtres[i] &&
-          rootState.user.preferences.filtres[i]
+          rootState.user.preferences.titres.filtres[i] &&
+          rootState.user.preferences.titres.filtres[i]
             .split(',')
             .map(v => v.replace(/^"(.*)"$/, '$1'))
 

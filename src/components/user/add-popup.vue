@@ -21,7 +21,7 @@
       <div class="mb tablet-blob-2-3">
         <input
           v-model="email"
-          type="text"
+          type="email"
           class="p-s"
           placeholder="Email"
         >

@@ -15,11 +15,22 @@ export const state = {
   current: null,
   preferences: {
     carte: { tilesId: 'osm-fr' },
-    filtres: {},
     titres: {
       vueId: 'carte',
-      page: 1,
-      range: 200
+      table: {
+        page: 1,
+        range: 200
+      },
+      filtres: {
+        types: null,
+        domaines: null,
+        statuts: null,
+        noms: null,
+        entreprises: null,
+        substances: null,
+        references: null,
+        territoires: null
+      }
     }
   },
   titresFiltresLoaded: 0,
