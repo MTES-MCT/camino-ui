@@ -57,7 +57,7 @@
       <div class="desktop-blob-1-2">
         <div v-if="titre.references && titre.references.length">
           <h6>
-            {{ titre.references.length > 1 ? "Références" : "Référence" }}
+            {{ titre.references.length > 1 ? 'Références' : 'Référence' }}
           </h6>
           <ul class="list-prefix">
             <li
@@ -113,7 +113,7 @@
       <div class="desktop-blob-1-2">
         <div v-if="titre.titulaires.length">
           <h6>
-            {{ titre.titulaires.length > 1 ? "Titulaires" : "Titulaire" }}
+            {{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}
           </h6>
           <ul class="list-prefix">
             <li
@@ -127,7 +127,7 @@
 
         <div v-if="titre.amodiataires.length">
           <h6>
-            {{ titre.amodiataires.length > 1 ? "Amodiataires" : "Amodiataire" }}
+            {{ titre.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}
           </h6>
           <ul class="list-prefix">
             <li
@@ -143,7 +143,8 @@
           <h6>Engagement financier</h6>
           <p>
             {{ numberFormat(titre.engagement) }}
-            <span v-if="titre.engagementDevise"> {{ titre.engagementDevise.id }}</span>
+            <span v-if="titre.engagementDevise">
+              {{ titre.engagementDevise.id }}</span>
           </p>
         </div>
 
@@ -159,7 +160,7 @@
                 :to="{ name: 'titre', params: { id: link.id } }"
                 class="btn h6 bold py-xs px-s rnd"
               >
-                {{ link["type"] }} : {{ link["nom"] }}
+                {{ link['type'] }} : {{ link['nom'] }}
               </RouterLink>
             </li>
           </ul>
@@ -170,7 +171,6 @@
 </template>
 
 <script>
-import { jsonTypenameOmit } from '../../utils/index'
 import Pill from '../ui/pill.vue'
 import PillList from '../ui/pill-list.vue'
 import Dot from '../ui/dot.vue'
@@ -195,22 +195,16 @@ export default {
 
   methods: {
     editPopupOpen() {
-      const titre = jsonTypenameOmit(this.titre)
+      const titre = {}
 
-      const keys = ['id', 'nom', 'typeId', 'domaineId', 'references']
-
-      titre.domaineId = titre.domaine.id
-      titre.typeId = titre.type.id
-      titre.references.map(reference => {
-        reference.typeId = reference.type.id
-        delete reference.type
-      })
-
-      Object.keys(titre).forEach(key => {
-        if (!keys.find(k => k === key)) {
-          delete titre[key]
-        }
-      })
+      titre.id = this.titre.id
+      titre.nom = this.titre.nom
+      titre.domaineId = this.titre.domaine.id
+      titre.typeId = this.titre.type.id
+      titre.references = this.titre.references.map(reference => ({
+        typeId: reference.type.id,
+        nom: reference.nom
+      }))
 
       this.$store.commit('popupOpen', {
         component: EditPopup,

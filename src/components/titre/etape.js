@@ -183,6 +183,8 @@ const etapeEditFormat = (etape, demarcheId) => {
   }
 
   delete etape.pays
+  delete etape.editable
+  delete etape.supprimable
   delete etape.points
   delete etape.geojsonPoints
   delete etape.geojsonMultiPolygon

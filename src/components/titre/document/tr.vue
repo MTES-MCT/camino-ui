@@ -13,7 +13,7 @@
         <i class="icon-24 icon-trash" />
       </button>
       <button
-        v-if="permissionsCheck(['super'])"
+        v-if="permissionsCheck(['super', 'admin'])"
         class="btn-border py-s px-m my--xs"
         :class="{ 'rnd-r-xs': !document.url && !document.fichier }"
         @click="editPopupOpen"
@@ -24,7 +24,7 @@
       <button
         v-if="document.fichier"
         class="btn-border py-s px-m my--xs"
-        :class="{ 'rnd-r-xs': !document.url, 'rnd-l-xs': !permissionsCheck(['super']) }"
+        :class="{ 'rnd-r-xs': !document.url, 'rnd-l-xs': !permissionsCheck(['super', 'admin']) }"
         @click="download"
       >
         <i class="icon-24 icon-download" />
@@ -32,7 +32,7 @@
       <a
         v-if="document.url"
         class="btn-border py-s px-m my--xs rnd-r-xs"
-        :class="{ 'rnd-l-xs': !permissionsCheck(['super']) && !document.fichier }"
+        :class="{ 'rnd-l-xs': !permissionsCheck(['super', 'admin']) && !document.fichier }"
         :href="document.url"
         target="_blank"
         rel="noopener noreferrer"

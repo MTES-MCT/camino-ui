@@ -6,7 +6,7 @@ import { onError } from 'apollo-link-error'
 import { createUploadLink } from 'apollo-upload-client'
 
 // for safari 11
-import fetch from 'unfetch'
+import 'unfetch/polyfill'
 
 console.log('api:', process.env.VUE_APP_API_URL)
 
@@ -35,7 +35,7 @@ const linkAuth = setContext((request, { headers }) => {
   }
 })
 
-const linkUpload = createUploadLink({ uri: process.env.VUE_APP_API_URL, fetch })
+const linkUpload = createUploadLink({ uri: process.env.VUE_APP_API_URL })
 
 const link = ApolloLink.from([linkAuth, linkError, linkUpload])
 
