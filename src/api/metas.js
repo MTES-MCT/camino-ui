@@ -66,11 +66,14 @@ const metasTitres = async () => {
   }
 }
 
-const metasTitreEtape = async () => {
+const metasTitreEtape = async ({ titreDemarcheId, typeId: etapeTypeId }) => {
   try {
     const res = await graphqlClient.query({
       query: queryMetasTitreEtape,
-      variables: {}
+      variables: {
+        titreDemarcheId,
+        etapeTypeId
+      }
     })
 
     return res && res.data

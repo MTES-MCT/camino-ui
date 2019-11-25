@@ -241,7 +241,7 @@ export default {
 
   methods: {
     get() {
-      this.$store.dispatch('metas/titreEtapeGet')
+      this.$store.dispatch('metas/titreEtapeGet', this.etape)
     },
 
     save() {

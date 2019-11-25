@@ -1,6 +1,10 @@
 import gql from 'graphql-tag'
 
-import { fragmentUnite, fragmentPermission } from './fragments/metas'
+import {
+  fragmentEtapeType,
+  fragmentUnite,
+  fragmentPermission
+} from './fragments/metas'
 import fragmentSubstance from './fragments/substance'
 import fragmentEntreprises from './fragments/entreprises'
 import fragmentAdministrations from './fragments/administrations'
@@ -59,7 +63,14 @@ const queryMetasTitres = gql`
 `
 
 const queryMetasTitreEtape = gql`
-  query MetasEtape {
+  query MetasEtape($titreDemarcheId: ID!, $etapeTypeId: ID) {
+    etapesTypesEtapeEdition(
+      titreDemarcheId: $titreDemarcheId
+      etapeTypeId: $etapeTypeId
+    ) {
+      ...etapeType
+    }
+
     devises {
       id
       nom
@@ -90,6 +101,8 @@ const queryMetasTitreEtape = gql`
       ...administrations
     }
   }
+
+  ${fragmentEtapeType}
 
   ${fragmentUnite}
 

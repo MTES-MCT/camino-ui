@@ -64,6 +64,7 @@ const fragmentDemarcheType = gql`
 `
 
 export {
+  fragmentEtapeType,
   fragmentPermission,
   fragmentUnite,
   fragmentDemarcheType,

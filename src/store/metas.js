@@ -70,11 +70,11 @@ export const actions = {
     }
   },
 
-  async titreEtapeGet({ commit }) {
+  async titreEtapeGet({ commit }, etape) {
     commit('loadingAdd', 'titreEtapeMetasGet', { root: true })
 
     try {
-      const res = await metasTitreEtape()
+      const res = await metasTitreEtape(etape)
       commit('set', res)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })

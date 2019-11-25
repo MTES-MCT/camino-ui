@@ -173,7 +173,7 @@ describe('état de la liste des métas', () => {
       truc: null
     })
 
-    await store.dispatch('metas/titreEtapeGet')
+    await store.dispatch('metas/titreEtapeGet', { etape: {} })
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.metas.domaines).toEqual([
@@ -192,7 +192,7 @@ describe('état de la liste des métas', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('metas/titreEtapeGet')
+    await store.dispatch('metas/titreEtapeGet', { etape: {} })
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
