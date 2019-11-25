@@ -4,7 +4,7 @@
     :titres="titres"
     @page:update="urlPageUpdate"
     @range:update="urlRangeUpdate"
-    @column:update="urlColumnUpdate"
+    @sort:update="urlSortUpdate"
   />
 </template>
 
@@ -32,11 +32,11 @@ export default {
 
     range() {
       return this.$store.state.user.preferences.titres.table.range
-    }
+    },
 
-    // column() {
-    //   return this.$store.state.user.preferences.titres.column
-    // }
+    sort() {
+      return this.$store.state.user.preferences.titres.table.sort
+    }
   },
 
   watch: {
@@ -85,7 +85,7 @@ export default {
     init() {
       const page = this.$route.query.page && Number(this.$route.query.page)
       const range = this.$route.query.range && Number(this.$route.query.range)
-      const column = this.$route.query.sort && this.$route.query.sort
+      const sort = this.$route.query.sort && this.$route.query.sort
 
       if (!page) {
         this.$refs.table.pageUpdate(this.page)
@@ -103,12 +103,12 @@ export default {
         this.preferencesRangeUpdate(range)
       }
 
-      if (!column) {
-        // this.$refs.table.columnUpdate(this.column)
-        // this.urlColumnUpdate(this.column)
-      } else if (column !== this.column) {
-        this.$refs.table.columnUpdate(column)
-        this.preferencesColumnUpdate(column)
+      if (!sort) {
+        this.$refs.table.sortUpdate(this.sort)
+        this.urlSortUpdate(this.sort)
+      } else if (sort !== this.sort) {
+        this.$refs.table.sortUpdate(sort)
+        this.preferencesSortUpdate(sort)
       }
     },
 
@@ -134,15 +134,18 @@ export default {
       this.urlParamSet('range', range.toString())
     },
 
-    preferencesColumnUpdate(column) {
+    preferencesSortUpdate(sort) {
       this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.column',
-        value: column
+        section: 'titres.table.sort',
+        value: sort
       })
     },
 
-    urlColumnUpdate(column) {
-      this.urlParamSet('sort', column.toString())
+    urlSortUpdate(sort) {
+      if (sort) {
+        this.urlParamSet('sort', sort.toString())
+        this.preferencesSortUpdate(sort)
+      }
     }
   }
 }

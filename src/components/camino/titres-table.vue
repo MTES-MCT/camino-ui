@@ -5,7 +5,7 @@
     :columns="colonnes"
     @page:update="$emit('page:update', $event)"
     @range:update="$emit('range:update', $event)"
-    @column:update="$emit('column:update', $event)"
+    @sort:update="$emit('sort:update', $event)"
   />
 </template>
 
@@ -156,6 +156,18 @@ export default {
     }
   },
 
+  created() {
+    this.columnsIds = [
+      'nom',
+      'domaine',
+      'type',
+      'statut',
+      'activites',
+      'substances',
+      'titulaires'
+    ]
+  },
+
   methods: {
     pageUpdate(page) {
       // called from parent component
@@ -167,9 +179,15 @@ export default {
       this.$refs.table.rangeUpdate(range)
     },
 
-    columnUpdate(column) {
-      // called from parent component
-      this.$refs.table.columnUpdate(column)
+    sortUpdate(sort) {
+      if (sort) {
+        const sortOrder = sort.match('^-') ? -1 : 1
+        const sortColumn = sortOrder === -1 ? sort.substr(1) : sort
+        const columnId = this.columnsIds.indexOf(sortColumn)
+
+        // called from parent component
+        this.$refs.table.sortUpdate(columnId, sortOrder)
+      }
     }
   }
 }

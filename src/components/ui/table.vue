@@ -10,15 +10,13 @@
             :class="col.class"
             @click="sort(index)"
           >
-            <button
-              class="btn-transparent full-x p-0"
-            >
+            <button class="btn-transparent full-x p-0">
               {{ col.name || (sortColumn === index ? '' : '–') }}
               <i
                 v-if="sortColumn === index"
                 class="icon-24 right"
                 :class="{
-                  'icon-chevron-b': sortOrder > 0 ,
+                  'icon-chevron-b': sortOrder > 0,
                   'icon-chevron-t': sortOrder < 0
                 }"
               />
@@ -40,12 +38,16 @@
           >
             <component
               :is="element.columns[col.id].component"
-              v-if="element.columns[col.id] && element.columns[col.id].component"
+              v-if="
+                element.columns[col.id] && element.columns[col.id].component
+              "
               v-bind="element.columns[col.id].props"
               :class="element.columns[col.id].class"
             />
             <span
-              v-else-if="element.columns[col.id] && element.columns[col.id].value"
+              v-else-if="
+                element.columns[col.id] && element.columns[col.id].value
+              "
               :class="element.columns[col.id].class"
             >{{ element.columns[col.id].value }}</span>
           </div>
@@ -163,14 +165,9 @@ export default {
       this.range = Number(range)
     },
 
-    columnUpdate(column) {
-      console.log(column)
-      console.log(this.columns)
-      console.log(this._props.columns)
-      // this.column = column
-      // TODO : trouver l'index de la column en fonction de son nom
-      this.sortColumn = 4
-      this.sortOrder = column.match('^-') ? -1 : 1
+    sortUpdate(columnId, sortOrder) {
+      this.sortColumn = columnId
+      this.sortOrder = sortOrder
     },
 
     sort(colIndex) {
@@ -180,16 +177,11 @@ export default {
         this.sortColumn = colIndex
       }
       this.$emit(
-        'column:update',
+        'sort:update',
         `${this.sortOrder < 0 ? '-' : ''}${this.columns[this.sortColumn].id}`
       )
 
-      this.pageUpdate(1)
-      this.$emit('page:update', 1)
-      // console.log(this.sortColumn)
-      // console.log(this.sortOrder)
-      // console.log(this.columns)
-      // console.log(this.columns[this.sortColumn])
+      this.pageUpdateEvent(1)
     }
   }
 }
