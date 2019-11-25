@@ -223,7 +223,7 @@
                   )
                 "
               >
-                {{ administration.nom }} {{ administration.service }}
+                {{ `${administration.nom}${administration.service ? ` - ${administration.service}` : ''}` }}
               </option>
             </select>
             <div class="flex-right">

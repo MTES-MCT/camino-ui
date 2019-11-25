@@ -19,7 +19,13 @@ const queryMetasTitre = gql`
       types {
         id
         nom
+
+        domaineId
+
+        editable
       }
+
+      editable
     }
 
     referencesTypes {
@@ -33,11 +39,15 @@ const queryMetasTitres = gql`
     domaines {
       id
       nom
+
+      editable
     }
 
     types {
       id
       nom
+
+      editable
     }
 
     statuts {

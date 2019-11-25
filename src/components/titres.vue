@@ -8,7 +8,7 @@
 
       <div class="desktop-blob-1-3">
         <button
-          v-if="permissionsCheck(['super', 'admin'])"
+          v-if="editable"
           class="btn-border rnd-xs py-s px-m full-x flex mb-s"
           @click="addPopupOpen"
         >
@@ -142,6 +142,10 @@ export default {
 
     userLoaded() {
       return this.$store.state.user.loaded
+    },
+
+    editable() {
+      return this.$store.state.metas.domaines.find(d => d.editable) !== undefined
     }
   },
 

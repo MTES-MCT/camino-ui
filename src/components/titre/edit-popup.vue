@@ -190,7 +190,7 @@ export default {
     },
 
     domaines() {
-      return this.$store.state.metas.domaines
+      return this.$store.state.metas.domaines.filter(d => d.editable)
     },
 
     referencesTypes() {
@@ -199,7 +199,7 @@ export default {
 
     types() {
       const domaine = this.domaines.find(d => d.id === this.titre.domaineId)
-      return domaine && domaine.types
+      return domaine && domaine.types.filter(t => t.editable)
     },
 
     complete() {
