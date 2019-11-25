@@ -14,6 +14,21 @@
       class="px-m pt-m"
     >
       <div
+        v-if="administration.service"
+        class="large-blobs"
+      >
+        <div class="large-blob-1-6">
+          <h6>Service</h6>
+        </div>
+        <div
+          class="large-blob-5-6"
+        >
+          <p>
+            {{ administration.service }}
+          </p>
+        </div>
+      </div>
+      <div
         v-if="administration.adresse1 || administration.adresse2"
         class="large-blobs"
       >

@@ -159,7 +159,7 @@
             <div class="tablet-blob-3-4">
               <p>
                 {{ utilisateur.administrations
-                  .map(({ nom }) => `${nom}`)
+                  .map(({ nom, service }) => `${nom}${service ? ` - ${service}` : ''}`)
                   .join(', ') }}
               </p>
             </div>
