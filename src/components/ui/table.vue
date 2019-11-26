@@ -165,9 +165,13 @@ export default {
       this.range = Number(range)
     },
 
-    sortUpdate(columnId, sortOrder) {
-      this.sortColumn = columnId
-      this.sortOrder = sortOrder
+    sortUpdate(sort, columnsIds) {
+      if (sort) {
+        this.sortOrder = sort.match('^-') ? -1 : 1
+        this.sortColumn = columnsIds.indexOf(
+          this.sortOrder === -1 ? sort.substr(1) : sort
+        )
+      }
     },
 
     sort(colIndex) {

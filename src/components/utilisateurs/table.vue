@@ -3,8 +3,9 @@
     ref="table"
     :elements="elements"
     :columns="colonnes"
-    @page:update="$emit('page:update', $event)"
-    @range:update="$emit('range:update', $event)"
+    @page:update="urlPageUpdate"
+    @range:update="urlRangeUpdate"
+    @sort:update="urlSortUpdate"
   />
 </template>
 
@@ -109,6 +110,96 @@ export default {
           columns
         }
       })
+    },
+
+    page() {
+      return this.$store.state.user.preferences.utilisateurs.table.page
+    },
+
+    range() {
+      return this.$store.state.user.preferences.utilisateurs.table.range
+    },
+
+    sort() {
+      return this.$store.state.user.preferences.utilisateurs.table.sort
+    }
+  },
+
+  mounted() {
+    this.init()
+  },
+
+  created() {
+    this.columnsIds = ['nom', 'prenom', 'email', 'permissions', 'lien']
+  },
+
+  methods: {
+    init() {
+      const page = this.$route.query.page && Number(this.$route.query.page)
+      const range = this.$route.query.range && Number(this.$route.query.range)
+      const sort = this.$route.query.sort && this.$route.query.sort
+
+      if (!page) {
+        this.$refs.table.pageUpdate(this.page)
+        this.urlPageUpdate(this.page)
+      } else if (page !== this.page) {
+        this.$refs.table.pageUpdate(page)
+        this.preferencesPageUpdate(page)
+      }
+
+      if (!range) {
+        this.$refs.table.rangeUpdate(this.range)
+        this.urlRangeUpdate(this.range)
+      } else if (range !== this.range) {
+        this.$refs.table.rangeUpdate(range)
+        this.preferencesRangeUpdate(range)
+      }
+
+      if (!sort) {
+        this.$refs.table.sortUpdate(this.sort, this.columnsIds)
+        this.urlSortUpdate(this.sort)
+      } else if (sort !== this.sort) {
+        this.$refs.table.sortUpdate(sort, this.columnsIds)
+        this.preferencesSortUpdate(sort)
+      }
+    },
+
+    preferencesPageUpdate(page) {
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'utilisateurs.table.page',
+        value: page
+      })
+    },
+
+    urlPageUpdate(page) {
+      this.urlParamSet('page', page.toString())
+      this.preferencesPageUpdate(page)
+    },
+
+    preferencesRangeUpdate(range) {
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'utilisateurs.table.range',
+        value: range
+      })
+    },
+
+    urlRangeUpdate(range) {
+      this.urlParamSet('range', range.toString())
+      this.preferencesRangeUpdate(range)
+    },
+
+    preferencesSortUpdate(sort) {
+      this.$store.dispatch('user/preferenceSet', {
+        section: 'utilisateurs.table.sort',
+        value: sort
+      })
+    },
+
+    urlSortUpdate(sort) {
+      if (sort) {
+        this.urlParamSet('sort', sort.toString())
+        this.preferencesSortUpdate(sort)
+      }
     }
   }
 }

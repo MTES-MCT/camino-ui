@@ -180,14 +180,7 @@ export default {
     },
 
     sortUpdate(sort) {
-      if (sort) {
-        const sortOrder = sort.match('^-') ? -1 : 1
-        const sortColumn = sortOrder === -1 ? sort.substr(1) : sort
-        const columnId = this.columnsIds.indexOf(sortColumn)
-
-        // called from parent component
-        this.$refs.table.sortUpdate(columnId, sortOrder)
-      }
+      this.$refs.table.sortUpdate(sort, this.columnsIds)
     }
   }
 }
