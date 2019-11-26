@@ -1,5 +1,5 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <div>
         <h6>
@@ -29,14 +29,13 @@
 
     <div
       v-if="!editable && complete"
+      id="cmn-titre-activite-edit-popup-warning"
       class="p-s bg-warning color-bg bold mb"
     >
       Une fois validé ce formulaire ne sera plus modifiable.
     </div>
 
     <template slot="footer">
-      <Messages :messages="messages" />
-
       <div
         v-if="editable"
         class="tablet-blobs"
@@ -53,6 +52,7 @@
           class="tablet-blob-2-3"
         >
           <button
+            id="cmn-titre-activite-edit-popup-button-previsualiser"
             class="btn-flash rnd-xs p-s full-x"
             @click="preview"
           >
@@ -66,6 +66,7 @@
       >
         <div class="mb tablet-blob-1-3 tablet-mb-0">
           <button
+            id="cmn-titre-activite-edit-popup-button-modifier"
             class="btn-border rnd-xs p-s full-x"
             @click="edit"
           >
@@ -76,6 +77,7 @@
           class="mb tablet-blob-1-3 tablet-mb-0"
         >
           <button
+            id="cmn-titre-activite-edit-popup-button-enregistrer"
             class="rnd-xs p-s full-x"
             :class="{ 'btn-flash': !complete, 'btn-border': complete }"
             @click="save(false)"
@@ -101,7 +103,6 @@
 
 <script>
 import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
 import EditSections from './edit-sections.vue'
 
 export default {
@@ -109,7 +110,6 @@ export default {
 
   components: {
     Popup,
-    Messages,
     EditSections
   },
 
@@ -167,7 +167,7 @@ export default {
       this.editable = true
     },
 
-    save(confirmation) {
+    async save(confirmation) {
       if (confirmation && this.complete) {
         this.activite.statut.id = 'dep'
       } else {
@@ -175,7 +175,7 @@ export default {
       }
 
       this.errorsRemove()
-      this.$store.dispatch('titreActivites/update', this.activite)
+      await this.$store.dispatch('titreActivites/update', this.activite)
     },
 
     cancel() {

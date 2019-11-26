@@ -6,6 +6,7 @@
           <ul class="list-sans">
             <li>
               <RouterLink
+                id="cmn-menu-menu-a-titres"
                 :to="{ name: 'titres' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
@@ -16,6 +17,7 @@
             <li>
               <RouterLink
                 v-if="permissionsCheck(['super', 'admin'])"
+                id="cmn-menu-menu-a-utilisateurs"
                 :to="{ name: 'utilisateurs' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
@@ -25,6 +27,7 @@
             </li>
             <li>
               <RouterLink
+                id="cmn-menu-menu-a-entreprises"
                 :to="{ name: 'entreprises' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"

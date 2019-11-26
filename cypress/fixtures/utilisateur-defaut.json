@@ -1,0 +1,23 @@
+{
+  "operation": "Utilisateur",
+  "response": {
+    "data": {
+      "utilisateur": {
+        "id": "user-id-test",
+        "email": "test@camino.local",
+        "nom": "Delgado",
+        "prenom": "Martin",
+        "telephoneMobile": null,
+        "telephoneFixe": null,
+        "administrations": [],
+        "entreprises": [],
+        "permission": {
+          "id": "defaut",
+          "nom": "Défaut",
+          "__typename": "Permission"
+        },
+        "__typename": "Utilisateur"
+      }
+    }
+  }
+}

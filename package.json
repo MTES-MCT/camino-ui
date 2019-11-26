@@ -2,11 +2,6 @@
   "name": "camino-ui",
   "version": "0.22.10",
   "description": "Interface web de Camino, le cadastre minier numérique ouvert",
-  "license": "AGPL-3.0-or-later",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MTES-MCT/camino-ui"
-  },
   "author": {
     "name": "François Romain",
     "email": "francoisromain@gmail.com",
@@ -14,14 +9,15 @@
   },
   "scripts": {
     "build": "vue-cli-service build --modern",
-    "test": "vue-cli-service test:unit --verbose && codecov",
-    "dev:lint": "vue-cli-service lint",
-    "dev:test": "vue-cli-service test:unit --watch --verbose",
-    "dev:update": "npm-check-updates -u && npm install && npm audit fix",
-    "dev": "vue-cli-service serve --open",
-    "start": "node ./index.js",
     "commit": "npx git-cz",
-    "release": "standard-version && git push --follow-tags upstream master && npx conventional-github-releaser"
+    "dev": "vue-cli-service serve --open",
+    "dev:update": "npm-check-updates -u && npm install && npm audit fix",
+    "release": "standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",
+    "start": "node ./index.js",
+    "test": "vue-cli-service lint && vue-cli-service test:unit --verbose && vue-cli-service test:e2e --headless --record --key face49bc-24b6-4561-99c9-44ef6248aad5 && codecov",
+    "test:lint": "vue-cli-service lint --fix",
+    "test:cypress": "vue-cli-service test:e2e --mode development",
+    "test:jest": "vue-cli-service test:unit --watch --verbose"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -39,6 +35,7 @@
     "@types/webpack-env": "^1.14.1",
     "@vue/cli": "^4.0.5",
     "@vue/cli-plugin-babel": "^4.0.5",
+    "@vue/cli-plugin-e2e-cypress": "^4.0.5",
     "@vue/cli-plugin-eslint": "^4.0.5",
     "@vue/cli-plugin-unit-jest": "^4.0.5",
     "@vue/cli-service": "^4.0.5",
@@ -63,6 +60,7 @@
     "cz-conventional-changelog": "^3.0.2",
     "email-validator": "^2.0.4",
     "eslint": "^6.6.0",
+    "eslint-plugin-cypress": "^2.7.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^23.0.4",
     "eslint-plugin-node": "^10.0.0",
@@ -106,13 +104,15 @@
     "root": true,
     "env": {
       "node": true,
-      "jest/globals": true
+      "jest/globals": true,
+      "cypress/globals": true
     },
     "extends": [
       "plugin:vue/recommended",
       "standard",
       "prettier",
-      "prettier/standard"
+      "prettier/standard",
+      "plugin:cypress/recommended"
     ],
     "rules": {
       "no-console": 0,
@@ -123,7 +123,8 @@
     },
     "plugins": [
       "prettier",
-      "jest"
+      "jest",
+      "cypress"
     ]
   },
   "prettier": {
@@ -158,6 +159,16 @@
     "Firefox > 51",
     "iOS >= 9"
   ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "license": "AGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MTES-MCT/camino-ui"
+  },
   "stylelint": {
     "extends": [
       "stylelint-config-standard",
@@ -178,10 +189,5 @@
     "ignoreFiles": [
       "./dist/**/*"
     ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }

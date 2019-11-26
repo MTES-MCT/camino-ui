@@ -51,7 +51,6 @@ module.exports = {
     'apollo-utilities',
     'graphql',
     'graphql-tag',
-    'unfetch',
     'vuex'
   ]
 }

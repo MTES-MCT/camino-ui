@@ -1,0 +1,27 @@
+{
+  "operation": "UtilisateurTokenCreer",
+  "response": {
+    "data": {
+      "utilisateurTokenCreer": {
+        "utilisateur": {
+          "id": "user-id-test",
+          "nom": "Delgado",
+          "prenom": "Martin",
+          "email": "test@camino.local",
+          "telephoneFixe": null,
+          "telephoneMobile": null,
+          "permission": {
+            "id": "defaut",
+            "nom": "Défaut",
+            "__typename": "Permission"
+          },
+          "entreprises": [],
+          "administrations": [],
+          "__typename": "Utilisateur"
+        },
+        "token": "token.test",
+        "__typename": "UtilisateurToken"
+      }
+    }
+  }
+}

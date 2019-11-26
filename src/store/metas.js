@@ -14,8 +14,7 @@ export const state = {
   titres: {
     domaines: [],
     types: [],
-    statuts: [],
-    utilisateurDomaines: []
+    statuts: []
   },
 
   titre: {
@@ -39,11 +38,12 @@ export const state = {
   },
 
   utilisateur: {
-    permissions: []
+    permissions: [],
+    entreprises: [],
+    administrations: []
   },
 
-  entreprises: [],
-  administrations: [],
+  utilisateurDomaines: [],
 
   version: null,
   /* global npmVersion */

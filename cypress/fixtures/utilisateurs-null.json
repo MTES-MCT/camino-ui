@@ -1,0 +1,8 @@
+{
+  "operation": "Utilisateurs",
+  "response": {
+    "data": {
+      "utilisateurs": []
+    }
+  }
+}

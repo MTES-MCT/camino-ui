@@ -41,11 +41,10 @@
     </template>
 
     <template
-      v-if="hasSub"
+      v-if="hasProps"
       slot="sub"
     >
       <div
-        v-if="hasProps"
         class="px-m pt-m border-b-s"
       >
         <div
@@ -328,10 +327,6 @@ export default {
         !!this.etape.titulaires.length ||
         !!this.etape.amodiataires.length
       )
-    },
-
-    hasSub() {
-      return this.permissionsCheck(['super']) || this.hasProps
     },
 
     duree() {

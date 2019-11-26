@@ -57,10 +57,11 @@
               </p>
             </div>
 
-            <div v-else-if="e.type === 'checkboxes'">
-              <div
-                v-if="editable"
-              >
+            <div
+              v-else-if="e.type === 'checkboxes'"
+              class="cmn-titre-edit-sections-checkboxes"
+            >
+              <div v-if="editable">
                 <label
                   v-for="(nom, id) in e.valeurs"
                   :key="id"

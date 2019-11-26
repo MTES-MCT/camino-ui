@@ -45,8 +45,13 @@ if (process.env.VUE_APP_MATOMO_HOST) {
   })
 }
 
-new Vue({
+const app = new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
+
+// only available during E2E tests
+if (window.Cypress) {
+  window.app = app
+}

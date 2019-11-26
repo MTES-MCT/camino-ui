@@ -1,0 +1,23 @@
+{
+  "operation": "UtilisateurCreer",
+  "response": {
+    "data": {
+      "utilisateurCreer": {
+        "id": "user-id-test",
+        "email": "test@camino.local",
+        "nom": "Martin",
+        "prenom": "Delgado",
+        "telephoneMobile": null,
+        "telephoneFixe": null,
+        "administrations": [],
+        "entreprises": [],
+        "permission": {
+          "id": "defaut",
+          "nom": "Défaut",
+          "__typename": "Permission"
+        },
+        "__typename": "Utilisateur"
+      }
+    }
+  }
+}

@@ -7,13 +7,29 @@
       <slot />
     </div>
     <div class="popup-footer px-l pt pb-l">
+      <Messages
+        id="cmn-ui-popup-messages"
+        :messages="messages"
+      />
       <slot name="footer" />
     </div>
   </div>
 </template>
 
 <script>
+import Messages from './messages.vue'
 export default {
-  name: 'UiSystemPopup'
+  name: 'UiSystemPopup',
+
+  components: {
+    Messages
+  },
+
+  props: {
+    messages: {
+      type: Array,
+      default: () => []
+    }
+  }
 }
 </script>

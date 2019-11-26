@@ -1,0 +1,1991 @@
+{
+  "operation": "Titres",
+  "response": {
+    "data": {
+      "titres": [
+        {
+          "id": "g-cxx-soultz-2015",
+          "nom": "Soultz",
+          "type": {
+            "id": "cxx",
+            "nom": "concession",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "g",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "dge",
+                "nom": "DGEC",
+                "__typename": "ReferenceType"
+              },
+              "nom": "CG-002",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "geoh",
+              "nom": "gîtes géothermiques haute température",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "2015-09-24",
+          "dateFin": "2040-09-24",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgec-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "dea-grand-est-01",
+              "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Grand Est - Siège de Metz",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-67482-01",
+              "nom": "Préfecture - Bas-Rhin",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-411178866",
+              "nom": "EXPLOITATION MINIERE DE LA CHALEUR",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [7.84002264736074, 48.9518938206902],
+                    [7.84002452113222, 48.910023184657],
+                    [7.90835940918574, 48.910022887259],
+                    [7.90815728347236, 48.951921971864],
+                    [7.84002264736074, 48.9518938206902]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "g-cxx-bouillante-2009",
+          "nom": "Bouillante",
+          "type": {
+            "id": "cxx",
+            "nom": "concession",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "g",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "dge",
+                "nom": "DGEC",
+                "__typename": "ReferenceType"
+              },
+              "nom": "CG-001",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "geoh",
+              "nom": "gîtes géothermiques haute température",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "2009-06-19",
+          "dateFin": "2050-04-30",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgec-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "dea-guadeloupe-01",
+              "nom": "Direction de l'environnement de l'aménagement et du logement (DEAL) - Guadeloupe",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-97105-01",
+              "nom": "Préfecture - Guadeloupe",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-400716536",
+              "nom": "GEOTHERMIE BOUILLANTE",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [-61.778556, 16.175139],
+                    [-61.779, 16.102833],
+                    [-61.755639, 16.102694],
+                    [-61.750944, 16.107194],
+                    [-61.7505, 16.174972],
+                    [-61.778556, 16.175139]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "g-prx-saleve-2013",
+          "nom": "Salève",
+          "type": {
+            "id": "prx",
+            "nom": "permis exclusif de recherches",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "g",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "dmc",
+            "nom": "demande classée",
+            "couleur": "neutral",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "dge",
+                "nom": "DGEC",
+                "__typename": "ReferenceType"
+              },
+              "nom": "DPG027",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "geoh",
+              "nom": "gîtes géothermiques haute température",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": null,
+          "dateFin": null,
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgec-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "deal-aura-01",
+              "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Auvergne-Rhône-Alpes - Siège de Lyon",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-01053-01",
+              "nom": "Préfecture - Ain",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-74010-01",
+              "nom": "Préfecture de Haute-Savoie",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-792695636",
+              "nom": "Geoforon",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [6.31009670032525, 46.2437069286491],
+                    [6.29950325585146, 46.2310545383162],
+                    [6.29446476033181, 46.224931095213],
+                    [6.2763730943066, 46.2152479965489],
+                    [6.2691573778781, 46.2134452309904],
+                    [6.2655446821802, 46.2133818747515],
+                    [6.25442715597004, 46.2090736528858],
+                    [6.24874859114838, 46.2049913208688],
+                    [6.24587774594359, 46.2065591522913],
+                    [6.24500773567087, 46.2065530911545],
+                    [6.24466898087723, 46.204916631485],
+                    [6.24341826658121, 46.204824634646],
+                    [6.2398047643209, 46.2050938524581],
+                    [6.236632679155, 46.2064643948915],
+                    [6.2341339843702, 46.2063606125821],
+                    [6.23019305653769, 46.2043982033751],
+                    [6.23012003107583, 46.2035627107749],
+                    [6.22791634856178, 46.2034042650947],
+                    [6.22708870580863, 46.2019909925399],
+                    [6.22538007468, 46.2020414863706],
+                    [6.22233345257971, 46.2007942291673],
+                    [6.2215232712236, 46.1987053804355],
+                    [6.21754929559571, 46.1979140101132],
+                    [6.21424685091359, 46.1937939359301],
+                    [6.21335069702908, 46.1941487085013],
+                    [6.211693968206, 46.1931063848951],
+                    [6.20681665132109, 46.1921835769808],
+                    [6.20180390982262, 46.1867883395188],
+                    [6.19892304088234, 46.1853016011557],
+                    [6.19842588911467, 46.1837777937382],
+                    [6.19549027196254, 46.1840761499164],
+                    [6.19134950913374, 46.1812813249238],
+                    [6.1890779452135, 46.1814299437398],
+                    [6.18610330007983, 46.1782257541361],
+                    [6.18884633180296, 46.1661972575872],
+                    [6.17541848652368, 46.1581411218601],
+                    [6.16811757141588, 46.1568037041461],
+                    [6.15224683283386, 46.1515305398902],
+                    [6.1483942412672, 46.1492642954723],
+                    [6.14669662087397, 46.1459170616487],
+                    [6.1448966974237, 46.1448250187912],
+                    [6.14161467862758, 46.1470067348925],
+                    [6.14107285543649, 46.1453676339705],
+                    [6.137180644436, 46.1432654226176],
+                    [6.13554348024488, 46.1411585040697],
+                    [6.12661927647205, 46.1404674881215],
+                    [6.12116233695052, 46.1426771430987],
+                    [6.10871777215744, 46.143183005319],
+                    [6.10414973080219, 46.1443890082223],
+                    [6.09913045136257, 46.143961831891],
+                    [6.09184715881138, 46.1516711895765],
+                    [6.07560825034436, 46.1490116096326],
+                    [6.07222696012753, 46.149979918852],
+                    [6.0519291953422, 46.1512701824285],
+                    [6.04869885427383, 46.1474127515499],
+                    [6.04744322610331, 46.143049793241],
+                    [6.04850423920162, 46.1414928799545],
+                    [6.04780598858528, 46.1409389752874],
+                    [6.04565329700245, 46.1399746466047],
+                    [6.04291625644385, 46.1410726231808],
+                    [6.03584587894053, 46.1365399971538],
+                    [6.03572591853506, 46.1347690517587],
+                    [6.03488309678088, 46.1366798619573],
+                    [6.03394860231731, 46.1364483401495],
+                    [6.03379592831085, 46.1380300811497],
+                    [6.03285165154536, 46.1386192309677],
+                    [6.03197868708048, 46.1379811744495],
+                    [6.03198198316333, 46.1393679408061],
+                    [6.02929345733652, 46.1394744021826],
+                    [6.02823246022269, 46.1404460317124],
+                    [6.02476128272748, 46.1404603119061],
+                    [6.02307102118217, 46.1415236257025],
+                    [6.0152622181957, 46.14294928438],
+                    [6.01320537424306, 46.14223198304],
+                    [6.00851033926588, 46.1427457913747],
+                    [6.00376697437192, 46.1419442872954],
+                    [5.99398172984936, 46.144432463368],
+                    [5.99225357651957, 46.1435875485006],
+                    [5.98688255986659, 46.1426983278796],
+                    [5.98481381968288, 46.1431520809457],
+                    [5.98272430436978, 46.1421391457751],
+                    [5.98215813945616, 46.1371497463361],
+                    [5.98036310463283, 46.1358744679506],
+                    [5.97635043990514, 46.1326357784016],
+                    [5.97012334666569, 46.1319085524395],
+                    [5.96527910022545, 46.1295867340335],
+                    [5.96092183262041, 46.1303033964649],
+                    [5.956053570298, 46.1320897801796],
+                    [5.9560675136435, 46.1320986202167],
+                    [5.94732205938339, 46.1281808645617],
+                    [5.93695317997356, 46.1286562118524],
+                    [5.92637476076048, 46.128541890657],
+                    [5.92439783422285, 46.1305950931878],
+                    [5.92090610135833, 46.1310753088709],
+                    [5.91767882817449, 46.1298630858372],
+                    [5.90410072841754, 46.1207007910928],
+                    [5.8930286400355, 46.1189243518545],
+                    [5.88619234240092, 46.1095744716177],
+                    [5.88546701329208, 46.1069950370535],
+                    [5.89192573055103, 46.1005865756398],
+                    [5.89345703813689, 46.0954680157607],
+                    [5.8907969826222, 46.0878152371743],
+                    [5.88686812659317, 46.0857049783333],
+                    [6.13034242812126, 46.0519427479214],
+                    [6.4295768479043, 46.054365130114],
+                    [6.43446273925404, 46.1465052904126],
+                    [6.34341845309135, 46.1768318984129],
+                    [6.36151507078344, 46.2366926812405],
+                    [6.31009670032525, 46.2437069286491]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "h-cxx-la-croix-blanche-1994",
+          "nom": "La Croix-Blanche",
+          "type": {
+            "id": "cxx",
+            "nom": "concession",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "h",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "mod",
+            "nom": "modification en instance",
+            "couleur": "warning",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "dge",
+                "nom": "DGEC",
+                "__typename": "ReferenceType"
+              },
+              "nom": "C52",
+              "__typename": "Reference"
+            },
+            {
+              "type": {
+                "id": "rnt",
+                "nom": "RNTM",
+                "__typename": "ReferenceType"
+              },
+              "nom": "91TM0003",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "hydx",
+              "nom": "hydrocarbures liquides ou gazeux",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "1994-02-12",
+          "dateFin": "2019-02-12",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgec-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-91228-01",
+              "nom": "Préfecture - Essonne",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-478826316",
+              "nom": "VERMILION PYRENEES",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [2.31850800780295, 48.6359318908348],
+                    [2.31850826422493, 48.6179320081743],
+                    [2.30950790143806, 48.6179319518238],
+                    [2.30950815773496, 48.5999320701114],
+                    [2.37251069671375, 48.5999324638617],
+                    [2.37251044131938, 48.617932345682],
+                    [2.35450971555019, 48.6179322332929],
+                    [2.35450945964444, 48.6359321160149],
+                    [2.31850800780295, 48.6359318908348]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "h-cxx-pezarches-1998",
+          "nom": "Pézarches",
+          "type": {
+            "id": "cxx",
+            "nom": "concession",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "h",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "dge",
+                "nom": "DGEC",
+                "__typename": "ReferenceType"
+              },
+              "nom": "C59",
+              "__typename": "Reference"
+            },
+            {
+              "type": {
+                "id": "rnt",
+                "nom": "RNTM",
+                "__typename": "ReferenceType"
+              },
+              "nom": "77TM0011",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "hydx",
+              "nom": "hydrocarbures liquides ou gazeux",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "1998-05-07",
+          "dateFin": "2023-05-07",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgec-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-77288-01",
+              "nom": "Préfecture de Seine-et-Marne",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-392068102",
+              "nom": "GEOPETROL",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [2.98453305311629, 48.7709351411795],
+                    [2.98453342607282, 48.7439353053752],
+                    [3.02053488619763, 48.7439355225005],
+                    [3.02053501013242, 48.7349355776688],
+                    [3.03853574016732, 48.7349356860456],
+                    [3.03853549249693, 48.7529355759716],
+                    [3.02053476220128, 48.7529354675653],
+                    [3.02053463814336, 48.7619354128629],
+                    [3.0025339077858, 48.7619353043277],
+                    [3.00253378353573, 48.7709352498435],
+                    [2.98453305311629, 48.7709351411795]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "m-cxx-cerville-buissoncourt-1962",
+          "nom": "Cerville-Buissoncourt",
+          "type": {
+            "id": "cxx",
+            "nom": "concession",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "m",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "deb",
+                "nom": "DEB",
+                "__typename": "ReferenceType"
+              },
+              "nom": "2013-0274-MI",
+              "__typename": "Reference"
+            },
+            {
+              "type": {
+                "id": "rnt",
+                "nom": "RNTM",
+                "__typename": "ReferenceType"
+              },
+              "nom": "54TM0152",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "nacl",
+              "nom": "sels de sodium",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "1962-07-03",
+          "dateFin": "2043-12-31",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "dea-grand-est-01",
+              "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Grand Est - Siège de Metz",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-54395-01",
+              "nom": "Préfecture - Meurthe-et-Moselle",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "be-0403091220",
+              "nom": "Solvay",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [6.31341639315849, 48.6965360899265],
+                    [6.31623027226498, 48.6761662451228],
+                    [6.33042745754451, 48.6685681686828],
+                    [6.34542373925533, 48.6754312450443],
+                    [6.34103917785201, 48.6991320612729],
+                    [6.31341639315849, 48.6965360899265]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "m-cxx-drouville-1894",
+          "nom": "Drouville",
+          "type": {
+            "id": "cxx",
+            "nom": "concession",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "m",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "mod",
+            "nom": "modification en instance",
+            "couleur": "warning",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "deb",
+                "nom": "DEB",
+                "__typename": "ReferenceType"
+              },
+              "nom": "2013-0272-MI",
+              "__typename": "Reference"
+            },
+            {
+              "type": {
+                "id": "rnt",
+                "nom": "RNTM",
+                "__typename": "ReferenceType"
+              },
+              "nom": "54TM0150",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "selg",
+              "nom": "sel gemme",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "selh",
+              "nom": "sources d'eau salée",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "1894-11-24",
+          "dateFin": "2018-12-31",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "dea-grand-est-01",
+              "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Grand Est - Siège de Metz",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-54395-01",
+              "nom": "Préfecture - Meurthe-et-Moselle",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-412431744",
+              "nom": "COMPAGNIE DES SALINS DU MIDI ET DES SALINES DE L'EST",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [6.40594581316075, 48.6831697921601],
+                    [6.39207718203839, 48.6829531419877],
+                    [6.38663129029746, 48.6786426005499],
+                    [6.36405810845692, 48.6618704916505],
+                    [6.36667750476483, 48.65506229364],
+                    [6.38650813646595, 48.6666722047516],
+                    [6.39687420556729, 48.6638832525339],
+                    [6.41123954750602, 48.672412834975],
+                    [6.40594581316075, 48.6831697921601]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "m-cxx-le-chatelard-1978",
+          "nom": "Le Châtelard",
+          "type": {
+            "id": "cxx",
+            "nom": "concession",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "m",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "deb",
+                "nom": "DEB",
+                "__typename": "ReferenceType"
+              },
+              "nom": "2013-0215-MI",
+              "__typename": "Reference"
+            },
+            {
+              "type": {
+                "id": "rnt",
+                "nom": "RNTM",
+                "__typename": "ReferenceType"
+              },
+              "nom": "26TM0003",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "nacl",
+              "nom": "sels de sodium",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "1966-06-30",
+          "dateFin": "2043-12-31",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "deal-aura-01",
+              "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Auvergne-Rhône-Alpes - Siège de Lyon",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-26362-01",
+              "nom": "Préfecture - Drôme",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-411129612",
+              "nom": "CHLORALP",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [5.04407119541829, 45.2663059375898],
+                    [4.98423981994018, 45.2491984443938],
+                    [4.98473642528747, 45.2312654612405],
+                    [5.00384284224152, 45.2266099883091],
+                    [5.04268759043981, 45.2344633797293],
+                    [5.03809028556512, 45.2478510790694],
+                    [5.05866683528518, 45.2522388240775],
+                    [5.06345441941552, 45.2386034702575],
+                    [5.06531777267691, 45.2390013974641],
+                    [5.07803990137315, 45.2543573414187],
+                    [5.0608981782396, 45.2525760109427],
+                    [5.06418984321818, 45.2674314994644],
+                    [5.04407119541829, 45.2663059375898]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "m-prx-crique-awa-2016",
+          "nom": "Crique Awa",
+          "type": {
+            "id": "prx",
+            "nom": "permis exclusif de recherches",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "m",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "dmi",
+            "nom": "demande initiale",
+            "couleur": "warning",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "deb",
+                "nom": "DEB",
+                "__typename": "ReferenceType"
+              },
+              "nom": "2017-0006-MI",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "auru",
+              "nom": "or",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "suco",
+              "nom": "substances connexes",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": null,
+          "dateFin": null,
+          "dateDemande": "2016-10-26",
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "dea-guyane-01",
+              "nom": "Direction de l'environnement de l'aménagement et du logement (DEAL) - Guyane",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-97302-01",
+              "nom": "Préfecture - Guyane",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-828089284",
+              "nom": "NORD GOLD GUIANA SAS",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [-54.3665304286014, 4.35543195083612],
+                    [-54.3664182167076, 4.33014493480767],
+                    [-54.2910912581886, 4.28351088146851],
+                    [-54.3146616951426, 4.2454575012855],
+                    [-54.3076885788965, 4.23889426437298],
+                    [-54.2981437918197, 4.23472627735787],
+                    [-54.3034444447661, 4.2266742986362],
+                    [-54.3135481012984, 4.2290244954245],
+                    [-54.3242958001721, 4.22630497883091],
+                    [-54.3259164024973, 4.2223963408248],
+                    [-54.3257364086141, 4.17994834959498],
+                    [-54.3121979192793, 4.16916767328981],
+                    [-54.2546264404219, 4.16940877616127],
+                    [-54.2304924058895, 4.31493187169499],
+                    [-54.3004006281323, 4.35572559405695],
+                    [-54.3132555655461, 4.37355181388801],
+                    [-54.3238727369242, 4.37350468866554],
+                    [-54.331891570571, 4.35558648720273],
+                    [-54.3665304286014, 4.35543195083612]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "m-prx-nem-4-2016",
+          "nom": "Nem 4",
+          "type": {
+            "id": "prx",
+            "nom": "permis exclusif de recherches",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "m",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "dea",
+                "nom": "DEAL",
+                "__typename": "ReferenceType"
+              },
+              "nom": "06/2016",
+              "__typename": "Reference"
+            },
+            {
+              "type": {
+                "id": "deb",
+                "nom": "DEB",
+                "__typename": "ReferenceType"
+              },
+              "nom": "2013-0047-MI",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "arge",
+              "nom": "argent",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "auru",
+              "nom": "or",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "ceri",
+              "nom": "cérium",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "chro",
+              "nom": "chrome",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "cuiv",
+              "nom": "cuivre",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "diam",
+              "nom": "diamant",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "nick",
+              "nom": "nickel",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "plat",
+              "nom": "platine",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "plax",
+              "nom": "métaux de la mine du platine",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "plom",
+              "nom": "plomb",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "scan",
+              "nom": "scandium",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "tell",
+              "nom": "tellure",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "trxx",
+              "nom": "autres éléments de terres rares",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "zinc",
+              "nom": "zinc",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "2016-01-20",
+          "dateFin": "2021-01-20",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "dea-guyane-01",
+              "nom": "Direction de l'environnement de l'aménagement et du logement (DEAL) - Guyane",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-97302-01",
+              "nom": "Préfecture - Guyane",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-382461325",
+              "nom": "NEWMONT LASOURCE",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [-53.5698272027941, 4.95651490309366],
+                    [-53.5695581534727, 4.88642918729832],
+                    [-53.3894320527413, 4.88709565743923],
+                    [-53.3896822871133, 4.95719097800504],
+                    [-53.5698272027941, 4.95651490309366]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "m-prx-bonneval-2017",
+          "nom": "Bonneval",
+          "type": {
+            "id": "prx",
+            "nom": "permis exclusif de recherches",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "m",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "brg",
+                "nom": "BRGM",
+                "__typename": "ReferenceType"
+              },
+              "nom": "TMVX01",
+              "__typename": "Reference"
+            },
+            {
+              "type": {
+                "id": "deb",
+                "nom": "DEB",
+                "__typename": "ReferenceType"
+              },
+              "nom": "2015-0004-MI",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "anti",
+              "nom": "antimoine",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "arge",
+              "nom": "argent",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "auru",
+              "nom": "or",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "suco",
+              "nom": "substances connexes",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "2017-07-01",
+          "dateFin": "2022-07-01",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "dea-nouvelle-aquitaine-01",
+              "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Nouvelle-Aquitaine - Siège de Poitiers",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-24322-01",
+              "nom": "Préfecture de Dordogne",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-87085-01",
+              "nom": "Préfecture - Haute-Vienne",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-803975135",
+              "nom": "CORDIER MINES",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [1.02366463781389, 45.5100914682123],
+                    [1.07428444433143, 45.4726898430612],
+                    [1.14510263370103, 45.5180178863586],
+                    [1.39614447022664, 45.5205325945797],
+                    [1.45200568565077, 45.5618454276242],
+                    [1.35518975380248, 45.6271200203052],
+                    [1.24035294156131, 45.6253827770843],
+                    [1.22394102450513, 45.5967526739204],
+                    [1.08601262872737, 45.5967416160351],
+                    [1.07119084140654, 45.5433445274985],
+                    [1.02366463781389, 45.5100914682123]
+                  ],
+                  [
+                    [1.22726707910128, 45.5653706310462],
+                    [1.25250478099529, 45.576700282656],
+                    [1.25916610583008, 45.5610234827862],
+                    [1.24238191143912, 45.5553670822379],
+                    [1.22726707910128, 45.5653706310462]
+                  ],
+                  [
+                    [1.35137042908097, 45.5902535616586],
+                    [1.39199647387943, 45.5668571993088],
+                    [1.30492233928924, 45.5427275435631],
+                    [1.26124130611005, 45.5365478116671],
+                    [1.30456681775049, 45.584558835428],
+                    [1.35137042908097, 45.5902535616586]
+                  ],
+                  [
+                    [1.13926033471515, 45.5428531790029],
+                    [1.14739296372186, 45.5580296078216],
+                    [1.1707927826461, 45.5673480131267],
+                    [1.17787778508647, 45.5589603536779],
+                    [1.17860215914855, 45.5517393729974],
+                    [1.13926033471515, 45.5428531790029]
+                  ],
+                  [
+                    [1.17860215914855, 45.5517393729974],
+                    [1.17787778508647, 45.5589603536779],
+                    [1.17083271794273, 45.5673036272282],
+                    [1.19685103207248, 45.5716691327959],
+                    [1.19564785564153, 45.5574096146792],
+                    [1.17860215914855, 45.5517393729974]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "m-prx-nouvelle-esperance-2010",
+          "nom": "Nouvelle Espérance",
+          "type": {
+            "id": "prx",
+            "nom": "permis exclusif de recherches",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "m",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "mod",
+            "nom": "modification en instance",
+            "couleur": "warning",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "dea",
+                "nom": "DEAL",
+                "__typename": "ReferenceType"
+              },
+              "nom": "18/2010",
+              "__typename": "Reference"
+            },
+            {
+              "type": {
+                "id": "deb",
+                "nom": "DEB",
+                "__typename": "ReferenceType"
+              },
+              "nom": "2013-0089-MI",
+              "__typename": "Reference"
+            },
+            {
+              "type": {
+                "id": "deb",
+                "nom": "DEB",
+                "__typename": "ReferenceType"
+              },
+              "nom": "2013-0556-MI",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "auru",
+              "nom": "or",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "suco",
+              "nom": "substances connexes",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "2010-11-05",
+          "dateFin": "2018-11-05",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "dea-guyane-01",
+              "nom": "Direction de l'environnement de l'aménagement et du logement (DEAL) - Guyane",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-97302-01",
+              "nom": "Préfecture - Guyane",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-381151760",
+              "nom": "COMPAGNIE MINIERE ESPERANCE",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [-54.2470225337484, 4.70592416567548],
+                    [-54.327786966152, 4.67292034838405],
+                    [-54.3605649498345, 4.62259513080929],
+                    [-54.383848712715, 4.5825849839772],
+                    [-54.4073815884439, 4.5327040616869],
+                    [-54.4192366157188, 4.49697656494315],
+                    [-54.3722317889242, 4.49583233715852],
+                    [-54.3166717392248, 4.60193905194831],
+                    [-54.2809639566894, 4.62702402162028],
+                    [-54.2816151138549, 4.62768936642262],
+                    [-54.3269344111084, 4.6274775460526],
+                    [-54.3271535985733, 4.67222792814213],
+                    [-54.2818224495864, 4.67244184841238],
+                    [-54.2816151138549, 4.62768936642262],
+                    [-54.2809639566894, 4.62702402162028],
+                    [-54.2497742948204, 4.67609583301678],
+                    [-54.2403792117545, 4.70216157566195],
+                    [-54.2470225337484, 4.70592416567548]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "m-prx-orapu-2018",
+          "nom": "Orapu",
+          "type": {
+            "id": "prx",
+            "nom": "permis exclusif de recherches",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "m",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "deb",
+                "nom": "DEB",
+                "__typename": "ReferenceType"
+              },
+              "nom": "2014-0004-MI",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "arge",
+              "nom": "argent",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "auru",
+              "nom": "or",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "cuiv",
+              "nom": "cuivre",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "suco",
+              "nom": "substances connexes",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "zinc",
+              "nom": "zinc",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "2018-04-26",
+          "dateFin": "2021-04-26",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "dea-guyane-01",
+              "nom": "Direction de l'environnement de l'aménagement et du logement (DEAL) - Guyane",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-97302-01",
+              "nom": "Préfecture - Guyane",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-402207153",
+              "nom": "IAMGOLD FRANCE",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [-52.3768513239219, 4.50744796325207],
+                    [-52.3767907905052, 4.4751694727766],
+                    [-52.3587678690013, 4.47520317223325],
+                    [-52.3588212123512, 4.5040360695696],
+                    [-52.3692028391265, 4.50401658766062],
+                    [-52.3692092862238, 4.50746240986538],
+                    [-52.3768513239219, 4.50744796325207]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "m-axm-auror-2018",
+          "nom": "Auror",
+          "type": {
+            "id": "axm",
+            "nom": "autorisation d'exploitation",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "m",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "dea",
+                "nom": "DEAL",
+                "__typename": "ReferenceType"
+              },
+              "nom": "20/2018",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "auru",
+              "nom": "or",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "2018-10-01",
+          "dateFin": "2022-09-30",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": 5,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "dea-guyane-01",
+              "nom": "Direction de l'environnement de l'aménagement et du logement (DEAL) - Guyane",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-97302-01",
+              "nom": "Préfecture - Guyane",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-830984613",
+              "nom": "SOCIETE MINIERE AUROR (SMA)",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [-54.0950602907814, 5.20885569954379],
+                    [-54.1130169578246, 5.21036597243676],
+                    [-54.1134002694189, 5.20586546870085],
+                    [-54.0954347319799, 5.20435517507967],
+                    [-54.0950602907814, 5.20885569954379]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "r-cxx-la-varenne-1985",
+          "nom": "La Varenne",
+          "type": {
+            "id": "cxx",
+            "nom": "concession",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "r",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "irs",
+                "nom": "IRSN",
+                "__typename": "ReferenceType"
+              },
+              "nom": "03TU01",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "rxxx",
+              "nom": "autres éléments radioactifs",
+              "__typename": "TitreSubstance"
+            },
+            {
+              "id": "uran",
+              "nom": "uranium",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "1985-01-13",
+          "dateFin": "2035-01-13",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgec-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "deal-aura-01",
+              "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Auvergne-Rhône-Alpes - Siège de Lyon",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-03190-01",
+              "nom": "Préfecture - Allier",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-305207169",
+              "nom": "ORANO CYCLE",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [2.85892276662291, 46.6087912165385],
+                    [2.87632294869478, 46.599398408839],
+                    [2.89582277443033, 46.617028644927],
+                    [2.88745853152771, 46.6612443782208],
+                    [2.85547859395293, 46.6786231008836],
+                    [2.83280051768227, 46.6502486117673],
+                    [2.81068462465129, 46.653581375315],
+                    [2.80010938666386, 46.6468770877485],
+                    [2.85892276662291, 46.6087912165385]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "w-cxx-les-duons-2011",
+          "nom": "Les Duons",
+          "type": {
+            "id": "cxx",
+            "nom": "concession",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "w",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "deb",
+                "nom": "DEB",
+                "__typename": "ReferenceType"
+              },
+              "nom": "2013-0014-GM",
+              "__typename": "Reference"
+            },
+            {
+              "type": {
+                "id": "ifr",
+                "nom": "Ifremer",
+                "__typename": "ReferenceType"
+              },
+              "nom": "Duo",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "saco",
+              "nom": "sables coquilliers",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "2011-07-21",
+          "dateFin": "2036-07-21",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-390455814",
+              "nom": "COMPAGNIE ARMORICAINE NAVIGATION (CAN)",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [-3.87866592407227, 48.724666595459],
+                    [-3.8833332061767, 48.7216663360597],
+                    [-3.8833332061767, 48.7208328247071],
+                    [-3.87750053405762, 48.7208328247071],
+                    [-3.87416648864746, 48.724666595459],
+                    [-3.87866592407227, 48.724666595459]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "w-cxx-le-minou-2011",
+          "nom": "Le Minou",
+          "type": {
+            "id": "cxx",
+            "nom": "concession",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "w",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "deb",
+                "nom": "DEB",
+                "__typename": "ReferenceType"
+              },
+              "nom": "2013-0013-GM",
+              "__typename": "Reference"
+            },
+            {
+              "type": {
+                "id": "ifr",
+                "nom": "Ifremer",
+                "__typename": "ReferenceType"
+              },
+              "nom": "Lmi",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "saco",
+              "nom": "sables coquilliers",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "2011-07-10",
+          "dateFin": "2031-07-10",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": null,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-401862297",
+              "nom": "SOCIETE QUEMENEUR",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [-4.61500002770646, 48.3353333809569],
+                    [-4.61416666948475, 48.3345000168512],
+                    [-4.6066666532796, 48.3370000511517],
+                    [-4.60733333236726, 48.3376666706175],
+                    [-4.61500002770646, 48.3353333809569]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        },
+        {
+          "id": "m-axm-crique-nelson-2018",
+          "nom": "Crique Nelson",
+          "type": {
+            "id": "axm",
+            "nom": "autorisation d'exploitation",
+            "__typename": "Type"
+          },
+          "domaine": {
+            "id": "m",
+            "__typename": "Domaine"
+          },
+          "statut": {
+            "id": "val",
+            "nom": "valide",
+            "couleur": "success",
+            "__typename": "Statut"
+          },
+          "references": [
+            {
+              "type": {
+                "id": "dea",
+                "nom": "DEAL",
+                "__typename": "ReferenceType"
+              },
+              "nom": "07/2018",
+              "__typename": "Reference"
+            }
+          ],
+          "substances": [
+            {
+              "id": "auru",
+              "nom": "or",
+              "__typename": "TitreSubstance"
+            }
+          ],
+          "dateDebut": "2018-10-01",
+          "dateFin": "2022-09-30",
+          "dateDemande": null,
+          "activitesEnConstruction": null,
+          "activitesAbsentes": 5,
+          "activitesDeposees": null,
+          "administrations": [
+            {
+              "id": "min-mtes-dgaln-01",
+              "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+              "__typename": "Administration"
+            },
+            {
+              "id": "dea-guyane-01",
+              "nom": "Direction de l'environnement de l'aménagement et du logement (DEAL) - Guyane",
+              "__typename": "Administration"
+            },
+            {
+              "id": "prefecture-97302-01",
+              "nom": "Préfecture - Guyane",
+              "__typename": "Administration"
+            }
+          ],
+          "titulaires": [
+            {
+              "id": "fr-519753370",
+              "nom": "SAS TRAJAN",
+              "__typename": "Entreprise"
+            }
+          ],
+          "amodiataires": [],
+          "geojsonMultiPolygon": {
+            "type": "Feature",
+            "geometry": {
+              "type": "MultiPolygon",
+              "coordinates": [
+                [
+                  [
+                    [-52.9137457519873, 4.99737583360232],
+                    [-52.9165212906092, 4.9938143741764],
+                    [-52.9024247139461, 4.98272509007337],
+                    [-52.8996490483647, 4.98626841903439],
+                    [-52.9137457519873, 4.99737583360232]
+                  ]
+                ]
+              ],
+              "__typename": "GeometryMultiPolygon"
+            },
+            "__typename": "GeojsonMultiPolygon"
+          },
+          "__typename": "Titre"
+        }
+      ]
+    }
+  }
+}

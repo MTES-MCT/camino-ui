@@ -27,6 +27,7 @@
         </div>
         <div class="mb tablet-blob-2-3">
           <input
+            id="cmn-user-add-input-mot-de-passe"
             v-model="utilisateur.motDePasse"
             type="password"
             class="p-s bg-bg mb-s"
@@ -46,6 +47,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input
+          id="cmn-user-add-input-prenom"
           v-model="utilisateur.prenom"
           type="text"
           class="p-s bg-bg"
@@ -61,6 +63,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input
+          id="cmn-user-add-input-nom"
           v-model="utilisateur.nom"
           type="text"
           class="p-s bg-bg"
@@ -105,6 +108,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s" />
       <div class="mb tablet-blob-2-3">
         <input
+          id="cmn-user-add-checkbox-cgu"
           v-model="cgu"
           type="checkbox"
         >Vous avez lu et vous acceptez les
@@ -126,6 +130,7 @@
         :class="{ disabled: !complete }"
       >
         <button
+          id="cmn-user-add-button-enregistrer"
           class="btn-flash rnd-xs p-s full-x"
           @click="save"
           @keyup.enter.native="save"

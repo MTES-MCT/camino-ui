@@ -89,6 +89,7 @@ describe("état de l'utilisateur connecté", () => {
       permission: 'admin',
       entreprise: 'macdo'
     })
+    expect(apiMock).toHaveBeenCalled()
     expect(store.state.user.loaded).toBeTruthy()
   })
 
@@ -98,7 +99,7 @@ describe("état de l'utilisateur connecté", () => {
     store.commit('user/set', userInfo)
     await store.dispatch('user/identify', { email, motDePasse })
 
-    expect(apiMock).toHaveBeenCalledWith()
+    expect(apiMock).toHaveBeenCalled()
     expect(localStorage.getItem('token')).toBeNull()
     expect(store.state.user.current).toBeNull()
   })
@@ -233,7 +234,7 @@ describe("état de l'utilisateur connecté", () => {
     const apiMock = api.utilisateurMotDePasseInitialiser.mockResolvedValue({
       utilisateur: userInfo
     })
-    const res = await store.dispatch('user/passwordInit', {
+    await store.dispatch('user/passwordInit', {
       motDePasse1: motDePasse,
       motDePasse2: motDePasse
     })

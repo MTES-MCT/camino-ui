@@ -1,0 +1,32 @@
+{
+  "operation": "UtilisateurCreer",
+  "response": {
+    "data": {
+      "utilisateurCreer": {
+        "id": "user-id-test",
+        "email": "test@camino.local",
+        "nom": "Delgado",
+        "prenom": "Martin",
+        "telephoneMobile": null,
+        "telephoneFixe": null,
+        "administrations": [],
+        "entreprises": [
+          {
+            "id": "fr-411129612",
+            "nom": "CHLORALP",
+            "paysId": "FR",
+            "legalSiren": "411129612",
+            "legalEtranger": null,
+            "__typename": "Entreprise"
+          }
+        ],
+        "permission": {
+          "id": "entreprise",
+          "nom": "Entreprise",
+          "__typename": "Permission"
+        },
+        "__typename": "Utilisateur"
+      }
+    }
+  }
+}

@@ -1,18 +1,14 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <div>
         <h5>
-          <span class="cap-first">
-            {{ titreNom }}
-          </span><span class="color-neutral">
-            |
-          </span><span class="cap-first">
+          <span class="cap-first"> {{ titreNom }} </span><span class="color-neutral"> | </span><span class="cap-first">
             {{ demarcheType.nom }}
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout d\'une ' : "Modification de l\'" }}étape
+          {{ creation ? "Ajout d'une " : "Modification de l'" }}étape
         </h2>
       </div>
     </template>
@@ -74,7 +70,7 @@
             v-model="etape.date"
             type="date"
             class="p-s"
-            :class="{'mb-s': etape.date, 'mb': !etape.date}"
+            :class="{ 'mb-s': etape.date, mb: !etape.date }"
             placeholder="aaaa-mm-jj"
           >
           <label
@@ -84,7 +80,8 @@
             <input
               v-model="etape.incertitudes.date"
               type="checkbox"
-            >donnée incertaine
+            >donnée
+            incertaine
           </label>
         </div>
       </div>
@@ -110,7 +107,6 @@
     />
 
     <template slot="footer">
-      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -147,7 +143,6 @@
 
 <script>
 import Popup from '../../ui/popup.vue'
-import Messages from '../../ui/messages.vue'
 import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
 import EditSections from '../edit-sections.vue'
@@ -159,7 +154,6 @@ export default {
 
   components: {
     Popup,
-    Messages,
     EtapeEditFondamentales,
     EtapeEditPoints,
     EditSections

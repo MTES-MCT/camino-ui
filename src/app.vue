@@ -9,6 +9,7 @@
     <PageHeader slot="header" />
 
     <Messages
+      id="cmn-app-messages"
       slot="messages"
       :messages="messages"
     />
@@ -49,6 +50,9 @@ export default {
   },
 
   computed: {
+    user() {
+      return this.$store.state.user.current
+    },
     error() {
       return this.$store.state.error
     },
@@ -63,14 +67,22 @@ export default {
     }
   },
 
+  watch: {
+    user: 'get'
+  },
+
   created() {
     this.init()
   },
 
   methods: {
     async init() {
-      this.$store.dispatch('user/identify')
-      this.$store.dispatch('metas/init')
+      await this.$store.dispatch('user/identify')
+      await this.get()
+    },
+
+    async get() {
+      await this.$store.dispatch('metas/init')
     }
   }
 }

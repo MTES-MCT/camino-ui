@@ -21,13 +21,13 @@ export const actions = {
         {
           value:
             data.statut.id === 'dep'
-              ? `l'activite a été validée`
-              : `l'activite a été enregistrée`,
+              ? `l'activité a été validée`
+              : `l'activité a été enregistrée`,
           type: 'success'
         },
         { root: true }
       )
-      dispatch(
+      await dispatch(
         'titre/reload',
         { id: rootState.titre.current.id, idOld: rootState.titre.current.id },
         { root: true }

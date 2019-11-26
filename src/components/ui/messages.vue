@@ -1,6 +1,5 @@
 <template>
   <TransitionGroup
-    id="cmn-messages"
     name="slide"
     class="list-sans mb-0"
     tag="ul"

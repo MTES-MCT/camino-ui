@@ -6,12 +6,13 @@
           <ul class="list-sans">
             <li>
               <RouterLink
+                id="cmn-user-menu-a-utilisateur"
                 :key="user.id"
                 :to="{ name: 'utilisateur', params: { id: user.id } }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
               >
-                {{ user.prenom }} {{ user.nom }}
+                {{ user.prenom || '–' }} {{ user.nom || '–' }}
                 <div
                   v-if="user.entreprise"
                   class="h5 color-neutral"
@@ -20,10 +21,9 @@
                 </div>
               </RouterLink>
             </li>
-            <li><a href="" /></li>
-            <li><a href="" /></li>
             <li>
               <button
+                id="cmn-user-menu-button-deconnexion"
                 class="btn-transparent text-decoration-none bold p-0"
                 @click="logout"
               >

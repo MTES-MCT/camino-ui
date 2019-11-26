@@ -2,4 +2,13 @@ language: node_js
 node_js:
   - '10'
 env:
-  - CODECOV_TOKEN="b1916671-a54f-451d-aad8-6324be40418a"
+  - CODECOV_TOKEN="b1916671-a54f-451d-aad8-6324be40418a" VUE_APP_API_URL=http://test.camino.beta.gouv.fr CYPRESS_USER_SUPER_EMAIL="super@camino.local" CYPRESS_USER_SUPER_MOT_DE_PASSE="super-secret"
+# Cypress config
+addons:
+  apt:
+    packages:
+      - libgconf-2-4
+cache:
+  npm: true
+  directories:
+    - ~/.cache

@@ -1,5 +1,5 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <h2 class="mb-0 mt-xs">
         Connexion
@@ -12,7 +12,7 @@
       </div>
       <div class="tablet-blob-2-3">
         <input
-          id="cmn-user-login-input-email"
+          id="cmn-user-login-popup-input-email"
           v-model="email"
           type="email"
           class="p-s"
@@ -25,7 +25,7 @@
       </div>
       <div class="tablet-blob-2-3">
         <input
-          id="cmn-user-login-input-password"
+          id="cmn-user-login-popup-input-mot-de-passe"
           v-model="motDePasse"
           type="password"
           class="p-s"
@@ -34,7 +34,6 @@
     </div>
 
     <template slot="footer">
-      <Messages :messages="messages" />
       <div class="tablet-blobs mb tablet-mb-0">
         <div class="mb tablet-blob-1-3">
           <button
@@ -49,7 +48,7 @@
           :class="{ disabled: !complete }"
         >
           <button
-            id="cmn-user-login-button-connecter"
+            id="cmn-user-login-popup-button-se-connecter"
             class="btn-flash rnd-xs p-s full-x"
             @click="login"
           >
@@ -58,14 +57,14 @@
         </div>
       </div>
       <button
-        id="cmn-user-login-button-creer"
+        id="cmn-user-login-popup-button-creer-votre-compte"
         class="btn-alt rnd-xs p-s h5 mr-s"
         @click="userAddPopupOpen"
       >
         Créer votre compte…
       </button>
       <button
-        id="cmn-user-login-button-initialiser"
+        id="cmn-user-login-popup-button-reinitialiser"
         class="btn-alt rnd-xs p-s h5 mr-s"
         @click="userPasswordInitPopupOpen"
       >
@@ -77,7 +76,6 @@
 
 <script>
 import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
 import UserAdd from './add-popup.vue'
 import UserPasswordInitPopup from './password-init-popup.vue'
 
@@ -85,8 +83,7 @@ export default {
   name: 'UiPopupLogin',
 
   components: {
-    Popup,
-    Messages
+    Popup
   },
 
   data() {

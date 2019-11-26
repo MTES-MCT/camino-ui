@@ -1,5 +1,5 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <div>
         <h2 class="mb-0">
@@ -11,6 +11,7 @@
         </h2>
       </div>
     </template>
+
     <div v-if="action === 'create'">
       <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom.</p>
       <hr>
@@ -130,6 +131,7 @@
               :class="{ active: utilisateur.permissionId === permission.id }"
             >
               <button
+                :id="`cmn-utilisateur-edit-popup-permission-button-${permission.id}`"
                 class="btn-flash py-xs px-s pill cap-first h6 mr-xs"
                 @click="permissionToggle(permission)"
               >
@@ -157,6 +159,7 @@
             }"
           >
             <select
+              id="cmn-utilisateur-edit-popup-entreprise-select"
               v-model="utilisateur.entreprisesIds[n]"
               type="text"
               class="p-s mr-s"
@@ -185,6 +188,7 @@
 
         <button
           v-if="!utilisateur.entreprisesIds.includes('')"
+          id="cmn-utilisateur-edit-popup-entreprise-button-ajouter"
           class="btn-border rnd-xs py-s px-m full-x flex mb"
           @click="entrepriseAdd"
         >
@@ -209,6 +213,7 @@
             }"
           >
             <select
+              id="cmn-utilisateur-edit-popup-administration-select"
               v-model="utilisateur.administrationsIds[n]"
               type="text"
               class="p-s mr-s"
@@ -223,7 +228,8 @@
                   )
                 "
               >
-                {{ `${administration.nom}${administration.service ? ` - ${administration.service}` : ''}` }}
+                {{ `${administration.nom}${ administration.service ? ` - ${administration.service}` : '' }`
+                }}
               </option>
             </select>
             <div class="flex-right">
@@ -239,6 +245,7 @@
 
         <button
           v-if="!utilisateur.administrationsIds.includes('')"
+          id="cmn-utilisateur-edit-popup-administration-button-ajouter"
           class="btn-border rnd-xs py-s px-m full-x flex mb"
           @click="administrationAdd"
         >
@@ -248,7 +255,6 @@
     </div>
 
     <template slot="footer">
-      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -264,6 +270,7 @@
           :class="{ disabled: !complete }"
         >
           <button
+            id="cmn-utilisateur-edit-popup-button-enregistrer"
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
             @keyup.enter.native="save"
@@ -278,14 +285,12 @@
 
 <script>
 import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
 
 export default {
   name: 'CaminoUtilisateurEditPopup',
 
   components: {
-    Popup,
-    Messages
+    Popup
   },
 
   props: {
@@ -317,11 +322,11 @@ export default {
     },
 
     entreprises() {
-      return this.$store.state.metas.entreprises
+      return this.$store.state.metas.utilisateur.entreprises
     },
 
     administrations() {
-      return this.$store.state.metas.administrations
+      return this.$store.state.metas.utilisateur.administrations
     },
 
     complete() {

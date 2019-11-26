@@ -16,16 +16,16 @@ const metasInit = apiQuery(gql`
   query Init {
     version
 
-    entreprises {
-      ...entreprises
-    }
-    administrations {
-      ...administrations
+    utilisateurDomaines {
+      id
+      nom
+      types {
+        id
+        nom
+        domaineId
+      }
     }
   }
-
-  ${fragmentEntreprises}
-  ${fragmentAdministrations}
 `)
 
 const metasTitre = apiQuery(
@@ -59,16 +59,6 @@ const metasTitres = apiQuery(
         id
         nom
         couleur
-      }
-
-      utilisateurDomaines {
-        id
-        nom
-        types {
-          id
-          nom
-          domaineId
-        }
       }
     }
   `,

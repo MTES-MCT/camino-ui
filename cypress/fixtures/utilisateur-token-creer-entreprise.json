@@ -1,0 +1,36 @@
+{
+  "operation": "UtilisateurTokenCreer",
+  "response": {
+    "data": {
+      "utilisateurTokenCreer": {
+        "utilisateur": {
+          "id": "ef02cb",
+          "nom": "Delgado",
+          "prenom": "Martin",
+          "email": "test@camino.local",
+          "telephoneMobile": null,
+          "telephoneFixe": null,
+          "entreprises": [
+            {
+              "id": "fr-830984613",
+              "nom": "SOCIETE MINIERE AUROR (SMA)",
+              "paysId": "FR",
+              "legalSiren": "830984613",
+              "legalEtranger": null,
+              "__typename": "Entreprise"
+            }
+          ],
+          "administrations": [],
+          "permission": {
+            "id": "entreprise",
+            "nom": "Entreprise",
+            "__typename": "Permission"
+          },
+          "__typename": "Utilisateur"
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVmMDJjYiIsImVtYWlsIjoidGVzdEBjYW1pbm8ubG9jYWwiLCJwZXJtaXNzaW9uSWQiOiJlbnRyZXByaXNlIiwicGVybWlzc2lvbk9yZHJlIjo2LCJpYXQiOjE1NzQ5ODM1MjV9.74tJAonDM7e_IN1CARBy7dM7qJpdX2Vd5xwTEnZ5Gr4",
+        "__typename": "UtilisateurToken"
+      }
+    }
+  }
+}

@@ -1,0 +1,569 @@
+{
+  "operation": "ActiviteModifier",
+  "response": {
+    "data": {
+      "activiteModifier": {
+        "id": "m-axm-auror-2018-grp-2019-03",
+        "date": "2019-10-01",
+        "statut": {
+          "id": "enc",
+          "nom": "en construction",
+          "couleur": "warning",
+          "__typename": "ActiviteStatut"
+        },
+        "periode": {
+          "id": 3,
+          "nom": "3e trimestre",
+          "frequenceId": "tri",
+          "mois": [
+            {
+              "id": 7,
+              "nom": "juillet",
+              "frequenceId": "men",
+              "trimestreId": 3
+            },
+            {
+              "id": 8,
+              "nom": "août",
+              "frequenceId": "men",
+              "trimestreId": 3
+            },
+            {
+              "id": 9,
+              "nom": "septembre",
+              "frequenceId": "men",
+              "trimestreId": 3
+            }
+          ]
+        },
+        "annee": 2019,
+        "type": {
+          "id": "grp",
+          "nom": "rapport trimestriel d'activité",
+          "pays": [
+            {
+              "id": "GF",
+              "nom": "Département de la Guyane",
+              "__typename": "Pays"
+            }
+          ],
+          "frequence": {
+            "id": "tri",
+            "nom": "trimestriel",
+            "trimestres": [
+              {
+                "id": "1",
+                "nom": "1er trimestre",
+                "mois": [
+                  {
+                    "id": "1",
+                    "nom": "janvier",
+                    "__typename": "Mois"
+                  },
+                  {
+                    "id": "2",
+                    "nom": "février",
+                    "__typename": "Mois"
+                  },
+                  {
+                    "id": "3",
+                    "nom": "mars",
+                    "__typename": "Mois"
+                  }
+                ],
+                "__typename": "Trimestre"
+              },
+              {
+                "id": "2",
+                "nom": "2e trimestre",
+                "mois": [
+                  {
+                    "id": "4",
+                    "nom": "avril",
+                    "__typename": "Mois"
+                  },
+                  {
+                    "id": "5",
+                    "nom": "mai",
+                    "__typename": "Mois"
+                  },
+                  {
+                    "id": "6",
+                    "nom": "juin",
+                    "__typename": "Mois"
+                  }
+                ],
+                "__typename": "Trimestre"
+              },
+              {
+                "id": "3",
+                "nom": "3e trimestre",
+                "mois": [
+                  {
+                    "id": "7",
+                    "nom": "juillet",
+                    "__typename": "Mois"
+                  },
+                  {
+                    "id": "8",
+                    "nom": "août",
+                    "__typename": "Mois"
+                  },
+                  {
+                    "id": "9",
+                    "nom": "septembre",
+                    "__typename": "Mois"
+                  }
+                ],
+                "__typename": "Trimestre"
+              },
+              {
+                "id": "4",
+                "nom": "4e trimestre",
+                "mois": [
+                  {
+                    "id": "10",
+                    "nom": "octobre",
+                    "__typename": "Mois"
+                  },
+                  {
+                    "id": "11",
+                    "nom": "novembre",
+                    "__typename": "Mois"
+                  },
+                  {
+                    "id": "12",
+                    "nom": "décembre",
+                    "__typename": "Mois"
+                  }
+                ],
+                "__typename": "Trimestre"
+              }
+            ],
+            "__typename": "Frequence"
+          },
+          "sections": [
+            {
+              "id": "renseignements",
+              "elements": [
+                {
+                  "id": "orNet",
+                  "nom": "Or net extrait annuel (g)",
+                  "type": "number",
+                  "dateDebut": "2018-01-01",
+                  "description": "<b>Masse d’or en gramme obtenue au cours de l’année après traitement métallurgique</b> (au sens de l’<a href=\"https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850943&cidTexte=LEGITEXT000006069569\" target=\"_blank\" rel=\"noopener noreferrer\">article 318 B de l’annexe II au code général des impôts, annexe 2 </a>). Cette masse sera prise en compte pour le calcul de la taxe sur l’or et des différentes redevances associées.",
+                  "frequencePeriodesIds": [4]
+                },
+                {
+                  "id": "orBrut",
+                  "nom": "Or brut extrait (g)",
+                  "type": "number",
+                  "dateDebut": "2018-01-01",
+                  "description": "Masse d’or brut en sortie de mine extrait au cours du trimestre (exemple : masse sous la forme de concentré gravimétrique)."
+                },
+                {
+                  "id": "orExtrait",
+                  "nom": "Or extrait (g)",
+                  "type": "number",
+                  "dateFin": "2018-01-01",
+                  "description": "Masse d'or brut en sortie de mine, ou nette obtenue  après traitement métallurgique, extrait au cours du trimestre."
+                },
+                {
+                  "id": "volumeMinerai",
+                  "nom": "Minerai extrait (m3)",
+                  "type": "number",
+                  "dateFin": "2018-01-01",
+                  "description": "Volume en mètre cube de minerai extrait au cours du trimestre."
+                },
+                {
+                  "id": "mercure",
+                  "nom": "Mercure récupéré (g)",
+                  "type": "number",
+                  "description": "Masse en gramme de l’ensemble des produits contaminés envoyés en traitement au cours du trimestre."
+                },
+                {
+                  "id": "carburantDetaxe",
+                  "nom": "Carburant détaxé (l)",
+                  "type": "number",
+                  "dateDebut": "2018-01-01",
+                  "description": "Volume total en litre de carburant détaxé consommé au cours du trimestre par les travaux réalisés sur le chantier."
+                },
+                {
+                  "id": "carburantConventionnel",
+                  "nom": "Carburant conventionnel (l)",
+                  "type": "number",
+                  "description": "Volume total en litre de carburant conventionnel consommé au cours du trimestre par les travaux réalisés sur le chantier."
+                },
+                {
+                  "id": "pompes",
+                  "nom": "Pompes actives",
+                  "type": "number",
+                  "dateDebut": "2018-01-01",
+                  "description": "Nombre moyen de pompes actives au cours du trimestre utilisées sur le chantier (pompe à gravier, pompe de relevage…)."
+                },
+                {
+                  "id": "pelles",
+                  "nom": "Pelles actives",
+                  "type": "number",
+                  "dateDebut": "2018-01-01",
+                  "description": "Nombre moyen de pelles actives au cours du trimestre utilisées sur le chantier (aménagement, exploitation, réhabilitation)."
+                },
+                {
+                  "id": "effectifs",
+                  "nom": "Effectifs",
+                  "type": "number",
+                  "description": "Nombre moyen de salariés sur le chantier au cours du trimestre."
+                },
+                {
+                  "id": "depensesTotales",
+                  "nom": "Dépenses totales (euros)",
+                  "type": "number",
+                  "dateFin": "2018-01-01",
+                  "description": "Montant en euros des dépenses sur l'exploitation."
+                },
+                {
+                  "id": "environnement",
+                  "nom": "Dépenses relatives à la protection de l’environnement (euros)",
+                  "type": "number",
+                  "dateDebut": "2018-01-01",
+                  "description": "Montant en euros des investissements consentis au cours du trimestre listés à l’<a href=\"https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850940&cidTexte=LEGITEXT000006069569\" target=\"_blank\" rel=\"noopener noreferrer\">article 318 C de l’annexe II du code général des impôts</a>. Afin de bénéficier des déductions fiscales afférentes, les justificatifs attestant de la réalisation effective des investissements sont susceptibles de vous êtres demandés par l’administration."
+                }
+              ]
+            },
+            {
+              "id": "travaux",
+              "nom": "Statut des travaux",
+              "elements": [
+                {
+                  "id": "1",
+                  "nom": "Janvier",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [1]
+                },
+                {
+                  "id": "2",
+                  "nom": "Février",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [1]
+                },
+                {
+                  "id": "3",
+                  "nom": "Mars",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [1]
+                },
+                {
+                  "id": "4",
+                  "nom": "Avril",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [2]
+                },
+                {
+                  "id": "5",
+                  "nom": "Mai",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [2]
+                },
+                {
+                  "id": "6",
+                  "nom": "Juin",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [2]
+                },
+                {
+                  "id": "7",
+                  "nom": "Juillet",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [3]
+                },
+                {
+                  "id": "8",
+                  "nom": "Août",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [3]
+                },
+                {
+                  "id": "9",
+                  "nom": "Septembre",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [3]
+                },
+                {
+                  "id": "10",
+                  "nom": "Octobre",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [4]
+                },
+                {
+                  "id": "11",
+                  "nom": "Novembre",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [4]
+                },
+                {
+                  "id": "12",
+                  "nom": "Décembre",
+                  "type": "checkboxes",
+                  "valeurs": {
+                    "nonDebutes": "non débutés",
+                    "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                    "rehabilitation": "réhabilitation",
+                    "arretTemporaire": "arrêt temporaire",
+                    "exploitationEnCours": "exploitation en cours"
+                  },
+                  "dateDebut": "2018-01-01",
+                  "frequencePeriodesIds": [4]
+                }
+              ]
+            },
+            {
+              "id": "complement",
+              "nom": "Informations complémentaires",
+              "elements": [
+                {
+                  "id": "texte",
+                  "type": "textarea",
+                  "optionel": true,
+                  "dateDebut": "2018-01-01",
+                  "description": "Toute information sur les événements marquants du trimestre (accident, incident, arrêt ou suspension d’activité en précisant les raisons, évolution de l’exploitation, difficultés rencontrées, etc.)."
+                }
+              ]
+            }
+          ],
+          "__typename": "ActiviteType"
+        },
+        "dateSaisie": "2019-11-29",
+        "sections": [
+          {
+            "id": "renseignements",
+            "elements": [
+              {
+                "id": "orBrut",
+                "nom": "Or brut extrait (g)",
+                "type": "number",
+                "dateDebut": "2018-01-01",
+                "description": "Masse d’or brut en sortie de mine extrait au cours du trimestre (exemple : masse sous la forme de concentré gravimétrique)."
+              },
+              {
+                "id": "mercure",
+                "nom": "Mercure récupéré (g)",
+                "type": "number",
+                "description": "Masse en gramme de l’ensemble des produits contaminés envoyés en traitement au cours du trimestre."
+              },
+              {
+                "id": "carburantDetaxe",
+                "nom": "Carburant détaxé (l)",
+                "type": "number",
+                "dateDebut": "2018-01-01",
+                "description": "Volume total en litre de carburant détaxé consommé au cours du trimestre par les travaux réalisés sur le chantier."
+              },
+              {
+                "id": "carburantConventionnel",
+                "nom": "Carburant conventionnel (l)",
+                "type": "number",
+                "description": "Volume total en litre de carburant conventionnel consommé au cours du trimestre par les travaux réalisés sur le chantier."
+              },
+              {
+                "id": "pompes",
+                "nom": "Pompes actives",
+                "type": "number",
+                "dateDebut": "2018-01-01",
+                "description": "Nombre moyen de pompes actives au cours du trimestre utilisées sur le chantier (pompe à gravier, pompe de relevage…)."
+              },
+              {
+                "id": "pelles",
+                "nom": "Pelles actives",
+                "type": "number",
+                "dateDebut": "2018-01-01",
+                "description": "Nombre moyen de pelles actives au cours du trimestre utilisées sur le chantier (aménagement, exploitation, réhabilitation)."
+              },
+              {
+                "id": "effectifs",
+                "nom": "Effectifs",
+                "type": "number",
+                "description": "Nombre moyen de salariés sur le chantier au cours du trimestre."
+              },
+              {
+                "id": "environnement",
+                "nom": "Dépenses relatives à la protection de l’environnement (euros)",
+                "type": "number",
+                "dateDebut": "2018-01-01",
+                "description": "Montant en euros des investissements consentis au cours du trimestre listés à l’<a href=\"https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850940&cidTexte=LEGITEXT000006069569\" target=\"_blank\" rel=\"noopener noreferrer\">article 318 C de l’annexe II du code général des impôts</a>. Afin de bénéficier des déductions fiscales afférentes, les justificatifs attestant de la réalisation effective des investissements sont susceptibles de vous êtres demandés par l’administration."
+              }
+            ]
+          },
+          {
+            "id": "travaux",
+            "nom": "Statut des travaux",
+            "elements": [
+              {
+                "id": "7",
+                "nom": "Juillet",
+                "type": "checkboxes",
+                "valeurs": {
+                  "nonDebutes": "non débutés",
+                  "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                  "rehabilitation": "réhabilitation",
+                  "arretTemporaire": "arrêt temporaire",
+                  "exploitationEnCours": "exploitation en cours"
+                },
+                "dateDebut": "2018-01-01",
+                "frequencePeriodesIds": [3]
+              },
+              {
+                "id": "8",
+                "nom": "Août",
+                "type": "checkboxes",
+                "valeurs": {
+                  "nonDebutes": "non débutés",
+                  "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                  "rehabilitation": "réhabilitation",
+                  "arretTemporaire": "arrêt temporaire",
+                  "exploitationEnCours": "exploitation en cours"
+                },
+                "dateDebut": "2018-01-01",
+                "frequencePeriodesIds": [3]
+              },
+              {
+                "id": "9",
+                "nom": "Septembre",
+                "type": "checkboxes",
+                "valeurs": {
+                  "nonDebutes": "non débutés",
+                  "arretDefinitif": "arrêt définitif (après réhabilitation)",
+                  "rehabilitation": "réhabilitation",
+                  "arretTemporaire": "arrêt temporaire",
+                  "exploitationEnCours": "exploitation en cours"
+                },
+                "dateDebut": "2018-01-01",
+                "frequencePeriodesIds": [3]
+              }
+            ]
+          },
+          {
+            "id": "complement",
+            "nom": "Informations complémentaires",
+            "elements": [
+              {
+                "id": "texte",
+                "type": "textarea",
+                "optionel": true,
+                "dateDebut": "2018-01-01",
+                "description": "Toute information sur les événements marquants du trimestre (accident, incident, arrêt ou suspension d’activité en précisant les raisons, évolution de l’exploitation, difficultés rencontrées, etc.)."
+              }
+            ]
+          }
+        ],
+        "contenu": {
+          "travaux": {
+            "7": ["nonDebutes"],
+            "8": ["arretDefinitif"],
+            "9": ["rehabilitation"]
+          },
+          "complement": {
+            "texte": null
+          },
+          "renseignements": {
+            "orBrut": 10,
+            "pelles": 10,
+            "pompes": 10,
+            "mercure": 10,
+            "effectifs": 10,
+            "environnement": 10,
+            "carburantDetaxe": 10,
+            "carburantConventionnel": 10
+          }
+        },
+        "__typename": "Activite"
+      }
+    }
+  }
+}

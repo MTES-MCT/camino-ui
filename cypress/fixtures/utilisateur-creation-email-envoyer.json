@@ -1,0 +1,8 @@
+{
+  "operation": "UtilisateurCreationEmailEnvoyer",
+  "response": {
+    "data": {
+      "utilisateurCreationEmailEnvoyer": "email envoyé"
+    }
+  }
+}

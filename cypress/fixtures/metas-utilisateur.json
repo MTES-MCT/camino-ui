@@ -1,0 +1,385 @@
+{
+  "operation": "MetasUtilisateur",
+  "response": {
+    "data": {
+      "permissions": [
+        {
+          "id": "super",
+          "nom": "Super",
+          "__typename": "Permission"
+        },
+        {
+          "id": "admin",
+          "nom": "Admin",
+          "__typename": "Permission"
+        },
+        {
+          "id": "editeur",
+          "nom": "Éditeur",
+          "__typename": "Permission"
+        },
+        {
+          "id": "lecteur",
+          "nom": "Lecteur",
+          "__typename": "Permission"
+        },
+        {
+          "id": "entreprise",
+          "nom": "Entreprise",
+          "__typename": "Permission"
+        },
+        {
+          "id": "defaut",
+          "nom": "Défaut",
+          "__typename": "Permission"
+        }
+      ],
+      "entreprises": [
+        {
+          "id": "be-0403091220",
+          "nom": "Solvay",
+          "paysId": "BE",
+          "legalSiren": null,
+          "legalEtranger": "0403091220",
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-311933568",
+          "nom": "DEFTA AIRAX",
+          "paysId": "FR",
+          "legalSiren": "311933568",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-305207169",
+          "nom": "ORANO CYCLE",
+          "paysId": "FR",
+          "legalSiren": "305207169",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-381151760",
+          "nom": "COMPAGNIE MINIERE ESPERANCE",
+          "paysId": "FR",
+          "legalSiren": "381151760",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-382461325",
+          "nom": "NEWMONT LASOURCE",
+          "paysId": "FR",
+          "legalSiren": "382461325",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-400716536",
+          "nom": "GEOTHERMIE BOUILLANTE",
+          "paysId": "FR",
+          "legalSiren": "400716536",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-392068102",
+          "nom": "GEOPETROL",
+          "paysId": "FR",
+          "legalSiren": "392068102",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-390455814",
+          "nom": "COMPAGNIE ARMORICAINE NAVIGATION (CAN)",
+          "paysId": "FR",
+          "legalSiren": "390455814",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-402207153",
+          "nom": "IAMGOLD FRANCE",
+          "paysId": "FR",
+          "legalSiren": "402207153",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-411178866",
+          "nom": "EXPLOITATION MINIERE DE LA CHALEUR",
+          "paysId": "FR",
+          "legalSiren": "411178866",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-409160132",
+          "nom": "TOTAL E ET P FRANCE",
+          "paysId": "FR",
+          "legalSiren": "409160132",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-792695636",
+          "nom": "Geoforon",
+          "paysId": "FR",
+          "legalSiren": "792695636",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-478826316",
+          "nom": "VERMILION PYRENEES",
+          "paysId": "FR",
+          "legalSiren": "478826316",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-519753370",
+          "nom": "SAS TRAJAN",
+          "paysId": "FR",
+          "legalSiren": "519753370",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-552001174",
+          "nom": "Progil Electrochimie",
+          "paysId": null,
+          "legalSiren": "552001174",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-632022711",
+          "nom": "ELF AQUITAINE PRODUCTION",
+          "paysId": "FR",
+          "legalSiren": "632022711",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-633820337",
+          "nom": "SOC PECHINEY SAINT GOBAIN",
+          "paysId": "FR",
+          "legalSiren": "633820337",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-642014526",
+          "nom": "RHODIA CHIMIE",
+          "paysId": "FR",
+          "legalSiren": "642014526",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-712025048",
+          "nom": "COMPAGNIE INDUSTRIELLE ET MINIERE (CIM)",
+          "paysId": "FR",
+          "legalSiren": "712025048",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-803975135",
+          "nom": "CORDIER MINES",
+          "paysId": "FR",
+          "legalSiren": "803975135",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "gb-224680",
+          "nom": "Celtic Resources Holdings Ltd,",
+          "paysId": "GB",
+          "legalSiren": null,
+          "legalEtranger": "224680",
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-827687807",
+          "nom": "OB MINING SAS",
+          "paysId": "FR",
+          "legalSiren": "827687807",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-828089284",
+          "nom": "NORD GOLD GUIANA SAS",
+          "paysId": "FR",
+          "legalSiren": "828089284",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-401862297",
+          "nom": "SOCIETE QUEMENEUR",
+          "paysId": "FR",
+          "legalSiren": "401862297",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-412431744",
+          "nom": "COMPAGNIE DES SALINS DU MIDI ET DES SALINES DE L'EST",
+          "paysId": "FR",
+          "legalSiren": "412431744",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-830984613",
+          "nom": "SOCIETE MINIERE AUROR (SMA)",
+          "paysId": "FR",
+          "legalSiren": "830984613",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        },
+        {
+          "id": "fr-411129612",
+          "nom": "CHLORALP",
+          "paysId": "FR",
+          "legalSiren": "411129612",
+          "legalEtranger": null,
+          "__typename": "Entreprise"
+        }
+      ],
+      "administrations": [
+        {
+          "id": "dea-guadeloupe-01",
+          "nom": "Direction de l'environnement de l'aménagement et du logement (DEAL) - Guadeloupe",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "dea-guyane-01",
+          "nom": "Direction de l'environnement de l'aménagement et du logement (DEAL) - Guyane",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "dea-grand-est-01",
+          "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Grand Est - Siège de Metz",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "dea-nouvelle-aquitaine-01",
+          "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Nouvelle-Aquitaine - Siège de Poitiers",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "deal-aura-01",
+          "nom": "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Auvergne-Rhône-Alpes - Siège de Lyon",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "min-mtes-dgaln-01",
+          "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+          "service": "Bureau de la politique des ressources minérales non énergétiques - Direction générale de l'aménagement, du logement et de la nature (DGALN)",
+          "__typename": "Administration"
+        },
+        {
+          "id": "ope-ptmg-973-01",
+          "nom": "Pôle Technique Minier de Guyane",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "ope-onf-973-01",
+          "nom": "Office national des forêts",
+          "service": "Direction territoriale Guyane",
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-01053-01",
+          "nom": "Préfecture - Ain",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-03190-01",
+          "nom": "Préfecture - Allier",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-24322-01",
+          "nom": "Préfecture de Dordogne",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-26362-01",
+          "nom": "Préfecture - Drôme",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-54395-01",
+          "nom": "Préfecture - Meurthe-et-Moselle",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-67482-01",
+          "nom": "Préfecture - Bas-Rhin",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-74010-01",
+          "nom": "Préfecture de Haute-Savoie",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-77288-01",
+          "nom": "Préfecture de Seine-et-Marne",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-87085-01",
+          "nom": "Préfecture - Haute-Vienne",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-91228-01",
+          "nom": "Préfecture - Essonne",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-97105-01",
+          "nom": "Préfecture - Guadeloupe",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "prefecture-97302-01",
+          "nom": "Préfecture - Guyane",
+          "service": null,
+          "__typename": "Administration"
+        },
+        {
+          "id": "min-mtes-dgec-01",
+          "nom": "Ministère de l'Economie et des Finances & Ministère de la Transition écologique et solidaire",
+          "service": "Bureau Ressources énergétiques du sous-sol (2A) - Direction générale de l'énergie et du climat (DGEC)",
+          "__typename": "Administration"
+        }
+      ]
+    }
+  }
+}

@@ -145,7 +145,7 @@ export default {
     },
 
     editable() {
-      return this.$store.state.metas.titres.utilisateurDomaines.length
+      return this.$store.state.metas.utilisateurDomaines.length
     }
   },
 
