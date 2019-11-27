@@ -4,8 +4,9 @@
     :elements="elements"
     :columns="colonnes"
     @page:update="$emit('page:update', $event)"
-    @range:update="$emit('range:update', $event)"
-    @sort:update="$emit('sort:update', $event)"
+    @range:update="$emit('intervalle:update', $event)"
+    @column:update="$emit('colonne:update', $event)"
+    @order:update="$emit('ordre:update', $event)"
   />
 </template>
 
@@ -156,31 +157,20 @@ export default {
     }
   },
 
-  created() {
-    this.columnsIds = [
-      'nom',
-      'domaine',
-      'type',
-      'statut',
-      'activites',
-      'substances',
-      'titulaires'
-    ]
+  watch: {
+    titres: function(to, from) {
+      this.$emit(
+        'colonneIds:check',
+        this.colonnes.map(col => {
+          return col.id
+        })
+      )
+    }
   },
 
   methods: {
-    pageUpdate(page) {
-      // called from parent component
-      this.$refs.table.pageUpdate(page)
-    },
-
-    rangeUpdate(range) {
-      // called from parent component
-      this.$refs.table.rangeUpdate(range)
-    },
-
-    sortUpdate(sort) {
-      this.$refs.table.sortUpdate(sort, this.columnsIds)
+    paramUpdate(id, value) {
+      this.$refs.table.paramUpdate(id, value)
     }
   }
 }

@@ -2,9 +2,11 @@
   <TitresTable
     ref="table"
     :titres="titres"
-    @page:update="urlPageUpdate"
-    @range:update="urlRangeUpdate"
-    @sort:update="urlSortUpdate"
+    @page:update="urlUpdate('page', $event)"
+    @intervalle:update="urlUpdate('range', $event)"
+    @colonne:update="urlUpdate('column', $event)"
+    @ordre:update="urlUpdate('order', $event)"
+    @colonneIds:check="colonneIdCheck($event)"
   />
 </template>
 
@@ -30,34 +32,51 @@ export default {
       return this.$store.state.user.preferences.titres.table.page
     },
 
-    range() {
+    intervalle() {
       return this.$store.state.user.preferences.titres.table.range
     },
 
-    sort() {
-      return this.$store.state.user.preferences.titres.table.sort
+    colonne() {
+      return this.$store.state.user.preferences.titres.table.column
+    },
+
+    ordre() {
+      return this.$store.state.user.preferences.titres.table.order
     }
   },
 
   watch: {
     titres: function(to, from) {
       if (from.length && from.length !== to.length) {
-        this.urlPageUpdate(1)
+        this.urlUpdate('page', 1)
       }
+      this.init()
     },
 
     $route: function(to, from) {
       if (to.query.page && to.query.page !== from.query.page) {
-        this.preferencesPageUpdate(Number(to.query.page))
+        this.preferencesUpdate('page', Number(to.query.page))
       }
 
-      if (to.query.range && to.query.range !== from.query.range) {
-        this.preferencesRangeUpdate(Number(to.query.range))
+      if (
+        to.query.intervalle &&
+        to.query.intervalle !== from.query.intervalle
+      ) {
+        this.preferencesUpdate('range', Number(to.query.intervalle))
       }
 
-      if (!to.query.range && !to.query.page) {
+      if (!to.query.intervalle && !to.query.page) {
         this.init()
       }
+    }
+  },
+
+  created() {
+    this.param = {
+      page: 'page',
+      range: 'intervalle',
+      column: 'colonne',
+      order: 'ordre'
     }
   },
 
@@ -68,9 +87,9 @@ export default {
   destroyed() {
     const query = Object.assign({}, this.$route.query)
 
-    if (query.range || query.page) {
-      if (query.range) {
-        delete query.range
+    if (query.intervalle || query.page) {
+      if (query.intervalle) {
+        delete query.intervalle
       }
 
       if (query.page) {
@@ -84,67 +103,46 @@ export default {
   methods: {
     init() {
       const page = this.$route.query.page && Number(this.$route.query.page)
-      const range = this.$route.query.range && Number(this.$route.query.range)
-      const sort = this.$route.query.sort && this.$route.query.sort
+      const range =
+        this.$route.query.intervalle && Number(this.$route.query.intervalle)
+      const column = this.$route.query.colonne && this.$route.query.colonne
+      const order = this.$route.query.ordre
 
-      if (!page) {
-        this.$refs.table.pageUpdate(this.page)
-        this.urlPageUpdate(this.page)
-      } else if (page !== this.page) {
-        this.$refs.table.pageUpdate(page)
-        this.preferencesPageUpdate(page)
-      }
+      this.paramUpdate('page', page, this.page)
+      this.paramUpdate('range', range, this.intervalle)
+      this.paramUpdate('column', column, this.colonne || 'nom')
+      this.paramUpdate('order', order, this.ordre)
+    },
 
-      if (!range) {
-        this.$refs.table.rangeUpdate(this.range)
-        this.urlRangeUpdate(this.range)
-      } else if (range !== this.range) {
-        this.$refs.table.rangeUpdate(range)
-        this.preferencesRangeUpdate(range)
-      }
-
-      if (!sort) {
-        this.$refs.table.sortUpdate(this.sort)
-        this.urlSortUpdate(this.sort)
-      } else if (sort !== this.sort) {
-        this.$refs.table.sortUpdate(sort)
-        this.preferencesSortUpdate(sort)
+    paramUpdate(id, value, thisValue) {
+      if (!value) {
+        this.$refs.table.paramUpdate(id, thisValue)
+        this.urlUpdate(id, thisValue)
+      } else if (value !== thisValue) {
+        this.$refs.table.paramUpdate(id, value)
+        this.preferencesUpdate(id, value)
       }
     },
 
-    preferencesPageUpdate(page) {
+    preferencesUpdate(id, value) {
       this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.table.page',
-        value: page
+        section: 'titres.table.' + id,
+        value: value
       })
     },
 
-    urlPageUpdate(page) {
-      this.urlParamSet('page', page.toString())
+    urlUpdate(id, value) {
+      this.urlParamSet(this.param[id], value.toString())
+
+      if (id !== 'page') {
+        this.preferencesUpdate(id, value)
+      }
     },
 
-    preferencesRangeUpdate(range) {
-      this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.table.range',
-        value: range
-      })
-    },
-
-    urlRangeUpdate(range) {
-      this.urlParamSet('range', range.toString())
-    },
-
-    preferencesSortUpdate(sort) {
-      this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.table.sort',
-        value: sort
-      })
-    },
-
-    urlSortUpdate(sort) {
-      if (sort) {
-        this.urlParamSet('sort', sort.toString())
-        this.preferencesSortUpdate(sort)
+    colonneIdCheck(colonnesIds) {
+      if (!colonnesIds.includes(this.colonne)) {
+        this.urlUpdate('column', 'nom')
+        this.paramUpdate('column', 'nom')
       }
     }
   }
