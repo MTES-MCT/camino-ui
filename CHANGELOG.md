@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.10](https://github.com/MTES-MCT/camino-ui/compare/v0.22.9...v0.22.10) (2019-11-27)
+
+
+### Features
+
+* affiche les boutons d'éditions selon les permissions ([#46](https://github.com/MTES-MCT/camino-ui/issues/46)) ([0d50c1f](https://github.com/MTES-MCT/camino-ui/commit/0d50c1fc903020c294c117c72a2ae78eed21f629))
+* restreint les domaines et types de titre en fonction des permissions ([#48](https://github.com/MTES-MCT/camino-ui/issues/48)) ([109ad21](https://github.com/MTES-MCT/camino-ui/commit/109ad213d6f358572e23c2270acc9e70a9df23dd))
+
+
+### Bug Fixes
+
+* corrige l'affichage des points d'un titre ([c40884f](https://github.com/MTES-MCT/camino-ui/commit/c40884fe7eb6241ad8adc9de6b26d9ef0b7bfe9a))
+* corrige les permissions sur l'édition de documents ([0b73486](https://github.com/MTES-MCT/camino-ui/commit/0b734862bf0672f0e434150d86de2c7e219ad77e))
+* corrige une erreur lors du chargement des metas ([46fffec](https://github.com/MTES-MCT/camino-ui/commit/46fffec5907d4231b60072e39aa915561c0385e7))
+
 ### [0.22.9](https://github.com/MTES-MCT/camino-ui/compare/v0.22.8...v0.22.9) (2019-11-21)
 
 
