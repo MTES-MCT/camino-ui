@@ -1,30 +1,30 @@
 import gql from 'graphql-tag'
 import { fragmentPermission } from './metas'
-import fragmentEntreprises from './entreprises'
-import fragmentAdministrations from './administrations'
+import { fragmentEntreprises } from './entreprises'
+import { fragmentAdministrations } from './administrations'
 
 const fragmentUtilisateur = gql`
   fragment utilisateur on Utilisateur {
     id
-    email
     nom
     prenom
+    email
     telephoneMobile
     telephoneFixe
-    administrations {
-      ...administrations
-    }
     entreprises {
       ...entreprises
+    }
+    administrations {
+      ...administrations
     }
     permission {
       ...permission
     }
   }
 
-  ${fragmentAdministrations}
-
   ${fragmentEntreprises}
+
+  ${fragmentAdministrations}
 
   ${fragmentPermission}
 `
@@ -32,30 +32,12 @@ const fragmentUtilisateur = gql`
 const fragmentUtilisateurToken = gql`
   fragment utilisateurToken on UtilisateurToken {
     utilisateur {
-      id
-      nom
-      prenom
-      email
-      permission {
-        id
-        nom
-      }
-      entreprises {
-        id
-        nom
-        etablissements {
-          id
-          nom
-        }
-      }
-      administrations {
-        id
-        nom
-        service
-      }
+      ...utilisateur
     }
     token
   }
+
+  ${fragmentUtilisateur}
 `
 
 export { fragmentUtilisateur, fragmentUtilisateurToken }

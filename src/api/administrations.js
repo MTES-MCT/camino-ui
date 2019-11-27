@@ -1,39 +1,29 @@
-import graphqlClient from './_graphql-client'
-import graphqlErrorThrow from './_error-throw'
-
+import gql from 'graphql-tag'
 import {
-  queryAdministration,
-  queryAdministrations
-} from './queries/administrations'
+  fragmentAdministration,
+  fragmentAdministrations
+} from './fragments/administration'
 
-const administration = async id => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryAdministration,
-      variables: { id },
-      fetchPolicy: 'network-only'
-    })
+import { apiQuery } from './_utils'
 
-    return res && res.data && res.data.administration
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const administration = apiQuery(gql`
+  query Administration($id: ID!) {
+    administration(id: $id) {
+      ...administration
+    }
   }
-}
 
-const administrations = async () => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryAdministrations,
-      variables: {},
-      fetchPolicy: 'network-only'
-    })
+  ${fragmentAdministration}
+`)
 
-    return res && res.data && res.data.administrations
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const administrations = apiQuery(gql`
+  query Administrations {
+    administrations {
+      ...administrations
+    }
   }
-}
+
+  ${fragmentAdministrations}
+`)
 
 export { administration, administrations }

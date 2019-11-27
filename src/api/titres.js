@@ -1,260 +1,185 @@
-import graphqlClient from './_graphql-client'
-import graphqlErrorThrow from './_error-throw'
+import gql from 'graphql-tag'
+import { fragmentTitre, fragmentTitres } from './fragments/titre'
 
-import {
-  queryTitre,
-  queryTitres,
-  mutationTitreCreer,
-  mutationTitreModifier,
-  mutationTitreSupprimer,
-  mutationTitreDemarcheCreer,
-  mutationTitreDemarcheModifier,
-  mutationTitreDemarcheSupprimer,
-  mutationTitreEtapeCreer,
-  mutationTitreEtapeModifier,
-  mutationTitreEtapeSupprimer,
-  mutationTitreDocumentCreer,
-  mutationTitreDocumentModifier,
-  mutationTitreDocumentSupprimer
-} from './queries/titres'
+import { apiQuery, apiMutate } from './_utils'
 
-const titre = async id => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryTitre,
-      variables: { id },
-      fetchPolicy: 'network-only'
-    })
-
-    return res && res.data.titre
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
-  }
-}
-
-const titres = async (
-  {
-    typeIds,
-    domaineIds,
-    statutIds,
-    substances,
-    noms,
-    entreprises,
-    references,
-    territoires
-  },
-  fetchPolicy
-) => {
-  try {
-    const options = {
-      query: queryTitres,
-      variables: {
-        typeIds,
-        domaineIds,
-        statutIds,
-        substances,
-        noms,
-        entreprises,
-        references,
-        territoires
+const titre = apiQuery(
+  gql`
+    query Titre($id: ID!) {
+      titre(id: $id) {
+        ...titre
       }
     }
 
-    if (fetchPolicy) {
-      options.fetchPolicy = fetchPolicy
+    ${fragmentTitre}
+  `,
+  { fetchPolicy: 'network-only' }
+)
+
+const titres = apiQuery(
+  gql`
+    query Titres(
+      $typeIds: [ID!]
+      $domaineIds: [ID!]
+      $statutIds: [ID!]
+      $substances: [String!]
+      $noms: [String!]
+      $entreprises: [String!]
+      $references: [String!]
+      $territoires: [String!]
+    ) {
+      titres(
+        typeIds: $typeIds
+        domaineIds: $domaineIds
+        statutIds: $statutIds
+        substances: $substances
+        noms: $noms
+        entreprises: $entreprises
+        references: $references
+        territoires: $territoires
+      ) {
+        ...titres
+      }
     }
 
-    const res = await graphqlClient.query(options)
+    ${fragmentTitres}
+  `,
+  { fetchPolicy: 'network-only' }
+)
 
-    return res && res.data && res.data.titres
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const titreCreer = apiMutate(gql`
+  mutation TitreCreer($titre: InputTitreCreation!) {
+    titreCreer(titre: $titre) {
+      ...titre
+    }
   }
-}
 
-const titreCreate = async ({ titre }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreCreer,
-      variables: { titre }
-    })
+  ${fragmentTitre}
+`)
 
-    return res && res.data && res.data.titreCreer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const titreModifier = apiMutate(gql`
+  mutation TitreModifier($titre: InputTitreModification!) {
+    titreModifier(titre: $titre) {
+      ...titre
+    }
   }
-}
 
-const titreUpdate = async ({ titre }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreModifier,
-      variables: { titre }
-    })
+  ${fragmentTitre}
+`)
 
-    return res && res.data && res.data.titreModifier
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const titreSupprimer = apiMutate(gql`
+  mutation TitreSupprimer($id: ID!) {
+    titreSupprimer(id: $id) {
+      ...titre
+    }
   }
-}
 
-const titreDelete = async ({ id }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreSupprimer,
-      variables: { id }
-    })
+  ${fragmentTitre}
+`)
 
-    return res && res.data && res.data.titreSupprimer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const demarcheCreer = apiMutate(gql`
+  mutation DemarcheCreer($demarche: InputDemarcheCreation!) {
+    demarcheCreer(demarche: $demarche) {
+      ...titre
+    }
   }
-}
 
-const titreDemarcheCreate = async ({ demarche }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreDemarcheCreer,
-      variables: { demarche }
-    })
+  ${fragmentTitre}
+`)
 
-    return res && res.data && res.data.titreDemarcheCreer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const demarcheModifier = apiMutate(gql`
+  mutation DemarcheModifier($demarche: InputDemarcheModification!) {
+    demarcheModifier(demarche: $demarche) {
+      ...titre
+    }
   }
-}
 
-const titreDemarcheUpdate = async ({ demarche }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreDemarcheModifier,
-      variables: { demarche }
-    })
+  ${fragmentTitre}
+`)
 
-    return res && res.data && res.data.titreDemarcheModifier
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const demarcheSupprimer = apiMutate(gql`
+  mutation DemarcheSupprimer($id: ID!) {
+    demarcheSupprimer(id: $id) {
+      ...titre
+    }
   }
-}
 
-const titreDemarcheDelete = async ({ id }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreDemarcheSupprimer,
-      variables: { id }
-    })
+  ${fragmentTitre}
+`)
 
-    return res && res.data && res.data.titreDemarcheSupprimer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const etapeCreer = apiMutate(gql`
+  mutation EtapeCreer($etape: InputEtapeCreation!) {
+    etapeCreer(etape: $etape) {
+      ...titre
+    }
   }
-}
 
-const titreEtapeCreate = async ({ etape }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreEtapeCreer,
-      variables: { etape }
-    })
+  ${fragmentTitre}
+`)
 
-    return res && res.data && res.data.titreEtapeCreer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const etapeModifier = apiMutate(gql`
+  mutation EtapeModifier($etape: InputEtapeModification!) {
+    etapeModifier(etape: $etape) {
+      ...titre
+    }
   }
-}
 
-const titreEtapeUpdate = async ({ etape }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreEtapeModifier,
-      variables: { etape }
-    })
+  ${fragmentTitre}
+`)
 
-    return res && res.data && res.data.titreEtapeModifier
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const etapeSupprimer = apiMutate(gql`
+  mutation EtapeSupprimer($id: ID!) {
+    etapeSupprimer(id: $id) {
+      ...titre
+    }
   }
-}
 
-const titreEtapeDelete = async ({ id }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreEtapeSupprimer,
-      variables: { id }
-    })
+  ${fragmentTitre}
+`)
 
-    return res && res.data && res.data.titreEtapeSupprimer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const documentCreer = apiMutate(gql`
+  mutation DocumentCreer($document: InputDocumentCreation!) {
+    documentCreer(document: $document) {
+      ...titre
+    }
   }
-}
 
-const titreDocumentCreate = async ({ document }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreDocumentCreer,
-      variables: { document }
-    })
+  ${fragmentTitre}
+`)
 
-    return res && res.data && res.data.titreDocumentCreer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const documentModifier = apiMutate(gql`
+  mutation DocumentModifier($document: InputDocumentModification!) {
+    documentModifier(document: $document) {
+      ...titre
+    }
   }
-}
 
-const titreDocumentUpdate = async ({ document }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreDocumentModifier,
-      variables: { document }
-    })
+  ${fragmentTitre}
+`)
 
-    return res && res.data && res.data.titreDocumentModifier
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const documentSupprimer = apiMutate(gql`
+  mutation DocumentSupprimer($id: ID!) {
+    documentSupprimer(id: $id) {
+      ...titre
+    }
   }
-}
 
-const titreDocumentDelete = async ({ id }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationTitreDocumentSupprimer,
-      variables: { id }
-    })
-
-    return res && res.data && res.data.titreDocumentSupprimer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
-  }
-}
+  ${fragmentTitre}
+`)
 
 export {
   titre,
   titres,
-  titreCreate,
-  titreUpdate,
-  titreDelete,
-  titreDemarcheCreate,
-  titreDemarcheUpdate,
-  titreDemarcheDelete,
-  titreEtapeCreate,
-  titreEtapeUpdate,
-  titreEtapeDelete,
-  titreDocumentCreate,
-  titreDocumentUpdate,
-  titreDocumentDelete
+  titreCreer,
+  titreModifier,
+  titreSupprimer,
+  demarcheCreer,
+  demarcheModifier,
+  demarcheSupprimer,
+  etapeCreer,
+  etapeModifier,
+  etapeSupprimer,
+  documentCreer,
+  documentModifier,
+  documentSupprimer
 }

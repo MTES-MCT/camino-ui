@@ -1,30 +1,53 @@
 import Vue from 'vue'
+
 import {
   metasInit,
   metasTitre,
   metasTitres,
   metasTitreEtape,
-  metasTitreEtapeDocument,
+  metasTitreDemarche,
+  metasDocument,
   metasUtilisateur
-} from '../api'
+} from '../api/metas'
 
 export const state = {
-  types: [],
-  domaines: [],
-  statuts: [],
-  referencesTypes: [],
-  devises: [],
-  unites: [],
-  geoSystemes: [],
-  substances: [],
+  titres: {
+    domaines: [],
+    types: [],
+    statuts: [],
+    utilisateurDomaines: []
+  },
+
+  titre: {
+    referencesTypes: []
+  },
+
+  demarche: {
+    titreDemarchesTypes: []
+  },
+
+  etape: {
+    demarcheEtapesTypes: [],
+    devises: [],
+    unites: [],
+    geoSystemes: [],
+    substances: []
+  },
+
+  document: {
+    documentsTypes: []
+  },
+
+  utilisateur: {
+    permissions: []
+  },
+
   entreprises: [],
   administrations: [],
-  versions: {
-    api: null,
-    /* global npmVersion */
-    ui: `${npmVersion}`
-  },
-  permissions: []
+
+  version: null,
+  /* global npmVersion */
+  versionUi: `${npmVersion}`
 }
 
 export const actions = {
@@ -32,9 +55,9 @@ export const actions = {
     commit('loadingAdd', 'metasInit', { root: true })
 
     try {
-      const res = await metasInit()
+      const data = await metasInit()
 
-      commit('apiVersionSet', res.version)
+      commit('set', { data })
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.log(e)
@@ -47,8 +70,9 @@ export const actions = {
     commit('loadingAdd', 'metasTitreGet', { root: true })
 
     try {
-      const res = await metasTitre()
-      commit('set', res)
+      const data = await metasTitre()
+
+      commit('set', { data: { referencesTypes: data }, type: 'titre' })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -60,9 +84,9 @@ export const actions = {
     commit('loadingAdd', 'metasTitresGet', { root: true })
 
     try {
-      const res = await metasTitres()
-      commit('set', res)
-      commit('titresLoaded')
+      const data = await metasTitres()
+
+      commit('set', { data, type: 'titres' })
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
@@ -70,16 +94,31 @@ export const actions = {
     }
   },
 
-  async titreEtapeGet({ commit }, etape) {
-    commit('loadingAdd', 'titreEtapeMetasGet', { root: true })
+  async titreDemarcheGet({ commit }, demarche) {
+    commit('loadingAdd', 'metasTitreDemarcheGet', { root: true })
 
     try {
-      const res = await metasTitreEtape(etape)
-      commit('set', res)
+      const data = await metasTitreDemarche(demarche)
+
+      commit('set', { data: { titreDemarchesTypes: data }, type: 'demarche' })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreEtapeMetasGet', { root: true })
+      commit('loadingRemove', 'metasTitreDemarcheGet', { root: true })
+    }
+  },
+
+  async titreEtapeGet({ commit }, etape) {
+    commit('loadingAdd', 'metasTitreEtapeGet', { root: true })
+
+    try {
+      const data = await metasTitreEtape(etape)
+
+      commit('set', { data, type: 'etape' })
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'metasTitreEtapeGet', { root: true })
     }
   },
 
@@ -87,8 +126,9 @@ export const actions = {
     commit('loadingAdd', 'titreEtapeDocumentMetasGet', { root: true })
 
     try {
-      const res = await metasTitreEtapeDocument()
-      commit('set', res)
+      const data = await metasDocument()
+
+      commit('set', { data, type: 'document' })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -102,9 +142,9 @@ export const actions = {
     commit('loadingAdd', 'utilisateurPermissions', { root: true })
 
     try {
-      const res = await metasUtilisateur()
+      const data = await metasUtilisateur()
 
-      commit('set', res)
+      commit('set', { data, type: 'utilisateur' })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
       console.log(e)
@@ -115,24 +155,22 @@ export const actions = {
 }
 
 export const mutations = {
-  set(state, metaIndex) {
-    Object.keys(metaIndex).forEach(metaId => {
+  set(state, { type, data }) {
+    if (!data) {
+      throw new Error('erreur API: metas données indisponibles')
+    }
+
+    Object.keys(data).forEach(id => {
       Vue.set(
-        state,
-        metaId,
-        metaIndex[metaId]
-          ? metaIndex[metaId].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
+        type ? state[type] : state,
+        id,
+        data[id]
+          ? Array.isArray(data[id])
+            ? data[id].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
+            : data[id]
           : null
       )
     })
-  },
-
-  apiVersionSet(state, version) {
-    state.versions.api = version
-  },
-
-  titresLoaded(state) {
-    state.titresLoaded++
   }
 }
 

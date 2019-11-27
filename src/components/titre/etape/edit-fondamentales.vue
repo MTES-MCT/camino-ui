@@ -429,17 +429,17 @@ export default {
     },
 
     substances() {
-      return this.$store.state.metas.substances.filter(su =>
+      return this.$store.state.metas.etape.substances.filter(su =>
         su.legales.find(sl => sl.domaine.id === this.domaineId)
       )
     },
 
     devises() {
-      return this.$store.state.metas.devises
+      return this.$store.state.metas.etape.devises
     },
 
     volumeUnites() {
-      return this.$store.state.metas.unites.filter(
+      return this.$store.state.metas.etape.unites.filter(
         ({ type }) => type === 'volume'
       )
     },

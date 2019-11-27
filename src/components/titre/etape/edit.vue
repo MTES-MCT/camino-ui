@@ -28,7 +28,7 @@
           @change="typeUpdate"
         >
           <option
-            v-for="eType in etapesTypes"
+            v-for="eType in etapeTypes"
             :key="eType.id"
             :value="eType.id"
             :disabled="etape.typeId === eType.id"
@@ -191,21 +191,12 @@ export default {
       return this.$store.state.popup.messages
     },
 
-    etapesTypes() {
-      return this.demarcheType.etapesTypes.filter(
-        et =>
-          et.editable &&
-          (!et.unique ||
-          et.id === this.etape.typeIdOriginal ||
-          !this.etapesTypeIds.includes(et.id))
-      )
+    etapeTypes() {
+      return this.$store.state.metas.etape.demarcheEtapesTypes
     },
 
     etapeType() {
-      return (
-        this.demarcheType.etapesTypes.find(et => et.id === this.etape.typeId) ||
-        {}
-      )
+      return this.etapeTypes.find(et => et.id === this.etape.typeId) || {}
     },
 
     etapesStatuts() {

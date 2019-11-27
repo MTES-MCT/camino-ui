@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { statistiques } from '../api'
+import { statistiques } from '../api/statistiques'
 
 export const state = {
   titresTotal: 0,
@@ -16,10 +16,10 @@ export const actions = {
     commit('loadingAdd', 'statistiques', { root: true })
 
     try {
-      const res = await statistiques()
+      const data = await statistiques()
 
-      if (res) {
-        commit('set', res)
+      if (data) {
+        commit('set', data)
       } else {
         commit('set', {})
       }

@@ -125,7 +125,7 @@
           rel="noopener noreferrer"
           class="text-decoration-none"
         >
-          UI v.{{ versions.ui }}
+          UI v.{{ versionUi }}
         </a>|
         <a
           href="https://github.com/MTES-MCT/camino-api/releases"
@@ -133,7 +133,7 @@
           rel="noopener noreferrer"
           class="text-decoration-none"
         >
-          API v.{{ versions.api }}
+          API v.{{ versionApi }}
         </a>
       </p>
     </div>
@@ -149,8 +149,12 @@ export default {
   },
 
   computed: {
-    versions() {
-      return this.$store.state.metas.versions
+    versionApi() {
+      return this.$store.state.metas.version
+    },
+
+    versionUi() {
+      return this.$store.state.metas.versionUi
     }
   }
 }

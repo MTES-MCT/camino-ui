@@ -1,207 +1,149 @@
-import graphqlClient from './_graphql-client'
-import graphqlErrorThrow from './_error-throw'
-
+import gql from 'graphql-tag'
 import {
-  queryUtilisateur,
-  queryUtilisateurs,
-  queryUtilisateurIdentifier,
-  mutationUtilisateurConnecter,
-  mutationUtilisateurModifier,
-  mutationUtilisateurCreer,
-  mutationUtilisateurSupprimer,
-  mutationUtilisateurMotDePasseModifier,
-  mutationUtilisateurMotDePasseInitialiser,
-  mutationUtilisateurMotDePasseEmailEnvoyer,
-  mutationUtilisateurCreationEmailEnvoyer
-} from './queries/utilisateurs'
+  fragmentUtilisateur,
+  fragmentUtilisateurToken
+} from './fragments/utilisateur'
 
-const utilisateur = async id => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryUtilisateur,
-      variables: { id },
-      fetchPolicy: 'network-only'
-    })
+import { apiQuery, apiMutate } from './_utils'
 
-    return res && res.data && res.data.utilisateur
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const utilisateur = apiQuery(gql`
+  query Utilisateur($id: ID!) {
+    utilisateur(id: $id) {
+      ...utilisateur
+    }
   }
-}
 
-const utilisateurs = async ({
-  entrepriseIds,
-  administrationIds,
-  permissionIds,
-  noms
-}) => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryUtilisateurs,
-      variables: {
-        entrepriseIds,
-        administrationIds,
-        permissionIds,
-        noms
-      },
-      fetchPolicy: 'network-only'
-    })
+  ${fragmentUtilisateur}
+`)
 
-    return res && res.data && res.data.utilisateurs
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const utilisateurs = apiQuery(gql`
+  query Utilisateurs(
+    $administrationIds: [ID!]
+    $entrepriseIds: [ID!]
+    $permissionIds: [ID!]
+    $noms: [String!]
+  ) {
+    utilisateurs(
+      administrationIds: $administrationIds
+      entrepriseIds: $entrepriseIds
+      permissionIds: $permissionIds
+      noms: $noms
+    ) {
+      ...utilisateur
+    }
   }
-}
 
-const utilisateurLogin = async ({ email, motDePasse }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationUtilisateurConnecter,
-      variables: { email, motDePasse }
-    })
+  ${fragmentUtilisateur}
+`)
 
-    return res && res.data && res.data.utilisateurConnecter
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const tokenCreer = apiMutate(gql`
+  mutation TokenCreer($email: String!, $motDePasse: String!) {
+    tokenCreer(email: $email, motDePasse: $motDePasse) {
+      ...utilisateurToken
+    }
   }
-}
 
-const utilisateurIdentify = async () => {
-  try {
-    const res = await await graphqlClient.query({
-      query: queryUtilisateurIdentifier
-    })
+  ${fragmentUtilisateurToken}
+`)
 
-    return res && res.data && res.data.utilisateurIdentifier
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const moi = apiQuery(gql`
+  query Moi {
+    moi {
+      ...utilisateur
+    }
   }
-}
 
-const utilisateurUpdate = async ({ utilisateur }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationUtilisateurModifier,
-      variables: { utilisateur }
-    })
+  ${fragmentUtilisateur}
+`)
 
-    return res && res.data && res.data.utilisateurModifier
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const utilisateurModifier = apiMutate(gql`
+  mutation UtilisateurModifier($utilisateur: InputUtilisateurModification!) {
+    utilisateurModifier(utilisateur: $utilisateur) {
+      ...utilisateur
+    }
   }
-}
 
-const utilisateurAdd = async ({ utilisateur }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationUtilisateurCreer,
-      variables: { utilisateur }
-    })
+  ${fragmentUtilisateur}
+`)
 
-    return res && res.data && res.data.utilisateurCreer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const utilisateurCreer = apiMutate(gql`
+  mutation UtilisateurCreer($utilisateur: InputUtilisateurCreation!) {
+    utilisateurCreer(utilisateur: $utilisateur) {
+      ...utilisateur
+    }
   }
-}
 
-const utilisateurRemove = async ({ id }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationUtilisateurSupprimer,
-      variables: { id }
-    })
+  ${fragmentUtilisateur}
+`)
 
-    return res && res.data && res.data.utilisateurSupprimer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const utilisateurSupprimer = apiMutate(gql`
+  mutation UtilisateurSupprimer($id: ID!) {
+    utilisateurSupprimer(id: $id) {
+      ...utilisateur
+    }
   }
-}
 
-const utilisateurPasswordUpdate = async ({
-  id,
-  motDePasse,
-  motDePasseNouveau1,
-  motDePasseNouveau2
-}) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationUtilisateurMotDePasseModifier,
-      variables: {
-        id,
-        motDePasse,
-        motDePasseNouveau1,
-        motDePasseNouveau2
-      }
-    })
+  ${fragmentUtilisateur}
+`)
 
-    return res && res.data && res.data.utilisateurMotDePasseModifier
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const utilisateurMotDePasseModifier = apiMutate(gql`
+  mutation UtilisateurMotDePasseModifier(
+    $id: ID!
+    $motDePasse: String!
+    $motDePasseNouveau1: String!
+    $motDePasseNouveau2: String!
+  ) {
+    utilisateurMotDePasseModifier(
+      id: $id
+      motDePasse: $motDePasse
+      motDePasseNouveau1: $motDePasseNouveau1
+      motDePasseNouveau2: $motDePasseNouveau2
+    ) {
+      ...utilisateur
+    }
   }
-}
 
-const utilisateurPasswordInitEmail = async ({ email }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationUtilisateurMotDePasseEmailEnvoyer,
-      variables: {
-        email
-      }
-    })
+  ${fragmentUtilisateur}
+`)
 
-    return res && res.data && res.data.utilisateurMotDePasseEmailEnvoyer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const utilisateurMotDePasseInitialiser = apiMutate(gql`
+  mutation UtilisateurMotDePasseInitialiser(
+    $motDePasse1: String!
+    $motDePasse2: String!
+  ) {
+    utilisateurMotDePasseInitialiser(
+      motDePasse1: $motDePasse1
+      motDePasse2: $motDePasse2
+    ) {
+      ...utilisateurToken
+    }
   }
-}
 
-const utilisateurPasswordInit = async ({ motDePasse1, motDePasse2 }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationUtilisateurMotDePasseInitialiser,
-      variables: { motDePasse1, motDePasse2 }
-    })
+  ${fragmentUtilisateurToken}
+`)
 
-    return res && res.data && res.data.utilisateurMotDePasseInitialiser
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const utilisateurMotDePasseEmailEnvoyer = apiMutate(gql`
+  mutation UtilisateurMotDePasseEmailEnvoyer($email: String!) {
+    utilisateurMotDePasseEmailEnvoyer(email: $email)
   }
-}
+`)
 
-const utilisateurAddEmail = async ({ email }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationUtilisateurCreationEmailEnvoyer,
-      variables: { email }
-    })
-
-    return res && res.data && res.data.utilisateurCreationEmailEnvoyer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const utilisateurCreationEmailEnvoyer = apiMutate(gql`
+  mutation UtilisateurCreationEmailEnvoyer($email: String!) {
+    utilisateurCreationEmailEnvoyer(email: $email)
   }
-}
+`)
 
 export {
   utilisateur,
   utilisateurs,
-  utilisateurLogin,
-  utilisateurIdentify,
-  utilisateurUpdate,
-  utilisateurAdd,
-  utilisateurRemove,
-  utilisateurPasswordUpdate,
-  utilisateurPasswordInit,
-  utilisateurPasswordInitEmail,
-  utilisateurAddEmail
+  moi,
+  tokenCreer,
+  utilisateurModifier,
+  utilisateurCreer,
+  utilisateurSupprimer,
+  utilisateurMotDePasseModifier,
+  utilisateurMotDePasseInitialiser,
+  utilisateurMotDePasseEmailEnvoyer,
+  utilisateurCreationEmailEnvoyer
 }

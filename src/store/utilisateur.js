@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { utilisateur } from '../api'
+import { utilisateur } from '../api/utilisateurs'
 
 export const state = {
   current: null
@@ -11,10 +11,10 @@ export const actions = {
     commit('loadingAdd', 'utilisateur', { root: true })
 
     try {
-      const res = await utilisateur(id)
+      const data = await utilisateur({ id })
 
-      if (res) {
-        commit('set', res)
+      if (data) {
+        commit('set', data)
       } else {
         dispatch('pageError', null, { root: true })
       }

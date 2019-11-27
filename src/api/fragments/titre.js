@@ -1,13 +1,19 @@
 import gql from 'graphql-tag'
 
-import { fragmentDemarcheType } from './metas'
-import { fragmentTitreDemarche } from './titre-demarche'
-import { fragmentTitreActivite } from './titre-activite'
-import { fragmentTitreSubstance } from './titre-substance'
-import { fragmentTitreAdministrations } from './titre-administration'
-import { fragmentTitreEntreprises } from './titre-entreprise'
+import { fragmentTitreDemarche } from './demarche'
+import { fragmentTitreActivite } from './activite'
+import { fragmentTitreSubstance, fragmentTitresSubstance } from './substance'
+import {
+  fragmentTitreAdministrations,
+  fragmentTitresAdministrations
+} from './administration'
+import {
+  fragmentTitreEntreprises,
+  fragmentTitresEntreprises
+} from './entreprises'
+
 import { fragmentPoint } from './point'
-import fragmentPays from './pays'
+import { fragmentPays } from './pays'
 
 import { fragmentGeojsonPoints, fragmentGeojsonMultiPolygon } from './geojson'
 
@@ -18,9 +24,6 @@ const fragmentTitre = gql`
     type {
       id
       nom
-      demarchesTypes {
-        ...demarcheType
-      }
     }
     domaine {
       id
@@ -94,8 +97,6 @@ const fragmentTitre = gql`
 
   ${fragmentTitreEntreprises}
 
-  ${fragmentDemarcheType}
-
   ${fragmentTitreDemarche}
 
   ${fragmentTitreActivite}
@@ -111,4 +112,59 @@ const fragmentTitre = gql`
   ${fragmentPays}
 `
 
-export { fragmentTitre }
+const fragmentTitres = gql`
+  fragment titres on Titre {
+    id
+    nom
+    type {
+      id
+      nom
+    }
+    domaine {
+      id
+    }
+    statut {
+      id
+      nom
+      couleur
+    }
+    references {
+      type {
+        id
+        nom
+      }
+      nom
+    }
+    substances {
+      ...titresSubstance
+    }
+    dateDebut
+    dateFin
+    dateDemande
+    activitesEnConstruction
+    activitesAbsentes
+    activitesDeposees
+    administrations {
+      ...titresAdministrations
+    }
+    titulaires {
+      ...titresEntreprises
+    }
+    amodiataires {
+      ...titresEntreprises
+    }
+    geojsonMultiPolygon {
+      ...geojsonMultiPolygon
+    }
+  }
+
+  ${fragmentTitresAdministrations}
+
+  ${fragmentTitresEntreprises}
+
+  ${fragmentTitresSubstance}
+
+  ${fragmentGeojsonMultiPolygon}
+`
+
+export { fragmentTitre, fragmentTitres }

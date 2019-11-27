@@ -1,21 +1,18 @@
-import graphqlClient from './_graphql-client'
-import graphqlErrorThrow from './_error-throw'
+import gql from 'graphql-tag'
 
-import { queryStatistiques } from './queries/statistiques'
+import { apiQuery } from './_utils'
 
-const statistiques = async () => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryStatistiques,
-      variables: {},
-      fetchPolicy: 'network-only'
-    })
-
-    return res && res.data.statistiques
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const statistiques = apiQuery(gql`
+  query Statistiques {
+    statistiques {
+      titresTotal
+      titresValide
+      titresActivitesDepose
+      titreActivites2018Ratio
+      titresActivitesBeneficesEntreprise
+      titresActivitesBeneficesAdministration
+    }
   }
-}
+`)
 
 export { statistiques }

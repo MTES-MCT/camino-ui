@@ -19,4 +19,4 @@ const fragmentPays = gql`
   }
 `
 
-export default fragmentPays
+export { fragmentPays }

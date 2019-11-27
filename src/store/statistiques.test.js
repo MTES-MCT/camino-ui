@@ -1,9 +1,9 @@
 import statistiques from './statistiques'
-import * as api from '../api'
+import * as api from '../api/statistiques'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
-jest.mock('../api', () => ({
+jest.mock('../api/statistiques', () => ({
   statistiques: jest.fn()
 }))
 

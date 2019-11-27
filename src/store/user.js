@@ -1,13 +1,13 @@
 import Vue from 'vue'
 
 import {
-  utilisateurLogin,
-  utilisateurIdentify,
-  utilisateurPasswordInit,
-  utilisateurPasswordInitEmail,
-  utilisateurAddEmail,
-  utilisateurAdd
-} from '../api'
+  moi,
+  tokenCreer,
+  utilisateurCreationEmailEnvoyer,
+  utilisateurCreer,
+  utilisateurMotDePasseEmailEnvoyer,
+  utilisateurMotDePasseInitialiser
+} from '../api/utilisateurs'
 
 import router from '../router'
 
@@ -40,14 +40,9 @@ export const state = {
 export const actions = {
   async identify({ commit, dispatch }) {
     try {
-      const res = await utilisateurIdentify()
+      const data = await moi()
 
-      if (res.utilisateur && res.token) {
-        dispatch('tokenSet', res.token)
-        commit('set', res.utilisateur)
-      } else {
-        throw new Error("l'utilisateur n'est pas connecté")
-      }
+      commit('set', data)
     } catch (e) {
       dispatch('tokenRemove')
       commit('reset')
@@ -61,15 +56,17 @@ export const actions = {
     commit('loadingAdd', 'utilisateurLogin', { root: true })
 
     try {
-      const res = await utilisateurLogin({ email, motDePasse })
+      const data = await tokenCreer({ email, motDePasse })
 
-      dispatch('tokenSet', res.token)
-      commit('set', res.utilisateur)
+      const { utilisateur, token } = data
+
+      dispatch('tokenSet', token)
+      commit('set', utilisateur)
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
         {
-          value: `bienvenue ${res.utilisateur.prenom} ${res.utilisateur.nom}`,
+          value: `bienvenue ${utilisateur.prenom} ${utilisateur.nom}`,
           type: 'success'
         },
         { root: true }
@@ -100,12 +97,15 @@ export const actions = {
     commit('loadingAdd', 'utilisateurAddEmail', { root: true })
 
     try {
-      const res = await utilisateurAddEmail({ email })
+      const data = await utilisateurCreationEmailEnvoyer({
+        email
+      })
+
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
         {
-          value: `${res}`,
+          value: `${data}`,
           type: 'success'
         },
         { root: true }
@@ -121,20 +121,20 @@ export const actions = {
     commit('loadingAdd', 'userAdd', { root: true })
 
     try {
-      const u = await utilisateurAdd({ utilisateur })
+      const data = await utilisateurCreer({ utilisateur })
 
-      if (u) {
+      if (data) {
         dispatch(
           'messageAdd',
           {
-            value: `utilisateur ${u.prenom} ${u.nom} ajouté`,
+            value: `utilisateur ${data.prenom} ${data.nom} ajouté`,
             type: 'success'
           },
           { root: true }
         )
 
         await dispatch('login', {
-          email: u.email,
+          email: data.email,
           motDePasse: utilisateur.motDePasse
         })
 
@@ -159,12 +159,14 @@ export const actions = {
     commit('loadingAdd', 'utilisateurPasswordInitEmail', { root: true })
 
     try {
-      const res = await utilisateurPasswordInitEmail({ email })
+      const data = await utilisateurMotDePasseEmailEnvoyer({
+        email
+      })
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
         {
-          value: `${res}`,
+          value: `${data}`,
           type: 'success'
         },
         { root: true }
@@ -180,7 +182,10 @@ export const actions = {
     commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
 
     try {
-      const res = await utilisateurPasswordInit({ motDePasse1, motDePasse2 })
+      const data = await utilisateurMotDePasseInitialiser({
+        motDePasse1,
+        motDePasse2
+      })
 
       dispatch(
         'messageAdd',
@@ -193,18 +198,16 @@ export const actions = {
 
       router.push({ name: 'titres' })
 
-      dispatch('tokenSet', res.token)
-      commit('set', res.utilisateur)
+      dispatch('tokenSet', data.token)
+      commit('set', data.utilisateur)
       dispatch(
         'messageAdd',
         {
-          value: `bienvenue ${res.utilisateur.prenom} ${res.utilisateur.nom}`,
+          value: `bienvenue ${data.utilisateur.prenom} ${data.utilisateur.nom}`,
           type: 'success'
         },
         { root: true }
       )
-
-      return res
     } catch (e) {
       dispatch(
         'messageAdd',

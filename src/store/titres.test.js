@@ -1,9 +1,9 @@
 import titres from './titres'
-import * as api from '../api'
+import * as api from '../api/titres'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
-jest.mock('../api', () => ({
+jest.mock('../api/titres', () => ({
   titres: jest.fn()
 }))
 
@@ -71,10 +71,11 @@ describe('état de la liste des titres', () => {
     await store.dispatch('titres/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(
-      { noms: ['s'], domaineIds: ['c', 'w'], statutIds: ['val'] },
-      'network-only'
-    )
+    expect(apiMock).toHaveBeenCalledWith({
+      noms: ['s'],
+      domaineIds: ['c', 'w'],
+      statutIds: ['val']
+    })
     expect(actions.messageAdd).not.toHaveBeenCalled()
     expect(store.state.titres.list).toEqual(titresListe)
   })
@@ -85,10 +86,11 @@ describe('état de la liste des titres', () => {
     await store.dispatch('titres/get')
 
     expect(apiMock).toHaveBeenCalledTimes(1)
-    expect(apiMock).toHaveBeenCalledWith(
-      { noms: ['s'], domaineIds: ['c', 'w'], statutIds: ['val'] },
-      'network-only'
-    )
+    expect(apiMock).toHaveBeenCalledWith({
+      noms: ['s'],
+      domaineIds: ['c', 'w'],
+      statutIds: ['val']
+    })
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(store.state.titres.list).toEqual(titresListe.slice(1, 3))
   })
@@ -100,10 +102,11 @@ describe('état de la liste des titres', () => {
     await store.dispatch('titres/get')
 
     expect(apiMock).toHaveBeenCalledTimes(1)
-    expect(apiMock).toHaveBeenCalledWith(
-      { noms: ['s'], domaineIds: ['c', 'w'], statutIds: ['val'] },
-      'network-only'
-    )
+    expect(apiMock).toHaveBeenCalledWith({
+      noms: ['s'],
+      domaineIds: ['c', 'w'],
+      statutIds: ['val']
+    })
     expect(console.log).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })

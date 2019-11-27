@@ -22,7 +22,6 @@ const fragmentEtapeType = gql`
     }
     fondamentale
     sections
-    unique
     editable
   }
 `
@@ -54,16 +53,36 @@ const fragmentDemarcheType = gql`
     titulaires
     renouvelable
     exception
-    etapesTypes {
-      ...etapeType
-    }
     editable
   }
+`
 
-  ${fragmentEtapeType}
+const fragmentActiviteType = gql`
+  fragment activiteType on ActiviteType {
+    id
+    nom
+    pays {
+      id
+      nom
+    }
+    frequence {
+      id
+      nom
+      trimestres {
+        id
+        nom
+        mois {
+          id
+          nom
+        }
+      }
+    }
+    sections
+  }
 `
 
 export {
+  fragmentActiviteType,
   fragmentEtapeType,
   fragmentPermission,
   fragmentUnite,

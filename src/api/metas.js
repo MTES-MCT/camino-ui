@@ -1,107 +1,164 @@
-import graphqlClient from './_graphql-client'
-import graphqlErrorThrow from './_error-throw'
+import gql from 'graphql-tag'
+
 import {
-  queryMetasInit,
-  queryMetasUtilisateur,
-  queryMetasTitre,
-  queryMetasTitreEtape,
-  queryMetasTitres,
-  queryMetasDocument
-} from './queries/metas'
+  fragmentEtapeType,
+  fragmentDemarcheType,
+  fragmentUnite,
+  fragmentPermission
+} from './fragments/metas'
+import { fragmentSubstance } from './fragments/substance'
+import { fragmentEntreprises } from './fragments/entreprises'
+import { fragmentAdministrations } from './fragments/administration'
 
-const metasInit = async () => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryMetasInit,
-      variables: {}
-    })
+import { apiQuery } from './_utils'
 
-    return res && res.data
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const metasInit = apiQuery(gql`
+  query Init {
+    version
+
+    entreprises {
+      ...entreprises
+    }
   }
-}
 
-const metasUtilisateur = async () => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryMetasUtilisateur,
-      variables: {}
-    })
+  ${fragmentEntreprises}
+`)
 
-    return res && res.data
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
-  }
-}
-
-const metasTitre = async () => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryMetasTitre,
-      variables: {}
-    })
-
-    return res && res.data
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
-  }
-}
-
-const metasTitres = async () => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryMetasTitres,
-      variables: {},
-      fetchPolicy: 'network-only'
-    })
-
-    return res && res.data
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
-  }
-}
-
-const metasTitreEtape = async ({ titreDemarcheId, typeId: etapeTypeId }) => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryMetasTitreEtape,
-      variables: {
-        titreDemarcheId,
-        etapeTypeId
+const metasTitre = apiQuery(
+  gql`
+    query MetasTitre {
+      referencesTypes {
+        id
+        nom
       }
-    })
-
-    return res && res.data
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+    }
+  `,
+  {
+    fetchPolicy: 'network-only'
   }
-}
+)
 
-const metasTitreEtapeDocument = async () => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryMetasDocument,
-      variables: {}
-    })
+const metasTitres = apiQuery(
+  gql`
+    query MetasTitres {
+      domaines {
+        id
+        nom
+      }
 
-    return res && res.data
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+      types {
+        id
+        nom
+      }
+
+      statuts {
+        id
+        nom
+        couleur
+      }
+
+      utilisateurDomaines {
+        id
+        nom
+        types {
+          id
+          nom
+          domaineId
+        }
+      }
+    }
+  `,
+  {
+    fetchPolicy: 'network-only'
   }
-}
+)
+
+const metasTitreDemarche = apiQuery(gql`
+  query MetasDemarche($titreId: ID!, $typeId: ID) {
+    titreDemarchesTypes(titreId: $titreId, demarcheTypeId: $typeId) {
+      ...demarcheType
+    }
+  }
+
+  ${fragmentDemarcheType}
+`)
+
+const metasTitreEtape = apiQuery(gql`
+  query MetasEtape($titreDemarcheId: ID!, $typeId: ID) {
+    demarcheEtapesTypes(
+      titreDemarcheId: $titreDemarcheId
+      etapeTypeId: $typeId
+    ) {
+      ...etapeType
+    }
+
+    devises {
+      id
+      nom
+    }
+
+    unites {
+      ...unite
+    }
+
+    geoSystemes {
+      id
+      nom
+      zone
+      unite {
+        ...unite
+      }
+    }
+
+    substances {
+      ...substance
+    }
+  }
+
+  ${fragmentEtapeType}
+
+  ${fragmentUnite}
+
+  ${fragmentSubstance}
+`)
+
+const metasUtilisateur = apiQuery(gql`
+  query MetasUtilisateur {
+    permissions {
+      ...permission
+    }
+
+    entreprises {
+      ...entreprises
+    }
+
+    administrations {
+      ...administrations
+    }
+  }
+
+  ${fragmentPermission}
+
+  ${fragmentEntreprises}
+
+  ${fragmentAdministrations}
+`)
+
+const metasDocument = apiQuery(gql`
+  query MetasDocument {
+    documentsTypes {
+      id
+      nom
+    }
+  }
+`)
 
 export {
+  metasDocument,
+  metasTitreEtape,
+  metasTitreDemarche,
   metasInit,
   metasUtilisateur,
   metasTitre,
-  metasTitres,
-  metasTitreEtape,
-  metasTitreEtapeDocument
+  metasTitres
 }

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { entreprises } from '../api'
+import { entreprises } from '../api/entreprises'
 
 export const state = {
   list: []
@@ -10,9 +10,10 @@ export const actions = {
     commit('loadingAdd', 'entreprises', { root: true })
 
     try {
-      const res = await entreprises({})
-      if (res) {
-        commit('set', res)
+      const data = await entreprises({})
+
+      if (data) {
+        commit('set', data)
       } else {
         dispatch('pageError', null, { root: true })
       }

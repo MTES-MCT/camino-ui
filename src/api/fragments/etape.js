@@ -1,9 +1,8 @@
 import gql from 'graphql-tag'
-import { fragmentTitreEntreprises } from './titre-entreprise'
-import { fragmentTitreAdministrations } from './titre-administration'
-import { fragmentTitreSubstance } from './titre-substance'
+import { fragmentTitreEntreprises } from './entreprises'
+import { fragmentTitreSubstance } from './substance'
 import { fragmentPoint } from './point'
-import fragmentPays from './pays'
+import { fragmentPays } from './pays'
 import { fragmentUnite } from './metas'
 
 const fragmentTitreEtape = gql`
@@ -63,8 +62,6 @@ const fragmentTitreEtape = gql`
     supprimable
   }
 
-  ${fragmentTitreAdministrations}
-
   ${fragmentTitreEntreprises}
 
   ${fragmentPoint}
@@ -106,4 +103,4 @@ const fragmentTitreEtape = gql`
   }
 `
 
-export default fragmentTitreEtape
+export { fragmentTitreEtape }

@@ -1,15 +1,16 @@
 import metas from './metas'
-import * as api from '../api'
+import * as api from '../api/metas'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
-jest.mock('../api', () => ({
+jest.mock('../api/metas', () => ({
   metasInit: jest.fn(),
   metasTitre: jest.fn(),
   metasTitres: jest.fn(),
   metasTitreEtape: jest.fn(),
+  metasTitreDemarche: jest.fn(),
   metasUtilisateur: jest.fn(),
-  metasTitreEtapeDocument: jest.fn()
+  metasDocument: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -24,23 +25,43 @@ describe('état de la liste des métas', () => {
 
   beforeEach(() => {
     metas.state = {
-      types: [],
-      domaines: [],
-      statuts: [],
-      referencesTypes: [],
-      devises: [],
-      unites: [],
-      geoSystemes: [],
-      substances: [],
+      titres: {
+        domaines: [],
+        types: [],
+        statuts: []
+      },
+
+      titre: {
+        utilisateurDomaines: [],
+        referencesTypes: []
+      },
+
+      demarche: {
+        titreDemarchesTypes: []
+      },
+
+      etape: {
+        demarcheEtapesTypes: [],
+        devises: [],
+        unites: [],
+        geoSystemes: [],
+        substances: []
+      },
+
+      document: {
+        documentsTypes: []
+      },
+
+      utilisateur: {
+        permissions: []
+      },
+
       entreprises: [],
       administrations: [],
-      titresLoaded: false,
-      versions: {
-        api: null,
-        /* global npmVersion */
-        ui: `${npmVersion}`
-      },
-      permissions: []
+
+      version: null,
+      /* global npmVersion */
+      versionUi: `${npmVersion}`
     }
 
     actions = {
@@ -65,7 +86,7 @@ describe('état de la liste des métas', () => {
     await store.dispatch('metas/init')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.metas.versions.api).toEqual('1.1.1')
+    expect(store.state.metas.version).toEqual('1.1.1')
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
@@ -79,29 +100,19 @@ describe('état de la liste des métas', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
-    expect(store.state.metas.versions.api).toBeNull()
+    expect(store.state.metas.version).toBeNull()
   })
 
   test('récupère les métas pour éditer un titre', async () => {
-    const apiMock = api.metasTitre.mockResolvedValue({
-      domaines: [
-        { id: 'w', nom: 'granulats' },
-        { id: 'c', nom: 'carrières' }
-      ],
-      referencesTypes: [
-        { id: 'ifr', nom: 'Ifremer' },
-        { id: 'dge', nom: 'DGEC' }
-      ]
-    })
+    const apiMock = api.metasTitre.mockResolvedValue([
+      { id: 'ifr', nom: 'Ifremer' },
+      { id: 'dge', nom: 'DGEC' }
+    ])
 
     await store.dispatch('metas/titreGet')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.metas.domaines).toEqual([
-      { id: 'c', nom: 'carrières' },
-      { id: 'w', nom: 'granulats' }
-    ])
-    expect(store.state.metas.referencesTypes).toEqual([
+    expect(store.state.metas.titre.referencesTypes).toEqual([
       { id: 'dge', nom: 'DGEC' },
       { id: 'ifr', nom: 'Ifremer' }
     ])
@@ -135,16 +146,15 @@ describe('état de la liste des métas', () => {
     await store.dispatch('metas/titresGet')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.metas.domaines).toEqual([
+    expect(store.state.metas.titres.domaines).toEqual([
       { id: 'c', nom: 'carrières' },
       { id: 'w', nom: 'granulats' }
     ])
-    expect(store.state.metas.types).toEqual([
+    expect(store.state.metas.titres.types).toEqual([
       { id: 'dge', nom: 'DGEC' },
       { id: 'ifr', nom: 'Ifremer' }
     ])
     expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(store.state.metas.titresLoaded).toBeTruthy()
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
@@ -160,13 +170,41 @@ describe('état de la liste des métas', () => {
     expect(store.state.metas.titresLoaded).toBeFalsy()
   })
 
+  test('récupère les métas pour éditer une démarche', async () => {
+    const apiMock = api.metasTitreDemarche.mockResolvedValue([
+      { id: 'w', nom: 'granulats' },
+      { id: 'c', nom: 'carrières' }
+    ])
+
+    await store.dispatch('metas/titreDemarcheGet', { etape: {} })
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.metas.demarche.titreDemarchesTypes).toEqual([
+      { id: 'c', nom: 'carrières' },
+      { id: 'w', nom: 'granulats' }
+    ])
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api ne répond pas", async () => {
+    const apiMock = api.metasTitreDemarche.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+
+    await store.dispatch('metas/titreDemarcheGet', { etape: {} })
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
   test('récupère les métas pour éditer une étape', async () => {
     const apiMock = api.metasTitreEtape.mockResolvedValue({
-      domaines: [
+      demarcheEtapesTypes: [
         { id: 'w', nom: 'granulats' },
         { id: 'c', nom: 'carrières' }
       ],
-      referencesTypes: [
+      geoSystemes: [
         { id: 'ifr', nom: 'Ifremer' },
         { id: 'dge', nom: 'DGEC' }
       ],
@@ -176,11 +214,11 @@ describe('état de la liste des métas', () => {
     await store.dispatch('metas/titreEtapeGet', { etape: {} })
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.metas.domaines).toEqual([
+    expect(store.state.metas.etape.demarcheEtapesTypes).toEqual([
       { id: 'c', nom: 'carrières' },
       { id: 'w', nom: 'granulats' }
     ])
-    expect(store.state.metas.referencesTypes).toEqual([
+    expect(store.state.metas.etape.geoSystemes).toEqual([
       { id: 'dge', nom: 'DGEC' },
       { id: 'ifr', nom: 'Ifremer' }
     ])
@@ -200,7 +238,7 @@ describe('état de la liste des métas', () => {
   })
 
   test('récupère les métas pour éditer un document', async () => {
-    const apiMock = api.metasTitreEtapeDocument.mockResolvedValue({
+    const apiMock = api.metasDocument.mockResolvedValue({
       documentsTypes: [
         { id: 'ifr', nom: 'Ifremer' },
         { id: 'dge', nom: 'DGEC' }
@@ -210,7 +248,7 @@ describe('état de la liste des métas', () => {
     await store.dispatch('metas/titreEtapeDocumentGet')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.metas.documentsTypes).toEqual([
+    expect(store.state.metas.document.documentsTypes).toEqual([
       { id: 'dge', nom: 'DGEC' },
       { id: 'ifr', nom: 'Ifremer' }
     ])
@@ -218,7 +256,7 @@ describe('état de la liste des métas', () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasTitreEtapeDocument.mockRejectedValue(
+    const apiMock = api.metasDocument.mockRejectedValue(
       new Error("erreur de l'api")
     )
 
@@ -231,26 +269,18 @@ describe('état de la liste des métas', () => {
 
   test('récupère les métas pour éditer un utilisateur', async () => {
     const apiMock = api.metasUtilisateur.mockResolvedValue({
-      domaines: [
+      permissions: [
         { id: 'w', nom: 'granulats' },
         { id: 'c', nom: 'carrières' }
-      ],
-      referencesTypes: [
-        { id: 'ifr', nom: 'Ifremer' },
-        { id: 'dge', nom: 'DGEC' }
       ]
     })
 
     await store.dispatch('metas/utilisateurGet')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.metas.domaines).toEqual([
+    expect(store.state.metas.utilisateur.permissions).toEqual([
       { id: 'c', nom: 'carrières' },
       { id: 'w', nom: 'granulats' }
-    ])
-    expect(store.state.metas.referencesTypes).toEqual([
-      { id: 'dge', nom: 'DGEC' },
-      { id: 'ifr', nom: 'Ifremer' }
     ])
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
@@ -265,5 +295,13 @@ describe('état de la liste des métas', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api répond null", async () => {
+    const apiMock = api.metasUtilisateur.mockResolvedValue(null)
+
+    await store.dispatch('metas/utilisateurGet')
+
+    expect(apiMock).toHaveBeenCalled()
   })
 })

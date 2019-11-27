@@ -69,7 +69,7 @@ export default {
 
   computed: {
     geoSystemes() {
-      return this.$store.state.metas.geoSystemes
+      return this.$store.state.metas.etape.geoSystemes
     }
   },
 
