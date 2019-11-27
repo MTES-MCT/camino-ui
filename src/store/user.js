@@ -31,9 +31,7 @@ export const state = {
         references: null,
         territoires: null
       }
-    },
-    entreprises: { table: { page: 1, range: 200 } },
-    utilisateurs: { table: { page: 1, range: 200 } }
+    }
   },
   titresFiltresLoaded: 0,
   loaded: false
