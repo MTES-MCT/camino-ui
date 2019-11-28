@@ -6,39 +6,45 @@ import {
 
 import { apiQuery, apiMutate } from './_utils'
 
-const utilisateur = apiQuery(gql`
-  query Utilisateur($id: ID!) {
-    utilisateur(id: $id) {
-      ...utilisateur
+const utilisateur = apiQuery(
+  gql`
+    query Utilisateur($id: ID!) {
+      utilisateur(id: $id) {
+        ...utilisateur
+      }
     }
-  }
 
-  ${fragmentUtilisateur}
-`)
+    ${fragmentUtilisateur}
+  `,
+  { fetchPolicy: 'network-only' }
+)
 
-const utilisateurs = apiQuery(gql`
-  query Utilisateurs(
-    $administrationIds: [ID!]
-    $entrepriseIds: [ID!]
-    $permissionIds: [ID!]
-    $noms: [String!]
-  ) {
-    utilisateurs(
-      administrationIds: $administrationIds
-      entrepriseIds: $entrepriseIds
-      permissionIds: $permissionIds
-      noms: $noms
+const utilisateurs = apiQuery(
+  gql`
+    query Utilisateurs(
+      $administrationIds: [ID!]
+      $entrepriseIds: [ID!]
+      $permissionIds: [ID!]
+      $noms: [String!]
     ) {
-      ...utilisateur
+      utilisateurs(
+        administrationIds: $administrationIds
+        entrepriseIds: $entrepriseIds
+        permissionIds: $permissionIds
+        noms: $noms
+      ) {
+        ...utilisateur
+      }
     }
-  }
 
-  ${fragmentUtilisateur}
-`)
+    ${fragmentUtilisateur}
+  `,
+  { fetchPolicy: 'network-only' }
+)
 
-const tokenCreer = apiMutate(gql`
-  mutation TokenCreer($email: String!, $motDePasse: String!) {
-    tokenCreer(email: $email, motDePasse: $motDePasse) {
+const utilisateurTokenCreer = apiMutate(gql`
+  mutation UtilisateurTokenCreer($email: String!, $motDePasse: String!) {
+    utilisateurTokenCreer(email: $email, motDePasse: $motDePasse) {
       ...utilisateurToken
     }
   }
@@ -138,7 +144,7 @@ export {
   utilisateur,
   utilisateurs,
   moi,
-  tokenCreer,
+  utilisateurTokenCreer,
   utilisateurModifier,
   utilisateurCreer,
   utilisateurSupprimer,

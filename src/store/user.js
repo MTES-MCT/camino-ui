@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import {
   moi,
-  tokenCreer,
+  utilisateurTokenCreer,
   utilisateurCreationEmailEnvoyer,
   utilisateurCreer,
   utilisateurMotDePasseEmailEnvoyer,
@@ -56,7 +56,7 @@ export const actions = {
     commit('loadingAdd', 'utilisateurLogin', { root: true })
 
     try {
-      const data = await tokenCreer({ email, motDePasse })
+      const data = await utilisateurTokenCreer({ email, motDePasse })
 
       const { utilisateur, token } = data
 

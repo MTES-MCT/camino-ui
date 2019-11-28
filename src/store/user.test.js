@@ -4,7 +4,7 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/utilisateurs', () => ({
-  tokenCreer: jest.fn(),
+  utilisateurTokenCreer: jest.fn(),
   moi: jest.fn(),
   utilisateurMotDePasseInitialiser: jest.fn(),
   utilisateurMotDePasseEmailEnvoyer: jest.fn(),
@@ -104,7 +104,7 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test('connecte un utilisateur', async () => {
-    const apiMock = api.tokenCreer.mockResolvedValue({
+    const apiMock = api.utilisateurTokenCreer.mockResolvedValue({
       token: 'rene',
       utilisateur: userInfo
     })
@@ -128,7 +128,7 @@ describe("état de l'utilisateur connecté", () => {
   test("retourne une erreur de l'api lors de la connection d'un utilisateur", async () => {
     localStorage.setItem('token', 'rene')
     store.commit('user/set', userInfo)
-    const apiMock = api.tokenCreer.mockRejectedValue(
+    const apiMock = api.utilisateurTokenCreer.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     await store.dispatch('user/login', { email, motDePasse })
