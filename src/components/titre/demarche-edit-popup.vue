@@ -104,11 +104,6 @@ export default {
       default: ''
     },
 
-    demarchesTypes: {
-      type: Array,
-      default: () => []
-    },
-
     creation: {
       type: Boolean,
       default: false
@@ -122,6 +117,10 @@ export default {
 
     messages() {
       return this.$store.state.popup.messages
+    },
+
+    demarchesTypes() {
+      return this.$store.state.metas.demarche.titreDemarchesTypes
     },
 
     demarcheTypeNom() {
@@ -138,6 +137,7 @@ export default {
   },
 
   created() {
+    this.get()
     document.addEventListener('keyup', this.keyup)
   },
 
@@ -146,6 +146,10 @@ export default {
   },
 
   methods: {
+    get() {
+      this.$store.dispatch('metas/titreDemarcheGet', this.demarche)
+    },
+
     save() {
       if (this.complete) {
         const demarche = JSON.parse(JSON.stringify(this.demarche))

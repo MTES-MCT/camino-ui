@@ -1,13 +1,13 @@
 import titreActivites from './titre-activites'
-import * as api from '../api'
+import * as api from '../api/activites'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-jest.mock('../api', () => ({
-  titreActiviteUpdate: jest.fn()
+jest.mock('../api/activites', () => ({
+  activiteModifier: jest.fn()
 }))
 
 describe('état des activités', () => {
@@ -40,7 +40,7 @@ describe('état des activités', () => {
   })
 
   test('valide une activité pour un titre', async () => {
-    const apiMock = api.titreActiviteUpdate.mockResolvedValue({
+    const apiMock = api.activiteModifier.mockResolvedValue({
       statut: { id: 'dep' }
     })
     await store.dispatch('titreActivites/update', activite)
@@ -56,7 +56,7 @@ describe('état des activités', () => {
   })
 
   test('enregistre une activité pour un titre', async () => {
-    api.titreActiviteUpdate.mockResolvedValue({
+    api.activiteModifier.mockResolvedValue({
       statut: { id: 'enc' }
     })
     await store.dispatch('titreActivites/update', activite)
@@ -65,7 +65,7 @@ describe('état des activités', () => {
   })
 
   test("n'enregistre pas une activité si l'API retourne null", async () => {
-    const apiMock = api.titreActiviteUpdate.mockResolvedValue(null)
+    const apiMock = api.activiteModifier.mockResolvedValue(null)
     await store.dispatch('titreActivites/update', activite)
 
     expect(apiMock).toHaveBeenCalled()
@@ -76,7 +76,7 @@ describe('état des activités', () => {
   })
 
   test("erreur dans l'api lors de l'enregistrement d'une activité", async () => {
-    const apiMock = api.titreActiviteUpdate.mockRejectedValue(
+    const apiMock = api.activiteModifier.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
     await store.dispatch('titreActivites/update', activite)

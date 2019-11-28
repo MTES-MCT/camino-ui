@@ -1,9 +1,9 @@
 import utilisateur from './utilisateur'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import * as api from '../api'
+import * as api from '../api/utilisateurs'
 
-jest.mock('../api', () => ({
+jest.mock('../api/utilisateurs', () => ({
   utilisateur: jest.fn()
 }))
 
@@ -13,14 +13,12 @@ localVue.use(Vuex)
 console.log = jest.fn()
 
 describe("état de l'utilisateur consulté", () => {
-  let utilisateurId
   let store
   let actions
   let mutations
   let utilisateurInfo
 
   beforeEach(() => {
-    utilisateurId = 71
     utilisateurInfo = { id: 71, nom: 'toto', prenom: 'asticot' }
     utilisateur.state = { current: null }
     mutations = {
@@ -38,19 +36,19 @@ describe("état de l'utilisateur consulté", () => {
   test("obtient les données d'un utilisateur", async () => {
     const utilisateur = { id: 71, nom: 'toto', prenom: 'asticot' }
     const apiMock = api.utilisateur.mockResolvedValue(utilisateur)
-    await store.dispatch('utilisateur/get', utilisateurId)
+    await store.dispatch('utilisateur/get', 71)
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(utilisateurId)
+    expect(apiMock).toHaveBeenCalledWith({ id: 71 })
     expect(store.state.utilisateur.current).toEqual(utilisateur)
   })
 
   test("n'obtient pas d'utilisateur: il n'existe pas", async () => {
     const apiMock = api.utilisateur.mockResolvedValue(null)
-    await store.dispatch('utilisateur/get', utilisateurId)
+    await store.dispatch('utilisateur/get', 71)
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(utilisateurId)
+    expect(apiMock).toHaveBeenCalledWith({ id: 71 })
     expect(actions.pageError).toHaveBeenCalled()
     expect(store.state.utilisateur.current).toBeNull()
   })
@@ -59,10 +57,10 @@ describe("état de l'utilisateur consulté", () => {
     const apiMock = api.utilisateur.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
-    await store.dispatch('utilisateur/get', utilisateurId)
+    await store.dispatch('utilisateur/get', 71)
 
     expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(utilisateurId)
+    expect(apiMock).toHaveBeenCalledWith({ id: 71 })
     expect(console.log).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })

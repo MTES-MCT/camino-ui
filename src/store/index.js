@@ -12,7 +12,6 @@ import entreprise from './entreprise'
 import entreprises from './entreprises'
 import administration from './administration'
 import administrations from './administrations'
-import substances from './substances'
 import user from './user'
 import titreActivites from './titre-activites'
 import statistiques from './statistiques'
@@ -28,7 +27,6 @@ const modules = {
   entreprises,
   administration,
   administrations,
-  substances,
   user,
   titreActivites,
   statistiques

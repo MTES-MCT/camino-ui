@@ -115,7 +115,9 @@
       </div>
 
       <button
-        v-if="titre.references && !titre.references.find(r => !r.typeId || !r.nom)"
+        v-if="
+          titre.references && !titre.references.find(r => !r.typeId || !r.nom)
+        "
         class="btn-border rnd-xs py-s px-m full-x mb flex"
         @click="referenceAdd"
       >
@@ -190,16 +192,19 @@ export default {
     },
 
     domaines() {
-      return this.$store.state.metas.domaines.filter(d => d.editable)
+      return this.$store.state.metas.titres.utilisateurDomaines
     },
 
     referencesTypes() {
-      return this.$store.state.metas.referencesTypes
+      return this.$store.state.metas.titre.referencesTypes
     },
 
     types() {
-      const domaine = this.domaines.find(d => d.id === this.titre.domaineId)
-      return domaine && domaine.types.filter(t => t.editable)
+      const domaine = this.domaines.find(
+        ({ id }) => id === this.titre.domaineId
+      )
+
+      return domaine && domaine.types
     },
 
     complete() {

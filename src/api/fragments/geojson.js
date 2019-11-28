@@ -1,6 +1,7 @@
 import gql from 'graphql-tag'
 
 import { fragmentPointReference } from './point'
+
 const fragmentGeojsonMultiPolygon = gql`
   fragment geojsonMultiPolygon on GeojsonMultiPolygon {
     type

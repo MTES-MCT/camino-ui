@@ -1,15 +1,15 @@
 import user from './user'
-import * as api from '../api'
+import * as api from '../api/utilisateurs'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
-jest.mock('../api', () => ({
-  utilisateurLogin: jest.fn(),
-  utilisateurIdentify: jest.fn(),
-  utilisateurPasswordInit: jest.fn(),
-  utilisateurPasswordInitEmail: jest.fn(),
-  utilisateurAddEmail: jest.fn(),
-  utilisateurAdd: jest.fn()
+jest.mock('../api/utilisateurs', () => ({
+  tokenCreer: jest.fn(),
+  moi: jest.fn(),
+  utilisateurMotDePasseInitialiser: jest.fn(),
+  utilisateurMotDePasseEmailEnvoyer: jest.fn(),
+  utilisateurCreationEmailEnvoyer: jest.fn(),
+  utilisateurCreer: jest.fn()
 }))
 
 jest.mock('../router', () => [])
@@ -75,16 +75,12 @@ describe("état de l'utilisateur connecté", () => {
 
   test("identifie l'utilisateur si un token valide est présent", async () => {
     localStorage.setItem('token', 'rene')
-    const apiMock = api.utilisateurIdentify.mockResolvedValue({
-      token: 'rene',
-      utilisateur: userInfo
-    })
+    const apiMock = api.moi.mockResolvedValue(userInfo)
 
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
 
     await store.dispatch('user/identify')
 
-    expect(apiMock).toHaveBeenCalled()
     expect(store.state.user.current).toEqual({
       id: 66,
       prenom: 'rene',
@@ -96,40 +92,25 @@ describe("état de l'utilisateur connecté", () => {
     expect(store.state.user.loaded).toBeTruthy()
   })
 
-  test("ne stocke pas de token si aucun n'est connecté", async () => {
-    const apiMock = api.utilisateurIdentify.mockResolvedValue({
-      utilisateur: null,
-      token: null
-    })
-    await store.dispatch('user/identify')
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(localStorage.getItem('token')).toBeNull()
-  })
-
   test("retourne une erreur de l'api lors de l'obtention de l'utilisateur", async () => {
-    const apiMock = api.utilisateurIdentify.mockRejectedValue(
-      new Error("erreur dans l'api")
-    )
+    const apiMock = api.moi.mockRejectedValue(new Error("erreur dans l'api"))
     localStorage.setItem('token', 'rene')
     store.commit('user/set', userInfo)
     await store.dispatch('user/identify', { email, motDePasse })
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith()
     expect(localStorage.getItem('token')).toBeNull()
     expect(store.state.user.current).toBeNull()
   })
 
   test('connecte un utilisateur', async () => {
-    const apiMock = api.utilisateurLogin.mockResolvedValue({
+    const apiMock = api.tokenCreer.mockResolvedValue({
       token: 'rene',
       utilisateur: userInfo
     })
 
     await store.dispatch('user/login', { email, motDePasse })
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ email, motDePasse })
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
@@ -147,7 +128,7 @@ describe("état de l'utilisateur connecté", () => {
   test("retourne une erreur de l'api lors de la connection d'un utilisateur", async () => {
     localStorage.setItem('token', 'rene')
     store.commit('user/set', userInfo)
-    const apiMock = api.utilisateurLogin.mockRejectedValue(
+    const apiMock = api.tokenCreer.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     await store.dispatch('user/login', { email, motDePasse })
@@ -170,22 +151,20 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test('ajoute un email', async () => {
-    const apiMock = api.utilisateurAddEmail.mockResolvedValue(email)
+    const apiMock = api.utilisateurCreationEmailEnvoyer.mockResolvedValue(email)
     await store.dispatch('user/addEmail', email)
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ email })
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
   })
 
   test("retourne une erreur de l'api lors de l'ajout d'un email", async () => {
-    const apiMock = api.utilisateurAddEmail.mockRejectedValue(
+    const apiMock = api.utilisateurCreationEmailEnvoyer.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     await store.dispatch('user/addEmail', email)
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ email })
     expect(mutations.popupClose).not.toHaveBeenCalled()
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
@@ -195,20 +174,18 @@ describe("état de l'utilisateur connecté", () => {
     const loginMock = jest.fn()
     user.actions.login = loginMock
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
-    const apiMock = api.utilisateurAdd.mockResolvedValue(userInfo)
+    const apiMock = api.utilisateurCreer.mockResolvedValue(userInfo)
     await store.dispatch('user/add', userInfo)
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ utilisateur: userInfo })
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(loginMock).toHaveBeenCalled()
   })
 
   test("n'ajoute pas d'utilisateur", async () => {
-    const apiMock = api.utilisateurAdd.mockResolvedValue(null)
+    const apiMock = api.utilisateurCreer.mockResolvedValue(null)
     await store.dispatch('user/add', userInfo)
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ utilisateur: userInfo })
     expect(actions.messageAdd).not.toHaveBeenCalled()
   })
@@ -217,34 +194,33 @@ describe("état de l'utilisateur connecté", () => {
     const loginMock = jest.fn()
     user.actions.login = loginMock
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
-    const apiMock = api.utilisateurAdd.mockRejectedValue(
+    const apiMock = api.utilisateurCreer.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     await store.dispatch('user/add', userInfo)
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ utilisateur: userInfo })
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(loginMock).not.toHaveBeenCalled()
   })
 
   test("crée l'email d'un utilisateur", async () => {
-    const apiMock = api.utilisateurPasswordInitEmail.mockResolvedValue(userInfo)
+    const apiMock = api.utilisateurMotDePasseEmailEnvoyer.mockResolvedValue(
+      userInfo
+    )
     await store.dispatch('user/passwordInitEmail', email)
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ email })
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
   })
 
   test("retourne une erreur api dans la création de l'email de l'utilisateur", async () => {
-    const apiMock = api.utilisateurPasswordInitEmail.mockRejectedValue(
+    const apiMock = api.utilisateurMotDePasseEmailEnvoyer.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     await store.dispatch('user/passwordInitEmail', email)
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ email })
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
     expect(actions.messageAdd).not.toHaveBeenCalled()
@@ -254,7 +230,7 @@ describe("état de l'utilisateur connecté", () => {
     const tokenSetMock = jest.fn()
     user.actions.tokenSet = tokenSetMock
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
-    const apiMock = api.utilisateurPasswordInit.mockResolvedValue({
+    const apiMock = api.utilisateurMotDePasseInitialiser.mockResolvedValue({
       utilisateur: userInfo
     })
     const res = await store.dispatch('user/passwordInit', {
@@ -262,14 +238,12 @@ describe("état de l'utilisateur connecté", () => {
       motDePasse2: motDePasse
     })
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({
       motDePasse1: motDePasse,
       motDePasse2: motDePasse
     })
     expect(actions.messageAdd).toHaveBeenCalledTimes(2)
     expect(tokenSetMock).toHaveBeenCalled()
-    expect(res).toEqual({ utilisateur: userInfo })
   })
 
   test("retourne une erreur api dans la création du mot de passe de l'utilisateur", async () => {
@@ -278,7 +252,7 @@ describe("état de l'utilisateur connecté", () => {
     const loginMock = jest.fn()
     user.actions.login = loginMock
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
-    const apiMock = api.utilisateurPasswordInit.mockRejectedValue(
+    const apiMock = api.utilisateurMotDePasseInitialiser.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     const res = await store.dispatch('user/passwordInit', {
@@ -287,7 +261,6 @@ describe("état de l'utilisateur connecté", () => {
       email
     })
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ motDePasse1, motDePasse2 })
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(loginMock).not.toHaveBeenCalled()

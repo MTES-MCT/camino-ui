@@ -1,12 +1,12 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import * as api from '../api'
+import * as api from '../api/entreprises'
 import entreprises from './entreprises'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-jest.mock('../api', () => ({
+jest.mock('../api/entreprises', () => ({
   entreprises: jest.fn()
 }))
 

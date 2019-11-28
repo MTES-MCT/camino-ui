@@ -1,15 +1,15 @@
 import utilisateurs from './utilisateurs'
-import * as api from '../api'
+import * as api from '../api/utilisateurs'
 import * as router from '../router'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
-jest.mock('../api', () => ({
+jest.mock('../api/utilisateurs', () => ({
   utilisateurs: jest.fn(),
-  utilisateurAdd: jest.fn(),
-  utilisateurUpdate: jest.fn(),
-  utilisateurRemove: jest.fn(),
-  utilisateurPasswordUpdate: jest.fn()
+  utilisateurCreer: jest.fn(),
+  utilisateurModifier: jest.fn(),
+  utilisateurSupprimer: jest.fn(),
+  utilisateurMotDePasseModifier: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -72,7 +72,7 @@ describe('état de la liste des utilisateurs', () => {
   })
 
   test("ajout d'un utilisateur", async () => {
-    const apiMock = api.utilisateurAdd.mockResolvedValue(utilisateurObj)
+    const apiMock = api.utilisateurCreer.mockResolvedValue(utilisateurObj)
     await store.dispatch('utilisateurs/add', utilisateurObj)
 
     expect(apiMock).toHaveBeenCalled()
@@ -83,7 +83,7 @@ describe('état de la liste des utilisateurs', () => {
   })
 
   test("retourne une erreur lors de l'ajout d'un utilisateur", async () => {
-    const apiMock = api.utilisateurAdd.mockRejectedValue(
+    const apiMock = api.utilisateurCreer.mockRejectedValue(
       new Error('utilisateurs erreur')
     )
     await store.dispatch('utilisateurs/add', utilisateurObj)
@@ -94,7 +94,7 @@ describe('état de la liste des utilisateurs', () => {
   })
 
   test("n'ajoute pas d'utilisateur car déjà existant", async () => {
-    const apiMock = api.utilisateurAdd.mockResolvedValue(null)
+    const apiMock = api.utilisateurCreer.mockResolvedValue(null)
     await store.dispatch('utilisateurs/add', utilisateurObj)
 
     expect(apiMock).toHaveBeenCalled()
@@ -156,7 +156,7 @@ describe('interactions avec les utilisateurs', () => {
   })
 
   test("modifie l'utilisateur actif", async () => {
-    const apiMock = api.utilisateurUpdate.mockResolvedValue(utilisateurObj)
+    const apiMock = api.utilisateurModifier.mockResolvedValue(utilisateurObj)
     await store.dispatch('utilisateurs/update', utilisateurObj)
 
     expect(apiMock).toHaveBeenCalled()
@@ -173,7 +173,7 @@ describe('interactions avec les utilisateurs', () => {
       mutations,
       actions
     })
-    const apiMock = api.utilisateurUpdate.mockResolvedValue(utilisateurObj)
+    const apiMock = api.utilisateurModifier.mockResolvedValue(utilisateurObj)
     await store.dispatch('utilisateurs/update', utilisateurObj)
 
     expect(apiMock).toHaveBeenCalled()
@@ -184,7 +184,7 @@ describe('interactions avec les utilisateurs', () => {
   })
 
   test("retourne une erreur de l'api lors du changement d'utilisateur", async () => {
-    const apiMock = api.utilisateurUpdate.mockRejectedValue(
+    const apiMock = api.utilisateurModifier.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     await store.dispatch('utilisateurs/update', utilisateurObj)
@@ -196,7 +196,7 @@ describe('interactions avec les utilisateurs', () => {
   })
 
   test('supprime un utilisateur', async () => {
-    const apiMock = api.utilisateurRemove.mockResolvedValue(utilisateurObj)
+    const apiMock = api.utilisateurSupprimer.mockResolvedValue(utilisateurObj)
     await store.dispatch('utilisateurs/remove', 46)
 
     expect(apiMock).toHaveBeenCalled()
@@ -210,7 +210,7 @@ describe('interactions avec les utilisateurs', () => {
   })
 
   test('supprime un utilisateur tout en le deconnectant de sa page utilisateur', async () => {
-    const apiMock = api.utilisateurRemove.mockResolvedValue(utilisateurObj)
+    const apiMock = api.utilisateurSupprimer.mockResolvedValue(utilisateurObj)
     user.state.current = utilisateurObj
     store = new Vuex.Store({
       modules: { utilisateurs, utilisateur, user },
@@ -229,7 +229,7 @@ describe('interactions avec les utilisateurs', () => {
   })
 
   test("supprime un utilisateur n'existant pas", async () => {
-    const apiMock = api.utilisateurRemove.mockResolvedValue(null)
+    const apiMock = api.utilisateurSupprimer.mockResolvedValue(null)
     await store.dispatch('utilisateurs/remove', 28)
 
     expect(apiMock).toHaveBeenCalled()
@@ -242,7 +242,7 @@ describe('interactions avec les utilisateurs', () => {
   })
 
   test("retourne une erreur de l'api dans la suppression de l'utilisateur", async () => {
-    const apiMock = api.utilisateurRemove.mockRejectedValue(
+    const apiMock = api.utilisateurSupprimer.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     await store.dispatch('utilisateurs/remove', 46)
@@ -253,7 +253,7 @@ describe('interactions avec les utilisateurs', () => {
   })
 
   test("modifie le mot de passe d'un utilisateur", async () => {
-    const apiMock = api.utilisateurPasswordUpdate.mockResolvedValue({
+    const apiMock = api.utilisateurMotDePasseModifier.mockResolvedValue({
       id: 46,
       mdp: 'jour',
       nom: 'jean',
@@ -266,7 +266,6 @@ describe('interactions avec les utilisateurs', () => {
       motDePasseNouveau2: 'jour'
     })
 
-    expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({
       id: 46,
       motDePasse: 'bon',
@@ -279,7 +278,7 @@ describe('interactions avec les utilisateurs', () => {
   })
 
   test("ne trouve pas l'utilisateur dont le mot de passe est à modifier", async () => {
-    const apiMock = api.utilisateurPasswordUpdate.mockResolvedValue(null)
+    const apiMock = api.utilisateurMotDePasseModifier.mockResolvedValue(null)
     await store.dispatch('utilisateurs/passwordUpdate', {
       id: 24,
       motDePasse: 'bon',
@@ -300,7 +299,7 @@ describe('interactions avec les utilisateurs', () => {
   })
 
   test("retourne une erreur de l'api dans la modification du mot de passe", async () => {
-    const apiMock = api.utilisateurPasswordUpdate.mockRejectedValue(
+    const apiMock = api.utilisateurMotDePasseModifier.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     await store.dispatch('utilisateurs/passwordUpdate', {

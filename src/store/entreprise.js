@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import router from '../router'
-
-import { entreprise, entrepriseCreate, entrepriseUpdate } from '../api'
+import {
+  entreprise,
+  entrepriseCreer,
+  entrepriseModifier
+} from '../api/entreprises'
 
 export const state = {
   current: null
@@ -12,10 +15,10 @@ export const actions = {
     commit('loadingAdd', 'entreprise', { root: true })
 
     try {
-      const res = await entreprise(id)
+      const data = await entreprise({ id })
 
-      if (res) {
-        commit('set', res)
+      if (data) {
+        commit('set', data)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -49,11 +52,11 @@ export const actions = {
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'entrepriseCreate', { root: true })
     try {
-      const res = await entrepriseCreate({ entreprise })
+      const data = await entrepriseCreer({ entreprise })
 
-      if (res) {
+      if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: res.id })
+        dispatch('reload', { id: data.id })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -69,11 +72,14 @@ export const actions = {
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'entrepriseUpdate', { root: true })
     try {
-      const res = await entrepriseUpdate({ entreprise })
+      const data = await entrepriseModifier({ entreprise })
 
-      if (res) {
+      if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: res.id, idOld: entreprise.id })
+        dispatch('reload', {
+          id: data.id,
+          idOld: entreprise.id
+        })
       } else {
         dispatch('pageError', null, { root: true })
       }

@@ -313,7 +313,7 @@ export default {
     },
 
     permissions() {
-      return this.$store.state.metas.permissions
+      return this.$store.state.metas.utilisateur.permissions
     },
 
     entreprises() {

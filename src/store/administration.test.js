@@ -1,9 +1,9 @@
 import administration from './administration'
 import { createLocalVue } from '@vue/test-utils'
+import * as api from '../api/administrations'
 import Vuex from 'vuex'
-import * as api from '../api'
 
-jest.mock('../api', () => ({
+jest.mock('../api/administrations', () => ({
   administration: jest.fn()
 }))
 
@@ -40,8 +40,7 @@ describe("état de l'administration consultée", () => {
     const apiMock = api.administration.mockResolvedValue(administration)
     await store.dispatch('administration/get', administrationId)
 
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(administrationId)
+    expect(apiMock).toHaveBeenCalledWith({ id: administrationId })
     expect(store.state.administration.current).toEqual(administration)
   })
 
@@ -49,8 +48,7 @@ describe("état de l'administration consultée", () => {
     const apiMock = api.administration.mockResolvedValue(null)
     await store.dispatch('administration/get', administrationId)
 
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(administrationId)
+    expect(apiMock).toHaveBeenCalledWith({ id: administrationId })
     expect(actions.pageError).toHaveBeenCalled()
     expect(store.state.administration.current).toBeNull()
   })
@@ -61,8 +59,7 @@ describe("état de l'administration consultée", () => {
     )
     await store.dispatch('administration/get', administrationId)
 
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(administrationId)
+    expect(apiMock).toHaveBeenCalledWith({ id: administrationId })
     expect(console.log).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })

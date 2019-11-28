@@ -290,7 +290,7 @@ export default {
     },
 
     documentsTypes() {
-      return this.$store.state.metas.documentsTypes
+      return this.$store.state.metas.document.documentsTypes
     }
   },
 

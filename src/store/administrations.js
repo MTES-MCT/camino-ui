@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import { administrations } from '../api'
+
+import { administrations } from '../api/administrations'
 
 export const state = {
   list: []
@@ -10,9 +11,9 @@ export const actions = {
     commit('loadingAdd', 'administrations', { root: true })
 
     try {
-      const res = await administrations({})
-      if (res) {
-        commit('set', res)
+      const data = await administrations()
+      if (data) {
+        commit('set', data)
       } else {
         dispatch('pageError', null, { root: true })
       }

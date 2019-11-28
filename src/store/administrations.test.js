@@ -1,12 +1,13 @@
 import administrations from './administrations'
-import * as api from '../api'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+
+import * as api from '../api/administrations'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-jest.mock('../api', () => ({
+jest.mock('../api/administrations', () => ({
   administrations: jest.fn()
 }))
 

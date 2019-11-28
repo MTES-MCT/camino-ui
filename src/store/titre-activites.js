@@ -1,6 +1,4 @@
-// import Vue from 'vue'
-
-import { titreActiviteUpdate } from '../api'
+import { activiteModifier } from '../api/activites'
 
 export const state = {}
 
@@ -9,7 +7,7 @@ export const actions = {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'titreActiviteUpdate', { root: true })
     try {
-      const res = await titreActiviteUpdate({
+      const data = await activiteModifier({
         activite: {
           id: activite.id,
           contenu: activite.contenu,
@@ -17,25 +15,23 @@ export const actions = {
         }
       })
 
-      if (res) {
-        commit('popupClose', null, { root: true })
-        dispatch(
-          'messageAdd',
-          {
-            value:
-              res.statut.id === 'dep'
-                ? `l'activite a été validée`
-                : `l'activite a été enregistrée`,
-            type: 'success'
-          },
-          { root: true }
-        )
-        dispatch(
-          'titre/reload',
-          { id: rootState.titre.current.id },
-          { root: true }
-        )
-      }
+      commit('popupClose', null, { root: true })
+      dispatch(
+        'messageAdd',
+        {
+          value:
+            data.statut.id === 'dep'
+              ? `l'activite a été validée`
+              : `l'activite a été enregistrée`,
+          type: 'success'
+        },
+        { root: true }
+      )
+      dispatch(
+        'titre/reload',
+        { id: rootState.titre.current.id, idOld: rootState.titre.current.id },
+        { root: true }
+      )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

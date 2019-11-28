@@ -107,7 +107,7 @@ export default {
     },
 
     domaines() {
-      return this.$store.state.metas.domaines
+      return this.$store.state.metas.titres.domaines
     },
 
     tiles() {

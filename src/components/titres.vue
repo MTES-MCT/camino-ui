@@ -145,7 +145,7 @@ export default {
     },
 
     editable() {
-      return this.$store.state.metas.domaines.find(d => d.editable) !== undefined
+      return this.$store.state.metas.titres.utilisateurDomaines.length
     }
   },
 

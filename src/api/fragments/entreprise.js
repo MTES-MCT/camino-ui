@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-import fragmentTitres from './titres'
+import { fragmentTitres } from './titre'
 import { fragmentUtilisateur } from './utilisateur'
 
 const fragmentEntreprise = gql`
@@ -40,4 +40,4 @@ const fragmentEntreprise = gql`
   ${fragmentUtilisateur}
 `
 
-export default fragmentEntreprise
+export { fragmentEntreprise }

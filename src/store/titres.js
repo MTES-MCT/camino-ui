@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import { titres } from '../api'
+
+import { titres } from '../api/titres'
 
 export const state = {
   list: [],
@@ -34,7 +35,7 @@ export const actions = {
           : params
       }, {})
 
-      const res = await titres(params, 'network-only')
+      const data = await titres(params)
 
       if (state.list.length) {
         dispatch(
@@ -47,7 +48,7 @@ export const actions = {
         )
       }
 
-      commit('set', res)
+      commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.log(e)

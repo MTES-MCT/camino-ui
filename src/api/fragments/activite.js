@@ -1,9 +1,8 @@
 import gql from 'graphql-tag'
-import { fragmentActiviteType } from './metas-activites'
-
+import { fragmentActiviteType } from './metas'
 
 const fragmentTitreActivite = gql`
-  fragment titreActivite on TitreActivite {
+  fragment titreActivite on Activite {
     id
     date
     statut {
@@ -25,7 +24,7 @@ const fragmentTitreActivite = gql`
 `
 
 const fragmentTitresActivite = gql`
-  fragment titresActivite on TitreActivite {
+  fragment titresActivite on Activite {
     id
     date
     statut {

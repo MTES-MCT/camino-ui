@@ -1,69 +1,47 @@
-import graphqlClient from './_graphql-client'
-import graphqlErrorThrow from './_error-throw'
+import gql from 'graphql-tag'
+import { fragmentEntreprises } from './fragments/entreprises'
+import { fragmentEntreprise } from './fragments/entreprise'
 
-import {
-  queryEntreprise,
-  queryEntreprises,
-  mutationEntrepriseCreer,
-  mutationEntrepriseModifier
-} from './queries/entreprises'
+import { apiQuery, apiMutate } from './_utils'
 
-const entreprise = async id => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryEntreprise,
-      variables: { id },
-      fetchPolicy: 'network-only'
-    })
-
-    return res && res.data && res.data.entreprise
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const entreprise = apiQuery(gql`
+  query Entreprise($id: ID!) {
+    entreprise(id: $id) {
+      ...entreprise
+    }
   }
-}
 
-const entreprises = async () => {
-  try {
-    const res = await graphqlClient.query({
-      query: queryEntreprises,
-      variables: {},
-      fetchPolicy: 'network-only'
-    })
+  ${fragmentEntreprise}
+`)
 
-    return res && res.data && res.data.entreprises
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const entreprises = apiQuery(gql`
+  query Entreprises {
+    entreprises {
+      ...entreprises
+    }
   }
-}
 
-const entrepriseCreate = async ({ entreprise }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationEntrepriseCreer,
-      variables: { entreprise }
-    })
+  ${fragmentEntreprises}
+`)
 
-    return res && res.data && res.data.entrepriseCreer
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const entrepriseCreer = apiMutate(gql`
+  mutation EntrepriseCreer($entreprise: InputEntrepriseCreation!) {
+    entrepriseCreer(entreprise: $entreprise) {
+      ...entreprise
+    }
   }
-}
 
-const entrepriseUpdate = async ({ entreprise }) => {
-  try {
-    const res = await graphqlClient.mutate({
-      mutation: mutationEntrepriseModifier,
-      variables: { entreprise }
-    })
+  ${fragmentEntreprise}
+`)
 
-    return res && res.data && res.data.entrepriseModifier
-  } catch (e) {
-    console.error(e)
-    graphqlErrorThrow(e)
+const entrepriseModifier = apiMutate(gql`
+  mutation EntrepriseModifier($entreprise: InputEntrepriseModification!) {
+    entrepriseModifier(entreprise: $entreprise) {
+      ...entreprise
+    }
   }
-}
 
-export { entreprise, entreprises, entrepriseCreate, entrepriseUpdate }
+  ${fragmentEntreprise}
+`)
+
+export { entreprise, entreprises, entrepriseCreer, entrepriseModifier }

@@ -1,11 +1,12 @@
 import Vue from 'vue'
+
 import {
   utilisateurs,
-  utilisateurAdd,
-  utilisateurUpdate,
-  utilisateurRemove,
-  utilisateurPasswordUpdate
-} from '../api'
+  utilisateurCreer,
+  utilisateurModifier,
+  utilisateurSupprimer,
+  utilisateurMotDePasseModifier
+} from '../api/utilisateurs'
 
 import router from '../router'
 
@@ -18,9 +19,9 @@ export const actions = {
     commit('loadingAdd', 'utilisateurs', { root: true })
 
     try {
-      const res = await utilisateurs({})
-      if (res) {
-        commit('set', res)
+      const data = await utilisateurs({})
+      if (data) {
+        commit('set', data)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -36,16 +37,16 @@ export const actions = {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'utilisateurAdd', { root: true })
     try {
-      const u = await utilisateurAdd({ utilisateur })
+      const data = await utilisateurCreer({ utilisateur })
 
       commit('popupClose', null, { root: true })
 
-      if (u) {
-        commit('add', u)
+      if (data) {
+        commit('add', data)
         dispatch(
           'messageAdd',
           {
-            value: `utilisateur ${u.prenom} ${u.nom} ajouté`,
+            value: `utilisateur ${data.prenom} ${data.nom} ajouté`,
             type: 'success'
           },
           { root: true }
@@ -63,19 +64,19 @@ export const actions = {
     commit('loadingAdd', 'utilisateurUpdate', { root: true })
 
     try {
-      const u = await utilisateurUpdate({ utilisateur })
+      const data = await utilisateurModifier({ utilisateur })
 
-      commit('utilisateur/set', u, { root: true })
+      commit('utilisateur/set', data, { root: true })
 
       if (utilisateur.id === rootState.user.current.id) {
-        commit('user/set', u, { root: true })
+        commit('user/set', data, { root: true })
       }
 
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
         {
-          value: `utilisateur ${u.prenom} ${u.nom} mis à jour`,
+          value: `utilisateur ${data.prenom} ${data.nom} mis à jour`,
           type: 'success'
         },
         { root: true }
@@ -92,19 +93,19 @@ export const actions = {
     commit('loadingAdd', 'utilisateurRemove', { root: true })
 
     try {
-      const utilisateur = await utilisateurRemove({ id })
+      const data = await utilisateurSupprimer({ id })
 
-      if (utilisateur) {
-        commit('remove', utilisateur.id)
+      if (data) {
+        commit('remove', data.id)
 
-        if (utilisateur.id === rootState.user.current.id) {
+        if (data.id === rootState.user.current.id) {
           dispatch('user/logout', null, { root: true })
         }
         commit('popupClose', null, { root: true })
         dispatch(
           'messageAdd',
           {
-            value: `utilisateur ${utilisateur.prenom} ${utilisateur.nom} supprimé`,
+            value: `utilisateur ${data.prenom} ${data.nom} supprimé`,
             type: 'success'
           },
           { root: true }
@@ -127,14 +128,14 @@ export const actions = {
     commit('loadingAdd', 'utilisateurPasswordUpdate', { root: true })
 
     try {
-      const utilisateur = await utilisateurPasswordUpdate({
+      const data = await utilisateurMotDePasseModifier({
         id,
         motDePasse,
         motDePasseNouveau1,
         motDePasseNouveau2
       })
 
-      if (utilisateur) {
+      if (data) {
         commit('popupClose', null, { root: true })
         dispatch(
           'messageAdd',

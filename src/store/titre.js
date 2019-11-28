@@ -1,19 +1,20 @@
 import Vue from 'vue'
+
 import {
   titre,
-  titreCreate,
-  titreUpdate,
-  titreDelete,
-  titreDemarcheCreate,
-  titreDemarcheUpdate,
-  titreDemarcheDelete,
-  titreEtapeCreate,
-  titreEtapeUpdate,
-  titreEtapeDelete,
-  titreDocumentCreate,
-  titreDocumentUpdate,
-  titreDocumentDelete
-} from '../api'
+  titreCreer,
+  titreModifier,
+  titreSupprimer,
+  demarcheCreer,
+  demarcheModifier,
+  demarcheSupprimer,
+  etapeCreer,
+  etapeModifier,
+  etapeSupprimer,
+  documentCreer,
+  documentModifier,
+  documentSupprimer
+} from '../api/titres'
 
 import router from '../router'
 
@@ -26,10 +27,10 @@ export const actions = {
     commit('loadingAdd', 'titre', { root: true })
 
     try {
-      const res = await titre(id)
+      const data = await titre({ id })
 
-      if (res) {
-        commit('set', res)
+      if (data) {
+        commit('set', data)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -64,11 +65,11 @@ export const actions = {
     commit('loadingAdd', 'titreCreate', { root: true })
 
     try {
-      const res = await titreCreate({ titre })
+      const data = await titreCreer({ titre })
 
-      if (res) {
+      if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: res.id, creation: true })
+        dispatch('reload', { id: data.id, creation: true })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -85,11 +86,11 @@ export const actions = {
     commit('loadingAdd', 'titreUpdate', { root: true })
 
     try {
-      const titreRes = await titreUpdate({ titre })
+      const data = await titreModifier({ titre })
 
-      if (titreRes) {
+      if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: titreRes.id, idOld: titre.id })
+        dispatch('reload', { id: data.id, idOld: titre.id })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -106,9 +107,9 @@ export const actions = {
     commit('loadingAdd', 'titreDelete', { root: true })
 
     try {
-      const titre = await titreDelete({ id })
+      const data = await titreSupprimer({ id })
 
-      if (titre) {
+      if (data) {
         commit('popupClose', null, { root: true })
         dispatch(
           'messageAdd',
@@ -135,11 +136,14 @@ export const actions = {
     commit('loadingAdd', 'titreDemarcheCreate', { root: true })
 
     try {
-      const titre = await titreDemarcheCreate({ demarche })
+      const data = await demarcheCreer({ demarche })
 
-      if (titre) {
+      if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: titre.id, idOld: demarche.titreId })
+        dispatch('reload', {
+          id: data.id,
+          idOld: demarche.titreId
+        })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -156,11 +160,14 @@ export const actions = {
     commit('loadingAdd', 'titreDemarcheUpdate', { root: true })
 
     try {
-      const titre = await titreDemarcheUpdate({ demarche })
+      const data = await demarcheModifier({ demarche })
 
-      if (titre) {
+      if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: titre.id, idOld: demarche.titreId })
+        dispatch('reload', {
+          id: data.id,
+          idOld: demarche.titreId
+        })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -177,11 +184,14 @@ export const actions = {
     commit('loadingAdd', 'titreDemarcheDelete', { root: true })
 
     try {
-      const titre = await titreDemarcheDelete({ id })
+      const data = await demarcheSupprimer({ id })
 
-      if (titre) {
+      if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: titre.id, idOld: id.slice(0, -6) })
+        dispatch('reload', {
+          id: data.id,
+          idOld: id.slice(0, -6)
+        })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -198,12 +208,12 @@ export const actions = {
     commit('loadingAdd', 'titreEtapeCreate', { root: true })
 
     try {
-      const titre = await titreEtapeCreate({ etape })
+      const data = await etapeCreer({ etape })
 
-      if (titre) {
+      if (data) {
         commit('popupClose', null, { root: true })
         dispatch('reload', {
-          id: titre.id,
+          id: data.id,
           idOld: etape.titreDemarcheId.slice(0, -6)
         })
       } else {
@@ -222,12 +232,12 @@ export const actions = {
     commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
     try {
-      const titre = await titreEtapeUpdate({ etape })
+      const data = await etapeModifier({ etape })
 
-      if (titre) {
+      if (data) {
         commit('popupClose', null, { root: true })
         dispatch('reload', {
-          id: titre.id,
+          id: data.id,
           idOld: etape.titreDemarcheId.slice(0, -6)
         })
       } else {
@@ -245,11 +255,14 @@ export const actions = {
     commit('loadingAdd', 'titreEtapeDelete', { root: true })
 
     try {
-      const titre = await titreEtapeDelete({ id })
+      const data = await etapeSupprimer({ id })
 
-      if (titre) {
+      if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: titre.id, idOld: id.slice(0, -12) })
+        dispatch('reload', {
+          id: data.id,
+          idOld: id.slice(0, -12)
+        })
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -266,12 +279,12 @@ export const actions = {
     commit('loadingAdd', 'titreDocumentCreate', { root: true })
 
     try {
-      const titre = await titreDocumentCreate({ document })
+      const data = await documentCreer({ document })
 
-      if (titre) {
+      if (data) {
         commit('popupClose', null, { root: true })
         dispatch('reload', {
-          id: titre.id,
+          id: data.id,
           idOld: document.titreEtapeId.slice(0, -12)
         })
       } else {
@@ -290,12 +303,12 @@ export const actions = {
     commit('loadingAdd', 'titreDocumentUpdate', { root: true })
 
     try {
-      const titre = await titreDocumentUpdate({ document })
+      const data = await documentModifier({ document })
 
-      if (titre) {
+      if (data) {
         commit('popupClose', null, { root: true })
         dispatch('reload', {
-          id: titre.id,
+          id: data.id,
           idOld: document.titreEtapeId.slice(0, -12)
         })
       } else {
@@ -313,11 +326,14 @@ export const actions = {
     commit('loadingAdd', 'titreDocumentDelete', { root: true })
 
     try {
-      const titre = await titreDocumentDelete({ id })
+      const data = await documentSupprimer({ id })
 
-      if (titre) {
+      if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: titre.id, idOld: id.slice(0, -21) })
+        dispatch('reload', {
+          id: data.id,
+          idOld: id.slice(0, -21)
+        })
       } else {
         dispatch('pageError', null, { root: true })
       }

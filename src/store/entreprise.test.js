@@ -1,6 +1,6 @@
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import * as api from '../api'
+import * as api from '../api/entreprises'
 import entreprise from './entreprise'
 
 const localVue = createLocalVue()
@@ -11,10 +11,10 @@ jest.mock('../router', () => ({
   replace: () => {}
 }))
 
-jest.mock('../api', () => ({
+jest.mock('../api/entreprises', () => ({
   entreprise: jest.fn(),
-  entrepriseCreate: jest.fn(),
-  entrepriseUpdate: jest.fn()
+  entrepriseCreer: jest.fn(),
+  entrepriseModifier: jest.fn()
 }))
 
 console.log = jest.fn()
@@ -52,8 +52,7 @@ describe("état de l'entreprise sélectionnée", () => {
     const apiMock = api.entreprise.mockResolvedValue({ id: 71, nom: 'toto' })
     await store.dispatch('entreprise/get', 71)
 
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(71)
+    expect(apiMock).toHaveBeenCalledWith({ id: 71 })
     expect(store.state.entreprise.current).toEqual({ id: 71, nom: 'toto' })
   })
 
@@ -61,8 +60,7 @@ describe("état de l'entreprise sélectionnée", () => {
     const apiMock = api.entreprise.mockResolvedValue(null)
     await store.dispatch('entreprise/get', 71)
 
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(71)
+    expect(apiMock).toHaveBeenCalledWith({ id: 71 })
     expect(actions.pageError).toHaveBeenCalled()
     expect(store.state.entreprise.current).toBeNull()
   })
@@ -73,8 +71,7 @@ describe("état de l'entreprise sélectionnée", () => {
     )
     await store.dispatch('entreprise/get', 71)
 
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith(71)
+    expect(apiMock).toHaveBeenCalledWith({ id: 71 })
     expect(console.log).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
@@ -105,7 +102,7 @@ describe("état de l'entreprise sélectionnée", () => {
   })
 
   test('ajoute une entreprise', async () => {
-    const apiMock = api.entrepriseCreate.mockResolvedValue({
+    const apiMock = api.entrepriseCreer.mockResolvedValue({
       id: 71,
       nom: 'toto'
     })
@@ -125,7 +122,7 @@ describe("état de l'entreprise sélectionnée", () => {
   })
 
   test("retourne une erreur si l'API retourne null lors de l'ajout d'une entreprise", async () => {
-    const apiMock = api.entrepriseCreate.mockResolvedValue(null)
+    const apiMock = api.entrepriseCreer.mockResolvedValue(null)
     await store.dispatch('entreprise/create', {
       legalSiren: '123456789',
       paysId: 'fr'
@@ -142,7 +139,7 @@ describe("état de l'entreprise sélectionnée", () => {
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de l'ajout d'une entreprise", async () => {
-    const apiMock = api.entrepriseCreate.mockRejectedValue(
+    const apiMock = api.entrepriseCreer.mockRejectedValue(
       new Error('erreur api')
     )
     await store.dispatch('entreprise/create', {
@@ -161,7 +158,7 @@ describe("état de l'entreprise sélectionnée", () => {
   })
 
   test('modifie une entreprise', async () => {
-    const apiMock = api.entrepriseUpdate.mockResolvedValue({
+    const apiMock = api.entrepriseModifier.mockResolvedValue({
       id: 71,
       nom: 'toto'
     })
@@ -181,7 +178,7 @@ describe("état de l'entreprise sélectionnée", () => {
   })
 
   test("retourne une erreur si l'API retourne null lors de la modification d'une entreprise", async () => {
-    const apiMock = api.entrepriseUpdate.mockResolvedValue(null)
+    const apiMock = api.entrepriseModifier.mockResolvedValue(null)
     await store.dispatch('entreprise/update', {
       legalSiren: '123456789',
       paysId: 'fr'
@@ -198,7 +195,7 @@ describe("état de l'entreprise sélectionnée", () => {
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la modification d'une entreprise", async () => {
-    const apiMock = api.entrepriseUpdate.mockRejectedValue(
+    const apiMock = api.entrepriseModifier.mockRejectedValue(
       new Error('erreur api')
     )
     await store.dispatch('entreprise/update', {
