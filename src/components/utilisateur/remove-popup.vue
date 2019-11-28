@@ -13,30 +13,29 @@
       {{ utilisateur.nom }} ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
-      <span class="bold">
-        Attention
-      </span>: cette opération est définitive et
+      <span class="bold"> Attention </span>: cette opération est définitive et
       ne peut pas être annulée.
     </div>
 
     <template slot="footer">
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
-          <button
-            class="btn-border rnd-xs p-s full-x"
-            @click="cancel"
-          >
+          <button class="btn-border rnd-xs p-s full-x" @click="cancel">
             Annuler
           </button>
         </div>
         <div class="tablet-blob-2-3">
           <button
             id="cmn-utilisateur-remove-popup-button-supprimer"
+            v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
             @click="remove"
           >
             Supprimer
           </button>
+          <div v-else class="p-s full-x bold">
+            Suppression en cours…
+          </div>
         </div>
       </div>
     </template>
@@ -61,6 +60,10 @@ export default {
   },
 
   computed: {
+    loading() {
+      return this.$store.state.popup.loading
+    },
+
     messages() {
       return this.$store.state.popup.messages
     }

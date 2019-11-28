@@ -73,12 +73,19 @@
           :class="{ disabled: !complete }"
         >
           <button
+            v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
             @keyup.enter.native="save"
           >
             Enregistrer
           </button>
+          <div
+            v-else
+            class="p-s full-x bold"
+          >
+            Enregistrement en cours…
+          </div>
         </div>
       </div>
     </template>
@@ -111,6 +118,9 @@ export default {
   },
 
   computed: {
+    loading() {
+      return this.$store.state.popup.loading
+    },
     messages() {
       return this.$store.state.popup.messages
     },
