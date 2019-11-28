@@ -19,9 +19,13 @@ const metasInit = apiQuery(gql`
     entreprises {
       ...entreprises
     }
+    administrations {
+      ...administrations
+    }
   }
 
   ${fragmentEntreprises}
+  ${fragmentAdministrations}
 `)
 
 const metasTitre = apiQuery(
