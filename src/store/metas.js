@@ -128,7 +128,7 @@ export const actions = {
     try {
       const data = await metasDocument()
 
-      commit('set', { data, type: 'document' })
+      commit('set', { data: { documentsTypes: data }, type: 'document' })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

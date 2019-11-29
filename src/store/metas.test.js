@@ -240,18 +240,20 @@ describe('état de la liste des métas', () => {
   test('récupère les métas pour éditer un document', async () => {
     const apiMock = api.metasDocument.mockResolvedValue({
       documentsTypes: [
-        { id: 'ifr', nom: 'Ifremer' },
-        { id: 'dge', nom: 'DGEC' }
+        { id: 'arr', nom: 'Arrêté' },
+        { id: 'avi', nom: 'Avis' }
       ]
     })
 
     await store.dispatch('metas/titreEtapeDocumentGet')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.metas.document.documentsTypes).toEqual([
-      { id: 'dge', nom: 'DGEC' },
-      { id: 'ifr', nom: 'Ifremer' }
-    ])
+    expect(store.state.metas.document.documentsTypes).toEqual({
+      documentsTypes: [
+        { id: 'arr', nom: 'Arrêté' },
+        { id: 'avi', nom: 'Avis' }
+      ]
+    })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
