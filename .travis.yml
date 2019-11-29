@@ -2,8 +2,10 @@ language: node_js
 node_js:
   - '10'
 env:
-  - CODECOV_TOKEN="b1916671-a54f-451d-aad8-6324be40418a" VUE_APP_API_URL=http://test.camino.beta.gouv.fr CYPRESS_USER_SUPER_EMAIL="super@camino.local" CYPRESS_USER_SUPER_MOT_DE_PASSE="super-secret"
-# Cypress config
+  jobs:
+    - CODECOV_TOKEN="b1916671-a54f-451d-aad8-6324be40418a" VUE_APP_API_URL="https://api.test.camino.beta.gouv.fr" CYPRESS_API_URL="https://api.test.camino.beta.gouv.fr"
+  global:
+    secure: c4KVt7Y4zJHLBSYLf6WXuPLB2M7yH9SHQDJx4rwbXRyvm6nbUo2FuNcU0ovvg6qUAfE0uz4eQw7gQv2sL+NAZ/0tHSUCP6EaTHoQZflGvMRc0nadi/LBj6xOqalzNJZUcjPTih3s4m+3iNm31i01dQlj7iYo1Aj/UgKQ50K+HtdPCS4xIx9IxUsf/+URQsVKaKcSighUlRfJ348/IYS6MfFwyRAPLpWHnB5JnmzU3KU0g7WjvbAmIpCc81iUwNb9zqwg5qVf9kKOI5/9owcIWfoA1igWmK03qOzoczxTD7u8HLAH/JFZVRYgSuHL03fV+u9AvLfraTWFgOipPHgqZcXH+PDAHK4d41un6EyKZ4MECZM6i12A3WRp5k4ci2tql0bRLE1Hmot3nSwzV7b8eDj6JdV09N17thsrRvaMJJpZl0NE0zUzkd2THIj2S0tKPrmKzA++Gky0naVx1vDsWO5RW4pdARreS7gQwZQKRYyItFFkyIDtWPOs4pexB+motyEDG5cfqouoaqc7J0AOspND1FyOysV9XZLnxm7RRwLotnEK+Ij4nTkfXjrsuOFby7/l8qyS400/koab0fw2tAt+9quAqGPliGkNqmnFolVbUU8vpBFhxFFB15acGCXY0vQG0b5nC6wExm62t4rO6O2crYOr1t/cMfvI0HNo6hM=
 addons:
   apt:
     packages:
@@ -11,4 +13,4 @@ addons:
 cache:
   npm: true
   directories:
-    - ~/.cache
+    - '~/.cache'

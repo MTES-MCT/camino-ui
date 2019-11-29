@@ -2,6 +2,11 @@
   "name": "camino-ui",
   "version": "0.22.10",
   "description": "Interface web de Camino, le cadastre minier numérique ouvert",
+  "license": "AGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MTES-MCT/camino-ui"
+  },
   "author": {
     "name": "François Romain",
     "email": "francoisromain@gmail.com",
@@ -163,11 +168,6 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "license": "AGPL-3.0-or-later",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MTES-MCT/camino-ui"
   },
   "stylelint": {
     "extends": [

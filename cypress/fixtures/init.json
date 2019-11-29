@@ -1,9 +1,0 @@
-{
-  "operation": "Init",
-  "response": {
-    "data": {
-      "version": "0.24.11",
-      "utilisateurDomaines": []
-    }
-  }
-}

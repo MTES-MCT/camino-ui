@@ -11,25 +11,7 @@ describe('Activités', () => {
     administrationsIds: null
   }
 
-  beforeEach(function() {
-    cy.fixture('init').as('init')
-    cy.fixture('moi-null').as('moiNull')
-    cy.fixture('titre-axm-null').as('titreAxmNull')
-    cy.fixture('titre-axm-entreprise').as('titreAxmEntreprise')
-    cy.fixture('activite-modifier-axm').as('activiteModifierAxm')
-    cy.fixture('titre-axm-entreprise-activite').as('titreAxmEntrepriseActivite')
-  })
-
   it('ajoute une activité', function() {
-    cy.mockGraphQL([
-      this.init,
-      this.moiNull,
-      this.titreAxmNull,
-      this.titreAxmEntreprise,
-      this.activiteModifierAxm,
-      this.titreAxmEntrepriseActivite
-    ])
-
     cy.visit('http://localhost:8080/titres/m-axm-auror-2018')
     cy.userAdd(utilisateur, 'entreprise')
     cy.login(utilisateur.email, utilisateur.motDePasse, 'entreprise')

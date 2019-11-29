@@ -1,5 +1,0 @@
-{
-  "to": "test@camino.local",
-  "subject": "Création de votre compte utilisateur",
-  "html": "<p>Pour créer votre compte, <a href=\"http://localhost:8080/creation-de-compte?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAY2FtaW5vLmxvY2FsIiwiaWF0IjoxNTc1MDMxMTM1fQ.SchLKzyS9QuV4Fo6EQweMhWFLS9maysn_pTLuQpZrhE&email=test%40camino.local\">cliquez ici</a>.</p>"
-}
