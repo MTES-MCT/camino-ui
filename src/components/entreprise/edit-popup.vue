@@ -3,12 +3,11 @@
     <template slot="header">
       <div>
         <h2 class="mb-0">
-          Modification d'une fiche entreprise
+          Modification d'une entreprise
         </h2>
       </div>
     </template>
 
-    <hr>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone </h6>
@@ -125,9 +124,9 @@ export default {
   },
 
   methods: {
-    save() {
+    async save() {
       const entreprise = JSON.parse(JSON.stringify(this.entreprise))
-      this.$store.dispatch('entreprise/update', entreprise)
+      await this.$store.dispatch('entreprise/update', entreprise)
     },
 
     cancel() {

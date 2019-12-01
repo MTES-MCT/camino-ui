@@ -88,9 +88,9 @@ export default {
   },
 
   methods: {
-    save() {
+    async save() {
       if (this.complete) {
-        this.$store.dispatch('user/passwordInitEmail', this.email)
+        await this.$store.dispatch('user/passwordInitEmail', this.email)
       }
     },
 

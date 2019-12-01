@@ -173,12 +173,12 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('titres/get')
+    async get() {
+      await this.$store.dispatch('titres/get')
     },
 
-    metasGet() {
-      this.$store.dispatch('metas/titresGet')
+    async metasGet() {
+      await this.$store.dispatch('metas/titresGet')
     },
 
     init() {

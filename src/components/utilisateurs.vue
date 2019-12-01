@@ -64,8 +64,8 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('utilisateurs/get')
+    async get() {
+      await this.$store.dispatch('utilisateurs/get')
     },
     addPopupOpen() {
       this.$store.commit('popupOpen', {

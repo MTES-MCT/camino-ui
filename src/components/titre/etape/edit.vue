@@ -225,11 +225,11 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('metas/titreEtapeGet', this.etape)
+    async get() {
+      await this.$store.dispatch('metas/titreEtapeGet', this.etape)
     },
 
-    save() {
+    async save() {
       if (this.complete) {
         const etape = etapeSaveFormat(this.etape)
 
@@ -237,9 +237,9 @@ export default {
 
         // console.log(JSON.stringify(etape, null, 2))
         if (this.creation) {
-          this.$store.dispatch('titre/etapeCreate', etape)
+          await this.$store.dispatch('titre/etapeCreate', etape)
         } else {
-          this.$store.dispatch('titre/etapeUpdate', etape)
+          await this.$store.dispatch('titre/etapeUpdate', etape)
         }
       }
     },

@@ -12,12 +12,15 @@ jest.mock('../api/activites', () => ({
 
 describe('état des activités', () => {
   let store
-  let activite
   let mutations
   let actions
-  let actionsTitre
-  let titre
+
   beforeEach(() => {
+    actions = {
+      reload: jest.fn(),
+      messageAdd: jest.fn()
+    }
+
     mutations = {
       popupMessagesRemove: jest.fn(),
       loadingAdd: jest.fn(),
@@ -25,17 +28,12 @@ describe('état des activités', () => {
       popupClose: jest.fn(),
       popupMessageAdd: jest.fn()
     }
-    actions = {
-      messageAdd: jest.fn()
-    }
-    actionsTitre = { reload: jest.fn() }
-    activite = { id: 27, contenu: [], statut: { id: 'dep' } }
-    titreActivites.state = {}
-    titre = { namespaced: true, actions: actionsTitre }
+
     store = new Vuex.Store({
-      modules: { titreActivites, titre },
+      modules: { titreActivites },
       mutations,
-      actions
+      actions,
+      state: { titre: { current: { id: 5 } } }
     })
   })
 
@@ -43,7 +41,12 @@ describe('état des activités', () => {
     const apiMock = api.activiteModifier.mockResolvedValue({
       statut: { id: 'dep' }
     })
-    await store.dispatch('titreActivites/update', activite)
+
+    await store.dispatch('titreActivites/update', {
+      id: 27,
+      contenu: [],
+      statut: { id: 'dep' }
+    })
 
     expect(mutations.popupMessagesRemove).toHaveBeenCalled()
     expect(mutations.loadingAdd).toHaveBeenCalled()
@@ -51,22 +54,34 @@ describe('état des activités', () => {
       activite: { id: 27, contenu: [], activiteStatutId: 'dep' }
     })
     expect(mutations.popupClose).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalledTimes(2)
+    expect(actions.reload).toHaveBeenCalled()
   })
 
   test('enregistre une activité pour un titre', async () => {
     api.activiteModifier.mockResolvedValue({
       statut: { id: 'enc' }
     })
-    await store.dispatch('titreActivites/update', activite)
+    await store.dispatch('titreActivites/update', {
+      id: 27,
+      contenu: [],
+      statut: { id: 'dep' }
+    })
 
-    expect(actions.messageAdd).toHaveBeenCalled()
+    expect(mutations.popupClose).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalledTimes(2)
+    expect(actions.reload).toHaveBeenCalled()
   })
 
   test("n'enregistre pas une activité si l'API retourne null", async () => {
     const apiMock = api.activiteModifier.mockResolvedValue(null)
-    await store.dispatch('titreActivites/update', activite)
+    await store.dispatch('titreActivites/update', {
+      id: 27,
+      contenu: [],
+      statut: { id: 'dep' }
+    })
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({
@@ -79,7 +94,11 @@ describe('état des activités', () => {
     const apiMock = api.activiteModifier.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
-    await store.dispatch('titreActivites/update', activite)
+    await store.dispatch('titreActivites/update', {
+      id: 27,
+      contenu: [],
+      statut: { id: 'dep' }
+    })
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({

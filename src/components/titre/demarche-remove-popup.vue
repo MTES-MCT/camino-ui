@@ -108,8 +108,8 @@ export default {
   },
 
   methods: {
-    remove() {
-      this.$store.dispatch('titre/demarcheDelete', this.demarcheId)
+    async remove() {
+      await this.$store.dispatch('titre/demarcheDelete', this.demarcheId)
     },
 
     cancel() {

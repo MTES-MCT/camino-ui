@@ -8,20 +8,22 @@
       </div>
     </template>
 
-    <div class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Mot de passe actuel</h6>
+    <div v-if="!permissionsCheck('super')">
+      <div class="tablet-blobs">
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Mot de passe actuel</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input
+            v-model="motDePasse"
+            type="password"
+            class="p-s"
+            placeholder="Mot de passe"
+          >
+        </div>
       </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model="motDePasse"
-          type="password"
-          class="p-s"
-          placeholder="Mot de passe"
-        >
-      </div>
+      <hr>
     </div>
-    <hr>
 
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
@@ -114,7 +116,9 @@ export default {
     },
     complete() {
       return (
-        this.motDePasse && this.motDePasseNouveau1 && this.motDePasseNouveau2
+        this.motDePasseNouveau1 &&
+        this.motDePasseNouveau2 &&
+        (this.permissionsCheck('super') || this.motDePasse)
       )
     }
   },
@@ -128,9 +132,9 @@ export default {
   },
 
   methods: {
-    save() {
+    async save() {
       if (this.complete) {
-        this.$store.dispatch('utilisateurs/passwordUpdate', {
+        await this.$store.dispatch('utilisateur/passwordUpdate', {
           id: this.utilisateur.id,
           motDePasse: this.motDePasse,
           motDePasseNouveau1: this.motDePasseNouveau1,

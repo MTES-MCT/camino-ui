@@ -97,8 +97,8 @@ export default {
   },
 
   methods: {
-    remove() {
-      this.$store.dispatch('titre/documentDelete', this.document.id)
+    async remove() {
+      await this.$store.dispatch('titre/documentDelete', this.document.id)
     },
 
     cancel() {

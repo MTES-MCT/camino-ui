@@ -1,6 +1,14 @@
 import Vue from 'vue'
 
-import { utilisateur } from '../api/utilisateurs'
+import {
+  utilisateur,
+  utilisateurCreer,
+  utilisateurModifier,
+  utilisateurSupprimer,
+  utilisateurMotDePasseModifier
+} from '../api/utilisateurs'
+
+import router from '../router'
 
 export const state = {
   current: null
@@ -23,6 +31,119 @@ export const actions = {
       console.log(e)
     } finally {
       commit('loadingRemove', 'utilisateur', { root: true })
+    }
+  },
+
+  async add({ commit, dispatch }, utilisateur) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurAdd', { root: true })
+    try {
+      const data = await utilisateurCreer({ utilisateur })
+
+      commit('popupClose', null, { root: true })
+
+      router.push({ name: 'utilisateur', params: { id: data.id } })
+      dispatch(
+        'messageAdd',
+        {
+          value: `l'utilisateur ${data.prenom} ${data.nom} a été ajouté`,
+          type: 'success'
+        },
+        { root: true }
+      )
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'utilisateurAdd', { root: true })
+    }
+  },
+
+  async update({ commit, dispatch, rootState }, utilisateur) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurUpdate', { root: true })
+
+    try {
+      const data = await utilisateurModifier({ utilisateur })
+
+      commit('popupClose', null, { root: true })
+      if (utilisateur.id === rootState.user.current.id) {
+        commit('user/set', data, { root: true })
+      }
+      await dispatch(
+        'reload',
+        { name: 'utilisateur', id: data.id },
+        { root: true }
+      )
+      dispatch(
+        'messageAdd',
+        { value: `l'utilisateur a été mis à jour`, type: 'success' },
+        { root: true }
+      )
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'utilisateurUpdate', { root: true })
+    }
+  },
+
+  async passwordUpdate(
+    { commit, dispatch },
+    { id, motDePasse, motDePasseNouveau1, motDePasseNouveau2 }
+  ) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurPasswordUpdate', { root: true })
+
+    try {
+      await utilisateurMotDePasseModifier({
+        id,
+        motDePasse,
+        motDePasseNouveau1,
+        motDePasseNouveau2
+      })
+
+      commit('popupClose', null, { root: true })
+      dispatch(
+        'messageAdd',
+        {
+          value: `le mot de passe a été modifié`,
+          type: 'success'
+        },
+        { root: true }
+      )
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'utilisateurPasswordUpdate', {
+        root: true
+      })
+    }
+  },
+
+  async remove({ commit, dispatch, rootState }, id) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurRemove', { root: true })
+
+    try {
+      const data = await utilisateurSupprimer({ id })
+
+      if (rootState.user.current.id === data.id) {
+        await dispatch('user/logout', null, { root: true })
+      }
+      commit('popupClose', null, { root: true })
+      dispatch(
+        'messageAdd',
+        {
+          value: `l'utilisateur ${data.prenom} ${data.nom} a été supprimé`,
+          type: 'success'
+        },
+        { root: true }
+      )
+
+      router.push({ name: 'utilisateurs' })
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'utilisateurRemove', { root: true })
     }
   }
 }

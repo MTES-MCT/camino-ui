@@ -381,10 +381,11 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('metas/utilisateurGet')
+    async get() {
+      await this.$store.dispatch('metas/utilisateurGet')
     },
-    save() {
+
+    async save() {
       if (this.complete) {
         const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
 
@@ -405,9 +406,9 @@ export default {
         }
 
         if (this.action === 'create') {
-          this.$store.dispatch('utilisateurs/add', utilisateur)
+          await this.$store.dispatch('utilisateur/add', utilisateur)
         } else {
-          this.$store.dispatch('utilisateurs/update', utilisateur)
+          await this.$store.dispatch('utilisateur/update', utilisateur)
         }
       }
     },

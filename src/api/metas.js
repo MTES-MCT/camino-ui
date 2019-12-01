@@ -12,21 +12,24 @@ import { fragmentAdministrations } from './fragments/administration'
 
 import { apiQuery } from './_utils'
 
-const metasInit = apiQuery(gql`
-  query Init {
-    version
+const metasInit = apiQuery(
+  gql`
+    query Init {
+      version
 
-    utilisateurDomaines {
-      id
-      nom
-      types {
+      utilisateurDomaines {
         id
         nom
-        domaineId
+        types {
+          id
+          nom
+          domaineId
+        }
       }
     }
-  }
-`)
+  `,
+  { fetchPolicy: 'network-only' }
+)
 
 const metasTitre = apiQuery(
   gql`

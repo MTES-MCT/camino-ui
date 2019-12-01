@@ -3,7 +3,7 @@
     <template slot="header">
       <div>
         <h2 class="mb-0">
-          Création d'une fiche entreprise
+          Création d'une entreprise
         </h2>
       </div>
     </template>
@@ -128,9 +128,9 @@ export default {
   },
 
   methods: {
-    save() {
+    async save() {
       if (this.complete) {
-        this.$store.dispatch('entreprise/create', this.entreprise)
+        await this.$store.dispatch('entreprise/create', this.entreprise)
       }
     },
 

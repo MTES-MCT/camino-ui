@@ -143,18 +143,18 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('metas/titreDemarcheGet', this.demarche)
+    async get() {
+      await this.$store.dispatch('metas/titreDemarcheGet', this.demarche)
     },
 
-    save() {
+    async save() {
       if (this.complete) {
         const demarche = JSON.parse(JSON.stringify(this.demarche))
 
         if (this.creation) {
-          this.$store.dispatch('titre/demarcheCreate', demarche)
+          await this.$store.dispatch('titre/demarcheCreate', demarche)
         } else {
-          this.$store.dispatch('titre/demarcheUpdate', demarche)
+          await this.$store.dispatch('titre/demarcheUpdate', demarche)
         }
       }
     },

@@ -194,8 +194,8 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('statistiques/get')
+    async get() {
+      await this.$store.dispatch('statistiques/get')
     }
   }
 }

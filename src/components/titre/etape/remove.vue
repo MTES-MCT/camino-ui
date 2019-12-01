@@ -109,8 +109,8 @@ export default {
   },
 
   methods: {
-    remove() {
-      this.$store.dispatch('titre/etapeDelete', this.etapeId)
+    async remove() {
+      await this.$store.dispatch('titre/etapeDelete', this.etapeId)
     },
 
     cancel() {

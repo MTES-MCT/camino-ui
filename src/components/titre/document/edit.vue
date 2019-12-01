@@ -303,8 +303,8 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('metas/titreEtapeDocumentGet')
+    async get() {
+      await this.$store.dispatch('metas/titreEtapeDocumentGet')
     },
 
     fileChange({
@@ -324,11 +324,11 @@ export default {
       }
     },
 
-    save() {
+    async save() {
       if (this.creation) {
-        this.$store.dispatch('titre/documentCreate', this.document)
+        await this.$store.dispatch('titre/documentCreate', this.document)
       } else {
-        this.$store.dispatch('titre/documentUpdate', this.document)
+        await this.$store.dispatch('titre/documentUpdate', this.document)
       }
     },
 

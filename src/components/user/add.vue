@@ -174,10 +174,10 @@ export default {
   },
 
   methods: {
-    save() {
+    async save() {
       if (this.complete) {
-        this.$store.dispatch('user/tokenSet', this.$route.query.token)
-        this.$store.dispatch('user/add', this.utilisateur)
+        await this.$store.dispatch('user/tokenSet', this.$route.query.token)
+        await this.$store.dispatch('user/add', this.utilisateur)
       }
     },
 

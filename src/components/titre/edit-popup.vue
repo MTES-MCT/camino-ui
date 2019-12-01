@@ -219,20 +219,20 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('metas/titreGet')
+    async get() {
+      await this.$store.dispatch('metas/titreGet')
     },
 
-    save() {
+    async save() {
       const titre = JSON.parse(JSON.stringify(this.titre))
       titre.references = titre.references.filter(reference => {
         return reference.nom
       })
 
       if (this.creation) {
-        this.$store.dispatch('titre/titreCreate', titre)
+        await this.$store.dispatch('titre/titreCreate', titre)
       } else {
-        this.$store.dispatch('titre/titreUpdate', titre)
+        await this.$store.dispatch('titre/titreUpdate', titre)
       }
     },
 

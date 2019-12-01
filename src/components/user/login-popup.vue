@@ -112,9 +112,9 @@ export default {
   },
 
   methods: {
-    login() {
+    async login() {
       if (this.complete) {
-        this.$store.dispatch('user/login', {
+        await this.$store.dispatch('user/login', {
           email: this.email,
           motDePasse: this.motDePasse
         })

@@ -29,6 +29,7 @@ describe("état de l'entreprise sélectionnée", () => {
     actions = {
       pageError: jest.fn(),
       apiError: jest.fn(),
+      reload: jest.fn(),
       messageAdd: jest.fn()
     }
 
@@ -83,24 +84,6 @@ describe("état de l'entreprise sélectionnée", () => {
     expect(store.state.entreprise.current).toBeNull()
   })
 
-  test("recharge l'entreprise", async () => {
-    await store.dispatch('entreprise/reload', {
-      id: 'id-test',
-      idOld: 'id-tost'
-    })
-
-    expect(actions.messageAdd).toHaveBeenCalled()
-  })
-
-  test("ne recharge pas l'entreprise si l'id n'a pas changé", async () => {
-    await store.dispatch('entreprise/reload', {
-      id: 'id-test',
-      idOld: 'id-test'
-    })
-
-    expect(actions.messageAdd).toHaveBeenCalled()
-  })
-
   test('ajoute une entreprise', async () => {
     const apiMock = api.entrepriseCreer.mockResolvedValue({
       id: 71,
@@ -119,23 +102,6 @@ describe("état de l'entreprise sélectionnée", () => {
       }
     })
     expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne null lors de l'ajout d'une entreprise", async () => {
-    const apiMock = api.entrepriseCreer.mockResolvedValue(null)
-    await store.dispatch('entreprise/create', {
-      legalSiren: '123456789',
-      paysId: 'fr'
-    })
-
-    expect(apiMock).toHaveBeenCalledWith({
-      entreprise: {
-        legalSiren: '123456789',
-        paysId: 'fr'
-      }
-    })
-
-    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de l'ajout d'une entreprise", async () => {
@@ -175,23 +141,6 @@ describe("état de l'entreprise sélectionnée", () => {
       }
     })
     expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne null lors de la modification d'une entreprise", async () => {
-    const apiMock = api.entrepriseModifier.mockResolvedValue(null)
-    await store.dispatch('entreprise/update', {
-      legalSiren: '123456789',
-      paysId: 'fr'
-    })
-
-    expect(apiMock).toHaveBeenCalledWith({
-      entreprise: {
-        legalSiren: '123456789',
-        paysId: 'fr'
-      }
-    })
-
-    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la modification d'une entreprise", async () => {

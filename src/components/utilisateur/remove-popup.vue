@@ -75,8 +75,8 @@ export default {
   },
 
   methods: {
-    remove() {
-      this.$store.dispatch('utilisateurs/remove', this.utilisateur.id)
+    async remove() {
+      await this.$store.dispatch('utilisateur/remove', this.utilisateur.id)
     },
 
     cancel() {
