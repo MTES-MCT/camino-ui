@@ -8,16 +8,13 @@
           </span>
         </h6>
         <h2 class="cap-first mb-0">
-          <span v-if="activite.periode">{{ activite.periode.nom }}</span> {{ activite.annee }}
+          <span v-if="activite.periode">{{ activite.periode.nom }}</span>
+          {{ activite.annee }}
         </h2>
       </div>
     </template>
 
-
-    <div
-      v-if="editable"
-      class="p-s bg-info color-bg mb"
-    >
+    <div v-if="editable" class="p-s bg-info color-bg mb">
       Besoin d'aide pour remplir ce rapport ? Appelez le 06.61.26.42.89
     </div>
 
@@ -36,21 +33,13 @@
     </div>
 
     <template slot="footer">
-      <div
-        v-if="editable"
-        class="tablet-blobs"
-      >
+      <div v-if="editable" class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
-          <button
-            class="btn-border rnd-xs p-s full-x"
-            @click="cancel"
-          >
+          <button class="btn-border rnd-xs p-s full-x" @click="cancel">
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-        >
+        <div class="tablet-blob-2-3">
           <button
             id="cmn-titre-activite-edit-popup-button-previsualiser"
             class="btn-flash rnd-xs p-s full-x"
@@ -60,10 +49,7 @@
           </button>
         </div>
       </div>
-      <div
-        v-else
-        class="tablet-blobs"
-      >
+      <div v-else class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-mb-0">
           <button
             id="cmn-titre-activite-edit-popup-button-modifier"
@@ -73,22 +59,21 @@
             Modifier
           </button>
         </div>
-        <div
-          class="mb tablet-blob-1-3 tablet-mb-0"
-        >
+        <div class="mb tablet-blob-1-3 tablet-mb-0">
           <button
             id="cmn-titre-activite-edit-popup-button-enregistrer"
+            v-if="!loading"
             class="rnd-xs p-s full-x"
             :class="{ 'btn-flash': !complete, 'btn-border': complete }"
             @click="save(false)"
           >
             Enregistrer
           </button>
+          <div v-else class="p-s full-x bold">
+            Enregistrement en cours…
+          </div>
         </div>
-        <div
-          class="tablet-blob-1-3"
-          :class="{ disabled: !complete }"
-        >
+        <div class="tablet-blob-1-3" :class="{ disabled: !complete }">
           <button
             class="btn-flash rnd-xs p-s full-x"
             @click="complete && save(true)"
@@ -128,6 +113,10 @@ export default {
   },
 
   computed: {
+    loading() {
+      return this.$store.state.popup.loading
+    },
+
     messages() {
       return this.$store.state.popup.messages
     },
