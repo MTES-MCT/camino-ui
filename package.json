@@ -19,7 +19,7 @@
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
     "release": "standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",
     "start": "node ./index.js",
-    "test": "vue-cli-service lint && vue-cli-service test:unit --verbose && vue-cli-service test:e2e --headless --record --key face49bc-24b6-4561-99c9-44ef6248aad5 && codecov",
+    "test": "vue-cli-service lint && vue-cli-service test:unit --verbose && codecov",
     "test:lint": "vue-cli-service lint --fix",
     "test:cypress": "vue-cli-service test:e2e --mode development",
     "test:jest": "vue-cli-service test:unit --watch --verbose"

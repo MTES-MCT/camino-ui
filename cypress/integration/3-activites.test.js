@@ -11,8 +11,8 @@ describe('Activités', () => {
     administrationsIds: null
   }
 
-  it('ajoute une activité', function() {
-    cy.visit('http://localhost:8080/titres/m-axm-auror-2018')
+  it('remplit une activité', function() {
+    cy.visit('/titres/m-axm-auror-2018')
     cy.userAdd(utilisateur, 'entreprise')
     cy.login(utilisateur.email, utilisateur.motDePasse, 'entreprise')
 

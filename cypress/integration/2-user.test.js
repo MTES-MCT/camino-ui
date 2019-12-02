@@ -12,7 +12,7 @@ describe('Utilisateur', () => {
   }
 
   it("s'envoie un email de création de compte", function() {
-    cy.visit('http://localhost:8080')
+    cy.visit('/')
     cy.userRemove(utilisateur.email)
     cy.get('#cmn-user-button-connexion').click()
     cy.get('#cmn-user-login-popup-button-creer-votre-compte').click()
@@ -25,6 +25,7 @@ describe('Utilisateur', () => {
   })
 
   it('se crée un compte', function() {
+    cy.userRemove(utilisateur.email)
     cy.userAccountUrl(utilisateur.email).then(url => {
       cy.visit(url)
 
@@ -41,7 +42,7 @@ describe('Utilisateur', () => {
 
   it('se connecte (erreur: mot de passe)', function() {
     cy.userAdd(utilisateur)
-    cy.visit('http://localhost:8080')
+    cy.visit('/')
     cy.get('#cmn-user-button-connexion').click()
     cy.get('#cmn-user-login-popup-input-email').type(utilisateur.email)
     cy.get('#cmn-user-login-popup-input-mot-de-passe').type(
@@ -54,7 +55,7 @@ describe('Utilisateur', () => {
 
   it('se connecte', function() {
     cy.userAdd(utilisateur)
-    cy.visit('http://localhost:8080')
+    cy.visit('/')
     cy.get('#cmn-user-button-connexion').click()
 
     cy.get('#cmn-user-login-popup-input-email').type(utilisateur.email)
@@ -70,7 +71,7 @@ describe('Utilisateur', () => {
 
   it('se déconnecte', function() {
     cy.userAdd(utilisateur)
-    cy.visit('http://localhost:8080')
+    cy.visit('/')
     cy.login(utilisateur.email, utilisateur.motDePasse)
 
     cy.get('#cmn-user-button-menu').click()
@@ -81,9 +82,9 @@ describe('Utilisateur', () => {
 
   it('définit une permission "entreprise"', function() {
     cy.userAdd(utilisateur)
-    cy.visit('http://localhost:8080')
+    cy.visit('/')
     cy.login(Cypress.env('userEmail'), Cypress.env('userPassword'), 'super')
-    cy.visit('http://localhost:8080/utilisateurs')
+    cy.visit('//utilisateurs')
 
     cy.contains(utilisateur.nom).click()
 
@@ -96,14 +97,14 @@ describe('Utilisateur', () => {
     cy.get('#cmn-utilisateur-edit-popup-button-enregistrer').click()
     cy.get('#cmn-app-messages').should(
       'contain',
-      `utilisateur ${utilisateur.prenom} ${utilisateur.nom} mis à jour`
+      `l'utilisateur a été mis à jour`
     )
     cy.userRemove(utilisateur.email)
   })
 
   it('supprime son compte', function() {
     cy.userAdd(utilisateur)
-    cy.visit('http://localhost:8080')
+    cy.visit('/')
     cy.login(utilisateur.email, utilisateur.motDePasse)
 
     cy.get('#cmn-user-button-menu').click()
@@ -115,7 +116,7 @@ describe('Utilisateur', () => {
 
     cy.get('#cmn-app-messages').should(
       'contain',
-      `utilisateur ${utilisateur.prenom} ${utilisateur.nom} supprimé`
+      `l'utilisateur ${utilisateur.prenom} ${utilisateur.nom} a été supprimé`
     )
     cy.userRemove(utilisateur.email)
   })

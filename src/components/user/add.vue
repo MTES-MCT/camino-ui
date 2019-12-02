@@ -19,28 +19,28 @@
       </div>
     </div>
 
-    <div>
-      <hr>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Mot de passe</h6>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <input
-            id="cmn-user-add-input-mot-de-passe"
-            v-model="utilisateur.motDePasse"
-            type="password"
-            class="p-s bg-bg mb-s"
-            placeholder="Mot de passe"
-          >
-          <p class="h5 mb-0">
-            8 caractères minimum.
-          </p>
-        </div>
+    <hr>
+
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Mot de passe</h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <input
+          id="cmn-user-add-input-mot-de-passe"
+          v-model="utilisateur.motDePasse"
+          type="password"
+          class="p-s bg-bg mb-s"
+          placeholder="Mot de passe"
+        >
+        <p class="h5 mb-0">
+          8 caractères minimum.
+        </p>
       </div>
     </div>
 
     <hr>
+
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Prénom</h6>

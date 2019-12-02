@@ -2,7 +2,7 @@
 
 describe('Titres', () => {
   beforeEach(function() {
-    cy.visit('http://localhost:8080')
+    cy.visit('/')
   })
 
   it('affiche la page', function() {
