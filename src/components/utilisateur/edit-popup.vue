@@ -14,7 +14,7 @@
 
     <div v-if="action === 'create'">
       <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom.</p>
-      <hr />
+      <hr>
     </div>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
@@ -27,15 +27,18 @@
           type="email"
           class="p-s"
           placeholder="Email"
-        />
-        <div v-else class="py-s">
+        >
+        <div
+          v-else
+          class="py-s"
+        >
           {{ utilisateur.email }}
         </div>
       </div>
     </div>
 
     <div v-if="action === 'create'">
-      <hr />
+      <hr>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Mot de passe</h6>
@@ -46,7 +49,7 @@
             type="password"
             class="p-s mb-s"
             placeholder="Mot de passe"
-          />
+          >
           <p class="h5 mb-0">
             8 caractères minimum.
           </p>
@@ -54,7 +57,7 @@
       </div>
     </div>
 
-    <hr />
+    <hr>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Prénom</h6>
@@ -65,11 +68,11 @@
           type="text"
           class="p-s"
           placeholder="Prénom"
-        />
+        >
       </div>
     </div>
 
-    <hr />
+    <hr>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Nom</h6>
@@ -80,11 +83,11 @@
           type="text"
           class="p-s"
           placeholder="Nom"
-        />
+        >
       </div>
     </div>
 
-    <hr />
+    <hr>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone fixe</h6>
@@ -95,11 +98,11 @@
           type="text"
           class="p-s"
           placeholder="0100000000"
-        />
+        >
       </div>
     </div>
 
-    <hr />
+    <hr>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone mobile</h6>
@@ -110,12 +113,12 @@
           type="text"
           class="p-s"
           placeholder="0100000000"
-        />
+        >
       </div>
     </div>
 
     <div v-if="permissionsCheck(['super', 'admin'])">
-      <hr />
+      <hr>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Permissions</h6>
@@ -142,11 +145,14 @@
       </div>
 
       <div v-if="utilisateurIsEntreprise">
-        <hr />
+        <hr>
         <h3 class="mb-s">
           Entreprises
         </h3>
-        <div v-for="(entrepriseId, n) in utilisateur.entreprisesIds" :key="n">
+        <div
+          v-for="(entrepriseId, n) in utilisateur.entreprisesIds"
+          :key="n"
+        >
           <div
             class="flex full-x"
             :class="{
@@ -193,7 +199,7 @@
       </div>
 
       <div v-if="utilisateurIsAdministration">
-        <hr />
+        <hr>
         <h3 class="mb-s">
           Administrations
         </h3>
@@ -264,17 +270,23 @@
             Annuler
           </button>
         </div>
-        <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
+        <div
+          class="tablet-blob-2-3"
+          :class="{ disabled: !complete }"
+        >
           <button
-            id="cmn-utilisateur-edit-popup-button-enregistrer"
             v-if="!loading"
+            id="cmn-utilisateur-edit-popup-button-enregistrer"
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
             @keyup.enter.native="save"
           >
             Enregistrer
           </button>
-          <div v-else class="p-s full-x bold">
+          <div
+            v-else
+            class="p-s full-x bold"
+          >
             Enregistrement en cours…
           </div>
         </div>
