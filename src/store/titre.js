@@ -254,6 +254,7 @@ export const actions = {
 
   async etapeDelete({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreEtapeDelete', { root: true })
 
     try {
@@ -331,6 +332,7 @@ export const actions = {
 
   async documentDelete({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreDocumentDelete', { root: true })
 
     try {

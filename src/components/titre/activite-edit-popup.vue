@@ -8,11 +8,11 @@
           </span>
         </h6>
         <h2 class="cap-first mb-0">
-          <span v-if="activite.periode">{{ activite.periode.nom }}</span> {{ activite.annee }}
+          <span v-if="activite.periode">{{ activite.periode.nom }}</span>
+          {{ activite.annee }}
         </h2>
       </div>
     </template>
-
 
     <div
       v-if="editable"
@@ -48,9 +48,7 @@
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-        >
+        <div class="tablet-blob-2-3">
           <button
             id="cmn-titre-activite-edit-popup-button-previsualiser"
             class="btn-flash rnd-xs p-s full-x"
@@ -73,10 +71,9 @@
             Modifier
           </button>
         </div>
-        <div
-          class="mb tablet-blob-1-3 tablet-mb-0"
-        >
+        <div class="mb tablet-blob-1-3 tablet-mb-0">
           <button
+            v-if="!loading"
             id="cmn-titre-activite-edit-popup-button-enregistrer"
             class="rnd-xs p-s full-x"
             :class="{ 'btn-flash': !complete, 'btn-border': complete }"
@@ -84,6 +81,12 @@
           >
             Enregistrer
           </button>
+          <div
+            v-else
+            class="p-s full-x bold"
+          >
+            Enregistrement en cours…
+          </div>
         </div>
         <div
           class="tablet-blob-1-3"
@@ -128,6 +131,10 @@ export default {
   },
 
   computed: {
+    loading() {
+      return this.$store.state.popup.loading
+    },
+
     messages() {
       return this.$store.state.popup.messages
     },

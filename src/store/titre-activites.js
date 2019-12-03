@@ -3,6 +3,7 @@ import { activiteModifier } from '../api/activites'
 export const actions = {
   async update({ commit, dispatch, rootState }, activite) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreActiviteUpdate', { root: true })
 
     try {

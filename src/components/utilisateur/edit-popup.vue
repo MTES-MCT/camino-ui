@@ -131,7 +131,9 @@
               :class="{ active: utilisateur.permissionId === permission.id }"
             >
               <button
-                :id="`cmn-utilisateur-edit-popup-permission-button-${permission.id}`"
+                :id="
+                  `cmn-utilisateur-edit-popup-permission-button-${permission.id}`
+                "
                 class="btn-flash py-xs px-s pill cap-first h6 mr-xs"
                 @click="permissionToggle(permission)"
               >
@@ -228,7 +230,10 @@
                   )
                 "
               >
-                {{ `${administration.nom}${ administration.service ? ` - ${administration.service}` : '' }`
+                {{
+                  `${administration.nom}${
+                    administration.service ? ` - ${administration.service}` : ''
+                  }`
                 }}
               </option>
             </select>
@@ -270,6 +275,7 @@
           :class="{ disabled: !complete }"
         >
           <button
+            v-if="!loading"
             id="cmn-utilisateur-edit-popup-button-enregistrer"
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
@@ -277,6 +283,12 @@
           >
             Enregistrer
           </button>
+          <div
+            v-else
+            class="p-s full-x bold"
+          >
+            Enregistrement en cours…
+          </div>
         </div>
       </div>
     </template>
@@ -313,6 +325,10 @@ export default {
   },
 
   computed: {
+    loading() {
+      return this.$store.state.popup.loading
+    },
+
     messages() {
       return this.$store.state.popup.messages
     },
