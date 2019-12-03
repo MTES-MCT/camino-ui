@@ -1,9 +1,10 @@
 .DS_Store
-node_modules
-/dist
-/coverage
 .env
 .env.production
 .env.development
+/dist
+/coverage
 cypress.env.json
-cypress/videos
+node_modules
+/cypress/screenshots
+/cypress/videos

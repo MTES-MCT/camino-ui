@@ -42,23 +42,6 @@ export const actions = {
     }
   },
 
-  async reload({ dispatch }, { id, idOld, creation }) {
-    if (id !== idOld) {
-      router.replace({ name: 'titre', params: { id } })
-    }
-
-    await dispatch('get', id)
-
-    dispatch(
-      'messageAdd',
-      {
-        value: `le titre a été ${creation ? 'créé' : 'mis à jour'}`,
-        type: 'success'
-      },
-      { root: true }
-    )
-  },
-
   async titreCreate({ commit, dispatch }, titre) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
@@ -69,7 +52,15 @@ export const actions = {
 
       if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', { id: data.id, creation: true })
+        router.push({ name: 'titre', params: { id: data.id } })
+        dispatch(
+          'messageAdd',
+          {
+            value: `le titre a été créé`,
+            type: 'success'
+          },
+          { root: true }
+        )
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -88,12 +79,13 @@ export const actions = {
     try {
       const data = await titreModifier({ titre })
 
-      if (data) {
-        commit('popupClose', null, { root: true })
-        dispatch('reload', { id: data.id, idOld: titre.id })
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      commit('popupClose', null, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      dispatch(
+        'messageAdd',
+        { value: `le titre a été mis à jour`, type: 'success' },
+        { root: true }
+      )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -140,10 +132,12 @@ export const actions = {
 
       if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', {
-          id: data.id,
-          idOld: demarche.titreId
-        })
+        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -164,10 +158,12 @@ export const actions = {
 
       if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', {
-          id: data.id,
-          idOld: demarche.titreId
-        })
+        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -188,10 +184,12 @@ export const actions = {
 
       if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', {
-          id: data.id,
-          idOld: id.slice(0, -6)
-        })
+        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -212,10 +210,12 @@ export const actions = {
 
       if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', {
-          id: data.id,
-          idOld: etape.titreDemarcheId.slice(0, -6)
-        })
+        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -236,10 +236,12 @@ export const actions = {
 
       if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', {
-          id: data.id,
-          idOld: etape.titreDemarcheId.slice(0, -6)
-        })
+        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -259,10 +261,12 @@ export const actions = {
 
       if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', {
-          id: data.id,
-          idOld: id.slice(0, -12)
-        })
+        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -283,10 +287,12 @@ export const actions = {
 
       if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', {
-          id: data.id,
-          idOld: document.titreEtapeId.slice(0, -12)
-        })
+        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -307,10 +313,12 @@ export const actions = {
 
       if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', {
-          id: data.id,
-          idOld: document.titreEtapeId.slice(0, -12)
-        })
+        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -330,10 +338,12 @@ export const actions = {
 
       if (data) {
         commit('popupClose', null, { root: true })
-        dispatch('reload', {
-          id: data.id,
-          idOld: id.slice(0, -21)
-        })
+        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
       } else {
         dispatch('pageError', null, { root: true })
       }

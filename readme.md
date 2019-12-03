@@ -69,6 +69,24 @@ npm run build
 npm run start
 ```
 
+### Tests unitaires
+
+```bash
+# lance les tests unitaires en local
+npm run test:jest
+```
+
+### Tests de bout en bout
+
+- renommer `cypress.en-example.json` en `cypress.env.json`
+- compléter `cypress.env.json`
+- lancer camino-api
+
+```bash
+# lance les tests bout en bout en local
+npm run test:cypress
+```
+
 ---
 
 ## Contribution

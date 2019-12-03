@@ -32,7 +32,6 @@ describe('état de la liste des métas', () => {
       },
 
       titre: {
-        utilisateurDomaines: [],
         referencesTypes: []
       },
 
@@ -53,11 +52,12 @@ describe('état de la liste des métas', () => {
       },
 
       utilisateur: {
-        permissions: []
+        permissions: [],
+        entreprises: [],
+        administrations: []
       },
 
-      entreprises: [],
-      administrations: [],
+      utilisateurDomaines: [],
 
       version: null,
       /* global npmVersion */

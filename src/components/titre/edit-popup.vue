@@ -1,5 +1,5 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <div>
         <h2 class="cap-first mb-0">
@@ -126,7 +126,6 @@
     </div>
 
     <template slot="footer">
-      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -160,14 +159,12 @@
 
 <script>
 import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
 
 export default {
   name: 'CaminoDemarcheEditPopup',
 
   components: {
-    Popup,
-    Messages
+    Popup
   },
 
   props: {
@@ -192,7 +189,7 @@ export default {
     },
 
     domaines() {
-      return this.$store.state.metas.titres.utilisateurDomaines
+      return this.$store.state.metas.utilisateurDomaines
     },
 
     referencesTypes() {
@@ -222,20 +219,20 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('metas/titreGet')
+    async get() {
+      await this.$store.dispatch('metas/titreGet')
     },
 
-    save() {
+    async save() {
       const titre = JSON.parse(JSON.stringify(this.titre))
       titre.references = titre.references.filter(reference => {
         return reference.nom
       })
 
       if (this.creation) {
-        this.$store.dispatch('titre/titreCreate', titre)
+        await this.$store.dispatch('titre/titreCreate', titre)
       } else {
-        this.$store.dispatch('titre/titreUpdate', titre)
+        await this.$store.dispatch('titre/titreUpdate', titre)
       }
     },
 

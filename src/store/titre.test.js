@@ -4,8 +4,7 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../router', () => ({
-  push: () => {},
-  replace: () => {}
+  push: () => {}
 }))
 
 jest.mock('../api/titres', () => ({
@@ -42,6 +41,7 @@ describe('état du titre sélectionné', () => {
     actions = {
       pageError: jest.fn(),
       apiError: jest.fn(),
+      reload: jest.fn(),
       messageAdd: jest.fn()
     }
     mutations = {
@@ -85,20 +85,6 @@ describe('état du titre sélectionné', () => {
     expect(console.log).toHaveBeenCalled()
   })
 
-  test('recharge le titre affiché', async () => {
-    store.state.titre.current = { id: 83, nom: 'marne' }
-    await store.dispatch('titre/reload', { id: 'id-test', idOld: 'id-tost' })
-
-    expect(actions.messageAdd).toHaveBeenCalled()
-  })
-
-  test("ne recharge pas le titre affiché si l'id n'a pas changé", async () => {
-    store.state.titre.current = { id: 83, nom: 'marne' }
-    await store.dispatch('titre/reload', { id: 'id-test', idOld: 'id-test' })
-
-    expect(actions.messageAdd).toHaveBeenCalled()
-  })
-
   test('crée un titre', async () => {
     api.titreCreer.mockResolvedValue({ id: 83, nom: 'marne' })
     await store.dispatch('titre/titreCreate', { id: 83, nom: 'marne' })
@@ -121,21 +107,12 @@ describe('état du titre sélectionné', () => {
   })
 
   test('met à jour un titre', async () => {
-    const actionReload = jest.fn()
-    titre.actions.reload = actionReload
     store = new Vuex.Store({ modules: { titre }, actions, mutations })
     api.titreModifier.mockResolvedValue({ id: 83, nom: 'marne' })
     await store.dispatch('titre/titreUpdate', { id: 83, nom: 'marne' })
 
     expect(mutations.popupClose).toHaveBeenCalled()
-    expect(actionReload).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne null lors de la mise à jour d'un titre", async () => {
-    api.titreModifier.mockResolvedValue(null)
-    await store.dispatch('titre/titreUpdate', { id: 83, nom: 'marne' })
-
-    expect(actions.pageError).toHaveBeenCalled()
+    expect(actions.reload).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'un titre", async () => {

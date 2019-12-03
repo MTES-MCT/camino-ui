@@ -16,6 +16,8 @@ import user from './user'
 import titreActivites from './titre-activites'
 import statistiques from './statistiques'
 
+import router from '../router'
+
 const modules = {
   titre,
   titres,
@@ -65,6 +67,12 @@ export const actions = {
     })
   },
 
+  errorRemove({ state, commit }) {
+    if (state.error) {
+      commit('errorRemove')
+    }
+  },
+
   messageAdd({ commit }, message) {
     const id = Date.now()
     message.id = id
@@ -83,6 +91,15 @@ export const actions = {
     } else {
       commit('menuOpen', component)
     }
+  },
+
+  async reload({ dispatch, rootState }, { name, id }) {
+    const idOld = rootState[name].current.id
+    if (id !== idOld) {
+      router.replace({ name, params: { id } })
+    }
+
+    await dispatch(`${name}/get`, id)
   },
 
   async documentDownload({ dispatch }, { documentId, fichierTypeId }) {
@@ -114,12 +131,6 @@ export const actions = {
         'apiError',
         `erreur de téléchargement : ${documentId}.${fichierTypeId}, ${e}`
       )
-    }
-  },
-
-  errorRemove({ state, commit }) {
-    if (state.error) {
-      commit('errorRemove')
     }
   }
 }

@@ -1,11 +1,10 @@
 import { activiteModifier } from '../api/activites'
 
-export const state = {}
-
 export const actions = {
   async update({ commit, dispatch, rootState }, activite) {
     commit('popupMessagesRemove', null, { root: true })
     commit('loadingAdd', 'titreActiviteUpdate', { root: true })
+
     try {
       const data = await activiteModifier({
         activite: {
@@ -21,15 +20,20 @@ export const actions = {
         {
           value:
             data.statut.id === 'dep'
-              ? `l'activite a été validée`
-              : `l'activite a été enregistrée`,
+              ? `l'activité a été validée`
+              : `l'activité a été enregistrée`,
           type: 'success'
         },
         { root: true }
       )
+      await dispatch(
+        'reload',
+        { name: 'titre', id: rootState.titre.current.id },
+        { root: true }
+      )
       dispatch(
-        'titre/reload',
-        { id: rootState.titre.current.id, idOld: rootState.titre.current.id },
+        'messageAdd',
+        { value: `le titre a été mis à jour`, type: 'success' },
         { root: true }
       )
     } catch (e) {
@@ -44,7 +48,6 @@ export const mutations = {}
 
 export default {
   namespaced: true,
-  state,
   actions,
   mutations
 }

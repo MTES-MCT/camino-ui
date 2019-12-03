@@ -1,5 +1,5 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <div>
         <h5>
@@ -27,7 +27,6 @@
     </div>
 
     <template slot="footer">
-      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -60,14 +59,12 @@
 
 <script>
 import Popup from '../../ui/popup.vue'
-import Messages from '../../ui/messages.vue'
 
 export default {
   name: 'CaminoEtapeDeletePopup',
 
   components: {
-    Popup,
-    Messages
+    Popup
   },
 
   props: {
@@ -112,8 +109,8 @@ export default {
   },
 
   methods: {
-    remove() {
-      this.$store.dispatch('titre/etapeDelete', this.etapeId)
+    async remove() {
+      await this.$store.dispatch('titre/etapeDelete', this.etapeId)
     },
 
     cancel() {

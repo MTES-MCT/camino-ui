@@ -1,6 +1,7 @@
 <template>
   <div>
     <button
+      id="cmn-menu-button-button-menu"
       class="btn-alt pill h5 p-s"
       :class="{ active: menu.component && menu.component.name === 'MainMenu' }"
       alt="Url"

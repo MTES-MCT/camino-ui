@@ -2,6 +2,7 @@
   <div>
     <button
       v-if="user"
+      id="cmn-user-button-menu"
       class="btn-alt pill h5 p-s"
       :class="{ active: menu.component && menu.component.name === 'UserMenu' }"
       alt="Url"
@@ -11,6 +12,7 @@
     </button>
     <button
       v-else
+      id="cmn-user-button-connexion"
       class="btn-alt pill h5 lh-2 py-s px-m"
       alt="Url"
       @click="popupOpen"

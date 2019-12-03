@@ -4,6 +4,7 @@
       <h1>Utilisateurs</h1>
 
       <button
+        v-if="permissionsCheck(['super', 'admin'])"
         class="btn-border rnd-xs py-s px-m mb flex-right"
         @click="addPopupOpen"
       >
@@ -63,8 +64,8 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('utilisateurs/get')
+    async get() {
+      await this.$store.dispatch('utilisateurs/get')
     },
     addPopupOpen() {
       this.$store.commit('popupOpen', {

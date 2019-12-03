@@ -1,5 +1,5 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <div>
         <h2 class="mb-0">
@@ -26,7 +26,6 @@
     </div>
 
     <template slot="footer">
-      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -56,14 +55,12 @@
 
 <script>
 import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
 
 export default {
   name: 'CaminoUtilisateurPasswordInitPopup',
 
   components: {
-    Popup,
-    Messages
+    Popup
   },
 
   data() {
@@ -91,9 +88,9 @@ export default {
   },
 
   methods: {
-    save() {
+    async save() {
       if (this.complete) {
-        this.$store.dispatch('user/passwordInitEmail', this.email)
+        await this.$store.dispatch('user/passwordInitEmail', this.email)
       }
     },
 

@@ -29,11 +29,9 @@
     </div>
 
     <div class="tablet-blob-1-2 desktop-blob-1-3">
-      <ul class="list-prefix text-decoration-none">
+      <ul class="list-sans text-decoration-none h5 lh-2">
         <li>
-          <router-link to="/a-propos#contact">
-            Contact
-          </router-link>
+          Contact: <a href="mailto:camino@beta.gouv.fr">camino@beta.gouv.fr</a>
         </li>
         <li>
           <router-link to="/a-propos">
@@ -97,7 +95,7 @@
 
     <div class="tablet-blob-1-2 desktop-blob-1-3 flex flex-direction-column">
       <NewsletterForm />
-      <ul class="list-prefix text-decoration-none">
+      <ul class="list-sans text-decoration-none h5 lh-2">
         <li>
           <a
             href="http://www.mineralinfo.fr/"

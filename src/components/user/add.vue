@@ -19,33 +19,35 @@
       </div>
     </div>
 
-    <div>
-      <hr>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Mot de passe</h6>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <input
-            v-model="utilisateur.motDePasse"
-            type="password"
-            class="p-s bg-bg mb-s"
-            placeholder="Mot de passe"
-          >
-          <p class="h5 mb-0">
-            8 caractères minimum.
-          </p>
-        </div>
+    <hr>
+
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Mot de passe</h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <input
+          id="cmn-user-add-input-mot-de-passe"
+          v-model="utilisateur.motDePasse"
+          type="password"
+          class="p-s bg-bg mb-s"
+          placeholder="Mot de passe"
+        >
+        <p class="h5 mb-0">
+          8 caractères minimum.
+        </p>
       </div>
     </div>
 
     <hr>
+
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Prénom</h6>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
+          id="cmn-user-add-input-prenom"
           v-model="utilisateur.prenom"
           type="text"
           class="p-s bg-bg"
@@ -61,6 +63,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input
+          id="cmn-user-add-input-nom"
           v-model="utilisateur.nom"
           type="text"
           class="p-s bg-bg"
@@ -105,6 +108,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s" />
       <div class="mb tablet-blob-2-3">
         <input
+          id="cmn-user-add-checkbox-cgu"
           v-model="cgu"
           type="checkbox"
         >Vous avez lu et vous acceptez les
@@ -126,6 +130,7 @@
         :class="{ disabled: !complete }"
       >
         <button
+          id="cmn-user-add-button-enregistrer"
           class="btn-flash rnd-xs p-s full-x"
           @click="save"
           @keyup.enter.native="save"
@@ -169,10 +174,10 @@ export default {
   },
 
   methods: {
-    save() {
+    async save() {
       if (this.complete) {
-        this.$store.dispatch('user/tokenSet', this.$route.query.token)
-        this.$store.dispatch('user/add', this.utilisateur)
+        await this.$store.dispatch('user/tokenSet', this.$route.query.token)
+        await this.$store.dispatch('user/add', this.utilisateur)
       }
     },
 

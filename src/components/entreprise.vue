@@ -233,8 +233,8 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('entreprise/get', this.$route.params.id)
+    async get() {
+      await this.$store.dispatch('entreprise/get', this.$route.params.id)
     },
 
     editPopupOpen() {

@@ -1,5 +1,5 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <div>
         <h5>
@@ -41,7 +41,6 @@
     </div>
 
     <template slot="footer">
-      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -78,14 +77,12 @@
 
 <script>
 import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
 
 export default {
   name: 'CaminoDemarcheEditPopup',
 
   components: {
-    Popup,
-    Messages
+    Popup
   },
 
   props: {
@@ -146,18 +143,18 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('metas/titreDemarcheGet', this.demarche)
+    async get() {
+      await this.$store.dispatch('metas/titreDemarcheGet', this.demarche)
     },
 
-    save() {
+    async save() {
       if (this.complete) {
         const demarche = JSON.parse(JSON.stringify(this.demarche))
 
         if (this.creation) {
-          this.$store.dispatch('titre/demarcheCreate', demarche)
+          await this.$store.dispatch('titre/demarcheCreate', demarche)
         } else {
-          this.$store.dispatch('titre/demarcheUpdate', demarche)
+          await this.$store.dispatch('titre/demarcheUpdate', demarche)
         }
       }
     },

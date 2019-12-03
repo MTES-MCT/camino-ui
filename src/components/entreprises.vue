@@ -64,8 +64,8 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('entreprises/get')
+    async get() {
+      await this.$store.dispatch('entreprises/get')
     },
 
     addPopupOpen() {

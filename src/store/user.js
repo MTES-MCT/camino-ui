@@ -87,7 +87,7 @@ export const actions = {
     commit('reset')
     dispatch(
       'messageAdd',
-      { value: `Vous êtes déconnecté`, type: 'success' },
+      { value: `vous êtes déconnecté`, type: 'success' },
       { root: true }
     )
   },
@@ -97,15 +97,13 @@ export const actions = {
     commit('loadingAdd', 'utilisateurAddEmail', { root: true })
 
     try {
-      const data = await utilisateurCreationEmailEnvoyer({
-        email
-      })
+      await utilisateurCreationEmailEnvoyer({ email })
 
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
         {
-          value: `${data}`,
+          value: 'un email pour créer votre compte a été envoyé',
           type: 'success'
         },
         { root: true }

@@ -2,6 +2,7 @@ import { actions, mutations } from './index'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import * as fileSaver from 'file-saver'
+import * as router from '../router'
 
 jest.mock('file-saver', () => ({ saveAs: jest.fn() }))
 jest.mock('./titre', () => ({ titre: jest.fn() }))
@@ -18,6 +19,10 @@ jest.mock('./user', () => ({ user: jest.fn() }))
 jest.mock('./titre-activites', () => ({ titreActivites: jest.fn() }))
 jest.mock('./statistiques', () => ({ statistiques: jest.fn() }))
 
+jest.mock('../router', () => ({
+  replace: jest.fn()
+}))
+
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
@@ -28,8 +33,22 @@ jest.useFakeTimers()
 describe("état général de l'application", () => {
   let state
   let store
+  let modules
 
   beforeEach(() => {
+    modules = {
+      titre: {
+        namespaced: true,
+        state: {
+          current: null
+        },
+
+        actions: {
+          get: jest.fn()
+        }
+      }
+    }
+
     state = {
       config: {},
       messages: [],
@@ -41,6 +60,7 @@ describe("état général de l'application", () => {
     }
 
     store = new Vuex.Store({
+      modules,
       state,
       actions,
       mutations
@@ -176,6 +196,22 @@ describe("état général de l'application", () => {
     await store.dispatch('menuToggle', component)
 
     expect(state.menu.component).toEqual(component)
+  })
+
+  test('recharge la page', async () => {
+    store.state.titre.current = { id: 'id-tost', nom: 'marne' }
+    await store.dispatch('reload', { name: 'titre', id: 'id-test' })
+
+    expect(router.replace).toHaveBeenCalled()
+    expect(modules.titre.actions.get).toHaveBeenCalled()
+  })
+
+  test("ne recharge pas la page si l'id n'a pas changé", async () => {
+    store.state.titre.current = { id: 'id-test', nom: 'marne' }
+    await store.dispatch('reload', { name: 'titre', id: 'id-test' })
+
+    expect(router.replace).not.toHaveBeenCalled()
+    expect(modules.titre.actions.get).toHaveBeenCalled()
   })
 })
 

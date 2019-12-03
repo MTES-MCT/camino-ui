@@ -1,14 +1,13 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <div>
         <h2 class="mb-0">
-          Modification d'une fiche entreprise
+          Modification d'une entreprise
         </h2>
       </div>
     </template>
 
-    <hr>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone </h6>
@@ -54,7 +53,6 @@
     </div>
 
     <template slot="footer">
-      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -91,14 +89,12 @@
 
 <script>
 import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
 
 export default {
   name: 'CaminoEntrepriseEditPopup',
 
   components: {
-    Popup,
-    Messages
+    Popup
   },
 
   props: {
@@ -128,9 +124,9 @@ export default {
   },
 
   methods: {
-    save() {
+    async save() {
       const entreprise = JSON.parse(JSON.stringify(this.entreprise))
-      this.$store.dispatch('entreprise/update', entreprise)
+      await this.$store.dispatch('entreprise/update', entreprise)
     },
 
     cancel() {

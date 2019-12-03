@@ -1,9 +1,9 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <div>
         <h2 class="mb-0">
-          Création d'une fiche entreprise
+          Création d'une entreprise
         </h2>
       </div>
     </template>
@@ -45,7 +45,6 @@
     </div>
 
     <template slot="footer">
-      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -83,14 +82,12 @@
 
 <script>
 import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
 
 export default {
   name: 'CaminoEntrepriseEditPopup',
 
   components: {
-    Popup,
-    Messages
+    Popup
   },
 
   data() {
@@ -131,9 +128,9 @@ export default {
   },
 
   methods: {
-    save() {
+    async save() {
       if (this.complete) {
-        this.$store.dispatch('entreprise/create', this.entreprise)
+        await this.$store.dispatch('entreprise/create', this.entreprise)
       }
     },
 

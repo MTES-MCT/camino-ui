@@ -20,15 +20,15 @@
 
           <div class="tablet-blob-1-2 flex">
             <div
-              v-for="(tab, tabId) in geoTabs"
-              :key="tabId"
+              v-for="tab in geoTabs"
+              :key="tab.id"
               class="mr-xs"
-              :class="{ active: geoTabActive === tabId}"
+              :class="{ active: geoTabActive === tab.id }"
             >
               <button
-                v-if="geoTabActive !== tabId"
+                v-if="geoTabActive !== tab.id"
                 class="p-m btn-tab rnd-t-xs"
-                @click="geoTabToggle(tabId)"
+                @click="geoTabToggle(tab.id)"
               >
                 <i
                   :class="`icon-${tab.icon}`"
@@ -83,25 +83,26 @@
         class="flex"
       >
         <div
-          v-for="(tab, tabId) in tabsActives"
-          :key="tabId"
+          v-for="tab in tabs"
+          :key="tab.id"
           class="mr-xs"
-          :class="{ active: tabActive === tabId}"
+          :class="{ active: tabActive === tab.id }"
         >
           <button
+            :id="`cmn-titre-tab-${tab.id}`"
             class="p-m btn-tab rnd-t-xs"
-            @click="tabToggle(tabId)"
+            @click="tabToggle(tab.id)"
           >
             {{ tab.nom }}
             <Pill
-              v-if="tabId === 'activites' && titre.activitesAbsentes"
+              v-if="tab.id === 'activites' && titre.activitesAbsentes"
               :color="'bg-error'"
               class="mb--xs mr-xs"
             >
               {{ titre.activites && titre.activitesAbsentes }}
             </Pill>
             <Pill
-              v-if="tabId === 'activites' && titre.activitesEnConstruction"
+              v-if="tab.id === 'activites' && titre.activitesEnConstruction"
               :color="'bg-warning'"
               class="mb--xs mr-xs"
             >
@@ -163,14 +164,14 @@ export default {
     return {
       tabActive: 'demarches',
       geoTabActive: 'carte',
-      tabs: {
-        demarches: { nom: 'Droits miniers' },
-        activites: { nom: 'Activités' }
-      },
-      geoTabs: {
-        carte: { nom: 'Carte', icon: 'globe' },
-        points: { nom: 'Points', icon: 'list' }
-      }
+      tabs: [
+        { id: 'demarches', nom: 'Droits miniers' },
+        { id: 'activites', nom: 'Activités' }
+      ],
+      geoTabs: [
+        { id: 'carte', nom: 'Carte', icon: 'globe' },
+        { id: 'points', nom: 'Points', icon: 'list' }
+      ]
     }
   },
 
@@ -185,27 +186,11 @@ export default {
 
     loaded() {
       return !!this.titre
-    },
-
-    tabsActives() {
-      const tabsActives = Object.keys(this.tabs).reduce(
-        (tabs, tabId) => Object.assign(tabs, { [tabId]: this.tabs[tabId] }),
-        {}
-      )
-
-      return tabsActives
     }
   },
 
   watch: {
     $route: 'get',
-
-    tabsActives: function(tabsActivesNew) {
-      const tabsActivesIds = Object.keys(tabsActivesNew)
-      if (!tabsActivesIds.find(tabId => tabId === this.tabActive)) {
-        this.tabActive = tabsActivesIds[0]
-      }
-    },
 
     user: 'get'
   },

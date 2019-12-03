@@ -1,15 +1,10 @@
 import utilisateurs from './utilisateurs'
 import * as api from '../api/utilisateurs'
-import * as router from '../router'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/utilisateurs', () => ({
-  utilisateurs: jest.fn(),
-  utilisateurCreer: jest.fn(),
-  utilisateurModifier: jest.fn(),
-  utilisateurSupprimer: jest.fn(),
-  utilisateurMotDePasseModifier: jest.fn()
+  utilisateurs: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -17,15 +12,11 @@ localVue.use(Vuex)
 
 console.log = jest.fn()
 
-jest.mock('../router', () => [])
-
 describe('état de la liste des utilisateurs', () => {
   let store
-  let utilisateurObj
   let actions
   let mutations
   beforeEach(() => {
-    utilisateurObj = { id: 71, nom: 'toto', prenom: 'asticot' }
     utilisateurs.state = { list: [], permissions: [] }
     actions = {
       pageError: jest.fn(),
@@ -47,14 +38,18 @@ describe('état de la liste des utilisateurs', () => {
   })
 
   test('obtient la liste des utilisateurs', async () => {
-    const apiMock = api.utilisateurs.mockResolvedValue([utilisateurObj])
+    const apiMock = api.utilisateurs.mockResolvedValue([
+      { id: 71, nom: 'toto', prenom: 'asticot' }
+    ])
     await store.dispatch('utilisateurs/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.utilisateurs.list).toEqual([utilisateurObj])
+    expect(store.state.utilisateurs.list).toEqual([
+      { id: 71, nom: 'toto', prenom: 'asticot' }
+    ])
   })
 
-  test("retourne une erruer 404 si l'api retourne null", async () => {
+  test("retourne une erreur 404 si l'api retourne null", async () => {
     const apiMock = api.utilisateurs.mockResolvedValue(null)
     await store.dispatch('utilisateurs/get')
 
@@ -69,261 +64,5 @@ describe('état de la liste des utilisateurs', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
-  })
-
-  test("ajout d'un utilisateur", async () => {
-    const apiMock = api.utilisateurCreer.mockResolvedValue(utilisateurObj)
-    await store.dispatch('utilisateurs/add', utilisateurObj)
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurObj })
-    expect(store.state.utilisateurs.list).toEqual([utilisateurObj])
-    expect(mutations.popupClose).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur lors de l'ajout d'un utilisateur", async () => {
-    const apiMock = api.utilisateurCreer.mockRejectedValue(
-      new Error('utilisateurs erreur')
-    )
-    await store.dispatch('utilisateurs/add', utilisateurObj)
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurObj })
-    expect(store.state.utilisateurs.list).toEqual([])
-  })
-
-  test("n'ajoute pas d'utilisateur car déjà existant", async () => {
-    const apiMock = api.utilisateurCreer.mockResolvedValue(null)
-    await store.dispatch('utilisateurs/add', utilisateurObj)
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurObj })
-    expect(store.state.utilisateurs.list).toEqual([])
-    expect(actions.messageAdd).not.toHaveBeenCalled()
-  })
-})
-
-describe('interactions avec les utilisateurs', () => {
-  let store
-  let utilisateursIds
-  let utilisateurObj
-  let actions
-  let mutations
-  let utilisateur
-  let mutationsUtilisateur
-  let user
-  let mutationsUser
-  let actionsUser
-  beforeEach(() => {
-    utilisateursIds = [
-      { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' },
-      { id: 46, prenom: 'peuplut', nom: 'jean', mdp: 'bon' }
-    ]
-    utilisateurObj = { id: 46, prenom: 'peuplut', nom: 'jean', mdp: 'bon' }
-    utilisateurs.state = { list: utilisateursIds, permissions: [] }
-
-    actions = {
-      pageError: jest.fn(),
-      apiError: jest.fn(),
-      messageAdd: jest.fn()
-    }
-    mutations = {
-      loadingAdd: jest.fn(),
-      loadingRemove: jest.fn(),
-      popupMessagesRemove: jest.fn(),
-      popupClose: jest.fn(),
-      popupMessageAdd: jest.fn()
-    }
-    mutationsUtilisateur = { set: jest.fn() }
-    mutationsUser = { set: jest.fn() }
-    actionsUser = { logout: jest.fn() }
-
-    user = {
-      namespaced: true,
-      state: {
-        current: { id: undefined }
-      },
-      mutations: mutationsUser,
-      actions: actionsUser
-    }
-    utilisateur = { namespaced: true, mutations: mutationsUtilisateur }
-    store = new Vuex.Store({
-      modules: { utilisateurs, utilisateur, user },
-      mutations,
-      actions
-    })
-  })
-
-  test("modifie l'utilisateur actif", async () => {
-    const apiMock = api.utilisateurModifier.mockResolvedValue(utilisateurObj)
-    await store.dispatch('utilisateurs/update', utilisateurObj)
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurObj })
-    expect(mutationsUtilisateur.set).toHaveBeenCalled()
-    expect(mutationsUser.set).not.toHaveBeenCalled()
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("modifie l'utilisateur actif ainsi que la page de cet utilisateur", async () => {
-    user.state.current = utilisateurObj
-    store = new Vuex.Store({
-      modules: { utilisateurs, utilisateur, user },
-      mutations,
-      actions
-    })
-    const apiMock = api.utilisateurModifier.mockResolvedValue(utilisateurObj)
-    await store.dispatch('utilisateurs/update', utilisateurObj)
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurObj })
-    expect(mutationsUtilisateur.set).toHaveBeenCalled()
-    expect(mutationsUser.set).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur de l'api lors du changement d'utilisateur", async () => {
-    const apiMock = api.utilisateurModifier.mockRejectedValue(
-      new Error("erreur dans l'api")
-    )
-    await store.dispatch('utilisateurs/update', utilisateurObj)
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ utilisateur: utilisateurObj })
-    expect(mutationsUtilisateur.set).not.toHaveBeenCalled()
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test('supprime un utilisateur', async () => {
-    const apiMock = api.utilisateurSupprimer.mockResolvedValue(utilisateurObj)
-    await store.dispatch('utilisateurs/remove', 46)
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ id: 46 })
-    expect(store.state.utilisateurs.list).toEqual([
-      { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' }
-    ])
-    expect(actionsUser.logout).not.toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalled()
-    expect(router.default).toEqual([{ name: 'utilisateurs' }])
-  })
-
-  test('supprime un utilisateur tout en le deconnectant de sa page utilisateur', async () => {
-    const apiMock = api.utilisateurSupprimer.mockResolvedValue(utilisateurObj)
-    user.state.current = utilisateurObj
-    store = new Vuex.Store({
-      modules: { utilisateurs, utilisateur, user },
-      mutations,
-      actions
-    })
-    await store.dispatch('utilisateurs/remove', 46)
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ id: 46 })
-    expect(store.state.utilisateurs.list).toEqual([
-      { id: 71, nom: 'toto', prenom: 'asticot', mdp: 'rigolo' }
-    ])
-    expect(actionsUser.logout).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalled()
-  })
-
-  test("supprime un utilisateur n'existant pas", async () => {
-    const apiMock = api.utilisateurSupprimer.mockResolvedValue(null)
-    await store.dispatch('utilisateurs/remove', 28)
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ id: 28 })
-    expect(store.state.utilisateurs.list).toEqual(utilisateursIds)
-    expect(actionsUser.logout).not.toHaveBeenCalled()
-    expect(mutations.popupClose).not.toHaveBeenCalled()
-    expect(actions.messageAdd).not.toHaveBeenCalled()
-    expect(mutations.popupMessageAdd).not.toHaveBeenCalled()
-  })
-
-  test("retourne une erreur de l'api dans la suppression de l'utilisateur", async () => {
-    const apiMock = api.utilisateurSupprimer.mockRejectedValue(
-      new Error("erreur dans l'api")
-    )
-    await store.dispatch('utilisateurs/remove', 46)
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ id: 46 })
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test("modifie le mot de passe d'un utilisateur", async () => {
-    const apiMock = api.utilisateurMotDePasseModifier.mockResolvedValue({
-      id: 46,
-      mdp: 'jour',
-      nom: 'jean',
-      prenom: 'peuplut'
-    })
-    await store.dispatch('utilisateurs/passwordUpdate', {
-      id: 46,
-      motDePasse: 'bon',
-      motDePasseNouveau1: 'jour',
-      motDePasseNouveau2: 'jour'
-    })
-
-    expect(apiMock).toHaveBeenCalledWith({
-      id: 46,
-      motDePasse: 'bon',
-      motDePasseNouveau1: 'jour',
-      motDePasseNouveau2: 'jour'
-    })
-    expect(mutations.popupClose).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalled()
-    expect(mutations.loadingRemove).toHaveBeenCalled()
-  })
-
-  test("ne trouve pas l'utilisateur dont le mot de passe est à modifier", async () => {
-    const apiMock = api.utilisateurMotDePasseModifier.mockResolvedValue(null)
-    await store.dispatch('utilisateurs/passwordUpdate', {
-      id: 24,
-      motDePasse: 'bon',
-      motDePasseNouveau1: 'jour',
-      motDePasseNouveau2: 'jour'
-    })
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({
-      id: 24,
-      motDePasse: 'bon',
-      motDePasseNouveau1: 'jour',
-      motDePasseNouveau2: 'jour'
-    })
-    expect(mutations.popupClose).not.toHaveBeenCalled()
-    expect(actions.messageAdd).not.toHaveBeenCalled()
-    expect(mutations.loadingRemove).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur de l'api dans la modification du mot de passe", async () => {
-    const apiMock = api.utilisateurMotDePasseModifier.mockRejectedValue(
-      new Error("erreur dans l'api")
-    )
-    await store.dispatch('utilisateurs/passwordUpdate', {
-      id: 46,
-      motDePasse: 'bon',
-      motDePasseNouveau1: 'jour',
-      motDePasseNouveau2: 'jour'
-    })
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({
-      id: 46,
-      motDePasse: 'bon',
-      motDePasseNouveau1: 'jour',
-      motDePasseNouveau2: 'jour'
-    })
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-    expect(mutations.loadingRemove).toHaveBeenCalled()
-  })
-
-  test("enlève un utilisateur n'existant pas dans l'api", () => {
-    store.commit('utilisateurs/set', utilisateursIds)
-    store.commit('utilisateurs/remove', 25)
-
-    expect(store.state.utilisateurs.list).toEqual(utilisateursIds)
   })
 })

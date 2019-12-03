@@ -1,5 +1,5 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <div>
         <h2 class="mb-0">
@@ -20,7 +20,6 @@
     </div>
 
     <template slot="footer">
-      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -32,6 +31,7 @@
         </div>
         <div class="tablet-blob-2-3">
           <button
+            id="cmn-utilisateur-remove-popup-button-supprimer"
             class="btn-flash rnd-xs p-s full-x"
             @click="remove"
           >
@@ -45,14 +45,12 @@
 
 <script>
 import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
 
 export default {
   name: 'CaminoUtilisateurRemovePopup',
 
   components: {
-    Popup,
-    Messages
+    Popup
   },
 
   props: {
@@ -77,8 +75,8 @@ export default {
   },
 
   methods: {
-    remove() {
-      this.$store.dispatch('utilisateurs/remove', this.utilisateur.id)
+    async remove() {
+      await this.$store.dispatch('utilisateur/remove', this.utilisateur.id)
     },
 
     cancel() {

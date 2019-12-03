@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import router from '../router'
 import {
   entreprise,
   entrepriseCreer,
@@ -30,23 +29,6 @@ export const actions = {
     }
   },
 
-  async reload({ dispatch }, { id, idOld }) {
-    if (id !== idOld) {
-      router.replace({ name: 'entreprise', params: { id } })
-    }
-
-    await dispatch('get', id)
-
-    dispatch(
-      'messageAdd',
-      {
-        value: `l'entreprise a été ${idOld ? 'mise à jour' : 'créée'}`,
-        type: 'success'
-      },
-      { root: true }
-    )
-  },
-
   async create({ commit, dispatch }, entreprise) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
@@ -54,12 +36,17 @@ export const actions = {
     try {
       const data = await entrepriseCreer({ entreprise })
 
-      if (data) {
-        commit('popupClose', null, { root: true })
-        dispatch('reload', { id: data.id })
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      commit('popupClose', null, { root: true })
+      await dispatch(
+        'reload',
+        { id: data.id, name: 'entreprise' },
+        { root: true }
+      )
+      dispatch(
+        'messageAdd',
+        { value: `l'entreprise a été mise à jour`, type: 'success' },
+        { root: true }
+      )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -74,15 +61,17 @@ export const actions = {
     try {
       const data = await entrepriseModifier({ entreprise })
 
-      if (data) {
-        commit('popupClose', null, { root: true })
-        dispatch('reload', {
-          id: data.id,
-          idOld: entreprise.id
-        })
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      commit('popupClose', null, { root: true })
+      await dispatch(
+        'reload',
+        { name: 'entreprise', id: data.id },
+        { root: true }
+      )
+      dispatch(
+        'messageAdd',
+        { value: `l'entreprise a été mise à jour`, type: 'success' },
+        { root: true }
+      )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

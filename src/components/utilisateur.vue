@@ -24,6 +24,7 @@
         slot="buttons"
       >
         <button
+          id="cmn-utilisateur-button-password-popup"
           class="btn-alt py-s px-m"
           @click="passwordPopupOpen"
         >
@@ -31,6 +32,7 @@
         </button>
 
         <button
+          id="cmn-utilisateur-button-popup-supprimer"
           class="btn-alt py-s px-m"
           @click="removePopupOpen"
         >
@@ -38,6 +40,7 @@
         </button>
 
         <button
+          id="cmn-utilisateur-button-popup-editer"
           class="btn-alt py-s px-m"
           @click="editPopupOpen"
         >

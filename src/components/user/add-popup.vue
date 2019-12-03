@@ -1,5 +1,5 @@
 <template>
-  <Popup>
+  <Popup :messages="messages">
     <template slot="header">
       <div>
         <h2 class="mb-0">
@@ -20,6 +20,7 @@
       </div>
       <div class="mb tablet-blob-2-3">
         <input
+          id="cmn-user-add-popup-input-email"
           v-model="email"
           type="email"
           class="p-s"
@@ -29,7 +30,6 @@
     </div>
 
     <template slot="footer">
-      <Messages :messages="messages" />
       <div class="tablet-blobs">
         <div class="mb tablet-mb-0 tablet-blob-1-3">
           <button
@@ -45,6 +45,7 @@
           :class="{ disabled: !complete }"
         >
           <button
+            id="cmn-user-add-popup-button-valider"
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
             @keyup.enter.native="save"
@@ -59,15 +60,13 @@
 
 <script>
 import Popup from '../ui/popup.vue'
-import Messages from '../ui/messages.vue'
 import emailValidator from 'email-validator'
 
 export default {
   name: 'CaminoUserAccountCreatePopup',
 
   components: {
-    Popup,
-    Messages
+    Popup
   },
 
   data() {
