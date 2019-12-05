@@ -156,6 +156,12 @@ const fragmentTitres = gql`
     geojsonMultiPolygon {
       ...geojsonMultiPolygon
     }
+    engagement
+    engagementDevise {
+      id
+      nom
+    }
+    surface
   }
 
   ${fragmentTitresAdministrations}
