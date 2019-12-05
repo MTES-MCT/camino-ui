@@ -41,10 +41,11 @@
     </template>
 
     <template
-      v-if="hasProps"
+      v-if="hasProps || etape.editable"
       slot="sub"
     >
       <div
+        v-if="hasProps"
         class="px-m pt-m border-b-s"
       >
         <div
