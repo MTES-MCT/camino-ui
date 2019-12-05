@@ -29,6 +29,47 @@ export default {
     content() {
       const titresFormatCsv = titres =>
         titres.map(titre => {
+          const { communes, departements, regions } = titre.pays.reduce(
+            ({ communes, departements, regions }, pay) => {
+              const {
+                payRegions,
+                payDepartements,
+                payCommunes
+              } = pay.regions.reduce(
+                ({ payRegions, payDepartements, payCommunes }, region) => {
+                  const {
+                    regionDepartements,
+                    regionCommunes
+                  } = region.departements.reduce(
+                    ({ regionDepartements, regionCommunes }, departement) => {
+                      regionDepartements.push(departement.nom)
+                      regionCommunes.push(
+                        ...departement.communes.map(commune => commune.nom)
+                      )
+
+                      return { regionDepartements, regionCommunes }
+                    },
+                    { regionDepartements: [], regionCommunes: [] }
+                  )
+
+                  payRegions.push(region.nom)
+                  payDepartements.push(...regionDepartements)
+                  payCommunes.push(...regionCommunes)
+
+                  return { payRegions, payDepartements, payCommunes }
+                },
+                { payRegions: [], payDepartements: [], payCommunes: [] }
+              )
+
+              regions.push(...payRegions)
+              departements.push(...payDepartements)
+              communes.push(...payCommunes)
+
+              return { communes, departements, regions }
+            },
+            { communes: [], departements: [], regions: [] }
+          )
+
           const titreNew = {
             id: titre.id,
             nom: titre.nom,
@@ -42,6 +83,9 @@ export default {
             volume_unite: titre.volumeUnite,
             substances: titre.substances.map(s => s.nom).join(';'),
             surface_km2: titre.surface,
+            communes: communes.join(';'),
+            departements: departements.join(';'),
+            regions: regions.join(';'),
             administrations_noms: titre.administrations
               .map(a => a.nom)
               .join(';'),
@@ -61,7 +105,7 @@ export default {
 
           titre.references &&
             titre.references.forEach(reference => {
-              titreNew[`reference_${reference.type}`] = reference.valeur
+              titreNew[`reference_${reference.type.nom}`] = reference.nom
             })
 
           return titreNew

@@ -162,6 +162,18 @@ const fragmentTitres = gql`
       nom
     }
     surface
+    pays {
+      nom
+      regions {
+        nom
+        departements {
+          nom
+          communes {
+            nom
+          }
+        }
+      }
+    }
   }
 
   ${fragmentTitresAdministrations}

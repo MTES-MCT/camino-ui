@@ -64,14 +64,17 @@ export default {
               references:
                 titre.references &&
                 titre.references
-                  .map(reference => `${reference.type}: ${reference.valeur}`)
+                  .map(reference => `${reference.type.nom}: ${reference.nom}`)
                   .join(', ')
             }
           }
         })
       })
 
-      return JSON.stringify(titresFormatGeojson(this.titres), null, 2)
+      const titresFormated = JSON.stringify(titresFormatGeojson(this.titres))
+      console.log(titresFormated)
+
+      return titresFormated
     }
   }
 }

@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     download() {
+      console.log(this.name, this.content)
       const link = document.createElement('a')
       const data = `data:text/${this.type};charset=utf-8,${encodeURIComponent(
         this.content
