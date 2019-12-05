@@ -116,10 +116,9 @@ export default {
 
   computed: {
     elementsSorted() {
-      const id = this.column
       return this.elements.slice().sort((a, b) => {
-        const aValue = a.columns[id].value.toString()
-        const bValue = b.columns[id].value.toString()
+        const aValue = a.columns[this.column].value.toString()
+        const bValue = b.columns[this.column].value.toString()
         return (
           aValue.localeCompare(bValue, 'fr') * (this.order === 'asc' ? 1 : -1)
         )
@@ -136,6 +135,10 @@ export default {
         return res
       }, [])
     }
+  },
+
+  watch: {
+    columns: 'columnInit'
   },
 
   methods: {
@@ -165,9 +168,19 @@ export default {
       } else {
         this.column = colId
       }
+
       this.$emit('column:update', this.column)
       this.$emit('order:update', this.order)
       this.pageUpdateEvent(1)
+    },
+
+    columnInit() {
+      if (
+        this.elements.length &&
+        !this.columns.some(c => c.id === this.column)
+      ) {
+        this.sort(this.columns[0].id)
+      }
     }
   }
 }

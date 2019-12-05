@@ -71,10 +71,7 @@ export default {
         })
       })
 
-      const titresFormated = JSON.stringify(titresFormatGeojson(this.titres))
-      console.log(titresFormated)
-
-      return titresFormated
+      return JSON.stringify(titresFormatGeojson(this.titres))
     }
   }
 }

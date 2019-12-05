@@ -35,9 +35,7 @@ export default {
 
   computed: {
     activitesCol() {
-      return this.titres.some(
-        t => t.activitesAbsentes || t.activitesEnConstruction
-      )
+      return this.permissionsCheck(['super', 'admin', 'editeur', 'entreprise'])
     },
 
     colonnes() {
