@@ -64,6 +64,7 @@
       >
         <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
+            v-if="!loading"
             id="cmn-titre-activite-edit-popup-button-modifier"
             class="btn-border rnd-xs p-s full-x"
             @click="edit"
@@ -71,33 +72,39 @@
             Modifier
           </button>
         </div>
-        <div class="mb tablet-blob-1-3 tablet-mb-0">
-          <button
+        <div class="tablet-blob-2-3">
+          <div
             v-if="!loading"
-            id="cmn-titre-activite-edit-popup-button-enregistrer"
-            class="rnd-xs p-s full-x"
-            :class="{ 'btn-flash': !complete, 'btn-border': complete }"
-            @click="save(false)"
+            class="tablet-blobs"
           >
-            Enregistrer
-          </button>
+            <div class="tablet-blob-1-2 mb tablet-mb-0">
+              <button
+                id="cmn-titre-activite-edit-popup-button-enregistrer"
+                class="rnd-xs p-s full-x"
+                :class="{ 'btn-flash': !complete, 'btn-border': complete }"
+                @click="save(false)"
+              >
+                Enregistrer
+              </button>
+            </div>
+            <div
+              class="tablet-blob-1-2"
+              :class="{ disabled: !complete }"
+            >
+              <button
+                class="btn-flash rnd-xs p-s full-x"
+                @click="complete && save(true)"
+              >
+                Valider
+              </button>
+            </div>
+          </div>
           <div
             v-else
             class="p-s full-x bold"
           >
             Enregistrement en cours…
           </div>
-        </div>
-        <div
-          class="tablet-blob-1-3"
-          :class="{ disabled: !complete }"
-        >
-          <button
-            class="btn-flash rnd-xs p-s full-x"
-            @click="complete && save(true)"
-          >
-            Valider
-          </button>
         </div>
       </div>
     </template>

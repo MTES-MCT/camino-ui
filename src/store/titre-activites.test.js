@@ -26,7 +26,8 @@ describe('état des activités', () => {
       loadingAdd: jest.fn(),
       loadingRemove: jest.fn(),
       popupClose: jest.fn(),
-      popupMessageAdd: jest.fn()
+      popupMessageAdd: jest.fn(),
+      popupLoad: jest.fn()
     }
 
     store = new Vuex.Store({

@@ -46,8 +46,10 @@ describe("état de l'utilisateur consulté", () => {
       loadingRemove: jest.fn(),
       popupMessageAdd: jest.fn(),
       popupClose: jest.fn(),
-      popupMessagesRemove: jest.fn()
+      popupMessagesRemove: jest.fn(),
+      popupLoad: jest.fn()
     }
+
     actions = {
       pageError: jest.fn(),
       apiError: jest.fn(),

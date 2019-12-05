@@ -263,6 +263,7 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
+            v-if="!loading"
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
             @keyup.esc.native="cancel"
@@ -346,21 +347,15 @@ export default {
     },
 
     complete() {
-      if (this.action === 'create') {
-        return (
-          this.utilisateur.nom &&
-          this.utilisateur.prenom &&
-          this.utilisateur.email &&
-          this.utilisateur.motDePasse
-        )
-      }
-
-      return (
-        this.utilisateur.nom &&
-        this.utilisateur.prenom &&
-        this.utilisateur.id &&
-        this.utilisateur.email
-      )
+      return this.action === 'create'
+        ? this.utilisateur.nom &&
+            this.utilisateur.prenom &&
+            this.utilisateur.email &&
+            this.utilisateur.motDePasse
+        : this.utilisateur.nom &&
+            this.utilisateur.prenom &&
+            this.utilisateur.id &&
+            this.utilisateur.email
     },
 
     utilisateurEntreprisesLength() {

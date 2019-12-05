@@ -36,6 +36,7 @@ export const actions = {
 
   async add({ commit, dispatch }, utilisateur) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'utilisateurAdd', { root: true })
     try {
       const data = await utilisateurCreer({ utilisateur })
@@ -60,6 +61,7 @@ export const actions = {
 
   async update({ commit, dispatch, rootState }, utilisateur) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'utilisateurUpdate', { root: true })
 
     try {
@@ -91,6 +93,7 @@ export const actions = {
     { id, motDePasse, motDePasseNouveau1, motDePasseNouveau2 }
   ) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'utilisateurPasswordUpdate', { root: true })
 
     try {
@@ -121,6 +124,7 @@ export const actions = {
 
   async remove({ commit, dispatch, rootState }, id) {
     commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'utilisateurRemove', { root: true })
 
     try {

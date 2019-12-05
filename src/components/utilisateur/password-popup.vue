@@ -59,8 +59,9 @@
 
     <template slot="footer">
       <div class="tablet-blobs">
-        <div class="mb tablet-mb-0 tablet-blob-1-3">
+        <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
+            v-if="!loading"
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
             @keyup.esc.native="cancel"
@@ -121,9 +122,11 @@ export default {
     loading() {
       return this.$store.state.popup.loading
     },
+
     messages() {
       return this.$store.state.popup.messages
     },
+
     complete() {
       return (
         this.motDePasseNouveau1 &&
