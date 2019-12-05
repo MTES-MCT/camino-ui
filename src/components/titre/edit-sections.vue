@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-for="s in sections"
+      v-for="s in sectionFiltered"
       :key="s.id"
     >
       <h3 v-if="s.nom">
@@ -143,6 +143,20 @@ export default {
     editable: {
       type: Boolean,
       default: true
+    }
+  },
+
+  computed: {
+    // masque les sections vides lors de la prévisualistation
+    sectionFiltered() {
+      return this.sections.filter(
+        s =>
+          this.editable ||
+          s.elements.some(e => {
+            const contenu = this.contenu[s.id][e.id]
+            return !!contenu || contenu === 0
+          })
+      )
     }
   }
 }
