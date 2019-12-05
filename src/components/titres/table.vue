@@ -3,10 +3,9 @@
     ref="table"
     :titres="titres"
     @page:update="urlUpdate('page', $event)"
-    @intervalle:update="urlUpdate('range', $event)"
-    @colonne:update="urlUpdate('column', $event)"
-    @ordre:update="urlUpdate('order', $event)"
-    @colonneIds:check="colonneIdCheck($event)"
+    @intervalle:update="urlUpdate('intervalle', $event)"
+    @colonne:update="urlUpdate('colonne', $event)"
+    @ordre:update="urlUpdate('ordre', $event)"
   />
 </template>
 
@@ -28,20 +27,8 @@ export default {
   },
 
   computed: {
-    page() {
-      return this.$store.state.user.preferences.titres.table.page
-    },
-
-    intervalle() {
-      return this.$store.state.user.preferences.titres.table.range
-    },
-
-    colonne() {
-      return this.$store.state.user.preferences.titres.table.column
-    },
-
-    ordre() {
-      return this.$store.state.user.preferences.titres.table.order
+    preferences() {
+      return this.$store.state.user.preferences.titres.table
     }
   },
 
@@ -62,21 +49,12 @@ export default {
         to.query.intervalle &&
         to.query.intervalle !== from.query.intervalle
       ) {
-        this.preferencesUpdate('range', Number(to.query.intervalle))
+        this.preferencesUpdate('intervalle', Number(to.query.intervalle))
       }
 
       if (!to.query.intervalle && !to.query.page) {
         this.init()
       }
-    }
-  },
-
-  created() {
-    this.param = {
-      page: 'page',
-      range: 'intervalle',
-      column: 'colonne',
-      order: 'ordre'
     }
   },
 
@@ -87,7 +65,7 @@ export default {
   destroyed() {
     const query = Object.assign({}, this.$route.query)
 
-    if (query.intervalle || query.page) {
+    if (query.intervalle || query.page || query.ordre || query.colonne) {
       if (query.intervalle) {
         delete query.intervalle
       }
@@ -96,54 +74,51 @@ export default {
         delete query.page
       }
 
+      if (query.colonne) {
+        delete query.colonne
+      }
+
+      if (query.ordre) {
+        delete query.ordre
+      }
+
       this.$router.replace({ query })
     }
   },
 
   methods: {
     init() {
-      const page = this.$route.query.page && Number(this.$route.query.page)
-      const range =
-        this.$route.query.intervalle && Number(this.$route.query.intervalle)
-      const column = this.$route.query.colonne && this.$route.query.colonne
-      const order = this.$route.query.ordre
-
-      this.paramUpdate('page', page, this.page)
-      this.paramUpdate('range', range, this.intervalle)
-      this.paramUpdate('column', column, this.colonne || 'nom')
-      this.paramUpdate('order', order, this.ordre)
-    },
-
-    paramUpdate(id, value, thisValue) {
-      if (!value) {
-        this.$refs.table.paramUpdate(id, thisValue)
-        this.urlUpdate(id, thisValue)
-      } else if (value !== thisValue) {
-        this.$refs.table.paramUpdate(id, value)
-        this.preferencesUpdate(id, value)
+      const update = (id, urlValue) => {
+        if (!urlValue) {
+          this.$refs.table.update(id, this.preferences[id])
+          this.urlUpdate(id, this.preferences[id])
+        } else if (urlValue !== this.preferences[id]) {
+          this.$refs.table.update(id, urlValue)
+          this.preferencesUpdate(id, urlValue)
+        }
       }
+
+      const page = this.$route.query.page && Number(this.$route.query.page)
+      const intervalle =
+        this.$route.query.intervalle && Number(this.$route.query.intervalle)
+      const colonne = this.$route.query.colonne
+      const ordre = this.$route.query.ordre
+
+      update('page', page)
+      update('intervalle', intervalle)
+      update('colonne', colonne)
+      update('ordre', ordre)
     },
 
     preferencesUpdate(id, value) {
       this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.table.' + id,
-        value: value
+        section: `titres.table.${id}`,
+        value
       })
     },
 
     urlUpdate(id, value) {
-      this.urlParamSet(this.param[id], value.toString())
-
-      if (id !== 'page') {
-        this.preferencesUpdate(id, value)
-      }
-    },
-
-    colonneIdCheck(colonnesIds) {
-      if (!colonnesIds.includes(this.colonne)) {
-        this.urlUpdate('column', 'nom')
-        this.paramUpdate('column', 'nom')
-      }
+      this.urlParamSet(id, value.toString())
     }
   }
 }

@@ -11,13 +11,13 @@
             @click="sort(col.id)"
           >
             <button class="btn-transparent full-x p-0">
-              {{ col.name || (sortColumn === col.id ? '' : '–') }}
+              {{ col.name || (column === col.id ? '' : '–') }}
               <i
-                v-if="sortColumn === col.id"
+                v-if="column === col.id"
                 class="icon-24 right"
                 :class="{
-                  'icon-chevron-b': sortOrder === 'asc',
-                  'icon-chevron-t': sortOrder === 'desc'
+                  'icon-chevron-b': order === 'asc',
+                  'icon-chevron-t': order === 'desc'
                 }"
               />
             </button>
@@ -38,16 +38,12 @@
           >
             <component
               :is="element.columns[col.id].component"
-              v-if="
-                element.columns[col.id] && element.columns[col.id].component
-              "
+              v-if="element.columns[col.id] && element.columns[col.id].component"
               v-bind="element.columns[col.id].props"
               :class="element.columns[col.id].class"
             />
             <span
-              v-else-if="
-                element.columns[col.id] && element.columns[col.id].value
-              "
+              v-else-if="element.columns[col.id] && element.columns[col.id].value"
               :class="element.columns[col.id].class"
             >{{ element.columns[col.id].value }}</span>
           </div>
@@ -113,20 +109,19 @@ export default {
       ranges: [10, 50, 200, 500],
       range: 200,
       page: 1,
-      sortOrder: 'asc',
-      sortColumn: this.columns[0].id
+      order: 'asc',
+      column: this.columns[0].id
     }
   },
 
   computed: {
     elementsSorted() {
-      const id = this.sortColumn
+      const id = this.column
       return this.elements.slice().sort((a, b) => {
         const aValue = a.columns[id].value.toString()
         const bValue = b.columns[id].value.toString()
         return (
-          aValue.localeCompare(bValue, 'fr') *
-          (this.sortOrder === 'asc' ? 1 : -1)
+          aValue.localeCompare(bValue, 'fr') * (this.order === 'asc' ? 1 : -1)
         )
       })
     },
@@ -145,13 +140,13 @@ export default {
 
   methods: {
     pageUpdateEvent(page) {
-      this.paramUpdate('page', page)
+      this.update('page', page)
       this.$emit('page:update', page)
     },
 
     rangeUpdateEvent(range) {
-      this.paramUpdate('range', range)
-      this.paramUpdate('page', 1)
+      this.update('range', range)
+      this.update('page', 1)
       this.$emit('range:update', range)
       this.$emit('page:update', 1)
     },
@@ -160,29 +155,18 @@ export default {
       console.log(columnIds)
     },
 
-    paramUpdate(id, value) {
-      if (id === 'page') {
-        this.page = value
-      }
-      if (id === 'range') {
-        this.range = Number(value)
-      }
-      if (id === 'column') {
-        this.sortColumn = value
-      }
-      if (id === 'order') {
-        this.sortOrder = value
-      }
+    update(id, value) {
+      this[id] = value
     },
 
-    sort(colIndex) {
-      if (this.sortColumn === colIndex) {
-        this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc'
+    sort(colId) {
+      if (this.column === colId) {
+        this.order = this.order === 'asc' ? 'desc' : 'asc'
       } else {
-        this.sortColumn = colIndex
+        this.column = colId
       }
-      this.$emit('column:update', this.sortColumn)
-      this.$emit('order:update', this.sortOrder)
+      this.$emit('column:update', this.column)
+      this.$emit('order:update', this.order)
       this.pageUpdateEvent(1)
     }
   }

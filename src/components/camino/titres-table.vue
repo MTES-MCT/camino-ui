@@ -157,20 +157,21 @@ export default {
     }
   },
 
-  watch: {
-    titres: function(to, from) {
-      this.$emit(
-        'colonneIds:check',
-        this.colonnes.map(col => {
-          return col.id
-        })
-      )
-    }
-  },
-
   methods: {
-    paramUpdate(id, value) {
-      this.$refs.table.paramUpdate(id, value)
+    update(id, value) {
+      if (id === 'intervalle') {
+        id = 'range'
+      }
+
+      if (id === 'colonne') {
+        id = 'column'
+      }
+
+      if (id === 'ordre') {
+        id = 'order'
+      }
+
+      this.$refs.table.update(id, value)
     }
   }
 }
