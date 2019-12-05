@@ -19,7 +19,9 @@ export const state = {
       vueId: 'carte',
       table: {
         page: 1,
-        range: 200
+        intervalle: 200,
+        ordre: 'asc',
+        colonne: 'nom'
       },
       filtres: {
         types: null,

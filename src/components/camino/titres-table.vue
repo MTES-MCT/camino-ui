@@ -4,7 +4,9 @@
     :elements="elements"
     :columns="colonnes"
     @page:update="$emit('page:update', $event)"
-    @range:update="$emit('range:update', $event)"
+    @range:update="$emit('intervalle:update', $event)"
+    @column:update="$emit('colonne:update', $event)"
+    @order:update="$emit('ordre:update', $event)"
   />
 </template>
 
@@ -156,14 +158,20 @@ export default {
   },
 
   methods: {
-    pageUpdate(page) {
-      // called from parent component
-      this.$refs.table.pageUpdate(page)
-    },
+    update(id, value) {
+      if (id === 'intervalle') {
+        id = 'range'
+      }
 
-    rangeUpdate(range) {
-      // called from parent component
-      this.$refs.table.rangeUpdate(range)
+      if (id === 'colonne') {
+        id = 'column'
+      }
+
+      if (id === 'ordre') {
+        id = 'order'
+      }
+
+      this.$refs.table.update(id, value)
     }
   }
 }

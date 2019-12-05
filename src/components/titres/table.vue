@@ -2,8 +2,10 @@
   <TitresTable
     ref="table"
     :titres="titres"
-    @page:update="urlPageUpdate"
-    @range:update="urlRangeUpdate"
+    @page:update="urlUpdate('page', $event)"
+    @intervalle:update="urlUpdate('intervalle', $event)"
+    @colonne:update="urlUpdate('colonne', $event)"
+    @ordre:update="urlUpdate('ordre', $event)"
   />
 </template>
 
@@ -25,32 +27,32 @@ export default {
   },
 
   computed: {
-    page() {
-      return this.$store.state.user.preferences.titres.table.page
-    },
-
-    range() {
-      return this.$store.state.user.preferences.titres.table.range
+    preferences() {
+      return this.$store.state.user.preferences.titres.table
     }
   },
 
   watch: {
     titres: function(to, from) {
       if (from.length && from.length !== to.length) {
-        this.urlPageUpdate(1)
+        this.urlUpdate('page', 1)
       }
+      this.init()
     },
 
     $route: function(to, from) {
       if (to.query.page && to.query.page !== from.query.page) {
-        this.preferencesPageUpdate(Number(to.query.page))
+        this.preferencesUpdate('page', Number(to.query.page))
       }
 
-      if (to.query.range && to.query.range !== from.query.range) {
-        this.preferencesRangeUpdate(Number(to.query.range))
+      if (
+        to.query.intervalle &&
+        to.query.intervalle !== from.query.intervalle
+      ) {
+        this.preferencesUpdate('intervalle', Number(to.query.intervalle))
       }
 
-      if (!to.query.range && !to.query.page) {
+      if (!to.query.intervalle && !to.query.page) {
         this.init()
       }
     }
@@ -63,13 +65,21 @@ export default {
   destroyed() {
     const query = Object.assign({}, this.$route.query)
 
-    if (query.range || query.page) {
-      if (query.range) {
-        delete query.range
+    if (query.intervalle || query.page || query.ordre || query.colonne) {
+      if (query.intervalle) {
+        delete query.intervalle
       }
 
       if (query.page) {
         delete query.page
+      }
+
+      if (query.colonne) {
+        delete query.colonne
+      }
+
+      if (query.ordre) {
+        delete query.ordre
       }
 
       this.$router.replace({ query })
@@ -78,46 +88,37 @@ export default {
 
   methods: {
     init() {
+      const update = (id, urlValue) => {
+        if (!urlValue) {
+          this.$refs.table.update(id, this.preferences[id])
+          this.urlUpdate(id, this.preferences[id])
+        } else if (urlValue !== this.preferences[id]) {
+          this.$refs.table.update(id, urlValue)
+          this.preferencesUpdate(id, urlValue)
+        }
+      }
+
       const page = this.$route.query.page && Number(this.$route.query.page)
-      const range = this.$route.query.range && Number(this.$route.query.range)
+      const intervalle =
+        this.$route.query.intervalle && Number(this.$route.query.intervalle)
+      const colonne = this.$route.query.colonne
+      const ordre = this.$route.query.ordre
 
-      if (!page) {
-        this.$refs.table.pageUpdate(this.page)
-        this.urlPageUpdate(this.page)
-      } else if (page !== this.page) {
-        this.$refs.table.pageUpdate(page)
-        this.preferencesPageUpdate(page)
-      }
-
-      if (!range) {
-        this.$refs.table.rangeUpdate(this.range)
-        this.urlRangeUpdate(this.range)
-      } else if (range !== this.range) {
-        this.$refs.table.rangeUpdate(range)
-        this.preferencesRangeUpdate(range)
-      }
+      update('page', page)
+      update('intervalle', intervalle)
+      update('colonne', colonne)
+      update('ordre', ordre)
     },
 
-    preferencesPageUpdate(page) {
+    preferencesUpdate(id, value) {
       this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.table.page',
-        value: page
+        section: `titres.table.${id}`,
+        value
       })
     },
 
-    urlPageUpdate(page) {
-      this.urlParamSet('page', page.toString())
-    },
-
-    preferencesRangeUpdate(range) {
-      this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.table.range',
-        value: range
-      })
-    },
-
-    urlRangeUpdate(range) {
-      this.urlParamSet('range', range.toString())
+    urlUpdate(id, value) {
+      this.urlParamSet(id, value.toString())
     }
   }
 }

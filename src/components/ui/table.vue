@@ -4,22 +4,20 @@
       <div class="table">
         <div class="tr">
           <div
-            v-for="(col, index) in columns"
+            v-for="col in columns"
             :key="col.id"
             class="th nowrap"
             :class="col.class"
-            @click="sort(index)"
+            @click="sort(col.id)"
           >
-            <button
-              class="btn-transparent full-x p-0"
-            >
-              {{ col.name || (sortColumn === index ? '' : '–') }}
+            <button class="btn-transparent full-x p-0">
+              {{ col.name || (column === col.id ? '' : '–') }}
               <i
-                v-if="sortColumn === index"
+                v-if="column === col.id"
                 class="icon-24 right"
                 :class="{
-                  'icon-chevron-b': sortOrder > 0 ,
-                  'icon-chevron-t': sortOrder < 0
+                  'icon-chevron-b': order === 'asc',
+                  'icon-chevron-t': order === 'desc'
                 }"
               />
             </button>
@@ -111,18 +109,20 @@ export default {
       ranges: [10, 50, 200, 500],
       range: 200,
       page: 1,
-      sortOrder: 1,
-      sortColumn: 0
+      order: 'asc',
+      column: this.columns[0].id
     }
   },
 
   computed: {
     elementsSorted() {
-      const id = this.columns[this.sortColumn].id
+      const id = this.column
       return this.elements.slice().sort((a, b) => {
         const aValue = a.columns[id].value.toString()
         const bValue = b.columns[id].value.toString()
-        return aValue.localeCompare(bValue, 'fr') * this.sortOrder
+        return (
+          aValue.localeCompare(bValue, 'fr') * (this.order === 'asc' ? 1 : -1)
+        )
       })
     },
 
@@ -140,13 +140,13 @@ export default {
 
   methods: {
     pageUpdateEvent(page) {
-      this.pageUpdate(page)
+      this.update('page', page)
       this.$emit('page:update', page)
     },
 
     rangeUpdateEvent(range) {
-      this.rangeUpdate(range)
-      this.pageUpdate(1)
+      this.update('range', range)
+      this.update('page', 1)
       this.$emit('range:update', range)
       this.$emit('page:update', 1)
     },
@@ -155,23 +155,19 @@ export default {
       console.log(columnIds)
     },
 
-    pageUpdate(page) {
-      this.page = page
+    update(id, value) {
+      this[id] = value
     },
 
-    rangeUpdate(range) {
-      this.range = Number(range)
-    },
-
-    sort(colIndex) {
-      if (this.sortColumn === colIndex) {
-        this.sortOrder = -this.sortOrder
+    sort(colId) {
+      if (this.column === colId) {
+        this.order = this.order === 'asc' ? 'desc' : 'asc'
       } else {
-        this.sortColumn = colIndex
+        this.column = colId
       }
-
-      this.pageUpdate(1)
-      this.$emit('page:update', 1)
+      this.$emit('column:update', this.column)
+      this.$emit('order:update', this.order)
+      this.pageUpdateEvent(1)
     }
   }
 }
