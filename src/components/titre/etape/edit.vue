@@ -108,7 +108,7 @@
 
     <template slot="footer">
       <div class="tablet-blobs">
-        <div class="mb tablet-mb-0 tablet-blob-1-3">
+        <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
             v-if="!loading"
             class="btn-border rnd-xs p-s full-x"
@@ -237,7 +237,7 @@ export default {
 
         // console.log(JSON.stringify(etape, null, 2))
         if (this.creation) {
-          await this.$store.dispatch('titre/etapeCreate', etape)
+          await this.$store.dispatch('titre/etapeAdd', etape)
         } else {
           await this.$store.dispatch('titre/etapeUpdate', etape)
         }

@@ -90,7 +90,7 @@ describe("état de l'entreprise sélectionnée", () => {
       nom: 'toto'
     })
 
-    await store.dispatch('entreprise/create', {
+    await store.dispatch('entreprise/add', {
       legalSiren: '123456789',
       paysId: 'fr'
     })
@@ -108,7 +108,7 @@ describe("état de l'entreprise sélectionnée", () => {
     const apiMock = api.entrepriseCreer.mockRejectedValue(
       new Error('erreur api')
     )
-    await store.dispatch('entreprise/create', {
+    await store.dispatch('entreprise/add', {
       legalSiren: '123456789',
       paysId: 'fr'
     })

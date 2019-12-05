@@ -42,7 +42,7 @@
 
     <template slot="footer">
       <div class="tablet-blobs">
-        <div class="mb tablet-mb-0 tablet-blob-1-3">
+        <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
             v-if="!loading"
             class="btn-border rnd-xs p-s full-x"
@@ -152,7 +152,7 @@ export default {
         const demarche = JSON.parse(JSON.stringify(this.demarche))
 
         if (this.creation) {
-          await this.$store.dispatch('titre/demarcheCreate', demarche)
+          await this.$store.dispatch('titre/demarcheAdd', demarche)
         } else {
           await this.$store.dispatch('titre/demarcheUpdate', demarche)
         }

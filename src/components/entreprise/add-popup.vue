@@ -46,7 +46,7 @@
 
     <template slot="footer">
       <div class="tablet-blobs">
-        <div class="mb tablet-mb-0 tablet-blob-1-3">
+        <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
             v-if="!loading"
             class="btn-border rnd-xs p-s full-x"
@@ -130,7 +130,7 @@ export default {
   methods: {
     async save() {
       if (this.complete) {
-        await this.$store.dispatch('entreprise/create', this.entreprise)
+        await this.$store.dispatch('entreprise/add', this.entreprise)
       }
     },
 

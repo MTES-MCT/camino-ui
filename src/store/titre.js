@@ -42,10 +42,10 @@ export const actions = {
     }
   },
 
-  async titreCreate({ commit, dispatch }, titre) {
+  async titreAdd({ commit, dispatch }, titre) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreCreate', { root: true })
+    commit('loadingAdd', 'titreAdd', { root: true })
 
     try {
       const data = await titreCreer({ titre })
@@ -67,7 +67,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreCreate', { root: true })
+      commit('loadingRemove', 'titreAdd', { root: true })
     }
   },
 
@@ -93,10 +93,10 @@ export const actions = {
     }
   },
 
-  async titreDelete({ commit, dispatch }, id) {
+  async titreRemove({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDelete', { root: true })
+    commit('loadingAdd', 'titreRemove', { root: true })
 
     try {
       const data = await titreSupprimer({ id })
@@ -118,14 +118,14 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDelete', { root: true })
+      commit('loadingRemove', 'titreRemove', { root: true })
     }
   },
 
-  async demarcheCreate({ commit, dispatch }, demarche) {
+  async demarcheAdd({ commit, dispatch }, demarche) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheCreate', { root: true })
+    commit('loadingAdd', 'titreDemarcheAdd', { root: true })
 
     try {
       const data = await demarcheCreer({ demarche })
@@ -144,7 +144,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemarcheCreate', { root: true })
+      commit('loadingRemove', 'titreDemarcheAdd', { root: true })
     }
   },
 
@@ -174,10 +174,10 @@ export const actions = {
     }
   },
 
-  async demarcheDelete({ commit, dispatch }, id) {
+  async demarcheRemove({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheDelete', { root: true })
+    commit('loadingAdd', 'titreDemarcheRemove', { root: true })
 
     try {
       const data = await demarcheSupprimer({ id })
@@ -196,14 +196,14 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemarcheDelete', { root: true })
+      commit('loadingRemove', 'titreDemarcheRemove', { root: true })
     }
   },
 
-  async etapeCreate({ commit, dispatch }, etape) {
+  async etapeAdd({ commit, dispatch }, etape) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreEtapeCreate', { root: true })
+    commit('loadingAdd', 'titreEtapeAdd', { root: true })
 
     try {
       const data = await etapeCreer({ etape })
@@ -222,7 +222,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreEtapeCreate', { root: true })
+      commit('loadingRemove', 'titreEtapeAdd', { root: true })
     }
   },
 
@@ -252,10 +252,10 @@ export const actions = {
     }
   },
 
-  async etapeDelete({ commit, dispatch }, id) {
+  async etapeRemove({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreEtapeDelete', { root: true })
+    commit('loadingAdd', 'titreEtapeRemove', { root: true })
 
     try {
       const data = await etapeSupprimer({ id })
@@ -274,14 +274,14 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreEtapeDelete', { root: true })
+      commit('loadingRemove', 'titreEtapeRemove', { root: true })
     }
   },
 
-  async documentCreate({ commit, dispatch }, document) {
+  async documentAdd({ commit, dispatch }, document) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDocumentCreate', { root: true })
+    commit('loadingAdd', 'titreDocumentAdd', { root: true })
 
     try {
       const data = await documentCreer({ document })
@@ -300,7 +300,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDocumentCreate', { root: true })
+      commit('loadingRemove', 'titreDocumentAdd', { root: true })
     }
   },
 
@@ -330,10 +330,10 @@ export const actions = {
     }
   },
 
-  async documentDelete({ commit, dispatch }, id) {
+  async documentRemove({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDocumentDelete', { root: true })
+    commit('loadingAdd', 'titreDocumentRemove', { root: true })
 
     try {
       const data = await documentSupprimer({ id })
@@ -352,7 +352,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDocumentDelete', { root: true })
+      commit('loadingRemove', 'titreDocumentRemove', { root: true })
     }
   }
 }

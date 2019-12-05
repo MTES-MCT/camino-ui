@@ -29,10 +29,10 @@ export const actions = {
     }
   },
 
-  async create({ commit, dispatch }, entreprise) {
+  async add({ commit, dispatch }, entreprise) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'entrepriseCreate', { root: true })
+    commit('loadingAdd', 'entrepriseAdd', { root: true })
     try {
       const data = await entrepriseCreer({ entreprise })
 
@@ -50,7 +50,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'entrepriseCreate', { root: true })
+      commit('loadingRemove', 'entrepriseAdd', { root: true })
     }
   },
 

@@ -219,7 +219,7 @@
 
     <template slot="footer">
       <div class="tablet-blobs">
-        <div class="mb tablet-mb-0 tablet-blob-1-3">
+        <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
             v-if="!loading"
             class="btn-border rnd-xs p-s full-x"
@@ -326,7 +326,7 @@ export default {
 
     async save() {
       if (this.creation) {
-        await this.$store.dispatch('titre/documentCreate', this.document)
+        await this.$store.dispatch('titre/documentAdd', this.document)
       } else {
         await this.$store.dispatch('titre/documentUpdate', this.document)
       }

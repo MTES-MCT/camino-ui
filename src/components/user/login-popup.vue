@@ -34,8 +34,8 @@
     </div>
 
     <template slot="footer">
-      <div class="tablet-blobs mb tablet-mb-0">
-        <div class="mb tablet-blob-1-3">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"

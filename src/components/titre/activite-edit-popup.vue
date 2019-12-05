@@ -40,7 +40,7 @@
         v-if="editable"
         class="tablet-blobs"
       >
-        <div class="mb tablet-mb-0 tablet-blob-1-3">
+        <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
@@ -62,7 +62,7 @@
         v-else
         class="tablet-blobs"
       >
-        <div class="mb tablet-blob-1-3 tablet-mb-0">
+        <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
             id="cmn-titre-activite-edit-popup-button-modifier"
             class="btn-border rnd-xs p-s full-x"
