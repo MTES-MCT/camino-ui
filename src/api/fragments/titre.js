@@ -122,6 +122,7 @@ const fragmentTitres = gql`
     }
     domaine {
       id
+      nom
     }
     statut {
       id
@@ -155,6 +156,11 @@ const fragmentTitres = gql`
     }
     geojsonMultiPolygon {
       ...geojsonMultiPolygon
+    }
+    volume
+    volumeUnite {
+      id
+      nom
     }
     engagement
     engagementDevise {
