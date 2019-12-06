@@ -6,7 +6,7 @@
     >
       <div class="card-border mb" />
       <h2>{{ annee.id }}</h2>
-      <Activite
+      <ActiviteDetail
         v-for="activite in annee.activites"
         :key="activite.id"
         :activite="activite"
@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import Activite from './activite.vue'
+import ActiviteDetail from '../activite/detail.vue'
 
 export default {
   components: {
-    Activite
+    ActiviteDetail
   },
 
   props: {

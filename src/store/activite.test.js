@@ -1,4 +1,4 @@
-import titreActivites from './titre-activites'
+import activite from './activite'
 import * as api from '../api/activites'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
@@ -31,7 +31,7 @@ describe('état des activités', () => {
     }
 
     store = new Vuex.Store({
-      modules: { titreActivites },
+      modules: { activite },
       mutations,
       actions,
       state: { titre: { current: { id: 5 } } }
@@ -43,7 +43,7 @@ describe('état des activités', () => {
       statut: { id: 'dep' }
     })
 
-    await store.dispatch('titreActivites/update', {
+    await store.dispatch('activite/update', {
       id: 27,
       contenu: [],
       statut: { id: 'dep' }
@@ -64,7 +64,7 @@ describe('état des activités', () => {
     api.activiteModifier.mockResolvedValue({
       statut: { id: 'enc' }
     })
-    await store.dispatch('titreActivites/update', {
+    await store.dispatch('activite/update', {
       id: 27,
       contenu: [],
       statut: { id: 'dep' }
@@ -78,7 +78,7 @@ describe('état des activités', () => {
 
   test("n'enregistre pas une activité si l'API retourne null", async () => {
     const apiMock = api.activiteModifier.mockResolvedValue(null)
-    await store.dispatch('titreActivites/update', {
+    await store.dispatch('activite/update', {
       id: 27,
       contenu: [],
       statut: { id: 'dep' }
@@ -95,7 +95,7 @@ describe('état des activités', () => {
     const apiMock = api.activiteModifier.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
-    await store.dispatch('titreActivites/update', {
+    await store.dispatch('activite/update', {
       id: 27,
       contenu: [],
       statut: { id: 'dep' }

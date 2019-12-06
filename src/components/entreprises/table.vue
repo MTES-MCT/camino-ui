@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Table from '../ui/table.vue'
+import Table from '../_ui/table.vue'
 
 export default {
   name: 'Entreprises',

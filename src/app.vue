@@ -32,8 +32,8 @@
 </template>
 
 <script>
-import Page from './components/ui/page.vue'
-import Messages from './components/ui/messages.vue'
+import Page from './components/_ui/page.vue'
+import Messages from './components/_ui/messages.vue'
 import PageHeader from './components/page-header.vue'
 import PageFooter from './components/page-footer.vue'
 import Error from './components/error.vue'

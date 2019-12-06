@@ -175,10 +175,10 @@
 
 <script>
 import { jsonTypenameOmit } from '../utils/index'
-import Card from './ui/card.vue'
-import Accordion from './ui/accordion.vue'
-import Pill from './ui/pill.vue'
-import Loader from './ui/loader.vue'
+import Card from './_ui/card.vue'
+import Accordion from './_ui/accordion.vue'
+import Pill from './_ui/pill.vue'
+import Loader from './_ui/loader.vue'
 import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
 import UtilisateurRemovePopup from './utilisateur/remove-popup.vue'
 import UtilisateurPasswordPopup from './utilisateur/password-popup.vue'

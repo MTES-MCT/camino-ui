@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import Dot from '../ui/dot.vue'
+import Dot from '../_ui/dot.vue'
 import EtapeEditPopup from './etape/edit.vue'
 import TitreEtape from './etape.vue'
 import EditPopup from './demarche-edit-popup.vue'

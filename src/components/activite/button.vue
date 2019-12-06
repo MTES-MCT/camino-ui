@@ -6,7 +6,7 @@
 
 <script>
 import { jsonTypenameOmit } from '../../utils/index'
-import activiteEditPopup from './activite-edit-popup.vue'
+import activiteEditPopup from '../activite/edit-popup.vue'
 
 export default {
   props: {

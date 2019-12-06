@@ -13,7 +13,7 @@ import entreprises from './entreprises'
 import administration from './administration'
 import administrations from './administrations'
 import user from './user'
-import titreActivites from './titre-activites'
+import activite from './activite'
 import statistiques from './statistiques'
 
 import router from '../router'
@@ -30,7 +30,7 @@ const modules = {
   administration,
   administrations,
   user,
-  titreActivites,
+  activite,
   statistiques
 }
 

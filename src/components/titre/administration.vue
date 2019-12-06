@@ -102,8 +102,8 @@
 </template>
 
 <script>
-import Accordion from '../ui/accordion.vue'
-import Tag from '../ui/tag.vue'
+import Accordion from '../_ui/accordion.vue'
+import Tag from '../_ui/tag.vue'
 
 export default {
   components: {

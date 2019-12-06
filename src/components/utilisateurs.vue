@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import Card from './ui/card.vue'
-import Loader from './ui/loader.vue'
+import Card from './_ui/card.vue'
+import Loader from './_ui/loader.vue'
 import UtilisateursTable from './utilisateurs/table.vue'
 import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
 

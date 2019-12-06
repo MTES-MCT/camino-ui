@@ -65,9 +65,9 @@
 </template>
 
 <script>
-import Dot from '../ui/dot.vue'
-import ActiviteButton from './activite-button.vue'
-import Accordion from '../ui/accordion.vue'
+import Dot from '../_ui/dot.vue'
+import ActiviteButton from './button.vue'
+import Accordion from '../_ui/accordion.vue'
 
 export default {
   components: {

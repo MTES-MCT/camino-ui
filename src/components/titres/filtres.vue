@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Filters from '../ui/filters.vue'
+import Filters from '../_ui/filters.vue'
 import filtres from './filtres.js'
 
 export default {

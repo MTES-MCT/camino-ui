@@ -10,9 +10,9 @@
 
 <script>
 import Vue from 'vue'
-import Table from '../ui/table.vue'
-import Pill from '../ui/pill.vue'
-import List from '../ui/list.vue'
+import Table from '../_ui/table.vue'
+import Pill from '../_ui/pill.vue'
+import List from '../_ui/list.vue'
 
 export default {
   name: 'Utilisateurs',

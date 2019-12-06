@@ -171,9 +171,9 @@
 </template>
 
 <script>
-import Pill from '../ui/pill.vue'
-import PillList from '../ui/pill-list.vue'
-import Dot from '../ui/dot.vue'
+import Pill from '../_ui/pill.vue'
+import PillList from '../_ui/pill-list.vue'
+import Dot from '../_ui/dot.vue'
 import EditPopup from './edit-popup.vue'
 import RemovePopup from './remove-popup.vue'
 

@@ -1,22 +1,29 @@
 <template>
-  <TitresTable
+  <Table
     ref="table"
-    :titres="titres"
-    @page:update="urlUpdate('page', $event)"
-    @intervalle:update="urlUpdate('intervalle', $event)"
-    @colonne:update="urlUpdate('colonne', $event)"
-    @ordre:update="urlUpdate('ordre', $event)"
+    :elements="elements"
+    :columns="colonnes"
+    @page:update="$emit('page:update', $event)"
+    @range:update="$emit('intervalle:update', $event)"
+    @column:update="$emit('colonne:update', $event)"
+    @order:update="$emit('ordre:update', $event)"
   />
 </template>
 
 <script>
-import TitresTable from '../camino/titres-table.vue'
+import Vue from 'vue'
+import Table from '../_ui/table.vue'
+import PillList from '../_ui/pill-list.vue'
+import List from '../_ui/list.vue'
+import CaminoDomaine from '../_common/domaine.vue'
+import ActivitesPills from '../activites/pills.vue'
+import Statut from '../_common/statut.vue'
 
 export default {
   name: 'Titres',
 
   components: {
-    TitresTable
+    Table
   },
 
   props: {
@@ -27,98 +34,142 @@ export default {
   },
 
   computed: {
-    preferences() {
-      return this.$store.state.user.preferences.titres.table
-    }
-  },
-
-  watch: {
-    titres: function(to, from) {
-      if (from.length && from.length !== to.length) {
-        this.urlUpdate('page', 1)
-      }
-      this.init()
+    activitesCol() {
+      return this.permissionsCheck(['super', 'admin', 'editeur', 'entreprise'])
     },
 
-    $route: function(to, from) {
-      if (to.query.page && to.query.page !== from.query.page) {
-        this.preferencesUpdate('page', Number(to.query.page))
-      }
+    colonnes() {
+      const colonnes = [
+        {
+          id: 'nom',
+          name: 'Nom',
+          class: ['min-width-8']
+        },
+        {
+          id: 'domaine',
+          name: ''
+        },
+        {
+          id: 'type',
+          name: 'Type',
+          class: ['min-width-8']
+        },
+        {
+          id: 'statut',
+          name: 'Statut',
+          class: ['nowrap']
+        },
+        {
+          id: 'activites',
+          name: 'Activités',
+          class: ['min-width-5']
+        },
+        {
+          id: 'substances',
+          name: 'Substances',
+          class: ['min-width-6']
+        },
+        {
+          id: 'titulaires',
+          name: 'Titulaires',
+          class: ['min-width-10']
+        }
+      ]
 
-      if (
-        to.query.intervalle &&
-        to.query.intervalle !== from.query.intervalle
-      ) {
-        this.preferencesUpdate('intervalle', Number(to.query.intervalle))
-      }
+      return colonnes.filter(({ id }) =>
+        this.activitesCol ? true : id !== 'activites'
+      )
+    },
 
-      if (!to.query.intervalle && !to.query.page) {
-        this.init()
-      }
-    }
-  },
+    elements() {
+      return this.titres.map(titre => {
+        const columns = {
+          nom: {
+            component: Vue.component('TitreNom', {
+              render(h) {
+                return h('p', { class: ['bold', 'mb-0'] }, titre.nom)
+              }
+            }),
+            value: titre.nom
+          },
+          domaine: {
+            component: CaminoDomaine,
+            props: { domaineId: titre.domaine.id },
+            value: titre.domaine.id
+          },
+          type: {
+            component: Vue.component('TitreTypeNom', {
+              render(h) {
+                return h(
+                  'p',
+                  { class: ['h5', 'bold', 'cap-first', 'mb-0'] },
+                  titre.type.nom
+                )
+              }
+            }),
+            value: titre.type.nom
+          },
+          statut: {
+            component: Statut,
+            props: {
+              color: `bg-${titre.statut.couleur}`,
+              nom: titre.statut.nom,
+              mini: true
+            },
+            value: titre.statut.nom
+          },
+          substances: {
+            component: PillList,
+            props: { elements: titre.substances.map(s => s.nom) },
+            class: 'mb--xs',
+            value: titre.substances.map(s => s.nom).join(', ')
+          },
+          titulaires: {
+            component: List,
+            props: {
+              elements: titre.titulaires.map(({ nom }) => nom),
+              mini: true
+            },
+            class: 'mb--xs',
+            value: titre.titulaires.map(({ nom }) => nom).join(', ')
+          }
+        }
 
-  mounted() {
-    this.init()
-  },
+        if (this.activitesCol) {
+          columns.activites = {
+            component: ActivitesPills,
+            props: {
+              activitesAbsentes: titre.activitesAbsentes,
+              activitesEnConstruction: titre.activitesEnConstruction
+            },
+            value: titre.activitesAbsentes + titre.activitesEnConstruction
+          }
+        }
 
-  destroyed() {
-    const query = Object.assign({}, this.$route.query)
-
-    if (query.intervalle || query.page || query.ordre || query.colonne) {
-      if (query.intervalle) {
-        delete query.intervalle
-      }
-
-      if (query.page) {
-        delete query.page
-      }
-
-      if (query.colonne) {
-        delete query.colonne
-      }
-
-      if (query.ordre) {
-        delete query.ordre
-      }
-
-      this.$router.replace({ query })
+        return {
+          id: titre.id,
+          link: { name: 'titre', params: { id: titre.id } },
+          columns
+        }
+      })
     }
   },
 
   methods: {
-    init() {
-      const update = (id, urlValue) => {
-        if (!urlValue) {
-          this.$refs.table.update(id, this.preferences[id])
-          this.urlUpdate(id, this.preferences[id])
-        } else if (urlValue !== this.preferences[id]) {
-          this.$refs.table.update(id, urlValue)
-          this.preferencesUpdate(id, urlValue)
-        }
+    update(id, value) {
+      if (id === 'intervalle') {
+        id = 'range'
       }
 
-      const page = this.$route.query.page && Number(this.$route.query.page)
-      const intervalle =
-        this.$route.query.intervalle && Number(this.$route.query.intervalle)
-      const colonne = this.$route.query.colonne
-      const ordre = this.$route.query.ordre
+      if (id === 'colonne') {
+        id = 'column'
+      }
 
-      update('page', page)
-      update('intervalle', intervalle)
-      update('colonne', colonne)
-      update('ordre', ordre)
-    },
+      if (id === 'ordre') {
+        id = 'order'
+      }
 
-    preferencesUpdate(id, value) {
-      this.$store.dispatch('user/preferenceSet', {
-        section: `titres.table.${id}`,
-        value
-      })
-    },
-
-    urlUpdate(id, value) {
-      this.urlParamSet(id, value.toString())
+      this.$refs.table.update(id, value)
     }
   }
 }

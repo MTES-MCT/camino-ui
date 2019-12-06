@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import Accordion from '../ui/accordion.vue'
+import Accordion from '../_ui/accordion.vue'
 
 export default {
   components: {

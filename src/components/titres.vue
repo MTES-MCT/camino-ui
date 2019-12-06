@@ -77,10 +77,10 @@
 </template>
 
 <script>
-import Card from './ui/card.vue'
-import Loader from './ui/loader.vue'
+import Card from './_ui/card.vue'
+import Loader from './_ui/loader.vue'
 import TitreEditPopup from './titre/edit-popup.vue'
-import TitresTable from './titres/table.vue'
+import TitresTableUrl from './titres/table-url.vue'
 import TitresMap from './titres/map.vue'
 import TitresFiltres from './titres/filtres.vue'
 import TitresDownloadCsv from './titres/download-csv.vue'
@@ -108,7 +108,7 @@ export default {
         },
         {
           id: 'liste',
-          component: TitresTable,
+          component: TitresTableUrl,
           icon: 'list'
         }
       ]

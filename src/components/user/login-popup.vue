@@ -34,7 +34,7 @@
     </div>
 
     <template slot="footer">
-      <div class="tablet-blobs">
+      <div class="tablet-blobs mb">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
             class="btn-border rnd-xs p-s full-x"
@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import Popup from '../ui/popup.vue'
+import Popup from '../_ui/popup.vue'
 import UserAdd from './add-popup.vue'
 import UserPasswordInitPopup from './password-init-popup.vue'
 

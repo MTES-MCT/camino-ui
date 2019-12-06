@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import Popup from '../ui/popup.vue'
+import Popup from '../_ui/popup.vue'
 import emailValidator from 'email-validator'
 
 export default {

@@ -118,7 +118,7 @@
         :demarches="titre.demarches"
       />
 
-      <TitreActivites
+      <TitreActivitesList
         v-if="titre.activites.length && tabActive === 'activites'"
         :activites="titre.activites"
       />
@@ -129,15 +129,15 @@
 </template>
 
 <script>
-import Loader from './ui/loader.vue'
-import Card from './ui/card.vue'
-import Pill from './ui/pill.vue'
+import Loader from './_ui/loader.vue'
+import Card from './_ui/card.vue'
+import Pill from './_ui/pill.vue'
 import TitreHeader from './titre/header.vue'
 import TitreMap from './titre/map.vue'
 import TitreTerritoires from './titre/territoires.vue'
 import TitreRepertoire from './titre/repertoire.vue'
 import TitreDemarches from './titre/demarches.vue'
-import TitreActivites from './titre/activites.vue'
+import TitreActivitesList from './activites/list.vue'
 import TitreOutils from './titre/outils.vue'
 import TitrePoints from './titre/points.vue'
 import TitreDownloadCsv from './titre/download-csv.vue'
@@ -153,7 +153,7 @@ export default {
     TitreTerritoires,
     TitreRepertoire,
     TitreDemarches,
-    TitreActivites,
+    TitreActivitesList,
     TitreOutils,
     TitrePoints,
     TitreDownloadCsv,

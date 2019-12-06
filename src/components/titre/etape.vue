@@ -266,9 +266,9 @@
 </template>
 
 <script>
-import Dot from '../ui/dot.vue'
-import Accordion from '../ui/accordion.vue'
-import PillList from '../ui/pill-list.vue'
+import Dot from '../_ui/dot.vue'
+import Accordion from '../_ui/accordion.vue'
+import PillList from '../_ui/pill-list.vue'
 import Documents from './documents.vue'
 import EditPopup from './etape/edit.vue'
 import RemovePopup from './etape/remove.vue'

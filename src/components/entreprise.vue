@@ -180,11 +180,11 @@
 </template>
 
 <script>
-import Card from './ui/card.vue'
-import Accordion from './ui/accordion.vue'
-import Loader from './ui/loader.vue'
+import Card from './_ui/card.vue'
+import Accordion from './_ui/accordion.vue'
+import Loader from './_ui/loader.vue'
 import UtilisateursTable from './utilisateurs/table.vue'
-import TitresTable from './camino/titres-table.vue'
+import TitresTable from './titres/table.vue'
 import EntrepriseEditPopup from './entreprise/edit-popup.vue'
 
 export default {

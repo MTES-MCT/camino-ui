@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import PillList from '../ui/pill-list.vue'
+import PillList from '../_ui/pill-list.vue'
 
 export default {
   components: {

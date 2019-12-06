@@ -112,8 +112,8 @@
 </template>
 
 <script>
-import Popup from '../ui/popup.vue'
-import EditSections from './edit-sections.vue'
+import Popup from '../_ui/popup.vue'
+import EditSections from '../_common/edit-sections.vue'
 
 export default {
   name: 'CaminoTitreActivitesRapportEditPopup',
@@ -189,7 +189,7 @@ export default {
       }
 
       this.errorsRemove()
-      await this.$store.dispatch('titreActivites/update', this.activite)
+      await this.$store.dispatch('activite/update', this.activite)
     },
 
     cancel() {

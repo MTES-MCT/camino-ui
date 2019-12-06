@@ -173,7 +173,7 @@
 </template>
 
 <script>
-import Loader from '../ui/loader.vue'
+import Loader from '../_ui/loader.vue'
 
 export default {
   name: 'CaminoStatistiques',

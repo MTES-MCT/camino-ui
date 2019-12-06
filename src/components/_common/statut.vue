@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Dot from '../ui/dot.vue'
+import Dot from '../_ui/dot.vue'
 
 export default {
   components: { Dot },

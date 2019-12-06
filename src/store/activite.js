@@ -4,7 +4,7 @@ export const actions = {
   async update({ commit, dispatch, rootState }, activite) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreActiviteUpdate', { root: true })
+    commit('loadingAdd', 'activiteUpdate', { root: true })
 
     try {
       const data = await activiteModifier({
@@ -40,7 +40,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreActiviteUpdate', { root: true })
+      commit('loadingRemove', 'activiteUpdate', { root: true })
     }
   }
 }

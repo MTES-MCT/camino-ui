@@ -142,10 +142,10 @@
 </template>
 
 <script>
-import Popup from '../../ui/popup.vue'
+import Popup from '../../_ui/popup.vue'
 import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
-import EditSections from '../edit-sections.vue'
+import EditSections from '../../_common/edit-sections.vue'
 
 import { etapeSaveFormat } from './edit'
 

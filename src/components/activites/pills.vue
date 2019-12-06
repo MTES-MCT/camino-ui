@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Pill from '../ui/pill.vue'
+import Pill from '../_ui/pill.vue'
 
 export default {
   components: { Pill },
