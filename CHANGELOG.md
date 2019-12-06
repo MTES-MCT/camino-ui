@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.11](https://github.com/MTES-MCT/camino-ui/compare/v0.22.8...v0.22.11) (2019-12-06)
+
+
+### Features
+
+* ajoute deux fonds de carte Géoportail ([#51](https://github.com/MTES-MCT/camino-ui/issues/51)) ([6e105d3](https://github.com/MTES-MCT/camino-ui/commit/6e105d388bf73677da198c88cf65bb48c7b8f2b9))
+* **édition:** n'affiche que les sections ayant du contenu lors de la prévisualisation ([c2143d7](https://github.com/MTES-MCT/camino-ui/commit/c2143d739df81f001ac2f68171ce37507ca160db))
+* **export csv:** ajoute les colonnes régions, départements et communes ([#52](https://github.com/MTES-MCT/camino-ui/issues/52)) ([75c7150](https://github.com/MTES-MCT/camino-ui/commit/75c7150c41768a945b7a84023c47fb10f50adab8))
+* **ui:** limite la liste des types de références métier ([#43](https://github.com/MTES-MCT/camino-ui/issues/43)) ([1f1d2c7](https://github.com/MTES-MCT/camino-ui/commit/1f1d2c7f5342953258faa28b3eac78f4efd30c01))
+* **ui:** prend en compte les paramètres de tri dans l'URL ([#47](https://github.com/MTES-MCT/camino-ui/issues/47)) ([f0914b3](https://github.com/MTES-MCT/camino-ui/commit/f0914b329cf562d575a9324c8b8d11eaa335bdaa))
+* affiche les boutons d'éditions selon les permissions ([#46](https://github.com/MTES-MCT/camino-ui/issues/46)) ([0d50c1f](https://github.com/MTES-MCT/camino-ui/commit/0d50c1fc903020c294c117c72a2ae78eed21f629))
+* charge contextuellement les metas lors de l'édition ([#49](https://github.com/MTES-MCT/camino-ui/issues/49)) ([c3958cb](https://github.com/MTES-MCT/camino-ui/commit/c3958cb449783b7255ee306f536c41c61a94bd1f))
+* restreint les domaines et types de titre en fonction des permissions ([#48](https://github.com/MTES-MCT/camino-ui/issues/48)) ([109ad21](https://github.com/MTES-MCT/camino-ui/commit/109ad213d6f358572e23c2270acc9e70a9df23dd))
+
+
+### Bug Fixes
+
+* affiche des infos manquantes dans le fichier csv ([6024cb5](https://github.com/MTES-MCT/camino-ui/commit/6024cb5f59784585f3e8e861fe5b739d72afb8f3))
+* affiche le bouton document qui manque sur certaines étapes ([cd743a8](https://github.com/MTES-MCT/camino-ui/commit/cd743a80559a534820ee11d0eaf6694ea779ad61))
+* corrige l'affichage des points d'un titre ([c40884f](https://github.com/MTES-MCT/camino-ui/commit/c40884fe7eb6241ad8adc9de6b26d9ef0b7bfe9a))
+* corrige l'édition de documents ([8746d7f](https://github.com/MTES-MCT/camino-ui/commit/8746d7f7adaa9fcc1253117de5890648ebbae8e6))
+* corrige la gestion des filtres ([dcd2558](https://github.com/MTES-MCT/camino-ui/commit/dcd255809d0fb7fff7a89a9a23bb653550837dde))
+* corrige le chargement de la liste des types de documents ([e7cbc84](https://github.com/MTES-MCT/camino-ui/commit/e7cbc849087b27cabd5f5bc41a015456130021c1))
+* corrige le chargement des entreprises dans l'initialisation des metas ([d9b00f6](https://github.com/MTES-MCT/camino-ui/commit/d9b00f698c00e3cd2c2668f46028416303e378ea))
+* corrige les permissions sur l'édition de documents ([0b73486](https://github.com/MTES-MCT/camino-ui/commit/0b734862bf0672f0e434150d86de2c7e219ad77e))
+* corrige une erreur lors du chargement des metas ([46fffec](https://github.com/MTES-MCT/camino-ui/commit/46fffec5907d4231b60072e39aa915561c0385e7))
+* initialise la colonne de tri si l'id sélectionnée n'existe pas ([2a0775a](https://github.com/MTES-MCT/camino-ui/commit/2a0775a138bc2ba726515ea557381c258689db4b))
+* supprime un log ([c38bad0](https://github.com/MTES-MCT/camino-ui/commit/c38bad0528eb0990beade6b5d09ba2590bf7651b))
+* **api:** contourne le cache sur certaines requêtes ([dde0ac3](https://github.com/MTES-MCT/camino-ui/commit/dde0ac34cfa8e35985194d793d19c0da6de30191))
+* **export csv:** affiche engagement et surface ([#53](https://github.com/MTES-MCT/camino-ui/issues/53)) ([8bbf9e5](https://github.com/MTES-MCT/camino-ui/commit/8bbf9e556fe375b1a6a8270634cf3a1b85438bf0))
+* désactive les boutons lors de l'édition ([f79d39d](https://github.com/MTES-MCT/camino-ui/commit/f79d39d9f6ca78e2eb38cd122de4d2eb946709c0))
+* **édition:** désactive le bouton supprimer après avoir cliqué dessus ([#50](https://github.com/MTES-MCT/camino-ui/issues/50)) ([4b24dcd](https://github.com/MTES-MCT/camino-ui/commit/4b24dcd8f6b918fbb39d773af3264798db64baad))
+* supprime une erreur 404 si l'utilisateur se loggue ([76edccb](https://github.com/MTES-MCT/camino-ui/commit/76edccbb044d57dd38d3389d8ce361f10be23a0b))
+
 ### [0.22.10](https://github.com/MTES-MCT/camino-ui/compare/v0.22.9...v0.22.10) (2019-11-27)
 
 
