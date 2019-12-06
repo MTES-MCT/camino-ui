@@ -44,7 +44,8 @@ describe('état de la liste des métas', () => {
         devises: [],
         unites: [],
         geoSystemes: [],
-        substances: []
+        substances: [],
+        entreprises: []
       },
 
       document: {

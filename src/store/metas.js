@@ -30,7 +30,8 @@ export const state = {
     devises: [],
     unites: [],
     geoSystemes: [],
-    substances: []
+    substances: [],
+    entreprises: []
   },
 
   document: {

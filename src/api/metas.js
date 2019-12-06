@@ -110,6 +110,10 @@ const metasTitreEtape = apiQuery(gql`
     substances {
       ...substance
     }
+
+    entreprises {
+      ...entreprises
+    }
   }
 
   ${fragmentEtapeType}
@@ -117,6 +121,8 @@ const metasTitreEtape = apiQuery(gql`
   ${fragmentUnite}
 
   ${fragmentSubstance}
+
+  ${fragmentEntreprises}
 `)
 
 const metasUtilisateur = apiQuery(gql`

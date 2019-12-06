@@ -10,7 +10,7 @@
       <div class="tablet-blob-2-3">
         <div
           class="tablet-blobs"
-          :class="{'mb-s': etape.duree.ans || etape.duree.mois, 'mb': !etape.duree.ans && !etape.duree.mois}"
+          :class="{ 'mb-s': etape.duree.ans || etape.duree.mois, mb: !etape.duree.ans && !etape.duree.mois }"
         >
           <div class="tablet-blob-1-2">
             <input
@@ -58,7 +58,7 @@
           type="date"
           class="p-s"
           placeholder="aaaa-mm-jj"
-          :class="{'mb-s': etape.dateDebut, 'mb': !etape.dateDebut}"
+          :class="{ 'mb-s': etape.dateDebut, mb: !etape.dateDebut }"
         >
         <label
           v-if="etape.dateDebut"
@@ -87,7 +87,7 @@
           type="date"
           class="p-s"
           placeholder="aaaa-mm-jj"
-          :class="{'mb-s': etape.dateFin, 'mb': !etape.dateFin}"
+          :class="{ 'mb-s': etape.dateFin, mb: !etape.dateFin }"
         >
         <label
           v-if="etape.dateFin"
@@ -126,11 +126,9 @@
             <select
               v-model="etape.engagementDeviseId"
               class="p-s"
-              :class="{'mb-s': etape.engagement, 'mb': !etape.engagement}"
+              :class="{ 'mb-s': etape.engagement, mb: !etape.engagement }"
             >
-              <option
-                :value="''"
-              />
+              <option :value="''" />
               <option
                 v-for="devise in devises"
                 :key="devise.id"
@@ -170,7 +168,7 @@
           type="number"
           min="0"
           placeholder="0"
-          :class="{'mb-s': etape.surface, 'mb': !etape.surface}"
+          :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
         >
         <label
           v-if="etape.surface"
@@ -209,11 +207,9 @@
             <select
               v-model="etape.volumeUniteId"
               class="p-s"
-              :class="{'mb-s': etape.volume, 'mb': !etape.volume}"
+              :class="{ 'mb-s': etape.volume, mb: !etape.volume }"
             >
-              <option
-                :value="''"
-              />
+              <option :value="''" />
               <option
                 v-for="volumeUnite in volumeUnites"
                 :key="volumeUnite.id"
@@ -251,7 +247,7 @@
     >
       <div
         class="flex full-x"
-        :class="{'mb-s': titulairesLength, 'mb': !titulairesLength}"
+        :class="{ 'mb-s': titulairesLength, mb: !titulairesLength }"
       >
         <select
           v-model="etape.titulairesIds[n]"
@@ -280,7 +276,7 @@
     <button
       v-if="!etape.titulairesIds.includes('')"
       class="btn-border rnd-xs py-s px-m full-x flex"
-      :class="{'mb-s': titulairesLength, 'mb': !titulairesLength}"
+      :class="{ 'mb-s': titulairesLength, mb: !titulairesLength }"
       @click="titulaireAdd"
     >
       Ajouter un titulaire<i class="icon-24 icon-plus flex-right" />
@@ -309,7 +305,7 @@
     >
       <div
         class="flex full-x"
-        :class="{'mb-s': amodiatairesLength, 'mb': !amodiatairesLength}"
+        :class="{ 'mb-s': amodiatairesLength, mb: !amodiatairesLength }"
       >
         <select
           v-model="etape.amodiatairesIds[n]"
@@ -339,7 +335,7 @@
     <button
       v-if="!etape.amodiatairesIds.includes('')"
       class="btn-border rnd-xs py-s px-m full-x flex"
-      :class="{'mb-s': amodiatairesLength, 'mb': !amodiatairesLength}"
+      :class="{ 'mb-s': amodiatairesLength, mb: !amodiatairesLength }"
       @click="amodiataireAdd"
     >
       Ajouter un amodiataire<i class="icon-24 icon-plus flex-right" />
@@ -368,7 +364,7 @@
     >
       <div
         class="flex full-x"
-        :class="{'mb-s': substancesLength, 'mb': !substancesLength}"
+        :class="{ 'mb-s': substancesLength, mb: !substancesLength }"
       >
         <select
           v-model="etape.substancesIds[n]"
@@ -397,8 +393,7 @@
     <button
       v-if="!etape.substancesIds.includes('')"
       class="btn-border rnd-xs py-s px-m full-x flex"
-
-      :class="{'mb-s': substancesLength, 'mb': !substancesLength}"
+      :class="{ 'mb-s': substancesLength, mb: !substancesLength }"
       @click="substanceAdd"
     >
       Ajouter une substance<i class="icon-24 icon-plus flex-right" />
@@ -425,7 +420,7 @@ export default {
 
   computed: {
     entreprises() {
-      return this.$store.state.metas.entreprises
+      return this.$store.state.metas.etape.entreprises
     },
 
     substances() {
@@ -484,4 +479,3 @@ export default {
   }
 }
 </script>
-
