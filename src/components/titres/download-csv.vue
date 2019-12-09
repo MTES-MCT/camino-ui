@@ -1,9 +1,5 @@
 <template>
-  <Download
-    :type="'csv'"
-    :content="content"
-    :name="name"
-  />
+  <Download :type="'csv'" :content="content" :name="name" />
 </template>
 
 <script>
@@ -90,10 +86,16 @@ export default {
               .map(a => a.nom)
               .join(';'),
             titulaires_noms: titre.titulaires.map(e => e.nom).join(';'),
+            titulaires_adresses: titre.titulaires
+              .map(e => `${e.adresse} ${e.codePostal} ${e.commune}`)
+              .join(';'),
             titulaires_legal: titre.titulaires
               .map(e => e.legalEtranger || e.legalSiren)
               .join(';'),
             amodiataires_noms: titre.amodiataires.map(e => e.nom).join(';'),
+            amodiataires_adresses: titre.amodiataires
+              .map(e => `${e.adresse} ${e.codePostal} ${e.commune}`)
+              .join(';'),
             amodiataires_legal: titre.amodiataires
               .map(e => e.legalEtranger || e.legalSiren)
               .join(';'),

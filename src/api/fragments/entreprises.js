@@ -36,6 +36,9 @@ const fragmentTitresEntreprises = gql`
   fragment titresEntreprises on Entreprise {
     id
     nom
+    adresse
+    codePostal
+    commune
     legalSiren
     legalEtranger
   }
