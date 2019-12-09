@@ -1,5 +1,9 @@
 <template>
-  <Download :type="'csv'" :content="content" :name="name" />
+  <Download
+    :type="'csv'"
+    :content="content"
+    :name="name"
+  />
 </template>
 
 <script>
@@ -40,7 +44,9 @@ export default {
                     ({ regionDepartements, regionCommunes }, departement) => {
                       regionDepartements.push(departement.nom)
                       regionCommunes.push(
-                        ...departement.communes.map(commune => commune.nom)
+                        ...departement.communes.map(commune =>
+                          `${commune.nom} (${Math.round(commune.surface / 100) / 10000})`
+                        )
                       )
 
                       return { regionDepartements, regionCommunes }

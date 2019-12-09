@@ -176,6 +176,7 @@ const fragmentTitres = gql`
           nom
           communes {
             nom
+            surface
           }
         }
       }
