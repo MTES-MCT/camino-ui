@@ -1,5 +1,9 @@
 <template>
-  <Download :type="'csv'" :content="content" :name="name" />
+  <Download
+    :type="'csv'"
+    :content="content"
+    :name="name"
+  />
 </template>
 
 <script>
@@ -39,8 +43,13 @@ export default {
                   } = region.departements.reduce(
                     ({ regionDepartements, regionCommunes }, departement) => {
                       regionDepartements.push(departement.nom)
+
+                      const isMultiCommune = departement.communes.length > 1
+
                       regionCommunes.push(
-                        ...departement.communes.map(commune => commune.nom)
+                        ...departement.communes.map(commune =>
+                          commune.nom + (isMultiCommune ? ` (${Math.round(commune.surface / 100) / 10000})` : '')
+                        )
                       )
 
                       return { regionDepartements, regionCommunes }
