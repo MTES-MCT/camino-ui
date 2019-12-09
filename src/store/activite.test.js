@@ -7,10 +7,11 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 jest.mock('../api/activites', () => ({
-  activiteModifier: jest.fn()
+  activiteModifier: jest.fn(),
+  activite: jest.fn()
 }))
 
-describe('état des activités', () => {
+describe("état d'une activité", () => {
   let store
   let mutations
   let actions

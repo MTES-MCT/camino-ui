@@ -4,7 +4,8 @@ import {
   fragmentEtapeType,
   fragmentDemarcheType,
   fragmentUnite,
-  fragmentPermission
+  fragmentPermission,
+  fragmentActiviteType
 } from './fragments/metas'
 import { fragmentSubstance } from './fragments/substance'
 import { fragmentEntreprises } from './fragments/entreprises'
@@ -64,6 +65,21 @@ const metasTitres = apiQuery(
         couleur
       }
     }
+  `,
+  {
+    fetchPolicy: 'network-only'
+  }
+)
+
+const metasActivites = apiQuery(
+  gql`
+    query MetasActivites {
+      activitesTypes {
+        ...activiteType
+      }
+    }
+
+    ${fragmentActiviteType}
   `,
   {
     fetchPolicy: 'network-only'
@@ -163,5 +179,6 @@ export {
   metasInit,
   metasUtilisateur,
   metasTitre,
-  metasTitres
+  metasTitres,
+  metasActivites
 }

@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     name() {
-      return this.fileNameCreate('camino-titres-export', 'geojson')
+      return this.fileNameCreate('titres', 'geojson')
     },
 
     content() {

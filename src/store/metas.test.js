@@ -10,7 +10,8 @@ jest.mock('../api/metas', () => ({
   metasTitreEtape: jest.fn(),
   metasTitreDemarche: jest.fn(),
   metasUtilisateur: jest.fn(),
-  metasDocument: jest.fn()
+  metasDocument: jest.fn(),
+  metasActivites: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -56,6 +57,10 @@ describe('état de la liste des métas', () => {
         permissions: [],
         entreprises: [],
         administrations: []
+      },
+
+      activites: {
+        activitesTypes: []
       },
 
       utilisateurDomaines: [],

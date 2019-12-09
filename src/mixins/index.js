@@ -47,7 +47,7 @@ var mixins = {
         .getMinutes()
         .toString()
         .padStart(2, '0')
-      return `${yyyy}${mm}${dd}-${hh}h${mi}-${name}.${ext}`
+      return `${yyyy}${mm}${dd}-${hh}h${mi}-camino-${name}.${ext}`
     }
   }
 }

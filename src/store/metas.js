@@ -7,7 +7,8 @@ import {
   metasTitreEtape,
   metasTitreDemarche,
   metasDocument,
-  metasUtilisateur
+  metasUtilisateur,
+  metasActivites
 } from '../api/metas'
 
 export const state = {
@@ -45,6 +46,10 @@ export const state = {
   },
 
   utilisateurDomaines: [],
+
+  activites: {
+    activitesTypes: []
+  },
 
   version: null,
   /* global npmVersion */
@@ -124,7 +129,7 @@ export const actions = {
   },
 
   async titreEtapeDocumentGet({ commit }) {
-    commit('loadingAdd', 'titreEtapeDocumentMetasGet', { root: true })
+    commit('loadingAdd', 'metasTitreEtapeDocumentGet', { root: true })
 
     try {
       const data = await metasDocument()
@@ -133,14 +138,14 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreEtapeDocumentMetasGet', {
+      commit('loadingRemove', 'metasTitreEtapeDocumentGet', {
         root: true
       })
     }
   },
 
   async utilisateurGet({ commit, dispatch }) {
-    commit('loadingAdd', 'utilisateurPermissions', { root: true })
+    commit('loadingAdd', 'metasUtilisateur', { root: true })
 
     try {
       const data = await metasUtilisateur()
@@ -150,7 +155,22 @@ export const actions = {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
       console.log(e)
     } finally {
-      commit('loadingRemove', 'utilisateurPermissions', { root: true })
+      commit('loadingRemove', 'metasUtilisateur', { root: true })
+    }
+  },
+
+  async activitesGet({ commit, dispatch }) {
+    commit('loadingAdd', 'metasActivites', { root: true })
+
+    try {
+      const data = await metasActivites()
+
+      commit('set', { data: { activitesTypes: data }, type: 'activites' })
+    } catch (e) {
+      dispatch('apiError', e, { root: true })
+      console.log(e)
+    } finally {
+      commit('loadingRemove', 'metasActivites', { root: true })
     }
   }
 }

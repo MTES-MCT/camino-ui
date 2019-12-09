@@ -23,7 +23,7 @@ export default {
 
   computed: {
     name() {
-      return this.fileNameCreate('camino-titres-export', 'csv')
+      return this.fileNameCreate('titres', 'csv')
     },
 
     content() {
