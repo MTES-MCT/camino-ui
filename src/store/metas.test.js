@@ -305,6 +305,31 @@ describe('état de la liste des métas', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
+  test('récupère les métas pour afficher les activités', async () => {
+    const apiMock = api.metasActivites.mockResolvedValue([
+      { id: 'grp', nom: "rapport trimestriel d'activité" }
+    ])
+
+    await store.dispatch('metas/activitesGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.metas.activites.activitesTypes).toEqual([
+      { id: 'grp', nom: "rapport trimestriel d'activité" }
+    ])
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api ne répond pas", async () => {
+    const apiMock = api.metasActivites.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+
+    await store.dispatch('metas/activitesGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
   test("retourne une erreur si l'api répond null", async () => {
     const apiMock = api.metasUtilisateur.mockResolvedValue(null)
 

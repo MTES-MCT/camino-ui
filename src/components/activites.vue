@@ -30,17 +30,17 @@
         <h6>Année</h6>
 
         <select
-          v-model="anneeId"
+          v-model="annee"
           class="p-s"
           @change="get"
         >
           <option
-            v-for="annee in annees"
-            :key="annee"
-            :value="annee"
+            v-for="a in annees"
+            :key="a"
+            :value="a"
             :disabled="activitesTypes.length < 1"
           >
-            {{ annee }}
+            {{ a }}
           </option>
         </select>
       </div>
@@ -92,7 +92,7 @@ export default {
     return {
       activiteTypeId: null,
       annees: [2017, 2018, 2019],
-      anneeId: null
+      annee: null
     }
   },
 
@@ -143,7 +143,7 @@ export default {
 
     async get() {
       await this.$store.dispatch('activites/get', {
-        annee: this.anneeId,
+        annee: this.annee,
         typeId: this.activiteTypeId
       })
     },
@@ -151,7 +151,7 @@ export default {
     activiteTypeIdUpdate() {
       if (
         this.activitesTypes.length === 1 ||
-        !this.activitesTypes.map(({ id }) => id).includes(this.activiteTypeId)
+        !this.activitesTypes.some(({ id }) => id === this.activiteTypeId)
       ) {
         this.activiteTypeId = this.activitesTypes[0].id
       }
