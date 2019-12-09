@@ -23,7 +23,7 @@ export default {
 
   computed: {
     name() {
-      return this.fileNameCreate(`camino-${this.titre.id}`, 'csv')
+      return this.fileNameCreate(this.titre.id, 'csv')
     },
 
     content() {

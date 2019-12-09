@@ -7,6 +7,8 @@ import Utilisateur from '../components/utilisateur.vue'
 import Utilisateurs from '../components/utilisateurs.vue'
 import Entreprise from '../components/entreprise.vue'
 import Entreprises from '../components/entreprises.vue'
+import Activite from '../components/activite.vue'
+import Activites from '../components/activites.vue'
 import Error from '../components/error.vue'
 import About from '../components/content/about.vue'
 import Accessibilite from '../components/content/accessibilite.vue'
@@ -60,6 +62,16 @@ const routes = [
     path: '/entreprises/:id',
     name: 'entreprise',
     component: Entreprise
+  },
+  {
+    path: '/activites',
+    name: 'activites',
+    component: Activites
+  },
+  {
+    path: '/activites/:id',
+    name: 'activite',
+    component: Activite
   },
   {
     path: '/a-propos',

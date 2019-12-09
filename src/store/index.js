@@ -14,6 +14,7 @@ import administration from './administration'
 import administrations from './administrations'
 import user from './user'
 import activite from './activite'
+import activites from './activites'
 import statistiques from './statistiques'
 
 import router from '../router'
@@ -31,6 +32,7 @@ const modules = {
   administrations,
   user,
   activite,
+  activites,
   statistiques
 }
 

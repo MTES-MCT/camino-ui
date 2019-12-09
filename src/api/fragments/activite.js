@@ -4,17 +4,44 @@ import { fragmentActiviteType } from './metas'
 const fragmentTitreActivite = gql`
   fragment titreActivite on Activite {
     id
-    date
+    type {
+      ...activiteType
+    }
     statut {
       id
       nom
       couleur
     }
-    periode
+    date
     annee
+    periode
+    dateSaisie
+    sections
+    contenu
+  }
+
+  ${fragmentActiviteType}
+`
+
+const fragmentActivite = gql`
+  fragment activite on Activite {
+    id
+    titre {
+      id
+      nom
+    }
     type {
       ...activiteType
     }
+    statut {
+      id
+      nom
+      couleur
+    }
+    date
+    annee
+    periode
+    frequencePeriodeId
     dateSaisie
     sections
     contenu
@@ -34,4 +61,4 @@ const fragmentTitresActivite = gql`
   }
 `
 
-export { fragmentTitreActivite, fragmentTitresActivite }
+export { fragmentActivite, fragmentTitreActivite, fragmentTitresActivite }

@@ -1,6 +1,31 @@
-import { activiteModifier } from '../api/activites'
+import Vue from 'vue'
+
+import { activite, activiteModifier } from '../api/activites'
+
+export const state = {
+  current: null
+}
 
 export const actions = {
+  async get({ commit, dispatch }, id) {
+    commit('loadingAdd', 'activite', { root: true })
+
+    try {
+      const data = await activite({ id })
+
+      if (data) {
+        commit('set', data)
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      dispatch('apiError', e, { root: true })
+      console.log(e)
+    } finally {
+      commit('loadingRemove', 'activite', { root: true })
+    }
+  },
+
   async update({ commit, dispatch, rootState }, activite) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
@@ -45,7 +70,15 @@ export const actions = {
   }
 }
 
-export const mutations = {}
+export const mutations = {
+  set(state, entreprise) {
+    Vue.set(state, 'current', entreprise)
+  },
+
+  reset(state) {
+    Vue.set(state, 'current', null)
+  }
+}
 
 export default {
   namespaced: true,

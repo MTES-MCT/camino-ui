@@ -10,7 +10,8 @@ jest.mock('../api/metas', () => ({
   metasTitreEtape: jest.fn(),
   metasTitreDemarche: jest.fn(),
   metasUtilisateur: jest.fn(),
-  metasDocument: jest.fn()
+  metasDocument: jest.fn(),
+  metasActivites: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -56,6 +57,10 @@ describe('état de la liste des métas', () => {
         permissions: [],
         entreprises: [],
         administrations: []
+      },
+
+      activites: {
+        activitesTypes: []
       },
 
       utilisateurDomaines: [],
@@ -298,6 +303,31 @@ describe('état de la liste des métas', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test('récupère les métas pour afficher les activités', async () => {
+    const apiMock = api.metasActivites.mockResolvedValue([
+      { id: 'grp', nom: "rapport trimestriel d'activité" }
+    ])
+
+    await store.dispatch('metas/activitesGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.metas.activites.activitesTypes).toEqual([
+      { id: 'grp', nom: "rapport trimestriel d'activité" }
+    ])
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api ne répond pas", async () => {
+    const apiMock = api.metasActivites.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+
+    await store.dispatch('metas/activitesGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'api répond null", async () => {

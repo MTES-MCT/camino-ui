@@ -78,7 +78,7 @@ describe("état de la liste d'administrations", () => {
     expect(store.state.administrations.list).toEqual([])
   })
 
-  test("retourne une erreur si l'api retourne une erreur pour obtenir des utilisateurs", async () => {
+  test("retourne une erreur si l'api retourne une erreur", async () => {
     const apiMock = api.administrations.mockRejectedValue(
       new Error('erreur api')
     )

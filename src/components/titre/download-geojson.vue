@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     name() {
-      return this.fileNameCreate(`camino-${this.titre.id}`, 'geojson')
+      return this.fileNameCreate(this.titre.id, 'geojson')
     },
 
     content() {

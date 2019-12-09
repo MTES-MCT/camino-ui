@@ -12,7 +12,7 @@
 import Table from '../_ui/table.vue'
 
 export default {
-  name: 'Entreprises',
+  name: 'EntreprisesTable',
 
   components: {
     Table
