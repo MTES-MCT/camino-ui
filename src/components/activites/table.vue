@@ -10,6 +10,7 @@
 
 <script>
 import Table from '../_ui/table.vue'
+import List from '../_ui/list.vue'
 import Statut from '../_common/statut.vue'
 
 export default {
@@ -30,16 +31,13 @@ export default {
     return {
       colonnes: [
         {
-          id: 'type',
-          name: 'Type'
-        },
-        {
           id: 'titre',
           name: 'Titre'
         },
         {
-          id: 'annee',
-          name: 'Année'
+          id: 'titulaires',
+          name: 'Titulaires',
+          class: ['min-width-10']
         },
         {
           id: 'periode',
@@ -57,8 +55,16 @@ export default {
     elements() {
       return this.activites.map(activite => {
         const columns = {
-          type: { value: activite.type.nom },
-          annee: { value: activite.annee },
+          titre: { value: activite.titre.nom },
+          titulaires: {
+            component: List,
+            props: {
+              elements: activite.titre.titulaires.map(({ nom }) => nom),
+              mini: true
+            },
+            class: 'mb--xs',
+            value: activite.titre.titulaires.map(({ nom }) => nom).join(', ')
+          },
           periode: { value: activite.periode.nom },
           statut: {
             component: Statut,
@@ -68,8 +74,7 @@ export default {
               mini: true
             },
             value: activite.statut.nom
-          },
-          titre: { value: activite.titre.nom }
+          }
         }
 
         return {

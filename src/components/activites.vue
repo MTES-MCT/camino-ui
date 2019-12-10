@@ -50,7 +50,7 @@
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-2 flex mb-s">
         <ActivitesDownloadCsv
-          v-if="activites.length"
+          v-if="activites.length && activiteType"
           :activites="activites"
           :activite-type-sections="activiteType.sections"
           class="mr-s flex-right"
