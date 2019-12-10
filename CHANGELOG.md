@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.12](https://github.com/MTES-MCT/camino-ui/compare/v0.22.11...v0.22.12) (2019-12-10)
+
+
+### Features
+
+* ajoute la surface couverte par le titre dans l'export CSV ([98929e9](https://github.com/MTES-MCT/camino-ui/commit/98929e9b755e92413bf88f16a634ee3699ee3892))
+* ajoute une interface pour les activités ([#56](https://github.com/MTES-MCT/camino-ui/issues/56)) ([d65b2d8](https://github.com/MTES-MCT/camino-ui/commit/d65b2d8390f9dd045caddabdd1d9dfc2222de0a9))
+* **export csv:** ajoute l'adresse des entreprises et amodiataires ([#54](https://github.com/MTES-MCT/camino-ui/issues/54)) ([1fbe623](https://github.com/MTES-MCT/camino-ui/commit/1fbe62344891169848719105a8952ee388df0954))
+
+
+### Bug Fixes
+
+* affiche les entreprise dans l'édition d'étape ([a357a6e](https://github.com/MTES-MCT/camino-ui/commit/a357a6e6724bbe439a48e80b0d7240ef9070bf21))
+* corrige une erreur lors du retour sur la page activités ([e26f81b](https://github.com/MTES-MCT/camino-ui/commit/e26f81bd8d0d21d032c905c8b7eda4ea6fe9f83c))
+
 ### [0.22.11](https://github.com/MTES-MCT/camino-ui/compare/v0.22.8...v0.22.11) (2019-12-06)
 
 
