@@ -230,11 +230,7 @@
                   )
                 "
               >
-                {{
-                  `${administration.nom}${
-                    administration.service ? ` - ${administration.service}` : ''
-                  }`
-                }}
+                {{ `${administration.abreviation}` }}
               </option>
             </select>
             <div class="flex-right">
