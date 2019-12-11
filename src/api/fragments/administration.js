@@ -49,6 +49,7 @@ const fragmentAdministrations = gql`
   fragment administrations on Administration {
     id
     nom
+    abreviation
     service
   }
 `
