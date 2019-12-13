@@ -1,7 +1,7 @@
 .DS_Store
 .env
-.env.production
 .env.development
+.env.production
 /dist
 /coverage
 cypress.env.json

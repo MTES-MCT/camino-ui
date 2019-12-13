@@ -38,6 +38,6 @@ Pré-requis:
 ```bash
 # démarre l'application dans un container Docker
 # en mode `production`
-# accessible à http://flux.camino.pw
-docker-compose -f ./docker-compose.yml up --build
+# accessible à https://{VUE_APP_API_URL}
+docker-compose up --build
 ```

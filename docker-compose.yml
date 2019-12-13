@@ -2,12 +2,13 @@ version: '3'
 
 services:
   app:
-    build: .
+    image: caminofr/camino-ui:latest
     environment:
       VIRTUAL_HOST: ${URL}
       VIRTUAL_PORT: ${NODE_PORT}
       LETSENCRYPT_HOST: ${URL}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+    env_file: .env
     expose:
       - ${NODE_PORT}
     restart: always

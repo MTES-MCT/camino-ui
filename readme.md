@@ -1,9 +1,9 @@
 # Camino UI
 
-[![Build Status][ci-img]][ci] [![codecov][codecov-img]][codecov] [![Dependency Status][dep-img]][dep]
+[![Tests status][ci-img]][ci] [![codecov][codecov-img]][codecov] [![Dependency Status][dep-img]][dep]
 
-[ci-img]: https://travis-ci.org/MTES-MCT/camino-ui.svg?branch=master
-[ci]: https://travis-ci.org/MTES-MCT/camino-ui
+[ci-img]: https://github.com/MTES-MCT/camino-ui/workflows/Tests/badge.svg
+[ci]: https://github.com/MTES-MCT/camino-ui/actions
 [codecov-img]: https://codecov.io/gh/MTES-MCT/camino-ui/branch/master/graph/badge.svg
 [codecov]: https://codecov.io/gh/MTES-MCT/camino-ui
 [dep-img]: https://david-dm.org/MTES-MCT/camino-ui.svg
@@ -37,12 +37,8 @@
 
 ## Configuration
 
-1. Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-ui.git`
-2. Renommer les fichier `.env-example` en `.env` et le compléter.
-3. Pour la version de développement, renommer le fichier et `.env.development-example` en `.env.development` et compléter.
-4. Pour la version de production, renommer le fichier et `.env.production-example` en `.env.production` et compléter.
-
-Pour plus d'informations sur les variables d'environnement, voir la doc de [vue-cli](https://cli.vuejs.org/guide/mode-and-env.html#modes).
+- Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-ui.git`.
+- Renommer les fichier `.env-example` en `.env` et le compléter.
 
 ### Installation
 

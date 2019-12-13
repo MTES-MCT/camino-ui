@@ -1,6 +1,6 @@
 #https://github.com/fabriziocucci/vuejs.org/blob/7f9aa12833c085b97a826df3ba240f7d9e069e1b/src/v2/cookbook/dockerize-vuejs-app.md
 
-FROM node:alpine
+FROM node:12.13.1-alpine
 LABEL maintainer=francois.romain@beta.gouv.fr
 
 ENV dir /app
@@ -11,8 +11,6 @@ WORKDIR $dir
 COPY package.json /tmp/package.json
 RUN cd /tmp && npm install && cp -a /tmp/node_modules $dir/
 
-COPY .env ./
-COPY .env.production ./
 COPY package.json ./
 COPY index.js ./
 COPY vue.config.js ./
@@ -20,6 +18,4 @@ COPY babel.config.js ./
 COPY src src/
 COPY public public/
 
-RUN npm run build
-
-CMD ["npm", "start"]
+CMD npm run build && npm start
