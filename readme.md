@@ -38,7 +38,7 @@
 ## Configuration
 
 - Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-ui.git`.
-- Renommer les fichier `.env-example` en `.env` et le compléter.
+- Renommer le fichier `.env-example` en `.env` et le compléter.
 
 ### Installation
 
