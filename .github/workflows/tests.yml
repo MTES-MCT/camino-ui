@@ -1,4 +1,4 @@
-name: Run tests
+name: Tests
 
 on:
   push:
@@ -15,7 +15,8 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
