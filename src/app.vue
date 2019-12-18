@@ -9,8 +9,8 @@
     <PageHeader slot="header" />
 
     <Messages
-      id="cmn-app-messages"
       slot="messages"
+      data-cy="cmn-app-messages"
       :messages="messages"
     />
 

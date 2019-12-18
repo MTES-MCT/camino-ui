@@ -12,7 +12,7 @@
     </button>
     <button
       v-else
-      id="cmn-user-button-connexion"
+      data-cy="cmn-user-button-connexion"
       class="btn-alt pill h5 lh-2 py-s px-m"
       alt="Url"
       @click="popupOpen"
