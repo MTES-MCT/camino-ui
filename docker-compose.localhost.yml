@@ -8,7 +8,6 @@ services:
     working_dir: /app
     environment:
       DEV_SERVER_DISABLE_HOST_CHECK: 1
-    env_file: .env
     ports:
       - ${NODE_PORT}:${NODE_PORT}
     command: npm run dev

@@ -8,7 +8,8 @@ services:
       VIRTUAL_PORT: ${NODE_PORT}
       LETSENCRYPT_HOST: ${URL}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-    env_file: .env
+    volumes:
+      - ./.env:/app/.env
     expose:
       - ${NODE_PORT}
     restart: always
