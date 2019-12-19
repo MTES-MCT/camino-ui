@@ -182,15 +182,7 @@ export const mutations = {
     }
 
     Object.keys(data).forEach(id => {
-      Vue.set(
-        type ? state[type] : state,
-        id,
-        data[id]
-          ? Array.isArray(data[id])
-            ? data[id].sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
-            : data[id]
-          : null
-      )
+      Vue.set(type ? state[type] : state, id, data[id] ? data[id] : null)
     })
   }
 }
