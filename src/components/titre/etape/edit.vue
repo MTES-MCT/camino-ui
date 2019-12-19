@@ -34,6 +34,7 @@
         </select>
       </div>
     </div>
+
     <hr>
 
     <div v-if="etape.typeId">
@@ -60,33 +61,32 @@
       <hr>
     </div>
 
-    <div>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Date</h6>
-        </div>
-        <div class="tablet-blob-2-3">
-          <input
-            v-model="etape.date"
-            type="date"
-            class="p-s"
-            :class="{ 'mb-s': etape.date, mb: !etape.date }"
-            placeholder="aaaa-mm-jj"
-          >
-          <label
-            v-if="etape.date"
-            class="h5"
-          >
-            <input
-              v-model="etape.incertitudes.date"
-              type="checkbox"
-            >donnée
-            incertaine
-          </label>
-        </div>
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Date</h6>
       </div>
-      <hr>
+      <div class="tablet-blob-2-3">
+        <input
+          v-model="etape.date"
+          type="date"
+          class="p-s"
+          :class="{ 'mb-s': etape.date, mb: !etape.date }"
+          placeholder="aaaa-mm-jj"
+        >
+        <label
+          v-if="etape.date"
+          class="h5"
+        >
+          <input
+            v-model="etape.incertitudes.date"
+            type="checkbox"
+          >donnée
+          incertaine
+        </label>
+      </div>
     </div>
+
+    <hr>
 
     <EtapeEditFondamentales
       v-if="etapeType.fondamentale"

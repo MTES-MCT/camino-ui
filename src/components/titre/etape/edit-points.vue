@@ -167,6 +167,8 @@
         >donnée incertaine
       </label>
     </div>
+
+    <hr>
   </div>
 </template>
 

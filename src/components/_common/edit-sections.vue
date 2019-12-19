@@ -22,104 +22,87 @@
             class="mb"
             :class="{'tablet-blob-2-3': e.nom, 'tablet-blob-1': !e.nom }"
           >
-            <div v-if="e.type === 'number'">
-              <input
-                v-if="editable"
-                v-model.number="contenu[s.id][e.id]"
-                type="number"
-                min="0"
-                class="p-s"
-                :class="{ 'mb-s': e.description}"
-                placeholder="…"
-              >
-              <p
-                v-else
-                :class="{'color-warning': !contenu[s.id] || !(contenu[s.id][e.id] || contenu[s.id][e.id] === 0) }"
-                class="pt-xs"
-              >
-                {{ contenu[s.id] && (contenu[s.id][e.id] || contenu[s.id][e.id] === 0) ? numberFormat(contenu[s.id][e.id]) : 'À compléter pour valider' }}
-              </p>
-            </div>
-
-            <div v-else-if="e.type === 'checkbox'">
-              <input
-                v-if="editable"
-                v-model.number="contenu[s.id][e.id]"
-                type="checkbox"
-                class="p-s mt-s mb-s"
-              >
-              <p
-                v-else
-                :class="{'color-warning': !contenu[s.id] || !(contenu[s.id][e.id] || contenu[s.id][e.id] === 0) }"
-                class="pt-xs"
-              >
-                {{ contenu[s.id] && (contenu[s.id][e.id] || contenu[s.id][e.id] === 0) ? numberFormat(contenu[s.id][e.id]) : 'À compléter pour valider' }}
-              </p>
-            </div>
-
             <div
-              v-else-if="e.type === 'checkboxes'"
-              class="cmn-titre-edit-sections-checkboxes"
+              v-if="editable"
             >
-              <div v-if="editable">
-                <label
-                  v-for="(nom, id) in e.valeurs"
-                  :key="id"
+              <div :class="{ 'mb-s': e.description}">
+                <input
+                  v-if="e.type === 'number'"
+                  v-model.number="contenu[s.id][e.id]"
+                  type="number"
+                  min="0"
+                  class="p-s"
+                  placeholder="…"
                 >
-                  <input
-                    v-model="contenu[s.id][e.id]"
-                    type="checkbox"
-                    :value="id"
-                  >{{ nom }}
-                </label>
+
+                <input
+                  v-else-if="e.type === 'checkbox'"
+                  v-model.number="contenu[s.id][e.id]"
+                  type="checkbox"
+                  class="p-s mt-s mb-s"
+                >
+
+                <div
+                  v-else-if="e.type === 'checkboxes'"
+                >
+                  <label
+                    v-for="(valueName, valueId) in e.valeurs"
+                    :key="valueId"
+                  >
+                    <input
+                      v-model="contenu[s.id][e.id]"
+                      type="checkbox"
+                      :value="valueId"
+                    >{{ valueName }}
+                  </label>
+                </div>
+
+                <input
+                  v-else-if="e.type === 'date'"
+                  v-model="contenu[s.id][e.id]"
+                  type="date"
+                  class="p-s"
+                  placeholder="aaaa-mm-jj"
+                >
+
+                <textarea
+                  v-else-if="e.type === 'textarea'"
+                  v-model="contenu[s.id][e.id]"
+                  class="p-s"
+                />
+
+                <input
+                  v-else-if="e.type === 'text'"
+                  v-model="contenu[s.id][e.id]"
+                  type="text"
+                  class="p-s"
+                >
               </div>
 
+              <!-- eslint-disable vue/no-v-html -->
               <p
-                v-else
-                :class="{'color-warning': !(contenu[s.id] && contenu[s.id][e.id] && Object.keys(contenu[s.id][e.id]).filter(val => contenu[s.id][e.id][val]).length)}"
-                class="cap-first"
-              >
-                {{ contenu[s.id] && contenu[s.id][e.id] && contenu[s.id][e.id].map(id => e.valeurs[id]).join(', ') || 'À compléter pour valider' }}
-              </p>
-            </div>
-
-            <div v-else-if="e.type === 'textarea'">
-              <textarea
-                v-if="editable"
-                v-model="contenu[s.id][e.id]"
-                class="p-s"
-                :class="{ 'mb-s': e.description}"
+                v-if="e.description"
+                class="h5 mb-0"
+                v-html="e.description"
               />
-              <p
-                v-else
-                class="mb-0"
-              >
-                {{ contenu[s.id][e.id] }}
-              </p>
             </div>
 
-            <div v-else-if="e.type === 'text'">
-              <input
-                v-if="editable"
-                v-model="contenu[s.id][e.id]"
-                type="text"
-                class="p-s"
-                :class="{ 'mb-s': e.description}"
-              >
-              <p
-                v-else
-                class="mb-0"
-              >
-                {{ contenu[s.id][e.id] }}
-              </p>
-            </div>
-
-            <!-- eslint-disable vue/no-v-html -->
             <p
-              v-if="editable && e.description"
-              class="h5 mb-0"
-              v-html="e.description"
-            />
+              v-else-if="contenu[s.id] && (!Array.isArray(contenu[s.id][e.id]) && contenu[s.id][e.id] || contenu[s.id][e.id] === 0 || Array.isArray(contenu[s.id][e.id]) && contenu[s.id][e.id].length)"
+              class="pt-xs"
+            >
+              {{ e.type === 'number'
+                ? numberFormat(contenu[s.id][e.id])
+                : e.type ==='checkboxes'
+                  ? contenu[s.id][e.id].map(id => e.valeurs[id]).join(', ')
+                  : contenu[s.id][e.id] }}
+            </p>
+            <p
+              v-else-if="!e.optionnel"
+              class="color-warning pt-xs"
+            >
+              À compléter pour valider
+            </p>
           </div>
         </div>
 
@@ -154,7 +137,7 @@ export default {
           this.editable ||
           s.elements.some(e => {
             const contenu = this.contenu[s.id][e.id]
-            return !!contenu || contenu === 0
+            return (!!contenu || contenu === 0) && !e.optionnel
           })
       )
     }

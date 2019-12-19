@@ -408,6 +408,7 @@
         type="checkbox"
       >donnée incertaine
     </label>
+    <hr>
   </div>
 </template>
 
