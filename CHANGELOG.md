@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.13](https://github.com/MTES-MCT/camino-ui/compare/v0.22.12...v0.22.13) (2019-12-19)
+
+
+### Features
+
+* **édition:** ajoute un champs date ([9705892](https://github.com/MTES-MCT/camino-ui/commit/970589248527e4a088bbe9e31373b1d4485dbcd7))
+
 ### [0.22.12](https://github.com/MTES-MCT/camino-ui/compare/v0.22.11...v0.22.12) (2019-12-10)
 
 
