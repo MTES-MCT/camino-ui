@@ -119,8 +119,8 @@ describe('état de la liste des métas', () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.metas.titre.referencesTypes).toEqual([
-      { id: 'dge', nom: 'DGEC' },
-      { id: 'ifr', nom: 'Ifremer' }
+      { id: 'ifr', nom: 'Ifremer' },
+      { id: 'dge', nom: 'DGEC' }
     ])
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
@@ -153,12 +153,12 @@ describe('état de la liste des métas', () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.metas.titres.domaines).toEqual([
-      { id: 'c', nom: 'carrières' },
-      { id: 'w', nom: 'granulats' }
+      { id: 'w', nom: 'granulats' },
+      { id: 'c', nom: 'carrières' }
     ])
     expect(store.state.metas.titres.types).toEqual([
-      { id: 'dge', nom: 'DGEC' },
-      { id: 'ifr', nom: 'Ifremer' }
+      { id: 'ifr', nom: 'Ifremer' },
+      { id: 'dge', nom: 'DGEC' }
     ])
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
@@ -186,8 +186,8 @@ describe('état de la liste des métas', () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.metas.demarche.titreDemarchesTypes).toEqual([
-      { id: 'c', nom: 'carrières' },
-      { id: 'w', nom: 'granulats' }
+      { id: 'w', nom: 'granulats' },
+      { id: 'c', nom: 'carrières' }
     ])
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
@@ -221,12 +221,12 @@ describe('état de la liste des métas', () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.metas.etape.demarcheEtapesTypes).toEqual([
-      { id: 'c', nom: 'carrières' },
-      { id: 'w', nom: 'granulats' }
+      { id: 'w', nom: 'granulats' },
+      { id: 'c', nom: 'carrières' }
     ])
     expect(store.state.metas.etape.geoSystemes).toEqual([
-      { id: 'dge', nom: 'DGEC' },
-      { id: 'ifr', nom: 'Ifremer' }
+      { id: 'ifr', nom: 'Ifremer' },
+      { id: 'dge', nom: 'DGEC' }
     ])
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
@@ -287,8 +287,8 @@ describe('état de la liste des métas', () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.metas.utilisateur.permissions).toEqual([
-      { id: 'c', nom: 'carrières' },
-      { id: 'w', nom: 'granulats' }
+      { id: 'w', nom: 'granulats' },
+      { id: 'c', nom: 'carrières' }
     ])
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
