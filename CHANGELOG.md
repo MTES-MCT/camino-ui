@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.14](https://github.com/MTES-MCT/camino-ui/compare/v0.22.13...v0.22.14) (2019-12-20)
+
+
+### Bug Fixes
+
+* **activités:** corrige l'affichage des rapports annuels ([914b31c](https://github.com/MTES-MCT/camino-ui/commit/914b31cbacebb0b842a45a2e19751b288acccabd))
+* corrige l'ordre des métas ([#59](https://github.com/MTES-MCT/camino-ui/issues/59)) ([00a2c97](https://github.com/MTES-MCT/camino-ui/commit/00a2c970735b11b842e620772017ae22adfded76))
+
 ### [0.22.13](https://github.com/MTES-MCT/camino-ui/compare/v0.22.12...v0.22.13) (2019-12-19)
 
 
