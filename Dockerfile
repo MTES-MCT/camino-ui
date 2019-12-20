@@ -1,6 +1,6 @@
 #https://github.com/fabriziocucci/vuejs.org/blob/7f9aa12833c085b97a826df3ba240f7d9e069e1b/src/v2/cookbook/dockerize-vuejs-app.md
 
-FROM node:12.13.1-alpine
+FROM node:13-alpine
 LABEL maintainer=francois.romain@beta.gouv.fr
 
 ENV dir /app
