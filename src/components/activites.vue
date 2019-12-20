@@ -142,10 +142,12 @@ export default {
     },
 
     async get() {
-      await this.$store.dispatch('activites/get', {
-        annee: this.annee,
-        typeId: this.activiteTypeId
-      })
+      if (this.annee && this.activiteTypeId) {
+        await this.$store.dispatch('activites/get', {
+          annee: this.annee,
+          typeId: this.activiteTypeId
+        })
+      }
     },
 
     activiteTypeIdUpdate() {

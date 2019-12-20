@@ -76,6 +76,14 @@ const fragmentActiviteType = gql`
           nom
         }
       }
+      mois {
+        id
+        nom
+      }
+      annees {
+        id
+        nom
+      }
     }
     sections
   }
