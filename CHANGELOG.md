@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.15](https://github.com/MTES-MCT/camino-ui/compare/v0.22.14...v0.22.15) (2019-12-20)
+
+
+### Bug Fixes
+
+* tests ([7e668f7](https://github.com/MTES-MCT/camino-ui/commit/7e668f7b2f6a2f41efd58af80d918f58aa150b6e))
+
 ### [0.22.14](https://github.com/MTES-MCT/camino-ui/compare/v0.22.13...v0.22.14) (2019-12-20)
 
 
