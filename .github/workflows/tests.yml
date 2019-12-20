@@ -20,7 +20,6 @@ jobs:
       - name: Test units
         run: |
           npm ci
-          npm run build
           npm test
         env:
           CODECOV_TOKEN: 'b1916671-a54f-451d-aad8-6324be40418a'
