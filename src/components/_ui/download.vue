@@ -26,10 +26,15 @@ export default {
   methods: {
     download() {
       const link = document.createElement('a')
+
       const data = `data:text/${this.type};charset=utf-8,${encodeURIComponent(
         this.content
       )}`
-      link.setAttribute('href', data)
+
+      const blob = new Blob([data], { type: 'octet/stream' });
+      const url = URL.createObjectURL(blob);
+
+      link.setAttribute('href', url);
       link.setAttribute('download', this.name)
       link.style.display = 'none'
       document.body.appendChild(link)
