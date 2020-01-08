@@ -23,12 +23,13 @@
 
     <EditSections
       :sections="activite.sections"
-      :contenu.sync="activite.contenu"
+      :element.sync="activite"
       :editable="editable"
+      @completed:update="completedUpdate"
     />
 
     <div
-      v-if="!editable && complete"
+      v-if="!editable && completed"
       id="cmn-titre-activite-edit-popup-warning"
       class="p-s bg-warning color-bg bold mb"
     >
@@ -81,7 +82,7 @@
               <button
                 id="cmn-titre-activite-edit-popup-button-enregistrer"
                 class="rnd-xs p-s full-x"
-                :class="{ 'btn-flash': !complete, 'btn-border': complete }"
+                :class="{ 'btn-flash': !completed, 'btn-border': completed }"
                 @click="save(false)"
               >
                 Enregistrer
@@ -89,11 +90,11 @@
             </div>
             <div
               class="tablet-blob-1-2"
-              :class="{ disabled: !complete }"
+              :class="{ disabled: !completed }"
             >
               <button
                 class="btn-flash rnd-xs p-s full-x"
-                @click="complete && save(true)"
+                @click="completed && save(true)"
               >
                 Valider
               </button>
@@ -133,7 +134,8 @@ export default {
   data() {
     return {
       editable: true,
-      checkboxesValues: []
+      checkboxesValues: [],
+      completed: false
     }
   },
 
@@ -144,22 +146,6 @@ export default {
 
     messages() {
       return this.$store.state.popup.messages
-    },
-
-    complete() {
-      return this.activite.sections.reduce(
-        (activiteComplete, s) =>
-          s.elements.reduce((sectionComplete, e) => {
-            const value =
-              this.activite.contenu[s.id] &&
-              (e.type === 'checkboxes'
-                ? this.activite.contenu[s.id][e.id].length || null
-                : this.activite.contenu[s.id][e.id])
-
-            return sectionComplete && !!(value || value === 0 || e.optionel)
-          }, activiteComplete),
-        true
-      )
     }
   },
 
@@ -172,6 +158,10 @@ export default {
   },
 
   methods: {
+    completedUpdate(completed) {
+      this.completed = completed
+    },
+
     preview() {
       this.editable = false
     },
@@ -182,10 +172,14 @@ export default {
     },
 
     async save(confirmation) {
-      if (confirmation && this.complete) {
+      if (confirmation && this.completed) {
         this.activite.statut.id = 'dep'
       } else {
         this.activite.statut.id = 'enc'
+      }
+
+      if (!this.activite.contenu) {
+        delete this.activite.contenu
       }
 
       this.errorsRemove()
@@ -208,7 +202,7 @@ export default {
         if (this.editable) {
           this.preview()
         } else {
-          if (this.complete) {
+          if (this.completed) {
             this.save(true)
           } else {
             this.save(false)

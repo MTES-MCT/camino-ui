@@ -6,7 +6,7 @@
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
       class="map map-list mb-s"
-      @update:map="urlUpdate"
+      @map:update="urlUpdate"
     />
     <TitreMapWarningBrgm
       :zoom="preferencesZoom"

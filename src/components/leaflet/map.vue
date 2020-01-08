@@ -70,7 +70,7 @@ export default {
           }`
           const zoom = this.map.getZoom()
           this.zoom = zoom
-          this.$emit('update:map', { center, zoom })
+          this.$emit('map:update', { center, zoom })
         }
       })
 

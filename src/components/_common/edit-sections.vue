@@ -1,125 +1,37 @@
 <template>
   <div>
     <div
-      v-for="s in sectionFiltered"
+      v-for="s in sections"
       :key="s.id"
     >
       <h3 v-if="s.nom">
         {{ s.nom }}
       </h3>
-      <div
+
+      <EditSectionElement
         v-for="e in s.elements"
         :key="e.id"
-      >
-        <div class="tablet-blobs">
-          <div
-            v-if="e.nom"
-            class="tablet-blob-1-3 tablet-pt-s pb-s"
-          >
-            <h6>{{ e.nom }}</h6>
-          </div>
-          <div
-            class="mb"
-            :class="{'tablet-blob-2-3': e.nom, 'tablet-blob-1': !e.nom }"
-          >
-            <div
-              v-if="editable"
-            >
-              <div :class="{ 'mb-s': e.description}">
-                <input
-                  v-if="e.type === 'number'"
-                  v-model.number="contenu[s.id][e.id]"
-                  type="number"
-                  min="0"
-                  class="p-s"
-                  placeholder="…"
-                >
-
-                <input
-                  v-else-if="e.type === 'checkbox'"
-                  v-model.number="contenu[s.id][e.id]"
-                  type="checkbox"
-                  class="p-s mt-s mb-s"
-                >
-
-                <div
-                  v-else-if="e.type === 'checkboxes'"
-                >
-                  <label
-                    v-for="(valueName, valueId) in e.valeurs"
-                    :key="valueId"
-                  >
-                    <input
-                      v-model="contenu[s.id][e.id]"
-                      type="checkbox"
-                      :value="valueId"
-                    >{{ valueName }}
-                  </label>
-                </div>
-
-                <input
-                  v-else-if="e.type === 'date'"
-                  v-model="contenu[s.id][e.id]"
-                  type="date"
-                  class="p-s"
-                  placeholder="aaaa-mm-jj"
-                >
-
-                <textarea
-                  v-else-if="e.type === 'textarea'"
-                  v-model="contenu[s.id][e.id]"
-                  class="p-s"
-                />
-
-                <input
-                  v-else-if="e.type === 'text'"
-                  v-model="contenu[s.id][e.id]"
-                  type="text"
-                  class="p-s"
-                >
-              </div>
-
-              <!-- eslint-disable vue/no-v-html -->
-              <p
-                v-if="e.description"
-                class="h5 mb-0"
-                v-html="e.description"
-              />
-            </div>
-
-            <p
-              v-else-if="contenu[s.id] && (!Array.isArray(contenu[s.id][e.id]) && contenu[s.id][e.id] || contenu[s.id][e.id] === 0 || Array.isArray(contenu[s.id][e.id]) && contenu[s.id][e.id].length)"
-              class="pt-xs"
-            >
-              {{ e.type === 'number'
-                ? numberFormat(contenu[s.id][e.id])
-                : e.type ==='checkboxes'
-                  ? contenu[s.id][e.id].map(id => e.valeurs[id]).join(', ')
-                  : contenu[s.id][e.id] }}
-            </p>
-            <p
-              v-else-if="!e.optionnel"
-              class="color-warning pt-xs"
-            >
-              À compléter pour valider
-            </p>
-          </div>
-        </div>
-
-        <hr>
-      </div>
+        :contenu.sync="contenu[s.id]"
+        :element="e"
+        :editable="editable"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import EditSectionElement from './edit-section-element.vue'
 export default {
+  components: {
+    EditSectionElement
+  },
+
   props: {
     sections: {
       type: Array,
       default: () => []
     },
-    contenu: {
+    element: {
       type: Object,
       default: () => ({})
     },
@@ -129,18 +41,75 @@ export default {
     }
   },
 
+  data() {
+    return {
+      contenu: {}
+    }
+  },
+
   computed: {
     // masque les sections vides lors de la prévisualistation
-    sectionFiltered() {
+    sectionsFiltered() {
       return this.sections.filter(
         s =>
           this.editable ||
           s.elements.some(e => {
             const contenu = this.contenu[s.id][e.id]
+
             return (!!contenu || contenu === 0) && !e.optionnel
           })
       )
+    },
+
+    completed() {
+      return this.sections.reduce(
+        (completed, s) =>
+          s.elements.reduce((sectionCompleted, e) => {
+            const value =
+              this.contenu[s.id] &&
+              (e.type === 'checkboxes'
+                ? this.contenu[s.id][e.id].length || null
+                : this.contenu[s.id][e.id])
+
+            return sectionCompleted && !!(value || value === 0 || e.optionnel)
+          }, completed),
+        true
+      )
     }
+  },
+
+  watch: {
+    contenu: {
+      handler: function(contenu) {
+        this.element.contenu =
+          this.sections &&
+          this.sections.reduce((c, s) => {
+            if (Object.keys(contenu[s.id]).length) {
+              if (!c) {
+                c = {}
+              }
+              c[s.id] = contenu[s.id]
+            }
+
+            return c
+          }, null)
+      },
+      deep: true
+    },
+
+    completed: function(completed) {
+      this.$emit('completed:update', completed)
+    }
+  },
+
+  created() {
+    this.contenu =
+      this.sections &&
+      this.sections.reduce((contenu, { id }) => {
+        contenu[id] = (this.element.contenu && this.element.contenu[id]) || {}
+
+        return contenu
+      }, {})
   }
 }
 </script>

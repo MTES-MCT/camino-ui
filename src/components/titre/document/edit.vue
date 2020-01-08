@@ -47,7 +47,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Nom</h6>
         <p class="h6 italic mb-0">
-          Optionel
+          Optionnel
         </p>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -127,7 +127,7 @@
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Jorf</h6>
           <p class="h6 italic mb-0">
-            Optionel
+            Optionnel
           </p>
         </div>
         <div class="mb tablet-blob-2-3">
@@ -146,7 +146,7 @@
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Nor</h6>
           <p class="h6 italic mb-0">
-            Optionel
+            Optionnel
           </p>
         </div>
         <div class="mb tablet-blob-2-3">
@@ -164,7 +164,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Url</h6>
         <p class="h6 italic mb-0">
-          Optionel
+          Optionnel
         </p>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -182,7 +182,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Url</h6>
         <p class="h6 italic mb-0">
-          Optionel
+          Optionnel
         </p>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -201,7 +201,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <label for="document-public"><h6>Public</h6></label>
         <p class="h6 italic mb-0">
-          Optionel
+          Optionnel
         </p>
       </div>
       <div class="mb tablet-blob-2-3 py-s">

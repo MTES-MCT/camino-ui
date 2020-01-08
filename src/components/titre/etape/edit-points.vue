@@ -4,7 +4,7 @@
       Périmètre
     </h3>
     <p class="h6 italic mb-s">
-      Optionel
+      Optionnel
     </p>
 
     <EtapeEditPointsGeoSysteme

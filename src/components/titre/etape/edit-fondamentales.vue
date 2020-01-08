@@ -4,7 +4,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Durée (années / mois)</h6>
         <p class="h6 italic mb-0">
-          Optionel
+          Optionnel
         </p>
       </div>
       <div class="tablet-blob-2-3">
@@ -49,7 +49,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Date de début</h6>
         <p class="h6 italic mb-0">
-          Optionel
+          Optionnel
         </p>
       </div>
       <div class="tablet-blob-2-3">
@@ -78,7 +78,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Date d'échéance</h6>
         <p class="h6 italic mb-0">
-          Optionel
+          Optionnel
         </p>
       </div>
       <div class="tablet-blob-2-3">
@@ -107,7 +107,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Engagement</h6>
         <p class="h6 italic mb-0">
-          Optionel
+          Optionnel
         </p>
       </div>
       <div class="tablet-blob-2-3">
@@ -158,7 +158,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Surface (Km²)</h6>
         <p class="h6 italic mb-0">
-          Optionel
+          Optionnel
         </p>
       </div>
       <div class="tablet-blob-2-3">
@@ -188,7 +188,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Volume</h6>
         <p class="h6 italic mb-0">
-          Optionel
+          Optionnel
         </p>
       </div>
       <div class="tablet-blob-2-3">
@@ -239,7 +239,7 @@
       Titulaires
     </h3>
     <p class="h6 italic mb-s">
-      Optionel
+      Optionnel
     </p>
     <div
       v-for="(titulaireId, n) in etape.titulairesIds"
@@ -297,7 +297,7 @@
       Amodiataires
     </h3>
     <p class="h6 italic mb-s">
-      Optionel
+      Optionnel
     </p>
     <div
       v-for="(amodiataireId, n) in etape.amodiatairesIds"
@@ -356,7 +356,7 @@
       Substances
     </h3>
     <p class="h6 italic mb-s">
-      Optionel
+      Optionnel
     </p>
     <div
       v-for="(substanceId, n) in etape.substancesIds"
