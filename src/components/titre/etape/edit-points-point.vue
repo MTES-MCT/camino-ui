@@ -13,7 +13,7 @@
         <div class="flex">
           <h6>Description</h6>
           <p class="h6 italic mb-0 flex-right mr-xs">
-            Optionel
+            Optionnel
           </p>
         </div>
         <input

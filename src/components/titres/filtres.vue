@@ -142,7 +142,7 @@ export default {
     },
 
     // met à jour les filtres
-    // in: source (String, optionel) 'url' ou 'preferences'
+    // in: source (String, optionnel) 'url' ou 'preferences'
     // si aucune source est définie, prend en priorité les valeurs définies
     // - dans l'url
     // - ou les préfs utilisateur

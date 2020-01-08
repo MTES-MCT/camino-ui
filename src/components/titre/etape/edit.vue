@@ -80,8 +80,7 @@
           <input
             v-model="etape.incertitudes.date"
             type="checkbox"
-          >donnée
-          incertaine
+          >donnée incertaine
         </label>
       </div>
     </div>
@@ -103,7 +102,7 @@
     <EditSections
       v-if="etapeType.sections"
       :sections="etapeType.sections"
-      :contenu.sync="contenu"
+      :element.sync="etape"
     />
 
     <template slot="footer">
@@ -197,19 +196,6 @@ export default {
       return this.etapeType.etapesStatuts
     },
 
-    contenu() {
-      return (
-        this.etapeType.sections &&
-        this.etapeType.sections.reduce(
-          (acc, { id }) =>
-            Object.assign(acc, {
-              [id]: (this.etape.contenu && this.etape.contenu[id]) || {}
-            }),
-          {}
-        )
-      )
-    },
-
     complete() {
       return this.etape.typeId && this.etape.date && this.etape.statutId
     }
@@ -233,7 +219,9 @@ export default {
       if (this.complete) {
         const etape = etapeSaveFormat(this.etape)
 
-        etape.contenu = this.contenu
+        if (!this.etape.contenu) {
+          delete this.etape.contenu
+        }
 
         // console.log(JSON.stringify(etape, null, 2))
         if (this.creation) {
