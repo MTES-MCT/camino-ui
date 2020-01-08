@@ -24,7 +24,7 @@ export default {
   methods: {
     inputChange(e) {
       const values = e.target.value
-        ? e.target.value.match(/[\w/]+|"(?:\\"|[^"])+"/g)
+        ? e.target.value.match(/[\w-/]+|"(?:\\"|[^"])+"/g)
         : []
 
       this.filter.values = values
