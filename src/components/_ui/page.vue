@@ -1,5 +1,11 @@
 <template>
   <div class="page relative">
+    <div class="banner">
+      <div class="container py-m">
+        <slot name="banner" />
+      </div>
+    </div>
+
     <Transition
       name="slide"
       mode="out-in"

@@ -74,6 +74,12 @@
   margin-right: calc(var(--unit) * -1);
 }
 
+.banner {
+  background-color: var(--color-sticky);
+  z-index: 1;
+  border-bottom: dashed 1px var(--color-text);
+}
+
 .header-menu {
   padding: 0;
   list-style: none;
