@@ -1,8 +1,6 @@
 import gql from 'graphql-tag'
-import {
-  fragmentAdministration,
-  fragmentAdministrations
-} from './fragments/administration'
+import { fragmentAdministration } from './fragments/administration'
+import { fragmentAdministrations } from './fragments/administrations'
 
 import { apiQuery } from './_utils'
 

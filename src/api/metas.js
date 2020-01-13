@@ -9,7 +9,7 @@ import {
 } from './fragments/metas'
 import { fragmentSubstance } from './fragments/substance'
 import { fragmentEntreprises } from './fragments/entreprises'
-import { fragmentAdministrations } from './fragments/administration'
+import { fragmentAdministrations } from './fragments/administrations'
 
 import { apiQuery } from './_utils'
 
