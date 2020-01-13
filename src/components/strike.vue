@@ -5,10 +5,8 @@
     </div>
     <div>
       <p class="strong mb-0">
-        En raison d’un mouvement social national interprofessionnel,
-      </p>
-      <p class="mb-0">
-        le service du cadastre minier numérique ouvert est susceptible d'être perturbé pendant les prochains jours.
+        En raison d’un mouvement social national interprofessionnel, <br>
+        le service est susceptible d'être perturbé pendant les prochains jours.
       </p>
     </div>
   </div>
