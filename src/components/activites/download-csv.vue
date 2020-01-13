@@ -1,8 +1,8 @@
 <template>
   <Download
-    :type="'csv'"
-    :content="content"
-    :name="name"
+    name="activites"
+    type="csv"
+    :content-build="contentBuild"
   />
 </template>
 
@@ -29,15 +29,13 @@ export default {
   },
 
   computed: {
-    name() {
-      return this.fileNameCreate('activites', 'csv')
-    },
-
     activitesTypes() {
       return this.$store.state.metas.activites.activitesTypes
-    },
+    }
+  },
 
-    content() {
+  methods: {
+    contentBuild() {
       return parse(
         activitesFormatCsv(this.activites, this.activiteTypeSections),
         {}
