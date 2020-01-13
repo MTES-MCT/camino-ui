@@ -5,10 +5,10 @@
     </div>
     <div>
       <p class="strong mb-0">
-        En raison d’une grève nationale interprofessionnelle, une partie des personnels ne travaille pas.
+        En raison d’un mouvement social national interprofessionnel,
       </p>
       <p class="mb-0">
-        Les délais de réponse aux questions techniques pourront être perturbés pendant les prochains jours.
+        le service du cadastre minier numérique ouvert est susceptible d'être perturbé pendant les prochains jours.
       </p>
     </div>
   </div>
