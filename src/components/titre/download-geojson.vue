@@ -1,9 +1,11 @@
 <template>
   <Download
-    :type="'geojson'"
-    :content="content"
-    :name="name"
-  />
+    :name="titre.id"
+    type="geojson"
+    :content-build="contentBuild"
+  >
+    geojson
+  </Download>
 </template>
 
 <script>
@@ -14,18 +16,16 @@ export default {
   components: {
     Download
   },
+
   props: {
     titre: {
       type: Object,
       default: () => {}
     }
   },
-  computed: {
-    name() {
-      return this.fileNameCreate(this.titre.id, 'geojson')
-    },
 
-    content() {
+  methods: {
+    contentBuild() {
       return JSON.stringify(
         {
           type: 'FeatureCollection',

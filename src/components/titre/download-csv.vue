@@ -1,8 +1,8 @@
 <template>
   <Download
-    :type="'csv'"
-    :content="content"
-    :name="name"
+    :name="titre.id"
+    type="csv"
+    :content-build="contentBuild"
   />
 </template>
 
@@ -21,12 +21,8 @@ export default {
     }
   },
 
-  computed: {
-    name() {
-      return this.fileNameCreate(this.titre.id, 'csv')
-    },
-
-    content() {
+  methods: {
+    contentBuild() {
       const titresFormatCsv = points =>
         points.map(point =>
           point.references.reduce(
