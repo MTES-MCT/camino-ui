@@ -27,6 +27,17 @@
             </li>
             <li>
               <RouterLink
+                v-if="permissionsCheck(['super', 'admin','editeur'])"
+                id="cmn-menu-menu-a-activites"
+                :to="{ name: 'activites' }"
+                class="btn-transparent text-decoration-none bold"
+                active-class="active"
+              >
+                Activités
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink
                 id="cmn-menu-menu-a-entreprises"
                 :to="{ name: 'entreprises' }"
                 class="btn-transparent text-decoration-none bold"
