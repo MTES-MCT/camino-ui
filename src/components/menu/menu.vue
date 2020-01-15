@@ -16,17 +16,6 @@
             </li>
             <li>
               <RouterLink
-                v-if="permissionsCheck(['super', 'admin'])"
-                id="cmn-menu-menu-a-utilisateurs"
-                :to="{ name: 'utilisateurs' }"
-                class="btn-transparent text-decoration-none bold"
-                active-class="active"
-              >
-                Utilisateurs
-              </RouterLink>
-            </li>
-            <li>
-              <RouterLink
                 v-if="permissionsCheck(['super', 'admin','editeur'])"
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'activites' }"
@@ -46,7 +35,17 @@
                 Entreprises
               </RouterLink>
             </li>
-            <li><a href="" /></li>
+            <li>
+              <RouterLink
+                v-if="permissionsCheck(['super', 'admin'])"
+                id="cmn-menu-menu-a-utilisateurs"
+                :to="{ name: 'utilisateurs' }"
+                class="btn-transparent text-decoration-none bold"
+                active-class="active"
+              >
+                Utilisateurs
+              </RouterLink>
+            </li>
           </ul>
         </div>
       </div>
