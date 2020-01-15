@@ -30,11 +30,11 @@ const activite = apiQuery(
   gql`
     query Activite($id: ID!) {
       activite(id: $id) {
-        ...titreActivite
+        ...activite
       }
     }
 
-    ${fragmentTitreActivite}
+    ${fragmentActivite}
   `,
   { fetchPolicy: 'network-only' }
 )
