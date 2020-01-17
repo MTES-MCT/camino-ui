@@ -1,7 +1,11 @@
 <template>
   <tr class="h5">
     <td class="nowrap">
-      {{ document.type.nom }}
+      <span class="bold">{{ document.type.nom }}</span>
+      <span
+        v-if="document.public"
+        class="h6 bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
+      >Public</span>
     </td>
     <td>{{ document.nom || '–' }}</td>
     <td class="flex text-right">
