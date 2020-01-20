@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.17](https://github.com/MTES-MCT/camino-ui/compare/v0.22.16...v0.22.17) (2020-01-20)
+
+
+### Features
+
+* supprime le badeau de grève ([538f394](https://github.com/MTES-MCT/camino-ui/commit/538f394f99704f68f811cbcae844d592eddc7dc5))
+
 ### [0.22.16](https://github.com/MTES-MCT/camino-ui/compare/v0.22.15...v0.22.16) (2020-01-20)
 
 
