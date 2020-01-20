@@ -1,7 +1,5 @@
 <template>
   <Page>
-    <Strike slot="banner" />
-
     <Component
       :is="menu.component"
       v-if="menu.component"
@@ -34,7 +32,6 @@
 </template>
 
 <script>
-import Strike from './components/strike.vue'
 import Page from './components/_ui/page.vue'
 import Messages from './components/_ui/messages.vue'
 import PageHeader from './components/page-header.vue'
@@ -45,7 +42,6 @@ export default {
   name: 'App',
 
   components: {
-    Strike,
     Page,
     Messages,
     PageHeader,
