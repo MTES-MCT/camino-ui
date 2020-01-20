@@ -176,6 +176,16 @@
         :titres="titresTitulaire"
       />
     </div>
+
+    <div
+      v-if="titresAmodiataire && titresAmodiataire.length"
+    >
+      <div class="card-border mb" />
+      <h3>Titres miniers et autorisations (amodiataire)</h3>
+      <TitresTable
+        :titres="titresAmodiataire"
+      />
+    </div>
   </Card>
 </template>
 
