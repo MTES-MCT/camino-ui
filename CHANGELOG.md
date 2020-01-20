@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.16](https://github.com/MTES-MCT/camino-ui/compare/v0.22.15...v0.22.16) (2020-01-20)
+
+
+### Features
+
+* affiche les amodiataires sur la page entreprise ([a943dc1](https://github.com/MTES-MCT/camino-ui/commit/a943dc142c99492b6ccba2e9b258122da9f0236f))
+* change l'ordre des éléments dans le menu ([f351148](https://github.com/MTES-MCT/camino-ui/commit/f351148025b18b32ca5f1cc79989da4921a46322))
+* **activités:** ajoute un lien dans le menu vers la page des activités ([#63](https://github.com/MTES-MCT/camino-ui/issues/63)) ([ebd2927](https://github.com/MTES-MCT/camino-ui/commit/ebd29274638112849ac97b9bcbcd4a8b59db248d))
+* affiche un bandeau de soutient à la grève ([e7e6f34](https://github.com/MTES-MCT/camino-ui/commit/e7e6f348adea58bd52419258585d54199a8689cc))
+* ajoute le fond de carte ign cadastre ([6c46595](https://github.com/MTES-MCT/camino-ui/commit/6c46595f111b701c4e3b73b9e3a7b680abe811b8))
+
+
+### Bug Fixes
+
+* **documents:** affiche l'option "public" ([d778777](https://github.com/MTES-MCT/camino-ui/commit/d778777066844504b4d378bf7f8f4424a4166e2b))
+* construit les fichiers à télécharger au moment du clic ([#62](https://github.com/MTES-MCT/camino-ui/issues/62)) ([ed64e51](https://github.com/MTES-MCT/camino-ui/commit/ed64e51e949778eb7da0a46ab55314844af16c2a))
+* corrige l'affichage du fond de carte parcelles cadastrales ([2a2fd5b](https://github.com/MTES-MCT/camino-ui/commit/2a2fd5b964f61eaba1e1dd73a8917551ce073811))
+* corrige le schéma graphql ([1c277f0](https://github.com/MTES-MCT/camino-ui/commit/1c277f019959cc8c4cbca30c2d80b4b0ea91dfbe))
+* corrige les téléchargements volumineux ([4ce7b03](https://github.com/MTES-MCT/camino-ui/commit/4ce7b03b31b92bf7d4d80f6955fe3205845429f7))
+* reformule le contenu du bandeau ([4f5dc45](https://github.com/MTES-MCT/camino-ui/commit/4f5dc454edb5f859a630609398b779546316a2cb))
+* simplifie le message du bandeau ([7f1da51](https://github.com/MTES-MCT/camino-ui/commit/7f1da512f826932ff96621d170a452a5b5ea69b1))
+* **édition d'étape:** corrige l'effacement de contenu lorsqu'on modifie la date ([#60](https://github.com/MTES-MCT/camino-ui/issues/60)) ([4ecb33e](https://github.com/MTES-MCT/camino-ui/commit/4ecb33e6bdf1d9c327580722422d07d3864e5d4a))
+* **recherche:** prend en compte les tirets dans les champs texte ([#61](https://github.com/MTES-MCT/camino-ui/issues/61)) ([5f79885](https://github.com/MTES-MCT/camino-ui/commit/5f7988562a2c025895dae3c5e05a5bc632494f72))
+
 ### [0.22.15](https://github.com/MTES-MCT/camino-ui/compare/v0.22.14...v0.22.15) (2019-12-20)
 
 
