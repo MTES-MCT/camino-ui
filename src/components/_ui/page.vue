@@ -1,6 +1,9 @@
 <template>
   <div class="page relative">
-    <div class="banner">
+    <div
+      v-if="$slots.banner"
+      class="banner"
+    >
       <div class="container py-m">
         <slot name="banner" />
       </div>
