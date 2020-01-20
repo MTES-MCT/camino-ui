@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.18](https://github.com/MTES-MCT/camino-ui/compare/v0.22.17...v0.22.18) (2020-01-20)
+
+
+### Bug Fixes
+
+* supprime un bloc dans l'en†ête de page ([366450e](https://github.com/MTES-MCT/camino-ui/commit/366450e53eaa0284dd2a93e02b65325bdddcf158))
+
 ### [0.22.17](https://github.com/MTES-MCT/camino-ui/compare/v0.22.16...v0.22.17) (2020-01-20)
 
 
