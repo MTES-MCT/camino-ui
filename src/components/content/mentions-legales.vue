@@ -12,11 +12,11 @@
       numériques beta.gouv.fr de la direction interministérielle du numérique et
       du système d’information et de communication de l’État (DINSIC).
     </p>
-    <h3>Directeurs de la publication</h3>
+    <h3>Directrice et directeur de la publication</h3>
     <ul class="list-prefix">
       <li>
-        Monsieur Paul Delduc, directeur général de l’aménagement, du logement et
-        de la nature (DGALN)
+        Madame Stéphanie Dupuy-Lyon, directrice générale de l’aménagement, du
+        logement et de la nature (DGALN)
       </li>
       <li>
         Monsieur Laurent Michel, directeur général de l’énergie et du climat
