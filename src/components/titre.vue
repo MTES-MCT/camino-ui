@@ -2,6 +2,15 @@
   <div>
     <Loader v-if="!loaded" />
     <Card v-else>
+      <div
+        v-if="titre.doublonTitreId"
+        class="p-m bg-warning color-bg mb"
+      >
+        Titre en doublon : <a
+          class="color-bg"
+          :href="`/titres/${titre.doublonTitreId}`"
+        >{{ titre.doublonTitreId }}</a>
+      </div>
       <TitreHeader :titre="titre" />
 
       <div v-if="titre.geojsonMultiPolygon && titre.points">

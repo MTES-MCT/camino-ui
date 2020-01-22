@@ -91,6 +91,7 @@ const fragmentTitre = gql`
 
     editable
     supprimable
+    doublonTitreId
   }
 
   ${fragmentTitreAdministrations}

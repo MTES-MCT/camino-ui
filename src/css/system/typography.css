@@ -139,6 +139,24 @@ a {
   }
 }
 
+a.color-bg {
+  color: var(--color-bg);
+
+  &:visited {
+    color: var(--color-bg);
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: var(--color-bg);
+  }
+
+  &.active {
+    color: var(--color-neutral);
+  }
+}
+
 b,
 strong,
 .strong,
