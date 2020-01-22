@@ -6,10 +6,11 @@
         v-if="titre.doublonTitreId"
         class="p-m bg-warning color-bg mb"
       >
-        Titre en doublon : <a
+        Ce titre est un doublon. L'original est ici :
+        <a
           class="color-bg"
           :href="`/titres/${titre.doublonTitreId}`"
-        >{{ titre.doublonTitreId }}</a>
+        >{{ titre.doublonTitreId }}</a>.
       </div>
       <TitreHeader :titre="titre" />
 
