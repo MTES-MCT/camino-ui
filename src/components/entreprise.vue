@@ -22,7 +22,7 @@
       </template>
 
       <template
-        v-if="permissionsCheck(['super', 'admin', 'editeur'])"
+        v-if="entreprise.editable"
         slot="buttons"
       >
         <button

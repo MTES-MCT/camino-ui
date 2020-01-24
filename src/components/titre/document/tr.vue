@@ -10,7 +10,7 @@
     <td>{{ document.nom || '–' }}</td>
     <td class="flex text-right">
       <button
-        v-if="permissionsCheck(['super'])"
+        v-if="document.supprimable"
         class="btn-border py-s px-m my--xs rnd-l-xs"
         @click="removePopupOpen"
       >

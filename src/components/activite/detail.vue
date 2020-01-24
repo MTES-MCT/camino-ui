@@ -16,7 +16,7 @@
       slot="buttons"
     >
       <ActiviteButton
-        v-if="editable"
+        v-if="activite.editable"
         :activite="activite"
         class="btn-alt py-s px-m"
       />
@@ -81,17 +81,6 @@ export default {
       type: Object,
       default: () => ({})
     }
-  },
-
-  computed: {
-    editable() {
-      return (
-        this.permissionsCheck(['super', 'admin']) ||
-        (this.activite.statut.id !== 'dep' &&
-          this.permissionsCheck(['entreprise']))
-      )
-    }
   }
 }
 </script>
-

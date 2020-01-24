@@ -20,6 +20,12 @@ const fragmentUtilisateur = gql`
     permission {
       ...permission
     }
+
+    sections {
+      titres
+      activites
+      utilisateurs
+    }
   }
 
   ${fragmentEntreprises}

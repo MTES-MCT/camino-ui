@@ -34,8 +34,12 @@ export default {
   },
 
   computed: {
+    user() {
+      return this.$store.state.user.current
+    },
+
     activitesCol() {
-      return this.permissionsCheck(['super', 'admin', 'editeur', 'entreprise'])
+      return this.user && this.user.sections.activites
     },
 
     colonnes() {
