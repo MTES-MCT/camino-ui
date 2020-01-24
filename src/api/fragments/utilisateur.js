@@ -21,8 +21,11 @@ const fragmentUtilisateur = gql`
       ...permission
     }
 
+    editable
+    supprimable
+    permissionEditable
+
     sections {
-      titres
       activites
       utilisateurs
     }

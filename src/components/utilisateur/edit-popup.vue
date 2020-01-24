@@ -117,7 +117,7 @@
       </div>
     </div>
 
-    <div v-if="permissionsCheck(['super', 'admin'])">
+    <div v-if="utilisateur.permissionEditable">
       <hr>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
