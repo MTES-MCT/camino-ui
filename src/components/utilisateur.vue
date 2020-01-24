@@ -20,7 +20,7 @@
       </template>
 
       <template
-        v-if="permissionsCheck(['super', 'admin']) || user && user.id === utilisateur.id"
+        v-if="utilisateur.editable"
         slot="buttons"
       >
         <button
@@ -106,7 +106,7 @@
           </div>
 
           <div
-            v-if="permissionsCheck(['super', 'admin'])"
+            v-if="utilisateur.permissionEditable"
             class="tablet-blobs"
           >
             <div class="tablet-blob-1-4">

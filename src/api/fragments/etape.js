@@ -86,7 +86,9 @@ const fragmentTitreEtape = gql`
     jorf
     nor
     public
+
     editable
+    supprimable
   }
 
   fragment incertitudes on Incertitudes {

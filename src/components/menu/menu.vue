@@ -16,7 +16,7 @@
             </li>
             <li>
               <RouterLink
-                v-if="permissionsCheck(['super', 'admin','editeur'])"
+                v-if="sections.activites"
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'activites' }"
                 class="btn-transparent text-decoration-none bold"
@@ -37,7 +37,7 @@
             </li>
             <li>
               <RouterLink
-                v-if="permissionsCheck(['super', 'admin'])"
+                v-if="sections.utilisateurs"
                 id="cmn-menu-menu-a-utilisateurs"
                 :to="{ name: 'utilisateurs' }"
                 class="btn-transparent text-decoration-none bold"
@@ -58,6 +58,14 @@ export default {
   name: 'MainMenu',
 
   computed: {
+    user() {
+      return this.$store.state.user.current
+    },
+
+    sections() {
+      return this.user ? this.user.sections : {}
+    },
+
     menu() {
       return this.$store.state.menu
     }

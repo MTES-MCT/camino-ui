@@ -1,7 +1,6 @@
 <template>
   <div>
     <button
-      v-if="permissionsCheck(['super', 'admin'])"
       class="btn-border rnd-xs py-s px-m full-x flex mb"
       @click="addPopupOpen"
     >

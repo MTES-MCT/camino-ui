@@ -34,6 +34,8 @@ const fragmentEntreprise = gql`
     titresAmodiataire {
       ...titres
     }
+
+    editable
   }
 
   ${fragmentTitres}

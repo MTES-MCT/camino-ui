@@ -71,7 +71,7 @@
         >
           <span class="h5">{{ document.fichierNouveau && document.fichierNouveau.name || `${document.id}.${document.fichierTypeId}` }}</span>
           <button
-            v-if="permissionsCheck(['super'])"
+            v-if="document.supprimable"
             class="btn-border py-s px-m my--xs rnd-xs flex-right"
             @click="fileRemove"
           >
