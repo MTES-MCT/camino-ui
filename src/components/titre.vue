@@ -6,7 +6,7 @@
         v-if="titre.doublonTitreId"
         class="p-m bg-warning color-bg mb"
       >
-        Ce titre est un doublon. L'original est ici :
+        Ce titre est un doublon. Le titre déjà existant est :
         <a
           class="color-bg"
           :href="`/titres/${titre.doublonTitreId}`"
