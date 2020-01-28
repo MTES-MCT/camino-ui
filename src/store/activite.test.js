@@ -18,9 +18,7 @@ describe("état d'une activité", () => {
   let actions
 
   beforeEach(() => {
-    activite.state = {
-      current: null
-    }
+    activite.state = { current: null }
 
     actions = {
       reload: jest.fn(),
@@ -46,57 +44,58 @@ describe("état d'une activité", () => {
     })
   })
 
-  test('valide une activité pour un titre', async () => {
-    const apiMock = api.activiteModifier.mockResolvedValue({
-      statut: { id: 'dep' }
-    })
+  test('valide une activité', async () => {
+    api.activiteModifier.mockResolvedValue({ statut: { id: 'dep' } })
 
     await store.dispatch('activite/update', {
-      id: 27,
-      contenu: [],
-      statut: { id: 'dep' }
+      activite: {
+        id: 27,
+        contenu: [],
+        statut: { id: 'dep' }
+      },
+      context: null
     })
 
-    expect(mutations.popupMessagesRemove).toHaveBeenCalled()
-    expect(mutations.loadingAdd).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({
-      activite: { id: 27, contenu: [], activiteStatutId: 'dep' }
-    })
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalledTimes(2)
-    expect(actions.reload).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalledTimes(1)
+  })
+
+  test('valide une activité sur une activité', async () => {
+    api.activiteModifier.mockResolvedValue({ statut: { id: 'dep' } })
+    activite.state.current = { id: 'activite-id' }
+
+    await store.dispatch('activite/update', {
+      activite: {
+        id: 27,
+        contenu: [],
+        statut: { id: 'dep' }
+      },
+      context: 'activite'
+    })
+
+    expect(mutations.popupClose).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalledTimes(1)
+    expect(actions.reload).toHaveBeenCalledTimes(1)
   })
 
   test('enregistre une activité pour un titre', async () => {
-    api.activiteModifier.mockResolvedValue({
-      statut: { id: 'enc' }
-    })
+    api.activiteModifier.mockResolvedValue({ statut: { id: 'enc' } })
+
     await store.dispatch('activite/update', {
-      id: 27,
-      contenu: [],
-      statut: { id: 'dep' }
+      activite: {
+        id: 27,
+        contenu: [],
+        statut: { id: 'enc' }
+      },
+      context: 'titre'
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalledTimes(2)
     expect(actions.reload).toHaveBeenCalled()
-  })
-
-  test("n'enregistre pas une activité si l'API retourne null", async () => {
-    const apiMock = api.activiteModifier.mockResolvedValue(null)
-    await store.dispatch('activite/update', {
-      id: 27,
-      contenu: [],
-      statut: { id: 'dep' }
-    })
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({
-      activite: { id: 27, contenu: [], activiteStatutId: 'dep' }
-    })
-    expect(actions.messageAdd).not.toHaveBeenCalled()
   })
 
   test("erreur dans l'api lors de l'enregistrement d'une activité", async () => {
@@ -104,9 +103,12 @@ describe("état d'une activité", () => {
       new Error("l'api ne répond pas")
     )
     await store.dispatch('activite/update', {
-      id: 27,
-      contenu: [],
-      statut: { id: 'dep' }
+      activite: {
+        id: 27,
+        contenu: [],
+        statut: { id: 'dep' }
+      },
+      context: 'titre'
     })
 
     expect(apiMock).toHaveBeenCalled()

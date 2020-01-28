@@ -40,7 +40,9 @@ export const actions = {
         }
       })
 
-      dispatch(
+      commit('popupClose', null, { root: true })
+
+      await dispatch(
         'messageAdd',
         {
           value:
@@ -52,14 +54,15 @@ export const actions = {
         { root: true }
       )
 
-      commit('popupClose', null, { root: true })
-
       if (context === 'activite') {
+        console.log(context)
         await dispatch(
           'reload',
           { name: 'activite', id: rootState.activite.current.id },
           { root: true }
         )
+
+        console.log('after reload')
       } else if (context === 'titre') {
         await dispatch(
           'reload',
@@ -75,6 +78,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
+      console.log('finally')
       commit('loadingRemove', 'activiteUpdate', { root: true })
     }
   }
