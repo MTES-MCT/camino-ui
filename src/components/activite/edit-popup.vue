@@ -128,6 +128,11 @@ export default {
     activite: {
       type: Object,
       default: () => ({})
+    },
+
+    context: {
+      type: String,
+      default: ''
     }
   },
 
@@ -183,7 +188,10 @@ export default {
       }
 
       this.errorsRemove()
-      await this.$store.dispatch('activite/update', this.activite)
+      await this.$store.dispatch('activite/update', {
+        activite: this.activite,
+        context: this.context
+      })
     },
 
     cancel() {

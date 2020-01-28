@@ -18,6 +18,7 @@
       <ActiviteButton
         v-if="activite.editable"
         :activite="activite"
+        context="titre"
         class="btn-alt py-s px-m"
       />
     </template>

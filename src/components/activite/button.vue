@@ -13,6 +13,11 @@ export default {
     activite: {
       type: Object,
       default: () => ({})
+    },
+
+    context: {
+      type: String,
+      default: ''
     }
   },
 
@@ -46,7 +51,8 @@ export default {
       this.$store.commit('popupOpen', {
         component: activiteEditPopup,
         props: {
-          activite
+          activite,
+          context: this.context
         }
       })
     }

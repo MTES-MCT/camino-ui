@@ -26,7 +26,7 @@ export const actions = {
     }
   },
 
-  async update({ commit, dispatch, rootState }, activite) {
+  async update({ commit, dispatch, rootState }, { activite, context }) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'activiteUpdate', { root: true })
@@ -40,7 +40,6 @@ export const actions = {
         }
       })
 
-      commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
         {
@@ -52,16 +51,27 @@ export const actions = {
         },
         { root: true }
       )
-      await dispatch(
-        'reload',
-        { name: 'titre', id: rootState.titre.current.id },
-        { root: true }
-      )
-      dispatch(
-        'messageAdd',
-        { value: `le titre a été mis à jour`, type: 'success' },
-        { root: true }
-      )
+
+      commit('popupClose', null, { root: true })
+
+      if (context === 'activite') {
+        await dispatch(
+          'reload',
+          { name: 'activite', id: rootState.activite.current.id },
+          { root: true }
+        )
+      } else if (context === 'titre') {
+        await dispatch(
+          'reload',
+          { name: 'titre', id: rootState.titre.current.id },
+          { root: true }
+        )
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
+      }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

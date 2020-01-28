@@ -54,6 +54,8 @@ const fragmentActivite = gql`
     dateSaisie
     sections
     contenu
+
+    editable
   }
 
   ${fragmentActiviteType}

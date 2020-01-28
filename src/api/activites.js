@@ -1,16 +1,16 @@
 import gql from 'graphql-tag'
-import { fragmentActivite, fragmentTitreActivite } from './fragments/activite'
+import { fragmentActivite } from './fragments/activite'
 
 import { apiMutate, apiQuery } from './_utils'
 
 const activiteModifier = apiMutate(gql`
   mutation ActiviteModifier($activite: InputActiviteModification!) {
     activiteModifier(activite: $activite) {
-      ...titreActivite
+      ...activite
     }
   }
 
-  ${fragmentTitreActivite}
+  ${fragmentActivite}
 `)
 
 const activites = apiQuery(
