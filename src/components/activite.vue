@@ -41,36 +41,12 @@
             <h6>Date de {{ activite.statut.id === 'dep' ? 'dépôt' : 'modification' }}</h6>
             <p>{{ activite.dateSaisie | dateFormat }}</p>
           </div>
-          <div
+          <Section
             v-for="s in activite.sections"
             :key="s.id"
-            class="border-b-s px-m pt-m"
-          >
-            <h4 v-if="s.nom">
-              {{ s.nom }}
-            </h4>
-
-            <div
-              v-for="e in s.elements.filter(e => (!e.dateFin || e.dateFin >= activite.date) && (!e.dateDebut || e.dateDebut < activite.date))"
-              :key="e.id"
-              class="tablet-blobs"
-            >
-              <div
-                v-if="e.nom"
-                class="tablet-blob-1-3"
-              >
-                <h6>
-                  {{ e.nom }}
-                </h6>
-              </div>
-
-              <div :class="{'tablet-blob-2-3': e.nom, 'tablet-blob-1': !e.nom}">
-                <p class="cap-first">
-                  {{ activite.contenu && activite.contenu[s.id] && (activite.contenu[s.id][e.id] || activite.contenu[s.id][e.id] === 0) ? e.type === 'checkboxes' ? activite.contenu[s.id][e.id].map(c => e.valeurs[c]).join(', ') : activite.contenu[s.id][e.id] : '–' }}
-                </p>
-              </div>
-            </div>
-          </div>
+            :section="s"
+            :contenu="activite.contenu"
+          />
         </div>
       </template>
     </Accordion>
@@ -83,6 +59,7 @@ import Dot from './_ui/dot.vue'
 import Loader from './_ui/loader.vue'
 import Accordion from './_ui/accordion.vue'
 import ActiviteButton from './activite/button.vue'
+import Section from './_common/section.vue'
 
 export default {
   components: {
@@ -90,7 +67,8 @@ export default {
     Card,
     Dot,
     Accordion,
-    ActiviteButton
+    ActiviteButton,
+    Section
   },
 
   computed: {

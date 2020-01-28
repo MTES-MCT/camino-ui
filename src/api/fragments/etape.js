@@ -26,6 +26,7 @@ const fragmentTitreEtape = gql`
     type {
       id
       nom
+      sections
     }
     statut {
       id
