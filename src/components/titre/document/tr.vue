@@ -77,6 +77,8 @@ export default {
       document.fichierNouveau = null
 
       delete document.type
+      delete document.editable
+      delete document.supprimable
 
       this.$store.commit('popupOpen', {
         component: DocumentEditPopup,

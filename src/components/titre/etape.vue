@@ -53,27 +53,29 @@
       </div>
     </template>
 
-    <EtapeProps
-      v-if="hasProps"
-      :etape="etape"
-    />
+    <div>
+      <EtapeProps
+        v-if="hasProps"
+        :etape="etape"
+      />
 
-    <Section
-      v-for="s in etape.type.sections"
-      :key="s.id"
-      :section="s"
-      :contenu="etape.contenu"
-    />
+      <Section
+        v-for="s in etape.type.sections"
+        :key="s.id"
+        :section="s"
+        :contenu="etape.contenu"
+      />
 
-    <Documents
-      v-if="etape.documents.length"
-      :etape-id="etape.id"
-      :documents="etape.documents"
-      :demarche-type-nom="demarcheType.nom"
-      :etape-type-nom="etape.type.nom"
-      :titre-nom="titreNom"
-      class="px-m"
-    />
+      <Documents
+        v-if="etape.documents.length"
+        :etape-id="etape.id"
+        :documents="etape.documents"
+        :demarche-type-nom="demarcheType.nom"
+        :etape-type-nom="etape.type.nom"
+        :titre-nom="titreNom"
+        class="px-m"
+      />
+    </div>
   </Accordion>
 </template>
 
