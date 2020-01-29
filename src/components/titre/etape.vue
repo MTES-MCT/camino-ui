@@ -2,8 +2,6 @@
   <Accordion
     ref="accordion"
     class="mb"
-    icon-opened-class="icon-file-chevron-b"
-    icon-closed-class="icon-file-chevron-t"
   >
     <template slot="section">
       {{ etape.date | dateFormat }}
@@ -12,6 +10,7 @@
         class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
       >?</span>
     </template>
+
     <template slot="title">
       <Dot :color="`bg-${etape.statut.couleur}`" />
       <span class="cap-first">
@@ -41,25 +40,10 @@
     </template>
 
     <template
-      v-if="hasProps || etape.editable"
+      v-if="etape.editable"
       slot="sub"
     >
-      <EtapeProps
-        v-if="hasProps"
-        :etape="etape"
-      />
-
-      <Section
-        v-for="s in etape.type.sections"
-        :key="s.id"
-        :section="s"
-        :contenu="etape.contenu"
-      />
-
-      <div
-        v-if="etape.editable"
-        class="px-m pt-m"
-      >
+      <div class="px-m pt-m">
         <DocumentButtonAdd
           :etape-id="etape.id"
           :demarche-type-nom="demarcheType.nom"
@@ -68,6 +52,18 @@
         />
       </div>
     </template>
+
+    <EtapeProps
+      v-if="hasProps"
+      :etape="etape"
+    />
+
+    <Section
+      v-for="s in etape.type.sections"
+      :key="s.id"
+      :section="s"
+      :contenu="etape.contenu"
+    />
 
     <Documents
       v-if="etape.documents.length"
