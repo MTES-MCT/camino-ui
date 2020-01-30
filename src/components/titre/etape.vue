@@ -53,18 +53,20 @@
       </div>
     </template>
 
-    <div>
+    <div v-if="hasSections || hasProps || etape.documents.length">
       <EtapeProps
         v-if="hasProps"
         :etape="etape"
       />
 
-      <Section
-        v-for="s in etape.type.sections"
-        :key="s.id"
-        :section="s"
-        :contenu="etape.contenu"
-      />
+      <div v-if="hasSections">
+        <Section
+          v-for="s in etape.type.sections"
+          :key="s.id"
+          :section="s"
+          :contenu="etape.contenu[s.id]"
+        />
+      </div>
 
       <Documents
         v-if="etape.documents.length"
@@ -131,6 +133,25 @@ export default {
         !!this.etape.substances.length ||
         !!this.etape.titulaires.length ||
         !!this.etape.amodiataires.length
+      )
+    },
+
+    hasSections() {
+      return (
+        this.etape.type.sections &&
+        this.etape.contenu &&
+        this.etape.type.sections.reduce(
+          (acc, s) =>
+            s.elements.reduce(
+              (acc, e) =>
+                this.etape.contenu &&
+                this.etape.contenu[s.id] &&
+                (this.etape.contenu[s.id][e.id] ||
+                  this.etape.contenu[s.id][e.id] === 0),
+              acc
+            ),
+          false
+        )
       )
     },
 

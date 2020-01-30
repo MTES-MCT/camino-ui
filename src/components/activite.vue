@@ -41,12 +41,14 @@
             <h6>Date de {{ activite.statut.id === 'dep' ? 'dépôt' : 'modification' }}</h6>
             <p>{{ activite.dateSaisie | dateFormat }}</p>
           </div>
-          <Section
-            v-for="s in activite.sections"
-            :key="s.id"
-            :section="s"
-            :contenu="activite.contenu"
-          />
+          <div v-if="activite.contenu && activite.contenu[s.id]">
+            <Section
+              v-for="s in activite.sections"
+              :key="s.id"
+              :section="s"
+              :contenu="activite.contenu[s.id]"
+            />
+          </div>
         </div>
       </template>
     </Accordion>
