@@ -60,6 +60,10 @@ export default {
       })
     },
 
+    filtresLoaded() {
+      return this.$store.state.user.titresFiltresLoaded
+    },
+
     preferencesFiltres() {
       return this.$store.state.user.preferences.titres.filtres
     },
@@ -78,7 +82,7 @@ export default {
         ({ id }) => (to.query[id] || null) !== this.preferencesFiltres[id]
       )
 
-      if (changed) {
+      if (changed && this.filtresLoaded) {
         this.filtresUpdate('url')
         this.preferencesUpdate()
       }

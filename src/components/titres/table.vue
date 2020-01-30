@@ -173,7 +173,9 @@ export default {
         id = 'order'
       }
 
-      this.$refs.table.update(id, value)
+      if (this.$refs.table) {
+        this.$refs.table.update(id, value)
+      }
     }
   }
 }
