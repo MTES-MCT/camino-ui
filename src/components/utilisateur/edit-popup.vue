@@ -394,6 +394,8 @@ export default {
       if (this.complete) {
         const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
 
+        delete utilisateur.permissionEditable
+
         if (this.utilisateurIsAdministration) {
           utilisateur.administrationsIds = utilisateur.administrationsIds.filter(
             id => id

@@ -242,7 +242,6 @@ export default {
       delete utilisateur.sections
       delete utilisateur.editable
       delete utilisateur.supprimable
-      delete utilisateur.permissionEditable
 
       this.$store.commit('popupOpen', {
         component: UtilisateurEditPopup,
