@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.19](https://github.com/MTES-MCT/camino-ui/compare/v0.22.18...v0.22.19) (2020-01-31)
+
+
+### Features
+
+* **activité:** met en page le contenu d'une activité ([010f2bc](https://github.com/MTES-MCT/camino-ui/commit/010f2bcfb35ac8d31cec7ae3a17baf72a213bb59))
+* **étape:** affiche le contenu des sections ([9a8ca52](https://github.com/MTES-MCT/camino-ui/commit/9a8ca527ad3ada7392078cba0d7c2b4cd00971e4))
+* **mentions légales:** modifie les directeurs de publication ([#64](https://github.com/MTES-MCT/camino-ui/issues/64)) ([c55aaf7](https://github.com/MTES-MCT/camino-ui/commit/c55aaf7b62fce61fb6a2b4d1e3c240e9b3da94ae))
+* affiche un bloc pour signaler un titre en doublon ([394af90](https://github.com/MTES-MCT/camino-ui/commit/394af90bf105737ddb06d422676ab672214c9542))
+
+
+### Bug Fixes
+
+* affiche le bouton de suppression d'un fichier ([2efd5ba](https://github.com/MTES-MCT/camino-ui/commit/2efd5badc7a9a9307ee9fa35156174d3ef2aa9dd))
+* change le message en cas de titre en doublon ([7c00b1f](https://github.com/MTES-MCT/camino-ui/commit/7c00b1f2fe378f3d883fdeb57bb3841ff8c00565))
+* corrige l'affichage d'une activité ([0f8fad7](https://github.com/MTES-MCT/camino-ui/commit/0f8fad7dd80509dadf2e8070202e92ab29a22ed4))
+* corrige l'affichage d'une liste de titres avec des params d'url ([6863489](https://github.com/MTES-MCT/camino-ui/commit/6863489411b84cf539dbbc8f243b5192d0fb01d3))
+* corrige l'affichage du contenu d'étape ([2375550](https://github.com/MTES-MCT/camino-ui/commit/2375550075f987fdc4666f2f2b72a7a327dbbbbf))
+* **utilisateur:** affiche les permissions dans la popup d'édition ([6a91f04](https://github.com/MTES-MCT/camino-ui/commit/6a91f040b9a4d441cbdbea644c7b5f58eba1e5ee))
+* corrige l'enregistrement ([5fde1ba](https://github.com/MTES-MCT/camino-ui/commit/5fde1badc011ffc45f39b3c9a5f7348ef8c93c63))
+* **api:** affiche l'édition des documents en fonction des droits ([#65](https://github.com/MTES-MCT/camino-ui/issues/65)) ([1690d19](https://github.com/MTES-MCT/camino-ui/commit/1690d19819385827044b3074291f6910f5802f06))
+* **étape:** affiche le contenu de l'étape dans l'accordéon ([7beefbf](https://github.com/MTES-MCT/camino-ui/commit/7beefbf3f8e9ab3db47f595308ede34ed1283e61))
+
 ### [0.22.18](https://github.com/MTES-MCT/camino-ui/compare/v0.22.17...v0.22.18) (2020-01-20)
 
 
