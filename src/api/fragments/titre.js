@@ -23,7 +23,9 @@ const fragmentTitre = gql`
     nom
     type {
       id
-      nom
+      type {
+        nom
+      }
     }
     domaine {
       id
@@ -119,7 +121,9 @@ const fragmentTitres = gql`
     nom
     type {
       id
-      nom
+      type {
+        nom
+      }
     }
     domaine {
       id

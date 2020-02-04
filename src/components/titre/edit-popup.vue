@@ -65,7 +65,7 @@
               :value="type.id"
               :disabled="titre.typeId === type.id"
             >
-              {{ type.nom }}
+              {{ type.type.nom }}
             </option>
           </select>
         </div>
@@ -201,7 +201,7 @@ export default {
         ({ id }) => id === this.titre.domaineId
       )
 
-      return domaine && domaine.types
+      return domaine && domaine.titresTypes
     },
 
     complete() {
