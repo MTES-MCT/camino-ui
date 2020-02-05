@@ -186,6 +186,9 @@ const fragmentTitres = gql`
         }
       }
     }
+    activites {
+      ...titreActivite
+    }
   }
 
   ${fragmentTitresAdministrations}
@@ -195,6 +198,8 @@ const fragmentTitres = gql`
   ${fragmentTitresSubstance}
 
   ${fragmentGeojsonMultiPolygon}
+
+  ${fragmentTitreActivite}
 `
 
 export { fragmentTitre, fragmentTitres }
