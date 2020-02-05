@@ -21,10 +21,11 @@ const metasInit = apiQuery(
       utilisateurDomaines {
         id
         nom
-        types {
+        titresTypes {
           id
-          nom
-          domaineId
+          type {
+            nom
+          }
         }
       }
     }

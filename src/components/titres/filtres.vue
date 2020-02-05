@@ -40,15 +40,7 @@ export default {
           filtre.elements = this.metas[filtre.id].reduce(
             (elements, element) => {
               element.name = element.nom
-              if (
-                filtre.id !== 'types' ||
-                // pour le filtre dont l'id est 'types'
-                // plusieurs ids correspondent à un même nom
-                // ne conserve que le premier id
-                !elements.find(({ nom }) => nom === element.nom)
-              ) {
-                elements.push(element)
-              }
+              elements.push(element)
 
               return elements
             },
@@ -220,9 +212,7 @@ export default {
       }
     },
 
-    // formate les valeurs des filtres dont
-    // - le type est 'checkboxes'
-    // - ou l'id est 'types'
+    // formate les valeurs des filtres dont le type est 'checkboxes'
     filtresValuesReduce() {
       this.filtres.forEach(filtre => {
         filtre.values = this.valuesReduce(filtre.id, filtre.type, filtre.values)
@@ -231,33 +221,13 @@ export default {
 
     // pour les filtres dont le type est 'checkboxes
     // - ne conserve que les valeurs qui sont présentes dans les métas
-    // pour le filtre dont l'id est 'types'
-    // - ajoute ou supprime les ids des éléments partageant le même nom
     valuesReduce(id, type, values) {
       const checkboxesValuesFilter = (filtreId, values) =>
         values.filter(value =>
           this.metas[filtreId].map(({ id }) => id).includes(value)
         )
 
-      const typesValuesReduce = values =>
-        values.reduce((acc, value) => {
-          const type = this.metas.types.find(({ id }) => id === value)
-          const typeIds =
-            type &&
-            this.metas.types
-              .filter(({ nom }) => nom === type.nom)
-              .map(({ id }) => id)
-
-          return typeIds && typeIds.indexOf(value) === 0
-            ? acc.concat(typeIds)
-            : acc
-        }, [])
-
       if (type === 'checkboxes') {
-        if (id === 'types') {
-          values = typesValuesReduce(values)
-        }
-
         values = checkboxesValuesFilter(id, values)
       }
 

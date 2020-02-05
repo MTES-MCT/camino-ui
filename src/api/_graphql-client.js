@@ -47,8 +47,10 @@ const cache = new InMemoryCache({
       // selon le type du titre et de la démarche,
       // le type d'étape a des propriétés spécifiques
       case 'EtapeType':
-        return `${object.typeId}-${object.demarcheTypeId}-${object.id}`
-      case 'Type':
+        return `${object.titreTypeId}-${object.demarcheTypeId}-${object.id}`
+      case 'DemarcheType':
+        return `${object.titreTypeId}-${object.id}`
+      case 'TitreType':
         return `${object.typeId}-${object.domaineId}-${object.id}`
       default:
         return defaultDataIdFromObject(object) // fall back to default handling

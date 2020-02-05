@@ -13,7 +13,7 @@ const fragmentEtapeType = gql`
     nom
     acceptationAuto
     ordre
-    typeId
+    titreTypeId
     demarcheTypeId
     etapesStatuts {
       id
@@ -54,6 +54,7 @@ const fragmentDemarcheType = gql`
     renouvelable
     exception
     editable
+    titreTypeId
   }
 `
 
