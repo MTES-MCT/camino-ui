@@ -113,7 +113,7 @@ describe("état d'une activité", () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({
-      activite: { id: 27, contenu: [], activiteStatutId: 'dep' }
+      activite: { id: 27, contenu: [], statutId: 'dep' }
     })
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })

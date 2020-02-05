@@ -12,7 +12,7 @@
         <h6>Type</h6>
 
         <select
-          v-model="activiteTypeId"
+          v-model="typeId"
           class="p-s"
           @change="get"
         >
@@ -90,7 +90,7 @@ export default {
 
   data() {
     return {
-      activiteTypeId: null,
+      typeId: null,
       annees: [2017, 2018, 2019],
       annee: null
     }
@@ -118,7 +118,7 @@ export default {
     },
 
     activiteType() {
-      return this.activitesTypes.find(({ id }) => id === this.activiteTypeId)
+      return this.activitesTypes.find(({ id }) => id === this.typeId)
     }
   },
 
@@ -127,7 +127,7 @@ export default {
 
     userLoaded: 'metasGet',
 
-    activitesTypes: 'activiteTypeIdUpdate'
+    activitesTypes: 'typeIdUpdate'
   },
 
   created() {
@@ -142,20 +142,20 @@ export default {
     },
 
     async get() {
-      if (this.annee && this.activiteTypeId) {
+      if (this.annee && this.typeId) {
         await this.$store.dispatch('activites/get', {
           annee: this.annee,
-          typeId: this.activiteTypeId
+          typeId: this.typeId
         })
       }
     },
 
-    activiteTypeIdUpdate() {
+    typeIdUpdate() {
       if (
         this.activitesTypes.length === 1 ||
-        !this.activitesTypes.some(({ id }) => id === this.activiteTypeId)
+        !this.activitesTypes.some(({ id }) => id === this.typeId)
       ) {
-        this.activiteTypeId = this.activitesTypes[0].id
+        this.typeId = this.activitesTypes[0].id
       }
     }
   }

@@ -36,7 +36,7 @@ export const actions = {
         activite: {
           id: activite.id,
           contenu: activite.contenu,
-          activiteStatutId: activite.statut.id
+          statutId: activite.statut.id
         }
       })
 
