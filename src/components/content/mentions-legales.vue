@@ -19,6 +19,10 @@
         logement et de la nature (DGALN)
       </li>
       <li>
+        Madame Catherine Latreille, directrice territoriale Guyane de l'Office
+        national des forêts
+      </li>
+      <li>
         Monsieur Laurent Michel, directeur général de l’énergie et du climat
         (DGEC).
       </li>
