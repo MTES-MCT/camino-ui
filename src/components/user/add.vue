@@ -176,6 +176,10 @@ export default {
   methods: {
     async save() {
       if (this.complete) {
+        if (!this.utilisateur.permissionId) {
+          this.utilisateur.permissionId = 'defaut'
+        }
+
         await this.$store.dispatch('user/tokenSet', this.$route.query.token)
         await this.$store.dispatch('user/add', this.utilisateur)
       }

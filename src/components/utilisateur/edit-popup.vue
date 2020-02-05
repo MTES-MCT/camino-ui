@@ -413,6 +413,10 @@ export default {
         }
 
         if (this.action === 'create') {
+          if (!utilisateur.permissionId) {
+            utilisateur.permissionId = 'defaut'
+          }
+
           await this.$store.dispatch('utilisateur/add', utilisateur)
         } else {
           await this.$store.dispatch('utilisateur/update', utilisateur)
