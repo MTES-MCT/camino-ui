@@ -53,13 +53,13 @@
       </div>
     </template>
 
-    <div v-if="hasSections || hasProps || etape.documents.length">
+    <div v-if="hasContenu || hasProps || etape.documents.length">
       <EtapeProps
         v-if="hasProps"
         :etape="etape"
       />
 
-      <div v-if="hasSections">
+      <div v-if="hasContenu">
         <Section
           v-for="s in etape.type.sections"
           :key="s.id"
@@ -136,7 +136,7 @@ export default {
       )
     },
 
-    hasSections() {
+    hasContenu() {
       return (
         this.etape.type.sections &&
         this.etape.contenu &&

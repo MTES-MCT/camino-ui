@@ -21,7 +21,7 @@
       </div>
 
       <div :class="{'tablet-blob-2-3': e.nom, 'tablet-blob-1': !e.nom}">
-        <p class="cap-first">
+        <p>
           {{ contenu && (contenu[e.id] || contenu[e.id] === 0) ? e.type === 'checkboxes' ? contenu[e.id].map(c => e.valeurs[c]).join(', ') : contenu[e.id] : '–' }}
         </p>
       </div>

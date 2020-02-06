@@ -74,7 +74,7 @@ export default {
           const titreNew = {
             id: titre.id,
             nom: titre.nom,
-            type: titre.type.nom,
+            type: titre.type.type.nom,
             domaine: titre.domaine.nom,
             date_debut: titre.dateDebut,
             date_fin: titre.dateFin,
