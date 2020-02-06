@@ -193,8 +193,22 @@ export default {
       const query = Object.assign({}, this.$route.query)
 
       this.filtres.forEach(({ id, values }) => {
-        const value = values.length ? values.sort().join(',') : null
+        // cas particulier des références
+        // if (id === 'references') {
+        //   values = values.reduce((acc, ref) => {
+        //     if (ref.match('^PTMG-')) {
+        //       if (!acc.includes('ptm')) {
+        //         acc.push('ptm')
+        //       }
+        //       acc.push(ref.replace('PTMG-', ''))
+        //     } else {
+        //       acc.push(ref)
+        //     }
+        //     return acc
+        //   }, [])
+        // }
 
+        const value = values.length ? values.sort().join(',') : null
         const valueUpdated = value && query[id] !== value
         const valueDeleted = !value && query[id]
 
