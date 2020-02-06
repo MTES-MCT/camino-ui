@@ -81,6 +81,26 @@
       </div>
     </div>
     <div
+      v-if="etape.surface"
+      class="tablet-blobs"
+    >
+      <div class="tablet-blob-1-4">
+        <h6>
+          Surface
+        </h6>
+      </div>
+      <div class="tablet-blob-3-4">
+        <p>
+          {{ numberFormat(etape.surface) }} km² environ
+          <span
+            v-if="etape.incertitudes && etape.incertitudes.surface"
+            class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
+          >?</span>
+        </p>
+      </div>
+    </div>
+
+    <div
       v-if="etape.titulaires.length"
       class="tablet-blobs"
     >
