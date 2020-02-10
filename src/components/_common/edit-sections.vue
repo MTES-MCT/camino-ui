@@ -80,18 +80,18 @@ export default {
 
   watch: {
     contenu: {
-      handler: function(contenu) {
+      handler: function(c) {
         this.element.contenu =
           this.sections &&
-          this.sections.reduce((c, s) => {
-            if (Object.keys(contenu[s.id]).length) {
-              if (!c) {
-                c = {}
+          this.sections.reduce((contenu, section) => {
+            if (Object.keys(c[section.id]).length) {
+              if (!contenu) {
+                contenu = {}
               }
-              c[s.id] = contenu[s.id]
+              contenu[section.id] = c[section.id]
             }
 
-            return c
+            return contenu
           }, null)
       },
       deep: true
@@ -105,8 +105,11 @@ export default {
   created() {
     this.contenu =
       this.sections &&
-      this.sections.reduce((contenu, { id }) => {
-        contenu[id] = (this.element.contenu && this.element.contenu[id]) || {}
+      this.sections.reduce((contenu, section) => {
+        if (section) {
+          contenu[section.id] =
+            (this.element.contenu && this.element.contenu[section.id]) || {}
+        }
 
         return contenu
       }, {})

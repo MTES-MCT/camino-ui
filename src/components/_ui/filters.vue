@@ -93,7 +93,9 @@ export default {
     },
 
     close() {
-      this.$refs.button.focus()
+      if (this.$refs.button) {
+        this.$refs.button.focus()
+      }
       this.$refs.accordion.close()
     }
   }

@@ -120,7 +120,9 @@ export default {
       // les champs textes sont mis à jour onBlur
       // pour les prendre en compte lorsqu'on valide en appuyant sur "entréee"
       // met le focus sur le bouton de validation (dans la méthode close())
-      this.$refs.filters.close()
+      if (this.$refs.filters) {
+        this.$refs.filters.close()
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' })
       // formate les valeurs des filtres
       this.filtresValuesReduce()

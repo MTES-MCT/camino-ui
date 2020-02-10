@@ -78,7 +78,6 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      console.log('finally')
       commit('loadingRemove', 'activiteUpdate', { root: true })
     }
   }
