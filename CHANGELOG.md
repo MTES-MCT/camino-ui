@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.20](https://github.com/MTES-MCT/camino-ui/compare/v0.22.19...v0.22.20) (2020-02-11)
+
+
+### Features
+
+* **mentions-legales:** ajouter le directeur de publication ONF ([#69](https://github.com/MTES-MCT/camino-ui/issues/69)) ([02ad85e](https://github.com/MTES-MCT/camino-ui/commit/02ad85ea6f2163bff890a9b959ab3ae4b6fa109c))
+* ajoute des types aux types de titres ([#70](https://github.com/MTES-MCT/camino-ui/issues/70)) ([7578314](https://github.com/MTES-MCT/camino-ui/commit/757831489b9e4324e2ff6aba4ca781fb349d6326))
+
+
+### Bug Fixes
+
+* corrige l'affichage du type dans les téléchargements ([0a39115](https://github.com/MTES-MCT/camino-ui/commit/0a3911536e870b0979ddfffb8056e62ad351ba57))
+* corrige la création d'un utilisateur ([#72](https://github.com/MTES-MCT/camino-ui/issues/72)) ([a81998f](https://github.com/MTES-MCT/camino-ui/commit/a81998fb42c4316c84ecfb26d00129c33c76b199))
+* test si les élémnts sont présents dans la page ([9cee314](https://github.com/MTES-MCT/camino-ui/commit/9cee314e070ccbf19ac87e18ea01e29f9ad8ecd7))
+
 ### [0.22.19](https://github.com/MTES-MCT/camino-ui/compare/v0.22.18...v0.22.19) (2020-01-31)
 
 
