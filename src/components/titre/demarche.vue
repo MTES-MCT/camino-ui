@@ -118,7 +118,7 @@ export default {
           demarcheTypeNom: this.demarche.type.nom,
           titreNom: this.titre.nom,
           demarcheId: this.demarche.id,
-          typeNom: this.titre.type.nom
+          typeNom: this.titre.type.type.nom
         }
       })
     },
