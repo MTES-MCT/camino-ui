@@ -107,11 +107,11 @@ export default {
                 return h(
                   'p',
                   { class: ['h5', 'bold', 'cap-first', 'mb-0'] },
-                  titre.type.nom
+                  titre.type.type.nom
                 )
               }
             }),
-            value: titre.type.nom
+            value: titre.type.type.nom
           },
           statut: {
             component: Statut,

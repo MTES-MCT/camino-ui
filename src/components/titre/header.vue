@@ -38,7 +38,7 @@
             {{ titre.domaine.id }}
           </Pill>
           <span class="cap-first">
-            {{ titre.type.nom }}
+            {{ titre.type.type.nom }}
           </span>
         </h4>
       </div>
@@ -220,7 +220,7 @@ export default {
         props: {
           titreNom: this.titre.nom,
           titreId: this.titre.id,
-          typeNom: this.titre.type.nom
+          typeNom: this.titre.type.type.nom
         }
       })
     }
