@@ -225,15 +225,13 @@ export default {
     editPopupOpen() {
       const utilisateur = jsonTypenameOmit(this.utilisateur)
 
-      utilisateur.entreprisesIds = utilisateur.entreprises.map(({ id }) => id)
+      utilisateur.entreprises = utilisateur.entreprises.map(({ id }) => ({
+        id
+      }))
 
-      delete utilisateur.entreprises
-
-      utilisateur.administrationsIds = utilisateur.administrations.map(
-        ({ id }) => id
+      utilisateur.administrations = utilisateur.administrations.map(
+        ({ id }) => ({ id })
       )
-
-      delete utilisateur.administrations
 
       utilisateur.permissionId = utilisateur.permission.id
 

@@ -138,15 +138,13 @@ const etapeEditFormat = (etape, demarcheId) => {
   ]
 
   joinTable.forEach(prop => {
-    etape[`${prop}Ids`] = etape[prop]
+    etape[prop] = etape[prop]
       ? etape[prop].reduce((r, { id }) => {
-          if (id) r.push(id)
+          if (id) r.push({ id })
 
           return r
         }, [])
       : []
-
-    delete etape[prop]
   })
 
   etape.duree = {

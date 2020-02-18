@@ -150,7 +150,7 @@
           Entreprises
         </h3>
         <div
-          v-for="(entrepriseId, n) in utilisateur.entreprisesIds"
+          v-for="(entreprise, n) in utilisateur.entreprises"
           :key="n"
         >
           <div
@@ -162,19 +162,19 @@
           >
             <select
               id="cmn-utilisateur-edit-popup-entreprise-select"
-              v-model="utilisateur.entreprisesIds[n]"
+              v-model="utilisateur.entreprises[n]"
               type="text"
               class="p-s mr-s"
             >
               <option
-                v-for="entreprise in entreprises"
-                :key="entreprise.id"
-                :value="entreprise.id"
+                v-for="e in entreprises"
+                :key="e.id"
+                :value="{ id: e.id}"
                 :disabled="
-                  utilisateur.entreprisesIds.find(id => id === entreprise.id)
+                  utilisateur.entreprises.find(({ id }) => id === e.id)
                 "
               >
-                {{ entreprise.nom }}
+                {{ e.nom }}
               </option>
             </select>
             <div class="flex-right">
@@ -189,7 +189,7 @@
         </div>
 
         <button
-          v-if="!utilisateur.entreprisesIds.includes('')"
+          v-if="!utilisateur.entreprises.some(({ id }) => id === '')"
           id="cmn-utilisateur-edit-popup-entreprise-button-ajouter"
           class="btn-border rnd-xs py-s px-m full-x flex mb"
           @click="entrepriseAdd"
@@ -204,7 +204,7 @@
           Administrations
         </h3>
         <div
-          v-for="(administrationId, n) in utilisateur.administrationsIds"
+          v-for="(administration, n) in utilisateur.administrations"
           :key="n"
         >
           <div
@@ -216,21 +216,21 @@
           >
             <select
               id="cmn-utilisateur-edit-popup-administration-select"
-              v-model="utilisateur.administrationsIds[n]"
+              v-model="utilisateur.administrations[n]"
               type="text"
               class="p-s mr-s"
             >
               <option
-                v-for="administration in administrations"
-                :key="administration.id"
-                :value="administration.id"
+                v-for="a in administrations"
+                :key="a.id"
+                :value="{ id : a.id }"
                 :disabled="
-                  utilisateur.administrationsIds.find(
-                    id => id === administration.id
+                  utilisateur.administrations.find(
+                    ({ id }) => id === a.id
                   )
                 "
               >
-                {{ `${administration.abreviation}` }}
+                {{ `${a.abreviation}` }}
               </option>
             </select>
             <div class="flex-right">
@@ -245,7 +245,7 @@
         </div>
 
         <button
-          v-if="!utilisateur.administrationsIds.includes('')"
+          v-if="!utilisateur.administrations.some(({ id }) => id === '')"
           id="cmn-utilisateur-edit-popup-administration-button-ajouter"
           class="btn-border rnd-xs py-s px-m full-x flex mb"
           @click="administrationAdd"
@@ -353,11 +353,11 @@ export default {
     },
 
     utilisateurEntreprisesLength() {
-      return this.utilisateur.entreprisesIds.filter(id => id).length
+      return this.utilisateur.entreprises.filter(({ id }) => id).length
     },
 
     utilisateurAdministrationsLength() {
-      return this.utilisateur.administrationsIds.filter(id => id).length
+      return this.utilisateur.administrations.filter(({ id }) => id).length
     },
 
     utilisateurIsEntreprise() {
@@ -397,19 +397,19 @@ export default {
         delete utilisateur.permissionEditable
 
         if (this.utilisateurIsAdministration) {
-          utilisateur.administrationsIds = utilisateur.administrationsIds.filter(
-            id => id
+          utilisateur.administrations = utilisateur.administrations.filter(
+            ({ id }) => id
           )
         } else {
-          utilisateur.administrationsIds = []
+          utilisateur.administrations = []
         }
 
         if (this.utilisateurIsEntreprise) {
-          utilisateur.entreprisesIds = utilisateur.entreprisesIds.filter(
-            id => id
+          utilisateur.entreprises = utilisateur.entreprises.filter(
+            ({ id }) => id
           )
         } else {
-          utilisateur.entreprisesIds = []
+          utilisateur.entreprises = []
         }
 
         if (this.action === 'create') {
@@ -446,19 +446,19 @@ export default {
     },
 
     entrepriseAdd() {
-      this.utilisateur.entreprisesIds.push('')
+      this.utilisateur.entreprises.push({ id: '' })
     },
 
     entrepriseRemove(index) {
-      this.utilisateur.entreprisesIds.splice(index, 1)
+      this.utilisateur.entreprises.splice(index, 1)
     },
 
     administrationAdd() {
-      this.utilisateur.administrationsIds.push('')
+      this.utilisateur.administrations.push({ id: '' })
     },
 
     administrationRemove(index) {
-      this.utilisateur.administrationsIds.splice(index, 1)
+      this.utilisateur.administrations.splice(index, 1)
     }
   }
 }
