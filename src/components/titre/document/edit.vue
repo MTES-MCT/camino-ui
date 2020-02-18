@@ -314,6 +314,7 @@ export default {
     }) {
       if (validity.valid && file.type === 'application/pdf') {
         this.warnings = []
+        console.log(file)
         this.document.fichierNouveau = file
         this.document.fichierTypeId = 'pdf'
       } else {

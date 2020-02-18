@@ -133,7 +133,6 @@
           id="cmn-user-add-button-enregistrer"
           class="btn-flash rnd-xs p-s full-x"
           @click="save"
-          @keyup.enter.native="save"
         >
           Enregistrer
         </button>

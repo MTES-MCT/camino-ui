@@ -31,7 +31,6 @@
           <button
             class="btn-border rnd-xs p-s full-x"
             @click="cancel"
-            @keyup.esc.native="cancel"
           >
             Annuler
           </button>
@@ -43,7 +42,6 @@
           <button
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
-            @keyup.enter.native="save"
           >
             Envoyer
           </button>
