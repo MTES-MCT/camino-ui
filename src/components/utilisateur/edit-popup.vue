@@ -218,22 +218,25 @@
               id="cmn-utilisateur-edit-popup-administration-select"
               v-model="utilisateur.administrations[n]"
               type="text"
-              class="p-s mr-s"
+              class="p-s"
+              :class="{ 'mr-s': !administrationsDisabledIds.includes(administration.id) }"
+              :disabled="administrationsDisabledIds.includes(administration.id)"
             >
               <option
                 v-for="a in administrations"
                 :key="a.id"
                 :value="{ id : a.id }"
                 :disabled="
-                  utilisateur.administrations.find(
-                    ({ id }) => id === a.id
-                  )
+                  utilisateur.administrations.find(({ id }) => id === a.id) || administrationsDisabledIds.includes(a.id)
                 "
               >
                 {{ `${a.abreviation}` }}
               </option>
             </select>
-            <div class="flex-right">
+            <div
+              v-if="!administrationsDisabledIds.includes(administration.id)"
+              class="flex-right"
+            >
               <button
                 class="btn-border py-s px-m rnd-xs"
                 @click="administrationRemove(n)"
@@ -368,6 +371,16 @@ export default {
       return ['admin', 'editeur', 'lecteur'].includes(
         this.utilisateur.permissionId
       )
+    },
+
+    administrationsDisabledIds() {
+      return this.administrations.reduce((res, a) => {
+        if (!a.membre && !this.permissionsCheck(['super'])) {
+          res.push(a.id)
+        }
+
+        return res
+      }, [])
     }
   },
 
