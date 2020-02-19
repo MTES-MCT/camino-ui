@@ -73,8 +73,8 @@ export default {
         props: {
           utilisateur: {
             permissionId: 'defaut',
-            entreprisesIds: [],
-            administrationsIds: []
+            entreprises: [],
+            administrations: []
           },
           action: 'create'
         }

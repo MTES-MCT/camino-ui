@@ -242,22 +242,22 @@
       Optionnel
     </p>
     <div
-      v-for="(titulaireId, n) in etape.titulairesIds"
-      :key="`titluaire-${titulaireId}`"
+      v-for="(titulaire, n) in etape.titulaires"
+      :key="`titluaire-${titulaire.id}`"
     >
       <div
         class="flex full-x"
         :class="{ 'mb-s': titulairesLength, mb: !titulairesLength }"
       >
         <select
-          v-model="etape.titulairesIds[n]"
+          v-model="etape.titulaires[n]"
           class="p-s mr-s"
         >
           <option
             v-for="entreprise in entreprises"
-            :key="`titulaire-${titulaireId}-entreprise-${entreprise.id}`"
-            :value="entreprise.id"
-            :disabled="etape.titulairesIds.find(id => id === entreprise.id)"
+            :key="`titulaire-${titulaire.id}-entreprise-${entreprise.id}`"
+            :value="{ id: entreprise.id }"
+            :disabled="etape.titulaires.find(id => id === entreprise.id)"
           >
             {{ entreprise.nom }} ({{ entreprise.id }})
           </option>
@@ -274,7 +274,7 @@
     </div>
 
     <button
-      v-if="!etape.titulairesIds.includes('')"
+      v-if="!etape.titulaires.some(({ id }) => id === '')"
       class="btn-border rnd-xs py-s px-m full-x flex"
       :class="{ 'mb-s': titulairesLength, mb: !titulairesLength }"
       @click="titulaireAdd"
@@ -300,22 +300,22 @@
       Optionnel
     </p>
     <div
-      v-for="(amodiataireId, n) in etape.amodiatairesIds"
-      :key="`amodiataire-${amodiataireId}`"
+      v-for="(amodiataire, n) in etape.amodiataires"
+      :key="`amodiataire-${amodiataire.id}`"
     >
       <div
         class="flex full-x"
         :class="{ 'mb-s': amodiatairesLength, mb: !amodiatairesLength }"
       >
         <select
-          v-model="etape.amodiatairesIds[n]"
+          v-model="etape.amodiataires[n]"
           class="p-s mr-s"
         >
           <option
             v-for="entreprise in entreprises"
-            :key="`amodiataire-${amodiataireId}-entreprise-${entreprise.id}`"
-            :value="entreprise.id"
-            :disabled="etape.amodiatairesIds.find(id => id === entreprise.id)"
+            :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
+            :value="{ id: entreprise.id }"
+            :disabled="etape.amodiataires.find(id => id === entreprise.id)"
           >
             {{ entreprise.nom }} ({{ entreprise.id }})
           </option>
@@ -333,7 +333,7 @@
     </div>
 
     <button
-      v-if="!etape.amodiatairesIds.includes('')"
+      v-if="!etape.amodiataires.some(({ id }) => id === '')"
       class="btn-border rnd-xs py-s px-m full-x flex"
       :class="{ 'mb-s': amodiatairesLength, mb: !amodiatairesLength }"
       @click="amodiataireAdd"
@@ -359,7 +359,7 @@
       Optionnel
     </p>
     <div
-      v-for="(substanceId, n) in etape.substancesIds"
+      v-for="(substance, n) in etape.substances"
       :key="n"
     >
       <div
@@ -367,16 +367,16 @@
         :class="{ 'mb-s': substancesLength, mb: !substancesLength }"
       >
         <select
-          v-model="etape.substancesIds[n]"
+          v-model="etape.substances[n]"
           class="p-s mr-s"
         >
           <option
-            v-for="substance in substances"
-            :key="substance.id"
-            :value="substance.id"
-            :disabled="etape.substancesIds.find(id => id === substance.id)"
+            v-for="s in substances"
+            :key="s.id"
+            :value="{ id: s.id }"
+            :disabled="etape.substances.find(({id}) => id === s.id)"
           >
-            {{ substance.nom }}
+            {{ s.nom }}
           </option>
         </select>
         <div class="flex-right">
@@ -391,7 +391,7 @@
     </div>
 
     <button
-      v-if="!etape.substancesIds.includes('')"
+      v-if="!etape.substances.some(({ id }) => id === '')"
       class="btn-border rnd-xs py-s px-m full-x flex"
       :class="{ 'mb-s': substancesLength, mb: !substancesLength }"
       @click="substanceAdd"
@@ -441,41 +441,41 @@ export default {
     },
 
     titulairesLength() {
-      return this.etape.titulairesIds.filter(id => id).length
+      return this.etape.titulaires.filter(({ id }) => id).length
     },
 
     amodiatairesLength() {
-      return this.etape.amodiatairesIds.filter(id => id).length
+      return this.etape.amodiataires.filter(({ id }) => id).length
     },
 
     substancesLength() {
-      return this.etape.substancesIds.filter(id => id).length
+      return this.etape.substances.filter(({ id }) => id).length
     }
   },
 
   methods: {
     titulaireAdd() {
-      this.etape.titulairesIds.push('')
+      this.etape.titulaires.push({ id: '' })
     },
 
     titulaireRemove(index) {
-      this.etape.titulairesIds.splice(index, 1)
+      this.etape.titulaires.splice(index, 1)
     },
 
     amodiataireAdd() {
-      this.etape.amodiatairesIds.push('')
+      this.etape.amodiataires.push({ id: '' })
     },
 
     amodiataireRemove(index) {
-      this.etape.amodiatairesIds.splice(index, 1)
+      this.etape.amodiataires.splice(index, 1)
     },
 
     substanceAdd() {
-      this.etape.substancesIds.push('')
+      this.etape.substances.push({ id: '' })
     },
 
     substanceRemove(index) {
-      this.etape.substancesIds.splice(index, 1)
+      this.etape.substances.splice(index, 1)
     }
   }
 }
