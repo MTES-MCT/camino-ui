@@ -11,7 +11,7 @@ describe('Activités', () => {
     administrations: null
   }
 
-  it.only('remplit une activité', function() {
+  it('remplit une activité', function() {
     cy.visit('/titres/m-ax-auror-2018')
     cy.userAdd(utilisateur, 'entreprise')
     cy.login(utilisateur.email, utilisateur.motDePasse, 'entreprise')
