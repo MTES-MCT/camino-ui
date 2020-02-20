@@ -167,16 +167,16 @@ const etapeSaveFormat = etape => {
   etape = JSON.parse(JSON.stringify(etape))
 
   const propsIds = [
-    'substancesIds',
-    'titulairesIds',
-    'amodiatairesIds',
-    'administrationsIds'
+    'substances',
+    'titulaires',
+    'amodiataires',
+    'administrations'
   ]
 
   // supprime les champs dont les ids sont vides
   propsIds.forEach(propId => {
     if (etape[propId]) {
-      etape[propId] = etape[propId].filter(id => id)
+      etape[propId] = etape[propId].filter(({ id }) => id)
     }
   })
 
