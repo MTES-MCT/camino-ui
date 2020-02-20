@@ -7,8 +7,8 @@ describe('Utilisateur', () => {
     email: 'test@camino.local',
     motDePasse: 'secret-password-stub',
     permissionId: 'defaut',
-    entreprisesIds: null,
-    administrationsIds: null
+    entreprises: null,
+    administrations: null
   }
 
   it("s'envoie un email de création de compte", function() {
@@ -26,6 +26,7 @@ describe('Utilisateur', () => {
 
   it('se crée un compte', function() {
     cy.userRemove(utilisateur.email)
+
     cy.userAccountUrl(utilisateur.email).then(url => {
       cy.visit(url)
 
@@ -92,7 +93,7 @@ describe('Utilisateur', () => {
     cy.get('#cmn-utilisateur-edit-popup-permission-button-entreprise').click()
     cy.get('#cmn-utilisateur-edit-popup-entreprise-button-ajouter').click()
     cy.get('#cmn-utilisateur-edit-popup-entreprise-select').select(
-      'fr-830984613'
+      'SOCIETE MINIERE AUROR (SMA)'
     )
     cy.get('#cmn-utilisateur-edit-popup-button-enregistrer').click()
     cy.get('#cmn-app-messages').should(

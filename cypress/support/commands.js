@@ -139,9 +139,8 @@ Cypress.Commands.add('userRemove', email => {
       })
     })
     .then(res => {
-      const utilisateur = res.body.data.utilisateurs.find(
-        u => u.email === email
-      )
+      const utilisateurs = res.body.data.utilisateurs
+      const utilisateur = utilisateurs.find(u => u.email === email)
 
       if (!utilisateur) {
         return

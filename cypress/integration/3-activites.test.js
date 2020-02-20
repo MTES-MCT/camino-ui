@@ -7,12 +7,12 @@ describe('Activités', () => {
     email: 'test@camino.local',
     motDePasse: 'secret-password-stub',
     permissionId: 'entreprise',
-    entreprisesIds: ['fr-830984613'],
-    administrationsIds: null
+    entreprises: ['fr-830984613'],
+    administrations: null
   }
 
-  it('remplit une activité', function() {
-    cy.visit('/titres/m-axm-auror-2018')
+  it.only('remplit une activité', function() {
+    cy.visit('/titres/m-ax-auror-2018')
     cy.userAdd(utilisateur, 'entreprise')
     cy.login(utilisateur.email, utilisateur.motDePasse, 'entreprise')
 
