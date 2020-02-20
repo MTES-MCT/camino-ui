@@ -208,6 +208,13 @@
           :key="n"
         >
           <div
+            v-if="administrationsDisabledIds.includes(administration.id)"
+            class="p-s bg-alt mb-s"
+          >
+            {{ administrationNameFind(administration.id) }}
+          </div>
+          <div
+            v-else
             class="flex full-x"
             :class="{
               'mb-s': utilisateurAdministrationsLength,
@@ -218,12 +225,12 @@
               id="cmn-utilisateur-edit-popup-administration-select"
               v-model="utilisateur.administrations[n]"
               type="text"
-              class="p-s"
-              :class="{ 'mr-s': !administrationsDisabledIds.includes(administration.id) }"
+              class="p-s mr-s"
+              :class="{ '': !administrationsDisabledIds.includes(administration.id) }"
               :disabled="administrationsDisabledIds.includes(administration.id)"
             >
               <option
-                v-for="a in administrations"
+                v-for="a in administrations.filter(a => a.membre)"
                 :key="a.id"
                 :value="{ id : a.id }"
                 :disabled="
@@ -234,7 +241,6 @@
               </option>
             </select>
             <div
-              v-if="!administrationsDisabledIds.includes(administration.id)"
               class="flex-right"
             >
               <button
@@ -472,6 +478,12 @@ export default {
 
     administrationRemove(index) {
       this.utilisateur.administrations.splice(index, 1)
+    },
+
+    administrationNameFind(id) {
+      const administration = this.administrations.find(a => a.id === id)
+
+      return administration.abreviation
     }
   }
 }

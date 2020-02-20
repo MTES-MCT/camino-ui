@@ -160,11 +160,14 @@
             </div>
 
             <div class="tablet-blob-3-4">
-              <p>
-                {{ utilisateur.administrations
-                  .map(({ nom, service }) => `${nom}${service ? ` - ${service}` : ''}`)
-                  .join(', ') }}
-              </p>
+              <ul class="list-prefix">
+                <li
+                  v-for="a in utilisateur.administrations"
+                  :key="a.id"
+                >
+                  {{ `${a.nom}${a.service ? ` - ${a.service}` : ''}` }}
+                </li>
+              </ul>
             </div>
           </div>
         </div>
