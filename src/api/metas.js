@@ -87,91 +87,103 @@ const metasActivites = apiQuery(
   }
 )
 
-const metasTitreDemarche = apiQuery(gql`
-  query MetasDemarche($titreId: ID!, $typeId: ID) {
-    titreDemarchesTypes(titreId: $titreId, demarcheTypeId: $typeId) {
-      ...demarcheType
-    }
-  }
-
-  ${fragmentDemarcheType}
-`)
-
-const metasTitreEtape = apiQuery(gql`
-  query MetasEtape($titreDemarcheId: ID!, $typeId: ID) {
-    demarcheEtapesTypes(
-      titreDemarcheId: $titreDemarcheId
-      etapeTypeId: $typeId
-    ) {
-      ...etapeType
-    }
-
-    devises {
-      id
-      nom
-    }
-
-    unites {
-      ...unite
-    }
-
-    geoSystemes {
-      id
-      nom
-      zone
-      unite {
-        ...unite
+const metasTitreDemarche = apiQuery(
+  gql`
+    query MetasDemarche($titreId: ID!, $typeId: ID) {
+      titreDemarchesTypes(titreId: $titreId, demarcheTypeId: $typeId) {
+        ...demarcheType
       }
     }
 
-    substances {
-      ...substance
+    ${fragmentDemarcheType}
+  `,
+  { fetchPolicy: 'network-only' }
+)
+
+const metasTitreEtape = apiQuery(
+  gql`
+    query MetasEtape($titreDemarcheId: ID!, $typeId: ID) {
+      demarcheEtapesTypes(
+        titreDemarcheId: $titreDemarcheId
+        etapeTypeId: $typeId
+      ) {
+        ...etapeType
+      }
+
+      devises {
+        id
+        nom
+      }
+
+      unites {
+        ...unite
+      }
+
+      geoSystemes {
+        id
+        nom
+        zone
+        unite {
+          ...unite
+        }
+      }
+
+      substances {
+        ...substance
+      }
+
+      entreprises {
+        ...entreprises
+      }
     }
 
-    entreprises {
-      ...entreprises
+    ${fragmentEtapeType}
+
+    ${fragmentUnite}
+
+    ${fragmentSubstance}
+
+    ${fragmentEntreprises}
+  `,
+  { fetchPolicy: 'network-only' }
+)
+
+const metasUtilisateur = apiQuery(
+  gql`
+    query MetasUtilisateur {
+      permissions {
+        ...permission
+      }
+
+      entreprises {
+        ...entreprises
+      }
+
+      administrations {
+        ...administrations
+      }
     }
-  }
 
-  ${fragmentEtapeType}
+    ${fragmentPermission}
 
-  ${fragmentUnite}
+    ${fragmentEntreprises}
 
-  ${fragmentSubstance}
+    ${fragmentAdministrations}
+  `,
+  { fetchPolicy: 'network-only' }
+)
 
-  ${fragmentEntreprises}
-`)
-
-const metasUtilisateur = apiQuery(gql`
-  query MetasUtilisateur {
-    permissions {
-      ...permission
+const metasDocument = apiQuery(
+  gql`
+    query MetasDocument {
+      documentsTypes {
+        id
+        nom
+      }
     }
-
-    entreprises {
-      ...entreprises
-    }
-
-    administrations {
-      ...administrations
-    }
-  }
-
-  ${fragmentPermission}
-
-  ${fragmentEntreprises}
-
-  ${fragmentAdministrations}
-`)
-
-const metasDocument = apiQuery(gql`
-  query MetasDocument {
-    documentsTypes {
-      id
-      nom
-    }
-  }
-`)
+  `,
+  { fetchPolicy: 'network-only' }
+)
 
 export {
   metasDocument,
