@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.21](https://github.com/MTES-MCT/camino-ui/compare/v0.22.20...v0.22.21) (2020-02-20)
+
+
+### Features
+
+* ajoute la surface dans la liste des propriétés d'une étape ([#73](https://github.com/MTES-MCT/camino-ui/issues/73)) ([9500538](https://github.com/MTES-MCT/camino-ui/commit/9500538d329ad1e38d2d0f93ddc220ea568e40cd))
+* interdit d'éditer les administrations dont l'utilisateur ne fait pas partie ([6c25a2c](https://github.com/MTES-MCT/camino-ui/commit/6c25a2cc909d9f1d3c3bf0db499b43c6a7a8dbed))
+
+
+### Bug Fixes
+
+* corrige des erreurs du au mauvais usage de la prop "native" ([39e9d8c](https://github.com/MTES-MCT/camino-ui/commit/39e9d8cf7ece7b1a845333e48f0465276ae6e36c))
+* corrige l'affichage des administrations pour les super users ([b0c36de](https://github.com/MTES-MCT/camino-ui/commit/b0c36de536fc167ce44cacb3ad499e6c40da89ea))
+* corrige la création d'étape ([8f7d6fd](https://github.com/MTES-MCT/camino-ui/commit/8f7d6fd43924e61da53ae8259754d86c1d3ced5f))
+* n'ajoute que les administrations sélectionnables dans la liste ([1732722](https://github.com/MTES-MCT/camino-ui/commit/1732722441cd35c302708db5db5da8552bca3dfa))
+* n'utilise pas le cache lors du chargement des métas ([a801882](https://github.com/MTES-MCT/camino-ui/commit/a8018826e7b2fd4c030475bf6a7e6732a6865e16))
+* **ui:** affiche le type de titre vue liste et fiche titre ([#75](https://github.com/MTES-MCT/camino-ui/issues/75)) ([5c21318](https://github.com/MTES-MCT/camino-ui/commit/5c21318ec0199f0e6a15d24f70123cedb577f1e3))
+
 ### [0.22.20](https://github.com/MTES-MCT/camino-ui/compare/v0.22.19...v0.22.20) (2020-02-11)
 
 
