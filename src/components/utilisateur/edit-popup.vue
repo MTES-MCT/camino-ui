@@ -230,7 +230,7 @@
               :disabled="administrationsDisabledIds.includes(administration.id)"
             >
               <option
-                v-for="a in administrations.filter(a => a.membre)"
+                v-for="a in administrationsFiltered"
                 :key="a.id"
                 :value="{ id : a.id }"
                 :disabled="
@@ -387,6 +387,14 @@ export default {
 
         return res
       }, [])
+    },
+
+    administrationsFiltered() {
+      const a = !this.permissionsCheck(['super'])
+        ? this.administrations.filter(a => a.membre)
+        : this.administrations
+
+      return a
     }
   },
 

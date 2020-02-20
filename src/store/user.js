@@ -123,8 +123,6 @@ export const actions = {
     try {
       const data = await utilisateurCreer({ utilisateur })
 
-      console.log(data)
-
       if (data) {
         dispatch(
           'messageAdd',
