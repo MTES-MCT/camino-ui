@@ -6,7 +6,7 @@ import { fragmentTitreSubstance, fragmentTitresSubstance } from './substance'
 import {
   fragmentTitreAdministrations,
   fragmentTitresAdministrations
-} from './administration'
+} from './administrations'
 import {
   fragmentTitreEntreprises,
   fragmentTitresEntreprises
@@ -197,4 +197,33 @@ const fragmentTitres = gql`
   ${fragmentGeojsonMultiPolygon}
 `
 
-export { fragmentTitre, fragmentTitres }
+const fragmentDemarchesTitre = gql`
+  fragment demarchesTitre on Titre {
+    id
+    nom
+    type {
+      id
+      type {
+        nom
+      }
+    }
+    domaine {
+      id
+      nom
+    }
+    statut {
+      id
+      nom
+      couleur
+    }
+    references {
+      type {
+        id
+        nom
+      }
+      nom
+    }
+  }
+`
+
+export { fragmentTitre, fragmentTitres, fragmentDemarchesTitre }
