@@ -1,5 +1,8 @@
 <template>
-  <button @click="activiteEditPopupOpen">
+  <button
+    class="cmn-activite-btn-remplir"
+    @click="activiteEditPopupOpen"
+  >
     {{ buttonText }}
   </button>
 </template>
