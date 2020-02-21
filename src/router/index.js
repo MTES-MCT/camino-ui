@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import VueMeta from 'vue-meta'
 import Titre from '../components/titre.vue'
 import Titres from '../components/titres.vue'
+import Demarches from '../components/demarches.vue'
 import Utilisateur from '../components/utilisateur.vue'
 import Utilisateurs from '../components/utilisateurs.vue'
 import Entreprise from '../components/entreprise.vue'
@@ -42,6 +43,11 @@ const routes = [
     //     component: TitleDetails
     //   }
     // ]
+  },
+  {
+    path: '/demarches',
+    name: 'demarches',
+    component: Demarches
   },
   {
     path: '/utilisateurs',

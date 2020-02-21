@@ -35,6 +35,6 @@ const fragmentAdministrations = gql`
 
 export {
   fragmentAdministrations,
-  fragmentTitreAdministrations,
-  fragmentTitresAdministrations
+  fragmentTitresAdministrations,
+  fragmentTitreAdministrations
 }

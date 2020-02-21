@@ -1,5 +1,8 @@
 <template>
-  <span><Dot :color="`bg-${element.couleur}`" /><span class="cap-first">{{ element.nom }}</span></span>
+  <span>
+    <Dot :color="`bg-${element.couleur}`" />
+    <span class="cap-first">{{ element.nom }}</span>
+  </span>
 </template>
 
 <script>

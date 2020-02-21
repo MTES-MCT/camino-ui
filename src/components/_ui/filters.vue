@@ -11,7 +11,10 @@
 
     <div class="px-m">
       <div class="tablet-blobs mt">
-        <div class="tablet-blob-1-2 large-blob-1-3">
+        <div
+          v-if="inputs.length"
+          class="tablet-blob-1-2 large-blob-1-3"
+        >
           <FiltersInput
             v-for="filter in inputs"
             :key="filter.id"

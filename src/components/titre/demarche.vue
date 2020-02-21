@@ -52,7 +52,6 @@
       :etape="etape"
       :demarche-type="demarche.type"
       :demarche-id="demarche.id"
-      :etapes-type-ids="etapesTypeIds"
     />
   </div>
 </template>
@@ -85,10 +84,6 @@ export default {
   computed: {
     titre() {
       return this.$store.state.titre.current
-    },
-
-    etapesTypeIds() {
-      return this.demarche.etapes.map(({ type }) => type.id)
     }
   },
 
@@ -104,8 +99,8 @@ export default {
         component: EditPopup,
         props: {
           demarche,
-          typeNom: this.type.nom,
-          demarchesTypes: this.type.demarchesTypes,
+          types: this.type.demarchesTypes,
+          titreTypeNom: this.type.nom,
           titreNom: this.titre.nom
         }
       })
@@ -115,10 +110,10 @@ export default {
       this.$store.commit('popupOpen', {
         component: RemovePopup,
         props: {
-          demarcheTypeNom: this.demarche.type.nom,
+          id: this.demarche.id,
+          typeNom: this.demarche.type.nom,
           titreNom: this.titre.nom,
-          demarcheId: this.demarche.id,
-          typeNom: this.titre.type.type.nom
+          titreTypeNom: this.titre.type.type.nom
         }
       })
     },
@@ -149,8 +144,7 @@ export default {
           domaineId: this.titre.domaine.id,
           demarcheType: this.demarche.type,
           titreNom: this.titre.nom,
-          creation: true,
-          etapesTypeIds: this.etapesTypeIds
+          creation: true
         }
       })
     }

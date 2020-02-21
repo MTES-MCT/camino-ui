@@ -72,6 +72,52 @@ const metasTitres = apiQuery(
   }
 )
 
+const metasDemarches = apiQuery(
+  gql`
+    query MetasDemarches {
+      domaines {
+        id
+        nom
+      }
+
+      types {
+        id
+        nom
+      }
+
+      statuts {
+        id
+        nom
+        couleur
+      }
+
+      demarchesTypes {
+        id
+        nom
+      }
+
+      demarchesStatuts {
+        id
+        nom
+        couleur
+      }
+
+      etapesTypes {
+        id
+        nom
+        etapesStatuts {
+          id
+          nom
+          couleur
+        }
+      }
+    }
+  `,
+  {
+    fetchPolicy: 'network-only'
+  }
+)
+
 const metasActivites = apiQuery(
   gql`
     query MetasActivites {
@@ -193,5 +239,6 @@ export {
   metasUtilisateur,
   metasTitre,
   metasTitres,
-  metasActivites
+  metasActivites,
+  metasDemarches
 }

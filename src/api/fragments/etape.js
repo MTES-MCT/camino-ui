@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import { fragmentTitreAdministrations } from './administrations'
 import { fragmentTitreEntreprises } from './entreprises'
 import { fragmentTitreSubstance } from './substance'
 import { fragmentPoint } from './point'
@@ -62,6 +63,8 @@ const fragmentTitreEtape = gql`
     editable
     supprimable
   }
+
+  ${fragmentTitreAdministrations}
 
   ${fragmentTitreEntreprises}
 

@@ -16,7 +16,7 @@ export default {
   props: {
     mini: { type: Boolean, default: false },
     color: { type: String, default: 'bg-neutral' },
-    nom: { type: String, default: 'indéfni' }
+    nom: { type: String, default: 'indéfini' }
   }
 }
 </script>

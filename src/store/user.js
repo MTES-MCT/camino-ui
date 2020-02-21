@@ -33,9 +33,27 @@ export const state = {
         references: null,
         territoires: null
       }
+    },
+    demarches: {
+      table: {
+        page: 1,
+        intervalle: 200,
+        ordre: 'asc',
+        colonne: 'nom'
+      },
+      filtres: {
+        types: null,
+        statuts: null,
+        titresDomaines: null,
+        titresTypes: null,
+        titresStatuts: null,
+        etapesInclues: null,
+        etapesExclues: null
+      }
     }
   },
   titresFiltresLoaded: 0,
+  demarchesFiltresLoaded: 0,
   loaded: false
 }
 
@@ -297,6 +315,10 @@ export const mutations = {
 
   titresFiltresLoaded(state) {
     state.titresFiltresLoaded++
+  },
+
+  demarchesFiltresLoaded(state) {
+    state.demarchesFiltresLoaded++
   }
 }
 

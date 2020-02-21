@@ -108,8 +108,7 @@ export default {
   props: {
     etape: { type: Object, default: () => {} },
     demarcheType: { type: Object, default: () => {} },
-    demarcheId: { type: String, default: '' },
-    etapesTypeIds: { type: Array, default: () => [] }
+    demarcheId: { type: String, default: '' }
   },
 
   computed: {
@@ -178,8 +177,7 @@ export default {
           etape,
           domaineId: this.$store.state.titre.current.domaine.id,
           demarcheType: this.demarcheType,
-          titreNom: this.titreNom,
-          etapesTypeIds: this.etapesTypeIds
+          titreNom: this.titreNom
         }
       })
     },

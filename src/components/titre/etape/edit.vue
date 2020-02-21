@@ -163,8 +163,7 @@ export default {
     demarcheType: { type: Object, default: () => ({}) },
     domaineId: { type: String, default: '' },
     titreNom: { type: String, default: '' },
-    creation: { type: Boolean, default: false },
-    etapesTypeIds: { type: Array, default: () => [] }
+    creation: { type: Boolean, default: false }
   },
 
   data() {

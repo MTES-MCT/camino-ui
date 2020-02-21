@@ -2,18 +2,16 @@ import FiltresDomaines from './filtres/domaines.vue'
 import FiltresStatuts from './filtres/statuts.vue'
 
 const filtres = [
+  { name: 'Types', id: 'types', type: 'checkboxes', values: [] },
   {
-    id: 'types',
-    type: 'checkboxes',
-    values: []
-  },
-  {
+    name: 'Domaines',
     id: 'domaines',
     type: 'checkboxes',
     values: [],
     component: FiltresDomaines
   },
   {
+    name: 'Statuts',
     id: 'statuts',
     type: 'checkboxes',
     values: [],

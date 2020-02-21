@@ -8,7 +8,7 @@
           </span><span class="color-neutral">
             |
           </span><span class="cap-first">
-            {{ typeNom }}
+            {{ titreTypeNom }}
           </span>
           </span>
         </h5>
@@ -28,7 +28,7 @@
             class="p-s mr"
           >
             <option
-              v-for="demarcheType in demarchesTypes"
+              v-for="demarcheType in types"
               :key="demarcheType.id"
               :value="demarcheType.id"
               :disabled="demarche.typeId === demarcheType.id"
@@ -96,7 +96,7 @@ export default {
       default: ''
     },
 
-    typeNom: {
+    titreTypeNom: {
       type: String,
       default: ''
     },
@@ -116,16 +116,8 @@ export default {
       return this.$store.state.popup.messages
     },
 
-    demarchesTypes() {
-      return this.$store.state.metas.demarche.titreDemarchesTypes
-    },
-
-    demarcheTypeNom() {
-      const demarcheType = this.demarchesTypes.find(
-        et => et.id === this.demarche.typeId
-      )
-
-      return demarcheType && demarcheType.nom
+    types() {
+      return this.$store.state.metas.demarche.types
     },
 
     complete() {

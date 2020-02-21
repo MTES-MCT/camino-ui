@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import { titres } from '../api/titres'
+import { paramsBuild } from './_utils'
 
 export const state = {
   list: [],
@@ -21,19 +22,10 @@ export const actions = {
     commit('loadingAdd', 'titres', { root: true })
 
     try {
-      // récupère les paramètres depuis les préférences utilisateurs
-      const params = state.filterIds.reduce((params, id) => {
-        const i = id.replace(/Id/g, '')
-        const values =
-          rootState.user.preferences.titres.filtres[i] &&
-          rootState.user.preferences.titres.filtres[i]
-            .split(',')
-            .map(v => v.replace(/^"(.*)"$/, '$1'))
-
-        return values && values.length
-          ? Object.assign(params, { [id]: values })
-          : params
-      }, {})
+      const params = paramsBuild(
+        state.filterIds,
+        rootState.user.preferences.titres
+      )
 
       const data = await titres(params)
 

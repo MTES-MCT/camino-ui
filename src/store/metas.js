@@ -8,7 +8,8 @@ import {
   metasTitreDemarche,
   metasDocument,
   metasUtilisateur,
-  metasActivites
+  metasActivites,
+  metasDemarches
 } from '../api/metas'
 
 export const state = {
@@ -23,7 +24,16 @@ export const state = {
   },
 
   demarche: {
-    titreDemarchesTypes: []
+    types: []
+  },
+
+  demarches: {
+    types: [],
+    statuts: [],
+    titresDomaines: [],
+    titresTypes: [],
+    titresStatuts: [],
+    etapesTypes: []
   },
 
   etape: {
@@ -100,13 +110,37 @@ export const actions = {
     }
   },
 
+  async demarchesGet({ commit }) {
+    commit('loadingAdd', 'metasDemarchesGet', { root: true })
+
+    try {
+      const data = await metasDemarches()
+
+      commit('set', {
+        data: {
+          types: data.demarchesTypes,
+          statuts: data.demarchesStatuts,
+          etapesTypes: data.etapesTypes,
+          titresTypes: data.types,
+          titresDomaines: data.domaines,
+          titresStatuts: data.statuts
+        },
+        type: 'demarches'
+      })
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'metasDemarchesGet', { root: true })
+    }
+  },
+
   async titreDemarcheGet({ commit }, demarche) {
     commit('loadingAdd', 'metasTitreDemarcheGet', { root: true })
 
     try {
       const data = await metasTitreDemarche(demarche)
 
-      commit('set', { data: { titreDemarchesTypes: data }, type: 'demarche' })
+      commit('set', { data: { types: data }, type: 'demarche' })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -165,7 +199,10 @@ export const actions = {
     try {
       const data = await metasActivites()
 
-      commit('set', { data: { activitesTypes: data }, type: 'activites' })
+      commit('set', {
+        data: { activitesTypes: data },
+        type: 'activites'
+      })
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.log(e)

@@ -37,7 +37,7 @@ describe('état de la liste des métas', () => {
       },
 
       demarche: {
-        titreDemarchesTypes: []
+        types: []
       },
 
       etape: {
@@ -185,7 +185,7 @@ describe('état de la liste des métas', () => {
     await store.dispatch('metas/titreDemarcheGet', { etape: {} })
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.metas.demarche.titreDemarchesTypes).toEqual([
+    expect(store.state.metas.demarche.types).toEqual([
       { id: 'w', nom: 'granulats' },
       { id: 'c', nom: 'carrières' }
     ])

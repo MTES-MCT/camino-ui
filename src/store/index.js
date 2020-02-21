@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver'
 
 import titre from './titre'
 import titres from './titres'
+import demarches from './demarches'
 import metas from './metas'
 import map from './map'
 import utilisateur from './utilisateur'
@@ -22,6 +23,7 @@ import router from '../router'
 const modules = {
   titre,
   titres,
+  demarches,
   metas,
   map,
   utilisateur,

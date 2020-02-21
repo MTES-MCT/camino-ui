@@ -28,9 +28,11 @@ export default {
   computed: {
     metas() {
       return {
-        domaines: this.$store.state.metas.titres.domaines,
-        types: this.$store.state.metas.titres.types,
-        statuts: this.$store.state.metas.titres.statuts
+        types: this.$store.state.metas.demarches.types,
+        statuts: this.$store.state.metas.demarches.statuts,
+        titresDomaines: this.$store.state.metas.demarches.titresDomaines,
+        titresTypes: this.$store.state.metas.demarches.titresTypes,
+        titresStatuts: this.$store.state.metas.demarches.titresStatuts
       }
     },
 
@@ -39,7 +41,6 @@ export default {
         if (filtre.type === 'checkboxes') {
           filtre.elements = this.metas[filtre.id].reduce(
             (elements, element) => {
-              element.name = element.nom
               elements.push(element)
 
               return elements
@@ -53,11 +54,11 @@ export default {
     },
 
     filtresLoaded() {
-      return this.$store.state.user.titresFiltresLoaded
+      return this.$store.state.user.demarchesFiltresLoaded
     },
 
     preferencesFiltres() {
-      return this.$store.state.user.preferences.titres.filtres
+      return this.$store.state.user.preferences.demarches.filtres
     }
   },
 
@@ -176,13 +177,13 @@ export default {
           this.preferencesFiltres[id] !== value
         ) {
           this.$store.dispatch('user/preferenceSet', {
-            section: `titres.filtres.${id}`,
+            section: `demarches.filtres.${id}`,
             value
           })
         }
       })
 
-      this.$store.commit('user/titresFiltresLoaded')
+      this.$store.commit('user/demarchesFiltresLoaded')
     },
 
     // met à jour les paramètres d'url

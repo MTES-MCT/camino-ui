@@ -54,8 +54,8 @@ export default {
         component: EditPopup,
         props: {
           demarche,
-          typeNom: this.titre.type.type.nom,
-          demarchesTypes: this.titre.type.demarchesTypes,
+          types: this.titre.type.demarchesTypes,
+          titreTypeNom: this.titre.type.type.nom,
           titreNom: this.titre.nom,
           creation: true
         }
