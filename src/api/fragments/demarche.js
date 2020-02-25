@@ -27,6 +27,7 @@ const fragmentTitreDemarche = gql`
     }
 
     editable
+    etapesEditable
     supprimable
   }
 

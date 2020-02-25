@@ -39,7 +39,7 @@
     </div>
 
     <button
-      v-if="demarche.editable"
+      v-if="demarche.etapesEditable"
       class="btn-border rnd-xs py-s px-m full-x flex mb"
       @click="etapeAddPopupOpen"
     >
