@@ -20,6 +20,7 @@
           <button
             v-if="titre.editable"
             class="btn-border rnd-r-xs py-s px-m mb"
+            :class="{'rnd-l-xs': !titre.supprimable }"
             @click="editPopupOpen"
           >
             <i class="icon-24 icon-pencil" />

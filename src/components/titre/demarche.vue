@@ -30,6 +30,7 @@
           <button
             v-if="demarche.editable"
             class="btn-border rnd-r-xs py-s px-m mb"
+            :class="{'rnd-l-xs': !demarche.supprimable }"
             @click="editPopupOpen"
           >
             <i class="icon-24 icon-pencil" />
