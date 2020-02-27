@@ -19,19 +19,19 @@ const titre = apiQuery(
 const titres = apiQuery(
   gql`
     query Titres(
-      $typeIds: [ID!]
-      $domaineIds: [ID!]
-      $statutIds: [ID!]
-      $substances: [String!]
-      $noms: [String!]
-      $entreprises: [String!]
-      $references: [String!]
-      $territoires: [String!]
+      $typesIds: [ID!]
+      $domainesIds: [ID!]
+      $statutsIds: [ID!]
+      $substances: String
+      $noms: String
+      $entreprises: String
+      $references: String
+      $territoires: String
     ) {
       titres(
-        typeIds: $typeIds
-        domaineIds: $domaineIds
-        statutIds: $statutIds
+        typesIds: $typesIds
+        domainesIds: $domainesIds
+        statutsIds: $statutsIds
         substances: $substances
         noms: $noms
         entreprises: $entreprises

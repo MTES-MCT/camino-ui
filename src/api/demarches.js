@@ -6,20 +6,28 @@ import { apiQuery } from './_utils'
 const demarches = apiQuery(
   gql`
     query Demarches(
-      $titresDomaineIds: [ID]
-      $titresTypeIds: [ID]
-      $titresStatutIds: [ID]
-      $typeIds: [ID]
-      $statutIds: [ID]
-      $etapesInclues: [InputEtapeFiltre]
-      $etapesExclues: [InputEtapeFiltre]
+      $page: Int
+      $intervalle: Int
+      $colonne: String
+      $ordre: String
+      $titresDomainesIds: [ID!]
+      $titresTypesIds: [ID!]
+      $titresStatutsIds: [ID!]
+      $typesIds: [ID!]
+      $statutsIds: [ID!]
+      $etapesInclues: [InputEtapeFiltre!]
+      $etapesExclues: [InputEtapeFiltre!]
     ) {
       demarches(
-        titresDomaineIds: $titresDomaineIds
-        titresTypeIds: $titresTypeIds
-        titresStatutIds: $titresStatutIds
-        typeIds: $typeIds
-        statutIds: $statutIds
+        page: $page
+        intervalle: $intervalle
+        colonne: $colonne
+        ordre: $ordre
+        titresDomainesIds: $titresDomainesIds
+        titresTypesIds: $titresTypesIds
+        titresStatutsIds: $titresStatutsIds
+        typesIds: $typesIds
+        statutsIds: $statutsIds
         etapesInclues: $etapesInclues
         etapesExclues: $etapesExclues
       ) {

@@ -1,111 +1,88 @@
 <template>
   <Table
-    ref="table"
-    :elements="elements"
+    :rows="lignes"
     :columns="colonnes"
-    @page:update="$emit('page:update', $event)"
-    @range:update="$emit('range:update', $event)"
+    :params="params"
+    :ranges="[10, 50, 200, 500]"
+    @params:update="preferencesUpdate"
   />
 </template>
 
 <script>
 import Table from '../_ui/table.vue'
-import Nom from '../_common/nom.vue'
-import Statut from '../_common/statut.vue'
-import CaminoDomaine from '../_common/domaine.vue'
+import { colonnes, lignesBuild } from './table.js'
 
 export default {
-  name: 'DemarchesTable',
+  name: 'Titres',
 
   components: {
     Table
   },
 
   props: {
-    demarches: {
-      type: Array,
-      default: () => []
-    }
-  },
-
-  data() {
-    return {
-      colonnes: [
-        {
-          id: 'titre',
-          name: 'Titre'
-        },
-        {
-          id: 'domaine',
-          name: ''
-        },
-        {
-          id: 'titreType',
-          name: 'Type de titre'
-        },
-        {
-          id: 'titreStatut',
-          name: 'Statut de titre',
-          class: ['nowrap']
-        },
-        {
-          id: 'type',
-          name: 'Type'
-        },
-        {
-          id: 'statut',
-          name: 'Statut',
-          class: ['nowrap']
-        }
-      ]
-    }
+    demarches: { type: Array, required: true }
   },
 
   computed: {
-    elements() {
-      return this.demarches.map(demarche => {
-        const columns = {
-          titre: { value: demarche.titre.nom },
-          domaine: {
-            component: CaminoDomaine,
-            props: { domaineId: demarche.titre.domaine.id },
-            value: demarche.titre.domaine.id
-          },
-          titreType: {
-            component: Nom,
-            props: { nom: demarche.titre.type.type.nom },
-            value: demarche.titre.type.type.nom
-          },
-          titreStatut: {
-            component: Statut,
-            props: {
-              color: `bg-${demarche.titre.statut.couleur}`,
-              nom: demarche.titre.statut.nom,
-              mini: true
-            },
-            value: demarche.titre.statut.nom
-          },
-          type: {
-            component: Nom,
-            props: { nom: demarche.type.nom },
-            value: demarche.type.nom
-          },
-          statut: {
-            component: Statut,
-            props: {
-              color: `bg-${demarche.statut.couleur}`,
-              nom: demarche.statut.nom,
-              mini: true
-            },
-            value: demarche.statut.nom
-          }
+    preferences() {
+      return this.$store.state.user.preferences.demarches.table
+    },
+
+    colonnes() {
+      return colonnes
+    },
+
+    lignes() {
+      return lignesBuild(this.demarches)
+    },
+
+    params() {
+      return Object.keys(this.preferences).reduce((params, id) => {
+        if (id === 'intervalle') {
+          params.range = this.preferences.intervalle
+        } else if (id === 'ordre') {
+          params.order = this.preferences.ordre
+        } else if (id === 'colonne') {
+          params.column = this.preferences.colonne
+        } else {
+          params[id] = this.preferences[id]
         }
 
-        return {
-          id: demarche.id,
-          link: { name: 'titre', params: { id: demarche.titre.id } },
-          columns
-        }
+        return params
+      }, {})
+    }
+  },
+
+  watch: {
+    demarches: function(to, from) {
+      if (from.length && from.length !== to.length) {
+        const params = { page: 1 }
+
+        this.preferencesUpdate(params)
+      }
+    }
+  },
+
+  methods: {
+    preferencesUpdate(params) {
+      if (params.range) {
+        params.intervalle = params.range
+        delete params.range
+      }
+
+      if (params.column) {
+        params.colonne = params.column
+        delete params.column
+      }
+
+      if (params.order) {
+        params.ordre = params.order
+        delete params.order
+      }
+
+      this.$store.dispatch('user/preferencesSet', {
+        section: 'demarches.table',
+        params
       })
     }
   }

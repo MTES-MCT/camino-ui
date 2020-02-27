@@ -35,16 +35,22 @@ export default {
     },
 
     filters() {
-      return this.filtres.map(filtre => {
-        if (filtre.type === 'checkboxes') {
-          filtre.elements = this.metas[filtre.id].reduce(
-            (elements, element) => {
-              element.name = element.nom
-              elements.push(element)
+      const checkboxesElementsFind = metaId => {
+        return this.metas[metaId].reduce((elements, element) => {
+          element.name = element.nom
+          elements.push(element)
 
-              return elements
-            },
-            []
+          return elements
+        }, [])
+      }
+
+      return Object.keys(this.filtres).map(id => {
+        const filtre = this.filtres[id]
+        filtre.id = id
+
+        if (this.filtres[id].type === 'checkboxes') {
+          filtre.elements = checkboxesElementsFind(
+            this.checkboxesMetaIdFind(id)
           )
         }
 
@@ -52,57 +58,30 @@ export default {
       })
     },
 
-    filtresLoaded() {
-      return this.$store.state.user.titresFiltresLoaded
-    },
-
-    preferencesFiltres() {
+    preferences() {
       return this.$store.state.user.preferences.titres.filtres
     }
   },
 
   watch: {
-    // si les paramètre d'url changent (pe: bouton back du navigateur)
-    // - met à jour les filtres
-    // - met à jour les prefs utilisateur -> recharge les titres
-    $route(to, from) {
-      const changed = this.filtres.some(
-        ({ id }) => (to.query[id] || null) !== this.preferencesFiltres[id]
-      )
-
-      if (changed && this.filtresLoaded) {
-        this.filtresUpdate('url')
-        this.preferencesUpdate()
-      }
-    },
-
     // si les metas changent (app init ou connexion / deconnexion utilisateur)
-    // - met à jour les filtres
-    // - met à jour les préfs utilisateur -> recharge les titres
-    // - met à jour les paramètre d'url
     metas: {
       handler: function(metas, metasOld) {
-        // si c'est le premier chargement de l'app
-        // - source des filtres: paramètres d'url
-        // sinon (pe: connexion / deconnexion utilisateur)
-        // - source des filtres: prefs utilisateur
-        const firstLoad = Object.keys(metasOld).some(id => !metasOld[id].length)
-        const source = firstLoad ? 'url' : 'preferences'
-
-        this.filtresUpdate(source)
-        this.preferencesUpdate()
-        this.urlUpdate()
+        this.validate()
       },
       deep: true
     }
   },
 
   created() {
-    // si les metas sont chargées
-    if (this.filtresLoaded) {
-      this.filtresUpdate('preferences')
-      this.urlUpdate()
-    }
+    const params = Object.keys(this.filtres).reduce((params, id) => {
+      params[id] = this.preferences[id] || null
+
+      return params
+    }, {})
+
+    this.filtresUpdate(params)
+    this.titresUpdate()
 
     document.addEventListener('keyup', this.keyup)
   },
@@ -119,10 +98,25 @@ export default {
       if (this.$refs.filters) {
         this.$refs.filters.close()
       }
+
       window.scrollTo({ top: 0, behavior: 'smooth' })
+
       // formate les valeurs des filtres
-      this.filtresValuesReduce()
-      this.urlUpdate()
+      const params = Object.keys(this.filtres).reduce((params, id) => {
+        params[id] =
+          this.filtres[id].type === 'checkboxes'
+            ? this.checkboxesValueClean(id, this.filtres[id].value)
+            : this.filtres[id].value
+
+        return params
+      }, {})
+
+      this.preferencesUpdate(params)
+      this.titresUpdate()
+    },
+
+    titresUpdate() {
+      this.$emit('titres:update', this.preferences)
     },
 
     toggle(opened) {
@@ -135,101 +129,38 @@ export default {
       }
     },
 
-    // met à jour les filtres
-    // in: source (String, optionnel) 'url' ou 'preferences'
-    // si aucune source est définie, prend en priorité les valeurs définies
-    // - dans l'url
-    // - ou les préfs utilisateur
-    filtresUpdate(source) {
-      const valueFind = (filtreId, source) => {
-        if (source === 'url') {
-          return this.$route.query[filtreId]
-        }
+    filtresUpdate(params) {
+      Object.keys(params).forEach(id => {
+        const value =
+          this.filtres[id].type === 'checkboxes'
+            ? this.checkboxesValueClean(id, params[id])
+            : params[id]
 
-        if (source === 'preferences') {
-          return this.preferencesFiltres[filtreId]
-        }
-
-        return this.$route.query[filtreId] || this.preferencesFiltres[filtreId]
-      }
-
-      this.filtres.forEach(filtre => {
-        const value = valueFind(filtre.id, source)
-        const values = value ? value.split(',') : []
-        filtre.values = this.valuesReduce(filtre.id, filtre.type, values)
+        this.filtres[id].value = value
       })
     },
 
-    // met à jour les préfs utilisateur
-    // si elles changent,
-    // ça met à jour les titres (via /titres/watch/filtres)
-    preferencesUpdate() {
-      this.filtres.forEach(({ id, values }) => {
-        const value = values.sort().join(',') || null
-
-        // si la préf utilisateur
-        // - n'est pas définie
-        // - ou, est différente du filtre
-        // met à jour la préf utilisateur
-        if (
-          this.preferencesFiltres[id] === undefined ||
-          this.preferencesFiltres[id] !== value
-        ) {
-          this.$store.dispatch('user/preferenceSet', {
-            section: `titres.filtres.${id}`,
-            value
-          })
-        }
-      })
-
-      this.$store.commit('user/titresFiltresLoaded')
-    },
-
-    // met à jour les paramètres d'url
-    urlUpdate() {
-      let changed = false
-      const query = Object.assign({}, this.$route.query)
-
-      this.filtres.forEach(({ id, values }) => {
-        const value = values.length ? values.sort().join(',') : null
-
-        const valueUpdated = value && query[id] !== value
-        const valueDeleted = !value && query[id]
-
-        if (valueUpdated) {
-          query[id] = value
-          changed = true
-        } else if (valueDeleted) {
-          delete query[id]
-          changed = true
-        }
-      })
-
-      if (changed) {
-        this.$router.push({ query })
-      }
-    },
-
-    // formate les valeurs des filtres dont le type est 'checkboxes'
-    filtresValuesReduce() {
-      this.filtres.forEach(filtre => {
-        filtre.values = this.valuesReduce(filtre.id, filtre.type, filtre.values)
+    preferencesUpdate(params) {
+      this.$store.dispatch('user/preferencesSet', {
+        section: 'titres.filtres',
+        params
       })
     },
 
-    // pour les filtres dont le type est 'checkboxes
+    // pour les filtres dont le type est 'checkboxes'
     // - ne conserve que les valeurs qui sont présentes dans les métas
-    valuesReduce(id, type, values) {
-      const checkboxesValuesFilter = (filtreId, values) =>
-        values.filter(value =>
-          this.metas[filtreId].map(({ id }) => id).includes(value)
-        )
-
-      if (type === 'checkboxes') {
-        values = checkboxesValuesFilter(id, values)
-      }
+    checkboxesValueClean(id, value) {
+      const values = value ? value.split(',') : []
+      const metaId = this.checkboxesMetaIdFind(id)
 
       return values
+        .filter(v => this.metas[metaId].map(({ id }) => id).includes(v))
+        .sort()
+        .join(',')
+    },
+
+    checkboxesMetaIdFind(id) {
+      return id.replace(/Ids/g, '')
     }
   }
 }

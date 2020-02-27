@@ -11,13 +11,13 @@
             @click="sort(col.id)"
           >
             <button class="btn-transparent full-x p-0">
-              {{ col.name || (column === col.id ? '' : '–') }}
+              {{ col.name || (params.column === col.id ? '' : '–') }}
               <i
-                v-if="column === col.id"
+                v-if="params.column === col.id"
                 class="icon-24 right"
                 :class="{
-                  'icon-chevron-b': order === 'asc',
-                  'icon-chevron-t': order === 'desc'
+                  'icon-chevron-b': params.order === 'asc',
+                  'icon-chevron-t': params.order === 'desc'
                 }"
               />
             </button>
@@ -25,7 +25,7 @@
         </div>
 
         <RouterLink
-          v-for="element in elementsPages[page - 1]"
+          v-for="element in rowsPages[params.page - 1]"
           :key="element.id"
           :to="element.link"
           class="tr tr-link text-decoration-none"
@@ -53,23 +53,23 @@
     <div class="desktop-blobs">
       <div class="desktop-blob-3-4">
         <Pagination
-          :page-active="page"
-          :pages-total="elementsPages.length"
+          :page-active="params.page"
+          :pages-total="rowsPages.length"
           :pages-visible="5"
-          @page:update="pageUpdateEvent"
+          @page:update="pageUpdate"
         />
       </div>
       <div class="desktop-blob-1-4">
         <Ranges
-          v-if="elements.length > 10"
+          v-if="rows.length > 10"
           :ranges="ranges"
-          :range="range"
-          @range:update="rangeUpdateEvent"
+          :range="params.range"
+          @range:update="rangeUpdate"
         />
         <Columns
           :columns="columns"
           class="hide"
-          @columns:update="columnsUpdateEvent"
+          @columns:update="columnsUpdate"
         />
       </div>
     </div>
@@ -83,7 +83,7 @@ import Ranges from './ranges.vue'
 import Columns from './columns.vue'
 
 export default {
-  name: 'Titres',
+  name: 'UiTable',
 
   components: {
     Accordion,
@@ -93,7 +93,7 @@ export default {
   },
 
   props: {
-    elements: {
+    rows: {
       type: Array,
       default: () => []
     },
@@ -101,33 +101,46 @@ export default {
     columns: {
       type: Array,
       default: () => []
-    }
-  },
+    },
 
-  data() {
-    return {
-      ranges: [10, 50, 200, 500],
-      range: 200,
-      page: 1,
-      order: 'asc',
-      column: this.columns[0].id
+    sorted: {
+      type: Boolean,
+      default: false
+    },
+
+    params: {
+      type: Object,
+      default: () => ({
+        range: 200,
+        page: 1,
+        order: 'asc',
+        column: this.columns[0].id
+      }),
+      required: true
+    },
+
+    ranges: {
+      type: Array,
+      default: () => [10, 50, 200, 500]
     }
   },
 
   computed: {
-    elementsSorted() {
-      return this.elements.slice().sort((a, b) => {
-        const aValue = a.columns[this.column].value.toString()
-        const bValue = b.columns[this.column].value.toString()
+    rowsSorted() {
+      return this.rows.slice().sort((a, b) => {
+        const aValue = a.columns[this.params.column].value.toString()
+        const bValue = b.columns[this.params.column].value.toString()
+
         return (
-          aValue.localeCompare(bValue, 'fr') * (this.order === 'asc' ? 1 : -1)
+          aValue.localeCompare(bValue, 'fr') *
+          (this.params.order === 'asc' ? 1 : -1)
         )
       })
     },
 
-    elementsPages() {
-      return this.elementsSorted.reduce((res, cur, i) => {
-        const page = Math.ceil((i + 1) / this.range) - 1
+    rowsPages() {
+      return this.rowsSorted.reduce((res, cur, i) => {
+        const page = Math.ceil((i + 1) / this.params.range) - 1
 
         res[page] = res[page] || []
         res[page].push(cur)
@@ -142,42 +155,36 @@ export default {
   },
 
   methods: {
-    pageUpdateEvent(page) {
-      this.update('page', page)
-      this.$emit('page:update', page)
+    pageUpdate(page) {
+      this.update({ page })
     },
 
-    rangeUpdateEvent(range) {
-      this.update('range', range)
-      this.update('page', 1)
-      this.$emit('range:update', range)
-      this.$emit('page:update', 1)
+    rangeUpdate(range) {
+      this.update({ range, page: 1 })
     },
 
-    columnsUpdateEvent(columnIds) {
+    columnsUpdate(columnIds) {
       console.log(columnIds)
     },
 
-    update(id, value) {
-      this[id] = value
+    update(params) {
+      this.$emit('params:update', params)
     },
 
     sort(colId) {
-      if (this.column === colId) {
-        this.order = this.order === 'asc' ? 'desc' : 'asc'
+      if (this.params.column === colId) {
+        const order = this.params.order === 'asc' ? 'desc' : 'asc'
+        this.update({ order, page: 1 })
       } else {
-        this.column = colId
+        const column = colId
+        this.update({ column, page: 1 })
       }
-
-      this.$emit('column:update', this.column)
-      this.$emit('order:update', this.order)
-      this.pageUpdateEvent(1)
     },
 
     columnInit() {
       if (
-        this.elements.length &&
-        !this.columns.some(c => c.id === this.column)
+        this.rows.length &&
+        !this.columns.some(c => c.id === this.params.column)
       ) {
         this.sort(this.columns[0].id)
       }

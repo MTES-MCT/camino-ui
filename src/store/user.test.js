@@ -45,10 +45,15 @@ describe("état de l'utilisateur connecté", () => {
         titres: {
           vueId: 'carte',
           filtres: { domaines: null }
+        },
+        demarches: {
+          vueId: 'carte',
+          filtres: { types: null }
         }
       },
       loaded: false,
-      titresFiltresLoaded: 0
+      titresFiltresLoaded: false,
+      demarchesFiltresLoaded: false
     }
 
     actions = {
@@ -269,21 +274,20 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("initialise les preferences de l'utilisateur", async () => {
-    const section = 'conditions'
-    const value = 'conditionValue'
-    await store.dispatch('user/preferenceSet', { section, value })
+    const section = 'titres.filtres'
+    const params = { domainesIds: 'h' }
+    await store.dispatch('user/preferencesSet', { section, params })
 
-    expect(store.state.user.preferences.conditions).toEqual(value)
-    expect(localStorage.getItem('conditions')).toEqual(value)
+    expect(store.state.user.preferences.titres.filtres.domainesIds).toEqual('h')
   })
 
-  test('remet à 0 les preferences', async () => {
-    const section = 'titres.filtres.domaines'
-    const value = 'c,w'
-    await store.dispatch('user/preferenceSet', { section, value })
-    await store.dispatch('user/preferenceReset', { section })
+  test("initialise les preferences de l'utilisateur", async () => {
+    const section = 'conditions'
+    const value = 'conditionValue'
+    const params = { value }
+    await store.dispatch('user/preferencesSet', { section, params })
 
-    expect(store.state.user.preferences.titres.filtres.domaines).toBeUndefined()
+    expect(localStorage.getItem('conditions')).toEqual(value)
   })
 
   test("regarde si la tuile active n'appartient pas aux tuiles de la carte", () => {
@@ -327,9 +331,15 @@ describe("état de l'utilisateur connecté", () => {
     expect(store.state.user.current.entreprise).toBeUndefined()
   })
 
-  test("initialise les préférences de filtres de l'utilisateur", () => {
+  test('initialise les préférences de filtres de titres', () => {
     store.commit('user/titresFiltresLoaded')
 
-    expect(store.state.user.titresFiltresLoaded).toEqual(1)
+    expect(store.state.user.titresFiltresLoaded).toBeTruthy()
+  })
+
+  test('initialise les préférences de filtres de démarches', () => {
+    store.commit('user/demarchesFiltresLoaded')
+
+    expect(store.state.user.demarchesFiltresLoaded).toBeTruthy()
   })
 })

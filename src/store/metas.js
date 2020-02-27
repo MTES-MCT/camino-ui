@@ -19,6 +19,8 @@ export const state = {
     statuts: []
   },
 
+  titresLoaded: false,
+
   titre: {
     referencesTypes: []
   },
@@ -96,13 +98,14 @@ export const actions = {
     }
   },
 
-  async titresGet({ state, commit, dispatch }) {
+  async titresGet({ commit, dispatch }) {
     commit('loadingAdd', 'metasTitresGet', { root: true })
 
     try {
       const data = await metasTitres()
 
       commit('set', { data, type: 'titres' })
+      commit('titresLoaded')
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
@@ -221,6 +224,10 @@ export const mutations = {
     Object.keys(data).forEach(id => {
       Vue.set(type ? state[type] : state, id, data[id] ? data[id] : null)
     })
+  },
+
+  titresLoaded(state) {
+    state.titresLoaded = true
   }
 }
 

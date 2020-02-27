@@ -1,6 +1,5 @@
 <template>
-  <Loader v-if="!loaded" />
-  <Card v-else>
+  <Card>
     <div class="desktop-blobs">
       <div class="desktop-blob-2-3">
         <h1>Titres miniers et autorisations</h1>
@@ -17,7 +16,21 @@
       </div>
     </div>
 
-    <TitresFiltres />
+    <Url
+      :params="preferences"
+      @params:update="preferencesUpdate"
+    />
+
+    <div
+      v-if="!metasLoaded"
+      class="py-s px-m mb-s"
+    >
+      …
+    </div>
+    <TitresFiltres
+      v-else
+      @titres:update="titresUpdate"
+    />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-2 flex mb-s">
@@ -38,12 +51,12 @@
           v-for="v in vues"
           :key="v.id"
           class="mr-xs"
-          :class="{ active: vueId === v.id }"
+          :class="{ active: preferences.vueId === v.id }"
         >
           <button
-            v-if="vueId !== v.id"
+            v-if="preferences.vueId !== v.id"
             class="p-m btn-tab rnd-t-xs"
-            @click="urlSet(v.id)"
+            @click="preferencesUpdate({ vueId: v.id })"
           >
             <i
               :class="`icon-${v.icon}`"
@@ -70,7 +83,7 @@
 
     <Component
       :is="vue.component"
-      v-if="vueId"
+      v-if="preferences.vueId"
       :titres="titres"
     />
   </Card>
@@ -78,11 +91,11 @@
 
 <script>
 import Card from './_ui/card.vue'
-import Loader from './_ui/loader.vue'
+import Url from './_ui/url.vue'
 import TitreEditPopup from './titre/edit-popup.vue'
 import TitresTableUrl from './titres/table-url.vue'
-import TitresMap from './titres/map.vue'
-import TitresFiltres from './titres/filtres.vue'
+import TitresMap from './titres/map-url.vue'
+import TitresFiltres from './titres/filtres-url.vue'
 import TitresDownloadCsv from './titres/download-csv.vue'
 import TitresDownloadGeojson from './titres/download-geojson.vue'
 
@@ -90,8 +103,8 @@ export default {
   name: 'Titres',
 
   components: {
-    Loader,
     Card,
+    Url,
     TitresFiltres,
     TitresDownloadCsv,
     TitresDownloadGeojson
@@ -99,7 +112,7 @@ export default {
 
   data() {
     return {
-      filtersOpened: false,
+      metasLoaded: false,
       vues: [
         {
           id: 'carte',
@@ -120,20 +133,12 @@ export default {
       return this.$store.state.titres.list
     },
 
-    loaded() {
-      return !!this.titres
-    },
-
-    vueId() {
-      return this.$store.state.user.preferences.titres.vueId
+    preferences() {
+      return this.$store.state.user.preferences.titres.vue
     },
 
     vue() {
-      return this.vues.find(c => c.id === this.vueId)
-    },
-
-    filtresLoaded() {
-      return this.$store.state.user.titresFiltresLoaded
+      return this.vues.find(v => v.id === this.preferences.vueId)
     },
 
     user() {
@@ -150,58 +155,31 @@ export default {
   },
 
   watch: {
-    $route: function(to, from) {
-      if (to.query.vue && to.query.vue !== from.query.vue) {
-        this.vueSet(to.query.vue)
-      } else if (!to.query.vue) {
-        this.init()
-      }
-    },
-
     user: 'metasGet',
-
-    userLoaded: 'metasGet',
-
-    filtresLoaded: 'get'
+    userLoaded: 'metasGet'
   },
 
-  created() {
-    if (this.userLoaded) {
-      this.metasGet()
-    }
-    this.init()
+  async created() {
+    await this.metasGet()
   },
 
   methods: {
-    async get() {
-      await this.$store.dispatch('titres/get')
+    async titresUpdate(params) {
+      await this.$store.dispatch('titres/get', params)
     },
 
     async metasGet() {
       await this.$store.dispatch('metas/titresGet')
-    },
-
-    init() {
-      const vueId = this.$route.query.vue || this.vueId
-
-      if (!this.$route.query.vue) {
-        this.urlSet(vueId)
-      }
-
-      if (this.vueId !== vueId) {
-        this.vueSet(vueId)
+      if (!this.metasLoaded) {
+        this.metasLoaded = true
       }
     },
 
-    vueSet(value) {
-      this.$store.dispatch('user/preferenceSet', {
-        section: 'titres.vueId',
-        value
+    preferencesUpdate(params) {
+      this.$store.dispatch('user/preferencesSet', {
+        section: 'titres.vue',
+        params
       })
-    },
-
-    urlSet(value) {
-      this.urlParamSet('vue', value)
     },
 
     addPopupOpen() {

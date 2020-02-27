@@ -4,34 +4,34 @@
       :params="preferences"
       @params:update="preferencesUpdate"
     />
-    <Table :titres="titres" />
+    <Filtres @demarches:update="demarchesUpdate" />
   </div>
 </template>
 
 <script>
 import Url from '../_ui/url.vue'
-import Table from './table.vue'
+import Filtres from './filtres.vue'
 
 export default {
   components: {
     Url,
-    Table
-  },
-
-  props: {
-    titres: { type: Array, required: true }
+    Filtres
   },
 
   computed: {
     preferences() {
-      return this.$store.state.user.preferences.titres.table
+      return this.$store.state.user.preferences.demarches.filtres
     }
   },
 
   methods: {
+    demarchesUpdate(params) {
+      this.$emit('demarches:update', params)
+    },
+
     preferencesUpdate(params) {
       this.$store.dispatch('user/preferencesSet', {
-        section: 'titres.table',
+        section: 'demarches.filtres',
         params
       })
     }

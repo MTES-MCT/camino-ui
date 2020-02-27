@@ -27,7 +27,7 @@
         <LeafletTilesSelector
           :tiles="tiles"
           :tiles-id="tilesId"
-          @tiles-id-set="tilesIdSelect"
+          @params:update="preferencesUpdate"
         />
       </div>
     </div>
@@ -143,10 +143,10 @@ export default {
   },
 
   methods: {
-    tilesIdSelect(tuileNom) {
-      this.$store.dispatch('user/preferenceSet', {
-        section: 'carte.tilesId',
-        value: tuileNom
+    preferencesUpdate(params) {
+      this.$store.dispatch('user/preferencesSet', {
+        section: 'carte',
+        params
       })
     },
 

@@ -12,7 +12,7 @@ localVue.use(Vuex)
 
 console.log = jest.fn()
 
-describe('état de la page de statistiques', () => {
+describe('page de statistiques', () => {
   let actions
   let mutations
   let store

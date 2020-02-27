@@ -11,7 +11,8 @@ jest.mock('../api/metas', () => ({
   metasTitreDemarche: jest.fn(),
   metasUtilisateur: jest.fn(),
   metasDocument: jest.fn(),
-  metasActivites: jest.fn()
+  metasActivites: jest.fn(),
+  metasDemarches: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -19,7 +20,7 @@ localVue.use(Vuex)
 
 console.log = jest.fn()
 
-describe('état de la liste des métas', () => {
+describe('liste des métas', () => {
   let store
   let actions
   let mutations
@@ -38,6 +39,15 @@ describe('état de la liste des métas', () => {
 
       demarche: {
         types: []
+      },
+
+      demarches: {
+        types: [],
+        statuts: [],
+        titresDomaines: [],
+        titresTypes: [],
+        titresStatuts: [],
+        etapesTypes: []
       },
 
       etape: {
@@ -131,6 +141,43 @@ describe('état de la liste des métas', () => {
     )
 
     await store.dispatch('metas/titreGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test('récupère les métas pour éditer une démarche', async () => {
+    const data = {
+      demarchesTypes: [{ id: 'id-demarchesTypes' }],
+      demarchesStatuts: [{ id: 'id-demarchesStatuts' }],
+      etapesTypes: [{ id: 'id-etapesTypes' }],
+      types: [{ id: 'id-types' }],
+      domaines: [{ id: 'id-domaines' }],
+      statuts: [{ id: 'id-statuts' }]
+    }
+    const apiMock = api.metasDemarches.mockResolvedValue(data)
+
+    await store.dispatch('metas/demarchesGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.metas.demarches).toEqual({
+      types: [{ id: 'id-demarchesTypes' }],
+      statuts: [{ id: 'id-demarchesStatuts' }],
+      etapesTypes: [{ id: 'id-etapesTypes' }],
+      titresTypes: [{ id: 'id-types' }],
+      titresDomaines: [{ id: 'id-domaines' }],
+      titresStatuts: [{ id: 'id-statuts' }]
+    })
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api ne répond pas", async () => {
+    const apiMock = api.metasDemarches.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+
+    await store.dispatch('metas/demarchesGet')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()

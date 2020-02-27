@@ -1,57 +1,50 @@
-import FiltresDomaines from './filtres/domaines.vue'
-import FiltresStatuts from './filtres/statuts.vue'
+import FiltresDomaines from '../_common/filtres/domaines.vue'
+import FiltresStatuts from '../_common/filtres/statuts.vue'
 
-const filtres = [
-  { name: 'Types', id: 'types', type: 'checkboxes', values: [] },
-  {
-    name: 'Domaines',
-    id: 'domaines',
-    type: 'checkboxes',
-    values: [],
-    component: FiltresDomaines
-  },
-  {
-    name: 'Statuts',
-    id: 'statuts',
-    type: 'checkboxes',
-    values: [],
-    component: FiltresStatuts
-  },
-  {
-    id: 'noms',
+const filtres = {
+  noms: {
     type: 'input',
-    values: [],
-    name: 'Nom',
+    value: '',
+    name: 'Noms',
     placeholder: '…'
   },
-  {
-    id: 'entreprises',
+  entreprises: {
     type: 'input',
-    values: [],
+    value: '',
     name: 'Entreprises',
     placeholder: 'Nom ou siret'
   },
-  {
-    id: 'substances',
+  substances: {
     type: 'input',
-    values: [],
+    value: '',
     name: 'Substances',
     placeholder: 'Or, Argent, Ag, …'
   },
-  {
-    id: 'references',
+  references: {
     type: 'input',
-    values: [],
+    value: '',
     name: 'Références',
     placeholder: 'Référence DGEC, DEAL, DEB, BRGM, Ifremer, …'
   },
-  {
-    id: 'territoires',
+  territoires: {
     type: 'input',
-    values: [],
+    value: '',
     name: 'Territoires',
     placeholder: 'Commune, département, région, …'
+  },
+  domainesIds: {
+    name: 'Domaines',
+    type: 'checkboxes',
+    value: '',
+    component: FiltresDomaines
+  },
+  typesIds: { name: 'Types', type: 'checkboxes', value: '' },
+  statutsIds: {
+    name: 'Statuts',
+    type: 'checkboxes',
+    value: '',
+    component: FiltresStatuts
   }
-]
+}
 
 export default filtres
