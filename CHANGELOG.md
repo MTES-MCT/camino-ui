@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.22](https://github.com/MTES-MCT/camino-ui/compare/v0.22.21...v0.22.22) (2020-02-27)
+
+
+### Features
+
+* affiche le bouton d'ajout d'étapes en fonction des droits ([2bb9b85](https://github.com/MTES-MCT/camino-ui/commit/2bb9b856ff0fe2c6cb48e64bc6f164935695be1f))
+* affiche une liste de démarches ([b8bb3da](https://github.com/MTES-MCT/camino-ui/commit/b8bb3dab3f98073d78dd3b3714e80df45e0f8360))
+
+
+### Bug Fixes
+
+* corrige le style des boutons ([a9105c6](https://github.com/MTES-MCT/camino-ui/commit/a9105c67bc0e2442d5916ca50cdc19a202959497))
+
 ### [0.22.21](https://github.com/MTES-MCT/camino-ui/compare/v0.22.20...v0.22.21) (2020-02-20)
 
 
