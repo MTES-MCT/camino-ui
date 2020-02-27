@@ -137,19 +137,15 @@ export default {
 
     hasContenu() {
       return (
-        this.etape.type.sections &&
         this.etape.contenu &&
-        this.etape.type.sections.reduce(
-          (acc, s) =>
-            s.elements.reduce(
-              (acc, e) =>
-                this.etape.contenu &&
-                this.etape.contenu[s.id] &&
-                (this.etape.contenu[s.id][e.id] ||
-                  this.etape.contenu[s.id][e.id] === 0),
-              acc
-            ),
-          false
+        this.etape.type.sections &&
+        this.etape.type.sections.some(
+          s => s.elements.some(
+            e =>
+              this.etape.contenu[s.id] &&
+              (this.etape.contenu[s.id][e.id] ||
+                this.etape.contenu[s.id][e.id] === 0)
+          )
         )
       )
     },
