@@ -28,6 +28,15 @@ http://francoisromain.github.io/postcss-structure
   --color-title-domaine-c: #3ea3d1;
   --color-title-domaine-f: #a8782f;
 
+  --color-stroke-domaine-m: #376ea9;
+  --color-stroke-domaine-h: #c12569;
+  --color-stroke-domaine-s: #64508c;
+  --color-stroke-domaine-g: #c83714;
+  --color-stroke-domaine-w: #1e826e;
+  --color-stroke-domaine-r: #a0aa32;
+  --color-stroke-domaine-c: #b88848;
+  --color-stroke-domaine-f: #502812;
+
   /* Base units    ------------------------------- */
 
   /* font-size: 1rem = 16 px */

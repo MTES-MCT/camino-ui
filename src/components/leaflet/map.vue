@@ -1,24 +1,24 @@
 <template>
-  <div
-    id="map"
-    ref="map"
-  >
+  <div id="map" ref="map">
     <div class="absolute px-s py-xs map-loader">
-      <div class="h6">
-        Zoom: {{ zoom }}
-      </div>
+      <div class="h6">Zoom: {{ zoom }}</div>
     </div>
   </div>
 </template>
 
 <script>
 import { leafletMap, leafletTileLayerDefault, leafletScaleAdd } from './map.js'
+import { leafletPatternsDefault } from './pattern.js'
 
 export default {
   props: {
     geojsonLayers: {
       type: Array,
       default: () => []
+    },
+    patterns: {
+      type: Object,
+      default: () => leafletPatternsDefault
     },
     markerLayers: {
       type: Array,
@@ -55,6 +55,7 @@ export default {
     this.tilesAdd()
     this.markersAdd()
     this.geojsonsAdd()
+    this.patternsAdd()
   },
 
   methods: {
@@ -121,6 +122,13 @@ export default {
     tilesAdd() {
       this.layers.tiles = this.tilesLayer
       this.layers.tiles.addTo(this.map)
+    },
+
+    patternsAdd() {
+      this.layers.patterns = this.patterns
+      Object.keys(this.layers.patterns).forEach(key => {
+        this.layers.patterns[key].addTo(this.map)
+      })
     },
 
     geojsonsAdd() {

@@ -1,6 +1,7 @@
 import 'leaflet'
 import 'leaflet-gesture-handling'
 import 'leaflet-fullscreen'
+import 'leaflet.pattern'
 
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
@@ -27,13 +28,14 @@ const leafletTileLayerDefault = L.tileLayer(
   }
 )
 
-const leafletMap = map => L.map(map, {
+const leafletMap = map =>
+  L.map(map, {
     // zoomControl: true,
     doubleClickZoom: false,
     minZoom: 4,
     gestureHandling: true,
     fullscreenControl: {
-        pseudoFullscreen: true
+      pseudoFullscreen: true
     }
   })
 
