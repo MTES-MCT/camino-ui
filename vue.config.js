@@ -6,10 +6,8 @@ const date = new Date().toISOString().slice(0, 10)
 
 module.exports = {
   configureWebpack: {
-    // We provide the app's title in Webpack's name field, so that
-    // it can be accessed in index.html to inject the correct title.
     name: 'Camino UI',
-    // Set up all the aliases we use in our app.
+    devtool: 'source-map',
     resolve: {
       alias: {
         '@': path.join(__dirname, 'src')
