@@ -4,34 +4,34 @@
       :params="preferences"
       @params:update="preferencesUpdate"
     />
-    <Table :titres="titres" />
+    <Filtres @titres:update="titresUpdate" />
   </div>
 </template>
 
 <script>
 import Url from '../_ui/url.vue'
-import Table from './table.vue'
+import Filtres from './filtres.vue'
 
 export default {
   components: {
     Url,
-    Table
-  },
-
-  props: {
-    titres: { type: Array, required: true }
+    Filtres
   },
 
   computed: {
     preferences() {
-      return this.$store.state.user.preferences.titres.table
+      return this.$store.state.user.preferences.titres.filtres
     }
   },
 
   methods: {
+    titresUpdate(params) {
+      this.$emit('titres:update', params)
+    },
+
     preferencesUpdate(params) {
       this.$store.dispatch('user/preferencesSet', {
-        section: 'titres.table',
+        section: 'titres.filtres',
         params
       })
     }

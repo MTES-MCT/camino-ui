@@ -7,6 +7,7 @@ import * as router from '../router'
 jest.mock('file-saver', () => ({ saveAs: jest.fn() }))
 jest.mock('./titre', () => ({ titre: jest.fn() }))
 jest.mock('./titres', () => ({ titres: jest.fn() }))
+jest.mock('./demarches', () => ({ demarches: jest.fn() }))
 jest.mock('./metas', () => ({ metas: jest.fn() }))
 jest.mock('./map', () => ({ map: jest.fn() }))
 jest.mock('./utilisateur', () => ({ utilisateur: jest.fn() }))

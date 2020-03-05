@@ -1,18 +1,25 @@
-const paramsBuild = (filterIds, preferences) => {
-  // récupère les paramètres depuis les préférences utilisateurs
-  const params = filterIds.reduce((params, id) => {
-    const i = id.replace(/Id/g, '')
+// récupère les paramètres depuis les préférences utilisateurs
+const paramsArrayBuild = (paramsCheckboxes, preferences) =>
+  paramsCheckboxes.reduce((params, id) => {
+    const values = preferences[id] && preferences[id].split(',')
+    // .map(v => v.replace(/^"(.*)"$/, '$1'))
 
-    const values =
-      preferences.filtres[i] &&
-      preferences.filtres[i].split(',').map(v => v.replace(/^"(.*)"$/, '$1'))
+    if (values && values.length) {
+      params = Object.assign(params, { [id]: values })
+    }
 
-    return values && values.length
-      ? Object.assign(params, { [id]: values })
-      : params
+    return params
   }, {})
 
-  return params
-}
+const paramsStringBuild = (paramsInputs, preferences) =>
+  paramsInputs.reduce((params, id) => {
+    const value = preferences[id]
 
-export { paramsBuild }
+    if (value) {
+      params = Object.assign(params, { [id]: value })
+    }
+
+    return params
+  }, {})
+
+export { paramsArrayBuild, paramsStringBuild }

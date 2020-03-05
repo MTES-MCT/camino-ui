@@ -1,10 +1,9 @@
 <template>
   <Table
-    ref="table"
-    :elements="elements"
+    :rows="lignes"
     :columns="colonnes"
-    @page:update="$emit('page:update', $event)"
-    @range:update="$emit('range:update', $event)"
+    :params="params"
+    @params:update="preferencesUpdate"
   />
 </template>
 
@@ -45,14 +44,36 @@ export default {
         },
         {
           id: 'statut',
-          name: 'Statut'
+          name: 'Statut',
+          class: ['min-width-5']
         }
-      ]
+      ],
+      preferences: {
+        intervalle: 200,
+        page: 1,
+        ordre: 'asc',
+        colonne: 'titre'
+      }
     }
   },
 
   computed: {
-    elements() {
+    params() {
+      return Object.keys(this.preferences).reduce((params, id) => {
+        if (id === 'intervalle') {
+          params.range = this.preferences.intervalle
+        } else if (id === 'ordre') {
+          params.order = this.preferences.ordre
+        } else if (id === 'colonne') {
+          params.column = this.preferences.colonne
+        } else {
+          params[id] = this.preferences[id]
+        }
+
+        return params
+      }, {})
+    },
+    lignes() {
       return this.activites.map(activite => {
         const columns = {
           titre: { value: activite.titre.nom },
@@ -82,6 +103,29 @@ export default {
           link: { name: 'activite', params: { id: activite.id } },
           columns
         }
+      })
+    }
+  },
+
+  methods: {
+    preferencesUpdate(params) {
+      if (params.range) {
+        params.intervalle = params.range
+        delete params.range
+      }
+
+      if (params.column) {
+        params.colonne = params.column
+        delete params.column
+      }
+
+      if (params.order) {
+        params.ordre = params.order
+        delete params.order
+      }
+
+      Object.keys(params).forEach(id => {
+        this.preferences[id] = params[id]
       })
     }
   }

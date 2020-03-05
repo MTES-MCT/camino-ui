@@ -44,7 +44,7 @@ export default {
 
   methods: {
     select(tilesId) {
-      this.$emit('tiles-id-set', tilesId)
+      this.$emit('params:update', { tilesId })
     }
   }
 }

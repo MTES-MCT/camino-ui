@@ -12,7 +12,7 @@ localVue.use(Vuex)
 
 console.log = jest.fn()
 
-describe('état de la liste des utilisateurs', () => {
+describe('liste des utilisateurs', () => {
   let store
   let actions
   let mutations

@@ -16,17 +16,21 @@ export const state = {
   preferences: {
     carte: { tilesId: 'osm-fr' },
     titres: {
-      vueId: 'carte',
+      vue: { vueId: 'carte' },
       table: {
         page: 1,
         intervalle: 200,
         ordre: 'asc',
         colonne: 'nom'
       },
+      carte: {
+        zoom: null,
+        centre: null
+      },
       filtres: {
-        types: null,
-        domaines: null,
-        statuts: null,
+        typesIds: null,
+        domainesIds: null,
+        statutsIds: null,
         noms: null,
         entreprises: null,
         substances: null,
@@ -39,21 +43,21 @@ export const state = {
         page: 1,
         intervalle: 200,
         ordre: 'asc',
-        colonne: 'nom'
+        colonne: 'titreNom'
       },
       filtres: {
-        types: null,
-        statuts: null,
-        titresDomaines: null,
-        titresTypes: null,
-        titresStatuts: null,
-        etapesInclues: null,
-        etapesExclues: null
+        typesIds: null,
+        statutsIds: null,
+        titresDomainesIds: null,
+        titresTypesIds: null,
+        titresStatutsIds: null,
+        etapesIncluesIds: null,
+        etapesExcluesIds: null
       }
     }
   },
-  titresFiltresLoaded: 0,
-  demarchesFiltresLoaded: 0,
+  titresFiltresLoaded: false,
+  demarchesFiltresLoaded: false,
   loaded: false
 }
 
@@ -240,15 +244,12 @@ export const actions = {
     }
   },
 
-  preferenceSet({ commit }, { section, value }) {
-    commit('preferenceSet', { section, value })
+  preferencesSet({ commit }, { section, params }) {
     if (section === 'conditions') {
-      localStorage.setItem('conditions', value)
+      localStorage.setItem('conditions', params.value)
+    } else {
+      commit('preferencesSet', { section, params })
     }
-  },
-
-  preferenceReset({ commit }, { section }) {
-    commit('preferenceReset', { section })
   },
 
   tokenSet({ commit }, token) {
@@ -291,18 +292,12 @@ export const mutations = {
     state.loaded = true
   },
 
-  preferenceSet(state, { section, value }) {
+  preferencesSet(state, { section, params }) {
     const path = section.split('.')
-    const id = path.pop()
     const p = path.reduce((res, el) => res[el], state.preferences)
-    Vue.set(p, id, value)
-  },
-
-  preferenceReset(state, { section }) {
-    const path = section.split('.')
-    const key = path.pop()
-    const p = path.reduce((res, el) => res[el], state.preferences)
-    Vue.delete(p, key)
+    Object.keys(params).forEach(id => {
+      Vue.set(p, id, params[id])
+    })
   },
 
   set(state, user) {
@@ -314,11 +309,11 @@ export const mutations = {
   },
 
   titresFiltresLoaded(state) {
-    state.titresFiltresLoaded++
+    state.titresFiltresLoaded = true
   },
 
   demarchesFiltresLoaded(state) {
-    state.demarchesFiltresLoaded++
+    state.demarchesFiltresLoaded = true
   }
 }
 

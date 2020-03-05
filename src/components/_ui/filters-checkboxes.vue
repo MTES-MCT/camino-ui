@@ -1,6 +1,7 @@
 <template>
   <div class="mb">
     <h6>{{ filter.name }}</h6>
+
     <ul class="list-sans">
       <li
         v-for="element in filter.elements"
@@ -9,7 +10,7 @@
         <label>
           <input
             :value="element.id"
-            :checked="filter.values.includes(element.id)"
+            :checked="values.includes(element.id)"
             type="checkbox"
             class="mr-s"
             @change="checkboxToggle($event)"
@@ -52,42 +53,50 @@ export default {
     }
   },
 
+  computed: {
+    values() {
+      return this.filter.value ? this.filter.value.split(',') : []
+    }
+  },
+
   methods: {
     checkboxToggle(e) {
-      const idsSet = (value, values) => {
-        const index = values.indexOf(value)
+      const idsSet = (v, values) => {
+        const index = values.indexOf(v)
 
-        // si la checkbox était false
+        const value = values.slice()
+
         if (index > -1) {
-          values.splice(index, 1)
-        } // sinon ajoute la checkbox
-        else {
-          values.push(value)
+          value.splice(index, 1)
+        } else {
+          value.push(v)
         }
 
-        return values
+        return value.join(',')
       }
 
-      this.filter.values = idsSet(e.target.value, this.filter.values)
+      this.filter.value = idsSet(e.target.value, this.values)
     },
 
     checkboxesSelect(action) {
       if (action === 'none') {
-        this.filter.values = []
+        this.filter.value = ''
       }
 
       if (action === 'all') {
-        this.filter.values = this.filter.elements.map(({ id }) => id)
+        this.filter.value = this.filter.elements.map(({ id }) => id).join(',')
       }
 
       if (action === 'inverse') {
-        this.filter.values = this.filter.elements.reduce((ids, { id }) => {
-          if (!this.filter.values.includes(id)) {
-            ids.push(id)
-          }
+        this.filter.value = this.filter.elements
+          .reduce((ids, { id }) => {
+            if (!this.values.includes(id)) {
+              ids.push(id)
+            }
 
-          return ids
-        }, [])
+            return ids
+          }, [])
+          .join(',')
       }
     }
   }

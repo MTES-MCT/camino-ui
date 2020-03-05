@@ -1,13 +1,19 @@
 <template>
-  <Loader v-if="!loaded" />
-  <Card
-    v-else
-  >
+  <Card>
     <div class="flex">
       <h1>Démarches</h1>
     </div>
 
-    <DemarchesFiltres />
+    <div
+      v-if="!metasLoaded"
+      class="py-s px-m mb-s"
+    >
+      …
+    </div>
+    <DemarchesFiltres
+      v-else
+      @demarches:update="demarchesUpdate"
+    />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2 flex">
@@ -19,26 +25,28 @@
 
     <div class="card-border" />
 
-    <DemarchesTable
-      :demarches="demarches"
-    />
+    <DemarchesTable :demarches="demarches" />
   </Card>
 </template>
 
 <script>
 import Card from './_ui/card.vue'
-import Loader from './_ui/loader.vue'
-import DemarchesTable from './demarches/table.vue'
-import DemarchesFiltres from './demarches/filtres.vue'
+import DemarchesTable from './demarches/table-url.vue'
+import DemarchesFiltres from './demarches/filtres-url.vue'
 
 export default {
   name: 'Demarches',
 
   components: {
-    Loader,
     Card,
     DemarchesTable,
     DemarchesFiltres
+  },
+
+  data() {
+    return {
+      metasLoaded: false
+    }
   },
 
   computed: {
@@ -54,10 +62,6 @@ export default {
       return !!this.demarches
     },
 
-    filtresLoaded() {
-      return this.$store.state.user.demarchesFiltresLoaded
-    },
-
     userLoaded() {
       return this.$store.state.user.loaded
     }
@@ -65,25 +69,23 @@ export default {
 
   watch: {
     user: 'metasGet',
-
-    userLoaded: 'metasGet',
-
-    filtresLoaded: 'get'
+    userLoaded: 'metasGet'
   },
 
-  created() {
-    if (this.userLoaded) {
-      this.get()
-    }
+  async created() {
+    await this.metasGet()
   },
 
   methods: {
-    async get() {
-      await this.$store.dispatch('demarches/get')
+    async demarchesUpdate(params) {
+      await this.$store.dispatch('demarches/get', params)
     },
 
     async metasGet() {
       await this.$store.dispatch('metas/demarchesGet')
+      if (!this.metasLoaded) {
+        this.metasLoaded = true
+      }
     }
   }
 }

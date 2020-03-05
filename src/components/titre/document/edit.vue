@@ -107,7 +107,7 @@
             class="p-s"
           >
             <option
-              v-for="fichierTypeId in fichierTypeIds"
+              v-for="fichierTypeId in fichiersTypesIds"
               :key="fichierTypeId"
               :value="fichierTypeId"
               :disabled="document.fichierTypeId === fichierTypeId"
@@ -273,7 +273,7 @@ export default {
       events: {
         saveKeyUp: true
       },
-      fichierTypeIds: ['pdf'],
+      fichiersTypesIds: ['pdf'],
       warnings: []
     }
   },

@@ -12,7 +12,7 @@ jest.mock('../api/entreprises', () => ({
 
 console.log = jest.fn()
 
-describe("état de la liste d'entreprises", () => {
+describe("liste d'entreprises", () => {
   let store
   let actions
   let mutations

@@ -219,6 +219,10 @@ export default {
       return this.entreprise.titresTitulaire
     },
 
+    titresAmodiataire() {
+      return this.entreprise.titresAmodiataire
+    },
+
     user() {
       return this.$store.state.user.current
     },

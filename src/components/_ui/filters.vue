@@ -86,8 +86,8 @@ export default {
 
   methods: {
     inputsErase() {
-      this.inputs.forEach(filters => {
-        filters.values = []
+      this.inputs.forEach(filter => {
+        filter.value = ''
       })
     },
 
@@ -100,6 +100,16 @@ export default {
         this.$refs.button.focus()
       }
       this.$refs.accordion.close()
+    },
+
+    filtersReduce(filters, type) {
+      return Object.keys(filters).reduce(
+        (res, id) =>
+          filters[id].type === type
+            ? Object.assign(res, { [id]: filters[id] })
+            : res,
+        {}
+      )
     }
   }
 }

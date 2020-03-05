@@ -1,44 +1,36 @@
 import Vue from 'vue'
 
 import { titres } from '../api/titres'
-import { paramsBuild } from './_utils'
+import { paramsArrayBuild, paramsStringBuild } from './_utils'
 
 export const state = {
   list: [],
-  filterIds: [
-    'substances',
-    'noms',
-    'entreprises',
-    'references',
-    'territoires',
-    'typeIds',
-    'domaineIds',
-    'statutIds'
-  ]
+  params: {
+    arrays: ['typesIds', 'domainesIds', 'statutsIds'],
+    strings: ['substances', 'noms', 'entreprises', 'references', 'territoires']
+  }
 }
 
 export const actions = {
-  async get({ state, dispatch, commit, rootState }) {
+  async get({ state, dispatch, commit }, params) {
     commit('loadingAdd', 'titres', { root: true })
 
     try {
-      const params = paramsBuild(
-        state.filterIds,
-        rootState.user.preferences.titres
+      const p = Object.assign(
+        paramsArrayBuild(state.params.arrays, params),
+        paramsStringBuild(state.params.strings, params)
       )
 
-      const data = await titres(params)
+      const data = await titres(p)
 
-      if (state.list.length) {
-        dispatch(
-          'messageAdd',
-          {
-            value: `liste de titres mise à jour`,
-            type: 'success'
-          },
-          { root: true }
-        )
-      }
+      dispatch(
+        'messageAdd',
+        {
+          value: `liste de titres mise à jour`,
+          type: 'success'
+        },
+        { root: true }
+      )
 
       commit('set', data)
     } catch (e) {

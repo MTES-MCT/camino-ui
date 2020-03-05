@@ -4,34 +4,35 @@
       :params="preferences"
       @params:update="preferencesUpdate"
     />
-    <Table :titres="titres" />
+    <slot />
   </div>
 </template>
 
 <script>
 import Url from '../_ui/url.vue'
-import Table from './table.vue'
 
 export default {
   components: {
-    Url,
-    Table
+    Url
   },
 
   props: {
-    titres: { type: Array, required: true }
+    section: {
+      type: String,
+      required: true
+    }
   },
 
   computed: {
     preferences() {
-      return this.$store.state.user.preferences.titres.table
+      return this.$store.state.user.preferences[this.section].table
     }
   },
 
   methods: {
     preferencesUpdate(params) {
       this.$store.dispatch('user/preferencesSet', {
-        section: 'titres.table',
+        section: `${this.section}.table`,
         params
       })
     }

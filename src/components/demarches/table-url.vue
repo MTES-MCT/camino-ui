@@ -4,7 +4,7 @@
       :params="preferences"
       @params:update="preferencesUpdate"
     />
-    <Table :titres="titres" />
+    <Table :demarches="demarches" />
   </div>
 </template>
 
@@ -19,19 +19,19 @@ export default {
   },
 
   props: {
-    titres: { type: Array, required: true }
+    demarches: { type: Array, required: true }
   },
 
   computed: {
     preferences() {
-      return this.$store.state.user.preferences.titres.table
+      return this.$store.state.user.preferences.demarches.table
     }
   },
 
   methods: {
     preferencesUpdate(params) {
       this.$store.dispatch('user/preferencesSet', {
-        section: 'titres.table',
+        section: 'demarches.table',
         params
       })
     }

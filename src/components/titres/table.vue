@@ -1,23 +1,16 @@
 <template>
   <Table
-    ref="table"
-    :elements="elements"
+    :rows="lignes"
     :columns="colonnes"
-    @page:update="$emit('page:update', $event)"
-    @range:update="$emit('intervalle:update', $event)"
-    @column:update="$emit('colonne:update', $event)"
-    @order:update="$emit('ordre:update', $event)"
+    :params="params"
+    :ranges="[10, 50, 200, 500]"
+    @params:update="preferencesUpdate"
   />
 </template>
 
 <script>
-import Vue from 'vue'
 import Table from '../_ui/table.vue'
-import PillList from '../_ui/pill-list.vue'
-import List from '../_ui/list.vue'
-import CaminoDomaine from '../_common/domaine.vue'
-import ActivitesPills from '../activites/pills.vue'
-import Statut from '../_common/statut.vue'
+import { colonnes, lignesBuild } from './table.js'
 
 export default {
   name: 'Titres',
@@ -27,155 +20,78 @@ export default {
   },
 
   props: {
-    titres: {
-      type: Array,
-      default: () => []
-    }
+    titres: { type: Array, required: true }
   },
 
   computed: {
-    user() {
-      return this.$store.state.user.current
+    preferences() {
+      return this.$store.state.user.preferences.titres.table
     },
 
     activitesCol() {
-      return this.user && this.user.sections.activites
+      const user = this.$store.state.user.current
+
+      return user && user.sections.activites
     },
 
     colonnes() {
-      const colonnes = [
-        {
-          id: 'nom',
-          name: 'Nom',
-          class: ['min-width-8']
-        },
-        {
-          id: 'domaine',
-          name: ''
-        },
-        {
-          id: 'type',
-          name: 'Type',
-          class: ['min-width-8']
-        },
-        {
-          id: 'statut',
-          name: 'Statut',
-          class: ['nowrap']
-        },
-        {
-          id: 'activites',
-          name: 'Activités',
-          class: ['min-width-5']
-        },
-        {
-          id: 'substances',
-          name: 'Substances',
-          class: ['min-width-6']
-        },
-        {
-          id: 'titulaires',
-          name: 'Titulaires',
-          class: ['min-width-10']
-        }
-      ]
-
       return colonnes.filter(({ id }) =>
         this.activitesCol ? true : id !== 'activites'
       )
     },
 
-    elements() {
-      return this.titres.map(titre => {
-        const columns = {
-          nom: {
-            component: Vue.component('TitreNom', {
-              render(h) {
-                return h('p', { class: ['bold', 'mb-0'] }, titre.nom)
-              }
-            }),
-            value: titre.nom
-          },
-          domaine: {
-            component: CaminoDomaine,
-            props: { domaineId: titre.domaine.id },
-            value: titre.domaine.id
-          },
-          type: {
-            component: Vue.component('TitreTypeNom', {
-              render(h) {
-                return h(
-                  'p',
-                  { class: ['h5', 'bold', 'cap-first', 'mb-0'] },
-                  titre.type.type.nom
-                )
-              }
-            }),
-            value: titre.type.type.nom
-          },
-          statut: {
-            component: Statut,
-            props: {
-              color: `bg-${titre.statut.couleur}`,
-              nom: titre.statut.nom,
-              mini: true
-            },
-            value: titre.statut.nom
-          },
-          substances: {
-            component: PillList,
-            props: { elements: titre.substances.map(s => s.nom) },
-            class: 'mb--xs',
-            value: titre.substances.map(s => s.nom).join(', ')
-          },
-          titulaires: {
-            component: List,
-            props: {
-              elements: titre.titulaires.map(({ nom }) => nom),
-              mini: true
-            },
-            class: 'mb--xs',
-            value: titre.titulaires.map(({ nom }) => nom).join(', ')
-          }
+    lignes() {
+      return lignesBuild(this.titres, this.activitesCol)
+    },
+
+    params() {
+      return Object.keys(this.preferences).reduce((params, id) => {
+        if (id === 'intervalle') {
+          params.range = this.preferences.intervalle
+        } else if (id === 'ordre') {
+          params.order = this.preferences.ordre
+        } else if (id === 'colonne') {
+          params.column = this.preferences.colonne
+        } else {
+          params[id] = this.preferences[id]
         }
 
-        if (this.activitesCol) {
-          columns.activites = {
-            component: ActivitesPills,
-            props: {
-              activitesAbsentes: titre.activitesAbsentes,
-              activitesEnConstruction: titre.activitesEnConstruction
-            },
-            value: titre.activitesAbsentes + titre.activitesEnConstruction
-          }
-        }
+        return params
+      }, {})
+    }
+  },
 
-        return {
-          id: titre.id,
-          link: { name: 'titre', params: { id: titre.id } },
-          columns
-        }
-      })
+  watch: {
+    titres: function(to, from) {
+      if (from.length && from.length !== to.length) {
+        const params = { page: 1 }
+
+        this.preferencesUpdate(params)
+      }
     }
   },
 
   methods: {
-    update(id, value) {
-      if (id === 'intervalle') {
-        id = 'range'
+    preferencesUpdate(params) {
+      if (params.range) {
+        params.intervalle = params.range
+        delete params.range
       }
 
-      if (id === 'colonne') {
-        id = 'column'
+      if (params.column) {
+        params.colonne = params.column
+        delete params.column
       }
 
-      if (id === 'ordre') {
-        id = 'order'
+      if (params.order) {
+        params.ordre = params.order
+        delete params.order
       }
 
-      if (this.$refs.table) {
-        this.$refs.table.update(id, value)
-      }
+      this.$store.dispatch('user/preferencesSet', {
+        section: 'titres.table',
+        params
+      })
     }
   }
 }

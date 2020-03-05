@@ -1,40 +1,35 @@
-import FiltresTitresDomaines from '../titres/filtres/domaines.vue'
-import FiltresTitresStatuts from '../titres/filtres/statuts.vue'
+import FiltresTitresDomaines from '../_common/filtres/domaines.vue'
+import FiltresTitresStatuts from '../_common/filtres/statuts.vue'
 
-const filtres = [
-  {
-    name: 'Domaines miniers',
-    id: 'titresDomaines',
+const filtres = {
+  titresDomainesIds: {
+    name: 'Domaines',
     type: 'checkboxes',
     values: [],
     component: FiltresTitresDomaines
   },
-  {
-    name: 'Types de titres',
-    id: 'titresTypes',
+  titresTypesIds: {
+    name: 'Types de titre',
     type: 'checkboxes',
     values: []
   },
-  {
-    name: 'Statuts des titres',
-    id: 'titresStatuts',
+  titresStatutsIds: {
+    name: 'Statuts de titre',
     type: 'checkboxes',
     values: [],
     component: FiltresTitresStatuts
   },
-  {
-    name: 'Types des démarches',
-    id: 'types',
+  typesIds: {
+    name: 'Types',
     type: 'checkboxes',
     values: []
   },
-  {
-    name: 'Statuts des démarches',
-    id: 'statuts',
+  statutsIds: {
+    name: 'Statuts',
     type: 'checkboxes',
     values: [],
     component: FiltresTitresStatuts
   }
-]
+}
 
 export default filtres

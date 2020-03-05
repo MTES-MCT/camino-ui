@@ -13,7 +13,7 @@ jest.mock('../api/administrations', () => ({
 
 console.log = jest.fn()
 
-describe("état de la liste d'administrations", () => {
+describe("liste d'administrations", () => {
   let store
   let actions
   let mutations
