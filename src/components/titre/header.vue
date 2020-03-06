@@ -140,13 +140,14 @@
           </ul>
         </div>
 
-        <div v-if="titre.engagement">
-          <h6>Engagement financier</h6>
-          <p>
-            {{ numberFormat(titre.engagement) }}
-            <span v-if="titre.engagementDevise">
-              {{ titre.engagementDevise.id }}</span>
-          </p>
+        <div v-if="hasContenu">
+          <Section
+            v-for="s in titre.type.sections"
+            :key="s.id"
+            :entete="false"
+            :section="s"
+            :contenu="titre.contenu[s.id]"
+          />
         </div>
 
         <div v-if="titre['liens']">
@@ -177,9 +178,10 @@ import PillList from '../_ui/pill-list.vue'
 import Dot from '../_ui/dot.vue'
 import EditPopup from './edit-popup.vue'
 import RemovePopup from './remove-popup.vue'
+import Section from '../_common/section.vue'
 
 export default {
-  components: { Pill, Dot, PillList },
+  components: { Pill, Dot, PillList, Section },
 
   props: {
     titre: {
@@ -191,6 +193,21 @@ export default {
   computed: {
     phases() {
       return this.titre.demarches.filter(d => d.phase)
+    },
+
+    hasContenu() {
+      return (
+        this.titre.contenu &&
+        this.titre.type.sections &&
+        this.titre.type.sections.some(
+          s => s.elements.some(
+            e =>
+              this.titre.contenu[s.id] &&
+              (this.titre.contenu[s.id][e.id] ||
+                this.titre.contenu[s.id][e.id] === 0)
+          )
+        )
+      )
     }
   },
 

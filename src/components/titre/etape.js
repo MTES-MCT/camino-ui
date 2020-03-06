@@ -152,12 +152,6 @@ const etapeEditFormat = (etape, demarcheId) => {
     mois: etape.duree ? Math.floor(etape.duree % 12) : null
   }
 
-  etape.engagementDeviseId = etape.engagementDevise && etape.engagementDevise.id
-  delete etape.engagementDevise
-
-  etape.volumeUniteId = etape.volumeUnite && etape.volumeUnite.id
-  delete etape.volumeUnite
-
   if (etape.points && etape.points.length) {
     const { groupes, geoSystemes, geoSystemeOpposableId } = etapeGroupesBuild(
       etape.points

@@ -105,57 +105,6 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Engagement</h6>
-        <p class="h6 italic mb-0">
-          Optionnel
-        </p>
-      </div>
-      <div class="tablet-blob-2-3">
-        <div class="tablet-blobs">
-          <div class="tablet-blob-2-3">
-            <input
-              v-model.number="etape.engagement"
-              class="p-s mb-s"
-              type="number"
-              min="0"
-              placeholder="0"
-            >
-          </div>
-
-          <div class="tablet-blob-1-3">
-            <select
-              v-model="etape.engagementDeviseId"
-              class="p-s"
-              :class="{ 'mb-s': etape.engagement, mb: !etape.engagement }"
-            >
-              <option :value="''" />
-              <option
-                v-for="devise in devises"
-                :key="devise.id"
-                :value="devise.id"
-                :disabled="etape.engagementDeviseId === devise.id"
-              >
-                {{ devise.nom }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <label
-          v-if="etape.engagement"
-          class="h5"
-        >
-          <input
-            v-model="etape.incertitudes.engagement"
-            type="checkbox"
-          >donnée incertaine
-        </label>
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Surface (Km²)</h6>
         <p class="h6 italic mb-0">
           Optionnel
@@ -176,57 +125,6 @@
         >
           <input
             v-model="etape.incertitudes.surface"
-            type="checkbox"
-          >donnée incertaine
-        </label>
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Volume</h6>
-        <p class="h6 italic mb-0">
-          Optionnel
-        </p>
-      </div>
-      <div class="tablet-blob-2-3">
-        <div class="tablet-blobs">
-          <div class="tablet-blob-2-3">
-            <input
-              v-model.number="etape.volume"
-              class="p-s mb-s"
-              type="number"
-              min="0"
-              placeholder="0"
-            >
-          </div>
-
-          <div class="tablet-blob-1-3">
-            <select
-              v-model="etape.volumeUniteId"
-              class="p-s"
-              :class="{ 'mb-s': etape.volume, mb: !etape.volume }"
-            >
-              <option :value="''" />
-              <option
-                v-for="volumeUnite in volumeUnites"
-                :key="volumeUnite.id"
-                :value="volumeUnite.id"
-                :disabled="etape.volumeUniteId === volumeUnite.id"
-              >
-                {{ volumeUnite.symbole }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <label
-          v-if="etape.volume"
-          class="h5"
-        >
-          <input
-            v-model="etape.incertitudes.volume"
             type="checkbox"
           >donnée incertaine
         </label>
@@ -427,16 +325,6 @@ export default {
     substances() {
       return this.$store.state.metas.etape.substances.filter(su =>
         su.legales.find(sl => sl.domaine.id === this.domaineId)
-      )
-    },
-
-    devises() {
-      return this.$store.state.metas.etape.devises
-    },
-
-    volumeUnites() {
-      return this.$store.state.metas.etape.unites.filter(
-        ({ type }) => type === 'volume'
       )
     },
 

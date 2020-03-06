@@ -2,7 +2,7 @@
   <div
     class="border-b-s px-m pt-m"
   >
-    <h4 v-if="section.nom">
+    <h4 v-if="section.nom && entete">
       {{ section.nom }}
     </h4>
 
@@ -32,6 +32,11 @@
 <script>
 export default {
   props: {
+    entete: {
+      type: Boolean,
+      default: true
+    },
+
     section: {
       type: Object,
       default: () => ({})

@@ -204,17 +204,7 @@ const etapeSaveFormat = etape => {
     etape.duree = null
   }
 
-  const props = [
-    'date',
-    'dateDebut',
-    'dateFin',
-    'surface',
-    'duree',
-    'volume',
-    'volumeUniteId',
-    'engagement',
-    'engagementDeviseId'
-  ]
+  const props = ['date', 'dateDebut', 'dateFin', 'surface', 'duree']
 
   props.forEach(prop => {
     if (etape[prop] === '') {
