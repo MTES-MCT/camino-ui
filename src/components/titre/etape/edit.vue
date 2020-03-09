@@ -200,8 +200,8 @@ export default {
     }
   },
 
-  created() {
-    this.get()
+  async created() {
+    await this.metasGet()
     document.addEventListener('keyup', this.keyUp)
   },
 
@@ -210,7 +210,7 @@ export default {
   },
 
   methods: {
-    async get() {
+    async metasGet() {
       await this.$store.dispatch('metas/titreEtapeGet', this.etape)
     },
 

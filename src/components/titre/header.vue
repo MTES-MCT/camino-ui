@@ -199,8 +199,8 @@ export default {
       return (
         this.titre.contenu &&
         this.titre.type.sections &&
-        this.titre.type.sections.some(
-          s => s.elements.some(
+        this.titre.type.sections.some(s =>
+          s.elements.some(
             e =>
               this.titre.contenu[s.id] &&
               (this.titre.contenu[s.id][e.id] ||

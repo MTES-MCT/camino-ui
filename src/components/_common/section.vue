@@ -1,36 +1,26 @@
 <template>
-  <div
-    class="border-b-s px-m pt-m"
-  >
+  <div>
     <h4 v-if="section.nom && entete">
       {{ section.nom }}
     </h4>
 
-    <div
-      v-for="e in section.elements"
+    <SectionElement
+      v-for="e in elements"
       :key="e.id"
-      class="tablet-blobs"
-    >
-      <div
-        v-if="e.nom"
-        class="tablet-blob-1-3"
-      >
-        <h6>
-          {{ e.nom }}
-        </h6>
-      </div>
-
-      <div :class="{'tablet-blob-2-3': e.nom, 'tablet-blob-1': !e.nom}">
-        <p>
-          {{ contenu && (contenu[e.id] || contenu[e.id] === 0) ? e.type === 'checkboxes' ? contenu[e.id].map(c => e.valeurs[c]).join(', ') : contenu[e.id] : '–' }}
-        </p>
-      </div>
-    </div>
+      :element="e"
+      :contenu="contenu"
+    />
   </div>
 </template>
 
 <script>
+import SectionElement from './section-element.vue'
+
 export default {
+  components: {
+    SectionElement
+  },
+
   props: {
     entete: {
       type: Boolean,
@@ -39,12 +29,29 @@ export default {
 
     section: {
       type: Object,
-      default: () => ({})
+      required: true
     },
 
     contenu: {
       type: Object,
       default: () => ({})
+    },
+
+    date: {
+      type: String,
+      default: ''
+    }
+  },
+
+  computed: {
+    elements() {
+      return this.section.elements.filter(
+        e =>
+          !this.date ||
+          // si la date existe, vérifie qu'elle est dans les bornes de l'élément
+          ((!e.dateDebut || e.dateDebut < this.date) &&
+            (!e.dateFin || e.dateFin >= this.date))
+      )
     }
   }
 }

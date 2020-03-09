@@ -45,8 +45,10 @@
             <Section
               v-for="s in activite.sections"
               :key="s.id"
+              class="border-b-s px-m pt-m"
               :section="s"
               :contenu="activite.contenu[s.id]"
+              :date="activite.date"
             />
           </div>
         </div>
