@@ -149,46 +149,6 @@
       </div>
     </div>
     <div
-      v-if="etape.engagement"
-      class="tablet-blobs"
-    >
-      <div class="tablet-blob-1-4">
-        <h6>
-          Engagement financier
-        </h6>
-      </div>
-      <div class="tablet-blob-3-4">
-        <p>
-          {{ numberFormat(etape.engagement) }}
-          <span v-if="etape.engagementDevise"> {{ etape.engagementDevise.id }}</span>
-          <span
-            v-if="etape.incertitudes && etape.incertitudes.engagement"
-            class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-          >?</span>
-        </p>
-      </div>
-    </div>
-    <div
-      v-if="etape.volume"
-      class="tablet-blobs"
-    >
-      <div class="tablet-blob-1-4">
-        <h6>
-          Volume
-        </h6>
-      </div>
-      <div class="tablet-blob-3-4">
-        <p>
-          {{ numberFormat(etape.volume) }}
-          <span v-if="etape.volumeUnite"> {{ etape.volumeUnite.symbole }}</span>
-          <span
-            v-if="etape.incertitudes && etape.incertitudes.volume"
-            class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-          >?</span>
-        </p>
-      </div>
-    </div>
-    <div
       v-if="etape.substances.length"
       class="tablet-blobs"
     >

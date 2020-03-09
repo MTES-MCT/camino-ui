@@ -26,6 +26,7 @@ const fragmentTitre = gql`
       type {
         nom
       }
+      sections
     }
     domaine {
       id
@@ -53,16 +54,6 @@ const fragmentTitre = gql`
     activitesAbsentes
     activitesDeposees
     surface
-    volume
-    volumeUnite {
-      id
-      nom
-    }
-    engagement
-    engagementDevise {
-      id
-      nom
-    }
     administrations {
       ...titreAdministrations
     }
@@ -90,6 +81,7 @@ const fragmentTitre = gql`
     activites {
       ...titreActivite
     }
+    contenu
 
     editable
     supprimable
@@ -161,16 +153,6 @@ const fragmentTitres = gql`
     }
     geojsonMultiPolygon {
       ...geojsonMultiPolygon
-    }
-    volume
-    volumeUnite {
-      id
-      nom
-    }
-    engagement
-    engagementDevise {
-      id
-      nom
     }
     surface
     pays {

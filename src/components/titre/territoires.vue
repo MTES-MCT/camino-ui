@@ -5,10 +5,6 @@
         <h6>Surface</h6>
         <p>{{ surface }} km² environ</p>
       </div>
-      <div v-if="volume">
-        <h6>Volume</h6>
-        <p>{{ volume }} {{ volumeUnite }}</p>
-      </div>
     </div>
     <div
       v-if="pays && pays.length"
@@ -46,16 +42,6 @@ export default {
       default: () => []
     },
 
-    volume: {
-      type: Number,
-      default: 0
-    },
-
-    volumeUnite: {
-      type: String,
-      default: ''
-    },
-
     surface: {
       type: Number,
       default: 0
@@ -63,4 +49,3 @@ export default {
   }
 }
 </script>
-

@@ -59,12 +59,17 @@
         :etape="etape"
       />
 
-      <div v-if="hasContenu">
+      <div
+        v-if="hasContenu"
+        class="border-b-s"
+      >
         <Section
           v-for="s in etape.type.sections"
           :key="s.id"
+          class="border-b-s px-m pt-m"
           :section="s"
           :contenu="etape.contenu[s.id]"
+          :date="etape.date"
         />
       </div>
 
@@ -139,8 +144,8 @@ export default {
       return (
         this.etape.contenu &&
         this.etape.type.sections &&
-        this.etape.type.sections.some(
-          s => s.elements.some(
+        this.etape.type.sections.some(s =>
+          s.elements.some(
             e =>
               this.etape.contenu[s.id] &&
               (this.etape.contenu[s.id][e.id] ||

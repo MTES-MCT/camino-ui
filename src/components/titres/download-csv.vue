@@ -80,8 +80,6 @@ export default {
             date_fin: titre.dateFin,
             date_demande: titre.dateDemande,
             statut: titre.statut.nom,
-            volume: titre.volume,
-            volume_unite: titre.volumeUnite,
             substances: titre.substances.map(s => s.nom).join(';'),
             surface_km2: titre.surface,
             communes: communes.join(';'),
@@ -105,6 +103,9 @@ export default {
               .map(e => e.legalEtranger || e.legalSiren)
               .join(';'),
             geojson: titre.geojsonMultiPolygon,
+            // todo : gérer les props qui viennent des étapes
+            volume: titre.volume,
+            volume_unite: titre.volumeUnite,
             engagement: titre.engagement,
             engagement_devise:
               titre.engagementDevise && titre.engagementDevise.id

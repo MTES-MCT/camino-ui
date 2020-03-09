@@ -15,15 +15,6 @@ const fragmentTitreEtape = gql`
     dateFin
     duree
     surface
-    volume
-    volumeUnite {
-      ...unite
-    }
-    engagement
-    engagementDevise {
-      id
-      nom
-    }
     type {
       id
       nom
@@ -101,8 +92,6 @@ const fragmentTitreEtape = gql`
     dateFin
     duree
     surface
-    volume
-    engagement
     points
     substances
     titulaires

@@ -39,8 +39,6 @@ export default {
               date_fin: titre.dateFin,
               date_demande: titre.dateDemande,
               statut: titre.statut.nom,
-              volume: titre.volume,
-              volume_unite: titre.volumeUnite,
               substances: titre.substances.map(s => s.nom).join(', ') || null,
               surface_km2: titre.surface,
               administrations_noms: titre.administrations.map(a => a.nom),
@@ -56,6 +54,9 @@ export default {
                 titre.amodiataires
                   .map(e => e.legalEtranger || e.legalSiren)
                   .join(', ') || null,
+              volume: titre.volume,
+                volume_unite: titre.volumeUnite,
+              // todo : gérer les props qui viennent des étapes
               engagement: titre.engagement,
               engagement_devise:
                 titre.engagementDevise && titre.engagementDevise.id,

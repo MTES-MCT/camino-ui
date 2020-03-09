@@ -78,8 +78,6 @@
       <TitreTerritoires
         :pays="titre.pays"
         :surface="titre.surface"
-        :volume="titre.volume"
-        :volume-unite="titre.volumeUnite && titre.volumeUnite.nom"
       />
 
       <TitreRepertoire
