@@ -1,28 +1,11 @@
 {
-  "eslint.autoFixOnSave": true,
   "eslint.enable": true,
-  "eslint.validate": [
-    {
-      "language": "html",
-      "autoFix": true
-    },
-    {
-      "language": "javascript",
-      "autoFix": true
-    },
-    {
-      "language": "vue",
-      "autoFix": true
-    },
-    {
-      "language": "vue-html",
-      "autoFix": true
-    }
-  ],
+  "eslint.validate": ["html", "javascript", "vue", "vue-html"],
   "vetur.format.defaultFormatter.html": "none",
   "vetur.validation.template": false,
   "workbench.colorCustomizations": {
     "activityBar.background": "#65c89b",
+    "activityBar.activeBackground": "#65c89b",
     "activityBar.activeBorder": "#945bc4",
     "activityBar.foreground": "#15202b",
     "activityBar.inactiveForeground": "#15202b99",
