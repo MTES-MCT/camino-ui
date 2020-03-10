@@ -1,7 +1,9 @@
-import user from './user'
-import * as api from '../api/utilisateurs'
-import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { createLocalVue } from '@vue/test-utils'
+import * as api from '../api/utilisateurs'
+
+import user from './user'
+import tiles from '../conf/map-tiles'
 
 jest.mock('../api/utilisateurs', () => ({
   utilisateurTokenCreer: jest.fn(),
@@ -9,8 +11,11 @@ jest.mock('../api/utilisateurs', () => ({
   utilisateurMotDePasseInitialiser: jest.fn(),
   utilisateurMotDePasseEmailEnvoyer: jest.fn(),
   utilisateurCreationEmailEnvoyer: jest.fn(),
-  utilisateurCreer: jest.fn()
+  utilisateurCreer: jest.fn(),
+  metasUser: jest.fn()
 }))
+
+console.log = jest.fn()
 
 jest.mock('../router', () => [])
 
@@ -40,25 +45,23 @@ describe("état de l'utilisateur connecté", () => {
 
     user.state = {
       current: null,
-      preferences: {
-        carte: { tilesId: 'osm-fr' },
-        titres: {
-          vueId: 'carte',
-          filtres: { domaines: null }
-        },
-        demarches: {
-          vueId: 'carte',
-          filtres: { types: null }
-        }
+      metas: {
+        utilisateurDomaines: [],
+
+        version: null,
+        versionUi: null,
+        tiles
       },
-      loaded: false,
-      titresFiltresLoaded: false,
-      demarchesFiltresLoaded: false
+      preferences: {
+        carte: { tilesId: 'osm-fr' }
+      },
+      loaded: false
     }
 
     actions = {
       messageAdd: jest.fn(),
-      errorRemove: jest.fn()
+      errorRemove: jest.fn(),
+      apiError: jest.fn()
     }
 
     mutations = {
@@ -76,6 +79,37 @@ describe("état de l'utilisateur connecté", () => {
       actions,
       mutations
     })
+  })
+
+  test("initialise les métas de l'utilisateur connecté", async () => {
+    const apiMock = api.metasUser.mockResolvedValue({
+      version: '1.1.1',
+      utilisateurDomaines: null
+    })
+
+    await store.dispatch('user/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.user.metas).toEqual({
+      utilisateurDomaines: [],
+      version: '1.1.1',
+      versionUi: null,
+      tiles
+    })
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api ne répond pas", async () => {
+    const apiMock = api.metasUser.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+
+    await store.dispatch('user/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(actions.apiError).toHaveBeenCalled()
+    expect(store.state.user.metas.version).toBeNull()
   })
 
   test("identifie l'utilisateur si un token valide est présent", async () => {
@@ -274,14 +308,6 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("initialise les preferences de l'utilisateur", async () => {
-    const section = 'titres.filtres'
-    const params = { domainesIds: 'h' }
-    await store.dispatch('user/preferencesSet', { section, params })
-
-    expect(store.state.user.preferences.titres.filtres.domainesIds).toEqual('h')
-  })
-
-  test("initialise les preferences de l'utilisateur", async () => {
     const section = 'conditions'
     const value = 'conditionValue'
     const params = { value }
@@ -290,14 +316,26 @@ describe("état de l'utilisateur connecté", () => {
     expect(localStorage.getItem('conditions')).toEqual(value)
   })
 
-  test("regarde si la tuile active n'appartient pas aux tuiles de la carte", () => {
-    map = { state: { tiles: [{ id: 'geoportail' }] } }
-    store = new Vuex.Store({ modules: { user, map }, actions, mutations })
+  test('initialise les preferences de filtre', async () => {
+    const section = 'carte'
+    const params = { tilesId: 'ign' }
+    await store.dispatch('user/preferencesSet', { section, params })
 
-    expect(store.getters['user/tilesActive']).toBeUndefined()
+    expect(store.state.user.preferences.carte.tilesId).toEqual('ign')
   })
 
-  test("regarde si l'utilisateur est connecté", () => {
+  test('retourne le fond de carte actif', () => {
+    expect(store.getters['user/tilesActive']).toEqual({
+      id: 'osm-fr',
+      name: 'osm / fr',
+      type: 'tiles',
+      url: 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
+      attribution:
+        '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    })
+  })
+
+  test("retourne true si l'utilisateur est connecté", () => {
     user.state.current = {}
     store = new Vuex.Store({ modules: { user } })
 
@@ -329,17 +367,5 @@ describe("état de l'utilisateur connecté", () => {
       permission: 'admin'
     })
     expect(store.state.user.current.entreprise).toBeUndefined()
-  })
-
-  test('initialise les préférences de filtres de titres', () => {
-    store.commit('user/titresFiltresLoaded')
-
-    expect(store.state.user.titresFiltresLoaded).toBeTruthy()
-  })
-
-  test('initialise les préférences de filtres de démarches', () => {
-    store.commit('user/demarchesFiltresLoaded')
-
-    expect(store.state.user.demarchesFiltresLoaded).toBeTruthy()
   })
 })

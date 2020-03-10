@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-import { fragmentTitreEtape } from './etape'
+import { fragmentTitreEtape } from './titre-etape'
 import { fragmentDemarcheType, fragmentDemarcheStatut } from './metas'
 
 const fragmentTitreDemarche = gql`

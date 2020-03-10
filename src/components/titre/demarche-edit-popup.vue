@@ -117,7 +117,7 @@ export default {
     },
 
     types() {
-      return this.$store.state.metas.demarche.types
+      return this.$store.state.titreDemarche.metas.types
     },
 
     complete() {
@@ -136,7 +136,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('metas/titreDemarcheGet', this.demarche)
+      await this.$store.dispatch('titreDemarche/metasGet', this.demarche)
     },
 
     async save() {
@@ -144,9 +144,9 @@ export default {
         const demarche = JSON.parse(JSON.stringify(this.demarche))
 
         if (this.creation) {
-          await this.$store.dispatch('titre/demarcheAdd', demarche)
+          await this.$store.dispatch('titreDemarche/add', demarche)
         } else {
-          await this.$store.dispatch('titre/demarcheUpdate', demarche)
+          await this.$store.dispatch('titreDemarche/update', demarche)
         }
       }
     },

@@ -58,40 +58,7 @@ const fragmentDemarcheType = gql`
   }
 `
 
-const fragmentActiviteType = gql`
-  fragment activiteType on ActiviteType {
-    id
-    nom
-    pays {
-      id
-      nom
-    }
-    frequence {
-      id
-      nom
-      trimestres {
-        id
-        nom
-        mois {
-          id
-          nom
-        }
-      }
-      mois {
-        id
-        nom
-      }
-      annees {
-        id
-        nom
-      }
-    }
-    sections
-  }
-`
-
 export {
-  fragmentActiviteType,
   fragmentEtapeType,
   fragmentPermission,
   fragmentUnite,

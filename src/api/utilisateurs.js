@@ -1,10 +1,58 @@
 import gql from 'graphql-tag'
+import { apiQuery, apiMutate } from './_utils'
+
 import {
   fragmentUtilisateur,
   fragmentUtilisateurToken
 } from './fragments/utilisateur'
+import { fragmentPermission } from './fragments/metas'
+import { fragmentEntreprises } from './fragments/entreprises'
+import { fragmentAdministrations } from './fragments/administrations'
 
-import { apiQuery, apiMutate } from './_utils'
+const metasUser = apiQuery(
+  gql`
+    query MetasUser {
+      version
+
+      utilisateurDomaines {
+        id
+        nom
+        titresTypes {
+          id
+          type {
+            nom
+          }
+        }
+      }
+    }
+  `,
+  { fetchPolicy: 'network-only' }
+)
+
+const metasUtilisateur = apiQuery(
+  gql`
+    query MetasUtilisateur {
+      permissions {
+        ...permission
+      }
+
+      entreprises {
+        ...entreprises
+      }
+
+      administrations {
+        ...administrations
+      }
+    }
+
+    ${fragmentPermission}
+
+    ${fragmentEntreprises}
+
+    ${fragmentAdministrations}
+  `,
+  { fetchPolicy: 'network-only' }
+)
 
 const utilisateur = apiQuery(
   gql`
@@ -141,6 +189,8 @@ const utilisateurCreationEmailEnvoyer = apiMutate(gql`
 `)
 
 export {
+  metasUser,
+  metasUtilisateur,
   utilisateur,
   utilisateurs,
   moi,

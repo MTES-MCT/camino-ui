@@ -8,25 +8,17 @@ jest.mock('../router', () => ({
 }))
 
 jest.mock('../api/titres', () => ({
+  metasTitre: jest.fn(),
   titre: jest.fn(),
   titreCreer: jest.fn(),
   titreModifier: jest.fn(),
-  titreSupprimer: jest.fn(),
-  demarcheCreer: jest.fn(),
-  demarcheModifier: jest.fn(),
-  demarcheSupprimer: jest.fn(),
-  etapeCreer: jest.fn(),
-  etapeModifier: jest.fn(),
-  etapeSupprimer: jest.fn(),
-  documentCreer: jest.fn(),
-  documentModifier: jest.fn(),
-  documentSupprimer: jest.fn()
+  titreSupprimer: jest.fn()
 }))
+
+console.log = jest.fn()
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
-
-console.log = jest.fn()
 
 describe('état du titre sélectionné', () => {
   let store
@@ -36,6 +28,9 @@ describe('état du titre sélectionné', () => {
   beforeEach(() => {
     titre.state = {
       current: null,
+      metas: {
+        referencesTypes: []
+      },
       documents: []
     }
     actions = {
@@ -57,6 +52,42 @@ describe('état du titre sélectionné', () => {
       actions,
       mutations
     })
+  })
+
+  test('récupère les métas pour éditer un titre', async () => {
+    const apiMock = api.metasTitre
+      .mockResolvedValueOnce([
+        { id: 'ifr', nom: 'Ifremer' },
+        { id: 'dge', nom: 'DGEC' }
+      ])
+      .mockResolvedValueOnce(undefined)
+
+    await store.dispatch('titre/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.titre.metas.referencesTypes).toEqual([
+      { id: 'ifr', nom: 'Ifremer' },
+      { id: 'dge', nom: 'DGEC' }
+    ])
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+
+    await store.dispatch('titre/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.titre.metas.referencesTypes).toEqual([])
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api ne répond pas", async () => {
+    const apiMock = api.metasTitre.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+
+    await store.dispatch('titre/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('obtient le titre en cours', async () => {
@@ -144,205 +175,6 @@ describe('état du titre sélectionné', () => {
     await store.dispatch('titre/titreRemove', 83)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 83 })
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test('crée une démarche', async () => {
-    api.demarcheCreer.mockResolvedValue({ id: 52, nom: 'val' })
-    await store.dispatch('titre/demarcheAdd', { id: 52, nom: 'val' })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la création d'une démarche", async () => {
-    api.demarcheCreer.mockResolvedValue(null)
-    await store.dispatch('titre/demarcheAdd', { id: 52, nom: 'val' })
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur lors de la création d'une démarche", async () => {
-    api.demarcheCreer.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('titre/demarcheAdd', { id: 52, nom: 'val' })
-
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test('met à jour une démarche', async () => {
-    api.demarcheModifier.mockResolvedValue({ id: 52, nom: 'val' })
-    await store.dispatch('titre/demarcheUpdate', { id: 52, nom: 'val' })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la mise à jour d'une démarche", async () => {
-    api.demarcheModifier.mockResolvedValue(null)
-    await store.dispatch('titre/demarcheUpdate', { id: 52, nom: 'val' })
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'une démarche", async () => {
-    api.demarcheModifier.mockRejectedValue(new Error("erreur de l'api"))
-    await store.dispatch('titre/demarcheUpdate', { id: 52, nom: 'val' })
-
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test('supprime une démarche', async () => {
-    api.demarcheSupprimer.mockResolvedValue(52)
-    await store.dispatch('titre/demarcheRemove', 52)
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la suppression d'une démarche", async () => {
-    api.demarcheSupprimer.mockResolvedValue(null)
-    await store.dispatch('titre/demarcheRemove', 52)
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur lors de la suppression d'une démarche", async () => {
-    api.demarcheSupprimer.mockRejectedValue(new Error("erreur de l'api"))
-    await store.dispatch('titre/demarcheRemove', 52)
-
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test('met à jour une étape', async () => {
-    api.etapeCreer.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('titre/etapeAdd', { id: 14, nom: 'champs' })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la création d'une étape", async () => {
-    api.etapeCreer.mockResolvedValue(null)
-    await store.dispatch('titre/etapeAdd', { id: 14, nom: 'champs' })
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur lors de la création d'une étape", async () => {
-    api.etapeCreer.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('titre/etapeAdd', { id: 14, nom: 'champs' })
-
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test('met à jour une étape', async () => {
-    api.etapeModifier.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('titre/etapeUpdate', { id: 14, nom: 'champs' })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la mise à jour d'une étape", async () => {
-    api.etapeModifier.mockResolvedValue(null)
-    await store.dispatch('titre/etapeUpdate', { id: 14, nom: 'champs' })
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'une étape", async () => {
-    api.etapeModifier.mockRejectedValue(new Error("erreur de l'api"))
-    await store.dispatch('titre/etapeUpdate', { id: 14, nom: 'champs' })
-
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test('supprime une étape', async () => {
-    const apiMock = api.etapeSupprimer.mockResolvedValue(14)
-    await store.dispatch('titre/etapeRemove', 14)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 14 })
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la suppression d'une étape", async () => {
-    const apiMock = api.etapeSupprimer.mockResolvedValue(null)
-    await store.dispatch('titre/etapeRemove', 14)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 14 })
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur lors de la suppression d'une étape", async () => {
-    const apiMock = api.etapeSupprimer.mockRejectedValue(
-      new Error("erreur de l'api")
-    )
-    await store.dispatch('titre/etapeRemove', 14)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 14 })
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test('met à jour un document', async () => {
-    api.documentCreer.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('titre/documentAdd', { id: 14, nom: 'champs' })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la création d'un document", async () => {
-    api.documentCreer.mockResolvedValue(null)
-    await store.dispatch('titre/documentAdd', { id: 14, nom: 'champs' })
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur lors de la création d'un document", async () => {
-    api.documentCreer.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('titre/documentAdd', { id: 14, nom: 'champs' })
-
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test('met à jour un document', async () => {
-    api.documentModifier.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('titre/documentUpdate', { id: 14, nom: 'champs' })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la mise à jour d'un document", async () => {
-    api.documentModifier.mockResolvedValue(null)
-    await store.dispatch('titre/documentUpdate', { id: 14, nom: 'champs' })
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'un document", async () => {
-    api.documentModifier.mockRejectedValue(new Error("erreur de l'api"))
-    await store.dispatch('titre/documentUpdate', { id: 14, nom: 'champs' })
-
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test('supprime un document', async () => {
-    const apiMock = api.documentSupprimer.mockResolvedValue(62)
-    await store.dispatch('titre/documentRemove', 62)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 62 })
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la suppression d'un document", async () => {
-    const apiMock = api.documentSupprimer.mockResolvedValue(null)
-    await store.dispatch('titre/documentRemove', 62)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 62 })
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur lors de la suppression d'un document", async () => {
-    const apiMock = api.documentSupprimer.mockRejectedValue(
-      new Error("erreur de l'api")
-    )
-    await store.dispatch('titre/documentRemove', 62)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 62 })
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 

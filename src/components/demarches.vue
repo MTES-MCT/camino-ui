@@ -51,7 +51,7 @@ export default {
 
   computed: {
     demarches() {
-      return this.$store.state.demarches.list
+      return this.$store.state.titresDemarches.list
     },
 
     user() {
@@ -78,11 +78,11 @@ export default {
 
   methods: {
     async demarchesUpdate(params) {
-      await this.$store.dispatch('demarches/get', params)
+      await this.$store.dispatch('titresDemarches/get', params)
     },
 
     async metasGet() {
-      await this.$store.dispatch('metas/demarchesGet')
+      await this.$store.dispatch('titresDemarches/metasGet')
       if (!this.metasLoaded) {
         this.metasLoaded = true
       }

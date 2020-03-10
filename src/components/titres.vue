@@ -134,7 +134,7 @@ export default {
     },
 
     preferences() {
-      return this.$store.state.user.preferences.titres.vue
+      return this.$store.state.titres.preferences.vue
     },
 
     vue() {
@@ -150,7 +150,7 @@ export default {
     },
 
     editable() {
-      return this.$store.state.metas.utilisateurDomaines.length
+      return this.$store.state.user.metas.utilisateurDomaines.length
     }
   },
 
@@ -169,15 +169,15 @@ export default {
     },
 
     async metasGet() {
-      await this.$store.dispatch('metas/titresGet')
+      await this.$store.dispatch('titres/metasGet')
       if (!this.metasLoaded) {
         this.metasLoaded = true
       }
     },
 
     preferencesUpdate(params) {
-      this.$store.dispatch('user/preferencesSet', {
-        section: 'titres.vue',
+      this.$store.dispatch('titres/preferencesSet', {
+        section: 'vue',
         params
       })
     },

@@ -3,10 +3,11 @@ import Vuex from 'vuex'
 import { saveAs } from 'file-saver'
 
 import titre from './titre'
+import titreDemarche from './titre-demarche'
+import titreEtape from './titre-etape'
+import titreDocument from './titre-document'
 import titres from './titres'
-import demarches from './demarches'
-import metas from './metas'
-import map from './map'
+import titresDemarches from './titres-demarches'
 import utilisateur from './utilisateur'
 import utilisateurs from './utilisateurs'
 import entreprise from './entreprise'
@@ -14,18 +15,19 @@ import entreprises from './entreprises'
 import administration from './administration'
 import administrations from './administrations'
 import user from './user'
-import activite from './activite'
-import activites from './activites'
+import titreActivite from './titre-activite'
+import titresActivites from './titres-activites'
 import statistiques from './statistiques'
 
 import router from '../router'
 
 const modules = {
   titre,
+  titreDemarche,
+  titreEtape,
+  titreDocument,
   titres,
-  demarches,
-  metas,
-  map,
+  titresDemarches,
   utilisateur,
   utilisateurs,
   entreprise,
@@ -33,8 +35,8 @@ const modules = {
   administration,
   administrations,
   user,
-  activite,
-  activites,
+  titreActivite,
+  titresActivites,
   statistiques
 }
 

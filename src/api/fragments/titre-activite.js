@@ -1,6 +1,37 @@
 import gql from 'graphql-tag'
-import { fragmentActiviteType } from './metas'
 import { fragmentTitresEntreprises } from './entreprises'
+
+const fragmentActiviteType = gql`
+  fragment activiteType on ActiviteType {
+    id
+    nom
+    pays {
+      id
+      nom
+    }
+    frequence {
+      id
+      nom
+      trimestres {
+        id
+        nom
+        mois {
+          id
+          nom
+        }
+      }
+      mois {
+        id
+        nom
+      }
+      annees {
+        id
+        nom
+      }
+    }
+    sections
+  }
+`
 
 const fragmentTitreActivite = gql`
   fragment titreActivite on Activite {
@@ -74,4 +105,9 @@ const fragmentTitresActivite = gql`
   }
 `
 
-export { fragmentActivite, fragmentTitreActivite, fragmentTitresActivite }
+export {
+  fragmentActiviteType,
+  fragmentActivite,
+  fragmentTitreActivite,
+  fragmentTitresActivite
+}

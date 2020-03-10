@@ -2,7 +2,6 @@
 const paramsArrayBuild = (paramsCheckboxes, preferences) =>
   paramsCheckboxes.reduce((params, id) => {
     const values = preferences[id] && preferences[id].split(',')
-    // .map(v => v.replace(/^"(.*)"$/, '$1'))
 
     if (values && values.length) {
       params = Object.assign(params, { [id]: values })

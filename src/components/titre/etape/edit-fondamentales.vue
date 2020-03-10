@@ -319,11 +319,11 @@ export default {
 
   computed: {
     entreprises() {
-      return this.$store.state.metas.etape.entreprises
+      return this.$store.state.titreEtape.metas.entreprises
     },
 
     substances() {
-      return this.$store.state.metas.etape.substances.filter(su =>
+      return this.$store.state.titreEtape.metas.substances.filter(su =>
         su.legales.find(sl => sl.domaine.id === this.domaineId)
       )
     },

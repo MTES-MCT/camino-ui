@@ -28,9 +28,9 @@ export default {
   computed: {
     metas() {
       return {
-        domaines: this.$store.state.metas.titres.domaines,
-        types: this.$store.state.metas.titres.types,
-        statuts: this.$store.state.metas.titres.statuts
+        domaines: this.$store.state.titres.metas.domaines,
+        types: this.$store.state.titres.metas.types,
+        statuts: this.$store.state.titres.metas.statuts
       }
     },
 
@@ -59,7 +59,7 @@ export default {
     },
 
     preferences() {
-      return this.$store.state.user.preferences.titres.filtres
+      return this.$store.state.titres.preferences.filtres
     }
   },
 
@@ -141,8 +141,8 @@ export default {
     },
 
     preferencesUpdate(params) {
-      this.$store.dispatch('user/preferencesSet', {
-        section: 'titres.filtres',
+      this.$store.dispatch('titres/preferencesSet', {
+        section: 'filtres',
         params
       })
     },

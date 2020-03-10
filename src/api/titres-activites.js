@@ -1,7 +1,25 @@
 import gql from 'graphql-tag'
-import { fragmentActivite } from './fragments/activite'
-
 import { apiMutate, apiQuery } from './_utils'
+
+import {
+  fragmentActivite,
+  fragmentActiviteType
+} from './fragments/titre-activite'
+
+const metasActivites = apiQuery(
+  gql`
+    query MetasActivites {
+      activitesTypes {
+        ...activiteType
+      }
+    }
+
+    ${fragmentActiviteType}
+  `,
+  {
+    fetchPolicy: 'network-only'
+  }
+)
 
 const activiteModifier = apiMutate(gql`
   mutation ActiviteModifier($activite: InputActiviteModification!) {
@@ -39,4 +57,4 @@ const activite = apiQuery(
   { fetchPolicy: 'network-only' }
 )
 
-export { activite, activites, activiteModifier }
+export { activite, activites, activiteModifier, metasActivites }

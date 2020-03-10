@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
-import { fragmentTitreDemarche } from './demarche'
-import { fragmentTitreActivite } from './activite'
+import { fragmentTitreDemarche } from './titre-demarche'
+import { fragmentTitreActivite } from './titre-activite'
 import { fragmentTitreSubstance, fragmentTitresSubstance } from './substance'
 import {
   fragmentTitreAdministrations,

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import {
+  metasUtilisateur,
   utilisateur,
   utilisateurCreer,
   utilisateurModifier,
@@ -11,10 +12,29 @@ import {
 import router from '../router'
 
 export const state = {
-  current: null
+  current: null,
+  metas: {
+    permissions: [],
+    entreprises: [],
+    administrations: []
+  }
 }
 
 export const actions = {
+  async metasGet({ commit }) {
+    commit('loadingAdd', 'metasUtilisateur', { root: true })
+
+    try {
+      const data = await metasUtilisateur()
+
+      commit('metasSet', data)
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      console.log(e)
+    } finally {
+      commit('loadingRemove', 'metasUtilisateur', { root: true })
+    }
+  },
   async get({ commit, dispatch }, id) {
     commit('loadingAdd', 'utilisateur', { root: true })
 
@@ -159,6 +179,12 @@ export const mutations = {
 
   reset(state) {
     Vue.set(state, 'current', null)
+  },
+
+  metasSet(state, data) {
+    Object.keys(data).forEach(id => {
+      Vue.set(state.metas, id, data[id] ? data[id] : [])
+    })
   }
 }
 

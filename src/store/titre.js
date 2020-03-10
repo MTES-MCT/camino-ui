@@ -1,28 +1,37 @@
 import Vue from 'vue'
 
 import {
+  metasTitre,
   titre,
   titreCreer,
   titreModifier,
-  titreSupprimer,
-  demarcheCreer,
-  demarcheModifier,
-  demarcheSupprimer,
-  etapeCreer,
-  etapeModifier,
-  etapeSupprimer,
-  documentCreer,
-  documentModifier,
-  documentSupprimer
+  titreSupprimer
 } from '../api/titres'
 
 import router from '../router'
 
 export const state = {
-  current: null
+  current: null,
+  metas: {
+    referencesTypes: []
+  }
 }
 
 export const actions = {
+  async metasGet({ commit }) {
+    commit('loadingAdd', 'metasTitreGet', { root: true })
+
+    try {
+      const data = await metasTitre()
+
+      commit('metasSet', { referencesTypes: data })
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'metasTitreGet', { root: true })
+    }
+  },
+
   async get({ commit, dispatch }, id) {
     commit('loadingAdd', 'titre', { root: true })
 
@@ -120,240 +129,6 @@ export const actions = {
     } finally {
       commit('loadingRemove', 'titreRemove', { root: true })
     }
-  },
-
-  async demarcheAdd({ commit, dispatch }, demarche) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheAdd', { root: true })
-
-    try {
-      const data = await demarcheCreer({ demarche })
-
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreDemarcheAdd', { root: true })
-    }
-  },
-
-  async demarcheUpdate({ commit, dispatch }, demarche) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheUpdate', { root: true })
-
-    try {
-      const data = await demarcheModifier({ demarche })
-
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreDemarcheUpdate', { root: true })
-    }
-  },
-
-  async demarcheRemove({ commit, dispatch }, id) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheRemove', { root: true })
-
-    try {
-      const data = await demarcheSupprimer({ id })
-
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreDemarcheRemove', { root: true })
-    }
-  },
-
-  async etapeAdd({ commit, dispatch }, etape) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreEtapeAdd', { root: true })
-
-    try {
-      const data = await etapeCreer({ etape })
-
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreEtapeAdd', { root: true })
-    }
-  },
-
-  async etapeUpdate({ commit, dispatch }, etape) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreEtapeUpdate', { root: true })
-
-    try {
-      const data = await etapeModifier({ etape })
-
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreEtapeUpdate', { root: true })
-    }
-  },
-
-  async etapeRemove({ commit, dispatch }, id) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreEtapeRemove', { root: true })
-
-    try {
-      const data = await etapeSupprimer({ id })
-
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreEtapeRemove', { root: true })
-    }
-  },
-
-  async documentAdd({ commit, dispatch }, document) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDocumentAdd', { root: true })
-
-    try {
-      const data = await documentCreer({ document })
-
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreDocumentAdd', { root: true })
-    }
-  },
-
-  async documentUpdate({ commit, dispatch }, document) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDocumentUpdate', { root: true })
-
-    try {
-      const data = await documentModifier({ document })
-
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreDocumentUpdate', { root: true })
-    }
-  },
-
-  async documentRemove({ commit, dispatch }, id) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDocumentRemove', { root: true })
-
-    try {
-      const data = await documentSupprimer({ id })
-
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreDocumentRemove', { root: true })
-    }
   }
 }
 
@@ -364,6 +139,12 @@ export const mutations = {
 
   reset(state) {
     Vue.set(state, 'current', null)
+  },
+
+  metasSet(state, data) {
+    Object.keys(data).forEach(id => {
+      Vue.set(state.metas, id, data[id] ? data[id] : [])
+    })
   }
 }
 

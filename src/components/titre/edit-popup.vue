@@ -189,11 +189,11 @@ export default {
     },
 
     domaines() {
-      return this.$store.state.metas.utilisateurDomaines
+      return this.$store.state.user.metas.utilisateurDomaines
     },
 
     referencesTypes() {
-      return this.$store.state.metas.titre.referencesTypes
+      return this.$store.state.titre.metas.referencesTypes
     },
 
     types() {
@@ -220,7 +220,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('metas/titreGet')
+      await this.$store.dispatch('titre/metasGet')
     },
 
     async save() {

@@ -1,10 +1,12 @@
-import utilisateur from './utilisateur'
-import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { createLocalVue } from '@vue/test-utils'
 import * as router from '../router'
 import * as api from '../api/utilisateurs'
 
+import utilisateur from './utilisateur'
+
 jest.mock('../api/utilisateurs', () => ({
+  metasUtilisateur: jest.fn(),
   utilisateur: jest.fn(),
   utilisateurCreer: jest.fn(),
   utilisateurModifier: jest.fn(),
@@ -28,7 +30,14 @@ describe("état de l'utilisateur consulté", () => {
   let user
 
   beforeEach(() => {
-    utilisateur.state = { current: null }
+    utilisateur.state = {
+      current: null,
+      metas: {
+        permissions: [],
+        entreprises: [],
+        administrations: []
+      }
+    }
     user = {
       namespaced: true,
       state: {
@@ -61,6 +70,49 @@ describe("état de l'utilisateur consulté", () => {
       mutations,
       actions
     })
+  })
+
+  test('récupère les métas pour éditer un utilisateur', async () => {
+    const apiMock = api.metasUtilisateur.mockResolvedValue({
+      permissions: [
+        { id: 'w', nom: 'granulats' },
+        { id: 'c', nom: 'carrières' }
+      ],
+      entreprises: null
+    })
+
+    await store.dispatch('utilisateur/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.utilisateur.metas).toEqual({
+      permissions: [
+        { id: 'w', nom: 'granulats' },
+        { id: 'c', nom: 'carrières' }
+      ],
+      entreprises: [],
+      administrations: []
+    })
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api ne répond pas", async () => {
+    const apiMock = api.metasUtilisateur.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+
+    await store.dispatch('utilisateur/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api répond null", async () => {
+    const apiMock = api.metasUtilisateur.mockResolvedValue(null)
+
+    await store.dispatch('utilisateur/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
   })
 
   test("obtient les données d'un utilisateur", async () => {

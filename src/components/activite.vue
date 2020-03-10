@@ -77,7 +77,7 @@ export default {
 
   computed: {
     activite() {
-      return this.$store.state.activite.current
+      return this.$store.state.titreActivite.current
     },
 
     user() {
@@ -105,7 +105,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('activite/get', this.$route.params.id)
+      await this.$store.dispatch('titreActivite/get', this.$route.params.id)
     }
   }
 }

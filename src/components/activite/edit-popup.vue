@@ -188,7 +188,7 @@ export default {
       }
 
       this.errorsRemove()
-      await this.$store.dispatch('activite/update', {
+      await this.$store.dispatch('titreActivite/update', {
         activite: this.activite,
         context: this.context
       })

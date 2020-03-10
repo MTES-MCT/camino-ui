@@ -20,7 +20,7 @@ export default {
 
   computed: {
     preferences() {
-      return this.$store.state.user.preferences.titres.filtres
+      return this.$store.state.titres.preferences.filtres
     }
   },
 
@@ -30,8 +30,8 @@ export default {
     },
 
     preferencesUpdate(params) {
-      this.$store.dispatch('user/preferencesSet', {
-        section: 'titres.filtres',
+      this.$store.dispatch('titres/preferencesSet', {
+        section: 'filtres',
         params
       })
     }

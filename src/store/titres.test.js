@@ -4,13 +4,14 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/titres', () => ({
-  titres: jest.fn()
+  titres: jest.fn(),
+  metasTitres: jest.fn()
 }))
+
+console.log = jest.fn()
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
-
-console.log = jest.fn()
 
 describe('liste des titres', () => {
   let actions
@@ -21,6 +22,34 @@ describe('liste des titres', () => {
     titresListe = ['pointe-a-pitre', 'marseille-sud', 'matignon']
     titres.state = {
       list: [],
+      metas: {
+        domaines: [],
+        types: [],
+        statuts: []
+      },
+      preferences: {
+        vue: { vueId: 'carte' },
+        table: {
+          page: 1,
+          intervalle: 200,
+          ordre: 'asc',
+          colonne: 'nom'
+        },
+        carte: {
+          zoom: null,
+          centre: null
+        },
+        filtres: {
+          typesIds: null,
+          domainesIds: null,
+          statutsIds: null,
+          noms: null,
+          entreprises: null,
+          substances: null,
+          references: null,
+          territoires: null
+        }
+      },
       params: {
         arrays: ['typesIds', 'domainesIds', 'statutsIds'],
         strings: [
@@ -45,6 +74,49 @@ describe('liste des titres', () => {
       mutations,
       actions
     })
+  })
+
+  test('récupère les métas pour visualiser les titres', async () => {
+    const apiMock = api.metasTitres.mockResolvedValue({
+      domaines: [
+        { id: 'w', nom: 'granulats' },
+        { id: 'c', nom: 'carrières' }
+      ],
+      types: [
+        { id: 'ifr', nom: 'Ifremer' },
+        { id: 'dge', nom: 'DGEC' }
+      ],
+      statuts: undefined
+    })
+
+    await store.dispatch('titres/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.titres.metas).toEqual({
+      domaines: [
+        { id: 'w', nom: 'granulats' },
+        { id: 'c', nom: 'carrières' }
+      ],
+      types: [
+        { id: 'ifr', nom: 'Ifremer' },
+        { id: 'dge', nom: 'DGEC' }
+      ],
+      statuts: []
+    })
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api ne répond pas", async () => {
+    const apiMock = api.metasTitres.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+
+    await store.dispatch('titres/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(actions.apiError).toHaveBeenCalled()
+    expect(store.state.titres.metasLoaded).toBeFalsy()
   })
 
   test('obtient la liste des titres', async () => {
@@ -81,5 +153,13 @@ describe('liste des titres', () => {
     })
     expect(console.log).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
+  })
+
+  test('initialise les preferences de filtre', async () => {
+    const section = 'filtres'
+    const params = { domainesIds: 'h' }
+    await store.dispatch('titres/preferencesSet', { section, params })
+
+    expect(store.state.titres.preferences.filtres.domainesIds).toEqual('h')
   })
 })
