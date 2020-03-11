@@ -78,15 +78,16 @@ describe('liste des demarches', () => {
   })
 
   test('récupère les métas pour éditer une démarche', async () => {
-    const data = {
-      demarchesTypes: [{ id: 'id-demarchesTypes' }],
-      demarchesStatuts: [{ id: 'id-demarchesStatuts' }],
-      etapesTypes: [{ id: 'id-etapesTypes' }],
-      types: [{ id: 'id-types' }],
-      domaines: [{ id: 'id-domaines' }],
-      statuts: null
-    }
-    const apiMock = api.metasDemarches.mockResolvedValue(data)
+    const apiMock = api.metasDemarches
+      .mockResolvedValueOnce({
+        demarchesTypes: [{ id: 'id-demarchesTypes' }],
+        demarchesStatuts: [{ id: 'id-demarchesStatuts' }],
+        etapesTypes: [{ id: 'id-etapesTypes' }],
+        types: [{ id: 'id-types' }],
+        domaines: [{ id: 'id-domaines' }],
+        statuts: [{ id: 'id-statuts' }]
+      })
+      .mockResolvedValueOnce({})
 
     await store.dispatch('titresDemarches/metasGet')
 
@@ -97,7 +98,20 @@ describe('liste des demarches', () => {
       etapesTypes: [{ id: 'id-etapesTypes' }],
       titresTypes: [{ id: 'id-types' }],
       titresDomaines: [{ id: 'id-domaines' }],
-      titresStatuts: []
+      titresStatuts: [{ id: 'id-statuts' }]
+    })
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+
+    await store.dispatch('titresDemarches/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.titresDemarches.metas).toEqual({
+      types: [{ id: 'id-demarchesTypes' }],
+      statuts: [{ id: 'id-demarchesStatuts' }],
+      etapesTypes: [{ id: 'id-etapesTypes' }],
+      titresTypes: [{ id: 'id-types' }],
+      titresDomaines: [{ id: 'id-domaines' }],
+      titresStatuts: [{ id: 'id-statuts' }]
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })

@@ -85,8 +85,7 @@ describe('liste des titres', () => {
       types: [
         { id: 'ifr', nom: 'Ifremer' },
         { id: 'dge', nom: 'DGEC' }
-      ],
-      statuts: undefined
+      ]
     })
 
     await store.dispatch('titres/metasGet')

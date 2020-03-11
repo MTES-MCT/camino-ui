@@ -50,11 +50,9 @@ describe("état d'une activité", () => {
   })
 
   test('récupère les métas pour afficher les activités', async () => {
-    const apiMock = api.metasActivites
-      .mockResolvedValueOnce([
-        { id: 'grp', nom: "rapport trimestriel d'activité" }
-      ])
-      .mockResolvedValueOnce(null)
+    const apiMock = api.metasActivites.mockResolvedValueOnce([
+      { id: 'grp', nom: "rapport trimestriel d'activité" }
+    ])
 
     await store.dispatch('titresActivites/metasGet')
 
@@ -62,12 +60,6 @@ describe("état d'une activité", () => {
     expect(store.state.titresActivites.metas.activitesTypes).toEqual([
       { id: 'grp', nom: "rapport trimestriel d'activité" }
     ])
-    expect(mutations.loadingRemove).toHaveBeenCalled()
-
-    await store.dispatch('titresActivites/metasGet')
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titresActivites.metas.activitesTypes).toEqual([])
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 

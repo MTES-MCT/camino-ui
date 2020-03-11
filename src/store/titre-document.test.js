@@ -51,12 +51,10 @@ describe('documents', () => {
   })
 
   test('récupère les métas pour éditer un document', async () => {
-    const apiMock = api.metasDocument
-      .mockResolvedValueOnce([
-        { id: 'arr', nom: 'Arrêté' },
-        { id: 'avi', nom: 'Avis' }
-      ])
-      .mockResolvedValueOnce(null)
+    const apiMock = api.metasDocument.mockResolvedValueOnce([
+      { id: 'arr', nom: 'Arrêté' },
+      { id: 'avi', nom: 'Avis' }
+    ])
 
     await store.dispatch('titreDocument/metasGet')
 
@@ -65,12 +63,6 @@ describe('documents', () => {
       { id: 'arr', nom: 'Arrêté' },
       { id: 'avi', nom: 'Avis' }
     ])
-    expect(mutations.loadingRemove).toHaveBeenCalled()
-
-    await store.dispatch('titreDocument/metasGet')
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titreDocument.metas.documentsTypes).toEqual([])
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 

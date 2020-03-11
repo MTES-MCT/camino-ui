@@ -48,12 +48,10 @@ describe('démarche', () => {
   })
 
   test('récupère les métas pour éditer une démarche', async () => {
-    const apiMock = api.metasTitreDemarche
-      .mockReturnValueOnce([
-        { id: 'w', nom: 'granulats' },
-        { id: 'c', nom: 'carrières' }
-      ])
-      .mockReturnValueOnce(null)
+    const apiMock = api.metasTitreDemarche.mockReturnValueOnce([
+      { id: 'w', nom: 'granulats' },
+      { id: 'c', nom: 'carrières' }
+    ])
 
     await store.dispatch('titreDemarche/metasGet', { etape: {} })
 
@@ -62,12 +60,6 @@ describe('démarche', () => {
       { id: 'w', nom: 'granulats' },
       { id: 'c', nom: 'carrières' }
     ])
-    expect(mutations.loadingRemove).toHaveBeenCalled()
-
-    await store.dispatch('titreDemarche/metasGet', { etape: {} })
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titreDemarche.metas.types).toEqual([])
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 

@@ -47,7 +47,6 @@ describe("état de l'utilisateur connecté", () => {
       current: null,
       metas: {
         utilisateurDomaines: [],
-
         version: null,
         versionUi: null,
         tiles
@@ -83,8 +82,7 @@ describe("état de l'utilisateur connecté", () => {
 
   test("initialise les métas de l'utilisateur connecté", async () => {
     const apiMock = api.metasUser.mockResolvedValue({
-      version: '1.1.1',
-      utilisateurDomaines: null
+      version: '1.1.1'
     })
 
     await store.dispatch('user/metasGet')
