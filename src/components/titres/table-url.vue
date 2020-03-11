@@ -24,14 +24,14 @@ export default {
 
   computed: {
     preferences() {
-      return this.$store.state.user.preferences.titres.table
+      return this.$store.state.titres.preferences.table
     }
   },
 
   methods: {
     preferencesUpdate(params) {
-      this.$store.dispatch('user/preferencesSet', {
-        section: 'titres.table',
+      this.$store.dispatch('titres/preferencesSet', {
+        section: 'table',
         params
       })
     }

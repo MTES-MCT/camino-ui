@@ -148,11 +148,11 @@ export default {
 
   computed: {
     versionApi() {
-      return this.$store.state.metas.version
+      return this.$store.state.user.metas.version
     },
 
     versionUi() {
-      return this.$store.state.metas.versionUi
+      return this.$store.state.user.metas.versionUi
     }
   }
 }

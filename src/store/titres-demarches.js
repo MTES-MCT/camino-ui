@@ -1,61 +1,72 @@
 import Vue from 'vue'
 
-import { metasTitres, titres } from '../api/titres'
+import { metasDemarches, demarches } from '../api/titres-demarches'
+
 import { paramsArrayBuild, paramsStringBuild } from './_utils'
 
 export const state = {
   list: [],
   metas: {
-    domaines: [],
     types: [],
-    statuts: []
+    statuts: [],
+    etapesTypes: [],
+    titresTypes: [],
+    titresDomaines: [],
+    titresStatuts: []
   },
   params: {
-    arrays: ['typesIds', 'domainesIds', 'statutsIds'],
-    strings: ['substances', 'noms', 'entreprises', 'references', 'territoires']
+    arrays: [
+      'typesIds',
+      'statutsIds',
+      'titresDomainesIds',
+      'titresTypesIds',
+      'titresStatutsIds'
+    ],
+    strings: ['page', 'intervalle', 'colonne', 'ordre']
   },
   preferences: {
-    vue: { vueId: 'carte' },
     table: {
       page: 1,
       intervalle: 200,
       ordre: 'asc',
-      colonne: 'nom'
-    },
-    carte: {
-      zoom: null,
-      centre: null
+      colonne: 'titreNom'
     },
     filtres: {
       typesIds: null,
-      domainesIds: null,
       statutsIds: null,
-      noms: null,
-      entreprises: null,
-      substances: null,
-      references: null,
-      territoires: null
+      titresDomainesIds: null,
+      titresTypesIds: null,
+      titresStatutsIds: null,
+      etapesIncluesIds: null,
+      etapesExcluesIds: null
     }
   }
 }
 
 export const actions = {
-  async metasGet({ commit, dispatch }) {
-    commit('loadingAdd', 'metasTitresGet', { root: true })
+  async metasGet({ commit }) {
+    commit('loadingAdd', 'metasDemarchesGet', { root: true })
 
     try {
-      const data = await metasTitres()
+      const data = await metasDemarches()
 
-      commit('metasSet', data)
+      commit('metasSet', {
+        types: data.demarchesTypes,
+        statuts: data.demarchesStatuts,
+        etapesTypes: data.etapesTypes,
+        titresTypes: data.types,
+        titresDomaines: data.domaines,
+        titresStatuts: data.statuts
+      })
     } catch (e) {
-      dispatch('apiError', e, { root: true })
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'metasTitresGet', { root: true })
+      commit('loadingRemove', 'metasDemarchesGet', { root: true })
     }
   },
 
   async get({ state, dispatch, commit }, params) {
-    commit('loadingAdd', 'titres', { root: true })
+    commit('loadingAdd', 'demarches', { root: true })
 
     try {
       const p = Object.assign(
@@ -63,12 +74,12 @@ export const actions = {
         paramsStringBuild(state.params.strings, params)
       )
 
-      const data = await titres(p)
+      const data = await demarches(p)
 
       dispatch(
         'messageAdd',
         {
-          value: `liste de titres mise à jour`,
+          value: `liste de demarches mise à jour`,
           type: 'success'
         },
         { root: true }
@@ -79,7 +90,7 @@ export const actions = {
       dispatch('apiError', e, { root: true })
       console.log(e)
     } finally {
-      commit('loadingRemove', 'titres', { root: true })
+      commit('loadingRemove', 'demarches', { root: true })
     }
   },
 
@@ -89,8 +100,8 @@ export const actions = {
 }
 
 export const mutations = {
-  set(state, titres) {
-    Vue.set(state, 'list', titres)
+  set(state, demarches) {
+    Vue.set(state, 'list', demarches)
   },
 
   metasSet(state, data) {

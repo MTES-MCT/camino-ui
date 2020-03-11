@@ -115,8 +115,7 @@ export default {
         page: 1,
         order: 'asc',
         column: this.columns[0].id
-      }),
-      required: true
+      })
     },
 
     ranges: {

@@ -1,7 +1,46 @@
 import gql from 'graphql-tag'
+import { apiQuery, apiMutate } from './_utils'
+
 import { fragmentTitre, fragmentTitres } from './fragments/titre'
 
-import { apiQuery, apiMutate } from './_utils'
+const metasTitre = apiQuery(
+  gql`
+    query MetasTitre {
+      referencesTypes {
+        id
+        nom
+      }
+    }
+  `,
+  {
+    fetchPolicy: 'network-only'
+  }
+)
+
+const metasTitres = apiQuery(
+  gql`
+    query MetasTitres {
+      domaines {
+        id
+        nom
+      }
+
+      types {
+        id
+        nom
+      }
+
+      statuts {
+        id
+        nom
+        couleur
+      }
+    }
+  `,
+  {
+    fetchPolicy: 'network-only'
+  }
+)
 
 const titre = apiQuery(
   gql`
@@ -77,109 +116,12 @@ const titreSupprimer = apiMutate(gql`
   ${fragmentTitre}
 `)
 
-const demarcheCreer = apiMutate(gql`
-  mutation DemarcheCreer($demarche: InputDemarcheCreation!) {
-    demarcheCreer(demarche: $demarche) {
-      ...titre
-    }
-  }
-
-  ${fragmentTitre}
-`)
-
-const demarcheModifier = apiMutate(gql`
-  mutation DemarcheModifier($demarche: InputDemarcheModification!) {
-    demarcheModifier(demarche: $demarche) {
-      ...titre
-    }
-  }
-
-  ${fragmentTitre}
-`)
-
-const demarcheSupprimer = apiMutate(gql`
-  mutation DemarcheSupprimer($id: ID!) {
-    demarcheSupprimer(id: $id) {
-      ...titre
-    }
-  }
-
-  ${fragmentTitre}
-`)
-
-const etapeCreer = apiMutate(gql`
-  mutation EtapeCreer($etape: InputEtapeCreation!) {
-    etapeCreer(etape: $etape) {
-      ...titre
-    }
-  }
-
-  ${fragmentTitre}
-`)
-
-const etapeModifier = apiMutate(gql`
-  mutation EtapeModifier($etape: InputEtapeModification!) {
-    etapeModifier(etape: $etape) {
-      ...titre
-    }
-  }
-
-  ${fragmentTitre}
-`)
-
-const etapeSupprimer = apiMutate(gql`
-  mutation EtapeSupprimer($id: ID!) {
-    etapeSupprimer(id: $id) {
-      ...titre
-    }
-  }
-
-  ${fragmentTitre}
-`)
-
-const documentCreer = apiMutate(gql`
-  mutation DocumentCreer($document: InputDocumentCreation!) {
-    documentCreer(document: $document) {
-      ...titre
-    }
-  }
-
-  ${fragmentTitre}
-`)
-
-const documentModifier = apiMutate(gql`
-  mutation DocumentModifier($document: InputDocumentModification!) {
-    documentModifier(document: $document) {
-      ...titre
-    }
-  }
-
-  ${fragmentTitre}
-`)
-
-const documentSupprimer = apiMutate(gql`
-  mutation DocumentSupprimer($id: ID!) {
-    documentSupprimer(id: $id) {
-      ...titre
-    }
-  }
-
-  ${fragmentTitre}
-`)
-
 export {
+  metasTitre,
+  metasTitres,
   titre,
   titres,
   titreCreer,
   titreModifier,
-  titreSupprimer,
-  demarcheCreer,
-  demarcheModifier,
-  demarcheSupprimer,
-  etapeCreer,
-  etapeModifier,
-  etapeSupprimer,
-  documentCreer,
-  documentModifier,
-  documentSupprimer
+  titreSupprimer
 }

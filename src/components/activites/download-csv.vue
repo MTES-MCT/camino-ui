@@ -30,7 +30,7 @@ export default {
 
   computed: {
     activitesTypes() {
-      return this.$store.state.metas.activites.activitesTypes
+      return this.$store.state.titresActivites.metas.activitesTypes
     }
   },
 

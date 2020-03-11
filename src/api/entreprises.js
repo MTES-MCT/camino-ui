@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
+import { apiQuery, apiMutate } from './_utils'
+
 import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentEntreprise } from './fragments/entreprise'
-
-import { apiQuery, apiMutate } from './_utils'
 
 const entreprise = apiQuery(gql`
   query Entreprise($id: ID!) {

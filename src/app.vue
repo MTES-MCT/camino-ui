@@ -82,7 +82,7 @@ export default {
     },
 
     async get() {
-      await this.$store.dispatch('metas/init')
+      await this.$store.dispatch('user/metasGet')
     }
   }
 }

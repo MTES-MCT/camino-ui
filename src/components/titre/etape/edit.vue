@@ -184,7 +184,7 @@ export default {
     },
 
     etapeTypes() {
-      return this.$store.state.metas.etape.demarcheEtapesTypes
+      return this.$store.state.titreEtape.metas.demarcheEtapesTypes
     },
 
     etapeType() {
@@ -211,7 +211,7 @@ export default {
 
   methods: {
     async metasGet() {
-      await this.$store.dispatch('metas/titreEtapeGet', this.etape)
+      await this.$store.dispatch('titreEtape/metasGet', this.etape)
     },
 
     async save() {
@@ -224,9 +224,9 @@ export default {
 
         // console.log(JSON.stringify(etape, null, 2))
         if (this.creation) {
-          await this.$store.dispatch('titre/etapeAdd', etape)
+          await this.$store.dispatch('titreEtape/add', etape)
         } else {
-          await this.$store.dispatch('titre/etapeUpdate', etape)
+          await this.$store.dispatch('titreEtape/update', etape)
         }
       }
     },

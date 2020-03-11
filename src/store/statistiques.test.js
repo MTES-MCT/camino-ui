@@ -7,10 +7,10 @@ jest.mock('../api/statistiques', () => ({
   statistiques: jest.fn()
 }))
 
+console.log = jest.fn()
+
 const localVue = createLocalVue()
 localVue.use(Vuex)
-
-console.log = jest.fn()
 
 describe('page de statistiques', () => {
   let actions

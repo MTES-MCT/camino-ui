@@ -1,16 +1,16 @@
-import activite from './activite'
-import * as api from '../api/activites'
+import titreActivite from './titre-activite'
+import * as api from '../api/titres-activites'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
-const localVue = createLocalVue()
-localVue.use(Vuex)
-
-jest.mock('../api/activites', () => ({
+jest.mock('../api/titres-activites', () => ({
   activiteModifier: jest.fn(),
   activite: jest.fn()
 }))
 console.log = jest.fn()
+
+const localVue = createLocalVue()
+localVue.use(Vuex)
 
 describe("état d'une activité", () => {
   let store
@@ -18,7 +18,7 @@ describe("état d'une activité", () => {
   let actions
 
   beforeEach(() => {
-    activite.state = { current: null }
+    titreActivite.state = { current: null }
 
     actions = {
       reload: jest.fn(),
@@ -37,7 +37,7 @@ describe("état d'une activité", () => {
     }
 
     store = new Vuex.Store({
-      modules: { activite },
+      modules: { titreActivite },
       mutations,
       actions,
       state: { titre: { current: { id: 5 } } }
@@ -47,7 +47,7 @@ describe("état d'une activité", () => {
   test('valide une activité', async () => {
     api.activiteModifier.mockResolvedValue({ statut: { id: 'dep' } })
 
-    await store.dispatch('activite/update', {
+    await store.dispatch('titreActivite/update', {
       activite: {
         id: 27,
         contenu: [],
@@ -63,9 +63,9 @@ describe("état d'une activité", () => {
 
   test('valide une activité sur une activité', async () => {
     api.activiteModifier.mockResolvedValue({ statut: { id: 'dep' } })
-    activite.state.current = { id: 'activite-id' }
+    titreActivite.state.current = { id: 'activite-id' }
 
-    await store.dispatch('activite/update', {
+    await store.dispatch('titreActivite/update', {
       activite: {
         id: 27,
         contenu: [],
@@ -83,7 +83,7 @@ describe("état d'une activité", () => {
   test('enregistre une activité pour un titre', async () => {
     api.activiteModifier.mockResolvedValue({ statut: { id: 'enc' } })
 
-    await store.dispatch('activite/update', {
+    await store.dispatch('titreActivite/update', {
       activite: {
         id: 27,
         contenu: [],
@@ -102,7 +102,7 @@ describe("état d'une activité", () => {
     const apiMock = api.activiteModifier.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
-    await store.dispatch('activite/update', {
+    await store.dispatch('titreActivite/update', {
       activite: {
         id: 27,
         contenu: [],
@@ -125,9 +125,9 @@ describe("état d'une activité", () => {
       statut: { id: 'dep' }
     })
 
-    await store.dispatch('activite/get')
+    await store.dispatch('titreActivite/get')
 
-    expect(store.state.activite.current).toEqual({
+    expect(store.state.titreActivite.current).toEqual({
       id: 27,
       contenu: [],
       statut: { id: 'dep' }
@@ -138,27 +138,27 @@ describe("état d'une activité", () => {
 
   test("n'obtient pas d'activité si l'api ne retourne rien pour cette id", async () => {
     const apiMock = api.activite.mockResolvedValue(null)
-    await store.dispatch('activite/get', 'activite-id')
+    await store.dispatch('titreActivite/get', 'activite-id')
 
     expect(apiMock).toHaveBeenCalledWith({ id: 'activite-id' })
     expect(actions.pageError).toHaveBeenCalled()
-    expect(store.state.activite.current).toBeNull()
+    expect(store.state.titreActivite.current).toBeNull()
   })
 
   test("retourne une erreur de l'api dans l'obtention de l'activité", async () => {
     const apiMock = api.activite.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
-    await store.dispatch('activite/get', 'activite-id')
+    await store.dispatch('titreActivite/get', 'activite-id')
 
     expect(apiMock).toHaveBeenCalledWith({ id: 'activite-id' })
     expect(actions.apiError).toHaveBeenCalled()
   })
 
   test("supprime les données d'activité", () => {
-    store.commit('activite/set', { id: 71, nom: 'toto' })
-    store.commit('activite/reset')
+    store.commit('titreActivite/set', { id: 71, nom: 'toto' })
+    store.commit('titreActivite/reset')
 
-    expect(store.state.activite.current).toBeNull()
+    expect(store.state.titreActivite.current).toBeNull()
   })
 })

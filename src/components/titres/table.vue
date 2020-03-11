@@ -25,7 +25,7 @@ export default {
 
   computed: {
     preferences() {
-      return this.$store.state.user.preferences.titres.table
+      return this.$store.state.titres.preferences.table
     },
 
     activitesCol() {
@@ -88,8 +88,8 @@ export default {
         delete params.order
       }
 
-      this.$store.dispatch('user/preferencesSet', {
-        section: 'titres.table',
+      this.$store.dispatch('titres/preferencesSet', {
+        section: 'table',
         params
       })
     }

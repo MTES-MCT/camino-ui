@@ -288,7 +288,7 @@ export default {
     },
 
     documentsTypes() {
-      return this.$store.state.metas.document.documentsTypes
+      return this.$store.state.titreDocument.metas.documentsTypes
     }
   },
 
@@ -303,7 +303,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('metas/titreEtapeDocumentGet')
+      await this.$store.dispatch('titreDocument/metasGet')
     },
 
     fileChange({
@@ -325,9 +325,9 @@ export default {
 
     async save() {
       if (this.creation) {
-        await this.$store.dispatch('titre/documentAdd', this.document)
+        await this.$store.dispatch('titreDemarche/add', this.document)
       } else {
-        await this.$store.dispatch('titre/documentUpdate', this.document)
+        await this.$store.dispatch('titreDocument/update', this.document)
       }
     },
 

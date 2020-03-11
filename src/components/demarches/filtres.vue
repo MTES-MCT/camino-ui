@@ -27,7 +27,7 @@ export default {
 
   computed: {
     metas() {
-      return this.$store.state.metas.demarches
+      return this.$store.state.titresDemarches.metas
     },
 
     filters() {
@@ -55,7 +55,7 @@ export default {
     },
 
     preferences() {
-      return this.$store.state.user.preferences.demarches.filtres
+      return this.$store.state.titresDemarches.preferences.filtres
     }
   },
 
@@ -136,8 +136,8 @@ export default {
     },
 
     preferencesUpdate(params) {
-      this.$store.dispatch('user/preferencesSet', {
-        section: 'demarches.filtres',
+      this.$store.dispatch('titresDemarches/preferencesSet', {
+        section: 'filtres',
         params
       })
     },

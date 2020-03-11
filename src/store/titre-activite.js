@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { activite, activiteModifier } from '../api/activites'
+import { activite, activiteModifier } from '../api/titres-activites'
 
 export const state = {
   current: null
@@ -58,7 +58,7 @@ export const actions = {
         console.log(context)
         await dispatch(
           'reload',
-          { name: 'activite', id: rootState.activite.current.id },
+          { name: 'activite', id: rootState.titreActivite.current.id },
           { root: true }
         )
 

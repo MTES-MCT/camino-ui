@@ -98,7 +98,7 @@ export default {
 
   computed: {
     activites() {
-      return this.$store.state.activites.list
+      return this.$store.state.titresActivites.list
     },
 
     user() {
@@ -114,7 +114,7 @@ export default {
     },
 
     activitesTypes() {
-      return this.$store.state.metas.activites.activitesTypes
+      return this.$store.state.titresActivites.metas.activitesTypes
     },
 
     activiteType() {
@@ -138,12 +138,12 @@ export default {
 
   methods: {
     async metasGet() {
-      await this.$store.dispatch('metas/activitesGet')
+      await this.$store.dispatch('titresActivites/metasGet')
     },
 
     async get() {
       if (this.annee && this.typeId) {
-        await this.$store.dispatch('activites/get', {
+        await this.$store.dispatch('titresActivites/get', {
           annee: this.annee,
           typeId: this.typeId
         })

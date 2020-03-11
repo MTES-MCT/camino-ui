@@ -10,6 +10,10 @@ export default {
     params: {
       type: Object,
       required: true
+    },
+    values: {
+      type: Object,
+      default: () => ({})
     }
   },
 
@@ -50,7 +54,7 @@ export default {
       const paramsBuild = params =>
         Object.keys(params).reduce(
           ({ updateParams, eventParams }, id) => {
-            const value = this.valueGet(this.$route.query[id])
+            const value = this.queryValueGet(id, this.$route.query[id])
 
             if (!value && params[id]) {
               updateParams[id] = params[id]
@@ -74,13 +78,21 @@ export default {
       }
     },
 
-    valueGet(value) {
-      return value ? (Number(value) ? Number(value) : value) : null
+    queryValueGet(id, value) {
+      if (!value) return null
+
+      if (Number(value)) {
+        value = Number(value)
+      }
+
+      // if (this.values[id] && !this.values[id].includes(value)) return null
+
+      return value
     },
 
     update(params) {
       const query = Object.keys(this.$route.query).reduce((query, id) => {
-        const value = this.valueGet(this.$route.query[id])
+        const value = this.queryValueGet(id, this.$route.query[id])
         query[id] = value
 
         return query

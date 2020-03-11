@@ -6,62 +6,46 @@ import {
   utilisateurCreationEmailEnvoyer,
   utilisateurCreer,
   utilisateurMotDePasseEmailEnvoyer,
-  utilisateurMotDePasseInitialiser
+  utilisateurMotDePasseInitialiser,
+  metasUser
 } from '../api/utilisateurs'
+
+import tiles from '../conf/map-tiles'
 
 import router from '../router'
 
 export const state = {
   current: null,
-  preferences: {
-    carte: { tilesId: 'osm-fr' },
-    titres: {
-      vue: { vueId: 'carte' },
-      table: {
-        page: 1,
-        intervalle: 200,
-        ordre: 'asc',
-        colonne: 'nom'
-      },
-      carte: {
-        zoom: null,
-        centre: null
-      },
-      filtres: {
-        typesIds: null,
-        domainesIds: null,
-        statutsIds: null,
-        noms: null,
-        entreprises: null,
-        substances: null,
-        references: null,
-        territoires: null
-      }
-    },
-    demarches: {
-      table: {
-        page: 1,
-        intervalle: 200,
-        ordre: 'asc',
-        colonne: 'titreNom'
-      },
-      filtres: {
-        typesIds: null,
-        statutsIds: null,
-        titresDomainesIds: null,
-        titresTypesIds: null,
-        titresStatutsIds: null,
-        etapesIncluesIds: null,
-        etapesExcluesIds: null
-      }
-    }
+  metas: {
+    utilisateurDomaines: [],
+    version: null,
+    /* global npmVersion */
+    // @ts-ignore
+    versionUi: `${npmVersion}`,
+    tiles
   },
-  titresFiltresLoaded: false,
-  demarchesFiltresLoaded: false,
+  preferences: {
+    carte: { tilesId: 'osm-fr' }
+  },
   loaded: false
 }
 
 export const actions = {
+  async metasGet({ commit, dispatch }) {
+    commit('loadingAdd', 'metasUser', { root: true })
+
+    try {
+      const data = await metasUser()
+
+      commit('metasSet', data)
+    } catch (e) {
+      dispatch('apiError', e, { root: true })
+      console.log(e)
+    } finally {
+      commit('loadingRemove', 'metasUser', { root: true })
+    }
+  },
+
   async identify({ commit, dispatch }) {
     try {
       const data = await moi()
@@ -252,18 +236,18 @@ export const actions = {
     }
   },
 
-  tokenSet({ commit }, token) {
+  tokenSet(_, token) {
     localStorage.setItem('token', token)
   },
 
-  tokenRemove({ commit }) {
+  tokenRemove() {
     localStorage.removeItem('token')
   }
 }
 
 export const getters = {
-  tilesActive(state, getters, rootState) {
-    return rootState.map.tiles.find(
+  tilesActive(state) {
+    return state.metas.tiles.find(
       ({ id }) => id === state.preferences.carte.tilesId
     )
   },
@@ -293,10 +277,8 @@ export const mutations = {
   },
 
   preferencesSet(state, { section, params }) {
-    const path = section.split('.')
-    const p = path.reduce((res, el) => res[el], state.preferences)
     Object.keys(params).forEach(id => {
-      Vue.set(p, id, params[id])
+      Vue.set(state.preferences[section], id, params[id])
     })
   },
 
@@ -308,12 +290,10 @@ export const mutations = {
     Vue.set(state, 'current', null)
   },
 
-  titresFiltresLoaded(state) {
-    state.titresFiltresLoaded = true
-  },
-
-  demarchesFiltresLoaded(state) {
-    state.demarchesFiltresLoaded = true
+  metasSet(state, data) {
+    Object.keys(data).forEach(id => {
+      Vue.set(state.metas, id, data[id] ? data[id] : [])
+    })
   }
 }
 

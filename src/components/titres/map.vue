@@ -104,11 +104,11 @@ export default {
     },
 
     domaines() {
-      return this.$store.state.metas.titres.domaines
+      return this.$store.state.titres.metas.domaines
     },
 
     tiles() {
-      return this.$store.state.map.tiles
+      return this.$store.state.user.metas.tiles
     },
 
     tilesId() {
@@ -116,7 +116,7 @@ export default {
     },
 
     preferences() {
-      return this.$store.state.user.preferences.titres.carte
+      return this.$store.state.titres.preferences.carte
     }
   },
 
@@ -167,8 +167,8 @@ export default {
         delete params.center
       }
 
-      this.$store.dispatch('user/preferencesSet', {
-        section: 'titres.carte',
+      this.$store.dispatch('titres/preferencesSet', {
+        section: 'carte',
         params
       })
 

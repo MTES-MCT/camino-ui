@@ -1,12 +1,30 @@
 import Vue from 'vue'
 
-import { activites } from '../api/activites'
+import { activites, metasActivites } from '../api/titres-activites'
 
 export const state = {
-  list: []
+  list: [],
+  metas: {
+    activitesTypes: []
+  }
 }
 
 export const actions = {
+  async metasGet({ commit, dispatch }) {
+    commit('loadingAdd', 'metasActivites', { root: true })
+
+    try {
+      const data = await metasActivites()
+
+      commit('metasSet', { activitesTypes: data })
+    } catch (e) {
+      dispatch('apiError', e, { root: true })
+      console.log(e)
+    } finally {
+      commit('loadingRemove', 'metasActivites', { root: true })
+    }
+  },
+
   async get({ dispatch, commit }, { annee, typeId }) {
     commit('loadingAdd', 'activites', { root: true })
 
@@ -28,6 +46,12 @@ export const actions = {
 export const mutations = {
   set(state, activites) {
     Vue.set(state, 'list', activites)
+  },
+
+  metasSet(state, data) {
+    Object.keys(data).forEach(id => {
+      Vue.set(state.metas, id, data[id] ? data[id] : [])
+    })
   }
 }
 

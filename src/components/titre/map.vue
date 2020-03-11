@@ -125,7 +125,7 @@ export default {
     },
 
     tiles() {
-      return this.$store.state.map.tiles
+      return this.$store.state.user.metas.tiles
     },
 
     tilesId() {

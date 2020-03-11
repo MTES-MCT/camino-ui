@@ -338,15 +338,15 @@ export default {
     },
 
     permissions() {
-      return this.$store.state.metas.utilisateur.permissions
+      return this.$store.state.utilisateur.metas.permissions
     },
 
     entreprises() {
-      return this.$store.state.metas.utilisateur.entreprises
+      return this.$store.state.utilisateur.metas.entreprises
     },
 
     administrations() {
-      return this.$store.state.metas.utilisateur.administrations
+      return this.$store.state.utilisateur.metas.administrations
     },
 
     complete() {
@@ -414,7 +414,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('metas/utilisateurGet')
+      await this.$store.dispatch('utilisateur/metasGet')
     },
 
     async save() {

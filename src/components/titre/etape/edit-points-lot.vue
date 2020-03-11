@@ -52,7 +52,7 @@ export default {
       const geoSystemeId =
         this.etape.geoSystemeOpposableId || this.etape.geoSystemeIds[0]
 
-      return this.$store.state.metas.etape.geoSystemes.find(
+      return this.$store.state.titreEtape.metas.geoSystemes.find(
         ({ id }) => id === geoSystemeId
       )
     }
