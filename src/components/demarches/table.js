@@ -3,32 +3,12 @@ import Statut from '../_common/statut.vue'
 import CaminoDomaine from '../_common/domaine.vue'
 
 const colonnes = [
-  {
-    id: 'titreNom',
-    name: 'Titre'
-  },
-  {
-    name: '',
-    id: 'domaineId'
-  },
-  {
-    id: 'titreType',
-    name: 'Type de titre'
-  },
-  {
-    id: 'titreStatut',
-    name: 'Statut de titre',
-    class: ['nowrap']
-  },
-  {
-    id: 'type',
-    name: 'Type'
-  },
-  {
-    id: 'statut',
-    name: 'Statut',
-    class: ['nowrap']
-  }
+  { id: 'titreNom', name: 'Titre' },
+  { name: '', id: 'domaineId' },
+  { id: 'titreType', name: 'Type de titre' },
+  { id: 'titreStatut', name: 'Statut de titre', class: ['nowrap'] },
+  { id: 'type', name: 'Type' },
+  { id: 'statut', name: 'Statut', class: ['nowrap'] }
 ]
 
 const lignesBuild = demarches =>

@@ -10,7 +10,7 @@ import {
   metasUser
 } from '../api/utilisateurs'
 
-import tiles from '../conf/map-tiles'
+import tiles from './_map-tiles'
 
 import router from '../router'
 

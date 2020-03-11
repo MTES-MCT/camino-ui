@@ -4,7 +4,10 @@
       :params="preferences"
       @params:update="preferencesUpdate"
     />
-    <Table :demarches="demarches" />
+    <Table
+      :demarches="demarches"
+      @demarches:update="demarchesUpdate"
+    />
   </div>
 </template>
 
@@ -29,6 +32,10 @@ export default {
   },
 
   methods: {
+    demarchesUpdate(params) {
+      this.$emit('demarches:update', params)
+    },
+
     preferencesUpdate(params) {
       this.$store.dispatch('titresDemarches/preferencesSet', {
         section: 'table',

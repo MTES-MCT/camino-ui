@@ -3,7 +3,7 @@ import { createLocalVue } from '@vue/test-utils'
 import * as api from '../api/utilisateurs'
 
 import user from './user'
-import tiles from '../conf/map-tiles'
+import tiles from './_map-tiles'
 
 jest.mock('../api/utilisateurs', () => ({
   utilisateurTokenCreer: jest.fn(),

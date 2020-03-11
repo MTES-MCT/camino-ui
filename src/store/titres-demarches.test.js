@@ -129,16 +129,12 @@ describe('liste des demarches', () => {
   })
 
   test('obtient la liste des demarches', async () => {
-    const apiMock = api.demarches.mockResolvedValue(demarchesListe)
-    await store.dispatch('titresDemarches/get', {
-      titresDomainesIds: 'c,w',
-      titresStatutsIds: 'val'
+    const apiMock = api.demarches.mockResolvedValue({
+      demarches: demarchesListe
     })
+    await store.dispatch('titresDemarches/get')
 
-    expect(apiMock).toHaveBeenCalledWith({
-      titresDomainesIds: ['c', 'w'],
-      titresStatutsIds: ['val']
-    })
+    expect(apiMock).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(store.state.titresDemarches.list).toEqual(demarchesListe)
   })
@@ -147,15 +143,9 @@ describe('liste des demarches', () => {
     const apiMock = api.demarches.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
-    await store.dispatch('titresDemarches/get', {
-      titresDomainesIds: 'c,w',
-      titresStatutsIds: 'val'
-    })
+    await store.dispatch('titresDemarches/get')
 
-    expect(apiMock).toHaveBeenCalledWith({
-      titresDomainesIds: ['c', 'w'],
-      titresStatutsIds: ['val']
-    })
+    expect(apiMock).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })

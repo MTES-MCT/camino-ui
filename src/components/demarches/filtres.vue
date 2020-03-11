@@ -111,7 +111,7 @@ export default {
     },
 
     demarchesUpdate() {
-      this.$emit('demarches:update', this.preferences)
+      this.$emit('demarches:update')
     },
 
     toggle(opened) {

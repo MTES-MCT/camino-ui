@@ -11,13 +11,13 @@
             @click="sort(col.id)"
           >
             <button class="btn-transparent full-x p-0">
-              {{ col.name || (params.column === col.id ? '' : '–') }}
+              {{ col.name || (column === col.id ? '' : '–') }}
               <i
-                v-if="params.column === col.id"
+                v-if="column === col.id"
                 class="icon-24 right"
                 :class="{
-                  'icon-chevron-b': params.order === 'asc',
-                  'icon-chevron-t': params.order === 'desc'
+                  'icon-chevron-b': order === 'asc',
+                  'icon-chevron-t': order === 'desc'
                 }"
               />
             </button>
@@ -25,9 +25,9 @@
         </div>
 
         <RouterLink
-          v-for="element in rowsPages[params.page - 1]"
-          :key="element.id"
-          :to="element.link"
+          v-for="row in rows"
+          :key="row.id"
+          :to="row.link"
           class="tr tr-link text-decoration-none"
         >
           <div
@@ -37,15 +37,15 @@
             :class="col.class"
           >
             <component
-              :is="element.columns[col.id].component"
-              v-if="element.columns[col.id] && element.columns[col.id].component"
-              v-bind="element.columns[col.id].props"
-              :class="element.columns[col.id].class"
+              :is="row.columns[col.id].component"
+              v-if="row.columns[col.id] && row.columns[col.id].component"
+              v-bind="row.columns[col.id].props"
+              :class="row.columns[col.id].class"
             />
             <span
-              v-else-if="element.columns[col.id] && element.columns[col.id].value"
-              :class="element.columns[col.id].class"
-            >{{ element.columns[col.id].value }}</span>
+              v-else-if="row.columns[col.id] && row.columns[col.id].value"
+              :class="row.columns[col.id].class"
+            >{{ row.columns[col.id].value }}</span>
           </div>
         </RouterLink>
       </div>
@@ -53,8 +53,8 @@
     <div class="desktop-blobs">
       <div class="desktop-blob-3-4">
         <Pagination
-          :page-active="params.page"
-          :pages-total="rowsPages.length"
+          :page-active="page"
+          :pages-total="pages"
           :pages-visible="5"
           @page:update="pageUpdate"
         />
@@ -63,7 +63,7 @@
         <Ranges
           v-if="rows.length > 10"
           :ranges="ranges"
-          :range="params.range"
+          :range="range"
           @range:update="rangeUpdate"
         />
         <Columns
@@ -93,60 +93,14 @@ export default {
   },
 
   props: {
-    rows: {
-      type: Array,
-      default: () => []
-    },
-
-    columns: {
-      type: Array,
-      default: () => []
-    },
-
-    sorted: {
-      type: Boolean,
-      default: false
-    },
-
-    params: {
-      type: Object,
-      default: () => ({
-        range: 200,
-        page: 1,
-        order: 'asc',
-        column: this.columns[0].id
-      })
-    },
-
-    ranges: {
-      type: Array,
-      default: () => [10, 50, 200, 500]
-    }
-  },
-
-  computed: {
-    rowsSorted() {
-      return this.rows.slice().sort((a, b) => {
-        const aValue = a.columns[this.params.column].value.toString()
-        const bValue = b.columns[this.params.column].value.toString()
-
-        return (
-          aValue.localeCompare(bValue, 'fr') *
-          (this.params.order === 'asc' ? 1 : -1)
-        )
-      })
-    },
-
-    rowsPages() {
-      return this.rowsSorted.reduce((res, cur, i) => {
-        const page = Math.ceil((i + 1) / this.params.range) - 1
-
-        res[page] = res[page] || []
-        res[page].push(cur)
-
-        return res
-      }, [])
-    }
+    rows: { type: Array, required: true },
+    columns: { type: Array, required: true },
+    range: { type: Number, default: 200 },
+    page: { type: Number, default: 1 },
+    pages: { type: Number, default: 1 },
+    order: { type: String, default: 'asc' },
+    column: { type: String, default: '' },
+    ranges: { type: Array, default: () => [10, 50, 200, 500] }
   },
 
   watch: {
@@ -171,20 +125,16 @@ export default {
     },
 
     sort(colId) {
-      if (this.params.column === colId) {
-        const order = this.params.order === 'asc' ? 'desc' : 'asc'
+      if (this.column === colId) {
+        const order = this.order === 'asc' ? 'desc' : 'asc'
         this.update({ order, page: 1 })
       } else {
-        const column = colId
-        this.update({ column, page: 1 })
+        this.update({ column: colId, page: 1 })
       }
     },
 
     columnInit() {
-      if (
-        this.rows.length &&
-        !this.columns.some(c => c.id === this.params.column)
-      ) {
+      if (this.rows.length && !this.columns.some(c => c.id === this.column)) {
         this.sort(this.columns[0].id)
       }
     }
