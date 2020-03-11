@@ -203,8 +203,7 @@ export default {
           s.elements.some(
             e =>
               this.titre.contenu[s.id] &&
-              (this.titre.contenu[s.id][e.id] ||
-                this.titre.contenu[s.id][e.id] === 0)
+              (this.titre.contenu[s.id][e.id] !== undefined)
           )
         )
       )
