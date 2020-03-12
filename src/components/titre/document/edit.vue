@@ -325,7 +325,7 @@ export default {
 
     async save() {
       if (this.creation) {
-        await this.$store.dispatch('titreDemarche/add', this.document)
+        await this.$store.dispatch('titreDocument/add', this.document)
       } else {
         await this.$store.dispatch('titreDocument/update', this.document)
       }
