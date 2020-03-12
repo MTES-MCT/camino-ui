@@ -53,14 +53,14 @@
       </div>
     </template>
 
-    <div v-if="hasContenu || hasProps || etape.documents.length">
+    <div v-if="hasSections || hasProps || etape.documents.length">
       <EtapeProps
         v-if="hasProps"
         :etape="etape"
       />
 
       <div
-        v-if="hasContenu"
+        v-if="hasSections"
         class="border-b-s"
       >
         <Section
@@ -68,7 +68,7 @@
           :key="s.id"
           class="border-b-s px-m pt-m"
           :section="s"
-          :contenu="etape.contenu[s.id]"
+          :contenu="etape.contenu ? etape.contenu[s.id] : {}"
           :date="etape.date"
         />
       </div>
@@ -140,18 +140,8 @@ export default {
       )
     },
 
-    hasContenu() {
-      return (
-        this.etape.contenu &&
-        this.etape.type.sections &&
-        this.etape.type.sections.some(s =>
-          s.elements.some(
-            e =>
-              this.etape.contenu[s.id] &&
-              (this.etape.contenu[s.id][e.id] !== undefined)
-          )
-        )
-      )
+    hasSections() {
+      return this.etape.type.sections
     },
 
     titreNom() {
