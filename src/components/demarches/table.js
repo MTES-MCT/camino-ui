@@ -6,7 +6,11 @@ const colonnes = [
   { id: 'titreNom', name: 'Titre' },
   { name: '', id: 'domaineId' },
   { id: 'titreType', name: 'Type de titre' },
-  { id: 'titreStatut', name: 'Statut de titre', class: ['nowrap'] },
+  {
+    id: 'titreStatut',
+    name: 'Statut de titre',
+    class: ['nowrap', 'min-width-6']
+  },
   { id: 'type', name: 'Type' },
   { id: 'statut', name: 'Statut', class: ['nowrap'] }
 ]

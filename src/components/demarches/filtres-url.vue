@@ -43,8 +43,8 @@ export default {
   },
 
   methods: {
-    demarchesUpdate(params) {
-      this.$emit('demarches:update', params)
+    demarchesUpdate() {
+      this.$emit('demarches:update')
     },
 
     preferencesUpdate(params) {

@@ -50,11 +50,12 @@ export default {
   },
 
   watch: {
+    // TODO: à supprimer
+    // la page en cours doit être indiqué dans la réponse du serveur
+    // et mise à jour dans les préférences
     pages: function(to, from) {
-      if (from && from !== to) {
-        const params = { page: 1 }
-
-        this.preferencesUpdate(params)
+      if (from && from !== to && this.preferences.page !== 1) {
+        this.preferencesUpdate({ page: 1 })
       }
     }
   },
