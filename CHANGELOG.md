@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.23](https://github.com/MTES-MCT/camino-ui/compare/v0.22.22...v0.22.23) (2020-03-12)
+
+
+### Features
+
+* **api:** affiche les données spécifiques remontées à la racine titre ([#80](https://github.com/MTES-MCT/camino-ui/issues/80)) ([b03c903](https://github.com/MTES-MCT/camino-ui/commit/b03c903254a3b124ac8d112b11d13b8a2daa92d2))
+* **étape:** affiche les sections dont le contenu est vide ([44c32dd](https://github.com/MTES-MCT/camino-ui/commit/44c32dd645e40b7adacf5caad32a6bf84fe91e4d))
+
+
+### Bug Fixes
+
+* **démarches:** évite une double requête lors du changement de filtres ([a359c62](https://github.com/MTES-MCT/camino-ui/commit/a359c62f982c0544984ec8f92606de9605a64989))
+* affiche les contenus non remplis ([#82](https://github.com/MTES-MCT/camino-ui/issues/82)) ([8385fb0](https://github.com/MTES-MCT/camino-ui/commit/8385fb08408e49324dc65b732cf1cdb6f943120d))
+* corrige l'affichage des sections d'activités ([4bbb454](https://github.com/MTES-MCT/camino-ui/commit/4bbb454e1306157849183a47ab8c87f7708af142))
+* corrige l'affichage du contenu d'étapes avec sections spécifiques ([#79](https://github.com/MTES-MCT/camino-ui/issues/79)) ([bac1303](https://github.com/MTES-MCT/camino-ui/commit/bac13035fc260c72e98890f1abee7b2b39c7c448))
+* corrige l'édition d'un document ([d28aa57](https://github.com/MTES-MCT/camino-ui/commit/d28aa57ec404f04cd1d9aa267d7da0e2f5027341))
+
 ### [0.22.22](https://github.com/MTES-MCT/camino-ui/compare/v0.22.21...v0.22.22) (2020-02-27)
 
 
