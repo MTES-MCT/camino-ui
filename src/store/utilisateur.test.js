@@ -77,8 +77,7 @@ describe("état de l'utilisateur consulté", () => {
       permissions: [
         { id: 'w', nom: 'granulats' },
         { id: 'c', nom: 'carrières' }
-      ],
-      entreprises: null
+      ]
     })
 
     await store.dispatch('utilisateur/metasGet')

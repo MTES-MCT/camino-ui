@@ -1,11 +1,17 @@
 <template>
-  <Table
-    :rows="lignes"
-    :columns="colonnes"
-    :params="params"
-    :ranges="[10, 50, 200, 500]"
-    @params:update="preferencesUpdate"
-  />
+  <div>
+    <Table
+      :rows="lignes"
+      :columns="colonnes"
+      :pages="pages"
+      :range="preferences.intervalle"
+      :page="preferences.page"
+      :order="preferences.ordre"
+      :column="preferences.colonne"
+      :ranges="[10, 50, 200, 500]"
+      @params:update="preferencesUpdate"
+    />
+  </div>
 </template>
 
 <script>
@@ -28,34 +34,24 @@ export default {
       return this.$store.state.titresDemarches.preferences.table
     },
 
+    pages() {
+      return Math.ceil(
+        this.$store.state.titresDemarches.total / this.preferences.intervalle
+      )
+    },
+
     colonnes() {
       return colonnes
     },
 
     lignes() {
       return lignesBuild(this.demarches)
-    },
-
-    params() {
-      return Object.keys(this.preferences).reduce((params, id) => {
-        if (id === 'intervalle') {
-          params.range = this.preferences.intervalle
-        } else if (id === 'ordre') {
-          params.order = this.preferences.ordre
-        } else if (id === 'colonne') {
-          params.column = this.preferences.colonne
-        } else {
-          params[id] = this.preferences[id]
-        }
-
-        return params
-      }, {})
     }
   },
 
   watch: {
-    demarches: function(to, from) {
-      if (from.length && from.length !== to.length) {
+    pages: function(to, from) {
+      if (from && from !== to) {
         const params = { page: 1 }
 
         this.preferencesUpdate(params)
@@ -84,6 +80,12 @@ export default {
         section: 'table',
         params
       })
+
+      this.demarchesUpdate()
+    },
+
+    demarchesUpdate() {
+      this.$emit('demarches:update')
     }
   }
 }

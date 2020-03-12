@@ -2,15 +2,17 @@
   <Table
     :rows="lignes"
     :columns="colonnes"
-    :params="params"
+    :range="preferences.intervalle"
+    :page="preferences.page"
+    :order="preferences.ordre"
+    :column="preferences.colonne"
     @params:update="preferencesUpdate"
   />
 </template>
 
 <script>
-import Table from '../_ui/table.vue'
-import List from '../_ui/list.vue'
-import Statut from '../_common/statut.vue'
+import Table from '../_ui/table-pagination.vue'
+import { colonnes, lignesBuild } from './table.js'
 
 export default {
   name: 'ActivitesTable',
@@ -28,26 +30,7 @@ export default {
 
   data() {
     return {
-      colonnes: [
-        {
-          id: 'titre',
-          name: 'Titre'
-        },
-        {
-          id: 'titulaires',
-          name: 'Titulaires',
-          class: ['min-width-10']
-        },
-        {
-          id: 'periode',
-          name: 'Période'
-        },
-        {
-          id: 'statut',
-          name: 'Statut',
-          class: ['min-width-5']
-        }
-      ],
+      colonnes,
       preferences: {
         intervalle: 200,
         page: 1,
@@ -58,52 +41,8 @@ export default {
   },
 
   computed: {
-    params() {
-      return Object.keys(this.preferences).reduce((params, id) => {
-        if (id === 'intervalle') {
-          params.range = this.preferences.intervalle
-        } else if (id === 'ordre') {
-          params.order = this.preferences.ordre
-        } else if (id === 'colonne') {
-          params.column = this.preferences.colonne
-        } else {
-          params[id] = this.preferences[id]
-        }
-
-        return params
-      }, {})
-    },
     lignes() {
-      return this.activites.map(activite => {
-        const columns = {
-          titre: { value: activite.titre.nom },
-          titulaires: {
-            component: List,
-            props: {
-              elements: activite.titre.titulaires.map(({ nom }) => nom),
-              mini: true
-            },
-            class: 'mb--xs',
-            value: activite.titre.titulaires.map(({ nom }) => nom).join(', ')
-          },
-          periode: { value: activite.periode.nom },
-          statut: {
-            component: Statut,
-            props: {
-              color: `bg-${activite.statut.couleur}`,
-              nom: activite.statut.nom,
-              mini: true
-            },
-            value: activite.statut.nom
-          }
-        }
-
-        return {
-          id: activite.id,
-          link: { name: 'activite', params: { id: activite.id } },
-          columns
-        }
-      })
+      return lignesBuild(this.activites)
     }
   },
 

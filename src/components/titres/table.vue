@@ -2,14 +2,17 @@
   <Table
     :rows="lignes"
     :columns="colonnes"
-    :params="params"
+    :range="preferences.intervalle"
+    :page="preferences.page"
+    :order="preferences.ordre"
+    :column="preferences.colonne"
     :ranges="[10, 50, 200, 500]"
     @params:update="preferencesUpdate"
   />
 </template>
 
 <script>
-import Table from '../_ui/table.vue'
+import Table from '../_ui/table-pagination.vue'
 import { colonnes, lignesBuild } from './table.js'
 
 export default {
@@ -42,22 +45,6 @@ export default {
 
     lignes() {
       return lignesBuild(this.titres, this.activitesCol)
-    },
-
-    params() {
-      return Object.keys(this.preferences).reduce((params, id) => {
-        if (id === 'intervalle') {
-          params.range = this.preferences.intervalle
-        } else if (id === 'ordre') {
-          params.order = this.preferences.ordre
-        } else if (id === 'colonne') {
-          params.column = this.preferences.colonne
-        } else {
-          params[id] = this.preferences[id]
-        }
-
-        return params
-      }, {})
     }
   },
 

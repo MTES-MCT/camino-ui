@@ -10,7 +10,7 @@ import {
   metasUser
 } from '../api/utilisateurs'
 
-import tiles from '../conf/map-tiles'
+import tiles from './_map-tiles'
 
 import router from '../router'
 
@@ -292,7 +292,7 @@ export const mutations = {
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id] ? data[id] : [])
+      Vue.set(state.metas, id, data[id])
     })
   }
 }

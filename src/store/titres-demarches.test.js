@@ -78,15 +78,16 @@ describe('liste des demarches', () => {
   })
 
   test('récupère les métas pour éditer une démarche', async () => {
-    const data = {
-      demarchesTypes: [{ id: 'id-demarchesTypes' }],
-      demarchesStatuts: [{ id: 'id-demarchesStatuts' }],
-      etapesTypes: [{ id: 'id-etapesTypes' }],
-      types: [{ id: 'id-types' }],
-      domaines: [{ id: 'id-domaines' }],
-      statuts: null
-    }
-    const apiMock = api.metasDemarches.mockResolvedValue(data)
+    const apiMock = api.metasDemarches
+      .mockResolvedValueOnce({
+        demarchesTypes: [{ id: 'id-demarchesTypes' }],
+        demarchesStatuts: [{ id: 'id-demarchesStatuts' }],
+        etapesTypes: [{ id: 'id-etapesTypes' }],
+        types: [{ id: 'id-types' }],
+        domaines: [{ id: 'id-domaines' }],
+        statuts: [{ id: 'id-statuts' }]
+      })
+      .mockResolvedValueOnce({})
 
     await store.dispatch('titresDemarches/metasGet')
 
@@ -97,7 +98,20 @@ describe('liste des demarches', () => {
       etapesTypes: [{ id: 'id-etapesTypes' }],
       titresTypes: [{ id: 'id-types' }],
       titresDomaines: [{ id: 'id-domaines' }],
-      titresStatuts: []
+      titresStatuts: [{ id: 'id-statuts' }]
+    })
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+
+    await store.dispatch('titresDemarches/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.titresDemarches.metas).toEqual({
+      types: [{ id: 'id-demarchesTypes' }],
+      statuts: [{ id: 'id-demarchesStatuts' }],
+      etapesTypes: [{ id: 'id-etapesTypes' }],
+      titresTypes: [{ id: 'id-types' }],
+      titresDomaines: [{ id: 'id-domaines' }],
+      titresStatuts: [{ id: 'id-statuts' }]
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
@@ -115,16 +129,12 @@ describe('liste des demarches', () => {
   })
 
   test('obtient la liste des demarches', async () => {
-    const apiMock = api.demarches.mockResolvedValue(demarchesListe)
-    await store.dispatch('titresDemarches/get', {
-      titresDomainesIds: 'c,w',
-      titresStatutsIds: 'val'
+    const apiMock = api.demarches.mockResolvedValue({
+      demarches: demarchesListe
     })
+    await store.dispatch('titresDemarches/get')
 
-    expect(apiMock).toHaveBeenCalledWith({
-      titresDomainesIds: ['c', 'w'],
-      titresStatutsIds: ['val']
-    })
+    expect(apiMock).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(store.state.titresDemarches.list).toEqual(demarchesListe)
   })
@@ -133,15 +143,9 @@ describe('liste des demarches', () => {
     const apiMock = api.demarches.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
-    await store.dispatch('titresDemarches/get', {
-      titresDomainesIds: 'c,w',
-      titresStatutsIds: 'val'
-    })
+    await store.dispatch('titresDemarches/get')
 
-    expect(apiMock).toHaveBeenCalledWith({
-      titresDomainesIds: ['c', 'w'],
-      titresStatutsIds: ['val']
-    })
+    expect(apiMock).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })

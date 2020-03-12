@@ -62,8 +62,7 @@ describe('étapes', () => {
       geoSystemes: [
         { id: 'ifr', nom: 'Ifremer' },
         { id: 'dge', nom: 'DGEC' }
-      ],
-      unites: null
+      ]
     })
 
     await store.dispatch('titreEtape/metasGet', { etape: {} })

@@ -6,13 +6,15 @@ import { paramsArrayBuild, paramsStringBuild } from './_utils'
 
 export const state = {
   list: [],
+  total: null,
   metas: {
     types: [],
     statuts: [],
     etapesTypes: [],
     titresTypes: [],
     titresDomaines: [],
-    titresStatuts: []
+    titresStatuts: [],
+    intervalleMax: 200
   },
   params: {
     arrays: [
@@ -50,14 +52,16 @@ export const actions = {
     try {
       const data = await metasDemarches()
 
-      commit('metasSet', {
-        types: data.demarchesTypes,
-        statuts: data.demarchesStatuts,
-        etapesTypes: data.etapesTypes,
-        titresTypes: data.types,
-        titresDomaines: data.domaines,
-        titresStatuts: data.statuts
-      })
+      const metas = {}
+
+      if (data.demarchesTypes) metas.types = data.demarchesTypes
+      if (data.demarchesStatuts) metas.statuts = data.demarchesStatuts
+      if (data.etapesTypes) metas.etapesTypes = data.etapesTypes
+      if (data.types) metas.titresTypes = data.types
+      if (data.domaines) metas.titresDomaines = data.domaines
+      if (data.statuts) metas.titresStatuts = data.statuts
+
+      commit('metasSet', metas)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -65,17 +69,17 @@ export const actions = {
     }
   },
 
-  async get({ state, dispatch, commit }, params) {
+  async get({ state, dispatch, commit }) {
     commit('loadingAdd', 'demarches', { root: true })
 
     try {
       const p = Object.assign(
-        paramsArrayBuild(state.params.arrays, params),
-        paramsStringBuild(state.params.strings, params)
+        {},
+        paramsArrayBuild(state.params.arrays, state.preferences.filtres),
+        paramsStringBuild(state.params.strings, state.preferences.table)
       )
 
       const data = await demarches(p)
-
       dispatch(
         'messageAdd',
         {
@@ -100,13 +104,14 @@ export const actions = {
 }
 
 export const mutations = {
-  set(state, demarches) {
-    Vue.set(state, 'list', demarches)
+  set(state, data) {
+    Vue.set(state, 'list', data.demarches)
+    Vue.set(state, 'total', data.total)
   },
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id] ? data[id] : [])
+      Vue.set(state.metas, id, data[id])
     })
   },
 

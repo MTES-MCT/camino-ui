@@ -29,6 +29,7 @@ export const actions = {
     commit('loadingAdd', 'activites', { root: true })
 
     try {
+      console.log('get', annee, typeId)
       const data = await activites({ annee, typeId })
 
       if (data) {
@@ -50,7 +51,7 @@ export const mutations = {
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id] ? data[id] : [])
+      Vue.set(state.metas, id, data[id])
     })
   }
 }
