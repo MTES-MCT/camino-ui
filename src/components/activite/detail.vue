@@ -23,22 +23,24 @@
       />
     </template>
 
-    <div
-      v-if="activite.dateSaisie"
-      class="border-b-s px-m pt-m"
-    >
-      <h6>Date de {{ activite.statut.id === 'dep' ? 'dépôt' : 'modification' }}</h6>
-      <p>{{ activite.dateSaisie | dateFormat }}</p>
-    </div>
+    <div>
+      <div
+        v-if="activite.dateSaisie"
+        class="border-b-s px-m pt-m"
+      >
+        <h6>Date de {{ activite.statut.id === 'dep' ? 'dépôt' : 'modification' }}</h6>
+        <p>{{ activite.dateSaisie | dateFormat }}</p>
+      </div>
 
-    <Section
-      v-for="s in activite.sections"
-      :key="s.id"
-      class="border-b-s px-m pt-m"
-      :section="s"
-      :contenu="activite.contenu ? activite.contenu[s.id] : {}"
-      :date="activite.date"
-    />
+      <Section
+        v-for="s in activite.sections"
+        :key="s.id"
+        class="border-b-s px-m pt-m"
+        :section="s"
+        :contenu="activite.contenu ? activite.contenu[s.id] : {}"
+        :date="activite.date"
+      />
+    </div>
   </Accordion>
 </template>
 
