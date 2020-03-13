@@ -8,38 +8,38 @@ import { leafletPatternsDefault } from '../leaflet/pattern.js'
 //   px: 'exp',
 //   pr: 'rec'
 // }
-const type = {
-  axm: 'exp',
-  pxg: 'exp',
-  pxh: 'exp',
-  pxm: 'exp',
-  pxr: 'exp',
-  pxw: 'exp',
-  arc: 'rec',
-  arg: 'rec',
-  arm: 'rec',
-  prf: 'rec',
-  prg: 'rec',
-  prh: 'rec',
-  prm: 'rec',
-  prr: 'rec',
-  prs: 'rec',
-  prw: 'rec'
-}
+// const type = {
+//   axm: 'exp',
+//   pxg: 'exp',
+//   pxh: 'exp',
+//   pxm: 'exp',
+//   pxr: 'exp',
+//   pxw: 'exp',
+//   arc: 'rec',
+//   arg: 'rec',
+//   arm: 'rec',
+//   prf: 'rec',
+//   prg: 'rec',
+//   prh: 'rec',
+//   prm: 'rec',
+//   prr: 'rec',
+//   prs: 'rec',
+//   prw: 'rec'
+// }
 
-const statutPattern = { dmi: 'dmi' }
-const statutStroke = ['dmc', 'dmi', 'ech', 'mod', 'val']
+// const statutPattern = { dmi: 'dmi' }
+// const statutStroke = ['dmc', 'dmi', 'ech', 'mod', 'val']
 
-const strokeColor = {
-  color_stroke_domaine_m: '#376ea9',
-  color_stroke_domaine_h: '#c12569',
-  color_stroke_domaine_s: '#64508c',
-  color_stroke_domaine_g: '#c83714',
-  color_stroke_domaine_w: '#1e826e',
-  color_stroke_domaine_r: '#a0aa32',
-  color_stroke_domaine_c: '#b88848',
-  color_stroke_domaine_f: '#502812'
-}
+// const strokeColor = {
+//   color_stroke_domaine_m: '#376ea9',
+//   color_stroke_domaine_h: '#c12569',
+//   color_stroke_domaine_s: '#64508c',
+//   color_stroke_domaine_g: '#c83714',
+//   color_stroke_domaine_w: '#1e826e',
+//   color_stroke_domaine_r: '#a0aa32',
+//   color_stroke_domaine_c: '#b88848',
+//   color_stroke_domaine_f: '#502812'
+// }
 
 const L = window.L
 
@@ -119,8 +119,7 @@ const layersBuild = (titres, router) =>
       if (!titre.geojsonMultiPolygon) return { geojsons, markers, patterns }
 
       const domaineId = titre.domaine.id
-      const typeId = titre.type.id
-      const statutId = titre.statut.id
+      const nature = titre.type.type.nature
 
       const icon = L.divIcon({
         className: `leaflet-marker-camino py-xs px-s pill h6 mono color-bg cap bold border-bg bg-titre-domaine-${domaineId} shadow-drop`,
@@ -157,16 +156,17 @@ const layersBuild = (titres, router) =>
       let marker
 
       const pattern =
-        leafletPatternsDefault[getGeojsonPattern(domaineId, typeId, statutId)]
-      const color = getGeojsonStrokeColor(domaineId, typeId, statutId)
+        leafletPatternsDefault[getGeojsonPattern(domaineId, nature)]
+      // const color = getGeojsonStrokeColor(domaineId, typeId, statutId)
       const svgFill = pattern ? null : `svg-fill-domaine-${domaineId}`
 
       const geojson = L.geoJSON(titre.geojsonMultiPolygon, {
         style: {
-          fillOpacity: 0.75,
+          fillOpacity: 1,
+          // fillOpacity: 0.75,
           weight: 1,
-          // color: 'white',
-          color: color || 'white',
+          color: 'white',
+          // color: color || 'white',
           // className: `svg-fill-domaine-${domaineId}`
           className: svgFill,
           fillPattern: pattern
@@ -212,16 +212,14 @@ const tilesBuild = tiles =>
 
 const geojsonBoundsGet = zone => L.geoJSON(zone).getBounds()
 
-const getGeojsonPattern = (domaineId, typeId, statutId) => {
-  return type[typeId] && statutPattern[statutId]
-    ? `${domaineId}-${type[typeId]}-${statutPattern[statutId]}`
-    : null
+const getGeojsonPattern = (domaineId, nature) => {
+  return `${domaineId}-${nature}`
 }
 
-const getGeojsonStrokeColor = (domaineId, typeId, statutId) => {
-  return type[typeId] && statutStroke.includes(statutId)
-    ? strokeColor[`color_stroke_domaine_${domaineId}`]
-    : null
-}
+// const getGeojsonStrokeColor = (domaineId, typeId, statutId) => {
+//   return type[typeId] && statutStroke.includes(statutId)
+//     ? strokeColor[`color_stroke_domaine_${domaineId}`]
+//     : null
+// }
 
 export { zones, clustersBuild, layersBuild, tilesBuild, geojsonBoundsGet }

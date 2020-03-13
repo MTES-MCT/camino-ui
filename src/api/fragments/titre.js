@@ -115,6 +115,7 @@ const fragmentTitres = gql`
       id
       type {
         nom
+        nature
       }
     }
     domaine {

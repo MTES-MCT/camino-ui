@@ -4,49 +4,69 @@ const L = window.L
 
 const getGeojsonPattern = (
   color,
+  isMotif = false,
   x = 5,
   y = 5,
   radius = 1.5,
   fill = true,
-  width = 10,
-  height = 10
+  width = 30,
+  height = 30
 ) => {
-  const shape = new L.PatternCircle({
-    x: x,
-    y: y,
-    radius: radius,
-    fill: fill,
-    color: color
-  })
+  // const shape = new L.PatternCircle({
+  //   x: x,
+  //   y: y,
+  //   radius: radius,
+  //   fill: fill,
+  //   fillOpacity: 1,
+  //   color: 'white'
+  // })
+  // const shape2 = new L.PatternCircle({
+  //   x: 4 * x,
+  //   y: 4 * y,
+  //   radius: radius,
+  //   fill: fill,
+  //   fillOpacity: 1,
+  //   color: 'white'
+  // })
 
-  const pattern = new L.Pattern({
+  const pattern = new L.StripePattern({
+    weight: height,
+    color: color,
+    opacity: 0.75,
     width: width,
     height: height
   })
+  // const pattern = new L.Pattern({
+  //   width: width,
+  //   height: height,
+  //   color: color
+  // })
 
-  pattern.addShape(shape)
+  if (isMotif) {
+    // pattern.addShape(shape)
+    // pattern.addShape(shape2)
+  }
 
   return pattern
 }
 
 var leafletPatternsDefault = {}
 
-leafletPatternsDefault['m-exp-dmi'] = getGeojsonPattern('#376ea9')
-leafletPatternsDefault['m-rec-dmi'] = getGeojsonPattern('#53a6ff')
-leafletPatternsDefault['w-exp-dmi'] = getGeojsonPattern('#1e826e')
-leafletPatternsDefault['w-rec-dmi'] = getGeojsonPattern('#8ce6cd')
-leafletPatternsDefault['c-exp-dmi'] = getGeojsonPattern('#b88848')
-leafletPatternsDefault['c-rec-dmi'] = getGeojsonPattern('#ffcc88')
-leafletPatternsDefault['h-exp-dmi'] = getGeojsonPattern('#c12569')
-leafletPatternsDefault['h-rec-dmi'] = getGeojsonPattern('#f778af')
-// titres f : couleurs prises arbitrairement
-leafletPatternsDefault['f-exp-dmi'] = getGeojsonPattern('#502812')
-leafletPatternsDefault['f-rec-dmi'] = getGeojsonPattern('#b35a2b')
-leafletPatternsDefault['r-exp-dmi'] = getGeojsonPattern('#a0aa32')
-leafletPatternsDefault['r-rec-dmi'] = getGeojsonPattern('#bef546')
-leafletPatternsDefault['g-exp-dmi'] = getGeojsonPattern('#c83714')
-leafletPatternsDefault['g-rec-dmi'] = getGeojsonPattern('#f0785a')
-leafletPatternsDefault['s-exp-dmi'] = getGeojsonPattern('#64508c')
-leafletPatternsDefault['s-rec-dmi'] = getGeojsonPattern('#a07de1')
+leafletPatternsDefault['m-exploitation'] = getGeojsonPattern('#376FAA', false)
+leafletPatternsDefault['m-exploration'] = getGeojsonPattern('#376FAA', true)
+leafletPatternsDefault['w-exploitation'] = getGeojsonPattern('#1D836E', false)
+leafletPatternsDefault['w-exploration'] = getGeojsonPattern('#1D836E', true)
+leafletPatternsDefault['c-exploitation'] = getGeojsonPattern('#B88847', false)
+leafletPatternsDefault['c-exploration'] = getGeojsonPattern('#B88847', true)
+leafletPatternsDefault['h-exploitation'] = getGeojsonPattern('#C2266A', false)
+leafletPatternsDefault['h-exploration'] = getGeojsonPattern('#C2266A', true)
+leafletPatternsDefault['f-exploitation'] = getGeojsonPattern('#4A515D', false)
+leafletPatternsDefault['f-exploration'] = getGeojsonPattern('#4A515D', true)
+leafletPatternsDefault['r-exploitation'] = getGeojsonPattern('#A0AA31', false)
+leafletPatternsDefault['r-exploration'] = getGeojsonPattern('#A0AA31', true)
+leafletPatternsDefault['g-exploitation'] = getGeojsonPattern('#C93717', false)
+leafletPatternsDefault['g-exploration'] = getGeojsonPattern('#C93717', true)
+leafletPatternsDefault['s-exploitation'] = getGeojsonPattern('#65518D', false)
+leafletPatternsDefault['s-exploration'] = getGeojsonPattern('#65518D', true)
 
 export { leafletPatternsDefault }
