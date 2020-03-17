@@ -12,22 +12,22 @@ const getGeojsonPattern = (
   width = 30,
   height = 30
 ) => {
-  // const shape = new L.PatternCircle({
-  //   x: x,
-  //   y: y,
-  //   radius: radius,
-  //   fill: fill,
-  //   fillOpacity: 1,
-  //   color: 'white'
-  // })
-  // const shape2 = new L.PatternCircle({
-  //   x: 4 * x,
-  //   y: 4 * y,
-  //   radius: radius,
-  //   fill: fill,
-  //   fillOpacity: 1,
-  //   color: 'white'
-  // })
+  const shape = new L.PatternCircle({
+    x: x,
+    y: y,
+    radius: radius,
+    fill: fill,
+    fillOpacity: 1,
+    color: 'white'
+  })
+  const shape2 = new L.PatternCircle({
+    x: 4 * x,
+    y: 4 * y,
+    radius: radius,
+    fill: fill,
+    fillOpacity: 1,
+    color: 'white'
+  })
 
   const pattern = new L.StripePattern({
     weight: height,
@@ -43,8 +43,8 @@ const getGeojsonPattern = (
   // })
 
   if (isMotif) {
-    // pattern.addShape(shape)
-    // pattern.addShape(shape2)
+    pattern.addShape(shape)
+    pattern.addShape(shape2)
   }
 
   return pattern

@@ -213,7 +213,8 @@ const tilesBuild = tiles =>
 const geojsonBoundsGet = zone => L.geoJSON(zone).getBounds()
 
 const getGeojsonPattern = (domaineId, nature) => {
-  return `${domaineId}-${nature}`
+  // return `${domaineId}-${nature}`
+  return 'm-exploration'
 }
 
 // const getGeojsonStrokeColor = (domaineId, typeId, statutId) => {
