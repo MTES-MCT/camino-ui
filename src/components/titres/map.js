@@ -156,7 +156,9 @@ const layersBuild = (titres, router) =>
       let marker
 
       const pattern =
-        leafletPatternsDefault[getGeojsonPattern(domaineId, nature)]
+        leafletPatternsDefault[
+          getGeojsonPattern(domaineId, nature ? 'exploitation' : 'exploration')
+        ]
       // const color = getGeojsonStrokeColor(domaineId, typeId, statutId)
       const svgFill = pattern ? null : `svg-fill-domaine-${domaineId}`
 
@@ -213,8 +215,9 @@ const tilesBuild = tiles =>
 const geojsonBoundsGet = zone => L.geoJSON(zone).getBounds()
 
 const getGeojsonPattern = (domaineId, nature) => {
-  // return `${domaineId}-${nature}`
-  return 'm-exploration'
+  console.log('nature', nature)
+  return `${domaineId}-${nature}`
+  // return 'm-exploration'
 }
 
 // const getGeojsonStrokeColor = (domaineId, typeId, statutId) => {
