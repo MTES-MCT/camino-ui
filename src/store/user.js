@@ -3,6 +3,7 @@ import Vue from 'vue'
 import {
   moi,
   utilisateurTokenCreer,
+  utilisateurCerbereTokenCreer,
   utilisateurCreationEmailEnvoyer,
   utilisateurCreer,
   utilisateurMotDePasseEmailEnvoyer,
@@ -65,6 +66,36 @@ export const actions = {
 
     try {
       const data = await utilisateurTokenCreer({ email, motDePasse })
+
+      const { utilisateur, token } = data
+
+      dispatch('tokenSet', token)
+      commit('set', utilisateur)
+      commit('popupClose', null, { root: true })
+      dispatch(
+        'messageAdd',
+        {
+          value: `bienvenue ${utilisateur.prenom} ${utilisateur.nom}`,
+          type: 'success'
+        },
+        { root: true }
+      )
+      dispatch('errorRemove', null, { root: true })
+    } catch (e) {
+      dispatch('tokenRemove')
+      commit('reset')
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'utilisateurLogin', { root: true })
+    }
+  },
+
+  async loginCerbere({ commit, dispatch }, { ticket }) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'utilisateurLogin', { root: true })
+
+    try {
+      const data = await utilisateurCerbereTokenCreer({ ticket })
 
       const { utilisateur, token } = data
 
@@ -180,7 +211,9 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'utilisateurPasswordInitEmail', { root: true })
+      commit('loadingRemove', 'utilisateurPasswordInitEmail', {
+        root: true
+      })
     }
   },
 

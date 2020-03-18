@@ -100,6 +100,16 @@ const utilisateurTokenCreer = apiMutate(gql`
   ${fragmentUtilisateurToken}
 `)
 
+const utilisateurCerbereTokenCreer = apiMutate(gql`
+  mutation UtilisateurCerbereTokenCreer($ticket: String!) {
+    utilisateurCerbereTokenCreer(ticket: $ticket) {
+      ...utilisateurToken
+    }
+  }
+
+  ${fragmentUtilisateurToken}
+`)
+
 const moi = apiQuery(gql`
   query Moi {
     moi {
@@ -195,6 +205,7 @@ export {
   utilisateurs,
   moi,
   utilisateurTokenCreer,
+  utilisateurCerbereTokenCreer,
   utilisateurModifier,
   utilisateurCreer,
   utilisateurSupprimer,

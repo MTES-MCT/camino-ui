@@ -7,6 +7,7 @@ import tiles from './_map-tiles'
 
 jest.mock('../api/utilisateurs', () => ({
   utilisateurTokenCreer: jest.fn(),
+  utilisateurCerbereTokenCreer: jest.fn(),
   moi: jest.fn(),
   utilisateurMotDePasseInitialiser: jest.fn(),
   utilisateurMotDePasseEmailEnvoyer: jest.fn(),
@@ -30,10 +31,13 @@ describe("état de l'utilisateur connecté", () => {
   let map
   let email
   let motDePasse
+  let ticket
 
   beforeEach(() => {
     email = 'rene@la.taupe'
     motDePasse = 'mignon'
+    ticket = 'ti-cket'
+
     userInfo = {
       id: 66,
       prenom: 'rene',
@@ -172,6 +176,43 @@ describe("état de l'utilisateur connecté", () => {
     await store.dispatch('user/login', { email, motDePasse })
 
     expect(apiMock).toHaveBeenCalledWith({ email, motDePasse })
+    expect(localStorage.getItem('token')).toBeNull()
+    expect(store.state.user.current).toBeNull()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test('connecte un utilisateur avec Cerbère', async () => {
+    const apiMock = api.utilisateurCerbereTokenCreer.mockResolvedValue({
+      token: 'rene',
+      utilisateur: userInfo
+    })
+
+    await store.dispatch('user/loginCerbere', { ticket })
+
+    expect(apiMock).toHaveBeenCalledWith({ ticket })
+    expect(mutations.popupClose).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalled()
+    expect(localStorage.getItem('token')).toEqual('rene')
+    expect(store.state.user.current).toEqual({
+      id: 66,
+      prenom: 'rene',
+      nom: 'lataupe',
+      email: 'rene@la.taupe',
+      permission: 'admin',
+      entreprise: 'macdo'
+    })
+  })
+
+  test("retourne une erreur de l'api lors de la connection d'un utilisateur avec Cerbère", async () => {
+    localStorage.setItem('token', 'rene')
+    store.commit('user/set', userInfo)
+    const apiMock = api.utilisateurCerbereTokenCreer.mockRejectedValue(
+      new Error("erreur dans l'api")
+    )
+
+    await store.dispatch('user/loginCerbere', { ticket })
+
+    expect(apiMock).toHaveBeenCalledWith({ ticket })
     expect(localStorage.getItem('token')).toBeNull()
     expect(store.state.user.current).toBeNull()
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
