@@ -34,7 +34,7 @@
     </div>
 
     <template slot="footer">
-      <div class="tablet-blobs mb">
+      <div class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
             class="btn-border rnd-xs p-s full-x"
@@ -45,31 +45,50 @@
         </div>
         <div
           class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
         >
-          <button
-            id="cmn-user-login-popup-button-se-connecter"
-            class="btn-flash rnd-xs p-s full-x"
-            @click="login"
-          >
-            Se connecter
-          </button>
+          <ul class="list-sans mb-0">
+            <li
+              :class="{ disabled: !complete }"
+            >
+              <button
+                id="cmn-user-login-popup-button-se-connecter"
+                class="btn-flash rnd-xs p-s full-x mb"
+                @click="login"
+              >
+                Se connecter
+              </button>
+            </li>
+            <li>
+              <button
+                id="cmn-user-login-popup-button-creer-votre-compte"
+                class="btn-border rnd-xs p-s h5 mr-s full-x mb-s"
+                @click="userAddPopupOpen"
+              >
+                Créer votre compte…
+              </button>
+            </li>
+            <li>
+              <button
+                id="cmn-user-login-popup-button-reinitialiser"
+                class="btn-border rnd-xs p-s h5 mr-s full-x mb-s"
+                @click="userPasswordInitPopupOpen"
+              >
+                Réinitialiser votre mot de passe…
+              </button>
+            </li>
+
+            <li>
+              <button
+                id="cmn-user-login-popup-button-reinitialiser"
+                class="btn-border rnd-xs p-s h5 mr-s full-x"
+                @click="loginCerbere"
+              >
+                Se connecter avec Cerbère…
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
-      <button
-        id="cmn-user-login-popup-button-creer-votre-compte"
-        class="btn-alt rnd-xs p-s h5 mr-s"
-        @click="userAddPopupOpen"
-      >
-        Créer votre compte…
-      </button>
-      <button
-        id="cmn-user-login-popup-button-reinitialiser"
-        class="btn-alt rnd-xs p-s h5 mr-s"
-        @click="userPasswordInitPopupOpen"
-      >
-        Réinitialiser votre mot de passe…
-      </button>
     </template>
   </Popup>
 </template>
@@ -148,6 +167,20 @@ export default {
       this.$store.commit('popupOpen', {
         component: UserPasswordInitPopup
       })
+    },
+
+    loginCerbere() {
+      const query = { ...this.$route.query }
+
+      delete query.ticket
+
+      query.authentification = 'cerbere'
+
+      this.$router.replace({ query })
+
+      const currentUrlEncoded = encodeURIComponent(window.location.href)
+
+      window.location.href = `https://authentification.din.developpement-durable.gouv.fr/cas/public/login?service=${currentUrlEncoded}`
     }
   }
 }

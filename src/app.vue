@@ -77,6 +77,14 @@ export default {
 
   methods: {
     async init() {
+      const ticket =
+        this.$route.query.authentification === 'cerbere' &&
+        this.$route.query.ticket
+
+      if (ticket) {
+        await this.$store.dispatch('user/loginCerbere', { ticket })
+      }
+
       await this.$store.dispatch('user/identify')
       await this.get()
     },
