@@ -82,10 +82,17 @@ export default {
         this.$route.query.ticket
 
       if (ticket) {
-        await this.$store.dispatch('user/loginCerbere', { ticket })
-      }
+        const query = { ...this.$route.query }
 
-      await this.$store.dispatch('user/identify')
+        delete query.ticket
+        delete query.authentification
+        delete query.TARGET
+
+        this.$router.replace({ query })
+        await this.$store.dispatch('user/cerbereLogin', { ticket })
+      } else {
+        await this.$store.dispatch('user/identify')
+      }
       await this.get()
     },
 

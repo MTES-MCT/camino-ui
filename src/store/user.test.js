@@ -7,6 +7,7 @@ import tiles from './_map-tiles'
 
 jest.mock('../api/utilisateurs', () => ({
   utilisateurTokenCreer: jest.fn(),
+  utilisateurCerbereUrlObtenir: jest.fn(),
   utilisateurCerbereTokenCreer: jest.fn(),
   moi: jest.fn(),
   utilisateurMotDePasseInitialiser: jest.fn(),
@@ -181,13 +182,40 @@ describe("état de l'utilisateur connecté", () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
+  test("obtient l'url de login Cerbère", async () => {
+    const url = encodeURIComponent('http://camino.test')
+    const returnUrl = `https://url-cerbere.tld/login?TARGET=${url}`
+
+    const apiMock = api.utilisateurCerbereUrlObtenir.mockResolvedValue(
+      returnUrl
+    )
+
+    const cerbereUrl = await store.dispatch('user/cerbereUrlGet', url)
+
+    expect(apiMock).toHaveBeenCalledWith({ url })
+
+    expect(cerbereUrl).toBe(returnUrl)
+  })
+
+  test("retourne une erreur de l'api lors de l'obtention de l'url Cerbère", async () => {
+    const url = 'http://camino.test'
+    const apiMock = api.utilisateurCerbereUrlObtenir.mockRejectedValue(
+      new Error("erreur dans l'api")
+    )
+
+    await store.dispatch('user/cerbereUrlGet', url)
+
+    expect(apiMock).toHaveBeenCalledWith({ url })
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
   test('connecte un utilisateur avec Cerbère', async () => {
     const apiMock = api.utilisateurCerbereTokenCreer.mockResolvedValue({
       token: 'rene',
       utilisateur: userInfo
     })
 
-    await store.dispatch('user/loginCerbere', { ticket })
+    await store.dispatch('user/cerbereLogin', { ticket })
 
     expect(apiMock).toHaveBeenCalledWith({ ticket })
     expect(mutations.popupClose).toHaveBeenCalled()
@@ -210,7 +238,7 @@ describe("état de l'utilisateur connecté", () => {
       new Error("erreur dans l'api")
     )
 
-    await store.dispatch('user/loginCerbere', { ticket })
+    await store.dispatch('user/cerbereLogin', { ticket })
 
     expect(apiMock).toHaveBeenCalledWith({ ticket })
     expect(localStorage.getItem('token')).toBeNull()

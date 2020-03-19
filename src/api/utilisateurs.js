@@ -110,6 +110,12 @@ const utilisateurCerbereTokenCreer = apiMutate(gql`
   ${fragmentUtilisateurToken}
 `)
 
+const utilisateurCerbereUrlObtenir = apiMutate(gql`
+  mutation UtilisateurCerbereUrlObtenir($url: String!) {
+    utilisateurCerbereUrlObtenir(url: $url)
+  }
+`)
+
 const moi = apiQuery(gql`
   query Moi {
     moi {
@@ -206,6 +212,7 @@ export {
   moi,
   utilisateurTokenCreer,
   utilisateurCerbereTokenCreer,
+  utilisateurCerbereUrlObtenir,
   utilisateurModifier,
   utilisateurCreer,
   utilisateurSupprimer,

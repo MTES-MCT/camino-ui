@@ -4,6 +4,7 @@ import {
   moi,
   utilisateurTokenCreer,
   utilisateurCerbereTokenCreer,
+  utilisateurCerbereUrlObtenir,
   utilisateurCreationEmailEnvoyer,
   utilisateurCreer,
   utilisateurMotDePasseEmailEnvoyer,
@@ -90,9 +91,24 @@ export const actions = {
     }
   },
 
-  async loginCerbere({ commit, dispatch }, { ticket }) {
+  async cerbereUrlGet({ commit }, url) {
     commit('popupMessagesRemove', null, { root: true })
-    commit('loadingAdd', 'utilisateurLogin', { root: true })
+    commit('loadingAdd', 'cerbereUrlGet', { root: true })
+
+    try {
+      const data = await utilisateurCerbereUrlObtenir({ url })
+
+      return data
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'cerbereUrlGet', { root: true })
+    }
+  },
+
+  async cerbereLogin({ commit, dispatch }, { ticket }) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('loadingAdd', 'cerbereLogin', { root: true })
 
     try {
       const data = await utilisateurCerbereTokenCreer({ ticket })
@@ -116,7 +132,7 @@ export const actions = {
       commit('reset')
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'utilisateurLogin', { root: true })
+      commit('loadingRemove', 'cerbereLogin', { root: true })
     }
   },
 

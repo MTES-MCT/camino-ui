@@ -60,7 +60,7 @@
             </li>
             <li>
               <button
-                id="cmn-user-login-popup-button-creer-votre-compte"
+                id="cmn-user-cerbere-login-popup-button-creer-votre-compte"
                 class="btn-border rnd-xs p-s h5 mr-s full-x mb-s"
                 @click="userAddPopupOpen"
               >
@@ -81,7 +81,7 @@
               <button
                 id="cmn-user-login-popup-button-reinitialiser"
                 class="btn-border rnd-xs p-s h5 mr-s full-x"
-                @click="loginCerbere"
+                @click="cerbereLogin"
               >
                 Se connecter avec Cerbère…
               </button>
@@ -169,18 +169,32 @@ export default {
       })
     },
 
-    loginCerbere() {
+    async cerbereLogin() {
       const query = { ...this.$route.query }
 
-      delete query.ticket
+      if (
+        query.ticket ||
+        !query.authentification ||
+        query.authentification !== 'cerbere' ||
+        query.TARGET
+      ) {
+        delete query.ticket
+        delete query.authentification
+        delete query.TARGET
 
-      query.authentification = 'cerbere'
+        query.authentification = 'cerbere'
 
-      this.$router.replace({ query })
+        this.$router.replace({ query })
+      }
 
       const currentUrlEncoded = encodeURIComponent(window.location.href)
 
-      window.location.href = `https://authentification.din.developpement-durable.gouv.fr/cas/public/login?service=${currentUrlEncoded}`
+      const redirectUrl = await this.$store.dispatch(
+        'user/cerbereUrlGet',
+        currentUrlEncoded
+      )
+
+      window.location.href = redirectUrl
     }
   }
 }
