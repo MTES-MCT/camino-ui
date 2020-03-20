@@ -1,7 +1,7 @@
 import 'leaflet'
 import 'leaflet.markercluster'
 
-import { leafletPatternsDefault } from '../leaflet/pattern.js'
+import { getGeojsonPattern } from '../geojsonpattern.js'
 
 const L = window.L
 
@@ -81,7 +81,7 @@ const layersBuild = (titres, router) =>
       if (!titre.geojsonMultiPolygon) return { geojsons, markers }
 
       const domaineId = titre.domaine.id
-      const nature = titre.type.type.nature
+      const exploitation = titre.type.type.exploitation
 
       const icon = L.divIcon({
         className: `leaflet-marker-camino py-xs px-s pill h6 mono color-bg cap bold border-bg bg-titre-domaine-${domaineId} shadow-drop`,
@@ -117,20 +117,13 @@ const layersBuild = (titres, router) =>
 
       let marker
 
-      const pattern =
-        leafletPatternsDefault[
-          getGeojsonPattern(domaineId, nature ? 'exploitation' : 'exploration')
-        ]
-      const svgFill = pattern ? null : `svg-fill-domaine-${domaineId}`
+      const { pattern, svgFill } = getGeojsonPattern(domaineId, exploitation)
 
       const geojson = L.geoJSON(titre.geojsonMultiPolygon, {
         style: {
-          // fillOpacity: 1,
           fillOpacity: 0.75,
           weight: 1,
           color: 'white',
-          // color: color || 'white',
-          // className: `svg-fill-domaine-${domaineId}`,
           className: svgFill,
           fillPattern: pattern
         },
@@ -174,10 +167,5 @@ const tilesBuild = tiles =>
       })
 
 const geojsonBoundsGet = zone => L.geoJSON(zone).getBounds()
-
-const getGeojsonPattern = (domaineId, nature) => {
-  console.log('nature', nature)
-  return `${domaineId}-${nature}`
-}
 
 export { zones, clustersBuild, layersBuild, tilesBuild, geojsonBoundsGet }

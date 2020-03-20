@@ -2,15 +2,12 @@
   <div>
     <Loader v-if="!loaded" />
     <Card v-else>
-      <div
-        v-if="titre.doublonTitreId"
-        class="p-m bg-warning color-bg mb"
-      >
+      <div v-if="titre.doublonTitreId" class="p-m bg-warning color-bg mb">
         Ce titre est un doublon. Le titre déjà existant est :
-        <a
-          class="color-bg"
-          :href="`/titres/${titre.doublonTitreId}`"
-        >{{ titre.doublonTitreId }}</a>.
+        <a class="color-bg" :href="`/titres/${titre.doublonTitreId}`">{{
+          titre.doublonTitreId
+        }}</a
+        >.
       </div>
       <TitreHeader :titre="titre" />
 
@@ -22,10 +19,7 @@
               :titre="titre"
               class="mr-s flex-right"
             />
-            <TitreDownloadGeojson
-              v-if="titre.points.length"
-              :titre="titre"
-            />
+            <TitreDownloadGeojson v-if="titre.points.length" :titre="titre" />
           </div>
 
           <div class="tablet-blob-1-2 flex">
@@ -40,19 +34,10 @@
                 class="p-m btn-tab rnd-t-xs"
                 @click="geoTabToggle(tab.id)"
               >
-                <i
-                  :class="`icon-${tab.icon}`"
-                  class="icon-24"
-                />
+                <i :class="`icon-${tab.icon}`" class="icon-24" />
               </button>
-              <div
-                v-else
-                class="p-m span-tab rnd-t-xs"
-              >
-                <i
-                  :class="`icon-${tab.icon}`"
-                  class="icon-24"
-                />
+              <div v-else class="p-m span-tab rnd-t-xs">
+                <i :class="`icon-${tab.icon}`" class="icon-24" />
               </div>
             </div>
           </div>
@@ -65,6 +50,7 @@
           :geojson="titre.geojsonMultiPolygon"
           :points="titre.points"
           :domaine-id="titre.domaine.id"
+          :exploitation="titre.type.type.exploitation"
         />
 
         <TitrePoints
@@ -75,10 +61,7 @@
         <div class="card-border mb" />
       </div>
 
-      <TitreTerritoires
-        :pays="titre.pays"
-        :surface="titre.surface"
-      />
+      <TitreTerritoires :pays="titre.pays" :surface="titre.surface" />
 
       <TitreRepertoire
         :titulaires="titre.titulaires"
@@ -86,10 +69,7 @@
         :administrations="titre.administrations"
       />
 
-      <div
-        v-if="titre.demarches.length && titre.activites.length"
-        class="flex"
-      >
+      <div v-if="titre.demarches.length && titre.activites.length" class="flex">
         <div
           v-for="tab in tabs"
           :key="tab.id"

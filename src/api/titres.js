@@ -28,6 +28,7 @@ const metasTitres = apiQuery(
       types {
         id
         nom
+        exploitation
       }
 
       statuts {

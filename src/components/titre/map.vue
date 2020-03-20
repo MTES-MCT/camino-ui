@@ -8,17 +8,11 @@
       :bounds="bounds"
       class="map map-detail mb-s"
     />
-    <MapWarningBrgm
-      :zoom="zoom"
-      :tiles-id="tilesId"
-    />
+    <MapWarningBrgm :zoom="zoom" :tiles-id="tilesId" />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2 mb">
         <div class="flex">
-          <button
-            class="btn-border pill px-m py-s"
-            @click="center"
-          >
+          <button class="btn-border pill px-m py-s" @click="center">
             Centrer
           </button>
         </div>
@@ -39,6 +33,7 @@ import L from 'leaflet'
 import LeafletMap from '../leaflet/map.vue'
 import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
 import MapWarningBrgm from '../leaflet/warning-brgm.vue'
+import { getGeojsonPattern } from '../geojsonpattern.js'
 
 export default {
   components: {
@@ -59,6 +54,10 @@ export default {
     domaineId: {
       type: String,
       default: 'm'
+    },
+    exploitation: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -88,13 +87,18 @@ export default {
     },
 
     geojsonLayers() {
+      const { pattern, svgFill } = getGeojsonPattern(
+        this.domaineId,
+        this.exploitation
+      )
       return [
         L.geoJSON(this.geojson, {
           style: {
             fillOpacity: 0.75,
             weight: 1,
             color: 'white',
-            className: `svg-fill-domaine-${this.domaineId}`
+            className: svgFill,
+            fillPattern: pattern
           }
         })
       ]

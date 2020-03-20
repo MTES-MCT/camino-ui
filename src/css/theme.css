@@ -85,7 +85,7 @@
   list-style: none;
   margin-bottom: 0;
 
-  & > li {
+  &>li {
     margin-bottom: 0;
     float: left;
   }
@@ -125,6 +125,16 @@
 
 .bg-titre-domaine-w {
   background: var(--color-title-domaine-w);
+}
+
+.bg-titre-nature-exploitation {
+  background: var(--color-neutral);
+}
+
+.bg-titre-nature-exploration {
+  background: repeating-linear-gradient(135deg, var(--color-bg), var(--color-bg), var(--color-neutral) 2px, var(--color-neutral) 7px);
+  /* 2nde option : bandes de même largeur
+  background: repeating-linear-gradient(135deg, var(--color-bg), var(--color-bg) 3px, var(--color-neutral) 2px, var(--color-neutral) 7px); */
 }
 
 .svg-fill-domaine-c {

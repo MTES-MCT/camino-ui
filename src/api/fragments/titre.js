@@ -25,6 +25,7 @@ const fragmentTitre = gql`
       id
       type {
         nom
+        exploitation
       }
       sections
     }
@@ -115,7 +116,7 @@ const fragmentTitres = gql`
       id
       type {
         nom
-        nature
+        exploitation
       }
     }
     domaine {

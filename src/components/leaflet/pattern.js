@@ -1,135 +1,31 @@
-// import 'leaflet.pattern'
-
 const L = window.L
 
-const getGeojsonPattern = (
-  color,
-  isMotif = false,
-  x = 5,
-  y = 5,
-  radius = 1.5,
-  fill = true,
-  width = 30,
-  height = 30
-) => {
-  // const shape = new L.PatternCircle({
-  //   x: x,
-  //   y: y,
-  //   radius: radius,
-  //   fill: fill,
-  //   fillOpacity: 1,
-  //   color: 'white'
-  // })
-  // const shape2 = new L.PatternCircle({
-  //   x: 4 * x,
-  //   y: 4 * y,
-  //   radius: radius,
-  //   fill: fill,
-  //   fillOpacity: 1,
-  //   color: 'white'
-  // })
-
-  // const pattern = new L.StripePattern({
-  //   weight: 4,
-  //   spaceWeight: 4,
-  //   color: color,
-  //   // opacity: 0.75,
-  //   spaceColor: 'white',
-  //   spaceOpacity: 0.5,
-  //   // width: width,
-  //   // height: height,
-  //   angle: 135
-  // })
-
-  // meilleur compromis
-  //
+const getGeojsonPattern = domaineId => {
   const pattern = new L.StripePattern({
     weight: 7,
-    // spaceWeight: 1,
-    color: color,
-    // opacity: 0.75,
+    // 2nde option : bandes de même largeur
+    // weight: 4,
+    color: `var(--color-title-domaine-${domaineId})`,
     spaceColor: 'white',
     spaceOpacity: 0.5,
-    // width: width,
-    // height: height,
     angle: 135
   })
-  // const pattern = new L.StripePattern({
-  //   weight: 7,
-  //   // spaceWeight: 1,
-  //   color: color,
-  //   // opacity: 0.75,
-  //   spaceColor: 'white',
-  //   spaceOpacity: 0.5,
-  //   // width: width,
-  //   // height: height,
-  //   angle: 135
-  // })
-
-  // const pattern = new L.StripePattern({
-  //   weight: height / 10,
-  //   spaceWeight: height / 10,
-  //   color: color,
-  //   opacity: 0.75,
-  //   width: width,
-  //   height: height,
-  //   angle: 135
-  // })
-
-  // const pattern = new L.StripePattern({
-  //   weight: height,
-  //   color: color,
-  //   opacity: 0.75,
-  //   width: width,
-  //   height: height
-  // })
-
-  // const pattern = new L.PatternShape({
-  //   stroke: true,
-  //   color: 'black',
-  //   weight: 3,
-  //   opacity: 1,
-  //   lineCap: 'round',
-  //   lineJoin: 'round',
-  //   // dashArray: null
-  //   // dashOffset: null
-
-  //   // fill: false
-  //   // fillColor: same as color by default
-  //   fillOpacity: 1,
-  //   fillRule: 'evenodd'
-  //   // fillPattern: L.Pattern
-  // })
-  // const pattern = new L.Pattern({
-  //   width: width,
-  //   height: height
-  // })
-
-  // if (isMotif) {
-  //   pattern.addShape(shape)
-  //   pattern.addShape(shape2)
-  // }
 
   return pattern
 }
 
-var leafletPatternsDefault = {}
-
-// leafletPatternsDefault['m-exploitation'] = getGeojsonPattern('#376FAA', false)
-leafletPatternsDefault['m-exploration'] = getGeojsonPattern('#376FAA', true)
-// leafletPatternsDefault['w-exploitation'] = getGeojsonPattern('#1D836E', false)
-leafletPatternsDefault['w-exploration'] = getGeojsonPattern('#1D836E', true)
-// leafletPatternsDefault['c-exploitation'] = getGeojsonPattern('#B88847', false)
-leafletPatternsDefault['c-exploration'] = getGeojsonPattern('#B88847', true)
-// leafletPatternsDefault['h-exploitation'] = getGeojsonPattern('#C2266A', false)
-leafletPatternsDefault['h-exploration'] = getGeojsonPattern('#C2266A', true)
-// leafletPatternsDefault['f-exploitation'] = getGeojsonPattern('#4A515D', false)
-leafletPatternsDefault['f-exploration'] = getGeojsonPattern('#4A515D', true)
-// leafletPatternsDefault['r-exploitation'] = getGeojsonPattern('#A0AA31', false)
-leafletPatternsDefault['r-exploration'] = getGeojsonPattern('#A0AA31', true)
-// leafletPatternsDefault['g-exploitation'] = getGeojsonPattern('#C93717', false)
-leafletPatternsDefault['g-exploration'] = getGeojsonPattern('#C93717', true)
-// leafletPatternsDefault['s-exploitation'] = getGeojsonPattern('#65518D', false)
-leafletPatternsDefault['s-exploration'] = getGeojsonPattern('#65518D', true)
+// ensemble des leafletPattern par défaut
+// chaque geojson y fait référence
+// il est importé dans src/components/leaflet/map.vue comme référence
+var leafletPatternsDefault = {
+  m: getGeojsonPattern('m'),
+  w: getGeojsonPattern('w'),
+  c: getGeojsonPattern('c'),
+  h: getGeojsonPattern('h'),
+  f: getGeojsonPattern('f'),
+  r: getGeojsonPattern('r'),
+  g: getGeojsonPattern('g'),
+  s: getGeojsonPattern('s')
+}
 
 export { leafletPatternsDefault }

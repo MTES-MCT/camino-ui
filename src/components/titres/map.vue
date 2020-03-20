@@ -8,18 +8,11 @@
       class="map map-list mb-s"
       @map:update="preferencesUpdate"
     />
-    <TitreMapWarningBrgm
-      :zoom="preferences.zoom"
-      :tiles-id="tilesId"
-    />
+    <TitreMapWarningBrgm :zoom="preferences.zoom" :tiles-id="tilesId" />
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
         <ul class="list-inline">
-          <li
-            v-for="z in zones"
-            :key="z.id"
-            class="mr-xs"
-          >
+          <li v-for="z in zones" :key="z.id" class="mr-xs">
             <button
               class="btn-border pill px-m py-s h5"
               @click="mapCenter(z.id)"
