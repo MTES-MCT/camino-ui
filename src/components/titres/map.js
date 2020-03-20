@@ -3,44 +3,6 @@ import 'leaflet.markercluster'
 
 import { leafletPatternsDefault } from '../leaflet/pattern.js'
 
-// const type = {
-//   cx: 'exp',
-//   px: 'exp',
-//   pr: 'rec'
-// }
-// const type = {
-//   axm: 'exp',
-//   pxg: 'exp',
-//   pxh: 'exp',
-//   pxm: 'exp',
-//   pxr: 'exp',
-//   pxw: 'exp',
-//   arc: 'rec',
-//   arg: 'rec',
-//   arm: 'rec',
-//   prf: 'rec',
-//   prg: 'rec',
-//   prh: 'rec',
-//   prm: 'rec',
-//   prr: 'rec',
-//   prs: 'rec',
-//   prw: 'rec'
-// }
-
-// const statutPattern = { dmi: 'dmi' }
-// const statutStroke = ['dmc', 'dmi', 'ech', 'mod', 'val']
-
-// const strokeColor = {
-//   color_stroke_domaine_m: '#376ea9',
-//   color_stroke_domaine_h: '#c12569',
-//   color_stroke_domaine_s: '#64508c',
-//   color_stroke_domaine_g: '#c83714',
-//   color_stroke_domaine_w: '#1e826e',
-//   color_stroke_domaine_r: '#a0aa32',
-//   color_stroke_domaine_c: '#b88848',
-//   color_stroke_domaine_f: '#502812'
-// }
-
 const L = window.L
 
 const zones = [
@@ -115,8 +77,8 @@ const clustersBuild = domaines =>
 
 const layersBuild = (titres, router) =>
   titres.reduce(
-    ({ geojsons, markers, patterns }, titre) => {
-      if (!titre.geojsonMultiPolygon) return { geojsons, markers, patterns }
+    ({ geojsons, markers }, titre) => {
+      if (!titre.geojsonMultiPolygon) return { geojsons, markers }
 
       const domaineId = titre.domaine.id
       const nature = titre.type.type.nature
@@ -159,17 +121,16 @@ const layersBuild = (titres, router) =>
         leafletPatternsDefault[
           getGeojsonPattern(domaineId, nature ? 'exploitation' : 'exploration')
         ]
-      // const color = getGeojsonStrokeColor(domaineId, typeId, statutId)
       const svgFill = pattern ? null : `svg-fill-domaine-${domaineId}`
 
       const geojson = L.geoJSON(titre.geojsonMultiPolygon, {
         style: {
-          fillOpacity: 1,
-          // fillOpacity: 0.75,
+          // fillOpacity: 1,
+          fillOpacity: 0.75,
           weight: 1,
           color: 'white',
           // color: color || 'white',
-          // className: `svg-fill-domaine-${domaineId}`
+          // className: `svg-fill-domaine-${domaineId}`,
           className: svgFill,
           fillPattern: pattern
         },
@@ -217,13 +178,6 @@ const geojsonBoundsGet = zone => L.geoJSON(zone).getBounds()
 const getGeojsonPattern = (domaineId, nature) => {
   console.log('nature', nature)
   return `${domaineId}-${nature}`
-  // return 'm-exploration'
 }
-
-// const getGeojsonStrokeColor = (domaineId, typeId, statutId) => {
-//   return type[typeId] && statutStroke.includes(statutId)
-//     ? strokeColor[`color_stroke_domaine_${domaineId}`]
-//     : null
-// }
 
 export { zones, clustersBuild, layersBuild, tilesBuild, geojsonBoundsGet }
