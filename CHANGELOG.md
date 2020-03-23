@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.24](https://github.com/MTES-MCT/camino-ui/compare/v0.22.23...v0.22.24) (2020-03-23)
+
+
+### Features
+
+* ajoute l'authentification avec Cerbère ([#84](https://github.com/MTES-MCT/camino-ui/issues/84)) ([7fcf5cc](https://github.com/MTES-MCT/camino-ui/commit/7fcf5cc0ccede83d36be08520d1dbcd4bfdb32fd))
+* utilise l'api pour obtenir l'url de Cerbère ([8cd88d5](https://github.com/MTES-MCT/camino-ui/commit/8cd88d56f34b3a2c10854abd6bae8b1b3d9ee139))
+
 ### [0.22.23](https://github.com/MTES-MCT/camino-ui/compare/v0.22.22...v0.22.23) (2020-03-12)
 
 
