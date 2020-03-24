@@ -86,8 +86,12 @@ const layersBuild = (titres, router) =>
       })
 
       const popupHtml = `<h6 class="mr-xxl">${titre.type.type.nom}</h6>
-          <span class="bg-${titre.statut.couleur} pill dot mr-xs" />
-        <h4 class="mb-s">${titre.nom}</h4>`
+        <div class="desktop-blobs">
+          <h4>
+            <span class="mb-s">${titre.nom}</span>
+            <span class="bg-${titre.statut.couleur} pill dot mr-xs" />
+          </h4>
+        </div>`
 
       const popupOptions = {
         closeButton: false,
