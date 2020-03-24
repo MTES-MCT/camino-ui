@@ -164,8 +164,8 @@ export default {
   },
 
   methods: {
-    async titresUpdate(params) {
-      await this.$store.dispatch('titres/get', params)
+    async titresUpdate() {
+      await this.$store.dispatch('titres/get')
     },
 
     async metasGet() {

@@ -1,5 +1,6 @@
 import FiltresDomaines from '../_common/filtres/domaines.vue'
 import FiltresStatuts from '../_common/filtres/statuts.vue'
+import FiltresTypes from '../_common/filtres/types.vue'
 
 const filtres = {
   noms: {
@@ -38,7 +39,12 @@ const filtres = {
     value: '',
     component: FiltresDomaines
   },
-  typesIds: { name: 'Types', type: 'checkboxes', value: '' },
+  typesIds: {
+    name: 'Types',
+    type: 'checkboxes',
+    value: '',
+    component: FiltresTypes
+  },
   statutsIds: {
     name: 'Statuts',
     type: 'checkboxes',

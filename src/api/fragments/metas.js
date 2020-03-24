@@ -58,10 +58,29 @@ const fragmentDemarcheType = gql`
   }
 `
 
+const fragmentTitreTypeType = gql`
+  fragment titreTypeType on TitreTypeType {
+    id
+    nom
+  }
+`
+
+const fragmentTitreType = gql`
+  fragment titreType on TitreType {
+    id
+    type {
+      ...titreTypeType
+    }
+  }
+  ${fragmentTitreTypeType}
+`
+
 export {
   fragmentEtapeType,
   fragmentPermission,
   fragmentUnite,
   fragmentDemarcheType,
-  fragmentDemarcheStatut
+  fragmentDemarcheStatut,
+  fragmentTitreTypeType,
+  fragmentTitreType
 }

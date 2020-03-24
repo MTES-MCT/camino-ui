@@ -116,7 +116,7 @@ export default {
     },
 
     titresUpdate() {
-      this.$emit('titres:update', this.preferences)
+      this.$emit('titres:update')
     },
 
     toggle(opened) {

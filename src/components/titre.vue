@@ -65,6 +65,7 @@
           :geojson="titre.geojsonMultiPolygon"
           :points="titre.points"
           :domaine-id="titre.domaine.id"
+          :type-id="titre.type.type.id"
         />
 
         <TitrePoints

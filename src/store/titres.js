@@ -54,16 +54,16 @@ export const actions = {
     }
   },
 
-  async get({ state, dispatch, commit }, params) {
+  async get({ state, dispatch, commit }) {
     commit('loadingAdd', 'titres', { root: true })
 
     try {
-      const p = Object.assign(
-        paramsArrayBuild(state.params.arrays, params),
-        paramsStringBuild(state.params.strings, params)
+      const params = Object.assign(
+        paramsArrayBuild(state.params.arrays, state.preferences.filtres),
+        paramsStringBuild(state.params.strings, state.preferences.filtres)
       )
 
-      const data = await titres(p)
+      const data = await titres(params)
 
       dispatch(
         'messageAdd',

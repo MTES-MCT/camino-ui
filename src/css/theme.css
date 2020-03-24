@@ -57,11 +57,6 @@
   margin-right: calc(var(--unit) * -1);
 }
 
-.height-0 {
-  height: 0;
-  overflow: hidden;
-}
-
 .sticky-bottom {
   bottom: 0;
   right: calc(var(--unit) * -1);
@@ -125,38 +120,6 @@
 
 .bg-titre-domaine-w {
   background: var(--color-title-domaine-w);
-}
-
-.svg-fill-domaine-c {
-  fill: var(--color-title-domaine-c);
-}
-
-.svg-fill-domaine-f {
-  fill: var(--color-title-domaine-f);
-}
-
-.svg-fill-domaine-g {
-  fill: var(--color-title-domaine-g);
-}
-
-.svg-fill-domaine-h {
-  fill: var(--color-title-domaine-h);
-}
-
-.svg-fill-domaine-m {
-  fill: var(--color-title-domaine-m);
-}
-
-.svg-fill-domaine-r {
-  fill: var(--color-title-domaine-r);
-}
-
-.svg-fill-domaine-s {
-  fill: var(--color-title-domaine-s);
-}
-
-.svg-fill-domaine-w {
-  fill: var(--color-title-domaine-w);
 }
 
 .popup {

@@ -1,0 +1,259 @@
+.svg-fill-domaine-c {
+  fill: var(--color-title-domaine-c);
+}
+.svg-fill-domaine-f {
+  fill: var(--color-title-domaine-f);
+}
+.svg-fill-domaine-g {
+  fill: var(--color-title-domaine-g);
+}
+.svg-fill-domaine-h {
+  fill: var(--color-title-domaine-h);
+}
+.svg-fill-domaine-m {
+  fill: var(--color-title-domaine-m);
+}
+.svg-fill-domaine-r {
+  fill: var(--color-title-domaine-r);
+}
+.svg-fill-domaine-s {
+  fill: var(--color-title-domaine-s);
+}
+.svg-fill-domaine-w {
+  fill: var(--color-title-domaine-w);
+}
+
+.svg-stroke {
+  stroke: var(--color-neutral);
+}
+.svg-stroke-domaine-c {
+  stroke: var(--color-title-domaine-c);
+}
+.svg-stroke-domaine-f {
+  stroke: var(--color-title-domaine-f);
+}
+.svg-stroke-domaine-g {
+  stroke: var(--color-title-domaine-g);
+}
+.svg-stroke-domaine-h {
+  stroke: var(--color-title-domaine-h);
+}
+.svg-stroke-domaine-m {
+  stroke: var(--color-title-domaine-m);
+}
+.svg-stroke-domaine-r {
+  stroke: var(--color-title-domaine-r);
+}
+.svg-stroke-domaine-s {
+  stroke: var(--color-title-domaine-s);
+}
+.svg-stroke-domaine-w {
+  stroke: var(--color-title-domaine-w);
+}
+
+/* c */
+.svg-fill-pattern-ax {
+  fill: url(#pattern-ax);
+}
+.svg-fill-pattern-cx {
+  fill: url(#pattern-cx);
+}
+.svg-fill-pattern-pc {
+  fill: url(#pattern-pc);
+}
+.svg-fill-pattern-px {
+  fill: url(#pattern-px);
+}
+.svg-fill-pattern-ap {
+  fill: url(#pattern-ap);
+}
+.svg-fill-pattern-ar {
+  fill: url(#pattern-ar);
+}
+.svg-fill-pattern-pr {
+  fill: url(#pattern-pr);
+}
+
+/* c */
+.svg-fill-pattern-ax-c {
+  fill: url(#pattern-ax-c);
+}
+.svg-fill-pattern-cx-c {
+  fill: url(#pattern-cx-c);
+}
+.svg-fill-pattern-pc-c {
+  fill: url(#pattern-pc-c);
+}
+.svg-fill-pattern-px-c {
+  fill: url(#pattern-px-c);
+}
+.svg-fill-pattern-ap-c {
+  fill: url(#pattern-ap-c);
+}
+.svg-fill-pattern-ar-c {
+  fill: url(#pattern-ar-c);
+}
+.svg-fill-pattern-pr-c {
+  fill: url(#pattern-pr-c);
+}
+
+/* f */
+.svg-fill-pattern-ax-f {
+  fill: url(#pattern-ax-f);
+}
+.svg-fill-patternx-f-c {
+  fill: url(#patternx-f-c);
+}
+.svg-fill-pattern-pc-f {
+  fill: url(#pattern-pc-f);
+}
+.svg-fill-pattern-px-f {
+  fill: url(#pattern-px-f);
+}
+.svg-fill-pattern-ap-f {
+  fill: url(#pattern-ap-f);
+}
+.svg-fill-pattern-ar-f {
+  fill: url(#pattern-ar-f);
+}
+.svg-fill-pattern-pr-f {
+  fill: url(#pattern-pr-f);
+}
+
+/* g */
+.svg-fill-pattern-ax-g {
+  fill: url(#pattern-ax-g);
+}
+.svg-fill-pattern-cx-g {
+  fill: url(#pattern-cx-g);
+}
+.svg-fill-pattern-pc-g {
+  fill: url(#pattern-pc-g);
+}
+.svg-fill-pattern-px-g {
+  fill: url(#pattern-px-g);
+}
+.svg-fill-pattern-ap-g {
+  fill: url(#pattern-ap-g);
+}
+.svg-fill-pattern-ar-g {
+  fill: url(#pattern-ar-g);
+}
+.svg-fill-pattern-pr-g {
+  fill: url(#pattern-pr-g);
+}
+
+/* h */
+.svg-fill-pattern-ax-h {
+  fill: url(#pattern-ax-h);
+}
+.svg-fill-pattern-cx-h {
+  fill: url(#pattern-cx-h);
+}
+.svg-fill-pattern-pc-h {
+  fill: url(#pattern-pc-h);
+}
+.svg-fill-pattern-px-h {
+  fill: url(#pattern-px-h);
+}
+.svg-fill-pattern-ap-h {
+  fill: url(#pattern-ap-h);
+}
+.svg-fill-pattern-ar-h {
+  fill: url(#pattern-ar-h);
+}
+.svg-fill-pattern-pr-h {
+  fill: url(#pattern-pr-h);
+}
+
+/* m */
+.svg-fill-pattern-ax-m {
+  fill: url(#pattern-ax-m);
+}
+.svg-fill-pattern-cx-m {
+  fill: url(#pattern-cx-m);
+}
+.svg-fill-pattern-pc-m {
+  fill: url(#pattern-pc-m);
+}
+.svg-fill-pattern-px-m {
+  fill: url(#pattern-px-m);
+}
+.svg-fill-pattern-ap-m {
+  fill: url(#pattern-ap-m);
+}
+.svg-fill-pattern-ar-m {
+  fill: url(#pattern-ar-m);
+}
+.svg-fill-pattern-pr-m {
+  fill: url(#pattern-pr-m);
+}
+
+/* r */
+.svg-fill-pattern-ax-r {
+  fill: url(#pattern-ax-r);
+}
+.svg-fill-pattern-cx-r {
+  fill: url(#pattern-cx-r);
+}
+.svg-fill-pattern-pc-r {
+  fill: url(#pattern-pc-r);
+}
+.svg-fill-pattern-px-r {
+  fill: url(#pattern-px-r);
+}
+.svg-fill-pattern-ap-r {
+  fill: url(#pattern-ap-r);
+}
+.svg-fill-pattern-ar-r {
+  fill: url(#pattern-ar-r);
+}
+.svg-fill-pattern-pr-r {
+  fill: url(#pattern-pr-r);
+}
+
+/* s */
+.svg-fill-pattern-ax-s {
+  fill: url(#pattern-ax-s);
+}
+.svg-fill-pattern-cx-s {
+  fill: url(#pattern-cx-s);
+}
+.svg-fill-pattern-pc-s {
+  fill: url(#pattern-pc-s);
+}
+.svg-fill-pattern-px-s {
+  fill: url(#pattern-px-s);
+}
+.svg-fill-pattern-ap-s {
+  fill: url(#pattern-ap-s);
+}
+.svg-fill-pattern-ar-s {
+  fill: url(#pattern-ar-s);
+}
+.svg-fill-pattern-pr-s {
+  fill: url(#pattern-pr-m);
+}
+
+/* w */
+.svg-fill-pattern-ax-w {
+  fill: url(#pattern-ax-w);
+}
+.svg-fill-pattern-cx-w {
+  fill: url(#pattern-cx-w);
+}
+.svg-fill-pattern-pc-w {
+  fill: url(#pattern-pc-w);
+}
+.svg-fill-pattern-px-w {
+  fill: url(#pattern-px-w);
+}
+.svg-fill-pattern-ap-w {
+  fill: url(#pattern-ap-w);
+}
+.svg-fill-pattern-ar-w {
+  fill: url(#pattern-ar-w);
+}
+.svg-fill-pattern-pr-w {
+  fill: url(#pattern-pr-w);
+}

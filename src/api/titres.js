@@ -1,6 +1,7 @@
 import gql from 'graphql-tag'
 import { apiQuery, apiMutate } from './_utils'
 
+import { fragmentTitreTypeType } from './fragments/metas'
 import { fragmentTitre, fragmentTitres } from './fragments/titre'
 
 const metasTitre = apiQuery(
@@ -26,8 +27,7 @@ const metasTitres = apiQuery(
       }
 
       types {
-        id
-        nom
+        ...titreTypeType
       }
 
       statuts {
@@ -36,6 +36,8 @@ const metasTitres = apiQuery(
         couleur
       }
     }
+
+    ${fragmentTitreTypeType}
   `,
   {
     fetchPolicy: 'network-only'

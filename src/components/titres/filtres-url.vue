@@ -25,8 +25,8 @@ export default {
   },
 
   methods: {
-    titresUpdate(params) {
-      this.$emit('titres:update', params)
+    titresUpdate() {
+      this.$emit('titres:update')
     },
 
     preferencesUpdate(params) {
