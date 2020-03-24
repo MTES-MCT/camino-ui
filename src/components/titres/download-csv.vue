@@ -1,9 +1,5 @@
 <template>
-  <Download
-    name="titres"
-    type="csv"
-    :content-build="contentBuild"
-  />
+  <Download name="titres" type="csv" :content-build="contentBuild" />
 </template>
 
 <script>
@@ -75,6 +71,9 @@ export default {
             id: titre.id,
             nom: titre.nom,
             type: titre.type.type.nom,
+            nature: titre.type.type.exploitation
+              ? 'exploitation'
+              : 'exploration',
             domaine: titre.domaine.nom,
             date_debut: titre.dateDebut,
             date_fin: titre.dateFin,
