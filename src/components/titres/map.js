@@ -85,7 +85,9 @@ const layersBuild = (titres, router) =>
         iconAnchor: [15.5, 38]
       })
 
-      const popupHtml = `<h4 class="mb-s">${titre.nom}</h4>`
+      const popupHtml = `<h6 class="mr-xxl">${titre.type.type.nom}</h6>
+          <span class="bg-${titre.statut.couleur} pill dot mr-xs" />
+        <h4 class="mb-s">${titre.nom}</h4>`
 
       const popupOptions = {
         closeButton: false,
@@ -142,7 +144,9 @@ const layersBuild = (titres, router) =>
       markers.push(marker)
 
       return {
-        geojsons: Object.assign(geojsons, { [titre.id]: geojson }),
+        geojsons: Object.assign(geojsons, {
+          [titre.id]: geojson
+        }),
         markers
       }
     },
