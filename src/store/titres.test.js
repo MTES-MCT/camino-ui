@@ -41,13 +41,13 @@ describe('liste des titres', () => {
         },
         filtres: {
           typesIds: null,
-          domainesIds: null,
-          statutsIds: null,
-          noms: null,
           entreprises: null,
           substances: null,
           references: null,
-          territoires: null
+          territoires: null,
+          noms: 's',
+          domainesIds: 'c,w',
+          statutsIds: 'val'
         }
       },
       params: {
@@ -120,11 +120,7 @@ describe('liste des titres', () => {
 
   test('obtient la liste des titres', async () => {
     const apiMock = api.titres.mockResolvedValue(titresListe)
-    await store.dispatch('titres/get', {
-      noms: 's',
-      domainesIds: 'c,w',
-      statutsIds: 'val'
-    })
+    await store.dispatch('titres/get')
 
     expect(apiMock).toHaveBeenCalledWith({
       noms: 's',
@@ -139,11 +135,7 @@ describe('liste des titres', () => {
     const apiMock = api.titres.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
-    await store.dispatch('titres/get', {
-      noms: 's',
-      domainesIds: 'c,w',
-      statutsIds: 'val'
-    })
+    await store.dispatch('titres/get')
 
     expect(apiMock).toHaveBeenCalledWith({
       noms: 's',

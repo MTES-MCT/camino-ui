@@ -5,7 +5,7 @@ import {
   fragmentUtilisateur,
   fragmentUtilisateurToken
 } from './fragments/utilisateur'
-import { fragmentPermission } from './fragments/metas'
+import { fragmentPermission, fragmentTitreType } from './fragments/metas'
 import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentAdministrations } from './fragments/administrations'
 
@@ -18,13 +18,12 @@ const metasUser = apiQuery(
         id
         nom
         titresTypes {
-          id
-          type {
-            nom
-          }
+          ...titreType
         }
       }
     }
+
+    ${fragmentTitreType}
   `,
   { fetchPolicy: 'network-only' }
 )

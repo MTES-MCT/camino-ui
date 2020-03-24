@@ -1,6 +1,10 @@
 <template>
   <div>
-    <LeafletMap
+    <MapPattern
+      :domaines-ids="[domaineId]"
+      :types-ids="[typeId]"
+    />
+    <Map
       ref="map"
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
@@ -24,7 +28,7 @@
         </div>
       </div>
       <div class="tablet-blob-1-2">
-        <LeafletTilesSelector
+        <MapTilesSelector
           :tiles="tiles"
           :tiles-id="tilesId"
           @params:update="preferencesUpdate"
@@ -36,16 +40,13 @@
 
 <script>
 import L from 'leaflet'
-import LeafletMap from '../leaflet/map.vue'
-import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
-import MapWarningBrgm from '../leaflet/warning-brgm.vue'
+import Map from '../map/index.vue'
+import MapTilesSelector from '../map/tiles-selector.vue'
+import MapWarningBrgm from '../map/warning-brgm.vue'
+import MapPattern from '../map/pattern.vue'
 
 export default {
-  components: {
-    MapWarningBrgm,
-    LeafletMap,
-    LeafletTilesSelector
-  },
+  components: { MapPattern, MapWarningBrgm, Map, MapTilesSelector },
 
   props: {
     geojson: {
@@ -58,7 +59,11 @@ export default {
     },
     domaineId: {
       type: String,
-      default: 'm'
+      default: ''
+    },
+    typeId: {
+      type: String,
+      default: ''
     }
   },
 
@@ -94,7 +99,7 @@ export default {
             fillOpacity: 0.75,
             weight: 1,
             color: 'white',
-            className: `svg-fill-domaine-${this.domaineId}`
+            className: `svg-fill-pattern-${this.typeId}-${this.domaineId}`
           }
         })
       ]

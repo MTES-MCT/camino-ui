@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LeafletMap
+    <Map
       ref="map"
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
@@ -8,7 +8,11 @@
       class="map map-list mb-s"
       @map:update="preferencesUpdate"
     />
-    <TitreMapWarningBrgm
+    <MapPattern
+      :domaines-ids="domainesIds"
+      :types-ids="typesIds"
+    />
+    <MapWarningBrgm
       :zoom="preferences.zoom"
       :tiles-id="tilesId"
     />
@@ -39,7 +43,7 @@
             class="icon-24"
           />
         </button>
-        <LeafletTilesSelector
+        <MapTilesSelector
           :tiles="tiles"
           :tiles-id="tilesId"
           class="flex-grow"
@@ -51,9 +55,11 @@
 </template>
 
 <script>
-import LeafletMap from '../leaflet/map.vue'
-import LeafletTilesSelector from '../leaflet/tiles-selector.vue'
-import TitreMapWarningBrgm from '../leaflet/warning-brgm.vue'
+import Map from '../map/index.vue'
+import MapTilesSelector from '../map/tiles-selector.vue'
+import MapWarningBrgm from '../map/warning-brgm.vue'
+import MapPattern from '../map/pattern.vue'
+
 import {
   zones,
   clustersBuild,
@@ -64,9 +70,10 @@ import {
 
 export default {
   components: {
-    TitreMapWarningBrgm,
-    LeafletMap,
-    LeafletTilesSelector
+    MapWarningBrgm,
+    Map,
+    MapTilesSelector,
+    MapPattern
   },
 
   props: {
@@ -105,6 +112,14 @@ export default {
 
     domaines() {
       return this.$store.state.titres.metas.domaines
+    },
+
+    domainesIds() {
+      return this.domaines.map(({ id }) => id)
+    },
+
+    typesIds() {
+      return this.$store.state.titres.metas.types.map(({ id }) => id)
     },
 
     tiles() {

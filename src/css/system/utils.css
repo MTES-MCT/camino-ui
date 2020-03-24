@@ -164,3 +164,12 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 .min-width-10 {
   min-width: calc(10 * var(--unit));
 }
+
+.h-0 {
+  height: 0;
+  overflow: hidden;
+}
+
+.z--100 {
+  z-index: -100;
+}
