@@ -62,6 +62,7 @@ const fragmentTitreTypeType = gql`
   fragment titreTypeType on TitreTypeType {
     id
     nom
+    exploitation
   }
 `
 
