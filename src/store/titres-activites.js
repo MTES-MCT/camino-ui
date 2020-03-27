@@ -29,7 +29,6 @@ export const actions = {
     commit('loadingAdd', 'activites', { root: true })
 
     try {
-      console.log('get', annee, typeId)
       const data = await activites({ annee, typeId })
 
       if (data) {

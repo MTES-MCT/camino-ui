@@ -100,7 +100,7 @@ export default {
   },
 
   beforeDestroy() {
-    this.$store.commit('activite/reset')
+    this.$store.commit('titreActivite/reset')
   },
 
   methods: {
