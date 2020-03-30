@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.25](https://github.com/MTES-MCT/camino-ui/compare/v0.22.24...v0.22.25) (2020-03-30)
+
+
+### Features
+
+* **export:** exporte la nature des titres (exploration ou exploitation) ([#85](https://github.com/MTES-MCT/camino-ui/issues/85)) ([1c43cc9](https://github.com/MTES-MCT/camino-ui/commit/1c43cc90d0d0c2aa2480058b92c6eae408760a9e))
+* ajoute des textures sur les périmètres des titres ([#86](https://github.com/MTES-MCT/camino-ui/issues/86)) ([7f55870](https://github.com/MTES-MCT/camino-ui/commit/7f558706932ca2ab251410553dfe79f8b60bc793))
+
+
+### Bug Fixes
+
+* corrige une erreur dans le nom d'une action ([f59a099](https://github.com/MTES-MCT/camino-ui/commit/f59a099c4298d493943554bfbbd2cad5c561ba76))
+
 ### [0.22.24](https://github.com/MTES-MCT/camino-ui/compare/v0.22.23...v0.22.24) (2020-03-23)
 
 
