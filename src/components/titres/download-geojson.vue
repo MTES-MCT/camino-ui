@@ -1,5 +1,9 @@
 <template>
-  <Download name="titres" type="geojson" :content-build="contentBuild" />
+  <Download
+    name="titres"
+    type="geojson"
+    :content-build="contentBuild"
+  />
 </template>
 
 <script>
