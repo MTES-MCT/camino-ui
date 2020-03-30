@@ -3,7 +3,8 @@
     class="btn-border pill pl pr-m py-s h5 flex"
     @click="download"
   >
-    <span class="mt-xxs mr-xs">{{ type }}</span> <i class="icon-24 icon-download" />
+    <span class="mt-xxs mr-xs">{{ type }}</span>
+    <i class="icon-24 icon-download" />
   </button>
 </template>
 
@@ -40,6 +41,9 @@ export default {
       link.click()
       document.body.removeChild(link)
 
+      // track dans Matomo
+      this.trackMatomo(name)
+
       this.$store.dispatch('messageAdd', {
         value: `fichier ${name} téléchargé`,
         type: 'success'
@@ -63,6 +67,10 @@ export default {
         .toString()
         .padStart(2, '0')
       return `${yyyy}${mm}${dd}-${hh}h${mi}-camino-${name}.${type}`
+    },
+
+    trackMatomo(name) {
+      this.$matomo.trackLink(`http://${name}`, 'download')
     }
   }
 }

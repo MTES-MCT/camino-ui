@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Camino [Matomo] | le cadastre minier numérique ouvert</title>
+  </head>
+
+  <body class="bg-alt">
+    <h1>Camino [Matomo]</h1>
+
+    <!-- trackSiteSearch : pour garder la trace de la loupe dans le traffic temps-réel-->
+    <!-- trackEvent : pour recenser chaque valeur dans chaque filtre, sous forme d'évènement  -->
+    <!-- catégorie : 'Filtre' -->
+    <!-- action : 'Filtre de recherche domaine', ou 'Filtre de recherche type', ou 'Filtre de recherche statut', etc... -->
+    <!-- nom : valeur unitaire du filtre -->
+    <div>Filtre : typesIds=ar ,domainesIds=g,h, statutsIds=val</div>
+    <a
+      href="index?typesIds=ar&domainesIds=g,h&statutsIds=val"
+      onclick="_paq.push(['trackSiteSearch', 'Filtre : typesIds=ar ,domainesIds=g,h, statutsIds=val']);_paq.push(['trackEvent', 'Filtre', 'Filtre de recherche domaine','g']);_paq.push(['trackEvent', 'Filtre', 'Filtre de recherche domaine','h']);_paq.push(['trackEvent', 'Filtre', 'Filtre de recherche type','ar']);_paq.push(['trackEvent', 'Filtre', 'Filtre de recherche statut','val']);"
+      >Valider</a
+    >
+    <p></p>
+
+    <div>Filtre : typesIds=pr ,domainesIds=h,m, statutsIds=dmi,val</div>
+    <a
+      href="index?typesIds=ar&domainesIds=g,h&statutsIds=val"
+      onclick="_paq.push(['trackSiteSearch', 'Filtre : typesIds=pr ,domainesIds=h,m,  statutsIds=dmi,val']);_paq.push(['trackEvent', 'Filtre', 'Filtre de recherche domaine','g']);_paq.push(['trackEvent', 'Filtre', 'Filtre de recherche domaine','m']);_paq.push(['trackEvent', 'Filtre', 'Filtre de recherche type','pr']);_paq.push(['trackEvent', 'Filtre', 'Filtre de recherche statut','val']);_paq.push(['trackEvent', 'Filtre', 'Filtre de recherche statut','dmi']);_paq.push(['trackEvent', 'Filtre', 'Filtre de recherche statut','val']);"
+      >Valider</a
+    >
+    <p></p>
+
+    <!-- trackGoal -->
+    <!-- Les objectifs sont créés dans l'interface -->
+    <!-- Le déclenchement de l'objectif est réalisé manuellement via l'id de l'objectif -->
+    <!-- exemple ici : Valider un rapport trimestriel -->
+    <div>Objectif : Valider un rapport trimestriel</div>
+    <a href="#" onclick="_paq.push(['trackGoal', 1]);">Valider rapport </a>
+
+    <p></p>
+
+    <!-- setCustomVariable -->
+    <!-- je n'ai pas encore réussi à le faire marcher... -->
+    <!-- <div>Custom variables</div>
+    <a
+      href="#"
+      onclick="_paq.push(['setCustomVariable', 1, 'Administration', 'ONF', 'visit');"
+      >index=1, Administration = 'ONF' (sur le scope 'visit')
+    </a>
+    <p></p> -->
+
+    <!-- test pour voir si la navigation est trackée... pas concluant... -->
+    <div>Lien vers un titre</div>
+    <a href="index?h-pr-sud-midi-2010">h-pr-sud-midi-2010</a>
+
+    <h2>le cadastre minier numérique ouvert</h2>
+
+    <p>
+      Camino ouvre les projets miniers pour mieux les gérer. Il présente les
+      caractéristiques des titres miniers sur une carte, détaille chaque étape
+      de leur vie et expose les données publiques dans un format ouvert et
+      réutilisable.
+    </p>
+
+    <h3>
+      <!-- trackEvent -->
+      <!-- survol -->
+      <!-- click -->
+      <div>
+        <!-- <div
+        onmouseover="_paq.push(['trackEvent', 'Usages', 'survol sur Usages',1]);"
+        onclick="_paq.push(['trackEvent', 'Usages', 'click sur Usages',2]);"
+      > -->
+        Usages
+      </div>
+    </h3>
+
+    <ul>
+      <li>
+        Les <b>entreprises</b> gagnent en visibilité sur leur business et cela
+        simplifie leurs
+        <!-- trackEvent -->
+        <!-- lien -->
+        <a
+          href="#"
+          onclick="_paq.push(['trackEvent', 'Demarche', 'click sur demarches','un nom pour click sur demarche']);"
+          >démarches</a
+        >.
+      </li>
+      <li>
+        Les <b>citoyens</b> accèdent simplement aux informations publiques.
+      </li>
+      <li>
+        Les <b>agents publics</b> centralisent leurs contributions et
+        bénéficient d’une vision partagée.
+      </li>
+      <li>
+        Les <b>producteurs d'or</b> informent de leur
+        <!-- trackEvent -->
+        <!-- valide l'objectif 'valideRapportTrim' -->
+        <!-- Catégorie : Rapport Trimestriel -->
+        <!-- Action : Valider le rapport trimsetriel -->
+        <!-- Nom de l'évènement : 675g -->
+        <a
+          href="#"
+          onclick="_paq.push(['trackEvent', 'Rapport Trimestriel', 'Valider le rapport trimsetriel','675g']);"
+          >production trimestrielle</a
+        >
+      </li>
+      <li>
+        Les utilisateurs peuvent télécharger les périmètres des titres miniers
+        au format geojson.
+        <!-- trackLink -->
+        <!-- le paramètre 'download' indique qu'il s'agit d'un téléchargement -->
+        <div>
+          <a
+            href="#"
+            onclick="_paq.push(['trackLink', 'http://url_de_mon_lien_geojson', 'download']);"
+            >Télécharger le geojson</a
+          >
+        </div>
+      </li>
+      <li>
+        Les utilisateurs peuvent
+        <!-- trackEvent -->
+        <!-- Catégorie : Erreur -->
+        <!-- Action : signaler -->
+        <!-- Nom de l'évènement : c-pc-brueil-en-vexin-2019 -->
+        <a
+          href="#"
+          onclick="_paq.push(['trackEvent', 'Erreur', 'signaler','c-pc-brueil-en-vexin-2019']);"
+          >signaler une erreur</a
+        >
+      </li>
+    </ul>
+  </body>
+
+  <!-- Matomo -->
+  <script type="text/javascript">
+    var _paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    _paq.push(["trackPageView"]);
+    _paq.push(["enableLinkTracking"]);
+    (function() {
+      var u = "//localhost:8088/";
+      _paq.push(["setTrackerUrl", u + "matomo.php"]);
+      _paq.push(["setSiteId", "6"]);
+      var d = document,
+        g = d.createElement("script"),
+        s = d.getElementsByTagName("script")[0];
+      g.type = "text/javascript";
+      g.async = true;
+      g.defer = true;
+      g.src = u + "matomo.js";
+      s.parentNode.insertBefore(g, s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+</html>

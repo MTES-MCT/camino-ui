@@ -1,9 +1,13 @@
 import bootstrap from './bootstrap'
+import { visit, page } from './custom-variables'
 
 const defaultOptions = {
   requireConsent: false,
   trackInitialView: true,
-  trackerFileName: 'piwik'
+  trackerFileName: 'piwik',
+  enableHeartBeatTimer: false,
+  enableLinkTracking: false,
+  heartBeatTimerInterval: 60
 }
 
 export default function install(Vue, setupOptions = {}) {
@@ -27,7 +31,18 @@ export default function install(Vue, setupOptions = {}) {
 
       // Register first page view
       if (options.trackInitialView) {
+        if (options.store) {
+          visit(matomo, options.store)
+        }
         matomo.trackPageView()
+      }
+
+      if (options.enableHeartBeatTimer) {
+        matomo.enableHeartBeatTimer()
+      }
+
+      if (options.enableLinkTracking) {
+        matomo.enableLinkTracking(options.enableLinkTracking)
       }
 
       // Track page navigations if router is specified
@@ -45,6 +60,13 @@ export default function install(Vue, setupOptions = {}) {
 
           const url = protocol + '//' + loc.host + to.path
           matomo.setCustomUrl(url)
+
+          // Déclaration des variables personnalisées
+          if (options.store) {
+            visit(matomo, options.store)
+            page(matomo, options.store, to)
+          }
+
           matomo.trackPageView(to.name)
         })
       }

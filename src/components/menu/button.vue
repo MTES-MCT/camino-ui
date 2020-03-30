@@ -30,7 +30,11 @@ export default {
 
   methods: {
     menuToggle() {
+      this.trackMatomo()
       this.$store.dispatch('menuToggle', MainMenu)
+    },
+    trackMatomo() {
+      this.$matomo.trackEvent('boutons', 'bouton', 'sections')
     }
   }
 }
