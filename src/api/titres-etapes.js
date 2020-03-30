@@ -8,10 +8,11 @@ import { fragmentEntreprises } from './fragments/entreprises'
 
 const metasTitreEtape = apiQuery(
   gql`
-    query MetasEtape($titreDemarcheId: ID!, $typeId: ID) {
+    query MetasEtape($titreDemarcheId: ID!, $typeId: ID, $statutId: ID) {
       demarcheEtapesTypes(
         titreDemarcheId: $titreDemarcheId
         etapeTypeId: $typeId
+        etapeStatutId: $statutId
       ) {
         ...etapeType
       }
