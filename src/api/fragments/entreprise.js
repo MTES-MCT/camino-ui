@@ -35,7 +35,7 @@ const fragmentEntreprise = gql`
       ...titres
     }
 
-    editable
+    modification
   }
 
   ${fragmentTitres}

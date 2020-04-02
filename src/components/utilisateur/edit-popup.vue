@@ -117,7 +117,7 @@
       </div>
     </div>
 
-    <div v-if="utilisateur.permissionEditable">
+    <div v-if="utilisateur.permissionModification">
       <hr>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -421,7 +421,7 @@ export default {
       if (this.complete) {
         const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
 
-        delete utilisateur.permissionEditable
+        delete utilisateur.permissionModification
 
         if (this.utilisateurIsAdministration) {
           utilisateur.administrations = utilisateur.administrations.filter(

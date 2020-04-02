@@ -13,7 +13,7 @@
         :key="e.id"
         :contenu.sync="contenu[s.id]"
         :element="e"
-        :editable="editable"
+        :modification="modification"
       />
     </div>
   </div>
@@ -35,7 +35,7 @@ export default {
       type: Object,
       default: () => ({})
     },
-    editable: {
+    modification: {
       type: Boolean,
       default: true
     }
@@ -52,7 +52,7 @@ export default {
     sectionsFiltered() {
       return this.sections.filter(
         s =>
-          this.editable ||
+          this.modification ||
           s.elements.some(e => {
             const contenu = this.contenu[s.id][e.id]
 

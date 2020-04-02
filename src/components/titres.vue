@@ -7,7 +7,7 @@
 
       <div class="desktop-blob-1-3">
         <button
-          v-if="editable"
+          v-if="modification"
           class="btn-border rnd-xs py-s px-m full-x flex mb-s"
           @click="addPopupOpen"
         >
@@ -149,7 +149,7 @@ export default {
       return this.$store.state.user.loaded
     },
 
-    editable() {
+    modification() {
       return this.$store.state.user.metas.utilisateurDomaines.length
     }
   },

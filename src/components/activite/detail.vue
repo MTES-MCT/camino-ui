@@ -16,7 +16,7 @@
       slot="buttons"
     >
       <ActiviteButton
-        v-if="activite.editable"
+        v-if="activite.modification"
         :activite="activite"
         context="titre"
         class="btn-alt py-s px-m"

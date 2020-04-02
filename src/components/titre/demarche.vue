@@ -16,11 +16,11 @@
       </div>
       <div class="tablet-blob-1-4 flex">
         <div
-          v-if="demarche.editable || demarche.supprimable"
+          v-if="demarche.modification || demarche.suppression"
           class="flex-right"
         >
           <button
-            v-if="demarche.supprimable"
+            v-if="demarche.suppression"
             class="btn-border rnd-l-xs py-s px-m mb"
             @click="removePopupOpen"
           >
@@ -28,9 +28,9 @@
           </button>
 
           <button
-            v-if="demarche.editable"
+            v-if="demarche.modification"
             class="btn-border rnd-r-xs py-s px-m mb"
-            :class="{'rnd-l-xs': !demarche.supprimable }"
+            :class="{'rnd-l-xs': !demarche.suppression }"
             @click="editPopupOpen"
           >
             <i class="icon-24 icon-pencil" />
@@ -40,7 +40,7 @@
     </div>
 
     <button
-      v-if="demarche.etapesEditable"
+      v-if="demarche.etapesCreation"
       class="btn-border rnd-xs py-s px-m full-x flex mb"
       @click="etapeAddPopupOpen"
     >

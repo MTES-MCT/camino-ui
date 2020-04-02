@@ -22,7 +22,7 @@
       </template>
 
       <template
-        v-if="entreprise.editable"
+        v-if="entreprise.modification"
         slot="buttons"
       >
         <button

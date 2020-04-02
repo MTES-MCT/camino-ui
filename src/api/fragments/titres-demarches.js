@@ -26,8 +26,8 @@ const fragmentDemarches = gql`
       }
     }
 
-    editable
-    supprimable
+    modification
+    suppression
   }
 
   ${fragmentDemarcheType}

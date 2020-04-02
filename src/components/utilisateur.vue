@@ -20,7 +20,7 @@
       </template>
 
       <template
-        v-if="utilisateur.editable"
+        v-if="utilisateur.modification"
         slot="buttons"
       >
         <button
@@ -106,7 +106,7 @@
           </div>
 
           <div
-            v-if="utilisateur.permissionEditable"
+            v-if="utilisateur.permissionModification"
             class="tablet-blobs"
           >
             <div class="tablet-blob-1-4">
@@ -241,8 +241,8 @@ export default {
       delete utilisateur.permission
 
       delete utilisateur.sections
-      delete utilisateur.editable
-      delete utilisateur.supprimable
+      delete utilisateur.modification
+      delete utilisateur.suppression
 
       this.$store.commit('popupOpen', {
         component: UtilisateurEditPopup,

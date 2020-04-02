@@ -19,11 +19,11 @@
     </template>
 
     <template
-      v-if="etape.editable || etape.supprimable"
+      v-if="etape.modification || etape.suppression"
       slot="buttons"
     >
       <button
-        v-if="etape.supprimable"
+        v-if="etape.suppression"
         class="btn-alt py-s px-m"
         @click="removePopupOpen"
       >
@@ -31,7 +31,7 @@
       </button>
 
       <button
-        v-if="etape.editable"
+        v-if="etape.modification"
         class="btn-alt py-s px-m"
         @click="editPopupOpen"
       >
@@ -40,7 +40,7 @@
     </template>
 
     <template
-      v-if="etape.editable"
+      v-if="etape.modification"
       slot="sub"
     >
       <div class="px-m pt-m">

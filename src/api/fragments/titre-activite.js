@@ -51,7 +51,7 @@ const fragmentTitreActivite = gql`
     sections
     contenu
 
-    editable
+    modification
   }
 
   ${fragmentActiviteType}
@@ -86,7 +86,7 @@ const fragmentActivite = gql`
     sections
     contenu
 
-    editable
+    modification
   }
 
   ${fragmentActiviteType}

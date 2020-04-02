@@ -22,7 +22,7 @@ const fragmentEtapeType = gql`
     }
     fondamentale
     sections
-    editable
+    modification
   }
 `
 
@@ -53,7 +53,7 @@ const fragmentDemarcheType = gql`
     titulaires
     renouvelable
     exception
-    editable
+    modification
     titreTypeId
   }
 `
