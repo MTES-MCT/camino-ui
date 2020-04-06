@@ -184,7 +184,7 @@ export default {
     },
 
     etapeTypes() {
-      return this.$store.state.titreEtape.metas.demarcheEtapesTypes
+      return this.$store.state.titreEtape.metas.etapesTypes
     },
 
     etapeType() {

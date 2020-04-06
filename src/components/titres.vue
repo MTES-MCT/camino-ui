@@ -21,16 +21,17 @@
       @params:update="preferencesUpdate"
     />
 
+
+    <TitresFiltres
+      v-if="metasLoaded"
+      @titres:update="titresUpdate"
+    />
     <div
-      v-if="!metasLoaded"
+      v-else
       class="py-s px-m mb-s"
     >
       …
     </div>
-    <TitresFiltres
-      v-else
-      @titres:update="titresUpdate"
-    />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-2 flex mb-s">
@@ -80,12 +81,17 @@
     </div>
 
     <div class="card-border" />
-
     <Component
       :is="vue.component"
-      v-if="preferences.vueId"
+      v-if="preferences.vueId && metasLoaded"
       :titres="titres"
     />
+    <div
+      v-else
+      class="map-list mb-xxl mt"
+    >
+      …
+    </div>
   </Card>
 </template>
 
@@ -150,11 +156,14 @@ export default {
     },
 
     modification() {
-      return this.$store.state.user.metas.utilisateurDomaines.length
+      return this.$store.state.user.metas.domaines.filter(
+        d => d.titresModification
+      ).length
     }
   },
 
   watch: {
+    // TODO: pourquoi tester userLoaded
     user: 'metasGet',
     userLoaded: 'metasGet'
   },

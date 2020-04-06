@@ -72,6 +72,7 @@ const fragmentTitreType = gql`
     type {
       ...titreTypeType
     }
+    titresModification
   }
   ${fragmentTitreTypeType}
 `
@@ -83,5 +84,5 @@ export {
   fragmentDemarcheType,
   fragmentDemarcheStatut,
   fragmentTitreTypeType,
-  fragmentTitreType
+  fragmentTitreType,
 }

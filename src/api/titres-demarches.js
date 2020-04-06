@@ -47,14 +47,14 @@ const metasDemarches = apiQuery(
     }
   `,
   {
-    fetchPolicy: 'network-only'
+    fetchPolicy: 'network-only',
   }
 )
 
 const metasTitreDemarche = apiQuery(
   gql`
-    query MetasDemarche($titreId: ID!, $typeId: ID) {
-      titreDemarchesTypes(titreId: $titreId, demarcheTypeId: $typeId) {
+    query MetasDemarche($titreId: ID!, $id: ID) {
+      demarchesTypes(titreId: $titreId, titreDemarcheId: $id) {
         ...demarcheType
       }
     }
@@ -140,5 +140,5 @@ export {
   metasTitreDemarche,
   demarcheCreer,
   demarcheModifier,
-  demarcheSupprimer
+  demarcheSupprimer,
 }

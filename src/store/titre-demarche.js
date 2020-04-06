@@ -4,13 +4,13 @@ import {
   metasTitreDemarche,
   demarcheCreer,
   demarcheModifier,
-  demarcheSupprimer
+  demarcheSupprimer,
 } from '../api/titres-demarches'
 
 export const state = {
   metas: {
-    types: []
-  }
+    types: [],
+  },
 }
 
 export const actions = {
@@ -20,7 +20,7 @@ export const actions = {
     try {
       const data = await metasTitreDemarche(demarche)
 
-      commit('metasSet', { types: data })
+      commit('metasSet', { types: data.filter(t => t.modification) })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -104,7 +104,7 @@ export const actions = {
     } finally {
       commit('loadingRemove', 'titreDemarcheRemove', { root: true })
     }
-  }
+  },
 }
 
 export const mutations = {
@@ -112,12 +112,12 @@ export const mutations = {
     Object.keys(data).forEach(id => {
       Vue.set(state.metas, id, data[id])
     })
-  }
+  },
 }
 
 export default {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
 }

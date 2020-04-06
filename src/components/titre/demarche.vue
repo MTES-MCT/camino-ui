@@ -101,7 +101,7 @@ export default {
         props: {
           demarche,
           types: this.type.demarchesTypes,
-          titreTypeNom: this.type.nom,
+          titreTypeNom: this.type.type.nom,
           titreNom: this.titre.nom
         }
       })

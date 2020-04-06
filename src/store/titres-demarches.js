@@ -14,7 +14,7 @@ export const state = {
     titresTypes: [],
     titresDomaines: [],
     titresStatuts: [],
-    intervalleMax: 200
+    intervalleMax: 200,
   },
   params: {
     arrays: [
@@ -22,16 +22,16 @@ export const state = {
       'statutsIds',
       'titresDomainesIds',
       'titresTypesIds',
-      'titresStatutsIds'
+      'titresStatutsIds',
     ],
-    strings: ['page', 'intervalle', 'colonne', 'ordre']
+    strings: ['page', 'intervalle', 'colonne', 'ordre'],
   },
   preferences: {
     table: {
       page: 1,
       intervalle: 200,
       ordre: 'asc',
-      colonne: 'titreNom'
+      colonne: 'titreNom',
     },
     filtres: {
       typesIds: null,
@@ -40,9 +40,9 @@ export const state = {
       titresTypesIds: null,
       titresStatutsIds: null,
       etapesIncluesIds: null,
-      etapesExcluesIds: null
-    }
-  }
+      etapesExcluesIds: null,
+    },
+  },
 }
 
 export const actions = {
@@ -84,7 +84,7 @@ export const actions = {
         'messageAdd',
         {
           value: `liste de demarches mise à jour`,
-          type: 'success'
+          type: 'success',
         },
         { root: true }
       )
@@ -100,7 +100,7 @@ export const actions = {
 
   preferencesSet({ commit }, { section, params }) {
     commit('preferencesSet', { section, params })
-  }
+  },
 }
 
 export const mutations = {
@@ -119,12 +119,12 @@ export const mutations = {
     Object.keys(params).forEach(id => {
       Vue.set(state.preferences[section], id, params[id])
     })
-  }
+  },
 }
 
 export default {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
 }
