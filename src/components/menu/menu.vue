@@ -1,9 +1,9 @@
 <template>
   <div class="bg-bg">
     <div class="container pt">
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3">
-          <ul class="list-sans">
+      <div class="tablet-blobs mb flex-align-items-stretch">
+        <div class="tablet-blob-1-3 border-l pl-s">
+          <ul class="list-sans mb-0">
             <li>
               <RouterLink
                 id="cmn-menu-menu-a-titres"
@@ -16,6 +16,23 @@
             </li>
             <li>
               <RouterLink
+                id="cmn-menu-menu-a-activites"
+                :to="{ name: 'demarches' }"
+                class="btn-transparent text-decoration-none bold"
+                active-class="active"
+              >
+                Demarches
+              </RouterLink>
+            </li>
+          </ul>
+        </div>
+        <div
+          v-if="sections.activites"
+          class="tablet-blob-1-3 border-l pl-s"
+        >
+          <ul class="list-sans mb-0">
+            <li>
+              <RouterLink
                 v-if="sections.activites"
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'activites' }"
@@ -25,16 +42,10 @@
                 Activités
               </RouterLink>
             </li>
-            <li>
-              <RouterLink
-                id="cmn-menu-menu-a-activites"
-                :to="{ name: 'demarches' }"
-                class="btn-transparent text-decoration-none bold"
-                active-class="active"
-              >
-                Demarches
-              </RouterLink>
-            </li>
+          </ul>
+        </div>
+        <div class="tablet-blob-1-3 border-l pl-s">
+          <ul class="list-sans mb-0">
             <li>
               <RouterLink
                 id="cmn-menu-menu-a-entreprises"
