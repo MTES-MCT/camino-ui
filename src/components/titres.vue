@@ -156,9 +156,8 @@ export default {
     },
 
     modification() {
-      return this.$store.state.user.metas.domaines.filter(
-        d => d.titresModification
-      ).length
+      return this.$store.state.user.metas.domaines.filter(d => d.titresCreation)
+        .length
     }
   },
 

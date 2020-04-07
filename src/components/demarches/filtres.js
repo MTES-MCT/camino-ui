@@ -5,29 +5,29 @@ const filtres = {
   titresDomainesIds: {
     name: 'Domaines',
     type: 'checkboxes',
-    values: [],
+    value: '',
     component: FiltresTitresDomaines
   },
   titresTypesIds: {
     name: 'Types de titre',
     type: 'checkboxes',
-    values: []
+    value: ''
   },
   titresStatutsIds: {
     name: 'Statuts de titre',
     type: 'checkboxes',
-    values: [],
+    value: '',
     component: FiltresTitresStatuts
   },
   typesIds: {
     name: 'Types',
     type: 'checkboxes',
-    values: []
+    value: ''
   },
   statutsIds: {
     name: 'Statuts',
     type: 'checkboxes',
-    values: [],
+    value: '',
     component: FiltresTitresStatuts
   }
 }

@@ -14,7 +14,7 @@ const metasTitre = apiQuery(
     }
   `,
   {
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'network-only'
   }
 )
 
@@ -24,7 +24,7 @@ const metasTitres = apiQuery(
       domaines {
         id
         nom
-        titresModification
+        titresCreation
       }
 
       types {
@@ -41,7 +41,7 @@ const metasTitres = apiQuery(
     ${fragmentTitreTypeType}
   `,
   {
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'network-only'
   }
 )
 
@@ -126,5 +126,5 @@ export {
   titres,
   titreCreer,
   titreModifier,
-  titreSupprimer,
+  titreSupprimer
 }

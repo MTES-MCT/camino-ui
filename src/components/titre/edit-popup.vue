@@ -189,9 +189,7 @@ export default {
     },
 
     domaines() {
-      return this.$store.state.user.metas.domaines.filter(
-        d => d.titresModification
-      )
+      return this.$store.state.user.metas.domaines.filter(d => d.titresCreation)
     },
 
     referencesTypes() {
@@ -203,7 +201,7 @@ export default {
         ({ id }) => id === this.titre.domaineId
       )
 
-      return domaine && domaine.titresTypes.filter(tt => tt.titresModification)
+      return domaine && domaine.titresTypes.filter(tt => tt.titresCreation)
     },
 
     complete() {

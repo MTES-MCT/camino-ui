@@ -184,7 +184,9 @@ export default {
     },
 
     etapeTypes() {
-      return this.$store.state.titreEtape.metas.etapesTypes
+      return this.$store.state.titreEtape.metas.etapesTypes.filter(
+        t => t.etapesCreation
+      )
     },
 
     etapeType() {

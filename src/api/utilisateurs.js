@@ -3,7 +3,7 @@ import { apiQuery, apiMutate } from './_utils'
 
 import {
   fragmentUtilisateur,
-  fragmentUtilisateurToken,
+  fragmentUtilisateurToken
 } from './fragments/utilisateur'
 import { fragmentPermission, fragmentTitreType } from './fragments/metas'
 import { fragmentEntreprises } from './fragments/entreprises'
@@ -20,7 +20,7 @@ const metasUser = apiQuery(
         titresTypes {
           ...titreType
         }
-        titresModification
+        titresCreation
       }
     }
 
@@ -219,5 +219,5 @@ export {
   utilisateurMotDePasseModifier,
   utilisateurMotDePasseInitialiser,
   utilisateurMotDePasseEmailEnvoyer,
-  utilisateurCreationEmailEnvoyer,
+  utilisateurCreationEmailEnvoyer
 }
