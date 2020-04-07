@@ -27,6 +27,16 @@
             </li>
             <li>
               <RouterLink
+                id="cmn-menu-menu-a-activites"
+                :to="{ name: 'demarches' }"
+                class="btn-transparent text-decoration-none bold"
+                active-class="active"
+              >
+                Demarches
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink
                 id="cmn-menu-menu-a-entreprises"
                 :to="{ name: 'entreprises' }"
                 class="btn-transparent text-decoration-none bold"
