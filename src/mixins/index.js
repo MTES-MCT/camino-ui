@@ -5,6 +5,7 @@ var mixins = {
     permissionsCheck(permissions) {
       return (
         !!this.$store.state.user.current &&
+        !!this.$store.state.user.current.permission &&
         permissionsCheck(this.$store.state.user.current.permission, permissions)
       )
     },
