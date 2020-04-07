@@ -26,7 +26,6 @@
           >
             <i class="icon-24 icon-trash" />
           </button>
-
           <button
             v-if="demarche.modification"
             class="btn-border rnd-r-xs py-s px-m mb"

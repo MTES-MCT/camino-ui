@@ -124,7 +124,7 @@
           {{ element.type === 'number'
             ? numberFormat(contenu[element.id])
             : element.type ==='checkboxes'
-              ? contenu[element.id].map(id => element.valeurs[id]).join(', ')
+              ? contenu[element.id].map(id => element.valeurs.find(e => e.id === id).nom).join(', ')
               : contenu[element.id] }}
         </p>
         <p
