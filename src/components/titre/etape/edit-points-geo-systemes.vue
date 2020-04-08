@@ -6,9 +6,11 @@
     <div
       v-for="(etapeGeoSystemeId, etapeGeoSystemeIndex) in etape.geoSystemeIds"
       :key="etapeGeoSystemeIndex"
-      class="mb-s"
     >
-      <div class="flex full-x mb-s">
+      <div
+        class="flex"
+        :class="{ 'mb-s': geoSystemesLength, mb: !geoSystemesLength }"
+      >
         <select
           v-model="etape.geoSystemeIds[etapeGeoSystemeIndex]"
           class="p-s mr-s"
@@ -23,14 +25,12 @@
             {{ geoSysteme.nom }} ({{ geoSysteme.id }})
           </option>
         </select>
-        <div class="flex-right">
-          <button
-            class="btn-border py-s px-m rnd-xs"
-            @click="geoSystemeRemove(etapeGeoSystemeIndex)"
-          >
-            <i class="icon-24 icon-minus" />
-          </button>
-        </div>
+        <button
+          class="btn-border py-s px-m rnd-xs"
+          @click="geoSystemeRemove(etapeGeoSystemeIndex)"
+        >
+          <i class="icon-24 icon-minus" />
+        </button>
       </div>
 
       <div
@@ -70,6 +70,10 @@ export default {
   computed: {
     geoSystemes() {
       return this.$store.state.titreEtape.metas.geoSystemes
+    },
+
+    geoSystemesLength() {
+      return this.etape.geoSystemeIds.length
     }
   },
 

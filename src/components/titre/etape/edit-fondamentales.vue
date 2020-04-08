@@ -144,7 +144,7 @@
       :key="`titluaire-${titulaire.id}`"
     >
       <div
-        class="flex full-x"
+        class="flex"
         :class="{ 'mb-s': titulairesLength, mb: !titulairesLength }"
       >
         <select
@@ -157,17 +157,15 @@
             :value="{ id: entreprise.id }"
             :disabled="etape.titulaires.find(id => id === entreprise.id)"
           >
-            {{ entreprise.nom }} ({{ entreprise.id }})
+            {{ `${entreprise.nom} (${entreprise.id})` }}
           </option>
         </select>
-        <div class="flex-right">
-          <button
-            class="btn-border py-s px-m rnd-xs"
-            @click="titulaireRemove(n)"
-          >
-            <i class="icon-24 icon-minus" />
-          </button>
-        </div>
+        <button
+          class="btn-border py-s px-m rnd-xs"
+          @click="titulaireRemove(n)"
+        >
+          <i class="icon-24 icon-minus" />
+        </button>
       </div>
     </div>
 
@@ -202,7 +200,7 @@
       :key="`amodiataire-${amodiataire.id}`"
     >
       <div
-        class="flex full-x"
+        class="flex"
         :class="{ 'mb-s': amodiatairesLength, mb: !amodiatairesLength }"
       >
         <select
@@ -218,15 +216,12 @@
             {{ entreprise.nom }} ({{ entreprise.id }})
           </option>
         </select>
-
-        <div class="flex-right">
-          <button
-            class="btn-border py-s px-m rnd-xs"
-            @click="amodiataireRemove(n)"
-          >
-            <i class="icon-24 icon-minus" />
-          </button>
-        </div>
+        <button
+          class="btn-border py-s px-m rnd-xs"
+          @click="amodiataireRemove(n)"
+        >
+          <i class="icon-24 icon-minus" />
+        </button>
       </div>
     </div>
 
@@ -261,7 +256,7 @@
       :key="n"
     >
       <div
-        class="flex full-x"
+        class="flex"
         :class="{ 'mb-s': substancesLength, mb: !substancesLength }"
       >
         <select
@@ -277,14 +272,12 @@
             {{ s.nom }}
           </option>
         </select>
-        <div class="flex-right">
-          <button
-            class="btn-border py-s px-m rnd-xs"
-            @click="substanceRemove(n)"
-          >
-            <i class="icon-24 icon-minus" />
-          </button>
-        </div>
+        <button
+          class="btn-border py-s px-m rnd-xs"
+          @click="substanceRemove(n)"
+        >
+          <i class="icon-24 icon-minus" />
+        </button>
       </div>
     </div>
 
