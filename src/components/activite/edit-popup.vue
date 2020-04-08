@@ -15,7 +15,7 @@
     </template>
 
     <div
-      v-if="editable"
+      v-if="modification"
       class="p-s bg-info color-bg mb"
     >
       Besoin d'aide pour remplir ce rapport ? Appelez le 06.61.26.42.89
@@ -24,12 +24,12 @@
     <EditSections
       :sections="activite.sections"
       :element.sync="activite"
-      :editable="editable"
+      :modification="modification"
       @completed:update="completedUpdate"
     />
 
     <div
-      v-if="!editable && completed"
+      v-if="!modification && completed"
       id="cmn-titre-activite-edit-popup-warning"
       class="p-s bg-warning color-bg bold mb"
     >
@@ -38,7 +38,7 @@
 
     <template slot="footer">
       <div
-        v-if="editable"
+        v-if="modification"
         class="tablet-blobs"
       >
         <div class="tablet-blob-1-3 mb tablet-mb-0">
@@ -138,7 +138,7 @@ export default {
 
   data() {
     return {
-      editable: true,
+      modification: true,
       checkboxesValues: [],
       completed: false
     }
@@ -168,12 +168,12 @@ export default {
     },
 
     preview() {
-      this.editable = false
+      this.modification = false
     },
 
     edit() {
       this.errorsRemove()
-      this.editable = true
+      this.modification = true
     },
 
     async save(confirmation) {
@@ -201,13 +201,13 @@ export default {
 
     keyup(e) {
       if ((e.which || e.keyCode) === 27) {
-        if (this.editable) {
+        if (this.modification) {
           this.cancel()
         } else {
           this.edit()
         }
       } else if ((e.which || e.keyCode) === 13) {
-        if (this.editable) {
+        if (this.modification) {
           this.preview()
         } else {
           if (this.completed) {

@@ -117,7 +117,9 @@ export default {
     },
 
     types() {
-      return this.$store.state.titreDemarche.metas.types
+      return this.$store.state.titreDemarche.metas.types.filter(
+        t => t.demarchesCreation
+      )
     },
 
     complete() {

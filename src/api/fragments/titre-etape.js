@@ -51,8 +51,8 @@ const fragmentTitreEtape = gql`
     }
     contenu
 
-    editable
-    supprimable
+    modification
+    suppression
   }
 
   ${fragmentTitreAdministrations}
@@ -82,8 +82,8 @@ const fragmentTitreEtape = gql`
     nor
     public
 
-    editable
-    supprimable
+    modification
+    suppression
   }
 
   fragment incertitudes on Incertitudes {

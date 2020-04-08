@@ -21,9 +21,9 @@ const fragmentUtilisateur = gql`
       ...permission
     }
 
-    editable
-    supprimable
-    permissionEditable
+    modification
+    suppression
+    permissionModification
 
     sections {
       activites

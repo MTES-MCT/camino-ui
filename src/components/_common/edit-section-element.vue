@@ -13,7 +13,7 @@
         :class="{'tablet-blob-2-3': element.nom, 'tablet-blob-1': !element.nom }"
       >
         <div
-          v-if="editable"
+          v-if="modification"
         >
           <div :class="{ 'mb-s': element.description}">
             <input
@@ -124,7 +124,7 @@
           {{ element.type === 'number'
             ? numberFormat(contenu[element.id])
             : element.type ==='checkboxes'
-              ? contenu[element.id].map(id => element.valeurs[id]).join(', ')
+              ? contenu[element.id].map(id => element.valeurs.find(e => e.id === id).nom).join(', ')
               : contenu[element.id] }}
         </p>
         <p
@@ -151,7 +151,7 @@ export default {
       type: Object,
       default: () => ({})
     },
-    editable: {
+    modification: {
       type: Boolean,
       default: true
     }
@@ -162,7 +162,7 @@ export default {
       return (
         this.contenu &&
         ((!Array.isArray(this.contenu[this.element.id]) &&
-          (this.contenu[this.element.id] !== undefined)) ||
+          this.contenu[this.element.id] !== undefined) ||
           (Array.isArray(this.contenu[this.element.id]) &&
             this.contenu[this.element.id].length))
       )

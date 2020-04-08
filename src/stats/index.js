@@ -44,7 +44,6 @@ export default function install(Vue, setupOptions = {}) {
           }
 
           const url = protocol + '//' + loc.host + to.path
-
           matomo.setCustomUrl(url)
           matomo.trackPageView(to.name)
         })

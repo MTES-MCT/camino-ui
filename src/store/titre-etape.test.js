@@ -7,7 +7,7 @@ jest.mock('../api/titres-etapes', () => ({
   metasTitreEtape: jest.fn(),
   etapeCreer: jest.fn(),
   etapeModifier: jest.fn(),
-  etapeSupprimer: jest.fn()
+  etapeSupprimer: jest.fn(),
 }))
 
 console.log = jest.fn()
@@ -24,20 +24,20 @@ describe('étapes', () => {
     titreEtape.state = {
       current: null,
       metas: {
-        demarcheEtapesTypes: [],
+        etapesTypes: [],
         devises: [],
         unites: [],
         geoSystemes: [],
         substances: [],
-        entreprises: []
-      }
+        entreprises: [],
+      },
     }
 
     actions = {
       pageError: jest.fn(),
       apiError: jest.fn(),
       reload: jest.fn(),
-      messageAdd: jest.fn()
+      messageAdd: jest.fn(),
     }
 
     mutations = {
@@ -47,7 +47,7 @@ describe('étapes', () => {
       popupLoad: jest.fn(),
       popupMessagesRemove: jest.fn(),
       popupClose: jest.fn(),
-      popupMessageAdd: jest.fn()
+      popupMessageAdd: jest.fn(),
     }
 
     store = new Vuex.Store({ actions, mutations, modules: { titreEtape } })
@@ -55,32 +55,32 @@ describe('étapes', () => {
 
   test('récupère les métas pour éditer une étape', async () => {
     const apiMock = api.metasTitreEtape.mockResolvedValue({
-      demarcheEtapesTypes: [
+      etapesTypes: [
         { id: 'w', nom: 'granulats' },
-        { id: 'c', nom: 'carrières' }
+        { id: 'c', nom: 'carrières' },
       ],
       geoSystemes: [
         { id: 'ifr', nom: 'Ifremer' },
-        { id: 'dge', nom: 'DGEC' }
-      ]
+        { id: 'dge', nom: 'DGEC' },
+      ],
     })
 
     await store.dispatch('titreEtape/metasGet', { etape: {} })
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titreEtape.metas).toEqual({
-      demarcheEtapesTypes: [
+      etapesTypes: [
         { id: 'w', nom: 'granulats' },
-        { id: 'c', nom: 'carrières' }
+        { id: 'c', nom: 'carrières' },
       ],
       geoSystemes: [
         { id: 'ifr', nom: 'Ifremer' },
-        { id: 'dge', nom: 'DGEC' }
+        { id: 'dge', nom: 'DGEC' },
       ],
       unites: [],
       devises: [],
       substances: [],
-      entreprises: []
+      entreprises: [],
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })

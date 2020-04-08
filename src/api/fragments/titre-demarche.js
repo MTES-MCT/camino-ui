@@ -26,9 +26,9 @@ const fragmentTitreDemarche = gql`
       ...etape
     }
 
-    editable
-    etapesEditable
-    supprimable
+    modification
+    etapesCreation
+    suppression
   }
 
   ${fragmentTitreEtape}

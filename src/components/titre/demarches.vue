@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="titre.editable"
+      v-if="titre.modification"
     >
       <div class="card-border mb" />
       <button

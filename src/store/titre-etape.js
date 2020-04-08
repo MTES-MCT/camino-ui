@@ -4,19 +4,19 @@ import {
   metasTitreEtape,
   etapeCreer,
   etapeModifier,
-  etapeSupprimer
+  etapeSupprimer,
 } from '../api/titres-etapes'
 
 export const state = {
   current: null,
   metas: {
-    demarcheEtapesTypes: [],
+    etapesTypes: [],
     devises: [],
     unites: [],
     geoSystemes: [],
     substances: [],
-    entreprises: []
-  }
+    entreprises: [],
+  },
 }
 
 export const actions = {
@@ -25,6 +25,8 @@ export const actions = {
 
     try {
       const data = await metasTitreEtape(etape)
+
+      console.log(data)
 
       commit('metasSet', data)
     } catch (e) {
@@ -110,7 +112,7 @@ export const actions = {
     } finally {
       commit('loadingRemove', 'titreEtapeRemove', { root: true })
     }
-  }
+  },
 }
 
 export const mutations = {
@@ -118,12 +120,12 @@ export const mutations = {
     Object.keys(data).forEach(id => {
       Vue.set(state.metas, id, data[id])
     })
-  }
+  },
 }
 
 export default {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
 }

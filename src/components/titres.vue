@@ -7,7 +7,7 @@
 
       <div class="desktop-blob-1-3">
         <button
-          v-if="editable"
+          v-if="modification"
           class="btn-border rnd-xs py-s px-m full-x flex mb-s"
           @click="addPopupOpen"
         >
@@ -21,16 +21,17 @@
       @params:update="preferencesUpdate"
     />
 
+
+    <TitresFiltres
+      v-if="metasLoaded"
+      @titres:update="titresUpdate"
+    />
     <div
-      v-if="!metasLoaded"
+      v-else
       class="py-s px-m mb-s"
     >
       …
     </div>
-    <TitresFiltres
-      v-else
-      @titres:update="titresUpdate"
-    />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-2 flex mb-s">
@@ -80,12 +81,17 @@
     </div>
 
     <div class="card-border" />
-
     <Component
       :is="vue.component"
-      v-if="preferences.vueId"
+      v-if="preferences.vueId && metasLoaded"
       :titres="titres"
     />
+    <div
+      v-else
+      class="map-list mb-xxl mt"
+    >
+      …
+    </div>
   </Card>
 </template>
 
@@ -149,12 +155,14 @@ export default {
       return this.$store.state.user.loaded
     },
 
-    editable() {
-      return this.$store.state.user.metas.utilisateurDomaines.length
+    modification() {
+      return this.$store.state.user.metas.domaines.filter(d => d.titresCreation)
+        .length
     }
   },
 
   watch: {
+    // TODO: pourquoi tester userLoaded
     user: 'metasGet',
     userLoaded: 'metasGet'
   },

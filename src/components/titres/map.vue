@@ -162,11 +162,12 @@ export default {
     titresInit() {
       const clusters = clustersBuild(this.domaines)
       const { geojsons, markers } = layersBuild(this.titres, this.$router)
-
       this.geojsons = geojsons
       this.markers = markers
       this.markers.forEach(marker => {
-        clusters[marker.domaineId].addLayer(marker)
+        if (clusters[marker.domaineId]) {
+          clusters[marker.domaineId].addLayer(marker)
+        }
       })
 
       this.clusters = Object.keys(clusters).map(

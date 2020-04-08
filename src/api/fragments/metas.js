@@ -22,7 +22,7 @@ const fragmentEtapeType = gql`
     }
     fondamentale
     sections
-    editable
+    etapesCreation
   }
 `
 
@@ -53,7 +53,7 @@ const fragmentDemarcheType = gql`
     titulaires
     renouvelable
     exception
-    editable
+    demarchesCreation
     titreTypeId
   }
 `
@@ -72,6 +72,7 @@ const fragmentTitreType = gql`
     type {
       ...titreTypeType
     }
+    titresCreation
   }
   ${fragmentTitreTypeType}
 `

@@ -77,7 +77,7 @@ describe('liste des demarches', () => {
     })
   })
 
-  test('récupère les métas pour éditer une démarche', async () => {
+  test('récupère les métas pour afficher des démarches', async () => {
     const apiMock = api.metasDemarches
       .mockResolvedValueOnce({
         demarchesTypes: [{ id: 'id-demarchesTypes' }],

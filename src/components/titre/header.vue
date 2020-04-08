@@ -6,11 +6,11 @@
       </div>
       <div class="tablet-blob-1-2 flex">
         <div
-          v-if="titre.editable || titre.supprimable"
+          v-if="titre.modification || titre.suppression"
           class="flex-right"
         >
           <button
-            v-if="titre.supprimable"
+            v-if="titre.suppression"
             class="btn-border rnd-l-xs py-s px-m mb"
             @click="removePopupOpen"
           >
@@ -18,9 +18,9 @@
           </button>
 
           <button
-            v-if="titre.editable"
+            v-if="titre.modification"
             class="btn-border rnd-r-xs py-s px-m mb"
-            :class="{'rnd-l-xs': !titre.supprimable }"
+            :class="{'rnd-l-xs': !titre.suppression }"
             @click="editPopupOpen"
           >
             <i class="icon-24 icon-pencil" />
@@ -203,7 +203,7 @@ export default {
           s.elements.some(
             e =>
               this.titre.contenu[s.id] &&
-              (this.titre.contenu[s.id][e.id] !== undefined)
+              this.titre.contenu[s.id][e.id] !== undefined
           )
         )
       )

@@ -9,8 +9,8 @@ const zones = [
     type: 'LineString',
     coordinates: [
       [-5, 41],
-      [10, 51]
-    ]
+      [10, 51],
+    ],
   },
   {
     id: 'gf',
@@ -18,8 +18,8 @@ const zones = [
     type: 'LineString',
     coordinates: [
       [-55, 4],
-      [-50, 7]
-    ]
+      [-50, 7],
+    ],
   },
   {
     id: 'oi',
@@ -27,8 +27,8 @@ const zones = [
     type: 'LineString',
     coordinates: [
       [39, -23],
-      [58, -13]
-    ]
+      [58, -13],
+    ],
   },
   {
     id: 'an',
@@ -36,9 +36,9 @@ const zones = [
     type: 'LineString',
     coordinates: [
       [-64, 15],
-      [-59, 16]
-    ]
-  }
+      [-59, 16],
+    ],
+  },
 ]
 
 const clustersBuild = domaines =>
@@ -57,7 +57,7 @@ const clustersBuild = domaines =>
           html: id,
           className: `py-xs px-s pill h6 mono color-bg cap bold bg-titre-domaine-${id} shadow-drop leaflet-marker-cluster-${size}`,
           iconSize: null,
-          iconAnchor: [0, 0]
+          iconAnchor: [0, 0],
         })
       },
       disableClusteringAtZoom: 10,
@@ -66,7 +66,7 @@ const clustersBuild = domaines =>
       showCoverageOnHover: false,
       maxClusterRadius(x) {
         return 2048 / Math.pow(x, 2)
-      }
+      },
     })
 
     return Object.assign(clusters, { [id]: cluster })
@@ -82,7 +82,7 @@ const layersBuild = (titres, router) =>
         className: `leaflet-marker-camino py-xs px-s pill h6 mono color-bg cap bold border-bg bg-titre-domaine-${domaineId} shadow-drop`,
         html: domaineId,
         iconSize: null,
-        iconAnchor: [15.5, 38]
+        iconAnchor: [15.5, 38],
       })
 
       const popupHtml = `<h4 class="mb-s">${titre.nom}</h4>`
@@ -90,12 +90,12 @@ const layersBuild = (titres, router) =>
       const popupOptions = {
         closeButton: false,
         offset: [0, -24],
-        autoPan: false
+        autoPan: false,
       }
 
       const titreRoute = {
         name: 'titre',
-        params: { id: titre.id }
+        params: { id: titre.id },
       }
 
       const methods = {
@@ -107,7 +107,7 @@ const layersBuild = (titres, router) =>
         },
         mouseout(e) {
           this.closePopup()
-        }
+        },
       }
 
       let marker
@@ -119,15 +119,12 @@ const layersBuild = (titres, router) =>
           fillOpacity: 0.75,
           weight: 1,
           color: 'white',
-          className
+          className,
         },
         onEachFeature: (feature, layer) => {
-          marker = L.marker(
-            L.geoJSON(feature)
-              .getBounds()
-              .getCenter(),
-            { icon }
-          )
+          marker = L.marker(L.geoJSON(feature).getBounds().getCenter(), {
+            icon,
+          })
           marker.id = titre.id
           marker.domaineId = domaineId
 
@@ -136,14 +133,16 @@ const layersBuild = (titres, router) =>
 
           marker.bindPopup(popupHtml, popupOptions)
           marker.on(methods)
-        }
+        },
       })
 
-      markers.push(marker)
+      if (marker) {
+        markers.push(marker)
+      }
 
       return {
         geojsons: Object.assign(geojsons, { [titre.id]: geojson }),
-        markers
+        markers,
       }
     },
     { geojsons: {}, markers: [] }
@@ -154,10 +153,10 @@ const tilesBuild = tiles =>
     ? L.tileLayer.wms(tiles.url, {
         layers: tiles.layers,
         format: 'image/png',
-        attribution: tiles.attribution
+        attribution: tiles.attribution,
       })
     : L.tileLayer(tiles.url, {
-        attribution: tiles.attribution
+        attribution: tiles.attribution,
       })
 
 const geojsonBoundsGet = zone => L.geoJSON(zone).getBounds()

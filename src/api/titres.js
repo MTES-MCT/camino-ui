@@ -24,6 +24,7 @@ const metasTitres = apiQuery(
       domaines {
         id
         nom
+        titresCreation
       }
 
       types {

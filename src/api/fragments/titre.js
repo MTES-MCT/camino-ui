@@ -81,8 +81,8 @@ const fragmentTitre = gql`
     }
     contenu
 
-    editable
-    supprimable
+    modification
+    suppression
     doublonTitreId
   }
 

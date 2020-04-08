@@ -14,12 +14,13 @@ const metasUser = apiQuery(
     query MetasUser {
       version
 
-      utilisateurDomaines {
+      domaines {
         id
         nom
         titresTypes {
           ...titreType
         }
+        titresCreation
       }
     }
 
