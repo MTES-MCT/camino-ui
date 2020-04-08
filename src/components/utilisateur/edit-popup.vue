@@ -215,11 +215,7 @@
           </div>
           <div
             v-else
-            class="flex full-x"
-            :class="{
-              'mb-s': utilisateurAdministrationsLength,
-              mb: !utilisateurAdministrationsLength
-            }"
+            class="flex full-x mb"
           >
             <select
               id="cmn-utilisateur-edit-popup-administration-select"
@@ -254,7 +250,7 @@
         </div>
 
         <button
-          v-if="!utilisateur.administrations.some(({ id }) => id === '')"
+          v-if="!utilisateur.administrations.some(({ id }) => id === '') && utilisateurAdministrationsLength < 1"
           id="cmn-utilisateur-edit-popup-administration-button-ajouter"
           class="btn-border rnd-xs py-s px-m full-x flex mb"
           @click="administrationAdd"
