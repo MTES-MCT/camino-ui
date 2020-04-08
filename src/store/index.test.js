@@ -29,7 +29,7 @@ jest.mock('../router', () => ({
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 jest.useFakeTimers()
 

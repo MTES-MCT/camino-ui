@@ -19,7 +19,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.log(e)
+      console.info(e)
     } finally {
       commit('loadingRemove', 'administration', { root: true })
     }

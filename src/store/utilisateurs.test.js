@@ -10,7 +10,7 @@ jest.mock('../api/utilisateurs', () => ({
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe('liste des utilisateurs', () => {
   let store
@@ -62,7 +62,7 @@ describe('liste des utilisateurs', () => {
     await store.dispatch('utilisateurs/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
 })

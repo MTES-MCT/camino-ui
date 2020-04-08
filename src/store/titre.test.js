@@ -15,7 +15,7 @@ jest.mock('../api/titres', () => ({
   titreSupprimer: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -105,7 +105,7 @@ describe('état du titre sélectionné', () => {
 
     expect(store.state.titre.current).toEqual(null)
     expect(actions.apiError).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test('crée un titre', async () => {

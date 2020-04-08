@@ -8,12 +8,12 @@ import { createUploadLink } from 'apollo-upload-client'
 // for safari 11
 import 'unfetch/polyfill'
 
-console.log('api:', process.env.VUE_APP_API_URL)
+console.info('api:', process.env.VUE_APP_API_URL)
 
 const linkError = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.map(({ message, locations, path }) =>
-      console.log(
+      console.info(
         `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(
           locations
         )}, Path: ${path}`
@@ -22,7 +22,7 @@ const linkError = onError(({ graphQLErrors, networkError }) => {
   }
 
   if (networkError) {
-    console.log(`[Network error]: ${networkError}`)
+    console.info(`[Network error]: ${networkError}`)
   }
 })
 

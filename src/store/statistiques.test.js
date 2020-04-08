@@ -7,7 +7,7 @@ jest.mock('../api/statistiques', () => ({
   statistiques: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 const localVue = createLocalVue()
 localVue.use(Vuex)

@@ -20,7 +20,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.log(e)
+      console.info(e)
     } finally {
       commit('loadingRemove', 'activite', { root: true })
     }
@@ -55,14 +55,14 @@ export const actions = {
       )
 
       if (context === 'activite') {
-        console.log(context)
+        console.info(context)
         await dispatch(
           'reload',
           { name: 'activite', id: rootState.titreActivite.current.id },
           { root: true }
         )
 
-        console.log('after reload')
+        console.info('after reload')
       } else if (context === 'titre') {
         await dispatch(
           'reload',

@@ -224,7 +224,6 @@ export default {
           delete this.etape.contenu
         }
 
-        // console.log(JSON.stringify(etape, null, 2))
         if (this.creation) {
           await this.$store.dispatch('titreEtape/add', etape)
         } else {

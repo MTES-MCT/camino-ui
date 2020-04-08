@@ -30,7 +30,7 @@ export const actions = {
       commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-      console.log(e)
+      console.info(e)
     } finally {
       commit('loadingRemove', 'metasUtilisateur', { root: true })
     }
@@ -48,7 +48,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.log(e)
+      console.info(e)
     } finally {
       commit('loadingRemove', 'utilisateur', { root: true })
     }

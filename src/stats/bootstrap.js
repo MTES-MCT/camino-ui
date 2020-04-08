@@ -16,10 +16,8 @@ export default function(options) {
   })
 
   scriptPromise.catch(error => {
-    console.log(
-      `An error occurred trying to load ${
-        error.target.src
-      }. If the file exists, you may have a tracking blocker enabled.`
+    console.info(
+      `An error occurred trying to load ${error.target.src}. If the file exists, you may have a tracking blocker enabled.`
     )
   })
 

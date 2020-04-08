@@ -8,11 +8,11 @@ export const state = {
   metas: {
     domaines: [],
     types: [],
-    statuts: [],
+    statuts: []
   },
   params: {
     arrays: ['typesIds', 'domainesIds', 'statutsIds'],
-    strings: ['substances', 'noms', 'entreprises', 'references', 'territoires'],
+    strings: ['substances', 'noms', 'entreprises', 'references', 'territoires']
   },
   preferences: {
     vue: { vueId: 'carte' },
@@ -20,11 +20,11 @@ export const state = {
       page: 1,
       intervalle: 200,
       ordre: 'asc',
-      colonne: 'nom',
+      colonne: 'nom'
     },
     carte: {
       zoom: null,
-      centre: null,
+      centre: null
     },
     filtres: {
       typesIds: null,
@@ -34,9 +34,9 @@ export const state = {
       entreprises: null,
       substances: null,
       references: null,
-      territoires: null,
-    },
-  },
+      territoires: null
+    }
+  }
 }
 
 export const actions = {
@@ -69,7 +69,7 @@ export const actions = {
         'messageAdd',
         {
           value: `liste de titres mise à jour`,
-          type: 'success',
+          type: 'success'
         },
         { root: true }
       )
@@ -77,7 +77,7 @@ export const actions = {
       commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.log(e)
+      console.info(e)
     } finally {
       commit('loadingRemove', 'titres', { root: true })
     }
@@ -85,7 +85,7 @@ export const actions = {
 
   preferencesSet({ commit }, { section, params }) {
     commit('preferencesSet', { section, params })
-  },
+  }
 }
 
 export const mutations = {
@@ -103,12 +103,12 @@ export const mutations = {
     Object.keys(params).forEach(id => {
       Vue.set(state.preferences[section], id, params[id])
     })
-  },
+  }
 }
 
 export default {
   namespaced: true,
   state,
   actions,
-  mutations,
+  mutations
 }

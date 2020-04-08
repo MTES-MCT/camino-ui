@@ -17,7 +17,7 @@ jest.mock('../api/entreprises', () => ({
   entrepriseModifier: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("état de l'entreprise sélectionnée", () => {
   let store
@@ -73,7 +73,7 @@ describe("état de l'entreprise sélectionnée", () => {
     await store.dispatch('entreprise/get', 71)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
 

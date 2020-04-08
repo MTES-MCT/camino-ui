@@ -7,10 +7,10 @@ jest.mock('../api/titres-etapes', () => ({
   metasTitreEtape: jest.fn(),
   etapeCreer: jest.fn(),
   etapeModifier: jest.fn(),
-  etapeSupprimer: jest.fn(),
+  etapeSupprimer: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -29,15 +29,15 @@ describe('étapes', () => {
         unites: [],
         geoSystemes: [],
         substances: [],
-        entreprises: [],
-      },
+        entreprises: []
+      }
     }
 
     actions = {
       pageError: jest.fn(),
       apiError: jest.fn(),
       reload: jest.fn(),
-      messageAdd: jest.fn(),
+      messageAdd: jest.fn()
     }
 
     mutations = {
@@ -47,7 +47,7 @@ describe('étapes', () => {
       popupLoad: jest.fn(),
       popupMessagesRemove: jest.fn(),
       popupClose: jest.fn(),
-      popupMessageAdd: jest.fn(),
+      popupMessageAdd: jest.fn()
     }
 
     store = new Vuex.Store({ actions, mutations, modules: { titreEtape } })
@@ -57,12 +57,12 @@ describe('étapes', () => {
     const apiMock = api.metasTitreEtape.mockResolvedValue({
       etapesTypes: [
         { id: 'w', nom: 'granulats' },
-        { id: 'c', nom: 'carrières' },
+        { id: 'c', nom: 'carrières' }
       ],
       geoSystemes: [
         { id: 'ifr', nom: 'Ifremer' },
-        { id: 'dge', nom: 'DGEC' },
-      ],
+        { id: 'dge', nom: 'DGEC' }
+      ]
     })
 
     await store.dispatch('titreEtape/metasGet', { etape: {} })
@@ -71,16 +71,16 @@ describe('étapes', () => {
     expect(store.state.titreEtape.metas).toEqual({
       etapesTypes: [
         { id: 'w', nom: 'granulats' },
-        { id: 'c', nom: 'carrières' },
+        { id: 'c', nom: 'carrières' }
       ],
       geoSystemes: [
         { id: 'ifr', nom: 'Ifremer' },
-        { id: 'dge', nom: 'DGEC' },
+        { id: 'dge', nom: 'DGEC' }
       ],
       unites: [],
       devises: [],
       substances: [],
-      entreprises: [],
+      entreprises: []
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })

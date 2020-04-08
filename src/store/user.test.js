@@ -14,10 +14,10 @@ jest.mock('../api/utilisateurs', () => ({
   utilisateurMotDePasseEmailEnvoyer: jest.fn(),
   utilisateurCreationEmailEnvoyer: jest.fn(),
   utilisateurCreer: jest.fn(),
-  metasUser: jest.fn(),
+  metasUser: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 jest.mock('../router', () => [])
 
@@ -45,7 +45,7 @@ describe("état de l'utilisateur connecté", () => {
       nom: 'lataupe',
       permission: 'admin',
       entreprise: 'macdo',
-      email: 'rene@la.taupe',
+      email: 'rene@la.taupe'
     }
 
     user.state = {
@@ -54,18 +54,18 @@ describe("état de l'utilisateur connecté", () => {
         domaines: [],
         version: null,
         versionUi: null,
-        tiles,
+        tiles
       },
       preferences: {
-        carte: { tilesId: 'osm-fr' },
+        carte: { tilesId: 'osm-fr' }
       },
-      loaded: false,
+      loaded: false
     }
 
     actions = {
       messageAdd: jest.fn(),
       errorRemove: jest.fn(),
-      apiError: jest.fn(),
+      apiError: jest.fn()
     }
 
     mutations = {
@@ -74,20 +74,20 @@ describe("état de l'utilisateur connecté", () => {
       popupClose: jest.fn(),
       popupMessageAdd: jest.fn(),
       loadingRemove: jest.fn(),
-      menuClose: jest.fn(),
+      menuClose: jest.fn()
     }
 
     map = { state: { tiles: [{ id: 'osm-fr' }, { id: 'geoportail' }] } }
     store = new Vuex.Store({
       modules: { user, map },
       actions,
-      mutations,
+      mutations
     })
   })
 
   test("initialise les métas de l'utilisateur connecté", async () => {
     const apiMock = api.metasUser.mockResolvedValue({
-      version: '1.1.1',
+      version: '1.1.1'
     })
 
     await store.dispatch('user/metasGet')
@@ -97,7 +97,7 @@ describe("état de l'utilisateur connecté", () => {
       domaines: [],
       version: '1.1.1',
       versionUi: null,
-      tiles,
+      tiles
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
@@ -129,7 +129,7 @@ describe("état de l'utilisateur connecté", () => {
       nom: 'lataupe',
       email: 'rene@la.taupe',
       permission: 'admin',
-      entreprise: 'macdo',
+      entreprise: 'macdo'
     })
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.user.loaded).toBeTruthy()
@@ -149,7 +149,7 @@ describe("état de l'utilisateur connecté", () => {
   test('connecte un utilisateur', async () => {
     const apiMock = api.utilisateurTokenCreer.mockResolvedValue({
       token: 'rene',
-      utilisateur: userInfo,
+      utilisateur: userInfo
     })
 
     await store.dispatch('user/login', { email, motDePasse })
@@ -164,7 +164,7 @@ describe("état de l'utilisateur connecté", () => {
       nom: 'lataupe',
       email: 'rene@la.taupe',
       permission: 'admin',
-      entreprise: 'macdo',
+      entreprise: 'macdo'
     })
   })
 
@@ -212,7 +212,7 @@ describe("état de l'utilisateur connecté", () => {
   test('connecte un utilisateur avec Cerbère', async () => {
     const apiMock = api.utilisateurCerbereTokenCreer.mockResolvedValue({
       token: 'rene',
-      utilisateur: userInfo,
+      utilisateur: userInfo
     })
 
     await store.dispatch('user/cerbereLogin', { ticket })
@@ -227,7 +227,7 @@ describe("état de l'utilisateur connecté", () => {
       nom: 'lataupe',
       email: 'rene@la.taupe',
       permission: 'admin',
-      entreprise: 'macdo',
+      entreprise: 'macdo'
     })
   })
 
@@ -338,16 +338,16 @@ describe("état de l'utilisateur connecté", () => {
     user.actions.tokenSet = tokenSetMock
     store = new Vuex.Store({ modules: { user, map }, actions, mutations })
     const apiMock = api.utilisateurMotDePasseInitialiser.mockResolvedValue({
-      utilisateur: userInfo,
+      utilisateur: userInfo
     })
     await store.dispatch('user/passwordInit', {
       motDePasse1: motDePasse,
-      motDePasse2: motDePasse,
+      motDePasse2: motDePasse
     })
 
     expect(apiMock).toHaveBeenCalledWith({
       motDePasse1: motDePasse,
-      motDePasse2: motDePasse,
+      motDePasse2: motDePasse
     })
     expect(actions.messageAdd).toHaveBeenCalledTimes(2)
     expect(tokenSetMock).toHaveBeenCalled()
@@ -365,7 +365,7 @@ describe("état de l'utilisateur connecté", () => {
     const res = await store.dispatch('user/passwordInit', {
       motDePasse1,
       motDePasse2,
-      email,
+      email
     })
 
     expect(apiMock).toHaveBeenCalledWith({ motDePasse1, motDePasse2 })
@@ -398,7 +398,7 @@ describe("état de l'utilisateur connecté", () => {
       type: 'tiles',
       url: 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
       attribution:
-        '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     })
   })
 
@@ -424,14 +424,14 @@ describe("état de l'utilisateur connecté", () => {
       id: 66,
       prenom: 'rene',
       nom: 'lataupe',
-      permission: 'admin',
+      permission: 'admin'
     })
 
     expect(store.state.user.current).toEqual({
       id: 66,
       prenom: 'rene',
       nom: 'lataupe',
-      permission: 'admin',
+      permission: 'admin'
     })
     expect(store.state.user.current.entreprise).toBeUndefined()
   })

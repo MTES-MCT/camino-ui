@@ -8,7 +8,7 @@ jest.mock('../api/titres-demarches', () => ({
   demarches: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -146,7 +146,7 @@ describe('liste des demarches', () => {
     await store.dispatch('titresDemarches/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
 

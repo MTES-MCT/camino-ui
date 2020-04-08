@@ -10,7 +10,7 @@ jest.mock('../api/entreprises', () => ({
   entreprises: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("liste d'entreprises", () => {
   let store
@@ -82,7 +82,7 @@ describe("liste d'entreprises", () => {
     await store.dispatch('entreprises/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
 })

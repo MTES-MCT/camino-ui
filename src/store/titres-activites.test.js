@@ -8,7 +8,7 @@ jest.mock('../api/titres-activites', () => ({
   activites: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 const localVue = createLocalVue()
 localVue.use(Vuex)

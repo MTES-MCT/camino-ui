@@ -117,7 +117,7 @@ export default {
     },
 
     columnsUpdate(columnIds) {
-      console.log(columnIds)
+      console.info(columnIds)
     },
 
     update(params) {

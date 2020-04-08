@@ -8,7 +8,7 @@ jest.mock('../api/titres', () => ({
   metasTitres: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -142,7 +142,7 @@ describe('liste des titres', () => {
       domainesIds: ['c', 'w'],
       statutsIds: ['val']
     })
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
 

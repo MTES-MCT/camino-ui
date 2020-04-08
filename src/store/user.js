@@ -9,7 +9,7 @@ import {
   utilisateurCreer,
   utilisateurMotDePasseEmailEnvoyer,
   utilisateurMotDePasseInitialiser,
-  metasUser,
+  metasUser
 } from '../api/utilisateurs'
 
 import tiles from './_map-tiles'
@@ -24,12 +24,12 @@ export const state = {
     /* global npmVersion */
     // @ts-ignore
     versionUi: `${npmVersion}`,
-    tiles,
+    tiles
   },
   preferences: {
-    carte: { tilesId: 'osm-fr' },
+    carte: { tilesId: 'osm-fr' }
   },
-  loaded: false,
+  loaded: false
 }
 
 export const actions = {
@@ -42,7 +42,7 @@ export const actions = {
       commit('metasSet', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.log(e)
+      console.info(e)
     } finally {
       commit('loadingRemove', 'metasUser', { root: true })
     }
@@ -77,7 +77,7 @@ export const actions = {
         'messageAdd',
         {
           value: `bienvenue ${utilisateur.prenom} ${utilisateur.nom}`,
-          type: 'success',
+          type: 'success'
         },
         { root: true }
       )
@@ -122,7 +122,7 @@ export const actions = {
         'messageAdd',
         {
           value: `bienvenue ${utilisateur.prenom} ${utilisateur.nom}`,
-          type: 'success',
+          type: 'success'
         },
         { root: true }
       )
@@ -159,7 +159,7 @@ export const actions = {
         'messageAdd',
         {
           value: 'un email pour créer votre compte a été envoyé',
-          type: 'success',
+          type: 'success'
         },
         { root: true }
       )
@@ -181,14 +181,14 @@ export const actions = {
           'messageAdd',
           {
             value: `utilisateur ${data.prenom} ${data.nom} ajouté`,
-            type: 'success',
+            type: 'success'
           },
           { root: true }
         )
 
         await dispatch('login', {
           email: data.email,
-          motDePasse: utilisateur.motDePasse,
+          motDePasse: utilisateur.motDePasse
         })
 
         router.push({ name: 'titres' })
@@ -198,7 +198,7 @@ export const actions = {
         'messageAdd',
         {
           value: `Erreur: ${e}`,
-          type: 'error',
+          type: 'error'
         },
         { root: true }
       )
@@ -213,14 +213,14 @@ export const actions = {
 
     try {
       const data = await utilisateurMotDePasseEmailEnvoyer({
-        email,
+        email
       })
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
         {
           value: `${data}`,
-          type: 'success',
+          type: 'success'
         },
         { root: true }
       )
@@ -228,7 +228,7 @@ export const actions = {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'utilisateurPasswordInitEmail', {
-        root: true,
+        root: true
       })
     }
   },
@@ -239,14 +239,14 @@ export const actions = {
     try {
       const data = await utilisateurMotDePasseInitialiser({
         motDePasse1,
-        motDePasse2,
+        motDePasse2
       })
 
       dispatch(
         'messageAdd',
         {
           value: 'mot de passe mis à jour',
-          type: 'success',
+          type: 'success'
         },
         { root: true }
       )
@@ -259,7 +259,7 @@ export const actions = {
         'messageAdd',
         {
           value: `bienvenue ${data.utilisateur.prenom} ${data.utilisateur.nom}`,
-          type: 'success',
+          type: 'success'
         },
         { root: true }
       )
@@ -268,7 +268,7 @@ export const actions = {
         'messageAdd',
         {
           value: `Erreur: ${e}`,
-          type: 'error',
+          type: 'error'
         },
         { root: true }
       )
@@ -291,7 +291,7 @@ export const actions = {
 
   tokenRemove() {
     localStorage.removeItem('token')
-  },
+  }
 }
 
 export const getters = {
@@ -317,7 +317,7 @@ export const getters = {
     }
 
     return false
-  },
+  }
 }
 
 export const mutations = {
@@ -343,7 +343,7 @@ export const mutations = {
     Object.keys(data).forEach(id => {
       Vue.set(state.metas, id, data[id])
     })
-  },
+  }
 }
 
 export default {
@@ -351,5 +351,5 @@ export default {
   state,
   actions,
   getters,
-  mutations,
+  mutations
 }

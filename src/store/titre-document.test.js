@@ -10,7 +10,7 @@ jest.mock('../api/titres-documents', () => ({
   documentSupprimer: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 const localVue = createLocalVue()
 localVue.use(Vuex)

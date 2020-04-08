@@ -5,7 +5,7 @@ import {
   titre,
   titreCreer,
   titreModifier,
-  titreSupprimer,
+  titreSupprimer
 } from '../api/titres'
 
 import router from '../router'
@@ -14,8 +14,8 @@ export const state = {
   current: null,
   metas: {
     referencesTypes: [],
-    domaines: [],
-  },
+    domaines: []
+  }
 }
 
 export const actions = {
@@ -46,7 +46,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.log(e)
+      console.info(e)
     } finally {
       commit('loadingRemove', 'titre', { root: true })
     }
@@ -67,7 +67,7 @@ export const actions = {
           'messageAdd',
           {
             value: `le titre a été créé`,
-            type: 'success',
+            type: 'success'
           },
           { root: true }
         )
@@ -117,7 +117,7 @@ export const actions = {
           'messageAdd',
           {
             value: `le titre a été supprimé`,
-            type: 'success',
+            type: 'success'
           },
           { root: true }
         )
@@ -130,7 +130,7 @@ export const actions = {
     } finally {
       commit('loadingRemove', 'titreRemove', { root: true })
     }
-  },
+  }
 }
 
 export const mutations = {
@@ -146,12 +146,12 @@ export const mutations = {
     Object.keys(data).forEach(id => {
       Vue.set(state.metas, id, data[id])
     })
-  },
+  }
 }
 
 export default {
   namespaced: true,
   state,
   actions,
-  mutations,
+  mutations
 }

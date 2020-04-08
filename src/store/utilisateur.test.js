@@ -21,7 +21,7 @@ jest.mock('../router', () => ({
 const localVue = createLocalVue()
 localVue.use(Vuex)
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("état de l'utilisateur consulté", () => {
   let store
@@ -142,7 +142,7 @@ describe("état de l'utilisateur consulté", () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
 

@@ -77,10 +77,8 @@ export default {
       this.map.on('fullscreenchange', () => {
         if (this.map.isFullscreen()) {
           this.map.gestureHandling.disable()
-          // console.log('entered fullscreen', this.map.gestureHandling.enabled())
         } else {
           this.map.gestureHandling.enable()
-          // console.log('exited fullscreen', this.map.gestureHandling)
         }
       })
 

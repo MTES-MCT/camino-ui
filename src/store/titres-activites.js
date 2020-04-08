@@ -19,7 +19,7 @@ export const actions = {
       commit('metasSet', { activitesTypes: data })
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.log(e)
+      console.info(e)
     } finally {
       commit('loadingRemove', 'metasActivites', { root: true })
     }
@@ -36,7 +36,7 @@ export const actions = {
       }
     } catch (e) {
       dispatch('pageError', null, { root: true })
-      console.log(e)
+      console.info(e)
     } finally {
       commit('loadingRemove', 'activites', { root: true })
     }

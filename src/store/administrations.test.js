@@ -11,7 +11,7 @@ jest.mock('../api/administrations', () => ({
   administrations: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("liste d'administrations", () => {
   let store
@@ -85,7 +85,7 @@ describe("liste d'administrations", () => {
     await store.dispatch('administrations/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
 })
