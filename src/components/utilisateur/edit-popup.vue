@@ -386,9 +386,9 @@ export default {
     },
 
     administrationsFiltered() {
-      const a = !this.permissionsCheck(['super'])
-        ? this.administrations.filter(a => a.membre)
-        : this.administrations
+      const a = this.permissionsCheck(['super'])
+        ? this.administrations
+        : this.administrations.filter(a => a.membre)
 
       return a
     }

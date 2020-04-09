@@ -38,7 +38,7 @@ describe('liste des demarches', () => {
           'titresTypesIds',
           'titresStatutsIds'
         ],
-        strings: ['page', 'intervalle', 'colonne', 'ordre']
+        numbers: ['page', 'intervalle', 'colonne', 'ordre']
       },
       preferences: {
         table: {

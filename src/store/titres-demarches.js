@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import { metasDemarches, demarches } from '../api/titres-demarches'
 
-import { paramsArrayBuild, paramsStringBuild } from './_utils'
+import { paramsArrayBuild, paramsNumberBuild } from './_utils'
 
 export const state = {
   list: [],
@@ -13,8 +13,7 @@ export const state = {
     etapesTypes: [],
     titresTypes: [],
     titresDomaines: [],
-    titresStatuts: [],
-    intervalleMax: 200
+    titresStatuts: []
   },
   params: {
     arrays: [
@@ -24,7 +23,7 @@ export const state = {
       'titresTypesIds',
       'titresStatutsIds'
     ],
-    strings: ['page', 'intervalle', 'colonne', 'ordre']
+    numbers: ['page', 'intervalle', 'colonne', 'ordre']
   },
   preferences: {
     table: {
@@ -76,7 +75,7 @@ export const actions = {
       const p = Object.assign(
         {},
         paramsArrayBuild(state.params.arrays, state.preferences.filtres),
-        paramsStringBuild(state.params.strings, state.preferences.table)
+        paramsNumberBuild(state.params.numbers, state.preferences.table)
       )
 
       const data = await demarches(p)

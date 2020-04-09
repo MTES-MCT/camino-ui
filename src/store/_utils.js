@@ -21,4 +21,15 @@ const paramsStringBuild = (paramsInputs, preferences) =>
     return params
   }, {})
 
-export { paramsArrayBuild, paramsStringBuild }
+const paramsNumberBuild = (paramsInputs, preferences) =>
+  paramsInputs.reduce((params, id) => {
+    const value = preferences[id]
+
+    if (value) {
+      params = Object.assign(params, { [id]: value })
+    }
+
+    return params
+  }, {})
+
+export { paramsArrayBuild, paramsStringBuild, paramsNumberBuild }

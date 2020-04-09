@@ -55,14 +55,11 @@ export const actions = {
       )
 
       if (context === 'activite') {
-        console.info(context)
         await dispatch(
           'reload',
-          { name: 'activite', id: rootState.titreActivite.current.id },
+          { name: 'titreActivite', id: rootState.titreActivite.current.id },
           { root: true }
         )
-
-        console.info('after reload')
       } else if (context === 'titre') {
         await dispatch(
           'reload',
