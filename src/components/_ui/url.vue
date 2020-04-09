@@ -17,6 +17,16 @@ export default {
     }
   },
 
+  computed: {
+    metas() {
+      return {
+        domainesIds: this.$store.state.titres.metas.domaines.map(d => d.id),
+        typesIds: this.$store.state.titres.metas.types.map(t => t.id),
+        statutsIds: this.$store.state.titres.metas.statuts.map(s => s.id)
+      }
+    }
+  },
+
   watch: {
     params: {
       handler: function(params) {
@@ -90,7 +100,25 @@ export default {
       return value
     },
 
+    checkMetasFilters(params) {
+      Object.keys(this.metas).forEach(meta => {
+        if (params[meta]) {
+          params[meta] = params[meta]
+            .split(',')
+            .reduce((acc, elm) => {
+              if (this.metas[meta].includes(elm)) {
+                acc.push(elm)
+              }
+              return acc
+            }, [])
+            .join(',')
+        }
+      })
+      return params
+    },
+
     update(params) {
+      params = this.checkMetasFilters(params)
       const query = Object.keys(this.$route.query).reduce((query, id) => {
         const value = this.queryValueGet(id, this.$route.query[id])
         query[id] = value

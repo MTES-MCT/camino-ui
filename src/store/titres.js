@@ -63,6 +63,29 @@ export const actions = {
         paramsStringBuild(state.params.strings, state.preferences.filtres)
       )
 
+      if (Object.keys(params).length > 0) {
+        const metas = await metasTitres()
+
+        const metasIds = {}
+        Object.keys(metas).forEach(meta => {
+          metasIds[`${meta}Ids`] = metas[meta].map(elm => elm.id)
+        })
+
+        Object.keys(metasIds).forEach(metasId => {
+          if (params[metasId]) {
+            params[metasId] = params[metasId].reduce((acc, elm) => {
+              if (metasIds[metasId].map(id => id).includes(elm)) {
+                acc.push(elm)
+              }
+              return acc
+            }, [])
+            if (!params[metasId].length) {
+              delete params[metasId]
+            }
+          }
+        })
+      }
+
       const data = await titres(params)
 
       dispatch(
