@@ -15,7 +15,7 @@ const paramsStringBuild = (paramsInputs, preferences) =>
     const value = preferences[id]
 
     if (value) {
-      params = Object.assign(params, { [id]: value })
+      params = Object.assign(params, { [id]: value.toString() })
     }
 
     return params

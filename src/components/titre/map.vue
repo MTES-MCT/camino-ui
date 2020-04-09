@@ -155,10 +155,6 @@ export default {
       })
     },
 
-    zoomGet(zoom) {
-      this.zoom = zoom
-    },
-
     center() {
       this.$refs.map.fitBounds(this.bounds)
     }

@@ -53,24 +53,24 @@ export default {
     init() {
       const paramsBuild = params =>
         Object.keys(params).reduce(
-          ({ updateParams, eventParams }, id) => {
+          ({ urlParams, eventParams }, id) => {
             const value = this.queryValueGet(id, this.$route.query[id])
 
             if (!value && params[id]) {
-              updateParams[id] = params[id]
+              urlParams[id] = params[id]
             } else if (value && value !== this.params[id]) {
               eventParams[id] = value
             }
 
-            return { updateParams, eventParams }
+            return { urlParams, eventParams }
           },
-          { updateParams: {}, eventParams: {} }
+          { urlParams: {}, eventParams: {} }
         )
 
-      const { updateParams, eventParams } = paramsBuild(this.params)
+      const { urlParams, eventParams } = paramsBuild(this.params)
 
-      if (Object.keys(updateParams).length) {
-        this.update(updateParams)
+      if (Object.keys(urlParams).length) {
+        this.update(urlParams)
       }
 
       if (Object.keys(eventParams).length) {
