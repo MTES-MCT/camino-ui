@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.26](https://github.com/MTES-MCT/camino-ui/compare/v0.22.25...v0.22.26) (2020-04-09)
+
+
+### Bug Fixes
+
+* ajoute des paramètres d'url numériques ([8e8bfe6](https://github.com/MTES-MCT/camino-ui/commit/8e8bfe6e20dc890c2b6b8e2bbc72222d74f34b15))
+* corrige l'affichage des selects ([ce3cac7](https://github.com/MTES-MCT/camino-ui/commit/ce3cac79423abb9d13283d14199bef61174c455e))
+* corrige une erreur lorsqu'il y a un nombre dans un paramètre d'url ([adb7ae2](https://github.com/MTES-MCT/camino-ui/commit/adb7ae2644abfc95f3e1b258b03cc47a334192b7))
+* n'autorise qu'une administration par utilisateur ([3200a95](https://github.com/MTES-MCT/camino-ui/commit/3200a95b0c19bf34d999275d76a20554aff0d229))
+
 ### [0.22.25](https://github.com/MTES-MCT/camino-ui/compare/v0.22.24...v0.22.25) (2020-03-30)
 
 
