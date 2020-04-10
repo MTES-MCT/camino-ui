@@ -165,23 +165,25 @@ export default {
     },
 
     trackMatomo(params) {
-      var searchParams = ''
-      Object.keys(params).forEach(id => {
-        if (params[id]) {
-          params[id].split(',').map(param =>
-            param.split(' ').map(elm => {
-              searchParams += searchParams === '' ? elm : `,${elm}`
-              return this.$matomo.trackEvent(
-                'titres-filtres',
-                `titres-filtres-${id}`,
-                elm
-              )
-            })
-          )
-        }
-      })
-      // trace la recherche
-      this.$matomo.trackSiteSearch(searchParams)
+      if (this.$matomo) {
+        var searchParams = ''
+        Object.keys(params).forEach(id => {
+          if (params[id]) {
+            params[id].split(',').map(param =>
+              param.split(' ').map(elm => {
+                searchParams += searchParams === '' ? elm : `,${elm}`
+                return this.$matomo.trackEvent(
+                  'titres-filtres',
+                  `titres-filtres-${id}`,
+                  elm
+                )
+              })
+            )
+          }
+        })
+        // trace la recherche
+        this.$matomo.trackSiteSearch(searchParams)
+      }
     }
   }
 }

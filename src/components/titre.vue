@@ -207,14 +207,16 @@ export default {
     },
 
     trackMatomo(id, section = false) {
-      if (section) {
-        this.$matomo.trackEvent(
-          'titre-sections',
-          `titre-sections-${section}`,
-          id
-        )
-      } else {
-        this.$matomo.trackEvent('titre-vue', 'titre-vueId', id)
+      if (this.$matomo) {
+        if (section) {
+          this.$matomo.trackEvent(
+            'titre-sections',
+            `titre-sections-${section}`,
+            id
+          )
+        } else {
+          this.$matomo.trackEvent('titre-vue', 'titre-vueId', id)
+        }
       }
     }
   }

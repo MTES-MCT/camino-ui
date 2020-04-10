@@ -57,7 +57,9 @@ export default {
       this.$store.dispatch('menuToggle', UserMenu)
     },
     trackMatomo() {
-      this.$matomo.trackEvent('boutons', 'bouton', 'utilisateur')
+      if (this.$matomo) {
+        this.$matomo.trackEvent('boutons', 'bouton', 'utilisateur')
+      }
     }
   }
 }

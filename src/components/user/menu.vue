@@ -58,7 +58,9 @@ export default {
     },
 
     trackMatomo(id) {
-      this.$matomo.trackEvent('menu-utilisateur', 'menu-utilisateur', id)
+      if (this.$matomo) {
+        this.$matomo.trackEvent('menu-utilisateur', 'menu-utilisateur', id)
+      }
     }
   }
 }

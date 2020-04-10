@@ -27,10 +27,7 @@
             </li>
           </ul>
         </div>
-        <div
-          v-if="sections.activites"
-          class="tablet-blob-1-3 border-l pl-s"
-        >
+        <div v-if="sections.activites" class="tablet-blob-1-3 border-l pl-s">
           <ul class="list-sans mb-0">
             <li>
               <RouterLink
@@ -98,7 +95,9 @@ export default {
 
   methods: {
     trackMatomo(id) {
-      this.$matomo.trackEvent('menu-sections', 'menu-section', id)
+      if (this.$matomo) {
+        this.$matomo.trackEvent('menu-sections', 'menu-section', id)
+      }
     }
   }
 }

@@ -207,7 +207,9 @@ export default {
     },
 
     trackMatomo(id) {
-      this.$matomo.trackEvent('titres-vue', 'titres-vueId', id)
+      if (this.$matomo) {
+        this.$matomo.trackEvent('titres-vue', 'titres-vueId', id)
+      }
     }
   }
 }

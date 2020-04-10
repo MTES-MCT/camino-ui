@@ -34,7 +34,9 @@ export default {
       this.$store.dispatch('menuToggle', MainMenu)
     },
     trackMatomo() {
-      this.$matomo.trackEvent('boutons', 'bouton', 'sections')
+      if (this.$matomo) {
+        this.$matomo.trackEvent('boutons', 'bouton', 'sections')
+      }
     }
   }
 }

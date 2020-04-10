@@ -1,9 +1,6 @@
 <template>
   <li class="mr-s">
-    <button
-      class="btn-alt rnd-xs py-s px-m"
-      @click="emailSend"
-    >
+    <button class="btn-alt rnd-xs py-s px-m" @click="emailSend">
       Signaler une erreur…
     </button>
   </li>
@@ -18,7 +15,9 @@ export default {
     },
 
     trackMatomo(id) {
-      this.$matomo.trackEvent('titre-erreur', 'signaler une erreur', id)
+      if (this.$matomo) {
+        this.$matomo.trackEvent('titre-erreur', 'signaler une erreur', id)
+      }
     }
   }
 }

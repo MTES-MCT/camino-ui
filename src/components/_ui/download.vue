@@ -1,8 +1,5 @@
 <template>
-  <button
-    class="btn-border pill pl pr-m py-s h5 flex"
-    @click="download"
-  >
+  <button class="btn-border pill pl pr-m py-s h5 flex" @click="download">
     <span class="mt-xxs mr-xs">{{ type }}</span>
     <i class="icon-24 icon-download" />
   </button>
@@ -70,7 +67,9 @@ export default {
     },
 
     trackMatomo(name) {
-      this.$matomo.trackLink(`http://${name}`, 'download')
+      if (this.$matomo) {
+        this.$matomo.trackLink(`http://${name}`, 'download')
+      }
     }
   }
 }
