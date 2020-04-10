@@ -34,10 +34,10 @@ Vue.filter('dateFormat', dateFormat)
 
 Vue.mixin(mixins)
 
-if (process.env.VUE_APP_MATOMO_HOST) {
+if (process.env.VUE_APP_MATOMO_HOST && process.env.VUE_APP_MATOMO_SITE_ID) {
   Vue.use(VueMatomo, {
     host: process.env.VUE_APP_MATOMO_HOST,
-    siteId: 70,
+    siteId: process.env.VUE_APP_MATOMO_SITE_ID,
     router,
     requireConsent: false,
     trackInitialView: true,
