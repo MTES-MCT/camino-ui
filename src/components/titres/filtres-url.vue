@@ -27,6 +27,11 @@ export default {
       const { types, statuts, domaines } = this.$store.state.titres.metas
 
       return {
+        entreprises: { type: 'string' },
+        noms: { type: 'string' },
+        substances: { type: 'string' },
+        references: { type: 'string' },
+        territoires: { type: 'string' },
         typesIds: { type: 'array', values: types.map(({ id }) => id) },
         statutsIds: { type: 'array', values: statuts.map(({ id }) => id) },
         domainesIds: { type: 'array', values: domaines.map(({ id }) => id) }

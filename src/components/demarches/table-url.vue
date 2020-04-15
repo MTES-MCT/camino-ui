@@ -29,6 +29,8 @@ export default {
   data() {
     return {
       values: {
+        page: { type: 'number', min: 0 },
+        intervalle: { type: 'number', min: 10, max: 500 },
         ordre: { type: 'array', values: ['asc', 'desc'] },
         colonne: {
           type: 'array',

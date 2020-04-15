@@ -88,7 +88,7 @@ export default {
 
       if (!(id in this.params)) return value
 
-      if (Number(value)) {
+      if (this.values[id] && this.values[id].type === 'number') {
         value = Number(value)
       }
 
@@ -98,13 +98,18 @@ export default {
     queryValueClean(id, value) {
       if (!value) return null
 
-      if (this.values[id].type === 'number') {
-        if (value > this.values[id].max) {
+      if (!this.values[id] || !this.values[id].type) {
+        return value
+      } else if (this.values[id].type === 'number') {
+        value = Number(value)
+        if (!value) {
+          value = null
+        } else if (this.values[id].max && value > this.values[id].max) {
           value = this.values[id].max
-        } else if (value < this.values[id].min) {
+        } else if (this.values[id].min && value < this.values[id].min) {
           value = this.values[id].min
         }
-      } else if (this.values[id].type === 'array') {
+      } else if (this.values[id].type === 'array' && this.values[id].values) {
         const values = value.split(',')
         value = values
           .reduce((acc, v) => {
@@ -115,6 +120,17 @@ export default {
             return acc
           }, [])
           .join(',')
+      } else if (this.values[id].type === 'string') {
+        value = value.toString()
+
+        if (this.values[id].values && !this.values[id].values.includes(value)) {
+          value = null
+        }
+      } else if (this.values[id].type === 'tuple') {
+        const values = value.split(',')
+        if (!Number(values[0]) || !Number(values[1])) {
+          value = null
+        }
       }
 
       return value

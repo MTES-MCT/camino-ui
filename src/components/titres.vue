@@ -18,6 +18,7 @@
 
     <Url
       :params="preferences"
+      :values="urlValues"
       @params:update="preferencesUpdate"
     />
 
@@ -130,7 +131,10 @@ export default {
           component: TitresTableUrl,
           icon: 'list'
         }
-      ]
+      ],
+      urlValues: {
+        vueId: { type: 'string', values: ['carte', 'liste'] }
+      }
     }
   },
 
