@@ -11,6 +11,7 @@
                 :to="{ name: 'utilisateur', params: { id: user.id } }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
+                @click.native="eventTrack('profil')"
               >
                 {{ user.prenom || '–' }} {{ user.nom || '–' }}
                 <div
@@ -52,10 +53,17 @@ export default {
 
   methods: {
     logout() {
+      this.eventTrack('deconnexion')
       if (this.menu.component && this.menu.component.name === 'MenuUser') {
         this.$store.commit('menuClose')
       }
       this.$store.dispatch('user/logout')
+    },
+
+    eventTrack(id) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent('menu-utilisateur', 'menu-utilisateur', id)
+      }
     }
   }
 }

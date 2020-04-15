@@ -22,7 +22,6 @@
       @params:update="preferencesUpdate"
     />
 
-
     <TitresFiltres
       v-if="metasLoaded"
       @titres:update="titresUpdate"
@@ -188,6 +187,7 @@ export default {
     },
 
     preferencesUpdate(params) {
+      this.eventTrack(params.vueId)
       this.$store.dispatch('titres/preferencesSet', {
         section: 'vue',
         params
@@ -204,6 +204,12 @@ export default {
           creation: true
         }
       })
+    },
+
+    eventTrack(id) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent('titres-vue', 'titres-vueId', id)
+      }
     }
   }
 }

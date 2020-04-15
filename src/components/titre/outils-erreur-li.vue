@@ -13,11 +13,14 @@
 export default {
   methods: {
     emailSend() {
-      window.location.href = `mailto:camino@beta.gouv.fr?subject=Erreur ${
-        this.$route.params.id
-      }&body=Bonjour, j'ai repéré une erreur sur le titre ${
-        this.$route.params.id
-      } : `
+      this.eventTrack(this.$route.params.id)
+      window.location.href = `mailto:camino@beta.gouv.fr?subject=Erreur ${this.$route.params.id}&body=Bonjour, j'ai repéré une erreur sur le titre ${this.$route.params.id} : `
+    },
+
+    eventTrack(id) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent('titre-erreur', 'signaler une erreur', id)
+      }
     }
   }
 }

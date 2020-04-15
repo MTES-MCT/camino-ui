@@ -218,11 +218,27 @@ export default {
     },
 
     tabToggle(tabId) {
+      this.eventTrack(this.$store.state.titre.current.id, tabId)
       this.tabActive = tabId
     },
 
     geoTabToggle(tabId) {
+      this.eventTrack(tabId)
       this.geoTabActive = tabId
+    },
+
+    eventTrack(id, section = false) {
+      if (this.$matomo) {
+        if (section) {
+          this.$matomo.trackEvent(
+            'titre-sections',
+            `titre-sections-${section}`,
+            id
+          )
+        } else {
+          this.$matomo.trackEvent('titre-vue', 'titre-vueId', id)
+        }
+      }
     }
   }
 }

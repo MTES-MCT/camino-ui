@@ -10,6 +10,7 @@
                 :to="{ name: 'titres' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
+                @click.native="eventTrack('titres')"
               >
                 Titres miniers et autorisations
               </RouterLink>
@@ -38,6 +39,7 @@
                 :to="{ name: 'activites' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
+                @click.native="eventTrack('activites')"
               >
                 Activités
               </RouterLink>
@@ -52,6 +54,7 @@
                 :to="{ name: 'entreprises' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
+                @click.native="eventTrack('entreprises')"
               >
                 Entreprises
               </RouterLink>
@@ -63,6 +66,7 @@
                 :to="{ name: 'utilisateurs' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
+                @click.native="eventTrack('utilisateurs')"
               >
                 Utilisateurs
               </RouterLink>
@@ -92,6 +96,12 @@ export default {
     }
   },
 
-  methods: {}
+  methods: {
+    eventTrack(id) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent('menu-sections', 'menu-section', id)
+      }
+    }
+  }
 }
 </script>

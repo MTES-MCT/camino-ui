@@ -39,9 +39,12 @@ if (process.env.VUE_APP_MATOMO_HOST && process.env.VUE_APP_MATOMO_SITE_ID) {
     host: process.env.VUE_APP_MATOMO_HOST,
     siteId: process.env.VUE_APP_MATOMO_SITE_ID,
     router,
+    store,
     requireConsent: false,
     trackInitialView: true,
-    trackerFileName: 'piwik'
+    trackerFileName: 'piwik',
+    enableHeartBeatTimer: true,
+    enableLinkTracking: true
   })
 }
 

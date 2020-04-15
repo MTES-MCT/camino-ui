@@ -60,6 +60,10 @@ export default {
 
     preferences() {
       return this.$store.state.titres.preferences.filtres
+    },
+
+    apiParams() {
+      return this.$store.state.titres.params
     }
   },
 
@@ -111,6 +115,7 @@ export default {
         return params
       }, {})
 
+      this.eventTrack(params)
       this.preferencesUpdate(params)
       this.titresUpdate()
     },
@@ -161,6 +166,33 @@ export default {
 
     checkboxesMetaIdFind(id) {
       return id.replace(/Ids/g, '')
+    },
+
+    eventTrack(params) {
+      if (this.$matomo) {
+        const events = this.apiParams.reduce((events, { type, id }) => {
+          if (type === 'string' && params[id]) {
+            events.push({ id, value: params[id] })
+          } else if (type === 'array' && params[id]) {
+            const values = params[id].split(',')
+            values.forEach(value => {
+              events.push({ id, value })
+            })
+          }
+
+          return events
+        }, [])
+
+        events.forEach(({ id, value }) => {
+          this.$matomo.trackEvent(
+            'titres-filtres',
+            `titres-filtres-${id}`,
+            value
+          )
+        })
+
+        this.$matomo.trackSiteSearch(params)
+      }
     }
   }
 }

@@ -1,9 +1,13 @@
 import bootstrap from './bootstrap'
+import { visit, page } from './custom-variables'
 
 const defaultOptions = {
   requireConsent: false,
   trackInitialView: true,
-  trackerFileName: 'piwik'
+  trackerFileName: 'piwik',
+  enableHeartBeatTimer: false,
+  enableLinkTracking: false,
+  heartBeatTimerInterval: 60
 }
 
 export default function install(Vue, setupOptions = {}) {
@@ -11,10 +15,9 @@ export default function install(Vue, setupOptions = {}) {
 
   bootstrap(options)
     .then(() => {
-      const { host, siteId, trackerFileName } = options
       const matomo = window.Piwik.getTracker(
-        `${host}/${trackerFileName}.php`,
-        siteId
+        `${options.host}/${options.trackerFileName}.php`,
+        options.siteId
       )
 
       // Assign matomo to Vue
@@ -27,7 +30,16 @@ export default function install(Vue, setupOptions = {}) {
 
       // Register first page view
       if (options.trackInitialView) {
+        visit(matomo, options.store.state.user.current)
         matomo.trackPageView()
+      }
+
+      if (options.enableHeartBeatTimer) {
+        matomo.enableHeartBeatTimer()
+      }
+
+      if (options.enableLinkTracking) {
+        matomo.enableLinkTracking(options.enableLinkTracking)
       }
 
       // Track page navigations if router is specified
@@ -45,6 +57,12 @@ export default function install(Vue, setupOptions = {}) {
 
           const url = protocol + '//' + loc.host + to.path
           matomo.setCustomUrl(url)
+
+          visit(matomo, options.store.state.user.current)
+          if (to.name === 'titre') {
+            page(matomo, options.store.state.titre.current)
+          }
+
           matomo.trackPageView(to.name)
         })
       }
