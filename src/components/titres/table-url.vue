@@ -2,6 +2,7 @@
   <div>
     <Url
       :params="preferences"
+      :values="values"
       @params:update="preferencesUpdate"
     />
     <Table :titres="titres" />
@@ -20,6 +21,20 @@ export default {
 
   props: {
     titres: { type: Array, required: true }
+  },
+
+  data() {
+    return {
+      values: {
+        page: { type: 'number', min: 0 },
+        intervalle: { type: 'number', min: 10, max: 500 },
+        ordre: { type: 'array', values: ['asc', 'desc'] },
+        colonne: {
+          type: 'array',
+          values: ['nom', 'domaine', 'type', 'statut', 'activitesTotal']
+        }
+      }
+    }
   },
 
   computed: {

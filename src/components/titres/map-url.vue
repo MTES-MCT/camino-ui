@@ -1,6 +1,7 @@
 <template>
   <div>
     <Url
+      :values="values"
       :params="preferences"
       @params:update="preferencesUpdate"
     />
@@ -22,6 +23,15 @@ export default {
     titres: {
       type: Array,
       required: true
+    }
+  },
+
+  data() {
+    return {
+      values: {
+        zoom: { type: 'number', min: 4, max: 18 },
+        centre: { type: 'tuple' }
+      }
     }
   },
 

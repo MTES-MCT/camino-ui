@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import { metasDemarches, demarches } from '../api/titres-demarches'
 
-import { paramsArrayBuild, paramsNumberBuild } from './_utils'
+import { paramsBuild } from './_utils'
 
 export const state = {
   list: [],
@@ -15,22 +15,23 @@ export const state = {
     titresDomaines: [],
     titresStatuts: []
   },
-  params: {
-    arrays: [
-      'typesIds',
-      'statutsIds',
-      'titresDomainesIds',
-      'titresTypesIds',
-      'titresStatutsIds'
-    ],
-    numbers: ['page', 'intervalle', 'colonne', 'ordre']
-  },
+  params: [
+    { id: 'typesIds', type: 'array' },
+    { id: 'statutsIds', type: 'array' },
+    { id: 'titresDomainesIds', type: 'array' },
+    { id: 'titresTypesIds', type: 'array' },
+    { id: 'titresStatutsIds', type: 'array' },
+    { id: 'page', type: 'number' },
+    { id: 'intervalle', type: 'number' },
+    { id: 'colonne', type: 'string' },
+    { id: 'ordre', type: 'string' }
+  ],
   preferences: {
     table: {
       page: 1,
       intervalle: 200,
       ordre: 'asc',
-      colonne: 'titreNom'
+      colonne: null
     },
     filtres: {
       typesIds: null,
@@ -72,10 +73,9 @@ export const actions = {
     commit('loadingAdd', 'demarches', { root: true })
 
     try {
-      const p = Object.assign(
-        {},
-        paramsArrayBuild(state.params.arrays, state.preferences.filtres),
-        paramsNumberBuild(state.params.numbers, state.preferences.table)
+      const p = paramsBuild(
+        state.params,
+        Object.assign({}, state.preferences.filtres, state.preferences.table)
       )
 
       const data = await demarches(p)

@@ -30,16 +30,17 @@ describe('liste des demarches', () => {
         titresDomaines: [],
         titresStatuts: []
       },
-      params: {
-        arrays: [
-          'typesIds',
-          'statutsIds',
-          'titresDomainesIds',
-          'titresTypesIds',
-          'titresStatutsIds'
-        ],
-        numbers: ['page', 'intervalle', 'colonne', 'ordre']
-      },
+      params: [
+        { id: 'typesIds', type: 'array' },
+        { id: 'statutsIds', type: 'array' },
+        { id: 'titresDomainesIds', type: 'array' },
+        { id: 'titresTypesIds', type: 'array' },
+        { id: 'titresStatutsIds', type: 'array' },
+        { id: 'page', type: 'number' },
+        { id: 'intervalle', type: 'number' },
+        { id: 'colonne', type: 'string' },
+        { id: 'ordre', type: 'string' }
+      ],
       preferences: {
         table: {
           page: 1,
