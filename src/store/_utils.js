@@ -1,29 +1,17 @@
 // récupère les paramètres depuis les préférences utilisateurs
-const paramsArrayBuild = (paramsCheckboxes, preferences) =>
-  paramsCheckboxes.reduce((params, id) => {
-    const values = preferences[id] && preferences[id].split(',')
+const paramsBuild = (apiParams, preferences) =>
+  apiParams.reduce((params, { id, type }) => {
+    let value
 
-    if (values && values.length) {
-      params = Object.assign(params, { [id]: values })
+    if (type === 'array') {
+      const values = preferences[id] && preferences[id].split(',')
+      value = values && values.length ? values : null
+    } else if (type === 'string') {
+      value = preferences[id] && preferences[id].toString()
+    } else {
+      // type === 'number'
+      value = preferences[id]
     }
-
-    return params
-  }, {})
-
-const paramsStringBuild = (paramsInputs, preferences) =>
-  paramsInputs.reduce((params, id) => {
-    const value = preferences[id]
-
-    if (value) {
-      params = Object.assign(params, { [id]: value.toString() })
-    }
-
-    return params
-  }, {})
-
-const paramsNumberBuild = (paramsInputs, preferences) =>
-  paramsInputs.reduce((params, id) => {
-    const value = preferences[id]
 
     if (value) {
       params = Object.assign(params, { [id]: value })
@@ -32,4 +20,4 @@ const paramsNumberBuild = (paramsInputs, preferences) =>
     return params
   }, {})
 
-export { paramsArrayBuild, paramsStringBuild, paramsNumberBuild }
+export { paramsBuild }

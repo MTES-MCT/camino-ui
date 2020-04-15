@@ -2,6 +2,7 @@
   <div>
     <Url
       :params="preferences"
+      :values="values"
       @params:update="preferencesUpdate"
     />
     <Filtres @titres:update="titresUpdate" />
@@ -21,6 +22,15 @@ export default {
   computed: {
     preferences() {
       return this.$store.state.titres.preferences.filtres
+    },
+    values() {
+      const { types, statuts, domaines } = this.$store.state.titres.metas
+
+      return {
+        typesIds: { type: 'array', values: types.map(({ id }) => id) },
+        statutsIds: { type: 'array', values: statuts.map(({ id }) => id) },
+        domainesIds: { type: 'array', values: domaines.map(({ id }) => id) }
+      }
     }
   },
 

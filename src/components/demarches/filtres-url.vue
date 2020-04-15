@@ -1,7 +1,7 @@
 <template>
   <div>
     <Url
-      :values="valeurs"
+      :values="values"
       :params="preferences"
       @params:update="preferencesUpdate"
     />
@@ -23,7 +23,7 @@ export default {
     preferences() {
       return this.$store.state.titresDemarches.preferences.filtres
     },
-    valeurs() {
+    values() {
       const {
         types,
         statuts,
@@ -33,11 +33,20 @@ export default {
       } = this.$store.state.titresDemarches.metas
 
       return {
-        typesIds: types.map(({ id }) => id),
-        statutsIds: statuts.map(({ id }) => id),
-        titresDomainesIds: titresDomaines.map(({ id }) => id),
-        titresTypesIds: titresTypes.map(({ id }) => id),
-        titresStatutsIds: titresStatuts.map(({ id }) => id)
+        typesIds: { type: 'array', values: types.map(({ id }) => id) },
+        statutsIds: { type: 'array', values: statuts.map(({ id }) => id) },
+        titresDomainesIds: {
+          type: 'array',
+          values: titresDomaines.map(({ id }) => id)
+        },
+        titresTypesIds: {
+          type: 'array',
+          values: titresTypes.map(({ id }) => id)
+        },
+        titresStatutsIds: {
+          type: 'array',
+          values: titresStatuts.map(({ id }) => id)
+        }
       }
     }
   },

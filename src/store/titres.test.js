@@ -41,7 +41,7 @@ describe('liste des titres', () => {
         },
         filtres: {
           typesIds: null,
-          entreprises: null,
+          entreprises: 'fr-',
           substances: null,
           references: null,
           territoires: null,
@@ -50,16 +50,16 @@ describe('liste des titres', () => {
           statutsIds: 'val'
         }
       },
-      params: {
-        arrays: ['typesIds', 'domainesIds', 'statutsIds'],
-        strings: [
-          'substances',
-          'noms',
-          'entreprises',
-          'references',
-          'territoires'
-        ]
-      }
+      params: [
+        { id: 'typesIds', type: 'array' },
+        { id: 'domainesIds', type: 'array' },
+        { id: 'statutsIds', type: 'array' },
+        { id: 'substances', type: 'string' },
+        { id: 'noms', type: 'string' },
+        { id: 'entreprises', type: 'string' },
+        { id: 'references', type: 'string' },
+        { id: 'territoires', type: 'string' }
+      ]
     }
     mutations = {
       loadingAdd: jest.fn(),
@@ -125,7 +125,8 @@ describe('liste des titres', () => {
     expect(apiMock).toHaveBeenCalledWith({
       noms: 's',
       domainesIds: ['c', 'w'],
-      statutsIds: ['val']
+      statutsIds: ['val'],
+      entreprises: 'fr-'
     })
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(store.state.titres.list).toEqual(titresListe)
@@ -140,7 +141,8 @@ describe('liste des titres', () => {
     expect(apiMock).toHaveBeenCalledWith({
       noms: 's',
       domainesIds: ['c', 'w'],
-      statutsIds: ['val']
+      statutsIds: ['val'],
+      entreprises: 'fr-'
     })
     expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()

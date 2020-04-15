@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import { metasTitres, titres } from '../api/titres'
-import { paramsArrayBuild, paramsStringBuild } from './_utils'
+import { paramsBuild } from './_utils'
 
 export const state = {
   list: [],
@@ -10,10 +10,16 @@ export const state = {
     types: [],
     statuts: []
   },
-  params: {
-    arrays: ['typesIds', 'domainesIds', 'statutsIds'],
-    strings: ['substances', 'noms', 'entreprises', 'references', 'territoires']
-  },
+  params: [
+    { id: 'typesIds', type: 'array' },
+    { id: 'domainesIds', type: 'array' },
+    { id: 'statutsIds', type: 'array' },
+    { id: 'substances', type: 'string' },
+    { id: 'noms', type: 'string' },
+    { id: 'entreprises', type: 'string' },
+    { id: 'references', type: 'string' },
+    { id: 'territoires', type: 'string' }
+  ],
   preferences: {
     vue: { vueId: 'carte' },
     table: {
@@ -58,10 +64,7 @@ export const actions = {
     commit('loadingAdd', 'titres', { root: true })
 
     try {
-      const params = Object.assign(
-        paramsArrayBuild(state.params.arrays, state.preferences.filtres),
-        paramsStringBuild(state.params.strings, state.preferences.filtres)
-      )
+      const params = paramsBuild(state.params, state.preferences.filtres)
 
       const data = await titres(params)
 
