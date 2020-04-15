@@ -53,12 +53,12 @@ export default {
       this.$store.dispatch('user/logout')
     },
     menuToggle() {
-      this.trackMatomo()
+      this.eventTrack()
       this.$store.dispatch('menuToggle', UserMenu)
     },
-    trackMatomo() {
+    eventTrack() {
       if (this.$matomo) {
-        this.$matomo.trackEvent('boutons', 'bouton', 'utilisateur')
+        this.$matomo.trackEvent('menu', 'bouton', 'utilisateur')
       }
     }
   }

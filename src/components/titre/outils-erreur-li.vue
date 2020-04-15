@@ -1,6 +1,9 @@
 <template>
   <li class="mr-s">
-    <button class="btn-alt rnd-xs py-s px-m" @click="emailSend">
+    <button
+      class="btn-alt rnd-xs py-s px-m"
+      @click="emailSend"
+    >
       Signaler une erreur…
     </button>
   </li>
@@ -10,11 +13,11 @@
 export default {
   methods: {
     emailSend() {
-      this.trackMatomo(this.$route.params.id)
+      this.eventTrack(this.$route.params.id)
       window.location.href = `mailto:camino@beta.gouv.fr?subject=Erreur ${this.$route.params.id}&body=Bonjour, j'ai repéré une erreur sur le titre ${this.$route.params.id} : `
     },
 
-    trackMatomo(id) {
+    eventTrack(id) {
       if (this.$matomo) {
         this.$matomo.trackEvent('titre-erreur', 'signaler une erreur', id)
       }

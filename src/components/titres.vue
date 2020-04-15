@@ -187,7 +187,7 @@ export default {
     },
 
     preferencesUpdate(params) {
-      this.trackMatomo(params.vueId)
+      this.eventTrack(params.vueId)
       this.$store.dispatch('titres/preferencesSet', {
         section: 'vue',
         params
@@ -206,7 +206,7 @@ export default {
       })
     },
 
-    trackMatomo(id) {
+    eventTrack(id) {
       if (this.$matomo) {
         this.$matomo.trackEvent('titres-vue', 'titres-vueId', id)
       }

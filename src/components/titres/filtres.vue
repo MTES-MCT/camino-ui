@@ -60,6 +60,10 @@ export default {
 
     preferences() {
       return this.$store.state.titres.preferences.filtres
+    },
+
+    apiParams() {
+      return this.$store.state.titres.params
     }
   },
 
@@ -111,7 +115,7 @@ export default {
         return params
       }, {})
 
-      this.trackMatomo(params)
+      this.eventTrack(params)
       this.preferencesUpdate(params)
       this.titresUpdate()
     },
@@ -164,25 +168,30 @@ export default {
       return id.replace(/Ids/g, '')
     },
 
-    trackMatomo(params) {
+    eventTrack(params) {
       if (this.$matomo) {
-        var searchParams = ''
-        Object.keys(params).forEach(id => {
-          if (params[id]) {
-            params[id].split(',').map(param =>
-              param.split(' ').map(elm => {
-                searchParams += searchParams === '' ? elm : `,${elm}`
-                return this.$matomo.trackEvent(
-                  'titres-filtres',
-                  `titres-filtres-${id}`,
-                  elm
-                )
-              })
-            )
+        const events = this.apiParams.reduce((events, { type, id }) => {
+          if (type === 'string' && params[id]) {
+            events.push({ id, value: params[id] })
+          } else if (type === 'array' && params[id]) {
+            const values = params[id].split(',')
+            values.forEach(value => {
+              events.push({ id, value })
+            })
           }
+
+          return events
+        }, [])
+
+        events.forEach(({ id, value }) => {
+          this.$matomo.trackEvent(
+            'titres-filtres',
+            `titres-filtres-${id}`,
+            value
+          )
         })
-        // trace la recherche
-        this.$matomo.trackSiteSearch(searchParams)
+
+        this.$matomo.trackSiteSearch(params)
       }
     }
   }

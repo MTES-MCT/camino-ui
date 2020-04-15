@@ -10,7 +10,7 @@
                 :to="{ name: 'titres' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
-                @click.native="trackMatomo('titres')"
+                @click.native="eventTrack('titres')"
               >
                 Titres miniers et autorisations
               </RouterLink>
@@ -27,7 +27,10 @@
             </li>
           </ul>
         </div>
-        <div v-if="sections.activites" class="tablet-blob-1-3 border-l pl-s">
+        <div
+          v-if="sections.activites"
+          class="tablet-blob-1-3 border-l pl-s"
+        >
           <ul class="list-sans mb-0">
             <li>
               <RouterLink
@@ -36,7 +39,7 @@
                 :to="{ name: 'activites' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
-                @click.native="trackMatomo('activites')"
+                @click.native="eventTrack('activites')"
               >
                 Activités
               </RouterLink>
@@ -51,7 +54,7 @@
                 :to="{ name: 'entreprises' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
-                @click.native="trackMatomo('entreprises')"
+                @click.native="eventTrack('entreprises')"
               >
                 Entreprises
               </RouterLink>
@@ -63,7 +66,7 @@
                 :to="{ name: 'utilisateurs' }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
-                @click.native="trackMatomo('utilisateurs')"
+                @click.native="eventTrack('utilisateurs')"
               >
                 Utilisateurs
               </RouterLink>
@@ -94,7 +97,7 @@ export default {
   },
 
   methods: {
-    trackMatomo(id) {
+    eventTrack(id) {
       if (this.$matomo) {
         this.$matomo.trackEvent('menu-sections', 'menu-section', id)
       }

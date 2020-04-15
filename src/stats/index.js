@@ -15,10 +15,9 @@ export default function install(Vue, setupOptions = {}) {
 
   bootstrap(options)
     .then(() => {
-      const { host, siteId, trackerFileName } = options
       const matomo = window.Piwik.getTracker(
-        `${host}/${trackerFileName}.php`,
-        siteId
+        `${options.host}/${options.trackerFileName}.php`,
+        options.siteId
       )
 
       // Assign matomo to Vue
@@ -31,9 +30,7 @@ export default function install(Vue, setupOptions = {}) {
 
       // Register first page view
       if (options.trackInitialView) {
-        if (options.store) {
-          visit(matomo, options.store)
-        }
+        visit(matomo, options.store.state.user.current)
         matomo.trackPageView()
       }
 
@@ -61,10 +58,9 @@ export default function install(Vue, setupOptions = {}) {
           const url = protocol + '//' + loc.host + to.path
           matomo.setCustomUrl(url)
 
-          // Déclaration des variables personnalisées
-          if (options.store) {
-            visit(matomo, options.store)
-            page(matomo, options.store, to)
+          visit(matomo, options.store.state.user.current)
+          if (to.name === 'titre') {
+            page(matomo, options.store.state.titre.current)
           }
 
           matomo.trackPageView(to.name)

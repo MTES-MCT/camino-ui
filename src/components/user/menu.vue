@@ -11,10 +11,13 @@
                 :to="{ name: 'utilisateur', params: { id: user.id } }"
                 class="btn-transparent text-decoration-none bold"
                 active-class="active"
-                @click.native="trackMatomo('profil')"
+                @click.native="eventTrack('profil')"
               >
                 {{ user.prenom || '–' }} {{ user.nom || '–' }}
-                <div v-if="user.entreprise" class="h5 color-neutral">
+                <div
+                  v-if="user.entreprise"
+                  class="h5 color-neutral"
+                >
                   {{ user.entreprise.nom }}
                 </div>
               </RouterLink>
@@ -50,14 +53,14 @@ export default {
 
   methods: {
     logout() {
-      this.trackMatomo('deconnexion')
+      this.eventTrack('deconnexion')
       if (this.menu.component && this.menu.component.name === 'MenuUser') {
         this.$store.commit('menuClose')
       }
       this.$store.dispatch('user/logout')
     },
 
-    trackMatomo(id) {
+    eventTrack(id) {
       if (this.$matomo) {
         this.$matomo.trackEvent('menu-utilisateur', 'menu-utilisateur', id)
       }
