@@ -23,13 +23,15 @@
         v-if="utilisateur.modification"
         slot="buttons"
       >
-        <button
-          id="cmn-utilisateur-button-password-popup"
-          class="btn-alt py-s px-m"
-          @click="passwordPopupOpen"
-        >
-          <i class="icon-24 icon-key" />
-        </button>
+        <div v-if="user.id === utilisateur.id || permissionsCheck('super')">
+          <button
+            id="cmn-utilisateur-button-password-popup"
+            class="btn-alt py-s px-m"
+            @click="passwordPopupOpen"
+          >
+            <i class="icon-24 icon-key" />
+          </button>
+        </div>
 
         <button
           id="cmn-utilisateur-button-popup-supprimer"
