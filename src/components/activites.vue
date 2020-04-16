@@ -91,7 +91,6 @@ export default {
   data() {
     return {
       typeId: null,
-      annees: [2017, 2018, 2019],
       annee: null
     }
   },
@@ -115,6 +114,10 @@ export default {
 
     activiteType() {
       return this.activitesTypes.find(({ id }) => id === this.typeId)
+    },
+
+    annees() {
+      return this.typeId ? [2017, 2018, 2019] : []
     }
   },
 
@@ -142,7 +145,9 @@ export default {
     },
 
     typeIdUpdate() {
-      if (
+      if (!this.activitesTypes.length) {
+        this.typeId = null
+      } else if (
         this.activitesTypes.length === 1 ||
         !this.activitesTypes.some(({ id }) => id === this.typeId)
       ) {
