@@ -28,8 +28,7 @@ export const state = {
   },
   preferences: {
     carte: { tilesId: 'osm-fr' }
-  },
-  loaded: false
+  }
 }
 
 export const actions = {
@@ -56,8 +55,6 @@ export const actions = {
     } catch (e) {
       dispatch('tokenRemove')
       commit('reset')
-    } finally {
-      commit('load')
     }
   },
 
@@ -321,10 +318,6 @@ export const getters = {
 }
 
 export const mutations = {
-  load(state) {
-    state.loaded = true
-  },
-
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
       Vue.set(state.preferences[section], id, params[id])

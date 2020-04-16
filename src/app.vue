@@ -19,7 +19,7 @@
       :message="error"
     />
 
-    <RouterView v-if="!error" />
+    <RouterView v-if="!error && loaded" />
 
     <Component
       :is="popup.component"
@@ -47,6 +47,12 @@ export default {
     PageHeader,
     PageFooter,
     Error
+  },
+
+  data() {
+    return {
+      loaded: false
+    }
   },
 
   computed: {
@@ -95,6 +101,7 @@ export default {
         await this.$store.dispatch('user/identify')
       }
       await this.get()
+      this.loaded = true
     },
 
     async get() {

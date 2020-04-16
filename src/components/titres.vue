@@ -154,10 +154,6 @@ export default {
       return this.$store.state.user.current
     },
 
-    userLoaded() {
-      return this.$store.state.user.loaded
-    },
-
     modification() {
       return this.$store.state.user.metas.domaines.filter(d => d.titresCreation)
         .length
@@ -165,9 +161,7 @@ export default {
   },
 
   watch: {
-    // TODO: pourquoi tester userLoaded
-    user: 'metasGet',
-    userLoaded: 'metasGet'
+    user: 'metasGet'
   },
 
   async created() {

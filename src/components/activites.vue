@@ -109,10 +109,6 @@ export default {
       return !!this.activites
     },
 
-    userLoaded() {
-      return this.$store.state.user.loaded
-    },
-
     activitesTypes() {
       return this.$store.state.titresActivites.metas.activitesTypes
     },
@@ -124,16 +120,11 @@ export default {
 
   watch: {
     user: 'metasGet',
-
-    userLoaded: 'metasGet',
-
     activitesTypes: 'typeIdUpdate'
   },
 
   created() {
-    if (this.userLoaded) {
-      this.metasGet()
-    }
+    this.metasGet()
   },
 
   methods: {

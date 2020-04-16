@@ -58,8 +58,7 @@ describe("état de l'utilisateur connecté", () => {
       },
       preferences: {
         carte: { tilesId: 'osm-fr' }
-      },
-      loaded: false
+      }
     }
 
     actions = {
@@ -132,7 +131,6 @@ describe("état de l'utilisateur connecté", () => {
       entreprise: 'macdo'
     })
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.user.loaded).toBeTruthy()
   })
 
   test("retourne une erreur de l'api lors de l'obtention de l'utilisateur", async () => {

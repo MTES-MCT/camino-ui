@@ -71,10 +71,6 @@ export default {
       return !!this.demarches
     },
 
-    userLoaded() {
-      return this.$store.state.user.loaded
-    },
-
     resultat() {
       const res =
         this.total > this.demarches.length
@@ -85,8 +81,7 @@ export default {
   },
 
   watch: {
-    user: 'metasGet',
-    userLoaded: 'metasGet'
+    user: 'metasGet'
   },
 
   async created() {
