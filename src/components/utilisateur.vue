@@ -224,7 +224,6 @@ export default {
 
   methods: {
     async get() {
-      console.log('get', this.$route.params.id)
       await this.$store.dispatch('utilisateur/get', this.$route.params.id)
     },
 

@@ -62,7 +62,5 @@ export default function install(Vue, setupOptions = {}) {
         })
       }
     })
-    .catch(e => {
-      console.info(e)
-    })
+    .catch(e => {})
 }

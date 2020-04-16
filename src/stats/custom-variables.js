@@ -1,14 +1,19 @@
 const visitUser = matomo => user => {
   if (user) {
     if (user.administrations && user.administrations.length) {
-      user.administrations.forEach(id => {
-        matomo.setCustomVariable(1, 'administrationId', id, 'visit')
+      user.administrations.forEach(administration => {
+        matomo.setCustomVariable(
+          1,
+          'administrationId',
+          administration.id,
+          'visit'
+        )
       })
     }
 
     if (user.entreprises && user.entreprises.length) {
-      user.entreprises.forEach(id => {
-        matomo.setCustomVariable(1, 'entreprisesIds', id, 'visit')
+      user.entreprises.forEach(entreprise => {
+        matomo.setCustomVariable(1, 'entreprisesIds', entreprise.id, 'visit')
       })
     }
 
