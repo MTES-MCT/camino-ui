@@ -71,8 +71,9 @@ export default {
     user: 'get'
   },
 
-  created() {
-    this.init()
+  async created() {
+    await this.init()
+    this.viewTrack()
   },
 
   methods: {
@@ -98,6 +99,13 @@ export default {
 
     async get() {
       await this.$store.dispatch('user/metasGet')
+    },
+
+    viewTrack() {
+      if (this.$matomo) {
+        this.$matomo.customVariableVisitUser(this.user)
+        this.$matomo.trackPageView()
+      }
     }
   }
 }

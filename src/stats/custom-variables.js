@@ -1,4 +1,4 @@
-const visit = (matomo, user) => {
+const visitUser = matomo => user => {
   if (user) {
     if (user.administrations && user.administrations.length) {
       user.administrations.forEach(id => {
@@ -16,7 +16,7 @@ const visit = (matomo, user) => {
   }
 }
 
-const page = (matomo, titre) => {
+const pageTitre = matomo => titre => {
   if (titre) {
     matomo.setCustomVariable(1, 'domaineId', titre.domaine.id, 'page')
     matomo.setCustomVariable(2, 'typeId', titre.type.type.id, 'page')
@@ -24,4 +24,4 @@ const page = (matomo, titre) => {
   }
 }
 
-export { visit, page }
+export { visitUser, pageTitre }

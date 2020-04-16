@@ -1,5 +1,5 @@
 import bootstrap from './bootstrap'
-import { visit, page } from './custom-variables'
+import { visitUser, pageTitre } from './custom-variables'
 
 const defaultOptions = {
   requireConsent: false,
@@ -20,18 +20,14 @@ export default function install(Vue, setupOptions = {}) {
         options.siteId
       )
 
+      matomo.customVariableVisitUser = visitUser(matomo)
+      matomo.customVariablePageTitre = pageTitre(matomo)
+
       // Assign matomo to Vue
-      Vue.prototype.$piwik = matomo
       Vue.prototype.$matomo = matomo
 
       if (options.requireConsent) {
         matomo.requireConsent()
-      }
-
-      // Register first page view
-      if (options.trackInitialView) {
-        visit(matomo, options.store.state.user.current)
-        matomo.trackPageView()
       }
 
       if (options.enableHeartBeatTimer) {
@@ -42,7 +38,6 @@ export default function install(Vue, setupOptions = {}) {
         matomo.enableLinkTracking(options.enableLinkTracking)
       }
 
-      // Track page navigations if router is specified
       if (options.router) {
         options.router.afterEach((to, from) => {
           // Unfortunately the window location is not yet updated here
@@ -58,12 +53,12 @@ export default function install(Vue, setupOptions = {}) {
           const url = protocol + '//' + loc.host + to.path
           matomo.setCustomUrl(url)
 
-          visit(matomo, options.store.state.user.current)
-          if (to.name === 'titre') {
-            page(matomo, options.store.state.titre.current)
-          }
+          // la page titre défini des variables personnalisées qui dépendent des données du titre
+          // ces données ne sont pas encore chargées ici
+          // pour cette page uniquement, le tracker est donc appelé dans le composant 'titre'
 
-          matomo.trackPageView(to.name)
+          matomo.customVariableVisitUser(options.store.state.user.current)
+          matomo.trackPageView(name)
         })
       }
     })

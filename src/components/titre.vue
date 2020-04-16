@@ -204,8 +204,8 @@ export default {
     user: 'get'
   },
 
-  created() {
-    this.get()
+  async created() {
+    await this.get()
   },
 
   beforeDestroy() {
@@ -213,8 +213,8 @@ export default {
   },
 
   methods: {
-    get() {
-      this.$store.dispatch('titre/get', this.$route.params.id)
+    async get() {
+      await this.$store.dispatch('titre/get', this.$route.params.id)
     },
 
     tabToggle(tabId) {
