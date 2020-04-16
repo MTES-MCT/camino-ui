@@ -42,6 +42,7 @@ describe('Utilisateur', () => {
   })
 
   it('se connecte (erreur: mot de passe)', function() {
+    cy.userRemove(utilisateur.email)
     cy.userAdd(utilisateur)
     cy.visit('/')
     cy.get('#cmn-user-button-connexion').click()

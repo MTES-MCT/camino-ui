@@ -77,34 +77,38 @@ Cypress.Commands.add('login', (email, motDePasse) =>
 Cypress.Commands.add('userAdd', utilisateur => {
   let token
 
-  return cy
-    .request({
-      method: 'POST',
-      url: Cypress.env('apiUrl'),
-      body: {
-        operationName: 'UtilisateurTokenCreer',
-        variables: {
-          email: Cypress.env('userEmail'),
-          motDePasse: Cypress.env('userPassword')
-        },
-        query: utilisateurTokenCreerMutation
-      }
-    })
-    .then(res => {
-      token = res.body.data.utilisateurTokenCreer.token
-    })
-    .then(res => {
-      cy.request({
+  // se loggue en temps que super
+  return (
+    cy
+      .request({
         method: 'POST',
         url: Cypress.env('apiUrl'),
         body: {
-          operationName: 'UtilisateurCreer',
-          variables: { utilisateur },
-          query: utilisateurCreerQuery
-        },
-        auth: { bearer: token }
+          operationName: 'UtilisateurTokenCreer',
+          variables: {
+            email: Cypress.env('userEmail'),
+            motDePasse: Cypress.env('userPassword')
+          },
+          query: utilisateurTokenCreerMutation
+        }
       })
-    })
+      .then(res => {
+        token = res.body.data.utilisateurTokenCreer.token
+      })
+      // créé un utilisateur
+      .then(res => {
+        cy.request({
+          method: 'POST',
+          url: Cypress.env('apiUrl'),
+          body: {
+            operationName: 'UtilisateurCreer',
+            variables: { utilisateur },
+            query: utilisateurCreerQuery
+          },
+          auth: { bearer: token }
+        })
+      })
+  )
 })
 
 Cypress.Commands.add('userRemove', email => {
