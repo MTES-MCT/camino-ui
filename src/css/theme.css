@@ -123,6 +123,7 @@
 }
 
 .popup {
+  overflow: auto;
   display: flex;
   flex-direction: column;
   z-index: 2;
@@ -138,8 +139,7 @@
 }
 
 .popup-content {
-  flex: 1 1 auto;
-  height: calc(100% - 8 * var(--unit));
+  flex: 0 0 auto;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -187,11 +187,14 @@
 }
 
 .messages {
-  padding-left: var(--container-padding);
-  padding-right: var(--container-padding);
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+  position: fixed;
+  width: calc(100% - (2 * var(--gutter)));
+  transform: translate(-50%, 0);
+  top: calc(var(--unit) * 5);
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  z-index: 2;
 }
 
 .accordion-header {
@@ -309,14 +312,8 @@
   }
 
   .messages {
-    position: fixed;
     width: calc(2 * var(--col-width) - var(--gutter));
-    transform: translate(-50%, 0);
     top: calc(var(--unit) * 3);
-    right: auto;
-    bottom: auto;
-    left: 50%;
-    z-index: 2;
   }
 
   .accordion-header {
@@ -342,10 +339,12 @@
     bottom: auto;
     left: 50%;
     border-radius: var(--unit);
+    overflow: hidden;
   }
 
   .popup-content {
-    height: initial;
+    height: calc(100% - 8 * var(--unit));
+    flex: 1 1 auto;
   }
 }
 

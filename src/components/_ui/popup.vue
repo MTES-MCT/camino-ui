@@ -3,7 +3,7 @@
     <div class="popup-header px-l pt-l pb">
       <slot name="header" />
     </div>
-    <div class="popup-content px-l pt">
+    <div class="popup-content px-l py">
       <slot />
     </div>
     <div class="popup-footer px-l pt pb-l">
