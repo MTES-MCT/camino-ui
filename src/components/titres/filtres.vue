@@ -191,7 +191,9 @@ export default {
           )
         })
 
-        this.$matomo.trackSiteSearch(params)
+        Object.keys.params.forEach(id => {
+          this.$matomo.trackSiteSearch(JSON.stringify(params[id]), id)
+        })
       }
     }
   }

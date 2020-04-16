@@ -9,6 +9,7 @@
         ? `${utilisateur.prenom || '–'} ${utilisateur.nom || '–'}`
         : '–' }}
     </h1>
+
     <Accordion
       class="mb"
       :sub="true"
@@ -24,7 +25,7 @@
         slot="buttons"
       >
         <button
-          v-if="user.id === utilisateur.id || permissionsCheck('super')"
+          v-if="user && user.id === utilisateur.id || permissionsCheck('super')"
           id="cmn-utilisateur-button-password-popup"
           class="btn-alt py-s px-m"
           @click="passwordPopupOpen"
@@ -223,6 +224,7 @@ export default {
 
   methods: {
     async get() {
+      console.log('get', this.$route.params.id)
       await this.$store.dispatch('utilisateur/get', this.$route.params.id)
     },
 
