@@ -24,6 +24,7 @@
         slot="buttons"
       >
         <button
+          v-if="user.id === utilisateur.id || permissionsCheck('super')"
           id="cmn-utilisateur-button-password-popup"
           class="btn-alt py-s px-m"
           @click="passwordPopupOpen"
