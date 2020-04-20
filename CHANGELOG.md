@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.27](https://github.com/MTES-MCT/camino-ui/compare/v0.22.26...v0.22.27) (2020-04-20)
+
+
+### Features
+
+* **stats:** enregistre les actions utilisateurs ([#89](https://github.com/MTES-MCT/camino-ui/issues/89)) ([ade3835](https://github.com/MTES-MCT/camino-ui/commit/ade383521adaa5ba2ee3e85ecff7f605edc25d3b))
+
+
+### Bug Fixes
+
+* **stats:** corrige l'implémentation des trackers ([6735912](https://github.com/MTES-MCT/camino-ui/commit/6735912f6b77b9bc6d1b3210705c40895a36c968))
+* **stats:** corrige le paramètre site search ([a683bf7](https://github.com/MTES-MCT/camino-ui/commit/a683bf7ee5a7c376515bd9af932d40c7e884ceed))
+* **stats:** corrige les trackers ([45233fa](https://github.com/MTES-MCT/camino-ui/commit/45233fa9b5628563edfb7b5ca1a328c966e18332))
+* corrige une erreur s'il aucun type d'activité n'est retourné par l'API ([09ec1cb](https://github.com/MTES-MCT/camino-ui/commit/09ec1cb47ac8f5c3ada579586cfa3b34edd67014))
+* **utilisateur:** restreint la visibilité de l'édition du mot de passe ([#93](https://github.com/MTES-MCT/camino-ui/issues/93)) ([e96c8ce](https://github.com/MTES-MCT/camino-ui/commit/e96c8cee1579e6cd1457821dd59c23f40a8ea9a9))
+* ajoute une csp 'unsafe eval' qui génère une erreur dans firefox ([56048ac](https://github.com/MTES-MCT/camino-ui/commit/56048ac6564dd7dfe0f5956de6faab81ab8fe277))
+* corrige une requête en doublon lors du chargement de l'app ([f759dcb](https://github.com/MTES-MCT/camino-ui/commit/f759dcb3e3736da7fd4f481489c63f0175dfc037))
+* enlève la position fixe du footer de la popup sur mobile ([36c0e09](https://github.com/MTES-MCT/camino-ui/commit/36c0e09f3e8dca93d5f2a1fea415c656560151f7))
+* vérifie les paramètres d'url ([#92](https://github.com/MTES-MCT/camino-ui/issues/92)) ([769378a](https://github.com/MTES-MCT/camino-ui/commit/769378a46779f2e06247e6c7cf3b512303b3018b))
+
 ### [0.22.26](https://github.com/MTES-MCT/camino-ui/compare/v0.22.25...v0.22.26) (2020-04-09)
 
 
