@@ -3,8 +3,7 @@
     v-if="brgmWarning"
     class="bg-warning p-s color-bg mb"
   >
-    Le fond de carte selectionné n'est visible que si le zoom est compris entre
-    12 et 16.
+    Fond de carte visible aux niveaux de zoom 12 à 16 en métropole (hors Gironde, Lot et Garonne, Dordogne, Charente Maritime et Vienne).
   </div>
 </template>
 
