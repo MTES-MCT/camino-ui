@@ -70,7 +70,11 @@ export default {
 
     linkTrack(name) {
       if (this.$matomo) {
-        this.$matomo.trackLink(name, 'download')
+        let protocol = location.protocol
+        if (protocol.slice(-1) !== ':') {
+          protocol += ':'
+        }
+        this.$matomo.trackLink(`${protocol}//${name}`, 'download')
       }
     }
   }
