@@ -61,7 +61,7 @@
       </div>
       <div class="desktop-blob-1-4">
         <Ranges
-          v-if="rows.length > 10"
+          v-if="total > 10"
           :ranges="ranges"
           :range="range"
           @range:update="rangeUpdate"
@@ -93,6 +93,7 @@ export default {
   },
 
   props: {
+    total: { type: Number, default: 0 },
     rows: { type: Array, required: true },
     columns: { type: Array, required: true },
     range: { type: Number, default: 200 },

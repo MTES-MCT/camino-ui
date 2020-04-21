@@ -27,8 +27,8 @@ export const actions = {
 }
 
 export const mutations = {
-  set(state, titres) {
-    Vue.set(state, 'list', titres)
+  set(state, utilisateurs) {
+    Vue.set(state, 'list', utilisateurs)
   }
 }
 

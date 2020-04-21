@@ -1,6 +1,7 @@
 <template>
   <div>
     <Table
+      :total="total"
       :rows="lignes"
       :columns="colonnes"
       :pages="pages"
@@ -46,6 +47,10 @@ export default {
 
     lignes() {
       return lignesBuild(this.demarches)
+    },
+
+    total() {
+      return this.$store.state.titresDemarches.total
     }
   },
 
