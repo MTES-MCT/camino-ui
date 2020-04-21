@@ -22,7 +22,7 @@
           />
           <span
             v-else
-            class="cap-first"
+            class="cap-first h5"
           >{{ element.nom }}</span>
         </label>
       </li>

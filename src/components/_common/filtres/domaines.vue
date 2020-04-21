@@ -5,7 +5,7 @@
       class="mr-xs mono"
     >
       {{ element.id }}
-    </Pill><span class="cap-first">{{ element.nom }}</span>
+    </Pill><span class="cap-first h5 bold">{{ element.nom }}</span>
   </span>
 </template>
 

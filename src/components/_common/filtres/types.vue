@@ -11,7 +11,7 @@
         :class="`svg-fill-pattern-${element.id}`"
       />
     </svg>
-    <span class="cap-first">{{ element.nom }}</span>
+    <span class="cap-first h5 bold">{{ element.nom }}</span>
   </span>
 </template>
 

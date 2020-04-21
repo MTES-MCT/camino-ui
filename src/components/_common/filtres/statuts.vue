@@ -1,7 +1,7 @@
 <template>
   <span>
     <Dot :color="`bg-${element.couleur}`" />
-    <span class="cap-first">{{ element.nom }}</span>
+    <span class="cap-first h5 bold">{{ element.nom }}</span>
   </span>
 </template>
 

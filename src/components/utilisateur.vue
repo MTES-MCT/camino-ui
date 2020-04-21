@@ -138,16 +138,25 @@
           >
             <div class="tablet-blob-1-4">
               <h6 class="mt-xs">
-                Entreprise
+                Entreprise{{ utilisateur.entreprises.length > 1 ? 's' : '' }}
               </h6>
             </div>
 
             <div class="tablet-blob-3-4">
-              <p>
-                {{ utilisateur.entreprises
-                  .map(({ nom, legalSiren }) => `${nom} (${legalSiren})`)
-                  .join(', ') }}
-              </p>
+              <ul class="list-inline">
+                <li
+                  v-for="e in utilisateur.entreprises"
+                  :key="e.id"
+                >
+                  <RouterLink
+                    :to="{ name: 'entreprise', params: {id: e.id }}"
+                    class="btn-border py-s px-m rnd-xs h5 mr-xs"
+                    tag="button"
+                  >
+                    {{ e.legalSiren ? `${e.nom} (${e.legalSiren})` : e.nom }}
+                  </RouterLink>
+                </li>
+              </ul>
             </div>
           </div>
 
