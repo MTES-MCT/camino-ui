@@ -1,5 +1,6 @@
 <template>
   <Table
+    :total="rows.length"
     :rows="rowsPage"
     :columns="columns"
     :pages="pages"
