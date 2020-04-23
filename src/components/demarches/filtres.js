@@ -1,35 +1,43 @@
 import FiltresTitresDomaines from '../_common/filtres/domaines.vue'
 import FiltresTitresStatuts from '../_common/filtres/statuts.vue'
+// import FiltresEtapes from './filtres-custom-etapes.vue'
 
-const filtres = {
-  titresDomainesIds: {
+const filtres = [
+  {
+    id: 'titresDomainesIds',
     name: 'Domaines',
     type: 'checkboxes',
-    value: '',
+    value: [],
     component: FiltresTitresDomaines
   },
-  titresTypesIds: {
+  {
+    id: 'titresTypesIds',
     name: 'Types de titre',
     type: 'checkboxes',
-    value: ''
+    value: []
   },
-  titresStatutsIds: {
+  {
+    id: 'titresStatutsIds',
     name: 'Statuts de titre',
     type: 'checkboxes',
-    value: '',
+    value: [],
     component: FiltresTitresStatuts
   },
-  typesIds: {
-    name: 'Types',
-    type: 'checkboxes',
-    value: ''
-  },
-  statutsIds: {
+  { id: 'typesIds', name: 'Types', type: 'checkboxes', value: [] },
+  {
+    id: 'statutsIds',
     name: 'Statuts',
     type: 'checkboxes',
-    value: '',
+    value: [],
     component: FiltresTitresStatuts
   }
-}
+  // {
+  //   id: 'etapesInclues',
+  //   name: 'Étapes inclues',
+  //   type: 'custom',
+  //   value: [],
+  //   component: FiltresEtapes
+  // }
+]
 
 export default filtres

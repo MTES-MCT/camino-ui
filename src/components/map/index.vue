@@ -65,9 +65,7 @@ export default {
         if (this.preventMoveend) {
           this.preventMoveend = false
         } else {
-          const center = `${this.map.getCenter().lat},${
-            this.map.getCenter().lng
-          }`
+          const center = [this.map.getCenter().lat, this.map.getCenter().lng]
           const zoom = this.map.getZoom()
           this.zoom = zoom
           this.$emit('map:update', { center, zoom })

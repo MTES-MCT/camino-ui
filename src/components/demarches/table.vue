@@ -17,7 +17,7 @@
 
 <script>
 import Table from '../_ui/table.vue'
-import { colonnes, lignesBuild } from './table.js'
+import { colonnes, lignesBuild } from './table'
 
 export default {
   name: 'Titres',

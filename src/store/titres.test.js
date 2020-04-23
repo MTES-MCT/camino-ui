@@ -46,8 +46,8 @@ describe('liste des titres', () => {
           references: null,
           territoires: null,
           noms: 's',
-          domainesIds: 'c,w',
-          statutsIds: 'val'
+          domainesIds: ['c', 'w'],
+          statutsIds: ['val']
         }
       },
       params: [
@@ -85,7 +85,12 @@ describe('liste des titres', () => {
       types: [
         { id: 'ifr', nom: 'Ifremer' },
         { id: 'dge', nom: 'DGEC' }
-      ]
+      ],
+      statuts: [
+        { id: 'fait', nom: 'fait' },
+        { id: 'afa', nom: '` faire`' }
+      ],
+      truc: [{ id: 'id-truc' }]
     })
 
     await store.dispatch('titres/metasGet')
@@ -100,7 +105,10 @@ describe('liste des titres', () => {
         { id: 'ifr', nom: 'Ifremer' },
         { id: 'dge', nom: 'DGEC' }
       ],
-      statuts: []
+      statuts: [
+        { id: 'fait', nom: 'fait' },
+        { id: 'afa', nom: '` faire`' }
+      ]
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })

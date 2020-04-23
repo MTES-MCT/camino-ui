@@ -1,8 +1,8 @@
 <template>
   <div>
     <Url
-      :values="values"
-      :params="preferences"
+      :params="params"
+      :values="preferences"
       @params:update="preferencesUpdate"
     />
     <Filtres @demarches:update="demarchesUpdate" />
@@ -23,31 +23,17 @@ export default {
     preferences() {
       return this.$store.state.titresDemarches.preferences.filtres
     },
-    values() {
-      const {
-        types,
-        statuts,
-        titresDomaines,
-        titresTypes,
-        titresStatuts
-      } = this.$store.state.titresDemarches.metas
 
-      return {
-        typesIds: { type: 'array', values: types.map(({ id }) => id) },
-        statutsIds: { type: 'array', values: statuts.map(({ id }) => id) },
-        titresDomainesIds: {
-          type: 'array',
-          values: titresDomaines.map(({ id }) => id)
-        },
-        titresTypesIds: {
-          type: 'array',
-          values: titresTypes.map(({ id }) => id)
-        },
-        titresStatutsIds: {
-          type: 'array',
-          values: titresStatuts.map(({ id }) => id)
+    params() {
+      const paramsIds = Object.keys(this.preferences)
+
+      return this.$store.state.titresDemarches.params.reduce((p, param) => {
+        if (paramsIds.includes(param.id)) {
+          p[param.id] = param
         }
-      }
+
+        return p
+      }, {})
     }
   },
 

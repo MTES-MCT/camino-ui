@@ -11,15 +11,22 @@ export default {
       type: Object,
       required: true
     },
+
     values: {
       type: Object,
-      default: () => ({})
+      required: true
     }
   },
 
   watch: {
-    params: {
-      handler: function(params) {
+    values: {
+      handler: function(values, old) {
+        const params = Object.keys(values).reduce((params, id) => {
+          params[id] = this.valueStringify(id, values[id])
+
+          return params
+        }, {})
+
         this.update(params)
       },
       deep: true
@@ -49,22 +56,24 @@ export default {
 
   methods: {
     init() {
-      const paramsBuild = params =>
-        Object.keys(params).reduce(
+      const paramsBuild = values =>
+        Object.keys(values).reduce(
           ({ urlParams, eventParams }, id) => {
-            const value = this.queryValueClean(
+            const queryValue = this.queryValueClean(
               id,
               this.queryValueGet(id, this.$route.query[id])
             )
 
-            if (!value && params[id]) {
-              urlParams[id] = params[id]
-            } else if (value && value !== this.$route.query[id]) {
-              urlParams[id] = value
+            const paramValue = this.valueStringify(id, values[id])
+
+            if (!queryValue && paramValue) {
+              urlParams[id] = paramValue
+            } else if (queryValue && queryValue !== this.$route.query[id]) {
+              urlParams[id] = queryValue
             }
 
-            if (value && value !== this.params[id]) {
-              eventParams[id] = value
+            if (queryValue && queryValue !== paramValue) {
+              eventParams[id] = this.queryValueParse(id, queryValue)
             }
 
             return { urlParams, eventParams }
@@ -72,7 +81,7 @@ export default {
           { urlParams: {}, eventParams: {} }
         )
 
-      const { urlParams, eventParams } = paramsBuild(this.params)
+      const { urlParams, eventParams } = paramsBuild(this.values)
 
       if (Object.keys(urlParams).length) {
         this.update(urlParams)
@@ -88,45 +97,52 @@ export default {
 
       if (!(id in this.params)) return value
 
-      if (this.values[id] && this.values[id].type === 'number') {
-        value = Number(value)
+      if (this.params[id] && this.params[id].type === 'number') {
+        return Number(value)
       }
 
-      return value
+      if (Array.isArray(value)) {
+        return value.join(',')
+      }
+
+      return value || null
     },
 
     queryValueClean(id, value) {
       if (!value) return null
 
-      if (!this.values[id] || !this.values[id].type) {
+      if (!this.params[id] || !this.params[id].type) {
         return value
-      } else if (this.values[id].type === 'number') {
+      } else if (this.params[id].type === 'number') {
         value = Number(value)
         if (!value) {
           value = null
-        } else if (this.values[id].max && value > this.values[id].max) {
-          value = this.values[id].max
-        } else if (this.values[id].min && value < this.values[id].min) {
-          value = this.values[id].min
+        } else if (this.params[id].max && value > this.params[id].max) {
+          value = this.params[id].max
+        } else if (this.params[id].min && value < this.params[id].min) {
+          value = this.params[id].min
         }
-      } else if (this.values[id].type === 'array' && this.values[id].values) {
-        const values = value.split(',')
-        value = values
+      } else if (this.params[id].type === 'array' && this.params[id].elements) {
+        value = value
+          .split(',')
           .reduce((acc, v) => {
-            if (this.values[id].values.includes(v)) {
+            if (this.params[id].elements.includes(v)) {
               acc.push(v)
             }
 
             return acc
           }, [])
           .join(',')
-      } else if (this.values[id].type === 'string') {
+      } else if (this.params[id].type === 'string') {
         value = value.toString()
 
-        if (this.values[id].values && !this.values[id].values.includes(value)) {
+        if (
+          this.params[id].elements &&
+          !this.params[id].elements.includes(value)
+        ) {
           value = null
         }
-      } else if (this.values[id].type === 'tuple') {
+      } else if (this.params[id].type === 'tuple') {
         const values = value.split(',')
         if (!Number(values[0]) || !Number(values[1])) {
           value = null
@@ -134,6 +150,47 @@ export default {
       }
 
       return value
+    },
+
+    queryValueParse(id, value) {
+      if (!this.params[id] || !this.params[id].type) {
+        return value
+      }
+
+      if (this.params[id].type === 'number') {
+        return Number(value)
+      }
+
+      if (this.params[id].type === 'array') {
+        return value.split(',').sort()
+      }
+
+      if (this.params[id].type === 'string') {
+        return value.toString()
+      }
+
+      if (this.params[id].type === 'tuple') {
+        return value.split(',')
+      }
+    },
+
+    valueStringify(id, value) {
+      if (!(id in this.params)) return value
+
+      if (!value) return null
+
+      if (
+        this.params[id].type === 'array' ||
+        this.params[id].type === 'tuple'
+      ) {
+        return value.length ? value.slice().join(',') : null
+      }
+
+      if (this.params[id].type === 'number') {
+        return Number(value)
+      }
+
+      return value.toString()
     },
 
     update(params) {
@@ -146,8 +203,8 @@ export default {
       let status
 
       Object.keys(params).forEach(id => {
-        if ((query[id] || null) !== (params[id] || null)) {
-          status = query[id] || status === 'updated' ? 'updated' : 'created'
+        if ((query[id] || null) !== params[id]) {
+          status = query[id] ? 'updated' : 'created'
 
           if (params[id]) {
             query[id] = params[id]

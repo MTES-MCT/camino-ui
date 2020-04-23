@@ -10,7 +10,7 @@
         <label>
           <input
             :value="element.id"
-            :checked="values.includes(element.id)"
+            :checked="filter.value.includes(element.id)"
             type="checkbox"
             class="mr-s"
             @change="checkboxToggle($event)"
@@ -53,12 +53,6 @@ export default {
     }
   },
 
-  computed: {
-    values() {
-      return this.filter.value ? this.filter.value.split(',') : []
-    }
-  },
-
   methods: {
     checkboxToggle(e) {
       const idsSet = (v, values) => {
@@ -72,31 +66,29 @@ export default {
           value.push(v)
         }
 
-        return value.join(',')
+        return value
       }
 
-      this.filter.value = idsSet(e.target.value, this.values)
+      this.filter.value = idsSet(e.target.value, this.filter.value)
     },
 
     checkboxesSelect(action) {
       if (action === 'none') {
-        this.filter.value = ''
+        this.filter.value = []
       }
 
       if (action === 'all') {
-        this.filter.value = this.filter.elements.map(({ id }) => id).join(',')
+        this.filter.value = this.filter.elements.map(({ id }) => id)
       }
 
       if (action === 'inverse') {
-        this.filter.value = this.filter.elements
-          .reduce((ids, { id }) => {
-            if (!this.values.includes(id)) {
-              ids.push(id)
-            }
+        this.filter.value = this.filter.elements.reduce((ids, { id }) => {
+          if (!this.filter.value.includes(id)) {
+            ids.push(id)
+          }
 
-            return ids
-          }, [])
-          .join(',')
+          return ids
+        }, [])
       }
     }
   }
