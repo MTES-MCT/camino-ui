@@ -101,10 +101,6 @@ export default {
         return Number(value)
       }
 
-      if (Array.isArray(value)) {
-        return value.join(',')
-      }
-
       return value || null
     },
 
@@ -147,9 +143,7 @@ export default {
         if (!Number(values[0]) || !Number(values[1])) {
           value = null
         }
-      }
-
-      return value
+      } else return value
     },
 
     queryValueParse(id, value) {

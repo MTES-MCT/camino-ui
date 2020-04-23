@@ -1,43 +1,104 @@
 <template>
   <div class="mb">
     <h6>{{ filter.name }}</h6>
+    <hr class="mb-s">
 
     <div
-      v-for="(value, i) in values"
-      :key="i"
+      v-for="(value, n) in filter.value"
+      :key="n"
     >
-      <select
-        class="p-s mr-s mb-s"
-        @change="typeUpdate(i, $event)"
-      >
-        <option :value="null">
-          –
-        </option>
-        <option
-          v-for="type in filter.elements"
-          :key="type.id"
-          :value="type.id"
+      <div class="flex mb-s">
+        <select
+          v-model="filter.value[n].typeId"
+          class="p-s mr-s"
         >
-          {{ type.nom }}
-        </option>
-      </select>
-      <select
-        v-if="typeId"
-        class="p-s mr-s mb-s cap-first"
-        @change="statutUpdate(i, $event)"
-      >
-        <option :value="null">
-          –
-        </option>
-        <option
-          v-for="statut in statuts"
-          :key="statut.id"
-          :value="statut.id"
+          <option :value="''">
+            –
+          </option>
+          <option
+            v-for="type in filter.elements"
+            :key="type.id"
+            :value="type.id"
+          >
+            {{ type.nom }}
+          </option>
+        </select>
+
+        <button
+          class="btn-border py-s px-m rnd-xs"
+          @click="valueRemove(n)"
         >
-          {{ statut.nom }}
-        </option>
-      </select>
+          <i class="icon-24 icon-minus" />
+        </button>
+      </div>
+      <div v-if="value.typeId">
+        <div class="blobs mb-s">
+          <div class="blob-1-4">
+            <h6>Statut</h6>
+            <p class="h6 italic mb-0">
+              Optionnel
+            </p>
+          </div>
+          <div class="blob-3-4">
+            <select
+              v-model="filter.value[n].statutId"
+              class="p-s mr-s cap-first"
+            >
+              <option :value="''">
+                –
+              </option>
+              <option
+                v-for="statut in statutsFind(n)"
+                :key="statut.id"
+                :value="statut.id"
+              >
+                {{ statut.nom }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="blobs mb-s">
+          <div class="blob-1-4">
+            <h6>Après le</h6>
+            <p class="h6 italic mb-0">
+              Optionnel
+            </p>
+          </div>
+          <div class="blob-3-4">
+            <input
+              v-model="filter.value[n].dateDebut"
+              type="date"
+              class="p-s"
+              placeholder="aaaa-mm-jj"
+            >
+          </div>
+        </div>
+        <div class="blobs mb-s">
+          <div class="blob-1-4">
+            <h6>Avant le</h6>
+            <p class="h6 italic mb-0">
+              Optionnel
+            </p>
+          </div>
+          <div class="blob-3-4">
+            <input
+              v-model="filter.value[n].dateFin"
+              type="date"
+              class="p-s"
+              placeholder="aaaa-mm-jj"
+            >
+          </div>
+        </div>
+      </div>
+      <hr class="mb-s">
     </div>
+    <button
+      v-if="!filter.value.some(v => v.typeId === '')"
+      class="btn-border rnd-xs py-s px-m full-x flex mb-s"
+      @click="valueAdd"
+    >
+      Ajouter un type d'étape<i class="icon-24 icon-plus flex-right" />
+    </button>
   </div>
 </template>
 
@@ -50,32 +111,22 @@ export default {
     }
   },
 
-  computed: {
-    statuts() {
-      const type = this.typeId
-        ? this.filter.elements.find(type => type.id === this.typeId)
+  methods: {
+    statutsFind(n) {
+      const typeId = this.filter.value[n].typeId
+      const type = typeId
+        ? this.filter.elements.find(type => type.id === typeId)
         : []
 
       return type.etapesStatuts
     },
 
-    values() {
-      return []
-      // return this.filter.value ? this.filter.value.split(',') : []
-    }
-  },
-
-  methods: {
-    typeUpdate(i, e) {
-      if (!this.values[i]) {
-        this.values[i] = {
-          typeId: e.target.value
-        }
-      }
+    valueAdd() {
+      this.filter.value.push({ typeId: '' })
     },
 
-    statutUpdate(i, e) {
-      this.values[i].statutId = e.target.value
+    valueRemove(n) {
+      this.filter.value.splice(n, 1)
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <div class="mb">
     <h6>{{ filter.name }}</h6>
+    <hr>
 
     <input
       v-model="filter.value"

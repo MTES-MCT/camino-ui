@@ -35,7 +35,10 @@ export default {
         if (filtre.type === 'checkboxes') {
           const metaId = this.metaIdFind(filtre.id)
           filtre.elements = this.metas[metaId]
-        } else if (filtre.id === 'etapesInclues') {
+        } else if (
+          filtre.id === 'etapesInclues' ||
+          filtre.id === 'etapesExclues'
+        ) {
           filtre.elements = this.metas.etapesTypes
         }
 

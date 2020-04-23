@@ -1,6 +1,7 @@
 <template>
   <div class="mb">
     <h6>{{ filter.name }}</h6>
+    <hr class="mb-s">
 
     <ul class="list-sans">
       <li
@@ -22,7 +23,7 @@
           />
           <span
             v-else
-            class="cap-first h5"
+            class="cap-first h5 bold"
           >{{ element.nom }}</span>
         </label>
       </li>
