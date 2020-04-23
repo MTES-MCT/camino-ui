@@ -184,7 +184,7 @@ export default {
         return Number(value)
       }
 
-      return value.toString()
+      return value
     },
 
     update(params) {

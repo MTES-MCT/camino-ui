@@ -3,7 +3,7 @@ const paramsBuild = (apiParams, preferences) =>
   apiParams.reduce((params, { id, type }) => {
     let v = preferences[id]
 
-    if (type === 'array') {
+    if (type === 'array' || type === 'arrayObjects') {
       v = v && v.length ? v : null
     } else if (type === 'number') {
       v = v ? Number(v) : null

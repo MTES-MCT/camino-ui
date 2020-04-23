@@ -84,11 +84,18 @@ export default {
 
       // formate les valeurs des filtres
       const params = this.filtres.reduce((params, filtre) => {
+        let value
+
         if (filtre.type === 'checkboxes') {
-          params[filtre.id] = this.checkboxesValueClean(filtre.id, filtre.value)
+          value = this.checkboxesValueClean(filtre.id, filtre.value)
+        } else if (filtre.type === 'custom') {
+          // on crée une copie pour éviter les modifications par référence
+          value = JSON.parse(JSON.stringify(filtre.value))
         } else {
-          params[filtre.id] = filtre.value
+          value = filtre.value
         }
+
+        params[filtre.id] = value
 
         return params
       }, {})
@@ -113,11 +120,14 @@ export default {
 
     filtresUpdate(params) {
       Object.keys(params).forEach(id => {
-        let value
         const filtre = this.filtres.find(filtre => filtre.id === id)
+
+        let value
 
         if (filtre.type === 'checkboxes') {
           value = this.checkboxesValueClean(id, params[id])
+        } else if (filtre.type === 'custom' && params[id]) {
+          value = JSON.parse(JSON.stringify(params[id]))
         } else {
           value = params[id]
         }

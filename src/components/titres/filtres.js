@@ -37,6 +37,7 @@ const filtres = [
     name: 'Domaines',
     type: 'checkboxes',
     value: [],
+    elements: [],
     component: FiltresDomaines
   },
   {
@@ -44,6 +45,7 @@ const filtres = [
     name: 'Types',
     type: 'checkboxes',
     value: [],
+    elements: [],
     component: FiltresTypes
   },
   {
@@ -51,6 +53,7 @@ const filtres = [
     name: 'Statuts',
     type: 'checkboxes',
     value: [],
+    elements: [],
     component: FiltresStatuts
   }
 ]

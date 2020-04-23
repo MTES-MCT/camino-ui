@@ -21,8 +21,8 @@ export const state = {
     { id: 'titresDomainesIds', type: 'array', elements: [] },
     { id: 'titresTypesIds', type: 'array', elements: [] },
     { id: 'titresStatutsIds', type: 'array', elements: [] },
-    { id: 'etapesInclues', type: 'array', elements: [] },
-    { id: 'etapesExclues', type: 'array', elements: [] },
+    { id: 'etapesInclues', type: 'arrayObjects', elements: [] },
+    { id: 'etapesExclues', type: 'arrayObjects', elements: [] },
     { id: 'page', type: 'number', min: 0 },
     { id: 'intervalle', type: 'number', min: 10, max: 500 },
     {
@@ -55,9 +55,9 @@ export const state = {
       statutsIds: [],
       titresDomainesIds: [],
       titresTypesIds: [],
-      titresStatutsIds: []
-      // etapesInclues: [],
-      // etapesExclues: []
+      titresStatutsIds: [],
+      etapesInclues: [],
+      etapesExclues: []
     }
   }
 }

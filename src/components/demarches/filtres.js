@@ -8,19 +8,22 @@ const filtres = [
     name: 'Domaines',
     type: 'checkboxes',
     value: [],
+    elements: [],
     component: FiltresTitresDomaines
   },
   {
     id: 'titresTypesIds',
     name: 'Types de titre',
     type: 'checkboxes',
-    value: []
+    value: [],
+    elements: []
   },
   {
     id: 'titresStatutsIds',
     name: 'Statuts de titre',
     type: 'checkboxes',
     value: [],
+    elements: [],
     component: FiltresTitresStatuts
   },
   { id: 'typesIds', name: 'Types', type: 'checkboxes', value: [] },
@@ -29,6 +32,7 @@ const filtres = [
     name: 'Statuts',
     type: 'checkboxes',
     value: [],
+    elements: [],
     component: FiltresTitresStatuts
   },
   {
@@ -36,6 +40,7 @@ const filtres = [
     name: "Types d'étapes incluses",
     type: 'custom',
     value: [],
+    elements: [],
     component: FiltresEtapes
   },
   {
@@ -43,6 +48,7 @@ const filtres = [
     name: "Types d'étapes exclues",
     type: 'custom',
     value: [],
+    elements: [],
     component: FiltresEtapes
   }
 ]
