@@ -143,7 +143,9 @@ export default {
         if (!Number(values[0]) || !Number(values[1])) {
           value = null
         }
-      } else return value
+      }
+
+      return value
     },
 
     queryValueParse(id, value) {

@@ -88,7 +88,7 @@ export default {
 
         if (filtre.type === 'checkboxes') {
           value = this.checkboxesValueClean(filtre.id, filtre.value)
-        } else if (filtre.type === 'custom') {
+        } else if (filtre.type === 'custom' && filtre.value) {
           // on crée une copie pour éviter les modifications par référence
           value = JSON.parse(JSON.stringify(filtre.value))
         } else {

@@ -93,7 +93,7 @@
       <hr class="mb-s">
     </div>
     <button
-      v-if="!filter.value.some(v => v.typeId === '')"
+      v-if="!filter.value || !filter.value.some(v => v.typeId === '')"
       class="btn-border rnd-xs py-s px-m full-x flex mb-s"
       @click="valueAdd"
     >
@@ -122,6 +122,9 @@ export default {
     },
 
     valueAdd() {
+      if (!this.filter.value) {
+        this.filter.value = []
+      }
       this.filter.value.push({ typeId: '' })
     },
 
