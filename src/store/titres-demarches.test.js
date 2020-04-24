@@ -22,6 +22,7 @@ describe('liste des demarches', () => {
     demarchesListe = ['demarche-1', 'demarche-2', 'demarche-3']
     titresDemarches.state = {
       list: [],
+      total: null,
       metas: {
         types: [],
         statuts: [],
@@ -31,31 +32,44 @@ describe('liste des demarches', () => {
         titresStatuts: []
       },
       params: [
-        { id: 'typesIds', type: 'array' },
-        { id: 'statutsIds', type: 'array' },
-        { id: 'titresDomainesIds', type: 'array' },
-        { id: 'titresTypesIds', type: 'array' },
-        { id: 'titresStatutsIds', type: 'array' },
-        { id: 'page', type: 'number' },
-        { id: 'intervalle', type: 'number' },
-        { id: 'colonne', type: 'string' },
-        { id: 'ordre', type: 'string' }
+        { id: 'typesIds', type: 'array', elements: [] },
+        { id: 'statutsIds', type: 'array', elements: [] },
+        { id: 'titresDomainesIds', type: 'array', elements: [] },
+        { id: 'titresTypesIds', type: 'array', elements: [] },
+        { id: 'titresStatutsIds', type: 'array', elements: [] },
+        { id: 'etapesInclues', type: 'array', elements: [] },
+        { id: 'etapesExclues', type: 'array', elements: [] },
+        { id: 'page', type: 'number', min: 0 },
+        { id: 'intervalle', type: 'number', min: 10, max: 500 },
+        {
+          id: 'colonne',
+          type: 'string',
+          elements: [
+            'titreNom',
+            'titreDomaine',
+            'titreType',
+            'titreStatut',
+            'type',
+            'statut'
+          ]
+        },
+        { id: 'ordre', type: 'string', elements: ['asc', 'desc'] }
       ],
       preferences: {
         table: {
           page: 1,
-          intervalle: 200,
+          intervalle: null,
           ordre: 'asc',
           colonne: 'titreNom'
         },
         filtres: {
-          typesIds: null,
-          statutsIds: null,
-          titresDomainesIds: null,
-          titresTypesIds: null,
-          titresStatutsIds: null,
-          etapesIncluesIds: null,
-          etapesExcluesIds: null
+          typesIds: [],
+          statutsIds: [],
+          titresDomainesIds: [],
+          titresTypesIds: [],
+          titresStatutsIds: [],
+          etapesIncluesIds: [],
+          etapesExcluesIds: []
         }
       }
     }
@@ -86,7 +100,8 @@ describe('liste des demarches', () => {
         etapesTypes: [{ id: 'id-etapesTypes' }],
         types: [{ id: 'id-types' }],
         domaines: [{ id: 'id-domaines' }],
-        statuts: [{ id: 'id-statuts' }]
+        statuts: [{ id: 'id-statuts' }],
+        truc: [{ id: 'id-truc' }]
       })
       .mockResolvedValueOnce({})
 

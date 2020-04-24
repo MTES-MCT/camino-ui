@@ -16,15 +16,32 @@ export const state = {
     titresStatuts: []
   },
   params: [
-    { id: 'typesIds', type: 'array' },
-    { id: 'statutsIds', type: 'array' },
-    { id: 'titresDomainesIds', type: 'array' },
-    { id: 'titresTypesIds', type: 'array' },
-    { id: 'titresStatutsIds', type: 'array' },
-    { id: 'page', type: 'number' },
-    { id: 'intervalle', type: 'number' },
-    { id: 'colonne', type: 'string' },
-    { id: 'ordre', type: 'string' }
+    { id: 'typesIds', type: 'array', elements: [] },
+    { id: 'statutsIds', type: 'array', elements: [] },
+    { id: 'titresDomainesIds', type: 'array', elements: [] },
+    { id: 'titresTypesIds', type: 'array', elements: [] },
+    { id: 'titresStatutsIds', type: 'array', elements: [] },
+    { id: 'etapesInclues', type: 'arrayObjects', elements: [] },
+    { id: 'etapesExclues', type: 'arrayObjects', elements: [] },
+    { id: 'page', type: 'number', min: 0 },
+    { id: 'intervalle', type: 'number', min: 10, max: 500 },
+    {
+      id: 'colonne',
+      type: 'string',
+      elements: [
+        'titreNom',
+        'titreDomaine',
+        'titreType',
+        'titreStatut',
+        'type',
+        'statut'
+      ]
+    },
+    {
+      id: 'ordre',
+      type: 'string',
+      elements: ['asc', 'desc']
+    }
   ],
   preferences: {
     table: {
@@ -34,13 +51,13 @@ export const state = {
       colonne: null
     },
     filtres: {
-      typesIds: null,
-      statutsIds: null,
-      titresDomainesIds: null,
-      titresTypesIds: null,
-      titresStatutsIds: null,
-      etapesIncluesIds: null,
-      etapesExcluesIds: null
+      typesIds: [],
+      statutsIds: [],
+      titresDomainesIds: [],
+      titresTypesIds: [],
+      titresStatutsIds: [],
+      etapesInclues: [],
+      etapesExclues: []
     }
   }
 }
@@ -52,16 +69,7 @@ export const actions = {
     try {
       const data = await metasDemarches()
 
-      const metas = {}
-
-      if (data.demarchesTypes) metas.types = data.demarchesTypes
-      if (data.demarchesStatuts) metas.statuts = data.demarchesStatuts
-      if (data.etapesTypes) metas.etapesTypes = data.etapesTypes
-      if (data.types) metas.titresTypes = data.types
-      if (data.domaines) metas.titresDomaines = data.domaines
-      if (data.statuts) metas.titresStatuts = data.statuts
-
-      commit('metasSet', metas)
+      commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -110,7 +118,42 @@ export const mutations = {
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      let metaId
+      let paramsIds
+      if (id === 'demarchesTypes') {
+        metaId = 'types'
+        paramsIds = ['typesIds']
+      } else if (id === 'demarchesStatuts') {
+        metaId = 'statuts'
+        paramsIds = ['statutsIds']
+      } else if (id === 'types') {
+        metaId = 'titresTypes'
+        paramsIds = ['titresTypesIds']
+      } else if (id === 'domaines') {
+        metaId = 'titresDomaines'
+        paramsIds = ['titresDomainesIds']
+      } else if (id === 'statuts') {
+        metaId = 'titresStatuts'
+        paramsIds = ['titresStatutsIds']
+      } else if (id === 'etapesTypes') {
+        metaId = 'etapesTypes'
+        paramsIds = ['etapesInclues', 'etapesExclues']
+      }
+
+      if (metaId) {
+        Vue.set(state.metas, metaId, data[id])
+      }
+
+      if (paramsIds) {
+        paramsIds.forEach(paramId => {
+          const param = state.params.find(p => p.id === paramId)
+          Vue.set(
+            param,
+            'elements',
+            data[id].map(e => e.id)
+          )
+        })
+      }
     })
   },
 

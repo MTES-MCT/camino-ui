@@ -11,36 +11,41 @@ export const state = {
     statuts: []
   },
   params: [
-    { id: 'typesIds', type: 'array' },
-    { id: 'domainesIds', type: 'array' },
-    { id: 'statutsIds', type: 'array' },
+    { id: 'typesIds', type: 'array', elements: [] },
+    { id: 'domainesIds', type: 'array', elements: [] },
+    { id: 'statutsIds', type: 'array', elements: [] },
     { id: 'substances', type: 'string' },
     { id: 'noms', type: 'string' },
     { id: 'entreprises', type: 'string' },
     { id: 'references', type: 'string' },
-    { id: 'territoires', type: 'string' }
+    { id: 'territoires', type: 'string' },
+    { id: 'page', type: 'number', value: 1, min: 0 },
+    { id: 'intervalle', type: 'number', min: 10, max: 500 },
+
+    {
+      id: 'colonne',
+      type: 'array',
+      elements: ['nom', 'domaine', 'type', 'statut', 'activitesTotal']
+    },
+    {
+      id: 'ordre',
+      type: 'string',
+      elements: ['asc', 'desc']
+    }
   ],
   preferences: {
     vue: { vueId: 'carte' },
-    table: {
-      page: 1,
-      intervalle: 200,
-      ordre: 'asc',
-      colonne: 'nom'
-    },
-    carte: {
-      zoom: null,
-      centre: null
-    },
+    table: { page: 1, intervalle: 200, ordre: 'asc', colonne: 'nom' },
+    carte: { zoom: null, centre: [] },
     filtres: {
-      typesIds: null,
-      domainesIds: null,
-      statutsIds: null,
-      noms: null,
-      entreprises: null,
-      substances: null,
-      references: null,
-      territoires: null
+      typesIds: [],
+      domainesIds: [],
+      statutsIds: [],
+      noms: '',
+      entreprises: '',
+      substances: '',
+      references: '',
+      territoires: ''
     }
   }
 }
@@ -70,10 +75,7 @@ export const actions = {
 
       dispatch(
         'messageAdd',
-        {
-          value: `liste de titres mise à jour`,
-          type: 'success'
-        },
+        { value: `liste de titres mise à jour`, type: 'success' },
         { root: true }
       )
 
@@ -98,7 +100,33 @@ export const mutations = {
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      let paramsIds
+      let metaId
+      if (id === 'types') {
+        metaId = id
+        paramsIds = ['typesIds']
+      } else if (id === 'domaines') {
+        metaId = id
+        paramsIds = ['domainesIds']
+      } else if (id === 'statuts') {
+        metaId = id
+        paramsIds = ['statutsIds']
+      }
+
+      if (metaId) {
+        Vue.set(state.metas, id, data[id])
+      }
+
+      if (paramsIds) {
+        paramsIds.forEach(paramId => {
+          const param = state.params.find(p => p.id === paramId)
+          Vue.set(
+            param,
+            'elements',
+            data[id].map(e => e.id)
+          )
+        })
+      }
     })
   },
 

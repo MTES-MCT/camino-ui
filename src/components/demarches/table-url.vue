@@ -1,8 +1,8 @@
 <template>
   <div>
     <Url
-      :params="preferences"
-      :values="values"
+      :params="params"
+      :values="preferences"
       @params:update="preferencesUpdate"
     />
     <Table
@@ -26,30 +26,21 @@ export default {
     demarches: { type: Array, required: true }
   },
 
-  data() {
-    return {
-      values: {
-        page: { type: 'number', min: 0 },
-        intervalle: { type: 'number', min: 10, max: 500 },
-        ordre: { type: 'array', values: ['asc', 'desc'] },
-        colonne: {
-          type: 'array',
-          values: [
-            'titreNom',
-            'titreDomaine',
-            'titreType',
-            'titreStatut',
-            'type',
-            'statut'
-          ]
-        }
-      }
-    }
-  },
-
   computed: {
     preferences() {
       return this.$store.state.titresDemarches.preferences.table
+    },
+
+    params() {
+      const paramsIds = Object.keys(this.preferences)
+
+      return this.$store.state.titresDemarches.params.reduce((p, param) => {
+        if (paramsIds.includes(param.id)) {
+          p[param.id] = param
+        }
+
+        return p
+      }, {})
     }
   },
 

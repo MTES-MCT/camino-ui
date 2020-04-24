@@ -1,6 +1,7 @@
 <template>
   <div class="mb">
     <h6>{{ filter.name }}</h6>
+    <hr class="mb-s">
 
     <ul class="list-sans">
       <li
@@ -10,7 +11,7 @@
         <label>
           <input
             :value="element.id"
-            :checked="values.includes(element.id)"
+            :checked="filter.value.includes(element.id)"
             type="checkbox"
             class="mr-s"
             @change="checkboxToggle($event)"
@@ -22,7 +23,7 @@
           />
           <span
             v-else
-            class="cap-first h5"
+            class="cap-first h5 bold"
           >{{ element.nom }}</span>
         </label>
       </li>
@@ -53,12 +54,6 @@ export default {
     }
   },
 
-  computed: {
-    values() {
-      return this.filter.value ? this.filter.value.split(',') : []
-    }
-  },
-
   methods: {
     checkboxToggle(e) {
       const idsSet = (v, values) => {
@@ -72,31 +67,29 @@ export default {
           value.push(v)
         }
 
-        return value.join(',')
+        return value
       }
 
-      this.filter.value = idsSet(e.target.value, this.values)
+      this.filter.value = idsSet(e.target.value, this.filter.value)
     },
 
     checkboxesSelect(action) {
       if (action === 'none') {
-        this.filter.value = ''
+        this.filter.value = []
       }
 
       if (action === 'all') {
-        this.filter.value = this.filter.elements.map(({ id }) => id).join(',')
+        this.filter.value = this.filter.elements.map(({ id }) => id)
       }
 
       if (action === 'inverse') {
-        this.filter.value = this.filter.elements
-          .reduce((ids, { id }) => {
-            if (!this.values.includes(id)) {
-              ids.push(id)
-            }
+        this.filter.value = this.filter.elements.reduce((ids, { id }) => {
+          if (!this.filter.value.includes(id)) {
+            ids.push(id)
+          }
 
-            return ids
-          }, [])
-          .join(',')
+          return ids
+        }, [])
       }
     }
   }

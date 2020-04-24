@@ -34,6 +34,14 @@
           :filter.sync="filter"
           class="tablet-blob-1-2 large-blob-1-3"
         />
+
+        <Component
+          :is="filter.component"
+          v-for="filter in customs"
+          :key="filter.id"
+          :filter.sync="filter"
+          class="tablet-blob-1-2 large-blob-1-3"
+        />
       </div>
 
       <button
@@ -81,6 +89,10 @@ export default {
 
     checkboxes() {
       return this.filters.filter(({ type }) => type === 'checkboxes')
+    },
+
+    customs() {
+      return this.filters.filter(({ type }) => type === 'custom')
     }
   },
 

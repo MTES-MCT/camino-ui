@@ -1,20 +1,18 @@
 // récupère les paramètres depuis les préférences utilisateurs
 const paramsBuild = (apiParams, preferences) =>
   apiParams.reduce((params, { id, type }) => {
-    let value
+    let v = preferences[id]
 
-    if (type === 'array') {
-      const values = preferences[id] && preferences[id].split(',')
-      value = values && values.length ? values : null
-    } else if (type === 'string') {
-      value = preferences[id] && preferences[id].toString()
+    if (type === 'array' || type === 'arrayObjects') {
+      v = v && v.length ? v : null
+    } else if (type === 'number') {
+      v = v ? Number(v) : null
     } else {
-      // type === 'number'
-      value = preferences[id]
+      v = v ? v.toString() : null
     }
 
-    if (value) {
-      params = Object.assign(params, { [id]: value })
+    if (v) {
+      params = Object.assign(params, { [id]: v })
     }
 
     return params

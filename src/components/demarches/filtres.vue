@@ -31,23 +31,15 @@ export default {
     },
 
     filters() {
-      const checkboxesElementsFind = metaId => {
-        return this.metas[metaId].reduce((elements, element) => {
-          element.name = element.nom
-          elements.push(element)
-
-          return elements
-        }, [])
-      }
-
-      return Object.keys(this.filtres).map(id => {
-        const filtre = this.filtres[id]
-        filtre.id = id
-
-        if (this.filtres[id].type === 'checkboxes') {
-          filtre.elements = checkboxesElementsFind(
-            this.checkboxesMetaIdFind(id)
-          )
+      return this.filtres.map(filtre => {
+        if (filtre.type === 'checkboxes') {
+          const metaId = this.metaIdFind(filtre.id)
+          filtre.elements = this.metas[metaId]
+        } else if (
+          filtre.id === 'etapesInclues' ||
+          filtre.id === 'etapesExclues'
+        ) {
+          filtre.elements = this.metas.etapesTypes
         }
 
         return filtre
@@ -62,7 +54,7 @@ export default {
   watch: {
     // si les metas changent (app init ou connexion / deconnexion utilisateur)
     metas: {
-      handler: function(metas, metasOld) {
+      handler: function() {
         this.validate()
       },
       deep: true
@@ -70,13 +62,7 @@ export default {
   },
 
   created() {
-    const params = Object.keys(this.filtres).reduce((params, id) => {
-      params[id] = this.preferences[id] || null
-
-      return params
-    }, {})
-
-    this.filtresUpdate(params)
+    this.filtresUpdate(this.preferences)
     this.demarchesUpdate()
 
     document.addEventListener('keyup', this.keyup)
@@ -97,11 +83,19 @@ export default {
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
       // formate les valeurs des filtres
-      const params = Object.keys(this.filtres).reduce((params, id) => {
-        params[id] =
-          this.filtres[id].type === 'checkboxes'
-            ? this.checkboxesValueClean(id, this.filtres[id].value)
-            : this.filtres[id].value
+      const params = this.filtres.reduce((params, filtre) => {
+        let value
+
+        if (filtre.type === 'checkboxes') {
+          value = this.checkboxesValueClean(filtre.id, filtre.value)
+        } else if (filtre.type === 'custom' && filtre.value) {
+          // on crée une copie pour éviter les modifications par référence
+          value = JSON.parse(JSON.stringify(filtre.value))
+        } else {
+          value = filtre.value
+        }
+
+        params[filtre.id] = value
 
         return params
       }, {})
@@ -126,12 +120,19 @@ export default {
 
     filtresUpdate(params) {
       Object.keys(params).forEach(id => {
-        const value =
-          this.filtres[id].type === 'checkboxes'
-            ? this.checkboxesValueClean(id, params[id])
-            : params[id]
+        const filtre = this.filtres.find(filtre => filtre.id === id)
 
-        this.filtres[id].value = value
+        let value
+
+        if (filtre.type === 'checkboxes') {
+          value = this.checkboxesValueClean(id, params[id])
+        } else if (filtre.type === 'custom' && params[id]) {
+          value = JSON.parse(JSON.stringify(params[id]))
+        } else {
+          value = params[id]
+        }
+
+        filtre.value = value
       })
     },
 
@@ -143,16 +144,14 @@ export default {
     },
 
     checkboxesValueClean(id, value) {
-      const values = value ? value.split(',') : []
-      const metaId = this.checkboxesMetaIdFind(id)
+      const metaId = this.metaIdFind(id)
 
-      return values
+      return value
         .filter(v => this.metas[metaId].map(({ id }) => id).includes(v))
         .sort()
-        .join(',')
     },
 
-    checkboxesMetaIdFind(id) {
+    metaIdFind(id) {
       return id.replace(/Ids/g, '')
     }
   }

@@ -1,8 +1,8 @@
 <template>
   <div>
     <Url
-      :params="preferences"
-      :values="values"
+      :params="params"
+      :values="preferences"
       @params:update="preferencesUpdate"
     />
     <Table :titres="titres" />
@@ -23,23 +23,21 @@ export default {
     titres: { type: Array, required: true }
   },
 
-  data() {
-    return {
-      values: {
-        page: { type: 'number', min: 0 },
-        intervalle: { type: 'number', min: 10, max: 500 },
-        ordre: { type: 'array', values: ['asc', 'desc'] },
-        colonne: {
-          type: 'array',
-          values: ['nom', 'domaine', 'type', 'statut', 'activitesTotal']
-        }
-      }
-    }
-  },
-
   computed: {
     preferences() {
       return this.$store.state.titres.preferences.table
+    },
+
+    params() {
+      const paramsIds = Object.keys(this.preferences)
+
+      return this.$store.state.titres.params.reduce((p, param) => {
+        if (paramsIds.includes(param.id)) {
+          p[param.id] = param
+        }
+
+        return p
+      }, {})
     }
   },
 

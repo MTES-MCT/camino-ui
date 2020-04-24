@@ -17,8 +17,8 @@
     </div>
 
     <Url
-      :params="preferences"
-      :values="urlValues"
+      :params="urlValues"
+      :values="preferences"
       @params:update="preferencesUpdate"
     />
 

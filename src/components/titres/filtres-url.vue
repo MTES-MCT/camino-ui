@@ -1,8 +1,8 @@
 <template>
   <div>
     <Url
-      :params="preferences"
-      :values="values"
+      :params="params"
+      :values="preferences"
       @params:update="preferencesUpdate"
     />
     <Filtres @titres:update="titresUpdate" />
@@ -23,19 +23,17 @@ export default {
     preferences() {
       return this.$store.state.titres.preferences.filtres
     },
-    values() {
-      const { types, statuts, domaines } = this.$store.state.titres.metas
 
-      return {
-        entreprises: { type: 'string' },
-        noms: { type: 'string' },
-        substances: { type: 'string' },
-        references: { type: 'string' },
-        territoires: { type: 'string' },
-        typesIds: { type: 'array', values: types.map(({ id }) => id) },
-        statutsIds: { type: 'array', values: statuts.map(({ id }) => id) },
-        domainesIds: { type: 'array', values: domaines.map(({ id }) => id) }
-      }
+    params() {
+      const paramsIds = Object.keys(this.preferences)
+
+      return this.$store.state.titres.params.reduce((p, param) => {
+        if (paramsIds.includes(param.id)) {
+          p[param.id] = param
+        }
+
+        return p
+      }, {})
     }
   },
 

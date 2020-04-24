@@ -150,10 +150,9 @@ export default {
   methods: {
     init() {
       if (this.preferences.zoom && this.preferences.centre) {
-        this.$refs.map.positionSet({
-          zoom: this.preferences.zoom,
-          center: this.preferences.centre.split(',').map(Number)
-        })
+        const zoom = this.preferences.zoom
+        const center = this.preferences.centre.map(Number)
+        this.$refs.map.positionSet({ zoom, center })
       } else {
         this.boundsFit()
       }
