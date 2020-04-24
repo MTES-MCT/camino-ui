@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueMeta from 'vue-meta'
-import qs from 'qs'
 import Titre from '../components/titre.vue'
 import Titres from '../components/titres.vue'
 import Demarches from '../components/demarches.vue'
@@ -160,14 +159,6 @@ const router = new VueRouter({
     }
 
     return { x: 0, y: 0 }
-  },
-  parseQuery(query) {
-    return qs.parse(query)
-  },
-  stringifyQuery(query) {
-    const result = qs.stringify(query, { encode: false })
-
-    return result ? '?' + result : ''
   }
 })
 

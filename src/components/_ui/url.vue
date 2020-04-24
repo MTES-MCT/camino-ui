@@ -7,11 +7,13 @@ export default {
   name: 'UiUrl',
 
   props: {
+    // TODO: renommer en fields
     params: {
       type: Object,
       required: true
     },
 
+    // TODO: renommer en params
     values: {
       type: Object,
       required: true
@@ -21,13 +23,7 @@ export default {
   watch: {
     values: {
       handler: function(values, old) {
-        const params = Object.keys(values).reduce((params, id) => {
-          params[id] = this.valueStringify(id, values[id])
-
-          return params
-        }, {})
-
-        this.update(params)
+        this.update(values)
       },
       deep: true
     }
@@ -45,10 +41,12 @@ export default {
         } else {
           query[id] = this.$route.query[id]
         }
+
         return { query, updated }
       },
       { query: {}, updated: false }
     )
+
     if (updated) {
       this.$router.replace({ query })
     }
@@ -56,35 +54,40 @@ export default {
 
   methods: {
     init() {
-      const paramsBuild = values =>
-        Object.keys(values).reduce(
-          ({ urlParams, eventParams }, id) => {
+      const paramsBuild = params =>
+        Object.keys(params).reduce(
+          ({ queryParams, eventParams }, id) => {
+            const paramValue = params[id]
             const queryValue = this.queryValueClean(
               id,
-              this.queryValueGet(id, this.$route.query[id])
+              this.queryValueParse(
+                id,
+                this.queryValueGet(id, this.$route.query[id])
+              )
             )
+            const paramString = this.stringify(id, paramValue)
+            const queryString = this.stringify(id, queryValue)
 
-            const paramValue = this.valueStringify(id, values[id])
-
-            if (!queryValue && paramValue) {
-              urlParams[id] = paramValue
-            } else if (queryValue && queryValue !== this.$route.query[id]) {
-              urlParams[id] = queryValue
+            if (!queryString && paramString) {
+              queryParams[id] = paramValue
+            } else if (queryString && queryString !== this.$route.query[id]) {
+              // si le paramètre d'URL a été nettoyé, on le met à jour dans l'URL
+              queryParams[id] = queryValue
             }
 
-            if (queryValue && queryValue !== paramValue) {
-              eventParams[id] = this.queryValueParse(id, queryValue)
+            if (queryString && queryString !== paramString) {
+              eventParams[id] = queryValue
             }
 
-            return { urlParams, eventParams }
+            return { queryParams, eventParams }
           },
-          { urlParams: {}, eventParams: {} }
+          { queryParams: {}, eventParams: {} }
         )
 
-      const { urlParams, eventParams } = paramsBuild(this.values)
+      const { queryParams, eventParams } = paramsBuild(this.values)
 
-      if (Object.keys(urlParams).length) {
-        this.update(urlParams)
+      if (Object.keys(queryParams).length) {
+        this.update(queryParams)
       }
 
       if (Object.keys(eventParams).length) {
@@ -97,10 +100,6 @@ export default {
 
       if (!(id in this.params)) return value
 
-      if (this.params[id] && this.params[id].type === 'number') {
-        return Number(value)
-      }
-
       return value || null
     },
 
@@ -109,18 +108,20 @@ export default {
 
       if (!this.params[id] || !this.params[id].type) {
         return value
-      } else if (this.params[id].type === 'number') {
-        value = Number(value)
-        if (!value) {
-          value = null
-        } else if (this.params[id].max && value > this.params[id].max) {
+      }
+
+      if (this.params[id].type === 'number') {
+        if (this.params[id].max && value > this.params[id].max) {
           value = this.params[id].max
         } else if (this.params[id].min && value < this.params[id].min) {
           value = this.params[id].min
         }
-      } else if (this.params[id].type === 'array' && this.params[id].elements) {
+
+        return value
+      }
+
+      if (this.params[id].type === 'array' && this.params[id].elements) {
         value = value
-          .split(',')
           .reduce((acc, v) => {
             if (this.params[id].elements.includes(v)) {
               acc.push(v)
@@ -128,33 +129,42 @@ export default {
 
             return acc
           }, [])
-          .join(',')
-      } else if (this.params[id].type === 'string') {
-        value = value.toString()
+          .sort()
 
-        if (
-          this.params[id].elements &&
+        return value
+      }
+
+      if (this.params[id].type === 'tuple') {
+        return !Number(value[0]) || !Number(value[1]) ? null : value
+      }
+
+      if (this.params[id].type === 'string') {
+        return this.params[id].elements &&
           !this.params[id].elements.includes(value)
-        ) {
-          value = null
-        }
-      } else if (this.params[id].type === 'tuple') {
-        const values = value.split(',')
-        if (!Number(values[0]) || !Number(values[1])) {
-          value = null
-        }
+          ? null
+          : value
+      }
+
+      if (this.params[id].type === 'arrayObjects') {
+        // TODO: retirer les valeurs incorrectes
+
+        return value.length ? value : null
       }
 
       return value
     },
 
     queryValueParse(id, value) {
+      if (!value) return null
+
       if (!this.params[id] || !this.params[id].type) {
         return value
       }
 
       if (this.params[id].type === 'number') {
-        return Number(value)
+        value = Number(value)
+
+        return isNaN(value) ? null : value
       }
 
       if (this.params[id].type === 'array') {
@@ -168,9 +178,15 @@ export default {
       if (this.params[id].type === 'tuple') {
         return value.split(',')
       }
+
+      if (this.params[id].type === 'arrayObjects') {
+        return JSON.parse(value)
+      }
+
+      return value
     },
 
-    valueStringify(id, value) {
+    stringify(id, value) {
       if (!(id in this.params)) return value
 
       if (!value) return null
@@ -179,11 +195,36 @@ export default {
         this.params[id].type === 'array' ||
         this.params[id].type === 'tuple'
       ) {
-        return value.length ? value.slice().join(',') : null
+        return value.length ? value.join(',') : null
       }
 
       if (this.params[id].type === 'number') {
-        return Number(value)
+        return value.toString()
+      }
+
+      if (this.params[id].type === 'arrayObjects') {
+        if (!value.length) return null
+
+        // entrée <=
+        // [{ b: 2, a: 2 }, { a: 2, b: 1 }, { a: 1, b: 2 }]
+        // sortie =>
+        // [{ a: 1, b: 2 }, { a: 2, b: 1 }, { a: 2, b: 2 }]
+
+        value = value
+          .map(a =>
+            JSON.stringify(
+              Object.keys(a)
+                .sort()
+                .reduce((o, k) => {
+                  o[k] = a[k]
+
+                  return o
+                }, {})
+            )
+          )
+          .sort()
+
+        return `[${value.join(',')}]`
       }
 
       return value
@@ -191,19 +232,30 @@ export default {
 
     update(params) {
       const query = Object.keys(this.$route.query).reduce((query, id) => {
-        query[id] = this.queryValueGet(id, this.$route.query[id])
+        query[id] = this.stringify(
+          id,
+          this.queryValueParse(
+            id,
+            this.queryValueGet(id, this.$route.query[id])
+          )
+        )
 
         return query
       }, {})
 
-      let status
+      let status = 'unchanged'
 
       Object.keys(params).forEach(id => {
-        if ((query[id] || null) !== params[id]) {
-          status = query[id] ? 'updated' : 'created'
+        // on compare avec null si le paramètre n'est pas dans la query
+        const queryString = query[id] || null
+
+        const paramString = this.stringify(id, params[id])
+
+        if (queryString !== paramString) {
+          status = queryString ? 'updated' : 'created'
 
           if (params[id]) {
-            query[id] = params[id]
+            query[id] = paramString
           } else {
             delete query[id]
           }
