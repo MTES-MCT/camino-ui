@@ -12,6 +12,7 @@ const metasActivites = apiQuery(
       activitesTypes {
         ...activiteType
       }
+      activitesAnnees
     }
 
     ${fragmentActiviteType}
@@ -33,9 +34,26 @@ const activiteModifier = apiMutate(gql`
 
 const activites = apiQuery(
   gql`
-    query Activites($typeId: ID!, $annee: Int!) {
-      activites(typeId: $typeId, annee: $annee) {
-        ...activite
+    query Activites(
+      $intervalle: Int
+      $page: Int
+      $colonne: String
+      $ordre: String
+      $typesIds: [ID]
+      $annees: [Int]
+    ) {
+      activites(
+        intervalle: $intervalle
+        page: $page
+        colonne: $colonne
+        ordre: $ordre
+        typesIds: $typesIds
+        annees: $annees
+      ) {
+        activites {
+          ...activites
+        }
+        total
       }
     }
 

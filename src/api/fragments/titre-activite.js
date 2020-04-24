@@ -58,7 +58,7 @@ const fragmentTitreActivite = gql`
 `
 
 const fragmentActivite = gql`
-  fragment activite on Activite {
+  fragment activites on Activite {
     id
     titre {
       id

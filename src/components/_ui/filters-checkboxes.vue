@@ -70,7 +70,12 @@ export default {
         return value
       }
 
-      this.filter.value = idsSet(e.target.value, this.filter.value)
+      const target =
+        this.filter && this.filter.elementsType === 'numbers'
+          ? Number(e.target.value)
+          : e.target.value
+
+      this.filter.value = idsSet(target, this.filter.value)
     },
 
     checkboxesSelect(action) {
