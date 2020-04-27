@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.29](https://github.com/MTES-MCT/camino-ui/compare/v0.22.28...v0.22.29) (2020-04-27)
+
+
+### Bug Fixes
+
+* corrige une erreur dans la config de l'url des titres ([88b03bc](https://github.com/MTES-MCT/camino-ui/commit/88b03bc99e42bd2a8b76d42ff3d3f138249e6f00))
+
 ### [0.22.28](https://github.com/MTES-MCT/camino-ui/compare/v0.22.27...v0.22.28) (2020-04-27)
 
 
