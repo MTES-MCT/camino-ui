@@ -24,7 +24,7 @@ export const state = {
 
     {
       id: 'colonne',
-      type: 'array',
+      type: 'string',
       elements: ['nom', 'domaine', 'type', 'statut', 'activitesTotal']
     },
     {

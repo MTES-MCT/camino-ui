@@ -26,6 +26,10 @@ export default {
         this.update(values)
       },
       deep: true
+    },
+
+    $route: function(to, from) {
+      this.init()
     }
   },
 
@@ -240,13 +244,12 @@ export default {
       let status = 'unchanged'
 
       Object.keys(params).forEach(id => {
-        // on compare avec null si le paramètre n'est pas dans la query
         const queryString = query[id] || null
-
         const paramString = this.stringify(id, params[id])
 
+        // on compare avec null si le paramètre n'est pas dans la query
         if (queryString !== paramString) {
-          status = queryString ? 'updated' : 'created'
+          status = queryString || status === 'updated' ? 'updated' : 'created'
 
           if (params[id]) {
             query[id] = paramString
@@ -261,6 +264,8 @@ export default {
       } else if (status === 'created') {
         this.$router.replace({ query })
       }
+
+      this.$emit('loaded')
     }
   }
 }
