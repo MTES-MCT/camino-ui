@@ -58,12 +58,9 @@ export default {
         Object.keys(params).reduce(
           ({ queryParams, eventParams }, id) => {
             const paramValue = params[id]
-            const queryValue = this.queryValueClean(
+            const queryValue = this.clean(
               id,
-              this.queryValueParse(
-                id,
-                this.queryValueGet(id, this.$route.query[id])
-              )
+              this.parse(id, this.get(id, this.$route.query[id]))
             )
             const paramString = this.stringify(id, paramValue)
             const queryString = this.stringify(id, queryValue)
@@ -95,7 +92,7 @@ export default {
       }
     },
 
-    queryValueGet(id, value) {
+    get(id, value) {
       if (!value) return null
 
       if (!(id in this.params)) return value
@@ -103,7 +100,7 @@ export default {
       return value || null
     },
 
-    queryValueClean(id, value) {
+    clean(id, value) {
       if (!value) return null
 
       if (!this.params[id] || !this.params[id].type) {
@@ -145,7 +142,7 @@ export default {
           : value
       }
 
-      if (this.params[id].type === 'arrayObjects') {
+      if (this.params[id].type === 'objects') {
         // TODO: retirer les valeurs incorrectes
 
         return value.length ? value : null
@@ -154,7 +151,7 @@ export default {
       return value
     },
 
-    queryValueParse(id, value) {
+    parse(id, value) {
       if (!value) return null
 
       if (!this.params[id] || !this.params[id].type) {
@@ -179,7 +176,7 @@ export default {
         return value.split(',')
       }
 
-      if (this.params[id].type === 'arrayObjects') {
+      if (this.params[id].type === 'objects') {
         return JSON.parse(value)
       }
 
@@ -202,7 +199,7 @@ export default {
         return value.toString()
       }
 
-      if (this.params[id].type === 'arrayObjects') {
+      if (this.params[id].type === 'objects') {
         if (!value.length) return null
 
         // entrée <=
@@ -234,10 +231,7 @@ export default {
       const query = Object.keys(this.$route.query).reduce((query, id) => {
         query[id] = this.stringify(
           id,
-          this.queryValueParse(
-            id,
-            this.queryValueGet(id, this.$route.query[id])
-          )
+          this.parse(id, this.get(id, this.$route.query[id]))
         )
 
         return query
