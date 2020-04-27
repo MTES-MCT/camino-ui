@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.28](https://github.com/MTES-MCT/camino-ui/compare/v0.22.27...v0.22.28) (2020-04-27)
+
+
+### Features
+
+* gère les paramètres d'url pour les filtres etapesIncluses/etapesExclues ([#99](https://github.com/MTES-MCT/camino-ui/issues/99)) ([defadd9](https://github.com/MTES-MCT/camino-ui/commit/defadd9f03566cd29bbce46177a0fdfe43685ef2))
+* **demarches:** filtre par étapes incluses ou exclues ([#98](https://github.com/MTES-MCT/camino-ui/issues/98)) ([2ca1d88](https://github.com/MTES-MCT/camino-ui/commit/2ca1d88a3b6fcfde83916876a3c03a56e1c5c993))
+* ajoute un lien depuis l'utilisateur vers l'entreprise ([126e86f](https://github.com/MTES-MCT/camino-ui/commit/126e86f5461ba5c6c93cd28511ef225ba1c53293))
+* **carte:** précisie le message  sur carte BRGM ([#95](https://github.com/MTES-MCT/camino-ui/issues/95)) ([96be248](https://github.com/MTES-MCT/camino-ui/commit/96be2489bfdbb97933a87e1e74eef9a87e591583))
+
+
+### Bug Fixes
+
+* corrige la pagination des tables ([#96](https://github.com/MTES-MCT/camino-ui/issues/96)) ([083ebaf](https://github.com/MTES-MCT/camino-ui/commit/083ebaf4a2dddfa6c611662b0bea0274c69a7906))
+* **stats:** corrige le suivi des téléchargements ([#94](https://github.com/MTES-MCT/camino-ui/issues/94)) ([87ba25f](https://github.com/MTES-MCT/camino-ui/commit/87ba25ffe0b944b190b6233c98b2e65e167edbc6))
+
 ### [0.22.27](https://github.com/MTES-MCT/camino-ui/compare/v0.22.26...v0.22.27) (2020-04-20)
 
 
