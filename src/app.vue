@@ -6,7 +6,10 @@
       slot="menu"
     />
 
-    <PageHeader slot="header" />
+    <PageHeader
+      slot="header"
+      class="mb"
+    />
 
     <Messages
       id="cmn-app-messages"
@@ -34,8 +37,8 @@
 <script>
 import Page from './components/_ui/page.vue'
 import Messages from './components/_ui/messages.vue'
-import PageHeader from './components/page-header.vue'
-import PageFooter from './components/page-footer.vue'
+import PageHeader from './components/page/header.vue'
+import PageFooter from './components/page/footer.vue'
 import Error from './components/error.vue'
 
 export default {

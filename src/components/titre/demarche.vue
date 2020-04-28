@@ -1,50 +1,51 @@
 <template>
-  <div class="mb">
-    <div class="card-border mb" />
+  <div class="mb-xxl">
+    <div class="line mb-xxl" />
     <div class="tablet-blobs">
-      <div class="tablet-blob-3-4">
-        <h3 class="cap-first mb-s">
+      <div class="tablet-blob-1-2">
+        <h2 class="cap-first">
           {{ demarche.type.nom }}
-        </h3>
-        <h4>
-          <Dot :color="`bg-${demarche.statut.couleur}`" /><span
-            class="cap-first"
-          >
-            {{ demarche.statut.nom }}
-          </span>
-        </h4>
+        </h2>
+        <div class="mb">
+          <Statut
+            :color="demarche.statut.couleur"
+            :nom="demarche.statut.nom"
+            :mini="true"
+          />
+        </div>
       </div>
-      <div class="tablet-blob-1-4 flex">
+      <div class="tablet-blob-1-2 flex">
         <div
-          v-if="demarche.modification || demarche.suppression"
-          class="flex-right"
+          v-if="demarche.modification || demarche.suppression || demarche.etapesCreation"
+          class="flex-right mb flex"
         >
           <button
-            v-if="demarche.suppression"
-            class="btn-border rnd-l-xs py-s px-m mb"
-            @click="removePopupOpen"
+            v-if="demarche.etapesCreation"
+            class="btn rnd-l-xs py-s px-m h5 flex mr-line"
+            :class="{'rnd-r-xs': !demarche.suppression && !demarche.modification }"
+            @click="etapeAddPopupOpen"
           >
-            <i class="icon-24 icon-trash" />
+            Ajouter une étape
           </button>
           <button
             v-if="demarche.modification"
-            class="btn-border rnd-r-xs py-s px-m mb"
-            :class="{'rnd-l-xs': !demarche.suppression }"
+            class="btn py-s px-m mr-line"
+            :class="{'rnd-l-xs': !demarche.etapesCreation }"
             @click="editPopupOpen"
           >
             <i class="icon-24 icon-pencil" />
           </button>
+          <button
+            v-if="demarche.suppression"
+            class="btn rnd-r-xs py-s px-m mr-line"
+            :class="{'rnd-l-xs': !demarche.modification }"
+            @click="removePopupOpen"
+          >
+            <i class="icon-24 icon-trash" />
+          </button>
         </div>
       </div>
     </div>
-
-    <button
-      v-if="demarche.etapesCreation"
-      class="btn-border rnd-xs py-s px-m full-x flex mb"
-      @click="etapeAddPopupOpen"
-    >
-      Ajouter une étape <i class="icon-24 icon-plus flex-right" />
-    </button>
 
     <TitreEtape
       v-for="etape in demarche.etapes"
@@ -57,7 +58,7 @@
 </template>
 
 <script>
-import Dot from '../_ui/dot.vue'
+import Statut from '../_common/statut.vue'
 import EtapeEditPopup from './etape/edit.vue'
 import TitreEtape from './etape.vue'
 import EditPopup from './demarche-edit-popup.vue'
@@ -65,7 +66,7 @@ import RemovePopup from './demarche-remove-popup.vue'
 
 export default {
   components: {
-    Dot,
+    Statut,
     TitreEtape
   },
 

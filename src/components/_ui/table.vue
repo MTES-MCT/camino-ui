@@ -50,58 +50,24 @@
         </RouterLink>
       </div>
     </div>
-    <div class="desktop-blobs">
-      <div class="desktop-blob-3-4">
-        <Pagination
-          :page-active="page"
-          :pages-total="pages"
-          :pages-visible="5"
-          @page:update="pageUpdate"
-        />
-      </div>
-      <div class="desktop-blob-1-4">
-        <Ranges
-          v-if="total > 10"
-          :ranges="ranges"
-          :range="range"
-          @range:update="rangeUpdate"
-        />
-        <Columns
-          :columns="columns"
-          class="hide"
-          @columns:update="columnsUpdate"
-        />
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import Accordion from './accordion.vue'
-import Pagination from './pagination.vue'
-import Ranges from './ranges.vue'
-import Columns from './columns.vue'
 
 export default {
   name: 'UiTable',
 
   components: {
-    Accordion,
-    Pagination,
-    Ranges,
-    Columns
+    Accordion
   },
 
   props: {
-    total: { type: Number, default: 0 },
     rows: { type: Array, required: true },
     columns: { type: Array, required: true },
-    range: { type: Number, default: 200 },
-    page: { type: Number, default: 1 },
-    pages: { type: Number, default: 1 },
     order: { type: String, default: 'asc' },
-    column: { type: String, default: '' },
-    ranges: { type: Array, default: () => [10, 50, 200, 500] }
+    column: { type: String, default: '' }
   },
 
   watch: {
@@ -109,18 +75,6 @@ export default {
   },
 
   methods: {
-    pageUpdate(page) {
-      this.update({ page })
-    },
-
-    rangeUpdate(range) {
-      this.update({ range, page: 1 })
-    },
-
-    columnsUpdate(columnIds) {
-      console.info(columnIds)
-    },
-
     update(params) {
       this.$emit('params:update', params)
     },

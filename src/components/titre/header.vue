@@ -1,62 +1,94 @@
 <template>
   <div>
     <div class="tablet-blobs">
-      <div class="tablet-blob-1-2">
-        <h1>{{ titre.nom }}</h1>
+      <div class="tablet-blob-3-4">
+        <h1 class="mt-xs mb-s">
+          {{ titre.nom }}
+        </h1>
       </div>
-      <div class="tablet-blob-1-2 flex">
+      <div class="tablet-blob-1-4 flex">
         <div
           v-if="titre.modification || titre.suppression"
-          class="flex-right"
+          class="tablet-flex-right mb-s"
         >
           <button
-            v-if="titre.suppression"
-            class="btn-border rnd-l-xs py-s px-m mb"
-            @click="removePopupOpen"
-          >
-            <i class="icon-24 icon-trash" />
-          </button>
-
-          <button
             v-if="titre.modification"
-            class="btn-border rnd-r-xs py-s px-m mb"
-            :class="{'rnd-l-xs': !titre.suppression }"
+            class="btn rnd-l-xs py-s px-m mr-line"
+            :class="{'rnd-r-xs': !titre.suppression }"
             @click="editPopupOpen"
           >
             <i class="icon-24 icon-pencil" />
+          </button>
+          <button
+            v-if="titre.suppression"
+            class="btn rnd-r-xs py-s px-m"
+            @click="removePopupOpen"
+          >
+            <i class="icon-24 icon-trash" />
           </button>
         </div>
       </div>
     </div>
 
-    <div class="desktop-blobs">
-      <div class="desktop-blob-1-2">
-        <h4 class="mb">
-          <Pill
-            :color="`bg-titre-domaine-${titre.domaine.id}`"
-            class="mono mr-s mt--s"
-          >
-            {{ titre.domaine.id }}
-          </Pill>
-          <span class="cap-first">
-            {{ titre.type.type.nom }}
-          </span>
-        </h4>
-      </div>
-      <div class="desktop-blob-1-2">
-        <h6>Statut</h6>
-        <h4>
-          <Dot :color="`bg-${titre.statut.couleur}`" />
-          <span class="cap-first">
-            {{ titre.statut.nom }}
-          </span>
-        </h4>
-      </div>
-    </div>
+    <div class="line" />
 
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
-        <div v-if="titre.references && titre.references.length">
+        <div class="rnd-b-s bg-alt p">
+          <h4 class="mb">
+            <Pill
+              :color="`bg-titre-domaine-${titre.domaine.id}`"
+              class="mono mr-s mt--m"
+            >
+              {{ titre.domaine.id }}
+            </Pill>
+            <span class="cap-first">
+              {{ titre.type.type.nom }}
+            </span>
+          </h4>
+
+
+          <div class="mb">
+            <Statut
+              :color="titre.statut.couleur"
+              :nom="titre.statut.nom"
+            />
+          </div>
+
+
+          <div v-if="phases && phases.length">
+            <table class="table-xxs full-x mb-0">
+              <tr>
+                <th class="max-width-1" />
+                <th>Phase</th>
+                <th>Début</th>
+                <th>Fin</th>
+              </tr>
+              <tr
+                v-for="demarche in phases"
+                :key="demarche.id"
+              >
+                <td class="max-width-1">
+                  <Dot :color="`bg-${demarche.phase.statut.couleur}`" />
+                </td>
+                <td>
+                  <span class="cap-first bold h5">
+                    {{ demarche.type.nom }}
+                  </span>
+                </td>
+                <td><span class="h5">{{ demarche.phase.dateDebut | dateFormat }}</span></td>
+                <td><span class="h5">{{ demarche.phase.dateFin | dateFormat }}</span></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="desktop-blob-1-2 mt">
+        <div
+          v-if="titre.references && titre.references.length"
+          class="mb"
+        >
           <h6>
             {{ titre.references.length > 1 ? 'Références' : 'Référence' }}
           </h6>
@@ -75,44 +107,19 @@
             </li>
           </ul>
         </div>
-      </div>
-      <div
-        v-if="phases && phases.length"
-        class="desktop-blob-1-2"
-      >
-        <table class="table-xxs">
-          <tr>
-            <th />
-            <th>Phase</th>
-            <th>Début</th>
-            <th>Fin</th>
-          </tr>
-          <tr
-            v-for="demarche in phases"
-            :key="demarche.id"
-          >
-            <td><Dot :color="`bg-${demarche.phase.statut.couleur}`" /></td>
-            <td>
-              <span class="cap-first">
-                {{ demarche.type.nom }}
-              </span>
-            </td>
-            <td>{{ demarche.phase.dateDebut | dateFormat }}</td>
-            <td>{{ demarche.phase.dateFin | dateFormat }}</td>
-          </tr>
-        </table>
-      </div>
-    </div>
 
-    <div class="desktop-blobs">
-      <div class="desktop-blob-1-2">
-        <div v-if="titre.substances && titre.substances.length > 0">
+        <div
+          v-if="titre.substances && titre.substances.length > 0"
+          class="mb"
+        >
           <h6>Substances</h6>
           <PillList :elements="titre.substances.map(s => s.nom)" />
         </div>
-      </div>
-      <div class="desktop-blob-1-2">
-        <div v-if="titre.titulaires.length">
+
+        <div
+          v-if="titre.titulaires.length"
+          class="mb"
+        >
           <h6>
             {{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}
           </h6>
@@ -126,7 +133,10 @@
           </ul>
         </div>
 
-        <div v-if="titre.amodiataires.length">
+        <div
+          v-if="titre.amodiataires.length"
+          class="mb"
+        >
           <h6>
             {{ titre.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}
           </h6>
@@ -149,24 +159,6 @@
             :contenu="titre.contenu[s.id]"
           />
         </div>
-
-        <div v-if="titre['liens']">
-          <h6>Liens</h6>
-          <ul class="list-sans">
-            <li
-              v-for="link in titre['liens']"
-              :key="link.id"
-              class="mb-xs"
-            >
-              <RouterLink
-                :to="{ name: 'titre', params: { id: link.id } }"
-                class="btn h6 bold py-xs px-s rnd"
-              >
-                {{ link['type'] }} : {{ link['nom'] }}
-              </RouterLink>
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
   </div>
@@ -179,9 +171,10 @@ import Dot from '../_ui/dot.vue'
 import EditPopup from './edit-popup.vue'
 import RemovePopup from './remove-popup.vue'
 import Section from '../_common/section.vue'
+import Statut from '../_common/statut.vue'
 
 export default {
-  components: { Pill, Dot, PillList, Section },
+  components: { Pill, Dot, PillList, Section, Statut },
 
   props: {
     titre: {

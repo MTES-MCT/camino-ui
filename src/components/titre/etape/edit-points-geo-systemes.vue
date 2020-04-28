@@ -26,7 +26,7 @@
           </option>
         </select>
         <button
-          class="btn-border py-s px-m rnd-xs"
+          class="btn py-s px-m rnd-xs"
           @click="geoSystemeRemove(etapeGeoSystemeIndex)"
         >
           <i class="icon-24 icon-minus" />
@@ -53,10 +53,10 @@
     </div>
     <button
       v-if="!etape.geoSystemeIds.some(id => !id)"
-      class="btn-border rnd-xs py-s px-m full-x flex"
+      class="btn rnd-xs py-s px-m full-x flex h5"
       @click="geoSystemeAdd"
     >
-      Ajouter un système géographique<i class="icon-24 icon-plus flex-right" />
+      <span class="mt-xxs">Ajouter un système géographique</span><i class="icon-24 icon-plus flex-right" />
     </button>
   </div>
 </template>

@@ -5,6 +5,10 @@
 https://github.com/francoisromain/postcss-grid-fluid
 */
 
+:root {
+  --container-width: 100%;
+}
+
 @gf {
   gutter: var(--gutter);
   display: flex;
@@ -15,7 +19,7 @@ https://github.com/francoisromain/postcss-grid-fluid
   padding-right: var(--container-padding);
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: var(--container-width);
 }
 
 .blobs {
@@ -196,8 +200,8 @@ https://github.com/francoisromain/postcss-grid-fluid
 }
 
 @media (--viewport-desktop) {
-  .container {
-    width: calc(3 * var(--col-width) + var(--gutter));
+  :root {
+    --container-width: calc(3 * var(--col-width) + var(--gutter));
   }
 
   .desktop-flex {
@@ -246,8 +250,8 @@ https://github.com/francoisromain/postcss-grid-fluid
 }
 
 @media (--viewport-large) {
-  .container {
-    width: calc(4 * var(--col-width) + var(--gutter));
+  :root {
+    --container-width: calc(4 * var(--col-width) + var(--gutter));
   }
 
   .large-blobs {

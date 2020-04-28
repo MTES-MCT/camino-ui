@@ -10,7 +10,7 @@
       <div class="tablet-blob-2-3">
         <div
           class="tablet-blobs"
-          :class="{ 'mb-s': etape.duree.ans || etape.duree.mois, mb: !etape.duree.ans && !etape.duree.mois }"
+          :class="{ 'mb-s': !etape.duree.ans && !etape.duree.mois }"
         >
           <div class="tablet-blob-1-2">
             <input
@@ -161,7 +161,7 @@
           </option>
         </select>
         <button
-          class="btn-border py-s px-m rnd-xs"
+          class="btn py-s px-m rnd-xs"
           @click="titulaireRemove(n)"
         >
           <i class="icon-24 icon-minus" />
@@ -171,11 +171,11 @@
 
     <button
       v-if="!etape.titulaires.some(({ id }) => id === '')"
-      class="btn-border rnd-xs py-s px-m full-x flex"
+      class="btn rnd-xs py-s px-m full-x flex h5"
       :class="{ 'mb-s': titulairesLength, mb: !titulairesLength }"
       @click="titulaireAdd"
     >
-      Ajouter un titulaire<i class="icon-24 icon-plus flex-right" />
+      <span class="mt-xxs">Ajouter un titulaire</span><i class="icon-24 icon-plus flex-right" />
     </button>
 
     <label
@@ -217,7 +217,7 @@
           </option>
         </select>
         <button
-          class="btn-border py-s px-m rnd-xs"
+          class="btn py-s px-m rnd-xs"
           @click="amodiataireRemove(n)"
         >
           <i class="icon-24 icon-minus" />
@@ -227,11 +227,11 @@
 
     <button
       v-if="!etape.amodiataires.some(({ id }) => id === '')"
-      class="btn-border rnd-xs py-s px-m full-x flex"
+      class="btn rnd-xs py-s px-m full-x flex h5"
       :class="{ 'mb-s': amodiatairesLength, mb: !amodiatairesLength }"
       @click="amodiataireAdd"
     >
-      Ajouter un amodiataire<i class="icon-24 icon-plus flex-right" />
+      <span class="mt-xxs">Ajouter un amodiataire</span><i class="icon-24 icon-plus flex-right" />
     </button>
 
     <label
@@ -273,7 +273,7 @@
           </option>
         </select>
         <button
-          class="btn-border py-s px-m rnd-xs"
+          class="btn py-s px-m rnd-xs"
           @click="substanceRemove(n)"
         >
           <i class="icon-24 icon-minus" />
@@ -283,11 +283,11 @@
 
     <button
       v-if="!etape.substances.some(({ id }) => id === '')"
-      class="btn-border rnd-xs py-s px-m full-x flex"
+      class="btn rnd-xs py-s px-m full-x flex h5"
       :class="{ 'mb-s': substancesLength, mb: !substancesLength }"
       @click="substanceAdd"
     >
-      Ajouter une substance<i class="icon-24 icon-plus flex-right" />
+      <span class="mt-xxs">Ajouter une substance</span><i class="icon-24 icon-plus flex-right" />
     </button>
 
     <label

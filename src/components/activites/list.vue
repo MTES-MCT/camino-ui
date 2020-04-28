@@ -1,16 +1,17 @@
 <template>
   <div>
+    <div class="line-neutral mb" />
     <div
       v-for="annee in activitesByYear"
       :key="annee.id"
     >
-      <div class="card-border mb" />
       <h2>{{ annee.id }}</h2>
       <ActiviteDetail
         v-for="activite in annee.activites"
         :key="activite.id"
         :activite="activite"
       />
+      <div class="line mb" />
     </div>
   </div>
 </template>

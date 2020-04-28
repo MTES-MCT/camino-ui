@@ -121,7 +121,7 @@ video {
 
 input:-webkit-autofill,
 select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px white inset;
+  -webkit-box-shadow: 0 0 0 var(--margin-negative) white inset;
 }
 
 /* remove round corner on iOs */

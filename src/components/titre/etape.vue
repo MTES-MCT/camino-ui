@@ -1,56 +1,50 @@
 <template>
   <Accordion
     ref="accordion"
-    class="mb"
+    class="mb-s"
   >
-    <template slot="section">
-      {{ etape.date | dateFormat }}
-      <span
-        v-if="etape.incertitudes && etape.incertitudes.date"
-        class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-      >?</span>
-    </template>
-
     <template slot="title">
-      <Dot :color="`bg-${etape.statut.couleur}`" />
-      <span class="cap-first">
+      <h3 class="cap-first mb mt-xs">
         {{ etape.type.nom }}
-      </span>
+      </h3>
+      <div class="mb-xs">
+        <Statut
+          :color="etape.statut.couleur"
+          :nom="`${etape.statut.nom} : ${dateFormat(etape.date)}`"
+          :mini="true"
+        />
+        <span
+          v-if="etape.incertitudes && etape.incertitudes.date"
+          class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
+        >?</span>
+      </div>
     </template>
 
     <template
       v-if="etape.modification || etape.suppression"
       slot="buttons"
     >
-      <button
-        v-if="etape.suppression"
-        class="btn-alt py-s px-m"
-        @click="removePopupOpen"
-      >
-        <i class="icon-24 icon-trash" />
-      </button>
-
+      <DocumentButtonAdd
+        :etape-id="etape.id"
+        :demarche-type-nom="demarcheType.nom"
+        :etape-type-nom="etape.type.nom"
+        :titre-nom="titreNom"
+        class="btn py-s px-m mr-line"
+      />
       <button
         v-if="etape.modification"
-        class="btn-alt py-s px-m"
+        class="btn py-s px-m mr-line"
         @click="editPopupOpen"
       >
         <i class="icon-24 icon-pencil" />
       </button>
-    </template>
-
-    <template
-      v-if="etape.modification"
-      slot="sub"
-    >
-      <div class="px-m pt-m">
-        <DocumentButtonAdd
-          :etape-id="etape.id"
-          :demarche-type-nom="demarcheType.nom"
-          :etape-type-nom="etape.type.nom"
-          :titre-nom="titreNom"
-        />
-      </div>
+      <button
+        v-if="etape.suppression"
+        class="btn py-s px-m"
+        @click="removePopupOpen"
+      >
+        <i class="icon-24 icon-trash" />
+      </button>
     </template>
 
     <div v-if="hasSections || hasProps || etape.documents.length">
@@ -87,7 +81,6 @@
 </template>
 
 <script>
-import Dot from '../_ui/dot.vue'
 import Accordion from '../_ui/accordion.vue'
 import Documents from './documents.vue'
 import EditPopup from './etape/edit.vue'
@@ -95,6 +88,7 @@ import RemovePopup from './etape/remove.vue'
 import DocumentButtonAdd from './document/button-add.vue'
 import EtapeProps from './etape/props.vue'
 import Section from '../_common/section.vue'
+import Statut from '../_common/statut.vue'
 
 import { etapeEditFormat } from './etape'
 
@@ -102,12 +96,12 @@ export default {
   name: 'CaminoTitreEtape',
 
   components: {
-    Dot,
     Accordion,
     Documents,
     DocumentButtonAdd,
     EtapeProps,
-    Section
+    Section,
+    Statut
   },
 
   props: {

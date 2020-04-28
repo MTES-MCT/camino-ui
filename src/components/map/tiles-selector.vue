@@ -1,5 +1,5 @@
 <template>
-  <Accordion class="mb">
+  <Accordion>
     <template slot="title">
       Fond de carte
     </template>
@@ -8,7 +8,7 @@
         v-for="tile in tiles"
         :key="tile.name"
       >
-        <label>
+        <label class="h5 bold">
           <input
             :value="tile.id"
             :checked="tile.id === tilesId"

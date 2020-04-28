@@ -39,7 +39,7 @@ const lignesBuild = activites =>
       statut: {
         component: Statut,
         props: {
-          color: `bg-${activite.statut.couleur}`,
+          color: activite.statut.couleur,
           nom: activite.statut.nom,
           mini: true
         },

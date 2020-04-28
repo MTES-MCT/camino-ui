@@ -106,7 +106,7 @@
         >
         <div class="flex-right">
           <button
-            class="btn-border py-s px-m rnd-xs"
+            class="btn py-s px-m rnd-xs"
             @click="referenceRemove(index)"
           >
             <i class="icon-24 icon-minus" />
@@ -118,10 +118,10 @@
         v-if="
           titre.references && !titre.references.find(r => !r.typeId || !r.nom)
         "
-        class="btn-border rnd-xs py-s px-m full-x mb flex"
+        class="btn rnd-xs py-s px-m full-x mb flex h5"
         @click="referenceAdd"
       >
-        Ajouter une référence<i class="icon-24 icon-plus flex-right" />
+        <span class="mt-xxs">Ajouter une référence</span><i class="icon-24 icon-plus flex-right" />
       </button>
     </div>
 

@@ -32,7 +32,7 @@ const lignesBuild = demarches =>
       titreStatut: {
         component: Statut,
         props: {
-          color: `bg-${demarche.titre.statut.couleur}`,
+          color: demarche.titre.statut.couleur,
           nom: demarche.titre.statut.nom,
           mini: true
         },
@@ -46,7 +46,7 @@ const lignesBuild = demarches =>
       statut: {
         component: Statut,
         props: {
-          color: `bg-${demarche.statut.couleur}`,
+          color: demarche.statut.couleur,
           nom: demarche.statut.nom,
           mini: true
         },

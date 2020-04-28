@@ -9,7 +9,7 @@
           v-for="titulaire in titulaires"
           :key="titulaire.id"
           :entreprise="titulaire"
-          class="mb"
+          class="mb-s"
         />
       </div>
       <div v-if="amodiataires.length">
@@ -20,7 +20,7 @@
           v-for="amodiatiare in amodiataires"
           :key="amodiatiare.id"
           :entreprise="amodiatiare"
-          class="mb"
+          class="mb-s"
         />
       </div>
     </div>
@@ -32,7 +32,7 @@
           v-for="administration in administrations"
           :key="administration.id"
           :administration="administration"
-          class="mb"
+          class="mb-s"
         />
       </div>
     </div>

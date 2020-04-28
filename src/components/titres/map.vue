@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="width-max-padding bg-alt">
     <Map
       ref="map"
       :tiles-layer="tilesLayer"
@@ -16,39 +16,41 @@
       :zoom="preferences.zoom"
       :tiles-id="tilesId"
     />
-    <div class="desktop-blobs">
-      <div class="desktop-blob-1-2">
-        <ul class="list-inline">
-          <li
-            v-for="z in zones"
-            :key="z.id"
-            class="mr-xs"
-          >
-            <button
-              class="btn-border pill px-m py-s h5"
-              @click="mapCenter(z.id)"
+    <div class="container overflow-auto">
+      <div class="desktop-blobs">
+        <div class="desktop-blob-1-2">
+          <ul class="list-inline">
+            <li
+              v-for="z in zones"
+              :key="z.id"
+              class="mr-xs"
             >
-              {{ z.name }}
-            </button>
-          </li>
-        </ul>
-      </div>
-      <div class="desktop-blob-1-2 flex flex-start">
-        <button
-          class="btn-border pill px-m py-s mb mr-s"
-          @click="clustersDisplayToggle"
-        >
-          <i
-            :class="`icon-markers-${clustersDisplay ? 'ungrouped' : 'grouped'}`"
-            class="icon-24"
+              <button
+                class="btn-border pill px-m py-s h5"
+                @click="mapCenter(z.id)"
+              >
+                {{ z.name }}
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="desktop-blob-1-2 flex flex-start mb-s">
+          <button
+            class="btn-border pill px-m py-s mr-s"
+            @click="clustersDisplayToggle"
+          >
+            <i
+              :class="`icon-markers-${clustersDisplay ? 'ungrouped' : 'grouped'}`"
+              class="icon-24"
+            />
+          </button>
+          <MapTilesSelector
+            :tiles="tiles"
+            :tiles-id="tilesId"
+            class="flex-grow"
+            @params:update="tilesUpdate"
           />
-        </button>
-        <MapTilesSelector
-          :tiles="tiles"
-          :tiles-id="tilesId"
-          class="flex-grow"
-          @params:update="tilesUpdate"
-        />
+        </div>
       </div>
     </div>
   </div>

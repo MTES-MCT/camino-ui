@@ -2,6 +2,7 @@ import gql from 'graphql-tag'
 import { apiMutate, apiQuery } from './_utils'
 
 import {
+  fragmentActivites,
   fragmentActivite,
   fragmentActiviteType
 } from './fragments/titre-activite'
@@ -57,7 +58,7 @@ const activites = apiQuery(
       }
     }
 
-    ${fragmentActivite}
+    ${fragmentActivites}
   `,
   { fetchPolicy: 'network-only' }
 )

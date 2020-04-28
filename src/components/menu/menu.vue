@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-bg">
+  <div class="bg-alt">
     <div class="container pt">
       <div class="tablet-blobs mb flex-align-items-stretch">
         <div class="tablet-blob-1-3 border-l pl-s">

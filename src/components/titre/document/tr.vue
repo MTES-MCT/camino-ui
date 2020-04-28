@@ -10,19 +10,19 @@
     <td>{{ document.nom || '–' }}</td>
     <td class="flex text-right">
       <button
-        v-if="document.suppression"
-        class="btn-border py-s px-m my--xs rnd-l-xs"
-        @click="removePopupOpen"
-      >
-        <i class="icon-24 icon-trash" />
-      </button>
-      <button
         v-if="document.modification"
-        class="btn-border py-s px-m my--xs"
-        :class="{ 'rnd-r-xs': !document.url && !document.fichier }"
+        class="btn rnd-l-xs py-s px-m my--xs mr-line"
         @click="editPopupOpen"
       >
         <i class="icon-24 icon-pencil" />
+      </button>
+      <button
+        v-if="document.suppression"
+        class="btn py-s px-m my--xs"
+        :class="{ 'rnd-r-xs': !document.url && !document.fichier }"
+        @click="removePopupOpen"
+      >
+        <i class="icon-24 icon-trash" />
       </button>
 
       <button

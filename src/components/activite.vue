@@ -1,13 +1,10 @@
 <template>
-  <Card v-if="!loaded">
-    <Loader />
-  </Card>
-  <Card v-else>
+  <Loader v-if="!loaded" />
+  <div v-else>
     <h6>Activité</h6>
     <h1 class="cap-first">
-      {{ activite.type.nom }}
+      {{ activite.titre.nom }}
     </h1>
-    <h3>{{ activite.titre.nom }}</h3>
     <Accordion
       class="mb"
       sub="true"
@@ -17,10 +14,19 @@
       </template>
 
       <template slot="title">
-        <Dot :color="`bg-${activite.statut.couleur}`" /> <span
-          class="cap-first"
-        ><span v-if="activite.periode && activite.periode.nom">{{ activite.periode.nom }} </span> {{ activite.annee }}
-        </span>
+        <h6>
+          <span class="cap-first">{{ activite.type.nom }}</span>
+        </h6>
+        <h3>
+          <span class="cap-first"><span v-if="activite.periode && activite.periode.nom">{{ activite.periode.nom }} </span> {{ activite.annee }}</span>
+        </h3>
+        <div class="mb-xs">
+          <Statut
+            :color="activite.statut.couleur"
+            :nom="activite.statut.nom"
+            :mini="true"
+          />
+        </div>
       </template>
 
       <template slot="buttons">
@@ -54,22 +60,20 @@
         </div>
       </template>
     </Accordion>
-  </Card>
+  </div>
 </template>
 
 <script>
-import Card from './_ui/card.vue'
-import Dot from './_ui/dot.vue'
 import Loader from './_ui/loader.vue'
 import Accordion from './_ui/accordion.vue'
 import ActiviteButton from './activite/button.vue'
 import Section from './_common/section.vue'
+import Statut from './_common/statut.vue'
 
 export default {
   components: {
     Loader,
-    Card,
-    Dot,
+    Statut,
     Accordion,
     ActiviteButton,
     Section

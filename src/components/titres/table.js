@@ -73,7 +73,7 @@ const lignesBuild = (titres, activitesCol) =>
       statut: {
         component: Statut,
         props: {
-          color: `bg-${titre.statut.couleur}`,
+          color: titre.statut.couleur,
           nom: titre.statut.nom,
           mini: true
         },

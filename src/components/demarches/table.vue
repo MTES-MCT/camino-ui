@@ -1,29 +1,48 @@
 <template>
   <div>
     <Table
-      :total="total"
-      :rows="lignes"
-      :columns="colonnes"
-      :pages="pages"
-      :range="preferences.intervalle"
-      :page="preferences.page"
-      :order="preferences.ordre"
       :column="preferences.colonne"
-      :ranges="[10, 50, 200, 500]"
+      :columns="colonnes"
+      :order="preferences.ordre"
+      :rows="lignes"
+      class="width-max"
       @params:update="preferencesUpdate"
     />
+
+    <div class="desktop-blobs">
+      <div class="desktop-blob-3-4">
+        <Pagination
+          :active="preferences.page"
+          :total="pages"
+          :visibles="5"
+          @page:update="pageUpdate"
+        />
+      </div>
+      <div class="desktop-blob-1-4">
+        <Ranges
+          v-if="total > 10"
+          :ranges="[10, 50, 200, 500]"
+          :range="preferences.intervalle"
+          @range:update="intervalleUpdate"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Table from '../_ui/table.vue'
+import Pagination from '../_ui/pagination.vue'
+import Ranges from '../_ui/ranges.vue'
 import { colonnes, lignesBuild } from './table'
 
 export default {
   name: 'Titres',
 
   components: {
-    Table
+    Table,
+    Pagination,
+    Ranges
   },
 
   props: {
@@ -66,6 +85,14 @@ export default {
   },
 
   methods: {
+    pageUpdate(page) {
+      this.preferencesUpdate({ page })
+    },
+
+    intervalleUpdate(range) {
+      this.preferencesUpdate({ range, page: 1 })
+    },
+
     preferencesUpdate(params) {
       if (params.range) {
         params.intervalle = params.range

@@ -1,12 +1,10 @@
 <template>
-  <li class="mr-s">
-    <button
-      class="btn-alt rnd-xs py-s px-m"
-      @click="emailSend"
-    >
-      Signaler une erreur…
-    </button>
-  </li>
+  <button
+    class="btn-alt rnd-xs py-s px-m"
+    @click="emailSend"
+  >
+    Signaler une erreur…
+  </button>
 </template>
 
 <script>

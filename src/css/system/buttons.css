@@ -20,14 +20,14 @@
     var(--color-highlight);
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
   button-background: var(--color-bg) var(--color-neutral) var(--color-highlight);
-  button-class: active disabled;
+  button-class: active disabled true;
 }
 
 .btn-tab {
-  button-border: var(--unit-line) var(--color-alt) var(--color-alt)
+  button-border: var(--unit-line) var(--color-alt) var(--color-neutral)
     var(--color-highlight);
-  button-color: var(--color-text) var(--color-text) var(--color-bg);
-  button-background: var(--color-transparent) var(--color-alt)
+  button-color: var(--color-text) var(--color-bg) var(--color-bg);
+  button-background: var(--color-transparent) var(--color-neutral)
     var(--color-highlight);
   button-class: active disabled;
 }
@@ -46,7 +46,7 @@
 }
 
 .btn-transparent {
-  button-color: var(--color-neutral) var(--color-inverse) var(--color-text);
+  button-color: var(--color-text) var(--color-neutral) var(--color-inverse);
   button-background: var(--color-transparent) var(--color-transparent)
     var(--color-transparent);
   button-class: active disabled false;

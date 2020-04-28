@@ -1,11 +1,11 @@
 <template>
   <ul
-    v-if="pagesTotal > 1"
+    v-if="total > 1"
     class="list-inline"
   >
     <li class="mb-0 mr-xs">
       <button
-        :disabled="pageActive === 1"
+        :disabled="active === 1"
         class="btn-border rnd-xs px-m py-s"
         @click="pageChange(1)"
       >
@@ -14,15 +14,15 @@
     </li>
     <li class="mb-0 mr-xs">
       <button
-        :disabled="pageActive === 1"
+        :disabled="active === 1"
         class="btn-border rnd-xs px-m py-s"
-        @click="pageChange(pageActive - 1)"
+        @click="pageChange(active - 1)"
       >
         ‹
       </button>
     </li>
     <li
-      v-if="pageActive > delta + 1"
+      v-if="active > delta + 1"
       class="mb-0 mr-xs"
     >
       <div class="px-m py-s">
@@ -32,7 +32,7 @@
     <li
       v-for="page in pages"
       :key="page"
-      :class="{ active: pageActive === page }"
+      :class="{ active: active === page }"
       class="mb-0 mr-xs"
     >
       <button
@@ -43,7 +43,7 @@
       </button>
     </li>
     <li
-      v-if="pageActive < pagesTotal - delta"
+      v-if="active < total - delta"
       class="mb-0 mr-xs"
     >
       <div class="px-m py-s">
@@ -52,18 +52,18 @@
     </li>
     <li class="mb-0 mr-xs">
       <button
-        :disabled="pageActive === pagesTotal"
+        :disabled="active === total"
         class="btn-border rnd-xs px-m py-s"
-        @click="pageChange(pageActive + 1)"
+        @click="pageChange(active + 1)"
       >
         ›
       </button>
     </li>
     <li class="mb-0 mr-xs">
       <button
-        :disabled="pageActive === pagesTotal"
+        :disabled="active === total"
         class="btn-border rnd-xs px-m py-s"
-        @click="pageChange(pagesTotal)"
+        @click="pageChange(total)"
       >
         »
       </button>
@@ -76,15 +76,15 @@ export default {
   name: 'UiPagination',
 
   props: {
-    pagesTotal: {
+    total: {
       type: Number,
       default: 2
     },
-    pageActive: {
+    active: {
       type: Number,
       default: 1
     },
-    pagesVisible: {
+    visibles: {
       type: Number,
       default: 1
     }
@@ -92,19 +92,19 @@ export default {
 
   computed: {
     delta() {
-      return Math.round((this.pagesVisible - 1) / 2)
+      return Math.round((this.visibles - 1) / 2)
     },
     pages() {
       let filter
-      if (this.pageActive <= this.delta) {
+      if (this.active <= this.delta) {
         filter = n => n <= this.delta * 2 + 1
-      } else if (this.pageActive >= this.pagesTotal - this.delta) {
-        filter = n => n >= this.pagesTotal - this.delta * 2
+      } else if (this.active >= this.total - this.delta) {
+        filter = n => n >= this.total - this.delta * 2
       } else {
         filter = n =>
-          n >= this.pageActive - this.delta && n <= this.pageActive + this.delta
+          n >= this.active - this.delta && n <= this.active + this.delta
       }
-      return Array.from(Array(this.pagesTotal).keys())
+      return Array.from(Array(this.total).keys())
         .map(n => n + 1)
         .filter(filter)
     }

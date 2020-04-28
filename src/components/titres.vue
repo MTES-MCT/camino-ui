@@ -1,17 +1,19 @@
 <template>
-  <Card>
+  <div>
     <div class="desktop-blobs">
       <div class="desktop-blob-2-3">
-        <h1>Titres miniers et autorisations</h1>
+        <h1 class="mt-xs mb-s">
+          Titres miniers et autorisations
+        </h1>
       </div>
 
       <div class="desktop-blob-1-3">
         <button
           v-if="modification"
-          class="btn-border rnd-xs py-s px-m full-x flex mb-s"
+          class="btn rnd-xs py-s px-m full-x flex mb-s h5"
           @click="addPopupOpen"
         >
-          Ajouter un titre <i class="icon-24 icon-plus flex-right" />
+          <span class="mt-xxs">Ajouter un titre</span> <i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
     </div>
@@ -56,7 +58,7 @@
         >
           <button
             v-if="preferences.vueId !== v.id"
-            class="p-m btn-tab rnd-t-xs"
+            class="p-m btn-tab rnd-t-s"
             @click="preferencesUpdate({ vueId: v.id })"
           >
             <i
@@ -66,7 +68,7 @@
           </button>
           <div
             v-else
-            class="p-m span-tab rnd-t-xs"
+            class="p-m span-tab rnd-t-s"
           >
             <i
               :class="`icon-${v.icon}`"
@@ -80,7 +82,7 @@
       </div>
     </div>
 
-    <div class="card-border" />
+    <div class="line-neutral" />
     <Component
       :is="vue.component"
       v-if="preferences.vueId && metasLoaded"
@@ -92,11 +94,10 @@
     >
       …
     </div>
-  </Card>
+  </div>
 </template>
 
 <script>
-import Card from './_ui/card.vue'
 import Url from './_ui/url.vue'
 import TitreEditPopup from './titre/edit-popup.vue'
 import TitresTableUrl from './titres/table-url.vue'
@@ -109,7 +110,6 @@ export default {
   name: 'Titres',
 
   components: {
-    Card,
     Url,
     TitresFiltres,
     TitresDownloadCsv,
