@@ -71,7 +71,7 @@ export default {
       }
 
       const target =
-        this.filter && this.filter.elementsType === 'numbers'
+        this.filter && this.filter.isNumber
           ? Number(e.target.value)
           : e.target.value
 

@@ -117,25 +117,15 @@ export default {
         return value
       }
 
-      if (this.params[id].type === 'array' && this.params[id].elements) {
+      if (
+        (this.params[id].type === 'array' ||
+          this.params[id].type === 'numbers') &&
+        this.params[id].elements
+      ) {
         value = value
           .reduce((acc, v) => {
             if (this.params[id].elements.includes(v)) {
               acc.push(v)
-            }
-
-            return acc
-          }, [])
-          .sort()
-
-        return value
-      }
-
-      if (this.params[id].type === 'numbers' && this.params[id].elements) {
-        value = value
-          .reduce((acc, v) => {
-            if (this.params[id].elements.includes(v)) {
-              acc.push(Number(v))
             }
 
             return acc
@@ -211,13 +201,10 @@ export default {
 
       if (
         this.params[id].type === 'array' ||
-        this.params[id].type === 'tuple'
+        this.params[id].type === 'tuple' ||
+        this.params[id].type === 'numbers'
       ) {
         return value.length ? value.join(',') : null
-      }
-
-      if (this.params[id].type === 'numbers') {
-        return value.length ? value.map(v => v.toString()).join(',') : null
       }
 
       if (this.params[id].type === 'number') {

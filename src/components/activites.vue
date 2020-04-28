@@ -92,14 +92,11 @@ export default {
     },
 
     activiteType() {
-      return this.activitesTypes.find(
-        ({ id }) =>
-          id ===
-          (this.typesIds &&
-            this.typesIds.length &&
-            this.typesIds.length === 1 &&
-            this.typesIds[0])
-      )
+      if (this.typesIds && this.typesIds.length && this.typesIds.length === 1) {
+        return this.activitesTypes.find(({ id }) => id === this.typesIds[0])
+      } else {
+        return false
+      }
       // TODO : en raison des sections, ne gère les téléchargements csv que pour un type d'activités sélectionnés
       // return this.activitesTypes.find(({ id }) => id === this.typeId)
     },
@@ -118,7 +115,7 @@ export default {
   },
 
   async created() {
-    this.metasGet()
+    await this.metasGet()
   },
 
   methods: {
