@@ -1,9 +1,11 @@
 <template>
   <button
-    class="cmn-activite-btn-remplir"
+    class="cmn-activite-btn-remplir btn py-s px-m h5 flex mr-line"
     @click="activiteEditPopupOpen"
   >
-    {{ buttonText }}
+    <div class="my-xxs">
+      {{ buttonText }}
+    </div>
   </button>
 </template>
 

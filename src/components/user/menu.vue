@@ -2,9 +2,6 @@
   <div class="bg-alt">
     <div class="container pt">
       <div class="tablet-blobs mb flex-align-items-stretch">
-        <div class="tablet-blob-1-3 border-l pl-s" />
-        <div class="tablet-blob-1-3 border-l pl-s" />
-
         <div class="tablet-blob-1-3 border-l pl-s">
           <ul class="list-sans mb-0">
             <li>
@@ -36,6 +33,9 @@
             </li>
           </ul>
         </div>
+        <div class="tablet-blob-1-3 pl-s" />
+
+        <div class="tablet-blob-1-3 pl-s" />
       </div>
     </div>
   </div>

@@ -25,7 +25,7 @@
             :class="{'rnd-r-xs': !demarche.suppression && !demarche.modification }"
             @click="etapeAddPopupOpen"
           >
-            Ajouter une étape
+            <span class="mt-xxs">Ajouter une étape</span>
           </button>
           <button
             v-if="demarche.modification"

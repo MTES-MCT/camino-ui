@@ -16,11 +16,11 @@ export const state = {
     titresStatuts: []
   },
   params: [
-    { id: 'typesIds', type: 'array', elements: [] },
-    { id: 'statutsIds', type: 'array', elements: [] },
-    { id: 'titresDomainesIds', type: 'array', elements: [] },
-    { id: 'titresTypesIds', type: 'array', elements: [] },
-    { id: 'titresStatutsIds', type: 'array', elements: [] },
+    { id: 'typesIds', type: 'strings', elements: [] },
+    { id: 'statutsIds', type: 'strings', elements: [] },
+    { id: 'titresDomainesIds', type: 'strings', elements: [] },
+    { id: 'titresTypesIds', type: 'strings', elements: [] },
+    { id: 'titresStatutsIds', type: 'strings', elements: [] },
     { id: 'etapesInclues', type: 'objects', elements: [] },
     { id: 'etapesExclues', type: 'objects', elements: [] },
     { id: 'page', type: 'number', min: 0 },

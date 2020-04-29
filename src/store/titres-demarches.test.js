@@ -32,13 +32,13 @@ describe('liste des demarches', () => {
         titresStatuts: []
       },
       params: [
-        { id: 'typesIds', type: 'array', elements: [] },
-        { id: 'statutsIds', type: 'array', elements: [] },
-        { id: 'titresDomainesIds', type: 'array', elements: [] },
-        { id: 'titresTypesIds', type: 'array', elements: [] },
-        { id: 'titresStatutsIds', type: 'array', elements: [] },
-        { id: 'etapesInclues', type: 'array', elements: [] },
-        { id: 'etapesExclues', type: 'array', elements: [] },
+        { id: 'typesIds', type: 'strings', elements: [] },
+        { id: 'statutsIds', type: 'strings', elements: [] },
+        { id: 'titresDomainesIds', type: 'strings', elements: [] },
+        { id: 'titresTypesIds', type: 'strings', elements: [] },
+        { id: 'titresStatutsIds', type: 'strings', elements: [] },
+        { id: 'etapesInclues', type: 'strings', elements: [] },
+        { id: 'etapesExclues', type: 'strings', elements: [] },
         { id: 'page', type: 'number', min: 0 },
         { id: 'intervalle', type: 'number', min: 10, max: 500 },
         {

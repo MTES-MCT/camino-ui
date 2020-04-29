@@ -463,7 +463,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
 .leaflet-control-attribution,
 .leaflet-control-scale-line {
-  padding: 0 5px;
+  padding: 0 var(--unit-l) 0 var(--unit-xs);
   color: #333;
 }
 

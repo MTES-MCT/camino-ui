@@ -1,7 +1,7 @@
 <template>
   <Accordion class="mb">
     <template slot="title">
-      <span>{{ entrepriseNameFind(entreprise) }}</span>
+      <h4>{{ entrepriseNameFind(entreprise) }}</h4>
       <Tag
         v-if="entreprise.operateur"
         :color="'bg-highlight'"

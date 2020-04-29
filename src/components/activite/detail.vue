@@ -3,14 +3,20 @@
     class="mb"
     sub="true"
   >
-    <template slot="section">
-      {{ activite.date | dateFormat }} | <span class="cap-first">{{ activite.type.nom }}</span>
-    </template>
     <template slot="title">
-      <Dot :color="`bg-${activite.statut.couleur}`" /><span
-        class="cap-first"
-      ><span v-if="activite.periode">{{ activite.periode.nom }}</span> {{ activite.annee }}
-      </span>
+      <h6>
+        {{ activite.date | dateFormat }} | <span class="cap-first">{{ activite.type.nom }}</span>
+      </h6>
+      <h3>
+        <span class="cap-first"><span v-if="activite.periode && activite.periode.nom">{{ activite.periode.nom }} </span> {{ activite.annee }}</span>
+      </h3>
+      <div class="mb-xs">
+        <Statut
+          :color="activite.statut.couleur"
+          :nom="activite.statut.nom"
+          :mini="true"
+        />
+      </div>
     </template>
     <template
       slot="buttons"
@@ -19,7 +25,6 @@
         v-if="activite.modification"
         :activite="activite"
         context="titre"
-        class="btn-alt py-s px-m"
       />
     </template>
 
@@ -45,17 +50,17 @@
 </template>
 
 <script>
-import Dot from '../_ui/dot.vue'
 import ActiviteButton from './button.vue'
 import Accordion from '../_ui/accordion.vue'
 import Section from '../_common/section.vue'
+import Statut from '../_common/statut.vue'
 
 export default {
   components: {
-    Dot,
     ActiviteButton,
     Accordion,
-    Section
+    Section,
+    Statut
   },
 
   props: {

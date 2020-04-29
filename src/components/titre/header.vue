@@ -34,7 +34,7 @@
 
     <div class="desktop-blobs">
       <div class="desktop-blob-1-2">
-        <div class="rnd-b-s bg-alt p">
+        <div class="rnd-b-s bg-alt pt px overflow-auto">
           <h4 class="mb">
             <Pill
               :color="`bg-titre-domaine-${titre.domaine.id}`"
@@ -56,7 +56,10 @@
           </div>
 
 
-          <div v-if="phases && phases.length">
+          <div
+            v-if="phases && phases.length"
+            class="mb"
+          >
             <table class="table-xxs full-x mb-0">
               <tr>
                 <th class="max-width-1" />
@@ -81,33 +84,30 @@
               </tr>
             </table>
           </div>
+
+          <div
+            v-if="titre.references && titre.references.length"
+            class="mb"
+          >
+            <ul class="list-prefix">
+              <li
+                v-for="reference in titre.references"
+                :key="reference.nom"
+              >
+                <span
+                  v-if="reference.type"
+                  class="h5 word-break fixed-width bold"
+                >
+                  {{ reference.type.nom }}
+                </span>
+                {{ reference.nom }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
       <div class="desktop-blob-1-2 mt">
-        <div
-          v-if="titre.references && titre.references.length"
-          class="mb"
-        >
-          <h6>
-            {{ titre.references.length > 1 ? 'Références' : 'Référence' }}
-          </h6>
-          <ul class="list-prefix">
-            <li
-              v-for="reference in titre.references"
-              :key="reference.nom"
-            >
-              <span
-                v-if="reference.type"
-                class="h5 word-break color-neutral fixed-width"
-              >
-                {{ reference.type.nom }}
-              </span>
-              {{ reference.nom }}
-            </li>
-          </ul>
-        </div>
-
         <div
           v-if="titre.substances && titre.substances.length > 0"
           class="mb"

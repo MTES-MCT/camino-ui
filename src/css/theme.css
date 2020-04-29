@@ -5,11 +5,15 @@
 
 :root {
   --margin-negative: 0;
-  --margin-negative-padding: var(--container-padding);
+  --margin-negative-padding: calc(-1 * var(--container-padding));
 }
 
 [v-cloak] {
   display: none;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 .sponsor {
@@ -52,13 +56,13 @@
 }
 
 .width-max {
-  margin-left: calc((var(--margin-negative)) * -1);
-  margin-right: calc((var(--margin-negative)) * -1);
+  margin-left: var(--margin-negative);
+  margin-right: var(--margin-negative);
 }
 
 .width-max-padding {
-  margin-left: calc(var(--margin-negative-padding) * -1);
-  margin-right: calc(var(--margin-negative-padding) * -1);
+  margin-left: var(--margin-negative-padding);
+  margin-right: var(--margin-negative-padding);
 }
 
 .line {
@@ -68,8 +72,8 @@
   border-top-width: var(--unit-xxs);
   border-top-style: solid;
   border-top-color: var(--color-alt);
-  margin-left: calc(var(--margin-negative-padding) * -1);
-  margin-right: calc(var(--margin-negative-padding) * -1);
+  margin-left: var(--margin-negative-padding);
+  margin-right: var(--margin-negative-padding);
 }
 
 .line-neutral {
@@ -79,8 +83,8 @@
   border-top-width: var(--unit-xxs);
   border-top-style: solid;
   border-top-color: var(--color-neutral);
-  margin-left: calc(var(--margin-negative-padding) * -1);
-  margin-right: calc(var(--margin-negative-padding) * -1);
+  margin-left: var(--margin-negative-padding);
+  margin-right: var(--margin-negative-padding);
 }
 
 .sticky-bottom {
@@ -88,8 +92,8 @@
   position: sticky;
   background-color: var(--color-neutral);
   color: var(--color-bg);
-  margin-left: calc(var(--margin-negative-padding) * -1);
-  margin-right: calc(var(--margin-negative-padding) * -1);
+  margin-left: var(--margin-negative-padding);
+  margin-right: var(--margin-negative-padding);
 }
 
 .banner {
@@ -277,10 +281,6 @@
 }
 
 @media (--viewport-tablet) {
-  /* :root {
-    --container-padding: var(--unit-xl);
-  } */
-
   .tablet-flex-right {
     margin-left: auto;
   }
@@ -360,11 +360,17 @@
 
 @media (--viewport-desktop) {
   :root {
-    --margin-negative: calc((100vw - var(--container-width)) / 2);
-
-    --margin-negative-padding: calc(
-      var(--margin-negative) + var(--container-padding)
+    --margin-negative: calc(
+      -1 * (100vw - (var(--container-width) + (2 * var(--container-padding)))) /
+        2
     );
+    --margin-negative-padding: calc(
+      var(--margin-negative) - (2 * var(--container-padding))
+    );
+  }
+
+  .leaflet-left {
+    left: var(--unit-l);
   }
 
   .popup {

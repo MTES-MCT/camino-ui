@@ -11,9 +11,9 @@ export const state = {
     statuts: []
   },
   params: [
-    { id: 'typesIds', type: 'array', elements: [] },
-    { id: 'domainesIds', type: 'array', elements: [] },
-    { id: 'statutsIds', type: 'array', elements: [] },
+    { id: 'typesIds', type: 'strings', elements: [] },
+    { id: 'domainesIds', type: 'strings', elements: [] },
+    { id: 'statutsIds', type: 'strings', elements: [] },
     { id: 'substances', type: 'string' },
     { id: 'noms', type: 'string' },
     { id: 'entreprises', type: 'string' },

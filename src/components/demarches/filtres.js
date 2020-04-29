@@ -2,6 +2,36 @@ import FiltresTitresDomaines from '../_common/filtres/domaines.vue'
 import FiltresTitresStatuts from '../_common/filtres/statuts.vue'
 import FiltresEtapes from './filtres-custom-etapes.vue'
 
+// supprime les clés dont les valeurs sont vides
+// et les objets vides
+const etapesClean = value => {
+  if (!value) return null
+
+  const etapes = value.reduce((etapes, etape) => {
+    // si le type d'étape n'est pas renseigné
+    // alors on ignore l'étape en entier
+    if (!etape.typeId) return etapes
+
+    etape = Object.keys(etape)
+      .sort()
+      .reduce((o, k) => {
+        if (etape[k] !== '') {
+          o[k] = etape[k]
+        }
+
+        return o
+      }, {})
+
+    if (Object.keys(etape).length) {
+      etapes.push(etape)
+    }
+
+    return etapes
+  }, [])
+
+  return etapes.length ? etapes : null
+}
+
 const filtres = [
   {
     id: 'titresDomainesIds',
@@ -41,7 +71,8 @@ const filtres = [
     type: 'custom',
     value: [],
     elements: [],
-    component: FiltresEtapes
+    component: FiltresEtapes,
+    clean: etapesClean
   },
   {
     id: 'etapesExclues',
@@ -49,7 +80,8 @@ const filtres = [
     type: 'custom',
     value: [],
     elements: [],
-    component: FiltresEtapes
+    component: FiltresEtapes,
+    clean: etapesClean
   }
 ]
 

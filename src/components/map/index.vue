@@ -3,7 +3,7 @@
     id="map"
     ref="map"
   >
-    <div class="absolute px-s py-xs map-loader">
+    <div class="absolute pl-s pr-l py-xs map-loader">
       <div class="h6">
         Zoom: {{ zoom }}
       </div>

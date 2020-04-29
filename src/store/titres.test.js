@@ -51,9 +51,9 @@ describe('liste des titres', () => {
         }
       },
       params: [
-        { id: 'typesIds', type: 'array' },
-        { id: 'domainesIds', type: 'array' },
-        { id: 'statutsIds', type: 'array' },
+        { id: 'typesIds', type: 'strings' },
+        { id: 'domainesIds', type: 'strings' },
+        { id: 'statutsIds', type: 'strings' },
         { id: 'substances', type: 'string' },
         { id: 'noms', type: 'string' },
         { id: 'entreprises', type: 'string' },

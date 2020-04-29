@@ -9,8 +9,9 @@
     >
       <div class="flex mb-s">
         <select
-          v-model="filter.value[n].typeId"
+          v-model="value.typeId"
           class="p-s mr-s"
+          @change="valueReset(n)"
         >
           <option :value="''">
             –
@@ -25,7 +26,7 @@
         </select>
 
         <button
-          class="btn-border py-s px-m rnd-xs"
+          class="btn py-s px-m rnd-xs"
           @click="valueRemove(n)"
         >
           <i class="icon-24 icon-minus" />
@@ -41,7 +42,7 @@
           </div>
           <div class="blob-3-4">
             <select
-              v-model="filter.value[n].statutId"
+              v-model="value.statutId"
               class="p-s mr-s cap-first"
             >
               <option :value="''">
@@ -94,10 +95,10 @@
     </div>
     <button
       v-if="!filter.value || !filter.value.some(v => v.typeId === '')"
-      class="btn-border rnd-xs py-s px-m full-x flex mb-s"
+      class="btn rnd-xs py-s px-m full-x flex mb-s h5"
       @click="valueAdd"
     >
-      Ajouter un type d'étape<i class="icon-24 icon-plus flex-right" />
+      <span class="mt-xxs">Ajouter un type d'étape</span><i class="icon-24 icon-plus flex-right" />
     </button>
   </div>
 </template>
@@ -130,6 +131,10 @@ export default {
 
     valueRemove(n) {
       this.filter.value.splice(n, 1)
+    },
+
+    valueReset(n) {
+      this.filter.value[n].statutId = ''
     }
   }
 }

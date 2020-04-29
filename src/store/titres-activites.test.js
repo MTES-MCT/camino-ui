@@ -29,7 +29,7 @@ describe("état d'une activité", () => {
         activitesAnnees: []
       },
       params: [
-        { id: 'typesIds', type: 'array', elements: [] },
+        { id: 'typesIds', type: 'strings', elements: [] },
         { id: 'annees', type: 'numbers', elements: [] },
         { id: 'page', type: 'number', min: 0 },
         { id: 'intervalle', type: 'number', min: 10, max: 500 },

@@ -122,7 +122,7 @@ export default {
       }
 
       if (
-        (this.params[id].type === 'array' ||
+        (this.params[id].type === 'strings' ||
           this.params[id].type === 'numbers') &&
         this.params[id].elements
       ) {
@@ -172,7 +172,7 @@ export default {
         return isNaN(value) ? null : value
       }
 
-      if (this.params[id].type === 'array') {
+      if (this.params[id].type === 'strings') {
         return value.split(',').sort()
       }
 
@@ -204,7 +204,7 @@ export default {
       if (!value) return null
 
       if (
-        this.params[id].type === 'array' ||
+        this.params[id].type === 'strings' ||
         this.params[id].type === 'tuple' ||
         this.params[id].type === 'numbers'
       ) {
@@ -223,21 +223,29 @@ export default {
         // sortie =>
         // [{ a: 1, b: 2 }, { a: 2, b: 1 }, { a: 2, b: 2 }]
 
-        value = value
-          .map(a =>
-            JSON.stringify(
-              Object.keys(a)
-                .sort()
-                .reduce((o, k) => {
-                  o[k] = a[k]
+        const values = value
+          .reduce((objects, object) => {
+            object = Object.keys(object)
+              .sort()
+              .reduce((o, k) => {
+                if (object[k] !== '') {
+                  o[k] = object[k]
+                }
 
-                  return o
-                }, {})
-            )
-          )
+                return o
+              }, {})
+
+            if (Object.keys(object).length) {
+              objects.push(JSON.stringify(object))
+            }
+
+            return objects
+          }, [])
           .sort()
 
-        return `[${value.join(',')}]`
+        if (!values.length) return null
+
+        return `[${values.join(',')}]`
       }
 
       return value
@@ -258,7 +266,6 @@ export default {
       Object.keys(params).forEach(id => {
         const queryString = query[id] || null
         const paramString = this.stringify(id, params[id])
-
         // on compare avec null si le paramètre n'est pas dans la query
         if (queryString !== paramString) {
           status = queryString || status === 'updated' ? 'updated' : 'created'

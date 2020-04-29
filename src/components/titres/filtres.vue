@@ -163,7 +163,7 @@ export default {
         const events = this.apiParams.reduce((events, { type, id }) => {
           if (type === 'string' && params[id]) {
             events.push({ id, value: params[id] })
-          } else if (type === 'array' && params[id]) {
+          } else if (type === 'strings' && params[id]) {
             const values = params[id]
             values.forEach(value => {
               events.push({ id, value })
