@@ -7,6 +7,8 @@ const paramsBuild = (apiParams, preferences) =>
       v = v && v.length ? v : null
     } else if (type === 'number') {
       v = v ? Number(v) : null
+    } else if (type === 'numbers') {
+      v = v && v.length ? v.reduce((acc, e) => [...acc, Number(e)], []) : null
     } else {
       v = v ? v.toString() : null
     }

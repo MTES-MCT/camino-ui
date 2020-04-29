@@ -121,7 +121,11 @@ export default {
         return value
       }
 
-      if (this.params[id].type === 'array' && this.params[id].elements) {
+      if (
+        (this.params[id].type === 'array' ||
+          this.params[id].type === 'numbers') &&
+        this.params[id].elements
+      ) {
         value = value
           .reduce((acc, v) => {
             if (this.params[id].elements.includes(v)) {
@@ -172,6 +176,13 @@ export default {
         return value.split(',').sort()
       }
 
+      if (this.params[id].type === 'numbers') {
+        return value
+          .split(',')
+          .map(v => Number(v))
+          .sort()
+      }
+
       if (this.params[id].type === 'string') {
         return value.toString()
       }
@@ -194,7 +205,8 @@ export default {
 
       if (
         this.params[id].type === 'array' ||
-        this.params[id].type === 'tuple'
+        this.params[id].type === 'tuple' ||
+        this.params[id].type === 'numbers'
       ) {
         return value.length ? value.join(',') : null
       }

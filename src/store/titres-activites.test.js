@@ -17,12 +17,44 @@ describe("état d'une activité", () => {
   let store
   let mutations
   let actions
+  let activitesListe
 
   beforeEach(() => {
+    activitesListe = ['activite-1', 'activite-2', 'activite-3']
     titresActivites.state = {
       list: [],
+      total: null,
       metas: {
-        activitesTypes: []
+        activitesTypes: [],
+        activitesAnnees: []
+      },
+      params: [
+        { id: 'typesIds', type: 'array', elements: [] },
+        { id: 'annees', type: 'numbers', elements: [] },
+        { id: 'page', type: 'number', min: 0 },
+        { id: 'intervalle', type: 'number', min: 10, max: 500 },
+        {
+          id: 'colonne',
+          type: 'string',
+          elements: ['titreNom', 'titulaires', 'periode', 'statut']
+        },
+        {
+          id: 'ordre',
+          type: 'string',
+          elements: ['asc', 'desc']
+        }
+      ],
+      preferences: {
+        table: {
+          page: 1,
+          intervalle: 200,
+          ordre: 'asc',
+          colonne: null
+        },
+        filtres: {
+          typesIds: [],
+          annees: []
+        }
       }
     }
     actions = {
@@ -50,15 +82,25 @@ describe("état d'une activité", () => {
   })
 
   test('récupère les métas pour afficher les activités', async () => {
-    const apiMock = api.metasActivites.mockResolvedValueOnce([
-      { id: 'grp', nom: "rapport trimestriel d'activité" }
-    ])
+    const apiMock = api.metasActivites.mockResolvedValueOnce({
+      activitesTypes: [
+        {
+          id: 'grp',
+          nom: "rapport trimestriel d'activité"
+        }
+      ],
+      activitesAnnees: [2020, 2019]
+    })
 
     await store.dispatch('titresActivites/metasGet')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titresActivites.metas.activitesTypes).toEqual([
+    expect(store.state.titresActivites.metas.types).toEqual([
       { id: 'grp', nom: "rapport trimestriel d'activité" }
+    ])
+    expect(store.state.titresActivites.metas.annees).toEqual([
+      { id: 2020, nom: 2020 },
+      { id: 2019, nom: 2019 }
     ])
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
@@ -75,17 +117,23 @@ describe("état d'une activité", () => {
   })
 
   test('obtient la liste des activités', async () => {
-    const response = [{ id: 'activite-id', nom: 'activite-nom' }]
-    const apiMock = api.activites.mockResolvedValue(response)
-    await store.dispatch('titresActivites/get', { annee: 2018, typeId: 'grp' })
+    const apiMock = api.activites.mockResolvedValue({
+      activites: activitesListe
+    })
+
+    await store.dispatch('titresActivites/get', {
+      typesIds: ['wrp'],
+      annees: [2019]
+    })
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titresActivites.list).toEqual(response)
+    expect(actions.messageAdd).toHaveBeenCalled()
+    expect(store.state.titresActivites.list).toEqual(activitesListe)
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
     const apiMock = api.activites.mockResolvedValue(null)
-    await store.dispatch('titresActivites/get', { annee: 2018, typeId: 'grp' })
+    await store.dispatch('titresActivites/get')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titresActivites.list).toEqual([])
@@ -97,5 +145,15 @@ describe("état d'une activité", () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(actions.pageError).toHaveBeenCalled()
+  })
+
+  test('initialise les preferences de filtre', async () => {
+    const section = 'filtres'
+    const params = { activitesTypeIds: 'grp' }
+    await store.dispatch('titresActivites/preferencesSet', { section, params })
+
+    expect(
+      store.state.titresActivites.preferences.filtres.activitesTypeIds
+    ).toEqual('grp')
   })
 })

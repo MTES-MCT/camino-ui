@@ -1,7 +1,9 @@
 <template>
   <Table
+    :total="total"
     :rows="lignes"
     :columns="colonnes"
+    :pages="pages"
     :range="preferences.intervalle"
     :page="preferences.page"
     :order="preferences.ordre"
@@ -11,7 +13,8 @@
 </template>
 
 <script>
-import Table from '../_ui/table-pagination.vue'
+// import Table from '../_ui/table-pagination.vue'
+import Table from '../_ui/table.vue'
 import { colonnes, lignesBuild } from './table.js'
 
 export default {
@@ -28,21 +31,26 @@ export default {
     }
   },
 
-  data() {
-    return {
-      colonnes,
-      preferences: {
-        intervalle: 200,
-        page: 1,
-        ordre: 'asc',
-        colonne: 'titre'
-      }
-    }
-  },
-
   computed: {
+    preferences() {
+      return this.$store.state.titresActivites.preferences.table
+    },
+
+    pages() {
+      return Math.ceil(
+        this.$store.state.titresActivites.total / this.preferences.intervalle
+      )
+    },
+
+    colonnes() {
+      return colonnes
+    },
     lignes() {
       return lignesBuild(this.activites)
+    },
+
+    total() {
+      return this.$store.state.titresActivites.total
     }
   },
 
@@ -63,9 +71,16 @@ export default {
         delete params.order
       }
 
-      Object.keys(params).forEach(id => {
-        this.preferences[id] = params[id]
+      this.$store.dispatch('titresActivites/preferencesSet', {
+        section: 'table',
+        params
       })
+
+      this.activitesUpdate()
+    },
+
+    activitesUpdate() {
+      this.$emit('activites:update')
     }
   }
 }
