@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <div :class="{ active: menu.component && menu.component.name === 'MainMenu' }">
     <button
       id="cmn-menu-button-button-menu"
-      class="btn-alt pill h5 p-s"
-      :class="{ active: menu.component && menu.component.name === 'MainMenu' }"
+      class="btn-border pill h5 p-s"
       alt="Url"
       @click="menuToggle"
     >

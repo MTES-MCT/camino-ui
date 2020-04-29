@@ -3,26 +3,24 @@
     <div class="tablet-blob-1 desktop-blob-1-3">
       <img
         class="sponsor mb"
-        src="../../public/img/logo-mtes-mef.svg"
+        src="../../../public/img/logo-mtes-mef.svg"
       >
 
       <div class="blobs">
         <div class="blob-1-3">
           <img
             class="sponsor mb"
-            src="../../public/img/logo-fabriquenumerique.svg"
+            src="../../../public/img/logo-fabriquenumerique.svg"
           >
         </div>
         <div class="blob-2-3">
           <p class="h6 color-neutral">
-            Camino est un service numérique de l’Etat incubé à la Fabrique
+            Service de l’État incubé à la Fabrique
             numérique du Ministère de la Transition écologique et solidaire,
-            membre du réseau d’incubateurs
-            <a
-              href="http://beta.gouv.fr"
-            >
+            membre du réseau
+            <a href="http://beta.gouv.fr">
               beta.gouv.fr
-            </a>
+            </a>.
           </p>
         </div>
       </div>

@@ -1,27 +1,34 @@
 <template>
-  <Card>
-    <div class="flex">
-      <h1>Utilisateurs</h1>
+  <div>
+    <div class="desktop-blobs">
+      <div class="desktop-blob-2-3">
+        <h1 class="mt-xs mb-s">
+          <h1>Utilisateurs</h1>
+        </h1>
+      </div>
 
-      <button
-        v-if="permissionsCheck(['super', 'admin'])"
-        class="btn-border rnd-xs py-s px-m mb flex-right"
-        @click="addPopupOpen"
-      >
-        <i class="icon-24 icon-plus" />
-      </button>
+      <div class="desktop-blob-1-3">
+        <button
+          v-if="permissionsCheck(['super', 'admin'])"
+          class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+          @click="addPopupOpen"
+        >
+          <span class="mt-xxs">Ajouter un utilisateur</span>  <i class="icon-24 icon-plus flex-right" />
+        </button>
+      </div>
     </div>
+
+    <div class="line-neutral" />
 
     <Loader v-if="!loaded" />
     <UtilisateursTable
       v-else
       :utilisateurs="utilisateurs"
     />
-  </Card>
+  </div>
 </template>
 
 <script>
-import Card from './_ui/card.vue'
 import Loader from './_ui/loader.vue'
 import UtilisateursTable from './utilisateurs/table.vue'
 import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
@@ -31,7 +38,6 @@ export default {
 
   components: {
     Loader,
-    Card,
     UtilisateursTable
   },
 

@@ -29,6 +29,11 @@
   border-top-right-radius: var(--unit-s);
 }
 
+.rnd-b-s {
+  border-bottom-left-radius: var(--unit-s);
+  border-bottom-right-radius: var(--unit-s);
+}
+
 .rnd-l-s {
   border-top-left-radius: var(--unit-s);
   border-bottom-left-radius: var(--unit-s);
@@ -78,6 +83,10 @@
 
 .border {
   box-shadow: inset 0 0 0 var(--unit-line) var(--color-alt);
+}
+
+.border-neutral {
+  box-shadow: inset 0 0 0 var(--unit-line) var(--color-neutral);
 }
 
 .border-inverse {

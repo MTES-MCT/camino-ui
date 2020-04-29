@@ -179,7 +179,7 @@
             </select>
             <div class="flex-right">
               <button
-                class="btn-border py-s px-m rnd-xs"
+                class="btn py-s px-m rnd-xs"
                 @click="entrepriseRemove(n)"
               >
                 <i class="icon-24 icon-minus" />
@@ -191,10 +191,10 @@
         <button
           v-if="!utilisateur.entreprises.some(({ id }) => id === '')"
           id="cmn-utilisateur-edit-popup-entreprise-button-ajouter"
-          class="btn-border rnd-xs py-s px-m full-x flex mb"
+          class="btn rnd-xs py-s px-m full-x flex mb h5"
           @click="entrepriseAdd"
         >
-          Ajouter une entreprise<i class="icon-24 icon-plus flex-right" />
+          <span class="mt-xxs">Ajouter une entreprise</span><i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
 
@@ -240,7 +240,7 @@
               class="flex-right"
             >
               <button
-                class="btn-border py-s px-m rnd-xs"
+                class="btn py-s px-m rnd-xs"
                 @click="administrationRemove(n)"
               >
                 <i class="icon-24 icon-minus" />
@@ -252,10 +252,10 @@
         <button
           v-if="!utilisateur.administrations.some(({ id }) => id === '') && utilisateurAdministrationsLength < 1"
           id="cmn-utilisateur-edit-popup-administration-button-ajouter"
-          class="btn-border rnd-xs py-s px-m full-x flex mb"
+          class="btn rnd-xs py-s px-m full-x flex mb h5"
           @click="administrationAdd"
         >
-          Ajouter une administration<i class="icon-24 icon-plus flex-right" />
+          <span class="mt-xxs">Ajouter une administration</span><i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
     </div>

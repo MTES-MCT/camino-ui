@@ -1,24 +1,50 @@
 <template>
-  <Table
-    ref="table"
-    :rows="lignes"
-    :columns="colonnes"
-    :range="preferences.intervalle"
-    :page="preferences.page"
-    :order="preferences.ordre"
-    :column="preferences.colonne"
-    @params:update="preferencesUpdate"
-  />
+  <div>
+    <Table
+      :column="preferences.colonne"
+      :columns="colonnes"
+      :order="preferences.ordre"
+      :page="preferences.page"
+      :range="preferences.intervalle"
+      :rows="lignes"
+      class="width-max"
+      @params:update="preferencesUpdate"
+    />
+
+    <div class="desktop-blobs">
+      <div class="desktop-blob-3-4">
+        <Pagination
+          :active="preferences.page"
+          :total="pages"
+          :visibles="5"
+          @page:update="pageUpdate"
+        />
+      </div>
+      <div class="desktop-blob-1-4">
+        <Ranges
+          v-if="lignes.length > 10"
+          :ranges="[10, 50, 200, 500]"
+          :range="preferences.intervalle"
+          @range:update="intervalleUpdate"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import Table from '../_ui/table-pagination.vue'
+import Pagination from '../_ui/pagination.vue'
+import Ranges from '../_ui/ranges.vue'
+import { lignesBuild } from './table'
 
 export default {
   name: 'EntreprisesTable',
 
   components: {
-    Table
+    Table,
+    Pagination,
+    Ranges
   },
 
   props: {
@@ -51,20 +77,12 @@ export default {
 
   computed: {
     lignes() {
-      return this.entreprises.map(entreprise => {
-        const columns = {
-          nom: { value: entreprise.nom },
-          siren: {
-            value: entreprise.legalEtranger || entreprise.legalSiren || '–'
-          }
-        }
+      return lignesBuild(this.entreprises)
+    },
 
-        return {
-          id: entreprise.id,
-          link: { name: 'entreprise', params: { id: entreprise.id } },
-          columns
-        }
-      })
+    pages() {
+      const pages = Math.ceil(this.lignes.length / this.preferences.intervalle)
+      return pages || 0
     }
   },
 
@@ -88,6 +106,14 @@ export default {
       Object.keys(params).forEach(id => {
         this.preferences[id] = params[id]
       })
+    },
+
+    pageUpdate(page) {
+      this.preferencesUpdate({ page })
+    },
+
+    intervalleUpdate(range) {
+      this.preferencesUpdate({ range, page: 1 })
     }
   }
 }

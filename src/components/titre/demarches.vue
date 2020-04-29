@@ -1,14 +1,12 @@
 <template>
   <div>
-    <div
-      v-if="titre.modification"
-    >
-      <div class="card-border mb" />
+    <div v-if="titre.modification">
+      <div class="line-neutral mb" />
       <button
-        class="btn-border rnd-xs py-s px-m full-x flex mb"
+        class="btn rnd-xs py-s px-m full-x flex h5 mb"
         @click="demarcheAddPopupOpen"
       >
-        Ajouter une démarche <i class="icon-24 icon-plus flex-right" />
+        <span class="mt-xxs">Ajouter une démarche</span> <i class="icon-24 icon-plus flex-right" />
       </button>
     </div>
 

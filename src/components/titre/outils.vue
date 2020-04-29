@@ -1,8 +1,8 @@
 <template>
-  <div class="sticky-bottom">
-    <ul class="list-inline mb-0">
+  <div class="sticky-bottom py-m">
+    <div class="container">
       <OutilsErreurLi />
-    </ul>
+    </div>
   </div>
 </template>
 

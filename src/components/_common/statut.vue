@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <Dot :color="color" />
+  <span class="border bg-bg rnd py-xs pl-xs pr-m">
+    <Dot :color="`bg-${color}`" />
     <span
-      class="cap-first mb-0 bold"
+      class="cap-first mb-0 bold color-neutral"
       :class="{ h5: mini}"
     >{{ nom }}</span>
-  </div>
+  </span>
 </template>
 
 <script>

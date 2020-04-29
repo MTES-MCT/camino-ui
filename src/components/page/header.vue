@@ -29,13 +29,13 @@
         :to="{ name: 'titres' }"
         class="pt-s pr-m inline-block full-x"
       >
-        <img src="../../public/img/logo-camino.svg">
+        <img src="../../../public/img/logo-camino.svg">
       </RouterLink>
       <span
         v-else
         class="pt-s pr-m inline-block full-x"
       >
-        <img src="../../public/img/logo-camino.svg">
+        <img src="../../../public/img/logo-camino.svg">
       </span>
       <p class="h5 color-neutral camino-header-baseline tablet-mb-s">
         Le cadastre minier numérique ouvert
@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import UserButton from './user/button.vue'
-import MenuButton from './menu/button.vue'
+import UserButton from '../user/button.vue'
+import MenuButton from '../menu/button.vue'
 
 export default {
   name: 'PageHeader',

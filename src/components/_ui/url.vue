@@ -263,7 +263,7 @@ export default {
         if (queryString !== paramString) {
           status = queryString || status === 'updated' ? 'updated' : 'created'
 
-          if (params[id]) {
+          if (paramString) {
             query[id] = paramString
           } else {
             delete query[id]

@@ -1,12 +1,7 @@
 <template>
-  <div>
-    <button
-      class="btn-border rnd-xs py-s px-m full-x flex mb"
-      @click="addPopupOpen"
-    >
-      Ajouter un document <i class="icon-24 icon-plus flex-right" />
-    </button>
-  </div>
+  <button @click="addPopupOpen">
+    <i class="icon-24 icon-file-plus flex-right" />
+  </button>
 </template>
 
 <script>

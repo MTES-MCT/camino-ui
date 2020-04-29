@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div :class="{ active: menu.component && menu.component.name === 'UserMenu' }">
     <button
       v-if="user"
       id="cmn-user-button-menu"
-      class="btn-alt pill h5 p-s"
-      :class="{ active: menu.component && menu.component.name === 'UserMenu' }"
+      class="btn-border pill h5 p-s"
       alt="Url"
       @click="menuToggle"
     >
@@ -13,7 +12,7 @@
     <button
       v-else
       id="cmn-user-button-connexion"
-      class="btn-alt pill h5 lh-2 py-s px-m"
+      class="btn-border pill h5 lh-2 py-s px-m"
       alt="Url"
       @click="popupOpen"
     >

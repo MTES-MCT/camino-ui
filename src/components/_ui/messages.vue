@@ -1,6 +1,6 @@
 <template>
   <TransitionGroup
-    name="slide"
+    name="slide-bottom"
     class="list-sans mb-0"
     tag="ul"
   >

@@ -57,8 +57,45 @@ const fragmentTitreActivite = gql`
   ${fragmentActiviteType}
 `
 
-const fragmentActivite = gql`
+const fragmentActivites = gql`
   fragment activites on Activite {
+    id
+    titre {
+      id
+      nom
+      titulaires {
+        ...titresEntreprises
+      }
+      amodiataires {
+        ...titresEntreprises
+      }
+    }
+    type {
+      ...activiteType
+    }
+    statut {
+      id
+      nom
+      couleur
+    }
+    date
+    annee
+    periode
+    frequencePeriodeId
+    dateSaisie
+    sections
+    contenu
+
+    modification
+  }
+
+  ${fragmentActiviteType}
+
+  ${fragmentTitresEntreprises}
+`
+
+const fragmentActivite = gql`
+  fragment activite on Activite {
     id
     titre {
       id
@@ -107,6 +144,7 @@ const fragmentTitresActivite = gql`
 
 export {
   fragmentActiviteType,
+  fragmentActivites,
   fragmentActivite,
   fragmentTitreActivite,
   fragmentTitresActivite

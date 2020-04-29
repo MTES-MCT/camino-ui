@@ -15,8 +15,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 
 .dot {
   display: inline-block;
-  width: var(--unit-s);
-  height: var(--unit-s);
+  width: var(--unit-m);
+  height: var(--unit-m);
+  border: 3px solid var(--color-bg);
+  vertical-align: text-bottom;
 }
 
 .hide {
@@ -48,6 +50,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   overflow-y: auto;
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .inline-block {
   display: inline-block;
 }
@@ -58,6 +64,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 
 .flex-grow {
   flex-grow: 1;
+}
+
+.flex-grow-0 {
+  flex-grow: 0;
 }
 
 .flex-start {
@@ -163,6 +173,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 
 .min-width-10 {
   min-width: calc(10 * var(--unit));
+}
+
+.max-width-1 {
+  max-width: var(--unit);
 }
 
 .h-0 {

@@ -105,7 +105,7 @@
                   <i class="icon-24 icon-move-up" />
                 </button>
                 <button
-                  class="btn-border py-s px-m rnd-r-xs"
+                  class="btn py-s px-m rnd-r-xs"
                   @click="pointRemove(groupeIndex, contourIndex, pointIndex)"
                 >
                   <i class="icon-24 icon-minus" />
@@ -127,34 +127,34 @@
           </div>
 
           <button
-            class="btn-border rnd-s py-s px-m full-x mb-xs flex"
+            class="btn-border rnd-s py-s px-m full-x mb-xs flex h5"
             @click="pointAdd(groupeIndex, contourIndex)"
           >
-            Ajouter un point<i class="icon-24 icon-plus flex-right" />
+            <span class="mt-xxs">Ajouter un point</span><i class="icon-24 icon-plus flex-right" />
           </button>
 
           <button
-            class="btn-border rnd-s py-s px-m full-x mb-xs flex"
+            class="btn-border rnd-s py-s px-m full-x mb-xs flex h5"
             @click="lotAdd(groupeIndex, contourIndex)"
           >
-            Ajouter un lot de points<i class="icon-24 icon-plus flex-right" />
+            <span class="mt-xxs">Ajouter un lot de points</span><i class="icon-24 icon-plus flex-right" />
           </button>
         </div>
         <button
           v-if="groupeContours.length && groupeContours[0].length"
-          class="btn-border rnd-s py-s px-m full-x mb-xs flex"
+          class="btn rnd-s py-s px-m full-x mb-xs flex h5"
           @click="contourAdd(groupeIndex)"
         >
-          Ajouter {{ groupeContours.length >= 1 ? 'une lacune' : 'un contour' }}<i class="icon-24 icon-plus flex-right" />
+          <span class="mt-xxs">Ajouter {{ groupeContours.length >= 1 ? 'une lacune' : 'un contour' }}</span><i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
 
       <button
         v-if="etape.groupes.length && etape.groupes[0].length && etape.groupes[0][0].length"
-        class="btn-border rnd-s py-s px-m full-x mb-s flex"
+        class="btn rnd-s py-s px-m full-x mb-s flex h5"
         @click="groupeAdd"
       >
-        Ajouter un groupe<i class="icon-24 icon-plus flex-right" />
+        <span class="mt-xxs">Ajouter un groupe</span><i class="icon-24 icon-plus flex-right" />
       </button>
 
       <label

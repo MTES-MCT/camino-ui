@@ -1,20 +1,20 @@
 <template>
   <Loader v-if="!loaded" />
-  <Card v-else>
-    <div class="flex">
-      <h1>Activités</h1>
-    </div>
+  <div v-else>
+    <h1 class="mt-xs mb-s">
+      Activités
+    </h1>
 
+    <ActivitesFiltres
+      v-if="metasLoaded"
+      @activites:update="activitesUpdate"
+    />
     <div
-      v-if="!metasLoaded"
+      v-else
       class="py-s px-m mb-s"
     >
       …
     </div>
-    <ActivitesFiltres
-      v-else
-      @activites:update="activitesUpdate"
-    />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-2 flex mb-s">
@@ -33,17 +33,16 @@
       </div>
     </div>
 
-    <div class="card-border" />
+    <div class="line" />
 
     <ActivitesTable
       :activites="activites"
       @activites:update="activitesUpdate"
     />
-  </Card>
+  </div>
 </template>
 
 <script>
-import Card from './_ui/card.vue'
 import Loader from './_ui/loader.vue'
 import ActivitesFiltres from './activites/filtres-url.vue'
 import ActivitesTable from './activites/table-url.vue'
@@ -54,7 +53,6 @@ export default {
 
   components: {
     Loader,
-    Card,
     ActivitesFiltres,
     ActivitesTable,
     ActivitesDownloadCsv

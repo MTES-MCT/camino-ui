@@ -1,19 +1,21 @@
 <template>
-  <Card>
+  <div>
     <div class="flex">
-      <h1>Démarches</h1>
+      <h1 class="mt-xs mb-s">
+        Démarches
+      </h1>
     </div>
 
+    <DemarchesFiltres
+      v-if="metasLoaded"
+      @demarches:update="demarchesUpdate"
+    />
     <div
-      v-if="!metasLoaded"
+      v-else
       class="py-s px-m mb-s"
     >
       …
     </div>
-    <DemarchesFiltres
-      v-else
-      @demarches:update="demarchesUpdate"
-    />
 
     <div
       class="tablet-blobs"
@@ -25,17 +27,16 @@
       </div>
     </div>
 
-    <div class="card-border" />
+    <div class="line" />
 
     <DemarchesTable
       :demarches="demarches"
       @demarches:update="demarchesUpdate"
     />
-  </Card>
+  </div>
 </template>
 
 <script>
-import Card from './_ui/card.vue'
 import DemarchesTable from './demarches/table-url.vue'
 import DemarchesFiltres from './demarches/filtres-url.vue'
 
@@ -43,7 +44,6 @@ export default {
   name: 'Demarches',
 
   components: {
-    Card,
     DemarchesTable,
     DemarchesFiltres
   },

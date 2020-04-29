@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-alt width-max-padding">
     <MapPattern
       :domaines-ids="[domaineId]"
       :types-ids="[typeId]"
@@ -16,23 +16,25 @@
       :zoom="zoom"
       :tiles-id="tilesId"
     />
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-2 mb">
-        <div class="flex">
-          <button
-            class="btn-border pill px-m py-s"
-            @click="center"
-          >
-            Centrer
-          </button>
+    <div class="container overflow-auto">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-2 mb-s">
+          <div class="flex">
+            <button
+              class="btn-border pill px-m py-s"
+              @click="center"
+            >
+              Centrer
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="tablet-blob-1-2">
-        <MapTilesSelector
-          :tiles="tiles"
-          :tiles-id="tilesId"
-          @params:update="preferencesUpdate"
-        />
+        <div class="tablet-blob-1-2 mb-s">
+          <MapTilesSelector
+            :tiles="tiles"
+            :tiles-id="tilesId"
+            @params:update="preferencesUpdate"
+          />
+        </div>
       </div>
     </div>
   </div>

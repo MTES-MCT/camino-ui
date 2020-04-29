@@ -1,27 +1,34 @@
 <template>
-  <Card>
-    <div class="flex">
-      <h1>Entreprises</h1>
+  <div>
+    <div class="desktop-blobs">
+      <div class="desktop-blob-2-3">
+        <h1 class="mt-xs mb-s">
+          Entreprises
+        </h1>
+      </div>
 
-      <button
-        v-if="permissionsCheck(['super', 'admin', 'editeur'])"
-        class="btn-border rnd-xs py-s px-m mb flex-right"
-        @click="addPopupOpen"
-      >
-        <i class="icon-24 icon-plus" />
-      </button>
+      <div class="desktop-blob-1-3">
+        <button
+          v-if="permissionsCheck(['super', 'admin', 'editeur'])"
+          class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+          @click="addPopupOpen"
+        >
+          <span class="mt-xxs">Ajouter une entreprise</span>  <i class="icon-24 icon-plus flex-right" />
+        </button>
+      </div>
     </div>
+
+    <div class="line-neutral" />
 
     <Loader v-if="!loaded" />
     <EntreprisesTable
       v-else
       :entreprises="entreprises"
     />
-  </Card>
+  </div>
 </template>
 
 <script>
-import Card from './_ui/card.vue'
 import Loader from './_ui/loader.vue'
 import EntreprisesTable from './entreprises/table.vue'
 import EntrepriseAddPopup from './entreprise/add-popup.vue'
@@ -31,7 +38,6 @@ export default {
 
   components: {
     Loader,
-    Card,
     EntreprisesTable
   },
 

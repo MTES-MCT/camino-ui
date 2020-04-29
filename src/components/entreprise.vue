@@ -1,13 +1,11 @@
 <template>
-  <Card v-if="!loaded">
-    <Loader />
-  </Card>
-  <Card v-else>
+  <Loader v-if="!loaded" />
+  <div v-else>
     <h6>Entreprise</h6>
     <h1>
       {{
-        entreprise
-          ? `${entreprise.nom || "–"}`
+        entreprise && entreprise.nom
+          ? entreprise.nom
           : "–"
       }}
     </h1>
@@ -160,8 +158,9 @@
     <div
       v-if="utilisateurs && utilisateurs.length"
     >
-      <div class="card-border mb" />
+      <div class="line-neutral mb" />
       <h3>Utilisateurs</h3>
+      <div class="line mb" />
       <UtilisateursTable
         :utilisateurs="utilisateurs"
       />
@@ -170,8 +169,9 @@
     <div
       v-if="titresTitulaire && titresTitulaire.length"
     >
-      <div class="card-border mb" />
+      <div class="line-neutral mb" />
       <h3>Titres miniers et autorisations</h3>
+      <div class="line mb" />
       <TitresTable
         :titres="titresTitulaire"
       />
@@ -186,11 +186,10 @@
         :titres="titresAmodiataire"
       />
     </div>
-  </Card>
+  </div>
 </template>
 
 <script>
-import Card from './_ui/card.vue'
 import Accordion from './_ui/accordion.vue'
 import Loader from './_ui/loader.vue'
 import UtilisateursTable from './utilisateurs/table.vue'
@@ -201,7 +200,6 @@ export default {
   components: {
     Accordion,
     Loader,
-    Card,
     UtilisateursTable,
     TitresTable
   },

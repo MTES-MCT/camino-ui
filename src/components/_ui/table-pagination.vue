@@ -1,14 +1,9 @@
 <template>
   <Table
-    :total="rows.length"
-    :rows="rowsPage"
-    :columns="columns"
-    :pages="pages"
-    :range="range"
-    :page="page"
-    :order="order"
     :column="column"
-    :ranges="ranges"
+    :columns="columns"
+    :order="order"
+    :rows="rowsPage"
     @params:update="paramsUpdate"
   />
 </template>
@@ -22,16 +17,12 @@ export default {
   components: { Table },
 
   props: {
-    rows: { type: Array, required: true },
-    columns: { type: Array, required: true },
-    range: { type: Number, default: 200 },
-    page: { type: Number, default: 1 },
-    order: { type: String, default: 'asc' },
     column: { type: String, default: '' },
-    ranges: {
-      type: Array,
-      default: () => [10, 50, 200, 500]
-    }
+    columns: { type: Array, required: true },
+    order: { type: String, default: 'asc' },
+    rows: { type: Array, required: true },
+    range: { type: Number, default: 200 },
+    page: { type: Number, default: 1 }
   },
 
   computed: {
@@ -58,10 +49,6 @@ export default {
 
     rowsPage() {
       return this.rowsPages[this.page - 1] || []
-    },
-
-    pages() {
-      return this.rowsPages.length || 0
     }
   },
 

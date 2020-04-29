@@ -1,7 +1,7 @@
 <template>
   <div>
     <Loader v-if="!loaded" />
-    <Card v-else>
+    <div v-else>
       <div
         v-if="titre.doublonTitreId"
         class="p-m bg-warning color-bg mb"
@@ -12,7 +12,10 @@
           :href="`/titres/${titre.doublonTitreId}`"
         >{{ titre.doublonTitreId }}</a>.
       </div>
-      <TitreHeader :titre="titre" />
+      <TitreHeader
+        :titre="titre"
+        class="mb"
+      />
 
       <div v-if="titre.geojsonMultiPolygon && titre.points">
         <div class="tablet-blobs tablet-flex-direction-reverse">
@@ -37,7 +40,7 @@
             >
               <button
                 v-if="geoTabActive !== tab.id"
-                class="p-m btn-tab rnd-t-xs"
+                class="p-m btn-tab rnd-t-s"
                 @click="geoTabToggle(tab.id)"
               >
                 <i
@@ -58,7 +61,7 @@
           </div>
         </div>
 
-        <div class="card-border" />
+        <div class="line-neutral" />
 
         <TitreMap
           v-if="titre.geojsonMultiPolygon && geoTabActive === 'carte'"
@@ -73,7 +76,7 @@
           :points="titre.points"
         />
 
-        <div class="card-border mb" />
+        <div class="line mb" />
       </div>
 
       <TitreTerritoires
@@ -99,7 +102,7 @@
         >
           <button
             :id="`cmn-titre-tab-${tab.id}`"
-            class="p-m btn-tab rnd-t-xs"
+            class="p-m btn-tab rnd-t-s"
             @click="tabToggle(tab.id)"
           >
             {{ tab.nom }}
@@ -119,7 +122,6 @@
             </Pill>
           </button>
         </div>
-        <div class="card-border" />
       </div>
 
       <TitreDemarches
@@ -133,13 +135,12 @@
       />
 
       <TitreOutils />
-    </Card>
+    </div>
   </div>
 </template>
 
 <script>
 import Loader from './_ui/loader.vue'
-import Card from './_ui/card.vue'
 import Pill from './_ui/pill.vue'
 import TitreHeader from './titre/header.vue'
 import TitreMap from './titre/map.vue'
@@ -155,7 +156,6 @@ import TitreDownloadGeojson from './titre/download-geojson.vue'
 export default {
   components: {
     Loader,
-    Card,
     Pill,
     TitreHeader,
     TitreMap,
