@@ -25,8 +25,8 @@ describe("état d'une activité", () => {
       list: [],
       total: null,
       metas: {
-        activitesTypes: [],
-        activitesAnnees: []
+        types: [],
+        annees: []
       },
       params: [
         { id: 'typesIds', type: 'strings', elements: [] },
@@ -82,26 +82,41 @@ describe("état d'une activité", () => {
   })
 
   test('récupère les métas pour afficher les activités', async () => {
-    const apiMock = api.metasActivites.mockResolvedValueOnce({
-      activitesTypes: [
-        {
-          id: 'grp',
-          nom: "rapport trimestriel d'activité"
-        }
-      ],
-      activitesAnnees: [2020, 2019]
-    })
+    const apiMock = api.metasActivites
+      .mockResolvedValueOnce({
+        activitesTypes: [
+          {
+            id: 'grp',
+            nom: "rapport trimestriel d'activité"
+          }
+        ],
+        activitesAnnees: [2020, 2019]
+      })
+      .mockResolvedValueOnce({})
 
     await store.dispatch('titresActivites/metasGet')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titresActivites.metas.types).toEqual([
-      { id: 'grp', nom: "rapport trimestriel d'activité" }
-    ])
-    expect(store.state.titresActivites.metas.annees).toEqual([
-      { id: 2020, nom: 2020 },
-      { id: 2019, nom: 2019 }
-    ])
+    expect(store.state.titresActivites.metas).toEqual({
+      types: [{ id: 'grp', nom: "rapport trimestriel d'activité" }],
+      annees: [
+        { id: 2020, nom: 2020 },
+        { id: 2019, nom: 2019 }
+      ]
+    })
+
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+
+    await store.dispatch('titresActivites/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.titresActivites.metas).toEqual({
+      types: [{ id: 'grp', nom: "rapport trimestriel d'activité" }],
+      annees: [
+        { id: 2020, nom: 2020 },
+        { id: 2019, nom: 2019 }
+      ]
+    })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
