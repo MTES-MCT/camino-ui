@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="line-neutral mb" />
+    <div class="line-neutral mb-xxl" />
     <div
       v-for="annee in activitesByYear"
       :key="annee.id"
@@ -10,8 +10,9 @@
         v-for="activite in annee.activites"
         :key="activite.id"
         :activite="activite"
+        class="mb-s"
       />
-      <div class="line mb" />
+      <div class="line my-xxl" />
     </div>
   </div>
 </template>

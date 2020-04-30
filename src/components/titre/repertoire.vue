@@ -1,5 +1,5 @@
 <template>
-  <div class="tablet-blobs">
+  <div class="tablet-blobs mb-xl">
     <div class="tablet-blob-1-2">
       <div v-if="titulaires.length">
         <h6>

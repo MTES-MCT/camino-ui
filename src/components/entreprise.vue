@@ -10,7 +10,7 @@
       }}
     </h1>
     <Accordion
-      class="mb"
+      class="mb-xxl"
       :sub="true"
     >
       <template slot="title">
@@ -157,10 +157,11 @@
 
     <div
       v-if="utilisateurs && utilisateurs.length"
+      class="mb-xxl"
     >
-      <div class="line-neutral mb" />
+      <div class="line-neutral mb-xxl" />
       <h3>Utilisateurs</h3>
-      <div class="line mb" />
+      <div class="line" />
       <UtilisateursTable
         :utilisateurs="utilisateurs"
       />
@@ -168,10 +169,11 @@
 
     <div
       v-if="titresTitulaire && titresTitulaire.length"
+      class="mb-xxl"
     >
-      <div class="line-neutral mb" />
+      <div class="line-neutral mb-xxl" />
       <h3>Titres miniers et autorisations</h3>
-      <div class="line mb" />
+      <div class="line" />
       <TitresTable
         :titres="titresTitulaire"
       />
@@ -179,9 +181,11 @@
 
     <div
       v-if="titresAmodiataire && titresAmodiataire.length"
+      class="mb-xxl"
     >
-      <div class="card-border mb" />
+      <div class="card-border my-xxl" />
       <h3>Titres miniers et autorisations (amodiataire)</h3>
+      <div class="line" />
       <TitresTable
         :titres="titresAmodiataire"
       />

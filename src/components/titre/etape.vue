@@ -4,7 +4,7 @@
     class="mb-s"
   >
     <template slot="title">
-      <h3 class="cap-first mb mt-xs">
+      <h3 class="cap-first mb-s mt-xs">
         {{ etape.type.nom }}
       </h3>
       <div class="mb-xs">
@@ -40,7 +40,7 @@
       </button>
       <button
         v-if="etape.suppression"
-        class="btn py-s px-m"
+        class="btn py-s px-m mr-line"
         @click="removePopupOpen"
       >
         <i class="icon-24 icon-trash" />

@@ -4,7 +4,7 @@
 */
 
 @typescale {
-  scale: 1.25;
+  scale: 1.33;
   font-size: var(--base-font-size);
   line-height: var(--unit);
 }
@@ -54,18 +54,18 @@ h4,
 
 h5,
 .h5 {
-  typescale: -1 0.75;
+  typescale: -0.75 0.75;
 }
 
 h6,
 .h6,
 small {
-  typescale: -1 0.75;
+  typescale: -0.75 0.75;
 }
 
 h6,
 h5 {
-  margin-bottom: var(--unit-xs);
+  margin-bottom: var(--unit-s);
 }
 
 h1 {

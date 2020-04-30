@@ -50,7 +50,7 @@
               </button>
               <div
                 v-else
-                class="p-m span-tab rnd-t-xs"
+                class="p-m span-tab rnd-t-s"
               >
                 <i
                   :class="`icon-${tab.icon}`"
@@ -83,6 +83,8 @@
         :pays="titre.pays"
         :surface="titre.surface"
       />
+
+      <div class="line mb-xl" />
 
       <TitreRepertoire
         :titulaires="titre.titulaires"

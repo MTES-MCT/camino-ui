@@ -286,6 +286,11 @@
   margin-bottom: var(--unit-xl);
 }
 
+.my-xxl {
+  margin-top: var(--unit-xxl);
+  margin-bottom: var(--unit-xxl);
+}
+
 .my-0 {
   margin-top: 0;
   margin-bottom: 0;
