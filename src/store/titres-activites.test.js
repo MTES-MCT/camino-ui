@@ -17,10 +17,8 @@ describe("état d'une activité", () => {
   let store
   let mutations
   let actions
-  let activitesListe
 
   beforeEach(() => {
-    activitesListe = ['activite-1', 'activite-2', 'activite-3']
     titresActivites.state = {
       list: [],
       total: null,
@@ -90,7 +88,8 @@ describe("état d'une activité", () => {
             nom: "rapport trimestriel d'activité"
           }
         ],
-        activitesAnnees: [2020, 2019]
+        activitesAnnees: [2020, 2019],
+        truc: [{ id: 'id-truc' }]
       })
       .mockResolvedValueOnce({})
 
@@ -132,18 +131,22 @@ describe("état d'une activité", () => {
   })
 
   test('obtient la liste des activités', async () => {
-    const apiMock = api.activites.mockResolvedValue({
-      activites: activitesListe
+    const apiMock = api.activites.mockResolvedValueOnce({
+      activites: ['activite-1', 'activite-2', 'activite-3'],
+      total: 3
     })
 
-    await store.dispatch('titresActivites/get', {
-      typesIds: ['wrp'],
-      annees: [2019]
-    })
+    store.state.titresActivites.preferences.filtres.annees = [2020]
+    await store.dispatch('titresActivites/get')
 
     expect(apiMock).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
-    expect(store.state.titresActivites.list).toEqual(activitesListe)
+    expect(store.state.titresActivites.list).toEqual([
+      'activite-1',
+      'activite-2',
+      'activite-3'
+    ])
+    expect(store.state.titresActivites.total).toEqual(3)
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
