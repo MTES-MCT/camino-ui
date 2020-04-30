@@ -21,6 +21,11 @@ export const state = {
     { id: 'titresDomainesIds', type: 'strings', elements: [] },
     { id: 'titresTypesIds', type: 'strings', elements: [] },
     { id: 'titresStatutsIds', type: 'strings', elements: [] },
+    { id: 'noms', type: 'string' },
+    { id: 'entreprises', type: 'string' },
+    { id: 'substances', type: 'string' },
+    { id: 'references', type: 'string' },
+    { id: 'territoires', type: 'string' },
     { id: 'etapesInclues', type: 'objects', elements: [] },
     { id: 'etapesExclues', type: 'objects', elements: [] },
     { id: 'page', type: 'number', min: 0 },
@@ -56,6 +61,11 @@ export const state = {
       titresDomainesIds: [],
       titresTypesIds: [],
       titresStatutsIds: [],
+      noms: '',
+      entreprises: '',
+      substances: '',
+      references: '',
+      territoires: '',
       etapesInclues: [],
       etapesExclues: []
     }

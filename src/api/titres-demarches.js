@@ -47,7 +47,7 @@ const metasDemarches = apiQuery(
     }
   `,
   {
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'network-only'
   }
 )
 
@@ -76,6 +76,11 @@ const demarches = apiQuery(
       $titresStatutsIds: [ID!]
       $typesIds: [ID!]
       $statutsIds: [ID!]
+      $noms: String
+      $entreprises: String
+      $substances: String
+      $references: String
+      $territoires: String
       $etapesInclues: [InputEtapeFiltre!]
       $etapesExclues: [InputEtapeFiltre!]
     ) {
@@ -89,6 +94,11 @@ const demarches = apiQuery(
         titresStatutsIds: $titresStatutsIds
         typesIds: $typesIds
         statutsIds: $statutsIds
+        noms: $noms
+        entreprises: $entreprises
+        substances: $substances
+        references: $references
+        territoires: $territoires
         etapesInclues: $etapesInclues
         etapesExclues: $etapesExclues
       ) {
@@ -140,5 +150,5 @@ export {
   metasTitreDemarche,
   demarcheCreer,
   demarcheModifier,
-  demarcheSupprimer,
+  demarcheSupprimer
 }
