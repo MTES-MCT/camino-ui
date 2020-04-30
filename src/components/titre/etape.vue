@@ -4,13 +4,16 @@
     class="mb-s"
   >
     <template slot="title">
-      <h3 class="cap-first mb-s mt-xs">
+      <h6 class="mt-xs">
+        {{ etape.date | dateFormat }}
+      </h6>
+      <h3 class="cap-first mb-s">
         {{ etape.type.nom }}
       </h3>
       <div class="mb-xs">
         <Statut
           :color="etape.statut.couleur"
-          :nom="`${etape.statut.nom} : ${dateFormat(etape.date)}`"
+          :nom="etape.statut.nom"
         />
         <span
           v-if="etape.incertitudes && etape.incertitudes.date"
