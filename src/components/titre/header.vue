@@ -89,14 +89,14 @@
             v-if="titre.references && titre.references.length"
             class="mb"
           >
-            <ul class="list-prefix">
+            <ul class="list-prefix h5">
               <li
                 v-for="reference in titre.references"
                 :key="reference.nom"
               >
                 <span
                   v-if="reference.type"
-                  class="h5 word-break fixed-width bold"
+                  class="word-break fixed-width bold"
                 >
                   {{ reference.type.nom }}
                 </span>
