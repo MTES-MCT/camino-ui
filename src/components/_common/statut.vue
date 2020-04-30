@@ -1,21 +1,16 @@
 <template>
-  <span class="border bg-bg rnd py-xs pl-xs pr-m">
-    <Dot :color="`bg-${color}`" />
+  <div>
     <span
-      class="cap-first mb-0 bold color-neutral"
-      :class="{ h5: mini}"
+      class="rnd py-xxs px-s cap-first mb-0 bold color-bg h5"
+      :class="`bg-${color}`"
     >{{ nom }}</span>
-  </span>
+  </div>
 </template>
 
 <script>
-import Dot from '../_ui/dot.vue'
-
 export default {
-  components: { Dot },
   props: {
-    mini: { type: Boolean, default: false },
-    color: { type: String, default: 'bg-neutral' },
+    color: { type: String, default: 'neutral' },
     nom: { type: String, default: 'indéfini' }
   }
 }

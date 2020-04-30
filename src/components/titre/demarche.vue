@@ -6,13 +6,10 @@
         <h2 class="cap-first mb-m">
           {{ demarche.type.nom }}
         </h2>
-        <div>
-          <Statut
-            :color="demarche.statut.couleur"
-            :nom="demarche.statut.nom"
-            :mini="true"
-          />
-        </div>
+        <Statut
+          :color="demarche.statut.couleur"
+          :nom="demarche.statut.nom"
+        />
       </div>
       <div class="tablet-blob-1-2 flex">
         <div

@@ -40,8 +40,7 @@ const lignesBuild = activites =>
         component: Statut,
         props: {
           color: activite.statut.couleur,
-          nom: activite.statut.nom,
-          mini: true
+          nom: activite.statut.nom
         },
         value: activite.statut.nom
       }

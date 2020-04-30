@@ -1,16 +1,17 @@
 <template>
-  <span>
-    <Dot :color="`bg-${element.couleur}`" />
-    <span class="cap-first h5 bold">{{ element.nom }}</span>
-  </span>
+  <Statut
+    :color="element.couleur"
+    :nom="element.nom"
+    class="inline-block"
+  />
 </template>
 
 <script>
-import Dot from '../../_ui/dot.vue'
+import Statut from '../statut.vue'
 
 export default {
   components: {
-    Dot
+    Statut
   },
 
   props: {

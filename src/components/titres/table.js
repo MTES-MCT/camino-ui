@@ -74,8 +74,7 @@ const lignesBuild = (titres, activitesCol) =>
         component: Statut,
         props: {
           color: titre.statut.couleur,
-          nom: titre.statut.nom,
-          mini: true
+          nom: titre.statut.nom
         },
         value: titre.statut.nom
       },
@@ -88,8 +87,7 @@ const lignesBuild = (titres, activitesCol) =>
       titulaires: {
         component: List,
         props: {
-          elements: titre.titulaires.map(({ nom }) => nom),
-          mini: true
+          elements: titre.titulaires.map(({ nom }) => nom)
         },
         class: 'mb--xs',
         value: titre.titulaires.map(({ nom }) => nom).join(', ')

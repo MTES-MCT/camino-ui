@@ -9,13 +9,11 @@
       <h3 class="mb-s">
         <span class="cap-first"><span v-if="activite.periode && activite.periode.nom">{{ activite.periode.nom }} </span> {{ activite.annee }}</span>
       </h3>
-      <div class="mb-xs">
-        <Statut
-          :color="activite.statut.couleur"
-          :nom="activite.statut.nom"
-          :mini="true"
-        />
-      </div>
+      <Statut
+        :color="activite.statut.couleur"
+        :nom="activite.statut.nom"
+        class="mb-xs"
+      />
     </template>
     <template
       slot="buttons"

@@ -4,31 +4,28 @@
       v-if="activitesAbsentes"
       class="mr-xs"
     >
-      <Pill
-        v-if="activitesAbsentes"
-        :color="'bg-error'"
-      >
-        {{ activitesAbsentes }}
-      </Pill>
+      <Statut
+        color="error"
+        :nom="activitesAbsentes"
+      />
     </li>
     <li
       v-if="activitesEnConstruction"
       class="mr-xs"
     >
-      <Pill
-        :color="'bg-warning'"
-      >
-        {{ activitesEnConstruction }}
-      </Pill>
+      <Statut
+        color="warning"
+        :nom="activitesEnConstruction"
+      />
     </li>
   </ul>
 </template>
 
 <script>
-import Pill from '../_ui/pill.vue'
+import Statut from '../_common/statut.vue'
 
 export default {
-  components: { Pill },
+  components: { Statut },
   props: {
     activitesAbsentes: { type: Number, default: 0 },
     activitesEnConstruction: { type: Number, default: 0 }

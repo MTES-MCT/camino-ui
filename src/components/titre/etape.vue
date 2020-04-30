@@ -11,7 +11,6 @@
         <Statut
           :color="etape.statut.couleur"
           :nom="`${etape.statut.nom} : ${dateFormat(etape.date)}`"
-          :mini="true"
         />
         <span
           v-if="etape.incertitudes && etape.incertitudes.date"
