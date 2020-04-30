@@ -7,8 +7,8 @@ export const state = {
   list: [],
   total: null,
   metas: {
-    activitesTypes: [],
-    activitesAnnees: []
+    types: [],
+    annees: []
   },
   params: [
     { id: 'typesIds', type: 'strings', elements: [] },
