@@ -31,17 +31,16 @@ html {
 
 .map-detail,
 .map-list {
-  height: calc(var(--unit) * 20.5);
+  height: calc(var(--unit) * 21);
 }
 
 .points {
-  margin-left: calc(-1 * var(--unit));
-  margin-right: calc(-1 * var(--unit));
-  padding-left: var(--unit);
-  padding-right: var(--unit);
-  padding-top: var(--unit);
   height: calc(var(--unit) * 24);
   overflow-y: scroll;
+}
+
+.points .container {
+  min-height: 100%;
 }
 
 .card-border {

@@ -1,13 +1,12 @@
 <template>
   <Accordion
-    class="mb"
     sub="true"
   >
     <template slot="title">
       <h6>
         {{ activite.date | dateFormat }} | <span class="cap-first">{{ activite.type.nom }}</span>
       </h6>
-      <h3>
+      <h3 class="mb-s">
         <span class="cap-first"><span v-if="activite.periode && activite.periode.nom">{{ activite.periode.nom }} </span> {{ activite.annee }}</span>
       </h3>
       <div class="mb-xs">

@@ -85,7 +85,7 @@ const layersBuild = (titres, router) =>
         iconAnchor: [15.5, 38]
       })
 
-      const popupHtml = `<h4 class="mb-xs">${titre.nom}</h4><div class="mb-m"><span class="border bg-bg rnd py-xs pl-xs pr-m"><span class="pill dot mr-xs bg-${titre.statut.couleur}"></span><span class="cap-first mb-0 bold color-neutral h5">${titre.statut.nom}</span></span></div>`
+      const popupHtml = `<h4 class="mb-s">${titre.nom}</h4><div class="mb-m"><span class="border bg-bg rnd py-xs pl-xs pr-m"><span class="pill dot mr-xs bg-${titre.statut.couleur}"></span><span class="cap-first mb-0 bold color-neutral h5">${titre.statut.nom}</span></span></div>`
 
       const popupOptions = {
         closeButton: false,

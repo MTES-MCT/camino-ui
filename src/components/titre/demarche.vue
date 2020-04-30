@@ -1,12 +1,12 @@
 <template>
   <div class="mb-xxl">
     <div class="line mb-xxl" />
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-2">
-        <h2 class="cap-first">
+    <div class="tablet-blobs mb">
+      <div class="tablet-blob-1-2 mb">
+        <h2 class="cap-first mb-m">
           {{ demarche.type.nom }}
         </h2>
-        <div class="mb">
+        <div>
           <Statut
             :color="demarche.statut.couleur"
             :nom="demarche.statut.nom"
@@ -17,7 +17,7 @@
       <div class="tablet-blob-1-2 flex">
         <div
           v-if="demarche.modification || demarche.suppression || demarche.etapesCreation"
-          class="flex-right mb flex"
+          class="flex-right flex"
         >
           <button
             v-if="demarche.etapesCreation"
