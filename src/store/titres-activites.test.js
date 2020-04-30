@@ -120,18 +120,6 @@ describe("état d'une activité", () => {
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
-  test("obtient des listes de metas vides si l'api ne renvoie pas de metas", async () => {
-    const apiMock = api.metasActivites.mockResolvedValueOnce({})
-
-    await store.dispatch('titresActivites/metasGet')
-    expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titresActivites.metas).toEqual({
-      types: [],
-      annees: []
-    })
-    expect(mutations.loadingRemove).toHaveBeenCalled()
-  })
-
   test("retourne une erreur si l'api ne répond pas", async () => {
     const apiMock = api.metasActivites.mockRejectedValue(
       new Error("erreur de l'api")
