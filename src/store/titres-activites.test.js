@@ -120,7 +120,7 @@ describe("état d'une activité", () => {
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
-  test(`n'affiche pas les metas ai l'api ne renvoie pas de metas`, async () => {
+  test("obtient des listes de metas vides si l'api ne renvoie pas de metas", async () => {
     const apiMock = api.metasActivites.mockResolvedValueOnce({})
 
     await store.dispatch('titresActivites/metasGet')
