@@ -251,6 +251,11 @@
   margin-right: calc(var(--unit) * -1);
 }
 
+.mx--m {
+  margin-left: calc(var(--unit-m) * -1);
+  margin-right: calc(var(--unit-m) * -1);
+}
+
 .my {
   margin-top: var(--unit);
   margin-bottom: var(--unit);

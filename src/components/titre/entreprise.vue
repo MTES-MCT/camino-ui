@@ -1,10 +1,13 @@
 <template>
   <Accordion class="mb">
     <template slot="title">
-      <h4>{{ entrepriseNameFind(entreprise) }}</h4>
+      <h4 class="mb-0">
+        {{ entrepriseNameFind(entreprise) }}
+      </h4>
       <Tag
         v-if="entreprise.operateur"
         :color="'bg-highlight'"
+        :mini="true"
       >
         Opé.
       </Tag>

@@ -15,10 +15,14 @@
         <p>
           <span v-if="duree.ans">{{ `${duree.ans} an${duree.ans > 1 ? 's' : ''}` }}</span><span v-if="duree.ans && duree.mois"> et </span>
           <span v-if="duree.mois">{{ `${duree.mois} mois` }}</span>
-          <span
+          <Tag
             v-if="etape.incertitudes && etape.incertitudes.duree"
-            class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-          >?</span>
+            :mini="true"
+            color="bg-info"
+            class="ml-xs"
+          >
+            ?
+          </Tag>
         </p>
       </div>
     </div>
@@ -35,10 +39,14 @@
       <div class="tablet-blob-3-4">
         <p>
           {{ etape.dateDebut | dateFormat }}
-          <span
+          <Tag
             v-if="etape.incertitudes && etape.incertitudes.dateDebut"
-            class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-          >?</span>
+            :mini="true"
+            color="bg-info"
+            class="ml-xs"
+          >
+            ?
+          </Tag>
         </p>
       </div>
     </div>
@@ -54,10 +62,14 @@
       <div class="tablet-blob-3-4">
         <p>
           {{ etape.dateFin | dateFormat }}
-          <span
+          <Tag
             v-if="etape.incertitudes && etape.incertitudes.dateFin"
-            class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-          >?</span>
+            :mini="true"
+            color="bg-info"
+            class="ml-xs"
+          >
+            ?
+          </Tag>
         </p>
       </div>
     </div>
@@ -72,11 +84,15 @@
       </div>
       <div class="tablet-blob-3-4">
         <p>
-          –
-          <span
+          inclu
+          <Tag
             v-if="etape.incertitudes && etape.incertitudes.points"
-            class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-          >?</span>
+            :mini="true"
+            color="bg-info"
+            class="ml-xs"
+          >
+            ?
+          </Tag>
         </p>
       </div>
     </div>
@@ -92,10 +108,15 @@
       <div class="tablet-blob-3-4">
         <p>
           {{ numberFormat(etape.surface) }} km² environ
-          <span
+
+          <Tag
             v-if="etape.incertitudes && etape.incertitudes.surface"
-            class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-          >?</span>
+            :mini="true"
+            color="bg-info"
+            class="ml-xs"
+          >
+            ?
+          </Tag>
         </p>
       </div>
     </div>
@@ -116,10 +137,14 @@
             :key="t.id"
           >
             {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
-            <span
+            <Tag
               v-if="etape.incertitudes && etape.incertitudes.titulaires"
-              class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-            >?</span>
+              :mini="true"
+              color="bg-info"
+              class="ml-xs"
+            >
+              ?
+            </Tag>
           </li>
         </ul>
       </div>
@@ -140,10 +165,14 @@
             :key="t.id"
           >
             {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
-            <span
+            <Tag
               v-if="etape.incertitudes && etape.incertitudes.amodiataires"
-              class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-            >?</span>
+              :mini="true"
+              color="bg-info"
+              class="ml-xs"
+            >
+              ?
+            </Tag>
           </li>
         </ul>
       </div>
@@ -158,30 +187,39 @@
         </h6>
       </div>
       <div class="tablet-blob-3-4">
-        <PillList :elements="etape.substances.map(s => s.nom)" />
-        <span
+        <TagList :elements="etape.substances.map(s => s.nom)" />
+        <Tag
           v-if="etape.incertitudes && etape.incertitudes.substances"
-          class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-        >?</span>
+          :mini="true"
+          color="bg-info"
+          class="ml-xs"
+        >
+          ?
+        </Tag>
       </div>
     </div>
 
     <div v-if="incertitudesLength">
       <p class="h5">
-        <span
-          class="bg-info py-xxs px-xs rnd-xs color-bg bold"
-        >?</span>&nbsp;: Donnée incertaine
+        <Tag
+          :mini="true"
+          color="bg-info"
+        >
+          ?
+        </Tag>&nbsp;: Donnée incertaine
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import PillList from '../../_ui/pill-list.vue'
+import TagList from '../../_ui/tag-list.vue'
+import Tag from '../../_ui/tag.vue'
 
 export default {
   components: {
-    PillList
+    TagList,
+    Tag
   },
   props: {
     etape: {

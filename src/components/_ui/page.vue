@@ -35,7 +35,7 @@
     <Transition name="fade">
       <div
         v-if="$slots.popup"
-        class="absolute full bg-inverse-alpha"
+        class="absolute full bg-inverse-alpha z-2"
       />
     </Transition>
 

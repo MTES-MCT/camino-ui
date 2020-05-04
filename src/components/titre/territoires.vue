@@ -22,7 +22,7 @@
           <h5 class="mb-s">
             {{ pays[0].nom === 'République Française' ? region.nom + ' / ' + departement.nom : region.nom }}
           </h5>
-          <PillList :elements="departement.communes.map(c => c.nom)" />
+          <TagList :elements="departement.communes.map(c => c.nom)" />
         </div>
       </div>
     </div>
@@ -30,11 +30,11 @@
 </template>
 
 <script>
-import PillList from '../_ui/pill-list.vue'
+import TagList from '../_ui/tag-list.vue'
 
 export default {
   components: {
-    PillList
+    TagList
   },
   props: {
     pays: {

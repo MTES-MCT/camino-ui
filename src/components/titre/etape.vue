@@ -6,6 +6,14 @@
     <template slot="title">
       <h6 class="mt-xs">
         {{ etape.date | dateFormat }}
+        <Tag
+          v-if="etape.incertitudes && etape.incertitudes.date"
+          :mini="true"
+          color="bg-info"
+          class="ml-xs"
+        >
+          ?
+        </Tag>
       </h6>
       <h3 class="cap-first mb-s">
         {{ etape.type.nom }}
@@ -15,10 +23,6 @@
           :color="etape.statut.couleur"
           :nom="etape.statut.nom"
         />
-        <span
-          v-if="etape.incertitudes && etape.incertitudes.date"
-          class="h6 bold bg-info py-xxs px-xs rnd-xs ml-xs color-bg align-y-bottom"
-        >?</span>
       </div>
     </template>
 
@@ -84,6 +88,7 @@
 
 <script>
 import Accordion from '../_ui/accordion.vue'
+import Tag from '../_ui/tag.vue'
 import Documents from './documents.vue'
 import EditPopup from './etape/edit.vue'
 import RemovePopup from './etape/remove.vue'
@@ -99,6 +104,7 @@ export default {
 
   components: {
     Accordion,
+    Tag,
     Documents,
     DocumentButtonAdd,
     EtapeProps,

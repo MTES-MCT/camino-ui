@@ -84,11 +84,11 @@
       <div
         v-for="(reference, index) in titre.references"
         :key="index"
-        class="flex full-x mb"
+        class="flex full-x mb-s"
       >
         <select
           v-model="reference.typeId"
-          class="p-s mr"
+          class="p-s mr-s"
         >
           <option
             v-for="referenceType in referencesTypes"
@@ -101,7 +101,7 @@
         <input
           v-model="reference.nom"
           type="text"
-          class="p-s mr"
+          class="p-s mr-s"
           placeholder="valeur"
         >
         <div class="flex-right">

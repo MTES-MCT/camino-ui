@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import PillList from '../_ui/pill-list.vue'
+import TagList from '../_ui/tag-list.vue'
 import List from '../_ui/list.vue'
 import CaminoDomaine from '../_common/domaine.vue'
 import ActivitesPills from '../activites/pills.vue'
@@ -79,7 +79,7 @@ const lignesBuild = (titres, activitesCol) =>
         value: titre.statut.nom
       },
       substances: {
-        component: PillList,
+        component: TagList,
         props: { elements: titre.substances.map(s => s.nom) },
         class: 'mb--xs',
         value: titre.substances.map(s => s.nom).join(', ')

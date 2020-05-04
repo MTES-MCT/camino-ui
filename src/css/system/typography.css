@@ -28,7 +28,7 @@ pre {
 }
 
 .h0 {
-  typescale: 7 6;
+  typescale: 5 6;
   color: var(--color-brand);
 }
 
@@ -83,6 +83,10 @@ h6 {
 
 h6 {
   color: var(--color-neutral);
+}
+
+.btn-border:hover h6 {
+  color: var(--color-bg);
 }
 
 blockquote {

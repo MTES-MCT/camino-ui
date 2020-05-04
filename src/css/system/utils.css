@@ -184,6 +184,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   overflow: hidden;
 }
 
+.z-2 {
+  z-index: 2;
+}
+
 .z--100 {
   z-index: -100;
 }

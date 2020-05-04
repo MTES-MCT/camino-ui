@@ -1,9 +1,11 @@
 <template>
   <Loader v-if="!loaded" />
   <div v-else>
-    <h1 class="mt-xs mb-s">
-      Activités
-    </h1>
+    <div class="pt-s">
+      <h1 class="mt-xs mb-m">
+        Activités
+      </h1>
+    </div>
 
     <ActivitesFiltres
       v-if="metasLoaded"

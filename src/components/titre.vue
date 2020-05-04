@@ -12,7 +12,12 @@
           :href="`/titres/${titre.doublonTitreId}`"
         >{{ titre.doublonTitreId }}</a>.
       </div>
+
       <TitreHeader
+        :titre="titre"
+      />
+
+      <TitreInfos
         :titre="titre"
         class="mb"
       />
@@ -108,20 +113,12 @@
             @click="tabToggle(tab.id)"
           >
             {{ tab.nom }}
-            <Pill
-              v-if="tab.id === 'activites' && titre.activitesAbsentes"
-              :color="'bg-error'"
-              class="mb--xs mr-xs"
-            >
-              {{ titre.activites && titre.activitesAbsentes }}
-            </Pill>
-            <Pill
-              v-if="tab.id === 'activites' && titre.activitesEnConstruction"
-              :color="'bg-warning'"
-              class="mb--xs mr-xs"
-            >
-              {{ titre.activites && titre.activitesEnConstruction }}
-            </Pill>
+            <ActivitesPills
+              v-if="tab.id === 'activites'"
+              class="inline-block ml-s"
+              :activites-absentes="titre.activitesAbsentes"
+              :activites-en-construction="titre.activitesEnConstruction"
+            />
           </button>
         </div>
       </div>
@@ -135,22 +132,21 @@
         v-if="titre.activites.length && tabActive === 'activites'"
         :activites="titre.activites"
       />
-
-      <TitreOutils />
     </div>
   </div>
 </template>
 
 <script>
 import Loader from './_ui/loader.vue'
-import Pill from './_ui/pill.vue'
+import ActivitesPills from './activites/pills.vue'
 import TitreHeader from './titre/header.vue'
+
+import TitreInfos from './titre/infos.vue'
 import TitreMap from './titre/map.vue'
 import TitreTerritoires from './titre/territoires.vue'
 import TitreRepertoire from './titre/repertoire.vue'
 import TitreDemarches from './titre/demarches.vue'
 import TitreActivitesList from './activites/list.vue'
-import TitreOutils from './titre/outils.vue'
 import TitrePoints from './titre/points.vue'
 import TitreDownloadCsv from './titre/download-csv.vue'
 import TitreDownloadGeojson from './titre/download-geojson.vue'
@@ -158,14 +154,14 @@ import TitreDownloadGeojson from './titre/download-geojson.vue'
 export default {
   components: {
     Loader,
-    Pill,
+    ActivitesPills,
     TitreHeader,
+    TitreInfos,
     TitreMap,
     TitreTerritoires,
     TitreRepertoire,
     TitreDemarches,
     TitreActivitesList,
-    TitreOutils,
     TitrePoints,
     TitreDownloadCsv,
     TitreDownloadGeojson

@@ -8,7 +8,7 @@
 
     <PageHeader
       slot="header"
-      class="mb"
+      class="mb-s"
     />
 
     <Messages

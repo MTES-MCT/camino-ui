@@ -83,13 +83,16 @@
                     {{ point.nom }}
                   </h4>
                   <p
-                    v-if="point.description"
+                    v-if="point.description || point.subsidiaire"
                     class="mb-s h5 flex-grow pt-xxs"
                   >
-                    <span
+                    <Tag
                       v-if="point.subsidiaire && !point.lot"
-                      class="bg-info py-xxs px-xs rnd-xs color-bg"
-                    >Subsidiaire</span>
+                      :mini="true"
+                      color="bg-info"
+                    >
+                      Subsidiaire
+                    </Tag>
                     {{ point.description }}
                   </p>
                 </div>
@@ -121,8 +124,13 @@
 
 <script>
 import { etapeGroupesBuild } from './etape'
+import Tag from '../_ui/tag.vue'
 
 export default {
+  components: {
+    Tag
+  },
+
   props: {
     points: {
       type: Array,

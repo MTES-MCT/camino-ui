@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="flex">
-      <h1 class="mt-xs mb-s">
+    <div class="pt-s">
+      <h1 class="mt-xs mb-m">
         Démarches
       </h1>
     </div>

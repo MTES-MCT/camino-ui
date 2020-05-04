@@ -86,11 +86,11 @@ html {
   margin-right: var(--margin-negative-padding);
 }
 
-.sticky-bottom {
-  bottom: 0;
+.sticky-header {
+  top: 0;
+  z-index: 1;
   position: sticky;
-  background-color: var(--color-neutral);
-  color: var(--color-bg);
+  background-color: var(--color-bg);
   margin-left: var(--margin-negative-padding);
   margin-right: var(--margin-negative-padding);
 }
@@ -176,7 +176,6 @@ html {
   border-top-style: solid;
   border-top-color: var(--color-alt);
   margin-top: calc(-1 * var(--unit-xxs));
-  z-index: 1;
 }
 
 .map-loader {

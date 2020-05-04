@@ -1,7 +1,10 @@
 <template>
   <div class="tablet-blobs mb-xl">
     <div class="tablet-blob-1-2">
-      <div v-if="titulaires.length">
+      <div
+        v-if="titulaires.length"
+        class="mb"
+      >
         <h6>
           Titulaire{{ titulaires.length > 1 ? 's' : '' }}
         </h6>
@@ -12,7 +15,10 @@
           class="mb-s"
         />
       </div>
-      <div v-if="amodiataires.length">
+      <div
+        v-if="amodiataires.length"
+        class="mb"
+      >
         <h6>
           Amodiataire{{ amodiataires.length > 1 ? 's' : '' }}
         </h6>
@@ -26,7 +32,10 @@
     </div>
 
     <div class="tablet-blob-1-2">
-      <div v-if="administrations.length">
+      <div
+        v-if="administrations.length"
+        class="mb"
+      >
         <h6>Administrations</h6>
         <Administration
           v-for="administration in administrations"

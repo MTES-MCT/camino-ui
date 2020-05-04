@@ -1,14 +1,19 @@
 <template>
   <div>
-    <span
-      class="rnd py-xxs px-s cap-first mb-0 bold color-bg h5"
-      :class="`bg-${color}`"
-    >{{ nom }}</span>
+    <pill :color="`bg-${color}`">
+      {{ nom }}
+    </pill>
   </div>
 </template>
 
 <script>
+import Pill from '../_ui/pill.vue'
+
 export default {
+  components: {
+    Pill
+  },
+
   props: {
     color: { type: String, default: 'neutral' },
     nom: { type: String, default: 'indéfini' }

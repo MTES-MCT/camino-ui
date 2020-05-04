@@ -3,6 +3,10 @@
 -------------------------------
 */
 
+.box {
+  box-decoration-break: clone;
+}
+
 .pill {
   border-radius: var(--unit-infinity);
   box-decoration-break: clone;

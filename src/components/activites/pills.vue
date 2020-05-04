@@ -1,24 +1,24 @@
 <template>
-  <ul class="list-inline mb--xs">
-    <li
+  <div class="mb--s">
+    <span
       v-if="activitesAbsentes"
-      class="mr-xs"
+      class="mr-xs inline-block"
     >
       <Statut
         color="error"
-        :nom="activitesAbsentes"
+        :nom="activitesAbsentes.toString()"
       />
-    </li>
-    <li
+    </span>
+    <span
       v-if="activitesEnConstruction"
-      class="mr-xs"
+      class="mr-xs inline-block"
     >
       <Statut
         color="warning"
-        :nom="activitesEnConstruction"
+        :nom="activitesEnConstruction.toString()"
       />
-    </li>
-  </ul>
+    </span>
+  </div>
 </template>
 
 <script>

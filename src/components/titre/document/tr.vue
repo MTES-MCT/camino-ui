@@ -2,10 +2,14 @@
   <tr class="h5">
     <td class="nowrap">
       <span class="bold">{{ document.type.nom }}</span>
-      <span
+      <Tag
         v-if="document.public"
-        class="h6 bg-info py-xxs px-xs rnd-xs ml-xs color-bg"
-      >Public</span>
+        :mini="true"
+        color="bg-info"
+        class="ml-xs"
+      >
+        Public
+      </Tag>
     </td>
     <td>{{ document.nom || '–' }}</td>
     <td class="flex text-right">
@@ -50,10 +54,15 @@
 
 <script>
 import { jsonTypenameOmit } from '../../../utils/index'
+import Tag from '../../_ui/tag.vue'
 import DocumentEditPopup from './edit.vue'
 import DocumentRemovePopup from './remove.vue'
 
 export default {
+  components: {
+    Tag
+  },
+
   props: {
     document: { type: Object, default: () => {} },
     titreNom: { type: String, default: '' },

@@ -5,22 +5,22 @@
       :key="element"
       class="mr-xs"
     >
-      <Pill
+      <Tag
         :color="element.color"
         class="lh-2"
       >
         {{ element }}
-      </Pill>
+      </Tag>
     </li>
   </ul>
 </template>
 
 <script>
-import Pill from './pill.vue'
+import Tag from './tag.vue'
 
 export default {
   components: {
-    Pill
+    Tag
   },
 
   props: {

@@ -5,6 +5,7 @@
       <Tag
         v-if="administration.coordinateur"
         :color="'bg-highlight'"
+        :mini="true"
       >
         Coord.
       </Tag>
