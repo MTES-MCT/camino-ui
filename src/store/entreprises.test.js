@@ -18,16 +18,50 @@ describe("liste d'entreprises", () => {
   let mutations
 
   beforeEach(() => {
-    entreprises.state = { list: [] }
+    entreprises.state = {
+      list: [],
+      total: null,
+      params: [
+        { id: 'page', type: 'number', min: 0 },
+        { id: 'intervalle', type: 'number', min: 10, max: 500 },
+        {
+          id: 'colonne',
+          type: 'string',
+          elements: ['nom', 'legalSiren']
+        },
+        {
+          id: 'ordre',
+          type: 'string',
+          elements: ['asc', 'desc']
+        },
+        { id: 'nomSiren', type: 'string' }
+      ],
+      preferences: {
+        table: {
+          page: 1,
+          intervalle: 200,
+          ordre: 'asc',
+          colonne: null
+        },
+        filtres: {
+          nomSiren: ''
+        }
+      }
+    }
     actions = {
-      pageError: jest.fn(),
+      reload: jest.fn(),
+      messageAdd: jest.fn(),
       apiError: jest.fn(),
-      messageAdd: jest.fn()
+      pageError: jest.fn()
     }
 
     mutations = {
+      popupMessagesRemove: jest.fn(),
       loadingAdd: jest.fn(),
-      loadingRemove: jest.fn()
+      loadingRemove: jest.fn(),
+      popupClose: jest.fn(),
+      popupMessageAdd: jest.fn(),
+      popupLoad: jest.fn()
     }
 
     store = new Vuex.Store({
@@ -37,7 +71,7 @@ describe("liste d'entreprises", () => {
     })
   })
 
-  test('ajoute des entreprises et les tri par ordre alphabétique', () => {
+  test('ajoute des entreprises', () => {
     const entreprisesListe = [
       { nom: 'Petite Souris' },
       { nom: 'Koala' },
@@ -46,27 +80,30 @@ describe("liste d'entreprises", () => {
       { nom: 'Escargot tout chaud' },
       { nom: 'Koala' }
     ]
-    entreprises.state = { current: null, list: [] }
+    entreprises.state = { current: null, list: [], total: 0 }
     const store = new Vuex.Store({ modules: { entreprises } })
-    store.commit('entreprises/set', entreprisesListe)
+    store.commit('entreprises/set', { entreprises: entreprisesListe, total: 6 })
 
     expect(store.state.entreprises.list).toEqual([
+      { nom: 'Petite Souris' },
+      { nom: 'Koala' },
       { nom: 'Canard' },
-      { nom: 'Escargot tout chaud' },
-      { nom: 'Koala' },
-      { nom: 'Koala' },
       { nom: 'Monstres & Cie' },
-      { nom: 'Petite Souris' }
+      { nom: 'Escargot tout chaud' },
+      { nom: 'Koala' }
     ])
   })
 
   test('obtient la liste des entreprises', async () => {
-    const response = [{ id: 'entreprise-id', nom: 'entreprise-nom' }]
+    const response = {
+      entreprises: [{ id: 'entreprise-id', nom: 'entreprise-nom' }],
+      total: 1
+    }
     const apiMock = api.entreprises.mockResolvedValue(response)
     await store.dispatch('entreprises/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.entreprises.list).toEqual(response)
+    expect(store.state.entreprises.list).toEqual(response.entreprises)
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
