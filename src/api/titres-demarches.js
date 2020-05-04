@@ -102,7 +102,7 @@ const demarches = apiQuery(
         etapesInclues: $etapesInclues
         etapesExclues: $etapesExclues
       ) {
-        demarches {
+        elements {
           ...demarches
         }
         total
