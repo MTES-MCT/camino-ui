@@ -73,10 +73,9 @@ export default {
 
   methods: {
     async download() {
-      await this.$store.dispatch('documentDownload', {
-        fichierTypeId: this.document.fichierTypeId,
-        documentId: this.document.id
-      })
+      const nom = `${this.document.id}.${this.document.fichierTypeId}`
+
+      await this.$store.dispatch('documentDownload', nom)
     },
 
     editPopupOpen() {

@@ -5,7 +5,7 @@
       :key="element"
       :class="{ h5: mini}"
     >
-      {{ element }}
+      {{ element }} {{ mini }}
     </li>
   </ul>
 </template>

@@ -36,20 +36,14 @@
     </div>
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
-      <div class="tablet-blob-1-2 flex mb-s">
-        <TitresDownloadCsv
+      <div class="tablet-blob-1-4 flex mb-s">
+        <TitresDownloads
           v-if="titres.length"
-          :titres="titres"
-          class="mr-s flex-right"
-        />
-
-        <TitresDownloadGeojson
-          v-if="titres.length"
-          :titres="titres"
+          class="flex-right full-x"
         />
       </div>
 
-      <div class="tablet-blob-1-2 flex">
+      <div class="tablet-blob-3-4 flex">
         <div
           v-for="v in vues"
           :key="v.id"
@@ -103,8 +97,7 @@ import TitreEditPopup from './titre/edit-popup.vue'
 import TitresTableUrl from './titres/table-url.vue'
 import TitresMap from './titres/map-url.vue'
 import TitresFiltres from './titres/filtres-url.vue'
-import TitresDownloadCsv from './titres/download-csv.vue'
-import TitresDownloadGeojson from './titres/download-geojson.vue'
+import TitresDownloads from './titres/downloads.vue'
 
 export default {
   name: 'Titres',
@@ -112,8 +105,7 @@ export default {
   components: {
     Url,
     TitresFiltres,
-    TitresDownloadCsv,
-    TitresDownloadGeojson
+    TitresDownloads
   },
 
   data() {

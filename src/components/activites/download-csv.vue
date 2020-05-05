@@ -8,7 +8,7 @@
 
 <script>
 import { parse } from 'json2csv'
-import Download from '../_ui/download.vue'
+import Download from '../_common/download.vue'
 import activitesFormatCsv from './download-csv'
 
 export default {

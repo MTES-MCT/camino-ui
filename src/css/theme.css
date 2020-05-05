@@ -20,11 +20,6 @@ html {
   max-height: calc(var(--unit) * 3);
 }
 
-.dropdown {
-  margin-bottom: var(--unit);
-  background-color: var(--color-alt);
-}
-
 .map:not(.leaflet-pseudo-fullscreen) {
   z-index: 0;
 }
@@ -236,6 +231,10 @@ html {
   padding-bottom: var(--unit-line);
 }
 
+.dropdown {
+  z-index: 1;
+}
+
 .lh-2 {
   line-height: 2;
 }
@@ -310,12 +309,6 @@ html {
   .menubar-infos {
     padding-top: var(--unit-m);
     margin-top: 0;
-  }
-
-  .dropdown {
-    position: absolute;
-    right: var(--gutter);
-    top: 0;
   }
 
   .map-list {
