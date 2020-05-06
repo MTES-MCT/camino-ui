@@ -19,16 +19,16 @@
     </div>
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
-      <div class="tablet-blob-1-4 flex mb-s">
+      <div class="tablet-blob-1-3 flex mb-s">
         <Downloads
           v-if="activites.length"
-          :formats="['csv', 'xls', 'ods']"
+          :formats="['csv', 'xlsx', 'ods']"
           section="activites"
           class="flex-right full-x"
         />
       </div>
 
-      <div class="tablet-blob-3-4 flex">
+      <div class="tablet-blob-2-3 flex">
         <div class="py-m h6 bold mb-xs">
           {{ resultat }}
         </div>

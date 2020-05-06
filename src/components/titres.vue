@@ -36,16 +36,16 @@
     </div>
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
-      <div class="tablet-blob-1-4 flex mb-s">
+      <div class="tablet-blob-1-3 flex mb-s">
         <Downloads
           v-if="titres.length"
-          :formats="['geojson','csv', 'xls', 'ods']"
+          :formats="['geojson', 'csv', 'xlsx', 'ods']"
           section="titres"
           class="flex-right full-x"
         />
       </div>
 
-      <div class="tablet-blob-3-4 flex">
+      <div class="tablet-blob-2-3 flex">
         <div
           v-for="v in vues"
           :key="v.id"
@@ -72,7 +72,7 @@
             />
           </div>
         </div>
-        <div class="p-m">
+        <div class="p-m h6 bold mb-xs">
           {{ titres.length }} résultat{{ titres.length > 1 ? 's' : '' }}
         </div>
       </div>

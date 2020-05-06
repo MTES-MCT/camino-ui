@@ -31,7 +31,7 @@ export default {
 
   data() {
     return {
-      formats: ['geojson', 'csv', 'xls', 'ods'],
+      formats: ['geojson', 'csv', 'xlsx', 'ods'],
       opened: false
     }
   },
