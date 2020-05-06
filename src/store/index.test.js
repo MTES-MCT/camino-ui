@@ -223,7 +223,7 @@ describe("état général de l'application", () => {
   let store
 
   beforeEach(() => {
-    state = { messages: [] }
+    state = { messages: [], loading: [] }
 
     localStorage.clear()
     fetch.resetMocks()
@@ -249,43 +249,101 @@ describe("état général de l'application", () => {
     const messageAddMock = jest.fn()
     actions.messageAdd = messageAddMock
     store = new Vuex.Store({ state, actions, mutations })
-    const documentId = 'crique-sophie'
-    const fichierTypeId = 'pdf'
+    const documentName = 'crique-sophie-doc.pdf'
     localStorage.setItem('token', 'privateToken')
-    fetch.mockResponseOnce(JSON.stringify({ status: 200 }))
-    await store.dispatch('documentDownload', { documentId, fichierTypeId })
+    fetch.mockResponseOnce(JSON.stringify({ data: 'truc' }), { status: 200 })
+    await store.dispatch('documentDownload', documentName)
 
     expect(fetch).toHaveBeenCalled()
     expect(fileSaver.saveAs).toHaveBeenCalled()
     expect(messageAddMock).toHaveBeenCalled()
+    expect(state.loading).toEqual([])
   })
 
   test("retourne une erreur lors du téléchargement d'un document", async () => {
     const apiErrorMock = jest.fn()
     actions.apiError = apiErrorMock
     store = new Vuex.Store({ state, actions, mutations })
-    const documentId = 'crique-sophie'
-    const fichierTypeId = 'pdf'
+    const documentName = 'crique-sophie-doc.pdf'
     localStorage.removeItem('token')
     fetch.mockReject(new Error('erreur api'))
-    await store.dispatch('documentDownload', { documentId, fichierTypeId })
+    await store.dispatch('documentDownload', documentName)
 
     expect(fetch).toHaveBeenCalled()
     expect(apiErrorMock).toHaveBeenCalled()
+    expect(state.loading).toEqual([])
   })
 
   test('retourne une erreur si un document est introuvable', async () => {
     const messageAddMock = jest.fn()
     actions.messageAdd = messageAddMock
     store = new Vuex.Store({ state, actions, mutations })
-    const documentId = 'crique-sophie'
-    const fichierTypeId = 'pdf'
+    const documentName = 'crique-sophie-doc.pdf'
     localStorage.setItem('token', 'privateToken')
     fetch.mockResponseOnce('fichier introuvable', { status: 404 })
-    await store.dispatch('documentDownload', { documentId, fichierTypeId })
+    await store.dispatch('documentDownload', documentName)
 
     expect(fetch).toHaveBeenCalled()
     expect(fileSaver.saveAs).not.toHaveBeenCalled()
     expect(messageAddMock).not.toHaveBeenCalled()
+    expect(state.loading).toEqual([])
+  })
+
+  test('télécharge du contenu', async () => {
+    const messageAddMock = jest.fn()
+    actions.messageAdd = messageAddMock
+    store = new Vuex.Store({ state, actions, mutations })
+    const section = 'titres'
+    const params = { typeIds: ['m', 'w'] }
+    localStorage.setItem('token', 'privateToken')
+    fetch.mockResponseOnce(JSON.stringify({ data: 'truc' }), {
+      status: 200,
+      headers: {
+        'Content-disposition': 'attachements; filename=nom-du-fichier.pdf'
+      }
+    })
+    await store.dispatch('contentDownload', { section, params })
+
+    expect(fetch).toHaveBeenCalled()
+    expect(fileSaver.saveAs).toHaveBeenCalled()
+    expect(messageAddMock).toHaveBeenCalled()
+    expect(state.loading).toEqual([])
+  })
+
+  test('retourne une erreur si le contenu est introuvable', async () => {
+    const messageAddMock = jest.fn()
+    actions.messageAdd = messageAddMock
+    store = new Vuex.Store({ state, actions, mutations })
+    const section = 'titres'
+    const params = { typeIds: ['m', 'w'] }
+    fetch.mockResponseOnce(JSON.stringify({ data: 'truc' }), {
+      status: 404,
+      headers: {
+        'Content-disposition': 'attachements; filename=nom-du-fichier.pdf'
+      }
+    })
+    await store.dispatch('contentDownload', { section, params })
+
+    expect(fetch).toHaveBeenCalled()
+    expect(fileSaver.saveAs).not.toHaveBeenCalled()
+    expect(messageAddMock).not.toHaveBeenCalled()
+    expect(state.loading).toEqual([])
+  })
+
+  test("retourne une erreur si le contenu n'a pas de nom", async () => {
+    const messageAddMock = jest.fn()
+    actions.messageAdd = messageAddMock
+    store = new Vuex.Store({ state, actions, mutations })
+    const section = 'titres'
+    const params = { typeIds: ['m', 'w'] }
+    fetch.mockResponseOnce(JSON.stringify({ data: 'truc' }), {
+      status: 200
+    })
+    await store.dispatch('contentDownload', { section, params })
+
+    expect(fetch).toHaveBeenCalled()
+    expect(fileSaver.saveAs).not.toHaveBeenCalled()
+    expect(messageAddMock).not.toHaveBeenCalled()
+    expect(state.loading).toEqual([])
   })
 })

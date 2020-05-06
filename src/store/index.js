@@ -136,6 +136,7 @@ export const actions = {
       })
     } catch (e) {
       dispatch('apiError', `erreur de téléchargement : ${name}, ${e}`)
+      console.info(e)
     } finally {
       commit('loadingRemove', 'documentDownload', { root: true })
     }
@@ -152,7 +153,6 @@ export const actions = {
       const method = 'GET'
 
       const paramsString = new URLSearchParams(params).toString()
-      console.log(params, paramsString)
 
       const url = `${process.env.VUE_APP_API_URL}/${section}?${paramsString}`
 
@@ -185,6 +185,7 @@ export const actions = {
       })
     } catch (e) {
       dispatch('apiError', `erreur de téléchargement : ${section}, ${e}`)
+      console.info(e)
     } finally {
       commit('loadingRemove', 'contentDownload', { root: true })
     }
