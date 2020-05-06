@@ -24,7 +24,10 @@
       v-if="metasLoaded"
       @utilisateurs:update="utilisateursUpdate"
     />
-    <div v-else class="py-s px-m mb-s">
+    <div
+      v-else
+      class="py-s px-m mb-s"
+    >
       …
     </div>
 
