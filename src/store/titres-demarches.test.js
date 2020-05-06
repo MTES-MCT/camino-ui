@@ -146,7 +146,7 @@ describe('liste des demarches', () => {
 
   test('obtient la liste des demarches', async () => {
     const apiMock = api.demarches.mockResolvedValue({
-      demarches: demarchesListe
+      elements: demarchesListe
     })
     await store.dispatch('titresDemarches/get')
 

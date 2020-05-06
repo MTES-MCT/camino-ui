@@ -21,7 +21,7 @@
 
 <script>
 import Dropdown from '../_ui/dropdown.vue'
-import Download from '../_common/download.vue'
+import Download from './download.vue'
 
 export default {
   components: {
