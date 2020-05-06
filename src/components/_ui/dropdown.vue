@@ -1,12 +1,11 @@
 <template>
-  <div
-    class="flex flex-direction-column relative dropdown"
-  >
-    <div
-      class="absolute rnd-s border bg-bg full-x overflow-hidden"
-    >
+  <div class="flex flex-direction-column relative dropdown">
+    <div class="absolute rnd-s border bg-bg full-x overflow-hidden">
       <button
-        :class="{ 'rnd-t-s': opened || $slots.sub, 'rnd-s': !opened && !$slots.sub }"
+        :class="{
+          'rnd-t-s': opened || $slots.sub,
+          'rnd-s': !opened && !$slots.sub
+        }"
         class="accordion-header flex btn-border py-s px-m full-x"
         @click="openToggle"
       >
@@ -43,22 +42,16 @@ export default {
     iconClosedClass: {
       type: String,
       default: 'icon-chevron-t'
-    }
-  },
+    },
 
-  data() {
-    return {
-      opened: false
+    opened: {
+      type: Boolean,
+      default: false
     }
   },
 
   methods: {
-    close() {
-      this.opened = false
-    },
-
     openToggle() {
-      this.opened = !this.opened
       this.$emit('toggle', this.opened)
     }
   }

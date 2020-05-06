@@ -1,5 +1,9 @@
 <template>
-  <Dropdown class="full-x">
+  <Dropdown
+    class="full-x"
+    :opened="opened"
+    @toggle="toggle"
+  >
     <div slot="title">
       <span class="h5">Téléchargements</span>
     </div>
@@ -9,6 +13,7 @@
         :key="format"
         :format="format"
         section="titres"
+        @clicked="toggle"
       />
     </div>
   </Dropdown>
@@ -26,7 +31,14 @@ export default {
 
   data() {
     return {
-      formats: ['geojson', 'csv', 'xls', 'ods']
+      formats: ['geojson', 'csv', 'xls', 'ods'],
+      opened: false
+    }
+  },
+
+  methods: {
+    toggle() {
+      this.opened = !this.opened
     }
   }
 }

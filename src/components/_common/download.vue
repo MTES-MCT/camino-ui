@@ -31,6 +31,7 @@ export default {
 
   methods: {
     async download() {
+      this.$emit('clicked')
       await this.$store.dispatch('contentDownload', {
         section: this.section,
         params: this.params
