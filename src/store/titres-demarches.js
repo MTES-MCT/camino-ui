@@ -18,16 +18,16 @@ export const state = {
   params: [
     { id: 'typesIds', type: 'strings', elements: [] },
     { id: 'statutsIds', type: 'strings', elements: [] },
+    { id: 'etapesInclues', type: 'objects', elements: [] },
+    { id: 'etapesExclues', type: 'objects', elements: [] },
     { id: 'titresDomainesIds', type: 'strings', elements: [] },
     { id: 'titresTypesIds', type: 'strings', elements: [] },
     { id: 'titresStatutsIds', type: 'strings', elements: [] },
-    { id: 'noms', type: 'string' },
-    { id: 'entreprises', type: 'string' },
-    { id: 'substances', type: 'string' },
-    { id: 'references', type: 'string' },
-    { id: 'territoires', type: 'string' },
-    { id: 'etapesInclues', type: 'objects', elements: [] },
-    { id: 'etapesExclues', type: 'objects', elements: [] },
+    { id: 'titresNoms', type: 'string' },
+    { id: 'titresEntreprises', type: 'string' },
+    { id: 'titresSubstances', type: 'string' },
+    { id: 'titresReferences', type: 'string' },
+    { id: 'titresTerritoires', type: 'string' },
     { id: 'page', type: 'number', min: 0 },
     { id: 'intervalle', type: 'number', min: 10, max: 500 },
     {
@@ -58,16 +58,16 @@ export const state = {
     filtres: {
       typesIds: [],
       statutsIds: [],
+      etapesInclues: [],
+      etapesExclues: [],
       titresDomainesIds: [],
       titresTypesIds: [],
       titresStatutsIds: [],
-      noms: '',
-      entreprises: '',
-      substances: '',
-      references: '',
-      territoires: '',
-      etapesInclues: [],
-      etapesExclues: []
+      titresNoms: '',
+      titresEntreprises: '',
+      titresSubstances: '',
+      titresReferences: '',
+      titresTerritoires: ''
     }
   }
 }
@@ -122,7 +122,7 @@ export const actions = {
 
 export const mutations = {
   set(state, data) {
-    Vue.set(state, 'list', data.demarches)
+    Vue.set(state, 'list', data.elements)
     Vue.set(state, 'total', data.total)
   },
 
@@ -136,18 +136,18 @@ export const mutations = {
       } else if (id === 'demarchesStatuts') {
         metaId = 'statuts'
         paramsIds = ['statutsIds']
+      } else if (id === 'etapesTypes') {
+        metaId = 'etapesTypes'
+        paramsIds = ['etapesInclues', 'etapesExclues']
+      } else if (id === 'statuts') {
+        metaId = 'titresStatuts'
+        paramsIds = ['titresStatutsIds']
       } else if (id === 'types') {
         metaId = 'titresTypes'
         paramsIds = ['titresTypesIds']
       } else if (id === 'domaines') {
         metaId = 'titresDomaines'
         paramsIds = ['titresDomainesIds']
-      } else if (id === 'statuts') {
-        metaId = 'titresStatuts'
-        paramsIds = ['titresStatutsIds']
-      } else if (id === 'etapesTypes') {
-        metaId = 'etapesTypes'
-        paramsIds = ['etapesInclues', 'etapesExclues']
       }
 
       if (metaId) {

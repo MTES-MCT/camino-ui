@@ -37,8 +37,10 @@
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-4 flex mb-s">
-        <TitresDownloads
+        <Downloads
           v-if="titres.length"
+          :formats="['geojson','csv', 'xls', 'ods']"
+          section="titres"
           class="flex-right full-x"
         />
       </div>
@@ -97,7 +99,7 @@ import TitreEditPopup from './titre/edit-popup.vue'
 import TitresTableUrl from './titres/table-url.vue'
 import TitresMap from './titres/map-url.vue'
 import TitresFiltres from './titres/filtres-url.vue'
-import TitresDownloads from './titres/downloads.vue'
+import Downloads from './_common/downloads.vue'
 
 export default {
   name: 'Titres',
@@ -105,7 +107,7 @@ export default {
   components: {
     Url,
     TitresFiltres,
-    TitresDownloads
+    Downloads
   },
 
   data() {

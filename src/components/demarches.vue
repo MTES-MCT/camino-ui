@@ -18,10 +18,18 @@
     </div>
 
     <div
-      class="tablet-blobs"
+      class="tablet-blobs tablet-flex-direction-reverse"
     >
-      <div class="tablet-blob-1-2 flex">
-        <div class="py-m h6 bold">
+      <div class="tablet-blob-1-4 flex mb-s">
+        <Downloads
+          v-if="demarches.length"
+          :formats="['csv', 'xls', 'ods']"
+          section="demarches"
+          class="flex-right full-x"
+        />
+      </div>
+      <div class="tablet-blob-3-4 flex">
+        <div class="py-m h6 bold mb-xs">
           {{ resultat }}
         </div>
       </div>
@@ -39,13 +47,15 @@
 <script>
 import DemarchesTable from './demarches/table-url.vue'
 import DemarchesFiltres from './demarches/filtres-url.vue'
+import Downloads from './_common/downloads.vue'
 
 export default {
   name: 'Demarches',
 
   components: {
     DemarchesTable,
-    DemarchesFiltres
+    DemarchesFiltres,
+    Downloads
   },
 
   data() {
