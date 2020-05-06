@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <Loader v-if="!loaded" />
+  <div v-else>
     <div class="desktop-blobs pt-s">
       <div class="desktop-blob-2-3">
         <h1 class="mt-xs mb-m">
@@ -13,9 +14,18 @@
           class="btn rnd-xs py-s px-m full-x flex mb-s h5"
           @click="addPopupOpen"
         >
-          <span class="mt-xxs">Ajouter un utilisateur</span>  <i class="icon-24 icon-plus flex-right" />
+          <span class="mt-xxs">Ajouter un utilisateur</span>
+          <i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
+    </div>
+
+    <UtilisateursFiltres
+      v-if="metasLoaded"
+      @utilisateurs:update="utilisateursUpdate"
+    />
+    <div v-else class="py-s px-m mb-s">
+      …
     </div>
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
@@ -30,17 +40,16 @@
 
       <div class="tablet-blob-2-3 flex">
         <div class="py-m h6 bold mb-xs">
-          {{ utilisateurs.length }}
+          {{ resultat }}
         </div>
       </div>
     </div>
 
-    <div class="line-neutral" />
+    <div class="line" />
 
-    <Loader v-if="!loaded" />
     <UtilisateursTable
-      v-else
       :utilisateurs="utilisateurs"
+      @utilisateurs:update="utilisateursUpdate"
     />
   </div>
 </template>
@@ -48,7 +57,8 @@
 <script>
 import Loader from './_ui/loader.vue'
 import Downloads from './_common/downloads.vue'
-import UtilisateursTable from './utilisateurs/table.vue'
+import UtilisateursFiltres from './utilisateurs/filtres-url.vue'
+import UtilisateursTable from './utilisateurs/table-url.vue'
 import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
 
 export default {
@@ -57,18 +67,23 @@ export default {
   components: {
     Loader,
     Downloads,
+    UtilisateursFiltres,
     UtilisateursTable
   },
 
   data() {
     return {
-      filtersOpened: false
+      metasLoaded: false
     }
   },
 
   computed: {
     utilisateurs() {
       return this.$store.state.utilisateurs.list
+    },
+
+    total() {
+      return this.$store.state.utilisateurs.total
     },
 
     user() {
@@ -80,24 +95,34 @@ export default {
     },
 
     resultat() {
-      return `${this.utilisateurs.length} résultat${
-        this.utilisateurs.length > 1 ? 's' : ''
-      }`
+      const res =
+        this.total > this.utilisateurs.length
+          ? `${this.utilisateurs.length} / ${this.total}`
+          : this.utilisateurs.length
+      return `${res} résultat${this.utilisateurs.length > 1 ? 's' : ''}`
     }
   },
 
   watch: {
-    user: 'get'
+    user: 'metasGet'
   },
 
   created() {
-    this.get()
+    this.metasGet()
   },
 
   methods: {
-    async get() {
+    async utilisateursUpdate() {
       await this.$store.dispatch('utilisateurs/get')
     },
+
+    async metasGet() {
+      await this.$store.dispatch('utilisateurs/metasGet')
+      if (!this.metasLoaded) {
+        this.metasLoaded = true
+      }
+    },
+
     addPopupOpen() {
       this.$store.commit('popupOpen', {
         component: UtilisateurEditPopup,

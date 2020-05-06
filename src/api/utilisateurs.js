@@ -70,18 +70,33 @@ const utilisateur = apiQuery(
 const utilisateurs = apiQuery(
   gql`
     query Utilisateurs(
-      $administrationIds: [ID!]
-      $entrepriseIds: [ID!]
-      $permissionIds: [ID!]
-      $noms: [String!]
+      $intervalle: Int
+      $page: Int
+      $colonne: String
+      $ordre: String
+      $entrepriseIds: [ID]
+      $administrationIds: [ID]
+      $permissionIds: [ID]
+      $noms: String
+      $prenoms: String
+      $email: String
     ) {
       utilisateurs(
-        administrationIds: $administrationIds
+        intervalle: $intervalle
+        page: $page
+        colonne: $colonne
+        ordre: $ordre
         entrepriseIds: $entrepriseIds
+        administrationIds: $administrationIds
         permissionIds: $permissionIds
         noms: $noms
+        prenoms: $prenoms
+        email: $email
       ) {
-        ...utilisateur
+        utilisateurs {
+          ...utilisateur
+        }
+        total
       }
     }
 

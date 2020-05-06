@@ -38,9 +38,10 @@ describe('liste des utilisateurs', () => {
   })
 
   test('obtient la liste des utilisateurs', async () => {
-    const apiMock = api.utilisateurs.mockResolvedValue([
-      { id: 71, nom: 'toto', prenom: 'asticot' }
-    ])
+    const apiMock = api.utilisateurs.mockResolvedValue({
+      utilisateurs: [{ id: 71, nom: 'toto', prenom: 'asticot' }],
+      total: 1
+    })
     await store.dispatch('utilisateurs/get')
 
     expect(apiMock).toHaveBeenCalled()
