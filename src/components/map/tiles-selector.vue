@@ -1,7 +1,9 @@
 <template>
   <Accordion>
-    <template slot="title">
-      Fond de carte
+    <template
+      slot="title"
+    >
+      <span class="h5">Fond de carte</span>
     </template>
     <ul class="list-sans mt-m px-m">
       <li

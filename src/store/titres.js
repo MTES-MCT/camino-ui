@@ -94,8 +94,8 @@ export const actions = {
 }
 
 export const mutations = {
-  set(state, titres) {
-    Vue.set(state, 'list', titres)
+  set(state, data) {
+    Vue.set(state, 'list', data.elements)
   },
 
   metasSet(state, data) {

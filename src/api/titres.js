@@ -80,7 +80,10 @@ const titres = apiQuery(
         references: $references
         territoires: $territoires
       ) {
-        ...titres
+        elements {
+          ...titres
+        }
+        total
       }
     }
 

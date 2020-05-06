@@ -18,6 +18,23 @@
       </div>
     </div>
 
+    <div class="tablet-blobs tablet-flex-direction-reverse">
+      <div class="tablet-blob-1-3 flex mb-s">
+        <Downloads
+          v-if="entreprises.length"
+          :formats="['csv', 'xlsx', 'ods']"
+          section="entreprises"
+          class="flex-right full-x"
+        />
+      </div>
+
+      <div class="tablet-blob-2-3 flex">
+        <div class="py-m h6 bold mb-xs">
+          {{ resultat }}
+        </div>
+      </div>
+    </div>
+
     <div class="line-neutral" />
 
     <Loader v-if="!loaded" />
@@ -30,6 +47,7 @@
 
 <script>
 import Loader from './_ui/loader.vue'
+import Downloads from './_common/downloads.vue'
 import EntreprisesTable from './entreprises/table.vue'
 import EntrepriseAddPopup from './entreprise/add-popup.vue'
 
@@ -38,6 +56,7 @@ export default {
 
   components: {
     Loader,
+    Downloads,
     EntreprisesTable
   },
 
@@ -58,6 +77,12 @@ export default {
 
     loaded() {
       return !!this.entreprises
+    },
+
+    resultat() {
+      return `${this.entreprises.length} résultat${
+        this.entreprises.length > 1 ? 's' : ''
+      }`
     }
   },
 

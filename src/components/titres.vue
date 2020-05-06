@@ -36,20 +36,16 @@
     </div>
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
-      <div class="tablet-blob-1-2 flex mb-s">
-        <TitresDownloadCsv
+      <div class="tablet-blob-1-3 flex mb-s">
+        <Downloads
           v-if="titres.length"
-          :titres="titres"
-          class="mr-s flex-right"
-        />
-
-        <TitresDownloadGeojson
-          v-if="titres.length"
-          :titres="titres"
+          :formats="['geojson', 'csv', 'xlsx', 'ods']"
+          section="titres"
+          class="flex-right full-x"
         />
       </div>
 
-      <div class="tablet-blob-1-2 flex">
+      <div class="tablet-blob-2-3 flex">
         <div
           v-for="v in vues"
           :key="v.id"
@@ -76,7 +72,7 @@
             />
           </div>
         </div>
-        <div class="p-m">
+        <div class="p-m h6 bold mb-xs">
           {{ titres.length }} résultat{{ titres.length > 1 ? 's' : '' }}
         </div>
       </div>
@@ -103,8 +99,7 @@ import TitreEditPopup from './titre/edit-popup.vue'
 import TitresTableUrl from './titres/table-url.vue'
 import TitresMap from './titres/map-url.vue'
 import TitresFiltres from './titres/filtres-url.vue'
-import TitresDownloadCsv from './titres/download-csv.vue'
-import TitresDownloadGeojson from './titres/download-geojson.vue'
+import Downloads from './_common/downloads.vue'
 
 export default {
   name: 'Titres',
@@ -112,8 +107,7 @@ export default {
   components: {
     Url,
     TitresFiltres,
-    TitresDownloadCsv,
-    TitresDownloadGeojson
+    Downloads
   },
 
   data() {

@@ -87,7 +87,8 @@ const lignesBuild = (titres, activitesCol) =>
       titulaires: {
         component: List,
         props: {
-          elements: titre.titulaires.map(({ nom }) => nom)
+          elements: titre.titulaires.map(({ nom }) => nom),
+          mini: true
         },
         class: 'mb--xs',
         value: titre.titulaires.map(({ nom }) => nom).join(', ')

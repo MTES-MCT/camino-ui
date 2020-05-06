@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Download from '../_ui/download.vue'
+import Download from '../_common/download-client.vue'
 import { jsonTypenameOmit } from '../../utils/index'
 
 export default {

@@ -19,17 +19,17 @@
     </div>
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
-      <div class="tablet-blob-1-2 flex mb-s">
-        <ActivitesDownloadCsv
-          v-if="activites.length && activiteType"
-          :activites="activites"
-          :activite-type-sections="activiteType.sections"
-          class="mr-s flex-right"
+      <div class="tablet-blob-1-3 flex mb-s">
+        <Downloads
+          v-if="activites.length"
+          :formats="['csv', 'xlsx', 'ods']"
+          section="activites"
+          class="flex-right full-x"
         />
       </div>
 
-      <div class="tablet-blob-1-2 flex">
-        <div class="py-m h6 bold">
+      <div class="tablet-blob-2-3 flex">
+        <div class="py-m h6 bold mb-xs">
           {{ resultat }}
         </div>
       </div>
@@ -48,7 +48,7 @@
 import Loader from './_ui/loader.vue'
 import ActivitesFiltres from './activites/filtres-url.vue'
 import ActivitesTable from './activites/table-url.vue'
-import ActivitesDownloadCsv from './activites/download-csv.vue'
+import Downloads from './_common/downloads.vue'
 
 export default {
   name: 'Activites',
@@ -57,7 +57,7 @@ export default {
     Loader,
     ActivitesFiltres,
     ActivitesTable,
-    ActivitesDownloadCsv
+    Downloads
   },
 
   data() {

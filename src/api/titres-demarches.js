@@ -71,38 +71,38 @@ const demarches = apiQuery(
       $intervalle: Int
       $colonne: String
       $ordre: String
+      $typesIds: [ID!]
+      $statutsIds: [ID!]
+      $etapesInclues: [InputEtapeFiltre!]
+      $etapesExclues: [InputEtapeFiltre!]
       $titresDomainesIds: [ID!]
       $titresTypesIds: [ID!]
       $titresStatutsIds: [ID!]
-      $typesIds: [ID!]
-      $statutsIds: [ID!]
-      $noms: String
-      $entreprises: String
-      $substances: String
-      $references: String
-      $territoires: String
-      $etapesInclues: [InputEtapeFiltre!]
-      $etapesExclues: [InputEtapeFiltre!]
+      $titresNoms: String
+      $titresEntreprises: String
+      $titresSubstances: String
+      $titresReferences: String
+      $titresTerritoires: String
     ) {
       demarches(
         page: $page
         intervalle: $intervalle
         colonne: $colonne
         ordre: $ordre
+        typesIds: $typesIds
+        statutsIds: $statutsIds
+        etapesInclues: $etapesInclues
+        etapesExclues: $etapesExclues
         titresDomainesIds: $titresDomainesIds
         titresTypesIds: $titresTypesIds
         titresStatutsIds: $titresStatutsIds
-        typesIds: $typesIds
-        statutsIds: $statutsIds
-        noms: $noms
-        entreprises: $entreprises
-        substances: $substances
-        references: $references
-        territoires: $territoires
-        etapesInclues: $etapesInclues
-        etapesExclues: $etapesExclues
+        titresNoms: $titresNoms
+        titresEntreprises: $titresEntreprises
+        titresSubstances: $titresSubstances
+        titresReferences: $titresReferences
+        titresTerritoires: $titresTerritoires
       ) {
-        demarches {
+        elements {
           ...demarches
         }
         total

@@ -127,7 +127,7 @@ describe('liste des titres', () => {
   })
 
   test('obtient la liste des titres', async () => {
-    const apiMock = api.titres.mockResolvedValue(titresListe)
+    const apiMock = api.titres.mockResolvedValue({ elements: titresListe })
     await store.dispatch('titres/get')
 
     expect(apiMock).toHaveBeenCalledWith({

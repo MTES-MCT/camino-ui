@@ -56,7 +56,47 @@ const filtres = [
     elements: [],
     component: FiltresTitresStatuts
   },
-  { id: 'typesIds', name: 'Types', type: 'checkboxes', value: [] },
+  {
+    id: 'titresNoms',
+    type: 'input',
+    value: '',
+    name: 'Noms de titre',
+    placeholder: '…'
+  },
+  {
+    id: 'titresEntreprises',
+    type: 'input',
+    value: '',
+    name: 'Entreprises',
+    placeholder: 'Nom ou siret'
+  },
+  {
+    id: 'titresSubstances',
+    type: 'input',
+    value: '',
+    name: 'Substances',
+    placeholder: 'Or, Argent, Ag, …'
+  },
+  {
+    id: 'titresReferences',
+    type: 'input',
+    value: '',
+    name: 'Références',
+    placeholder: 'Référence DGEC, DEAL, DEB, BRGM, Ifremer, …'
+  },
+  {
+    id: 'titresTerritoires',
+    type: 'input',
+    value: '',
+    name: 'Territoires',
+    placeholder: 'Commune, département, région, …'
+  },
+  {
+    id: 'typesIds',
+    name: 'Types',
+    type: 'checkboxes',
+    value: []
+  },
   {
     id: 'statutsIds',
     name: 'Statuts',
@@ -64,35 +104,6 @@ const filtres = [
     value: [],
     elements: [],
     component: FiltresTitresStatuts
-  },
-  { id: 'noms', type: 'input', value: '', name: 'Noms', placeholder: '…' },
-  {
-    id: 'entreprises',
-    type: 'input',
-    value: '',
-    name: 'Entreprises',
-    placeholder: 'Nom ou siret'
-  },
-  {
-    id: 'substances',
-    type: 'input',
-    value: '',
-    name: 'Substances',
-    placeholder: 'Or, Argent, Ag, …'
-  },
-  {
-    id: 'references',
-    type: 'input',
-    value: '',
-    name: 'Références',
-    placeholder: 'Référence DGEC, DEAL, DEB, BRGM, Ifremer, …'
-  },
-  {
-    id: 'territoires',
-    type: 'input',
-    value: '',
-    name: 'Territoires',
-    placeholder: 'Commune, département, région, …'
   },
   {
     id: 'etapesInclues',

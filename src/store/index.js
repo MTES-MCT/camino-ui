@@ -109,15 +109,16 @@ export const actions = {
     await dispatch(`${name}/get`, id)
   },
 
-  async documentDownload({ dispatch }, { documentId, fichierTypeId }) {
+  async documentDownload({ dispatch, commit }, name) {
+    commit('loadingAdd', 'documentDownload', { root: true })
     try {
       const token = localStorage.getItem('token')
       const headers = new Headers({
-        'Content-Type': `application/${fichierTypeId}`,
         authorization: token ? `Bearer ${token}` : ''
       })
-      const url = `${process.env.VUE_APP_API_URL}/documents/${documentId}`
       const method = 'GET'
+
+      const url = `${process.env.VUE_APP_API_URL}/documents/${name}`
 
       const res = await fetch(url, { method, headers })
 
@@ -127,17 +128,66 @@ export const actions = {
       }
 
       const body = await res.blob()
-      saveAs(body, `${documentId}.${fichierTypeId}`)
+      saveAs(body, name)
 
       dispatch('messageAdd', {
         type: 'success',
-        value: `fichier téléchargé : ${documentId}.${fichierTypeId}`
+        value: `fichier téléchargé : ${name}`
       })
     } catch (e) {
-      dispatch(
-        'apiError',
-        `erreur de téléchargement : ${documentId}.${fichierTypeId}, ${e}`
-      )
+      dispatch('apiError', `erreur de téléchargement : ${name}, ${e}`)
+      console.info(e)
+    } finally {
+      commit('loadingRemove', 'documentDownload', { root: true })
+    }
+  },
+
+  async contentDownload({ dispatch, commit }, { section, params }) {
+    commit('loadingAdd', 'contentDownload', { root: true })
+
+    try {
+      const token = localStorage.getItem('token')
+      const headers = new Headers({
+        authorization: token ? `Bearer ${token}` : ''
+      })
+      const method = 'GET'
+
+      const paramsString = new URLSearchParams(params).toString()
+
+      const url = `${process.env.VUE_APP_API_URL}/${section}?${paramsString}`
+
+      const res = await fetch(url, { method, headers })
+
+      if (res.status !== 200) {
+        const error = await res.text()
+        throw error
+      }
+
+      // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
+      const contentDisposition = res.headers.get('Content-disposition')
+
+      const name = contentDisposition
+        ? contentDisposition
+            .split(';')
+            .find(n => n.includes('filename='))
+            .replace('filename=', '')
+            .trim()
+        : ''
+
+      if (!name) throw new Error('nom de fichier manquant')
+
+      const body = await res.blob()
+      saveAs(body, name)
+
+      dispatch('messageAdd', {
+        type: 'success',
+        value: `fichier téléchargé : ${name}`
+      })
+    } catch (e) {
+      dispatch('apiError', `erreur de téléchargement : ${section}, ${e}`)
+      console.info(e)
+    } finally {
+      commit('loadingRemove', 'contentDownload', { root: true })
     }
   }
 }
