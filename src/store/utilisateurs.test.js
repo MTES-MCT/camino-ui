@@ -4,7 +4,8 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/utilisateurs', () => ({
-  utilisateurs: jest.fn()
+  utilisateurs: jest.fn(),
+  metasUtilisateurs: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -17,7 +18,51 @@ describe('liste des utilisateurs', () => {
   let actions
   let mutations
   beforeEach(() => {
-    utilisateurs.state = { list: [], permissions: [] }
+    utilisateurs.state = {
+      list: [],
+      total: null,
+      metas: {
+        permission: [],
+        administration: [],
+        entreprise: []
+      },
+      params: [
+        { id: 'noms', type: 'string' },
+        { id: 'prenoms', type: 'string' },
+        { id: 'email', type: 'string' },
+        { id: 'permissionIds', type: 'strings', elements: [] },
+        { id: 'administrationIds', type: 'strings', elements: [] },
+        { id: 'entrepriseIds', type: 'strings', elements: [] },
+        { id: 'page', type: 'number', min: 0 },
+        { id: 'intervalle', type: 'number', min: 10, max: 500 },
+        {
+          id: 'colonne',
+          type: 'string',
+          elements: ['nom', 'prenom', 'email', 'permission', 'lien']
+        },
+        {
+          id: 'ordre',
+          type: 'string',
+          elements: ['asc', 'desc']
+        }
+      ],
+      preferences: {
+        table: {
+          page: 1,
+          intervalle: 200,
+          ordre: 'asc',
+          colonne: null
+        },
+        filtres: {
+          noms: '',
+          prenoms: '',
+          email: '',
+          permissionIds: [],
+          administrationIds: [],
+          entrepriseIds: []
+        }
+      }
+    }
     actions = {
       pageError: jest.fn(),
       apiError: jest.fn(),
@@ -35,6 +80,125 @@ describe('liste des utilisateurs', () => {
       mutations,
       actions
     })
+  })
+
+  const permissions = [
+    {
+      id: 'admin',
+      nom: 'Admin'
+    },
+    {
+      id: 'editeur',
+      nom: 'Éditeur'
+    },
+    {
+      id: 'lecteur',
+      nom: 'Lecteur'
+    },
+    {
+      id: 'entreprise',
+      nom: 'Entreprise'
+    },
+    {
+      id: 'defaut',
+      nom: 'Défaut'
+    }
+  ]
+
+  const utilisateursEntreprises = [
+    {
+      id: 'fr-513863217',
+      nom: "SOCIETE GUYANAISE DES MINES D'OR (SOGUMINOR)"
+    },
+    {
+      id: 'fr-821136710',
+      nom: 'SASU SOFERRO (SOFERRO)'
+    },
+    {
+      id: 'fr-402207153',
+      nom: 'IAMGOLD FRANCE'
+    },
+    {
+      id: 'fr-333517530',
+      nom: 'BIJOUTERIE REUNIF'
+    }
+  ]
+
+  const utilisateursAdministrations = [
+    {
+      id: 'dre-nouvelle-aquitaine-01',
+      nom:
+        "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Nouvelle-Aquitaine - Siège de Poitiers"
+    },
+    {
+      id: 'ope-onf-973-01',
+      nom: 'Office national des forêts'
+    },
+    {
+      id: 'pre-97302-01',
+      nom: 'Préfecture - Guyane'
+    },
+    {
+      id: 'dre-grand-est-01',
+      nom:
+        "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Grand Est - Siège de Metz"
+    }
+  ]
+
+  test('récupère les métas pour afficher les utilisateurs', async () => {
+    const apiMock = api.metasUtilisateurs.mockResolvedValue({
+      permissions,
+      utilisateursEntreprises,
+      utilisateursAdministrations
+    })
+
+    await store.dispatch('utilisateurs/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.utilisateurs.metas).toEqual({
+      permission: permissions,
+      entreprise: utilisateursEntreprises,
+      administration: utilisateursAdministrations
+    })
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("ne récupère pa les métas si l'api ne les renvoie pas", async () => {
+    const apiMock = api.metasUtilisateurs.mockResolvedValue({
+      permission: permissions,
+      utilisateursEntreprise: utilisateursEntreprises,
+      utilisateursAdministration: utilisateursAdministrations
+    })
+
+    await store.dispatch('utilisateurs/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.utilisateurs.metas).toEqual({
+      permission: [],
+      administration: [],
+      entreprise: []
+    })
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api ne répond pas", async () => {
+    const apiMock = api.metasUtilisateurs.mockRejectedValue(
+      new Error("erreur de l'api")
+    )
+
+    await store.dispatch('utilisateurs/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api répond null", async () => {
+    const apiMock = api.metasUtilisateurs.mockResolvedValue(null)
+
+    await store.dispatch('utilisateurs/metasGet')
+
+    expect(apiMock).toHaveBeenCalled()
   })
 
   test('obtient la liste des utilisateurs', async () => {
@@ -65,5 +229,15 @@ describe('liste des utilisateurs', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
+  })
+
+  test('initialise les preferences de filtre', async () => {
+    const section = 'filtres'
+    const params = { permissionsIds: 'admin' }
+    await store.dispatch('utilisateurs/preferencesSet', { section, params })
+
+    expect(store.state.utilisateurs.preferences.filtres.permissionsIds).toEqual(
+      'admin'
+    )
   })
 })

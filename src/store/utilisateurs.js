@@ -58,7 +58,7 @@ export const actions = {
 
       commit('metasSet', data)
     } catch (e) {
-      dispatch('apiError', e, { root: true })
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
       console.info(e)
     } finally {
       commit('loadingRemove', 'metasUtilisateur', { root: true })
