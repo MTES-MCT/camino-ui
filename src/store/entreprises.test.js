@@ -122,4 +122,17 @@ describe("liste d'entreprises", () => {
     expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
+
+  test('initialise les preferences de filtre', async () => {
+    const section = 'filtres'
+    const params = { nomSiren: "la mine d'or" }
+    await store.dispatch('entreprises/preferencesSet', {
+      section,
+      params
+    })
+
+    expect(store.state.entreprises.preferences.filtres.nomSiren).toEqual(
+      "la mine d'or"
+    )
+  })
 })
