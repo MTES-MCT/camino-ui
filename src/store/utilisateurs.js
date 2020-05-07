@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { utilisateurs, metasUtilisateur } from '../api/utilisateurs'
+import { utilisateurs, metasUtilisateurs } from '../api/utilisateurs'
 import { paramsBuild } from './_utils'
 
 export const state = {
@@ -54,7 +54,7 @@ export const actions = {
     commit('loadingAdd', 'metasUtilisateur', { root: true })
 
     try {
-      const data = await metasUtilisateur()
+      const data = await metasUtilisateurs()
 
       commit('metasSet', data)
     } catch (e) {
@@ -116,10 +116,10 @@ export const mutations = {
       if (id === 'permissions') {
         metaId = 'permission'
         paramsIds = ['permissionIds']
-      } else if (id === 'entreprises') {
+      } else if (id === 'utilisateursEntreprises') {
         metaId = 'entreprise'
         paramsIds = ['entrepriseIds']
-      } else if (id === 'administrations') {
+      } else if (id === 'utilisateursAdministrations') {
         metaId = 'administration'
         paramsIds = ['administrationIds']
       }
