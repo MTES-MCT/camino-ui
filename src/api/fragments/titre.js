@@ -4,10 +4,7 @@ import { fragmentTitreType } from './metas'
 import { fragmentTitreDemarche } from './titre-demarche'
 import { fragmentTitreActivite } from './titre-activite'
 import { fragmentTitreSubstance, fragmentTitresSubstance } from './substance'
-import {
-  fragmentTitreAdministrations,
-  fragmentTitresAdministrations
-} from './administrations'
+import { fragmentTitreAdministrations } from './administrations'
 import {
   fragmentTitreEntreprises,
   fragmentTitresEntreprises
@@ -123,25 +120,12 @@ const fragmentTitres = gql`
       nom
       couleur
     }
-    references {
-      type {
-        id
-        nom
-      }
-      nom
-    }
     substances {
       ...titresSubstance
     }
-    dateDebut
-    dateFin
-    dateDemande
     activitesEnConstruction
     activitesAbsentes
     activitesDeposees
-    administrations {
-      ...titresAdministrations
-    }
     titulaires {
       ...titresEntreprises
     }
@@ -151,23 +135,7 @@ const fragmentTitres = gql`
     geojsonMultiPolygon {
       ...geojsonMultiPolygon
     }
-    surface
-    pays {
-      nom
-      regions {
-        nom
-        departements {
-          nom
-          communes {
-            nom
-            surface
-          }
-        }
-      }
-    }
   }
-
-  ${fragmentTitresAdministrations}
 
   ${fragmentTitresEntreprises}
 

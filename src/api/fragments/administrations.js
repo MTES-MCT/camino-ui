@@ -16,13 +16,6 @@ const fragmentTitreAdministrations = gql`
   }
 `
 
-const fragmentTitresAdministrations = gql`
-  fragment titresAdministrations on Administration {
-    id
-    nom
-  }
-`
-
 const fragmentAdministrations = gql`
   fragment administrations on Administration {
     id
@@ -33,8 +26,4 @@ const fragmentAdministrations = gql`
   }
 `
 
-export {
-  fragmentAdministrations,
-  fragmentTitresAdministrations,
-  fragmentTitreAdministrations
-}
+export { fragmentAdministrations, fragmentTitreAdministrations }
