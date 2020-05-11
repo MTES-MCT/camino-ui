@@ -4,7 +4,7 @@ import CaminoDomaine from '../_common/domaine.vue'
 
 const colonnes = [
   { id: 'titreNom', name: 'Titre' },
-  { name: '', id: 'domaineId' },
+  { id: 'titreDomaine', name: '' },
   { id: 'titreType', name: 'Type de titre' },
   {
     id: 'titreStatut',
@@ -19,7 +19,7 @@ const lignesBuild = demarches =>
   demarches.map(demarche => {
     const columns = {
       titreNom: { value: demarche.titre.nom },
-      domaineId: {
+      titreDomaine: {
         component: CaminoDomaine,
         props: { domaineId: demarche.titre.domaine.id },
         value: demarche.titre.domaine.id
