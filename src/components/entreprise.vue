@@ -176,6 +176,7 @@
       <div class="line" />
       <TitresTable
         :titres="titresTitulaire"
+        @table:eventTrack="eventTrack"
       />
     </div>
 
@@ -188,6 +189,7 @@
       <div class="line" />
       <TitresTable
         :titres="titresAmodiataire"
+        @table:eventTrack="eventTrack"
       />
     </div>
   </div>
@@ -267,6 +269,16 @@ export default {
           entreprise
         }
       })
+    },
+
+    eventTrack(id) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent(
+          'page-titre',
+          'accès-page-titre-depuis',
+          'fiche entreprise'
+        )
+      }
     }
   }
 }

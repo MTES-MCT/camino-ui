@@ -183,6 +183,8 @@ export const actions = {
         type: 'success',
         value: `fichier téléchargé : ${name}`
       })
+
+      return name
     } catch (e) {
       dispatch('apiError', `erreur de téléchargement : ${section}, ${e}`)
       console.info(e)

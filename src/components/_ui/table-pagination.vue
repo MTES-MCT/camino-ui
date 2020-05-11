@@ -5,6 +5,7 @@
     :order="order"
     :rows="rowsPage"
     @params:update="paramsUpdate"
+    @table:eventTrack="eventTrack"
   />
 </template>
 
@@ -55,6 +56,10 @@ export default {
   methods: {
     paramsUpdate(params) {
       this.$emit('params:update', params)
+    },
+
+    eventTrack(id) {
+      this.$emit('table:eventTrack', id)
     }
   }
 }

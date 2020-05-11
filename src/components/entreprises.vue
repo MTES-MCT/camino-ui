@@ -106,6 +106,7 @@ export default {
     Vue.nextTick(() => {
       this.metasLoaded = true
     })
+    this.eventTrack()
   },
 
   methods: {
@@ -117,6 +118,20 @@ export default {
       this.$store.commit('popupOpen', {
         component: EntrepriseAddPopup
       })
+    },
+
+    eventTrack(id = null) {
+      if (this.$matomo) {
+        if (id) {
+          this.$matomo.trackEvent(
+            'page-entreprises',
+            'accès-page-entreprises',
+            id
+          )
+        } else {
+          this.$matomo.trackEvent('page-entreprises', 'accès-page-entreprises')
+        }
+      }
     }
   }
 }

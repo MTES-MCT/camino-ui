@@ -56,6 +56,11 @@ export default {
 
   methods: {
     editPopupOpen() {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: 'éditer un titre',
+        nom: this.$route.params.id
+      })
       const titre = {}
 
       titre.id = this.titre.id
@@ -76,6 +81,11 @@ export default {
     },
 
     removePopupOpen() {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: 'supprimer un titre',
+        nom: this.$route.params.id
+      })
       this.$store.commit('popupOpen', {
         component: RemovePopup,
         props: {
@@ -87,14 +97,12 @@ export default {
     },
 
     emailSend() {
-      this.eventTrack(this.$route.params.id)
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: 'signaler une erreur',
+        nom: this.$route.params.id
+      })
       window.location.href = `mailto:camino@beta.gouv.fr?subject=Erreur ${this.$route.params.id}&body=Bonjour, j'ai repéré une erreur sur le titre ${this.$route.params.id} : `
-    },
-
-    eventTrack(id) {
-      if (this.$matomo) {
-        this.$matomo.trackEvent('titre-erreur', 'signaler une erreur', id)
-      }
     }
   }
 }

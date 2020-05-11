@@ -50,6 +50,7 @@
       :etape="etape"
       :demarche-type="demarche.type"
       :demarche-id="demarche.id"
+      @titre:eventTrack="eventTrack"
     />
   </div>
 </template>
@@ -87,6 +88,12 @@ export default {
 
   methods: {
     editPopupOpen() {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: 'éditer une démarche',
+        nom: this.$route.params.id
+      })
+
       const demarche = {}
 
       demarche.typeId = this.demarche.type.id
@@ -105,6 +112,12 @@ export default {
     },
 
     removePopupOpen() {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: 'supprimer une démarche',
+        nom: this.$route.params.id
+      })
+
       this.$store.commit('popupOpen', {
         component: RemovePopup,
         props: {
@@ -117,6 +130,12 @@ export default {
     },
 
     etapeAddPopupOpen() {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: 'ajouter une étape',
+        nom: this.$route.params.id
+      })
+
       const etape = {
         ordre: 0,
         titreDemarcheId: this.demarche.id,
@@ -145,6 +164,10 @@ export default {
           creation: true
         }
       })
+    },
+
+    eventTrack(event) {
+      this.$emit('titre:eventTrack', event)
     }
   }
 }

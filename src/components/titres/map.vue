@@ -8,23 +8,13 @@
       class="map map-list mb-s"
       @map:update="preferencesUpdate"
     />
-    <MapPattern
-      :domaines-ids="domainesIds"
-      :types-ids="typesIds"
-    />
-    <MapWarningBrgm
-      :zoom="preferences.zoom"
-      :tiles-id="tilesId"
-    />
+    <MapPattern :domaines-ids="domainesIds" :types-ids="typesIds" />
+    <MapWarningBrgm :zoom="preferences.zoom" :tiles-id="tilesId" />
     <div class="container overflow-auto">
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2">
           <ul class="list-inline">
-            <li
-              v-for="z in zones"
-              :key="z.id"
-              class="mr-xs"
-            >
+            <li v-for="z in zones" :key="z.id" class="mr-xs">
               <button
                 class="btn-border pill px-m py-s h5"
                 @click="mapCenter(z.id)"
@@ -40,7 +30,9 @@
             @click="clustersDisplayToggle"
           >
             <i
-              :class="`icon-markers-${clustersDisplay ? 'ungrouped' : 'grouped'}`"
+              :class="
+                `icon-markers-${clustersDisplay ? 'ungrouped' : 'grouped'}`
+              "
               class="icon-24"
             />
           </button>
@@ -162,7 +154,11 @@ export default {
 
     titresInit() {
       const clusters = clustersBuild(this.domaines)
-      const { geojsons, markers } = layersBuild(this.titres, this.$router)
+      const { geojsons, markers } = layersBuild(
+        this.$matomo,
+        this.titres,
+        this.$router
+      )
       this.geojsons = geojsons
       this.markers = markers
       this.markers.forEach(marker => {
@@ -193,6 +189,7 @@ export default {
     },
 
     tilesUpdate(params) {
+      this.eventTrack()
       this.$store.dispatch('user/preferencesSet', {
         section: 'carte',
         params
@@ -225,6 +222,12 @@ export default {
     clustersDisplayToggle() {
       this.clustersDisplay = !this.clustersDisplay
       this.geojsonLayersDisplay()
+    },
+
+    eventTrack() {
+      if (this.$matomo) {
+        this.$matomo.trackEvent('titres-vue', 'titre-id-fond-carte')
+      }
     }
   }
 }

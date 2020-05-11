@@ -15,6 +15,7 @@
       :key="demarche.id"
       :demarche="demarche"
       :type="titre.type"
+      @titre:eventTrack="eventTrack"
     />
   </div>
 </template>
@@ -43,6 +44,11 @@ export default {
 
   methods: {
     demarcheAddPopupOpen() {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: 'ajouter une démarche',
+        nom: this.$route.params.id
+      })
       const demarche = {
         typeId: null,
         titreId: this.titre.id
@@ -58,6 +64,10 @@ export default {
           creation: true
         }
       })
+    },
+
+    eventTrack(event) {
+      this.$emit('titre:eventTrack', event)
     }
   }
 }

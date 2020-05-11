@@ -22,7 +22,7 @@
           <div class="flex">
             <button
               class="btn-border pill px-m py-s"
-              @click="center"
+              @click="actionCenter"
             >
               Centrer
             </button>
@@ -151,10 +151,24 @@ export default {
 
   methods: {
     preferencesUpdate(params) {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: `choix d'un fond de carte`,
+        nom: this.$route.params.id
+      })
       this.$store.dispatch('user/preferencesSet', {
         section: 'carte',
         params
       })
+    },
+
+    actionCenter() {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: `centrer sur la carte d'une fiche titre`,
+        nom: this.$route.params.id
+      })
+      this.center()
     },
 
     center() {

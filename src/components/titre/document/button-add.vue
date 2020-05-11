@@ -17,6 +17,12 @@ export default {
 
   methods: {
     addPopupOpen() {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: 'ajouter un document à une étape',
+        nom: this.$route.params.id
+      })
+
       const document = {
         titreEtapeId: this.etapeId,
         typeId: '',

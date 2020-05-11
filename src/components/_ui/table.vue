@@ -35,6 +35,7 @@
             :key="col.id"
             class="td"
             :class="col.class"
+            @click="$emit('table:eventTrack',row.id)"
           >
             <component
               :is="row.columns[col.id].component"

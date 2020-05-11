@@ -1,5 +1,8 @@
 <template>
-  <Accordion class="mb">
+  <Accordion
+    class="mb"
+    @toggle="eventTrack($event,'consulter')"
+  >
     <template slot="title">
       <h4 class="mb-0">
         {{ entrepriseNameFind(entreprise) }}
@@ -13,13 +16,18 @@
       </Tag>
     </template>
 
-    <template slot="buttons">
+    <template
+      slot="buttons"
+    >
       <RouterLink
         :to="{ name: 'entreprise', params: {id: entreprise.id }}"
         class="btn-alt py-s px-m"
         tag="button"
       >
-        <i class="icon-24 icon-window-link" />
+        <i
+          class="icon-24 icon-window-link"
+          @click="eventTrack($event,'éditer')"
+        />
       </RouterLink>
     </template>
 
@@ -163,6 +171,10 @@ export default {
     entreprise: {
       type: Object,
       default: () => {}
+    },
+    statut: {
+      type: String,
+      default: () => 'titulaire'
     }
   },
 
@@ -192,6 +204,19 @@ export default {
           null
         ).nom
       )
+    },
+
+    eventTrack(event, _action) {
+      if (event) {
+        let action = `${_action} les informations `
+        action +=
+          this.statut === 'titulaire' ? `du titulaire` : `de l'amodiataire`
+        this.$emit('titre:eventTrack', {
+          categorie: 'titre-sections',
+          action,
+          nom: this.$route.params.id
+        })
+      }
     }
   }
 }

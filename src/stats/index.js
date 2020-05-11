@@ -36,6 +36,7 @@ export default function install(Vue, setupOptions = {}) {
 
       if (options.enableLinkTracking) {
         matomo.enableLinkTracking(options.enableLinkTracking)
+        matomo.setDownloadExtensions('csv|odt|xlsx|geojson')
       }
 
       if (options.router) {

@@ -48,6 +48,10 @@ export default {
 
     preferences() {
       return this.$store.state.titresDemarches.preferences.filtres
+    },
+
+    apiParams() {
+      return this.$store.state.titresDemarches.params
     }
   },
 
@@ -100,6 +104,7 @@ export default {
         return params
       }, {})
 
+      this.eventTrack(params)
       this.preferencesUpdate(params)
       this.demarchesUpdate()
     },
@@ -110,6 +115,9 @@ export default {
 
     toggle(opened) {
       this.opened = opened
+      if (opened) {
+        this.eventTrack()
+      }
     },
 
     keyup(e) {
@@ -153,6 +161,41 @@ export default {
 
     metaIdFind(id) {
       return id.replace(/Ids/g, '')
+    },
+
+    eventTrack(params = null) {
+      if (this.$matomo) {
+        if (params) {
+          const events = this.apiParams.reduce((events, { type, id }) => {
+            if (type === 'string' && params[id]) {
+              events.push({ id, value: params[id] })
+            } else if (type === 'strings' && params[id]) {
+              const values = params[id]
+              values.forEach(value => {
+                events.push({ id, value })
+              })
+            }
+
+            return events
+          }, [])
+
+          events.forEach(({ id, value }) => {
+            this.$matomo.trackEvent(
+              'demarches-filtres',
+              `demarches-filtres-${id}`,
+              value
+            )
+          })
+
+          Object.keys(params).forEach(id => {
+            if (params[id]) {
+              this.$matomo.trackSiteSearch(JSON.stringify(params[id]), id)
+            }
+          })
+        } else {
+          this.$matomo.trackEvent('demarches', 'filtres', 'filtres-demarches')
+        }
+      }
     }
   }
 }

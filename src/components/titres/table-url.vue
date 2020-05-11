@@ -5,7 +5,9 @@
       :values="preferences"
       @params:update="preferencesUpdate"
     />
-    <Table :titres="titres" />
+    <Table :titres="titres"
+      @table:eventTrack="eventTrack"
+     />
   </div>
 </template>
 
@@ -47,6 +49,16 @@ export default {
         section: 'table',
         params
       })
+    },
+
+    eventTrack(id) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent(
+          'page-titre',
+          'accès-page-titre-depuis',
+          'liste des titres'
+        )
+      }
     }
   }
 }

@@ -7,6 +7,7 @@
       :rows="lignes"
       class="width-max"
       @params:update="preferencesUpdate"
+      @table:eventTrack="eventTrack"
     />
 
     <div class="desktop-blobs">
@@ -119,6 +120,16 @@ export default {
 
     demarchesUpdate() {
       this.$emit('demarches:update')
+    },
+
+    eventTrack(id) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent(
+          'page-titre',
+          'accès-page-titre-depuis',
+          'liste des demarches'
+        )
+      }
     }
   }
 }
