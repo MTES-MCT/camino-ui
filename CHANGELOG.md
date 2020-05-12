@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.31](https://github.com/MTES-MCT/camino-ui/compare/v0.22.30...v0.22.31) (2020-05-12)
+
+
+### Features
+
+* télécharge les exports de données côté serveur ([#103](https://github.com/MTES-MCT/camino-ui/issues/103)) ([e7a87a4](https://github.com/MTES-MCT/camino-ui/commit/e7a87a4ba8a632a46da37cdf48dfacbec7495c84))
+* **démarches:** filtre par nom de titres, titulaires, substances, etc. ([#102](https://github.com/MTES-MCT/camino-ui/issues/102)) ([c4f84df](https://github.com/MTES-MCT/camino-ui/commit/c4f84df3487a181a8687c32f6bd647347c2cacfc))
+
+
+### Bug Fixes
+
+* corrige le tri des démarches ([#106](https://github.com/MTES-MCT/camino-ui/issues/106)) ([54a3f23](https://github.com/MTES-MCT/camino-ui/commit/54a3f23fccc7d3b7f56895a1309fbc7294f4bb7a))
+
 ### [0.22.30](https://github.com/MTES-MCT/camino-ui/compare/v0.22.29...v0.22.30) (2020-05-05)
 
 
