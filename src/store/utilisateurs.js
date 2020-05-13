@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { utilisateurs, metasUtilisateurs } from '../api/utilisateurs'
+import { utilisateurs, metasUtilisateur } from '../api/utilisateurs'
 import { paramsBuild } from './_utils'
 
 export const state = {
@@ -14,7 +14,7 @@ export const state = {
   params: [
     { id: 'noms', type: 'string' },
     { id: 'prenoms', type: 'string' },
-    { id: 'email', type: 'string' },
+    { id: 'emails', type: 'string' },
     { id: 'permissionIds', type: 'strings', elements: [] },
     { id: 'administrationIds', type: 'strings', elements: [] },
     { id: 'entrepriseIds', type: 'strings', elements: [] },
@@ -41,7 +41,7 @@ export const state = {
     filtres: {
       noms: '',
       prenoms: '',
-      email: '',
+      emails: '',
       permissionIds: [],
       administrationIds: [],
       entrepriseIds: []
@@ -54,7 +54,7 @@ export const actions = {
     commit('loadingAdd', 'metasUtilisateur', { root: true })
 
     try {
-      const data = await metasUtilisateurs()
+      const data = await metasUtilisateur()
 
       commit('metasSet', data)
     } catch (e) {
@@ -79,7 +79,7 @@ export const actions = {
       dispatch(
         'messageAdd',
         {
-          value: `liste d'utilisateurs mise à jour`,
+          value: "liste d'utilisateurs mise à jour",
           type: 'success'
         },
         { root: true }
@@ -116,10 +116,10 @@ export const mutations = {
       if (id === 'permissions') {
         metaId = 'permission'
         paramsIds = ['permissionIds']
-      } else if (id === 'utilisateursEntreprises') {
+      } else if (id === 'entreprises') {
         metaId = 'entreprise'
         paramsIds = ['entrepriseIds']
-      } else if (id === 'utilisateursAdministrations') {
+      } else if (id === 'administrations') {
         metaId = 'administration'
         paramsIds = ['administrationIds']
       }

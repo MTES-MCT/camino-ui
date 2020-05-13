@@ -1,18 +1,57 @@
+import FiltresAdministrations from './filtres-custom-administrations.vue'
+import FiltresEntreprises from './filtres-custom-entreprises.vue'
+
+// supprime les clés dont les valeurs sont vides
+// et les objets vides
+const administrationsClean = value => {
+  if (!value) return null
+
+  const administrations = value.reduce((administrations, administration) => {
+    if (administration.administrationId !== '') {
+      administrations.push(administration.administrationId)
+    }
+
+    return administrations
+  }, [])
+
+  return administrations.length ? administrations : null
+}
+
+const entreprisesClean = value => {
+  if (!value) return null
+
+  const entreprises = value.reduce((entreprises, entreprise) => {
+    if (entreprise.entrepriseId !== '') {
+      entreprises.push(entreprise.entrepriseId)
+    }
+
+    return entreprises
+  }, [])
+
+  return entreprises.length ? entreprises : null
+}
+
 const filtres = [
-  { id: 'noms', type: 'input', value: '', name: 'Noms', placeholder: 'Noms' },
+  {
+    id: 'noms',
+    type: 'input',
+    value: '',
+    name: 'Noms',
+    placeholder: '...'
+  },
   {
     id: 'prenoms',
     type: 'input',
     value: '',
     name: 'Prénoms',
-    placeholder: 'Prénoms'
+    placeholder: '...'
   },
   {
-    id: 'email',
+    id: 'emails',
     type: 'input',
     value: '',
     name: 'Emails',
-    placeholder: 'Email'
+    placeholder: 'prenom.nom@domaine.fr, onf, gouv, ...'
   },
   {
     id: 'permissionIds',
@@ -24,16 +63,20 @@ const filtres = [
   {
     id: 'administrationIds',
     name: 'Administrations',
-    type: 'checkboxes',
+    type: 'custom',
     value: [],
-    elements: []
+    elements: [],
+    component: FiltresAdministrations,
+    clean: administrationsClean
   },
   {
     id: 'entrepriseIds',
     name: 'Entreprises',
-    type: 'checkboxes',
+    type: 'custom',
     value: [],
-    elements: []
+    elements: [],
+    component: FiltresEntreprises,
+    clean: entreprisesClean
   }
 ]
 

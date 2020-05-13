@@ -5,7 +5,7 @@ import Vuex from 'vuex'
 
 jest.mock('../api/utilisateurs', () => ({
   utilisateurs: jest.fn(),
-  metasUtilisateurs: jest.fn()
+  metasUtilisateur: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -29,7 +29,7 @@ describe('liste des utilisateurs', () => {
       params: [
         { id: 'noms', type: 'string' },
         { id: 'prenoms', type: 'string' },
-        { id: 'email', type: 'string' },
+        { id: 'emails', type: 'string' },
         { id: 'permissionIds', type: 'strings', elements: [] },
         { id: 'administrationIds', type: 'strings', elements: [] },
         { id: 'entrepriseIds', type: 'strings', elements: [] },
@@ -56,7 +56,7 @@ describe('liste des utilisateurs', () => {
         filtres: {
           noms: '',
           prenoms: '',
-          email: '',
+          emails: '',
           permissionIds: [],
           administrationIds: [],
           entrepriseIds: []
@@ -105,7 +105,7 @@ describe('liste des utilisateurs', () => {
     }
   ]
 
-  const utilisateursEntreprises = [
+  const entreprises = [
     {
       id: 'fr-513863217',
       nom: "SOCIETE GUYANAISE DES MINES D'OR (SOGUMINOR)"
@@ -124,7 +124,7 @@ describe('liste des utilisateurs', () => {
     }
   ]
 
-  const utilisateursAdministrations = [
+  const administrations = [
     {
       id: 'dre-nouvelle-aquitaine-01',
       nom:
@@ -146,10 +146,10 @@ describe('liste des utilisateurs', () => {
   ]
 
   test('récupère les métas pour afficher les utilisateurs', async () => {
-    const apiMock = api.metasUtilisateurs.mockResolvedValue({
+    const apiMock = api.metasUtilisateur.mockResolvedValue({
       permissions,
-      utilisateursEntreprises,
-      utilisateursAdministrations
+      entreprises,
+      administrations
     })
 
     await store.dispatch('utilisateurs/metasGet')
@@ -157,17 +157,17 @@ describe('liste des utilisateurs', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.utilisateurs.metas).toEqual({
       permission: permissions,
-      entreprise: utilisateursEntreprises,
-      administration: utilisateursAdministrations
+      entreprise: entreprises,
+      administration: administrations
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
   test("ne récupère pa les métas si l'api ne les renvoie pas", async () => {
-    const apiMock = api.metasUtilisateurs.mockResolvedValue({
+    const apiMock = api.metasUtilisateur.mockResolvedValue({
       permission: permissions,
-      utilisateursEntreprise: utilisateursEntreprises,
-      utilisateursAdministration: utilisateursAdministrations
+      entreprise: entreprises,
+      administration: administrations
     })
 
     await store.dispatch('utilisateurs/metasGet')
@@ -182,7 +182,7 @@ describe('liste des utilisateurs', () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasUtilisateurs.mockRejectedValue(
+    const apiMock = api.metasUtilisateur.mockRejectedValue(
       new Error("erreur de l'api")
     )
 
@@ -194,7 +194,7 @@ describe('liste des utilisateurs', () => {
   })
 
   test("retourne une erreur si l'api répond null", async () => {
-    const apiMock = api.metasUtilisateurs.mockResolvedValue(null)
+    const apiMock = api.metasUtilisateur.mockResolvedValue(null)
 
     await store.dispatch('utilisateurs/metasGet')
 

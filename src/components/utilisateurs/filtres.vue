@@ -83,7 +83,8 @@ export default {
           value = this.checkboxesValueClean(filtre.id, filtre.value)
         } else if (filtre.type === 'custom' && filtre.value) {
           // on crée une copie pour éviter les modifications par référence
-          value = JSON.parse(JSON.stringify(filtre.value))
+          // value = JSON.parse(JSON.stringify(filtre.value))
+          value = filtre.clean(JSON.parse(JSON.stringify(filtre.value)))
         } else {
           value = filtre.value
         }

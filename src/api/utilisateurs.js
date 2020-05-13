@@ -54,31 +54,6 @@ const metasUtilisateur = apiQuery(
   { fetchPolicy: 'network-only' }
 )
 
-const metasUtilisateurs = apiQuery(
-  gql`
-    query MetasUtilisateur {
-      permissions {
-        ...permission
-      }
-
-      utilisateursEntreprises {
-        ...entreprises
-      }
-
-      utilisateursAdministrations {
-        ...administrations
-      }
-    }
-
-    ${fragmentPermission}
-
-    ${fragmentEntreprises}
-
-    ${fragmentAdministrations}
-  `,
-  { fetchPolicy: 'network-only' }
-)
-
 const utilisateur = apiQuery(
   gql`
     query Utilisateur($id: ID!) {
@@ -104,7 +79,7 @@ const utilisateurs = apiQuery(
       $permissionIds: [ID]
       $noms: String
       $prenoms: String
-      $email: String
+      $emails: String
     ) {
       utilisateurs(
         intervalle: $intervalle
@@ -116,7 +91,7 @@ const utilisateurs = apiQuery(
         permissionIds: $permissionIds
         noms: $noms
         prenoms: $prenoms
-        email: $email
+        emails: $emails
       ) {
         utilisateurs {
           ...utilisateur
@@ -247,7 +222,6 @@ const utilisateurCreationEmailEnvoyer = apiMutate(gql`
 export {
   metasUser,
   metasUtilisateur,
-  metasUtilisateurs,
   utilisateur,
   utilisateurs,
   moi,
