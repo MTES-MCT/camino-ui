@@ -7,8 +7,22 @@ const administrationsClean = value => {
   if (!value) return null
 
   const administrations = value.reduce((administrations, administration) => {
-    if (administration.administrationId !== '') {
-      administrations.push(administration.administrationId)
+    // si l'id de l'administration n'est pas renseigné
+    // alors on ignore
+    if (!administration.administrationId) return administrations
+
+    administration = Object.keys(administration)
+      .sort()
+      .reduce((o, k) => {
+        if (administration[k] !== '') {
+          o[k] = administration[k]
+        }
+
+        return o
+      }, {})
+
+    if (Object.keys(administration).length) {
+      administrations.push(administration)
     }
 
     return administrations
@@ -21,8 +35,22 @@ const entreprisesClean = value => {
   if (!value) return null
 
   const entreprises = value.reduce((entreprises, entreprise) => {
-    if (entreprise.entrepriseId !== '') {
-      entreprises.push(entreprise.entrepriseId)
+    // si l'id de l'entreprise n'est pas renseigné
+    // alors on ignore
+    if (!entreprise.entrepriseId) return entreprises
+
+    entreprise = Object.keys(entreprise)
+      .sort()
+      .reduce((o, k) => {
+        if (entreprise[k] !== '') {
+          o[k] = entreprise[k]
+        }
+
+        return o
+      }, {})
+
+    if (Object.keys(entreprise).length) {
+      entreprises.push(entreprise)
     }
 
     return entreprises
@@ -61,7 +89,7 @@ const filtres = [
     elements: []
   },
   {
-    id: 'administrationIds',
+    id: 'administrationFiltreIds',
     name: 'Administrations',
     type: 'custom',
     value: [],
@@ -70,7 +98,7 @@ const filtres = [
     clean: administrationsClean
   },
   {
-    id: 'entrepriseIds',
+    id: 'entrepriseFiltreIds',
     name: 'Entreprises',
     type: 'custom',
     value: [],

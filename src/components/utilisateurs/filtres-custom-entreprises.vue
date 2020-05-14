@@ -12,9 +12,6 @@
           v-model="value.entrepriseId"
           class="p-s mr-s"
         >
-          <option :value="''">
-            –
-          </option>
           <option
             v-for="entreprise in filter.elements"
             :key="entreprise.id"

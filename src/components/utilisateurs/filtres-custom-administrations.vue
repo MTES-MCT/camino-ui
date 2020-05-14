@@ -12,9 +12,6 @@
           v-model="value.administrationId"
           class="p-s mr-s"
         >
-          <option :value="''">
-            –
-          </option>
           <option
             v-for="administration in filter.elements"
             :key="administration.id"

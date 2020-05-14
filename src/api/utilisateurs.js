@@ -74,8 +74,8 @@ const utilisateurs = apiQuery(
       $page: Int
       $colonne: String
       $ordre: String
-      $entrepriseIds: [ID]
-      $administrationIds: [ID]
+      $entrepriseFiltreIds: [InputEntrepriseFiltre]
+      $administrationFiltreIds: [InputAdministrationFiltre]
       $permissionIds: [ID]
       $noms: String
       $prenoms: String
@@ -86,8 +86,8 @@ const utilisateurs = apiQuery(
         page: $page
         colonne: $colonne
         ordre: $ordre
-        entrepriseIds: $entrepriseIds
-        administrationIds: $administrationIds
+        entrepriseFiltreIds: $entrepriseFiltreIds
+        administrationFiltreIds: $administrationFiltreIds
         permissionIds: $permissionIds
         noms: $noms
         prenoms: $prenoms
