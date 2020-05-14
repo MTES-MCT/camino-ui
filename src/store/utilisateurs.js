@@ -8,16 +8,16 @@ export const state = {
   total: null,
   metas: {
     permission: [],
-    administrationFiltre: [],
-    entrepriseFiltre: []
+    administration: [],
+    entreprise: []
   },
   params: [
     { id: 'noms', type: 'string' },
     { id: 'prenoms', type: 'string' },
     { id: 'emails', type: 'string' },
     { id: 'permissionIds', type: 'objects', elements: [] },
-    { id: 'administrationFiltreIds', type: 'objects', elements: [] },
-    { id: 'entrepriseFiltreIds', type: 'strings', elements: [] },
+    { id: 'administrationIds', type: 'strings', elements: [] },
+    { id: 'entrepriseIds', type: 'strings', elements: [] },
     { id: 'page', type: 'number', min: 0 },
     { id: 'intervalle', type: 'number', min: 10, max: 500 },
     {
@@ -43,8 +43,8 @@ export const state = {
       prenoms: '',
       emails: '',
       permissionIds: [],
-      administrationFiltreIds: [],
-      entrepriseFiltreIds: []
+      administrationIds: [],
+      entrepriseIds: []
     }
   }
 }
@@ -117,11 +117,11 @@ export const mutations = {
         metaId = 'permission'
         paramsIds = ['permissionIds']
       } else if (id === 'entreprises') {
-        metaId = 'entrepriseFiltre'
-        paramsIds = ['entrepriseFiltreIds']
+        metaId = 'entreprise'
+        paramsIds = ['entrepriseIds']
       } else if (id === 'administrations') {
-        metaId = 'administrationFiltre'
-        paramsIds = ['administrationFiltreIds']
+        metaId = 'administration'
+        paramsIds = ['administrationIds']
       }
 
       if (metaId) {
