@@ -68,7 +68,7 @@ export default {
   methods: {
     validate() {
       // les champs textes sont mis à jour onBlur
-      // pour les prendre en compte lorsqu'on valide en appuyant sur "entréee"
+      // pour les prendre en compte lorsqu'on valide en appuyant sur "entrée"
       // met le focus sur le bouton de validation (dans la méthode close())
       if (this.$refs.filters) {
         this.$refs.filters.close()
@@ -83,7 +83,6 @@ export default {
           value = this.checkboxesValueClean(filtre.id, filtre.value)
         } else if (filtre.type === 'custom' && filtre.value) {
           // on crée une copie pour éviter les modifications par référence
-          // value = JSON.parse(JSON.stringify(filtre.value))
           value = filtre.clean(JSON.parse(JSON.stringify(filtre.value)))
         } else {
           value = filtre.value

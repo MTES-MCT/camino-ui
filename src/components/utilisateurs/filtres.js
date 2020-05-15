@@ -5,12 +5,7 @@ import FiltresEntreprises from './filtres-custom-entreprises.vue'
 const clean = value => {
   if (!value) return null
 
-  value = value.reduce((value, v) => {
-    if (v !== '') {
-      value.push(v)
-    }
-    return value
-  }, [])
+  value = value.filter(v => v !== '')
 
   return value.length ? value : null
 }
@@ -35,7 +30,7 @@ const filtres = [
     type: 'input',
     value: '',
     name: 'Emails',
-    placeholder: 'prenom.nom@domaine.fr, onf, gouv, ...'
+    placeholder: 'prenom.nom@domaine.fr, ...'
   },
   {
     id: 'permissionIds',

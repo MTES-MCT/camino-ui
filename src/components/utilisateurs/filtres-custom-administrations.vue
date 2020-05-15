@@ -46,16 +46,10 @@ export default {
         this.filter.value = []
       }
       this.filter.value.push('')
-      // this.filter.value.push({ administrationId: '' })
     },
 
     valueRemove(n) {
       this.filter.value.splice(n, 1)
-    },
-
-    valueReset(n) {
-      console.log('valueReset')
-      // this.filter.value[n].statutId = ''
     }
   }
 }
