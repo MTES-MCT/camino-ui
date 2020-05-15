@@ -27,7 +27,7 @@
     </div>
 
     <div class="tablet-blob-1-2 desktop-blob-1-3">
-      <ul class="list-sans text-decoration-none h5 lh-2 mb-0">
+      <ul class="list-sans text-decoration-none h5 lh-1-8 mb-0">
         <li>
           Contact: <a href="mailto:camino@beta.gouv.fr">camino@beta.gouv.fr</a>
         </li>
@@ -86,6 +86,15 @@
             rel="noopener noreferrer"
           >
             Flux géographiques
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.dailymotion.com/camino-le-cadastre-minier"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Tutoriels
           </a>
         </li>
       </ul>
