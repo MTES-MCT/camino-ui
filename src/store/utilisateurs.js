@@ -15,7 +15,7 @@ export const state = {
     { id: 'noms', type: 'string' },
     { id: 'prenoms', type: 'string' },
     { id: 'emails', type: 'string' },
-    { id: 'permissionIds', type: 'objects', elements: [] },
+    { id: 'permissionIds', type: 'strings', elements: [] },
     { id: 'administrationIds', type: 'strings', elements: [] },
     { id: 'entrepriseIds', type: 'strings', elements: [] },
     { id: 'page', type: 'number', min: 0 },
