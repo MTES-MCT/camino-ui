@@ -5,10 +5,7 @@
       :values="preferences"
       @params:update="preferencesUpdate"
     />
-    <Table
-      :entreprises="entreprises"
-      @entreprises:update="entreprisesUpdate"
-    />
+    <Table :entreprises="entreprises" @entreprises:update="entreprisesUpdate" />
   </div>
 </template>
 
@@ -46,6 +43,7 @@ export default {
 
   methods: {
     entreprisesUpdate() {
+      console.log('entreprisesUpdate de table-url')
       this.$emit('entreprises:update')
     },
 

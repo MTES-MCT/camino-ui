@@ -93,6 +93,7 @@ export default {
 
   methods: {
     async entreprisesUpdate() {
+      console.log('entreprisesUpdate de entreprises')
       await this.$store.dispatch('entreprises/get')
     },
 
