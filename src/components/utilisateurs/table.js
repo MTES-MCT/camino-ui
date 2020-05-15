@@ -2,6 +2,33 @@ import Vue from 'vue'
 import Pill from '../_ui/pill.vue'
 import List from '../_ui/list.vue'
 
+const colonnes = [
+  {
+    id: 'nom',
+    name: 'Nom',
+    class: ['min-width-6']
+  },
+  {
+    id: 'prenom',
+    name: 'Prénom',
+    class: ['min-width-6']
+  },
+  {
+    id: 'email',
+    name: 'Email'
+  },
+  {
+    id: 'permissions',
+    name: 'Permissions',
+    class: ['min-width-6']
+  },
+  {
+    id: 'lien',
+    name: 'Lien',
+    class: ['min-width-6']
+  }
+]
+
 const lignesBuild = utilisateurs =>
   utilisateurs.map(utilisateur => {
     let elements
@@ -52,4 +79,4 @@ const lignesBuild = utilisateurs =>
     }
   })
 
-export { lignesBuild }
+export { colonnes, lignesBuild }
