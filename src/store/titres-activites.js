@@ -23,7 +23,7 @@ export const state = {
     {
       id: 'colonne',
       type: 'string',
-      elements: ['titreNom', 'titulaires', 'periode', 'statut']
+      elements: ['titreNom', 'titulaires', 'annee', 'periode', 'statut']
     },
     {
       id: 'ordre',

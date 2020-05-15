@@ -12,6 +12,10 @@ const colonnes = [
     class: ['min-width-10']
   },
   {
+    id: 'annee',
+    name: 'Année'
+  },
+  {
     id: 'periode',
     name: 'Période'
   },
@@ -35,6 +39,7 @@ const lignesBuild = activites =>
         class: 'mb--xs',
         value: activite.titre.titulaires.map(({ nom }) => nom).join(', ')
       },
+      annee: { value: activite.annee },
       periode: { value: activite.periode.nom },
       statut: {
         component: Statut,
