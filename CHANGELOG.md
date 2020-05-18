@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.32](https://github.com/MTES-MCT/camino-ui/compare/v0.22.29...v0.22.32) (2020-05-18)
+
+
+### Features
+
+* **utilisateurs:** gère les paramètres d'url ([#105](https://github.com/MTES-MCT/camino-ui/issues/105)) ([566d805](https://github.com/MTES-MCT/camino-ui/commit/566d805105aa517ebf63b819d22703ceaca22050))
+* télécharge les exports de données côté serveur ([#103](https://github.com/MTES-MCT/camino-ui/issues/103)) ([e7a87a4](https://github.com/MTES-MCT/camino-ui/commit/e7a87a4ba8a632a46da37cdf48dfacbec7495c84))
+* **démarches:** filtre par nom de titres, titulaires, substances, etc. ([#102](https://github.com/MTES-MCT/camino-ui/issues/102)) ([c4f84df](https://github.com/MTES-MCT/camino-ui/commit/c4f84df3487a181a8687c32f6bd647347c2cacfc))
+* **design:** améliore le style des statuts ([33892ab](https://github.com/MTES-MCT/camino-ui/commit/33892ab024880d5c1c471bbeeac4ed15af6bf15b))
+* ajoute le statut dans l'étiquette du titre ([24b69d3](https://github.com/MTES-MCT/camino-ui/commit/24b69d310e70a1304aaea4676bca4024c4f0839d))
+* optimise la hiérarchie des informations ([#100](https://github.com/MTES-MCT/camino-ui/issues/100)) ([eda6b69](https://github.com/MTES-MCT/camino-ui/commit/eda6b6935ed948b1ecbd8067adb3ad5fe8d9d961))
+* **activités:** gère les paramètres d'url ([#97](https://github.com/MTES-MCT/camino-ui/issues/97)) ([210488b](https://github.com/MTES-MCT/camino-ui/commit/210488bc8566585d1b38ddc76d2b0e9163386ccc))
+
+
+### Bug Fixes
+
+* **utilisateurs:** corrige le paramètre des permissions ([#108](https://github.com/MTES-MCT/camino-ui/issues/108)) ([44f192a](https://github.com/MTES-MCT/camino-ui/commit/44f192a26a087cc46eb5f5381823dd3285877d6b))
+* corrige le tri des démarches ([#106](https://github.com/MTES-MCT/camino-ui/issues/106)) ([54a3f23](https://github.com/MTES-MCT/camino-ui/commit/54a3f23fccc7d3b7f56895a1309fbc7294f4bb7a))
+* **design:** affiche la date en dehors du statut sur les étapes ([9844b80](https://github.com/MTES-MCT/camino-ui/commit/9844b80fbbc8078fe832580dd874fdbdb88c14a8))
+* **design:** corrige des problèmes de lisibilité ([ad3eeb9](https://github.com/MTES-MCT/camino-ui/commit/ad3eeb9bfeea3bc3c3bea07aae8dbaeddc359edf))
+* **utilisateur:** recharge la page si l'id change ([ad7d432](https://github.com/MTES-MCT/camino-ui/commit/ad7d43235760a9ab31710a36442c0c49fd16a374))
+* corrige des problèmes d'affichage ([226e602](https://github.com/MTES-MCT/camino-ui/commit/226e6021871388f368c6b0cb13e6a50b2584745c))
+* uniformise les marges ([c093486](https://github.com/MTES-MCT/camino-ui/commit/c093486dbf8921482c91a94450f509dc489af886))
+
 ### [0.22.31](https://github.com/MTES-MCT/camino-ui/compare/v0.22.30...v0.22.31) (2020-05-12)
 
 
