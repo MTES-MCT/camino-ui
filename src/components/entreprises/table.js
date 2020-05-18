@@ -4,7 +4,7 @@ const colonnes = [
     name: 'Nom'
   },
   {
-    id: 'legalSiren',
+    id: 'siren',
     name: 'Siren'
   }
 ]
@@ -13,7 +13,7 @@ const lignesBuild = entreprises =>
   entreprises.map(entreprise => {
     const columns = {
       nom: { value: entreprise.nom },
-      legalSiren: {
+      siren: {
         value: entreprise.legalEtranger || entreprise.legalSiren || '–'
       }
     }

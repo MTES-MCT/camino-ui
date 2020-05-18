@@ -27,14 +27,14 @@ describe("liste d'entreprises", () => {
         {
           id: 'colonne',
           type: 'string',
-          elements: ['nom', 'legalSiren']
+          elements: ['nom', 'siren']
         },
         {
           id: 'ordre',
           type: 'string',
           elements: ['asc', 'desc']
         },
-        { id: 'nomSiren', type: 'string' }
+        { id: 'noms', type: 'string' }
       ],
       preferences: {
         table: {
@@ -44,7 +44,7 @@ describe("liste d'entreprises", () => {
           colonne: null
         },
         filtres: {
-          nomSiren: ''
+          noms: ''
         }
       }
     }

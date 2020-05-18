@@ -11,7 +11,7 @@ export const state = {
     {
       id: 'colonne',
       type: 'string',
-      elements: ['nom', 'legalSiren']
+      elements: ['nom', 'siren']
     },
     {
       id: 'ordre',
