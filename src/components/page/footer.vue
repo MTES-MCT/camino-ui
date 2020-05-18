@@ -27,7 +27,7 @@
     </div>
 
     <div class="tablet-blob-1-2 desktop-blob-1-3">
-      <ul class="list-sans text-decoration-none h5 lh-1-8 mb-0">
+      <ul class="list-sans text-decoration-none h5 lh-2 mb-0">
         <li>
           Contact: <a href="mailto:camino@beta.gouv.fr">camino@beta.gouv.fr</a>
         </li>
@@ -37,13 +37,8 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/cgu">
-            CGU
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/mentions-legales">
-            Mentions légales
+          <router-link to="/mentions-legales-cgu">
+            Mentions légales et CGU
           </router-link>
         </li>
         <li>
