@@ -20,7 +20,10 @@
       </div>
     </div>
 
-    <EntreprisesFiltres @entreprises:update="entreprisesUpdate" />
+    <EntreprisesFiltres
+      v-if="metasLoaded"
+      @entreprises:update="entreprisesUpdate"
+    />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-3 flex mb-s">
@@ -49,6 +52,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Loader from './_ui/loader.vue'
 import Downloads from './_common/downloads.vue'
 import EntreprisesFiltres from './entreprises/filtres-url.vue'
@@ -63,6 +67,11 @@ export default {
     Downloads,
     EntreprisesFiltres,
     EntreprisesTable
+  },
+  data() {
+    return {
+      metasLoaded: false
+    }
   },
 
   computed: {
@@ -91,9 +100,16 @@ export default {
     }
   },
 
+  created() {
+    // on attend le chargement des paramètres d'url
+    // avant de faire la requête sur les entreprises.
+    Vue.nextTick(() => {
+      this.metasLoaded = true
+    })
+  },
+
   methods: {
     async entreprisesUpdate() {
-      console.log('entreprisesUpdate de entreprises')
       await this.$store.dispatch('entreprises/get')
     },
 

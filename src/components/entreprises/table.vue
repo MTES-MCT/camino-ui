@@ -78,7 +78,6 @@ export default {
 
   methods: {
     preferencesUpdate(params) {
-      console.log('params', params)
       if (params.range) {
         params.intervalle = params.range
         delete params.range

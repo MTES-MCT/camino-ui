@@ -20,14 +20,14 @@ const entreprises = apiQuery(gql`
     $page: Int
     $colonne: String
     $ordre: String
-    $nomSiren: String
+    $noms: String
   ) {
     entreprises(
       intervalle: $intervalle
       page: $page
       colonne: $colonne
       ordre: $ordre
-      nomSiren: $nomSiren
+      noms: $noms
     ) {
       entreprises {
         ...entreprises

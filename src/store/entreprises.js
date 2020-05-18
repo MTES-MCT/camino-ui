@@ -18,7 +18,7 @@ export const state = {
       type: 'string',
       elements: ['asc', 'desc']
     },
-    { id: 'nomSiren', type: 'string' }
+    { id: 'noms', type: 'string' }
   ],
   preferences: {
     table: {
@@ -28,7 +28,7 @@ export const state = {
       colonne: null
     },
     filtres: {
-      nomSiren: ''
+      noms: ''
     }
   }
 }
