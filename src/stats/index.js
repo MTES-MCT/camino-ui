@@ -54,12 +54,25 @@ export default function install(Vue, setupOptions = {}) {
           const url = protocol + '//' + loc.host + to.path
           matomo.setCustomUrl(url)
 
-          // la page titre défini des variables personnalisées qui dépendent des données du titre
-          // ces données ne sont pas encore chargées ici
-          // pour cette page uniquement, le tracker est donc appelé dans le composant 'titre'
-
           matomo.customVariableVisitUser(options.store.state.user.current)
           matomo.trackPageView(name)
+
+          if (to.name === 'titre') {
+            let name = ''
+            if (from.name === 'demarches') {
+              name = 'liste des démarches'
+            }
+            if (from.name === 'entreprise') {
+              name = 'fiche entreprise'
+            }
+            if (from.name === 'titres') {
+              if (from.query.vueId) {
+                name = `${from.query.vueId} des titres`
+              }
+            }
+
+            matomo.trackEvent('page-titre', 'accès-page-titre-depuis', name)
+          }
         })
       }
     })

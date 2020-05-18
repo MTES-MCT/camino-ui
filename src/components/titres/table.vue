@@ -9,7 +9,6 @@
       :rows="lignes"
       class="width-max"
       @params:update="preferencesUpdate"
-      @table:eventTrack="eventTrack"
     />
 
     <div class="desktop-blobs">
@@ -118,10 +117,6 @@ export default {
 
     intervalleUpdate(range) {
       this.preferencesUpdate({ range, page: 1 })
-    },
-
-    eventTrack(id) {
-      this.$emit('table:eventTrack', id)
     }
   }
 }
