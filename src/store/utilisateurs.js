@@ -119,6 +119,9 @@ export const mutations = {
       } else if (id === 'entreprises') {
         metaId = 'entreprise'
         paramsIds = ['entrepriseIds']
+
+        // surcharge les elements de entreprises dans data
+        data[id] = data[id].elements
       } else if (id === 'administrations') {
         metaId = 'administration'
         paramsIds = ['administrationIds']

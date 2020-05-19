@@ -37,7 +37,9 @@ const metasUtilisateur = apiQuery(
       }
 
       entreprises {
-        ...entreprises
+        elements {
+          ...entreprises
+        }
       }
 
       administrations {
