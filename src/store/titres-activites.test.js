@@ -131,21 +131,18 @@ describe("état d'une activité", () => {
   })
 
   test('obtient la liste des activités', async () => {
-    const apiMock = api.activites.mockResolvedValueOnce({
-      activites: ['activite-1', 'activite-2', 'activite-3'],
+    const response = {
+      elements: ['activite-1', 'activite-2', 'activite-3'],
       total: 3
-    })
+    }
+    const apiMock = api.activites.mockResolvedValueOnce(response)
 
     store.state.titresActivites.preferences.filtres.annees = [2020]
     await store.dispatch('titresActivites/get')
 
     expect(apiMock).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
-    expect(store.state.titresActivites.list).toEqual([
-      'activite-1',
-      'activite-2',
-      'activite-3'
-    ])
+    expect(store.state.titresActivites.list).toEqual(response.elements)
     expect(store.state.titresActivites.total).toEqual(3)
   })
 

@@ -48,7 +48,7 @@ export const actions = {
       dispatch(
         'messageAdd',
         {
-          value: `liste d'entreprises mise à jour`,
+          value: "liste d'entreprises mise à jour",
           type: 'success'
         },
         { root: true }
@@ -74,7 +74,7 @@ export const actions = {
 
 export const mutations = {
   set(state, data) {
-    Vue.set(state, 'list', data.entreprises)
+    Vue.set(state, 'list', data.elements)
     Vue.set(state, 'total', data.total)
   },
 

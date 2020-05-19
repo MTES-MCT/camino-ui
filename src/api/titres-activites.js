@@ -61,7 +61,7 @@ const activites = apiQuery(
         titresReferences: $titresReferences
         titresTerritoires: $titresTerritoires
       ) {
-        activites {
+        elements {
           ...activites
         }
         total

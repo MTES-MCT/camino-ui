@@ -29,7 +29,7 @@ const entreprises = apiQuery(gql`
       ordre: $ordre
       noms: $noms
     ) {
-      entreprises {
+      elements {
         ...entreprises
       }
       total
