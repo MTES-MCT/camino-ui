@@ -1,9 +1,12 @@
 import Vue from 'vue'
+
 import {
   entreprise,
   entrepriseCreer,
   entrepriseModifier
 } from '../api/entreprises'
+
+import router from '../router'
 
 export const state = {
   current: null
@@ -37,14 +40,11 @@ export const actions = {
       const data = await entrepriseCreer({ entreprise })
 
       commit('popupClose', null, { root: true })
-      await dispatch(
-        'reload',
-        { id: data.id, name: 'entreprise' },
-        { root: true }
-      )
+
+      router.push({ name: 'entreprise', params: { id: data.id } })
       dispatch(
         'messageAdd',
-        { value: `l'entreprise a été mise à jour`, type: 'success' },
+        { value: `l'entreprise a été créée`, type: 'success' },
         { root: true }
       )
     } catch (e) {

@@ -10,6 +10,7 @@
         v-for="activite in annee.activites"
         :key="activite.id"
         :activite="activite"
+        context="titre"
         class="mb-s"
       />
       <div class="line my-xxl" />

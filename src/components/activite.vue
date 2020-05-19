@@ -9,6 +9,7 @@
     <ActiviteDetail
       :key="activite.id"
       :activite="activite"
+      context="activite"
     />
   </div>
 </template>
