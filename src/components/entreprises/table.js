@@ -1,3 +1,14 @@
+const colonnes = [
+  {
+    id: 'nom',
+    name: 'Nom'
+  },
+  {
+    id: 'siren',
+    name: 'Siren'
+  }
+]
+
 const lignesBuild = entreprises =>
   entreprises.map(entreprise => {
     const columns = {
@@ -14,4 +25,4 @@ const lignesBuild = entreprises =>
     }
   })
 
-export { lignesBuild }
+export { colonnes, lignesBuild }

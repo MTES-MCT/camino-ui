@@ -4,8 +4,6 @@
       :column="preferences.colonne"
       :columns="colonnes"
       :order="preferences.ordre"
-      :page="preferences.page"
-      :range="preferences.intervalle"
       :rows="lignes"
       class="width-max"
       @params:update="preferencesUpdate"
@@ -22,7 +20,7 @@
       </div>
       <div class="desktop-blob-1-4">
         <Ranges
-          v-if="lignes.length > 10"
+          v-if="total > 10"
           :ranges="[10, 50, 200, 500]"
           :range="preferences.intervalle"
           @range:update="intervalleUpdate"
@@ -33,10 +31,10 @@
 </template>
 
 <script>
-import Table from '../_ui/table-pagination.vue'
+import Table from '../_ui/table.vue'
 import Pagination from '../_ui/pagination.vue'
 import Ranges from '../_ui/ranges.vue'
-import { lignesBuild } from './table'
+import { colonnes, lignesBuild } from './table'
 
 export default {
   name: 'EntreprisesTable',
@@ -54,35 +52,27 @@ export default {
     }
   },
 
-  data() {
-    return {
-      colonnes: [
-        {
-          id: 'nom',
-          name: 'Nom'
-        },
-        {
-          id: 'siren',
-          name: 'Siren'
-        }
-      ],
-      preferences: {
-        intervalle: 200,
-        page: 1,
-        ordre: 'asc',
-        colonne: 'nom'
-      }
-    }
-  },
-
   computed: {
+    preferences() {
+      return this.$store.state.entreprises.preferences.table
+    },
+
+    colonnes() {
+      return colonnes
+    },
+
     lignes() {
       return lignesBuild(this.entreprises)
     },
 
     pages() {
-      const pages = Math.ceil(this.lignes.length / this.preferences.intervalle)
-      return pages || 0
+      return Math.ceil(
+        this.$store.state.entreprises.total / this.preferences.intervalle
+      )
+    },
+
+    total() {
+      return this.$store.state.entreprises.total
     }
   },
 
@@ -103,9 +93,16 @@ export default {
         delete params.order
       }
 
-      Object.keys(params).forEach(id => {
-        this.preferences[id] = params[id]
+      this.$store.dispatch('entreprises/preferencesSet', {
+        section: 'table',
+        params
       })
+
+      this.entreprisesUpdate()
+    },
+
+    entreprisesUpdate() {
+      this.$emit('entreprises:update')
     },
 
     pageUpdate(page) {

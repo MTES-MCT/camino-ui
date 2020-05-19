@@ -15,9 +15,24 @@ const entreprise = apiQuery(gql`
 `)
 
 const entreprises = apiQuery(gql`
-  query Entreprises {
-    entreprises {
-      ...entreprises
+  query Entreprises(
+    $intervalle: Int
+    $page: Int
+    $colonne: String
+    $ordre: String
+    $noms: String
+  ) {
+    entreprises(
+      intervalle: $intervalle
+      page: $page
+      colonne: $colonne
+      ordre: $ordre
+      noms: $noms
+    ) {
+      entreprises {
+        ...entreprises
+      }
+      total
     }
   }
 

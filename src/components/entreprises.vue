@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <Loader v-if="!loaded" />
+  <div v-else>
     <div class="desktop-blobs pt-s">
       <div class="desktop-blob-2-3">
         <h1 class="mt-xs mb-m">
@@ -13,10 +14,16 @@
           class="btn rnd-xs py-s px-m full-x flex mb-s h5"
           @click="addPopupOpen"
         >
-          <span class="mt-xxs">Ajouter une entreprise</span>  <i class="icon-24 icon-plus flex-right" />
+          <span class="mt-xxs">Ajouter une entreprise</span>
+          <i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
     </div>
+
+    <EntreprisesFiltres
+      v-if="metasLoaded"
+      @entreprises:update="entreprisesUpdate"
+    />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-3 flex mb-s">
@@ -37,18 +44,19 @@
 
     <div class="line-neutral" />
 
-    <Loader v-if="!loaded" />
     <EntreprisesTable
-      v-else
       :entreprises="entreprises"
+      @entreprises:update="entreprisesUpdate"
     />
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import Loader from './_ui/loader.vue'
 import Downloads from './_common/downloads.vue'
-import EntreprisesTable from './entreprises/table.vue'
+import EntreprisesFiltres from './entreprises/filtres-url.vue'
+import EntreprisesTable from './entreprises/table-url.vue'
 import EntrepriseAddPopup from './entreprise/add-popup.vue'
 
 export default {
@@ -57,18 +65,22 @@ export default {
   components: {
     Loader,
     Downloads,
+    EntreprisesFiltres,
     EntreprisesTable
   },
-
   data() {
     return {
-      filtersOpened: false
+      metasLoaded: false
     }
   },
 
   computed: {
     entreprises() {
       return this.$store.state.entreprises.list
+    },
+
+    total() {
+      return this.$store.state.entreprises.total
     },
 
     user() {
@@ -80,22 +92,24 @@ export default {
     },
 
     resultat() {
-      return `${this.entreprises.length} résultat${
-        this.entreprises.length > 1 ? 's' : ''
-      }`
+      const res =
+        this.total > this.entreprises.length
+          ? `${this.entreprises.length} / ${this.total}`
+          : this.entreprises.length
+      return `${res} résultat${this.entreprises.length > 1 ? 's' : ''}`
     }
   },
 
-  watch: {
-    user: 'get'
-  },
-
   created() {
-    this.get()
+    // on attend le chargement des paramètres d'url
+    // avant de faire la requête sur les entreprises.
+    Vue.nextTick(() => {
+      this.metasLoaded = true
+    })
   },
 
   methods: {
-    async get() {
+    async entreprisesUpdate() {
       await this.$store.dispatch('entreprises/get')
     },
 

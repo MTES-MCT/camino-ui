@@ -1,16 +1,58 @@
 import Vue from 'vue'
 import { entreprises } from '../api/entreprises'
+import { paramsBuild } from './_utils'
 
 export const state = {
-  list: []
+  list: [],
+  total: null,
+  params: [
+    { id: 'page', type: 'number', min: 0 },
+    { id: 'intervalle', type: 'number', min: 10, max: 500 },
+    {
+      id: 'colonne',
+      type: 'string',
+      elements: ['nom', 'siren']
+    },
+    {
+      id: 'ordre',
+      type: 'string',
+      elements: ['asc', 'desc']
+    },
+    { id: 'noms', type: 'string' }
+  ],
+  preferences: {
+    table: {
+      page: 1,
+      intervalle: 200,
+      ordre: 'asc',
+      colonne: null
+    },
+    filtres: {
+      noms: ''
+    }
+  }
 }
 
 export const actions = {
-  async get({ dispatch, commit }) {
+  async get({ state, dispatch, commit }) {
     commit('loadingAdd', 'entreprises', { root: true })
 
     try {
-      const data = await entreprises({})
+      const p = paramsBuild(
+        state.params,
+        Object.assign({}, state.preferences.filtres, state.preferences.table)
+      )
+
+      const data = await entreprises(p)
+
+      dispatch(
+        'messageAdd',
+        {
+          value: `liste d'entreprises mise à jour`,
+          type: 'success'
+        },
+        { root: true }
+      )
 
       if (data) {
         commit('set', data)
@@ -23,16 +65,23 @@ export const actions = {
     } finally {
       commit('loadingRemove', 'entreprises', { root: true })
     }
+  },
+
+  preferencesSet({ commit }, { section, params }) {
+    commit('preferencesSet', { section, params })
   }
 }
 
 export const mutations = {
-  set(state, entreprises) {
-    Vue.set(
-      state,
-      'list',
-      entreprises.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
-    )
+  set(state, data) {
+    Vue.set(state, 'list', data.entreprises)
+    Vue.set(state, 'total', data.total)
+  },
+
+  preferencesSet(state, { section, params }) {
+    Object.keys(params).forEach(id => {
+      Vue.set(state.preferences[section], id, params[id])
+    })
   }
 }
 
