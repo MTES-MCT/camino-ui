@@ -202,16 +202,16 @@ describe('liste des utilisateurs', () => {
   })
 
   test('obtient la liste des utilisateurs', async () => {
-    const apiMock = api.utilisateurs.mockResolvedValue({
-      utilisateurs: [{ id: 71, nom: 'toto', prenom: 'asticot' }],
+    const response = {
+      elements: [{ id: 71, nom: 'toto', prenom: 'asticot' }],
       total: 1
-    })
+    }
+
+    const apiMock = api.utilisateurs.mockResolvedValue(response)
     await store.dispatch('utilisateurs/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.utilisateurs.list).toEqual([
-      { id: 71, nom: 'toto', prenom: 'asticot' }
-    ])
+    expect(store.state.utilisateurs.list).toEqual(response.elements)
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {

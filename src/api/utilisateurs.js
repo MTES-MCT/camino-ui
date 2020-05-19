@@ -93,7 +93,7 @@ const utilisateurs = apiQuery(
         prenoms: $prenoms
         emails: $emails
       ) {
-        utilisateurs {
+        elements {
           ...utilisateur
         }
         total
