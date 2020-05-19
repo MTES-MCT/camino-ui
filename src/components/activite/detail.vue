@@ -21,7 +21,7 @@
       <ActiviteButton
         v-if="activite.modification"
         :activite="activite"
-        context="titre"
+        :context="context"
       />
     </template>
 
@@ -61,10 +61,8 @@ export default {
   },
 
   props: {
-    activite: {
-      type: Object,
-      default: () => ({})
-    }
+    activite: { type: Object, required: true },
+    context: { type: String, required: true }
   }
 }
 </script>

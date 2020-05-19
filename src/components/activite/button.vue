@@ -22,7 +22,7 @@ export default {
 
     context: {
       type: String,
-      default: ''
+      required: true
     }
   },
 

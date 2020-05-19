@@ -127,12 +127,12 @@ export default {
   props: {
     activite: {
       type: Object,
-      default: () => ({})
+      required: true
     },
 
     context: {
       type: String,
-      default: ''
+      required: true
     }
   },
 

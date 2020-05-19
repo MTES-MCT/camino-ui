@@ -47,7 +47,7 @@ export default {
         pc: { d: 'M0,0 l8,0 M0,8 l8,0', width: 5, rotation: 90 },
         px: { d: 'M0,0 l8,0 M0,8 l8,0', width: 5, rotation: 135 },
         ap: { d: 'M-1,4 l2,0 M6,4 l2,0', width: 2, rotation: 45 },
-        ar: { d: 'M1,4 l4,0 M3,2 l0,4', width: 2 },
+        ar: { d: 'M1,4 l4,0 M3,2 l0,4', width: 2, rotation: 0 },
         pr: { d: 'M4,4 l0,0', width: 5, rotation: 45 }
       }
     }
