@@ -37,7 +37,9 @@ const metasUtilisateur = apiQuery(
       }
 
       entreprises {
-        ...entreprises
+        elements {
+          ...entreprises
+        }
       }
 
       administrations {
@@ -93,7 +95,7 @@ const utilisateurs = apiQuery(
         prenoms: $prenoms
         emails: $emails
       ) {
-        utilisateurs {
+        elements {
           ...utilisateur
         }
         total

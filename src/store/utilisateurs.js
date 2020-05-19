@@ -105,7 +105,7 @@ export const actions = {
 
 export const mutations = {
   set(state, data) {
-    Vue.set(state, 'list', data.utilisateurs)
+    Vue.set(state, 'list', data.elements)
     Vue.set(state, 'total', data.total)
   },
 
@@ -119,6 +119,9 @@ export const mutations = {
       } else if (id === 'entreprises') {
         metaId = 'entreprise'
         paramsIds = ['entrepriseIds']
+
+        // surcharge les elements de entreprises dans data
+        data[id] = data[id].elements
       } else if (id === 'administrations') {
         metaId = 'administration'
         paramsIds = ['administrationIds']

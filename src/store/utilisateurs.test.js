@@ -105,7 +105,7 @@ describe('liste des utilisateurs', () => {
     }
   ]
 
-  const entreprises = [
+  const entreprisesElements = [
     {
       id: 'fr-513863217',
       nom: "SOCIETE GUYANAISE DES MINES D'OR (SOGUMINOR)"
@@ -123,6 +123,10 @@ describe('liste des utilisateurs', () => {
       nom: 'BIJOUTERIE REUNIF'
     }
   ]
+  const entreprises = {
+    elements: entreprisesElements,
+    total: 4
+  }
 
   const administrations = [
     {
@@ -157,7 +161,7 @@ describe('liste des utilisateurs', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.utilisateurs.metas).toEqual({
       permission: permissions,
-      entreprise: entreprises,
+      entreprise: entreprisesElements,
       administration: administrations
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -202,16 +206,16 @@ describe('liste des utilisateurs', () => {
   })
 
   test('obtient la liste des utilisateurs', async () => {
-    const apiMock = api.utilisateurs.mockResolvedValue({
-      utilisateurs: [{ id: 71, nom: 'toto', prenom: 'asticot' }],
+    const response = {
+      elements: [{ id: 71, nom: 'toto', prenom: 'asticot' }],
       total: 1
-    })
+    }
+
+    const apiMock = api.utilisateurs.mockResolvedValue(response)
     await store.dispatch('utilisateurs/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.utilisateurs.list).toEqual([
-      { id: 71, nom: 'toto', prenom: 'asticot' }
-    ])
+    expect(store.state.utilisateurs.list).toEqual(response.elements)
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
