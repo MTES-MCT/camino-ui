@@ -37,13 +37,8 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/cgu">
-            CGU
-          </router-link>
-        </li>
-        <li>
-          <router-link to="/mentions-legales">
-            Mentions légales
+          <router-link to="/mentions-legales-cgu">
+            Mentions légales et CGU
           </router-link>
         </li>
         <li>
@@ -86,6 +81,15 @@
             rel="noopener noreferrer"
           >
             Flux géographiques
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.dailymotion.com/camino-le-cadastre-minier"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Tutoriels
           </a>
         </li>
       </ul>
