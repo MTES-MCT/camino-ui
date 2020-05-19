@@ -48,7 +48,7 @@ export const actions = {
       dispatch(
         'messageAdd',
         {
-          value: `liste d'entreprises mise à jour`,
+          value: "liste d'entreprises mise à jour",
           type: 'success'
         },
         { root: true }

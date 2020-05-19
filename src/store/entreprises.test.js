@@ -80,9 +80,9 @@ describe("liste d'entreprises", () => {
       { nom: 'Escargot tout chaud' },
       { nom: 'Koala' }
     ]
-    entreprises.state = { current: null, list: [], total: 0 }
+    entreprises.state = { current: null, elements: [], total: 0 }
     const store = new Vuex.Store({ modules: { entreprises } })
-    store.commit('entreprises/set', { entreprises: entreprisesListe, total: 6 })
+    store.commit('entreprises/set', { elements: entreprisesListe, total: 6 })
 
     expect(store.state.entreprises.list).toEqual([
       { nom: 'Petite Souris' },
@@ -96,14 +96,14 @@ describe("liste d'entreprises", () => {
 
   test('obtient la liste des entreprises', async () => {
     const response = {
-      entreprises: [{ id: 'entreprise-id', nom: 'entreprise-nom' }],
+      elements: [{ id: 'entreprise-id', nom: 'entreprise-nom' }],
       total: 1
     }
     const apiMock = api.entreprises.mockResolvedValue(response)
     await store.dispatch('entreprises/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.entreprises.list).toEqual(response.entreprises)
+    expect(store.state.entreprises.list).toEqual(response.elements)
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
@@ -125,13 +125,13 @@ describe("liste d'entreprises", () => {
 
   test('initialise les preferences de filtre', async () => {
     const section = 'filtres'
-    const params = { nomSiren: "la mine d'or" }
+    const params = { noms: "la mine d'or" }
     await store.dispatch('entreprises/preferencesSet', {
       section,
       params
     })
 
-    expect(store.state.entreprises.preferences.filtres.nomSiren).toEqual(
+    expect(store.state.entreprises.preferences.filtres.noms).toEqual(
       "la mine d'or"
     )
   })
