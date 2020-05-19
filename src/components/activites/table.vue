@@ -31,7 +31,6 @@
 </template>
 
 <script>
-// import Table from '../_ui/table-pagination.vue'
 import Table from '../_ui/table.vue'
 import Pagination from '../_ui/pagination.vue'
 import Ranges from '../_ui/ranges.vue'

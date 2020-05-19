@@ -42,6 +42,11 @@ const activites = apiQuery(
       $ordre: String
       $typesIds: [ID]
       $annees: [Int]
+      $titresNoms: String
+      $titresEntreprises: String
+      $titresSubstances: String
+      $titresReferences: String
+      $titresTerritoires: String
     ) {
       activites(
         intervalle: $intervalle
@@ -50,6 +55,11 @@ const activites = apiQuery(
         ordre: $ordre
         typesIds: $typesIds
         annees: $annees
+        titresNoms: $titresNoms
+        titresEntreprises: $titresEntreprises
+        titresSubstances: $titresSubstances
+        titresReferences: $titresReferences
+        titresTerritoires: $titresTerritoires
       ) {
         activites {
           ...activites

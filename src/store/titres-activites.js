@@ -13,12 +13,17 @@ export const state = {
   params: [
     { id: 'typesIds', type: 'strings', elements: [] },
     { id: 'annees', type: 'numbers', elements: [] },
+    { id: 'titresNoms', type: 'string' },
+    { id: 'titresEntreprises', type: 'string' },
+    { id: 'titresSubstances', type: 'string' },
+    { id: 'titresReferences', type: 'string' },
+    { id: 'titresTerritoires', type: 'string' },
     { id: 'page', type: 'number', min: 0 },
     { id: 'intervalle', type: 'number', min: 10, max: 500 },
     {
       id: 'colonne',
       type: 'string',
-      elements: ['titreNom', 'titulaires', 'periode', 'statut']
+      elements: ['titreNom', 'titulaires', 'annee', 'periode', 'statut']
     },
     {
       id: 'ordre',
@@ -35,7 +40,12 @@ export const state = {
     },
     filtres: {
       typesIds: [],
-      annees: []
+      annees: [],
+      titresNoms: '',
+      titresEntreprises: '',
+      titresSubstances: '',
+      titresReferences: '',
+      titresTerritoires: ''
     }
   }
 }
