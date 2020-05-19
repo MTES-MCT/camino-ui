@@ -72,7 +72,7 @@ const clustersBuild = domaines =>
     return Object.assign(clusters, { [id]: cluster })
   }, {})
 
-const layersBuild = (matomo, titres, router) =>
+const layersBuild = (titres, router) =>
   titres.reduce(
     ({ geojsons, markers }, titre) => {
       if (!titre.geojsonMultiPolygon) return { geojsons, markers }
@@ -100,14 +100,6 @@ const layersBuild = (matomo, titres, router) =>
 
       const methods = {
         click() {
-          if (matomo) {
-            matomo.trackEvent('titres-vue', 'titre-id-carte', titre.id)
-            matomo.trackEvent(
-              'page-titre',
-              'accès-page-titre-depuis',
-              'carte des titres'
-            )
-          }
           router.push(titreRoute)
         },
         mouseover(e) {

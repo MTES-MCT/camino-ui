@@ -1,7 +1,7 @@
 <template>
   <Accordion
     class="mb"
-    @toggle="eventTrack($event,'consulter')"
+    @toggle="eventTrack($event, 'consulter les informations de l\'entreprise')"
   >
     <template slot="title">
       <h4 class="mb-0">
@@ -16,21 +16,18 @@
       </Tag>
     </template>
 
-    <template
-      slot="buttons"
-    >
+    <template slot="buttons">
       <RouterLink
-        :to="{ name: 'entreprise', params: {id: entreprise.id }}"
+        :to="{ name: 'entreprise', params: { id: entreprise.id } }"
         class="btn-alt py-s px-m"
         tag="button"
       >
         <i
           class="icon-24 icon-window-link"
-          @click="eventTrack($event,'éditer')"
+          @click="eventTrack($event, 'accéder à la fiche entreprise')"
         />
       </RouterLink>
     </template>
-
 
     <div
       v-if="content"
@@ -43,9 +40,7 @@
         <div class="large-blob-1-4">
           <h6>Siren</h6>
         </div>
-        <div
-          class="large-blob-3-4"
-        >
+        <div class="large-blob-3-4">
           <p>{{ entreprise.legalSiren }}</p>
         </div>
       </div>
@@ -57,9 +52,7 @@
         <div class="large-blob-1-4">
           <h6>Forme juridique</h6>
         </div>
-        <div
-          class="large-blob-3-4"
-        >
+        <div class="large-blob-3-4">
           <p>{{ entreprise.legalForme }}</p>
         </div>
       </div>
@@ -69,11 +62,11 @@
         class="large-blobs"
       >
         <div class="large-blob-1-4">
-          <h6>Établissement{{ entreprise.etablissements.length > 1 ? 's' : '' }}</h6>
+          <h6>
+            Établissement{{ entreprise.etablissements.length > 1 ? 's' : '' }}
+          </h6>
         </div>
-        <div
-          class="large-blob-3-4"
-        >
+        <div class="large-blob-3-4">
           <ul class="list-sans">
             <li
               v-for="e in entreprise.etablissements"
@@ -81,7 +74,8 @@
             >
               <h5 class="inline-block">
                 {{ e.dateDebut | dateFormat }}
-              </h5> : {{ e.nom }}
+              </h5>
+              : {{ e.nom }}
             </li>
           </ul>
         </div>
@@ -94,9 +88,7 @@
         <div class="large-blob-1-4">
           <h6>Adresse</h6>
         </div>
-        <div
-          class="large-blob-3-4"
-        >
+        <div class="large-blob-3-4">
           <p>
             {{ entreprise.adresse }}
             <br>{{ entreprise.codePostal }}
@@ -171,10 +163,6 @@ export default {
     entreprise: {
       type: Object,
       default: () => {}
-    },
-    statut: {
-      type: String,
-      default: () => 'titulaire'
     }
   },
 
@@ -206,11 +194,8 @@ export default {
       )
     },
 
-    eventTrack(event, _action) {
+    eventTrack(event, action) {
       if (event) {
-        let action = `${_action} les informations `
-        action +=
-          this.statut === 'titulaire' ? `du titulaire` : `de l'amodiataire`
         this.$emit('titre:eventTrack', {
           categorie: 'titre-sections',
           action,

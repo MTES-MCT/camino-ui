@@ -120,17 +120,9 @@ export default {
       })
     },
 
-    eventTrack(id = null) {
+    eventTrack() {
       if (this.$matomo) {
-        if (id) {
-          this.$matomo.trackEvent(
-            'page-entreprises',
-            'accès-page-entreprises',
-            id
-          )
-        } else {
-          this.$matomo.trackEvent('page-entreprises', 'accès-page-entreprises')
-        }
+        this.$matomo.trackEvent('page-entreprises', 'accès-page-entreprises')
       }
     }
   }

@@ -161,7 +161,7 @@ export default {
       return id.replace(/Ids/g, '')
     },
 
-    eventTrack(params = null) {
+    eventTrack(params) {
       if (this.$matomo) {
         if (params) {
           const events = this.apiParams.reduce((events, { type, id }) => {

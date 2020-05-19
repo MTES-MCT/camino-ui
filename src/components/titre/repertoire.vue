@@ -12,7 +12,6 @@
           v-for="titulaire in titulaires"
           :key="titulaire.id"
           :entreprise="titulaire"
-          :statut="'titulaire'"
           class="mb-s"
           @titre:eventTrack="eventTrack"
         />
@@ -28,7 +27,6 @@
           v-for="amodiataire in amodiataires"
           :key="amodiataire.id"
           :entreprise="amodiataire"
-          :statut="'amodiataire'"
           class="mb-s"
           @titre:eventTrack="eventTrack"
         />

@@ -8,13 +8,23 @@
       class="map map-list mb-s"
       @map:update="preferencesUpdate"
     />
-    <MapPattern :domaines-ids="domainesIds" :types-ids="typesIds" />
-    <MapWarningBrgm :zoom="preferences.zoom" :tiles-id="tilesId" />
+    <MapPattern
+      :domaines-ids="domainesIds"
+      :types-ids="typesIds"
+    />
+    <MapWarningBrgm
+      :zoom="preferences.zoom"
+      :tiles-id="tilesId"
+    />
     <div class="container overflow-auto">
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2">
           <ul class="list-inline">
-            <li v-for="z in zones" :key="z.id" class="mr-xs">
+            <li
+              v-for="z in zones"
+              :key="z.id"
+              class="mr-xs"
+            >
               <button
                 class="btn-border pill px-m py-s h5"
                 @click="mapCenter(z.id)"
@@ -154,11 +164,7 @@ export default {
 
     titresInit() {
       const clusters = clustersBuild(this.domaines)
-      const { geojsons, markers } = layersBuild(
-        this.$matomo,
-        this.titres,
-        this.$router
-      )
+      const { geojsons, markers } = layersBuild(this.titres, this.$router)
       this.geojsons = geojsons
       this.markers = markers
       this.markers.forEach(marker => {
