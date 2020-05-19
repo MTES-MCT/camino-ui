@@ -9,8 +9,7 @@
                 id="cmn-user-menu-a-utilisateur"
                 :key="user.id"
                 :to="{ name: 'utilisateur', params: { id: user.id } }"
-                class="btn-transparent text-decoration-none bold"
-                active-class="active"
+                class="btn-menu text-decoration-none bold"
                 @click.native="eventTrack('profil')"
               >
                 {{ user.prenom || '–' }} {{ user.nom || '–' }}
@@ -25,7 +24,7 @@
             <li>
               <button
                 id="cmn-user-menu-button-deconnexion"
-                class="btn-transparent text-decoration-none bold p-0"
+                class="btn-menu text-decoration-none bold p-0"
                 @click="logout"
               >
                 Deconnexion

@@ -143,10 +143,6 @@ const router = new VueRouter({
   routes,
   mode: 'history',
   scrollBehavior(to, from, savedPosition) {
-    if (to.name === from.name) {
-      return false
-    }
-
     if (savedPosition) {
       return savedPosition
     }

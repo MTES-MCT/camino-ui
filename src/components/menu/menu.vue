@@ -6,24 +6,36 @@
           <ul class="list-sans mb-0">
             <li>
               <RouterLink
+                v-if="$route.name !== 'titres'"
                 id="cmn-menu-menu-a-titres"
                 :to="{ name: 'titres' }"
-                class="btn-transparent text-decoration-none bold"
-                active-class="active"
+                class="btn-menu text-decoration-none bold"
                 @click.native="eventTrack('titres')"
               >
                 Titres miniers et autorisations
               </RouterLink>
+              <div
+                v-else
+                class="bold color-neutral"
+              >
+                Titres miniers et autorisations
+              </div>
             </li>
             <li>
               <RouterLink
+                v-if="$route.name !== 'demarches'"
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'demarches' }"
-                class="btn-transparent text-decoration-none bold"
-                active-class="active"
+                class="btn-menu text-decoration-none bold"
               >
                 Demarches
               </RouterLink>
+              <div
+                v-else
+                class="bold color-neutral"
+              >
+                Demarches
+              </div>
             </li>
           </ul>
         </div>
@@ -34,15 +46,20 @@
           <ul class="list-sans mb-0">
             <li>
               <RouterLink
-                v-if="sections.activites"
+                v-if="sections.activites && $route.name !== 'activites'"
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'activites' }"
-                class="btn-transparent text-decoration-none bold"
-                active-class="active"
+                class="btn-menu text-decoration-none bold"
                 @click.native="eventTrack('activites')"
               >
                 Activités
               </RouterLink>
+              <div
+                v-else
+                class="bold color-neutral"
+              >
+                Demarches
+              </div>
             </li>
           </ul>
         </div>
@@ -50,26 +67,37 @@
           <ul class="list-sans mb-0">
             <li>
               <RouterLink
+                v-if="$route.name !== 'entreprises'"
                 id="cmn-menu-menu-a-entreprises"
                 :to="{ name: 'entreprises' }"
-                class="btn-transparent text-decoration-none bold"
-                active-class="active"
+                class="btn-menu text-decoration-none bold"
                 @click.native="eventTrack('entreprises')"
               >
                 Entreprises
               </RouterLink>
+              <div
+                v-else
+                class="bold color-neutral"
+              >
+                Entreprises
+              </div>
             </li>
             <li>
               <RouterLink
-                v-if="sections.utilisateurs"
+                v-if="sections.utilisateurs && $route.name !== 'utilisateurs'"
                 id="cmn-menu-menu-a-utilisateurs"
                 :to="{ name: 'utilisateurs' }"
-                class="btn-transparent text-decoration-none bold"
-                active-class="active"
+                class="btn-menu text-decoration-none bold"
                 @click.native="eventTrack('utilisateurs')"
               >
                 Utilisateurs
               </RouterLink>
+              <div
+                v-else
+                class="bold color-neutral"
+              >
+                Utilisateurs
+              </div>
             </li>
           </ul>
         </div>

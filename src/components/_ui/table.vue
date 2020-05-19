@@ -10,7 +10,7 @@
             :class="col.class"
             @click="sort(col.id)"
           >
-            <button class="btn-transparent full-x p-0">
+            <button class="btn-menu full-x p-0">
               {{ col.name || (column === col.id ? '' : '–') }}
               <i
                 v-if="column === col.id"

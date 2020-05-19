@@ -45,17 +45,17 @@
   button-class: active disabled true;
 }
 
-.btn-transparent {
+.btn-menu {
   button-color: var(--color-text) var(--color-neutral) var(--color-inverse);
   button-background: var(--color-transparent) var(--color-transparent)
     var(--color-transparent);
-  button-class: active disabled false;
+  button-class: active disabled true;
 }
 
 .btn,
 .btn-alt,
 .btn-border,
-.btn-transparent,
+.btn-menu,
 .btn-flash,
 .btn-tab {
   transition: var(--transition);
