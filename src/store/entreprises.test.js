@@ -80,7 +80,7 @@ describe("liste d'entreprises", () => {
       { nom: 'Escargot tout chaud' },
       { nom: 'Koala' }
     ]
-    entreprises.state = { current: null, elements: [], total: 0 }
+    entreprises.state = { current: null, list: [], total: 0 }
     const store = new Vuex.Store({ modules: { entreprises } })
     store.commit('entreprises/set', { elements: entreprisesListe, total: 6 })
 
