@@ -13,11 +13,12 @@
           class="p-s mr-s"
         >
           <option
-            v-for="entreprise in filter.elements"
-            :key="entreprise.id"
-            :value="entreprise.id"
+            v-for="element in filter.elements"
+            :key="element.id"
+            :value="element.id"
+            :disabled="filter.value.includes(element.id)"
           >
-            {{ entreprise.nom }}
+            {{ element[filter.elementName] }}
           </option>
         </select>
 
@@ -34,7 +35,7 @@
       class="btn rnd-xs py-s px-m full-x flex mb-s h5"
       @click="valueAdd"
     >
-      <span class="mt-xxs">Ajouter une entreprise</span><i class="icon-24 icon-plus flex-right" />
+      <span class="mt-xxs">{{ filter.buttonAdd }}</span><i class="icon-24 icon-plus flex-right" />
     </button>
   </div>
 </template>

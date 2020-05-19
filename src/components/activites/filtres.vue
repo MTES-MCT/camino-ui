@@ -81,7 +81,10 @@ export default {
 
         if (filtre.type === 'checkboxes') {
           value = this.checkboxesValueClean(filtre.id, filtre.value)
-        } else if (filtre.type === 'custom' && filtre.value) {
+        } else if (
+          (filtre.type === 'custom' || filtre.type === 'select') &&
+          filtre.value
+        ) {
           // on crée une copie pour éviter les modifications par référence
           value = JSON.parse(JSON.stringify(filtre.value))
         } else {
@@ -119,7 +122,10 @@ export default {
 
         if (filtre.type === 'checkboxes') {
           value = this.checkboxesValueClean(id, params[id])
-        } else if (filtre.type === 'custom' && params[id]) {
+        } else if (
+          (filtre.type === 'custom' && params[id]) ||
+          filtre.type === 'select'
+        ) {
           value = JSON.parse(JSON.stringify(params[id]))
         } else {
           value = params[id]

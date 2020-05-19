@@ -17,10 +17,12 @@ export default {
     Url,
     Filtres
   },
+
   computed: {
     preferences() {
       return this.$store.state.utilisateurs.preferences.filtres
     },
+
     params() {
       const paramsIds = Object.keys(this.preferences)
 
@@ -33,10 +35,12 @@ export default {
       }, {})
     }
   },
+
   methods: {
     utilisateursUpdate() {
       this.$emit('utilisateurs:update')
     },
+
     preferencesUpdate(params) {
       this.$store.dispatch('utilisateurs/preferencesSet', {
         section: 'filtres',

@@ -28,13 +28,13 @@
                 :to="{ name: 'demarches' }"
                 class="btn-menu text-decoration-none bold"
               >
-                Demarches
+                Démarches
               </RouterLink>
               <div
                 v-else
                 class="bold color-neutral"
               >
-                Demarches
+                Démarches
               </div>
             </li>
           </ul>
@@ -58,7 +58,7 @@
                 v-else
                 class="bold color-neutral"
               >
-                Demarches
+                Activités
               </div>
             </li>
           </ul>

@@ -35,6 +35,13 @@
           class="tablet-blob-1-2 large-blob-1-3"
         />
 
+        <FiltersSelects
+          v-for="filter in selects"
+          :key="filter.id"
+          :filter.sync="filter"
+          class="tablet-blob-1-2 large-blob-1-3"
+        />
+
         <Component
           :is="filter.component"
           v-for="filter in customs"
@@ -59,12 +66,14 @@
 import Accordion from './accordion.vue'
 import FiltersInput from './filters-input.vue'
 import FiltersCheckboxes from './filters-checkboxes.vue'
+import FiltersSelects from './filters-selects.vue'
 
 export default {
   components: {
     Accordion,
     FiltersInput,
-    FiltersCheckboxes
+    FiltersCheckboxes,
+    FiltersSelects
   },
 
   props: {
@@ -89,6 +98,10 @@ export default {
 
     checkboxes() {
       return this.filters.filter(({ type }) => type === 'checkboxes')
+    },
+
+    selects() {
+      return this.filters.filter(({ type }) => type === 'select')
     },
 
     customs() {

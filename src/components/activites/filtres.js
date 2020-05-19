@@ -44,9 +44,11 @@ const filtres = [
   {
     id: 'annees',
     name: 'Années',
-    type: 'checkboxes',
+    type: 'select',
     value: [],
     elements: [],
+    elementName: 'nom',
+    buttonAdd: 'Ajouter une année',
     isNumber: true
   }
 ]

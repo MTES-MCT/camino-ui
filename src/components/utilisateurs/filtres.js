@@ -1,6 +1,3 @@
-import FiltresAdministrations from './filtres-custom-administrations.vue'
-import FiltresEntreprises from './filtres-custom-entreprises.vue'
-
 // supprime les id vides
 const clean = value => {
   if (!value) return null
@@ -42,19 +39,21 @@ const filtres = [
   {
     id: 'administrationIds',
     name: 'Administrations',
-    type: 'custom',
+    type: 'select',
     value: [],
     elements: [],
-    component: FiltresAdministrations,
+    buttonAdd: 'Ajouter une administration',
+    elementName: 'abreviation',
     clean
   },
   {
     id: 'entrepriseIds',
     name: 'Entreprises',
-    type: 'custom',
+    type: 'select',
     value: [],
     elements: [],
-    component: FiltresEntreprises,
+    buttonAdd: 'Ajouter une entreprise',
+    elementName: 'nom',
     clean
   }
 ]
