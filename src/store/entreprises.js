@@ -74,7 +74,7 @@ export const actions = {
 
 export const mutations = {
   set(state, data) {
-    Vue.set(state, 'list', data.entreprises)
+    Vue.set(state, 'list', data.elements)
     Vue.set(state, 'total', data.total)
   },
 
