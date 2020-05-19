@@ -231,6 +231,7 @@
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
+            :disabled="!document.typeId"
             @click="save"
           >
             Enregistrer
