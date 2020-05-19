@@ -105,7 +105,7 @@ describe('liste des utilisateurs', () => {
     }
   ]
 
-  const entreprises = [
+  const entreprisesElements = [
     {
       id: 'fr-513863217',
       nom: "SOCIETE GUYANAISE DES MINES D'OR (SOGUMINOR)"
@@ -123,6 +123,10 @@ describe('liste des utilisateurs', () => {
       nom: 'BIJOUTERIE REUNIF'
     }
   ]
+  const entreprises = {
+    elements: entreprisesElements,
+    total: 4
+  }
 
   const administrations = [
     {
@@ -157,7 +161,7 @@ describe('liste des utilisateurs', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.utilisateurs.metas).toEqual({
       permission: permissions,
-      entreprise: entreprises,
+      entreprise: entreprisesElements,
       administration: administrations
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
