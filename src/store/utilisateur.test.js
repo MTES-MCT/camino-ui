@@ -77,7 +77,8 @@ describe("état de l'utilisateur consulté", () => {
       permissions: [
         { id: 'w', nom: 'granulats' },
         { id: 'c', nom: 'carrières' }
-      ]
+      ],
+      entreprises: { elements: ['ent-1'] }
     })
 
     await store.dispatch('utilisateur/metasGet')
@@ -88,7 +89,7 @@ describe("état de l'utilisateur consulté", () => {
         { id: 'w', nom: 'granulats' },
         { id: 'c', nom: 'carrières' }
       ],
-      entreprises: [],
+      entreprises: ['ent-1'],
       administrations: []
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()

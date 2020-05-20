@@ -36,7 +36,9 @@ const metasTitreEtape = apiQuery(
       }
 
       entreprises {
-        ...entreprises
+        elements {
+          ...entreprises
+        }
       }
     }
 

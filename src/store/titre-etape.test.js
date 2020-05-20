@@ -62,7 +62,8 @@ describe('étapes', () => {
       geoSystemes: [
         { id: 'ifr', nom: 'Ifremer' },
         { id: 'dge', nom: 'DGEC' }
-      ]
+      ],
+      entreprises: { elements: ['ent-1'] }
     })
 
     await store.dispatch('titreEtape/metasGet', { etape: {} })
@@ -80,7 +81,7 @@ describe('étapes', () => {
       unites: [],
       devises: [],
       substances: [],
-      entreprises: []
+      entreprises: ['ent-1']
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })

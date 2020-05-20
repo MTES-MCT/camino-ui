@@ -116,7 +116,11 @@ export const actions = {
 export const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      if (id === 'entreprises') {
+        Vue.set(state.metas, id, data[id].elements)
+      } else {
+        Vue.set(state.metas, id, data[id])
+      }
     })
   }
 }
