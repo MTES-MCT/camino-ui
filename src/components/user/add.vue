@@ -30,7 +30,7 @@
           id="cmn-user-add-input-mot-de-passe"
           v-model="utilisateur.motDePasse"
           type="password"
-          class="p-s bg-bg mb-s"
+          class="p-s mb-s"
           placeholder="Mot de passe"
         >
         <p class="h5 mb-0">
@@ -50,7 +50,7 @@
           id="cmn-user-add-input-prenom"
           v-model="utilisateur.prenom"
           type="text"
-          class="p-s bg-bg"
+          class="p-s"
           placeholder="Prénom"
         >
       </div>
@@ -66,7 +66,7 @@
           id="cmn-user-add-input-nom"
           v-model="utilisateur.nom"
           type="text"
-          class="p-s bg-bg"
+          class="p-s"
           placeholder="Nom"
         >
       </div>
@@ -81,8 +81,8 @@
         <input
           v-model="utilisateur.telephoneFixe"
           type="text"
-          class="p-s bg-bg"
-          placeholder="0100000000"
+          class="p-s"
+          placeholder="01…"
         >
       </div>
     </div>
@@ -96,8 +96,8 @@
         <input
           v-model="utilisateur.telephoneMobile"
           type="text"
-          class="p-s bg-bg"
-          placeholder="0100000000"
+          class="p-s"
+          placeholder="06…"
         >
       </div>
     </div>
