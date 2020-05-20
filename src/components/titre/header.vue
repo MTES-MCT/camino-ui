@@ -56,13 +56,7 @@ export default {
 
   methods: {
     editPopupOpen() {
-      this.$emit('titre:eventTrack', {
-        categorie: 'titre-sections',
-        action: 'titre-editer',
-        nom: this.$route.params.id
-      })
       const titre = {}
-
       titre.id = this.titre.id
       titre.nom = this.titre.nom
       titre.domaineId = this.titre.domaine.id
@@ -78,14 +72,15 @@ export default {
           titre
         }
       })
+
+      this.eventTrack({
+        categorie: 'titre-sections',
+        action: 'titre-editer',
+        nom: this.$route.params.id
+      })
     },
 
     removePopupOpen() {
-      this.$emit('titre:eventTrack', {
-        categorie: 'titre-sections',
-        action: 'titre-supprimer',
-        nom: this.$route.params.id
-      })
       this.$store.commit('popupOpen', {
         component: RemovePopup,
         props: {
@@ -94,15 +89,25 @@ export default {
           typeNom: this.titre.type.type.nom
         }
       })
+
+      this.eventTrack({
+        categorie: 'titre-sections',
+        action: 'titre-supprimer',
+        nom: this.$route.params.id
+      })
     },
 
     emailSend() {
-      this.$emit('titre:eventTrack', {
+      this.eventTrack({
         categorie: 'titre-sections',
         action: 'titre-erreur_signaler',
         nom: this.$route.params.id
       })
       window.location.href = `mailto:camino@beta.gouv.fr?subject=Erreur ${this.$route.params.id}&body=Bonjour, j'ai repéré une erreur sur le titre ${this.$route.params.id} : `
+    },
+
+    eventTrack(event) {
+      this.$emit('titre:eventTrack', event)
     }
   }
 }

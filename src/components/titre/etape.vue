@@ -163,12 +163,6 @@ export default {
 
   methods: {
     editPopupOpen() {
-      this.$emit('titre:eventTrack', {
-        categorie: 'titre-sections',
-        action: 'titre-etape_editer',
-        nom: this.$route.params.id
-      })
-
       const etape = etapeEditFormat(this.etape, this.demarcheId)
 
       this.$store.commit('popupOpen', {
@@ -180,15 +174,15 @@ export default {
           titreNom: this.titreNom
         }
       })
+
+      this.eventTrack({
+        categorie: 'titre-sections',
+        action: 'titre-etape_editer',
+        nom: this.$route.params.id
+      })
     },
 
     removePopupOpen() {
-      this.$emit('titre:eventTrack', {
-        categorie: 'titre-sections',
-        action: 'supprimer une étape',
-        nom: this.$route.params.id
-      })
-
       this.$store.commit('popupOpen', {
         component: RemovePopup,
         props: {
@@ -198,6 +192,12 @@ export default {
           titreNom: this.titreNom,
           titreType: this.$store.state.titre.current.type.nom
         }
+      })
+
+      this.eventTrack({
+        categorie: 'titre-sections',
+        action: 'supprimer une étape',
+        nom: this.$route.params.id
       })
     },
 

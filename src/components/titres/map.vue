@@ -40,9 +40,7 @@
             @click="clustersDisplayToggle"
           >
             <i
-              :class="
-                `icon-markers-${clustersDisplay ? 'ungrouped' : 'grouped'}`
-              "
+              :class="`icon-markers-${clustersDisplay ? 'ungrouped' : 'grouped'}`"
               class="icon-24"
             />
           </button>

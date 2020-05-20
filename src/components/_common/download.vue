@@ -36,6 +36,7 @@ export default {
         section: this.section,
         params: this.params
       })
+
       this.linkTrack(name)
     },
 
@@ -45,6 +46,7 @@ export default {
         if (protocol.slice(-1) !== ':') {
           protocol += ':'
         }
+
         this.$matomo.trackLink(`${protocol}//${name}`, 'download')
       }
     }

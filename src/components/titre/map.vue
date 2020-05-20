@@ -22,7 +22,7 @@
           <div class="flex">
             <button
               class="btn-border pill px-m py-s"
-              @click="actionCentrer"
+              @click="centrerTrack"
             >
               Centrer
             </button>
@@ -162,14 +162,14 @@ export default {
       })
     },
 
-    // permet de tracker l'action utilisateur "centrer" indépendamment de l'action 'centrer au 'mounted'
-    actionCentrer() {
+    centrerTrack() {
+      this.centrer()
+
       this.$emit('titre:eventTrack', {
         categorie: 'titre-sections',
         action: 'titre-carte_centrer',
         nom: this.$route.params.id
       })
-      this.centrer()
     },
 
     centrer() {

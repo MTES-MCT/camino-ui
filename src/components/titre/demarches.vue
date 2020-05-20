@@ -44,11 +44,6 @@ export default {
 
   methods: {
     demarcheAddPopupOpen() {
-      this.$emit('titre:eventTrack', {
-        categorie: 'titre-sections',
-        action: 'titre-demarche_ajouter',
-        nom: this.$route.params.id
-      })
       const demarche = {
         typeId: null,
         titreId: this.titre.id
@@ -63,6 +58,12 @@ export default {
           titreNom: this.titre.nom,
           creation: true
         }
+      })
+
+      this.eventTrack({
+        categorie: 'titre-sections',
+        action: 'titre-demarche_ajouter',
+        nom: this.$route.params.id
       })
     },
 
