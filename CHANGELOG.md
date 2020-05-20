@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.33](https://github.com/MTES-MCT/camino-ui/compare/v0.22.32...v0.22.33) (2020-05-20)
+
+
+### Features
+
+* **activités:** ajoute des filtres par noms, entreprises, etc. ([#111](https://github.com/MTES-MCT/camino-ui/issues/111)) ([97a1af9](https://github.com/MTES-MCT/camino-ui/commit/97a1af9993439ad4cc7131d8170c02e204a639af))
+* **entreprises:** gère les paramètres d'url ([#104](https://github.com/MTES-MCT/camino-ui/issues/104)) ([a845087](https://github.com/MTES-MCT/camino-ui/commit/a84508715908d3f3a11403d5094777b496fe14fa))
+* **footer:** ajoute un lien vers les tuto vidéos ([#110](https://github.com/MTES-MCT/camino-ui/issues/110)) ([e5dd61a](https://github.com/MTES-MCT/camino-ui/commit/e5dd61afc1dc8e6d6a32a746cc08e5d3a3da8c10))
+* **matomo:** améliore le paramétrage de Matomo ([#107](https://github.com/MTES-MCT/camino-ui/issues/107)) ([540241c](https://github.com/MTES-MCT/camino-ui/commit/540241c1116da2ff747ea1379c0bff80af7cac1c))
+* renomme les listes d'entreprises et d'activités en 'elements' ([#113](https://github.com/MTES-MCT/camino-ui/issues/113)) ([74c4b38](https://github.com/MTES-MCT/camino-ui/commit/74c4b38ee129dfc52e091b00556d8187baf67b24))
+
+
+### Bug Fixes
+
+* ajoute un fond sur les champs du formulaire de création de compte ([6173769](https://github.com/MTES-MCT/camino-ui/commit/617376913ab8035918afb867f32576112a41e10a))
+* corrige des problèmes d'affichage ([627756c](https://github.com/MTES-MCT/camino-ui/commit/627756c9e30bb9503eeca91f93ab3134b0f13656))
+* corrige l'édition d'utilisateur et d'étape ([7824d05](https://github.com/MTES-MCT/camino-ui/commit/7824d0507521127b2eca52210f07114427dfcc3b))
+* **activité:** recharge la page après la mise à jour ([#115](https://github.com/MTES-MCT/camino-ui/issues/115)) ([d81eb5f](https://github.com/MTES-MCT/camino-ui/commit/d81eb5f8065cc536659430fbf3d5b47e7f79cb69))
+* **carto:** rend visible le motif des autorisations de recherche ([cc44335](https://github.com/MTES-MCT/camino-ui/commit/cc44335fa0d03b33c8bc99ef6a3b4d7946fb8a88))
+* **documents:** empêche d'enregistrer si aucun type n'est sélectionné ([#112](https://github.com/MTES-MCT/camino-ui/issues/112)) ([46fcf95](https://github.com/MTES-MCT/camino-ui/commit/46fcf9597328f522079d3198e0140098490f9c73))
+* **menu:** désactive le lien lorsqu'on est sur la page correspondante ([4fc6651](https://github.com/MTES-MCT/camino-ui/commit/4fc6651109c4c158c4a343b4c1a342b3d10c38f5))
+
 ### [0.22.32](https://github.com/MTES-MCT/camino-ui/compare/v0.22.29...v0.22.32) (2020-05-18)
 
 
