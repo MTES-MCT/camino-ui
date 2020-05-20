@@ -1,8 +1,8 @@
 <template>
-  <Card v-if="!loaded">
+  <div v-if="!loaded">
     <Loader />
-  </Card>
-  <Card v-else>
+  </div>
+  <div v-else>
     <h6>Utilisateur</h6>
     <h1>
       {{ utilisateur
@@ -184,12 +184,11 @@
         </div>
       </template>
     </Accordion>
-  </Card>
+  </div>
 </template>
 
 <script>
 import { jsonTypenameOmit } from '../utils/index'
-import Card from './_ui/card.vue'
 import Accordion from './_ui/accordion.vue'
 import Pill from './_ui/pill.vue'
 import Loader from './_ui/loader.vue'
@@ -201,8 +200,7 @@ export default {
   components: {
     Accordion,
     Pill,
-    Loader,
-    Card
+    Loader
   },
 
   computed: {

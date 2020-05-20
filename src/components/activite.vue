@@ -10,6 +10,7 @@
       :key="activite.id"
       :activite="activite"
       context="activite"
+      class="mb"
     />
   </div>
 </template>

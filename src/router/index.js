@@ -152,10 +152,14 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  store.commit('menuClose')
+  if (store.state.menu.component) {
+    store.commit('menuClose')
+  }
+
   if (store.state.error) {
     store.commit('errorRemove')
   }
+
   next()
 })
 

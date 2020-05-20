@@ -35,6 +35,7 @@ export const actions = {
       commit('loadingRemove', 'metasUtilisateur', { root: true })
     }
   },
+
   async get({ commit, dispatch }, id) {
     commit('loadingAdd', 'utilisateur', { root: true })
 

@@ -38,17 +38,6 @@ html {
   min-height: 100%;
 }
 
-.card-border {
-  clear: both;
-  border: 0;
-  height: 0;
-  border-top-width: var(--unit-xxs);
-  border-top-style: solid;
-  border-top-color: var(--color-alt);
-  margin-left: calc(var(--unit) * -1);
-  margin-right: calc(var(--unit) * -1);
-}
-
 .width-max {
   margin-left: var(--margin-negative);
   margin-right: var(--margin-negative);

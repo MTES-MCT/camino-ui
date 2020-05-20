@@ -50,7 +50,7 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit, dispatch }) {
+  async metasGet({ commit }) {
     commit('loadingAdd', 'metasUtilisateur', { root: true })
 
     try {

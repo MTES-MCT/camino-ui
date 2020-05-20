@@ -44,9 +44,9 @@
           class="tablet-blob-1-3 border-l pl-s"
         >
           <ul class="list-sans mb-0">
-            <li>
+            <li v-if="sections.activites">
               <RouterLink
-                v-if="sections.activites && $route.name !== 'activites'"
+                v-if="$route.name !== 'activites'"
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'activites' }"
                 class="btn-menu text-decoration-none bold"
@@ -82,9 +82,9 @@
                 Entreprises
               </div>
             </li>
-            <li>
+            <li v-if="sections.utilisateurs">
               <RouterLink
-                v-if="sections.utilisateurs && $route.name !== 'utilisateurs'"
+                v-if="$route.name !== 'utilisateurs'"
                 id="cmn-menu-menu-a-utilisateurs"
                 :to="{ name: 'utilisateurs' }"
                 class="btn-menu text-decoration-none bold"

@@ -1,6 +1,5 @@
 <template>
-  <Loader v-if="!loaded" />
-  <div v-else>
+  <div>
     <div class="desktop-blobs pt-s">
       <div class="desktop-blob-2-3">
         <h1 class="mt-xs mb-m">
@@ -58,7 +57,6 @@
 </template>
 
 <script>
-import Loader from './_ui/loader.vue'
 import Downloads from './_common/downloads.vue'
 import UtilisateursFiltres from './utilisateurs/filtres-url.vue'
 import UtilisateursTable from './utilisateurs/table-url.vue'
@@ -68,7 +66,6 @@ export default {
   name: 'Utilisateurs',
 
   components: {
-    Loader,
     Downloads,
     UtilisateursFiltres,
     UtilisateursTable
@@ -93,10 +90,6 @@ export default {
       return this.$store.state.user.current
     },
 
-    loaded() {
-      return !!this.utilisateurs
-    },
-
     resultat() {
       const res =
         this.total > this.utilisateurs.length
@@ -107,7 +100,7 @@ export default {
   },
 
   watch: {
-    user: 'metasGet'
+    // user: 'metasGet'
   },
 
   created() {
@@ -120,9 +113,13 @@ export default {
     },
 
     async metasGet() {
-      await this.$store.dispatch('utilisateurs/metasGet')
-      if (!this.metasLoaded) {
-        this.metasLoaded = true
+      if (this.user && this.user.sections && this.user.sections.utilisateurs) {
+        await this.$store.dispatch('utilisateurs/metasGet')
+        if (!this.metasLoaded) {
+          this.metasLoaded = true
+        }
+      } else {
+        await this.$store.dispatch('pageError')
       }
     },
 

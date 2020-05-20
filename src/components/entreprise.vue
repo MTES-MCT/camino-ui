@@ -183,7 +183,7 @@
       v-if="titresAmodiataire && titresAmodiataire.length"
       class="mb-xxl"
     >
-      <div class="card-border my-xxl" />
+      <div class="line my-xxl" />
       <h3>Titres miniers et autorisations (amodiataire)</h3>
       <div class="line" />
       <TitresTable
