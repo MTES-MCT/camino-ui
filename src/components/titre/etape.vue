@@ -165,7 +165,7 @@ export default {
     editPopupOpen() {
       this.$emit('titre:eventTrack', {
         categorie: 'titre-sections',
-        action: 'éditer une étape',
+        action: 'titre-etape_editer',
         nom: this.$route.params.id
       })
 

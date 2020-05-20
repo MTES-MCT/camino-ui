@@ -142,7 +142,7 @@ export default {
       if (event) {
         this.$emit('titre:eventTrack', {
           categorie: 'titre-sections',
-          action: 'consulter les informations de(s) administration(s)',
+          action: 'titre-administration_consulter',
           nom: this.$route.params.id
         })
       }

@@ -58,7 +58,7 @@ export default {
     editPopupOpen() {
       this.$emit('titre:eventTrack', {
         categorie: 'titre-sections',
-        action: 'éditer un titre',
+        action: 'titre-editer',
         nom: this.$route.params.id
       })
       const titre = {}
@@ -83,7 +83,7 @@ export default {
     removePopupOpen() {
       this.$emit('titre:eventTrack', {
         categorie: 'titre-sections',
-        action: 'supprimer un titre',
+        action: 'titre-supprimer',
         nom: this.$route.params.id
       })
       this.$store.commit('popupOpen', {
@@ -99,7 +99,7 @@ export default {
     emailSend() {
       this.$emit('titre:eventTrack', {
         categorie: 'titre-sections',
-        action: 'signaler une erreur',
+        action: 'titre-erreur_signaler',
         nom: this.$route.params.id
       })
       window.location.href = `mailto:camino@beta.gouv.fr?subject=Erreur ${this.$route.params.id}&body=Bonjour, j'ai repéré une erreur sur le titre ${this.$route.params.id} : `

@@ -207,11 +207,6 @@ export default {
   },
 
   async created() {
-    this.$emit('titre:eventTrack', {
-      categorie: 'page-titre',
-      action: 'accès-page-titre',
-      nom: ''
-    })
     await this.get()
   },
 
@@ -227,7 +222,7 @@ export default {
     tabToggle(tabId) {
       this.eventTrack({
         categorie: 'titre-sections',
-        action: `consulter la liste des ${tabId}`,
+        action: `titre-${tabId}_consulter`,
         nom: this.$store.state.titre.current.id
       })
       this.tabActive = tabId
@@ -236,7 +231,7 @@ export default {
     geoTabToggle(tabId) {
       this.eventTrack({
         categorie: 'titre-sections',
-        action: `consulter la vue '${tabId}' d'une fiche titre`,
+        action: `titre-vue${tabId}_consulter`,
         nom: this.$store.state.titre.current.id
       })
       this.geoTabActive = tabId

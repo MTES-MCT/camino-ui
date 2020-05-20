@@ -57,21 +57,18 @@ export default function install(Vue, setupOptions = {}) {
           matomo.customVariableVisitUser(options.store.state.user.current)
           matomo.trackPageView(name)
 
-          if (to.name === 'titre') {
-            let name = ''
-            if (from.name === 'demarches') {
-              name = 'liste des démarches'
-            }
-            if (from.name === 'entreprise') {
-              name = 'fiche entreprise'
-            }
-            if (from.name === 'titres') {
-              if (from.query.vueId) {
-                name = `${from.query.vueId} des titres`
-              }
-            }
+          if (to.name !== from.name) {
+            // nombre d'affichage de la page
+            // titre, titres, entreprises, activites, demarches, utilisateurs
+            matomo.trackEvent(`page-${to.name}`, `page-${to.name}_acceder`)
 
-            matomo.trackEvent('page-titre', 'accès-page-titre-depuis', name)
+            if (to.name === 'titre') {
+              // nombre d'affichage de la page 'titres'
+              let action = `page-titre-from-${from.name}`
+              action += from.query.vueId ? `-${from.query.vueId}` : ''
+
+              matomo.trackEvent('page-titre', action, to.params.id)
+            }
           }
         })
       }

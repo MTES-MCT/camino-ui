@@ -19,7 +19,7 @@ export default {
     addPopupOpen() {
       this.$emit('titre:eventTrack', {
         categorie: 'titre-sections',
-        action: 'ajouter un document à une étape',
+        action: 'titre-etape-doc_ajouter',
         nom: this.$route.params.id
       })
 

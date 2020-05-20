@@ -46,7 +46,7 @@ export default {
     demarcheAddPopupOpen() {
       this.$emit('titre:eventTrack', {
         categorie: 'titre-sections',
-        action: 'ajouter une démarche',
+        action: 'titre-demarche_ajouter',
         nom: this.$route.params.id
       })
       const demarche = {

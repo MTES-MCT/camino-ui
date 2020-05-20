@@ -96,7 +96,6 @@ export default {
 
   async created() {
     await this.metasGet()
-    this.eventTrack()
   },
 
   methods: {
@@ -108,16 +107,6 @@ export default {
       await this.$store.dispatch('titresDemarches/metasGet')
       if (!this.metasLoaded) {
         this.metasLoaded = true
-      }
-    },
-
-    eventTrack(id = null) {
-      if (this.$matomo) {
-        if (id) {
-          this.$matomo.trackEvent('page-demarches', 'accès-page-demarches', id)
-        } else {
-          this.$matomo.trackEvent('page-demarches', 'accès-page-demarches')
-        }
       }
     }
   }

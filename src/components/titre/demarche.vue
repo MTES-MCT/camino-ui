@@ -90,7 +90,7 @@ export default {
     editPopupOpen() {
       this.$emit('titre:eventTrack', {
         categorie: 'titre-sections',
-        action: 'éditer une démarche',
+        action: 'titre-demarche_editer',
         nom: this.$route.params.id
       })
 
@@ -114,7 +114,7 @@ export default {
     removePopupOpen() {
       this.$emit('titre:eventTrack', {
         categorie: 'titre-sections',
-        action: 'supprimer une démarche',
+        action: 'titre-demarche_supprimer',
         nom: this.$route.params.id
       })
 
@@ -132,7 +132,7 @@ export default {
     etapeAddPopupOpen() {
       this.$emit('titre:eventTrack', {
         categorie: 'titre-sections',
-        action: 'ajouter une étape',
+        action: 'titre-etape_ajouter',
         nom: this.$route.params.id
       })
 

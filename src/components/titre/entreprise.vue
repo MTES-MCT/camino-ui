@@ -1,7 +1,7 @@
 <template>
   <Accordion
     class="mb"
-    @toggle="eventTrack($event, 'consulter les informations de l\'entreprise')"
+    @toggle="eventTrack($event, 'titre-entreprise_consulter')"
   >
     <template slot="title">
       <h4 class="mb-0">
@@ -24,7 +24,7 @@
       >
         <i
           class="icon-24 icon-window-link"
-          @click="eventTrack($event, 'accéder à la fiche entreprise')"
+          @click="eventTrack($event, 'titre-entreprise_acceder')"
         />
       </RouterLink>
     </template>
