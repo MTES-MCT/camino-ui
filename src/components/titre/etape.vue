@@ -36,6 +36,7 @@
         :etape-type-nom="etape.type.nom"
         :titre-nom="titreNom"
         class="btn py-s px-m mr-line"
+        @titre:eventTrack="eventTrack"
       />
       <button
         v-if="etape.modification"
@@ -81,6 +82,7 @@
         :etape-type-nom="etape.type.nom"
         :titre-nom="titreNom"
         class="px-m"
+        @titre:eventTrack="eventTrack"
       />
     </div>
   </Accordion>
@@ -161,6 +163,12 @@ export default {
 
   methods: {
     editPopupOpen() {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: 'titre-etape_editer',
+        nom: this.$route.params.id
+      })
+
       const etape = etapeEditFormat(this.etape, this.demarcheId)
 
       this.$store.commit('popupOpen', {
@@ -175,6 +183,12 @@ export default {
     },
 
     removePopupOpen() {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: 'supprimer une étape',
+        nom: this.$route.params.id
+      })
+
       this.$store.commit('popupOpen', {
         component: RemovePopup,
         props: {
@@ -185,6 +199,10 @@ export default {
           titreType: this.$store.state.titre.current.type.nom
         }
       })
+    },
+
+    eventTrack(event) {
+      this.$emit('titre:eventTrack', event)
     }
   }
 }

@@ -1,5 +1,8 @@
 <template>
-  <Accordion class="mb">
+  <Accordion
+    class="mb"
+    @toggle="eventTrack($event, 'titre-entreprise_consulter')"
+  >
     <template slot="title">
       <h4 class="mb-0">
         {{ entrepriseNameFind(entreprise) }}
@@ -15,14 +18,16 @@
 
     <template slot="buttons">
       <RouterLink
-        :to="{ name: 'entreprise', params: {id: entreprise.id }}"
+        :to="{ name: 'entreprise', params: { id: entreprise.id } }"
         class="btn-alt py-s px-m"
         tag="button"
       >
-        <i class="icon-24 icon-window-link" />
+        <i
+          class="icon-24 icon-window-link"
+          @click="eventTrack($event, 'titre-entreprise_acceder')"
+        />
       </RouterLink>
     </template>
-
 
     <div
       v-if="content"
@@ -35,9 +40,7 @@
         <div class="large-blob-1-4">
           <h6>Siren</h6>
         </div>
-        <div
-          class="large-blob-3-4"
-        >
+        <div class="large-blob-3-4">
           <p>{{ entreprise.legalSiren }}</p>
         </div>
       </div>
@@ -49,9 +52,7 @@
         <div class="large-blob-1-4">
           <h6>Forme juridique</h6>
         </div>
-        <div
-          class="large-blob-3-4"
-        >
+        <div class="large-blob-3-4">
           <p>{{ entreprise.legalForme }}</p>
         </div>
       </div>
@@ -61,11 +62,11 @@
         class="large-blobs"
       >
         <div class="large-blob-1-4">
-          <h6>Établissement{{ entreprise.etablissements.length > 1 ? 's' : '' }}</h6>
+          <h6>
+            Établissement{{ entreprise.etablissements.length > 1 ? 's' : '' }}
+          </h6>
         </div>
-        <div
-          class="large-blob-3-4"
-        >
+        <div class="large-blob-3-4">
           <ul class="list-sans">
             <li
               v-for="e in entreprise.etablissements"
@@ -73,7 +74,8 @@
             >
               <h5 class="inline-block">
                 {{ e.dateDebut | dateFormat }}
-              </h5> : {{ e.nom }}
+              </h5>
+              : {{ e.nom }}
             </li>
           </ul>
         </div>
@@ -86,9 +88,7 @@
         <div class="large-blob-1-4">
           <h6>Adresse</h6>
         </div>
-        <div
-          class="large-blob-3-4"
-        >
+        <div class="large-blob-3-4">
           <p>
             {{ entreprise.adresse }}
             <br>{{ entreprise.codePostal }}
@@ -192,6 +192,16 @@ export default {
           null
         ).nom
       )
+    },
+
+    eventTrack(event, action) {
+      if (event) {
+        this.$emit('titre:eventTrack', {
+          categorie: 'titre-sections',
+          action,
+          nom: this.$route.params.id
+        })
+      }
     }
   }
 }

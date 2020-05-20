@@ -1,5 +1,8 @@
 <template>
-  <Accordion class="mb">
+  <Accordion
+    class="mb"
+    @toggle="eventTrack($event)"
+  >
     <template slot="title">
       <span>{{ administration.nom }}</span>
       <Tag
@@ -134,6 +137,16 @@ export default {
     }
   },
 
-  methods: {}
+  methods: {
+    eventTrack(event) {
+      if (event) {
+        this.$emit('titre:eventTrack', {
+          categorie: 'titre-sections',
+          action: 'titre-administration_consulter',
+          nom: this.$route.params.id
+        })
+      }
+    }
+  }
 }
 </script>

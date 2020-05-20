@@ -13,6 +13,7 @@
           :key="titulaire.id"
           :entreprise="titulaire"
           class="mb-s"
+          @titre:eventTrack="eventTrack"
         />
       </div>
       <div
@@ -23,10 +24,11 @@
           Amodiataire{{ amodiataires.length > 1 ? 's' : '' }}
         </h6>
         <Entreprise
-          v-for="amodiatiare in amodiataires"
-          :key="amodiatiare.id"
-          :entreprise="amodiatiare"
+          v-for="amodiataire in amodiataires"
+          :key="amodiataire.id"
+          :entreprise="amodiataire"
           class="mb-s"
+          @titre:eventTrack="eventTrack"
         />
       </div>
     </div>
@@ -42,6 +44,7 @@
           :key="administration.id"
           :administration="administration"
           class="mb-s"
+          @titre:eventTrack="eventTrack"
         />
       </div>
     </div>
@@ -71,6 +74,11 @@ export default {
     administrations: {
       type: Array,
       default: () => []
+    }
+  },
+  methods: {
+    eventTrack(event) {
+      this.$emit('titre:eventTrack', event)
     }
   }
 }

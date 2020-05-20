@@ -27,6 +27,7 @@
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'demarches' }"
                 class="btn-menu text-decoration-none bold"
+                @click.native="eventTrack('demarches')"
               >
                 Démarches
               </RouterLink>

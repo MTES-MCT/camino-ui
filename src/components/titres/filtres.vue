@@ -114,6 +114,9 @@ export default {
 
     toggle(opened) {
       this.opened = opened
+      if (opened) {
+        this.eventTrack()
+      }
     },
 
     keyup(e) {
@@ -160,32 +163,36 @@ export default {
 
     eventTrack(params) {
       if (this.$matomo) {
-        const events = this.apiParams.reduce((events, { type, id }) => {
-          if (type === 'string' && params[id]) {
-            events.push({ id, value: params[id] })
-          } else if (type === 'strings' && params[id]) {
-            const values = params[id]
-            values.forEach(value => {
-              events.push({ id, value })
-            })
-          }
+        if (params) {
+          const events = this.apiParams.reduce((events, { type, id }) => {
+            if (type === 'string' && params[id]) {
+              events.push({ id, value: params[id] })
+            } else if (type === 'strings' && params[id]) {
+              const values = params[id]
+              values.forEach(value => {
+                events.push({ id, value })
+              })
+            }
 
-          return events
-        }, [])
+            return events
+          }, [])
 
-        events.forEach(({ id, value }) => {
-          this.$matomo.trackEvent(
-            'titres-filtres',
-            `titres-filtres-${id}`,
-            value
-          )
-        })
+          events.forEach(({ id, value }) => {
+            this.$matomo.trackEvent(
+              'titres-filtres',
+              `titres-filtres-${id}`,
+              value
+            )
+          })
 
-        Object.keys(params).forEach(id => {
-          if (params[id]) {
-            this.$matomo.trackSiteSearch(JSON.stringify(params[id]), id)
-          }
-        })
+          Object.keys(params).forEach(id => {
+            if (params[id]) {
+              this.$matomo.trackSiteSearch(JSON.stringify(params[id]), id)
+            }
+          })
+        } else {
+          this.$matomo.trackEvent('titres', 'filtres', 'filtres-titres')
+        }
       }
     }
   }

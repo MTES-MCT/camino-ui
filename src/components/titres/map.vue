@@ -40,7 +40,9 @@
             @click="clustersDisplayToggle"
           >
             <i
-              :class="`icon-markers-${clustersDisplay ? 'ungrouped' : 'grouped'}`"
+              :class="
+                `icon-markers-${clustersDisplay ? 'ungrouped' : 'grouped'}`
+              "
               class="icon-24"
             />
           </button>
@@ -193,6 +195,7 @@ export default {
     },
 
     tilesUpdate(params) {
+      this.eventTrack()
       this.$store.dispatch('user/preferencesSet', {
         section: 'carte',
         params
@@ -225,6 +228,12 @@ export default {
     clustersDisplayToggle() {
       this.clustersDisplay = !this.clustersDisplay
       this.geojsonLayersDisplay()
+    },
+
+    eventTrack() {
+      if (this.$matomo) {
+        this.$matomo.trackEvent('titres-vue', 'titre-id-fond-carte')
+      }
     }
   }
 }

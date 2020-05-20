@@ -36,6 +36,7 @@ export default function install(Vue, setupOptions = {}) {
 
       if (options.enableLinkTracking) {
         matomo.enableLinkTracking(options.enableLinkTracking)
+        matomo.setDownloadExtensions('csv|odt|xlsx|geojson')
       }
 
       if (options.router) {
@@ -53,12 +54,22 @@ export default function install(Vue, setupOptions = {}) {
           const url = protocol + '//' + loc.host + to.path
           matomo.setCustomUrl(url)
 
-          // la page titre défini des variables personnalisées qui dépendent des données du titre
-          // ces données ne sont pas encore chargées ici
-          // pour cette page uniquement, le tracker est donc appelé dans le composant 'titre'
-
           matomo.customVariableVisitUser(options.store.state.user.current)
           matomo.trackPageView(name)
+
+          if (to.name !== from.name) {
+            // nombre d'affichage de la page
+            // titre, titres, entreprises, activites, demarches, utilisateurs
+            matomo.trackEvent(`page-${to.name}`, `page-${to.name}_acceder`)
+
+            if (to.name === 'titre') {
+              // nombre d'affichage de la page 'titres'
+              let action = `page-titre-from-${from.name}`
+              action += from.query.vueId ? `-${from.query.vueId}` : ''
+
+              matomo.trackEvent('page-titre', action, to.params.id)
+            }
+          }
         })
       }
     })

@@ -15,6 +15,7 @@
 
       <TitreHeader
         :titre="titre"
+        @titre:eventTrack="eventTrack"
       />
 
       <TitreInfos
@@ -74,6 +75,7 @@
           :points="titre.points"
           :domaine-id="titre.domaine.id"
           :type-id="titre.type.type.id"
+          @titre:eventTrack="eventTrack"
         />
 
         <TitrePoints
@@ -95,6 +97,7 @@
         :titulaires="titre.titulaires"
         :amodiataires="titre.amodiataires"
         :administrations="titre.administrations"
+        @titre:eventTrack="eventTrack"
       />
 
       <div
@@ -126,6 +129,7 @@
       <TitreDemarches
         v-if="tabActive === 'demarches'"
         :demarches="titre.demarches"
+        @titre:eventTrack="eventTrack"
       />
 
       <TitreActivitesList
@@ -216,26 +220,26 @@ export default {
     },
 
     tabToggle(tabId) {
-      this.eventTrack(this.$store.state.titre.current.id, tabId)
+      this.eventTrack({
+        categorie: 'titre-sections',
+        action: `titre-${tabId}_consulter`,
+        nom: this.$store.state.titre.current.id
+      })
       this.tabActive = tabId
     },
 
     geoTabToggle(tabId) {
-      this.eventTrack(tabId)
+      this.eventTrack({
+        categorie: 'titre-sections',
+        action: `titre-vue${tabId}_consulter`,
+        nom: this.$store.state.titre.current.id
+      })
       this.geoTabActive = tabId
     },
 
-    eventTrack(id, section = false) {
+    eventTrack(event) {
       if (this.$matomo) {
-        if (section) {
-          this.$matomo.trackEvent(
-            'titre-sections',
-            `titre-sections-${section}`,
-            id
-          )
-        } else {
-          this.$matomo.trackEvent('titre-vue', 'titre-vueId', id)
-        }
+        this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
     }
   }
