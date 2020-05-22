@@ -12,7 +12,7 @@
     />
     <div
       v-else
-      class="py-s px-m mb-s"
+      class="py-s px-m mb-s border rnd-s"
     >
       …
     </div>

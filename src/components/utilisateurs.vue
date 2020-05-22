@@ -25,7 +25,7 @@
     />
     <div
       v-else
-      class="py-s px-m mb-s"
+      class="py-s px-m mb-s border rnd-s"
     >
       …
     </div>
@@ -65,11 +65,7 @@ import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
 export default {
   name: 'Utilisateurs',
 
-  components: {
-    Downloads,
-    UtilisateursFiltres,
-    UtilisateursTable
-  },
+  components: { Downloads, UtilisateursFiltres, UtilisateursTable },
 
   data() {
     return {
@@ -100,7 +96,7 @@ export default {
   },
 
   watch: {
-    // user: 'metasGet'
+    user: 'metasGet'
   },
 
   created() {
@@ -109,17 +105,24 @@ export default {
 
   methods: {
     async utilisateursUpdate() {
-      await this.$store.dispatch('utilisateurs/get')
+      if (this.metasLoaded) {
+        await this.$store.dispatch('utilisateurs/get')
+      }
     },
 
     async metasGet() {
-      if (this.user && this.user.sections && this.user.sections.utilisateurs) {
+      if (
+        !this.user ||
+        !this.user.sections ||
+        !this.user.sections.utilisateurs
+      ) {
+        await this.$store.dispatch('pageError')
+        this.metasLoaded = false
+      } else {
         await this.$store.dispatch('utilisateurs/metasGet')
         if (!this.metasLoaded) {
           this.metasLoaded = true
         }
-      } else {
-        await this.$store.dispatch('pageError')
       }
     },
 

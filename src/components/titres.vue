@@ -30,7 +30,7 @@
     />
     <div
       v-else
-      class="py-s px-m mb-s"
+      class="py-s px-m mb-s border rnd-s"
     >
       …
     </div>
@@ -104,11 +104,7 @@ import Downloads from './_common/downloads.vue'
 export default {
   name: 'Titres',
 
-  components: {
-    Url,
-    TitresFiltres,
-    Downloads
-  },
+  components: { Url, TitresFiltres, Downloads },
 
   data() {
     return {

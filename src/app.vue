@@ -9,6 +9,7 @@
     <PageHeader
       slot="header"
       class="mb-s"
+      :loaded="loaded"
     />
 
     <Messages
@@ -22,7 +23,7 @@
       :message="error"
     />
 
-    <RouterView v-if="!error && loaded" />
+    <RouterView v-else-if="loaded" />
 
     <Component
       :is="popup.component"
@@ -82,6 +83,11 @@ export default {
 
   async created() {
     await this.init()
+
+    if (!this.user) {
+      await this.get()
+    }
+
     this.viewTrack()
   },
 
@@ -103,12 +109,13 @@ export default {
       } else {
         await this.$store.dispatch('user/identify')
       }
-      await this.get()
-      this.loaded = true
     },
 
     async get() {
       await this.$store.dispatch('user/metasGet')
+      if (!this.loaded) {
+        this.loaded = true
+      }
     },
 
     viewTrack() {

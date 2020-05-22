@@ -151,18 +151,18 @@ const router = new VueRouter({
   }
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (store.state.menu.component) {
     store.commit('menuClose')
   }
 
-  if (store.state.error) {
-    store.commit('errorRemove')
+  if (store.state.error && to.name !== from.name) {
+    store.dispatch('errorRemove')
   }
 
   next()
 })
 
-router.afterEach(() => {})
+router.afterEach((to, from) => {})
 
 export default router

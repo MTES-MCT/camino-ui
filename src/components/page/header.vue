@@ -12,11 +12,15 @@
               class="loader"
             />
             <div
+              v-if="loaded"
               class="ml-xs"
             >
               <MenuButton />
             </div>
-            <div class="ml-xs">
+            <div
+              v-if="loaded"
+              class="ml-xs"
+            >
               <UserButton />
             </div>
           </div>
@@ -54,6 +58,13 @@ export default {
   components: {
     UserButton,
     MenuButton
+  },
+
+  props: {
+    loaded: {
+      type: Boolean,
+      default: false
+    }
   },
 
   computed: {

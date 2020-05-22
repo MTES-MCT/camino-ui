@@ -1,142 +1,140 @@
 <template>
-  <div>
-    <Loader v-if="!loaded" />
-    <div v-else>
-      <div
-        v-if="titre.doublonTitreId"
-        class="p-m bg-warning color-bg mb"
-      >
-        Ce titre est un doublon. Le titre déjà existant est :
-        <a
-          class="color-bg"
-          :href="`/titres/${titre.doublonTitreId}`"
-        >{{ titre.doublonTitreId }}</a>.
-      </div>
+  <Loader v-if="!loaded" />
+  <div v-else>
+    <div
+      v-if="titre.doublonTitreId"
+      class="p-m bg-warning color-bg mb"
+    >
+      Ce titre est un doublon. Le titre déjà existant est :
+      <a
+        class="color-bg"
+        :href="`/titres/${titre.doublonTitreId}`"
+      >{{ titre.doublonTitreId }}</a>.
+    </div>
 
-      <TitreHeader
-        :titre="titre"
-        @titre:eventTrack="eventTrack"
-      />
+    <TitreHeader
+      :titre="titre"
+      @titre:eventTrack="eventTrack"
+    />
 
-      <TitreInfos
-        :titre="titre"
-        class="mb"
-      />
+    <TitreInfos
+      :titre="titre"
+      class="mb"
+    />
 
-      <div v-if="titre.geojsonMultiPolygon && titre.points">
-        <div class="tablet-blobs tablet-flex-direction-reverse">
-          <div class="tablet-blob-1-2 flex mb-s">
-            <TitreDownloadCsv
-              v-if="titre.points.length"
-              :titre="titre"
-              class="mr-s flex-right"
-            />
-            <TitreDownloadGeojson
-              v-if="titre.points.length"
-              :titre="titre"
-            />
-          </div>
+    <div v-if="titre.geojsonMultiPolygon && titre.points">
+      <div class="tablet-blobs tablet-flex-direction-reverse">
+        <div class="tablet-blob-1-2 flex mb-s">
+          <TitreDownloadCsv
+            v-if="titre.points.length"
+            :titre="titre"
+            class="mr-s flex-right"
+          />
+          <TitreDownloadGeojson
+            v-if="titre.points.length"
+            :titre="titre"
+          />
+        </div>
 
-          <div class="tablet-blob-1-2 flex">
-            <div
-              v-for="tab in geoTabs"
-              :key="tab.id"
-              class="mr-xs"
-              :class="{ active: geoTabActive === tab.id }"
+        <div class="tablet-blob-1-2 flex">
+          <div
+            v-for="tab in geoTabs"
+            :key="tab.id"
+            class="mr-xs"
+            :class="{ active: geoTabActive === tab.id }"
+          >
+            <button
+              v-if="geoTabActive !== tab.id"
+              class="p-m btn-tab rnd-t-s"
+              @click="geoTabToggle(tab.id)"
             >
-              <button
-                v-if="geoTabActive !== tab.id"
-                class="p-m btn-tab rnd-t-s"
-                @click="geoTabToggle(tab.id)"
-              >
-                <i
-                  :class="`icon-${tab.icon}`"
-                  class="icon-24"
-                />
-              </button>
-              <div
-                v-else
-                class="p-m span-tab rnd-t-s"
-              >
-                <i
-                  :class="`icon-${tab.icon}`"
-                  class="icon-24"
-                />
-              </div>
+              <i
+                :class="`icon-${tab.icon}`"
+                class="icon-24"
+              />
+            </button>
+            <div
+              v-else
+              class="p-m span-tab rnd-t-s"
+            >
+              <i
+                :class="`icon-${tab.icon}`"
+                class="icon-24"
+              />
             </div>
           </div>
         </div>
-
-        <div class="line-neutral" />
-
-        <TitreMap
-          v-if="titre.geojsonMultiPolygon && geoTabActive === 'carte'"
-          :geojson="titre.geojsonMultiPolygon"
-          :points="titre.points"
-          :domaine-id="titre.domaine.id"
-          :type-id="titre.type.type.id"
-          @titre:eventTrack="eventTrack"
-        />
-
-        <TitrePoints
-          v-if="titre.points && geoTabActive === 'points'"
-          :points="titre.points"
-        />
-
-        <div class="line mb" />
       </div>
 
-      <TitreTerritoires
-        :pays="titre.pays"
-        :surface="titre.surface"
-      />
+      <div class="line-neutral" />
 
-      <div class="line mb-xl" />
-
-      <TitreRepertoire
-        :titulaires="titre.titulaires"
-        :amodiataires="titre.amodiataires"
-        :administrations="titre.administrations"
+      <TitreMap
+        v-if="titre.geojsonMultiPolygon && geoTabActive === 'carte'"
+        :geojson="titre.geojsonMultiPolygon"
+        :points="titre.points"
+        :domaine-id="titre.domaine.id"
+        :type-id="titre.type.type.id"
         @titre:eventTrack="eventTrack"
       />
 
-      <div
-        v-if="titre.demarches.length && titre.activites.length"
-        class="flex"
-      >
-        <div
-          v-for="tab in tabs"
-          :key="tab.id"
-          class="mr-xs"
-          :class="{ active: tabActive === tab.id }"
-        >
-          <button
-            :id="`cmn-titre-tab-${tab.id}`"
-            class="p-m btn-tab rnd-t-s"
-            @click="tabToggle(tab.id)"
-          >
-            {{ tab.nom }}
-            <ActivitesPills
-              v-if="tab.id === 'activites'"
-              class="inline-block ml-s"
-              :activites-absentes="titre.activitesAbsentes"
-              :activites-en-construction="titre.activitesEnConstruction"
-            />
-          </button>
-        </div>
-      </div>
-
-      <TitreDemarches
-        v-if="tabActive === 'demarches'"
-        :demarches="titre.demarches"
-        @titre:eventTrack="eventTrack"
+      <TitrePoints
+        v-if="titre.points && geoTabActive === 'points'"
+        :points="titre.points"
       />
 
-      <TitreActivitesList
-        v-if="titre.activites.length && tabActive === 'activites'"
-        :activites="titre.activites"
-      />
+      <div class="line mb" />
     </div>
+
+    <TitreTerritoires
+      :pays="titre.pays"
+      :surface="titre.surface"
+    />
+
+    <div class="line mb-xl" />
+
+    <TitreRepertoire
+      :titulaires="titre.titulaires"
+      :amodiataires="titre.amodiataires"
+      :administrations="titre.administrations"
+      @titre:eventTrack="eventTrack"
+    />
+
+    <div
+      v-if="titre.demarches.length && titre.activites.length"
+      class="flex"
+    >
+      <div
+        v-for="tab in tabs"
+        :key="tab.id"
+        class="mr-xs"
+        :class="{ active: tabActive === tab.id }"
+      >
+        <button
+          :id="`cmn-titre-tab-${tab.id}`"
+          class="p-m btn-tab rnd-t-s"
+          @click="tabToggle(tab.id)"
+        >
+          {{ tab.nom }}
+          <ActivitesPills
+            v-if="tab.id === 'activites'"
+            class="inline-block ml-s"
+            :activites-absentes="titre.activitesAbsentes"
+            :activites-en-construction="titre.activitesEnConstruction"
+          />
+        </button>
+      </div>
+    </div>
+
+    <TitreDemarches
+      v-if="tabActive === 'demarches'"
+      :demarches="titre.demarches"
+      @titre:eventTrack="eventTrack"
+    />
+
+    <TitreActivitesList
+      v-if="titre.activites.length && tabActive === 'activites'"
+      :activites="titre.activites"
+    />
   </div>
 </template>
 

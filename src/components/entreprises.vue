@@ -1,6 +1,5 @@
 <template>
-  <Loader v-if="!loaded" />
-  <div v-else>
+  <div>
     <div class="desktop-blobs pt-s">
       <div class="desktop-blob-2-3">
         <h1 class="mt-xs mb-m">
@@ -24,6 +23,12 @@
       v-if="metasLoaded"
       @entreprises:update="entreprisesUpdate"
     />
+    <div
+      v-else
+      class="py-s px-m mb-s border rnd-s"
+    >
+      …
+    </div>
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-3 flex mb-s">
@@ -53,7 +58,6 @@
 
 <script>
 import Vue from 'vue'
-import Loader from './_ui/loader.vue'
 import Downloads from './_common/downloads.vue'
 import EntreprisesFiltres from './entreprises/filtres-url.vue'
 import EntreprisesTable from './entreprises/table-url.vue'
@@ -63,7 +67,6 @@ export default {
   name: 'Entreprises',
 
   components: {
-    Loader,
     Downloads,
     EntreprisesFiltres,
     EntreprisesTable

@@ -77,16 +77,16 @@ export const actions = {
 
       const data = await activites(p)
 
-      dispatch(
-        'messageAdd',
-        {
-          value: `liste d'activités mise à jour`,
-          type: 'success'
-        },
-        { root: true }
-      )
-
       if (data) {
+        dispatch(
+          'messageAdd',
+          {
+            value: `liste d'activités mise à jour`,
+            type: 'success'
+          },
+          { root: true }
+        )
+
         commit('set', data)
       }
     } catch (e) {

@@ -1,5 +1,5 @@
 <template>
-  <Loader v-if="!loaded" />
+  <Loader v-if="!metasLoaded" />
   <div v-else>
     <div class="pt-s">
       <h1 class="mt-xs mb-m">
@@ -7,16 +7,7 @@
       </h1>
     </div>
 
-    <ActivitesFiltres
-      v-if="metasLoaded"
-      @activites:update="activitesUpdate"
-    />
-    <div
-      v-else
-      class="py-s px-m mb-s"
-    >
-      …
-    </div>
+    <ActivitesFiltres @activites:update="activitesUpdate" />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-3 flex mb-s">
@@ -91,16 +82,6 @@ export default {
       return this.$store.state.titresActivites.preferences.filtres.typesIds
     },
 
-    activiteType() {
-      if (this.typesIds && this.typesIds.length && this.typesIds.length === 1) {
-        return this.activitesTypes.find(({ id }) => id === this.typesIds[0])
-      } else {
-        return false
-      }
-      // TODO : en raison des sections, ne gère les téléchargements csv que pour un type d'activités sélectionnés
-      // return this.activitesTypes.find(({ id }) => id === this.typeId)
-    },
-
     resultat() {
       const res =
         this.total > this.activites.length
@@ -124,7 +105,12 @@ export default {
     },
 
     async metasGet() {
-      await this.$store.dispatch('titresActivites/metasGet')
+      if (!this.user || !this.user.sections || !this.user.sections.activites) {
+        await this.$store.dispatch('pageError')
+      } else {
+        await this.$store.dispatch('titresActivites/metasGet')
+      }
+
       if (!this.metasLoaded) {
         this.metasLoaded = true
       }
