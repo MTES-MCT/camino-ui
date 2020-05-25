@@ -186,7 +186,7 @@ export default {
           })
 
           Object.keys(params).forEach(id => {
-            if (params[id]) {
+            if (params[id] && params[id].length !== 0) {
               this.$matomo.trackSiteSearch(JSON.stringify(params[id]), id)
             }
           })

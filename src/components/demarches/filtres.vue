@@ -188,8 +188,15 @@ export default {
           })
 
           Object.keys(params).forEach(id => {
-            if (params[id]) {
-              this.$matomo.trackSiteSearch(JSON.stringify(params[id]), id)
+            if (params[id] && params[id].length !== 0) {
+              if (id === 'etapesInclues' || id === 'etapesExclues') {
+                this.$matomo.trackSiteSearch(
+                  JSON.stringify(params[id].map(e => e.typeId)),
+                  id
+                )
+              } else {
+                this.$matomo.trackSiteSearch(JSON.stringify(params[id]), id)
+              }
             }
           })
         } else {
