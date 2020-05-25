@@ -45,14 +45,14 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Nom</h6>
+        <h6>Description</h6>
         <p class="h6 italic mb-0">
           Optionnel
         </p>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
-          v-model="document.nom"
+          v-model="document.description"
           type="text"
           class="p-s"
         >

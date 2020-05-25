@@ -11,7 +11,7 @@
         Public
       </Tag>
     </td>
-    <td>{{ document.nom || '–' }}</td>
+    <td>{{ document.description || '–' }}</td>
     <td class="flex text-right">
       <button
         v-if="document.modification"

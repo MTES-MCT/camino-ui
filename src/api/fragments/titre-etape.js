@@ -69,7 +69,7 @@ const fragmentTitreEtape = gql`
 
   fragment document on Document {
     id
-    nom
+    description
     type {
       id
       nom
