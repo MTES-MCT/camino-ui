@@ -2,7 +2,7 @@
   <div class="bg-alt">
     <div class="container pt">
       <div class="tablet-blobs mb flex-align-items-stretch">
-        <div class="tablet-blob-1-3 border-l pl-s">
+        <div class="tablet-blob-1-4 border-l pl-s">
           <ul class="list-sans mb-0">
             <li>
               <RouterLink
@@ -42,7 +42,7 @@
         </div>
         <div
           v-if="sections.activites"
-          class="tablet-blob-1-3 border-l pl-s"
+          class="tablet-blob-1-4 border-l pl-s"
         >
           <ul class="list-sans mb-0">
             <li v-if="sections.activites">
@@ -64,7 +64,7 @@
             </li>
           </ul>
         </div>
-        <div class="tablet-blob-1-3 border-l pl-s">
+        <div class="tablet-blob-1-4 border-l pl-s">
           <ul class="list-sans mb-0">
             <li>
               <RouterLink
@@ -98,6 +98,29 @@
                 class="bold color-neutral"
               >
                 Utilisateurs
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="tablet-blob-1-4 border-l pl-s hide"
+        >
+          <ul class="list-sans mb-0">
+            <li>
+              <RouterLink
+                v-if="$route.name !== 'glossaire'"
+                id="cmn-menu-menu-a-glossaire"
+                :to="{ name: 'glossaire' }"
+                class="btn-menu text-decoration-none bold"
+                @click.native="eventTrack('glossaire')"
+              >
+                Glossaire
+              </RouterLink>
+              <div
+                v-else
+                class="bold color-neutral"
+              >
+                Glossaire
               </div>
             </li>
           </ul>
