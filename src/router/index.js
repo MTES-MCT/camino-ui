@@ -10,6 +10,7 @@ import Entreprise from '../components/entreprise.vue'
 import Entreprises from '../components/entreprises.vue'
 import Activite from '../components/activite.vue'
 import Activites from '../components/activites.vue'
+import Glossaire from '../components/glossaire.vue'
 import Error from '../components/error.vue'
 import About from '../components/content/about.vue'
 import Accessibilite from '../components/content/accessibilite.vue'
@@ -77,6 +78,11 @@ const routes = [
     path: '/activites/:id',
     name: 'activite',
     component: Activite
+  },
+  {
+    path: '/glossaire',
+    name: 'glossaire',
+    component: Glossaire
   },
   {
     path: '/a-propos',
