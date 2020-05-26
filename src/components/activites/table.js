@@ -1,7 +1,7 @@
 import List from '../_ui/list.vue'
 import Statut from '../_common/statut.vue'
 
-const colonnes = [
+const activitesColonnes = [
   {
     id: 'titre',
     name: 'Titre'
@@ -26,7 +26,7 @@ const colonnes = [
   }
 ]
 
-const lignesBuild = activites =>
+const activitesLignesBuild = activites =>
   activites.map(activite => {
     const columns = {
       titre: { value: activite.titre.nom },
@@ -58,4 +58,4 @@ const lignesBuild = activites =>
     }
   })
 
-export { colonnes, lignesBuild }
+export { activitesColonnes, activitesLignesBuild }

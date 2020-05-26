@@ -6,7 +6,7 @@ import { paramsBuild } from './_utils'
 
 export const state = {
   list: [],
-  total: null,
+  total: 0,
   metas: {
     types: [],
     statuts: [],

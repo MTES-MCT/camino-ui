@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import { utilisateurs, metasUtilisateur } from '../api/utilisateurs'
-import { paramsBuild, checkboxesValueClean } from './_utils'
+import { paramsBuild } from './_utils'
 
 export const state = {
   list: [],
@@ -146,10 +146,6 @@ export const mutations = {
 
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      if (params.type === 'checkboxes') {
-        params[id] = checkboxesValueClean(id, params[id], state.metas)
-      }
-
       Vue.set(state.preferences[section], id, params[id])
     })
   }

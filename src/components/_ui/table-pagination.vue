@@ -1,60 +1,77 @@
 <template>
-  <Table
-    :column="column"
-    :columns="columns"
-    :order="order"
-    :rows="rowsPage"
-    @params:update="paramsUpdate"
-  />
+  <div>
+    <Table
+      :column="column"
+      :columns="columns"
+      :order="order"
+      :rows="rows"
+      class="width-max"
+      @params:update="update"
+    />
+
+    <div class="desktop-blobs">
+      <div class="desktop-blob-3-4">
+        <Pagination
+          :active="page"
+          :total="pages"
+          :visibles="5"
+          @page:update="pageUpdate"
+        />
+      </div>
+      <div class="desktop-blob-1-4">
+        <Ranges
+          v-if="total > 10"
+          :ranges="[10, 50, 200, 500]"
+          :range="range"
+          @range:update="rangeUpdate"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import Table from './table.vue'
+import Table from '../_ui/table.vue'
+import Pagination from '../_ui/pagination.vue'
+import Ranges from '../_ui/ranges.vue'
 
 export default {
-  name: 'UiTable',
+  name: 'CaminoTable',
 
-  components: { Table },
+  components: {
+    Table,
+    Pagination,
+    Ranges
+  },
 
   props: {
-    column: { type: String, default: '' },
     columns: { type: Array, required: true },
-    order: { type: String, default: 'asc' },
     rows: { type: Array, required: true },
     range: { type: Number, default: 200 },
-    page: { type: Number, default: 1 }
+    page: { type: Number, default: 1 },
+    column: { type: String, default: '' },
+    order: { type: String, default: 'asc' },
+    total: { type: Number, required: true }
   },
 
   computed: {
-    rowsPages() {
-      return this.rows
-        .slice()
-        .sort((a, b) => {
-          const aValue = a.columns[this.column].value.toString()
-          const bValue = b.columns[this.column].value.toString()
-
-          return (
-            aValue.localeCompare(bValue, 'fr') * (this.order === 'asc' ? 1 : -1)
-          )
-        })
-        .reduce((page, row, i) => {
-          const pageId = Math.ceil((i + 1) / this.range) - 1
-
-          page[pageId] = page[pageId] || []
-          page[pageId].push(row)
-
-          return page
-        }, [])
-    },
-
-    rowsPage() {
-      return this.rowsPages[this.page - 1] || []
+    pages() {
+      return Math.ceil(this.total / this.range)
     }
   },
 
   methods: {
-    paramsUpdate(params) {
+    update(params) {
       this.$emit('params:update', params)
+      this.$emit('elements:update')
+    },
+
+    pageUpdate(page) {
+      this.update({ page })
+    },
+
+    rangeUpdate(range) {
+      this.update({ range, page: 1 })
     }
   }
 }

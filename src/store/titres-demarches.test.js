@@ -22,7 +22,7 @@ describe('liste des demarches', () => {
     demarchesListe = ['demarche-1', 'demarche-2', 'demarche-3']
     titresDemarches.state = {
       list: [],
-      total: null,
+      total: 0,
       metas: {
         types: [],
         statuts: [],

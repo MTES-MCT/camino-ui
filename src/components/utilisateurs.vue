@@ -1,82 +1,42 @@
 <template>
-  <div>
-    <div class="desktop-blobs pt-s">
-      <div class="desktop-blob-2-3">
-        <h1 class="mt-xs mb-m">
-          <h1>Utilisateurs</h1>
-        </h1>
-      </div>
+  <liste
+    v-if="visible"
+    nom="utilisateurs"
+    :filtres="filtres"
+    :colonnes="colonnes"
+    :lignes="lignes"
+    :elements="utilisateurs"
+    :preferences="preferences"
+    :metas="metas"
+    :params="params"
+    :total="total"
+    :loaded="metasLoaded"
+    @elements:update="utilisateursUpdate"
+    @preferences:update="preferencesUpdate"
+  >
+    <button
+      v-if="permissionsCheck(['super', 'admin'])"
+      slot="addButton"
+      class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+      @click="addPopupOpen"
+    >
+      <span class="mt-xxs">Ajouter un utilisateur</span>
+      <i class="icon-24 icon-plus flex-right" />
+    </button>
 
-      <div class="desktop-blob-1-3">
-        <button
-          v-if="permissionsCheck(['super', 'admin'])"
-          class="btn rnd-xs py-s px-m full-x flex mb-s h5"
-          @click="addPopupOpen"
-        >
-          <span class="mt-xxs">Ajouter un utilisateur</span>
-          <i class="icon-24 icon-plus flex-right" />
-        </button>
-      </div>
-    </div>
-
-    <Url
-      v-if="metasLoaded"
-      :params="urlParamsFiltres"
-      :values="preferences.filtres"
-      @params:update="preferencesFiltresUpdate"
+    <Downloads
+      v-if="utilisateurs.length"
+      slot="downloads"
+      :formats="['csv', 'xlsx', 'ods']"
+      section="utilisateurs"
+      class="flex-right full-x"
     />
-
-    <Url
-      v-if="metasLoaded"
-      :params="urlParamsTable"
-      :values="preferences.table"
-      @params:update="preferencesTableUpdate"
-    />
-
-    <Filtres
-      :filtres="filtres"
-      :loaded="metasLoaded"
-      :metas="metas"
-      :preferences="preferences.filtres"
-      @elements:update="utilisateursUpdate"
-      @preferences:update="preferencesFiltresUpdate"
-    />
-
-    <div class="tablet-blobs tablet-flex-direction-reverse">
-      <div class="tablet-blob-1-3 flex mb-s">
-        <Downloads
-          v-if="utilisateurs.length"
-          :formats="['csv', 'xlsx', 'ods']"
-          section="utilisateurs"
-          class="flex-right full-x"
-        />
-      </div>
-
-      <div class="tablet-blob-2-3 flex">
-        <div class="py-m h6 bold mb-xs">
-          {{ resultat }}
-        </div>
-      </div>
-    </div>
-
-    <div class="line" />
-
-    <Table
-      :colonnes="utilisateursColonnes"
-      :lignes="lignes"
-      :preferences="preferences.table"
-      :total="total"
-      @elements:update="utilisateursUpdate"
-      @preferences:update="preferencesTableUpdate"
-    />
-  </div>
+  </liste>
 </template>
 
 <script>
-import Url from './_ui/url.vue'
+import Liste from './_common/liste.vue'
 import Downloads from './_common/downloads.vue'
-import Filtres from './_common/filtres.vue'
-import Table from './_common/table.vue'
 import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
 
 import filtres from './utilisateurs/filtres'
@@ -88,13 +48,13 @@ import {
 export default {
   name: 'Utilisateurs',
 
-  components: { Url, Downloads, Filtres, Table },
+  components: { Liste, Downloads },
 
   data() {
     return {
-      filtres,
-      utilisateursColonnes,
-      metasLoaded: false
+      colonnes: utilisateursColonnes,
+      metasLoaded: false,
+      visible: false
     }
   },
 
@@ -127,37 +87,17 @@ export default {
       return utilisateursLignesBuild(this.utilisateurs)
     },
 
-    resultat() {
-      const res =
-        this.total > this.utilisateurs.length
-          ? `${this.utilisateurs.length} / ${this.total}`
-          : this.utilisateurs.length
-      return `${res} résultat${this.utilisateurs.length > 1 ? 's' : ''}`
-    },
-
-    urlParamsFiltres() {
-      const paramsIds = Object.keys(this.preferences.filtres)
-      const pa = this.params.reduce((p, param) => {
-        if (paramsIds.includes(param.id)) {
-          p[param.id] = param
+    filtres() {
+      return filtres.map(filtre => {
+        if (filtre.type === 'checkboxes' || filtre.type === 'select') {
+          const metaId = filtre.id.replace(/Ids/g, '')
+          if (this.metas[metaId]) {
+            filtre.elements = this.metas[metaId]
+          }
         }
 
-        return p
-      }, {})
-
-      return pa
-    },
-
-    urlParamsTable() {
-      const paramsIds = Object.keys(this.preferences.table)
-
-      return this.params.reduce((p, param) => {
-        if (paramsIds.includes(param.id)) {
-          p[param.id] = param
-        }
-
-        return p
-      }, {})
+        return filtre
+      })
     }
   },
 
@@ -170,12 +110,6 @@ export default {
   },
 
   methods: {
-    async utilisateursUpdate() {
-      if (this.metasLoaded) {
-        await this.$store.dispatch('utilisateurs/get')
-      }
-    },
-
     async metasGet() {
       if (
         !this.user ||
@@ -183,13 +117,23 @@ export default {
         !this.user.sections.utilisateurs
       ) {
         await this.$store.dispatch('pageError')
-        this.metasLoaded = false
       } else {
-        await this.$store.dispatch('utilisateurs/metasGet')
+        this.visible = true
+        await this.$store.dispatch(`utilisateurs/metasGet`)
         if (!this.metasLoaded) {
           this.metasLoaded = true
         }
       }
+    },
+
+    async utilisateursUpdate() {
+      if (this.metasLoaded) {
+        await this.$store.dispatch(`utilisateurs/get`)
+      }
+    },
+
+    async preferencesUpdate(options) {
+      await this.$store.dispatch(`utilisateurs/preferencesSet`, options)
     },
 
     addPopupOpen() {
@@ -203,20 +147,6 @@ export default {
           },
           action: 'create'
         }
-      })
-    },
-
-    async preferencesTableUpdate(params) {
-      await this.$store.dispatch('utilisateurs/preferencesSet', {
-        section: 'table',
-        params
-      })
-    },
-
-    async preferencesFiltresUpdate(params) {
-      await this.$store.dispatch('utilisateurs/preferencesSet', {
-        section: 'filtres',
-        params
       })
     }
   }

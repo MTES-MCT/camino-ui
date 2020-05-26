@@ -20,14 +20,4 @@ const paramsBuild = (apiParams, preferences) =>
     return params
   }, {})
 
-const checkboxesValueClean = (id, value, metas) => {
-  const metaId = id.replace(/Ids/g, '')
-
-  return value
-    .filter(v =>
-      metas[metaId].map(({ id }) => id.toString()).includes(v.toString())
-    )
-    .sort()
-}
-
-export { paramsBuild, checkboxesValueClean }
+export { paramsBuild }

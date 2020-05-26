@@ -2,7 +2,7 @@
   <Filters
     v-if="loaded"
     ref="filters"
-    :filters.sync="filters"
+    :filters.sync="filtres"
     title="Filtres"
     button="Valider"
     @filters:validate="validate"
@@ -21,33 +21,18 @@ import Filters from '../_ui/filters.vue'
 import { idsClean } from './filtres'
 
 export default {
-  components: {
-    Filters
-  },
+  components: { Filters },
 
   props: {
     filtres: { type: Array, required: true },
     preferences: { type: Object, required: true },
-    metas: { type: Object, required: true },
+    metas: { type: Object, default: () => ({}) },
     loaded: { type: Boolean, required: true }
   },
 
   data() {
     return {
       opened: false
-    }
-  },
-
-  computed: {
-    filters() {
-      return this.filtres.map(f => {
-        const metaId = f.id.replace(/Ids/g, '')
-        if (this.metas[metaId]) {
-          f.elements = this.metas[metaId]
-        }
-
-        return f
-      })
     }
   },
 
@@ -65,15 +50,13 @@ export default {
     loaded: function(to, from) {
       if (!from) {
         this.init()
+        this.elementsUpdate()
       }
     }
   },
 
   created() {
     document.addEventListener('keyup', this.keyup)
-    if (this.loaded) {
-      this.init()
-    }
   },
 
   beforeDestroy() {
@@ -97,11 +80,6 @@ export default {
       if ((e.which || e.keyCode) === 13 && this.opened) {
         this.validate()
       }
-    },
-
-    init() {
-      this.filtresInit(this.preferences)
-      this.elementsUpdate()
     },
 
     validate() {
@@ -140,24 +118,21 @@ export default {
       this.elementsUpdate()
     },
 
-    filtresInit(params) {
-      Object.keys(params).forEach(id => {
+    init() {
+      Object.keys(this.preferences).forEach(id => {
+        const preference = this.preferences[id]
         const filtre = this.filtres.find(filtre => filtre.id === id)
-
-        let value
 
         if (
           (filtre.type === 'custom' ||
             filtre.type === 'select' ||
             filtre.type === 'checkboxes') &&
-          params[id]
+          preference
         ) {
-          value = JSON.parse(JSON.stringify(params[id]))
+          filtre.value = JSON.parse(JSON.stringify(preference))
         } else {
-          value = params[id]
+          filtre.value = preference
         }
-
-        filtre.value = value
       })
     }
   }

@@ -76,18 +76,9 @@ export default {
   name: 'UiPagination',
 
   props: {
-    total: {
-      type: Number,
-      default: 2
-    },
-    active: {
-      type: Number,
-      default: 1
-    },
-    visibles: {
-      type: Number,
-      default: 1
-    }
+    total: { type: Number, default: 2 },
+    active: { type: Number, default: 1 },
+    visibles: { type: Number, default: 1 }
   },
 
   computed: {

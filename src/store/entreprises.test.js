@@ -20,7 +20,7 @@ describe("liste d'entreprises", () => {
   beforeEach(() => {
     entreprises.state = {
       list: [],
-      total: null,
+      total: 0,
       params: [
         { id: 'page', type: 'number', min: 0 },
         { id: 'intervalle', type: 'number', min: 10, max: 500 },

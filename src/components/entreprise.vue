@@ -163,8 +163,8 @@
       <h3>Utilisateurs</h3>
       <div class="line" />
       <Table
-        :colonnes="utilisateursColonnes"
-        :lignes="utilisateursLignes"
+        :columns="utilisateursColonnes"
+        :rows="utilisateursLignes"
         :utilisateurs="utilisateurs"
       />
     </div>
@@ -198,7 +198,7 @@
 <script>
 import Accordion from './_ui/accordion.vue'
 import Loader from './_ui/loader.vue'
-import Table from './_common/table.vue'
+import Table from './_ui/table.vue'
 import TitresTable from './titres/table.vue'
 import EntrepriseEditPopup from './entreprise/edit-popup.vue'
 

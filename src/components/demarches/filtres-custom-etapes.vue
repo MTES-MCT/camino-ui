@@ -3,6 +3,8 @@
     <h6>{{ filter.name }}</h6>
     <hr class="mb-s">
 
+    value:     {{ filter.value }}
+
     <div
       v-for="(value, n) in filter.value"
       :key="n"
@@ -13,7 +15,7 @@
           class="p-s mr-s"
           @change="valueReset(n)"
         >
-          <option :value="''">
+          <option value="">
             –
           </option>
           <option
@@ -106,10 +108,7 @@
 <script>
 export default {
   props: {
-    filter: {
-      type: Object,
-      default: () => ({})
-    }
+    filter: { type: Object, required: true }
   },
 
   methods: {
@@ -123,9 +122,6 @@ export default {
     },
 
     valueAdd() {
-      if (!this.filter.value) {
-        this.filter.value = []
-      }
       this.filter.value.push({ typeId: '' })
     },
 

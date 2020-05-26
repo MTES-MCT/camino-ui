@@ -34,14 +34,8 @@ export default {
   },
 
   props: {
-    ranges: {
-      type: Array,
-      default: () => []
-    },
-    range: {
-      type: Number,
-      default: 10
-    }
+    ranges: { type: Array, default: () => [] },
+    range: { type: Number, default: 200 }
   },
 
   methods: {
