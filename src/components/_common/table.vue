@@ -6,7 +6,7 @@
       :order="preferences.ordre"
       :rows="lignes"
       class="width-max"
-      @params:update="preferencesUpdate"
+      @params:update="update"
     />
 
     <div class="desktop-blobs">
@@ -34,10 +34,9 @@
 import Table from '../_ui/table.vue'
 import Pagination from '../_ui/pagination.vue'
 import Ranges from '../_ui/ranges.vue'
-import { colonnes, lignesBuild } from './table'
 
 export default {
-  name: 'Utilisateurs',
+  name: 'CaminoTable',
 
   components: {
     Table,
@@ -46,38 +45,20 @@ export default {
   },
 
   props: {
-    utilisateurs: {
-      type: Array,
-      default: () => []
-    }
+    colonnes: { type: Array, required: true },
+    lignes: { type: Array, required: true },
+    preferences: { type: Object, required: true },
+    total: { type: Number, required: true }
   },
 
   computed: {
-    preferences() {
-      return this.$store.state.utilisateurs.preferences.table
-    },
-
     pages() {
-      return Math.ceil(
-        this.$store.state.utilisateurs.total / this.preferences.intervalle
-      )
-    },
-
-    colonnes() {
-      return colonnes
-    },
-
-    lignes() {
-      return lignesBuild(this.utilisateurs)
-    },
-
-    total() {
-      return this.$store.state.utilisateurs.total
+      return Math.ceil(this.total / this.preferences.intervalle)
     }
   },
 
   methods: {
-    preferencesUpdate(params) {
+    update(params) {
       if (params.range) {
         params.intervalle = params.range
         delete params.range
@@ -93,24 +74,16 @@ export default {
         delete params.order
       }
 
-      this.$store.dispatch('utilisateurs/preferencesSet', {
-        section: 'table',
-        params
-      })
-
-      this.utilisateursUpdate()
-    },
-
-    utilisateursUpdate() {
-      this.$emit('utilisateurs:update')
+      this.$emit('preferences:update', params)
+      this.$emit('elements:update')
     },
 
     pageUpdate(page) {
-      this.preferencesUpdate({ page })
+      this.update({ page })
     },
 
     intervalleUpdate(range) {
-      this.preferencesUpdate({ range, page: 1 })
+      this.update({ range, page: 1 })
     }
   }
 }

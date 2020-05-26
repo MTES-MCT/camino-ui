@@ -19,16 +19,28 @@
       </div>
     </div>
 
-    <UtilisateursFiltres
+    <Url
       v-if="metasLoaded"
-      @utilisateurs:update="utilisateursUpdate"
+      :params="urlParamsFiltres"
+      :values="preferences.filtres"
+      @params:update="preferencesFiltresUpdate"
     />
-    <div
-      v-else
-      class="py-s px-m mb-s border rnd-s"
-    >
-      …
-    </div>
+
+    <Url
+      v-if="metasLoaded"
+      :params="urlParamsTable"
+      :values="preferences.table"
+      @params:update="preferencesTableUpdate"
+    />
+
+    <Filtres
+      :filtres="filtres"
+      :loaded="metasLoaded"
+      :metas="metas"
+      :preferences="preferences.filtres"
+      @elements:update="utilisateursUpdate"
+      @preferences:update="preferencesFiltresUpdate"
+    />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-3 flex mb-s">
@@ -49,31 +61,48 @@
 
     <div class="line" />
 
-    <UtilisateursTable
-      :utilisateurs="utilisateurs"
-      @utilisateurs:update="utilisateursUpdate"
+    <Table
+      :colonnes="utilisateursColonnes"
+      :lignes="lignes"
+      :preferences="preferences.table"
+      :total="total"
+      @elements:update="utilisateursUpdate"
+      @preferences:update="preferencesTableUpdate"
     />
   </div>
 </template>
 
 <script>
+import Url from './_ui/url.vue'
 import Downloads from './_common/downloads.vue'
-import UtilisateursFiltres from './utilisateurs/filtres-url.vue'
-import UtilisateursTable from './utilisateurs/table-url.vue'
+import Filtres from './_common/filtres.vue'
+import Table from './_common/table.vue'
 import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
+
+import filtres from './utilisateurs/filtres'
+import {
+  utilisateursColonnes,
+  utilisateursLignesBuild
+} from './utilisateurs/table'
 
 export default {
   name: 'Utilisateurs',
 
-  components: { Downloads, UtilisateursFiltres, UtilisateursTable },
+  components: { Url, Downloads, Filtres, Table },
 
   data() {
     return {
+      filtres,
+      utilisateursColonnes,
       metasLoaded: false
     }
   },
 
   computed: {
+    user() {
+      return this.$store.state.user.current
+    },
+
     utilisateurs() {
       return this.$store.state.utilisateurs.list
     },
@@ -82,8 +111,20 @@ export default {
       return this.$store.state.utilisateurs.total
     },
 
-    user() {
-      return this.$store.state.user.current
+    preferences() {
+      return this.$store.state.utilisateurs.preferences
+    },
+
+    metas() {
+      return this.$store.state.utilisateurs.metas
+    },
+
+    params() {
+      return this.$store.state.utilisateurs.params
+    },
+
+    lignes() {
+      return utilisateursLignesBuild(this.utilisateurs)
     },
 
     resultat() {
@@ -92,6 +133,31 @@ export default {
           ? `${this.utilisateurs.length} / ${this.total}`
           : this.utilisateurs.length
       return `${res} résultat${this.utilisateurs.length > 1 ? 's' : ''}`
+    },
+
+    urlParamsFiltres() {
+      const paramsIds = Object.keys(this.preferences.filtres)
+      const pa = this.params.reduce((p, param) => {
+        if (paramsIds.includes(param.id)) {
+          p[param.id] = param
+        }
+
+        return p
+      }, {})
+
+      return pa
+    },
+
+    urlParamsTable() {
+      const paramsIds = Object.keys(this.preferences.table)
+
+      return this.params.reduce((p, param) => {
+        if (paramsIds.includes(param.id)) {
+          p[param.id] = param
+        }
+
+        return p
+      }, {})
     }
   },
 
@@ -137,6 +203,20 @@ export default {
           },
           action: 'create'
         }
+      })
+    },
+
+    async preferencesTableUpdate(params) {
+      await this.$store.dispatch('utilisateurs/preferencesSet', {
+        section: 'table',
+        params
+      })
+    },
+
+    async preferencesFiltresUpdate(params) {
+      await this.$store.dispatch('utilisateurs/preferencesSet', {
+        section: 'filtres',
+        params
       })
     }
   }

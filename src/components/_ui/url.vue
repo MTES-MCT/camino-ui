@@ -96,6 +96,40 @@ export default {
       }
     },
 
+    update(params) {
+      const query = Object.keys(this.$route.query).reduce((query, id) => {
+        query[id] = this.stringify(
+          id,
+          this.parse(id, this.get(id, this.$route.query[id]))
+        )
+
+        return query
+      }, {})
+
+      let status = 'unchanged'
+
+      Object.keys(params).forEach(id => {
+        const queryString = query[id] || null
+        const paramString = this.stringify(id, params[id])
+        // on compare avec null si le paramètre n'est pas dans la query
+        if (queryString !== paramString) {
+          status = queryString || status === 'updated' ? 'updated' : 'created'
+
+          if (paramString) {
+            query[id] = paramString
+          } else {
+            delete query[id]
+          }
+        }
+      })
+
+      if (status === 'updated') {
+        this.$router.push({ query })
+      } else if (status === 'created') {
+        this.$router.replace({ query })
+      }
+    },
+
     get(id, value) {
       if (!value) return null
 
@@ -249,42 +283,6 @@ export default {
       }
 
       return value
-    },
-
-    update(params) {
-      const query = Object.keys(this.$route.query).reduce((query, id) => {
-        query[id] = this.stringify(
-          id,
-          this.parse(id, this.get(id, this.$route.query[id]))
-        )
-
-        return query
-      }, {})
-
-      let status = 'unchanged'
-
-      Object.keys(params).forEach(id => {
-        const queryString = query[id] || null
-        const paramString = this.stringify(id, params[id])
-        // on compare avec null si le paramètre n'est pas dans la query
-        if (queryString !== paramString) {
-          status = queryString || status === 'updated' ? 'updated' : 'created'
-
-          if (paramString) {
-            query[id] = paramString
-          } else {
-            delete query[id]
-          }
-        }
-      })
-
-      if (status === 'updated') {
-        this.$router.push({ query })
-      } else if (status === 'created') {
-        this.$router.replace({ query })
-      }
-
-      this.$emit('loaded')
     }
   }
 }

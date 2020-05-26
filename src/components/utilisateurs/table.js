@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Pill from '../_ui/pill.vue'
 import List from '../_ui/list.vue'
 
-const colonnes = [
+const utilisateursColonnes = [
   {
     id: 'nom',
     name: 'Nom',
@@ -29,7 +29,7 @@ const colonnes = [
   }
 ]
 
-const lignesBuild = utilisateurs =>
+const utilisateursLignesBuild = utilisateurs =>
   utilisateurs.map(utilisateur => {
     let elements
 
@@ -79,4 +79,4 @@ const lignesBuild = utilisateurs =>
     }
   })
 
-export { colonnes, lignesBuild }
+export { utilisateursColonnes, utilisateursLignesBuild }

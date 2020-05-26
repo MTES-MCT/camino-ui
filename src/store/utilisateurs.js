@@ -1,11 +1,11 @@
 import Vue from 'vue'
 
 import { utilisateurs, metasUtilisateur } from '../api/utilisateurs'
-import { paramsBuild } from './_utils'
+import { paramsBuild, checkboxesValueClean } from './_utils'
 
 export const state = {
   list: [],
-  total: null,
+  total: 0,
   metas: {
     permission: [],
     administration: [],
@@ -120,7 +120,7 @@ export const mutations = {
         metaId = 'entreprise'
         paramsIds = ['entrepriseIds']
 
-        // surcharge les elements de entreprises dans data
+        // l'API renvoi les entreprises dans une propriété 'elements'
         data[id] = data[id].elements
       } else if (id === 'administrations') {
         metaId = 'administration'
@@ -146,6 +146,10 @@ export const mutations = {
 
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
+      if (params.type === 'checkboxes') {
+        params[id] = checkboxesValueClean(id, params[id], state.metas)
+      }
+
       Vue.set(state.preferences[section], id, params[id])
     })
   }

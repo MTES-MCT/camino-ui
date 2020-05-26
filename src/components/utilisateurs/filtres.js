@@ -1,13 +1,4 @@
-// supprime les id vides
-const clean = value => {
-  if (!value) return null
-
-  value = value.filter(v => v !== '')
-
-  return value.length ? value : null
-}
-
-const filtres = [
+const utilisateursFiltres = [
   {
     id: 'noms',
     type: 'input',
@@ -43,8 +34,7 @@ const filtres = [
     value: [],
     elements: [],
     buttonAdd: 'Ajouter une administration',
-    elementName: 'abreviation',
-    clean
+    elementName: 'abreviation'
   },
   {
     id: 'entrepriseIds',
@@ -53,9 +43,8 @@ const filtres = [
     value: [],
     elements: [],
     buttonAdd: 'Ajouter une entreprise',
-    elementName: 'nom',
-    clean
+    elementName: 'nom'
   }
 ]
 
-export default filtres
+export default utilisateursFiltres
