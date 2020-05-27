@@ -99,7 +99,7 @@ export default {
 
   methods: {
     async metasGet() {
-      await this.$store.dispatch(`titresDemarches/metasGet`)
+      await this.$store.dispatch('titresDemarches/metasGet')
       if (!this.metasLoaded) {
         this.metasLoaded = true
       }
@@ -107,12 +107,52 @@ export default {
 
     async demarchesUpdate() {
       if (this.metasLoaded) {
-        await this.$store.dispatch(`titresDemarches/get`)
+        await this.$store.dispatch('titresDemarches/get')
+
+        this.eventTrack()
       }
     },
 
     async preferencesUpdate(options) {
-      await this.$store.dispatch(`titresDemarches/preferencesSet`, options)
+      await this.$store.dispatch('titresDemarches/preferencesSet', options)
+      if (options.section === 'filtres') {
+        this.eventTrack(options.params)
+      }
+    },
+
+    eventTrack(params) {
+      if (this.$matomo) {
+        const events = this.params.reduce((events, { type, id, value }) => {
+          if (type === 'string' && params[id]) {
+            events.push({ id, value: params[id] })
+          } else if (type === 'strings' && params[id]) {
+            const values = params[id]
+            values.forEach(value => {
+              events.push({ id, value })
+            })
+          }
+          return events
+        }, [])
+        events.forEach(({ id, value }) => {
+          this.$matomo.trackEvent(
+            'demarches-filtres',
+            `demarches-filtres-${id}`,
+            value
+          )
+        })
+        Object.keys(params).forEach(id => {
+          if (params[id] && params[id].length !== 0) {
+            if (id === 'etapesInclues' || id === 'etapesExclues') {
+              this.$matomo.trackSiteSearch(
+                JSON.stringify(params[id].map(e => e.typeId)),
+                id
+              )
+            } else {
+              this.$matomo.trackSiteSearch(JSON.stringify(params[id]), id)
+            }
+          }
+        })
+      }
     }
   }
 }
