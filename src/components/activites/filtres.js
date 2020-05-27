@@ -1,3 +1,5 @@
+const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
+
 const filtres = [
   {
     id: 'titresNoms',
@@ -39,7 +41,8 @@ const filtres = [
     name: 'Types',
     type: 'checkboxes',
     value: [],
-    elements: []
+    elements: [],
+    elementsFormat
   },
   {
     id: 'annees',
@@ -49,7 +52,8 @@ const filtres = [
     elements: [],
     elementName: 'nom',
     buttonAdd: 'Ajouter une année',
-    isNumber: true
+    isNumber: true,
+    elementsFormat
   }
 ]
 

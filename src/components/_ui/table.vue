@@ -54,14 +54,8 @@
 </template>
 
 <script>
-import Accordion from './accordion.vue'
-
 export default {
   name: 'UiTable',
-
-  components: {
-    Accordion
-  },
 
   props: {
     rows: { type: Array, required: true },

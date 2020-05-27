@@ -1,13 +1,6 @@
-// supprime les id vides
-const clean = value => {
-  if (!value) return null
+const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
 
-  value = value.filter(v => v !== '')
-
-  return value.length ? value : null
-}
-
-const filtres = [
+const utilisateursFiltres = [
   {
     id: 'noms',
     type: 'input',
@@ -34,7 +27,8 @@ const filtres = [
     name: 'Permissions',
     type: 'checkboxes',
     value: [],
-    elements: []
+    elements: [],
+    elementsFormat
   },
   {
     id: 'administrationIds',
@@ -44,7 +38,7 @@ const filtres = [
     elements: [],
     buttonAdd: 'Ajouter une administration',
     elementName: 'abreviation',
-    clean
+    elementsFormat
   },
   {
     id: 'entrepriseIds',
@@ -54,8 +48,8 @@ const filtres = [
     elements: [],
     buttonAdd: 'Ajouter une entreprise',
     elementName: 'nom',
-    clean
+    elementsFormat
   }
 ]
 
-export default filtres
+export default utilisateursFiltres

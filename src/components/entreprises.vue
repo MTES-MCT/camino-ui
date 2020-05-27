@@ -1,83 +1,69 @@
 <template>
-  <div>
-    <div class="desktop-blobs pt-s">
-      <div class="desktop-blob-2-3">
-        <h1 class="mt-xs mb-m">
-          Entreprises
-        </h1>
-      </div>
-
-      <div class="desktop-blob-1-3">
-        <button
-          v-if="permissionsCheck(['super', 'admin', 'editeur'])"
-          class="btn rnd-xs py-s px-m full-x flex mb-s h5"
-          @click="addPopupOpen"
-        >
-          <span class="mt-xxs">Ajouter une entreprise</span>
-          <i class="icon-24 icon-plus flex-right" />
-        </button>
-      </div>
-    </div>
-
-    <EntreprisesFiltres
-      v-if="metasLoaded"
-      @entreprises:update="entreprisesUpdate"
-    />
-    <div
-      v-else
-      class="py-s px-m mb-s border rnd-s"
+  <liste
+    nom="entreprises"
+    :filtres="filtres"
+    :colonnes="colonnes"
+    :lignes="lignes"
+    :elements="entreprises"
+    :preferences="preferences"
+    :metas="metas"
+    :params="params"
+    :total="total"
+    :loaded="metasLoaded"
+    @elements:update="entreprisesUpdate"
+    @preferences:update="preferencesUpdate"
+  >
+    <button
+      v-if="permissionsCheck(['super', 'admin', 'editeur'])"
+      slot="addButton"
+      class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+      @click="addPopupOpen"
     >
-      …
-    </div>
+      <span class="mt-xxs">Ajouter une entreprise</span>
+      <i class="icon-24 icon-plus flex-right" />
+    </button>
 
-    <div class="tablet-blobs tablet-flex-direction-reverse">
-      <div class="tablet-blob-1-3 flex mb-s">
-        <Downloads
-          v-if="entreprises.length"
-          :formats="['csv', 'xlsx', 'ods']"
-          section="entreprises"
-          class="flex-right full-x"
-        />
-      </div>
-
-      <div class="tablet-blob-2-3 flex">
-        <div class="py-m h6 bold mb-xs">
-          {{ resultat }}
-        </div>
-      </div>
-    </div>
-
-    <div class="line-neutral" />
-
-    <EntreprisesTable
-      :entreprises="entreprises"
-      @entreprises:update="entreprisesUpdate"
+    <Downloads
+      v-if="entreprises.length"
+      slot="downloads"
+      :formats="['csv', 'xlsx', 'ods']"
+      section="entreprises"
+      class="flex-right full-x"
     />
-  </div>
+  </liste>
 </template>
 
 <script>
 import Vue from 'vue'
+import Liste from './_common/liste.vue'
 import Downloads from './_common/downloads.vue'
-import EntreprisesFiltres from './entreprises/filtres-url.vue'
-import EntreprisesTable from './entreprises/table-url.vue'
 import EntrepriseAddPopup from './entreprise/add-popup.vue'
+
+import filtres from './entreprises/filtres'
+import {
+  entreprisesColonnes,
+  entreprisesLignesBuild
+} from './entreprises/table'
 
 export default {
   name: 'Entreprises',
 
-  components: {
-    Downloads,
-    EntreprisesFiltres,
-    EntreprisesTable
-  },
+  components: { Liste, Downloads },
+
   data() {
     return {
-      metasLoaded: false
+      filtres,
+      colonnes: entreprisesColonnes,
+      metasLoaded: false,
+      visible: false
     }
   },
 
   computed: {
+    user() {
+      return this.$store.state.user.current
+    },
+
     entreprises() {
       return this.$store.state.entreprises.list
     },
@@ -86,26 +72,24 @@ export default {
       return this.$store.state.entreprises.total
     },
 
-    user() {
-      return this.$store.state.user.current
+    preferences() {
+      return this.$store.state.entreprises.preferences
     },
 
-    loaded() {
-      return !!this.entreprises
+    metas() {
+      return this.$store.state.entreprises.metas
     },
 
-    resultat() {
-      const res =
-        this.total > this.entreprises.length
-          ? `${this.entreprises.length} / ${this.total}`
-          : this.entreprises.length
-      return `${res} résultat${this.entreprises.length > 1 ? 's' : ''}`
+    params() {
+      return this.$store.state.entreprises.params
+    },
+
+    lignes() {
+      return entreprisesLignesBuild(this.entreprises)
     }
   },
 
   created() {
-    // on attend le chargement des paramètres d'url
-    // avant de faire la requête sur les entreprises.
     Vue.nextTick(() => {
       this.metasLoaded = true
     })
@@ -113,13 +97,17 @@ export default {
 
   methods: {
     async entreprisesUpdate() {
-      await this.$store.dispatch('entreprises/get')
+      if (this.metasLoaded) {
+        await this.$store.dispatch(`entreprises/get`)
+      }
+    },
+
+    async preferencesUpdate(options) {
+      await this.$store.dispatch(`entreprises/preferencesSet`, options)
     },
 
     addPopupOpen() {
-      this.$store.commit('popupOpen', {
-        component: EntrepriseAddPopup
-      })
+      this.$store.commit('popupOpen', { component: EntrepriseAddPopup })
     }
   }
 }

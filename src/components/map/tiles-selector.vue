@@ -1,5 +1,9 @@
 <template>
-  <Accordion>
+  <Accordion
+    :opened="opened"
+    @close="close"
+    @toggle="toggle"
+  >
     <template
       slot="title"
     >
@@ -44,7 +48,21 @@ export default {
     }
   },
 
+  data() {
+    return {
+      opened: false
+    }
+  },
+
   methods: {
+    close() {
+      this.opened = false
+    },
+
+    toggle() {
+      this.opened = !this.opened
+    },
+
     select(tilesId) {
       this.$emit('params:update', { tilesId })
     }

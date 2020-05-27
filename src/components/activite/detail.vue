@@ -1,6 +1,9 @@
 <template>
   <Accordion
+    :opened="opened"
     sub="true"
+    @close="close"
+    @toggle="toggle"
   >
     <template slot="title">
       <h6>
@@ -63,6 +66,22 @@ export default {
   props: {
     activite: { type: Object, required: true },
     context: { type: String, required: true }
+  },
+
+  data() {
+    return {
+      opened: false
+    }
+  },
+
+  methods: {
+    close() {
+      this.opened = false
+    },
+
+    toggle() {
+      this.opened = !this.opened
+    }
   }
 }
 </script>

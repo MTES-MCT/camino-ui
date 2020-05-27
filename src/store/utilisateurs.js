@@ -5,7 +5,7 @@ import { paramsBuild } from './_utils'
 
 export const state = {
   list: [],
-  total: null,
+  total: 0,
   metas: {
     permission: [],
     administration: [],
@@ -120,7 +120,7 @@ export const mutations = {
         metaId = 'entreprise'
         paramsIds = ['entrepriseIds']
 
-        // surcharge les elements de entreprises dans data
+        // l'API renvoie les entreprises dans une propriété 'elements'
         data[id] = data[id].elements
       } else if (id === 'administrations') {
         metaId = 'administration'

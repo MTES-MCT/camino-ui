@@ -1,5 +1,10 @@
 <template>
-  <Accordion class="mb">
+  <Accordion
+    class="mb"
+    :opened="opened"
+    @close="close"
+    @toggle="toggle"
+  >
     <template slot="title">
       Éléments
     </template>
@@ -34,19 +39,27 @@ export default {
   },
 
   props: {
-    ranges: {
-      type: Array,
-      default: () => []
-    },
-    range: {
-      type: Number,
-      default: 10
+    ranges: { type: Array, default: () => [] },
+    range: { type: Number, default: 200 }
+  },
+
+  data() {
+    return {
+      opened: false
     }
   },
 
   methods: {
     rangeUpdate(event) {
       this.$emit('range:update', Number(event.target.value))
+    },
+
+    close() {
+      this.opened = false
+    },
+
+    toggle() {
+      this.opened = !this.opened
     }
   }
 }

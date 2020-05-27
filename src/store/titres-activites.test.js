@@ -21,7 +21,7 @@ describe("état d'une activité", () => {
   beforeEach(() => {
     titresActivites.state = {
       list: [],
-      total: null,
+      total: 0,
       metas: {
         types: [],
         annees: []

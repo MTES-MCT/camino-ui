@@ -1,7 +1,9 @@
 <template>
   <Accordion
-    ref="accordion"
+    :opened="opened"
     class="mb-s"
+    @close="close"
+    @toggle="toggle"
   >
     <template slot="title">
       <h6 class="mt-xs">
@@ -120,6 +122,12 @@ export default {
     demarcheId: { type: String, default: '' }
   },
 
+  data() {
+    return {
+      opened: false
+    }
+  },
+
   computed: {
     titre() {
       return this.$store.state.titre.current
@@ -153,15 +161,15 @@ export default {
     }
   },
 
-  watch: {
-    'etape.documents.length': function(lengthNew) {
-      if (length > 0) {
-        this.$refs.accordion.opened = true
-      }
-    }
-  },
-
   methods: {
+    close() {
+      this.opened = false
+    },
+
+    toggle() {
+      this.opened = !this.opened
+    },
+
     editPopupOpen() {
       const etape = etapeEditFormat(this.etape, this.demarcheId)
 

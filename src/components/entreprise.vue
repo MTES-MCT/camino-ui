@@ -162,7 +162,9 @@
       <div class="line-neutral mb-xxl" />
       <h3>Utilisateurs</h3>
       <div class="line" />
-      <UtilisateursTable
+      <Table
+        :columns="utilisateursColonnes"
+        :rows="utilisateursLignes"
         :utilisateurs="utilisateurs"
       />
     </div>
@@ -196,16 +198,27 @@
 <script>
 import Accordion from './_ui/accordion.vue'
 import Loader from './_ui/loader.vue'
-import UtilisateursTable from './utilisateurs/table.vue'
+import Table from './_ui/table.vue'
 import TitresTable from './titres/table.vue'
 import EntrepriseEditPopup from './entreprise/edit-popup.vue'
+
+import {
+  utilisateursColonnes,
+  utilisateursLignesBuild
+} from './utilisateurs/table'
 
 export default {
   components: {
     Accordion,
     Loader,
-    UtilisateursTable,
+    Table,
     TitresTable
+  },
+
+  data() {
+    return {
+      utilisateursColonnes
+    }
   },
 
   computed: {
@@ -215,6 +228,10 @@ export default {
 
     utilisateurs() {
       return this.entreprise.utilisateurs
+    },
+
+    utilisateursLignes() {
+      return utilisateursLignesBuild(this.utilisateurs)
     },
 
     titresTitulaire() {

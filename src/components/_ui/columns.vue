@@ -1,24 +1,27 @@
 <template>
-  <div>
-    <Accordion class="mb">
-      <template slot="title">
-        Colonnes
-      </template>
-      <ul class="list-sans px-m">
-        <li
-          v-for="column in columns"
-          :key="column.type"
-        >
-          <label>
-            <input
-              type="checkbox"
-              class="mr-s"
-            > {{ column.name }}
-          </label>
-        </li>
-      </ul>
-    </Accordion>
-  </div>
+  <Accordion
+    class="mb"
+    :opened="opened"
+    @close="close"
+    @toggle="toggle"
+  >
+    <template slot="title">
+      Colonnes
+    </template>
+    <ul class="list-sans px-m">
+      <li
+        v-for="column in columns"
+        :key="column.type"
+      >
+        <label>
+          <input
+            type="checkbox"
+            class="mr-s"
+          > {{ column.name }}
+        </label>
+      </li>
+    </ul>
+  </Accordion>
 </template>
 
 <script>
@@ -33,6 +36,22 @@ export default {
     columns: {
       type: Array,
       default: () => []
+    }
+  },
+
+  data() {
+    return {
+      opened: false
+    }
+  },
+
+  methods: {
+    close() {
+      this.opened = false
+    },
+
+    toggle() {
+      this.opened = !this.opened
     }
   }
 }

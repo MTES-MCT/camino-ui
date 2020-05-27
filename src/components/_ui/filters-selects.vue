@@ -51,9 +51,6 @@ export default {
 
   methods: {
     valueAdd() {
-      if (!this.filter.value) {
-        this.filter.value = []
-      }
       this.filter.value.push('')
     },
 

@@ -2,7 +2,7 @@ import Nom from '../_common/nom.vue'
 import Statut from '../_common/statut.vue'
 import CaminoDomaine from '../_common/domaine.vue'
 
-const colonnes = [
+const demarchesColonnes = [
   { id: 'titreNom', name: 'Titre' },
   { id: 'titreDomaine', name: '' },
   { id: 'titreType', name: 'Type de titre' },
@@ -15,7 +15,7 @@ const colonnes = [
   { id: 'statut', name: 'Statut', class: ['nowrap'] }
 ]
 
-const lignesBuild = demarches =>
+const demarchesLignesBuild = demarches =>
   demarches.map(demarche => {
     const columns = {
       titreNom: { value: demarche.titre.nom },
@@ -59,4 +59,4 @@ const lignesBuild = demarches =>
     }
   })
 
-export { colonnes, lignesBuild }
+export { demarchesColonnes, demarchesLignesBuild }

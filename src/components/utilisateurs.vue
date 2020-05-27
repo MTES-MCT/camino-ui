@@ -1,79 +1,69 @@
 <template>
-  <div>
-    <div class="desktop-blobs pt-s">
-      <div class="desktop-blob-2-3">
-        <h1 class="mt-xs mb-m">
-          <h1>Utilisateurs</h1>
-        </h1>
-      </div>
-
-      <div class="desktop-blob-1-3">
-        <button
-          v-if="permissionsCheck(['super', 'admin'])"
-          class="btn rnd-xs py-s px-m full-x flex mb-s h5"
-          @click="addPopupOpen"
-        >
-          <span class="mt-xxs">Ajouter un utilisateur</span>
-          <i class="icon-24 icon-plus flex-right" />
-        </button>
-      </div>
-    </div>
-
-    <UtilisateursFiltres
-      v-if="metasLoaded"
-      @utilisateurs:update="utilisateursUpdate"
-    />
-    <div
-      v-else
-      class="py-s px-m mb-s border rnd-s"
+  <liste
+    v-if="visible"
+    nom="utilisateurs"
+    :filtres="filtres"
+    :colonnes="colonnes"
+    :lignes="lignes"
+    :elements="utilisateurs"
+    :preferences="preferences"
+    :metas="metas"
+    :params="params"
+    :total="total"
+    :loaded="metasLoaded"
+    @elements:update="utilisateursUpdate"
+    @preferences:update="preferencesUpdate"
+  >
+    <button
+      v-if="permissionsCheck(['super', 'admin'])"
+      slot="addButton"
+      class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+      @click="addPopupOpen"
     >
-      …
-    </div>
+      <span class="mt-xxs">Ajouter un utilisateur</span>
+      <i class="icon-24 icon-plus flex-right" />
+    </button>
 
-    <div class="tablet-blobs tablet-flex-direction-reverse">
-      <div class="tablet-blob-1-3 flex mb-s">
-        <Downloads
-          v-if="utilisateurs.length"
-          :formats="['csv', 'xlsx', 'ods']"
-          section="utilisateurs"
-          class="flex-right full-x"
-        />
-      </div>
-
-      <div class="tablet-blob-2-3 flex">
-        <div class="py-m h6 bold mb-xs">
-          {{ resultat }}
-        </div>
-      </div>
-    </div>
-
-    <div class="line" />
-
-    <UtilisateursTable
-      :utilisateurs="utilisateurs"
-      @utilisateurs:update="utilisateursUpdate"
+    <Downloads
+      v-if="utilisateurs.length"
+      slot="downloads"
+      :formats="['csv', 'xlsx', 'ods']"
+      section="utilisateurs"
+      class="flex-right full-x"
     />
-  </div>
+  </liste>
 </template>
 
 <script>
+import Liste from './_common/liste.vue'
 import Downloads from './_common/downloads.vue'
-import UtilisateursFiltres from './utilisateurs/filtres-url.vue'
-import UtilisateursTable from './utilisateurs/table-url.vue'
 import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
+
+import filtres from './utilisateurs/filtres'
+import {
+  utilisateursColonnes,
+  utilisateursLignesBuild
+} from './utilisateurs/table'
 
 export default {
   name: 'Utilisateurs',
 
-  components: { Downloads, UtilisateursFiltres, UtilisateursTable },
+  components: { Liste, Downloads },
 
   data() {
     return {
-      metasLoaded: false
+      filtres,
+      colonnes: utilisateursColonnes,
+      metasLoaded: false,
+      visible: false
     }
   },
 
   computed: {
+    user() {
+      return this.$store.state.user.current
+    },
+
     utilisateurs() {
       return this.$store.state.utilisateurs.list
     },
@@ -82,16 +72,20 @@ export default {
       return this.$store.state.utilisateurs.total
     },
 
-    user() {
-      return this.$store.state.user.current
+    preferences() {
+      return this.$store.state.utilisateurs.preferences
     },
 
-    resultat() {
-      const res =
-        this.total > this.utilisateurs.length
-          ? `${this.utilisateurs.length} / ${this.total}`
-          : this.utilisateurs.length
-      return `${res} résultat${this.utilisateurs.length > 1 ? 's' : ''}`
+    metas() {
+      return this.$store.state.utilisateurs.metas
+    },
+
+    params() {
+      return this.$store.state.utilisateurs.params
+    },
+
+    lignes() {
+      return utilisateursLignesBuild(this.utilisateurs)
     }
   },
 
@@ -99,17 +93,11 @@ export default {
     user: 'metasGet'
   },
 
-  created() {
-    this.metasGet()
+  async created() {
+    await this.metasGet()
   },
 
   methods: {
-    async utilisateursUpdate() {
-      if (this.metasLoaded) {
-        await this.$store.dispatch('utilisateurs/get')
-      }
-    },
-
     async metasGet() {
       if (
         !this.user ||
@@ -117,13 +105,23 @@ export default {
         !this.user.sections.utilisateurs
       ) {
         await this.$store.dispatch('pageError')
-        this.metasLoaded = false
       } else {
-        await this.$store.dispatch('utilisateurs/metasGet')
+        this.visible = true
+        await this.$store.dispatch(`utilisateurs/metasGet`)
         if (!this.metasLoaded) {
           this.metasLoaded = true
         }
       }
+    },
+
+    async utilisateursUpdate() {
+      if (this.metasLoaded) {
+        await this.$store.dispatch(`utilisateurs/get`)
+      }
+    },
+
+    async preferencesUpdate(options) {
+      await this.$store.dispatch(`utilisateurs/preferencesSet`, options)
     },
 
     addPopupOpen() {

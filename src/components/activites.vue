@@ -1,63 +1,55 @@
 <template>
-  <Loader v-if="!metasLoaded" />
-  <div v-else>
-    <div class="pt-s">
-      <h1 class="mt-xs mb-m">
-        Activités
-      </h1>
-    </div>
-
-    <ActivitesFiltres @activites:update="activitesUpdate" />
-
-    <div class="tablet-blobs tablet-flex-direction-reverse">
-      <div class="tablet-blob-1-3 flex mb-s">
-        <Downloads
-          v-if="activites.length"
-          :formats="['csv', 'xlsx', 'ods']"
-          section="activites"
-          class="flex-right full-x"
-        />
-      </div>
-
-      <div class="tablet-blob-2-3 flex">
-        <div class="py-m h6 bold mb-xs">
-          {{ resultat }}
-        </div>
-      </div>
-    </div>
-
-    <div class="line" />
-
-    <ActivitesTable
-      :activites="activites"
-      @activites:update="activitesUpdate"
+  <liste
+    v-if="visible"
+    nom="activités"
+    :filtres="filtres"
+    :colonnes="colonnes"
+    :lignes="lignes"
+    :elements="activites"
+    :preferences="preferences"
+    :metas="metas"
+    :params="params"
+    :total="total"
+    :loaded="metasLoaded"
+    @elements:update="activitesUpdate"
+    @preferences:update="preferencesUpdate"
+  >
+    <Downloads
+      v-if="activites.length"
+      slot="downloads"
+      :formats="['csv', 'xlsx', 'ods']"
+      section="activites"
+      class="flex-right full-x"
     />
-  </div>
+  </liste>
 </template>
 
 <script>
-import Loader from './_ui/loader.vue'
-import ActivitesFiltres from './activites/filtres-url.vue'
-import ActivitesTable from './activites/table-url.vue'
+import Liste from './_common/liste.vue'
 import Downloads from './_common/downloads.vue'
+
+import filtres from './activites/filtres'
+import { activitesColonnes, activitesLignesBuild } from './activites/table'
 
 export default {
   name: 'Activites',
 
-  components: {
-    Loader,
-    ActivitesFiltres,
-    ActivitesTable,
-    Downloads
-  },
+  components: { Liste, Downloads },
 
   data() {
     return {
-      metasLoaded: false
+      filtres,
+      colonnes: activitesColonnes,
+      metasLoaded: false,
+      visible: false
     }
   },
 
   computed: {
+    user() {
+      return this.$store.state.user.current
+    },
+
     activites() {
       return this.$store.state.titresActivites.list
     },
@@ -66,28 +58,20 @@ export default {
       return this.$store.state.titresActivites.total
     },
 
-    user() {
-      return this.$store.state.user.current
+    preferences() {
+      return this.$store.state.titresActivites.preferences
     },
 
-    loaded() {
-      return !!this.activites
+    metas() {
+      return this.$store.state.titresActivites.metas
     },
 
-    activitesTypes() {
-      return this.$store.state.titresActivites.metas.types
+    params() {
+      return this.$store.state.titresActivites.params
     },
 
-    typesIds() {
-      return this.$store.state.titresActivites.preferences.filtres.typesIds
-    },
-
-    resultat() {
-      const res =
-        this.total > this.activites.length
-          ? `${this.activites.length} / ${this.total}`
-          : this.activites.length
-      return `${res} résultat${this.activites.length > 1 ? 's' : ''}`
+    lignes() {
+      return activitesLignesBuild(this.activites)
     }
   },
 
@@ -100,20 +84,26 @@ export default {
   },
 
   methods: {
-    async activitesUpdate() {
-      await this.$store.dispatch('titresActivites/get')
-    },
-
     async metasGet() {
       if (!this.user || !this.user.sections || !this.user.sections.activites) {
         await this.$store.dispatch('pageError')
       } else {
-        await this.$store.dispatch('titresActivites/metasGet')
+        this.visible = true
+        await this.$store.dispatch(`titresActivites/metasGet`)
+        if (!this.metasLoaded) {
+          this.metasLoaded = true
+        }
       }
+    },
 
-      if (!this.metasLoaded) {
-        this.metasLoaded = true
+    async activitesUpdate() {
+      if (this.metasLoaded) {
+        await this.$store.dispatch(`titresActivites/get`)
       }
+    },
+
+    async preferencesUpdate(options) {
+      await this.$store.dispatch(`titresActivites/preferencesSet`, options)
     }
   }
 }

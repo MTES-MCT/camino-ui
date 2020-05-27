@@ -19,21 +19,27 @@
     </div>
 
     <Url
-      :params="urlValues"
-      :values="preferences"
-      @params:update="preferencesUpdate"
+      :values="vueUrlValues"
+      :params="preferences.vue"
+      @params:update="vuePreferencesUpdate"
     />
 
-    <TitresFiltres
+    <Url
       v-if="metasLoaded"
-      @titres:update="titresUpdate"
+      :values="filtresUrlValues"
+      :params="preferences.filtres"
+      @params:update="filtresPreferencesUpdate"
     />
-    <div
-      v-else
-      class="py-s px-m mb-s border rnd-s"
-    >
-      …
-    </div>
+
+    <Filtres
+      :filtres="filtres"
+      :loaded="metasLoaded"
+      :metas="metas"
+      :preferences="preferences.filtres"
+      @elements:update="titresUpdate"
+      @preferences:update="filtresPreferencesUpdate"
+      @toggle="filtresToggle"
+    />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-3 flex mb-s">
@@ -50,12 +56,12 @@
           v-for="v in vues"
           :key="v.id"
           class="mr-xs"
-          :class="{ active: preferences.vueId === v.id }"
+          :class="{ active: preferences.vue.vueId === v.id }"
         >
           <button
-            v-if="preferences.vueId !== v.id"
+            v-if="preferences.vue.vueId !== v.id"
             class="p-m btn-tab rnd-t-s"
-            @click="preferencesUpdate({ vueId: v.id })"
+            @click="vuePreferencesUpdate({ vueId: v.id })"
           >
             <i
               :class="`icon-${v.icon}`"
@@ -81,7 +87,7 @@
     <div class="line-neutral" />
     <Component
       :is="vue.component"
-      v-if="preferences.vueId && metasLoaded"
+      v-if="preferences.vue.vueId && metasLoaded"
       :titres="titres"
     />
     <div
@@ -98,55 +104,74 @@ import Url from './_ui/url.vue'
 import TitreEditPopup from './titre/edit-popup.vue'
 import TitresTableUrl from './titres/table-url.vue'
 import TitresMap from './titres/map-url.vue'
-import TitresFiltres from './titres/filtres-url.vue'
+import Filtres from './_common/filtres.vue'
 import Downloads from './_common/downloads.vue'
+
+import filtres from './titres/filtres.js'
 
 export default {
   name: 'Titres',
 
-  components: { Url, TitresFiltres, Downloads },
+  components: { Url, Filtres, Downloads },
 
   data() {
     return {
+      filtres,
       metasLoaded: false,
       vues: [
-        {
-          id: 'carte',
-          component: TitresMap,
-          icon: 'globe'
-        },
-        {
-          id: 'liste',
-          component: TitresTableUrl,
-          icon: 'list'
-        }
+        { id: 'carte', component: TitresMap, icon: 'globe' },
+        { id: 'liste', component: TitresTableUrl, icon: 'list' }
       ],
-      urlValues: {
-        vueId: { type: 'string', values: ['carte', 'liste'] }
+      vueUrlValues: {
+        vueId: { type: 'string', elements: ['carte', 'liste'] }
       }
     }
   },
 
   computed: {
+    user() {
+      return this.$store.state.user.current
+    },
+
     titres() {
       return this.$store.state.titres.list
     },
 
+    metas() {
+      return {
+        domaines: this.$store.state.titres.metas.domaines,
+        types: this.$store.state.titres.metas.types,
+        statuts: this.$store.state.titres.metas.statuts
+      }
+    },
+
     preferences() {
-      return this.$store.state.titres.preferences.vue
+      return this.$store.state.titres.preferences
+    },
+
+    params() {
+      return this.$store.state.titres.params
     },
 
     vue() {
-      return this.vues.find(v => v.id === this.preferences.vueId)
-    },
-
-    user() {
-      return this.$store.state.user.current
+      return this.vues.find(v => v.id === this.preferences.vue.vueId)
     },
 
     modification() {
       return this.$store.state.user.metas.domaines.filter(d => d.titresCreation)
         .length
+    },
+
+    filtresUrlValues() {
+      const paramsIds = Object.keys(this.preferences.filtres)
+
+      return this.params.reduce((p, param) => {
+        if (paramsIds.includes(param.id)) {
+          p[param.id] = param
+        }
+
+        return p
+      }, {})
     }
   },
 
@@ -170,12 +195,20 @@ export default {
       }
     },
 
-    preferencesUpdate(params) {
-      this.eventTrack(params.vueId)
+    vuePreferencesUpdate(params) {
+      this.vueEventTrack(params.vueId)
       this.$store.dispatch('titres/preferencesSet', {
         section: 'vue',
         params
       })
+    },
+
+    filtresPreferencesUpdate(params) {
+      this.$store.dispatch('titres/preferencesSet', {
+        section: 'filtres',
+        params
+      })
+      this.paramsEventTrack(params)
     },
 
     addPopupOpen() {
@@ -190,9 +223,50 @@ export default {
       })
     },
 
-    eventTrack(id) {
+    filtresToggle(opened) {
+      if (opened) {
+        this.paramsEventTrack()
+      }
+    },
+
+    vueEventTrack(id) {
       if (this.$matomo) {
         this.$matomo.trackEvent('titres-vue', 'titres-vueId', id)
+      }
+    },
+
+    paramsEventTrack(params) {
+      if (this.$matomo) {
+        if (params) {
+          const events = this.params.reduce((events, { type, id }) => {
+            if (type === 'string' && params[id]) {
+              events.push({ id, value: params[id] })
+            } else if (type === 'strings' && params[id]) {
+              const values = params[id]
+              values.forEach(value => {
+                events.push({ id, value })
+              })
+            }
+
+            return events
+          }, [])
+
+          events.forEach(({ id, value }) => {
+            this.$matomo.trackEvent(
+              'titres-filtres',
+              `titres-filtres-${id}`,
+              value
+            )
+          })
+
+          Object.keys(params).forEach(id => {
+            if (params[id] && params[id].length !== 0) {
+              this.$matomo.trackSiteSearch(JSON.stringify(params[id]), id)
+            }
+          })
+        } else {
+          this.$matomo.trackEvent('titres', 'filtres', 'filtres-titres')
+        }
       }
     }
   }
