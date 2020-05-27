@@ -14,14 +14,14 @@
 
     <Url
       v-if="loaded"
-      :values="urlParamsFiltres"
+      :values="urlValuesFiltres"
       :params="preferences.filtres"
       @params:update="preferencesFiltresUpdate"
     />
 
     <Url
       v-if="loaded"
-      :values="urlParamsTable"
+      :values="urlValuesTable"
       :params="preferences.table"
       @params:update="preferencesTableUpdate"
     />
@@ -95,7 +95,7 @@ export default {
       return `${res} résultat${this.elements.length > 1 ? 's' : ''}`
     },
 
-    urlParamsFiltres() {
+    urlValuesFiltres() {
       const paramsIds = Object.keys(this.preferences.filtres)
 
       return this.params.reduce((p, param) => {
@@ -107,7 +107,7 @@ export default {
       }, {})
     },
 
-    urlParamsTable() {
+    urlValuesTable() {
       const paramsIds = Object.keys(this.preferences.table)
 
       return this.params.reduce((p, param) => {

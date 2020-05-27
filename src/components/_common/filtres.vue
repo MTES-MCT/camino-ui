@@ -76,6 +76,7 @@ export default {
 
     toggle() {
       this.opened = !this.opened
+      this.$emit('toggle', this.opened)
     },
 
     close() {
