@@ -2,6 +2,9 @@ import FiltresTitresDomaines from '../_common/filtres/domaines.vue'
 import FiltresTitresStatuts from '../_common/filtres/statuts.vue'
 import FiltresEtapes from './filtres-custom-etapes.vue'
 
+const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
+const etapesElementsFormat = (id, metas) => metas.etapesTypes
+
 // supprime les clés dont les valeurs sont vides
 // et les objets vides
 const etapesClean = value => {
@@ -39,14 +42,16 @@ const filtres = [
     type: 'checkboxes',
     value: [],
     elements: [],
-    component: FiltresTitresDomaines
+    component: FiltresTitresDomaines,
+    elementsFormat
   },
   {
     id: 'titresTypesIds',
     name: 'Types de titre',
     type: 'checkboxes',
     value: [],
-    elements: []
+    elements: [],
+    elementsFormat
   },
   {
     id: 'titresStatutsIds',
@@ -54,7 +59,8 @@ const filtres = [
     type: 'checkboxes',
     value: [],
     elements: [],
-    component: FiltresTitresStatuts
+    component: FiltresTitresStatuts,
+    elementsFormat
   },
   {
     id: 'titresNoms',
@@ -95,7 +101,8 @@ const filtres = [
     id: 'typesIds',
     name: 'Types',
     type: 'checkboxes',
-    value: []
+    value: [],
+    elementsFormat
   },
   {
     id: 'statutsIds',
@@ -103,7 +110,8 @@ const filtres = [
     type: 'checkboxes',
     value: [],
     elements: [],
-    component: FiltresTitresStatuts
+    component: FiltresTitresStatuts,
+    elementsFormat
   },
   {
     id: 'etapesInclues',
@@ -112,7 +120,8 @@ const filtres = [
     value: [],
     elements: [],
     component: FiltresEtapes,
-    clean: etapesClean
+    clean: etapesClean,
+    elementsFormat: etapesElementsFormat
   },
   {
     id: 'etapesExclues',
@@ -121,7 +130,8 @@ const filtres = [
     value: [],
     elements: [],
     component: FiltresEtapes,
-    clean: etapesClean
+    clean: etapesClean,
+    elementsFormat: etapesElementsFormat
   }
 ]
 

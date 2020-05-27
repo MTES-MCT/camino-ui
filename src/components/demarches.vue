@@ -1,7 +1,7 @@
 <template>
   <liste
     nom="démarches"
-    :filtres="filtresFormated"
+    :filtres="filtres"
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="demarches"
@@ -71,22 +71,6 @@ export default {
 
     lignes() {
       return demarchesLignesBuild(this.demarches)
-    },
-
-    filtresFormated() {
-      return this.filtres.map(filtre => {
-        if (filtre.type === 'checkboxes') {
-          const metaId = filtre.id.replace(/Ids/g, '')
-          filtre.elements = this.metas[metaId]
-        } else if (
-          filtre.id === 'etapesInclues' ||
-          filtre.id === 'etapesExclues'
-        ) {
-          filtre.elements = this.metas.etapesTypes
-        }
-
-        return filtre
-      })
     }
   },
 
@@ -94,8 +78,8 @@ export default {
     user: 'metasGet'
   },
 
-  created() {
-    this.metasGet()
+  async created() {
+    await this.metasGet()
   },
 
   methods: {
@@ -121,17 +105,19 @@ export default {
 
     eventTrack(params) {
       if (this.$matomo) {
-        const events = this.params.reduce((events, { type, id, value }) => {
+        const events = this.params.reduce((events, { type, id }) => {
           if (type === 'string' && params[id]) {
             events.push({ id, value: params[id] })
           } else if (type === 'strings' && params[id]) {
             const values = params[id]
+
             values.forEach(value => {
               events.push({ id, value })
             })
           }
           return events
         }, [])
+
         events.forEach(({ id, value }) => {
           this.$matomo.trackEvent(
             'demarches-filtres',
@@ -139,16 +125,15 @@ export default {
             value
           )
         })
+
         Object.keys(params).forEach(id => {
           if (params[id] && params[id].length !== 0) {
-            if (id === 'etapesInclues' || id === 'etapesExclues') {
-              this.$matomo.trackSiteSearch(
-                JSON.stringify(params[id].map(e => e.typeId)),
-                id
-              )
-            } else {
-              this.$matomo.trackSiteSearch(JSON.stringify(params[id]), id)
-            }
+            const value =
+              id === 'etapesInclues' || id === 'etapesExclues'
+                ? params[id].map(e => e.typeId)
+                : JSON.stringify(params[id])
+
+            this.$matomo.trackSiteSearch(value, id)
           }
         })
       }

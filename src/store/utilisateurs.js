@@ -120,7 +120,7 @@ export const mutations = {
         metaId = 'entreprise'
         paramsIds = ['entrepriseIds']
 
-        // l'API renvoi les entreprises dans une propriété 'elements'
+        // l'API renvoie les entreprises dans une propriété 'elements'
         data[id] = data[id].elements
       } else if (id === 'administrations') {
         metaId = 'administration'

@@ -2,7 +2,7 @@
   <div class="mb">
     <h6>{{ filter.name }}</h6>
     <hr class="mb-s">
-    {{ filter.value }}
+
     <div
       v-for="(value, n) in filter.value"
       :key="n"

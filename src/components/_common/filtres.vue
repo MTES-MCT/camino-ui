@@ -3,7 +3,7 @@
     v-if="loaded"
     ref="filters"
     button="Valider"
-    :filters.sync="filtres"
+    :filters.sync="filters"
     :opened="opened"
     title="Filtres"
     @validate="validate"
@@ -35,6 +35,18 @@ export default {
   data() {
     return {
       opened: false
+    }
+  },
+
+  computed: {
+    filters() {
+      return this.filtres.map(filtre => {
+        if (filtre.elementsFormat) {
+          filtre.elements = filtre.elementsFormat(filtre.id, this.metas)
+        }
+
+        return filtre
+      })
     }
   },
 

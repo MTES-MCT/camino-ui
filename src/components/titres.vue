@@ -32,7 +32,7 @@
     />
 
     <Filtres
-      :filtres="filtresFormated"
+      :filtres="filtres"
       :loaded="metasLoaded"
       :metas="metas"
       :preferences="preferences.filtres"
@@ -160,17 +160,6 @@ export default {
     modification() {
       return this.$store.state.user.metas.domaines.filter(d => d.titresCreation)
         .length
-    },
-
-    filtresFormated() {
-      return this.filtres.map(filtre => {
-        if (filtre.type === 'checkboxes') {
-          const metaId = filtre.id.replace(/Ids/g, '')
-          filtre.elements = this.metas[metaId]
-        }
-
-        return filtre
-      })
     },
 
     filtresUrlValues() {

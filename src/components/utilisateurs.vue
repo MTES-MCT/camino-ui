@@ -2,7 +2,7 @@
   <liste
     v-if="visible"
     nom="utilisateurs"
-    :filtres="filtresFormated"
+    :filtres="filtres"
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="utilisateurs"
@@ -86,19 +86,6 @@ export default {
 
     lignes() {
       return utilisateursLignesBuild(this.utilisateurs)
-    },
-
-    filtresFormated() {
-      return this.filtres.map(filtre => {
-        if (filtre.type === 'checkboxes' || filtre.type === 'select') {
-          const metaId = filtre.id.replace(/Ids/g, '')
-          if (this.metas[metaId]) {
-            filtre.elements = this.metas[metaId]
-          }
-        }
-
-        return filtre
-      })
     }
   },
 
@@ -106,8 +93,8 @@ export default {
     user: 'metasGet'
   },
 
-  created() {
-    this.metasGet()
+  async created() {
+    await this.metasGet()
   },
 
   methods: {

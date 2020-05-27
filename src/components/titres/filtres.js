@@ -2,6 +2,8 @@ import FiltresDomaines from '../_common/filtres/domaines.vue'
 import FiltresStatuts from '../_common/filtres/statuts.vue'
 import FiltresTypes from '../_common/filtres/types.vue'
 
+const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
+
 const filtres = [
   { id: 'noms', type: 'input', value: '', name: 'Noms', placeholder: '…' },
   {
@@ -38,7 +40,8 @@ const filtres = [
     type: 'checkboxes',
     value: [],
     elements: [],
-    component: FiltresDomaines
+    component: FiltresDomaines,
+    elementsFormat
   },
   {
     id: 'typesIds',
@@ -46,7 +49,8 @@ const filtres = [
     type: 'checkboxes',
     value: [],
     elements: [],
-    component: FiltresTypes
+    component: FiltresTypes,
+    elementsFormat
   },
   {
     id: 'statutsIds',
@@ -54,7 +58,8 @@ const filtres = [
     type: 'checkboxes',
     value: [],
     elements: [],
-    component: FiltresStatuts
+    component: FiltresStatuts,
+    elementsFormat
   }
 ]
 

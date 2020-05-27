@@ -2,7 +2,7 @@
   <liste
     v-if="visible"
     nom="activités"
-    :filtres="filtresFormated"
+    :filtres="filtres"
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="activites"
@@ -72,19 +72,6 @@ export default {
 
     lignes() {
       return activitesLignesBuild(this.activites)
-    },
-
-    filtresFormated() {
-      return this.filtres.map(filtre => {
-        if (filtre.type === 'checkboxes' || filtre.type === 'select') {
-          const metaId = filtre.id.replace(/Ids/g, '')
-          if (this.metas[metaId]) {
-            filtre.elements = this.metas[metaId]
-          }
-        }
-
-        return filtre
-      })
     }
   },
 
@@ -92,8 +79,8 @@ export default {
     user: 'metasGet'
   },
 
-  created() {
-    this.metasGet()
+  async created() {
+    await this.metasGet()
   },
 
   methods: {

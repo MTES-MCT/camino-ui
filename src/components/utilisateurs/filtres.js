@@ -1,3 +1,5 @@
+const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
+
 const utilisateursFiltres = [
   {
     id: 'noms',
@@ -25,7 +27,8 @@ const utilisateursFiltres = [
     name: 'Permissions',
     type: 'checkboxes',
     value: [],
-    elements: []
+    elements: [],
+    elementsFormat
   },
   {
     id: 'administrationIds',
@@ -34,7 +37,8 @@ const utilisateursFiltres = [
     value: [],
     elements: [],
     buttonAdd: 'Ajouter une administration',
-    elementName: 'abreviation'
+    elementName: 'abreviation',
+    elementsFormat
   },
   {
     id: 'entrepriseIds',
@@ -43,7 +47,8 @@ const utilisateursFiltres = [
     value: [],
     elements: [],
     buttonAdd: 'Ajouter une entreprise',
-    elementName: 'nom'
+    elementName: 'nom',
+    elementsFormat
   }
 ]
 
