@@ -4,7 +4,7 @@
       <tr>
         <th>Document</th>
         <th class="full-x-">
-          Nom
+          Description
         </th>
         <th />
       </tr>
