@@ -1,9 +1,11 @@
 <template>
   <Accordion
     ref="accordion"
+    :opened="opened"
     :sub="false"
     class="mb-s"
-    @toggle="$emit('filters:toggle', $event)"
+    @close="close"
+    @toggle="toggle"
   >
     <template slot="title">
       {{ title }}
@@ -77,18 +79,10 @@ export default {
   },
 
   props: {
-    filters: {
-      type: Array,
-      default: () => []
-    },
-    title: {
-      type: String,
-      default: 'Filters'
-    },
-    button: {
-      type: String,
-      default: 'Ok'
-    }
+    filters: { type: Array, default: () => [] },
+    title: { type: String, default: 'Filters' },
+    button: { type: String, default: 'Ok' },
+    opened: { type: Boolean, default: false }
   },
 
   computed: {
@@ -117,14 +111,19 @@ export default {
     },
 
     validate() {
-      this.$emit('filters:validate')
+      this.$emit('validate')
     },
 
     close() {
       if (this.$refs.button) {
         this.$refs.button.focus()
       }
-      this.$refs.accordion.close()
+
+      this.$emit('close')
+    },
+
+    toggle() {
+      this.$emit('toggle')
     },
 
     filtersReduce(filters, type) {

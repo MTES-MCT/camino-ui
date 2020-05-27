@@ -4,8 +4,10 @@
     :filters.sync="filters"
     title="Filtres"
     button="Valider"
-    @filters:validate="validate"
-    @filters:toggle="toggle"
+    :opened="opened"
+    @validate="validate"
+    @toggle="toggle"
+    @close="close"
   />
 </template>
 
@@ -86,9 +88,7 @@ export default {
       // les champs textes sont mis à jour onBlur
       // pour les prendre en compte lorsqu'on valide en appuyant sur "entréee"
       // met le focus sur le bouton de validation (dans la méthode close())
-      if (this.$refs.filters) {
-        this.$refs.filters.close()
-      }
+      this.close()
 
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
@@ -112,11 +112,15 @@ export default {
       this.$emit('titres:update')
     },
 
-    toggle(opened) {
-      this.opened = opened
-      if (opened) {
+    toggle() {
+      this.opened = !this.opened
+      if (this.opened) {
         this.eventTrack()
       }
+    },
+
+    close() {
+      this.opened = false
     },
 
     keyup(e) {

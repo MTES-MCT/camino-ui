@@ -14,15 +14,15 @@
 
     <Url
       v-if="loaded"
-      :params="urlParamsFiltres"
-      :values="preferences.filtres"
+      :values="urlParamsFiltres"
+      :params="preferences.filtres"
       @params:update="preferencesFiltresUpdate"
     />
 
     <Url
       v-if="loaded"
-      :params="urlParamsTable"
-      :values="preferences.table"
+      :values="urlParamsTable"
+      :params="preferences.table"
       @params:update="preferencesTableUpdate"
     />
 

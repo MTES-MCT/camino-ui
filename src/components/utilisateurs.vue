@@ -2,7 +2,7 @@
   <liste
     v-if="visible"
     nom="utilisateurs"
-    :filtres="filtres"
+    :filtres="filtresFormated"
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="utilisateurs"
@@ -52,6 +52,7 @@ export default {
 
   data() {
     return {
+      filtres,
       colonnes: utilisateursColonnes,
       metasLoaded: false,
       visible: false
@@ -87,8 +88,8 @@ export default {
       return utilisateursLignesBuild(this.utilisateurs)
     },
 
-    filtres() {
-      return filtres.map(filtre => {
+    filtresFormated() {
+      return this.filtres.map(filtre => {
         if (filtre.type === 'checkboxes' || filtre.type === 'select') {
           const metaId = filtre.id.replace(/Ids/g, '')
           if (this.metas[metaId]) {

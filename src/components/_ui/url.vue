@@ -7,23 +7,14 @@ export default {
   name: 'UiUrl',
 
   props: {
-    // TODO: renommer en fields
-    params: {
-      type: Object,
-      required: true
-    },
-
-    // TODO: renommer en params
-    values: {
-      type: Object,
-      required: true
-    }
+    values: { type: Object, required: true },
+    params: { type: Object, required: true }
   },
 
   watch: {
-    values: {
-      handler: function(values, old) {
-        this.update(values)
+    params: {
+      handler: function(params, old) {
+        this.update(params)
       },
       deep: true
     },
@@ -40,7 +31,7 @@ export default {
   destroyed() {
     const { query, updated } = Object.keys(this.$route.query).reduce(
       ({ query, updated }, id) => {
-        if (this.params[id]) {
+        if (this.values[id]) {
           updated = true
         } else {
           query[id] = this.$route.query[id]
@@ -58,10 +49,10 @@ export default {
 
   methods: {
     init() {
-      const paramsBuild = params =>
-        Object.keys(params).reduce(
+      const paramsBuild = () =>
+        Object.keys(this.params).reduce(
           ({ queryParams, eventParams }, id) => {
-            const paramValue = params[id]
+            const paramValue = this.params[id]
             const queryValue = this.clean(
               id,
               this.parse(id, this.get(id, this.$route.query[id]))
@@ -85,7 +76,7 @@ export default {
           { queryParams: {}, eventParams: {} }
         )
 
-      const { queryParams, eventParams } = paramsBuild(this.values)
+      const { queryParams, eventParams } = paramsBuild()
 
       if (Object.keys(queryParams).length) {
         this.update(queryParams)
@@ -133,7 +124,7 @@ export default {
     get(id, value) {
       if (!value) return null
 
-      if (!(id in this.params)) return value
+      if (!(id in this.values)) return value
 
       return value || null
     },
@@ -141,28 +132,28 @@ export default {
     clean(id, value) {
       if (!value) return null
 
-      if (!this.params[id] || !this.params[id].type) {
+      if (!this.values[id] || !this.values[id].type) {
         return value
       }
 
-      if (this.params[id].type === 'number') {
-        if (this.params[id].max && value > this.params[id].max) {
-          value = this.params[id].max
-        } else if (this.params[id].min && value < this.params[id].min) {
-          value = this.params[id].min
+      if (this.values[id].type === 'number') {
+        if (this.values[id].max && value > this.values[id].max) {
+          value = this.values[id].max
+        } else if (this.values[id].min && value < this.values[id].min) {
+          value = this.values[id].min
         }
 
         return value
       }
 
       if (
-        (this.params[id].type === 'strings' ||
-          this.params[id].type === 'numbers') &&
-        this.params[id].elements
+        (this.values[id].type === 'strings' ||
+          this.values[id].type === 'numbers') &&
+        this.values[id].elements
       ) {
         value = value
           .reduce((acc, v) => {
-            if (this.params[id].elements.includes(v)) {
+            if (this.values[id].elements.includes(v)) {
               acc.push(v)
             }
 
@@ -173,18 +164,18 @@ export default {
         return value
       }
 
-      if (this.params[id].type === 'tuple') {
+      if (this.values[id].type === 'tuple') {
         return !Number(value[0]) || !Number(value[1]) ? null : value
       }
 
-      if (this.params[id].type === 'string') {
-        return this.params[id].elements &&
-          !this.params[id].elements.includes(value)
+      if (this.values[id].type === 'string') {
+        return this.values[id].elements &&
+          !this.values[id].elements.includes(value)
           ? null
           : value
       }
 
-      if (this.params[id].type === 'objects') {
+      if (this.values[id].type === 'objects') {
         // TODO: retirer les valeurs incorrectes
 
         return value.length ? value : null
@@ -196,36 +187,36 @@ export default {
     parse(id, value) {
       if (!value) return null
 
-      if (!this.params[id] || !this.params[id].type) {
+      if (!this.values[id] || !this.values[id].type) {
         return value
       }
 
-      if (this.params[id].type === 'number') {
+      if (this.values[id].type === 'number') {
         value = Number(value)
 
         return isNaN(value) ? null : value
       }
 
-      if (this.params[id].type === 'strings') {
+      if (this.values[id].type === 'strings') {
         return value.split(',').sort()
       }
 
-      if (this.params[id].type === 'numbers') {
+      if (this.values[id].type === 'numbers') {
         return value
           .split(',')
           .map(v => Number(v))
           .sort()
       }
 
-      if (this.params[id].type === 'string') {
+      if (this.values[id].type === 'string') {
         return value.toString()
       }
 
-      if (this.params[id].type === 'tuple') {
+      if (this.values[id].type === 'tuple') {
         return value.split(',')
       }
 
-      if (this.params[id].type === 'objects') {
+      if (this.values[id].type === 'objects') {
         return JSON.parse(value)
       }
 
@@ -233,23 +224,23 @@ export default {
     },
 
     stringify(id, value) {
-      if (!(id in this.params)) return value
+      if (!(id in this.values)) return value
 
       if (!value) return null
 
       if (
-        this.params[id].type === 'strings' ||
-        this.params[id].type === 'tuple' ||
-        this.params[id].type === 'numbers'
+        this.values[id].type === 'strings' ||
+        this.values[id].type === 'tuple' ||
+        this.values[id].type === 'numbers'
       ) {
         return value.length ? value.join(',') : null
       }
 
-      if (this.params[id].type === 'number') {
+      if (this.values[id].type === 'number') {
         return value.toString()
       }
 
-      if (this.params[id].type === 'objects') {
+      if (this.values[id].type === 'objects') {
         if (!value.length) return null
 
         // entrée <=

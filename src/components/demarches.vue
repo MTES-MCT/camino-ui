@@ -1,7 +1,7 @@
 <template>
   <liste
     nom="démarches"
-    :filtres="filtres"
+    :filtres="filtresFormated"
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="demarches"
@@ -39,7 +39,8 @@ export default {
     return {
       colonnes: demarchesColonnes,
       metasLoaded: false,
-      visible: false
+      visible: false,
+      filtres
     }
   },
 
@@ -72,8 +73,8 @@ export default {
       return demarchesLignesBuild(this.demarches)
     },
 
-    filtres() {
-      return filtres.map(filtre => {
+    filtresFormated() {
+      return this.filtres.map(filtre => {
         if (filtre.type === 'checkboxes') {
           const metaId = filtre.id.replace(/Ids/g, '')
           filtre.elements = this.metas[metaId]
@@ -108,8 +109,6 @@ export default {
     async demarchesUpdate() {
       if (this.metasLoaded) {
         await this.$store.dispatch('titresDemarches/get')
-
-        this.eventTrack()
       }
     },
 

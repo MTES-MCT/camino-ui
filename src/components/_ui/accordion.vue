@@ -16,7 +16,7 @@
         <button
           v-if="$slots.default"
           class="btn-alt py-s px-m"
-          @click="openToggle"
+          @click="toggle"
         >
           <i
             class="icon-24"
@@ -39,7 +39,7 @@
       v-else-if="$slots.default && !$slots.buttons"
       :class="{ 'rnd-t-s': opened || $slots.sub, 'rnd-s': !opened && !$slots.sub }"
       class="accordion-header flex btn-border py-s px-m"
-      @click="openToggle"
+      @click="toggle"
     >
       <div>
         <slot name="title" />
@@ -87,23 +87,18 @@ export default {
     iconClosedClass: {
       type: String,
       default: 'icon-chevron-t'
-    }
-  },
+    },
 
-  data() {
-    return {
-      opened: false
-    }
+    opened: { type: Boolean, default: false }
   },
 
   methods: {
     close() {
-      this.opened = false
+      this.$emit('close')
     },
 
-    openToggle() {
-      this.opened = !this.opened
-      this.$emit('toggle', this.opened)
+    toggle() {
+      this.$emit('toggle')
     }
   }
 }

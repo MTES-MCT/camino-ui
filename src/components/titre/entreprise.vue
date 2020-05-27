@@ -1,7 +1,9 @@
 <template>
   <Accordion
     class="mb"
-    @toggle="eventTrack($event, 'titre-entreprise_consulter')"
+    :opened="opened"
+    @close="close"
+    @toggle="toggle"
   >
     <template slot="title">
       <h4 class="mb-0">
@@ -24,7 +26,7 @@
       >
         <i
           class="icon-24 icon-window-link"
-          @click="eventTrack($event, 'titre-entreprise_acceder')"
+          @click="eventTrack('titre-entreprise_acceder')"
         />
       </RouterLink>
     </template>
@@ -166,6 +168,12 @@ export default {
     }
   },
 
+  data() {
+    return {
+      opened: false
+    }
+  },
+
   computed: {
     content() {
       return (
@@ -194,14 +202,23 @@ export default {
       )
     },
 
-    eventTrack(event, action) {
-      if (event) {
-        this.$emit('titre:eventTrack', {
-          categorie: 'titre-sections',
-          action,
-          nom: this.$route.params.id
-        })
+    close() {
+      this.opened = false
+    },
+
+    toggle() {
+      this.opened = !this.opened
+      if (this.opened) {
+        this.eventTrack('titre-entreprise_consulter')
       }
+    },
+
+    eventTrack(action) {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action,
+        nom: this.$route.params.id
+      })
     }
   }
 }

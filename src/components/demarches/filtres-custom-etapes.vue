@@ -3,8 +3,6 @@
     <h6>{{ filter.name }}</h6>
     <hr class="mb-s">
 
-    value:     {{ filter.value }}
-
     <div
       v-for="(value, n) in filter.value"
       :key="n"

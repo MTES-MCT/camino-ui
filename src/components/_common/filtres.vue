@@ -2,11 +2,13 @@
   <Filters
     v-if="loaded"
     ref="filters"
-    :filters.sync="filtres"
-    title="Filtres"
     button="Valider"
-    @filters:validate="validate"
-    @filters:toggle="toggle"
+    :filters.sync="filtres"
+    :opened="opened"
+    title="Filtres"
+    @validate="validate"
+    @toggle="toggle"
+    @close="close"
   />
   <div
     v-else
@@ -72,8 +74,12 @@ export default {
       this.$emit('preferences:update', params)
     },
 
-    toggle(opened) {
-      this.opened = opened
+    toggle() {
+      this.opened = !this.opened
+    },
+
+    close() {
+      this.opened = false
     },
 
     keyup(e) {
@@ -86,10 +92,11 @@ export default {
       // les champs textes sont mis à jour onBlur
       // pour les prendre en compte lorsqu'on valide en appuyant sur "entrée"
       // met le focus sur le bouton de validation (dans la méthode close())
-      if (this.$refs.filters) {
-        this.$refs.filters.close()
-      }
+
+      this.close()
+
       window.scrollTo({ top: 0, behavior: 'smooth' })
+
       // formate les valeurs des filtres
       const params = this.filtres.reduce((params, filtre) => {
         let value

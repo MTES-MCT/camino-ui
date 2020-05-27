@@ -1,7 +1,9 @@
 <template>
   <Accordion
     class="mb"
-    @toggle="eventTrack($event)"
+    :opened="opened"
+    @close="close"
+    @toggle="toggle"
   >
     <template slot="title">
       <span>{{ administration.nom }}</span>
@@ -122,6 +124,12 @@ export default {
     }
   },
 
+  data() {
+    return {
+      opened: false
+    }
+  },
+
   computed: {
     content() {
       return (
@@ -138,14 +146,23 @@ export default {
   },
 
   methods: {
-    eventTrack(event) {
-      if (event) {
-        this.$emit('titre:eventTrack', {
-          categorie: 'titre-sections',
-          action: 'titre-administration_consulter',
-          nom: this.$route.params.id
-        })
+    close() {
+      this.opened = false
+    },
+
+    toggle() {
+      this.opened = !this.opened
+      if (this.opened) {
+        this.eventTrack()
       }
+    },
+
+    eventTrack() {
+      this.$emit('titre:eventTrack', {
+        categorie: 'titre-sections',
+        action: 'titre-administration_consulter',
+        nom: this.$route.params.id
+      })
     }
   }
 }

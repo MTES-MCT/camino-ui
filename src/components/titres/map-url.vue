@@ -1,8 +1,8 @@
 <template>
   <div>
     <Url
-      :values="preferences"
-      :params="values"
+      :params="preferences"
+      :values="values"
       @params:update="preferencesUpdate"
     />
     <Map :titres="titres" />
