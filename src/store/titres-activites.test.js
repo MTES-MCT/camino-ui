@@ -24,17 +24,24 @@ describe("état d'une activité", () => {
       total: 0,
       metas: {
         types: [],
-        annees: []
+        annees: [],
+        statuts: []
       },
       params: [
         { id: 'typesIds', type: 'strings', elements: [] },
         { id: 'annees', type: 'numbers', elements: [] },
+        { id: 'statutsIds', type: 'strings', elements: [] },
+        { id: 'titresNoms', type: 'string' },
+        { id: 'titresEntreprises', type: 'string' },
+        { id: 'titresSubstances', type: 'string' },
+        { id: 'titresReferences', type: 'string' },
+        { id: 'titresTerritoires', type: 'string' },
         { id: 'page', type: 'number', min: 0 },
         { id: 'intervalle', type: 'number', min: 10, max: 500 },
         {
           id: 'colonne',
           type: 'string',
-          elements: ['titreNom', 'titulaires', 'periode', 'statut']
+          elements: ['titreNom', 'titulaires', 'annee', 'periode', 'statut']
         },
         {
           id: 'ordre',
@@ -51,7 +58,13 @@ describe("état d'une activité", () => {
         },
         filtres: {
           typesIds: [],
-          annees: []
+          annees: [],
+          statutsIds: [],
+          titresNoms: '',
+          titresEntreprises: '',
+          titresSubstances: '',
+          titresReferences: '',
+          titresTerritoires: ''
         }
       }
     }
@@ -79,16 +92,42 @@ describe("état d'une activité", () => {
     })
   })
 
+  const activitesTypes = [
+    {
+      id: 'grp',
+      nom: "rapport trimestriel d'activité"
+    }
+  ]
+  const activitesAnnees = [2020, 2019]
+  const activitesStatuts = [
+    {
+      id: 'abs',
+      nom: 'absent',
+      couleur: 'error'
+    },
+    {
+      id: 'enc',
+      nom: 'en construction',
+      couleur: 'warning'
+    },
+    {
+      id: 'dep',
+      nom: 'déposé',
+      couleur: 'success'
+    },
+    {
+      id: 'fer',
+      nom: 'cloturé',
+      couleur: 'neutral'
+    }
+  ]
+
   test('récupère les métas pour afficher les activités', async () => {
     const apiMock = api.metasActivites
       .mockResolvedValueOnce({
-        activitesTypes: [
-          {
-            id: 'grp',
-            nom: "rapport trimestriel d'activité"
-          }
-        ],
-        activitesAnnees: [2020, 2019],
+        activitesTypes,
+        activitesAnnees,
+        activitesStatuts,
         truc: [{ id: 'id-truc' }]
       })
       .mockResolvedValueOnce({})
@@ -97,11 +136,12 @@ describe("état d'une activité", () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titresActivites.metas).toEqual({
-      types: [{ id: 'grp', nom: "rapport trimestriel d'activité" }],
+      types: activitesTypes,
       annees: [
         { id: 2020, nom: 2020 },
         { id: 2019, nom: 2019 }
-      ]
+      ],
+      statuts: activitesStatuts
     })
 
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -114,7 +154,8 @@ describe("état d'une activité", () => {
       annees: [
         { id: 2020, nom: 2020 },
         { id: 2019, nom: 2019 }
-      ]
+      ],
+      statuts: activitesStatuts
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })

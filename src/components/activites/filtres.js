@@ -45,6 +45,14 @@ const filtres = [
     elementsFormat
   },
   {
+    id: 'statutsIds',
+    name: 'Statut',
+    type: 'checkboxes',
+    value: [],
+    elements: [],
+    elementsFormat
+  },
+  {
     id: 'annees',
     name: 'Années',
     type: 'select',

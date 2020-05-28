@@ -4,7 +4,8 @@ import { apiMutate, apiQuery } from './_utils'
 import {
   fragmentActivites,
   fragmentActivite,
-  fragmentActiviteType
+  fragmentActiviteType,
+  fragmentActiviteStatut
 } from './fragments/titre-activite'
 
 const metasActivites = apiQuery(
@@ -13,10 +14,15 @@ const metasActivites = apiQuery(
       activitesTypes {
         ...activiteType
       }
+      activitesStatuts {
+        ...activiteStatut
+      }
       activitesAnnees
     }
 
     ${fragmentActiviteType}
+
+    ${fragmentActiviteStatut}
   `,
   {
     fetchPolicy: 'network-only'
@@ -47,6 +53,7 @@ const activites = apiQuery(
       $titresSubstances: String
       $titresReferences: String
       $titresTerritoires: String
+      $statutsIds: [ID]
     ) {
       activites(
         intervalle: $intervalle
@@ -60,6 +67,7 @@ const activites = apiQuery(
         titresSubstances: $titresSubstances
         titresReferences: $titresReferences
         titresTerritoires: $titresTerritoires
+        statutsIds: $statutsIds
       ) {
         elements {
           ...activites
