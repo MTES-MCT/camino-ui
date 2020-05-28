@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import definitions from '../api/definitions'
+import { definitions } from '../api/definitions'
 
 export const state = {}
 
@@ -10,8 +10,6 @@ export const actions = {
 
     try {
       const data = await definitions()
-      console.log('data :>> ', data)
-      // console.log('dom :>> ', data[1].description)
 
       commit('set', data)
     } catch (e) {

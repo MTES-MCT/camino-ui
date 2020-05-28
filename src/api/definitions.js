@@ -22,4 +22,4 @@ const definitions = apiQuery(
   { fetchPolicy: 'network-only' }
 )
 
-export default definitions
+export { definitions }
