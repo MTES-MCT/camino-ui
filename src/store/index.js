@@ -18,6 +18,7 @@ import user from './user'
 import titreActivite from './titre-activite'
 import titresActivites from './titres-activites'
 import statistiques from './statistiques'
+import definitions from './definitions'
 
 import router from '../router'
 
@@ -37,7 +38,8 @@ const modules = {
   user,
   titreActivite,
   titresActivites,
-  statistiques
+  statistiques,
+  definitions
 }
 
 export const state = {
