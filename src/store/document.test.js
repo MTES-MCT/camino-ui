@@ -3,7 +3,7 @@ import * as api from '../api/documents'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
-jest.mock('../api/titres-documents', () => ({
+jest.mock('../api/documents', () => ({
   metasDocument: jest.fn(),
   documentCreer: jest.fn(),
   documentModifier: jest.fn(),
@@ -22,12 +22,8 @@ describe('documents', () => {
 
   beforeEach(() => {
     document.state = {
-      metas: {
-        documentsTypes: []
-      },
-      preferences: {
-        types: []
-      }
+      metas: { documentsTypes: [] },
+      preferences: { types: [] }
     }
 
     actions = {
@@ -121,8 +117,8 @@ describe('documents', () => {
   })
 
   test('supprime un document', async () => {
-    const apiMock = api.documentSupprimer.mockResolvedValue(62)
-    await store.dispatch('document/remove', 62)
+    const apiMock = api.documentSupprimer.mockResolvedValue(true)
+    await store.dispatch('document/remove', { id: 62 })
 
     expect(apiMock).toHaveBeenCalledWith({ id: 62 })
     expect(mutations.popupClose).toHaveBeenCalled()
@@ -130,7 +126,7 @@ describe('documents', () => {
 
   test("retourne une erreur si l'API retourne une null lors de la suppression d'un document", async () => {
     const apiMock = api.documentSupprimer.mockResolvedValue(null)
-    await store.dispatch('document/remove', 62)
+    await store.dispatch('document/remove', { id: 62 })
 
     expect(apiMock).toHaveBeenCalledWith({ id: 62 })
     expect(actions.pageError).toHaveBeenCalled()
@@ -140,7 +136,7 @@ describe('documents', () => {
     const apiMock = api.documentSupprimer.mockRejectedValue(
       new Error("erreur de l'api")
     )
-    await store.dispatch('document/remove', 62)
+    await store.dispatch('document/remove', { id: 62 })
 
     expect(apiMock).toHaveBeenCalledWith({ id: 62 })
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
