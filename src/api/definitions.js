@@ -13,6 +13,7 @@ const definitions = apiQuery(
         elements {
           id
           nom
+          table
           description
           couleur
         }
