@@ -1,7 +1,7 @@
+import definitions from './definitions'
 import * as api from '../api/definitions'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import store from '.'
 
 jest.mock('../api/definitions', () => ({
   definitions: jest.fn()
@@ -12,6 +12,33 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 describe('définitions du glossaire', () => {
+  let store
+  let actions
+  let mutations
+
+  beforeEach(() => {
+    definitions.state = {}
+
+    actions = {
+      pageError: jest.fn(),
+      apiError: jest.fn(),
+      messageAdd: jest.fn()
+    }
+    mutations = {
+      loadingAdd: jest.fn(),
+      loadingRemove: jest.fn(),
+      popupMessagesRemove: jest.fn(),
+      popupMessageAdd: jest.fn(),
+      popupClose: jest.fn()
+    }
+
+    store = new Vuex.Store({
+      modules: { definitions },
+      mutations,
+      actions
+    })
+  })
+
   test('récupère les définitions', async () => {
     const response = [
       {
@@ -183,7 +210,7 @@ describe('définitions du glossaire', () => {
       }
     ]
 
-    const apiMock = api.definitions.mockResolvedValueOnce(response)
+    const apiMock = api.definitions.mockResolvedValue(response)
 
     await store.dispatch('definitions/get')
 
@@ -199,5 +226,14 @@ describe('définitions du glossaire', () => {
     await store.dispatch('definitions/get')
 
     expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur 404 si l'api retourne null", async () => {
+    const apiMock = api.definitions.mockResolvedValue(null)
+    await store.dispatch('definitions/get')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.definitions.list).toEqual(null)
   })
 })
