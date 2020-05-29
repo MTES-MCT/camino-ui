@@ -5,6 +5,7 @@ import { saveAs } from 'file-saver'
 import titre from './titre'
 import titreDemarche from './titre-demarche'
 import titreEtape from './titre-etape'
+import titreEtapeJustificatifs from './titre-etape-justificatifs'
 import document from './document'
 import titres from './titres'
 import titresDemarches from './titres-demarches'
@@ -25,6 +26,7 @@ const modules = {
   titre,
   titreDemarche,
   titreEtape,
+  titreEtapeJustificatifs,
   document,
   titres,
   titresDemarches,
@@ -104,9 +106,9 @@ export const actions = {
 
     if (id !== idOld) {
       router.replace({ name, params: { id } })
+    } else {
+      await dispatch(`${name}/get`, id)
     }
-
-    await dispatch(`${name}/get`, id)
   },
 
   async download({ dispatch, commit }, filePath) {
@@ -123,8 +125,9 @@ export const actions = {
       const res = await fetch(url, { method: 'GET', headers })
 
       if (res.status !== 200) {
-        const error = await res.text()
-        throw error
+        const e = await res.json()
+
+        throw new Error(e.error)
       }
 
       // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
@@ -150,7 +153,10 @@ export const actions = {
 
       return name
     } catch (e) {
-      dispatch('apiError', `erreur de téléchargement : ${filePath}, ${e}`)
+      dispatch(
+        'apiError',
+        `erreur de téléchargement : ${filePath}, ${e.message}`
+      )
       console.info(e)
     } finally {
       commit('loadingRemove', 'download', { root: true })

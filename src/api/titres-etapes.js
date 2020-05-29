@@ -83,4 +83,20 @@ const etapeSupprimer = apiMutate(gql`
   ${fragmentTitre}
 `)
 
-export { metasTitreEtape, etapeCreer, etapeModifier, etapeSupprimer }
+const etapeJustificatifsModifier = apiMutate(gql`
+  mutation EtapeJustificatifsModifier($id: ID!, $documentsIds: [ID]!) {
+    etapeJustificatifsModifier(id: $id, documentsIds: $documentsIds) {
+      ...titre
+    }
+  }
+
+  ${fragmentTitre}
+`)
+
+export {
+  metasTitreEtape,
+  etapeCreer,
+  etapeModifier,
+  etapeSupprimer,
+  etapeJustificatifsModifier
+}

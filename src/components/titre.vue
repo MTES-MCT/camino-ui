@@ -214,6 +214,7 @@ export default {
 
   methods: {
     async get() {
+      console.log('component')
       await this.$store.dispatch('titre/get', this.$route.params.id)
     },
 

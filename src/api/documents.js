@@ -1,6 +1,9 @@
 import gql from 'graphql-tag'
 import { apiMutate, apiQuery } from './_utils'
-import { fragmentDocument } from './fragments/documents'
+import {
+  fragmentDocument,
+  fragmentDocumentsEntreprises
+} from './fragments/documents'
 
 const metasDocument = apiQuery(
   gql`
@@ -12,6 +15,18 @@ const metasDocument = apiQuery(
     }
   `,
   { fetchPolicy: 'network-only' }
+)
+
+const documents = apiQuery(
+  gql`
+    query Documents($entreprisesIds: [ID!]) {
+      documents(entreprisesIds: $entreprisesIds) {
+        ...documentsEntreprises
+      }
+    }
+
+    ${fragmentDocumentsEntreprises}
+  `
 )
 
 const documentCreer = apiMutate(gql`
@@ -40,4 +55,10 @@ const documentSupprimer = apiMutate(gql`
   }
 `)
 
-export { metasDocument, documentCreer, documentModifier, documentSupprimer }
+export {
+  metasDocument,
+  documentCreer,
+  documentModifier,
+  documentSupprimer,
+  documents
+}

@@ -40,6 +40,7 @@ export const actions = {
       const data = await titre({ id })
 
       if (data) {
+        console.log('-->', JSON.stringify(data))
         commit('set', data)
       } else {
         dispatch('pageError', null, { root: true })
@@ -66,7 +67,7 @@ export const actions = {
         dispatch(
           'messageAdd',
           {
-            value: `le titre a été créé`,
+            value: 'le titre a été créé',
             type: 'success'
           },
           { root: true }
@@ -93,7 +94,7 @@ export const actions = {
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
       dispatch(
         'messageAdd',
-        { value: `le titre a été mis à jour`, type: 'success' },
+        { value: 'le titre a été mis à jour', type: 'success' },
         { root: true }
       )
     } catch (e) {

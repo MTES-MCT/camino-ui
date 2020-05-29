@@ -23,4 +23,31 @@ const fragmentDocument = gql`
   }
 `
 
-export { fragmentDocument }
+const fragmentDocumentsEntreprises = gql`
+  fragment documentsEntreprises on Document {
+    id
+    type {
+      id
+      nom
+    }
+    date
+    description
+    fichier
+    fichierTypeId
+    url
+    uri
+    jorf
+    nor
+    publicLecture
+    entreprisesLecture
+    entreprise {
+      id
+      nom
+    }
+
+    modification
+    suppression
+  }
+`
+
+export { fragmentDocument, fragmentDocumentsEntreprises }

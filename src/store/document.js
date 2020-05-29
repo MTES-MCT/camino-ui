@@ -43,7 +43,7 @@ export const actions = {
         await dispatch('reload', context, { root: true })
         dispatch(
           'messageAdd',
-          { value: `le docuemnt a été ajouté`, type: 'success' },
+          { value: `le document a été ajouté`, type: 'success' },
           { root: true }
         )
       } else {
