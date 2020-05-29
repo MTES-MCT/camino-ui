@@ -1,5 +1,5 @@
-import titreDocument from './titre-document'
-import * as api from '../api/titres-documents'
+import document from './document'
+import * as api from '../api/documents'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
@@ -21,7 +21,7 @@ describe('documents', () => {
   let mutations
 
   beforeEach(() => {
-    titreDocument.state = {
+    document.state = {
       metas: {
         documentsTypes: []
       },
@@ -47,7 +47,7 @@ describe('documents', () => {
       popupMessageAdd: jest.fn()
     }
 
-    store = new Vuex.Store({ actions, mutations, modules: { titreDocument } })
+    store = new Vuex.Store({ actions, mutations, modules: { document } })
   })
 
   test('récupère les métas pour éditer un document', async () => {
@@ -56,10 +56,10 @@ describe('documents', () => {
       { id: 'avi', nom: 'Avis' }
     ])
 
-    await store.dispatch('titreDocument/metasGet')
+    await store.dispatch('document/metasGet')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titreDocument.metas.documentsTypes).toEqual([
+    expect(store.state.document.metas.documentsTypes).toEqual([
       { id: 'arr', nom: 'Arrêté' },
       { id: 'avi', nom: 'Avis' }
     ])
@@ -71,7 +71,7 @@ describe('documents', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('titreDocument/metasGet')
+    await store.dispatch('document/metasGet')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -80,49 +80,49 @@ describe('documents', () => {
 
   test('met à jour un document', async () => {
     api.documentCreer.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('titreDocument/add', { id: 14, nom: 'champs' })
+    await store.dispatch('document/add', { id: 14, nom: 'champs' })
 
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une null lors de la création d'un document", async () => {
     api.documentCreer.mockResolvedValue(null)
-    await store.dispatch('titreDocument/add', { id: 14, nom: 'champs' })
+    await store.dispatch('document/add', { id: 14, nom: 'champs' })
 
     expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la création d'un document", async () => {
     api.documentCreer.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('titreDocument/add', { id: 14, nom: 'champs' })
+    await store.dispatch('document/add', { id: 14, nom: 'champs' })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('met à jour un document', async () => {
     api.documentModifier.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('titreDocument/update', { id: 14, nom: 'champs' })
+    await store.dispatch('document/update', { id: 14, nom: 'champs' })
 
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une null lors de la mise à jour d'un document", async () => {
     api.documentModifier.mockResolvedValue(null)
-    await store.dispatch('titreDocument/update', { id: 14, nom: 'champs' })
+    await store.dispatch('document/update', { id: 14, nom: 'champs' })
 
     expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'un document", async () => {
     api.documentModifier.mockRejectedValue(new Error("erreur de l'api"))
-    await store.dispatch('titreDocument/update', { id: 14, nom: 'champs' })
+    await store.dispatch('document/update', { id: 14, nom: 'champs' })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('supprime un document', async () => {
     const apiMock = api.documentSupprimer.mockResolvedValue(62)
-    await store.dispatch('titreDocument/remove', 62)
+    await store.dispatch('document/remove', 62)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 62 })
     expect(mutations.popupClose).toHaveBeenCalled()
@@ -130,7 +130,7 @@ describe('documents', () => {
 
   test("retourne une erreur si l'API retourne une null lors de la suppression d'un document", async () => {
     const apiMock = api.documentSupprimer.mockResolvedValue(null)
-    await store.dispatch('titreDocument/remove', 62)
+    await store.dispatch('document/remove', 62)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 62 })
     expect(actions.pageError).toHaveBeenCalled()
@@ -140,7 +140,7 @@ describe('documents', () => {
     const apiMock = api.documentSupprimer.mockRejectedValue(
       new Error("erreur de l'api")
     )
-    await store.dispatch('titreDocument/remove', 62)
+    await store.dispatch('document/remove', 62)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 62 })
     expect(mutations.popupMessageAdd).toHaveBeenCalled()

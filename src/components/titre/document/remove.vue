@@ -4,15 +4,7 @@
       <div>
         <h5>
           <span class="cap-first">
-            {{ titreNom }}
-          </span><span class="color-neutral">
-            |
-          </span><span class="cap-first">
-            {{ demarcheTypeNom }}
-          </span><span class="color-neutral">
-            |
-          </span><span class="cap-first">
-            {{ etapeTypeNom }}
+            {{ context.title }}
           </span>
         </h5>
         <h2 class="cap-first mb-0">
@@ -22,7 +14,7 @@
     </template>
 
     <p class="bold">
-      Souhaitez vous supprimer le document <span class="color-inverse">{{ document.type.nom }}</span> de l'étape <span class="color-inverse">{{ etapeTypeNom }}</span> de la démarche <span class="color-inverse">{{ demarcheTypeNom }}</span> du titre <span class="color-inverse">{{ titreNom }}</span> ?
+      Souhaitez vous supprimer le document <span class="color-inverse">{{ document.type.nom }}</span> de <span class="color-inverse">{{ context.title }}</span> ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
       <span class="bold">
@@ -72,9 +64,7 @@ export default {
   },
 
   props: {
-    demarcheTypeNom: { type: String, default: '' },
-    titreNom: { type: String, default: '' },
-    etapeTypeNom: { type: String, default: '' },
+    context: { type: Object, required: true },
     document: { type: Object, default: () => ({}) }
   },
 
@@ -98,7 +88,10 @@ export default {
 
   methods: {
     async remove() {
-      await this.$store.dispatch('titreDocument/remove', this.document.id)
+      await this.$store.dispatch('document/remove', {
+        id: this.document.id,
+        context: this.context
+      })
     },
 
     cancel() {

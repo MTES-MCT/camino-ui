@@ -4,15 +4,7 @@
       <div>
         <h5>
           <span class="cap-first">
-            {{ titreNom }}
-          </span><span class="color-neutral">
-            |
-          </span><span class="cap-first">
-            {{ demarcheTypeNom }}
-          </span><span class="color-neutral">
-            |
-          </span><span class="cap-first">
-            {{ etapeTypeNom }}
+            {{ context.title }}
           </span>
         </h5>
         <h2 class="cap-first mb-0">
@@ -41,6 +33,51 @@
         </select>
       </div>
     </div>
+    <hr>
+
+
+
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Date</h6>
+      </div>
+      <div class="tablet-blob-2-3">
+        <input
+          v-model="document.date"
+          type="date"
+          class="p-s mb"
+          placeholder="aaaa-mm-jj"
+        >
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3">
+        <h6>Visibilité</h6>
+      </div>
+      <div class="tablet-blob-2-3">
+        <ul class="list-sans">
+          <li
+            v-for="(visibilite, id) in visibiliteIds"
+            :key="id"
+          >
+            <label class="h5 bold">
+              <input
+                :value="id"
+                :checked="id === visibiliteId"
+                type="radio"
+                class="mr-s"
+                @change="visibiliteUpdate(id)"
+              >
+              {{ visibilite }}
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <hr>
 
     <div class="tablet-blobs">
@@ -196,24 +233,6 @@
 
     <hr>
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <label for="document-public"><h6>Public</h6></label>
-        <p class="h6 italic mb-0">
-          Optionnel
-        </p>
-      </div>
-      <div class="mb tablet-blob-2-3 py-s">
-        <input
-          id="document-public"
-          v-model="document.public"
-          type="checkbox"
-        >
-      </div>
-    </div>
-
-    <hr>
-
     <Messages :messages="warnings" />
 
     <template slot="footer">
@@ -231,7 +250,7 @@
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
-            :disabled="!document.typeId"
+            :disabled="!document.typeId || !document.date"
             @click="save"
           >
             Enregistrer
@@ -262,20 +281,22 @@ export default {
   },
 
   props: {
-    demarcheTypeNom: { type: String, default: '' },
-    titreNom: { type: String, default: '' },
-    etapeTypeNom: { type: String, default: '' },
+    context: { type: Object, required: true },
     creation: { type: Boolean, default: false },
     document: { type: Object, default: () => ({}) }
   },
 
   data() {
     return {
-      events: {
-        saveKeyUp: true
-      },
+      events: { saveKeyUp: true },
       fichiersTypesIds: ['pdf'],
-      warnings: []
+      warnings: [],
+      visibiliteId: 'admin',
+      visibiliteIds: {
+        admin: 'Administrations uniquement',
+        entreprise: 'Administrations et entreprises titulaires',
+        public: 'Publique'
+      }
     }
   },
 
@@ -289,7 +310,7 @@ export default {
     },
 
     documentsTypes() {
-      return this.$store.state.titreDocument.metas.documentsTypes
+      return this.$store.state.document.metas.documentsTypes
     }
   },
 
@@ -304,7 +325,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('titreDocument/metasGet')
+      await this.$store.dispatch('document/metasGet')
     },
 
     fileChange({
@@ -326,9 +347,15 @@ export default {
 
     async save() {
       if (this.creation) {
-        await this.$store.dispatch('titreDocument/add', this.document)
+        await this.$store.dispatch('document/add', {
+          document: this.document,
+          context: this.context
+        })
       } else {
-        await this.$store.dispatch('titreDocument/update', this.document)
+        await this.$store.dispatch('document/update', {
+          document: this.document,
+          context: this.context
+        })
       }
     },
 
@@ -352,7 +379,14 @@ export default {
       this.warnings = []
     },
 
-    errorsRemove() {}
+    errorsRemove() {},
+
+    visibiliteUpdate(id) {
+      this.visibiliteId = id
+
+      this.document.publicLecture = id === 'public'
+      this.document.entreprisesLecture = id === 'entreprise'
+    }
   }
 }
 </script>

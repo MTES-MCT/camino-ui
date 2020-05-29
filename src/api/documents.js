@@ -1,7 +1,6 @@
 import gql from 'graphql-tag'
 import { apiMutate, apiQuery } from './_utils'
-
-import { fragmentTitre } from './fragments/titre'
+import { fragmentDocument } from './fragments/documents'
 
 const metasDocument = apiQuery(
   gql`
@@ -18,31 +17,27 @@ const metasDocument = apiQuery(
 const documentCreer = apiMutate(gql`
   mutation DocumentCreer($document: InputDocumentCreation!) {
     documentCreer(document: $document) {
-      ...titre
+      ...document
     }
   }
 
-  ${fragmentTitre}
+  ${fragmentDocument}
 `)
 
 const documentModifier = apiMutate(gql`
   mutation DocumentModifier($document: InputDocumentModification!) {
     documentModifier(document: $document) {
-      ...titre
+      ...document
     }
   }
 
-  ${fragmentTitre}
+  ${fragmentDocument}
 `)
 
 const documentSupprimer = apiMutate(gql`
   mutation DocumentSupprimer($id: ID!) {
-    documentSupprimer(id: $id) {
-      ...titre
-    }
+    documentSupprimer(id: $id)
   }
-
-  ${fragmentTitre}
 `)
 
 export { metasDocument, documentCreer, documentModifier, documentSupprimer }

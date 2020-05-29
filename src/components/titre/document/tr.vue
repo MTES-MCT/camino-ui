@@ -65,10 +65,8 @@ export default {
 
   props: {
     document: { type: Object, default: () => {} },
-    titreNom: { type: String, default: '' },
-    demarcheTypeNom: { type: String, default: '' },
-    etapeTypeNom: { type: String, default: '' },
-    etapeId: { type: String, default: '' }
+    etapeId: { type: String, default: '' },
+    context: { type: Object, required: true }
   },
 
   methods: {
@@ -90,9 +88,7 @@ export default {
         component: DocumentEditPopup,
         props: {
           document,
-          demarcheTypeNom: this.demarcheTypeNom,
-          titreNom: this.titreNom,
-          etapeTypeNom: this.etapeTypeNom
+          context: this.context
         }
       })
     },
@@ -102,9 +98,7 @@ export default {
         component: DocumentRemovePopup,
         props: {
           document: this.document,
-          demarcheTypeNom: this.demarcheTypeNom,
-          titreNom: this.titreNom,
-          etapeTypeNom: this.etapeTypeNom
+          context: this.context
         }
       })
     }

@@ -10,9 +10,7 @@ import DocumentEditPopup from './edit.vue'
 export default {
   props: {
     etapeId: { type: String, default: '' },
-    titreNom: { type: String, default: '' },
-    demarcheTypeNom: { type: String, default: '' },
-    etapeTypeNom: { type: String, default: '' }
+    context: { type: Object, required: true }
   },
 
   methods: {
@@ -29,9 +27,7 @@ export default {
         component: DocumentEditPopup,
         props: {
           document,
-          demarcheTypeNom: this.demarcheTypeNom,
-          titreNom: this.titreNom,
-          etapeTypeNom: this.etapeTypeNom,
+          context: this.context,
           creation: true
         }
       })

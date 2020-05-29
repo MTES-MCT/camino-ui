@@ -12,10 +12,8 @@
         v-for="document in documents"
         :key="document.id"
         :document="document"
-        :titre-nom="titreNom"
-        :demarche-type-nom="demarcheTypeNom"
-        :etape-type-nom="etapeTypeNom"
         :etape-id="etapeId"
+        :context="context"
       />
     </table>
   </div>
@@ -32,10 +30,8 @@ export default {
   props: {
     documents: { type: Array, default: () => [] },
     etapeId: { type: String, default: '' },
-    titreNom: { type: String, default: '' },
-    demarcheTypeNom: { type: String, default: '' },
-    etapeTypeNom: { type: String, default: '' },
-    nom: { type: String, default: 'Document' }
+    nom: { type: String, default: 'Document' },
+    context: { type: Object, required: true }
   }
 }
 </script>

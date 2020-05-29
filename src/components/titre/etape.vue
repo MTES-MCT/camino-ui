@@ -1,4 +1,4 @@
-<template>
+his.c<template>
   <Accordion
     :opened="opened"
     class="mb-s"
@@ -34,9 +34,7 @@
     >
       <DocumentButtonAdd
         :etape-id="etape.id"
-        :demarche-type-nom="demarcheType.nom"
-        :etape-type-nom="etape.type.nom"
-        :titre-nom="titreNom"
+        :context="documentContext"
         class="btn py-s px-m mr-line"
         @titre:eventTrack="eventTrack"
       />
@@ -80,9 +78,7 @@
         v-if="etape.documents.length"
         :etape-id="etape.id"
         :documents="etape.documents"
-        :demarche-type-nom="demarcheType.nom"
-        :etape-type-nom="etape.type.nom"
-        :titre-nom="titreNom"
+        :context="documentContext"
         class="px-m"
         @titre:eventTrack="eventTrack"
       />
@@ -91,9 +87,7 @@
         v-if="etape.justificatifs.length"
         :etape-id="etape.id"
         :documents="etape.justificatifs"
-        :demarche-type-nom="demarcheType.nom"
-        :etape-type-nom="etape.type.nom"
-        :titre-nom="titreNom"
+        :context="documentContext"
         nom="Justificatif"
         class="px-m"
         @titre:eventTrack="eventTrack"
@@ -114,6 +108,8 @@ import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
 
 import { etapeEditFormat } from './etape'
+
+const cap = string => string[0].toUpperCase() + string.slice(1)
 
 export default {
   name: 'CaminoTitreEtape',
@@ -168,8 +164,16 @@ export default {
       return this.etape.type.sections
     },
 
-    titreNom() {
-      return this.$store.state.titre.current.nom
+    documentContext() {
+      const title = `${cap(this.titre.nom)} | ${cap(
+        this.demarcheType.nom
+      )} | ${cap(this.etape.type.nom)}`
+
+      return {
+        title,
+        name: 'titre',
+        id: this.titre.id
+      }
     }
   },
 
@@ -191,7 +195,7 @@ export default {
           etape,
           domaineId: this.$store.state.titre.current.domaine.id,
           demarcheType: this.demarcheType,
-          titreNom: this.titreNom
+          titreNom: this.titre.nom
         }
       })
 
@@ -209,7 +213,7 @@ export default {
           etapeTypeNom: this.etape.type.nom,
           etapeId: this.etape.id,
           demarcheTypeNom: this.demarcheType.nom,
-          titreNom: this.titreNom,
+          titreNom: this.titre.nom,
           titreType: this.$store.state.titre.current.type.nom
         }
       })

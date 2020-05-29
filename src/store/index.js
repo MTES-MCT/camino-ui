@@ -5,7 +5,7 @@ import { saveAs } from 'file-saver'
 import titre from './titre'
 import titreDemarche from './titre-demarche'
 import titreEtape from './titre-etape'
-import titreDocument from './titre-document'
+import document from './document'
 import titres from './titres'
 import titresDemarches from './titres-demarches'
 import utilisateur from './utilisateur'
@@ -25,7 +25,7 @@ const modules = {
   titre,
   titreDemarche,
   titreEtape,
-  titreDocument,
+  document,
   titres,
   titresDemarches,
   utilisateur,
