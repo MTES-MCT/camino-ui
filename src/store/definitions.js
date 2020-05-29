@@ -10,7 +10,6 @@ export const actions = {
 
     try {
       const data = await definitions()
-      console.log('data :>> ', data)
 
       commit('set', data)
     } catch (e) {
