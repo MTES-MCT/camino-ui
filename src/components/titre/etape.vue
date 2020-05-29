@@ -86,6 +86,18 @@
         class="px-m"
         @titre:eventTrack="eventTrack"
       />
+
+      <Documents
+        v-if="etape.justificatifs.length"
+        :etape-id="etape.id"
+        :documents="etape.justificatifs"
+        :demarche-type-nom="demarcheType.nom"
+        :etape-type-nom="etape.type.nom"
+        :titre-nom="titreNom"
+        nom="Justificatif"
+        class="px-m"
+        @titre:eventTrack="eventTrack"
+      />
     </div>
   </Accordion>
 </template>

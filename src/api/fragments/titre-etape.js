@@ -43,6 +43,9 @@ const fragmentTitreEtape = gql`
     documents {
       ...document
     }
+    justificatifs {
+      ...document
+    }
     incertitudes {
       ...incertitudes
     }

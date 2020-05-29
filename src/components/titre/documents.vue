@@ -2,7 +2,7 @@
   <div class="overflow-scroll-x">
     <table>
       <tr>
-        <th>Document</th>
+        <th>{{ nom }}</th>
         <th class="full-x-">
           Description
         </th>
@@ -34,7 +34,8 @@ export default {
     etapeId: { type: String, default: '' },
     titreNom: { type: String, default: '' },
     demarcheTypeNom: { type: String, default: '' },
-    etapeTypeNom: { type: String, default: '' }
+    etapeTypeNom: { type: String, default: '' },
+    nom: { type: String, default: 'Document' }
   }
 }
 </script>

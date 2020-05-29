@@ -302,7 +302,7 @@ describe("état général de l'application", () => {
         'Content-disposition': 'attachements; filename=nom-du-fichier.pdf'
       }
     })
-    await store.dispatch('contentDownload', { section, params })
+    await store.dispatch('download', { section, params })
 
     expect(fetch).toHaveBeenCalled()
     expect(fileSaver.saveAs).toHaveBeenCalled()
@@ -322,7 +322,7 @@ describe("état général de l'application", () => {
         'Content-disposition': 'attachements; filename=nom-du-fichier.pdf'
       }
     })
-    await store.dispatch('contentDownload', { section, params })
+    await store.dispatch('download', { section, params })
 
     expect(fetch).toHaveBeenCalled()
     expect(fileSaver.saveAs).not.toHaveBeenCalled()
@@ -339,7 +339,7 @@ describe("état général de l'application", () => {
     fetch.mockResponseOnce(JSON.stringify({ data: 'truc' }), {
       status: 200
     })
-    await store.dispatch('contentDownload', { section, params })
+    await store.dispatch('download', { section, params })
 
     expect(fetch).toHaveBeenCalled()
     expect(fileSaver.saveAs).not.toHaveBeenCalled()
