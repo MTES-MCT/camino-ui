@@ -1,28 +1,30 @@
 import Vue from 'vue'
 
-import { etapeJustificatifsModifier } from '../api/titres-etapes'
-import { documents } from '../api/documents'
+import {
+  etapeJustificatifsModifier,
+  etapeEntreprises
+} from '../api/titres-etapes'
 
 export const state = {
   metas: {
-    documents: []
+    entreprises: []
   }
 }
 
 export const actions = {
-  async metasGet({ commit }, entreprisesIds) {
-    commit('loadingAdd', 'metasTitreEtapeJustificatifsGet', { root: true })
+  async metasGet({ commit }, id) {
+    commit('loadingAdd', 'metasTitreEtapeJustificatifsMetasGet', { root: true })
 
     try {
-      const data = await documents({ entreprisesIds })
-
-      console.log(data)
+      const data = await etapeEntreprises({ id })
 
       commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'metasTitreEtapeJustificatifsGet', { root: true })
+      commit('loadingRemove', 'metasTitreEtapeJustificatifsMetasGet', {
+        root: true
+      })
     }
   },
 
@@ -55,7 +57,7 @@ export const actions = {
 
 export const mutations = {
   metasSet(state, data) {
-    Vue.set(state.metas, 'documents', data)
+    Vue.set(state.metas, 'entreprises', data)
   }
 }
 

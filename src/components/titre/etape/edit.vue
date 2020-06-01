@@ -168,9 +168,7 @@ export default {
 
   data() {
     return {
-      events: {
-        saveKeyUp: true
-      }
+      events: { saveKeyUp: true }
     }
   },
 

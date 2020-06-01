@@ -13,24 +13,31 @@
       </div>
     </template>
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Type</h6>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <ul class="list-sans px-m">
-          <li
-            v-for="document in documents"
-            :key="document.id"
-          >
-            <label>
-              <input
-                type="checkbox"
-                class="mr-s"
-              > {{ document.type }} : {{ document.description }}
-            </label>
-          </li>
-        </ul>
+    <div
+      v-for="entreprise in entreprises"
+      :key="entreprise.id"
+    >
+      <h4>{{ entreprise.nom }}</h4>
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Documents</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          {{ entreprise.documents }}
+          <ul class="list-sans px-m">
+            <li
+              v-for="document in entreprise.documents"
+              :key="document.id"
+            >
+              <label>
+                <input
+                  type="checkbox"
+                  class="mr-s"
+                > {{ document.type }} : {{ document.description }}
+              </label>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <hr>
@@ -84,15 +91,12 @@ export default {
   props: {
     context: { type: Object, required: true },
     id: { type: String, required: true },
-    documentsIds: { type: Array, required: true },
-    entreprisesIds: { type: Array, required: true }
+    documentsIds: { type: Array, required: true }
   },
 
   data() {
     return {
-      events: { saveKeyUp: true },
-      warnings: [],
-      documentsIdsNew: []
+      warnings: []
     }
   },
 
@@ -105,8 +109,8 @@ export default {
       return this.$store.state.popup.messages
     },
 
-    documents() {
-      return this.$store.state.titreEtapeJustificatifs.metas.documents
+    entreprises() {
+      return this.$store.state.titreEtapeJustificatifs.metas.entreprises
     }
   },
 
@@ -121,10 +125,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch(
-        'titreEtapeJustificatifs/metasGet',
-        this.entreprisesIds
-      )
+      await this.$store.dispatch('titreEtapeJustificatifs/metasGet', this.id)
     },
 
     async save() {
@@ -142,7 +143,7 @@ export default {
     keyUp(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
-      } else if ((e.which || e.keyCode) === 13 && this.events.saveKeyUp) {
+      } else if ((e.which || e.keyCode) === 13) {
         this.save()
       }
     },

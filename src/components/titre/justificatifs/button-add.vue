@@ -1,18 +1,17 @@
 <template>
   <button @click="addPopupOpen">
-    <i class="icon-24 icon-file-plus flex-right" />
+    <i class="icon-24 icon-file-plus" />
   </button>
 </template>
 
 <script>
-import JustificatifsEditPopup from './edit.vue'
+import JustificatifsEditPopup from './edit-popup.vue'
 
 export default {
   props: {
     id: { type: String, required: true },
     context: { type: Object, required: true },
-    documentsIds: { type: Array, required: true },
-    entreprisesIds: { type: Array, required: true }
+    documentsIds: { type: Array, required: true }
   },
 
   methods: {
@@ -22,8 +21,7 @@ export default {
         props: {
           id: this.id,
           context: this.context,
-          documentsIds: this.documentsIds,
-          entreprisesIds: this.entreprisesIds
+          documentsIds: this.documentsIds
         }
       })
     }

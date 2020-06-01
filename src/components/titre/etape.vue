@@ -36,7 +36,6 @@ his.c<template>
         :id="etape.id"
         :context="documentContext"
         :documents-ids="etape.justificatifs.map(j => j.id)"
-        :entreprises-ids="titre.titulaires.map(t => t.id)"
         class="btn py-s px-m mr-line"
         @titre:eventTrack="eventTrack"
       />
@@ -107,14 +106,14 @@ his.c<template>
 <script>
 import Accordion from '../_ui/accordion.vue'
 import Tag from '../_ui/tag.vue'
-import Documents from './documents.vue'
-import EditPopup from './etape/edit.vue'
-import RemovePopup from './etape/remove.vue'
-import DocumentButtonAdd from './document/button-add.vue'
-import JustificatifsButtonAdd from './justificatifs/button-add.vue'
-import EtapeProps from './etape/props.vue'
 import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
+import EditPopup from './etape/edit.vue'
+import RemovePopup from './etape/remove.vue'
+import DocumentButtonAdd from '../document/button-add.vue'
+import JustificatifsButtonAdd from './justificatifs/button-add.vue'
+import EtapeProps from './etape/props.vue'
+import Documents from '../documents/list.vue'
 
 import { etapeEditFormat } from './etape'
 

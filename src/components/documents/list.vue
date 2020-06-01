@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import DocumentTr from './document/tr.vue'
+import DocumentTr from '../document/tr.vue'
 
 export default {
   components: {

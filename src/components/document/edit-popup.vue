@@ -269,8 +269,8 @@
 </template>
 
 <script>
-import Popup from '../../_ui/popup.vue'
-import Messages from '../../_ui/messages.vue'
+import Popup from '../_ui/popup.vue'
+import Messages from '../_ui/messages.vue'
 
 export default {
   name: 'CaminoEtapeEditPopup',
@@ -288,7 +288,6 @@ export default {
 
   data() {
     return {
-      events: { saveKeyUp: true },
       fichiersTypesIds: ['pdf'],
       warnings: [],
       visibiliteId: 'admin',
@@ -367,7 +366,7 @@ export default {
     keyUp(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
-      } else if ((e.which || e.keyCode) === 13 && this.events.saveKeyUp) {
+      } else if ((e.which || e.keyCode) === 13) {
         this.save()
       }
     },

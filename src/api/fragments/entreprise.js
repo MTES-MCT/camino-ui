@@ -2,6 +2,7 @@ import gql from 'graphql-tag'
 
 import { fragmentTitres } from './titre'
 import { fragmentUtilisateur } from './utilisateur'
+import { fragmentDocument } from './documents'
 
 const fragmentEntreprise = gql`
   fragment entreprise on Entreprise {
@@ -35,11 +36,16 @@ const fragmentEntreprise = gql`
       ...titres
     }
 
+    documents {
+      ...document
+    }
+
     modification
   }
 
   ${fragmentTitres}
   ${fragmentUtilisateur}
+  ${fragmentDocument}
 `
 
 export { fragmentEntreprise }

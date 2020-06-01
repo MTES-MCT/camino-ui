@@ -5,6 +5,7 @@ import { fragmentTitre } from './fragments/titre'
 import { fragmentEtapeType, fragmentUnite } from './fragments/metas'
 import { fragmentSubstance } from './fragments/substance'
 import { fragmentEntreprises } from './fragments/entreprises'
+import { fragmentEntreprise } from './fragments/entreprise'
 
 const metasTitreEtape = apiQuery(
   gql`
@@ -83,6 +84,18 @@ const etapeSupprimer = apiMutate(gql`
   ${fragmentTitre}
 `)
 
+const etapeEntreprises = apiQuery(
+  gql`
+    query EtapeEntreprises($id: ID!) {
+      etapeEntreprises(id: $id) {
+        ...entreprise
+      }
+    }
+
+    ${fragmentEntreprise}
+  `
+)
+
 const etapeJustificatifsModifier = apiMutate(gql`
   mutation EtapeJustificatifsModifier($id: ID!, $documentsIds: [ID]!) {
     etapeJustificatifsModifier(id: $id, documentsIds: $documentsIds) {
@@ -98,5 +111,6 @@ export {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
-  etapeJustificatifsModifier
+  etapeJustificatifsModifier,
+  etapeEntreprises
 }

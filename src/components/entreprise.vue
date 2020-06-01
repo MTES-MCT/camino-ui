@@ -163,6 +163,7 @@
       <h3>Utilisateurs</h3>
       <div class="line" />
       <Table
+        class="width-max"
         :columns="utilisateursColonnes"
         :rows="utilisateursLignes"
         :utilisateurs="utilisateurs"

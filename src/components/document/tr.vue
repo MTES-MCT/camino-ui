@@ -53,10 +53,10 @@
 </template>
 
 <script>
-import { jsonTypenameOmit } from '../../../utils/index'
-import Tag from '../../_ui/tag.vue'
-import DocumentEditPopup from './edit.vue'
-import DocumentRemovePopup from './remove.vue'
+import { jsonTypenameOmit } from '../../utils/index'
+import Tag from '../_ui/tag.vue'
+import DocumentEditPopup from './edit-popup.vue'
+import DocumentRemovePopup from './remove-popup.vue'
 
 export default {
   components: {

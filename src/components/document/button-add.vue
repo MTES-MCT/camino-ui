@@ -1,11 +1,11 @@
 <template>
   <button @click="addPopupOpen">
-    <i class="icon-24 icon-file-plus flex-right" />
+    <i class="icon-24 icon-file-plus" />
   </button>
 </template>
 
 <script>
-import DocumentEditPopup from './edit.vue'
+import DocumentEditPopup from './edit-popup.vue'
 
 export default {
   props: {
