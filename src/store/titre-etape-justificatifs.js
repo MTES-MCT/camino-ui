@@ -13,10 +13,11 @@ export const state = {
 
 export const actions = {
   async metasGet({ commit }, id) {
+    console.log('metasGet')
     commit('loadingAdd', 'metasTitreEtapeJustificatifsMetasGet', { root: true })
 
     try {
-      const data = await etapeEntreprises({ id })
+      const data = await etapeEntreprises({ etapeId: id })
 
       commit('metasSet', data)
     } catch (e) {
@@ -57,7 +58,7 @@ export const actions = {
 
 export const mutations = {
   metasSet(state, data) {
-    Vue.set(state.metas, 'entreprises', data)
+    Vue.set(state.metas, 'entreprises', data.elements)
   }
 }
 

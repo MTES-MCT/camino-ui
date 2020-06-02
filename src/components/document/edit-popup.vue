@@ -4,7 +4,7 @@
       <div>
         <h5>
           <span class="cap-first">
-            {{ context.title }}
+            {{ title }}
           </span>
         </h5>
         <h2 class="cap-first mb-0">
@@ -273,7 +273,7 @@ import Popup from '../_ui/popup.vue'
 import Messages from '../_ui/messages.vue'
 
 export default {
-  name: 'CaminoEtapeEditPopup',
+  name: 'CaminoDocumentEditPopup',
 
   components: {
     Popup,
@@ -281,9 +281,11 @@ export default {
   },
 
   props: {
+    title: { type: String, default: '' },
     context: { type: Object, required: true },
     creation: { type: Boolean, default: false },
-    document: { type: Object, default: () => ({}) }
+    document: { type: Object, required: true },
+    repertoire: { type: String, required: true }
   },
 
   data() {
@@ -294,7 +296,7 @@ export default {
       visibiliteIds: {
         admin: 'Administrations uniquement',
         entreprise: 'Administrations et entreprises titulaires',
-        public: 'Publique'
+        public: 'Public'
       }
     }
   },
@@ -324,7 +326,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('document/metasGet')
+      await this.$store.dispatch('document/metasGet', this.repertoire)
     },
 
     fileChange({

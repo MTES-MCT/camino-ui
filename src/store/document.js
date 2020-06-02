@@ -14,11 +14,11 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit }) {
+  async metasGet({ commit }, repertoire) {
     commit('loadingAdd', 'metasDocumentGet', { root: true })
 
     try {
-      const data = await metasDocument()
+      const data = await metasDocument({ repertoire })
 
       commit('metasSet', { documentsTypes: data })
     } catch (e) {

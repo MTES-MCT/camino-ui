@@ -86,9 +86,12 @@ const etapeSupprimer = apiMutate(gql`
 
 const etapeEntreprises = apiQuery(
   gql`
-    query EtapeEntreprises($id: ID!) {
-      etapeEntreprises(id: $id) {
-        ...entreprise
+    query EtapeEntreprises($etapeId: ID!) {
+      entreprises(etapeId: $etapeId) {
+        elements {
+          ...entreprise
+        }
+        total
       }
     }
 

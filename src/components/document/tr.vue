@@ -65,8 +65,10 @@ export default {
 
   props: {
     document: { type: Object, default: () => {} },
-    etapeId: { type: String, default: '' },
-    context: { type: Object, required: true }
+    elementId: { type: String, default: '' },
+    context: { type: Object, required: true },
+    title: { type: String, default: '' },
+    repertoire: { type: String, required: true }
   },
 
   methods: {
@@ -76,7 +78,12 @@ export default {
 
     editPopupOpen() {
       const document = jsonTypenameOmit(this.document)
-      document.titreEtapeId = this.etapeId
+      if (this.repertoire === 'etapes') {
+        document.titreEtapeId = this.elementId
+      } else if (this.repertoire === 'entreprises') {
+        document.entrepriseId = this.elementId
+      }
+
       document.typeId = document.type.id
       document.fichierNouveau = null
 
@@ -87,8 +94,10 @@ export default {
       this.$store.commit('popupOpen', {
         component: DocumentEditPopup,
         props: {
+          title: this.title,
           document,
-          context: this.context
+          context: this.context,
+          repertoire: this.repertoire
         }
       })
     },

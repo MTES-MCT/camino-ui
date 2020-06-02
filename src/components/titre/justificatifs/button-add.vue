@@ -11,7 +11,8 @@ export default {
   props: {
     id: { type: String, required: true },
     context: { type: Object, required: true },
-    documentsIds: { type: Array, required: true }
+    title: { type: String, default: '' },
+    documents: { type: Object, required: true }
   },
 
   methods: {
@@ -21,7 +22,8 @@ export default {
         props: {
           id: this.id,
           context: this.context,
-          documentsIds: this.documentsIds
+          documents: this.documents,
+          title: this.title
         }
       })
     }

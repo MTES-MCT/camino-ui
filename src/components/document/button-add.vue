@@ -9,26 +9,22 @@ import DocumentEditPopup from './edit-popup.vue'
 
 export default {
   props: {
-    etapeId: { type: String, default: '' },
-    context: { type: Object, required: true }
+    document: { type: Object, required: true },
+    title: { type: String, default: '' },
+    context: { type: Object, required: true },
+    repertoire: { type: String, required: true }
   },
 
   methods: {
     addPopupOpen() {
-      const document = {
-        titreEtapeId: this.etapeId,
-        typeId: '',
-        fichier: null,
-        fichierNouveau: null,
-        fichierTypeId: null
-      }
-
       this.$store.commit('popupOpen', {
         component: DocumentEditPopup,
         props: {
-          document,
+          title: this.title,
+          document: this.document,
           context: this.context,
-          creation: true
+          creation: true,
+          repertoire: this.repertoire
         }
       })
 

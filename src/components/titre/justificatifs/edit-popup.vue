@@ -4,7 +4,7 @@
       <div>
         <h5>
           <span class="cap-first">
-            {{ context.title }}
+            {{ title }}
           </span>
         </h5>
         <h2 class="cap-first mb-0">
@@ -18,12 +18,12 @@
       :key="entreprise.id"
     >
       <h4>{{ entreprise.nom }}</h4>
+
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Documents</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          {{ entreprise.documents }}
           <ul class="list-sans px-m">
             <li
               v-for="document in entreprise.documents"
@@ -31,9 +31,11 @@
             >
               <label>
                 <input
+                  v-model="documents.ids"
                   type="checkbox"
                   class="mr-s"
-                > {{ document.type }} : {{ document.description }}
+                  :value="document.id"
+                >{{ document.type.nom }}{{ document.description ? ` : ${document.description}` : '' }}
               </label>
             </li>
           </ul>
@@ -91,7 +93,8 @@ export default {
   props: {
     context: { type: Object, required: true },
     id: { type: String, required: true },
-    documentsIds: { type: Array, required: true }
+    title: { type: String, default: '' },
+    documents: { type: Object, required: true }
   },
 
   data() {
@@ -131,7 +134,8 @@ export default {
     async save() {
       await this.$store.dispatch('titreEtapeJustificatifs/update', {
         id: this.id,
-        documentsIds: ['2019-09-25-kbi-7e9dcaa9']
+        documentsIds: this.documents.ids,
+        context: this.context
       })
     },
 

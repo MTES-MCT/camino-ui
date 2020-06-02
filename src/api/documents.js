@@ -4,8 +4,8 @@ import { fragmentDocument } from './fragments/documents'
 
 const metasDocument = apiQuery(
   gql`
-    query MetasDocument {
-      documentsTypes {
+    query MetasDocument($repertoire: String) {
+      documentsTypes(repertoire: $repertoire) {
         id
         nom
       }

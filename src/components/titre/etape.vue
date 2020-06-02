@@ -35,13 +35,16 @@ his.c<template>
       <JustificatifsButtonAdd
         :id="etape.id"
         :context="documentContext"
-        :documents-ids="etape.justificatifs.map(j => j.id)"
+        :title="documentPopupTitle"
+        :documents="{ids: etape.justificatifs.map(j => j.id) }"
         class="btn py-s px-m mr-line"
         @titre:eventTrack="eventTrack"
       />
       <DocumentButtonAdd
-        :etape-id="etape.id"
+        :document="documentNew"
+        :title="documentPopupTitle"
         :context="documentContext"
+        :repertoire="documentRepertoire"
         class="btn py-s px-m mr-line"
         @titre:eventTrack="eventTrack"
       />
@@ -83,18 +86,22 @@ his.c<template>
 
       <Documents
         v-if="etape.documents.length"
-        :etape-id="etape.id"
+        :element-id="etape.id"
         :documents="etape.documents"
         :context="documentContext"
+        :repertoire="documentRepertoire"
+        :title="documentPopupTitle"
         class="px-m"
         @titre:eventTrack="eventTrack"
       />
 
       <Documents
         v-if="etape.justificatifs.length"
-        :etape-id="etape.id"
+        :element-id="etape.id"
         :documents="etape.justificatifs"
         :context="documentContext"
+        :repertoire="documentRepertoire"
+        :title="documentPopupTitle"
         nom="Justificatif"
         class="px-m"
         @titre:eventTrack="eventTrack"
@@ -141,7 +148,8 @@ export default {
 
   data() {
     return {
-      opened: false
+      opened: false,
+      documentRepertoire: 'etapes'
     }
   },
 
@@ -174,14 +182,25 @@ export default {
     },
 
     documentContext() {
-      const title = `${cap(this.titre.nom)} | ${cap(
-        this.demarcheType.nom
-      )} | ${cap(this.etape.type.nom)}`
-
       return {
-        title,
         name: 'titre',
         id: this.titre.id
+      }
+    },
+
+    documentPopupTitle() {
+      return `${cap(this.titre.nom)} | ${cap(this.demarcheType.nom)} | ${cap(
+        this.etape.type.nom
+      )}`
+    },
+
+    documentNew() {
+      return {
+        titreEtapeId: this.etape.id,
+        typeId: '',
+        fichier: null,
+        fichierNouveau: null,
+        fichierTypeId: null
       }
     }
   },

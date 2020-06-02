@@ -21,6 +21,7 @@ const entreprises = apiQuery(gql`
     $colonne: String
     $ordre: String
     $noms: String
+    $etapeId: String
   ) {
     entreprises(
       intervalle: $intervalle
@@ -28,6 +29,7 @@ const entreprises = apiQuery(gql`
       colonne: $colonne
       ordre: $ordre
       noms: $noms
+      etapeId: $etapeId
     ) {
       elements {
         ...entreprises
