@@ -47,13 +47,13 @@ const activites = apiQuery(
       $colonne: String
       $ordre: String
       $typesIds: [ID]
+      $statutsIds: [ID]
       $annees: [Int]
       $titresNoms: String
       $titresEntreprises: String
       $titresSubstances: String
       $titresReferences: String
       $titresTerritoires: String
-      $statutsIds: [ID]
     ) {
       activites(
         intervalle: $intervalle
@@ -61,13 +61,13 @@ const activites = apiQuery(
         colonne: $colonne
         ordre: $ordre
         typesIds: $typesIds
+        statutsIds: $statutsIds
         annees: $annees
         titresNoms: $titresNoms
         titresEntreprises: $titresEntreprises
         titresSubstances: $titresSubstances
         titresReferences: $titresReferences
         titresTerritoires: $titresTerritoires
-        statutsIds: $statutsIds
       ) {
         elements {
           ...activites

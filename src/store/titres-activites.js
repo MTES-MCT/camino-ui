@@ -13,8 +13,8 @@ export const state = {
   },
   params: [
     { id: 'typesIds', type: 'strings', elements: [] },
-    { id: 'annees', type: 'numbers', elements: [] },
     { id: 'statutsIds', type: 'strings', elements: [] },
+    { id: 'annees', type: 'numbers', elements: [] },
     { id: 'titresNoms', type: 'string' },
     { id: 'titresEntreprises', type: 'string' },
     { id: 'titresSubstances', type: 'string' },
@@ -42,8 +42,8 @@ export const state = {
     },
     filtres: {
       typesIds: [],
-      annees: [],
       statutsIds: [],
+      annees: [],
       titresNoms: '',
       titresEntreprises: '',
       titresSubstances: '',
@@ -118,12 +118,12 @@ export const mutations = {
       if (id === 'activitesTypes') {
         metaId = 'types'
         paramsIds = ['typesIds']
-      } else if (id === 'activitesAnnees') {
-        metaId = 'annees'
-        paramsIds = ['annees']
       } else if (id === 'activitesStatuts') {
         metaId = 'statuts'
         paramsIds = ['statutsIds']
+      } else if (id === 'activitesAnnees') {
+        metaId = 'annees'
+        paramsIds = ['annees']
       }
 
       if (metaId) {
