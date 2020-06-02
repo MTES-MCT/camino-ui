@@ -239,14 +239,15 @@ export default {
       if (this.$matomo) {
         if (params) {
           const events = this.params.reduce((events, { type, id }) => {
+            let values = []
             if (type === 'string' && params[id]) {
-              events.push({ id, value: params[id] })
+              values = params[id].split(' ').map(p => p.replace("'", ' '))
             } else if (type === 'strings' && params[id]) {
-              const values = params[id]
-              values.forEach(value => {
-                events.push({ id, value })
-              })
+              values = params[id]
             }
+            values.forEach(value => {
+              events.push({ id, value })
+            })
 
             return events
           }, [])
@@ -257,12 +258,7 @@ export default {
               `titres-filtres-${id}`,
               value
             )
-          })
-
-          Object.keys(params).forEach(id => {
-            if (params[id] && params[id].length !== 0) {
-              this.$matomo.trackSiteSearch(JSON.stringify(params[id]), id)
-            }
+            this.$matomo.trackSiteSearch(value, id)
           })
         } else {
           this.$matomo.trackEvent('titres', 'filtres', 'filtres-titres')
