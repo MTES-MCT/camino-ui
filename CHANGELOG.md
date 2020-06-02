@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.34](https://github.com/MTES-MCT/camino-ui/compare/v0.22.33...v0.22.34) (2020-06-02)
+
+
+### Bug Fixes
+
+* **matomo:** corrige le tracking des recherches ([#116](https://github.com/MTES-MCT/camino-ui/issues/116)) ([40d020b](https://github.com/MTES-MCT/camino-ui/commit/40d020b8dd8645f8088fc59a6c42006d5084a674))
+* affiche une erreur si un utilisateur déconnecté visite les pages `activités` et `utilisateurs` ([168333b](https://github.com/MTES-MCT/camino-ui/commit/168333b4472dd4a074b47acc816a0f4484157156))
+
 ### [0.22.33](https://github.com/MTES-MCT/camino-ui/compare/v0.22.32...v0.22.33) (2020-05-20)
 
 
