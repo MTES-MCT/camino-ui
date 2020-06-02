@@ -19,8 +19,7 @@ const definitions = apiQuery(
         }
       }
     }
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
 export { definitions }
