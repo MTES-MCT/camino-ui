@@ -8,41 +8,14 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          Ajout de justificatifs
+          Dissociation du justificatif
         </h2>
       </div>
     </template>
 
-    <div
-      v-for="entreprise in entreprises"
-      :key="entreprise.id"
-    >
-      <h4>{{ entreprise.nom }}</h4>
-
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Documents</h6>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <ul class="list-sans px-m">
-            <li
-              v-for="document in entreprise.documents"
-              :key="document.id"
-            >
-              <label>
-                <input
-                  v-model="documents.ids"
-                  type="checkbox"
-                  class="mr-s"
-                  :value="document.id"
-                >{{ document.type.nom }}{{ document.description ? ` : ${document.description}` : '' }}
-              </label>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <hr>
+    <p class="bold">
+      Souhaitez vous dissocier le justificatif <span class="color-inverse">{{ document.type.nom }}</span> de <span class="color-inverse">{{ title }}</span> ?
+    </p>
 
     <Messages :messages="warnings" />
 
@@ -63,7 +36,7 @@
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
           >
-            Enregistrer
+            Dissocier
           </button>
 
           <div
@@ -79,11 +52,11 @@
 </template>
 
 <script>
-import Popup from '../../_ui/popup.vue'
-import Messages from '../../_ui/messages.vue'
+import Popup from '../_ui/popup.vue'
+import Messages from '../_ui/messages.vue'
 
 export default {
-  name: 'CaminoEtapeJustificatifsPopup',
+  name: 'CaminoEtapeJustificatifUnlinkPopup',
 
   components: {
     Popup,
@@ -92,9 +65,9 @@ export default {
 
   props: {
     context: { type: Object, required: true },
-    id: { type: String, required: true },
     title: { type: String, default: '' },
-    documents: { type: Object, required: true }
+    id: { type: String, required: true },
+    document: { type: Object, required: true }
   },
 
   data() {
@@ -110,15 +83,10 @@ export default {
 
     messages() {
       return this.$store.state.popup.messages
-    },
-
-    entreprises() {
-      return this.$store.state.titreEtapeJustificatifs.metas.entreprises
     }
   },
 
   created() {
-    this.get()
     document.addEventListener('keyup', this.keyUp)
   },
 
@@ -127,20 +95,15 @@ export default {
   },
 
   methods: {
-    async get() {
-      await this.$store.dispatch('titreEtapeJustificatifs/metasGet', this.id)
-    },
-
     async save() {
-      await this.$store.dispatch('titreEtapeJustificatifs/update', {
+      await this.$store.dispatch('titreEtapeJustificatifs/unlink', {
         id: this.id,
-        documentsIds: this.documents.ids,
+        documentId: this.document.id,
         context: this.context
       })
     },
 
     cancel() {
-      this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
@@ -150,22 +113,6 @@ export default {
       } else if ((e.which || e.keyCode) === 13) {
         this.save()
       }
-    },
-
-    fileRemove() {
-      this.document.fichier = null
-      this.document.fichierNouveau = null
-      this.document.fichierTypeId = null
-      this.warnings = []
-    },
-
-    errorsRemove() {},
-
-    visibiliteUpdate(id) {
-      this.visibiliteId = id
-
-      this.document.publicLecture = id === 'public'
-      this.document.entreprisesLecture = id === 'entreprise'
     }
   }
 }

@@ -4,7 +4,7 @@
       <div>
         <h5>
           <span class="cap-first">
-            {{ context.title }}
+            {{ title }}
           </span>
         </h5>
         <h2 class="cap-first mb-0">
@@ -14,7 +14,7 @@
     </template>
 
     <p class="bold">
-      Souhaitez vous supprimer le document <span class="color-inverse">{{ document.type.nom }}</span> de <span class="color-inverse">{{ context.title }}</span> ?
+      Souhaitez vous supprimer le document <span class="color-inverse">{{ document.type.nom }}</span> de <span class="color-inverse">{{ title }}</span> ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
       <span class="bold">
@@ -64,6 +64,7 @@ export default {
   },
 
   props: {
+    title: { type: String, default: '' },
     context: { type: Object, required: true },
     document: { type: Object, default: () => ({}) }
   },
@@ -95,7 +96,6 @@ export default {
     },
 
     cancel() {
-      this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
@@ -105,9 +105,7 @@ export default {
       } else if ((e.which || e.keyCode) === 13) {
         this.remove()
       }
-    },
-
-    errorsRemove() {}
+    }
   }
 }
 </script>

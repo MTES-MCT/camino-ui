@@ -104,6 +104,9 @@ his.c<template>
         :title="documentPopupTitle"
         nom="Justificatif"
         class="px-m"
+        :bouton-suppression="false"
+        :bouton-modification="false"
+        :bouton-delier="true"
         @titre:eventTrack="eventTrack"
       />
     </div>
@@ -118,7 +121,7 @@ import Statut from '../_common/statut.vue'
 import EditPopup from './etape/edit.vue'
 import RemovePopup from './etape/remove.vue'
 import DocumentButtonAdd from '../document/button-add.vue'
-import JustificatifsButtonAdd from './justificatifs/button-add.vue'
+import JustificatifsButtonAdd from '../justificatifs/button-add.vue'
 import EtapeProps from './etape/props.vue'
 import Documents from '../documents/list.vue'
 

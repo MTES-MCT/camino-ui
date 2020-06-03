@@ -4,7 +4,7 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/titres-etapes', () => ({
-  etapeJustificatifsModifier: jest.fn(),
+  etapeJustificatifsAssocier: jest.fn(),
   etapeEntreprises: jest.fn()
 }))
 
@@ -94,7 +94,7 @@ describe('justificatifs', () => {
   })
 
   test('lie des justificatifs avec une étape', async () => {
-    api.etapeJustificatifsModifier.mockResolvedValue({
+    api.etapeJustificatifsAssocier.mockResolvedValue({
       id: 'titre-id',
       nom: 'Nom du titre'
     })
@@ -108,7 +108,7 @@ describe('justificatifs', () => {
   })
 
   test("retourne une erreur si l'API retourne une null lors de la liaison d'un justificatif", async () => {
-    api.etapeJustificatifsModifier.mockResolvedValue(null)
+    api.etapeJustificatifsAssocier.mockResolvedValue(null)
     await store.dispatch('titreEtapeJustificatifs/update', {
       id: 'etape-id',
       documentsIds: ['document-id-01'],
@@ -119,7 +119,7 @@ describe('justificatifs', () => {
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la liaison d'un justificatif", async () => {
-    api.etapeJustificatifsModifier.mockRejectedValue(new Error('erreur api'))
+    api.etapeJustificatifsAssocier.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('titreEtapeJustificatifs/update', {
       id: 'etape-id',
       documentsIds: ['document-id-01'],

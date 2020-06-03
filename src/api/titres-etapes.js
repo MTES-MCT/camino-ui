@@ -99,9 +99,19 @@ const etapeEntreprises = apiQuery(
   `
 )
 
-const etapeJustificatifsModifier = apiMutate(gql`
-  mutation EtapeJustificatifsModifier($id: ID!, $documentsIds: [ID]!) {
-    etapeJustificatifsModifier(id: $id, documentsIds: $documentsIds) {
+const etapeJustificatifsAssocier = apiMutate(gql`
+  mutation etapeJustificatifsAssocier($id: ID!, $documentsIds: [ID]!) {
+    etapeJustificatifsAssocier(id: $id, documentsIds: $documentsIds) {
+      ...titre
+    }
+  }
+
+  ${fragmentTitre}
+`)
+
+const etapeJustificatifDissocier = apiMutate(gql`
+  mutation etapeJustificatifDissocier($id: ID!, $documentId: ID) {
+    etapeJustificatifDissocier(id: $id, documentId: $documentId) {
       ...titre
     }
   }
@@ -114,6 +124,7 @@ export {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
-  etapeJustificatifsModifier,
+  etapeJustificatifsAssocier,
+  etapeJustificatifDissocier,
   etapeEntreprises
 }

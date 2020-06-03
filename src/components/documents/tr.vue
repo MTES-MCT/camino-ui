@@ -11,17 +11,27 @@
         Public
       </Tag>
     </td>
+    <td class="nowrap">
+      {{ document.date }}
+    </td>
     <td>{{ document.description || '–' }}</td>
     <td class="flex text-right">
       <button
-        v-if="document.modification"
+        v-if="boutonDelier"
+        class="btn rnd-l-xs py-s px-m my--xs mr-line"
+        @click="unlinkPopupOpen"
+      >
+        <i class="icon-24 icon-pencil" />
+      </button>
+      <button
+        v-if="document.modification && boutonModification"
         class="btn rnd-l-xs py-s px-m my--xs mr-line"
         @click="editPopupOpen"
       >
         <i class="icon-24 icon-pencil" />
       </button>
       <button
-        v-if="document.suppression"
+        v-if="document.suppression && boutonSuppression"
         class="btn py-s px-m my--xs"
         :class="{ 'rnd-r-xs': !document.url && !document.fichier }"
         @click="removePopupOpen"
@@ -55,8 +65,9 @@
 <script>
 import { jsonTypenameOmit } from '../../utils/index'
 import Tag from '../_ui/tag.vue'
-import DocumentEditPopup from './edit-popup.vue'
-import DocumentRemovePopup from './remove-popup.vue'
+import DocumentEditPopup from '../document/edit-popup.vue'
+import DocumentRemovePopup from '../document/remove-popup.vue'
+import JustificatifUnlinkPopup from '../justificatifs/unlink-popup.vue'
 
 export default {
   components: {
@@ -68,7 +79,10 @@ export default {
     elementId: { type: String, default: '' },
     context: { type: Object, required: true },
     title: { type: String, default: '' },
-    repertoire: { type: String, required: true }
+    repertoire: { type: String, required: true },
+    boutonSuppression: { type: Boolean, default: true },
+    boutonModification: { type: Boolean, default: true },
+    boutonDelier: { type: Boolean, default: false }
   },
 
   methods: {
@@ -95,8 +109,8 @@ export default {
         component: DocumentEditPopup,
         props: {
           title: this.title,
-          document,
           context: this.context,
+          document,
           repertoire: this.repertoire
         }
       })
@@ -106,6 +120,19 @@ export default {
       this.$store.commit('popupOpen', {
         component: DocumentRemovePopup,
         props: {
+          title: this.title,
+          document: this.document,
+          context: this.context
+        }
+      })
+    },
+
+    unlinkPopupOpen() {
+      this.$store.commit('popupOpen', {
+        component: JustificatifUnlinkPopup,
+        props: {
+          id: this.elementId,
+          title: this.title,
           document: this.document,
           context: this.context
         }

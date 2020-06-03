@@ -1,8 +1,9 @@
 import Vue from 'vue'
 
 import {
-  etapeJustificatifsModifier,
-  etapeEntreprises
+  etapeJustificatifsAssocier,
+  etapeEntreprises,
+  etapeJustificatifDissocier
 } from '../api/titres-etapes'
 
 export const state = {
@@ -34,7 +35,7 @@ export const actions = {
     commit('loadingAdd', 'titreEtapeJustificatifsUpdate', { root: true })
 
     try {
-      const data = await etapeJustificatifsModifier({ id, documentsIds })
+      const data = await etapeJustificatifsAssocier({ id, documentsIds })
 
       if (data) {
         commit('popupClose', null, { root: true })
@@ -51,6 +52,32 @@ export const actions = {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeJustificatifsUpdate', { root: true })
+    }
+  },
+
+  async unlink({ commit, dispatch }, { id, documentId, context }) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
+    commit('loadingAdd', 'titreEtapeJustificatifUnlink', { root: true })
+
+    try {
+      const data = await etapeJustificatifDissocier({ id, documentId })
+
+      if (data) {
+        commit('popupClose', null, { root: true })
+        await dispatch('reload', context, { root: true })
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeJustificatifUnlink', { root: true })
     }
   }
 }
