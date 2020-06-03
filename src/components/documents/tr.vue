@@ -12,26 +12,26 @@
       </Tag>
     </td>
     <td class="nowrap">
-      {{ document.date }}
+      {{ document.date | dateFormat }}
     </td>
     <td>{{ document.description || '–' }}</td>
     <td class="flex text-right">
       <button
-        v-if="boutonDelier"
+        v-if="boutonDissociation"
         class="btn rnd-l-xs py-s px-m my--xs mr-line"
         @click="unlinkPopupOpen"
       >
         <i class="icon-24 icon-pencil" />
       </button>
       <button
-        v-if="document.modification && boutonModification"
+        v-if="boutonModification"
         class="btn rnd-l-xs py-s px-m my--xs mr-line"
         @click="editPopupOpen"
       >
         <i class="icon-24 icon-pencil" />
       </button>
       <button
-        v-if="document.suppression && boutonSuppression"
+        v-if="boutonSuppression"
         class="btn py-s px-m my--xs"
         :class="{ 'rnd-r-xs': !document.url && !document.fichier }"
         @click="removePopupOpen"
@@ -42,7 +42,7 @@
       <button
         v-if="document.fichier"
         class="btn-border py-s px-m my--xs"
-        :class="{ 'rnd-r-xs': !document.url, 'rnd-l-xs': !document.modification }"
+        :class="{ 'rnd-r-xs': !document.url, 'rnd-l-xs': !boutonModification && !boutonSuppression && !boutonDissociation }"
         @click="download"
       >
         <i class="icon-24 icon-download" />
@@ -50,7 +50,7 @@
       <a
         v-if="document.url"
         class="btn-border py-s px-m my--xs rnd-r-xs"
-        :class="{ 'rnd-l-xs': !document.modification && !document.fichier }"
+        :class="{ 'rnd-l-xs': !document.fichier && !boutonModification && !boutonSuppression && !boutonDissociation }"
         :href="document.url"
         target="_blank"
         rel="noopener noreferrer"
@@ -82,7 +82,7 @@ export default {
     repertoire: { type: String, required: true },
     boutonSuppression: { type: Boolean, default: true },
     boutonModification: { type: Boolean, default: true },
-    boutonDelier: { type: Boolean, default: false }
+    boutonDissociation: { type: Boolean, default: false }
   },
 
   methods: {

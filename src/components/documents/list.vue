@@ -19,7 +19,7 @@
         :title="title"
         :bouton-suppression="boutonSuppression"
         :bouton-modification="boutonModification"
-        :bouton-delier="boutonDelier"
+        :bouton-dissociation="boutonDissociation"
       />
     </table>
   </div>
@@ -42,7 +42,7 @@ export default {
     repertoire: { type: String, required: true },
     boutonSuppression: { type: Boolean, default: true },
     boutonModification: { type: Boolean, default: true },
-    boutonDelier: { type: Boolean, default: false }
+    boutonDissociation: { type: Boolean, default: false }
   }
 }
 </script>

@@ -93,6 +93,8 @@ his.c<template>
         :repertoire="documentRepertoire"
         :title="documentPopupTitle"
         class="px-m"
+        :bouton-suppression="etape.modification"
+        :bouton-modification="etape.modification"
         @titre:eventTrack="eventTrack"
       />
 
@@ -107,7 +109,7 @@ his.c<template>
         class="px-m"
         :bouton-suppression="false"
         :bouton-modification="false"
-        :bouton-delier="true"
+        :bouton-dissociation="true"
         @titre:eventTrack="eventTrack"
       />
     </div>

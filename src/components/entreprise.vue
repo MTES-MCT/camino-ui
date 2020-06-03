@@ -3,9 +3,7 @@
   <div v-else>
     <h6>Entreprise</h6>
     <h1>
-      {{
-        nom
-      }}
+      {{ nom }}
     </h1>
     <Accordion
       class="mb-xxl"
@@ -29,7 +27,7 @@
           class="btn py-s px-m mr-line"
         />
         <button
-          class="btn-alt py-s px-m"
+          class="btn py-s px-m"
           @click="editPopupOpen"
         >
           <i class="icon-24 icon-pencil" />
@@ -37,7 +35,7 @@
       </template>
 
       <template slot="sub">
-        <div class="px-m pt-m">
+        <div class="px-m pt-m border-b-s">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
               <h6 class="mt-xs">
@@ -157,20 +155,20 @@
             </div>
           </div>
         </div>
+
+        <Documents
+          v-if="entreprise.documents.length"
+          :element-id="entreprise.id"
+          :documents="entreprise.documents"
+          :context="{ id: entreprise.id, name: 'entreprise' }"
+          repertoire="entreprises"
+          :title="nom"
+          class="px-m"
+          :bouton-suppression="entreprise.modification"
+          :bouton-modification="entreprise.modification"
+        />
       </template>
     </Accordion>
-
-    <div>
-      <Documents
-        v-if="entreprise.documents.length"
-        :element-id="entreprise.id"
-        :documents="entreprise.documents"
-        :context="{ id: entreprise.id, name: 'entreprise' }"
-        repertoire="entreprises"
-        :title="nom"
-        class="px-m"
-      />
-    </div>
 
     <div
       v-if="utilisateurs && utilisateurs.length"

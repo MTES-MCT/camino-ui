@@ -17,9 +17,6 @@ const fragmentDocument = gql`
     nor
     publicLecture
     entreprisesLecture
-
-    modification
-    suppression
   }
 `
 
