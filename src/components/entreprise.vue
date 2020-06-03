@@ -166,7 +166,7 @@
         :element-id="entreprise.id"
         :documents="entreprise.documents"
         :context="{ id: entreprise.id, name: 'entreprise' }"
-        repertoire="entreprise"
+        repertoire="entreprises"
         :title="nom"
         class="px-m"
       />

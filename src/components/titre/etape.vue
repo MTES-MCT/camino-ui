@@ -33,6 +33,7 @@ his.c<template>
       slot="buttons"
     >
       <JustificatifsButtonAdd
+        v-if="etape.justificatifsAssociation"
         :id="etape.id"
         :context="documentContext"
         :title="documentPopupTitle"

@@ -58,6 +58,7 @@ const fragmentTitreEtape = gql`
 
     modification
     suppression
+    justificatifsAssociation
   }
 
   ${fragmentTitreAdministrations}
