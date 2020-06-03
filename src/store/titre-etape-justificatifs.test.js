@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 
 jest.mock('../api/titres-etapes', () => ({
   etapeJustificatifsAssocier: jest.fn(),
+  etapeJustificatifDissocier: jest.fn(),
   etapeEntreprises: jest.fn()
 }))
 
@@ -49,7 +50,7 @@ describe('justificatifs', () => {
     })
   })
 
-  test('récupère les métas pour lier un justificatif', async () => {
+  test('récupère les métas pour associer un justificatif', async () => {
     const apiMock = api.etapeEntreprises.mockReturnValueOnce({
       elements: [
         {
@@ -93,7 +94,7 @@ describe('justificatifs', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test('lie des justificatifs avec une étape', async () => {
+  test('associe des justificatifs avec une étape', async () => {
     api.etapeJustificatifsAssocier.mockResolvedValue({
       id: 'titre-id',
       nom: 'Nom du titre'
@@ -123,6 +124,42 @@ describe('justificatifs', () => {
     await store.dispatch('titreEtapeJustificatifs/update', {
       id: 'etape-id',
       documentsIds: ['document-id-01'],
+      context: { name: 'titres', id: 'titre-id-01' }
+    })
+
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test("dissocie un justificatif d'une étape", async () => {
+    api.etapeJustificatifDissocier.mockResolvedValue({
+      id: 'titre-id',
+      nom: 'Nom du titre'
+    })
+    await store.dispatch('titreEtapeJustificatifs/unlink', {
+      id: 'etape-id',
+      documentId: 'document-id-01',
+      context: { name: 'titres', id: 'titre-id-01' }
+    })
+
+    expect(actions.messageAdd).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'API retourne une null lors de la dissociation d'un justificatif", async () => {
+    api.etapeJustificatifDissocier.mockResolvedValue(null)
+    await store.dispatch('titreEtapeJustificatifs/unlink', {
+      id: 'etape-id',
+      documentId: 'document-id-01',
+      context: { name: 'titres', id: 'titre-id-01' }
+    })
+
+    expect(actions.pageError).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'API retourne une erreur lors de la dissociation d'un justificatif", async () => {
+    api.etapeJustificatifDissocier.mockRejectedValue(new Error('erreur api'))
+    await store.dispatch('titreEtapeJustificatifs/unlink', {
+      id: 'etape-id',
+      documentId: 'document-id-01',
       context: { name: 'titres', id: 'titre-id-01' }
     })
 

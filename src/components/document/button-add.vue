@@ -12,7 +12,8 @@ export default {
     document: { type: Object, required: true },
     title: { type: String, default: '' },
     context: { type: Object, required: true },
-    repertoire: { type: String, required: true }
+    repertoire: { type: String, required: true },
+    typeId: { type: String, default: '' }
   },
 
   methods: {
@@ -24,7 +25,8 @@ export default {
           document: this.document,
           context: this.context,
           creation: true,
-          repertoire: this.repertoire
+          repertoire: this.repertoire,
+          typeId: this.typeId
         }
       })
 

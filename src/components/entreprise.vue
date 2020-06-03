@@ -218,7 +218,6 @@ import Table from './_ui/table.vue'
 import TitresTable from './titres/table.vue'
 import EntrepriseEditPopup from './entreprise/edit-popup.vue'
 import DocumentAddButton from './document/button-add.vue'
-
 import Documents from './documents/list.vue'
 
 import {

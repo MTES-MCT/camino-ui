@@ -285,7 +285,8 @@ export default {
     context: { type: Object, required: true },
     creation: { type: Boolean, default: false },
     document: { type: Object, required: true },
-    repertoire: { type: String, required: true }
+    repertoire: { type: String, required: true },
+    typeId: { type: String, default: '' }
   },
 
   data() {
@@ -326,7 +327,11 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('document/metasGet', this.repertoire)
+      const options = { repertoire: this.repertoire }
+      if (this.typeId) {
+        options.typeId = this.typeId
+      }
+      await this.$store.dispatch('document/metasGet', options)
     },
 
     fileChange({

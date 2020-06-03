@@ -65,12 +65,12 @@ export const actions = {
 
       if (data) {
         commit('popupClose', null, { root: true })
-        await dispatch('reload', context, { root: true })
         dispatch(
           'messageAdd',
           { value: `le titre a été mis à jour`, type: 'success' },
           { root: true }
         )
+        await dispatch('reload', context, { root: true })
       } else {
         dispatch('pageError', null, { root: true })
       }

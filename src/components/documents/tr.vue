@@ -38,7 +38,6 @@
       >
         <i class="icon-24 icon-trash" />
       </button>
-
       <button
         v-if="document.fichier"
         class="btn-border py-s px-m my--xs"
@@ -94,6 +93,8 @@ export default {
       const document = jsonTypenameOmit(this.document)
       if (this.repertoire === 'etapes') {
         document.titreEtapeId = this.elementId
+      } else if (this.repertoire === 'activites') {
+        document.titreActiviteId = this.elementId
       } else if (this.repertoire === 'entreprises') {
         document.entrepriseId = this.elementId
       }
