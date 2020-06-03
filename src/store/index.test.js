@@ -9,6 +9,9 @@ jest.mock('./titre', () => ({ titre: jest.fn() }))
 jest.mock('./titres', () => ({ titres: jest.fn() }))
 jest.mock('./titre-demarche', () => ({ titreDemarche: jest.fn() }))
 jest.mock('./titre-etape', () => ({ titreEtape: jest.fn() }))
+jest.mock('./titre-etape-justificatifs', () => ({
+  titreEtapeJustificatifs: jest.fn()
+}))
 jest.mock('./document', () => ({ document: jest.fn() }))
 jest.mock('./titres-demarches', () => ({ titresDemarches: jest.fn() }))
 jest.mock('./utilisateur', () => ({ utilisateur: jest.fn() }))
@@ -201,12 +204,18 @@ describe("état général de l'application", () => {
     expect(state.menu.component).toEqual(component)
   })
 
-  test('recharge la page', async () => {
-    store.state.titre.current = { id: 'id-tost', nom: 'marne' }
-    await store.dispatch('reload', { name: 'titre', id: 'id-test' })
+  test("recharge la page si l'id du titre n'a pas changé", async () => {
+    store.state.titre.current = { id: 'titre-id', nom: 'Nom du titre' }
+    await store.dispatch('reload', { name: 'titre', id: 'titre-id' })
+
+    expect(modules.titre.actions.get).toHaveBeenCalled()
+  })
+
+  test("charge la nouvelle page si l'id du titre a changé", async () => {
+    store.state.titre.current = { id: 'titre-id', nom: 'Nom du titre' }
+    await store.dispatch('reload', { name: 'titre', id: 'titre-id-new' })
 
     expect(router.replace).toHaveBeenCalled()
-    expect(modules.titre.actions.get).toHaveBeenCalled()
   })
 
   test("ne recharge pas la page si l'id n'a pas changé", async () => {

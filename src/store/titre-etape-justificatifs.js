@@ -13,7 +13,6 @@ export const state = {
 
 export const actions = {
   async metasGet({ commit }, id) {
-    console.log('metasGet')
     commit('loadingAdd', 'metasTitreEtapeJustificatifsMetasGet', { root: true })
 
     try {

@@ -40,7 +40,6 @@ export const actions = {
       const data = await titre({ id })
 
       if (data) {
-        console.log('-->', JSON.stringify(data))
         commit('set', data)
       } else {
         dispatch('pageError', null, { root: true })
