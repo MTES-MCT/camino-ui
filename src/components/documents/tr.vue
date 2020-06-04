@@ -21,7 +21,7 @@
         class="btn rnd-l-xs py-s px-m my--xs mr-line"
         @click="unlinkPopupOpen"
       >
-        <i class="icon-24 icon-pencil" />
+        <i class="icon-24 icon-unlink" />
       </button>
       <button
         v-if="boutonModification"

@@ -182,6 +182,7 @@ const etapeEditFormat = (etape, demarcheId) => {
   delete etape.geojsonMultiPolygon
   delete etape.documents
   delete etape.justificatifs
+  delete etape.justificatifsAssociation
 
   return etape
 }

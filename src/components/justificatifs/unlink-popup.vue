@@ -14,7 +14,7 @@
     </template>
 
     <p class="bold">
-      Souhaitez vous dissocier le justificatif <span class="color-inverse">{{ document.type.nom }}</span> de <span class="color-inverse">{{ title }}</span> ?
+      Souhaitez vous dissocier le justificatif <span class="color-inverse">{{ document.type.nom }}</span> de l'étape <span class="color-inverse">{{ title }}</span> ?
     </p>
 
     <Messages :messages="warnings" />

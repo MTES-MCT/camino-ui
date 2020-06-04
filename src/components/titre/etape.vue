@@ -206,7 +206,8 @@ export default {
         typeId: '',
         fichier: null,
         fichierNouveau: null,
-        fichierTypeId: null
+        fichierTypeId: null,
+        date: this.etape.date
       }
     }
   },

@@ -1,6 +1,6 @@
 <template>
   <button @click="addPopupOpen">
-    <i class="icon-24 icon-file-plus" />
+    <i class="icon-24 icon-file-link" />
   </button>
 </template>
 

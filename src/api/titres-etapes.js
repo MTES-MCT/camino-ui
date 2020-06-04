@@ -96,7 +96,8 @@ const etapeEntreprises = apiQuery(
     }
 
     ${fragmentEntreprise}
-  `
+  `,
+  { fetchPolicy: 'network-only' }
 )
 
 const etapeJustificatifsAssocier = apiMutate(gql`

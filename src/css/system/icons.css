@@ -180,6 +180,50 @@
   );
 }
 
+.icon-file-link {
+  background-image: svg-load(
+    './icons/24-file-link.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn:hover .icon-file-link {
+  background-image: svg-load(
+    './icons/24-file-link.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.icon-unlink {
+  background-image: svg-load(
+    './icons/24-unlink.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn:hover .icon-unlink {
+  background-image: svg-load(
+    './icons/24-unlink.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
 .icon-file-chevron-b {
   background-image: svg-load(
     './icons/24-file-chevron-b.svg',

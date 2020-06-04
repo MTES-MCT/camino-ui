@@ -2,47 +2,74 @@
   <Popup :messages="messages">
     <template slot="header">
       <div>
-        <h5>
-          <span class="cap-first">
-            {{ title }}
-          </span>
+        <h5 class="cap-first">
+          {{ title }}
         </h5>
         <h2 class="cap-first mb-0">
-          Ajout de justificatifs
+          Association de justificatifs d'entreprise
         </h2>
       </div>
     </template>
 
-    <div
-      v-for="entreprise in entreprises"
-      :key="entreprise.id"
-    >
-      <h4>{{ entreprise.nom }}</h4>
+    <div v-if="entreprises.length">
+      <div
+        v-for="entreprise in entreprises"
+        :key="entreprise.id"
+        class="mb-xl"
+      >
+        <div class="flex">
+          <h4>{{ entreprise.nom }}</h4>
 
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Documents</h6>
+          <button
+            class="btn-alt rnd-xs py-s px-m flex-right mt--s mb-xs"
+            tag="button"
+            @click="routerPush(entreprise.id)"
+          >
+            <i class="icon-24 icon-window-link" />
+          </button>
         </div>
-        <div class="mb tablet-blob-2-3">
-          <ul class="list-sans px-m">
-            <li
-              v-for="document in entreprise.documents"
-              :key="document.id"
-            >
-              <label>
-                <input
-                  v-model="documents.ids"
-                  type="checkbox"
-                  class="mr-s"
-                  :value="document.id"
-                >{{ document.type.nom }}{{ document.description ? ` : ${document.description}` : '' }}
-              </label>
-            </li>
-          </ul>
+
+        <hr>
+
+        <div
+          v-if="entreprise.documents && entreprise.documents.length"
+          class="tablet-blobs"
+        >
+          <div class="tablet-blob-1-3 pb-s">
+            <h6>Documents</h6>
+          </div>
+          <div class="tablet-blob-2-3">
+            <ul class="list-sans mb-0">
+              <li
+                v-for="document in entreprise.documents"
+                :key="document.id"
+              >
+                <label>
+                  <input
+                    v-model="documents.ids"
+                    type="checkbox"
+                    class="mr-s"
+                    :value="document.id"
+                  >{{ document.type.nom }}{{ document.description ? ` : ${document.description}` : '' }}
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          v-else
+          class="h5 italic"
+        >
+          Cette entreprise n'a pas de documents associés.
         </div>
       </div>
     </div>
-    <hr>
+    <div
+      v-else
+      class="p-s bg-info color-bg mb"
+    >
+      Il n'y a pas de titulaire ou d'amodiataire associé à cette étape.
+    </div>
 
     <Messages :messages="warnings" />
 
@@ -61,6 +88,7 @@
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
+            :disabled="!documentsTotal"
             @click="save"
           >
             Enregistrer
@@ -114,6 +142,16 @@ export default {
 
     entreprises() {
       return this.$store.state.titreEtapeJustificatifs.metas.entreprises
+    },
+
+    documentsTotal() {
+      return this.entreprises.reduce((total, e) => {
+        if (e.documents) {
+          total += e.documents.length
+        }
+
+        return total
+      }, 0)
     }
   },
 
@@ -152,21 +190,15 @@ export default {
       }
     },
 
-    fileRemove() {
-      this.document.fichier = null
-      this.document.fichierNouveau = null
-      this.document.fichierTypeId = null
-      this.warnings = []
+    routerPush(id) {
+      this.$store.commit('popupClose')
+      this.$router.push({
+        name: 'entreprise',
+        params: { id }
+      })
     },
 
-    errorsRemove() {},
-
-    visibiliteUpdate(id) {
-      this.visibiliteId = id
-
-      this.document.publicLecture = id === 'public'
-      this.document.entreprisesLecture = id === 'entreprise'
-    }
+    errorsRemove() {}
   }
 }
 </script>

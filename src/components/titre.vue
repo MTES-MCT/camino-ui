@@ -134,6 +134,7 @@
     <TitreActivitesList
       v-if="titre.activites.length && tabActive === 'activites'"
       :activites="titre.activites"
+      :titre-id="titre.id"
     />
   </div>
 </template>
