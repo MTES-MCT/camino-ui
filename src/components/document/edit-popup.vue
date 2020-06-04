@@ -60,18 +60,18 @@
       <div class="tablet-blob-2-3">
         <ul class="list-sans">
           <li
-            v-for="(visibilite, id) in visibiliteIds"
-            :key="id"
+            v-for="visibilite in documentsVisibilites"
+            :key="visibilite.id"
           >
             <label class="h5 bold">
               <input
-                :value="id"
-                :checked="id === visibiliteId"
+                :value="visibilite.id"
+                :checked="visibilite.id === visibiliteId"
                 type="radio"
                 class="mr-s"
-                @change="visibiliteUpdate(id)"
+                @change="visibiliteUpdate(visibilite.id)"
               >
-              {{ visibilite }}
+              {{ visibilite.nom }}
             </label>
           </li>
         </ul>
@@ -293,12 +293,7 @@ export default {
     return {
       fichiersTypesIds: ['pdf'],
       warnings: [],
-      visibiliteId: 'admin',
-      visibiliteIds: {
-        admin: 'Administrations uniquement',
-        entreprise: 'Administrations et entreprises titulaires',
-        public: 'Public'
-      }
+      visibiliteId: 'admin'
     }
   },
 
@@ -313,6 +308,10 @@ export default {
 
     documentsTypes() {
       return this.$store.state.document.metas.documentsTypes
+    },
+
+    documentsVisibilites() {
+      return this.$store.state.document.metas.documentsVisibilites
     }
   },
 

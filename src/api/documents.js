@@ -9,6 +9,11 @@ const metasDocument = apiQuery(
         id
         nom
       }
+
+      documentsVisibilites {
+        id
+        nom
+      }
     }
   `,
   { fetchPolicy: 'network-only' }

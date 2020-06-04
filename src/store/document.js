@@ -9,7 +9,8 @@ import {
 
 export const state = {
   metas: {
-    documentsTypes: []
+    documentsTypes: [],
+    documentsVisibilites: []
   }
 }
 
@@ -20,7 +21,7 @@ export const actions = {
     try {
       const data = await metasDocument(options)
 
-      commit('metasSet', { documentsTypes: data })
+      commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -112,6 +113,7 @@ export const actions = {
 export const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
+      console.log(id, data[id])
       Vue.set(state.metas, id, data[id])
     })
   }
