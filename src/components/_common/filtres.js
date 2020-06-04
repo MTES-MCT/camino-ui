@@ -4,7 +4,7 @@ const idsClean = value => {
 
   value = value.filter(v => v !== '')
 
-  return value.length ? value : null
+  return value
 }
 
 export { idsClean }
