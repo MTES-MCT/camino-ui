@@ -4,15 +4,18 @@ import { apiQuery, apiMutate } from './_utils'
 import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentEntreprise } from './fragments/entreprise'
 
-const entreprise = apiQuery(gql`
-  query Entreprise($id: ID!) {
-    entreprise(id: $id) {
-      ...entreprise
+const entreprise = apiQuery(
+  gql`
+    query Entreprise($id: ID!) {
+      entreprise(id: $id) {
+        ...entreprise
+      }
     }
-  }
 
-  ${fragmentEntreprise}
-`)
+    ${fragmentEntreprise}
+  `,
+  { fetchPolicy: 'network-only' }
+)
 
 const entreprises = apiQuery(gql`
   query Entreprises(
@@ -21,6 +24,7 @@ const entreprises = apiQuery(gql`
     $colonne: String
     $ordre: String
     $noms: String
+    $etapeId: ID
   ) {
     entreprises(
       intervalle: $intervalle
@@ -28,6 +32,7 @@ const entreprises = apiQuery(gql`
       colonne: $colonne
       ordre: $ordre
       noms: $noms
+      etapeId: $etapeId
     ) {
       elements {
         ...entreprises

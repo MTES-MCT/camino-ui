@@ -54,24 +54,7 @@ export const actions = {
         { root: true }
       )
 
-      if (context === 'activite') {
-        await dispatch(
-          'reload',
-          { name: 'titreActivite', id: rootState.titreActivite.current.id },
-          { root: true }
-        )
-      } else if (context === 'titre') {
-        await dispatch(
-          'reload',
-          { name: 'titre', id: rootState.titre.current.id },
-          { root: true }
-        )
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      }
+      await dispatch('reload', context, { root: true })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

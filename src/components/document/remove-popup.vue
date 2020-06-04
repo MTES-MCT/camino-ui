@@ -4,15 +4,7 @@
       <div>
         <h5>
           <span class="cap-first">
-            {{ titreNom }}
-          </span><span class="color-neutral">
-            |
-          </span><span class="cap-first">
-            {{ demarcheTypeNom }}
-          </span><span class="color-neutral">
-            |
-          </span><span class="cap-first">
-            {{ etapeTypeNom }}
+            {{ title }}
           </span>
         </h5>
         <h2 class="cap-first mb-0">
@@ -22,7 +14,7 @@
     </template>
 
     <p class="bold">
-      Souhaitez vous supprimer le document <span class="color-inverse">{{ document.type.nom }}</span> de l'étape <span class="color-inverse">{{ etapeTypeNom }}</span> de la démarche <span class="color-inverse">{{ demarcheTypeNom }}</span> du titre <span class="color-inverse">{{ titreNom }}</span> ?
+      Souhaitez vous supprimer le document <span class="color-inverse">{{ document.type.nom }}</span> de <span class="color-inverse">{{ title }}</span> ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
       <span class="bold">
@@ -62,7 +54,7 @@
 </template>
 
 <script>
-import Popup from '../../_ui/popup.vue'
+import Popup from '../_ui/popup.vue'
 
 export default {
   name: 'CaminoDocumentRemovePopup',
@@ -72,9 +64,8 @@ export default {
   },
 
   props: {
-    demarcheTypeNom: { type: String, default: '' },
-    titreNom: { type: String, default: '' },
-    etapeTypeNom: { type: String, default: '' },
+    title: { type: String, default: '' },
+    context: { type: Object, required: true },
     document: { type: Object, default: () => ({}) }
   },
 
@@ -98,11 +89,13 @@ export default {
 
   methods: {
     async remove() {
-      await this.$store.dispatch('titreDocument/remove', this.document.id)
+      await this.$store.dispatch('document/remove', {
+        id: this.document.id,
+        context: this.context
+      })
     },
 
     cancel() {
-      this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
@@ -112,9 +105,7 @@ export default {
       } else if ((e.which || e.keyCode) === 13) {
         this.remove()
       }
-    },
-
-    errorsRemove() {}
+    }
   }
 }
 </script>

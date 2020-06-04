@@ -5,6 +5,7 @@ import { fragmentTitre } from './fragments/titre'
 import { fragmentEtapeType, fragmentUnite } from './fragments/metas'
 import { fragmentSubstance } from './fragments/substance'
 import { fragmentEntreprises } from './fragments/entreprises'
+import { fragmentEntreprise } from './fragments/entreprise'
 
 const metasTitreEtape = apiQuery(
   gql`
@@ -83,4 +84,48 @@ const etapeSupprimer = apiMutate(gql`
   ${fragmentTitre}
 `)
 
-export { metasTitreEtape, etapeCreer, etapeModifier, etapeSupprimer }
+const etapeEntreprises = apiQuery(
+  gql`
+    query EtapeEntreprises($etapeId: ID!) {
+      entreprises(etapeId: $etapeId) {
+        elements {
+          ...entreprise
+        }
+        total
+      }
+    }
+
+    ${fragmentEntreprise}
+  `,
+  { fetchPolicy: 'network-only' }
+)
+
+const etapeJustificatifsAssocier = apiMutate(gql`
+  mutation etapeJustificatifsAssocier($id: ID!, $documentsIds: [ID]!) {
+    etapeJustificatifsAssocier(id: $id, documentsIds: $documentsIds) {
+      ...titre
+    }
+  }
+
+  ${fragmentTitre}
+`)
+
+const etapeJustificatifDissocier = apiMutate(gql`
+  mutation etapeJustificatifDissocier($id: ID!, $documentId: ID) {
+    etapeJustificatifDissocier(id: $id, documentId: $documentId) {
+      ...titre
+    }
+  }
+
+  ${fragmentTitre}
+`)
+
+export {
+  metasTitreEtape,
+  etapeCreer,
+  etapeModifier,
+  etapeSupprimer,
+  etapeJustificatifsAssocier,
+  etapeJustificatifDissocier,
+  etapeEntreprises
+}

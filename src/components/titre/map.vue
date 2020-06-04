@@ -51,22 +51,10 @@ export default {
   components: { MapPattern, MapWarningBrgm, Map, MapTilesSelector },
 
   props: {
-    geojson: {
-      type: Object,
-      default: () => {}
-    },
-    points: {
-      type: Array,
-      default: () => []
-    },
-    domaineId: {
-      type: String,
-      default: ''
-    },
-    typeId: {
-      type: String,
-      default: ''
-    }
+    geojson: { type: Object, required: true },
+    points: { type: Array, default: () => [] },
+    domaineId: { type: String, default: '' },
+    typeId: { type: String, default: '' }
   },
 
   data() {

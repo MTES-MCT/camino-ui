@@ -4,46 +4,47 @@ import {
   metasDocument,
   documentCreer,
   documentModifier,
-  documentSupprimer,
-} from '../api/titres-documents'
+  documentSupprimer
+} from '../api/documents'
 
 export const state = {
   metas: {
     documentsTypes: [],
-  },
+    documentsVisibilites: []
+  }
 }
 
 export const actions = {
-  async metasGet({ commit }) {
-    commit('loadingAdd', 'metasTitreDocumentGet', { root: true })
+  async metasGet({ commit }, options) {
+    commit('loadingAdd', 'metasDocumentGet', { root: true })
 
     try {
-      const data = await metasDocument()
+      const data = await metasDocument(options)
 
-      commit('metasSet', { documentsTypes: data })
+      commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'metasTitreDocumentGet', {
-        root: true,
+      commit('loadingRemove', 'metasDocumentGet', {
+        root: true
       })
     }
   },
 
-  async add({ commit, dispatch }, document) {
+  async add({ commit, dispatch }, { document, context }) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDocumentAdd', { root: true })
+    commit('loadingAdd', 'documentAdd', { root: true })
 
     try {
       const data = await documentCreer({ document })
 
       if (data) {
         commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        await dispatch('reload', context, { root: true })
         dispatch(
           'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
+          { value: `le document a été ajouté`, type: 'success' },
           { root: true }
         )
       } else {
@@ -52,24 +53,24 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDocumentAdd', { root: true })
+      commit('loadingRemove', 'documentAdd', { root: true })
     }
   },
 
-  async update({ commit, dispatch }, document) {
+  async update({ commit, dispatch }, { document, context }) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDocumentUpdate', { root: true })
+    commit('loadingAdd', 'documentUpdate', { root: true })
 
     try {
       const data = await documentModifier({ document })
 
       if (data) {
         commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        await dispatch('reload', context, { root: true })
         dispatch(
           'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
+          { value: `le document a été mis à jour`, type: 'success' },
           { root: true }
         )
       } else {
@@ -78,24 +79,24 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDocumentUpdate', { root: true })
+      commit('loadingRemove', 'documentUpdate', { root: true })
     }
   },
 
-  async remove({ commit, dispatch }, id) {
+  async remove({ commit, dispatch }, { id, context }) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDocumentRemove', { root: true })
+    commit('loadingAdd', 'documentRemove', { root: true })
 
     try {
       const data = await documentSupprimer({ id })
 
       if (data) {
         commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        await dispatch('reload', context, { root: true })
         dispatch(
           'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
+          { value: `le document a été supprimé`, type: 'success' },
           { root: true }
         )
       } else {
@@ -104,9 +105,9 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDocumentRemove', { root: true })
+      commit('loadingRemove', 'documentRemove', { root: true })
     }
-  },
+  }
 }
 
 export const mutations = {
@@ -114,12 +115,12 @@ export const mutations = {
     Object.keys(data).forEach(id => {
       Vue.set(state.metas, id, data[id])
     })
-  },
+  }
 }
 
 export default {
   namespaced: true,
   state,
   actions,
-  mutations,
+  mutations
 }

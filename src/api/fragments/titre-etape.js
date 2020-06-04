@@ -6,6 +6,8 @@ import { fragmentPoint } from './point'
 import { fragmentPays } from './pays'
 import { fragmentUnite } from './metas'
 
+import { fragmentDocument } from './documents'
+
 const fragmentTitreEtape = gql`
   fragment etape on Etape {
     id
@@ -43,6 +45,9 @@ const fragmentTitreEtape = gql`
     documents {
       ...document
     }
+    justificatifs {
+      ...document
+    }
     incertitudes {
       ...incertitudes
     }
@@ -53,6 +58,7 @@ const fragmentTitreEtape = gql`
 
     modification
     suppression
+    justificatifsAssociation
   }
 
   ${fragmentTitreAdministrations}
@@ -67,24 +73,7 @@ const fragmentTitreEtape = gql`
 
   ${fragmentUnite}
 
-  fragment document on Document {
-    id
-    description
-    type {
-      id
-      nom
-    }
-    fichier
-    fichierTypeId
-    url
-    uri
-    jorf
-    nor
-    public
-
-    modification
-    suppression
-  }
+  ${fragmentDocument}
 
   fragment incertitudes on Incertitudes {
     date

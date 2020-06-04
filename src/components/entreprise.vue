@@ -3,11 +3,7 @@
   <div v-else>
     <h6>Entreprise</h6>
     <h1>
-      {{
-        entreprise && entreprise.nom
-          ? entreprise.nom
-          : "–"
-      }}
+      {{ nom }}
     </h1>
     <Accordion
       class="mb-xxl"
@@ -23,8 +19,15 @@
         v-if="entreprise.modification"
         slot="buttons"
       >
+        <DocumentAddButton
+          :document="documentNew"
+          :context="documentContext"
+          repertoire="entreprises"
+          :title="nom"
+          class="btn py-s px-m mr-line"
+        />
         <button
-          class="btn-alt py-s px-m"
+          class="btn py-s px-m"
           @click="editPopupOpen"
         >
           <i class="icon-24 icon-pencil" />
@@ -32,7 +35,7 @@
       </template>
 
       <template slot="sub">
-        <div class="px-m pt-m">
+        <div class="px-m pt-m border-b-s">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
               <h6 class="mt-xs">
@@ -152,6 +155,18 @@
             </div>
           </div>
         </div>
+
+        <Documents
+          v-if="entreprise.documents.length"
+          :element-id="entreprise.id"
+          :documents="entreprise.documents"
+          :context="{ id: entreprise.id, name: 'entreprise' }"
+          repertoire="entreprises"
+          :title="nom"
+          class="px-m"
+          :bouton-suppression="entreprise.modification"
+          :bouton-modification="entreprise.modification"
+        />
       </template>
     </Accordion>
 
@@ -163,6 +178,7 @@
       <h3>Utilisateurs</h3>
       <div class="line" />
       <Table
+        class="width-max"
         :columns="utilisateursColonnes"
         :rows="utilisateursLignes"
         :utilisateurs="utilisateurs"
@@ -201,6 +217,8 @@ import Loader from './_ui/loader.vue'
 import Table from './_ui/table.vue'
 import TitresTable from './titres/table.vue'
 import EntrepriseEditPopup from './entreprise/edit-popup.vue'
+import DocumentAddButton from './document/button-add.vue'
+import Documents from './documents/list.vue'
 
 import {
   utilisateursColonnes,
@@ -212,7 +230,9 @@ export default {
     Accordion,
     Loader,
     Table,
-    TitresTable
+    TitresTable,
+    DocumentAddButton,
+    Documents
   },
 
   data() {
@@ -224,6 +244,10 @@ export default {
   computed: {
     entreprise() {
       return this.$store.state.entreprise.current
+    },
+
+    nom() {
+      return this.entreprise && this.entreprise.nom ? this.entreprise.nom : '–'
     },
 
     utilisateurs() {
@@ -248,6 +272,23 @@ export default {
 
     loaded() {
       return !!this.entreprise
+    },
+
+    documentNew() {
+      return {
+        entrepriseId: this.entreprise.id,
+        typeId: '',
+        fichier: null,
+        fichierNouveau: null,
+        fichierTypeId: null
+      }
+    },
+
+    documentContext() {
+      return {
+        name: 'entreprise',
+        id: this.entreprise.id
+      }
     }
   },
 

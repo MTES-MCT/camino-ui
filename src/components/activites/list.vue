@@ -10,7 +10,7 @@
         v-for="activite in annee.activites"
         :key="activite.id"
         :activite="activite"
-        context="titre"
+        :context="{name: 'titre', id: titreId}"
         class="mb-s"
       />
       <div class="line my-xxl" />
@@ -27,10 +27,8 @@ export default {
   },
 
   props: {
-    activites: {
-      type: Array,
-      default: () => []
-    }
+    activites: { type: Array, default: () => [] },
+    titreId: { type: String, required: true }
   },
 
   computed: {

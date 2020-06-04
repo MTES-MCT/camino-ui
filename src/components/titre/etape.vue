@@ -1,4 +1,4 @@
-<template>
+his.c<template>
   <Accordion
     :opened="opened"
     class="mb-s"
@@ -32,11 +32,20 @@
       v-if="etape.modification || etape.suppression"
       slot="buttons"
     >
+      <JustificatifsButtonAdd
+        v-if="etape.justificatifsAssociation"
+        :id="etape.id"
+        :context="documentContext"
+        :title="documentPopupTitle"
+        :documents="{ids: etape.justificatifs.map(j => j.id) }"
+        class="btn py-s px-m mr-line"
+        @titre:eventTrack="eventTrack"
+      />
       <DocumentButtonAdd
-        :etape-id="etape.id"
-        :demarche-type-nom="demarcheType.nom"
-        :etape-type-nom="etape.type.nom"
-        :titre-nom="titreNom"
+        :document="documentNew"
+        :title="documentPopupTitle"
+        :context="documentContext"
+        :repertoire="documentRepertoire"
         class="btn py-s px-m mr-line"
         @titre:eventTrack="eventTrack"
       />
@@ -78,12 +87,29 @@
 
       <Documents
         v-if="etape.documents.length"
-        :etape-id="etape.id"
+        :element-id="etape.id"
         :documents="etape.documents"
-        :demarche-type-nom="demarcheType.nom"
-        :etape-type-nom="etape.type.nom"
-        :titre-nom="titreNom"
+        :context="documentContext"
+        :repertoire="documentRepertoire"
+        :title="documentPopupTitle"
         class="px-m"
+        :bouton-suppression="etape.modification"
+        :bouton-modification="etape.modification"
+        @titre:eventTrack="eventTrack"
+      />
+
+      <Documents
+        v-if="etape.justificatifs.length"
+        :element-id="etape.id"
+        :documents="etape.justificatifs"
+        :context="documentContext"
+        :repertoire="documentRepertoire"
+        :title="documentPopupTitle"
+        nom="Justificatif"
+        class="px-m"
+        :bouton-suppression="false"
+        :bouton-modification="false"
+        :bouton-dissociation="true"
         @titre:eventTrack="eventTrack"
       />
     </div>
@@ -93,15 +119,18 @@
 <script>
 import Accordion from '../_ui/accordion.vue'
 import Tag from '../_ui/tag.vue'
-import Documents from './documents.vue'
-import EditPopup from './etape/edit.vue'
-import RemovePopup from './etape/remove.vue'
-import DocumentButtonAdd from './document/button-add.vue'
-import EtapeProps from './etape/props.vue'
 import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
+import EditPopup from './etape/edit.vue'
+import RemovePopup from './etape/remove.vue'
+import DocumentButtonAdd from '../document/button-add.vue'
+import JustificatifsButtonAdd from '../justificatifs/button-add.vue'
+import EtapeProps from './etape/props.vue'
+import Documents from '../documents/list.vue'
 
 import { etapeEditFormat } from './etape'
+
+const cap = string => string[0].toUpperCase() + string.slice(1)
 
 export default {
   name: 'CaminoTitreEtape',
@@ -111,6 +140,7 @@ export default {
     Tag,
     Documents,
     DocumentButtonAdd,
+    JustificatifsButtonAdd,
     EtapeProps,
     Section,
     Statut
@@ -124,7 +154,8 @@ export default {
 
   data() {
     return {
-      opened: false
+      opened: false,
+      documentRepertoire: 'etapes'
     }
   },
 
@@ -156,8 +187,28 @@ export default {
       return this.etape.type.sections
     },
 
-    titreNom() {
-      return this.$store.state.titre.current.nom
+    documentContext() {
+      return {
+        name: 'titre',
+        id: this.titre.id
+      }
+    },
+
+    documentPopupTitle() {
+      return `${cap(this.titre.nom)} | ${cap(this.demarcheType.nom)} | ${cap(
+        this.etape.type.nom
+      )}`
+    },
+
+    documentNew() {
+      return {
+        titreEtapeId: this.etape.id,
+        typeId: '',
+        fichier: null,
+        fichierNouveau: null,
+        fichierTypeId: null,
+        date: this.etape.date
+      }
     }
   },
 
@@ -179,7 +230,7 @@ export default {
           etape,
           domaineId: this.$store.state.titre.current.domaine.id,
           demarcheType: this.demarcheType,
-          titreNom: this.titreNom
+          titreNom: this.titre.nom
         }
       })
 
@@ -197,7 +248,7 @@ export default {
           etapeTypeNom: this.etape.type.nom,
           etapeId: this.etape.id,
           demarcheTypeNom: this.demarcheType.nom,
-          titreNom: this.titreNom,
+          titreNom: this.titre.nom,
           titreType: this.$store.state.titre.current.type.nom
         }
       })

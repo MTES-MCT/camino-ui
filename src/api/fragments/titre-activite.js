@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 import { fragmentTitresEntreprises } from './entreprises'
+import { fragmentDocument } from './documents'
 
 const fragmentActiviteType = gql`
   fragment activiteType on ActiviteType {
@@ -52,9 +53,16 @@ const fragmentTitreActivite = gql`
     contenu
 
     modification
+    documentsCreation
+
+    documents {
+      ...document
+    }
   }
 
   ${fragmentActiviteType}
+
+  ${fragmentDocument}
 `
 
 const fragmentActivites = gql`
@@ -87,6 +95,7 @@ const fragmentActivites = gql`
     contenu
 
     modification
+    documentsCreation
   }
 
   ${fragmentActiviteType}
@@ -123,12 +132,19 @@ const fragmentActivite = gql`
     sections
     contenu
 
+    documents {
+      ...document
+    }
+
     modification
+    documentsCreation
   }
 
   ${fragmentActiviteType}
 
   ${fragmentTitresEntreprises}
+
+  ${fragmentDocument}
 `
 
 const fragmentTitresActivite = gql`

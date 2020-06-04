@@ -5,7 +5,8 @@ import { saveAs } from 'file-saver'
 import titre from './titre'
 import titreDemarche from './titre-demarche'
 import titreEtape from './titre-etape'
-import titreDocument from './titre-document'
+import titreEtapeJustificatifs from './titre-etape-justificatifs'
+import document from './document'
 import titres from './titres'
 import titresDemarches from './titres-demarches'
 import utilisateur from './utilisateur'
@@ -25,7 +26,8 @@ const modules = {
   titre,
   titreDemarche,
   titreEtape,
-  titreDocument,
+  titreEtapeJustificatifs,
+  document,
   titres,
   titresDemarches,
   utilisateur,
@@ -104,63 +106,28 @@ export const actions = {
 
     if (id !== idOld) {
       router.replace({ name, params: { id } })
-    }
-
-    await dispatch(`${name}/get`, id)
-  },
-
-  async documentDownload({ dispatch, commit }, name) {
-    commit('loadingAdd', 'documentDownload', { root: true })
-    try {
-      const token = localStorage.getItem('token')
-      const headers = new Headers({
-        authorization: token ? `Bearer ${token}` : ''
-      })
-      const method = 'GET'
-
-      const url = `${process.env.VUE_APP_API_URL}/documents/${name}`
-
-      const res = await fetch(url, { method, headers })
-
-      if (res.status !== 200) {
-        const error = await res.text()
-        throw error
-      }
-
-      const body = await res.blob()
-      saveAs(body, name)
-
-      dispatch('messageAdd', {
-        type: 'success',
-        value: `fichier téléchargé : ${name}`
-      })
-    } catch (e) {
-      dispatch('apiError', `erreur de téléchargement : ${name}, ${e}`)
-      console.info(e)
-    } finally {
-      commit('loadingRemove', 'documentDownload', { root: true })
+    } else {
+      await dispatch(`${name}/get`, id)
     }
   },
 
-  async contentDownload({ dispatch, commit }, { section, params }) {
-    commit('loadingAdd', 'contentDownload', { root: true })
+  async download({ dispatch, commit }, filePath) {
+    commit('loadingAdd', 'download', { root: true })
 
     try {
       const token = localStorage.getItem('token')
       const headers = new Headers({
         authorization: token ? `Bearer ${token}` : ''
       })
-      const method = 'GET'
 
-      const paramsString = new URLSearchParams(params).toString()
+      const url = `${process.env.VUE_APP_API_URL}/${filePath}`
 
-      const url = `${process.env.VUE_APP_API_URL}/${section}?${paramsString}`
-
-      const res = await fetch(url, { method, headers })
+      const res = await fetch(url, { method: 'GET', headers })
 
       if (res.status !== 200) {
-        const error = await res.text()
-        throw error
+        const e = await res.json()
+
+        throw new Error(e.error)
       }
 
       // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
@@ -186,10 +153,13 @@ export const actions = {
 
       return name
     } catch (e) {
-      dispatch('apiError', `erreur de téléchargement : ${section}, ${e}`)
+      dispatch(
+        'apiError',
+        `erreur de téléchargement : ${filePath}, ${e.message}`
+      )
       console.info(e)
     } finally {
-      commit('loadingRemove', 'contentDownload', { root: true })
+      commit('loadingRemove', 'download', { root: true })
     }
   }
 }

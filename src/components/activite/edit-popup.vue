@@ -131,7 +131,7 @@ export default {
     },
 
     context: {
-      type: String,
+      type: Object,
       required: true
     }
   },

@@ -21,6 +21,14 @@
     <template
       slot="buttons"
     >
+      <DocumentAddButton
+        v-if="activite.documentsCreation && activite.modification"
+        :document="documentNew"
+        :context="context"
+        repertoire="activites"
+        :type-id="activite.type.id"
+        class="btn py-s px-m mr-line"
+      />
       <ActiviteButton
         v-if="activite.modification"
         :activite="activite"
@@ -45,6 +53,17 @@
         :contenu="activite.contenu ? activite.contenu[s.id] : {}"
         :date="activite.date"
       />
+
+      <Documents
+        v-if="activite.documents"
+        :element-id="activite.id"
+        :documents="activite.documents"
+        :context="{ id: activite.id, name: 'activite' }"
+        repertoire="activites"
+        class="px-m"
+        :bouton-suppression="activite.modification"
+        :bouton-modification="activite.modification"
+      />
     </div>
   </Accordion>
 </template>
@@ -54,23 +73,40 @@ import ActiviteButton from './button.vue'
 import Accordion from '../_ui/accordion.vue'
 import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
+import DocumentAddButton from '../document/button-add.vue'
+
+import Documents from '../documents/list.vue'
 
 export default {
   components: {
     ActiviteButton,
     Accordion,
     Section,
-    Statut
+    Statut,
+    DocumentAddButton,
+    Documents
   },
 
   props: {
     activite: { type: Object, required: true },
-    context: { type: String, required: true }
+    context: { type: Object, required: true }
   },
 
   data() {
     return {
       opened: false
+    }
+  },
+
+  computed: {
+    documentNew() {
+      return {
+        titreActiviteId: this.activite.id,
+        typeId: '',
+        fichier: null,
+        fichierNouveau: null,
+        fichierTypeId: null
+      }
     }
   },
 

@@ -94,7 +94,7 @@ describe("état d'une activité", () => {
 
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalledTimes(2)
+    expect(actions.messageAdd).toHaveBeenCalled()
     expect(actions.reload).toHaveBeenCalled()
   })
 

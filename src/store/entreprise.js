@@ -15,7 +15,6 @@ export const state = {
 export const actions = {
   async get({ commit, dispatch }, id) {
     commit('loadingAdd', 'entreprise', { root: true })
-
     try {
       const data = await entreprise({ id })
 

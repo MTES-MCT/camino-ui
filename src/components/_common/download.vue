@@ -32,10 +32,11 @@ export default {
   methods: {
     async download() {
       this.$emit('clicked')
-      const name = await this.$store.dispatch('contentDownload', {
-        section: this.section,
-        params: this.params
-      })
+      const params = new URLSearchParams(this.params).toString()
+      const name = await this.$store.dispatch(
+        'download',
+        `${this.section}?${params}`
+      )
 
       this.linkTrack(name)
     },
