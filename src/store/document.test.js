@@ -47,10 +47,12 @@ describe('documents', () => {
   })
 
   test('récupère les métas pour éditer un document', async () => {
-    const apiMock = api.metasDocument.mockResolvedValueOnce([
-      { id: 'arr', nom: 'Arrêté' },
-      { id: 'avi', nom: 'Avis' }
-    ])
+    const apiMock = api.metasDocument.mockResolvedValueOnce({
+      documentsTypes: [
+        { id: 'arr', nom: 'Arrêté' },
+        { id: 'avi', nom: 'Avis' }
+      ]
+    })
 
     await store.dispatch('document/metasGet')
 
