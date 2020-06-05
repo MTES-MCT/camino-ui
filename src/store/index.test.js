@@ -24,6 +24,7 @@ jest.mock('./user', () => ({ user: jest.fn() }))
 jest.mock('./titre-activite', () => ({ titreActivite: jest.fn() }))
 jest.mock('./titres-activites', () => ({ titresActivites: jest.fn() }))
 jest.mock('./statistiques', () => ({ statistiques: jest.fn() }))
+jest.mock('./definitions', () => ({ definitions: jest.fn() }))
 
 jest.mock('../router', () => ({
   replace: jest.fn()
