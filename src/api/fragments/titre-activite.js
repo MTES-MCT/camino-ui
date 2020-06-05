@@ -157,11 +157,19 @@ const fragmentTitresActivite = gql`
     }
   }
 `
+const fragmentActiviteStatut = gql`
+  fragment activiteStatut on ActiviteStatut {
+    id
+    nom
+    couleur
+  }
+`
 
 export {
   fragmentActiviteType,
   fragmentActivites,
   fragmentActivite,
   fragmentTitreActivite,
-  fragmentTitresActivite
+  fragmentTitresActivite,
+  fragmentActiviteStatut
 }

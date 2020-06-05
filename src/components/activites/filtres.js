@@ -1,3 +1,5 @@
+import FiltresStatuts from '../_common/filtres/statuts.vue'
+
 const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
 
 const filtres = [
@@ -42,6 +44,15 @@ const filtres = [
     type: 'checkboxes',
     value: [],
     elements: [],
+    elementsFormat
+  },
+  {
+    id: 'statutsIds',
+    name: 'Statuts',
+    type: 'checkboxes',
+    value: [],
+    elements: [],
+    component: FiltresStatuts,
     elementsFormat
   },
   {
