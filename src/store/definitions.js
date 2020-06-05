@@ -2,7 +2,9 @@ import Vue from 'vue'
 
 import { definitions } from '../api/definitions'
 
-export const state = {}
+export const state = {
+  list: []
+}
 
 export const actions = {
   async get({ state, dispatch, commit }) {

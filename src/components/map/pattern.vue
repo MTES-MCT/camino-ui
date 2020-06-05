@@ -29,14 +29,8 @@
 <script>
 export default {
   props: {
-    domainesIds: {
-      type: Array,
-      default: () => []
-    },
-    typesIds: {
-      type: Array,
-      default: () => []
-    }
+    domainesIds: { type: Array, required: true },
+    typesIds: { type: Array, required: true }
   },
 
   data() {
