@@ -15,6 +15,7 @@
   >
     <Downloads
       v-if="demarches.length"
+      slot="downloads"
       :formats="['csv', 'xlsx', 'ods']"
       section="demarches"
       class="flex-right full-x"
@@ -141,4 +142,3 @@ export default {
   }
 }
 </script>
-
