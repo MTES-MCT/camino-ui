@@ -253,7 +253,7 @@ export default {
               )
               this.$matomo.trackSiteSearch(value, id)
             })
-          }, [])
+          })
         } else {
           this.$matomo.trackEvent('titres', 'filtres', 'filtres-titres')
         }

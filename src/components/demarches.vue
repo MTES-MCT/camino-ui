@@ -123,7 +123,7 @@ export default {
             )
             this.$matomo.trackSiteSearch(value, id)
           })
-        }, [])
+        })
       }
     }
   }
