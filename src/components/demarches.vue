@@ -106,7 +106,7 @@ export default {
 
     eventTrack(params) {
       if (this.$matomo) {
-        const events = this.params.reduce((events, { type, id }) => {
+        this.params.reduce((events, { type, id }) => {
           let values = []
           if (type === 'string' && params[id]) {
             values = params[id].split(' ').map(p => p.replace("'", ' '))
@@ -116,20 +116,14 @@ export default {
             values = params[id].map(e => e.typeId)
           }
           values.forEach(value => {
-            events.push({ id, value })
+            this.$matomo.trackEvent(
+              'demarches-filtres',
+              `demarches-filtres-${id}`,
+              value
+            )
+            this.$matomo.trackSiteSearch(value, id)
           })
-
-          return events
         }, [])
-
-        events.forEach(({ id, value }) => {
-          this.$matomo.trackEvent(
-            'demarches-filtres',
-            `demarches-filtres-${id}`,
-            value
-          )
-          this.$matomo.trackSiteSearch(value, id)
-        })
       }
     }
   }
