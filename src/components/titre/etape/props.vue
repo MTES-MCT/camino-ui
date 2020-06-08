@@ -84,7 +84,7 @@
       </div>
       <div class="tablet-blob-3-4">
         <p>
-          inclu
+          inclus
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.points"
             :mini="true"
