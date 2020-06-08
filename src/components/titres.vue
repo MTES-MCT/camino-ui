@@ -238,7 +238,7 @@ export default {
     paramsEventTrack(params) {
       if (this.$matomo) {
         if (params) {
-          this.params.reduce((events, { type, id }) => {
+          this.params.forEach(({ type, id }) => {
             let values = []
             if (type === 'string' && params[id]) {
               values = params[id].split(' ').map(p => p.replace("'", ' '))
