@@ -53,32 +53,33 @@
 
     <hr>
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3">
-        <h6>Visibilité</h6>
+    <div v-if="documentsVisibilites.length > 1">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3">
+          <h6>Visibilité</h6>
+        </div>
+        <div class="tablet-blob-2-3">
+          <ul class="list-sans">
+            <li
+              v-for="visibilite in documentsVisibilites"
+              :key="visibilite.id"
+            >
+              <label class="h5 bold">
+                <input
+                  :value="visibilite.id"
+                  :checked="visibilite.id === visibiliteId"
+                  type="radio"
+                  class="mr-s"
+                  @change="visibiliteUpdate(visibilite.id)"
+                >
+                {{ visibilite.nom }}
+              </label>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="tablet-blob-2-3">
-        <ul class="list-sans">
-          <li
-            v-for="visibilite in documentsVisibilites"
-            :key="visibilite.id"
-          >
-            <label class="h5 bold">
-              <input
-                :value="visibilite.id"
-                :checked="visibilite.id === visibiliteId"
-                type="radio"
-                class="mr-s"
-                @change="visibiliteUpdate(visibilite.id)"
-              >
-              {{ visibilite.nom }}
-            </label>
-          </li>
-        </ul>
-      </div>
+      <hr>
     </div>
-
-    <hr>
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -292,8 +293,7 @@ export default {
   data() {
     return {
       fichiersTypesIds: ['pdf'],
-      warnings: [],
-      visibiliteId: 'admin'
+      warnings: []
     }
   },
 
@@ -312,11 +312,33 @@ export default {
 
     documentsVisibilites() {
       return this.$store.state.document.metas.documentsVisibilites
+    },
+
+    visibiliteId() {
+      if (this.document.entreprisesLecture) {
+        return 'entreprise'
+      }
+
+      if (this.document.publicLecture) {
+        return 'public'
+      }
+
+      return 'admin'
     }
   },
 
   created() {
     this.get()
+
+    if (
+      this.documentsVisibilites.length &&
+      this.documentsVisibilites.length < 2
+    ) {
+      this.document.publicLecture = this.documentsVisibilites[0].id === 'public'
+      this.document.entreprisesLecture =
+        this.documentsVisibilites[0].id === 'entreprise'
+    }
+
     document.addEventListener('keyup', this.keyUp)
   },
 
@@ -339,7 +361,7 @@ export default {
         files: [file]
       }
     }) {
-      if (validity.valid && file.type === 'application/pdf') {
+      if (file && validity.valid && file.type === 'application/pdf') {
         this.warnings = []
         this.document.fichierNouveau = file
         this.document.fichierTypeId = 'pdf'
@@ -387,8 +409,6 @@ export default {
     errorsRemove() {},
 
     visibiliteUpdate(id) {
-      this.visibiliteId = id
-
       this.document.publicLecture = id === 'public'
       this.document.entreprisesLecture = id === 'entreprise'
     }

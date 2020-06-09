@@ -125,15 +125,8 @@ export default {
   },
 
   props: {
-    activite: {
-      type: Object,
-      required: true
-    },
-
-    context: {
-      type: Object,
-      required: true
-    }
+    activite: { type: Object, required: true },
+    context: { type: Object, required: true }
   },
 
   data() {

@@ -15,15 +15,8 @@ import activiteEditPopup from '../activite/edit-popup.vue'
 
 export default {
   props: {
-    activite: {
-      type: Object,
-      default: () => ({})
-    },
-
-    context: {
-      type: Object,
-      required: true
-    }
+    activite: { type: Object, default: () => ({}) },
+    context: { type: Object, required: true }
   },
 
   computed: {

@@ -43,6 +43,7 @@
               <li
                 v-for="document in entreprise.documents"
                 :key="document.id"
+                class="h5"
               >
                 <label>
                   <input
@@ -50,7 +51,7 @@
                     type="checkbox"
                     class="mr-s"
                     :value="document.id"
-                  >{{ document.type.nom }}{{ document.description ? ` : ${document.description}` : '' }}
+                  ><span class="bold">{{ document.type.nom }}</span> ({{ document.date | dateFormat }}){{ document.description ? ` : ${document.description}` : '' }}
                 </label>
               </li>
             </ul>

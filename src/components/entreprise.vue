@@ -42,9 +42,7 @@
                 Siren
               </h6>
             </div>
-            <div
-              class="tablet-blob-3-4"
-            >
+            <div class="tablet-blob-3-4">
               <p>{{ entreprise.legalSiren }}</p>
             </div>
           </div>
@@ -55,9 +53,7 @@
                 Forme juridique
               </h6>
             </div>
-            <div
-              class="tablet-blob-3-4"
-            >
+            <div class="tablet-blob-3-4">
               <p>{{ entreprise.legalForme }}</p>
             </div>
           </div>
@@ -68,9 +64,7 @@
                 Établissement{{ entreprise.etablissements.length > 1 ? 's' : '' }}
               </h6>
             </div>
-            <div
-              class="tablet-blob-3-4"
-            >
+            <div class="tablet-blob-3-4">
               <ul class="list-sans">
                 <li
                   v-for="e in entreprise.etablissements"
@@ -78,7 +72,8 @@
                 >
                   <h5 class="inline-block">
                     {{ e.dateDebut | dateFormat }}
-                  </h5> : {{ e.nom }}
+                  </h5>
+                  : {{ e.nom }}
                 </li>
               </ul>
             </div>
@@ -90,9 +85,7 @@
                 Adresse
               </h6>
             </div>
-            <div
-              class="tablet-blob-3-4"
-            >
+            <div class="tablet-blob-3-4">
               <p>
                 {{ entreprise.adresse }}
                 <br>{{ entreprise.codePostal }}
@@ -109,7 +102,9 @@
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
-                <span v-if="entreprise.telephone">{{ entreprise.telephone }}</span>
+                <span v-if="entreprise.telephone">{{
+                  entreprise.telephone
+                }}</span>
                 <span v-else>–</span>
               </p>
             </div>
@@ -192,9 +187,7 @@
       <div class="line-neutral mb-xxl" />
       <h3>Titres miniers et autorisations</h3>
       <div class="line" />
-      <TitresTable
-        :titres="titresTitulaire"
-      />
+      <TitresTable :titres="titresTitulaire" />
     </div>
 
     <div
@@ -204,9 +197,7 @@
       <div class="line my-xxl" />
       <h3>Titres miniers et autorisations (amodiataire)</h3>
       <div class="line" />
-      <TitresTable
-        :titres="titresAmodiataire"
-      />
+      <TitresTable :titres="titresAmodiataire" />
     </div>
   </div>
 </template>

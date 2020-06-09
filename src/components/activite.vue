@@ -9,7 +9,7 @@
     <ActiviteDetail
       :key="activite.id"
       :activite="activite"
-      :context="{ name: 'activite', id: activite.id }"
+      :context="{ name: 'titreActivite', id: activite.id }"
       class="mb"
     />
   </div>

@@ -3,12 +3,20 @@
     <td class="nowrap">
       <span class="bold">{{ document.type.nom }}</span>
       <Tag
-        v-if="document.public"
+        v-if="document.publicLecture"
         :mini="true"
         color="bg-info"
         class="ml-xs"
       >
         Public
+      </Tag>
+      <Tag
+        v-if="document.entreprisesLecture"
+        :mini="true"
+        color="bg-info"
+        class="ml-xs"
+      >
+        Entreprise
       </Tag>
     </td>
     <td class="nowrap">

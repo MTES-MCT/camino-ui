@@ -55,10 +55,10 @@
       />
 
       <Documents
-        v-if="activite.documents"
+        v-if="activite.documents && activite.documents.length"
         :element-id="activite.id"
         :documents="activite.documents"
-        :context="{ id: activite.id, name: 'activite' }"
+        :context="context"
         repertoire="activites"
         class="px-m"
         :bouton-suppression="activite.modification"
