@@ -25,6 +25,12 @@
               placeholder="…"
             >
 
+            <InputDate
+              v-else-if="element.type === 'date'"
+              :value.sync="contenu[element.id]"
+            />
+
+
             <input
               v-else-if="element.type === 'date'"
               v-model="contenu[element.id]"
@@ -141,7 +147,13 @@
 </template>
 
 <script>
+import InputDate from '../_ui/input-date'
+
 export default {
+  components: {
+    InputDate
+  },
+
   props: {
     contenu: {
       type: Object,
