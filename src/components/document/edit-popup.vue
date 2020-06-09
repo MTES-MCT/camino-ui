@@ -8,7 +8,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout d\'un' : "Modification du" }} document
+          {{ creation ? "Ajout d'un" : 'Modification du' }} document
         </h2>
       </div>
     </template>
@@ -34,8 +34,6 @@
       </div>
     </div>
     <hr>
-
-
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -107,7 +105,10 @@
           v-if="document.fichier || document.fichierNouveau"
           class="flex"
         >
-          <span class="h5">{{ document.fichierNouveau && document.fichierNouveau.name || `${document.id}.${document.fichierTypeId}` }}</span>
+          <span class="h5">{{
+            (document.fichierNouveau && document.fichierNouveau.name) ||
+              `${document.id}.${document.fichierTypeId}`
+          }}</span>
           <button
             class="btn-border py-s px-m my--xs rnd-xs flex-right"
             @click="fileRemove"
@@ -115,9 +116,7 @@
             <i class="icon-24 icon-trash" />
           </button>
         </div>
-        <div
-          v-else
-        >
+        <div v-else>
           <label
             for="file"
             class="btn-border p-s full-x rnd-xs mb-0"
@@ -327,9 +326,9 @@ export default {
     }
   },
 
-  created() {
-    this.get()
-
+  async created() {
+    document.addEventListener('keyup', this.keyUp)
+    await this.get()
     if (
       this.documentsVisibilites.length &&
       this.documentsVisibilites.length < 2
@@ -338,8 +337,6 @@ export default {
       this.document.entreprisesLecture =
         this.documentsVisibilites[0].id === 'entreprise'
     }
-
-    document.addEventListener('keyup', this.keyUp)
   },
 
   beforeDestroy() {

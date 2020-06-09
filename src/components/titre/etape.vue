@@ -109,7 +109,7 @@ his.c<template>
         class="px-m"
         :bouton-suppression="false"
         :bouton-modification="false"
-        :bouton-dissociation="true"
+        :bouton-dissociation="etape.modification"
         @titre:eventTrack="eventTrack"
       />
     </div>

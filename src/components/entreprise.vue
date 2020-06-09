@@ -159,7 +159,7 @@
           repertoire="entreprises"
           :title="nom"
           class="px-m"
-          :bouton-suppression="entreprise.modification"
+          :bouton-suppression="entreprise.modification && permissionsCheck(['super', 'admin', 'editeur'])"
           :bouton-modification="entreprise.modification"
         />
       </template>
