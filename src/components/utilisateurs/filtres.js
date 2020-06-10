@@ -2,17 +2,10 @@ const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
 
 const utilisateursFiltres = [
   {
-    id: 'noms',
+    id: 'nomsPrenoms',
     type: 'input',
     value: '',
-    name: 'Noms',
-    placeholder: '...'
-  },
-  {
-    id: 'prenoms',
-    type: 'input',
-    value: '',
-    name: 'Prénoms',
+    name: 'Noms, Prénoms',
     placeholder: '...'
   },
   {

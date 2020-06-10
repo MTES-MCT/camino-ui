@@ -27,8 +27,7 @@ describe('liste des utilisateurs', () => {
         entreprise: []
       },
       params: [
-        { id: 'noms', type: 'string' },
-        { id: 'prenoms', type: 'string' },
+        { id: 'nomsPrenoms', type: 'string' },
         { id: 'emails', type: 'string' },
         { id: 'permissionIds', type: 'strings', elements: [] },
         { id: 'administrationIds', type: 'strings', elements: [] },
@@ -54,8 +53,7 @@ describe('liste des utilisateurs', () => {
           colonne: null
         },
         filtres: {
-          noms: '',
-          prenoms: '',
+          nomsPrenoms: '',
           emails: '',
           permissionIds: [],
           administrationIds: [],
