@@ -40,7 +40,7 @@
             @click="clustersDisplayToggle"
           >
             <i
-              :class="`icon-markers-${clustersDisplay ? 'ungrouped' : 'grouped'}`"
+              :class="`icon-markers-${clustersDisplay}`"
               class="icon-24"
             />
           </button>
@@ -86,7 +86,7 @@ export default {
     return {
       zones,
       zoneId: 'fr',
-      clustersDisplay: true,
+      clustersDisplayValue: 1,
       geojsons: {},
       clusters: [],
       markers: [],
@@ -95,13 +95,31 @@ export default {
   },
 
   computed: {
+    clustersDisplay() {
+      let clustersDisplay = 'nothing'
+      if (this.clustersDisplayValue === 1) {
+        clustersDisplay = 'ungrouped'
+      }
+      if (this.clustersDisplayValue === 2) {
+        clustersDisplay = 'grouped'
+      }
+      return clustersDisplay
+    },
+
     tilesLayer() {
       const tiles = this.$store.getters['user/tilesActive']
       return tilesBuild(tiles)
     },
 
     markerLayers() {
-      return this.clustersDisplay ? this.clusters : this.markers
+      let markerLayers = []
+      if (this.clustersDisplay === 'ungrouped') {
+        markerLayers = this.clusters
+      }
+      if (this.clustersDisplay === 'grouped') {
+        markerLayers = this.markers
+      }
+      return markerLayers
     },
 
     zone() {
@@ -216,15 +234,22 @@ export default {
       setTimeout(() => {
         this.geojsonLayers = []
         this.markers.forEach(marker => {
-          if (this.$refs.map && this.$refs.map.hasLayer(marker)) {
+          if (
+            (this.$refs.map && this.$refs.map.hasLayer(marker)) ||
+            this.clustersDisplay === 'nothing'
+          ) {
             this.geojsonLayers.push(this.geojsons[marker.id])
           }
         })
       }, 500)
     },
 
+    // valeur de clustersDisplayValue :
+    // 0 -> nothing
+    // 1 -> ungrouped
+    // 2 -> grouped
     clustersDisplayToggle() {
-      this.clustersDisplay = !this.clustersDisplay
+      this.clustersDisplayValue = (this.clustersDisplayValue + 1) % 3
       this.geojsonLayersDisplay()
     },
 
