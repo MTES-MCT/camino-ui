@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.35](https://github.com/MTES-MCT/camino-ui/compare/v0.22.34...v0.22.35) (2020-06-10)
+
+
+### Features
+
+* ajoute une page glossaire ([#124](https://github.com/MTES-MCT/camino-ui/issues/124)) ([3c01fe2](https://github.com/MTES-MCT/camino-ui/commit/3c01fe21c9cfa7033a24284889098f37c6cb3991))
+* **activités:** ajoute le filtre par statut de rapport d'activité ([#120](https://github.com/MTES-MCT/camino-ui/issues/120)) ([b99fd6b](https://github.com/MTES-MCT/camino-ui/commit/b99fd6bd2555027a7a9939af8d3753c3e5cf51cc))
+* ajoute des documents sur les entreprises et activités ([#121](https://github.com/MTES-MCT/camino-ui/issues/121)) ([f6b7992](https://github.com/MTES-MCT/camino-ui/commit/f6b7992cf16e538dd2c75bbd37308e1a86e4adef))
+
+
+### Bug Fixes
+
+* corirge l'orthographe de `inclus` ([#126](https://github.com/MTES-MCT/camino-ui/issues/126)) ([5d52a5f](https://github.com/MTES-MCT/camino-ui/commit/5d52a5f89fcd2d9c741fd25c19b3937db043ac46))
+* corrige l'édition des documents pour les entreprises ([9fbcd74](https://github.com/MTES-MCT/camino-ui/commit/9fbcd740980d1c5d6b98a4761bd8ce973a1df06e))
+* corrige une erreur de permissions lors de l'ajout d'un document ([04b089f](https://github.com/MTES-MCT/camino-ui/commit/04b089f8c26c1a8248e3592e6def588c130156c5))
+* **démarches:** affiche le bouton "téléchargements" ([#127](https://github.com/MTES-MCT/camino-ui/issues/127)) ([9278101](https://github.com/MTES-MCT/camino-ui/commit/9278101f717d0893fd2478b8789fe7c86c216d6e))
+* **filtres:** corrige une erreur sur les cases à cocher ([#123](https://github.com/MTES-MCT/camino-ui/issues/123)) ([66f7d0b](https://github.com/MTES-MCT/camino-ui/commit/66f7d0b8e50268ed99b8216b7248c6b8786970e1))
+* **stats:** corrige le format de rendu des mots-clés de recherche ([#122](https://github.com/MTES-MCT/camino-ui/issues/122)) ([569c117](https://github.com/MTES-MCT/camino-ui/commit/569c117da9ed98aa85cf3ffb1ac4c669cf06a48e))
+
 ### [0.22.34](https://github.com/MTES-MCT/camino-ui/compare/v0.22.33...v0.22.34) (2020-06-02)
 
 
