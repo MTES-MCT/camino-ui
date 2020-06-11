@@ -12,7 +12,7 @@ export const state = {
     entreprise: []
   },
   params: [
-    { id: 'nomsPrenoms', type: 'string' },
+    { id: 'noms', type: 'string' },
     { id: 'emails', type: 'string' },
     { id: 'permissionIds', type: 'strings', elements: [] },
     { id: 'administrationIds', type: 'strings', elements: [] },
@@ -38,7 +38,7 @@ export const state = {
       colonne: null
     },
     filtres: {
-      nomsPrenoms: '',
+      noms: '',
       emails: '',
       permissionIds: [],
       administrationIds: [],
