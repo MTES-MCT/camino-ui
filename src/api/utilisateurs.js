@@ -80,7 +80,6 @@ const utilisateurs = apiQuery(
       $administrationIds: [ID]
       $permissionIds: [ID]
       $noms: String
-      $prenoms: String
       $emails: String
     ) {
       utilisateurs(
@@ -92,7 +91,6 @@ const utilisateurs = apiQuery(
         administrationIds: $administrationIds
         permissionIds: $permissionIds
         noms: $noms
-        prenoms: $prenoms
         emails: $emails
       ) {
         elements {

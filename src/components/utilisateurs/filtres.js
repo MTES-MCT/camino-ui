@@ -5,14 +5,7 @@ const utilisateursFiltres = [
     id: 'noms',
     type: 'input',
     value: '',
-    name: 'Noms',
-    placeholder: '...'
-  },
-  {
-    id: 'prenoms',
-    type: 'input',
-    value: '',
-    name: 'Prénoms',
+    name: 'Noms, prénoms',
     placeholder: '...'
   },
   {

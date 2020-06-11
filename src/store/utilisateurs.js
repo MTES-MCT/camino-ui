@@ -13,7 +13,6 @@ export const state = {
   },
   params: [
     { id: 'noms', type: 'string' },
-    { id: 'prenoms', type: 'string' },
     { id: 'emails', type: 'string' },
     { id: 'permissionIds', type: 'strings', elements: [] },
     { id: 'administrationIds', type: 'strings', elements: [] },
@@ -40,7 +39,6 @@ export const state = {
     },
     filtres: {
       noms: '',
-      prenoms: '',
       emails: '',
       permissionIds: [],
       administrationIds: [],
