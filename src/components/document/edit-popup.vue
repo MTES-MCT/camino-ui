@@ -40,12 +40,10 @@
         <h6>Date</h6>
       </div>
       <div class="tablet-blob-2-3">
-        <input
+        <InputDate
           v-model="document.date"
-          type="date"
-          class="p-s mb"
-          placeholder="aaaa-mm-jj"
-        >
+          class="mb"
+        />
       </div>
     </div>
 
@@ -269,6 +267,7 @@
 </template>
 
 <script>
+import InputDate from '../_ui/input-date.vue'
 import Popup from '../_ui/popup.vue'
 import Messages from '../_ui/messages.vue'
 
@@ -277,7 +276,8 @@ export default {
 
   components: {
     Popup,
-    Messages
+    Messages,
+    InputDate
   },
 
   props: {

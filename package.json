@@ -28,8 +28,7 @@
     "compression": "^1.7.4",
     "connect-history-api-fallback": "^1.6.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "vue-functional-calendar": "^2.8.83"
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.3.0",

@@ -91,6 +91,14 @@ https://github.com/francoisromain/postcss-grid-fluid
   flex: 0 1 calc(75% - var(--gutter) - 3rem - var(--gutter));
 }
 
+.blobs-mini {
+  gf: row var(--unit-s);
+}
+
+.blob-mini-1-3 {
+  gf: blob 1/3 var(--unit-s);
+}
+
 @media (--viewport-mobile) {
   .mobile-blobs {
     gf: row;
