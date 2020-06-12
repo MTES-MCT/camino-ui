@@ -27,7 +27,7 @@ export const state = {
     tiles
   },
   preferences: {
-    carte: { tilesId: 'osm-fr' }
+    carte: { tilesId: 'osm-fr', markerLayersId: 'clusters' }
   }
 }
 

@@ -6,7 +6,7 @@
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
       class="map map-list mb-s"
-      @map:update="preferencesUpdate"
+      @map:update="titresPreferencesUpdate"
     />
     <MapPattern
       :domaines-ids="domainesIds"
@@ -35,20 +35,38 @@
           </ul>
         </div>
         <div class="desktop-blob-1-2 flex flex-start mb-s">
-          <button
-            class="btn-border pill px-m py-s mr-s"
-            @click="clustersDisplayToggle"
+          <div :class="{ active: markerLayersId === 'clusters' }">
+            <button
+              class="btn-border p-s rnd-l-s"
+              @click="markerLayersIdSet('clusters')"
+            >
+              <i class="icon-24 icon-markers-clusters" />
+            </button>
+          </div>
+          <div :class="{ active: markerLayersId === 'markers' }">
+            <button
+              class="btn-border p-s"
+              @click="markerLayersIdSet('markers')"
+            >
+              <i class="icon-24 icon-markers-markers" />
+            </button>
+          </div>
+          <div
+            :class="{ active: markerLayersId === 'none' }"
+            class="mr-s"
           >
-            <i
-              :class="`icon-markers-${clustersDisplay ? 'ungrouped' : 'grouped'}`"
-              class="icon-24"
-            />
-          </button>
+            <button
+              class="btn-border p-s rnd-r-s"
+              @click="markerLayersIdSet('none')"
+            >
+              <i class="icon-24 icon-markers-none" />
+            </button>
+          </div>
           <MapTilesSelector
             :tiles="tiles"
             :tiles-id="tilesId"
             class="flex-grow"
-            @params:update="tilesUpdate"
+            @params:update="userPreferencesUpdate"
           />
         </div>
       </div>
@@ -57,18 +75,13 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Map from '../map/index.vue'
 import MapTilesSelector from '../map/tiles-selector.vue'
 import MapWarningBrgm from '../map/warning-brgm.vue'
 import MapPattern from '../map/pattern.vue'
-
-import {
-  zones,
-  clustersBuild,
-  layersBuild,
-  tilesBuild,
-  geojsonBoundsGet
-} from './map.js'
+import { tilesBuild } from '../map/map.js'
+import { zones, clustersBuild, layersBuild, geojsonBoundsGet } from './map.js'
 
 export default {
   components: {
@@ -86,7 +99,6 @@ export default {
     return {
       zones,
       zoneId: 'fr',
-      clustersDisplay: true,
       geojsons: {},
       clusters: [],
       markers: [],
@@ -97,11 +109,24 @@ export default {
   computed: {
     tilesLayer() {
       const tiles = this.$store.getters['user/tilesActive']
+
       return tilesBuild(tiles)
     },
 
+    markerLayersId() {
+      return this.$store.state.user.preferences.carte.markerLayersId
+    },
+
     markerLayers() {
-      return this.clustersDisplay ? this.clusters : this.markers
+      if (this.markerLayersId === 'clusters') {
+        return this.clusters
+      }
+
+      if (this.markerLayersId === 'markers') {
+        return this.markers
+      }
+
+      return []
     },
 
     zone() {
@@ -178,7 +203,7 @@ export default {
       this.geojsonLayersDisplay()
     },
 
-    preferencesUpdate(params) {
+    titresPreferencesUpdate(params) {
       if (params.center) {
         params.centre = params.center
         delete params.center
@@ -192,7 +217,7 @@ export default {
       this.geojsonLayersDisplay()
     },
 
-    tilesUpdate(params) {
+    userPreferencesUpdate(params) {
       this.eventTrack()
       this.$store.dispatch('user/preferencesSet', {
         section: 'carte',
@@ -213,18 +238,22 @@ export default {
     },
 
     geojsonLayersDisplay() {
-      setTimeout(() => {
+      Vue.nextTick(() => {
         this.geojsonLayers = []
         this.markers.forEach(marker => {
-          if (this.$refs.map && this.$refs.map.hasLayer(marker)) {
+          if (
+            this.markerLayersId === 'none' ||
+            (this.$refs.map && this.$refs.map.hasLayer(marker))
+          ) {
             this.geojsonLayers.push(this.geojsons[marker.id])
           }
         })
-      }, 500)
+      })
     },
 
-    clustersDisplayToggle() {
-      this.clustersDisplay = !this.clustersDisplay
+    markerLayersIdSet(markerLayersId) {
+      this.userPreferencesUpdate({ markerLayersId })
+
       this.geojsonLayersDisplay()
     },
 

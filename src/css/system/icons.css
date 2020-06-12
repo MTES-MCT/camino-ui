@@ -585,7 +585,7 @@
   );
 }
 
-.icon-markers-grouped {
+.icon-markers-clusters {
   background-image: svg-load(
     './icons/24-markers-grouped.svg',
     fill=none,
@@ -596,7 +596,7 @@
   );
 }
 
-.icon-markers-ungrouped {
+.icon-markers-markers {
   background-image: svg-load(
     './icons/24-markers-ungrouped.svg',
     fill=none,
@@ -607,7 +607,19 @@
   );
 }
 
-.btn-border:hover .icon-markers-grouped {
+.icon-markers-none {
+  background-image: svg-load(
+    './icons/24-markers-none.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn-border:hover .icon-markers-clusters,
+.active .icon-markers-clusters {
   background-image: svg-load(
     './icons/24-markers-grouped.svg',
     fill=none,
@@ -618,9 +630,22 @@
   );
 }
 
-.btn-border:hover .icon-markers-ungrouped {
+.btn-border:hover .icon-markers-markers,
+.active .icon-markers-markers {
   background-image: svg-load(
     './icons/24-markers-ungrouped.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.btn-border:hover .icon-markers-none,
+.active .icon-markers-none {
+  background-image: svg-load(
+    './icons/24-markers-none.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,

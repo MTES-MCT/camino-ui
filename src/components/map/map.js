@@ -27,16 +27,28 @@ const leafletTileLayerDefault = L.tileLayer(
   }
 )
 
-const leafletMap = map => L.map(map, {
+const leafletMap = map =>
+  L.map(map, {
     // zoomControl: true,
     doubleClickZoom: false,
     minZoom: 4,
     gestureHandling: true,
     fullscreenControl: {
-        pseudoFullscreen: true
+      pseudoFullscreen: true
     }
   })
 
+const tilesBuild = tiles =>
+  tiles.type === 'wms'
+    ? L.tileLayer.wms(tiles.url, {
+        layers: tiles.layers,
+        format: 'image/png',
+        attribution: tiles.attribution
+      })
+    : L.tileLayer(tiles.url, {
+        attribution: tiles.attribution
+      })
+
 const leafletScaleAdd = map => L.control.scale({ imperial: false }).addTo(map)
 
-export { leafletMap, leafletTileLayerDefault, leafletScaleAdd }
+export { leafletMap, leafletTileLayerDefault, leafletScaleAdd, tilesBuild }

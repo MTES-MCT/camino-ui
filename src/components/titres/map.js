@@ -153,17 +153,6 @@ const layersBuild = (titres, router) =>
     { geojsons: {}, markers: [] }
   )
 
-const tilesBuild = tiles =>
-  tiles.type === 'wms'
-    ? L.tileLayer.wms(tiles.url, {
-        layers: tiles.layers,
-        format: 'image/png',
-        attribution: tiles.attribution
-      })
-    : L.tileLayer(tiles.url, {
-        attribution: tiles.attribution
-      })
-
 const geojsonBoundsGet = zone => L.geoJSON(zone).getBounds()
 
-export { zones, clustersBuild, layersBuild, tilesBuild, geojsonBoundsGet }
+export { zones, clustersBuild, layersBuild, geojsonBoundsGet }

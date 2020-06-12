@@ -28,6 +28,16 @@
   border-radius: var(--unit-s);
 }
 
+.rnd-l {
+  border-top-left-radius: var(--unit);
+  border-bottom-left-radius: var(--unit);
+}
+
+.rnd-r {
+  border-top-right-radius: var(--unit);
+  border-bottom-right-radius: var(--unit);
+}
+
 .rnd-t-s {
   border-top-left-radius: var(--unit-s);
   border-top-right-radius: var(--unit-s);
@@ -41,6 +51,11 @@
 .rnd-l-s {
   border-top-left-radius: var(--unit-s);
   border-bottom-left-radius: var(--unit-s);
+}
+
+.rnd-r-s {
+  border-top-right-radius: var(--unit-s);
+  border-bottom-right-radius: var(--unit-s);
 }
 
 .rnd-xs {

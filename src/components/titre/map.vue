@@ -47,6 +47,8 @@ import MapTilesSelector from '../map/tiles-selector.vue'
 import MapWarningBrgm from '../map/warning-brgm.vue'
 import MapPattern from '../map/pattern.vue'
 
+import { tilesBuild } from '../map/map.js'
+
 export default {
   components: { MapPattern, MapWarningBrgm, Map, MapTilesSelector },
 
@@ -71,15 +73,8 @@ export default {
 
     tilesLayer() {
       const tiles = this.$store.getters['user/tilesActive']
-      return tiles.type === 'wms'
-        ? L.tileLayer.wms(tiles.url, {
-            layers: tiles.layers,
-            format: 'image/png',
-            attribution: tiles.attribution
-          })
-        : L.tileLayer(tiles.url, {
-            attribution: tiles.attribution
-          })
+
+      return tilesBuild(tiles)
     },
 
     geojsonLayers() {
