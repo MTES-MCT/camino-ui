@@ -66,13 +66,10 @@
         <h6>Date</h6>
       </div>
       <div class="tablet-blob-2-3">
-        <input
+        <InputDate
           v-model="etape.date"
-          type="date"
-          class="p-s"
           :class="{ 'mb-s': etape.date, mb: !etape.date }"
-          placeholder="aaaa-mm-jj"
-        >
+        />
         <label
           v-if="etape.date"
           class="h5"
@@ -141,6 +138,7 @@
 </template>
 
 <script>
+import InputDate from '../../_ui/input-date.vue'
 import Popup from '../../_ui/popup.vue'
 import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
@@ -155,7 +153,8 @@ export default {
     Popup,
     EtapeEditFondamentales,
     EtapeEditPoints,
-    EditSections
+    EditSections,
+    InputDate
   },
 
   props: {

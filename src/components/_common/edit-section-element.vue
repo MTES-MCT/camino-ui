@@ -25,13 +25,10 @@
               placeholder="…"
             >
 
-            <input
+            <InputDate
               v-else-if="element.type === 'date'"
               v-model="contenu[element.id]"
-              type="date"
-              class="p-s"
-              placeholder="aaaa-mm-jj"
-            >
+            />
 
             <textarea
               v-else-if="element.type === 'textarea'"
@@ -141,7 +138,13 @@
 </template>
 
 <script>
+import InputDate from '../_ui/input-date.vue'
+
 export default {
+  components: {
+    InputDate
+  },
+
   props: {
     contenu: {
       type: Object,

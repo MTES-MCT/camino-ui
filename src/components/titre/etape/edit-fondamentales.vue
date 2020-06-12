@@ -53,13 +53,10 @@
         </p>
       </div>
       <div class="tablet-blob-2-3">
-        <input
+        <InputDate
           v-model="etape.dateDebut"
-          type="date"
-          class="p-s"
-          placeholder="aaaa-mm-jj"
           :class="{ 'mb-s': etape.dateDebut, mb: !etape.dateDebut }"
-        >
+        />
         <label
           v-if="etape.dateDebut"
           class="h5"
@@ -82,13 +79,10 @@
         </p>
       </div>
       <div class="tablet-blob-2-3">
-        <input
+        <InputDate
           v-model="etape.dateFin"
-          type="date"
-          class="p-s"
-          placeholder="aaaa-mm-jj"
           :class="{ 'mb-s': etape.dateFin, mb: !etape.dateFin }"
-        >
+        />
         <label
           v-if="etape.dateFin"
           class="h5"
@@ -304,7 +298,11 @@
 </template>
 
 <script>
+import InputDate from '../../_ui/input-date.vue'
+
 export default {
+  components: { InputDate },
+
   props: {
     etape: { type: Object, default: () => ({}) },
     domaineId: { type: String, default: '' }

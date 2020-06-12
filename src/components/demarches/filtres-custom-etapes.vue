@@ -66,12 +66,7 @@
             </p>
           </div>
           <div class="blob-3-4">
-            <input
-              v-model="filter.value[n].dateDebut"
-              type="date"
-              class="p-s"
-              placeholder="aaaa-mm-jj"
-            >
+            <InputDate v-model="filter.value[n].dateDebut" />
           </div>
         </div>
         <div class="blobs mb-s">
@@ -82,12 +77,7 @@
             </p>
           </div>
           <div class="blob-3-4">
-            <input
-              v-model="filter.value[n].dateFin"
-              type="date"
-              class="p-s"
-              placeholder="aaaa-mm-jj"
-            >
+            <InputDate v-model="filter.value[n].dateFin" />
           </div>
         </div>
       </div>
@@ -104,7 +94,11 @@
 </template>
 
 <script>
+import InputDate from '../_ui/input-date.vue'
+
 export default {
+  components: { InputDate },
+
   props: {
     filter: { type: Object, required: true }
   },
