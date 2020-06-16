@@ -2,6 +2,7 @@
   <Accordion
     :opened="opened"
     class="mb-s"
+    :class="{ 'bg-warning': etape.selected }"
     @close="close"
     @toggle="toggle"
   >
@@ -18,7 +19,7 @@
         </Tag>
       </h6>
       <h3 class="cap-first mb-s">
-        {{ etape.type.nom }}
+        {{ etape.type.nom }} <a :href="`#${etape.id}`">etape.id</a>
       </h3>
       <div class="mb-xs">
         <Statut
@@ -154,7 +155,7 @@ export default {
 
   data() {
     return {
-      opened: false,
+      opened: this.etape.selected || false,
       documentRepertoire: 'etapes'
     }
   },
@@ -211,6 +212,16 @@ export default {
       }
     }
   },
+
+  // watch: {
+  //   'etape.selected': function(value) {
+  //     console.log('etape', value)
+
+  //     if (value) {
+  //       this.opened = true
+  //     }
+  //   }
+  // },
 
   methods: {
     close() {

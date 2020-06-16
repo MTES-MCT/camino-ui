@@ -200,7 +200,14 @@ export default {
   },
 
   watch: {
-    $route: 'get',
+    $route: function(to, from) {
+      if (to.params.id !== from.params.id) {
+        this.get()
+      } else if (to.hash !== from.hash) {
+        console.log('watchss', this.$route.hash.substring(1))
+        this.elementSelect(to.hash)
+      }
+    },
 
     user: 'get'
   },
@@ -216,6 +223,12 @@ export default {
   methods: {
     async get() {
       await this.$store.dispatch('titre/get', this.$route.params.id)
+
+      if (this.$route.hash) {
+        console.log('created', this.$route.hash.substring(1))
+
+        this.elementSelect(this.$route.hash.substring(1))
+      }
     },
 
     tabToggle(tabId) {
@@ -239,6 +252,28 @@ export default {
     eventTrack(event) {
       if (this.$matomo) {
         this.$matomo.trackEvent(event.categorie, event.action, event.nom)
+      }
+    },
+
+    elementSelect(id) {
+      if (id) {
+        this.titre.demarches.forEach(d => {
+          d.etapes.forEach(e => {
+            if (id === e.id) {
+              e.selected = true
+            } else if (e.selected) {
+              delete e.selected
+            }
+          })
+        })
+
+        this.titre.activites.forEach(a => {
+          if (id === a.id) {
+            a.selected = true
+          } else if (a.selected) {
+            delete a.selected
+          }
+        })
       }
     }
   }

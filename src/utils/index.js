@@ -4,9 +4,7 @@ const dateFormat = dateString => {
   // .replace(/ *\([^)]*\) */g,'')
 }
 
-const numberFormat = x => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-}
+const numberFormat = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 
 const permissionsCheck = (userPermission, permissions) =>
   permissions.includes(userPermission.id)

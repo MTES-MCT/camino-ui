@@ -46,6 +46,7 @@
 
     <TitreEtape
       v-for="etape in demarche.etapes"
+      :id="etape.id"
       :key="etape.id"
       :etape="etape"
       :demarche-type="demarche.type"
