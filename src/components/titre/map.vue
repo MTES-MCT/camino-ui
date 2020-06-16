@@ -124,8 +124,8 @@ export default {
   },
 
   watch: {
-    geojson: 'center',
-    points: 'center'
+    geojson: 'centrer',
+    points: 'centrer'
   },
 
   mounted() {
