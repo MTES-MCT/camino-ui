@@ -1,4 +1,4 @@
-his.c<template>
+<template>
   <Accordion
     :opened="opened"
     class="mb-s"
