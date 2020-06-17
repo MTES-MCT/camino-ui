@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.36](https://github.com/MTES-MCT/camino-ui/compare/v0.22.35...v0.22.36) (2020-06-17)
+
+
+### Features
+
+* **carte:** affiche le nom du titulaire sur un titre ([3de3459](https://github.com/MTES-MCT/camino-ui/commit/3de3459b217d8e81d98efe04e7dac8a5e4057a3e))
+* **carte:** propose une option pour désactiver les marqueurs ([87a8468](https://github.com/MTES-MCT/camino-ui/commit/87a84682ed82469d0ff9e982b4c34531c4eee26a))
+* crée un nouveau sélecteur de date ([#130](https://github.com/MTES-MCT/camino-ui/issues/130)) ([9911e66](https://github.com/MTES-MCT/camino-ui/commit/9911e662d31043bc72d0b3f55207f6e8f662043c))
+* **utilisateurs:** rassemble les champs 'noms' et 'prénoms' du filtre en un seul champ ([#129](https://github.com/MTES-MCT/camino-ui/issues/129)) ([f8f2a1b](https://github.com/MTES-MCT/camino-ui/commit/f8f2a1bf9f97152b3fda07e7742c67cc387f6bfa))
+
+
+### Bug Fixes
+
+* **activités:** corrige une erreur lorsqu'un champs numérique est vide ([#132](https://github.com/MTES-MCT/camino-ui/issues/132)) ([28ee7f4](https://github.com/MTES-MCT/camino-ui/commit/28ee7f4c63afef097082b6c448fa344b14608996))
+* **document:** corrige une erreur lors du choix de la visibilité ([371b6ab](https://github.com/MTES-MCT/camino-ui/commit/371b6ab0839250f5e8767ea96538e21058eb24e2))
+* corrige une erreur lors du rechargement d'une page titre ([bf6803f](https://github.com/MTES-MCT/camino-ui/commit/bf6803fa1918c22f5f84489ee493d46491361ec7))
+
 ### [0.22.35](https://github.com/MTES-MCT/camino-ui/compare/v0.22.34...v0.22.35) (2020-06-10)
 
 
