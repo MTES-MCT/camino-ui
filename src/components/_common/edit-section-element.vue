@@ -165,7 +165,8 @@ export default {
       return (
         this.contenu &&
         ((!Array.isArray(this.contenu[this.element.id]) &&
-          this.contenu[this.element.id] !== undefined) ||
+          (this.contenu[this.element.id] ||
+            this.contenu[this.element.id] === 0)) ||
           (Array.isArray(this.contenu[this.element.id]) &&
             this.contenu[this.element.id].length))
       )
