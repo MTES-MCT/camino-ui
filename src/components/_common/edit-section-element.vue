@@ -119,7 +119,7 @@
           class="pt-xs"
         >
           {{ element.type === 'number'
-            ? contenu[element.id] ? numberFormat(contenu[element.id]) :''
+            ? numberFormat(contenu[element.id])
             : element.type ==='checkboxes'
               ? contenu[element.id].map(id => element.valeurs.find(e => e.id === id).nom).join(', ')
               : contenu[element.id] }}
@@ -165,7 +165,8 @@ export default {
       return (
         this.contenu &&
         ((!Array.isArray(this.contenu[this.element.id]) &&
-          this.contenu[this.element.id] !== undefined) ||
+          (this.contenu[this.element.id] ||
+            this.contenu[this.element.id] === 0)) ||
           (Array.isArray(this.contenu[this.element.id]) &&
             this.contenu[this.element.id].length))
       )
