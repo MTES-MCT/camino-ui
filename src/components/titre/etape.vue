@@ -207,7 +207,9 @@ export default {
         fichier: null,
         fichierNouveau: null,
         fichierTypeId: null,
-        date: this.etape.date
+        date: this.etape.date,
+        entreprisesLecture: false,
+        publicLecture: false
       }
     }
   },
