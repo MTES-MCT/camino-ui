@@ -17,7 +17,6 @@ import Accessibilite from '../components/content/accessibilite.vue'
 import Contribution from '../components/content/contribution.vue'
 import MentionsLegalesCGU from '../components/content/mentions-legales-cgu.vue'
 import Cgu1 from '../components/content/cgu-1-0-0.vue'
-import Flux from '../components/content/flux.vue'
 import UserPasswordInit from '../components/user/password-init.vue'
 import UserAdd from '../components/user/add.vue'
 import Statistiques from '../components/content/statistiques.vue'
@@ -123,11 +122,6 @@ const routes = [
     path: '/statistiques',
     name: 'statistiques',
     component: Statistiques
-  },
-  {
-    path: '/flux',
-    name: 'flux',
-    component: Flux
   },
   {
     path: '/stats',
