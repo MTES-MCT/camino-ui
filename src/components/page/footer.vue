@@ -75,13 +75,9 @@
           </a>
         </li>
         <li>
-          <a
-            href="http://flux.camino.beta.gouv.fr"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <router-link to="/flux">
             Flux géographiques
-          </a>
+          </router-link>
         </li>
         <li>
           <a

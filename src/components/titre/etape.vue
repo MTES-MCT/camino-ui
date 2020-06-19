@@ -225,6 +225,7 @@ export default {
 
     editPopupOpen() {
       const etape = etapeEditFormat(this.etape, this.demarcheId)
+      console.log('etape :>> ', etape)
 
       this.$store.commit('popupOpen', {
         component: EditPopup,
