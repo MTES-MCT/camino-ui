@@ -1,10 +1,11 @@
 import Vue from 'vue'
 
-import { metasTitres, titres } from '../api/titres'
+import { metasTitres, titresGeo, titres } from '../api/titres'
 import { paramsBuild } from './_utils'
 
 export const state = {
   list: [],
+  total: 0,
   metas: {
     domaines: [],
     types: [],
@@ -69,9 +70,17 @@ export const actions = {
     commit('loadingAdd', 'titres', { root: true })
 
     try {
-      const params = paramsBuild(state.params, state.preferences.filtres)
-
-      const data = await titres(params)
+      let data
+      if (state.preferences.vue.vueId === 'carte') {
+        const params = paramsBuild(state.params, state.preferences.filtres)
+        data = await titresGeo(params)
+      } else {
+        const params = paramsBuild(
+          state.params,
+          Object.assign({}, state.preferences.filtres, state.preferences.table)
+        )
+        data = await titres(params)
+      }
 
       dispatch(
         'messageAdd',
@@ -96,6 +105,7 @@ export const actions = {
 export const mutations = {
   set(state, data) {
     Vue.set(state, 'list', data.elements)
+    Vue.set(state, 'total', data.total)
   },
 
   metasSet(state, data) {

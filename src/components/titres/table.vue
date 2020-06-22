@@ -36,7 +36,7 @@
 import Table from '../_ui/table-client.vue'
 import Pagination from '../_ui/pagination.vue'
 import Ranges from '../_ui/ranges.vue'
-import { colonnes, lignesBuild } from './table.js'
+import { titresColonnes, titresLignesBuild } from './table.js'
 
 export default {
   name: 'Titres',
@@ -63,13 +63,13 @@ export default {
     },
 
     colonnes() {
-      return colonnes.filter(({ id }) =>
+      return titresColonnes.filter(({ id }) =>
         this.activitesCol ? true : id !== 'activites'
       )
     },
 
     lignes() {
-      return lignesBuild(this.titres, this.activitesCol)
+      return titresLignesBuild(this.titres, this.activitesCol)
     },
 
     pages() {

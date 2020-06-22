@@ -2,7 +2,11 @@ import gql from 'graphql-tag'
 import { apiQuery, apiMutate } from './_utils'
 
 import { fragmentTitreTypeType } from './fragments/metas'
-import { fragmentTitre, fragmentTitres } from './fragments/titre'
+import {
+  fragmentTitre,
+  fragmentTitres,
+  fragmentTitresGeo
+} from './fragments/titre'
 
 const metasTitre = apiQuery(
   gql`
@@ -58,7 +62,7 @@ const titre = apiQuery(
   { fetchPolicy: 'network-only' }
 )
 
-const titres = apiQuery(
+const titresGeo = apiQuery(
   gql`
     query Titres(
       $typesIds: [ID!]
@@ -71,6 +75,48 @@ const titres = apiQuery(
       $territoires: String
     ) {
       titres(
+        typesIds: $typesIds
+        domainesIds: $domainesIds
+        statutsIds: $statutsIds
+        substances: $substances
+        noms: $noms
+        entreprises: $entreprises
+        references: $references
+        territoires: $territoires
+      ) {
+        elements {
+          ...titresGeo
+        }
+        total
+      }
+    }
+
+    ${fragmentTitresGeo}
+  `,
+  { fetchPolicy: 'network-only' }
+)
+
+const titres = apiQuery(
+  gql`
+    query Titres(
+      $intervalle: Int
+      $page: Int
+      $colonne: String
+      $ordre: String
+      $typesIds: [ID!]
+      $domainesIds: [ID!]
+      $statutsIds: [ID!]
+      $substances: String
+      $noms: String
+      $entreprises: String
+      $references: String
+      $territoires: String
+    ) {
+      titres(
+        intervalle: $intervalle
+        page: $page
+        colonne: $colonne
+        ordre: $ordre
         typesIds: $typesIds
         domainesIds: $domainesIds
         statutsIds: $statutsIds
@@ -127,6 +173,7 @@ export {
   metasTitres,
   titre,
   titres,
+  titresGeo,
   titreCreer,
   titreModifier,
   titreSupprimer
