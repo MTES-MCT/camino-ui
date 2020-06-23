@@ -7,7 +7,6 @@
     :range="preferences.intervalle"
     :rows="lignes"
     :total="total"
-    class="width-max"
     @params:update="preferencesUpdate"
     @elements:update="elementsUpdate"
   />
