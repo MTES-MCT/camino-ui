@@ -22,7 +22,6 @@ export const state = {
     { id: 'territoires', type: 'string' },
     { id: 'page', type: 'number', value: 1, min: 0 },
     { id: 'intervalle', type: 'number', min: 10, max: 500 },
-
     {
       id: 'colonne',
       type: 'string',

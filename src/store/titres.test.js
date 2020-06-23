@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 
 jest.mock('../api/titres', () => ({
   titres: jest.fn(),
+  titresGeo: jest.fn(),
   metasTitres: jest.fn()
 }))
 
@@ -17,11 +18,14 @@ describe('liste des titres', () => {
   let actions
   let mutations
   let store
+  let titresCarte
   let titresListe
   beforeEach(() => {
+    titresCarte = ['pointe-a-pitre', 'marseille-sud', 'matignon', 'crique']
     titresListe = ['pointe-a-pitre', 'marseille-sud', 'matignon']
     titres.state = {
       list: [],
+      total: 0,
       metas: {
         domaines: [],
         types: [],
@@ -58,7 +62,19 @@ describe('liste des titres', () => {
         { id: 'noms', type: 'string' },
         { id: 'entreprises', type: 'string' },
         { id: 'references', type: 'string' },
-        { id: 'territoires', type: 'string' }
+        { id: 'territoires', type: 'string' },
+        { id: 'page', type: 'number', value: 1, min: 0 },
+        { id: 'intervalle', type: 'number', min: 10, max: 500 },
+        {
+          id: 'colonne',
+          type: 'string',
+          elements: ['nom', 'domaine', 'type', 'statut', 'activitesTotal']
+        },
+        {
+          id: 'ordre',
+          type: 'string',
+          elements: ['asc', 'desc']
+        }
       ]
     }
     mutations = {
@@ -126,8 +142,11 @@ describe('liste des titres', () => {
     expect(store.state.titres.metasLoaded).toBeFalsy()
   })
 
-  test('obtient la liste des titres', async () => {
-    const apiMock = api.titres.mockResolvedValue({ elements: titresListe })
+  test('obtient la liste des titres dans la vue "carte"', async () => {
+    const apiMock = api.titresGeo.mockResolvedValue({
+      elements: titresCarte,
+      total: 4
+    })
     await store.dispatch('titres/get')
 
     expect(apiMock).toHaveBeenCalledWith({
@@ -137,11 +156,33 @@ describe('liste des titres', () => {
       entreprises: 'fr-'
     })
     expect(actions.messageAdd).toHaveBeenCalled()
+    expect(store.state.titres.list).toEqual(titresCarte)
+  })
+
+  test('obtient la liste des titres dans la vue "liste"', async () => {
+    const apiMock = api.titres.mockResolvedValue({
+      elements: titresListe,
+      total: 3
+    })
+    titres.state.preferences.vue.vueId = 'liste'
+    await store.dispatch('titres/get')
+
+    expect(apiMock).toHaveBeenCalledWith({
+      noms: 's',
+      domainesIds: ['c', 'w'],
+      statutsIds: ['val'],
+      entreprises: 'fr-',
+      page: 1,
+      intervalle: 200,
+      ordre: 'asc',
+      colonne: 'nom'
+    })
+    expect(actions.messageAdd).toHaveBeenCalled()
     expect(store.state.titres.list).toEqual(titresListe)
   })
 
   test("retourne une erreur si l'api ne repond pas", async () => {
-    const apiMock = api.titres.mockRejectedValue(
+    const apiMock = api.titresGeo.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
     await store.dispatch('titres/get')
