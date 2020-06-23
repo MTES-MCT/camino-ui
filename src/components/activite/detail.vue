@@ -63,6 +63,7 @@
         class="px-m"
         :bouton-suppression="activite.modification"
         :bouton-modification="activite.modification"
+        :etiquette="activite.modification"
       />
     </div>
   </Accordion>

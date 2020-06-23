@@ -17,6 +17,7 @@
         :context="context"
         :repertoire="repertoire"
         :title="title"
+        :etiquette="etiquette"
         :bouton-suppression="boutonSuppression"
         :bouton-modification="boutonModification"
         :bouton-dissociation="boutonDissociation"
@@ -40,9 +41,10 @@ export default {
     title: { type: String, default: '' },
     context: { type: Object, required: true },
     repertoire: { type: String, required: true },
-    boutonSuppression: { type: Boolean, default: true },
-    boutonModification: { type: Boolean, default: true },
-    boutonDissociation: { type: Boolean, default: false }
+    boutonSuppression: { type: Boolean, default: false },
+    boutonModification: { type: Boolean, default: false },
+    boutonDissociation: { type: Boolean, default: false },
+    etiquette: { type: Boolean, default: true }
   }
 }
 </script>
