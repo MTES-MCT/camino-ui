@@ -67,7 +67,7 @@
         </li>
         <li>
           <a
-            href="http://api.camino.beta.gouv.fr"
+            href="https://api.camino.beta.gouv.fr"
             target="_blank"
             rel="noopener noreferrer"
           >

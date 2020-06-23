@@ -158,7 +158,7 @@ export default {
     },
 
     preferences() {
-      return this.$store.state.titres.preferences.carte
+      return this.$store.state.titres.preferences.carteUrl
     }
   },
 
@@ -204,14 +204,28 @@ export default {
     },
 
     titresPreferencesUpdate(params) {
+      const urlParams = {}
+      const queryParams = {}
       if (params.center) {
-        params.centre = params.center
-        delete params.center
+        urlParams.centre = params.center
+      }
+
+      if (params.zoom) {
+        urlParams.zoom = params.zoom
+      }
+
+      if (params.bbox) {
+        queryParams.perimetre = params.bbox
       }
 
       this.$store.dispatch('titres/preferencesSet', {
+        section: 'carteUrl',
+        params: urlParams
+      })
+
+      this.$store.dispatch('titres/preferencesSet', {
         section: 'carte',
-        params
+        params: queryParams
       })
 
       this.geojsonLayersDisplay()

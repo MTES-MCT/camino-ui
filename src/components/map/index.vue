@@ -68,7 +68,18 @@ export default {
           const center = [this.map.getCenter().lat, this.map.getCenter().lng]
           const zoom = this.map.getZoom()
           this.zoom = zoom
-          this.$emit('map:update', { center, zoom })
+          const bounds = this.map.getBounds()
+
+          this.$emit('map:update', {
+            center,
+            zoom,
+            bbox: [
+              bounds._southWest.lng,
+              bounds._southWest.lat,
+              bounds._northEast.lat,
+              bounds._northEast.lng
+            ]
+          })
         }
       })
 
@@ -103,6 +114,17 @@ export default {
       this.preventMoveend = true
       this.map.setView(center, zoom)
       this.zoom = zoom
+
+      const bounds = this.map.getBounds()
+
+      this.$emit('map:update', {
+        bbox: [
+          bounds._southWest.lng,
+          bounds._southWest.lat,
+          bounds._northEast.lat,
+          bounds._northEast.lng
+        ]
+      })
     },
 
     scaleAdd() {

@@ -31,12 +31,14 @@ export const state = {
       id: 'ordre',
       type: 'string',
       elements: ['asc', 'desc']
-    }
+    },
+    { id: 'perimetre', type: 'numbers' }
   ],
   preferences: {
     vue: { vueId: 'carte' },
     table: { page: 1, intervalle: 200, ordre: 'asc', colonne: 'nom' },
-    carte: { zoom: null, centre: [] },
+    carteUrl: { zoom: null, centre: [] },
+    carte: { perimetre: [0, 0, 0, 0] },
     filtres: {
       typesIds: [],
       domainesIds: [],
@@ -71,7 +73,11 @@ export const actions = {
     try {
       let data
       if (state.preferences.vue.vueId === 'carte') {
-        const params = paramsBuild(state.params, state.preferences.filtres)
+        const params = paramsBuild(
+          state.params,
+          Object.assign({}, state.preferences.filtres, state.preferences.carte)
+        )
+
         data = await titresGeo(params)
       } else {
         const params = paramsBuild(
