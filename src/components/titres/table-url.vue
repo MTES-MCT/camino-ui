@@ -5,7 +5,11 @@
       :values="params"
       @params:update="preferencesUpdate"
     />
-    <Table :titres="titres" />
+    <Table
+      :titres="titres"
+      :total="total"
+      @elements:update="$emit('elements:update')"
+    />
   </div>
 </template>
 
@@ -20,7 +24,8 @@ export default {
   },
 
   props: {
-    titres: { type: Array, required: true }
+    titres: { type: Array, required: true },
+    total: { type: Number, required: true }
   },
 
   computed: {

@@ -132,14 +132,43 @@ const fragmentTitres = gql`
     amodiataires {
       ...titresEntreprises
     }
+  }
+
+  ${fragmentTitresEntreprises}
+
+  ${fragmentTitresSubstance}
+
+  ${fragmentTitreType}
+`
+
+const fragmentTitresGeo = gql`
+  fragment titresGeo on Titre {
+    id
+    nom
+    type {
+      ...titreType
+    }
+    domaine {
+      id
+      nom
+    }
+    statut {
+      id
+      nom
+      couleur
+    }
+    titulaires {
+      ...titresEntreprises
+    }
+    amodiataires {
+      ...titresEntreprises
+    }
     geojsonMultiPolygon {
       ...geojsonMultiPolygon
     }
   }
 
   ${fragmentTitresEntreprises}
-
-  ${fragmentTitresSubstance}
 
   ${fragmentGeojsonMultiPolygon}
 
@@ -167,4 +196,9 @@ const fragmentDemarchesTitre = gql`
   ${fragmentTitreType}
 `
 
-export { fragmentTitre, fragmentTitres, fragmentDemarchesTitre }
+export {
+  fragmentTitre,
+  fragmentTitres,
+  fragmentTitresGeo,
+  fragmentDemarchesTitre
+}

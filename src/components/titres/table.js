@@ -5,7 +5,7 @@ import CaminoDomaine from '../_common/domaine.vue'
 import ActivitesPills from '../activites/pills.vue'
 import Statut from '../_common/statut.vue'
 
-const colonnes = [
+const titresColonnes = [
   {
     id: 'nom',
     name: 'Nom',
@@ -42,7 +42,7 @@ const colonnes = [
   }
 ]
 
-const lignesBuild = (titres, activitesCol) =>
+const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
   titres.map(titre => {
     const columns = {
       nom: {
@@ -113,4 +113,4 @@ const lignesBuild = (titres, activitesCol) =>
     }
   })
 
-export { colonnes, lignesBuild }
+export { titresColonnes, titresLignesBuild }

@@ -61,7 +61,7 @@
           <button
             v-if="preferences.vue.vueId !== v.id"
             class="p-m btn-tab rnd-t-s"
-            @click="vuePreferencesUpdate({ vueId: v.id })"
+            @click="vueSet(v.id)"
           >
             <i
               :class="`icon-${v.icon}`"
@@ -79,7 +79,7 @@
           </div>
         </div>
         <div class="p-m h6 bold mb-xs">
-          {{ titres.length }} résultat{{ titres.length > 1 ? 's' : '' }}
+          {{ resultat }}
         </div>
       </div>
     </div>
@@ -89,6 +89,8 @@
       :is="vue.component"
       v-if="preferences.vue.vueId && metasLoaded"
       :titres="titres"
+      :total="total"
+      @elements:update="titresUpdate"
     />
     <div
       v-else
@@ -172,6 +174,18 @@ export default {
 
         return p
       }, {})
+    },
+
+    total() {
+      return this.$store.state.titres.total
+    },
+
+    resultat() {
+      const res =
+        this.total > this.titres.length
+          ? `${this.titres.length} / ${this.total}`
+          : this.titres.length
+      return `${res} résultat${this.titres.length > 1 ? 's' : ''}`
     }
   },
 
@@ -195,12 +209,18 @@ export default {
       }
     },
 
-    vuePreferencesUpdate(params) {
+    async vuePreferencesUpdate(params) {
       this.vueEventTrack(params.vueId)
-      this.$store.dispatch('titres/preferencesSet', {
+      await this.$store.dispatch('titres/preferencesSet', {
         section: 'vue',
         params
       })
+    },
+
+    async vueSet(vueId) {
+      this.$store.commit('titres/set', { elements: [], total: 0 })
+      await this.vuePreferencesUpdate({ vueId })
+      await this.titresUpdate()
     },
 
     filtresPreferencesUpdate(params) {
