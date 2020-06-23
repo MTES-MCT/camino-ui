@@ -39,10 +39,7 @@ describe('liste des titres', () => {
           ordre: 'asc',
           colonne: 'nom'
         },
-        carte: {
-          zoom: null,
-          centre: null
-        },
+        carteUrl: { zoom: null, centre: [] },
         filtres: {
           typesIds: null,
           entreprises: 'fr-',

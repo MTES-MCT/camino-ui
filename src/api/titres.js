@@ -73,6 +73,7 @@ const titresGeo = apiQuery(
       $entreprises: String
       $references: String
       $territoires: String
+      $perimetre: [Float!]
     ) {
       titres(
         typesIds: $typesIds
@@ -83,6 +84,7 @@ const titresGeo = apiQuery(
         entreprises: $entreprises
         references: $references
         territoires: $territoires
+        perimetre: $perimetre
       ) {
         elements {
           ...titresGeo
