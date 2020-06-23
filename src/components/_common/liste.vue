@@ -92,6 +92,7 @@ export default {
         this.total > this.elements.length
           ? `${this.elements.length} / ${this.total}`
           : this.elements.length
+
       return `${res} résultat${this.elements.length > 1 ? 's' : ''}`
     },
 

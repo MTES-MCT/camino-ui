@@ -1,54 +1,33 @@
 <template>
-  <div>
-    <Table
-      :column="preferences.colonne"
-      :columns="colonnes"
-      :order="preferences.ordre"
-      :page="preferences.page"
-      :range="preferences.intervalle"
-      :rows="lignes"
-      class="width-max"
-      @params:update="preferencesUpdate"
-    />
-
-    <div class="desktop-blobs">
-      <div class="desktop-blob-3-4">
-        <Pagination
-          :active="preferences.page"
-          :total="pages"
-          :visibles="5"
-          @page:update="pageUpdate"
-        />
-      </div>
-      <div class="desktop-blob-1-4">
-        <Ranges
-          v-if="lignes.length > 10"
-          :ranges="[10, 50, 200, 500]"
-          :range="preferences.intervalle"
-          @range:update="intervalleUpdate"
-        />
-      </div>
-    </div>
-  </div>
+  <Table
+    :column="preferences.colonne"
+    :columns="colonnes"
+    :order="preferences.ordre"
+    :page="preferences.page"
+    :range="preferences.intervalle"
+    :rows="lignes"
+    :total="total"
+    class="width-max"
+    @params:update="preferencesUpdate"
+    @elements:update="elementsUpdate"
+  />
 </template>
 
 <script>
-import Table from '../_ui/table-client.vue'
-import Pagination from '../_ui/pagination.vue'
-import Ranges from '../_ui/ranges.vue'
+import Table from '../_ui/table-pagination.vue'
+
 import { titresColonnes, titresLignesBuild } from './table.js'
 
 export default {
   name: 'Titres',
 
   components: {
-    Table,
-    Pagination,
-    Ranges
+    Table
   },
 
   props: {
-    titres: { type: Array, required: true }
+    titres: { type: Array, required: true },
+    total: { type: Number, required: true }
   },
 
   computed: {
@@ -117,6 +96,10 @@ export default {
 
     intervalleUpdate(range) {
       this.preferencesUpdate({ range, page: 1 })
+    },
+
+    elementsUpdate() {
+      this.$emit('elements:update')
     }
   }
 }

@@ -64,7 +64,6 @@ export default {
     loaded: function(to, from) {
       if (!from) {
         this.init()
-        this.elementsUpdate()
       }
     }
   },
@@ -154,6 +153,8 @@ export default {
           filtre.value = preference
         }
       })
+
+      this.elementsUpdate()
     }
   }
 }
