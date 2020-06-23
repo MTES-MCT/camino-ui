@@ -2,22 +2,24 @@
   <tr class="h5">
     <td class="nowrap">
       <span class="bold">{{ document.type.nom }}</span>
-      <Tag
-        v-if="document.publicLecture"
-        :mini="true"
-        color="bg-info"
-        class="ml-xs"
-      >
-        Public
-      </Tag>
-      <Tag
-        v-if="document.entreprisesLecture"
-        :mini="true"
-        color="bg-info"
-        class="ml-xs"
-      >
-        Entreprise
-      </Tag>
+      <span v-if="etiquette">
+        <Tag
+          v-if="document.publicLecture"
+          :mini="true"
+          color="bg-info"
+          class="ml-xs"
+        >
+          Public
+        </Tag>
+        <Tag
+          v-if="document.entreprisesLecture && !document.publicLecture"
+          :mini="true"
+          color="bg-info"
+          class="ml-xs"
+        >
+          Entreprise
+        </Tag>
+      </span>
     </td>
     <td class="nowrap">
       {{ document.date | dateFormat }}
@@ -87,9 +89,10 @@ export default {
     context: { type: Object, required: true },
     title: { type: String, default: '' },
     repertoire: { type: String, required: true },
-    boutonSuppression: { type: Boolean, default: true },
-    boutonModification: { type: Boolean, default: true },
-    boutonDissociation: { type: Boolean, default: false }
+    boutonSuppression: { type: Boolean, default: false },
+    boutonModification: { type: Boolean, default: false },
+    boutonDissociation: { type: Boolean, default: false },
+    etiquette: { type: Boolean, default: true }
   },
 
   methods: {

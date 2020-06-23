@@ -161,6 +161,7 @@
           class="px-m"
           :bouton-suppression="entreprise.modification && permissionsCheck(['super', 'admin', 'editeur'])"
           :bouton-modification="entreprise.modification"
+          :etiquette="entreprise.modification"
         />
       </template>
     </Accordion>
