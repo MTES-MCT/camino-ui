@@ -76,7 +76,7 @@
         </li>
         <li>
           <a
-            href="http://flux.camino.beta.gouv.fr"
+            href="https://docs.camino.beta.gouv.fr/pages/Utilisation/04-flux.html"
             target="_blank"
             rel="noopener noreferrer"
           >
