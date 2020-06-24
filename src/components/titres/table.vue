@@ -8,7 +8,6 @@
     :rows="lignes"
     :total="total"
     @params:update="preferencesUpdate"
-    @elements:update="elementsUpdate"
   />
 </template>
 
@@ -95,10 +94,6 @@ export default {
 
     intervalleUpdate(range) {
       this.preferencesUpdate({ range, page: 1 })
-    },
-
-    elementsUpdate() {
-      this.$emit('elements:update')
     }
   }
 }

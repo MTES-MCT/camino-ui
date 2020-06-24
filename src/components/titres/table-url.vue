@@ -8,7 +8,6 @@
     <Table
       :titres="titres"
       :total="total"
-      @elements:update="$emit('elements:update')"
     />
   </div>
 </template>

@@ -77,10 +77,6 @@ export default {
   },
 
   methods: {
-    elementsUpdate() {
-      this.$emit('elements:update')
-    },
-
     preferencesUpdate(params) {
       this.$emit('preferences:update', params)
     },
@@ -134,7 +130,6 @@ export default {
       }, {})
 
       this.preferencesUpdate(params)
-      this.elementsUpdate()
     },
 
     init() {
@@ -153,8 +148,6 @@ export default {
           filtre.value = preference
         }
       })
-
-      this.elementsUpdate()
     }
   }
 }

@@ -158,16 +158,12 @@ export default {
     },
 
     preferences() {
-      return this.$store.state.titres.preferences.carteUrl
+      return this.$store.state.titres.preferences.carte
     }
   },
 
   watch: {
     titres: 'titresInit'
-  },
-
-  created() {
-    this.titresInit()
   },
 
   mounted() {
@@ -204,31 +200,24 @@ export default {
     },
 
     titresPreferencesUpdate(params) {
-      const urlParams = {}
-      const queryParams = {}
-      if (params.center) {
-        urlParams.centre = params.center
+      if (params.center || params.zoom || params.bbox) {
+        if (params.center) {
+          params.centre = params.center
+
+          delete params.center
+        }
+
+        if (params.bbox) {
+          params.perimetre = params.bbox
+
+          delete params.bbox
+        }
+
+        this.$store.dispatch('titres/preferencesSet', {
+          section: 'carte',
+          params
+        })
       }
-
-      if (params.zoom) {
-        urlParams.zoom = params.zoom
-      }
-
-      if (params.bbox) {
-        queryParams.perimetre = params.bbox
-      }
-
-      this.$store.dispatch('titres/preferencesSet', {
-        section: 'carteUrl',
-        params: urlParams
-      })
-
-      this.$store.dispatch('titres/preferencesSet', {
-        section: 'carte',
-        params: queryParams
-      })
-
-      this.geojsonLayersDisplay()
     },
 
     userPreferencesUpdate(params) {

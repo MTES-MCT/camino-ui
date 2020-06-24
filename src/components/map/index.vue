@@ -16,18 +16,9 @@ import { leafletMap, leafletTileLayerDefault, leafletScaleAdd } from './map.js'
 
 export default {
   props: {
-    geojsonLayers: {
-      type: Array,
-      default: () => []
-    },
-    markerLayers: {
-      type: Array,
-      default: () => []
-    },
-    tilesLayer: {
-      type: Object,
-      default: () => leafletTileLayerDefault
-    }
+    geojsonLayers: { type: Array, default: () => [] },
+    markerLayers: { type: Array, default: () => [] },
+    tilesLayer: { type: Object, default: () => leafletTileLayerDefault }
   },
 
   data() {
@@ -68,18 +59,10 @@ export default {
           const center = [this.map.getCenter().lat, this.map.getCenter().lng]
           const zoom = this.map.getZoom()
           this.zoom = zoom
-          const bounds = this.map.getBounds()
 
-          this.$emit('map:update', {
-            center,
-            zoom,
-            bbox: [
-              bounds._southWest.lng,
-              bounds._southWest.lat,
-              bounds._northEast.lat,
-              bounds._northEast.lng
-            ]
-          })
+          const bbox = this.boundsGet()
+
+          this.$emit('map:update', { center, zoom, bbox })
         }
       })
 
@@ -115,16 +98,20 @@ export default {
       this.map.setView(center, zoom)
       this.zoom = zoom
 
+      const bbox = this.boundsGet()
+
+      this.$emit('map:update', { bbox })
+    },
+
+    boundsGet() {
       const bounds = this.map.getBounds()
 
-      this.$emit('map:update', {
-        bbox: [
-          bounds._southWest.lng,
-          bounds._southWest.lat,
-          bounds._northEast.lat,
-          bounds._northEast.lng
-        ]
-      })
+      return [
+        bounds._southWest.lng,
+        bounds._southWest.lat,
+        bounds._northEast.lng,
+        bounds._northEast.lat
+      ]
     },
 
     scaleAdd() {

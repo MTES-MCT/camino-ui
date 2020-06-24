@@ -6,6 +6,7 @@ import { paramsBuild } from './_utils'
 export const state = {
   list: [],
   total: 0,
+  vue: 'carte',
   metas: {
     domaines: [],
     types: [],
@@ -35,10 +36,8 @@ export const state = {
     { id: 'perimetre', type: 'numbers' }
   ],
   preferences: {
-    vue: { vueId: 'carte' },
     table: { page: 1, intervalle: 200, ordre: 'asc', colonne: 'nom' },
-    carteUrl: { zoom: null, centre: [] },
-    carte: { perimetre: [0, 0, 0, 0] },
+    carte: { perimetre: [0, 0, 0, 0], zoom: null, centre: [] },
     filtres: {
       typesIds: [],
       domainesIds: [],
@@ -72,7 +71,8 @@ export const actions = {
 
     try {
       let data
-      if (state.preferences.vue.vueId === 'carte') {
+
+      if (state.vue === 'carte') {
         const params = paramsBuild(
           state.params,
           Object.assign({}, state.preferences.filtres, state.preferences.carte)
@@ -104,6 +104,10 @@ export const actions = {
 
   preferencesSet({ commit }, { section, params }) {
     commit('preferencesSet', { section, params })
+  },
+
+  vueSet({ commit }, vue) {
+    commit('vueSet', vue)
   }
 }
 
@@ -149,6 +153,10 @@ export const mutations = {
     Object.keys(params).forEach(id => {
       Vue.set(state.preferences[section], id, params[id])
     })
+  },
+
+  vueSet(state, vue) {
+    Vue.set(state, 'vue', vue)
   }
 }
 

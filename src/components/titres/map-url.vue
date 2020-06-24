@@ -37,14 +37,16 @@ export default {
 
   computed: {
     preferences() {
-      return this.$store.state.titres.preferences.carteUrl
+      const { zoom, centre } = this.$store.state.titres.preferences.carte
+
+      return { zoom, centre }
     }
   },
 
   methods: {
     preferencesUpdate(params) {
       this.$store.dispatch('titres/preferencesSet', {
-        section: 'carteUrl',
+        section: 'carte',
         params
       })
     }

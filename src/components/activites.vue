@@ -11,7 +11,6 @@
     :params="params"
     :total="total"
     :loaded="metasLoaded"
-    @elements:update="activitesUpdate"
     @preferences:update="preferencesUpdate"
   >
     <Downloads
@@ -76,11 +75,22 @@ export default {
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'metasGet',
+
+    preferences: {
+      handler: function() {
+        this.activitesUpdate()
+      },
+      deep: true
+    }
   },
 
   async created() {
     await this.metasGet()
+  },
+
+  destroyed() {
+    this.$store.commit('titresActivites/set', { elements: [], total: 0 })
   },
 
   methods: {

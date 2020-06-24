@@ -20,7 +20,7 @@
 
     <Url
       :values="vueUrlValues"
-      :params="preferences.vue"
+      :params="{ vue }"
       @params:update="vuePreferencesUpdate"
     />
 
@@ -36,7 +36,6 @@
       :loaded="metasLoaded"
       :metas="metas"
       :preferences="preferences.filtres"
-      @elements:update="titresUpdate"
       @preferences:update="filtresPreferencesUpdate"
       @toggle="filtresToggle"
     />
@@ -56,10 +55,10 @@
           v-for="v in vues"
           :key="v.id"
           class="mr-xs"
-          :class="{ active: preferences.vue.vueId === v.id }"
+          :class="{ active: vue === v.id }"
         >
           <button
-            v-if="preferences.vue.vueId !== v.id"
+            v-if="vue !== v.id"
             class="p-m btn-tab rnd-t-s"
             @click="vueSet(v.id)"
           >
@@ -86,11 +85,10 @@
 
     <div class="line-neutral" />
     <Component
-      :is="vue.component"
-      v-if="preferences.vue.vueId && metasLoaded"
+      :is="vueComponent"
+      v-if="vue && metasLoaded"
       :titres="titres"
       :total="total"
-      @elements:update="titresUpdate"
     />
     <div
       v-else
@@ -125,7 +123,7 @@ export default {
         { id: 'liste', component: TitresTableUrl, icon: 'list' }
       ],
       vueUrlValues: {
-        vueId: { type: 'string', elements: ['carte', 'liste'] }
+        vue: { type: 'string', elements: ['carte', 'liste'] }
       }
     }
   },
@@ -151,12 +149,16 @@ export default {
       return this.$store.state.titres.preferences
     },
 
+    vue() {
+      return this.$store.state.titres.vue
+    },
+
     params() {
       return this.$store.state.titres.params
     },
 
-    vue() {
-      return this.vues.find(v => v.id === this.preferences.vue.vueId)
+    vueComponent() {
+      return this.vues.find(v => v.id === this.vue).component
     },
 
     modification() {
@@ -190,16 +192,35 @@ export default {
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'metasGet',
+
+    preferences: {
+      handler: function(to, from) {
+        this.titresUpdate()
+      },
+      deep: true
+    },
+
+    vue: function(to, from) {
+      if (to !== 'carte') {
+        this.titresUpdate()
+      }
+    }
   },
 
   async created() {
     await this.metasGet()
   },
 
+  destroyed() {
+    this.$store.commit('titres/set', { elements: [], total: 0 })
+  },
+
   methods: {
     async titresUpdate() {
-      await this.$store.dispatch('titres/get')
+      if (this.metasLoaded) {
+        await this.$store.dispatch('titres/get')
+      }
     },
 
     async metasGet() {
@@ -209,18 +230,14 @@ export default {
       }
     },
 
-    async vuePreferencesUpdate(params) {
-      this.vueEventTrack(params.vueId)
-      await this.$store.dispatch('titres/preferencesSet', {
-        section: 'vue',
-        params
-      })
+    vuePreferencesUpdate(params) {
+      this.vueSet(params.vue)
     },
 
-    async vueSet(vueId) {
+    vueSet(vue) {
       this.$store.commit('titres/set', { elements: [], total: 0 })
-      await this.vuePreferencesUpdate({ vueId })
-      await this.titresUpdate()
+      this.$store.dispatch('titres/vueSet', vue)
+      this.vueEventTrack(vue)
     },
 
     filtresPreferencesUpdate(params) {
@@ -249,9 +266,9 @@ export default {
       }
     },
 
-    vueEventTrack(id) {
+    vueEventTrack(vue) {
       if (this.$matomo) {
-        this.$matomo.trackEvent('titres-vue', 'titres-vueId', id)
+        this.$matomo.trackEvent('titres-vue', 'titres-vueId', vue)
       }
     },
 

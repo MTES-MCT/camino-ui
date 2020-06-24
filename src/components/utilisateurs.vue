@@ -11,7 +11,6 @@
     :params="params"
     :total="total"
     :loaded="metasLoaded"
-    @elements:update="utilisateursUpdate"
     @preferences:update="preferencesUpdate"
   >
     <button
@@ -90,11 +89,22 @@ export default {
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'metasGet',
+
+    preferences: {
+      handler: function() {
+        this.utilisateursUpdate()
+      },
+      deep: true
+    }
   },
 
   async created() {
     await this.metasGet()
+  },
+
+  destroyed() {
+    this.$store.commit('utilisateurs/set', { elements: [], total: 0 })
   },
 
   methods: {
