@@ -26,20 +26,20 @@ describe('liste des titres', () => {
     titres.state = {
       list: [],
       total: 0,
+      vue: 'carte',
       metas: {
         domaines: [],
         types: [],
         statuts: []
       },
       preferences: {
-        vue: { vueId: 'carte' },
         table: {
           page: 1,
           intervalle: 200,
           ordre: 'asc',
           colonne: 'nom'
         },
-        carteUrl: { zoom: null, centre: [] },
+        carte: { zoom: null, centre: [], perimetre: [] },
         filtres: {
           typesIds: null,
           entreprises: 'fr-',
@@ -161,7 +161,7 @@ describe('liste des titres', () => {
       elements: titresListe,
       total: 3
     })
-    titres.state.preferences.vue.vueId = 'liste'
+    titres.state.vue = 'liste'
     await store.dispatch('titres/get')
 
     expect(apiMock).toHaveBeenCalledWith({
@@ -200,5 +200,11 @@ describe('liste des titres', () => {
     await store.dispatch('titres/preferencesSet', { section, params })
 
     expect(store.state.titres.preferences.filtres.domainesIds).toEqual('h')
+  })
+
+  test('initialise la vue', async () => {
+    await store.dispatch('titres/vueSet', 'liste')
+
+    expect(store.state.titres.vue).toEqual('liste')
   })
 })

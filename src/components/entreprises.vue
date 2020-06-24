@@ -10,7 +10,6 @@
     :params="params"
     :total="total"
     :loaded="metasLoaded"
-    @elements:update="entreprisesUpdate"
     @preferences:update="preferencesUpdate"
   >
     <button
@@ -89,10 +88,23 @@ export default {
     }
   },
 
+  watch: {
+    preferences: {
+      handler: function() {
+        this.entreprisesUpdate()
+      },
+      deep: true
+    }
+  },
+
   created() {
     Vue.nextTick(() => {
       this.metasLoaded = true
     })
+  },
+
+  destroyed() {
+    this.$store.commit('entreprises/set', { elements: [], total: 0 })
   },
 
   methods: {

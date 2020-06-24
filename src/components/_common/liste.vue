@@ -31,7 +31,6 @@
       :loaded="loaded"
       :metas="metas"
       :preferences="preferences.filtres"
-      @elements:update="elementsUpdate"
       @preferences:update="preferencesFiltresUpdate"
     />
 
@@ -57,7 +56,6 @@
       :order="preferences.table.ordre"
       :page="preferences.table.page"
       :total="total"
-      @elements:update="elementsUpdate"
       @params:update="preferencesTableUpdate"
     />
   </div>
@@ -122,10 +120,6 @@ export default {
   },
 
   methods: {
-    elementsUpdate() {
-      this.$emit('elements:update')
-    },
-
     async preferencesTableUpdate(params) {
       if (params.range) {
         params.intervalle = params.range

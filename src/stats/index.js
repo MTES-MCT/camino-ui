@@ -65,7 +65,7 @@ export default function install(Vue, setupOptions = {}) {
             if (to.name === 'titre') {
               // nombre d'affichage de la page 'titres'
               let action = `page-titre-from-${from.name}`
-              action += from.query.vueId ? `-${from.query.vueId}` : ''
+              action += from.query.vue ? `-${from.query.vue}` : ''
 
               matomo.trackEvent('page-titre', action, to.params.id)
             }

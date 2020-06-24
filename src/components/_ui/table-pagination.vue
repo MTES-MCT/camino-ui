@@ -63,7 +63,6 @@ export default {
   methods: {
     update(params) {
       this.$emit('params:update', params)
-      this.$emit('elements:update')
     },
 
     pageUpdate(page) {

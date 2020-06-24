@@ -10,7 +10,6 @@
     :params="params"
     :total="total"
     :loaded="metasLoaded"
-    @elements:update="demarchesUpdate"
     @preferences:update="preferencesUpdate"
   >
     <Downloads
@@ -76,11 +75,22 @@ export default {
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'metasGet',
+
+    preferences: {
+      handler: function() {
+        this.demarchesUpdate()
+      },
+      deep: true
+    }
   },
 
   async created() {
     await this.metasGet()
+  },
+
+  destroyed() {
+    this.$store.commit('titresDemarches/set', { elements: [], total: 0 })
   },
 
   methods: {
