@@ -181,11 +181,6 @@ label {
   text-transform: lowercase;
 }
 
-.cap {
-  text-transform: capitalize;
-  display: inline-block;
-}
-
 .cap-first {
   display: inline-block;
 }

@@ -149,10 +149,6 @@
     color-mod(var(--color-neutral) alpha(0.25));
 }
 
-.shadow-drop {
-  filter: drop-shadow(4px 4px 4px color-mod(var(--color-inverse) alpha(50%)));
-}
-
 .shadow-inset {
   box-shadow: inset var(--unit-xs) var(--unit-xs) var(--unit)
     color-mod(var(--color-neutral) alpha(0.25));
