@@ -17,6 +17,7 @@
       :values="urlValuesFiltres"
       :params="preferences.filtres"
       @params:update="preferencesFiltresUpdate"
+      @loaded="urlLoad('filtres')"
     />
 
     <Url
@@ -24,6 +25,7 @@
       :values="urlValuesTable"
       :params="preferences.table"
       @params:update="preferencesTableUpdate"
+      @loaded="urlLoad('table')"
     />
 
     <Filtres
@@ -31,7 +33,7 @@
       :loaded="loaded"
       :metas="metas"
       :preferences="preferences.filtres"
-      @preferences:update="preferencesFiltresUpdate"
+      @preferences:update="preferencesFiltresUpdateAndPageReset"
     />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
@@ -82,6 +84,15 @@ export default {
     params: { type: Array, required: true },
     total: { type: Number, required: true },
     loaded: { type: Boolean, default: false }
+  },
+
+  data() {
+    return {
+      urlsLoaded: {
+        filtres: false,
+        table: false
+      }
+    }
   },
 
   computed: {
@@ -139,8 +150,23 @@ export default {
       await this.$emit('preferences:update', { section: 'table', params })
     },
 
-    async preferencesFiltresUpdate(params) {
-      await this.$emit('preferences:update', { section: 'filtres', params })
+    preferencesFiltresUpdateAndPageReset(params) {
+      this.preferencesFiltresUpdate(params)
+      this.$emit('preferences:update', {
+        section: 'table',
+        params: { page: 1 }
+      })
+    },
+
+    preferencesFiltresUpdate(params) {
+      this.$emit('preferences:update', { section: 'filtres', params })
+    },
+
+    urlLoad(id) {
+      this.urlsLoaded[id] = true
+      if (this.urlsLoaded.table && this.urlsLoaded.filtres) {
+        this.$emit('loaded')
+      }
     }
   }
 }

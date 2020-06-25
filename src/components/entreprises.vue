@@ -11,6 +11,7 @@
     :total="total"
     :loaded="metasLoaded"
     @preferences:update="preferencesUpdate"
+    @loaded="entreprisesLoad"
   >
     <button
       v-if="permissionsCheck(['super', 'admin', 'editeur'])"
@@ -54,6 +55,7 @@ export default {
       filtres,
       colonnes: entreprisesColonnes,
       metasLoaded: false,
+      urlsLoaded: false,
       visible: false
     }
   },
@@ -91,7 +93,7 @@ export default {
   watch: {
     preferences: {
       handler: function() {
-        this.entreprisesUpdate()
+        this.entreprisesGet()
       },
       deep: true
     }
@@ -108,8 +110,13 @@ export default {
   },
 
   methods: {
-    async entreprisesUpdate() {
-      if (this.metasLoaded) {
+    entreprisesLoad() {
+      this.urlsLoaded = true
+      this.entreprisesGet()
+    },
+
+    async entreprisesGet() {
+      if (this.metasLoaded && this.urlsLoaded) {
         await this.$store.dispatch(`entreprises/get`)
       }
     },

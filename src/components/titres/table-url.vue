@@ -4,6 +4,7 @@
       :params="preferences"
       :values="params"
       @params:update="preferencesUpdate"
+      @loaded="$emit('loaded')"
     />
     <Table
       :titres="titres"

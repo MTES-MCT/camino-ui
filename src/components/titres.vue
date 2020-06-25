@@ -18,26 +18,16 @@
       </div>
     </div>
 
+    <Filtres
+      :metas-loaded="metasLoaded"
+      @loaded="urlLoad('filtres')"
+    />
+
     <Url
       :values="vueUrlValues"
       :params="{ vue }"
       @params:update="vuePreferencesUpdate"
-    />
-
-    <Url
-      v-if="metasLoaded"
-      :values="filtresUrlValues"
-      :params="preferences.filtres"
-      @params:update="filtresPreferencesUpdate"
-    />
-
-    <Filtres
-      :filtres="filtres"
-      :loaded="metasLoaded"
-      :metas="metas"
-      :preferences="preferences.filtres"
-      @preferences:update="filtresPreferencesUpdate"
-      @toggle="filtresToggle"
+      @loaded="urlLoad('vue')"
     />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
@@ -89,6 +79,7 @@
       v-if="vue && metasLoaded"
       :titres="titres"
       :total="total"
+      @loaded="urlLoad('component')"
     />
     <div
       v-else
@@ -101,13 +92,11 @@
 
 <script>
 import Url from './_ui/url.vue'
+import Downloads from './_common/downloads.vue'
 import TitreEditPopup from './titre/edit-popup.vue'
 import TitresTableUrl from './titres/table-url.vue'
 import TitresMap from './titres/map-url.vue'
-import Filtres from './_common/filtres.vue'
-import Downloads from './_common/downloads.vue'
-
-import filtres from './titres/filtres.js'
+import Filtres from './titres/filtres-url.vue'
 
 export default {
   name: 'Titres',
@@ -116,8 +105,13 @@ export default {
 
   data() {
     return {
-      filtres,
       metasLoaded: false,
+      urlsLoaded: {
+        vue: false,
+        component: false,
+        filtres: false
+      },
+      urlLoaded: false,
       vues: [
         { id: 'carte', component: TitresMap, icon: 'globe' },
         { id: 'liste', component: TitresTableUrl, icon: 'list' }
@@ -153,10 +147,6 @@ export default {
       return this.$store.state.titres.vue
     },
 
-    params() {
-      return this.$store.state.titres.params
-    },
-
     vueComponent() {
       return this.vues.find(v => v.id === this.vue).component
     },
@@ -164,18 +154,6 @@ export default {
     modification() {
       return this.$store.state.user.metas.domaines.filter(d => d.titresCreation)
         .length
-    },
-
-    filtresUrlValues() {
-      const paramsIds = Object.keys(this.preferences.filtres)
-
-      return this.params.reduce((p, param) => {
-        if (paramsIds.includes(param.id)) {
-          p[param.id] = param
-        }
-
-        return p
-      }, {})
     },
 
     total() {
@@ -187,6 +165,7 @@ export default {
         this.total > this.titres.length
           ? `${this.titres.length} / ${this.total}`
           : this.titres.length
+
       return `${res} résultat${this.titres.length > 1 ? 's' : ''}`
     }
   },
@@ -196,14 +175,18 @@ export default {
 
     preferences: {
       handler: function(to, from) {
-        this.titresUpdate()
+        this.titresGet()
       },
       deep: true
     },
 
-    vue: function(to, from) {
-      if (to !== 'carte') {
-        this.titresUpdate()
+    vue: function(vue) {
+      // si la vue est 'carte'
+      // le composant `map.vue` emet un event `perimetre`
+      // qui met à jour les préférences utilisateurs
+      // et déclenche déjà un rechargement des titres
+      if (vue !== 'carte') {
+        this.titresGet()
       }
     }
   },
@@ -217,8 +200,10 @@ export default {
   },
 
   methods: {
-    async titresUpdate() {
-      if (this.metasLoaded) {
+    async titresGet() {
+      const loaded = this.metasLoaded && this.urlLoaded
+
+      if (loaded) {
         await this.$store.dispatch('titres/get')
       }
     },
@@ -234,18 +219,12 @@ export default {
       this.vueSet(params.vue)
     },
 
-    vueSet(vue) {
-      this.$store.commit('titres/set', { elements: [], total: 0 })
-      this.$store.dispatch('titres/vueSet', vue)
-      this.vueEventTrack(vue)
-    },
+    async vueSet(vue) {
+      await this.$store.dispatch('titres/vueSet', vue)
 
-    filtresPreferencesUpdate(params) {
-      this.$store.dispatch('titres/preferencesSet', {
-        section: 'filtres',
-        params
-      })
-      this.paramsEventTrack(params)
+      if (this.$matomo) {
+        this.$matomo.trackEvent('titres-vue', 'titres-vueId', vue)
+      }
     },
 
     addPopupOpen() {
@@ -260,40 +239,22 @@ export default {
       })
     },
 
-    filtresToggle(opened) {
-      if (opened) {
-        this.paramsEventTrack()
+    titresLoad() {
+      if (!this.urlLoaded) {
+        this.urlLoaded = true
+        this.titresGet()
       }
     },
 
-    vueEventTrack(vue) {
-      if (this.$matomo) {
-        this.$matomo.trackEvent('titres-vue', 'titres-vueId', vue)
-      }
-    },
+    urlLoad(id) {
+      this.urlsLoaded[id] = true
 
-    paramsEventTrack(params) {
-      if (this.$matomo) {
-        if (params) {
-          this.params.forEach(({ type, id }) => {
-            let values = []
-            if (type === 'string' && params[id]) {
-              values = params[id].split(' ').map(p => p.replace("'", ' '))
-            } else if (type === 'strings' && params[id]) {
-              values = params[id]
-            }
-            values.forEach(value => {
-              this.$matomo.trackEvent(
-                'titres-filtres',
-                `titres-filtres-${id}`,
-                value
-              )
-              this.$matomo.trackSiteSearch(value, id)
-            })
-          })
-        } else {
-          this.$matomo.trackEvent('titres', 'filtres', 'filtres-titres')
-        }
+      if (
+        this.urlsLoaded.vue &&
+        this.urlsLoaded.component &&
+        this.urlsLoaded.filtres
+      ) {
+        this.titresLoad()
       }
     }
   }

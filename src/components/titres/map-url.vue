@@ -4,6 +4,7 @@
       :params="preferences"
       :values="values"
       @params:update="preferencesUpdate"
+      @loaded="$emit('loaded')"
     />
     <Map :titres="titres" />
   </div>
