@@ -52,16 +52,19 @@ export default {
     },
 
     filtresUrlValues() {
-      const params = this.$store.state.titres.params
       const paramsIds = Object.keys(this.preferences)
 
-      return params.reduce((p, param) => {
+      return this.params.reduce((p, param) => {
         if (paramsIds.includes(param.id)) {
           p[param.id] = param
         }
 
         return p
       }, {})
+    },
+
+    params() {
+      return this.$store.state.titres.params
     }
   },
 

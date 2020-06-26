@@ -95,12 +95,6 @@ export const actions = {
         data = await titres(params)
       }
 
-      dispatch(
-        'messageAdd',
-        { value: `titres mis à jour`, type: 'success' },
-        { root: true }
-      )
-
       commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })

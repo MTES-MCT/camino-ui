@@ -152,7 +152,6 @@ describe('liste des titres', () => {
       statutsIds: ['val'],
       entreprises: 'fr-'
     })
-    expect(actions.messageAdd).toHaveBeenCalled()
     expect(store.state.titres.list).toEqual(titresCarte)
   })
 
@@ -174,7 +173,6 @@ describe('liste des titres', () => {
       ordre: 'asc',
       colonne: 'nom'
     })
-    expect(actions.messageAdd).toHaveBeenCalled()
     expect(store.state.titres.list).toEqual(titresListe)
   })
 
