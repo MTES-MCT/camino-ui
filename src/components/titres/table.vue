@@ -3,29 +3,23 @@
     :column="preferences.colonne"
     :columns="colonnes"
     :order="preferences.ordre"
-    :page="preferences.page"
-    :range="preferences.intervalle"
     :rows="lignes"
-    :total="total"
     @params:update="preferencesUpdate"
   />
 </template>
 
 <script>
-import Table from '../_ui/table-pagination.vue'
+import Table from '../_ui/table.vue'
 
 import { titresColonnes, titresLignesBuild } from './table.js'
 
 export default {
   name: 'Titres',
 
-  components: {
-    Table
-  },
+  components: { Table },
 
   props: {
-    titres: { type: Array, required: true },
-    total: { type: Number, required: true }
+    titres: { type: Array, required: true }
   },
 
   computed: {
