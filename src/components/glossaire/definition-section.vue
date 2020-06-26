@@ -34,7 +34,7 @@
       </h3>
     </div>
     <div class="mb-l">
-      {{ definition.description }}
+      {{ descriptionHTML }}
     </div>
     <hr>
   </div>
@@ -43,6 +43,7 @@
 <script>
 import Pill from '../_ui/pill.vue'
 import Statut from '../_common/statut.vue'
+import format from './index'
 
 export default {
   name: 'DefinitionElement',
@@ -57,6 +58,10 @@ export default {
   computed: {
     elements() {
       return this.definition.elements
+    },
+
+    descriptionHTML() {
+      return format(this.definition.description)
     }
   }
 }
