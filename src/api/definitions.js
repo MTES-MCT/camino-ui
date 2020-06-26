@@ -85,13 +85,13 @@ const etapesTypes = apiQuery(
   `
 )
 
-const substancesLegalesCodes = apiQuery(
+const substancesLegales = apiQuery(
   gql`
-    query Domaines {
-      domaines {
+    query SubstancesLegales {
+      substancesLegales {
         id
         nom
-        titresCreation
+        description
       }
     }
   `
@@ -99,11 +99,12 @@ const substancesLegalesCodes = apiQuery(
 
 const titresStatuts = apiQuery(
   gql`
-    query Domaines {
-      domaines {
+    query Statuts {
+      statuts {
         id
         nom
-        titresCreation
+        description
+        ordre
       }
     }
   `
@@ -111,11 +112,12 @@ const titresStatuts = apiQuery(
 
 const titresTypesTypes = apiQuery(
   gql`
-    query Domaines {
-      domaines {
+    query Types {
+      types {
         id
         nom
-        titresCreation
+        description
+        ordre
       }
     }
   `
@@ -128,7 +130,7 @@ export {
   demarchesTypes,
   etapesTypes,
   etapesStatuts,
-  substancesLegalesCodes,
+  substancesLegales,
   titresStatuts,
   titresTypesTypes
 }

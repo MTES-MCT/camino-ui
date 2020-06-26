@@ -1,29 +1,35 @@
 <template>
   <div>
+    <MapPattern
+      v-if="definition.id === 'tty'"
+      :domaines-ids="['h']"
+      :types-ids="entrees.map(t => t.id)"
+    />
     <h2>{{ definition.nom }}</h2>
-    <div
-      class="mb-l"
+    <p
+      v-if="definition.description"
+      v-html="descriptionHtml"
     />
-    {{ descriptionHTML }}
-  </div>
-  <div v-if="elements">
-    <DefinitionSection
-      v-for="element in elements"
-      :id="definitionId"
-      :key="element.id"
-      :definition="element"
-    />
+    <div v-if="entrees && entrees.length">
+      <DefinitionEntree
+        v-for="entree in entrees"
+        :id="definition.id"
+        :key="entree.id"
+        :entree="entree"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import format from './index'
-import DefinitionSection from './definition-section.vue'
+import marked from 'marked'
+import DefinitionEntree from './definition-entree.vue'
+import MapPattern from '../map/pattern.vue'
 
 export default {
   name: 'Definition',
 
-  components: { DefinitionSection },
+  components: { DefinitionEntree, MapPattern },
 
   props: {
     definition: { type: Object, required: true },
@@ -31,22 +37,26 @@ export default {
   },
 
   computed: {
-    elements() {
-      return this.definitionElements
+    entrees() {
+      return this.$store.state.definitions.entrees
     },
 
-    descriptionHTML() {
-      return format(this.definition.description)
+    descriptionHtml() {
+      return marked(this.definition.description)
     }
   },
 
+  watch: {
+    $route: 'entreesGet'
+  },
+
   async created() {
-    await this.sectionsGet()
+    await this.entreesGet()
   },
 
   methods: {
-    async sectionsGet() {
-      await this.$store.dispatch('sectionGet/get', slug)
+    async entreesGet() {
+      await this.$store.dispatch('definitions/entreesGet', this.slug)
     }
   }
 }

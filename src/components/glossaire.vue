@@ -15,7 +15,7 @@
       </div>
       <div class="desktop-blob-2-3">
         <Router-view
-          v-if="slug && definition"
+          v-if="slug"
           :slug="slug"
           :definition="definition"
         />
@@ -49,7 +49,7 @@ export default {
     },
 
     definition() {
-      return this.definitions.find(d => d.slug === this.slug)
+      return this.definitions.find(d => d.slug === this.slug) || {}
     },
 
     slug() {

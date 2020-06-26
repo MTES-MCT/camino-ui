@@ -7,25 +7,27 @@ import {
   demarchesTypes,
   etapesTypes,
   etapesStatuts,
-  substancesLegalesCodes,
+  substancesLegales,
   titresStatuts,
   titresTypesTypes
 } from '../api/definitions'
 
 const definitionsIndex = {
   domaines: domaines,
+  'titre-minier': '',
+  'autorisation-miniere': '',
   'demarches-statuts': demarchesStatuts,
   'demarches-types': demarchesTypes,
   'etapes-types': etapesTypes,
   'etapes-statuts': etapesStatuts,
-  substances: substancesLegalesCodes,
+  'substances-legales': substancesLegales,
   'titres-statuts': titresStatuts,
   'titres-types': titresTypesTypes
 }
 
 export const state = {
   elements: [],
-  sections: []
+  entrees: []
 }
 
 export const actions = {
@@ -44,13 +46,15 @@ export const actions = {
     }
   },
 
-  async sectionGet({ state, dispatch, commit }, slug) {
+  async entreesGet({ state, dispatch, commit }, slug) {
     commit('loadingAdd', 'definition', { root: true })
 
     try {
-      if (!definitionsIndex[slug]) {
+      if (definitionsIndex[slug]) {
         const data = await definitionsIndex[slug]()
-        commit('set', data)
+        commit('entreesSet', data)
+      } else if (definitionsIndex[slug] === '') {
+        commit('entreesSet', [])
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -68,8 +72,8 @@ export const mutations = {
     Vue.set(state, 'elements', data)
   },
 
-  sectionSet(state, data) {
-    Vue.set(state, 'sections', data)
+  entreesSet(state, data) {
+    Vue.set(state, 'entrees', data)
   }
 }
 

@@ -17,7 +17,10 @@ describe('définitions du glossaire', () => {
   let mutations
 
   beforeEach(() => {
-    definitions.state = {}
+    definitions.state = {
+      elements: [],
+      entrees: []
+    }
 
     actions = {
       pageError: jest.fn(),

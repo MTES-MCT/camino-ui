@@ -82,7 +82,7 @@
     "leaflet-fullscreen": "^1.0.2",
     "leaflet-gesture-handling": "^1.1.8",
     "leaflet.markercluster": "^1.4.1",
-    "markdown-it": "^11.0.0",
+    "marked": "^1.1.0",
     "npm-check-updates": "^7.0.1",
     "pixrem": "^5.0.0",
     "postcss-button": "^0.3.17",
@@ -122,7 +122,8 @@
     ],
     "rules": {
       "no-console": 0,
-      "no-throw-literal": 0
+      "no-throw-literal": 0,
+      "vue/no-v-html": 0
     },
     "parserOptions": {
       "parser": "babel-eslint"
