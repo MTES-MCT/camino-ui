@@ -100,7 +100,7 @@ export const actions = {
       dispatch(
         'messageAdd',
         {
-          value: `liste de demarches mise à jour`,
+          value: `demarches mises à jour`,
           type: 'success'
         },
         { root: true }

@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 export default {
   name: 'UiUrl',
 
@@ -26,6 +27,10 @@ export default {
 
   created() {
     this.init()
+
+    Vue.nextTick(() => {
+      this.$emit('loaded')
+    })
   },
 
   destroyed() {

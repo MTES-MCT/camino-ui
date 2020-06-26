@@ -12,6 +12,7 @@
     :total="total"
     :loaded="metasLoaded"
     @preferences:update="preferencesUpdate"
+    @loaded="utilisateursLoad"
   >
     <button
       v-if="permissionsCheck(['super', 'admin'])"
@@ -54,6 +55,7 @@ export default {
       filtres,
       colonnes: utilisateursColonnes,
       metasLoaded: false,
+      urlsLoaded: false,
       visible: false
     }
   },
@@ -93,7 +95,7 @@ export default {
 
     preferences: {
       handler: function() {
-        this.utilisateursUpdate()
+        this.utilisateursGet()
       },
       deep: true
     }
@@ -124,8 +126,13 @@ export default {
       }
     },
 
-    async utilisateursUpdate() {
-      if (this.metasLoaded) {
+    utilisateursLoad() {
+      this.urlsLoaded = true
+      this.utilisateursGet()
+    },
+
+    async utilisateursGet() {
+      if (this.metasLoaded && this.urlsLoaded) {
         await this.$store.dispatch(`utilisateurs/get`)
       }
     },

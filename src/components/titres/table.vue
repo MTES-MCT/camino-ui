@@ -55,16 +55,6 @@ export default {
     }
   },
 
-  watch: {
-    titres: function(to, from) {
-      if (from.length && from.length !== to.length) {
-        const params = { page: 1 }
-
-        this.preferencesUpdate(params)
-      }
-    }
-  },
-
   methods: {
     preferencesUpdate(params) {
       if (params.range) {

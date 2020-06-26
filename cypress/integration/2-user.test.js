@@ -67,7 +67,7 @@ describe('Utilisateur', () => {
     ).type(`${utilisateur.motDePasse}{enter}`, { log: false })
 
     cy.get('#cmn-app-messages').should('contain', 'bienvenue')
-    cy.get('#cmn-app-messages').should('contain', 'liste de titres mise à jour')
+    cy.get('#cmn-app-messages').should('contain', 'titres mis à jour')
     cy.userRemove(utilisateur.email)
   })
 

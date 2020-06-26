@@ -11,6 +11,7 @@
     :total="total"
     :loaded="metasLoaded"
     @preferences:update="preferencesUpdate"
+    @loaded="demarchesLoad"
   >
     <Downloads
       v-if="demarches.length"
@@ -39,6 +40,7 @@ export default {
     return {
       colonnes: demarchesColonnes,
       metasLoaded: false,
+      urlsLoaded: false,
       visible: false,
       filtres
     }
@@ -79,7 +81,7 @@ export default {
 
     preferences: {
       handler: function() {
-        this.demarchesUpdate()
+        this.demarchesGet()
       },
       deep: true
     }
@@ -101,14 +103,20 @@ export default {
       }
     },
 
-    async demarchesUpdate() {
-      if (this.metasLoaded) {
+    demarchesLoad() {
+      this.urlsLoaded = true
+      this.demarchesGet()
+    },
+
+    async demarchesGet() {
+      if (this.metasLoaded && this.urlsLoaded) {
         await this.$store.dispatch('titresDemarches/get')
       }
     },
 
     async preferencesUpdate(options) {
       await this.$store.dispatch('titresDemarches/preferencesSet', options)
+
       if (options.section === 'filtres') {
         this.eventTrack(options.params)
       }

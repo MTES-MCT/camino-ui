@@ -12,6 +12,7 @@
     :total="total"
     :loaded="metasLoaded"
     @preferences:update="preferencesUpdate"
+    @loaded="activitesLoad"
   >
     <Downloads
       v-if="activites.length"
@@ -40,6 +41,7 @@ export default {
       filtres,
       colonnes: activitesColonnes,
       metasLoaded: false,
+      urlsLoaded: false,
       visible: false
     }
   },
@@ -79,7 +81,7 @@ export default {
 
     preferences: {
       handler: function() {
-        this.activitesUpdate()
+        this.activitesGet()
       },
       deep: true
     }
@@ -106,8 +108,13 @@ export default {
       }
     },
 
-    async activitesUpdate() {
-      if (this.metasLoaded) {
+    activitesLoad() {
+      this.urlsLoaded = true
+      this.activitesGet()
+    },
+
+    async activitesGet() {
+      if (this.metasLoaded && this.urlsLoaded) {
         await this.$store.dispatch(`titresActivites/get`)
       }
     },

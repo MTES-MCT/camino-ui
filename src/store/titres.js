@@ -26,7 +26,15 @@ export const state = {
     {
       id: 'colonne',
       type: 'string',
-      elements: ['nom', 'domaine', 'type', 'statut', 'activitesTotal']
+      elements: [
+        'nom',
+        'domaine',
+        'type',
+        'statut',
+        'activitesTotal',
+        'substances',
+        'titulaires'
+      ]
     },
     {
       id: 'ordre',
@@ -52,7 +60,7 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit, dispatch }) {
+  async metasGet({ state, commit, dispatch }) {
     commit('loadingAdd', 'metasTitresGet', { root: true })
 
     try {
@@ -89,7 +97,7 @@ export const actions = {
 
       dispatch(
         'messageAdd',
-        { value: `liste de titres mise à jour`, type: 'success' },
+        { value: `titres mis à jour`, type: 'success' },
         { root: true }
       )
 
@@ -107,6 +115,7 @@ export const actions = {
   },
 
   vueSet({ commit }, vue) {
+    commit('set', { elements: [], total: 0 })
     commit('vueSet', vue)
   }
 }
