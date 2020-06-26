@@ -50,7 +50,7 @@
           <button
             v-if="vue !== v.id"
             class="p-m btn-tab rnd-t-s"
-            @click="vueSet(v.id)"
+            @click="vueClick(v.id)"
           >
             <i
               :class="`icon-${v.icon}`"
@@ -167,6 +167,10 @@ export default {
           : this.titres.length
 
       return `${res} résultat${this.titres.length > 1 ? 's' : ''}`
+    },
+
+    loading() {
+      return this.$store.state.loading.includes('titres')
     }
   },
 
@@ -224,6 +228,12 @@ export default {
 
       if (this.$matomo) {
         this.$matomo.trackEvent('titres-vue', 'titres-vueId', vue)
+      }
+    },
+
+    vueClick(vue) {
+      if (!this.loading) {
+        this.vueSet(vue)
       }
     },
 

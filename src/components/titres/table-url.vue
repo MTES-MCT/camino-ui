@@ -15,7 +15,7 @@
 
 <script>
 import Url from '../_ui/url.vue'
-import Table from './table.vue'
+import Table from './table-pagination.vue'
 
 export default {
   components: {
