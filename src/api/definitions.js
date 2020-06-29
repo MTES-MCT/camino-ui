@@ -67,6 +67,7 @@ const etapesStatuts = apiQuery(
         id
         nom
         description
+        ordre
       }
     }
   `
@@ -92,6 +93,7 @@ const substancesLegales = apiQuery(
         id
         nom
         description
+        ordre
       }
     }
   `

@@ -4,7 +4,8 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/definitions', () => ({
-  definitions: jest.fn()
+  definitions: jest.fn(),
+  domaines: jest.fn()
 }))
 console.info = jest.fn()
 
@@ -57,6 +58,7 @@ describe('définitions du glossaire', () => {
         nom: 'Domaines miniers',
         table: 'domaines',
         description: 'description dom',
+
         elements: [
           {
             id: 'm',
@@ -76,7 +78,7 @@ describe('définitions du glossaire', () => {
     await store.dispatch('definitions/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.definitions.list).toEqual(response)
+    expect(store.state.definitions.elements).toEqual(response)
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
@@ -95,6 +97,53 @@ describe('définitions du glossaire', () => {
     await store.dispatch('definitions/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.definitions.list).toEqual(null)
+    expect(store.state.definitions.elements).toEqual(null)
+  })
+
+  test('récupère les descriptions des domaines', async () => {
+    const response = [
+      {
+        id: 'm',
+        nom: 'minéraux et métaux',
+        table: null,
+        description: 'description m',
+        elements: null,
+        couleur: null
+      }
+    ]
+
+    const apiMock = api.domaines.mockResolvedValue(response)
+
+    await store.dispatch('definitions/entreesGet', 'domaines')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.definitions.entrees).toEqual(response)
+  })
+
+  test('ne récupère pas de description sur la page principale ', async () => {
+    await store.dispatch('definitions/entreesGet', '')
+    expect(store.state.definitions.entrees).toEqual([])
+  })
+
+  test('ne récupère pas de description pour "titre-minier"', async () => {
+    await store.dispatch('definitions/entreesGet', 'titre-minier')
+    expect(store.state.definitions.entrees).toEqual([])
+  })
+
+  test("retourne une erreur si une définition tapée dans l'url n'existe pas", async () => {
+    await store.dispatch('definitions/entreesGet', 'quelquechose')
+    expect(actions.pageError).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur de l'api lors de la récupération des domaines", async () => {
+    const apiMock = api.domaines.mockRejectedValue(
+      new Error("l'api ne répond pas")
+    )
+
+    await store.dispatch('definitions/entreesGet', 'domaines')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
+    expect(actions.apiError).toHaveBeenCalled()
   })
 })
