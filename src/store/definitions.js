@@ -1,13 +1,37 @@
 import Vue from 'vue'
 
-import { definitions } from '../api/definitions'
+import {
+  definitions,
+  domaines,
+  demarchesStatuts,
+  demarchesTypes,
+  etapesTypes,
+  etapesStatuts,
+  substancesLegales,
+  titresStatuts,
+  titresTypesTypes
+} from '../api/definitions'
+
+const definitionsIndex = {
+  domaines: domaines,
+  'titre-minier': '',
+  'autorisation-miniere': '',
+  'demarches-statuts': demarchesStatuts,
+  'demarches-types': demarchesTypes,
+  'etapes-types': etapesTypes,
+  'etapes-statuts': etapesStatuts,
+  'substances-legales': substancesLegales,
+  'titres-statuts': titresStatuts,
+  'titres-types': titresTypesTypes
+}
 
 export const state = {
-  list: []
+  elements: [],
+  entrees: []
 }
 
 export const actions = {
-  async get({ state, dispatch, commit }) {
+  async get({ dispatch, commit }) {
     commit('loadingAdd', 'glossaire', { root: true })
 
     try {
@@ -20,12 +44,36 @@ export const actions = {
     } finally {
       commit('loadingRemove', 'glossaire', { root: true })
     }
+  },
+
+  async entreesGet({ state, dispatch, commit }, slug) {
+    commit('loadingAdd', 'definition', { root: true })
+
+    try {
+      if (definitionsIndex[slug]) {
+        const data = await definitionsIndex[slug]()
+        commit('entreesSet', data)
+      } else if (definitionsIndex[slug] === '') {
+        commit('entreesSet', [])
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
+    } catch (e) {
+      dispatch('apiError', e, { root: true })
+      console.info(e)
+    } finally {
+      commit('loadingRemove', 'definition', { root: true })
+    }
   }
 }
 
 export const mutations = {
   set(state, data) {
-    Vue.set(state, 'list', data)
+    Vue.set(state, 'elements', data)
+  },
+
+  entreesSet(state, data) {
+    Vue.set(state, 'entrees', data)
   }
 }
 

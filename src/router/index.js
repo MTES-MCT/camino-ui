@@ -20,6 +20,7 @@ import Cgu1 from '../components/content/cgu-1-0-0.vue'
 import UserPasswordInit from '../components/user/password-init.vue'
 import UserAdd from '../components/user/add.vue'
 import Statistiques from '../components/content/statistiques.vue'
+import Definition from '../components/glossaire/definition.vue'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -82,7 +83,14 @@ const routes = [
   {
     path: '/glossaire',
     name: 'glossaire',
-    component: Glossaire
+    component: Glossaire,
+    children: [
+      {
+        path: ':slug',
+        name: 'definition',
+        component: Definition
+      }
+    ]
   },
   {
     path: '/a-propos',

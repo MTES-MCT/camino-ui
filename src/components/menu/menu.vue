@@ -103,7 +103,7 @@
           </ul>
         </div>
         <div
-          class="tablet-blob-1-4 border-l pl-s hide"
+          class="tablet-blob-1-4 border-l pl-s"
         >
           <ul class="list-sans mb-0">
             <li>

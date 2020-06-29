@@ -4,10 +4,10 @@
       <h3>
         <Pill
           v-if="id === 'dom'"
-          :color="`bg-titre-domaine-${definition.id}`"
+          :color="`bg-titre-domaine-${entree.id}`"
           class="mr-xs mono mt--s"
         >
-          {{ definition.id }}
+          {{ entree.id }}
         </Pill>
         <svg
           v-if="id === 'tty'"
@@ -18,45 +18,53 @@
           <rect
             width="24"
             height="24"
-            :class="`svg-fill-pattern-${definition.id}`"
+            :class="`svg-fill-pattern-${entree.id}`"
           />
         </svg>
         <Statut
           v-if="id === 'tst' || id === 'dst' || id === 'est'"
-          :color="definition.couleur"
-          :nom="definition.nom"
+          :color="entree.couleur"
+          :nom="entree.nom"
           class="inline-block"
         />
         <span
           v-else
           class="cap-first"
-        >{{ definition.nom }}</span>
+        >{{ entree.nom }}</span>
       </h3>
     </div>
-    <div class="mb-l">
-      {{ definition.description }}
+    <div
+      v-if="entree.description"
+      class="mb-l"
+      v-html="descriptionHtml"
+    >
+      <hr>
     </div>
-    <hr>
   </div>
 </template>
 
 <script>
+import marked from 'marked'
 import Pill from '../_ui/pill.vue'
 import Statut from '../_common/statut.vue'
 
 export default {
-  name: 'DefinitionElement',
+  name: 'DefinitionEntree',
 
   components: { Pill, Statut },
 
   props: {
-    definition: { type: Object, default: () => ({}) },
+    entree: { type: Object, default: () => ({}) },
     id: { type: String, default: () => '' }
   },
 
   computed: {
     elements() {
-      return this.definition.elements
+      return this.entree.elements
+    },
+
+    descriptionHtml() {
+      return marked(this.entree.description)
     }
   }
 }
