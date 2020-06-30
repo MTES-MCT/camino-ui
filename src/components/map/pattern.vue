@@ -5,22 +5,24 @@
         v-for="typeId in typesIds"
         :key="typeId"
       >
-        <pattern
-          v-for="domaineId in domainesIdsDefault"
-          :id="domaineId ? `pattern-${typeId}-${domaineId}` : `pattern-${typeId}`"
-          :key="domaineId"
-          patternUnits="userSpaceOnUse"
-          width="8"
-          height="8"
-          :patternTransform="`rotate(${defs[typeId].rotation})`"
-        >
-          <path
-            :d="defs[typeId].d"
-            :class="domaineId ? `svg-stroke-domaine-${domaineId}` : `svg-stroke`"
-            :stroke-width="defs[typeId].width"
-            stroke-linecap="round"
-          />
-        </pattern>
+        <g v-if="defs[typeId]">
+          <pattern
+            v-for="domaineId in domainesIdsDefault"
+            :id="domaineId ? `pattern-${typeId}-${domaineId}` : `pattern-${typeId}`"
+            :key="domaineId"
+            patternUnits="userSpaceOnUse"
+            width="8"
+            height="8"
+            :patternTransform="`rotate(${defs[typeId].rotation})`"
+          >
+            <path
+              :d="defs[typeId].d"
+              :class="domaineId ? `svg-stroke-domaine-${domaineId}` : `svg-stroke`"
+              :stroke-width="defs[typeId].width"
+              stroke-linecap="round"
+            />
+          </pattern>
+        </g>
       </g>
     </defs>
   </svg>
