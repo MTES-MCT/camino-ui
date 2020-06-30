@@ -67,24 +67,6 @@
         </li>
         <li>
           <a
-            href="https://api.camino.beta.gouv.fr"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            API (GraphQL)
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://docs.camino.beta.gouv.fr/pages/Utilisation/04-flux.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Flux géographiques
-          </a>
-        </li>
-        <li>
-          <a
             href="https://www.dailymotion.com/camino-le-cadastre-minier"
             target="_blank"
             rel="noopener noreferrer"
