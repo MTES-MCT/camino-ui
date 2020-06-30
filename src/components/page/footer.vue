@@ -1,26 +1,22 @@
 <template>
   <div class="tablet-blobs pt flex-align-items-stretch">
     <div class="tablet-blob-1 desktop-blob-1-3">
-      <img
-        class="sponsor mb"
-        src="../../../public/img/logo-mtes-mef.svg"
-      >
+      <img class="sponsor mb" src="../../../public/img/logo-mtes-mef.svg" />
 
       <div class="blobs">
         <div class="blob-1-3">
           <img
             class="sponsor mb"
             src="../../../public/img/logo-fabriquenumerique.svg"
-          >
+          />
         </div>
         <div class="blob-2-3">
           <p class="h6 color-neutral">
-            Service de l’État incubé à la Fabrique
-            numérique du Ministère de la Transition écologique et solidaire,
-            membre du réseau
+            Service de l’État incubé à la Fabrique numérique du Ministère de la
+            Transition écologique et solidaire, membre du réseau
             <a href="http://beta.gouv.fr">
-              beta.gouv.fr
-            </a>.
+              beta.gouv.fr </a
+            >.
           </p>
         </div>
       </div>
@@ -63,24 +59,6 @@
             rel="noopener noreferrer"
           >
             Roadmap
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://api.camino.beta.gouv.fr"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            API (GraphQL)
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://docs.camino.beta.gouv.fr/pages/Utilisation/04-flux.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Flux géographiques
           </a>
         </li>
         <li>
@@ -134,8 +112,8 @@
           rel="noopener noreferrer"
           class="text-decoration-none"
         >
-          UI v.{{ versionUi }}
-        </a>|
+          UI v.{{ versionUi }} </a
+        >|
         <a
           href="https://github.com/MTES-MCT/camino-api/releases"
           target="_blank"
