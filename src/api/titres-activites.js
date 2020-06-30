@@ -8,6 +8,8 @@ import {
   fragmentActiviteStatut
 } from './fragments/titre-activite'
 
+import { fragmentTitreTypeType } from './fragments/metas'
+
 const metasActivites = apiQuery(
   gql`
     query MetasActivites {
@@ -18,11 +20,29 @@ const metasActivites = apiQuery(
         ...activiteStatut
       }
       activitesAnnees
+
+      domaines {
+        id
+        nom
+        titresCreation
+      }
+
+      types {
+        ...titreTypeType
+      }
+
+      statuts {
+        id
+        nom
+        couleur
+      }
     }
 
     ${fragmentActiviteType}
 
     ${fragmentActiviteStatut}
+
+    ${fragmentTitreTypeType}
   `,
   {
     fetchPolicy: 'network-only'

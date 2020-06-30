@@ -9,7 +9,10 @@ export const state = {
   metas: {
     types: [],
     annees: [],
-    statuts: []
+    statuts: [],
+    titresDomaines: [],
+    titresTypes: [],
+    titresStatuts: []
   },
   params: [
     { id: 'typesIds', type: 'strings', elements: [] },
@@ -20,6 +23,9 @@ export const state = {
     { id: 'titresSubstances', type: 'string' },
     { id: 'titresReferences', type: 'string' },
     { id: 'titresTerritoires', type: 'string' },
+    { id: 'titresTypesIds', type: 'strings', elements: [] },
+    { id: 'titresDomainesIds', type: 'strings', elements: [] },
+    { id: 'titresStatutsIds', type: 'strings', elements: [] },
     { id: 'page', type: 'number', min: 0 },
     { id: 'intervalle', type: 'number', min: 10, max: 500 },
     {
@@ -48,7 +54,10 @@ export const state = {
       titresEntreprises: '',
       titresSubstances: '',
       titresReferences: '',
-      titresTerritoires: ''
+      titresTerritoires: '',
+      titresTypesIds: [],
+      titresDomainesIds: [],
+      titresStatutsIds: []
     }
   }
 }
@@ -124,6 +133,15 @@ export const mutations = {
       } else if (id === 'activitesAnnees') {
         metaId = 'annees'
         paramsIds = ['annees']
+      } else if (id === 'domaines') {
+        metaId = 'titresDomaines'
+        paramsIds = ['titresDomainesIds']
+      } else if (id === 'types') {
+        metaId = 'titresTypes'
+        paramsIds = ['titresTypesIds']
+      } else if (id === 'statuts') {
+        metaId = 'titresStatuts'
+        paramsIds = ['titresStatutsIds']
       }
 
       if (metaId) {

@@ -1,4 +1,6 @@
 import FiltresStatuts from '../_common/filtres/statuts.vue'
+import FiltresDomaines from '../_common/filtres/domaines.vue'
+import FiltresTypes from '../_common/filtres/types.vue'
 
 const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
 
@@ -64,6 +66,33 @@ const filtres = [
     elementName: 'nom',
     buttonAdd: 'Ajouter une année',
     isNumber: true,
+    elementsFormat
+  },
+  {
+    id: 'titresDomainesIds',
+    name: 'Domaines',
+    type: 'checkboxes',
+    value: [],
+    elements: [],
+    component: FiltresDomaines,
+    elementsFormat
+  },
+  {
+    id: 'titresTypesIds',
+    name: 'Types de titre',
+    type: 'checkboxes',
+    value: [],
+    elements: [],
+    component: FiltresTypes,
+    elementsFormat
+  },
+  {
+    id: 'titresStatutsIds',
+    name: 'Statuts de titre',
+    type: 'checkboxes',
+    value: [],
+    elements: [],
+    component: FiltresStatuts,
     elementsFormat
   }
 ]
