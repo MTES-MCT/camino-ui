@@ -314,12 +314,12 @@ export default {
     },
 
     visibiliteId() {
-      if (this.document.entreprisesLecture) {
-        return 'entreprise'
-      }
-
       if (this.document.publicLecture) {
         return 'public'
+      }
+
+      if (this.document.entreprisesLecture) {
+        return 'entreprise'
       }
 
       return 'admin'

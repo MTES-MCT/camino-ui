@@ -137,15 +137,17 @@ export default {
         const preference = this.preferences[id]
         const filtre = this.filtres.find(filtre => filtre.id === id)
 
-        if (
-          (filtre.type === 'custom' ||
-            filtre.type === 'select' ||
-            filtre.type === 'checkboxes') &&
-          preference
-        ) {
-          filtre.value = JSON.parse(JSON.stringify(preference))
-        } else {
-          filtre.value = preference
+        if (filtre) {
+          if (
+            (filtre.type === 'custom' ||
+              filtre.type === 'select' ||
+              filtre.type === 'checkboxes') &&
+            preference
+          ) {
+            filtre.value = JSON.parse(JSON.stringify(preference))
+          } else {
+            filtre.value = preference
+          }
         }
       })
     }
