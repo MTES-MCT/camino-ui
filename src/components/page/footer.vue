@@ -92,6 +92,15 @@
             Tutoriels
           </a>
         </li>
+        <li>
+          <a
+            href="https://docs.camino.beta.gouv.fr/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Documentation
+          </a>
+        </li>
       </ul>
     </div>
 
