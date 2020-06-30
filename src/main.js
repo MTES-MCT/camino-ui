@@ -12,8 +12,6 @@ import mixins from './mixins'
 
 import { dateFormat } from './utils'
 
-import * as flexibility from 'flexibility'
-
 /* global npmVersion */
 if (process.env.VUE_APP_SENTRY_DSN) {
   Sentry.init({
@@ -60,5 +58,3 @@ const app = new Vue({
 if (window.Cypress) {
   window.app = app
 }
-
-flexibility(document.documentElement)
