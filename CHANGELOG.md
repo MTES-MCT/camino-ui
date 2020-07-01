@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.37](https://github.com/MTES-MCT/camino-ui/compare/v0.22.36...v0.22.37) (2020-07-01)
+
+
+### Features
+
+* récupère la couleur des statuts des démarches ([#145](https://github.com/MTES-MCT/camino-ui/issues/145)) ([29ab1e6](https://github.com/MTES-MCT/camino-ui/commit/29ab1e6bb5d6d3ca8c0518916785046d9e776242))
+* **documentation:** ajoute un lien dans le footer ([#143](https://github.com/MTES-MCT/camino-ui/issues/143)) ([a244efa](https://github.com/MTES-MCT/camino-ui/commit/a244efa47eb2a3b48ed3dca5cbf70a5a2cc3e4d5))
+* **glossaire:** ajoute un sommaire et met en page ([#138](https://github.com/MTES-MCT/camino-ui/issues/138)) ([ec05ec5](https://github.com/MTES-MCT/camino-ui/commit/ec05ec5395b75fd41dc126b7e610ac5523a6bcbb))
+* **titres:** ajoute la pagination côté serveur sur la liste de titres ([#131](https://github.com/MTES-MCT/camino-ui/issues/131)) ([1d0f1be](https://github.com/MTES-MCT/camino-ui/commit/1d0f1bec5817011cbf61c944f8708294c18b417d))
+* **titres:** requête les titres dans un périmètre ([#136](https://github.com/MTES-MCT/camino-ui/issues/136)) ([40b9076](https://github.com/MTES-MCT/camino-ui/commit/40b9076595bdeeea8f0017ff1046c19718c59d0c))
+
+
+### Bug Fixes
+
+* met en forme les listes ([77100f2](https://github.com/MTES-MCT/camino-ui/commit/77100f2063837cbbc014a408b23342e7289510d8))
+* **carte:** corrige une erreur sur les motifs ([f71aa23](https://github.com/MTES-MCT/camino-ui/commit/f71aa23f2e0279537c6293c14a3a7f62f12d8174))
+* **documents:** corrige l'affichage de l'étiquette ([680a07b](https://github.com/MTES-MCT/camino-ui/commit/680a07b24b59898f358ef29ca94993be8ef9eb59))
+* **documents:** n'affiche l'étiquette que si le parent est modifiable ([#135](https://github.com/MTES-MCT/camino-ui/issues/135)) ([bf97b64](https://github.com/MTES-MCT/camino-ui/commit/bf97b6417fc82722922b434b5c3db7dfa9d36b3a))
+* **entreprise:** corrige une erreur sur la liste de titre ([340bf66](https://github.com/MTES-MCT/camino-ui/commit/340bf6625f7dc5903f1c12c5ab8e700a97f40282))
+* **titres:** empêche de changer de vue pendant le chargement ([#141](https://github.com/MTES-MCT/camino-ui/issues/141)) ([201ba07](https://github.com/MTES-MCT/camino-ui/commit/201ba070c3ba5717c18035a7d1eaed712b0c2d13))
+* **ui:** corrige une erreur bloquante sur IE11 ([#142](https://github.com/MTES-MCT/camino-ui/issues/142)) ([17d0854](https://github.com/MTES-MCT/camino-ui/commit/17d08549044443d4a60c79d5bcb87e664e2e9eb5))
+* corrige le chargement des pages ([#140](https://github.com/MTES-MCT/camino-ui/issues/140)) ([7a3737d](https://github.com/MTES-MCT/camino-ui/commit/7a3737d20c8a3436d9284e6a4febded0db7b0358))
+* modifie le lien vers la documentation des flux ([#134](https://github.com/MTES-MCT/camino-ui/issues/134)) ([f2906e5](https://github.com/MTES-MCT/camino-ui/commit/f2906e5510a0716b25bb36737b4fa2c2da584034))
+* recharge les titres lorsque la position sur la carte change ([#137](https://github.com/MTES-MCT/camino-ui/issues/137)) ([19bba1b](https://github.com/MTES-MCT/camino-ui/commit/19bba1b157f6043841458fb84f7e14b5dbaeb72d))
+* **titres:** corrige l'affichage de la table ([5be4604](https://github.com/MTES-MCT/camino-ui/commit/5be4604abcf5a66eea4b60c92f17a931820ab76d))
+
 ### [0.22.36](https://github.com/MTES-MCT/camino-ui/compare/v0.22.35...v0.22.36) (2020-06-17)
 
 
