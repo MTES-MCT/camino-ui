@@ -41,6 +41,7 @@ const demarchesStatuts = apiQuery(
         id
         nom
         description
+        couleur
         ordre
       }
     }
@@ -67,6 +68,7 @@ const etapesStatuts = apiQuery(
         id
         nom
         description
+        couleur
         ordre
       }
     }
