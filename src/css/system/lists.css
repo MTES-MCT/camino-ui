@@ -8,6 +8,7 @@ ul,
 ol,
 dd {
   /* overflow: auto; */
+  list-style-position: inside;
 }
 
 ul > li > ul,
