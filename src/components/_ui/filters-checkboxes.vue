@@ -67,7 +67,7 @@ export default {
           value.push(v)
         }
 
-        return value
+        return value.sort()
       }
 
       const target =
