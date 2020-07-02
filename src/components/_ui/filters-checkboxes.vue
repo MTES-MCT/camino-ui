@@ -1,10 +1,13 @@
 <template>
   <div class="mb">
     <h6>{{ filter.name }}</h6>
-    <hr class="mb-s" />
+    <hr class="mb-s">
 
     <ul class="list-sans">
-      <li v-for="element in filter.elements" :key="element.id">
+      <li
+        v-for="element in filter.elements"
+        :key="element.id"
+      >
         <label>
           <input
             :value="element.id"
@@ -12,13 +15,16 @@
             type="checkbox"
             class="mr-s"
             @change="checkboxToggle($event)"
-          />
+          >
           <component
             :is="filter.component"
             v-if="filter.component"
             :element="element"
           />
-          <span v-else class="cap-first h5 bold">{{ element.nom }}</span>
+          <span
+            v-else
+            class="cap-first h5 bold"
+          >{{ element.nom }}</span>
         </label>
       </li>
     </ul>
