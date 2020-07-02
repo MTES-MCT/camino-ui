@@ -31,17 +31,6 @@ const fragmentActiviteType = gql`
       }
     }
     sections
-    titresTypes {
-      id
-      domaine {
-        id
-        nom
-      }
-      type {
-        id
-        nom
-      }
-    }
   }
 `
 

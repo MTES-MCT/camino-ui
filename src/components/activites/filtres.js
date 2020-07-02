@@ -41,6 +41,33 @@ const filtres = [
     placeholder: 'Commune, département, région, …'
   },
   {
+    id: 'titresDomainesIds',
+    name: 'Domaines',
+    type: 'checkboxes',
+    value: [],
+    elements: [],
+    component: FiltresDomaines,
+    elementsFormat
+  },
+  {
+    id: 'titresTypesIds',
+    name: 'Types de titre',
+    type: 'checkboxes',
+    value: [],
+    elements: [],
+    component: FiltresTypes,
+    elementsFormat
+  },
+  {
+    id: 'titresStatutsIds',
+    name: 'Statuts de titre',
+    type: 'checkboxes',
+    value: [],
+    elements: [],
+    component: FiltresStatuts,
+    elementsFormat
+  },
+  {
     id: 'typesIds',
     name: 'Types',
     type: 'checkboxes',
@@ -66,33 +93,6 @@ const filtres = [
     elementName: 'nom',
     buttonAdd: 'Ajouter une année',
     isNumber: true,
-    elementsFormat
-  },
-  {
-    id: 'titresDomainesIds',
-    name: 'Domaines',
-    type: 'checkboxes',
-    value: [],
-    elements: [],
-    component: FiltresDomaines,
-    elementsFormat
-  },
-  {
-    id: 'titresTypesIds',
-    name: 'Types de titre',
-    type: 'checkboxes',
-    value: [],
-    elements: [],
-    component: FiltresTypes,
-    elementsFormat
-  },
-  {
-    id: 'titresStatutsIds',
-    name: 'Statuts de titre',
-    type: 'checkboxes',
-    value: [],
-    elements: [],
-    component: FiltresStatuts,
     elementsFormat
   }
 ]

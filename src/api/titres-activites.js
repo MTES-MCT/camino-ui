@@ -8,7 +8,7 @@ import {
   fragmentActiviteStatut
 } from './fragments/titre-activite'
 
-// import { fragmentTitreTypeType } from './fragments/metas'
+import { fragmentTitreTypeType } from './fragments/metas'
 
 const metasActivites = apiQuery(
   gql`
@@ -21,6 +21,15 @@ const metasActivites = apiQuery(
       }
       activitesAnnees
 
+      domaines {
+        id
+        nom
+      }
+
+      types {
+        ...titreTypeType
+      }
+
       statuts {
         id
         nom
@@ -31,50 +40,13 @@ const metasActivites = apiQuery(
     ${fragmentActiviteType}
 
     ${fragmentActiviteStatut}
+
+    ${fragmentTitreTypeType}
   `,
   {
     fetchPolicy: 'network-only'
   }
 )
-
-// const metasActivites = apiQuery(
-//   gql`
-//     query MetasActivites {
-//       activitesTypes {
-//         ...activiteType
-//       }
-//       activitesStatuts {
-//         ...activiteStatut
-//       }
-//       activitesAnnees
-
-//       domaines {
-//         id
-//         nom
-//         titresCreation
-//       }
-
-//       types {
-//         ...titreTypeType
-//       }
-
-//       statuts {
-//         id
-//         nom
-//         couleur
-//       }
-//     }
-
-//     ${fragmentActiviteType}
-
-//     ${fragmentActiviteStatut}
-
-//     ${fragmentTitreTypeType}
-//   `,
-//   {
-//     fetchPolicy: 'network-only'
-//   }
-// )
 
 const activiteModifier = apiMutate(gql`
   mutation ActiviteModifier($activite: InputActiviteModification!) {
@@ -96,6 +68,9 @@ const activites = apiQuery(
       $typesIds: [ID]
       $statutsIds: [ID]
       $annees: [Int]
+      $titresTypesIds: [ID]
+      $titresDomainesIds: [ID]
+      $titresStatutsIds: [ID]
       $titresNoms: String
       $titresEntreprises: String
       $titresSubstances: String
@@ -110,6 +85,9 @@ const activites = apiQuery(
         typesIds: $typesIds
         statutsIds: $statutsIds
         annees: $annees
+        titresTypesIds: $titresTypesIds
+        titresDomainesIds: $titresDomainesIds
+        titresStatutsIds: $titresStatutsIds
         titresNoms: $titresNoms
         titresEntreprises: $titresEntreprises
         titresSubstances: $titresSubstances
