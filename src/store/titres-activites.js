@@ -121,6 +121,7 @@ export const mutations = {
   },
 
   metasSet(state, data) {
+    console.log('data :>> ', data)
     Object.keys(data).forEach(id => {
       let metaId
       let paramsIds
@@ -133,12 +134,12 @@ export const mutations = {
       } else if (id === 'activitesAnnees') {
         metaId = 'annees'
         paramsIds = ['annees']
-      } else if (id === 'domaines') {
-        metaId = 'titresDomaines'
-        paramsIds = ['titresDomainesIds']
-      } else if (id === 'types') {
-        metaId = 'titresTypes'
-        paramsIds = ['titresTypesIds']
+        // } else if (id === 'domaines') {
+        //   metaId = 'titresDomaines'
+        //   paramsIds = ['titresDomainesIds']
+        // } else if (id === 'types') {
+        //   metaId = 'titresTypes'
+        //   paramsIds = ['titresTypesIds']
       } else if (id === 'statuts') {
         metaId = 'titresStatuts'
         paramsIds = ['titresStatutsIds']

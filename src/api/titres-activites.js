@@ -8,7 +8,7 @@ import {
   fragmentActiviteStatut
 } from './fragments/titre-activite'
 
-import { fragmentTitreTypeType } from './fragments/metas'
+// import { fragmentTitreTypeType } from './fragments/metas'
 
 const metasActivites = apiQuery(
   gql`
@@ -21,16 +21,6 @@ const metasActivites = apiQuery(
       }
       activitesAnnees
 
-      domaines {
-        id
-        nom
-        titresCreation
-      }
-
-      types {
-        ...titreTypeType
-      }
-
       statuts {
         id
         nom
@@ -41,13 +31,50 @@ const metasActivites = apiQuery(
     ${fragmentActiviteType}
 
     ${fragmentActiviteStatut}
-
-    ${fragmentTitreTypeType}
   `,
   {
     fetchPolicy: 'network-only'
   }
 )
+
+// const metasActivites = apiQuery(
+//   gql`
+//     query MetasActivites {
+//       activitesTypes {
+//         ...activiteType
+//       }
+//       activitesStatuts {
+//         ...activiteStatut
+//       }
+//       activitesAnnees
+
+//       domaines {
+//         id
+//         nom
+//         titresCreation
+//       }
+
+//       types {
+//         ...titreTypeType
+//       }
+
+//       statuts {
+//         id
+//         nom
+//         couleur
+//       }
+//     }
+
+//     ${fragmentActiviteType}
+
+//     ${fragmentActiviteStatut}
+
+//     ${fragmentTitreTypeType}
+//   `,
+//   {
+//     fetchPolicy: 'network-only'
+//   }
+// )
 
 const activiteModifier = apiMutate(gql`
   mutation ActiviteModifier($activite: InputActiviteModification!) {
