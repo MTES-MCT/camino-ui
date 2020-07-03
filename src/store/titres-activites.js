@@ -121,7 +121,6 @@ export const mutations = {
   },
 
   metasSet(state, data) {
-    console.log('data :>> ', data)
     Object.keys(data).forEach(id => {
       let metaId
       let paramsIds
