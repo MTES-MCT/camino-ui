@@ -80,7 +80,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            Open Data et Documentation
+            Open data et documentation
           </a>
         </li>
       </ul>
