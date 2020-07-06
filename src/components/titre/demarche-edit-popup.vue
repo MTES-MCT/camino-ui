@@ -28,6 +28,12 @@
             class="p-s mr"
           >
             <option
+              value="undefined"
+              disabled
+            >
+              sélectionner un type
+            </option>
+            <option
               v-for="demarcheType in types"
               :key="demarcheType.id"
               :value="demarcheType.id"

@@ -35,6 +35,12 @@
             class="p-s mr"
           >
             <option
+              value="undefined"
+              disabled
+            >
+              sélectionner un domaine
+            </option>
+            <option
               v-for="domaine in domaines"
               :key="domaine.id"
               :value="domaine.id"
@@ -59,6 +65,12 @@
             class="p-s mr"
             :disabled="!types"
           >
+            <option
+              value="undefined"
+              disabled
+            >
+              sélectionner un type
+            </option>
             <option
               v-for="type in types"
               :key="type.id"
@@ -90,6 +102,12 @@
           v-model="reference.typeId"
           class="p-s mr-s"
         >
+          <option
+            value="undefined"
+            disabled
+          >
+            sélectionner un type de référence
+          </option>
           <option
             v-for="referenceType in referencesTypes"
             :key="referenceType.id"
