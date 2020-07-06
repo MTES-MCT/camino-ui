@@ -25,7 +25,10 @@ describe("état d'une activité", () => {
       metas: {
         types: [],
         annees: [],
-        statuts: []
+        statuts: [],
+        titresDomaines: [],
+        titresTypes: [],
+        titresStatuts: []
       },
       params: [
         { id: 'typesIds', type: 'strings', elements: [] },
@@ -36,6 +39,9 @@ describe("état d'une activité", () => {
         { id: 'titresSubstances', type: 'string' },
         { id: 'titresReferences', type: 'string' },
         { id: 'titresTerritoires', type: 'string' },
+        { id: 'titresTypesIds', type: 'strings', elements: [] },
+        { id: 'titresDomainesIds', type: 'strings', elements: [] },
+        { id: 'titresStatutsIds', type: 'strings', elements: [] },
         { id: 'page', type: 'number', min: 0 },
         { id: 'intervalle', type: 'number', min: 10, max: 500 },
         {
@@ -64,7 +70,10 @@ describe("état d'une activité", () => {
           titresEntreprises: '',
           titresSubstances: '',
           titresReferences: '',
-          titresTerritoires: ''
+          titresTerritoires: '',
+          titresTypesIds: [],
+          titresDomainesIds: [],
+          titresStatutsIds: []
         }
       }
     }
@@ -121,6 +130,40 @@ describe("état d'une activité", () => {
       couleur: 'neutral'
     }
   ]
+  const domaines = [
+    {
+      id: 'm',
+      nom: 'minéraux et métaux'
+    },
+    {
+      id: 'w',
+      nom: 'granulats marins'
+    }
+  ]
+  const statuts = [
+    {
+      id: 'val',
+      nom: 'valide',
+      couleur: 'success'
+    },
+    {
+      id: 'ech',
+      nom: 'échu',
+      couleur: 'neutral'
+    }
+  ]
+  const types = [
+    {
+      id: 'cx',
+      nom: 'concession',
+      exploitation: true
+    },
+    {
+      id: 'pr',
+      nom: 'permis exclusif de recherches',
+      exploitation: false
+    }
+  ]
 
   test('récupère les métas pour afficher les activités', async () => {
     const apiMock = api.metasActivites
@@ -128,6 +171,9 @@ describe("état d'une activité", () => {
         activitesTypes,
         activitesAnnees,
         activitesStatuts,
+        domaines,
+        statuts,
+        types,
         truc: [{ id: 'id-truc' }]
       })
       .mockResolvedValueOnce({})
@@ -141,7 +187,10 @@ describe("état d'une activité", () => {
         { id: 2020, nom: 2020 },
         { id: 2019, nom: 2019 }
       ],
-      statuts: activitesStatuts
+      statuts: activitesStatuts,
+      titresDomaines: domaines,
+      titresStatuts: statuts,
+      titresTypes: types
     })
 
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -155,7 +204,10 @@ describe("état d'une activité", () => {
         { id: 2020, nom: 2020 },
         { id: 2019, nom: 2019 }
       ],
-      statuts: activitesStatuts
+      statuts: activitesStatuts,
+      titresDomaines: domaines,
+      titresStatuts: statuts,
+      titresTypes: types
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
