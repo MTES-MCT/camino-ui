@@ -28,7 +28,7 @@
             class="p-s mr"
           >
             <option
-              value="undefined"
+              value="null"
               disabled
             >
               sélectionner un type

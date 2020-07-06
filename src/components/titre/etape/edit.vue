@@ -24,6 +24,12 @@
           @change="typeUpdate"
         >
           <option
+            value="null"
+            disabled
+          >
+            sélectionner un type
+          </option>
+          <option
             v-for="eType in etapeTypes"
             :key="eType.id"
             :value="eType.id"
