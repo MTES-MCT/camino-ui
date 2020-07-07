@@ -13,8 +13,12 @@
           class="p-s mr-s"
           @change="valueReset(n)"
         >
-          <option value="">
-            –
+          <option
+            value=""
+            disabled
+            hidden
+          >
+            sélectionner...
           </option>
           <option
             v-for="type in filter.elements"
@@ -45,8 +49,12 @@
               v-model="value.statutId"
               class="p-s mr-s cap-first"
             >
-              <option :value="''">
-                –
+              <option
+                value=""
+                disabled
+                hidden
+              >
+                sélectionner...
               </option>
               <option
                 v-for="statut in statutsFind(n)"

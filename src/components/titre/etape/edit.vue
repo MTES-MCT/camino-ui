@@ -26,8 +26,9 @@
           <option
             value="null"
             disabled
+            hidden
           >
-            sélectionner un type
+            sélectionner...
           </option>
           <option
             v-for="eType in etapeTypes"
@@ -53,6 +54,13 @@
             v-model="etape.statutId"
             class="p-s"
           >
+            <option
+              value="undefined"
+              disabled
+              hidden
+            >
+              sélectionner...
+            </option>
             <option
               v-for="etapeStatut in etapesStatuts"
               :key="etapeStatut.id"

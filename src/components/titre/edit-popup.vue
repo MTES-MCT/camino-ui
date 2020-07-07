@@ -37,8 +37,9 @@
             <option
               value="undefined"
               disabled
+              hidden
             >
-              sélectionner un domaine
+              sélectionner...
             </option>
             <option
               v-for="domaine in domaines"
@@ -68,8 +69,9 @@
             <option
               value="undefined"
               disabled
+              hidden
             >
-              sélectionner un type
+              sélectionner...
             </option>
             <option
               v-for="type in types"
@@ -103,10 +105,11 @@
           class="p-s mr-s"
         >
           <option
-            value="undefined"
+            value=""
             disabled
+            hidden
           >
-            sélectionner un type de référence
+            sélectionner...
           </option>
           <option
             v-for="referenceType in referencesTypes"

@@ -146,6 +146,13 @@
           class="p-s mr-s"
         >
           <option
+            :value="{ id: '' }"
+            disabled
+            hidden
+          >
+            sélectionner...
+          </option>
+          <option
             v-for="entreprise in entreprises"
             :key="`titulaire-${titulaire.id}-entreprise-${entreprise.id}`"
             :value="{ id: entreprise.id }"
@@ -202,6 +209,13 @@
           class="p-s mr-s"
         >
           <option
+            :value="{ id: '' }"
+            disabled
+            hidden
+          >
+            sélectionner...
+          </option>
+          <option
             v-for="entreprise in entreprises"
             :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
             :value="{ id: entreprise.id }"
@@ -257,6 +271,13 @@
           v-model="etape.substances[n]"
           class="p-s mr-s"
         >
+          <option
+            :value="{ id: '' }"
+            disabled
+            hidden
+          >
+            sélectionner...
+          </option>
           <option
             v-for="s in substances"
             :key="s.id"

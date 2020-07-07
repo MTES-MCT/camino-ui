@@ -23,6 +23,13 @@
           class="p-s"
         >
           <option
+            value=""
+            disabled
+            hidden
+          >
+            sélectionner...
+          </option>
+          <option
             v-for="documentType in documentsTypes"
             :key="documentType.id"
             :value="documentType.id"

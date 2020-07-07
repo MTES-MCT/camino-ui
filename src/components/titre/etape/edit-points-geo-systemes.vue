@@ -17,6 +17,13 @@
           @change="geoSystemeUpdate(etapeGeoSystemeIndex)"
         >
           <option
+            value=""
+            disabled
+            hidden
+          >
+            sélectionner...
+          </option>
+          <option
             v-for="geoSysteme in geoSystemes"
             :key="geoSysteme.id"
             :value="geoSysteme.id"

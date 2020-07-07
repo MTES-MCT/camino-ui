@@ -30,8 +30,9 @@
             <option
               value="null"
               disabled
+              hidden
             >
-              sélectionner un type
+              sélectionner...
             </option>
             <option
               v-for="demarcheType in types"

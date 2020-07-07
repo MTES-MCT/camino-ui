@@ -13,6 +13,13 @@
           class="p-s mr-s"
         >
           <option
+            value=""
+            disabled
+            hidden
+          >
+            sélectionner...
+          </option>
+          <option
             v-for="element in filter.elements"
             :key="element.id"
             :value="element.id"
