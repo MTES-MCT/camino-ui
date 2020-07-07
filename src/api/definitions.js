@@ -108,6 +108,7 @@ const titresStatuts = apiQuery(
         id
         nom
         description
+        couleur
         ordre
       }
     }
