@@ -267,6 +267,20 @@
           </option>
         </select>
         <button
+          v-if="n<substancesLength-1"
+          class="btn-border py-s px-m rnd-l-xs"
+          @click="substanceMoveDown(n)"
+        >
+          <i class="icon-24 icon-move-down" />
+        </button>
+        <button
+          v-if="n>0"
+          class="btn-border py-s px-m"
+          @click="substanceMoveUp(n)"
+        >
+          <i class="icon-24 icon-move-up" />
+        </button>
+        <button
           class="btn py-s px-m rnd-xs"
           @click="substanceRemove(n)"
         >
@@ -355,6 +369,18 @@ export default {
 
     substanceRemove(index) {
       this.etape.substances.splice(index, 1)
+    },
+
+    substanceMoveDown(n) {
+      const substance = this.etape.substances[n]
+      this.etape.substances.splice(n, 1)
+      this.etape.substances.splice(n + 1, 0, substance)
+    },
+
+    substanceMoveUp(n) {
+      const substance = this.etape.substances[n]
+      this.etape.substances.splice(n, 1)
+      this.etape.substances.splice(n - 1, 0, substance)
     }
   }
 }
