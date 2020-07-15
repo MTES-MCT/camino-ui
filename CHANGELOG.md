@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.38](https://github.com/MTES-MCT/camino-ui/compare/v0.22.37...v0.22.38) (2020-07-15)
+
+
+### Features
+
+* **activités:** ajoute des filtres ([#144](https://github.com/MTES-MCT/camino-ui/issues/144)) ([2541dd7](https://github.com/MTES-MCT/camino-ui/commit/2541dd7025e80aba85e3e5de34b97bbd07cbb7ce))
+
+
+### Bug Fixes
+
+* **filtres:**  corrige une erreur "navigation redondante" ([#146](https://github.com/MTES-MCT/camino-ui/issues/146)) ([a751573](https://github.com/MTES-MCT/camino-ui/commit/a7515734f43f5f26faa5800956acae42f750703b))
+* **footer:** renomme le lien vers la documentation ([#147](https://github.com/MTES-MCT/camino-ui/issues/147)) ([ec945e8](https://github.com/MTES-MCT/camino-ui/commit/ec945e842ad0318cdebf51adae895d4b82bb6d35))
+* **glossaire:** corrige la couleur des statuts de titre ([#148](https://github.com/MTES-MCT/camino-ui/issues/148)) ([1a40c00](https://github.com/MTES-MCT/camino-ui/commit/1a40c00dbc35d86de5b4e62995e9d335d4abb7f8))
+
 ### [0.22.37](https://github.com/MTES-MCT/camino-ui/compare/v0.22.36...v0.22.37) (2020-07-01)
 
 
