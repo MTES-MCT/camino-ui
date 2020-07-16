@@ -28,7 +28,8 @@
     "compression": "^1.7.4",
     "connect-history-api-fallback": "^1.6.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.5"
   },
   "devDependencies": {
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.3.0",
@@ -40,7 +41,6 @@
     "@types/webpack-env": "^1.15.2",
     "@vue/cli": "^4.4.6",
     "@vue/cli-plugin-babel": "^4.4.6",
-    "@vue/cli-plugin-e2e-cypress": "^4.4.6",
     "@vue/cli-plugin-eslint": "^4.4.6",
     "@vue/cli-plugin-unit-jest": "^4.4.6",
     "@vue/cli-service": "^4.4.6",
@@ -65,7 +65,6 @@
     "cz-conventional-changelog": "^3.2.0",
     "email-validator": "^2.0.4",
     "eslint": "^7.4.0",
-    "eslint-plugin-cypress": "^2.11.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^23.18.0",
     "eslint-plugin-node": "^11.1.0",
@@ -110,15 +109,13 @@
     "root": true,
     "env": {
       "node": true,
-      "jest/globals": true,
-      "cypress/globals": true
+      "jest/globals": true
     },
     "extends": [
       "plugin:vue/recommended",
       "standard",
       "prettier",
-      "prettier/standard",
-      "plugin:cypress/recommended"
+      "prettier/standard"
     ],
     "rules": {
       "no-console": 0,
@@ -130,8 +127,7 @@
     },
     "plugins": [
       "prettier",
-      "jest",
-      "cypress"
+      "jest"
     ]
   },
   "prettier": {

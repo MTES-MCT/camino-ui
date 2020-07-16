@@ -6,12 +6,17 @@ services:
     environment:
       VIRTUAL_HOST: ${URL}
       VIRTUAL_PORT: ${NODE_PORT}
+      API_URL: ${API_URL}
+      NODE_PORT: ${NODE_PORT}
+      API_MATOMO_URL: ${API_MATOMO_URL}
+      API_MATOMO_ID: ${API_MATOMO_ID}
+      API_SENTRY_URL: ${API_SENTRY_URL}
+    networks:
+      - default
+      - nginx-proxy
     expose:
       - ${NODE_PORT}
-    volumes:
-      - ./.env:/app/.env
 
 networks:
-  default:
-    external:
-      name: nginx-proxy
+  nginx-proxy:
+    external: true

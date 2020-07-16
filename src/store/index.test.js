@@ -145,15 +145,13 @@ describe("état général de l'application", () => {
 
   test("retourne une erreur de l'api", async () => {
     Date.now = jest.fn(() => 1487076708000)
-    process.env.VUE_APP_API_URL = 'http://api.camino-test-url.dev'
     await store.dispatch('apiError')
 
     expect(state.messages).toEqual([
       {
         id: 1487076708000,
         type: 'error',
-        value:
-          "Erreur: impossible de se connecter à l'API (http://api.camino-test-url.dev)"
+        value: "Erreur: impossible de se connecter à l'API"
       }
     ])
   })

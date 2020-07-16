@@ -13,8 +13,11 @@ const path = require('path')
 const express = require('express')
 const history = require('connect-history-api-fallback')
 const compression = require('compression')
+const { createProxyMiddleware } = require('http-proxy-middleware')
 
 const app = express()
+const port = process.env.NODE_PORT
+
 const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
   setHeaders: (res, path, stat) => {
     res.set({
@@ -27,11 +30,49 @@ const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
     })
   }
 })
-const port = process.env.NODE_PORT
+
+app.use(
+  '/api',
+  createProxyMiddleware({
+    target: process.env.API_URL,
+    changeOrigin: true
+  })
+)
+
+if (process.env.API_MATOMO_URL && process.env.API_MATOMO_ID) {
+  app.use(
+    '/stats',
+    createProxyMiddleware({
+      target: `${process.env.API_MATOMO_URL}&${process.env.API_MATOMO_ID}`,
+
+      changeOrigin: false
+    })
+  )
+} else {
+  app.use('/stats', (req, res, next) => {
+    res.end()
+  })
+}
+
+if (process.env.API_SENTRY_URL) {
+  app.use(
+    '/debug',
+    createProxyMiddleware({
+      target: process.env.API_SENTRY_URL,
+      changeOrigin: false
+    })
+  )
+} else {
+  app.use('/debug', (req, res, next) => {
+    res.end()
+  })
+}
 
 app.use(compression())
 app.use(staticFileMiddleware)
-app.use(history())
+
+app.use('/', history())
+
 app.use(staticFileMiddleware)
 
 app.get('/', (req, res) => {

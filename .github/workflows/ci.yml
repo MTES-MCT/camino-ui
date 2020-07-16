@@ -1,0 +1,81 @@
+name: CI
+on:
+  push:
+  pull_request:
+  release:
+    branches:
+      - master
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Test units
+        run: |
+          npm ci
+          npm test
+        env:
+          CODECOV_TOKEN: 'b1916671-a54f-451d-aad8-6324be40418a'
+          CI: true
+
+  build:
+    if: github.ref == 'refs/heads/master'
+    needs: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Npm install and test
+        run: |
+          npm ci
+          npm run build
+      - name: Build Docker image
+        run: docker build . --tag caminofr/camino-ui:master
+      - name: Push Docker image to the Docker Hub
+        run: |
+          docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
+          docker push caminofr/camino-ui:master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    #   - name: Redeploy dev
+    #     run : |
+    #       ssh dev
+    #       /srv/script/api-deploy
+
+  release:
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Add the release tag
+        run: |
+          docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
+          docker pull caminofr/camino-ui:master
+          docker tag caminofr/camino-ui:master caminofr/camino-ui:release
+          docker push caminofr/camino-ui:release
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}

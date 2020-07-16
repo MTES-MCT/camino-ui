@@ -18,4 +18,6 @@ COPY babel.config.js ./
 COPY src src/
 COPY public public/
 
-CMD npm run build && npm start
+RUN npm run build
+
+CMD npm start

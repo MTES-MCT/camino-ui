@@ -38,6 +38,6 @@ Pré-requis:
 ```bash
 # démarre l'application dans un container Docker
 # en mode `production`
-# accessible à https://{VUE_APP_API_URL}
+# accessible à https://{URL}
 docker-compose up --build
 ```
