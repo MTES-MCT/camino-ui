@@ -13,9 +13,9 @@ import mixins from './mixins'
 import { dateFormat } from './utils'
 
 /* global npmVersion */
-if (process.env.VUE_APP_SENTRY_DSN) {
+if (process.env.production) {
   Sentry.init({
-    dsn: process.env.VUE_APP_SENTRY_DSN,
+    dsn: '/debug',
     integrations: [
       new SentryIntegrations.Vue({
         Vue,
@@ -26,18 +26,9 @@ if (process.env.VUE_APP_SENTRY_DSN) {
     // eslint-disable-next-line camelcase
     release: `camino-ui-${npmVersion}`
   })
-}
 
-Vue.config.productionTip = false
-
-Vue.filter('dateFormat', dateFormat)
-
-Vue.mixin(mixins)
-
-if (process.env.VUE_APP_MATOMO_HOST && process.env.VUE_APP_MATOMO_SITE_ID) {
   Vue.use(VueMatomo, {
-    host: process.env.VUE_APP_MATOMO_HOST,
-    siteId: process.env.VUE_APP_MATOMO_SITE_ID,
+    host: '/stats',
     router,
     store,
     requireConsent: false,
@@ -47,6 +38,12 @@ if (process.env.VUE_APP_MATOMO_HOST && process.env.VUE_APP_MATOMO_SITE_ID) {
     enableLinkTracking: true
   })
 }
+
+Vue.config.productionTip = false
+
+Vue.filter('dateFormat', dateFormat)
+
+Vue.mixin(mixins)
 
 const app = new Vue({
   router,

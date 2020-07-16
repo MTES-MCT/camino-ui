@@ -8,13 +8,20 @@ services:
       VIRTUAL_PORT: ${NODE_PORT}
       LETSENCRYPT_HOST: ${URL}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      API_URL: ${API_URL}
+      NODE_PORT: ${NODE_PORT}
+      API_MATOMO_URL: ${API_MATOMO_URL}
+      API_MATOMO_ID: ${API_MATOMO_ID}
+      API_SENTRY_URL: ${API_SENTRY_URL}
     volumes:
       - ./.env:/app/.env
     expose:
       - ${NODE_PORT}
+    networks:
+      - default
+      - nginx-proxy
     restart: always
 
 networks:
-  default:
-    external:
-      name: nginx-proxy
+  nginx-proxy:
+    external: true

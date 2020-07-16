@@ -8,8 +8,6 @@ import { createUploadLink } from 'apollo-upload-client'
 // for safari 11
 import 'unfetch/polyfill'
 
-console.info('api:', process.env.VUE_APP_API_URL)
-
 const linkError = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     graphQLErrors.map(({ message, locations, path }) =>
@@ -37,7 +35,7 @@ const linkAuth = setContext((request, { headers }) => {
   }
 })
 
-const linkUpload = createUploadLink({ uri: process.env.VUE_APP_API_URL })
+const linkUpload = createUploadLink({ uri: '/api' })
 
 const link = ApolloLink.from([linkAuth, linkError, linkUpload])
 

@@ -60,9 +60,7 @@ export const actions = {
     commit('messageAdd', {
       id,
       type: 'error',
-      value:
-        error ||
-        `Erreur: impossible de se connecter à l'API (${process.env.VUE_APP_API_URL})`
+      value: error || `Erreur: impossible de se connecter à l'API`
     })
 
     setTimeout(() => {
@@ -122,7 +120,7 @@ export const actions = {
         authorization: token ? `Bearer ${token}` : ''
       })
 
-      const url = `${process.env.VUE_APP_API_URL}/${filePath}`
+      const url = `/api/${filePath}`
 
       const res = await fetch(url, { method: 'GET', headers })
 
