@@ -12,7 +12,6 @@ services:
       NODE_PORT: ${NODE_PORT}
       API_MATOMO_URL: ${API_MATOMO_URL}
       API_MATOMO_ID: ${API_MATOMO_ID}
-      API_SENTRY_URL: ${API_SENTRY_URL}
     volumes:
       - ./.env:/app/.env
     expose:

@@ -13,9 +13,9 @@ import mixins from './mixins'
 import { dateFormat } from './utils'
 
 /* global npmVersion */
-if (process.env.production) {
+if (process.env.VUE_APP_ENV === 'production') {
   Sentry.init({
-    dsn: '/debug',
+    dsn: 'https://c8050c650ac54b04bbc47175763446c0@sentry.io/1332560',
     integrations: [
       new SentryIntegrations.Vue({
         Vue,
@@ -26,18 +26,19 @@ if (process.env.production) {
     // eslint-disable-next-line camelcase
     release: `camino-ui-${npmVersion}`
   })
-
-  Vue.use(VueMatomo, {
-    host: '/stats',
-    router,
-    store,
-    requireConsent: false,
-    trackInitialView: true,
-    trackerFileName: 'piwik',
-    enableHeartBeatTimer: true,
-    enableLinkTracking: true
-  })
 }
+
+Vue.use(VueMatomo, {
+  host: '/matomo',
+  siteId: 'matomo-id',
+  router,
+  store,
+  requireConsent: false,
+  trackInitialView: true,
+  trackerFileName: 'piwik',
+  enableHeartBeatTimer: true,
+  enableLinkTracking: true
+})
 
 Vue.config.productionTip = false
 

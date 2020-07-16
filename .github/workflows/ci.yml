@@ -39,14 +39,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Npm install and test
-        run: |
-          npm ci
-          npm run build
       - name: Build Docker image
         run: docker build . --tag caminofr/camino-ui:master
       - name: Push Docker image to the Docker Hub
@@ -56,6 +48,15 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    #   - name: Install SSH key
+    #     with:
+    # key: ${{ secrets.SSH_KEY }}
+    # known_hosts: ${{ secrets.KNOWN_HOSTS }}
+    # config: |
+    #   Host github
+    #     Hostname github.com
+    #     User git
+    #     IdentityFile ~/.ssh/ssh_key_name
     #   - name: Redeploy dev
     #     run : |
     #       ssh dev
@@ -74,8 +75,11 @@ jobs:
         run: |
           docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
           docker pull caminofr/camino-ui:master
-          docker tag caminofr/camino-ui:master caminofr/camino-ui:release
-          docker push caminofr/camino-ui:release
+          docker tag caminofr/camino-ui:master caminofr/camino-ui:$VERSION
+          docker push caminofr/camino-ui:$VERSION
+          docker tag caminofr/camino-ui:master caminofr/camino-ui:latest
+          docker push caminofr/camino-ui:latest
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          VERSION: ${{ github.event.release.tag_name }}

@@ -41,15 +41,14 @@ app.use(
 
 if (process.env.API_MATOMO_URL && process.env.API_MATOMO_ID) {
   app.use(
-    '/stats',
+    '/matomo',
     createProxyMiddleware({
-      target: `${process.env.API_MATOMO_URL}&${process.env.API_MATOMO_ID}`,
-
-      changeOrigin: false
+      target: process.env.API_MATOMO_URL,
+      changeOrigin: true
     })
   )
 } else {
-  app.use('/stats', (req, res, next) => {
+  app.use('/matomo', (req, res, next) => {
     res.end()
   })
 }
@@ -58,8 +57,7 @@ if (process.env.API_SENTRY_URL) {
   app.use(
     '/debug',
     createProxyMiddleware({
-      target: process.env.API_SENTRY_URL,
-      changeOrigin: false
+      target: process.env.API_SENTRY_URL
     })
   )
 } else {
@@ -69,11 +67,11 @@ if (process.env.API_SENTRY_URL) {
 }
 
 app.use(compression())
-app.use(staticFileMiddleware)
+app.use('/', staticFileMiddleware)
 
 app.use('/', history())
 
-app.use(staticFileMiddleware)
+app.use('/', staticFileMiddleware)
 
 app.get('/', (req, res) => {
   const p = path.join(__dirname, '/dist/index.html')
