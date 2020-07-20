@@ -1,23 +1,26 @@
 #https://github.com/fabriziocucci/vuejs.org/blob/7f9aa12833c085b97a826df3ba240f7d9e069e1b/src/v2/cookbook/dockerize-vuejs-app.md
 
-FROM node:13-alpine
+FROM node:13-alpine as build-stage
 LABEL maintainer=francois.romain@beta.gouv.fr
 
 ENV dir /app
 WORKDIR $dir
 
-# cache node_modules if no changes to package.json
-# http://bitjudo.com/blog/2014/03/13/building-efficient-dockerfiles-node-dot-js/
-COPY package.json /tmp/package.json
-RUN cd /tmp && npm install && cp -a /tmp/node_modules $dir/
+COPY package*.json ./
+RUN npm ci
 
-COPY package.json ./
 COPY index.js ./
 COPY vue.config.js ./
 COPY babel.config.js ./
 COPY src src/
 COPY public public/
-
 RUN npm run build
 
-CMD npm start
+FROM node:13-alpine as production-stage
+
+COPY --from=build-stage /app/package*.json ./
+RUN npm ci --only=prod
+COPY --from=build-stage /app/dist ./dist
+COPY --from=build-stage /app/index.js .
+
+CMD ["npm", "start"]

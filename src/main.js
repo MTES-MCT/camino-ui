@@ -12,9 +12,9 @@ import mixins from './mixins'
 
 import { dateFormat } from './utils'
 
-if (process.env.VUE_APP_SENTRY_DSN) {
+if (process.env.NODE_ENV === 'production') {
   Sentry.init({
-    dsn: process.env.VUE_APP_SENTRY_DSN,
+    dsn: "https://c8050c650ac54b04bbc47175763446c0@sentry.io/1332560",
     integrations: [
       new SentryIntegrations.Vue({
         Vue,
