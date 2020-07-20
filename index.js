@@ -16,13 +16,12 @@ const compression = require('compression')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
 const app = express()
-const port = process.env.NODE_PORT
+const port = process.env.PORT
 
 const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
   setHeaders: (res, path, stat) => {
     res.set({
-      'Content-Security-Policy':
-        "default-src 'none'; script-src 'self' 'sha256-4RS22DYeB7U14dra4KcQYxmwt5HkOInieXK1NUMBmQI=' stats.data.gouv.fr stats.dev.camino.beta.gouv.fr; style-src 'self'; connect-src *.camino.beta.gouv.fr *.camino.local sentry.io; img-src data: 'self' a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org  a.tile.openstreetmap.fr b.tile.openstreetmap.fr c.tile.openstreetmap.fr geoservices.brgm.fr wxs.ign.fr stats.data.gouv.fr stats.dev.camino.beta.gouv.fr; frame-src app.mailjet.com;",
+      'Content-Security-Policy': `default-src 'none'; script-src 'self' *.camino.beta.gouv.fr 'sha256-4RS22DYeB7U14dra4KcQYxmwt5HkOInieXK1NUMBmQI='; style-src 'self'; connect-src camino.beta.gouv.fr *.camino.beta.gouv.fr camino.loc localhost:${port} sentry.io; img-src data: 'self' a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org  a.tile.openstreetmap.fr b.tile.openstreetmap.fr c.tile.openstreetmap.fr geoservices.brgm.fr wxs.ign.fr stats.data.gouv.fr stats.dev.camino.beta.gouv.fr; frame-src app.mailjet.com;`,
       'X-Frame-Options': 'DENY',
       'X-Content-Type-Options': 'nosniff',
       'X-XSS-Protection': '1; mode=block',
@@ -44,39 +43,24 @@ if (process.env.API_MATOMO_URL && process.env.API_MATOMO_ID) {
     '/matomo',
     createProxyMiddleware({
       target: process.env.API_MATOMO_URL,
+      pathRewrite(path, req) {
+        return path
+          .replace('/matomo', '')
+          .replace('matomo-site-id', process.env.API_MATOMO_ID)
+      },
       changeOrigin: true
     })
   )
 } else {
-  app.use('/matomo', (req, res, next) => {
-    res.end()
-  })
-}
-
-if (process.env.API_SENTRY_URL) {
-  app.use(
-    '/debug',
-    createProxyMiddleware({
-      target: process.env.API_SENTRY_URL
-    })
-  )
-} else {
-  app.use('/debug', (req, res, next) => {
+  app.use('/matomo', (req, res) => {
     res.end()
   })
 }
 
 app.use(compression())
 app.use('/', staticFileMiddleware)
-
 app.use('/', history())
-
 app.use('/', staticFileMiddleware)
-
-app.get('/', (req, res) => {
-  const p = path.join(__dirname, '/dist/index.html')
-  res.render(p)
-})
 
 app.listen(port, () => {
   console.info(`Server: ${port}`)

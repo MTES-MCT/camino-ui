@@ -2,19 +2,20 @@ version: '3'
 
 services:
   app:
+    container_name: camino_ui_app
     build: .
     environment:
       VIRTUAL_HOST: ${URL}
-      VIRTUAL_PORT: ${NODE_PORT}
+      VIRTUAL_PORT: ${PORT}
       API_URL: ${API_URL}
-      NODE_PORT: ${NODE_PORT}
+      PORT: ${PORT}
       API_MATOMO_URL: ${API_MATOMO_URL}
       API_MATOMO_ID: ${API_MATOMO_ID}
     networks:
       - default
       - nginx-proxy
     expose:
-      - ${NODE_PORT}
+      - ${PORT}
 
 networks:
   nginx-proxy:

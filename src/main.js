@@ -12,10 +12,9 @@ import mixins from './mixins'
 
 import { dateFormat } from './utils'
 
-/* global npmVersion */
-if (process.env.VUE_APP_ENV === 'production') {
+if (process.env.VUE_APP_SENTRY_DSN) {
   Sentry.init({
-    dsn: 'https://c8050c650ac54b04bbc47175763446c0@sentry.io/1332560',
+    dsn: process.env.VUE_APP_SENTRY_DSN,
     integrations: [
       new SentryIntegrations.Vue({
         Vue,
@@ -23,14 +22,15 @@ if (process.env.VUE_APP_ENV === 'production') {
       }),
       new SentryIntegrations.RewriteFrames()
     ],
-    // eslint-disable-next-line camelcase
+    /* global npmVersion */
+    // @ts-ignore
     release: `camino-ui-${npmVersion}`
   })
 }
 
 Vue.use(VueMatomo, {
   host: '/matomo',
-  siteId: 'matomo-id',
+  siteId: 'matomo-site-id',
   router,
   store,
   requireConsent: false,

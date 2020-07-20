@@ -9,7 +9,7 @@
 ```bash
 # démarre l'application dans un conteneur Docker
 # avec webpack-dev-server en mode `development`
-# accessible à http://localhost:NODE_PORT
+# accessible à http://localhost:PORT
 docker-compose -f ./docker-compose.localhost.yml up --build
 ```
 
