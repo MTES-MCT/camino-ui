@@ -145,13 +145,13 @@ describe("état général de l'application", () => {
 
   test("retourne une erreur de l'api", async () => {
     Date.now = jest.fn(() => 1487076708000)
-    await store.dispatch('apiError')
+    await store.dispatch('apiError', 'message')
 
     expect(state.messages).toEqual([
       {
         id: 1487076708000,
         type: 'error',
-        value: "Erreur: impossible de se connecter à l'API"
+        value: "Erreur: impossible de se connecter à l'API. message"
       }
     ])
   })
