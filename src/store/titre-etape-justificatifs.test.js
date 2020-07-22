@@ -108,17 +108,6 @@ describe('justificatifs', () => {
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test("retourne une erreur si l'API retourne une null lors de la liaison d'un justificatif", async () => {
-    api.etapeJustificatifsAssocier.mockResolvedValue(null)
-    await store.dispatch('titreEtapeJustificatifs/update', {
-      id: 'etape-id',
-      documentsIds: ['document-id-01'],
-      context: { name: 'titres', id: 'titre-id-01' }
-    })
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
   test("retourne une erreur si l'API retourne une erreur lors de la liaison d'un justificatif", async () => {
     api.etapeJustificatifsAssocier.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('titreEtapeJustificatifs/update', {

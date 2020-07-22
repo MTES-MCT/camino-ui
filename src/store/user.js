@@ -191,14 +191,7 @@ export const actions = {
         router.push({ name: 'titres' })
       }
     } catch (e) {
-      dispatch(
-        'messageAdd',
-        {
-          value: `Erreur: ${e}`,
-          type: 'error'
-        },
-        { root: true }
-      )
+      dispatch('messageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'userAdd', { root: true })
     }
@@ -213,14 +206,7 @@ export const actions = {
         email
       })
       commit('popupClose', null, { root: true })
-      dispatch(
-        'messageAdd',
-        {
-          value: `${data}`,
-          type: 'success'
-        },
-        { root: true }
-      )
+      dispatch('messageAdd', { value: data, type: 'success' }, { root: true })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -261,14 +247,7 @@ export const actions = {
         { root: true }
       )
     } catch (e) {
-      dispatch(
-        'messageAdd',
-        {
-          value: `Erreur: ${e}`,
-          type: 'error'
-        },
-        { root: true }
-      )
+      dispatch('messageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'utilisateurPasswordInit', { root: true })
     }

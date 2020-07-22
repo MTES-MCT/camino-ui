@@ -125,16 +125,6 @@ describe("état de l'utilisateur consulté", () => {
     expect(store.state.utilisateur.current).toEqual(utilisateur)
   })
 
-  test("n'obtient pas d'utilisateur: il n'existe pas", async () => {
-    const apiMock = api.utilisateur.mockResolvedValue(null)
-    await store.dispatch('utilisateur/get', 71)
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(actions.pageError).toHaveBeenCalled()
-    expect(store.state.utilisateur.current).toBeNull()
-  })
-
   test("retourne une erreur de l'api dans l'obtention de l'utilisateur", async () => {
     const apiMock = api.utilisateur.mockRejectedValue(
       new Error("l'api ne répond pas")

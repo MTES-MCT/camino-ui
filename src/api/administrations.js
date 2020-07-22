@@ -1,10 +1,10 @@
 import gql from 'graphql-tag'
-import { apiQuery } from './_utils'
+import { apiFetch } from './_client'
 
 import { fragmentAdministration } from './fragments/administration'
 import { fragmentAdministrations } from './fragments/administrations'
 
-const administration = apiQuery(gql`
+const administration = apiFetch(gql`
   query Administration($id: ID!) {
     administration(id: $id) {
       ...administration
@@ -14,7 +14,7 @@ const administration = apiQuery(gql`
   ${fragmentAdministration}
 `)
 
-const administrations = apiQuery(gql`
+const administrations = apiFetch(gql`
   query Administrations {
     administrations {
       ...administrations

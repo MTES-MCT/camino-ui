@@ -35,19 +35,15 @@ export const actions = {
     commit('loadingAdd', 'titreEtapeJustificatifsUpdate', { root: true })
 
     try {
-      const data = await etapeJustificatifsAssocier({ id, documentsIds })
+      await etapeJustificatifsAssocier({ id, documentsIds })
 
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', context, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      commit('popupClose', null, { root: true })
+      await dispatch('reload', context, { root: true })
+      dispatch(
+        'messageAdd',
+        { value: `le titre a été mis à jour`, type: 'success' },
+        { root: true }
+      )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

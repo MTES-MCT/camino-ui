@@ -12,11 +12,7 @@ export const actions = {
     try {
       const data = await administration({ id })
 
-      if (data) {
-        commit('set', data)
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.info(e)

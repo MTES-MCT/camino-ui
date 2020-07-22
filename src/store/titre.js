@@ -39,11 +39,7 @@ export const actions = {
     try {
       const data = await titre({ id })
 
-      if (data) {
-        commit('set', data)
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.info(e)
@@ -60,20 +56,16 @@ export const actions = {
     try {
       const data = await titreCreer({ titre })
 
-      if (data) {
-        commit('popupClose', null, { root: true })
-        router.push({ name: 'titre', params: { id: data.id } })
-        dispatch(
-          'messageAdd',
-          {
-            value: 'le titre a été créé',
-            type: 'success'
-          },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      commit('popupClose', null, { root: true })
+      router.push({ name: 'titre', params: { id: data.id } })
+      dispatch(
+        'messageAdd',
+        {
+          value: 'le titre a été créé',
+          type: 'success'
+        },
+        { root: true }
+      )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -109,22 +101,18 @@ export const actions = {
     commit('loadingAdd', 'titreRemove', { root: true })
 
     try {
-      const data = await titreSupprimer({ id })
+      await titreSupprimer({ id })
 
-      if (data) {
-        commit('popupClose', null, { root: true })
-        dispatch(
-          'messageAdd',
-          {
-            value: `le titre a été supprimé`,
-            type: 'success'
-          },
-          { root: true }
-        )
-        router.push({ name: 'titres' })
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      commit('popupClose', null, { root: true })
+      dispatch(
+        'messageAdd',
+        {
+          value: `le titre a été supprimé`,
+          type: 'success'
+        },
+        { root: true }
+      )
+      router.push({ name: 'titres' })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

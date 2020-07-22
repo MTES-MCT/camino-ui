@@ -40,15 +40,6 @@ describe("état de l'administration consultée", () => {
     expect(store.state.administration.current).toEqual(administration)
   })
 
-  test("n'obtient pas d'administration si l'api ne retourne rien pour cette id", async () => {
-    const apiMock = api.administration.mockResolvedValue(null)
-    await store.dispatch('administration/get', 71)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(actions.pageError).toHaveBeenCalled()
-    expect(store.state.administration.current).toBeNull()
-  })
-
   test("retourne une erreur de l'api dans l'obtention de l'administration", async () => {
     const apiMock = api.administration.mockRejectedValue(
       new Error("l'api ne répond pas")

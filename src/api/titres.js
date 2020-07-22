@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { apiQuery, apiMutate } from './_utils'
+import { apiFetch } from './_client'
 
 import { fragmentTitreTypeType } from './fragments/metas'
 import {
@@ -8,7 +8,7 @@ import {
   fragmentTitresGeo
 } from './fragments/titre'
 
-const metasTitre = apiQuery(
+const metasTitre = apiFetch(
   gql`
     query MetasTitre {
       referencesTypes {
@@ -16,13 +16,10 @@ const metasTitre = apiQuery(
         nom
       }
     }
-  `,
-  {
-    fetchPolicy: 'network-only'
-  }
+  `
 )
 
-const metasTitres = apiQuery(
+const metasTitres = apiFetch(
   gql`
     query MetasTitres {
       domaines {
@@ -43,13 +40,10 @@ const metasTitres = apiQuery(
     }
 
     ${fragmentTitreTypeType}
-  `,
-  {
-    fetchPolicy: 'network-only'
-  }
+  `
 )
 
-const titre = apiQuery(
+const titre = apiFetch(
   gql`
     query Titre($id: ID!) {
       titre(id: $id) {
@@ -58,11 +52,10 @@ const titre = apiQuery(
     }
 
     ${fragmentTitre}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
-const titresGeo = apiQuery(
+const titresGeo = apiFetch(
   gql`
     query Titres(
       $typesIds: [ID!]
@@ -94,11 +87,10 @@ const titresGeo = apiQuery(
     }
 
     ${fragmentTitresGeo}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
-const titres = apiQuery(
+const titres = apiFetch(
   gql`
     query Titres(
       $intervalle: Int
@@ -136,11 +128,10 @@ const titres = apiQuery(
     }
 
     ${fragmentTitres}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
-const titreCreer = apiMutate(gql`
+const titreCreer = apiFetch(gql`
   mutation TitreCreer($titre: InputTitreCreation!) {
     titreCreer(titre: $titre) {
       ...titre
@@ -150,7 +141,7 @@ const titreCreer = apiMutate(gql`
   ${fragmentTitre}
 `)
 
-const titreModifier = apiMutate(gql`
+const titreModifier = apiFetch(gql`
   mutation TitreModifier($titre: InputTitreModification!) {
     titreModifier(titre: $titre) {
       ...titre
@@ -160,7 +151,7 @@ const titreModifier = apiMutate(gql`
   ${fragmentTitre}
 `)
 
-const titreSupprimer = apiMutate(gql`
+const titreSupprimer = apiFetch(gql`
   mutation TitreSupprimer($id: ID!) {
     titreSupprimer(id: $id) {
       ...titre

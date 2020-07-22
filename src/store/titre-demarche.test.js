@@ -82,13 +82,6 @@ describe('démarche', () => {
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test("retourne une erreur si l'API retourne une null lors de la création d'une démarche", async () => {
-    api.demarcheCreer.mockResolvedValue(null)
-    await store.dispatch('titreDemarche/add', { id: 52, nom: 'val' })
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
   test("retourne une erreur si l'API retourne une erreur lors de la création d'une démarche", async () => {
     api.demarcheCreer.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('titreDemarche/add', { id: 52, nom: 'val' })
@@ -103,13 +96,6 @@ describe('démarche', () => {
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test("retourne une erreur si l'API retourne une null lors de la mise à jour d'une démarche", async () => {
-    api.demarcheModifier.mockResolvedValue(null)
-    await store.dispatch('titreDemarche/update', { id: 52, nom: 'val' })
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'une démarche", async () => {
     api.demarcheModifier.mockRejectedValue(new Error("erreur de l'api"))
     await store.dispatch('titreDemarche/update', { id: 52, nom: 'val' })
@@ -122,13 +108,6 @@ describe('démarche', () => {
     await store.dispatch('titreDemarche/remove', 52)
 
     expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la suppression d'une démarche", async () => {
-    api.demarcheSupprimer.mockResolvedValue(null)
-    await store.dispatch('titreDemarche/remove', 52)
-
-    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la suppression d'une démarche", async () => {

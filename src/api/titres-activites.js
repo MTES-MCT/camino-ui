@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { apiMutate, apiQuery } from './_utils'
+import { apiFetch } from './_client'
 
 import {
   fragmentActivites,
@@ -10,7 +10,7 @@ import {
 
 import { fragmentTitreTypeType } from './fragments/metas'
 
-const metasActivites = apiQuery(
+const metasActivites = apiFetch(
   gql`
     query MetasActivites {
       activitesTypes {
@@ -42,13 +42,10 @@ const metasActivites = apiQuery(
     ${fragmentActiviteStatut}
 
     ${fragmentTitreTypeType}
-  `,
-  {
-    fetchPolicy: 'network-only'
-  }
+  `
 )
 
-const activiteModifier = apiMutate(gql`
+const activiteModifier = apiFetch(gql`
   mutation ActiviteModifier($activite: InputActiviteModification!) {
     activiteModifier(activite: $activite) {
       ...activite
@@ -58,7 +55,7 @@ const activiteModifier = apiMutate(gql`
   ${fragmentActivite}
 `)
 
-const activites = apiQuery(
+const activites = apiFetch(
   gql`
     query Activites(
       $intervalle: Int
@@ -102,11 +99,10 @@ const activites = apiQuery(
     }
 
     ${fragmentActivites}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
-const activite = apiQuery(
+const activite = apiFetch(
   gql`
     query Activite($id: ID!) {
       activite(id: $id) {
@@ -115,8 +111,7 @@ const activite = apiQuery(
     }
 
     ${fragmentActivite}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
 export { activite, activites, activiteModifier, metasActivites }

@@ -136,15 +136,6 @@ describe("état d'une activité", () => {
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
-  test("n'obtient pas d'activité si l'api ne retourne rien pour cette id", async () => {
-    const apiMock = api.activite.mockResolvedValue(null)
-    await store.dispatch('titreActivite/get', 'activite-id')
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 'activite-id' })
-    expect(actions.pageError).toHaveBeenCalled()
-    expect(store.state.titreActivite.current).toBeNull()
-  })
-
   test("retourne une erreur de l'api dans l'obtention de l'activité", async () => {
     const apiMock = api.activite.mockRejectedValue(
       new Error("l'api ne répond pas")

@@ -1,11 +1,11 @@
 import gql from 'graphql-tag'
-import { apiMutate, apiQuery } from './_utils'
+import { apiFetch } from './_client'
 
 import { fragmentTitre } from './fragments/titre'
 import { fragmentDemarcheType } from './fragments/metas'
 import { fragmentDemarches } from './fragments/titres-demarches'
 
-const metasDemarches = apiQuery(
+const metasDemarches = apiFetch(
   gql`
     query MetasDemarches {
       domaines {
@@ -45,13 +45,10 @@ const metasDemarches = apiQuery(
         }
       }
     }
-  `,
-  {
-    fetchPolicy: 'network-only'
-  }
+  `
 )
 
-const metasTitreDemarche = apiQuery(
+const metasTitreDemarche = apiFetch(
   gql`
     query MetasDemarche($titreId: ID!, $id: ID) {
       demarchesTypes(titreId: $titreId, titreDemarcheId: $id) {
@@ -60,11 +57,10 @@ const metasTitreDemarche = apiQuery(
     }
 
     ${fragmentDemarcheType}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
-const demarches = apiQuery(
+const demarches = apiFetch(
   gql`
     query Demarches(
       $page: Int
@@ -110,11 +106,10 @@ const demarches = apiQuery(
     }
 
     ${fragmentDemarches}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
-const demarcheCreer = apiMutate(gql`
+const demarcheCreer = apiFetch(gql`
   mutation DemarcheCreer($demarche: InputDemarcheCreation!) {
     demarcheCreer(demarche: $demarche) {
       ...titre
@@ -124,7 +119,7 @@ const demarcheCreer = apiMutate(gql`
   ${fragmentTitre}
 `)
 
-const demarcheModifier = apiMutate(gql`
+const demarcheModifier = apiFetch(gql`
   mutation DemarcheModifier($demarche: InputDemarcheModification!) {
     demarcheModifier(demarche: $demarche) {
       ...titre
@@ -134,7 +129,7 @@ const demarcheModifier = apiMutate(gql`
   ${fragmentTitre}
 `)
 
-const demarcheSupprimer = apiMutate(gql`
+const demarcheSupprimer = apiFetch(gql`
   mutation DemarcheSupprimer($id: ID!) {
     demarcheSupprimer(id: $id) {
       ...titre

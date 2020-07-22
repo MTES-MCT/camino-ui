@@ -37,19 +37,15 @@ export const actions = {
     commit('loadingAdd', 'documentAdd', { root: true })
 
     try {
-      const data = await documentCreer({ document })
+      await documentCreer({ document })
 
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', context, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le document a été ajouté`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      commit('popupClose', null, { root: true })
+      await dispatch('reload', context, { root: true })
+      dispatch(
+        'messageAdd',
+        { value: `le document a été ajouté`, type: 'success' },
+        { root: true }
+      )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -63,19 +59,15 @@ export const actions = {
     commit('loadingAdd', 'documentUpdate', { root: true })
 
     try {
-      const data = await documentModifier({ document })
+      await documentModifier({ document })
 
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', context, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le document a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      commit('popupClose', null, { root: true })
+      await dispatch('reload', context, { root: true })
+      dispatch(
+        'messageAdd',
+        { value: `le document a été mis à jour`, type: 'success' },
+        { root: true }
+      )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -89,19 +81,15 @@ export const actions = {
     commit('loadingAdd', 'documentRemove', { root: true })
 
     try {
-      const data = await documentSupprimer({ id })
+      await documentSupprimer({ id })
 
-      if (data) {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', context, { root: true })
-        dispatch(
-          'messageAdd',
-          { value: `le document a été supprimé`, type: 'success' },
-          { root: true }
-        )
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      commit('popupClose', null, { root: true })
+      await dispatch('reload', context, { root: true })
+      dispatch(
+        'messageAdd',
+        { value: `le document a été supprimé`, type: 'success' },
+        { root: true }
+      )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
