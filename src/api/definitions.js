@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
-import { apiQuery } from './_utils'
+import { apiFetch } from './_client'
 
-const definitions = apiQuery(
+const definitions = apiFetch(
   gql`
     query Definitions {
       definitions {
@@ -21,7 +21,7 @@ const definitions = apiQuery(
   `
 )
 
-const domaines = apiQuery(
+const domaines = apiFetch(
   gql`
     query Domaines {
       domaines {
@@ -34,7 +34,7 @@ const domaines = apiQuery(
   `
 )
 
-const demarchesStatuts = apiQuery(
+const demarchesStatuts = apiFetch(
   gql`
     query DemarchesStatuts {
       demarchesStatuts {
@@ -48,7 +48,7 @@ const demarchesStatuts = apiQuery(
   `
 )
 
-const demarchesTypes = apiQuery(
+const demarchesTypes = apiFetch(
   gql`
     query DemarchesTypes {
       demarchesTypes {
@@ -61,7 +61,7 @@ const demarchesTypes = apiQuery(
   `
 )
 
-const etapesStatuts = apiQuery(
+const etapesStatuts = apiFetch(
   gql`
     query EtapesStatuts {
       etapesStatuts {
@@ -75,7 +75,7 @@ const etapesStatuts = apiQuery(
   `
 )
 
-const etapesTypes = apiQuery(
+const etapesTypes = apiFetch(
   gql`
     query EtapesTypes {
       etapesTypes {
@@ -88,7 +88,7 @@ const etapesTypes = apiQuery(
   `
 )
 
-const substancesLegales = apiQuery(
+const substancesLegales = apiFetch(
   gql`
     query SubstancesLegales {
       substancesLegales {
@@ -101,7 +101,7 @@ const substancesLegales = apiQuery(
   `
 )
 
-const titresStatuts = apiQuery(
+const titresStatuts = apiFetch(
   gql`
     query Statuts {
       statuts {
@@ -115,7 +115,7 @@ const titresStatuts = apiQuery(
   `
 )
 
-const titresTypesTypes = apiQuery(
+const titresTypesTypes = apiFetch(
   gql`
     query Types {
       types {

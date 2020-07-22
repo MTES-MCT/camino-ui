@@ -29,13 +29,7 @@ module.exports = {
     proxy: { '/api': { target: process.env.API_URL } }
   },
   transpileDependencies: [
-    'apollo-cache-inmemory',
-    'apollo-client',
-    'apollo-link',
-    'apollo-link-context',
-    'apollo-link-error',
-    'apollo-link-http',
-    'apollo-utilities',
+    'graphql-react',
     'graphql',
     'graphql-tag',
     'vuex',

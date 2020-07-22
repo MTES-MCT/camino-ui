@@ -105,13 +105,6 @@ describe('étapes', () => {
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test("retourne une erreur si l'API retourne une null lors de la création d'une étape", async () => {
-    api.etapeCreer.mockResolvedValue(null)
-    await store.dispatch('titreEtape/add', { id: 14, nom: 'champs' })
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
   test("retourne une erreur si l'API retourne une erreur lors de la création d'une étape", async () => {
     api.etapeCreer.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('titreEtape/add', { id: 14, nom: 'champs' })
@@ -124,13 +117,6 @@ describe('étapes', () => {
     await store.dispatch('titreEtape/update', { id: 14, nom: 'champs' })
 
     expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la mise à jour d'une étape", async () => {
-    api.etapeModifier.mockResolvedValue(null)
-    await store.dispatch('titreEtape/update', { id: 14, nom: 'champs' })
-
-    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'une étape", async () => {
@@ -146,14 +132,6 @@ describe('étapes', () => {
 
     expect(apiMock).toHaveBeenCalledWith({ id: 14 })
     expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la suppression d'une étape", async () => {
-    const apiMock = api.etapeSupprimer.mockResolvedValue(null)
-    await store.dispatch('titreEtape/remove', 14)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 14 })
-    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la suppression d'une étape", async () => {

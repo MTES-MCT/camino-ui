@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { apiQuery, apiMutate } from './_utils'
+import { apiFetch } from './_client'
 
 import {
   fragmentUtilisateur,
@@ -9,7 +9,7 @@ import { fragmentPermission, fragmentTitreType } from './fragments/metas'
 import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentAdministrations } from './fragments/administrations'
 
-const metasUser = apiQuery(
+const metasUser = apiFetch(
   gql`
     query MetasUser {
       version
@@ -25,11 +25,10 @@ const metasUser = apiQuery(
     }
 
     ${fragmentTitreType}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
-const metasUtilisateur = apiQuery(
+const metasUtilisateur = apiFetch(
   gql`
     query MetasUtilisateur {
       permissions {
@@ -52,11 +51,10 @@ const metasUtilisateur = apiQuery(
     ${fragmentEntreprises}
 
     ${fragmentAdministrations}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
-const utilisateur = apiQuery(
+const utilisateur = apiFetch(
   gql`
     query Utilisateur($id: ID!) {
       utilisateur(id: $id) {
@@ -65,11 +63,10 @@ const utilisateur = apiQuery(
     }
 
     ${fragmentUtilisateur}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
-const utilisateurs = apiQuery(
+const utilisateurs = apiFetch(
   gql`
     query Utilisateurs(
       $intervalle: Int
@@ -101,11 +98,10 @@ const utilisateurs = apiQuery(
     }
 
     ${fragmentUtilisateur}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
-const utilisateurTokenCreer = apiMutate(gql`
+const utilisateurTokenCreer = apiFetch(gql`
   mutation UtilisateurTokenCreer($email: String!, $motDePasse: String!) {
     utilisateurTokenCreer(email: $email, motDePasse: $motDePasse) {
       ...utilisateurToken
@@ -115,7 +111,7 @@ const utilisateurTokenCreer = apiMutate(gql`
   ${fragmentUtilisateurToken}
 `)
 
-const utilisateurCerbereTokenCreer = apiMutate(gql`
+const utilisateurCerbereTokenCreer = apiFetch(gql`
   mutation UtilisateurCerbereTokenCreer($ticket: String!) {
     utilisateurCerbereTokenCreer(ticket: $ticket) {
       ...utilisateurToken
@@ -125,13 +121,13 @@ const utilisateurCerbereTokenCreer = apiMutate(gql`
   ${fragmentUtilisateurToken}
 `)
 
-const utilisateurCerbereUrlObtenir = apiMutate(gql`
+const utilisateurCerbereUrlObtenir = apiFetch(gql`
   mutation UtilisateurCerbereUrlObtenir($url: String!) {
     utilisateurCerbereUrlObtenir(url: $url)
   }
 `)
 
-const moi = apiQuery(gql`
+const moi = apiFetch(gql`
   query Moi {
     moi {
       ...utilisateur
@@ -141,7 +137,7 @@ const moi = apiQuery(gql`
   ${fragmentUtilisateur}
 `)
 
-const utilisateurModifier = apiMutate(gql`
+const utilisateurModifier = apiFetch(gql`
   mutation UtilisateurModifier($utilisateur: InputUtilisateurModification!) {
     utilisateurModifier(utilisateur: $utilisateur) {
       ...utilisateur
@@ -151,7 +147,7 @@ const utilisateurModifier = apiMutate(gql`
   ${fragmentUtilisateur}
 `)
 
-const utilisateurCreer = apiMutate(gql`
+const utilisateurCreer = apiFetch(gql`
   mutation UtilisateurCreer($utilisateur: InputUtilisateurCreation!) {
     utilisateurCreer(utilisateur: $utilisateur) {
       ...utilisateur
@@ -161,7 +157,7 @@ const utilisateurCreer = apiMutate(gql`
   ${fragmentUtilisateur}
 `)
 
-const utilisateurSupprimer = apiMutate(gql`
+const utilisateurSupprimer = apiFetch(gql`
   mutation UtilisateurSupprimer($id: ID!) {
     utilisateurSupprimer(id: $id) {
       ...utilisateur
@@ -171,7 +167,7 @@ const utilisateurSupprimer = apiMutate(gql`
   ${fragmentUtilisateur}
 `)
 
-const utilisateurMotDePasseModifier = apiMutate(gql`
+const utilisateurMotDePasseModifier = apiFetch(gql`
   mutation UtilisateurMotDePasseModifier(
     $id: ID!
     $motDePasse: String!
@@ -191,7 +187,7 @@ const utilisateurMotDePasseModifier = apiMutate(gql`
   ${fragmentUtilisateur}
 `)
 
-const utilisateurMotDePasseInitialiser = apiMutate(gql`
+const utilisateurMotDePasseInitialiser = apiFetch(gql`
   mutation UtilisateurMotDePasseInitialiser(
     $motDePasse1: String!
     $motDePasse2: String!
@@ -207,13 +203,13 @@ const utilisateurMotDePasseInitialiser = apiMutate(gql`
   ${fragmentUtilisateurToken}
 `)
 
-const utilisateurMotDePasseEmailEnvoyer = apiMutate(gql`
+const utilisateurMotDePasseEmailEnvoyer = apiFetch(gql`
   mutation UtilisateurMotDePasseEmailEnvoyer($email: String!) {
     utilisateurMotDePasseEmailEnvoyer(email: $email)
   }
 `)
 
-const utilisateurCreationEmailEnvoyer = apiMutate(gql`
+const utilisateurCreationEmailEnvoyer = apiFetch(gql`
   mutation UtilisateurCreationEmailEnvoyer($email: String!) {
     utilisateurCreationEmailEnvoyer(email: $email)
   }

@@ -90,15 +90,6 @@ describe('état du titre sélectionné', () => {
     expect(store.state.titre.current).toEqual({ id: 83, nom: 'marne' })
   })
 
-  test("retourne une erreur si l'api retourne null lors d'une requête sur un titre", async () => {
-    const apiMock = api.titre.mockResolvedValue(null)
-    await store.dispatch('titre/get', 83)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 83 })
-    expect(store.state.titre.current).toEqual(null)
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
   test("retourne une erreur si de l'api ne répond pas lors d'une requête sur un titre", async () => {
     api.titre.mockRejectedValue(new Error("erreur de l'api"))
     await store.dispatch('titre/get', 83)
@@ -113,13 +104,6 @@ describe('état du titre sélectionné', () => {
     await store.dispatch('titre/titreAdd', { id: 83, nom: 'marne' })
 
     expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne null lors de la création d'un titre", async () => {
-    api.titreCreer.mockResolvedValue(null)
-    await store.dispatch('titre/titreAdd', { id: 83, nom: 'marne' })
-
-    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la création dun titre", async () => {
@@ -150,14 +134,6 @@ describe('état du titre sélectionné', () => {
     await store.dispatch('titre/titreRemove', 83)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 83 })
-  })
-
-  test("retourne une erreur si l'API retourne null lors de la suppression d'un titre", async () => {
-    const apiMock = api.titreSupprimer.mockResolvedValue(null)
-    await store.dispatch('titre/titreRemove', 83)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 83 })
-    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la suppression d'un titre", async () => {

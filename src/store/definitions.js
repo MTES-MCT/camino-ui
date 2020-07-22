@@ -53,10 +53,8 @@ export const actions = {
       if (definitionsIndex[slug]) {
         const data = await definitionsIndex[slug]()
         commit('entreesSet', data)
-      } else if (definitionsIndex[slug] === '') {
-        commit('entreesSet', [])
       } else {
-        dispatch('pageError', null, { root: true })
+        commit('entreesSet', [])
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })

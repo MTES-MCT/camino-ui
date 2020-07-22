@@ -83,13 +83,6 @@ describe('documents', () => {
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test("retourne une erreur si l'API retourne une null lors de la création d'un document", async () => {
-    api.documentCreer.mockResolvedValue(null)
-    await store.dispatch('document/add', { id: 14, nom: 'champs' })
-
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
   test("retourne une erreur si l'API retourne une erreur lors de la création d'un document", async () => {
     api.documentCreer.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('document/add', { id: 14, nom: 'champs' })
@@ -102,13 +95,6 @@ describe('documents', () => {
     await store.dispatch('document/update', { id: 14, nom: 'champs' })
 
     expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la mise à jour d'un document", async () => {
-    api.documentModifier.mockResolvedValue(null)
-    await store.dispatch('document/update', { id: 14, nom: 'champs' })
-
-    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'un document", async () => {
@@ -124,14 +110,6 @@ describe('documents', () => {
 
     expect(apiMock).toHaveBeenCalledWith({ id: 62 })
     expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une null lors de la suppression d'un document", async () => {
-    const apiMock = api.documentSupprimer.mockResolvedValue(null)
-    await store.dispatch('document/remove', { id: 62 })
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 62 })
-    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la suppression d'un document", async () => {

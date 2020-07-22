@@ -89,18 +89,16 @@ export const actions = {
 
       const data = await activites(p)
 
-      if (data) {
-        dispatch(
-          'messageAdd',
-          {
-            value: `liste d'activités mise à jour`,
-            type: 'success'
-          },
-          { root: true }
-        )
+      dispatch(
+        'messageAdd',
+        {
+          value: `liste d'activités mise à jour`,
+          type: 'success'
+        },
+        { root: true }
+      )
 
-        commit('set', data)
-      }
+      commit('set', data)
     } catch (e) {
       dispatch('pageError', null, { root: true })
       console.info(e)

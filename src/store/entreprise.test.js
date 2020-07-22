@@ -57,15 +57,6 @@ describe("état de l'entreprise sélectionnée", () => {
     expect(store.state.entreprise.current).toEqual({ id: 71, nom: 'toto' })
   })
 
-  test("n'obtient pas d'entreprise si l'api ne retourne rien pour cette id", async () => {
-    const apiMock = api.entreprise.mockResolvedValue(null)
-    await store.dispatch('entreprise/get', 71)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(actions.pageError).toHaveBeenCalled()
-    expect(store.state.entreprise.current).toBeNull()
-  })
-
   test("retourne une erreur de l'api dans l'obtention de l'entreprise", async () => {
     const apiMock = api.entreprise.mockRejectedValue(
       new Error("l'api ne répond pas")

@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
-import { apiQuery } from './_utils'
+import { apiFetch } from './_client'
 
-const statistiques = apiQuery(gql`
+const statistiques = apiFetch(gql`
   query Statistiques {
     statistiques {
       titresTotal

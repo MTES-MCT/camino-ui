@@ -1,10 +1,10 @@
 import gql from 'graphql-tag'
-import { apiQuery, apiMutate } from './_utils'
+import { apiFetch } from './_client'
 
 import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentEntreprise } from './fragments/entreprise'
 
-const entreprise = apiQuery(
+const entreprise = apiFetch(
   gql`
     query Entreprise($id: ID!) {
       entreprise(id: $id) {
@@ -13,11 +13,10 @@ const entreprise = apiQuery(
     }
 
     ${fragmentEntreprise}
-  `,
-  { fetchPolicy: 'network-only' }
+  `
 )
 
-const entreprises = apiQuery(gql`
+const entreprises = apiFetch(gql`
   query Entreprises(
     $intervalle: Int
     $page: Int
@@ -44,7 +43,7 @@ const entreprises = apiQuery(gql`
   ${fragmentEntreprises}
 `)
 
-const entrepriseCreer = apiMutate(gql`
+const entrepriseCreer = apiFetch(gql`
   mutation EntrepriseCreer($entreprise: InputEntrepriseCreation!) {
     entrepriseCreer(entreprise: $entreprise) {
       ...entreprise
@@ -54,7 +53,7 @@ const entrepriseCreer = apiMutate(gql`
   ${fragmentEntreprise}
 `)
 
-const entrepriseModifier = apiMutate(gql`
+const entrepriseModifier = apiFetch(gql`
   mutation EntrepriseModifier($entreprise: InputEntrepriseModification!) {
     entrepriseModifier(entreprise: $entreprise) {
       ...entreprise

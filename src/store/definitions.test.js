@@ -130,11 +130,6 @@ describe('définitions du glossaire', () => {
     expect(store.state.definitions.entrees).toEqual([])
   })
 
-  test("retourne une erreur si une définition tapée dans l'url n'existe pas", async () => {
-    await store.dispatch('definitions/entreesGet', 'quelquechose')
-    expect(actions.pageError).toHaveBeenCalled()
-  })
-
   test("retourne une erreur de l'api lors de la récupération des domaines", async () => {
     const apiMock = api.domaines.mockRejectedValue(
       new Error("l'api ne répond pas")
