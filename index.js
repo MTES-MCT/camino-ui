@@ -34,6 +34,7 @@ app.use(
   '/api',
   createProxyMiddleware({
     target: process.env.API_URL,
+    pathRewrite: { '^/api': '' },
     changeOrigin: true
   })
 )

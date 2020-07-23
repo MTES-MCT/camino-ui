@@ -29,11 +29,9 @@ const apiFetch = query => async variables => {
     if (value.parseError) throw value.parseError
 
     const data = value.data
-    if (!data) throw new Error('réponse vide')
 
     const keys = Object.keys(data)
     const dataContent = keys.length === 1 ? data[keys[0]] : data
-    if (!dataContent) throw new Error('réponse vide')
 
     return dataContent
   } catch (e) {

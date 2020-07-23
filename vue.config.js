@@ -26,7 +26,13 @@ module.exports = {
   },
   devServer: {
     disableHostCheck: !!process.env.DEV_SERVER_DISABLE_HOST_CHECK || false,
-    proxy: { '/api': { target: process.env.API_URL } }
+    proxy: {
+      '/api': {
+        target: process.env.API_URL,
+        pathRewrite: { '^/api': '' },
+        changeOrigin: true
+      }
+    }
   },
   transpileDependencies: [
     'graphql-react',

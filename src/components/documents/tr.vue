@@ -51,7 +51,11 @@
       <button
         v-if="document.fichier"
         class="btn-border py-s px-m my--xs"
-        :class="{ 'rnd-r-xs': !document.url, 'rnd-l-xs': !boutonModification && !boutonSuppression && !boutonDissociation }"
+        :class="{
+          'rnd-r-xs': !document.url,
+          'rnd-l-xs':
+            !boutonModification && !boutonSuppression && !boutonDissociation
+        }"
         @click="download"
       >
         <i class="icon-24 icon-download" />
@@ -59,7 +63,13 @@
       <a
         v-if="document.url"
         class="btn-border py-s px-m my--xs rnd-r-xs"
-        :class="{ 'rnd-l-xs': !document.fichier && !boutonModification && !boutonSuppression && !boutonDissociation }"
+        :class="{
+          'rnd-l-xs':
+            !document.fichier &&
+            !boutonModification &&
+            !boutonSuppression &&
+            !boutonDissociation
+        }"
         :href="document.url"
         target="_blank"
         rel="noopener noreferrer"
