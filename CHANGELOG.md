@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.42](https://github.com/MTES-MCT/camino-ui/compare/v0.22.40...v0.22.42) (2020-07-23)
+
+
+### Features
+
+* enregistre l'ordre des substances ([316b172](https://github.com/MTES-MCT/camino-ui/commit/316b17227cd5f48bbda745f0174e3d320168c258))
+
+
+### Bug Fixes
+
+* corrige le téléchargement des documents ([b8dca70](https://github.com/MTES-MCT/camino-ui/commit/b8dca701052c220787fee266a0168c723797d071))
+
 ### [0.22.41](https://github.com/MTES-MCT/camino-ui/compare/v0.22.40...v0.22.41) (2020-07-22)
 
 ### [0.22.40](https://github.com/MTES-MCT/camino-ui/compare/v0.22.39...v0.22.40) (2020-07-22)
