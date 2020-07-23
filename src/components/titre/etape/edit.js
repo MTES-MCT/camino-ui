@@ -180,6 +180,12 @@ const etapeSaveFormat = etape => {
     }
   })
 
+  if (etape.substances) {
+    etape.substances.forEach((substance, index) => {
+      substance.ordre = index + 1
+    })
+  }
+
   if (etape.geoSystemeIds.length && etape.groupes.length) {
     etape.points = pointsBuild(
       etape.groupes,

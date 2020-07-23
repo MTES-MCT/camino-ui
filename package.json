@@ -131,7 +131,8 @@
     "singleQuote": true,
     "arrowParens": "avoid",
     "proseWrap": "never",
-    "bracketSpacing": true
+    "bracketSpacing": true,
+    "trailingComma": "none"
   },
   "postcss": {
     "plugins": {

@@ -38,7 +38,8 @@
     >
       <div class="mb tablet-blob-1-3">
         <h6>
-          Système <span
+          Système
+          <span
             v-if="etape.geoSystemeOpposableId === geoSysteme.id"
             class="bg-info py-xxs px-xs rnd-xs color-bg"
           >Opposable</span>

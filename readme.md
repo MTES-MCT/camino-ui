@@ -20,7 +20,7 @@
 - [Vue.js](https://vuejs.org/)
 - [Vuex](https://vuex.vuejs.org/)
 - [Leaflet.js](https://leafletjs.com/)
-- [Apollo GraphQl client](https://www.apollographql.com/docs/react/)
+- [graphql-react](https://github.com/jaydenseric/graphql-react)
 - [Vue-cli / webpack](https://cli.vuejs.org/)
 - [Babel](https://babeljs.io/)
 - [Postcss](https://postcss.org/)

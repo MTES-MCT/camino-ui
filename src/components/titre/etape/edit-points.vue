@@ -105,6 +105,7 @@
                   <i class="icon-24 icon-move-up" />
                 </button>
                 <button
+                  :class="{'rnd-l-xs': (groupeIndex === 0 && contourIndex === 0 && pointIndex === 0) && (etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)}"
                   class="btn py-s px-m rnd-r-xs"
                   @click="pointRemove(groupeIndex, contourIndex, pointIndex)"
                 >
@@ -226,10 +227,7 @@ export default {
       const contours = groupes[groupeIndex]
       const points = contours[contourIndex]
 
-      if (
-        !points.length &&
-        (groupes.length > 1 || contours.some(points => points.length > 1))
-      ) {
+      if (!points.length && (groupes.length > 1 || contours.length > 1)) {
         contours.splice(contourIndex, 1)
         if (!contours.length && groupes.length > 1) {
           groupes.splice(groupeIndex, 1)
