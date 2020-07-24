@@ -36,7 +36,10 @@
 
     <hr>
 
-    <EditSections :document.sync="document" />
+    <EditSections
+      :document.sync="document"
+      :repertoire="repertoire"
+    />
 
     <template slot="footer">
       <div class="tablet-blobs">

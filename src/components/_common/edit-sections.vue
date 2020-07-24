@@ -13,7 +13,7 @@
         :key="e.id"
         :contenu.sync="contenu[s.id]"
         :element="e"
-        :modification="modification"
+        :modifiable="modifiable"
       />
     </div>
   </div>
@@ -29,7 +29,7 @@ export default {
   props: {
     sections: { type: Array, default: () => [] },
     element: { type: Object, default: () => ({}) },
-    modification: { type: Boolean, default: true }
+    modifiable: { type: Boolean, default: true }
   },
 
   data() {
@@ -43,7 +43,7 @@ export default {
     sectionsFiltered() {
       return this.sections.filter(
         s =>
-          this.modification ||
+          this.modifiable ||
           s.elements.some(e => {
             const contenu = this.contenu[s.id][e.id]
 

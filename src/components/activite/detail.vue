@@ -27,7 +27,7 @@
         :document="documentNew"
         :parent-id="activite.id"
         :parent-type-id="activite.type.id"
-        :title="`${activite.type.nom} | ${activite.periode.nom} ${activite.annee}`"
+        :title="documentPopupTitle"
         repertoire="activites"
         class="btn py-s px-m mr-line"
       />
@@ -65,6 +65,7 @@
         :etiquette="activite.modification"
         :parent-id="activite.id"
         :parent-type-id="activite.type.id"
+        :title="documentPopupTitle"
         repertoire="activites"
         class="px-m"
       />
@@ -113,6 +114,10 @@ export default {
         titreActiviteId: this.activite.id,
         typeId: ''
       }
+    },
+
+    documentPopupTitle() {
+      return `${this.activite.type.nom} | ${this.activite.periode.nom} ${this.activite.annee}`
     }
   },
 

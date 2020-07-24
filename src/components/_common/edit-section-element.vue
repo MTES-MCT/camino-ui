@@ -12,9 +12,7 @@
         class="mb"
         :class="{'tablet-blob-2-3': element.nom, 'tablet-blob-1': !element.nom }"
       >
-        <div
-          v-if="modification"
-        >
+        <div v-if="modifiable">
           <div :class="{ 'mb-s': element.description}">
             <input
               v-if="element.type === 'number'"
@@ -115,18 +113,14 @@
         </div>
 
         <p
-          v-else-if="hasContenu"
-          class="pt-xs"
+          v-else-if="hasValeur"
+          class="pt-xs mb-0"
         >
-          {{ element.type === 'number'
-            ? numberFormat(contenu[element.id])
-            : element.type ==='checkboxes'
-              ? contenu[element.id].map(id => element.valeurs.find(e => e.id === id).nom).join(', ')
-              : contenu[element.id] }}
+          {{ valeur }}
         </p>
         <p
           v-else-if="!element.optionnel"
-          class="color-warning pt-xs"
+          class="color-warning pt-xs mb-0"
         >
           À compléter pour valider
         </p>
@@ -138,6 +132,7 @@
 </template>
 
 <script>
+import { numberFormat } from '../../utils'
 import InputDate from '../_ui/input-date.vue'
 
 export default {
@@ -146,34 +141,36 @@ export default {
   },
 
   props: {
-    contenu: {
-      type: Object,
-      default: () => ({})
-    },
-    element: {
-      type: Object,
-      default: () => ({})
-    },
-    modification: {
-      type: Boolean,
-      default: true
-    }
+    contenu: { type: Object, default: () => ({}) },
+    element: { type: Object, default: () => ({}) },
+    modifiable: { type: Boolean, default: true }
   },
 
   computed: {
-    hasContenu() {
-      return (
-        this.contenu &&
-        ((!Array.isArray(this.contenu[this.element.id]) &&
-          (this.contenu[this.element.id] ||
-            this.contenu[this.element.id] === 0)) ||
-          (Array.isArray(this.contenu[this.element.id]) &&
-            this.contenu[this.element.id].length))
-      )
+    hasValeur() {
+      const valeur = this.contenu && this.contenu[this.element.id]
+      const inputValeur = !Array.isArray(valeur) && (valeur || valeur === 0)
+      const arrayValeur = valeur && Array.isArray(valeur) && valeur.length
+
+      return inputValeur || arrayValeur
     },
 
     valeurs() {
       return this.element.valeurs
+    },
+
+    valeur() {
+      if (this.element.type === 'number') {
+        return numberFormat(this.contenu[this.element.id])
+      }
+
+      if (this.element.type === 'checkboxes') {
+        return this.contenu[this.element.id]
+          .map(id => this.valeurs.find(e => e.id === id).nom)
+          .join(', ')
+      }
+
+      return this.contenu[this.element.id]
     }
   },
 

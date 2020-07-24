@@ -6,15 +6,28 @@
       </div>
       <div class="tablet-blob-2-3">
         <InputDate
+          v-if="modifiable"
           v-model="document.date"
           class="mb"
         />
+        <p
+          v-else-if="document.date"
+          class="pt-xs"
+        >
+          {{ document.date }}
+        </p>
+        <p
+          v-else
+          class="color-warning pt-xs"
+        >
+          À compléter pour valider
+        </p>
       </div>
     </div>
 
     <hr>
 
-    <div v-if="documentsVisibilites.length > 1">
+    <div v-if="documentsVisibilites.length > 1 && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3">
           <h6>Visibilité</h6>
@@ -42,47 +55,62 @@
       <hr>
     </div>
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Description</h6>
-        <p class="h6 italic mb-0">
-          Optionnel
-        </p>
+    <div v-if="modifiable || document.description">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Description</h6>
+          <p
+            v-if="modifiable"
+            class="h6 italic mb-0"
+          >
+            Optionnel
+          </p>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input
+            v-if="modifiable"
+            v-model="document.description"
+            type="text"
+            class="p-s"
+          >
+          <p
+            v-else-if="document.description"
+            class="pt-xs mb-0"
+          >
+            {{ document.description }}
+          </p>
+        </div>
       </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model="document.description"
-          type="text"
-          class="p-s"
-        >
-      </div>
+      <hr>
     </div>
-    <hr>
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Fichier</h6>
       </div>
-      <div class="mb tablet-blob-2-3">
+      <div class="tablet-blob-2-3">
         <div
           v-if="document.fichier || document.fichierNouveau"
           class="flex"
         >
-          <span class="h5">{{
-            (document.fichierNouveau && document.fichierNouveau.name) ||
-              `${document.id}.${document.fichierTypeId}`
-          }}</span>
+          <p class="mb-0">
+            {{
+              (document.fichierNouveau && document.fichierNouveau.name) ||
+                `${document.id}.${document.fichierTypeId}`
+            }}
+          </p>
           <button
+            v-if="modifiable"
             class="btn-border py-s px-m my--xs rnd-xs flex-right"
             @click="fileRemove"
           >
             <i class="icon-24 icon-trash" />
           </button>
         </div>
-        <div v-else>
+        <div v-else-if="modifiable">
           <label
             for="file"
-            class="btn-border p-s full-x rnd-xs mb-0"
+            class="btn-border p-s full-x rnd-xs my--xs"
           >Choisir un fichier…</label>
           <input
             id="file"
@@ -91,6 +119,12 @@
             @change="fileChange"
           >
         </div>
+        <p
+          v-else
+          class="color-warning pt-xs mb-0"
+        >
+          À compléter pour valider
+        </p>
       </div>
     </div>
 
@@ -103,6 +137,7 @@
         </div>
         <div class="mb tablet-blob-2-3">
           <select
+            v-if="modifiable"
             v-model="document.fichierTypeId"
             class="p-s"
           >
@@ -115,13 +150,24 @@
               {{ fichierTypeId }}
             </option>
           </select>
+          <p
+            v-else-if="document.fichierTypeId"
+            class="pt-xs mb-0"
+          >
+            {{ document.fichierTypeId }}
+          </p>
+          <p
+            v-else
+            class="color-warning pt-xs mb-0"
+          >
+            À compléter pour valider
+          </p>
         </div>
       </div>
-
       <hr>
     </div>
 
-    <div v-if="document.typeId === 'dec' || document.typeId === 'arr'">
+    <div v-if="(document.typeId === 'dec' || document.typeId === 'arr') && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Jorf</h6>
@@ -140,7 +186,7 @@
       <hr>
     </div>
 
-    <div v-if="document.typeId === 'dec' || document.typeId === 'arr'">
+    <div v-if="(document.typeId === 'dec' || document.typeId === 'arr') && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Nor</h6>
@@ -159,39 +205,44 @@
       <hr>
     </div>
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Url</h6>
-        <p class="h6 italic mb-0">
-          Optionnel
-        </p>
+    <div v-if="repertoire === 'etapes' && modifiable">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Url</h6>
+          <p class="h6 italic mb-0">
+            Optionnel
+          </p>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input
+            v-model="document.url"
+            type="url"
+            class="p-s"
+            placeholder="https://…"
+          >
+        </div>
       </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model="document.url"
-          type="url"
-          class="p-s"
-          placeholder="https://…"
-        >
-      </div>
+      <hr>
     </div>
-    <hr>
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Url</h6>
-        <p class="h6 italic mb-0">
-          Optionnel
-        </p>
+    <div v-if="repertoire === 'etapes' && modifiable">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Url</h6>
+          <p class="h6 italic mb-0">
+            Optionnel
+          </p>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input
+            v-model="document.uri"
+            type="url"
+            class="p-s"
+            placeholder="https://…"
+          >
+        </div>
       </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model="document.uri"
-          type="url"
-          class="p-s"
-          placeholder="https://…"
-        >
-      </div>
+      <hr>
     </div>
 
     <Messages :messages="warnings" />
@@ -209,7 +260,9 @@ export default {
   },
 
   props: {
-    document: { type: Object, required: true }
+    document: { type: Object, required: true },
+    modifiable: { type: Boolean, default: true },
+    repertoire: { type: String, required: true }
   },
 
   data() {

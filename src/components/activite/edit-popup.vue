@@ -15,21 +15,32 @@
     </template>
 
     <div
-      v-if="modification"
+      v-if="modifiable"
       class="p-s bg-info color-bg mb"
     >
       Besoin d'aide pour remplir ce rapport ? Appelez le 06.61.26.42.89
     </div>
 
     <EditSections
-      :sections="activite.sections"
       :element.sync="activite"
-      :modification="modification"
-      @completed:update="completedUpdate"
+      :modifiable="modifiable"
+      :sections="activite.sections"
+      @completed:update="activiteCompletedUpdate"
     />
 
+    <div v-if="activite.documentsCreation">
+      <DocumentsEdit
+        :documents.sync="activite.documents"
+        :modifiable="modifiable"
+        :parent-id="activite.id"
+        :parent-type-id="activite.type.id"
+        repertoire="activites"
+        @completed:update="documentsCompletedUpdate"
+      />
+    </div>
+
     <div
-      v-if="!modification && completed"
+      v-if="!modifiable && completed"
       id="cmn-titre-activite-edit-popup-warning"
       class="p-s bg-warning color-bg bold mb"
     >
@@ -38,7 +49,7 @@
 
     <template slot="footer">
       <div
-        v-if="modification"
+        v-if="modifiable"
         class="tablet-blobs"
       >
         <div class="tablet-blob-1-3 mb tablet-mb-0">
@@ -115,13 +126,15 @@
 <script>
 import Popup from '../_ui/popup.vue'
 import EditSections from '../_common/edit-sections.vue'
+import DocumentsEdit from '../document/edit-multi.vue'
 
 export default {
   name: 'CaminoTitreActivitesRapportEditPopup',
 
   components: {
     Popup,
-    EditSections
+    EditSections,
+    DocumentsEdit
   },
 
   props: {
@@ -131,9 +144,10 @@ export default {
 
   data() {
     return {
-      modification: true,
+      modifiable: true,
       checkboxesValues: [],
-      completed: false
+      activiteCompleted: false,
+      documentsCompleted: false
     }
   },
 
@@ -144,6 +158,13 @@ export default {
 
     messages() {
       return this.$store.state.popup.messages
+    },
+
+    completed() {
+      return (
+        this.activiteCompleted &&
+        (this.documentsCompleted || !this.activite.documentsCreation)
+      )
     }
   },
 
@@ -156,35 +177,70 @@ export default {
   },
 
   methods: {
-    completedUpdate(completed) {
-      this.completed = completed
+    activiteCompletedUpdate(completed) {
+      this.activiteCompleted = completed
+    },
+
+    documentsCompletedUpdate(completed) {
+      this.documentsCompleted = completed
     },
 
     preview() {
-      this.modification = false
+      this.modifiable = false
     },
 
     edit() {
       this.errorsRemove()
-      this.modification = true
+      this.modifiable = true
     },
 
     async save(confirmation) {
-      if (confirmation && this.completed) {
-        this.activite.statut.id = 'dep'
-      } else {
-        this.activite.statut.id = 'enc'
-      }
+      const validate = confirmation && this.completed
 
       if (!this.activite.contenu) {
         delete this.activite.contenu
       }
 
+      let context
+
+      if (validate && !this.activite.documents) {
+        context = this.context
+        this.activite.statut.id = 'dep'
+      } else {
+        this.activite.statut.id = 'enc'
+      }
+
       this.errorsRemove()
+
       await this.$store.dispatch('titreActivite/update', {
         activite: this.activite,
-        context: this.context
+        context
       })
+
+      if (this.activite.documents.length) {
+        for (const document of this.activite.documents) {
+          if (document.id) {
+            await this.$store.dispatch('document/update', {
+              document: document,
+              context
+            })
+          } else {
+            await this.$store.dispatch('document/add', {
+              document: document,
+              context
+            })
+          }
+        }
+
+        if (validate) {
+          this.activite.statut.id = 'dep'
+        }
+
+        await this.$store.dispatch('titreActivite/update', {
+          activite: this.activite,
+          context: this.context
+        })
+      }
     },
 
     cancel() {
@@ -194,13 +250,13 @@ export default {
 
     keyup(e) {
       if ((e.which || e.keyCode) === 27) {
-        if (this.modification) {
+        if (this.modifiable) {
           this.cancel()
         } else {
           this.edit()
         }
       } else if ((e.which || e.keyCode) === 13) {
-        if (this.modification) {
+        if (this.modifiable) {
           this.preview()
         } else {
           if (this.completed) {

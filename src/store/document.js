@@ -40,7 +40,9 @@ export const actions = {
       await documentCreer({ document })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', context, { root: true })
+      if (context) {
+        await dispatch('reload', context, { root: true })
+      }
       dispatch(
         'messageAdd',
         { value: `le document a été ajouté`, type: 'success' },
@@ -62,7 +64,9 @@ export const actions = {
       await documentModifier({ document })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', context, { root: true })
+      if (context) {
+        await dispatch('reload', context, { root: true })
+      }
       dispatch(
         'messageAdd',
         { value: `le document a été mis à jour`, type: 'success' },
@@ -84,7 +88,9 @@ export const actions = {
       await documentSupprimer({ id })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', context, { root: true })
+      if (context) {
+        await dispatch('reload', context, { root: true })
+      }
       dispatch(
         'messageAdd',
         { value: `le document a été supprimé`, type: 'success' },

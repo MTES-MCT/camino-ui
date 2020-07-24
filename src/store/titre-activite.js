@@ -54,7 +54,9 @@ export const actions = {
         { root: true }
       )
 
-      await dispatch('reload', context, { root: true })
+      if (context) {
+        await dispatch('reload', context, { root: true })
+      }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

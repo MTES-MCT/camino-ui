@@ -46,6 +46,17 @@ export default {
         {}
       )
 
+      activite.documents.forEach(document => {
+        document.titreActiviteId = this.activite.id
+
+        document.typeId = document.type.id
+        document.fichierNouveau = null
+
+        delete document.type
+        delete document.modification
+        delete document.suppression
+      })
+
       this.$store.commit('popupOpen', {
         component: activiteEditPopup,
         props: {

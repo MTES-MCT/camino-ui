@@ -38,7 +38,10 @@ export const actions = {
       await etapeJustificatifsAssocier({ id, documentsIds })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', context, { root: true })
+
+      if (context) {
+        await dispatch('reload', context, { root: true })
+      }
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
@@ -66,7 +69,10 @@ export const actions = {
           { value: `le titre a été mis à jour`, type: 'success' },
           { root: true }
         )
-        await dispatch('reload', context, { root: true })
+
+        if (context) {
+          await dispatch('reload', context, { root: true })
+        }
       } else {
         dispatch('pageError', null, { root: true })
       }
