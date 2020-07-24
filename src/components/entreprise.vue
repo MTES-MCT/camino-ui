@@ -20,10 +20,11 @@
         slot="buttons"
       >
         <DocumentAddButton
-          :document="documentNew"
           :context="documentContext"
-          repertoire="entreprises"
+          :document="documentNew"
+          :parent-id="entreprise.id"
           :title="nom"
+          repertoire="entreprises"
           class="btn py-s px-m mr-line"
         />
         <button
@@ -151,18 +152,22 @@
           </div>
         </div>
 
-        <Documents
-          v-if="entreprise.documents.length"
-          :element-id="entreprise.id"
-          :documents="entreprise.documents"
-          :context="{ id: entreprise.id, name: 'entreprise' }"
-          repertoire="entreprises"
-          :title="nom"
-          class="px-m"
-          :bouton-suppression="entreprise.modification && permissionsCheck(['super', 'admin', 'editeur'])"
-          :bouton-modification="entreprise.modification"
-          :etiquette="entreprise.modification"
-        />
+        <div v-if="entreprise.documents.length">
+          <h4 class="px-m pt mb-0">
+            Documents
+          </h4>
+          <Documents
+            :bouton-modification="entreprise.modification"
+            :bouton-suppression="entreprise.modification && permissionsCheck(['super', 'admin', 'editeur'])"
+            :context="{ id: entreprise.id, name: 'entreprise' }"
+            :documents="entreprise.documents"
+            :etiquette="entreprise.modification"
+            :parent-id="entreprise.id"
+            :title="nom"
+            repertoire="entreprises"
+            class="px-m"
+          />
+        </div>
       </template>
     </Accordion>
 
@@ -269,17 +274,17 @@ export default {
     documentNew() {
       return {
         entrepriseId: this.entreprise.id,
-        typeId: '',
         fichier: null,
         fichierNouveau: null,
-        fichierTypeId: null
+        fichierTypeId: null,
+        typeId: ''
       }
     },
 
     documentContext() {
       return {
-        name: 'entreprise',
-        id: this.entreprise.id
+        id: this.entreprise.id,
+        name: 'entreprise'
       }
     }
   },

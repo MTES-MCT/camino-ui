@@ -46,6 +46,8 @@
         :title="documentPopupTitle"
         :context="documentContext"
         :repertoire="documentRepertoire"
+        :parent-id="etape.id"
+        :parent-type-id="etape.type.id"
         class="btn py-s px-m mr-line"
         @titre:eventTrack="eventTrack"
       />
@@ -85,35 +87,49 @@
         />
       </div>
 
-      <Documents
-        v-if="etape.documents.length"
-        :element-id="etape.id"
-        :documents="etape.documents"
-        :context="documentContext"
-        :repertoire="documentRepertoire"
-        :title="documentPopupTitle"
-        class="px-m"
-        :etiquette="etape.modification"
-        :bouton-suppression="etape.modification"
-        :bouton-modification="etape.modification"
-        @titre:eventTrack="eventTrack"
-      />
 
-      <Documents
-        v-if="etape.justificatifs.length"
-        :element-id="etape.id"
-        :documents="etape.justificatifs"
-        :context="documentContext"
-        :repertoire="documentRepertoire"
-        :title="documentPopupTitle"
-        nom="Justificatif"
-        class="px-m"
-        :etiquette="etape.modification"
-        :bouton-suppression="false"
-        :bouton-modification="false"
-        :bouton-dissociation="etape.modification"
-        @titre:eventTrack="eventTrack"
-      />
+
+      <div
+        v-if="etape.documents.length"
+        class="border-b-s"
+      >
+        <h4 class="px-m pt mb-s">
+          Documents
+        </h4>
+        <Documents
+          :bouton-suppression="etape.modification"
+          :bouton-modification="etape.modification"
+          :context="documentContext"
+          :documents="etape.documents"
+          :etiquette="etape.modification"
+          :parent-id="etape.id"
+          :parent-type-id="etape.type.id"
+          :repertoire="documentRepertoire"
+          :title="documentPopupTitle"
+          class="px-m"
+          @titre:eventTrack="eventTrack"
+        />
+      </div>
+
+      <div v-if="etape.justificatifs.length">
+        <h4 class="px-m pt mb-s">
+          Justificatifs
+        </h4>
+        <Documents
+          :bouton-dissociation="etape.modification"
+          :bouton-modification="false"
+          :bouton-suppression="false"
+          :context="documentContext"
+          :documents="etape.justificatifs"
+          :etiquette="etape.modification"
+          :parent-id="etape.id"
+          :parent-type-id="etape.type.id"
+          :repertoire="documentRepertoire"
+          :title="documentPopupTitle"
+          class="px-m"
+          @titre:eventTrack="eventTrack"
+        />
+      </div>
     </div>
   </Accordion>
 </template>

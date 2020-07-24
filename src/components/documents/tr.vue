@@ -94,10 +94,11 @@ export default {
   },
 
   props: {
-    document: { type: Object, default: () => {} },
-    elementId: { type: String, default: '' },
-    context: { type: Object, required: true },
     title: { type: String, default: '' },
+    document: { type: Object, default: () => {} },
+    parentId: { type: String, required: true },
+    parentTypeId: { type: String, default: '' },
+    context: { type: Object, required: true },
     repertoire: { type: String, required: true },
     boutonSuppression: { type: Boolean, default: false },
     boutonModification: { type: Boolean, default: false },
@@ -113,11 +114,11 @@ export default {
     editPopupOpen() {
       const document = jsonTypenameOmit(this.document)
       if (this.repertoire === 'etapes') {
-        document.titreEtapeId = this.elementId
+        document.titreEtapeId = this.parentId
       } else if (this.repertoire === 'activites') {
-        document.titreActiviteId = this.elementId
+        document.titreActiviteId = this.parentId
       } else if (this.repertoire === 'entreprises') {
-        document.entrepriseId = this.elementId
+        document.entrepriseId = this.parentId
       }
 
       document.typeId = document.type.id
@@ -133,7 +134,8 @@ export default {
           title: this.title,
           context: this.context,
           document,
-          repertoire: this.repertoire
+          repertoire: this.repertoire,
+          parentTypeId: this.parentTypeId
         }
       })
     },
@@ -153,7 +155,7 @@ export default {
       this.$store.commit('popupOpen', {
         component: JustificatifUnlinkPopup,
         props: {
-          id: this.elementId,
+          id: this.parentId,
           title: this.title,
           document: this.document,
           context: this.context

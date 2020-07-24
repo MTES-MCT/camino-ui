@@ -22,25 +22,10 @@ export default {
   },
 
   props: {
-    entete: {
-      type: Boolean,
-      default: true
-    },
-
-    section: {
-      type: Object,
-      required: true
-    },
-
-    contenu: {
-      type: Object,
-      default: () => ({})
-    },
-
-    date: {
-      type: String,
-      default: ''
-    }
+    entete: { type: Boolean, default: true },
+    section: { type: Object, required: true },
+    contenu: { type: Object, default: () => ({}) },
+    date: { type: String, default: '' }
   },
 
   computed: {

@@ -2,7 +2,7 @@
   <div class="overflow-scroll-x">
     <table>
       <tr>
-        <th>{{ nom }}</th>
+        <th>Description</th>
         <th>Date</th>
         <th class="full-x-">
           Description
@@ -13,7 +13,8 @@
         v-for="document in documents"
         :key="document.id"
         :document="document"
-        :element-id="elementId"
+        :parent-id="parentId"
+        :parent-type-id="parentTypeId"
         :context="context"
         :repertoire="repertoire"
         :title="title"
@@ -35,16 +36,16 @@ export default {
   },
 
   props: {
-    documents: { type: Array, default: () => [] },
-    elementId: { type: String, default: '' },
-    nom: { type: String, default: 'Document' },
-    title: { type: String, default: '' },
-    context: { type: Object, required: true },
-    repertoire: { type: String, required: true },
-    boutonSuppression: { type: Boolean, default: false },
-    boutonModification: { type: Boolean, default: false },
     boutonDissociation: { type: Boolean, default: false },
-    etiquette: { type: Boolean, default: true }
+    boutonModification: { type: Boolean, default: false },
+    boutonSuppression: { type: Boolean, default: false },
+    context: { type: Object, required: true },
+    etiquette: { type: Boolean, default: true },
+    documents: { type: Array, default: () => [] },
+    parentId: { type: String, required: true },
+    parentTypeId: { type: String, default: '' },
+    repertoire: { type: String, required: true },
+    title: { type: String, required: true }
   }
 }
 </script>

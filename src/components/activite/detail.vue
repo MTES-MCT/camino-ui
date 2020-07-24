@@ -23,10 +23,12 @@
     >
       <DocumentAddButton
         v-if="activite.documentsCreation && activite.modification"
-        :document="documentNew"
         :context="context"
+        :document="documentNew"
+        :parent-id="activite.id"
+        :parent-type-id="activite.type.id"
+        :title="`${activite.type.nom} | ${activite.periode.nom} ${activite.annee}`"
         repertoire="activites"
-        :type-id="activite.type.id"
         class="btn py-s px-m mr-line"
       />
       <ActiviteButton
@@ -56,14 +58,15 @@
 
       <Documents
         v-if="activite.documents && activite.documents.length"
-        :element-id="activite.id"
-        :documents="activite.documents"
-        :context="context"
-        repertoire="activites"
-        class="px-m"
         :bouton-suppression="activite.modification"
         :bouton-modification="activite.modification"
+        :context="context"
+        :documents="activite.documents"
         :etiquette="activite.modification"
+        :parent-id="activite.id"
+        :parent-type-id="activite.type.id"
+        repertoire="activites"
+        class="px-m"
       />
     </div>
   </Accordion>
@@ -102,11 +105,13 @@ export default {
   computed: {
     documentNew() {
       return {
-        titreActiviteId: this.activite.id,
-        typeId: '',
+        entreprisesLecture: false,
         fichier: null,
         fichierNouveau: null,
-        fichierTypeId: null
+        fichierTypeId: null,
+        publicLecture: false,
+        titreActiviteId: this.activite.id,
+        typeId: ''
       }
     }
   },

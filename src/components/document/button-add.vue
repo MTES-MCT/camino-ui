@@ -9,11 +9,12 @@ import DocumentEditPopup from './edit-popup.vue'
 
 export default {
   props: {
-    document: { type: Object, required: true },
-    title: { type: String, default: '' },
     context: { type: Object, required: true },
+    document: { type: Object, required: true },
+    parentId: { type: String, required: true },
+    parentTypeId: { type: String, default: '' },
     repertoire: { type: String, required: true },
-    typeId: { type: String, default: '' }
+    title: { type: String, required: true }
   },
 
   methods: {
@@ -21,12 +22,12 @@ export default {
       this.$store.commit('popupOpen', {
         component: DocumentEditPopup,
         props: {
-          title: this.title,
-          document: this.document,
           context: this.context,
           creation: true,
+          document: this.document,
+          parentTypeId: this.parentTypeId,
           repertoire: this.repertoire,
-          typeId: this.typeId
+          title: this.title
         }
       })
 
