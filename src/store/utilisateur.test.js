@@ -115,7 +115,7 @@ describe("état de l'utilisateur consulté", () => {
     expect(apiMock).toHaveBeenCalled()
   })
 
-  test("obtient les données d'un utilisateur", async () => {
+  test('retourne un utilisateur', async () => {
     const utilisateur = { id: 71, nom: 'toto', prenom: 'asticot' }
     const apiMock = api.utilisateur.mockResolvedValue(utilisateur)
     await store.dispatch('utilisateur/get', 71)
@@ -123,6 +123,14 @@ describe("état de l'utilisateur consulté", () => {
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
     expect(store.state.utilisateur.current).toEqual(utilisateur)
+  })
+
+  test("affiche une page d'erreur si l'id de l'utilisateur retourne null", async () => {
+    const apiMock = api.utilisateur.mockResolvedValue(null)
+    await store.dispatch('utilisateur/get', 27)
+
+    expect(apiMock).toHaveBeenCalledWith({ id: 27 })
+    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur de l'api dans l'obtention de l'utilisateur", async () => {

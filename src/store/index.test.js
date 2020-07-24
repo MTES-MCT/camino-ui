@@ -151,7 +151,7 @@ describe("état général de l'application", () => {
       {
         id: 1487076708000,
         type: 'error',
-        value: "Erreur: impossible de se connecter à l'API. message"
+        value: 'Erreur : message'
       }
     ])
   })

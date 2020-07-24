@@ -118,14 +118,14 @@ describe("état d'une activité", () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test('affiche une activité', async () => {
+  test('retourne une activité', async () => {
     api.activite.mockResolvedValue({
       id: 27,
       contenu: [],
       statut: { id: 'dep' }
     })
 
-    await store.dispatch('titreActivite/get')
+    await store.dispatch('titreActivite/get', 27)
 
     expect(store.state.titreActivite.current).toEqual({
       id: 27,
@@ -134,6 +134,14 @@ describe("état d'une activité", () => {
     })
 
     expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("affiche une page d'erreur si l'id de l'activité retourne null", async () => {
+    const apiMock = api.activite.mockResolvedValue(null)
+    await store.dispatch('titreActivite/get', 27)
+
+    expect(apiMock).toHaveBeenCalledWith({ id: 27 })
+    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur de l'api dans l'obtention de l'activité", async () => {

@@ -39,7 +39,11 @@ export const actions = {
     try {
       const data = await titre({ id })
 
-      commit('set', data)
+      if (data) {
+        commit('set', data)
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.info(e)

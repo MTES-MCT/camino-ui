@@ -82,12 +82,20 @@ describe('état du titre sélectionné', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test('obtient le titre en cours', async () => {
+  test('retourne un titre', async () => {
     const apiMock = api.titre.mockResolvedValue({ id: 83, nom: 'marne' })
     await store.dispatch('titre/get', 83)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 83 })
     expect(store.state.titre.current).toEqual({ id: 83, nom: 'marne' })
+  })
+
+  test("affiche une page d'erreur si l'id du titre retourne null", async () => {
+    const apiMock = api.titre.mockResolvedValue(null)
+    await store.dispatch('titre/get', 27)
+
+    expect(apiMock).toHaveBeenCalledWith({ id: 27 })
+    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("retourne une erreur si de l'api ne répond pas lors d'une requête sur un titre", async () => {

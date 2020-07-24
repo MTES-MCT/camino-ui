@@ -60,7 +60,7 @@ export const actions = {
     commit('messageAdd', {
       id,
       type: 'error',
-      value: `Erreur: impossible de se connecter à l'API. ${error}`
+      value: `Erreur : ${error}`
     })
 
     setTimeout(() => {
