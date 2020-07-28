@@ -65,8 +65,7 @@ Cypress.Commands.add('login', (email, motDePasse) =>
     .then(res => {
       storeGet().then(store => {
         const data = res.body.data.utilisateurTokenCreer
-        store.dispatch('user/tokenSet', data.token)
-        window.localStorage.setItem('token', data.token)
+        store.dispatch('user/tokensSet', data)
         store.commit('user/set', data.utilisateur)
 
         return data

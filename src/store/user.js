@@ -53,7 +53,7 @@ export const actions = {
 
       commit('set', data)
     } catch (e) {
-      dispatch('tokenRemove')
+      dispatch('tokensRemove')
       commit('reset')
     }
   },
@@ -65,9 +65,9 @@ export const actions = {
     try {
       const data = await utilisateurTokenCreer({ email, motDePasse })
 
-      const { utilisateur, token } = data
+      const { utilisateur } = data
 
-      dispatch('tokenSet', token)
+      dispatch('tokensSet', data)
       commit('set', utilisateur)
       commit('popupClose', null, { root: true })
       dispatch(
@@ -80,7 +80,7 @@ export const actions = {
       )
       dispatch('errorRemove', null, { root: true })
     } catch (e) {
-      dispatch('tokenRemove')
+      dispatch('tokensRemove')
       commit('reset')
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -110,9 +110,9 @@ export const actions = {
     try {
       const data = await utilisateurCerbereTokenCreer({ ticket })
 
-      const { utilisateur, token } = data
+      const { utilisateur } = data
 
-      dispatch('tokenSet', token)
+      dispatch('tokensSet', data)
       commit('set', utilisateur)
       commit('popupClose', null, { root: true })
       dispatch(
@@ -125,7 +125,7 @@ export const actions = {
       )
       dispatch('errorRemove', null, { root: true })
     } catch (e) {
-      dispatch('tokenRemove')
+      dispatch('tokensRemove')
       commit('reset')
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -135,7 +135,7 @@ export const actions = {
 
   async logout({ commit, dispatch }) {
     commit('menuClose', null, { root: true })
-    dispatch('tokenRemove')
+    dispatch('tokensRemove')
     commit('reset')
     dispatch(
       'messageAdd',
@@ -236,7 +236,7 @@ export const actions = {
 
       router.push({ name: 'titres' })
 
-      dispatch('tokenSet', data.token)
+      dispatch('tokensSet', data)
       commit('set', data.utilisateur)
       dispatch(
         'messageAdd',
@@ -261,12 +261,14 @@ export const actions = {
     }
   },
 
-  tokenSet(_, token) {
-    localStorage.setItem('token', token)
+  tokensSet(_, tokens) {
+    localStorage.setItem('accessToken', tokens.accessToken)
+    localStorage.setItem('refreshToken', tokens.refreshToken)
   },
 
-  tokenRemove() {
-    localStorage.removeItem('token')
+  tokensRemove() {
+    localStorage.removeItem('accessToken')
+    localStorage.removeItem('refreshToken')
   }
 }
 
