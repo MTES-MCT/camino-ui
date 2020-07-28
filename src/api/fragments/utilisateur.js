@@ -43,7 +43,8 @@ const fragmentUtilisateurToken = gql`
     utilisateur {
       ...utilisateur
     }
-    token
+    accessToken
+    refreshToken
   }
 
   ${fragmentUtilisateur}

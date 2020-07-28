@@ -179,7 +179,7 @@ export default {
           this.utilisateur.permissionId = 'defaut'
         }
 
-        await this.$store.dispatch('user/tokenSet', this.$route.query.token)
+        await this.$store.dispatch('user/tokensSet', this.$route.query)
         await this.$store.dispatch('user/add', this.utilisateur)
       }
     },

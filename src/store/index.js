@@ -119,7 +119,7 @@ export const actions = {
     commit('loadingAdd', 'download', { root: true })
 
     try {
-      const token = localStorage.getItem('token')
+      const token = localStorage.getItem('accessToken')
       const headers = new Headers({
         authorization: token ? `Bearer ${token}` : ''
       })
