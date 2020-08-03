@@ -59,12 +59,14 @@ export const actions = {
       const data = await travauxModifier({ travaux })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
         { root: true }
       )
+
+      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

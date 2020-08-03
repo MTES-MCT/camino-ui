@@ -30,10 +30,7 @@ export default {
   },
 
   props: {
-    demarches: {
-      type: Array,
-      default: () => []
-    }
+    demarches: { type: Array, default: () => [] }
   },
 
   computed: {
@@ -53,7 +50,6 @@ export default {
         component: EditPopup,
         props: {
           demarche,
-          types: this.titre.type.demarchesTypes,
           titreTypeNom: this.titre.type.type.nom,
           titreNom: this.titre.nom,
           creation: true

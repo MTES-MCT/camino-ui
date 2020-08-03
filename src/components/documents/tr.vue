@@ -113,7 +113,7 @@ export default {
 
     editPopupOpen() {
       const document = jsonTypenameOmit(this.document)
-      if (this.repertoire === 'etapes') {
+      if (this.repertoire === 'demarches') {
         document.titreEtapeId = this.parentId
       } else if (this.repertoire === 'activites') {
         document.titreActiviteId = this.parentId

@@ -10,10 +10,10 @@
       </button>
     </div>
 
-    <TitreDemarche
-      v-for="demarche in demarches"
-      :key="demarche.id"
-      :demarche="demarche"
+    <TitreTravau
+      v-for="travau in travaux"
+      :key="travau.id"
+      :travaux="travau"
       :type="titre.type"
       @titre:eventTrack="eventTrack"
     />
@@ -21,19 +21,16 @@
 </template>
 
 <script>
-import TitreDemarche from './demarche.vue'
+import TitreTravau from './travau.vue'
 import EditPopup from './travaux-edit-popup.vue'
 
 export default {
   components: {
-    TitreDemarche
+    TitreTravau
   },
 
   props: {
-    demarches: {
-      type: Array,
-      default: () => []
-    }
+    travaux: { type: Array, default: () => [] }
   },
 
   computed: {
@@ -53,7 +50,6 @@ export default {
         component: EditPopup,
         props: {
           travaux,
-          types: this.titre.type.demarchesTypes,
           titreTypeNom: this.titre.type.type.nom,
           titreNom: this.titre.nom,
           creation: true

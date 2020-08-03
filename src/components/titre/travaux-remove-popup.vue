@@ -3,41 +3,27 @@
     <template slot="header">
       <div>
         <h5>
-          <span class="cap-first"><span class="cap-first">
+          <span class="cap-first">
             {{ titreNom }}
           </span><span class="color-neutral">
             |
           </span><span class="cap-first">
             {{ titreTypeNom }}
           </span>
-          </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout d\'une' : 'Modification de la' }} démarche
+          Suppression des travaux
         </h2>
       </div>
     </template>
-    <div>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Type</h6>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <select
-            v-model="demarche.typeId"
-            class="p-s mr"
-          >
-            <option
-              v-for="demarcheType in types"
-              :key="demarcheType.id"
-              :value="demarcheType.id"
-              :disabled="demarche.typeId === demarcheType.id"
-            >
-              {{ demarcheType.nom }}
-            </option>
-          </select>
-        </div>
-      </div>
+
+    <p class="bold">
+      Souhaitez vous supprimer les travaux <span class="color-inverse">{{ typeNom }}</span> du titre <span class="color-inverse">{{ titreNom }}</span> (<span class="color-inverse">{{ titreTypeNom }}</span>) ?
+    </p>
+    <div class="bg-warning color-bg p-s mb-l">
+      <span class="bold">
+        Attention
+      </span>: cette opération est définitive et ne peut pas être annulée.
     </div>
 
     <template slot="footer">
@@ -51,23 +37,19 @@
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
-        >
+        <div class="tablet-blob-2-3">
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
-            @click="save"
+            @click="remove"
           >
-            Enregistrer
+            Supprimer
           </button>
-
           <div
             v-else
             class="p-s full-x bold"
           >
-            Enregistrement en cours…
+            Suppression en cours…
           </div>
         </div>
       </div>
@@ -79,17 +61,17 @@
 import Popup from '../_ui/popup.vue'
 
 export default {
-  name: 'CaminoDemarcheEditPopup',
+  name: 'CaminoTravauxRemovePopup',
 
   components: {
     Popup
   },
 
   props: {
-    demarche: { type: Object, default: () => ({}) },
+    id: { type: String, default: '' },
+    typeNom: { type: String, default: '' },
     titreNom: { type: String, default: '' },
-    titreTypeNom: { type: String, default: '' },
-    creation: { type: Boolean, default: false }
+    titreTypeNom: { type: String, default: '' }
   },
 
   computed: {
@@ -99,21 +81,10 @@ export default {
 
     messages() {
       return this.$store.state.popup.messages
-    },
-
-    types() {
-      return this.$store.state.titreDemarche.metas.types.filter(
-        t => t.demarchesCreation
-      )
-    },
-
-    complete() {
-      return this.demarche.typeId
     }
   },
 
   created() {
-    this.get()
     document.addEventListener('keyup', this.keyup)
   },
 
@@ -122,20 +93,8 @@ export default {
   },
 
   methods: {
-    async get() {
-      await this.$store.dispatch('titreDemarche/metasGet', this.demarche)
-    },
-
-    async save() {
-      if (this.complete) {
-        const demarche = JSON.parse(JSON.stringify(this.demarche))
-
-        if (this.creation) {
-          await this.$store.dispatch('titreDemarche/add', demarche)
-        } else {
-          await this.$store.dispatch('titreDemarche/update', demarche)
-        }
-      }
+    async remove() {
+      await this.$store.dispatch('titreTravaux/remove', this.id)
     },
 
     cancel() {
@@ -147,7 +106,7 @@ export default {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
-        this.save()
+        this.remove()
       }
     },
 

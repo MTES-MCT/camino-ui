@@ -139,7 +139,7 @@
 
     <TitreTravaux
       v-if="tabActive === 'travaux'"
-      :demarches="titre.travaux"
+      :travaux="titre.travaux"
       @titre:eventTrack="eventTrack"
     />
   </div>
@@ -209,7 +209,10 @@ export default {
 
     tabsActives() {
       return this.tabs.reduce((acc, tab) => {
-        if (this.titre[tab.id] && this.titre[tab.id].length) {
+        if (
+          (this.titre[tab.id] && this.titre[tab.id].length) ||
+          (tab.id === 'travaux' && this.titre.travauxCreation)
+        ) {
           acc.push(tab)
         }
 

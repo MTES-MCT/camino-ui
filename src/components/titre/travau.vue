@@ -4,38 +4,38 @@
     <div class="tablet-blobs mb">
       <div class="tablet-blob-1-2 mb">
         <h2 class="cap-first mb-m">
-          {{ demarche.type.nom }}
+          {{ travaux.type.nom }}
         </h2>
         <Statut
-          :color="demarche.statut.couleur"
-          :nom="demarche.statut.nom"
+          :color="travaux.statut.couleur"
+          :nom="travaux.statut.nom"
         />
       </div>
       <div class="tablet-blob-1-2 flex">
         <div
-          v-if="demarche.modification || demarche.suppression || demarche.etapesCreation"
+          v-if="travaux.modification || travaux.suppression || travaux.etapesCreation"
           class="flex-right flex"
         >
           <button
-            v-if="demarche.etapesCreation"
+            v-if="travaux.etapesCreation"
             class="btn rnd-l-xs py-s px-m h5 flex mr-line"
-            :class="{'rnd-r-xs': !demarche.suppression && !demarche.modification }"
+            :class="{'rnd-r-xs': !travaux.suppression && !travaux.modification }"
             @click="etapeAddPopupOpen"
           >
             <span class="mt-xxs">Ajouter une étape</span>
           </button>
           <button
-            v-if="demarche.modification"
+            v-if="travaux.modification"
             class="btn py-s px-m mr-line"
-            :class="{'rnd-l-xs': !demarche.etapesCreation }"
+            :class="{'rnd-l-xs': !travaux.etapesCreation }"
             @click="editPopupOpen"
           >
             <i class="icon-24 icon-pencil" />
           </button>
           <button
-            v-if="demarche.suppression"
+            v-if="travaux.suppression"
             class="btn rnd-r-xs py-s px-m mr-line"
-            :class="{'rnd-l-xs': !demarche.modification }"
+            :class="{'rnd-l-xs': !travaux.modification }"
             @click="removePopupOpen"
           >
             <i class="icon-24 icon-trash" />
@@ -45,11 +45,11 @@
     </div>
 
     <TitreEtape
-      v-for="etape in demarche.etapes"
+      v-for="etape in travaux.etapes"
       :key="etape.id"
       :etape="etape"
-      :demarche-type="demarche.type"
-      :demarche-id="demarche.id"
+      :travaux-type="travaux.type"
+      :travaux-id="travaux.id"
       @titre:eventTrack="eventTrack"
     />
   </div>
@@ -58,9 +58,9 @@
 <script>
 import Statut from '../_common/statut.vue'
 import EtapeEditPopup from './etape/edit.vue'
-import TitreEtape from './etape.vue'
-import EditPopup from './demarche-edit-popup.vue'
-import RemovePopup from './demarche-remove-popup.vue'
+import TitreEtape from './travau-etape.vue'
+import EditPopup from './travaux-edit-popup.vue'
+import RemovePopup from './travaux-remove-popup.vue'
 
 export default {
   components: {
@@ -69,15 +69,8 @@ export default {
   },
 
   props: {
-    demarche: {
-      type: Object,
-      default: () => ({})
-    },
-
-    type: {
-      type: Object,
-      default: () => ({})
-    }
+    travaux: { type: Object, default: () => ({}) },
+    type: { type: Object, default: () => ({}) }
   },
 
   computed: {
@@ -88,17 +81,17 @@ export default {
 
   methods: {
     editPopupOpen() {
-      const demarche = {}
+      const travaux = {}
 
-      demarche.typeId = this.demarche.type.id
-      demarche.titreId = this.titre.id
-      demarche.id = this.demarche.id
+      travaux.typeId = this.travaux.type.id
+      travaux.titreId = this.titre.id
+      travaux.id = this.travaux.id
 
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
-          demarche,
-          types: this.type.demarchesTypes,
+          travaux,
+          types: this.type.travauxsTypes,
           titreTypeNom: this.type.type.nom,
           titreNom: this.titre.nom
         }
@@ -106,7 +99,7 @@ export default {
 
       this.eventTrack({
         categorie: 'titre-sections',
-        action: 'titre-demarche_editer',
+        action: 'titre-travaux_editer',
         nom: this.$route.params.id
       })
     },
@@ -115,8 +108,8 @@ export default {
       this.$store.commit('popupOpen', {
         component: RemovePopup,
         props: {
-          id: this.demarche.id,
-          typeNom: this.demarche.type.nom,
+          id: this.travaux.id,
+          typeNom: this.travaux.type.nom,
           titreNom: this.titre.nom,
           titreTypeNom: this.titre.type.type.nom
         }
@@ -124,7 +117,7 @@ export default {
 
       this.eventTrack({
         categorie: 'titre-sections',
-        action: 'titre-demarche_supprimer',
+        action: 'titre-travaux_supprimer',
         nom: this.$route.params.id
       })
     },
@@ -132,7 +125,7 @@ export default {
     etapeAddPopupOpen() {
       const etape = {
         ordre: 0,
-        titreDemarcheId: this.demarche.id,
+        titreTravauxId: this.travaux.id,
         typeId: null,
         typeIdOriginal: null,
         statutId: null,
@@ -153,7 +146,7 @@ export default {
         props: {
           etape,
           domaineId: this.titre.domaine.id,
-          demarcheType: this.demarche.type,
+          travauxType: this.travaux.type,
           titreNom: this.titre.nom,
           creation: true
         }

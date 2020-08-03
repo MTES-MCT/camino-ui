@@ -205,7 +205,7 @@
       <hr>
     </div>
 
-    <div v-if="repertoire === 'etapes' && modifiable">
+    <div v-if="repertoire === 'demarches' && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Url</h6>
@@ -225,7 +225,7 @@
       <hr>
     </div>
 
-    <div v-if="repertoire === 'etapes' && modifiable">
+    <div v-if="repertoire === 'demarches' && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Url</h6>

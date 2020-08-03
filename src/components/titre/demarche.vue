@@ -69,15 +69,8 @@ export default {
   },
 
   props: {
-    demarche: {
-      type: Object,
-      default: () => ({})
-    },
-
-    type: {
-      type: Object,
-      default: () => ({})
-    }
+    demarche: { type: Object, default: () => ({}) },
+    type: { type: Object, default: () => ({}) }
   },
 
   computed: {

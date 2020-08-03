@@ -13,7 +13,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout d\'une' : 'Modification de la' }} de travaux
+          {{ creation ? 'Ajout de' : 'Modification des' }} travaux
         </h2>
       </div>
     </template>
@@ -86,25 +86,10 @@ export default {
   },
 
   props: {
-    travaux: {
-      type: Object,
-      default: () => ({})
-    },
-
-    titreNom: {
-      type: String,
-      default: ''
-    },
-
-    titreTypeNom: {
-      type: String,
-      default: ''
-    },
-
-    creation: {
-      type: Boolean,
-      default: false
-    }
+    travaux: { type: Object, default: () => ({}) },
+    titreNom: { type: String, default: '' },
+    titreTypeNom: { type: String, default: '' },
+    creation: { type: Boolean, default: false }
   },
 
   computed: {
