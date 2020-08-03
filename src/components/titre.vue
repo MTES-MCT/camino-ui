@@ -100,11 +100,11 @@
     />
 
     <div
-      v-if="titre.demarches.length && titre.activites.length"
+      v-if="tabsActives.length > 1"
       class="flex"
     >
       <div
-        v-for="tab in tabs"
+        v-for="tab in tabsActives"
         :key="tab.id"
         class="mr-xs"
         :class="{ active: tabActive === tab.id }"
@@ -136,6 +136,12 @@
       :activites="titre.activites"
       :titre-id="titre.id"
     />
+
+    <TitreTravaux
+      v-if="tabActive === 'travaux'"
+      :demarches="titre.travaux"
+      @titre:eventTrack="eventTrack"
+    />
   </div>
 </template>
 
@@ -149,6 +155,7 @@ import TitreMap from './titre/map.vue'
 import TitreTerritoires from './titre/territoires.vue'
 import TitreRepertoire from './titre/repertoire.vue'
 import TitreDemarches from './titre/demarches.vue'
+import TitreTravaux from './titre/travaux.vue'
 import TitreActivitesList from './activites/list.vue'
 import TitrePoints from './titre/points.vue'
 import TitreDownloadCsv from './titre/download-csv.vue'
@@ -167,7 +174,8 @@ export default {
     TitreActivitesList,
     TitrePoints,
     TitreDownloadCsv,
-    TitreDownloadGeojson
+    TitreDownloadGeojson,
+    TitreTravaux
   },
 
   data() {
@@ -176,7 +184,8 @@ export default {
       geoTabActive: 'carte',
       tabs: [
         { id: 'demarches', nom: 'Droits miniers' },
-        { id: 'activites', nom: 'Activités' }
+        { id: 'activites', nom: 'Activités' },
+        { id: 'travaux', nom: 'Travaux' }
       ],
       geoTabs: [
         { id: 'carte', nom: 'Carte', icon: 'globe' },
@@ -196,6 +205,16 @@ export default {
 
     loaded() {
       return !!this.titre
+    },
+
+    tabsActives() {
+      return this.tabs.reduce((acc, tab) => {
+        if (this.titre[tab.id] && this.titre[tab.id].length) {
+          acc.push(tab)
+        }
+
+        return acc
+      }, [])
     }
   },
 

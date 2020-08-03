@@ -1,11 +1,11 @@
 import Vue from 'vue'
 
 import {
-  metasDemarche,
-  demarcheCreer,
-  demarcheModifier,
-  demarcheSupprimer
-} from '../api/titres-demarches'
+  metasTravaux,
+  travauxCreer,
+  travauxModifier,
+  travauxSupprimer
+} from '../api/titres-travaux'
 
 export const state = {
   metas: {
@@ -14,27 +14,27 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit }, demarche) {
-    commit('loadingAdd', 'metasTitreDemarcheGet', { root: true })
+  async metasGet({ commit }, travaux) {
+    commit('loadingAdd', 'metasTravauxGet', { root: true })
 
     try {
-      const data = await metasDemarche(demarche)
+      const data = await metasTravaux(travaux)
 
       commit('metasSet', { types: data })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'metasTitreDemarcheGet', { root: true })
+      commit('loadingRemove', 'metasTravauxGet', { root: true })
     }
   },
 
-  async add({ commit, dispatch }, demarche) {
+  async add({ commit, dispatch }, travaux) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheAdd', { root: true })
+    commit('loadingAdd', 'titreTravauxAdd', { root: true })
 
     try {
-      const data = await demarcheCreer({ demarche })
+      const data = await travauxCreer({ travaux })
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
@@ -46,17 +46,17 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemarcheAdd', { root: true })
+      commit('loadingRemove', 'titreTravauxAdd', { root: true })
     }
   },
 
-  async update({ commit, dispatch }, demarche) {
+  async update({ commit, dispatch }, travaux) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheUpdate', { root: true })
+    commit('loadingAdd', 'titreTravauxUpdate', { root: true })
 
     try {
-      const data = await demarcheModifier({ demarche })
+      const data = await travauxModifier({ travaux })
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
@@ -68,17 +68,17 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemarcheUpdate', { root: true })
+      commit('loadingRemove', 'titreTravauxUpdate', { root: true })
     }
   },
 
   async remove({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheRemove', { root: true })
+    commit('loadingAdd', 'titreTravauxRemove', { root: true })
 
     try {
-      const data = await demarcheSupprimer({ id })
+      const data = await travauxSupprimer({ id })
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
@@ -90,7 +90,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemarcheRemove', { root: true })
+      commit('loadingRemove', 'titreTravauxRemove', { root: true })
     }
   }
 }

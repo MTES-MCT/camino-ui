@@ -48,7 +48,7 @@ const metasDemarches = apiFetch(
   `
 )
 
-const metasTitreDemarche = apiFetch(
+const metasDemarche = apiFetch(
   gql`
     query MetasDemarche($titreId: ID!, $id: ID) {
       demarchesTypes(titreId: $titreId, titreDemarcheId: $id) {
@@ -142,7 +142,7 @@ const demarcheSupprimer = apiFetch(gql`
 export {
   metasDemarches,
   demarches,
-  metasTitreDemarche,
+  metasDemarche,
   demarcheCreer,
   demarcheModifier,
   demarcheSupprimer

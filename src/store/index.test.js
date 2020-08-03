@@ -14,6 +14,7 @@ jest.mock('./titre-etape-justificatifs', () => ({
 }))
 jest.mock('./document', () => ({ document: jest.fn() }))
 jest.mock('./titres-demarches', () => ({ titresDemarches: jest.fn() }))
+jest.mock('./titre-travaux', () => ({ titreTravaux: jest.fn() }))
 jest.mock('./utilisateur', () => ({ utilisateur: jest.fn() }))
 jest.mock('./utilisateurs', () => ({ utilisateurs: jest.fn() }))
 jest.mock('./entreprises', () => ({ entreprises: jest.fn() }))

@@ -4,7 +4,7 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/titres-demarches', () => ({
-  metasTitreDemarche: jest.fn(),
+  metasDemarche: jest.fn(),
   demarcheCreer: jest.fn(),
   demarcheModifier: jest.fn(),
   demarcheSupprimer: jest.fn()
@@ -48,7 +48,7 @@ describe('démarche', () => {
   })
 
   test('récupère les métas pour éditer une démarche', async () => {
-    const apiMock = api.metasTitreDemarche.mockReturnValueOnce([
+    const apiMock = api.metasDemarche.mockReturnValueOnce([
       { id: 'w', nom: 'granulats' },
       { id: 'c', nom: 'carrières' }
     ])
@@ -64,7 +64,7 @@ describe('démarche', () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasTitreDemarche.mockRejectedValue(
+    const apiMock = api.metasDemarche.mockRejectedValue(
       new Error("erreur de l'api")
     )
 

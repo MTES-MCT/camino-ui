@@ -67,7 +67,7 @@
       </button>
     </template>
 
-    <div v-if="hasSections || hasProps || etape.documents.length">
+    <div v-if="hasSections || hasProps || (etape.documents && etape.documents.length)">
       <EtapeProps
         v-if="hasProps"
         :etape="etape"
@@ -194,10 +194,10 @@ export default {
         !!this.etape.duree ||
         !!this.etape.dateDebut ||
         !!this.etape.dateFin ||
-        !!this.etape.points.length ||
-        !!this.etape.substances.length ||
-        !!this.etape.titulaires.length ||
-        !!this.etape.amodiataires.length
+        !!(this.etape.points && this.etape.points.length) ||
+        !!(this.etape.substances && this.etape.substances.length) ||
+        !!(this.etape.titulaires && this.etape.titulaires.length) ||
+        !!(this.etape.amodiataires && this.etape.amodiataires.length)
       )
     },
 

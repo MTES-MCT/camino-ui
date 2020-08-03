@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 import { fragmentTitreType } from './metas'
 import { fragmentTitreDemarche } from './titre-demarche'
 import { fragmentTitreActivite } from './titre-activite'
+import { fragmentTitreTravaux } from './titre-travaux'
 import { fragmentTitreSubstance, fragmentTitresSubstance } from './substance'
 import { fragmentTitreAdministrations } from './administrations'
 import {
@@ -76,10 +77,16 @@ const fragmentTitre = gql`
     activites {
       ...titreActivite
     }
+
+    travaux {
+      ...titreTravaux
+    }
+
     contenu
 
     modification
     suppression
+    travauxCreation
     doublonTitreId
   }
 
@@ -90,6 +97,8 @@ const fragmentTitre = gql`
   ${fragmentTitreDemarche}
 
   ${fragmentTitreActivite}
+
+  ${fragmentTitreTravaux}
 
   ${fragmentTitreSubstance}
 

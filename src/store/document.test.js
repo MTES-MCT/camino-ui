@@ -78,35 +78,65 @@ describe('documents', () => {
 
   test('met à jour un document', async () => {
     api.documentCreer.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('document/add', { id: 14, nom: 'champs' })
+    await store.dispatch('document/add', {
+      document: { id: 14, nom: 'champs' },
+      context: { name: 'titre', id: 'titre-id' }
+    })
+
+    expect(mutations.popupClose).toHaveBeenCalled()
+
+    await store.dispatch('document/add', {
+      document: { id: 14, nom: 'champs' }
+    })
 
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la création d'un document", async () => {
     api.documentCreer.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('document/add', { id: 14, nom: 'champs' })
+    await store.dispatch('document/add', {
+      document: { id: 14, nom: 'champs' }
+    })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('met à jour un document', async () => {
     api.documentModifier.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('document/update', { id: 14, nom: 'champs' })
+    await store.dispatch('document/update', {
+      document: { id: 14, nom: 'champs' },
+      context: { name: 'titre', id: 'titre-id' }
+    })
+
+    expect(mutations.popupClose).toHaveBeenCalled()
+    await store.dispatch('document/update', {
+      document: { id: 14, nom: 'champs' }
+    })
 
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'un document", async () => {
     api.documentModifier.mockRejectedValue(new Error("erreur de l'api"))
-    await store.dispatch('document/update', { id: 14, nom: 'champs' })
+    await store.dispatch('document/update', {
+      document: { id: 14, nom: 'champs' }
+    })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('supprime un document', async () => {
     const apiMock = api.documentSupprimer.mockResolvedValue(true)
-    await store.dispatch('document/remove', { id: 62 })
+    await store.dispatch('document/remove', {
+      id: 62,
+      context: { name: 'titre', id: 'titre-id' }
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({ id: 62 })
+    expect(mutations.popupClose).toHaveBeenCalled()
+    await store.dispatch('document/remove', {
+      id: 62
+    })
 
     expect(apiMock).toHaveBeenCalledWith({ id: 62 })
     expect(mutations.popupClose).toHaveBeenCalled()
