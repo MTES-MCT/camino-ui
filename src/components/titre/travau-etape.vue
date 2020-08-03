@@ -50,7 +50,26 @@
       </button>
     </template>
 
-    <div v-if="etape.documents && etape.documents.length">
+    <div v-if="hasSections || hasProps || (etape.documents && etape.documents.length)">
+      <EtapeProps
+        v-if="hasProps"
+        :etape="etape"
+      />
+
+      <div
+        v-if="hasSections"
+        class="border-b-s"
+      >
+        <Section
+          v-for="s in etape.type.sections"
+          :key="s.id"
+          class="border-b-s px-m pt-m"
+          :section="s"
+          :contenu="etape.contenu ? etape.contenu[s.id] : {}"
+          :date="etape.date"
+        />
+      </div>
+
       <div
         v-if="etape.documents.length"
         class="border-b-s"
@@ -79,12 +98,14 @@
 <script>
 import Accordion from '../_ui/accordion.vue'
 import Statut from '../_common/statut.vue'
-import EditPopup from './etape/edit.vue'
-import RemovePopup from './etape/remove.vue'
+import Section from '../_common/section.vue'
+import EditPopup from './travau-etape/edit.vue'
+import RemovePopup from './travau-etape/remove.vue'
 import DocumentButtonAdd from '../document/button-add.vue'
 import Documents from '../documents/list.vue'
+import EtapeProps from './etape/props.vue'
 
-import { etapeEditFormat } from './etape'
+import { etapeEditFormat } from './travau-etape'
 
 const cap = string => string[0].toUpperCase() + string.slice(1)
 
@@ -95,7 +116,9 @@ export default {
     Accordion,
     Documents,
     DocumentButtonAdd,
-    Statut
+    Statut,
+    Section,
+    EtapeProps
   },
 
   props: {
@@ -121,6 +144,10 @@ export default {
         this.travauxType.etapesTypes.find(et => et.id === this.etape.typeId) ||
         {}
       )
+    },
+
+    hasProps() {
+      return !!this.etape.duree
     },
 
     hasSections() {

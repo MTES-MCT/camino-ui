@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <TitreEtape
+    <TitreTravauxEtape
       v-for="etape in travaux.etapes"
       :key="etape.id"
       :etape="etape"
@@ -57,15 +57,15 @@
 
 <script>
 import Statut from '../_common/statut.vue'
-import EtapeEditPopup from './etape/edit.vue'
-import TitreEtape from './travau-etape.vue'
+import EtapeEditPopup from './travau-etape/edit.vue'
+import TitreTravauxEtape from './travau-etape.vue'
 import EditPopup from './travaux-edit-popup.vue'
 import RemovePopup from './travaux-remove-popup.vue'
 
 export default {
   components: {
     Statut,
-    TitreEtape
+    TitreTravauxEtape
   },
 
   props: {
@@ -130,14 +130,6 @@ export default {
         typeIdOriginal: null,
         statutId: null,
         duree: { ans: null, mois: null },
-        titulaires: [],
-        amodiataires: [],
-        administrations: [],
-        substances: [],
-        groupes: [],
-        geoSystemeIds: [],
-        geoSystemeOpposableId: null,
-        incertitudes: {},
         contenu: {}
       }
 
