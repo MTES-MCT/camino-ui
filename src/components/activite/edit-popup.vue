@@ -221,13 +221,11 @@ export default {
         for (const document of this.activite.documents) {
           if (document.id) {
             await this.$store.dispatch('document/update', {
-              document: document,
-              context
+              document: document
             })
           } else {
             await this.$store.dispatch('document/add', {
-              document: document,
-              context
+              document: document
             })
           }
         }

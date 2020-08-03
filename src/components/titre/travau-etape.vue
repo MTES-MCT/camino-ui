@@ -8,14 +8,6 @@
     <template slot="title">
       <h6 class="mt-xs">
         {{ etape.date | dateFormat }}
-        <Tag
-          v-if="etape.incertitudes && etape.incertitudes.date"
-          :mini="true"
-          color="bg-info"
-          class="ml-xs"
-        >
-          ?
-        </Tag>
       </h6>
       <h3 class="cap-first mb-s">
         {{ etape.type.nom }}
@@ -32,15 +24,6 @@
       v-if="etape.modification || etape.suppression"
       slot="buttons"
     >
-      <JustificatifsButtonAdd
-        v-if="etape.justificatifsAssociation"
-        :id="etape.id"
-        :context="documentContext"
-        :title="documentPopupTitle"
-        :documents="{ids: etape.justificatifs.map(j => j.id) }"
-        class="btn py-s px-m mr-line"
-        @titre:eventTrack="eventTrack"
-      />
       <DocumentButtonAdd
         :document="documentNew"
         :title="documentPopupTitle"
@@ -87,8 +70,6 @@
         />
       </div>
 
-
-
       <div
         v-if="etape.documents.length"
         class="border-b-s"
@@ -110,70 +91,46 @@
           @titre:eventTrack="eventTrack"
         />
       </div>
-
-      <div v-if="etape.justificatifs.length">
-        <h4 class="px-m pt mb-s">
-          Justificatifs
-        </h4>
-        <Documents
-          :bouton-dissociation="etape.modification"
-          :bouton-modification="false"
-          :bouton-suppression="false"
-          :context="documentContext"
-          :documents="etape.justificatifs"
-          :etiquette="etape.modification"
-          :parent-id="etape.id"
-          :parent-type-id="etape.type.id"
-          :repertoire="documentRepertoire"
-          :title="documentPopupTitle"
-          class="px-m"
-          @titre:eventTrack="eventTrack"
-        />
-      </div>
     </div>
   </Accordion>
 </template>
 
 <script>
 import Accordion from '../_ui/accordion.vue'
-import Tag from '../_ui/tag.vue'
-import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
-import EditPopup from './etape/edit.vue'
-import RemovePopup from './etape/remove.vue'
+import Section from '../_common/section.vue'
+import EditPopup from './travau-etape/edit.vue'
+import RemovePopup from './travau-etape/remove.vue'
 import DocumentButtonAdd from '../document/button-add.vue'
-import JustificatifsButtonAdd from '../justificatifs/button-add.vue'
-import EtapeProps from './etape/props.vue'
 import Documents from '../documents/list.vue'
+import EtapeProps from './etape/props.vue'
 
-import { etapeEditFormat } from './etape'
+import { etapeEditFormat } from './travau-etape'
 
 const cap = string => string[0].toUpperCase() + string.slice(1)
 
 export default {
-  name: 'CaminoTitreEtape',
+  name: 'CaminoTitreTravauEtape',
 
   components: {
     Accordion,
-    Tag,
     Documents,
     DocumentButtonAdd,
-    JustificatifsButtonAdd,
-    EtapeProps,
+    Statut,
     Section,
-    Statut
+    EtapeProps
   },
 
   props: {
     etape: { type: Object, default: () => {} },
-    demarcheType: { type: Object, default: () => {} },
-    demarcheId: { type: String, default: '' }
+    travauxType: { type: Object, default: () => {} },
+    travauxId: { type: String, default: '' }
   },
 
   data() {
     return {
       opened: false,
-      documentRepertoire: 'demarches'
+      documentRepertoire: 'travaux'
     }
   },
 
@@ -184,21 +141,13 @@ export default {
 
     etapeType() {
       return (
-        this.demarcheType.etapesTypes.find(et => et.id === this.etape.typeId) ||
+        this.travauxType.etapesTypes.find(et => et.id === this.etape.typeId) ||
         {}
       )
     },
 
     hasProps() {
-      return (
-        !!this.etape.duree ||
-        !!this.etape.dateDebut ||
-        !!this.etape.dateFin ||
-        !!(this.etape.points && this.etape.points.length) ||
-        !!(this.etape.substances && this.etape.substances.length) ||
-        !!(this.etape.titulaires && this.etape.titulaires.length) ||
-        !!(this.etape.amodiataires && this.etape.amodiataires.length)
-      )
+      return !!this.etape.duree
     },
 
     hasSections() {
@@ -213,7 +162,7 @@ export default {
     },
 
     documentPopupTitle() {
-      return `${cap(this.titre.nom)} | ${cap(this.demarcheType.nom)} | ${cap(
+      return `${cap(this.titre.nom)} | ${cap(this.travauxType.nom)} | ${cap(
         this.etape.type.nom
       )}`
     },
@@ -242,14 +191,14 @@ export default {
     },
 
     editPopupOpen() {
-      const etape = etapeEditFormat(this.etape, this.demarcheId)
+      const etape = etapeEditFormat(this.etape, this.travauxId)
 
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
           etape,
           domaineId: this.$store.state.titre.current.domaine.id,
-          demarcheType: this.demarcheType,
+          travauxType: this.travauxType,
           titreNom: this.titre.nom
         }
       })
@@ -267,7 +216,7 @@ export default {
         props: {
           etapeTypeNom: this.etape.type.nom,
           etapeId: this.etape.id,
-          demarcheTypeNom: this.demarcheType.nom,
+          travauxTypeNom: this.travauxType.nom,
           titreNom: this.titre.nom,
           titreType: this.$store.state.titre.current.type.nom
         }
@@ -275,7 +224,7 @@ export default {
 
       this.eventTrack({
         categorie: 'titre-sections',
-        action: 'supprimer une étape',
+        action: 'supprimer une étape de travaux',
         nom: this.$route.params.id
       })
     },

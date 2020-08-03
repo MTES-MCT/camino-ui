@@ -106,6 +106,13 @@ describe('justificatifs', () => {
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
+
+    await store.dispatch('titreEtapeJustificatifs/update', {
+      id: 'etape-id',
+      documentsIds: ['document-id-01']
+    })
+
+    expect(mutations.popupClose).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la liaison d'un justificatif", async () => {
@@ -128,6 +135,13 @@ describe('justificatifs', () => {
       id: 'etape-id',
       documentId: 'document-id-01',
       context: { name: 'titres', id: 'titre-id-01' }
+    })
+
+    expect(actions.messageAdd).toHaveBeenCalled()
+
+    await store.dispatch('titreEtapeJustificatifs/unlink', {
+      id: 'etape-id',
+      documentId: 'document-id-01'
     })
 
     expect(actions.messageAdd).toHaveBeenCalled()

@@ -1,19 +1,19 @@
 <template>
   <div>
-    <div v-if="titre.modification">
+    <div>
       <div class="line-neutral mb" />
       <button
         class="btn rnd-xs py-s px-m full-x flex h5 mb"
-        @click="demarcheAddPopupOpen"
+        @click="travauxAddPopupOpen"
       >
-        <span class="mt-xxs">Ajouter une démarche</span> <i class="icon-24 icon-plus flex-right" />
+        <span class="mt-xxs">Ajouter des travaux</span> <i class="icon-24 icon-plus flex-right" />
       </button>
     </div>
 
-    <TitreDemarche
-      v-for="demarche in demarches"
-      :key="demarche.id"
-      :demarche="demarche"
+    <TitreTravau
+      v-for="travau in travaux"
+      :key="travau.id"
+      :travaux="travau"
       :type="titre.type"
       @titre:eventTrack="eventTrack"
     />
@@ -21,16 +21,16 @@
 </template>
 
 <script>
-import TitreDemarche from './demarche.vue'
-import EditPopup from './demarche-edit-popup.vue'
+import TitreTravau from './travau.vue'
+import EditPopup from './travaux-edit-popup.vue'
 
 export default {
   components: {
-    TitreDemarche
+    TitreTravau
   },
 
   props: {
-    demarches: { type: Array, default: () => [] }
+    travaux: { type: Array, default: () => [] }
   },
 
   computed: {
@@ -40,8 +40,8 @@ export default {
   },
 
   methods: {
-    demarcheAddPopupOpen() {
-      const demarche = {
+    travauxAddPopupOpen() {
+      const travaux = {
         typeId: null,
         titreId: this.titre.id
       }
@@ -49,7 +49,7 @@ export default {
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
-          demarche,
+          travaux,
           titreTypeNom: this.titre.type.type.nom,
           titreNom: this.titre.nom,
           creation: true
@@ -58,7 +58,7 @@ export default {
 
       this.eventTrack({
         categorie: 'titre-sections',
-        action: 'titre-demarche_ajouter',
+        action: 'titre-travaux_ajouter',
         nom: this.$route.params.id
       })
     },

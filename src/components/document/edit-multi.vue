@@ -89,7 +89,7 @@ export default {
             publicLecture: false
           }
 
-          if (this.repertoire === 'etapes') {
+          if (this.repertoire === 'demarches') {
             documentNew.titreEtapeId = this.parentId
           } else if (this.repertoire === 'activites') {
             documentNew.titreActiviteId = this.parentId

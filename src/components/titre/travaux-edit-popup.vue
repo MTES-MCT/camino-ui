@@ -13,7 +13,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout d\'une' : 'Modification de la' }} démarche
+          {{ creation ? 'Ajout de' : 'Modification des' }} travaux
         </h2>
       </div>
     </template>
@@ -24,16 +24,16 @@
         </div>
         <div class="mb tablet-blob-2-3">
           <select
-            v-model="demarche.typeId"
+            v-model="travaux.typeId"
             class="p-s mr"
           >
             <option
-              v-for="demarcheType in types"
-              :key="demarcheType.id"
-              :value="demarcheType.id"
-              :disabled="demarche.typeId === demarcheType.id"
+              v-for="type in types"
+              :key="type.id"
+              :value="type.id"
+              :disabled="travaux.typeId === type.id"
             >
-              {{ demarcheType.nom }}
+              {{ type.nom }}
             </option>
           </select>
         </div>
@@ -79,14 +79,14 @@
 import Popup from '../_ui/popup.vue'
 
 export default {
-  name: 'CaminoDemarcheEditPopup',
+  name: 'CaminoTravauxEditPopup',
 
   components: {
     Popup
   },
 
   props: {
-    demarche: { type: Object, default: () => ({}) },
+    travaux: { type: Object, default: () => ({}) },
     titreNom: { type: String, default: '' },
     titreTypeNom: { type: String, default: '' },
     creation: { type: Boolean, default: false }
@@ -102,13 +102,13 @@ export default {
     },
 
     types() {
-      return this.$store.state.titreDemarche.metas.types.filter(
-        t => t.demarchesCreation
+      return this.$store.state.titreTravaux.metas.types.filter(
+        t => t.travauxCreation
       )
     },
 
     complete() {
-      return this.demarche.typeId
+      return this.travaux.typeId
     }
   },
 
@@ -123,17 +123,17 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('titreDemarche/metasGet', this.demarche)
+      await this.$store.dispatch('titreTravaux/metasGet', this.travaux)
     },
 
     async save() {
       if (this.complete) {
-        const demarche = JSON.parse(JSON.stringify(this.demarche))
+        const travaux = JSON.parse(JSON.stringify(this.travaux))
 
         if (this.creation) {
-          await this.$store.dispatch('titreDemarche/add', demarche)
+          await this.$store.dispatch('titreTravaux/add', travaux)
         } else {
-          await this.$store.dispatch('titreDemarche/update', demarche)
+          await this.$store.dispatch('titreTravaux/update', travaux)
         }
       }
     },

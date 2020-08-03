@@ -222,10 +222,7 @@ export default {
     Tag
   },
   props: {
-    etape: {
-      type: Object,
-      default: () => ({})
-    }
+    etape: { type: Object, default: () => ({}) }
   },
   computed: {
     duree() {

@@ -1,96 +1,97 @@
 import Vue from 'vue'
 
 import {
-  metasDemarche,
-  demarcheCreer,
-  demarcheModifier,
-  demarcheSupprimer
-} from '../api/titres-demarches'
+  metasTitreTravauxEtape,
+  travauxEtapeCreer,
+  travauxEtapeModifier,
+  travauxEtapeSupprimer
+} from '../api/titres-travaux-etapes'
 
 export const state = {
+  current: null,
   metas: {
-    types: []
+    etapesTypes: []
   }
 }
 
 export const actions = {
-  async metasGet({ commit }, demarche) {
-    commit('loadingAdd', 'metasTitreDemarcheGet', { root: true })
+  async metasGet({ commit }, etape) {
+    commit('loadingAdd', 'metasTitreTravauxEtapeGet', { root: true })
 
     try {
-      const data = await metasDemarche(demarche)
+      const data = await metasTitreTravauxEtape(etape)
 
-      commit('metasSet', { types: data })
+      commit('metasSet', { etapesTypes: data })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'metasTitreDemarcheGet', { root: true })
+      commit('loadingRemove', 'metasTitreTravauxEtapeGet', { root: true })
     }
   },
 
-  async add({ commit, dispatch }, demarche) {
+  async add({ commit, dispatch }, etape) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheAdd', { root: true })
+    commit('loadingAdd', 'titreTravauxEtapeAdd', { root: true })
 
     try {
-      const data = await demarcheCreer({ demarche })
+      const data = await travauxEtapeCreer({ etape })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
         { root: true }
       )
+      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemarcheAdd', { root: true })
+      commit('loadingRemove', 'titreTravauxEtapeAdd', { root: true })
     }
   },
 
-  async update({ commit, dispatch }, demarche) {
+  async update({ commit, dispatch }, etape) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheUpdate', { root: true })
+    commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
     try {
-      const data = await demarcheModifier({ demarche })
+      const data = await travauxEtapeModifier({ etape })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
         { root: true }
       )
+      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemarcheUpdate', { root: true })
+      commit('loadingRemove', 'titreEtapeUpdate', { root: true })
     }
   },
 
   async remove({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheRemove', { root: true })
+    commit('loadingAdd', 'titreEtapeRemove', { root: true })
 
     try {
-      const data = await demarcheSupprimer({ id })
+      const data = await travauxEtapeSupprimer({ id })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
         { root: true }
       )
+      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemarcheRemove', { root: true })
+      commit('loadingRemove', 'titreEtapeRemove', { root: true })
     }
   }
 }

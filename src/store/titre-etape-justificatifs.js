@@ -39,14 +39,15 @@ export const actions = {
 
       commit('popupClose', null, { root: true })
 
-      if (context) {
-        await dispatch('reload', context, { root: true })
-      }
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
         { root: true }
       )
+
+      if (context) {
+        await dispatch('reload', context, { root: true })
+      }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
