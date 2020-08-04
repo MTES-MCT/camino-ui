@@ -21,16 +21,6 @@
     <template
       slot="buttons"
     >
-      <DocumentAddButton
-        v-if="activite.documentsCreation && activite.modification"
-        :context="context"
-        :document="documentNew"
-        :parent-id="activite.id"
-        :parent-type-id="activite.type.id"
-        :title="documentPopupTitle"
-        repertoire="activites"
-        class="btn py-s px-m mr-line"
-      />
       <ActiviteButton
         v-if="activite.modification"
         :activite="activite"
@@ -78,7 +68,6 @@ import ActiviteButton from './button.vue'
 import Accordion from '../_ui/accordion.vue'
 import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
-import DocumentAddButton from '../document/button-add.vue'
 
 import Documents from '../documents/list.vue'
 
@@ -88,7 +77,6 @@ export default {
     Accordion,
     Section,
     Statut,
-    DocumentAddButton,
     Documents
   },
 
