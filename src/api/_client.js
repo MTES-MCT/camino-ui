@@ -35,7 +35,7 @@ const apiFetch = query => async variables => {
 
     return dataContent
   } catch (e) {
-    const errorMessage = `API : ${e.message}`
+    const errorMessage = `API : ${e.message || e.status}`
     console.error(e)
     throw errorMessage
   }

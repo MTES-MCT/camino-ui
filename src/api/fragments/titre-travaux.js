@@ -22,6 +22,9 @@ const fragmentTitreTravauxEtape = gql`
       couleur
     }
     contenu
+    documents {
+      ...document
+    }
 
     modification
     suppression

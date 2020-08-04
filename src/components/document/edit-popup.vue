@@ -97,7 +97,7 @@ export default {
 
   computed: {
     loading() {
-      return false
+      return this.$store.state.popup.loading
     },
 
     messages() {

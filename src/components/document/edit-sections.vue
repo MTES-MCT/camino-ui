@@ -110,7 +110,7 @@
         <div v-else-if="modifiable">
           <label
             for="file"
-            class="btn-border p-s full-x rnd-xs my--xs"
+            class="btn-border p-s full-x rnd-xs mt--xs"
           >Choisir un fichier…</label>
           <input
             id="file"
@@ -118,6 +118,9 @@
             class="p-xs mb-0"
             @change="fileChange"
           >
+          <p class="h6 mb-s">
+            15 Mo max.
+          </p>
         </div>
         <p
           v-else

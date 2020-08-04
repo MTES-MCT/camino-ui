@@ -95,6 +95,8 @@ export default {
             documentNew.titreActiviteId = this.parentId
           } else if (this.repertoire === 'entreprises') {
             documentNew.titreEntrepriseId = this.parentId
+          } else if (this.repertoire === 'travaux') {
+            documentNew.titreTravauxEtapeId = this.parentId
           }
 
           this.documents.push(documentNew)

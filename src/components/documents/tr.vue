@@ -119,6 +119,8 @@ export default {
         document.titreActiviteId = this.parentId
       } else if (this.repertoire === 'entreprises') {
         document.entrepriseId = this.parentId
+      } else if (this.repertoire === 'travaux') {
+        document.titreTravauxEtapeId = this.parentId
       }
 
       document.typeId = document.type.id

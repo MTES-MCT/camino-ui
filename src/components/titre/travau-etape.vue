@@ -169,7 +169,7 @@ export default {
 
     documentNew() {
       return {
-        titreEtapeId: this.etape.id,
+        titreTravauxEtapeId: this.etape.id,
         typeId: '',
         fichier: null,
         fichierNouveau: null,
