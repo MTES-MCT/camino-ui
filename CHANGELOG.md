@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.43](https://github.com/MTES-MCT/camino-ui/compare/v0.22.42...v0.22.43) (2020-08-04)
+
+
+### Features
+
+* ajoute les travaux ([#156](https://github.com/MTES-MCT/camino-ui/issues/156)) ([799ad37](https://github.com/MTES-MCT/camino-ui/commit/799ad374eb7b7db7f3cb28bd5fa88a84a2c8a378))
+* **activités:** ajoute des documents lors de l'enregistrement ([a43852c](https://github.com/MTES-MCT/camino-ui/commit/a43852c9f84ba9b786c2bcfd73d406fe6629a7f3))
+
+
+### Bug Fixes
+
+* **activité:** masque le bouton d'ajout de document ([506a472](https://github.com/MTES-MCT/camino-ui/commit/506a4726f7435b3dd775acf1b00001ce98571480))
+* **date:** change la date maximum du selecteur ([f99091a](https://github.com/MTES-MCT/camino-ui/commit/f99091a0a5cd61866184ed7924181e1a3aa1cbef))
+* corrige l'upload ([6d048d4](https://github.com/MTES-MCT/camino-ui/commit/6d048d4fb86c3a4a0aea20e093c53db32ea18a2e))
+* corrige les pages 404 ([8203e97](https://github.com/MTES-MCT/camino-ui/commit/8203e97305b8f2e7af332e7a8818e7d58dde8ab4))
+
 ### [0.22.42](https://github.com/MTES-MCT/camino-ui/compare/v0.22.40...v0.22.42) (2020-07-23)
 
 
