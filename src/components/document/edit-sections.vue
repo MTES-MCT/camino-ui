@@ -211,7 +211,7 @@
     <div v-if="repertoire === 'demarches' && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Url</h6>
+          <h6>URI</h6>
           <p class="h6 italic mb-0">
             Optionnel
           </p>
@@ -231,7 +231,7 @@
     <div v-if="repertoire === 'demarches' && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Url</h6>
+          <h6>URL</h6>
           <p class="h6 italic mb-0">
             Optionnel
           </p>

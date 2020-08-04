@@ -102,7 +102,7 @@ export default {
       monthId: null,
       dayId: null,
       yearMin: 1750,
-      yearMax: 2030
+      yearMax: 2099
     }
   },
 
