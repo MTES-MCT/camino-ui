@@ -31,6 +31,7 @@ const fragmentActiviteType = gql`
       }
     }
     sections
+    satisfactionUrl
   }
 `
 
