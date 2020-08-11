@@ -45,7 +45,13 @@ export const state = {
   ],
   preferences: {
     table: { page: 1, intervalle: 200, ordre: 'asc', colonne: 'nom' },
-    carte: { perimetre: [0, 0, 0, 0], zoom: null, centre: [] },
+    carte: {
+      perimetre: [0, 0, 0, 0],
+      zoom: null,
+      centre: [],
+      zoomIni: null,
+      centreIni: []
+    },
     filtres: {
       typesIds: [],
       domainesIds: [],

@@ -19,20 +19,34 @@
     <div class="container overflow-auto">
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2">
-          <ul class="list-inline">
-            <li
-              v-for="z in zones"
-              :key="z.id"
-              class="mr-xs"
-            >
-              <button
-                class="btn-border pill px-m py-s h5"
-                @click="mapCenter(z.id)"
-              >
-                {{ z.name }}
-              </button>
-            </li>
-          </ul>
+          <div class="desktop-blobs">
+            <div class="desktop-blob-2-3">
+              <ul class="list-inline">
+                <li
+                  v-for="z in zones"
+                  :key="z.id"
+                  class="mr-xs"
+                >
+                  <button
+                    class="btn-border pill px-m py-s h5"
+                    @click="mapCenter(z.id)"
+                  >
+                    {{ z.name }}
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="tablet-blob-1-3">
+              <div class="flex">
+                <button
+                  class="btn-border pill px-m py-s"
+                  @click="centrerZone"
+                >
+                  Centrer sur la zone
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="desktop-blob-1-2 flex flex-start mb-s">
           <div :class="{ active: markerLayersId === 'clusters' }">
@@ -238,6 +252,17 @@ export default {
 
     boundsFit() {
       this.$refs.map.fitBounds(this.bounds)
+    },
+
+    centrerZone() {
+      // Restore le zoom et le centre initiaux en mémoire depuis la recherche
+      const zoom = this.preferences.zoomIni
+      const centre = this.preferences.centreIni
+      this.$store.dispatch('titres/preferencesSet', {
+        section: 'carte',
+        params: { zoom, centre }
+      })
+      this.init()
     },
 
     geojsonLayersDisplay() {
