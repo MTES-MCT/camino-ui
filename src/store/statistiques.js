@@ -34,22 +34,6 @@ export const actions = {
 
 export const mutations = {
   set(state, statistiques) {
-    if (statistiques.titresTotal)
-      Vue.set(state, 'titresTotal', statistiques.titresTotal)
-    if (statistiques.titresValide)
-      Vue.set(state, 'titresValide', statistiques.titresValide)
-    if (statistiques.titresActivitesDepose)
-      Vue.set(
-        state,
-        'titresActivitesDepose',
-        statistiques.titresActivitesDepose
-      )
-    if (statistiques.titreActivites2018Ratio)
-      Vue.set(
-        state,
-        'titreActivites2018Ratio',
-        statistiques.titreActivites2018Ratio
-      )
     if (statistiques.titresActivitesBeneficesEntreprise)
       Vue.set(
         state,
@@ -62,6 +46,13 @@ export const mutations = {
         'titresActivitesBeneficesAdministration',
         statistiques.titresActivitesBeneficesAdministration
       )
+    if (statistiques.nbSearchArray)
+      Vue.set(state, 'nbSearchArray', statistiques.nbSearchArray)
+    if (statistiques.nbAction) Vue.set(state, 'nbAction', statistiques.nbAction)
+    if (statistiques.timeSession)
+      Vue.set(state, 'timeSession', statistiques.timeSession)
+    if (statistiques.nbDonwload)
+      Vue.set(state, 'nbDonwload', statistiques.nbDonwload)
 
     Vue.set(state, 'loaded', true)
   }

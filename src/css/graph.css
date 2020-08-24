@@ -1,0 +1,16 @@
+.graph-container {
+  /* margin: 0px; */
+  height: 450px;
+  width: 850px;
+  /* background-color: #F7F5F2; */
+}
+
+.h0-graph {
+  typescale: 5 6;
+  color: var(--color-brand);
+}
+
+.graph-title {
+  font-style: italic;
+  text-align: center;
+}

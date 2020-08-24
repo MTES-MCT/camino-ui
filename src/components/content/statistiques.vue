@@ -10,115 +10,94 @@
       </h1>
       <hr class="mb-xl">
       <div
-        id="donnees"
+        id="engagement"
         class="mb-xxl"
       >
         <h2>
-          Les données
+          Engagement général sur le site
         </h2>
         <span class="separator" />
+        <p>Les données retenues ici témoignent du comportement général des utilisateurs sur le site et de leur engagement auprès du service</p>
         <div class="desktop-blobs">
-          <div class="desktop-blob-1-4">
-            <p class="h0 text-center mb-0">
-              99%
+          <div class="desktop-blob-1-6">
+            <p class="h0-graph text-center mb-0">
+              {{ nbSearch }}
             </p>
-            <p class="bold text-center ">
-              du cadastre minier publié
-            </p>
-            <p>
-              L'ensemble des autorisations et titres miniers valides et disponibles est publié. Environs dix concessions de mines M valides dont l’historique est complexe à reconstituer seront ajoutées dans les prochaines semaines pour atteindre 100% du cadastre.
+            <p class="text-center">
+              RECHERCHES CE MOIS-CI
             </p>
           </div>
-          <div class="desktop-blob-1-4">
-            <p class="h0 text-center mb-0">
-              {{ statistiques.titresValide }}
-            </p>
-            <p class="bold text-center ">
-              titres et autorisations valides et demandes en cours d’instruction publiés
-            </p>
-            <p>
-              L’objectif fixé par l’<a
-                href="https://www.legifrance.gouv.fr/eli/loi/2017/12/30/TREX1722331L/jo/article_11"
-                target="_blank"
-              >article 11 de la LOI n° 2017-1839 du 30 décembre 2017</a> mettant fin à la recherche ainsi qu'à l'exploitation des hydrocarbures et portant diverses dispositions relatives à l'énergie et à l'environnement est atteint pour le domaine minier H.
-            </p>
+          <div class="desktop-blob-2-3">
+            <div
+              ref="graphContainer"
+              class="graph-container"
+            >
+              <SvgChart
+                :datasets="_datasets"
+                :options="_options"
+                :svg="_svg"
+              />
+              <p class="graph-title">
+                Le nombre de recherches mensuelles est l'indicateur clé de l'utilisation du service de "cadastre numérique"
+              </p>
+            </div>
           </div>
-          <div class="desktop-blob-1-4">
-            <p class="h0 text-center mb-0">
-              {{ statistiques.titresTotal }}
+          <div class="desktop-blob-1-6">
+            <p class="h0-graph text-center mb-0">
+              {{ Math.round(statistiques.nbAction) }}
             </p>
-            <p class="bold text-center ">
-              titres, autorisations et demandes disponibles
+            <p class="text-center">
+              NOMBRE MOYEN D'ACTIONS EFFECTUÉES PAR UN UTILISATEUR SUR LE SITE
             </p>
-            <p>
-              L’historique du cadastre minier incluant les titres échus, les demandes classées et refusées est disponible pour les entreprises concernées et les agents publics.
+            <p class="h0-graph text-center mb-0">
+              {{ statistiques.timeSession }}
             </p>
-          </div>
-          <div class="desktop-blob-1-4">
-            <p class="h0 text-center mb-0">
-              26
-            </p>
-            <p class="bold text-center ">
-              sources de données distinctes consolidées et redistribuées
-            </p>
-            <p>
-              Camino rassemble, structure, harmonise et repartage les données administratives et minières issues de sources de données auparavant hétérogènes et difficilement accessibles. Au moins trois systèmes d’informations d’administration vont être décommissionnés.
+            <p class="text-center">
+              TEMPS DE SESSION MOYEN SUR CAMINO PAR CHACUN DES UTILISATEURS
             </p>
           </div>
         </div>
       </div>
 
       <div
-        id="usages"
+        id="amelioration"
         class="mb-xxl"
       >
         <h2>
-          Les usages
+          Amélioration continue et accès aux données publiques
         </h2>
         <span class="separator" />
+        <p>En tant que que secteur régulé par l'État, la publication en ligne des données minières doit permettre leur amélioration et leur utilisation par la communauté</p>
         <div class="desktop-blobs">
-          <div class="desktop-blob-1-4">
-            <p class="h0 text-center mb-0">
-              1
+          <div class="desktop-blob-1-6">
+            <p class="h0-graph text-center mb-0">
+              9999
             </p>
-            <p class="bold text-center ">
-              démarche dématérialisée
-            </p>
-            <p>
-              La transformation numérique de l’administration des mines est engagée avec une première démarche administrative dématérialisée : le rapport trimestriel de production d’or en Guyane. Deux autres démarches dématérialisées sont en cours d’expérimentation : la demande de prolongation de concession de mines non énergétiques en métropole et la demande d’autorisation de recherches minières en Guyane.
+            <p class="text-center">
+              MAJ DE TITRES MINIERS PAR L'ADMINISTRATION ET LES ENTREPRISES DU SECTEUR CE MOIS-CI
             </p>
           </div>
-          <div class="desktop-blob-1-4">
-            <p class="h0 text-center mb-0">
-              {{ statistiques.titresActivitesDepose }}
-            </p>
-            <p class="bold text-center ">
-              rapports trimestriels d’activité de production d’or collectés en Guyane
-            </p>
-            <p>
-              Les titulaires d’un titre ou d’une autorisation d’exploitation de mines d’or en Guyane peuvent désormais procéder à leurs rapports trimestriels  de production sur Camino en quelques clics. Le titulaire a une vision claire de ses obligations et les données collectées sont plus fiables.
-            </p>
+          <div class="desktop-blob-2-3">
+            tableau
           </div>
-          <div class="desktop-blob-1-4">
-            <p class="h0 text-center mb-0">
-              {{ statistiques.titreActivites2018Ratio }}%
+          <div class="desktop-blob-1-6">
+            <p class="h0-graph text-center mb-0">
+              {{ statistiques.nbDonwload }}
             </p>
-            <p class="bold text-center ">
-              des rapports trimestriels d’activité de production d’or requis en Guyane pour 2018 sont collectés
+            <p class="text-center">
+              RÉUTILISATIONS CONNUES DES DONNÉES OUVERTES DISTRIBUÉES
             </p>
-            <p>
-              La pénétration de ce service numérique ouvert en Guyane depuis janvier 2019 progresse auprès des opérateurs miniers locaux. L’objectif est de le généraliser à court terme à l'échelle nationale.
+            <p class="h0-graph text-center mb-0">
+              150
             </p>
-          </div>
-          <div class="desktop-blob-1-4">
-            <p class="h0 text-center mb-0">
+            <p class="text-center">
+              ERREURS CORRIGÉES SUR LES BASES DE DONNÉES DE L'ÉTAT GRÂCE À LA PARTICIPATION DES UTILISATEURS
+            </p>
+            <p class="h0-graph text-center mb-0">
               6
             </p>
-            <p class="bold text-center ">
-              réutilisations connues des données ouvertes distribuées
-            </p>
-            <p>
-              Les flux de données géographiques sont réutilisés par plusieurs bureaux d’études, administrations et opérateurs publics. Signalez vos réalisations sur www.data.gouv.fr !
+            <p class="text-center">
+              RÉUTILISATIONS CONNUES DES DONNÉES OUVERTES DISTRIBUÉES
             </p>
           </div>
         </div>
@@ -129,23 +108,21 @@
         class="mb-xxl"
       >
         <h2>
-          Les gains
+          Gains de la dématérialisation sur l'instruction minière
         </h2>
         <span class="separator" />
+        <p>La dématérialisation des démarches relatives à l'instruction minière doit permettre un gain de temps pour ceux qui les effectuent et ceux qui les instruisent</p>
         <div class="desktop-blobs">
           <div class="desktop-blob-1-3">
-            <p class="h0 text-center mb-0">
-              120
+            <p class="h0-graph text-center mb-0">
+              9999
             </p>
-            <p class="bold text-center ">
-              erreurs signalées par les utilisateurs et corrigées améliorent la qualité des données
-            </p>
-            <p>
-              Les données consolidées dans Camino sont issues de sources de données dont la fiabilité est parfois discutable. Ouvrir ces données  à des regards croisés et offrir la possibilité aux utilisateurs de signaler les les erreurs permet l’amélioration continue du service.
+            <p class="text-center">
+              DÉMARCHES EFFECTUÉES EN LIGNE CETTE ANNÉE
             </p>
           </div>
           <div class="desktop-blob-1-3">
-            <p class="h0 text-center mb-0">
+            <p class="h0-graph text-center mb-0">
               {{ statistiques.titresActivitesBeneficesEntreprise }}
             </p>
             <p class="bold text-center ">
@@ -156,7 +133,7 @@
             </p>
           </div>
           <div class="desktop-blob-1-3">
-            <p class="h0 text-center mb-0">
+            <p class="h0-graph text-center mb-0">
               {{ statistiques.titresActivitesBeneficesAdministration }}
             </p>
             <p class="bold text-center ">
@@ -174,16 +151,169 @@
 
 <script>
 import Loader from '../_ui/loader.vue'
+import SvgChart from '../_common/graph/svg-chart.vue'
 
 export default {
   name: 'CaminoStatistiques',
 
-  components: { Loader },
+  components: { Loader, SvgChart },
+
+  data() {
+    return {
+      options: {
+        default: false,
+        xMin: 0,
+        xMax: 0,
+        yMin: 0,
+        yMax: 0,
+        line: {
+          smoothing: 0.15,
+          flattening: 0.5
+        },
+        legend: {
+          x: true,
+          y: true,
+          valuesVisible: true,
+          xName: 'Mois',
+          yName: 'Nombre de recherches',
+          xRetrait: 100,
+          yRetrait: 100,
+          xMarge: 50,
+          yMarge: 40,
+          xPas: 1,
+          yPas: 1000,
+          xCenterCoef: 5,
+          yCenterRetrait: 10,
+          xColor: 'silver',
+          yColor: 'silver'
+        }
+      },
+      datasets: [
+        {
+          id: 'nbSearchArray',
+          name: 'nombre de recherches par mois',
+          colors: {
+            path: 'rgba(55, 165, 230, 1.0)',
+            circles: 'orange',
+            values: 'orange'
+          },
+          font: {
+            family: 'Verdana',
+            size: '15'
+          },
+          values: [],
+          legend: []
+        }
+      ],
+      svg: {
+        w: 1000,
+        h: 600
+      }
+    }
+  },
 
   computed: {
     statistiques() {
       return this.$store.state.statistiques
     },
+
+    nbSearch() {
+      const nbSearchArray = this.statistiques.nbSearchArray
+      const res = nbSearchArray[nbSearchArray.length - 1].value
+      return res
+    },
+
+    legendRetraitX() {
+      let legendRetraitX = this.options.legend.x
+        ? this.options.legend.xRetrait
+        : 0
+      legendRetraitX = -this.options.xMin > 0 ? 0 : legendRetraitX
+      return legendRetraitX
+    },
+
+    legendRetraitY() {
+      let legendRetraitY = this.options.legend.y
+        ? this.options.legend.yRetrait
+        : 0
+      legendRetraitY = -this.options.yMin > 0 ? 0 : legendRetraitY
+      return legendRetraitY
+    },
+
+    maxValY() {
+      return Math.max(
+        ...this._datasets.map(d => Math.max(...d.values.map(v => v[1])))
+      ).toString()
+    },
+
+    legendMargeX() {
+      return this.maxValY.length * 15
+    },
+
+    pasY() {
+      let unit = this.maxValY
+      let pas = 1
+      let taille = 1
+      while (unit.length > 1) {
+        unit = Math.floor(parseInt(unit) / 10).toString()
+        taille *= 10
+        pas = unit < 5 ? 5 : unit < 10 ? 10 : 1
+      }
+      return (pas * taille) / 10
+    },
+
+    _options() {
+      const options = this.options
+      options.legend.retraitX = this.legendRetraitX
+      options.legend.retraitY = this.legendRetraitY
+      if (!this.options.default) {
+        options.legend.xMarge = this.legendMargeX
+        options.legend.yPas = this.pasY
+      }
+      return options
+    },
+
+    _datasets() {
+      const nbSearchArray = this.statistiques.nbSearchArray
+
+      // nbSearchArray est de la forme
+      // [
+      //   { month: '2018-09', value: '0' },
+      //   ...
+      //   { month: '2020-08', value: '5706' }
+      // ]
+
+      // on veut obtenir
+      // datasets = [{id:...,values:[[0,0],...[xPas*Index,'5706']],legend:['2018-09',...,'2020-08']}]
+
+      const datasets = this.datasets
+      const dataset = datasets[0]
+
+      let pas = -this.options.legend.xPas
+      const values = nbSearchArray.map(el => {
+        const value = [2]
+        value[0] = pas += this.options.legend.xPas
+        value[1] = parseInt(el.value)
+        return value
+      })
+
+      const legend = nbSearchArray.map(el => el.month)
+
+      dataset.values = values
+      dataset.legend[0] = legend
+
+      datasets[0] = dataset
+
+      return datasets
+    },
+
+    _svg() {
+      const w = this.svg.w
+      const h = this.svg.h
+      const wr = w - this.legendRetraitX
+      const hr = h - this.legendRetraitY
+      return { w, h, wr, hr }
+    },
+
     loaded() {
       return !!this.statistiques.loaded
     }
