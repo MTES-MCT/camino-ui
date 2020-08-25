@@ -124,6 +124,16 @@ export const actions = {
     })
   },
 
+  preferencesMapReset({ state, commit }) {
+    const zoom = state.preferences.carte.zoomIni
+    const centre = state.preferences.carte.centreIni
+
+    commit('preferencesSet', {
+      section: 'carte',
+      params: { zoom, centre }
+    })
+  },
+
   vueSet({ commit }, vue) {
     commit('set', { elements: [], total: 0 })
     commit('vueSet', vue)

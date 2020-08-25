@@ -256,12 +256,7 @@ export default {
 
     centrerZone() {
       // Restore le zoom et le centre initiaux en mémoire depuis la recherche
-      const zoom = this.preferences.zoomIni
-      const centre = this.preferences.centreIni
-      this.$store.dispatch('titres/preferencesSet', {
-        section: 'carte',
-        params: { zoom, centre }
-      })
+      this.$store.dispatch('titres/preferencesMapReset')
       this.init()
     },
 
