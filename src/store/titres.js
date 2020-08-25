@@ -114,6 +114,16 @@ export const actions = {
     commit('preferencesSet', { section, params })
   },
 
+  preferencesMapIni({ commit }) {
+    const zoomIni = this.state.titres.preferences.carte.zoom
+    const centreIni = this.state.titres.preferences.carte.centre
+
+    commit('preferencesSet', {
+      section: 'carte',
+      params: { zoomIni, centreIni }
+    })
+  },
+
   vueSet({ commit }, vue) {
     commit('set', { elements: [], total: 0 })
     commit('vueSet', vue)

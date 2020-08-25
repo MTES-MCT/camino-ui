@@ -90,12 +90,7 @@ export default {
 
     // Enregistre le zoom et le centre initaux dans les preferences avec les valeurs courantes
     preferencesMapIni() {
-      const zoomIni = this.$store.state.titres.preferences.carte.zoom
-      const centreIni = this.$store.state.titres.preferences.carte.centre
-      this.$store.dispatch('titres/preferencesSet', {
-        section: 'carte',
-        params: { zoomIni, centreIni }
-      })
+      this.$store.dispatch('titres/preferencesMapIni')
     },
 
     paramsEventTrack(params) {
