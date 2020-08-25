@@ -93,8 +93,8 @@ export default {
       default: () => ({})
     },
     d: {
-      type: Array,
-      default: () => []
+      type: Object,
+      default: () => ({})
     },
     svg: {
       type: Object,
@@ -112,31 +112,25 @@ export default {
     xMin() {
       return this.o.default
         ? this.o.xMin
-        : Math.min(
-            0,
-            Math.min(...this.d.map(d => Math.min(...d.values.map(v => v[0]))))
-          )
+        : Math.min(0, Math.min(...this.d.values.map(v => v[0])))
     },
 
     xMax() {
       return this.o.default
         ? this.o.xMax
-        : Math.max(...this.d.map(d => Math.max(...d.values.map(v => v[0]))))
+        : Math.max(...this.d.values.map(v => v[0]))
     },
 
     yMin() {
       return this.o.default
         ? this.o.yMin
-        : Math.min(
-            0,
-            Math.min(...this.d.map(d => Math.min(...d.values.map(v => v[1]))))
-          )
+        : Math.min(0, Math.min(...this.d.values.map(v => v[1])))
     },
 
     yMax() {
       return this.o.default
         ? this.o.yMax
-        : Math.max(...this.d.map(d => Math.max(...d.values.map(v => v[1]))))
+        : Math.max(...this.d.values.map(v => v[1]))
     },
 
     margeX() {
@@ -271,15 +265,11 @@ export default {
     },
 
     legendXText() {
-      const firstDataset = this.d[0]
-      const legendText = firstDataset.legend[0]
-      return legendText
+      return this.d.legend[0]
     },
 
     legendYText() {
-      const firstDataset = this.d[0]
-      const legendText = firstDataset.legend[1]
-      return legendText
+      return this.d.legend[1]
     }
   },
 

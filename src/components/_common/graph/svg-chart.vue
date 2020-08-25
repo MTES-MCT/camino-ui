@@ -4,15 +4,13 @@
       :view-box.camel="viewbox"
     >
       <SvgChartLine
-        v-for="dataset in datasets"
-        :key="dataset.name"
         :d="dataset"
         :o="options"
         :svg="svg"
         :lib="lib"
       />
       <SvgChartAxis
-        :d="datasets"
+        :d="dataset"
         :o="options"
         :svg="svg"
         :lib="lib"
@@ -38,9 +36,9 @@ export default {
       type: Object,
       default: () => ({})
     },
-    datasets: {
-      type: Array,
-      default: () => []
+    dataset: {
+      type: Object,
+      default: () => ({})
     },
     svg: {
       type: Object,

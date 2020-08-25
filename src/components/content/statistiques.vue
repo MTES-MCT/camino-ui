@@ -33,9 +33,9 @@
               class="graph-container"
             >
               <SvgChart
-                :datasets="_datasets"
-                :options="_options"
-                :svg="_svg"
+                :dataset="_dataset('nombre de recherches par mois')"
+                :options="_options('nombre de recherches par mois')"
+                :svg="_svg('nombre de recherches par mois')"
               />
               <p class="graph-title">
                 Le nombre de recherches mensuelles est l'indicateur clé de l'utilisation du service de "cadastre numérique"
@@ -78,7 +78,19 @@
             </p>
           </div>
           <div class="desktop-blob-2-3">
-            tableau
+            <div
+              ref="graphContainer"
+              class="graph-container"
+            >
+              <SvgChart
+                :dataset="_dataset('nombre de mises à jour par mois')"
+                :options="_options('nombre de mises à jour par mois')"
+                :svg="_svg('nombre de mises à jour par mois')"
+              />
+              <p class="graph-title">
+                Le nombre de recherches mensuelles est l'indicateur clé de l'utilisation du service de "cadastre numérique"
+              </p>
+            </div>
           </div>
           <div class="desktop-blob-1-6">
             <p class="h0-graph text-center mb-0">
@@ -115,7 +127,7 @@
         <div class="desktop-blobs">
           <div class="desktop-blob-1-3">
             <p class="h0-graph text-center mb-0">
-              9999
+              {{ nbDemarches }}
             </p>
             <p class="text-center">
               DÉMARCHES EFFECTUÉES EN LIGNE CETTE ANNÉE
@@ -160,49 +172,96 @@ export default {
 
   data() {
     return {
-      options: {
-        default: false,
-        xMin: 0,
-        xMax: 0,
-        yMin: 0,
-        yMax: 0,
-        line: {
-          smoothing: 0.15,
-          flattening: 0.5
-        },
-        legend: {
-          x: true,
-          y: true,
-          valuesVisible: true,
-          xName: 'Mois',
-          yName: 'Nombre de recherches',
-          xRetrait: 100,
-          yRetrait: 100,
-          xMarge: 50,
-          yMarge: 40,
-          xPas: 1,
-          yPas: 1000,
-          xCenterCoef: 5,
-          yCenterRetrait: 10,
-          xColor: 'silver',
-          yColor: 'silver'
-        }
-      },
-      datasets: [
+      graph: [
         {
-          id: 'nbSearchArray',
           name: 'nombre de recherches par mois',
-          colors: {
-            path: 'rgba(55, 165, 230, 1.0)',
-            circles: 'orange',
-            values: 'orange'
+          options: {
+            default: false,
+            xMin: 0,
+            xMax: 0,
+            yMin: 0,
+            yMax: 0,
+            line: {
+              smoothing: 0.15,
+              flattening: 0.5
+            },
+            legend: {
+              x: true,
+              y: true,
+              valuesVisible: true,
+              xName: 'Mois',
+              yName: 'Nombre de recherches',
+              xRetrait: 100,
+              yRetrait: 100,
+              xMarge: 50,
+              yMarge: 40,
+              xPas: 1,
+              yPas: 1,
+              xCenterCoef: 5,
+              yCenterRetrait: 10,
+              xColor: 'silver',
+              yColor: 'silver'
+            }
           },
-          font: {
-            family: 'Verdana',
-            size: '15'
+          dataset: {
+            id: 'nbSearchArray',
+            colors: {
+              path: 'rgba(55, 165, 230, 1.0)',
+              circles: 'orange',
+              values: 'orange'
+            },
+            font: {
+              family: 'Verdana',
+              size: '15'
+            },
+            values: [],
+            legend: []
+          }
+        },
+        {
+          name: 'nombre de mises à jour par mois',
+          options: {
+            default: false,
+            xMin: 0,
+            xMax: 0,
+            yMin: 0,
+            yMax: 0,
+            line: {
+              smoothing: 0.15,
+              flattening: 0.5
+            },
+            legend: {
+              x: true,
+              y: true,
+              valuesVisible: true,
+              xName: 'Mois',
+              yName: 'Nombre de mises à jour',
+              xRetrait: 100,
+              yRetrait: 100,
+              xMarge: 50,
+              yMarge: 40,
+              xPas: 1,
+              yPas: 1,
+              xCenterCoef: 5,
+              yCenterRetrait: 10,
+              xColor: 'silver',
+              yColor: 'silver'
+            }
           },
-          values: [],
-          legend: []
+          dataset: {
+            id: 'nbSearchArray',
+            colors: {
+              path: 'rgba(55, 165, 230, 1.0)',
+              circles: 'orange',
+              values: 'orange'
+            },
+            font: {
+              family: 'Verdana',
+              size: '15'
+            },
+            values: [],
+            legend: []
+          }
         }
       ],
       svg: {
@@ -227,95 +286,8 @@ export default {
       return nbMajTitresArray[nbMajTitresArray.length - 1].value
     },
 
-    legendRetraitX() {
-      let legendRetraitX = this.options.legend.x
-        ? this.options.legend.xRetrait
-        : 0
-      legendRetraitX = -this.options.xMin > 0 ? 0 : legendRetraitX
-      return legendRetraitX
-    },
-
-    legendRetraitY() {
-      let legendRetraitY = this.options.legend.y
-        ? this.options.legend.yRetrait
-        : 0
-      legendRetraitY = -this.options.yMin > 0 ? 0 : legendRetraitY
-      return legendRetraitY
-    },
-
-    maxValY() {
-      return Math.max(
-        ...this._datasets.map(d => Math.max(...d.values.map(v => v[1])))
-      ).toString()
-    },
-
-    legendMargeX() {
-      return this.maxValY.length * 15
-    },
-
-    pasY() {
-      let unit = this.maxValY
-      let pas = 1
-      let taille = 1
-      while (unit.length > 1) {
-        unit = Math.floor(parseInt(unit) / 10).toString()
-        taille *= 10
-        pas = unit < 5 ? 5 : unit < 10 ? 10 : 1
-      }
-      return (pas * taille) / 10
-    },
-
-    _options() {
-      const options = this.options
-      options.legend.retraitX = this.legendRetraitX
-      options.legend.retraitY = this.legendRetraitY
-      if (!this.options.default) {
-        options.legend.xMarge = this.legendMargeX
-        options.legend.yPas = this.pasY
-      }
-      return options
-    },
-
-    _datasets() {
-      const nbSearchArray = this.statistiques.nbSearchArray
-
-      // nbSearchArray est de la forme
-      // [
-      //   { month: '2018-09', value: '0' },
-      //   ...
-      //   { month: '2020-08', value: '5706' }
-      // ]
-
-      // on veut obtenir
-      // datasets = [{id:...,values:[[0,0],...[xPas*Index,'5706']],legend:['2018-09',...,'2020-08']}]
-
-      const datasets = this.datasets
-      const dataset = datasets[0]
-
-      let pas = -this.options.legend.xPas
-      const values = nbSearchArray.map(el => {
-        const value = [2]
-        value[0] = pas += this.options.legend.xPas
-        value[1] = parseInt(el.value)
-        return value
-      })
-
-      const legend = nbSearchArray.map(el => el.month)
-
-      dataset.values = values
-      dataset.legend[0] = legend
-
-      datasets[0] = dataset
-
-      return datasets
-    },
-
-    _svg() {
-      const w = this.svg.w
-      const h = this.svg.h
-      const wr = w - this.legendRetraitX
-      const hr = h - this.legendRetraitY
-      return { w, h, wr, hr }
+    nbDemarches() {
+      return '0000'
     },
 
     loaded() {
@@ -330,6 +302,104 @@ export default {
   methods: {
     async get() {
       await this.$store.dispatch('statistiques/get')
+    },
+
+    currentOption(name) {
+      return this.graph.find(g => g.name === name).options
+    },
+
+    currentDataset(name) {
+      return this.graph.find(g => g.name === name).dataset
+    },
+
+    legendRetraitX(name) {
+      const legendRetraitX = this.currentOption(name).legend.x
+        ? this.currentOption(name).legend.xRetrait
+        : 0
+      return -this.currentOption(name).xMin > 0 ? 0 : legendRetraitX
+    },
+
+    legendRetraitY(name) {
+      const legendRetraitY = this.currentOption(name).legend.y
+        ? this.currentOption(name).legend.yRetrait
+        : 0
+      return -this.currentOption(name).yMin > 0 ? 0 : legendRetraitY
+    },
+
+    maxValY(name) {
+      return Math.max(...this._dataset(name).values.map(v => v[1])).toString()
+    },
+
+    legendMargeX(name) {
+      return this.maxValY(name).length * 15
+    },
+
+    pasY(name) {
+      let unit = this.maxValY(name)
+      let pas = 1
+      let taille = 1
+      while (unit.length > 1) {
+        unit = Math.floor(parseInt(unit) / 10).toString()
+        taille *= 10
+        pas = parseInt(unit) < 5 ? 5 : parseInt(unit) < 10 ? 10 : 1
+      }
+      return (pas * taille) / 10
+    },
+
+    _svg(name) {
+      const w = this.svg.w
+      const h = this.svg.h
+      const wr = w - this.legendRetraitX(name)
+      const hr = h - this.legendRetraitY(name)
+      return { w, h, wr, hr }
+    },
+
+    _options(name) {
+      const options = this.currentOption(name)
+      options.legend.retraitX = this.legendRetraitX(name)
+      options.legend.retraitY = this.legendRetraitY(name)
+      if (!options.default) {
+        options.legend.xMarge = this.legendMargeX(name)
+        options.legend.yPas = this.pasY(name)
+      }
+      return options
+    },
+
+    _dataset(name) {
+      let nbArray
+      if (name === 'nombre de recherches par mois') {
+        nbArray = this.statistiques.nbSearchArray
+      }
+      if (name === 'nombre de mises à jour par mois') {
+        nbArray = this.statistiques.nbMajTitresArray
+      }
+
+      // nbXXXArray est de la forme
+      // [
+      //   { month: '2018-09', value: '0' },
+      //   ...
+      //   { month: '2020-08', value: '5706' }
+      // ]
+
+      // on veut obtenir
+      // datasets = [{id:...,values:[[0,0],...[xPas*Index,'5706']],legend:['2018-09',...,'2020-08']}]
+
+      const dataset = this.currentDataset(name)
+
+      let pas = -this.currentOption(name).legend.xPas
+      const values = nbArray.map(el => {
+        const value = [2]
+        value[0] = pas += this.currentOption(name).legend.xPas
+        value[1] = parseInt(el.value)
+        return value
+      })
+
+      const legend = nbArray.map(el => el.month)
+
+      dataset.values = values
+      dataset.legend[0] = legend
+
+      return dataset
     }
   }
 }
