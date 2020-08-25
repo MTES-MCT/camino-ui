@@ -114,7 +114,7 @@ export const actions = {
     commit('preferencesSet', { section, params })
   },
 
-  preferencesMapIni({ commit }) {
+  preferencesMapIni({ state, commit }) {
     const zoomIni = state.preferences.carte.zoom
     const centreIni = state.preferences.carte.centre
 
