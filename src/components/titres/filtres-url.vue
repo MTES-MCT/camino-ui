@@ -76,7 +76,8 @@ export default {
         params: { page: 1 }
       })
 
-      this.preferencesMapIni()
+      // Enregistre le zoom et le centre initaux dans les preferences avec les valeurs courantes
+      this.$store.dispatch('titres/preferencesMapIni')
     },
 
     preferencesFiltresUpdate(params) {
@@ -86,11 +87,6 @@ export default {
       })
 
       this.paramsEventTrack(params)
-    },
-
-    // Enregistre le zoom et le centre initaux dans les preferences avec les valeurs courantes
-    preferencesMapIni() {
-      this.$store.dispatch('titres/preferencesMapIni')
     },
 
     paramsEventTrack(params) {
