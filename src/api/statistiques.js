@@ -10,6 +10,10 @@ const statistiques = apiFetch(gql`
         month
         value
       }
+      nbMajTitresArray {
+        month
+        value
+      }
       nbAction
       timeSession
       nbDonwload

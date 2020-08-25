@@ -71,7 +71,7 @@
         <div class="desktop-blobs">
           <div class="desktop-blob-1-6">
             <p class="h0-graph text-center mb-0">
-              9999
+              {{ nbMajTitres }}
             </p>
             <p class="text-center">
               MAJ DE TITRES MINIERS PAR L'ADMINISTRATION ET LES ENTREPRISES DU SECTEUR CE MOIS-CI
@@ -219,8 +219,12 @@ export default {
 
     nbSearch() {
       const nbSearchArray = this.statistiques.nbSearchArray
-      const res = nbSearchArray[nbSearchArray.length - 1].value
-      return res
+      return nbSearchArray[nbSearchArray.length - 1].value
+    },
+
+    nbMajTitres() {
+      const nbMajTitresArray = this.statistiques.nbMajTitresArray
+      return nbMajTitresArray[nbMajTitresArray.length - 1].value
     },
 
     legendRetraitX() {

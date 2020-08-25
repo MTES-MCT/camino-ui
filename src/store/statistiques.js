@@ -5,6 +5,7 @@ export const state = {
   titresActivitesBeneficesEntreprise: 0,
   titresActivitesBeneficesAdministration: 0,
   nbSearchArray: [],
+  nbMajTitresArray: [],
   nbAction: 0,
   timeSession: '',
   nbDonwload: 0,
@@ -48,6 +49,8 @@ export const mutations = {
       )
     if (statistiques.nbSearchArray)
       Vue.set(state, 'nbSearchArray', statistiques.nbSearchArray)
+    if (statistiques.nbMajTitresArray)
+      Vue.set(state, 'nbMajTitresArray', statistiques.nbMajTitresArray)
     if (statistiques.nbAction) Vue.set(state, 'nbAction', statistiques.nbAction)
     if (statistiques.timeSession)
       Vue.set(state, 'timeSession', statistiques.timeSession)
