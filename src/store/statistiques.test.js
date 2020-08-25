@@ -19,21 +19,21 @@ describe('page de statistiques', () => {
   let statistiquesReturned
   beforeEach(() => {
     statistiquesReturned = {
-      titresTotal: 30,
-      titresValide: 20,
-      titresActivitesDepose: 10,
-      titreActivites2018Ratio: 50,
       titresActivitesBeneficesEntreprise: 4800,
       titresActivitesBeneficesAdministration: 2400,
+      nbSearchArray: [],
+      nbAction: 60,
+      timeSession: '14min',
+      nbDonwload: 110,
       loaded: true
     }
     statistiques.state = {
-      titresTotal: 0,
-      titresValide: 0,
-      titresActivitesDepose: 0,
-      titreActivites2018Ratio: 0,
       titresActivitesBeneficesEntreprise: 0,
       titresActivitesBeneficesAdministration: 0,
+      nbSearchArray: [],
+      nbAction: 0,
+      timeSession: '',
+      nbDonwload: 0,
       loaded: false
     }
     mutations = {
@@ -57,7 +57,9 @@ describe('page de statistiques', () => {
     expect(mutations.loadingAdd).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(store.state.statistiques.titreActivites2018Ratio).toEqual(50)
+    expect(store.state.statistiques.titresActivitesBeneficesEntreprise).toEqual(
+      4800
+    )
     expect(store.state.statistiques.loaded).toBeTruthy()
   })
 
@@ -66,7 +68,9 @@ describe('page de statistiques', () => {
     await store.dispatch('statistiques/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.statistiques.titreActivites2018Ratio).toEqual(0)
+    expect(store.state.statistiques.titresActivitesBeneficesEntreprise).toEqual(
+      0
+    )
     expect(store.state.statistiques.loaded).toBeTruthy()
   })
 

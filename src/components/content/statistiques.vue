@@ -85,7 +85,7 @@
               {{ statistiques.nbDonwload }}
             </p>
             <p class="text-center">
-              RÉUTILISATIONS CONNUES DES DONNÉES OUVERTES DISTRIBUÉES
+              TÉLÉCHARGEMENTS DE PIÈCES RELATIVES À LA BONNE INSTRUCTION DES TITRES ET CONCESSIONS MINIÈRES CE MOIS-CI
             </p>
             <p class="h0-graph text-center mb-0">
               150

@@ -2,12 +2,12 @@ import Vue from 'vue'
 import { statistiques } from '../api/statistiques'
 
 export const state = {
-  titresTotal: 0,
-  titresValide: 0,
-  titresActivitesDepose: 0,
-  titreActivites2018Ratio: 0,
   titresActivitesBeneficesEntreprise: 0,
   titresActivitesBeneficesAdministration: 0,
+  nbSearchArray: [],
+  nbAction: 0,
+  timeSession: '',
+  nbDonwload: 0,
   loaded: false
 }
 
