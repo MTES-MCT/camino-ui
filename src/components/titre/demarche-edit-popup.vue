@@ -135,6 +135,12 @@ export default {
         } else {
           await this.$store.dispatch('titreDemarche/update', demarche)
         }
+
+        this.eventTrack({
+          categorie: 'titre-sections',
+          action: 'titre-demarche-enregistrer',
+          nom: demarche.id
+        })
       }
     },
 
@@ -148,6 +154,12 @@ export default {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
         this.save()
+      }
+    },
+
+    eventTrack(event) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
     },
 

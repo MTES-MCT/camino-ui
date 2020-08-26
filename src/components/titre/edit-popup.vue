@@ -234,6 +234,12 @@ export default {
       } else {
         await this.$store.dispatch('titre/titreUpdate', titre)
       }
+
+      this.eventTrack({
+        categorie: 'titre-sections',
+        action: 'titre-enregistrer',
+        nom: titre.id
+      })
     },
 
     cancel() {
@@ -259,6 +265,12 @@ export default {
 
     referenceRemove(index) {
       this.titre.references.splice(index, 1)
+    },
+
+    eventTrack(event) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent(event.categorie, event.action, event.nom)
+      }
     }
   }
 }
