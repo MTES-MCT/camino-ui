@@ -19,11 +19,11 @@
         <span class="separator" />
         <p>Les données retenues ici témoignent du comportement général des utilisateurs sur le site et de leur engagement auprès du service</p>
         <div class="desktop-blobs">
-          <div class="desktop-blob-1-6">
-            <p class="h0-graph text-center mb-0">
+          <div class="desktop-blob-1-6 text-center">
+            <p class="h0-graph mb-0 mt-xxl">
               {{ nbSearch }}
             </p>
-            <p class="text-center">
+            <p>
               RECHERCHES CE MOIS-CI
             </p>
           </div>
@@ -42,17 +42,17 @@
               </p>
             </div>
           </div>
-          <div class="desktop-blob-1-6">
-            <p class="h0-graph text-center mb-0">
+          <div class="desktop-blob-1-6 text-center">
+            <p class="h0-graph mb-0">
               {{ Math.round(statistiques.nbAction) }}
             </p>
-            <p class="text-center">
+            <p>
               NOMBRE MOYEN D'ACTIONS EFFECTUÉES PAR UN UTILISATEUR SUR LE SITE
             </p>
-            <p class="h0-graph text-center mb-0">
+            <p class="h0-graph mb-0">
               {{ statistiques.timeSession }}
             </p>
-            <p class="text-center">
+            <p>
               TEMPS DE SESSION MOYEN SUR CAMINO PAR CHACUN DES UTILISATEURS
             </p>
           </div>
@@ -69,11 +69,11 @@
         <span class="separator" />
         <p>En tant que que secteur régulé par l'État, la publication en ligne des données minières doit permettre leur amélioration et leur utilisation par la communauté</p>
         <div class="desktop-blobs">
-          <div class="desktop-blob-1-6">
-            <p class="h0-graph text-center mb-0">
+          <div class="desktop-blob-1-6 text-center">
+            <p class="h0-graph mb-0 mt-xxl">
               {{ nbMajTitres }}
             </p>
-            <p class="text-center">
+            <p>
               MAJ DE TITRES MINIERS PAR L'ADMINISTRATION ET LES ENTREPRISES DU SECTEUR CE MOIS-CI
             </p>
           </div>
@@ -88,27 +88,27 @@
                 :svg="_svg('nombre de mises à jour par mois')"
               />
               <p class="graph-title">
-                Le nombre de recherches mensuelles est l'indicateur clé de l'utilisation du service de "cadastre numérique"
+                Le nombre de mises à jour mensuelles du cadastre par les différents services de l'administration ou par les professionnels du secteur reflète de dynamisme de l'instruction minière française. Une mise à jour peut être l'ajout d'un titre, une modification de son statut ou des documents concernant son instruction.
               </p>
             </div>
           </div>
-          <div class="desktop-blob-1-6">
-            <p class="h0-graph text-center mb-0">
+          <div class="desktop-blob-1-6 text-center">
+            <p class="h0-graph mb-0">
               {{ statistiques.nbDonwload }}
             </p>
-            <p class="text-center">
+            <p>
               TÉLÉCHARGEMENTS DE PIÈCES RELATIVES À LA BONNE INSTRUCTION DES TITRES ET CONCESSIONS MINIÈRES CE MOIS-CI
             </p>
-            <p class="h0-graph text-center mb-0">
+            <p class="h0-graph mb-0">
               150
             </p>
-            <p class="text-center">
+            <p>
               ERREURS CORRIGÉES SUR LES BASES DE DONNÉES DE L'ÉTAT GRÂCE À LA PARTICIPATION DES UTILISATEURS
             </p>
-            <p class="h0-graph text-center mb-0">
+            <p class="h0-graph mb-0">
               6
             </p>
-            <p class="text-center">
+            <p>
               RÉUTILISATIONS CONNUES DES DONNÉES OUVERTES DISTRIBUÉES
             </p>
           </div>
@@ -125,30 +125,30 @@
         <span class="separator" />
         <p>La dématérialisation des démarches relatives à l'instruction minière doit permettre un gain de temps pour ceux qui les effectuent et ceux qui les instruisent</p>
         <div class="desktop-blobs">
-          <div class="desktop-blob-1-3">
-            <p class="h0-graph text-center mb-0">
+          <div class="desktop-blob-1-3 text-center">
+            <p class="h0-graph mb-0">
               {{ nbDemarches }}
             </p>
-            <p class="text-center">
+            <p>
               DÉMARCHES EFFECTUÉES EN LIGNE CETTE ANNÉE
             </p>
           </div>
-          <div class="desktop-blob-1-3">
-            <p class="h0-graph text-center mb-0">
+          <div class="desktop-blob-1-3 text-center">
+            <p class="h0-graph mb-0">
               {{ statistiques.titresActivitesBeneficesEntreprise }}
             </p>
-            <p class="bold text-center ">
+            <p class="bold">
               jours de travail sans valeur ajoutée économisés par les entreprises en Guyane
             </p>
             <p>
               La dématérialisation d’un rapport trimestriel d’activité de production d’or en Guyane permet en moyenne l’économie de 2 heures de travail de saisie ou de déplacement pour son dépôt physique à l’administration.
             </p>
           </div>
-          <div class="desktop-blob-1-3">
-            <p class="h0-graph text-center mb-0">
+          <div class="desktop-blob-1-3 text-center">
+            <p class="h0-graph mb-0">
               {{ statistiques.titresActivitesBeneficesAdministration }}
             </p>
-            <p class="bold text-center ">
+            <p class="bold">
               jours de travail à faible valeur ajoutée économisés par l’administration
             </p>
             <p>
@@ -287,7 +287,7 @@ export default {
     },
 
     nbDemarches() {
-      return '0000'
+      return this.statistiques.nbDemarche
     },
 
     loaded() {
