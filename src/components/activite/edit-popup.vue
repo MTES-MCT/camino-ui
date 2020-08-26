@@ -203,7 +203,7 @@ export default {
 
       let context
 
-      if (validate && !this.activite.documents) {
+      if (validate && !this.activite.documents.length) {
         context = this.context
         this.activite.statut.id = 'dep'
       } else {
