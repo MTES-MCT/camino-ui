@@ -104,6 +104,8 @@ export default {
 
         return contenu
       }, {})
+
+    this.$emit('completed:update', this.completed)
   }
 }
 </script>

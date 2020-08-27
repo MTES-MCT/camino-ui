@@ -6,6 +6,9 @@
         class="tablet-blob-1-3 tablet-pt-s pb-s"
       >
         <h6>{{ element.nom }}</h6>
+        <p v-if=element.optionnel class="h6 italic mb-0">
+          Optionnel
+        </p>
       </div>
 
       <div
