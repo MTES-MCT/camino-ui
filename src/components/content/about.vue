@@ -463,6 +463,25 @@
             </li>
           </ul>
         </div>
+
+        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="../../../public/img/about/member-nicolas-petitot.jpg"
+                alt="Portrait Nicolas Petitot"
+              >
+            </div>
+          </div>
+
+          <h3 class="mb-s">
+            Nicolas Petitot
+          </h3>
+          <h6>Développeur</h6>
+          <blockquote>
+            Participer à la transition numérique des services de l'Etat en permettant l'ouverture et la valorisation des données
+          </blockquote>
+        </div>
       </div>
     </div>
 
