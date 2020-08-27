@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.44](https://github.com/MTES-MCT/camino-ui/compare/v0.22.43...v0.22.44) (2020-08-27)
+
+
+### Features
+
+* ajoute Nicolas Petitot dans l'équipe ([#161](https://github.com/MTES-MCT/camino-ui/issues/161)) ([538d51b](https://github.com/MTES-MCT/camino-ui/commit/538d51baf018d9cc8c7e9ef2066d4c64f76d5bbd))
+
+
+### Bug Fixes
+
+* **activité:** corrige le dépot des rapports d’activités qui n’ont pas de document ([#160](https://github.com/MTES-MCT/camino-ui/issues/160)) ([71b7854](https://github.com/MTES-MCT/camino-ui/commit/71b78541ba466908a5c5f9076068b92fd3e8fc37))
+* **activité:** permet de valider les rapports d’activités où tous les champs sont optionnels ([#162](https://github.com/MTES-MCT/camino-ui/issues/162)) ([e5d167a](https://github.com/MTES-MCT/camino-ui/commit/e5d167aba3ed6d266f52102b6bc1a6b23b86355d))
+
 ### [0.22.43](https://github.com/MTES-MCT/camino-ui/compare/v0.22.42...v0.22.43) (2020-08-04)
 
 
