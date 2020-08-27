@@ -39,7 +39,13 @@ describe('liste des titres', () => {
           ordre: 'asc',
           colonne: 'nom'
         },
-        carte: { zoom: null, centre: [], perimetre: [] },
+        carte: {
+          zoom: 4,
+          centre: ['50', '50'],
+          perimetre: [],
+          zoomIni: 4,
+          centreIni: ['50', '50']
+        },
         filtres: {
           typesIds: null,
           entreprises: 'fr-',
@@ -65,7 +71,15 @@ describe('liste des titres', () => {
         {
           id: 'colonne',
           type: 'string',
-          elements: ['nom', 'domaine', 'type', 'statut', 'activitesTotal']
+          elements: [
+            'nom',
+            'domaine',
+            'type',
+            'statut',
+            'activitesTotal',
+            'substances',
+            'titulaires'
+          ]
         },
         {
           id: 'ordre',
@@ -204,5 +218,19 @@ describe('liste des titres', () => {
     await store.dispatch('titres/vueSet', 'liste')
 
     expect(store.state.titres.vue).toEqual('liste')
+  })
+
+  test('enregistre la vue du résultat de la recherce', async () => {
+    await store.dispatch('titres/preferencesMapIni')
+
+    expect(store.state.titres.preferences.carte.zoomIni).toEqual(4)
+    expect(store.state.titres.preferences.carte.centreIni).toEqual(['50', '50'])
+  })
+
+  test('recentre la vue sur le résultat de la recherce', async () => {
+    await store.dispatch('titres/preferencesMapReset')
+
+    expect(store.state.titres.preferences.carte.zoom).toEqual(4)
+    expect(store.state.titres.preferences.carte.centre).toEqual(['50', '50'])
   })
 })
