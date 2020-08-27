@@ -27,34 +27,6 @@
 
     <hr>
 
-    <div v-if="documentsVisibilites.length > 1 && modifiable">
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3">
-          <h6>Visibilité</h6>
-        </div>
-        <div class="tablet-blob-2-3">
-          <ul class="list-sans">
-            <li
-              v-for="visibilite in documentsVisibilites"
-              :key="visibilite.id"
-            >
-              <label class="h5 bold">
-                <input
-                  :value="visibilite.id"
-                  :checked="visibilite.id === visibiliteId"
-                  type="radio"
-                  class="mr-s"
-                  @change="visibiliteUpdate(visibilite.id)"
-                >
-                {{ visibilite.nom }}
-              </label>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <hr>
-    </div>
-
     <div v-if="modifiable || document.description">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -79,6 +51,34 @@
           >
             {{ document.description }}
           </p>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div v-if="documentsVisibilites.length > 1 && modifiable">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3">
+          <h6>Visibilité</h6>
+        </div>
+        <div class="tablet-blob-2-3">
+          <ul class="list-sans">
+            <li
+              v-for="visibilite in documentsVisibilites"
+              :key="visibilite.id"
+            >
+              <label class="h5 bold">
+                <input
+                  :value="visibilite.id"
+                  :checked="visibilite.id === visibiliteId"
+                  type="radio"
+                  class="mr-s"
+                  @change="visibiliteUpdate(visibilite.id)"
+                >
+                {{ visibilite.nom }}
+              </label>
+            </li>
+          </ul>
         </div>
       </div>
       <hr>
