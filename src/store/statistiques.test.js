@@ -22,18 +22,22 @@ describe('page de statistiques', () => {
       titresActivitesBeneficesEntreprise: 4800,
       titresActivitesBeneficesAdministration: 2400,
       nbSearchArray: [],
+      nbMajTitresArray: [],
       nbAction: 60,
       timeSession: '14min',
       nbDonwload: 110,
+      nbDemarche: 400,
       loaded: true
     }
     statistiques.state = {
       titresActivitesBeneficesEntreprise: 0,
       titresActivitesBeneficesAdministration: 0,
       nbSearchArray: [],
+      nbMajTitresArray: [],
       nbAction: 0,
       timeSession: '',
       nbDonwload: 0,
+      nbDemarche: 0,
       loaded: false
     }
     mutations = {
