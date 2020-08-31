@@ -14,6 +14,7 @@
       :metas="metas"
       :preferences="preferences"
       @preferences:update="preferencesFiltresUpdateAndPageReset"
+      @preferencesFiltres:reset="preferencesFiltresReset"
       @toggle="filtresToggle"
     />
   </div>
@@ -75,6 +76,10 @@ export default {
         section: 'filtres',
         params: { page: 1 }
       })
+    },
+
+    preferencesFiltresReset() {
+      this.$store.dispatch('titres/preferencesFiltresReset')
     },
 
     preferencesFiltresUpdate(params) {

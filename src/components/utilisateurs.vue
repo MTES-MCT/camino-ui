@@ -12,6 +12,7 @@
     :total="total"
     :loaded="metasLoaded"
     @preferences:update="preferencesUpdate"
+    @preferencesFiltres:reset="preferencesFiltresReset"
     @loaded="utilisateursLoad"
   >
     <button
@@ -139,6 +140,10 @@ export default {
 
     async preferencesUpdate(options) {
       await this.$store.dispatch(`utilisateurs/preferencesSet`, options)
+    },
+
+    preferencesFiltresReset() {
+      this.$store.dispatch(`utilisateurs/preferencesFiltresReset`)
     },
 
     addPopupOpen() {

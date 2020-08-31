@@ -34,6 +34,7 @@
       :metas="metas"
       :preferences="preferences.filtres"
       @preferences:update="preferencesFiltresUpdateAndPageReset"
+      @preferencesFiltres:reset="preferencesFiltresReset"
     />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
@@ -160,6 +161,10 @@ export default {
 
     preferencesFiltresUpdate(params) {
       this.$emit('preferences:update', { section: 'filtres', params })
+    },
+
+    preferencesFiltresReset() {
+      this.$emit('preferencesFiltres:reset')
     },
 
     urlLoad(id) {

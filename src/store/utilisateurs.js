@@ -3,6 +3,14 @@ import Vue from 'vue'
 import { utilisateurs, metasUtilisateur } from '../api/utilisateurs'
 import { paramsBuild } from './_utils'
 
+const filtresDefaultValue = {
+  noms: '',
+  emails: '',
+  permissionIds: [],
+  administrationIds: [],
+  entrepriseIds: []
+}
+
 export const state = {
   list: [],
   total: 0,
@@ -31,18 +39,12 @@ export const state = {
     }
   ],
   preferences: {
+    filtres: { ...filtresDefaultValue },
     table: {
       page: 1,
       intervalle: 200,
       ordre: 'asc',
       colonne: null
-    },
-    filtres: {
-      noms: '',
-      emails: '',
-      permissionIds: [],
-      administrationIds: [],
-      entrepriseIds: []
     }
   }
 }
@@ -98,6 +100,14 @@ export const actions = {
 
   preferencesSet({ commit }, { section, params }) {
     commit('preferencesSet', { section, params })
+  },
+
+  preferencesFiltresReset({ commit }) {
+    commit('preferencesSet', {
+      section: 'filtres',
+      params: { ...filtresDefaultValue }
+    })
+    commit('preferencesSet', { section: 'table', params: { page: 1 } })
   }
 }
 

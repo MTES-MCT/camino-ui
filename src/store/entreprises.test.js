@@ -135,4 +135,21 @@ describe("liste d'entreprises", () => {
       "la mine d'or"
     )
   })
+
+  test('réinitialise les preferences de filtre', async () => {
+    const section = 'filtres'
+    const params = { noms: "la mine d'or" }
+    store.dispatch('entreprises/preferencesSet', {
+      section,
+      params
+    })
+
+    expect(store.state.entreprises.preferences.filtres.noms).toEqual(
+      "la mine d'or"
+    )
+
+    store.dispatch('entreprises/preferencesFiltresReset')
+
+    expect(store.state.entreprises.preferences.filtres.noms).toEqual('')
+  })
 })

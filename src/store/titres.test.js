@@ -200,6 +200,18 @@ describe('liste des titres', () => {
     expect(store.state.titres.preferences.filtres.domainesIds).toEqual('h')
   })
 
+  test('réinitialise les preferences de filtre', async () => {
+    const section = 'filtres'
+    const params = { domainesIds: ['h'] }
+    await store.dispatch('titres/preferencesSet', { section, params })
+
+    expect(store.state.titres.preferences.filtres.domainesIds).toEqual(['h'])
+
+    store.dispatch('titres/preferencesFiltresReset')
+
+    expect(store.state.titres.preferences.filtres.domainesIds).toEqual([])
+  })
+
   test('initialise la vue', async () => {
     await store.dispatch('titres/vueSet', 'liste')
 

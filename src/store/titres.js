@@ -3,6 +3,17 @@ import Vue from 'vue'
 import { metasTitres, titresGeo, titres } from '../api/titres'
 import { paramsBuild } from './_utils'
 
+const filtresDefaultValue = {
+  typesIds: [],
+  domainesIds: [],
+  statutsIds: [],
+  noms: '',
+  entreprises: '',
+  substances: '',
+  references: '',
+  territoires: ''
+}
+
 export const state = {
   list: [],
   total: 0,
@@ -46,16 +57,7 @@ export const state = {
   preferences: {
     table: { page: 1, intervalle: 200, ordre: 'asc', colonne: 'nom' },
     carte: { perimetre: [0, 0, 0, 0], zoom: null, centre: [] },
-    filtres: {
-      typesIds: [],
-      domainesIds: [],
-      statutsIds: [],
-      noms: '',
-      entreprises: '',
-      substances: '',
-      references: '',
-      territoires: ''
-    }
+    filtres: { ...filtresDefaultValue }
   }
 }
 
@@ -106,6 +108,14 @@ export const actions = {
 
   preferencesSet({ commit }, { section, params }) {
     commit('preferencesSet', { section, params })
+  },
+
+  preferencesFiltresReset({ commit }) {
+    commit('preferencesSet', {
+      section: 'filtres',
+      params: { ...filtresDefaultValue }
+    })
+    commit('preferencesSet', { section: 'table', params: { page: 1 } })
   },
 
   vueSet({ commit }, vue) {
