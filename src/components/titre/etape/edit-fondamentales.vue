@@ -106,12 +106,13 @@
       </div>
       <div class="tablet-blob-2-3">
         <input
-          v-model.number="etape.surface"
+          v-model="etape.surface"
           class="p-s"
-          type="number"
+          type="text"
           min="0"
           placeholder="0"
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
+          @change="control('etape', 'surface', 'number')"
         >
         <label
           v-if="etape.surface"
@@ -383,6 +384,19 @@ export default {
       const substance = this.etape.substances[n]
       this.etape.substances.splice(n, 1)
       this.etape.substances.splice(n - 1, 0, substance)
+    },
+
+    control(el, field, type) {
+      if (type === 'number') {
+        const regex = /(^|[^\d.])0+\B/g
+
+        this[el][field] = parseFloat(
+          this[el][field]
+            .replace(/,/g, '.')
+            .replace(/ */g, '')
+            .replace(regex, '$1')
+        )
+      }
     }
   }
 }
