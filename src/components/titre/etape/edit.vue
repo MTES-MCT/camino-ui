@@ -226,6 +226,12 @@ export default {
         } else {
           await this.$store.dispatch('titreEtape/update', etape)
         }
+
+        this.eventTrack({
+          categorie: 'titre-sections',
+          action: 'titre-etape-enregistrer',
+          nom: etape.id
+        })
       }
     },
 
@@ -247,6 +253,12 @@ export default {
         this.etape.statutId = this.etapesStatuts[0].id
       } else {
         this.etape.statutId = null
+      }
+    },
+
+    eventTrack(event) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
     },
 

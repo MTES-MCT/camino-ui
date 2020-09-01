@@ -239,6 +239,12 @@ export default {
           context: this.context
         })
       }
+
+      this.eventTrack({
+        categorie: 'titre-sections',
+        action: 'titre-activite-enregistrer',
+        nom: this.activite.id
+      })
     },
 
     cancel() {
@@ -263,6 +269,12 @@ export default {
             this.save(false)
           }
         }
+      }
+    },
+
+    eventTrack(event) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
     },
 

@@ -139,6 +139,12 @@ export default {
           context: this.context
         })
       }
+
+      this.eventTrack({
+        categorie: 'titre-sections',
+        action: 'titre-etape-doc-enregistrer',
+        nom: this.document.titreEtapeId
+      })
     },
 
     cancel() {
@@ -151,6 +157,12 @@ export default {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
         this.save()
+      }
+    },
+
+    eventTrack(event) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
     },
 

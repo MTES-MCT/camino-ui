@@ -247,6 +247,8 @@ export default {
           creation: true
         }
       })
+
+      this.eventTrack({ categorie: 'titre-sections', action: 'titre-ajouter' })
     },
 
     titresLoad() {
@@ -265,6 +267,12 @@ export default {
         this.urlsLoaded.filtres
       ) {
         this.titresLoad()
+      }
+    },
+
+    eventTrack(event) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
     }
   }

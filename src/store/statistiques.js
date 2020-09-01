@@ -2,12 +2,14 @@ import Vue from 'vue'
 import { statistiques } from '../api/statistiques'
 
 export const state = {
-  titresTotal: 0,
-  titresValide: 0,
-  titresActivitesDepose: 0,
-  titreActivites2018Ratio: 0,
   titresActivitesBeneficesEntreprise: 0,
   titresActivitesBeneficesAdministration: 0,
+  nbSearchArray: [],
+  nbMajTitresArray: [],
+  nbAction: 0,
+  timeSession: '',
+  nbDonwload: 0,
+  nbDemarche: 0,
   loaded: false
 }
 
@@ -34,22 +36,6 @@ export const actions = {
 
 export const mutations = {
   set(state, statistiques) {
-    if (statistiques.titresTotal)
-      Vue.set(state, 'titresTotal', statistiques.titresTotal)
-    if (statistiques.titresValide)
-      Vue.set(state, 'titresValide', statistiques.titresValide)
-    if (statistiques.titresActivitesDepose)
-      Vue.set(
-        state,
-        'titresActivitesDepose',
-        statistiques.titresActivitesDepose
-      )
-    if (statistiques.titreActivites2018Ratio)
-      Vue.set(
-        state,
-        'titreActivites2018Ratio',
-        statistiques.titreActivites2018Ratio
-      )
     if (statistiques.titresActivitesBeneficesEntreprise)
       Vue.set(
         state,
@@ -62,6 +48,17 @@ export const mutations = {
         'titresActivitesBeneficesAdministration',
         statistiques.titresActivitesBeneficesAdministration
       )
+    if (statistiques.nbSearchArray)
+      Vue.set(state, 'nbSearchArray', statistiques.nbSearchArray)
+    if (statistiques.nbMajTitresArray)
+      Vue.set(state, 'nbMajTitresArray', statistiques.nbMajTitresArray)
+    if (statistiques.nbAction) Vue.set(state, 'nbAction', statistiques.nbAction)
+    if (statistiques.timeSession)
+      Vue.set(state, 'timeSession', statistiques.timeSession)
+    if (statistiques.nbDonwload)
+      Vue.set(state, 'nbDonwload', statistiques.nbDonwload)
+    if (statistiques.nbDemarche)
+      Vue.set(state, 'nbDemarche', statistiques.nbDemarche)
 
     Vue.set(state, 'loaded', true)
   }
