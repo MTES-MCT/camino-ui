@@ -327,7 +327,9 @@ export default {
     },
 
     maxValY(name) {
-      return Math.max(...this._dataset(name).values.map(v => v[1])).toString()
+      return Math.max(
+        ...this.currentDataset(name).values.map(v => v[1])
+      ).toString()
     },
 
     legendMargeX(name) {
@@ -384,7 +386,8 @@ export default {
       // on veut obtenir
       // datasets = [{id:...,values:[[0,0],...[xPas*Index,'5706']],legend:['2018-09',...,'2020-08']}]
 
-      const dataset = this.currentDataset(name)
+      // const dataset = this.currentDataset(name)
+      const dataset = { ...this.currentDataset(name) }
 
       let pas = -this.currentOption(name).legend.xPas
       const values = nbArray.map(el => {
