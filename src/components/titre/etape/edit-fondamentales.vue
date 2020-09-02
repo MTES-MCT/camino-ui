@@ -97,7 +97,7 @@
 
     <hr>
 
-    <div class="tablet-blobs">
+    <!-- <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Surface (Km²)</h6>
         <p class="h6 italic mb-0">
@@ -123,6 +123,23 @@
             type="checkbox"
           >donnée incertaine
         </label>
+      </div>
+    </div> -->
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Surface (Km²)</h6>
+        <p class="h6 italic mb-0">
+          Optionnel
+        </p>
+      </div>
+      <div class="tablet-blob-2-3">
+        <inputNumber
+          v-model.number="etape.surface"
+          class="p-s"
+          min="0"
+          placeholder="0"
+          :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
+        />
       </div>
     </div>
 
@@ -316,9 +333,10 @@
 
 <script>
 import InputDate from '../../_ui/input-date.vue'
+import InputNumber from '../../_ui/input-number.vue'
 
 export default {
-  components: { InputDate },
+  components: { InputDate, InputNumber },
 
   props: {
     etape: { type: Object, default: () => ({}) },
