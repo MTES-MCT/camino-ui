@@ -10,6 +10,7 @@ export const state = {
   timeSession: '',
   nbDonwload: 0,
   nbDemarche: 0,
+  nbErreur: 0,
   loaded: false
 }
 
@@ -59,6 +60,7 @@ export const mutations = {
       Vue.set(state, 'nbDonwload', statistiques.nbDonwload)
     if (statistiques.nbDemarche)
       Vue.set(state, 'nbDemarche', statistiques.nbDemarche)
+    if (statistiques.nbErreur) Vue.set(state, 'nbErreur', statistiques.nbErreur)
 
     Vue.set(state, 'loaded', true)
   }

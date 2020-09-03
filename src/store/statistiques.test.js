@@ -27,6 +27,7 @@ describe('page de statistiques', () => {
       timeSession: '14min',
       nbDonwload: 110,
       nbDemarche: 400,
+      nbErreur: 210,
       loaded: true
     }
     statistiques.state = {
@@ -38,6 +39,7 @@ describe('page de statistiques', () => {
       timeSession: '',
       nbDonwload: 0,
       nbDemarche: 0,
+      nbErreur: 0,
       loaded: false
     }
     mutations = {
