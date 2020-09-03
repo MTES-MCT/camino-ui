@@ -23,8 +23,8 @@
             <p class="h0-graph mb-0 mt-xxl">
               {{ nbSearch }}
             </p>
-            <p>
-              RECHERCHES CE MOIS-CI
+            <p class="bold">
+              recherches ce mois-ci
             </p>
           </div>
           <div class="desktop-blob-2-3">
@@ -38,7 +38,7 @@
                 :svg="_svg('nombre de recherches par mois')"
               />
               <p class="graph-title">
-                Le nombre de recherches mensuelles est l'indicateur clé de l'utilisation du service de "cadastre numérique"
+                Le nombre de recherches mensuelles est l'indicateur clé de l'utilisation du service de "cadastre minier"
               </p>
             </div>
           </div>
@@ -46,14 +46,14 @@
             <p class="h0-graph mb-0">
               {{ Math.round(statistiques.nbAction) }}
             </p>
-            <p>
-              NOMBRE MOYEN D'ACTIONS EFFECTUÉES PAR UN UTILISATEUR SUR LE SITE
+            <p class="bold">
+              nombre moyen d'actions effectuées par un utilisateur sur le site
             </p>
             <p class="h0-graph mb-0">
               {{ statistiques.timeSession }}
             </p>
-            <p>
-              TEMPS DE SESSION MOYEN SUR CAMINO PAR CHACUN DES UTILISATEURS
+            <p class="bold">
+              temps de session moyen sur camino par chacun des utilisateurs
             </p>
           </div>
         </div>
@@ -67,14 +67,14 @@
           Amélioration continue et accès aux données publiques
         </h2>
         <span class="separator" />
-        <p>En tant que que secteur régulé par l'État, la publication en ligne des données minières doit permettre leur amélioration et leur utilisation par la communauté</p>
+        <p>En tant que secteur régulé par l'État, la publication en ligne des données minières doit permettre leur amélioration et leur utilisation par la communauté</p>
         <div class="desktop-blobs">
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0 mt-xxl">
               {{ nbMajTitres }}
             </p>
-            <p>
-              MAJ DE TITRES MINIERS PAR L'ADMINISTRATION ET LES ENTREPRISES DU SECTEUR CE MOIS-CI
+            <p class="bold">
+              mise à jour de titres miniers par l'administration et les entreprises du secteur ce mois-ci
             </p>
           </div>
           <div class="desktop-blob-2-3">
@@ -88,7 +88,7 @@
                 :svg="_svg('nombre de mises à jour par mois')"
               />
               <p class="graph-title">
-                Le nombre de mises à jour mensuelles du cadastre par les différents services de l'administration ou par les professionnels du secteur reflète de dynamisme de l'instruction minière française. Une mise à jour peut être l'ajout d'un titre, une modification de son statut ou des documents concernant son instruction.
+                Le nombre de mises à jour mensuelles du cadastre par les différents services de l'administration ou par les professionnels du secteur reflète l'intensité de l'activité d'instruction et administrative sur le domaine minier en France. Une mise à jour peut être l'ajout d'un titre, une modification de son statut ou des documents concernant son instruction.
               </p>
             </div>
           </div>
@@ -96,20 +96,20 @@
             <p class="h0-graph mb-0">
               {{ statistiques.nbDonwload }}
             </p>
-            <p>
-              TÉLÉCHARGEMENTS DE PIÈCES RELATIVES À LA BONNE INSTRUCTION DES TITRES ET CONCESSIONS MINIÈRES CE MOIS-CI
+            <p class="bold">
+              téléchargements de pièces relatives à la bonne instruction des titres et autorisations miniers ce mois-ci
             </p>
             <p class="h0-graph mb-0">
-              150
+              {{ statistiques.nbErreur }}
             </p>
-            <p>
-              ERREURS CORRIGÉES SUR LES BASES DE DONNÉES DE L'ÉTAT GRÂCE À LA PARTICIPATION DES UTILISATEURS
+            <p class="bold">
+              erreurs corrigées sur les bases de données de l'État grâce à la participation des utilisateurs
             </p>
             <p class="h0-graph mb-0">
               6
             </p>
-            <p>
-              RÉUTILISATIONS CONNUES DES DONNÉES OUVERTES DISTRIBUÉES
+            <p class="bold">
+              réutilisations connues des données ouvertes distribuées
             </p>
           </div>
         </div>
@@ -129,8 +129,8 @@
             <p class="h0-graph mb-0">
               {{ nbDemarches }}
             </p>
-            <p>
-              DÉMARCHES EFFECTUÉES EN LIGNE CETTE ANNÉE
+            <p class="bold">
+              démarches effectuées en ligne cette années
             </p>
           </div>
           <div class="desktop-blob-1-3 text-center">
@@ -386,7 +386,6 @@ export default {
       // on veut obtenir
       // datasets = [{id:...,values:[[0,0],...[xPas*Index,'5706']],legend:['2018-09',...,'2020-08']}]
 
-      // const dataset = this.currentDataset(name)
       const dataset = { ...this.currentDataset(name) }
 
       let pas = -this.currentOption(name).legend.xPas

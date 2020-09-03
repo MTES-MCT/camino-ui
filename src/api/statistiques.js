@@ -18,6 +18,7 @@ const statistiques = apiFetch(gql`
       timeSession
       nbDonwload
       nbDemarche
+      nbErreur
     }
   }
 `)
