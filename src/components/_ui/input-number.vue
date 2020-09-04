@@ -1,10 +1,11 @@
 <template>
   <input
-    :value="value"
+    v-model="value"
     type="text"
     :min="min"
     :placeholder="placeholder"
     :class="{ 'mb-s': value, mb: !value }"
+    @change="control($event.target)"
   >
 </template>
 
@@ -20,8 +21,14 @@ export default {
     control(target) {
       const regex = /(^|[^\d.])0+\B/g
 
-      target.value = parseFloat(
-        target.value.replace(/,/g, '.').replace(/ */g, '').replace(regex, '$1')
+      this.$emit(
+        'input',
+        parseFloat(
+          target.value
+            .replace(/,/g, '.')
+            .replace(/ */g, '')
+            .replace(regex, '$1')
+        )
       )
     }
   }

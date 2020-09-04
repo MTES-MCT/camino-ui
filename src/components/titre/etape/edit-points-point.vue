@@ -51,26 +51,28 @@
       </div>
       <div class="mb tablet-blob-1-3">
         <h6>X ({{ geoSysteme.unite.nom }})</h6>
-        <input
+        <inputNumber
           v-model.trim.number="point.references[geoSysteme.id][0]"
-          type="text"
           class="p-s"
-        >
+        />
       </div>
       <div class="mb tablet-blob-1-3">
         <h6>Y ({{ geoSysteme.unite.nom }})</h6>
-        <input
+        <inputNumber
           v-model.trim.number="point.references[geoSysteme.id][1]"
-          type="text"
           class="p-s"
-        >
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import InputNumber from '../../_ui/input-number.vue'
+
 export default {
+  components: { InputNumber },
+
   props: {
     point: { type: Object, default: () => ({}) },
     etape: { type: Object, default: () => ({}) }
