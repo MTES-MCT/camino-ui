@@ -1,7 +1,7 @@
 <template>
   <input
-    v-model="value"
-    type="text"
+    :value="value"
+    type="number"
     :min="min"
     :placeholder="placeholder"
     :class="{ 'mb-s': value, mb: !value }"
@@ -12,7 +12,7 @@
 <script>
 export default {
   props: {
-    value: { type: String, default: '' },
+    value: { type: Number, default: 0 },
     min: { type: String, default: '' },
     placeholder: { type: String, default: '' }
   },
@@ -20,15 +20,9 @@ export default {
   methods: {
     control(target) {
       const regex = /(^|[^\d.])0+\B/g
-
       this.$emit(
         'input',
-        parseFloat(
-          target.value
-            .replace(/,/g, '.')
-            .replace(/ */g, '')
-            .replace(regex, '$1')
-        )
+        parseFloat(target.value.toString().replace(regex, '$1'))
       )
     }
   }

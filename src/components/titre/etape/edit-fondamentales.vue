@@ -96,35 +96,6 @@
     </div>
 
     <hr>
-
-    <!-- <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Surface (Km²)</h6>
-        <p class="h6 italic mb-0">
-          Optionnel
-        </p>
-      </div>
-      <div class="tablet-blob-2-3">
-        <input
-          v-model="etape.surface"
-          class="p-s"
-          type="text"
-          min="0"
-          placeholder="0"
-          :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
-          @change="control('etape', 'surface', 'number')"
-        >
-        <label
-          v-if="etape.surface"
-          class="h5"
-        >
-          <input
-            v-model="etape.incertitudes.surface"
-            type="checkbox"
-          >donnée incertaine
-        </label>
-      </div>
-    </div> -->
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Surface (Km²)</h6>
