@@ -50,6 +50,9 @@ export default {
     return {
       lib: {
         map(value, inMin, inMax, outMin, outMax) {
+          if (inMax === inMin) {
+            return 0
+          }
           return (
             ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin
           )

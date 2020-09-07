@@ -278,7 +278,7 @@ export default {
       const pasArray = [taille]
       let _pas = -pas
       for (let i = 0; i < taille; i++) {
-        pasArray[i] = (_pas += pas).toString()
+        pasArray[i] = Math.round((_pas += pas)).toString()
       }
       return pasArray
     },
