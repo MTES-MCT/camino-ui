@@ -1,19 +1,27 @@
 <template>
-  <Filters
-    v-if="loaded"
-    ref="filters"
-    button="Valider"
-    :filters.sync="filters"
-    :opened="opened"
-    title="Filtres"
-    @validate="validate"
-    @toggle="toggle"
-    @close="close"
-  />
-  <div
-    v-else
-    class="py-s px-m mb-s border rnd-s"
-  >
+  <div class="flex" v-if="loaded">
+    <Filters
+      class="flex-grow"
+      ref="filters"
+      button="Valider"
+      :filters.sync="filters"
+      :opened="opened"
+      title="Filtres"
+      @validate="validate"
+      @toggle="toggle"
+      @close="close"
+    />
+
+    <button
+      v-if="hasActiveFilters && !opened"
+      class="btn btn-border rnd-xs py-s px-s mb-s ml-s height-min-content"
+      title="Réinitialiser les filtres"
+      @click="filtersReset"
+    >
+      <i class="icon-24 icon-trash"></i>
+    </button>
+  </div>
+  <div v-else class="py-s px-m mb-s border rnd-s">
     …
   </div>
 </template>
@@ -47,6 +55,13 @@ export default {
 
         return filtre
       })
+    },
+
+    hasActiveFilters() {
+      return this.filtres.some(
+        filter =>
+          filter.value && filter.value !== '' && filter.value.length !== 0
+      )
     }
   },
 
@@ -65,6 +80,13 @@ export default {
       if (!from) {
         this.init()
       }
+    },
+
+    preferences: {
+      handler(to, from) {
+        this.init()
+      },
+      deep: true
     }
   },
 
@@ -150,6 +172,10 @@ export default {
           }
         }
       })
+    },
+
+    filtersReset() {
+      this.$emit('preferencesFiltres:reset')
     }
   }
 }

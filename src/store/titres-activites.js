@@ -3,6 +3,20 @@ import Vue from 'vue'
 import { activites, metasActivites } from '../api/titres-activites'
 import { paramsBuild } from './_utils'
 
+const filtresDefaultValue = {
+  typesIds: [],
+  statutsIds: [],
+  annees: [],
+  titresNoms: '',
+  titresEntreprises: '',
+  titresSubstances: '',
+  titresReferences: '',
+  titresTerritoires: '',
+  titresTypesIds: [],
+  titresDomainesIds: [],
+  titresStatutsIds: []
+}
+
 export const state = {
   list: [],
   total: 0,
@@ -46,19 +60,7 @@ export const state = {
       ordre: 'asc',
       colonne: null
     },
-    filtres: {
-      typesIds: [],
-      statutsIds: [],
-      annees: [],
-      titresNoms: '',
-      titresEntreprises: '',
-      titresSubstances: '',
-      titresReferences: '',
-      titresTerritoires: '',
-      titresTypesIds: [],
-      titresDomainesIds: [],
-      titresStatutsIds: []
-    }
+    filtres: { ...filtresDefaultValue }
   }
 }
 
@@ -109,6 +111,14 @@ export const actions = {
 
   preferencesSet({ commit }, { section, params }) {
     commit('preferencesSet', { section, params })
+  },
+
+  preferencesFiltresReset({ commit }) {
+    commit('preferencesSet', {
+      section: 'filtres',
+      params: { ...filtresDefaultValue }
+    })
+    commit('preferencesSet', { section: 'table', params: { page: 1 } })
   }
 }
 
