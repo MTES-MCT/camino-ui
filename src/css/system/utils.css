@@ -151,10 +151,6 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   vertical-align: text-bottom;
 }
 
-.height-min-content{
-  height: min-content;
-}
-
 .min-width-full {
   min-width: 100%;
 }

@@ -264,20 +264,4 @@ describe("état d'une activité", () => {
       store.state.titresActivites.preferences.filtres.activitesTypeIds
     ).toEqual('grp')
   })
-
-  test('réinitialise les preferences de filtre', async () => {
-    const section = 'filtres'
-    const params = { titresSubstances: 'or' }
-    await store.dispatch('titresActivites/preferencesSet', { section, params })
-
-    expect(
-      store.state.titresActivites.preferences.filtres.titresSubstances
-    ).toEqual('or')
-
-    await store.dispatch('titresActivites/preferencesFiltresReset')
-
-    expect(
-      store.state.titresActivites.preferences.filtres.titresSubstances
-    ).toEqual('')
-  })
 })

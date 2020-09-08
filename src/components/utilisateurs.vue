@@ -12,7 +12,6 @@
     :total="total"
     :loaded="metasLoaded"
     @preferences:update="preferencesUpdate"
-    @preferencesFiltres:reset="preferencesFiltresReset"
     @loaded="utilisateursLoad"
   >
     <button
@@ -95,7 +94,7 @@ export default {
     user: 'metasGet',
 
     preferences: {
-      handler: function() {
+      handler: function () {
         this.utilisateursGet()
       },
       deep: true
@@ -140,10 +139,6 @@ export default {
 
     async preferencesUpdate(options) {
       await this.$store.dispatch(`utilisateurs/preferencesSet`, options)
-    },
-
-    preferencesFiltresReset() {
-      this.$store.dispatch(`utilisateurs/preferencesFiltresReset`)
     },
 
     addPopupOpen() {

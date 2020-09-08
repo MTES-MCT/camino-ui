@@ -6,17 +6,23 @@
         class="tablet-blob-1-3 tablet-pt-s pb-s"
       >
         <h6>{{ element.nom }}</h6>
-        <p v-if=element.optionnel class="h6 italic mb-0">
+        <p
+          v-if="element.optionnel"
+          class="h6 italic mb-0"
+        >
           Optionnel
         </p>
       </div>
 
       <div
         class="mb"
-        :class="{'tablet-blob-2-3': element.nom, 'tablet-blob-1': !element.nom }"
+        :class="{
+          'tablet-blob-2-3': element.nom,
+          'tablet-blob-1': !element.nom
+        }"
       >
         <div v-if="modifiable">
-          <div :class="{ 'mb-s': element.description}">
+          <div :class="{ 'mb-s': element.description }">
             <input
               v-if="element.type === 'number'"
               v-model.number="contenu[element.id]"
@@ -73,9 +79,7 @@
               class="p-s mt-s mb-s"
             >
 
-            <div
-              v-else-if="element.type === 'checkboxes'"
-            >
+            <div v-else-if="element.type === 'checkboxes'">
               <label
                 v-for="value in valeurs"
                 :key="value.id"
@@ -84,13 +88,12 @@
                   v-model="contenu[element.id]"
                   type="checkbox"
                   :value="value.id"
-                >{{ value.nom }}
+                >
+                {{ value.nom }}
               </label>
             </div>
 
-            <div
-              v-else-if="element.type === 'select'"
-            >
+            <div v-else-if="element.type === 'select'">
               <select
                 v-if="valeurs && valeurs.length"
                 v-model="contenu[element.id]"

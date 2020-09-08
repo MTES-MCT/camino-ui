@@ -4,11 +4,35 @@
     :opened="opened"
     :sub="false"
     class="mb-s"
-    @close="close"
     @toggle="toggle"
   >
     <template slot="title">
       {{ title }}
+    </template>
+
+    <template
+      v-if="values.length"
+      slot="sub"
+    >
+      <div
+        class="p-m flex flex-start"
+        :class="{ 'border-b-s': opened }"
+      >
+        <div>
+          <span
+            v-for="v in values"
+            :key="`${v.id}-${v.nom}`"
+            class="rnd btn-flash h5 px-s py-xs bold mr-xs mb-xs"
+            @click="filterRemove(v)"
+          >{{ v.name }} : {{ v.nom || v.value }}</span>
+        </div>
+        <button
+          class="flex-right btn-alt p-s rnd-xs"
+          @click="filtersReset"
+        >
+          <i class="icon-24 icon-close" />
+        </button>
+      </div>
     </template>
 
     <div class="px-m">
@@ -85,6 +109,12 @@ export default {
     opened: { type: Boolean, default: false }
   },
 
+  data() {
+    return {
+      valuesInit: []
+    }
+  },
+
   computed: {
     inputs() {
       return this.filters.filter(({ type }) => type === 'input')
@@ -100,6 +130,25 @@ export default {
 
     customs() {
       return this.filters.filter(({ type }) => type === 'custom')
+    },
+
+    values() {
+      return this.filters.reduce((acc, f) => {
+        if (Array.isArray(f.value) && f.value.length) {
+          f.value.forEach(v => {
+            acc.push({
+              id: f.id,
+              name: f.name,
+              value: v,
+              nom: f.elements.find(e => e.id === v).nom
+            })
+          })
+        } else if (!Array.isArray(f.value) && f.value) {
+          acc.push({ id: f.id, name: f.name, value: f.value })
+        }
+
+        return acc
+      }, [])
     }
   },
 
@@ -114,26 +163,39 @@ export default {
       this.$emit('validate')
     },
 
-    close() {
-      if (this.$refs.button) {
-        this.$refs.button.focus()
-      }
-
-      this.$emit('close')
-    },
-
     toggle() {
       this.$emit('toggle')
     },
 
-    filtersReduce(filters, type) {
-      return Object.keys(filters).reduce(
-        (res, id) =>
-          filters[id].type === type
-            ? Object.assign(res, { [id]: filters[id] })
-            : res,
-        {}
-      )
+    filterRemove(v) {
+      const filter = this.filters.find(({ id }) => id === v.id)
+
+      if (Array.isArray(filter.value)) {
+        const index = filter.value.indexOf(v.value)
+        if (index > -1) {
+          filter.value.splice(index, 1)
+        }
+      } else {
+        filter.value = ''
+      }
+
+      if (!this.opened) {
+        this.validate()
+      }
+    },
+
+    filtersReset() {
+      this.filters.forEach(f => {
+        if (Array.isArray(f.value)) {
+          f.value = []
+        } else {
+          f.value = ''
+        }
+      })
+
+      if (!this.opened) {
+        this.validate()
+      }
     }
   }
 }

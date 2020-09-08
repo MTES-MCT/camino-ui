@@ -175,20 +175,4 @@ describe('liste des demarches', () => {
       'h'
     )
   })
-
-  test('reinitialise les preferences de filtre', async () => {
-    const section = 'filtres'
-    const params = { titresSubstances: 'or' }
-    await store.dispatch('titresDemarches/preferencesSet', { section, params })
-
-    expect(
-      store.state.titresDemarches.preferences.filtres.titresSubstances
-    ).toEqual('or')
-
-    store.dispatch('titresDemarches/preferencesFiltresReset')
-
-    expect(
-      store.state.titresDemarches.preferences.filtres.titresSubstances
-    ).toEqual('')
-  })
 })

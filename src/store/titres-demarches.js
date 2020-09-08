@@ -4,21 +4,6 @@ import { metasDemarches, demarches } from '../api/titres-demarches'
 
 import { paramsBuild } from './_utils'
 
-const filtresDefaultValue = {
-  typesIds: [],
-  statutsIds: [],
-  etapesInclues: [],
-  etapesExclues: [],
-  titresDomainesIds: [],
-  titresTypesIds: [],
-  titresStatutsIds: [],
-  titresNoms: '',
-  titresEntreprises: '',
-  titresSubstances: '',
-  titresReferences: '',
-  titresTerritoires: ''
-}
-
 export const state = {
   list: [],
   total: 0,
@@ -70,7 +55,20 @@ export const state = {
       ordre: 'asc',
       colonne: null
     },
-    filtres: { ...filtresDefaultValue }
+    filtres: {
+      typesIds: [],
+      statutsIds: [],
+      etapesInclues: [],
+      etapesExclues: [],
+      titresDomainesIds: [],
+      titresTypesIds: [],
+      titresStatutsIds: [],
+      titresNoms: '',
+      titresEntreprises: '',
+      titresSubstances: '',
+      titresReferences: '',
+      titresTerritoires: ''
+    }
   }
 }
 
@@ -119,14 +117,6 @@ export const actions = {
 
   preferencesSet({ commit }, { section, params }) {
     commit('preferencesSet', { section, params })
-  },
-
-  preferencesFiltresReset({ commit }) {
-    commit('preferencesSet', {
-      section: 'filtres',
-      params: { ...filtresDefaultValue }
-    })
-    commit('preferencesSet', { section: 'table', params: { page: 1 } })
   }
 }
 

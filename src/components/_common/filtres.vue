@@ -1,27 +1,18 @@
 <template>
-  <div class="flex" v-if="loaded">
-    <Filters
-      class="flex-grow"
-      ref="filters"
-      button="Valider"
-      :filters.sync="filters"
-      :opened="opened"
-      title="Filtres"
-      @validate="validate"
-      @toggle="toggle"
-      @close="close"
-    />
-
-    <button
-      v-if="hasActiveFilters && !opened"
-      class="btn btn-border rnd-xs py-s px-s mb-s ml-s height-min-content"
-      title="Réinitialiser les filtres"
-      @click="filtersReset"
-    >
-      <i class="icon-24 icon-trash"></i>
-    </button>
-  </div>
-  <div v-else class="py-s px-m mb-s border rnd-s">
+  <Filters
+    v-if="loaded"
+    class="flex-grow"
+    button="Valider"
+    :filters="filters"
+    :opened="opened"
+    title="Filtres"
+    @validate="validate"
+    @toggle="toggle"
+  />
+  <div
+    v-else
+    class="py-s px-m mb-s border rnd-s"
+  >
     …
   </div>
 </template>
@@ -55,20 +46,13 @@ export default {
 
         return filtre
       })
-    },
-
-    hasActiveFilters() {
-      return this.filtres.some(
-        filter =>
-          filter.value && filter.value !== '' && filter.value.length !== 0
-      )
     }
   },
 
   watch: {
     // si les metas changent (connexion / deconnexion user)
     metas: {
-      handler: function() {
+      handler: function () {
         if (this.loaded) {
           this.validate()
         }
@@ -76,17 +60,10 @@ export default {
       deep: true
     },
 
-    loaded: function(to, from) {
+    loaded: function (to, from) {
       if (!from) {
         this.init()
       }
-    },
-
-    preferences: {
-      handler(to, from) {
-        this.init()
-      },
-      deep: true
     }
   },
 
@@ -105,6 +82,8 @@ export default {
 
     toggle() {
       this.opened = !this.opened
+
+      this.init()
       this.$emit('toggle', this.opened)
     },
 
@@ -172,10 +151,6 @@ export default {
           }
         }
       })
-    },
-
-    filtersReset() {
-      this.$emit('preferencesFiltres:reset')
     }
   }
 }

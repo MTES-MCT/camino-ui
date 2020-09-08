@@ -170,7 +170,11 @@
       <hr>
     </div>
 
-    <div v-if="(document.typeId === 'dec' || document.typeId === 'arr') && modifiable">
+    <div
+      v-if="
+        (document.typeId === 'dec' || document.typeId === 'arr') && modifiable
+      "
+    >
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Jorf</h6>
@@ -189,7 +193,11 @@
       <hr>
     </div>
 
-    <div v-if="(document.typeId === 'dec' || document.typeId === 'arr') && modifiable">
+    <div
+      v-if="
+        (document.typeId === 'dec' || document.typeId === 'arr') && modifiable
+      "
+    >
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Nor</h6>
