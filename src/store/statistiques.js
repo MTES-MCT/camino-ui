@@ -61,6 +61,8 @@ export const mutations = {
     if (statistiques.nbDemarche)
       Vue.set(state, 'nbDemarche', statistiques.nbDemarche)
     if (statistiques.nbErreur) Vue.set(state, 'nbErreur', statistiques.nbErreur)
+    if (statistiques.nbReutilisation)
+      Vue.set(state, 'nbReutilisation', statistiques.nbReutilisation)
 
     Vue.set(state, 'loaded', true)
   }

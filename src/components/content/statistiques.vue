@@ -106,7 +106,7 @@
               erreurs corrigées sur les bases de données de l'État grâce à la participation des utilisateurs
             </p>
             <p class="h0-graph mb-0">
-              6
+              {{ statistiques.nbReutilisation }}
             </p>
             <p class="bold">
               réutilisations connues des données ouvertes distribuées
