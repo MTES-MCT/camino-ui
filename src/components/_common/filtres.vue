@@ -19,7 +19,7 @@
 
 <script>
 import Filters from '../_ui/filters.vue'
-import { idsClean } from './filtres'
+import { valuesClean } from './filtres'
 
 export default {
   components: { Filters },
@@ -116,7 +116,7 @@ export default {
           filtre.type === 'checkboxes'
         ) {
           // on crée une copie pour éviter les modifications par référence
-          value = idsClean(JSON.parse(JSON.stringify(filtre.value)))
+          value = valuesClean(JSON.parse(JSON.stringify(filtre.value)))
         } else {
           value = filtre.value
         }
@@ -138,17 +138,17 @@ export default {
         const preference = this.preferences[id]
         const filtre = this.filtres.find(filtre => filtre.id === id)
 
-        if (filtre) {
-          if (
-            (filtre.type === 'custom' ||
-              filtre.type === 'select' ||
-              filtre.type === 'checkboxes') &&
-            preference
-          ) {
-            filtre.value = JSON.parse(JSON.stringify(preference))
-          } else {
-            filtre.value = preference
-          }
+        if (!filtre) return
+
+        if (
+          (filtre.type === 'custom' ||
+            filtre.type === 'select' ||
+            filtre.type === 'checkboxes') &&
+          preference
+        ) {
+          filtre.value = JSON.parse(JSON.stringify(preference))
+        } else {
+          filtre.value = preference
         }
       })
     }

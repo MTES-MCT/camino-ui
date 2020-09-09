@@ -17,7 +17,7 @@ const etapesLabelFormat = f =>
 // supprime les clés dont les valeurs sont vides
 // et les objets vides
 const etapesClean = value => {
-  if (!value) return null
+  if (!value) return []
 
   const etapes = value.reduce((etapes, etape) => {
     // si le type d'étape n'est pas renseigné
@@ -41,7 +41,7 @@ const etapesClean = value => {
     return etapes
   }, [])
 
-  return etapes.length ? etapes : null
+  return etapes.length ? etapes : []
 }
 
 const filtres = [

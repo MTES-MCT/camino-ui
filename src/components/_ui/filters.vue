@@ -14,7 +14,6 @@
       v-if="labels.length"
       slot="sub"
     >
-      {{ filters.filter(f => f.type === 'custom').map(f => f.value) }}
       <div
         class="flex"
         :class="{ 'border-b-s': opened }"
