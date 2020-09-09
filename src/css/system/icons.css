@@ -18,6 +18,12 @@
   background-repeat: no-repeat;
 }
 
+.icon-16 {
+  width: calc(var(--unit) * 2 / 3);
+  height: calc(var(--unit) * 2 / 3);
+  display: block;
+}
+
 .icon-24 {
   width: var(--unit);
   height: var(--unit);
@@ -51,6 +57,8 @@
   );
 }
 
+.btn-flash .icon-close,
+.btn-flash:hover .icon-close,
 .btn-alt:hover .icon-close {
   background-image: svg-load(
     './icons/24-close.svg',
@@ -60,6 +68,10 @@
     stroke-linejoin=round,
     stroke-width=1.25px
   );
+}
+
+.icon-x {
+  background-image: svg-load('./icons/16-x.svg', fill= 'white');
 }
 
 .icon-plus {

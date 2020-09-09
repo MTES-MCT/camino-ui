@@ -4,6 +4,15 @@ import FiltresEtapes from './filtres-custom-etapes.vue'
 
 const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
 const etapesElementsFormat = (id, metas) => metas.etapesTypes
+const etapesLabelFormat = f =>
+  f.value.map(value => ({
+    id: f.id,
+    name: f.name,
+    value,
+    valueName: Object.keys(value)
+      .map(k => `${k} : ${value[k]}`)
+      .join(', ')
+  }))
 
 // supprime les clés dont les valeurs sont vides
 // et les objets vides
@@ -131,7 +140,8 @@ const filtres = [
     elements: [],
     component: FiltresEtapes,
     clean: etapesClean,
-    elementsFormat: etapesElementsFormat
+    elementsFormat: etapesElementsFormat,
+    labelFormat: etapesLabelFormat
   }
 ]
 

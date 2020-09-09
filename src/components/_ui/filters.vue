@@ -11,24 +11,25 @@
     </template>
 
     <template
-      v-if="values.length"
+      v-if="labels.length"
       slot="sub"
     >
+      {{ filters.filter(f => f.type === 'custom').map(f => f.value) }}
       <div
-        class="p-m flex flex-start"
+        class="flex"
         :class="{ 'border-b-s': opened }"
       >
-        <div>
+        <div class="px-m pt-m pb-s">
           <span
-            v-for="v in values"
-            :key="`${v.id}-${v.nom}`"
-            class="rnd btn-flash h5 px-s py-xs bold mr-xs mb-xs"
-            @click="filterRemove(v)"
-          >{{ v.name }} : {{ v.nom || v.value }}</span>
+            v-for="label in labels"
+            :key="`${label.id}-${label.valueName}`"
+            class="rnd-m box btn-flash h5 pl-s pr-xs py-xs bold mr-xs mb-xs"
+            @click="labelRemove(label)"
+          >{{ label.name }} : {{ label.valueName || label.value }} <span class="inline-block align-y-top ml-xs"><i class="icon-16 icon-x" /></span></span>
         </div>
         <button
-          class="flex-right btn-alt p-s rnd-xs"
-          @click="filtersReset"
+          class="flex-right btn-alt p-m"
+          @click="labelsReset"
         >
           <i class="icon-24 icon-close" />
         </button>
@@ -109,12 +110,6 @@ export default {
     opened: { type: Boolean, default: false }
   },
 
-  data() {
-    return {
-      valuesInit: []
-    }
-  },
-
   computed: {
     inputs() {
       return this.filters.filter(({ type }) => type === 'input')
@@ -132,19 +127,32 @@ export default {
       return this.filters.filter(({ type }) => type === 'custom')
     },
 
-    values() {
+    labels() {
       return this.filters.reduce((acc, f) => {
-        if (Array.isArray(f.value) && f.value.length) {
-          f.value.forEach(v => {
-            acc.push({
+        let labels = []
+
+        if (
+          (f.type === 'checkboxes' || f.type === 'select') &&
+          f.value.length
+        ) {
+          labels = f.value.map(v => {
+            const element = f.elements.find(e => e.id === v)
+
+            return {
               id: f.id,
               name: f.name,
               value: v,
-              nom: f.elements.find(e => e.id === v).nom
-            })
+              valueName: element && element.nom
+            }
           })
-        } else if (!Array.isArray(f.value) && f.value) {
-          acc.push({ id: f.id, name: f.name, value: f.value })
+        } else if (f.type === 'input' && f.value) {
+          labels = [{ id: f.id, name: f.name, value: f.value }]
+        } else if (f.type === 'custom' && f.value && f.value.length) {
+          labels = f.labelFormat(f)
+        }
+
+        if (labels.length) {
+          acc = acc.concat(labels)
         }
 
         return acc
@@ -167,13 +175,19 @@ export default {
       this.$emit('toggle')
     },
 
-    filterRemove(v) {
-      const filter = this.filters.find(({ id }) => id === v.id)
+    labelRemove(label) {
+      const filter = this.filters.find(({ id }) => id === label.id)
 
       if (Array.isArray(filter.value)) {
-        const index = filter.value.indexOf(v.value)
-        if (index > -1) {
-          filter.value.splice(index, 1)
+        if (
+          filter.type === 'checkboxes' ||
+          filter.type === 'select' ||
+          filter.type === 'custom'
+        ) {
+          const index = filter.value.indexOf(label.value)
+          if (index > -1) {
+            filter.value.splice(index, 1)
+          }
         }
       } else {
         filter.value = ''
@@ -184,7 +198,7 @@ export default {
       }
     },
 
-    filtersReset() {
+    labelsReset() {
       this.filters.forEach(f => {
         if (Array.isArray(f.value)) {
           f.value = []
