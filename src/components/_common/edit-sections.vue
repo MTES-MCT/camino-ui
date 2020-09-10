@@ -71,7 +71,7 @@ export default {
 
   watch: {
     contenu: {
-      handler: function (c) {
+      handler: function(c) {
         this.element.contenu =
           this.sections &&
           this.sections.reduce((contenu, section) => {
@@ -88,7 +88,7 @@ export default {
       deep: true
     },
 
-    completed: function (completed) {
+    completed: function(completed) {
       this.$emit('completed:update', completed)
     }
   },

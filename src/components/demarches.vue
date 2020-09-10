@@ -11,7 +11,6 @@
     :total="total"
     :loaded="metasLoaded"
     @preferences:update="preferencesUpdate"
-    @preferencesFiltres:reset="preferencesFiltresReset"
     @loaded="demarchesLoad"
   >
     <Downloads
@@ -81,7 +80,7 @@ export default {
     user: 'metasGet',
 
     preferences: {
-      handler: function() {
+      handler: function () {
         this.demarchesGet()
       },
       deep: true
@@ -121,10 +120,6 @@ export default {
       if (options.section === 'filtres') {
         this.eventTrack(options.params)
       }
-    },
-
-    preferencesFiltresReset() {
-      this.$store.dispatch('titresDemarches/preferencesFiltresReset')
     },
 
     eventTrack(params) {

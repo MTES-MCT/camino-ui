@@ -147,12 +147,8 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   overflow: hidden;
 }
 
-.align-y-bottom {
-  vertical-align: text-bottom;
-}
-
-.height-min-content{
-  height: min-content;
+.align-y-top {
+  vertical-align: text-top;
 }
 
 .min-width-full {

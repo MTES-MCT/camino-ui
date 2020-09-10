@@ -1,10 +1,10 @@
-// supprime les id vides
-const idsClean = value => {
-  if (!value) return null
+// supprime les valeurs vides
+const valuesClean = values => {
+  if (!values) return []
 
-  value = value.filter(v => v !== '')
+  values = values.filter(v => v !== '')
 
-  return value
+  return values
 }
 
-export { idsClean }
+export { valuesClean }

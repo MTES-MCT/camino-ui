@@ -1,12 +1,14 @@
 <template>
-  <div class="flex flex-direction-column relative dropdown">
-    <div class="absolute rnd-s border bg-bg full-x overflow-hidden">
+  <div class="flex flex-direction-column dropdown">
+    <div class="rnd-s border bg-bg full-x overflow-hidden">
       <button
         :class="{
           'rnd-t-s': opened || $slots.sub,
-          'rnd-s': !opened && !$slots.sub
+          'rnd-s': !opened && !$slots.sub,
+          'border-b-s': opened || $slots.sub
+
         }"
-        class="accordion-header flex btn-border py-s px-m full-x"
+        class="accordion-header flex btn-alt py-s px-m full-x"
         @click="openToggle"
       >
         <div>

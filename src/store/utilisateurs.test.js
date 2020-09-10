@@ -242,20 +242,4 @@ describe('liste des utilisateurs', () => {
       'admin'
     )
   })
-
-  test('réinitialise les preferences de filtre', async () => {
-    const section = 'filtres'
-    const params = { permissionIds: ['admin'] }
-    await store.dispatch('utilisateurs/preferencesSet', { section, params })
-
-    expect(store.state.utilisateurs.preferences.filtres.permissionIds).toEqual([
-      'admin'
-    ])
-
-    store.dispatch('utilisateurs/preferencesFiltresReset')
-
-    expect(store.state.utilisateurs.preferences.filtres.permissionIds).toEqual(
-      []
-    )
-  })
 })

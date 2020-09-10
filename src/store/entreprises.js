@@ -2,10 +2,6 @@ import Vue from 'vue'
 import { entreprises } from '../api/entreprises'
 import { paramsBuild } from './_utils'
 
-const filtresDefaultValue = {
-  noms: ''
-}
-
 export const state = {
   list: [],
   total: 0,
@@ -32,7 +28,7 @@ export const state = {
       colonne: null
     },
     filtres: {
-      ...filtresDefaultValue
+      noms: ''
     }
   }
 }
@@ -69,14 +65,6 @@ export const actions = {
 
   preferencesSet({ commit }, { section, params }) {
     commit('preferencesSet', { section, params })
-  },
-
-  preferencesFiltresReset({ commit }) {
-    commit('preferencesSet', {
-      section: 'filtres',
-      params: { ...filtresDefaultValue }
-    })
-    commit('preferencesSet', { section: 'table', params: { page: 1 } })
   }
 }
 
