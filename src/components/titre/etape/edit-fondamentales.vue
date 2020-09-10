@@ -90,8 +90,7 @@
           <input
             v-model="etape.incertitudes.dateFin"
             type="checkbox"
-          >donnée
-          incertaine
+          >donnée incertaine
         </label>
       </div>
     </div>
