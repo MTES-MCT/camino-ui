@@ -19,7 +19,7 @@
               min="0"
               placeholder="années"
               class="p-s mb-s"
-            >
+            />
           </div>
           <div class="tablet-blob-1-2">
             <input
@@ -28,22 +28,17 @@
               min="0"
               placeholder="mois"
               class="p-s"
-            >
+            />
           </div>
         </div>
-        <label
-          v-if="etape.duree.ans || etape.duree.mois"
-          class="h5"
-        >
-          <input
-            v-model="etape.incertitudes.duree"
-            type="checkbox"
-          >donnée incertaine
+        <label v-if="etape.duree.ans || etape.duree.mois" class="h5">
+          <input v-model="etape.incertitudes.duree" type="checkbox" />donnée
+          incertaine
         </label>
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -57,19 +52,14 @@
           v-model="etape.dateDebut"
           :class="{ 'mb-s': etape.dateDebut, mb: !etape.dateDebut }"
         />
-        <label
-          v-if="etape.dateDebut"
-          class="h5"
-        >
-          <input
-            v-model="etape.incertitudes.dateDebut"
-            type="checkbox"
-          >donnée incertaine
+        <label v-if="etape.dateDebut" class="h5">
+          <input v-model="etape.incertitudes.dateDebut" type="checkbox" />donnée
+          incertaine
         </label>
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -83,19 +73,14 @@
           v-model="etape.dateFin"
           :class="{ 'mb-s': etape.dateFin, mb: !etape.dateFin }"
         />
-        <label
-          v-if="etape.dateFin"
-          class="h5"
-        >
-          <input
-            v-model="etape.incertitudes.dateFin"
-            type="checkbox"
-          >donnée incertaine
+        <label v-if="etape.dateFin" class="h5">
+          <input v-model="etape.incertitudes.dateFin" type="checkbox" />donnée
+          incertaine
         </label>
       </div>
     </div>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Surface (Km²)</h6>
@@ -111,10 +96,14 @@
           placeholder="0"
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
         />
+        <label v-if="etape.surface" class="h5">
+          <input v-model="etape.incertitudes.surface" type="checkbox" />donnée
+          incertaine
+        </label>
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <h3 class="mb-s">
       Titulaires
@@ -130,10 +119,7 @@
         class="flex"
         :class="{ 'mb-s': titulairesLength, mb: !titulairesLength }"
       >
-        <select
-          v-model="etape.titulaires[n]"
-          class="p-s mr-s"
-        >
+        <select v-model="etape.titulaires[n]" class="p-s mr-s">
           <option
             v-for="entreprise in entreprises"
             :key="`titulaire-${titulaire.id}-entreprise-${entreprise.id}`"
@@ -143,10 +129,7 @@
             {{ `${entreprise.nom} (${entreprise.id})` }}
           </option>
         </select>
-        <button
-          class="btn py-s px-m rnd-xs"
-          @click="titulaireRemove(n)"
-        >
+        <button class="btn py-s px-m rnd-xs" @click="titulaireRemove(n)">
           <i class="icon-24 icon-minus" />
         </button>
       </div>
@@ -158,19 +141,15 @@
       :class="{ 'mb-s': titulairesLength, mb: !titulairesLength }"
       @click="titulaireAdd"
     >
-      <span class="mt-xxs">Ajouter un titulaire</span><i class="icon-24 icon-plus flex-right" />
+      <span class="mt-xxs">Ajouter un titulaire</span
+      ><i class="icon-24 icon-plus flex-right" />
     </button>
 
-    <label
-      v-if="titulairesLength"
-      class="h5"
-    >
-      <input
-        v-model="etape.incertitudes.titulaires"
-        type="checkbox"
-      >donnée incertaine
+    <label v-if="titulairesLength" class="h5">
+      <input v-model="etape.incertitudes.titulaires" type="checkbox" />donnée
+      incertaine
     </label>
-    <hr>
+    <hr />
 
     <h3 class="mb-s">
       Amodiataires
@@ -186,10 +165,7 @@
         class="flex"
         :class="{ 'mb-s': amodiatairesLength, mb: !amodiatairesLength }"
       >
-        <select
-          v-model="etape.amodiataires[n]"
-          class="p-s mr-s"
-        >
+        <select v-model="etape.amodiataires[n]" class="p-s mr-s">
           <option
             v-for="entreprise in entreprises"
             :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
@@ -199,10 +175,7 @@
             {{ entreprise.nom }} ({{ entreprise.id }})
           </option>
         </select>
-        <button
-          class="btn py-s px-m rnd-xs"
-          @click="amodiataireRemove(n)"
-        >
+        <button class="btn py-s px-m rnd-xs" @click="amodiataireRemove(n)">
           <i class="icon-24 icon-minus" />
         </button>
       </div>
@@ -214,19 +187,15 @@
       :class="{ 'mb-s': amodiatairesLength, mb: !amodiatairesLength }"
       @click="amodiataireAdd"
     >
-      <span class="mt-xxs">Ajouter un amodiataire</span><i class="icon-24 icon-plus flex-right" />
+      <span class="mt-xxs">Ajouter un amodiataire</span
+      ><i class="icon-24 icon-plus flex-right" />
     </button>
 
-    <label
-      v-if="amodiatairesLength"
-      class="h5"
-    >
-      <input
-        v-model="etape.incertitudes.amodiataires"
-        type="checkbox"
-      >donnée incertaine
+    <label v-if="amodiatairesLength" class="h5">
+      <input v-model="etape.incertitudes.amodiataires" type="checkbox" />donnée
+      incertaine
     </label>
-    <hr>
+    <hr />
 
     <h3 class="mb-s">
       Substances
@@ -234,23 +203,17 @@
     <p class="h6 italic mb-s">
       Optionnel
     </p>
-    <div
-      v-for="(substance, n) in etape.substances"
-      :key="n"
-    >
+    <div v-for="(substance, n) in etape.substances" :key="n">
       <div
         class="flex"
         :class="{ 'mb-s': substancesLength, mb: !substancesLength }"
       >
-        <select
-          v-model="etape.substances[n]"
-          class="p-s mr-s"
-        >
+        <select v-model="etape.substances[n]" class="p-s mr-s">
           <option
             v-for="s in substances"
             :key="s.id"
             :value="{ id: s.id }"
-            :disabled="etape.substances.find(({id}) => id === s.id)"
+            :disabled="etape.substances.find(({ id }) => id === s.id)"
           >
             {{ s.nom }}
           </option>
@@ -264,14 +227,18 @@
         </button>
         <button
           v-if="substancesLength && n > 0 && etape.substances[n].id"
-          :class="{ 'rnd-l-xs': !(substancesLength && n + 1 < substancesLength) }"
+          :class="{
+            'rnd-l-xs': !(substancesLength && n + 1 < substancesLength)
+          }"
           class="btn-border py-s px-m"
           @click="substanceMoveUp(n)"
         >
           <i class="icon-24 icon-move-up" />
         </button>
         <button
-          :class="{ 'rnd-l-xs': !etape.substances[n].id || substancesLength === 1 }"
+          :class="{
+            'rnd-l-xs': !etape.substances[n].id || substancesLength === 1
+          }"
           class="btn py-s px-m rnd-r-xs"
           @click="substanceRemove(n)"
         >
@@ -286,19 +253,15 @@
       :class="{ 'mb-s': substancesLength, mb: !substancesLength }"
       @click="substanceAdd"
     >
-      <span class="mt-xxs">Ajouter une substance</span><i class="icon-24 icon-plus flex-right" />
+      <span class="mt-xxs">Ajouter une substance</span
+      ><i class="icon-24 icon-plus flex-right" />
     </button>
 
-    <label
-      v-if="substancesLength"
-      class="h5"
-    >
-      <input
-        v-model="etape.incertitudes.substances"
-        type="checkbox"
-      >donnée incertaine
+    <label v-if="substancesLength" class="h5">
+      <input v-model="etape.incertitudes.substances" type="checkbox" />donnée
+      incertaine
     </label>
-    <hr>
+    <hr />
   </div>
 </template>
 
@@ -373,19 +336,6 @@ export default {
       const substance = this.etape.substances[n]
       this.etape.substances.splice(n, 1)
       this.etape.substances.splice(n - 1, 0, substance)
-    },
-
-    control(el, field, type) {
-      if (type === 'number') {
-        const regex = /(^|[^\d.])0+\B/g
-
-        this[el][field] = parseFloat(
-          this[el][field]
-            .replace(/,/g, '.')
-            .replace(/ */g, '')
-            .replace(regex, '$1')
-        )
-      }
     }
   }
 }
