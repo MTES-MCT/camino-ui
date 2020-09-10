@@ -38,8 +38,7 @@
           <input
             v-model="etape.incertitudes.duree"
             type="checkbox"
-          >donnée
-          incertaine
+          >donnée incertaine
         </label>
       </div>
     </div>
@@ -65,8 +64,7 @@
           <input
             v-model="etape.incertitudes.dateDebut"
             type="checkbox"
-          >donnée
-          incertaine
+          >donnée incertaine
         </label>
       </div>
     </div>
