@@ -36,7 +36,7 @@ export const mutations = {
       Vue.set(state, 'statistiquesGlobales', statistiquesGlobales)
     }
     if (data.tbGuyane) {
-      const tbGuyane = { ...data.statistiquesGlobales }
+      const tbGuyane = { ...data.tbGuyane }
       tbGuyane.loaded = true
       Vue.set(state, 'tbGuyane', tbGuyane)
     }
