@@ -12,7 +12,12 @@
 </template>
 
 <script>
-import { leafletMap, leafletTileLayerDefault, leafletScaleAdd } from './map.js'
+import {
+  leafletMap,
+  leafletTileLayerDefault,
+  leafletScaleAdd,
+  leafletFeatureGroupGet
+} from './map.js'
 
 export default {
   props: {
@@ -25,7 +30,7 @@ export default {
     return {
       map: null,
       zoom: 0,
-      preventMoveend: false,
+      moveendPrevent: false,
       layers: {
         tiles: {},
         geojsons: [],
@@ -53,9 +58,10 @@ export default {
       this.map = leafletMap(this.$refs.map)
 
       this.map.on('moveend', () => {
-        if (this.preventMoveend) {
-          this.preventMoveend = false
+        if (this.moveendPrevent) {
+          this.moveendPrevent = false
         } else {
+          console.log('movend')
           const center = [this.map.getCenter().lat, this.map.getCenter().lng]
           const zoom = this.map.getZoom()
           this.zoom = zoom
@@ -81,6 +87,11 @@ export default {
       this.map.fitBounds(bounds)
     },
 
+    fitBoundsPrevent(bounds) {
+      this.moveendPrevent = true
+      this.fitBounds(bounds)
+    },
+
     centerSet(center) {
       if (JSON.stringify(center) !== JSON.stringify(this.center)) {
         this.map.panTo(center)
@@ -94,7 +105,7 @@ export default {
     },
 
     positionSet({ zoom, center }) {
-      this.preventMoveend = true
+      this.moveendPrevent = true
       this.map.setView(center, zoom)
       this.zoom = zoom
 
@@ -158,6 +169,10 @@ export default {
       })
 
       this.markersAdd()
+    },
+
+    markersFeatureGroupGet() {
+      return leafletFeatureGroupGet(this.layers.markers)
     }
   }
 }

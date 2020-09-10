@@ -67,7 +67,7 @@
             />
           </div>
         </div>
-        <div class="p-m h6 bold mb-xs">
+        <div class="pl-m pt-m h6 bold">
           {{ resultat }}
         </div>
       </div>
@@ -178,13 +178,14 @@ export default {
     user: 'metasGet',
 
     preferences: {
-      handler: function(to, from) {
+      handler: function (to, from) {
+        console.log('titres watch preferences -> titresGet')
         this.titresGet()
       },
       deep: true
     },
 
-    vue: function(vue) {
+    vue: function (vue) {
       // si la vue est 'carte'
       // le composant `map.vue` emet un event `perimetre`
       // qui met à jour les préférences utilisateurs

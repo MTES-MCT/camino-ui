@@ -86,6 +86,13 @@ export const actions = {
           Object.assign({}, state.preferences.filtres, state.preferences.carte)
         )
 
+        console.log(
+          'titresGet',
+          params,
+          state.preferences.filtres,
+          state.preferences.carte
+        )
+
         data = await titresGeo(params)
       } else {
         const params = paramsBuild(
@@ -104,7 +111,7 @@ export const actions = {
     }
   },
 
-  preferencesSet({ commit }, { section, params }) {
+  async preferencesSet({ commit }, { section, params }) {
     commit('preferencesSet', { section, params })
   },
 

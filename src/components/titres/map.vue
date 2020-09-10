@@ -18,15 +18,25 @@
     />
     <div class="container overflow-auto">
       <div class="desktop-blobs">
-        <div class="desktop-blob-1-2">
-          <ul class="list-inline">
+        <div class="desktop-blob-1-2 desktop-flex">
+          <div class="mb-s">
+            <span class="mr-s">
+              <button
+                class="btn-border rnd-m px-s py-xs h5"
+                @click="mapFrame"
+              >
+                Tout afficher
+              </button>
+            </span>
+          </div>
+          <ul class="list-inline pill-list mb-s">
             <li
               v-for="z in zones"
               :key="z.id"
-              class="mr-xs"
+              class="mr-line mb-line"
             >
               <button
-                class="btn-border pill px-m py-s h5"
+                class="btn-border pill-item px-s py-xs h5"
                 @click="mapCenter(z.id)"
               >
                 {{ z.name }}
@@ -34,34 +44,42 @@
             </li>
           </ul>
         </div>
-        <div class="desktop-blob-1-2 flex flex-start mb-s">
-          <div :class="{ active: markerLayersId === 'clusters' }">
-            <button
-              class="btn-border p-s rnd-l-s"
-              @click="markerLayersIdSet('clusters')"
+        <div class="desktop-blob-1-2 desktop-flex mb-s">
+          <div class="flex mb-s">
+            <div :class="{ active: markerLayersId === 'clusters' }">
+              <button
+                class="btn-border p-s rnd-l-s"
+                title="regroupe les marqueurs"
+                @click="markerLayersIdSet('clusters')"
+              >
+                <i
+                  class="icon-24 icon-markers-clusters"
+                />
+              </button>
+            </div>
+            <div :class="{ active: markerLayersId === 'markers' }">
+              <button
+                class="btn-border p-s"
+                title="affiche les marqueurs"
+                @click="markerLayersIdSet('markers')"
+              >
+                <i class="icon-24 icon-markers-markers" />
+              </button>
+            </div>
+            <div
+              :class="{ active: markerLayersId === 'none' }"
+              class="mr-s"
             >
-              <i class="icon-24 icon-markers-clusters" />
-            </button>
+              <button
+                class="btn-border p-s rnd-r-s"
+                title="affiche les contours uniquement"
+                @click="markerLayersIdSet('none')"
+              >
+                <i class="icon-24 icon-markers-none" />
+              </button>
+            </div>
           </div>
-          <div :class="{ active: markerLayersId === 'markers' }">
-            <button
-              class="btn-border p-s"
-              @click="markerLayersIdSet('markers')"
-            >
-              <i class="icon-24 icon-markers-markers" />
-            </button>
-          </div>
-          <div
-            :class="{ active: markerLayersId === 'none' }"
-            class="mr-s"
-          >
-            <button
-              class="btn-border p-s rnd-r-s"
-              @click="markerLayersIdSet('none')"
-            >
-              <i class="icon-24 icon-markers-none" />
-            </button>
-          </div>
+
           <MapTilesSelector
             :tiles="tiles"
             :tiles-id="tilesId"
@@ -200,6 +218,7 @@ export default {
     },
 
     titresPreferencesUpdate(params) {
+      console.log('titresPreferencesUpdate')
       if (params.center || params.zoom || params.bbox) {
         if (params.center) {
           params.centre = params.center
@@ -234,6 +253,22 @@ export default {
       }
 
       this.boundsFit()
+    },
+
+    async mapFrame() {
+      console.log('------------------------------------------')
+      const params = { perimetre: [-180, -90, 180, 90] }
+
+      await this.$store.dispatch('titres/preferencesSet', {
+        section: 'carte',
+        params
+      })
+
+      setTimeout(() => {
+        const featureGroup = this.$refs.map.markersFeatureGroupGet()
+
+        this.$refs.map.fitBounds(featureGroup.getBounds())
+      }, 1000)
     },
 
     boundsFit() {

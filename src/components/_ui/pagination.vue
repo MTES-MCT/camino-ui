@@ -3,7 +3,7 @@
     v-if="total > 1"
     class="list-inline"
   >
-    <li class="mb-0 mr-xs">
+    <li class="mr-xs">
       <button
         :disabled="active === 1"
         class="btn-border rnd-xs px-m py-s"
@@ -12,7 +12,7 @@
         «
       </button>
     </li>
-    <li class="mb-0 mr-xs">
+    <li class="mr-xs">
       <button
         :disabled="active === 1"
         class="btn-border rnd-xs px-m py-s"
@@ -23,7 +23,7 @@
     </li>
     <li
       v-if="active > delta + 1"
-      class="mb-0 mr-xs"
+      class="mr-xs"
     >
       <div class="px-m py-s">
         …
@@ -33,7 +33,7 @@
       v-for="page in pages"
       :key="page"
       :class="{ active: active === page }"
-      class="mb-0 mr-xs"
+      class="mr-xs"
     >
       <button
         class="btn-border rnd-xs px-m py-s"
@@ -44,13 +44,13 @@
     </li>
     <li
       v-if="active < total - delta"
-      class="mb-0 mr-xs"
+      class="mr-xs"
     >
       <div class="px-m py-s">
         …
       </div>
     </li>
-    <li class="mb-0 mr-xs">
+    <li class="mr-xs">
       <button
         :disabled="active === total"
         class="btn-border rnd-xs px-m py-s"
@@ -59,7 +59,7 @@
         ›
       </button>
     </li>
-    <li class="mb-0 mr-xs">
+    <li class="mr-xs">
       <button
         :disabled="active === total"
         class="btn-border rnd-xs px-m py-s"
