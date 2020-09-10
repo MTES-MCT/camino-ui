@@ -96,7 +96,6 @@
     </div>
 
     <hr>
-
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Surface (Km²)</h6>
@@ -105,14 +104,13 @@
         </p>
       </div>
       <div class="tablet-blob-2-3">
-        <input
+        <inputNumber
           v-model.number="etape.surface"
           class="p-s"
-          type="number"
           min="0"
           placeholder="0"
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
-        >
+        />
         <label
           v-if="etape.surface"
           class="h5"
@@ -261,7 +259,7 @@
             v-for="s in substances"
             :key="s.id"
             :value="{ id: s.id }"
-            :disabled="etape.substances.find(({id}) => id === s.id)"
+            :disabled="etape.substances.find(({ id }) => id === s.id)"
           >
             {{ s.nom }}
           </option>
@@ -275,14 +273,18 @@
         </button>
         <button
           v-if="substancesLength && n > 0 && etape.substances[n].id"
-          :class="{ 'rnd-l-xs': !(substancesLength && n + 1 < substancesLength) }"
+          :class="{
+            'rnd-l-xs': !(substancesLength && n + 1 < substancesLength)
+          }"
           class="btn-border py-s px-m"
           @click="substanceMoveUp(n)"
         >
           <i class="icon-24 icon-move-up" />
         </button>
         <button
-          :class="{ 'rnd-l-xs': !etape.substances[n].id || substancesLength === 1 }"
+          :class="{
+            'rnd-l-xs': !etape.substances[n].id || substancesLength === 1
+          }"
           class="btn py-s px-m rnd-r-xs"
           @click="substanceRemove(n)"
         >
@@ -315,9 +317,10 @@
 
 <script>
 import InputDate from '../../_ui/input-date.vue'
+import InputNumber from '../../_ui/input-number.vue'
 
 export default {
-  components: { InputDate },
+  components: { InputDate, InputNumber },
 
   props: {
     etape: { type: Object, default: () => ({}) },
