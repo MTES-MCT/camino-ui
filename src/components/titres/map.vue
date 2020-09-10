@@ -218,7 +218,6 @@ export default {
     },
 
     titresPreferencesUpdate(params) {
-      console.log('titresPreferencesUpdate')
       if (params.center || params.zoom || params.bbox) {
         if (params.center) {
           params.centre = params.center
@@ -256,7 +255,6 @@ export default {
     },
 
     async mapFrame() {
-      console.log('------------------------------------------')
       const params = { perimetre: [-180, -90, 180, 90] }
 
       await this.$store.dispatch('titres/preferencesSet', {
@@ -264,11 +262,9 @@ export default {
         params
       })
 
-      setTimeout(() => {
-        const featureGroup = this.$refs.map.markersFeatureGroupGet()
+      const featureGroup = this.$refs.map.markersFeatureGroupGet()
 
-        this.$refs.map.fitBounds(featureGroup.getBounds())
-      }, 1000)
+      this.$refs.map.fitBounds(featureGroup.getBounds())
     },
 
     boundsFit() {

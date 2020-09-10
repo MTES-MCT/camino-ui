@@ -61,7 +61,6 @@ export default {
         if (this.moveendPrevent) {
           this.moveendPrevent = false
         } else {
-          console.log('movend')
           const center = [this.map.getCenter().lat, this.map.getCenter().lng]
           const zoom = this.map.getZoom()
           this.zoom = zoom
