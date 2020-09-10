@@ -118,8 +118,7 @@
           <input
             v-model="etape.incertitudes.surface"
             type="checkbox"
-          >donnée
-          incertaine
+          >donnée incertaine
         </label>
       </div>
     </div>
@@ -178,8 +177,7 @@
       <input
         v-model="etape.incertitudes.titulaires"
         type="checkbox"
-      >donnée
-      incertaine
+      >donnée incertaine
     </label>
     <hr>
 
@@ -235,8 +233,7 @@
       <input
         v-model="etape.incertitudes.amodiataires"
         type="checkbox"
-      >donnée
-      incertaine
+      >donnée incertaine
     </label>
     <hr>
 
@@ -312,8 +309,7 @@
       <input
         v-model="etape.incertitudes.substances"
         type="checkbox"
-      >donnée
-      incertaine
+      >donnée incertaine
     </label>
     <hr>
   </div>
