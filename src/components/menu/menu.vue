@@ -123,6 +123,23 @@
                 Glossaire
               </div>
             </li>
+            <li>
+              <RouterLink
+                v-if="$route.name !== 'statistiques'"
+                id="cmn-menu-menu-a-statistiques"
+                :to="{ name: 'statistiques' }"
+                class="btn-menu text-decoration-none bold"
+                @click.native="eventTrack('statistiques')"
+              >
+                Statistiques
+              </RouterLink>
+              <div
+                v-else
+                class="bold color-neutral"
+              >
+                Statistiques
+              </div>
+            </li>
           </ul>
         </div>
       </div>

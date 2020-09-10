@@ -52,11 +52,6 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/statistiques">
-            Statistiques
-          </router-link>
-        </li>
-        <li>
           <a
             href="https://trello.com/b/cwXWMqGz/camino-roadmap-ouverte"
             target="_blank"

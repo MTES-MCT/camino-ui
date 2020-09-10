@@ -2,15 +2,8 @@ import Vue from 'vue'
 import { statistiques } from '../api/statistiques'
 
 export const state = {
-  titresActivitesBeneficesEntreprise: 0,
-  titresActivitesBeneficesAdministration: 0,
-  nbSearchArray: [],
-  nbMajTitresArray: [],
-  nbAction: 0,
-  timeSession: '',
-  nbDonwload: 0,
-  nbDemarche: 0,
-  nbErreur: 0,
+  statistiquesGlobales: {},
+  tbGuyane: {},
   loaded: false
 }
 
@@ -36,33 +29,17 @@ export const actions = {
 }
 
 export const mutations = {
-  set(state, statistiques) {
-    if (statistiques.titresActivitesBeneficesEntreprise)
-      Vue.set(
-        state,
-        'titresActivitesBeneficesEntreprise',
-        statistiques.titresActivitesBeneficesEntreprise
-      )
-    if (statistiques.titresActivitesBeneficesAdministration)
-      Vue.set(
-        state,
-        'titresActivitesBeneficesAdministration',
-        statistiques.titresActivitesBeneficesAdministration
-      )
-    if (statistiques.nbSearchArray)
-      Vue.set(state, 'nbSearchArray', statistiques.nbSearchArray)
-    if (statistiques.nbMajTitresArray)
-      Vue.set(state, 'nbMajTitresArray', statistiques.nbMajTitresArray)
-    if (statistiques.nbAction) Vue.set(state, 'nbAction', statistiques.nbAction)
-    if (statistiques.timeSession)
-      Vue.set(state, 'timeSession', statistiques.timeSession)
-    if (statistiques.nbDonwload)
-      Vue.set(state, 'nbDonwload', statistiques.nbDonwload)
-    if (statistiques.nbDemarche)
-      Vue.set(state, 'nbDemarche', statistiques.nbDemarche)
-    if (statistiques.nbErreur) Vue.set(state, 'nbErreur', statistiques.nbErreur)
-
-    Vue.set(state, 'loaded', true)
+  set(state, data) {
+    if (data.statistiquesGlobales) {
+      const statistiquesGlobales = { ...data.statistiquesGlobales }
+      statistiquesGlobales.loaded = true
+      Vue.set(state, 'statistiquesGlobales', statistiquesGlobales)
+    }
+    if (data.tbGuyane) {
+      const tbGuyane = { ...data.statistiquesGlobales }
+      tbGuyane.loaded = true
+      Vue.set(state, 'tbGuyane', tbGuyane)
+    }
   }
 }
 
