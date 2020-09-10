@@ -130,7 +130,8 @@ const filtres = [
     elements: [],
     component: FiltresEtapes,
     clean: etapesClean,
-    elementsFormat: etapesElementsFormat
+    elementsFormat: etapesElementsFormat,
+    labelFormat: etapesLabelFormat
   },
   {
     id: 'etapesExclues',

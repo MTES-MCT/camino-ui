@@ -146,7 +146,12 @@ export default {
           })
         } else if (f.type === 'input' && f.value) {
           labels = [{ id: f.id, name: f.name, value: f.value }]
-        } else if (f.type === 'custom' && f.value && f.value.length) {
+        } else if (
+          f.type === 'custom' &&
+          f.value &&
+          f.value.length &&
+          f.labelFormat
+        ) {
           labels = f.labelFormat(f)
         }
 
