@@ -129,6 +129,13 @@ export const actions = {
     if (Object.keys(paramsNew).length) {
       commit('preferencesSet', { section, params: paramsNew })
 
+      if (
+        section === 'carte' &&
+        !Object.keys(paramsNew).includes('perimetre')
+      ) {
+        return
+      }
+
       await dispatch('get')
     }
   },

@@ -30,7 +30,7 @@ export default {
     return {
       map: null,
       zoom: 0,
-      moveendPrevent: false,
+      updateBboxOnly: false,
       layers: {
         tiles: {},
         geojsons: [],
@@ -58,8 +58,11 @@ export default {
       this.map = leafletMap(this.$refs.map)
 
       this.map.on('moveend', () => {
-        if (this.moveendPrevent) {
-          this.moveendPrevent = false
+        if (this.updateBboxOnly) {
+          this.updateBboxOnly = false
+          const bbox = this.boundsGet()
+
+          this.$emit('map:update', { bbox })
         } else {
           const center = [this.map.getCenter().lat, this.map.getCenter().lng]
           const zoom = this.map.getZoom()
@@ -82,19 +85,14 @@ export default {
       this.zoom = this.map.getZoom()
     },
 
-    fitBounds(bounds) {
+    boundsFit(bounds) {
       this.map.fitBounds(bounds)
     },
 
-    fitBoundsPrevent(bounds) {
-      this.moveendPrevent = true
-      this.fitBounds(bounds)
-    },
+    allFit(bounds) {
+      const featureGroup = this.markersFeatureGroupGet()
 
-    centerSet(center) {
-      if (JSON.stringify(center) !== JSON.stringify(this.center)) {
-        this.map.panTo(center)
-      }
+      this.boundsFit(featureGroup.getBounds())
     },
 
     zoomSet(zoom) {
@@ -104,13 +102,9 @@ export default {
     },
 
     positionSet({ zoom, center }) {
-      this.moveendPrevent = true
+      this.updateBboxOnly = true
       this.map.setView(center, zoom)
       this.zoom = zoom
-
-      const bbox = this.boundsGet()
-
-      this.$emit('map:update', { bbox })
     },
 
     boundsGet() {

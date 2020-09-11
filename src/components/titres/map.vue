@@ -16,7 +16,7 @@
       :zoom="preferences.zoom"
       :tiles-id="tilesId"
     />
-    <div class="container overflow-auto">
+    <div class="container">
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2 desktop-flex">
           <div class="mb-s">
@@ -44,6 +44,7 @@
             </li>
           </ul>
         </div>
+
         <div class="desktop-blob-1-2 desktop-flex mb-s">
           <div class="flex mb-s">
             <div :class="{ active: markerLayersId === 'clusters' }">
@@ -188,12 +189,18 @@ export default {
     this.init()
   },
 
+  created() {
+    window.addEventListener('popstate', this.popState)
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('popstate', this.popState)
+  },
+
   methods: {
     init() {
       if (this.preferences.zoom && this.preferences.centre) {
-        const zoom = this.preferences.zoom
-        const center = this.preferences.centre.map(Number)
-        this.$refs.map.positionSet({ zoom, center })
+        this.positionSet()
       } else {
         this.boundsFit()
       }
@@ -262,13 +269,21 @@ export default {
         params
       })
 
-      const featureGroup = this.$refs.map.markersFeatureGroupGet()
-
-      this.$refs.map.fitBounds(featureGroup.getBounds())
+      this.$refs.map.allFit()
     },
 
     boundsFit() {
-      this.$refs.map.fitBounds(this.bounds)
+      this.$refs.map.boundsFit(this.bounds)
+    },
+
+    positionSet() {
+      const zoom = this.preferences.zoom
+      const center = this.preferences.centre
+      this.$refs.map.positionSet({ zoom, center })
+    },
+
+    popState() {
+      this.positionSet()
     },
 
     geojsonLayersDisplay() {

@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       values: {
-        zoom: { type: 'number', min: 4, max: 18 },
+        zoom: { type: 'number', min: 1, max: 18 },
         centre: { type: 'tuple' }
       }
     }

@@ -248,6 +248,11 @@ describe('liste des titres', () => {
     expect(store.state.titres.preferences.filtres.domainesIds).toEqual('h')
 
     await store.dispatch('titres/preferencesSet', { section, params })
+
+    await store.dispatch('titres/preferencesSet', {
+      section: 'carte',
+      params: { zoom: 5 }
+    })
   })
 
   test('initialise la vue et obtient les titres', async () => {

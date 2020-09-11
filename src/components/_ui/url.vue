@@ -14,13 +14,13 @@ export default {
 
   watch: {
     params: {
-      handler: function(params, old) {
+      handler: function (params, old) {
         this.update(params)
       },
       deep: true
     },
 
-    $route: function(to, from) {
+    $route: function (to, from) {
       this.init()
     }
   },
@@ -62,6 +62,7 @@ export default {
               id,
               this.parse(id, this.get(id, this.$route.query[id]))
             )
+
             const paramString = this.stringify(id, paramValue)
             const queryString = this.stringify(id, queryValue)
 
@@ -170,7 +171,7 @@ export default {
       }
 
       if (this.values[id].type === 'tuple') {
-        return !Number(value[0]) || !Number(value[1]) ? null : value
+        return !Number(value[0]) || !Number(value[1]) ? null : value.map(Number)
       }
 
       if (this.values[id].type === 'string') {
