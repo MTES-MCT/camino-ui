@@ -24,9 +24,13 @@ html {
   z-index: 0;
 }
 
+.map {
+  height: 100%;
+}
+
 .map-detail,
-.map-list {
-  height: calc(var(--unit) * 21);
+.map-view {
+  min-height: calc(var(--unit) * 21);
 }
 
 .points {
@@ -300,9 +304,12 @@ html {
     margin-top: 0;
   }
 
-  .map-list {
-    height: calc(100vh - (15.5 * var(--unit)));
-    min-height: calc(24 * var(--unit));
+  .map-view {
+    min-height: max(calc(24 * var(--unit)), calc(100vh - (15 * var(--unit))));
+  }
+
+  .table-view {
+    min-height: max(calc(24 * var(--unit)), calc(100vh - (12 * var(--unit))));
   }
 
   .form-blobs {

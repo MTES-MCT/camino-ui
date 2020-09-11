@@ -83,7 +83,7 @@
     />
     <div
       v-else
-      class="map-list mb-xxl mt"
+      class="table-view mb-xxl mt"
     >
       …
     </div>

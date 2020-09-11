@@ -5,7 +5,7 @@
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
-      class="map map-list mb-s"
+      class="map map-view mb-s"
       @map:update="titresPreferencesUpdate"
     />
     <MapPattern
@@ -16,7 +16,7 @@
       :zoom="preferences.zoom"
       :tiles-id="tilesId"
     />
-    <div class="container">
+    <div class="container overflow-auto">
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2 desktop-flex">
           <div class="mb-s">
@@ -45,7 +45,7 @@
           </ul>
         </div>
 
-        <div class="desktop-blob-1-2 desktop-flex mb-s">
+        <div class="desktop-blob-1-2 desktop-flex">
           <div class="flex mb-s">
             <div :class="{ active: markerLayersId === 'clusters' }">
               <button
@@ -84,7 +84,7 @@
           <MapTilesSelector
             :tiles="tiles"
             :tiles-id="tilesId"
-            class="flex-grow"
+            class="flex-grow mb-s"
             @params:update="userPreferencesUpdate"
           />
         </div>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table-view">
     <Url
       :params="preferences"
       :values="params"
