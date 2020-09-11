@@ -4,7 +4,7 @@
     type="number"
     :class="{ 'mb-s': value, mb: !value }"
     @change="control($event.target)"
-  />
+  >
 </template>
 
 <script>
