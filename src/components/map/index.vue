@@ -31,6 +31,7 @@ export default {
       map: null,
       zoom: 0,
       updateBboxOnly: false,
+      updateCenterAndZoomOnly: false,
       layers: {
         tiles: {},
         geojsons: [],
@@ -68,9 +69,14 @@ export default {
           const zoom = this.map.getZoom()
           this.zoom = zoom
 
-          const bbox = this.boundsGet()
+          if (this.updateCenterAndZoomOnly) {
+            this.updateCenterAndZoomOnly = false
+            this.$emit('map:update', { center, zoom })
+          } else {
+            const bbox = this.boundsGet()
 
-          this.$emit('map:update', { center, zoom, bbox })
+            this.$emit('map:update', { center, zoom, bbox })
+          }
         }
       })
 
@@ -91,7 +97,7 @@ export default {
 
     allFit(bounds) {
       const featureGroup = this.markersFeatureGroupGet()
-
+      this.updateCenterAndZoomOnly = true
       this.boundsFit(featureGroup.getBounds())
     },
 

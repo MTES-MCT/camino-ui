@@ -24,10 +24,6 @@ html {
   z-index: 0;
 }
 
-.map {
-  height: 100%;
-}
-
 .map-detail,
 .map-view {
   min-height: calc(var(--unit) * 21);
