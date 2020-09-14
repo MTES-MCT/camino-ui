@@ -54,6 +54,7 @@
         <inputNumber
           v-model.trim.number="point.references[geoSysteme.id][0]"
           class="p-s"
+          placeholder="0,01"
         />
       </div>
       <div class="mb tablet-blob-1-3">
@@ -61,6 +62,7 @@
         <inputNumber
           v-model.trim.number="point.references[geoSysteme.id][1]"
           class="p-s"
+          placeholder="0,01"
         />
       </div>
     </div>
