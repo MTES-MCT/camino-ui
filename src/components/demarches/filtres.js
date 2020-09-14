@@ -10,7 +10,26 @@ const etapesLabelFormat = f =>
     name: f.name,
     value,
     valueName: Object.keys(value)
-      .map(k => `${k} : ${value[k]}`)
+      .map(k => {
+        let key
+        let val = value[k]
+
+        if (k === 'typeId') {
+          const element = f.elements.find(e => e.id === value.typeId)
+          key = "type d'étape"
+          val = element.nom
+        } else if (k === 'statutId') {
+          const element = f.elements.find(e => e.id === value.typeId)
+          key = "statut d'étape"
+          val = element.etapesStatuts.find(es => es.id === value.statutId).nom
+        } else if (k === 'dateDebut') {
+          key = 'après le'
+        } else if (k === 'dateFin') {
+          key = 'avant le'
+        }
+
+        return `${key} : ${val}`
+      })
       .join(', ')
   }))
 
