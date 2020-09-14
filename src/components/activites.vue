@@ -12,6 +12,7 @@
     :total="total"
     :loaded="metasLoaded"
     @preferences:update="preferencesUpdate"
+    @preferencesFiltres:reset="preferencesFiltresReset"
     @loaded="activitesLoad"
   >
     <Downloads
@@ -80,7 +81,7 @@ export default {
     user: 'metasGet',
 
     preferences: {
-      handler: function () {
+      handler: function() {
         this.activitesGet()
       },
       deep: true
@@ -121,6 +122,10 @@ export default {
 
     async preferencesUpdate(options) {
       await this.$store.dispatch(`titresActivites/preferencesSet`, options)
+    },
+
+    async preferencesFiltresReset() {
+      await this.$store.dispatch(`titresActivites/preferencesFiltresReset`)
     }
   }
 }

@@ -1,14 +1,29 @@
 <template>
-  <Filters
+  <div
     v-if="loaded"
-    class="flex-grow"
-    button="Valider"
-    :filters="filters"
-    :opened="opened"
-    title="Filtres"
-    @validate="validate"
-    @toggle="toggle"
-  />
+    class="flex"
+  >
+    <Filters
+      ref="filters"
+      class="flex-grow"
+      button="Valider"
+      :filters.sync="filters"
+      :opened="opened"
+      title="Filtres"
+      @validate="validate"
+      @toggle="toggle"
+      @close="close"
+    />
+
+    <button
+      v-if="hasActiveFilters && !opened"
+      class="btn btn-border rnd-xs py-s px-s mb-s ml-s height-min-content"
+      title="Réinitialiser les filtres"
+      @click="filtersReset"
+    >
+      <i class="icon-24 icon-trash" />
+    </button>
+  </div>
   <div
     v-else
     class="py-s px-m mb-s border rnd-s"
@@ -19,7 +34,7 @@
 
 <script>
 import Filters from '../_ui/filters.vue'
-import { valuesClean } from './filtres'
+import { idsClean } from './filtres'
 
 export default {
   components: { Filters },
@@ -46,13 +61,20 @@ export default {
 
         return filtre
       })
+    },
+
+    hasActiveFilters() {
+      return this.filtres.some(
+        filter =>
+          filter.value && filter.value !== '' && filter.value.length !== 0
+      )
     }
   },
 
   watch: {
     // si les metas changent (connexion / deconnexion user)
     metas: {
-      handler: function () {
+      handler: function() {
         if (this.loaded) {
           this.validate()
         }
@@ -60,10 +82,17 @@ export default {
       deep: true
     },
 
-    loaded: function (to, from) {
+    loaded: function(to, from) {
       if (!from) {
         this.init()
       }
+    },
+
+    preferences: {
+      handler(to, from) {
+        this.init()
+      },
+      deep: true
     }
   },
 
@@ -82,8 +111,6 @@ export default {
 
     toggle() {
       this.opened = !this.opened
-
-      this.init()
       this.$emit('toggle', this.opened)
     },
 
@@ -116,7 +143,7 @@ export default {
           filtre.type === 'checkboxes'
         ) {
           // on crée une copie pour éviter les modifications par référence
-          value = valuesClean(JSON.parse(JSON.stringify(filtre.value)))
+          value = idsClean(JSON.parse(JSON.stringify(filtre.value)))
         } else {
           value = filtre.value
         }
@@ -138,19 +165,23 @@ export default {
         const preference = this.preferences[id]
         const filtre = this.filtres.find(filtre => filtre.id === id)
 
-        if (!filtre) return
-
-        if (
-          (filtre.type === 'custom' ||
-            filtre.type === 'select' ||
-            filtre.type === 'checkboxes') &&
-          preference
-        ) {
-          filtre.value = JSON.parse(JSON.stringify(preference))
-        } else {
-          filtre.value = preference
+        if (filtre) {
+          if (
+            (filtre.type === 'custom' ||
+              filtre.type === 'select' ||
+              filtre.type === 'checkboxes') &&
+            preference
+          ) {
+            filtre.value = JSON.parse(JSON.stringify(preference))
+          } else {
+            filtre.value = preference
+          }
         }
       })
+    },
+
+    filtersReset() {
+      this.$emit('preferencesFiltres:reset')
     }
   }
 }

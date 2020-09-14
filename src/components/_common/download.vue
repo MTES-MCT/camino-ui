@@ -1,9 +1,9 @@
 <template>
   <button
-    class="btn-alt px-m py-s h5 flex full-x flex border-b-s"
+    class="btn-border pl pr-m py-s h5 flex full-x flex"
     @click="download"
   >
-    <span class="mt-xxs">{{ format }}</span>
+    <span class="mt-xxs mr-xs">{{ format }}</span>
     <div class="flex flex-right">
       <i class="icon-24 icon-download" />
     </div>
