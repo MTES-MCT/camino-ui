@@ -610,17 +610,12 @@ export default {
     },
 
     productionOrEvo() {
-      let evo = parseInt(this.getData('productionOr'))
-      evo -= this.getData('productionOr', this.anneeCurrent - 1)
-      // const evo =
-      //   this.getData('productionOr') -
-      //   this.getData('productionOr', this.anneeCurrent - 1)
-      // if (evo > 0) {
-      //   return `+${evo}`
-      // }
-      // if (evo < 0) {
-      //   return `-${evo}`
-      // }
+      const evo =
+        this.getData('productionOr') -
+        this.getData('productionOr', this.anneeCurrent - 1)
+      if (evo > 0) {
+        return `+${evo}`
+      }
       return evo.toString()
     },
 
@@ -727,8 +722,7 @@ export default {
         return { annee, value }
       })
 
-      const dataset = this.currentDataset(name)
-      // const dataset = { ...this.currentDataset(name) }
+      const dataset = { ...this.currentDataset(name) }
 
       let pas = -this.currentOption(name).legend.xPas
       const values = counts.map(el => {

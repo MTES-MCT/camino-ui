@@ -386,8 +386,7 @@ export default {
       // on veut obtenir
       // datasets = [{id:...,values:[[0,0],...[xPas*Index,'5706']],legend:['2018-09',...,'2020-08']}]
 
-      const dataset = this.currentDataset(name)
-      // const dataset = { ...this.currentDataset(name) }
+      const dataset = { ...this.currentDataset(name) }
 
       let pas = -this.currentOption(name).legend.xPas
       const values = counts.map(el => {
