@@ -27,10 +27,12 @@
         <p class="bold">
           Energie consommée
         </p>
-        <p class="h0-graph mb-0">{{ Intl.NumberFormat().format(energie) }} l</p>
+        <p class="h0-graph mb-0">
+          {{ Intl.NumberFormat().format(energie) }} kl
+        </p>
         <p>
           Volume de carburant consommé par les activités extractives (dont
-          {{ carburantDetaxe }} l détaxés).
+          {{ carburantDetaxe }} kl détaxés).
         </p>
       </div>
       <div class="desktop-blob-1-3 text-center">
