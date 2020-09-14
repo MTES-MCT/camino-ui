@@ -744,8 +744,7 @@ export default {
         return { annee, value }
       })
 
-      const dataset = this.currentDataset(name)
-      // const dataset = { ...this.currentDataset(name) }
+      const dataset = { ...this.currentDataset(name) }
 
       let pas = -this.currentOption(name).legend.xPas
       const values = counts.map(el => {

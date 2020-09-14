@@ -1,8 +1,18 @@
 <template>
   <div>
     <svg :view-box.camel="viewbox">
-      <SvgChartLine :d="dataset" :o="options" :svg="svg" :lib="lib" />
-      <SvgChartAxis :d="dataset" :o="options" :svg="svg" :lib="lib" />
+      <SvgChartLine
+        :d="dataset"
+        :o="options"
+        :svg="svg"
+        :lib="lib"
+      />
+      <SvgChartAxis
+        :d="dataset"
+        :o="options"
+        :svg="svg"
+        :lib="lib"
+      />
     </svg>
   </div>
 </template>
