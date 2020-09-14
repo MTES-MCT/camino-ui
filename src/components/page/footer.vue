@@ -15,9 +15,12 @@
         </div>
         <div class="blob-2-3">
           <p class="h6 color-neutral">
-            Service de l’État incubé à la Fabrique numérique du Ministère de la
-            Transition écologique et solidaire, membre du réseau
-            <a href="http://beta.gouv.fr"> beta.gouv.fr </a>.
+            Service de l’État incubé à la Fabrique
+            numérique du Ministère de la Transition écologique et solidaire,
+            membre du réseau
+            <a href="http://beta.gouv.fr">
+              beta.gouv.fr
+            </a>.
           </p>
         </div>
       </div>
@@ -108,7 +111,8 @@
           rel="noopener noreferrer"
           class="text-decoration-none"
         >
-          UI v.{{ versionUi }} </a>|
+          UI v.{{ versionUi }}
+        </a>|
         <a
           href="https://github.com/MTES-MCT/camino-api/releases"
           target="_blank"
