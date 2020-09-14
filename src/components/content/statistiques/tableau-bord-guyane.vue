@@ -1,9 +1,18 @@
 <template>
   <div>
-    <Loader v-if="!loaded" class="content" />
-    <div v-else class="content">
-      <hr class="mb-xl" />
-      <div id="etat" class="mb-xxl">
+    <Loader
+      v-if="!loaded"
+      class="content"
+    />
+    <div
+      v-else
+      class="content"
+    >
+      <hr class="mb-xl">
+      <div
+        id="etat"
+        class="mb-xxl"
+      >
         <h2>
           Etat du domaine minier en Guyane en temps réel
         </h2>
@@ -108,13 +117,16 @@
       </div>
       <IndicateursActiviteGuyane
         v-if="tabActive === this.anneeCurrent - 2"
-        :annee-data-tb="getStatistiqueGuyane(this.anneeCurrent - 2)"
+        :annee-statistiques-guyane="getStatistiqueGuyane(this.anneeCurrent - 2)"
       />
       <IndicateursActiviteGuyane
         v-if="tabActive === this.anneeCurrent - 1"
-        :annee-data-tb="getStatistiqueGuyane(this.anneeCurrent - 1)"
+        :annee-statistiques-guyane="getStatistiqueGuyane(this.anneeCurrent - 1)"
       />
-      <div id="evolution" class="mb-xxl">
+      <div
+        id="evolution"
+        class="mb-xxl"
+      >
         <h2>
           Evolution de l’activité sur le domaine minier de Guyane sur les 5
           dernières années
@@ -131,7 +143,10 @@
         </p>
         <div class="desktop-blobs mb-xl">
           <div class="desktop-blob-2-3 text-center">
-            <div ref="graphContainer" class="graph-container">
+            <div
+              ref="graphContainer"
+              class="graph-container"
+            >
               <SvgChart
                 :dataset="_dataset('productionOr')"
                 :options="_options('productionOr')"
@@ -140,7 +155,9 @@
             </div>
           </div>
           <div class="desktop-blob-1-3 text-center">
-            <p class="h0-graph mb-0">{{ productionOrEvo }} kg</p>
+            <p class="h0-graph mb-0">
+              {{ productionOrEvo }} kg
+            </p>
             <p>
               Production d’or nette (après affinage) issue des mines en Guyane.
             </p>
@@ -151,7 +168,10 @@
         </p>
         <div class="desktop-blobs mb-xl">
           <div class="desktop-blob-2-3 text-center">
-            <div ref="graphContainer" class="graph-container">
+            <div
+              ref="graphContainer"
+              class="graph-container"
+            >
               <SvgChart
                 :dataset="_dataset('arm')"
                 :options="_options('arm')"
@@ -173,7 +193,10 @@
         </p>
         <div class="desktop-blobs mb-xl">
           <div class="desktop-blob-2-3 text-center">
-            <div ref="graphContainer" class="graph-container">
+            <div
+              ref="graphContainer"
+              class="graph-container"
+            >
               <SvgChart
                 :dataset="_dataset('prm')"
                 :options="_options('prm')"
@@ -195,7 +218,10 @@
         </p>
         <div class="desktop-blobs mb-xl">
           <div class="desktop-blob-2-3 text-center">
-            <div ref="graphContainer" class="graph-container">
+            <div
+              ref="graphContainer"
+              class="graph-container"
+            >
               <SvgChart
                 :dataset="_dataset('axm')"
                 :options="_options('axm')"
@@ -217,7 +243,10 @@
         </p>
         <div class="desktop-blobs mb-xl">
           <div class="desktop-blob-2-3 text-center">
-            <div ref="graphContainer" class="graph-container">
+            <div
+              ref="graphContainer"
+              class="graph-container"
+            >
               <SvgChart
                 :dataset="_dataset('pxm')"
                 :options="_options('pxm')"
@@ -239,7 +268,10 @@
         </p>
         <div class="desktop-blobs mb-xl">
           <div class="desktop-blob-2-3 text-center">
-            <div ref="graphContainer" class="graph-container">
+            <div
+              ref="graphContainer"
+              class="graph-container"
+            >
               <SvgChart
                 :dataset="_dataset('cxm')"
                 :options="_options('cxm')"

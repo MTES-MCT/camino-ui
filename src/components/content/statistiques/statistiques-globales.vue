@@ -1,9 +1,18 @@
 <template>
   <div>
-    <Loader v-if="!loaded" class="content" />
-    <div v-else class="content">
-      <hr class="mb-xl" />
-      <div id="engagement" class="mb-xxl">
+    <Loader
+      v-if="!loaded"
+      class="content"
+    />
+    <div
+      v-else
+      class="content"
+    >
+      <hr class="mb-xl">
+      <div
+        id="engagement"
+        class="mb-xxl"
+      >
         <h2>
           Engagement général sur le site
         </h2>
@@ -22,7 +31,10 @@
             </p>
           </div>
           <div class="desktop-blob-2-3">
-            <div ref="graphContainer" class="graph-container">
+            <div
+              ref="graphContainer"
+              class="graph-container"
+            >
               <SvgChart
                 :dataset="_dataset('nombre de recherches par mois')"
                 :options="_options('nombre de recherches par mois')"
@@ -51,7 +63,10 @@
         </div>
       </div>
 
-      <div id="amelioration" class="mb-xxl content">
+      <div
+        id="amelioration"
+        class="mb-xxl content"
+      >
         <h2>
           Amélioration continue et accès aux données publiques
         </h2>
@@ -72,7 +87,10 @@
             </p>
           </div>
           <div class="desktop-blob-2-3">
-            <div ref="graphContainer" class="graph-container">
+            <div
+              ref="graphContainer"
+              class="graph-container"
+            >
               <SvgChart
                 :dataset="_dataset('nombre de mises à jour par mois')"
                 :options="_options('nombre de mises à jour par mois')"
@@ -113,7 +131,10 @@
         </div>
       </div>
 
-      <div id="gains" class="mb-xxl">
+      <div
+        id="gains"
+        class="mb-xxl"
+      >
         <h2>
           Gains de la dématérialisation sur l'instruction minière
         </h2>

@@ -1,5 +1,8 @@
 <template>
-  <div id="indicateurs" class="mb-xxl">
+  <div
+    id="indicateurs"
+    class="mb-xxl"
+  >
     <h2>
       Indicateurs annuels de production et d’activité minière
     </h2>
@@ -93,7 +96,9 @@
             </p>
           </div>
           <div class="desktop-blob-1-2 text-center">
-            <p class="h0-graph mb-0">{{ rapportProductionOrRatio }} %</p>
+            <p class="h0-graph mb-0">
+              {{ rapportProductionOrRatio }} %
+            </p>
             <p>
               Des rapports d’activité de production attendus ont été déposés par
               les opérateurs miniers pour consolider ces statistiques.
@@ -117,35 +122,35 @@ export default {
   },
 
   computed: {
-    statistiquesGuyane() {
-      return this.anneeStatistiquesGuyane.statistiquesGuyane
+    statistiqueGuyane() {
+      return this.anneeStatistiquesGuyane.statistiqueGuyane
     },
     productionOr() {
-      return this.statistiquesGuyane.productionOr
+      return this.statistiqueGuyane.productionOr
     },
     energie() {
       return (
-        this.statistiquesGuyane.carburantConventionnel +
-        this.statistiquesGuyane.carburantDetaxe
+        this.statistiqueGuyane.carburantConventionnel +
+        this.statistiqueGuyane.carburantDetaxe
       )
     },
     carburantDetaxe() {
-      return this.statistiquesGuyane.carburantDetaxe
+      return this.statistiqueGuyane.carburantDetaxe
     },
     mercure() {
-      return this.statistiquesGuyane.mercure
+      return this.statistiqueGuyane.mercure
     },
     environnementCout() {
-      return this.statistiquesGuyane.environnementCout
+      return this.statistiqueGuyane.environnementCout
     },
     salaries() {
-      return this.statistiquesGuyane.salaries
+      return this.statistiqueGuyane.salaries
     },
     rapportProductionOrDeposes() {
-      return this.statistiquesGuyane.rapportProductionOrDeposes
+      return this.statistiqueGuyane.rapportProductionOrDeposes
     },
     rapportProductionOrRatio() {
-      return this.statistiquesGuyane.rapportProductionOrRatio
+      return this.statistiqueGuyane.rapportProductionOrRatio
     }
   }
 }
