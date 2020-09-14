@@ -1,158 +1,166 @@
 <template>
   <div>
-    <Loader v-if="!loaded" />
-    <div
-      v-else
-      class="content"
-    >
-      <h1 class="mb-xl">
-        Statistiques
-      </h1>
-      <hr class="mb-xl">
-      <div
-        id="engagement"
-        class="mb-xxl"
-      >
+    <Loader v-if="!loaded" class="content" />
+    <div v-else class="content">
+      <hr class="mb-xl" />
+      <div id="engagement" class="mb-xxl">
         <h2>
           Engagement général sur le site
         </h2>
         <span class="separator" />
-        <p>Les données retenues ici témoignent du comportement général des utilisateurs sur le site et de leur engagement auprès du service</p>
+        <p>
+          Les données retenues ici témoignent du comportement général des
+          utilisateurs sur le site et de leur engagement auprès du service
+        </p>
         <div class="desktop-blobs">
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0 mt-xxl">
-              {{ nbSearch }}
+              {{ Intl.NumberFormat().format(nbSearch) }}
             </p>
-            <p>
-              RECHERCHES CE MOIS-CI
+            <p class="bold">
+              recherches ce mois-ci
             </p>
           </div>
           <div class="desktop-blob-2-3">
-            <div
-              ref="graphContainer"
-              class="graph-container"
-            >
+            <div ref="graphContainer" class="graph-container">
               <SvgChart
                 :dataset="_dataset('nombre de recherches par mois')"
                 :options="_options('nombre de recherches par mois')"
                 :svg="_svg('nombre de recherches par mois')"
               />
               <p class="graph-title">
-                Le nombre de recherches mensuelles est l'indicateur clé de l'utilisation du service de "cadastre numérique"
+                Le nombre de recherches mensuelles est l'indicateur clé de
+                l'utilisation du service de "cadastre minier"
               </p>
             </div>
           </div>
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0">
-              {{ Math.round(statistiques.nbAction) }}
+              {{ Math.round(statistiquesGlobales.actionCount) }}
             </p>
-            <p>
-              NOMBRE MOYEN D'ACTIONS EFFECTUÉES PAR UN UTILISATEUR SUR LE SITE
+            <p class="bold">
+              nombre moyen d'actions effectuées par un utilisateur sur le site
             </p>
             <p class="h0-graph mb-0">
-              {{ statistiques.timeSession }}
+              {{ statistiquesGlobales.timeSession }}
             </p>
-            <p>
-              TEMPS DE SESSION MOYEN SUR CAMINO PAR CHACUN DES UTILISATEURS
+            <p class="bold">
+              temps de session moyen sur camino par chacun des utilisateurs
             </p>
           </div>
         </div>
       </div>
 
-      <div
-        id="amelioration"
-        class="mb-xxl"
-      >
+      <div id="amelioration" class="mb-xxl content">
         <h2>
           Amélioration continue et accès aux données publiques
         </h2>
         <span class="separator" />
-        <p>En tant que que secteur régulé par l'État, la publication en ligne des données minières doit permettre leur amélioration et leur utilisation par la communauté</p>
+        <p>
+          En tant que secteur régulé par l'État, la publication en ligne des
+          données minières doit permettre leur amélioration et leur utilisation
+          par la communauté
+        </p>
         <div class="desktop-blobs">
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0 mt-xxl">
               {{ nbMajTitres }}
             </p>
-            <p>
-              MAJ DE TITRES MINIERS PAR L'ADMINISTRATION ET LES ENTREPRISES DU SECTEUR CE MOIS-CI
+            <p class="bold">
+              mise à jour de titres miniers par l'administration et les
+              entreprises du secteur ce mois-ci
             </p>
           </div>
           <div class="desktop-blob-2-3">
-            <div
-              ref="graphContainer"
-              class="graph-container"
-            >
+            <div ref="graphContainer" class="graph-container">
               <SvgChart
                 :dataset="_dataset('nombre de mises à jour par mois')"
                 :options="_options('nombre de mises à jour par mois')"
                 :svg="_svg('nombre de mises à jour par mois')"
               />
               <p class="graph-title">
-                Le nombre de mises à jour mensuelles du cadastre par les différents services de l'administration ou par les professionnels du secteur reflète de dynamisme de l'instruction minière française. Une mise à jour peut être l'ajout d'un titre, une modification de son statut ou des documents concernant son instruction.
+                Le nombre de mises à jour mensuelles du cadastre par les
+                différents services de l'administration ou par les
+                professionnels du secteur reflète l'intensité de l'activité
+                d'instruction et administrative sur le domaine minier en France.
+                Une mise à jour peut être l'ajout d'un titre, une modification
+                de son statut ou des documents concernant son instruction.
               </p>
             </div>
           </div>
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0">
-              {{ statistiques.nbDonwload }}
+              {{ statistiquesGlobales.downloadCount }}
             </p>
-            <p>
-              TÉLÉCHARGEMENTS DE PIÈCES RELATIVES À LA BONNE INSTRUCTION DES TITRES ET CONCESSIONS MINIÈRES CE MOIS-CI
-            </p>
-            <p class="h0-graph mb-0">
-              150
-            </p>
-            <p>
-              ERREURS CORRIGÉES SUR LES BASES DE DONNÉES DE L'ÉTAT GRÂCE À LA PARTICIPATION DES UTILISATEURS
+            <p class="bold">
+              téléchargements de pièces relatives à la bonne instruction des
+              titres et autorisations miniers ce mois-ci
             </p>
             <p class="h0-graph mb-0">
-              6
+              {{ statistiquesGlobales.erreurCount }}
             </p>
-            <p>
-              RÉUTILISATIONS CONNUES DES DONNÉES OUVERTES DISTRIBUÉES
+            <p class="bold">
+              erreurs corrigées sur les bases de données de l'État grâce à la
+              participation des utilisateurs
+            </p>
+            <p class="h0-graph mb-0">
+              {{ statistiquesGlobales.nbReutilisation }}
+            </p>
+            <p class="bold">
+              réutilisations connues des données ouvertes distribuées
             </p>
           </div>
         </div>
       </div>
 
-      <div
-        id="gains"
-        class="mb-xxl"
-      >
+      <div id="gains" class="mb-xxl">
         <h2>
           Gains de la dématérialisation sur l'instruction minière
         </h2>
         <span class="separator" />
-        <p>La dématérialisation des démarches relatives à l'instruction minière doit permettre un gain de temps pour ceux qui les effectuent et ceux qui les instruisent</p>
+        <p>
+          La dématérialisation des démarches relatives à l'instruction minière
+          doit permettre un gain de temps pour ceux qui les effectuent et ceux
+          qui les instruisent
+        </p>
         <div class="desktop-blobs">
           <div class="desktop-blob-1-3 text-center">
             <p class="h0-graph mb-0">
-              {{ nbDemarches }}
+              {{ demarcheCounts }}
             </p>
-            <p>
-              DÉMARCHES EFFECTUÉES EN LIGNE CETTE ANNÉE
+            <p class="bold">
+              démarches effectuées en ligne cette années
             </p>
           </div>
           <div class="desktop-blob-1-3 text-center">
             <p class="h0-graph mb-0">
-              {{ statistiques.titresActivitesBeneficesEntreprise }}
+              {{ statistiquesGlobales.titresActivitesBeneficesEntreprise }}
             </p>
             <p class="bold">
-              jours de travail sans valeur ajoutée économisés par les entreprises en Guyane
+              jours de travail sans valeur ajoutée économisés par les
+              entreprises en Guyane
             </p>
             <p>
-              La dématérialisation d’un rapport trimestriel d’activité de production d’or en Guyane permet en moyenne l’économie de 2 heures de travail de saisie ou de déplacement pour son dépôt physique à l’administration.
+              La dématérialisation d’un rapport trimestriel d’activité de
+              production d’or en Guyane permet en moyenne l’économie de 2 heures
+              de travail de saisie ou de déplacement pour son dépôt physique à
+              l’administration.
             </p>
           </div>
           <div class="desktop-blob-1-3 text-center">
             <p class="h0-graph mb-0">
-              {{ statistiques.titresActivitesBeneficesAdministration }}
+              {{ statistiquesGlobales.titresActivitesBeneficesAdministration }}
             </p>
             <p class="bold">
-              jours de travail à faible valeur ajoutée économisés par l’administration
+              jours de travail à faible valeur ajoutée économisés par
+              l’administration
             </p>
             <p>
-              La dématérialisation d’un rapport trimestriel d’activité de production d’or en Guyane permet en moyenne l’économie d’une heure de travail de traitement et re-saisie de données par un agent de l’administration. Le gain de temps est réinvesti sur l’accompagnement et le contrôle de l’activité.
+              La dématérialisation d’un rapport trimestriel d’activité de
+              production d’or en Guyane permet en moyenne l’économie d’une heure
+              de travail de traitement et re-saisie de données par un agent de
+              l’administration. Le gain de temps est réinvesti sur
+              l’accompagnement et le contrôle de l’activité.
             </p>
           </div>
         </div>
@@ -162,8 +170,8 @@
 </template>
 
 <script>
-import Loader from '../_ui/loader.vue'
-import SvgChart from '../_common/graph/svg-chart.vue'
+import Loader from '../../_ui/loader.vue'
+import SvgChart from '../../_common/graph/svg-chart.vue'
 
 export default {
   name: 'CaminoStatistiques',
@@ -204,7 +212,7 @@ export default {
             }
           },
           dataset: {
-            id: 'nbSearchArray',
+            id: 'searchCounts',
             colors: {
               path: 'rgba(55, 165, 230, 1.0)',
               circles: 'orange',
@@ -249,7 +257,7 @@ export default {
             }
           },
           dataset: {
-            id: 'nbSearchArray',
+            id: 'searchCounts',
             colors: {
               path: 'rgba(55, 165, 230, 1.0)',
               circles: 'orange',
@@ -272,38 +280,30 @@ export default {
   },
 
   computed: {
-    statistiques() {
-      return this.$store.state.statistiques
+    statistiquesGlobales() {
+      return this.$store.state.statistiques.statistiquesGlobales
     },
 
     nbSearch() {
-      const nbSearchArray = this.statistiques.nbSearchArray
-      return nbSearchArray[nbSearchArray.length - 1].value
+      const searchCounts = this.statistiquesGlobales.searchCounts
+      return searchCounts[searchCounts.length - 1].value
     },
 
     nbMajTitres() {
-      const nbMajTitresArray = this.statistiques.nbMajTitresArray
-      return nbMajTitresArray[nbMajTitresArray.length - 1].value
+      const majTitreCounts = this.statistiquesGlobales.majTitreCounts
+      return majTitreCounts[majTitreCounts.length - 1].value
     },
 
-    nbDemarches() {
-      return this.statistiques.nbDemarche
+    demarcheCounts() {
+      return this.statistiquesGlobales.demarcheCount
     },
 
     loaded() {
-      return !!this.statistiques.loaded
+      return !!this.statistiquesGlobales.loaded
     }
   },
 
-  created() {
-    this.get()
-  },
-
   methods: {
-    async get() {
-      await this.$store.dispatch('statistiques/get')
-    },
-
     currentOption(name) {
       return this.graph.find(g => g.name === name).options
     },
@@ -368,12 +368,12 @@ export default {
     },
 
     _dataset(name) {
-      let nbArray
+      let counts
       if (name === 'nombre de recherches par mois') {
-        nbArray = this.statistiques.nbSearchArray
+        counts = this.statistiquesGlobales.searchCounts
       }
       if (name === 'nombre de mises à jour par mois') {
-        nbArray = this.statistiques.nbMajTitresArray
+        counts = this.statistiquesGlobales.majTitreCounts
       }
 
       // nbXXXArray est de la forme
@@ -386,18 +386,18 @@ export default {
       // on veut obtenir
       // datasets = [{id:...,values:[[0,0],...[xPas*Index,'5706']],legend:['2018-09',...,'2020-08']}]
 
-      // const dataset = this.currentDataset(name)
-      const dataset = { ...this.currentDataset(name) }
+      const dataset = this.currentDataset(name)
+      // const dataset = { ...this.currentDataset(name) }
 
       let pas = -this.currentOption(name).legend.xPas
-      const values = nbArray.map(el => {
+      const values = counts.map(el => {
         const value = [2]
         value[0] = pas += this.currentOption(name).legend.xPas
         value[1] = parseInt(el.value)
         return value
       })
 
-      const legend = nbArray.map(el => el.month)
+      const legend = counts.map(el => el.month)
 
       dataset.values = values
       dataset.legend[0] = legend

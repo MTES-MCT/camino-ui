@@ -39,7 +39,7 @@
     <text
       v-for="legendX in legendXs"
       :key="legendX.id"
-      :x="legendX.tick - legendX.value.length*5"
+      :x="legendX.tick - legendX.value.length * 5"
       :y="y + margeY"
       font-family="Verdana"
       font-size="20"
@@ -61,7 +61,7 @@
     </text>
     <text
       v-if="legendXName"
-      :x="svgW/2"
+      :x="svgW / 2"
       :y="svg.h - 5"
       font-family="Verdana"
       font-size="20"
@@ -278,7 +278,7 @@ export default {
       const pasArray = [taille]
       let _pas = -pas
       for (let i = 0; i < taille; i++) {
-        pasArray[i] = (_pas += pas).toString()
+        pasArray[i] = Math.round((_pas += pas)).toString()
       }
       return pasArray
     },

@@ -19,26 +19,34 @@ describe('page de statistiques', () => {
   let statistiquesReturned
   beforeEach(() => {
     statistiquesReturned = {
-      titresActivitesBeneficesEntreprise: 4800,
-      titresActivitesBeneficesAdministration: 2400,
-      nbSearchArray: [],
-      nbMajTitresArray: [],
-      nbAction: 60,
-      timeSession: '14min',
-      nbDonwload: 110,
-      nbDemarche: 400,
-      loaded: true
+      statistiquesGlobales: {
+        titresActivitesBeneficesEntreprise: 4800,
+        titresActivitesBeneficesAdministration: 2400,
+        nbSearchArray: [],
+        nbMajTitresArray: [],
+        nbAction: 60,
+        timeSession: '14min',
+        nbDonwload: 110,
+        nbDemarche: 400,
+        nbErreur: 210,
+        loaded: true
+      },
+      tbGuyane: {}
     }
     statistiques.state = {
-      titresActivitesBeneficesEntreprise: 0,
-      titresActivitesBeneficesAdministration: 0,
-      nbSearchArray: [],
-      nbMajTitresArray: [],
-      nbAction: 0,
-      timeSession: '',
-      nbDonwload: 0,
-      nbDemarche: 0,
-      loaded: false
+      statistiquesGlobales: {
+        titresActivitesBeneficesEntreprise: 0,
+        titresActivitesBeneficesAdministration: 0,
+        nbSearchArray: [],
+        nbMajTitresArray: [],
+        nbAction: 0,
+        timeSession: '',
+        nbDonwload: 0,
+        nbDemarche: 0,
+        nbErreur: 0,
+        loaded: false
+      },
+      tbGuyane: {}
     }
     mutations = {
       loadingAdd: jest.fn(),
@@ -64,7 +72,7 @@ describe('page de statistiques', () => {
     expect(store.state.statistiques.titresActivitesBeneficesEntreprise).toEqual(
       4800
     )
-    expect(store.state.statistiques.loaded).toBeTruthy()
+    expect(store.state.statistiques.statistiquesGlobales.loaded).toBeTruthy()
   })
 
   test("charge la page si l'api répond", async () => {
@@ -75,7 +83,7 @@ describe('page de statistiques', () => {
     expect(store.state.statistiques.titresActivitesBeneficesEntreprise).toEqual(
       0
     )
-    expect(store.state.statistiques.loaded).toBeTruthy()
+    expect(store.state.statistiques.statistiquesGlobales.loaded).toBeFalsy()
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {

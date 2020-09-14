@@ -1,20 +1,8 @@
 <template>
   <div>
-    <svg
-      :view-box.camel="viewbox"
-    >
-      <SvgChartLine
-        :d="dataset"
-        :o="options"
-        :svg="svg"
-        :lib="lib"
-      />
-      <SvgChartAxis
-        :d="dataset"
-        :o="options"
-        :svg="svg"
-        :lib="lib"
-      />
+    <svg :view-box.camel="viewbox">
+      <SvgChartLine :d="dataset" :o="options" :svg="svg" :lib="lib" />
+      <SvgChartAxis :d="dataset" :o="options" :svg="svg" :lib="lib" />
     </svg>
   </div>
 </template>
@@ -50,6 +38,9 @@ export default {
     return {
       lib: {
         map(value, inMin, inMax, outMin, outMax) {
+          if (inMax === inMin) {
+            return 0
+          }
           return (
             ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin
           )
