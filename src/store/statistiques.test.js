@@ -69,9 +69,10 @@ describe('page de statistiques', () => {
     expect(mutations.loadingAdd).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(store.state.statistiques.titresActivitesBeneficesEntreprise).toEqual(
-      4800
-    )
+    expect(
+      store.state.statistiques.statistiquesGlobales
+        .titresActivitesBeneficesEntreprise
+    ).toEqual(4800)
     expect(store.state.statistiques.statistiquesGlobales.loaded).toBeTruthy()
   })
 
@@ -80,9 +81,10 @@ describe('page de statistiques', () => {
     await store.dispatch('statistiques/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.statistiques.titresActivitesBeneficesEntreprise).toEqual(
-      0
-    )
+    expect(
+      store.state.statistiques.statistiquesGlobales
+        .titresActivitesBeneficesEntreprise
+    ).toEqual(0)
     expect(store.state.statistiques.statistiquesGlobales.loaded).toBeFalsy()
   })
 
