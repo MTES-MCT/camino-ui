@@ -54,8 +54,7 @@ export const state = {
   popup: { component: null, props: null, messages: [], loading: false },
   error: null,
   menu: { component: null },
-  loading: [],
-  loaded: false
+  loading: []
 }
 
 export const actions = {

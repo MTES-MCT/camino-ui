@@ -67,7 +67,7 @@
             />
           </div>
         </div>
-        <div class="p-m h6 bold mb-xs">
+        <div class="pl-m pt-m h6 bold">
           {{ resultat }}
         </div>
       </div>
@@ -83,7 +83,7 @@
     />
     <div
       v-else
-      class="map-list mb-xxl mt"
+      class="table-view mb-xxl mt"
     >
       …
     </div>
@@ -105,13 +105,6 @@ export default {
 
   data() {
     return {
-      metasLoaded: false,
-      urlsLoaded: {
-        vue: false,
-        component: false,
-        filtres: false
-      },
-      urlLoaded: false,
       vues: [
         { id: 'carte', component: TitresMap, icon: 'globe' },
         { id: 'liste', component: TitresTableUrl, icon: 'list' }
@@ -137,6 +130,10 @@ export default {
         types: this.$store.state.titres.metas.types,
         statuts: this.$store.state.titres.metas.statuts
       }
+    },
+
+    metasLoaded() {
+      return this.$store.state.titres.loaded.metas
     },
 
     preferences() {
@@ -175,24 +172,7 @@ export default {
   },
 
   watch: {
-    user: 'metasGet',
-
-    preferences: {
-      handler: function(to, from) {
-        this.titresGet()
-      },
-      deep: true
-    },
-
-    vue: function(vue) {
-      // si la vue est 'carte'
-      // le composant `map.vue` emet un event `perimetre`
-      // qui met à jour les préférences utilisateurs
-      // et déclenche déjà un rechargement des titres
-      if (vue !== 'carte') {
-        this.titresGet()
-      }
-    }
+    user: 'metasGet'
   },
 
   async created() {
@@ -204,19 +184,8 @@ export default {
   },
 
   methods: {
-    async titresGet() {
-      const loaded = this.metasLoaded && this.urlLoaded
-
-      if (loaded) {
-        await this.$store.dispatch('titres/get')
-      }
-    },
-
     async metasGet() {
       await this.$store.dispatch('titres/metasGet')
-      if (!this.metasLoaded) {
-        this.metasLoaded = true
-      }
     },
 
     vuePreferencesUpdate(params) {
@@ -251,23 +220,8 @@ export default {
       this.eventTrack({ categorie: 'titre-sections', action: 'titre-ajouter' })
     },
 
-    titresLoad() {
-      if (!this.urlLoaded) {
-        this.urlLoaded = true
-        this.titresGet()
-      }
-    },
-
     urlLoad(id) {
-      this.urlsLoaded[id] = true
-
-      if (
-        this.urlsLoaded.vue &&
-        this.urlsLoaded.component &&
-        this.urlsLoaded.filtres
-      ) {
-        this.titresLoad()
-      }
+      this.$store.dispatch('titres/loaded', id)
     },
 
     eventTrack(event) {

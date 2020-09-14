@@ -129,6 +129,7 @@
               v-for="permission in permissions"
               :key="permission.id"
               :class="{ active: utilisateur.permissionId === permission.id }"
+              class="mb-xs"
             >
               <button
                 :id="

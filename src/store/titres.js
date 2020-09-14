@@ -56,6 +56,13 @@ export const state = {
       references: '',
       territoires: ''
     }
+  },
+  loaded: {
+    metas: false,
+    vue: false,
+    filtres: false,
+    component: false,
+    urls: false
   }
 }
 
@@ -67,6 +74,10 @@ export const actions = {
       const data = await metasTitres()
 
       commit('metasSet', data)
+
+      if (!state.loaded.metas) {
+        commit('loaded', 'metas')
+      }
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
@@ -75,9 +86,11 @@ export const actions = {
   },
 
   async get({ state, dispatch, commit }) {
-    commit('loadingAdd', 'titres', { root: true })
-
     try {
+      if (!state.loaded.metas && !state.loaded.urls) return
+
+      commit('loadingAdd', 'titres', { root: true })
+
       let data
 
       if (state.vue === 'carte') {
@@ -104,13 +117,58 @@ export const actions = {
     }
   },
 
-  preferencesSet({ commit }, { section, params }) {
-    commit('preferencesSet', { section, params })
+  async preferencesSet({ state, commit, dispatch }, { section, params }) {
+    const paramsNew = {}
+
+    Object.keys(params).forEach(id => {
+      if (state.preferences[section][id] !== params[id]) {
+        paramsNew[id] = params[id]
+      }
+    })
+
+    if (Object.keys(paramsNew).length) {
+      commit('preferencesSet', { section, params: paramsNew })
+
+      if (
+        section === 'carte' &&
+        !Object.keys(paramsNew).includes('perimetre')
+      ) {
+        return
+      }
+
+      await dispatch('get')
+    }
   },
 
-  vueSet({ commit }, vue) {
+  async vueSet({ state, commit, dispatch }, vue) {
+    if (vue === state.vue) return
+
     commit('set', { elements: [], total: 0 })
     commit('vueSet', vue)
+
+    // si la vue est 'carte'
+    // le composant `map.vue` émet un event `perimetre`
+    // qui met à jour les préférences utilisateurs
+    // et déclenche déjà un rechargement des titres
+    if (vue === 'carte') return
+
+    await dispatch('get')
+  },
+
+  async loaded({ commit, state, dispatch }, id) {
+    const titresLoad = async () => {
+      if (!state.loaded.urls) {
+        state.loaded.urls = true
+
+        await dispatch('get')
+      }
+    }
+
+    commit('loaded', id)
+
+    if (state.loaded.vue && state.loaded.component && state.loaded.filtres) {
+      await titresLoad()
+    }
   }
 }
 
@@ -160,6 +218,10 @@ export const mutations = {
 
   vueSet(state, vue) {
     Vue.set(state, 'vue', vue)
+  },
+
+  loaded(state, section) {
+    state.loaded[section] = true
   }
 }
 

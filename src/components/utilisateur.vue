@@ -147,6 +147,7 @@
                 <li
                   v-for="e in utilisateur.entreprises"
                   :key="e.id"
+                  class="mb-xs"
                 >
                   <RouterLink
                     :to="{ name: 'entreprise', params: {id: e.id }}"
@@ -219,7 +220,7 @@ export default {
 
   watch: {
     user: 'get',
-    '$route.params.id': async function() {
+    '$route.params.id': async function () {
       await this.get()
     }
   },

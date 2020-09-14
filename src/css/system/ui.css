@@ -12,11 +12,11 @@
   box-decoration-break: clone;
 }
 
-.pill-list:first-child > * {
+.pill-list *:first-child .pill-item {
   border-radius: var(--unit-infinity) 0 0 var(--unit-infinity);
 }
 
-.pill-list:last-child > * {
+.pill-list *:last-child .pill-item {
   border-radius: 0 var(--unit-infinity) var(--unit-infinity) 0;
 }
 

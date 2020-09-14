@@ -39,11 +39,6 @@ li {
   flex-wrap: wrap; */
   padding: 0;
   list-style: none;
-  margin-bottom: calc(var(--unit) - var(--unit-xs));
-
-  & > li {
-    margin-bottom: var(--unit-xs);
-  }
 
   & > li:not(.right) {
     float: left;

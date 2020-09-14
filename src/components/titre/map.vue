@@ -156,7 +156,7 @@ export default {
     },
 
     centrer() {
-      this.$refs.map.fitBounds(this.bounds)
+      this.$refs.map.boundsFit(this.bounds)
     }
   }
 }

@@ -22,15 +22,15 @@
       </div>
     </header>
 
-    <div class="messages">
-      <slot name="messages" />
-    </div>
-
     <main class="main">
       <div class="container">
         <slot />
       </div>
     </main>
+
+    <div class="messages">
+      <slot name="messages" />
+    </div>
 
     <Transition name="fade">
       <div

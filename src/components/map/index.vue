@@ -12,7 +12,12 @@
 </template>
 
 <script>
-import { leafletMap, leafletTileLayerDefault, leafletScaleAdd } from './map.js'
+import {
+  leafletMap,
+  leafletTileLayerDefault,
+  leafletScaleAdd,
+  leafletFeatureGroupGet
+} from './map.js'
 
 export default {
   props: {
@@ -25,7 +30,8 @@ export default {
     return {
       map: null,
       zoom: 0,
-      preventMoveend: false,
+      updateBboxOnly: false,
+      updateCenterAndZoomOnly: false,
       layers: {
         tiles: {},
         geojsons: [],
@@ -53,16 +59,24 @@ export default {
       this.map = leafletMap(this.$refs.map)
 
       this.map.on('moveend', () => {
-        if (this.preventMoveend) {
-          this.preventMoveend = false
+        if (this.updateBboxOnly) {
+          this.updateBboxOnly = false
+          const bbox = this.boundsGet()
+
+          this.$emit('map:update', { bbox })
         } else {
           const center = [this.map.getCenter().lat, this.map.getCenter().lng]
           const zoom = this.map.getZoom()
           this.zoom = zoom
 
-          const bbox = this.boundsGet()
+          if (this.updateCenterAndZoomOnly) {
+            this.updateCenterAndZoomOnly = false
+            this.$emit('map:update', { center, zoom })
+          } else {
+            const bbox = this.boundsGet()
 
-          this.$emit('map:update', { center, zoom, bbox })
+            this.$emit('map:update', { center, zoom, bbox })
+          }
         }
       })
 
@@ -77,14 +91,14 @@ export default {
       this.zoom = this.map.getZoom()
     },
 
-    fitBounds(bounds) {
+    boundsFit(bounds) {
       this.map.fitBounds(bounds)
     },
 
-    centerSet(center) {
-      if (JSON.stringify(center) !== JSON.stringify(this.center)) {
-        this.map.panTo(center)
-      }
+    allFit(bounds) {
+      const featureGroup = this.markersFeatureGroupGet()
+      this.updateCenterAndZoomOnly = true
+      this.boundsFit(featureGroup.getBounds())
     },
 
     zoomSet(zoom) {
@@ -94,13 +108,9 @@ export default {
     },
 
     positionSet({ zoom, center }) {
-      this.preventMoveend = true
+      this.updateBboxOnly = true
       this.map.setView(center, zoom)
       this.zoom = zoom
-
-      const bbox = this.boundsGet()
-
-      this.$emit('map:update', { bbox })
     },
 
     boundsGet() {
@@ -158,6 +168,10 @@ export default {
       })
 
       this.markersAdd()
+    },
+
+    markersFeatureGroupGet() {
+      return leafletFeatureGroupGet(this.layers.markers)
     }
   }
 }

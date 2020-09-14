@@ -72,7 +72,7 @@ export default {
     preferencesFiltresUpdateAndPageReset(params) {
       this.preferencesFiltresUpdate(params)
       this.$store.dispatch('titres/preferencesSet', {
-        section: 'filtres',
+        section: 'table',
         params: { page: 1 }
       })
     },

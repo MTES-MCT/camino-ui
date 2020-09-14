@@ -31,7 +31,7 @@ const leafletMap = map =>
   L.map(map, {
     // zoomControl: true,
     doubleClickZoom: false,
-    minZoom: 4,
+    minZoom: 1,
     gestureHandling: true,
     fullscreenControl: {
       pseudoFullscreen: true
@@ -51,4 +51,12 @@ const tilesBuild = tiles =>
 
 const leafletScaleAdd = map => L.control.scale({ imperial: false }).addTo(map)
 
-export { leafletMap, leafletTileLayerDefault, leafletScaleAdd, tilesBuild }
+const leafletFeatureGroupGet = markers => new L.FeatureGroup(markers)
+
+export {
+  leafletMap,
+  leafletTileLayerDefault,
+  leafletScaleAdd,
+  tilesBuild,
+  leafletFeatureGroupGet
+}

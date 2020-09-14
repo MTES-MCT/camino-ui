@@ -156,6 +156,10 @@
   margin-bottom: var(--unit);
 }
 
+.mb-line {
+  margin-bottom: var(--unit-line);
+}
+
 .mb-xxs {
   margin-bottom: var(--unit-xxs);
 }

@@ -3,7 +3,7 @@
     <li
       v-for="element in elements"
       :key="element"
-      class="mr-xs"
+      class="mr-xs mb-xs"
     >
       <Pill
         :color="element.color"

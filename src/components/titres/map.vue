@@ -5,7 +5,7 @@
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
-      class="map map-list mb-s"
+      class="map map-view mb-s"
       @map:update="titresPreferencesUpdate"
     />
     <MapPattern
@@ -18,15 +18,25 @@
     />
     <div class="container overflow-auto">
       <div class="desktop-blobs">
-        <div class="desktop-blob-1-2">
-          <ul class="list-inline">
+        <div class="desktop-blob-1-2 desktop-flex">
+          <div class="mb-s">
+            <span class="mr-s">
+              <button
+                class="btn-border rnd-m px-s py-xs h5"
+                @click="mapFrame"
+              >
+                Tout afficher
+              </button>
+            </span>
+          </div>
+          <ul class="list-inline pill-list mb-s">
             <li
               v-for="z in zones"
               :key="z.id"
-              class="mr-xs"
+              class="mr-line mb-line"
             >
               <button
-                class="btn-border pill px-m py-s h5"
+                class="btn-border pill-item px-s py-xs h5"
                 @click="mapCenter(z.id)"
               >
                 {{ z.name }}
@@ -34,38 +44,47 @@
             </li>
           </ul>
         </div>
-        <div class="desktop-blob-1-2 flex flex-start mb-s">
-          <div :class="{ active: markerLayersId === 'clusters' }">
-            <button
-              class="btn-border p-s rnd-l-s"
-              @click="markerLayersIdSet('clusters')"
+
+        <div class="desktop-blob-1-2 desktop-flex">
+          <div class="flex mb-s">
+            <div :class="{ active: markerLayersId === 'clusters' }">
+              <button
+                class="btn-border p-s rnd-l-s"
+                title="regroupe les marqueurs"
+                @click="markerLayersIdSet('clusters')"
+              >
+                <i
+                  class="icon-24 icon-markers-clusters"
+                />
+              </button>
+            </div>
+            <div :class="{ active: markerLayersId === 'markers' }">
+              <button
+                class="btn-border p-s"
+                title="affiche les marqueurs"
+                @click="markerLayersIdSet('markers')"
+              >
+                <i class="icon-24 icon-markers-markers" />
+              </button>
+            </div>
+            <div
+              :class="{ active: markerLayersId === 'none' }"
+              class="mr-s"
             >
-              <i class="icon-24 icon-markers-clusters" />
-            </button>
+              <button
+                class="btn-border p-s rnd-r-s"
+                title="affiche les contours uniquement"
+                @click="markerLayersIdSet('none')"
+              >
+                <i class="icon-24 icon-markers-none" />
+              </button>
+            </div>
           </div>
-          <div :class="{ active: markerLayersId === 'markers' }">
-            <button
-              class="btn-border p-s"
-              @click="markerLayersIdSet('markers')"
-            >
-              <i class="icon-24 icon-markers-markers" />
-            </button>
-          </div>
-          <div
-            :class="{ active: markerLayersId === 'none' }"
-            class="mr-s"
-          >
-            <button
-              class="btn-border p-s rnd-r-s"
-              @click="markerLayersIdSet('none')"
-            >
-              <i class="icon-24 icon-markers-none" />
-            </button>
-          </div>
+
           <MapTilesSelector
             :tiles="tiles"
             :tiles-id="tilesId"
-            class="flex-grow"
+            class="flex-grow mb-s"
             @params:update="userPreferencesUpdate"
           />
         </div>
@@ -170,12 +189,18 @@ export default {
     this.init()
   },
 
+  created() {
+    window.addEventListener('popstate', this.popState)
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('popstate', this.popState)
+  },
+
   methods: {
     init() {
       if (this.preferences.zoom && this.preferences.centre) {
-        const zoom = this.preferences.zoom
-        const center = this.preferences.centre.map(Number)
-        this.$refs.map.positionSet({ zoom, center })
+        this.positionSet()
       } else {
         this.boundsFit()
       }
@@ -236,8 +261,29 @@ export default {
       this.boundsFit()
     },
 
+    async mapFrame() {
+      const params = { perimetre: [-180, -90, 180, 90] }
+
+      await this.$store.dispatch('titres/preferencesSet', {
+        section: 'carte',
+        params
+      })
+
+      this.$refs.map.allFit()
+    },
+
     boundsFit() {
-      this.$refs.map.fitBounds(this.bounds)
+      this.$refs.map.boundsFit(this.bounds)
+    },
+
+    positionSet() {
+      const zoom = this.preferences.zoom
+      const center = this.preferences.centre
+      this.$refs.map.positionSet({ zoom, center })
+    },
+
+    popState() {
+      this.positionSet()
     },
 
     geojsonLayersDisplay() {
