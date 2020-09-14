@@ -694,9 +694,7 @@ export default {
     },
 
     maxValY(name) {
-      return Math.max(
-        ...this.currentDataset(name).values.map(v => v[1])
-      ).toString()
+      return Math.max(...this._dataset(name).values.map(v => v[1])).toString()
     },
 
     legendMargeX(name) {
@@ -707,9 +705,6 @@ export default {
       let unit = this.maxValY(name)
       let pas = 1
       let taille = 1
-      if (unit.length === 1) {
-        return 1
-      }
       while (unit.length > 1) {
         unit = Math.floor(parseInt(unit) / 10).toString()
         taille *= 10
@@ -731,8 +726,10 @@ export default {
       options.legend.retraitX = this.legendRetraitX(name)
       options.legend.retraitY = this.legendRetraitY(name)
       if (!options.default) {
-        options.legend.xMarge = this.legendMargeX(name)
-        options.legend.yPas = this.pasY(name)
+        options.legend.xMarge = JSON.parse(
+          JSON.stringify(this.legendMargeX(name))
+        )
+        options.legend.yPas = JSON.parse(JSON.stringify(this.pasY(name)))
       }
       return options
     },
@@ -744,6 +741,7 @@ export default {
         return { annee, value }
       })
 
+      // const dataset = this.currentDataset(name)
       const dataset = { ...this.currentDataset(name) }
 
       let pas = -this.currentOption(name).legend.xPas

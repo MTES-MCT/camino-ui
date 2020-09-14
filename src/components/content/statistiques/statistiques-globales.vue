@@ -348,9 +348,7 @@ export default {
     },
 
     maxValY(name) {
-      return Math.max(
-        ...this.currentDataset(name).values.map(v => v[1])
-      ).toString()
+      return Math.max(...this._dataset(name).values.map(v => v[1])).toString()
     },
 
     legendMargeX(name) {
@@ -378,12 +376,14 @@ export default {
     },
 
     _options(name) {
-      const options = this.currentOption(name)
+      const options = { ...this.currentOption(name) }
       options.legend.retraitX = this.legendRetraitX(name)
       options.legend.retraitY = this.legendRetraitY(name)
       if (!options.default) {
-        options.legend.xMarge = this.legendMargeX(name)
-        options.legend.yPas = this.pasY(name)
+        options.legend.xMarge = JSON.parse(
+          JSON.stringify(this.legendMargeX(name))
+        )
+        options.legend.yPas = JSON.parse(JSON.stringify(this.pasY(name)))
       }
       return options
     },
@@ -407,6 +407,7 @@ export default {
       // on veut obtenir
       // datasets = [{id:...,values:[[0,0],...[xPas*Index,'5706']],legend:['2018-09',...,'2020-08']}]
 
+      // const dataset = this.currentDataset(name)
       const dataset = { ...this.currentDataset(name) }
 
       let pas = -this.currentOption(name).legend.xPas
