@@ -3,21 +3,42 @@ import { apiFetch } from './_client'
 
 const statistiques = apiFetch(gql`
   query Statistiques {
-    statistiques {
+    statistiquesGlobales {
       titresActivitesBeneficesEntreprise
       titresActivitesBeneficesAdministration
-      nbSearchArray {
+      recherches {
         month
         value
       }
-      nbMajTitresArray {
+      titresModifies {
         month
         value
       }
-      nbAction
-      timeSession
-      nbDonwload
-      nbDemarche
+      actions
+      sessionDuree
+      telechargements
+      demarches
+      signalements
+      reutilisations
+    }
+
+    statistiquesGuyane {
+      annee
+      titresArm
+      titresPrm
+      titresAxm
+      titresPxm
+      titresCxm
+      surfaceExploration
+      surfaceExploitation
+      productionOr
+      carburantConventionnel
+      carburantDetaxe
+      mercure
+      environnementCout
+      salaries
+      rapportProductionOrDeposes
+      rapportProductionOrRatio
     }
   }
 `)

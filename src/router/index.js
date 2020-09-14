@@ -19,7 +19,7 @@ import MentionsLegalesCGU from '../components/content/mentions-legales-cgu.vue'
 import Cgu1 from '../components/content/cgu-1-0-0.vue'
 import UserPasswordInit from '../components/user/password-init.vue'
 import UserAdd from '../components/user/add.vue'
-import Statistiques from '../components/content/statistiques.vue'
+import Statistiques from '../components/content/statistiques/statistiques.vue'
 import Definition from '../components/glossaire/definition.vue'
 import store from '../store'
 
