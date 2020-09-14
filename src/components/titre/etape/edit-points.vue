@@ -237,7 +237,7 @@ export default {
 
     referencesInit() {
       return this.etape.geoSystemeIds.reduce((references, geoSystemeId) => {
-        references[geoSystemeId] = [0, 0]
+        references[geoSystemeId] = []
 
         return references
       }, {})
