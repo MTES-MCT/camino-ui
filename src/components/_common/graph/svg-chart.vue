@@ -1,6 +1,8 @@
 <template>
   <div>
-    <svg :view-box.camel="viewbox">
+    <svg
+      :view-box.camel="viewbox"
+    >
       <SvgChartLine
         :d="dataset"
         :o="options"
