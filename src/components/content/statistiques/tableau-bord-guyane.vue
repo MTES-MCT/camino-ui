@@ -1,11 +1,6 @@
 <template>
   <div>
-    <Loader
-      v-if="!loaded"
-      class="content"
-    />
     <div
-      v-else
       class="content"
     >
       <hr class="mb-xl">
@@ -117,11 +112,11 @@
       </div>
       <IndicateursActiviteGuyane
         v-if="tabActive === this.anneeCurrent - 2"
-        :annee-statistiques-guyane="getStatistiqueGuyane(this.anneeCurrent - 2)"
+        :statistique-guyane="getStatistiqueGuyane(this.anneeCurrent - 2)"
       />
       <IndicateursActiviteGuyane
         v-if="tabActive === this.anneeCurrent - 1"
-        :annee-statistiques-guyane="getStatistiqueGuyane(this.anneeCurrent - 1)"
+        :statistique-guyane="getStatistiqueGuyane(this.anneeCurrent - 1)"
       />
       <div
         id="evolution"
@@ -173,9 +168,9 @@
               class="graph-container"
             >
               <SvgChart
-                :dataset="_dataset('arm')"
-                :options="_options('arm')"
-                :svg="_svg('arm')"
+                :dataset="_dataset('titresArm')"
+                :options="_options('titresArm')"
+                :svg="_svg('titresArm')"
               />
             </div>
           </div>
@@ -198,9 +193,9 @@
               class="graph-container"
             >
               <SvgChart
-                :dataset="_dataset('prm')"
-                :options="_options('prm')"
-                :svg="_svg('prm')"
+                :dataset="_dataset('titresPrm')"
+                :options="_options('titresPrm')"
+                :svg="_svg('titresPrm')"
               />
             </div>
           </div>
@@ -223,9 +218,9 @@
               class="graph-container"
             >
               <SvgChart
-                :dataset="_dataset('axm')"
-                :options="_options('axm')"
-                :svg="_svg('axm')"
+                :dataset="_dataset('titresAxm')"
+                :options="_options('titresAxm')"
+                :svg="_svg('titresAxm')"
               />
             </div>
           </div>
@@ -248,9 +243,9 @@
               class="graph-container"
             >
               <SvgChart
-                :dataset="_dataset('pxm')"
-                :options="_options('pxm')"
-                :svg="_svg('pxm')"
+                :dataset="_dataset('titresPxm')"
+                :options="_options('titresPxm')"
+                :svg="_svg('titresPxm')"
               />
             </div>
           </div>
@@ -273,9 +268,9 @@
               class="graph-container"
             >
               <SvgChart
-                :dataset="_dataset('cxm')"
-                :options="_options('cxm')"
-                :svg="_svg('cxm')"
+                :dataset="_dataset('titresCxm')"
+                :options="_options('titresCxm')"
+                :svg="_svg('titresCxm')"
               />
             </div>
           </div>
@@ -294,14 +289,13 @@
 </template>
 
 <script>
-import Loader from '../../_ui/loader.vue'
 import IndicateursActiviteGuyane from './indicateurs-activite-guyane.vue'
 import SvgChart from '../../_common/graph/svg-chart.vue'
 
 export default {
   name: 'TableauBordGuyane',
 
-  components: { Loader, IndicateursActiviteGuyane, SvgChart },
+  components: { IndicateursActiviteGuyane, SvgChart },
 
   data() {
     return {
@@ -352,7 +346,7 @@ export default {
           }
         },
         {
-          name: 'arm',
+          name: 'titresArm',
           options: {
             default: false,
             xMin: 0,
@@ -382,7 +376,7 @@ export default {
             }
           },
           dataset: {
-            id: 'arm',
+            id: 'titresArm',
             colors: {
               path: 'rgba(55, 165, 230, 1.0)',
               circles: 'orange',
@@ -397,7 +391,7 @@ export default {
           }
         },
         {
-          name: 'prm',
+          name: 'titresPrm',
           options: {
             default: false,
             xMin: 0,
@@ -427,7 +421,7 @@ export default {
             }
           },
           dataset: {
-            id: 'prm',
+            id: 'titresPrm',
             colors: {
               path: 'rgba(55, 165, 230, 1.0)',
               circles: 'orange',
@@ -442,7 +436,7 @@ export default {
           }
         },
         {
-          name: 'axm',
+          name: 'titresAxm',
           options: {
             default: false,
             xMin: 0,
@@ -472,7 +466,7 @@ export default {
             }
           },
           dataset: {
-            id: 'axm',
+            id: 'titresAxm',
             colors: {
               path: 'rgba(55, 165, 230, 1.0)',
               circles: 'orange',
@@ -487,7 +481,7 @@ export default {
           }
         },
         {
-          name: 'pxm',
+          name: 'titresPxm',
           options: {
             default: false,
             xMin: 0,
@@ -517,7 +511,7 @@ export default {
             }
           },
           dataset: {
-            id: 'pxm',
+            id: 'titresPxm',
             colors: {
               path: 'rgba(55, 165, 230, 1.0)',
               circles: 'orange',
@@ -532,7 +526,7 @@ export default {
           }
         },
         {
-          name: 'cxm',
+          name: 'titresCxm',
           options: {
             default: false,
             xMin: 0,
@@ -562,7 +556,7 @@ export default {
             }
           },
           dataset: {
-            id: 'cxm',
+            id: 'titresCxm',
             colors: {
               path: 'rgba(55, 165, 230, 1.0)',
               circles: 'orange',
@@ -601,23 +595,23 @@ export default {
     },
 
     arm() {
-      return this.getData('arm')
+      return this.getData('titresArm')
     },
 
     prm() {
-      return this.getData('prm')
+      return this.getData('titresPrm')
     },
 
     axm() {
-      return this.getData('axm')
+      return this.getData('titresAxm')
     },
 
     pxm() {
-      return this.getData('pxm')
+      return this.getData('titresPxm')
     },
 
     cxm() {
-      return this.getData('cxm')
+      return this.getData('titresCxm')
     },
 
     surfaceExploration() {
@@ -652,27 +646,23 @@ export default {
     },
 
     armEvo() {
-      return this.getEvo('arm')
+      return this.getEvo('titresArm')
     },
 
     prmEvo() {
-      return this.getEvo('prm')
+      return this.getEvo('titresPrm')
     },
 
     axmEvo() {
-      return this.getEvo('axm')
+      return this.getEvo('titresAxm')
     },
 
     pxmEvo() {
-      return this.getEvo('pxm')
+      return this.getEvo('titresPxm')
     },
 
     cxmEvo() {
-      return this.getEvo('cxm')
-    },
-
-    loaded() {
-      return !!this.statistiquesGuyane.loaded
+      return this.getEvo('titresCxm')
     }
   },
 
@@ -748,13 +738,11 @@ export default {
     },
 
     _dataset(name) {
-      const counts = this.statistiquesGuyane.anneesStatistiquesGuyane.map(
-        anneeStatistique => {
-          const annee = anneeStatistique.annee.toString()
-          const value = anneeStatistique.statistiqueGuyane[name]
-          return { annee, value }
-        }
-      )
+      const counts = this.statistiquesGuyane.map(statistique => {
+        const annee = statistique.annee.toString()
+        const value = statistique[name]
+        return { annee, value }
+      })
 
       const dataset = { ...this.currentDataset(name) }
 
@@ -776,14 +764,14 @@ export default {
 
     getData(id, annee) {
       annee = annee || this.anneeCurrent
-      return Object.entries(
-        this.getStatistiqueGuyane(annee).statistiqueGuyane
-      ).find(statistiqueGuyane => statistiqueGuyane[0] === id)[1]
+      return Object.entries(this.getStatistiqueGuyane(annee)).find(
+        statistiqueGuyane => statistiqueGuyane[0] === id
+      )[1]
     },
 
     getStatistiqueGuyane(annee) {
-      return this.statistiquesGuyane.anneesStatistiquesGuyane.find(
-        anneeStatistique => anneeStatistique.annee === annee
+      return this.statistiquesGuyane.find(
+        statistique => statistique.annee === annee
       )
     },
 

@@ -36,9 +36,7 @@ export const mutations = {
       Vue.set(state, 'statistiquesGlobales', statistiquesGlobales)
     }
     if (data.statistiquesGuyane) {
-      const statistiquesGuyane = { ...data.statistiquesGuyane }
-      statistiquesGuyane.loaded = true
-      Vue.set(state, 'statistiquesGuyane', statistiquesGuyane)
+      Vue.set(state, 'statistiquesGuyane', data.statistiquesGuyane)
     }
   }
 }

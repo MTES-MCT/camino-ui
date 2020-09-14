@@ -48,13 +48,13 @@
           </div>
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0">
-              {{ Math.round(statistiquesGlobales.action) }}
+              {{ Math.round(statistiquesGlobales.actions) }}
             </p>
             <p class="bold">
               nombre moyen d'actions effectuées par un utilisateur sur le site
             </p>
             <p class="h0-graph mb-0">
-              {{ statistiquesGlobales.tempsSession }}
+              {{ statistiquesGlobales.sessionDuree }}
             </p>
             <p class="bold">
               temps de session moyen sur camino par chacun des utilisateurs
@@ -79,7 +79,7 @@
         <div class="desktop-blobs">
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0 mt-xxl">
-              {{ majTitreCount }}
+              {{ titresModifiesCount }}
             </p>
             <p class="bold">
               mise à jour de titres miniers par l'administration et les
@@ -108,21 +108,21 @@
           </div>
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0">
-              {{ statistiquesGlobales.telechargement }}
+              {{ statistiquesGlobales.telechargements }}
             </p>
             <p class="bold">
               téléchargements de pièces relatives à la bonne instruction des
               titres et autorisations miniers ce mois-ci
             </p>
             <p class="h0-graph mb-0">
-              {{ statistiquesGlobales.erreur }}
+              {{ statistiquesGlobales.signalements }}
             </p>
             <p class="bold">
               erreurs corrigées sur les bases de données de l'État grâce à la
               participation des utilisateurs
             </p>
             <p class="h0-graph mb-0">
-              {{ statistiquesGlobales.reutilisation }}
+              {{ statistiquesGlobales.reutilisations }}
             </p>
             <p class="bold">
               réutilisations connues des données ouvertes distribuées
@@ -310,13 +310,13 @@ export default {
       return searchCounts[searchCounts.length - 1].value
     },
 
-    majTitreCount() {
-      const majTitreCounts = this.statistiquesGlobales.miseAJourTitre
+    titresModifiesCount() {
+      const majTitreCounts = this.statistiquesGlobales.titresModifies
       return majTitreCounts[majTitreCounts.length - 1].value
     },
 
     demarcheCounts() {
-      return this.statistiquesGlobales.demarche
+      return this.statistiquesGlobales.demarches
     },
 
     loaded() {
@@ -394,7 +394,7 @@ export default {
         counts = this.statistiquesGlobales.recherches
       }
       if (name === 'nombre de mises à jour par mois') {
-        counts = this.statistiquesGlobales.miseAJourTitre
+        counts = this.statistiquesGlobales.titresModifies
       }
 
       // nbXXXArray est de la forme

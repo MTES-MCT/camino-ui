@@ -115,16 +115,13 @@ export default {
   name: 'IndicateursActiviteGuyane',
 
   props: {
-    anneeStatistiquesGuyane: {
+    statistiqueGuyane: {
       type: Object,
       default: () => ({})
     }
   },
 
   computed: {
-    statistiqueGuyane() {
-      return this.anneeStatistiquesGuyane.statistiqueGuyane
-    },
     productionOr() {
       return this.statistiqueGuyane.productionOr
     },

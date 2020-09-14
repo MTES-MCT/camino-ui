@@ -10,39 +10,35 @@ const statistiques = apiFetch(gql`
         month
         value
       }
-      miseAJourTitre {
+      titresModifies {
         month
         value
       }
-      action
-      tempsSession
-      telechargement
-      demarche
-      erreur
-      reutilisation
+      actions
+      sessionDuree
+      telechargements
+      demarches
+      signalements
+      reutilisations
     }
 
     statistiquesGuyane {
-      anneesStatistiquesGuyane {
-        annee
-        statistiqueGuyane {
-          arm
-          prm
-          axm
-          pxm
-          cxm
-          surfaceExploration
-          surfaceExploitation
-          productionOr
-          carburantConventionnel
-          carburantDetaxe
-          mercure
-          environnementCout
-          salaries
-          rapportProductionOrDeposes
-          rapportProductionOrRatio
-        }
-      }
+      annee
+      titresArm
+      titresPrm
+      titresAxm
+      titresPxm
+      titresCxm
+      surfaceExploration
+      surfaceExploitation
+      productionOr
+      carburantConventionnel
+      carburantDetaxe
+      mercure
+      environnementCout
+      salaries
+      rapportProductionOrDeposes
+      rapportProductionOrRatio
     }
   }
 `)
