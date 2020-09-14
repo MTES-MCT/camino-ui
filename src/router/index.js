@@ -19,7 +19,9 @@ import MentionsLegalesCGU from '../components/content/mentions-legales-cgu.vue'
 import Cgu1 from '../components/content/cgu-1-0-0.vue'
 import UserPasswordInit from '../components/user/password-init.vue'
 import UserAdd from '../components/user/add.vue'
-import Statistiques from '../components/content/statistiques/statistiques.vue'
+import Statistiques from '../components/statistiques.vue'
+import StatistiquesGlobales from '../components/statistiques/globales.vue'
+import StatistiquesGuyane from '../components/statistiques/guyane.vue'
 import Definition from '../components/glossaire/definition.vue'
 import store from '../store'
 
@@ -37,13 +39,6 @@ const routes = [
     path: '/titres/:id',
     name: 'titre',
     component: Titre
-    // children: [
-    //   {
-    //     path: 'activite',
-    //     name: 'activite',
-    //     component: TitleDetails
-    //   }
-    // ]
   },
   {
     path: '/demarches',
@@ -129,7 +124,19 @@ const routes = [
   {
     path: '/statistiques',
     name: 'statistiques',
-    component: Statistiques
+    component: Statistiques,
+    children: [
+      {
+        path: 'guyane',
+        name: 'statistiques-guyane',
+        component: StatistiquesGuyane
+      },
+      {
+        path: 'globales',
+        name: 'statistiques-globales',
+        component: StatistiquesGlobales
+      }
+    ]
   },
   {
     path: '/stats',

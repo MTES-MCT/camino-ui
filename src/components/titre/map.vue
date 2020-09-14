@@ -42,12 +42,12 @@
 
 <script>
 import L from 'leaflet'
-import Map from '../map/index.vue'
-import MapTilesSelector from '../map/tiles-selector.vue'
-import MapWarningBrgm from '../map/warning-brgm.vue'
-import MapPattern from '../map/pattern.vue'
+import Map from '../_map/index.vue'
+import MapTilesSelector from '../_map/tiles-selector.vue'
+import MapWarningBrgm from '../_map/warning-brgm.vue'
+import MapPattern from '../_map/pattern.vue'
 
-import { tilesBuild } from '../map/map.js'
+import { tilesBuild } from '../_map/map.js'
 
 export default {
   components: { MapPattern, MapWarningBrgm, Map, MapTilesSelector },

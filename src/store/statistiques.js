@@ -1,43 +1,36 @@
 import Vue from 'vue'
-import { statistiques } from '../api/statistiques'
+import { statistiquesGlobales, statistiquesGuyane } from '../api/statistiques'
 
 export const state = {
-  statistiquesGlobales: {},
-  statistiquesGuyane: {},
-  loaded: false
+  globales: {},
+  guyane: {}
 }
 
 export const actions = {
-  async get({ commit, dispatch }) {
-    commit('loadingAdd', 'statistiques', { root: true })
-
+  async get({ commit, dispatch }, section) {
     try {
-      const data = await statistiques()
+      commit('loadingAdd', 'statistiquesGet', { root: true })
 
-      if (data) {
-        commit('set', data)
-      } else {
-        commit('set', {})
+      let data
+      if (section === 'globales') {
+        data = await statistiquesGlobales()
+      } else if (section === 'guyane') {
+        data = await statistiquesGuyane()
       }
+
+      commit('set', { section: section, data })
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.info(e)
     } finally {
-      commit('loadingRemove', 'statistiques', { root: true })
+      commit('loadingRemove', 'statistiquesGet', { root: true })
     }
   }
 }
 
 export const mutations = {
-  set(state, data) {
-    if (data.statistiquesGlobales) {
-      const statistiquesGlobales = { ...data.statistiquesGlobales }
-      statistiquesGlobales.loaded = true
-      Vue.set(state, 'statistiquesGlobales', statistiquesGlobales)
-    }
-    if (data.statistiquesGuyane) {
-      Vue.set(state, 'statistiquesGuyane', data.statistiquesGuyane)
-    }
+  set(state, { section, data }) {
+    Vue.set(state, section, data)
   }
 }
 

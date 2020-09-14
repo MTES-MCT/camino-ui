@@ -24,7 +24,7 @@
 <script>
 import marked from 'marked'
 import DefinitionEntree from './definition-entree.vue'
-import MapPattern from '../map/pattern.vue'
+import MapPattern from '../_map/pattern.vue'
 
 export default {
   name: 'Definition',

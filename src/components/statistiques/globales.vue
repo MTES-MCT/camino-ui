@@ -1,0 +1,345 @@
+<template>
+  <Loader
+    v-if="!loaded"
+    class="content"
+  />
+  <div
+    v-else
+    class="content"
+  >
+    <div
+      id="engagement"
+      class="mb-xxl"
+    >
+      <h2>
+        Engagement général sur le site
+      </h2>
+      <span class="separator" />
+      <p>
+        Les données retenues ici témoignent du comportement général des
+        utilisateurs sur le site et de leur engagement auprès du service
+      </p>
+      <div class="desktop-blobs">
+        <div class="desktop-blob-1-6 text-center">
+          <p class="h0-graph mb-0 mt-xxl">
+            {{ Intl.NumberFormat().format(rechercheCount) }}
+          </p>
+          <p class="bold">
+            recherches ce mois-ci
+          </p>
+        </div>
+        <div class="desktop-blob-2-3">
+          <div
+            ref="graphContainer"
+            class="graph-container"
+          >
+            <SvgChart
+              :dataset="_dataset('nombre de recherches par mois')"
+              :options="_options('nombre de recherches par mois')"
+              :svg="_svg('nombre de recherches par mois')"
+            />
+            <p class="graph-title">
+              Le nombre de recherches mensuelles est l'indicateur clé de
+              l'utilisation du service de "cadastre minier"
+            </p>
+          </div>
+        </div>
+        <div class="desktop-blob-1-6 text-center">
+          <p class="h0-graph mb-0">
+            {{ Math.round(statistiquesGlobales.actions) }}
+          </p>
+          <p class="bold">
+            nombre moyen d'actions effectuées par un utilisateur sur le site
+          </p>
+          <p class="h0-graph mb-0">
+            {{ statistiquesGlobales.sessionDuree }}
+          </p>
+          <p class="bold">
+            temps de session moyen sur camino par chacun des utilisateurs
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="amelioration"
+      class="mb-xxl content"
+    >
+      <h2>
+        Amélioration continue et accès aux données publiques
+      </h2>
+      <span class="separator" />
+      <p>
+        En tant que secteur régulé par l'État, la publication en ligne des
+        données minières doit permettre leur amélioration et leur utilisation
+        par la communauté
+      </p>
+      <div class="desktop-blobs">
+        <div class="desktop-blob-1-6 text-center">
+          <p class="h0-graph mb-0 mt-xxl">
+            {{ titresModifiesCount }}
+          </p>
+          <p class="bold">
+            mise à jour de titres miniers par l'administration et les
+            entreprises du secteur ce mois-ci
+          </p>
+        </div>
+        <div class="desktop-blob-2-3">
+          <div
+            ref="graphContainer"
+            class="graph-container"
+          >
+            <SvgChart
+              :dataset="_dataset('nombre de mises à jour par mois')"
+              :options="_options('nombre de mises à jour par mois')"
+              :svg="_svg('nombre de mises à jour par mois')"
+            />
+            <p class="graph-title">
+              Le nombre de mises à jour mensuelles du cadastre par les
+              différents services de l'administration ou par les
+              professionnels du secteur reflète l'intensité de l'activité
+              d'instruction et administrative sur le domaine minier en France.
+              Une mise à jour peut être l'ajout d'un titre, une modification
+              de son statut ou des documents concernant son instruction.
+            </p>
+          </div>
+        </div>
+        <div class="desktop-blob-1-6 text-center">
+          <p class="h0-graph mb-0">
+            {{ statistiquesGlobales.telechargements }}
+          </p>
+          <p class="bold">
+            téléchargements de pièces relatives à la bonne instruction des
+            titres et autorisations miniers ce mois-ci
+          </p>
+          <p class="h0-graph mb-0">
+            {{ statistiquesGlobales.signalements }}
+          </p>
+          <p class="bold">
+            erreurs corrigées sur les bases de données de l'État grâce à la
+            participation des utilisateurs
+          </p>
+          <p class="h0-graph mb-0">
+            {{ statistiquesGlobales.reutilisations }}
+          </p>
+          <p class="bold">
+            réutilisations connues des données ouvertes distribuées
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="gains"
+      class="mb-xxl"
+    >
+      <h2>
+        Gains de la dématérialisation sur l'instruction minière
+      </h2>
+      <span class="separator" />
+      <p>
+        La dématérialisation des démarches relatives à l'instruction minière
+        doit permettre un gain de temps pour ceux qui les effectuent et ceux
+        qui les instruisent
+      </p>
+      <div class="desktop-blobs">
+        <div class="desktop-blob-1-3 text-center">
+          <p class="h0-graph mb-0">
+            {{ demarcheCounts }}
+          </p>
+          <p class="bold">
+            démarches effectuées en ligne cette années
+          </p>
+        </div>
+        <div class="desktop-blob-1-3 text-center">
+          <p class="h0-graph mb-0">
+            {{ statistiquesGlobales.titresActivitesBeneficesEntreprise }}
+          </p>
+          <p class="bold">
+            jours de travail sans valeur ajoutée économisés par les
+            entreprises en Guyane
+          </p>
+          <p>
+            La dématérialisation d’un rapport trimestriel d’activité de
+            production d’or en Guyane permet en moyenne l’économie de 2 heures
+            de travail de saisie ou de déplacement pour son dépôt physique à
+            l’administration.
+          </p>
+        </div>
+        <div class="desktop-blob-1-3 text-center">
+          <p class="h0-graph mb-0">
+            {{ statistiquesGlobales.titresActivitesBeneficesAdministration }}
+          </p>
+          <p class="bold">
+            jours de travail à faible valeur ajoutée économisés par
+            l’administration
+          </p>
+          <p>
+            La dématérialisation d’un rapport trimestriel d’activité de
+            production d’or en Guyane permet en moyenne l’économie d’une heure
+            de travail de traitement et re-saisie de données par un agent de
+            l’administration. Le gain de temps est réinvesti sur
+            l’accompagnement et le contrôle de l’activité.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Loader from '../_ui/loader.vue'
+import SvgChart from '../_charts/svg-chart.vue'
+import { graph } from './globales.js'
+
+export default {
+  name: 'CaminoStatistiques',
+
+  components: { Loader, SvgChart },
+
+  data() {
+    return {
+      loaded: false,
+      graph,
+      svg: {
+        w: 1000,
+        h: 600
+      }
+    }
+  },
+
+  computed: {
+    statistiquesGlobales() {
+      return this.$store.state.statistiques.globales
+    },
+
+    rechercheCount() {
+      const searchCounts = this.statistiquesGlobales.recherches
+      return searchCounts[searchCounts.length - 1].value
+    },
+
+    titresModifiesCount() {
+      const majTitreCounts = this.statistiquesGlobales.titresModifies
+      return majTitreCounts[majTitreCounts.length - 1].value
+    },
+
+    demarcheCounts() {
+      return this.statistiquesGlobales.demarches
+    }
+  },
+
+  async created() {
+    await this.get()
+  },
+
+  methods: {
+    async get() {
+      await this.$store.dispatch('statistiques/get', 'globales')
+
+      if (!this.loaded) {
+        this.loaded = true
+      }
+    },
+
+    currentOption(name) {
+      return this.graph.find(g => g.name === name).options
+    },
+
+    currentDataset(name) {
+      return this.graph.find(g => g.name === name).dataset
+    },
+
+    legendRetraitX(name) {
+      const legendRetraitX = this.currentOption(name).legend.x
+        ? this.currentOption(name).legend.xRetrait
+        : 0
+      return -this.currentOption(name).xMin > 0 ? 0 : legendRetraitX
+    },
+
+    legendRetraitY(name) {
+      const legendRetraitY = this.currentOption(name).legend.y
+        ? this.currentOption(name).legend.yRetrait
+        : 0
+      return -this.currentOption(name).yMin > 0 ? 0 : legendRetraitY
+    },
+
+    maxValY(name) {
+      return Math.max(...this._dataset(name).values.map(v => v[1])).toString()
+    },
+
+    legendMargeX(name) {
+      return this.maxValY(name).length * 15
+    },
+
+    pasY(name) {
+      let unit = this.maxValY(name)
+      let pas = 1
+      let taille = 1
+      while (unit.length > 1) {
+        unit = Math.floor(parseInt(unit) / 10).toString()
+        taille *= 10
+        pas = parseInt(unit) < 5 ? 5 : parseInt(unit) < 10 ? 10 : 1
+      }
+      return (pas * taille) / 10
+    },
+
+    _svg(name) {
+      const w = this.svg.w
+      const h = this.svg.h
+      const wr = w - this.legendRetraitX(name)
+      const hr = h - this.legendRetraitY(name)
+      return { w, h, wr, hr }
+    },
+
+    _options(name) {
+      const options = this.currentOption(name)
+      options.legend.retraitX = this.legendRetraitX(name)
+      options.legend.retraitY = this.legendRetraitY(name)
+      if (!options.default) {
+        options.legend.xMarge = JSON.parse(
+          JSON.stringify(this.legendMargeX(name))
+        )
+        options.legend.yPas = JSON.parse(JSON.stringify(this.pasY(name)))
+      }
+      return options
+    },
+
+    _dataset(name) {
+      let counts
+      if (name === 'nombre de recherches par mois') {
+        counts = this.statistiquesGlobales.recherches
+      }
+      if (name === 'nombre de mises à jour par mois') {
+        counts = this.statistiquesGlobales.titresModifies
+      }
+
+      // nbXXXArray est de la forme
+      // [
+      //   { month: '2018-09', value: '0' },
+      //   ...
+      //   { month: '2020-08', value: '5706' }
+      // ]
+
+      // on veut obtenir
+      // datasets = [{id:...,values:[[0,0],...[xPas*Index,'5706']],legend:['2018-09',...,'2020-08']}]
+
+      const dataset = { ...this.currentDataset(name) }
+
+      let pas = -this.currentOption(name).legend.xPas
+      const values = counts.map(el => {
+        const value = [2]
+        value[0] = pas += this.currentOption(name).legend.xPas
+        value[1] = parseInt(el.value)
+        return value
+      })
+
+      const legend = counts.map(el => el.month)
+
+      dataset.values = values
+      dataset.legend[0] = legend
+
+      return dataset
+    }
+  }
+}
+</script>

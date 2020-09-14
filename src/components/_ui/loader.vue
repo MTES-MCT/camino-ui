@@ -1,6 +1,6 @@
 <template>
   <div class="mb">
-    Loading…
+    Chargement…
   </div>
 </template>
 
