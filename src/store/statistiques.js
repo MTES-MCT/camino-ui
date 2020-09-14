@@ -3,7 +3,7 @@ import { statistiques } from '../api/statistiques'
 
 export const state = {
   statistiquesGlobales: {},
-  tbGuyane: {},
+  statistiquesGuyane: {},
   loaded: false
 }
 
@@ -35,10 +35,10 @@ export const mutations = {
       statistiquesGlobales.loaded = true
       Vue.set(state, 'statistiquesGlobales', statistiquesGlobales)
     }
-    if (data.tbGuyane) {
-      const tbGuyane = { ...data.tbGuyane }
-      tbGuyane.loaded = true
-      Vue.set(state, 'tbGuyane', tbGuyane)
+    if (data.statistiquesGuyane) {
+      const statistiquesGuyane = { ...data.statistiquesGuyane }
+      statistiquesGuyane.loaded = true
+      Vue.set(state, 'statistiquesGuyane', statistiquesGuyane)
     }
   }
 }

@@ -31,7 +31,7 @@ describe('page de statistiques', () => {
         nbErreur: 210,
         loaded: true
       },
-      tbGuyane: {}
+      statistiquesGuyane: {}
     }
     statistiques.state = {
       statistiquesGlobales: {
@@ -46,7 +46,7 @@ describe('page de statistiques', () => {
         nbErreur: 0,
         loaded: false
       },
-      tbGuyane: {}
+      statistiquesGuyane: {}
     }
     mutations = {
       loadingAdd: jest.fn(),

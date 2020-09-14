@@ -22,8 +22,8 @@ const statistiques = apiFetch(gql`
       reutilisationCount
     }
 
-    tbGuyane {
-      anneesTbGuyane {
+    statistiquesGuyane {
+      anneesStatistiquesGuyane {
         annee
         dataTb {
           armCount

@@ -554,8 +554,8 @@ export default {
   },
 
   computed: {
-    tbGuyane() {
-      return this.$store.state.statistiques.tbGuyane
+    statistiquesGuyane() {
+      return this.$store.state.statistiques.statistiquesGuyane
     },
 
     anneeCurrent() {
@@ -563,7 +563,7 @@ export default {
     },
 
     anneeTbCurrent() {
-      return this.tbGuyane.anneesTbGuyane.find(
+      return this.statistiquesGuyane.anneesStatistiquesGuyane.find(
         anneeTb => anneeTb.annee === this.anneeCurrent
       )
     },
@@ -640,7 +640,7 @@ export default {
     },
 
     loaded() {
-      return !!this.tbGuyane.loaded
+      return !!this.statistiquesGuyane.loaded
     }
   },
 
@@ -716,11 +716,13 @@ export default {
     },
 
     _dataset(name) {
-      const counts = this.tbGuyane.anneesTbGuyane.map(anneeTb => {
-        const annee = anneeTb.annee.toString()
-        const value = anneeTb.dataTb[name]
-        return { annee, value }
-      })
+      const counts = this.statistiquesGuyane.anneesStatistiquesGuyane.map(
+        anneeTb => {
+          const annee = anneeTb.annee.toString()
+          const value = anneeTb.dataTb[name]
+          return { annee, value }
+        }
+      )
 
       const dataset = { ...this.currentDataset(name) }
 
@@ -748,7 +750,7 @@ export default {
     },
 
     getDataTb(annee) {
-      return this.tbGuyane.anneesTbGuyane.find(
+      return this.statistiquesGuyane.anneesStatistiquesGuyane.find(
         anneeTb => anneeTb.annee === annee
       )
     },

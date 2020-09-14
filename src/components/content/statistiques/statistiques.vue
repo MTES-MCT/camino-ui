@@ -18,25 +18,25 @@
       </div>
     </div>
     <StatistiquesGlobales v-if="tabActive === 'globales'" />
-    <TbGuyane v-if="tabActive === 'tbGuyane'" />
+    <StatistiquesGuyane v-if="tabActive === 'guyane'" />
   </div>
 </template>
 
 <script>
 import StatistiquesGlobales from './statistiquesGlobales.vue'
-import TbGuyane from './tableauBordGuyane.vue'
+import StatistiquesGuyane from './tableauBordGuyane.vue'
 
 export default {
   name: 'Statistiques',
 
-  components: { StatistiquesGlobales, TbGuyane },
+  components: { StatistiquesGlobales, StatistiquesGuyane },
 
   data() {
     return {
       tabActive: 'globales',
       tabs: [
         { id: 'globales', nom: 'Statistiques' },
-        { id: 'tbGuyane', nom: 'Taleau de bord - Guyane' }
+        { id: 'guyane', nom: 'Taleau de bord - Guyane' }
       ]
     }
   },
