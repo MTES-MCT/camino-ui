@@ -15,7 +15,7 @@
         <div class="desktop-blobs">
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0 mt-xxl">
-              {{ Intl.NumberFormat().format(nbSearch) }}
+              {{ Intl.NumberFormat().format(rechercheCount) }}
             </p>
             <p class="bold">
               recherches ce mois-ci
@@ -36,13 +36,13 @@
           </div>
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0">
-              {{ Math.round(statistiquesGlobales.actionCount) }}
+              {{ Math.round(statistiquesGlobales.action) }}
             </p>
             <p class="bold">
               nombre moyen d'actions effectuées par un utilisateur sur le site
             </p>
             <p class="h0-graph mb-0">
-              {{ statistiquesGlobales.timeSession }}
+              {{ statistiquesGlobales.tempsSession }}
             </p>
             <p class="bold">
               temps de session moyen sur camino par chacun des utilisateurs
@@ -64,7 +64,7 @@
         <div class="desktop-blobs">
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0 mt-xxl">
-              {{ nbMajTitres }}
+              {{ majTitreCount }}
             </p>
             <p class="bold">
               mise à jour de titres miniers par l'administration et les
@@ -90,21 +90,21 @@
           </div>
           <div class="desktop-blob-1-6 text-center">
             <p class="h0-graph mb-0">
-              {{ statistiquesGlobales.downloadCount }}
+              {{ statistiquesGlobales.telechargement }}
             </p>
             <p class="bold">
               téléchargements de pièces relatives à la bonne instruction des
               titres et autorisations miniers ce mois-ci
             </p>
             <p class="h0-graph mb-0">
-              {{ statistiquesGlobales.erreurCount }}
+              {{ statistiquesGlobales.erreur }}
             </p>
             <p class="bold">
               erreurs corrigées sur les bases de données de l'État grâce à la
               participation des utilisateurs
             </p>
             <p class="h0-graph mb-0">
-              {{ statistiquesGlobales.nbReutilisation }}
+              {{ statistiquesGlobales.reutilisation }}
             </p>
             <p class="bold">
               réutilisations connues des données ouvertes distribuées
@@ -284,18 +284,18 @@ export default {
       return this.$store.state.statistiques.statistiquesGlobales
     },
 
-    nbSearch() {
-      const searchCounts = this.statistiquesGlobales.searchCounts
+    rechercheCount() {
+      const searchCounts = this.statistiquesGlobales.recherches
       return searchCounts[searchCounts.length - 1].value
     },
 
-    nbMajTitres() {
-      const majTitreCounts = this.statistiquesGlobales.majTitreCounts
+    majTitreCount() {
+      const majTitreCounts = this.statistiquesGlobales.miseAJourTitre
       return majTitreCounts[majTitreCounts.length - 1].value
     },
 
     demarcheCounts() {
-      return this.statistiquesGlobales.demarcheCount
+      return this.statistiquesGlobales.demarche
     },
 
     loaded() {
@@ -370,10 +370,10 @@ export default {
     _dataset(name) {
       let counts
       if (name === 'nombre de recherches par mois') {
-        counts = this.statistiquesGlobales.searchCounts
+        counts = this.statistiquesGlobales.recherches
       }
       if (name === 'nombre de mises à jour par mois') {
-        counts = this.statistiquesGlobales.majTitreCounts
+        counts = this.statistiquesGlobales.miseAJourTitre
       }
 
       // nbXXXArray est de la forme

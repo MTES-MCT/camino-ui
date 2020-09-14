@@ -6,40 +6,40 @@ const statistiques = apiFetch(gql`
     statistiquesGlobales {
       titresActivitesBeneficesEntreprise
       titresActivitesBeneficesAdministration
-      searchCounts {
+      recherches {
         month
         value
       }
-      majTitreCounts {
+      miseAJourTitre {
         month
         value
       }
-      actionCount
-      timeSession
-      downloadCount
-      demarcheCount
-      erreurCount
-      reutilisationCount
+      action
+      tempsSession
+      telechargement
+      demarche
+      erreur
+      reutilisation
     }
 
     statistiquesGuyane {
       anneesStatistiquesGuyane {
         annee
-        dataTb {
-          armCount
-          prmCount
-          axmCount
-          pxmCount
-          cxmCount
+        statistiqueGuyane {
+          arm
+          prm
+          axm
+          pxm
+          cxm
           surfaceExploration
           surfaceExploitation
           productionOr
           carburantConventionnel
           carburantDetaxe
           mercure
-          environnementCost
-          salariesCount
-          rapportProductionOrDeposesCount
+          environnementCout
+          salaries
+          rapportProductionOrDeposes
           rapportProductionOrRatio
         }
       }

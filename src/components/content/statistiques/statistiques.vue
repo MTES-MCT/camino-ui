@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import StatistiquesGlobales from './statistiquesGlobales.vue'
-import StatistiquesGuyane from './tableauBordGuyane.vue'
+import StatistiquesGlobales from './statistiques-globales.vue'
+import StatistiquesGuyane from './tableau-bord-guyane.vue'
 
 export default {
   name: 'Statistiques',

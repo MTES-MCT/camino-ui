@@ -54,7 +54,7 @@
           Protection de l'environnement
         </p>
         <p class="h0-graph mb-0">
-          {{ Intl.NumberFormat().format(environnementCost) }} €
+          {{ Intl.NumberFormat().format(environnementCout) }} €
         </p>
         <p>
           Montant en euros des investissements* déclarés contribuant à la
@@ -69,7 +69,7 @@
           Emplois
         </p>
         <p class="h0-graph mb-0">
-          {{ Intl.NumberFormat().format(salariesCount) }}
+          {{ Intl.NumberFormat().format(salaries) }}
         </p>
         <p>
           Salariés mobilisés sur les exploitations minières de Guyane
@@ -85,7 +85,7 @@
         <div class="desktop-blobs">
           <div class="desktop-blob-1-2 text-center">
             <p class="h0-graph mb-0">
-              {{ Intl.NumberFormat().format(rapportProductionOrDeposesCount) }}
+              {{ Intl.NumberFormat().format(rapportProductionOrDeposes) }}
             </p>
             <p>
               Rapports d’activité de production collectés via Camino utilisés
@@ -110,39 +110,42 @@ export default {
   name: 'IndicateursActiviteGuyane',
 
   props: {
-    anneeDataTb: {
+    anneeStatistiquesGuyane: {
       type: Object,
       default: () => ({})
     }
   },
 
   computed: {
-    dataTb() {
-      return this.anneeDataTb.dataTb
+    statistiquesGuyane() {
+      return this.anneeStatistiquesGuyane.statistiquesGuyane
     },
     productionOr() {
-      return this.dataTb.productionOr
+      return this.statistiquesGuyane.productionOr
     },
     energie() {
-      return this.dataTb.carburantConventionnel + this.dataTb.carburantDetaxe
+      return (
+        this.statistiquesGuyane.carburantConventionnel +
+        this.statistiquesGuyane.carburantDetaxe
+      )
     },
     carburantDetaxe() {
-      return this.dataTb.carburantDetaxe
+      return this.statistiquesGuyane.carburantDetaxe
     },
     mercure() {
-      return this.dataTb.mercure
+      return this.statistiquesGuyane.mercure
     },
-    environnementCost() {
-      return this.dataTb.environnementCost
+    environnementCout() {
+      return this.statistiquesGuyane.environnementCout
     },
-    salariesCount() {
-      return this.dataTb.salariesCount
+    salaries() {
+      return this.statistiquesGuyane.salaries
     },
-    rapportProductionOrDeposesCount() {
-      return this.dataTb.rapportProductionOrDeposesCount
+    rapportProductionOrDeposes() {
+      return this.statistiquesGuyane.rapportProductionOrDeposes
     },
     rapportProductionOrRatio() {
-      return this.dataTb.rapportProductionOrRatio
+      return this.statistiquesGuyane.rapportProductionOrRatio
     }
   }
 }
