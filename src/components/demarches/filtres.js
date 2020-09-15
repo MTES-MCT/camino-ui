@@ -5,33 +5,42 @@ import FiltresEtapes from './filtres-custom-etapes.vue'
 const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
 const etapesElementsFormat = (id, metas) => metas.etapesTypes
 const etapesLabelFormat = f =>
-  f.value.map(value => ({
-    id: f.id,
-    name: f.name,
-    value,
-    valueName: Object.keys(value)
-      .map(k => {
-        let key
-        let val = value[k]
+  f.value
+    .filter(value => value.typeId)
+    .map(value => ({
+      id: f.id,
+      name: f.name,
+      value,
+      valueName: Object.keys(value)
+        .map(k => {
+          let key
+          let val = value[k]
+          let order
 
-        if (k === 'typeId') {
-          const element = f.elements.find(e => e.id === value.typeId)
-          key = "type d'étape"
-          val = element.nom
-        } else if (k === 'statutId') {
-          const element = f.elements.find(e => e.id === value.typeId)
-          key = "statut d'étape"
-          val = element.etapesStatuts.find(es => es.id === value.statutId).nom
-        } else if (k === 'dateDebut') {
-          key = 'après le'
-        } else if (k === 'dateFin') {
-          key = 'avant le'
-        }
+          if (k === 'typeId') {
+            const element = f.elements.find(e => e.id === value.typeId)
+            key = 'type'
+            val = element.nom
+            order = 1
+          } else if (k === 'statutId') {
+            const element = f.elements.find(e => e.id === value.typeId)
+            key = 'statut'
+            val = element.etapesStatuts.find(es => es.id === value.statutId).nom
+            order = 2
+          } else if (k === 'dateDebut') {
+            key = 'après le'
+            order = 3
+          } else if (k === 'dateFin') {
+            key = 'avant le'
+            order = 4
+          }
 
-        return `${key} : ${val}`
-      })
-      .join(', ')
-  }))
+          return { label: `${key} : ${val}`, order }
+        })
+        .sort((a, b) => a.order - b.order)
+        .map(value => value.label)
+        .join(', ')
+    }))
 
 // supprime les clés dont les valeurs sont vides
 // et les objets vides
