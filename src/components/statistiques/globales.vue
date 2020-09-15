@@ -21,7 +21,7 @@
       </p>
       <div class="desktop-blobs">
         <div class="desktop-blob-1-6 text-center">
-          <p class="h0-graph mb-0 mt-xxl">
+          <p class="h0 mb-0 mt-xxl">
             {{ Intl.NumberFormat().format(rechercheCount) }}
           </p>
           <p class="bold">
@@ -33,11 +33,7 @@
             ref="graphContainer"
             class="graph-container"
           >
-            <SvgChart
-              :dataset="_dataset('nombre de recherches par mois')"
-              :options="_options('nombre de recherches par mois')"
-              :svg="_svg('nombre de recherches par mois')"
-            />
+            <LineChart />
             <p class="graph-title">
               Le nombre de recherches mensuelles est l'indicateur clé de
               l'utilisation du service de "cadastre minier"
@@ -45,13 +41,13 @@
           </div>
         </div>
         <div class="desktop-blob-1-6 text-center">
-          <p class="h0-graph mb-0">
+          <p class="h0 mb-0">
             {{ Math.round(statistiquesGlobales.actions) }}
           </p>
           <p class="bold">
             nombre moyen d'actions effectuées par un utilisateur sur le site
           </p>
-          <p class="h0-graph mb-0">
+          <p class="h0 mb-0">
             {{ statistiquesGlobales.sessionDuree }}
           </p>
           <p class="bold">
@@ -76,7 +72,7 @@
       </p>
       <div class="desktop-blobs">
         <div class="desktop-blob-1-6 text-center">
-          <p class="h0-graph mb-0 mt-xxl">
+          <p class="h0 mb-0 mt-xxl">
             {{ titresModifiesCount }}
           </p>
           <p class="bold">
@@ -89,11 +85,7 @@
             ref="graphContainer"
             class="graph-container"
           >
-            <SvgChart
-              :dataset="_dataset('nombre de mises à jour par mois')"
-              :options="_options('nombre de mises à jour par mois')"
-              :svg="_svg('nombre de mises à jour par mois')"
-            />
+            <LineChart />
             <p class="graph-title">
               Le nombre de mises à jour mensuelles du cadastre par les
               différents services de l'administration ou par les
@@ -105,21 +97,21 @@
           </div>
         </div>
         <div class="desktop-blob-1-6 text-center">
-          <p class="h0-graph mb-0">
+          <p class="h0 mb-0">
             {{ statistiquesGlobales.telechargements }}
           </p>
           <p class="bold">
             téléchargements de pièces relatives à la bonne instruction des
             titres et autorisations miniers ce mois-ci
           </p>
-          <p class="h0-graph mb-0">
+          <p class="h0 mb-0">
             {{ statistiquesGlobales.signalements }}
           </p>
           <p class="bold">
             erreurs corrigées sur les bases de données de l'État grâce à la
             participation des utilisateurs
           </p>
-          <p class="h0-graph mb-0">
+          <p class="h0 mb-0">
             {{ statistiquesGlobales.reutilisations }}
           </p>
           <p class="bold">
@@ -144,7 +136,7 @@
       </p>
       <div class="desktop-blobs">
         <div class="desktop-blob-1-3 text-center">
-          <p class="h0-graph mb-0">
+          <p class="h0 mb-0">
             {{ demarcheCounts }}
           </p>
           <p class="bold">
@@ -152,7 +144,7 @@
           </p>
         </div>
         <div class="desktop-blob-1-3 text-center">
-          <p class="h0-graph mb-0">
+          <p class="h0 mb-0">
             {{ statistiquesGlobales.titresActivitesBeneficesEntreprise }}
           </p>
           <p class="bold">
@@ -167,7 +159,7 @@
           </p>
         </div>
         <div class="desktop-blob-1-3 text-center">
-          <p class="h0-graph mb-0">
+          <p class="h0 mb-0">
             {{ statistiquesGlobales.titresActivitesBeneficesAdministration }}
           </p>
           <p class="bold">
@@ -189,13 +181,13 @@
 
 <script>
 import Loader from '../_ui/loader.vue'
-import SvgChart from '../_charts/svg-chart.vue'
+import LineChart from '../_charts/line.vue'
 import { graph } from './globales.js'
 
 export default {
   name: 'CaminoStatistiques',
 
-  components: { Loader, SvgChart },
+  components: { Loader, LineChart },
 
   data() {
     return {

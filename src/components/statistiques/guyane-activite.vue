@@ -3,23 +3,12 @@
     id="indicateurs"
     class="mb-xxl"
   >
-    <h2>
-      Indicateurs annuels de production et d’activité minière
-    </h2>
-    <span class="separator" />
-    <p>
-      Les données affichées ici sont celles contenues dans la base de donnée
-      Camino. Elles sont stabilisées pour l’année n-2 mais sont susceptibles
-      d’évoluer jusqu’à la cloture de la collecte des déclarations
-      règlementaires de l’année précédente pour l’année n-1. Ces données
-      concernent exclusivement le territoire guyanais.
-    </p>
     <div class="desktop-blobs mb-xl">
       <div class="desktop-blob-1-3 text-center">
         <p class="bold">
           Production d'or nette
         </p>
-        <p class="h0-graph mb-0">
+        <p class="h0 mb-0">
           {{ Intl.NumberFormat().format(productionOr) }} kg
         </p>
         <p>
@@ -30,7 +19,7 @@
         <p class="bold">
           Energie consommée
         </p>
-        <p class="h0-graph mb-0">
+        <p class="h0 mb-0">
           {{ Intl.NumberFormat().format(energie) }} kl
         </p>
         <p>
@@ -42,7 +31,7 @@
         <p class="bold">
           Mercure collecté
         </p>
-        <p class="h0-graph mb-0">
+        <p class="h0 mb-0">
           {{ Intl.NumberFormat().format(mercure) }} kg
         </p>
         <p>
@@ -56,7 +45,7 @@
         <p class="bold">
           Protection de l'environnement
         </p>
-        <p class="h0-graph mb-0">
+        <p class="h0 mb-0">
           {{ Intl.NumberFormat().format(environnementCout) }} €
         </p>
         <p>
@@ -71,7 +60,7 @@
         <p class="bold">
           Emplois
         </p>
-        <p class="h0-graph mb-0">
+        <p class="h0 mb-0">
           {{ Intl.NumberFormat().format(salaries) }}
         </p>
         <p>
@@ -87,7 +76,7 @@
         </p>
         <div class="desktop-blobs">
           <div class="desktop-blob-1-2 text-center">
-            <p class="h0-graph mb-0">
+            <p class="h0 mb-0">
               {{ Intl.NumberFormat().format(rapportProductionOrDeposes) }}
             </p>
             <p>
@@ -96,7 +85,7 @@
             </p>
           </div>
           <div class="desktop-blob-1-2 text-center">
-            <p class="h0-graph mb-0">
+            <p class="h0 mb-0">
               {{ rapportProductionOrRatio }} %
             </p>
             <p>
