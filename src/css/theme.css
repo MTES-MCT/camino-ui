@@ -265,11 +265,6 @@ html {
   color: var(--color-text);
   background-color: var(--color-neutral);
 }
-
-.chart {
-  height: 400px
-}
-
 @media (--viewport-tablet) {
   .tablet-flex-right {
     margin-left: auto;

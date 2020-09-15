@@ -10,6 +10,10 @@
   color: var(--color-text);
 }
 
+.color-brand {
+  color: var(--color-brand);
+}
+
 .color-highlight {
   color: var(--color-highlight);
 }

@@ -21,10 +21,12 @@ export default {
   mounted() {
     this.canvas = this.$refs.canvas
 
-    var myChart = new Chart(this.canvas.getContext('2d'), {
+    // eslint-disable-next-line no-new
+    new Chart(this.canvas.getContext('2d'), {
       type: 'line',
       data: this.data,
       options: {
+        aspectRatio: 1.33,
         scales: {
           yAxes: [
             {
@@ -36,8 +38,6 @@ export default {
         }
       }
     })
-
-    console.log(myChart)
   }
 }
 </script>

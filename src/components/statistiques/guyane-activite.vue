@@ -3,36 +3,40 @@
     id="indicateurs"
     class="mb-xxl"
   >
-    <div class="desktop-blobs mb-xl">
-      <div class="desktop-blob-1-3 text-center">
-        <p class="bold">
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 mb-xl">
+        <h4>
           Production d'or nette
-        </p>
-        <p class="h0 mb-0">
-          {{ Intl.NumberFormat().format(productionOr) }} kg
+        </h4>
+        <p class="h0 text-center">
+          {{ numberFormat(statistiqueGuyane.productionOr) }} kg
         </p>
         <p>
           Production d’or nette (après affinage) issue des mines en Guyane.
         </p>
       </div>
-      <div class="desktop-blob-1-3 text-center">
-        <p class="bold">
+      <div class="tablet-blob-1-3 mb-xl">
+        <h4>
           Energie consommée
+        </h4>
+        <p class="h0 mb-s text-center">
+          {{ numberFormat(statistiqueGuyane.carburantConventionnel +
+            statistiqueGuyane.carburantDetaxe) }} kL
         </p>
-        <p class="h0 mb-0">
-          {{ Intl.NumberFormat().format(energie) }} kl
+        <p class="bold text-center">
+          dont
+          {{ numberFormat(statistiqueGuyane.carburantDetaxe) }} kL détaxés
         </p>
         <p>
-          Volume de carburant consommé par les activités extractives (dont
-          {{ carburantDetaxe }} kl détaxés).
+          Volume de carburant consommé par les activités extractives.
         </p>
       </div>
-      <div class="desktop-blob-1-3 text-center">
-        <p class="bold">
+      <div class="tablet-blob-1-3 mb-xl">
+        <h4>
           Mercure collecté
-        </p>
-        <p class="h0 mb-0">
-          {{ Intl.NumberFormat().format(mercure) }} kg
+        </h4>
+        <p class="h0 text-center">
+          {{ numberFormat(statistiqueGuyane.mercure) }} kg
         </p>
         <p>
           Masse de mercure d’origine anthropique historique ou illégale récupéré
@@ -40,28 +44,28 @@
         </p>
       </div>
     </div>
-    <div class="desktop-blobs mb-xl">
-      <div class="desktop-blob-1-2 text-center">
-        <p class="bold">
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-2 mb-xl">
+        <h4>
           Protection de l'environnement
-        </p>
-        <p class="h0 mb-0">
-          {{ Intl.NumberFormat().format(environnementCout) }} €
+        </h4>
+        <p class="h0 text-center">
+          {{ numberFormat(statistiqueGuyane.environnementCout) }} €
         </p>
         <p>
-          Montant en euros des investissements* déclarés contribuant à la
+          Montant en euros des investissements * déclarés contribuant à la
           protection de l’environnement.
         </p>
         <p>
-          *listés à l’article 318 C de l’annexe II du code général des impôts.
+          <small>* listés à l’article 318 C de l’annexe II du code général des impôts.</small>
         </p>
       </div>
-      <div class="desktop-blob-1-2 text-center">
-        <p class="bold">
+      <div class="tablet-blob-1-2 mb-xl">
+        <h4>
           Emplois
-        </p>
-        <p class="h0 mb-0">
-          {{ Intl.NumberFormat().format(salaries) }}
+        </h4>
+        <p class="h0 text-center">
+          {{ numberFormat(statistiqueGuyane.salaries) }}
         </p>
         <p>
           Salariés mobilisés sur les exploitations minières de Guyane
@@ -69,31 +73,27 @@
         </p>
       </div>
     </div>
-    <div class="desktop-blobs mb-xl">
-      <div class="desktop-blob-1 text-center">
-        <p class="bold">
-          Sources des données
+    <h4>
+      Sources des données
+    </h4>
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-2 mb-xl">
+        <p class="h0 text-center">
+          {{ numberFormat(statistiqueGuyane.rapportProductionOrDeposes) }}
         </p>
-        <div class="desktop-blobs">
-          <div class="desktop-blob-1-2 text-center">
-            <p class="h0 mb-0">
-              {{ Intl.NumberFormat().format(rapportProductionOrDeposes) }}
-            </p>
-            <p>
-              Rapports d’activité de production collectés via Camino utilisés
-              pour consolider ces statistiques.
-            </p>
-          </div>
-          <div class="desktop-blob-1-2 text-center">
-            <p class="h0 mb-0">
-              {{ rapportProductionOrRatio }} %
-            </p>
-            <p>
-              Des rapports d’activité de production attendus ont été déposés par
-              les opérateurs miniers pour consolider ces statistiques.
-            </p>
-          </div>
-        </div>
+        <p>
+          Rapports d’activité de production collectés via Camino utilisés
+          pour consolider ces statistiques.
+        </p>
+      </div>
+      <div class="tablet-blob-1-2 mb-xl">
+        <p class="h0 text-center">
+          {{ statistiqueGuyane.rapportProductionOrRatio }} %
+        </p>
+        <p>
+          Des rapports d’activité de production attendus ont été déposés par
+          les opérateurs miniers pour consolider ces statistiques.
+        </p>
       </div>
     </div>
   </div>
@@ -107,36 +107,6 @@ export default {
     statistiqueGuyane: {
       type: Object,
       default: () => ({})
-    }
-  },
-
-  computed: {
-    productionOr() {
-      return this.statistiqueGuyane.productionOr
-    },
-    energie() {
-      return (
-        this.statistiqueGuyane.carburantConventionnel +
-        this.statistiqueGuyane.carburantDetaxe
-      )
-    },
-    carburantDetaxe() {
-      return this.statistiqueGuyane.carburantDetaxe
-    },
-    mercure() {
-      return this.statistiqueGuyane.mercure
-    },
-    environnementCout() {
-      return this.statistiqueGuyane.environnementCout
-    },
-    salaries() {
-      return this.statistiqueGuyane.salaries
-    },
-    rapportProductionOrDeposes() {
-      return this.statistiqueGuyane.rapportProductionOrDeposes
-    },
-    rapportProductionOrRatio() {
-      return this.statistiqueGuyane.rapportProductionOrRatio
     }
   }
 }
