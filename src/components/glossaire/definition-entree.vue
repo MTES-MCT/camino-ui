@@ -9,12 +9,7 @@
         >
           {{ entree.id }}
         </Pill>
-        <svg
-          v-if="id === 'tty'"
-          width="24"
-          height="24"
-          class="mr-s mb--xs"
-        >
+        <svg v-if="id === 'tty'" width="24" height="24" class="mr-s mb--xs">
           <rect
             width="24"
             height="24"
@@ -27,18 +22,11 @@
           :nom="entree.nom"
           class="inline-block"
         />
-        <span
-          v-else
-          class="cap-first"
-        >{{ entree.nom }}</span>
+        <span v-else class="cap-first">{{ entree.nom }}</span>
       </h3>
     </div>
-    <div
-      v-if="entree.description"
-      class="mb-l"
-      v-html="descriptionHtml"
-    >
-      <hr>
+    <div v-if="entree.description" class="mb-l" v-html="descriptionHtml">
+      <hr />
     </div>
   </div>
 </template>

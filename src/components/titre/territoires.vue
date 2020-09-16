@@ -6,21 +6,16 @@
         <p>{{ surface }} km² environ</p>
       </div>
     </div>
-    <div
-      v-if="pays && pays.length"
-      class="tablet-blob-3-4"
-    >
+    <div v-if="pays && pays.length" class="tablet-blob-3-4">
       <h6>Territoires</h6>
-      <div
-        v-for="region in pays[0].regions"
-        :key="region.id"
-      >
-        <div
-          v-for="departement in region.departements"
-          :key="departement.id"
-        >
+      <div v-for="region in pays[0].regions" :key="region.id">
+        <div v-for="departement in region.departements" :key="departement.id">
           <h5 class="mb-s">
-            {{ pays[0].nom === 'République Française' ? region.nom + ' / ' + departement.nom : region.nom }}
+            {{
+              pays[0].nom === 'République Française'
+                ? region.nom + ' / ' + departement.nom
+                : region.nom
+            }}
           </h5>
           <TagList :elements="departement.communes.map(c => c.nom)" />
         </div>

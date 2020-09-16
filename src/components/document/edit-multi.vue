@@ -1,13 +1,10 @@
 <template>
   <div v-if="loaded">
     <h3>Documents</h3>
-    <div
-      v-for="document in documents"
-      :key="document.id"
-    >
+    <div v-for="document in documents" :key="document.id">
       <h4>{{ documentsTypes.find(dt => dt.id === document.typeId).nom }}</h4>
 
-      <hr>
+      <hr />
 
       <EditSections
         :document.sync="document"
@@ -57,7 +54,7 @@ export default {
 
   watch: {
     completed: {
-      handler: function (completed) {
+      handler: function(completed) {
         this.$emit('completed:update', completed)
       },
       immediate: true

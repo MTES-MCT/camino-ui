@@ -8,33 +8,20 @@
       class="map map-view mb-s"
       @map:update="titresPreferencesUpdate"
     />
-    <MapPattern
-      :domaines-ids="domainesIds"
-      :types-ids="typesIds"
-    />
-    <MapWarningBrgm
-      :zoom="preferences.zoom"
-      :tiles-id="tilesId"
-    />
+    <MapPattern :domaines-ids="domainesIds" :types-ids="typesIds" />
+    <MapWarningBrgm :zoom="preferences.zoom" :tiles-id="tilesId" />
     <div class="container overflow-auto">
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2 desktop-flex">
           <div class="mb-s">
             <span class="mr-s">
-              <button
-                class="btn-border rnd-m px-s py-xs h5"
-                @click="mapFrame"
-              >
+              <button class="btn-border rnd-m px-s py-xs h5" @click="mapFrame">
                 Tout afficher
               </button>
             </span>
           </div>
           <ul class="list-inline pill-list mb-s">
-            <li
-              v-for="z in zones"
-              :key="z.id"
-              class="mr-line mb-line"
-            >
+            <li v-for="z in zones" :key="z.id" class="mr-line mb-line">
               <button
                 class="btn-border pill-item px-s py-xs h5"
                 @click="mapCenter(z.id)"
@@ -53,9 +40,7 @@
                 title="regroupe les marqueurs"
                 @click="markerLayersIdSet('clusters')"
               >
-                <i
-                  class="icon-24 icon-markers-clusters"
-                />
+                <i class="icon-24 icon-markers-clusters" />
               </button>
             </div>
             <div :class="{ active: markerLayersId === 'markers' }">
@@ -67,10 +52,7 @@
                 <i class="icon-24 icon-markers-markers" />
               </button>
             </div>
-            <div
-              :class="{ active: markerLayersId === 'none' }"
-              class="mr-s"
-            >
+            <div :class="{ active: markerLayersId === 'none' }" class="mr-s">
               <button
                 class="btn-border p-s rnd-r-s"
                 title="affiche les contours uniquement"

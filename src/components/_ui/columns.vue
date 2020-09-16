@@ -1,23 +1,12 @@
 <template>
-  <Accordion
-    class="mb"
-    :opened="opened"
-    @close="close"
-    @toggle="toggle"
-  >
+  <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
     <template slot="title">
       Colonnes
     </template>
     <ul class="list-sans px-m">
-      <li
-        v-for="column in columns"
-        :key="column.type"
-      >
+      <li v-for="column in columns" :key="column.type">
         <label>
-          <input
-            type="checkbox"
-            class="mr-s"
-          > {{ column.name }}
+          <input type="checkbox" class="mr-s" /> {{ column.name }}
         </label>
       </li>
     </ul>
@@ -56,4 +45,3 @@ export default {
   }
 }
 </script>
-

@@ -1,9 +1,5 @@
 <template>
-  <Download
-    :name="titre.id"
-    type="geojson"
-    :content-build="contentBuild"
-  >
+  <Download :name="titre.id" type="geojson" :content-build="contentBuild">
     geojson
   </Download>
 </template>

@@ -6,11 +6,8 @@
     class="p-s"
     :class="{ 'mb-s': value, mb: !value }"
     @change="$emit('input', $event.target.value)"
-  >
-  <div
-    v-else
-    class="blobs-mini"
-  >
+  />
+  <div v-else class="blobs-mini">
     <div class="blob-mini-1-3">
       <input
         v-model.number="dayId"
@@ -20,26 +17,14 @@
         placeholder="jour"
         class="p-s"
         @change="update"
-      >
+      />
     </div>
     <div class="blob-mini-1-3">
-      <select
-        v-model.number="monthId"
-        class="p-s mr-s"
-        @change="update"
-      >
-        <option
-          :value="null"
-          disabled
-          hidden
-        >
+      <select v-model.number="monthId" class="p-s mr-s" @change="update">
+        <option :value="null" disabled hidden>
           mois
         </option>
-        <option
-          v-for="month in months"
-          :key="month.id"
-          :value="month.id"
-        >
+        <option v-for="month in months" :key="month.id" :value="month.id">
           {{ monthNames[month.id - 1] }}
         </option>
       </select>
@@ -53,7 +38,7 @@
         placeholder="année"
         class="p-s"
         @change="update"
-      >
+      />
     </div>
   </div>
 </template>

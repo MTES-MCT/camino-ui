@@ -8,10 +8,9 @@
       </div>
     </template>
 
-
     <div>
       <p>Renseignez votre email pour créer votre compte.</p>
-      <hr>
+      <hr />
     </div>
 
     <div class="tablet-blobs">
@@ -25,24 +24,18 @@
           type="email"
           class="p-s"
           placeholder="Email"
-        >
+        />
       </div>
     </div>
 
     <template slot="footer">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
-          <button
-            class="btn-border rnd-xs p-s full-x"
-            @click="cancel"
-          >
+          <button class="btn-border rnd-xs p-s full-x" @click="cancel">
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
-        >
+        <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
           <button
             id="cmn-user-add-popup-button-valider"
             class="btn-flash rnd-xs p-s full-x"

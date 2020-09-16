@@ -3,17 +3,18 @@
     <template slot="header">
       <div>
         <h5>
-          <span class="cap-first"><span class="cap-first">
-            {{ titreNom }}
-          </span><span class="color-neutral">
-            |
-          </span><span class="cap-first">
-            {{ titreTypeNom }}
-          </span>
+          <span class="cap-first"
+            ><span class="cap-first">
+              {{ titreNom }} </span
+            ><span class="color-neutral">
+              | </span
+            ><span class="cap-first">
+              {{ titreTypeNom }}
+            </span>
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? 'Ajout d\'une' : 'Modification de la' }} démarche
+          {{ creation ? "Ajout d'une" : 'Modification de la' }} démarche
         </h2>
       </div>
     </template>
@@ -23,10 +24,7 @@
           <h6>Type</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <select
-            v-model="demarche.typeId"
-            class="p-s mr"
-          >
+          <select v-model="demarche.typeId" class="p-s mr">
             <option
               v-for="demarcheType in types"
               :key="demarcheType.id"
@@ -51,10 +49,7 @@
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
-        >
+        <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
@@ -63,10 +58,7 @@
             Enregistrer
           </button>
 
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Enregistrement en cours…
           </div>
         </div>

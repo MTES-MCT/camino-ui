@@ -6,20 +6,23 @@
         <h2 class="cap-first mb-m">
           {{ travaux.type.nom }}
         </h2>
-        <Statut
-          :color="travaux.statut.couleur"
-          :nom="travaux.statut.nom"
-        />
+        <Statut :color="travaux.statut.couleur" :nom="travaux.statut.nom" />
       </div>
       <div class="tablet-blob-1-2 flex">
         <div
-          v-if="travaux.modification || travaux.suppression || travaux.etapesCreation"
+          v-if="
+            travaux.modification ||
+              travaux.suppression ||
+              travaux.etapesCreation
+          "
           class="flex-right flex"
         >
           <button
             v-if="travaux.etapesCreation"
             class="btn rnd-l-xs py-s px-m h5 flex mr-line"
-            :class="{'rnd-r-xs': !travaux.suppression && !travaux.modification }"
+            :class="{
+              'rnd-r-xs': !travaux.suppression && !travaux.modification
+            }"
             @click="etapeAddPopupOpen"
           >
             <span class="mt-xxs">Ajouter une étape</span>
@@ -27,7 +30,7 @@
           <button
             v-if="travaux.modification"
             class="btn py-s px-m mr-line"
-            :class="{'rnd-l-xs': !travaux.etapesCreation }"
+            :class="{ 'rnd-l-xs': !travaux.etapesCreation }"
             @click="editPopupOpen"
           >
             <i class="icon-24 icon-pencil" />
@@ -35,7 +38,7 @@
           <button
             v-if="travaux.suppression"
             class="btn rnd-r-xs py-s px-m mr-line"
-            :class="{'rnd-l-xs': !travaux.modification }"
+            :class="{ 'rnd-l-xs': !travaux.modification }"
             @click="removePopupOpen"
           >
             <i class="icon-24 icon-trash" />

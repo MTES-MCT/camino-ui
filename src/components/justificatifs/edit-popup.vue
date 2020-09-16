@@ -12,11 +12,7 @@
     </template>
 
     <div v-if="entreprises.length">
-      <div
-        v-for="entreprise in entreprises"
-        :key="entreprise.id"
-        class="mb-xl"
-      >
+      <div v-for="entreprise in entreprises" :key="entreprise.id" class="mb-xl">
         <div class="flex">
           <h4>{{ entreprise.nom }}</h4>
 
@@ -29,7 +25,7 @@
           </button>
         </div>
 
-        <hr>
+        <hr />
 
         <div
           v-if="entreprise.documents && entreprise.documents.length"
@@ -51,24 +47,22 @@
                     type="checkbox"
                     class="mr-s"
                     :value="document.id"
-                  ><span class="bold">{{ document.type.nom }}</span> ({{ document.date | dateFormat }}){{ document.description ? ` : ${document.description}` : '' }}
+                  /><span class="bold">{{ document.type.nom }}</span> ({{
+                    document.date | dateFormat
+                  }}){{
+                    document.description ? ` : ${document.description}` : ''
+                  }}
                 </label>
               </li>
             </ul>
           </div>
         </div>
-        <div
-          v-else
-          class="h5 italic"
-        >
+        <div v-else class="h5 italic">
           Cette entreprise n'a pas de documents associés.
         </div>
       </div>
     </div>
-    <div
-      v-else
-      class="p-s bg-info color-bg mb"
-    >
+    <div v-else class="p-s bg-info color-bg mb">
       Il n'y a pas de titulaire ou d'amodiataire associé à cette étape.
     </div>
 
@@ -95,10 +89,7 @@
             Enregistrer
           </button>
 
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Enregistrement en cours…
           </div>
         </div>

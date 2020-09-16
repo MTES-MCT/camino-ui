@@ -5,20 +5,14 @@
     <h1>
       {{ nom }}
     </h1>
-    <Accordion
-      class="mb-xxl"
-      :sub="true"
-    >
+    <Accordion class="mb-xxl" :sub="true">
       <template slot="title">
         <span class="cap-first">
           Profil
         </span>
       </template>
 
-      <template
-        v-if="entreprise.modification"
-        slot="buttons"
-      >
+      <template v-if="entreprise.modification" slot="buttons">
         <DocumentAddButton
           :context="documentContext"
           :document="documentNew"
@@ -27,10 +21,7 @@
           repertoire="entreprises"
           class="btn py-s px-m mr-line"
         />
-        <button
-          class="btn py-s px-m"
-          @click="editPopupOpen"
-        >
+        <button class="btn py-s px-m" @click="editPopupOpen">
           <i class="icon-24 icon-pencil" />
         </button>
       </template>
@@ -62,15 +53,14 @@
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
               <h6 class="mt-xs">
-                Établissement{{ entreprise.etablissements.length > 1 ? 's' : '' }}
+                Établissement{{
+                  entreprise.etablissements.length > 1 ? 's' : ''
+                }}
               </h6>
             </div>
             <div class="tablet-blob-3-4">
               <ul class="list-sans">
-                <li
-                  v-for="e in entreprise.etablissements"
-                  :key="e.id"
-                >
+                <li v-for="e in entreprise.etablissements" :key="e.id">
                   <h5 class="inline-block">
                     {{ e.dateDebut | dateFormat }}
                   </h5>
@@ -89,7 +79,7 @@
             <div class="tablet-blob-3-4">
               <p>
                 {{ entreprise.adresse }}
-                <br>{{ entreprise.codePostal }}
+                <br />{{ entreprise.codePostal }}
                 {{ entreprise.commune }}
               </p>
             </div>
@@ -158,7 +148,10 @@
           </h4>
           <Documents
             :bouton-modification="entreprise.modification"
-            :bouton-suppression="entreprise.modification && permissionsCheck(['super', 'admin', 'editeur'])"
+            :bouton-suppression="
+              entreprise.modification &&
+                permissionsCheck(['super', 'admin', 'editeur'])
+            "
             :context="{ id: entreprise.id, name: 'entreprise' }"
             :documents="entreprise.documents"
             :etiquette="entreprise.modification"
@@ -171,10 +164,7 @@
       </template>
     </Accordion>
 
-    <div
-      v-if="utilisateurs && utilisateurs.length"
-      class="mb-xxl"
-    >
+    <div v-if="utilisateurs && utilisateurs.length" class="mb-xxl">
       <div class="line-neutral mb-xxl" />
       <h3>Utilisateurs</h3>
       <div class="line" />
@@ -186,20 +176,14 @@
       />
     </div>
 
-    <div
-      v-if="titresTitulaire && titresTitulaire.length"
-      class="mb-xxl"
-    >
+    <div v-if="titresTitulaire && titresTitulaire.length" class="mb-xxl">
       <div class="line-neutral mb-xxl" />
       <h3>Titres miniers et autorisations</h3>
       <div class="line" />
       <TitresTable :titres="titresTitulaire" />
     </div>
 
-    <div
-      v-if="titresAmodiataire && titresAmodiataire.length"
-      class="mb-xxl"
-    >
+    <div v-if="titresAmodiataire && titresAmodiataire.length" class="mb-xxl">
       <div class="line my-xxl" />
       <h3>Titres miniers et autorisations (amodiataire)</h3>
       <div class="line" />

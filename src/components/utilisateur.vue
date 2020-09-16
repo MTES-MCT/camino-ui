@@ -5,27 +5,25 @@
   <div v-else>
     <h6>Utilisateur</h6>
     <h1>
-      {{ utilisateur
-        ? `${utilisateur.prenom || '–'} ${utilisateur.nom || '–'}`
-        : '–' }}
+      {{
+        utilisateur
+          ? `${utilisateur.prenom || '–'} ${utilisateur.nom || '–'}`
+          : '–'
+      }}
     </h1>
 
-    <Accordion
-      class="mb"
-      :sub="true"
-    >
+    <Accordion class="mb" :sub="true">
       <template slot="title">
         <span class="cap-first">
           Profil
         </span>
       </template>
 
-      <template
-        v-if="utilisateur.modification"
-        slot="buttons"
-      >
+      <template v-if="utilisateur.modification" slot="buttons">
         <button
-          v-if="user && user.id === utilisateur.id || permissionsCheck('super')"
+          v-if="
+            (user && user.id === utilisateur.id) || permissionsCheck('super')
+          "
           id="cmn-utilisateur-button-password-popup"
           class="btn-alt py-s px-m"
           @click="passwordPopupOpen"
@@ -107,35 +105,23 @@
             </div>
           </div>
 
-          <div
-            v-if="utilisateur.permissionModification"
-            class="tablet-blobs"
-          >
+          <div v-if="utilisateur.permissionModification" class="tablet-blobs">
             <div class="tablet-blob-1-4">
               <h6 class="mt-xs">
                 Permissions
               </h6>
             </div>
             <div class="tablet-blob-3-4">
-              <Pill
-                v-if="utilisateur.permission"
-                class="mb"
-              >
+              <Pill v-if="utilisateur.permission" class="mb">
                 {{ utilisateur.permission.nom }}
               </Pill>
-              <div
-                v-else
-                class="mb"
-              >
+              <div v-else class="mb">
                 –
               </div>
             </div>
           </div>
 
-          <div
-            v-if="utilisateur.entreprises.length"
-            class="tablet-blobs"
-          >
+          <div v-if="utilisateur.entreprises.length" class="tablet-blobs">
             <div class="tablet-blob-1-4">
               <h6 class="mt-xs">
                 Entreprise{{ utilisateur.entreprises.length > 1 ? 's' : '' }}
@@ -150,7 +136,7 @@
                   class="mb-xs"
                 >
                   <RouterLink
-                    :to="{ name: 'entreprise', params: {id: e.id }}"
+                    :to="{ name: 'entreprise', params: { id: e.id } }"
                     class="btn-border py-s px-m rnd-xs h5 mr-xs"
                     tag="button"
                   >
@@ -161,10 +147,7 @@
             </div>
           </div>
 
-          <div
-            v-if="utilisateur.administrations.length"
-            class="tablet-blobs"
-          >
+          <div v-if="utilisateur.administrations.length" class="tablet-blobs">
             <div class="tablet-blob-1-4">
               <h6 class="mt-xs">
                 Administration
@@ -173,10 +156,7 @@
 
             <div class="tablet-blob-3-4">
               <ul class="list-prefix">
-                <li
-                  v-for="a in utilisateur.administrations"
-                  :key="a.id"
-                >
+                <li v-for="a in utilisateur.administrations" :key="a.id">
                   {{ `${a.nom}${a.service ? ` - ${a.service}` : ''}` }}
                 </li>
               </ul>
@@ -220,7 +200,7 @@ export default {
 
   watch: {
     user: 'get',
-    '$route.params.id': async function () {
+    '$route.params.id': async function() {
       await this.get()
     }
   },

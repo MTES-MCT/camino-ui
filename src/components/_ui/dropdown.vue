@@ -6,7 +6,6 @@
           'rnd-t-s': opened || $slots.sub,
           'rnd-s': !opened && !$slots.sub,
           'border-b-s': opened || $slots.sub
-
         }"
         class="accordion-header flex btn-alt py-s px-m full-x"
         @click="openToggle"

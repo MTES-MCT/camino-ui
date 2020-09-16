@@ -1,10 +1,7 @@
 <template>
-  <span
-    class="bold cap-first h6"
-  ><span
-    :class="css"
-    class="py-xxs px-xs rnd-xs color-bg box"
-  ><slot /></span></span>
+  <span class="bold cap-first h6"
+    ><span :class="css" class="py-xxs px-xs rnd-xs color-bg box"><slot /></span
+  ></span>
 </template>
 
 <script>

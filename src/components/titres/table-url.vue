@@ -6,10 +6,7 @@
       @params:update="preferencesUpdate"
       @loaded="$emit('loaded')"
     />
-    <Table
-      :titres="titres"
-      :total="total"
-    />
+    <Table :titres="titres" :total="total" />
   </div>
 </template>
 

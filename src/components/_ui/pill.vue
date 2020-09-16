@@ -1,9 +1,6 @@
 <template>
   <span class="cap-first h6 bold">
-    <span
-      :class="`${color}`"
-      class="color-bg pill py-xs px-s"
-    >
+    <span :class="`${color}`" class="color-bg pill py-xs px-s">
       <slot />
     </span>
   </span>

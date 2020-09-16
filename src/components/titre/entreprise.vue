@@ -1,19 +1,10 @@
 <template>
-  <Accordion
-    class="mb"
-    :opened="opened"
-    @close="close"
-    @toggle="toggle"
-  >
+  <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
     <template slot="title">
       <h4 class="mb-0">
         {{ entrepriseNameFind(entreprise) }}
       </h4>
-      <Tag
-        v-if="entreprise.operateur"
-        :color="'bg-highlight'"
-        :mini="true"
-      >
+      <Tag v-if="entreprise.operateur" :color="'bg-highlight'" :mini="true">
         Opé.
       </Tag>
     </template>
@@ -31,14 +22,8 @@
       </RouterLink>
     </template>
 
-    <div
-      v-if="content"
-      class="px-m pt-m"
-    >
-      <div
-        v-if="entreprise.legalSiren"
-        class="large-blobs"
-      >
+    <div v-if="content" class="px-m pt-m">
+      <div v-if="entreprise.legalSiren" class="large-blobs">
         <div class="large-blob-1-4">
           <h6>Siren</h6>
         </div>
@@ -47,10 +32,7 @@
         </div>
       </div>
 
-      <div
-        v-if="entreprise.legalForme"
-        class="large-blobs"
-      >
+      <div v-if="entreprise.legalForme" class="large-blobs">
         <div class="large-blob-1-4">
           <h6>Forme juridique</h6>
         </div>
@@ -70,10 +52,7 @@
         </div>
         <div class="large-blob-3-4">
           <ul class="list-sans">
-            <li
-              v-for="e in entreprise.etablissements"
-              :key="e.id"
-            >
+            <li v-for="e in entreprise.etablissements" :key="e.id">
               <h5 class="inline-block">
                 {{ e.dateDebut | dateFormat }}
               </h5>
@@ -83,25 +62,19 @@
         </div>
       </div>
 
-      <div
-        v-if="entreprise.adresse"
-        class="large-blobs"
-      >
+      <div v-if="entreprise.adresse" class="large-blobs">
         <div class="large-blob-1-4">
           <h6>Adresse</h6>
         </div>
         <div class="large-blob-3-4">
           <p>
             {{ entreprise.adresse }}
-            <br>{{ entreprise.codePostal }}
+            <br />{{ entreprise.codePostal }}
             {{ entreprise.commune }}
           </p>
         </div>
       </div>
-      <div
-        v-if="entreprise.telephone"
-        class="large-blobs"
-      >
+      <div v-if="entreprise.telephone" class="large-blobs">
         <div class="large-blob-1-4">
           <h6>Téléphone</h6>
         </div>
@@ -111,10 +84,7 @@
           </p>
         </div>
       </div>
-      <div
-        v-if="entreprise.email"
-        class="large-blobs"
-      >
+      <div v-if="entreprise.email" class="large-blobs">
         <div class="large-blob-1-4">
           <h6>Email</h6>
         </div>
@@ -129,19 +99,13 @@
           </p>
         </div>
       </div>
-      <div
-        v-if="entreprise.url"
-        class="large-blobs"
-      >
+      <div v-if="entreprise.url" class="large-blobs">
         <div class="large-blob-1-4">
           <h6>Site</h6>
         </div>
         <div class="large-blob-3-4">
           <p class="word-break">
-            <a
-              :href="entreprise.url"
-              class="btn h6 bold py-xs px-s rnd"
-            >
+            <a :href="entreprise.url" class="btn h6 bold py-xs px-s rnd">
               {{ entreprise.url }}
             </a>
           </p>

@@ -18,10 +18,7 @@
         <h6>Type</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <select
-          v-model="document.typeId"
-          class="p-s"
-        >
+        <select v-model="document.typeId" class="p-s">
           <option
             v-for="documentType in documentsTypes"
             :key="documentType.id"
@@ -34,12 +31,9 @@
       </div>
     </div>
 
-    <hr>
+    <hr />
 
-    <EditSections
-      :document.sync="document"
-      :repertoire="repertoire"
-    />
+    <EditSections :document.sync="document" :repertoire="repertoire" />
 
     <template slot="footer">
       <div class="tablet-blobs">
@@ -62,10 +56,7 @@
             Enregistrer
           </button>
 
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Enregistrement en cours…
           </div>
         </div>

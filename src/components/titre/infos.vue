@@ -14,14 +14,9 @@
           </span>
         </h4>
 
-
         <div class="mb">
-          <Statut
-            :color="titre.statut.couleur"
-            :nom="titre.statut.nom"
-          />
+          <Statut :color="titre.statut.couleur" :nom="titre.statut.nom" />
         </div>
-
 
         <div
           v-if="phases && phases.length"
@@ -34,10 +29,7 @@
               <th>Début</th>
               <th>Fin</th>
             </tr>
-            <tr
-              v-for="demarche in phases"
-              :key="demarche.id"
-            >
+            <tr v-for="demarche in phases" :key="demarche.id">
               <td class="max-width-1">
                 <Dot :color="`bg-${demarche.phase.statut.couleur}`" />
               </td>
@@ -46,25 +38,24 @@
                   {{ demarche.type.nom }}
                 </span>
               </td>
-              <td><span class="h5">{{ demarche.phase.dateDebut | dateFormat }}</span></td>
-              <td><span class="h5">{{ demarche.phase.dateFin | dateFormat }}</span></td>
+              <td>
+                <span class="h5">{{
+                  demarche.phase.dateDebut | dateFormat
+                }}</span>
+              </td>
+              <td>
+                <span class="h5">{{
+                  demarche.phase.dateFin | dateFormat
+                }}</span>
+              </td>
             </tr>
           </table>
         </div>
 
-        <div
-          v-if="titre.references && titre.references.length"
-          class="mb"
-        >
+        <div v-if="titre.references && titre.references.length" class="mb">
           <ul class="list-prefix h5">
-            <li
-              v-for="reference in titre.references"
-              :key="reference.nom"
-            >
-              <span
-                v-if="reference.type"
-                class="word-break fixed-width bold"
-              >
+            <li v-for="reference in titre.references" :key="reference.nom">
+              <span v-if="reference.type" class="word-break fixed-width bold">
                 {{ reference.type.nom }}
               </span>
               {{ reference.nom }}
@@ -75,43 +66,28 @@
     </div>
 
     <div class="desktop-blob-1-2 mt">
-      <div
-        v-if="titre.substances && titre.substances.length > 0"
-        class="mb"
-      >
+      <div v-if="titre.substances && titre.substances.length > 0" class="mb">
         <h6>Substances</h6>
         <TagList :elements="titre.substances.map(s => s.nom)" />
       </div>
 
-      <div
-        v-if="titre.titulaires.length"
-        class="mb"
-      >
+      <div v-if="titre.titulaires.length" class="mb">
         <h6>
           {{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}
         </h6>
         <ul class="list-prefix">
-          <li
-            v-for="titulaire in titre.titulaires"
-            :key="titulaire.id"
-          >
+          <li v-for="titulaire in titre.titulaires" :key="titulaire.id">
             {{ titulaire.nom }}
           </li>
         </ul>
       </div>
 
-      <div
-        v-if="titre.amodiataires.length"
-        class="mb"
-      >
+      <div v-if="titre.amodiataires.length" class="mb">
         <h6>
           {{ titre.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}
         </h6>
         <ul class="list-prefix">
-          <li
-            v-for="amodiataire in titre.amodiataires"
-            :key="amodiataire.id"
-          >
+          <li v-for="amodiataire in titre.amodiataires" :key="amodiataire.id">
             {{ amodiataire.nom }}
           </li>
         </ul>

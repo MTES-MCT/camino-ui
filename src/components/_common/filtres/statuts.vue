@@ -1,9 +1,5 @@
 <template>
-  <Statut
-    :color="element.couleur"
-    :nom="element.nom"
-    class="inline-block"
-  />
+  <Statut :color="element.couleur" :nom="element.nom" class="inline-block" />
 </template>
 
 <script>

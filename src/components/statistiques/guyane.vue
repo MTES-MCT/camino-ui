@@ -1,16 +1,7 @@
 <template>
-  <Loader
-    v-if="!loaded"
-    class="content"
-  />
-  <div
-    v-else
-    class="content"
-  >
-    <div
-      id="etat"
-      class="mb-xxl mt"
-    >
+  <Loader v-if="!loaded" class="content" />
+  <div v-else class="content">
+    <div id="etat" class="mb-xxl mt">
       <h2>
         État du domaine minier en Guyane
       </h2>
@@ -30,7 +21,7 @@
         <h3>
           Autorisations et titres d’exploration
         </h3>
-        <hr>
+        <hr />
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
@@ -64,7 +55,7 @@
         <h3>
           Autorisations et titres d’exploitation
         </h3>
-        <hr>
+        <hr />
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
@@ -122,10 +113,7 @@
         class="mr-xs"
         :class="{ active: tabActive === tab.id }"
       >
-        <div
-          class="p-m btn-tab rnd-t-s"
-          @click="tabToggle(tab.id)"
-        >
+        <div class="p-m btn-tab rnd-t-s" @click="tabToggle(tab.id)">
           {{ tab.nom }}
         </div>
       </div>
@@ -133,10 +121,7 @@
 
     <div class="line-neutral mb-xl" />
     <GuyaneActivite :statistique-guyane="statistiques[tabActive]" />
-    <div
-      id="evolution"
-      class="mb-xxl"
-    >
+    <div id="evolution" class="mb-xxl">
       <h2>
         Évolution de l’activité sur le domaine minier de Guyane sur les 5
         dernières années
@@ -151,24 +136,28 @@
       <h3>
         Évolution de la production annuelle d’or nette
       </h3>
-      <hr>
+      <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
             {{ statistiques[anneeCurrent - 1].productionOr }} kg
           </p>
           <p>
-            Production d’or nette (après affinage) issue des mines en Guyane l'an dernier
+            Production d’or nette (après affinage) issue des mines en Guyane
+            l'an dernier
           </p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
-          <LineChart :data="statsFormat('productionOr', 'Or net extrait en Kg')" />
+          <LineChart
+            :data="statsFormat('productionOr', 'Or net extrait en Kg')"
+          />
         </div>
       </div>
       <h3>
-        Évolution du nombre et des surfaces des autorisations de recherche valides
+        Évolution du nombre et des surfaces des autorisations de recherche
+        valides
       </h3>
-      <hr>
+      <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
@@ -179,13 +168,17 @@
           </p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
-          <LineChart :data="statsFormat('titresArm', 'autorisations de recherche valides')" />
+          <LineChart
+            :data="
+              statsFormat('titresArm', 'autorisations de recherche valides')
+            "
+          />
         </div>
       </div>
       <h3>
         Évolution du nombre et des surfaces des permis de recherche valides
       </h3>
-      <hr>
+      <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
@@ -200,9 +193,10 @@
         </div>
       </div>
       <h3>
-        Évolution du nombre et des surfaces des autorisation d'exploitation valides
+        Évolution du nombre et des surfaces des autorisation d'exploitation
+        valides
       </h3>
-      <hr>
+      <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
@@ -213,13 +207,17 @@
           </p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
-          <LineChart :data="statsFormat('titresAxm', 'autorisation d\'exploitation valides')" />
+          <LineChart
+            :data="
+              statsFormat('titresAxm', 'autorisation d\'exploitation valides')
+            "
+          />
         </div>
       </div>
       <h3>
         Évolution du nombre et des surfaces des permis d'exploitation valides
       </h3>
-      <hr>
+      <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
@@ -230,13 +228,15 @@
           </p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
-          <LineChart :data="statsFormat('titresPxm', 'permis d\'exploitation valides')" />
+          <LineChart
+            :data="statsFormat('titresPxm', 'permis d\'exploitation valides')"
+          />
         </div>
       </div>
       <h3>
         Évolution du nombre et des surfaces des concessions valides
       </h3>
-      <hr>
+      <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">

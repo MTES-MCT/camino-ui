@@ -6,10 +6,7 @@
       :types-ids="entrees.map(t => t.id)"
     />
     <h2>{{ definition.nom }}</h2>
-    <p
-      v-if="definition.description"
-      v-html="descriptionHtml"
-    />
+    <p v-if="definition.description" v-html="descriptionHtml" />
     <div v-if="entrees && entrees.length">
       <DefinitionEntree
         v-for="entree in entrees"

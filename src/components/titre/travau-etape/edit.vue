@@ -3,7 +3,9 @@
     <template slot="header">
       <div>
         <h5>
-          <span class="cap-first"> {{ titreNom }} </span><span class="color-neutral"> | </span><span class="cap-first">
+          <span class="cap-first"> {{ titreNom }} </span
+          ><span class="color-neutral"> | </span
+          ><span class="cap-first">
             {{ travauxType.nom }}
           </span>
         </h5>
@@ -18,11 +20,7 @@
         <h6>Type</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <select
-          v-model="etape.typeId"
-          class="p-s"
-          @change="typeUpdate"
-        >
+        <select v-model="etape.typeId" class="p-s" @change="typeUpdate">
           <option
             v-for="eType in etapeTypes"
             :key="eType.id"
@@ -35,7 +33,7 @@
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div v-if="etape.typeId">
       <div class="tablet-blobs">
@@ -43,10 +41,7 @@
           <h6>Statut</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <select
-            v-model="etape.statutId"
-            class="p-s"
-          >
+          <select v-model="etape.statutId" class="p-s">
             <option
               v-for="etapeStatut in etapesStatuts"
               :key="etapeStatut.id"
@@ -58,7 +53,7 @@
           </select>
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div class="tablet-blobs">
@@ -73,7 +68,7 @@
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -94,7 +89,7 @@
               min="0"
               placeholder="années"
               class="p-s mb-s"
-            >
+            />
           </div>
           <div class="tablet-blob-1-2">
             <input
@@ -103,13 +98,13 @@
               min="0"
               placeholder="mois"
               class="p-s"
-            >
+            />
           </div>
         </div>
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -126,15 +121,10 @@
           min="0"
           placeholder="0"
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
-        >
-        <label
-          v-if="etape.surface"
-          class="h5"
-        >
-          <input
-            v-model="etape.incertitudes.surface"
-            type="checkbox"
-          >donnée incertaine
+        />
+        <label v-if="etape.surface" class="h5">
+          <input v-model="etape.incertitudes.surface" type="checkbox" />donnée
+          incertaine
         </label>
       </div>
     </div>
@@ -156,10 +146,7 @@
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
-        >
+        <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
@@ -168,10 +155,7 @@
             Enregistrer
           </button>
 
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Enregistrement en cours…
           </div>
         </div>

@@ -1,10 +1,5 @@
 <template>
-  <Accordion
-    :opened="opened"
-    class="mb-s"
-    @close="close"
-    @toggle="toggle"
-  >
+  <Accordion :opened="opened" class="mb-s" @close="close" @toggle="toggle">
     <template slot="title">
       <h6 class="mt-xs">
         {{ etape.date | dateFormat }}
@@ -13,17 +8,11 @@
         {{ etape.type.nom }}
       </h3>
       <div class="mb-xs">
-        <Statut
-          :color="etape.statut.couleur"
-          :nom="etape.statut.nom"
-        />
+        <Statut :color="etape.statut.couleur" :nom="etape.statut.nom" />
       </div>
     </template>
 
-    <template
-      v-if="etape.modification || etape.suppression"
-      slot="buttons"
-    >
+    <template v-if="etape.modification || etape.suppression" slot="buttons">
       <DocumentButtonAdd
         :document="documentNew"
         :title="documentPopupTitle"
@@ -50,16 +39,14 @@
       </button>
     </template>
 
-    <div v-if="hasSections || hasProps || (etape.documents && etape.documents.length)">
-      <EtapeProps
-        v-if="hasProps"
-        :etape="etape"
-      />
+    <div
+      v-if="
+        hasSections || hasProps || (etape.documents && etape.documents.length)
+      "
+    >
+      <EtapeProps v-if="hasProps" :etape="etape" />
 
-      <div
-        v-if="hasSections"
-        class="border-b-s"
-      >
+      <div v-if="hasSections" class="border-b-s">
         <Section
           v-for="s in etape.type.sections"
           :key="s.id"
@@ -70,10 +57,7 @@
         />
       </div>
 
-      <div
-        v-if="etape.documents.length"
-        class="border-b-s"
-      >
+      <div v-if="etape.documents.length" class="border-b-s">
         <h4 class="px-m pt mb-s">
           Documents
         </h4>

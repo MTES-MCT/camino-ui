@@ -2,11 +2,11 @@
   <div class="mb-xxl">
     <h2>Création de compte</h2>
 
-    <hr>
+    <hr />
 
     <p>Renseignez au moins le mot de passe, le prénom et le nom.</p>
 
-    <hr>
+    <hr />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -32,14 +32,14 @@
           type="password"
           class="p-s mb-s"
           placeholder="Mot de passe"
-        >
+        />
         <p class="h5 mb-0">
           8 caractères minimum.
         </p>
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -52,11 +52,11 @@
           type="text"
           class="p-s"
           placeholder="Prénom"
-        >
+        />
       </div>
     </div>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Nom</h6>
@@ -68,11 +68,11 @@
           type="text"
           class="p-s"
           placeholder="Nom"
-        >
+        />
       </div>
     </div>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone fixe</h6>
@@ -83,11 +83,11 @@
           type="text"
           class="p-s"
           placeholder="01…"
-        >
+        />
       </div>
     </div>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone mobile</h6>
@@ -98,11 +98,11 @@
           type="text"
           class="p-s"
           placeholder="06…"
-        >
+        />
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s" />
@@ -111,24 +111,17 @@
           id="cmn-user-add-checkbox-cgu"
           v-model="cgu"
           type="checkbox"
-        >Vous avez lu et vous acceptez les
-        <a
-          href="/cgu"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          conditions générales d'utilisation
-        </a>.
+        />Vous avez lu et vous acceptez les
+        <a href="/cgu" target="_blank" rel="noopener noreferrer">
+          conditions générales d'utilisation </a
+        >.
       </div>
     </div>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3" />
-      <div
-        class="tablet-blob-2-3"
-        :class="{ disabled: !complete }"
-      >
+      <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
         <button
           id="cmn-user-add-button-enregistrer"
           class="btn-flash rnd-xs p-s full-x"

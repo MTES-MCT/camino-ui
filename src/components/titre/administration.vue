@@ -1,10 +1,5 @@
 <template>
-  <Accordion
-    class="mb"
-    :opened="opened"
-    @close="close"
-    @toggle="toggle"
-  >
+  <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
     <template slot="title">
       <span>{{ administration.nom }}</span>
       <Tag
@@ -15,20 +10,12 @@
         Coord.
       </Tag>
     </template>
-    <div
-      v-if="content"
-      class="px-m pt-m"
-    >
-      <div
-        v-if="administration.service"
-        class="large-blobs"
-      >
+    <div v-if="content" class="px-m pt-m">
+      <div v-if="administration.service" class="large-blobs">
         <div class="large-blob-1-6">
           <h6>Service</h6>
         </div>
-        <div
-          class="large-blob-5-6"
-        >
+        <div class="large-blob-5-6">
           <p>
             {{ administration.service }}
           </p>
@@ -41,21 +28,18 @@
         <div class="large-blob-1-6">
           <h6>Adresse</h6>
         </div>
-        <div
-          class="large-blob-5-6"
-        >
+        <div class="large-blob-5-6">
           <p>
             {{ administration.adresse1 }}
-            <span v-if="administration.adresse2"><br>{{ administration.adresse2 }}</span>
-            <br>{{ administration.codePostal }}
+            <span v-if="administration.adresse2"
+              ><br />{{ administration.adresse2 }}</span
+            >
+            <br />{{ administration.codePostal }}
             {{ administration.commune }}
           </p>
         </div>
       </div>
-      <div
-        v-if="administration.telephone"
-        class="large-blobs"
-      >
+      <div v-if="administration.telephone" class="large-blobs">
         <div class="large-blob-1-6">
           <h6>Téléphone</h6>
         </div>
@@ -65,10 +49,7 @@
           </p>
         </div>
       </div>
-      <div
-        v-if="administration.email"
-        class="large-blobs"
-      >
+      <div v-if="administration.email" class="large-blobs">
         <div class="large-blob-1-6">
           <h6>Email</h6>
         </div>
@@ -83,10 +64,7 @@
           </p>
         </div>
       </div>
-      <div
-        v-if="administration.url"
-        class="large-blobs"
-      >
+      <div v-if="administration.url" class="large-blobs">
         <div class="large-blob-1-6">
           <h6>Site</h6>
         </div>

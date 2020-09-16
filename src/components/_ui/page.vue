@@ -1,18 +1,12 @@
 <template>
   <div class="page relative">
-    <div
-      v-if="$slots.banner"
-      class="banner"
-    >
+    <div v-if="$slots.banner" class="banner">
       <div class="container py-m">
         <slot name="banner" />
       </div>
     </div>
 
-    <Transition
-      name="slide"
-      mode="out-in"
-    >
+    <Transition name="slide" mode="out-in">
       <slot name="menu" />
     </Transition>
 
@@ -33,10 +27,7 @@
     </div>
 
     <Transition name="fade">
-      <div
-        v-if="$slots.popup"
-        class="absolute full bg-inverse-alpha z-2"
-      />
+      <div v-if="$slots.popup" class="absolute full bg-inverse-alpha z-2" />
     </Transition>
 
     <Transition name="slide-top">

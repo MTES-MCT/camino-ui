@@ -3,28 +3,21 @@
     <h1 class="mt-m">
       Statistiques
     </h1>
-    <div
-      class="flex"
-    >
+    <div class="flex">
       <div
         v-for="tab in tabs"
         :key="tab.id"
         class="mr-xs"
         :class="{ active: tabActive === tab.id }"
       >
-        <RouterLink
-          :to="{ name: tab.name }"
-          class="p-m btn-tab rnd-t-s"
-        >
+        <RouterLink :to="{ name: tab.name }" class="p-m btn-tab rnd-t-s">
           {{ tab.nom }}
         </RouterLink>
       </div>
     </div>
     <div class="line-neutral" />
 
-    <Router-view
-      v-if="tabActive"
-    />
+    <Router-view v-if="tabActive" />
   </div>
 </template>
 

@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="indicateurs"
-    class="mb-xxl"
-  >
+  <div id="indicateurs" class="mb-xxl">
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 mb-xl">
         <h4>
@@ -20,8 +17,13 @@
           Energie consommée
         </h4>
         <p class="h0 mb-s text-center">
-          {{ numberFormat(statistiqueGuyane.carburantConventionnel +
-            statistiqueGuyane.carburantDetaxe) }} kL
+          {{
+            numberFormat(
+              statistiqueGuyane.carburantConventionnel +
+                statistiqueGuyane.carburantDetaxe
+            )
+          }}
+          kL
         </p>
         <p class="bold text-center">
           dont
@@ -57,7 +59,10 @@
           protection de l’environnement.
         </p>
         <p>
-          <small>* listés à l’article 318 C de l’annexe II du code général des impôts.</small>
+          <small
+            >* listés à l’article 318 C de l’annexe II du code général des
+            impôts.</small
+          >
         </p>
       </div>
       <div class="tablet-blob-1-2 mb-xl">
@@ -82,8 +87,8 @@
           {{ numberFormat(statistiqueGuyane.rapportProductionOrDeposes) }}
         </p>
         <p>
-          Rapports d’activité de production collectés via Camino utilisés
-          pour consolider ces statistiques.
+          Rapports d’activité de production collectés via Camino utilisés pour
+          consolider ces statistiques.
         </p>
       </div>
       <div class="tablet-blob-1-2 mb-xl">
@@ -91,8 +96,8 @@
           {{ statistiqueGuyane.rapportProductionOrRatio }} %
         </p>
         <p>
-          Des rapports d’activité de production attendus ont été déposés par
-          les opérateurs miniers pour consolider ces statistiques.
+          Des rapports d’activité de production attendus ont été déposés par les
+          opérateurs miniers pour consolider ces statistiques.
         </p>
       </div>
     </div>

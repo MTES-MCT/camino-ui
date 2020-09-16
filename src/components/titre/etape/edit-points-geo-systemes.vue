@@ -33,20 +33,15 @@
         </button>
       </div>
 
-      <div
-        v-if="etapeGeoSystemeId"
-        class="tablet-blobs"
-      >
-        <div
-          v-if="etape.geoSystemeIds.length > 1"
-          class="tablet-blob-1-2"
-        >
+      <div v-if="etapeGeoSystemeId" class="tablet-blobs">
+        <div v-if="etape.geoSystemeIds.length > 1" class="tablet-blob-1-2">
           <label class="h5 pt-s mb">
             <input
               v-model="etape.geoSystemeOpposableId"
               type="radio"
               :value="etapeGeoSystemeId"
-            > opposable
+            />
+            opposable
           </label>
         </div>
       </div>
@@ -56,7 +51,8 @@
       class="btn rnd-xs py-s px-m full-x flex h5"
       @click="geoSystemeAdd"
     >
-      <span class="mt-xxs">Ajouter un système géographique</span><i class="icon-24 icon-plus flex-right" />
+      <span class="mt-xxs">Ajouter un système géographique</span
+      ><i class="icon-24 icon-plus flex-right" />
     </button>
   </div>
 </template>

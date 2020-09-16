@@ -1,26 +1,14 @@
 <template>
   <div class="tablet-blobs header-blobs">
     <div class="tablet-blob-1-3 desktop-blob-1-2 large-blob-2-3">
-      <div
-        v-if="!apiError"
-        class="flex"
-      >
+      <div v-if="!apiError" class="flex">
         <div class="flex-right">
           <div class="mt-m tablet-mb-m flex">
-            <div
-              v-if="loading"
-              class="loader"
-            />
-            <div
-              v-if="loaded"
-              class="ml-xs"
-            >
+            <div v-if="loading" class="loader" />
+            <div v-if="loaded" class="ml-xs">
               <MenuButton />
             </div>
-            <div
-              v-if="loaded"
-              class="ml-xs"
-            >
+            <div v-if="loaded" class="ml-xs">
               <UserButton />
             </div>
           </div>
@@ -33,13 +21,10 @@
         :to="{ name: 'titres' }"
         class="pt-s pr-m inline-block full-x"
       >
-        <img src="../../../public/img/logo-camino.svg">
+        <img src="../../../public/img/logo-camino.svg" />
       </RouterLink>
-      <span
-        v-else
-        class="pt-s pr-m inline-block full-x"
-      >
-        <img src="../../../public/img/logo-camino.svg">
+      <span v-else class="pt-s pr-m inline-block full-x">
+        <img src="../../../public/img/logo-camino.svg" />
       </span>
       <p class="h5 color-neutral camino-header-baseline tablet-mb-s">
         Le cadastre minier numérique ouvert

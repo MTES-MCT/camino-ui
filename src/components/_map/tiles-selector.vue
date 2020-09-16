@@ -1,19 +1,10 @@
 <template>
-  <Accordion
-    :opened="opened"
-    @close="close"
-    @toggle="toggle"
-  >
-    <template
-      slot="title"
-    >
+  <Accordion :opened="opened" @close="close" @toggle="toggle">
+    <template slot="title">
       <span class="h5">Fond de carte</span>
     </template>
     <ul class="list-sans mt-m px-m">
-      <li
-        v-for="tile in tiles"
-        :key="tile.name"
-      >
+      <li v-for="tile in tiles" :key="tile.name">
         <label class="h5 bold">
           <input
             :value="tile.id"
@@ -21,7 +12,7 @@
             type="radio"
             class="mr-s"
             @change="select(tile.id)"
-          >
+          />
           {{ tile.name }}
         </label>
       </li>

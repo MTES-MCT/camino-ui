@@ -1,5 +1,7 @@
 <template>
-  <div :class="{ active: menu.component && menu.component.name === 'UserMenu' }">
+  <div
+    :class="{ active: menu.component && menu.component.name === 'UserMenu' }"
+  >
     <button
       v-if="user"
       id="cmn-user-button-menu"

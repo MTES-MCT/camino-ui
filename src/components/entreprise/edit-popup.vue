@@ -10,7 +10,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Téléphone </h6>
+        <h6>Téléphone</h6>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -18,11 +18,11 @@
           type="text"
           class="p-s"
           placeholder="0100000000"
-        >
+        />
       </div>
     </div>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Adresse électronique</h6>
@@ -33,11 +33,11 @@
           type="text"
           class="p-s"
           placeholder="email@domain.tld"
-        >
+        />
       </div>
     </div>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Site internet</h6>
@@ -48,7 +48,7 @@
           type="text"
           class="p-s"
           placeholder="http://…"
-        >
+        />
       </div>
     </div>
 
@@ -63,9 +63,7 @@
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-        >
+        <div class="tablet-blob-2-3">
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
@@ -73,10 +71,7 @@
           >
             Enregistrer
           </button>
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Enregistrement en cours…
           </div>
         </div>

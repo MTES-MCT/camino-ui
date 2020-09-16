@@ -7,10 +7,7 @@
       <slot />
     </div>
     <div class="popup-footer px-l pt pb-l">
-      <Messages
-        id="cmn-ui-popup-messages"
-        :messages="messages"
-      />
+      <Messages id="cmn-ui-popup-messages" :messages="messages" />
       <slot name="footer" />
     </div>
   </div>

@@ -6,20 +6,23 @@
         <h2 class="cap-first mb-m">
           {{ demarche.type.nom }}
         </h2>
-        <Statut
-          :color="demarche.statut.couleur"
-          :nom="demarche.statut.nom"
-        />
+        <Statut :color="demarche.statut.couleur" :nom="demarche.statut.nom" />
       </div>
       <div class="tablet-blob-1-2 flex">
         <div
-          v-if="demarche.modification || demarche.suppression || demarche.etapesCreation"
+          v-if="
+            demarche.modification ||
+              demarche.suppression ||
+              demarche.etapesCreation
+          "
           class="flex-right flex"
         >
           <button
             v-if="demarche.etapesCreation"
             class="btn rnd-l-xs py-s px-m h5 flex mr-line"
-            :class="{'rnd-r-xs': !demarche.suppression && !demarche.modification }"
+            :class="{
+              'rnd-r-xs': !demarche.suppression && !demarche.modification
+            }"
             @click="etapeAddPopupOpen"
           >
             <span class="mt-xxs">Ajouter une étape</span>
@@ -27,7 +30,7 @@
           <button
             v-if="demarche.modification"
             class="btn py-s px-m mr-line"
-            :class="{'rnd-l-xs': !demarche.etapesCreation }"
+            :class="{ 'rnd-l-xs': !demarche.etapesCreation }"
             @click="editPopupOpen"
           >
             <i class="icon-24 icon-pencil" />
@@ -35,7 +38,7 @@
           <button
             v-if="demarche.suppression"
             class="btn rnd-r-xs py-s px-m mr-line"
-            :class="{'rnd-l-xs': !demarche.modification }"
+            :class="{ 'rnd-l-xs': !demarche.modification }"
             @click="removePopupOpen"
           >
             <i class="icon-24 icon-trash" />

@@ -1,35 +1,16 @@
 <template>
   <Page>
-    <Component
-      :is="menu.component"
-      v-if="menu.component"
-      slot="menu"
-    />
+    <Component :is="menu.component" v-if="menu.component" slot="menu" />
 
-    <PageHeader
-      slot="header"
-      class="mb-s"
-      :loaded="loaded"
-    />
+    <PageHeader slot="header" class="mb-s" :loaded="loaded" />
 
-    <Messages
-      id="cmn-app-messages"
-      slot="messages"
-      :messages="messages"
-    />
+    <Messages id="cmn-app-messages" slot="messages" :messages="messages" />
 
-    <Error
-      v-if="error"
-      :message="error"
-    />
+    <Error v-if="error" :message="error" />
 
     <RouterView v-else-if="loaded" />
 
-    <Component
-      :is="popup.component"
-      slot="popup"
-      v-bind="popup.props"
-    />
+    <Component :is="popup.component" slot="popup" v-bind="popup.props" />
 
     <PageFooter slot="footer" />
   </Page>

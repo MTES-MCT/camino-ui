@@ -14,10 +14,7 @@
       </div>
     </template>
 
-    <div
-      v-if="modifiable"
-      class="p-s bg-info color-bg mb"
-    >
+    <div v-if="modifiable" class="p-s bg-info color-bg mb">
       Besoin d'aide pour remplir ce rapport ? Appelez le 06.61.26.42.89
     </div>
 
@@ -48,15 +45,9 @@
     </div>
 
     <template slot="footer">
-      <div
-        v-if="modifiable"
-        class="tablet-blobs"
-      >
+      <div v-if="modifiable" class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
-          <button
-            class="btn-border rnd-xs p-s full-x"
-            @click="cancel"
-          >
+          <button class="btn-border rnd-xs p-s full-x" @click="cancel">
             Annuler
           </button>
         </div>
@@ -70,10 +61,7 @@
           </button>
         </div>
       </div>
-      <div
-        v-else
-        class="tablet-blobs"
-      >
+      <div v-else class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
             v-if="!loading"
@@ -85,10 +73,7 @@
           </button>
         </div>
         <div class="tablet-blob-2-3">
-          <div
-            v-if="!loading"
-            class="tablet-blobs"
-          >
+          <div v-if="!loading" class="tablet-blobs">
             <div class="tablet-blob-1-2 mb tablet-mb-0">
               <button
                 id="cmn-titre-activite-edit-popup-button-enregistrer"
@@ -99,10 +84,7 @@
                 Enregistrer
               </button>
             </div>
-            <div
-              class="tablet-blob-1-2"
-              :class="{ disabled: !completed }"
-            >
+            <div class="tablet-blob-1-2" :class="{ disabled: !completed }">
               <button
                 class="btn-flash rnd-xs p-s full-x"
                 @click="completed && save(true)"
@@ -111,10 +93,7 @@
               </button>
             </div>
           </div>
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Enregistrement en cours…
           </div>
         </div>

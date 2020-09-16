@@ -5,7 +5,7 @@
         v-for="definition in definitions"
         id="=="
         :key="definition.id"
-        :class="{ active: slug === definition.slug}"
+        :class="{ active: slug === definition.slug }"
       >
         <RouterLink
           :to="{ name: 'definition', params: { slug: definition.slug } }"

@@ -14,7 +14,7 @@
 
     <div v-if="action === 'create'">
       <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom.</p>
-      <hr>
+      <hr />
     </div>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
@@ -27,18 +27,15 @@
           type="email"
           class="p-s"
           placeholder="Email"
-        >
-        <div
-          v-else
-          class="py-s"
-        >
+        />
+        <div v-else class="py-s">
           {{ utilisateur.email }}
         </div>
       </div>
     </div>
 
     <div v-if="action === 'create'">
-      <hr>
+      <hr />
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Mot de passe</h6>
@@ -49,7 +46,7 @@
             type="password"
             class="p-s mb-s"
             placeholder="Mot de passe"
-          >
+          />
           <p class="h5 mb-0">
             8 caractères minimum.
           </p>
@@ -57,7 +54,7 @@
       </div>
     </div>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Prénom</h6>
@@ -68,11 +65,11 @@
           type="text"
           class="p-s"
           placeholder="Prénom"
-        >
+        />
       </div>
     </div>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Nom</h6>
@@ -83,11 +80,11 @@
           type="text"
           class="p-s"
           placeholder="Nom"
-        >
+        />
       </div>
     </div>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone fixe</h6>
@@ -98,11 +95,11 @@
           type="text"
           class="p-s"
           placeholder="0100000000"
-        >
+        />
       </div>
     </div>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Téléphone mobile</h6>
@@ -113,12 +110,12 @@
           type="text"
           class="p-s"
           placeholder="0100000000"
-        >
+        />
       </div>
     </div>
 
     <div v-if="utilisateur.permissionModification">
-      <hr>
+      <hr />
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Permissions</h6>
@@ -146,14 +143,11 @@
       </div>
 
       <div v-if="utilisateurIsEntreprise">
-        <hr>
+        <hr />
         <h3 class="mb-s">
           Entreprises
         </h3>
-        <div
-          v-for="(entreprise, n) in utilisateur.entreprises"
-          :key="n"
-        >
+        <div v-for="(entreprise, n) in utilisateur.entreprises" :key="n">
           <div
             class="flex full-x"
             :class="{
@@ -170,7 +164,7 @@
               <option
                 v-for="e in entreprises"
                 :key="e.id"
-                :value="{ id: e.id}"
+                :value="{ id: e.id }"
                 :disabled="
                   utilisateur.entreprises.find(({ id }) => id === e.id)
                 "
@@ -179,10 +173,7 @@
               </option>
             </select>
             <div class="flex-right">
-              <button
-                class="btn py-s px-m rnd-xs"
-                @click="entrepriseRemove(n)"
-              >
+              <button class="btn py-s px-m rnd-xs" @click="entrepriseRemove(n)">
                 <i class="icon-24 icon-minus" />
               </button>
             </div>
@@ -195,12 +186,13 @@
           class="btn rnd-xs py-s px-m full-x flex mb h5"
           @click="entrepriseAdd"
         >
-          <span class="mt-xxs">Ajouter une entreprise</span><i class="icon-24 icon-plus flex-right" />
+          <span class="mt-xxs">Ajouter une entreprise</span
+          ><i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
 
       <div v-if="utilisateurIsAdministration">
-        <hr>
+        <hr />
         <h3 class="mb-s">
           Administrations
         </h3>
@@ -214,32 +206,30 @@
           >
             {{ administrationNameFind(administration.id) }}
           </div>
-          <div
-            v-else
-            class="flex full-x mb"
-          >
+          <div v-else class="flex full-x mb">
             <select
               id="cmn-utilisateur-edit-popup-administration-select"
               v-model="utilisateur.administrations[n]"
               type="text"
               class="p-s mr-s"
-              :class="{ '': !administrationsDisabledIds.includes(administration.id) }"
+              :class="{
+                '': !administrationsDisabledIds.includes(administration.id)
+              }"
               :disabled="administrationsDisabledIds.includes(administration.id)"
             >
               <option
                 v-for="a in administrationsFiltered"
                 :key="a.id"
-                :value="{ id : a.id }"
+                :value="{ id: a.id }"
                 :disabled="
-                  utilisateur.administrations.find(({ id }) => id === a.id) || administrationsDisabledIds.includes(a.id)
+                  utilisateur.administrations.find(({ id }) => id === a.id) ||
+                    administrationsDisabledIds.includes(a.id)
                 "
               >
                 {{ `${a.abreviation}` }}
               </option>
             </select>
-            <div
-              class="flex-right"
-            >
+            <div class="flex-right">
               <button
                 class="btn py-s px-m rnd-xs"
                 @click="administrationRemove(n)"
@@ -251,12 +241,16 @@
         </div>
 
         <button
-          v-if="!utilisateur.administrations.some(({ id }) => id === '') && utilisateurAdministrationsLength < 1"
+          v-if="
+            !utilisateur.administrations.some(({ id }) => id === '') &&
+              utilisateurAdministrationsLength < 1
+          "
           id="cmn-utilisateur-edit-popup-administration-button-ajouter"
           class="btn rnd-xs py-s px-m full-x flex mb h5"
           @click="administrationAdd"
         >
-          <span class="mt-xxs">Ajouter une administration</span><i class="icon-24 icon-plus flex-right" />
+          <span class="mt-xxs">Ajouter une administration</span
+          ><i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
     </div>
@@ -272,10 +266,7 @@
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
-        >
+        <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
           <button
             v-if="!loading"
             id="cmn-utilisateur-edit-popup-button-enregistrer"
@@ -284,10 +275,7 @@
           >
             Enregistrer
           </button>
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Enregistrement en cours…
           </div>
         </div>

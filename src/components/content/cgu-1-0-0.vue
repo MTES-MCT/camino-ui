@@ -3,9 +3,9 @@
     <h1 class="mb-xl">
       Conditions générales d’utilisation
     </h1>
-    <hr class="mb-xl">
+    <hr class="mb-xl" />
     <p>
-      CGU v.1.0<br>
+      CGU v.1.0<br />
       valables du 16 octobre 2018 au 15 avril 2019
     </p>
 
@@ -200,10 +200,10 @@
     <p>Par mail : contact@camino.beta.gouv.fr</p>
 
     <p>
-      Par voie postale :<br>
-      Ministère de la Transition écologique et solidaire<br>
-      Direction Générale de l'Aménagement, du Logement et de la Nature<br>
-      Bureau de la politique des ressources minérales non énergétiques<br>
+      Par voie postale :<br />
+      Ministère de la Transition écologique et solidaire<br />
+      Direction Générale de l'Aménagement, du Logement et de la Nature<br />
+      Bureau de la politique des ressources minérales non énergétiques<br />
       1 place Carpeaux, 92800 Puteaux
     </p>
 

@@ -8,12 +8,13 @@
           </h1>
         </div>
         <div class="tablet-blob-1-3 flex">
-          <div
-            class="flex-right flex mb-s"
-          >
+          <div class="flex-right flex mb-s">
             <button
               class="btn-border rnd-l-xs px-m py-s h5 lh-2"
-              :class="{'rnd-r-xs': !titre.suppression || !titre.modification, 'mr-line': titre.suppression || titre.modification }"
+              :class="{
+                'rnd-r-xs': !titre.suppression || !titre.modification,
+                'mr-line': titre.suppression || titre.modification
+              }"
               @click="emailSend"
             >
               <span class="mt-xs">Signaler une erreur…</span>
@@ -21,7 +22,7 @@
             <button
               v-if="titre.modification"
               class="btn py-s px-m mr-line"
-              :class="{'rnd-r-xs': !titre.suppression }"
+              :class="{ 'rnd-r-xs': !titre.suppression }"
               @click="editPopupOpen"
             >
               <i class="icon-24 icon-pencil" />

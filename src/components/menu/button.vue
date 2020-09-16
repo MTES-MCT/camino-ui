@@ -1,5 +1,7 @@
 <template>
-  <div :class="{ active: menu.component && menu.component.name === 'MainMenu' }">
+  <div
+    :class="{ active: menu.component && menu.component.name === 'MainMenu' }"
+  >
     <button
       id="cmn-menu-button-button-menu"
       class="btn-border pill h5 p-s"

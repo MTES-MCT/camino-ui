@@ -1,9 +1,7 @@
 <template>
   <div class="points width-max-padding bg-alt">
     <div class="container bg-bg py">
-      <div
-        v-if="geoSysteme"
-      >
+      <div v-if="geoSysteme">
         <div class="tablet-blobs px flex-align-items-stretch">
           <div class="tablet-blob-1-2">
             <select
@@ -16,13 +14,11 @@
                 :key="systeme.id"
                 :value="systeme.id"
               >
-                {{ systeme.nom }} - {{ systeme.id }} {{ systeme.id === geoSystemeOpposableId ? '(opposable)' : '' }}
+                {{ systeme.nom }} - {{ systeme.id }}
+                {{ systeme.id === geoSystemeOpposableId ? '(opposable)' : '' }}
               </option>
             </select>
-            <div
-              v-else
-              class="full-x p-s bg-alt mb-s"
-            >
+            <div v-else class="full-x p-s bg-alt mb-s">
               {{ geoSysteme.nom }} ({{ geoSysteme.id }})
             </div>
           </div>
@@ -52,10 +48,7 @@
           :key="groupeIndex + 1"
           class="geo-groupe mb"
         >
-          <h4
-            v-if="groupes.length > 1"
-            class="color-bg pt-s pl-m mb-s"
-          >
+          <h4 v-if="groupes.length > 1" class="color-bg pt-s pl-m mb-s">
             Groupe {{ groupeIndex + 1 }}
           </h4>
           <div
@@ -63,23 +56,17 @@
             :key="contourIndex + 1"
             class="geo-contour"
           >
-            <h4
-              v-if="groupeContours.length > 1"
-              class="pt-xs pl-s mb-s"
-            >
+            <h4 v-if="groupeContours.length > 1" class="pt-xs pl-s mb-s">
               {{ contourIndex === 0 ? 'Contour' : `Lacune ${contourIndex}` }}
             </h4>
             <div
-              v-for="(point) in contourPoints"
+              v-for="point in contourPoints"
               :key="point.id"
               class="geo-point"
             >
               <div class="tablet-blobs">
                 <div class="tablet-blob-1-2 flex">
-                  <h4
-                    v-if="point.nom"
-                    class="mb-s flex-self-start mr-xs"
-                  >
+                  <h4 v-if="point.nom" class="mb-s flex-self-start mr-xs">
                     {{ point.nom }}
                   </h4>
                   <p
@@ -96,19 +83,20 @@
                     {{ point.description }}
                   </p>
                 </div>
-                <div
-                  v-if="!point.lot"
-                  class="tablet-blob-1-2"
-                >
+                <div v-if="!point.lot" class="tablet-blob-1-2">
                   <div class="blobs-packed mb-s">
                     <div class="blob-packed-1-2 border-l px-s">
                       <p class="h5 flex my-xxs">
-                        <span class="flex-right mono bold">{{ round(point.references[geoSystemeId][0]) }}</span>
+                        <span class="flex-right mono bold">{{
+                          round(point.references[geoSystemeId][0])
+                        }}</span>
                       </p>
                     </div>
                     <div class="blob-packed-1-2 border-l px-s">
                       <p class="h5 flex my-xxs">
-                        <span class="flex-right mono bold">{{ round(point.references[geoSystemeId][1]) }}</span>
+                        <span class="flex-right mono bold">{{
+                          round(point.references[geoSystemeId][1])
+                        }}</span>
                       </p>
                     </div>
                   </div>

@@ -5,36 +5,23 @@
         <h6>Date</h6>
       </div>
       <div class="tablet-blob-2-3">
-        <InputDate
-          v-if="modifiable"
-          v-model="document.date"
-          class="mb"
-        />
-        <p
-          v-else-if="document.date"
-          class="pt-xs"
-        >
+        <InputDate v-if="modifiable" v-model="document.date" class="mb" />
+        <p v-else-if="document.date" class="pt-xs">
           {{ document.date }}
         </p>
-        <p
-          v-else
-          class="color-warning pt-xs"
-        >
+        <p v-else class="color-warning pt-xs">
           À compléter pour valider
         </p>
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div v-if="modifiable || document.description">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Description</h6>
-          <p
-            v-if="modifiable"
-            class="h6 italic mb-0"
-          >
+          <p v-if="modifiable" class="h6 italic mb-0">
             Optionnel
           </p>
         </div>
@@ -44,16 +31,13 @@
             v-model="document.description"
             type="text"
             class="p-s"
-          >
-          <p
-            v-else-if="document.description"
-            class="pt-xs mb-0"
-          >
+          />
+          <p v-else-if="document.description" class="pt-xs mb-0">
             {{ document.description }}
           </p>
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div v-if="documentsVisibilites.length > 1 && modifiable">
@@ -63,10 +47,7 @@
         </div>
         <div class="tablet-blob-2-3">
           <ul class="list-sans">
-            <li
-              v-for="visibilite in documentsVisibilites"
-              :key="visibilite.id"
-            >
+            <li v-for="visibilite in documentsVisibilites" :key="visibilite.id">
               <label class="h5 bold">
                 <input
                   :value="visibilite.id"
@@ -74,14 +55,14 @@
                   type="radio"
                   class="mr-s"
                   @change="visibiliteUpdate(visibilite.id)"
-                >
+                />
                 {{ visibilite.nom }}
               </label>
             </li>
           </ul>
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div class="tablet-blobs">
@@ -89,10 +70,7 @@
         <h6>Fichier</h6>
       </div>
       <div class="tablet-blob-2-3">
-        <div
-          v-if="document.fichier || document.fichierNouveau"
-          class="flex"
-        >
+        <div v-if="document.fichier || document.fichierNouveau" class="flex">
           <p class="mb-0">
             {{
               (document.fichierNouveau && document.fichierNouveau.name) ||
@@ -108,30 +86,21 @@
           </button>
         </div>
         <div v-else-if="modifiable">
-          <label
-            for="file"
-            class="btn-border p-s full-x rnd-xs mt--xs"
-          >Choisir un fichier…</label>
-          <input
-            id="file"
-            type="file"
-            class="p-xs mb-0"
-            @change="fileChange"
+          <label for="file" class="btn-border p-s full-x rnd-xs mt--xs"
+            >Choisir un fichier…</label
           >
+          <input id="file" type="file" class="p-xs mb-0" @change="fileChange" />
           <p class="h6 mb-s">
             15 Mo max.
           </p>
         </div>
-        <p
-          v-else
-          class="color-warning pt-xs mb-0"
-        >
+        <p v-else class="color-warning pt-xs mb-0">
           À compléter pour valider
         </p>
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div v-if="document.fichierNouveau">
       <div class="tablet-blobs">
@@ -153,21 +122,15 @@
               {{ fichierTypeId }}
             </option>
           </select>
-          <p
-            v-else-if="document.fichierTypeId"
-            class="pt-xs mb-0"
-          >
+          <p v-else-if="document.fichierTypeId" class="pt-xs mb-0">
             {{ document.fichierTypeId }}
           </p>
-          <p
-            v-else
-            class="color-warning pt-xs mb-0"
-          >
+          <p v-else class="color-warning pt-xs mb-0">
             À compléter pour valider
           </p>
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div
@@ -183,14 +146,10 @@
           </p>
         </div>
         <div class="mb tablet-blob-2-3">
-          <input
-            v-model="document.jorf"
-            type="text"
-            class="p-s"
-          >
+          <input v-model="document.jorf" type="text" class="p-s" />
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div
@@ -206,14 +165,10 @@
           </p>
         </div>
         <div class="mb tablet-blob-2-3">
-          <input
-            v-model="document.nor"
-            type="text"
-            class="p-s"
-          >
+          <input v-model="document.nor" type="text" class="p-s" />
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div v-if="repertoire === 'demarches' && modifiable">
@@ -230,10 +185,10 @@
             type="url"
             class="p-s"
             placeholder="https://…"
-          >
+          />
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div v-if="repertoire === 'demarches' && modifiable">
@@ -250,10 +205,10 @@
             type="url"
             class="p-s"
             placeholder="https://…"
-          >
+          />
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <Messages :messages="warnings" />

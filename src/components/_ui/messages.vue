@@ -1,9 +1,5 @@
 <template>
-  <TransitionGroup
-    name="slide-bottom"
-    class="list-sans mb-0"
-    tag="ul"
-  >
+  <TransitionGroup name="slide-bottom" class="list-sans mb-0" tag="ul">
     <li
       v-for="(message, index) in messages"
       :key="index"

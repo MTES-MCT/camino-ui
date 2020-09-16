@@ -1,26 +1,17 @@
 <template>
   <Loader v-if="!loaded" />
   <div v-else>
-    <div
-      v-if="titre.doublonTitreId"
-      class="p-m bg-warning color-bg mb"
-    >
+    <div v-if="titre.doublonTitreId" class="p-m bg-warning color-bg mb">
       Ce titre est un doublon. Le titre déjà existant est :
-      <a
-        class="color-bg"
-        :href="`/titres/${titre.doublonTitreId}`"
-      >{{ titre.doublonTitreId }}</a>.
+      <a class="color-bg" :href="`/titres/${titre.doublonTitreId}`">{{
+        titre.doublonTitreId
+      }}</a
+      >.
     </div>
 
-    <TitreHeader
-      :titre="titre"
-      @titre:eventTrack="eventTrack"
-    />
+    <TitreHeader :titre="titre" @titre:eventTrack="eventTrack" />
 
-    <TitreInfos
-      :titre="titre"
-      class="mb"
-    />
+    <TitreInfos :titre="titre" class="mb" />
 
     <div v-if="titre.geojsonMultiPolygon && titre.points">
       <div class="tablet-blobs tablet-flex-direction-reverse">
@@ -30,10 +21,7 @@
             :titre="titre"
             class="mr-s flex-right"
           />
-          <TitreDownloadGeojson
-            v-if="titre.points.length"
-            :titre="titre"
-          />
+          <TitreDownloadGeojson v-if="titre.points.length" :titre="titre" />
         </div>
 
         <div class="tablet-blob-1-2 flex">
@@ -48,19 +36,10 @@
               class="p-m btn-tab rnd-t-s"
               @click="geoTabToggle(tab.id)"
             >
-              <i
-                :class="`icon-${tab.icon}`"
-                class="icon-24"
-              />
+              <i :class="`icon-${tab.icon}`" class="icon-24" />
             </button>
-            <div
-              v-else
-              class="p-m span-tab rnd-t-s"
-            >
-              <i
-                :class="`icon-${tab.icon}`"
-                class="icon-24"
-              />
+            <div v-else class="p-m span-tab rnd-t-s">
+              <i :class="`icon-${tab.icon}`" class="icon-24" />
             </div>
           </div>
         </div>
@@ -85,10 +64,7 @@
       <div class="line mb" />
     </div>
 
-    <TitreTerritoires
-      :pays="titre.pays"
-      :surface="titre.surface"
-    />
+    <TitreTerritoires :pays="titre.pays" :surface="titre.surface" />
 
     <div class="line mb-xl" />
 
@@ -99,10 +75,7 @@
       @titre:eventTrack="eventTrack"
     />
 
-    <div
-      v-if="tabsActives.length > 1"
-      class="flex"
-    >
+    <div v-if="tabsActives.length > 1" class="flex">
       <div
         v-for="tab in tabsActives"
         :key="tab.id"

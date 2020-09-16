@@ -3,7 +3,7 @@
     <h1 class="mb-xl">
       Contribuez à Camino
     </h1>
-    <hr class="mb-xl">
+    <hr class="mb-xl" />
     <p>
       L'équipe de Camino travaille à vous fournir des données de la meilleure
       qualité qui soit. Mais la tâche est d'ampleur. Elles sont souvent

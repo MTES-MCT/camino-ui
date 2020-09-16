@@ -3,7 +3,7 @@
     <h1 class="mb-xl">
       Mentions légales
     </h1>
-    <hr class="mb-xl">
+    <hr class="mb-xl" />
     <h3>Éditeurs</h3>
     <p>
       Camino est édité par la Fabrique numérique des ministères de la Transition
@@ -29,10 +29,10 @@
     </ul>
     <h3>Prestataire d’hébergement</h3>
     <p>
-      OVH<br>
-      RCS Roubaix – Tourcoing 424 761 419 00045<br>
-      Code APE 6202A<br>
-      N° TVA : FR 22 424 761 419<br>
+      OVH<br />
+      RCS Roubaix – Tourcoing 424 761 419 00045<br />
+      Code APE 6202A<br />
+      N° TVA : FR 22 424 761 419<br />
       Siège social : 2 rue Kellermann, 59100 Roubaix, France
     </p>
   </div>

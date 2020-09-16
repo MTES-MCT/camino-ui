@@ -14,14 +14,10 @@
           <h6>Nom</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <input
-            v-model="titre.nom"
-            type="text"
-            class="p-s"
-          >
+          <input v-model="titre.nom" type="text" class="p-s" />
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div>
@@ -30,10 +26,7 @@
           <h6>Domaine</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <select
-            v-model="titre.domaineId"
-            class="p-s mr"
-          >
+          <select v-model="titre.domaineId" class="p-s mr">
             <option
               v-for="domaine in domaines"
               :key="domaine.id"
@@ -45,7 +38,7 @@
           </select>
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div>
@@ -54,11 +47,7 @@
           <h6>Type</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <select
-            v-model="titre.typeId"
-            class="p-s mr"
-            :disabled="!types"
-          >
+          <select v-model="titre.typeId" class="p-s mr" :disabled="!types">
             <option
               v-for="type in types"
               :key="type.id"
@@ -70,7 +59,7 @@
           </select>
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div>
@@ -80,16 +69,13 @@
       <p class="h6 italic mb-s">
         Optionnel
       </p>
-      <hr>
+      <hr />
       <div
         v-for="(reference, index) in titre.references"
         :key="index"
         class="flex full-x mb-s"
       >
-        <select
-          v-model="reference.typeId"
-          class="p-s mr-s"
-        >
+        <select v-model="reference.typeId" class="p-s mr-s">
           <option
             v-for="referenceType in referencesTypes"
             :key="referenceType.id"
@@ -103,12 +89,9 @@
           type="text"
           class="p-s mr-s"
           placeholder="valeur"
-        >
+        />
         <div class="flex-right">
-          <button
-            class="btn py-s px-m rnd-xs"
-            @click="referenceRemove(index)"
-          >
+          <button class="btn py-s px-m rnd-xs" @click="referenceRemove(index)">
             <i class="icon-24 icon-minus" />
           </button>
         </div>
@@ -121,7 +104,8 @@
         class="btn rnd-xs py-s px-m full-x mb flex h5"
         @click="referenceAdd"
       >
-        <span class="mt-xxs">Ajouter une référence</span><i class="icon-24 icon-plus flex-right" />
+        <span class="mt-xxs">Ajouter une référence</span
+        ><i class="icon-24 icon-plus flex-right" />
       </button>
     </div>
 
@@ -145,10 +129,7 @@
           >
             Enregistrer
           </button>
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Enregistrement en cours…
           </div>
         </div>

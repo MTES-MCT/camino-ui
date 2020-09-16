@@ -13,16 +13,8 @@
         <h6>Pays</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <select
-          v-model="entreprise.paysId"
-          class="p-s mr"
-          :disabled="true"
-        >
-          <option
-            v-for="pay in pays"
-            :key="pay.id"
-            :value="pay.id"
-          >
+        <select v-model="entreprise.paysId" class="p-s mr" :disabled="true">
+          <option v-for="pay in pays" :key="pay.id" :value="pay.id">
             {{ pay.nom }}
           </option>
         </select>
@@ -39,7 +31,7 @@
             type="text"
             class="p-s"
             placeholder="123456789"
-          >
+          />
         </div>
       </div>
     </div>
@@ -55,10 +47,7 @@
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
-        >
+        <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
@@ -66,10 +55,7 @@
           >
             Enregistrer
           </button>
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Enregistrement en cours…
           </div>
         </div>

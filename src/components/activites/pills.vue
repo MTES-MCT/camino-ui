@@ -1,22 +1,10 @@
 <template>
   <div class="mb--s">
-    <span
-      v-if="activitesAbsentes"
-      class="mr-xs inline-block"
-    >
-      <Statut
-        color="error"
-        :nom="activitesAbsentes.toString()"
-      />
+    <span v-if="activitesAbsentes" class="mr-xs inline-block">
+      <Statut color="error" :nom="activitesAbsentes.toString()" />
     </span>
-    <span
-      v-if="activitesEnConstruction"
-      class="mr-xs inline-block"
-    >
-      <Statut
-        color="warning"
-        :nom="activitesEnConstruction.toString()"
-      />
+    <span v-if="activitesEnConstruction" class="mr-xs inline-block">
+      <Statut color="warning" :nom="activitesEnConstruction.toString()" />
     </span>
   </div>
 </template>
@@ -32,4 +20,3 @@ export default {
   }
 }
 </script>
-

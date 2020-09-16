@@ -2,7 +2,7 @@
   <div class="mb-xxl">
     <h2>Initialisation du mot de passe</h2>
 
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Nouveau mot de passe</h6>
@@ -13,13 +13,13 @@
           type="password"
           class="p-s mb-s"
           placeholder="Mot de passe"
-        >
+        />
         <p class="h5 mb-0">
           8 caractères minimum.
         </p>
       </div>
     </div>
-    <hr>
+    <hr />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -31,20 +31,14 @@
           type="password"
           class="p-s"
           placeholder="Mot de passe"
-        >
+        />
       </div>
     </div>
-    <hr>
+    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3" />
-      <div
-        class="tablet-blob-2-3"
-        :class="{ disabled: !complete }"
-      >
-        <button
-          class="btn-flash rnd-xs p-s full-x"
-          @click="save"
-        >
+      <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
+        <button class="btn-flash rnd-xs p-s full-x" @click="save">
           Enregistrer
         </button>
       </div>

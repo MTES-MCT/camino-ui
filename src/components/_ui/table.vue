@@ -45,7 +45,8 @@
             <span
               v-else-if="row.columns[col.id] && row.columns[col.id].value"
               :class="row.columns[col.id].class"
-            >{{ row.columns[col.id].value }}</span>
+              >{{ row.columns[col.id].value }}</span
+            >
           </div>
         </RouterLink>
       </div>

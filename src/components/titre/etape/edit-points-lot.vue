@@ -1,22 +1,18 @@
 <template>
   <div>
-    <div
-      class="mb"
-    >
+    <div class="mb">
       <div class="flex">
         <h6>Description</h6>
         <p class="h6 italic mb-0 flex-right mr-xs">
           Optionnel
         </p>
       </div>
-      <input
-        v-model="point.description"
-        type="text"
-        class="p-s"
-      >
+      <input v-model="point.description" type="text" class="p-s" />
     </div>
 
-    <h6>Coordonnées en {{ etapeGeoSysteme.nom }} ({{ etapeGeoSysteme.unite.nom }})</h6>
+    <h6>
+      Coordonnées en {{ etapeGeoSysteme.nom }} ({{ etapeGeoSysteme.unite.nom }})
+    </h6>
     <textarea
       class="p-s mb-s mono"
       :value="point.references.join('\n')"
@@ -28,12 +24,19 @@
     <div class="h5 p-s">
       <ul class="list-prefix">
         <li>Ce champ contient une paire de coordonnées par ligne.</li>
-        <li>Les coordonnées sont au format décimal, quelle que soit l'unité.</li>
-        <li>Les coordonnées <span class="mono bg-alt p-xxs color-text">x,y</span> sont séparées par une virgule, sans espace.</li>
+        <li>
+          Les coordonnées sont au format décimal, quelle que soit l'unité.
+        </li>
+        <li>
+          Les coordonnées
+          <span class="mono bg-alt p-xxs color-text">x,y</span> sont séparées
+          par une virgule, sans espace.
+        </li>
         <li>Le séparateur entre les unités et les décimales est un point.</li>
       </ul>
       <p class="mb-s">
-        Exemple: <span class="mono bg-alt px-xs py-xxs color-text">1.4769,47.3469</span>
+        Exemple:
+        <span class="mono bg-alt px-xs py-xxs color-text">1.4769,47.3469</span>
       </p>
     </div>
   </div>

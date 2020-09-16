@@ -3,11 +3,7 @@
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3">
         <h6>Nom</h6>
-        <input
-          v-model.lazy="point.nom"
-          type="text"
-          class="p-s"
-        >
+        <input v-model.lazy="point.nom" type="text" class="p-s" />
       </div>
       <div class="mb tablet-blob-2-3">
         <div class="flex">
@@ -16,23 +12,18 @@
             Optionnel
           </p>
         </div>
-        <input
-          v-model="point.description"
-          type="text"
-          class="p-s"
-        >
+        <input v-model="point.description" type="text" class="p-s" />
       </div>
     </div>
 
     <label class="h5 mb">
-      <input
-        v-model="point.subsidiaire"
-        type="checkbox"
-      >subsidiaire
+      <input v-model="point.subsidiaire" type="checkbox" />subsidiaire
     </label>
 
     <div
-      v-for="geoSysteme in geoSystemes.filter(({ id }) => etape.geoSystemeIds.includes(id))"
+      v-for="geoSysteme in geoSystemes.filter(({ id }) =>
+        etape.geoSystemeIds.includes(id)
+      )"
       :key="`${point.id}-${geoSysteme.id}`"
       class="tablet-blobs"
     >
@@ -42,7 +33,8 @@
           <span
             v-if="etape.geoSystemeOpposableId === geoSysteme.id"
             class="bg-info py-xxs px-xs rnd-xs color-bg"
-          >Opposable</span>
+            >Opposable</span
+          >
         </h6>
 
         <p class="py-s mb-0 h5 bold">

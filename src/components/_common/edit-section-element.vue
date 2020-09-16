@@ -1,15 +1,9 @@
 <template>
   <div>
     <div class="tablet-blobs">
-      <div
-        v-if="element.nom"
-        class="tablet-blob-1-3 tablet-pt-s pb-s"
-      >
+      <div v-if="element.nom" class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>{{ element.nom }}</h6>
-        <p
-          v-if="element.optionnel"
-          class="h6 italic mb-0"
-        >
+        <p v-if="element.optionnel" class="h6 italic mb-0">
           Optionnel
         </p>
       </div>
@@ -30,7 +24,7 @@
               min="0"
               class="p-s"
               placeholder="…"
-            >
+            />
 
             <InputDate
               v-else-if="element.type === 'date'"
@@ -48,7 +42,7 @@
               v-model="contenu[element.id]"
               type="text"
               class="p-s"
-            >
+            />
 
             <div v-else-if="element.type === 'radio'">
               <label>
@@ -58,7 +52,7 @@
                   :value="true"
                   type="radio"
                   class="p-s mt-s mb-s"
-                >Oui
+                />Oui
               </label>
 
               <label>
@@ -68,7 +62,7 @@
                   :value="false"
                   type="radio"
                   class="p-s mt-s mb-s"
-                >Non
+                />Non
               </label>
             </div>
 
@@ -77,18 +71,15 @@
               v-model="contenu[element.id]"
               type="checkbox"
               class="p-s mt-s mb-s"
-            >
+            />
 
             <div v-else-if="element.type === 'checkboxes'">
-              <label
-                v-for="value in valeurs"
-                :key="value.id"
-              >
+              <label v-for="value in valeurs" :key="value.id">
                 <input
                   v-model="contenu[element.id]"
                   type="checkbox"
                   :value="value.id"
-                >
+                />
                 {{ value.nom }}
               </label>
             </div>
@@ -118,22 +109,16 @@
           />
         </div>
 
-        <p
-          v-else-if="hasValeur"
-          class="pt-xs mb-0"
-        >
+        <p v-else-if="hasValeur" class="pt-xs mb-0">
           {{ valeur }}
         </p>
-        <p
-          v-else-if="!element.optionnel"
-          class="color-warning pt-xs mb-0"
-        >
+        <p v-else-if="!element.optionnel" class="color-warning pt-xs mb-0">
           À compléter pour valider
         </p>
       </div>
     </div>
 
-    <hr>
+    <hr />
   </div>
 </template>
 

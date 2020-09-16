@@ -16,7 +16,7 @@
           v-model="email"
           type="email"
           class="p-s"
-        >
+        />
       </div>
     </div>
     <div class="tablet-blobs mb">
@@ -29,27 +29,20 @@
           v-model="motDePasse"
           type="password"
           class="p-s"
-        >
+        />
       </div>
     </div>
 
     <template slot="footer">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
-          <button
-            class="btn-border rnd-xs p-s full-x"
-            @click="cancel"
-          >
+          <button class="btn-border rnd-xs p-s full-x" @click="cancel">
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-        >
+        <div class="tablet-blob-2-3">
           <ul class="list-sans mb-0">
-            <li
-              :class="{ disabled: !complete }"
-            >
+            <li :class="{ disabled: !complete }">
               <button
                 id="cmn-user-login-popup-button-se-connecter"
                 class="btn-flash rnd-xs p-s full-x mb"

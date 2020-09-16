@@ -1,16 +1,7 @@
 <template>
-  <Loader
-    v-if="!loaded"
-    class="content"
-  />
-  <div
-    v-else
-    class="content"
-  >
-    <div
-      id="engagement"
-      class="mb-xxl"
-    >
+  <Loader v-if="!loaded" class="content" />
+  <div v-else class="content">
+    <div id="engagement" class="mb-xxl">
       <h2 class="mt">
         Engagement général sur le site
       </h2>
@@ -44,9 +35,7 @@
           </div>
 
           <div class="mb-xl">
-            <p class="h0 text-center">
-              {{ statistiques.sessionDuree }} min
-            </p>
+            <p class="h0 text-center">{{ statistiques.sessionDuree }} min</p>
             <p class="bold text-center">
               temps de session moyen par utilisateur
             </p>
@@ -58,10 +47,7 @@
       </div>
     </div>
 
-    <div
-      id="amelioration"
-      class="mb-xxl content"
-    >
+    <div id="amelioration" class="mb-xxl content">
       <h2>
         Amélioration continue et accès aux données publiques
       </h2>
@@ -81,12 +67,12 @@
             entreprises du secteur ce mois-ci
           </p>
           <p>
-            Le nombre de mises à jour mensuelles du cadastre par les
-            différents services de l'administration ou par les
-            professionnels du secteur reflète l'intensité de l'activité
-            d'instruction et administrative sur le domaine minier en France.
-            Une mise à jour peut être l'ajout d'un titre, une modification
-            de son statut ou des documents concernant son instruction.
+            Le nombre de mises à jour mensuelles du cadastre par les différents
+            services de l'administration ou par les professionnels du secteur
+            reflète l'intensité de l'activité d'instruction et administrative
+            sur le domaine minier en France. Une mise à jour peut être l'ajout
+            d'un titre, une modification de son statut ou des documents
+            concernant son instruction.
           </p>
         </div>
         <div class="tablet-float-blob-2-3 mb-xxl">
@@ -123,18 +109,15 @@
       </div>
     </div>
 
-    <div
-      id="gains"
-      class="mb-xxl"
-    >
+    <div id="gains" class="mb-xxl">
       <h2>
         Gains de la dématérialisation sur l'instruction minière
       </h2>
       <span class="separator" />
       <p>
         La dématérialisation des démarches relatives à l'instruction minière
-        doit permettre un gain de temps pour ceux qui les effectuent et ceux
-        qui les instruisent
+        doit permettre un gain de temps pour ceux qui les effectuent et ceux qui
+        les instruisent
       </p>
       <div class="desktop-blobs">
         <div class="desktop-blob-1-3 mb-xl">
@@ -150,8 +133,8 @@
             {{ statistiques.titresActivitesBeneficesEntreprise }}
           </p>
           <p class="bold text-center">
-            jours de travail sans valeur ajoutée économisés par les
-            entreprises en Guyane
+            jours de travail sans valeur ajoutée économisés par les entreprises
+            en Guyane
           </p>
           <p>
             La dématérialisation d’un rapport trimestriel d’activité de

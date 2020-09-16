@@ -6,7 +6,8 @@
         class="btn rnd-xs py-s px-m full-x flex h5 mb"
         @click="demarcheAddPopupOpen"
       >
-        <span class="mt-xxs">Ajouter une démarche</span> <i class="icon-24 icon-plus flex-right" />
+        <span class="mt-xxs">Ajouter une démarche</span>
+        <i class="icon-24 icon-plus flex-right" />
       </button>
     </div>
 

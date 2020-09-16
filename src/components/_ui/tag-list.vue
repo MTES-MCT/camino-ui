@@ -1,14 +1,7 @@
 <template>
   <ul class="list-inline">
-    <li
-      v-for="element in elements"
-      :key="element"
-      class="mr-xs mb-xs"
-    >
-      <Tag
-        :color="element.color"
-        class="lh-2"
-      >
+    <li v-for="element in elements" :key="element" class="mr-xs mb-xs">
+      <Tag :color="element.color" class="lh-2">
         {{ element }}
       </Tag>
     </li>

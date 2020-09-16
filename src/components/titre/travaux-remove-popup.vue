@@ -4,10 +4,10 @@
       <div>
         <h5>
           <span class="cap-first">
-            {{ titreNom }}
-          </span><span class="color-neutral">
-            |
-          </span><span class="cap-first">
+            {{ titreNom }} </span
+          ><span class="color-neutral">
+            | </span
+          ><span class="cap-first">
             {{ titreTypeNom }}
           </span>
         </h5>
@@ -18,12 +18,17 @@
     </template>
 
     <p class="bold">
-      Souhaitez vous supprimer les travaux <span class="color-inverse">{{ typeNom }}</span> du titre <span class="color-inverse">{{ titreNom }}</span> (<span class="color-inverse">{{ titreTypeNom }}</span>) ?
+      Souhaitez vous supprimer les travaux
+      <span class="color-inverse">{{ typeNom }}</span> du titre
+      <span class="color-inverse">{{ titreNom }}</span> (<span
+        class="color-inverse"
+        >{{ titreTypeNom }}</span
+      >) ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
       <span class="bold">
-        Attention
-      </span>: cette opération est définitive et ne peut pas être annulée.
+        Attention </span
+      >: cette opération est définitive et ne peut pas être annulée.
     </div>
 
     <template slot="footer">
@@ -45,10 +50,7 @@
           >
             Supprimer
           </button>
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Suppression en cours…
           </div>
         </div>

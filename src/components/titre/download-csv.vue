@@ -1,9 +1,5 @@
 <template>
-  <Download
-    :name="titre.id"
-    type="csv"
-    :content-build="contentBuild"
-  />
+  <Download :name="titre.id" type="csv" :content-build="contentBuild" />
 </template>
 
 <script>

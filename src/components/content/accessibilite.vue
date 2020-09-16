@@ -3,7 +3,7 @@
     <h1 class="mb-xl">
       Accessibilité
     </h1>
-    <hr class="mb-xl">
+    <hr class="mb-xl" />
     <p>
       Nous travaillons à améliorer le niveau d'accessibilité du site et sa
       conformité avec les normes en la matière. Notre objectif est d’atteindre

@@ -16,33 +16,19 @@
         <h6>Email</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input
-          v-model="email"
-          type="email"
-          class="p-s"
-          placeholder="Email"
-        >
+        <input v-model="email" type="email" class="p-s" placeholder="Email" />
       </div>
     </div>
 
     <template slot="footer">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
-          <button
-            class="btn-border rnd-xs p-s full-x"
-            @click="cancel"
-          >
+          <button class="btn-border rnd-xs p-s full-x" @click="cancel">
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
-        >
-          <button
-            class="btn-flash rnd-xs p-s full-x"
-            @click="save"
-          >
+        <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
+          <button class="btn-flash rnd-xs p-s full-x" @click="save">
             Envoyer
           </button>
         </div>

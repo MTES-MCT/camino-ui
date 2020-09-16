@@ -14,7 +14,9 @@
     </template>
 
     <p class="bold">
-      Souhaitez vous dissocier le justificatif <span class="color-inverse">{{ document.type.nom }}</span> de l'étape <span class="color-inverse">{{ title }}</span> ?
+      Souhaitez vous dissocier le justificatif
+      <span class="color-inverse">{{ document.type.nom }}</span> de l'étape
+      <span class="color-inverse">{{ title }}</span> ?
     </p>
 
     <Messages :messages="warnings" />
@@ -39,10 +41,7 @@
             Dissocier
           </button>
 
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Enregistrement en cours…
           </div>
         </div>

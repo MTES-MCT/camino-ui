@@ -1,16 +1,17 @@
 <template>
-  <Accordion
-    :opened="opened"
-    sub="true"
-    @close="close"
-    @toggle="toggle"
-  >
+  <Accordion :opened="opened" sub="true" @close="close" @toggle="toggle">
     <template slot="title">
       <h6>
-        {{ activite.date | dateFormat }} | <span class="cap-first">{{ activite.type.nom }}</span>
+        {{ activite.date | dateFormat }} |
+        <span class="cap-first">{{ activite.type.nom }}</span>
       </h6>
       <h3 class="mb-s">
-        <span class="cap-first"><span v-if="activite.periode && activite.periode.nom">{{ activite.periode.nom }} </span> {{ activite.annee }}</span>
+        <span class="cap-first"
+          ><span v-if="activite.periode && activite.periode.nom"
+            >{{ activite.periode.nom }}
+          </span>
+          {{ activite.annee }}</span
+        >
       </h3>
       <Statut
         :color="activite.statut.couleur"
@@ -18,9 +19,7 @@
         class="mb-xs"
       />
     </template>
-    <template
-      slot="buttons"
-    >
+    <template slot="buttons">
       <ActiviteButton
         v-if="activite.modification"
         :activite="activite"
@@ -29,11 +28,10 @@
     </template>
 
     <div>
-      <div
-        v-if="activite.dateSaisie"
-        class="border-b-s px-m pt-m"
-      >
-        <h6>Date de {{ activite.statut.id === 'dep' ? 'dépôt' : 'modification' }}</h6>
+      <div v-if="activite.dateSaisie" class="border-b-s px-m pt-m">
+        <h6>
+          Date de {{ activite.statut.id === 'dep' ? 'dépôt' : 'modification' }}
+        </h6>
         <p>{{ activite.dateSaisie | dateFormat }}</p>
       </div>
 

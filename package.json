@@ -112,10 +112,10 @@
       "plugin:vue/recommended",
       "standard",
       "prettier",
-      "prettier/standard"
+      "prettier/standard",
+      "prettier/vue"
     ],
     "rules": {
-      "no-console": 0,
       "no-throw-literal": 0,
       "vue/no-v-html": 0
     },

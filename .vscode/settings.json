@@ -1,7 +1,7 @@
 {
   "eslint.enable": true,
   "eslint.validate": ["html", "javascript", "vue", "vue-html"],
-  "vetur.format.defaultFormatter.html": "none",
+  "vetur.format.defaultFormatter.html": "prettier",
   "vetur.validation.template": false,
   "workbench.colorCustomizations": {
     "activityBar.background": "#65c89b",

@@ -9,10 +9,7 @@
     @validate="validate"
     @toggle="toggle"
   />
-  <div
-    v-else
-    class="py-s px-m mb-s border rnd-s"
-  >
+  <div v-else class="py-s px-m mb-s border rnd-s">
     …
   </div>
 </template>
@@ -52,7 +49,7 @@ export default {
   watch: {
     // si les metas changent (connexion / deconnexion user)
     metas: {
-      handler: function () {
+      handler: function() {
         if (this.loaded) {
           this.validate()
         }
@@ -60,7 +57,7 @@ export default {
       deep: true
     },
 
-    loaded: function (to, from) {
+    loaded: function(to, from) {
       if (!from) {
         this.init()
       }

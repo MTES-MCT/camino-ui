@@ -19,10 +19,10 @@
             type="password"
             class="p-s"
             placeholder="Mot de passe"
-          >
+          />
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div class="tablet-blobs">
@@ -35,13 +35,13 @@
           type="password"
           class="p-s mb-s"
           placeholder="Mot de passe"
-        >
+        />
         <p class="h5 mb-0">
           8 caractères minimum.
         </p>
       </div>
     </div>
-    <hr>
+    <hr />
 
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
@@ -53,7 +53,7 @@
           type="password"
           class="p-s"
           placeholder="Mot de passe"
-        >
+        />
       </div>
     </div>
 
@@ -68,10 +68,7 @@
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
-        >
+        <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
@@ -79,10 +76,7 @@
           >
             Enregistrer
           </button>
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
+          <div v-else class="p-s full-x bold">
             Enregistrement en cours…
           </div>
         </div>

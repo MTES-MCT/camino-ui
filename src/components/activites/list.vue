@@ -1,16 +1,13 @@
 <template>
   <div>
     <div class="line-neutral mb-xxl" />
-    <div
-      v-for="annee in activitesByYear"
-      :key="annee.id"
-    >
+    <div v-for="annee in activitesByYear" :key="annee.id">
       <h2>{{ annee.id }}</h2>
       <ActiviteDetail
         v-for="activite in annee.activites"
         :key="activite.id"
         :activite="activite"
-        :context="{name: 'titre', id: titreId}"
+        :context="{ name: 'titre', id: titreId }"
         class="mb-s"
       />
       <div class="line my-xxl" />

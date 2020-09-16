@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      v-for="s in sections"
-      :key="s.id"
-    >
+    <div v-for="s in sections" :key="s.id">
       <h3 v-if="s.nom">
         {{ s.nom }}
       </h3>

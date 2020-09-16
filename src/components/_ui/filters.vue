@@ -10,26 +10,20 @@
       {{ title }}
     </template>
 
-    <template
-      v-if="labels.length"
-      slot="sub"
-    >
-      <div
-        class="flex"
-        :class="{ 'border-b-s': opened }"
-      >
+    <template v-if="labels.length" slot="sub">
+      <div class="flex" :class="{ 'border-b-s': opened }">
         <div class="px-m pt-m pb-s">
           <span
             v-for="label in labels"
             :key="`${label.id}-${label.valueName}`"
             class="rnd-m box btn-flash h5 pl-s pr-xs py-xs bold mr-xs mb-xs"
             @click="labelRemove(label)"
-          >{{ label.name }} : {{ label.valueName || label.value }} <span class="inline-block align-y-top ml-xs"><i class="icon-16 icon-x" /></span></span>
+            >{{ label.name }} : {{ label.valueName || label.value }}
+            <span class="inline-block align-y-top ml-xs"
+              ><i class="icon-16 icon-x"/></span
+          ></span>
         </div>
-        <button
-          class="flex-right btn-alt p-m"
-          @click="labelsReset"
-        >
+        <button class="flex-right btn-alt p-m" @click="labelsReset">
           <i class="icon-24 icon-close" />
         </button>
       </div>
@@ -37,10 +31,7 @@
 
     <div class="px-m">
       <div class="tablet-blobs mt">
-        <div
-          v-if="inputs.length"
-          class="tablet-blob-1-2 large-blob-1-3"
-        >
+        <div v-if="inputs.length" class="tablet-blob-1-2 large-blob-1-3">
           <FiltersInput
             v-for="filter in inputs"
             :key="filter.id"

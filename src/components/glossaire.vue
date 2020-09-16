@@ -4,21 +4,14 @@
       Glossaire
     </h1>
 
-    <hr class="mb-xl">
+    <hr class="mb-xl" />
 
     <div class="desktop-blobs">
       <div class="desktop-blob-1-3">
-        <Sommaire
-          :slug="slug"
-          :definitions="definitions"
-        />
+        <Sommaire :slug="slug" :definitions="definitions" />
       </div>
       <div class="desktop-blob-2-3">
-        <Router-view
-          v-if="slug"
-          :slug="slug"
-          :definition="definition"
-        />
+        <Router-view v-if="slug" :slug="slug" :definition="definition" />
         <div v-else>
           <h3>
             Définitions des termes utilisés dans Camino.

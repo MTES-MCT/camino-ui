@@ -1,8 +1,5 @@
 <template>
-  <ul
-    v-if="total > 1"
-    class="list-inline"
-  >
+  <ul v-if="total > 1" class="list-inline">
     <li class="mr-xs">
       <button
         :disabled="active === 1"
@@ -21,10 +18,7 @@
         ‹
       </button>
     </li>
-    <li
-      v-if="active > delta + 1"
-      class="mr-xs"
-    >
+    <li v-if="active > delta + 1" class="mr-xs">
       <div class="px-m py-s">
         …
       </div>
@@ -35,17 +29,11 @@
       :class="{ active: active === page }"
       class="mr-xs"
     >
-      <button
-        class="btn-border rnd-xs px-m py-s"
-        @click="pageChange(page)"
-      >
+      <button class="btn-border rnd-xs px-m py-s" @click="pageChange(page)">
         {{ page }}
       </button>
     </li>
-    <li
-      v-if="active < total - delta"
-      class="mr-xs"
-    >
+    <li v-if="active < total - delta" class="mr-xs">
       <div class="px-m py-s">
         …
       </div>

@@ -13,10 +13,7 @@
                 @click.native="eventTrack('profil')"
               >
                 {{ user.prenom || '–' }} {{ user.nom || '–' }}
-                <div
-                  v-if="user.entreprise"
-                  class="h5 color-neutral"
-                >
+                <div v-if="user.entreprise" class="h5 color-neutral">
                   {{ user.entreprise.nom }}
                 </div>
               </RouterLink>

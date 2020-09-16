@@ -1,14 +1,13 @@
 <template>
   <svg class="absolute z--100">
     <defs>
-      <g
-        v-for="typeId in typesIds"
-        :key="typeId"
-      >
+      <g v-for="typeId in typesIds" :key="typeId">
         <g v-if="defs[typeId]">
           <pattern
             v-for="domaineId in domainesIdsDefault"
-            :id="domaineId ? `pattern-${typeId}-${domaineId}` : `pattern-${typeId}`"
+            :id="
+              domaineId ? `pattern-${typeId}-${domaineId}` : `pattern-${typeId}`
+            "
             :key="domaineId"
             patternUnits="userSpaceOnUse"
             width="8"
@@ -17,7 +16,9 @@
           >
             <path
               :d="defs[typeId].d"
-              :class="domaineId ? `svg-stroke-domaine-${domaineId}` : `svg-stroke`"
+              :class="
+                domaineId ? `svg-stroke-domaine-${domaineId}` : `svg-stroke`
+              "
               :stroke-width="defs[typeId].width"
               stroke-linecap="round"
             />

@@ -92,7 +92,7 @@ export default {
 
   watch: {
     preferences: {
-      handler: function () {
+      handler: function() {
         this.entreprisesGet()
       },
       deep: true

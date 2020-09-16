@@ -1,8 +1,5 @@
 <template>
-  <span
-    :class="color"
-    class="pill dot mr-xs"
-  />
+  <span :class="color" class="pill dot mr-xs" />
 </template>
 
 <script>

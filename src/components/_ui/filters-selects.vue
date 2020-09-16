@@ -1,17 +1,11 @@
 <template>
   <div class="mb">
     <h6>{{ filter.name }}</h6>
-    <hr class="mb-s">
+    <hr class="mb-s" />
 
-    <div
-      v-for="(value, n) in filter.value"
-      :key="n"
-    >
+    <div v-for="(value, n) in filter.value" :key="n">
       <div class="flex mb-s">
-        <select
-          v-model="filter.value[n]"
-          class="p-s mr-s"
-        >
+        <select v-model="filter.value[n]" class="p-s mr-s">
           <option
             v-for="element in filter.elements"
             :key="element.id"
@@ -22,10 +16,7 @@
           </option>
         </select>
 
-        <button
-          class="btn py-s px-m rnd-xs"
-          @click="valueRemove(n)"
-        >
+        <button class="btn py-s px-m rnd-xs" @click="valueRemove(n)">
           <i class="icon-24 icon-minus" />
         </button>
       </div>
@@ -35,7 +26,8 @@
       class="btn rnd-xs py-s px-m full-x flex mb-s h5"
       @click="valueAdd"
     >
-      <span class="mt-xxs">{{ filter.buttonAdd }}</span><i class="icon-24 icon-plus flex-right" />
+      <span class="mt-xxs">{{ filter.buttonAdd }}</span
+      ><i class="icon-24 icon-plus flex-right" />
     </button>
   </div>
 </template>

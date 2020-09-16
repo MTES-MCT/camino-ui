@@ -13,15 +13,9 @@
         <slot name="title" />
       </div>
 
-      <div
-        class="accordion-buttons flex flex-end flex-right"
-      >
+      <div class="accordion-buttons flex flex-end flex-right">
         <slot name="buttons" />
-        <button
-          v-if="$slots.default"
-          class="btn-alt py-s px-m"
-          @click="toggle"
-        >
+        <button v-if="$slots.default" class="btn-alt py-s px-m" @click="toggle">
           <i
             class="icon-24"
             :class="{
@@ -30,10 +24,7 @@
             }"
           />
         </button>
-        <div
-          v-else
-          class="py-s px-m"
-        >
+        <div v-else class="py-s px-m">
           <i class="icon-24" />
         </div>
       </div>
@@ -41,7 +32,11 @@
 
     <button
       v-else-if="$slots.default && !$slots.buttons"
-      :class="{ 'rnd-t-s': opened || $slots.sub, 'rnd-s': !opened && !$slots.sub, 'border-b-s': opened || $slots.sub }"
+      :class="{
+        'rnd-t-s': opened || $slots.sub,
+        'rnd-s': !opened && !$slots.sub,
+        'border-b-s': opened || $slots.sub
+      }"
       class="accordion-header flex btn-alt py-s px-m"
       @click="toggle"
     >
@@ -56,19 +51,11 @@
       </div>
     </button>
 
-    <div
-      v-else
-      class="py-s px-m"
-    >
+    <div v-else class="py-s px-m">
       <slot name="title" />
     </div>
 
-    <slot
-      v-if="$slots.sub"
-      name="sub"
-      :class="{'border-b-s': opened}"
-    />
-
+    <slot v-if="$slots.sub" name="sub" :class="{ 'border-b-s': opened }" />
 
     <div class="overflow-hidden">
       <Transition name="slide">
