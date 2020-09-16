@@ -5,7 +5,7 @@ const dateFormat = dateString => {
 }
 
 const numberFormat = x => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  return Intl.NumberFormat('FR-fr').format(x)
 }
 
 const permissionsCheck = (userPermission, permissions) =>

@@ -265,7 +265,6 @@ html {
   color: var(--color-text);
   background-color: var(--color-neutral);
 }
-
 @media (--viewport-tablet) {
   .tablet-flex-right {
     margin-left: auto;

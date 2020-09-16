@@ -11,52 +11,49 @@
       id="engagement"
       class="mb-xxl"
     >
-      <h2>
+      <h2 class="mt">
         Engagement général sur le site
       </h2>
       <span class="separator" />
-      <p>
+      <p class="mb-xl">
         Les données retenues ici témoignent du comportement général des
         utilisateurs sur le site et de leur engagement auprès du service
       </p>
-      <div class="desktop-blobs">
-        <div class="desktop-blob-1-6 text-center">
-          <p class="h0-graph mb-0 mt-xxl">
-            {{ Intl.NumberFormat().format(rechercheCount) }}
-          </p>
-          <p class="bold">
-            recherches ce mois-ci
-          </p>
-        </div>
-        <div class="desktop-blob-2-3">
-          <div
-            ref="graphContainer"
-            class="graph-container"
-          >
-            <SvgChart
-              :dataset="_dataset('nombre de recherches par mois')"
-              :options="_options('nombre de recherches par mois')"
-              :svg="_svg('nombre de recherches par mois')"
-            />
-            <p class="graph-title">
+      <div class="tablet-float-blobs clearfix">
+        <div class="tablet-float-blob-1-3">
+          <div class="mb-xl mt">
+            <p class="h0 text-center">
+              {{ numberFormat(recherches) }}
+            </p>
+            <p class="bold text-center">
+              recherches effectuées le mois dernier
+            </p>
+            <p>
               Le nombre de recherches mensuelles est l'indicateur clé de
               l'utilisation du service de "cadastre minier"
             </p>
           </div>
+
+          <div class="mb-xl">
+            <p class="h0 text-center">
+              {{ Math.round(statistiques.actions) }}
+            </p>
+            <p class="bold text-center">
+              nombre moyen d'actions effectuées par utilisateur
+            </p>
+          </div>
+
+          <div class="mb-xl">
+            <p class="h0 text-center">
+              {{ statistiques.sessionDuree }} min
+            </p>
+            <p class="bold text-center">
+              temps de session moyen par utilisateur
+            </p>
+          </div>
         </div>
-        <div class="desktop-blob-1-6 text-center">
-          <p class="h0-graph mb-0">
-            {{ Math.round(statistiquesGlobales.actions) }}
-          </p>
-          <p class="bold">
-            nombre moyen d'actions effectuées par un utilisateur sur le site
-          </p>
-          <p class="h0-graph mb-0">
-            {{ statistiquesGlobales.sessionDuree }}
-          </p>
-          <p class="bold">
-            temps de session moyen sur camino par chacun des utilisateurs
-          </p>
+        <div class="tablet-float-blob-2-3 mb-xxl">
+          <LineChart :data="statsFormat('recherches', 'recherches')" />
         </div>
       </div>
     </div>
@@ -69,60 +66,57 @@
         Amélioration continue et accès aux données publiques
       </h2>
       <span class="separator" />
-      <p>
+      <p class="mb-xl">
         En tant que secteur régulé par l'État, la publication en ligne des
         données minières doit permettre leur amélioration et leur utilisation
         par la communauté
       </p>
-      <div class="desktop-blobs">
-        <div class="desktop-blob-1-6 text-center">
-          <p class="h0-graph mb-0 mt-xxl">
-            {{ titresModifiesCount }}
+      <div class="tablet-float-blobs clearfix">
+        <div class="tablet-float-blob-1-3 mb-xl">
+          <p class="h0 text-center">
+            {{ titresModifies }}
           </p>
-          <p class="bold">
+          <p class="bold text-center">
             mise à jour de titres miniers par l'administration et les
             entreprises du secteur ce mois-ci
           </p>
-        </div>
-        <div class="desktop-blob-2-3">
-          <div
-            ref="graphContainer"
-            class="graph-container"
-          >
-            <SvgChart
-              :dataset="_dataset('nombre de mises à jour par mois')"
-              :options="_options('nombre de mises à jour par mois')"
-              :svg="_svg('nombre de mises à jour par mois')"
-            />
-            <p class="graph-title">
-              Le nombre de mises à jour mensuelles du cadastre par les
-              différents services de l'administration ou par les
-              professionnels du secteur reflète l'intensité de l'activité
-              d'instruction et administrative sur le domaine minier en France.
-              Une mise à jour peut être l'ajout d'un titre, une modification
-              de son statut ou des documents concernant son instruction.
-            </p>
-          </div>
-        </div>
-        <div class="desktop-blob-1-6 text-center">
-          <p class="h0-graph mb-0">
-            {{ statistiquesGlobales.telechargements }}
+          <p>
+            Le nombre de mises à jour mensuelles du cadastre par les
+            différents services de l'administration ou par les
+            professionnels du secteur reflète l'intensité de l'activité
+            d'instruction et administrative sur le domaine minier en France.
+            Une mise à jour peut être l'ajout d'un titre, une modification
+            de son statut ou des documents concernant son instruction.
           </p>
-          <p class="bold">
+        </div>
+        <div class="tablet-float-blob-2-3 mb-xxl">
+          <LineChart :data="statsFormat('titresModifies', 'Mises à jour')" />
+        </div>
+      </div>
+      <div class="desktop-blobs">
+        <div class="desktop-blob-1-3 mb-xl">
+          <p class="h0 text-center">
+            {{ statistiques.telechargements }}
+          </p>
+          <p class="bold text-center">
             téléchargements de pièces relatives à la bonne instruction des
             titres et autorisations miniers ce mois-ci
           </p>
-          <p class="h0-graph mb-0">
-            {{ statistiquesGlobales.signalements }}
+        </div>
+        <div class="desktop-blob-1-3 mb-xl">
+          <p class="h0 text-center">
+            {{ statistiques.signalements }}
           </p>
-          <p class="bold">
+          <p class="bold text-center">
             erreurs corrigées sur les bases de données de l'État grâce à la
             participation des utilisateurs
           </p>
-          <p class="h0-graph mb-0">
-            {{ statistiquesGlobales.reutilisations }}
+        </div>
+        <div class="desktop-blob-1-3 mb-xl">
+          <p class="h0 text-center">
+            {{ statistiques.reutilisations }}
           </p>
-          <p class="bold">
+          <p class="bold text-center">
             réutilisations connues des données ouvertes distribuées
           </p>
         </div>
@@ -143,19 +137,19 @@
         qui les instruisent
       </p>
       <div class="desktop-blobs">
-        <div class="desktop-blob-1-3 text-center">
-          <p class="h0-graph mb-0">
-            {{ demarcheCounts }}
+        <div class="desktop-blob-1-3 mb-xl">
+          <p class="h0 text-center">
+            {{ statistiques.demarches }}
           </p>
-          <p class="bold">
+          <p class="bold text-center">
             démarches effectuées en ligne cette années
           </p>
         </div>
-        <div class="desktop-blob-1-3 text-center">
-          <p class="h0-graph mb-0">
-            {{ statistiquesGlobales.titresActivitesBeneficesEntreprise }}
+        <div class="desktop-blob-1-3 mb-xl">
+          <p class="h0 text-center">
+            {{ statistiques.titresActivitesBeneficesEntreprise }}
           </p>
-          <p class="bold">
+          <p class="bold text-center">
             jours de travail sans valeur ajoutée économisés par les
             entreprises en Guyane
           </p>
@@ -166,11 +160,11 @@
             l’administration.
           </p>
         </div>
-        <div class="desktop-blob-1-3 text-center">
-          <p class="h0-graph mb-0">
-            {{ statistiquesGlobales.titresActivitesBeneficesAdministration }}
+        <div class="desktop-blob-1-3 mb-xl">
+          <p class="h0 text-center">
+            {{ statistiques.titresActivitesBeneficesAdministration }}
           </p>
-          <p class="bold">
+          <p class="bold text-center">
             jours de travail à faible valeur ajoutée économisés par
             l’administration
           </p>
@@ -189,42 +183,33 @@
 
 <script>
 import Loader from '../_ui/loader.vue'
-import SvgChart from '../_charts/svg-chart.vue'
-import { graph } from './globales.js'
+import LineChart from '../_charts/line.vue'
 
 export default {
   name: 'CaminoStatistiques',
 
-  components: { Loader, SvgChart },
+  components: { Loader, LineChart },
 
   data() {
     return {
-      loaded: false,
-      graph,
-      svg: {
-        w: 1000,
-        h: 600
-      }
+      loaded: false
     }
   },
 
   computed: {
-    statistiquesGlobales() {
+    statistiques() {
       return this.$store.state.statistiques.globales
     },
 
-    rechercheCount() {
-      const searchCounts = this.statistiquesGlobales.recherches
-      return searchCounts[searchCounts.length - 1].value
+    recherches() {
+      const recherches = this.statistiques.recherches
+
+      return recherches[recherches.length - 2].value
     },
 
-    titresModifiesCount() {
-      const majTitreCounts = this.statistiquesGlobales.titresModifies
-      return majTitreCounts[majTitreCounts.length - 1].value
-    },
-
-    demarcheCounts() {
-      return this.statistiquesGlobales.demarches
+    titresModifies() {
+      const titresModifies = this.statistiques.titresModifies
+      return titresModifies[titresModifies.length - 1].value
     }
   },
 
@@ -241,104 +226,18 @@ export default {
       }
     },
 
-    currentOption(name) {
-      return this.graph.find(g => g.name === name).options
-    },
-
-    currentDataset(name) {
-      return this.graph.find(g => g.name === name).dataset
-    },
-
-    legendRetraitX(name) {
-      const legendRetraitX = this.currentOption(name).legend.x
-        ? this.currentOption(name).legend.xRetrait
-        : 0
-      return -this.currentOption(name).xMin > 0 ? 0 : legendRetraitX
-    },
-
-    legendRetraitY(name) {
-      const legendRetraitY = this.currentOption(name).legend.y
-        ? this.currentOption(name).legend.yRetrait
-        : 0
-      return -this.currentOption(name).yMin > 0 ? 0 : legendRetraitY
-    },
-
-    maxValY(name) {
-      return Math.max(...this._dataset(name).values.map(v => v[1])).toString()
-    },
-
-    legendMargeX(name) {
-      return this.maxValY(name).length * 15
-    },
-
-    pasY(name) {
-      let unit = this.maxValY(name)
-      let pas = 1
-      let taille = 1
-      while (unit.length > 1) {
-        unit = Math.floor(parseInt(unit) / 10).toString()
-        taille *= 10
-        pas = parseInt(unit) < 5 ? 5 : parseInt(unit) < 10 ? 10 : 1
+    statsFormat(id, label) {
+      return {
+        labels: this.statistiques[id].map(recherche => recherche.month),
+        datasets: [
+          {
+            label,
+            data: this.statistiques[id].map(recherche => recherche.value),
+            backgroundColor: 'rgba(118, 182, 189, 0.2)',
+            borderColor: 'rgb(118, 182, 189)'
+          }
+        ]
       }
-      return (pas * taille) / 10
-    },
-
-    _svg(name) {
-      const w = this.svg.w
-      const h = this.svg.h
-      const wr = w - this.legendRetraitX(name)
-      const hr = h - this.legendRetraitY(name)
-      return { w, h, wr, hr }
-    },
-
-    _options(name) {
-      const options = this.currentOption(name)
-      options.legend.retraitX = this.legendRetraitX(name)
-      options.legend.retraitY = this.legendRetraitY(name)
-      if (!options.default) {
-        options.legend.xMarge = JSON.parse(
-          JSON.stringify(this.legendMargeX(name))
-        )
-        options.legend.yPas = JSON.parse(JSON.stringify(this.pasY(name)))
-      }
-      return options
-    },
-
-    _dataset(name) {
-      let counts
-      if (name === 'nombre de recherches par mois') {
-        counts = this.statistiquesGlobales.recherches
-      }
-      if (name === 'nombre de mises à jour par mois') {
-        counts = this.statistiquesGlobales.titresModifies
-      }
-
-      // nbXXXArray est de la forme
-      // [
-      //   { month: '2018-09', value: '0' },
-      //   ...
-      //   { month: '2020-08', value: '5706' }
-      // ]
-
-      // on veut obtenir
-      // datasets = [{id:...,values:[[0,0],...[xPas*Index,'5706']],legend:['2018-09',...,'2020-08']}]
-
-      const dataset = { ...this.currentDataset(name) }
-
-      let pas = -this.currentOption(name).legend.xPas
-      const values = counts.map(el => {
-        const value = [2]
-        value[0] = pas += this.currentOption(name).legend.xPas
-        value[1] = parseInt(el.value)
-        return value
-      })
-
-      const legend = counts.map(el => el.month)
-
-      dataset.values = values
-      dataset.legend[0] = legend
-
-      return dataset
     }
   }
 }

@@ -28,7 +28,7 @@ pre {
 }
 
 .h0 {
-  typescale: 5 6;
+  typescale: 5 3;
   color: var(--color-brand);
 }
 
@@ -39,7 +39,7 @@ h1,
 
 h2,
 .h2 {
-  typescale: 2 1;
+  typescale: 2 1.5;
 }
 
 h3,
@@ -68,17 +68,15 @@ h5 {
   margin-bottom: var(--unit-s);
 }
 
-h1 {
-  font-weight: 700;
-}
-
 .h0,
+h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
   font-weight: 700;
+  letter-spacing: -0.02rem;
 }
 
 h6 {
@@ -166,6 +164,7 @@ strong,
 .strong,
 .bold {
   font-weight: 700;
+  letter-spacing: -0.02rem;
 }
 
 i,
