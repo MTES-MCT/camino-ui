@@ -2,20 +2,14 @@
   <div id="indicateurs" class="mb-xxl">
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 mb-xl">
-        <h4>
-          Production d'or nette
-        </h4>
+        <h4>Production d'or nette</h4>
         <p class="h0 text-center">
-          {{ numberFormat(statistiqueGuyane.productionOr) }} kg
+          {{ numberFormat(statistiqueGuyane.orNet) }} kg
         </p>
-        <p>
-          Production d’or nette (après affinage) issue des mines en Guyane.
-        </p>
+        <p>Production d’or nette (après affinage) issue des mines en Guyane.</p>
       </div>
       <div class="tablet-blob-1-3 mb-xl">
-        <h4>
-          Energie consommée
-        </h4>
+        <h4>Energie consommée</h4>
         <p class="h0 mb-s text-center">
           {{
             numberFormat(
@@ -29,14 +23,10 @@
           dont
           {{ numberFormat(statistiqueGuyane.carburantDetaxe) }} kL détaxés
         </p>
-        <p>
-          Volume de carburant consommé par les activités extractives.
-        </p>
+        <p>Volume de carburant consommé par les activités extractives.</p>
       </div>
       <div class="tablet-blob-1-3 mb-xl">
-        <h4>
-          Mercure collecté
-        </h4>
+        <h4>Mercure collecté</h4>
         <p class="h0 text-center">
           {{ numberFormat(statistiqueGuyane.mercure) }} kg
         </p>
@@ -48,9 +38,7 @@
     </div>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2 mb-xl">
-        <h4>
-          Protection de l'environnement
-        </h4>
+        <h4>Protection de l'environnement</h4>
         <p class="h0 text-center">
           {{ numberFormat(statistiqueGuyane.environnementCout) }} €
         </p>
@@ -66,9 +54,7 @@
         </p>
       </div>
       <div class="tablet-blob-1-2 mb-xl">
-        <h4>
-          Emplois
-        </h4>
+        <h4>Emplois</h4>
         <p class="h0 text-center">
           {{ numberFormat(statistiqueGuyane.salaries) }}
         </p>
@@ -78,9 +64,7 @@
         </p>
       </div>
     </div>
-    <h4>
-      Sources des données
-    </h4>
+    <h4>Sources des données</h4>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2 mb-xl">
         <p class="h0 text-center">

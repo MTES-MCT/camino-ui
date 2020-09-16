@@ -2,9 +2,7 @@
   <Loader v-if="!loaded" class="content" />
   <div v-else class="content">
     <div id="etat" class="mb-xxl mt">
-      <h2>
-        État du domaine minier en Guyane
-      </h2>
+      <h2>État du domaine minier en Guyane</h2>
       <span class="separator" />
       <p>
         Les données affichées ici sont celles contenues dans la base de donnée
@@ -18,31 +16,25 @@
         distinctes.
       </p>
       <div class="mb-xxl">
-        <h3>
-          Autorisations et titres d’exploration
-        </h3>
+        <h3>Autorisations et titres d’exploration</h3>
         <hr />
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
-              {{ statistiques[anneeCurrent].titresArm }}
+              {{ statistiques[anneeCurrent].titresArm.quantite }}
             </p>
-            <p class="bold text-center">
-              Autorisations de recherche valides
-            </p>
+            <p class="bold text-center">Autorisations de recherche valides</p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
-              {{ statistiques[anneeCurrent].titresPrm }}
+              {{ statistiques[anneeCurrent].titresPrm.quantite }}
             </p>
-            <p class="bold text-center">
-              Permis de recherche valides
-            </p>
+            <p class="bold text-center">Permis de recherche valides</p>
           </div>
           <div class="tablet-blob-1-4" />
           <div class="tablet-blob-1-4">
             <p class="h1 bold color-brand text-center">
-              {{ surfaceExploration }} ha
+              {{ numberFormat(statistiquesGuyane.surfaceExploration) }} ha
             </p>
             <p class="bold text-center">
               Surfaces cumulées des titres concernés par une activité
@@ -52,38 +44,30 @@
         </div>
       </div>
       <div class="mb-xxl">
-        <h3>
-          Autorisations et titres d’exploitation
-        </h3>
+        <h3>Autorisations et titres d’exploitation</h3>
         <hr />
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
-              {{ statistiques[anneeCurrent].titresAxm }}
+              {{ statistiques[anneeCurrent].titresAxm.quantite }}
             </p>
-            <p class="bold text-center">
-              Autorisations d'exploitation valides
-            </p>
+            <p class="bold text-center">Autorisations d'exploitation valides</p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
-              {{ statistiques[anneeCurrent].titresPxm }}
+              {{ statistiques[anneeCurrent].titresPxm.quantite }}
             </p>
-            <p class="bold text-center">
-              Permis d'exploitation valides
-            </p>
+            <p class="bold text-center">Permis d'exploitation valides</p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
-              {{ statistiques[anneeCurrent].titresCxm }}
+              {{ statistiques[anneeCurrent].titresCxm.quantite }}
             </p>
-            <p class="bold text-center">
-              Concessions valides
-            </p>
+            <p class="bold text-center">Concessions valides</p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h1 bold color-brand text-center">
-              {{ surfaceExploitation }} ha
+              {{ numberFormat(statistiquesGuyane.surfaceExploitation) }} ha
             </p>
             <p class="bold text-center">
               Surfaces cumulées des titres concernés par une activité
@@ -94,9 +78,7 @@
       </div>
     </div>
 
-    <h2>
-      Indicateurs annuels de production et d’activité minière
-    </h2>
+    <h2>Indicateurs annuels de production et d’activité minière</h2>
     <span class="separator" />
     <p class="mb-xl">
       Les données affichées ici sont celles contenues dans la base de donnée
@@ -133,14 +115,12 @@
         peuvent ne pas être exhautives. Ces données concernent exclusivement le
         territoire guyanais.
       </p>
-      <h3>
-        Évolution de la production annuelle d’or nette
-      </h3>
+      <h3>Évolution de la production annuelle d’or nette</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
-            {{ statistiques[anneeCurrent - 1].productionOr }} kg
+            {{ statistiques[anneeCurrent - 1].orNet }} kg
           </p>
           <p>
             Production d’or nette (après affinage) issue des mines en Guyane
@@ -149,7 +129,7 @@
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <LineChart
-            :data="statsFormat('productionOr', 'Or net extrait en Kg')"
+            :data="statsLineFormat('productionOrNette', 'Or net extrait en Kg')"
           />
         </div>
       </div>
@@ -161,16 +141,18 @@
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
-            {{ statistiques[anneeCurrent - 1]['titresArm'] }}
+            {{ statistiques[anneeCurrent - 1].titresArm.quantite }}
           </p>
-          <p>
-            autorisations de recherches octroyées l’an dernier
-          </p>
+          <p>autorisations de recherches octroyées l’an dernier</p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
-          <LineChart
+          <BarChart
             :data="
-              statsFormat('titresArm', 'autorisations de recherche valides')
+              statsBarFormat(
+                'titresArm',
+                'Autorisations de recherche valides',
+                'Surface des autorisations de recherche (ha)'
+              )
             "
           />
         </div>
@@ -182,14 +164,20 @@
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
-            {{ statistiques[anneeCurrent - 1]['titresPrm'] }}
+            {{ statistiques[anneeCurrent - 1].titresPrm.quantite }}
           </p>
-          <p>
-            permis exclusifs de recherches octroyés l’an dernier
-          </p>
+          <p>permis exclusifs de recherches octroyés l’an dernier</p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
-          <LineChart :data="statsFormat('titresPrm', 'PER valides')" />
+          <BarChart
+            :data="
+              statsBarFormat(
+                'titresPrm',
+                'Permis de recherches valides',
+                'Surface des permis de recherche (ha)'
+              )
+            "
+          />
         </div>
       </div>
       <h3>
@@ -200,16 +188,18 @@
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
-            {{ statistiques[anneeCurrent - 1]['titresAxm'] }}
+            {{ statistiques[anneeCurrent - 1].titresAxm.quantite }}
           </p>
-          <p>
-            autorisations d’exploitation octroyées l’an dernier
-          </p>
+          <p>autorisations d’exploitation octroyées l’an dernier</p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
-          <LineChart
+          <BarChart
             :data="
-              statsFormat('titresAxm', 'autorisation d\'exploitation valides')
+              statsBarFormat(
+                'titresAxm',
+                'Autorisation d\'exploitation valides',
+                'Surface des autorisations de recherche (ha)'
+              )
             "
           />
         </div>
@@ -221,33 +211,41 @@
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
-            {{ statistiques[anneeCurrent - 1]['titresPxm'] }}
+            {{ statistiques[anneeCurrent - 1].titresPxm.quantite }}
           </p>
-          <p>
-            permis d’exploitation octroyés l’an dernier
-          </p>
+          <p>permis d’exploitation octroyés l’an dernier</p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
-          <LineChart
-            :data="statsFormat('titresPxm', 'permis d\'exploitation valides')"
+          <BarChart
+            :data="
+              statsBarFormat(
+                'titresPxm',
+                'Permis d\'exploitation valides',
+                'Surface des permis d\'exploitation valides'
+              )
+            "
           />
         </div>
       </div>
-      <h3>
-        Évolution du nombre et des surfaces des concessions valides
-      </h3>
+      <h3>Évolution du nombre et des surfaces des concessions valides</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
-            {{ statistiques[anneeCurrent - 1]['titresCxm'] }}
+            {{ statistiques[anneeCurrent - 1].titresCxm.quantite }}
           </p>
-          <p>
-            concessions octroyées l’an dernier
-          </p>
+          <p>concessions octroyées l’an dernier</p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
-          <LineChart :data="statsFormat('titresCxm', 'Concessions valides')" />
+          <BarChart
+            :data="
+              statsBarFormat(
+                'titresCxm',
+                'Concessions valides',
+                'Surface des concessions valides (ha)'
+              )
+            "
+          />
         </div>
       </div>
     </div>
@@ -257,12 +255,13 @@
 <script>
 import Loader from '../_ui/loader.vue'
 import GuyaneActivite from './guyane-activite.vue'
+import BarChart from '../_charts/bar.vue'
 import LineChart from '../_charts/line.vue'
 
 export default {
   name: 'TableauBordGuyane',
 
-  components: { Loader, GuyaneActivite, LineChart },
+  components: { Loader, GuyaneActivite, LineChart, BarChart },
 
   data() {
     return {
@@ -277,7 +276,7 @@ export default {
     },
 
     statistiques() {
-      return this.statistiquesGuyane.reduce((acc, statsAnnee) => {
+      return this.statistiquesGuyane.annees.reduce((acc, statsAnnee) => {
         acc[statsAnnee.annee] = statsAnnee
 
         return acc
@@ -288,18 +287,6 @@ export default {
       return new Date().getFullYear()
     },
 
-    surfaceExploration() {
-      return this.numberFormat(
-        this.statistiques[this.anneeCurrent].surfaceExploration
-      )
-    },
-
-    surfaceExploitation() {
-      return this.numberFormat(
-        this.statistiques[this.anneeCurrent].surfaceExploitation
-      )
-    },
-
     tabs() {
       return [
         {
@@ -308,7 +295,11 @@ export default {
         },
         {
           id: this.anneeCurrent - 1,
-          nom: (this.anneeCurrent - 1).toString() + ' - en construction'
+          nom: (this.anneeCurrent - 1).toString()
+        },
+        {
+          id: this.anneeCurrent,
+          nom: this.anneeCurrent.toString() + ' - en construction'
         }
       ]
     }
@@ -332,8 +323,8 @@ export default {
       this.tabActive = tabId
     },
 
-    statsFormat(id, label) {
-      return this.statistiquesGuyane.reduce(
+    statsLineFormat(id, label) {
+      return this.statistiquesGuyane.annees.reduce(
         (acc, statsAnnee) => {
           acc.labels.push(statsAnnee.annee)
           acc.datasets[0].data.push(statsAnnee[id])
@@ -348,6 +339,37 @@ export default {
               data: [],
               backgroundColor: 'rgba(118, 182, 189, 0.2)',
               borderColor: 'rgb(118, 182, 189)'
+            }
+          ]
+        }
+      )
+    },
+
+    statsBarFormat(id, labelBar, labelLine) {
+      return this.statistiquesGuyane.annees.reduce(
+        (acc, statsAnnee) => {
+          acc.labels.push(statsAnnee.annee)
+          acc.datasets[0].data.push(statsAnnee[id].surface)
+          acc.datasets[1].data.push(statsAnnee[id].quantite)
+
+          return acc
+        },
+        {
+          labels: [],
+          datasets: [
+            {
+              type: 'line',
+              label: labelLine,
+              yAxisID: 'line',
+              data: [],
+              backgroundColor: 'rgba(55, 111, 170, 0.2)',
+              borderColor: 'rgb(55, 111, 170)'
+            },
+            {
+              label: labelBar,
+              yAxisID: 'bar',
+              data: [],
+              backgroundColor: 'rgb(118, 182, 189)'
             }
           ]
         }

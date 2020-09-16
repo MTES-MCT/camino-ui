@@ -2,9 +2,7 @@
   <Loader v-if="!loaded" class="content" />
   <div v-else class="content">
     <div id="engagement" class="mb-xxl">
-      <h2 class="mt">
-        Engagement général sur le site
-      </h2>
+      <h2 class="mt">Engagement général sur le site</h2>
       <span class="separator" />
       <p class="mb-xl">
         Les données retenues ici témoignent du comportement général des
@@ -48,9 +46,7 @@
     </div>
 
     <div id="amelioration" class="mb-xxl content">
-      <h2>
-        Amélioration continue et accès aux données publiques
-      </h2>
+      <h2>Amélioration continue et accès aux données publiques</h2>
       <span class="separator" />
       <p class="mb-xl">
         En tant que secteur régulé par l'État, la publication en ligne des
@@ -110,9 +106,7 @@
     </div>
 
     <div id="gains" class="mb-xxl">
-      <h2>
-        Gains de la dématérialisation sur l'instruction minière
-      </h2>
+      <h2>Gains de la dématérialisation sur l'instruction minière</h2>
       <span class="separator" />
       <p>
         La dématérialisation des démarches relatives à l'instruction minière
@@ -187,12 +181,13 @@ export default {
     recherches() {
       const recherches = this.statistiques.recherches
 
-      return recherches[recherches.length - 2].value
+      return recherches[recherches.length - 1].quantite
     },
 
     titresModifies() {
       const titresModifies = this.statistiques.titresModifies
-      return titresModifies[titresModifies.length - 1].value
+
+      return titresModifies[titresModifies.length - 1].quantite
     }
   },
 
@@ -211,11 +206,11 @@ export default {
 
     statsFormat(id, label) {
       return {
-        labels: this.statistiques[id].map(recherche => recherche.month),
+        labels: this.statistiques[id].map(recherche => recherche.mois),
         datasets: [
           {
             label,
-            data: this.statistiques[id].map(recherche => recherche.value),
+            data: this.statistiques[id].map(recherche => recherche.quantite),
             backgroundColor: 'rgba(118, 182, 189, 0.2)',
             borderColor: 'rgb(118, 182, 189)'
           }
