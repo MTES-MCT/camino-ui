@@ -7,12 +7,12 @@ const statistiquesGlobales = apiFetch(gql`
       titresActivitesBeneficesEntreprise
       titresActivitesBeneficesAdministration
       recherches {
-        month
-        value
+        mois
+        quantite
       }
       titresModifies {
-        month
-        value
+        mois
+        quantite
       }
       actions
       sessionDuree
@@ -27,22 +27,44 @@ const statistiquesGlobales = apiFetch(gql`
 const statistiquesGuyane = apiFetch(gql`
   query StatistiquesGuyane {
     statistiquesGuyane {
-      annee
+      surfaceExploration
+      surfaceExploitation
       titresArm
       titresPrm
       titresAxm
       titresPxm
       titresCxm
-      surfaceExploration
-      surfaceExploitation
-      productionOr
-      carburantConventionnel
-      carburantDetaxe
-      mercure
-      environnementCout
-      salaries
-      rapportProductionOrDeposes
-      rapportProductionOrRatio
+      annees {
+        annee
+        titresArm {
+          quantite
+          surface
+        }
+        titresPrm {
+          quantite
+          surface
+        }
+        titresAxm {
+          quantite
+          surface
+        }
+        titresPxm {
+          quantite
+          surface
+        }
+        titresCxm {
+          quantite
+          surface
+        }
+        orNet
+        carburantConventionnel
+        carburantDetaxe
+        mercure
+        environnementCout
+        effectifs
+        activitesDeposesQuantite
+        activitesDeposesRatio
+      }
     }
   }
 `)
