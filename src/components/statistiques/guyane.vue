@@ -2,7 +2,7 @@
   <Loader v-if="!loaded" class="content" />
   <div v-else class="content">
     <div id="etat" class="mb-xxl mt">
-      <h2>État du domaine minier en Guyane</h2>
+      <h2>État du domaine minier en Guyane en temps réel</h2>
       <span class="separator" />
       <p>
         Les données affichées ici sont celles contenues dans la base de donnée
@@ -120,7 +120,7 @@
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
-            {{ statistiques[anneeCurrent - 1].orNet }} kg
+            {{ numberFormat(statistiques[anneeCurrent - 1].orNet) }} kg
           </p>
           <p>
             Production d’or nette (après affinage) issue des mines en Guyane
@@ -128,14 +128,12 @@
           </p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
-          <LineChart
-            :data="statsLineFormat('productionOrNette', 'Or net extrait en Kg')"
-          />
+          <LineChart :data="statsLineFormat('orNet', 'Or net extrait en Kg')" />
         </div>
       </div>
       <h3>
         Évolution du nombre et des surfaces des autorisations de recherche
-        valides
+        octroyées
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -150,7 +148,7 @@
             :data="
               statsBarFormat(
                 'titresArm',
-                'Autorisations de recherche valides',
+                'Autorisations de recherche octroyées',
                 'Surface des autorisations de recherche (ha)'
               )
             "
@@ -158,7 +156,7 @@
         </div>
       </div>
       <h3>
-        Évolution du nombre et des surfaces des permis de recherche valides
+        Évolution du nombre et des surfaces des permis de recherche octroyés
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -173,7 +171,7 @@
             :data="
               statsBarFormat(
                 'titresPrm',
-                'Permis de recherches valides',
+                'Permis de recherches octroyés',
                 'Surface des permis de recherche (ha)'
               )
             "
@@ -181,8 +179,8 @@
         </div>
       </div>
       <h3>
-        Évolution du nombre et des surfaces des autorisation d'exploitation
-        valides
+        Évolution du nombre et des surfaces des autorisations d'exploitation
+        octroyées
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -197,7 +195,7 @@
             :data="
               statsBarFormat(
                 'titresAxm',
-                'Autorisation d\'exploitation valides',
+                'Autorisations d\'exploitation octroyées',
                 'Surface des autorisations de recherche (ha)'
               )
             "
@@ -205,7 +203,7 @@
         </div>
       </div>
       <h3>
-        Évolution du nombre et des surfaces des permis d'exploitation valides
+        Évolution du nombre et des surfaces des permis d'exploitation octroyés
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -220,14 +218,14 @@
             :data="
               statsBarFormat(
                 'titresPxm',
-                'Permis d\'exploitation valides',
-                'Surface des permis d\'exploitation valides'
+                'Permis d\'exploitation octroyés',
+                'Surface des permis d\'exploitation (ha)'
               )
             "
           />
         </div>
       </div>
-      <h3>Évolution du nombre et des surfaces des concessions valides</h3>
+      <h3>Évolution du nombre et des surfaces des concessions octroyés</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
@@ -241,8 +239,8 @@
             :data="
               statsBarFormat(
                 'titresCxm',
-                'Concessions valides',
-                'Surface des concessions valides (ha)'
+                'Concessions octroyés',
+                'Surface des concessions (ha)'
               )
             "
           />

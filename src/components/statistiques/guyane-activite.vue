@@ -56,7 +56,7 @@
       <div class="tablet-blob-1-2 mb-xl">
         <h4>Emplois</h4>
         <p class="h0 text-center">
-          {{ numberFormat(statistiqueGuyane.salaries) }}
+          {{ numberFormat(statistiqueGuyane.effectifs) }}
         </p>
         <p>
           Salariés mobilisés sur les exploitations minières de Guyane
@@ -68,7 +68,7 @@
     <div class="tablet-blobs">
       <div class="tablet-blob-1-2 mb-xl">
         <p class="h0 text-center">
-          {{ numberFormat(statistiqueGuyane.rapportProductionOrDeposes) }}
+          {{ numberFormat(statistiqueGuyane.activitesDeposesQuantite) }}
         </p>
         <p>
           Rapports d’activité de production collectés via Camino utilisés pour
@@ -77,7 +77,7 @@
       </div>
       <div class="tablet-blob-1-2 mb-xl">
         <p class="h0 text-center">
-          {{ statistiqueGuyane.rapportProductionOrRatio }} %
+          {{ statistiqueGuyane.activitesDeposesRatio }} %
         </p>
         <p>
           Des rapports d’activité de production attendus ont été déposés par les

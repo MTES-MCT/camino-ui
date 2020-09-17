@@ -56,9 +56,9 @@ const statistiquesGuyane = apiFetch(gql`
         carburantDetaxe
         mercure
         environnementCout
-        salaries
-        rapportProductionOrDeposes
-        rapportProductionOrRatio
+        effectifs
+        activitesDeposesQuantite
+        activitesDeposesRatio
       }
     }
   }
