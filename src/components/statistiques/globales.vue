@@ -60,7 +60,7 @@
           </p>
           <p class="bold text-center">
             mise à jour de titres miniers par l'administration et les
-            entreprises du secteur ce mois-ci
+            entreprises du secteur le mois dernier
           </p>
           <p>
             Le nombre de mises à jour mensuelles du cadastre par les différents
@@ -82,7 +82,7 @@
           </p>
           <p class="bold text-center">
             téléchargements de pièces relatives à la bonne instruction des
-            titres et autorisations miniers ce mois-ci
+            titres et autorisations miniers le mois dernier
           </p>
         </div>
         <div class="desktop-blob-1-3 mb-xl">

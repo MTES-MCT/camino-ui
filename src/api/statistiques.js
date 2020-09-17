@@ -29,6 +29,11 @@ const statistiquesGuyane = apiFetch(gql`
     statistiquesGuyane {
       surfaceExploration
       surfaceExploitation
+      titresArm
+      titresPrm
+      titresAxm
+      titresPxm
+      titresCxm
       annees {
         annee
         titresArm {

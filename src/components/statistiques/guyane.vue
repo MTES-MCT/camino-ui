@@ -21,13 +21,13 @@
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
-              {{ statistiques[anneeCurrent].titresArm.quantite }}
+              {{ statistiquesGuyane.titresArm }}
             </p>
             <p class="bold text-center">Autorisations de recherche valides</p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
-              {{ statistiques[anneeCurrent].titresPrm.quantite }}
+              {{ statistiquesGuyane.titresPrm }}
             </p>
             <p class="bold text-center">Permis de recherche valides</p>
           </div>
@@ -49,19 +49,19 @@
         <div class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
-              {{ statistiques[anneeCurrent].titresAxm.quantite }}
+              {{ statistiquesGuyane.titresAxm }}
             </p>
             <p class="bold text-center">Autorisations d'exploitation valides</p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
-              {{ statistiques[anneeCurrent].titresPxm.quantite }}
+              {{ statistiquesGuyane.titresPxm }}
             </p>
             <p class="bold text-center">Permis d'exploitation valides</p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
-              {{ statistiques[anneeCurrent].titresCxm.quantite }}
+              {{ statistiquesGuyane.titresCxm }}
             </p>
             <p class="bold text-center">Concessions valides</p>
           </div>
