@@ -40,7 +40,7 @@
       <div class="tablet-blob-1-2 mb-xl">
         <h4 class="text-center">Protection de l'environnement</h4>
         <p class="h0 text-center">
-          {{ numberFormat(statistiqueGuyane.environnementCout) }} M€
+          {{ numberFormat(statistiqueGuyane.environnementCout) }} €
         </p>
         <p>
           Montant en euros des investissements * déclarés contribuant à la
