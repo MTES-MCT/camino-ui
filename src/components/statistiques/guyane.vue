@@ -8,12 +8,14 @@
         Les données affichées ici sont celles contenues dans la base de donnée
         Camino. Elles sont susceptibles d’évoluer chaque jour au grès des
         décisions et de la fin de validité des titres et autorisations. Ces
-        données concernent exclusivement le territoire guyanais. Les surfaces
-        cumulées concernées par un titre ou une autorisation d’exploration et ou
-        d’exploitation n’impliquent pas qu’elles sont effectivement explorées ou
-        exploitées sur tout ou partie de l'année. Les travaux miniers sur les
-        titres miniers font l’objet de déclarations ou d’autorisations
-        distinctes.
+        données concernent exclusivement le territoire guyanais.
+      </p>
+      <p>
+        Les surfaces cumulées concernées par un titre ou une autorisation
+        d’exploration et ou d’exploitation n’impliquent pas qu’elles sont
+        effectivement explorées ou exploitées sur tout ou partie de l'année. Les
+        travaux miniers font l’objet de déclarations ou d’autorisations
+        distinctes portant sur une partie seulement des titres miniers.
       </p>
       <div class="mb-xxl">
         <h3>Autorisations et titres d’exploration</h3>
@@ -23,13 +25,13 @@
             <p class="h0 text-center">
               {{ statistiquesGuyane.titresArm }}
             </p>
-            <p class="bold text-center">Autorisations de recherche valides</p>
+            <p class="bold text-center">Autorisations de recherche</p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
               {{ statistiquesGuyane.titresPrm }}
             </p>
-            <p class="bold text-center">Permis de recherche valides</p>
+            <p class="bold text-center">Permis exclusifs de recherches</p>
           </div>
           <div class="tablet-blob-1-4" />
           <div class="tablet-blob-1-4">
@@ -38,7 +40,7 @@
             </p>
             <p class="bold text-center">
               Surfaces cumulées des titres concernés par une activité
-              d’exploration.
+              d’exploration
             </p>
           </div>
         </div>
@@ -51,19 +53,19 @@
             <p class="h0 text-center">
               {{ statistiquesGuyane.titresAxm }}
             </p>
-            <p class="bold text-center">Autorisations d'exploitation valides</p>
+            <p class="bold text-center">Autorisations d'exploitation</p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
               {{ statistiquesGuyane.titresPxm }}
             </p>
-            <p class="bold text-center">Permis d'exploitation valides</p>
+            <p class="bold text-center">Permis d'exploitation</p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
               {{ statistiquesGuyane.titresCxm }}
             </p>
-            <p class="bold text-center">Concessions valides</p>
+            <p class="bold text-center">Concessions</p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h1 bold color-brand text-center">
@@ -71,20 +73,20 @@
             </p>
             <p class="bold text-center">
               Surfaces cumulées des titres concernés par une activité
-              d’exploitation.
+              d’exploitation
             </p>
           </div>
         </div>
       </div>
     </div>
 
-    <h2>Indicateurs annuels de production et d’activité minière</h2>
+    <h2>Indicateurs annuels de production et d’activité minière légales</h2>
     <span class="separator" />
     <p class="mb-xl">
       Les données affichées ici sont celles contenues dans la base de donnée
       Camino. Elles sont stabilisées pour l’année n-2 mais sont susceptibles
       d’évoluer jusqu’à la cloture de la collecte des déclarations
-      règlementaires de l’année précédente pour l’année n-1. Ces données
+      règlementaires de l’année précédente et l'année en cours. Ces données
       concernent exclusivement le territoire guyanais.
     </p>
 
@@ -115,20 +117,24 @@
         peuvent ne pas être exhautives. Ces données concernent exclusivement le
         territoire guyanais.
       </p>
-      <h3>Évolution de la production annuelle d’or nette</h3>
-      <hr />
-      <div class="tablet-float-blobs clearfix">
-        <div class="tablet-float-blob-1-3 mb-xl mt">
-          <p class="h0 text-center">
-            {{ numberFormat(statistiques[anneeCurrent - 1].orNet) }} kg
-          </p>
-          <p>
-            Production d’or nette (après affinage) issue des mines en Guyane
-            l'an dernier
-          </p>
-        </div>
-        <div class="tablet-float-blob-2-3 relative mb-xl">
-          <LineChart :data="statsLineFormat('orNet', 'Or net extrait en Kg')" />
+      <div class="hide">
+        <h3>Évolution de la production annuelle d’or nette</h3>
+        <hr />
+        <div class="tablet-float-blobs clearfix">
+          <div class="tablet-float-blob-1-3 mb-xl mt">
+            <p class="h0 text-center">
+              {{ numberFormat(statistiques[anneeCurrent - 1].orNet) }} kg
+            </p>
+            <p>
+              Production d’or nette (après affinage) issue des mines en Guyane
+              l'an dernier
+            </p>
+          </div>
+          <div class="tablet-float-blob-2-3 relative mb-xl">
+            <LineChart
+              :data="statsLineFormat('orNet', 'Or net extrait en Kg')"
+            />
+          </div>
         </div>
       </div>
       <h3>
@@ -156,7 +162,7 @@
         </div>
       </div>
       <h3>
-        Évolution du nombre et des surfaces des permis de recherche octroyés
+        Évolution du nombre et des surfaces des permis de recherches octroyés
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -172,7 +178,7 @@
               statsBarFormat(
                 'titresPrm',
                 'Permis de recherches octroyés',
-                'Surface des permis de recherche (ha)'
+                'Surface des permis de recherches (ha)'
               )
             "
           />
@@ -225,7 +231,7 @@
           />
         </div>
       </div>
-      <h3>Évolution du nombre et des surfaces des concessions octroyés</h3>
+      <h3>Évolution du nombre et des surfaces des concessions octroyées</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
@@ -293,7 +299,7 @@ export default {
         },
         {
           id: this.anneeCurrent - 1,
-          nom: (this.anneeCurrent - 1).toString()
+          nom: (this.anneeCurrent - 1).toString() + ' - en construction'
         },
         {
           id: this.anneeCurrent,
