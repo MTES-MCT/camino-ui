@@ -1,12 +1,20 @@
+import gql from 'graphql-tag'
 import { print } from 'graphql/language/printer'
 import { GraphQL } from 'graphql-react'
 
 // for safari 11
 import 'unfetch/polyfill'
-import gql from 'graphql-tag'
-import { fragmentUtilisateurToken } from '@/api/fragments/utilisateur'
+
+import { fragmentUtilisateurToken } from './fragments/utilisateur'
 
 const graphql = new GraphQL()
+
+const errorThrow = e => {
+  const errorMessage = `API : ${e.message || e.status}`
+  console.error(e)
+
+  throw errorMessage
+}
 
 const graphQLCall = async (query, variables) => {
   const token = localStorage.getItem('accessToken')
@@ -37,11 +45,24 @@ const graphQLCall = async (query, variables) => {
   return dataContent
 }
 
-const queryToGraphQLCall = query => async variables => {
-  return await graphQLCall(query, variables)
+const apiFetch = query => async variables => {
+  try {
+    const data = await graphQLCall(query, variables)
+
+    return data
+  } catch (e) {
+    if (e.status === 401) {
+      await tokenRefresh()
+      const data = await graphQLCall(query, variables)
+
+      return data
+    } else {
+      errorThrow(e)
+    }
+  }
 }
 
-const utilisateurTokenRafraichir = queryToGraphQLCall(gql`
+const utilisateurTokenRafraichir = apiFetch(gql`
   mutation UtilisateurTokenRafraichir($refreshToken: String!) {
     utilisateurTokenRafraichir(refreshToken: $refreshToken) {
       ...utilisateurToken
@@ -51,27 +72,14 @@ const utilisateurTokenRafraichir = queryToGraphQLCall(gql`
   ${fragmentUtilisateurToken}
 `)
 
-const apiFetch = query => async variables => {
+const tokenRefresh = async () => {
   try {
-    return await graphQLCall(query, variables)
+    localStorage.removeItem('accessToken')
+    const refreshToken = localStorage.getItem('refreshToken')
+    const data = await utilisateurTokenRafraichir({ refreshToken })
+    localStorage.setItem('accessToken', data.accessToken)
   } catch (e) {
-    if (e.status === 401) {
-      try {
-        localStorage.removeItem('accessToken')
-        const refreshToken = localStorage.getItem('refreshToken')
-        const data = await utilisateurTokenRafraichir({ refreshToken })
-        localStorage.setItem('accessToken', data.accessToken)
-        return await graphQLCall(query, variables)
-      } catch (e) {
-        const errorMessage = `API : ${e.message || e.status}`
-        console.error(e)
-        throw errorMessage
-      }
-    } else {
-      const errorMessage = `API : ${e.message || e.status}`
-      console.error(e)
-      throw errorMessage
-    }
+    errorThrow(e)
   }
 }
 
