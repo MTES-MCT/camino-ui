@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.45](https://github.com/MTES-MCT/camino-ui/compare/v0.22.43...v0.22.45) (2020-09-18)
+
+
+### Features
+
+* affiches une page statistiques Guyane ([#170](https://github.com/MTES-MCT/camino-ui/issues/170)) ([53d7932](https://github.com/MTES-MCT/camino-ui/commit/53d793246ff08e2b59b803736f66e333674cfb02))
+* **carte:** ajoute un bouton pour cadrer tous les marqueurs ([#169](https://github.com/MTES-MCT/camino-ui/issues/169)) ([e9f6922](https://github.com/MTES-MCT/camino-ui/commit/e9f69225b6b0b05981b133666b474492c2fa3952))
+* affiche les filtres actifs ([#168](https://github.com/MTES-MCT/camino-ui/issues/168)) ([caa69e1](https://github.com/MTES-MCT/camino-ui/commit/caa69e1ab668f00685a764fcd90f31a65c2fcc3a))
+* **filtres:** ajoute un bouton qui permet de réinitialiser les filtres ([#163](https://github.com/MTES-MCT/camino-ui/issues/163)) ([7d555bc](https://github.com/MTES-MCT/camino-ui/commit/7d555bc35663258f45efa579ef42a9451b45d917))
+* **geo:** gère les virgules et les espaces quand l'utilisateur saisit des coordonnées décimales ([#166](https://github.com/MTES-MCT/camino-ui/issues/166)) ([ef43949](https://github.com/MTES-MCT/camino-ui/commit/ef43949496ec2f1a53e7af893905a2229f926b08))
+* **stats:** améliore la page statistiques ([#159](https://github.com/MTES-MCT/camino-ui/issues/159)) ([5060cad](https://github.com/MTES-MCT/camino-ui/commit/5060cada6b1e2f0d4dc7d347ab617f2bf7a49949))
+* ajoute Nicolas Petitot dans l'équipe ([#161](https://github.com/MTES-MCT/camino-ui/issues/161)) ([538d51b](https://github.com/MTES-MCT/camino-ui/commit/538d51baf018d9cc8c7e9ef2066d4c64f76d5bbd))
+
+
+### Bug Fixes
+
+* **statistiques:** corrige l’unité de la statistique Protection de l’environnement ([25c6ef4](https://github.com/MTES-MCT/camino-ui/commit/25c6ef4860eb21dd0f02670c66ef42f1b7b48960))
+* affiche l'étiquette des étapes incluses et exclues ([#172](https://github.com/MTES-MCT/camino-ui/issues/172)) ([fa2d3ad](https://github.com/MTES-MCT/camino-ui/commit/fa2d3adcb7d4e19167ef983d52b4b59a946b760f))
+* corrige des fautes remarques ([e828c5d](https://github.com/MTES-MCT/camino-ui/commit/e828c5d4a3e2c6b7653bbdfc3d7a87a98924d1f5))
+* corrige l'affichage des statistiques ([#176](https://github.com/MTES-MCT/camino-ui/issues/176)) ([24d47c4](https://github.com/MTES-MCT/camino-ui/commit/24d47c4fa668c23e1875d07744a20bd471b2abff))
+* corrige la mise en page des statistiques ([#175](https://github.com/MTES-MCT/camino-ui/issues/175)) ([d7e35d4](https://github.com/MTES-MCT/camino-ui/commit/d7e35d4fc8ab8306916509b888f34e12020aba83))
+* **activité:** corrige le dépot des rapports d’activités qui n’ont pas de document ([#160](https://github.com/MTES-MCT/camino-ui/issues/160)) ([71b7854](https://github.com/MTES-MCT/camino-ui/commit/71b78541ba466908a5c5f9076068b92fd3e8fc37))
+* **coordonnées:** enlève la valeur par défaut ([#171](https://github.com/MTES-MCT/camino-ui/issues/171)) ([286a1ea](https://github.com/MTES-MCT/camino-ui/commit/286a1ea4f620a94dc4874f925578f8cb4393f682))
+* **démarches:** améliore l’affichage des filtres d’étapes ([#174](https://github.com/MTES-MCT/camino-ui/issues/174)) ([9f9f15a](https://github.com/MTES-MCT/camino-ui/commit/9f9f15af22fae4e17ab17f07ff1b2b1a489fdb2f))
+* corrige l'affichage des pages stats ([45a73fc](https://github.com/MTES-MCT/camino-ui/commit/45a73fcc8691911dd9ab6fa194bf3e27ad131eb2))
+* **activité:** permet de valider les rapports d’activités où tous les champs sont optionnels ([#162](https://github.com/MTES-MCT/camino-ui/issues/162)) ([e5d167a](https://github.com/MTES-MCT/camino-ui/commit/e5d167aba3ed6d266f52102b6bc1a6b23b86355d))
+* **stats:** améliore la page statistiques ([#164](https://github.com/MTES-MCT/camino-ui/issues/164)) ([2721bd2](https://github.com/MTES-MCT/camino-ui/commit/2721bd25ba4c81cbf39ea22ebb6fbe502b58068a))
+
 ### [0.22.44](https://github.com/MTES-MCT/camino-ui/compare/v0.22.43...v0.22.44) (2020-08-27)
 
 
