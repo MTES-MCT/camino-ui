@@ -14,10 +14,7 @@
               >
                 Titres miniers et autorisations
               </RouterLink>
-              <div
-                v-else
-                class="bold color-neutral"
-              >
+              <div v-else class="bold color-neutral">
                 Titres miniers et autorisations
               </div>
             </li>
@@ -31,19 +28,13 @@
               >
                 Démarches
               </RouterLink>
-              <div
-                v-else
-                class="bold color-neutral"
-              >
+              <div v-else class="bold color-neutral">
                 Démarches
               </div>
             </li>
           </ul>
         </div>
-        <div
-          v-if="sections.activites"
-          class="tablet-blob-1-4 border-l pl-s"
-        >
+        <div v-if="sections.activites" class="tablet-blob-1-4 border-l pl-s">
           <ul class="list-sans mb-0">
             <li v-if="sections.activites">
               <RouterLink
@@ -55,10 +46,7 @@
               >
                 Activités
               </RouterLink>
-              <div
-                v-else
-                class="bold color-neutral"
-              >
+              <div v-else class="bold color-neutral">
                 Activités
               </div>
             </li>
@@ -76,10 +64,7 @@
               >
                 Entreprises
               </RouterLink>
-              <div
-                v-else
-                class="bold color-neutral"
-              >
+              <div v-else class="bold color-neutral">
                 Entreprises
               </div>
             </li>
@@ -93,18 +78,13 @@
               >
                 Utilisateurs
               </RouterLink>
-              <div
-                v-else
-                class="bold color-neutral"
-              >
+              <div v-else class="bold color-neutral">
                 Utilisateurs
               </div>
             </li>
           </ul>
         </div>
-        <div
-          class="tablet-blob-1-4 border-l pl-s"
-        >
+        <div class="tablet-blob-1-4 border-l pl-s">
           <ul class="list-sans mb-0">
             <li>
               <RouterLink
@@ -116,16 +96,17 @@
               >
                 Glossaire
               </RouterLink>
-              <div
-                v-else
-                class="bold color-neutral"
-              >
+              <div v-else class="bold color-neutral">
                 Glossaire
               </div>
             </li>
             <li>
               <RouterLink
-                v-if="$route.name !== 'statistiques'"
+                v-if="
+                  $route.name !== 'statistiques' &&
+                    $route.name !== 'statistiques-globales' &&
+                    $route.name !== 'statistiques-guyane'
+                "
                 id="cmn-menu-menu-a-statistiques"
                 :to="{ name: 'statistiques' }"
                 class="btn-menu text-decoration-none bold"
@@ -133,10 +114,7 @@
               >
                 Statistiques
               </RouterLink>
-              <div
-                v-else
-                class="bold color-neutral"
-              >
+              <div v-else class="bold color-neutral">
                 Statistiques
               </div>
             </li>
