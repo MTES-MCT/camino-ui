@@ -79,7 +79,10 @@ const tokenRefresh = async () => {
     const data = await utilisateurTokenRafraichir({ refreshToken })
     localStorage.setItem('accessToken', data.accessToken)
   } catch (e) {
-    errorThrow(e)
+    // Si on est incapable de rafraichir le token c’est que la session a été invalidée par un administrateur
+    // ne sachant pas si il voit des informations confidentielles actuellement,
+    // il est préférable de rafraichir totalement la page
+    window.location.reload()
   }
 }
 
