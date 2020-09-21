@@ -260,7 +260,7 @@ describe("état général de l'application", () => {
     actions.messageAdd = messageAddMock
     store = new Vuex.Store({ state, actions, mutations })
 
-    localStorage.setItem('token', 'privateToken')
+    localStorage.setItem('accessToken', 'privateToken')
     fetch.mockResponseOnce(JSON.stringify({ data: 'truc' }), {
       status: 200,
       headers: {
