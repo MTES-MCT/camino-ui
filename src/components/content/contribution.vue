@@ -1,8 +1,6 @@
 <template>
   <div class="content mb-xxl">
-    <h1 class="mb-xl">
-      Contribuez à Camino
-    </h1>
+    <h1 class="mb-xl">Contribuez à Camino</h1>
     <hr class="mb-xl" />
     <p>
       L'équipe de Camino travaille à vous fournir des données de la meilleure

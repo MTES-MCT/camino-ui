@@ -20,7 +20,7 @@
             @click="labelRemove(label)"
             >{{ label.name }} : {{ label.valueName || label.value }}
             <span class="inline-block align-y-top ml-xs"
-              ><i class="icon-16 icon-x"/></span
+              ><i class="icon-16 icon-x" /></span
           ></span>
         </div>
         <button class="flex-right btn-alt p-m" @click="labelsReset">

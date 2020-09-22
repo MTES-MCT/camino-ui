@@ -28,9 +28,7 @@
               >
                 Démarches
               </RouterLink>
-              <div v-else class="bold color-neutral">
-                Démarches
-              </div>
+              <div v-else class="bold color-neutral">Démarches</div>
             </li>
           </ul>
         </div>
@@ -46,9 +44,7 @@
               >
                 Activités
               </RouterLink>
-              <div v-else class="bold color-neutral">
-                Activités
-              </div>
+              <div v-else class="bold color-neutral">Activités</div>
             </li>
           </ul>
         </div>
@@ -64,9 +60,7 @@
               >
                 Entreprises
               </RouterLink>
-              <div v-else class="bold color-neutral">
-                Entreprises
-              </div>
+              <div v-else class="bold color-neutral">Entreprises</div>
             </li>
             <li v-if="sections.utilisateurs">
               <RouterLink
@@ -78,9 +72,7 @@
               >
                 Utilisateurs
               </RouterLink>
-              <div v-else class="bold color-neutral">
-                Utilisateurs
-              </div>
+              <div v-else class="bold color-neutral">Utilisateurs</div>
             </li>
           </ul>
         </div>
@@ -96,16 +88,14 @@
               >
                 Glossaire
               </RouterLink>
-              <div v-else class="bold color-neutral">
-                Glossaire
-              </div>
+              <div v-else class="bold color-neutral">Glossaire</div>
             </li>
             <li>
               <RouterLink
                 v-if="
                   $route.name !== 'statistiques' &&
-                    $route.name !== 'statistiques-globales' &&
-                    $route.name !== 'statistiques-guyane'
+                  $route.name !== 'statistiques-globales' &&
+                  $route.name !== 'statistiques-guyane'
                 "
                 id="cmn-menu-menu-a-statistiques"
                 :to="{ name: 'statistiques' }"
@@ -114,9 +104,7 @@
               >
                 Statistiques
               </RouterLink>
-              <div v-else class="bold color-neutral">
-                Statistiques
-              </div>
+              <div v-else class="bold color-neutral">Statistiques</div>
             </li>
           </ul>
         </div>

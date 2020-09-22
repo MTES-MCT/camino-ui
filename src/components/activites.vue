@@ -80,7 +80,7 @@ export default {
     user: 'metasGet',
 
     preferences: {
-      handler: function() {
+      handler: function () {
         this.activitesGet()
       },
       deep: true

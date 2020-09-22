@@ -3,9 +3,7 @@
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Durée (années / mois)</h6>
-        <p class="h6 italic mb-0">
-          Optionnel
-        </p>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
         <div
@@ -43,9 +41,7 @@
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Date de début</h6>
-        <p class="h6 italic mb-0">
-          Optionnel
-        </p>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
         <InputDate
@@ -64,9 +60,7 @@
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Date d'échéance</h6>
-        <p class="h6 italic mb-0">
-          Optionnel
-        </p>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
         <InputDate
@@ -84,9 +78,7 @@
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Surface (Km²)</h6>
-        <p class="h6 italic mb-0">
-          Optionnel
-        </p>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
         <inputNumber
@@ -105,12 +97,8 @@
 
     <hr />
 
-    <h3 class="mb-s">
-      Titulaires
-    </h3>
-    <p class="h6 italic mb-s">
-      Optionnel
-    </p>
+    <h3 class="mb-s">Titulaires</h3>
+    <p class="h6 italic mb-s">Optionnel</p>
     <div
       v-for="(titulaire, n) in etape.titulaires"
       :key="`titluaire-${titulaire.id}`"
@@ -151,12 +139,8 @@
     </label>
     <hr />
 
-    <h3 class="mb-s">
-      Amodiataires
-    </h3>
-    <p class="h6 italic mb-s">
-      Optionnel
-    </p>
+    <h3 class="mb-s">Amodiataires</h3>
+    <p class="h6 italic mb-s">Optionnel</p>
     <div
       v-for="(amodiataire, n) in etape.amodiataires"
       :key="`amodiataire-${amodiataire.id}`"
@@ -197,12 +181,8 @@
     </label>
     <hr />
 
-    <h3 class="mb-s">
-      Substances
-    </h3>
-    <p class="h6 italic mb-s">
-      Optionnel
-    </p>
+    <h3 class="mb-s">Substances</h3>
+    <p class="h6 italic mb-s">Optionnel</p>
     <div v-for="(substance, n) in etape.substances" :key="n">
       <div
         class="flex"

@@ -4,9 +4,7 @@
       <tr>
         <th>Description</th>
         <th>Date</th>
-        <th class="full-x-">
-          Description
-        </th>
+        <th class="full-x-">Description</th>
         <th />
       </tr>
       <DocumentTr

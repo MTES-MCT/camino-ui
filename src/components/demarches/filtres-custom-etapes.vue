@@ -6,9 +6,7 @@
     <div v-for="(value, n) in filter.value" :key="n">
       <div class="flex mb-s">
         <select v-model="value.typeId" class="p-s mr-s" @change="valueReset(n)">
-          <option value="">
-            –
-          </option>
+          <option value="">–</option>
           <option
             v-for="type in filter.elements"
             :key="type.id"
@@ -26,15 +24,11 @@
         <div class="blobs mb-s">
           <div class="blob-1-4">
             <h6>Statut</h6>
-            <p class="h6 italic mb-0">
-              Optionnel
-            </p>
+            <p class="h6 italic mb-0">Optionnel</p>
           </div>
           <div class="blob-3-4">
             <select v-model="value.statutId" class="p-s mr-s cap-first">
-              <option :value="''">
-                –
-              </option>
+              <option :value="''">–</option>
               <option
                 v-for="statut in statutsFind(n)"
                 :key="statut.id"
@@ -48,9 +42,7 @@
         <div class="blobs mb-s">
           <div class="blob-1-4">
             <h6>Après le</h6>
-            <p class="h6 italic mb-0">
-              Optionnel
-            </p>
+            <p class="h6 italic mb-0">Optionnel</p>
           </div>
           <div class="blob-3-4">
             <InputDate v-model="filter.value[n].dateDebut" />
@@ -59,9 +51,7 @@
         <div class="blobs mb-s">
           <div class="blob-1-4">
             <h6>Avant le</h6>
-            <p class="h6 italic mb-0">
-              Optionnel
-            </p>
+            <p class="h6 italic mb-0">Optionnel</p>
           </div>
           <div class="blob-3-4">
             <InputDate v-model="filter.value[n].dateFin" />

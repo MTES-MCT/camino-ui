@@ -21,9 +21,7 @@
     </div>
     <div class="blob-mini-1-3">
       <select v-model.number="monthId" class="p-s mr-s" @change="update">
-        <option :value="null" disabled hidden>
-          mois
-        </option>
+        <option :value="null" disabled hidden>mois</option>
         <option v-for="month in months" :key="month.id" :value="month.id">
           {{ monthNames[month.id - 1] }}
         </option>

@@ -9,7 +9,7 @@
       alt="Url"
       @click="menuToggle"
     >
-      <i class="icon-24 icon-user " />
+      <i class="icon-24 icon-user" />
     </button>
     <button
       v-else

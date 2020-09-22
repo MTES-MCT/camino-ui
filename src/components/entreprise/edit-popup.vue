@@ -2,9 +2,7 @@
   <Popup :messages="messages">
     <template slot="header">
       <div>
-        <h2 class="mb-0">
-          Modification d'une entreprise
-        </h2>
+        <h2 class="mb-0">Modification d'une entreprise</h2>
       </div>
     </template>
 
@@ -71,9 +69,7 @@
           >
             Enregistrer
           </button>
-          <div v-else class="p-s full-x bold">
-            Enregistrement en cours…
-          </div>
+          <div v-else class="p-s full-x bold">Enregistrement en cours…</div>
         </div>
       </div>
     </template>

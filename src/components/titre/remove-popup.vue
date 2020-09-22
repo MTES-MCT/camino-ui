@@ -3,17 +3,13 @@
     <template slot="header">
       <div>
         <h5>
-          <span class="cap-first">
-            {{ titreNom }} </span
-          ><span class="color-neutral">
-            | </span
+          <span class="cap-first"> {{ titreNom }} </span
+          ><span class="color-neutral"> | </span
           ><span class="cap-first">
             {{ typeNom }}
           </span>
         </h5>
-        <h2 class="cap-first mb-0">
-          Suppression du titre
-        </h2>
+        <h2 class="cap-first mb-0">Suppression du titre</h2>
       </div>
     </template>
 
@@ -25,9 +21,8 @@
       >) ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
-      <span class="bold">
-        Attention </span
-      >: cette opération est définitive et ne peut pas être annulée.
+      <span class="bold"> Attention </span>: cette opération est définitive et
+      ne peut pas être annulée.
     </div>
 
     <template slot="footer">
@@ -49,9 +44,7 @@
           >
             Supprimer
           </button>
-          <div v-else class="p-s full-x bold">
-            Suppression en cours…
-          </div>
+          <div v-else class="p-s full-x bold">Suppression en cours…</div>
         </div>
       </div>
     </template>

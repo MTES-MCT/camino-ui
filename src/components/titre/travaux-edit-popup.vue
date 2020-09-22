@@ -4,10 +4,8 @@
       <div>
         <h5>
           <span class="cap-first"
-            ><span class="cap-first">
-              {{ titreNom }} </span
-            ><span class="color-neutral">
-              | </span
+            ><span class="cap-first"> {{ titreNom }} </span
+            ><span class="color-neutral"> | </span
             ><span class="cap-first">
               {{ titreTypeNom }}
             </span>
@@ -58,9 +56,7 @@
             Enregistrer
           </button>
 
-          <div v-else class="p-s full-x bold">
-            Enregistrement en cours…
-          </div>
+          <div v-else class="p-s full-x bold">Enregistrement en cours…</div>
         </div>
       </div>
     </template>

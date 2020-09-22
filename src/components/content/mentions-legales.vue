@@ -1,8 +1,6 @@
 <template>
   <div class="content mb-xxl">
-    <h1 class="mb-xl">
-      Mentions légales
-    </h1>
+    <h1 class="mb-xl">Mentions légales</h1>
     <hr class="mb-xl" />
     <h3>Éditeurs</h3>
     <p>

@@ -14,13 +14,13 @@ export default {
 
   watch: {
     params: {
-      handler: function(params, old) {
+      handler: function (params, old) {
         this.update(params)
       },
       deep: true
     },
 
-    $route: function(to, from) {
+    $route: function (to, from) {
       this.init()
     }
   },

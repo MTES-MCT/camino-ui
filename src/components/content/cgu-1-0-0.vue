@@ -1,8 +1,6 @@
 <template>
   <div class="content mb-xxl">
-    <h1 class="mb-xl">
-      Conditions générales d’utilisation
-    </h1>
+    <h1 class="mb-xl">Conditions générales d’utilisation</h1>
     <hr class="mb-xl" />
     <p>
       CGU v.1.0<br />

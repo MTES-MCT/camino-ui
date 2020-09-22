@@ -1,8 +1,6 @@
 <template>
   <div class="content mb-xxl">
-    <h1 class="mb-xl">
-      Conditions générales d’utilisation
-    </h1>
+    <h1 class="mb-xl">Conditions générales d’utilisation</h1>
     <hr class="mb-xl" />
     <p>
       CGU v.2.0<br />
@@ -110,9 +108,7 @@
       intellectuelle.
     </p>
 
-    <p>
-      Les contenus suivants ne sont pas réutilisables :
-    </p>
+    <p>Les contenus suivants ne sont pas réutilisables :</p>
     <ul class="list-prefix">
       <li>
         l’iconographie présente sur la page
@@ -224,9 +220,7 @@
         administrative conduite au titre du code minier.
       </li>
     </ul>
-    <p>
-      La nature des opérations réalisées sur les données est :
-    </p>
+    <p>La nature des opérations réalisées sur les données est :</p>
     <ul class="list-prefix">
       <li>
         Lors de la création d’un compte utilisateur Camino les informations
@@ -254,9 +248,7 @@
         d’archivage légale.
       </li>
     </ul>
-    <p>
-      Les données à caractère personnel traitées sont relatives à :
-    </p>
+    <p>Les données à caractère personnel traitées sont relatives à :</p>
     <ul class="list-prefix">
       <li>
         Pour la connexion au service : l’état civil (nom, prénoms, date et lieu
@@ -272,9 +264,7 @@
         titre ou d’une autorisation minière est une personne physique.
       </li>
     </ul>
-    <p>
-      Les données sont conservées pour une durée de :
-    </p>
+    <p>Les données sont conservées pour une durée de :</p>
     <ul class="list-prefix">
       <li>
         Les données de connexion sont conservées pendant une durée de 6 mois.
@@ -297,9 +287,7 @@
       disposez d’un droit d’accès, de rectification, de suppression et
       d’opposition.
     </p>
-    <p>
-      Par courriel : camino@beta.gouv.fr
-    </p>
+    <p>Par courriel : camino@beta.gouv.fr</p>
     <p>
       Par voie postale : Ministère de la Transition écologique et solidaire
       Direction Générale de l'Aménagement, du Logement et de la Nature, Bureau
@@ -369,9 +357,7 @@
         pour l’interface utilisateur :
         https://github.com/MTES-MCT/camino-ui/releases
       </li>
-      <li>
-        pour l’API : https://github.com/MTES-MCT/camino-api/releases
-      </li>
+      <li>pour l’API : https://github.com/MTES-MCT/camino-api/releases</li>
     </ul>
 
     <h3>Disponibilité du service</h3>
@@ -397,9 +383,7 @@
       l’utilisateur qui doit, en conséquence, se référer régulièrement à cette
       rubrique pour vérifier les conditions générales en vigueur.
     </p>
-    <p>
-      Nous rendons librement accessible l’historique de ces conditions :
-    </p>
+    <p>Nous rendons librement accessible l’historique de ces conditions :</p>
     <ul class="list-prefix">
       <li>
         <router-link to="/cgu/1-0-0">

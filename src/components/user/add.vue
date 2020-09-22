@@ -33,9 +33,7 @@
           class="p-s mb-s"
           placeholder="Mot de passe"
         />
-        <p class="h5 mb-0">
-          8 caractères minimum.
-        </p>
+        <p class="h5 mb-0">8 caractères minimum.</p>
       </div>
     </div>
 

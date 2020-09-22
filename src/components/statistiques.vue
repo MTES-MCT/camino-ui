@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1 class="mt-m">
-      Statistiques
-    </h1>
+    <h1 class="mt-m">Statistiques</h1>
     <div class="flex">
       <div
         v-for="tab in tabs"

@@ -1,15 +1,11 @@
 <template>
   <Popup :messages="messages">
     <template slot="header">
-      <h2 class="mb-0 mt-xs">
-        Connexion
-      </h2>
+      <h2 class="mb-0 mt-xs">Connexion</h2>
     </template>
 
     <div class="tablet-blobs mb">
-      <div class="tablet-blob-1-3 py-s">
-        Email
-      </div>
+      <div class="tablet-blob-1-3 py-s">Email</div>
       <div class="tablet-blob-2-3">
         <input
           id="cmn-user-login-popup-input-email"
@@ -20,9 +16,7 @@
       </div>
     </div>
     <div class="tablet-blobs mb">
-      <div class="tablet-blob-1-3 py-s">
-        Mot de passe
-      </div>
+      <div class="tablet-blob-1-3 py-s">Mot de passe</div>
       <div class="tablet-blob-2-3">
         <input
           id="cmn-user-login-popup-input-mot-de-passe"

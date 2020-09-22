@@ -47,9 +47,7 @@
             class="p-s mb-s"
             placeholder="Mot de passe"
           />
-          <p class="h5 mb-0">
-            8 caractères minimum.
-          </p>
+          <p class="h5 mb-0">8 caractères minimum.</p>
         </div>
       </div>
     </div>
@@ -129,9 +127,7 @@
               class="mb-xs"
             >
               <button
-                :id="
-                  `cmn-utilisateur-edit-popup-permission-button-${permission.id}`
-                "
+                :id="`cmn-utilisateur-edit-popup-permission-button-${permission.id}`"
                 class="btn-flash py-xs px-s pill cap-first h6 mr-xs"
                 @click="permissionToggle(permission)"
               >
@@ -144,9 +140,7 @@
 
       <div v-if="utilisateurIsEntreprise">
         <hr />
-        <h3 class="mb-s">
-          Entreprises
-        </h3>
+        <h3 class="mb-s">Entreprises</h3>
         <div v-for="(entreprise, n) in utilisateur.entreprises" :key="n">
           <div
             class="flex full-x"
@@ -193,9 +187,7 @@
 
       <div v-if="utilisateurIsAdministration">
         <hr />
-        <h3 class="mb-s">
-          Administrations
-        </h3>
+        <h3 class="mb-s">Administrations</h3>
         <div
           v-for="(administration, n) in utilisateur.administrations"
           :key="n"
@@ -223,7 +215,7 @@
                 :value="{ id: a.id }"
                 :disabled="
                   utilisateur.administrations.find(({ id }) => id === a.id) ||
-                    administrationsDisabledIds.includes(a.id)
+                  administrationsDisabledIds.includes(a.id)
                 "
               >
                 {{ `${a.abreviation}` }}
@@ -243,7 +235,7 @@
         <button
           v-if="
             !utilisateur.administrations.some(({ id }) => id === '') &&
-              utilisateurAdministrationsLength < 1
+            utilisateurAdministrationsLength < 1
           "
           id="cmn-utilisateur-edit-popup-administration-button-ajouter"
           class="btn rnd-xs py-s px-m full-x flex mb h5"
@@ -275,9 +267,7 @@
           >
             Enregistrer
           </button>
-          <div v-else class="p-s full-x bold">
-            Enregistrement en cours…
-          </div>
+          <div v-else class="p-s full-x bold">Enregistrement en cours…</div>
         </div>
       </div>
     </template>

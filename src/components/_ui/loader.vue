@@ -1,7 +1,5 @@
 <template>
-  <div class="mb">
-    Chargement…
-  </div>
+  <div class="mb">Chargement…</div>
 </template>
 
 <script>

@@ -2,9 +2,7 @@
   <Popup :messages="messages">
     <template slot="header">
       <div>
-        <h2 class="mb-0">
-          Création d'un compte utilisateur
-        </h2>
+        <h2 class="mb-0">Création d'un compte utilisateur</h2>
       </div>
     </template>
 

@@ -12,8 +12,8 @@
         <div
           v-if="
             demarche.modification ||
-              demarche.suppression ||
-              demarche.etapesCreation
+            demarche.suppression ||
+            demarche.etapesCreation
           "
           class="flex-right flex"
         >

@@ -1,8 +1,6 @@
 <template>
   <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
-    <template slot="title">
-      Éléments
-    </template>
+    <template slot="title"> Éléments </template>
     <ul class="list-sans mt-m px-m">
       <li v-for="r in ranges" :key="r">
         <label>

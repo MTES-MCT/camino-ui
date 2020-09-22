@@ -12,8 +12,8 @@
         <div
           v-if="
             travaux.modification ||
-              travaux.suppression ||
-              travaux.etapesCreation
+            travaux.suppression ||
+            travaux.etapesCreation
           "
           class="flex-right flex"
         >

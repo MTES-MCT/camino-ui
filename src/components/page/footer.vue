@@ -14,9 +14,7 @@
           <p class="h6 color-neutral">
             Service de l’État incubé à la Fabrique numérique du Ministère de la
             Transition écologique et solidaire, membre du réseau
-            <a href="http://beta.gouv.fr">
-              beta.gouv.fr </a
-            >.
+            <a href="http://beta.gouv.fr"> beta.gouv.fr </a>.
           </p>
         </div>
       </div>
@@ -28,9 +26,7 @@
           Contact: <a href="mailto:camino@beta.gouv.fr">camino@beta.gouv.fr</a>
         </li>
         <li>
-          <router-link to="/a-propos">
-            À propos
-          </router-link>
+          <router-link to="/a-propos"> À propos </router-link>
         </li>
         <li>
           <router-link to="/mentions-legales-cgu">
@@ -38,14 +34,10 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/accessibilite">
-            Accessibilité
-          </router-link>
+          <router-link to="/accessibilite"> Accessibilité </router-link>
         </li>
         <li>
-          <router-link to="/contribution">
-            Contribution
-          </router-link>
+          <router-link to="/contribution"> Contribution </router-link>
         </li>
         <li>
           <a

@@ -3,7 +3,9 @@
     <template slot="header">
       <div>
         <h5>
-          <span class="cap-first"> {{ titreNom }} </span><span class="color-neutral"> | </span><span class="cap-first">
+          <span class="cap-first"> {{ titreNom }} </span
+          ><span class="color-neutral"> | </span
+          ><span class="cap-first">
             {{ demarcheType.nom }}
           </span>
         </h5>
@@ -18,11 +20,7 @@
         <h6>Type</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <select
-          v-model="etape.typeId"
-          class="p-s"
-          @change="typeUpdate"
-        >
+        <select v-model="etape.typeId" class="p-s" @change="typeUpdate">
           <option
             v-for="eType in etapeTypes"
             :key="eType.id"
@@ -35,7 +33,7 @@
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <div v-if="etape.typeId">
       <div class="tablet-blobs">
@@ -43,10 +41,7 @@
           <h6>Statut</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <select
-            v-model="etape.statutId"
-            class="p-s"
-          >
+          <select v-model="etape.statutId" class="p-s">
             <option
               v-for="etapeStatut in etapesStatuts"
               :key="etapeStatut.id"
@@ -58,7 +53,7 @@
           </select>
         </div>
       </div>
-      <hr>
+      <hr />
     </div>
 
     <div class="tablet-blobs">
@@ -70,19 +65,14 @@
           v-model="etape.date"
           :class="{ 'mb-s': etape.date, mb: !etape.date }"
         />
-        <label
-          v-if="etape.date"
-          class="h5"
-        >
-          <input
-            v-model="etape.incertitudes.date"
-            type="checkbox"
-          >donnée incertaine
+        <label v-if="etape.date" class="h5">
+          <input v-model="etape.incertitudes.date" type="checkbox" />donnée
+          incertaine
         </label>
       </div>
     </div>
 
-    <hr>
+    <hr />
 
     <EtapeEditFondamentales
       v-if="etapeType.fondamentale"
@@ -113,10 +103,7 @@
             Annuler
           </button>
         </div>
-        <div
-          class="tablet-blob-2-3"
-          :class="{ disabled: !complete }"
-        >
+        <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
           <button
             v-if="!loading"
             class="btn-flash rnd-xs p-s full-x"
@@ -125,12 +112,7 @@
             Enregistrer
           </button>
 
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
-            Enregistrement en cours…
-          </div>
+          <div v-else class="p-s full-x bold">Enregistrement en cours…</div>
         </div>
       </div>
     </template>

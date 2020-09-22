@@ -93,9 +93,7 @@
               </button>
             </div>
           </div>
-          <div v-else class="p-s full-x bold">
-            Enregistrement en cours…
-          </div>
+          <div v-else class="p-s full-x bold">Enregistrement en cours…</div>
         </div>
       </div>
     </template>

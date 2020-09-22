@@ -7,9 +7,7 @@
             {{ title }}
           </span>
         </h5>
-        <h2 class="cap-first mb-0">
-          Dissociation du justificatif
-        </h2>
+        <h2 class="cap-first mb-0">Dissociation du justificatif</h2>
       </div>
     </template>
 
@@ -41,9 +39,7 @@
             Dissocier
           </button>
 
-          <div v-else class="p-s full-x bold">
-            Enregistrement en cours…
-          </div>
+          <div v-else class="p-s full-x bold">Enregistrement en cours…</div>
         </div>
       </div>
     </template>

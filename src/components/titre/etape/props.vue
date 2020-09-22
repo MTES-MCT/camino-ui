@@ -2,9 +2,7 @@
   <div class="px-m pt-m border-b-s">
     <div v-if="etape.duree" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>
-          Durée
-        </h6>
+        <h6>Durée</h6>
       </div>
       <div class="tablet-blob-3-4">
         <p>
@@ -27,9 +25,7 @@
 
     <div v-if="etape.dateDebut" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>
-          Date de début
-        </h6>
+        <h6>Date de début</h6>
       </div>
       <div class="tablet-blob-3-4">
         <p>
@@ -47,9 +43,7 @@
     </div>
     <div v-if="etape.dateFin" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>
-          Date d'échéance
-        </h6>
+        <h6>Date d'échéance</h6>
       </div>
       <div class="tablet-blob-3-4">
         <p>
@@ -67,9 +61,7 @@
     </div>
     <div v-if="etape.points.length" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>
-          Périmètre
-        </h6>
+        <h6>Périmètre</h6>
       </div>
       <div class="tablet-blob-3-4">
         <p>
@@ -87,9 +79,7 @@
     </div>
     <div v-if="etape.surface" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>
-          Surface
-        </h6>
+        <h6>Surface</h6>
       </div>
       <div class="tablet-blob-3-4">
         <p>
@@ -166,9 +156,7 @@
 
     <div v-if="incertitudesLength">
       <p class="h5">
-        <Tag :mini="true" color="bg-info">
-          ? </Tag
-        >&nbsp;: Donnée incertaine
+        <Tag :mini="true" color="bg-info"> ? </Tag>&nbsp;: Donnée incertaine
       </p>
     </div>
   </div>

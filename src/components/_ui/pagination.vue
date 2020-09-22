@@ -19,9 +19,7 @@
       </button>
     </li>
     <li v-if="active > delta + 1" class="mr-xs">
-      <div class="px-m py-s">
-        …
-      </div>
+      <div class="px-m py-s">…</div>
     </li>
     <li
       v-for="page in pages"
@@ -34,9 +32,7 @@
       </button>
     </li>
     <li v-if="active < total - delta" class="mr-xs">
-      <div class="px-m py-s">
-        …
-      </div>
+      <div class="px-m py-s">…</div>
     </li>
     <li class="mr-xs">
       <button

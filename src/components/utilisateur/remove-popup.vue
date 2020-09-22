@@ -2,9 +2,7 @@
   <Popup :messages="messages">
     <template slot="header">
       <div>
-        <h2 class="mb-0">
-          Suppression du compte utilisateur
-        </h2>
+        <h2 class="mb-0">Suppression du compte utilisateur</h2>
       </div>
     </template>
 
@@ -37,12 +35,7 @@
           >
             Supprimer
           </button>
-          <div
-            v-else
-            class="p-s full-x bold"
-          >
-            Suppression en cours…
-          </div>
+          <div v-else class="p-s full-x bold">Suppression en cours…</div>
         </div>
       </div>
     </template>

@@ -1,8 +1,6 @@
 <template>
   <div class="mb">
-    <h4 class="mb-s">
-      Systèmes géographiques
-    </h4>
+    <h4 class="mb-s">Systèmes géographiques</h4>
     <div
       v-for="(etapeGeoSystemeId, etapeGeoSystemeIndex) in etape.geoSystemeIds"
       :key="etapeGeoSystemeIndex"

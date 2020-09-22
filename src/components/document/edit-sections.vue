@@ -9,9 +9,7 @@
         <p v-else-if="document.date" class="pt-xs">
           {{ document.date }}
         </p>
-        <p v-else class="color-warning pt-xs">
-          À compléter pour valider
-        </p>
+        <p v-else class="color-warning pt-xs">À compléter pour valider</p>
       </div>
     </div>
 
@@ -21,9 +19,7 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Description</h6>
-          <p v-if="modifiable" class="h6 italic mb-0">
-            Optionnel
-          </p>
+          <p v-if="modifiable" class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
@@ -74,7 +70,7 @@
           <p class="mb-0">
             {{
               (document.fichierNouveau && document.fichierNouveau.name) ||
-                `${document.id}.${document.fichierTypeId}`
+              `${document.id}.${document.fichierTypeId}`
             }}
           </p>
           <button
@@ -90,13 +86,9 @@
             >Choisir un fichier…</label
           >
           <input id="file" type="file" class="p-xs mb-0" @change="fileChange" />
-          <p class="h6 mb-s">
-            15 Mo max.
-          </p>
+          <p class="h6 mb-s">15 Mo max.</p>
         </div>
-        <p v-else class="color-warning pt-xs mb-0">
-          À compléter pour valider
-        </p>
+        <p v-else class="color-warning pt-xs mb-0">À compléter pour valider</p>
       </div>
     </div>
 
@@ -141,9 +133,7 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Jorf</h6>
-          <p class="h6 italic mb-0">
-            Optionnel
-          </p>
+          <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input v-model="document.jorf" type="text" class="p-s" />
@@ -160,9 +150,7 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Nor</h6>
-          <p class="h6 italic mb-0">
-            Optionnel
-          </p>
+          <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input v-model="document.nor" type="text" class="p-s" />
@@ -175,9 +163,7 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>URI</h6>
-          <p class="h6 italic mb-0">
-            Optionnel
-          </p>
+          <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
@@ -195,9 +181,7 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>URL</h6>
-          <p class="h6 italic mb-0">
-            Optionnel
-          </p>
+          <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input

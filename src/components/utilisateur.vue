@@ -14,9 +14,7 @@
 
     <Accordion class="mb" :sub="true">
       <template slot="title">
-        <span class="cap-first">
-          Profil
-        </span>
+        <span class="cap-first"> Profil </span>
       </template>
 
       <template v-if="utilisateur.modification" slot="buttons">
@@ -52,9 +50,7 @@
         <div class="px-m pt-m">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Prénom
-              </h6>
+              <h6 class="mt-xs">Prénom</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.prenom || '–' }}</p>
@@ -63,9 +59,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Nom
-              </h6>
+              <h6 class="mt-xs">Nom</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.nom || '–' }}</p>
@@ -74,9 +68,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Email
-              </h6>
+              <h6 class="mt-xs">Email</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.email || '–' }}</p>
@@ -85,9 +77,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Téléphone fixe
-              </h6>
+              <h6 class="mt-xs">Téléphone fixe</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.telephoneFixe || '–' }}</p>
@@ -96,9 +86,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Téléphone mobile
-              </h6>
+              <h6 class="mt-xs">Téléphone mobile</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.telephoneMobile || '–' }}</p>
@@ -107,17 +95,13 @@
 
           <div v-if="utilisateur.permissionModification" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Permissions
-              </h6>
+              <h6 class="mt-xs">Permissions</h6>
             </div>
             <div class="tablet-blob-3-4">
               <Pill v-if="utilisateur.permission" class="mb">
                 {{ utilisateur.permission.nom }}
               </Pill>
-              <div v-else class="mb">
-                –
-              </div>
+              <div v-else class="mb">–</div>
             </div>
           </div>
 
@@ -149,9 +133,7 @@
 
           <div v-if="utilisateur.administrations.length" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Administration
-              </h6>
+              <h6 class="mt-xs">Administration</h6>
             </div>
 
             <div class="tablet-blob-3-4">
@@ -200,7 +182,7 @@ export default {
 
   watch: {
     user: 'get',
-    '$route.params.id': async function() {
+    '$route.params.id': async function () {
       await this.get()
     }
   },
