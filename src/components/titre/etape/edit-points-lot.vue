@@ -14,7 +14,7 @@
     <textarea
       class="p-s mb-s mono"
       :value="point.references.join('\n')"
-      placeholder="1.4769,47.3469"
+      placeholder="1,4769;47,3469"
       @blur="pointsLotUpdate($event)"
       @focus="pointsLotEdit"
     />
@@ -27,14 +27,16 @@
         </li>
         <li>
           Les coordonnées
-          <span class="mono bg-alt p-xxs color-text">x,y</span> sont séparées
-          par une virgule, sans espace.
+          <span class="mono bg-alt p-xxs color-text">x;y</span> sont séparées
+          par un point-virgule, sans espace.
         </li>
-        <li>Le séparateur entre les unités et les décimales est un point.</li>
+        <li>
+          Le séparateur entre les unités et les décimales est une virgule.
+        </li>
       </ul>
       <p class="mb-s">
         Exemple:
-        <span class="mono bg-alt px-xs py-xxs color-text">1.4769,47.3469</span>
+        <span class="mono bg-alt px-xs py-xxs color-text">1,4769;47,3469</span>
       </p>
     </div>
   </div>

@@ -38,9 +38,9 @@ const lotPointsBuild = (
   geoSystemeId
 ) =>
   references.reduce((points, coordonnees) => {
-    // exemple de format valide: 1.2,2.3
+    // exemple de format valide: 1,2;2,3
     const isValid =
-      coordonnees && coordonnees.match(/(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)/g)
+      coordonnees && coordonnees.match(/(-?\d+(,\d+)?);\s*(-?\d+(,\d+)?)/g)
 
     if (isValid) {
       const point = {
@@ -54,7 +54,9 @@ const lotPointsBuild = (
         references: [
           referenceBuild(
             geoSystemeId,
-            coordonnees.split(',').map(parseFloat),
+            coordonnees
+              .split(';')
+              .map(c => parseFloat(c.replaceAll(/,/g, '.'))),
             opposable
           )
         ]
