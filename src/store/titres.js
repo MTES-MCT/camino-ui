@@ -87,7 +87,7 @@ export const actions = {
 
   async get({ state, dispatch, commit }) {
     try {
-      if (!state.loaded.metas && !state.loaded.urls) return
+      if (!state.loaded.metas || !state.loaded.urls) return
 
       commit('loadingAdd', 'titres', { root: true })
 
@@ -156,7 +156,7 @@ export const actions = {
   },
 
   async loaded({ commit, state, dispatch }, id) {
-    const titresLoad = async () => {
+    const get = async () => {
       if (!state.loaded.urls) {
         state.loaded.urls = true
 
@@ -167,7 +167,7 @@ export const actions = {
     commit('loaded', id)
 
     if (state.loaded.vue && state.loaded.component && state.loaded.filtres) {
-      await titresLoad()
+      await get()
     }
   }
 }

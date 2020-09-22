@@ -2,9 +2,7 @@
   <div>
     <div class="desktop-blobs pt-s">
       <div class="desktop-blob-2-3">
-        <h1 class="mt-xs mb-m">
-          Titres miniers et autorisations
-        </h1>
+        <h1 class="mt-xs mb-m">Titres miniers et autorisations</h1>
       </div>
 
       <div class="desktop-blob-1-3">
@@ -13,20 +11,18 @@
           class="btn rnd-xs py-s px-m full-x flex mb-s h5"
           @click="addPopupOpen"
         >
-          <span class="mt-xxs">Ajouter un titre</span> <i class="icon-24 icon-plus flex-right" />
+          <span class="mt-xxs">Ajouter un titre</span>
+          <i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
     </div>
 
-    <Filtres
-      :metas-loaded="metasLoaded"
-      @loaded="urlLoad('filtres')"
-    />
+    <Filtres :metas-loaded="metasLoaded" @loaded="urlLoad('filtres')" />
 
     <Url
       :values="vueUrlValues"
       :params="{ vue }"
-      @params:update="vuePreferencesUpdate"
+      @params:update="preferencesVueUpdate"
       @loaded="urlLoad('vue')"
     />
 
@@ -52,19 +48,10 @@
             class="p-m btn-tab rnd-t-s"
             @click="vueClick(v.id)"
           >
-            <i
-              :class="`icon-${v.icon}`"
-              class="icon-24"
-            />
+            <i :class="`icon-${v.icon}`" class="icon-24" />
           </button>
-          <div
-            v-else
-            class="p-m span-tab rnd-t-s"
-          >
-            <i
-              :class="`icon-${v.icon}`"
-              class="icon-24"
-            />
+          <div v-else class="p-m span-tab rnd-t-s">
+            <i :class="`icon-${v.icon}`" class="icon-24" />
           </div>
         </div>
         <div class="pl-m pt-m h6 bold">
@@ -81,12 +68,7 @@
       :total="total"
       @loaded="urlLoad('component')"
     />
-    <div
-      v-else
-      class="table-view mb-xxl mt"
-    >
-      …
-    </div>
+    <div v-else class="table-view mb-xxl mt">…</div>
   </div>
 </template>
 
@@ -188,7 +170,7 @@ export default {
       await this.$store.dispatch('titres/metasGet')
     },
 
-    vuePreferencesUpdate(params) {
+    preferencesVueUpdate(params) {
       this.vueSet(params.vue)
     },
 
