@@ -72,7 +72,9 @@ export default {
   methods: {
     save() {
       if (this.complete) {
-        this.$store.dispatch('user/tokensSet', this.$route.query)
+        this.$store.dispatch('user/tokensSet', {
+          accessToken: this.$route.query.token
+        })
         this.$store.dispatch('user/passwordInit', {
           motDePasse1: this.motDePasse1,
           motDePasse2: this.motDePasse2
