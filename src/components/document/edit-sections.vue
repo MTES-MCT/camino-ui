@@ -70,7 +70,7 @@
           <p class="mb-0">
             {{
               (document.fichierNouveau && document.fichierNouveau.name) ||
-              `${document.id}.${document.fichierTypeId}`
+                `${document.id}.${document.fichierTypeId}`
             }}
           </p>
           <button
@@ -86,7 +86,7 @@
             >Choisir un fichier…</label
           >
           <input id="file" type="file" class="p-xs mb-0" @change="fileChange" />
-          <p class="h6 mb-s">15 Mo max.</p>
+          <p class="h6 mb-s">30 Mo max.</p>
         </div>
         <p v-else class="color-warning pt-xs mb-0">À compléter pour valider</p>
       </div>
