@@ -1,4 +1,4 @@
-import './css/styles.css'
+import './styles/styles.css'
 import Vue from 'vue'
 import * as Sentry from '@sentry/browser'
 import * as SentryIntegrations from '@sentry/integrations'
@@ -14,7 +14,7 @@ import { dateFormat } from './utils'
 
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
-    dsn: "https://c8050c650ac54b04bbc47175763446c0@sentry.io/1332560",
+    dsn: 'https://c8050c650ac54b04bbc47175763446c0@sentry.io/1332560',
     integrations: [
       new SentryIntegrations.Vue({
         Vue,
