@@ -1,7 +1,7 @@
 <template>
   <input
     :value="value"
-    type="number"
+    type="text"
     :class="{ 'mb-s': value, mb: !value }"
     @change="control($event.target)"
   />
@@ -18,7 +18,7 @@ export default {
       const regex = /(^|[^\d.])0+\B/g
       this.$emit(
         'input',
-        parseFloat(target.value.toString().replace(regex, '$1'))
+        parseFloat(target.value.replace(regex, '$1').replaceAll(/ /g, ''))
       )
     }
   }
