@@ -103,8 +103,12 @@
       </div>
     </div>
 
-    <div class="line-neutral mb-xl" />
-    <GuyaneActivite :statistique-guyane="statistiques[tabActive]" />
+    <div class="line-neutral mb" />
+    <GuyaneActivite
+      :statistique-guyane="statistiques[tabActive]"
+      :en-construction="tabs.find(t => t.id === tabActive).enConstruction"
+      class="mb-xxl"
+    />
     <div id="evolution" class="mb-xxl">
       <h2>
         Évolution de l’activité sur le domaine minier de Guyane sur les 5
@@ -299,11 +303,13 @@ export default {
         },
         {
           id: this.anneeCurrent - 1,
-          nom: (this.anneeCurrent - 1).toString() + ' - en construction'
+          nom: (this.anneeCurrent - 1).toString(),
+          enConstruction: true
         },
         {
           id: this.anneeCurrent,
-          nom: this.anneeCurrent.toString() + ' - en construction'
+          nom: this.anneeCurrent.toString(),
+          enConstruction: true
         }
       ]
     }

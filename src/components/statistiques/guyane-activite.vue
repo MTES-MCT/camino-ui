@@ -1,5 +1,8 @@
 <template>
-  <div id="indicateurs" class="mb-xxl">
+  <div id="indicateurs">
+    <p v-if="enConstruction" class="h3 color-neutral bold italic">
+      En construction
+    </p>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 mb-xl">
         <h4 class="text-center">Production d'or nette</h4>
@@ -94,10 +97,8 @@ export default {
   name: 'IndicateursActiviteGuyane',
 
   props: {
-    statistiqueGuyane: {
-      type: Object,
-      default: () => ({})
-    }
+    statistiqueGuyane: { type: Object, required: true },
+    enConstruction: { type: Boolean, default: false }
   }
 }
 </script>

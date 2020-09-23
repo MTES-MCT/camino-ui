@@ -38,7 +38,7 @@
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-3 flex mb-s">
-        <slot name="downloads" />
+        <slot name="downloads" class="downloads" />
       </div>
 
       <div class="tablet-blob-2-3 flex">
