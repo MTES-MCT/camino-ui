@@ -224,6 +224,10 @@ html {
   z-index: 1;
 }
 
+.downloads {
+  height: calc(3 * var(--unit));
+}
+
 .lh-2 {
   line-height: 2;
 }
@@ -265,6 +269,7 @@ html {
   color: var(--color-text);
   background-color: var(--color-neutral);
 }
+
 @media (--viewport-tablet) {
   .tablet-flex-right {
     margin-left: auto;
@@ -300,11 +305,13 @@ html {
   }
 
   .map-view {
-    min-height: max(calc(24 * var(--unit)), calc(100vh - (15 * var(--unit))));
+    min-height: calc(24 * var(--unit));
+    height: calc(100vh - (15 * var(--unit)));
   }
 
   .table-view {
-    min-height: max(calc(24 * var(--unit)), calc(100vh - (12 * var(--unit))));
+    min-height: calc(24 * var(--unit));
+    height: calc(100vh - (12 * var(--unit)));
   }
 
   .form-blobs {
@@ -331,13 +338,9 @@ html {
     flex-direction: row;
   }
 
-  /* .accordion-buttons > button {
-    border-top: var(--unit-line) solid var(--color-alt);
-  } */
-
-  /* .accordion-buttons > button:last-child {
-    border-radius: 0 var(--unit-xs) 0 0;
-  } */
+  .downloads {
+    height: inherit;
+  }
 }
 
 @media (--viewport-desktop) {

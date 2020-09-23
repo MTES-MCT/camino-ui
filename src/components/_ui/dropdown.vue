@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-direction-column dropdown">
-    <div class="rnd-s border bg-bg full-x overflow-hidden">
+  <div class="relative flex flex-direction-column dropdown">
+    <div class="absolute rnd-s border bg-bg full-x overflow-hidden">
       <button
         :class="{
           'rnd-t-s': opened || $slots.sub,

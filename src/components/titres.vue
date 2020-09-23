@@ -32,7 +32,7 @@
           v-if="titres.length"
           :formats="['geojson', 'csv', 'xlsx', 'ods']"
           section="titres"
-          class="flex-right full-x"
+          class="flex-right full-x downloads"
         />
       </div>
 
