@@ -64,7 +64,11 @@
       <div class="line mb" />
     </div>
 
-    <TitreTerritoires :pays="titre.pays" :surface="titre.surface" />
+    <TitreTerritoires
+      :pays="titre.pays"
+      :forets="titre.forets"
+      :surface="titre.surface"
+    />
 
     <div class="line mb-xl" />
 

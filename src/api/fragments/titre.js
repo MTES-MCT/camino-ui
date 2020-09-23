@@ -82,6 +82,10 @@ const fragmentTitre = gql`
       ...titreTravaux
     }
 
+    forets {
+      nom
+    }
+
     contenu
 
     modification
