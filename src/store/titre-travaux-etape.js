@@ -38,12 +38,13 @@ export const actions = {
       const data = await travauxEtapeCreer({ etape })
 
       commit('popupClose', null, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      commit('titre/open', { section: 'travaux', id: etape.id }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
         { root: true }
       )
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -60,12 +61,13 @@ export const actions = {
       const data = await travauxEtapeModifier({ etape })
 
       commit('popupClose', null, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      commit('titre/open', { section: 'travaux', id: etape.id }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
         { root: true }
       )
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

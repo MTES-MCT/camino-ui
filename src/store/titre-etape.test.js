@@ -50,7 +50,14 @@ describe('étapes', () => {
       popupMessageAdd: jest.fn()
     }
 
-    store = new Vuex.Store({ actions, mutations, modules: { titreEtape } })
+    store = new Vuex.Store({
+      actions,
+      mutations,
+      modules: {
+        titreEtape,
+        titre: { namespaced: true, mutations: { open: jest.fn() } }
+      }
+    })
   })
 
   test('récupère les métas pour éditer une étape', async () => {

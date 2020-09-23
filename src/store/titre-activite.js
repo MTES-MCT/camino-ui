@@ -3,7 +3,8 @@ import Vue from 'vue'
 import { activite, activiteModifier } from '../api/titres-activites'
 
 export const state = {
-  current: null
+  current: null,
+  opened: false
 }
 
 export const actions = {
@@ -55,6 +56,15 @@ export const actions = {
       )
 
       if (context) {
+        if (context.name === 'titre') {
+          commit(
+            'titre/open',
+            { section: 'activites', id: activite.id },
+            { root: true }
+          )
+        } else {
+          commit('open')
+        }
         await dispatch('reload', context, { root: true })
       }
     } catch (e) {
@@ -72,6 +82,26 @@ export const mutations = {
 
   reset(state) {
     Vue.set(state, 'current', null)
+  },
+
+  open(state) {
+    if (!state.opened) {
+      Vue.set(state, 'opened', true)
+    }
+  },
+
+  close(state) {
+    if (state.opened) {
+      Vue.set(state, 'opened', false)
+    }
+  },
+
+  toggle(state) {
+    if (state.opened) {
+      Vue.set(state, 'opened', false)
+    } else {
+      Vue.set(state, 'opened', true)
+    }
   }
 }
 

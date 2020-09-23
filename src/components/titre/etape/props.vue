@@ -59,7 +59,7 @@
         </p>
       </div>
     </div>
-    <div v-if="etape.points.length" class="tablet-blobs">
+    <div v-if="etape.points && etape.points.length" class="tablet-blobs">
       <div class="tablet-blob-1-4">
         <h6>Périmètre</h6>
       </div>
@@ -97,7 +97,10 @@
       </div>
     </div>
 
-    <div v-if="etape.titulaires.length" class="tablet-blobs">
+    <div
+      v-if="etape.titulaires && etape.titulaires.length"
+      class="tablet-blobs"
+    >
       <div class="tablet-blob-1-4">
         <h6>Titulaire{{ etape.titulaires.length > 1 ? 's' : '' }}</h6>
       </div>
@@ -117,7 +120,10 @@
         </ul>
       </div>
     </div>
-    <div v-if="etape.amodiataires.length" class="tablet-blobs">
+    <div
+      v-if="etape.amodiataires && etape.amodiataires.length"
+      class="tablet-blobs"
+    >
       <div class="tablet-blob-1-4">
         <h6>Amodiataire{{ etape.amodiataires.length > 1 ? 's' : '' }}</h6>
       </div>
@@ -137,7 +143,10 @@
         </ul>
       </div>
     </div>
-    <div v-if="etape.substances.length" class="tablet-blobs">
+    <div
+      v-if="etape.substances && etape.substances.length"
+      class="tablet-blobs"
+    >
       <div class="tablet-blob-1-4">
         <h6>Substance{{ etape.substances.length > 1 ? 's' : '' }}</h6>
       </div>

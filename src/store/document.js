@@ -49,6 +49,14 @@ export const actions = {
 
       if (context) {
         await dispatch('reload', context, { root: true })
+        if (context.name === 'titre') {
+          const section = context.section
+          let id
+          if (section === 'etapes') id = document.titreEtapeId
+          if (section === 'travaux') id = document.titreTravauxEtapeId
+
+          commit('titre/open', { section, id }, { root: true })
+        }
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })

@@ -44,6 +44,7 @@ export const actions = {
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      commit('titre/open', { section: 'etapes', id: etape.id }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
@@ -66,6 +67,7 @@ export const actions = {
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      commit('titre/open', { section: 'etapes', id: etape.id }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },

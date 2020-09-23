@@ -15,6 +15,11 @@ export const state = {
   metas: {
     referencesTypes: [],
     domaines: []
+  },
+  opened: {
+    etapes: {},
+    activites: {},
+    travaux: {}
   }
 }
 
@@ -138,6 +143,26 @@ export const mutations = {
     Object.keys(data).forEach(id => {
       Vue.set(state.metas, id, data[id])
     })
+  },
+
+  open(state, { section, id }) {
+    if (!state.opened[section][id]) {
+      Vue.set(state.opened[section], id, true)
+    }
+  },
+
+  close(state, { section, id }) {
+    if (state.opened[section][id]) {
+      Vue.set(state.opened[section], id, false)
+    }
+  },
+
+  toggle(state, { section, id }) {
+    if (state.opened[section][id]) {
+      Vue.set(state.opened[section], id, false)
+    } else {
+      Vue.set(state.opened[section], id, true)
+    }
   }
 }
 

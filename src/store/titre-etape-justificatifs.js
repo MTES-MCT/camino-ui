@@ -29,7 +29,7 @@ export const actions = {
     }
   },
 
-  async update({ commit, dispatch }, { id, documentsIds, context }) {
+  async link({ commit, dispatch }, { id, documentsIds, context }) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'titreEtapeJustificatifsUpdate', { root: true })
@@ -39,14 +39,17 @@ export const actions = {
 
       commit('popupClose', null, { root: true })
 
-      dispatch(
-        'messageAdd',
-        { value: `le titre a été mis à jour`, type: 'success' },
-        { root: true }
-      )
-
       if (context) {
         await dispatch('reload', context, { root: true })
+        if (context.name === 'titre') {
+          commit('titre/open', { section: 'etapes', id }, { root: true })
+
+          dispatch(
+            'messageAdd',
+            { value: `le titre a été mis à jour`, type: 'success' },
+            { root: true }
+          )
+        }
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })

@@ -46,7 +46,14 @@ describe('justificatifs', () => {
     store = new Vuex.Store({
       actions,
       mutations,
-      modules: { titreEtapeJustificatifs }
+      modules: {
+        titreEtapeJustificatifs,
+        titre: {
+          namespaced: true,
+          state: { current: { id: 5 } },
+          mutations: { open: jest.fn() }
+        }
+      }
     })
   })
 
@@ -99,17 +106,25 @@ describe('justificatifs', () => {
       id: 'titre-id',
       nom: 'Nom du titre'
     })
-    await store.dispatch('titreEtapeJustificatifs/update', {
+    await store.dispatch('titreEtapeJustificatifs/link', {
       id: 'etape-id',
       documentsIds: ['document-id-01'],
-      context: { name: 'titres', id: 'titre-id-01' }
+      context: { name: 'titre', id: 'titre-id-01' }
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
 
-    await store.dispatch('titreEtapeJustificatifs/update', {
+    await store.dispatch('titreEtapeJustificatifs/link', {
       id: 'etape-id',
       documentsIds: ['document-id-01']
+    })
+
+    expect(mutations.popupClose).toHaveBeenCalled()
+
+    await store.dispatch('titreEtapeJustificatifs/link', {
+      id: 'etape-id',
+      documentsIds: ['document-id-01'],
+      context: 'something'
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
@@ -117,7 +132,7 @@ describe('justificatifs', () => {
 
   test("retourne une erreur si l'API retourne une erreur lors de la liaison d'un justificatif", async () => {
     api.etapeJustificatifsAssocier.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('titreEtapeJustificatifs/update', {
+    await store.dispatch('titreEtapeJustificatifs/link', {
       id: 'etape-id',
       documentsIds: ['document-id-01'],
       context: { name: 'titres', id: 'titre-id-01' }

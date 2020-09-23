@@ -3,15 +3,15 @@
     <template slot="title">
       <h6>
         {{ activite.date | dateFormat }} |
-        <span class="cap-first">{{ activite.type.nom }}</span>
-      </h6>
-      <h3 class="mb-s">
         <span class="cap-first"
           ><span v-if="activite.periode && activite.periode.nom"
             >{{ activite.periode.nom }}
           </span>
           {{ activite.annee }}</span
         >
+      </h6>
+      <h3 class="mb-s">
+        <span class="cap-first">{{ activite.type.nom }}</span>
       </h3>
       <Statut
         :color="activite.statut.couleur"
@@ -83,12 +83,6 @@ export default {
     context: { type: Object, required: true }
   },
 
-  data() {
-    return {
-      opened: false
-    }
-  },
-
   computed: {
     documentNew() {
       return {
@@ -104,16 +98,38 @@ export default {
 
     documentPopupTitle() {
       return `${this.activite.type.nom} | ${this.activite.periode.nom} ${this.activite.annee}`
+    },
+
+    opened() {
+      if (this.context.name === 'titre') {
+        return this.$store.state.titre.opened.activites[this.activite.id]
+      }
+
+      return this.$store.state.titreActivite.opened
     }
   },
 
   methods: {
     close() {
-      this.opened = false
+      if (this.context.name === 'titre') {
+        this.$store.commit('titre/close', {
+          section: 'activites',
+          id: this.activite.id
+        })
+      } else {
+        this.$store.commit('titreActivite/close')
+      }
     },
 
     toggle() {
-      this.opened = !this.opened
+      if (this.context.name === 'titre') {
+        this.$store.commit('titre/toggle', {
+          section: 'activites',
+          id: this.activite.id
+        })
+      } else {
+        this.$store.commit('titreActivite/toggle')
+      }
     }
   }
 }
