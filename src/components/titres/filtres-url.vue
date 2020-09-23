@@ -51,6 +51,10 @@ export default {
       return this.$store.state.titres.preferences.filtres
     },
 
+    filtresLoaded() {
+      return this.$store.state.titres.loaded.filtres
+    },
+
     filtresUrlValues() {
       const paramsIds = Object.keys(this.preferences)
 
@@ -70,11 +74,17 @@ export default {
 
   methods: {
     preferencesFiltresUpdateAndPageReset(params) {
-      this.preferencesFiltresUpdate(params)
-      this.$store.dispatch('titres/preferencesSet', {
-        section: 'table',
-        params: { page: 1 }
-      })
+      // tant que ce composant n'est pas chargé,
+      // les filtres ne peuvent pas modifier les préférences
+      if (this.filtresLoaded) {
+        this.preferencesFiltresUpdate(params)
+        this.$store.dispatch('titres/preferencesSet', {
+          section: 'table',
+          params: { page: 1 }
+        })
+
+        this.paramsEventTrack(params)
+      }
     },
 
     preferencesFiltresUpdate(params) {
@@ -82,8 +92,6 @@ export default {
         section: 'filtres',
         params
       })
-
-      this.paramsEventTrack(params)
     },
 
     paramsEventTrack(params) {
