@@ -39,7 +39,7 @@
               {{ numberFormat(statistiquesGuyane.surfaceExploration) }} ha
             </p>
             <p class="bold text-center">
-              Surfaces cumulées des titres concernés par une activité
+              Surfaces cumulées des titres pouvant faire l'objet d'une activité
               d’exploration
             </p>
           </div>
@@ -72,7 +72,7 @@
               {{ numberFormat(statistiquesGuyane.surfaceExploitation) }} ha
             </p>
             <p class="bold text-center">
-              Surfaces cumulées des titres concernés par une activité
+              Surfaces cumulées des titres pouvant faire l'objet d'une activité
               d’exploitation
             </p>
           </div>
