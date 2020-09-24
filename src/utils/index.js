@@ -6,7 +6,6 @@ const dateFormat = dateString => {
 
 const numberFormat = x => {
   return Intl.NumberFormat('FR-fr', {
-    minimumSignificantDigits: 1,
     maximumSignificantDigits: 21
   }).format(x)
 }
