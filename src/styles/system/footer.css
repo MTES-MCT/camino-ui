@@ -29,7 +29,7 @@ body {
 
 .footer {
   background-color: var(--color-inverse);
-  color: var(--color-bg);
+  color: var(--color-neutral);
 }
 
 @media (--viewport-desktop) {

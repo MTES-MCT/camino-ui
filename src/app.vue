@@ -2,7 +2,7 @@
   <Page>
     <Component :is="menu.component" v-if="menu.component" slot="menu" />
 
-    <PageHeader slot="header" class="mb-s" :loaded="loaded" />
+    <PageHeader slot="header" :loaded="loaded" />
 
     <Messages id="cmn-app-messages" slot="messages" :messages="messages" />
 

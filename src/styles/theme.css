@@ -17,7 +17,11 @@ html {
 }
 
 .sponsor {
-  max-height: calc(var(--unit) * 3);
+  max-height: calc(var(--unit) * 4);
+}
+
+.logo {
+  height: calc(var(--unit) * 4);
 }
 
 .map:not(.leaflet-pseudo-fullscreen) {
@@ -170,7 +174,11 @@ html {
 }
 
 .footer a {
-  color: var(--color-bg);
+  color: var(--color-alt);
+
+  &:hover {
+    color: var(--color-bg);
+  }
 }
 
 .separator {
@@ -191,8 +199,8 @@ html {
 }
 
 .camino-header-baseline {
-  padding-left: 29.5%;
-  margin-top: -0.8rem;
+  padding-left: 25%;
+  margin-top: -1.5rem;
 }
 
 .messages {
@@ -230,6 +238,18 @@ html {
 
 .lh-2 {
   line-height: 2;
+}
+
+ul.li-mb-s > li {
+  margin-bottom: var(--unit-s);
+}
+
+ul.li-sep > li {
+  &:not(:last-child):after {
+    content: '—';
+    color: grey;
+    display: block;
+  }
 }
 
 .geo-groupe {
@@ -306,12 +326,11 @@ html {
 
   .map-view {
     min-height: calc(24 * var(--unit));
-    height: calc(100vh - (15 * var(--unit)));
+    height: calc(100vh - (16.5 * var(--unit)));
   }
 
   .table-view {
     min-height: calc(24 * var(--unit));
-    height: calc(100vh - (12 * var(--unit)));
   }
 
   .form-blobs {
@@ -324,10 +343,6 @@ html {
 
   .header-blobs {
     flex-direction: row-reverse;
-  }
-
-  .camino-header-baseline {
-    margin-top: -1rem;
   }
 
   .messages {
@@ -354,6 +369,10 @@ html {
     );
   }
 
+  .camino-header-baseline {
+    padding-left: 9.2rem;
+  }
+
   .leaflet-left {
     left: var(--unit-l);
   }
@@ -377,10 +396,6 @@ html {
 }
 
 @media (--viewport-large) {
-  .camino-header-baseline {
-    padding-left: 7.5rem;
-  }
-
   .large-columns {
     column-count: 2;
   }

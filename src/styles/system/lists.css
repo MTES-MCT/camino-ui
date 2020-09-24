@@ -68,7 +68,7 @@ li {
     margin-left: calc(var(--unit) * -1);
     width: var(--unit);
     display: inline-block;
-    color: var(--color-neutral);
+    color: grey;
   }
 }
 

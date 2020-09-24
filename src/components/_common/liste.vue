@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="desktop-blobs pt-s">
+    <div class="desktop-blobs">
       <div class="desktop-blob-2-3">
         <h1 class="mt-xs mb-m cap-first">
           {{ nom }}

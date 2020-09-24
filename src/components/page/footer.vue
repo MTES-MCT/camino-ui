@@ -1,27 +1,40 @@
 <template>
   <div class="tablet-blobs pt flex-align-items-stretch">
     <div class="tablet-blob-1 desktop-blob-1-3">
-      <img class="sponsor mb" src="../../../public/img/logo-mtes-mef.svg" />
-
-      <div class="blobs">
-        <div class="blob-1-3">
-          <img
-            class="sponsor mb"
-            src="../../../public/img/logo-fabriquenumerique.svg"
-          />
-        </div>
-        <div class="blob-2-3">
-          <p class="h6 color-neutral">
-            Service de l’État incubé à la Fabrique numérique du Ministère de la
-            Transition écologique et solidaire, membre du réseau
-            <a href="http://beta.gouv.fr"> beta.gouv.fr </a>.
-          </p>
-        </div>
-      </div>
+      <ul class="list-sans text-decoration-none li-sep mb-0">
+        <li>
+          <a href="https://economie.gouv.fr/"
+            >Ministère de l'Économie, des Finances et de la Relance</a
+          >
+        </li>
+        <li>
+          <a href="https://ecologie.gouv.fr/">Ministère de l'Écologie</a>
+        </li>
+        <li>
+          <a href="https://onf.fr/">Office National des forêts</a>
+        </li>
+        <li>
+          <div class="blobs">
+            <div class="blob-1-3">
+              <img
+                class="sponsor"
+                src="../../../public/img/logo-fabriquenumerique.svg"
+              />
+            </div>
+            <div class="blob-2-3">
+              <p class="h6 mb-0">
+                Service de l’État incubé à la Fabrique numérique du Ministère de
+                l'Écologie, membre du réseau
+                <a href="http://beta.gouv.fr">beta.gouv.fr</a>.
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
     </div>
 
     <div class="tablet-blob-1-2 desktop-blob-1-3">
-      <ul class="list-sans text-decoration-none h5 lh-2 mb-0">
+      <ul class="list-prefix text-decoration-none li-mb-s mb-0">
         <li>
           Contact: <a href="mailto:camino@beta.gouv.fr">camino@beta.gouv.fr</a>
         </li>
@@ -38,15 +51,6 @@
         </li>
         <li>
           <router-link to="/contribution"> Contribution </router-link>
-        </li>
-        <li>
-          <a
-            href="https://trello.com/b/cwXWMqGz/camino-roadmap-ouverte"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Roadmap
-          </a>
         </li>
         <li>
           <a
@@ -70,8 +74,8 @@
     </div>
 
     <div class="tablet-blob-1-2 desktop-blob-1-3 flex flex-direction-column">
-      <NewsletterForm />
-      <ul class="list-sans text-decoration-none h5 lh-2">
+      <NewsletterForm class="mb-xxs" />
+      <ul class="list-prefix text-decoration-none li-mb-s">
         <li>
           <a
             href="http://www.mineralinfo.fr/"
@@ -94,7 +98,7 @@
 
       <p class="h5 flex-bottom">
         <a
-          href="https://github.com/MTES-MCT/camino-ui/releases"
+          href="https://github.com/MTES-MCT/camino-ui/blob/master/CHANGELOG.md"
           target="_blank"
           rel="noopener noreferrer"
           class="text-decoration-none"
@@ -102,7 +106,7 @@
           UI v.{{ versionUi }} </a
         >|
         <a
-          href="https://github.com/MTES-MCT/camino-api/releases"
+          href="https://github.com/MTES-MCT/camino-api/blob/master/CHANGELOG.md"
           target="_blank"
           rel="noopener noreferrer"
           class="text-decoration-none"
