@@ -10,7 +10,7 @@ const numberFormat = x => {
   }).format(x)
 }
 
-const reversenumberFormat = (val, locale) => {
+const textToNumberFormat = (val, locale) => {
   const group = new Intl.NumberFormat(locale).format(1111).replace(/1/g, '')
   const decimal = new Intl.NumberFormat(locale).format(1.1).replace(/1/g, '')
   const reversedVal = val
@@ -31,6 +31,6 @@ export {
   dateFormat,
   permissionsCheck,
   numberFormat,
-  reversenumberFormat,
+  textToNumberFormat,
   jsonTypenameOmit
 }
