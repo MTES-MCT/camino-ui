@@ -1,7 +1,7 @@
 <template>
   <div class="sticky-header">
     <div class="container">
-      <div class="tablet-blobs pt-s">
+      <div class="tablet-blobs">
         <div class="tablet-blob-2-3">
           <h1 class="mt-xs mb-m">
             {{ titre.nom }}

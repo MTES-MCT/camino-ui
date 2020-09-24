@@ -97,15 +97,6 @@ Voir `contributing.md` (en anglais) pour plus d'infos.
 
 - [La Fabrique Numérique, Ministère de la transition écologique et solidaire](https://www.ecologique-solidaire.gouv.fr/inauguration-fabrique-numerique-lincubateur-des-ministeres-charges-lecologie-et-des-territoires)
 
-### Équipe
-
-- Guillaume Levieux, intrapreneur
-- Joeffrey Arruyer, coach
-- [François Romain](https://github.com/francoisromain), développeur (03/2018 -> …)
-- [Adrien Risser](https://github.com/risseraka), développeur (10/2018 -> …)
-- [Florent Chalvet](https://github.com/FChalvet), développeur (03/2019 -> 08/2019)
-- Nicolas Petitot, développeur (09/2019 -> …)
-
 ---
 
 ## Licence
