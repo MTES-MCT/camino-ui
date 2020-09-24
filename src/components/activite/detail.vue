@@ -86,12 +86,12 @@ export default {
   computed: {
     documentNew() {
       return {
+        titreActiviteId: this.activite.id,
         entreprisesLecture: false,
+        publicLecture: false,
         fichier: null,
         fichierNouveau: null,
         fichierTypeId: null,
-        publicLecture: false,
-        titreActiviteId: this.activite.id,
         typeId: ''
       }
     },

@@ -197,13 +197,13 @@ export default {
     documentNew() {
       return {
         titreEtapeId: this.etape.id,
+        entreprisesLecture: false,
+        publicLecture: false,
         typeId: '',
         fichier: null,
         fichierNouveau: null,
         fichierTypeId: null,
-        date: this.etape.date,
-        entreprisesLecture: false,
-        publicLecture: false
+        date: this.etape.date
       }
     },
 
