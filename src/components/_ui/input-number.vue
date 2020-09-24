@@ -17,7 +17,7 @@ export default {
 
   computed: {
     numberFormatValue() {
-      return this.value ? numberFormat(this.value) : ''
+      return this.value ? numberFormat(this.value) : this.value
     }
   },
 
