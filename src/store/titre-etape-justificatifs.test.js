@@ -50,7 +50,6 @@ describe('justificatifs', () => {
         titreEtapeJustificatifs,
         titre: {
           namespaced: true,
-          state: { current: { id: 5 } },
           mutations: { open: jest.fn() }
         }
       }

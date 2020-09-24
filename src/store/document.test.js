@@ -50,7 +50,6 @@ describe('documents', () => {
         document,
         titre: {
           namespaced: true,
-          state: { current: { id: 5 } },
           mutations: { open: jest.fn() }
         }
       }
@@ -87,7 +86,7 @@ describe('documents', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test('ajoute à jour un document', async () => {
+  test('ajoute un document', async () => {
     api.documentCreer.mockResolvedValue({ id: 14, nom: 'champs' })
     await store.dispatch('document/add', {
       document: { id: 14, nom: 'champs' },
