@@ -1,6 +1,6 @@
 <template>
-  <div class="tablet-blobs header-blobs">
-    <div class="tablet-blob-1-3 desktop-blob-1-2 large-blob-2-3">
+  <div class="tablet-blobs header-blobs mb">
+    <div class="tablet-blob-1-3">
       <div v-if="!apiError" class="flex">
         <div class="flex-right">
           <div class="mt-m tablet-mb-m flex">
@@ -15,18 +15,14 @@
         </div>
       </div>
     </div>
-    <div class="tablet-blob-2-3 desktop-blob-1-2 large-blob-1-3">
-      <RouterLink
-        v-if="$route.name !== 'titres'"
-        :to="{ name: 'titres' }"
-        class="pt-s pr-m inline-block full-x"
-      >
-        <img src="../../../public/img/logo-camino.svg" />
+    <div class="tablet-blob-2-3 pt-m relative">
+      <RouterLink v-if="$route.name !== 'titres'" :to="{ name: 'titres' }">
+        <img src="../../../public/img/logo-camino.svg" class="logo" />
       </RouterLink>
-      <span v-else class="pt-s pr-m inline-block full-x">
-        <img src="../../../public/img/logo-camino.svg" />
+      <span v-else>
+        <img src="../../../public/img/logo-camino.svg" class="logo" />
       </span>
-      <p class="h5 color-neutral camino-header-baseline tablet-mb-s">
+      <p class="h5 camino-header-baseline absolute">
         Le cadastre minier numérique ouvert
       </p>
     </div>
