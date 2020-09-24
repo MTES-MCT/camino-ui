@@ -18,7 +18,7 @@ describe("état d'une activité", () => {
   let actions
 
   beforeEach(() => {
-    titreActivite.state = { current: null }
+    titreActivite.state = { current: null, opened: false }
 
     actions = {
       reload: jest.fn(),
@@ -37,10 +37,16 @@ describe("état d'une activité", () => {
     }
 
     store = new Vuex.Store({
-      modules: { titreActivite },
+      modules: {
+        titreActivite,
+        titre: {
+          namespaced: true,
+          state: { current: { id: 5 } },
+          mutations: { open: jest.fn() }
+        }
+      },
       mutations,
-      actions,
-      state: { titre: { current: { id: 5 } } }
+      actions
     })
   })
 
@@ -71,16 +77,17 @@ describe("état d'une activité", () => {
         contenu: [],
         statut: { id: 'dep' }
       },
-      context: 'activite'
+      context: 'titreActivite'
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalledTimes(1)
     expect(actions.reload).toHaveBeenCalledTimes(1)
+    expect(store.state.titreActivite.opened).toBeTruthy()
   })
 
-  test('enregistre une activité pour un titre', async () => {
+  test('enregistre une activité sur un titre', async () => {
     api.activiteModifier.mockResolvedValue({ statut: { id: 'enc' } })
 
     await store.dispatch('titreActivite/update', {
@@ -89,7 +96,7 @@ describe("état d'une activité", () => {
         contenu: [],
         statut: { id: 'enc' }
       },
-      context: 'titre'
+      context: { name: 'titre' }
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
@@ -108,7 +115,7 @@ describe("état d'une activité", () => {
         contenu: [],
         statut: { id: 'dep' }
       },
-      context: 'titre'
+      context: { name: 'titre' }
     })
 
     expect(apiMock).toHaveBeenCalled()
@@ -159,5 +166,34 @@ describe("état d'une activité", () => {
     store.commit('titreActivite/reset')
 
     expect(store.state.titreActivite.current).toBeNull()
+  })
+
+  test("ouvre et ferme l'activité", () => {
+    store.commit('titreActivite/open')
+
+    expect(store.state.titreActivite.opened).toBeTruthy()
+
+    store.commit('titreActivite/open')
+
+    expect(store.state.titreActivite.opened).toBeTruthy()
+
+    store.commit('titreActivite/close')
+
+    expect(store.state.titreActivite.opened).toBeFalsy()
+
+    store.commit('titreActivite/close')
+
+    expect(store.state.titreActivite.opened).toBeFalsy()
+  })
+
+  test("permute l'ouverture de l'activité", () => {
+    expect(store.state.titreActivite.opened).toBeFalsy()
+    store.commit('titreActivite/toggle')
+
+    expect(store.state.titreActivite.opened).toBeTruthy()
+
+    store.commit('titreActivite/toggle')
+
+    expect(store.state.titreActivite.opened).toBeFalsy()
   })
 })

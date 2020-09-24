@@ -160,7 +160,7 @@ export default {
     },
 
     async save() {
-      await this.$store.dispatch('titreEtapeJustificatifs/update', {
+      await this.$store.dispatch('titreEtapeJustificatifs/link', {
         id: this.id,
         documentsIds: this.documents.ids,
         context: this.context

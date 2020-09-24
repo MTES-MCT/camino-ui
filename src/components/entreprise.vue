@@ -7,9 +7,7 @@
     </h1>
     <Accordion class="mb-xxl" :sub="true">
       <template slot="title">
-        <span class="cap-first">
-          Profil
-        </span>
+        <span class="cap-first"> Profil </span>
       </template>
 
       <template v-if="entreprise.modification" slot="buttons">
@@ -30,9 +28,7 @@
         <div class="px-m pt-m border-b-s">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Siren
-              </h6>
+              <h6 class="mt-xs">Siren</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ entreprise.legalSiren }}</p>
@@ -41,9 +37,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Forme juridique
-              </h6>
+              <h6 class="mt-xs">Forme juridique</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ entreprise.legalForme }}</p>
@@ -72,9 +66,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Adresse
-              </h6>
+              <h6 class="mt-xs">Adresse</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>
@@ -87,9 +79,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Téléphone
-              </h6>
+              <h6 class="mt-xs">Téléphone</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -103,9 +93,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Email
-              </h6>
+              <h6 class="mt-xs">Email</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -123,9 +111,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
-                Site
-              </h6>
+              <h6 class="mt-xs">Site</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -143,14 +129,12 @@
         </div>
 
         <div v-if="entreprise.documents.length">
-          <h4 class="px-m pt mb-0">
-            Documents
-          </h4>
+          <h4 class="px-m pt mb-0">Documents</h4>
           <Documents
             :bouton-modification="entreprise.modification"
             :bouton-suppression="
               entreprise.modification &&
-                permissionsCheck(['super', 'admin', 'editeur'])
+              permissionsCheck(['super', 'admin', 'editeur'])
             "
             :context="{ id: entreprise.id, name: 'entreprise' }"
             :documents="entreprise.documents"
@@ -258,6 +242,8 @@ export default {
     documentNew() {
       return {
         entrepriseId: this.entreprise.id,
+        entreprisesLecture: false,
+        publicLecture: false,
         fichier: null,
         fichierNouveau: null,
         fichierTypeId: null,

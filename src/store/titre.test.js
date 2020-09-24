@@ -29,9 +29,14 @@ describe('état du titre sélectionné', () => {
     titre.state = {
       current: null,
       metas: {
-        referencesTypes: []
+        referencesTypes: [],
+        domaines: []
       },
-      documents: []
+      opened: {
+        etapes: {},
+        activites: { 'activite-id': false },
+        travaux: {}
+      }
     }
     actions = {
       pageError: jest.fn(),
@@ -159,5 +164,34 @@ describe('état du titre sélectionné', () => {
     store.commit('titre/reset')
 
     expect(store.state.titre.current).toBeNull()
+  })
+
+  test('ouvre et ferme une section', () => {
+    store.commit('titre/open', { section: 'etapes', id: 'etape-id' })
+
+    expect(store.state.titre.opened.etapes['etape-id']).toBeTruthy()
+
+    store.commit('titre/open', { section: 'etapes', id: 'etape-id' })
+
+    expect(store.state.titre.opened.etapes['etape-id']).toBeTruthy()
+
+    store.commit('titre/close', { section: 'etapes', id: 'etape-id' })
+
+    expect(store.state.titre.opened.etapes['etape-id']).toBeFalsy()
+
+    store.commit('titre/close', { section: 'etapes', id: 'etape-id' })
+
+    expect(store.state.titre.opened.etapes['etape-id']).toBeFalsy()
+  })
+
+  test("permute l'ouverture une section", () => {
+    expect(store.state.titre.opened.activites['activite-id']).toBeFalsy()
+    store.commit('titre/toggle', { section: 'activites', id: 'activite-id' })
+
+    expect(store.state.titre.opened.activites['activite-id']).toBeTruthy()
+
+    store.commit('titre/toggle', { section: 'activites', id: 'activite-id' })
+
+    expect(store.state.titre.opened.activites['activite-id']).toBeFalsy()
   })
 })

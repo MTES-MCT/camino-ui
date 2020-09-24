@@ -58,9 +58,7 @@
       </div>
 
       <div v-if="etape.documents.length" class="border-b-s">
-        <h4 class="px-m pt mb-s">
-          Documents
-        </h4>
+        <h4 class="px-m pt mb-s">Documents</h4>
         <Documents
           :bouton-suppression="etape.modification"
           :bouton-modification="etape.modification"
@@ -113,7 +111,6 @@ export default {
 
   data() {
     return {
-      opened: false,
       documentRepertoire: 'travaux'
     }
   },
@@ -121,6 +118,10 @@ export default {
   computed: {
     titre() {
       return this.$store.state.titre.current
+    },
+
+    opened() {
+      return this.$store.state.titre.opened.travaux[this.etape.id]
     },
 
     etapeType() {
@@ -141,6 +142,7 @@ export default {
     documentContext() {
       return {
         name: 'titre',
+        section: 'travaux',
         id: this.titre.id
       }
     },
@@ -154,24 +156,30 @@ export default {
     documentNew() {
       return {
         titreTravauxEtapeId: this.etape.id,
+        entreprisesLecture: false,
+        publicLecture: false,
         typeId: '',
         fichier: null,
         fichierNouveau: null,
         fichierTypeId: null,
-        date: this.etape.date,
-        entreprisesLecture: false,
-        publicLecture: false
+        date: this.etape.date
       }
     }
   },
 
   methods: {
     close() {
-      this.opened = false
+      this.$store.commit('titre/close', {
+        section: 'travaux',
+        id: this.etape.id
+      })
     },
 
     toggle() {
-      this.opened = !this.opened
+      this.$store.commit('titre/toggle', {
+        section: 'travaux',
+        id: this.etape.id
+      })
     },
 
     editPopupOpen() {

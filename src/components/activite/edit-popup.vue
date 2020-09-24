@@ -197,13 +197,9 @@ export default {
       if (this.activite.documents.length) {
         for (const document of this.activite.documents) {
           if (document.id) {
-            await this.$store.dispatch('document/update', {
-              document: document
-            })
+            await this.$store.dispatch('document/update', { document })
           } else {
-            await this.$store.dispatch('document/add', {
-              document: document
-            })
+            await this.$store.dispatch('document/add', { document })
           }
         }
 

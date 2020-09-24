@@ -78,12 +78,12 @@ export default {
         if (!this.documents.find(d => d.typeId === dt.id)) {
           const documentNew = {
             typeId: dt.id,
+            entreprisesLecture: false,
+            publicLecture: false,
             fichier: null,
             fichierNouveau: null,
             fichierTypeId: null,
-            entreprisesLecture: false,
-            date: '',
-            publicLecture: false
+            date: ''
           }
 
           if (this.repertoire === 'demarches') {

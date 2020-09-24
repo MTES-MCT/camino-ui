@@ -43,7 +43,17 @@ describe('documents', () => {
       popupMessageAdd: jest.fn()
     }
 
-    store = new Vuex.Store({ actions, mutations, modules: { document } })
+    store = new Vuex.Store({
+      actions,
+      mutations,
+      modules: {
+        document,
+        titre: {
+          namespaced: true,
+          mutations: { open: jest.fn() }
+        }
+      }
+    })
   })
 
   test('récupère les métas pour éditer un document', async () => {
@@ -76,11 +86,18 @@ describe('documents', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test('met à jour un document', async () => {
+  test('ajoute un document', async () => {
     api.documentCreer.mockResolvedValue({ id: 14, nom: 'champs' })
     await store.dispatch('document/add', {
       document: { id: 14, nom: 'champs' },
-      context: { name: 'titre', id: 'titre-id' }
+      context: { name: 'titre', id: 'titre-id', section: 'etapes' }
+    })
+
+    expect(mutations.popupClose).toHaveBeenCalled()
+
+    await store.dispatch('document/add', {
+      document: { id: 14, nom: 'champs' },
+      context: { name: 'titre', id: 'titre-id', section: 'travaux' }
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
@@ -90,9 +107,16 @@ describe('documents', () => {
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
+
+    await store.dispatch('document/add', {
+      document: { id: 14, nom: 'champs' },
+      context: 'something'
+    })
+
+    expect(mutations.popupClose).toHaveBeenCalled()
   })
 
-  test("retourne une erreur si l'API retourne une erreur lors de la création d'un document", async () => {
+  test("retourne une erreur si l'API retourne une erreur lors de l'ajout d'un document", async () => {
     api.documentCreer.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('document/add', {
       document: { id: 14, nom: 'champs' }

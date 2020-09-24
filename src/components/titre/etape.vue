@@ -12,9 +12,7 @@
           ?
         </Tag>
       </h6>
-      <h3 class="cap-first mb-s">
-        {{ etape.type.nom }}
-      </h3>
+      <h3 class="cap-first mb-s">{{ etape.type.nom }}</h3>
       <div class="mb-xs">
         <Statut :color="etape.statut.couleur" :nom="etape.statut.nom" />
       </div>
@@ -75,9 +73,7 @@
       </div>
 
       <div v-if="etape.documents.length" class="border-b-s">
-        <h4 class="px-m pt mb-s">
-          Documents
-        </h4>
+        <h4 class="px-m pt mb-s">Documents</h4>
         <Documents
           :bouton-suppression="etape.modification"
           :bouton-modification="etape.modification"
@@ -94,9 +90,7 @@
       </div>
 
       <div v-if="etape.justificatifs.length">
-        <h4 class="px-m pt mb-s">
-          Justificatifs
-        </h4>
+        <h4 class="px-m pt mb-s">Justificatifs</h4>
         <Documents
           :bouton-dissociation="etape.modification"
           :bouton-modification="false"
@@ -147,14 +141,13 @@ export default {
   },
 
   props: {
-    etape: { type: Object, default: () => {} },
-    demarcheType: { type: Object, default: () => {} },
+    etape: { type: Object, required: true },
+    demarcheType: { type: Object, required: true },
     demarcheId: { type: String, default: '' }
   },
 
   data() {
     return {
-      opened: false,
       documentRepertoire: 'demarches'
     }
   },
@@ -190,6 +183,7 @@ export default {
     documentContext() {
       return {
         name: 'titre',
+        section: 'etapes',
         id: this.titre.id
       }
     },
@@ -203,24 +197,34 @@ export default {
     documentNew() {
       return {
         titreEtapeId: this.etape.id,
+        entreprisesLecture: false,
+        publicLecture: false,
         typeId: '',
         fichier: null,
         fichierNouveau: null,
         fichierTypeId: null,
-        date: this.etape.date,
-        entreprisesLecture: false,
-        publicLecture: false
+        date: this.etape.date
       }
+    },
+
+    opened() {
+      return this.$store.state.titre.opened.etapes[this.etape.id]
     }
   },
 
   methods: {
     close() {
-      this.opened = false
+      this.$store.commit('titre/close', {
+        section: 'etapes',
+        id: this.etape.id
+      })
     },
 
     toggle() {
-      this.opened = !this.opened
+      this.$store.commit('titre/toggle', {
+        section: 'etapes',
+        id: this.etape.id
+      })
     },
 
     editPopupOpen() {
