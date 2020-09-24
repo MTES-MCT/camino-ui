@@ -10,13 +10,16 @@ const numberFormat = x => {
   }).format(x)
 }
 
-const textToNumberFormat = (val, locale) => {
-  const group = new Intl.NumberFormat(locale).format(1111).replace(/1/g, '')
-  const decimal = new Intl.NumberFormat(locale).format(1.1).replace(/1/g, '')
+const textToNumberFormat = val => {
+  const group = Intl.NumberFormat('FR-fr')
+    .format(1111)
+    .replace(/1/g, '')
+  const decimal = Intl.NumberFormat('FR-fr')
+    .format(1.1)
+    .replace(/1/g, '')
   const reversedVal = val
     .replace(new RegExp('\\' + group, 'g'), '')
     .replace(new RegExp('\\' + decimal, 'g'), '.')
-    .replace(' ', '')
   return Number.isNaN(reversedVal) ? '' : reversedVal
 }
 

@@ -23,7 +23,7 @@ export default {
 
   methods: {
     control(target) {
-      this.$emit('input', parseFloat(textToNumberFormat(target.value, 'FR-fr')))
+      this.$emit('input', parseFloat(textToNumberFormat(target.value)))
     }
   }
 }
