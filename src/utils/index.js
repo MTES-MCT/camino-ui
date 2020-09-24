@@ -17,7 +17,7 @@ const textToNumberFormat = (val, locale) => {
     .replace(new RegExp('\\' + group, 'g'), '')
     .replace(new RegExp('\\' + decimal, 'g'), '.')
     .replace(' ', '')
-  return Number.isNaN(reversedVal) ? 0 : reversedVal
+  return Number.isNaN(reversedVal) ? '' : reversedVal
 }
 
 const permissionsCheck = (userPermission, permissions) =>
