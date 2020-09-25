@@ -8,7 +8,9 @@
           >
         </li>
         <li>
-          <a href="https://ecologie.gouv.fr/">Ministère de l'Écologie</a>
+          <a href="https://ecologie.gouv.fr/"
+            >Ministère de la Transition écologique</a
+          >
         </li>
         <li>
           <a href="https://onf.fr/">Office National des forêts</a>
@@ -24,7 +26,7 @@
             <div class="blob-2-3">
               <p class="h6 mb-0">
                 Service de l’État incubé à la Fabrique numérique du Ministère de
-                l'Écologie, membre du réseau
+                la Transition écologique, membre du réseau
                 <a href="http://beta.gouv.fr">beta.gouv.fr</a>.
               </p>
             </div>

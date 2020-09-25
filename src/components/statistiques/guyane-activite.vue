@@ -1,7 +1,7 @@
 <template>
   <div id="indicateurs">
-    <p v-if="enConstruction" class="h3 color-neutral bold italic">
-      En construction
+    <p v-if="enConstruction" class="p-s bg-warning color-bg">
+      Données en cours de collecte et consolidation
     </p>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 mb-xl">
