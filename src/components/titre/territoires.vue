@@ -3,7 +3,7 @@
     <div class="tablet-blob-1-4">
       <div v-if="surface">
         <h6>Surface</h6>
-        <p>{{ surface }} km² environ</p>
+        <p>{{ numberFormat(surface) }} km² environ</p>
       </div>
     </div>
     <div
