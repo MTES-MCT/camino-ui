@@ -11,15 +11,7 @@ const numberFormat = x => {
 }
 
 const textToNumberFormat = val => {
-  const group = Intl.NumberFormat('FR-fr')
-    .format(1111)
-    .replace(/1/g, '')
-  const decimal = Intl.NumberFormat('FR-fr')
-    .format(1.1)
-    .replace(/1/g, '')
-  const reversedVal = val
-    .replace(new RegExp('\\' + group, 'g'), '')
-    .replace(new RegExp('\\' + decimal, 'g'), '.')
+  const reversedVal = val.replaceAll(/\s/g, '').replace(/,/g, '.')
   return Number.isNaN(reversedVal) ? '' : reversedVal
 }
 
