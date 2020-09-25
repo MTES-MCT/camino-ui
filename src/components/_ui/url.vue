@@ -204,10 +204,14 @@ export default {
       }
 
       if (this.values[id].type === 'strings') {
+        if (typeof value !== 'string') return null
+
         return value.split(',').sort()
       }
 
       if (this.values[id].type === 'numbers') {
+        if (typeof value !== 'string') return null
+
         return value
           .split(',')
           .map(v => Number(v))
@@ -215,11 +219,13 @@ export default {
       }
 
       if (this.values[id].type === 'string') {
-        return value.toString()
+        return value
       }
 
       if (this.values[id].type === 'tuple') {
-        return value.split(',')
+        if (typeof value !== 'string') return null
+
+        return value.split(',').slice(0, 2)
       }
 
       if (this.values[id].type === 'objects') {
