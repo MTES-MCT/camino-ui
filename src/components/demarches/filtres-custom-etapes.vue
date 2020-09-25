@@ -27,7 +27,11 @@
             <p class="h6 italic mb-0">Optionnel</p>
           </div>
           <div class="blob-3-4">
-            <select v-model="value.statutId" class="p-s mr-s cap-first">
+            <select
+              v-model="value.statutId"
+              class="p-s mr-s cap-first"
+              @change="statutValueReset(n)"
+            >
               <option :value="''">–</option>
               <option
                 v-for="statut in statutsFind(n)"
@@ -100,7 +104,14 @@ export default {
     },
 
     valueReset(n) {
-      this.filter.value[n].statutId = ''
+      delete this.filter.value[n].statutId
+    },
+
+    statutValueReset(n) {
+      // si l'utilisateur déselectionne le statut (chaine vide)
+      if (!this.filter.value[n].statutId) {
+        delete this.filter.value[n].statutId
+      }
     }
   }
 }
