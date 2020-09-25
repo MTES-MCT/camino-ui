@@ -1,25 +1,29 @@
 <template>
   <input
-    :value="value"
-    type="number"
+    :value="numberFormatValue"
+    type="text"
+    pattern="([0-9]{1,3}[\s]?)*([.,][0-9]*)?"
     :class="{ 'mb-s': value, mb: !value }"
     @change="control($event.target)"
   />
 </template>
 
 <script>
+import { numberFormat, textToNumberFormat } from '../../utils'
 export default {
   props: {
     value: { type: Number, default: undefined }
   },
 
+  computed: {
+    numberFormatValue() {
+      return this.value ? numberFormat(this.value) : this.value
+    }
+  },
+
   methods: {
     control(target) {
-      const regex = /(^|[^\d.])0+\B/g
-      this.$emit(
-        'input',
-        parseFloat(target.value.toString().replace(regex, '$1'))
-      )
+      this.$emit('input', parseFloat(textToNumberFormat(target.value)))
     }
   }
 }
