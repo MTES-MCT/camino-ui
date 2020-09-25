@@ -11,7 +11,10 @@ const numberFormat = x => {
 }
 
 const textToNumberFormat = val => {
-  const reversedVal = val.replaceAll(/\s/g, '').replace(/,/g, '.')
+  const reversedVal = val
+    .replaceAll(/\s/g, '')
+    .replace(/,/g, '.')
+    .replace(/[^0-9\s,.]/g, '')
   return Number.isNaN(reversedVal) ? '' : reversedVal
 }
 
