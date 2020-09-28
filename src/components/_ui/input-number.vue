@@ -23,7 +23,9 @@ export default {
 
   methods: {
     control(target) {
-      this.$emit('input', parseFloat(textToNumberFormat(target.value)))
+      if (target.value) {
+        this.$emit('input', parseFloat(textToNumberFormat(target.value)))
+      }
     }
   }
 }
