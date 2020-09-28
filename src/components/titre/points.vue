@@ -88,14 +88,14 @@
                     <div class="blob-packed-1-2 border-l px-s">
                       <p class="h5 flex my-xxs">
                         <span class="flex-right mono bold">{{
-                          round(point.references[geoSystemeId][0])
+                          numberFormat(round(point.references[geoSystemeId][0]))
                         }}</span>
                       </p>
                     </div>
                     <div class="blob-packed-1-2 border-l px-s">
                       <p class="h5 flex my-xxs">
                         <span class="flex-right mono bold">{{
-                          round(point.references[geoSystemeId][1])
+                          numberFormat(round(point.references[geoSystemeId][1]))
                         }}</span>
                       </p>
                     </div>
