@@ -49,11 +49,7 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
         contour === contourIndexPrevious
       ) {
         groupes[groupe - 1][contour - 1][pointIndex - 1].references.push(
-          lot
-            ? pointReferences[lotGeoSystemeId]
-                .map(coordonnee => coordonnee.toString().replace('.', ','))
-                .join(';')
-            : pointReferences[lotGeoSystemeId].join(',')
+          pointReferences[lotGeoSystemeId].join(',')
         )
       } else {
         if (!groupes[groupe - 1]) {
@@ -67,12 +63,9 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
         const point = {
           description,
           lot,
+          subsidiaire,
           references: lot
-            ? [
-                pointReferences[lotGeoSystemeId]
-                  .map(coordonnee => coordonnee.toString().replace('.', ','))
-                  .join(';')
-              ]
+            ? [pointReferences[lotGeoSystemeId].join(',')]
             : pointReferences
         }
 
