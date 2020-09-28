@@ -30,9 +30,7 @@
           <span class="mono bg-alt p-xxs color-text">x,y</span> sont séparées
           par une virgule, sans espace.
         </li>
-        <li>
-          Le séparateur entre les unités et les décimales est un point.
-        </li>
+        <li>Le séparateur entre les unités et les décimales est un point.</li>
       </ul>
       <p class="mb-s">
         Exemple:
