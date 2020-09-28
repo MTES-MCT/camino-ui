@@ -118,10 +118,6 @@
           placeholder="0"
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
         />
-        <label v-if="etape.surface" class="h5">
-          <input v-model="etape.incertitudes.surface" type="checkbox" />donnée
-          incertaine
-        </label>
       </div>
     </div>
 
