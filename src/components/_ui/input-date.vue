@@ -4,7 +4,6 @@
     :value="value"
     type="date"
     class="p-s"
-    :class="{ 'mb-s': value, mb: !value }"
     @change="$emit('input', $event.target.value)"
   />
   <div v-else class="blobs-mini">

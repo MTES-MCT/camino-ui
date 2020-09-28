@@ -123,7 +123,7 @@ export default {
     },
 
     sections() {
-      return this.user ? this.user.sections : {}
+      return this.user && this.user.sections ? this.user.sections : {}
     },
 
     menu() {

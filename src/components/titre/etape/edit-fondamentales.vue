@@ -83,7 +83,6 @@
       <div class="tablet-blob-2-3">
         <inputNumber
           v-model.number="etape.surface"
-          class="p-s"
           min="0"
           placeholder="0"
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"

@@ -1,31 +1,22 @@
 <template>
   <div>
-    <h3 class="mb-s">
-      Périmètre
-    </h3>
-    <p class="h6 italic mb-s">
-      Optionnel
-    </p>
+    <h3 class="mb-s">Périmètre</h3>
+    <p class="h6 italic mb-s">Optionnel</p>
 
-    <EtapeEditPointsGeoSysteme
-      :etape.sync="etape"
-    />
+    <EtapeEditPointsGeoSysteme :etape.sync="etape" />
 
     <div v-if="etape.geoSystemeIds.length">
-      <hr>
+      <hr />
       <div class="h5 mb-s">
         <ul class="list-prefix">
-          <li>
-            <b>Point</b>: paire de coordoonnées.
-          </li>
-          <li>
-            <b>Contour ou lacune</b>: ensemble de points.
-          </li>
-          <li>
-            <b>Groupe</b>: ensemble de contours.
-          </li>
+          <li><b>Point</b>: paire de coordoonnées.</li>
+          <li><b>Contour ou lacune</b>: ensemble de points.</li>
+          <li><b>Groupe</b>: ensemble de contours.</li>
         </ul>
-        <p>Le premier contour d'un groupe définit un périmètre. Les contours suivants définissent des lacunes au sein de ce périmètre.</p>
+        <p>
+          Le premier contour d'un groupe définit un périmètre. Les contours
+          suivants définissent des lacunes au sein de ce périmètre.
+        </p>
       </div>
 
       <div
@@ -33,13 +24,8 @@
         :key="groupeIndex + 1"
         class="geo-groupe geo-groupe-edit mb-xs"
       >
-        <div
-          v-if="etape.groupes.length > 1"
-          class="flex flex-full"
-        >
-          <h4 class="color-bg pt-s pl-m mb-s">
-            Groupe {{ groupeIndex + 1 }}
-          </h4>
+        <div v-if="etape.groupes.length > 1" class="flex flex-full">
+          <h4 class="color-bg pt-s pl-m mb-s">Groupe {{ groupeIndex + 1 }}</h4>
           <div class="flex-right hide">
             <button
               class="btn-border py-s px-m rnd-xs"
@@ -54,10 +40,7 @@
           :key="contourIndex + 1"
           class="geo-contour"
         >
-          <div
-            v-if="groupeContours.length > 1"
-            class="flex flex-full"
-          >
+          <div v-if="groupeContours.length > 1" class="flex flex-full">
             <h4 class="pt-xs pl-s mb-s">
               {{ contourIndex === 0 ? 'Contour' : `Lacune ${contourIndex}` }}
             </h4>
@@ -76,36 +59,51 @@
             class="geo-point"
           >
             <div class="flex full-x">
-              <h4
-                v-if="point.lot"
-                class="mt-s"
-              >
-                Lot de points
-              </h4>
-              <h4
-                v-else
-                class="mt-s"
-              >
-                Point {{ point.nom }}
-              </h4>
+              <h4 v-if="point.lot" class="mt-s">Lot de points</h4>
+              <h4 v-else class="mt-s">Point {{ point.nom }}</h4>
               <div class="flex-right">
                 <button
-                  v-if="!(etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)"
+                  v-if="
+                    !(
+                      etape.groupes.length === groupeIndex + 1 &&
+                      groupeContours.length === contourIndex + 1 &&
+                      contourPoints.length === pointIndex + 1
+                    )
+                  "
                   class="btn-border py-s px-m rnd-l-xs"
                   @click="pointMoveDown(groupeIndex, contourIndex, pointIndex)"
                 >
                   <i class="icon-24 icon-move-down" />
                 </button>
                 <button
-                  v-if="!(groupeIndex === 0 && contourIndex === 0 && pointIndex === 0)"
-                  :class="{'rnd-l-xs': (etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)}"
+                  v-if="
+                    !(
+                      groupeIndex === 0 &&
+                      contourIndex === 0 &&
+                      pointIndex === 0
+                    )
+                  "
+                  :class="{
+                    'rnd-l-xs':
+                      etape.groupes.length === groupeIndex + 1 &&
+                      groupeContours.length === contourIndex + 1 &&
+                      contourPoints.length === pointIndex + 1
+                  }"
                   class="btn-border py-s px-m"
                   @click="pointMoveUp(groupeIndex, contourIndex, pointIndex)"
                 >
                   <i class="icon-24 icon-move-up" />
                 </button>
                 <button
-                  :class="{'rnd-l-xs': (groupeIndex === 0 && contourIndex === 0 && pointIndex === 0) && (etape.groupes.length === groupeIndex + 1 && groupeContours.length === contourIndex + 1 && contourPoints.length === pointIndex + 1)}"
+                  :class="{
+                    'rnd-l-xs':
+                      groupeIndex === 0 &&
+                      contourIndex === 0 &&
+                      pointIndex === 0 &&
+                      etape.groupes.length === groupeIndex + 1 &&
+                      groupeContours.length === contourIndex + 1 &&
+                      contourPoints.length === pointIndex + 1
+                  }"
                   class="btn py-s px-m rnd-r-xs"
                   @click="pointRemove(groupeIndex, contourIndex, pointIndex)"
                 >
@@ -131,14 +129,16 @@
             class="btn-border rnd-s py-s px-m full-x mb-xs flex h5"
             @click="pointAdd(groupeIndex, contourIndex)"
           >
-            <span class="mt-xxs">Ajouter un point</span><i class="icon-24 icon-plus flex-right" />
+            <span class="mt-xxs">Ajouter un point</span
+            ><i class="icon-24 icon-plus flex-right" />
           </button>
 
           <button
             class="btn-border rnd-s py-s px-m full-x mb-xs flex h5"
             @click="lotAdd(groupeIndex, contourIndex)"
           >
-            <span class="mt-xxs">Ajouter un lot de points</span><i class="icon-24 icon-plus flex-right" />
+            <span class="mt-xxs">Ajouter un lot de points</span
+            ><i class="icon-24 icon-plus flex-right" />
           </button>
         </div>
         <button
@@ -146,30 +146,33 @@
           class="btn rnd-s py-s px-m full-x mb-xs flex h5"
           @click="contourAdd(groupeIndex)"
         >
-          <span class="mt-xxs">Ajouter {{ groupeContours.length >= 1 ? 'une lacune' : 'un contour' }}</span><i class="icon-24 icon-plus flex-right" />
+          <span class="mt-xxs"
+            >Ajouter
+            {{ groupeContours.length >= 1 ? 'une lacune' : 'un contour' }}</span
+          ><i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
 
       <button
-        v-if="etape.groupes.length && etape.groupes[0].length && etape.groupes[0][0].length"
+        v-if="
+          etape.groupes.length &&
+          etape.groupes[0].length &&
+          etape.groupes[0][0].length
+        "
         class="btn rnd-s py-s px-m full-x mb-s flex h5"
         @click="groupeAdd"
       >
-        <span class="mt-xxs">Ajouter un groupe</span><i class="icon-24 icon-plus flex-right" />
+        <span class="mt-xxs">Ajouter un groupe</span
+        ><i class="icon-24 icon-plus flex-right" />
       </button>
 
-      <label
-        v-if="pointsTotal.length"
-        class="h5"
-      >
-        <input
-          v-model="etape.incertitudes.points"
-          type="checkbox"
-        >donnée incertaine
+      <label v-if="pointsTotal.length" class="h5">
+        <input v-model="etape.incertitudes.points" type="checkbox" />donnée
+        incertaine
       </label>
     </div>
 
-    <hr>
+    <hr />
   </div>
 </template>
 

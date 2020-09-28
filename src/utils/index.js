@@ -4,19 +4,10 @@ const dateFormat = dateString => {
   // .replace(/ *\([^)]*\) */g,'')
 }
 
-const numberFormat = x => {
-  return Intl.NumberFormat('FR-fr', {
+const numberFormat = number =>
+  Intl.NumberFormat('FR-fr', {
     maximumSignificantDigits: 21
-  }).format(x)
-}
-
-const textToNumberFormat = val => {
-  const reversedVal = val
-    .replace(/\s/g, '')
-    .replace(/,/g, '.')
-    .replace(/[^0-9\s,.]/g, '')
-  return Number.isNaN(reversedVal) ? '' : reversedVal
-}
+  }).format(number)
 
 const permissionsCheck = (userPermission, permissions) =>
   permissions.includes(userPermission.id)
@@ -25,10 +16,4 @@ const typenameOmit = (key, value) => (key === '__typename' ? undefined : value)
 
 const jsonTypenameOmit = json => JSON.parse(JSON.stringify(json), typenameOmit)
 
-export {
-  dateFormat,
-  permissionsCheck,
-  numberFormat,
-  textToNumberFormat,
-  jsonTypenameOmit
-}
+export { dateFormat, permissionsCheck, numberFormat, jsonTypenameOmit }
