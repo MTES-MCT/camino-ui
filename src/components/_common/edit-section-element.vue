@@ -15,9 +15,11 @@
       >
         <div v-if="modifiable">
           <div :class="{ 'mb-s': element.description }">
-            <inputNumber
+            <input
               v-if="element.type === 'number'"
-              v-model.trim.number="contenu[element.id]"
+              v-model.number="contenu[element.id]"
+              type="number"
+              min="0"
               class="p-s"
               placeholder="…"
             />
@@ -121,12 +123,10 @@
 <script>
 import { numberFormat } from '../../utils'
 import InputDate from '../_ui/input-date.vue'
-import InputNumber from '../_ui/input-number.vue'
 
 export default {
   components: {
-    InputDate,
-    InputNumber
+    InputDate
   },
 
   props: {
