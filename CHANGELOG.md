@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.46](https://github.com/MTES-MCT/camino-ui/compare/v0.22.45...v0.22.46) (2020-09-29)
+
+
+### Features
+
+* met à jour le logo de l'état ([#188](https://github.com/MTES-MCT/camino-ui/issues/188)) ([5afa5e0](https://github.com/MTES-MCT/camino-ui/commit/5afa5e007d4fc12eaf94f20db1243a1482de4a29))
+* ouvre une section lorsqu'elle est modifiée ([#187](https://github.com/MTES-MCT/camino-ui/issues/187)) ([cf63db3](https://github.com/MTES-MCT/camino-ui/commit/cf63db3670b36de0948561c69605706774899a62))
+* **documents:** accepte des .pdf jusqu'à 30 mo ([#183](https://github.com/MTES-MCT/camino-ui/issues/183)) ([d14cdca](https://github.com/MTES-MCT/camino-ui/commit/d14cdca98ba5434ddbb3d48fbe84c3034209c907))
+* **forêts:** affiche le nom des forêts sur chaque titre ([#184](https://github.com/MTES-MCT/camino-ui/issues/184)) ([fcbc017](https://github.com/MTES-MCT/camino-ui/commit/fcbc0179e443f9bd95b9a55f3eb0bf7b4faa8c65))
+* **sécurité:** ajoute la gestion du refresh token ([#177](https://github.com/MTES-MCT/camino-ui/issues/177)) ([9398e1a](https://github.com/MTES-MCT/camino-ui/commit/9398e1a6e49a73b6585e91055adf95791b4f9944))
+* **statistique:** change le libellé des champs surface ([#181](https://github.com/MTES-MCT/camino-ui/issues/181)) ([4cce082](https://github.com/MTES-MCT/camino-ui/commit/4cce0825e261df0ccde508e943785c9fdff9176c))
+
+
+### Bug Fixes
+
+* corrige l'affichage du selecteur et des onglets ([#182](https://github.com/MTES-MCT/camino-ui/issues/182)) ([a609109](https://github.com/MTES-MCT/camino-ui/commit/a60910929918f18f1e3c274aea5a7d391e18df16))
+* corrige la saisie de d'étape de travaux ([5c2e5d4](https://github.com/MTES-MCT/camino-ui/commit/5c2e5d42619e0b8085aad188bcaa01d722d620be))
+* corrige la saisie des nombres ([417bc7b](https://github.com/MTES-MCT/camino-ui/commit/417bc7b273b17706218ff6e522f8a634198b8556))
+* corrige la saisie des nombres sur les vieux Firefox ([#186](https://github.com/MTES-MCT/camino-ui/issues/186)) ([3b997aa](https://github.com/MTES-MCT/camino-ui/commit/3b997aa83742e8f7476e20d6d4c15024bd2281ac))
+* corrige la saisie des nombres sur les vieux Firefox ([#189](https://github.com/MTES-MCT/camino-ui/issues/189)) ([181862a](https://github.com/MTES-MCT/camino-ui/commit/181862a9260ddcd855441cce19d938953687ca14))
+* corrige la visibilité d'un document d'entreprise ([5d1895d](https://github.com/MTES-MCT/camino-ui/commit/5d1895de41b9bcb2962bb05db9e7cf2eae89a5ba))
+* corrige les accès direct sur la page des titres ([#180](https://github.com/MTES-MCT/camino-ui/issues/180)) ([6490ebb](https://github.com/MTES-MCT/camino-ui/commit/6490ebb03a5360151495fbb98a0fc1570ea484e5))
+* corrige une erreur lors de la selection d'étapes incluses ([afa1a7d](https://github.com/MTES-MCT/camino-ui/commit/afa1a7d044f73f4c68508c5f610880b30fc6f1e9))
+* désactive l'élément "statistique" du menu ([#178](https://github.com/MTES-MCT/camino-ui/issues/178)) ([97f731a](https://github.com/MTES-MCT/camino-ui/commit/97f731aa069a543d4a2dd48b478e15c04c2569ea))
+* vérifie les types des paramètres d'url ([711f269](https://github.com/MTES-MCT/camino-ui/commit/711f269d57c60b3bba3cf1cdf986ea41c5372a76))
+* **authentification:** corrige la création de son compte ([#185](https://github.com/MTES-MCT/camino-ui/issues/185)) ([1a5aa94](https://github.com/MTES-MCT/camino-ui/commit/1a5aa94a9c9f7a40298ad3f2661a77f00e04901e))
+
 ### [0.22.45](https://github.com/MTES-MCT/camino-ui/compare/v0.22.43...v0.22.45) (2020-09-18)
 
 
