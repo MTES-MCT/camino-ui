@@ -119,7 +119,7 @@
             {{ statistiques.demarches }}
           </p>
           <p class="bold text-center">
-            démarches effectuées en ligne cette années
+            démarches effectuées en ligne cette année
           </p>
         </div>
         <div class="desktop-blob-1-3 mb-xl">
