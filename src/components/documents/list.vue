@@ -17,8 +17,8 @@
         :repertoire="repertoire"
         :title="title"
         :etiquette="etiquette"
-        :bouton-suppression="boutonSuppression"
-        :bouton-modification="boutonModification"
+        :bouton-suppression="boutonSuppression && document.suppression"
+        :bouton-modification="boutonModification && document.modification"
         :bouton-dissociation="boutonDissociation"
       />
     </table>
