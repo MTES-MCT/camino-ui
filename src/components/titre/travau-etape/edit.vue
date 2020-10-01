@@ -83,7 +83,6 @@
           <div class="tablet-blob-1-2">
             <inputNumber
               v-model.number="etape.duree.ans"
-              min="0"
               placeholder="années"
               class="p-s mb-s"
             />
@@ -91,7 +90,6 @@
           <div class="tablet-blob-1-2">
             <inputNumber
               v-model.number="etape.duree.mois"
-              min="0"
               placeholder="mois"
               class="p-s"
             />
@@ -111,7 +109,6 @@
         <inputNumber
           v-model.number="etape.surface"
           class="p-s"
-          min="0"
           placeholder="0"
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
         />
