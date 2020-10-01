@@ -81,19 +81,15 @@
           :class="{ 'mb-s': !etape.duree.ans && !etape.duree.mois }"
         >
           <div class="tablet-blob-1-2">
-            <input
+            <inputNumber
               v-model.number="etape.duree.ans"
-              type="number"
-              min="0"
               placeholder="années"
               class="p-s mb-s"
             />
           </div>
           <div class="tablet-blob-1-2">
-            <input
+            <inputNumber
               v-model.number="etape.duree.mois"
-              type="number"
-              min="0"
               placeholder="mois"
               class="p-s"
             />
@@ -110,11 +106,9 @@
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
-        <input
+        <inputNumber
           v-model.number="etape.surface"
           class="p-s"
-          type="number"
-          min="0"
           placeholder="0"
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
         />
@@ -156,6 +150,7 @@
 
 <script>
 import InputDate from '../../_ui/input-date.vue'
+import InputNumber from '../../_ui/input-number.vue'
 import Popup from '../../_ui/popup.vue'
 import EditSections from '../../_common/edit-sections.vue'
 
@@ -167,7 +162,8 @@ export default {
   components: {
     Popup,
     EditSections,
-    InputDate
+    InputDate,
+    InputNumber
   },
 
   props: {
