@@ -43,24 +43,13 @@ app.use(
   })
 )
 
-if (apiMatomoUrl && process.env.API_MATOMO_ID) {
-  app.use(
-    '/matomo',
-    createProxyMiddleware({
-      target: apiMatomoUrl,
-      pathRewrite(path, req) {
-        return path
-          .replace('/matomo', '')
-          .replace('matomo-site-id', process.env.API_MATOMO_ID)
-      },
-      changeOrigin: true
-    })
-  )
-} else {
-  app.use('/matomo', (req, res) => {
-    res.end()
+app.use('/sentryDsn', (req, res) => res.send(process.env.API_SENTRY_URL))
+app.use('/matomoOptions', (req, res) =>
+  res.json({
+    host: apiMatomoUrl,
+    siteId: process.env.API_MATOMO_ID
   })
-}
+)
 
 app.use(compression())
 app.use('/', staticFileMiddleware)
