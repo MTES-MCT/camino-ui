@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
   fetch('/sentryDsn')
     .then(response => response.text())
     .then(dsn => {
-      if (!dsn) throw new Error('Pas de DSN Sentry')
+      if (!dsn) throw new Error('dsn manquant')
       Sentry.init({
         dsn,
         integrations: [
@@ -31,13 +31,13 @@ if (process.env.NODE_ENV === 'production') {
         release: `camino-ui-${npmVersion}`
       })
     })
-    .catch(e => console.error('Impossible d’initialiser Sentry', e))
+    .catch(e => console.error('erreur : Sentry :', e))
 
   fetch('/matomoOptions')
     .then(response => response.json())
     .then(options => {
       if (!options || !options.host || !options.siteId)
-        throw new Error('"host" et/ou "siteId" manquant')
+        throw new Error('host et/ou siteId manquant(s)')
       Vue.use(VueMatomo, {
         host: options.host,
         siteId: options.siteId,
@@ -50,7 +50,7 @@ if (process.env.NODE_ENV === 'production') {
         enableLinkTracking: true
       })
     })
-    .catch(e => console.error('Impossible d’initialiser Matomo', e))
+    .catch(e => console.error('erreur : matomo :', e))
 }
 Vue.config.productionTip = false
 
