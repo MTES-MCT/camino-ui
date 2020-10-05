@@ -29,7 +29,7 @@
 // --------------------------------------
 // https://github.com/cypress-io/cypress-documentation/issues/122#issuecomment-409839089
 
-import utilisateurCreationEmailEnvoyerMutation from './queries/utilisateur-creation-email'
+import utilisateurCreationMessageEnvoyerMutation from './queries/utilisateur-creation-email'
 import utilisateurCreerQuery from './queries/utilisateur-creer'
 import utilisateurTokenCreerMutation from './queries/utilisateur-token-creer'
 import utilisateurSupprimerMutation from './queries/utilisateur-supprimer'
@@ -43,12 +43,12 @@ Cypress.Commands.add('userAccountUrl', email =>
       method: 'POST',
       url: Cypress.env('apiUrl'),
       body: {
-        operationName: 'UtilisateurCreationEmailEnvoyer',
+        operationName: 'UtilisateurCreationMessageEnvoyer',
         variables: { email },
-        query: utilisateurCreationEmailEnvoyerMutation
+        query: utilisateurCreationMessageEnvoyerMutation
       }
     })
-    .then(res => res.body.data.utilisateurCreationEmailEnvoyer)
+    .then(res => res.body.data.utilisateurCreationMessageEnvoyer)
 )
 
 Cypress.Commands.add('login', (email, motDePasse) =>

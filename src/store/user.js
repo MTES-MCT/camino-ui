@@ -5,9 +5,9 @@ import {
   utilisateurTokenCreer,
   utilisateurCerbereTokenCreer,
   utilisateurCerbereUrlObtenir,
-  utilisateurCreationEmailEnvoyer,
+  utilisateurCreationMessageEnvoyer,
   utilisateurCreer,
-  utilisateurMotDePasseEmailEnvoyer,
+  utilisateurMotDePasseMessageEnvoyer,
   utilisateurMotDePasseInitialiser,
   metasUser
 } from '../api/utilisateurs'
@@ -149,7 +149,7 @@ export const actions = {
     commit('loadingAdd', 'utilisateurAddEmail', { root: true })
 
     try {
-      await utilisateurCreationEmailEnvoyer({ email })
+      await utilisateurCreationMessageEnvoyer({ email })
 
       commit('popupClose', null, { root: true })
       dispatch(
@@ -202,7 +202,7 @@ export const actions = {
     commit('loadingAdd', 'utilisateurPasswordInitEmail', { root: true })
 
     try {
-      const data = await utilisateurMotDePasseEmailEnvoyer({
+      const data = await utilisateurMotDePasseMessageEnvoyer({
         email
       })
       commit('popupClose', null, { root: true })

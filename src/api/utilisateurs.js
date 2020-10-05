@@ -203,15 +203,15 @@ const utilisateurMotDePasseInitialiser = apiFetch(gql`
   ${fragmentUtilisateurToken}
 `)
 
-const utilisateurMotDePasseEmailEnvoyer = apiFetch(gql`
-  mutation UtilisateurMotDePasseEmailEnvoyer($email: String!) {
-    utilisateurMotDePasseEmailEnvoyer(email: $email)
+const utilisateurMotDePasseMessageEnvoyer = apiFetch(gql`
+  mutation UtilisateurMotDePasseMessageEnvoyer($email: String!) {
+    utilisateurMotDePasseMessageEnvoyer(email: $email)
   }
 `)
 
-const utilisateurCreationEmailEnvoyer = apiFetch(gql`
-  mutation UtilisateurCreationEmailEnvoyer($email: String!) {
-    utilisateurCreationEmailEnvoyer(email: $email)
+const utilisateurCreationMessageEnvoyer = apiFetch(gql`
+  mutation UtilisateurCreationMessageEnvoyer($email: String!) {
+    utilisateurCreationMessageEnvoyer(email: $email)
   }
 `)
 
@@ -229,6 +229,6 @@ export {
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
   utilisateurMotDePasseInitialiser,
-  utilisateurMotDePasseEmailEnvoyer,
-  utilisateurCreationEmailEnvoyer
+  utilisateurMotDePasseMessageEnvoyer,
+  utilisateurCreationMessageEnvoyer
 }

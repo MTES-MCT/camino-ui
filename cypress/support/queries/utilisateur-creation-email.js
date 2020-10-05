@@ -1,4 +1,4 @@
-export default `mutation UtilisateurCreationEmailEnvoyer($email: String!) {
-  utilisateurCreationEmailEnvoyer(email: $email)
+export default `mutation UtilisateurCreationMessageEnvoyer($email: String!) {
+  utilisateurCreationMessageEnvoyer(email: $email)
 }
 `
