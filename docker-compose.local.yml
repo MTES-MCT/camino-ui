@@ -7,8 +7,8 @@ services:
     environment:
       VIRTUAL_HOST: ${URL}
       VIRTUAL_PORT: ${PORT}
-      API_URL: ${API_URL}
       PORT: ${PORT}
+      API_URL: ${API_URL}
       API_MATOMO_URL: ${API_MATOMO_URL}
       API_MATOMO_ID: ${API_MATOMO_ID}
     networks:
