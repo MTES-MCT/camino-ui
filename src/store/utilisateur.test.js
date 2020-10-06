@@ -11,7 +11,9 @@ jest.mock('../api/utilisateurs', () => ({
   utilisateurCreer: jest.fn(),
   utilisateurModifier: jest.fn(),
   utilisateurSupprimer: jest.fn(),
-  utilisateurMotDePasseModifier: jest.fn()
+  utilisateurMotDePasseModifier: jest.fn(),
+  utilisateurEmailMessageEnvoyer: jest.fn(),
+  utilisateurEmailModifier: jest.fn()
 }))
 
 jest.mock('../router', () => ({
@@ -336,6 +338,83 @@ describe("état de l'utilisateur consulté", () => {
       motDePasseNouveau2: 'jour'
     })
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test('vérifie le nouvel email', async () => {
+    const apiMock = api.utilisateurEmailMessageEnvoyer.mockResolvedValue({})
+    await store.dispatch('utilisateur/emailVerification', {
+      email: 'fakeEmail'
+    })
+
+    expect(mutations.loadingAdd).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({
+      email: 'fakeEmail'
+    })
+    expect(mutations.popupClose).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalledWith(expect.any(Object), {
+      type: 'success',
+      value: 'un email de vérification vient de vous être envoyé'
+    })
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur de l'api lors de la vérification de son nouvel email", async () => {
+    const apiMock = api.utilisateurEmailMessageEnvoyer.mockRejectedValue(
+      new Error("erreur dans l'api")
+    )
+    await store.dispatch('utilisateur/emailVerification', {
+      email: 'fakeEmail'
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      email: 'fakeEmail'
+    })
+
+    expect(mutations.loadingAdd).toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalledWith(expect.any(Object), {
+      type: 'error',
+      value: new Error("erreur dans l'api")
+    })
+    expect(mutations.popupClose).not.toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test('modifie son propre email', async () => {
+    const apiMock = api.utilisateurEmailModifier.mockResolvedValue({})
+    await store.dispatch('utilisateur/emailUpdate', {
+      emailToken: 'fakeToken'
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      emailToken: 'fakeToken'
+    })
+    expect(mutations.loadingAdd).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalledWith(expect.any(Object), {
+      type: 'success',
+      value: 'votre email a été modifié avec succés'
+    })
+
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur de l'api lors de la modification de son email", async () => {
+    const apiMock = api.utilisateurEmailModifier.mockRejectedValue(
+      new Error("erreur dans l'api")
+    )
+    await store.dispatch('utilisateur/emailUpdate', {
+      emailToken: 'fakeToken'
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      emailToken: 'fakeToken'
+    })
+
+    expect(mutations.loadingAdd).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalledWith(expect.any(Object), {
+      type: 'error',
+      value: new Error("erreur dans l'api")
+    })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 })

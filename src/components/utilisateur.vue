@@ -30,6 +30,15 @@
         </button>
 
         <button
+          v-if="user && user.id === utilisateur.id"
+          id="cmn-utilisateur-button-email-popup"
+          class="btn-alt py-s px-m"
+          @click="emailPopupOpen"
+        >
+          <i class="icon-24 icon-pencil" />
+        </button>
+
+        <button
           id="cmn-utilisateur-button-popup-supprimer"
           class="btn-alt py-s px-m"
           @click="removePopupOpen"
@@ -158,6 +167,7 @@ import Loader from './_ui/loader.vue'
 import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
 import UtilisateurRemovePopup from './utilisateur/remove-popup.vue'
 import UtilisateurPasswordPopup from './utilisateur/password-popup.vue'
+import UtilisateurEmailPopup from './utilisateur/email-popup.vue'
 
 export default {
   components: {
@@ -182,7 +192,7 @@ export default {
 
   watch: {
     user: 'get',
-    '$route.params.id': async function () {
+    '$route.params.id': async function() {
       await this.get()
     }
   },
@@ -243,6 +253,12 @@ export default {
         props: {
           utilisateur: jsonTypenameOmit(this.utilisateur)
         }
+      })
+    },
+
+    emailPopupOpen() {
+      this.$store.commit('popupOpen', {
+        component: UtilisateurEmailPopup
       })
     }
   }

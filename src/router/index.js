@@ -117,6 +117,15 @@ const routes = [
     component: UserPasswordInit
   },
   {
+    path: '/email',
+    beforeEnter: (to, from, next) => {
+      store.dispatch('utilisateur/emailUpdate', {
+        emailToken: to.query.token
+      })
+      next('/')
+    }
+  },
+  {
     path: '/creation-de-compte',
     name: 'creation-de-compte',
     component: UserAdd

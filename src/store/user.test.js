@@ -11,8 +11,8 @@ jest.mock('../api/utilisateurs', () => ({
   utilisateurCerbereTokenCreer: jest.fn(),
   moi: jest.fn(),
   utilisateurMotDePasseInitialiser: jest.fn(),
-  utilisateurMotDePasseEmailEnvoyer: jest.fn(),
-  utilisateurCreationEmailEnvoyer: jest.fn(),
+  utilisateurMotDePasseMessageEnvoyer: jest.fn(),
+  utilisateurCreationMessageEnvoyer: jest.fn(),
   utilisateurCreer: jest.fn(),
   metasUser: jest.fn()
 }))
@@ -268,7 +268,9 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test('ajoute un email', async () => {
-    const apiMock = api.utilisateurCreationEmailEnvoyer.mockResolvedValue(email)
+    const apiMock = api.utilisateurCreationMessageEnvoyer.mockResolvedValue(
+      email
+    )
     await store.dispatch('user/addEmail', email)
 
     expect(apiMock).toHaveBeenCalledWith({ email })
@@ -277,7 +279,7 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("retourne une erreur de l'api lors de l'ajout d'un email", async () => {
-    const apiMock = api.utilisateurCreationEmailEnvoyer.mockRejectedValue(
+    const apiMock = api.utilisateurCreationMessageEnvoyer.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     await store.dispatch('user/addEmail', email)
@@ -322,7 +324,7 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("crée l'email d'un utilisateur", async () => {
-    const apiMock = api.utilisateurMotDePasseEmailEnvoyer.mockResolvedValue(
+    const apiMock = api.utilisateurMotDePasseMessageEnvoyer.mockResolvedValue(
       userInfo
     )
     await store.dispatch('user/passwordInitEmail', email)
@@ -333,7 +335,7 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("retourne une erreur api dans la création de l'email de l'utilisateur", async () => {
-    const apiMock = api.utilisateurMotDePasseEmailEnvoyer.mockRejectedValue(
+    const apiMock = api.utilisateurMotDePasseMessageEnvoyer.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     await store.dispatch('user/passwordInitEmail', email)
