@@ -6,7 +6,9 @@ import {
   utilisateurCreer,
   utilisateurModifier,
   utilisateurSupprimer,
-  utilisateurMotDePasseModifier
+  utilisateurMotDePasseModifier,
+  utilisateurEmailMessageEnvoyer,
+  utilisateurEmailModifier
 } from '../api/utilisateurs'
 
 import router from '../router'
@@ -138,6 +140,59 @@ export const actions = {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'utilisateurPasswordUpdate', {
+        root: true
+      })
+    }
+  },
+
+  async emailVerification({ commit, dispatch }, { email }) {
+    commit('popupMessagesRemove', null, { root: true })
+    commit('popupLoad', null, { root: true })
+    commit('loadingAdd', 'utilisateurEmailVerification', { root: true })
+
+    try {
+      await utilisateurEmailMessageEnvoyer({
+        email
+      })
+
+      commit('popupClose', null, { root: true })
+      dispatch(
+        'messageAdd',
+        {
+          value: `un email de vérification vient de vous être envoyé`,
+          type: 'success'
+        },
+        { root: true }
+      )
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'utilisateurEmailVerification', {
+        root: true
+      })
+    }
+  },
+
+  async emailUpdate({ commit, dispatch }, { emailToken }) {
+    commit('loadingAdd', 'utilisateurEmailModifier', { root: true })
+
+    try {
+      await utilisateurEmailModifier({
+        emailToken
+      })
+
+      dispatch(
+        'messageAdd',
+        {
+          value: `votre email a été modifié avec succés`,
+          type: 'success'
+        },
+        { root: true }
+      )
+    } catch (e) {
+      dispatch('messageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'utilisateurEmailModifier', {
         root: true
       })
     }

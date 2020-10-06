@@ -16,21 +16,17 @@
       <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom.</p>
       <hr />
     </div>
-    <div class="tablet-blobs">
+    <div v-if="permissionsCheck(['super', 'admin'])" class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Email</h6>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
-          v-if="permissionsCheck(['super', 'admin'])"
           v-model="utilisateur.email"
           type="email"
           class="p-s"
           placeholder="Email"
         />
-        <div v-else class="py-s">
-          {{ utilisateur.email }}
-        </div>
       </div>
     </div>
 
@@ -127,7 +123,9 @@
               class="mb-xs"
             >
               <button
-                :id="`cmn-utilisateur-edit-popup-permission-button-${permission.id}`"
+                :id="
+                  `cmn-utilisateur-edit-popup-permission-button-${permission.id}`
+                "
                 class="btn-flash py-xs px-s pill cap-first h6 mr-xs"
                 @click="permissionToggle(permission)"
               >
@@ -215,7 +213,7 @@
                 :value="{ id: a.id }"
                 :disabled="
                   utilisateur.administrations.find(({ id }) => id === a.id) ||
-                  administrationsDisabledIds.includes(a.id)
+                    administrationsDisabledIds.includes(a.id)
                 "
               >
                 {{ `${a.abreviation}` }}
@@ -235,7 +233,7 @@
         <button
           v-if="
             !utilisateur.administrations.some(({ id }) => id === '') &&
-            utilisateurAdministrationsLength < 1
+              utilisateurAdministrationsLength < 1
           "
           id="cmn-utilisateur-edit-popup-administration-button-ajouter"
           class="btn rnd-xs py-s px-m full-x flex mb h5"

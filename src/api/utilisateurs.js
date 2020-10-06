@@ -215,6 +215,22 @@ const utilisateurCreationMessageEnvoyer = apiFetch(gql`
   }
 `)
 
+const utilisateurEmailMessageEnvoyer = apiFetch(gql`
+  mutation UtilisateurEmailMessageEnvoyer($email: String!) {
+    utilisateurEmailMessageEnvoyer(email: $email)
+  }
+`)
+
+const utilisateurEmailModifier = apiFetch(gql`
+  mutation UtilisateurEmailModifier($emailToken: String!) {
+    utilisateurEmailModifier(emailToken: $emailToken) {
+      ...utilisateurToken
+    }
+  }
+
+  ${fragmentUtilisateurToken}
+`)
+
 export {
   metasUser,
   metasUtilisateur,
@@ -230,5 +246,7 @@ export {
   utilisateurMotDePasseModifier,
   utilisateurMotDePasseInitialiser,
   utilisateurMotDePasseMessageEnvoyer,
-  utilisateurCreationMessageEnvoyer
+  utilisateurCreationMessageEnvoyer,
+  utilisateurEmailMessageEnvoyer,
+  utilisateurEmailModifier
 }
