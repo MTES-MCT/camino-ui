@@ -178,7 +178,7 @@ export default {
     },
 
     eventTrack(action) {
-      this.$emit('titre:eventTrack', {
+      this.$emit('titre-event-track', {
         categorie: 'titre-sections',
         action,
         nom: this.$route.params.id

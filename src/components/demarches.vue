@@ -10,7 +10,7 @@
     :params="params"
     :total="total"
     :loaded="metasLoaded"
-    @preferences:update="preferencesUpdate"
+    @preferences-update="preferencesUpdate"
     @loaded="demarchesLoad"
   >
     <Downloads
@@ -80,7 +80,7 @@ export default {
     user: 'metasGet',
 
     preferences: {
-      handler: function () {
+      handler: function() {
         this.demarchesGet()
       },
       deep: true

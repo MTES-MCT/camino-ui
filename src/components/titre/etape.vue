@@ -26,7 +26,7 @@
         :title="documentPopupTitle"
         :documents="{ ids: etape.justificatifs.map(j => j.id) }"
         class="btn py-s px-m mr-line"
-        @titre:eventTrack="eventTrack"
+        @titre-event-track="eventTrack"
       />
       <DocumentButtonAdd
         :document="documentNew"
@@ -36,7 +36,7 @@
         :parent-id="etape.id"
         :parent-type-id="etape.type.id"
         class="btn py-s px-m mr-line"
-        @titre:eventTrack="eventTrack"
+        @titre-event-track="eventTrack"
       />
       <button
         v-if="etape.modification"
@@ -85,7 +85,7 @@
           :repertoire="documentRepertoire"
           :title="documentPopupTitle"
           class="px-m"
-          @titre:eventTrack="eventTrack"
+          @titre-event-track="eventTrack"
         />
       </div>
 
@@ -103,7 +103,7 @@
           :repertoire="documentRepertoire"
           :title="documentPopupTitle"
           class="px-m"
-          @titre:eventTrack="eventTrack"
+          @titre-event-track="eventTrack"
         />
       </div>
     </div>
@@ -267,7 +267,7 @@ export default {
     },
 
     eventTrack(event) {
-      this.$emit('titre:eventTrack', event)
+      this.$emit('titre-event-track', event)
     }
   }
 }

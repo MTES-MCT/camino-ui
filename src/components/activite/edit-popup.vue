@@ -22,7 +22,7 @@
       :element.sync="activite"
       :modifiable="modifiable"
       :sections="activite.sections"
-      @completed:update="activiteCompletedUpdate"
+      @completed-update="activiteCompletedUpdate"
     />
 
     <div v-if="activite.documentsCreation">
@@ -32,7 +32,7 @@
         :parent-id="activite.id"
         :parent-type-id="activite.type.id"
         repertoire="activites"
-        @completed:update="documentsCompletedUpdate"
+        @completed-update="documentsCompletedUpdate"
       />
     </div>
 

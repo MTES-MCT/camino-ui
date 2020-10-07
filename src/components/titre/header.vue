@@ -108,7 +108,7 @@ export default {
     },
 
     eventTrack(event) {
-      this.$emit('titre:eventTrack', event)
+      this.$emit('titre-event-track', event)
     }
   }
 }

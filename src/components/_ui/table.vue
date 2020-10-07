@@ -71,7 +71,7 @@ export default {
 
   methods: {
     update(params) {
-      this.$emit('params:update', params)
+      this.$emit('params-update', params)
     },
 
     sort(colId) {

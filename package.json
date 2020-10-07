@@ -65,7 +65,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint-plugin-vue": "^7.0.1",
     "file-saver": "^2.0.2",
     "graphql": "^15.3.0",
     "graphql-react": "^12.0.0",
@@ -116,8 +116,8 @@
       "prettier/vue"
     ],
     "rules": {
-      "no-throw-literal": 0,
-      "vue/no-v-html": 0
+      "vue/no-mutating-props": 0,
+      "vue/valid-v-bind-sync": 0
     },
     "parserOptions": {
       "parser": "babel-eslint"

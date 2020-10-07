@@ -9,7 +9,7 @@
       >.
     </div>
 
-    <TitreHeader :titre="titre" @titre:eventTrack="eventTrack" />
+    <TitreHeader :titre="titre" @titre-event-track="eventTrack" />
 
     <TitreInfos :titre="titre" class="mb" />
 
@@ -53,7 +53,7 @@
         :points="titre.points"
         :domaine-id="titre.domaine.id"
         :type-id="titre.type.type.id"
-        @titre:eventTrack="eventTrack"
+        @titre-event-track="eventTrack"
       />
 
       <TitrePoints
@@ -76,7 +76,7 @@
       :titulaires="titre.titulaires"
       :amodiataires="titre.amodiataires"
       :administrations="titre.administrations"
-      @titre:eventTrack="eventTrack"
+      @titre-event-track="eventTrack"
     />
 
     <div v-if="tabsActives.length > 1" class="flex">
@@ -105,7 +105,7 @@
     <TitreDemarches
       v-if="tabActive === 'demarches'"
       :demarches="titre.demarches"
-      @titre:eventTrack="eventTrack"
+      @titre-event-track="eventTrack"
     />
 
     <TitreActivitesList
@@ -117,7 +117,7 @@
     <TitreTravaux
       v-if="tabActive === 'travaux'"
       :travaux="titre.travaux"
-      @titre:eventTrack="eventTrack"
+      @titre-event-track="eventTrack"
     />
   </div>
 </template>

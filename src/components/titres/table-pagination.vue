@@ -7,7 +7,7 @@
     :range="preferences.intervalle"
     :rows="lignes"
     :total="total"
-    @params:update="preferencesUpdate"
+    @params-update="preferencesUpdate"
   />
 </template>
 

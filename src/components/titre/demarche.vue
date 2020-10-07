@@ -12,8 +12,8 @@
         <div
           v-if="
             demarche.modification ||
-            demarche.suppression ||
-            demarche.etapesCreation
+              demarche.suppression ||
+              demarche.etapesCreation
           "
           class="flex-right flex"
         >
@@ -53,7 +53,7 @@
       :etape="etape"
       :demarche-type="demarche.type"
       :demarche-id="demarche.id"
-      @titre:eventTrack="eventTrack"
+      @titre-event-track="eventTrack"
     />
   </div>
 </template>
@@ -163,7 +163,7 @@ export default {
     },
 
     eventTrack(event) {
-      this.$emit('titre:eventTrack', event)
+      this.$emit('titre-event-track', event)
     }
   }
 }

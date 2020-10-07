@@ -16,7 +16,7 @@
       :key="demarche.id"
       :demarche="demarche"
       :type="titre.type"
-      @titre:eventTrack="eventTrack"
+      @titre-event-track="eventTrack"
     />
   </div>
 </template>
@@ -65,7 +65,7 @@ export default {
     },
 
     eventTrack(event) {
-      this.$emit('titre:eventTrack', event)
+      this.$emit('titre-event-track', event)
     }
   }
 }

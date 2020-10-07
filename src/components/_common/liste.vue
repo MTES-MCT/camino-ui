@@ -16,7 +16,7 @@
       v-if="loaded"
       :values="urlValuesFiltres"
       :params="preferences.filtres"
-      @params:update="preferencesFiltresUpdate"
+      @params-update="preferencesFiltresUpdate"
       @loaded="urlLoad('filtres')"
     />
 
@@ -24,7 +24,7 @@
       v-if="loaded"
       :values="urlValuesTable"
       :params="preferences.table"
-      @params:update="preferencesTableUpdate"
+      @params-update="preferencesTableUpdate"
       @loaded="urlLoad('table')"
     />
 
@@ -33,7 +33,7 @@
       :loaded="loaded"
       :metas="metas"
       :preferences="preferences.filtres"
-      @preferences:update="preferencesFiltresUpdateAndPageReset"
+      @preferences-update="preferencesFiltresUpdateAndPageReset"
     />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
@@ -58,7 +58,7 @@
       :order="preferences.table.ordre"
       :page="preferences.table.page"
       :total="total"
-      @params:update="preferencesTableUpdate"
+      @params-update="preferencesTableUpdate"
     />
   </div>
 </template>
@@ -147,19 +147,19 @@ export default {
         delete params.order
       }
 
-      await this.$emit('preferences:update', { section: 'table', params })
+      await this.$emit('preferences-update', { section: 'table', params })
     },
 
     preferencesFiltresUpdateAndPageReset(params) {
       this.preferencesFiltresUpdate(params)
-      this.$emit('preferences:update', {
+      this.$emit('preferences-update', {
         section: 'table',
         params: { page: 1 }
       })
     },
 
     preferencesFiltresUpdate(params) {
-      this.$emit('preferences:update', { section: 'filtres', params })
+      this.$emit('preferences-update', { section: 'filtres', params })
     },
 
     urlLoad(id) {

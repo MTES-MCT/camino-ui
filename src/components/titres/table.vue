@@ -4,7 +4,7 @@
     :columns="colonnes"
     :order="preferences.ordre"
     :rows="lignes"
-    @params:update="preferencesUpdate"
+    @params-update="preferencesUpdate"
   />
 </template>
 

@@ -74,7 +74,7 @@ export default {
 
   methods: {
     preferencesUpdate(params) {
-      this.$emit('preferences:update', params)
+      this.$emit('preferences-update', params)
     },
 
     toggle() {

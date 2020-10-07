@@ -3,7 +3,7 @@
     <Url
       :params="preferences"
       :values="params"
-      @params:update="preferencesUpdate"
+      @params-update="preferencesUpdate"
       @loaded="$emit('loaded')"
     />
     <Table :titres="titres" :total="total" />

@@ -31,7 +31,7 @@ export default {
         }
       })
 
-      this.$emit('titre:eventTrack', {
+      this.$emit('titre-event-track', {
         categorie: 'titre-sections',
         action: 'titre-etape-doc_ajouter',
         nom: this.$route.params.id

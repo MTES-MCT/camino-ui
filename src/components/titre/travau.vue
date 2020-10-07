@@ -12,8 +12,8 @@
         <div
           v-if="
             travaux.modification ||
-            travaux.suppression ||
-            travaux.etapesCreation
+              travaux.suppression ||
+              travaux.etapesCreation
           "
           class="flex-right flex"
         >
@@ -53,7 +53,7 @@
       :etape="etape"
       :travaux-type="travaux.type"
       :travaux-id="travaux.id"
-      @titre:eventTrack="eventTrack"
+      @titre-event-track="eventTrack"
     />
   </div>
 </template>
@@ -155,7 +155,7 @@ export default {
     },
 
     eventTrack(event) {
-      this.$emit('titre:eventTrack', event)
+      this.$emit('titre-event-track', event)
     }
   }
 }

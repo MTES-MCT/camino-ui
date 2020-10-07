@@ -58,7 +58,7 @@ export default {
           this.updateBboxOnly = false
           const bbox = this.boundsGet()
 
-          this.$emit('map:update', { bbox })
+          this.$emit('map-update', { bbox })
         } else {
           const center = [this.map.getCenter().lat, this.map.getCenter().lng]
           const zoom = this.map.getZoom()
@@ -66,11 +66,11 @@ export default {
 
           if (this.updateCenterAndZoomOnly) {
             this.updateCenterAndZoomOnly = false
-            this.$emit('map:update', { center, zoom })
+            this.$emit('map-update', { center, zoom })
           } else {
             const bbox = this.boundsGet()
 
-            this.$emit('map:update', { center, zoom, bbox })
+            this.$emit('map-update', { center, zoom, bbox })
           }
         }
       })

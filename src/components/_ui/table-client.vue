@@ -4,7 +4,7 @@
     :columns="columns"
     :order="order"
     :rows="rowsPage"
-    @params:update="paramsUpdate"
+    @params-update="paramsUpdate"
   />
 </template>
 
@@ -54,7 +54,7 @@ export default {
 
   methods: {
     paramsUpdate(params) {
-      this.$emit('params:update', params)
+      this.$emit('params-update', params)
     }
   }
 }

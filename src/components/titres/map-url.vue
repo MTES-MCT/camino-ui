@@ -3,7 +3,7 @@
     <Url
       :params="preferences"
       :values="values"
-      @params:update="preferencesUpdate"
+      @params-update="preferencesUpdate"
       @loaded="$emit('loaded')"
     />
     <Map :titres="titres" />

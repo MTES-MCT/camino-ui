@@ -8,7 +8,7 @@
           :key="titulaire.id"
           :entreprise="titulaire"
           class="mb-s"
-          @titre:eventTrack="eventTrack"
+          @titre-event-track="eventTrack"
         />
       </div>
       <div v-if="amodiataires.length" class="mb">
@@ -18,7 +18,7 @@
           :key="amodiataire.id"
           :entreprise="amodiataire"
           class="mb-s"
-          @titre:eventTrack="eventTrack"
+          @titre-event-track="eventTrack"
         />
       </div>
     </div>
@@ -31,7 +31,7 @@
           :key="administration.id"
           :administration="administration"
           class="mb-s"
-          @titre:eventTrack="eventTrack"
+          @titre-event-track="eventTrack"
         />
       </div>
     </div>
@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     eventTrack(event) {
-      this.$emit('titre:eventTrack', event)
+      this.$emit('titre-event-track', event)
     }
   }
 }

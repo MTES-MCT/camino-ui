@@ -55,7 +55,7 @@ export default {
     },
 
     select(tilesId) {
-      this.$emit('params:update', { tilesId })
+      this.$emit('params-update', { tilesId })
     }
   }
 }

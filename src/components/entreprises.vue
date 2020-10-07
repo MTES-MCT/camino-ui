@@ -10,7 +10,7 @@
     :params="params"
     :total="total"
     :loaded="metasLoaded"
-    @preferences:update="preferencesUpdate"
+    @preferences-update="preferencesUpdate"
     @loaded="entreprisesLoad"
   >
     <button

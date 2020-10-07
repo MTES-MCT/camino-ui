@@ -54,8 +54,8 @@ export default {
 
   watch: {
     completed: {
-      handler: function (completed) {
-        this.$emit('completed:update', completed)
+      handler: function(completed) {
+        this.$emit('completed-update', completed)
       },
       immediate: true
     }

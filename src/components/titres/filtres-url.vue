@@ -4,7 +4,7 @@
       v-if="metasLoaded"
       :values="filtresUrlValues"
       :params="preferences"
-      @params:update="preferencesFiltresUpdate"
+      @params-update="preferencesFiltresUpdate"
       @loaded="$emit('loaded')"
     />
 
@@ -13,7 +13,7 @@
       :loaded="metasLoaded"
       :metas="metas"
       :preferences="preferences"
-      @preferences:update="preferencesFiltresUpdateAndPageReset"
+      @preferences-update="preferencesFiltresUpdateAndPageReset"
       @toggle="filtresToggle"
     />
   </div>

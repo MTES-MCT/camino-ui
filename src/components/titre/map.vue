@@ -23,7 +23,7 @@
           <MapTilesSelector
             :tiles="tiles"
             :tiles-id="tilesId"
-            @params:update="preferencesUpdate"
+            @params-update="preferencesUpdate"
           />
         </div>
       </div>
@@ -125,7 +125,7 @@ export default {
 
   methods: {
     preferencesUpdate(params) {
-      this.$emit('titre:eventTrack', {
+      this.$emit('titre-event-track', {
         categorie: 'titre-sections',
         action: 'titre-carte_choisirFond',
         nom: this.$route.params.id
@@ -139,7 +139,7 @@ export default {
     centrerTrack() {
       this.centrer()
 
-      this.$emit('titre:eventTrack', {
+      this.$emit('titre-event-track', {
         categorie: 'titre-sections',
         action: 'titre-carte_centrer',
         nom: this.$route.params.id

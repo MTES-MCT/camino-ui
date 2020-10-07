@@ -6,7 +6,7 @@
       :order="order"
       :rows="rows"
       class="width-max"
-      @params:update="update"
+      @params-update="update"
     />
 
     <div class="desktop-blobs">
@@ -15,7 +15,7 @@
           :active="page"
           :total="pages"
           :visibles="5"
-          @page:update="pageUpdate"
+          @page-update="pageUpdate"
         />
       </div>
       <div class="desktop-blob-1-4">
@@ -23,7 +23,7 @@
           v-if="total > 10"
           :ranges="[10, 50, 200, 500]"
           :range="range"
-          @range:update="rangeUpdate"
+          @range-update="rangeUpdate"
         />
       </div>
     </div>
@@ -62,7 +62,7 @@ export default {
 
   methods: {
     update(params) {
-      this.$emit('params:update', params)
+      this.$emit('params-update', params)
     },
 
     pageUpdate(page) {

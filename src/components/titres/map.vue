@@ -6,7 +6,7 @@
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
       class="map map-view mb-s"
-      @map:update="titresPreferencesUpdate"
+      @map-update="titresPreferencesUpdate"
     />
     <MapPattern :domaines-ids="domainesIds" :types-ids="typesIds" />
     <MapWarningBrgm :zoom="preferences.zoom" :tiles-id="tilesId" />
@@ -67,7 +67,7 @@
             :tiles="tiles"
             :tiles-id="tilesId"
             class="flex-grow mb-s"
-            @params:update="userPreferencesUpdate"
+            @params-update="userPreferencesUpdate"
           />
         </div>
       </div>

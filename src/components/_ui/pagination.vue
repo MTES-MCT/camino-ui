@@ -87,7 +87,7 @@ export default {
 
   methods: {
     pageChange(page) {
-      this.$emit('page:update', page)
+      this.$emit('page-update', page)
     }
   }
 }

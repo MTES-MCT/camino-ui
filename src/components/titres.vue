@@ -22,7 +22,7 @@
     <Url
       :values="vueUrlValues"
       :params="{ vue }"
-      @params:update="preferencesVueUpdate"
+      @params-update="preferencesVueUpdate"
       @loaded="urlLoad('vue')"
     />
 
