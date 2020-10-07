@@ -24,6 +24,7 @@
           "
           id="cmn-utilisateur-button-password-popup"
           class="btn-alt py-s px-m"
+          title="changer de mot de passe"
           @click="passwordPopupOpen"
         >
           <i class="icon-24 icon-key" />
@@ -33,14 +34,16 @@
           v-if="user && user.id === utilisateur.id"
           id="cmn-utilisateur-button-email-popup"
           class="btn-alt py-s px-m"
+          title="changer d'email"
           @click="emailPopupOpen"
         >
-          <i class="icon-24 icon-pencil" />
+          <i class="icon-24 icon-at" />
         </button>
 
         <button
           id="cmn-utilisateur-button-popup-supprimer"
           class="btn-alt py-s px-m"
+          title="supprimer le compte utilisateur"
           @click="removePopupOpen"
         >
           <i class="icon-24 icon-trash" />
@@ -49,6 +52,7 @@
         <button
           id="cmn-utilisateur-button-popup-editer"
           class="btn-alt py-s px-m"
+          title="modifier le compte utilisateur"
           @click="editPopupOpen"
         >
           <i class="icon-24 icon-pencil" />
@@ -192,7 +196,7 @@ export default {
 
   watch: {
     user: 'get',
-    '$route.params.id': async function() {
+    '$route.params.id': async function () {
       await this.get()
     }
   },

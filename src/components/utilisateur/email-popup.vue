@@ -1,9 +1,7 @@
 <template>
   <Popup :messages="messages">
     <template slot="header">
-      <div>
-        <h2 class="mb-0">Modification de l’email</h2>
-      </div>
+      <h2 class="mb-0">Modification de l’email</h2>
     </template>
 
     <div class="tablet-blobs">
@@ -19,7 +17,6 @@
         />
       </div>
     </div>
-    <hr />
 
     <template slot="footer">
       <div class="tablet-blobs">
