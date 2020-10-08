@@ -1,3 +1,4 @@
+/* eslint-disable vue/one-component-per-file */
 import Vue from 'vue'
 import TagList from '../_ui/tag-list.vue'
 import List from '../_ui/list.vue'

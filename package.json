@@ -137,8 +137,8 @@
   },
   "postcss": {
     "plugins": {
-      "postcss-normalize": {},
       "postcss-import": {},
+      "postcss-normalize": {},
       "postcss-typescale": {},
       "postcss-grid-system": {},
       "postcss-grid-fluid": {},
