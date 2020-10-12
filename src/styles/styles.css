@@ -3,7 +3,7 @@
 @import 'settings.css';
 
 /* Reset           ------------------------------- */
-
+@import 'system/normalize.css';
 @import 'system/print.css';
 @import 'system/reset.css';
 
