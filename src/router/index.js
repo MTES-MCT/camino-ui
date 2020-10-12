@@ -19,11 +19,19 @@ import MentionsLegalesCGU from '../components/content/mentions-legales-cgu.vue'
 import Cgu1 from '../components/content/cgu-1-0-0.vue'
 import UserPasswordInit from '../components/user/password-init.vue'
 import UserAdd from '../components/user/add.vue'
-import Statistiques from '../components/statistiques.vue'
-import StatistiquesGlobales from '../components/statistiques/globales.vue'
-import StatistiquesGuyane from '../components/statistiques/guyane.vue'
 import Definition from '../components/glossaire/definition.vue'
 import store from '../store'
+
+const Statistiques = () =>
+  import(/* webpackChunkName: "group-stats" */ '../components/statistiques.vue')
+const StatistiquesGlobales = () =>
+  import(
+    /* webpackChunkName: "group-stats" */ '../components/statistiques/globales.vue'
+  )
+const StatistiquesGuyane = () =>
+  import(
+    /* webpackChunkName: "group-stats" */ '../components/statistiques/guyane.vue'
+  )
 
 Vue.use(VueRouter)
 
