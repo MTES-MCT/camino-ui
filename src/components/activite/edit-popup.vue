@@ -172,46 +172,36 @@ export default {
     },
 
     async save(confirmation) {
-      const validate = confirmation && this.completed
+      this.errorsRemove()
 
       if (!this.activite.contenu) {
         delete this.activite.contenu
       }
 
-      let context
-
-      if (validate && !this.activite.documents.length) {
-        context = this.context
-        this.activite.statut.id = 'dep'
-      } else {
+      if (this.activite.documents.length) {
         this.activite.statut.id = 'enc'
+
+        const res = await this.$store.dispatch('titreActivite/update', {
+          activite: this.activite
+        })
+
+        if (res === 'success') {
+          for (const document of this.activite.documents) {
+            if (document.id) {
+              await this.$store.dispatch('document/update', { document })
+            } else {
+              await this.$store.dispatch('document/add', { document })
+            }
+          }
+        }
       }
 
-      this.errorsRemove()
+      this.activite.statut.id = confirmation && this.completed ? 'dep' : 'enc'
 
       await this.$store.dispatch('titreActivite/update', {
         activite: this.activite,
-        context
+        context: this.context
       })
-
-      if (this.activite.documents.length) {
-        for (const document of this.activite.documents) {
-          if (document.id) {
-            await this.$store.dispatch('document/update', { document })
-          } else {
-            await this.$store.dispatch('document/add', { document })
-          }
-        }
-
-        if (validate) {
-          this.activite.statut.id = 'dep'
-        }
-
-        await this.$store.dispatch('titreActivite/update', {
-          activite: this.activite,
-          context: this.context
-        })
-      }
 
       this.eventTrack({
         categorie: 'titre-sections',

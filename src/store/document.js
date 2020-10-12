@@ -73,8 +73,6 @@ export const actions = {
     try {
       await documentModifier({ document })
 
-      commit('popupClose', null, { root: true })
-
       dispatch(
         'messageAdd',
         { value: `le document a été mis à jour`, type: 'success' },
@@ -82,6 +80,7 @@ export const actions = {
       )
 
       if (context) {
+        commit('popupClose', null, { root: true })
         await dispatch('reload', context, { root: true })
       }
     } catch (e) {

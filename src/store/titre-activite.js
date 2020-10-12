@@ -41,21 +41,21 @@ export const actions = {
         }
       })
 
-      commit('popupClose', null, { root: true })
-
-      await dispatch(
-        'messageAdd',
-        {
-          value:
-            data.statut.id === 'dep'
-              ? `l'activité a été validée`
-              : `l'activité a été enregistrée`,
-          type: 'success'
-        },
-        { root: true }
-      )
-
       if (context) {
+        commit('popupClose', null, { root: true })
+
+        await dispatch(
+          'messageAdd',
+          {
+            value:
+              data.statut.id === 'dep'
+                ? `l'activité a été validée`
+                : `l'activité a été enregistrée`,
+            type: 'success'
+          },
+          { root: true }
+        )
+
         if (context.name === 'titre') {
           commit(
             'titre/open',
@@ -67,6 +67,8 @@ export const actions = {
         }
         await dispatch('reload', context, { root: true })
       }
+
+      return 'success'
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
