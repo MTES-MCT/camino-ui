@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
-import { apiFetch } from './_client'
+import { apiGraphQLFetch } from './_client'
 
-const statistiquesGlobales = apiFetch(gql`
+const statistiquesGlobales = apiGraphQLFetch(gql`
   query StatistiquesGlobales {
     statistiquesGlobales {
       titresActivitesBeneficesEntreprise
@@ -24,7 +24,7 @@ const statistiquesGlobales = apiFetch(gql`
   }
 `)
 
-const statistiquesGuyane = apiFetch(gql`
+const statistiquesGuyane = apiGraphQLFetch(gql`
   query StatistiquesGuyane {
     statistiquesGuyane {
       surfaceExploration

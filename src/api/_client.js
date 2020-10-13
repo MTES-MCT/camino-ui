@@ -16,6 +16,18 @@ const errorThrow = e => {
   throw errorMessage
 }
 
+const restCall = async url => {
+  const token = localStorage.getItem('accessToken')
+  const headers = new Headers({
+    authorization: token ? `Bearer ${token}` : ''
+  })
+  const res = await fetch(url, { method: 'GET', headers })
+  if (res.status !== 200) {
+    throw res
+  }
+  return res
+}
+
 const graphQLCall = async (query, variables) => {
   const token = localStorage.getItem('accessToken')
   const queryString = print(query)
@@ -45,24 +57,25 @@ const graphQLCall = async (query, variables) => {
   return dataContent
 }
 
-const apiFetch = query => async variables => {
-  try {
-    const data = await graphQLCall(query, variables)
+const apiGraphQLFetch = query => async variables =>
+  apiFetch(graphQLCall, query, variables)
 
-    return data
+const apiRestFetch = url => apiFetch(restCall, url)
+
+const apiFetch = async (call, query, variables) => {
+  try {
+    return await call(query, variables)
   } catch (e) {
     if (e.status === 401) {
       await tokenRefresh()
-      const data = await graphQLCall(query, variables)
-
-      return data
+      return await call(query, variables)
     } else {
       errorThrow(e)
     }
   }
 }
 
-const utilisateurTokenRafraichir = apiFetch(gql`
+const utilisateurTokenRafraichir = gql`
   mutation UtilisateurTokenRafraichir($refreshToken: String!) {
     utilisateurTokenRafraichir(refreshToken: $refreshToken) {
       ...utilisateurToken
@@ -70,13 +83,14 @@ const utilisateurTokenRafraichir = apiFetch(gql`
   }
 
   ${fragmentUtilisateurToken}
-`)
+`
 
 const tokenRefresh = async () => {
   try {
     localStorage.removeItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
-    const data = await utilisateurTokenRafraichir({ refreshToken })
+    // On ne peut pas utiliser apiGraphQLFetch, car ça pourrait générer une boucle infinie
+    const data = await graphQLCall(utilisateurTokenRafraichir, { refreshToken })
     localStorage.setItem('accessToken', data.accessToken)
   } catch (e) {
     // Si on est incapable de rafraichir le token c’est que la session a été invalidée par un administrateur
@@ -86,4 +100,4 @@ const tokenRefresh = async () => {
   }
 }
 
-export { apiFetch }
+export { apiGraphQLFetch, apiRestFetch }

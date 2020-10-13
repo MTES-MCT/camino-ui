@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { apiFetch } from './_client'
+import { apiGraphQLFetch } from './_client'
 
 import {
   fragmentUtilisateur,
@@ -9,7 +9,7 @@ import { fragmentPermission, fragmentTitreType } from './fragments/metas'
 import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentAdministrations } from './fragments/administrations'
 
-const metasUser = apiFetch(
+const metasUser = apiGraphQLFetch(
   gql`
     query MetasUser {
       version
@@ -28,7 +28,7 @@ const metasUser = apiFetch(
   `
 )
 
-const metasUtilisateur = apiFetch(
+const metasUtilisateur = apiGraphQLFetch(
   gql`
     query MetasUtilisateur {
       permissions {
@@ -54,7 +54,7 @@ const metasUtilisateur = apiFetch(
   `
 )
 
-const utilisateur = apiFetch(
+const utilisateur = apiGraphQLFetch(
   gql`
     query Utilisateur($id: ID!) {
       utilisateur(id: $id) {
@@ -66,7 +66,7 @@ const utilisateur = apiFetch(
   `
 )
 
-const utilisateurs = apiFetch(
+const utilisateurs = apiGraphQLFetch(
   gql`
     query Utilisateurs(
       $intervalle: Int
@@ -101,7 +101,7 @@ const utilisateurs = apiFetch(
   `
 )
 
-const utilisateurTokenCreer = apiFetch(gql`
+const utilisateurTokenCreer = apiGraphQLFetch(gql`
   mutation UtilisateurTokenCreer($email: String!, $motDePasse: String!) {
     utilisateurTokenCreer(email: $email, motDePasse: $motDePasse) {
       ...utilisateurToken
@@ -111,7 +111,7 @@ const utilisateurTokenCreer = apiFetch(gql`
   ${fragmentUtilisateurToken}
 `)
 
-const utilisateurCerbereTokenCreer = apiFetch(gql`
+const utilisateurCerbereTokenCreer = apiGraphQLFetch(gql`
   mutation UtilisateurCerbereTokenCreer($ticket: String!) {
     utilisateurCerbereTokenCreer(ticket: $ticket) {
       ...utilisateurToken
@@ -121,13 +121,13 @@ const utilisateurCerbereTokenCreer = apiFetch(gql`
   ${fragmentUtilisateurToken}
 `)
 
-const utilisateurCerbereUrlObtenir = apiFetch(gql`
+const utilisateurCerbereUrlObtenir = apiGraphQLFetch(gql`
   mutation UtilisateurCerbereUrlObtenir($url: String!) {
     utilisateurCerbereUrlObtenir(url: $url)
   }
 `)
 
-const moi = apiFetch(gql`
+const moi = apiGraphQLFetch(gql`
   query Moi {
     moi {
       ...utilisateur
@@ -137,7 +137,7 @@ const moi = apiFetch(gql`
   ${fragmentUtilisateur}
 `)
 
-const utilisateurModifier = apiFetch(gql`
+const utilisateurModifier = apiGraphQLFetch(gql`
   mutation UtilisateurModifier($utilisateur: InputUtilisateurModification!) {
     utilisateurModifier(utilisateur: $utilisateur) {
       ...utilisateur
@@ -147,7 +147,7 @@ const utilisateurModifier = apiFetch(gql`
   ${fragmentUtilisateur}
 `)
 
-const utilisateurCreer = apiFetch(gql`
+const utilisateurCreer = apiGraphQLFetch(gql`
   mutation UtilisateurCreer($utilisateur: InputUtilisateurCreation!) {
     utilisateurCreer(utilisateur: $utilisateur) {
       ...utilisateur
@@ -157,7 +157,7 @@ const utilisateurCreer = apiFetch(gql`
   ${fragmentUtilisateur}
 `)
 
-const utilisateurSupprimer = apiFetch(gql`
+const utilisateurSupprimer = apiGraphQLFetch(gql`
   mutation UtilisateurSupprimer($id: ID!) {
     utilisateurSupprimer(id: $id) {
       ...utilisateur
@@ -167,7 +167,7 @@ const utilisateurSupprimer = apiFetch(gql`
   ${fragmentUtilisateur}
 `)
 
-const utilisateurMotDePasseModifier = apiFetch(gql`
+const utilisateurMotDePasseModifier = apiGraphQLFetch(gql`
   mutation UtilisateurMotDePasseModifier(
     $id: ID!
     $motDePasse: String!
@@ -187,7 +187,7 @@ const utilisateurMotDePasseModifier = apiFetch(gql`
   ${fragmentUtilisateur}
 `)
 
-const utilisateurMotDePasseInitialiser = apiFetch(gql`
+const utilisateurMotDePasseInitialiser = apiGraphQLFetch(gql`
   mutation UtilisateurMotDePasseInitialiser(
     $motDePasse1: String!
     $motDePasse2: String!
@@ -203,25 +203,25 @@ const utilisateurMotDePasseInitialiser = apiFetch(gql`
   ${fragmentUtilisateurToken}
 `)
 
-const utilisateurMotDePasseMessageEnvoyer = apiFetch(gql`
+const utilisateurMotDePasseMessageEnvoyer = apiGraphQLFetch(gql`
   mutation UtilisateurMotDePasseMessageEnvoyer($email: String!) {
     utilisateurMotDePasseMessageEnvoyer(email: $email)
   }
 `)
 
-const utilisateurCreationMessageEnvoyer = apiFetch(gql`
+const utilisateurCreationMessageEnvoyer = apiGraphQLFetch(gql`
   mutation UtilisateurCreationMessageEnvoyer($email: String!) {
     utilisateurCreationMessageEnvoyer(email: $email)
   }
 `)
 
-const utilisateurEmailMessageEnvoyer = apiFetch(gql`
+const utilisateurEmailMessageEnvoyer = apiGraphQLFetch(gql`
   mutation UtilisateurEmailMessageEnvoyer($email: String!) {
     utilisateurEmailMessageEnvoyer(email: $email)
   }
 `)
 
-const utilisateurEmailModifier = apiFetch(gql`
+const utilisateurEmailModifier = apiGraphQLFetch(gql`
   mutation UtilisateurEmailModifier($emailToken: String!) {
     utilisateurEmailModifier(emailToken: $emailToken) {
       ...utilisateurToken

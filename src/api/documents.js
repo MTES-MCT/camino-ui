@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
-import { apiFetch } from './_client'
+import { apiGraphQLFetch } from './_client'
 import { fragmentDocument } from './fragments/documents'
 
-const metasDocument = apiFetch(
+const metasDocument = apiGraphQLFetch(
   gql`
     query MetasDocument($repertoire: ID, $typeId: ID) {
       documentsTypes(repertoire: $repertoire, typeId: $typeId) {
@@ -18,7 +18,7 @@ const metasDocument = apiFetch(
   `
 )
 
-const documentCreer = apiFetch(gql`
+const documentCreer = apiGraphQLFetch(gql`
   mutation DocumentCreer($document: InputDocumentCreation!) {
     documentCreer(document: $document) {
       ...document
@@ -28,7 +28,7 @@ const documentCreer = apiFetch(gql`
   ${fragmentDocument}
 `)
 
-const documentModifier = apiFetch(gql`
+const documentModifier = apiGraphQLFetch(gql`
   mutation DocumentModifier($document: InputDocumentModification!) {
     documentModifier(document: $document) {
       ...document
@@ -38,7 +38,7 @@ const documentModifier = apiFetch(gql`
   ${fragmentDocument}
 `)
 
-const documentSupprimer = apiFetch(gql`
+const documentSupprimer = apiGraphQLFetch(gql`
   mutation DocumentSupprimer($id: ID!) {
     documentSupprimer(id: $id)
   }

@@ -1,10 +1,10 @@
 import gql from 'graphql-tag'
-import { apiFetch } from './_client'
+import { apiGraphQLFetch } from './_client'
 
 import { fragmentTitre } from './fragments/titre'
 import { fragmentEtapeType } from './fragments/metas'
 
-const metasTitreTravauxEtape = apiFetch(
+const metasTitreTravauxEtape = apiGraphQLFetch(
   gql`
     query MetasTravauxEtape($titreTravauxId: ID!, $id: ID) {
       etapesTypes(titreTravauxId: $titreTravauxId, titreEtapeId: $id) {
@@ -16,7 +16,7 @@ const metasTitreTravauxEtape = apiFetch(
   `
 )
 
-const travauxEtapeCreer = apiFetch(gql`
+const travauxEtapeCreer = apiGraphQLFetch(gql`
   mutation TravauxEtapeCreer($etape: InputTravauxEtapeCreation!) {
     travauxEtapeCreer(etape: $etape) {
       ...titre
@@ -26,7 +26,7 @@ const travauxEtapeCreer = apiFetch(gql`
   ${fragmentTitre}
 `)
 
-const travauxEtapeModifier = apiFetch(gql`
+const travauxEtapeModifier = apiGraphQLFetch(gql`
   mutation TravauxEtapeModifier($etape: InputTravauxEtapeModification!) {
     travauxEtapeModifier(etape: $etape) {
       ...titre
@@ -36,7 +36,7 @@ const travauxEtapeModifier = apiFetch(gql`
   ${fragmentTitre}
 `)
 
-const travauxEtapeSupprimer = apiFetch(gql`
+const travauxEtapeSupprimer = apiGraphQLFetch(gql`
   mutation TravauxEtapeSupprimer($id: ID!) {
     travauxEtapeSupprimer(id: $id) {
       ...titre

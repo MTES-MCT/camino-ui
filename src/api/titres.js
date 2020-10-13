@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { apiFetch } from './_client'
+import { apiGraphQLFetch } from './_client'
 
 import { fragmentTitreTypeType } from './fragments/metas'
 import {
@@ -8,7 +8,7 @@ import {
   fragmentTitresGeo
 } from './fragments/titre'
 
-const metasTitre = apiFetch(
+const metasTitre = apiGraphQLFetch(
   gql`
     query MetasTitre {
       referencesTypes {
@@ -19,7 +19,7 @@ const metasTitre = apiFetch(
   `
 )
 
-const metasTitres = apiFetch(
+const metasTitres = apiGraphQLFetch(
   gql`
     query MetasTitres {
       domaines {
@@ -43,7 +43,7 @@ const metasTitres = apiFetch(
   `
 )
 
-const titre = apiFetch(
+const titre = apiGraphQLFetch(
   gql`
     query Titre($id: ID!) {
       titre(id: $id) {
@@ -55,7 +55,7 @@ const titre = apiFetch(
   `
 )
 
-const titresGeo = apiFetch(
+const titresGeo = apiGraphQLFetch(
   gql`
     query Titres(
       $typesIds: [ID!]
@@ -90,7 +90,7 @@ const titresGeo = apiFetch(
   `
 )
 
-const titres = apiFetch(
+const titres = apiGraphQLFetch(
   gql`
     query Titres(
       $intervalle: Int
@@ -131,7 +131,7 @@ const titres = apiFetch(
   `
 )
 
-const titreCreer = apiFetch(gql`
+const titreCreer = apiGraphQLFetch(gql`
   mutation TitreCreer($titre: InputTitreCreation!) {
     titreCreer(titre: $titre) {
       ...titre
@@ -141,7 +141,7 @@ const titreCreer = apiFetch(gql`
   ${fragmentTitre}
 `)
 
-const titreModifier = apiFetch(gql`
+const titreModifier = apiGraphQLFetch(gql`
   mutation TitreModifier($titre: InputTitreModification!) {
     titreModifier(titre: $titre) {
       ...titre
@@ -151,7 +151,7 @@ const titreModifier = apiFetch(gql`
   ${fragmentTitre}
 `)
 
-const titreSupprimer = apiFetch(gql`
+const titreSupprimer = apiGraphQLFetch(gql`
   mutation TitreSupprimer($id: ID!) {
     titreSupprimer(id: $id) {
       ...titre
