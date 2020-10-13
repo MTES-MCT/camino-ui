@@ -24,6 +24,7 @@ import statistiques from './statistiques'
 import definitions from './definitions'
 
 import router from '../router'
+import { apiRestFetch } from '../api/_client'
 
 const modules = {
   titre,
@@ -118,20 +119,9 @@ export const actions = {
     commit('loadingAdd', 'download', { root: true })
 
     try {
-      const token = localStorage.getItem('accessToken')
-      const headers = new Headers({
-        authorization: token ? `Bearer ${token}` : ''
-      })
-
       const url = `/api/${filePath}`
 
-      const res = await fetch(url, { method: 'GET', headers })
-
-      if (res.status !== 200) {
-        const e = await res.json()
-
-        throw new Error(e.error)
-      }
+      const res = await apiRestFetch(url)
 
       // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
       const contentDisposition = res.headers.get('Content-disposition')

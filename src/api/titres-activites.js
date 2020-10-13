@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { apiFetch } from './_client'
+import { apiGraphQLFetch } from './_client'
 
 import {
   fragmentActivites,
@@ -10,7 +10,7 @@ import {
 
 import { fragmentTitreTypeType } from './fragments/metas'
 
-const metasActivites = apiFetch(
+const metasActivites = apiGraphQLFetch(
   gql`
     query MetasActivites {
       activitesTypes {
@@ -45,7 +45,7 @@ const metasActivites = apiFetch(
   `
 )
 
-const activiteModifier = apiFetch(gql`
+const activiteModifier = apiGraphQLFetch(gql`
   mutation ActiviteModifier($activite: InputActiviteModification!) {
     activiteModifier(activite: $activite) {
       ...activite
@@ -55,7 +55,7 @@ const activiteModifier = apiFetch(gql`
   ${fragmentActivite}
 `)
 
-const activites = apiFetch(
+const activites = apiGraphQLFetch(
   gql`
     query Activites(
       $intervalle: Int
@@ -102,7 +102,7 @@ const activites = apiFetch(
   `
 )
 
-const activite = apiFetch(
+const activite = apiGraphQLFetch(
   gql`
     query Activite($id: ID!) {
       activite(id: $id) {

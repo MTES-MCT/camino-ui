@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { apiFetch } from './_client'
+import { apiGraphQLFetch } from './_client'
 
 import { fragmentTitre } from './fragments/titre'
 import { fragmentEtapeType, fragmentUnite } from './fragments/metas'
@@ -7,7 +7,7 @@ import { fragmentSubstance } from './fragments/substance'
 import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentEntreprise } from './fragments/entreprise'
 
-const metasTitreEtape = apiFetch(
+const metasTitreEtape = apiGraphQLFetch(
   gql`
     query MetasEtape($titreDemarcheId: ID!, $id: ID) {
       etapesTypes(titreDemarcheId: $titreDemarcheId, titreEtapeId: $id) {
@@ -53,7 +53,7 @@ const metasTitreEtape = apiFetch(
   `
 )
 
-const etapeCreer = apiFetch(gql`
+const etapeCreer = apiGraphQLFetch(gql`
   mutation EtapeCreer($etape: InputEtapeCreation!) {
     etapeCreer(etape: $etape) {
       ...titre
@@ -63,7 +63,7 @@ const etapeCreer = apiFetch(gql`
   ${fragmentTitre}
 `)
 
-const etapeModifier = apiFetch(gql`
+const etapeModifier = apiGraphQLFetch(gql`
   mutation EtapeModifier($etape: InputEtapeModification!) {
     etapeModifier(etape: $etape) {
       ...titre
@@ -73,7 +73,7 @@ const etapeModifier = apiFetch(gql`
   ${fragmentTitre}
 `)
 
-const etapeSupprimer = apiFetch(gql`
+const etapeSupprimer = apiGraphQLFetch(gql`
   mutation EtapeSupprimer($id: ID!) {
     etapeSupprimer(id: $id) {
       ...titre
@@ -83,7 +83,7 @@ const etapeSupprimer = apiFetch(gql`
   ${fragmentTitre}
 `)
 
-const etapeEntreprises = apiFetch(
+const etapeEntreprises = apiGraphQLFetch(
   gql`
     query EtapeEntreprises($etapeId: ID!) {
       entreprises(etapeId: $etapeId) {
@@ -98,7 +98,7 @@ const etapeEntreprises = apiFetch(
   `
 )
 
-const etapeJustificatifsAssocier = apiFetch(gql`
+const etapeJustificatifsAssocier = apiGraphQLFetch(gql`
   mutation etapeJustificatifsAssocier($id: ID!, $documentsIds: [ID]!) {
     etapeJustificatifsAssocier(id: $id, documentsIds: $documentsIds) {
       ...titre
@@ -108,7 +108,7 @@ const etapeJustificatifsAssocier = apiFetch(gql`
   ${fragmentTitre}
 `)
 
-const etapeJustificatifDissocier = apiFetch(gql`
+const etapeJustificatifDissocier = apiGraphQLFetch(gql`
   mutation etapeJustificatifDissocier($id: ID!, $documentId: ID) {
     etapeJustificatifDissocier(id: $id, documentId: $documentId) {
       ...titre
