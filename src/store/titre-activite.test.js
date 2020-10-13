@@ -53,7 +53,7 @@ describe("état d'une activité", () => {
   test('valide une activité', async () => {
     api.activiteModifier.mockResolvedValue({ statut: { id: 'dep' } })
 
-    await store.dispatch('titreActivite/update', {
+    const res = await store.dispatch('titreActivite/update', {
       activite: {
         id: 27,
         contenu: [],
@@ -62,9 +62,8 @@ describe("état d'une activité", () => {
       context: null
     })
 
-    expect(mutations.popupClose).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalledTimes(1)
+    expect(res).toEqual('success')
   })
 
   test('valide une activité sur une activité', async () => {
