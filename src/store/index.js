@@ -119,9 +119,7 @@ export const actions = {
     commit('loadingAdd', 'download', { root: true })
 
     try {
-      const url = `/api/${filePath}`
-
-      const res = await apiRestFetch(url)
+      const res = await apiRestFetch(filePath)
 
       // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
       const contentDisposition = res.headers.get('Content-disposition')

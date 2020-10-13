@@ -8,6 +8,7 @@ import 'unfetch/polyfill'
 import { fragmentUtilisateurToken } from './fragments/utilisateur'
 
 const graphql = new GraphQL()
+let apiUrl
 
 const errorThrow = e => {
   const errorMessage = `API : ${e.message || e.status}`
@@ -21,7 +22,7 @@ const restCall = async url => {
   const headers = new Headers({
     authorization: token ? `Bearer ${token}` : ''
   })
-  const res = await fetch(url, { method: 'GET', headers })
+  const res = await fetch(`${apiUrl}/${url}`, { method: 'GET', headers })
   if (res.status !== 200) {
     throw res
   }
@@ -35,7 +36,7 @@ const graphQLCall = async (query, variables) => {
   const res = await graphql.operate({
     operation: { query: queryString, variables },
     fetchOptionsOverride: options => {
-      options.url = '/api'
+      options.url = apiUrl
       options.headers = Object.assign(options.headers, {
         authorization: token ? `Bearer ${token}` : ''
       })
@@ -63,6 +64,16 @@ const apiGraphQLFetch = query => async variables =>
 const apiRestFetch = url => apiFetch(restCall, url)
 
 const apiFetch = async (call, query, variables) => {
+  if (!apiUrl) {
+    apiUrl = '/api'
+    if (process.env.NODE_ENV === 'production') {
+      const res = await fetch('/apiUrl')
+      const url = await res.text()
+      if (res) {
+        apiUrl = url
+      }
+    }
+  }
   try {
     return await call(query, variables)
   } catch (e) {

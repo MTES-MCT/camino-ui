@@ -33,15 +33,7 @@ const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
   }
 })
 
-app.use(
-  '/api',
-  createProxyMiddleware({
-    target: apiUrl,
-    pathRewrite: { '^/api': '' },
-    changeOrigin: true
-  })
-)
-
+app.use('/apiUrl', (req, res) => res.send(apiUrl))
 app.use('/sentryDsn', (req, res) => res.send(process.env.API_SENTRY_URL))
 app.use('/matomoOptions', (req, res) =>
   res.json({
