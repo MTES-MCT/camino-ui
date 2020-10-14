@@ -16,26 +16,27 @@ const errorThrow = e => {
   throw errorMessage
 }
 
-const restCall = async url => {
+const restCall = async (url, path) => {
   const token = localStorage.getItem('accessToken')
-  const headers = new Headers({
-    authorization: token ? `Bearer ${token}` : ''
-  })
-  const res = await fetch(url, { method: 'GET', headers })
+  const headers = new Headers({ authorization: token ? `Bearer ${token}` : '' })
+
+  const res = await fetch(`${url}/${path}`, { method: 'GET', headers })
+
   if (res.status !== 200) {
     throw res
   }
+
   return res
 }
 
-const graphQLCall = async (query, variables) => {
+const graphQLCall = async (url, query, variables) => {
   const token = localStorage.getItem('accessToken')
   const queryString = print(query)
 
   const res = await graphql.operate({
     operation: { query: queryString, variables },
     fetchOptionsOverride: options => {
-      options.url = '/api'
+      options.url = url
       options.headers = Object.assign(options.headers, {
         authorization: token ? `Bearer ${token}` : ''
       })
@@ -57,23 +58,32 @@ const graphQLCall = async (query, variables) => {
   return dataContent
 }
 
-const apiGraphQLFetch = query => async variables =>
-  apiFetch(graphQLCall, query, variables)
-
-const apiRestFetch = url => apiFetch(restCall, url)
+let apiUrl
+const apiUrlInit = async () => {
+  const res = await fetch('/apiUrl')
+  apiUrl = await res.text()
+}
 
 const apiFetch = async (call, query, variables) => {
+  if (!apiUrl) {
+    await apiUrlInit()
+  }
   try {
-    return await call(query, variables)
+    return await call(apiUrl, query, variables)
   } catch (e) {
     if (e.status === 401) {
       await tokenRefresh()
-      return await call(query, variables)
+      return await call(apiUrl, query, variables)
     } else {
       errorThrow(e)
     }
   }
 }
+
+const apiGraphQLFetch = query => async variables =>
+  apiFetch(graphQLCall, query, variables)
+
+const apiRestFetch = path => apiFetch(restCall, path)
 
 const utilisateurTokenRafraichir = gql`
   mutation UtilisateurTokenRafraichir($refreshToken: String!) {
@@ -90,7 +100,9 @@ const tokenRefresh = async () => {
     localStorage.removeItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
     // On ne peut pas utiliser apiGraphQLFetch, car ça pourrait générer une boucle infinie
-    const data = await graphQLCall(utilisateurTokenRafraichir, { refreshToken })
+    const data = await graphQLCall(apiUrl, utilisateurTokenRafraichir, {
+      refreshToken
+    })
     localStorage.setItem('accessToken', data.accessToken)
   } catch (e) {
     // Si on est incapable de rafraichir le token c’est que la session a été invalidée par un administrateur

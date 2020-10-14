@@ -26,12 +26,8 @@ module.exports = {
   },
   devServer: {
     disableHostCheck: !!process.env.DEV_SERVER_DISABLE_HOST_CHECK || false,
-    proxy: {
-      '/api': {
-        target: process.env.API_URL,
-        pathRewrite: { '^/api': '' },
-        changeOrigin: true
-      }
+    before(app) {
+      app.get('/apiUrl', (req, res) => res.send(process.env.API_URL))
     }
   },
   transpileDependencies: [

@@ -13,7 +13,6 @@ const path = require('path')
 const express = require('express')
 const history = require('connect-history-api-fallback')
 const compression = require('compression')
-const { createProxyMiddleware } = require('http-proxy-middleware')
 
 const app = express()
 const port = process.env.PORT
@@ -33,15 +32,7 @@ const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
   }
 })
 
-app.use(
-  '/api',
-  createProxyMiddleware({
-    target: apiUrl,
-    pathRewrite: { '^/api': '' },
-    changeOrigin: true
-  })
-)
-
+app.use('/apiUrl', (req, res) => res.send(apiUrl))
 app.use('/sentryDsn', (req, res) => res.send(process.env.API_SENTRY_URL))
 app.use('/matomoOptions', (req, res) =>
   res.json({
