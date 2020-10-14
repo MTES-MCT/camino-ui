@@ -13,7 +13,6 @@ const path = require('path')
 const express = require('express')
 const history = require('connect-history-api-fallback')
 const compression = require('compression')
-const { createProxyMiddleware } = require('http-proxy-middleware')
 
 const app = express()
 const port = process.env.PORT
