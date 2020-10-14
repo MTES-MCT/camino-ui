@@ -3,8 +3,10 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import * as fileSaver from 'file-saver'
 import * as router from '../router'
+import { apiRestFetch } from '../api/_client'
 
 jest.mock('file-saver', () => ({ saveAs: jest.fn() }))
+jest.mock('../api/_client', () => ({ apiRestFetch: jest.fn() }))
 jest.mock('./titre', () => ({ titre: jest.fn() }))
 jest.mock('./titres', () => ({ titres: jest.fn() }))
 jest.mock('./titre-demarche', () => ({ titreDemarche: jest.fn() }))
@@ -236,7 +238,6 @@ describe("état général de l'application", () => {
     state = { messages: [], loading: [] }
 
     localStorage.clear()
-    fetch.resetMocks()
   })
 
   test('supprime un message', async () => {
@@ -261,19 +262,14 @@ describe("état général de l'application", () => {
     store = new Vuex.Store({ state, actions, mutations })
 
     localStorage.setItem('accessToken', 'privateToken')
-    fetch.mockResponseOnce(JSON.stringify({ data: 'truc' }), {
-      status: 200,
-      headers: {
-        'Content-disposition': 'attachements; filename=nom-du-fichier.pdf'
-      }
-    })
+    const apiMock = apiRestFetch.mockResolvedValueOnce({ data: 'truc' })
 
     const section = 'titres'
     const params = { typeIds: ['m', 'w'] }
 
     await store.dispatch('download', `${section}?${params}`)
 
-    expect(fetch).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalled()
     expect(fileSaver.saveAs).toHaveBeenCalled()
     expect(messageAddMock).toHaveBeenCalled()
     expect(state.loading).toEqual([])
@@ -284,19 +280,14 @@ describe("état général de l'application", () => {
     actions.messageAdd = messageAddMock
     store = new Vuex.Store({ state, actions, mutations })
 
-    fetch.mockResponseOnce(JSON.stringify({ data: 'truc' }), {
-      status: 404,
-      headers: {
-        'Content-disposition': 'attachements; filename=nom-du-fichier.pdf'
-      }
-    })
+    const apiMock = apiRestFetch.mockResolvedValueOnce({ data: 'truc' })
 
     const section = 'titres'
     const params = { typeIds: ['m', 'w'] }
 
     await store.dispatch('download', { section, params })
 
-    expect(fetch).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalled()
     expect(fileSaver.saveAs).not.toHaveBeenCalled()
     expect(messageAddMock).not.toHaveBeenCalled()
     expect(state.loading).toEqual([])
@@ -306,8 +297,9 @@ describe("état général de l'application", () => {
     const messageAddMock = jest.fn()
     actions.messageAdd = messageAddMock
     store = new Vuex.Store({ state, actions, mutations })
-    fetch.mockResponseOnce(JSON.stringify({ data: 'truc' }), {
-      status: 200
+    const apiMock = apiRestFetch.mockResolvedValueOnce({
+      data: 'truc',
+      headers: { 'Content-disposition': 'filename=nom-du-fichier.pdf' }
     })
 
     const section = 'titres'
@@ -315,8 +307,8 @@ describe("état général de l'application", () => {
 
     await store.dispatch('download', { section, params })
 
-    expect(fetch).toHaveBeenCalled()
-    expect(fileSaver.saveAs).not.toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalled()
+    expect(fileSaver.saveAs).toHaveBeenCalled()
     expect(messageAddMock).not.toHaveBeenCalled()
     expect(state.loading).toEqual([])
   })

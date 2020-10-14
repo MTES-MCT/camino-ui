@@ -8,7 +8,6 @@ import 'unfetch/polyfill'
 import { fragmentUtilisateurToken } from './fragments/utilisateur'
 
 const graphql = new GraphQL()
-let apiUrl
 
 const errorThrow = e => {
   const errorMessage = `API : ${e.message || e.status}`
@@ -17,26 +16,27 @@ const errorThrow = e => {
   throw errorMessage
 }
 
-const restCall = async url => {
+const restCall = async (url, path) => {
   const token = localStorage.getItem('accessToken')
-  const headers = new Headers({
-    authorization: token ? `Bearer ${token}` : ''
-  })
-  const res = await fetch(`${apiUrl}/${url}`, { method: 'GET', headers })
+  const headers = new Headers({ authorization: token ? `Bearer ${token}` : '' })
+
+  const res = await fetch(`${url}/${path}`, { method: 'GET', headers })
+
   if (res.status !== 200) {
     throw res
   }
+
   return res
 }
 
-const graphQLCall = async (query, variables) => {
+const graphQLCall = async (url, query, variables) => {
   const token = localStorage.getItem('accessToken')
   const queryString = print(query)
 
   const res = await graphql.operate({
     operation: { query: queryString, variables },
     fetchOptionsOverride: options => {
-      options.url = apiUrl
+      options.url = url
       options.headers = Object.assign(options.headers, {
         authorization: token ? `Bearer ${token}` : ''
       })
@@ -58,33 +58,26 @@ const graphQLCall = async (query, variables) => {
   return dataContent
 }
 
-const apiGraphQLFetch = query => async variables =>
-  apiFetch(graphQLCall, query, variables)
-
-const apiRestFetch = url => apiFetch(restCall, url)
-
 const apiFetch = async (call, query, variables) => {
-  if (!apiUrl) {
-    apiUrl = '/api'
-    if (process.env.NODE_ENV === 'production') {
-      const res = await fetch('/apiUrl')
-      const url = await res.text()
-      if (res) {
-        apiUrl = url
-      }
-    }
-  }
+  const res = await fetch('/apiUrl')
+  const url = await res.text()
+
   try {
-    return await call(query, variables)
+    return await call(url, query, variables)
   } catch (e) {
     if (e.status === 401) {
       await tokenRefresh()
-      return await call(query, variables)
+      return await call(url, query, variables)
     } else {
       errorThrow(e)
     }
   }
 }
+
+const apiGraphQLFetch = query => async variables =>
+  apiFetch(graphQLCall, query, variables)
+
+const apiRestFetch = path => apiFetch(restCall, path)
 
 const utilisateurTokenRafraichir = gql`
   mutation UtilisateurTokenRafraichir($refreshToken: String!) {

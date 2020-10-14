@@ -16,14 +16,7 @@ describe('api client', () => {
   })
 
   test('une réponse 200 du serveur ne génère pas d’erreur', async () => {
-    fetch.mockResponseOnce(
-      JSON.stringify({
-        data: {}
-      }),
-      {
-        status: 200
-      }
-    )
+    fetch.mockResponseOnce(JSON.stringify({ data: {} }), { status: 200 })
 
     localStorage.setItem('accessToken', 'access_token')
     localStorage.setItem('refreshToken', 'refresh_token')
@@ -44,32 +37,12 @@ describe('api client', () => {
   test('une réponse 401 lance le rafraichissement du access token', async () => {
     const newAccessToken = 'new_access_token'
     fetch
+      .mockResponseOnce(JSON.stringify({ data: {} }), { status: 401 })
       .mockResponseOnce(
-        JSON.stringify({
-          data: {}
-        }),
-        {
-          status: 401
-        }
+        JSON.stringify({ data: { data: { accessToken: newAccessToken } } }),
+        { status: 200 }
       )
-      .mockResponseOnce(
-        JSON.stringify({
-          data: {
-            data: { accessToken: newAccessToken }
-          }
-        }),
-        {
-          status: 200
-        }
-      )
-      .mockResponseOnce(
-        JSON.stringify({
-          data: {}
-        }),
-        {
-          status: 200
-        }
-      )
+      .mockResponseOnce(JSON.stringify({ data: {} }), { status: 200 })
 
     localStorage.setItem('accessToken', 'access_token')
     localStorage.setItem('refreshToken', 'refresh_token')
@@ -89,14 +62,7 @@ describe('api client', () => {
   })
 
   test('si le refreshToken n’est plus valide, on actualise la page', async () => {
-    fetch.mockResponse(
-      JSON.stringify({
-        data: {}
-      }),
-      {
-        status: 401
-      }
-    )
+    fetch.mockResponse(JSON.stringify({ data: {} }), { status: 401 })
 
     localStorage.setItem('accessToken', 'access_token')
     localStorage.setItem('refreshToken', 'refresh_token')
