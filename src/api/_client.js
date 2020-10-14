@@ -59,7 +59,7 @@ const graphQLCall = async (url, query, variables) => {
 }
 
 let apiUrl
-async function apiUrlInit() {
+const apiUrlInit = async () => {
   const res = await fetch('/apiUrl')
   apiUrl = await res.text()
 }
