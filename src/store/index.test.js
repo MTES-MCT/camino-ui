@@ -262,7 +262,12 @@ describe("état général de l'application", () => {
     store = new Vuex.Store({ state, actions, mutations })
 
     localStorage.setItem('accessToken', 'privateToken')
-    const apiMock = apiRestFetch.mockResolvedValueOnce({ data: 'truc' })
+
+    const apiMock = apiRestFetch.mockResolvedValueOnce({
+      data: 'truc',
+      headers: { get: () => 'filename=nom-du-fichier.pdf' },
+      blob: async () => 'fileContent'
+    })
 
     const section = 'titres'
     const params = { typeIds: ['m', 'w'] }
@@ -295,21 +300,24 @@ describe("état général de l'application", () => {
 
   test("retourne une erreur si le contenu n'a pas de nom", async () => {
     const messageAddMock = jest.fn()
+    const apiErrorMock = jest.fn()
     actions.messageAdd = messageAddMock
+    actions.apiError = apiErrorMock
     store = new Vuex.Store({ state, actions, mutations })
     const apiMock = apiRestFetch.mockResolvedValueOnce({
       data: 'truc',
-      headers: { 'Content-disposition': 'filename=nom-du-fichier.pdf' }
+      headers: { get: () => 'filename=' }
     })
 
-    const section = 'titres'
-    const params = { typeIds: ['m', 'w'] }
-
-    await store.dispatch('download', { section, params })
+    await store.dispatch('download', 'filePath')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(fileSaver.saveAs).toHaveBeenCalled()
+    expect(fileSaver.saveAs).not.toHaveBeenCalled()
     expect(messageAddMock).not.toHaveBeenCalled()
+    expect(apiErrorMock).toHaveBeenCalledWith(
+      expect.any(Object),
+      'erreur de téléchargement : filePath, nom de fichier manquant'
+    )
     expect(state.loading).toEqual([])
   })
 })
