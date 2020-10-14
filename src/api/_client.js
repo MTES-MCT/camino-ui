@@ -58,16 +58,22 @@ const graphQLCall = async (url, query, variables) => {
   return dataContent
 }
 
-const apiFetch = async (call, query, variables) => {
+let apiUrl
+async function apiUrlInit() {
   const res = await fetch('/apiUrl')
-  const url = await res.text()
+  apiUrl = await res.text()
+}
 
+const apiFetch = async (call, query, variables) => {
+  if (!apiUrl) {
+    await apiUrlInit()
+  }
   try {
-    return await call(url, query, variables)
+    return await call(apiUrl, query, variables)
   } catch (e) {
     if (e.status === 401) {
       await tokenRefresh()
-      return await call(url, query, variables)
+      return await call(apiUrl, query, variables)
     } else {
       errorThrow(e)
     }
@@ -94,7 +100,9 @@ const tokenRefresh = async () => {
     localStorage.removeItem('accessToken')
     const refreshToken = localStorage.getItem('refreshToken')
     // On ne peut pas utiliser apiGraphQLFetch, car ça pourrait générer une boucle infinie
-    const data = await graphQLCall(utilisateurTokenRafraichir, { refreshToken })
+    const data = await graphQLCall(apiUrl, utilisateurTokenRafraichir, {
+      refreshToken
+    })
     localStorage.setItem('accessToken', data.accessToken)
   } catch (e) {
     // Si on est incapable de rafraichir le token c’est que la session a été invalidée par un administrateur
