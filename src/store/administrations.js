@@ -43,7 +43,7 @@ export const actions = {
       commit('metasSet', { types: data })
 
       if (!state.loaded.metas) {
-        commit('loaded', 'metas')
+        commit('load', 'metas')
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -54,10 +54,6 @@ export const actions = {
 
   async get({ state, dispatch, commit }) {
     try {
-      if (!state.loaded.metas || !state.loaded.url) {
-        return
-      }
-
       commit('loadingAdd', 'administrations', { root: true })
 
       const p = paramsBuild(
@@ -85,16 +81,28 @@ export const actions = {
     }
   },
 
-  async preferencesSet({ commit, dispatch }, { section, params }) {
+  async preferencesSet(
+    { state, commit, dispatch },
+    { section, params, pageReset }
+  ) {
+    if (pageReset) {
+      commit('preferencesSet', { section: 'table', params: { page: 1 } })
+    }
+
     commit('preferencesSet', { section, params })
 
-    await dispatch('get')
+    if (state.loaded.metas && state.loaded.url) {
+      await dispatch('get')
+    }
   },
 
-  async loaded({ state, commit, dispatch }) {
+  async urlLoad({ state, commit, dispatch }) {
     if (!state.loaded.url) {
-      commit('loaded', 'url')
-      await dispatch('get')
+      commit('load', 'url')
+
+      if (state.loaded.metas) {
+        await dispatch('get')
+      }
     }
   }
 }
@@ -128,7 +136,7 @@ export const mutations = {
     })
   },
 
-  loaded(state, section) {
+  load(state, section) {
     state.loaded[section] = true
   }
 }

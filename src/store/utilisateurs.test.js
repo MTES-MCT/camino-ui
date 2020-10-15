@@ -20,7 +20,7 @@ describe('liste des utilisateurs', () => {
   beforeEach(() => {
     utilisateurs.state = {
       list: [],
-      total: null,
+      total: 0,
       metas: {
         permission: [],
         administration: [],
@@ -46,21 +46,26 @@ describe('liste des utilisateurs', () => {
         }
       ],
       preferences: {
-        table: {
-          page: 1,
-          intervalle: 200,
-          ordre: 'asc',
-          colonne: null
-        },
         filtres: {
           noms: '',
           emails: '',
           permissionIds: [],
           administrationIds: [],
           entrepriseIds: []
+        },
+        table: {
+          page: 1,
+          intervalle: 200,
+          ordre: 'asc',
+          colonne: null
         }
+      },
+      loaded: {
+        metas: false,
+        url: false
       }
     }
+
     actions = {
       pageError: jest.fn(),
       apiError: jest.fn(),
@@ -81,78 +86,50 @@ describe('liste des utilisateurs', () => {
   })
 
   const permissions = [
-    {
-      id: 'admin',
-      nom: 'Admin'
-    },
-    {
-      id: 'editeur',
-      nom: 'Éditeur'
-    },
-    {
-      id: 'lecteur',
-      nom: 'Lecteur'
-    },
-    {
-      id: 'entreprise',
-      nom: 'Entreprise'
-    },
-    {
-      id: 'defaut',
-      nom: 'Défaut'
-    }
+    { id: 'admin', nom: 'Admin' },
+    { id: 'editeur', nom: 'Éditeur' },
+    { id: 'lecteur', nom: 'Lecteur' },
+    { id: 'entreprise', nom: 'Entreprise' },
+    { id: 'defaut', nom: 'Défaut' }
   ]
 
   const entreprisesElements = [
-    {
-      id: 'fr-513863217',
-      nom: "SOCIETE GUYANAISE DES MINES D'OR (SOGUMINOR)"
-    },
-    {
-      id: 'fr-821136710',
-      nom: 'SASU SOFERRO (SOFERRO)'
-    },
-    {
-      id: 'fr-402207153',
-      nom: 'IAMGOLD FRANCE'
-    },
-    {
-      id: 'fr-333517530',
-      nom: 'BIJOUTERIE REUNIF'
-    }
+    { id: 'fr-513863217', nom: "SOCIETE GUYANAISE DES MINES D'OR (SOGUMINOR)" },
+    { id: 'fr-821136710', nom: 'SASU SOFERRO (SOFERRO)' },
+    { id: 'fr-402207153', nom: 'IAMGOLD FRANCE' },
+    { id: 'fr-333517530', nom: 'BIJOUTERIE REUNIF' }
   ]
   const entreprises = {
     elements: entreprisesElements,
     total: 4
   }
 
-  const administrations = [
-    {
-      id: 'dre-nouvelle-aquitaine-01',
-      nom:
-        "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Nouvelle-Aquitaine - Siège de Poitiers"
-    },
-    {
-      id: 'ope-onf-973-01',
-      nom: 'Office national des forêts'
-    },
-    {
-      id: 'pre-97302-01',
-      nom: 'Préfecture - Guyane'
-    },
-    {
-      id: 'dre-grand-est-01',
-      nom:
-        "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Grand Est - Siège de Metz"
-    }
-  ]
+  const administrations = {
+    elements: [
+      {
+        id: 'dre-nouvelle-aquitaine-01',
+        nom:
+          "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Nouvelle-Aquitaine - Siège de Poitiers"
+      },
+      { id: 'ope-onf-973-01', nom: 'Office national des forêts' },
+      { id: 'pre-97302-01', nom: 'Préfecture - Guyane' },
+      {
+        id: 'dre-grand-est-01',
+        nom:
+          "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Grand Est - Siège de Metz"
+      }
+    ]
+  }
 
   test('récupère les métas pour afficher les utilisateurs', async () => {
-    const apiMock = api.metasUtilisateur.mockResolvedValue({
-      permissions,
-      entreprises,
-      administrations
-    })
+    const apiMock = api.metasUtilisateur
+      .mockResolvedValueOnce({
+        permissions,
+        entreprises,
+        administrations,
+        truc: [{ id: 'id-truc' }]
+      })
+      .mockResolvedValueOnce({})
 
     await store.dispatch('utilisateurs/metasGet')
 
@@ -160,25 +137,17 @@ describe('liste des utilisateurs', () => {
     expect(store.state.utilisateurs.metas).toEqual({
       permission: permissions,
       entreprise: entreprisesElements,
-      administration: administrations
+      administration: administrations.elements
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
-  })
-
-  test("ne récupère pa les métas si l'api ne les renvoie pas", async () => {
-    const apiMock = api.metasUtilisateur.mockResolvedValue({
-      permission: permissions,
-      entreprise: entreprises,
-      administration: administrations
-    })
 
     await store.dispatch('utilisateurs/metasGet')
 
-    expect(apiMock).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledTimes(2)
     expect(store.state.utilisateurs.metas).toEqual({
-      permission: [],
-      administration: [],
-      entreprise: []
+      permission: permissions,
+      entreprise: entreprisesElements,
+      administration: administrations.elements
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
@@ -195,51 +164,64 @@ describe('liste des utilisateurs', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test("retourne une erreur si l'api répond null", async () => {
-    const apiMock = api.metasUtilisateur.mockResolvedValue(null)
-
-    await store.dispatch('utilisateurs/metasGet')
-
-    expect(apiMock).toHaveBeenCalled()
-  })
-
   test('obtient la liste des utilisateurs', async () => {
-    const response = {
-      elements: [{ id: 71, nom: 'toto', prenom: 'asticot' }],
-      total: 1
-    }
+    const elements = [{ id: 71, nom: 'toto', prenom: 'asticot' }]
+    const apiMock = api.utilisateurs.mockResolvedValue({ elements })
 
-    const apiMock = api.utilisateurs.mockResolvedValue(response)
-    await store.dispatch('utilisateurs/get')
+    store.commit('utilisateurs/load', 'metas')
+    await store.dispatch('utilisateurs/urlLoad')
 
+    expect(store.state.utilisateurs.loaded.url).toBeTruthy()
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.utilisateurs.list).toEqual(response.elements)
+    expect(store.state.utilisateurs.list).toEqual(elements)
+
+    await store.dispatch('utilisateurs/urlLoad')
+
+    expect(apiMock).toHaveBeenCalledTimes(1)
   })
 
-  test("retourne une erreur 404 si l'api retourne null", async () => {
-    const apiMock = api.utilisateurs.mockResolvedValue(null)
-    await store.dispatch('utilisateurs/get')
+  test("retourne une erreur si l'api ne repond pas", async () => {
+    const apiMock = api.utilisateurs.mockRejectedValue(
+      new Error("l'api ne répond pas")
+    )
+
+    store.commit('utilisateurs/load', 'metas')
+    await store.dispatch('utilisateurs/urlLoad')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.utilisateurs.list).toEqual([])
   })
 
-  test("retourne une erreur de l'api dans l'obtention des utilisateurs", async () => {
-    const apiMock = api.utilisateurs.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('utilisateurs/get')
+  test("retourne une erreur si l'api retourne une erreur", async () => {
+    const apiMock = api.utilisateurs.mockRejectedValue('erreur api')
+    await store.dispatch('utilisateurs/urlLoad')
 
-    expect(apiMock).toHaveBeenCalled()
-    expect(console.info).toHaveBeenCalled()
-    expect(actions.apiError).toHaveBeenCalled()
+    expect(store.state.utilisateurs.loaded.url).toBeTruthy()
+    expect(apiMock).not.toHaveBeenCalled()
   })
 
   test('initialise les preferences de filtre', async () => {
     const section = 'filtres'
-    const params = { permissionsIds: 'admin' }
+    let params = { noms: 'alpha' }
+    const apiMock = api.utilisateurs.mockResolvedValue({})
+
     await store.dispatch('utilisateurs/preferencesSet', { section, params })
 
-    expect(store.state.utilisateurs.preferences.filtres.permissionsIds).toEqual(
-      'admin'
-    )
+    expect(apiMock).not.toHaveBeenCalled()
+
+    expect(store.state.utilisateurs.preferences.filtres.noms).toEqual('alpha')
+
+    params = { noms: 'beta' }
+
+    store.commit('utilisateurs/load', 'metas')
+    store.commit('utilisateurs/load', 'url')
+    await store.dispatch('utilisateurs/preferencesSet', {
+      section,
+      params,
+      pageReset: true
+    })
+
+    expect(store.state.utilisateurs.preferences.filtres.noms).toEqual('beta')
+    expect(apiMock).toHaveBeenCalled()
   })
 })

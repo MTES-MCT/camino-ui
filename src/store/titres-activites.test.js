@@ -32,8 +32,8 @@ describe("état d'une activité", () => {
       },
       params: [
         { id: 'typesIds', type: 'strings', elements: [] },
-        { id: 'annees', type: 'numbers', elements: [] },
         { id: 'statutsIds', type: 'strings', elements: [] },
+        { id: 'annees', type: 'numbers', elements: [] },
         { id: 'titresNoms', type: 'string' },
         { id: 'titresEntreprises', type: 'string' },
         { id: 'titresSubstances', type: 'string' },
@@ -64,8 +64,8 @@ describe("état d'une activité", () => {
         },
         filtres: {
           typesIds: [],
-          annees: [],
           statutsIds: [],
+          annees: [],
           titresNoms: '',
           titresEntreprises: '',
           titresSubstances: '',
@@ -75,8 +75,13 @@ describe("état d'une activité", () => {
           titresDomainesIds: [],
           titresStatutsIds: []
         }
+      },
+      loaded: {
+        metas: false,
+        url: false
       }
     }
+
     actions = {
       reload: jest.fn(),
       messageAdd: jest.fn(),
@@ -101,68 +106,25 @@ describe("état d'une activité", () => {
     })
   })
 
-  const activitesTypes = [
-    {
-      id: 'grp',
-      nom: "rapport trimestriel d'activité"
-    }
-  ]
+  const activitesTypes = [{ id: 'grp', nom: "rapport trimestriel d'activité" }]
   const activitesAnnees = [2020, 2019]
   const activitesStatuts = [
-    {
-      id: 'abs',
-      nom: 'absent',
-      couleur: 'error'
-    },
-    {
-      id: 'enc',
-      nom: 'en construction',
-      couleur: 'warning'
-    },
-    {
-      id: 'dep',
-      nom: 'déposé',
-      couleur: 'success'
-    },
-    {
-      id: 'fer',
-      nom: 'cloturé',
-      couleur: 'neutral'
-    }
+    { id: 'abs', nom: 'absent', couleur: 'error' },
+    { id: 'enc', nom: 'en construction', couleur: 'warning' },
+    { id: 'dep', nom: 'déposé', couleur: 'success' },
+    { id: 'fer', nom: 'cloturé', couleur: 'neutral' }
   ]
   const domaines = [
-    {
-      id: 'm',
-      nom: 'minéraux et métaux'
-    },
-    {
-      id: 'w',
-      nom: 'granulats marins'
-    }
+    { id: 'm', nom: 'minéraux et métaux' },
+    { id: 'w', nom: 'granulats marins' }
   ]
   const statuts = [
-    {
-      id: 'val',
-      nom: 'valide',
-      couleur: 'success'
-    },
-    {
-      id: 'ech',
-      nom: 'échu',
-      couleur: 'neutral'
-    }
+    { id: 'val', nom: 'valide', couleur: 'success' },
+    { id: 'ech', nom: 'échu', couleur: 'neutral' }
   ]
   const types = [
-    {
-      id: 'cx',
-      nom: 'concession',
-      exploitation: true
-    },
-    {
-      id: 'pr',
-      nom: 'permis exclusif de recherches',
-      exploitation: false
-    }
+    { id: 'cx', nom: 'concession', exploitation: true },
+    { id: 'pr', nom: 'permis exclusif de recherches', exploitation: false }
   ]
 
   test('récupère les métas pour afficher les activités', async () => {
@@ -192,7 +154,6 @@ describe("état d'une activité", () => {
       titresStatuts: statuts,
       titresTypes: types
     })
-
     expect(mutations.loadingRemove).toHaveBeenCalled()
 
     await store.dispatch('titresActivites/metasGet')
@@ -230,18 +191,23 @@ describe("état d'une activité", () => {
     }
     const apiMock = api.activites.mockResolvedValueOnce(response)
 
-    store.state.titresActivites.preferences.filtres.annees = [2020]
-    await store.dispatch('titresActivites/get')
+    store.commit('titresActivites/load', 'metas')
+    await store.dispatch('titresActivites/urlLoad')
 
+    expect(store.state.titresActivites.loaded.url).toBeTruthy()
     expect(apiMock).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalled()
     expect(store.state.titresActivites.list).toEqual(response.elements)
-    expect(store.state.titresActivites.total).toEqual(3)
+
+    await store.dispatch('titresActivites/urlLoad')
+
+    expect(apiMock).toHaveBeenCalledTimes(1)
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
     const apiMock = api.activites.mockResolvedValue(null)
-    await store.dispatch('titresActivites/get')
+
+    store.commit('titresActivites/load', 'metas')
+    await store.dispatch('titresActivites/urlLoad')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titresActivites.list).toEqual([])
@@ -249,19 +215,36 @@ describe("état d'une activité", () => {
 
   test("retourne une erreur si l'api retourne une erreur", async () => {
     const apiMock = api.activites.mockRejectedValue('erreur api')
-    await store.dispatch('titresActivites/get', { annee: 2018, typeId: 'grp' })
+    await store.dispatch('titresActivites/urlLoad')
 
-    expect(apiMock).toHaveBeenCalled()
-    expect(actions.pageError).toHaveBeenCalled()
+    expect(store.state.titresActivites.loaded.url).toBeTruthy()
+    expect(apiMock).not.toHaveBeenCalled()
   })
 
   test('initialise les preferences de filtre', async () => {
     const section = 'filtres'
-    const params = { activitesTypeIds: 'grp' }
+    let params = { noms: 'alpha' }
+    const apiMock = api.activites.mockResolvedValue({})
+
     await store.dispatch('titresActivites/preferencesSet', { section, params })
 
-    expect(
-      store.state.titresActivites.preferences.filtres.activitesTypeIds
-    ).toEqual('grp')
+    expect(apiMock).not.toHaveBeenCalled()
+
+    expect(store.state.titresActivites.preferences.filtres.noms).toEqual(
+      'alpha'
+    )
+
+    params = { noms: 'beta' }
+
+    store.commit('titresActivites/load', 'metas')
+    store.commit('titresActivites/load', 'url')
+    await store.dispatch('titresActivites/preferencesSet', {
+      section,
+      params,
+      pageReset: true
+    })
+
+    expect(store.state.titresActivites.preferences.filtres.noms).toEqual('beta')
+    expect(apiMock).toHaveBeenCalled()
   })
 })

@@ -42,7 +42,9 @@ const metasUtilisateur = apiGraphQLFetch(
       }
 
       administrations {
-        ...administrations
+        elements {
+          ...administrations
+        }
       }
     }
 

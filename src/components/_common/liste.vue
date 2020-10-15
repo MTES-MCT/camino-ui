@@ -83,8 +83,7 @@ export default {
     metas: { type: Object, default: () => ({}) },
     params: { type: Array, required: true },
     total: { type: Number, required: true },
-    metasLoaded: { type: Boolean, default: false },
-    urlLoaded: { type: Boolean, default: false }
+    metasLoaded: { type: Boolean, default: false }
   },
 
   data() {
@@ -152,23 +151,19 @@ export default {
     },
 
     preferencesFiltresUpdateAndPageReset(params) {
-      if (this.urlLoaded) {
-        this.preferencesFiltresUpdate(params)
-        this.$emit('preferences-update', {
-          section: 'table',
-          params: { page: 1 }
-        })
+      if (this.loaded.table && this.loaded.filtres) {
+        this.preferencesFiltresUpdate(params, true)
       }
     },
 
-    preferencesFiltresUpdate(params) {
-      this.$emit('preferences-update', { section: 'filtres', params })
+    preferencesFiltresUpdate(params, pageReset) {
+      this.$emit('preferences-update', { section: 'filtres', params, pageReset })
     },
 
     urlLoad(id) {
       this.loaded[id] = true
       if (this.loaded.table && this.loaded.filtres) {
-        this.$emit('loaded')
+        this.$emit('url-load')
       }
     }
   }

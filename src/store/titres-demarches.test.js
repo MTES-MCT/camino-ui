@@ -34,11 +34,16 @@ describe('liste des demarches', () => {
       params: [
         { id: 'typesIds', type: 'strings', elements: [] },
         { id: 'statutsIds', type: 'strings', elements: [] },
+        { id: 'etapesInclues', type: 'objects', elements: [] },
+        { id: 'etapesExclues', type: 'objects', elements: [] },
         { id: 'titresDomainesIds', type: 'strings', elements: [] },
         { id: 'titresTypesIds', type: 'strings', elements: [] },
         { id: 'titresStatutsIds', type: 'strings', elements: [] },
-        { id: 'etapesInclues', type: 'strings', elements: [] },
-        { id: 'etapesExclues', type: 'strings', elements: [] },
+        { id: 'titresNoms', type: 'string' },
+        { id: 'titresEntreprises', type: 'string' },
+        { id: 'titresSubstances', type: 'string' },
+        { id: 'titresReferences', type: 'string' },
+        { id: 'titresTerritoires', type: 'string' },
         { id: 'page', type: 'number', min: 0 },
         { id: 'intervalle', type: 'number', min: 10, max: 500 },
         {
@@ -53,24 +58,37 @@ describe('liste des demarches', () => {
             'statut'
           ]
         },
-        { id: 'ordre', type: 'string', elements: ['asc', 'desc'] }
+        {
+          id: 'ordre',
+          type: 'string',
+          elements: ['asc', 'desc']
+        }
       ],
       preferences: {
         table: {
           page: 1,
-          intervalle: null,
+          intervalle: 200,
           ordre: 'asc',
-          colonne: 'titreNom'
+          colonne: null
         },
         filtres: {
           typesIds: [],
           statutsIds: [],
+          etapesInclues: [],
+          etapesExclues: [],
           titresDomainesIds: [],
           titresTypesIds: [],
           titresStatutsIds: [],
-          etapesIncluesIds: [],
-          etapesExcluesIds: []
+          titresNoms: '',
+          titresEntreprises: '',
+          titresSubstances: '',
+          titresReferences: '',
+          titresTerritoires: ''
         }
+      },
+      loaded: {
+        metas: false,
+        url: false
       }
     }
 
@@ -148,31 +166,63 @@ describe('liste des demarches', () => {
     const apiMock = api.demarches.mockResolvedValue({
       elements: demarchesListe
     })
-    await store.dispatch('titresDemarches/get')
 
+    store.commit('titresDemarches/load', 'metas')
+    await store.dispatch('titresDemarches/urlLoad')
+
+    expect(store.state.titresDemarches.loaded.url).toBeTruthy()
     expect(apiMock).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalled()
     expect(store.state.titresDemarches.list).toEqual(demarchesListe)
+
+    await store.dispatch('titresDemarches/urlLoad')
+
+    expect(apiMock).toHaveBeenCalledTimes(1)
   })
 
   test("retourne une erreur si l'api ne repond pas", async () => {
     const apiMock = api.demarches.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
-    await store.dispatch('titresDemarches/get')
+
+    store.commit('titresDemarches/load', 'metas')
+    await store.dispatch('titresDemarches/urlLoad')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(console.info).toHaveBeenCalled()
-    expect(actions.apiError).toHaveBeenCalled()
+    expect(store.state.titresDemarches.list).toEqual([])
+  })
+
+  test("retourne une erreur si l'api retourne une erreur", async () => {
+    const apiMock = api.demarches.mockRejectedValue('erreur api')
+    await store.dispatch('titresDemarches/urlLoad')
+
+    expect(store.state.titresDemarches.loaded.url).toBeTruthy()
+    expect(apiMock).not.toHaveBeenCalled()
   })
 
   test('initialise les preferences de filtre', async () => {
     const section = 'filtres'
-    const params = { domainesIds: 'h' }
+    let params = { noms: 'alpha' }
+    const apiMock = api.demarches.mockResolvedValue({})
+
     await store.dispatch('titresDemarches/preferencesSet', { section, params })
 
-    expect(store.state.titresDemarches.preferences.filtres.domainesIds).toEqual(
-      'h'
+    expect(apiMock).not.toHaveBeenCalled()
+
+    expect(store.state.titresDemarches.preferences.filtres.noms).toEqual(
+      'alpha'
     )
+
+    params = { noms: 'beta' }
+
+    store.commit('titresDemarches/load', 'metas')
+    store.commit('titresDemarches/load', 'url')
+    await store.dispatch('titresDemarches/preferencesSet', {
+      section,
+      params,
+      pageReset: true
+    })
+
+    expect(store.state.titresDemarches.preferences.filtres.noms).toEqual('beta')
+    expect(apiMock).toHaveBeenCalled()
   })
 })

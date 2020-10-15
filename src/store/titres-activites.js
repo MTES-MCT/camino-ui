@@ -59,17 +59,25 @@ export const state = {
       titresDomainesIds: [],
       titresStatutsIds: []
     }
+  },
+  loaded: {
+    metas: false,
+    url: false
   }
 }
 
 export const actions = {
-  async metasGet({ commit, dispatch }) {
-    commit('loadingAdd', 'metasActivites', { root: true })
-
+  async metasGet({ state, commit, dispatch }) {
     try {
+      commit('loadingAdd', 'metasActivites', { root: true })
+
       const data = await metasActivites()
 
       commit('metasSet', data)
+
+      if (!state.loaded.metas) {
+        commit('load', 'metas')
+      }
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.info(e)
@@ -79,9 +87,9 @@ export const actions = {
   },
 
   async get({ state, dispatch, commit }) {
-    commit('loadingAdd', 'activites', { root: true })
-
     try {
+      commit('loadingAdd', 'activites', { root: true })
+
       const p = paramsBuild(
         state.params,
         Object.assign({}, state.preferences.filtres, state.preferences.table)
@@ -91,10 +99,7 @@ export const actions = {
 
       dispatch(
         'messageAdd',
-        {
-          value: `liste d'activités mise à jour`,
-          type: 'success'
-        },
+        { value: `liste d'activités mise à jour`, type: 'success' },
         { root: true }
       )
 
@@ -107,8 +112,28 @@ export const actions = {
     }
   },
 
-  preferencesSet({ commit }, { section, params }) {
+  async preferencesSet(
+    { state, commit, dispatch },
+    { section, params, pageReset }
+  ) {
+    if (pageReset) {
+      commit('preferencesSet', { section: 'table', params: { page: 1 } })
+    }
+
     commit('preferencesSet', { section, params })
+    if (state.loaded.metas && state.loaded.url) {
+      await dispatch('get')
+    }
+  },
+
+  async urlLoad({ state, commit, dispatch }) {
+    if (!state.loaded.url) {
+      commit('load', 'url')
+
+      if (state.loaded.metas) {
+        await dispatch('get')
+      }
+    }
   }
 }
 
@@ -178,6 +203,10 @@ export const mutations = {
     Object.keys(params).forEach(id => {
       Vue.set(state.preferences[section], id, params[id])
     })
+  },
+
+  load(state, section) {
+    state.loaded[section] = true
   }
 }
 

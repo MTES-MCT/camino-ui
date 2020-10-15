@@ -39,8 +39,6 @@ export const state = {
 export const actions = {
   async get({ state, dispatch, commit }) {
     try {
-      if (!state.loaded.url) return
-
       commit('loadingAdd', 'entreprises', { root: true })
 
       const p = paramsBuild(
@@ -68,15 +66,24 @@ export const actions = {
     }
   },
 
-  async preferencesSet({ commit, dispatch }, { section, params }) {
+  async preferencesSet(
+    { state, commit, dispatch },
+    { section, params, pageReset }
+  ) {
+    if (pageReset) {
+      commit('preferencesSet', { section: 'table', params: { page: 1 } })
+    }
+
     commit('preferencesSet', { section, params })
 
-    await dispatch('get')
+    if (state.loaded.url) {
+      await dispatch('get')
+    }
   },
 
-  async loaded({ state, commit, dispatch }) {
+  async urlLoad({ state, commit, dispatch }) {
     if (!state.loaded.url) {
-      commit('loaded', 'url')
+      commit('load', 'url')
       await dispatch('get')
     }
   }
@@ -94,7 +101,7 @@ export const mutations = {
     })
   },
 
-  loaded(state, section) {
+  load(state, section) {
     state.loaded[section] = true
   }
 }
