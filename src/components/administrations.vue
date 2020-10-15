@@ -10,9 +10,8 @@
     :params="params"
     :total="total"
     :metas-loaded="metasLoaded"
-    :url-loaded="urlLoaded"
     @preferences-update="preferencesUpdate"
-    @loaded="loaded"
+    @url-load="urlLoad"
   >
     <button
       v-if="permissionsCheck(['super', 'admin', 'editeur'])"
@@ -89,10 +88,6 @@ export default {
 
     metasLoaded() {
       return this.$store.state.administrations.loaded.metas
-    },
-
-    urlLoaded() {
-      return this.$store.state.administrations.loaded.url
     }
   },
 
@@ -113,8 +108,8 @@ export default {
       await this.$store.dispatch('administrations/metasGet')
     },
 
-    loaded() {
-      this.$store.dispatch('administrations/loaded')
+    urlLoad() {
+      this.$store.dispatch('administrations/urlLoad')
     },
 
     async preferencesUpdate(options) {

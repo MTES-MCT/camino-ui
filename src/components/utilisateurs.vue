@@ -12,7 +12,7 @@
     :total="total"
     :metas-loaded="metasLoaded"
     @preferences-update="preferencesUpdate"
-    @loaded="utilisateursLoad"
+    @url-load="urlLoad"
   >
     <button
       v-if="permissionsCheck(['super', 'admin'])"
@@ -54,8 +54,6 @@ export default {
     return {
       filtres,
       colonnes: utilisateursColonnes,
-      metasLoaded: false,
-      urlsLoaded: false,
       visible: false
     }
   },
@@ -87,18 +85,15 @@ export default {
 
     lignes() {
       return utilisateursLignesBuild(this.utilisateurs)
+    },
+
+    metasLoaded() {
+      return this.$store.state.utilisateurs.loaded.metas
     }
   },
 
   watch: {
-    user: 'metasGet',
-
-    preferences: {
-      handler: function() {
-        this.utilisateursGet()
-      },
-      deep: true
-    }
+    user: 'metasGet'
   },
 
   async created() {
@@ -111,30 +106,16 @@ export default {
 
   methods: {
     async metasGet() {
-      if (
-        !this.user ||
-        !this.user.sections ||
-        !this.user.sections.utilisateurs
-      ) {
+      if (!this.user || !this.user.sections || !this.user.sections.utilisateurs) {
         await this.$store.dispatch('pageError')
       } else {
         this.visible = true
-        await this.$store.dispatch(`utilisateurs/metasGet`)
-        if (!this.metasLoaded) {
-          this.metasLoaded = true
-        }
+        await this.$store.dispatch('utilisateurs/metasGet')
       }
     },
 
-    utilisateursLoad() {
-      this.urlsLoaded = true
-      this.utilisateursGet()
-    },
-
-    async utilisateursGet() {
-      if (this.metasLoaded && this.urlsLoaded) {
-        await this.$store.dispatch(`utilisateurs/get`)
-      }
+    urlLoad() {
+      this.$store.dispatch('utilisateurs/urlLoad')
     },
 
     async preferencesUpdate(options) {

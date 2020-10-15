@@ -12,7 +12,7 @@
     :total="total"
     :metas-loaded="metasLoaded"
     @preferences-update="preferencesUpdate"
-    @loaded="activitesLoad"
+    @url-load="urlLoad"
   >
     <Downloads
       v-if="activites.length"
@@ -40,8 +40,6 @@ export default {
     return {
       filtres,
       colonnes: activitesColonnes,
-      metasLoaded: false,
-      urlsLoaded: false,
       visible: false
     }
   },
@@ -73,18 +71,15 @@ export default {
 
     lignes() {
       return activitesLignesBuild(this.activites)
+    },
+
+    metasLoaded() {
+      return this.$store.state.titresActivites.loaded.metas
     }
   },
 
   watch: {
     user: 'metasGet',
-
-    preferences: {
-      handler: function() {
-        this.activitesGet()
-      },
-      deep: true
-    }
   },
 
   async created() {
@@ -101,22 +96,12 @@ export default {
         await this.$store.dispatch('pageError')
       } else {
         this.visible = true
-        await this.$store.dispatch(`titresActivites/metasGet`)
-        if (!this.metasLoaded) {
-          this.metasLoaded = true
-        }
+        await this.$store.dispatch('titresActivites/metasGet')
       }
     },
 
-    activitesLoad() {
-      this.urlsLoaded = true
-      this.activitesGet()
-    },
-
-    async activitesGet() {
-      if (this.metasLoaded && this.urlsLoaded) {
-        await this.$store.dispatch(`titresActivites/get`)
-      }
+    urlLoad() {
+      this.$store.dispatch('titresActivites/urlLoad')
     },
 
     async preferencesUpdate(options) {

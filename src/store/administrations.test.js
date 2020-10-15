@@ -140,23 +140,31 @@ describe("liste d'administrations", () => {
     }
     const apiMock = api.administrations.mockResolvedValue(response)
 
-    store.commit('administrations/loaded', 'metas')
-    await store.dispatch('administrations/loaded')
+    store.commit('administrations/load', 'metas')
+    await store.dispatch('administrations/urlLoad')
 
     expect(store.state.administrations.loaded.url).toBeTruthy()
     expect(apiMock).toHaveBeenCalled()
-
     expect(store.state.administrations.list).toEqual(response.elements)
 
-    await store.dispatch('administrations/loaded')
+    await store.dispatch('administrations/urlLoad')
+
     expect(apiMock).toHaveBeenCalledTimes(1)
+  })
+
+  test('obtient la liste des administrations', async () => {
+    const apiMock = api.administrations.mockResolvedValue({})
+    await store.dispatch('administrations/urlLoad')
+
+    expect(store.state.administrations.loaded.url).toBeTruthy()
+    expect(apiMock).not.toHaveBeenCalled()
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
     const apiMock = api.administrations.mockResolvedValue(null)
 
-    store.commit('administrations/loaded', 'metas')
-    await store.dispatch('administrations/loaded', 'url')
+    store.commit('administrations/load', 'metas')
+    await store.dispatch('administrations/urlLoad')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.administrations.list).toEqual([])
@@ -167,9 +175,9 @@ describe("liste d'administrations", () => {
       new Error('erreur api')
     )
 
-    store.commit('administrations/loaded', 'metas')
+    store.commit('administrations/load', 'metas')
 
-    await store.dispatch('administrations/loaded', 'url')
+    await store.dispatch('administrations/urlLoad')
 
     expect(apiMock).toHaveBeenCalled()
     expect(console.info).toHaveBeenCalled()
@@ -178,15 +186,29 @@ describe("liste d'administrations", () => {
 
   test('initialise les preferences de filtre', async () => {
     const section = 'filtres'
-    const params = { noms: "la mine d'or" }
+    let params = { noms: 'ministère' }
+    const apiMock = api.administrations.mockResolvedValue({})
 
+    await store.dispatch('administrations/preferencesSet', { section, params })
+
+    expect(apiMock).not.toHaveBeenCalled()
+
+    expect(store.state.administrations.preferences.filtres.noms).toEqual(
+      'ministère'
+    )
+
+    params = { noms: 'opérateur' }
+
+    store.commit('administrations/load', 'metas')
+    store.commit('administrations/load', 'url')
     await store.dispatch('administrations/preferencesSet', {
       section,
-      params
+      params,
+      pageReset: true
     })
 
     expect(store.state.administrations.preferences.filtres.noms).toEqual(
-      "la mine d'or"
+      'opérateur'
     )
   })
 })

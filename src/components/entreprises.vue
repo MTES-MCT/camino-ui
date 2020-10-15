@@ -11,7 +11,7 @@
     :total="total"
     :metas-loaded="true"
     @preferences-update="preferencesUpdate"
-    @loaded="entreprisesLoad"
+    @url-load="urlLoad"
   >
     <button
       v-if="permissionsCheck(['super', 'admin', 'editeur'])"
@@ -99,8 +99,8 @@ export default {
   },
 
   methods: {
-    entreprisesLoad() {
-      this.$store.dispatch('entreprises/loaded')
+    urlLoad() {
+      this.$store.dispatch('entreprises/urlLoad')
     },
 
     async preferencesUpdate(options) {

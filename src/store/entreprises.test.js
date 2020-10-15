@@ -101,27 +101,27 @@ describe("liste d'entreprises", () => {
       total: 1
     }
     const apiMock = api.entreprises.mockResolvedValue(response)
-    await store.dispatch('entreprises/loaded')
+    await store.dispatch('entreprises/urlLoad')
 
     expect(apiMock).toHaveBeenCalled()
 
     expect(store.state.entreprises.loaded.url).toBeTruthy()
     expect(store.state.entreprises.list).toEqual(response.elements)
 
-    await store.dispatch('entreprises/loaded')
+    await store.dispatch('entreprises/urlLoad')
     expect(apiMock).toHaveBeenCalledTimes(1)
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
     const apiMock = api.entreprises.mockResolvedValue(null)
-    await store.dispatch('entreprises/loaded', 'url')
+    await store.dispatch('entreprises/urlLoad', 'url')
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.entreprises.list).toEqual([])
   })
 
   test("retourne une erreur si l'api retourne une erreur", async () => {
     const apiMock = api.entreprises.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('entreprises/loaded', 'url')
+    await store.dispatch('entreprises/urlLoad', 'url')
 
     expect(apiMock).toHaveBeenCalled()
     expect(console.info).toHaveBeenCalled()
@@ -130,14 +130,24 @@ describe("liste d'entreprises", () => {
 
   test('initialise les preferences de filtre', async () => {
     const section = 'filtres'
-    const params = { noms: "la mine d'or" }
+    let params = { noms: 'alpha' }
+
+    const apiMock = api.entreprises.mockResolvedValue({})
+    await store.dispatch('entreprises/preferencesSet', { section, params })
+    expect(apiMock).not.toHaveBeenCalled()
+    expect(store.state.entreprises.preferences.filtres.noms).toEqual('alpha')
+
+    params = { noms: 'beta' }
+    store.commit('entreprises/load', 'url')
+
+    expect(store.state.entreprises.loaded.url).toBeTruthy()
     await store.dispatch('entreprises/preferencesSet', {
       section,
-      params
+      params,
+      pageReset: true
     })
 
-    expect(store.state.entreprises.preferences.filtres.noms).toEqual(
-      "la mine d'or"
-    )
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.entreprises.preferences.filtres.noms).toEqual('beta')
   })
 })

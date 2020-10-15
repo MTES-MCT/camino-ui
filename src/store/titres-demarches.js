@@ -69,17 +69,25 @@ export const state = {
       titresReferences: '',
       titresTerritoires: ''
     }
+  },
+  loaded: {
+    metas: false,
+    url: false
   }
 }
 
 export const actions = {
-  async metasGet({ commit }) {
-    commit('loadingAdd', 'metasDemarchesGet', { root: true })
-
+  async metasGet({ state, commit }) {
     try {
+      commit('loadingAdd', 'metasDemarchesGet', { root: true })
+
       const data = await metasDemarches()
 
       commit('metasSet', data)
+
+      if (!state.loaded.metas) {
+        commit('load', 'metas')
+      }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -88,9 +96,9 @@ export const actions = {
   },
 
   async get({ state, dispatch, commit }) {
-    commit('loadingAdd', 'demarches', { root: true })
-
     try {
+      commit('loadingAdd', 'demarches', { root: true })
+
       const p = paramsBuild(
         state.params,
         Object.assign({}, state.preferences.filtres, state.preferences.table)
@@ -115,8 +123,28 @@ export const actions = {
     }
   },
 
-  preferencesSet({ commit }, { section, params }) {
+  async preferencesSet(
+    { state, commit, dispatch },
+    { section, params, pageReset }
+  ) {
+    if (pageReset) {
+      commit('preferencesSet', { section: 'table', params: { page: 1 } })
+    }
+
     commit('preferencesSet', { section, params })
+    if (state.loaded.metas && state.loaded.url) {
+      await dispatch('get')
+    }
+  },
+
+  async urlLoad({ state, commit, dispatch }) {
+    if (!state.loaded.url) {
+      commit('load', 'url')
+
+      if (state.loaded.metas) {
+        await dispatch('get')
+      }
+    }
   }
 }
 
@@ -171,6 +199,10 @@ export const mutations = {
     Object.keys(params).forEach(id => {
       Vue.set(state.preferences[section], id, params[id])
     })
+  },
+
+  load(state, section) {
+    state.loaded[section] = true
   }
 }
 

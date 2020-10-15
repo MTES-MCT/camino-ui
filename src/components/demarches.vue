@@ -11,7 +11,7 @@
     :total="total"
     :metas-loaded="metasLoaded"
     @preferences-update="preferencesUpdate"
-    @loaded="demarchesLoad"
+    @url-load="urlLoad"
   >
     <Downloads
       v-if="demarches.length"
@@ -39,9 +39,6 @@ export default {
   data() {
     return {
       colonnes: demarchesColonnes,
-      metasLoaded: false,
-      urlsLoaded: false,
-      visible: false,
       filtres
     }
   },
@@ -73,18 +70,15 @@ export default {
 
     lignes() {
       return demarchesLignesBuild(this.demarches)
+    },
+
+    metasLoaded() {
+      return this.$store.state.titresDemarches.loaded.metas
     }
   },
 
   watch: {
-    user: 'metasGet',
-
-    preferences: {
-      handler: function() {
-        this.demarchesGet()
-      },
-      deep: true
-    }
+    user: 'metasGet'
   },
 
   async created() {
@@ -98,24 +92,14 @@ export default {
   methods: {
     async metasGet() {
       await this.$store.dispatch('titresDemarches/metasGet')
-      if (!this.metasLoaded) {
-        this.metasLoaded = true
-      }
     },
 
-    demarchesLoad() {
-      this.urlsLoaded = true
-      this.demarchesGet()
-    },
-
-    async demarchesGet() {
-      if (this.metasLoaded && this.urlsLoaded) {
-        await this.$store.dispatch('titresDemarches/get')
-      }
+    urlLoad() {
+      this.$store.dispatch('titresDemarches/urlLoad')
     },
 
     async preferencesUpdate(options) {
-      await this.$store.dispatch('titresDemarches/preferencesSet', options)
+      await this.$store.dispatch(`titresDemarches/preferencesSet`, options)
 
       if (options.section === 'filtres') {
         this.eventTrack(options.params)
