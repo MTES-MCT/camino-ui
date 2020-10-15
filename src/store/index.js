@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { saveAs } from 'file-saver'
 
+import router from '../router'
+import { apiRestFetch } from '../api/_client'
+
 import titre from './titre'
 import titreDemarche from './titre-demarche'
 import titreEtape from './titre-etape'
@@ -22,9 +25,6 @@ import titreActivite from './titre-activite'
 import titresActivites from './titres-activites'
 import statistiques from './statistiques'
 import definitions from './definitions'
-
-import router from '../router'
-import { apiRestFetch } from '../api/_client'
 
 const modules = {
   titre,

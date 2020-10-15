@@ -14,14 +14,43 @@ const administration = apiGraphQLFetch(gql`
   ${fragmentAdministration}
 `)
 
+const metasAdministrations = apiGraphQLFetch(
+  gql`
+    query MetasAdministrations {
+      administrationsTypes {
+        id
+        nom
+        ordre
+      }
+    }
+  `
+)
+
 const administrations = apiGraphQLFetch(gql`
-  query Administrations {
-    administrations {
-      ...administrations
+  query Administrations(
+    $intervalle: Int
+    $page: Int
+    $colonne: String
+    $ordre: String
+    $noms: String
+    $typesIds: [ID]
+  ) {
+    administrations(
+      intervalle: $intervalle
+      page: $page
+      colonne: $colonne
+      ordre: $ordre
+      noms: $noms
+      typesIds: $typesIds
+    ) {
+      elements {
+        ...administrations
+      }
+      total
     }
   }
 
   ${fragmentAdministrations}
 `)
 
-export { administration, administrations }
+export { administration, administrations, metasAdministrations }

@@ -36,9 +36,13 @@
             class="td"
             :class="col.class"
           >
-            <component
-              :is="row.columns[col.id].component"
-              v-if="row.columns[col.id] && row.columns[col.id].component"
+            <component :is="row.columns[col.id].component"
+              v-if="row.columns[col.id] && row.columns[col.id].component && row.columns[col.id].slot"
+              v-bind="row.columns[col.id].props"
+              :class="row.columns[col.id].class"
+            >{{ row.columns[col.id].value }}</component>
+            <component :is="row.columns[col.id].component"
+              v-else-if="row.columns[col.id] && row.columns[col.id].component"
               v-bind="row.columns[col.id].props"
               :class="row.columns[col.id].class"
             />

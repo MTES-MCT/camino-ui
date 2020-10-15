@@ -46,6 +46,9 @@ describe("liste d'entreprises", () => {
         filtres: {
           noms: ''
         }
+      },
+      loaded: {
+        url: false
       }
     }
     actions = {
@@ -80,8 +83,6 @@ describe("liste d'entreprises", () => {
       { nom: 'Escargot tout chaud' },
       { nom: 'Koala' }
     ]
-    entreprises.state = { current: null, list: [], total: 0 }
-    const store = new Vuex.Store({ modules: { entreprises } })
     store.commit('entreprises/set', { elements: entreprisesListe, total: 6 })
 
     expect(store.state.entreprises.list).toEqual([
@@ -100,23 +101,27 @@ describe("liste d'entreprises", () => {
       total: 1
     }
     const apiMock = api.entreprises.mockResolvedValue(response)
-    await store.dispatch('entreprises/get')
+    await store.dispatch('entreprises/loaded')
 
     expect(apiMock).toHaveBeenCalled()
+
+    expect(store.state.entreprises.loaded.url).toBeTruthy()
     expect(store.state.entreprises.list).toEqual(response.elements)
+
+    await store.dispatch('entreprises/loaded')
+    expect(apiMock).toHaveBeenCalledTimes(1)
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
     const apiMock = api.entreprises.mockResolvedValue(null)
-    await store.dispatch('entreprises/get')
-
+    await store.dispatch('entreprises/loaded', 'url')
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.entreprises.list).toEqual([])
   })
 
-  test("retourne une erreur si l'api retourne une erreur pour obtenir des utilisateurs", async () => {
+  test("retourne une erreur si l'api retourne une erreur", async () => {
     const apiMock = api.entreprises.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('entreprises/get')
+    await store.dispatch('entreprises/loaded', 'url')
 
     expect(apiMock).toHaveBeenCalled()
     expect(console.info).toHaveBeenCalled()

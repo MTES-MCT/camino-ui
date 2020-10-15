@@ -16,4 +16,12 @@ const typenameOmit = (key, value) => (key === '__typename' ? undefined : value)
 
 const jsonTypenameOmit = json => JSON.parse(JSON.stringify(json), typenameOmit)
 
-export { dateFormat, permissionsCheck, numberFormat, jsonTypenameOmit }
+const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
+
+export {
+  dateFormat,
+  permissionsCheck,
+  numberFormat,
+  jsonTypenameOmit,
+  elementsFormat
+}

@@ -30,14 +30,19 @@ export const state = {
     filtres: {
       noms: ''
     }
+  },
+  loaded: {
+    url: false
   }
 }
 
 export const actions = {
   async get({ state, dispatch, commit }) {
-    commit('loadingAdd', 'entreprises', { root: true })
-
     try {
+      if (!state.loaded.url) return
+
+      commit('loadingAdd', 'entreprises', { root: true })
+
       const p = paramsBuild(
         state.params,
         Object.assign({}, state.preferences.filtres, state.preferences.table)
@@ -63,8 +68,17 @@ export const actions = {
     }
   },
 
-  preferencesSet({ commit }, { section, params }) {
+  async preferencesSet({ commit, dispatch }, { section, params }) {
     commit('preferencesSet', { section, params })
+
+    await dispatch('get')
+  },
+
+  async loaded({ state, commit, dispatch }) {
+    if (!state.loaded.url) {
+      commit('loaded', 'url')
+      await dispatch('get')
+    }
   }
 }
 
@@ -78,6 +92,10 @@ export const mutations = {
     Object.keys(params).forEach(id => {
       Vue.set(state.preferences[section], id, params[id])
     })
+  },
+
+  loaded(state, section) {
+    state.loaded[section] = true
   }
 }
 

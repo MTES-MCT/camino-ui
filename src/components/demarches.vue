@@ -9,7 +9,7 @@
     :metas="metas"
     :params="params"
     :total="total"
-    :loaded="metasLoaded"
+    :metas-loaded="metasLoaded"
     @preferences-update="preferencesUpdate"
     @loaded="demarchesLoad"
   >

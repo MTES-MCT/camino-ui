@@ -285,7 +285,10 @@ describe("état général de l'application", () => {
     actions.messageAdd = messageAddMock
     store = new Vuex.Store({ state, actions, mutations })
 
-    const apiMock = apiRestFetch.mockResolvedValueOnce({ data: 'truc' })
+    const apiMock = apiRestFetch.mockResolvedValueOnce({
+      data: 'truc',
+      headers: { get: () => undefined }
+    })
 
     const section = 'titres'
     const params = { typeIds: ['m', 'w'] }
