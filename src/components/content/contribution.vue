@@ -25,7 +25,7 @@
       <li>
         Envoyez-nous les documents numérisés relatifs à la vie du titre que vous
         possédez (ne vous inquiétez pas, nous respectons scrupuleusement la
-        confidentialité des pièces). Pour cela, écrivez-vous à
+        confidentialité des pièces). Pour cela, écrivez-nous à
         contact@camino.beta.gouv.fr.
       </li>
     </ul>
