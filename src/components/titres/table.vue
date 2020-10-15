@@ -4,6 +4,7 @@
     :columns="colonnes"
     :order="preferences.ordre"
     :rows="lignes"
+    class="width-max"
     @params-update="preferencesUpdate"
   />
 </template>

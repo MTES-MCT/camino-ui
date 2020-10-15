@@ -1,5 +1,18 @@
 import gql from 'graphql-tag'
 
+jest.mock('./fragments/utilisateur', () => ({
+  fragmentUtilisateurToken: gql`
+    fragment utilisateurToken on UtilisateurToken {
+      utilisateur {
+        id
+        email
+      }
+      accessToken
+      refreshToken
+    }
+  `
+}))
+
 console.info = jest.fn()
 console.error = jest.fn()
 

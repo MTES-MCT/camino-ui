@@ -7,14 +7,8 @@
 <script>
 export default {
   props: {
-    color: {
-      type: String,
-      default: 'bg-neutral'
-    },
-    mini: {
-      type: Boolean,
-      default: false
-    }
+    color: { type: String, default: 'bg-neutral' },
+    mini: { type: Boolean, default: false }
   },
 
   computed: {

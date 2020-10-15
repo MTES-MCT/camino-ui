@@ -1,17 +1,80 @@
 import Vue from 'vue'
-
-import { administrations } from '../api/administrations'
+import { administrations, metasAdministrations } from '../api/administrations'
+import { paramsBuild } from './_utils'
 
 export const state = {
-  list: []
+  list: [],
+  total: 0,
+  metas: {
+    types: []
+  },
+  params: [
+    { id: 'page', type: 'number', min: 0 },
+    { id: 'intervalle', type: 'number', min: 10, max: 500 },
+    {
+      id: 'colonne',
+      type: 'string',
+      elements: ['nom', 'type', 'abreviation']
+    },
+    {
+      id: 'ordre',
+      type: 'string',
+      elements: ['asc', 'desc']
+    },
+    { id: 'typesIds', type: 'strings', elements: [] },
+    { id: 'noms', type: 'string' }
+  ],
+  preferences: {
+    table: { page: 1, intervalle: 200, ordre: 'asc', colonne: null },
+    filtres: { noms: '', typesIds: '' }
+  },
+  loaded: {
+    metas: false,
+    url: false
+  }
 }
 
 export const actions = {
-  async get({ dispatch, commit }) {
-    commit('loadingAdd', 'administrations', { root: true })
+  async metasGet({ state, commit, dispatch }) {
+    commit('loadingAdd', 'metasAdministrationsGet', { root: true })
 
     try {
-      const data = await administrations()
+      const data = await metasAdministrations()
+      commit('metasSet', { types: data })
+
+      if (!state.loaded.metas) {
+        commit('loaded', 'metas')
+      }
+    } catch (e) {
+      dispatch('apiError', e, { root: true })
+    } finally {
+      commit('loadingRemove', 'metasAdministrationsGet', { root: true })
+    }
+  },
+
+  async get({ state, dispatch, commit }) {
+    try {
+      if (!state.loaded.metas || !state.loaded.url) {
+        return
+      }
+
+      commit('loadingAdd', 'administrations', { root: true })
+
+      const p = paramsBuild(
+        state.params,
+        Object.assign({}, state.preferences.filtres, state.preferences.table)
+      )
+
+      const data = await administrations(p)
+
+      dispatch(
+        'messageAdd',
+        {
+          value: "liste d'administrations mise à jour",
+          type: 'success'
+        },
+        { root: true }
+      )
 
       commit('set', data)
     } catch (e) {
@@ -20,16 +83,53 @@ export const actions = {
     } finally {
       commit('loadingRemove', 'administrations', { root: true })
     }
+  },
+
+  async preferencesSet({ commit, dispatch }, { section, params }) {
+    commit('preferencesSet', { section, params })
+
+    await dispatch('get')
+  },
+
+  async loaded({ state, commit, dispatch }) {
+    if (!state.loaded.url) {
+      commit('loaded', 'url')
+      await dispatch('get')
+    }
   }
 }
 
 export const mutations = {
-  set(state, administrations) {
-    Vue.set(
-      state,
-      'list',
-      administrations.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
-    )
+  metasSet(state, data) {
+    Object.keys(data).forEach(id => {
+      const paramsIds = ['typesIds']
+
+      Vue.set(state.metas, id, data[id])
+
+      paramsIds.forEach(paramId => {
+        const param = state.params.find(p => p.id === paramId)
+        Vue.set(
+          param,
+          'elements',
+          data[id].map(e => e.id)
+        )
+      })
+    })
+  },
+
+  set(state, data) {
+    Vue.set(state, 'list', data.elements)
+    Vue.set(state, 'total', data.total)
+  },
+
+  preferencesSet(state, { section, params }) {
+    Object.keys(params).forEach(id => {
+      Vue.set(state.preferences[section], id, params[id])
+    })
+  },
+
+  loaded(state, section) {
+    state.loaded[section] = true
   }
 }
 

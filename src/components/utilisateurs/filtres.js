@@ -1,4 +1,4 @@
-const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
+import { elementsFormat } from '../../utils/index'
 
 const utilisateursFiltres = [
   {

@@ -8,6 +8,8 @@ import Utilisateur from '../components/utilisateur.vue'
 import Utilisateurs from '../components/utilisateurs.vue'
 import Entreprise from '../components/entreprise.vue'
 import Entreprises from '../components/entreprises.vue'
+import Administration from '../components/administration.vue'
+import Administrations from '../components/administrations.vue'
 import Activite from '../components/activite.vue'
 import Activites from '../components/activites.vue'
 import Glossaire from '../components/glossaire.vue'
@@ -22,15 +24,15 @@ import UserAdd from '../components/user/add.vue'
 import Definition from '../components/glossaire/definition.vue'
 import store from '../store'
 
-const Statistiques = () =>
-  import(/* webpackChunkName: "group-stats" */ '../components/statistiques.vue')
 const StatistiquesGlobales = () =>
   import(
-    /* webpackChunkName: "group-stats" */ '../components/statistiques/globales.vue'
+    /* webpackChunkName: "stats" */ '../components/statistiques/globales.vue'
   )
+const Statistiques = () =>
+  import(/* webpackChunkName: "stats" */ '../components/statistiques.vue')
 const StatistiquesGuyane = () =>
   import(
-    /* webpackChunkName: "group-stats" */ '../components/statistiques/guyane.vue'
+    /* webpackChunkName: "stats" */ '../components/statistiques/guyane.vue'
   )
 
 Vue.use(VueRouter)
@@ -72,6 +74,16 @@ const routes = [
     path: '/entreprises/:id',
     name: 'entreprise',
     component: Entreprise
+  },
+  {
+    path: '/administrations',
+    name: 'administrations',
+    component: Administrations
+  },
+  {
+    path: '/administrations/:id',
+    name: 'administration',
+    component: Administration
   },
   {
     path: '/activites',

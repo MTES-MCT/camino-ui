@@ -118,13 +118,13 @@ export const actions = {
   },
 
   async preferencesSet({ state, commit, dispatch }, { section, params }) {
-    const paramsNew = {}
-
-    Object.keys(params).forEach(id => {
+    const paramsNew = Object.keys(params).reduce((acc, id) => {
       if (state.preferences[section][id] !== params[id]) {
-        paramsNew[id] = params[id]
+        acc[id] = params[id]
       }
-    })
+
+      return acc
+    }, {})
 
     if (Object.keys(paramsNew).length) {
       commit('preferencesSet', { section, params: paramsNew })
@@ -156,18 +156,17 @@ export const actions = {
   },
 
   async loaded({ commit, state, dispatch }, id) {
-    const get = async () => {
-      if (!state.loaded.urls) {
-        state.loaded.urls = true
-
-        await dispatch('get')
-      }
-    }
-
     commit('loaded', id)
 
-    if (state.loaded.vue && state.loaded.component && state.loaded.filtres) {
-      await get()
+    if (
+      state.loaded.vue &&
+      state.loaded.component &&
+      state.loaded.filtres &&
+      !state.loaded.urls
+    ) {
+      state.loaded.urls = true
+
+      await dispatch('get')
     }
   }
 }

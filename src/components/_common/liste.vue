@@ -13,7 +13,7 @@
     </div>
 
     <Url
-      v-if="loaded"
+      v-if="metasLoaded"
       :values="urlValuesFiltres"
       :params="preferences.filtres"
       @params-update="preferencesFiltresUpdate"
@@ -21,7 +21,7 @@
     />
 
     <Url
-      v-if="loaded"
+      v-if="metasLoaded"
       :values="urlValuesTable"
       :params="preferences.table"
       @params-update="preferencesTableUpdate"
@@ -30,7 +30,7 @@
 
     <Filtres
       :filtres="filtres"
-      :loaded="loaded"
+      :metas-loaded="metasLoaded"
       :metas="metas"
       :preferences="preferences.filtres"
       @preferences-update="preferencesFiltresUpdateAndPageReset"
@@ -83,12 +83,13 @@ export default {
     metas: { type: Object, default: () => ({}) },
     params: { type: Array, required: true },
     total: { type: Number, required: true },
-    loaded: { type: Boolean, default: false }
+    metasLoaded: { type: Boolean, default: false },
+    urlLoaded: { type: Boolean, default: false }
   },
 
   data() {
     return {
-      urlsLoaded: {
+      loaded: {
         filtres: false,
         table: false
       }
@@ -151,11 +152,13 @@ export default {
     },
 
     preferencesFiltresUpdateAndPageReset(params) {
-      this.preferencesFiltresUpdate(params)
-      this.$emit('preferences-update', {
-        section: 'table',
-        params: { page: 1 }
-      })
+      if (this.urlLoaded) {
+        this.preferencesFiltresUpdate(params)
+        this.$emit('preferences-update', {
+          section: 'table',
+          params: { page: 1 }
+        })
+      }
     },
 
     preferencesFiltresUpdate(params) {
@@ -163,8 +166,8 @@ export default {
     },
 
     urlLoad(id) {
-      this.urlsLoaded[id] = true
-      if (this.urlsLoaded.table && this.urlsLoaded.filtres) {
+      this.loaded[id] = true
+      if (this.loaded.table && this.loaded.filtres) {
         this.$emit('loaded')
       }
     }

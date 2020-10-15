@@ -1,17 +1,18 @@
 <template>
   <liste
-    nom="entreprises"
+    nom="administrations"
     :filtres="filtres"
     :colonnes="colonnes"
     :lignes="lignes"
-    :elements="entreprises"
+    :elements="administrations"
     :preferences="preferences"
     :metas="metas"
     :params="params"
     :total="total"
-    :metas-loaded="true"
+    :metas-loaded="metasLoaded"
+    :url-loaded="urlLoaded"
     @preferences-update="preferencesUpdate"
-    @loaded="entreprisesLoad"
+    @loaded="loaded"
   >
     <button
       v-if="permissionsCheck(['super', 'admin', 'editeur'])"
@@ -24,36 +25,35 @@
     </button>
 
     <Downloads
-      v-if="entreprises.length"
+      v-if="administrations.length"
       slot="downloads"
       :formats="['csv', 'xlsx', 'ods']"
-      section="entreprises"
+      section="administrations"
       class="flex-right full-x"
     />
   </liste>
 </template>
 
 <script>
-import Vue from 'vue'
 import Liste from './_common/liste.vue'
 import Downloads from './_common/downloads.vue'
 import EntrepriseAddPopup from './entreprise/add-popup.vue'
 
-import filtres from './entreprises/filtres'
+import filtres from './administrations/filtres'
 import {
-  entreprisesColonnes,
-  entreprisesLignesBuild
-} from './entreprises/table'
+  administrationsColonnes,
+  administrationsLignesBuild
+} from './administrations/table'
 
 export default {
-  name: 'Entreprises',
+  name: 'Administrations',
 
   components: { Liste, Downloads },
 
   data() {
     return {
       filtres,
-      colonnes: entreprisesColonnes,
+      colonnes: administrationsColonnes,
       visible: false
     }
   },
@@ -63,48 +63,62 @@ export default {
       return this.$store.state.user.current
     },
 
-    entreprises() {
-      return this.$store.state.entreprises.list
+    administrations() {
+      return this.$store.state.administrations.list
     },
 
     total() {
-      return this.$store.state.entreprises.total
+      return this.$store.state.administrations.total
     },
 
     preferences() {
-      return this.$store.state.entreprises.preferences
+      return this.$store.state.administrations.preferences
     },
 
     metas() {
-      return this.$store.state.entreprises.metas
+      return this.$store.state.administrations.metas
     },
 
     params() {
-      return this.$store.state.entreprises.params
+      return this.$store.state.administrations.params
     },
 
     lignes() {
-      return entreprisesLignesBuild(this.entreprises)
+      return administrationsLignesBuild(this.administrations)
+    },
+
+    metasLoaded() {
+      return this.$store.state.administrations.loaded.metas
+    },
+
+    urlLoaded() {
+      return this.$store.state.administrations.loaded.url
     }
   },
 
-  created() {
-    Vue.nextTick(() => {
-      this.metasLoaded = true
-    })
+  watch: {
+    user: 'metasGet'
+  },
+
+  async created() {
+    await this.metasGet()
   },
 
   destroyed() {
-    this.$store.commit('entreprises/set', { elements: [], total: 0 })
+    this.$store.commit('administrations/set', { elements: [], total: 0 })
   },
 
   methods: {
-    entreprisesLoad() {
-      this.$store.dispatch('entreprises/loaded')
+    async metasGet() {
+      await this.$store.dispatch('administrations/metasGet')
+    },
+
+    loaded() {
+      this.$store.dispatch('administrations/loaded')
     },
 
     async preferencesUpdate(options) {
-      await this.$store.dispatch(`entreprises/preferencesSet`, options)
+      await this.$store.dispatch(`administrations/preferencesSet`, options)
     },
 
     addPopupOpen() {

@@ -10,7 +10,7 @@
 
     <Filtres
       :filtres="filtres"
-      :loaded="metasLoaded"
+      :metas-loaded="metasLoaded"
       :metas="metas"
       :preferences="preferences"
       @preferences-update="preferencesFiltresUpdateAndPageReset"

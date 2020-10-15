@@ -18,9 +18,12 @@ const errorThrow = e => {
 
 const restCall = async (url, path) => {
   const token = localStorage.getItem('accessToken')
-  const headers = new Headers({ authorization: token ? `Bearer ${token}` : '' })
+  const authorization = token ? `Bearer ${token}` : ''
 
-  const res = await fetch(`${url}/${path}`, { method: 'GET', headers })
+  const res = await fetch(`${url}/${path}`, {
+    method: 'GET',
+    headers: new Headers({ authorization })
+  })
 
   if (res.status !== 200) {
     throw res
@@ -31,15 +34,13 @@ const restCall = async (url, path) => {
 
 const graphQLCall = async (url, query, variables) => {
   const token = localStorage.getItem('accessToken')
-  const queryString = print(query)
+  const authorization = token ? `Bearer ${token}` : ''
 
   const res = await graphql.operate({
-    operation: { query: queryString, variables },
+    operation: { query: print(query), variables },
     fetchOptionsOverride: options => {
       options.url = url
-      options.headers = Object.assign(options.headers, {
-        authorization: token ? `Bearer ${token}` : ''
-      })
+      options.headers = Object.assign(options.headers, { authorization })
     }
   })
 

@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 import { fragmentUtilisateur } from './utilisateur'
+import { fragmentTitres } from './titre'
 
 const fragmentAdministration = gql`
   fragment administration on Administration {
@@ -17,9 +18,17 @@ const fragmentAdministration = gql`
     utilisateurs {
       ...utilisateur
     }
+    titresAdministrationGestionnaire {
+      ...titres
+    }
+    titresAdministrationLocale {
+      ...titres
+    }
   }
 
   ${fragmentUtilisateur}
+
+  ${fragmentTitres}
 `
 
 export { fragmentAdministration }

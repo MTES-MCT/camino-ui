@@ -1,8 +1,8 @@
 import FiltresTitresDomaines from '../_common/filtres/domaines.vue'
 import FiltresTitresStatuts from '../_common/filtres/statuts.vue'
 import FiltresEtapes from './filtres-custom-etapes.vue'
+import { elementsFormat } from '../../utils/index'
 
-const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
 const etapesElementsFormat = (id, metas) => metas.etapesTypes
 const etapesLabelFormat = f =>
   f.value
