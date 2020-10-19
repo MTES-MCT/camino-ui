@@ -80,7 +80,8 @@ describe("état de l'utilisateur consulté", () => {
         { id: 'w', nom: 'granulats' },
         { id: 'c', nom: 'carrières' }
       ],
-      entreprises: { elements: ['ent-1'] }
+      entreprises: { elements: ['ent-1'] },
+      administrations: { elements: ['adm-1'] }
     })
 
     await store.dispatch('utilisateur/metasGet')
@@ -92,7 +93,7 @@ describe("état de l'utilisateur consulté", () => {
         { id: 'c', nom: 'carrières' }
       ],
       entreprises: ['ent-1'],
-      administrations: []
+      administrations: ['adm-1']
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
