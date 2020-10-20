@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.48](https://github.com/MTES-MCT/camino-ui/compare/v0.22.47...v0.22.48) (2020-10-20)
+
+
+### Features
+
+* ajoute les administrations ([#205](https://github.com/MTES-MCT/camino-ui/issues/205)) ([f3898ab](https://github.com/MTES-MCT/camino-ui/commit/f3898abc70b97bfd1f9b95479bcde26efbe9b916))
+
+
+### Bug Fixes
+
+* corrige la liste d'administration lors de l'édition d'un utilisateur ([0f45ee6](https://github.com/MTES-MCT/camino-ui/commit/0f45ee667b012a27ba35d94bd337969efc4068a9))
+* corrige une faute de français ([29a221e](https://github.com/MTES-MCT/camino-ui/commit/29a221ee015c202d65442a195dc0d78be8ed0b6a))
+* **api:** utilise le refreshToken sur les appels à l’API Rest qui échouent ([#203](https://github.com/MTES-MCT/camino-ui/issues/203)) ([4e54d81](https://github.com/MTES-MCT/camino-ui/commit/4e54d811f1c25fddfe07b62864ab2b38c34899c7))
+* corrige l'enregistrement des activités ([#202](https://github.com/MTES-MCT/camino-ui/issues/202)) ([920d2ec](https://github.com/MTES-MCT/camino-ui/commit/920d2ec50035567e14add0179ef19f387fc5b0ae))
+* corrige la CSP pour le chragement asynchrone ([3007449](https://github.com/MTES-MCT/camino-ui/commit/30074490197235f0b5aaf2c93e7d9e278bbfcd4c))
+* corrige la mise en page sur safari ([#200](https://github.com/MTES-MCT/camino-ui/issues/200)) ([f9e7d66](https://github.com/MTES-MCT/camino-ui/commit/f9e7d66e5ebc06f9a5d5ca0fe2c388e8f3ce37d1))
+
 ### [0.22.47](https://github.com/MTES-MCT/camino-ui/compare/v0.22.46...v0.22.47) (2020-10-07)
 
 
