@@ -472,6 +472,78 @@
             permettant l'ouverture et la valorisation des données
           </blockquote>
         </div>
+
+        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="../../../public/img/about/member-vincent-maubert.jpg"
+                alt="Portrait Vincent Maubert"
+              >
+            </div>
+          </div>
+
+          <h3 class="mb-s">
+            Vincent Maubert
+          </h3>
+          <h6>Développeur</h6>
+          <blockquote>
+            Améliorer le service public en développant des outils numériques
+          </blockquote>
+          <ul class="list-prefix mb-0">
+            <li>
+              <a href="https://www.linkedin.com/in/vincent-maubert-63a4a79a/">LinkedIn</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="../../../public/img/about/member-sandra-chakroun.jpg"
+                alt="Portrait Sandra Chakroun"
+              >
+            </div>
+          </div>
+
+          <h3 class="mb-s">
+            Sandra Chakroun
+          </h3>
+          <h6>Développeuse</h6>
+          <blockquote>
+            ...
+          </blockquote>
+          <ul class="list-prefix mb-0">
+            <li>
+              <a href="https://www.linkedin.com/in/sandra-chakroun/">LinkedIn</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="../../../public/img/about/member-felix-de-preneuf.jpg"
+                alt="Portrait Félix de Préneuf"
+              >
+            </div>
+          </div>
+
+          <h3 class="mb-s">
+            Félix de Préneuf
+          </h3>
+          <h6>Business Developer</h6>
+          <blockquote>
+            Proposer nos services et s’assurer que les utilisateurs sont autonomes dans l’usage de Camino.
+          </blockquote>
+          <ul class="list-prefix mb-0">
+            <li>
+              <a href="https://www.linkedin.com/in/f%C3%A9lix-de-pr%C3%A9neuf-792431154/">LinkedIn</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
