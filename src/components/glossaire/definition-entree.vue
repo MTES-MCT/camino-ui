@@ -25,6 +25,7 @@
         <span v-else class="cap-first">{{ entree.nom }}</span>
       </h3>
     </div>
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <div v-if="entree.description" class="mb-l" v-html="descriptionHtml">
       <hr />
     </div>

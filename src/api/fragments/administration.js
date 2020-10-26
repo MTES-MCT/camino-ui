@@ -1,11 +1,15 @@
 import gql from 'graphql-tag'
 import { fragmentUtilisateur } from './utilisateur'
-import { fragmentTitres } from './titre'
 
 const fragmentAdministration = gql`
   fragment administration on Administration {
     id
     nom
+    type {
+      id
+      nom
+    }
+    abreviation
     service
     adresse1
     adresse2
@@ -18,17 +22,18 @@ const fragmentAdministration = gql`
     utilisateurs {
       ...utilisateur
     }
-    titresAdministrationGestionnaire {
-      ...titres
+    departement {
+      id
+      nom
     }
-    titresAdministrationLocale {
-      ...titres
+    region {
+      id
+      nom
     }
+    modification
   }
 
   ${fragmentUtilisateur}
-
-  ${fragmentTitres}
 `
 
 export { fragmentAdministration }

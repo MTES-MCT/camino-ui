@@ -3,22 +3,14 @@
   <div v-else>
     <h6>Administration</h6>
     <h1>
-      {{ nom }}
+      {{ administration.abreviation }}
     </h1>
     <Accordion class="mb-xxl" :sub="true">
       <template slot="title">
-        <span class="cap-first"> Profil </span>
+        <span class="cap-first">{{ administration.nom }}</span>
       </template>
 
       <template v-if="administration.modification" slot="buttons">
-        <DocumentAddButton
-          :context="documentContext"
-          :document="documentNew"
-          :parent-id="administration.id"
-          :title="nom"
-          repertoire="entreprises"
-          class="btn py-s px-m mr-line"
-        />
         <button class="btn py-s px-m" @click="editPopupOpen">
           <i class="icon-24 icon-pencil" />
         </button>
@@ -28,11 +20,34 @@
         <div class="px-m pt-m border-b-s">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">Type</h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p class="word-break">
+                {{ administration.type.nom }}
+              </p>
+            </div>
+          </div>
+
+          <div v-if="administration.service" class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">Service</h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p class="word-break">
+                {{ administration.service }}
+              </p>
+            </div>
+          </div>
+
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
               <h6 class="mt-xs">Adresse</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>
-                {{ administration.adresse }}
+                {{ administration.adresse1 }}
+                <span v-if="administration.adresse2"><br />{{ administration.adresse2 }}</span>
                 <br />{{ administration.codePostal }}
                 {{ administration.commune }}
               </p>
@@ -88,6 +103,29 @@
               </p>
             </div>
           </div>
+
+          <div v-if="administration.departement" class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">Département</h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p class="word-break">
+                  {{ administration.departement.nom }}
+              </p>
+            </div>
+          </div>
+
+          <div v-if="administration.region" class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">Région</h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p class="word-break">
+                  {{ administration.region.nom }}
+              </p>
+            </div>
+          </div>
+
         </div>
 
       </template>
@@ -104,20 +142,6 @@
         :utilisateurs="utilisateurs"
       />
     </div>
-
-    <div v-if="titresAdministrationLocale && titresAdministrationLocale.length" class="mb-xxl">
-      <div class="line-neutral mb-xxl" />
-      <h3>Titres miniers et autorisations (administration locale)</h3>
-      <div class="line" />
-      <TitresTable :titres="titresAdministrationLocale" />
-    </div>
-
-    <div v-if="titresAdministrationGestionnaire && titresAdministrationGestionnaire.length" class="mb-xxl">
-      <div class="line my-xxl" />
-      <h3>Titres miniers et autorisations (administration gestionnaire)</h3>
-      <div class="line" />
-      <TitresTable :titres="titresAdministrationGestionnaire" />
-    </div>
   </div>
 </template>
 
@@ -125,9 +149,7 @@
 import Accordion from './_ui/accordion.vue'
 import Loader from './_ui/loader.vue'
 import Table from './_ui/table.vue'
-import TitresTable from './titres/table.vue'
-// import EntrepriseEditPopup from './administration/edit-popup.vue'
-import DocumentAddButton from './document/button-add.vue'
+import AdministrationEditPopup from './administration/edit-popup.vue'
 
 import {
   utilisateursColonnes,
@@ -139,8 +161,6 @@ export default {
     Accordion,
     Loader,
     Table,
-    TitresTable,
-    DocumentAddButton
   },
 
   data() {
@@ -154,24 +174,12 @@ export default {
       return this.$store.state.administration.current
     },
 
-    nom() {
-      return this.administration && this.administration.nom ? this.administration.nom : '–'
-    },
-
     utilisateurs() {
       return this.administration.utilisateurs
     },
 
     utilisateursLignes() {
       return utilisateursLignesBuild(this.utilisateurs)
-    },
-
-    titresAdministrationLocale() {
-      return this.administration.titresAdministrationLocale
-    },
-
-    titresAdministrationGestionnaire() {
-      return this.administration.titresAdministrationGestionnaire
     },
 
     user() {
@@ -203,17 +211,28 @@ export default {
     },
 
     editPopupOpen() {
-      // const administration = {
-      //   id: this.administration.id,
-      //   telephone: this.administration.telephone,
-      //   url: this.administration.url,
-      //   email: this.administration.email
-      // }
+      const administration = {
+        id: this.administration.id,
+        typeId: this.administration.type.id,
+        nom: this.administration.nom,
+        abreviation: this.administration.abreviation,
+        service: this.administration.service,
+        url: this.administration.url,
+        email: this.administration.email,
+        telephone: this.administration.telephone,
+        adresse1: this.administration.adresse1,
+        adresse2: this.administration.adresse2,
+        codePostal: this.administration.codePostal,
+        commune: this.administration.commune,
+        cedex: this.administration.cedex,
+        departementId: this.administration.departement && this.administration.departement.id,
+        regionId: this.administration.region && this.administration.region.id
+      }
 
-      // this.$store.commit('popupOpen', {
-      //   component: AdministrationEditPopup,
-      //   props: { administration }
-      // })
+      this.$store.commit('popupOpen', {
+        component: AdministrationEditPopup,
+        props: { administration }
+      })
     }
   }
 }

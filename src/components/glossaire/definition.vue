@@ -6,6 +6,7 @@
       :types-ids="entrees.map(t => t.id)"
     />
     <h2>{{ definition.nom }}</h2>
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <p v-if="definition.description" v-html="descriptionHtml" />
     <div v-if="entrees && entrees.length">
       <DefinitionEntree
