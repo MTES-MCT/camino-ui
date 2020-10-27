@@ -13,16 +13,6 @@
     @preferences-update="preferencesUpdate"
     @url-load="urlLoad"
   >
-    <button
-      v-if="permissionsCheck(['super', 'admin', 'editeur'])"
-      slot="addButton"
-      class="btn rnd-xs py-s px-m full-x flex mb-s h5"
-      @click="addPopupOpen"
-    >
-      <span class="mt-xxs">Ajouter une entreprise</span>
-      <i class="icon-24 icon-plus flex-right" />
-    </button>
-
     <Downloads
       v-if="administrations.length"
       slot="downloads"
@@ -36,7 +26,6 @@
 <script>
 import Liste from './_common/liste.vue'
 import Downloads from './_common/downloads.vue'
-import EntrepriseAddPopup from './entreprise/add-popup.vue'
 
 import filtres from './administrations/filtres'
 import {
@@ -114,10 +103,6 @@ export default {
 
     async preferencesUpdate(options) {
       await this.$store.dispatch(`administrations/preferencesSet`, options)
-    },
-
-    addPopupOpen() {
-      this.$store.commit('popupOpen', { component: EntrepriseAddPopup })
     }
   }
 }

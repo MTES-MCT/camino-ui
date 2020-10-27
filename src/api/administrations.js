@@ -4,6 +4,28 @@ import { apiGraphQLFetch } from './_client'
 import { fragmentAdministration } from './fragments/administration'
 import { fragmentAdministrations } from './fragments/administrations'
 
+const metasAdministration = apiGraphQLFetch(
+  gql`
+    query MetasAdministration {
+      administrationsTypes {
+        id
+        nom
+        ordre
+      }
+
+      regions {
+        id
+        nom
+      }
+
+      departements {
+        id
+        nom
+      }
+    }
+  `
+)
+
 const administration = apiGraphQLFetch(gql`
   query Administration($id: ID!) {
     administration(id: $id) {
@@ -53,4 +75,20 @@ const administrations = apiGraphQLFetch(gql`
   ${fragmentAdministrations}
 `)
 
-export { administration, administrations, metasAdministrations }
+const administrationModifier = apiGraphQLFetch(gql`
+  mutation AdministrationModifier($administration: InputAdministration!) {
+    administrationModifier(administration: $administration) {
+      ...administration
+    }
+  }
+
+  ${fragmentAdministration}
+`)
+
+export {
+  metasAdministration,
+  administration,
+  metasAdministrations,
+  administrations,
+  administrationModifier
+}
