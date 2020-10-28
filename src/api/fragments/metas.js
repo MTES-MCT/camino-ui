@@ -13,8 +13,6 @@ const fragmentEtapeType = gql`
     nom
     acceptationAuto
     ordre
-    titreTypeId
-    demarcheTypeId
     etapesStatuts {
       id
       nom

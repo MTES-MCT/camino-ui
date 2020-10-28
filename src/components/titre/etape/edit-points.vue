@@ -9,13 +9,13 @@
       <hr />
       <div class="h5 mb-s">
         <ul class="list-prefix">
-          <li><b>Point</b>: paire de coordoonnées.</li>
-          <li><b>Contour ou lacune</b>: ensemble de points.</li>
-          <li><b>Groupe</b>: ensemble de contours.</li>
+          <li><b>Point</b> : paire de coordoonnées</li>
+          <li><b>Contour ou lacune</b> : ensemble de points</li>
+          <li><b>Groupe</b> : ensemble de contours</li>
         </ul>
         <p>
-          Le premier contour d'un groupe définit un périmètre. Les contours
-          suivants définissent des lacunes au sein de ce périmètre.
+          Le premier contour d'un groupe définit un périmètre.
+          <br />Les contours suivants définissent des lacunes au sein de ce périmètre.
         </p>
       </div>
 
