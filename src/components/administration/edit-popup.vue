@@ -203,6 +203,26 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Lien</h6>
+        <p class="h6 italic mb-0">Optionnel</p>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <label v-for="lien in liens" :key="lien.id">
+          <input
+            v-model="lienCurrent"
+            :name="lien.id"
+            :value="lien.id"
+            type="radio"
+            class="p-s"
+          /> {{ lien.nom }}
+        </label>
+      </div>
+    </div>
+
+    <hr />
+
+    <div v-if="lienCurrent === 'departement'" class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Département</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
@@ -213,16 +233,12 @@
             :key="departement.id"
             :value="departement.id"
             :disabled="administration.departementId === departement.id"
-          >
-            {{ departement.nom }}
-          </option>
+          >{{ departement.nom }}</option>
         </select>
       </div>
     </div>
 
-    <hr />
-
-    <div class="tablet-blobs">
+    <div v-if="lienCurrent === 'region'" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Région</h6>
         <p class="h6 italic mb-0">Optionnel</p>
@@ -278,13 +294,14 @@ export default {
   },
 
   props: {
-    administration: {
-      type: Object,
-      default: () => ({})
-    },
-    creation: {
-      type: Boolean,
-      default: false
+    administration: { type: Object, default: () => ({}) },
+    creation: { type: Boolean, default: false }
+  },
+
+  data() {
+    return {
+      liens: [{id: 'aucun', nom: 'Aucun'}, {id: 'departement', nom: "Département"}, {id: 'region', nom: 'Région'}],
+      lienCurrent: 'aucun'
     }
   },
 
@@ -311,6 +328,12 @@ export default {
   },
 
   created() {
+    if (this.administration.regionId) {
+      this.lienCurrent = 'region'
+    } else if (this.administration.departementId){
+      this.lienCurrent = 'departement'
+    }
+
     this.get()
     document.addEventListener('keyup', this.keyup)
   },
@@ -326,6 +349,15 @@ export default {
 
     async save() {
       const administration = JSON.parse(JSON.stringify(this.administration))
+
+      if (this.lienCurrent === 'region') {
+        administration.departementId = null
+      } else if (this.lienCurrent === 'departement'){
+        administration.regionId = null
+      } else {
+        administration.departementId = null
+        administration.regionId = null
+      }
 
       await this.$store.dispatch('administration/update', administration)
     },

@@ -160,18 +160,18 @@
       />
     </div>
 
-    <div v-if="titresTitulaire && titresTitulaire.length" class="mb-xxl">
+    <div v-if="titulaireTitres && titulaireTitres.length" class="mb-xxl">
       <div class="line-neutral mb-xxl" />
       <h3>Titres miniers et autorisations</h3>
       <div class="line" />
-      <TitresTable :titres="titresTitulaire" />
+      <TitresTable :titres="titulaireTitres" />
     </div>
 
-    <div v-if="titresAmodiataire && titresAmodiataire.length" class="mb-xxl">
+    <div v-if="amodiataireTitres && amodiataireTitres.length" class="mb-xxl">
       <div class="line my-xxl" />
       <h3>Titres miniers et autorisations (amodiataire)</h3>
       <div class="line" />
-      <TitresTable :titres="titresAmodiataire" />
+      <TitresTable :titres="amodiataireTitres" />
     </div>
   </div>
 </template>
@@ -223,12 +223,12 @@ export default {
       return utilisateursLignesBuild(this.utilisateurs)
     },
 
-    titresTitulaire() {
-      return this.entreprise.titresTitulaire
+    titulaireTitres() {
+      return this.entreprise.titulaireTitres
     },
 
-    titresAmodiataire() {
-      return this.entreprise.titresAmodiataire
+    amodiataireTitres() {
+      return this.entreprise.amodiataireTitres
     },
 
     user() {

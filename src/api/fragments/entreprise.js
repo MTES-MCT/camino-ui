@@ -29,10 +29,10 @@ const fragmentEntreprise = gql`
     utilisateurs {
       ...utilisateur
     }
-    titresTitulaire {
+    titulaireTitres {
       ...titres
     }
-    titresAmodiataire {
+    amodiataireTitres {
       ...titres
     }
 
