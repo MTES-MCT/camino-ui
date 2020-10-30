@@ -10,7 +10,7 @@ import {
 
 import { fragmentTitreTypeType } from './fragments/metas'
 
-const metasActivites = apiGraphQLFetch(
+const activitesMetas = apiGraphQLFetch(
   gql`
     query MetasActivites {
       activitesTypes {
@@ -114,4 +114,4 @@ const activite = apiGraphQLFetch(
   `
 )
 
-export { activite, activites, activiteModifier, metasActivites }
+export { activite, activites, activiteModifier, activitesMetas }

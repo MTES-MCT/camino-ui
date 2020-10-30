@@ -32,7 +32,7 @@ export const state = {
 
 export const actions = {
   async get({ dispatch, commit }) {
-    commit('loadingAdd', 'glossaire', { root: true })
+    commit('loadingAdd', 'glossaireGet', { root: true })
 
     try {
       const data = await definitions()
@@ -42,7 +42,7 @@ export const actions = {
       dispatch('apiError', e, { root: true })
       console.info(e)
     } finally {
-      commit('loadingRemove', 'glossaire', { root: true })
+      commit('loadingRemove', 'glossaireGet', { root: true })
     }
   },
 

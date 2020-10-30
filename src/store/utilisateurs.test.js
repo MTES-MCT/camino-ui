@@ -5,7 +5,7 @@ import Vuex from 'vuex'
 
 jest.mock('../api/utilisateurs', () => ({
   utilisateurs: jest.fn(),
-  metasUtilisateur: jest.fn()
+  utilisateurMetas: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -122,7 +122,7 @@ describe('liste des utilisateurs', () => {
   }
 
   test('récupère les métas pour afficher les utilisateurs', async () => {
-    const apiMock = api.metasUtilisateur
+    const apiMock = api.utilisateurMetas
       .mockResolvedValueOnce({
         permissions,
         entreprises,
@@ -153,7 +153,7 @@ describe('liste des utilisateurs', () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasUtilisateur.mockRejectedValue(
+    const apiMock = api.utilisateurMetas.mockRejectedValue(
       new Error("erreur de l'api")
     )
 

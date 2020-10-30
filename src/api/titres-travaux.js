@@ -4,7 +4,7 @@ import { apiGraphQLFetch } from './_client'
 import { fragmentTitre } from './fragments/titre'
 import { fragmentTravauxType } from './fragments/metas'
 
-const metasTravaux = apiGraphQLFetch(
+const travauxMetas = apiGraphQLFetch(
   gql`
     query MetasTravaux($titreId: ID!, $id: ID) {
       travauxTypes(titreId: $titreId, titreTravauxId: $id) {
@@ -46,4 +46,4 @@ const travauxSupprimer = apiGraphQLFetch(gql`
   ${fragmentTitre}
 `)
 
-export { metasTravaux, travauxCreer, travauxModifier, travauxSupprimer }
+export { travauxMetas, travauxCreer, travauxModifier, travauxSupprimer }

@@ -7,9 +7,9 @@ import { fragmentSubstance } from './fragments/substance'
 import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentEntreprise } from './fragments/entreprise'
 
-const metasTitreEtape = apiGraphQLFetch(
+const titreEtapeMetas = apiGraphQLFetch(
   gql`
-    query MetasEtape($titreDemarcheId: ID!, $id: ID) {
+    query TitreEtapeMetas($titreDemarcheId: ID!, $id: ID) {
       etapesTypes(titreDemarcheId: $titreDemarcheId, titreEtapeId: $id) {
         ...etapeType
       }
@@ -119,7 +119,7 @@ const etapeJustificatifDissocier = apiGraphQLFetch(gql`
 `)
 
 export {
-  metasTitreEtape,
+  titreEtapeMetas,
   etapeCreer,
   etapeModifier,
   etapeSupprimer,

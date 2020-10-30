@@ -9,7 +9,7 @@ export const state = {
 
 export const actions = {
   async get({ commit, dispatch }, id) {
-    commit('loadingAdd', 'activite', { root: true })
+    commit('loadingAdd', 'activiteGet', { root: true })
 
     try {
       const data = await activite({ id })
@@ -23,7 +23,7 @@ export const actions = {
       dispatch('apiError', e, { root: true })
       console.info(e)
     } finally {
-      commit('loadingRemove', 'activite', { root: true })
+      commit('loadingRemove', 'activiteGet', { root: true })
     }
   },
 

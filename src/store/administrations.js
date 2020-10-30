@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { administrations, metasAdministrations } from '../api/administrations'
+import { administrations, administrationsMetas } from '../api/administrations'
 import { paramsBuild } from './_utils'
 
 export const state = {
@@ -36,10 +36,10 @@ export const state = {
 
 export const actions = {
   async metasGet({ state, commit, dispatch }) {
-    commit('loadingAdd', 'metasAdministrationsGet', { root: true })
+    commit('loadingAdd', 'administrationsMetasGet', { root: true })
 
     try {
-      const data = await metasAdministrations()
+      const data = await administrationsMetas()
       commit('metasSet', { types: data })
 
       if (!state.loaded.metas) {
@@ -48,7 +48,7 @@ export const actions = {
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
-      commit('loadingRemove', 'metasAdministrationsGet', { root: true })
+      commit('loadingRemove', 'administrationsMetasGet', { root: true })
     }
   },
 

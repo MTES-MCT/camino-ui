@@ -5,8 +5,12 @@ import Vuex from 'vuex'
 
 jest.mock('../api/administrations', () => ({
   administration: jest.fn(),
-  metasAdministration: jest.fn(),
-  administrationModifier: jest.fn()
+  administrationMetas: jest.fn(),
+  administrationModifier: jest.fn(),
+  administrationPermissionsMetas: jest.fn(),
+  administrationTitreTypeUpdate: jest.fn(),
+  administrationTitreTypeTitreStatutUpdate: jest.fn(),
+  administrationTitreTypeEtapeTypeUpdate: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -22,7 +26,14 @@ describe("état de l'administration consultée", () => {
   beforeEach(() => {
     administration.state = {
       current: null,
-      metas: { types: [], regions: [], departements: [] }
+      metas: {
+        types: [],
+        regions: [],
+        departements: [],
+        domaines: [],
+        titresStatuts: [],
+        etapesTypes: []
+      }
     }
     mutations = {
       loadingAdd: jest.fn(),
@@ -30,7 +41,8 @@ describe("état de l'administration consultée", () => {
       popupLoad: jest.fn(),
       popupMessagesRemove: jest.fn(),
       popupClose: jest.fn(),
-      popupMessageAdd: jest.fn()
+      popupMessageAdd: jest.fn(),
+      messageAdd: jest.fn()
     }
     actions = {
       pageError: jest.fn(),
@@ -73,7 +85,7 @@ describe("état de l'administration consultée", () => {
   })
 
   test('récupère les métas pour éditer une administration', async () => {
-    const apiMock = api.metasAdministration.mockResolvedValue({
+    const apiMock = api.administrationMetas.mockResolvedValue({
       administrationsTypes: [
         { id: 'admin-1', nom: 'Opérateur' },
         { id: 'admin-2', nom: 'Déal' }
@@ -103,13 +115,17 @@ describe("état de l'administration consultée", () => {
       departements: [
         { id: 1, nom: 'département 1' },
         { id: 2, nom: 'département 2' }
-      ]
+      ],
+      domaines: [],
+      titresStatuts: [],
+      etapesTypes: []
     })
+
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la récupération des métas", async () => {
-    const apiMock = api.metasAdministration.mockRejectedValue(
+    const apiMock = api.administrationMetas.mockRejectedValue(
       new Error('erreur api')
     )
 
@@ -146,5 +162,212 @@ describe("état de l'administration consultée", () => {
     })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test('récupère les métas pour éditer les permissions', async () => {
+    const apiMock = api.administrationPermissionsMetas.mockResolvedValue({
+      domaines: [{ id: 'm', nom: 'minéraux et métaux' }],
+      statuts: [{ id: 'val', nom: 'valide' }],
+      etapesTypes: [{ id: 'dex', nom: 'décision expresse' }]
+    })
+
+    await store.dispatch('administration/permissionsMetasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.administration.metas).toEqual({
+      types: [],
+      regions: [],
+      departements: [],
+      domaines: [{ id: 'm', nom: 'minéraux et métaux' }],
+      titresStatuts: [{ id: 'val', nom: 'valide' }],
+      etapesTypes: [{ id: 'dex', nom: 'décision expresse' }]
+    })
+
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'API retourne une erreur lors de la récupération des métas", async () => {
+    const apiMock = api.administrationPermissionsMetas.mockRejectedValue(
+      new Error('erreur api')
+    )
+
+    await store.dispatch('administration/permissionsMetasGet')
+
+    expect(apiMock).toHaveBeenCalled()
+
+    expect(mutations.messageAdd).toHaveBeenCalled()
+  })
+
+  test('modifie les permissions (type de titres)', async () => {
+    const apiMock = api.administrationTitreTypeUpdate.mockResolvedValue({
+      id: 71,
+      nom: 'nom admin'
+    })
+
+    await store.dispatch('administration/titreTypeUpdate', {
+      administrationId: 'dea-guyane',
+      titreTypeId: 'aex',
+      gestionnaire: true,
+      associee: true
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      administrationTitreType: {
+        administrationId: 'dea-guyane',
+        titreTypeId: 'aex',
+        gestionnaire: true,
+        associee: true
+      }
+    })
+
+    expect(actions.reload).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'API retourne une erreur lors de la modification des permissions (type de titre / statut de titre)", async () => {
+    const apiMock = api.administrationTitreTypeUpdate.mockRejectedValue(
+      new Error('erreur api')
+    )
+
+    await store.dispatch('administration/titreTypeUpdate', {
+      administrationId: 'dea-guyane',
+      titreTypeId: 'aex',
+      gestionnaire: true,
+      associee: true
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      administrationTitreType: {
+        administrationId: 'dea-guyane',
+        titreTypeId: 'aex',
+        gestionnaire: true,
+        associee: true
+      }
+    })
+
+    expect(actions.reload).not.toHaveBeenCalled()
+    expect(mutations.messageAdd).toHaveBeenCalled()
+  })
+
+  test('modifie les permissions (type de titres / statut de titre)', async () => {
+    const apiMock = api.administrationTitreTypeTitreStatutUpdate.mockResolvedValue(
+      {
+        id: 71,
+        nom: 'nom admin'
+      }
+    )
+
+    await store.dispatch('administration/titreTypeTitreStatutUpdate', {
+      administrationId: 'dea-guyane',
+      titreTypeId: 'aex',
+      titreStatutId: 'dex',
+      titresModificationInterdit: true,
+      demarchesModificationInterdit: true,
+      etapesModificationInterdit: true
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      administrationTitreTypeTitreStatut: {
+        administrationId: 'dea-guyane',
+        titreTypeId: 'aex',
+        titreStatutId: 'dex',
+        titresModificationInterdit: true,
+        demarchesModificationInterdit: true,
+        etapesModificationInterdit: true
+      }
+    })
+
+    expect(actions.reload).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'API retourne une erreur lors de la modification des permissions (type de titre / statut de titre)", async () => {
+    const apiMock = api.administrationTitreTypeTitreStatutUpdate.mockRejectedValue(
+      new Error('erreur api')
+    )
+
+    await store.dispatch('administration/titreTypeTitreStatutUpdate', {
+      administrationId: 'dea-guyane',
+      titreTypeId: 'aex',
+      titreStatutId: 'dex',
+      titresModificationInterdit: true,
+      demarchesModificationInterdit: true,
+      etapesModificationInterdit: true
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      administrationTitreTypeTitreStatut: {
+        administrationId: 'dea-guyane',
+        titreTypeId: 'aex',
+        titreStatutId: 'dex',
+        titresModificationInterdit: true,
+        demarchesModificationInterdit: true,
+        etapesModificationInterdit: true
+      }
+    })
+
+    expect(actions.reload).not.toHaveBeenCalled()
+    expect(mutations.messageAdd).toHaveBeenCalled()
+  })
+
+  test("modifie les permissions (type de titre / type d'étape)", async () => {
+    const apiMock = api.administrationTitreTypeEtapeTypeUpdate.mockResolvedValue(
+      {
+        id: 71,
+        nom: 'nom admin'
+      }
+    )
+
+    await store.dispatch('administration/titresTypeEtapeTypeUpdate', {
+      administrationId: 'dea-guyane',
+      titreTypeId: 'aex',
+      etapeTypeId: 'dex',
+      lectureInterdit: true,
+      modificationInterdit: true,
+      creationInterdit: true
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      administrationTitreTypeEtapeType: {
+        administrationId: 'dea-guyane',
+        titreTypeId: 'aex',
+        etapeTypeId: 'dex',
+        lectureInterdit: true,
+        modificationInterdit: true,
+        creationInterdit: true
+      }
+    })
+
+    expect(actions.reload).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'API retourne une erreur lors de la modification des permissions (type de titre / type d'étape)", async () => {
+    const apiMock = api.administrationTitreTypeEtapeTypeUpdate.mockRejectedValue(
+      new Error('erreur api')
+    )
+
+    await store.dispatch('administration/titresTypeEtapeTypeUpdate', {
+      administrationId: 'dea-guyane',
+      titreTypeId: 'aex',
+      etapeTypeId: 'dex',
+      lectureInterdit: true,
+      modificationInterdit: true,
+      creationInterdit: true
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      administrationTitreTypeEtapeType: {
+        administrationId: 'dea-guyane',
+        titreTypeId: 'aex',
+        etapeTypeId: 'dex',
+        lectureInterdit: true,
+        modificationInterdit: true,
+        creationInterdit: true
+      }
+    })
+
+    expect(actions.reload).not.toHaveBeenCalled()
+    expect(mutations.messageAdd).toHaveBeenCalled()
   })
 })

@@ -8,7 +8,7 @@ import {
   fragmentTitresGeo
 } from './fragments/titre'
 
-const metasTitre = apiGraphQLFetch(
+const titreMetas = apiGraphQLFetch(
   gql`
     query MetasTitre {
       referencesTypes {
@@ -19,9 +19,9 @@ const metasTitre = apiGraphQLFetch(
   `
 )
 
-const metasTitres = apiGraphQLFetch(
+const titresMetas = apiGraphQLFetch(
   gql`
-    query MetasTitres {
+    query TitresMetas {
       domaines {
         id
         nom
@@ -162,8 +162,8 @@ const titreSupprimer = apiGraphQLFetch(gql`
 `)
 
 export {
-  metasTitre,
-  metasTitres,
+  titreMetas,
+  titresMetas,
   titre,
   titres,
   titresGeo,

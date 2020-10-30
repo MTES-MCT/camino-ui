@@ -4,7 +4,7 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/titres-activites', () => ({
-  metasActivites: jest.fn(),
+  activitesMetas: jest.fn(),
   activites: jest.fn()
 }))
 
@@ -128,7 +128,7 @@ describe("état d'une activité", () => {
   ]
 
   test('récupère les métas pour afficher les activités', async () => {
-    const apiMock = api.metasActivites
+    const apiMock = api.activitesMetas
       .mockResolvedValueOnce({
         activitesTypes,
         activitesAnnees,
@@ -174,7 +174,7 @@ describe("état d'une activité", () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasActivites.mockRejectedValue(
+    const apiMock = api.activitesMetas.mockRejectedValue(
       new Error("erreur de l'api")
     )
 

@@ -4,7 +4,7 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/titres-etapes', () => ({
-  metasTitreEtape: jest.fn(),
+  titreEtapeMetas: jest.fn(),
   etapeCreer: jest.fn(),
   etapeModifier: jest.fn(),
   etapeSupprimer: jest.fn()
@@ -61,7 +61,7 @@ describe('étapes', () => {
   })
 
   test('récupère les métas pour éditer une étape', async () => {
-    const apiMock = api.metasTitreEtape.mockResolvedValue({
+    const apiMock = api.titreEtapeMetas.mockResolvedValue({
       etapesTypes: [
         { id: 'w', nom: 'granulats' },
         { id: 'c', nom: 'carrières' }
@@ -94,7 +94,7 @@ describe('étapes', () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasTitreEtape.mockRejectedValue(
+    const apiMock = api.titreEtapeMetas.mockRejectedValue(
       new Error("erreur de l'api")
     )
 

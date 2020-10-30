@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import {
-  metasTitreEtape,
+  titreEtapeMetas,
   etapeCreer,
   etapeModifier,
   etapeSupprimer
@@ -21,16 +21,16 @@ export const state = {
 
 export const actions = {
   async metasGet({ commit }, etape) {
-    commit('loadingAdd', 'metasTitreEtapeGet', { root: true })
+    commit('loadingAdd', 'titreEtapeMetasGet', { root: true })
 
     try {
-      const data = await metasTitreEtape(etape)
+      const data = await titreEtapeMetas(etape)
 
       commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'metasTitreEtapeGet', { root: true })
+      commit('loadingRemove', 'titreEtapeMetasGet', { root: true })
     }
   },
 

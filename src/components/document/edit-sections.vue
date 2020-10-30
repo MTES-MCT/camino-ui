@@ -18,7 +18,7 @@
     <div v-if="modifiable || document.description">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Description</h6>
+          <h6 class="mb-xs">Description</h6>
           <p v-if="modifiable" class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
@@ -132,7 +132,7 @@
     >
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Jorf</h6>
+          <h6 class="mb-xs">Jorf</h6>
           <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
@@ -149,7 +149,7 @@
     >
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Nor</h6>
+          <h6 class="mb-xs">Nor</h6>
           <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
@@ -162,7 +162,7 @@
     <div v-if="repertoire === 'demarches' && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>URI</h6>
+          <h6 class="mb-xs">URI</h6>
           <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
@@ -180,7 +180,7 @@
     <div v-if="repertoire === 'demarches' && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>URL</h6>
+          <h6 class="mb-xs">URL</h6>
           <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">

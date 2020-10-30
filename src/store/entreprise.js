@@ -14,7 +14,7 @@ export const state = {
 
 export const actions = {
   async get({ commit, dispatch }, id) {
-    commit('loadingAdd', 'entreprise', { root: true })
+    commit('loadingAdd', 'entrepriseGet', { root: true })
     try {
       const data = await entreprise({ id })
 
@@ -27,7 +27,7 @@ export const actions = {
       dispatch('apiError', e, { root: true })
       console.info(e)
     } finally {
-      commit('loadingRemove', 'entreprise', { root: true })
+      commit('loadingRemove', 'entrepriseGet', { root: true })
     }
   },
 

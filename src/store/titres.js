@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { metasTitres, titresGeo, titres } from '../api/titres'
+import { titresMetas, titresGeo, titres } from '../api/titres'
 import { paramsBuild } from './_utils'
 
 export const state = {
@@ -68,10 +68,10 @@ export const state = {
 
 export const actions = {
   async metasGet({ state, commit, dispatch }) {
-    commit('loadingAdd', 'metasTitresGet', { root: true })
+    commit('loadingAdd', 'titresMetasGet', { root: true })
 
     try {
-      const data = await metasTitres()
+      const data = await titresMetas()
 
       commit('metasSet', data)
 
@@ -81,7 +81,7 @@ export const actions = {
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
-      commit('loadingRemove', 'metasTitresGet', { root: true })
+      commit('loadingRemove', 'titresMetasGet', { root: true })
     }
   },
 

@@ -30,6 +30,60 @@ const fragmentAdministration = gql`
       id
       nom
     }
+    titresTypes {
+      id
+      domaine {
+        id
+        nom
+      }
+      type {
+        id
+        nom
+      }
+      gestionnaire
+      associee
+    }
+    titresTypesTitresStatuts {
+      titreType {
+        id
+        domaine {
+          id
+          nom
+        }
+        type {
+          id
+          nom
+        }
+      }
+      titreStatut {
+        id
+        nom
+        couleur
+      }
+      titresModificationInterdit
+      demarchesModificationInterdit
+      etapesModificationInterdit
+    }
+    titresTypesEtapesTypes {
+      titreType {
+        id
+        type {
+          id
+          nom
+        }
+        domaine {
+          id
+          nom
+        }
+      }
+      etapeType {
+        id
+        nom
+      }
+      lectureInterdit
+      creationInterdit
+      modificationInterdit
+    }
     modification
   }
 

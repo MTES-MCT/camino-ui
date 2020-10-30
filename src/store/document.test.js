@@ -4,7 +4,7 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/documents', () => ({
-  metasDocument: jest.fn(),
+  documentMetas: jest.fn(),
   documentCreer: jest.fn(),
   documentModifier: jest.fn(),
   documentSupprimer: jest.fn()
@@ -57,7 +57,7 @@ describe('documents', () => {
   })
 
   test('récupère les métas pour éditer un document', async () => {
-    const apiMock = api.metasDocument.mockResolvedValueOnce({
+    const apiMock = api.documentMetas.mockResolvedValueOnce({
       documentsTypes: [
         { id: 'arr', nom: 'Arrêté' },
         { id: 'avi', nom: 'Avis' }
@@ -75,7 +75,7 @@ describe('documents', () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasDocument.mockRejectedValue(
+    const apiMock = api.documentMetas.mockRejectedValue(
       new Error("erreur de l'api")
     )
 

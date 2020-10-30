@@ -5,7 +5,7 @@ import { fragmentTitre } from './fragments/titre'
 import { fragmentDemarcheType } from './fragments/metas'
 import { fragmentDemarches } from './fragments/titres-demarches'
 
-const metasDemarches = apiGraphQLFetch(
+const demarchesMetas = apiGraphQLFetch(
   gql`
     query MetasDemarches {
       domaines {
@@ -48,7 +48,7 @@ const metasDemarches = apiGraphQLFetch(
   `
 )
 
-const metasDemarche = apiGraphQLFetch(
+const demarcheMetas = apiGraphQLFetch(
   gql`
     query MetasDemarche($titreId: ID!, $id: ID) {
       demarchesTypes(titreId: $titreId, titreDemarcheId: $id) {
@@ -140,9 +140,9 @@ const demarcheSupprimer = apiGraphQLFetch(gql`
 `)
 
 export {
-  metasDemarches,
+  demarchesMetas,
   demarches,
-  metasDemarche,
+  demarcheMetas,
   demarcheCreer,
   demarcheModifier,
   demarcheSupprimer

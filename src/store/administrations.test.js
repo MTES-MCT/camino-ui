@@ -8,7 +8,7 @@ localVue.use(Vuex)
 
 jest.mock('../api/administrations', () => ({
   administrations: jest.fn(),
-  metasAdministrations: jest.fn()
+  administrationsMetas: jest.fn()
 }))
 
 console.info = jest.fn()
@@ -100,7 +100,7 @@ describe("liste d'administrations", () => {
   })
 
   test('récupère les métas pour visualiser les administrations', async () => {
-    const apiMock = api.metasAdministrations.mockResolvedValue([
+    const apiMock = api.administrationsMetas.mockResolvedValue([
       { id: 'ope', nom: 'Opérateur' },
       { id: 'dea', nom: 'Déal' }
     ])
@@ -121,7 +121,7 @@ describe("liste d'administrations", () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasAdministrations.mockRejectedValue(
+    const apiMock = api.administrationsMetas.mockRejectedValue(
       new Error("erreur de l'api")
     )
 

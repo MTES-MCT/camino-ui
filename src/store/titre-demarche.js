@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import {
-  metasDemarche,
+  demarcheMetas,
   demarcheCreer,
   demarcheModifier,
   demarcheSupprimer
@@ -15,16 +15,16 @@ export const state = {
 
 export const actions = {
   async metasGet({ commit }, demarche) {
-    commit('loadingAdd', 'metasTitreDemarcheGet', { root: true })
+    commit('loadingAdd', 'titreDemarcheMetasGet', { root: true })
 
     try {
-      const data = await metasDemarche(demarche)
+      const data = await demarcheMetas(demarche)
 
       commit('metasSet', { types: data })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'metasTitreDemarcheGet', { root: true })
+      commit('loadingRemove', 'titreDemarcheMetasGet', { root: true })
     }
   },
 

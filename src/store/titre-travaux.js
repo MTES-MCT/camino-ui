@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import {
-  metasTravaux,
+  travauxMetas,
   travauxCreer,
   travauxModifier,
   travauxSupprimer
@@ -15,16 +15,16 @@ export const state = {
 
 export const actions = {
   async metasGet({ commit }, travaux) {
-    commit('loadingAdd', 'metasTravauxGet', { root: true })
+    commit('loadingAdd', 'travauxMetasGet', { root: true })
 
     try {
-      const data = await metasTravaux(travaux)
+      const data = await travauxMetas(travaux)
 
       commit('metasSet', { types: data })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'metasTravauxGet', { root: true })
+      commit('loadingRemove', 'travauxMetasGet', { root: true })
     }
   },
 

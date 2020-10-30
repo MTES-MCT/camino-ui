@@ -8,7 +8,7 @@ jest.mock('../router', () => ({
 }))
 
 jest.mock('../api/titres', () => ({
-  metasTitre: jest.fn(),
+  titreMetas: jest.fn(),
   titre: jest.fn(),
   titreCreer: jest.fn(),
   titreModifier: jest.fn(),
@@ -60,7 +60,7 @@ describe('état du titre sélectionné', () => {
   })
 
   test('récupère les métas pour éditer un titre', async () => {
-    const apiMock = api.metasTitre.mockResolvedValueOnce([
+    const apiMock = api.titreMetas.mockResolvedValueOnce([
       { id: 'ifr', nom: 'Ifremer' },
       { id: 'dge', nom: 'DGEC' }
     ])
@@ -76,7 +76,7 @@ describe('état du titre sélectionné', () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasTitre.mockRejectedValue(
+    const apiMock = api.titreMetas.mockRejectedValue(
       new Error("erreur de l'api")
     )
 

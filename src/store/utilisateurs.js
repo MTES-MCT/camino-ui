@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { utilisateurs, metasUtilisateur } from '../api/utilisateurs'
+import { utilisateurs, utilisateurMetas } from '../api/utilisateurs'
 import { paramsBuild } from './_utils'
 
 export const state = {
@@ -54,9 +54,9 @@ export const state = {
 export const actions = {
   async metasGet({ state, commit }) {
     try {
-      commit('loadingAdd', 'metasUtilisateur', { root: true })
+      commit('loadingAdd', 'utilisateursMetasGet', { root: true })
 
-      const data = await metasUtilisateur()
+      const data = await utilisateurMetas()
 
       commit('metasSet', data)
 
@@ -67,7 +67,7 @@ export const actions = {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
       console.info(e)
     } finally {
-      commit('loadingRemove', 'metasUtilisateur', { root: true })
+      commit('loadingRemove', 'utilisateursMetasGet', { root: true })
     }
   },
 

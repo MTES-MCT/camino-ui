@@ -23,7 +23,7 @@
       <div v-if="value.typeId">
         <div class="blobs mb-s">
           <div class="blob-1-4">
-            <h6>Statut</h6>
+            <h6 class="mb-xs">Statut</h6>
             <p class="h6 italic mb-0">Optionnel</p>
           </div>
           <div class="blob-3-4">
@@ -45,7 +45,7 @@
         </div>
         <div class="blobs mb-s">
           <div class="blob-1-4">
-            <h6>Après le</h6>
+            <h6 class="mb-xs">Après le</h6>
             <p class="h6 italic mb-0">Optionnel</p>
           </div>
           <div class="blob-3-4">
@@ -54,7 +54,7 @@
         </div>
         <div class="blobs mb-s">
           <div class="blob-1-4">
-            <h6>Avant le</h6>
+            <h6 class="mb-xs">Avant le</h6>
             <p class="h6 italic mb-0">Optionnel</p>
           </div>
           <div class="blob-3-4">

@@ -66,8 +66,7 @@
           :class="{ 'mb-s': etape.date, mb: !etape.date }"
         />
         <label v-if="etape.date" class="h5">
-          <input v-model="etape.incertitudes.date" type="checkbox" />donnée
-          incertaine
+          <input v-model="etape.incertitudes.date" type="checkbox" /> donnée incertaine
         </label>
       </div>
     </div>
