@@ -6,7 +6,7 @@ import Vuex from 'vuex'
 jest.mock('../api/titres', () => ({
   titres: jest.fn(),
   titresGeo: jest.fn(),
-  metasTitres: jest.fn()
+  titresMetas: jest.fn()
 }))
 
 console.info = jest.fn()
@@ -97,7 +97,7 @@ describe('liste des titres', () => {
   })
 
   test('récupère les métas pour visualiser les titres', async () => {
-    const apiMock = api.metasTitres.mockResolvedValue({
+    const apiMock = api.titresMetas.mockResolvedValue({
       domaines: [
         { id: 'w', nom: 'granulats' },
         { id: 'c', nom: 'carrières' }
@@ -137,7 +137,7 @@ describe('liste des titres', () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasTitres.mockRejectedValue(
+    const apiMock = api.titresMetas.mockRejectedValue(
       new Error("erreur de l'api")
     )
 

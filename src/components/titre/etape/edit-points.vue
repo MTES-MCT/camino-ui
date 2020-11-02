@@ -167,8 +167,7 @@
       </button>
 
       <label v-if="pointsTotal.length" class="h5">
-        <input v-model="etape.incertitudes.points" type="checkbox" />donnée
-        incertaine
+        <input v-model="etape.incertitudes.points" type="checkbox" /> donnée incertaine
       </label>
     </div>
 

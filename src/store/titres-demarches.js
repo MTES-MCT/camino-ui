@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { metasDemarches, demarches } from '../api/titres-demarches'
+import { demarchesMetas, demarches } from '../api/titres-demarches'
 
 import { paramsBuild } from './_utils'
 
@@ -79,9 +79,9 @@ export const state = {
 export const actions = {
   async metasGet({ state, commit }) {
     try {
-      commit('loadingAdd', 'metasDemarchesGet', { root: true })
+      commit('loadingAdd', 'demarchesMetasGet', { root: true })
 
-      const data = await metasDemarches()
+      const data = await demarchesMetas()
 
       commit('metasSet', data)
 
@@ -91,7 +91,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'metasDemarchesGet', { root: true })
+      commit('loadingRemove', 'demarchesMetasGet', { root: true })
     }
   },
 

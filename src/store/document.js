@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import {
-  metasDocument,
+  documentMetas,
   documentCreer,
   documentModifier,
   documentSupprimer
@@ -16,16 +16,16 @@ export const state = {
 
 export const actions = {
   async metasGet({ commit }, options) {
-    commit('loadingAdd', 'metasDocumentGet', { root: true })
+    commit('loadingAdd', 'documentMetasGet', { root: true })
 
     try {
-      const data = await metasDocument(options)
+      const data = await documentMetas(options)
 
       commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'metasDocumentGet', {
+      commit('loadingRemove', 'documentMetasGet', {
         root: true
       })
     }

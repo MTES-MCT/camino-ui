@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { activites, metasActivites } from '../api/titres-activites'
+import { activites, activitesMetas } from '../api/titres-activites'
 import { paramsBuild } from './_utils'
 
 export const state = {
@@ -69,9 +69,9 @@ export const state = {
 export const actions = {
   async metasGet({ state, commit, dispatch }) {
     try {
-      commit('loadingAdd', 'metasActivites', { root: true })
+      commit('loadingAdd', 'activitesMetasGet', { root: true })
 
-      const data = await metasActivites()
+      const data = await activitesMetas()
 
       commit('metasSet', data)
 
@@ -82,13 +82,13 @@ export const actions = {
       dispatch('apiError', e, { root: true })
       console.info(e)
     } finally {
-      commit('loadingRemove', 'metasActivites', { root: true })
+      commit('loadingRemove', 'activitesMetasGet', { root: true })
     }
   },
 
   async get({ state, dispatch, commit }) {
     try {
-      commit('loadingAdd', 'activites', { root: true })
+      commit('loadingAdd', 'activitesGet', { root: true })
 
       const p = paramsBuild(
         state.params,
@@ -108,7 +108,7 @@ export const actions = {
       dispatch('pageError', null, { root: true })
       console.info(e)
     } finally {
-      commit('loadingRemove', 'activites', { root: true })
+      commit('loadingRemove', 'activitesGet', { root: true })
     }
   },
 

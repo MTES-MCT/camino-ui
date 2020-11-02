@@ -6,7 +6,7 @@ import * as api from '../api/utilisateurs'
 import utilisateur from './utilisateur'
 
 jest.mock('../api/utilisateurs', () => ({
-  metasUtilisateur: jest.fn(),
+  utilisateurMetas: jest.fn(),
   utilisateur: jest.fn(),
   utilisateurCreer: jest.fn(),
   utilisateurModifier: jest.fn(),
@@ -75,7 +75,7 @@ describe("état de l'utilisateur consulté", () => {
   })
 
   test('récupère les métas pour éditer un utilisateur', async () => {
-    const apiMock = api.metasUtilisateur.mockResolvedValue({
+    const apiMock = api.utilisateurMetas.mockResolvedValue({
       permissions: [
         { id: 'w', nom: 'granulats' },
         { id: 'c', nom: 'carrières' }
@@ -99,7 +99,7 @@ describe("état de l'utilisateur consulté", () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasUtilisateur.mockRejectedValue(
+    const apiMock = api.utilisateurMetas.mockRejectedValue(
       new Error("erreur de l'api")
     )
 
@@ -111,7 +111,7 @@ describe("état de l'utilisateur consulté", () => {
   })
 
   test("retourne une erreur si l'api répond null", async () => {
-    const apiMock = api.metasUtilisateur.mockResolvedValue(null)
+    const apiMock = api.utilisateurMetas.mockResolvedValue(null)
 
     await store.dispatch('utilisateur/metasGet')
 

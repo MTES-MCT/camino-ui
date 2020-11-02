@@ -9,7 +9,7 @@ import {
   utilisateurCreer,
   utilisateurMotDePasseMessageEnvoyer,
   utilisateurMotDePasseInitialiser,
-  metasUser
+  userMetas
 } from '../api/utilisateurs'
 
 import tiles from './_map-tiles'
@@ -33,17 +33,17 @@ export const state = {
 
 export const actions = {
   async metasGet({ commit, dispatch }) {
-    commit('loadingAdd', 'metasUser', { root: true })
+    commit('loadingAdd', 'userMetasGet', { root: true })
 
     try {
-      const data = await metasUser()
+      const data = await userMetas()
 
       commit('metasSet', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.info(e)
     } finally {
-      commit('loadingRemove', 'metasUser', { root: true })
+      commit('loadingRemove', 'userMetasGet', { root: true })
     }
   },
 

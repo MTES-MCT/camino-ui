@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import {
-  metasUtilisateur,
+  utilisateurMetas,
   utilisateur,
   utilisateurCreer,
   utilisateurModifier,
@@ -24,17 +24,17 @@ export const state = {
 
 export const actions = {
   async metasGet({ commit }) {
-    commit('loadingAdd', 'metasUtilisateur', { root: true })
+    commit('loadingAdd', 'utilisateurMetasGet', { root: true })
 
     try {
-      const data = await metasUtilisateur()
+      const data = await utilisateurMetas()
 
       commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
       console.info(e)
     } finally {
-      commit('loadingRemove', 'metasUtilisateur', { root: true })
+      commit('loadingRemove', 'utilisateurMetasGet', { root: true })
     }
   },
 

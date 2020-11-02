@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import {
-  metasTitre,
+  titreMetas,
   titre,
   titreCreer,
   titreModifier,
@@ -25,16 +25,16 @@ export const state = {
 
 export const actions = {
   async metasGet({ commit }) {
-    commit('loadingAdd', 'metasTitreGet', { root: true })
+    commit('loadingAdd', 'titreMetasGet', { root: true })
 
     try {
-      const data = await metasTitre()
+      const data = await titreMetas()
 
       commit('metasSet', { referencesTypes: data })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'metasTitreGet', { root: true })
+      commit('loadingRemove', 'titreMetasGet', { root: true })
     }
   },
 

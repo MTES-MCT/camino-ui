@@ -14,7 +14,7 @@ jest.mock('../api/utilisateurs', () => ({
   utilisateurMotDePasseMessageEnvoyer: jest.fn(),
   utilisateurCreationMessageEnvoyer: jest.fn(),
   utilisateurCreer: jest.fn(),
-  metasUser: jest.fn()
+  userMetas: jest.fn()
 }))
 
 console.info = jest.fn()
@@ -85,7 +85,7 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("initialise les métas de l'utilisateur connecté", async () => {
-    const apiMock = api.metasUser.mockResolvedValue({
+    const apiMock = api.userMetas.mockResolvedValue({
       version: '1.1.1'
     })
 
@@ -102,7 +102,7 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
-    const apiMock = api.metasUser.mockRejectedValue(
+    const apiMock = api.userMetas.mockRejectedValue(
       new Error("erreur de l'api")
     )
 

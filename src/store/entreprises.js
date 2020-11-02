@@ -39,7 +39,7 @@ export const state = {
 export const actions = {
   async get({ state, dispatch, commit }) {
     try {
-      commit('loadingAdd', 'entreprises', { root: true })
+      commit('loadingAdd', 'entreprisesGet', { root: true })
 
       const p = paramsBuild(
         state.params,
@@ -62,7 +62,7 @@ export const actions = {
       dispatch('apiError', e, { root: true })
       console.info(e)
     } finally {
-      commit('loadingRemove', 'entreprises', { root: true })
+      commit('loadingRemove', 'entreprisesGet', { root: true })
     }
   },
 

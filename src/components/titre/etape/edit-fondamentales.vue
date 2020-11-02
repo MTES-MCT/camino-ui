@@ -2,7 +2,7 @@
   <div>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Durée (années / mois)</h6>
+        <h6 class="mb-xs">Durée (années / mois)</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
@@ -30,7 +30,7 @@
           </div>
         </div>
         <label v-if="etape.duree.ans || etape.duree.mois" class="h5">
-          <input v-model="etape.incertitudes.duree" type="checkbox" />donnée
+          <input v-model="etape.incertitudes.duree" type="checkbox" /> donnée
           incertaine
         </label>
       </div>
@@ -40,7 +40,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Date de début</h6>
+        <h6 class="mb-xs">Date de début</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
@@ -49,8 +49,7 @@
           :class="{ 'mb-s': etape.dateDebut, mb: !etape.dateDebut }"
         />
         <label v-if="etape.dateDebut" class="h5">
-          <input v-model="etape.incertitudes.dateDebut" type="checkbox" />donnée
-          incertaine
+          <input v-model="etape.incertitudes.dateDebut" type="checkbox" /> donnée incertaine
         </label>
       </div>
     </div>
@@ -59,7 +58,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Date d'échéance</h6>
+        <h6 class="mb-xs">Date d'échéance</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
@@ -68,8 +67,7 @@
           :class="{ 'mb-s': etape.dateFin, mb: !etape.dateFin }"
         />
         <label v-if="etape.dateFin" class="h5">
-          <input v-model="etape.incertitudes.dateFin" type="checkbox" />donnée
-          incertaine
+          <input v-model="etape.incertitudes.dateFin" type="checkbox" /> donnée incertaine
         </label>
       </div>
     </div>
@@ -77,7 +75,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Surface (Km²)</h6>
+        <h6 class="mb-xs">Surface (Km²)</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
@@ -88,8 +86,7 @@
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
         />
         <label v-if="etape.surface" class="h5">
-          <input v-model="etape.incertitudes.surface" type="checkbox" />donnée
-          incertaine
+          <input v-model="etape.incertitudes.surface" type="checkbox" /> donnée incertaine
         </label>
       </div>
     </div>
@@ -133,8 +130,7 @@
     </button>
 
     <label v-if="titulairesLength" class="h5">
-      <input v-model="etape.incertitudes.titulaires" type="checkbox" />donnée
-      incertaine
+      <input v-model="etape.incertitudes.titulaires" type="checkbox" /> donnée incertaine
     </label>
     <hr />
 
@@ -175,8 +171,7 @@
     </button>
 
     <label v-if="amodiatairesLength" class="h5">
-      <input v-model="etape.incertitudes.amodiataires" type="checkbox" />donnée
-      incertaine
+      <input v-model="etape.incertitudes.amodiataires" type="checkbox" /> donnée incertaine
     </label>
     <hr />
 
@@ -237,8 +232,7 @@
     </button>
 
     <label v-if="substancesLength" class="h5">
-      <input v-model="etape.incertitudes.substances" type="checkbox" />donnée
-      incertaine
+      <input v-model="etape.incertitudes.substances" type="checkbox" /> donnée incertaine
     </label>
     <hr />
   </div>

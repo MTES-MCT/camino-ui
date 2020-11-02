@@ -4,7 +4,7 @@ import { apiGraphQLFetch } from './_client'
 import { fragmentTitre } from './fragments/titre'
 import { fragmentEtapeType } from './fragments/metas'
 
-const metasTitreTravauxEtape = apiGraphQLFetch(
+const titreTravauxEtapeMetas = apiGraphQLFetch(
   gql`
     query MetasTravauxEtape($titreTravauxId: ID!, $id: ID) {
       etapesTypes(titreTravauxId: $titreTravauxId, titreEtapeId: $id) {
@@ -47,7 +47,7 @@ const travauxEtapeSupprimer = apiGraphQLFetch(gql`
 `)
 
 export {
-  metasTitreTravauxEtape,
+  titreTravauxEtapeMetas,
   travauxEtapeCreer,
   travauxEtapeModifier,
   travauxEtapeSupprimer

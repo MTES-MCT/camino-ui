@@ -9,7 +9,7 @@ import { fragmentPermission, fragmentTitreType } from './fragments/metas'
 import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentAdministrations } from './fragments/administrations'
 
-const metasUser = apiGraphQLFetch(
+const userMetas = apiGraphQLFetch(
   gql`
     query MetasUser {
       version
@@ -28,9 +28,9 @@ const metasUser = apiGraphQLFetch(
   `
 )
 
-const metasUtilisateur = apiGraphQLFetch(
+const utilisateurMetas = apiGraphQLFetch(
   gql`
-    query MetasUtilisateur {
+    query UtilisateurMetas {
       permissions {
         ...permission
       }
@@ -234,8 +234,8 @@ const utilisateurEmailModifier = apiGraphQLFetch(gql`
 `)
 
 export {
-  metasUser,
-  metasUtilisateur,
+  userMetas,
+  utilisateurMetas,
   utilisateur,
   utilisateurs,
   moi,

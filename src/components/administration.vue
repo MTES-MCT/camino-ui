@@ -127,13 +127,12 @@
           </div>
 
         </div>
-
       </template>
     </Accordion>
 
     <div v-if="utilisateurs && utilisateurs.length" class="mb-xxl">
       <div class="line-neutral mb-xxl" />
-      <h3>Utilisateurs</h3>
+      <h2>Utilisateurs</h2>
       <div class="line" />
       <Table
         class="width-max"
@@ -141,6 +140,13 @@
         :rows="utilisateursLignes"
         :utilisateurs="utilisateurs"
       />
+    </div>
+
+    <div v-if="permissionsCheck(['super'])" class="mb-xxl">
+      <div class="line-neutral mb-xxl" />
+      <h2>Permissions</h2>
+
+      <AdministrationPermission :administration="administration" />
     </div>
   </div>
 </template>
@@ -150,6 +156,7 @@ import Accordion from './_ui/accordion.vue'
 import Loader from './_ui/loader.vue'
 import Table from './_ui/table.vue'
 import AdministrationEditPopup from './administration/edit-popup.vue'
+import AdministrationPermission from './administration/permissions.vue'
 
 import {
   utilisateursColonnes,
@@ -161,6 +168,7 @@ export default {
     Accordion,
     Loader,
     Table,
+    AdministrationPermission
   },
 
   data() {

@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 import { fragmentDocument } from './fragments/documents'
 
-const metasDocument = apiGraphQLFetch(
+const documentMetas = apiGraphQLFetch(
   gql`
     query MetasDocument($repertoire: ID, $typeId: ID) {
       documentsTypes(repertoire: $repertoire, typeId: $typeId) {
@@ -44,4 +44,4 @@ const documentSupprimer = apiGraphQLFetch(gql`
   }
 `)
 
-export { metasDocument, documentCreer, documentModifier, documentSupprimer }
+export { documentMetas, documentCreer, documentModifier, documentSupprimer }

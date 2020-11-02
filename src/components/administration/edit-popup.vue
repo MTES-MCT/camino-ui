@@ -2,7 +2,9 @@
   <Popup :messages="messages">
     <template slot="header">
       <div>
-        <h2 class="mb-0">{{ creation ? "Ajout d'une " : "Modification de l'" }}administration</h2>
+        <h2 class="mb-0">
+          {{ creation ? "Ajout d'une " : "Modification de l'" }}administration
+        </h2>
       </div>
     </template>
 
@@ -11,11 +13,7 @@
         <h6>Nom</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input
-          v-model="administration.nom"
-          type="text"
-          class="p-s"
-        />
+        <input v-model="administration.nom" type="text" class="p-s" />
       </div>
     </div>
 
@@ -46,11 +44,7 @@
         <h6>Abréviation</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input
-          v-model="administration.abreviation"
-          type="text"
-          class="p-s"
-        />
+        <input v-model="administration.abreviation" type="text" class="p-s" />
       </div>
     </div>
 
@@ -58,15 +52,11 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Service</h6>
+        <h6 class="mb-xs">Service</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input
-          v-model="administration.service"
-          type="text"
-          class="p-s"
-        />
+        <input v-model="administration.service" type="text" class="p-s" />
       </div>
     </div>
 
@@ -74,7 +64,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Téléphone</h6>
+        <h6 class="mb-xs">Téléphone</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -90,7 +80,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Adresse électronique</h6>
+        <h6 class="mb-xs">Adresse électronique</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -106,7 +96,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Site internet</h6>
+        <h6 class="mb-xs">Site internet</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -123,15 +113,11 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Adresse 1</h6>
+        <h6 class="mb-xs">Adresse 1</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input
-          v-model="administration.adresse1"
-          type="text"
-          class="p-s"
-        />
+        <input v-model="administration.adresse1" type="text" class="p-s" />
       </div>
     </div>
 
@@ -139,15 +125,11 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Adresse 2</h6>
+        <h6 class="mb-xs">Adresse 2</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input
-          v-model="administration.adresse2"
-          type="text"
-          class="p-s"
-        />
+        <input v-model="administration.adresse2" type="text" class="p-s" />
       </div>
     </div>
 
@@ -155,15 +137,11 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Code Postal</h6>
+        <h6 class="mb-xs">Code Postal</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input
-          v-model="administration.codePostal"
-          type="text"
-          class="p-s"
-        />
+        <input v-model="administration.codePostal" type="text" class="p-s" />
       </div>
     </div>
 
@@ -171,15 +149,11 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Commune</h6>
+        <h6 class="mb-xs">Commune</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input
-          v-model="administration.commune"
-          type="text"
-          class="p-s"
-        />
+        <input v-model="administration.commune" type="text" class="p-s" />
       </div>
     </div>
 
@@ -187,15 +161,11 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Cedex</h6>
+        <h6 class="mb-xs">Cedex</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
-        <input
-          v-model="administration.cedex"
-          type="text"
-          class="p-s"
-        />
+        <input v-model="administration.cedex" type="text" class="p-s" />
       </div>
     </div>
 
@@ -203,7 +173,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Lien</h6>
+        <h6 class="mb-xs">Lien</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -214,8 +184,14 @@
             :value="lien.id"
             type="radio"
             class="p-s"
-          /> {{ lien.nom }}
+          />
+          {{ lien.nom }}
         </label>
+
+        <p class="h6 italic mb-0">
+          Donne le droit de création et d'édition des démarches et étapes sur
+          les titres liés à ce territoire.
+        </p>
       </div>
     </div>
 
@@ -223,7 +199,7 @@
 
     <div v-if="lienCurrent === 'departement'" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Département</h6>
+        <h6 class="mb-xs">Département</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -233,14 +209,15 @@
             :key="departement.id"
             :value="departement.id"
             :disabled="administration.departementId === departement.id"
-          >{{ departement.nom }}</option>
+            >{{ departement.nom }}</option
+          >
         </select>
       </div>
     </div>
 
     <div v-if="lienCurrent === 'region'" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Région</h6>
+        <h6 class="mb-xs">Région</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
@@ -300,7 +277,11 @@ export default {
 
   data() {
     return {
-      liens: [{id: 'aucun', nom: 'Aucun'}, {id: 'departement', nom: "Département"}, {id: 'region', nom: 'Région'}],
+      liens: [
+        { id: 'aucun', nom: 'Aucun' },
+        { id: 'departement', nom: 'Département' },
+        { id: 'region', nom: 'Région' }
+      ],
       lienCurrent: 'aucun'
     }
   },
@@ -314,15 +295,15 @@ export default {
       return this.$store.state.popup.messages
     },
 
-    departements () {
+    departements() {
       return this.$store.state.administration.metas.departements
     },
 
-    regions () {
+    regions() {
       return this.$store.state.administration.metas.regions
     },
 
-    types () {
+    types() {
       return this.$store.state.administration.metas.types
     }
   },
@@ -330,7 +311,7 @@ export default {
   created() {
     if (this.administration.regionId) {
       this.lienCurrent = 'region'
-    } else if (this.administration.departementId){
+    } else if (this.administration.departementId) {
       this.lienCurrent = 'departement'
     }
 
@@ -352,7 +333,7 @@ export default {
 
       if (this.lienCurrent === 'region') {
         administration.departementId = null
-      } else if (this.lienCurrent === 'departement'){
+      } else if (this.lienCurrent === 'departement') {
         administration.regionId = null
       } else {
         administration.departementId = null

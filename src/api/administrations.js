@@ -4,9 +4,9 @@ import { apiGraphQLFetch } from './_client'
 import { fragmentAdministration } from './fragments/administration'
 import { fragmentAdministrations } from './fragments/administrations'
 
-const metasAdministration = apiGraphQLFetch(
+const administrationMetas = apiGraphQLFetch(
   gql`
-    query MetasAdministration {
+    query AdministrationMetas {
       administrationsTypes {
         id
         nom
@@ -26,6 +26,32 @@ const metasAdministration = apiGraphQLFetch(
   `
 )
 
+const administrationPermissionsMetas = apiGraphQLFetch(
+  gql`
+    query AdministrationPermissionsMetas {
+      domaines {
+        id
+        nom
+        titresTypes {
+          id
+          type {
+            id
+            nom
+          }
+        }
+      }
+      statuts {
+        id
+        nom
+      }
+      etapesTypes {
+        id
+        nom
+      }
+    }
+  `
+)
+
 const administration = apiGraphQLFetch(gql`
   query Administration($id: ID!) {
     administration(id: $id) {
@@ -36,9 +62,9 @@ const administration = apiGraphQLFetch(gql`
   ${fragmentAdministration}
 `)
 
-const metasAdministrations = apiGraphQLFetch(
+const administrationsMetas = apiGraphQLFetch(
   gql`
-    query MetasAdministrations {
+    query AdministrationsMetas {
       administrationsTypes {
         id
         nom
@@ -85,10 +111,56 @@ const administrationModifier = apiGraphQLFetch(gql`
   ${fragmentAdministration}
 `)
 
+const administrationTitreTypeUpdate = apiGraphQLFetch(gql`
+  mutation AdministrationTitreTypeModifier(
+    $administrationTitreType: InputAdministrationTitreType!
+  ) {
+    administrationTitreTypeModifier(
+      administrationTitreType: $administrationTitreType
+    ) {
+      ...administration
+    }
+  }
+
+  ${fragmentAdministration}
+`)
+
+const administrationTitreTypeTitreStatutUpdate = apiGraphQLFetch(gql`
+  mutation AdministrationTitreTypeTitreStatutModifier(
+    $administrationTitreTypeTitreStatut: InputAdministrationTitreTypeTitreStatut!
+  ) {
+    administrationTitreTypeTitreStatutModifier(
+      administrationTitreTypeTitreStatut: $administrationTitreTypeTitreStatut
+    ) {
+      ...administration
+    }
+  }
+
+  ${fragmentAdministration}
+`)
+
+const administrationTitreTypeEtapeTypeUpdate = apiGraphQLFetch(gql`
+  mutation AdministrationTitreTypeEtapeTypeModifier(
+    $administrationTitreTypeEtapeType: InputAdministrationTitreTypeEtapeType!
+  ) {
+    administrationTitreTypeEtapeTypeModifier(
+      administrationTitreTypeEtapeType: $administrationTitreTypeEtapeType
+    ) {
+      ...administration
+    }
+  }
+
+  ${fragmentAdministration}
+`)
+
 export {
-  metasAdministration,
+  administrationMetas,
   administration,
-  metasAdministrations,
+  administrationsMetas,
   administrations,
-  administrationModifier
+  administrationModifier,
+  administrationTitreTypeUpdate,
+  administrationTitreTypeTitreStatutUpdate,
+  administrationTitreTypeEtapeTypeUpdate,
+  administrationPermissionsMetas
 }

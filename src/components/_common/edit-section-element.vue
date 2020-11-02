@@ -2,7 +2,7 @@
   <div>
     <div class="tablet-blobs">
       <div v-if="element.nom" class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>{{ element.nom }}</h6>
+        <h6 class="mb-xs">{{ element.nom }}</h6>
         <p v-if="element.optionnel" class="h6 italic mb-0">Optionnel</p>
       </div>
 
