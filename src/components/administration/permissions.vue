@@ -61,7 +61,11 @@
                     titreTypeNew.gestionnaire = !titreTypeNew.gestionnaire
                   "
                 >
-                  {{ titreTypeNew.gestionnaire ? '✓' : '-' }}
+                  <i
+                    v-if="titreTypeNew.gestionnaire"
+                    class="icon-24 icon-check"
+                  />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -70,7 +74,8 @@
                   :disabled="!titreTypeNew.titreTypeTypeId"
                   @click="titreTypeNew.associee = !titreTypeNew.associee"
                 >
-                  {{ titreTypeNew.associee ? '✓' : '-' }}
+                  <i v-if="titreTypeNew.associee" class="icon-24 icon-check" />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -103,7 +108,8 @@
                     )
                   "
                 >
-                  {{ titreType.gestionnaire ? '✓' : '-' }}
+                  <i v-if="titreType.gestionnaire" class="icon-24 icon-check" />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -118,7 +124,8 @@
                     )
                   "
                 >
-                  {{ titreType.associee ? '✓' : '-' }}
+                  <i v-if="titreType.associee" class="icon-24 icon-check" />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td />
@@ -207,11 +214,11 @@
                     titreTypeTitreStatutNew.titresModificationInterdit = !titreTypeTitreStatutNew.titresModificationInterdit
                   "
                 >
-                  {{
-                    titreTypeTitreStatutNew.titresModificationInterdit
-                      ? '✕'
-                      : '-'
-                  }}
+                  <i
+                    v-if="titreTypeTitreStatutNew.titresModificationInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -225,11 +232,11 @@
                     titreTypeTitreStatutNew.demarchesModificationInterdit = !titreTypeTitreStatutNew.demarchesModificationInterdit
                   "
                 >
-                  {{
-                    titreTypeTitreStatutNew.demarchesModificationInterdit
-                      ? '✕'
-                      : '-'
-                  }}
+                  <i
+                    v-if="titreTypeTitreStatutNew.demarchesModificationInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -243,11 +250,11 @@
                     titreTypeTitreStatutNew.etapesModificationInterdit = !titreTypeTitreStatutNew.etapesModificationInterdit
                   "
                 >
-                  {{
-                    titreTypeTitreStatutNew.etapesModificationInterdit
-                      ? '✕'
-                      : '-'
-                  }}
+                  <i
+                    v-if="titreTypeTitreStatutNew.etapesModificationInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -291,7 +298,11 @@
                     )
                   "
                 >
-                  {{ ttts.titresModificationInterdit ? '✕' : '-' }}
+                  <i
+                    v-if="ttts.titresModificationInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -308,7 +319,11 @@
                     )
                   "
                 >
-                  {{ ttts.demarchesModificationInterdit ? '✕' : '-' }}
+                  <i
+                    v-if="ttts.demarchesModificationInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -325,7 +340,11 @@
                     )
                   "
                 >
-                  {{ ttts.etapesModificationInterdit ? '✕' : '-' }}
+                  <i
+                    v-if="ttts.etapesModificationInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td />
@@ -414,7 +433,11 @@
                     titreTypeEtapeTypeNew.lectureInterdit = !titreTypeEtapeTypeNew.lectureInterdit
                   "
                 >
-                  {{ titreTypeEtapeTypeNew.lectureInterdit ? '✕' : '-' }}
+                  <i
+                    v-if="titreTypeEtapeTypeNew.lectureInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -428,7 +451,11 @@
                     titreTypeEtapeTypeNew.modificationInterdit = !titreTypeEtapeTypeNew.modificationInterdit
                   "
                 >
-                  {{ titreTypeEtapeTypeNew.modificationInterdit ? '✕' : '-' }}
+                  <i
+                    v-if="titreTypeEtapeTypeNew.modificationInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -442,7 +469,11 @@
                     titreTypeEtapeTypeNew.creationInterdit = !titreTypeEtapeTypeNew.creationInterdit
                   "
                 >
-                  {{ titreTypeEtapeTypeNew.creationInterdit ? '✕' : '-' }}
+                  <i
+                    v-if="titreTypeEtapeTypeNew.creationInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -483,7 +514,8 @@
                     )
                   "
                 >
-                  {{ ttet.lectureInterdit ? '✕' : '-' }}
+                  <i v-if="ttet.lectureInterdit" class="icon-24 icon-cross" />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -500,7 +532,11 @@
                     )
                   "
                 >
-                  {{ ttet.modificationInterdit ? '✕' : '-' }}
+                  <i
+                    v-if="ttet.modificationInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td>
@@ -517,7 +553,8 @@
                     )
                   "
                 >
-                  {{ ttet.creationInterdit ? '✕' : '-' }}
+                  <i v-if="ttet.creationInterdit" class="icon-24 icon-cross" />
+                  <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
               <td />

@@ -187,6 +187,11 @@
           />
           {{ lien.nom }}
         </label>
+
+        <p class="h6 italic mb-0">
+          Donne le droit de création et d'édition des démarches et étapes sur
+          les titres liés à ce territoire.
+        </p>
       </div>
     </div>
 
