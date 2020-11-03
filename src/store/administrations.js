@@ -26,7 +26,7 @@ export const state = {
   ],
   preferences: {
     table: { page: 1, intervalle: 200, ordre: 'asc', colonne: null },
-    filtres: { noms: '', typesIds: '' }
+    filtres: { noms: '', typesIds: [] }
   },
   loaded: {
     metas: false,

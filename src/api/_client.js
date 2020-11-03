@@ -69,6 +69,7 @@ const apiFetch = async (call, query, variables) => {
   if (!apiUrl) {
     await apiUrlInit()
   }
+
   try {
     return await call(apiUrl, query, variables)
   } catch (e) {

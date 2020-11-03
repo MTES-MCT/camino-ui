@@ -3,10 +3,15 @@
     <div class="mb-xxl">
       <h3>Administration gestionnaire ou associée</h3>
 
-      <ul class="h6 italic list-prefix">
-        <li><b>Gestionnaire</b> : peut créer des titres et les modifier.</li>
+      <ul class="h6 italic list-prefix mb-s">
         <li>
-          <b>Associée</b> : masquée sur les titres auxquels elle est liée.
+          L'utilisateur d'une administration <b>gestionnaire</b> peut créer et
+          modifier des titres, démarches et étapes.
+        </li>
+        <li>
+          L'utilisateur d'une administration <b>associée</b> peut voir les
+          titres non-publics. Aussi, l'administration <b>associée</b> n'apparaît
+          pas sur les pages des titres.
         </li>
       </ul>
 
@@ -138,12 +143,25 @@
     <div v-if="administration.type.id !== 'min'" class="mb-xxl">
       <h3>Restrictions de l'édition des titres, démarches et étapes</h3>
 
-      <p class="h6 italic">
-        Par défaut, une administration peut éditer les titres, démarches et
-        étapes des titres dont elle est gestionnaire, associée ou liée par la
-        région ou le département. <br />Ce réglage permet de retreindre ces
-        droits par domaine / type de titre / statut de titre.
-      </p>
+      <div class="h6 italic">
+        <p class="mb-s">
+          Par défaut, l'utilisateur d'une administration peut éditer :
+        </p>
+        <ul class="list-prefix mb-s">
+          <li>
+            les <b>titres</b>, <b>démarches</b> et <b>étapes</b> des titres dont
+            l'administration est gestionnaire,
+          </li>
+          <li>
+            les <b>démarches</b> et <b>étapes</b> des titres auxquels
+            l'administration est liée par la région ou le département.
+          </li>
+        </ul>
+        <p>
+          Ce réglage permet de retreindre ces droits par domaine / type de titre
+          / statut de titre.
+        </p>
+      </div>
 
       <div class="line" />
       <div class="width-max">
@@ -357,12 +375,25 @@
     <div v-if="administration.type.id !== 'min'" class="mb-xxl">
       <h3>Restrictions de la visibilité, édition et création des étapes</h3>
 
-      <p class="h6 italic">
-        Par défaut, une administration peut voir, éditer et modifier les étapes
-        des titres dont elle est gestionnaire, associée ou liée par la région ou
-        le département. <br />Ce réglage permet de retreindre ces droits par
-        domaine / type de titre / type d'étape.
-      </p>
+      <div class="h6 italic">
+        <p class="mb-s">
+          Par défaut, l'utilisateur d'une administration peut <b>voir</b>,
+          <b>modifier</b> et <b>créer</b> les étapes :
+        </p>
+        <ul class="list-prefix mb-s">
+          <li>
+            des titres dont l'administration est gestionnaire,
+          </li>
+          <li>
+            des titres auxquels l'administration est liée par la région ou le
+            département.
+          </li>
+        </ul>
+        <p>
+          Ce réglage permet de retreindre ces droits par domaine / type de titre
+          / type d'étape.
+        </p>
+      </div>
 
       <div class="line" />
       <div class="width-max">

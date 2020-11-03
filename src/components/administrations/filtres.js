@@ -13,6 +13,7 @@ const filtres = [
     name: 'Types',
     type: 'checkboxes',
     value: [],
+    elements: [],
     elementsFormat
   }
 ]
