@@ -105,11 +105,8 @@
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s" />
       <div class="mb tablet-blob-2-3">
-        <input
-          id="cmn-user-add-checkbox-cgu"
-          v-model="cgu"
-          type="checkbox"
-        />Vous avez lu et vous acceptez les
+        <input id="cmn-user-add-checkbox-cgu" v-model="cgu" type="checkbox" />
+        Vous avez lu et vous acceptez les
         <a href="/cgu" target="_blank" rel="noopener noreferrer">
           conditions générales d'utilisation </a
         >.

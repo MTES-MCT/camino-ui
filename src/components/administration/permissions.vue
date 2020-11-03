@@ -34,7 +34,7 @@
                     :key="domaine.id"
                     :value="domaine.id"
                   >
-                    {{ domaine.id.toUpperCase() }}
+                    {{ domaine.id.toUpperCase() }} {{ domaine.nom.to }}
                   </option>
                 </select>
               </td>
@@ -170,7 +170,7 @@
                     :key="domaine.id"
                     :value="domaine.id"
                   >
-                    {{ domaine.id.toUpperCase() }}
+                    {{ domaine.id.toUpperCase() }} {{ domaine.nom.to }}
                   </option>
                 </select>
               </td>
@@ -389,7 +389,7 @@
                     :key="domaine.id"
                     :value="domaine.id"
                   >
-                    {{ domaine.id.toUpperCase() }}
+                    {{ domaine.id.toUpperCase() }} {{ domaine.nom.to }}
                   </option>
                 </select>
               </td>
