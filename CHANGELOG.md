@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.49](https://github.com/MTES-MCT/camino-ui/compare/v0.22.46...v0.22.49) (2020-11-04)
+
+
+### Features
+
+* **administration:** édite les permission ([#210](https://github.com/MTES-MCT/camino-ui/issues/210)) ([fc5645c](https://github.com/MTES-MCT/camino-ui/commit/fc5645c8dc8895563494fe5bed04aede080e9db4))
+* ajoute les administrations ([#205](https://github.com/MTES-MCT/camino-ui/issues/205)) ([f3898ab](https://github.com/MTES-MCT/camino-ui/commit/f3898abc70b97bfd1f9b95479bcde26efbe9b916))
+* édite une administration ([#208](https://github.com/MTES-MCT/camino-ui/issues/208)) ([1a9747d](https://github.com/MTES-MCT/camino-ui/commit/1a9747d191611c8cff05d390c455002ae8d54e80))
+* **documents:** masque les boutons si l’utilisateur n’a pas les permissions ([#195](https://github.com/MTES-MCT/camino-ui/issues/195)) ([970816d](https://github.com/MTES-MCT/camino-ui/commit/970816d1852ce969bd7f6fb2ae357a965286145f))
+* **sentry:** active Sentry et Matomo via des variables d’environnement ([#198](https://github.com/MTES-MCT/camino-ui/issues/198)) ([7ad575e](https://github.com/MTES-MCT/camino-ui/commit/7ad575eb93dd858f875929013aecc01109a01671))
+
+
+### Bug Fixes
+
+* affiche le nom complet des domaines dans le selecteur de permissions ([91da4d1](https://github.com/MTES-MCT/camino-ui/commit/91da4d1ea5bdea900dfd15a9a304af674a7bf80f))
+* ajoute une icone pour le changement d'email ([9003235](https://github.com/MTES-MCT/camino-ui/commit/90032351cc3388306866bfa6c8c573d6a212dfc6))
+* corrige l'enregistrement des activités ([#202](https://github.com/MTES-MCT/camino-ui/issues/202)) ([920d2ec](https://github.com/MTES-MCT/camino-ui/commit/920d2ec50035567e14add0179ef19f387fc5b0ae))
+* corrige la CSP pour le chragement asynchrone ([3007449](https://github.com/MTES-MCT/camino-ui/commit/30074490197235f0b5aaf2c93e7d9e278bbfcd4c))
+* corrige la csp pour les styles de chartjs ([c72f622](https://github.com/MTES-MCT/camino-ui/commit/c72f6229b24a7cae208c4257ae6bae022ac7a646))
+* corrige la csp pour matomo ([2e2c71c](https://github.com/MTES-MCT/camino-ui/commit/2e2c71cce5ce3b5c8e4b41d325cedbc07ee632e5))
+* corrige la liste d'administration lors de l'édition d'un utilisateur ([0f45ee6](https://github.com/MTES-MCT/camino-ui/commit/0f45ee667b012a27ba35d94bd337969efc4068a9))
+* corrige la mise en page sur safari ([#200](https://github.com/MTES-MCT/camino-ui/issues/200)) ([f9e7d66](https://github.com/MTES-MCT/camino-ui/commit/f9e7d66e5ebc06f9a5d5ca0fe2c388e8f3ce37d1))
+* corrige le selecteur de type d'administrations ([00a2670](https://github.com/MTES-MCT/camino-ui/commit/00a2670ee5311db31ac21a55383943ae88ee7cc5))
+* corrige une faute de français ([29a221e](https://github.com/MTES-MCT/camino-ui/commit/29a221ee015c202d65442a195dc0d78be8ed0b6a))
+* **api:** utilise le refreshToken sur les appels à l’API Rest qui échouent ([#203](https://github.com/MTES-MCT/camino-ui/issues/203)) ([4e54d81](https://github.com/MTES-MCT/camino-ui/commit/4e54d811f1c25fddfe07b62864ab2b38c34899c7))
+* **nombre:** formate la saisie des nombres en français ([#192](https://github.com/MTES-MCT/camino-ui/issues/192)) ([981584f](https://github.com/MTES-MCT/camino-ui/commit/981584fc4dd50330436046b77145be1299458248))
+* **nombres:** formater l'affichage des nombre au standard français ([#179](https://github.com/MTES-MCT/camino-ui/issues/179)) ([75473db](https://github.com/MTES-MCT/camino-ui/commit/75473db6117602fe012b16c90320d86819e291ce))
+* **stats:** corrige une description ([#194](https://github.com/MTES-MCT/camino-ui/issues/194)) ([815bb08](https://github.com/MTES-MCT/camino-ui/commit/815bb08748794e7f008e5879e1ae8c91a3d20f7e))
+* **utilisateur:** vérifie la nouvelle adresse email lors de sa modification ([#199](https://github.com/MTES-MCT/camino-ui/issues/199)) ([c0f37dd](https://github.com/MTES-MCT/camino-ui/commit/c0f37ddab0b39f6038fcea6fc00d0e83808dc36a))
+
 ### [0.22.48](https://github.com/MTES-MCT/camino-ui/compare/v0.22.47...v0.22.48) (2020-10-20)
 
 
