@@ -22,6 +22,14 @@
               placeholder="…"
             />
 
+            <inputNumber
+              v-if="element.type === 'integer'"
+              v-model.trim.number="contenu[element.id]"
+              :integer="true"
+              class="p-s"
+              placeholder="…"
+            />
+
             <InputDate
               v-else-if="element.type === 'date'"
               v-model="contenu[element.id]"
@@ -149,7 +157,7 @@ export default {
     },
 
     valeur() {
-      if (this.element.type === 'number') {
+      if (['number', 'integer'].includes(this.element.type)) {
         return numberFormat(this.contenu[this.element.id])
       }
 
