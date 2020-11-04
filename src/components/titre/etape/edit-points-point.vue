@@ -43,6 +43,7 @@
         <h6>X ({{ geoSysteme.unite.nom }})</h6>
         <inputNumber
           v-model.trim.number="point.references[geoSysteme.id][0]"
+          :negative="true"
           placeholder="0,01"
         />
       </div>
@@ -50,6 +51,7 @@
         <h6>Y ({{ geoSysteme.unite.nom }})</h6>
         <inputNumber
           v-model.trim.number="point.references[geoSysteme.id][1]"
+          :negative="true"
           placeholder="0,01"
         />
       </div>
