@@ -18,10 +18,6 @@ const textToNumberFormat = (text, options) => {
     ? value.replace(/[^0-9\s,.-]/g, '')
     : value.replace(/[^0-9\s,.]/g, '')
 
-  if (options.integer) {
-    value = value.replace(/\.[^.]*$/, '')
-  }
-
   const number = parseFloat(value)
 
   return Number.isNaN(number) ? undefined : number
