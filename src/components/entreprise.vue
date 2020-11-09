@@ -126,6 +126,15 @@
               </p>
             </div>
           </div>
+
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h6 class="mt-xs">Archivée</h6>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p>{{ entreprise.archive ? 'Oui' : 'Non' }}</p>
+            </div>
+          </div>
         </div>
 
         <div v-if="entreprise.documents.length">
@@ -134,7 +143,7 @@
             :bouton-modification="entreprise.modification"
             :bouton-suppression="
               entreprise.modification &&
-              permissionsCheck(['super', 'admin', 'editeur'])
+                permissionsCheck(['super', 'admin', 'editeur'])
             "
             :context="{ id: entreprise.id, name: 'entreprise' }"
             :documents="entreprise.documents"

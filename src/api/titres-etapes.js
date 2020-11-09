@@ -36,7 +36,7 @@ const titreEtapeMetas = apiGraphQLFetch(
         ...substance
       }
 
-      entreprises {
+      entreprises(archive: false) {
         elements {
           ...entreprises
         }

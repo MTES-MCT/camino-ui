@@ -19,6 +19,7 @@ const fragmentEntreprise = gql`
     url
     telephone
     email
+    archive
     etablissements {
       id
       nom
