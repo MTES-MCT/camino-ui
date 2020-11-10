@@ -50,6 +50,18 @@
       </div>
     </div>
 
+    <template v-if="permissionsCheck(['super'])">
+      <hr />
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h6>Archivée</h6>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input v-model="entreprise.archive" type="checkbox" class="p-s" />
+        </div>
+      </div>
+    </template>
+
     <template slot="footer">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
