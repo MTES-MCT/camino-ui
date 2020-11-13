@@ -147,11 +147,10 @@ const layersBuild = (titres, router) =>
           layer.on(methods)
 
           // marker
-          const position = L.geoJSON(feature)
-            .getBounds()
-            .getCenter()
-
-          marker = L.marker(position, { icon })
+          marker = L.marker({
+              lat: titre.geojsonCentre.y,
+              lng: titre.geojsonCentre.x
+          }, { icon })
           marker.id = titre.id
           marker.domaineId = domaineId
           marker.bindPopup(popupHtml, popupOptions)

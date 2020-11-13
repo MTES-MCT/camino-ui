@@ -179,6 +179,10 @@ const fragmentTitresGeo = gql`
     geojsonMultiPolygon {
       ...geojsonMultiPolygon
     }
+    geojsonCentre {
+      x
+      y
+    }
   }
 
   ${fragmentTitresEntreprises}
