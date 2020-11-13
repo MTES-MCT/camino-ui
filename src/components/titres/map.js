@@ -72,18 +72,96 @@ const clustersBuild = domaines =>
     return Object.assign(clusters, { [id]: cluster })
   }, {})
 
+const TitreIcon = L.Icon.extend({
+  options: {
+    iconSize: new L.Point(30, 37),
+    iconAnchor: [15, 37],
+    color: '#8ED6FF',
+    domaineId: ''
+  },
+
+  ctx: null,
+
+  createIcon: function() {
+    const e = document.createElement('canvas')
+    this._setIconStyles(e, 'icon')
+    const s = this.options.iconSize
+
+    e.width = s.x
+    e.height = s.y
+
+    this.ctx = e.getContext('2d')
+    this.draw(this.ctx, s.x, s.y)
+
+    return e
+  },
+
+  draw: function(ctx, w, h) {
+    if (!ctx) return
+
+    ctx.clearRect(0, 0, w, h)
+
+    // dessine le petit triangle en dessous
+    ctx.beginPath()
+    ctx.moveTo(5, h / 2)
+    ctx.lineTo(w / 2, h)
+    ctx.lineTo(w - 5, h / 2)
+    ctx.lineTo(5, h / 2)
+    ctx.fillStyle = 'white'
+    ctx.fill()
+    ctx.strokeStyle = 'white'
+    ctx.stroke()
+    ctx.closePath()
+
+    // dessine le rond de la couleur du domaine
+    ctx.beginPath()
+    ctx.arc(w / 2, w / 2, w / 2, 0, 2 * Math.PI)
+    ctx.fillStyle = this.options.color
+    ctx.fill()
+    ctx.strokeStyle = 'white'
+    ctx.stroke()
+    ctx.closePath()
+
+    // dessine la lettre représentant le domaine au milieu du rond
+    ctx.font = '13px Lucida Sans Typewriter, monaco, Lucida Console, monospace'
+    ctx.fontWeight = 700
+    ctx.fillStyle = 'white'
+    ctx.textAlign = 'center'
+    ctx.fillText(this.options.domaineId.toUpperCase(), w / 2, w / 2 + 5)
+  }
+})
+
+const titreMarker = (pos, domaineId, options = {}) => {
+  let color
+  if (domaineId === 'c') {
+    color = '#b88847'
+  } else if (domaineId === 'f') {
+    color = '#4a515d'
+  } else if (domaineId === 'g') {
+    color = '#c94f17'
+  } else if (domaineId === 'h') {
+    color = '#c2266a'
+  } else if (domaineId === 'm') {
+    color = '#376faa'
+  } else if (domaineId === 'r') {
+    color = '#a0aa31'
+  } else if (domaineId === 's') {
+    color = '#7657b5'
+  } else if (domaineId === 'w') {
+    color = '#1ea88c'
+  }
+
+  options.icon = new TitreIcon({ color, domaineId })
+
+  return new L.Marker(pos, options)
+}
+
 const layersBuild = (titres, router) =>
   titres.reduce(
     ({ geojsons, markers }, titre) => {
       if (!titre.geojsonMultiPolygon) return { geojsons, markers }
 
       const domaineId = titre.domaine.id
-      const icon = L.divIcon({
-        html: domaineId.toUpperCase(),
-        className: `leaflet-marker-camino py-xs px-s pill h6 mono color-bg bold border-bg bg-titre-domaine-${domaineId}`,
-        iconSize: null,
-        iconAnchor: [15.5, 38]
-      })
 
       const popupHtmlTitulaires =
         titre.titulaires && titre.titulaires.length
@@ -127,13 +205,11 @@ const layersBuild = (titres, router) =>
           className
         },
         onEachFeature: (feature, layer) => {
-          marker = L.marker(
+          marker = titreMarker(
             L.geoJSON(feature)
               .getBounds()
               .getCenter(),
-            {
-              icon
-            }
+            domaineId
           )
           marker.id = titre.id
           marker.domaineId = domaineId
