@@ -42,6 +42,10 @@ export default {
 
   methods: {
     textToNumberFormat(target) {
+      target.value = target.value
+        .replace(/[^\d-,.]/, '')
+        .replace(/^([\d-][\d,]*)(-)/, '$1')
+        .replace(/(\d+,\d+)(,)/, '$1')
       const number = textToNumberFormat(target.value, {
         negative: this.negative,
         integer: this.integer
