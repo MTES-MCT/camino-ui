@@ -9,19 +9,7 @@
 </template>
 
 <script>
-import { numberFormat } from '../../utils'
-
-const textToNumberFormat = (text, options) => {
-  let value = text.replace(/\s/g, '').replace(/,/g, '.')
-
-  value = options.negative
-    ? value.replace(/[^0-9\s,.-]/g, '')
-    : value.replace(/[^0-9\s,.]/g, '')
-
-  const number = parseFloat(value)
-
-  return Number.isNaN(number) ? undefined : number
-}
+import { numberFormat, textNumberFormat, textToNumberFormat } from '../../utils'
 
 export default {
   props: {
@@ -42,14 +30,12 @@ export default {
 
   methods: {
     textToNumberFormat(target) {
-      target.value = target.value
-        .replace(/[^\d-,.]/, '')
-        .replace(/^([\d-][\d,]*)(-)/, '$1')
-        .replace(/(\d+,\d+)(,)/, '$1')
-      const number = textToNumberFormat(target.value, {
+      target.value = textNumberFormat(target.value, {
         negative: this.negative,
         integer: this.integer
       })
+
+      const number = textToNumberFormat(target.value)
 
       this.$emit('input', number)
     }

@@ -9,6 +9,28 @@ const numberFormat = number =>
     maximumSignificantDigits: 21
   }).format(number)
 
+const textNumberFormat = (text, options) => {
+  let value = text.replace(/[^\d-,.]/, '')
+
+  value = options.negative
+    ? value.replace(/^([\d-][\d,]*)(-)/, '$1')
+    : value.replace(/-/g, '')
+
+  value = options.integer
+    ? value.replace(/\..*$/, '').replace(/,.*$/, '')
+    : value.replace(/(\d+,\d*)([,.])/, '$1')
+
+  return value
+}
+
+const textToNumberFormat = text => {
+  const value = text.replace(/\s/g, '').replace(/,/g, '.')
+
+  const number = parseFloat(value)
+
+  return Number.isNaN(number) ? undefined : number
+}
+
 const permissionsCheck = (userPermission, permissions) =>
   permissions.includes(userPermission.id)
 
@@ -22,6 +44,8 @@ export {
   dateFormat,
   permissionsCheck,
   numberFormat,
+  textNumberFormat,
+  textToNumberFormat,
   jsonTypenameOmit,
   elementsFormat
 }

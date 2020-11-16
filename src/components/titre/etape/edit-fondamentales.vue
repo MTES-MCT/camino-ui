@@ -49,7 +49,8 @@
           :class="{ 'mb-s': etape.dateDebut, mb: !etape.dateDebut }"
         />
         <label v-if="etape.dateDebut" class="h5">
-          <input v-model="etape.incertitudes.dateDebut" type="checkbox" /> donnée incertaine
+          <input v-model="etape.incertitudes.dateDebut" type="checkbox" />
+          donnée incertaine
         </label>
       </div>
     </div>
@@ -67,7 +68,8 @@
           :class="{ 'mb-s': etape.dateFin, mb: !etape.dateFin }"
         />
         <label v-if="etape.dateFin" class="h5">
-          <input v-model="etape.incertitudes.dateFin" type="checkbox" /> donnée incertaine
+          <input v-model="etape.incertitudes.dateFin" type="checkbox" /> donnée
+          incertaine
         </label>
       </div>
     </div>
@@ -86,7 +88,8 @@
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
         />
         <label v-if="etape.surface" class="h5">
-          <input v-model="etape.incertitudes.surface" type="checkbox" /> donnée incertaine
+          <input v-model="etape.incertitudes.surface" type="checkbox" /> donnée
+          incertaine
         </label>
       </div>
     </div>
@@ -130,7 +133,8 @@
     </button>
 
     <label v-if="titulairesLength" class="h5">
-      <input v-model="etape.incertitudes.titulaires" type="checkbox" /> donnée incertaine
+      <input v-model="etape.incertitudes.titulaires" type="checkbox" /> donnée
+      incertaine
     </label>
     <hr />
 
@@ -171,7 +175,8 @@
     </button>
 
     <label v-if="amodiatairesLength" class="h5">
-      <input v-model="etape.incertitudes.amodiataires" type="checkbox" /> donnée incertaine
+      <input v-model="etape.incertitudes.amodiataires" type="checkbox" /> donnée
+      incertaine
     </label>
     <hr />
 
@@ -232,7 +237,8 @@
     </button>
 
     <label v-if="substancesLength" class="h5">
-      <input v-model="etape.incertitudes.substances" type="checkbox" /> donnée incertaine
+      <input v-model="etape.incertitudes.substances" type="checkbox" /> donnée
+      incertaine
     </label>
     <hr />
   </div>
