@@ -3,7 +3,7 @@ version: '3'
 services:
   app:
     container_name: camino_ui_app
-    image: node:alpine
+    image: node:14.15-alpine
     volumes:
       - ./:/app
     working_dir: /app

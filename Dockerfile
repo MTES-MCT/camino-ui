@@ -1,6 +1,6 @@
 #https://github.com/fabriziocucci/vuejs.org/blob/7f9aa12833c085b97a826df3ba240f7d9e069e1b/src/v2/cookbook/dockerize-vuejs-app.md
 
-FROM node:13-alpine as build-stage
+FROM node:14.15-alpine as build-stage
 LABEL maintainer=francois.romain@beta.gouv.fr
 
 ENV dir /app
@@ -16,7 +16,7 @@ COPY src src/
 COPY public public/
 RUN npm run build
 
-FROM node:13-alpine as production-stage
+FROM node:14.15-alpine as production-stage
 
 COPY --from=build-stage /app/package*.json ./
 RUN npm ci --only=prod

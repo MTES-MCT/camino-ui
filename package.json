@@ -3,6 +3,10 @@
   "version": "0.22.49",
   "description": "Interface web de Camino, le cadastre minier numérique ouvert",
   "license": "AGPL-3.0-or-later",
+  "engines": {
+    "node": ">=14.15.0",
+    "npm": ">=6.14.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/MTES-MCT/camino-ui"
