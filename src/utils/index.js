@@ -10,15 +10,18 @@ const numberFormat = number =>
   }).format(number)
 
 const textNumberFormat = (text, options) => {
-  let value = text.replace(/[^\d-,.]/, '')
+  let value = text
+    .replace(/[^\d-,.]+/, '')
+    .replace(/\s/, '')
+    .replace(/\./, ',')
 
   value = options.negative
-    ? value.replace(/^([\d-][\d,]*)(-)/, '$1')
+    ? value.replace(/^([\d-][\d,]*)(-)+/, '$1')
     : value.replace(/-/g, '')
 
   value = options.integer
     ? value.replace(/\..*$/, '').replace(/,.*$/, '')
-    : value.replace(/(\d+,\d*)([,.])/, '$1')
+    : value.replace(/(\d+,\d*)([,.]+)/, '$1')
 
   return value
 }
