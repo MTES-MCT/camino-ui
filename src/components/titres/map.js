@@ -131,17 +131,18 @@ const layersBuild = (titres, router) =>
         }
       }
 
-        let markerPosition
-        if (titre.geojsonCentre) {
-            markerPosition = {
-                lat: titre.geojsonCentre.y,
-                lng: titre.geojsonCentre.x
-            }
-        } else {
-            markerPosition = L.geoJSON(titre.geojsonMultiPolygon)
-                .getBounds()
-                .getCenter()
-        }
+      let markerPosition
+      if (titre.geojsonCentre) {
+          const coordinates = titre.geojsonCentre.geometry.coordinates
+          markerPosition = {
+              lng: coordinates[0],
+              lat: coordinates[1]
+          }
+      } else {
+        markerPosition = L.geoJSON(titre.geojsonMultiPolygon)
+          .getBounds()
+          .getCenter()
+      }
 
       let marker
 

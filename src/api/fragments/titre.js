@@ -178,8 +178,9 @@ const fragmentTitreGeo = gql`
     }
 
     geojsonCentre {
-      x
-      y
+      geometry {
+        coordinates
+      }
     }
   }
   ${fragmentTitresEntreprises}
