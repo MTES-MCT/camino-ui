@@ -127,7 +127,7 @@
 </template>
 
 <script>
-import { numberFormat } from '../../utils'
+import numberFormat from '../../utils/number-format'
 import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
 
