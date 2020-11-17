@@ -1,4 +1,5 @@
-import { permissionsCheck, numberFormat, dateFormat } from '../utils'
+import { permissionsCheck, dateFormat } from '../utils'
+import numberFormat from '../utils/number-format'
 
 var mixins = {
   methods: {

@@ -4,11 +4,6 @@ const dateFormat = dateString => {
   // .replace(/ *\([^)]*\) */g,'')
 }
 
-const numberFormat = number =>
-  Intl.NumberFormat('FR-fr', {
-    maximumSignificantDigits: 21
-  }).format(number)
-
 const textNumberFormat = (text, options) => {
   let value = text
     .replace(/[^\d-,.]+/, '')
@@ -46,7 +41,6 @@ const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
 export {
   dateFormat,
   permissionsCheck,
-  numberFormat,
   textNumberFormat,
   textToNumberFormat,
   jsonTypenameOmit,
