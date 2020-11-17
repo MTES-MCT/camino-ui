@@ -14,9 +14,8 @@ describe('dateFormat', () => {
     ['2020-11-16', '16/11/2020']
   ]
 
-  cases.forEach(([input, output]) => {
-    test(`formate la date ${input} en ${output}`, () =>
-      expect(dateFormat(input)).toEqual(output))
+  test.each(cases)('formate la date %s en %s', (input, output) => {
+    expect(dateFormat(input)).toEqual(output)
   })
 })
 
@@ -42,12 +41,19 @@ describe('textNumberFormat et textToNumberFormat', () => {
     ['azerty', { negative: true, integer: true }, '', undefined]
   ]
 
-  cases.forEach(([input, options, resText, resNumber]) => {
-    test(`formate ${input} en texte ${resText}`, () =>
-      expect(textNumberFormat(input, options)).toEqual(resText))
-    test(`formate ${resText} en nombre ${resNumber}`, () =>
-      expect(textToNumberFormat(resText)).toEqual(resNumber))
-  })
+  test.each(cases)(
+    'formate %s avec les options %o en texte %s',
+    (input, options, resText, resNumber) => {
+      expect(textNumberFormat(input, options)).toEqual(resText)
+    }
+  )
+
+  test.each(cases)(
+    'formate %s avec les options %o en nombre %i',
+    (input, options, resText, resNumber) => {
+      expect(textToNumberFormat(resText)).toEqual(resNumber)
+    }
+  )
 })
 
 // permissionsCheck
@@ -61,10 +67,12 @@ describe('permissionsCheck', () => {
     [{ id: 'super' }, ['admin', 'super'], true]
   ]
 
-  cases.forEach(([userPermissionId, permissions, res]) => {
-    test(`vérifie que ${userPermissionId} appartient à la liste des permissions ${permissions}`, () =>
-      expect(permissionsCheck(userPermissionId, permissions)).toBe(res))
-  })
+  test.each(cases)(
+    'vérifie que %o appartient à la liste des permissions %o',
+    (userPermissionId, permissions, res) => {
+      expect(permissionsCheck(userPermissionId, permissions)).toBe(res)
+    }
+  )
 })
 
 describe('jsonTypenameOmit', () => {
@@ -97,8 +105,7 @@ describe('elementsFormat', () => {
     ['types', 'typesIds']
   ]
 
-  cases.forEach(([nom, id]) => {
-    test(`formate les ${nom}`, () =>
-      expect(elementsFormat(id, metas)).toEqual(metas[nom]))
+  test.each(cases)('formate les %s', (nom, id) => {
+    expect(elementsFormat(id, metas)).toEqual(metas[nom])
   })
 })
