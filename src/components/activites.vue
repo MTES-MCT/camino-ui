@@ -79,7 +79,7 @@ export default {
   },
 
   watch: {
-    user: 'metasGet',
+    user: 'metasGet'
   },
 
   async created() {
@@ -87,7 +87,7 @@ export default {
   },
 
   destroyed() {
-    this.$store.commit('titresActivites/set', { elements: [], total: 0 })
+    this.$store.commit('titresActivites/reset')
   },
 
   methods: {

@@ -110,6 +110,12 @@ describe("liste d'entreprises", () => {
 
     await store.dispatch('entreprises/urlLoad')
     expect(apiMock).toHaveBeenCalledTimes(1)
+
+    store.commit('entreprises/reset')
+    expect(store.state.entreprises.list).toEqual([])
+    expect(store.state.entreprises.loaded).toMatchObject({
+      url: false
+    })
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {

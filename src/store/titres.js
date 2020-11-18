@@ -172,6 +172,16 @@ export const actions = {
 }
 
 export const mutations = {
+  reset(state) {
+    Vue.set(state, 'list', [])
+    state.total = 0
+    state.loaded.metas = false
+    state.loaded.vue = false
+    state.loaded.filtres = false
+    state.loaded.component = false
+    state.loaded.urls = false
+  },
+
   set(state, data) {
     Vue.set(state, 'list', data.elements)
     Vue.set(state, 'total', data.total)

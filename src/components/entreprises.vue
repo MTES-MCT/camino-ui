@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import Liste from './_common/liste.vue'
 import Downloads from './_common/downloads.vue'
 import EntrepriseAddPopup from './entreprise/add-popup.vue'
@@ -88,14 +87,8 @@ export default {
     }
   },
 
-  created() {
-    Vue.nextTick(() => {
-      this.metasLoaded = true
-    })
-  },
-
   destroyed() {
-    this.$store.commit('entreprises/set', { elements: [], total: 0 })
+    this.$store.commit('entreprises/reset')
   },
 
   methods: {

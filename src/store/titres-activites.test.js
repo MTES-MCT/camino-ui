@@ -201,6 +201,13 @@ describe("état d'une activité", () => {
     await store.dispatch('titresActivites/urlLoad')
 
     expect(apiMock).toHaveBeenCalledTimes(1)
+
+    store.commit('titresActivites/reset')
+    expect(store.state.titresActivites.list).toEqual([])
+    expect(store.state.titresActivites.loaded).toMatchObject({
+      url: false,
+      metas: false
+    })
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {

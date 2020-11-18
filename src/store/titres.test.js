@@ -219,6 +219,16 @@ describe('liste des titres', () => {
       colonne: 'nom'
     })
     expect(store.state.titres.list).toEqual(titresListe)
+
+    store.commit('titres/reset')
+    expect(store.state.titres.list).toEqual([])
+    expect(store.state.titres.loaded).toMatchObject({
+      urls: false,
+      metas: false,
+      filtres: false,
+      component: false,
+      vue: false
+    })
   })
 
   test("retourne une erreur si l'api ne repond pas", async () => {

@@ -89,7 +89,7 @@ export default {
   },
 
   destroyed() {
-    this.$store.commit('administrations/set', { elements: [], total: 0 })
+    this.$store.commit('administrations/reset')
   },
 
   methods: {

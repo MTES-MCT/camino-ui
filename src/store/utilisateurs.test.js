@@ -178,6 +178,13 @@ describe('liste des utilisateurs', () => {
     await store.dispatch('utilisateurs/urlLoad')
 
     expect(apiMock).toHaveBeenCalledTimes(1)
+
+    store.commit('utilisateurs/reset')
+    expect(store.state.utilisateurs.list).toEqual([])
+    expect(store.state.utilisateurs.loaded).toMatchObject({
+      url: false,
+      metas: false
+    })
   })
 
   test("retourne une erreur si l'api ne repond pas", async () => {
