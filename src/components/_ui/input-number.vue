@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import { numberFormat, textNumberFormat, textToNumberFormat } from '../../utils'
+import { textNumberFormat, textToNumberFormat } from '../../utils'
+import numberFormat from '../../utils/number-format'
 
 export default {
   props: {
