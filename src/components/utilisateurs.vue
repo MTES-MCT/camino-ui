@@ -101,12 +101,16 @@ export default {
   },
 
   destroyed() {
-    this.$store.commit('utilisateurs/set', { elements: [], total: 0 })
+    this.$store.commit('utilisateurs/reset')
   },
 
   methods: {
     async metasGet() {
-      if (!this.user || !this.user.sections || !this.user.sections.utilisateurs) {
+      if (
+        !this.user ||
+        !this.user.sections ||
+        !this.user.sections.utilisateurs
+      ) {
         await this.$store.dispatch('pageError')
       } else {
         this.visible = true

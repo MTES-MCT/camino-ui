@@ -108,6 +108,13 @@ export const actions = {
 }
 
 export const mutations = {
+  reset(state) {
+    Vue.set(state, 'list', [])
+    state.total = 0
+    state.loaded.metas = false
+    state.loaded.url = false
+  },
+
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       const paramsIds = ['typesIds']

@@ -150,6 +150,13 @@ describe("liste d'administrations", () => {
     await store.dispatch('administrations/urlLoad')
 
     expect(apiMock).toHaveBeenCalledTimes(1)
+
+    store.commit('administrations/reset')
+    expect(store.state.administrations.list).toEqual([])
+    expect(store.state.administrations.loaded).toMatchObject({
+      url: false,
+      metas: false
+    })
   })
 
   test('obtient la liste des administrations', async () => {

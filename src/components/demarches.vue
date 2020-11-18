@@ -86,7 +86,7 @@ export default {
   },
 
   destroyed() {
-    this.$store.commit('titresDemarches/set', { elements: [], total: 0 })
+    this.$store.commit('titresDemarches/reset')
   },
 
   methods: {

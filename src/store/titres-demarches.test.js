@@ -177,6 +177,13 @@ describe('liste des demarches', () => {
     await store.dispatch('titresDemarches/urlLoad')
 
     expect(apiMock).toHaveBeenCalledTimes(1)
+
+    store.commit('titresDemarches/reset')
+    expect(store.state.titresDemarches.list).toEqual([])
+    expect(store.state.titresDemarches.loaded).toMatchObject({
+      url: false,
+      metas: false
+    })
   })
 
   test("retourne une erreur si l'api ne repond pas", async () => {

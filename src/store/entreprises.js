@@ -90,9 +90,15 @@ export const actions = {
 }
 
 export const mutations = {
+  reset(state) {
+    Vue.set(state, 'list', [])
+    state.total = 0
+    state.loaded.url = false
+  },
+
   set(state, data) {
     Vue.set(state, 'list', data.elements)
-    Vue.set(state, 'total', data.total)
+    state.total = data.total
   },
 
   preferencesSet(state, { section, params }) {

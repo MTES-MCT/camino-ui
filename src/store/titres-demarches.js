@@ -149,6 +149,13 @@ export const actions = {
 }
 
 export const mutations = {
+  reset(state) {
+    Vue.set(state, 'list', [])
+    state.total = 0
+    state.loaded.metas = false
+    state.loaded.url = false
+  },
+
   set(state, data) {
     Vue.set(state, 'list', data.elements)
     Vue.set(state, 'total', data.total)
