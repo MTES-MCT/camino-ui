@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.50](https://github.com/MTES-MCT/camino-ui/compare/v0.22.49...v0.22.50) (2020-11-19)
+
+
+### Features
+
+* **entreprise:** permet d’archiver une entreprise ([#213](https://github.com/MTES-MCT/camino-ui/issues/213)) ([ba95641](https://github.com/MTES-MCT/camino-ui/commit/ba95641e4e20f11f2c11c9c61cc776563a8480fb))
+* **etapes:** pouvoir définir le type d’une propriété number ([#212](https://github.com/MTES-MCT/camino-ui/issues/212)) ([a61e6fd](https://github.com/MTES-MCT/camino-ui/commit/a61e6fde6ff08f6c92e700d95ea58871f1e3d651))
+* ajoute des options 'integer' et 'negative' sur le champs nombre ([#211](https://github.com/MTES-MCT/camino-ui/issues/211)) ([80ed5d4](https://github.com/MTES-MCT/camino-ui/commit/80ed5d4b91c05970ca57f2c3849612e426f8e296))
+
+
+### Bug Fixes
+
+* **entreprises:** corrige le retour sur la liste des entreprises ([#219](https://github.com/MTES-MCT/camino-ui/issues/219)) ([5229572](https://github.com/MTES-MCT/camino-ui/commit/5229572ad5fe16b292148803de68d6c5c92f7ad9))
+* corrige l'import d'un composant ([1335f8e](https://github.com/MTES-MCT/camino-ui/commit/1335f8e44ca68b65d7b6110cd313cb8c02c73f9d))
+
 ### [0.22.49](https://github.com/MTES-MCT/camino-ui/compare/v0.22.46...v0.22.49) (2020-11-04)
 
 
