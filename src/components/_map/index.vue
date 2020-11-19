@@ -11,7 +11,9 @@ import {
   leafletMap,
   leafletTileLayerDefault,
   leafletScaleAdd,
-  leafletFeatureGroupGet
+  leafletFeatureGroupGet,
+  leafletCanvasLayerAdd,
+  leafletCanvasMarkerCreate
 } from './map.js'
 
 export default {
@@ -30,7 +32,8 @@ export default {
       layers: {
         tiles: {},
         geojsons: [],
-        markers: []
+        markers: [],
+        canvas: null
       }
     }
   },
@@ -47,6 +50,7 @@ export default {
     this.tilesAdd()
     this.markersAdd()
     this.geojsonsAdd()
+    this.canvasMarkersAdd()
   },
 
   methods: {
@@ -91,7 +95,7 @@ export default {
     },
 
     allFit(bounds) {
-      const featureGroup = this.markersFeatureGroupGet()
+      const featureGroup = leafletFeatureGroupGet(this.layers.markers)
       this.updateCenterAndZoomOnly = true
       this.boundsFit(featureGroup.getBounds())
     },
@@ -165,8 +169,31 @@ export default {
       this.markersAdd()
     },
 
-    markersFeatureGroupGet() {
-      return leafletFeatureGroupGet(this.layers.markers)
+    canvasMarkersAdd() {
+      this.layers.canvas = leafletCanvasLayerAdd({})
+      this.layers.canvas.addTo(this.map)
+      console.log(this.layers.canvas._map)
+
+      this.layers.canvas.addOnClickListener(function(e, data) {
+        console.log(data)
+      })
+
+      this.layers.canvas.addOnHoverListener(function(e, data) {
+        console.log(data[0].data._leaflet_id)
+      })
+
+      var markers = []
+      for (var i = 0; i < 10000; i++) {
+        var marker = leafletCanvasMarkerCreate(
+          [58.5578 + Math.random() * 1.8, 29.0087 + Math.random() * 3.6],
+          i
+        )
+        markers.push(marker)
+      }
+
+      setTimeout(() => {
+        this.layers.canvas.addLayers(markers)
+      }, 1000)
     }
   }
 }

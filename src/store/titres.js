@@ -108,7 +108,7 @@ export const actions = {
         data = await titres(params)
       }
 
-      commit('set', data)
+      commit('set', Object.freeze(data))
     } catch (e) {
       dispatch('apiError', e, { root: true })
       console.info(e)
