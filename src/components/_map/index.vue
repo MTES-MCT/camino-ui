@@ -12,15 +12,15 @@ import {
   leafletTileLayerDefault,
   leafletScaleAdd,
   leafletFeatureGroupGet,
-  leafletCanvasLayerAdd,
-  leafletCanvasMarkerCreate
+  leafletCanvasLayerAdd
 } from './map.js'
 
 export default {
   props: {
     geojsonLayers: { type: Array, default: () => [] },
     markerLayers: { type: Array, default: () => [] },
-    tilesLayer: { type: Object, default: () => leafletTileLayerDefault }
+    tilesLayer: { type: Object, default: () => leafletTileLayerDefault },
+    canvasMarkers: { type: Array, default: () => [] }
   },
 
   data() {
@@ -41,16 +41,15 @@ export default {
   watch: {
     tilesLayer: 'tilesUpdate',
     geojsonLayers: 'geojsonsUpdate',
-    markerLayers: 'markersUpdate'
+    markerLayers: 'markersUpdate',
+    canvasMarkers: 'canvasMarkersUpdate'
   },
 
   mounted() {
     this.init()
     this.scaleAdd()
     this.tilesAdd()
-    this.markersAdd()
-    this.geojsonsAdd()
-    this.canvasMarkersAdd()
+    this.layersCanvasAdd()
   },
 
   methods: {
@@ -137,23 +136,12 @@ export default {
       this.layers.tiles.addTo(this.map)
     },
 
-    geojsonsAdd() {
-      this.layers.geojsons = this.geojsonLayers
-      this.layers.geojsons.forEach(l => {
-        l.addTo(this.map)
-      })
-    },
-
     geojsonsUpdate() {
       this.layers.geojsons.forEach(l => l.remove())
-      this.geojsonsAdd()
-    },
 
-    markersAdd() {
-      this.layers.markers = this.markerLayers
-
-      this.layers.markers.forEach(marker => {
-        this.map.addLayer(marker)
+      this.geojsonLayers.forEach(l => {
+        this.layers.geojsons.push(l)
+        l.addTo(this.map)
       })
     },
 
@@ -166,34 +154,25 @@ export default {
         this.map.removeLayer(marker)
       })
 
-      this.markersAdd()
+      this.markerLayers.forEach(marker => {
+        this.layers.markers.push(marker)
+        this.map.addLayer(marker)
+      })
     },
 
-    canvasMarkersAdd() {
-      this.layers.canvas = leafletCanvasLayerAdd({})
-      this.layers.canvas.addTo(this.map)
-      console.log(this.layers.canvas._map)
-
-      this.layers.canvas.addOnClickListener(function(e, data) {
-        console.log(data)
-      })
-
-      this.layers.canvas.addOnHoverListener(function(e, data) {
-        console.log(data[0].data._leaflet_id)
-      })
-
-      var markers = []
-      for (var i = 0; i < 10000; i++) {
-        var marker = leafletCanvasMarkerCreate(
-          [58.5578 + Math.random() * 1.8, 29.0087 + Math.random() * 3.6],
-          i
-        )
+    canvasMarkersUpdate() {
+      const markers = []
+      this.canvasMarkers.forEach((marker, i) => {
         markers.push(marker)
-      }
+      })
+      this.layers.canvas.clear()
+      this.layers.canvas.addMarkers(markers)
+    },
 
-      setTimeout(() => {
-        this.layers.canvas.addLayers(markers)
-      }, 1000)
+    layersCanvasAdd() {
+      this.map.createPane('canvas')
+      this.layers.canvas = leafletCanvasLayerAdd({ pane: 'canvas' })
+      this.layers.canvas.addTo(this.map)
     }
   }
 }

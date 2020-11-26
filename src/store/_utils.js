@@ -14,7 +14,7 @@ const paramsBuild = (apiParams, preferences) =>
     }
 
     if (v) {
-      params = Object.assign(params, { [id]: v })
+      params[id] = v
     }
 
     return params

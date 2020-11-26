@@ -1,7 +1,8 @@
 import 'leaflet'
+import 'leaflet.markercluster'
 import 'leaflet-gesture-handling'
 import 'leaflet-fullscreen'
-import './leaflet.canvas-markers'
+import './leaflet-canvas-markers'
 
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
@@ -18,12 +19,6 @@ L.Marker.prototype.options.icon = L.icon({
   popupAnchor: [1, -34],
   tooltipAnchor: [16, -28],
   shadowSize: [41, 41]
-})
-
-const canvasIcon = L.icon({
-  iconUrl,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41]
 })
 
 const leafletTileLayerDefault = L.tileLayer(
@@ -64,10 +59,6 @@ const leafletFeatureGroupGet = markers => new L.FeatureGroup(markers)
 const leafletCanvasLayerAdd = function(options) {
   return new L.CanvasMarkers(options)
 }
-const leafletCanvasMarkerCreate = (position, i) =>
-  L.marker(position, {
-    icon: canvasIcon
-  }).bindPopup('I Am ' + i)
 
 export {
   leafletMap,
@@ -75,6 +66,5 @@ export {
   leafletScaleAdd,
   tilesBuild,
   leafletFeatureGroupGet,
-  leafletCanvasLayerAdd,
-  leafletCanvasMarkerCreate
+  leafletCanvasLayerAdd
 }

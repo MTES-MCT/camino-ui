@@ -29,22 +29,20 @@ export default {
     activiteEditPopupOpen() {
       const activite = jsonTypenameOmit(this.activite)
 
-      activite.contenu = this.activite.sections.reduce(
-        (sectionsObj, s) =>
-          Object.assign(sectionsObj, {
-            [s.id]: s.elements.reduce((elementsObj, e) => {
-              const value =
-                this.activite.contenu &&
-                this.activite.contenu[s.id] &&
-                this.activite.contenu[s.id][e.id]
+      activite.contenu = this.activite.sections.reduce((sections, s) => {
+        sections[s.id] = s.elements.reduce((elements, e) => {
+          const value =
+            this.activite.contenu &&
+            this.activite.contenu[s.id] &&
+            this.activite.contenu[s.id][e.id]
 
-              return Object.assign(elementsObj, {
-                [e.id]: value || e.type !== 'checkboxes' ? value : []
-              })
-            }, {})
-          }),
-        {}
-      )
+          elements[e.id] = value || e.type !== 'checkboxes' ? value : []
+
+          return elements
+        }, {})
+
+        return sections
+      }, {})
 
       activite.documents.forEach(document => {
         document.titreActiviteId = this.activite.id

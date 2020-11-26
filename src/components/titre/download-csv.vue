@@ -22,11 +22,12 @@ export default {
       const titresFormatCsv = points =>
         points.map(point =>
           point.references.reduce(
-            (acc, ref) =>
-              Object.assign(acc, {
-                [`${ref.geoSysteme.nom} x`]: ref.coordonnees.x,
-                [`${ref.geoSysteme.nom} y`]: ref.coordonnees.y
-              }),
+            (acc, ref) => {
+              acc[`${ref.geoSysteme.nom} x`] = ref.coordonnees.x
+              acc[`${ref.geoSysteme.nom} y`] = ref.coordonnees.y
+
+              return acc
+            },
             {
               groupe: point.groupe,
               contour: point.contour,
