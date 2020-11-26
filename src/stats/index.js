@@ -10,7 +10,7 @@ const defaultOptions = {
   heartBeatTimerInterval: 60
 }
 
-export default function install(Vue, setupOptions = {}) {
+const install = (Vue, setupOptions = {}) => {
   const options = Object.assign({}, defaultOptions, setupOptions)
 
   bootstrap(options)
@@ -23,7 +23,7 @@ export default function install(Vue, setupOptions = {}) {
       matomo.customVariableVisitUser = visitUser(matomo)
       matomo.customVariablePageTitre = pageTitre(matomo)
 
-      // Assign matomo to Vue
+      // bind matomo to Vue
       Vue.prototype.$matomo = matomo
 
       if (options.requireConsent) {
@@ -75,3 +75,5 @@ export default function install(Vue, setupOptions = {}) {
     })
     .catch(e => {})
 }
+
+export default install

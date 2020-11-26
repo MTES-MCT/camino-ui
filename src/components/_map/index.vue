@@ -11,14 +11,16 @@ import {
   leafletMap,
   leafletTileLayerDefault,
   leafletScaleAdd,
-  leafletFeatureGroupGet
+  leafletFeatureGroupGet,
+  leafletCanvasLayerAdd
 } from './map.js'
 
 export default {
   props: {
     geojsonLayers: { type: Array, default: () => [] },
     markerLayers: { type: Array, default: () => [] },
-    tilesLayer: { type: Object, default: () => leafletTileLayerDefault }
+    tilesLayer: { type: Object, default: () => leafletTileLayerDefault },
+    canvasMarkers: { type: Array, default: () => [] }
   },
 
   data() {
@@ -30,7 +32,8 @@ export default {
       layers: {
         tiles: {},
         geojsons: [],
-        markers: []
+        markers: [],
+        canvas: null
       }
     }
   },
@@ -38,7 +41,8 @@ export default {
   watch: {
     tilesLayer: 'tilesUpdate',
     geojsonLayers: 'geojsonsUpdate',
-    markerLayers: 'markersUpdate'
+    markerLayers: 'markersUpdate',
+    canvasMarkers: 'canvasMarkersUpdate'
   },
 
   mounted() {
@@ -47,6 +51,7 @@ export default {
     this.tilesAdd()
     this.markersAdd()
     this.geojsonsAdd()
+    this.layersCanvasAdd()
   },
 
   methods: {
@@ -91,7 +96,7 @@ export default {
     },
 
     allFit(bounds) {
-      const featureGroup = this.markersFeatureGroupGet()
+      const featureGroup = leafletFeatureGroupGet(this.layers.markers)
       this.updateCenterAndZoomOnly = true
       this.boundsFit(featureGroup.getBounds())
     },
@@ -134,21 +139,21 @@ export default {
     },
 
     geojsonsAdd() {
-      this.layers.geojsons = this.geojsonLayers
-      this.layers.geojsons.forEach(l => {
+      this.geojsonLayers.forEach(l => {
+        this.layers.geojsons.push(l)
         l.addTo(this.map)
       })
     },
 
     geojsonsUpdate() {
       this.layers.geojsons.forEach(l => l.remove())
+
       this.geojsonsAdd()
     },
 
     markersAdd() {
-      this.layers.markers = this.markerLayers
-
-      this.layers.markers.forEach(marker => {
+      this.markerLayers.forEach(marker => {
+        this.layers.markers.push(marker)
         this.map.addLayer(marker)
       })
     },
@@ -165,8 +170,19 @@ export default {
       this.markersAdd()
     },
 
-    markersFeatureGroupGet() {
-      return leafletFeatureGroupGet(this.layers.markers)
+    canvasMarkersUpdate() {
+      const markers = []
+      this.canvasMarkers.forEach((marker, i) => {
+        markers.push(marker)
+      })
+      this.layers.canvas.clear()
+      this.layers.canvas.addMarkers(markers)
+    },
+
+    layersCanvasAdd() {
+      this.map.createPane('canvas')
+      this.layers.canvas = leafletCanvasLayerAdd({ pane: 'canvas' })
+      this.layers.canvas.addTo(this.map)
     }
   }
 }

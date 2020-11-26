@@ -1,6 +1,4 @@
-import 'leaflet'
-import 'leaflet.markercluster'
-const L = window.L
+import L from 'leaflet'
 
 const zones = [
   {
@@ -41,36 +39,58 @@ const zones = [
   }
 ]
 
+const clusterBuild = domaineId =>
+  L.markerClusterGroup({
+    iconCreateFunction(cluster) {
+      const childCount = cluster.getChildCount()
+
+      let size
+      if (childCount < 5) size = 'xs'
+      else if (childCount < 15) size = 's'
+      else if (childCount < 40) size = 'm'
+      else size = 'l'
+
+      return new L.DivIcon({
+        html: domaineId.toUpperCase(),
+        className: `py-xs px-s pill h6 mono color-bg bold bg-titre-domaine-${domaineId} leaflet-marker-cluster-${size}`,
+        iconSize: null,
+        iconAnchor: [0, 0]
+      })
+    },
+    disableClusteringAtZoom: 10,
+    animate: true,
+    spiderfyOnMaxZoom: false,
+    showCoverageOnHover: false,
+    maxClusterRadius(x) {
+      return 2048 / Math.pow(x, 2)
+    }
+  })
+
 const clustersBuild = domaines =>
   domaines.reduce((clusters, { id }) => {
-    const cluster = L.markerClusterGroup({
-      iconCreateFunction(cluster) {
-        const childCount = cluster.getChildCount()
+    clusters[id] = clusterBuild(id)
 
-        let size
-        if (childCount < 5) size = 'xs'
-        else if (childCount < 15) size = 's'
-        else if (childCount < 40) size = 'm'
-        else size = 'l'
-
-        return new L.DivIcon({
-          html: id.toUpperCase(),
-          className: `py-xs px-s pill h6 mono color-bg bold bg-titre-domaine-${id} leaflet-marker-cluster-${size}`,
-          iconSize: null,
-          iconAnchor: [0, 0]
-        })
-      },
-      disableClusteringAtZoom: 10,
-      animate: true,
-      spiderfyOnMaxZoom: false,
-      showCoverageOnHover: false,
-      maxClusterRadius(x) {
-        return 2048 / Math.pow(x, 2)
-      }
-    })
-
-    return Object.assign(clusters, { [id]: cluster })
+    return clusters
   }, {})
+
+const domainesColors = {
+  c: '#b88847',
+  f: '#4a515d',
+  g: '#c94f17',
+  h: '#c2266a',
+  m: '#376faa',
+  r: '#a0aa31',
+  s: '#7657b5',
+  w: '#1ea88c'
+}
+
+const iconUrlFind = domaineId => {
+  const iconSvg = `<svg width="32" height="40" xmlns="http://www.w3.org/2000/svg"><style>text {font-family:'Lucida Sans Typewriter', monaco, 'Lucida Console', monospace; font-weight:700;}</style><polygon points="16,40 24,30 8,30" fill="white" /><ellipse ry="16" rx="16" cy="16" cx="16" stroke-width="1" stroke="white" fill="${
+    domainesColors[domaineId]
+  }"/><text xml:space="preserve" text-anchor="middle" font-size="13" y="21" x="16" fill="white">${domaineId.toUpperCase()}</text></svg>`
+
+  return 'data:image/svg+xml;base64,' + btoa(iconSvg)
+}
 
 const layersBuild = (titres, router) =>
   titres.reduce(
@@ -78,11 +98,10 @@ const layersBuild = (titres, router) =>
       if (!titre.geojsonMultiPolygon) return { geojsons, markers }
 
       const domaineId = titre.domaine.id
-      const icon = L.divIcon({
-        html: domaineId.toUpperCase(),
-        className: `leaflet-marker-camino py-xs px-s pill h6 mono color-bg bold border-bg bg-titre-domaine-${domaineId}`,
-        iconSize: null,
-        iconAnchor: [15.5, 38]
+      const icon = L.icon({
+        iconUrl: iconUrlFind(domaineId),
+        iconSize: [32, 40],
+        iconAnchor: [16, 40]
       })
 
       const popupHtmlTitulaires =
@@ -98,10 +117,7 @@ const layersBuild = (titres, router) =>
         autoPan: false
       }
 
-      const titreRoute = {
-        name: 'titre',
-        params: { id: titre.id }
-      }
+      const titreRoute = { name: 'titre', params: { id: titre.id } }
 
       const methods = {
         click() {
@@ -127,20 +143,17 @@ const layersBuild = (titres, router) =>
           className
         },
         onEachFeature: (feature, layer) => {
-          marker = L.marker(
-            L.geoJSON(feature)
-              .getBounds()
-              .getCenter(),
-            {
-              icon
-            }
-          )
-          marker.id = titre.id
-          marker.domaineId = domaineId
-
           layer.bindPopup(popupHtml, popupOptions)
           layer.on(methods)
 
+          // marker
+          const position = L.geoJSON(feature)
+            .getBounds()
+            .getCenter()
+
+          marker = L.marker(position, { icon })
+          marker.id = titre.id
+          marker.domaineId = domaineId
           marker.bindPopup(popupHtml, popupOptions)
           marker.on(methods)
         }
@@ -150,10 +163,9 @@ const layersBuild = (titres, router) =>
         markers.push(marker)
       }
 
-      return {
-        geojsons: Object.assign(geojsons, { [titre.id]: geojson }),
-        markers
-      }
+      geojsons[titre.id] = geojson
+
+      return { geojsons, markers }
     },
     { geojsons: {}, markers: [] }
   )

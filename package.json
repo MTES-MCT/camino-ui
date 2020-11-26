@@ -92,6 +92,7 @@
     "postcss-normalize": "^9.0.0",
     "postcss-preset-env": "^6.7.0",
     "postcss-typescale": "^0.2.3",
+    "rbush": "^3.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "standard-version": "^9.0.0",

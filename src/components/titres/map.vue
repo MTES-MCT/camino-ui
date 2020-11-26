@@ -5,6 +5,7 @@
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
+      :canvas-markers="canvasMarkers"
       class="map map-view mb-s"
       @map-update="titresPreferencesUpdate"
     />
@@ -123,6 +124,10 @@ export default {
         return this.clusters
       }
 
+      return []
+    },
+
+    canvasMarkers() {
       if (this.markerLayersId === 'markers') {
         return this.markers
       }
@@ -189,8 +194,8 @@ export default {
     },
 
     titresInit() {
-      const clusters = clustersBuild(this.domaines)
       const { geojsons, markers } = layersBuild(this.titres, this.$router)
+      const clusters = clustersBuild(this.domaines)
       this.geojsons = geojsons
       this.markers = markers
       this.markers.forEach(marker => {
@@ -273,7 +278,7 @@ export default {
         this.geojsonLayers = []
         this.markers.forEach(marker => {
           if (
-            this.markerLayersId === 'none' ||
+            this.markerLayersId !== 'clusters' ||
             (this.$refs.map && this.$refs.map.hasLayer(marker))
           ) {
             this.geojsonLayers.push(this.geojsons[marker.id])
