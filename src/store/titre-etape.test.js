@@ -70,7 +70,8 @@ describe('étapes', () => {
         { id: 'ifr', nom: 'Ifremer' },
         { id: 'dge', nom: 'DGEC' }
       ],
-      entreprises: { elements: ['ent-1'] }
+      entreprises: { elements: [{ id: 'ent-1', nom: '1' }] },
+      etapeEntreprises: { elements: [{ id: 'ent-2', nom: '2' }] }
     })
 
     await store.dispatch('titreEtape/metasGet', { etape: {} })
@@ -88,7 +89,10 @@ describe('étapes', () => {
       unites: [],
       devises: [],
       substances: [],
-      entreprises: ['ent-1']
+      entreprises: [
+        { id: 'ent-1', nom: '1' },
+        { id: 'ent-2', nom: '2' }
+      ]
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })

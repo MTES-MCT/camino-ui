@@ -26,6 +26,20 @@ export const actions = {
     try {
       const data = await titreEtapeMetas(etape)
 
+      // fusion des entreprises non archivées et des entreprises de l’étape
+      if (data.etapeEntreprises.elements) {
+        const entreprisesIds = data.entreprises.elements.map(e => e.id)
+        data.etapeEntreprises.elements.forEach(etapeEntreprise => {
+          if (!entreprisesIds.includes(etapeEntreprise.id)) {
+            data.entreprises.elements.push(etapeEntreprise)
+          }
+        })
+        data.entreprises.elements.sort((a, b) =>
+          a.nom.localeCompare(b.nom, 'fr')
+        )
+      }
+      delete data.etapeEntreprises
+
       commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })

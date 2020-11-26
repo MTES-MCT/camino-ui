@@ -41,6 +41,11 @@ const titreEtapeMetas = apiGraphQLFetch(
           ...entreprises
         }
       }
+      etapeEntreprises: entreprises(etapeId: $id) {
+        elements {
+          ...entreprises
+        }
+      }
     }
 
     ${fragmentEtapeType}
