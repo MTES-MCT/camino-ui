@@ -133,18 +133,24 @@ const layersBuild = (titres, router) =>
 
       let markerPosition
       if (titre.geojsonCentre) {
-          const coordinates = titre.geojsonCentre.geometry.coordinates
-          markerPosition = {
-              lng: coordinates[0],
-              lat: coordinates[1]
-          }
+        const coordinates = titre.geojsonCentre.geometry.coordinates
+        markerPosition = {
+          lng: coordinates[0],
+          lat: coordinates[1]
+        }
       } else {
         markerPosition = L.geoJSON(titre.geojsonMultiPolygon)
           .getBounds()
           .getCenter()
       }
 
-      let marker
+      const marker = L.marker(markerPosition, {
+        icon
+      })
+      marker.id = titre.id
+      marker.domaineId = domaineId
+      marker.bindPopup(popupHtml, popupOptions)
+      marker.on(methods)
 
       const className = `svg-fill-pattern-${titre.type.type.id}-${domaineId}`
 
@@ -158,18 +164,6 @@ const layersBuild = (titres, router) =>
         onEachFeature: (feature, layer) => {
           layer.bindPopup(popupHtml, popupOptions)
           layer.on(methods)
-
-          //marker
-          marker = L.marker(
-            markerPosition,
-            {
-              icon
-            }
-          )
-          marker.id = titre.id
-          marker.domaineId = domaineId
-          marker.bindPopup(popupHtml, popupOptions)
-          marker.on(methods)
         }
       })
 
