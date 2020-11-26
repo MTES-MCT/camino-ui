@@ -5,7 +5,8 @@ import { fragmentTitreTypeType } from './fragments/metas'
 import {
   fragmentTitre,
   fragmentTitres,
-  fragmentTitresGeo
+  fragmentTitresGeo,
+  fragmentTitresGeoPolygon
 } from './fragments/titre'
 
 const titreMetas = apiGraphQLFetch(
@@ -52,6 +53,41 @@ const titre = apiGraphQLFetch(
     }
 
     ${fragmentTitre}
+  `
+)
+
+const titresGeoPolygon = apiGraphQLFetch(
+  gql`
+    query Titres(
+      $typesIds: [ID!]
+      $domainesIds: [ID!]
+      $statutsIds: [ID!]
+      $substances: String
+      $noms: String
+      $entreprises: String
+      $references: String
+      $territoires: String
+      $perimetre: [Float!]
+    ) {
+      titres(
+        typesIds: $typesIds
+        domainesIds: $domainesIds
+        statutsIds: $statutsIds
+        substances: $substances
+        noms: $noms
+        entreprises: $entreprises
+        references: $references
+        territoires: $territoires
+        perimetre: $perimetre
+      ) {
+        elements {
+          ...titresGeoPolygon
+        }
+        total
+      }
+    }
+
+    ${fragmentTitresGeoPolygon}
   `
 )
 
@@ -167,6 +203,7 @@ export {
   titre,
   titres,
   titresGeo,
+  titresGeoPolygon,
   titreCreer,
   titreModifier,
   titreSupprimer

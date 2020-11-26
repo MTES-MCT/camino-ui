@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 jest.mock('../api/titres', () => ({
   titres: jest.fn(),
   titresGeo: jest.fn(),
+  titresGeoPolygon: jest.fn(),
   titresMetas: jest.fn()
 }))
 
@@ -178,6 +179,27 @@ describe('liste des titres', () => {
   })
 
   test('obtient la liste des titres dans la vue "carte"', async () => {
+    const apiMock = api.titresGeoPolygon.mockResolvedValue({
+      elements: titresCarte,
+      total: 4
+    })
+
+    store.state.titres.loaded.metas = true
+    store.state.titres.loaded.urls = true
+    store.state.titres.preferences.carte.zoom = 8
+
+    await store.dispatch('titres/get')
+
+    expect(apiMock).toHaveBeenCalledWith({
+      noms: 's',
+      domainesIds: ['c', 'w'],
+      statutsIds: ['val'],
+      entreprises: 'fr-'
+    })
+    expect(store.state.titres.list).toEqual(titresCarte)
+  })
+
+  test('obtient la liste des titres dans la vue "carte" sans les périmètres', async () => {
     const apiMock = api.titresGeo.mockResolvedValue({
       elements: titresCarte,
       total: 4
@@ -185,6 +207,7 @@ describe('liste des titres', () => {
 
     store.state.titres.loaded.metas = true
     store.state.titres.loaded.urls = true
+    store.state.titres.preferences.carte.zoom = 7
 
     await store.dispatch('titres/get')
 

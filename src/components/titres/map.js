@@ -95,7 +95,8 @@ const iconUrlFind = domaineId => {
 const layersBuild = (titres, router) =>
   titres.reduce(
     ({ geojsons, markers }, titre) => {
-      if (!titre.geojsonMultiPolygon) return { geojsons, markers }
+      if (!titre.geojsonMultiPolygon && !titre.geojsonCentre)
+        return { geojsons, markers }
 
       const domaineId = titre.domaine.id
       const icon = L.icon({
@@ -103,7 +104,6 @@ const layersBuild = (titres, router) =>
         iconSize: [32, 40],
         iconAnchor: [16, 40]
       })
-
       const popupHtmlTitulaires =
         titre.titulaires && titre.titulaires.length
           ? titre.titulaires.map(tt => `<li>${tt.nom}</li>`).join('')
@@ -131,7 +131,26 @@ const layersBuild = (titres, router) =>
         }
       }
 
-      let marker
+      let markerPosition
+      if (titre.geojsonCentre) {
+        const coordinates = titre.geojsonCentre.geometry.coordinates
+        markerPosition = {
+          lng: coordinates[0],
+          lat: coordinates[1]
+        }
+      } else {
+        markerPosition = L.geoJSON(titre.geojsonMultiPolygon)
+          .getBounds()
+          .getCenter()
+      }
+
+      const marker = L.marker(markerPosition, {
+        icon
+      })
+      marker.id = titre.id
+      marker.domaineId = domaineId
+      marker.bindPopup(popupHtml, popupOptions)
+      marker.on(methods)
 
       const className = `svg-fill-pattern-${titre.type.type.id}-${domaineId}`
 
@@ -145,17 +164,6 @@ const layersBuild = (titres, router) =>
         onEachFeature: (feature, layer) => {
           layer.bindPopup(popupHtml, popupOptions)
           layer.on(methods)
-
-          // marker
-          const position = L.geoJSON(feature)
-            .getBounds()
-            .getCenter()
-
-          marker = L.marker(position, { icon })
-          marker.id = titre.id
-          marker.domaineId = domaineId
-          marker.bindPopup(popupHtml, popupOptions)
-          marker.on(methods)
         }
       })
 

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-import { titresMetas, titresGeo, titres } from '../api/titres'
+import { titresMetas, titresGeo, titres, titresGeoPolygon } from '../api/titres'
 import { paramsBuild } from './_utils'
 
 export const state = {
@@ -99,7 +99,11 @@ export const actions = {
           Object.assign({}, state.preferences.filtres, state.preferences.carte)
         )
 
-        data = await titresGeo(params)
+        if (state.preferences.carte.zoom > 7) {
+          data = await titresGeoPolygon(params)
+        } else {
+          data = await titresGeo(params)
+        }
       } else {
         const params = paramsBuild(
           state.params,
