@@ -49,6 +49,8 @@ export default {
     this.init()
     this.scaleAdd()
     this.tilesAdd()
+    this.markersAdd()
+    this.geojsonsAdd()
     this.layersCanvasAdd()
   },
 
@@ -136,12 +138,23 @@ export default {
       this.layers.tiles.addTo(this.map)
     },
 
-    geojsonsUpdate() {
-      this.layers.geojsons.forEach(l => l.remove())
-
+    geojsonsAdd() {
       this.geojsonLayers.forEach(l => {
         this.layers.geojsons.push(l)
         l.addTo(this.map)
+      })
+    },
+
+    geojsonsUpdate() {
+      this.layers.geojsons.forEach(l => l.remove())
+
+      this.geojsonsAdd()
+    },
+
+    markersAdd() {
+      this.markerLayers.forEach(marker => {
+        this.layers.markers.push(marker)
+        this.map.addLayer(marker)
       })
     },
 
@@ -154,10 +167,7 @@ export default {
         this.map.removeLayer(marker)
       })
 
-      this.markerLayers.forEach(marker => {
-        this.layers.markers.push(marker)
-        this.map.addLayer(marker)
-      })
+      this.markersAdd()
     },
 
     canvasMarkersUpdate() {
