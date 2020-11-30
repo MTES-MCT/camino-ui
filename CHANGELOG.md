@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.51](https://github.com/MTES-MCT/camino-ui/compare/v0.22.50...v0.22.51) (2020-11-30)
+
+
+### Features
+
+* ajoute les styles des types et domaines inconnus ([#222](https://github.com/MTES-MCT/camino-ui/issues/222)) ([c7299e1](https://github.com/MTES-MCT/camino-ui/commit/c7299e1e088f8cd0935f0f00d4f57b408817cd8c))
+* **carte:** utilise le centre du titre pour afficher les marqueurs ([#215](https://github.com/MTES-MCT/camino-ui/issues/215)) ([4a665fe](https://github.com/MTES-MCT/camino-ui/commit/4a665fe6832384a92a340b303d868490c53fac7f))
+* affiche les marqueurs sur un canvas ([#220](https://github.com/MTES-MCT/camino-ui/issues/220)) ([471f140](https://github.com/MTES-MCT/camino-ui/commit/471f140975201e71f785c6f06cf2e4bafcd46e25))
+
+
+### Bug Fixes
+
+* corrige la modification d’une étape avec des entreprises archivées ([#221](https://github.com/MTES-MCT/camino-ui/issues/221)) ([f283ec5](https://github.com/MTES-MCT/camino-ui/commit/f283ec58cd84645e20c735507d4ab0fe32eb9ae2))
+
 ### [0.22.50](https://github.com/MTES-MCT/camino-ui/compare/v0.22.49...v0.22.50) (2020-11-19)
 
 
