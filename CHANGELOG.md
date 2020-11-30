@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.52](https://github.com/MTES-MCT/camino-ui/compare/v0.22.51...v0.22.52) (2020-11-30)
+
+
+### Bug Fixes
+
+* corrige le style des concessions f ([f2b3bde](https://github.com/MTES-MCT/camino-ui/commit/f2b3bdeed039304bdfcbae84f858cb545677493e))
+
 ### [0.22.51](https://github.com/MTES-MCT/camino-ui/compare/v0.22.50...v0.22.51) (2020-11-30)
 
 
