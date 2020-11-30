@@ -54,7 +54,7 @@
   stroke: var(--color-title-domaine-w);
 }
 
-/* c */
+/* types */
 .svg-fill-pattern-ax {
   fill: url(#pattern-ax);
 }
@@ -110,7 +110,7 @@
 .svg-fill-pattern-ax-f {
   fill: url(#pattern-ax-f);
 }
-.svg-fill-patternx-f-c {
+.svg-fill-pattern-cx-f {
   fill: url(#patternx-f-c);
 }
 .svg-fill-pattern-pc-f {
