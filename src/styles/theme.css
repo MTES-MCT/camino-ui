@@ -120,6 +120,10 @@ html {
   background: var(--color-title-domaine-h);
 }
 
+.bg-titre-domaine-i {
+  background: var(--color-title-domaine-i);
+}
+
 .bg-titre-domaine-m {
   background: var(--color-title-domaine-m);
 }

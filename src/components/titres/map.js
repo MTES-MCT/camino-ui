@@ -78,6 +78,7 @@ const domainesColors = {
   f: '#4a515d',
   g: '#c94f17',
   h: '#c2266a',
+  i: '#aaaaaa',
   m: '#376faa',
   r: '#a0aa31',
   s: '#7657b5',
@@ -90,6 +91,22 @@ const iconUrlFind = domaineId => {
   }"/><text xml:space="preserve" text-anchor="middle" font-size="13" y="21" x="16" fill="white">${domaineId.toUpperCase()}</text></svg>`
 
   return 'data:image/svg+xml;base64,' + btoa(iconSvg)
+}
+
+const markerPositionFind = titre => {
+  if (titre.geojsonCentre) {
+    const coordinates = titre.geojsonCentre.geometry.coordinates
+    return {
+      lng: coordinates[0],
+      lat: coordinates[1]
+    }
+  }
+
+  if (titre.geojsonMultiPolygon) {
+    return L.geoJSON(titre.geojsonMultiPolygon)
+      .getBounds()
+      .getCenter()
+  }
 }
 
 const layersBuild = (titres, router) =>
@@ -131,36 +148,17 @@ const layersBuild = (titres, router) =>
         }
       }
 
-      let markerPosition
-      if (titre.geojsonCentre) {
-        const coordinates = titre.geojsonCentre.geometry.coordinates
-        markerPosition = {
-          lng: coordinates[0],
-          lat: coordinates[1]
-        }
-      } else {
-        markerPosition = L.geoJSON(titre.geojsonMultiPolygon)
-          .getBounds()
-          .getCenter()
-      }
+      const markerPosition = markerPositionFind(titre)
+      const marker = L.marker(markerPosition, { icon })
 
-      const marker = L.marker(markerPosition, {
-        icon
-      })
       marker.id = titre.id
       marker.domaineId = domaineId
       marker.bindPopup(popupHtml, popupOptions)
       marker.on(methods)
 
       const className = `svg-fill-pattern-${titre.type.type.id}-${domaineId}`
-
       const geojson = L.geoJSON(titre.geojsonMultiPolygon, {
-        style: {
-          fillOpacity: 0.75,
-          weight: 1,
-          color: 'white',
-          className
-        },
+        style: { fillOpacity: 0.75, weight: 1, color: 'white', className },
         onEachFeature: (feature, layer) => {
           layer.bindPopup(popupHtml, popupOptions)
           layer.on(methods)

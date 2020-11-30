@@ -21,6 +21,7 @@
               "
               :stroke-width="defs[typeId].width"
               stroke-linecap="round"
+              fill="none"
             />
           </pattern>
         </g>
@@ -45,7 +46,11 @@ export default {
         px: { d: 'M0,0 l8,0 M0,8 l8,0', width: 5, rotation: 135 },
         ap: { d: 'M-1,4 l2,0 M6,4 l2,0', width: 2, rotation: 45 },
         ar: { d: 'M1,4 l4,0 M3,2 l0,4', width: 2, rotation: 0 },
-        pr: { d: 'M4,4 l0,0', width: 5, rotation: 45 }
+        pr: { d: 'M4,4 l0,0', width: 5, rotation: 45 },
+        in: {
+          d: 'M0,4 a3,3 0 1,0 6,0 a 3,3 0 1,0 -6,0',
+          width: 1
+        }
       }
     }
   },
