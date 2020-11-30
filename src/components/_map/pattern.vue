@@ -49,7 +49,8 @@ export default {
         pr: { d: 'M4,4 l0,0', width: 5, rotation: 45 },
         in: {
           d: 'M0,4 a3,3 0 1,0 6,0 a 3,3 0 1,0 -6,0',
-          width: 1
+          width: 1,
+          rotation: 0
         }
       }
     }
