@@ -10,6 +10,9 @@
 .svg-fill-domaine-h {
   fill: var(--color-title-domaine-h);
 }
+.svg-fill-domaine-i {
+  fill: var(--color-title-domaine-i);
+}
 .svg-fill-domaine-m {
   fill: var(--color-title-domaine-m);
 }
@@ -73,6 +76,9 @@
 .svg-fill-pattern-pr {
   fill: url(#pattern-pr);
 }
+.svg-fill-pattern-in {
+  fill: url(#pattern-in);
+}
 
 /* c */
 .svg-fill-pattern-ax-c {
@@ -95,6 +101,9 @@
 }
 .svg-fill-pattern-pr-c {
   fill: url(#pattern-pr-c);
+}
+.svg-fill-pattern-in-c {
+  fill: url(#pattern-in-c);
 }
 
 /* f */
@@ -119,6 +128,9 @@
 .svg-fill-pattern-pr-f {
   fill: url(#pattern-pr-f);
 }
+.svg-fill-pattern-in-f {
+  fill: url(#pattern-in-f);
+}
 
 /* g */
 .svg-fill-pattern-ax-g {
@@ -141,6 +153,9 @@
 }
 .svg-fill-pattern-pr-g {
   fill: url(#pattern-pr-g);
+}
+.svg-fill-pattern-in-g {
+  fill: url(#pattern-in-g);
 }
 
 /* h */
@@ -165,6 +180,35 @@
 .svg-fill-pattern-pr-h {
   fill: url(#pattern-pr-h);
 }
+.svg-fill-pattern-in-h {
+  fill: url(#pattern-in-h);
+}
+
+/* i */
+.svg-fill-pattern-ax-i {
+  fill: url(#pattern-ax-i);
+}
+.svg-fill-pattern-cx-i {
+  fill: url(#pattern-cx-i);
+}
+.svg-fill-pattern-pc-i {
+  fill: url(#pattern-pc-i);
+}
+.svg-fill-pattern-px-i {
+  fill: url(#pattern-px-i);
+}
+.svg-fill-pattern-ap-i {
+  fill: url(#pattern-ap-i);
+}
+.svg-fill-pattern-ar-i {
+  fill: url(#pattern-ar-i);
+}
+.svg-fill-pattern-pr-i {
+  fill: url(#pattern-pr-i);
+}
+.svg-fill-pattern-in-i {
+  fill: url(#pattern-in-i);
+}
 
 /* m */
 .svg-fill-pattern-ax-m {
@@ -187,6 +231,9 @@
 }
 .svg-fill-pattern-pr-m {
   fill: url(#pattern-pr-m);
+}
+.svg-fill-pattern-in-m {
+  fill: url(#pattern-in-m);
 }
 
 /* r */
@@ -211,6 +258,9 @@
 .svg-fill-pattern-pr-r {
   fill: url(#pattern-pr-r);
 }
+.svg-fill-pattern-in-r {
+  fill: url(#pattern-in-r);
+}
 
 /* s */
 .svg-fill-pattern-ax-s {
@@ -234,6 +284,9 @@
 .svg-fill-pattern-pr-s {
   fill: url(#pattern-pr-m);
 }
+.svg-fill-pattern-in-s {
+  fill: url(#pattern-in-s);
+}
 
 /* w */
 .svg-fill-pattern-ax-w {
@@ -256,4 +309,7 @@
 }
 .svg-fill-pattern-pr-w {
   fill: url(#pattern-pr-w);
+}
+.svg-fill-pattern-in-w {
+  fill: url(#pattern-in-w);
 }
