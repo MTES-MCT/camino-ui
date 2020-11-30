@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.53](https://github.com/MTES-MCT/camino-ui/compare/v0.22.52...v0.22.53) (2020-11-30)
+
+
+### Bug Fixes
+
+* corrige le motif du type inconnu ([2840a12](https://github.com/MTES-MCT/camino-ui/commit/2840a12e8d4479b1d98143ea28024afdf1d86fa8))
+
 ### [0.22.52](https://github.com/MTES-MCT/camino-ui/compare/v0.22.51...v0.22.52) (2020-11-30)
 
 
