@@ -111,7 +111,7 @@
             v-for="entreprise in entreprises"
             :key="`titulaire-${titulaire.id}-entreprise-${entreprise.id}`"
             :value="{ id: entreprise.id }"
-            :disabled="etape.titulaires.find(id => id === entreprise.id)"
+            :disabled="etape.titulaires.find(t => t.id === entreprise.id)"
           >
             {{ `${entreprise.nom} (${entreprise.id})` }}
           </option>
@@ -153,7 +153,7 @@
             v-for="entreprise in entreprises"
             :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
             :value="{ id: entreprise.id }"
-            :disabled="etape.amodiataires.find(id => id === entreprise.id)"
+            :disabled="etape.amodiataires.find(a => a.id === entreprise.id)"
           >
             {{ entreprise.nom }} ({{ entreprise.id }})
           </option>
