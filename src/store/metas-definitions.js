@@ -7,11 +7,24 @@ import {
   demarchesStatuts,
   etapesTypes,
   etapesStatuts,
-  domaineModifier
+  domaineModifier,
+  definitionModifier,
+  typeModifier
 } from '../api/metas'
 
 const metasIndex = {
-  definitions: { get: definitions, nom: 'Définitions' },
+  definitions: {
+    get: definitions,
+    update: definitionModifier,
+    nom: 'Définitions',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'nom', type: 'text' },
+      { id: 'slug', nom: 'slug', type: 'text' },
+      { id: 'description', nom: 'Description', type: 'text' },
+      { id: 'ordre', nom: 'ordre', type: 'number' }
+    ]
+  },
   domaines: {
     get: domaines,
     update: domaineModifier,
@@ -19,13 +32,21 @@ const metasIndex = {
     colonnes: [
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'nom', type: 'text' },
+      { id: 'table', nom: 'table', type: 'text' },
       { id: 'description', nom: 'Description', type: 'text' },
-      { id: 'ordre', nom: 'ordre', type: 'order' }
+      { id: 'ordre', nom: 'ordre', type: 'number' }
     ]
   },
   'titres-types-types': {
     get: titresTypesTypes,
-    nom: 'Types des titres'
+    update: typeModifier,
+    nom: 'Types des titres',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'nom', type: 'text' },
+      { id: 'description', nom: 'Description', type: 'text' },
+      { id: 'ordre', nom: 'ordre', type: 'number' }
+    ]
   },
   'titres-types': {
     get: 'titresTypes',

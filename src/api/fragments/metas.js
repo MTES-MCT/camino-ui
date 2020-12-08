@@ -7,6 +7,26 @@ const fragmentPermission = gql`
   }
 `
 
+const fragmentTitreTypeType = gql`
+  fragment titreTypeType on TitreTypeType {
+    id
+    nom
+    description
+    ordre
+  }
+`
+
+const fragmentTitreType = gql`
+  fragment titreType on TitreType {
+    id
+    type {
+      ...titreTypeType
+    }
+    titresCreation
+  }
+  ${fragmentTitreTypeType}
+`
+
 const fragmentEtapeType = gql`
   fragment etapeType on EtapeType {
     id
@@ -56,25 +76,6 @@ const fragmentDemarcheType = gql`
   }
 `
 
-const fragmentTitreTypeType = gql`
-  fragment titreTypeType on TitreTypeType {
-    id
-    nom
-    exploitation
-  }
-`
-
-const fragmentTitreType = gql`
-  fragment titreType on TitreType {
-    id
-    type {
-      ...titreTypeType
-    }
-    titresCreation
-  }
-  ${fragmentTitreTypeType}
-`
-
 const fragmentTravauxType = gql`
   fragment travauxType on TravauxType {
     id
@@ -93,14 +94,32 @@ const fragmentDomaine = gql`
   }
 `
 
+const fragmentDefinition = gql`
+  fragment definition on Definition {
+    id
+    nom
+    slug
+    description
+    couleur
+    ordre
+    elements {
+      id
+      nom
+      description
+      couleur
+    }
+  }
+`
+
 export {
+  fragmentTitreTypeType,
   fragmentEtapeType,
   fragmentPermission,
   fragmentUnite,
   fragmentDemarcheType,
   fragmentDemarcheStatut,
-  fragmentTitreTypeType,
   fragmentTitreType,
   fragmentTravauxType,
-  fragmentDomaine
+  fragmentDomaine,
+  fragmentDefinition
 }

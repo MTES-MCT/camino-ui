@@ -18,14 +18,14 @@
 
         <tr v-for="element in elements" :key="element.id">
           <td v-for="colonne in definition.colonnes" :key="colonne.id">
-            <EditOrder
-              v-if="colonne.type === 'order'"
+            <EditNumber
+              v-if="colonne.type === 'number'"
               :order="element[colonne.id]"
               @update="update($event, element.id, colonne.id)"
             />
             <EditText
               v-else-if="colonne.type === 'text'"
-              :text="element[colonne.id]"
+              :text="element[colonne.id] || ''"
               @update="update($event, element.id, colonne.id)"
             />
             <div v-else>{{ element[colonne.id] }}</div>
@@ -39,10 +39,10 @@
 <script>
 import Loader from './_ui/loader.vue'
 import EditText from './_ui/edit-ext.vue'
-import EditOrder from './_ui/edit-order.vue'
+import EditNumber from './_ui/edit-number.vue'
 
 export default {
-  components: { Loader, EditText, EditOrder },
+  components: { Loader, EditText, EditNumber },
 
   computed: {
     elements() {

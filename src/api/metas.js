@@ -1,26 +1,32 @@
 import gql from 'graphql-tag'
-import { fragmentDomaine } from './fragments/metas'
 import { apiGraphQLFetch } from './_client'
+import {
+  fragmentDefinition,
+  fragmentDomaine,
+  fragmentTitreTypeType
+} from './fragments/metas'
 
 const definitions = apiGraphQLFetch(
   gql`
     query Definitions {
       definitions {
-        id
-        nom
-        slug
-        description
-        couleur
-        elements {
-          id
-          nom
-          description
-          couleur
-        }
+        ...definition
       }
     }
+
+    ${fragmentDefinition}
   `
 )
+
+const definitionModifier = apiGraphQLFetch(gql`
+  mutation DefinitionModifier($element: InputDefinition!) {
+    definitionModifier(definition: $element) {
+      ...definition
+    }
+  }
+
+  ${fragmentDefinition}
+`)
 
 const domaines = apiGraphQLFetch(
   gql`
@@ -43,6 +49,42 @@ const domaineModifier = apiGraphQLFetch(gql`
 
   ${fragmentDomaine}
 `)
+
+const titresTypesTypes = apiGraphQLFetch(
+  gql`
+    query TitresTypesTypes {
+      types {
+        ...titreTypeType
+      }
+    }
+
+    ${fragmentTitreTypeType}
+  `
+)
+
+const typeModifier = apiGraphQLFetch(gql`
+  mutation typeModifier($element: InputTitreTypeType!) {
+    typeModifier(type: $element) {
+      ...titreTypeType
+    }
+  }
+
+  ${fragmentTitreTypeType}
+`)
+
+const titresStatuts = apiGraphQLFetch(
+  gql`
+    query Statuts {
+      statuts {
+        id
+        nom
+        description
+        couleur
+        ordre
+      }
+    }
+  `
+)
 
 const demarchesStatuts = apiGraphQLFetch(
   gql`
@@ -111,42 +153,17 @@ const substancesLegales = apiGraphQLFetch(
   `
 )
 
-const titresStatuts = apiGraphQLFetch(
-  gql`
-    query Statuts {
-      statuts {
-        id
-        nom
-        description
-        couleur
-        ordre
-      }
-    }
-  `
-)
-
-const titresTypesTypes = apiGraphQLFetch(
-  gql`
-    query Types {
-      types {
-        id
-        nom
-        description
-        ordre
-      }
-    }
-  `
-)
-
 export {
   definitions,
+  definitionModifier,
   domaines,
   domaineModifier,
+  titresTypesTypes,
+  typeModifier,
+  titresStatuts,
   demarchesStatuts,
   demarchesTypes,
   etapesTypes,
   etapesStatuts,
-  substancesLegales,
-  titresStatuts,
-  titresTypesTypes
+  substancesLegales
 }
