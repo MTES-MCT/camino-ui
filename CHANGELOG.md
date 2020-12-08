@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.54](https://github.com/MTES-MCT/camino-ui/compare/v0.22.53...v0.22.54) (2020-12-08)
+
+
+### Bug Fixes
+
+* affiche l'arrière plan des périmètres de concessions f ([7390e65](https://github.com/MTES-MCT/camino-ui/commit/7390e651f65c1c4b9d3de7756f86e719b76e0e25))
+* **entreprises:** ne peut pas mettre 2 fois le même titulaires sur une étape ([#223](https://github.com/MTES-MCT/camino-ui/issues/223)) ([b2b2ad3](https://github.com/MTES-MCT/camino-ui/commit/b2b2ad30d2aa8d01e944437328651d1be5b1f84b))
+
 ### [0.22.53](https://github.com/MTES-MCT/camino-ui/compare/v0.22.52...v0.22.53) (2020-11-30)
 
 
