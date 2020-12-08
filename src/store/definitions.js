@@ -10,7 +10,7 @@ import {
   substancesLegales,
   titresStatuts,
   titresTypesTypes
-} from '../api/definitions'
+} from '../api/metas'
 
 const definitionsIndex = {
   domaines: domaines,
@@ -32,7 +32,7 @@ export const state = {
 
 export const actions = {
   async get({ dispatch, commit }) {
-    commit('loadingAdd', 'glossaireGet', { root: true })
+    commit('loadingAdd', 'definitions', { root: true })
 
     try {
       const data = await definitions()
@@ -42,7 +42,7 @@ export const actions = {
       dispatch('apiError', e, { root: true })
       console.info(e)
     } finally {
-      commit('loadingRemove', 'glossaireGet', { root: true })
+      commit('loadingRemove', 'definitions', { root: true })
     }
   },
 

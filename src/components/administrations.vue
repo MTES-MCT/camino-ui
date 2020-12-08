@@ -41,8 +41,7 @@ export default {
   data() {
     return {
       filtres,
-      colonnes: administrationsColonnes,
-      visible: false
+      colonnes: administrationsColonnes
     }
   },
 

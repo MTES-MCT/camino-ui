@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import { fragmentDomaine } from './fragments/metas'
 import { apiGraphQLFetch } from './_client'
 
 const definitions = apiGraphQLFetch(
@@ -25,14 +26,23 @@ const domaines = apiGraphQLFetch(
   gql`
     query Domaines {
       domaines {
-        id
-        nom
-        description
-        ordre
+        ...domaine
       }
     }
+
+    ${fragmentDomaine}
   `
 )
+
+const domaineModifier = apiGraphQLFetch(gql`
+  mutation DomaineModifier($element: InputDomaine!) {
+    domaineModifier(domaine: $element) {
+      ...domaine
+    }
+  }
+
+  ${fragmentDomaine}
+`)
 
 const demarchesStatuts = apiGraphQLFetch(
   gql`
@@ -131,6 +141,7 @@ const titresTypesTypes = apiGraphQLFetch(
 export {
   definitions,
   domaines,
+  domaineModifier,
   demarchesStatuts,
   demarchesTypes,
   etapesTypes,

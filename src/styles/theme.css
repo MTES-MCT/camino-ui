@@ -294,6 +294,10 @@ ul.li-sep > li {
   background-color: var(--color-neutral);
 }
 
+.content-editable :last-child {
+  margin-bottom: 0;
+}
+
 @media (--viewport-tablet) {
   .tablet-flex-right {
     margin-left: auto;

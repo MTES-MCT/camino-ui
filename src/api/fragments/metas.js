@@ -84,6 +84,15 @@ const fragmentTravauxType = gql`
   }
 `
 
+const fragmentDomaine = gql`
+  fragment domaine on Domaine {
+    id
+    nom
+    description
+    ordre
+  }
+`
+
 export {
   fragmentEtapeType,
   fragmentPermission,
@@ -92,5 +101,6 @@ export {
   fragmentDemarcheStatut,
   fragmentTitreTypeType,
   fragmentTitreType,
-  fragmentTravauxType
+  fragmentTravauxType,
+  fragmentDomaine
 }

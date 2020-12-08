@@ -11,16 +11,8 @@ export const state = {
   params: [
     { id: 'page', type: 'number', min: 0 },
     { id: 'intervalle', type: 'number', min: 10, max: 500 },
-    {
-      id: 'colonne',
-      type: 'string',
-      elements: ['nom', 'type', 'abreviation']
-    },
-    {
-      id: 'ordre',
-      type: 'string',
-      elements: ['asc', 'desc']
-    },
+    { id: 'colonne', type: 'string', elements: ['nom', 'type', 'abreviation'] },
+    { id: 'ordre', type: 'string', elements: ['asc', 'desc'] },
     { id: 'typesIds', type: 'strings', elements: [] },
     { id: 'noms', type: 'string' }
   ],

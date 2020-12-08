@@ -1,5 +1,5 @@
 import definitions from './definitions'
-import * as api from '../api/definitions'
+import * as api from '../api/metas'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
