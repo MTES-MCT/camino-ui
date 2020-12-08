@@ -1,7 +1,7 @@
 import { permissionsCheck, dateFormat } from '../utils'
 import numberFormat from '../utils/number-format'
 
-var mixins = {
+const mixins = {
   methods: {
     permissionsCheck(permissions) {
       return (
