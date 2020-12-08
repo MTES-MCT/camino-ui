@@ -27,20 +27,19 @@ export default {
     return {
       tabs: [
         { id: 'globales', nom: 'Globales', name: 'statistiques-globales' },
-        { id: 'guyane', nom: 'Guyane', name: 'statistiques-guyane' }
+        { id: 'guyane', nom: 'Guyane', name: 'statistiques-guyane' },
+        {
+          id: 'granulatsMarins',
+          nom: 'Granulats Marins',
+          name: 'statistiques-granulatsMarins'
+        }
       ]
     }
   },
 
   computed: {
     tabActive() {
-      if (this.$route.name === 'statistiques-globales') {
-        return 'globales'
-      } else if (this.$route.name === 'statistiques-guyane') {
-        return 'guyane'
-      } else {
-        return ''
-      }
+      return this.$route.name.replace(/statistiques-/, '')
     }
   },
 
