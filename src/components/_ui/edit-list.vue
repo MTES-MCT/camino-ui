@@ -1,19 +1,17 @@
 <template>
-  <!-- eslint-disable vue/no-v-html -->
   <div
     v-if="!editable"
     class="border p-s pointer content-editable"
     @click="editableMake"
-    v-html="textHtml"
-  />
+  >
+    {{ value }}
+  </div>
   <div v-else>
-    <textarea
-      ref="textarea"
-      v-model="textUpdated"
-      class="p-s mb-s"
-      @input="resize"
-      @focus="resize"
-    />
+    <select v-model="valueUpdated" class="py-xs px-s mb-s">
+      <option v-for="element in elements" :key="element" :value="element">
+        {{ element }}
+      </option>
+    </select>
     <div class="flex">
       <button
         class="btn-border px-s py-xs flex-right rnd-xs mr-s h5"
@@ -30,50 +28,39 @@
 
 <script>
 import Vue from 'vue'
-import marked from 'marked'
 
 export default {
   props: {
-    text: { type: String, required: true }
+    value: { type: String, required: true },
+    elements: { type: Array, required: true }
   },
 
   data() {
     return {
       editable: false,
-      textUpdated: ''
-    }
-  },
-
-  computed: {
-    textHtml() {
-      return marked(this.textUpdated)
+      valueUpdated: ''
     }
   },
 
   created() {
-    this.textUpdated = this.text
+    this.valueUpdated = this.value
   },
 
   methods: {
     validate() {
-      this.$emit('update', this.textUpdated)
+      this.$emit('update', this.valueUpdated)
       this.editable = false
     },
 
     editableMake() {
       if (!this.editable) {
-        this.textUpdated = this.text
+        this.valueUpdated = this.value
         this.editable = !this.editable
 
         Vue.nextTick(() => {
-          this.$refs.textarea.focus()
+          this.$refs.input.focus()
         })
       }
-    },
-
-    resize(e) {
-      e.target.style.height = ''
-      e.target.style.height = e.target.scrollHeight + 'px'
     }
   }
 }

@@ -3,7 +3,8 @@ import { apiGraphQLFetch } from './_client'
 import {
   fragmentDefinition,
   fragmentDomaine,
-  fragmentTitreTypeType
+  fragmentTitreTypeType,
+  fragmentTitreStatut
 } from './fragments/metas'
 
 const definitions = apiGraphQLFetch(
@@ -63,7 +64,7 @@ const titresTypesTypes = apiGraphQLFetch(
 )
 
 const typeModifier = apiGraphQLFetch(gql`
-  mutation typeModifier($element: InputTitreTypeType!) {
+  mutation TypeModifier($element: InputTitreTypeType!) {
     typeModifier(type: $element) {
       ...titreTypeType
     }
@@ -72,17 +73,25 @@ const typeModifier = apiGraphQLFetch(gql`
   ${fragmentTitreTypeType}
 `)
 
+const statutModifier = apiGraphQLFetch(gql`
+  mutation StatutModifier($element: InputTitreStatut!) {
+    statutModifier(statut: $element) {
+      ...titreStatut
+    }
+  }
+
+  ${fragmentTitreStatut}
+`)
+
 const titresStatuts = apiGraphQLFetch(
   gql`
     query Statuts {
       statuts {
-        id
-        nom
-        description
-        couleur
-        ordre
+        ...titreStatut
       }
     }
+
+    ${fragmentTitreStatut}
   `
 )
 
@@ -161,6 +170,7 @@ export {
   titresTypesTypes,
   typeModifier,
   titresStatuts,
+  statutModifier,
   demarchesStatuts,
   demarchesTypes,
   etapesTypes,

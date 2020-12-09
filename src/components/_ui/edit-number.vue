@@ -54,6 +54,7 @@ export default {
 
     editableMake() {
       if (!this.editable) {
+        this.orderUpdated = this.order
         this.editable = !this.editable
 
         Vue.nextTick(() => {

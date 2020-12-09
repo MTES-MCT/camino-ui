@@ -9,7 +9,8 @@ import {
   etapesStatuts,
   domaineModifier,
   definitionModifier,
-  typeModifier
+  typeModifier,
+  statutModifier
 } from '../api/metas'
 
 const metasIndex = {
@@ -31,7 +32,7 @@ const metasIndex = {
     nom: 'Domaines',
     colonnes: [
       { id: 'id', nom: 'Id' },
-      { id: 'nom', nom: 'nom', type: 'text' },
+      { id: 'nom', nom: 'Nom', type: 'text' },
       { id: 'table', nom: 'table', type: 'text' },
       { id: 'description', nom: 'Description', type: 'text' },
       { id: 'ordre', nom: 'ordre', type: 'number' }
@@ -43,7 +44,7 @@ const metasIndex = {
     nom: 'Types des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
-      { id: 'nom', nom: 'nom', type: 'text' },
+      { id: 'nom', nom: 'Nom', type: 'text' },
       { id: 'description', nom: 'Description', type: 'text' },
       { id: 'ordre', nom: 'ordre', type: 'number' }
     ]
@@ -54,7 +55,20 @@ const metasIndex = {
   },
   'titres-statuts': {
     get: titresStatuts,
-    nom: 'Statuts des titres'
+    update: statutModifier,
+    nom: 'Statuts des titres',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: 'text' },
+      { id: 'description', nom: 'Description', type: 'text' },
+      {
+        id: 'couleur',
+        nom: 'Couleur',
+        type: 'list',
+        elements: ['warning', 'neutral', 'success']
+      },
+      { id: 'ordre', nom: 'ordre', type: 'number' }
+    ]
   },
   'titre-types--titres-statuts': {
     get: 'titreTypes__titresStatuts',

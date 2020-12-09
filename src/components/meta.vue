@@ -28,6 +28,12 @@
               :text="element[colonne.id] || ''"
               @update="update($event, element.id, colonne.id)"
             />
+            <EditList
+              v-else-if="colonne.type === 'list'"
+              :value="element[colonne.id] || ''"
+              :elements="colonne.elements"
+              @update="update($event, element.id, colonne.id)"
+            />
             <div v-else>{{ element[colonne.id] }}</div>
           </td>
         </tr>
@@ -40,9 +46,10 @@
 import Loader from './_ui/loader.vue'
 import EditText from './_ui/edit-ext.vue'
 import EditNumber from './_ui/edit-number.vue'
+import EditList from './_ui/edit-list.vue'
 
 export default {
-  components: { Loader, EditText, EditNumber },
+  components: { Loader, EditText, EditNumber, EditList },
 
   computed: {
     elements() {

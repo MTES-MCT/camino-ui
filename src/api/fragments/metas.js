@@ -16,6 +16,16 @@ const fragmentTitreTypeType = gql`
   }
 `
 
+const fragmentTitreStatut = gql`
+  fragment titreStatut on TitreStatut {
+    id
+    nom
+    description
+    couleur
+    ordre
+  }
+`
+
 const fragmentTitreType = gql`
   fragment titreType on TitreType {
     id
@@ -113,6 +123,7 @@ const fragmentDefinition = gql`
 
 export {
   fragmentTitreTypeType,
+  fragmentTitreStatut,
   fragmentEtapeType,
   fragmentPermission,
   fragmentUnite,
