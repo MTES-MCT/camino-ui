@@ -4,12 +4,12 @@
     v-if="!editable"
     class="border p-s pointer content-editable"
     @click="editableMake"
-    v-html="textHtml"
+    v-html="valueHtml"
   />
   <div v-else>
     <textarea
       ref="textarea"
-      v-model="textUpdated"
+      v-model="valueUpdated"
       class="p-s mb-s"
       @input="resize"
       @focus="resize"
@@ -34,35 +34,35 @@ import marked from 'marked'
 
 export default {
   props: {
-    text: { type: String, required: true }
+    value: { type: String, required: true }
   },
 
   data() {
     return {
       editable: false,
-      textUpdated: ''
+      valueUpdated: ''
     }
   },
 
   computed: {
-    textHtml() {
-      return marked(this.textUpdated)
+    valueHtml() {
+      return marked(this.valueUpdated)
     }
   },
 
   created() {
-    this.textUpdated = this.text
+    this.valueUpdated = this.value
   },
 
   methods: {
     validate() {
-      this.$emit('update', this.textUpdated)
+      this.$emit('update', this.valueUpdated)
       this.editable = false
     },
 
     editableMake() {
       if (!this.editable) {
-        this.textUpdated = this.text
+        this.valueUpdated = this.value
         this.editable = !this.editable
 
         Vue.nextTick(() => {

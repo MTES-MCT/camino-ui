@@ -1,18 +1,21 @@
 <template>
   <div
     v-if="!editable"
-    class="border p-s pointer content-editable"
+    class="border p-s pointer content-editable text-right"
     @click="editableMake"
   >
-    {{ order }}
+    {{ value }}
   </div>
   <div v-else>
     <input
       ref="input"
-      v-model.number="orderUpdated"
+      v-model.number="valueUpdated"
       type="number"
-      class="p-s mb-s"
+      class="p-s mb-s text-right"
+      min="1"
+      @focus="editableMake"
     />
+
     <div class="flex">
       <button
         class="btn-border px-s py-xs flex-right rnd-xs mr-s h5"
@@ -29,32 +32,39 @@
 
 <script>
 import Vue from 'vue'
-
 export default {
   props: {
-    order: { type: Number, required: true }
+    value: { type: Number, required: true }
   },
 
   data() {
     return {
-      editable: false,
-      orderUpdated: ''
+      valueUpdated: 0,
+      editable: false
+    }
+  },
+
+  watch: {
+    value() {
+      this.valueUpdated = this.value
     }
   },
 
   created() {
-    this.orderUpdated = this.order
+    this.valueUpdated = this.value
   },
 
   methods: {
     validate() {
-      this.$emit('update', this.orderUpdated)
-      this.editable = false
+      if (this.valueUpdated > 0) {
+        this.editable = false
+        this.$emit('update', this.valueUpdated)
+      }
     },
 
     editableMake() {
       if (!this.editable) {
-        this.orderUpdated = this.order
+        this.valueUpdated = this.value
         this.editable = !this.editable
 
         Vue.nextTick(() => {

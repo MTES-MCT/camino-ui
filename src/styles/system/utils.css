@@ -151,6 +151,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   vertical-align: text-top;
 }
 
+.min-width-3 {
+  min-width: calc(3 * var(--unit));
+}
+
 .min-width-full {
   min-width: 100%;
 }

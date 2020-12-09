@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import Table from '../_ui/table.vue'
-import Pagination from '../_ui/pagination.vue'
-import Ranges from '../_ui/ranges.vue'
+import Table from './table.vue'
+import Pagination from './pagination.vue'
+import Ranges from './ranges.vue'
 
 export default {
   name: 'CaminoTable',

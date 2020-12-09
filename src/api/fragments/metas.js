@@ -74,13 +74,14 @@ const fragmentDemarcheType = gql`
   fragment demarcheType on DemarcheType {
     id
     nom
+    description
     ordre
     duree
     points
     substances
     titulaires
-    renouvelable
     exception
+    renouvelable
     demarchesCreation
     titreTypeId
   }

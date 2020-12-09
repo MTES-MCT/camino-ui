@@ -10,7 +10,8 @@ import {
   domaineModifier,
   definitionModifier,
   typeModifier,
-  statutModifier
+  statutModifier,
+  demarcheTypeModifier
 } from '../api/metas'
 
 const metasIndex = {
@@ -20,10 +21,10 @@ const metasIndex = {
     nom: 'Définitions',
     colonnes: [
       { id: 'id', nom: 'Id' },
-      { id: 'nom', nom: 'nom', type: 'text' },
-      { id: 'slug', nom: 'slug', type: 'text' },
-      { id: 'description', nom: 'Description', type: 'text' },
-      { id: 'ordre', nom: 'ordre', type: 'number' }
+      { id: 'nom', nom: 'nom', type: String },
+      { id: 'slug', nom: 'slug', type: String },
+      { id: 'description', nom: 'Description', type: String },
+      { id: 'ordre', nom: 'Ordre', type: Number }
     ]
   },
   domaines: {
@@ -32,10 +33,10 @@ const metasIndex = {
     nom: 'Domaines',
     colonnes: [
       { id: 'id', nom: 'Id' },
-      { id: 'nom', nom: 'Nom', type: 'text' },
-      { id: 'table', nom: 'table', type: 'text' },
-      { id: 'description', nom: 'Description', type: 'text' },
-      { id: 'ordre', nom: 'ordre', type: 'number' }
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'table', nom: 'table', type: String },
+      { id: 'description', nom: 'Description', type: String },
+      { id: 'ordre', nom: 'Ordre', type: Number }
     ]
   },
   'titres-types-types': {
@@ -44,9 +45,9 @@ const metasIndex = {
     nom: 'Types des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
-      { id: 'nom', nom: 'Nom', type: 'text' },
-      { id: 'description', nom: 'Description', type: 'text' },
-      { id: 'ordre', nom: 'ordre', type: 'number' }
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'description', nom: 'Description', type: String },
+      { id: 'ordre', nom: 'Ordre', type: Number }
     ]
   },
   'titres-types': {
@@ -59,15 +60,15 @@ const metasIndex = {
     nom: 'Statuts des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
-      { id: 'nom', nom: 'Nom', type: 'text' },
-      { id: 'description', nom: 'Description', type: 'text' },
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'description', nom: 'Description', type: String },
       {
         id: 'couleur',
         nom: 'Couleur',
-        type: 'list',
+        type: Array,
         elements: ['warning', 'neutral', 'success']
       },
-      { id: 'ordre', nom: 'ordre', type: 'number' }
+      { id: 'ordre', nom: 'Ordre', type: Number }
     ]
   },
   'titre-types--titres-statuts': {
@@ -76,7 +77,20 @@ const metasIndex = {
   },
   'demarches-types': {
     get: demarchesTypes,
-    nom: 'Types des démarches'
+    update: demarcheTypeModifier,
+    nom: 'Types des démarches',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'description', nom: 'Description', type: String },
+      { id: 'ordre', nom: 'Ordre', type: Number },
+      { id: 'duree', nom: 'Durée', type: Boolean },
+      { id: 'points', nom: 'Points', type: Boolean },
+      { id: 'substances', nom: 'Substances', type: Boolean },
+      { id: 'titulaires', nom: 'Titulaires', type: Boolean },
+      { id: 'exception', nom: 'Exception', type: Boolean },
+      { id: 'renouvelable', nom: 'Renouvelable', type: Boolean }
+    ]
   },
   'demarches-statuts': {
     get: demarchesStatuts,
