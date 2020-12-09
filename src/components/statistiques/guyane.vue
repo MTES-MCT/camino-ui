@@ -15,7 +15,8 @@
         d’exploration et ou d’exploitation n’impliquent pas qu’elles sont
         effectivement explorées ou exploitées sur tout ou partie de l'année. Les
         travaux miniers font l’objet de déclarations ou d’autorisations
-        distinctes portant sur une partie seulement des titres miniers.
+        distinctes portant sur une partie seulement de la surface des titres
+        miniers.
       </p>
       <div class="mb-xxl">
         <h3>Autorisations et titres d’exploration</h3>
