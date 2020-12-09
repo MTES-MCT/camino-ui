@@ -6,7 +6,8 @@ import {
   fragmentTitreTypeType,
   fragmentTitreStatut,
   fragmentDemarcheType,
-  fragmentDemarcheStatut
+  fragmentDemarcheStatut,
+  fragmentPhaseStatut
 } from './fragments/metas'
 
 const definitions = apiGraphQLFetch(
@@ -141,6 +142,28 @@ const demarcheStatutModifier = apiGraphQLFetch(gql`
   ${fragmentDemarcheStatut}
 `)
 
+const phasesStatuts = apiGraphQLFetch(
+  gql`
+    query PhasesStatuts {
+      phasesStatuts {
+        ...phaseStatut
+      }
+    }
+
+    ${fragmentPhaseStatut}
+  `
+)
+
+const phaseStatutModifier = apiGraphQLFetch(gql`
+  mutation PhaseStatutModifier($element: InputPhaseStatut!) {
+    phaseStatutModifier(phaseStatut: $element) {
+      ...phaseStatut
+    }
+  }
+
+  ${fragmentPhaseStatut}
+`)
+
 const etapesStatuts = apiGraphQLFetch(
   gql`
     query EtapesStatuts {
@@ -194,6 +217,8 @@ export {
   demarcheTypeModifier,
   demarchesStatuts,
   demarcheStatutModifier,
+  phasesStatuts,
+  phaseStatutModifier,
   etapesTypes,
   etapesStatuts,
   substancesLegales

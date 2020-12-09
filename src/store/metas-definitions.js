@@ -7,12 +7,14 @@ import {
   demarchesStatuts,
   etapesTypes,
   etapesStatuts,
+  phasesStatuts,
   domaineModifier,
   definitionModifier,
   titreTypeModifier,
   titreStatutModifier,
   demarcheTypeModifier,
-  demarcheStatutModifier
+  demarcheStatutModifier,
+  phaseStatutModifier
 } from '../api/metas'
 
 const metasIndex = {
@@ -119,8 +121,19 @@ const metasIndex = {
     nom: 'Types des démarches | Statuts des démarches'
   },
   'phases-statuts': {
-    get: 'phasesStatuts',
-    nom: 'Statuts des phases'
+    get: phasesStatuts,
+    update: phaseStatutModifier,
+    nom: 'Statuts des phases',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      {
+        id: 'couleur',
+        nom: 'Couleur',
+        type: Array,
+        elements: ['warning', 'neutral', 'success', 'error']
+      }
+    ]
   },
   'etapes-types': { get: etapesTypes, nom: 'Types des étapes' },
   'etapes-statuts': {

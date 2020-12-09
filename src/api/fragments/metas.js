@@ -124,6 +124,14 @@ const fragmentDefinition = gql`
   }
 `
 
+const fragmentPhaseStatut = gql`
+  fragment phaseStatut on PhaseStatut {
+    id
+    nom
+    couleur
+  }
+`
+
 export {
   fragmentTitreTypeType,
   fragmentTitreStatut,
@@ -135,5 +143,6 @@ export {
   fragmentTitreType,
   fragmentTravauxType,
   fragmentDomaine,
-  fragmentDefinition
+  fragmentDefinition,
+  fragmentPhaseStatut
 }

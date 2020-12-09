@@ -7,6 +7,7 @@ jest.mock('../api/metas', () => ({
   definitions: jest.fn(),
   domaines: jest.fn()
 }))
+
 console.info = jest.fn()
 
 const localVue = createLocalVue()
