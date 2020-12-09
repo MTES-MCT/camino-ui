@@ -58,7 +58,9 @@ const fragmentDemarcheStatut = gql`
   fragment demarcheStatut on DemarcheStatut {
     id
     nom
+    description
     couleur
+    ordre
   }
 `
 

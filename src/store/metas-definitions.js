@@ -9,9 +9,10 @@ import {
   etapesStatuts,
   domaineModifier,
   definitionModifier,
-  typeModifier,
-  statutModifier,
-  demarcheTypeModifier
+  titreTypeModifier,
+  titreStatutModifier,
+  demarcheTypeModifier,
+  demarcheStatutModifier
 } from '../api/metas'
 
 const metasIndex = {
@@ -41,7 +42,7 @@ const metasIndex = {
   },
   'titres-types-types': {
     get: titresTypesTypes,
-    update: typeModifier,
+    update: titreTypeModifier,
     nom: 'Types des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -56,7 +57,7 @@ const metasIndex = {
   },
   'titres-statuts': {
     get: titresStatuts,
-    update: statutModifier,
+    update: titreStatutModifier,
     nom: 'Statuts des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -94,7 +95,20 @@ const metasIndex = {
   },
   'demarches-statuts': {
     get: demarchesStatuts,
-    nom: 'Statuts des démarches'
+    update: demarcheStatutModifier,
+    nom: 'Statuts des démarches',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'description', nom: 'Description', type: String },
+      {
+        id: 'couleur',
+        nom: 'Couleur',
+        type: Array,
+        elements: ['warning', 'neutral', 'success', 'error']
+      },
+      { id: 'ordre', nom: 'Ordre', type: Number }
+    ]
   },
   'titres-types--demarches-types': {
     get: 'titresTypes__demarchesTypes',

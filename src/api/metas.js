@@ -5,7 +5,8 @@ import {
   fragmentDomaine,
   fragmentTitreTypeType,
   fragmentTitreStatut,
-  fragmentDemarcheType
+  fragmentDemarcheType,
+  fragmentDemarcheStatut
 } from './fragments/metas'
 
 const definitions = apiGraphQLFetch(
@@ -64,9 +65,9 @@ const titresTypesTypes = apiGraphQLFetch(
   `
 )
 
-const typeModifier = apiGraphQLFetch(gql`
-  mutation TypeModifier($element: InputTitreTypeType!) {
-    typeModifier(type: $element) {
+const titreTypeModifier = apiGraphQLFetch(gql`
+  mutation TitreTypeModifier($element: InputTitreTypeType!) {
+    titreTypeModifier(titreType: $element) {
       ...titreTypeType
     }
   }
@@ -74,9 +75,9 @@ const typeModifier = apiGraphQLFetch(gql`
   ${fragmentTitreTypeType}
 `)
 
-const statutModifier = apiGraphQLFetch(gql`
-  mutation StatutModifier($element: InputTitreStatut!) {
-    statutModifier(statut: $element) {
+const titreStatutModifier = apiGraphQLFetch(gql`
+  mutation TitreStatutModifier($element: InputTitreStatut!) {
+    titreStatutModifier(titreStatut: $element) {
       ...titreStatut
     }
   }
@@ -93,20 +94,6 @@ const titresStatuts = apiGraphQLFetch(
     }
 
     ${fragmentTitreStatut}
-  `
-)
-
-const demarchesStatuts = apiGraphQLFetch(
-  gql`
-    query DemarchesStatuts {
-      demarchesStatuts {
-        id
-        nom
-        description
-        couleur
-        ordre
-      }
-    }
   `
 )
 
@@ -130,6 +117,28 @@ const demarcheTypeModifier = apiGraphQLFetch(gql`
   }
 
   ${fragmentDemarcheType}
+`)
+
+const demarchesStatuts = apiGraphQLFetch(
+  gql`
+    query DemarchesStatuts {
+      demarchesStatuts {
+        ...demarcheStatut
+      }
+    }
+
+    ${fragmentDemarcheStatut}
+  `
+)
+
+const demarcheStatutModifier = apiGraphQLFetch(gql`
+  mutation DemarcheStatutModifier($element: InputDemarcheStatut!) {
+    demarcheStatutModifier(demarcheStatut: $element) {
+      ...demarcheStatut
+    }
+  }
+
+  ${fragmentDemarcheStatut}
 `)
 
 const etapesStatuts = apiGraphQLFetch(
@@ -178,12 +187,13 @@ export {
   domaines,
   domaineModifier,
   titresTypesTypes,
-  typeModifier,
+  titreTypeModifier,
   titresStatuts,
-  statutModifier,
-  demarchesStatuts,
+  titreStatutModifier,
   demarchesTypes,
   demarcheTypeModifier,
+  demarchesStatuts,
+  demarcheStatutModifier,
   etapesTypes,
   etapesStatuts,
   substancesLegales
