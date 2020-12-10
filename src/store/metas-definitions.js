@@ -14,7 +14,8 @@ import {
   titreStatutModifier,
   demarcheTypeModifier,
   demarcheStatutModifier,
-  phaseStatutModifier
+  phaseStatutModifier,
+  etapeTypeModifier
 } from '../api/metas'
 
 const metasIndex = {
@@ -135,7 +136,36 @@ const metasIndex = {
       }
     ]
   },
-  'etapes-types': { get: etapesTypes, nom: 'Types des étapes' },
+  'etapes-types': {
+    get: etapesTypes,
+    update: etapeTypeModifier,
+    nom: 'Types des étapes',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'description', nom: 'Description', type: String },
+      { id: 'ordre', nom: 'Ordre', type: Number },
+      { id: 'sections', nom: 'Sections', type: 'json' },
+      { id: 'legalLien', nom: 'Lien légal', type: String },
+      {
+        id: 'dateDebut',
+        nom: 'Date de début',
+        type: Date,
+        class: ['min-width-12']
+      },
+      {
+        id: 'dateFin',
+        nom: 'Date de fin',
+        type: Date,
+        class: ['min-width-12']
+      },
+      { id: 'fondamentale', nom: 'Fondamentale', type: Boolean },
+      { id: 'unique', nom: 'Unique', type: Boolean },
+      { id: 'acceptationAuto', nom: 'Acceptation auto', type: Boolean },
+      { id: 'publicLecture', nom: 'Lecture public', type: Boolean },
+      { id: 'entrepriseLecture', nom: 'Lecture entreprises', type: Boolean }
+    ]
+  },
   'etapes-statuts': {
     get: etapesStatuts,
     nom: 'Statuts des étapes'

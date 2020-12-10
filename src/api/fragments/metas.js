@@ -41,15 +41,23 @@ const fragmentEtapeType = gql`
   fragment etapeType on EtapeType {
     id
     nom
-    acceptationAuto
+    description
     ordre
+    sections
+    legalLien
+    legalRef
+    dateDebut
+    dateFin
+    fondamentale
+    unique
+    acceptationAuto
+    publicLecture
+    entreprisesLecture
     etapesStatuts {
       id
       nom
       couleur
     }
-    fondamentale
-    sections
     etapesCreation
   }
 `

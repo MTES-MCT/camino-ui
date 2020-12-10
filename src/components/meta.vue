@@ -13,7 +13,11 @@
         <div class="overflow-scroll-x mb">
           <table>
             <tr>
-              <th v-for="colonne in definition.colonnes" :key="colonne.id">
+              <th
+                v-for="colonne in definition.colonnes"
+                :key="colonne.id"
+                :class="colonne.class"
+              >
                 {{ colonne.nom }}
               </th>
             </tr>
@@ -25,8 +29,8 @@
                   :value="element[colonne.id]"
                   @update="update($event, element.id, colonne.id)"
                 />
-                <EditString
-                  v-else-if="colonne.type === String"
+                <EditDate
+                  v-else-if="colonne.type === Date"
                   :value="element[colonne.id] || ''"
                   @update="update($event, element.id, colonne.id)"
                 />
@@ -39,6 +43,20 @@
                   v-else-if="colonne.type === Array"
                   :value="element[colonne.id] || ''"
                   :elements="colonne.elements"
+                  @update="update($event, element.id, colonne.id)"
+                />
+                <EditString
+                  v-else-if="colonne.type === 'json'"
+                  :value="
+                    element[colonne.id]
+                      ? JSON.stringify(element[colonne.id])
+                      : ''
+                  "
+                  @update="update(JSON.parse($event), element.id, colonne.id)"
+                />
+                <EditString
+                  v-else-if="colonne.type === String"
+                  :value="element[colonne.id] || ''"
                   @update="update($event, element.id, colonne.id)"
                 />
                 <div v-else>{{ element[colonne.id] }}</div>
@@ -57,9 +75,17 @@ import EditString from './_ui/edit-string.vue'
 import EditNumber from './_ui/edit-number.vue'
 import EditArray from './_ui/edit-array.vue'
 import EditBoolean from './_ui/edit-boolean.vue'
+import EditDate from './_ui/edit-date.vue'
 
 export default {
-  components: { Loader, EditString, EditNumber, EditArray, EditBoolean },
+  components: {
+    Loader,
+    EditString,
+    EditNumber,
+    EditArray,
+    EditBoolean,
+    EditDate
+  },
 
   computed: {
     elements() {
