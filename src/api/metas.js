@@ -8,7 +8,8 @@ import {
   fragmentDemarcheType,
   fragmentDemarcheStatut,
   fragmentPhaseStatut,
-  fragmentEtapeType
+  fragmentEtapeType,
+  fragmentEtapeStatut
 } from './fragments/metas'
 
 const definitions = apiGraphQLFetch(
@@ -169,13 +170,11 @@ const etapesStatuts = apiGraphQLFetch(
   gql`
     query EtapesStatuts {
       etapesStatuts {
-        id
-        nom
-        description
-        couleur
-        ordre
+        ...etapeStatut
       }
     }
+
+    ${fragmentEtapeStatut}
   `
 )
 
@@ -199,6 +198,16 @@ const etapeTypeModifier = apiGraphQLFetch(gql`
   }
 
   ${fragmentEtapeType}
+`)
+
+const etapeStatutModifier = apiGraphQLFetch(gql`
+  mutation EtapeStatutModifier($element: InputEtapeStatut!) {
+    etapeStatutModifier(etapeStatut: $element) {
+      ...etapeStatut
+    }
+  }
+
+  ${fragmentEtapeStatut}
 `)
 
 const substancesLegales = apiGraphQLFetch(
@@ -232,5 +241,6 @@ export {
   etapesTypes,
   etapeTypeModifier,
   etapesStatuts,
+  etapeStatutModifier,
   substancesLegales
 }

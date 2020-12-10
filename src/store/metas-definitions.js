@@ -15,7 +15,8 @@ import {
   demarcheTypeModifier,
   demarcheStatutModifier,
   phaseStatutModifier,
-  etapeTypeModifier
+  etapeTypeModifier,
+  etapeStatutModifier
 } from '../api/metas'
 
 const metasIndex = {
@@ -168,7 +169,20 @@ const metasIndex = {
   },
   'etapes-statuts': {
     get: etapesStatuts,
-    nom: 'Statuts des étapes'
+    update: etapeStatutModifier,
+    nom: 'Statuts des étapes',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'description', nom: 'Description', type: String },
+      {
+        id: 'couleur',
+        nom: 'Couleur',
+        type: Array,
+        elements: ['warning', 'neutral', 'success', 'error']
+      },
+      { id: 'ordre', nom: 'Ordre', type: Number }
+    ]
   },
   'etapes-types--etapes-statuts': {
     get: 'etapesTypes__etapesStatuts',

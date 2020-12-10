@@ -37,31 +37,6 @@ const fragmentTitreType = gql`
   ${fragmentTitreTypeType}
 `
 
-const fragmentEtapeType = gql`
-  fragment etapeType on EtapeType {
-    id
-    nom
-    description
-    ordre
-    sections
-    legalLien
-    legalRef
-    dateDebut
-    dateFin
-    fondamentale
-    unique
-    acceptationAuto
-    publicLecture
-    entreprisesLecture
-    etapesStatuts {
-      id
-      nom
-      couleur
-    }
-    etapesCreation
-  }
-`
-
 const fragmentDemarcheStatut = gql`
   fragment demarcheStatut on DemarcheStatut {
     id
@@ -140,10 +115,46 @@ const fragmentPhaseStatut = gql`
   }
 `
 
+const fragmentEtapeType = gql`
+  fragment etapeType on EtapeType {
+    id
+    nom
+    description
+    ordre
+    sections
+    legalLien
+    legalRef
+    dateDebut
+    dateFin
+    fondamentale
+    unique
+    acceptationAuto
+    publicLecture
+    entreprisesLecture
+    etapesStatuts {
+      id
+      nom
+      couleur
+    }
+    etapesCreation
+  }
+`
+
+const fragmentEtapeStatut = gql`
+  fragment etapeStatut on EtapeStatut {
+    id
+    nom
+    description
+    couleur
+    ordre
+  }
+`
+
 export {
   fragmentTitreTypeType,
   fragmentTitreStatut,
   fragmentEtapeType,
+  fragmentEtapeStatut,
   fragmentPermission,
   fragmentUnite,
   fragmentDemarcheType,
