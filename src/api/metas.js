@@ -17,7 +17,8 @@ import {
   fragmentPermission,
   fragmentDocumentType,
   fragmentReferenceType,
-  fragmentGeoSysteme
+  fragmentGeoSysteme,
+  fragmentTitreType
 } from './fragments/metas'
 
 const definitions = apiGraphQLFetch(
@@ -76,14 +77,36 @@ const titresTypesTypes = apiGraphQLFetch(
   `
 )
 
-const titreTypeModifier = apiGraphQLFetch(gql`
-  mutation TitreTypeModifier($element: InputTitreTypeType!) {
-    titreTypeModifier(titreType: $element) {
+const titreTypeTypeModifier = apiGraphQLFetch(gql`
+  mutation TitreTypeTypeModifier($element: InputTitreTypeType!) {
+    titreTypeTypeModifier(titreType: $element) {
       ...titreTypeType
     }
   }
 
   ${fragmentTitreTypeType}
+`)
+
+const titresTypes = apiGraphQLFetch(
+  gql`
+    query TitresTypes {
+      titresTypes {
+        ...titreType
+      }
+    }
+
+    ${fragmentTitreType}
+  `
+)
+
+const titreTypeModifier = apiGraphQLFetch(gql`
+  mutation TitreTypeModifier($element: InputTitreType!) {
+    titreTypeModifier(titreType: $element) {
+      ...titreType
+    }
+  }
+
+  ${fragmentTitreType}
 `)
 
 const titreStatutModifier = apiGraphQLFetch(gql`
@@ -413,6 +436,8 @@ export {
   domaines,
   domaineModifier,
   titresTypesTypes,
+  titreTypeTypeModifier,
+  titresTypes,
   titreTypeModifier,
   titresStatuts,
   titreStatutModifier,

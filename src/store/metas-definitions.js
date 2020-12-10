@@ -11,7 +11,7 @@ import {
   phasesStatuts,
   domaineModifier,
   definitionModifier,
-  titreTypeModifier,
+  titreTypeTypeModifier,
   titreStatutModifier,
   demarcheTypeModifier,
   travauxTypeModifier,
@@ -32,7 +32,8 @@ import {
   referencesTypes,
   referenceTypeModifier,
   geoSystemes,
-  geoSystemeModifier
+  geoSystemeModifier,
+  titresTypes
 } from '../api/metas'
 
 const metasIndex = {
@@ -62,7 +63,7 @@ const metasIndex = {
   },
   'titres-types-types': {
     get: titresTypesTypes,
-    update: titreTypeModifier,
+    update: titreTypeTypeModifier,
     nom: 'Types des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -72,8 +73,18 @@ const metasIndex = {
     ]
   },
   'titres-types': {
-    get: 'titresTypes',
-    nom: 'Types des titres | Domaines'
+    get: titresTypes,
+    nom: 'Domaines | Types des titres',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'domaineId', nom: 'Id du domaine' },
+      { id: 'typeId', nom: 'Id du type' },
+      {
+        id: 'propsEtapesTypes',
+        nom: "Type d'étape des propriétés",
+        type: 'json'
+      }
+    ]
   },
   'titres-statuts': {
     get: titresStatuts,
@@ -113,6 +124,10 @@ const metasIndex = {
       { id: 'renouvelable', nom: 'Renouvelable', type: Boolean }
     ]
   },
+  'titres-types--demarches-types': {
+    get: 'titresTypes__demarchesTypes',
+    nom: 'Types des titres | Types des démarches'
+  },
   'demarches-statuts': {
     get: demarchesStatuts,
     update: demarcheStatutModifier,
@@ -129,10 +144,6 @@ const metasIndex = {
       },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ]
-  },
-  'titres-types--demarches-types': {
-    get: 'titresTypes__demarchesTypes',
-    nom: 'Types des titres | Types des démarches'
   },
   'titres-types--demarches-statuts': {
     get: 'demarchesTypes__demarchesStatuts',
@@ -183,6 +194,10 @@ const metasIndex = {
       { id: 'entrepriseLecture', nom: 'Lecture entreprises', type: Boolean }
     ]
   },
+  'titres-types--demarches-types--etapes-types': {
+    get: 'titresTypes__demarchesTypes__etapesTypes',
+    nom: 'Types des titres | Types des démarches | types des étapes'
+  },
   'etapes-statuts': {
     get: etapesStatuts,
     update: etapeStatutModifier,
@@ -203,10 +218,6 @@ const metasIndex = {
   'etapes-types--etapes-statuts': {
     get: 'etapesTypes__etapesStatuts',
     nom: 'Types des étapes | Statuts des étapes'
-  },
-  'titres-types--demarches-types--etapes-types': {
-    get: 'titresTypes__demarchesTypes__etapesTypes',
-    nom: 'Types des titres | Types des démarches | types des étapes'
   },
   'travaux-types': {
     get: travauxTypes,

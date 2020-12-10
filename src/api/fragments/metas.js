@@ -30,10 +30,13 @@ const fragmentTitreStatut = gql`
 const fragmentTitreType = gql`
   fragment titreType on TitreType {
     id
+    typeId
+    domaineId
     type {
       ...titreTypeType
     }
     titresCreation
+    propsEtapesTypes
   }
   ${fragmentTitreTypeType}
 `
