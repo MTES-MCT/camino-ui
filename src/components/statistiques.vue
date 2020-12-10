@@ -29,9 +29,9 @@ export default {
         { id: 'globales', nom: 'Globales', name: 'statistiques-globales' },
         { id: 'guyane', nom: 'Guyane', name: 'statistiques-guyane' },
         {
-          id: 'granulatsMarins',
-          nom: 'Granulats Marins',
-          name: 'statistiques-granulatsMarins'
+          id: 'granulats-marins',
+          nom: 'Granulats marins',
+          name: 'statistiques-granulats-marins'
         }
       ]
     }

@@ -68,5 +68,38 @@ const statistiquesGuyane = apiGraphQLFetch(gql`
     }
   }
 `)
+const statistiquesGranulatsMarins = apiGraphQLFetch(gql`
+  query StatistiquesGranulatsMarins {
+    statistiquesGranulatsMarins {
+      annees {
+        annee
+        titresPrw {
+          quantite
+          surface
+        }
+        titresPxw {
+          quantite
+          surface
+        }
+        titresCxw {
+          quantite
+          surface
+        }
+        granulatsExtrait {
+          volumeGranulatsExtrait
+          masseGranulatsExtrait
+        }
+        activitesDeposesQuantite
+        activitesDeposesRatio
+      }
+      surfaceExploration
+      surfaceExploitation
+      titresInstructionPrw
+      titresValPrw
+      titresDmiCxw
+      titresValCxw
+    }
+  }
+`)
 
-export { statistiquesGlobales, statistiquesGuyane }
+export { statistiquesGlobales, statistiquesGuyane, statistiquesGranulatsMarins }

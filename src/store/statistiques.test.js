@@ -5,7 +5,8 @@ import Vuex from 'vuex'
 
 jest.mock('../api/statistiques', () => ({
   statistiquesGlobales: jest.fn(),
-  statistiquesGuyane: jest.fn()
+  statistiquesGuyane: jest.fn(),
+  statistiquesGranulatsMarins: jest.fn()
 }))
 
 console.info = jest.fn()
@@ -19,6 +20,7 @@ describe('page de statistiques', () => {
   let store
   let statistiquesGlobales
   let statistiquesGuyane
+  let statistiquesGranulatsMarins
 
   beforeEach(() => {
     statistiquesGlobales = {
@@ -38,9 +40,25 @@ describe('page de statistiques', () => {
       exemple: 'truc'
     }
 
+    statistiquesGranulatsMarins = {
+      annees: [
+        {
+          StatistiquesGranulatsMarinsAnnee:
+            'StatistiquesGranulatsMarinsAnnee2006'
+        }
+      ],
+      surfaceExploration: 86383,
+      surfaceExploitation: 20454,
+      titresInstructionPrw: 0,
+      titresValPrw: 2,
+      titresDmiCxw: 2,
+      titresValCxw: 21
+    }
+
     statistiques.state = {
       globales: {},
-      guyane: {}
+      guyane: {},
+      granulatsMarins: {}
     }
 
     mutations = {
@@ -77,6 +95,22 @@ describe('page de statistiques', () => {
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
     expect(store.state.statistiques.guyane).toEqual(statistiquesGuyane)
+
+    await store.dispatch('statistiques/get', 'pour avoir 100% de coverage')
+  })
+
+  test('récupère les statistiques sur les granulats marins', async () => {
+    const apiMock = api.statistiquesGranulatsMarins.mockResolvedValue(
+      statistiquesGranulatsMarins
+    )
+    await store.dispatch('statistiques/get', 'granulatsMarins')
+
+    expect(mutations.loadingAdd).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(store.state.statistiques.granulatsMarins).toEqual(
+      statistiquesGranulatsMarins
+    )
 
     await store.dispatch('statistiques/get', 'pour avoir 100% de coverage')
   })

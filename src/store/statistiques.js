@@ -1,9 +1,14 @@
 import Vue from 'vue'
-import { statistiquesGlobales, statistiquesGuyane } from '../api/statistiques'
+import {
+  statistiquesGlobales,
+  statistiquesGuyane,
+  statistiquesGranulatsMarins
+} from '../api/statistiques'
 
 export const state = {
   globales: {},
-  guyane: {}
+  guyane: {},
+  granulatsMarins: {}
 }
 
 export const actions = {
@@ -16,6 +21,8 @@ export const actions = {
         data = await statistiquesGlobales()
       } else if (section === 'guyane') {
         data = await statistiquesGuyane()
+      } else if (section === 'granulatsMarins') {
+        data = await statistiquesGranulatsMarins()
       }
 
       commit('set', { section: section, data })

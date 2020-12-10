@@ -36,7 +36,7 @@ const StatistiquesGuyane = () =>
   )
 const StatistiquesGranulatsMarins = () =>
   import(
-    /* webpackChunkName: "stats" */ '../components/statistiques/granulatsMarins.vue'
+    /* webpackChunkName: "stats" */ '../components/statistiques/granulats-marins.vue'
   )
 
 Vue.use(VueRouter)
@@ -170,8 +170,8 @@ const routes = [
         component: StatistiquesGlobales
       },
       {
-        path: 'granulatsMarins',
-        name: 'statistiques-granulatsMarins',
+        path: 'granulats-marins',
+        name: 'statistiques-granulats-marins',
         component: StatistiquesGranulatsMarins
       }
     ]
