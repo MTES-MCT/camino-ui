@@ -4,6 +4,7 @@ import {
   titresTypesTypes,
   titresStatuts,
   demarchesTypes,
+  travauxTypes,
   demarchesStatuts,
   etapesTypes,
   etapesStatuts,
@@ -13,6 +14,7 @@ import {
   titreTypeModifier,
   titreStatutModifier,
   demarcheTypeModifier,
+  travauxTypeModifier,
   demarcheStatutModifier,
   phaseStatutModifier,
   etapeTypeModifier,
@@ -193,8 +195,15 @@ const metasIndex = {
     nom: 'Types des titres | Types des démarches | types des étapes'
   },
   'travaux-types': {
-    get: 'travauxTypes',
-    nom: 'Types des travaux'
+    get: travauxTypes,
+    update: travauxTypeModifier,
+    nom: 'Types des travaux',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'description', nom: 'Description', type: String },
+      { id: 'ordre', nom: 'Ordre', type: Number }
+    ]
   },
   'travaux-types--demarches-statuts': {
     get: 'travauxTypes__demarchesStatuts',
