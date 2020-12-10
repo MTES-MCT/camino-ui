@@ -10,7 +10,14 @@ import {
   fragmentPhaseStatut,
   fragmentEtapeType,
   fragmentEtapeStatut,
-  fragmentTravauxType
+  fragmentTravauxType,
+  fragmentDevise,
+  fragmentUnite,
+  fragmentAdministrationType,
+  fragmentPermission,
+  fragmentDocumentType,
+  fragmentReferenceType,
+  fragmentGeoSysteme
 } from './fragments/metas'
 
 const definitions = apiGraphQLFetch(
@@ -246,6 +253,160 @@ const substancesLegales = apiGraphQLFetch(
   `
 )
 
+const unites = apiGraphQLFetch(
+  gql`
+    query unites {
+      unites {
+        ...unite
+      }
+    }
+
+    ${fragmentUnite}
+  `
+)
+
+const uniteModifier = apiGraphQLFetch(gql`
+  mutation UniteModifier($element: InputUnite!) {
+    uniteModifier(unite: $element) {
+      ...unite
+    }
+  }
+
+  ${fragmentUnite}
+`)
+
+const devises = apiGraphQLFetch(
+  gql`
+    query Devises {
+      devises {
+        ...devise
+      }
+    }
+
+    ${fragmentDevise}
+  `
+)
+
+const administrationsTypes = apiGraphQLFetch(
+  gql`
+    query AdministrationsTypes {
+      administrationsTypes {
+        ...administrationType
+      }
+    }
+
+    ${fragmentAdministrationType}
+  `
+)
+
+const deviseModifier = apiGraphQLFetch(gql`
+  mutation DeviseModifier($element: InputDevise!) {
+    deviseModifier(devise: $element) {
+      ...devise
+    }
+  }
+
+  ${fragmentDevise}
+`)
+
+const administrationTypeModifier = apiGraphQLFetch(gql`
+  mutation AdministrationTypeModifier($element: InputAdministrationType!) {
+    administrationTypeModifier(administrationType: $element) {
+      ...administrationType
+    }
+  }
+
+  ${fragmentAdministrationType}
+`)
+
+const permissions = apiGraphQLFetch(
+  gql`
+    query Permissions {
+      permissions {
+        ...permission
+      }
+    }
+
+    ${fragmentPermission}
+  `
+)
+
+const permissionModifier = apiGraphQLFetch(gql`
+  mutation permissionModifier($element: InputPermission!) {
+    permissionModifier(permission: $element) {
+      ...permission
+    }
+  }
+
+  ${fragmentPermission}
+`)
+
+const documentsTypes = apiGraphQLFetch(
+  gql`
+    query DocumentsTypes {
+      documentsTypes {
+        ...documentType
+      }
+    }
+
+    ${fragmentDocumentType}
+  `
+)
+
+const documentTypeModifier = apiGraphQLFetch(gql`
+  mutation documentTypeModifier($element: InputDocumentType!) {
+    documentTypeModifier(documentType: $element) {
+      ...documentType
+    }
+  }
+
+  ${fragmentDocumentType}
+`)
+
+const referencesTypes = apiGraphQLFetch(
+  gql`
+    query ReferencesTypes {
+      referencesTypes {
+        ...referenceType
+      }
+    }
+
+    ${fragmentReferenceType}
+  `
+)
+
+const referenceTypeModifier = apiGraphQLFetch(gql`
+  mutation ReferenceTypeModifier($element: InputReferenceType!) {
+    referenceTypeModifier(referenceType: $element) {
+      ...referenceType
+    }
+  }
+
+  ${fragmentReferenceType}
+`)
+
+const geoSystemes = apiGraphQLFetch(
+  gql`
+    query GeoSystemes {
+      geoSystemes {
+        ...geoSysteme
+      }
+    }
+
+    ${fragmentGeoSysteme}
+  `
+)
+
+const geoSystemeModifier = apiGraphQLFetch(gql`
+  mutation GeoSystemeModifier($element: InputGeoSysteme!) {
+    geoSystemeModifier(geoSysteme: $element) {
+      ...geoSysteme
+    }
+  }
+
+  ${fragmentGeoSysteme}
+`)
+
 export {
   definitions,
   definitionModifier,
@@ -267,5 +428,19 @@ export {
   etapeTypeModifier,
   etapesStatuts,
   etapeStatutModifier,
-  substancesLegales
+  substancesLegales,
+  permissions,
+  devises,
+  deviseModifier,
+  unites,
+  uniteModifier,
+  administrationsTypes,
+  administrationTypeModifier,
+  permissionModifier,
+  documentsTypes,
+  documentTypeModifier,
+  referencesTypes,
+  referenceTypeModifier,
+  geoSystemes,
+  geoSystemeModifier
 }

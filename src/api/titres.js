@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 
-import { fragmentTitreTypeType } from './fragments/metas'
+import { fragmentReferenceType, fragmentTitreTypeType } from './fragments/metas'
 import {
   fragmentTitre,
   fragmentTitres,
@@ -13,10 +13,11 @@ const titreMetas = apiGraphQLFetch(
   gql`
     query MetasTitre {
       referencesTypes {
-        id
-        nom
+        ...referenceType
       }
     }
+
+    ${fragmentReferenceType}
   `
 )
 

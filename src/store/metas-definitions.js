@@ -18,7 +18,21 @@ import {
   demarcheStatutModifier,
   phaseStatutModifier,
   etapeTypeModifier,
-  etapeStatutModifier
+  etapeStatutModifier,
+  devises,
+  deviseModifier,
+  unites,
+  uniteModifier,
+  administrationsTypes,
+  administrationTypeModifier,
+  permissions,
+  permissionModifier,
+  documentsTypes,
+  documentTypeModifier,
+  referencesTypes,
+  referenceTypeModifier,
+  geoSystemes,
+  geoSystemeModifier
 } from '../api/metas'
 
 const metasIndex = {
@@ -213,20 +227,85 @@ const metasIndex = {
     get: 'travauxTypes__etapesTypes',
     nom: 'Types des travaux | Types des étapes'
   },
-  devises: { get: 'devises', nom: 'Devises' },
-  unites: { get: 'unites', nom: 'Unités' },
-  'administrations-types': {
-    get: 'administrationsTypes',
-    nom: 'types des administrations'
+  devises: {
+    get: devises,
+    update: deviseModifier,
+    nom: 'Devises',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String }
+    ]
   },
-  permissions: { get: 'permissions', nom: 'Permissions' },
+  unites: {
+    get: unites,
+    update: uniteModifier,
+    nom: 'Unités',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'symbole', nom: 'Symbole', type: String },
+      { id: 'nom', nom: 'Nom', type: String }
+    ]
+  },
+  'administrations-types': {
+    get: administrationsTypes,
+    update: administrationTypeModifier,
+    nom: 'types des administrations',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'ordre', nom: 'Ordre', type: Number }
+    ]
+  },
+  permissions: {
+    get: permissions,
+    update: permissionModifier,
+    nom: 'Permissions',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'ordre', nom: 'Ordre', type: Number }
+    ]
+  },
   'documents-types': {
-    get: 'documentsTypes',
-    nom: 'Types des documents'
+    get: documentsTypes,
+    update: documentTypeModifier,
+    nom: 'Types des documents',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      {
+        id: 'repertoire',
+        nom: 'Répertoire',
+        type: Array,
+        elements: ['demarches', 'travaux', 'activites']
+      }
+    ]
   },
   'references-types': {
-    get: 'referencesTypes',
-    nom: 'Types des références'
+    get: referencesTypes,
+    update: referenceTypeModifier,
+    nom: 'Types des références',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String }
+    ]
+  },
+  'geo-systemes': {
+    get: geoSystemes,
+    update: geoSystemeModifier,
+    nom: 'Systèmes géographiques',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'ordre', nom: 'Ordre', type: Number },
+      {
+        id: 'uniteId',
+        nom: "Id de l'unité",
+        type: Array,
+        elements: ['met', 'deg', 'gon']
+      },
+      { id: 'definitionProj4', nom: 'Définition proj 4', type: String }
+    ]
   }
 }
 

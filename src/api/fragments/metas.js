@@ -4,6 +4,7 @@ const fragmentPermission = gql`
   fragment permission on Permission {
     id
     nom
+    ordre
   }
 `
 
@@ -52,6 +53,13 @@ const fragmentUnite = gql`
     id
     nom
     symbole
+  }
+`
+
+const fragmentDevise = gql`
+  fragment devise on Devise {
+    id
+    nom
   }
 `
 
@@ -150,6 +158,45 @@ const fragmentEtapeStatut = gql`
   }
 `
 
+const fragmentAdministrationType = gql`
+  fragment administrationType on AdministrationType {
+    id
+    nom
+    ordre
+  }
+`
+
+const fragmentDocumentType = gql`
+  fragment documentType on DocumentType {
+    id
+    nom
+    repertoire
+  }
+`
+
+const fragmentReferenceType = gql`
+  fragment referenceType on ReferenceType {
+    id
+    nom
+  }
+`
+
+const fragmentGeoSysteme = gql`
+  fragment geoSysteme on GeoSysteme {
+    id
+    nom
+    ordre
+    zone
+    uniteId
+    definitionProj4
+    unite {
+      ...unite
+    }
+
+    ${fragmentUnite}
+  }
+`
+
 export {
   fragmentTitreTypeType,
   fragmentTitreStatut,
@@ -157,11 +204,16 @@ export {
   fragmentEtapeStatut,
   fragmentPermission,
   fragmentUnite,
+  fragmentDevise,
   fragmentDemarcheType,
   fragmentDemarcheStatut,
   fragmentTitreType,
   fragmentTravauxType,
   fragmentDomaine,
   fragmentDefinition,
-  fragmentPhaseStatut
+  fragmentPhaseStatut,
+  fragmentAdministrationType,
+  fragmentDocumentType,
+  fragmentReferenceType,
+  fragmentGeoSysteme
 }

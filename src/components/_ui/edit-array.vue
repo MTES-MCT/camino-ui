@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 export default {
   props: {
     value: { type: String, required: true },
@@ -56,10 +54,6 @@ export default {
       if (!this.editable) {
         this.valueUpdated = this.value
         this.editable = !this.editable
-
-        Vue.nextTick(() => {
-          this.$refs.input.focus()
-        })
       }
     }
   }
