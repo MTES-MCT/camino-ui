@@ -100,8 +100,28 @@ const titresTypes = apiGraphQLFetch(
 )
 
 const titreTypeModifier = apiGraphQLFetch(gql`
-  mutation TitreTypeModifier($element: InputTitreType!) {
+  mutation TitreTypeModifier($element: InputTitreTypeModification!) {
     titreTypeModifier(titreType: $element) {
+      ...titreType
+    }
+  }
+
+  ${fragmentTitreType}
+`)
+
+const titreTypeCreer = apiGraphQLFetch(gql`
+  mutation TitreTypeCreer($element: InputTitreTypeCreation!) {
+    titreTypeCreer(titreType: $element) {
+      ...titreType
+    }
+  }
+
+  ${fragmentTitreType}
+`)
+
+const titreTypeSupprimer = apiGraphQLFetch(gql`
+  mutation TitreTypeSupprimer($elementId: ID!) {
+    titreTypeSupprimer(titreTypeId: $elementId) {
       ...titreType
     }
   }
@@ -467,5 +487,7 @@ export {
   referencesTypes,
   referenceTypeModifier,
   geoSystemes,
-  geoSystemeModifier
+  geoSystemeModifier,
+  titreTypeCreer,
+  titreTypeSupprimer
 }

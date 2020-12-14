@@ -33,7 +33,10 @@ import {
   referenceTypeModifier,
   geoSystemes,
   geoSystemeModifier,
-  titresTypes
+  titresTypes,
+  titreTypeModifier,
+  titreTypeCreer,
+  titreTypeSupprimer
 } from '../api/metas'
 
 const metasIndex = {
@@ -74,6 +77,9 @@ const metasIndex = {
   },
   'titres-types': {
     get: titresTypes,
+    update: titreTypeModifier,
+    create: titreTypeCreer,
+    delete: titreTypeSupprimer,
     nom: 'Domaines | Types des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -82,7 +88,8 @@ const metasIndex = {
       {
         id: 'propsEtapesTypes',
         nom: "Type d'étape des propriétés",
-        type: 'json'
+        type: 'json',
+        optional: true
       }
     ]
   },

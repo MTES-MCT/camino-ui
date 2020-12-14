@@ -20,6 +20,68 @@
               >
                 {{ colonne.nom }}
               </th>
+              <th v-if="definition.delete || definition.create" />
+            </tr>
+
+            <tr v-if="definition.create">
+              <td
+                v-for="colonne in definition.colonnes"
+                :key="colonne.id"
+                :class="colonne.class"
+              >
+                <input
+                  v-if="colonne.type === Number"
+                  v-model.number="elementNew[colonne.id]"
+                  type="number"
+                  class="p-s mb-s text-right"
+                  min="1"
+                />
+                <InputDate
+                  v-else-if="colonne.type === Date"
+                  v-model="elementNew[colonne.id]"
+                  class="mb-s"
+                />
+                <input
+                  v-else-if="colonne.type === Boolean"
+                  v-model="elementNew[colonne.id]"
+                  type="checkbox"
+                  class="p-s mb-s"
+                />
+                <select
+                  v-else-if="colonne.type === Array"
+                  v-model="elementNew[colonne.id]"
+                  class="py-xs px-s mb-s"
+                >
+                  <option
+                    v-for="element in colonne.elements"
+                    :key="element"
+                    :value="element"
+                  >
+                    {{ element }}
+                  </option>
+                </select>
+                <textarea
+                  v-else-if="colonne.type === String || colonne.type === 'json'"
+                  v-model="elementNew[colonne.id]"
+                  rows="1"
+                  class="p-s mb-s"
+                />
+                <input
+                  v-else
+                  v-model="elementNew[colonne.id]"
+                  type="text"
+                  class="p-s mb-s"
+                />
+              </td>
+              <td>
+                <button
+                  class="btn p-xs rnd-xs"
+                  :disabled="!elementNewComplete"
+                  @click="create"
+                >
+                  <i class="icon-24 icon-plus" />
+                </button>
+              </td>
             </tr>
 
             <tr v-for="element in elements" :key="element.id">
@@ -61,6 +123,11 @@
                 />
                 <div v-else>{{ element[colonne.id] }}</div>
               </td>
+              <td v-if="definition.delete || definition.create">
+                <button class="btn p-xs rnd-xs" @click="remove(element.id)">
+                  <i class="icon-24 icon-minus" />
+                </button>
+              </td>
             </tr>
           </table>
         </div>
@@ -76,6 +143,7 @@ import EditNumber from './_ui/edit-number.vue'
 import EditArray from './_ui/edit-array.vue'
 import EditBoolean from './_ui/edit-boolean.vue'
 import EditDate from './_ui/edit-date.vue'
+import InputDate from './_ui/input-date.vue'
 
 export default {
   components: {
@@ -84,13 +152,21 @@ export default {
     EditNumber,
     EditArray,
     EditBoolean,
-    EditDate
+    EditDate,
+    InputDate
+  },
+
+  data() {
+    return {
+      elementNew: {}
+    }
   },
 
   computed: {
     elements() {
       return this.$store.state.meta.elements
     },
+
     definition() {
       return this.$store.state.meta.definition
     },
@@ -101,6 +177,12 @@ export default {
 
     loaded() {
       return !!this.elements
+    },
+
+    elementNewComplete() {
+      return this.definition.colonnes.reduce((acc, c) => {
+        return acc && (!!this.elementNew[c.id] || c.optional)
+      }, true)
     }
   },
 
@@ -128,10 +210,27 @@ export default {
     },
 
     async update(content, elementId, colonneId) {
-      console.log(content, elementId, colonneId)
       await this.$store.dispatch('meta/update', {
         id: this.$route.params.id,
         element: { id: elementId, [colonneId]: content }
+      })
+    },
+
+    async create() {
+      await this.$store
+        .dispatch('meta/create', {
+          id: this.$route.params.id,
+          element: this.elementNew
+        })
+        .then(_ => {
+          this.elementNew = {}
+        })
+    },
+
+    async remove(elementId) {
+      await this.$store.dispatch('meta/delete', {
+        id: this.$route.params.id,
+        elementId
       })
     },
 
