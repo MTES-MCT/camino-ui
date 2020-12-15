@@ -9,7 +9,7 @@
       @params-update="update"
     />
 
-    <div class="desktop-blobs">
+    <div v-if="pagination" class="desktop-blobs">
       <div class="desktop-blob-3-4">
         <Pagination
           :active="page"
@@ -51,7 +51,8 @@ export default {
     page: { type: Number, default: 1 },
     column: { type: String, default: '' },
     order: { type: String, default: 'asc' },
-    total: { type: Number, required: true }
+    total: { type: Number, required: true },
+    pagination: { type: Boolean, default: true }
   },
 
   computed: {
@@ -62,6 +63,10 @@ export default {
 
   methods: {
     update(params) {
+      if (!Object.keys(params).includes('page') && this.pagination) {
+        Object.assign(params, { page: 1 })
+      }
+
       this.$emit('params-update', params)
     },
 
@@ -70,7 +75,7 @@ export default {
     },
 
     rangeUpdate(range) {
-      this.update({ range, page: 1 })
+      this.update({ range })
     }
   }
 }

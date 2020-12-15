@@ -2,7 +2,6 @@ import Vue from 'vue'
 import metasIndex from './metas-definitions'
 
 export const state = {
-  list: Object.keys(metasIndex).map(id => ({ id, nom: metasIndex[id].nom })),
   total: 0,
   params: [
     { id: 'colonne', type: 'string', elements: ['id', 'nom'] },
@@ -25,6 +24,19 @@ export const actions = {
     if (!state.loaded.url) {
       commit('load', 'url')
     }
+  }
+}
+
+export const getters = {
+  elements(state) {
+    const elements = Object.keys(metasIndex).map(id => ({
+      id,
+      nom: metasIndex[id].nom
+    }))
+
+    return state.preferences.table.ordre === 'desc'
+      ? elements.reverse()
+      : elements
   }
 }
 
@@ -54,6 +66,7 @@ export const mutations = {
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations
 }

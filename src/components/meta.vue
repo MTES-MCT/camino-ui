@@ -33,19 +33,20 @@
                   v-if="colonne.type === Number"
                   v-model.number="elementNew[colonne.id]"
                   type="number"
-                  class="p-s mb-s text-right"
+                  class="px-s py-xs mb-s text-right"
                   min="1"
                 />
                 <InputDate
                   v-else-if="colonne.type === Date"
                   v-model="elementNew[colonne.id]"
                   class="mb-s"
+                  :padding="'px-s py-xs'"
                 />
                 <input
                   v-else-if="colonne.type === Boolean"
                   v-model="elementNew[colonne.id]"
                   type="checkbox"
-                  class="p-s mb-s"
+                  class="px-s py-xs mb-s"
                 />
                 <select
                   v-else-if="colonne.type === Array"
@@ -64,13 +65,13 @@
                   v-else-if="colonne.type === String || colonne.type === 'json'"
                   v-model="elementNew[colonne.id]"
                   rows="1"
-                  class="p-s mb-s"
+                  class="px-s py-xs mb-s"
                 />
                 <input
                   v-else
                   v-model="elementNew[colonne.id]"
                   type="text"
-                  class="p-s mb-s"
+                  class="px-s py-xs mb-s"
                 />
               </td>
               <td>

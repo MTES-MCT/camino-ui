@@ -36,7 +36,7 @@ export default {
     },
 
     metas() {
-      return this.$store.state.metas.list
+      return this.$store.getters['metas/elements']
     },
 
     preferences() {
@@ -82,6 +82,7 @@ export default {
     },
 
     async preferencesUpdate(options) {
+      console.log(options)
       await this.$store.dispatch(`metas/preferencesSet`, options)
     }
   }

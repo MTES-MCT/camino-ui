@@ -58,6 +58,7 @@
       :range="preferences.table.intervalle"
       :order="preferences.table.ordre"
       :page="preferences.table.page"
+      :pagination="pagination"
       :total="total"
       @params-update="preferencesTableUpdate"
     />
@@ -128,6 +129,10 @@ export default {
 
         return p
       }, {})
+    },
+
+    pagination() {
+      return !!this.preferences.table.page
     }
   },
 
@@ -158,6 +163,7 @@ export default {
     },
 
     preferencesFiltresUpdate(params, pageReset) {
+      console.log('preferencesFiltresUpdate', params)
       this.$emit('preferences-update', {
         section: 'filtres',
         params,
