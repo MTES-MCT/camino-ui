@@ -36,7 +36,35 @@ import {
   titresTypes,
   titreTypeModifier,
   titreTypeCreer,
-  titreTypeSupprimer
+  titreTypeSupprimer,
+  titresTypesTitresStatuts,
+  titreTypeTitreStatutCreer,
+  titreTypeTitreStatutSupprimer,
+  titreTypeTitreStatutModifier
+  // titresTypesDemarchesTypes,
+  // titreTypeDemarcheTypeModifier,
+  // titreTypeDemarcheTypeCreer,
+  // titreTypeDemarcheTypeSupprimer,
+  // demarchesTypesDemarchesStatuts,
+  // demarcheTypeDemarcheStatutModifier,
+  // demarcheTypeDemarcheStatutCreer,
+  // demarcheTypeDemarcheStatutSupprimer,
+  // titresTypesDemarchesTypesEtapesTypes,
+  // titreTypeDemarcheTypeEtapeTypeModifier,
+  // titreTypeDemarcheTypeEtapeTypeCreer,
+  // titreTypeDemarcheTypeEtapeTypeSupprimer,
+  // etapesTypesEtapesStatuts,
+  // etapeTypeEtapeStatutModifier,
+  // etapeTypeEtapeStatutCreer,
+  // etapeTypeEtapeStatutSupprimer,
+  // travauxTypesDemarchesStatuts,
+  // travauxTypeDemarcheStatutModifier,
+  // travauxTypeDemarcheStatutCreer,
+  // travauxTypeDemarcheStatutSupprimer,
+  // travauxTypesEtapesTypes,
+  // travauxTypeEtapeTypeModifier,
+  // travauxTypeEtapeTypeCreer,
+  // travauxTypeEtapeTypeSupprimer
 } from '../api/metas'
 
 const metasIndex = {
@@ -111,8 +139,17 @@ const metasIndex = {
     ]
   },
   'titre-types--titres-statuts': {
-    get: 'titreTypes__titresStatuts',
-    nom: 'Types des titres | Statuts des titres'
+    get: titresTypesTitresStatuts,
+    update: titreTypeTitreStatutModifier,
+    create: titreTypeTitreStatutCreer,
+    delete: titreTypeTitreStatutSupprimer,
+    nom: 'Types des titres | Statuts des titres',
+    colonnes: [
+      { id: 'titreTypeId', nom: 'Id du type de titre' },
+      { id: 'titreStatutId', nom: 'Id du statut de titre' },
+      { id: 'publicLecture', nom: 'Public', type: Boolean }
+    ],
+    ids: ['titreTypeId', 'titreStatutId']
   },
   'demarches-types': {
     get: demarchesTypes,
@@ -132,7 +169,10 @@ const metasIndex = {
     ]
   },
   'titres-types--demarches-types': {
-    get: 'titresTypes__demarchesTypes',
+    // get: titresTypesDemarchesTypes,
+    // update: titreTypeDemarcheTypeModifier,
+    // create: titreTypeDemarcheTypeCreer,
+    // delete: titreTypeDemarcheTypeSupprimer,
     nom: 'Types des titres | Types des démarches'
   },
   'demarches-statuts': {
@@ -153,7 +193,10 @@ const metasIndex = {
     ]
   },
   'titres-types--demarches-statuts': {
-    get: 'demarchesTypes__demarchesStatuts',
+    // get: demarchesTypesDemarchesStatuts,
+    // update: demarcheTypeDemarcheStatutModifier,
+    // create: demarcheTypeDemarcheStatutCreer,
+    // delete: demarcheTypeDemarcheStatutSupprimer,
     nom: 'Types des démarches | Statuts des démarches'
   },
   'phases-statuts': {
@@ -202,7 +245,10 @@ const metasIndex = {
     ]
   },
   'titres-types--demarches-types--etapes-types': {
-    get: 'titresTypes__demarchesTypes__etapesTypes',
+    // get: titresTypesDemarchesTypesEtapesTypes,
+    // update: titreTypeDemarcheTypeEtapeTypeModifier,
+    // create: titreTypeDemarcheTypeEtapeTypeCreer,
+    // delete: titreTypeDemarcheTypeEtapeTypeSupprimer,
     nom: 'Types des titres | Types des démarches | types des étapes'
   },
   'etapes-statuts': {
@@ -223,7 +269,10 @@ const metasIndex = {
     ]
   },
   'etapes-types--etapes-statuts': {
-    get: 'etapesTypes__etapesStatuts',
+    // get: etapesTypesEtapesStatuts,
+    // update: etapeTypeEtapeStatutModifier,
+    // create: etapeTypeEtapeStatutCreer,
+    // delete: etapeTypeEtapeStatutSupprimer,
     nom: 'Types des étapes | Statuts des étapes'
   },
   'travaux-types': {
@@ -238,11 +287,17 @@ const metasIndex = {
     ]
   },
   'travaux-types--demarches-statuts': {
-    get: 'travauxTypes__demarchesStatuts',
+    // get: travauxTypesDemarchesStatuts,
+    // update: travauxTypeDemarcheStatutModifier,
+    // create: travauxTypeDemarcheStatutCreer,
+    // delete: travauxTypeDemarcheStatutSupprimer,
     nom: 'Types des travaux | Statuts des travaux (démarches)'
   },
   'travaux-types--etapes-types': {
-    get: 'travauxTypes__etapesTypes',
+    // get: travauxTypesEtapesTypes,
+    // update: travauxTypeEtapeTypeModifier,
+    // create: travauxTypeEtapeTypeCreer,
+    // delete: travauxTypeEtapeTypeSupprimer,
     nom: 'Types des travaux | Types des étapes'
   },
   devises: {

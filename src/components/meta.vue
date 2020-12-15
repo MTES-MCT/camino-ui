@@ -85,47 +85,47 @@
               </td>
             </tr>
 
-            <tr v-for="element in elements" :key="element.id">
+            <tr v-for="element in elements" :key="elementKeyFind(element)">
               <td v-for="colonne in definition.colonnes" :key="colonne.id">
                 <EditNumber
-                  v-if="colonne.type === Number"
+                  v-if="definition.update && colonne.type === Number"
                   :value="element[colonne.id]"
-                  @update="update($event, element.id, colonne.id)"
+                  @update="update($event, element, colonne.id)"
                 />
                 <EditDate
-                  v-else-if="colonne.type === Date"
+                  v-else-if="definition.update && colonne.type === Date"
                   :value="element[colonne.id] || ''"
-                  @update="update($event, element.id, colonne.id)"
+                  @update="update($event, element, colonne.id)"
                 />
                 <EditBoolean
-                  v-else-if="colonne.type === Boolean"
+                  v-else-if="definition.update && colonne.type === Boolean"
                   :value="element[colonne.id] || false"
-                  @update="update($event, element.id, colonne.id)"
+                  @update="update($event, element, colonne.id)"
                 />
                 <EditArray
-                  v-else-if="colonne.type === Array"
+                  v-else-if="definition.update && colonne.type === Array"
                   :value="element[colonne.id] || ''"
                   :elements="colonne.elements"
-                  @update="update($event, element.id, colonne.id)"
+                  @update="update($event, element, colonne.id)"
                 />
                 <EditString
-                  v-else-if="colonne.type === 'json'"
+                  v-else-if="definition.update && colonne.type === 'json'"
                   :value="
                     element[colonne.id]
                       ? JSON.stringify(element[colonne.id])
                       : ''
                   "
-                  @update="update(JSON.parse($event), element.id, colonne.id)"
+                  @update="update(JSON.parse($event), element, colonne.id)"
                 />
                 <EditString
-                  v-else-if="colonne.type === String"
+                  v-else-if="definition.update && colonne.type === String"
                   :value="element[colonne.id] || ''"
-                  @update="update($event, element.id, colonne.id)"
+                  @update="update($event, element, colonne.id)"
                 />
                 <div v-else>{{ element[colonne.id] }}</div>
               </td>
               <td v-if="definition.delete || definition.create">
-                <button class="btn p-xs rnd-xs" @click="remove(element.id)">
+                <button class="btn p-xs rnd-xs" @click="remove(element)">
                   <i class="icon-24 icon-minus" />
                 </button>
               </td>
@@ -210,10 +210,10 @@ export default {
       // }
     },
 
-    async update(content, elementId, colonneId) {
+    async update(content, element, colonneId) {
       await this.$store.dispatch('meta/update', {
         id: this.$route.params.id,
-        element: { id: elementId, [colonneId]: content }
+        element: { [colonneId]: content, ...this.idsFind(element) }
       })
     },
 
@@ -228,15 +228,31 @@ export default {
         })
     },
 
-    async remove(elementId) {
+    async remove(element) {
       await this.$store.dispatch('meta/delete', {
         id: this.$route.params.id,
-        elementId
+        element: this.idsFind(element)
       })
     },
 
     focus(e) {
       console.log(e)
+    },
+
+    idsFind(element) {
+      return this.definition.ids
+        ? this.definition.ids.reduce((ids, id) => {
+            ids[id] = element[id]
+
+            return ids
+          }, {})
+        : { id: element.id }
+    },
+
+    elementKeyFind(element) {
+      if (!this.definition.ids) return element.id
+
+      return this.definition.ids.map(id => element[id]).join('-')
     }
   }
 }

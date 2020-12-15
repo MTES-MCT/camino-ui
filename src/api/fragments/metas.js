@@ -200,6 +200,14 @@ const fragmentGeoSysteme = gql`
   }
 `
 
+const fragmentTitreTypeTitreStatut = gql`
+  fragment titreTypeTitreStatut on TitreTypeTitreStatut {
+    titreTypeId
+    titreStatutId
+    publicLecture
+  }
+`
+
 export {
   fragmentTitreTypeType,
   fragmentTitreStatut,
@@ -218,5 +226,6 @@ export {
   fragmentAdministrationType,
   fragmentDocumentType,
   fragmentReferenceType,
-  fragmentGeoSysteme
+  fragmentGeoSysteme,
+  fragmentTitreTypeTitreStatut
 }

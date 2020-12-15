@@ -61,13 +61,13 @@ export const actions = {
     }
   },
 
-  async delete({ dispatch, commit }, { id, elementId }) {
+  async delete({ dispatch, commit }, { id, element }) {
     commit('loadingAdd', 'metaDelete', { root: true })
 
     try {
       if (metasIndex[id]) {
         const definition = metasIndex[id]
-        const elements = await definition.delete({ elementId })
+        const elements = await definition.delete({ element })
 
         commit('set', { elements, definition })
       }

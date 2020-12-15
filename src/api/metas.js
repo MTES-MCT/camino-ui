@@ -18,7 +18,8 @@ import {
   fragmentDocumentType,
   fragmentReferenceType,
   fragmentGeoSysteme,
-  fragmentTitreType
+  fragmentTitreType,
+  fragmentTitreTypeTitreStatut
 } from './fragments/metas'
 
 const definitions = apiGraphQLFetch(
@@ -85,48 +86,6 @@ const titreTypeTypeModifier = apiGraphQLFetch(gql`
   }
 
   ${fragmentTitreTypeType}
-`)
-
-const titresTypes = apiGraphQLFetch(
-  gql`
-    query TitresTypes {
-      titresTypes {
-        ...titreType
-      }
-    }
-
-    ${fragmentTitreType}
-  `
-)
-
-const titreTypeModifier = apiGraphQLFetch(gql`
-  mutation TitreTypeModifier($element: InputTitreTypeModification!) {
-    titreTypeModifier(titreType: $element) {
-      ...titreType
-    }
-  }
-
-  ${fragmentTitreType}
-`)
-
-const titreTypeCreer = apiGraphQLFetch(gql`
-  mutation TitreTypeCreer($element: InputTitreTypeCreation!) {
-    titreTypeCreer(titreType: $element) {
-      ...titreType
-    }
-  }
-
-  ${fragmentTitreType}
-`)
-
-const titreTypeSupprimer = apiGraphQLFetch(gql`
-  mutation TitreTypeSupprimer($elementId: ID!) {
-    titreTypeSupprimer(titreTypeId: $elementId) {
-      ...titreType
-    }
-  }
-
-  ${fragmentTitreType}
 `)
 
 const titreStatutModifier = apiGraphQLFetch(gql`
@@ -450,6 +409,92 @@ const geoSystemeModifier = apiGraphQLFetch(gql`
   ${fragmentGeoSysteme}
 `)
 
+const titresTypes = apiGraphQLFetch(
+  gql`
+    query TitresTypes {
+      titresTypes {
+        ...titreType
+      }
+    }
+
+    ${fragmentTitreType}
+  `
+)
+
+// tables de jointure
+
+const titreTypeModifier = apiGraphQLFetch(gql`
+  mutation TitreTypeModifier($element: InputTitreTypeModification!) {
+    titreTypeModifier(titreType: $element) {
+      ...titreType
+    }
+  }
+
+  ${fragmentTitreType}
+`)
+
+const titreTypeCreer = apiGraphQLFetch(gql`
+  mutation TitreTypeCreer($element: InputTitreTypeCreation!) {
+    titreTypeCreer(titreType: $element) {
+      ...titreType
+    }
+  }
+
+  ${fragmentTitreType}
+`)
+
+const titreTypeSupprimer = apiGraphQLFetch(gql`
+  mutation TitreTypeSupprimer($element: InputTitreTypeModification!) {
+    titreTypeSupprimer(titreType: $element) {
+      ...titreType
+    }
+  }
+
+  ${fragmentTitreType}
+`)
+
+const titresTypesTitresStatuts = apiGraphQLFetch(
+  gql`
+    query titresTypesTitresStatuts {
+      titresTypesTitresStatuts {
+        ...titreTypeTitreStatut
+      }
+    }
+
+    ${fragmentTitreTypeTitreStatut}
+  `
+)
+
+const titreTypeTitreStatutModifier = apiGraphQLFetch(gql`
+  mutation TitreTypeTitreStatutModifier($element: InputTitreTypeTitreStatut!) {
+    titreTypeTitreStatutModifier(titreTypeTitreStatut: $element) {
+      ...titreTypeTitreStatut
+    }
+  }
+
+  ${fragmentTitreTypeTitreStatut}
+`)
+
+const titreTypeTitreStatutCreer = apiGraphQLFetch(gql`
+  mutation TitreTypeTitreStatutCreer($element: InputTitreTypeTitreStatut!) {
+    titreTypeTitreStatutCreer(titreTypeTitreStatut: $element) {
+      ...titreTypeTitreStatut
+    }
+  }
+
+  ${fragmentTitreTypeTitreStatut}
+`)
+
+const titreTypeTitreStatutSupprimer = apiGraphQLFetch(gql`
+  mutation titreTypeTitreStatutSupprimer($element: InputTitreTypeTitreStatut!) {
+    titreTypeTitreStatutSupprimer(titreTypeTitreStatut: $element) {
+      ...titreTypeTitreStatut
+    }
+  }
+
+  ${fragmentTitreTypeTitreStatut}
+`)
+
 export {
   definitions,
   definitionModifier,
@@ -457,8 +502,6 @@ export {
   domaineModifier,
   titresTypesTypes,
   titreTypeTypeModifier,
-  titresTypes,
-  titreTypeModifier,
   titresStatuts,
   titreStatutModifier,
   demarchesTypes,
@@ -488,6 +531,36 @@ export {
   referenceTypeModifier,
   geoSystemes,
   geoSystemeModifier,
+  titresTypes,
+  titreTypeModifier,
   titreTypeCreer,
-  titreTypeSupprimer
+  titreTypeSupprimer,
+  titresTypesTitresStatuts,
+  titreTypeTitreStatutModifier,
+  titreTypeTitreStatutCreer,
+  titreTypeTitreStatutSupprimer
+  // titresTypesDemarchesTypes,
+  // titreTypeDemarcheTypeModifier,
+  // titreTypeDemarcheTypeCreer,
+  // titreTypeDemarcheTypeSupprimer,
+  // demarchesTypesDemarchesStatuts,
+  // demarcheTypeDemarcheStatutModifier,
+  // demarcheTypeDemarcheStatutCreer,
+  // demarcheTypeDemarcheStatutSupprimer,
+  // titresTypesDemarchesTypesEtapesTypes,
+  // titreTypeDemarcheTypeEtapeTypeModifier,
+  // titreTypeDemarcheTypeEtapeTypeCreer,
+  // titreTypeDemarcheTypeEtapeTypeSupprimer,
+  // etapesTypesEtapesStatuts,
+  // etapeTypeEtapeStatutModifier,
+  // etapeTypeEtapeStatutCreer,
+  // etapeTypeEtapeStatutSupprimer,
+  // travauxTypesDemarchesStatuts,
+  // travauxTypeDemarcheStatutModifier,
+  // travauxTypeDemarcheStatutCreer,
+  // travauxTypeDemarcheStatutSupprimer,
+  // travauxTypesEtapesTypes,
+  // travauxTypeEtapeTypeModifier,
+  // travauxTypeEtapeTypeCreer,
+  // travauxTypeEtapeTypeSupprimer
 }
