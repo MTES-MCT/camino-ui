@@ -21,10 +21,8 @@ import {
   fragmentTitreType,
   fragmentTitreTypeTitreStatut,
   fragmentTitreTypeDemarcheType,
-  fragmentDemarcheTypeDemarcheStatut,
   fragmentTitreTypeDemarcheTypeEtapeType,
   fragmentEtapeTypeEtapeStatut,
-  fragmentTravauxTypeDemarcheStatut,
   fragmentTravauxTypeEtapeType
 } from './fragments/metas'
 
@@ -547,54 +545,6 @@ const titreTypeDemarcheTypeSupprimer = apiGraphQLFetch(gql`
   ${fragmentTitreTypeDemarcheType}
 `)
 
-const demarchesTypesDemarchesStatuts = apiGraphQLFetch(
-  gql`
-    query DemarchesTypesDemarchesStatuts {
-      demarchesTypesDemarchesStatuts {
-        ...demarcheTypeDemarcheStatut
-      }
-    }
-
-    ${fragmentDemarcheTypeDemarcheStatut}
-  `
-)
-
-const demarcheTypeDemarcheStatutModifier = apiGraphQLFetch(gql`
-  mutation DemarcheTypeDemarcheStatutModifier(
-    $element: InputDemarcheTypeDemarcheStatut!
-  ) {
-    demarcheTypeDemarcheStatutModifier(demarcheTypeDemarcheStatut: $element) {
-      ...demarcheTypeDemarcheStatut
-    }
-  }
-
-  ${fragmentDemarcheTypeDemarcheStatut}
-`)
-
-const demarcheTypeDemarcheStatutCreer = apiGraphQLFetch(gql`
-  mutation DemarcheTypeDemarcheStatutCreer(
-    $element: InputDemarcheTypeDemarcheStatut!
-  ) {
-    demarcheTypeDemarcheStatutCreer(demarcheTypeDemarcheStatut: $element) {
-      ...demarcheTypeDemarcheStatut
-    }
-  }
-
-  ${fragmentDemarcheTypeDemarcheStatut}
-`)
-
-const demarcheTypeDemarcheStatutSupprimer = apiGraphQLFetch(gql`
-  mutation DemarcheTypeDemarcheStatutSupprimer(
-    $element: InputDemarcheTypeDemarcheStatut!
-  ) {
-    demarcheTypeDemarcheStatutSupprimer(demarcheTypeDemarcheStatut: $element) {
-      ...demarcheTypeDemarcheStatut
-    }
-  }
-
-  ${fragmentDemarcheTypeDemarcheStatut}
-`)
-
 const titresTypesDemarchesTypesEtapesTypes = apiGraphQLFetch(
   gql`
     query TitresTypesDemarchesTypesEtapesTypes {
@@ -691,54 +641,6 @@ const etapeTypeEtapeStatutSupprimer = apiGraphQLFetch(gql`
   ${fragmentEtapeTypeEtapeStatut}
 `)
 
-const travauxTypesDemarchesStatuts = apiGraphQLFetch(
-  gql`
-    query TravauxTypesDemarchesStatuts {
-      travauxTypesDemarchesStatuts {
-        ...travauxTypeDemarcheStatut
-      }
-    }
-
-    ${fragmentTravauxTypeDemarcheStatut}
-  `
-)
-
-const travauxTypeDemarcheStatutModifier = apiGraphQLFetch(gql`
-  mutation TravauxTypeDemarcheStatutModifier(
-    $element: InputTravauxTypeDemarcheStatut!
-  ) {
-    travauxTypeDemarcheStatutModifier(travauxTypeDemarcheStatut: $element) {
-      ...travauxTypeDemarcheStatut
-    }
-  }
-
-  ${fragmentTravauxTypeDemarcheStatut}
-`)
-
-const travauxTypeDemarcheStatutCreer = apiGraphQLFetch(gql`
-  mutation TravauxTypeDemarcheStatutCreer(
-    $element: InputTravauxTypeDemarcheStatut!
-  ) {
-    travauxTypeDemarcheStatutCreer(travauxTypeDemarcheStatut: $element) {
-      ...travauxTypeDemarcheStatut
-    }
-  }
-
-  ${fragmentTravauxTypeDemarcheStatut}
-`)
-
-const travauxTypeDemarcheStatutSupprimer = apiGraphQLFetch(gql`
-  mutation TravauxTypeDemarcheStatutSupprimer(
-    $element: InputTravauxTypeDemarcheStatut!
-  ) {
-    travauxTypeDemarcheStatutSupprimer(travauxTypeDemarcheStatut: $element) {
-      ...travauxTypeDemarcheStatut
-    }
-  }
-
-  ${fragmentTravauxTypeDemarcheStatut}
-`)
-
 const travauxTypesEtapesTypes = apiGraphQLFetch(
   gql`
     query TravauxTypesEtapesTypes {
@@ -829,10 +731,6 @@ export {
   titreTypeDemarcheTypeModifier,
   titreTypeDemarcheTypeCreer,
   titreTypeDemarcheTypeSupprimer,
-  demarchesTypesDemarchesStatuts,
-  demarcheTypeDemarcheStatutModifier,
-  demarcheTypeDemarcheStatutCreer,
-  demarcheTypeDemarcheStatutSupprimer,
   titresTypesDemarchesTypesEtapesTypes,
   titreTypeDemarcheTypeEtapeTypeModifier,
   titreTypeDemarcheTypeEtapeTypeCreer,
@@ -841,10 +739,6 @@ export {
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,
   etapeTypeEtapeStatutSupprimer,
-  travauxTypesDemarchesStatuts,
-  travauxTypeDemarcheStatutModifier,
-  travauxTypeDemarcheStatutCreer,
-  travauxTypeDemarcheStatutSupprimer,
   travauxTypesEtapesTypes,
   travauxTypeEtapeTypeModifier,
   travauxTypeEtapeTypeCreer,

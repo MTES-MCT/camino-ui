@@ -45,10 +45,6 @@ import {
   titreTypeDemarcheTypeModifier,
   titreTypeDemarcheTypeCreer,
   titreTypeDemarcheTypeSupprimer,
-  demarchesTypesDemarchesStatuts,
-  demarcheTypeDemarcheStatutModifier,
-  demarcheTypeDemarcheStatutCreer,
-  demarcheTypeDemarcheStatutSupprimer,
   titresTypesDemarchesTypesEtapesTypes,
   titreTypeDemarcheTypeEtapeTypeModifier,
   titreTypeDemarcheTypeEtapeTypeCreer,
@@ -57,10 +53,6 @@ import {
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,
   etapeTypeEtapeStatutSupprimer,
-  travauxTypesDemarchesStatuts,
-  travauxTypeDemarcheStatutModifier,
-  travauxTypeDemarcheStatutCreer,
-  travauxTypeDemarcheStatutSupprimer,
   travauxTypesEtapesTypes,
   travauxTypeEtapeTypeModifier,
   travauxTypeEtapeTypeCreer,
@@ -218,19 +210,6 @@ const metasIndex = {
       { id: 'ordre', nom: 'Ordre', type: Number }
     ]
   },
-  'titres-types--demarches-statuts': {
-    get: demarchesTypesDemarchesStatuts,
-    update: demarcheTypeDemarcheStatutModifier,
-    create: demarcheTypeDemarcheStatutCreer,
-    delete: demarcheTypeDemarcheStatutSupprimer,
-    nom: 'Types des démarches | Statuts des démarches',
-    colonnes: [
-      { id: 'titreTypeId', nom: 'Id du type de titre' },
-      { id: 'demarcheStatutId', nom: 'Id du statut de démarche' },
-      { id: 'ordre', nom: 'Ordre', type: Number }
-    ],
-    ids: ['titreTypeId', 'demarcheStatutId']
-  },
   'phases-statuts': {
     get: phasesStatuts,
     update: phaseStatutModifier,
@@ -353,19 +332,6 @@ const metasIndex = {
       { id: 'description', nom: 'Description', type: String, optional: true },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ]
-  },
-  'travaux-types--demarches-statuts': {
-    get: travauxTypesDemarchesStatuts,
-    update: travauxTypeDemarcheStatutModifier,
-    create: travauxTypeDemarcheStatutCreer,
-    delete: travauxTypeDemarcheStatutSupprimer,
-    nom: 'Types des travaux | Statuts des travaux (démarches)',
-    colonnes: [
-      { id: 'travauxTypeId', nom: 'Id du type de travaux' },
-      { id: 'demarcheStatutId', nom: 'Id du statut de démarche' },
-      { id: 'ordre', nom: 'Ordre', type: Number }
-    ],
-    ids: ['travauxTypeId', 'demarcheStatutId']
   },
   'travaux-types--etapes-types': {
     get: travauxTypesEtapesTypes,
