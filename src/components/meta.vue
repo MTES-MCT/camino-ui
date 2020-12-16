@@ -16,6 +16,7 @@
               <th
                 v-for="colonne in definition.colonnes"
                 :key="colonne.id"
+                class="min-width-5"
                 :class="colonne.class"
               >
                 {{ colonne.nom }}

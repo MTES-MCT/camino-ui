@@ -19,7 +19,13 @@ import {
   fragmentReferenceType,
   fragmentGeoSysteme,
   fragmentTitreType,
-  fragmentTitreTypeTitreStatut
+  fragmentTitreTypeTitreStatut,
+  fragmentTitreTypeDemarcheType,
+  fragmentDemarcheTypeDemarcheStatut,
+  fragmentTitreTypeDemarcheTypeEtapeType,
+  fragmentEtapeTypeEtapeStatut,
+  fragmentTravauxTypeDemarcheStatut,
+  fragmentTravauxTypeEtapeType
 } from './fragments/metas'
 
 const definitions = apiGraphQLFetch(
@@ -145,7 +151,7 @@ const travauxTypes = apiGraphQLFetch(
 )
 
 const travauxTypeModifier = apiGraphQLFetch(gql`
-  mutation travauxTypeModifier($element: InputTravauxType!) {
+  mutation TravauxTypeModifier($element: InputTravauxType!) {
     travauxTypeModifier(travauxType: $element) {
       ...travauxType
     }
@@ -455,7 +461,7 @@ const titreTypeSupprimer = apiGraphQLFetch(gql`
 
 const titresTypesTitresStatuts = apiGraphQLFetch(
   gql`
-    query titresTypesTitresStatuts {
+    query TitresTypesTitresStatuts {
       titresTypesTitresStatuts {
         ...titreTypeTitreStatut
       }
@@ -493,6 +499,286 @@ const titreTypeTitreStatutSupprimer = apiGraphQLFetch(gql`
   }
 
   ${fragmentTitreTypeTitreStatut}
+`)
+
+const titresTypesDemarchesTypes = apiGraphQLFetch(
+  gql`
+    query TitresTypesDemarchesTypes {
+      titresTypesDemarchesTypes {
+        ...titreTypeDemarcheType
+      }
+    }
+
+    ${fragmentTitreTypeDemarcheType}
+  `
+)
+
+const titreTypeDemarcheTypeModifier = apiGraphQLFetch(gql`
+  mutation TitreTypeDemarcheTypeModifier(
+    $element: InputTitreTypeDemarcheType!
+  ) {
+    titreTypeDemarcheTypeModifier(titreTypeDemarcheType: $element) {
+      ...titreTypeDemarcheType
+    }
+  }
+
+  ${fragmentTitreTypeDemarcheType}
+`)
+
+const titreTypeDemarcheTypeCreer = apiGraphQLFetch(gql`
+  mutation TitreTypeDemarcheTypeCreer($element: InputTitreTypeDemarcheType!) {
+    titreTypeDemarcheTypeCreer(titreTypeDemarcheType: $element) {
+      ...titreTypeDemarcheType
+    }
+  }
+
+  ${fragmentTitreTypeDemarcheType}
+`)
+
+const titreTypeDemarcheTypeSupprimer = apiGraphQLFetch(gql`
+  mutation TitreTypeDemarcheTypeSupprimer(
+    $element: InputTitreTypeDemarcheType!
+  ) {
+    titreTypeDemarcheTypeSupprimer(titreTypeDemarcheType: $element) {
+      ...titreTypeDemarcheType
+    }
+  }
+
+  ${fragmentTitreTypeDemarcheType}
+`)
+
+const demarchesTypesDemarchesStatuts = apiGraphQLFetch(
+  gql`
+    query DemarchesTypesDemarchesStatuts {
+      demarchesTypesDemarchesStatuts {
+        ...demarcheTypeDemarcheStatut
+      }
+    }
+
+    ${fragmentDemarcheTypeDemarcheStatut}
+  `
+)
+
+const demarcheTypeDemarcheStatutModifier = apiGraphQLFetch(gql`
+  mutation DemarcheTypeDemarcheStatutModifier(
+    $element: InputDemarcheTypeDemarcheStatut!
+  ) {
+    demarcheTypeDemarcheStatutModifier(demarcheTypeDemarcheStatut: $element) {
+      ...demarcheTypeDemarcheStatut
+    }
+  }
+
+  ${fragmentDemarcheTypeDemarcheStatut}
+`)
+
+const demarcheTypeDemarcheStatutCreer = apiGraphQLFetch(gql`
+  mutation DemarcheTypeDemarcheStatutCreer(
+    $element: InputDemarcheTypeDemarcheStatut!
+  ) {
+    demarcheTypeDemarcheStatutCreer(demarcheTypeDemarcheStatut: $element) {
+      ...demarcheTypeDemarcheStatut
+    }
+  }
+
+  ${fragmentDemarcheTypeDemarcheStatut}
+`)
+
+const demarcheTypeDemarcheStatutSupprimer = apiGraphQLFetch(gql`
+  mutation DemarcheTypeDemarcheStatutSupprimer(
+    $element: InputDemarcheTypeDemarcheStatut!
+  ) {
+    demarcheTypeDemarcheStatutSupprimer(demarcheTypeDemarcheStatut: $element) {
+      ...demarcheTypeDemarcheStatut
+    }
+  }
+
+  ${fragmentDemarcheTypeDemarcheStatut}
+`)
+
+const titresTypesDemarchesTypesEtapesTypes = apiGraphQLFetch(
+  gql`
+    query TitresTypesDemarchesTypesEtapesTypes {
+      titresTypesDemarchesTypesEtapesTypes {
+        ...titreTypeDemarcheTypeEtapeType
+      }
+    }
+
+    ${fragmentTitreTypeDemarcheTypeEtapeType}
+  `
+)
+
+const titreTypeDemarcheTypeEtapeTypeModifier = apiGraphQLFetch(gql`
+  mutation TitreTypeDemarcheTypeEtapeTypeModifier(
+    $element: InputTitreTypeDemarcheTypeEtapeType!
+  ) {
+    titreTypeDemarcheTypeEtapeTypeModifier(
+      titreTypeDemarcheTypeEtapeType: $element
+    ) {
+      ...titreTypeDemarcheTypeEtapeType
+    }
+  }
+
+  ${fragmentTitreTypeDemarcheTypeEtapeType}
+`)
+
+const titreTypeDemarcheTypeEtapeTypeCreer = apiGraphQLFetch(gql`
+  mutation TitreTypeDemarcheTypeEtapeTypeCreer(
+    $element: InputTitreTypeDemarcheTypeEtapeType!
+  ) {
+    titreTypeDemarcheTypeEtapeTypeCreer(
+      titreTypeDemarcheTypeEtapeType: $element
+    ) {
+      ...titreTypeDemarcheTypeEtapeType
+    }
+  }
+
+  ${fragmentTitreTypeDemarcheTypeEtapeType}
+`)
+
+const titreTypeDemarcheTypeEtapeTypeSupprimer = apiGraphQLFetch(gql`
+  mutation TitreTypeDemarcheTypeEtapeTypeSupprimer(
+    $element: InputTitreTypeDemarcheTypeEtapeType!
+  ) {
+    titreTypeDemarcheTypeEtapeTypeSupprimer(
+      titreTypeDemarcheTypeEtapeType: $element
+    ) {
+      ...titreTypeDemarcheTypeEtapeType
+    }
+  }
+
+  ${fragmentTitreTypeDemarcheTypeEtapeType}
+`)
+
+const etapesTypesEtapesStatuts = apiGraphQLFetch(
+  gql`
+    query EtapesTypesEtapesStatuts {
+      etapesTypesEtapesStatuts {
+        ...etapeTypeEtapeStatut
+      }
+    }
+
+    ${fragmentEtapeTypeEtapeStatut}
+  `
+)
+
+const etapeTypeEtapeStatutModifier = apiGraphQLFetch(gql`
+  mutation EtapeTypeEtapeStatutModifier($element: InputEtapeTypeEtapeStatut!) {
+    etapeTypeEtapeStatutModifier(etapeTypeEtapeStatut: $element) {
+      ...etapeTypeEtapeStatut
+    }
+  }
+
+  ${fragmentEtapeTypeEtapeStatut}
+`)
+
+const etapeTypeEtapeStatutCreer = apiGraphQLFetch(gql`
+  mutation EtapeTypeEtapeStatutCreer($element: InputEtapeTypeEtapeStatut!) {
+    etapeTypeEtapeStatutCreer(etapeTypeEtapeStatut: $element) {
+      ...etapeTypeEtapeStatut
+    }
+  }
+
+  ${fragmentEtapeTypeEtapeStatut}
+`)
+
+const etapeTypeEtapeStatutSupprimer = apiGraphQLFetch(gql`
+  mutation EtapeTypeEtapeStatutSupprimer($element: InputEtapeTypeEtapeStatut!) {
+    etapeTypeEtapeStatutSupprimer(etapeTypeEtapeStatut: $element) {
+      ...etapeTypeEtapeStatut
+    }
+  }
+
+  ${fragmentEtapeTypeEtapeStatut}
+`)
+
+const travauxTypesDemarchesStatuts = apiGraphQLFetch(
+  gql`
+    query TravauxTypesDemarchesStatuts {
+      travauxTypesDemarchesStatuts {
+        ...travauxTypeDemarcheStatut
+      }
+    }
+
+    ${fragmentTravauxTypeDemarcheStatut}
+  `
+)
+
+const travauxTypeDemarcheStatutModifier = apiGraphQLFetch(gql`
+  mutation TravauxTypeDemarcheStatutModifier(
+    $element: InputTravauxTypeDemarcheStatut!
+  ) {
+    travauxTypeDemarcheStatutModifier(travauxTypeDemarcheStatut: $element) {
+      ...travauxTypeDemarcheStatut
+    }
+  }
+
+  ${fragmentTravauxTypeDemarcheStatut}
+`)
+
+const travauxTypeDemarcheStatutCreer = apiGraphQLFetch(gql`
+  mutation TravauxTypeDemarcheStatutCreer(
+    $element: InputTravauxTypeDemarcheStatut!
+  ) {
+    travauxTypeDemarcheStatutCreer(travauxTypeDemarcheStatut: $element) {
+      ...travauxTypeDemarcheStatut
+    }
+  }
+
+  ${fragmentTravauxTypeDemarcheStatut}
+`)
+
+const travauxTypeDemarcheStatutSupprimer = apiGraphQLFetch(gql`
+  mutation TravauxTypeDemarcheStatutSupprimer(
+    $element: InputTravauxTypeDemarcheStatut!
+  ) {
+    travauxTypeDemarcheStatutSupprimer(travauxTypeDemarcheStatut: $element) {
+      ...travauxTypeDemarcheStatut
+    }
+  }
+
+  ${fragmentTravauxTypeDemarcheStatut}
+`)
+
+const travauxTypesEtapesTypes = apiGraphQLFetch(
+  gql`
+    query TravauxTypesEtapesTypes {
+      travauxTypesEtapesTypes {
+        ...travauxTypeEtapeType
+      }
+    }
+
+    ${fragmentTravauxTypeEtapeType}
+  `
+)
+
+const travauxTypeEtapeTypeModifier = apiGraphQLFetch(gql`
+  mutation TravauxTypeEtapeTypeModifier($element: InputTravauxTypeEtapeType!) {
+    travauxTypeEtapeTypeModifier(travauxTypeEtapeType: $element) {
+      ...travauxTypeEtapeType
+    }
+  }
+
+  ${fragmentTravauxTypeEtapeType}
+`)
+
+const travauxTypeEtapeTypeCreer = apiGraphQLFetch(gql`
+  mutation TravauxTypeEtapeTypeCreer($element: InputTravauxTypeEtapeType!) {
+    travauxTypeEtapeTypeCreer(travauxTypeEtapeType: $element) {
+      ...travauxTypeEtapeType
+    }
+  }
+
+  ${fragmentTravauxTypeEtapeType}
+`)
+
+const travauxTypeEtapeTypeSupprimer = apiGraphQLFetch(gql`
+  mutation TravauxTypeEtapeTypeSupprimer($element: InputTravauxTypeEtapeType!) {
+    travauxTypeEtapeTypeSupprimer(travauxTypeEtapeType: $element) {
+      ...travauxTypeEtapeType
+    }
+  }
+
+  ${fragmentTravauxTypeEtapeType}
 `)
 
 export {
@@ -538,29 +824,29 @@ export {
   titresTypesTitresStatuts,
   titreTypeTitreStatutModifier,
   titreTypeTitreStatutCreer,
-  titreTypeTitreStatutSupprimer
-  // titresTypesDemarchesTypes,
-  // titreTypeDemarcheTypeModifier,
-  // titreTypeDemarcheTypeCreer,
-  // titreTypeDemarcheTypeSupprimer,
-  // demarchesTypesDemarchesStatuts,
-  // demarcheTypeDemarcheStatutModifier,
-  // demarcheTypeDemarcheStatutCreer,
-  // demarcheTypeDemarcheStatutSupprimer,
-  // titresTypesDemarchesTypesEtapesTypes,
-  // titreTypeDemarcheTypeEtapeTypeModifier,
-  // titreTypeDemarcheTypeEtapeTypeCreer,
-  // titreTypeDemarcheTypeEtapeTypeSupprimer,
-  // etapesTypesEtapesStatuts,
-  // etapeTypeEtapeStatutModifier,
-  // etapeTypeEtapeStatutCreer,
-  // etapeTypeEtapeStatutSupprimer,
-  // travauxTypesDemarchesStatuts,
-  // travauxTypeDemarcheStatutModifier,
-  // travauxTypeDemarcheStatutCreer,
-  // travauxTypeDemarcheStatutSupprimer,
-  // travauxTypesEtapesTypes,
-  // travauxTypeEtapeTypeModifier,
-  // travauxTypeEtapeTypeCreer,
-  // travauxTypeEtapeTypeSupprimer
+  titreTypeTitreStatutSupprimer,
+  titresTypesDemarchesTypes,
+  titreTypeDemarcheTypeModifier,
+  titreTypeDemarcheTypeCreer,
+  titreTypeDemarcheTypeSupprimer,
+  demarchesTypesDemarchesStatuts,
+  demarcheTypeDemarcheStatutModifier,
+  demarcheTypeDemarcheStatutCreer,
+  demarcheTypeDemarcheStatutSupprimer,
+  titresTypesDemarchesTypesEtapesTypes,
+  titreTypeDemarcheTypeEtapeTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeSupprimer,
+  etapesTypesEtapesStatuts,
+  etapeTypeEtapeStatutModifier,
+  etapeTypeEtapeStatutCreer,
+  etapeTypeEtapeStatutSupprimer,
+  travauxTypesDemarchesStatuts,
+  travauxTypeDemarcheStatutModifier,
+  travauxTypeDemarcheStatutCreer,
+  travauxTypeDemarcheStatutSupprimer,
+  travauxTypesEtapesTypes,
+  travauxTypeEtapeTypeModifier,
+  travauxTypeEtapeTypeCreer,
+  travauxTypeEtapeTypeSupprimer
 }

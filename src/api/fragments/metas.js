@@ -208,6 +208,63 @@ const fragmentTitreTypeTitreStatut = gql`
   }
 `
 
+const fragmentTitreTypeDemarcheType = gql`
+  fragment titreTypeDemarcheType on TitreTypeDemarcheType {
+    titreTypeId
+    demarcheTypeId
+    dureeMax
+    acceptationImplicite
+    delaiImplicite
+    delaiRecours
+    legalRef
+    legaleLien
+    dateDebut
+    dateFin
+  }
+`
+
+const fragmentDemarcheTypeDemarcheStatut = gql`
+  fragment demarcheTypeDemarcheStatut on DemarcheTypeDemarcheStatut {
+    demarcheTypeId
+    demarcheStatutId
+    ordre
+  }
+`
+
+const fragmentTitreTypeDemarcheTypeEtapeType = gql`
+  fragment titreTypeDemarcheTypeEtapeType on TitreTypeDemarcheTypeEtapeType {
+    titreTypeId
+    demarcheTypeId
+    etapeTypeId
+    ordre
+    sections
+  }
+`
+
+const fragmentEtapeTypeEtapeStatut = gql`
+  fragment etapeTypeEtapeStatut on EtapeTypeEtapeStatut {
+    etapeTypeId
+    etapeStatutId
+    ordre
+  }
+`
+
+const fragmentTravauxTypeDemarcheStatut = gql`
+  fragment travauxTypeDemarcheStatut on TravauxTypeDemarcheStatut {
+    travauxTypeId
+    demarcheStatutId
+    ordre
+  }
+`
+
+const fragmentTravauxTypeEtapeType = gql`
+  fragment travauxTypeEtapeType on TravauxTypeEtapeType {
+    travauxTypeId
+    etapeTypeId
+    ordre
+  }
+`
+
 export {
   fragmentTitreTypeType,
   fragmentTitreStatut,
@@ -227,5 +284,11 @@ export {
   fragmentDocumentType,
   fragmentReferenceType,
   fragmentGeoSysteme,
-  fragmentTitreTypeTitreStatut
+  fragmentTitreTypeTitreStatut,
+  fragmentTitreTypeDemarcheType,
+  fragmentDemarcheTypeDemarcheStatut,
+  fragmentTitreTypeDemarcheTypeEtapeType,
+  fragmentEtapeTypeEtapeStatut,
+  fragmentTravauxTypeDemarcheStatut,
+  fragmentTravauxTypeEtapeType
 }

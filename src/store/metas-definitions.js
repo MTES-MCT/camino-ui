@@ -40,31 +40,31 @@ import {
   titresTypesTitresStatuts,
   titreTypeTitreStatutCreer,
   titreTypeTitreStatutSupprimer,
-  titreTypeTitreStatutModifier
-  // titresTypesDemarchesTypes,
-  // titreTypeDemarcheTypeModifier,
-  // titreTypeDemarcheTypeCreer,
-  // titreTypeDemarcheTypeSupprimer,
-  // demarchesTypesDemarchesStatuts,
-  // demarcheTypeDemarcheStatutModifier,
-  // demarcheTypeDemarcheStatutCreer,
-  // demarcheTypeDemarcheStatutSupprimer,
-  // titresTypesDemarchesTypesEtapesTypes,
-  // titreTypeDemarcheTypeEtapeTypeModifier,
-  // titreTypeDemarcheTypeEtapeTypeCreer,
-  // titreTypeDemarcheTypeEtapeTypeSupprimer,
-  // etapesTypesEtapesStatuts,
-  // etapeTypeEtapeStatutModifier,
-  // etapeTypeEtapeStatutCreer,
-  // etapeTypeEtapeStatutSupprimer,
-  // travauxTypesDemarchesStatuts,
-  // travauxTypeDemarcheStatutModifier,
-  // travauxTypeDemarcheStatutCreer,
-  // travauxTypeDemarcheStatutSupprimer,
-  // travauxTypesEtapesTypes,
-  // travauxTypeEtapeTypeModifier,
-  // travauxTypeEtapeTypeCreer,
-  // travauxTypeEtapeTypeSupprimer
+  titreTypeTitreStatutModifier,
+  titresTypesDemarchesTypes,
+  titreTypeDemarcheTypeModifier,
+  titreTypeDemarcheTypeCreer,
+  titreTypeDemarcheTypeSupprimer,
+  demarchesTypesDemarchesStatuts,
+  demarcheTypeDemarcheStatutModifier,
+  demarcheTypeDemarcheStatutCreer,
+  demarcheTypeDemarcheStatutSupprimer,
+  titresTypesDemarchesTypesEtapesTypes,
+  titreTypeDemarcheTypeEtapeTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeSupprimer,
+  etapesTypesEtapesStatuts,
+  etapeTypeEtapeStatutModifier,
+  etapeTypeEtapeStatutCreer,
+  etapeTypeEtapeStatutSupprimer,
+  travauxTypesDemarchesStatuts,
+  travauxTypeDemarcheStatutModifier,
+  travauxTypeDemarcheStatutCreer,
+  travauxTypeDemarcheStatutSupprimer,
+  travauxTypesEtapesTypes,
+  travauxTypeEtapeTypeModifier,
+  travauxTypeEtapeTypeCreer,
+  travauxTypeEtapeTypeSupprimer
 } from '../api/metas'
 
 const metasIndex = {
@@ -76,7 +76,7 @@ const metasIndex = {
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'nom', type: String },
       { id: 'slug', nom: 'slug', type: String },
-      { id: 'description', nom: 'Description', type: String },
+      { id: 'description', nom: 'Description', type: String, optional: true },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ]
   },
@@ -99,7 +99,7 @@ const metasIndex = {
     colonnes: [
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'Nom', type: String },
-      { id: 'description', nom: 'Description', type: String },
+      { id: 'description', nom: 'Description', type: String, optional: true },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ]
   },
@@ -128,7 +128,7 @@ const metasIndex = {
     colonnes: [
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'Nom', type: String },
-      { id: 'description', nom: 'Description', type: String },
+      { id: 'description', nom: 'Description', type: String, optional: true },
       {
         id: 'couleur',
         nom: 'Couleur',
@@ -147,7 +147,7 @@ const metasIndex = {
     colonnes: [
       { id: 'titreTypeId', nom: 'Id du type de titre' },
       { id: 'titreStatutId', nom: 'Id du statut de titre' },
-      { id: 'publicLecture', nom: 'Public', type: Boolean }
+      { id: 'publicLecture', nom: 'Public', type: Boolean, optional: true }
     ],
     ids: ['titreTypeId', 'titreStatutId']
   },
@@ -158,22 +158,49 @@ const metasIndex = {
     colonnes: [
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'Nom', type: String },
-      { id: 'description', nom: 'Description', type: String },
       { id: 'ordre', nom: 'Ordre', type: Number },
-      { id: 'duree', nom: 'Durée', type: Boolean },
-      { id: 'points', nom: 'Points', type: Boolean },
-      { id: 'substances', nom: 'Substances', type: Boolean },
-      { id: 'titulaires', nom: 'Titulaires', type: Boolean },
-      { id: 'exception', nom: 'Exception', type: Boolean },
-      { id: 'renouvelable', nom: 'Renouvelable', type: Boolean }
+      { id: 'description', nom: 'Description', type: String, optional: true },
+      { id: 'duree', nom: 'Durée', type: Boolean, optional: true },
+      { id: 'points', nom: 'Points', type: Boolean, optional: true },
+      { id: 'substances', nom: 'Substances', type: Boolean, optional: true },
+      { id: 'titulaires', nom: 'Titulaires', type: Boolean, optional: true },
+      { id: 'exception', nom: 'Exception', type: Boolean, optional: true },
+      { id: 'renouvelable', nom: 'Renouvelable', type: Boolean, optional: true }
     ]
   },
   'titres-types--demarches-types': {
-    // get: titresTypesDemarchesTypes,
-    // update: titreTypeDemarcheTypeModifier,
-    // create: titreTypeDemarcheTypeCreer,
-    // delete: titreTypeDemarcheTypeSupprimer,
-    nom: 'Types des titres | Types des démarches'
+    get: titresTypesDemarchesTypes,
+    update: titreTypeDemarcheTypeModifier,
+    create: titreTypeDemarcheTypeCreer,
+    delete: titreTypeDemarcheTypeSupprimer,
+    nom: 'Types des titres | Types des démarches',
+    colonnes: [
+      { id: 'titreTypeId', nom: 'Id du type de titre' },
+      { id: 'demarcheTypeId', nom: 'Id du type de démarche' },
+      { id: 'dureeMax', nom: 'Durée maximale', type: Number, optional: true },
+      {
+        id: 'delaiImplicite',
+        nom: 'Délai implicite',
+        type: Number,
+        optional: true
+      },
+      {
+        id: 'delaiRecours',
+        nom: 'Délai de recours',
+        type: Number,
+        optional: true
+      },
+      { id: 'legalRef', nom: 'Référence légale', type: String, optional: true },
+      {
+        id: 'legalLien',
+        nom: 'Lien de la référence légale',
+        type: String,
+        optional: true
+      },
+      { id: 'dateDebut', nom: 'Date de début', type: String, optional: true },
+      { id: 'dateFin', nom: 'Date de fin', type: String, optional: true }
+    ],
+    ids: ['titreTypeId', 'demarcheTypeId']
   },
   'demarches-statuts': {
     get: demarchesStatuts,
@@ -182,7 +209,7 @@ const metasIndex = {
     colonnes: [
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'Nom', type: String },
-      { id: 'description', nom: 'Description', type: String },
+      { id: 'description', nom: 'Description', type: String, optional: true },
       {
         id: 'couleur',
         nom: 'Couleur',
@@ -193,11 +220,17 @@ const metasIndex = {
     ]
   },
   'titres-types--demarches-statuts': {
-    // get: demarchesTypesDemarchesStatuts,
-    // update: demarcheTypeDemarcheStatutModifier,
-    // create: demarcheTypeDemarcheStatutCreer,
-    // delete: demarcheTypeDemarcheStatutSupprimer,
-    nom: 'Types des démarches | Statuts des démarches'
+    get: demarchesTypesDemarchesStatuts,
+    update: demarcheTypeDemarcheStatutModifier,
+    create: demarcheTypeDemarcheStatutCreer,
+    delete: demarcheTypeDemarcheStatutSupprimer,
+    nom: 'Types des démarches | Statuts des démarches',
+    colonnes: [
+      { id: 'titreTypeId', nom: 'Id du type de titre' },
+      { id: 'demarcheStatutId', nom: 'Id du statut de démarche' },
+      { id: 'ordre', nom: 'Ordre', type: Number }
+    ],
+    ids: ['titreTypeId', 'demarcheStatutId']
   },
   'phases-statuts': {
     get: phasesStatuts,
@@ -221,35 +254,65 @@ const metasIndex = {
     colonnes: [
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'Nom', type: String },
-      { id: 'description', nom: 'Description', type: String },
+      { id: 'description', nom: 'Description', type: String, optional: true },
       { id: 'ordre', nom: 'Ordre', type: Number },
-      { id: 'sections', nom: 'Sections', type: 'json' },
-      { id: 'legalLien', nom: 'Lien légal', type: String },
+      { id: 'sections', nom: 'Sections', type: 'json', optional: true },
+      { id: 'legalLien', nom: 'Lien légal', type: String, optional: true },
       {
         id: 'dateDebut',
         nom: 'Date de début',
         type: Date,
-        class: ['min-width-12']
+        class: ['min-width-12'],
+        optional: true
       },
       {
         id: 'dateFin',
         nom: 'Date de fin',
         type: Date,
-        class: ['min-width-12']
+        class: ['min-width-12'],
+        optional: true
       },
-      { id: 'fondamentale', nom: 'Fondamentale', type: Boolean },
-      { id: 'unique', nom: 'Unique', type: Boolean },
-      { id: 'acceptationAuto', nom: 'Acceptation auto', type: Boolean },
-      { id: 'publicLecture', nom: 'Lecture public', type: Boolean },
-      { id: 'entrepriseLecture', nom: 'Lecture entreprises', type: Boolean }
+      {
+        id: 'fondamentale',
+        nom: 'Fondamentale',
+        type: Boolean,
+        optional: true
+      },
+      { id: 'unique', nom: 'Unique', type: Boolean, optional: true },
+      {
+        id: 'acceptationAuto',
+        nom: 'Acceptation auto',
+        type: Boolean,
+        optional: true
+      },
+      {
+        id: 'publicLecture',
+        nom: 'Lecture public',
+        type: Boolean,
+        optional: true
+      },
+      {
+        id: 'entrepriseLecture',
+        nom: 'Lecture entreprises',
+        type: Boolean,
+        optional: true
+      }
     ]
   },
   'titres-types--demarches-types--etapes-types': {
-    // get: titresTypesDemarchesTypesEtapesTypes,
-    // update: titreTypeDemarcheTypeEtapeTypeModifier,
-    // create: titreTypeDemarcheTypeEtapeTypeCreer,
-    // delete: titreTypeDemarcheTypeEtapeTypeSupprimer,
-    nom: 'Types des titres | Types des démarches | types des étapes'
+    get: titresTypesDemarchesTypesEtapesTypes,
+    update: titreTypeDemarcheTypeEtapeTypeModifier,
+    create: titreTypeDemarcheTypeEtapeTypeCreer,
+    delete: titreTypeDemarcheTypeEtapeTypeSupprimer,
+    nom: 'Types des titres | Types des démarches | types des étapes',
+    colonnes: [
+      { id: 'titreTypeId', nom: 'Id du type de titre' },
+      { id: 'demarcheTypeId', nom: 'Id du type de démarche' },
+      { id: 'etapeTypeId', nom: "Id du type d'étape" },
+      { id: 'sections', nom: 'Sections', type: 'json', optional: true },
+      { id: 'ordre', nom: 'Ordre', type: Number }
+    ],
+    ids: ['titreTypeId', 'demarcheTypeId', 'etapeTypeId']
   },
   'etapes-statuts': {
     get: etapesStatuts,
@@ -258,7 +321,7 @@ const metasIndex = {
     colonnes: [
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'Nom', type: String },
-      { id: 'description', nom: 'Description', type: String },
+      { id: 'description', nom: 'Description', type: String, optional: true },
       {
         id: 'couleur',
         nom: 'Couleur',
@@ -269,11 +332,17 @@ const metasIndex = {
     ]
   },
   'etapes-types--etapes-statuts': {
-    // get: etapesTypesEtapesStatuts,
-    // update: etapeTypeEtapeStatutModifier,
-    // create: etapeTypeEtapeStatutCreer,
-    // delete: etapeTypeEtapeStatutSupprimer,
-    nom: 'Types des étapes | Statuts des étapes'
+    get: etapesTypesEtapesStatuts,
+    update: etapeTypeEtapeStatutModifier,
+    create: etapeTypeEtapeStatutCreer,
+    delete: etapeTypeEtapeStatutSupprimer,
+    nom: 'Types des étapes | Statuts des étapes',
+    colonnes: [
+      { id: 'etapeTypeId', nom: "Id du type d'étape" },
+      { id: 'etapeStatutId', nom: "Id du statut d'étape" },
+      { id: 'ordre', nom: 'Ordre', type: Number }
+    ],
+    ids: ['etapeTypeId', 'etapeStatutId']
   },
   'travaux-types': {
     get: travauxTypes,
@@ -282,23 +351,35 @@ const metasIndex = {
     colonnes: [
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'Nom', type: String },
-      { id: 'description', nom: 'Description', type: String },
+      { id: 'description', nom: 'Description', type: String, optional: true },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ]
   },
   'travaux-types--demarches-statuts': {
-    // get: travauxTypesDemarchesStatuts,
-    // update: travauxTypeDemarcheStatutModifier,
-    // create: travauxTypeDemarcheStatutCreer,
-    // delete: travauxTypeDemarcheStatutSupprimer,
-    nom: 'Types des travaux | Statuts des travaux (démarches)'
+    get: travauxTypesDemarchesStatuts,
+    update: travauxTypeDemarcheStatutModifier,
+    create: travauxTypeDemarcheStatutCreer,
+    delete: travauxTypeDemarcheStatutSupprimer,
+    nom: 'Types des travaux | Statuts des travaux (démarches)',
+    colonnes: [
+      { id: 'travauxTypeId', nom: 'Id du type de travaux' },
+      { id: 'demarcheStatutId', nom: 'Id du statut de démarche' },
+      { id: 'ordre', nom: 'Ordre', type: Number }
+    ],
+    ids: ['travauxTypeId', 'demarcheStatutId']
   },
   'travaux-types--etapes-types': {
-    // get: travauxTypesEtapesTypes,
-    // update: travauxTypeEtapeTypeModifier,
-    // create: travauxTypeEtapeTypeCreer,
-    // delete: travauxTypeEtapeTypeSupprimer,
-    nom: 'Types des travaux | Types des étapes'
+    get: travauxTypesEtapesTypes,
+    update: travauxTypeEtapeTypeModifier,
+    create: travauxTypeEtapeTypeCreer,
+    delete: travauxTypeEtapeTypeSupprimer,
+    nom: 'Types des travaux | Types des étapes',
+    colonnes: [
+      { id: 'titreTypeId', nom: 'Id du type de titre' },
+      { id: 'etapeTypeId', nom: "Id du type d'étape" },
+      { id: 'ordre', nom: 'Ordre', type: Number }
+    ],
+    ids: ['titreTypeId', 'etapeTypeId']
   },
   devises: {
     get: devises,
