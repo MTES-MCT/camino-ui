@@ -70,11 +70,11 @@ export default {
 
   methods: {
     async init() {
-      // if (!this.user || !this.user.sections || !this.user.sections.metas) {
-      //   await this.$store.dispatch('pageError')
-      // } else {
-      this.visible = true
-      // }
+      if (!this.user || !this.user.sections || !this.user.sections.metas) {
+        await this.$store.dispatch('pageError')
+      } else {
+        this.visible = true
+      }
     },
 
     urlLoad() {

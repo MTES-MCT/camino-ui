@@ -204,11 +204,11 @@ export default {
 
   methods: {
     async get() {
-      // if (!this.user || !this.user.sections || !this.user.sections.metas) {
-      //   await this.$store.dispatch('pageError')
-      // } else {
-      await this.$store.dispatch('meta/get', this.$route.params.id)
-      // }
+      if (!this.user || !this.user.sections || !this.user.sections.metas) {
+        await this.$store.dispatch('pageError')
+      } else {
+        await this.$store.dispatch('meta/get', this.$route.params.id)
+      }
     },
 
     async update(content, element, colonneId) {

@@ -28,6 +28,7 @@ const fragmentUtilisateur = gql`
     sections {
       activites
       utilisateurs
+      metas
     }
   }
 
