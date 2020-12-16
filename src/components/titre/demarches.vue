@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="titre.modification">
+    <div v-if="titre.demarchesCreation">
       <div class="line-neutral mb" />
       <button
         class="btn rnd-xs py-s px-m full-x flex h5 mb"

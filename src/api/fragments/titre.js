@@ -90,6 +90,7 @@ const fragmentTitre = gql`
 
     modification
     suppression
+    demarchesCreation
     travauxCreation
     doublonTitreId
   }
