@@ -20,6 +20,8 @@ import entreprise from './entreprise'
 import entreprises from './entreprises'
 import administration from './administration'
 import administrations from './administrations'
+import metas from './metas'
+import meta from './meta'
 import user from './user'
 import titreActivite from './titre-activite'
 import titresActivites from './titres-activites'
@@ -42,6 +44,8 @@ const modules = {
   entreprises,
   administration,
   administrations,
+  meta,
+  metas,
   user,
   titreActivite,
   titresActivites,

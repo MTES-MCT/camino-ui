@@ -10,6 +10,8 @@ import Entreprise from '../components/entreprise.vue'
 import Entreprises from '../components/entreprises.vue'
 import Administration from '../components/administration.vue'
 import Administrations from '../components/administrations.vue'
+import Meta from '../components/meta.vue'
+import Metas from '../components/metas.vue'
 import Activite from '../components/activite.vue'
 import Activites from '../components/activites.vue'
 import Glossaire from '../components/glossaire.vue'
@@ -88,6 +90,16 @@ const routes = [
     path: '/administrations/:id',
     name: 'administration',
     component: Administration
+  },
+  {
+    path: '/metas',
+    name: 'metas',
+    component: Metas
+  },
+  {
+    path: '/metas/:id',
+    name: 'meta',
+    component: Meta
   },
   {
     path: '/activites',

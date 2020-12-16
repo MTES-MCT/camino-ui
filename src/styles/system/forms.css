@@ -45,6 +45,7 @@ textarea {
   /* http://stackoverflow.com/a/5196591/2112538 */
   vertical-align: top;
   resize: vertical;
+  height: auto;
 }
 
 textarea:focus,

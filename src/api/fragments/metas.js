@@ -4,31 +4,50 @@ const fragmentPermission = gql`
   fragment permission on Permission {
     id
     nom
+    ordre
   }
 `
 
-const fragmentEtapeType = gql`
-  fragment etapeType on EtapeType {
+const fragmentTitreTypeType = gql`
+  fragment titreTypeType on TitreTypeType {
     id
     nom
-    acceptationAuto
+    description
     ordre
-    etapesStatuts {
-      id
-      nom
-      couleur
-    }
-    fondamentale
-    sections
-    etapesCreation
   }
+`
+
+const fragmentTitreStatut = gql`
+  fragment titreStatut on TitreStatut {
+    id
+    nom
+    description
+    couleur
+    ordre
+  }
+`
+
+const fragmentTitreType = gql`
+  fragment titreType on TitreType {
+    id
+    typeId
+    domaineId
+    type {
+      ...titreTypeType
+    }
+    titresCreation
+    propsEtapesTypes
+  }
+  ${fragmentTitreTypeType}
 `
 
 const fragmentDemarcheStatut = gql`
   fragment demarcheStatut on DemarcheStatut {
     id
     nom
+    description
     couleur
+    ordre
   }
 `
 
@@ -40,39 +59,28 @@ const fragmentUnite = gql`
   }
 `
 
+const fragmentDevise = gql`
+  fragment devise on Devise {
+    id
+    nom
+  }
+`
+
 const fragmentDemarcheType = gql`
   fragment demarcheType on DemarcheType {
     id
     nom
+    description
     ordre
     duree
     points
     substances
     titulaires
-    renouvelable
     exception
+    renouvelable
     demarchesCreation
     titreTypeId
   }
-`
-
-const fragmentTitreTypeType = gql`
-  fragment titreTypeType on TitreTypeType {
-    id
-    nom
-    exploitation
-  }
-`
-
-const fragmentTitreType = gql`
-  fragment titreType on TitreType {
-    id
-    type {
-      ...titreTypeType
-    }
-    titresCreation
-  }
-  ${fragmentTitreTypeType}
 `
 
 const fragmentTravauxType = gql`
@@ -84,13 +92,203 @@ const fragmentTravauxType = gql`
   }
 `
 
+const fragmentDomaine = gql`
+  fragment domaine on Domaine {
+    id
+    nom
+    description
+    ordre
+  }
+`
+
+const fragmentDefinition = gql`
+  fragment definition on Definition {
+    id
+    nom
+    slug
+    description
+    couleur
+    ordre
+    elements {
+      id
+      nom
+      description
+      couleur
+    }
+  }
+`
+
+const fragmentPhaseStatut = gql`
+  fragment phaseStatut on PhaseStatut {
+    id
+    nom
+    couleur
+  }
+`
+
+const fragmentEtapeType = gql`
+  fragment etapeType on EtapeType {
+    id
+    nom
+    description
+    ordre
+    sections
+    legalLien
+    legalRef
+    dateDebut
+    dateFin
+    fondamentale
+    unique
+    acceptationAuto
+    publicLecture
+    entreprisesLecture
+    etapesStatuts {
+      id
+      nom
+      couleur
+    }
+    etapesCreation
+  }
+`
+
+const fragmentEtapeStatut = gql`
+  fragment etapeStatut on EtapeStatut {
+    id
+    nom
+    description
+    couleur
+    ordre
+  }
+`
+
+const fragmentAdministrationType = gql`
+  fragment administrationType on AdministrationType {
+    id
+    nom
+    ordre
+  }
+`
+
+const fragmentDocumentType = gql`
+  fragment documentType on DocumentType {
+    id
+    nom
+    repertoire
+  }
+`
+
+const fragmentReferenceType = gql`
+  fragment referenceType on ReferenceType {
+    id
+    nom
+  }
+`
+
+const fragmentGeoSysteme = gql`
+  fragment geoSysteme on GeoSysteme {
+    id
+    nom
+    ordre
+    zone
+    uniteId
+    definitionProj4
+    unite {
+      ...unite
+    }
+
+    ${fragmentUnite}
+  }
+`
+
+const fragmentTitreTypeTitreStatut = gql`
+  fragment titreTypeTitreStatut on TitreTypeTitreStatut {
+    titreTypeId
+    titreStatutId
+    publicLecture
+  }
+`
+
+const fragmentTitreTypeDemarcheType = gql`
+  fragment titreTypeDemarcheType on TitreTypeDemarcheType {
+    titreTypeId
+    demarcheTypeId
+    dureeMax
+    acceptationImplicite
+    delaiImplicite
+    delaiRecours
+    legalRef
+    legaleLien
+    dateDebut
+    dateFin
+  }
+`
+
+const fragmentDemarcheTypeDemarcheStatut = gql`
+  fragment demarcheTypeDemarcheStatut on DemarcheTypeDemarcheStatut {
+    demarcheTypeId
+    demarcheStatutId
+    ordre
+  }
+`
+
+const fragmentTitreTypeDemarcheTypeEtapeType = gql`
+  fragment titreTypeDemarcheTypeEtapeType on TitreTypeDemarcheTypeEtapeType {
+    titreTypeId
+    demarcheTypeId
+    etapeTypeId
+    ordre
+    sections
+  }
+`
+
+const fragmentEtapeTypeEtapeStatut = gql`
+  fragment etapeTypeEtapeStatut on EtapeTypeEtapeStatut {
+    etapeTypeId
+    etapeStatutId
+    ordre
+  }
+`
+
+const fragmentTravauxTypeDemarcheStatut = gql`
+  fragment travauxTypeDemarcheStatut on TravauxTypeDemarcheStatut {
+    travauxTypeId
+    demarcheStatutId
+    ordre
+  }
+`
+
+const fragmentTravauxTypeEtapeType = gql`
+  fragment travauxTypeEtapeType on TravauxTypeEtapeType {
+    travauxTypeId
+    etapeTypeId
+    ordre
+  }
+`
+
 export {
+  fragmentTitreTypeType,
+  fragmentTitreStatut,
   fragmentEtapeType,
+  fragmentEtapeStatut,
   fragmentPermission,
   fragmentUnite,
+  fragmentDevise,
   fragmentDemarcheType,
   fragmentDemarcheStatut,
-  fragmentTitreTypeType,
   fragmentTitreType,
-  fragmentTravauxType
+  fragmentTravauxType,
+  fragmentDomaine,
+  fragmentDefinition,
+  fragmentPhaseStatut,
+  fragmentAdministrationType,
+  fragmentDocumentType,
+  fragmentReferenceType,
+  fragmentGeoSysteme,
+  fragmentTitreTypeTitreStatut,
+  fragmentTitreTypeDemarcheType,
+  fragmentDemarcheTypeDemarcheStatut,
+  fragmentTitreTypeDemarcheTypeEtapeType,
+  fragmentEtapeTypeEtapeStatut,
+  fragmentTravauxTypeDemarcheStatut,
+  fragmentTravauxTypeEtapeType
 }

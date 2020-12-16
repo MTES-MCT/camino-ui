@@ -13,7 +13,7 @@
     </div>
 
     <Url
-      v-if="metasLoaded"
+      v-if="metasLoaded && filtres.length"
       :values="urlValuesFiltres"
       :params="preferences.filtres"
       @params-update="preferencesFiltresUpdate"
@@ -29,6 +29,7 @@
     />
 
     <Filtres
+      v-if="filtres.length"
       :filtres="filtres"
       :metas-loaded="metasLoaded"
       :metas="metas"
@@ -57,6 +58,7 @@
       :range="preferences.table.intervalle"
       :order="preferences.table.ordre"
       :page="preferences.table.page"
+      :pagination="pagination"
       :total="total"
       @params-update="preferencesTableUpdate"
     />
@@ -75,7 +77,7 @@ export default {
 
   props: {
     nom: { type: String, required: true },
-    filtres: { type: Array, required: true },
+    filtres: { type: Array, default: () => [] },
     colonnes: { type: Array, required: true },
     lignes: { type: Array, required: true },
     elements: { type: Array, required: true },
@@ -127,6 +129,10 @@ export default {
 
         return p
       }, {})
+    },
+
+    pagination() {
+      return !!this.preferences.table.page
     }
   },
 
@@ -157,7 +163,11 @@ export default {
     },
 
     preferencesFiltresUpdate(params, pageReset) {
-      this.$emit('preferences-update', { section: 'filtres', params, pageReset })
+      this.$emit('preferences-update', {
+        section: 'filtres',
+        params,
+        pageReset
+      })
     },
 
     urlLoad(id) {

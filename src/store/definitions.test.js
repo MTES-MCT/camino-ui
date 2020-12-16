@@ -1,12 +1,13 @@
 import definitions from './definitions'
-import * as api from '../api/definitions'
+import * as api from '../api/metas'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
-jest.mock('../api/definitions', () => ({
+jest.mock('../api/metas', () => ({
   definitions: jest.fn(),
   domaines: jest.fn()
 }))
+
 console.info = jest.fn()
 
 const localVue = createLocalVue()

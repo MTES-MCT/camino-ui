@@ -3,14 +3,13 @@ import { apiGraphQLFetch } from './_client'
 
 import { fragmentAdministration } from './fragments/administration'
 import { fragmentAdministrations } from './fragments/administrations'
+import { fragmentAdministrationType } from './fragments/metas'
 
 const administrationMetas = apiGraphQLFetch(
   gql`
     query AdministrationMetas {
       administrationsTypes {
-        id
-        nom
-        ordre
+        ...administrationType
       }
 
       regions {
@@ -23,6 +22,8 @@ const administrationMetas = apiGraphQLFetch(
         nom
       }
     }
+
+    ${fragmentAdministrationType}
   `
 )
 

@@ -2,7 +2,12 @@ import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 
 import { fragmentTitre } from './fragments/titre'
-import { fragmentEtapeType, fragmentUnite } from './fragments/metas'
+import {
+  fragmentDevise,
+  fragmentEtapeType,
+  fragmentGeoSysteme,
+  fragmentUnite
+} from './fragments/metas'
 import { fragmentSubstance } from './fragments/substance'
 import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentEntreprise } from './fragments/entreprise'
@@ -15,8 +20,7 @@ const titreEtapeMetas = apiGraphQLFetch(
       }
 
       devises {
-        id
-        nom
+        ...devise
       }
 
       unites {
@@ -24,12 +28,7 @@ const titreEtapeMetas = apiGraphQLFetch(
       }
 
       geoSystemes {
-        id
-        nom
-        zone
-        unite {
-          ...unite
-        }
+        ...geoSysteme
       }
 
       substances {
@@ -52,9 +51,13 @@ const titreEtapeMetas = apiGraphQLFetch(
 
     ${fragmentUnite}
 
+    ${fragmentDevise}
+
     ${fragmentSubstance}
 
     ${fragmentEntreprises}
+
+    ${fragmentGeoSysteme}
   `
 )
 

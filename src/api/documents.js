@@ -1,13 +1,13 @@
 import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 import { fragmentDocument } from './fragments/documents'
+import { fragmentDocumentType } from './fragments/metas'
 
 const documentMetas = apiGraphQLFetch(
   gql`
     query MetasDocument($repertoire: ID, $typeId: ID) {
       documentsTypes(repertoire: $repertoire, typeId: $typeId) {
-        id
-        nom
+        ...documentType
       }
 
       documentsVisibilites {
@@ -15,6 +15,8 @@ const documentMetas = apiGraphQLFetch(
         nom
       }
     }
+
+    ${fragmentDocumentType}
   `
 )
 
