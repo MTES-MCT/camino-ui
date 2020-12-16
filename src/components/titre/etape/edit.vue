@@ -20,12 +20,12 @@
         <h6>Type</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <select v-model="etape.typeId" class="p-s" @change="typeUpdate">
+        <select v-model="etape.etatId" class="p-s" @change="typeUpdate">
           <option
             v-for="eType in etapeTypes"
-            :key="eType.id"
-            :value="eType.id"
-            :disabled="etape.typeId === eType.id"
+            :key="eType.etatId"
+            :value="eType.etatId"
+            :disabled="etape.etatId === eType.etatId"
           >
             {{ eType.nom }}
           </option>
@@ -66,7 +66,8 @@
           :class="{ 'mb-s': etape.date, mb: !etape.date }"
         />
         <label v-if="etape.date" class="h5">
-          <input v-model="etape.incertitudes.date" type="checkbox" /> donnée incertaine
+          <input v-model="etape.incertitudes.date" type="checkbox" /> donnée
+          incertaine
         </label>
       </div>
     </div>
@@ -168,7 +169,7 @@ export default {
     },
 
     etapeType() {
-      return this.etapeTypes.find(et => et.id === this.etape.typeId) || {}
+      return this.etapeTypes.find(et => et.etatId === this.etape.etatId) || {}
     },
 
     etapesStatuts() {
@@ -230,6 +231,7 @@ export default {
     },
 
     typeUpdate() {
+      this.etape.typeId = this.etapeType.id
       if (this.etapesStatuts.length === 1) {
         this.etape.statutId = this.etapesStatuts[0].id
       } else {
