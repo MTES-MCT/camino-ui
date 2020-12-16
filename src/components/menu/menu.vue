@@ -50,6 +50,18 @@
         </div>
         <div class="tablet-blob-1-4 border-l pl-s">
           <ul class="list-sans mb-0">
+            <li v-if="permissionsCheck(['super'])">
+              <RouterLink
+                v-if="$route.name !== 'administrations'"
+                id="cmn-menu-menu-a-administrations"
+                :to="{ name: 'administrations' }"
+                class="btn-menu text-decoration-none bold"
+                @click.native="eventTrack('administrations')"
+              >
+                Administrations
+              </RouterLink>
+              <div v-else class="bold color-neutral">Administrations</div>
+            </li>
             <li>
               <RouterLink
                 v-if="$route.name !== 'entreprises'"
@@ -94,8 +106,8 @@
               <RouterLink
                 v-if="
                   $route.name !== 'statistiques' &&
-                  $route.name !== 'statistiques-globales' &&
-                  $route.name !== 'statistiques-guyane'
+                    $route.name !== 'statistiques-globales' &&
+                    $route.name !== 'statistiques-guyane'
                 "
                 id="cmn-menu-menu-a-statistiques"
                 :to="{ name: 'statistiques' }"
@@ -105,6 +117,18 @@
                 Statistiques
               </RouterLink>
               <div v-else class="bold color-neutral">Statistiques</div>
+            </li>
+            <li v-if="sections.metas">
+              <RouterLink
+                v-if="$route.name !== 'metas'"
+                id="cmn-menu-menu-a-metas"
+                :to="{ name: 'metas' }"
+                class="btn-menu text-decoration-none bold"
+                @click.native="eventTrack('metas')"
+              >
+                Métas
+              </RouterLink>
+              <div v-else class="bold color-neutral">Métas</div>
             </li>
           </ul>
         </div>
