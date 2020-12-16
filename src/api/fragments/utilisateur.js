@@ -27,6 +27,7 @@ const fragmentUtilisateur = gql`
 
     sections {
       activites
+      administrations
       utilisateurs
       metas
     }

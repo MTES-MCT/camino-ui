@@ -50,7 +50,7 @@
         </div>
         <div class="tablet-blob-1-4 border-l pl-s">
           <ul class="list-sans mb-0">
-            <li v-if="permissionsCheck(['super'])">
+            <li v-if="sections.administrations">
               <RouterLink
                 v-if="$route.name !== 'administrations'"
                 id="cmn-menu-menu-a-administrations"

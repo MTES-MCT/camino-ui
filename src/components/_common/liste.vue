@@ -163,7 +163,6 @@ export default {
     },
 
     preferencesFiltresUpdate(params, pageReset) {
-      console.log('preferencesFiltresUpdate', params)
       this.$emit('preferences-update', {
         section: 'filtres',
         params,

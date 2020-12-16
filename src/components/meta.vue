@@ -126,7 +126,11 @@
                 <div v-else>{{ element[colonne.id] }}</div>
               </td>
               <td v-if="definition.delete || definition.create">
-                <button class="btn p-xs rnd-xs" @click="remove(element)">
+                <button
+                  v-if="definition.delete"
+                  class="btn p-xs rnd-xs"
+                  @click="remove(element)"
+                >
                   <i class="icon-24 icon-minus" />
                 </button>
               </td>
@@ -234,10 +238,6 @@ export default {
         id: this.$route.params.id,
         element: this.idsFind(element)
       })
-    },
-
-    focus(e) {
-      console.log(e)
     },
 
     idsFind(element) {

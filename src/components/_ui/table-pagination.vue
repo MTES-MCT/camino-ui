@@ -20,7 +20,7 @@
       </div>
       <div class="desktop-blob-1-4">
         <Ranges
-          v-if="total > 10 && range"
+          v-if="total > 10"
           :ranges="[10, 50, 200, 500]"
           :range="range"
           @range-update="rangeUpdate"
@@ -47,7 +47,7 @@ export default {
   props: {
     columns: { type: Array, required: true },
     rows: { type: Array, required: true },
-    range: { type: Number, default: 0 },
+    range: { type: Number, default: 200 },
     page: { type: Number, default: 1 },
     column: { type: String, default: '' },
     order: { type: String, default: 'asc' },
@@ -57,7 +57,7 @@ export default {
 
   computed: {
     pages() {
-      return this.range ? Math.ceil(this.total / this.range) : 0
+      return Math.ceil(this.total / this.range)
     }
   },
 

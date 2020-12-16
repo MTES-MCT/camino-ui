@@ -82,7 +82,6 @@ export default {
     },
 
     async preferencesUpdate(options) {
-      console.log(options)
       await this.$store.dispatch(`metas/preferencesSet`, options)
     }
   }

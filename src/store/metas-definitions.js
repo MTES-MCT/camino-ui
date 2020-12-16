@@ -87,7 +87,6 @@ const metasIndex = {
     colonnes: [
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'Nom', type: String },
-      { id: 'table', nom: 'table', type: String },
       { id: 'description', nom: 'Description', type: String },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ]
