@@ -131,7 +131,6 @@ const fragmentEtapeType = gql`
     id
     nom
     description
-    etatId
     ordre
     sections
     legalLien
