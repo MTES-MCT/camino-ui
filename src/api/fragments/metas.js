@@ -129,6 +129,7 @@ const fragmentPhaseStatut = gql`
 const fragmentEtapeType = gql`
   fragment etapeType on EtapeType {
     id
+    parentId
     nom
     description
     ordre
