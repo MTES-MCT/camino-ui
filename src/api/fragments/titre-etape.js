@@ -17,7 +17,6 @@ const fragmentTitreEtape = gql`
     dateFin
     duree
     surface
-    etatId
     type {
       id
       nom
