@@ -27,12 +27,12 @@ export default {
     return {
       tabs: [
         { id: 'globales', nom: 'Globales', name: 'statistiques-globales' },
-        { id: 'guyane', nom: 'Guyane', name: 'statistiques-guyane' },
-        {
-          id: 'granulats-marins',
-          nom: 'Granulats marins',
-          name: 'statistiques-granulats-marins'
-        }
+        { id: 'guyane', nom: 'Guyane', name: 'statistiques-guyane' }
+        // {
+        //   id: 'granulats-marins',
+        //   nom: 'Granulats marins',
+        //   name: 'statistiques-granulats-marins'
+        // }
       ]
     }
   },
