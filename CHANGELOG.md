@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.55](https://github.com/MTES-MCT/camino-ui/compare/v0.22.54...v0.22.55) (2020-12-22)
+
+
+### Features
+
+* **demarches:** conditionne l'affichage du bouton de création de démarches ([#229](https://github.com/MTES-MCT/camino-ui/issues/229)) ([014e02e](https://github.com/MTES-MCT/camino-ui/commit/014e02ebfdb77da34cbcdbcec2225ef845639d37))
+* **statistiques:** corrige le commentaire introductif sur la page guyane ([#225](https://github.com/MTES-MCT/camino-ui/issues/225)) ([91183e5](https://github.com/MTES-MCT/camino-ui/commit/91183e5b47118cd167d70ae1ed9a86c52b79e6b4))
+* **statistiques:** désactive l’affichage des statistiques des granulats marins ([ee84d7b](https://github.com/MTES-MCT/camino-ui/commit/ee84d7bb53d10ff2fbc508b42b53055ba01d37cf))
+* édite les métas ([#224](https://github.com/MTES-MCT/camino-ui/issues/224)) ([75d1ff7](https://github.com/MTES-MCT/camino-ui/commit/75d1ff76f5e5f6f27fb6dd0be1d83f8b4408291b))
+
+
+### Bug Fixes
+
+* **étape:** initialise correctement le type d’étape lors de la modification d’une étape ([8102819](https://github.com/MTES-MCT/camino-ui/commit/8102819cee3c6f6aeb127b78530051ffbcd9a4c7))
+* supprime l'édition de tables de jointure inutilisées ([9d1777f](https://github.com/MTES-MCT/camino-ui/commit/9d1777f687974385a5ac3652e95c6dff52989016))
+* **entreprise:** empêche de choisir un amodiataire si il est titulaire ([#228](https://github.com/MTES-MCT/camino-ui/issues/228)) ([44b859b](https://github.com/MTES-MCT/camino-ui/commit/44b859b39767c8ff84f4ec7f4e6e26d9ce604f3f))
+
 ### [0.22.54](https://github.com/MTES-MCT/camino-ui/compare/v0.22.53...v0.22.54) (2020-12-08)
 
 
