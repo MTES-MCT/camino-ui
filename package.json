@@ -78,6 +78,7 @@
     "leaflet": "1.7.1",
     "leaflet-fullscreen": "^1.0.2",
     "leaflet-gesture-handling": "^1.2.1",
+    "leaflet-markers-canvas": "^0.1.4",
     "leaflet.markercluster": "^1.4.1",
     "marked": "^1.2.5",
     "npm-check-updates": "^10.2.3",

@@ -2,7 +2,7 @@ import 'leaflet'
 import 'leaflet.markercluster'
 import 'leaflet-gesture-handling'
 import 'leaflet-fullscreen'
-import './leaflet-canvas-markers'
+import 'leaflet-markers-canvas'
 
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png'
 import iconUrl from 'leaflet/dist/images/marker-icon.png'
@@ -56,9 +56,7 @@ const leafletScaleAdd = map => L.control.scale({ imperial: false }).addTo(map)
 
 const leafletFeatureGroupGet = markers => new L.FeatureGroup(markers)
 
-const leafletCanvasLayerAdd = function(options) {
-  return new L.CanvasMarkers(options)
-}
+const leafletCanvasLayerAdd = options => new L.MarkersCanvas(options)
 
 export {
   leafletMap,
