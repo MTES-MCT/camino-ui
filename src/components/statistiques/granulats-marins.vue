@@ -42,7 +42,7 @@
             <p class="bold text-center">Permis exclusifs de recherches</p>
           </div>
           <div class="tablet-blob-1-3">
-            <p class="h1 bold color-brand text-center">
+            <p class="h0 text-center">
               {{ numberFormat(statistiquesGranulatsMarins.surfaceExploration) }}
               ha
             </p>
@@ -88,7 +88,7 @@
             </div>
           </div>
           <div class="tablet-blob-1-3">
-            <p class="h1 bold color-brand text-center">
+            <p class="h0 text-center">
               {{
                 numberFormat(statistiquesGranulatsMarins.surfaceExploitation)
               }}
@@ -116,13 +116,14 @@
           :data="
             statsBarFormat(
               'granulatsExtrait',
-              'masseGranulatsExtrait',
               'volumeGranulatsExtrait',
+              'masseGranulatsExtrait',
               'Volume de production annuelle de granulats marins en m³',
-              'Masse de production annuelle de granulats marins en tonne',
+              'Tonnage produit',
               2010
             )
           "
+          :suggestedMax="suggestedMax(['granulatsExtrait'], 2010)"
         />
       </div>
     </div>
@@ -148,7 +149,7 @@
     />
     <div id="evolution" class="mb-xxl">
       <h2>
-        Évolution du nombre de titres et de leur surface par année depuis 2006
+        Évolution du nombre de titres et de leur surface par année
       </h2>
       <span class="separator" />
       <p>
@@ -157,7 +158,7 @@
       </p>
       <h3>
         Permis Exclusif de Recherche (PER) : Évolution du nombre de titres et de
-        leur surface octroyés depuis 2006
+        leur surface octroyés
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -172,18 +173,21 @@
             :data="
               statsBarFormat(
                 'titresPrw',
-                'surface',
                 'quantite',
+                'surface',
                 'Permis de recherches octroyés',
                 'Surface des permis de recherches (ha)'
               )
+            "
+            :suggestedMax="
+              suggestedMax(['titresPrw', 'titresPxw', 'titresCxw'])
             "
           />
         </div>
       </div>
       <h3>
-        Permis d'exploitation : Évolution du nombre de titres et de leur surface
-        par année depuis 2006
+        Permis d'exploitation (PER) : Évolution du nombre de titres et de leur
+        surface par année
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -198,18 +202,20 @@
             :data="
               statsBarFormat(
                 'titresPxw',
-                'surface',
                 'quantite',
+                'surface',
                 'Permis d\'exploitation octroyés',
                 'Surface des permis d\'exploitation (ha)'
               )
+            "
+            :suggestedMax="
+              suggestedMax(['titresPrw', 'titresPxw', 'titresCxw'])
             "
           />
         </div>
       </div>
       <h3>
         Concessions : Évolution du nombre de titres et de leur surface par année
-        depuis 2006
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -224,11 +230,14 @@
             :data="
               statsBarFormat(
                 'titresCxw',
-                'surface',
                 'quantite',
-                'Concessions octroyés',
-                'Surface des concessions (ha)'
+                'surface',
+                'Concessions octroyées',
+                'Surfaces cumulées des titres pouvant faire l\'objet d\'une activité d\'exploitation (ha)'
               )
+            "
+            :suggestedMax="
+              suggestedMax(['titresPrw', 'titresPxw', 'titresCxw'])
             "
           />
         </div>
@@ -280,7 +289,7 @@ export default {
           return {
             id: this.anneeCurrent - e,
             nom: (this.anneeCurrent - e).toString(),
-            enConstruction: e === 0
+            enConstruction: e <= 1 // sont en construction l'année en cours et la précédente
           }
         })
         .reverse()
@@ -305,41 +314,62 @@ export default {
       this.tabActive = tabId
     },
 
-    statsBarFormat(id, line, bar, labelBar, labelLine, start) {
-      const annees = start
+    graphAnnees(start) {
+      return start
         ? this.statistiquesGranulatsMarins.annees.filter(
             annee => annee.annee >= start
           )
         : this.statistiquesGranulatsMarins.annees
+    },
 
-      return annees.reduce(
+    statsBarFormat(id, bar, line, labelBar, labelLine, start) {
+      return this.graphAnnees(start).reduce(
         (acc, statsAnnee) => {
+          acc.id = id
           acc.labels.push(statsAnnee.annee)
-          acc.datasets[0].data.push(statsAnnee[id][line])
-          acc.datasets[1].data.push(statsAnnee[id][bar])
+          acc.datasets[0].data.push(statsAnnee[id][bar])
+          acc.datasets[1].data.push(statsAnnee[id][line])
 
           return acc
         },
         {
+          id: '',
           labels: [],
           datasets: [
+            {
+              type: 'bar',
+              label: labelBar,
+              yAxisID: 'bar',
+              legendPosition: 'left',
+              data: [],
+              backgroundColor: 'rgb(118, 182, 189)'
+            },
             {
               type: 'line',
               label: labelLine,
               yAxisID: 'line',
+              legendPosition: 'right',
               data: [],
               backgroundColor: 'rgba(55, 111, 170, 0.2)',
               borderColor: 'rgb(55, 111, 170)'
-            },
-            {
-              label: labelBar,
-              yAxisID: 'bar',
-              data: [],
-              backgroundColor: 'rgb(118, 182, 189)'
             }
           ]
         }
       )
+    },
+
+    // Valeur max des abscisses : doit être la même pour certains graphes afin de comparer visuelement les données
+    // = max des quantités tous graph confondus parmis les ids sur l'ensemble des années requises si supérieur à 10, sinon 10
+    // ids : liste des id à prendre en compte
+    // start : année de départ de la liste
+    suggestedMax(ids, start) {
+      const quantiteMax = Math.max(
+        ...this.graphAnnees(start).map(annee =>
+          Math.max(...ids.map(id => annee[id].quantite))
+        )
+      )
+
+      return quantiteMax > 10 ? quantiteMax : 10
     }
   }
 }

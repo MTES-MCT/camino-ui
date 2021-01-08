@@ -11,6 +11,14 @@ export default {
     data: {
       type: Object,
       default: () => ({})
+    },
+    aspectRatio: {
+      type: Number,
+      default: 3.33
+    },
+    suggestedMax: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -28,14 +36,15 @@ export default {
         type: 'bar',
         data: this.data,
         options: {
-          aspectRatio: 1.33,
+          aspectRatio: this.aspectRatio,
           scales: {
             yAxes: [
               {
                 id: 'bar',
                 display: true,
                 ticks: {
-                  beginAtZero: true
+                  beginAtZero: true,
+                  suggestedMax: this.suggestedMax
                 }
               },
               {
