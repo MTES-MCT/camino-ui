@@ -123,7 +123,7 @@
               2010
             )
           "
-          :suggestedMax="suggestedMax(['granulatsExtrait'], 2010)"
+          :suggested-max="suggestedMax(['granulatsExtrait'], 2010)"
         />
       </div>
     </div>
@@ -179,7 +179,7 @@
                 'Surface des permis de recherches (ha)'
               )
             "
-            :suggestedMax="
+            :suggested-max="
               suggestedMax(['titresPrw', 'titresPxw', 'titresCxw'])
             "
           />
@@ -208,7 +208,7 @@
                 'Surface des permis d\'exploitation (ha)'
               )
             "
-            :suggestedMax="
+            :suggested-max="
               suggestedMax(['titresPrw', 'titresPxw', 'titresCxw'])
             "
           />
@@ -236,7 +236,7 @@
                 'Surfaces cumulées des titres pouvant faire l\'objet d\'une activité d\'exploitation (ha)'
               )
             "
-            :suggestedMax="
+            :suggested-max="
               suggestedMax(['titresPrw', 'titresPxw', 'titresCxw'])
             "
           />

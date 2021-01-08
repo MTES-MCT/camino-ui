@@ -164,7 +164,7 @@
                 'Surface des autorisations de recherche (ha)'
               )
             "
-            :suggestedMax="
+            :suggested-max="
               suggestedMax([
                 'titresArm',
                 'titresPrm',
@@ -198,7 +198,7 @@
                 'Surface des permis de recherches (ha)'
               )
             "
-            :suggestedMax="
+            :suggested-max="
               suggestedMax([
                 'titresArm',
                 'titresPrm',
@@ -233,7 +233,7 @@
                 'Surface des autorisations de recherche (ha)'
               )
             "
-            :suggestedMax="
+            :suggested-max="
               suggestedMax([
                 'titresArm',
                 'titresPrm',
@@ -267,7 +267,7 @@
                 'Surface des permis d\'exploitation (ha)'
               )
             "
-            :suggestedMax="
+            :suggested-max="
               suggestedMax([
                 'titresArm',
                 'titresPrm',
@@ -299,7 +299,7 @@
                 'Surface des concessions (ha)'
               )
             "
-            :suggestedMax="
+            :suggested-max="
               suggestedMax([
                 'titresArm',
                 'titresPrm',
