@@ -19,16 +19,6 @@ http://francoisromain.github.io/postcss-structure
   --color-success: #6ea040;
   --color-sticky: #fef3b8;
 
-  --color-title-domaine-c: #b88847;
-  --color-title-domaine-f: #4a515d;
-  --color-title-domaine-g: #c94f17;
-  --color-title-domaine-h: #c2266a;
-  --color-title-domaine-i: #aaaaaa;
-  --color-title-domaine-m: #376faa;
-  --color-title-domaine-r: #a0aa31;
-  --color-title-domaine-s: #7657b5;
-  --color-title-domaine-w: #1ea88c;
-
   /* Base units    ------------------------------- */
 
   /* font-size: 1rem = 16 px */
@@ -38,7 +28,7 @@ http://francoisromain.github.io/postcss-structure
   --unit: 1.5rem;
 
   /* line: 0.0625rem = 1px */
-  --unit-line: calc(var(--unit) / 24);
+  --unit-px: calc(var(--unit) / 24);
 
   /* xxs: 0.1875rem = 3px */
   --unit-xxs: calc(var(--unit) / 8);
@@ -90,7 +80,17 @@ http://francoisromain.github.io/postcss-structure
 
   /* hr */
   --border-color: var(--color-neutral);
-  --border-width: var(--unit-line);
+  --border-width: var(--unit-px);
+
+  --select-backround-image: svg-load(
+    './icons/svgs/24-chevron-b.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-miterlimit=10,
+    stroke-width=1px
+  );
 }
 
 /* media queries: x * col-width + gutter */

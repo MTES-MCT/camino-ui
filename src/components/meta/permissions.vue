@@ -17,8 +17,8 @@
 
       <p class="h6 italic">Par domaine / type de titre.</p>
 
-      <div class="line" />
-      <div class="width-max">
+      <div class="line width-full" />
+      <div class="width-full-p">
         <div class="overflow-scroll-x mb">
           <table>
             <tr>
@@ -163,8 +163,8 @@
         </p>
       </div>
 
-      <div class="line" />
-      <div class="width-max">
+      <div class="line width-full" />
+      <div class="width-full-p">
         <div class="overflow-scroll-x mb">
           <table>
             <tr>
@@ -395,8 +395,8 @@
         </p>
       </div>
 
-      <div class="line" />
-      <div class="width-max">
+      <div class="line width-full" />
+      <div class="width-full-p">
         <div class="overflow-scroll-x mb">
           <table>
             <tr>

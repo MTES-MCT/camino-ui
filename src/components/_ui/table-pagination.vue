@@ -5,7 +5,7 @@
       :columns="columns"
       :order="order"
       :rows="rows"
-      class="width-max"
+      class="width-full-p"
       @params-update="update"
     />
 

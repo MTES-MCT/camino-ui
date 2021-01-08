@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-alt width-max-padding">
+  <div class="bg-alt width-full">
     <MapPattern :domaines-ids="[domaineId]" :types-ids="[typeId]" />
     <Map
       ref="map"

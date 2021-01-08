@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <div class="line-neutral" />
+    <div class="line-neutral width-full" />
     <Component
       :is="vueComponent"
       v-if="vue && metasLoaded"

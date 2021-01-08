@@ -22,15 +22,7 @@ textarea,
 }
 
 select {
-  background-image: svg-load(
-    './icons/24-chevron-b.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=1px
-  );
+  background-image: var(--select-backround-image);
   background-position: right var(--unit-s) center;
   background-repeat: no-repeat;
 

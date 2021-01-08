@@ -1,6 +1,6 @@
 <template>
   <div class="mb-xxl">
-    <div class="line mb-xxl" />
+    <div class="line width-full mb-xxl" />
     <div class="tablet-blobs mb">
       <div class="tablet-blob-1-2 mb">
         <h2 class="cap-first mb-m">
@@ -19,7 +19,7 @@
         >
           <button
             v-if="demarche.etapesCreation"
-            class="btn rnd-l-xs py-s px-m h5 flex mr-line"
+            class="btn rnd-l-xs py-s px-m h5 flex mr-px"
             :class="{
               'rnd-r-xs': !demarche.suppression && !demarche.modification
             }"
@@ -29,7 +29,7 @@
           </button>
           <button
             v-if="demarche.modification"
-            class="btn py-s px-m mr-line"
+            class="btn py-s px-m mr-px"
             :class="{ 'rnd-l-xs': !demarche.etapesCreation }"
             @click="editPopupOpen"
           >
@@ -37,7 +37,7 @@
           </button>
           <button
             v-if="demarche.suppression"
-            class="btn rnd-r-xs py-s px-m mr-line"
+            class="btn rnd-r-xs py-s px-m mr-px"
             :class="{ 'rnd-l-xs': !demarche.modification }"
             @click="removePopupOpen"
           >

@@ -17,7 +17,7 @@
           :parent-id="entreprise.id"
           :title="nom"
           repertoire="entreprises"
-          class="btn py-s px-m mr-line"
+          class="btn py-s px-m mr-px"
         />
         <button class="btn py-s px-m" @click="editPopupOpen">
           <i class="icon-24 icon-pencil" />
@@ -158,11 +158,11 @@
     </Accordion>
 
     <div v-if="utilisateurs && utilisateurs.length" class="mb-xxl">
-      <div class="line-neutral mb-xxl" />
+      <div class="line-neutral width-full mb-xxl" />
       <h3>Utilisateurs</h3>
-      <div class="line" />
+      <div class="line width-full" />
       <Table
-        class="width-max"
+        class="width-full-p"
         :columns="utilisateursColonnes"
         :rows="utilisateursLignes"
         :utilisateurs="utilisateurs"
@@ -170,16 +170,16 @@
     </div>
 
     <div v-if="titulaireTitres && titulaireTitres.length" class="mb-xxl">
-      <div class="line-neutral mb-xxl" />
+      <div class="line-neutral width-full mb-xxl" />
       <h3>Titres miniers et autorisations</h3>
-      <div class="line" />
+      <div class="line width-full" />
       <TitresTable :titres="titulaireTitres" />
     </div>
 
     <div v-if="amodiataireTitres && amodiataireTitres.length" class="mb-xxl">
-      <div class="line my-xxl" />
+      <div class="line width-full my-xxl" />
       <h3>Titres miniers et autorisations (amodiataire)</h3>
-      <div class="line" />
+      <div class="line width-full" />
       <TitresTable :titres="amodiataireTitres" />
     </div>
   </div>

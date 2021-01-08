@@ -3,17 +3,14 @@
     <h1 class="mb-xl">
       À propos
     </h1>
-    <hr class="mb-xl">
-    <div
-      id="irritants"
-      class="mb-xxl"
-    >
+    <hr class="mb-xl" />
+    <div id="irritants" class="mb-xxl">
       <h4 class="mb-s color-neutral">
         Ce qu'il faut changer
       </h4>
       <h2>
         L'accès aux informations sur les projets miniers
-        <br class="hide desktop-static">est trop complexe.
+        <br class="hide desktop-static" />est trop complexe.
       </h2>
       <span class="separator" />
       <p class="lead">
@@ -52,8 +49,8 @@
           <p>
             <b>
               L’enregistrement, la consultation et la valorisation des données
-              de l’administration des mines est impossible ou trop peu efficace
-            </b>.
+              de l’administration des mines est impossible ou trop peu efficace </b
+            >.
           </p>
         </div>
         <div class="desktop-blob-1-3">
@@ -77,10 +74,7 @@
       </div>
     </div>
 
-    <div
-      id="utilisateurs"
-      class="mb-xxl"
-    >
+    <div id="utilisateurs" class="mb-xxl">
       <h4 class="mb-s color-neutral">
         Camino numérise l'administration des mines
       </h4>
@@ -91,7 +85,7 @@
 
       <p class="lead">
         Camino va simplifier les démarches des entreprises,
-        <br class="hide desktop-static">ouvrir les données aux citoyens et
+        <br class="hide desktop-static" />ouvrir les données aux citoyens et
         faciliter le travail des agents publics impliqués dans ces projets.
       </p>
 
@@ -146,10 +140,7 @@
       </div>
     </div>
 
-    <div
-      id="services"
-      class="mb-xxl"
-    >
+    <div id="services" class="mb-xxl">
       <h4 class="mb-s color-neutral">
         Camino change l'administration des mines
       </h4>
@@ -208,10 +199,7 @@
       </div>
     </div>
 
-    <div
-      id="activites"
-      class="mb-xxl"
-    >
+    <div id="activites" class="mb-xxl">
       <h4 class="mb-s color-neutral">
         Tous les projets miniers concernés
       </h4>
@@ -227,7 +215,7 @@
             src="../../../public/img/about/gallery-non-energetique.jpg"
             alt="Mine de sel"
             class="mb"
-          >
+          />
 
           <p>
             Les matières premières minérales sont à la base du développement de
@@ -245,7 +233,7 @@
             src="../../../public/img/about/gallery-energetique.jpg"
             alt="Forage"
             class="mb"
-          >
+          />
 
           <p>
             Les matières premières énergétiques comme le charbon, le pétrole ou
@@ -263,7 +251,7 @@
             src="../../../public/img/about/gallery-stockages.jpg"
             alt="Station de contrôle"
             class="mb"
-          >
+          />
 
           <p>
             Les capacités de stockage dans le sous-sol profond ont d’abord été
@@ -283,7 +271,7 @@
             src="../../../public/img/about/gallery-geothermie.jpg"
             alt="Centrale géothermique"
             class="mb"
-          >
+          />
 
           <p>
             Provenant des sources de chaleur interne de la Terre, cette énergie
@@ -297,7 +285,7 @@
             src="../../../public/img/about/gallery-travaux.jpg"
             alt="Centrale géothermique"
             class="mb"
-          >
+          />
 
           <p>
             Les travaux de recherche ou d’exploitation de substances minières
@@ -314,7 +302,7 @@
             src="../../../public/img/about/gallery-apresmine.jpg"
             alt="Centrale géothermique"
             class="mb"
-          >
+          />
 
           <p>
             L’arrêt de l’activité minière n’induit pas pour autant la
@@ -328,10 +316,7 @@
       </div>
     </div>
 
-    <div
-      id="fabricants"
-      class="mb-xxl"
-    >
+    <div id="fabricants" class="mb-xxl">
       <h4 class="mb-s color-neutral">
         Les fabricants
       </h4>
@@ -347,7 +332,7 @@
               <img
                 src="../../../public/img/about/member-guillaume-levieux.jpg"
                 alt="Portrait Guillaume"
-              >
+              />
             </div>
           </div>
 
@@ -356,14 +341,15 @@
           </h3>
           <h6>Intrapreneur</h6>
           <blockquote>
-            Démontrer qu'un produit numérique construit
-            par les agents publics et avec les usagers permet de délivrer un
-            meilleur service public.
+            Démontrer qu'un produit numérique construit par les agents publics
+            et avec les usagers permet de délivrer un meilleur service public.
           </blockquote>
 
           <ul class="list-prefix mb-0">
             <li>
-              <a href="https://www.linkedin.com/in/levieuxguillaume/">LinkedIn</a>
+              <a href="https://www.linkedin.com/in/levieuxguillaume/"
+                >LinkedIn</a
+              >
             </li>
           </ul>
         </div>
@@ -374,7 +360,7 @@
               <img
                 src="../../../public/img/about/member-joeffrey-arruyer.jpg"
                 alt="Portrait Joeffrey"
-              >
+              />
             </div>
           </div>
           <h3 class="mb-s">
@@ -387,7 +373,9 @@
           </blockquote>
           <ul class="list-prefix mb-0">
             <li>
-              <a href="https://www.linkedin.com/in/joeffrey-arruyer-5392a744">LinkedIn</a>
+              <a href="https://www.linkedin.com/in/joeffrey-arruyer-5392a744"
+                >LinkedIn</a
+              >
             </li>
           </ul>
         </div>
@@ -398,7 +386,7 @@
               <img
                 src="../../../public/img/about/member-francois-romain.jpg"
                 alt="Portrait François Romain"
-              >
+              />
             </div>
           </div>
 
@@ -422,7 +410,7 @@
               <img
                 src="../../../public/img/about/member-adrien-risser.jpg"
                 alt="Portrait Adrien Risser"
-              >
+              />
             </div>
           </div>
 
@@ -446,7 +434,7 @@
               <img
                 src="../../../public/img/about/member-florent-chalvet.jpg"
                 alt="Portrait Florent Chalvet"
-              >
+              />
             </div>
           </div>
 
@@ -455,7 +443,8 @@
           </h3>
           <h6>Développeur</h6>
           <blockquote>
-            Assurer la qualité des données pour certifier celle du service public.
+            Assurer la qualité des données pour certifier celle du service
+            public.
           </blockquote>
           <ul class="list-prefix mb-0">
             <li>
@@ -470,7 +459,7 @@
               <img
                 src="../../../public/img/about/member-nicolas-petitot.jpg"
                 alt="Portrait Nicolas Petitot"
-              >
+              />
             </div>
           </div>
 
@@ -479,16 +468,14 @@
           </h3>
           <h6>Développeur</h6>
           <blockquote>
-            Participer à la transition numérique des services de l'Etat en permettant l'ouverture et la valorisation des données
+            Participer à la transition numérique des services de l'Etat en
+            permettant l'ouverture et la valorisation des données
           </blockquote>
         </div>
       </div>
     </div>
 
-    <div
-      id="contact"
-      class="mb-xxl"
-    >
+    <div id="contact" class="mb-xxl">
       <h4 class="mb-s color-neutral">
         Nous écrire
       </h4>

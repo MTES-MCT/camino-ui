@@ -6,9 +6,9 @@
       {{ definition.nom }}
     </h1>
 
-    <div class="line-neutral" />
+    <div class="line-neutral width-full" />
 
-    <div class="mb-xxl width-max">
+    <div class="mb-xxl width-full-p">
       <div>
         <div class="overflow-scroll-x mb">
           <table>

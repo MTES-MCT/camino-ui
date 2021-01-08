@@ -47,7 +47,9 @@
             <div class="tablet-blob-3-4">
               <p>
                 {{ administration.adresse1 }}
-                <span v-if="administration.adresse2"><br />{{ administration.adresse2 }}</span>
+                <span v-if="administration.adresse2"
+                  ><br />{{ administration.adresse2 }}</span
+                >
                 <br />{{ administration.codePostal }}
                 {{ administration.commune }}
               </p>
@@ -110,7 +112,7 @@
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
-                  {{ administration.departement.nom }}
+                {{ administration.departement.nom }}
               </p>
             </div>
           </div>
@@ -121,21 +123,20 @@
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
-                  {{ administration.region.nom }}
+                {{ administration.region.nom }}
               </p>
             </div>
           </div>
-
         </div>
       </template>
     </Accordion>
 
     <div v-if="utilisateurs && utilisateurs.length" class="mb-xxl">
-      <div class="line-neutral mb-xxl" />
+      <div class="line-neutral width-full mb-xxl" />
       <h2>Utilisateurs</h2>
-      <div class="line" />
+      <div class="line width-full" />
       <Table
-        class="width-max"
+        class="width-full-p"
         :columns="utilisateursColonnes"
         :rows="utilisateursLignes"
         :utilisateurs="utilisateurs"
@@ -143,7 +144,7 @@
     </div>
 
     <div v-if="permissionsCheck(['super'])" class="mb-xxl">
-      <div class="line-neutral mb-xxl" />
+      <div class="line-neutral width-full mb-xxl" />
       <h2>Permissions</h2>
 
       <AdministrationPermission :administration="administration" />
@@ -196,7 +197,7 @@ export default {
 
     loaded() {
       return !!this.administration
-    },
+    }
   },
 
   watch: {
@@ -233,7 +234,8 @@ export default {
         codePostal: this.administration.codePostal,
         commune: this.administration.commune,
         cedex: this.administration.cedex,
-        departementId: this.administration.departement && this.administration.departement.id,
+        departementId:
+          this.administration.departement && this.administration.departement.id,
         regionId: this.administration.region && this.administration.region.id
       }
 

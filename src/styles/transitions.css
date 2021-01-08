@@ -29,3 +29,69 @@
 .transition-top-leave-to .pophover {
   margin-top: calc(var(--unit-xxl) * -1);
 }
+
+/* slide */
+
+.slide-enter-active {
+  transition: transform 0.35s ease-out 0.1s, opacity 0.25s ease-out;
+  will-change: transform, opacity;
+}
+
+.slide-leave-active {
+  transition: transform 0.35s ease-in, opacity 0.25s ease-in 0.1s;
+  will-change: transform, opacity;
+}
+
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(-90%);
+  opacity: 0;
+}
+
+/* slide top  */
+
+.slide-top-enter-active {
+  transition: top 0.4s ease-out;
+  will-change: top;
+}
+
+.slide-top-leave-active {
+  transition: top 0.4s ease-in;
+  will-change: top;
+}
+
+.slide-top-enter,
+.slide-top-leave-to {
+  top: -100%;
+}
+
+/* slide-bottom */
+
+.slide-bottom-enter-active {
+  transition: transform 0.35s ease-out 0.1s, opacity 0.25s ease-out;
+  will-change: transform, opacity;
+}
+
+.slide-bottom-leave-active {
+  transition: transform 0.35s ease-in, opacity 0.25s ease-in 0.1s;
+  will-change: transform, opacity;
+}
+
+.slide-bottom-enter,
+.slide-bottom-leave-to {
+  transform: translateY(90%);
+  opacity: 0;
+}
+
+/* fade enter */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease-out;
+  will-change: opacity;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}

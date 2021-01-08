@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-direction-column rnd-s border bg-bg overflow-hidden">
+  <div class="flex flex-direction-column overflow-hidden rnd-s border bg-bg">
     <div
       v-if="$slots.buttons"
       class="accordion-header flex"
@@ -13,7 +13,7 @@
         <slot name="title" />
       </div>
 
-      <div class="accordion-buttons flex flex-end flex-right">
+      <div class="overflow-hidden flex flex-end flex-right">
         <slot name="buttons" />
         <button v-if="$slots.default" class="btn-alt py-s px-m" @click="toggle">
           <i

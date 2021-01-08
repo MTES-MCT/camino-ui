@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <div class="line-neutral" />
+      <div class="line-neutral width-full" />
 
       <TitreMap
         v-if="titre.geojsonMultiPolygon && geoTabActive === 'carte'"
@@ -61,7 +61,7 @@
         :points="titre.points"
       />
 
-      <div class="line mb" />
+      <div class="line width-full mb" />
     </div>
 
     <TitreTerritoires
@@ -70,7 +70,7 @@
       :surface="titre.surface"
     />
 
-    <div class="line mb-xl" />
+    <div class="line width-full mb-xl" />
 
     <TitreRepertoire
       :titulaires="titre.titulaires"

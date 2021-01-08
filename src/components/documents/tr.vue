@@ -28,14 +28,14 @@
     <td class="flex text-right">
       <button
         v-if="boutonDissociation"
-        class="btn rnd-l-xs py-s px-m my--xs mr-line"
+        class="btn rnd-l-xs py-s px-m my--xs mr-px"
         @click="unlinkPopupOpen"
       >
         <i class="icon-24 icon-unlink" />
       </button>
       <button
         v-if="boutonModification"
-        class="btn rnd-l-xs py-s px-m my--xs mr-line"
+        class="btn rnd-l-xs py-s px-m my--xs mr-px"
         @click="editPopupOpen"
       >
         <i class="icon-24 icon-pencil" />

@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="line-neutral" />
+    <div class="line-neutral width-full" />
 
     <Table
       :columns="colonnes"

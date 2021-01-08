@@ -20,19 +20,19 @@
         :repertoire="documentRepertoire"
         :parent-id="etape.id"
         :parent-type-id="etape.type.id"
-        class="btn py-s px-m mr-line"
+        class="btn py-s px-m mr-px"
         @titre-event-track="eventTrack"
       />
       <button
         v-if="etape.modification"
-        class="btn py-s px-m mr-line"
+        class="btn py-s px-m mr-px"
         @click="editPopupOpen"
       >
         <i class="icon-24 icon-pencil" />
       </button>
       <button
         v-if="etape.suppression"
-        class="btn py-s px-m mr-line"
+        class="btn py-s px-m mr-px"
         @click="removePopupOpen"
       >
         <i class="icon-24 icon-trash" />

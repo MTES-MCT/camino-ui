@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <div class="line-neutral mb" />
+      <div class="line-neutral width-full mb" />
       <button
         class="btn rnd-xs py-s px-m full-x flex h5 mb"
         @click="travauxAddPopupOpen"

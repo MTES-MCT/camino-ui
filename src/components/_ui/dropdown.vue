@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  name: 'UiSytemAccordion',
+  name: 'UiSytemDropdown',
 
   props: {
     iconOpenedClass: {

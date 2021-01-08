@@ -16,7 +16,7 @@
 }
 
 .btn-border {
-  button-border: var(--unit-line) var(--color-alt) var(--color-neutral)
+  button-border: var(--unit-px) var(--color-alt) var(--color-neutral)
     var(--color-highlight);
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
   button-background: var(--color-bg) var(--color-neutral) var(--color-highlight);
@@ -24,7 +24,7 @@
 }
 
 .btn-tab {
-  button-border: var(--unit-line) var(--color-alt) var(--color-neutral)
+  button-border: var(--unit-px) var(--color-alt) var(--color-neutral)
     var(--color-highlight);
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
   button-background: var(--color-transparent) var(--color-neutral)

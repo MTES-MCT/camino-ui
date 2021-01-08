@@ -18,7 +18,7 @@ table,
 tr,
 .tr {
   border-bottom-color: var(--border-color);
-  border-bottom-width: var(--unit-line);
+  border-bottom-width: var(--unit-px);
   border-bottom-style: dotted;
 }
 
@@ -43,7 +43,7 @@ th,
   vertical-align: top;
   overflow-wrap: break-word;
   padding-bottom: var(--unit-s);
-  padding-top: calc(var(--unit-s) - var(--unit-line));
+  padding-top: calc(var(--unit-s) - var(--unit-px));
 }
 
 .th,
@@ -70,19 +70,19 @@ th:not(:last-child),
 }
 
 .table-sans tr {
-  border-bottom: var(--unit-line) dotted var(--border-bg);
+  border-bottom: var(--unit-px) dotted var(--border-bg);
 }
 
 .table-xs td,
 .table-xs th {
   padding-top: var(--unit-xs);
-  padding-bottom: calc(var(--unit-xs) - var(--unit-line));
+  padding-bottom: calc(var(--unit-xs) - var(--unit-px));
 }
 
 .table-xxs td,
 .table-xxs th {
   padding-top: var(--unit-xxs);
-  padding-bottom: calc(var(--unit-xxs) - var(--unit-line));
+  padding-bottom: calc(var(--unit-xxs) - var(--unit-px));
 }
 
 .table-fixed {

@@ -70,7 +70,7 @@
           <p class="mb-0">
             {{
               (document.fichierNouveau && document.fichierNouveau.name) ||
-              `${document.id}.${document.fichierTypeId}`
+                `${document.id}.${document.fichierTypeId}`
             }}
           </p>
           <button

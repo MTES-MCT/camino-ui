@@ -13,7 +13,7 @@
         </RouterLink>
       </div>
     </div>
-    <div class="line-neutral" />
+    <div class="line-neutral width-full" />
 
     <Router-view v-if="tabActive" />
   </div>

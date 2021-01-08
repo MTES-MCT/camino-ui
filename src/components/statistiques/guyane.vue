@@ -103,7 +103,7 @@
       </div>
     </div>
 
-    <div class="line-neutral mb" />
+    <div class="line-neutral width-full mb" />
     <GuyaneActivite
       :statistique-guyane="statistiques[tabActive]"
       :en-construction="tabs.find(t => t.id === tabActive).enConstruction"

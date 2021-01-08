@@ -1,3 +1,81 @@
+:root {
+  --color-title-domaine-c: #b88847;
+  --color-title-domaine-f: #4a515d;
+  --color-title-domaine-g: #c94f17;
+  --color-title-domaine-h: #c2266a;
+  --color-title-domaine-i: #aaaaaa;
+  --color-title-domaine-m: #376faa;
+  --color-title-domaine-r: #a0aa31;
+  --color-title-domaine-s: #7657b5;
+  --color-title-domaine-w: #1ea88c;
+}
+
+.leaflet-marker-camino::before {
+  display: block;
+  position: absolute;
+  top: 29px;
+  left: 50%;
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 5.5px solid transparent;
+  border-right: 5.5px solid transparent;
+  border-top: 8px solid var(--color-bg);
+  margin-left: -5.5px;
+}
+
+.leaflet-marker-cluster-xs {
+  box-shadow: 0 0 0 var(--unit-xxs) color-mod(var(--color-bg) alpha(100%));
+}
+
+.leaflet-marker-cluster-s {
+  box-shadow: 0 0 0 var(--unit-xs) color-mod(var(--color-bg) alpha(95%));
+}
+
+.leaflet-marker-cluster-m {
+  box-shadow: 0 0 0 var(--unit-s) color-mod(var(--color-bg) alpha(85%));
+}
+
+.leaflet-marker-cluster-l {
+  box-shadow: 0 0 0 var(--unit-m) color-mod(var(--color-bg) alpha(70%));
+}
+
+.bg-titre-domaine-c {
+  background: var(--color-title-domaine-c);
+}
+
+.bg-titre-domaine-f {
+  background: var(--color-title-domaine-f);
+}
+
+.bg-titre-domaine-g {
+  background: var(--color-title-domaine-g);
+}
+
+.bg-titre-domaine-h {
+  background: var(--color-title-domaine-h);
+}
+
+.bg-titre-domaine-i {
+  background: var(--color-title-domaine-i);
+}
+
+.bg-titre-domaine-m {
+  background: var(--color-title-domaine-m);
+}
+
+.bg-titre-domaine-r {
+  background: var(--color-title-domaine-r);
+}
+
+.bg-titre-domaine-s {
+  background: var(--color-title-domaine-s);
+}
+
+.bg-titre-domaine-w {
+  background: var(--color-title-domaine-w);
+}
+
 .svg-fill-domaine-c {
   fill: var(--color-title-domaine-c);
 }

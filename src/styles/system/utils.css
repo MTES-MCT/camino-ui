@@ -155,10 +155,6 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   min-width: calc(3 * var(--unit));
 }
 
-.min-width-full {
-  min-width: 100%;
-}
-
 .min-width-5 {
   min-width: calc(5 * var(--unit));
 }
@@ -181,6 +177,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 
 .min-width-12 {
   min-width: calc(12 * var(--unit));
+}
+
+.min-width-full {
+  min-width: 100%;
 }
 
 .max-width-1 {

@@ -1,5 +1,5 @@
 <template>
-  <div class="points width-max-padding bg-alt">
+  <div class="points width-full bg-alt">
     <div class="container bg-bg py">
       <div v-if="geoSysteme">
         <div class="tablet-blobs px flex-align-items-stretch">

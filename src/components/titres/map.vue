@@ -1,5 +1,5 @@
 <template>
-  <div class="width-max-padding bg-alt">
+  <div class="width-full bg-alt">
     <Map
       ref="map"
       :tiles-layer="tilesLayer"
@@ -22,7 +22,7 @@
             </span>
           </div>
           <ul class="list-inline pill-list mb-s">
-            <li v-for="z in zones" :key="z.id" class="mr-line mb-line">
+            <li v-for="z in zones" :key="z.id" class="mr-px mb-px">
               <button
                 class="btn-border pill-item px-s py-xs h5"
                 @click="mapCenter(z.id)"

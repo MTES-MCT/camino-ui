@@ -1,0 +1,27 @@
+:root {
+  --margin-width-full-p: 0;
+  --margin-width-full: calc(-1 * var(--container-padding));
+}
+
+.width-full-p {
+  margin-left: var(--margin-width-full-p);
+  margin-right: var(--margin-width-full-p);
+}
+
+.width-full {
+  margin-left: var(--margin-width-full);
+  margin-right: var(--margin-width-full);
+}
+
+@media (--viewport-desktop) {
+  :root {
+    --margin-width-full-p: calc(
+      -1 * (100vw - (var(--container-width) + (2 * var(--container-padding)))) /
+        2
+    );
+
+    --margin-width-full: calc(
+      var(--margin-width-full-p) - (2 * var(--container-padding))
+    );
+  }
+}

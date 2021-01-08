@@ -48,7 +48,7 @@
 
 .icon-close {
   background-image: svg-load(
-    './icons/24-close.svg',
+    './svgs/24-close.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -61,7 +61,7 @@
 .btn-flash:hover .icon-close,
 .btn-alt:hover .icon-close {
   background-image: svg-load(
-    './icons/24-close.svg',
+    './svgs/24-close.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -71,12 +71,12 @@
 }
 
 .icon-x {
-  background-image: svg-load('./icons/16-x.svg', fill= 'white');
+  background-image: svg-load('./svgs/16-x.svg', fill= 'white');
 }
 
 .icon-plus {
   background-image: svg-load(
-    './icons/24-plus.svg',
+    './svgs/24-plus.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -90,7 +90,7 @@
 .btn-alt:hover .icon-plus,
 .btn-border:hover .icon-plus {
   background-image: svg-load(
-    './icons/24-plus.svg',
+    './svgs/24-plus.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -101,7 +101,7 @@
 
 .icon-check {
   background-image: svg-load(
-    './icons/24-check.svg',
+    './svgs/24-check.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -112,7 +112,7 @@
 
 .btn:hover .icon-check {
   background-image: svg-load(
-    './icons/24-check.svg',
+    './svgs/24-check.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -123,7 +123,7 @@
 
 .icon-cross {
   background-image: svg-load(
-    './icons/24-cross.svg',
+    './svgs/24-cross.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -134,7 +134,7 @@
 
 .btn:hover .icon-cross {
   background-image: svg-load(
-    './icons/24-cross.svg',
+    './svgs/24-cross.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -145,7 +145,7 @@
 
 .icon-square {
   background-image: svg-load(
-    './icons/24-square.svg',
+    './svgs/24-square.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -156,7 +156,7 @@
 
 .btn:hover .icon-square {
   background-image: svg-load(
-    './icons/24-square.svg',
+    './svgs/24-square.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -167,7 +167,7 @@
 
 .icon-minus {
   background-image: svg-load(
-    './icons/24-minus.svg',
+    './svgs/24-minus.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -179,7 +179,7 @@
 .btn:hover .icon-minus,
 .btn-border:hover .icon-minus {
   background-image: svg-load(
-    './icons/24-minus.svg',
+    './svgs/24-minus.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -190,7 +190,7 @@
 
 .icon-chevron-b {
   background-image: svg-load(
-    './icons/24-chevron-b.svg',
+    './svgs/24-chevron-b.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -203,7 +203,7 @@
 .btn:hover .icon-chevron-b,
 .btn-alt:hover .icon-chevron-b {
   background-image: svg-load(
-    './icons/24-chevron-b.svg',
+    './svgs/24-chevron-b.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -214,7 +214,7 @@
 
 .icon-chevron-t {
   background-image: svg-load(
-    './icons/24-chevron-t.svg',
+    './svgs/24-chevron-t.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -227,7 +227,7 @@
 .btn:hover .icon-chevron-t,
 .btn-alt:hover .icon-chevron-t {
   background-image: svg-load(
-    './icons/24-chevron-t.svg',
+    './svgs/24-chevron-t.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -238,7 +238,7 @@
 
 .icon-file-plus {
   background-image: svg-load(
-    './icons/24-file-plus.svg',
+    './svgs/24-file-plus.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -249,7 +249,7 @@
 
 .btn:hover .icon-file-plus {
   background-image: svg-load(
-    './icons/24-file-plus.svg',
+    './svgs/24-file-plus.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -260,7 +260,7 @@
 
 .icon-file-link {
   background-image: svg-load(
-    './icons/24-file-link.svg',
+    './svgs/24-file-link.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -271,7 +271,7 @@
 
 .btn:hover .icon-file-link {
   background-image: svg-load(
-    './icons/24-file-link.svg',
+    './svgs/24-file-link.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -282,7 +282,7 @@
 
 .icon-unlink {
   background-image: svg-load(
-    './icons/24-unlink.svg',
+    './svgs/24-unlink.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -293,7 +293,7 @@
 
 .btn:hover .icon-unlink {
   background-image: svg-load(
-    './icons/24-unlink.svg',
+    './svgs/24-unlink.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -304,7 +304,7 @@
 
 .icon-file-chevron-b {
   background-image: svg-load(
-    './icons/24-file-chevron-b.svg',
+    './svgs/24-file-chevron-b.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -316,7 +316,7 @@
 .btn-border:hover .icon-file-chevron-b,
 .btn-alt:hover .icon-file-chevron-b {
   background-image: svg-load(
-    './icons/24-file-chevron-b.svg',
+    './svgs/24-file-chevron-b.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -327,7 +327,7 @@
 
 .icon-file-chevron-t {
   background-image: svg-load(
-    './icons/24-file-chevron-t.svg',
+    './svgs/24-file-chevron-t.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -339,7 +339,7 @@
 .btn-border:hover .icon-file-chevron-t,
 .btn-alt:hover .icon-file-chevron-t {
   background-image: svg-load(
-    './icons/24-file-chevron-t.svg',
+    './svgs/24-file-chevron-t.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -350,7 +350,7 @@
 
 .icon-download {
   background-image: svg-load(
-    './icons/24-download.svg',
+    './svgs/24-download.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -361,7 +361,7 @@
 .btn-border:hover .icon-download,
 .btn-alt:hover .icon-download {
   background-image: svg-load(
-    './icons/24-download.svg',
+    './svgs/24-download.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -372,7 +372,7 @@
 
 .icon-view {
   background-image: svg-load(
-    './icons/24-view.svg',
+    './svgs/24-view.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -383,7 +383,7 @@
 
 .icon-link {
   background-image: svg-load(
-    './icons/24-link.svg',
+    './svgs/24-link.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -394,7 +394,7 @@
 
 .btn-border:hover .icon-link {
   background-image: svg-load(
-    './icons/24-link.svg',
+    './svgs/24-link.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -405,7 +405,7 @@
 
 .icon-login {
   background-image: svg-load(
-    './icons/24-login.svg',
+    './svgs/24-login.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -416,7 +416,7 @@
 
 .btn-alt:hover .icon-login {
   background-image: svg-load(
-    './icons/24-login.svg',
+    './svgs/24-login.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -427,7 +427,7 @@
 
 .icon-user {
   background-image: svg-load(
-    './icons/24-user.svg',
+    './svgs/24-user.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -439,7 +439,7 @@
 .btn-border:hover .icon-user,
 .active .btn-border .icon-user {
   background-image: svg-load(
-    './icons/24-user.svg',
+    './svgs/24-user.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -450,7 +450,7 @@
 
 .icon-menu {
   background-image: svg-load(
-    './icons/24-menu.svg',
+    './svgs/24-menu.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -462,7 +462,7 @@
 .btn-border:hover .icon-menu,
 .active .btn-border .icon-menu {
   background-image: svg-load(
-    './icons/24-menu.svg',
+    './svgs/24-menu.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -473,7 +473,7 @@
 
 .icon-pencil {
   background-image: svg-load(
-    './icons/24-pencil.svg',
+    './svgs/24-pencil.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -486,7 +486,7 @@
 .btn-alt:hover .icon-pencil,
 .btn-border:hover .icon-pencil {
   background-image: svg-load(
-    './icons/24-pencil.svg',
+    './svgs/24-pencil.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -497,7 +497,7 @@
 
 .icon-at {
   background-image: svg-load(
-    './icons/24-at.svg',
+    './svgs/24-at.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -508,7 +508,7 @@
 
 .btn-alt:hover .icon-at {
   background-image: svg-load(
-    './icons/24-at.svg',
+    './svgs/24-at.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -519,7 +519,7 @@
 
 .icon-key {
   background-image: svg-load(
-    './icons/24-key.svg',
+    './svgs/24-key.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -530,7 +530,7 @@
 
 .btn-alt:hover .icon-key {
   background-image: svg-load(
-    './icons/24-key.svg',
+    './svgs/24-key.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -541,7 +541,7 @@
 
 .icon-trash {
   background-image: svg-load(
-    './icons/24-trash.svg',
+    './svgs/24-trash.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -554,7 +554,7 @@
 .btn-alt:hover .icon-trash,
 .btn-border:hover .icon-trash {
   background-image: svg-load(
-    './icons/24-trash.svg',
+    './svgs/24-trash.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -569,13 +569,13 @@
 
 @keyframes blinker {
   50% {
-    background-image: svg-load('./icons/24-dot.svg', fill= 'white');
+    background-image: svg-load('./svgs/24-dot.svg', fill= 'white');
   }
 }
 
 .icon-globe {
   background-image: svg-load(
-    './icons/globe-3.svg',
+    './svgs/globe-3.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -587,7 +587,7 @@
 .span-tab .icon-globe,
 .btn-tab:hover .icon-globe {
   background-image: svg-load(
-    './icons/globe-3.svg',
+    './svgs/globe-3.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -598,7 +598,7 @@
 
 .icon-list {
   background-image: svg-load(
-    './icons/list-bullets.svg',
+    './svgs/list-bullets.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -610,7 +610,7 @@
 .span-tab .icon-list,
 .btn-tab:hover .icon-list {
   background-image: svg-load(
-    './icons/list-bullets.svg',
+    './svgs/list-bullets.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -621,7 +621,7 @@
 
 .icon-map {
   background-image: svg-load(
-    './icons/map-pin-2.svg',
+    './svgs/map-pin-2.svg',
     fill=none,
     stroke= '#76b6bd',
     stroke-linecap=round,
@@ -632,7 +632,7 @@
 
 .icon-dashboard {
   background-image: svg-load(
-    './icons/window-speedtest.svg',
+    './svgs/window-speedtest.svg',
     fill=none,
     stroke= '#76b6bd',
     stroke-linecap=round,
@@ -643,7 +643,7 @@
 
 .icon-api {
   background-image: svg-load(
-    './icons/cloud-setting.svg',
+    './svgs/cloud-setting.svg',
     fill=none,
     stroke= '#76b6bd',
     stroke-linecap=round,
@@ -654,7 +654,7 @@
 
 .icon-user-check {
   background-image: svg-load(
-    './icons/business-check.svg',
+    './svgs/business-check.svg',
     fill=none,
     stroke= '#76b6bd',
     stroke-linecap=round,
@@ -665,7 +665,7 @@
 
 .icon-ngo {
   background-image: svg-load(
-    './icons/group-global.svg',
+    './svgs/group-global.svg',
     fill=none,
     stroke= '#76b6bd',
     stroke-linecap=round,
@@ -676,7 +676,7 @@
 
 .icon-business {
   background-image: svg-load(
-    './icons/building-2.svg',
+    './svgs/building-2.svg',
     fill=none,
     stroke= '#76b6bd',
     stroke-linecap=round,
@@ -687,7 +687,7 @@
 
 .icon-markers-clusters {
   background-image: svg-load(
-    './icons/24-markers-grouped.svg',
+    './svgs/24-markers-grouped.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -698,7 +698,7 @@
 
 .icon-markers-markers {
   background-image: svg-load(
-    './icons/24-markers-ungrouped.svg',
+    './svgs/24-markers-ungrouped.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -709,7 +709,7 @@
 
 .icon-markers-none {
   background-image: svg-load(
-    './icons/24-markers-none.svg',
+    './svgs/24-markers-none.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -721,7 +721,7 @@
 .btn-border:hover .icon-markers-clusters,
 .active .icon-markers-clusters {
   background-image: svg-load(
-    './icons/24-markers-grouped.svg',
+    './svgs/24-markers-grouped.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -733,7 +733,7 @@
 .btn-border:hover .icon-markers-markers,
 .active .icon-markers-markers {
   background-image: svg-load(
-    './icons/24-markers-ungrouped.svg',
+    './svgs/24-markers-ungrouped.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -745,7 +745,7 @@
 .btn-border:hover .icon-markers-none,
 .active .icon-markers-none {
   background-image: svg-load(
-    './icons/24-markers-none.svg',
+    './svgs/24-markers-none.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -756,7 +756,7 @@
 
 .icon-window-link {
   background-image: svg-load(
-    './icons/24-window-link.svg',
+    './svgs/24-window-link.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -767,7 +767,7 @@
 
 .btn-alt:hover .icon-window-link {
   background-image: svg-load(
-    './icons/24-window-link.svg',
+    './svgs/24-window-link.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -778,7 +778,7 @@
 
 .icon-move-down {
   background-image: svg-load(
-    './icons/24-move-down.svg',
+    './svgs/24-move-down.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -789,7 +789,7 @@
 
 .btn-border:hover .icon-move-down {
   background-image: svg-load(
-    './icons/24-move-down.svg',
+    './svgs/24-move-down.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -800,7 +800,7 @@
 
 .icon-move-up {
   background-image: svg-load(
-    './icons/24-move-up.svg',
+    './svgs/24-move-up.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,
@@ -811,7 +811,7 @@
 
 .btn-border:hover .icon-move-up {
   background-image: svg-load(
-    './icons/24-move-up.svg',
+    './svgs/24-move-up.svg',
     fill=none,
     stroke= 'white',
     stroke-linecap=round,
@@ -822,7 +822,7 @@
 
 .icon-announcement {
   background-image: svg-load(
-    './icons/48-announcement.svg',
+    './svgs/48-announcement.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,

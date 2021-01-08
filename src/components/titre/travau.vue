@@ -19,7 +19,7 @@
         >
           <button
             v-if="travaux.etapesCreation"
-            class="btn rnd-l-xs py-s px-m h5 flex mr-line"
+            class="btn rnd-l-xs py-s px-m h5 flex mr-px"
             :class="{
               'rnd-r-xs': !travaux.suppression && !travaux.modification
             }"
@@ -29,7 +29,7 @@
           </button>
           <button
             v-if="travaux.modification"
-            class="btn py-s px-m mr-line"
+            class="btn py-s px-m mr-px"
             :class="{ 'rnd-l-xs': !travaux.etapesCreation }"
             @click="editPopupOpen"
           >
@@ -37,7 +37,7 @@
           </button>
           <button
             v-if="travaux.suppression"
-            class="btn rnd-r-xs py-s px-m mr-line"
+            class="btn rnd-r-xs py-s px-m mr-px"
             :class="{ 'rnd-l-xs': !travaux.modification }"
             @click="removePopupOpen"
           >

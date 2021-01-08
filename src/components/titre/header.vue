@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky-header">
+  <div class="sticky-header width-full">
     <div class="container">
       <div class="tablet-blobs">
         <div class="tablet-blob-2-3">
@@ -13,7 +13,7 @@
               class="btn-border rnd-l-xs px-m py-s h5 lh-2"
               :class="{
                 'rnd-r-xs': !titre.suppression || !titre.modification,
-                'mr-line': titre.suppression || titre.modification
+                'mr-px': titre.suppression || titre.modification
               }"
               @click="emailSend"
             >
@@ -21,7 +21,7 @@
             </button>
             <button
               v-if="titre.modification"
-              class="btn py-s px-m mr-line"
+              class="btn py-s px-m mr-px"
               :class="{ 'rnd-r-xs': !titre.suppression }"
               @click="editPopupOpen"
             >
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="line" />
+      <div class="line width-full" />
     </div>
   </div>
 </template>
