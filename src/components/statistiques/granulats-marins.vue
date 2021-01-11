@@ -115,38 +115,33 @@
         <BarChart
           :data="
             statsBarFormat(
+              statsAnneesAfter2010,
               'granulatsExtrait',
               'volumeGranulatsExtrait',
               'masseGranulatsExtrait',
               'Volume de production annuelle de granulats marins en m³',
-              'Tonnage produit',
-              2010
+              'Tonnage produit'
             )
           "
-          :suggested-max="suggestedMax(['granulatsExtrait'], 2010)"
+          :suggested-max="suggestedMaxProduction"
         />
       </div>
     </div>
 
-    <div class="flex">
-      <div
-        v-for="tab in tabs"
-        :key="tab.id"
-        class="mr-xs"
-        :class="{ active: tabActive === tab.id }"
-      >
-        <div class="p-m btn-tab rnd-t-s" @click="tabToggle(tab.id)">
-          {{ tab.nom }}
-        </div>
-      </div>
-    </div>
-
     <div class="line-neutral width-full mb" />
+    <select v-model="anneeActive" class="p-s mb full" @change="anneeSelect">
+      <option v-for="tab in tabs" :key="tab.id" :value="tab.id">
+        {{ tab.nom }}
+      </option>
+    </select>
+
     <GranulatsMarinsActivite
-      :statistique-granulats-marins="statistiques[tabActive]"
-      :en-construction="tabs.find(t => t.id === tabActive).enConstruction"
+      :statistique-granulats-marins="statistiques[anneeActive]"
+      :en-construction="tabs.find(t => t.id === anneeActive).enConstruction"
       class="mb-xxl"
     />
+    <div class="line-neutral width-full mb-xl" />
+
     <div id="evolution" class="mb-xxl">
       <h2>
         Évolution du nombre de titres et de leur surface par année
@@ -172,6 +167,7 @@
           <BarChart
             :data="
               statsBarFormat(
+                statistiquesGranulatsMarins.annees,
                 'titresPrw',
                 'quantite',
                 'surface',
@@ -179,9 +175,7 @@
                 'Surface des permis de recherches (ha)'
               )
             "
-            :suggested-max="
-              suggestedMax(['titresPrw', 'titresPxw', 'titresCxw'])
-            "
+            :suggested-max="suggestedMaxTitres"
           />
         </div>
       </div>
@@ -201,6 +195,7 @@
           <BarChart
             :data="
               statsBarFormat(
+                statistiquesGranulatsMarins.annees,
                 'titresPxw',
                 'quantite',
                 'surface',
@@ -208,9 +203,7 @@
                 'Surface des permis d\'exploitation (ha)'
               )
             "
-            :suggested-max="
-              suggestedMax(['titresPrw', 'titresPxw', 'titresCxw'])
-            "
+            :suggested-max="suggestedMaxTitres"
           />
         </div>
       </div>
@@ -229,6 +222,7 @@
           <BarChart
             :data="
               statsBarFormat(
+                statistiquesGranulatsMarins.annees,
                 'titresCxw',
                 'quantite',
                 'surface',
@@ -236,9 +230,7 @@
                 'Surfaces cumulées des titres pouvant faire l\'objet d\'une activité d\'exploitation (ha)'
               )
             "
-            :suggested-max="
-              suggestedMax(['titresPrw', 'titresPxw', 'titresCxw'])
-            "
+            :suggested-max="suggestedMaxTitres"
           />
         </div>
       </div>
@@ -250,6 +242,7 @@
 import Loader from '../_ui/loader.vue'
 import GranulatsMarinsActivite from './granulats-marins-activite.vue'
 import BarChart from '../_charts/bar.vue'
+import { suggestedMaxCalc, statsBarFormat } from './_utils'
 
 export default {
   name: 'TableauBordGranulatsMarins',
@@ -259,7 +252,7 @@ export default {
   data() {
     return {
       loaded: false,
-      tabActive: 0
+      anneeActive: 0
     }
   },
 
@@ -284,20 +277,45 @@ export default {
     },
 
     tabs() {
-      return Array.from(Array(this.anneeCurrent - 2010 + 1).keys())
-        .map(e => {
+      const anneeStart = 2010
+      const indexes = Array.from(
+        Array(this.anneeCurrent - anneeStart + 1).keys()
+      )
+
+      return indexes
+        .map(i => {
+          const id = this.anneeCurrent - i
+
           return {
-            id: this.anneeCurrent - e,
-            nom: (this.anneeCurrent - e).toString(),
-            enConstruction: e <= 1 // sont en construction l'année en cours et la précédente
+            id,
+            nom: id.toString(),
+            enConstruction: i <= 1 // sont en construction l'année en cours et la précédente
           }
         })
         .reverse()
+    },
+
+    suggestedMaxTitres() {
+      return suggestedMaxCalc(this.statistiquesGranulatsMarins.annees, [
+        'titresPrw',
+        'titresPxw',
+        'titresCxw'
+      ])
+    },
+
+    suggestedMaxProduction() {
+      return suggestedMaxCalc(this.statsAnneesAfter2010, ['granulatsExtrait'])
+    },
+
+    statsAnneesAfter2010() {
+      return this.statistiquesGranulatsMarins.annees.filter(
+        annee => annee.annee >= 2010
+      )
     }
   },
 
   async created() {
-    this.tabToggle(this.anneeCurrent - 1)
+    this.anneeActive = this.anneeCurrent - 1
     await this.get()
   },
 
@@ -310,66 +328,12 @@ export default {
       }
     },
 
-    tabToggle(tabId) {
-      this.tabActive = tabId
+    anneeSelect(event) {
+      this.anneeActive = Number(event.target.value)
     },
 
-    graphAnnees(start) {
-      return start
-        ? this.statistiquesGranulatsMarins.annees.filter(
-            annee => annee.annee >= start
-          )
-        : this.statistiquesGranulatsMarins.annees
-    },
-
-    statsBarFormat(id, bar, line, labelBar, labelLine, start) {
-      return this.graphAnnees(start).reduce(
-        (acc, statsAnnee) => {
-          acc.id = id
-          acc.labels.push(statsAnnee.annee)
-          acc.datasets[0].data.push(statsAnnee[id][bar])
-          acc.datasets[1].data.push(statsAnnee[id][line])
-
-          return acc
-        },
-        {
-          id: '',
-          labels: [],
-          datasets: [
-            {
-              type: 'bar',
-              label: labelBar,
-              yAxisID: 'bar',
-              legendPosition: 'left',
-              data: [],
-              backgroundColor: 'rgb(118, 182, 189)'
-            },
-            {
-              type: 'line',
-              label: labelLine,
-              yAxisID: 'line',
-              legendPosition: 'right',
-              data: [],
-              backgroundColor: 'rgba(55, 111, 170, 0.2)',
-              borderColor: 'rgb(55, 111, 170)'
-            }
-          ]
-        }
-      )
-    },
-
-    // Valeur max des abscisses : doit être la même pour certains graphes afin de comparer visuelement les données
-    // = max des quantités tous graph confondus parmis les ids sur l'ensemble des années requises si supérieur à 10, sinon 10
-    // ids : liste des id à prendre en compte
-    // start : année de départ de la liste
-    suggestedMax(ids, start) {
-      const quantiteMax = Math.max(
-        ...this.graphAnnees(start).map(annee =>
-          Math.max(...ids.map(id => annee[id].quantite))
-        )
-      )
-
-      return quantiteMax > 10 ? quantiteMax : 10
+    statsBarFormat(annees, id, bar, line, labelBar, labelLine) {
+      return statsBarFormat(annees, id, bar, line, labelBar, labelLine)
     }
   }
 }

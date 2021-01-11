@@ -34,7 +34,7 @@
             </p>
             <p class="bold text-center">Permis exclusifs de recherches</p>
           </div>
-          <div class="tablet-blob-2-4">
+          <div class="tablet-blob-1-2">
             <p class="h0 text-center">
               {{ numberFormat(statistiquesGuyane.surfaceExploration) }} ha
             </p>
@@ -109,6 +109,7 @@
       :en-construction="tabs.find(t => t.id === tabActive).enConstruction"
       class="mb-xxl"
     />
+    <div class="line-neutral width-full mb-xl" />
     <div id="evolution" class="mb-xxl">
       <h2>
         Évolution de l’activité sur le domaine minier de Guyane sur les 5
@@ -136,7 +137,13 @@
           </div>
           <div class="tablet-float-blob-2-3 relative mb-xl">
             <LineChart
-              :data="statsLineFormat('orNet', 'Or net extrait en Kg')"
+              :data="
+                statsLineFormat(
+                  statistiquesGuyane.annees,
+                  'orNet',
+                  'Or net extrait en Kg'
+                )
+              "
             />
           </div>
         </div>
@@ -157,6 +164,7 @@
           <BarChart
             :data="
               statsBarFormat(
+                statistiquesGuyane.annees,
                 'titresArm',
                 'quantite',
                 'surface',
@@ -164,15 +172,7 @@
                 'Surface des autorisations de recherche (ha)'
               )
             "
-            :suggested-max="
-              suggestedMax([
-                'titresArm',
-                'titresPrm',
-                'titresAxm',
-                'titresPxm',
-                'titresCxm'
-              ])
-            "
+            :suggested-max="suggestedMaxTitres"
           />
         </div>
       </div>
@@ -191,6 +191,7 @@
           <BarChart
             :data="
               statsBarFormat(
+                statistiquesGuyane.annees,
                 'titresPrm',
                 'quantite',
                 'surface',
@@ -198,15 +199,7 @@
                 'Surface des permis de recherches (ha)'
               )
             "
-            :suggested-max="
-              suggestedMax([
-                'titresArm',
-                'titresPrm',
-                'titresAxm',
-                'titresPxm',
-                'titresCxm'
-              ])
-            "
+            :suggested-max="suggestedMaxTitres"
           />
         </div>
       </div>
@@ -226,6 +219,7 @@
           <BarChart
             :data="
               statsBarFormat(
+                statistiquesGuyane.annees,
                 'titresAxm',
                 'quantite',
                 'surface',
@@ -233,15 +227,7 @@
                 'Surface des autorisations de recherche (ha)'
               )
             "
-            :suggested-max="
-              suggestedMax([
-                'titresArm',
-                'titresPrm',
-                'titresAxm',
-                'titresPxm',
-                'titresCxm'
-              ])
-            "
+            :suggested-max="suggestedMaxTitres"
           />
         </div>
       </div>
@@ -260,6 +246,7 @@
           <BarChart
             :data="
               statsBarFormat(
+                statistiquesGuyane.annees,
                 'titresPxm',
                 'quantite',
                 'surface',
@@ -267,15 +254,7 @@
                 'Surface des permis d\'exploitation (ha)'
               )
             "
-            :suggested-max="
-              suggestedMax([
-                'titresArm',
-                'titresPrm',
-                'titresAxm',
-                'titresPxm',
-                'titresCxm'
-              ])
-            "
+            :suggested-max="suggestedMaxTitres"
           />
         </div>
       </div>
@@ -292,6 +271,7 @@
           <BarChart
             :data="
               statsBarFormat(
+                statistiquesGuyane.annees,
                 'titresCxm',
                 'quantite',
                 'surface',
@@ -299,15 +279,7 @@
                 'Surface des concessions (ha)'
               )
             "
-            :suggested-max="
-              suggestedMax([
-                'titresArm',
-                'titresPrm',
-                'titresAxm',
-                'titresPxm',
-                'titresCxm'
-              ])
-            "
+            :suggested-max="suggestedMaxTitres"
           />
         </div>
       </div>
@@ -320,6 +292,7 @@ import Loader from '../_ui/loader.vue'
 import GuyaneActivite from './guyane-activite.vue'
 import BarChart from '../_charts/bar.vue'
 import LineChart from '../_charts/line.vue'
+import { suggestedMaxCalc, statsBarFormat, statsLineFormat } from './_utils'
 
 export default {
   name: 'TableauBordGuyane',
@@ -367,6 +340,16 @@ export default {
           enConstruction: true
         }
       ]
+    },
+
+    suggestedMaxTitres() {
+      return suggestedMaxCalc(this.statistiquesGuyane.annees, [
+        'titresArm',
+        'titresPrm',
+        'titresAxm',
+        'titresPxm',
+        'titresCxm'
+      ])
     }
   },
 
@@ -388,82 +371,12 @@ export default {
       this.tabActive = tabId
     },
 
-    statsLineFormat(id, label) {
-      return this.statistiquesGuyane.annees.reduce(
-        (acc, statsAnnee) => {
-          acc.labels.push(statsAnnee.annee)
-          acc.datasets[0].data.push(statsAnnee[id])
-
-          return acc
-        },
-        {
-          labels: [],
-          datasets: [
-            {
-              label,
-              data: [],
-              backgroundColor: 'rgba(118, 182, 189, 0.2)',
-              borderColor: 'rgb(118, 182, 189)'
-            }
-          ]
-        }
-      )
+    statsLineFormat(annees, id, label) {
+      return statsLineFormat(annees, id, label)
     },
 
-    graphAnnees(start) {
-      return start
-        ? this.statistiquesGuyane.annees.filter(annee => annee.annee >= start)
-        : this.statistiquesGuyane.annees
-    },
-
-    statsBarFormat(id, bar, line, labelBar, labelLine, start) {
-      return this.graphAnnees(start).reduce(
-        (acc, statsAnnee) => {
-          acc.id = id
-          acc.labels.push(statsAnnee.annee)
-          acc.datasets[0].data.push(statsAnnee[id][bar])
-          acc.datasets[1].data.push(statsAnnee[id][line])
-
-          return acc
-        },
-        {
-          id: '',
-          labels: [],
-          datasets: [
-            {
-              type: 'bar',
-              label: labelBar,
-              yAxisID: 'bar',
-              legendPosition: 'left',
-              data: [],
-              backgroundColor: 'rgb(118, 182, 189)'
-            },
-            {
-              type: 'line',
-              label: labelLine,
-              yAxisID: 'line',
-              legendPosition: 'right',
-              data: [],
-              backgroundColor: 'rgba(55, 111, 170, 0.2)',
-              borderColor: 'rgb(55, 111, 170)'
-            }
-          ]
-        }
-      )
-    },
-
-    // Valeur max des abscisses : doit être la même pour certains graphes afin de comparer visuelement les données
-    // = max des quantités tous graph confondus parmis les ids sur l'ensemble des années requises si supérieur à 10, sinon 10
-    // ids : liste des id à prendre en compte
-    // start : année de départ de la liste
-    suggestedMax(ids, start) {
-      const quantiteMax = Math.max(
-        ...this.graphAnnees(start).map(annee =>
-          Math.max(...ids.map(id => annee[id].quantite))
-        )
-      )
-
-      return quantiteMax > 10 ? quantiteMax : 10
+    statsBarFormat(annees, id, bar, line, labelBar, labelLine) {
+      return statsBarFormat(annees, id, bar, line, labelBar, labelLine)
     }
   }
 }
