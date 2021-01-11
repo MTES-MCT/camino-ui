@@ -1,5 +1,5 @@
 <template>
-  <Pill :color="`bg-titre-domaine-${domaineId}`" class="mono">
+  <Pill :color="`bg-domaine-${domaineId}`" class="mono">
     {{ domaineId }}
   </Pill>
 </template>

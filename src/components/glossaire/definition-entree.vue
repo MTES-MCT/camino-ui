@@ -4,7 +4,7 @@
       <h3>
         <Pill
           v-if="id === 'dom'"
-          :color="`bg-titre-domaine-${entree.id}`"
+          :color="`bg-domaine-${entree.id}`"
           class="mr-xs mono mt--s"
         >
           {{ entree.id }}

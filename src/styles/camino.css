@@ -1,13 +1,13 @@
 :root {
-  --color-title-domaine-c: #b88847;
-  --color-title-domaine-f: #4a515d;
-  --color-title-domaine-g: #c94f17;
-  --color-title-domaine-h: #c2266a;
-  --color-title-domaine-i: #aaaaaa;
-  --color-title-domaine-m: #376faa;
-  --color-title-domaine-r: #a0aa31;
-  --color-title-domaine-s: #7657b5;
-  --color-title-domaine-w: #1ea88c;
+  --color-domaine-c: #b88847;
+  --color-domaine-f: #4a515d;
+  --color-domaine-g: #c94f17;
+  --color-domaine-h: #c2266a;
+  --color-domaine-i: #aaaaaa;
+  --color-domaine-m: #376faa;
+  --color-domaine-r: #a0aa31;
+  --color-domaine-s: #7657b5;
+  --color-domaine-w: #1ea88c;
 }
 
 .leaflet-marker-camino::before {
@@ -40,96 +40,96 @@
   box-shadow: 0 0 0 var(--unit-m) color-mod(var(--color-bg) alpha(70%));
 }
 
-.bg-titre-domaine-c {
-  background: var(--color-title-domaine-c);
+.bg-domaine-c {
+  background: var(--color-domaine-c);
 }
 
-.bg-titre-domaine-f {
-  background: var(--color-title-domaine-f);
+.bg-domaine-f {
+  background: var(--color-domaine-f);
 }
 
-.bg-titre-domaine-g {
-  background: var(--color-title-domaine-g);
+.bg-domaine-g {
+  background: var(--color-domaine-g);
 }
 
-.bg-titre-domaine-h {
-  background: var(--color-title-domaine-h);
+.bg-domaine-h {
+  background: var(--color-domaine-h);
 }
 
-.bg-titre-domaine-i {
-  background: var(--color-title-domaine-i);
+.bg-domaine-i {
+  background: var(--color-domaine-i);
 }
 
-.bg-titre-domaine-m {
-  background: var(--color-title-domaine-m);
+.bg-domaine-m {
+  background: var(--color-domaine-m);
 }
 
-.bg-titre-domaine-r {
-  background: var(--color-title-domaine-r);
+.bg-domaine-r {
+  background: var(--color-domaine-r);
 }
 
-.bg-titre-domaine-s {
-  background: var(--color-title-domaine-s);
+.bg-domaine-s {
+  background: var(--color-domaine-s);
 }
 
-.bg-titre-domaine-w {
-  background: var(--color-title-domaine-w);
+.bg-domaine-w {
+  background: var(--color-domaine-w);
 }
 
 .svg-fill-domaine-c {
-  fill: var(--color-title-domaine-c);
+  fill: var(--color-domaine-c);
 }
 .svg-fill-domaine-f {
-  fill: var(--color-title-domaine-f);
+  fill: var(--color-domaine-f);
 }
 .svg-fill-domaine-g {
-  fill: var(--color-title-domaine-g);
+  fill: var(--color-domaine-g);
 }
 .svg-fill-domaine-h {
-  fill: var(--color-title-domaine-h);
+  fill: var(--color-domaine-h);
 }
 .svg-fill-domaine-i {
-  fill: var(--color-title-domaine-i);
+  fill: var(--color-domaine-i);
 }
 .svg-fill-domaine-m {
-  fill: var(--color-title-domaine-m);
+  fill: var(--color-domaine-m);
 }
 .svg-fill-domaine-r {
-  fill: var(--color-title-domaine-r);
+  fill: var(--color-domaine-r);
 }
 .svg-fill-domaine-s {
-  fill: var(--color-title-domaine-s);
+  fill: var(--color-domaine-s);
 }
 .svg-fill-domaine-w {
-  fill: var(--color-title-domaine-w);
+  fill: var(--color-domaine-w);
 }
 
 .svg-stroke {
   stroke: var(--color-neutral);
 }
 .svg-stroke-domaine-c {
-  stroke: var(--color-title-domaine-c);
+  stroke: var(--color-domaine-c);
 }
 .svg-stroke-domaine-f {
-  stroke: var(--color-title-domaine-f);
+  stroke: var(--color-domaine-f);
 }
 .svg-stroke-domaine-g {
-  stroke: var(--color-title-domaine-g);
+  stroke: var(--color-domaine-g);
 }
 .svg-stroke-domaine-h {
-  stroke: var(--color-title-domaine-h);
+  stroke: var(--color-domaine-h);
 }
 .svg-stroke-domaine-m {
-  stroke: var(--color-title-domaine-m);
+  stroke: var(--color-domaine-m);
 }
 .svg-stroke-domaine-r {
-  stroke: var(--color-title-domaine-r);
+  stroke: var(--color-domaine-r);
 }
 .svg-stroke-domaine-s {
-  stroke: var(--color-title-domaine-s);
+  stroke: var(--color-domaine-s);
 }
 .svg-stroke-domaine-w {
-  stroke: var(--color-title-domaine-w);
+  stroke: var(--color-domaine-w);
 }
 
 /* types */

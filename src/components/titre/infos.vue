@@ -4,7 +4,7 @@
       <div class="rnd-b-s bg-alt pt px overflow-auto">
         <h4 class="mb">
           <Pill
-            :color="`bg-titre-domaine-${titre.domaine.id}`"
+            :color="`bg-domaine-${titre.domaine.id}`"
             class="mono mr-s mt--m"
           >
             {{ titre.domaine.id }}

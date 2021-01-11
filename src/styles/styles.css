@@ -2,7 +2,8 @@
 
 @import 'settings.css';
 
-/* Reset           ------------------------------- */
+/* Default           ------------------------------- */
+
 @import 'normalize.css';
 @import 'system/reset.css';
 @import 'system/print.css';
@@ -10,32 +11,27 @@
 /* Elements        ------------------------------- */
 
 @import 'buttons.css';
+@import 'icons/icons.css';
+
+/* Grids          ------------------------------- */
+
 /* @import 'grids/grid-system.css'; */
 @import 'grids/grid-fluid.css';
-@import 'grids/width-full.css';
+@import 'grids/grid-utils.css';
+
+/* Layout          ------------------------------- */
 
 @import 'system/typography.css';
 @import 'system/lists.css';
 @import 'system/tables.css';
 @import 'system/forms.css';
-
-/* Layout          ------------------------------- */
-
 @import 'system/utils.css';
 @import 'system/margins.css';
 @import 'system/paddings.css';
-
-/* Ui             ------------------------------- */
-
 @import 'system/colors.css';
 @import 'system/ui.css';
 @import 'system/code.css';
 @import 'system/footer.css';
-
-@import 'icons/icons.css';
-
-/* Tools          ------------------------------- */
-
 @import 'system/tools.css';
 
 /* Leaflet          ------------------------------- */

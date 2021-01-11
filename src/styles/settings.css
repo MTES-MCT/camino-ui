@@ -17,7 +17,6 @@ http://francoisromain.github.io/postcss-structure
   --color-warning: #ff891c;
   --color-info: #5798aa;
   --color-success: #6ea040;
-  --color-sticky: #fef3b8;
 
   /* Base units    ------------------------------- */
 
@@ -73,10 +72,6 @@ http://francoisromain.github.io/postcss-structure
 
   /* padding of the main container in rem */
   --container-padding: var(--unit);
-
-  /* transition */
-  --transition: opacity 0.5s, background-color 0.5s, border 0.5s,
-    box-shadow 0.5s, fill 0.5s;
 
   /* hr */
   --border-color: var(--color-neutral);
