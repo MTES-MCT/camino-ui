@@ -14,7 +14,7 @@
                   .volumeGranulatsExtrait
               )
             }}
-            m<sup>3</sup>
+            m3
           </p>
         </div>
         <div v-else>

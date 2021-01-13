@@ -391,3 +391,11 @@
 .svg-fill-pattern-in-w {
   fill: url(#pattern-in-w);
 }
+
+.routerLinkStats {
+  color: var(--color-brand);
+  &:visited {
+    color: var(--color-brand);
+  }
+  text-decoration: none;
+}

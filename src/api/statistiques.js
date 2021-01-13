@@ -94,9 +94,9 @@ const statistiquesGranulatsMarins = apiGraphQLFetch(gql`
       }
       surfaceExploration
       surfaceExploitation
-      titresInstructionPrw
+      titresInstructionExploration
       titresValPrw
-      titresDmiCxw
+      titresInstructionExploitation
       titresValCxw
     }
   }

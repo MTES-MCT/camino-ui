@@ -49,9 +49,9 @@ describe('page de statistiques', () => {
       ],
       surfaceExploration: 86383,
       surfaceExploitation: 20454,
-      titresInstructionPrw: 0,
+      titresInstructionExploration: 0,
       titresValPrw: 2,
-      titresDmiCxw: 2,
+      titresInstructionExploitation: 2,
       titresValCxw: 21
     }
 

@@ -22,23 +22,56 @@
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3">
             <p class="h0 text-center">
-              {{ statistiquesGranulatsMarins.titresInstructionPrw }}
+              <RouterLink
+                :to="{
+                  name: 'titres',
+                  query: {
+                    domainesIds: 'w',
+                    typesIds: 'ar,ap,pr',
+                    statutsIds: 'dmi,mod',
+                    vue: 'liste'
+                  }
+                }"
+                class="routerLinkStats"
+              >
+                {{ statistiquesGranulatsMarins.titresInstructionExploration }}
+              </RouterLink>
             </p>
-            <div v-if="statistiquesGranulatsMarins.titresInstructionPrw > 1">
+            <div
+              v-if="
+                statistiquesGranulatsMarins.titresInstructionExploration > 1
+              "
+            >
               <p class="bold text-center">
-                Demandes en cours d'instruction (initiale et prolongation)
+                Demandes en cours d'instruction (initiales et modification en
+                instance)
               </p>
             </div>
             <div v-else>
               <p class="bold text-center">
-                Demande en cours d'instruction (initiale et prolongation)
+                Demande en cours d'instruction (initiale et modification en
+                instance)
               </p>
             </div>
           </div>
           <div class="tablet-blob-1-3">
             <p class="h0 text-center">
-              {{ statistiquesGranulatsMarins.titresValPrw }}
+              <RouterLink
+                :to="{
+                  name: 'titres',
+                  query: {
+                    domainesIds: 'w',
+                    typesIds: 'pr',
+                    statutsIds: 'val',
+                    vue: 'liste'
+                  }
+                }"
+                class="routerLinkStats"
+              >
+                {{ statistiquesGranulatsMarins.titresValPrw }}
+              </RouterLink>
             </p>
+
             <p class="bold text-center">Permis exclusifs de recherches</p>
           </div>
           <div class="tablet-blob-1-3">
@@ -59,31 +92,63 @@
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3">
             <p class="h0 text-center">
-              {{ statistiquesGranulatsMarins.titresDmiCxw }}
+              <RouterLink
+                :to="{
+                  name: 'titres',
+                  query: {
+                    domainesIds: 'w',
+                    typesIds: 'ax,cx,px',
+                    statutsIds: 'dmi,mod',
+                    vue: 'liste'
+                  }
+                }"
+                class="routerLinkStats"
+              >
+                {{ statistiquesGranulatsMarins.titresInstructionExploitation }}
+              </RouterLink>
             </p>
-            <div v-if="statistiquesGranulatsMarins.titresDmiCxw > 1">
+            <div
+              v-if="
+                statistiquesGranulatsMarins.titresInstructionExploitation > 1
+              "
+            >
               <p class="bold text-center">
-                Demandes initiales de concession
+                Demandes en cours d'instruction (initiales et modification en
+                instance)
               </p>
             </div>
             <div v-else>
               <p class="bold text-center">
-                Demande initiale de concession
+                Demande en cours d'instruction (initiale et modification en
+                instance)
               </p>
             </div>
           </div>
           <div class="tablet-blob-1-3">
             <p class="h0 text-center">
-              {{ statistiquesGranulatsMarins.titresValCxw }}
+              <RouterLink
+                :to="{
+                  name: 'titres',
+                  query: {
+                    domainesIds: 'w',
+                    typesIds: 'cx',
+                    statutsIds: 'val',
+                    vue: 'liste'
+                  }
+                }"
+                class="routerLinkStats"
+              >
+                {{ statistiquesGranulatsMarins.titresValCxw }}
+              </RouterLink>
             </p>
             <div v-if="statistiquesGranulatsMarins.titresValCxw > 1">
               <p class="bold text-center">
-                Concessions valides
+                Concessions
               </p>
             </div>
             <div v-else>
               <p class="bold text-center">
-                Concession valide
+                Concession
               </p>
             </div>
           </div>
@@ -103,6 +168,8 @@
       </div>
     </div>
 
+    <div class="line-neutral width-full mb" />
+
     <h2>Production annuelle de granulats marins</h2>
     <span class="separator" />
     <p class="mb-xl">
@@ -110,30 +177,34 @@
       Camino. Elles sont stabilisées pour l’année n-1.
     </p>
 
-    <div class="tablet-float-blobs clearfix">
-      <div class="tablet-float-blob-2-3 relative mb-xl">
-        <BarChart
-          :data="
-            statsBarFormat(
-              statsAnneesAfter2010,
-              'granulatsExtrait',
-              'volumeGranulatsExtrait',
-              'masseGranulatsExtrait',
-              'Volume de production annuelle de granulats marins en m³',
-              'Tonnage produit'
-            )
-          "
-          :suggested-max="suggestedMaxProduction"
-        />
-      </div>
+    <div class="tablet-float-blobs tablet-pt-s pb-s">
+      <BarChart
+        :data="
+          statsBarFormat(
+            statsAnneesAfter2010,
+            'granulatsExtrait',
+            'volumeGranulatsExtrait',
+            'masseGranulatsExtrait',
+            'Volume de production annuelle de granulats marins en m³',
+            'Tonnage produit'
+          )
+        "
+        :suggested-max="suggestedMaxProduction"
+      />
     </div>
 
-    <div class="line-neutral width-full mb" />
-    <select v-model="anneeActive" class="p-s mb full" @change="anneeSelect">
-      <option v-for="tab in tabs" :key="tab.id" :value="tab.id">
-        {{ tab.nom }}
-      </option>
-    </select>
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-6 tablet-pt-s pb-s">
+        <h4>Sélectionner une année</h4>
+      </div>
+      <div class="mb tablet-blob-5-6">
+        <select v-model="anneeActive" class="p-s mb full" @change="anneeSelect">
+          <option v-for="tab in tabs" :key="tab.id" :value="tab.id">
+            {{ tab.nom }}
+          </option>
+        </select>
+      </div>
+    </div>
 
     <GranulatsMarinsActivite
       :statistique-granulats-marins="statistiques[anneeActive]"
@@ -144,7 +215,7 @@
 
     <div id="evolution" class="mb-xxl">
       <h2>
-        Évolution du nombre de titres et de leur surface par année
+        Évolution du nombre de titres et de leur surface octroyés chaque année
       </h2>
       <span class="separator" />
       <p>
@@ -152,8 +223,7 @@
         Camino. Ces données concernent exclusivement le territoire français.
       </p>
       <h3>
-        Permis Exclusif de Recherche (PER) : Évolution du nombre de titres et de
-        leur surface octroyés
+        Permis exclusif de recherche (PER)
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -179,36 +249,37 @@
           />
         </div>
       </div>
-      <h3>
-        Permis d'exploitation (PER) : Évolution du nombre de titres et de leur
-        surface par année
-      </h3>
-      <hr />
-      <div class="tablet-float-blobs clearfix">
-        <div class="tablet-float-blob-1-3 mb-xl mt">
-          <p class="h0 text-center">
-            {{ statistiques[anneeCurrent - 1].titresPxw.quantite }}
-          </p>
-          <p>permis d’exploitation octroyés l’an dernier</p>
-        </div>
-        <div class="tablet-float-blob-2-3 relative mb-xl">
-          <BarChart
-            :data="
-              statsBarFormat(
-                statistiquesGranulatsMarins.annees,
-                'titresPxw',
-                'quantite',
-                'surface',
-                'Permis d\'exploitation octroyés',
-                'Surface des permis d\'exploitation (ha)'
-              )
-            "
-            :suggested-max="suggestedMaxTitres"
-          />
+      <div v-if="pexAnneeCurrent">
+        <h3>
+          Permis d'exploitation (PEX)
+        </h3>
+        <hr />
+        <div class="tablet-float-blobs clearfix">
+          <div class="tablet-float-blob-1-3 mb-xl mt">
+            <p class="h0 text-center">
+              {{ statistiques[anneeCurrent - 1].titresPxw.quantite }}
+            </p>
+            <p>permis d’exploitation octroyés l’an dernier</p>
+          </div>
+          <div class="tablet-float-blob-2-3 relative mb-xl">
+            <BarChart
+              :data="
+                statsBarFormat(
+                  statistiquesGranulatsMarins.annees,
+                  'titresPxw',
+                  'quantite',
+                  'surface',
+                  'Permis d\'exploitation octroyés',
+                  'Surface des permis d\'exploitation (ha)'
+                )
+              "
+              :suggested-max="suggestedMaxTitres"
+            />
+          </div>
         </div>
       </div>
       <h3>
-        Concessions : Évolution du nombre de titres et de leur surface par année
+        Concessions
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -277,22 +348,14 @@ export default {
     },
 
     tabs() {
-      const anneeStart = 2010
-      const indexes = Array.from(
-        Array(this.anneeCurrent - anneeStart + 1).keys()
-      )
-
-      return indexes
-        .map(i => {
-          const id = this.anneeCurrent - i
-
-          return {
-            id,
-            nom: id.toString(),
-            enConstruction: i <= 1 // sont en construction l'année en cours et la précédente
-          }
-        })
-        .reverse()
+      return this.statsAnneesAfter2010.map(annee => {
+        const id = annee.annee
+        return {
+          id,
+          nom: id.toString(),
+          enConstruction: id === this.anneeCurrent - 1 // l'année en cours n'étant pas affichée, seule l'année précédente est affichée à partir du 1er avril de l'année courante
+        }
+      })
     },
 
     suggestedMaxTitres() {
@@ -308,14 +371,32 @@ export default {
     },
 
     statsAnneesAfter2010() {
-      return this.statistiquesGranulatsMarins.annees.filter(
-        annee => annee.annee >= 2010
+      const statsAnneesAfter2010 = this.statistiquesGranulatsMarins.annees.filter(
+        annee => annee.annee >= 2010 && annee.annee < this.anneeCurrent
       )
+
+      // affichage des données de l'année n-2 à partir du 1er avril de l'année en cours
+      const toggleDate = new Date(this.anneeCurrent, 3, 1)
+      const beforeToggleDate =
+        Date.parse(new Date()) < Date.parse(toggleDate.toString())
+
+      return beforeToggleDate
+        ? statsAnneesAfter2010.filter(
+            annee => annee.annee < this.anneeCurrent - 1
+          )
+        : statsAnneesAfter2010
+    },
+
+    pexAnneeCurrent() {
+      const statistiquesGranulatsMarinsAnneeCurrent = this.statistiquesGranulatsMarins.annees.find(
+        annee => annee.annee === this.anneeCurrent
+      )
+      return statistiquesGranulatsMarinsAnneeCurrent.titresPxw.quantite > 0
     }
   },
 
   async created() {
-    this.anneeActive = this.anneeCurrent - 1
+    this.anneeActive = this.anneeCurrent - 2
     await this.get()
   },
 
