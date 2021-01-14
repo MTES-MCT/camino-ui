@@ -43,7 +43,7 @@
               "
             >
               <p class="bold text-center">
-                Demandes en cours d'instruction (initiales et modification en
+                Demandes en cours d'instruction (initiale et modification en
                 instance)
               </p>
             </div>
@@ -113,7 +113,7 @@
               "
             >
               <p class="bold text-center">
-                Demandes en cours d'instruction (initiales et modification en
+                Demandes en cours d'instruction (initiale et modification en
                 instance)
               </p>
             </div>
