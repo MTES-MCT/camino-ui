@@ -22,20 +22,7 @@
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3">
             <p class="h0 text-center">
-              <RouterLink
-                :to="{
-                  name: 'titres',
-                  query: {
-                    domainesIds: 'w',
-                    typesIds: 'ar,ap,pr',
-                    statutsIds: 'dmi,mod',
-                    vue: 'liste'
-                  }
-                }"
-                class="routerLinkStats"
-              >
-                {{ statistiquesGranulatsMarins.titresInstructionExploration }}
-              </RouterLink>
+              {{ statistiquesGranulatsMarins.titresInstructionExploration }}
             </p>
             <div
               v-if="
@@ -53,9 +40,28 @@
                 instance)
               </p>
             </div>
+            <p class="h5 text-center">
+              <RouterLink
+                :to="{
+                  name: 'titres',
+                  query: {
+                    domainesIds: 'w',
+                    typesIds: 'ar,ap,pr',
+                    statutsIds: 'dmi,mod',
+                    vue: 'liste'
+                  }
+                }"
+              >
+                Voir les titres
+              </RouterLink>
+            </p>
           </div>
           <div class="tablet-blob-1-3">
             <p class="h0 text-center">
+              {{ statistiquesGranulatsMarins.titresValPrw }}
+            </p>
+            <p class="bold text-center">Permis exclusifs de recherches</p>
+            <p class="h5 text-center">
               <RouterLink
                 :to="{
                   name: 'titres',
@@ -66,13 +72,10 @@
                     vue: 'liste'
                   }
                 }"
-                class="routerLinkStats"
               >
-                {{ statistiquesGranulatsMarins.titresValPrw }}
+                Voir les titres
               </RouterLink>
             </p>
-
-            <p class="bold text-center">Permis exclusifs de recherches</p>
           </div>
           <div class="tablet-blob-1-3">
             <p class="h0 text-center">
@@ -92,20 +95,7 @@
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3">
             <p class="h0 text-center">
-              <RouterLink
-                :to="{
-                  name: 'titres',
-                  query: {
-                    domainesIds: 'w',
-                    typesIds: 'ax,cx,px',
-                    statutsIds: 'dmi,mod',
-                    vue: 'liste'
-                  }
-                }"
-                class="routerLinkStats"
-              >
-                {{ statistiquesGranulatsMarins.titresInstructionExploitation }}
-              </RouterLink>
+              {{ statistiquesGranulatsMarins.titresInstructionExploitation }}
             </p>
             <div
               v-if="
@@ -123,23 +113,25 @@
                 instance)
               </p>
             </div>
-          </div>
-          <div class="tablet-blob-1-3">
-            <p class="h0 text-center">
+            <p class="h5 text-center">
               <RouterLink
                 :to="{
                   name: 'titres',
                   query: {
                     domainesIds: 'w',
-                    typesIds: 'cx',
-                    statutsIds: 'val',
+                    typesIds: 'ax,cx,px',
+                    statutsIds: 'dmi,mod',
                     vue: 'liste'
                   }
                 }"
-                class="routerLinkStats"
               >
-                {{ statistiquesGranulatsMarins.titresValCxw }}
+                Voir les titres
               </RouterLink>
+            </p>
+          </div>
+          <div class="tablet-blob-1-3">
+            <p class="h0 text-center">
+              {{ statistiquesGranulatsMarins.titresValCxw }}
             </p>
             <div v-if="statistiquesGranulatsMarins.titresValCxw > 1">
               <p class="bold text-center">
@@ -151,6 +143,21 @@
                 Concession
               </p>
             </div>
+            <p class="h5 text-center">
+              <RouterLink
+                :to="{
+                  name: 'titres',
+                  query: {
+                    domainesIds: 'w',
+                    typesIds: 'cx',
+                    statutsIds: 'val',
+                    vue: 'liste'
+                  }
+                }"
+              >
+                Voir les titres
+              </RouterLink>
+            </p>
           </div>
           <div class="tablet-blob-1-3">
             <p class="h0 text-center">
@@ -177,7 +184,7 @@
       Camino. Elles sont stabilisées pour l’année n-1.
     </p>
 
-    <div class="tablet-float-blobs tablet-pt-s pb-s">
+    <div class="tablet-pt-s pb-s">
       <BarChart
         :data="
           statsBarFormat(
@@ -215,7 +222,7 @@
 
     <div id="evolution" class="mb-xxl">
       <h2>
-        Évolution du nombre de titres et de leur surface octroyés chaque année
+        Évolution du nombre de titres octroyés, et de leur surface, chaque année
       </h2>
       <span class="separator" />
       <p>
