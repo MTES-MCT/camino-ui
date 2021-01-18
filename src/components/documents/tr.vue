@@ -43,7 +43,9 @@
       <button
         v-if="boutonSuppression"
         class="btn py-s px-m my--xs"
-        :class="{ 'rnd-r-xs': !document.url && !document.fichier }"
+        :class="{
+          'rnd-r-xs': !document.url && !document.uri && !document.fichier
+        }"
         @click="removePopupOpen"
       >
         <i class="icon-24 icon-trash" />
@@ -52,7 +54,7 @@
         v-if="document.fichier"
         class="btn-border py-s px-m my--xs"
         :class="{
-          'rnd-r-xs': !document.url,
+          'rnd-r-xs': !document.url && !document.uri,
           'rnd-l-xs':
             !boutonModification && !boutonSuppression && !boutonDissociation
         }"
@@ -62,8 +64,9 @@
       </button>
       <a
         v-if="document.url"
-        class="btn-border py-s px-m my--xs rnd-r-xs"
+        class="btn-border py-s px-m my--xs"
         :class="{
+          'rnd-r-xs': !document.uri,
           'rnd-l-xs':
             !document.fichier &&
             !boutonModification &&
@@ -74,6 +77,24 @@
         target="_blank"
         rel="noopener noreferrer"
         alt="Url"
+      >
+        <i class="icon-24 icon-download" />
+      </a>
+      <a
+        v-if="document.uri"
+        class="btn-border py-s px-m my--xs rnd-r-xs"
+        :class="{
+          'rnd-l-xs':
+            !document.url &&
+            !document.fichier &&
+            !boutonModification &&
+            !boutonSuppression &&
+            !boutonDissociation
+        }"
+        :href="document.uri"
+        target="_blank"
+        rel="noopener noreferrer"
+        alt="Uri"
       >
         <i class="icon-24 icon-link" />
       </a>
