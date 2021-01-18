@@ -167,7 +167,7 @@
         </div>
         <div class="mb tablet-blob-2-3">
           <input
-            v-model="document.url"
+            v-model="document.uri"
             type="url"
             class="p-s"
             placeholder="https://…"
@@ -185,7 +185,7 @@
         </div>
         <div class="mb tablet-blob-2-3">
           <input
-            v-model="document.uri"
+            v-model="document.url"
             type="url"
             class="p-s"
             placeholder="https://…"
