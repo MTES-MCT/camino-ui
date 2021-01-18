@@ -200,22 +200,18 @@
       />
     </div>
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-6 tablet-pt-s pb-s">
-        <h4>Sélectionner une année</h4>
-      </div>
-      <div class="mb tablet-blob-5-6">
-        <select v-model="anneeActive" class="p-s mb full" @change="anneeSelect">
-          <option v-for="tab in tabs" :key="tab.id" :value="tab.id">
-            {{ tab.nom }}
-          </option>
-        </select>
-      </div>
-    </div>
+    <div class="line-neutral width-full mb-xl" />
+    <h6>Sélectionner une année</h6>
+
+    <select v-model="anneeActive" class="p-s mb-l full" @change="anneeSelect">
+      <option v-for="annee in annees" :key="annee.id" :value="annee.id">
+        {{ annee.nom }}
+      </option>
+    </select>
 
     <GranulatsMarinsActivite
       :statistique-granulats-marins="statistiques[anneeActive]"
-      :en-construction="tabs.find(t => t.id === anneeActive).enConstruction"
+      :en-construction="annees.find(t => t.id === anneeActive).enConstruction"
       class="mb-xxl"
     />
     <div class="line-neutral width-full mb-xl" />
@@ -354,7 +350,7 @@ export default {
       return new Date().getFullYear()
     },
 
-    tabs() {
+    annees() {
       return this.statsAnneesAfter2010.map(annee => {
         const id = annee.annee
         return {
