@@ -36,9 +36,11 @@
         </div>
         <div class="tablet-blob-2-3">
           <ul class="list-sans mb-0">
-            <li :class="{ disabled: !complete }">
+            <li>
               <button
                 id="cmn-user-login-popup-button-se-connecter"
+                :disabled="!complete"
+                :class="{ disabled: !complete }"
                 class="btn-flash rnd-xs p-s full-x mb"
                 @click="login"
               >
@@ -140,7 +142,9 @@ export default {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
-        this.login()
+        if (this.complete) {
+          this.login()
+        }
       }
     },
 

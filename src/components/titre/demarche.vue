@@ -129,6 +129,7 @@ export default {
       const etape = {
         ordre: 0,
         titreDemarcheId: this.demarche.id,
+        date: '',
         typeId: null,
         typeIdOriginal: null,
         statutId: null,

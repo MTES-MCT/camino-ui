@@ -47,7 +47,7 @@
   button-color: var(--color-bg) var(--color-bg) var(--color-bg);
   button-background: var(--color-neutral) var(--color-inverse)
     var(--color-highlight);
-  button-class: active disabled true;
+  button-class: active disabled false;
 }
 
 .btn-menu {

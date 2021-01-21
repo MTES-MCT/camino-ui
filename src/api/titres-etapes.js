@@ -14,8 +14,12 @@ import { fragmentEntreprise } from './fragments/entreprise'
 
 const titreEtapeMetas = apiGraphQLFetch(
   gql`
-    query TitreEtapeMetas($titreDemarcheId: ID!, $id: ID) {
-      etapesTypes(titreDemarcheId: $titreDemarcheId, titreEtapeId: $id) {
+    query TitreEtapeMetas($titreDemarcheId: ID!, $date: String!, $id: ID) {
+      etapesTypes(
+        titreDemarcheId: $titreDemarcheId
+        date: $date
+        titreEtapeId: $id
+      ) {
         ...etapeType
       }
 

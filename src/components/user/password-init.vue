@@ -35,8 +35,13 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3" />
-      <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
-        <button class="btn-flash rnd-xs p-s full-x" @click="save">
+      <div class="tablet-blob-2-3">
+        <button
+          class="btn-flash rnd-xs p-s full-x"
+          :disabled="!complete"
+          :class="{ disabled: !complete }"
+          @click="save"
+        >
           Enregistrer
         </button>
       </div>
@@ -84,7 +89,9 @@ export default {
 
     keyup(e) {
       if ((e.which || e.keyCode) === 13) {
-        this.save()
+        if (this.complete) {
+          this.save()
+        }
       }
     }
   }
