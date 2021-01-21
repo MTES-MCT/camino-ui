@@ -112,8 +112,7 @@
     <div class="line-neutral width-full mb-xl" />
     <div id="evolution" class="mb-xxl">
       <h2>
-        Évolution de l’activité sur le domaine minier de Guyane sur les 5
-        dernières années
+        Évolution de l’activité sur le domaine minier de Guyane
       </h2>
       <span class="separator" />
       <p>
