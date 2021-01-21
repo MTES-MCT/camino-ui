@@ -26,27 +26,19 @@
     </div>
 
     <template slot="footer">
-      <div class="tablet-blobs">
+      <div v-if="!loading" class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
-          <button
-            v-if="!loading"
-            class="btn-border rnd-xs p-s full-x"
-            @click="cancel"
-          >
+          <button class="btn-border rnd-xs p-s full-x" @click="cancel">
             Annuler
           </button>
         </div>
         <div class="tablet-blob-2-3">
-          <button
-            v-if="!loading"
-            class="btn-flash rnd-xs p-s full-x"
-            @click="remove"
-          >
+          <button class="btn-flash rnd-xs p-s full-x" @click="remove">
             Supprimer
           </button>
-          <div v-else class="p-s full-x bold">Suppression en cours…</div>
         </div>
       </div>
+      <div v-else class="p-s full-x bold">Suppression en cours…</div>
     </template>
   </Popup>
 </template>

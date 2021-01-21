@@ -25,8 +25,13 @@
             Annuler
           </button>
         </div>
-        <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
-          <button class="btn-flash rnd-xs p-s full-x" @click="save">
+        <div class="tablet-blob-2-3">
+          <button
+            class="btn-flash rnd-xs p-s full-x"
+            :disabled="!complete"
+            :class="{ disabled: !complete }"
+            @click="save"
+          >
             Envoyer
           </button>
         </div>
@@ -85,7 +90,9 @@ export default {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
-        this.save()
+        if (this.complete) {
+          this.save()
+        }
       }
     },
 

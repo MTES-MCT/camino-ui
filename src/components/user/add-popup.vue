@@ -33,9 +33,11 @@
             Annuler
           </button>
         </div>
-        <div class="tablet-blob-2-3" :class="{ disabled: !complete }">
+        <div class="tablet-blob-2-3">
           <button
             id="cmn-user-add-popup-button-valider"
+            :disabled="!complete"
+            :class="{ disabled: !complete }"
             class="btn-flash rnd-xs p-s full-x"
             @click="save"
           >
@@ -98,7 +100,9 @@ export default {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
-        this.save()
+        if (this.complete) {
+          this.save()
+        }
       }
     },
 

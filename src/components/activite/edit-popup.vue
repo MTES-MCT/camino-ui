@@ -84,9 +84,11 @@
                 Enregistrer
               </button>
             </div>
-            <div class="tablet-blob-1-2" :class="{ disabled: !completed }">
+            <div class="tablet-blob-1-2">
               <button
                 class="btn-flash rnd-xs p-s full-x"
+                :disabled="!complete"
+                :class="{ disabled: !completed }"
                 @click="completed && save(true)"
               >
                 Valider

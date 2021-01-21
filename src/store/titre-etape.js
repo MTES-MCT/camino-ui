@@ -20,11 +20,10 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit }, etape) {
-    commit('loadingAdd', 'titreEtapeMetasGet', { root: true })
-
+  async metasGet({ commit }, { titreDemarcheId, id, date }) {
     try {
-      const data = await titreEtapeMetas(etape)
+      commit('loadingAdd', 'titreEtapeMetasGet', { root: true })
+      const data = await titreEtapeMetas({ titreDemarcheId, id, date })
 
       // fusion des entreprises non archivées et des entreprises de l’étape
       if (data.etapeEntreprises.elements) {
