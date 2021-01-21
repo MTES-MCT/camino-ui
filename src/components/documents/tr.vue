@@ -78,7 +78,7 @@
         rel="noopener noreferrer"
         alt="Url"
       >
-        <i class="icon-24 icon-download" />
+        <i class="icon-24 icon-link" />
       </a>
       <a
         v-if="document.uri"
