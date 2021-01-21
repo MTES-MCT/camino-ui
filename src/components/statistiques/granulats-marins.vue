@@ -301,7 +301,7 @@
                 'quantite',
                 'surface',
                 'Concessions octroyées',
-                'Surfaces cumulées des titres pouvant faire l\'objet d\'une activité d\'exploitation (ha)'
+                'Surfaces des concession (ha)'
               )
             "
             :suggested-max="suggestedMaxTitres"
