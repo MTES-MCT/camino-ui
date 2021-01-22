@@ -15,10 +15,9 @@
       </div>
     </template>
 
-    <div v-if="!etape.date" class="tablet-blobs">
+    <div v-if="dateIsVisible" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Date</h6>
-        {{ etape.date }}
       </div>
       <div class="tablet-blob-2-3">
         <InputDate v-model="date" class="mb" />
@@ -31,8 +30,11 @@
           <h6>Date</h6>
         </div>
         <div class="tablet-blob-2-3">
-          <div class="py-s mb-s">{{ etape.date | dateFormat }}</div>
-          <label class="h5">
+          <InputDate
+            v-model="etape.date"
+            :class="{ 'mb-s': etape.date, mb: !etape.date }"
+          />
+          <label v-if="etape.date" class="h5">
             <input v-model="etape.incertitudes.date" type="checkbox" /> donnée
             incertaine
           </label>
@@ -191,6 +193,13 @@ export default {
 
     etapesStatuts() {
       return this.etapeType.etapesStatuts
+    },
+
+    dateIsVisible() {
+      return (
+        (this.etape.id && !this.etape.date && !this.date) ||
+        (!this.etape.id && !this.etape.date)
+      )
     },
 
     complete() {
