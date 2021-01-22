@@ -49,18 +49,18 @@ export default {
       )
     },
 
-    completed() {
+    complete() {
       return this.sections.reduce(
-        (completed, s) =>
-          s.elements.reduce((sectionCompleted, e) => {
+        (complete, s) =>
+          s.elements.reduce((sectionComplete, e) => {
             const value =
               this.contenu[s.id] &&
               (e.type === 'checkboxes'
                 ? this.contenu[s.id][e.id].length || null
                 : this.contenu[s.id][e.id])
 
-            return sectionCompleted && !!(value || value === 0 || e.optionnel)
-          }, completed),
+            return sectionComplete && !!(value || value === 0 || e.optionnel)
+          }, complete),
         true
       )
     }
@@ -85,8 +85,8 @@ export default {
       deep: true
     },
 
-    completed: function(completed) {
-      this.$emit('completed-update', completed)
+    complete: function(complete) {
+      this.$emit('complete-update', complete)
     }
   },
 
@@ -102,7 +102,7 @@ export default {
         return contenu
       }, {})
 
-    this.$emit('completed-update', this.completed)
+    this.$emit('complete-update', this.complete)
   }
 }
 </script>

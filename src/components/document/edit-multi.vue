@@ -43,7 +43,7 @@ export default {
       return this.$store.state.document.metas.documentsTypes
     },
 
-    completed() {
+    complete() {
       return this.documents.reduce(
         (c, d) =>
           c && !!((d.fichier || d.fichierNouveau) && d.fichierTypeId && d.date),
@@ -53,9 +53,9 @@ export default {
   },
 
   watch: {
-    completed: {
-      handler: function(completed) {
-        this.$emit('completed-update', completed)
+    complete: {
+      handler: function(complete) {
+        this.$emit('complete-update', complete)
       },
       immediate: true
     }

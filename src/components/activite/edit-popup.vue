@@ -22,7 +22,7 @@
       :element.sync="activite"
       :modifiable="modifiable"
       :sections="activite.sections"
-      @completed-update="activiteCompletedUpdate"
+      @complete-update="activiteCompleteUpdate"
     />
 
     <div v-if="activite.documentsCreation">
@@ -32,12 +32,12 @@
         :parent-id="activite.id"
         :parent-type-id="activite.type.id"
         repertoire="activites"
-        @completed-update="documentsCompletedUpdate"
+        @complete-update="documentsCompleteUpdate"
       />
     </div>
 
     <div
-      v-if="!modifiable && completed"
+      v-if="!modifiable && complete"
       id="cmn-titre-activite-edit-popup-warning"
       class="p-s bg-warning color-bg bold mb"
     >
@@ -78,7 +78,7 @@
               <button
                 id="cmn-titre-activite-edit-popup-button-enregistrer"
                 class="rnd-xs p-s full-x"
-                :class="{ 'btn-flash': !completed, 'btn-border': completed }"
+                :class="{ 'btn-flash': !complete, 'btn-border': complete }"
                 @click="save(false)"
               >
                 Enregistrer
@@ -88,8 +88,8 @@
               <button
                 class="btn-flash rnd-xs p-s full-x"
                 :disabled="!complete"
-                :class="{ disabled: !completed }"
-                @click="completed && save(true)"
+                :class="{ disabled: !complete }"
+                @click="complete && save(true)"
               >
                 Valider
               </button>
@@ -125,8 +125,8 @@ export default {
     return {
       modifiable: true,
       checkboxesValues: [],
-      activiteCompleted: false,
-      documentsCompleted: false
+      activiteComplete: false,
+      documentsComplete: false
     }
   },
 
@@ -139,10 +139,10 @@ export default {
       return this.$store.state.popup.messages
     },
 
-    completed() {
+    complete() {
       return (
-        this.activiteCompleted &&
-        (this.documentsCompleted || !this.activite.documentsCreation)
+        this.activiteComplete &&
+        (this.documentsComplete || !this.activite.documentsCreation)
       )
     }
   },
@@ -156,12 +156,12 @@ export default {
   },
 
   methods: {
-    activiteCompletedUpdate(completed) {
-      this.activiteCompleted = completed
+    activiteCompleteUpdate(complete) {
+      this.activiteComplete = complete
     },
 
-    documentsCompletedUpdate(completed) {
-      this.documentsCompleted = completed
+    documentsCompleteUpdate(complete) {
+      this.documentsComplete = complete
     },
 
     preview() {
@@ -198,7 +198,7 @@ export default {
         }
       }
 
-      this.activite.statut.id = confirmation && this.completed ? 'dep' : 'enc'
+      this.activite.statut.id = confirmation && this.complete ? 'dep' : 'enc'
 
       await this.$store.dispatch('titreActivite/update', {
         activite: this.activite,
@@ -228,7 +228,7 @@ export default {
         if (this.modifiable) {
           this.preview()
         } else {
-          if (this.completed) {
+          if (this.complete) {
             this.save(true)
           } else {
             this.save(false)
