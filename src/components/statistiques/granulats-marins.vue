@@ -301,7 +301,7 @@
                 'quantite',
                 'surface',
                 'Concessions octroyées',
-                'Surfaces des concession (ha)'
+                'Surfaces des concessions (ha)'
               )
             "
             :suggested-max="suggestedMaxTitres"
