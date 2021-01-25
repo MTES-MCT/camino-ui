@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.56](https://github.com/MTES-MCT/camino-ui/compare/v0.22.53...v0.22.56) (2021-01-25)
+
+
+### Features
+
+* **demarches:** conditionne l'affichage du bouton de création de démarches ([#229](https://github.com/MTES-MCT/camino-ui/issues/229)) ([014e02e](https://github.com/MTES-MCT/camino-ui/commit/014e02ebfdb77da34cbcdbcec2225ef845639d37))
+* **édition d'étape:** sélectionne la date avant le type ([#237](https://github.com/MTES-MCT/camino-ui/issues/237)) ([5d274d5](https://github.com/MTES-MCT/camino-ui/commit/5d274d553d5443d46efd2f53816179a80552dd6f))
+* **statistiques:** améliorer le rendu ([#233](https://github.com/MTES-MCT/camino-ui/issues/233)) ([320d720](https://github.com/MTES-MCT/camino-ui/commit/320d7209233cace81e89aea7ed1e4bee9f02d3c9))
+* **statistiques:** corrige le commentaire introductif sur la page guyane ([#225](https://github.com/MTES-MCT/camino-ui/issues/225)) ([91183e5](https://github.com/MTES-MCT/camino-ui/commit/91183e5b47118cd167d70ae1ed9a86c52b79e6b4))
+* **statistiques:** désactive l’affichage des statistiques des granulats marins ([ee84d7b](https://github.com/MTES-MCT/camino-ui/commit/ee84d7bb53d10ff2fbc508b42b53055ba01d37cf))
+* édite les métas ([#224](https://github.com/MTES-MCT/camino-ui/issues/224)) ([75d1ff7](https://github.com/MTES-MCT/camino-ui/commit/75d1ff76f5e5f6f27fb6dd0be1d83f8b4408291b))
+
+
+### Bug Fixes
+
+* **document:** interverti les champs uri et url ([#236](https://github.com/MTES-MCT/camino-ui/issues/236)) ([4ad2035](https://github.com/MTES-MCT/camino-ui/commit/4ad20351956b0db69e3800e92655dd558f440a0e))
+* **documents:** ajoute un bouton qui pointe vers les uri ([d55af9b](https://github.com/MTES-MCT/camino-ui/commit/d55af9bb6fc02ac9ef544f56cf44a74aea394ab2))
+* **édition d'étape:** autorise l'édition de la date ([0aec1d6](https://github.com/MTES-MCT/camino-ui/commit/0aec1d678e610d216f1514b68f5e46c85b1bce3f))
+* **entreprise:** empêche de choisir un amodiataire si il est titulaire ([#228](https://github.com/MTES-MCT/camino-ui/issues/228)) ([44b859b](https://github.com/MTES-MCT/camino-ui/commit/44b859b39767c8ff84f4ec7f4e6e26d9ce604f3f))
+* **entreprises:** ne peut pas mettre 2 fois le même titulaires sur une étape ([#223](https://github.com/MTES-MCT/camino-ui/issues/223)) ([b2b2ad3](https://github.com/MTES-MCT/camino-ui/commit/b2b2ad30d2aa8d01e944437328651d1be5b1f84b))
+* **étape:** initialise correctement le type d’étape lors de la modification d’une étape ([8102819](https://github.com/MTES-MCT/camino-ui/commit/8102819cee3c6f6aeb127b78530051ffbcd9a4c7))
+* **statistiques:** corrige l'affichage des granulats marins ([#235](https://github.com/MTES-MCT/camino-ui/issues/235)) ([fcfa94e](https://github.com/MTES-MCT/camino-ui/commit/fcfa94e5aa0f5c295ed20761d41203b1963c0493))
+* **statistiques:** corrige le libellé des surfaces sur les concessions ([#238](https://github.com/MTES-MCT/camino-ui/issues/238)) ([eae9e87](https://github.com/MTES-MCT/camino-ui/commit/eae9e87746fdf82faa3fbfd67471c083e2d3f918))
+* **statistiques:** corrige le titre lde la page ([#239](https://github.com/MTES-MCT/camino-ui/issues/239)) ([05efe97](https://github.com/MTES-MCT/camino-ui/commit/05efe979955760348a7f6237daf3fec663a628c5))
+* **statistiques:** corrige une faute d'orthographe ([#240](https://github.com/MTES-MCT/camino-ui/issues/240)) ([d66640f](https://github.com/MTES-MCT/camino-ui/commit/d66640f0063d0b47a4c3a358b7bd1ae43a6bbc4d))
+* affiche l'arrière plan des périmètres de concessions f ([7390e65](https://github.com/MTES-MCT/camino-ui/commit/7390e651f65c1c4b9d3de7756f86e719b76e0e25))
+* change l'icone d'un lien url ([dc9b185](https://github.com/MTES-MCT/camino-ui/commit/dc9b185d939d276533eedf5ae0321e91dbdd0e3a))
+* corrige l'affichage des statistiques ([#234](https://github.com/MTES-MCT/camino-ui/issues/234)) ([c5a04b0](https://github.com/MTES-MCT/camino-ui/commit/c5a04b046e034d61e720e5900be180a015715b80))
+* supprime l'édition de tables de jointure inutilisées ([9d1777f](https://github.com/MTES-MCT/camino-ui/commit/9d1777f687974385a5ac3652e95c6dff52989016))
+
 ### [0.22.55](https://github.com/MTES-MCT/camino-ui/compare/v0.22.54...v0.22.55) (2020-12-22)
 
 
