@@ -46,7 +46,11 @@ export default {
     complete() {
       return this.documents.reduce(
         (c, d) =>
-          c && !!((d.fichier || d.fichierNouveau) && d.fichierTypeId && d.date),
+          c &&
+          !!(
+            d.optionnel ||
+            ((d.fichier || d.fichierNouveau) && d.fichierTypeId && d.date)
+          ),
         true
       )
     }
