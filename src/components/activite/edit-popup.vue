@@ -25,12 +25,13 @@
       @complete-update="activiteCompleteUpdate"
     />
 
-    <div v-if="activite.documentsCreation">
+    <div v-if="activite.documentsCreation && activite.type.documentsTypes">
       <DocumentsEdit
         :documents.sync="activite.documents"
         :modifiable="modifiable"
         :parent-id="activite.id"
         :parent-type-id="activite.type.id"
+        :documents-types="activite.type.documentsTypes"
         repertoire="activites"
         @complete-update="documentsCompleteUpdate"
       />

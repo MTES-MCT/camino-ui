@@ -1,11 +1,11 @@
 import gql from 'graphql-tag'
+import { fragmentDocumentType } from './metas'
 
 const fragmentDocument = gql`
   fragment document on Document {
     id
     type {
-      id
-      nom
+      ...documentType
     }
     date
     description
@@ -20,6 +20,8 @@ const fragmentDocument = gql`
     modification
     suppression
   }
+
+  ${fragmentDocumentType}
 `
 
 export { fragmentDocument }
