@@ -1,17 +1,17 @@
 <template>
   <div>
     <div v-for="s in sections" :key="s.id">
-      <h3 v-if="s.nom">
-        {{ s.nom }}
-      </h3>
+      <div v-if="s.elements.some(e => e.valeur || !e.optionnel)">
+        <h3 v-if="s.nom">{{ s.nom }}</h3>
 
-      <EditSectionElement
-        v-for="e in s.elements"
-        :key="e.id"
-        :contenu.sync="contenu[s.id]"
-        :element="e"
-        :modifiable="modifiable"
-      />
+        <EditSectionElement
+          v-for="e in s.elements"
+          :key="e.id"
+          :contenu.sync="contenu[s.id]"
+          :element="e"
+          :modifiable="modifiable"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -36,19 +36,6 @@ export default {
   },
 
   computed: {
-    // masque les sections vides lors de la prévisualistation
-    sectionsFiltered() {
-      return this.sections.filter(
-        s =>
-          this.modifiable ||
-          s.elements.some(e => {
-            const contenu = this.contenu[s.id][e.id]
-
-            return (!!contenu || contenu === 0) && !e.optionnel
-          })
-      )
-    },
-
     complete() {
       return this.sections.reduce(
         (complete, s) =>
