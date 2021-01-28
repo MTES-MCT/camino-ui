@@ -9,9 +9,8 @@
           modifier des titres, démarches et étapes.
         </li>
         <li>
-          L'utilisateur d'une administration <b>associée</b> peut voir les
-          titres non-publics. Aussi, l'administration <b>associée</b> n'apparaît
-          pas sur les pages des titres.
+          Une administration <b>associée</b> n'apparaît pas sur les pages des
+          titres.
         </li>
       </ul>
 

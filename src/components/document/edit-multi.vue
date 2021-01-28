@@ -1,28 +1,26 @@
 <template>
-  <div v-if="loaded">
+  <div v-if="visible">
     <h3>Documents</h3>
-    <div v-for="document in documents" :key="document.id">
-      <h4>{{ documentsTypes.find(dt => dt.id === document.typeId).nom }}</h4>
-
-      <hr />
-
-      <EditSections
-        :document.sync="document"
-        :modifiable="modifiable"
-        :repertoire="repertoire"
-      />
-    </div>
+    <Edit
+      v-for="document in documents"
+      :key="document.id"
+      :document.sync="document"
+      :document-type="documentsTypes.find(dt => dt.id === document.typeId)"
+      :modifiable="modifiable"
+      :repertoire="repertoire"
+    >
+    </Edit>
   </div>
 </template>
 
 <script>
-import EditSections from './edit-sections.vue'
+import Edit from './edit-multi-document.vue'
 
 export default {
   name: 'CaminoDocumentEditMulti',
 
   components: {
-    EditSections
+    Edit
   },
 
   props: {
@@ -30,7 +28,8 @@ export default {
     modifiable: { type: Boolean, default: true },
     repertoire: { type: String, required: true },
     parentTypeId: { type: String, default: '' },
-    parentId: { type: String, required: true }
+    parentId: { type: String, required: true },
+    documentsTypes: { type: Array, required: true }
   },
   data() {
     return {
@@ -39,15 +38,24 @@ export default {
   },
 
   computed: {
-    documentsTypes() {
-      return this.$store.state.document.metas.documentsTypes
+    complete() {
+      return this.documents.every(d => {
+        const optionnel = this.documentsTypes.find(dt => dt.id === d.typeId)
+          .optionnel
+
+        return (
+          optionnel ||
+          !!((d.fichier || d.fichierNouveau) && d.fichierTypeId && d.date)
+        )
+      })
     },
 
-    complete() {
-      return this.documents.reduce(
-        (c, d) =>
-          c && !!((d.fichier || d.fichierNouveau) && d.fichierTypeId && d.date),
-        true
+    visible() {
+      return (
+        this.loaded &&
+        (this.modifiable ||
+          this.documentsTypes.some(dt => !dt.optionnel) ||
+          this.documents.some(d => d.fichier || d.fichierNouveau))
       )
     }
   },

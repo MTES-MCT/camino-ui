@@ -9,7 +9,9 @@
         <p v-else-if="document.date" class="pt-xs">
           {{ document.date }}
         </p>
-        <p v-else class="color-warning pt-xs">À compléter pour valider</p>
+        <p v-else class="color-warning pt-xs">
+          À compléter pour valider
+        </p>
       </div>
     </div>
 
@@ -88,7 +90,9 @@
           <input id="file" type="file" class="p-xs mb-0" @change="fileChange" />
           <p class="h6 mb-s">30 Mo max.</p>
         </div>
-        <p v-else class="color-warning pt-xs mb-0">À compléter pour valider</p>
+        <p v-else class="color-warning pt-xs mb-0">
+          À compléter pour valider
+        </p>
       </div>
     </div>
 

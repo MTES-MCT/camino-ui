@@ -25,12 +25,13 @@
       @complete-update="activiteCompleteUpdate"
     />
 
-    <div v-if="activite.documentsCreation">
+    <div v-if="activite.documentsCreation && activite.type.documentsTypes">
       <DocumentsEdit
         :documents.sync="activite.documents"
         :modifiable="modifiable"
         :parent-id="activite.id"
         :parent-type-id="activite.type.id"
+        :documents-types="activite.type.documentsTypes"
         repertoire="activites"
         @complete-update="documentsCompleteUpdate"
       />
@@ -126,7 +127,8 @@ export default {
       modifiable: true,
       checkboxesValues: [],
       activiteComplete: false,
-      documentsComplete: false
+      documentsComplete: false,
+      documentsIds: []
     }
   },
 
@@ -148,6 +150,9 @@ export default {
   },
 
   created() {
+    if (this.activite.documents && this.activite.documents.length) {
+      this.documentsIds = this.activite.documents.map(d => d.id)
+    }
     document.addEventListener('keyup', this.keyup)
   },
 
@@ -180,7 +185,7 @@ export default {
         delete this.activite.contenu
       }
 
-      if (this.activite.documents.length) {
+      if (this.activite.documents.length || this.documentsIds.length) {
         this.activite.statut.id = 'enc'
 
         const res = await this.$store.dispatch('titreActivite/update', {
@@ -188,11 +193,30 @@ export default {
         })
 
         if (res === 'success') {
+          // supprime les documents qui n'ont pas de fichier
+          for (const documentId of this.documentsIds) {
+            const document = this.activite.documents.find(
+              d => d.id === documentId
+            )
+
+            if (!document || !(document.fichier || document.fichierNouveau)) {
+              await this.$store.dispatch('document/remove', {
+                id: documentId
+              })
+            }
+          }
+
+          // met à jour ou ajoute les documents
           for (const document of this.activite.documents) {
-            if (document.id) {
-              await this.$store.dispatch('document/update', { document })
-            } else {
-              await this.$store.dispatch('document/add', { document })
+            if (
+              (document.fichier || document.fichierNouveau) &&
+              document.date
+            ) {
+              if (document.id) {
+                await this.$store.dispatch('document/update', { document })
+              } else {
+                await this.$store.dispatch('document/add', { document })
+              }
             }
           }
         }

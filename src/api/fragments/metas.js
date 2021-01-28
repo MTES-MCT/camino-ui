@@ -175,6 +175,7 @@ const fragmentDocumentType = gql`
     id
     nom
     repertoire
+    optionnel
   }
 `
 

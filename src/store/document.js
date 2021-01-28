@@ -16,9 +16,8 @@ export const state = {
 
 export const actions = {
   async metasGet({ commit }, options) {
-    commit('loadingAdd', 'documentMetasGet', { root: true })
-
     try {
+      commit('loadingAdd', 'documentMetasGet', { root: true })
       const data = await documentMetas(options)
 
       commit('metasSet', data)
@@ -32,22 +31,23 @@ export const actions = {
   },
 
   async add({ commit, dispatch }, { document, context }) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'documentAdd', { root: true })
-
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('loadingAdd', 'documentAdd', { root: true })
+      if (context) {
+        commit('popupLoad', null, { root: true })
+      }
+
       await documentCreer({ document })
 
-      commit('popupClose', null, { root: true })
-
-      dispatch(
-        'messageAdd',
-        { value: `le document a été ajouté`, type: 'success' },
-        { root: true }
-      )
-
       if (context) {
+        commit('popupClose', null, { root: true })
+
+        dispatch(
+          'messageAdd',
+          { value: `le document a été ajouté`, type: 'success' },
+          { root: true }
+        )
         await dispatch('reload', context, { root: true })
         if (context.name === 'titre') {
           const section = context.section
@@ -66,21 +66,23 @@ export const actions = {
   },
 
   async update({ commit, dispatch }, { document, context }) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'documentUpdate', { root: true })
-
     try {
-      await documentModifier({ document })
+      commit('popupMessagesRemove', null, { root: true })
+      commit('loadingAdd', 'documentUpdate', { root: true })
+      if (context) {
+        commit('popupLoad', null, { root: true })
+      }
 
-      dispatch(
-        'messageAdd',
-        { value: `le document a été mis à jour`, type: 'success' },
-        { root: true }
-      )
+      await documentModifier({ document })
 
       if (context) {
         commit('popupClose', null, { root: true })
+
+        dispatch(
+          'messageAdd',
+          { value: `le document a été mis à jour`, type: 'success' },
+          { root: true }
+        )
         await dispatch('reload', context, { root: true })
       }
     } catch (e) {
@@ -91,22 +93,23 @@ export const actions = {
   },
 
   async remove({ commit, dispatch }, { id, context }) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'documentRemove', { root: true })
-
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('loadingAdd', 'documentRemove', { root: true })
+      if (context) {
+        commit('popupLoad', null, { root: true })
+      }
+
       await documentSupprimer({ id })
 
-      commit('popupClose', null, { root: true })
-
-      dispatch(
-        'messageAdd',
-        { value: `le document a été supprimé`, type: 'success' },
-        { root: true }
-      )
-
       if (context) {
+        commit('popupClose', null, { root: true })
+
+        dispatch(
+          'messageAdd',
+          { value: `le document a été supprimé`, type: 'success' },
+          { root: true }
+        )
         await dispatch('reload', context, { root: true })
       }
     } catch (e) {
