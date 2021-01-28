@@ -150,7 +150,9 @@ export default {
   },
 
   created() {
-    this.documentsIds = this.activite.documents.map(d => d.id)
+    if (this.activite.documents && this.activite.documents.length) {
+      this.documentsIds = this.activite.documents.map(d => d.id)
+    }
     document.addEventListener('keyup', this.keyup)
   },
 
