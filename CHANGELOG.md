@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.57](https://github.com/MTES-MCT/camino-ui/compare/v0.22.56...v0.22.57) (2021-02-01)
+
+
+### Features
+
+* **activités:** prend en compte les documents optionnels ([#241](https://github.com/MTES-MCT/camino-ui/issues/241)) ([bcfe8e6](https://github.com/MTES-MCT/camino-ui/commit/bcfe8e6cb14dfefe19f8a15959ed2db30711edc9))
+
 ### [0.22.56](https://github.com/MTES-MCT/camino-ui/compare/v0.22.53...v0.22.56) (2021-01-25)
 
 
