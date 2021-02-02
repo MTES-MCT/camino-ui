@@ -5,10 +5,10 @@
     <h3>Éditeurs</h3>
     <p>
       Camino est édité par la Fabrique numérique des ministères de la Transition
-      écologique et solidaire et de la Cohésion des territoires, sise 1 place
-      Carpeaux, 92800 Puteaux, avec l’appui de l’incubateur de services
-      numériques beta.gouv.fr de la direction interministérielle du numérique et
-      du système d’information et de communication de l’État (DINSIC).
+      écologique et de la Cohésion des territoires, sise 1 place Carpeaux, 92800
+      Puteaux, avec l’appui de l’incubateur de services numériques beta.gouv.fr
+      de la direction interministérielle du numérique et du système
+      d’information et de communication de l’État (DINSIC).
     </p>
     <h3>Directrice et directeur de la publication</h3>
     <ul class="list-prefix">

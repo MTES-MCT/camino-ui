@@ -15,7 +15,13 @@
     </template>
 
     <div v-if="modifiable" class="p-s bg-info color-bg mb">
-      Besoin d'aide pour remplir ce rapport ? Appelez le 06.61.26.42.89
+      Besoin d'aide pour remplir ce rapport ?
+      <router-link
+        to="/contacts"
+        target="_blank"
+        class="p-s bg-info color-bg mb"
+        >Contactez-nous
+      </router-link>
     </div>
 
     <EditSections

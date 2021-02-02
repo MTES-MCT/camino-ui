@@ -9,10 +9,10 @@
 
     <p>
       Camino est un service numérique de l’État édité par le ministère de la
-      transition écologique et solidaire, avec l’appui de la Fabrique numérique,
-      l’incubateur ministériel de services numériques innovants, et
-      beta.gouv.fr, l’incubateur de la direction interministérielle du numérique
-      et du système d’information et de communication de l’État (DINSIC).
+      transition écologique, avec l’appui de la Fabrique numérique, l’incubateur
+      ministériel de services numériques innovants, et beta.gouv.fr,
+      l’incubateur de la direction interministérielle du numérique et du système
+      d’information et de communication de l’État (DINSIC).
     </p>
     <h3>Présentation du service</h3>
     <p>
@@ -29,10 +29,10 @@
       modalités d’utilisation des services camino.beta.gouv.fr et
       api.camino.beta.gouv.fr sur Internet.<br />
       Le service est développé et opéré par le ministère de la transition
-      écologique et solidaire, avec l’appui de la Fabrique numérique,
-      l’incubateur ministériel de services numériques innovants, et
-      beta.gouv.fr, l’incubateur de la direction interministérielle du numérique
-      et du système d’information et de communication de l’État (DINSIC).
+      écologique, avec l’appui de la Fabrique numérique, l’incubateur
+      ministériel de services numériques innovants, et beta.gouv.fr,
+      l’incubateur de la direction interministérielle du numérique et du système
+      d’information et de communication de l’État (DINSIC).
     </p>
     <p>L’utilisation du service est libre, facultative et gratuite.</p>
     <p>
@@ -101,11 +101,10 @@
     <h4>(1) Le site camino.beta.gouv.fr est protégé</h4>
     <p>
       Le site est la propriété exclusive du ministère de la transition
-      écologique et solidaire. Toute reproduction ou représentation totale ou
-      partielle de ce site par quelque procédé que ce soit, sans l’autorisation
-      expresse de son propriétaire est interdite et constituerait une
-      contrefaçon sanctionnée par les articles L. 335-2 du Code de la propriété
-      intellectuelle.
+      écologique. Toute reproduction ou représentation totale ou partielle de ce
+      site par quelque procédé que ce soit, sans l’autorisation expresse de son
+      propriétaire est interdite et constituerait une contrefaçon sanctionnée
+      par les articles L. 335-2 du Code de la propriété intellectuelle.
     </p>
 
     <p>Les contenus suivants ne sont pas réutilisables :</p>
@@ -131,16 +130,15 @@
     <h4>(2) Les marques présentées sur le site sont protégées</h4>
     <p>
       Les marques dont est titulaire l’Etat, le ministère de la transition
-      écologique et solidaire ou le ministère de la cohésion des territoires et
-      des relations avec les collectivités territoriales, ainsi que ses logos
-      figurant sur le site sont des marques régulièrement déposées auprès de
-      l’Institut national de la propriété industrielle (INPI). Toute
-      reproduction totale ou partielle de ces marques ou de ces logos effectuées
-      à partir des éléments du site sans l’autorisation expresse du propriétaire
-      de ce site est prohibée au sens des articles L. 713-2 et suivants du Code
-      de la propriété intellectuelle. Tout contrefacteur s’expose aux sanctions
-      prévues aux articles L. 716-1 et suivants du code de la propriété
-      intellectuelle.
+      écologique ou le ministère de la cohésion des territoires et des relations
+      avec les collectivités territoriales, ainsi que ses logos figurant sur le
+      site sont des marques régulièrement déposées auprès de l’Institut national
+      de la propriété industrielle (INPI). Toute reproduction totale ou
+      partielle de ces marques ou de ces logos effectuées à partir des éléments
+      du site sans l’autorisation expresse du propriétaire de ce site est
+      prohibée au sens des articles L. 713-2 et suivants du Code de la propriété
+      intellectuelle. Tout contrefacteur s’expose aux sanctions prévues aux
+      articles L. 716-1 et suivants du code de la propriété intellectuelle.
     </p>
     <h4>(3) Les données publiques sous ouvertes</h4>
     <p>
@@ -148,9 +146,8 @@
       Ouverte V 2.0. Vous êtes donc libres de réutiliser ces informations sous
       réserve de mentionner la paternité de l’information et la date de dernière
       mise à jour de l’information utilisée. Par exemple, sur la forme «
-      Ministère de la transition écologique et solidaire – Données originales
-      téléchargées sur http://camino.beta.gouv.fr, mise à jour du
-      jour-mois-année ».
+      Ministère de la transition écologique – Données originales téléchargées
+      sur http://camino.beta.gouv.fr, mise à jour du jour-mois-année ».
     </p>
     <h4>
       (4) Les données personnelles et les données relevant du secret des
@@ -202,9 +199,9 @@
     <h4>Responsable du traitement</h4>
     <p>
       Le responsable du traitement de vos données à caractère personnel est : Le
-      Ministère de la Transition écologique et solidaire Direction Générale de
-      l'Aménagement, du Logement et de la Nature Bureau de la politique des
-      ressources minérales non énergétiques 1 place Carpeaux 92800 Puteaux
+      Ministère de la Transition écologique Direction Générale de l'Aménagement,
+      du Logement et de la Nature Bureau de la politique des ressources
+      minérales non énergétiques 1 place Carpeaux 92800 Puteaux
     </p>
 
     <h4>Traitement des données et utilisation</h4>
@@ -289,17 +286,17 @@
     </p>
     <p>Par courriel : camino@beta.gouv.fr</p>
     <p>
-      Par voie postale : Ministère de la Transition écologique et solidaire
-      Direction Générale de l'Aménagement, du Logement et de la Nature, Bureau
-      de la politique des ressources minérales non énergétiques, 1 place
-      Carpeaux, 92800 Puteaux
+      Par voie postale : Ministère de la Transition écologique Direction
+      Générale de l'Aménagement, du Logement et de la Nature, Bureau de la
+      politique des ressources minérales non énergétiques, 1 place Carpeaux,
+      92800 Puteaux
     </p>
     <p>
       Cette demande écrite est accompagnée d’une copie du titre d’identité avec
       signature du titulaire de la pièce, en précisant l’adresse à laquelle la
       réponse doit être envoyée. Le délégué à la protection des données du
-      ministère de la transition écologique et solidaire peut également être
-      contacté à l’adresse suivante : dpd.daj.sg@developpement-durable.gouv.fr.
+      ministère de la transition écologique peut également être contacté à
+      l’adresse suivante : dpd.daj.sg@developpement-durable.gouv.fr.
       Conformément au règlement général sur la protection des données, vous
       disposez du droit d’introduire une réclamation auprès de la CNIL (3 place
       de Fontenoy – TSA 80715 – 75334 PARIS CEDEX 07). Les modalités de
