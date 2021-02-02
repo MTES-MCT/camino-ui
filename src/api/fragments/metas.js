@@ -56,6 +56,8 @@ const fragmentUnite = gql`
     id
     nom
     symbole
+    referenceUniteId
+    referenceUniteRatio
   }
 `
 

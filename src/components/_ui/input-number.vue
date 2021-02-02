@@ -4,7 +4,7 @@
     type="text"
     pattern="([0-9]{1,3}[\s]?)*([.,][0-9]*)?"
     class="p-s text-right"
-    @input="textToNumberFormat($event.target)"
+    @blur="textToNumberFormat($event.target)"
   />
 </template>
 
