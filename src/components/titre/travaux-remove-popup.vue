@@ -3,11 +3,9 @@
     <template slot="header">
       <div>
         <h5>
-          <span class="cap-first"> {{ titreNom }} </span
+          <span class="cap-first">{{ titreNom }}</span
           ><span class="color-neutral"> | </span
-          ><span class="cap-first">
-            {{ titreTypeNom }}
-          </span>
+          ><span class="cap-first">{{ titreTypeNom }}</span>
         </h5>
         <h2 class="cap-first mb-0">Suppression des travaux</h2>
       </div>

@@ -2,7 +2,9 @@
   <div>
     <div class="tablet-blobs">
       <div v-if="element.nom" class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-xs">{{ element.nom }}</h6>
+        <h6 class="mb-xs">
+          <span class="cap-first">{{ element.nom }}</span>
+        </h6>
         <p v-if="element.optionnel" class="h6 italic mb-0">Optionnel</p>
       </div>
 
@@ -13,111 +15,110 @@
           'tablet-blob-1': !element.nom
         }"
       >
-        <div v-if="modifiable">
-          <div :class="{ 'mb-s': element.description }">
-            <inputNumber
-              v-if="element.type === 'number'"
-              v-model.trim.number="contenu[element.id]"
-              class="p-s"
-              placeholder="…"
-            />
+        <div v-if="modifiable" :class="{ 'mb-s': element.description }">
+          <inputNumber
+            v-if="element.type === 'number'"
+            v-model.trim.number="contenu[element.id]"
+            class="p-s"
+            placeholder="…"
+          />
 
-            <inputNumber
-              v-if="element.type === 'integer'"
-              v-model.trim.number="contenu[element.id]"
-              :integer="true"
-              class="p-s"
-              placeholder="…"
-            />
+          <inputNumber
+            v-if="element.type === 'integer'"
+            v-model.trim.number="contenu[element.id]"
+            :integer="true"
+            class="p-s"
+            placeholder="…"
+          />
 
-            <InputDate
-              v-else-if="element.type === 'date'"
-              v-model="contenu[element.id]"
-            />
+          <InputDate
+            v-else-if="element.type === 'date'"
+            v-model="contenu[element.id]"
+          />
 
-            <textarea
-              v-else-if="element.type === 'textarea'"
-              v-model="contenu[element.id]"
-              class="p-s"
-            />
+          <textarea
+            v-else-if="element.type === 'textarea'"
+            v-model="contenu[element.id]"
+            class="p-s"
+          />
 
-            <input
-              v-else-if="element.type === 'text'"
-              v-model="contenu[element.id]"
-              type="text"
-              class="p-s"
-            />
+          <input
+            v-else-if="element.type === 'text'"
+            v-model="contenu[element.id]"
+            type="text"
+            class="p-s"
+          />
 
-            <div v-else-if="element.type === 'radio'">
-              <label>
-                <input
-                  v-model="contenu[element.id]"
-                  :name="element.id"
-                  :value="true"
-                  type="radio"
-                  class="p-s mt-s mb-s"
-                />Oui
-              </label>
-
-              <label>
-                <input
-                  v-model="contenu[element.id]"
-                  :name="element.id"
-                  :value="false"
-                  type="radio"
-                  class="p-s mt-s mb-s"
-                />Non
-              </label>
-            </div>
-
-            <input
-              v-else-if="element.type === 'checkbox'"
-              v-model="contenu[element.id]"
-              type="checkbox"
-              class="p-s mt-s mb-s"
-            />
-
-            <div v-else-if="element.type === 'checkboxes'">
-              <label v-for="value in valeurs" :key="value.id">
-                <input
-                  v-model="contenu[element.id]"
-                  type="checkbox"
-                  :value="value.id"
-                />
-                {{ value.nom }}
-              </label>
-            </div>
-
-            <div v-else-if="element.type === 'select'">
-              <select
-                v-if="valeurs && valeurs.length"
+          <div v-else-if="element.type === 'radio'">
+            <label>
+              <input
                 v-model="contenu[element.id]"
-                class="p-s mr-s mb-s"
-              >
-                <option
-                  v-for="value in valeurs"
-                  :key="value.id"
-                  :value="value.id"
-                >
-                  {{ value.nom }}
-                </option>
-              </select>
-            </div>
+                :name="element.id"
+                :value="true"
+                type="radio"
+                class="p-s mt-s mb-s"
+              />Oui
+            </label>
+
+            <label>
+              <input
+                v-model="contenu[element.id]"
+                :name="element.id"
+                :value="false"
+                type="radio"
+                class="p-s mt-s mb-s"
+              />Non
+            </label>
           </div>
 
-          <!-- eslint-disable vue/no-v-html -->
-          <p
-            v-if="element.description"
-            class="h5 mb-0"
-            v-html="element.description"
+          <input
+            v-else-if="element.type === 'checkbox'"
+            v-model="contenu[element.id]"
+            type="checkbox"
+            class="p-s mt-s mb-s"
           />
+
+          <div v-else-if="element.type === 'checkboxes'">
+            <label v-for="value in valeurs" :key="value.id">
+              <input
+                v-model="contenu[element.id]"
+                type="checkbox"
+                :value="value.id"
+              />
+              {{ value.nom }}
+            </label>
+          </div>
+
+          <div v-else-if="element.type === 'select'">
+            <select
+              v-if="valeurs && valeurs.length"
+              v-model="contenu[element.id]"
+              class="p-s mr-s mb-s"
+            >
+              <option
+                v-for="value in valeurs"
+                :key="value.id"
+                :value="value.id"
+              >
+                {{ value.nom }}
+              </option>
+            </select>
+          </div>
         </div>
 
-        <p v-else-if="hasValeur" class="pt-xs mb-0">
+        <p v-else-if="hasValeur" class="py-xs mb-0">
           {{ valeur }}
         </p>
         <p v-else-if="!element.optionnel" class="color-warning pt-xs mb-0">
           À compléter pour valider
+        </p>
+
+        <!-- eslint-disable vue/no-v-html -->
+        <p
+          v-if="(element.description && modifiable) || hasValeur"
+          class="h5 mb-0"
+        >
+          <span class="cap-first" v-html="element.description" />
         </p>
       </div>
     </div>
