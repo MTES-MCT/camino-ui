@@ -105,7 +105,7 @@ const metasIndex = {
       { id: 'domaineId', nom: 'Id du domaine' },
       { id: 'typeId', nom: 'Id du type' },
       {
-        id: 'propsEtapesTypes',
+        id: 'contenuIds',
         nom: "Type d'étape des propriétés",
         type: 'json',
         optional: true

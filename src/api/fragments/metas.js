@@ -36,7 +36,7 @@ const fragmentTitreType = gql`
       ...titreTypeType
     }
     titresCreation
-    propsEtapesTypes
+    contenuIds
   }
   ${fragmentTitreTypeType}
 `
