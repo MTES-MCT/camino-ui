@@ -70,8 +70,12 @@ describe('étapes', () => {
         { id: 'ifr', nom: 'Ifremer' },
         { id: 'dge', nom: 'DGEC' }
       ],
-      entreprises: { elements: [{ id: 'ent-1', nom: '1' }] },
-      etapeEntreprises: { elements: [{ id: 'ent-2', nom: '2' }] }
+      entreprises: {
+        elements: [
+          { id: 'ent-1', nom: '1' },
+          { id: 'ent-2', nom: '2' }
+        ]
+      }
     })
 
     await store.dispatch('titreEtape/metasGet', { etape: {} })
