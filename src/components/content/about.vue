@@ -474,34 +474,5 @@
         </div>
       </div>
     </div>
-
-    <div id="contact" class="mb-xxl">
-      <h4 class="mb-s color-neutral">
-        Nous écrire
-      </h4>
-
-      <h2>Partagez votre expérience avec nous</h2>
-
-      <span class="separator" />
-
-      <p class="subtitle">
-        Nous sommes à votre écoute du <strong>lundi au vendredi</strong>, de
-        9h30 à 18h00.
-      </p>
-      <ul class="list-prefix">
-        <li>
-          <strong>Téléphone</strong> :
-          <a href="tel:+33140819586">
-            +33 (0)1 40 81 95 86
-          </a>
-        </li>
-        <li>
-          <strong>Email</strong> :
-          <a href="mailto:camino@beta.gouv.fr">
-            camino@beta.gouv.fr
-          </a>
-        </li>
-      </ul>
-    </div>
   </div>
 </template>

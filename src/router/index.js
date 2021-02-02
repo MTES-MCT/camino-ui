@@ -16,6 +16,7 @@ import Activite from '../components/activite.vue'
 import Activites from '../components/activites.vue'
 import Glossaire from '../components/glossaire.vue'
 import Error from '../components/error.vue'
+import Contacts from '../components/content/contacts.vue'
 import About from '../components/content/about.vue'
 import Accessibilite from '../components/content/accessibilite.vue'
 import Contribution from '../components/content/contribution.vue'
@@ -122,6 +123,11 @@ const routes = [
         component: Definition
       }
     ]
+  },
+  {
+    path: '/contacts',
+    name: 'contacts',
+    component: Contacts
   },
   {
     path: '/a-propos',

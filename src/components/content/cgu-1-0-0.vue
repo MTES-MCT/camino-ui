@@ -31,10 +31,10 @@
 
     <p>
       Le service est développé et opéré par la Fabrique numérique des ministères
-      de la Transition écologique et solidaire et de la Cohésion des
-      territoires, avec l’appui de l’incubateur de services numériques
-      beta.gouv.fr de la direction interministérielle du numérique et du système
-      d’information et de communication de l’État (DINSIC).
+      de la Transition écologique et de la Cohésion des territoires, avec
+      l’appui de l’incubateur de services numériques beta.gouv.fr de la
+      direction interministérielle du numérique et du système d’information et
+      de communication de l’État (DINSIC).
     </p>
 
     <p>L’utilisation du service est libre, facultative et gratuite.</p>
@@ -144,9 +144,8 @@
       Ouverte V 2.0. Vous êtes donc libres de réutiliser ces informations sous
       réserve de mentionner la paternité de l’information et la date de dernière
       mise à jour de l’information utilisée. Par exemple sur la forme «
-      Ministère de la Transition écologique et solidaire – Données originales
-      téléchargées sur http://camino.beta.gouv.fr, mise à jour du 01 septembre
-      2018 ».
+      Ministère de la Transition écologique – Données originales téléchargées
+      sur http://camino.beta.gouv.fr, mise à jour du 01 septembre 2018 ».
     </p>
 
     <h4>Données relevant du secret des affaires</h4>
@@ -199,7 +198,7 @@
 
     <p>
       Par voie postale :<br />
-      Ministère de la Transition écologique et solidaire<br />
+      Ministère de la Transition écologique<br />
       Direction Générale de l'Aménagement, du Logement et de la Nature<br />
       Bureau de la politique des ressources minérales non énergétiques<br />
       1 place Carpeaux, 92800 Puteaux
@@ -207,7 +206,7 @@
 
     <p>
       Le délégué à la protection des données du ministère de la transition
-      écologique et solidaire peut également être contacté à l’adresse :
+      écologique peut également être contacté à l’adresse :
       dpd.daj.sg@developpement-durable.gouv.fr.
     </p>
 

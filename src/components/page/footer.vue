@@ -38,7 +38,7 @@
     <div class="tablet-blob-1-2 desktop-blob-1-3">
       <ul class="list-prefix text-decoration-none li-mb-s mb-0">
         <li>
-          Contact: <a href="mailto:camino@beta.gouv.fr">camino@beta.gouv.fr</a>
+          <router-link to="/contacts"> Contact </router-link>
         </li>
         <li>
           <router-link to="/a-propos"> À propos </router-link>
