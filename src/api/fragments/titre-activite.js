@@ -95,7 +95,6 @@ const fragmentActivites = gql`
     date
     annee
     periode
-    frequencePeriodeId
     dateSaisie
     sections
     contenu
@@ -133,7 +132,6 @@ const fragmentActivite = gql`
     date
     annee
     periode
-    frequencePeriodeId
     dateSaisie
     sections
     contenu

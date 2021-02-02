@@ -7,8 +7,12 @@
     <div
       :class="{ 'tablet-blob-2-3': element.nom, 'tablet-blob-1': !element.nom }"
     >
-      <p class="cap-first">
+      <p class="cap-first" :class="{ 'mb-s': element.description }">
         {{ valeur }}
+      </p>
+      <!-- eslint-disable vue/no-v-html -->
+      <p v-if="element.description" class="h5">
+        <span class="cap-first" v-html="element.description" />
       </p>
     </div>
   </div>
