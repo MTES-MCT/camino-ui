@@ -39,12 +39,7 @@ const titreEtapeMetas = apiGraphQLFetch(
         ...substance
       }
 
-      entreprises(archive: false) {
-        elements {
-          ...entreprises
-        }
-      }
-      etapeEntreprises: entreprises(etapeId: $id) {
+      entreprises(archive: false, etapeId: $id) {
         elements {
           ...entreprises
         }
