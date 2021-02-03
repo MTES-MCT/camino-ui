@@ -27,12 +27,44 @@
               {{ statistiquesGuyane.titresArm }}
             </p>
             <p class="bold text-center">Autorisations de recherche</p>
+            <p class="h5 text-center">
+              <RouterLink
+                :to="{
+                  name: 'titres',
+                  query: {
+                    domainesIds: 'm',
+                    typesIds: 'ar',
+                    statutsIds: 'val,mod',
+                    territoires: 'guyane',
+                    vue: 'liste'
+                  }
+                }"
+              >
+                Voir les titres
+              </RouterLink>
+            </p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
               {{ statistiquesGuyane.titresPrm }}
             </p>
             <p class="bold text-center">Permis exclusifs de recherches</p>
+            <p class="h5 text-center">
+              <RouterLink
+                :to="{
+                  name: 'titres',
+                  query: {
+                    domainesIds: 'm',
+                    typesIds: 'pr',
+                    statutsIds: 'val,mod',
+                    territoires: 'guyane',
+                    vue: 'liste'
+                  }
+                }"
+              >
+                Voir les titres
+              </RouterLink>
+            </p>
           </div>
           <div class="tablet-blob-1-2">
             <p class="h0 text-center">
@@ -54,18 +86,66 @@
               {{ statistiquesGuyane.titresAxm }}
             </p>
             <p class="bold text-center">Autorisations d'exploitation</p>
+            <p class="h5 text-center">
+              <RouterLink
+                :to="{
+                  name: 'titres',
+                  query: {
+                    domainesIds: 'm',
+                    typesIds: 'ax',
+                    statutsIds: 'val,mod',
+                    territoires: 'guyane',
+                    vue: 'liste'
+                  }
+                }"
+              >
+                Voir les titres
+              </RouterLink>
+            </p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
               {{ statistiquesGuyane.titresPxm }}
             </p>
             <p class="bold text-center">Permis d'exploitation</p>
+            <p class="h5 text-center">
+              <RouterLink
+                :to="{
+                  name: 'titres',
+                  query: {
+                    domainesIds: 'm',
+                    typesIds: 'px',
+                    statutsIds: 'val,mod',
+                    territoires: 'guyane',
+                    vue: 'liste'
+                  }
+                }"
+              >
+                Voir les titres
+              </RouterLink>
+            </p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
               {{ statistiquesGuyane.titresCxm }}
             </p>
             <p class="bold text-center">Concessions</p>
+            <p class="h5 text-center">
+              <RouterLink
+                :to="{
+                  name: 'titres',
+                  query: {
+                    domainesIds: 'm',
+                    typesIds: 'cx',
+                    statutsIds: 'val,mod',
+                    territoires: 'guyane',
+                    vue: 'liste'
+                  }
+                }"
+              >
+                Voir les titres
+              </RouterLink>
+            </p>
           </div>
           <div class="tablet-blob-1-4">
             <p class="h0 text-center">
@@ -167,7 +247,7 @@
                 'titresArm',
                 'quantite',
                 'surface',
-                'Autorisations de recherche octroyées',
+                'Autorisations de recherche',
                 'Surface des autorisations de recherche (ha)'
               )
             "
@@ -194,7 +274,7 @@
                 'titresPrm',
                 'quantite',
                 'surface',
-                'Permis de recherches octroyés',
+                'Permis de recherches',
                 'Surface des permis de recherches (ha)'
               )
             "
@@ -222,7 +302,7 @@
                 'titresAxm',
                 'quantite',
                 'surface',
-                'Autorisations d\'exploitation octroyées',
+                'Autorisations d\'exploitation',
                 'Surface des autorisations de recherche (ha)'
               )
             "
@@ -249,7 +329,7 @@
                 'titresPxm',
                 'quantite',
                 'surface',
-                'Permis d\'exploitation octroyés',
+                'Permis d\'exploitation',
                 'Surface des permis d\'exploitation (ha)'
               )
             "
@@ -274,7 +354,7 @@
                 'titresCxm',
                 'quantite',
                 'surface',
-                'Concessions octroyés',
+                'Concessions',
                 'Surface des concessions (ha)'
               )
             "
