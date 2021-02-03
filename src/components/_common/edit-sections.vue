@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="s in sections" :key="s.id">
-      <div v-if="s.elements.some(e => e.valeur || !e.optionnel)">
+      <div v-if="modifiable || s.elements.some(e => e.valeur || e.valeur === 0 || !e.optionnel)">
         <h3 v-if="s.nom">{{ s.nom }}</h3>
 
         <EditSectionElement
