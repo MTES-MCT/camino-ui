@@ -226,7 +226,8 @@
         Camino. Ces données concernent exclusivement le territoire français.
       </p>
       <h3>
-        Permis exclusif de recherche (PER)
+        Évolution du nombre et des surfaces des permis exclusif de recherche
+        (PER) octroyés
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -244,7 +245,7 @@
                 'titresPrw',
                 'quantite',
                 'surface',
-                'Permis de recherches octroyés',
+                'Permis de recherches',
                 'Surface des permis de recherches (ha)'
               )
             "
@@ -254,7 +255,8 @@
       </div>
       <div v-if="pexAnneeCurrent">
         <h3>
-          Permis d'exploitation (PEX)
+          Évolution du nombre et des surfaces des permis d'exploitation (PEX)
+          octroyés
         </h3>
         <hr />
         <div class="tablet-float-blobs clearfix">
@@ -272,7 +274,7 @@
                   'titresPxw',
                   'quantite',
                   'surface',
-                  'Permis d\'exploitation octroyés',
+                  'Permis d\'exploitation',
                   'Surface des permis d\'exploitation (ha)'
                 )
               "
@@ -282,7 +284,7 @@
         </div>
       </div>
       <h3>
-        Concessions
+        Évolution du nombre et des surfaces des concessions octroyées
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -300,7 +302,7 @@
                 'titresCxw',
                 'quantite',
                 'surface',
-                'Concessions octroyées',
+                'Concessions',
                 'Surfaces des concessions (ha)'
               )
             "
