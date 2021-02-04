@@ -118,7 +118,7 @@
           v-if="(element.description && modifiable) || hasValeur"
           class="h5 mb-0"
         >
-          <span class="cap-first" v-html="element.description" />
+          <span v-html="element.description" />
         </p>
       </div>
     </div>

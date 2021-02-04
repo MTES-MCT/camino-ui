@@ -12,7 +12,7 @@
       </p>
       <!-- eslint-disable vue/no-v-html -->
       <p v-if="element.description" class="h5">
-        <span class="cap-first" v-html="element.description" />
+        <span v-html="element.description" />
       </p>
     </div>
   </div>

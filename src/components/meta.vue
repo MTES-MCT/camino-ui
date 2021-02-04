@@ -3,7 +3,7 @@
   <div v-else>
     <h6>Métas</h6>
     <h1>
-      {{ definition.nom }}
+      <span class="cap-first">{{ definition.nom }}</span>
     </h1>
 
     <div class="line-neutral width-full" />
