@@ -384,7 +384,7 @@ const metasIndex = {
   'administrations-types': {
     get: administrationsTypes,
     update: administrationTypeModifier,
-    nom: 'types des administrations',
+    nom: 'Types des administrations',
     colonnes: [
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'Nom', type: String },
