@@ -292,7 +292,8 @@ export default {
         id: this.entreprise.id,
         telephone: this.entreprise.telephone,
         url: this.entreprise.url,
-        email: this.entreprise.email
+        email: this.entreprise.email,
+        archive: this.entreprise.archive
       }
 
       this.$store.commit('popupOpen', {
