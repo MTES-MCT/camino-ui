@@ -21,7 +21,7 @@
     "commit": "npx git-cz",
     "dev": "vue-cli-service serve --open",
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
-    "release": "standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",
+    "release": "git pull --rebase --tags upstream master && standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",
     "start": "node ./index.js",
     "test": "vue-cli-service lint && vue-cli-service test:unit --verbose && codecov",
     "test:lint": "vue-cli-service lint --fix",
