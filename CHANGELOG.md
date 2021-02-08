@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.59](https://github.com/MTES-MCT/camino-ui/compare/v0.22.56...v0.22.59) (2021-02-08)
+
+
+### Features
+
+* met à jour le nom du ministère et les coordonnées ([#243](https://github.com/MTES-MCT/camino-ui/issues/243)) ([432bb3f](https://github.com/MTES-MCT/camino-ui/commit/432bb3f35d65cb50440ccb04d2370ffcf9183e94))
+* **activités:** prend en compte les documents optionnels ([#241](https://github.com/MTES-MCT/camino-ui/issues/241)) ([bcfe8e6](https://github.com/MTES-MCT/camino-ui/commit/bcfe8e6cb14dfefe19f8a15959ed2db30711edc9))
+
+
+### Bug Fixes
+
+* **entreprise:** permet de désarchiver une entreprise ([0384393](https://github.com/MTES-MCT/camino-ui/commit/038439310452387cb7d2f2cb39d5595ec3d594f4))
+* **metas:** ajoute la majuscule manquante sur Types des administrations ([5d38d58](https://github.com/MTES-MCT/camino-ui/commit/5d38d58b3776879e8cb0ec39fdeb11f2e0abb13c))
+* ajoute une majuscule sur le titre des métas ([4af2c19](https://github.com/MTES-MCT/camino-ui/commit/4af2c19e57dd81d7f430397927f192ff60a39303))
+* **activités:** affiche correctement les sections des activités dans le formulaire ([#245](https://github.com/MTES-MCT/camino-ui/issues/245)) ([3086de7](https://github.com/MTES-MCT/camino-ui/commit/3086de7c4663ecbf8f1942ff9d2dfe9b106a4c78))
+* **statistiques:** corrige les libellés et ajoute les liens vers les titres ([#246](https://github.com/MTES-MCT/camino-ui/issues/246)) ([a7a63be](https://github.com/MTES-MCT/camino-ui/commit/a7a63becc7b4b10117bf8e40b07697b7a722d07f))
+* édite les nouveaux champs d'unité ([0421c73](https://github.com/MTES-MCT/camino-ui/commit/0421c73913271142d769be826bd2f719270befb6))
+
 ### [0.22.58](https://github.com/MTES-MCT/camino-ui/compare/v0.22.57...v0.22.58) (2021-02-05)
 
 
