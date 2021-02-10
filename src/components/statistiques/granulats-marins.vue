@@ -311,6 +311,31 @@
         </div>
       </div>
     </div>
+
+    <div id="evolutionStock" class="mb-xxl">
+      <h2>
+        Évolution du nombre de concessions valides, et de leur surface, chaque
+        année
+      </h2>
+      <span class="separator" />
+      <p>
+        Les données affichées ici sont celles contenues dans la base de donnée
+        Camino. Ces données concernent exclusivement le territoire français.
+      </p>
+      <BarChart
+        :data="
+          statsBarFormat(
+            statistiquesGranulatsMarins.annees,
+            'concessionsValides',
+            'quantite',
+            'surface',
+            'Concessions',
+            'Surfaces des concessions (ha)'
+          )
+        "
+        :suggested-max="suggestedMaxTitres"
+      />
+    </div>
   </div>
 </template>
 
