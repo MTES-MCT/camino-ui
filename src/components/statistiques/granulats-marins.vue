@@ -180,8 +180,8 @@
     <h2>Production annuelle de granulats marins</h2>
     <span class="separator" />
     <p class="mb-xl">
-      Les données affichées ici sont celles contenues dans la base de donnée
-      Camino. Elles sont stabilisées pour l’année n-1.
+      Données contenues dans la base de données Camino, stabilisées pour l’année
+      n-1.
     </p>
 
     <div class="tablet-pt-s pb-s">
@@ -218,16 +218,15 @@
 
     <div id="evolution" class="mb-xxl">
       <h2>
-        Évolution du nombre de titres octroyés, et de leur surface, chaque année
+        Titres octroyés et surface
       </h2>
       <span class="separator" />
       <p>
-        Les données affichées ici sont celles contenues dans la base de donnée
-        Camino. Ces données concernent exclusivement le territoire français.
+        Données contenues dans la base de données Camino, concernant
+        exclusivement le territoire français.
       </p>
       <h3>
-        Évolution du nombre et des surfaces des permis exclusif de recherche
-        (PER) octroyés
+        Nombre et surfaces des permis exclusif de recherche (PER) octroyés
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -235,7 +234,7 @@
           <p class="h0 text-center">
             {{ statistiques[anneeCurrent - 1].titresPrw.quantite }}
           </p>
-          <p>permis exclusifs de recherches octroyés l’an dernier</p>
+          <p>Permis exclusifs de recherches octroyés l’an dernier</p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
@@ -255,8 +254,7 @@
       </div>
       <div v-if="pexAnneeCurrent">
         <h3>
-          Évolution du nombre et des surfaces des permis d'exploitation (PEX)
-          octroyés
+          Nombre et surfaces des permis d'exploitation (PEX) octroyés
         </h3>
         <hr />
         <div class="tablet-float-blobs clearfix">
@@ -284,7 +282,7 @@
         </div>
       </div>
       <h3>
-        Évolution du nombre et des surfaces des concessions octroyées
+        Nombre et surfaces des concessions octroyées
       </h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
@@ -292,7 +290,7 @@
           <p class="h0 text-center">
             {{ statistiques[anneeCurrent - 1].titresCxw.quantite }}
           </p>
-          <p>concessions octroyées l’an dernier</p>
+          <p>Concessions octroyées l’an dernier</p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
@@ -310,6 +308,23 @@
           />
         </div>
       </div>
+      <h3>
+        Nombre et surface des concessions valides
+      </h3>
+      <hr />
+      <BarChart
+        :data="
+          statsBarFormat(
+            statistiquesGranulatsMarins.annees,
+            'concessionsValides',
+            'quantite',
+            'surface',
+            'Concessions',
+            'Surfaces des concessions (ha)'
+          )
+        "
+        :suggested-max="suggestedMaxTitres"
+      />
     </div>
   </div>
 </template>
