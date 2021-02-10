@@ -17,7 +17,10 @@ export const actions = {
     commit('loadingAdd', 'titreEtapeJustificatifsMetasGet', { root: true })
 
     try {
-      const data = await etapeEntreprises({ etapeId: id })
+      const data = await etapeEntreprises({
+        etapeId: id,
+        etapeUniquement: true
+      })
 
       commit('metasSet', data)
     } catch (e) {
