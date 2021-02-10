@@ -106,7 +106,6 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
           mini: true
         },
         class: 'mb--xs'
-        // value: titre.references.map(({ nom }) => nom).join(', ')
       }
     }
 
