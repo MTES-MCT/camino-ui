@@ -33,7 +33,8 @@ export const state = {
         'statut',
         'activitesTotal',
         'substances',
-        'titulaires'
+        'titulaires',
+        'references'
       ]
     },
     {
