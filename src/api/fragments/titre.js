@@ -146,6 +146,12 @@ const fragmentTitres = gql`
     amodiataires {
       ...titresEntreprises
     }
+    references {
+      type {
+        nom
+      }
+      nom
+    }
   }
 
   ${fragmentTitresEntreprises}

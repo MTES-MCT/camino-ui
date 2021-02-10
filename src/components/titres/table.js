@@ -40,6 +40,11 @@ const titresColonnes = [
     id: 'titulaires',
     name: 'Titulaires',
     class: ['min-width-10']
+  },
+  {
+    id: 'references',
+    name: 'Références',
+    class: ['min-width-10']
   }
 ]
 
@@ -93,6 +98,15 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
         },
         class: 'mb--xs',
         value: titre.titulaires.map(({ nom }) => nom).join(', ')
+      },
+      references: {
+        component: List,
+        props: {
+          elements: titre.references.map(ref => `${ref.type.nom} : ${ref.nom}`),
+          mini: true
+        },
+        class: 'mb--xs'
+        // value: titre.references.map(({ nom }) => nom).join(', ')
       }
     }
 
