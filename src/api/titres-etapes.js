@@ -92,8 +92,8 @@ const etapeSupprimer = apiGraphQLFetch(gql`
 
 const etapeEntreprises = apiGraphQLFetch(
   gql`
-    query EtapeEntreprises($etapeId: ID!) {
-      entreprises(etapeId: $etapeId) {
+    query EtapeEntreprises($etapeId: ID!, $etapeUniquement: Boolean) {
+      entreprises(etapeId: $etapeId, etapeUniquement: $etapeUniquement) {
         elements {
           ...entreprise
         }
