@@ -146,6 +146,14 @@ const fragmentTitres = gql`
     amodiataires {
       ...titresEntreprises
     }
+    pays {
+      regions {
+        nom
+        departements {
+          nom
+        }
+      }
+    }
     references {
       type {
         nom

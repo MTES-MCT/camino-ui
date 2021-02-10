@@ -42,9 +42,19 @@ const titresColonnes = [
     class: ['min-width-10']
   },
   {
+    id: 'regions',
+    name: 'Régions',
+    class: ['min-width-8']
+  },
+  {
+    id: 'departements',
+    name: 'Départements',
+    class: ['min-width-8']
+  },
+  {
     id: 'references',
     name: 'Références',
-    class: ['min-width-10']
+    class: ['min-width-8']
   }
 ]
 
@@ -98,6 +108,32 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
         },
         class: 'mb--xs',
         value: titre.titulaires.map(({ nom }) => nom).join(', ')
+      },
+      regions: {
+        component: List,
+        props: {
+          elements: titre.pays?.length
+            ? titre.pays.flatMap(pay => pay.regions.map(({ nom }) => nom))
+            : [],
+          mini: true
+        },
+        class: 'mb--xs'
+      },
+      departements: {
+        component: List,
+        props: {
+          elements: titre.pays?.length
+            ? titre.pays.flatMap(pay => {
+                return pay.regions?.length
+                  ? pay.regions.flatMap(region =>
+                      region.departements.map(({ nom }) => nom)
+                    )
+                  : []
+              })
+            : [],
+          mini: true
+        },
+        class: 'mb--xs'
       },
       references: {
         component: List,
