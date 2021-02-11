@@ -58,6 +58,7 @@ const fragmentTitreActivite = gql`
     sections
     contenu
 
+    suppression
     modification
     documentsCreation
 
@@ -99,6 +100,7 @@ const fragmentActivites = gql`
     sections
     contenu
 
+    suppression
     modification
     documentsCreation
   }
@@ -140,6 +142,7 @@ const fragmentActivite = gql`
       ...document
     }
 
+    suppression
     modification
     documentsCreation
   }

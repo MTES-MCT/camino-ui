@@ -33,7 +33,8 @@ jest.mock('./metas', () => ({ metas: jest.fn() }))
 jest.mock('./meta', () => ({ meta: jest.fn() }))
 
 jest.mock('../router', () => ({
-  replace: jest.fn()
+  replace: jest.fn(),
+  push: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -229,6 +230,13 @@ describe("état général de l'application", () => {
 
     expect(router.replace).not.toHaveBeenCalled()
     expect(modules.titre.actions.get).toHaveBeenCalled()
+  })
+
+  test("recharge la page si il n'y a pas d'id", async () => {
+    store.state.titre.current = { id: 'id-test', nom: 'marne' }
+    await store.dispatch('reload', { name: 'titres' })
+
+    expect(router.push).toHaveBeenCalled()
   })
 })
 

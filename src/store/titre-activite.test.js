@@ -4,6 +4,7 @@ import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/titres-activites', () => ({
+  activiteSupprimer: jest.fn(),
   activiteModifier: jest.fn(),
   activite: jest.fn()
 }))
@@ -194,5 +195,35 @@ describe("état d'une activité", () => {
     store.commit('titreActivite/toggle')
 
     expect(store.state.titreActivite.opened).toBeFalsy()
+  })
+
+  test('supprime une activité', async () => {
+    api.activiteSupprimer.mockResolvedValue({ id: 71 })
+    await store.dispatch('titreActivite/remove', {
+      id: 71,
+      context: { name: 'titre', id: 'titre-id' }
+    })
+
+    await store.dispatch('titreActivite/remove', {
+      id: 71,
+      context: { name: 'titreActivite', id: 'activite-id' }
+    })
+
+    await store.dispatch('titreActivite/remove', {
+      id: 71,
+      context: { id: 'activite-id' }
+    })
+
+    expect(api.activiteSupprimer).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'api ne répond pas lors de la suppression d'une activité", async () => {
+    api.activiteSupprimer.mockRejectedValue(new Error("l'api ne répond pas"))
+    await store.dispatch('titreActivite/remove', {
+      id: 71
+    })
+
+    expect(api.activiteSupprimer).toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 })

@@ -1,6 +1,10 @@
 import Vue from 'vue'
 
-import { activite, activiteModifier } from '../api/titres-activites'
+import {
+  activite,
+  activiteModifier,
+  activiteSupprimer
+} from '../api/titres-activites'
 
 export const state = {
   current: null,
@@ -28,11 +32,10 @@ export const actions = {
   },
 
   async update({ commit, dispatch, rootState }, { activite, context }) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'activiteUpdate', { root: true })
-
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'activiteUpdate', { root: true })
       const data = await activiteModifier({
         activite: {
           id: activite.id,
@@ -73,6 +76,38 @@ export const actions = {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'activiteUpdate', { root: true })
+    }
+  },
+
+  async remove({ commit, dispatch }, { id, context }) {
+    try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'activiteRemove', { root: true })
+      const data = await activiteSupprimer({ id })
+
+      commit('popupClose', null, { root: true })
+      if (context.name === 'titre') {
+        await dispatch(
+          'reload',
+          { name: 'titre', id: context.id },
+          { root: true }
+        )
+      } else if (context.name === 'titreActivite') {
+        await dispatch('reload', { name: 'activites' }, { root: true })
+      }
+
+      dispatch(
+        'messageAdd',
+        { value: `l'activité à été supprimée`, type: 'success' },
+        { root: true }
+      )
+
+      return data
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'activiteRemove', { root: true })
     }
   }
 }

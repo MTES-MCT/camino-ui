@@ -55,6 +55,16 @@ const activiteModifier = apiGraphQLFetch(gql`
   ${fragmentActivite}
 `)
 
+const activiteSupprimer = apiGraphQLFetch(gql`
+  mutation ActiviteSupprimer($id: ID!) {
+    activiteSupprimer(id: $id) {
+      ...activite
+    }
+  }
+
+  ${fragmentActivite}
+`)
+
 const activites = apiGraphQLFetch(
   gql`
     query Activites(
@@ -114,4 +124,10 @@ const activite = apiGraphQLFetch(
   `
 )
 
-export { activite, activites, activiteModifier, activitesMetas }
+export {
+  activite,
+  activites,
+  activiteModifier,
+  activitesMetas,
+  activiteSupprimer
+}

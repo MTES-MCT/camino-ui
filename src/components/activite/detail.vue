@@ -20,6 +20,14 @@
       />
     </template>
     <template slot="buttons">
+      <button
+        v-if="activite.suppression"
+        class="cmn-activite-btn-supprimer btn py-s px-m h5 flex mr-px"
+        title="supprimer l'activité'"
+        @click="activiteRemovePopupOpen"
+      >
+        <i class="icon-24 icon-trash" />
+      </button>
       <ActiviteButton
         v-if="activite.modification"
         :activite="activite"
@@ -68,6 +76,7 @@ import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
 
 import Documents from '../documents/list.vue'
+import RemovePopup from './remove-popup.vue'
 
 export default {
   components: {
@@ -130,6 +139,19 @@ export default {
       } else {
         this.$store.commit('titreActivite/toggle')
       }
+    },
+
+    activiteRemovePopupOpen() {
+      this.$store.commit('popupOpen', {
+        component: RemovePopup,
+        props: {
+          activiteId: this.activite.id,
+          typeNom: this.activite.type.nom,
+          annee: this.activite.annee,
+          periodeNom: this.activite.periode.nom,
+          context: this.context
+        }
+      })
     }
   }
 }

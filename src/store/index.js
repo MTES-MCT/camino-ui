@@ -110,12 +110,15 @@ export const actions = {
   },
 
   async reload({ dispatch, rootState }, { name, id }) {
-    const idOld = rootState[name].current.id
-
-    if (id !== idOld) {
-      router.replace({ name, params: { id } })
+    if (!id) {
+      router.push({ name })
     } else {
-      await dispatch(`${name}/get`, id)
+      const idOld = rootState[name].current.id
+      if (id !== idOld) {
+        router.replace({ name, params: { id } })
+      } else {
+        await dispatch(`${name}/get`, id)
+      }
     }
   },
 
