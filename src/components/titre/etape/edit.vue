@@ -168,7 +168,7 @@ export default {
   data() {
     return {
       events: { saveKeyUp: true },
-      date: ''
+      date: new Date().toISOString().slice(0, 10)
     }
   },
 
