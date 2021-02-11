@@ -13,8 +13,12 @@ const titresColonnes = [
     class: ['min-width-8']
   },
   {
-    name: '',
-    id: 'domaine'
+    id: 'domaine',
+    name: ''
+  },
+  {
+    id: 'perimetre',
+    name: ''
   },
   {
     id: 'type',
@@ -74,6 +78,8 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
         props: { domaineId: titre.domaine.id },
         value: titre.domaine.id
       },
+      // TODO : faire un composant spécifique pour inndiquer si le titre possède un périmètre ou pas
+      perimetre: { value: titre.coordonnees ? 'P' : '' },
       type: {
         component: Vue.component('TitreTypeNom', {
           render(h) {

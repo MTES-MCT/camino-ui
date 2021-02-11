@@ -129,6 +129,10 @@ const fragmentTitres = gql`
       id
       nom
     }
+    coordonnees {
+      x
+      y
+    }
     statut {
       id
       nom
