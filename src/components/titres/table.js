@@ -3,6 +3,7 @@ import Vue from 'vue'
 import TagList from '../_ui/tag-list.vue'
 import List from '../_ui/list.vue'
 import CaminoDomaine from '../_common/domaine.vue'
+import CoordonneesIcone from '../_common/coordonnees-icone.vue'
 import ActivitesPills from '../activites/pills.vue'
 import Statut from '../_common/statut.vue'
 
@@ -13,8 +14,12 @@ const titresColonnes = [
     class: ['min-width-8']
   },
   {
-    name: '',
-    id: 'domaine'
+    id: 'domaine',
+    name: ''
+  },
+  {
+    id: 'coordonnees',
+    name: ''
   },
   {
     id: 'type',
@@ -73,6 +78,11 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
         component: CaminoDomaine,
         props: { domaineId: titre.domaine.id },
         value: titre.domaine.id
+      },
+      coordonnees: {
+        component: CoordonneesIcone,
+        props: { coordonnees: titre.coordonnees },
+        value: titre.coordonnees ? '·' : ''
       },
       type: {
         component: Vue.component('TitreTypeNom', {
