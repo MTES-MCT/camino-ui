@@ -113,7 +113,9 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
         component: List,
         props: {
           elements: titre.pays?.length
-            ? titre.pays.flatMap(pay => pay.regions.map(({ nom }) => nom))
+            ? titre.pays.flatMap(pay =>
+                pay.regions?.length ? pay.regions.map(({ nom }) => nom) : []
+              )
             : [],
           mini: true
         },
@@ -123,13 +125,13 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
         component: List,
         props: {
           elements: titre.pays?.length
-            ? titre.pays.flatMap(pay => {
-                return pay.regions?.length
+            ? titre.pays.flatMap(pay =>
+                pay.regions?.length
                   ? pay.regions.flatMap(region =>
                       region.departements.map(({ nom }) => nom)
                     )
                   : []
-              })
+              )
             : [],
           mini: true
         },
