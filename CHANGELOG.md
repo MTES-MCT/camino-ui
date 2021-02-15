@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.60](https://github.com/MTES-MCT/camino-ui/compare/v0.22.59...v0.22.60) (2021-02-15)
+
+
+### Features
+
+* **liste:** ajoute les régions et les départements dans la liste des titres ([#250](https://github.com/MTES-MCT/camino-ui/issues/250)) ([a15f8cc](https://github.com/MTES-MCT/camino-ui/commit/a15f8cc3e6ce552c5a81ca4c3fdd362b3fb573e3))
+* ajoute un bouton pour supprimer une activité ([c63c677](https://github.com/MTES-MCT/camino-ui/commit/c63c6772cc1900e0493932a56685163c295e6ee0))
+* **étape:** initialise la date à aujourd’hui lors de l’ajout d’une étape ([#252](https://github.com/MTES-MCT/camino-ui/issues/252)) ([25d3478](https://github.com/MTES-MCT/camino-ui/commit/25d3478a8841d9d8236236ff32453615362b938e))
+* **liste:** ajoute la colonne 'Références' dans la liste de titres ([#248](https://github.com/MTES-MCT/camino-ui/issues/248)) ([b6a2f09](https://github.com/MTES-MCT/camino-ui/commit/b6a2f0944707cf430e8f1008e34772ae5bdfe2c9))
+* **statistiques:** ajoute le graph des stocks de concessions granulats marins ([#247](https://github.com/MTES-MCT/camino-ui/issues/247)) ([eb67819](https://github.com/MTES-MCT/camino-ui/commit/eb678193f2a9ea8ff247a2072a2ee4f57071713c))
+
+
+### Bug Fixes
+
+* **utilisateur:** permet d’affecter un utilisateur à son administration ([#251](https://github.com/MTES-MCT/camino-ui/issues/251)) ([d279ccd](https://github.com/MTES-MCT/camino-ui/commit/d279ccdf113ea9fb31063c8b6527ccdc719a26a6))
+* limite la liste des entreprises lors de l'ajout d'une entreprise ([#249](https://github.com/MTES-MCT/camino-ui/issues/249)) ([0c64234](https://github.com/MTES-MCT/camino-ui/commit/0c64234418d19912d13cfcb86294641fe87b2d6d))
+
 ### [0.22.59](https://github.com/MTES-MCT/camino-ui/compare/v0.22.56...v0.22.59) (2021-02-08)
 
 
