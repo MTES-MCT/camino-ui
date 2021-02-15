@@ -15,7 +15,8 @@
         </ul>
         <p>
           Le premier contour d'un groupe définit un périmètre.
-          <br />Les contours suivants définissent des lacunes au sein de ce périmètre.
+          <br />Les contours suivants définissent des lacunes au sein de ce
+          périmètre.
         </p>
       </div>
 
@@ -115,12 +116,14 @@
             <EtapeEditPointsPoint
               v-if="!point.lot"
               :point.sync="point"
-              :etape.sync="etape"
+              :geo-systeme-opposable-id="etape.geoSystemeOpposableId"
+              :geo-systeme-ids="etape.geoSystemeIds"
             />
             <EtapeEditPointsLot
               v-else
               :point.sync="point"
-              :etape.sync="etape"
+              :geo-systeme-opposable-id="etape.geoSystemeOpposableId"
+              :geo-systeme-ids="etape.geoSystemeIds"
               :events="events"
             />
           </div>
@@ -156,8 +159,8 @@
       <button
         v-if="
           etape.groupes.length &&
-          etape.groupes[0].length &&
-          etape.groupes[0][0].length
+            etape.groupes[0].length &&
+            etape.groupes[0][0].length
         "
         class="btn rnd-s py-s px-m full-x mb-s flex h5"
         @click="groupeAdd"
@@ -167,7 +170,8 @@
       </button>
 
       <label v-if="pointsTotal.length" class="h5">
-        <input v-model="etape.incertitudes.points" type="checkbox" /> donnée incertaine
+        <input v-model="etape.incertitudes.points" type="checkbox" /> donnée
+        incertaine
       </label>
     </div>
 
@@ -215,7 +219,7 @@ export default {
   methods: {
     etapeGeoSystemeOpposableIdUpdate() {
       if (this.etape.geoSystemeIds.length < 2) {
-        this.etape.geoSystemeOpposableId = null
+        this.etape.geoSystemeOpposableId = ''
       } else if (
         this.etape.geoSystemeIds.length > 1 &&
         (!this.etape.geoSystemeOpposableId ||

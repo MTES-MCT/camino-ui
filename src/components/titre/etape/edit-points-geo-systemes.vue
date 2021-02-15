@@ -87,7 +87,9 @@ export default {
         contours.forEach(points => {
           points.forEach(point => {
             if (!point.references[etapeGeoSystemeId]) {
-              point.references[etapeGeoSystemeId] = point.lot ? [] : [0, 0]
+              point.references[etapeGeoSystemeId] = point.lot
+                ? []
+                : [null, null]
             }
           })
         })

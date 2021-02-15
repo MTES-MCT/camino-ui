@@ -24,6 +24,8 @@
       </div>
     </div>
 
+    <div v-else-if="!metasLoaded"><p>Chargement en cours…</p></div>
+
     <div v-else>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -168,7 +170,8 @@ export default {
   data() {
     return {
       events: { saveKeyUp: true },
-      date: new Date().toISOString().slice(0, 10)
+      date: new Date().toISOString().slice(0, 10),
+      metasLoaded: false
     }
   },
 
@@ -231,6 +234,8 @@ export default {
       if (!this.etape.date) {
         this.etape.date = this.date
       }
+
+      this.metasLoaded = true
     },
 
     async save() {
