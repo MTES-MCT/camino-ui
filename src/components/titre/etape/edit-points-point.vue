@@ -20,7 +20,7 @@
 
     <div
       v-for="geoSysteme in geoSystemes.filter(({ id }) =>
-        etape.geoSystemeIds.includes(id)
+        geoSystemeIds.includes(id)
       )"
       :key="`${point.id}-${geoSysteme.id}`"
       class="tablet-blobs"
@@ -29,7 +29,7 @@
         <h6>
           Système
           <span
-            v-if="etape.geoSystemeOpposableId === geoSysteme.id"
+            v-if="geoSystemeOpposableId === geoSysteme.id"
             class="bg-info py-xxs px-xs rnd-xs color-bg"
             >Opposable</span
           >
@@ -67,7 +67,8 @@ export default {
 
   props: {
     point: { type: Object, default: () => ({}) },
-    etape: { type: Object, default: () => ({}) }
+    geoSystemeIds: { type: Array, required: true },
+    geoSystemeOpposableId: { type: String, required: true }
   },
 
   computed: {

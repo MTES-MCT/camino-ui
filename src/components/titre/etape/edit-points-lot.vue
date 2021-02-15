@@ -46,14 +46,14 @@
 export default {
   props: {
     point: { type: Object, default: () => ({}) },
-    etape: { type: Object, default: () => ({}) },
+    geoSystemeIds: { type: Array, required: true },
+    geoSystemeOpposableId: { type: String, required: true },
     events: { type: Object, default: () => ({ saveKeyUp: true }) }
   },
 
   computed: {
     etapeGeoSysteme() {
-      const geoSystemeId =
-        this.etape.geoSystemeOpposableId || this.etape.geoSystemeIds[0]
+      const geoSystemeId = this.geoSystemeOpposableId || this.geoSystemeIds[0]
 
       return this.$store.state.titreEtape.metas.geoSystemes.find(
         ({ id }) => id === geoSystemeId

@@ -18,7 +18,7 @@ const referencesBuild = references =>
 const geoSystemeOpposableIdFind = references => {
   const referenceOpposable = references.find(r => r.opposable)
 
-  return referenceOpposable ? referenceOpposable.geoSysteme.id : null
+  return referenceOpposable ? referenceOpposable.geoSysteme.id : ''
 }
 
 const groupeBuild = (points, geoSystemeOpposableId) =>
