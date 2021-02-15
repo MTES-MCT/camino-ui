@@ -3,6 +3,7 @@ import Vue from 'vue'
 import TagList from '../_ui/tag-list.vue'
 import List from '../_ui/list.vue'
 import CaminoDomaine from '../_common/domaine.vue'
+import CoordonneesIcone from '../_common/coordonnees-icone.vue'
 import ActivitesPills from '../activites/pills.vue'
 import Statut from '../_common/statut.vue'
 
@@ -17,7 +18,7 @@ const titresColonnes = [
     name: ''
   },
   {
-    id: 'perimetre',
+    id: 'coordonnees',
     name: ''
   },
   {
@@ -78,8 +79,11 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
         props: { domaineId: titre.domaine.id },
         value: titre.domaine.id
       },
-      // TODO : faire un composant spécifique pour inndiquer si le titre possède un périmètre ou pas
-      perimetre: { value: titre.coordonnees ? 'P' : '' },
+      coordonnees: {
+        component: CoordonneesIcone,
+        props: { coordonnees: titre.coordonnees },
+        value: titre.coordonnees ? '·' : ''
+      },
       type: {
         component: Vue.component('TitreTypeNom', {
           render(h) {
