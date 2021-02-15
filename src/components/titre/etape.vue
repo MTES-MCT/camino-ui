@@ -54,11 +54,7 @@
       </button>
     </template>
 
-    <div
-      v-if="
-        hasSections || hasProps || (etape.documents && etape.documents.length)
-      "
-    >
+    <div v-if="hasSections || hasProps || hasDocuments">
       <EtapeProps v-if="hasProps" :etape="etape" />
 
       <div v-if="hasSections" class="border-b-s">
@@ -177,7 +173,11 @@ export default {
     },
 
     hasSections() {
-      return this.etape.type.sections
+      return !!this.etape.type.sections.length
+    },
+
+    hasDocuments() {
+      return this.etape.documents && !!this.etape.documents.length
     },
 
     documentContext() {
