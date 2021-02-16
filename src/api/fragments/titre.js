@@ -242,6 +242,12 @@ const fragmentDemarchesTitre = gql`
       nom
       couleur
     }
+    references {
+      type {
+        nom
+      }
+      nom
+    }
   }
 
   ${fragmentTitreType}

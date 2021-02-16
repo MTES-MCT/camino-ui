@@ -39,7 +39,8 @@ export const state = {
         'titreType',
         'titreStatut',
         'type',
-        'statut'
+        'statut',
+        'reference'
       ]
     },
     {

@@ -1,6 +1,7 @@
 import Nom from '../_common/nom.vue'
 import Statut from '../_common/statut.vue'
 import CaminoDomaine from '../_common/domaine.vue'
+import List from '../_ui/list.vue'
 
 const demarchesColonnes = [
   { id: 'titreNom', name: 'Titre' },
@@ -12,7 +13,8 @@ const demarchesColonnes = [
     class: ['nowrap', 'min-width-6']
   },
   { id: 'type', name: 'Type' },
-  { id: 'statut', name: 'Statut', class: ['nowrap'] }
+  { id: 'statut', name: 'Statut', class: ['nowrap'] },
+  { id: 'references', name: 'Références', class: ['nowrap'] }
 ]
 
 const demarchesLignesBuild = demarches =>
@@ -49,6 +51,16 @@ const demarchesLignesBuild = demarches =>
           nom: demarche.statut.nom
         },
         value: demarche.statut.nom
+      },
+      references: {
+        component: List,
+        props: {
+          elements: demarche.titre.references.map(
+            ref => `${ref.type.nom} : ${ref.nom}`
+          ),
+          mini: true
+        },
+        class: 'mb--xs'
       }
     }
 
