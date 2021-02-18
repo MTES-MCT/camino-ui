@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.61](https://github.com/MTES-MCT/camino-ui/compare/v0.22.60...v0.22.61) (2021-02-18)
+
+
+### Features
+
+* **démarches:** ajoute la colonne 'Références' dans la liste ([#256](https://github.com/MTES-MCT/camino-ui/issues/256)) ([4eb088c](https://github.com/MTES-MCT/camino-ui/commit/4eb088c234519bfe9ae7f28a28e90a21e21ae7f4))
+* **liste:** ajoute la colonne 'périmètre' à la liste des titres ([#253](https://github.com/MTES-MCT/camino-ui/issues/253)) ([cbf714d](https://github.com/MTES-MCT/camino-ui/commit/cbf714d189d04547af391749d5c1df0823eddabe))
+
+
+### Bug Fixes
+
+* corrige la valeur par défaut des champs de saisie des coordonnées ([#254](https://github.com/MTES-MCT/camino-ui/issues/254)) ([d78b9f3](https://github.com/MTES-MCT/camino-ui/commit/d78b9f3c45b448db1f51db38accbbfb81113ef5f))
+* masque l'icone si l'étape ne contient aucune propriété ([#255](https://github.com/MTES-MCT/camino-ui/issues/255)) ([62af1b6](https://github.com/MTES-MCT/camino-ui/commit/62af1b62eff81e245a40e1f04671e2e06fd8cd92))
+
 ### [0.22.60](https://github.com/MTES-MCT/camino-ui/compare/v0.22.59...v0.22.60) (2021-02-15)
 
 
