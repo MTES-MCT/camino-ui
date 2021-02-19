@@ -18,10 +18,6 @@ const titresColonnes = [
     name: ''
   },
   {
-    id: 'coordonnees',
-    name: ''
-  },
-  {
     id: 'type',
     name: 'Type',
     class: ['min-width-8']
@@ -40,6 +36,10 @@ const titresColonnes = [
     id: 'substances',
     name: 'Substances',
     class: ['min-width-6']
+  },
+  {
+    id: 'coordonnees',
+    name: 'Carte'
   },
   {
     id: 'titulaires',
