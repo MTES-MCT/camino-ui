@@ -118,8 +118,6 @@ import JustificatifsButtonAdd from '../justificatifs/button-add.vue'
 import EtapeProps from './etape/props.vue'
 import Documents from '../documents/list.vue'
 
-import { etapeEditFormat } from './etape'
-
 const cap = string => string[0].toUpperCase() + string.slice(1)
 
 export default {
@@ -228,12 +226,11 @@ export default {
     },
 
     editPopupOpen() {
-      const etape = etapeEditFormat(this.etape, this.demarcheId)
-
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
-          etape,
+          etapeId: this.etape.id,
+          demarcheId: this.demarcheId,
           domaineId: this.$store.state.titre.current.domaine.id,
           demarcheType: this.demarcheType,
           titreNom: this.titre.nom

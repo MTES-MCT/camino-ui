@@ -1,4 +1,4 @@
-import { jsonTypenameOmit } from '../../utils/index'
+import { jsonTypenameOmit } from '../utils/index'
 
 const referencesBuild = references =>
   references.reduce(
@@ -131,19 +131,20 @@ const etapeEditFormat = (etape, demarcheId) => {
 
   etape.titreDemarcheId = demarcheId
 
-  etape.typeId = etape.type.id
-  etape.typeIdOriginal = etape.type.id
-  delete etape.type
+  if (etape.type) {
+    etape.typeId = etape.type.id
 
-  etape.statutId = etape.statut.id
-  delete etape.statut
+    delete etape.type
+  }
 
-  const joinTable = [
-    'titulaires',
-    'amodiataires',
-    'administrations',
-    'substances'
-  ]
+  if (etape.statut) {
+    etape.statutId = etape.statut.id
+    delete etape.statut
+  }
+
+  delete etape.administrations
+
+  const joinTable = ['titulaires', 'amodiataires', 'substances']
 
   joinTable.forEach(prop => {
     etape[prop] = etape[prop]

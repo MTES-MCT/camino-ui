@@ -5,7 +5,16 @@
         <h6 class="mb-xs">Durée (années / mois)</h6>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
-      <div class="tablet-blob-2-3">
+
+      <div v-if="!etape.heritageProps.duree.actif" class="tablet-blob-2-3">
+        <button
+          v-if="!!etape.heritageProps.duree.etape"
+          @click="
+            etape.heritageProps.duree.actif = !etape.heritageProps.duree.actif
+          "
+        >
+          Supprimer la valeur et hériter la propriété de l'étape xxx
+        </button>
         <div
           class="tablet-blobs"
           :class="{ 'mb-s': !etape.duree.ans && !etape.duree.mois }"
@@ -33,6 +42,24 @@
           <input v-model="etape.incertitudes.duree" type="checkbox" /> donnée
           incertaine
         </label>
+      </div>
+
+      <div v-else class="tablet-blob-2-3">
+        <button
+          @click="
+            etape.heritageProps.duree.actif = !etape.heritageProps.duree.actif
+          "
+        >
+          Renseigner une valeur
+        </button>
+        <div v-if="etape.heritageProps.duree.etape">
+          <div>valeur: {{ etape.heritageProps.duree.etape.duree }}</div>
+          <div>
+            étape: {{ etape.heritageProps.duree.etape.type.nom }} -
+            {{ etape.heritageProps.duree.etape.date }}
+          </div>
+        </div>
+        <div v-else>–</div>
       </div>
     </div>
 

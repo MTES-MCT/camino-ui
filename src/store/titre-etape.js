@@ -1,6 +1,9 @@
+import { etapeEditFormat } from '@/tools/titre-etape'
 import Vue from 'vue'
 
 import {
+  etape,
+  etapeNouvelle,
   titreEtapeMetas,
   etapeCreer,
   etapeModifier,
@@ -23,9 +26,18 @@ export const actions = {
   async metasGet({ commit }, { titreDemarcheId, id, date }) {
     try {
       commit('loadingAdd', 'titreEtapeMetasGet', { root: true })
-      const data = await titreEtapeMetas({ titreDemarcheId, id, date })
+      const metas = await titreEtapeMetas({ titreDemarcheId, id, date })
 
-      commit('metasSet', data)
+      let data
+
+      if (id) {
+        data = await etape({ id })
+      } else {
+        data = await etapeNouvelle({ titreDemarcheId, date })
+      }
+
+      commit('metasSet', metas)
+      commit('set', { etape: data, titreDemarcheId })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -33,36 +45,18 @@ export const actions = {
     }
   },
 
-  async add({ commit, dispatch }, etape) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreEtapeAdd', { root: true })
-
+  async upsert({ commit, dispatch }, etape) {
     try {
-      const data = await etapeCreer({ etape })
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
-      commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-      commit('titre/open', { section: 'etapes', id: etape.id }, { root: true })
-      dispatch(
-        'messageAdd',
-        { value: `le titre a été mis à jour`, type: 'success' },
-        { root: true }
-      )
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreEtapeAdd', { root: true })
-    }
-  },
-
-  async update({ commit, dispatch }, etape) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreEtapeUpdate', { root: true })
-
-    try {
-      const data = await etapeModifier({ etape })
+      let data
+      if (etape.id) {
+        data = await etapeModifier({ etape })
+      } else {
+        data = await etapeCreer({ etape })
+      }
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
@@ -103,6 +97,13 @@ export const actions = {
 }
 
 export const mutations = {
+  set(state, { etape, titreDemarcheId }) {
+    const e = etapeEditFormat(etape, titreDemarcheId)
+
+    console.log(e)
+    Vue.set(state, 'current', e)
+  },
+
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       if (id === 'entreprises') {

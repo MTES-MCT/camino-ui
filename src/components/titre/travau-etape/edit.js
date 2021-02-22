@@ -1,8 +1,6 @@
 const etapeSaveFormat = etape => {
   etape = JSON.parse(JSON.stringify(etape))
 
-  delete etape.typeIdOriginal
-
   if (etape.duree.ans || etape.duree.mois) {
     etape.duree =
       (etape.duree.ans ? etape.duree.ans * 12 : 0) +

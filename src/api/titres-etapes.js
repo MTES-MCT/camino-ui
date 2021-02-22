@@ -9,8 +9,11 @@ import {
   fragmentUnite
 } from './fragments/metas'
 import { fragmentSubstance } from './fragments/substance'
-import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentEntreprise } from './fragments/entreprise'
+import {
+  fragmentTitreEtape,
+  fragmentTitreEtapeNouvelle
+} from './fragments/titre-etape'
 
 const titreEtapeMetas = apiGraphQLFetch(
   gql`
@@ -38,12 +41,6 @@ const titreEtapeMetas = apiGraphQLFetch(
       substances {
         ...substance
       }
-
-      entreprises(archive: false, etapeId: $id) {
-        elements {
-          ...entreprises
-        }
-      }
     }
 
     ${fragmentEtapeType}
@@ -54,11 +51,29 @@ const titreEtapeMetas = apiGraphQLFetch(
 
     ${fragmentSubstance}
 
-    ${fragmentEntreprises}
-
     ${fragmentGeoSysteme}
   `
 )
+
+const etape = apiGraphQLFetch(gql`
+  query Etape($id: ID!) {
+    etape(id: $id) {
+      ...etape
+    }
+  }
+
+  ${fragmentTitreEtape}
+`)
+
+const etapeNouvelle = apiGraphQLFetch(gql`
+  query EtapeNouvelle($titreDemarcheId: ID!, $date: String!) {
+    etapeNouvelle(titreDemarcheId: $titreDemarcheId, date: $date) {
+      ...etapeNouvelle
+    }
+  }
+
+  ${fragmentTitreEtapeNouvelle}
+`)
 
 const etapeCreer = apiGraphQLFetch(gql`
   mutation EtapeCreer($etape: InputEtapeCreation!) {
@@ -126,6 +141,8 @@ const etapeJustificatifDissocier = apiGraphQLFetch(gql`
 `)
 
 export {
+  etape,
+  etapeNouvelle,
   titreEtapeMetas,
   etapeCreer,
   etapeModifier,

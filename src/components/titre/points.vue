@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import { etapeGroupesBuild } from './etape'
+import { etapeGroupesBuild } from '../../tools/titre-etape'
 import Tag from '../_ui/tag.vue'
 
 export default {

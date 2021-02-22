@@ -197,7 +197,6 @@ const etapeSaveFormat = etape => {
     etape.points = null
   }
 
-  delete etape.typeIdOriginal
   delete etape.groupes
   delete etape.geoSystemeOpposableId
   delete etape.geoSystemeIds
@@ -216,6 +215,10 @@ const etapeSaveFormat = etape => {
     if (etape[prop] === '') {
       etape[prop] = null
     }
+  })
+
+  Object.keys(etape.heritageProps).forEach(id => {
+    delete etape.heritageProps[id].etape
   })
 
   return etape

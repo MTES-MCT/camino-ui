@@ -8,6 +8,104 @@ import { fragmentUnite } from './metas'
 
 import { fragmentDocument } from './documents'
 
+const fragmentHeritageTitreEtape = gql`
+  fragment heritageEtape on Etape {
+    id
+    ordre
+    date
+    dateDebut
+    dateFin
+    duree
+    surface
+    type {
+      id
+      nom
+      sections
+    }
+    statut {
+      id
+      nom
+      couleur
+    }
+    administrations {
+      ...titreAdministrations
+    }
+    titulaires {
+      ...titreEntreprises
+    }
+    amodiataires {
+      ...titreEntreprises
+    }
+    points {
+      ...point
+    }
+    substances {
+      ...titreSubstance
+    }
+    contenu
+  }
+
+  ${fragmentTitreAdministrations}
+
+  ${fragmentTitreEntreprises}
+
+  ${fragmentPoint}
+
+  ${fragmentTitreSubstance}
+
+  ${fragmentUnite}
+`
+
+const fragmentHeritageProps = gql`
+  fragment heritageProps on HeritageProps {
+    dateDebut {
+      ...heritageProp
+    }
+    dateFin {
+      ...heritageProp
+    }
+    duree {
+      ...heritageProp
+    }
+    surface {
+      ...heritageProp
+    }
+    points {
+      ...heritageProp
+    }
+    substances {
+      ...heritageProp
+    }
+    titulaires {
+      ...heritageProp
+    }
+    amodiataires {
+      ...heritageProp
+    }
+  }
+
+  fragment heritageProp on HeritageProp {
+    etape {
+      ...heritageEtape
+    }
+    actif
+  }
+`
+
+const fragmentIncertitudes = gql`
+  fragment incertitudes on Incertitudes {
+    date
+    dateDebut
+    dateFin
+    duree
+    surface
+    points
+    substances
+    titulaires
+    amodiataires
+  }
+`
+
 const fragmentTitreEtape = gql`
   fragment etape on Etape {
     id
@@ -51,6 +149,9 @@ const fragmentTitreEtape = gql`
     incertitudes {
       ...incertitudes
     }
+    heritageProps {
+      ...heritageProps
+    }
     pays {
       ...pays
     }
@@ -60,6 +161,8 @@ const fragmentTitreEtape = gql`
     suppression
     justificatifsAssociation
   }
+
+  ${fragmentHeritageTitreEtape}
 
   ${fragmentTitreAdministrations}
 
@@ -75,18 +178,45 @@ const fragmentTitreEtape = gql`
 
   ${fragmentDocument}
 
-  fragment incertitudes on Incertitudes {
+  ${fragmentHeritageProps}
+
+  ${fragmentIncertitudes}
+`
+
+const fragmentTitreEtapeNouvelle = gql`
+  fragment etapeNouvelle on EtapeNouvelle {
     date
     dateDebut
     dateFin
     duree
     surface
-    points
-    substances
-    titulaires
-    amodiataires
-    administrations
+
+    titulaires {
+      ...titreEntreprises
+    }
+    amodiataires {
+      ...titreEntreprises
+    }
+    points {
+      ...point
+    }
+    substances {
+      ...titreSubstance
+    }
+    heritageProps {
+      ...heritageProps
+    }
   }
+
+  ${fragmentHeritageTitreEtape}
+
+  ${fragmentTitreEntreprises}
+
+  ${fragmentPoint}
+
+  ${fragmentTitreSubstance}
+
+  ${fragmentHeritageProps}
 `
 
-export { fragmentTitreEtape }
+export { fragmentTitreEtape, fragmentTitreEtapeNouvelle }

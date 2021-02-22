@@ -6,7 +6,6 @@ const etapeEditFormat = (etape, travauxId) => {
   etape.titreTravauxId = travauxId
 
   etape.typeId = etape.type.id
-  etape.typeIdOriginal = etape.type.id
   delete etape.type
 
   etape.statutId = etape.statut.id

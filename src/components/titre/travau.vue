@@ -130,7 +130,6 @@ export default {
         ordre: 0,
         titreTravauxId: this.travaux.id,
         typeId: null,
-        typeIdOriginal: null,
         statutId: null,
         duree: { ans: null, mois: null },
         contenu: {}
