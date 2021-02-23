@@ -1,4 +1,4 @@
-import { jsonTypenameOmit } from '../utils/index'
+import { jsonTypenameOmit } from './index'
 
 const referencesBuild = references =>
   references.reduce(
@@ -140,6 +140,8 @@ const etapeEditFormat = (etape, demarcheId) => {
   if (etape.statut) {
     etape.statutId = etape.statut.id
     delete etape.statut
+  } else {
+    etape.statutId = ''
   }
 
   delete etape.administrations

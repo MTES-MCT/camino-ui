@@ -1,6 +1,6 @@
 <template>
   <Popup :messages="messages">
-    <template slot="header">
+    <template #header>
       <div>
         <h2 class="mb-0">Modification d'une entreprise</h2>
       </div>
@@ -62,7 +62,7 @@
       </div>
     </template>
 
-    <template slot="footer">
+    <template #footer>
       <div v-if="!loading" class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button class="btn-border rnd-xs p-s full-x" @click="cancel">

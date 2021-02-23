@@ -1,6 +1,6 @@
 <template>
   <Accordion :opened="opened" class="mb-s" @close="close" @toggle="toggle">
-    <template slot="title">
+    <template #title>
       <h6 class="mt-xs">
         {{ etape.date | dateFormat }}
       </h6>
@@ -12,7 +12,7 @@
       </div>
     </template>
 
-    <template v-if="etape.modification || etape.suppression" slot="buttons">
+    <template v-if="etape.modification || etape.suppression" #buttons>
       <DocumentButtonAdd
         :document="documentNew"
         :title="documentPopupTitle"

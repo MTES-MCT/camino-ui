@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import { utilisateurs, utilisateurMetas } from '../api/utilisateurs'
-import { paramsBuild } from './_utils'
+import { paramsBuild } from '../utils/'
 
 export const state = {
   list: [],

@@ -180,28 +180,35 @@ const etapeSaveFormat = etape => {
     }
   })
 
-  if (etape.substances) {
+  if (etape.substances && etape.substances.length) {
     etape.substances.forEach((substance, index) => {
       substance.ordre = index + 1
     })
   }
 
-  if (etape.geoSystemeIds.length && etape.groupes.length) {
+  if (
+    etape.geoSystemeIds &&
+    etape.geoSystemeIds.length &&
+    etape.groupes.length
+  ) {
     etape.points = pointsBuild(
       etape.groupes,
       etape.geoSystemeIds,
       etape.geoSystemeOpposableId || etape.geoSystemeIds[0]
     )
   } else {
-    etape.incertitudes.points = null
     etape.points = null
+
+    if (etape.incertitudes) {
+      etape.incertitudes.points = null
+    }
   }
 
   delete etape.groupes
   delete etape.geoSystemeOpposableId
   delete etape.geoSystemeIds
 
-  if (etape.duree.ans || etape.duree.mois) {
+  if (etape.duree && (etape.duree.ans || etape.duree.mois)) {
     etape.duree =
       (etape.duree.ans ? etape.duree.ans * 12 : 0) +
       (etape.duree.mois ? etape.duree.mois : 0)
@@ -217,9 +224,15 @@ const etapeSaveFormat = etape => {
     }
   })
 
-  Object.keys(etape.heritageProps).forEach(id => {
-    delete etape.heritageProps[id].etape
-  })
+  if (etape.heritageProps) {
+    Object.keys(etape.heritageProps).forEach(id => {
+      delete etape.heritageProps[id].etape
+    })
+  }
+
+  if (!etape.contenu) {
+    delete etape.contenu
+  }
 
   return etape
 }

@@ -56,10 +56,14 @@
         @titre-event-track="eventTrack"
       />
 
-      <TitrePoints
+      <div
         v-if="titre.points && geoTabActive === 'points'"
-        :points="titre.points"
-      />
+        class="points width-full bg-alt"
+      >
+        <div class="container bg-bg py">
+          <TitrePoints :points="titre.points" />
+        </div>
+      </div>
 
       <div class="line width-full mb" />
     </div>

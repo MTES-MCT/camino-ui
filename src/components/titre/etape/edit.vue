@@ -1,6 +1,6 @@
 <template>
   <Popup :messages="messages">
-    <template slot="header">
+    <template #header>
       <div>
         <h5>
           <span class="cap-first"> {{ titreNom }} </span
@@ -27,7 +27,6 @@
     <div v-else-if="!metasLoaded"><p>Chargement en cours…</p></div>
 
     <div v-else>
-      {{ etape.typeId }}
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Date</h6>
@@ -106,7 +105,7 @@
       />
     </div>
 
-    <template slot="footer">
+    <template #footer>
       <div v-if="!loading" class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button class="btn-border rnd-xs p-s full-x" @click="cancel">
@@ -146,8 +145,6 @@ import Popup from '../../_ui/popup.vue'
 import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
 import EditSections from '../../_common/edit-sections.vue'
-
-import { etapeSaveFormat } from './edit'
 
 export default {
   name: 'CaminoEtapeEditPopup',
@@ -242,18 +239,12 @@ export default {
 
     async save() {
       if (this.complete) {
-        const etape = etapeSaveFormat(this.etape)
-
-        if (!this.etape.contenu) {
-          delete this.etape.contenu
-        }
-
-        await this.$store.dispatch('titreEtape/upsert', etape)
+        await this.$store.dispatch('titreEtape/upsert', this.etape)
 
         this.eventTrack({
           categorie: 'titre-sections',
           action: 'titre-etape-enregistrer',
-          nom: etape.id
+          nom: this.etape.id
         })
       }
     },

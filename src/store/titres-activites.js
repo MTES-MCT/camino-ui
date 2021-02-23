@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import { activites, activitesMetas } from '../api/titres-activites'
-import { paramsBuild } from './_utils'
+import { paramsBuild } from '../utils/'
 
 export const state = {
   list: [],

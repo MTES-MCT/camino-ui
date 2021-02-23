@@ -1,6 +1,6 @@
 <template>
   <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
-    <template slot="title">
+    <template #title>
       <h4 class="mb-0">
         {{ entrepriseNameFind(entreprise) }}
       </h4>
@@ -9,7 +9,7 @@
       </Tag>
     </template>
 
-    <template slot="buttons">
+    <template #buttons>
       <RouterLink
         :to="{ name: 'entreprise', params: { id: entreprise.id } }"
         class="btn-alt py-s px-m"

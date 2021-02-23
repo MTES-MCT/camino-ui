@@ -12,7 +12,7 @@ import {
   userMetas
 } from '../api/utilisateurs'
 
-import tiles from './_map-tiles'
+import tiles from '../utils/map-tiles'
 
 import router from '../router'
 

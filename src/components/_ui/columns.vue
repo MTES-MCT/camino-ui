@@ -1,6 +1,6 @@
 <template>
   <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
-    <template slot="title"> Colonnes </template>
+    <template #title> Colonnes </template>
     <ul class="list-sans px-m">
       <li v-for="column in columns" :key="column.type">
         <label>

@@ -90,6 +90,8 @@ const fragmentHeritageProps = gql`
     }
     actif
   }
+
+  ${fragmentHeritageTitreEtape}
 `
 
 const fragmentIncertitudes = gql`

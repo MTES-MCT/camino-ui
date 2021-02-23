@@ -1,6 +1,6 @@
 <template>
   <Accordion :opened="opened" class="mb-s" @close="close" @toggle="toggle">
-    <template slot="title">
+    <template #title>
       <h6 class="mt-xs">
         {{ etape.date | dateFormat }}
         <Tag
@@ -18,7 +18,7 @@
       </div>
     </template>
 
-    <template v-if="etape.modification || etape.suppression" slot="buttons">
+    <template v-if="etape.modification || etape.suppression" #buttons>
       <JustificatifsButtonAdd
         v-if="etape.justificatifsAssociation"
         :id="etape.id"

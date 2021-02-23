@@ -1,5 +1,6 @@
-import { etapeEditFormat } from '@/tools/titre-etape'
 import Vue from 'vue'
+import { etapeEditFormat } from '../utils/titre-etape-edit'
+import { etapeSaveFormat } from '../utils/titre-etape-save'
 
 import {
   etape,
@@ -51,11 +52,13 @@ export const actions = {
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
+      const etapeFormatted = etapeSaveFormat(etape)
+
       let data
-      if (etape.id) {
-        data = await etapeModifier({ etape })
+      if (etapeFormatted.id) {
+        data = await etapeModifier({ etapeFormatted })
       } else {
-        data = await etapeCreer({ etape })
+        data = await etapeCreer({ etapeFormatted })
       }
 
       commit('popupClose', null, { root: true })
@@ -99,8 +102,6 @@ export const actions = {
 export const mutations = {
   set(state, { etape, titreDemarcheId }) {
     const e = etapeEditFormat(etape, titreDemarcheId)
-
-    console.log(e)
     Vue.set(state, 'current', e)
   },
 

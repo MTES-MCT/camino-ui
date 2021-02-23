@@ -1,6 +1,6 @@
 <template>
   <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
-    <template slot="title">
+    <template #title>
       <span>{{ administration.nom }}</span>
       <Tag
         v-if="administration.coordinateur"

@@ -1,6 +1,6 @@
 <template>
   <Accordion :opened="opened" @close="close" @toggle="toggle">
-    <template slot="title">
+    <template #title>
       <span class="h5">Fond de carte</span>
     </template>
     <ul class="list-sans mt-m px-m">

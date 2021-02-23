@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 import { titresMetas, titresGeo, titres, titresGeoPolygon } from '../api/titres'
-import { paramsBuild } from './_utils'
+import { paramsBuild } from '../utils/'
 
 export const state = {
   list: [],

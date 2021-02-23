@@ -1,6 +1,6 @@
 <template>
   <Popup :messages="messages">
-    <template slot="header">
+    <template #header>
       <div>
         <h5>
           <span class="cap-first"> {{ titreNom }} </span
@@ -26,7 +26,7 @@
       ne peut pas être annulée.
     </div>
 
-    <template slot="footer">
+    <template #footer>
       <div v-if="!loading" class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button class="btn-border rnd-xs p-s full-x" @click="cancel">

@@ -13,11 +13,11 @@
     </h1>
 
     <Accordion class="mb" :sub="true">
-      <template slot="title">
+      <template #title>
         <span class="cap-first"> Profil </span>
       </template>
 
-      <template v-if="utilisateur.modification" slot="buttons">
+      <template v-if="utilisateur.modification" #buttons>
         <button
           v-if="
             (user && user.id === utilisateur.id) || permissionsCheck('super')
@@ -59,7 +59,7 @@
         </button>
       </template>
 
-      <template slot="sub">
+      <template #sub>
         <div class="px-m pt-m">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">

@@ -6,11 +6,11 @@
       {{ nom }}
     </h1>
     <Accordion class="mb-xxl" :sub="true">
-      <template slot="title">
+      <template #title>
         <span class="cap-first"> Profil </span>
       </template>
 
-      <template v-if="entreprise.modification" slot="buttons">
+      <template v-if="entreprise.modification" #buttons>
         <DocumentAddButton
           :context="documentContext"
           :document="documentNew"
@@ -24,7 +24,7 @@
         </button>
       </template>
 
-      <template slot="sub">
+      <template #sub>
         <div class="px-m pt-m border-b-s">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">

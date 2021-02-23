@@ -6,17 +6,17 @@
       {{ administration.abreviation }}
     </h1>
     <Accordion class="mb-xxl" :sub="true">
-      <template slot="title">
+      <template #title>
         <span class="cap-first">{{ administration.nom }}</span>
       </template>
 
-      <template v-if="administration.modification" slot="buttons">
+      <template v-if="administration.modification" #buttons>
         <button class="btn py-s px-m" @click="editPopupOpen">
           <i class="icon-24 icon-pencil" />
         </button>
       </template>
 
-      <template slot="sub">
+      <template #sub>
         <div class="px-m pt-m border-b-s">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
