@@ -1,7 +1,7 @@
-import { jsonTypenameOmit } from '../../utils/index'
+import { cloneAndClean } from '../../utils/index'
 
 const etapeEditFormat = (etape, travauxId) => {
-  etape = jsonTypenameOmit(etape)
+  etape = cloneAndClean(etape)
 
   etape.titreTravauxId = travauxId
 

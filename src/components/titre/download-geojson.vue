@@ -6,7 +6,7 @@
 
 <script>
 import Download from '../_common/download-client.vue'
-import { jsonTypenameOmit } from '../../utils/index'
+import { cloneAndClean } from '../../utils/index'
 
 export default {
   components: {
@@ -29,7 +29,7 @@ export default {
             id: this.titre.id,
             nom: this.titre.nom
           },
-          features: jsonTypenameOmit([
+          features: cloneAndClean([
             this.titre.geojsonMultiPolygon,
             ...this.titre.geojsonPoints.features
           ])

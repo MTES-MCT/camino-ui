@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { jsonTypenameOmit } from '../../utils/index'
+import { cloneAndClean } from '../../utils/index'
 import Tag from '../_ui/tag.vue'
 import DocumentEditPopup from '../document/edit-popup.vue'
 import DocumentRemovePopup from '../document/remove-popup.vue'
@@ -133,7 +133,7 @@ export default {
     },
 
     editPopupOpen() {
-      const document = jsonTypenameOmit(this.document)
+      const document = cloneAndClean(this.document)
       if (this.repertoire === 'demarches') {
         document.titreEtapeId = this.parentId
       } else if (this.repertoire === 'activites') {

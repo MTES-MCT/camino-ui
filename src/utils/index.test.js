@@ -3,7 +3,7 @@ import {
   textNumberFormat,
   textToNumberFormat,
   permissionsCheck,
-  jsonTypenameOmit,
+  cloneAndClean,
   elementsFormat,
   paramsBuild
 } from './index'
@@ -76,10 +76,10 @@ describe('permissionsCheck', () => {
   )
 })
 
-describe('jsonTypenameOmit', () => {
+describe('cloneAndClean', () => {
   test(`transforme un json en occultant les propriétés __typename`, () =>
     expect(
-      jsonTypenameOmit({ id: 'id', value: 'value', __typename: 'typename' })
+      cloneAndClean({ id: 'id', value: 'value', __typename: 'typename' })
     ).toEqual({ id: 'id', value: 'value', __typename: undefined }))
 })
 

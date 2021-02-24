@@ -34,7 +34,7 @@ const permissionsCheck = (userPermission, permissions) =>
 
 const typenameOmit = (key, value) => (key === '__typename' ? undefined : value)
 
-const jsonTypenameOmit = json => JSON.parse(JSON.stringify(json), typenameOmit)
+const cloneAndClean = json => JSON.parse(JSON.stringify(json), typenameOmit)
 
 const elementsFormat = (id, metas) => metas[id.replace(/Ids/g, '')]
 
@@ -65,7 +65,7 @@ export {
   permissionsCheck,
   textNumberFormat,
   textToNumberFormat,
-  jsonTypenameOmit,
+  cloneAndClean,
   elementsFormat,
   paramsBuild
 }

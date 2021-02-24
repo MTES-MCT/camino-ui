@@ -1,4 +1,4 @@
-import { jsonTypenameOmit } from './index'
+import { cloneAndClean } from './index'
 
 const referencesBuild = references =>
   references.reduce(
@@ -49,11 +49,9 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
         contour === contourIndexPrevious
       ) {
         groupes[groupe - 1][contour - 1][pointIndex - 1].references.push(
-          lot
-            ? pointReferences[lotGeoSystemeId]
-                .map(coordonnee => coordonnee.toString().replace('.', ','))
-                .join(';')
-            : pointReferences[lotGeoSystemeId].join(',')
+          pointReferences[lotGeoSystemeId]
+            .map(coordonnee => coordonnee.toString().replace('.', ','))
+            .join(';')
         )
       } else {
         if (!groupes[groupe - 1]) {
@@ -127,7 +125,7 @@ const etapeGroupesBuild = points => {
 }
 
 const etapeEditFormat = (etape, demarcheId) => {
-  etape = jsonTypenameOmit(etape)
+  etape = cloneAndClean(etape)
 
   etape.titreDemarcheId = demarcheId
 
