@@ -7,7 +7,7 @@
       <template #write>
         <EtapeEditPointsGeoSysteme :etape.sync="etape" />
 
-        <div v-if="etape.geoSystemeIds.length">
+        <div v-if="etape.geoSystemeIds.length" class="mb-s">
           <hr />
           <div class="h5 mb-s">
             <ul class="list-prefix">
@@ -25,7 +25,11 @@
           <div
             v-for="(groupeContours, groupeIndex) in etape.groupes"
             :key="groupeIndex + 1"
-            class="geo-groupe geo-groupe-edit mb-xs"
+            class="geo-groupe mb-xs"
+            :class="{
+              'geo-groupe-edit':
+                groupeContours.length && groupeContours[0].length
+            }"
           >
             <div v-if="etape.groupes.length > 1" class="flex flex-full">
               <h4 class="color-bg pt-s pl-m mb-s">
@@ -198,7 +202,7 @@
           "
           :points="etape.heritageProps.points.etape.points"
         />
-        <p v-else class="h5 italic mb-s">Aucune substance</p>
+        <p v-else class="mb-xs">Non renseigné</p>
       </template>
     </EditHeritage>
 

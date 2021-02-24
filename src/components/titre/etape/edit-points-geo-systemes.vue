@@ -1,14 +1,11 @@
 <template>
-  <div class="mb">
+  <div>
     <h4 class="mb-s">Systèmes géographiques</h4>
     <div
       v-for="(etapeGeoSystemeId, etapeGeoSystemeIndex) in etape.geoSystemeIds"
       :key="etapeGeoSystemeIndex"
     >
-      <div
-        class="flex"
-        :class="{ 'mb-s': geoSystemesLength, mb: !geoSystemesLength }"
-      >
+      <div class="flex mb-s">
         <select
           v-model="etape.geoSystemeIds[etapeGeoSystemeIndex]"
           class="p-s mr-s"
@@ -46,7 +43,7 @@
     </div>
     <button
       v-if="!etape.geoSystemeIds.some(id => !id)"
-      class="btn rnd-xs py-s px-m full-x flex h5"
+      class="btn rnd-xs py-s px-m full-x flex h5 mb-s"
       @click="geoSystemeAdd"
     >
       <span class="mt-xxs">Ajouter un système géographique</span

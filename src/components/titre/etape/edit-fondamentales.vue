@@ -17,7 +17,7 @@
                 v-model.number="etape.duree.ans"
                 :integer="true"
                 placeholder="années"
-                class="p-s mb-s"
+                class="py-s mb-s"
               />
             </div>
             <div class="tablet-blob-1-2">
@@ -40,11 +40,11 @@
               etape.heritageProps.duree.etape &&
                 etape.heritageProps.duree.etape.duree
             "
-            class="p-s mb-s border"
+            class="pt-xs mb-xs bold"
           >
             <PropDuree :duree="etape.heritageProps.duree.etape.duree" />
           </div>
-          <div v-else class="p-s mb-s border">–</div>
+          <div v-else class="pt-xs mb-xs">Non renseigné</div>
         </template>
       </EditHeritage>
     </div>
@@ -73,11 +73,11 @@
               etape.heritageProps.dateDebut.etape &&
                 etape.heritageProps.dateDebut.etape.dateDebut
             "
-            class="p-s mb-s border"
+            class="pt-xs mb-xs bold"
           >
             {{ etape.heritageProps.dateDebut.etape.dateDebut }}
           </div>
-          <div v-else class="p-s mb-s border">–</div>
+          <div v-else class="pt-xs mb-xs">Non renseigné</div>
         </template>
       </EditHeritage>
     </div>
@@ -106,11 +106,11 @@
               etape.heritageProps.dateFin.etape &&
                 etape.heritageProps.dateFin.etape.dateFin
             "
-            class="p-s mb-s border"
+            class="pt-xs mb-xs bold"
           >
             {{ etape.heritageProps.dateFin.etape.dateFin }}
           </div>
-          <div v-else class="p-s mb-s border">–</div>
+          <div v-else class="pt-xs mb-xs">Non renseigné</div>
         </template>
       </EditHeritage>
     </div>
@@ -143,11 +143,11 @@
               etape.heritageProps.surface.etape &&
                 etape.heritageProps.surface.etape.surface
             "
-            class="p-s mb-s border"
+            class="pt-xs mb-xs bold"
           >
             {{ etape.heritageProps.surface.etape.surface }}
           </div>
-          <div v-else class="p-s mb-s border">–</div>
+          <div v-else class="pt-xs mb-xs">Non renseigné</div>
         </template>
       </EditHeritage>
     </div>
@@ -212,7 +212,7 @@
             {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
           </li>
         </ul>
-        <p v-else class="h5 italic mb-s">Aucun titulaire</p>
+        <p v-else class="mb-xs">Non renseigné</p>
       </template>
     </EditHeritage>
     <hr />
@@ -278,7 +278,7 @@
             {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
           </li>
         </ul>
-        <p v-else class="h5 italic mb-s">Aucun amodiataire</p>
+        <p v-else class="mb-xs">Non renseigné</p>
       </template>
     </EditHeritage>
 
@@ -356,7 +356,7 @@
             etape.heritageProps.substances.etape.substances.map(s => s.nom)
           "
         />
-        <p v-else class="h5 italic mb-s">Aucune substance</p>
+        <p v-else class="mb-xs">Non renseigné</p>
       </template>
     </EditHeritage>
 
