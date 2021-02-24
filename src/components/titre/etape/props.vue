@@ -6,11 +6,7 @@
       </div>
       <div class="tablet-blob-3-4">
         <p>
-          <span v-if="duree.ans">{{
-            `${duree.ans} an${duree.ans > 1 ? 's' : ''}`
-          }}</span
-          ><span v-if="duree.ans && duree.mois"> et </span>
-          <span v-if="duree.mois">{{ `${duree.mois} mois` }}</span>
+          <PropDuree :duree="etape.duree" />
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.duree"
             :mini="true"
@@ -174,23 +170,19 @@
 <script>
 import TagList from '../../_ui/tag-list.vue'
 import Tag from '../../_ui/tag.vue'
+import { etablissementNameFind } from '../../../utils/entreprise'
+import PropDuree from './prop-duree.vue'
 
 export default {
   components: {
     TagList,
-    Tag
+    Tag,
+    PropDuree
   },
   props: {
     etape: { type: Object, default: () => ({}) }
   },
   computed: {
-    duree() {
-      return {
-        ans: this.etape.duree && Math.floor(this.etape.duree / 12),
-        mois: this.etape.duree && Math.floor(this.etape.duree % 12)
-      }
-    },
-
     incertitudesLength() {
       return (
         this.etape.incertitudes &&
@@ -206,17 +198,7 @@ export default {
 
   methods: {
     etablissementNameFind(etablissements, date) {
-      if (!etablissements || !etablissements.length) {
-        return null
-      }
-
-      const etablissement = etablissements.find(
-        e =>
-          (e.dateDebut < date && (!e.dateFin || e.dateFin > date)) ||
-          !e.dateDebut
-      )
-
-      return etablissement && etablissement.nom
+      return etablissementNameFind(etablissements, date)
     }
   }
 }

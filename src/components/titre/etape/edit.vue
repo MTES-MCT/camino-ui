@@ -1,6 +1,6 @@
 <template>
   <Popup :messages="messages">
-    <template slot="header">
+    <template #header>
       <div>
         <h5>
           <span class="cap-first"> {{ titreNom }} </span
@@ -10,7 +10,7 @@
           </span>
         </h5>
         <h2 class="cap-first mb-0">
-          {{ creation ? "Ajout d'une " : "Modification de l'" }}étape
+          {{ etapeId ? "Modification de l'" : "Ajout d'une " }}étape
         </h2>
       </div>
     </template>
@@ -20,7 +20,7 @@
         <h6>Date</h6>
       </div>
       <div class="tablet-blob-2-3">
-        <InputDate v-model="date" class="mb" />
+        <InputDate v-model="newDate" class="mb" />
       </div>
     </div>
 
@@ -105,7 +105,7 @@
       />
     </div>
 
-    <template slot="footer">
+    <template #footer>
       <div v-if="!loading" class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button class="btn-border rnd-xs p-s full-x" @click="cancel">
@@ -114,22 +114,22 @@
         </div>
         <div class="tablet-blob-2-3">
           <button
-            v-if="etape.date"
+            v-if="dateIsVisible"
+            class="btn-flash rnd-xs p-s full-x"
+            :disabled="!newDate"
+            :class="{ disabled: !newDate }"
+            @click="metasGet"
+          >
+            Valider
+          </button>
+          <button
+            v-else
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!complete"
             :class="{ disabled: !complete }"
             @click="save"
           >
             Enregistrer
-          </button>
-          <button
-            v-else
-            class="btn-flash rnd-xs p-s full-x"
-            :disabled="!date"
-            :class="{ disabled: !date }"
-            @click="metasGet"
-          >
-            Valider
           </button>
         </div>
       </div>
@@ -146,8 +146,6 @@ import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
 import EditSections from '../../_common/edit-sections.vue'
 
-import { etapeSaveFormat } from './edit'
-
 export default {
   name: 'CaminoEtapeEditPopup',
 
@@ -160,17 +158,17 @@ export default {
   },
 
   props: {
-    etape: { type: Object, default: () => ({}) },
+    etapeId: { type: String, default: null },
+    demarcheId: { type: String, required: true },
     demarcheType: { type: Object, default: () => ({}) },
     domaineId: { type: String, default: '' },
-    titreNom: { type: String, default: '' },
-    creation: { type: Boolean, default: false }
+    titreNom: { type: String, default: '' }
   },
 
   data() {
     return {
       events: { saveKeyUp: true },
-      date: new Date().toISOString().slice(0, 10),
+      newDate: new Date().toISOString().slice(0, 10),
       metasLoaded: false
     }
   },
@@ -190,6 +188,10 @@ export default {
       )
     },
 
+    etape() {
+      return this.$store.state.titreEtape.current
+    },
+
     etapeType() {
       return this.etapeTypes.find(et => et.id === this.etape.typeId) || {}
     },
@@ -199,22 +201,23 @@ export default {
     },
 
     dateIsVisible() {
-      return (
-        (this.etape.id && !this.etape.date && !this.date) ||
-        (!this.etape.id && !this.etape.date)
-      )
+      return !this.etapeId && !this.metasLoaded
     },
 
     complete() {
-      return this.etape.typeId && this.etape.date && this.etape.statutId
+      return (
+        this.etape &&
+        this.etape.typeId &&
+        this.etape.date &&
+        this.etape.statutId
+      )
     }
   },
 
   async created() {
     document.addEventListener('keyup', this.keyUp)
 
-    if (this.etape.date) {
-      this.date = this.etape.date
+    if (this.etapeId) {
       this.metasGet()
     }
   },
@@ -226,36 +229,22 @@ export default {
   methods: {
     async metasGet() {
       await this.$store.dispatch('titreEtape/metasGet', {
-        titreDemarcheId: this.etape.titreDemarcheId,
-        id: this.etape.id,
-        date: this.date
+        titreDemarcheId: this.demarcheId,
+        id: this.etapeId,
+        date: this.newDate
       })
-
-      if (!this.etape.date) {
-        this.etape.date = this.date
-      }
 
       this.metasLoaded = true
     },
 
     async save() {
       if (this.complete) {
-        const etape = etapeSaveFormat(this.etape)
-
-        if (!this.etape.contenu) {
-          delete this.etape.contenu
-        }
-
-        if (this.creation) {
-          await this.$store.dispatch('titreEtape/add', etape)
-        } else {
-          await this.$store.dispatch('titreEtape/update', etape)
-        }
+        await this.$store.dispatch('titreEtape/upsert', this.etape)
 
         this.eventTrack({
           categorie: 'titre-sections',
           action: 'titre-etape-enregistrer',
-          nom: etape.id
+          nom: this.etape.id
         })
       }
     },
@@ -271,7 +260,7 @@ export default {
       } else if ((e.which || e.keyCode) === 13 && this.events.saveKeyUp) {
         if (this.etape.date && this.complete) {
           this.save()
-        } else if (!this.etape.date && this.date) {
+        } else if (!this.etape.date) {
           this.metasGet()
         }
       }

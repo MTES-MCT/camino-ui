@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import { demarchesMetas, demarches } from '../api/titres-demarches'
 
-import { paramsBuild } from './_utils'
+import { paramsBuild } from '../utils/'
 
 export const state = {
   list: [],

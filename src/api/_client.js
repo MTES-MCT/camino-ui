@@ -4,7 +4,6 @@ import { GraphQL } from 'graphql-react'
 
 // for safari 11
 import 'unfetch/polyfill'
-
 import { fragmentUtilisateurToken } from './fragments/utilisateur'
 
 const graphql = new GraphQL()

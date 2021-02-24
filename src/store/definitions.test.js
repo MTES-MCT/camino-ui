@@ -5,7 +5,14 @@ import Vuex from 'vuex'
 
 jest.mock('../api/metas', () => ({
   definitions: jest.fn(),
-  domaines: jest.fn()
+  domaines: jest.fn(),
+  demarchesStatuts: jest.fn(),
+  demarchesTypes: jest.fn(),
+  etapesTypes: jest.fn(),
+  etapesStatuts: jest.fn(),
+  substancesLegales: jest.fn(),
+  titresStatuts: jest.fn(),
+  titresTypesTypes: jest.fn()
 }))
 
 console.info = jest.fn()

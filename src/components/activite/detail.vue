@@ -1,6 +1,6 @@
 <template>
   <Accordion :opened="opened" sub="true" @close="close" @toggle="toggle">
-    <template slot="title">
+    <template #title>
       <h6>
         {{ activite.date | dateFormat }} |
         <span class="cap-first"
@@ -19,7 +19,7 @@
         class="mb-xs"
       />
     </template>
-    <template slot="buttons">
+    <template #buttons>
       <button
         v-if="activite.suppression"
         class="cmn-activite-btn-supprimer btn py-s px-m h5 flex mr-px"

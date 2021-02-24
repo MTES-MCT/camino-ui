@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { administrations, administrationsMetas } from '../api/administrations'
-import { paramsBuild } from './_utils'
+import { paramsBuild } from '../utils/'
 
 export const state = {
   list: [],

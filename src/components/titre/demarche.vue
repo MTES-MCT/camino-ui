@@ -38,7 +38,9 @@
           <button
             v-if="demarche.suppression"
             class="btn rnd-r-xs py-s px-m mr-px"
-            :class="{ 'rnd-l-xs': !demarche.modification }"
+            :class="{
+              'rnd-l-xs': !demarche.modification && !demarche.etapesCreation
+            }"
             @click="removePopupOpen"
           >
             <i class="icon-24 icon-trash" />
@@ -126,30 +128,11 @@ export default {
     },
 
     etapeAddPopupOpen() {
-      const etape = {
-        ordre: 0,
-        titreDemarcheId: this.demarche.id,
-        date: '',
-        typeId: null,
-        typeIdOriginal: null,
-        statutId: null,
-        duree: { ans: null, mois: null },
-        titulaires: [],
-        amodiataires: [],
-        administrations: [],
-        substances: [],
-        groupes: [],
-        geoSystemeIds: [],
-        geoSystemeOpposableId: null,
-        incertitudes: {},
-        contenu: {}
-      }
-
       this.$store.commit('popupOpen', {
         component: EtapeEditPopup,
         props: {
-          etape,
           domaineId: this.titre.domaine.id,
+          demarcheId: this.demarche.id,
           demarcheType: this.demarche.type,
           titreNom: this.titre.nom,
           creation: true

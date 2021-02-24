@@ -1,6 +1,6 @@
 <template>
   <Popup :messages="messages">
-    <template slot="header">
+    <template #header>
       <div>
         <h6>
           <span class="cap-first">
@@ -51,7 +51,7 @@
       Une fois validé ce formulaire ne sera plus modifiable.
     </div>
 
-    <template slot="footer">
+    <template #footer>
       <div v-if="modifiable" class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button class="btn-border rnd-xs p-s full-x" @click="cancel">

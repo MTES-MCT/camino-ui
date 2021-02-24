@@ -1,6 +1,6 @@
 <template>
   <Accordion :opened="opened" class="mb-s" @close="close" @toggle="toggle">
-    <template slot="title">
+    <template #title>
       <h6 class="mt-xs">
         {{ etape.date | dateFormat }}
         <Tag
@@ -18,7 +18,7 @@
       </div>
     </template>
 
-    <template v-if="etape.modification || etape.suppression" slot="buttons">
+    <template v-if="etape.modification || etape.suppression" #buttons>
       <JustificatifsButtonAdd
         v-if="etape.justificatifsAssociation"
         :id="etape.id"
@@ -117,8 +117,6 @@ import DocumentButtonAdd from '../document/button-add.vue'
 import JustificatifsButtonAdd from '../justificatifs/button-add.vue'
 import EtapeProps from './etape/props.vue'
 import Documents from '../documents/list.vue'
-
-import { etapeEditFormat } from './etape'
 
 const cap = string => string[0].toUpperCase() + string.slice(1)
 
@@ -228,12 +226,11 @@ export default {
     },
 
     editPopupOpen() {
-      const etape = etapeEditFormat(this.etape, this.demarcheId)
-
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
-          etape,
+          etapeId: this.etape.id,
+          demarcheId: this.demarcheId,
           domaineId: this.$store.state.titre.current.domaine.id,
           demarcheType: this.demarcheType,
           titreNom: this.titre.nom

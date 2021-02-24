@@ -6,11 +6,11 @@
     class="mb-s"
     @toggle="toggle"
   >
-    <template slot="title">
+    <template #title>
       {{ title }}
     </template>
 
-    <template v-if="labels.length" slot="sub">
+    <template v-if="labels.length" #sub>
       <div class="flex" :class="{ 'border-b-s': opened }">
         <div class="px-m pt-m pb-s">
           <span

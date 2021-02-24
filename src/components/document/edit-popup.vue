@@ -1,6 +1,6 @@
 <template>
   <Popup :messages="messages">
-    <template slot="header">
+    <template #header>
       <div>
         <h5>
           <span class="cap-first">
@@ -35,7 +35,7 @@
 
     <EditSections :document.sync="document" :repertoire="repertoire" />
 
-    <template slot="footer">
+    <template #footer>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
           <button
