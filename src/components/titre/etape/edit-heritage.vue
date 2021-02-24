@@ -8,6 +8,14 @@
         Hérité de : <span class="cap-first">{{ prop.etape.type.nom }}</span> ({{
           prop.etape.date | dateFormat
         }})
+        <Tag
+            v-if="prop.etape.incertitudes && prop.etape.incertitudes[nom]"
+            :mini="true"
+            color="bg-info"
+            class="ml-xs"
+        >
+          ?
+        </Tag>
       </p>
     </div>
     <button
@@ -21,7 +29,10 @@
 </template>
 
 <script>
+import Tag from "@/components/_ui/tag";
+
 export default {
+  components: { Tag },
   props: {
     prop: { type: Object, required: true },
     nom: { type: String, required: true },
