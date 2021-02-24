@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { jsonTypenameOmit } from '../../utils/index'
+import { cloneAndClean } from '../../utils/index'
 import activiteEditPopup from '../activite/edit-popup.vue'
 
 export default {
@@ -27,7 +27,7 @@ export default {
 
   methods: {
     activiteEditPopupOpen() {
-      const activite = jsonTypenameOmit(this.activite)
+      const activite = cloneAndClean(this.activite)
 
       activite.contenu = this.activite.sections.reduce((sections, s) => {
         sections[s.id] = s.elements.reduce((elements, e) => {

@@ -164,7 +164,7 @@
 </template>
 
 <script>
-import { jsonTypenameOmit } from '../utils/index'
+import { cloneAndClean } from '../utils/index'
 import Accordion from './_ui/accordion.vue'
 import Pill from './_ui/pill.vue'
 import Loader from './_ui/loader.vue'
@@ -215,7 +215,7 @@ export default {
     },
 
     editPopupOpen() {
-      const utilisateur = jsonTypenameOmit(this.utilisateur)
+      const utilisateur = cloneAndClean(this.utilisateur)
 
       utilisateur.entreprises = utilisateur.entreprises.map(({ id }) => ({
         id
@@ -246,7 +246,7 @@ export default {
       this.$store.commit('popupOpen', {
         component: UtilisateurRemovePopup,
         props: {
-          utilisateur: jsonTypenameOmit(this.utilisateur)
+          utilisateur: cloneAndClean(this.utilisateur)
         }
       })
     },
@@ -255,7 +255,7 @@ export default {
       this.$store.commit('popupOpen', {
         component: UtilisateurPasswordPopup,
         props: {
-          utilisateur: jsonTypenameOmit(this.utilisateur)
+          utilisateur: cloneAndClean(this.utilisateur)
         }
       })
     },
