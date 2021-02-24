@@ -8,6 +8,20 @@ import { fragmentUnite } from './metas'
 
 import { fragmentDocument } from './documents'
 
+const fragmentIncertitudes = gql`
+  fragment incertitudes on Incertitudes {
+    date
+    dateDebut
+    dateFin
+    duree
+    surface
+    points
+    substances
+    titulaires
+    amodiataires
+  }
+`
+
 const fragmentHeritageTitreEtape = gql`
   fragment heritageEtape on Etape {
     id
@@ -17,6 +31,9 @@ const fragmentHeritageTitreEtape = gql`
     dateFin
     duree
     surface
+    incertitudes {
+      ...incertitudes
+    }
     type {
       id
       nom
@@ -44,6 +61,8 @@ const fragmentHeritageTitreEtape = gql`
     }
     contenu
   }
+  
+  ${fragmentIncertitudes}
 
   ${fragmentTitreAdministrations}
 
@@ -92,20 +111,6 @@ const fragmentHeritageProps = gql`
   }
 
   ${fragmentHeritageTitreEtape}
-`
-
-const fragmentIncertitudes = gql`
-  fragment incertitudes on Incertitudes {
-    date
-    dateDebut
-    dateFin
-    duree
-    surface
-    points
-    substances
-    titulaires
-    amodiataires
-  }
 `
 
 const fragmentTitreEtape = gql`
