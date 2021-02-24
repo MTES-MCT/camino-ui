@@ -9,6 +9,7 @@
       <EditHeritage
         class="tablet-blob-2-3"
         :prop.sync="etape.heritageProps.duree"
+        nom="duree"
       >
         <template #write>
           <div class="tablet-blobs">
@@ -35,16 +36,9 @@
           </label>
         </template>
         <template #read>
-          <div
-            v-if="
-              etape.heritageProps.duree.etape &&
-                etape.heritageProps.duree.etape.duree
-            "
-            class="pt-xs mb-xs bold"
-          >
+          <div class="pt-xs mb-xs bold">
             <PropDuree :duree="etape.heritageProps.duree.etape.duree" />
           </div>
-          <div v-else class="pt-xs mb-xs">Non renseigné</div>
         </template>
       </EditHeritage>
     </div>
@@ -59,6 +53,7 @@
       <EditHeritage
         class="tablet-blob-2-3"
         :prop.sync="etape.heritageProps.dateDebut"
+        nom="dateDebut"
       >
         <template #write>
           <InputDate v-model="etape.dateDebut" class="mb-s" />
@@ -68,16 +63,9 @@
           </label>
         </template>
         <template #read>
-          <div
-            v-if="
-              etape.heritageProps.dateDebut.etape &&
-                etape.heritageProps.dateDebut.etape.dateDebut
-            "
-            class="pt-xs mb-xs bold"
-          >
+          <div class="pt-xs mb-xs bold">
             {{ etape.heritageProps.dateDebut.etape.dateDebut }}
           </div>
-          <div v-else class="pt-xs mb-xs">Non renseigné</div>
         </template>
       </EditHeritage>
     </div>
@@ -92,6 +80,7 @@
       <EditHeritage
         class="tablet-blob-2-3"
         :prop.sync="etape.heritageProps.dateFin"
+        nom="dateFin"
       >
         <template #write>
           <InputDate v-model="etape.dateFin" class="mb-s" />
@@ -101,16 +90,9 @@
           </label>
         </template>
         <template #read>
-          <div
-            v-if="
-              etape.heritageProps.dateFin.etape &&
-                etape.heritageProps.dateFin.etape.dateFin
-            "
-            class="pt-xs mb-xs bold"
-          >
+          <div class="pt-xs mb-xs bold">
             {{ etape.heritageProps.dateFin.etape.dateFin }}
           </div>
-          <div v-else class="pt-xs mb-xs">Non renseigné</div>
         </template>
       </EditHeritage>
     </div>
@@ -124,6 +106,7 @@
       <EditHeritage
         class="tablet-blob-2-3"
         :prop.sync="etape.heritageProps.surface"
+        nom="surface"
       >
         <template #write>
           <inputNumber
@@ -138,16 +121,9 @@
           </label>
         </template>
         <template #read>
-          <div
-            v-if="
-              etape.heritageProps.surface.etape &&
-                etape.heritageProps.surface.etape.surface
-            "
-            class="pt-xs mb-xs bold"
-          >
+          <div class="pt-xs mb-xs bold">
             {{ etape.heritageProps.surface.etape.surface }}
           </div>
-          <div v-else class="pt-xs mb-xs">Non renseigné</div>
         </template>
       </EditHeritage>
     </div>
@@ -156,7 +132,11 @@
 
     <h3 class="mb-s">Titulaires</h3>
     <p class="h6 italic mb-s">Optionnel</p>
-    <EditHeritage :prop.sync="etape.heritageProps.titulaires">
+    <EditHeritage
+      :prop.sync="etape.heritageProps.titulaires"
+      nom="titulaires"
+      :is-array="true"
+    >
       <template #write>
         <div
           v-for="(titulaire, n) in etape.titulaires"
@@ -197,14 +177,7 @@
         </label>
       </template>
       <template #read>
-        <ul
-          v-if="
-            etape.heritageProps.titulaires.etape &&
-              etape.heritageProps.titulaires.etape.titulaires &&
-              etape.heritageProps.titulaires.etape.titulaires.length
-          "
-          class="list-prefix"
-        >
+        <ul class="list-prefix">
           <li
             v-for="t in etape.heritageProps.titulaires.etape.titulaires"
             :key="t.id"
@@ -212,7 +185,6 @@
             {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
           </li>
         </ul>
-        <p v-else class="mb-xs">Non renseigné</p>
       </template>
     </EditHeritage>
     <hr />
@@ -220,7 +192,11 @@
     <h3 class="mb-s">Amodiataires</h3>
     <p class="h6 italic mb-s">Optionnel</p>
 
-    <EditHeritage :prop.sync="etape.heritageProps.amodiataires">
+    <EditHeritage
+      :prop.sync="etape.heritageProps.amodiataires"
+      nom="amodiataires"
+      :is-array="true"
+    >
       <template #write>
         <div
           v-for="(amodiataire, n) in etape.amodiataires"
@@ -263,14 +239,7 @@
         </label>
       </template>
       <template #read>
-        <ul
-          v-if="
-            etape.heritageProps.amodiataires.etape &&
-              etape.heritageProps.amodiataires.etape.amodiataires &&
-              etape.heritageProps.amodiataires.etape.amodiataires.length
-          "
-          class="list-prefix"
-        >
+        <ul class="list-prefix">
           <li
             v-for="t in etape.heritageProps.amodiataires.etape.amodiataires"
             :key="t.id"
@@ -278,7 +247,6 @@
             {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
           </li>
         </ul>
-        <p v-else class="mb-xs">Non renseigné</p>
       </template>
     </EditHeritage>
 
@@ -286,7 +254,11 @@
 
     <h3 class="mb-s">Substances</h3>
     <p class="h6 italic mb-s">Optionnel</p>
-    <EditHeritage :prop.sync="etape.heritageProps.substances">
+    <EditHeritage
+      :prop.sync="etape.heritageProps.substances"
+      nom="substances"
+      :is-array="true"
+    >
       <template #write>
         <div v-for="(substance, n) in etape.substances" :key="n">
           <div class="flex mb-s">
@@ -346,17 +318,11 @@
 
       <template #read>
         <TagList
-          v-if="
-            etape.heritageProps.substances.etape &&
-              etape.heritageProps.substances.etape.substances &&
-              etape.heritageProps.substances.etape.substances.length
-          "
           class="mb-s"
           :elements="
             etape.heritageProps.substances.etape.substances.map(s => s.nom)
           "
         />
-        <p v-else class="mb-xs">Non renseigné</p>
       </template>
     </EditHeritage>
 

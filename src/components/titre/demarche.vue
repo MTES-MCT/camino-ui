@@ -38,7 +38,9 @@
           <button
             v-if="demarche.suppression"
             class="btn rnd-r-xs py-s px-m mr-px"
-            :class="{ 'rnd-l-xs': !demarche.modification }"
+            :class="{
+              'rnd-l-xs': !demarche.modification && !demarche.etapesCreation
+            }"
             @click="removePopupOpen"
           >
             <i class="icon-24 icon-trash" />

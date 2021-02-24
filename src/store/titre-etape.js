@@ -56,9 +56,9 @@ export const actions = {
 
       let data
       if (etapeFormatted.id) {
-        data = await etapeModifier({ etapeFormatted })
+        data = await etapeModifier({ etape: etapeFormatted })
       } else {
-        data = await etapeCreer({ etapeFormatted })
+        data = await etapeCreer({ etape: etapeFormatted })
       }
 
       commit('popupClose', null, { root: true })

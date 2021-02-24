@@ -3,7 +3,11 @@
     <h3 class="mb-s">Périmètre</h3>
     <p class="h6 italic mb-s">Optionnel</p>
 
-    <EditHeritage :prop.sync="etape.heritageProps.points">
+    <EditHeritage
+      :prop.sync="etape.heritageProps.points"
+      nom="points"
+      :is-array="true"
+    >
       <template #write>
         <EtapeEditPointsGeoSysteme :etape.sync="etape" />
 
@@ -194,15 +198,7 @@
         </div>
       </template>
       <template #read>
-        <Points
-          v-if="
-            etape.heritageProps.points.etape &&
-              etape.heritageProps.points.etape.points &&
-              etape.heritageProps.points.etape.points.length
-          "
-          :points="etape.heritageProps.points.etape.points"
-        />
-        <p v-else class="mb-xs">Non renseigné</p>
+        <Points :points="etape.heritageProps.points.etape.points" />
       </template>
     </EditHeritage>
 
