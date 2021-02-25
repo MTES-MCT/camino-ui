@@ -20,7 +20,7 @@
       >
         <template #write>
           <EditSectionElementModifiable
-            :class="{ 'mb-s': element.description }"
+            class="mb-s"
             :element="element"
             :contenu.sync="contenu"
           />

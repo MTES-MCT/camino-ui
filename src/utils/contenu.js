@@ -9,7 +9,7 @@ const contenuBuild = (sections, elementContenu) =>
     return contenu
   }, {})
 
-const elementContenuBuild = (sections, contenu) => {
+const elementContenuBuild = (sections, contenu) =>
   sections.reduce((elementContenu, section) => {
     if (Object.keys(contenu[section.id]).length) {
       if (!elementContenu) {
@@ -20,7 +20,6 @@ const elementContenuBuild = (sections, contenu) => {
 
     return elementContenu
   }, null)
-}
 
 const contenuCompleteCheck = (sections, contenu) =>
   sections.reduce(

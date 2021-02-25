@@ -4,7 +4,7 @@ import { etapeSaveFormat } from '../utils/titre-etape-save'
 
 import {
   etape,
-  etapeNouvelle,
+  etapeHeritage,
   titreEtapeMetas,
   etapeCreer,
   etapeModifier,
@@ -28,23 +28,36 @@ export const actions = {
     try {
       commit('loadingAdd', 'titreEtapeMetasGet', { root: true })
 
-      let data
+      const metas = await titreEtapeMetas({ titreDemarcheId, id, date })
+      let newEtape
 
       if (id) {
-        data = await etape({ id })
-        date = data.date
+        newEtape = await etape({ id })
       } else {
-        data = await etapeNouvelle({ titreDemarcheId, date })
+        newEtape = { date }
       }
 
-      const metas = await titreEtapeMetas({ titreDemarcheId, id, date })
-
       commit('metasSet', metas)
-      commit('set', { etape: data, titreDemarcheId })
+      commit('set', { etape: newEtape, titreDemarcheId })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeMetasGet', { root: true })
+    }
+  },
+
+  async heritageGet({ commit }, { titreDemarcheId, typeId, date }) {
+    try {
+      commit('loadingAdd', 'titreEtapeHeritageGet', { root: true })
+      const data = await etapeHeritage({ titreDemarcheId, date, typeId })
+
+      commit('heritageSet', { etape: data })
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeHeritageGet', {
+        root: true
+      })
     }
   },
 
@@ -105,6 +118,12 @@ export const mutations = {
   set(state, { etape, titreDemarcheId }) {
     const e = etapeEditFormat(etape, titreDemarcheId)
     Vue.set(state, 'current', e)
+  },
+
+  heritageSet(state, { etape }) {
+    // merge les props et les contenu
+    // des étapes actuellement dans current et dans la nouvelle étape
+    // Vue.set(state, 'current', e)
   },
 
   metasSet(state, data) {

@@ -266,12 +266,22 @@ export default {
       }
     },
 
-    typeUpdate() {
+    async typeUpdate() {
+      await this.heritageGet()
+
       if (this.etapesStatuts.length === 1) {
         this.etape.statutId = this.etapesStatuts[0].id
       } else {
         this.etape.statutId = null
       }
+    },
+
+    async heritageGet() {
+      await this.$store.dispatch('titreEtape/heritageGet', {
+        titreDemarcheId: this.demarcheId,
+        typeId: this.etape.typeId,
+        date: this.newDate
+      })
     },
 
     eventTrack(event) {

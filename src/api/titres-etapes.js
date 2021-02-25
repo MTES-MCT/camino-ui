@@ -12,7 +12,7 @@ import { fragmentSubstance } from './fragments/substance'
 import { fragmentEntreprise } from './fragments/entreprise'
 import {
   fragmentTitreEtape,
-  fragmentTitreEtapeNouvelle
+  fragmentTitreEtapeHeritage
 } from './fragments/titre-etape'
 import { fragmentEntreprises } from './fragments/entreprises'
 
@@ -74,14 +74,18 @@ const etape = apiGraphQLFetch(gql`
   ${fragmentTitreEtape}
 `)
 
-const etapeNouvelle = apiGraphQLFetch(gql`
-  query EtapeNouvelle($titreDemarcheId: ID!, $date: String!) {
-    etapeNouvelle(titreDemarcheId: $titreDemarcheId, date: $date) {
-      ...etapeNouvelle
+const etapeHeritage = apiGraphQLFetch(gql`
+  query EtapeHeritage($titreDemarcheId: ID!, $date: String!, $typeId: ID!) {
+    etapeHeritage(
+      titreDemarcheId: $titreDemarcheId
+      date: $date
+      typeId: $typeId
+    ) {
+      ...etapeHeritage
     }
   }
 
-  ${fragmentTitreEtapeNouvelle}
+  ${fragmentTitreEtapeHeritage}
 `)
 
 const etapeCreer = apiGraphQLFetch(gql`
@@ -151,7 +155,7 @@ const etapeJustificatifDissocier = apiGraphQLFetch(gql`
 
 export {
   etape,
-  etapeNouvelle,
+  etapeHeritage,
   titreEtapeMetas,
   etapeCreer,
   etapeModifier,

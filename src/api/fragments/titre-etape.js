@@ -170,8 +170,6 @@ const fragmentTitreEtape = gql`
     justificatifsAssociation
   }
 
-  ${fragmentHeritageTitreEtape}
-
   ${fragmentTitreAdministrations}
 
   ${fragmentTitreEntreprises}
@@ -191,9 +189,8 @@ const fragmentTitreEtape = gql`
   ${fragmentIncertitudes}
 `
 
-const fragmentTitreEtapeNouvelle = gql`
-  fragment etapeNouvelle on EtapeNouvelle {
-    date
+const fragmentTitreEtapeHeritage = gql`
+  fragment etapeHeritage on EtapeHeritage {
     dateDebut
     dateFin
     duree
@@ -202,21 +199,25 @@ const fragmentTitreEtapeNouvelle = gql`
     titulaires {
       ...titreEntreprises
     }
+
     amodiataires {
       ...titreEntreprises
     }
+
     points {
       ...point
     }
+
     substances {
       ...titreSubstance
     }
+
     heritageProps {
       ...heritageProps
     }
-  }
 
-  ${fragmentHeritageTitreEtape}
+    heritageContenu
+  }
 
   ${fragmentTitreEntreprises}
 
@@ -227,4 +228,4 @@ const fragmentTitreEtapeNouvelle = gql`
   ${fragmentHeritageProps}
 `
 
-export { fragmentTitreEtape, fragmentTitreEtapeNouvelle }
+export { fragmentTitreEtape, fragmentTitreEtapeHeritage }

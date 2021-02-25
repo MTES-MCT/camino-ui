@@ -12,7 +12,7 @@ import {
 
 jest.mock('../api/titres-etapes', () => ({
   etape: jest.fn(),
-  etapeNouvelle: jest.fn(),
+  etapeHeritage: jest.fn(),
   titreEtapeMetas: jest.fn(),
   etapeCreer: jest.fn(),
   etapeModifier: jest.fn(),
@@ -90,7 +90,7 @@ describe('étapes', () => {
 
   test('récupère les métas pour créer une étape', async () => {
     const apiMockMetas = api.titreEtapeMetas.mockResolvedValue(titreEtapeMetas)
-    const apiMockEtape = api.etapeNouvelle.mockResolvedValue({})
+    const apiMockEtape = api.etapeHeritage.mockResolvedValue({})
 
     await store.dispatch('titreEtape/metasGet', {
       titreDemarcheId: 'demarche-id',
