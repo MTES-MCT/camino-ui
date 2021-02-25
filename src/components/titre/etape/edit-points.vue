@@ -5,7 +5,7 @@
 
     <EditHeritage
       :prop.sync="etape.heritageProps.points"
-      nom="points"
+      prop-id="points"
       :is-array="true"
     >
       <template #write>

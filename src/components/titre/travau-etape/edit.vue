@@ -148,7 +148,7 @@
 import InputDate from '../../_ui/input-date.vue'
 import InputNumber from '../../_ui/input-number.vue'
 import Popup from '../../_ui/popup.vue'
-import EditSections from '../../_common/edit-sections.vue'
+import EditSections from './edit-sections.vue'
 
 import { etapeSaveFormat } from './edit'
 

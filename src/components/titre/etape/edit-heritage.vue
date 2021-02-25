@@ -26,6 +26,7 @@
         </Tag>
       </p>
     </div>
+    <slot />
     <button
       v-if="prop.etape"
       class="btn full-x rnd-xs py-s px-m h5"
@@ -43,8 +44,9 @@ export default {
   components: { Tag },
   props: {
     prop: { type: Object, required: true },
-    nom: { type: String, required: true },
-    isArray: { type: Boolean, default: false }
+    propId: { type: String, required: true },
+    isArray: { type: Boolean, default: false },
+    sectionId: { type: String, default: null }
   },
   computed: {
     buttonText() {
@@ -52,11 +54,32 @@ export default {
     },
 
     hasHeritage() {
-      return this.isArray
-        ? this.prop.etape &&
-            this.prop.etape[this.nom] &&
-            this.prop.etape[this.nom].length
-        : this.prop.etape && this.prop.etape[this.nom]
+      if (this.sectionId) {
+        return !!(
+          this.prop.etape &&
+          this.prop.etape.contenu &&
+          this.prop.etape.contenu[this.sectionId] &&
+          this.prop.etape.contenu[this.sectionId][this.propId]
+        )
+      } else if (!this.isArray && !this.isContenu) {
+        return !!(this.prop.etape && this.prop.etape[this.propId])
+      } else if (this.isArray && !this.isContenu) {
+        return !!(
+          this.prop.etape &&
+          this.prop.etape[this.propId] &&
+          this.prop.etape[this.propId].length
+        )
+      }
+
+      return false
+    },
+
+    hasIncertitude() {
+      return (
+        !this.sectionId &&
+        this.prop.etape.incertitudes &&
+        this.prop.etape.incertitudes[this.propId]
+      )
     }
   }
 }

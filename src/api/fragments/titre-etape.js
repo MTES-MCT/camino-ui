@@ -61,7 +61,7 @@ const fragmentHeritageTitreEtape = gql`
     }
     contenu
   }
-  
+
   ${fragmentIncertitudes}
 
   ${fragmentTitreAdministrations}
@@ -163,6 +163,7 @@ const fragmentTitreEtape = gql`
       ...pays
     }
     contenu
+    heritageContenu
 
     modification
     suppression

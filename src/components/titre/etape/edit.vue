@@ -101,7 +101,7 @@
       <EditSections
         v-if="etapeType.sections"
         :sections="etapeType.sections"
-        :element.sync="etape"
+        :etape.sync="etape"
       />
     </div>
 
@@ -144,7 +144,7 @@ import InputDate from '../../_ui/input-date.vue'
 import Popup from '../../_ui/popup.vue'
 import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
-import EditSections from '../../_common/edit-sections.vue'
+import EditSections from './edit-sections.vue'
 
 export default {
   name: 'CaminoEtapeEditPopup',
