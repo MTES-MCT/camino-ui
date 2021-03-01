@@ -121,9 +121,53 @@ export const mutations = {
   },
 
   heritageSet(state, { etape }) {
-    // merge les props et les contenu
-    // des étapes actuellement dans current et dans la nouvelle étape
-    // Vue.set(state, 'current', e)
+    let newEtape = {}
+    if (
+      (!state.current.heritageProps && etape.heritageProps) ||
+      (state.current.heritageProps && !etape.heritageProps)
+    ) {
+      newEtape = etape
+    }
+
+    newEtape.contenu = state.current.contenu
+    newEtape.heritageContenu = state.current.heritageContenu
+    newEtape.date = state.current.date
+    newEtape.type = state.current.type
+
+    if (Object.keys(etape.heritageContenu).length) {
+      Object.keys(etape.heritageContenu).forEach(sectionId => {
+        if (Object.keys(etape.heritageContenu[sectionId]).length) {
+          Object.keys(
+            etape.heritageContenu[sectionId].forEach(elementId => {
+              if (
+                state.current.heritageContenu &&
+                state.current.heritageContenu[sectionId] &&
+                state.current.heritageContenu[sectionId][elementId]
+              ) {
+                newEtape.contenu[sectionId][elementId] =
+                  state.current.contenu[sectionId][elementId]
+                newEtape.heritageContenu[sectionId][elementId] =
+                  state.current.heritageContenu[sectionId][elementId]
+              } else {
+                if (!newEtape.contenu[sectionId]) {
+                  newEtape.contenu[sectionId] = {}
+                }
+                newEtape.contenu[sectionId][elementId] =
+                  etape.contenu[sectionId][elementId]
+
+                if (!newEtape.heritageContenu[sectionId]) {
+                  newEtape.heritageContenu[sectionId] = {}
+                }
+                newEtape.heritageContenu[sectionId][elementId] =
+                  etape.heritageContenu[sectionId][elementId]
+              }
+            })
+          )
+        }
+      })
+    }
+
+    Vue.set(state, 'current', newEtape)
   },
 
   metasSet(state, data) {

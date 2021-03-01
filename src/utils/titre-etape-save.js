@@ -243,8 +243,6 @@ const etapeSaveFormat = etape => {
     delete etape.contenu
   }
 
-  console.log(etape.contenu)
-
   return etape
 }
 
