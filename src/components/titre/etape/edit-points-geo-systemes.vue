@@ -30,13 +30,13 @@
 
       <div v-if="etapeGeoSystemeId" class="tablet-blobs">
         <div v-if="etape.geoSystemeIds.length > 1" class="tablet-blob-1-2">
-          <label class="h5 pt-s mb">
+          <label class="h5 pt-s mb left">
             <input
               v-model="etape.geoSystemeOpposableId"
               type="radio"
               :value="etapeGeoSystemeId"
             />
-            opposable
+            Opposable
           </label>
         </div>
       </div>

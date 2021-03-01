@@ -191,9 +191,9 @@
             ><i class="icon-24 icon-plus flex-right" />
           </button>
 
-          <label v-if="pointsTotal.length" class="h5">
-            <input v-model="etape.incertitudes.points" type="checkbox" /> donnée
-            incertaine
+          <label v-if="pointsTotal.length" class="h5 left">
+            <input v-model="etape.incertitudes.points" type="checkbox" />
+            Incertain
           </label>
         </div>
       </template>
@@ -244,7 +244,16 @@ export default {
   },
 
   watch: {
-    'etape.geoSystemeIds': 'etapeGeoSystemeOpposableIdUpdate'
+    'etape.geoSystemeIds': 'etapeGeoSystemeOpposableIdUpdate',
+
+    etape: {
+      handler: function(etape) {
+        if (!etape.groupes[0][0].length) {
+          etape.incertitudes.points = false
+        }
+      },
+      deep: true
+    }
   },
 
   methods: {

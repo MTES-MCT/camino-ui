@@ -4,17 +4,25 @@
     <div v-else>
       <slot v-if="hasHeritage" name="read" />
       <p v-else class="mb-xs">Non renseigné</p>
-      <p class="h5 mb-s italic">
-        Hérité de : <span class="cap-first">{{ prop.etape.type.nom }}</span> ({{
+      <p
+        class="h5 italic"
+        :class="{
+          'mb-s': !prop.etape.incertitudes && prop.etape.incertitudes[nom],
+          'mb-0': prop.etape.incertitudes && prop.etape.incertitudes[nom]
+        }"
+      >
+        Hérité de :
+        <span class="cap-first">{{ prop.etape.type.nom }}</span> ({{
           prop.etape.date | dateFormat
         }})
+      </p>
+
+      <p class="mb-s">
         <Tag
-            v-if="prop.etape.incertitudes && prop.etape.incertitudes[nom]"
-            :mini="true"
-            color="bg-info"
-            class="ml-xs"
-        >
-          ?
+          v-if="prop.etape.incertitudes && prop.etape.incertitudes[nom]"
+          :mini="true"
+          color="bg-info"
+          >Incertain
         </Tag>
       </p>
     </div>
@@ -29,7 +37,7 @@
 </template>
 
 <script>
-import Tag from "@/components/_ui/tag";
+import Tag from '@/components/_ui/tag.vue'
 
 export default {
   components: { Tag },

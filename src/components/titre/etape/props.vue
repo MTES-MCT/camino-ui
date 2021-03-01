@@ -13,7 +13,7 @@
             color="bg-info"
             class="ml-xs"
           >
-            ?
+            Incertain
           </Tag>
         </p>
       </div>
@@ -32,7 +32,7 @@
             color="bg-info"
             class="ml-xs"
           >
-            ?
+            Incertain
           </Tag>
         </p>
       </div>
@@ -50,7 +50,7 @@
             color="bg-info"
             class="ml-xs"
           >
-            ?
+            Incertain
           </Tag>
         </p>
       </div>
@@ -68,7 +68,7 @@
             color="bg-info"
             class="ml-xs"
           >
-            ?
+            Incertain
           </Tag>
         </p>
       </div>
@@ -87,7 +87,7 @@
             color="bg-info"
             class="ml-xs"
           >
-            ?
+            Incertain
           </Tag>
         </p>
       </div>
@@ -110,7 +110,7 @@
               color="bg-info"
               class="ml-xs"
             >
-              ?
+              Incertain
             </Tag>
           </li>
         </ul>
@@ -133,7 +133,7 @@
               color="bg-info"
               class="ml-xs"
             >
-              ?
+              Incertain
             </Tag>
           </li>
         </ul>
@@ -154,15 +154,9 @@
           color="bg-info"
           class="ml-xs"
         >
-          ?
+          Incertain
         </Tag>
       </div>
-    </div>
-
-    <div v-if="incertitudesLength">
-      <p class="h5">
-        <Tag :mini="true" color="bg-info"> ? </Tag>&nbsp;: Donnée incertaine
-      </p>
     </div>
   </div>
 </template>

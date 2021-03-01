@@ -14,8 +14,8 @@
       </div>
     </div>
 
-    <label class="h5 mb">
-      <input v-model="point.subsidiaire" type="checkbox" /> subsidiaire
+    <label class="h5 mb left">
+      <input v-model="point.subsidiaire" type="checkbox" /> Subsidiaire
     </label>
 
     <div
