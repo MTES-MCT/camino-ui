@@ -9,7 +9,7 @@
           color="bg-info"
           class="ml-xs"
         >
-          ?
+          Incertain
         </Tag>
       </h6>
       <h3 class="cap-first mb-s">{{ etape.type.nom }}</h3>

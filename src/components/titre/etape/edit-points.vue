@@ -248,7 +248,12 @@ export default {
 
     etape: {
       handler: function(etape) {
-        if (!etape.groupes[0][0].length) {
+        if (
+          !etape.groupes ||
+          !etape.groupes[0] ||
+          !etape.groupes[0][0] ||
+          !etape.groupes[0][0].length
+        ) {
           etape.incertitudes.points = false
         }
       },

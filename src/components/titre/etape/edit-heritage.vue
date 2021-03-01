@@ -7,7 +7,7 @@
       <p
         class="h5 italic"
         :class="{
-          'mb-s': !prop.etape.incertitudes && prop.etape.incertitudes[nom],
+          'mb-s': !(prop.etape.incertitudes && prop.etape.incertitudes[nom]),
           'mb-0': prop.etape.incertitudes && prop.etape.incertitudes[nom]
         }"
       >
