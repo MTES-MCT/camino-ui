@@ -30,9 +30,9 @@
               />
             </div>
           </div>
-          <label v-if="etape.duree.ans || etape.duree.mois" class="h5">
-            <input v-model="etape.incertitudes.duree" type="checkbox" /> donnée
-            incertaine
+          <label v-if="etape.duree.ans || etape.duree.mois" class="h5 left">
+            <input v-model="etape.incertitudes.duree" type="checkbox" />
+            Incertain
           </label>
         </template>
         <template #read>
@@ -57,9 +57,9 @@
       >
         <template #write>
           <InputDate v-model="etape.dateDebut" class="mb-s" />
-          <label v-if="etape.dateDebut" class="h5">
+          <label v-if="etape.dateDebut" class="h5 left">
             <input v-model="etape.incertitudes.dateDebut" type="checkbox" />
-            Donnée incertaine
+            Incertain
           </label>
         </template>
         <template #read>
@@ -84,9 +84,9 @@
       >
         <template #write>
           <InputDate v-model="etape.dateFin" class="mb-s" />
-          <label v-if="etape.dateFin" class="h5">
+          <label v-if="etape.dateFin" class="h5 left">
             <input v-model="etape.incertitudes.dateFin" type="checkbox" />
-            Donnée incertaine
+            Incertain
           </label>
         </template>
         <template #read>
@@ -115,9 +115,9 @@
             placeholder="0"
             class="mb-s"
           />
-          <label v-if="etape.surface" class="h5">
+          <label v-if="etape.surface" class="h5 left">
             <input v-model="etape.incertitudes.surface" type="checkbox" />
-            Donnée incertaine
+            Incertain
           </label>
         </template>
         <template #read>
@@ -171,9 +171,9 @@
           ><i class="icon-24 icon-plus flex-right" />
         </button>
 
-        <label v-if="titulairesLength" class="h5">
+        <label v-if="titulairesLength" class="h5 left">
           <input v-model="etape.incertitudes.titulaires" type="checkbox" />
-          Donnée incertaine
+          Incertain
         </label>
       </template>
       <template #read>
@@ -233,9 +233,9 @@
           ><i class="icon-24 icon-plus flex-right" />
         </button>
 
-        <label v-if="amodiatairesLength" class="h5">
+        <label v-if="amodiatairesLength" class="h5 left">
           <input v-model="etape.incertitudes.amodiataires" type="checkbox" />
-          Donnée incertaine
+          Incertain
         </label>
       </template>
       <template #read>
@@ -310,9 +310,9 @@
           ><i class="icon-24 icon-plus flex-right" />
         </button>
 
-        <label v-if="substancesLength" class="h5">
+        <label v-if="substancesLength" class="h5 left">
           <input v-model="etape.incertitudes.substances" type="checkbox" />
-          Donnée incertaine
+          Incertain
         </label>
       </template>
 
@@ -368,6 +368,41 @@ export default {
 
     substancesLength() {
       return this.etape.substances.filter(({ id }) => id).length
+    }
+  },
+
+  watch: {
+    etape: {
+      handler: function(etape) {
+        if (!etape.duree) {
+          etape.incertitudes.duree = false
+        }
+
+        if (!etape.surface) {
+          etape.incertitudes.surface = false
+        }
+
+        if (!etape.dateDebut) {
+          etape.incertitudes.dateDebut = false
+        }
+
+        if (!etape.dateFin) {
+          etape.incertitudes.dateFin = false
+        }
+
+        if (!etape.titulaires.length) {
+          etape.incertitudes.titulaires = false
+        }
+
+        if (!etape.amodiataires.length) {
+          etape.incertitudes.amodiataires = false
+        }
+
+        if (!etape.substances.length) {
+          etape.incertitudes.substances = false
+        }
+      },
+      deep: true
     }
   },
 

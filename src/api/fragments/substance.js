@@ -29,7 +29,6 @@ const fragmentTitreSubstance = gql`
   fragment titreSubstance on TitreSubstance {
     id
     nom
-    connexe
     ordre
     symbole
     gerep
