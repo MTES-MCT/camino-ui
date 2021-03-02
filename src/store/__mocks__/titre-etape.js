@@ -89,13 +89,17 @@ const titreEtapeHeritage1 = {
   geoSystemeIds: [],
   geoSystemeOpposableId: null,
   contenu: {
-    sectionId: { elementId1: 'valeur', elementId2: 'valeur' }
+    sectionId1: { elementId1: 'valeur', elementId2: 'valeur' },
+    sectionId2: {}
   },
   heritageProps: {},
   heritageContenu: {
-    sectionId: {
+    sectionId1: {
       elementId1: { etape: { id: 'etape-id' }, actif: true },
-      elementId2: { etape: { id: 'etape-id' }, actif: true }
+      elementId2: { etape: { id: 'etape-id' }, actif: false }
+    },
+    sectionId2: {
+      elementId1: { etape: { id: 'etape-id' }, actif: true }
     }
   }
 }
@@ -103,14 +107,43 @@ const titreEtapeHeritage1 = {
 const titreEtapeHeritageRes1 = {
   heritageProps: {},
   heritageContenu: {
-    sectionId: {
+    sectionId1: {
       elementId1: { etape: { id: 'etape-id' }, actif: true },
-      elementId2: { etape: { id: 'etape-id' }, actif: true }
-    }
+      elementId2: { etape: { id: 'etape-id' }, actif: false }
+    },
+    sectionId2: {
+      elementId1: { etape: { id: 'etape-id' }, actif: true }
+    },
+    sectionId3: {}
   },
   contenu: {
-    sectionId: { elementId1: 'valeur', elementId2: 'valeur' }
+    sectionId1: { elementId1: 'valeur', elementId2: 'valeur' }
   }
+}
+
+const titreEtapeHeritage2 = {
+  amodiataires: [],
+  date: '2020-01-01',
+  dateDebut: undefined,
+  dateFin: undefined,
+  duree: { ans: null, mois: null },
+  geoSystemeIds: [],
+  geoSystemeOpposableId: null,
+  groupes: [],
+  heritageProps: {},
+  incertitudes: { date: undefined },
+  statutId: '',
+  substances: [],
+  surface: undefined,
+  titreDemarcheId: 'demarche-id',
+  titulaires: [],
+  typeId: 'etape-type-id'
+}
+
+const titreEtapeHeritageRes2 = {
+  heritageProps: {},
+  heritageContenu: {},
+  contenu: {}
 }
 
 export {
@@ -119,5 +152,7 @@ export {
   titreEtapeEdition,
   titreEtapeCreation,
   titreEtapeHeritage1,
-  titreEtapeHeritageRes1
+  titreEtapeHeritageRes1,
+  titreEtapeHeritage2,
+  titreEtapeHeritageRes2
 }
