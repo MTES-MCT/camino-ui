@@ -17,6 +17,7 @@
         :prop.sync="heritage[element.id]"
         :prop-id="element.id"
         :section-id="sectionId"
+        :is-array="element.type === 'checkboxes'"
       >
         <template #write>
           <EditSectionElementModifiable
@@ -29,10 +30,12 @@
           <p class="py-xs mb-0">{{ valeur }}</p>
         </template>
 
-        <p v-if="element.description || hasValeur" class="h5 mb-0">
-          <!-- eslint-disable vue/no-v-html -->
-          <span v-html="element.description" />
-        </p>
+        <!-- eslint-disable vue/no-v-html -->
+        <p
+          v-if="element.description"
+          class="h5 mb-s"
+          v-html="element.description"
+        />
       </EditHeritage>
     </div>
 

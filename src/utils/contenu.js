@@ -38,6 +38,10 @@ const contenuCompleteCheck = (sections, contenu) =>
   )
 
 const valeurFind = ({ id, type, valeurs }, contenu) => {
+  if (contenu[id] === undefined) {
+    return '–'
+  }
+
   if (['number', 'integer'].includes(type)) {
     return numberFormat(contenu[id])
   }
@@ -46,15 +50,26 @@ const valeurFind = ({ id, type, valeurs }, contenu) => {
     return contenu[id].map(id => valeurs.find(e => e.id === id).nom).join(', ')
   }
 
+  if (type === 'select') {
+    return valeurs.find(v => v.id === contenu[id]).nom
+  }
+
+  if (contenu[id] === true) return 'Oui'
+  else if (contenu[id] === false) return 'Non'
+
   return contenu[id]
 }
 
 const hasValeurCheck = (elementId, contenu) => {
   const valeur = contenu && contenu[elementId]
-  const inputValeur = !Array.isArray(valeur) && (valeur || valeur === 0)
-  const arrayValeur = valeur && Array.isArray(valeur) && valeur.length
 
-  return inputValeur || arrayValeur
+  if (
+    (!Array.isArray(valeur) && (valeur || valeur === 0 || valeur === false)) ||
+    (Array.isArray(valeur) && valeur.length)
+  )
+    return true
+
+  return false
 }
 
 export {

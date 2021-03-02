@@ -41,7 +41,8 @@
           :value="true"
           type="radio"
           class="p-s mt-s mb-s"
-        />Oui
+        />
+        Oui
       </label>
 
       <label>
@@ -51,7 +52,8 @@
           :value="false"
           type="radio"
           class="p-s mt-s mb-s"
-        />Non
+        />
+        Non
       </label>
     </div>
 
@@ -77,7 +79,7 @@
       <select
         v-if="valeurs && valeurs.length"
         v-model="contenu[element.id]"
-        class="p-s mr-s mb-s"
+        class="p-s mr-s"
       >
         <option v-for="value in valeurs" :key="value.id" :value="value.id">
           {{ value.nom }}

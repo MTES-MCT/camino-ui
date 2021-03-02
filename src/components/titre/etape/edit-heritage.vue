@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { hasValeurCheck } from '../../../utils/contenu'
 import Tag from '@/components/_ui/tag.vue'
 
 export default {
@@ -54,24 +55,18 @@ export default {
     },
 
     hasHeritage() {
+      let contenu
+
       if (this.sectionId) {
-        return !!(
+        contenu =
           this.prop.etape &&
           this.prop.etape.contenu &&
-          this.prop.etape.contenu[this.sectionId] &&
-          this.prop.etape.contenu[this.sectionId][this.propId]
-        )
-      } else if (!this.isArray && !this.isContenu) {
-        return !!(this.prop.etape && this.prop.etape[this.propId])
-      } else if (this.isArray && !this.isContenu) {
-        return !!(
-          this.prop.etape &&
-          this.prop.etape[this.propId] &&
-          this.prop.etape[this.propId].length
-        )
+          this.prop.etape.contenu[this.sectionId]
+      } else {
+        contenu = this.prop.etape
       }
 
-      return false
+      return hasValeurCheck(this.propId, contenu)
     },
 
     hasIncertitude() {
