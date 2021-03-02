@@ -42,7 +42,7 @@
       <div class="mb tablet-blob-1-3">
         <h6>X ({{ geoSysteme.unite.nom }})</h6>
         <inputNumber
-          v-model.trim.number="point.references[geoSysteme.id][0]"
+          v-model.trim.number="references(geoSysteme.id)[0]"
           :negative="true"
           placeholder="0,01"
         />
@@ -50,7 +50,7 @@
       <div class="mb tablet-blob-1-3">
         <h6>Y ({{ geoSysteme.unite.nom }})</h6>
         <inputNumber
-          v-model.trim.number="point.references[geoSysteme.id][1]"
+          v-model.trim.number="references(geoSysteme.id)[1]"
           :negative="true"
           placeholder="0,01"
         />
@@ -74,6 +74,12 @@ export default {
   computed: {
     geoSystemes() {
       return this.$store.state.titreEtape.metas.geoSystemes
+    }
+  },
+
+  methods: {
+    references(id) {
+      return this.point.references[id] || [null, null]
     }
   }
 }
