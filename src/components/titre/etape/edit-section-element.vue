@@ -29,10 +29,7 @@
           <p class="py-xs mb-0">{{ valeur }}</p>
         </template>
 
-        <p
-          v-if="(element.description && modifiable) || hasValeur"
-          class="h5 mb-0"
-        >
+        <p v-if="element.description || hasValeur" class="h5 mb-0">
           <!-- eslint-disable vue/no-v-html -->
           <span v-html="element.description" />
         </p>

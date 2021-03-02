@@ -127,7 +127,8 @@ export const mutations = {
       date: state.current.date,
       typeId: state.current.typeId,
       statutId: '',
-      incertitudes: { date: state.current.incertitudes.date }
+      incertitudes: { date: state.current.incertitudes.date },
+      titreDemarcheId: state.current.titreDemarcheId
     }
 
     // si
@@ -167,6 +168,13 @@ export const mutations = {
       Object.keys(e.heritageContenu).forEach(sectionId => {
         if (Object.keys(e.heritageContenu[sectionId]).length) {
           Object.keys(e.heritageContenu[sectionId]).forEach(elementId => {
+            if (!newEtape.contenu) {
+              newEtape.contenu = {}
+            }
+
+            if (!newEtape.contenu[sectionId]) {
+              newEtape.contenu[sectionId] = {}
+            }
             if (
               state.current.heritageContenu &&
               state.current.heritageContenu[sectionId] &&
@@ -177,16 +185,10 @@ export const mutations = {
               newEtape.heritageContenu[sectionId][elementId] =
                 state.current.heritageContenu[sectionId][elementId]
             } else {
-              if (!newEtape.contenu) {
-                newEtape.contenu = {}
+              if (e.contenu && e.contenu[sectionId]) {
+                newEtape.contenu[sectionId][elementId] =
+                  e.contenu[sectionId][elementId]
               }
-
-              if (!newEtape.contenu[sectionId]) {
-                newEtape.contenu[sectionId] = {}
-              }
-
-              newEtape.contenu[sectionId][elementId] =
-                e.contenu[sectionId][elementId]
 
               if (!newEtape.heritageContenu) {
                 newEtape.heritageContenu = {}
