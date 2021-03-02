@@ -88,7 +88,7 @@
         v-for="tab in tabsActives"
         :key="tab.id"
         class="mr-xs"
-        :class="{ active: tabActive === tab.id }"
+        :class="{ active: tabActived === tab.id }"
       >
         <button
           :id="`cmn-titre-tab-${tab.id}`"
@@ -107,19 +107,19 @@
     </div>
 
     <TitreDemarches
-      v-if="tabActive === 'demarches'"
+      v-if="tabActived === 'demarches'"
       :demarches="titre.demarches"
       @titre-event-track="eventTrack"
     />
 
     <TitreActivitesList
-      v-if="titre.activites.length && tabActive === 'activites'"
+      v-if="titre.activites.length && tabActived === 'activites'"
       :activites="titre.activites"
       :titre-id="titre.id"
     />
 
     <TitreTravaux
-      v-if="tabActive === 'travaux'"
+      v-if="tabActived === 'travaux'"
       :travaux="titre.travaux"
       @titre-event-track="eventTrack"
     />
@@ -199,6 +199,12 @@ export default {
 
         return acc
       }, [])
+    },
+
+    tabActived() {
+      return this.tabActive === 'activites' && !this.titre.activites.length
+        ? 'demarches'
+        : this.tabActive
     }
   },
 
