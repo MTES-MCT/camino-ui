@@ -39,6 +39,7 @@ const titreEtapeMetasRes = {
 const titreEtapeEdition = {
   id: 'etape-id',
   titreDemarcheId: 'demarche-id',
+  date: '2020-01-01',
   duree: { ans: null, mois: null },
   amodiataires: [],
   titulaires: [],
@@ -53,6 +54,7 @@ const titreEtapeEdition = {
 
 const titreEtapeCreation = {
   titreDemarcheId: 'demarche-id',
+  date: '2020-01-01',
   duree: { ans: null, mois: null },
   amodiataires: [],
   titulaires: [],

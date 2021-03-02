@@ -122,7 +122,6 @@ export const mutations = {
 
   heritageSet(state, { etape, titreDemarcheId }) {
     const e = etapeEditFormat(etape, titreDemarcheId)
-    console.log(e)
 
     const newEtape = {
       date: state.current.date,

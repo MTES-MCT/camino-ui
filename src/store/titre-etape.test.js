@@ -73,7 +73,8 @@ describe('étapes', () => {
     const apiMockMetas = api.titreEtapeMetas.mockResolvedValue(titreEtapeMetas)
     const apiMockEtape = api.etape.mockResolvedValue({
       id: 'etape-id',
-      titreDemarcheId: 'demarche-id'
+      titreDemarcheId: 'demarche-id',
+      date: '2020-01-01'
     })
 
     await store.dispatch('titreEtape/metasGet', {
@@ -90,7 +91,6 @@ describe('étapes', () => {
 
   test('récupère les métas pour créer une étape', async () => {
     const apiMockMetas = api.titreEtapeMetas.mockResolvedValue(titreEtapeMetas)
-    const apiMockEtape = api.etapeHeritage.mockResolvedValue({})
 
     await store.dispatch('titreEtape/metasGet', {
       titreDemarcheId: 'demarche-id',
@@ -98,7 +98,6 @@ describe('étapes', () => {
     })
 
     expect(apiMockMetas).toHaveBeenCalled()
-    expect(apiMockEtape).toHaveBeenCalled()
     expect(store.state.titreEtape.metas).toEqual(titreEtapeMetasRes)
     expect(store.state.titreEtape.current).toEqual(titreEtapeCreation)
     expect(mutations.loadingRemove).toHaveBeenCalled()
