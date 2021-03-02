@@ -28,14 +28,16 @@ export const actions = {
     try {
       commit('loadingAdd', 'titreEtapeMetasGet', { root: true })
 
-      const metas = await titreEtapeMetas({ titreDemarcheId, id, date })
       let newEtape
 
       if (id) {
         newEtape = await etape({ id })
+        date = newEtape.date
       } else {
         newEtape = { date }
       }
+
+      const metas = await titreEtapeMetas({ titreDemarcheId, id, date })
 
       commit('metasSet', metas)
       commit('set', { etape: newEtape, titreDemarcheId })
