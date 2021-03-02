@@ -212,6 +212,8 @@ const fragmentTitreEtapeHeritage = gql`
       ...titreSubstance
     }
 
+    contenu
+
     heritageProps {
       ...heritageProps
     }

@@ -68,7 +68,10 @@ export default {
     },
 
     valeur() {
-      return valeurFind(this.element, this.contenu)
+      return valeurFind(
+        this.element,
+        this.heritage[this.element.id].etape.contenu[this.sectionId]
+      )
     }
   }
 }

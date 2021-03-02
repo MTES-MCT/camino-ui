@@ -51,7 +51,7 @@ export const actions = {
       commit('loadingAdd', 'titreEtapeHeritageGet', { root: true })
       const data = await etapeHeritage({ titreDemarcheId, date, typeId })
 
-      commit('heritageSet', { etape: data })
+      commit('heritageSet', { etape: data, titreDemarcheId })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -120,49 +120,87 @@ export const mutations = {
     Vue.set(state, 'current', e)
   },
 
-  heritageSet(state, { etape }) {
-    let newEtape = {}
-    if (
-      (!state.current.heritageProps && etape.heritageProps) ||
-      (state.current.heritageProps && !etape.heritageProps)
-    ) {
-      newEtape = etape
+  heritageSet(state, { etape, titreDemarcheId }) {
+    const e = etapeEditFormat(etape, titreDemarcheId)
+    console.log(e)
+
+    const newEtape = {
+      date: state.current.date,
+      typeId: state.current.typeId,
+      statutId: '',
+      incertitudes: { date: state.current.incertitudes.date }
     }
 
-    newEtape.contenu = state.current.contenu
-    newEtape.heritageContenu = state.current.heritageContenu
-    newEtape.date = state.current.date
-    newEtape.type = state.current.type
+    // si
+    // - on crée une nouvelle étape fondamentale
+    // - on change le type d'étape (non-fondamentale -> fondamentale)
+    // alors la nouvelle étape récupère les propriété de l'API
+    if (!state.current.heritageProps && e.heritageProps) {
+      newEtape.heritageProps = e.heritageProps
+      newEtape.duree = e.duree
+      newEtape.dateDebut = e.dateDebut
+      newEtape.dateFin = e.dateFin
+      newEtape.surface = e.surface
+      newEtape.titulaires = e.titulaires
+      newEtape.amodiataires = e.amodiataires
+      newEtape.substances = e.substances
+      newEtape.groupes = e.groupes
+      newEtape.geoSystemeIds = e.geoSystemeIds
+      newEtape.geoSystemeOpposableId = e.geoSystemeOpposableId
+    }
+    // si on change le type d'étape (fondamentale -> fondamentale)
+    // alors on garde les propriétés actuelles
+    else if (state.current.heritageProps && e.heritageProps) {
+      newEtape.heritageProps = state.current.heritageProps
+      newEtape.duree = state.current.duree
+      newEtape.dateDebut = state.current.dateDebut
+      newEtape.dateFin = state.current.dateFin
+      newEtape.surface = state.current.surface
+      newEtape.titulaires = state.current.titulaires
+      newEtape.amodiataires = state.current.amodiataires
+      newEtape.substances = state.current.substances
+      newEtape.groupes = state.current.groupes
+      newEtape.geoSystemeIds = state.current.geoSystemeIds
+      newEtape.geoSystemeOpposableId = state.current.geoSystemeOpposableId
+    }
 
-    if (Object.keys(etape.heritageContenu).length) {
-      Object.keys(etape.heritageContenu).forEach(sectionId => {
-        if (Object.keys(etape.heritageContenu[sectionId]).length) {
-          Object.keys(
-            etape.heritageContenu[sectionId].forEach(elementId => {
-              if (
-                state.current.heritageContenu &&
-                state.current.heritageContenu[sectionId] &&
+    if (e.heritageContenu && Object.keys(e.heritageContenu).length) {
+      Object.keys(e.heritageContenu).forEach(sectionId => {
+        if (Object.keys(e.heritageContenu[sectionId]).length) {
+          Object.keys(e.heritageContenu[sectionId]).forEach(elementId => {
+            if (
+              state.current.heritageContenu &&
+              state.current.heritageContenu[sectionId] &&
+              state.current.heritageContenu[sectionId][elementId]
+            ) {
+              newEtape.contenu[sectionId][elementId] =
+                state.current.contenu[sectionId][elementId]
+              newEtape.heritageContenu[sectionId][elementId] =
                 state.current.heritageContenu[sectionId][elementId]
-              ) {
-                newEtape.contenu[sectionId][elementId] =
-                  state.current.contenu[sectionId][elementId]
-                newEtape.heritageContenu[sectionId][elementId] =
-                  state.current.heritageContenu[sectionId][elementId]
-              } else {
-                if (!newEtape.contenu[sectionId]) {
-                  newEtape.contenu[sectionId] = {}
-                }
-                newEtape.contenu[sectionId][elementId] =
-                  etape.contenu[sectionId][elementId]
-
-                if (!newEtape.heritageContenu[sectionId]) {
-                  newEtape.heritageContenu[sectionId] = {}
-                }
-                newEtape.heritageContenu[sectionId][elementId] =
-                  etape.heritageContenu[sectionId][elementId]
+            } else {
+              if (!newEtape.contenu) {
+                newEtape.contenu = {}
               }
-            })
-          )
+
+              if (!newEtape.contenu[sectionId]) {
+                newEtape.contenu[sectionId] = {}
+              }
+
+              newEtape.contenu[sectionId][elementId] =
+                e.contenu[sectionId][elementId]
+
+              if (!newEtape.heritageContenu) {
+                newEtape.heritageContenu = {}
+              }
+
+              if (!newEtape.heritageContenu[sectionId]) {
+                newEtape.heritageContenu[sectionId] = {}
+              }
+
+              newEtape.heritageContenu[sectionId][elementId] =
+                e.heritageContenu[sectionId][elementId]
+            }
+          })
         }
       })
     }

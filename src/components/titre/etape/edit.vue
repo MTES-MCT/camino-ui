@@ -65,8 +65,6 @@
 
       <hr />
 
-      heritageLoaded: {{ heritageLoaded }}
-
       <div v-if="heritageLoaded">
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -172,7 +170,7 @@ export default {
       events: { saveKeyUp: true },
       newDate: new Date().toISOString().slice(0, 10),
       metasLoaded: false,
-      heritageLoaded: true
+      heritageLoaded: false
     }
   },
 

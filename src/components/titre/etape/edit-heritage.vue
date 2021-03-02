@@ -7,8 +7,8 @@
       <p
         class="h5 italic"
         :class="{
-          'mb-s': !(prop.etape.incertitudes && prop.etape.incertitudes[nom]),
-          'mb-0': prop.etape.incertitudes && prop.etape.incertitudes[nom]
+          'mb-s': !(prop.etape.incertitudes && prop.etape.incertitudes[propId]),
+          'mb-0': prop.etape.incertitudes && prop.etape.incertitudes[propId]
         }"
       >
         Hérité de :
@@ -19,7 +19,7 @@
 
       <p class="mb-s">
         <Tag
-          v-if="prop.etape.incertitudes && prop.etape.incertitudes[nom]"
+          v-if="prop.etape.incertitudes && prop.etape.incertitudes[propId]"
           :mini="true"
           color="bg-info"
           >Incertain
