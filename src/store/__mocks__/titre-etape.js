@@ -67,9 +67,57 @@ const titreEtapeCreation = {
   substances: []
 }
 
+const titreEtapeHeritage1 = {
+  date: '2020-01-01',
+  incertitudes: {
+    date: undefined
+  },
+  statutId: '',
+  titreDemarcheId: 'demarche-id',
+  typeId: 'etape-type-id',
+  dateDebut: undefined,
+  dateFin: undefined,
+  duree: {
+    ans: null,
+    mois: null
+  },
+  surface: undefined,
+  amodiataires: [],
+  titulaires: [],
+  groupes: [],
+  substances: [],
+  geoSystemeIds: [],
+  geoSystemeOpposableId: null,
+  contenu: {
+    sectionId: { elementId1: 'valeur', elementId2: 'valeur' }
+  },
+  heritageProps: {},
+  heritageContenu: {
+    sectionId: {
+      elementId1: { etape: { id: 'etape-id' }, actif: true },
+      elementId2: { etape: { id: 'etape-id' }, actif: true }
+    }
+  }
+}
+
+const titreEtapeHeritageRes1 = {
+  heritageProps: {},
+  heritageContenu: {
+    sectionId: {
+      elementId1: { etape: { id: 'etape-id' }, actif: true },
+      elementId2: { etape: { id: 'etape-id' }, actif: true }
+    }
+  },
+  contenu: {
+    sectionId: { elementId1: 'valeur', elementId2: 'valeur' }
+  }
+}
+
 export {
   titreEtapeMetas,
   titreEtapeMetasRes,
   titreEtapeEdition,
-  titreEtapeCreation
+  titreEtapeCreation,
+  titreEtapeHeritage1,
+  titreEtapeHeritageRes1
 }

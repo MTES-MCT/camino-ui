@@ -59,7 +59,10 @@ describe('etapeSaveFormat', () => {
         substances: [],
         contenu: {},
         incertitudes: {},
-        heritageProps: { 'prop-id': { etape: {}, actif: true } }
+        heritageProps: { 'prop-id': { etape: {}, actif: true } },
+        heritageContenu: {
+          'section-id': { 'element-id': { etape: {}, actif: true } }
+        }
       })
     ).toEqual({
       amodiataires: [],
@@ -85,7 +88,10 @@ describe('etapeSaveFormat', () => {
       substances: [],
       titreDemarcheId: 'demarche-id',
       titulaires: [],
-      heritageProps: { 'prop-id': { actif: true } }
+      heritageProps: { 'prop-id': { actif: true } },
+      heritageContenu: {
+        'section-id': { 'element-id': { actif: true } }
+      }
     })
 
     expect(

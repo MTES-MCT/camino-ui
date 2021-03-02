@@ -175,6 +175,7 @@ export const mutations = {
             if (!newEtape.contenu[sectionId]) {
               newEtape.contenu[sectionId] = {}
             }
+
             if (
               state.current.heritageContenu &&
               state.current.heritageContenu[sectionId] &&
@@ -185,7 +186,7 @@ export const mutations = {
               newEtape.heritageContenu[sectionId][elementId] =
                 state.current.heritageContenu[sectionId][elementId]
             } else {
-              if (e.contenu && e.contenu[sectionId]) {
+              if (e.contenu[sectionId]) {
                 newEtape.contenu[sectionId][elementId] =
                   e.contenu[sectionId][elementId]
               }

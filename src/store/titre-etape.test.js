@@ -7,7 +7,9 @@ import {
   titreEtapeMetas,
   titreEtapeMetasRes,
   titreEtapeEdition,
-  titreEtapeCreation
+  titreEtapeCreation,
+  titreEtapeHeritage1,
+  titreEtapeHeritageRes1
 } from './__mocks__/titre-etape'
 
 jest.mock('../api/titres-etapes', () => ({
@@ -115,7 +117,46 @@ describe('étapes', () => {
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
-  test('créé à jour une étape', async () => {
+  test("récupère l'héritage d'une étape", async () => {
+    store.state.titreEtape.current = {
+      date: '2020-01-01',
+      typeId: 'etape-type-id',
+      incertitudes: {},
+      titreDemarcheId: 'demarche-id'
+    }
+    const apiMock1 = api.etapeHeritage.mockResolvedValue(titreEtapeHeritageRes1)
+    await store.dispatch('titreEtape/heritageGet', {
+      typeId: 'etape-type-id',
+      titreDemarcheId: 'demarche-id',
+      date: '2020-01-02'
+    })
+
+    expect(apiMock1).toHaveBeenCalled()
+    expect(store.state.titreEtape.current).toEqual(titreEtapeHeritage1)
+
+    const apiMock2 = api.etapeHeritage.mockResolvedValue(titreEtapeHeritageRes1)
+    await store.dispatch('titreEtape/heritageGet', {
+      typeId: 'etape-type-id',
+      titreDemarcheId: 'demarche-id',
+      date: '2020-01-02'
+    })
+
+    expect(apiMock2).toHaveBeenCalled()
+    expect(store.state.titreEtape.current).toEqual(titreEtapeHeritage1)
+  })
+
+  test("retourne une erreur si l'API retourne une erreur lors de la création d'une étape", async () => {
+    api.etapeHeritage.mockRejectedValue(new Error('erreur api'))
+    await store.dispatch('titreEtape/heritageGet', {
+      typeId: 'etape-type-id',
+      titreDemarcheId: 'demarche-id',
+      date: '2020-01-02'
+    })
+
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test('créé une étape', async () => {
     api.etapeCreer.mockResolvedValue({ id: 14, nom: 'champs' })
     await store.dispatch('titreEtape/upsert', { nom: 'champs' })
 
