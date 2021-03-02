@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.62](https://github.com/MTES-MCT/camino-ui/compare/v0.22.61...v0.22.62) (2021-03-02)
+
+
+### Features
+
+* **héritage:** ajoute l’héritage de l’incertitude entre 2 étapes fondamentales ([#260](https://github.com/MTES-MCT/camino-ui/issues/260)) ([320ca6c](https://github.com/MTES-MCT/camino-ui/commit/320ca6c548389a579e6ac7765521f4c8a11dcbc3))
+* hérite les propriétés entre les étapes ([#258](https://github.com/MTES-MCT/camino-ui/issues/258)) ([1e741c6](https://github.com/MTES-MCT/camino-ui/commit/1e741c62ba67d3f64aa513838431e83bf902dbd3))
+
+
+### Bug Fixes
+
+* affiche l'incertitude sur la date ([c316fda](https://github.com/MTES-MCT/camino-ui/commit/c316fda41f6dd8dc67cc137f40e0aeaf5de9981b))
+* **étape:** utilise la bonne date pour la récupération des métas lors de la modification d’une étape ([#263](https://github.com/MTES-MCT/camino-ui/issues/263)) ([0f18db0](https://github.com/MTES-MCT/camino-ui/commit/0f18db05290dfa5011de17ca05b196ccb6b46b06))
+* initialise les incertitudes si la propriété est modifiée ([#262](https://github.com/MTES-MCT/camino-ui/issues/262)) ([0698efb](https://github.com/MTES-MCT/camino-ui/commit/0698efb4a077c01c50892de1f7936f6bb320d5b6))
+
 ### [0.22.61](https://github.com/MTES-MCT/camino-ui/compare/v0.22.60...v0.22.61) (2021-02-18)
 
 
