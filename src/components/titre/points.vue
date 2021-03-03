@@ -81,22 +81,10 @@
               </p>
             </div>
             <div v-if="!point.lot" class="tablet-blob-1-2">
-              <div class="blobs-packed mb-s">
-                <div class="blob-packed-1-2 border-l px-s">
-                  <p class="h5 flex my-xxs">
-                    <span class="flex-right mono bold">{{
-                      numberFormat(round(point.references[geoSystemeId][0]))
-                    }}</span>
-                  </p>
-                </div>
-                <div class="blob-packed-1-2 border-l px-s">
-                  <p class="h5 flex my-xxs">
-                    <span class="flex-right mono bold">{{
-                      numberFormat(round(point.references[geoSystemeId][1]))
-                    }}</span>
-                  </p>
-                </div>
-              </div>
+              <pointReference
+                :geo-systeme-id="geoSystemeId"
+                :point-references="point.references"
+              />
             </div>
           </div>
         </div>
@@ -108,11 +96,10 @@
 <script>
 import { etapeGroupesBuild } from '../../utils/titre-etape-edit'
 import Tag from '../_ui/tag.vue'
+import pointReference from './point-reference.vue'
 
 export default {
-  components: {
-    Tag
-  },
+  components: { Tag, pointReference },
 
   props: {
     points: { type: Array, required: true }
@@ -157,12 +144,6 @@ export default {
     this.geoSystemeId =
       this.geoSystemeOpposableId ||
       (this.geoSystemes[0] && this.geoSystemes[0].id)
-  },
-
-  methods: {
-    round(v) {
-      return Math.round(v * 1000000) / 1000000
-    }
   }
 }
 </script>
