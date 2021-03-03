@@ -48,10 +48,14 @@ export const actions = {
     }
   },
 
-  async heritageGet({ commit }, { titreDemarcheId, typeId, date }) {
+  async heritageGet({ commit, state }, { titreDemarcheId, typeId, date }) {
     try {
       commit('loadingAdd', 'titreEtapeHeritageGet', { root: true })
-      const data = await etapeHeritage({ titreDemarcheId, date, typeId })
+      const data = await etapeHeritage({
+        titreDemarcheId,
+        date: state.current.date ? state.current.date : date,
+        typeId
+      })
 
       commit('heritageSet', { etape: data, titreDemarcheId })
     } catch (e) {
