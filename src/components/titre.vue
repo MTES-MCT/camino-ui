@@ -29,10 +29,10 @@
             v-for="tab in geoTabs"
             :key="tab.id"
             class="mr-xs"
-            :class="{ active: geoTabActive === tab.id }"
+            :class="{ active: geoTabActiveId === tab.id }"
           >
             <button
-              v-if="geoTabActive !== tab.id"
+              v-if="geoTabActiveId !== tab.id"
               class="p-m btn-tab rnd-t-s"
               @click="geoTabToggle(tab.id)"
             >
@@ -48,7 +48,7 @@
       <div class="line-neutral width-full" />
 
       <TitreMap
-        v-if="titre.geojsonMultiPolygon && geoTabActive === 'carte'"
+        v-if="titre.geojsonMultiPolygon && geoTabActiveId === 'carte'"
         :geojson="titre.geojsonMultiPolygon"
         :points="titre.points"
         :domaine-id="titre.domaine.id"
@@ -57,7 +57,7 @@
       />
 
       <div
-        v-if="titre.points && geoTabActive === 'points'"
+        v-if="titre.points && geoTabActiveId === 'points'"
         class="points width-full bg-alt"
       >
         <div class="container bg-bg py">
@@ -83,12 +83,12 @@
       @titre-event-track="eventTrack"
     />
 
-    <div v-if="tabsActives.length > 1" class="flex">
+    <div v-if="tabs.length > 1" class="flex">
       <div
-        v-for="tab in tabsActives"
+        v-for="tab in tabs"
         :key="tab.id"
         class="mr-xs"
-        :class="{ active: tabActived === tab.id }"
+        :class="{ active: tabActiveId === tab.id }"
       >
         <button
           :id="`cmn-titre-tab-${tab.id}`"
@@ -107,19 +107,19 @@
     </div>
 
     <TitreDemarches
-      v-if="tabActived === 'demarches'"
+      v-if="tabActiveId === 'demarches'"
       :demarches="titre.demarches"
       @titre-event-track="eventTrack"
     />
 
     <TitreActivitesList
-      v-if="titre.activites.length && tabActived === 'activites'"
+      v-if="titre.activites.length && tabActiveId === 'activites'"
       :activites="titre.activites"
       :titre-id="titre.id"
     />
 
     <TitreTravaux
-      v-if="tabActived === 'travaux'"
+      v-if="tabActiveId === 'travaux'"
       :travaux="titre.travaux"
       @titre-event-track="eventTrack"
     />
@@ -161,13 +161,8 @@ export default {
 
   data() {
     return {
-      tabActive: 'demarches',
-      geoTabActive: 'carte',
-      tabs: [
-        { id: 'demarches', nom: 'Droits miniers' },
-        { id: 'activites', nom: 'Activités' },
-        { id: 'travaux', nom: 'Travaux' }
-      ],
+      tabActiveId: 'demarches',
+      geoTabActiveId: 'carte',
       geoTabs: [
         { id: 'carte', nom: 'Carte', icon: 'globe' },
         { id: 'points', nom: 'Points', icon: 'list' }
@@ -188,27 +183,29 @@ export default {
       return !!this.titre
     },
 
-    tabsActives() {
-      return this.tabs.reduce((acc, tab) => {
-        if (
-          (this.titre[tab.id] && this.titre[tab.id].length) ||
-          (tab.id === 'travaux' && this.titre.travauxCreation)
-        ) {
-          acc.push(tab)
-        }
+    tabs() {
+      const tabs = [{ id: 'demarches', nom: 'Droits miniers' }]
 
-        return acc
-      }, [])
-    },
+      if (this.titre?.activites?.length) {
+        tabs.push({ id: 'activites', nom: 'Activités' })
+      }
 
-    tabActived() {
-      return this.tabActive === 'activites' && !this.titre.activites.length
-        ? 'demarches'
-        : this.tabActive
+      if (this.titre?.travaux?.length || this.titre?.travauxCreation) {
+        tabs.push({ id: 'travaux', nom: 'Travaux' })
+      }
+
+      return tabs
     }
   },
 
   watch: {
+    tabs: function(tabs) {
+      const tabsActivesIds = tabs.map(({ id }) => id)
+
+      if (!tabsActivesIds.includes(this.tabActiveId)) {
+        this.tabActiveId = tabsActivesIds[0]
+      }
+    },
     $route: 'get',
 
     user: 'get'
@@ -233,7 +230,8 @@ export default {
         action: `titre-${tabId}_consulter`,
         nom: this.$store.state.titre.current.id
       })
-      this.tabActive = tabId
+
+      this.tabActiveId = tabId
     },
 
     geoTabToggle(tabId) {
@@ -242,7 +240,8 @@ export default {
         action: `titre-vue${tabId}_consulter`,
         nom: this.$store.state.titre.current.id
       })
-      this.geoTabActive = tabId
+
+      this.geoTabActiveId = tabId
     },
 
     eventTrack(event) {
