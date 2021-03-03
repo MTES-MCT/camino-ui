@@ -311,8 +311,7 @@ const metasIndex = {
         nom: 'Couleur',
         type: Array,
         elements: ['warning', 'neutral', 'success', 'error']
-      },
-      { id: 'ordre', nom: 'Ordre', type: Number }
+      }
     ]
   },
   'etapes-types--etapes-statuts': {
