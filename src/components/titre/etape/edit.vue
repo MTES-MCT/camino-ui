@@ -273,10 +273,10 @@ export default {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13 && this.events.saveKeyUp) {
-        if (this.etape.date && this.complete) {
-          this.save()
-        } else if (!this.etape.date) {
+        if (this.dateIsVisible && this.newDate) {
           this.metasGet()
+        } else if (this.complete) {
+          this.save()
         }
       }
     },
