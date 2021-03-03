@@ -18,52 +18,21 @@
       <input v-model="point.subsidiaire" type="checkbox" /> Subsidiaire
     </label>
 
-    <div
-      v-for="geoSysteme in geoSystemes.filter(({ id }) =>
-        geoSystemeIds.includes(id)
-      )"
+    <EditPointReference
+      v-for="geoSysteme in geoSystemes"
       :key="`${point.id}-${geoSysteme.id}`"
-      class="tablet-blobs"
-    >
-      <div class="mb tablet-blob-1-3">
-        <h6>
-          Système
-          <span
-            v-if="geoSystemeOpposableId === geoSysteme.id"
-            class="bg-info py-xxs px-xs rnd-xs color-bg"
-            >Opposable</span
-          >
-        </h6>
-
-        <p class="py-s mb-0 h5 bold">
-          {{ geoSysteme.nom }}
-        </p>
-      </div>
-      <div class="mb tablet-blob-1-3">
-        <h6>X ({{ geoSysteme.unite.nom }})</h6>
-        <inputNumber
-          v-model.trim.number="point.references[geoSysteme.id][0]"
-          :negative="true"
-          placeholder="0,01"
-        />
-      </div>
-      <div class="mb tablet-blob-1-3">
-        <h6>Y ({{ geoSysteme.unite.nom }})</h6>
-        <inputNumber
-          v-model.trim.number="point.references[geoSysteme.id][1]"
-          :negative="true"
-          placeholder="0,01"
-        />
-      </div>
-    </div>
+      :point-references.sync="point.references"
+      :geo-systeme="geoSysteme"
+      :geo-systeme-opposable-id="geoSystemeOpposableId"
+    />
   </div>
 </template>
 
 <script>
-import InputNumber from '../../_ui/input-number.vue'
+import EditPointReference from './edit-points-point-reference.vue'
 
 export default {
-  components: { InputNumber },
+  components: { EditPointReference },
 
   props: {
     point: { type: Object, default: () => ({}) },
@@ -73,7 +42,9 @@ export default {
 
   computed: {
     geoSystemes() {
-      return this.$store.state.titreEtape.metas.geoSystemes
+      return this.$store.state.titreEtape.metas.geoSystemes.filter(({ id }) =>
+        this.geoSystemeIds.includes(id)
+      )
     }
   }
 }
