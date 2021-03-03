@@ -10,6 +10,7 @@ import {
   etapeModifier,
   etapeSupprimer
 } from '../api/titres-etapes'
+import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
 
 export const state = {
   current: null,
@@ -127,91 +128,8 @@ export const mutations = {
   },
 
   heritageSet(state, { etape, titreDemarcheId }) {
-    const e = etapeEditFormat(etape, titreDemarcheId)
-
-    const newEtape = {
-      date: state.current.date,
-      typeId: state.current.typeId,
-      statutId: '',
-      incertitudes: { date: state.current.incertitudes.date },
-      titreDemarcheId: state.current.titreDemarcheId
-    }
-
-    // si
-    // - on crée une nouvelle étape fondamentale
-    // - on change le type d'étape (non-fondamentale -> fondamentale)
-    // alors la nouvelle étape récupère les propriété de l'API
-    if (!state.current.heritageProps && e.heritageProps) {
-      newEtape.heritageProps = e.heritageProps
-      newEtape.duree = e.duree
-      newEtape.dateDebut = e.dateDebut
-      newEtape.dateFin = e.dateFin
-      newEtape.surface = e.surface
-      newEtape.titulaires = e.titulaires
-      newEtape.amodiataires = e.amodiataires
-      newEtape.substances = e.substances
-      newEtape.groupes = e.groupes
-      newEtape.geoSystemeIds = e.geoSystemeIds
-      newEtape.geoSystemeOpposableId = e.geoSystemeOpposableId
-    }
-    // si on change le type d'étape (fondamentale -> fondamentale)
-    // alors on garde les propriétés actuelles
-    else if (state.current.heritageProps && e.heritageProps) {
-      newEtape.heritageProps = state.current.heritageProps
-      newEtape.duree = state.current.duree
-      newEtape.dateDebut = state.current.dateDebut
-      newEtape.dateFin = state.current.dateFin
-      newEtape.surface = state.current.surface
-      newEtape.titulaires = state.current.titulaires
-      newEtape.amodiataires = state.current.amodiataires
-      newEtape.substances = state.current.substances
-      newEtape.groupes = state.current.groupes
-      newEtape.geoSystemeIds = state.current.geoSystemeIds
-      newEtape.geoSystemeOpposableId = state.current.geoSystemeOpposableId
-    }
-
-    if (e.heritageContenu && Object.keys(e.heritageContenu).length) {
-      Object.keys(e.heritageContenu).forEach(sectionId => {
-        if (Object.keys(e.heritageContenu[sectionId]).length) {
-          Object.keys(e.heritageContenu[sectionId]).forEach(elementId => {
-            if (!newEtape.contenu) {
-              newEtape.contenu = {}
-            }
-
-            if (!newEtape.contenu[sectionId]) {
-              newEtape.contenu[sectionId] = {}
-            }
-
-            if (
-              state.current.heritageContenu &&
-              state.current.heritageContenu[sectionId] &&
-              state.current.heritageContenu[sectionId][elementId]
-            ) {
-              newEtape.contenu[sectionId][elementId] =
-                state.current.contenu[sectionId][elementId]
-              newEtape.heritageContenu[sectionId][elementId] =
-                state.current.heritageContenu[sectionId][elementId]
-            } else {
-              if (e.contenu[sectionId]) {
-                newEtape.contenu[sectionId][elementId] =
-                  e.contenu[sectionId][elementId]
-              }
-
-              if (!newEtape.heritageContenu) {
-                newEtape.heritageContenu = {}
-              }
-
-              if (!newEtape.heritageContenu[sectionId]) {
-                newEtape.heritageContenu[sectionId] = {}
-              }
-
-              newEtape.heritageContenu[sectionId][elementId] =
-                e.heritageContenu[sectionId][elementId]
-            }
-          })
-        }
-      })
-    }
+    const apiEtape = etapeEditFormat(etape, titreDemarcheId)
+    const newEtape = etapeHeritageBuild(state.current, apiEtape)
 
     Vue.set(state, 'current', newEtape)
   },
