@@ -1,5 +1,6 @@
 const etapeHeritageBuild = (stateEtape, apiEtape) => {
   const newEtape = {
+    id: stateEtape.id,
     date: stateEtape.date,
     typeId: stateEtape.typeId,
     statutId: '',
