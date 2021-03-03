@@ -111,7 +111,7 @@
 
 <script>
 import Popup from '../_ui/popup.vue'
-import EditSections from '../_common/edit-sections.vue'
+import EditSections from './edit-sections.vue'
 import DocumentsEdit from '../document/edit-multi.vue'
 
 export default {

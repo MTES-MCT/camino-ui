@@ -61,7 +61,7 @@ const fragmentHeritageTitreEtape = gql`
     }
     contenu
   }
-  
+
   ${fragmentIncertitudes}
 
   ${fragmentTitreAdministrations}
@@ -163,13 +163,12 @@ const fragmentTitreEtape = gql`
       ...pays
     }
     contenu
+    heritageContenu
 
     modification
     suppression
     justificatifsAssociation
   }
-
-  ${fragmentHeritageTitreEtape}
 
   ${fragmentTitreAdministrations}
 
@@ -190,9 +189,8 @@ const fragmentTitreEtape = gql`
   ${fragmentIncertitudes}
 `
 
-const fragmentTitreEtapeNouvelle = gql`
-  fragment etapeNouvelle on EtapeNouvelle {
-    date
+const fragmentTitreEtapeHeritage = gql`
+  fragment etapeHeritage on EtapeHeritage {
     dateDebut
     dateFin
     duree
@@ -201,21 +199,27 @@ const fragmentTitreEtapeNouvelle = gql`
     titulaires {
       ...titreEntreprises
     }
+
     amodiataires {
       ...titreEntreprises
     }
+
     points {
       ...point
     }
+
     substances {
       ...titreSubstance
     }
+
+    contenu
+
     heritageProps {
       ...heritageProps
     }
-  }
 
-  ${fragmentHeritageTitreEtape}
+    heritageContenu
+  }
 
   ${fragmentTitreEntreprises}
 
@@ -226,4 +230,4 @@ const fragmentTitreEtapeNouvelle = gql`
   ${fragmentHeritageProps}
 `
 
-export { fragmentTitreEtape, fragmentTitreEtapeNouvelle }
+export { fragmentTitreEtape, fragmentTitreEtapeHeritage }

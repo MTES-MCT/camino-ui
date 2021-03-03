@@ -65,7 +65,7 @@
 
       <hr />
 
-      <div v-if="etape.typeId">
+      <div v-if="heritageLoaded">
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3 tablet-pt-s pb-s">
             <h6>Statut</h6>
@@ -84,25 +84,25 @@
           </div>
         </div>
         <hr />
+
+        <EtapeEditFondamentales
+          v-if="etapeType.fondamentale"
+          :etape.sync="etape"
+          :domaine-id="domaineId"
+        />
+
+        <EtapeEditPoints
+          v-if="etapeType.fondamentale"
+          :etape.sync="etape"
+          :events.sync="events"
+        />
+
+        <EditSections
+          v-if="etapeType.sections"
+          :sections="etapeType.sections"
+          :etape.sync="etape"
+        />
       </div>
-
-      <EtapeEditFondamentales
-        v-if="etapeType.fondamentale"
-        :etape.sync="etape"
-        :domaine-id="domaineId"
-      />
-
-      <EtapeEditPoints
-        v-if="etapeType.fondamentale"
-        :etape.sync="etape"
-        :events.sync="events"
-      />
-
-      <EditSections
-        v-if="etapeType.sections"
-        :sections="etapeType.sections"
-        :element.sync="etape"
-      />
     </div>
 
     <template #footer>
@@ -144,7 +144,7 @@ import InputDate from '../../_ui/input-date.vue'
 import Popup from '../../_ui/popup.vue'
 import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
-import EditSections from '../../_common/edit-sections.vue'
+import EditSections from './edit-sections.vue'
 
 export default {
   name: 'CaminoEtapeEditPopup',
@@ -169,7 +169,8 @@ export default {
     return {
       events: { saveKeyUp: true },
       newDate: new Date().toISOString().slice(0, 10),
-      metasLoaded: false
+      metasLoaded: false,
+      heritageLoaded: false
     }
   },
 
@@ -219,6 +220,8 @@ export default {
 
     if (this.etapeId) {
       this.metasGet()
+
+      this.heritageLoaded = true
     }
   },
 
@@ -235,6 +238,18 @@ export default {
       })
 
       this.metasLoaded = true
+    },
+
+    async heritageGet() {
+      this.heritageLoaded = false
+
+      await this.$store.dispatch('titreEtape/heritageGet', {
+        titreDemarcheId: this.demarcheId,
+        typeId: this.etape.typeId,
+        date: this.newDate
+      })
+
+      this.heritageLoaded = true
     },
 
     async save() {
@@ -266,7 +281,9 @@ export default {
       }
     },
 
-    typeUpdate() {
+    async typeUpdate() {
+      await this.heritageGet()
+
       if (this.etapesStatuts.length === 1) {
         this.etape.statutId = this.etapesStatuts[0].id
       } else {

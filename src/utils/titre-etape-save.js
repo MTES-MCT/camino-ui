@@ -230,6 +230,15 @@ const etapeSaveFormat = etape => {
     })
   }
 
+  if (etape.heritageContenu) {
+    Object.keys(etape.heritageContenu).forEach(sectionId => {
+      Object.keys(etape.heritageContenu[sectionId]).forEach(elementId => {
+        delete etape.heritageContenu[sectionId][elementId].etape
+        delete etape.heritageContenu[sectionId][elementId].etapeId
+      })
+    })
+  }
+
   if (!etape.contenu) {
     delete etape.contenu
   }

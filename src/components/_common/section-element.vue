@@ -19,50 +19,17 @@
 </template>
 
 <script>
+import { valeurFind } from '../../utils/contenu'
+
 export default {
   props: {
-    element: {
-      type: Object,
-      required: true
-    },
-    contenu: {
-      type: Object,
-      required: true
-    }
+    element: { type: Object, required: true },
+    contenu: { type: Object, required: true }
   },
 
   computed: {
     valeur() {
-      const valeur = this.contenu && this.contenu[this.element.id]
-
-      if (valeur === undefined) {
-        return '–'
-      }
-
-      const valeurs = this.element.valeurs
-
-      if (valeurs) {
-        if (this.element.type === 'checkboxes') {
-          return valeur
-            .map(id => {
-              const valeurCheckbox = valeurs.find(v => v.id === id)
-
-              return valeurCheckbox ? valeurCheckbox.nom : ''
-            })
-            .join(', ')
-        }
-
-        if (this.element.type === 'select') {
-          const valeurSelect = valeurs.find(v => v.id === valeur)
-
-          return valeurSelect ? valeurSelect.nom : ''
-        }
-      }
-
-      if (valeur === true) return 'oui'
-      else if (valeur === false) return 'non'
-
-      return Number(valeur) ? this.numberFormat(valeur) : valeur
+      return valeurFind(this.element, this.contenu)
     }
   }
 }

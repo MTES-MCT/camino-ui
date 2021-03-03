@@ -45,7 +45,6 @@ const fragmentTitre = gql`
     }
     dateDebut
     dateFin
-    dateDemande
     activitesEnConstruction
     activitesAbsentes
     activitesDeposees

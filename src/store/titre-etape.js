@@ -4,12 +4,13 @@ import { etapeSaveFormat } from '../utils/titre-etape-save'
 
 import {
   etape,
-  etapeNouvelle,
+  etapeHeritage,
   titreEtapeMetas,
   etapeCreer,
   etapeModifier,
   etapeSupprimer
 } from '../api/titres-etapes'
+import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
 
 export const state = {
   current: null,
@@ -28,23 +29,42 @@ export const actions = {
     try {
       commit('loadingAdd', 'titreEtapeMetasGet', { root: true })
 
-      let data
+      let newEtape
 
       if (id) {
-        data = await etape({ id })
-        date = data.date
+        newEtape = await etape({ id })
+        date = newEtape.date
       } else {
-        data = await etapeNouvelle({ titreDemarcheId, date })
+        newEtape = { date }
       }
 
       const metas = await titreEtapeMetas({ titreDemarcheId, id, date })
 
       commit('metasSet', metas)
-      commit('set', { etape: data, titreDemarcheId })
+      commit('set', { etape: newEtape, titreDemarcheId })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeMetasGet', { root: true })
+    }
+  },
+
+  async heritageGet({ commit, state }, { titreDemarcheId, typeId, date }) {
+    try {
+      commit('loadingAdd', 'titreEtapeHeritageGet', { root: true })
+      const data = await etapeHeritage({
+        titreDemarcheId,
+        date: state.current.date ? state.current.date : date,
+        typeId
+      })
+
+      commit('heritageSet', { etape: data, titreDemarcheId })
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeHeritageGet', {
+        root: true
+      })
     }
   },
 
@@ -105,6 +125,13 @@ export const mutations = {
   set(state, { etape, titreDemarcheId }) {
     const e = etapeEditFormat(etape, titreDemarcheId)
     Vue.set(state, 'current', e)
+  },
+
+  heritageSet(state, { etape, titreDemarcheId }) {
+    const apiEtape = etapeEditFormat(etape, titreDemarcheId)
+    const newEtape = etapeHeritageBuild(state.current, apiEtape)
+
+    Vue.set(state, 'current', newEtape)
   },
 
   metasSet(state, data) {

@@ -39,6 +39,7 @@ const titreEtapeMetasRes = {
 const titreEtapeEdition = {
   id: 'etape-id',
   titreDemarcheId: 'demarche-id',
+  date: '2020-01-01',
   duree: { ans: null, mois: null },
   amodiataires: [],
   titulaires: [],
@@ -53,6 +54,7 @@ const titreEtapeEdition = {
 
 const titreEtapeCreation = {
   titreDemarcheId: 'demarche-id',
+  date: '2020-01-01',
   duree: { ans: null, mois: null },
   amodiataires: [],
   titulaires: [],
@@ -65,9 +67,92 @@ const titreEtapeCreation = {
   substances: []
 }
 
+const titreEtapeHeritage1 = {
+  date: '2020-01-01',
+  incertitudes: {
+    date: undefined
+  },
+  statutId: '',
+  titreDemarcheId: 'demarche-id',
+  typeId: 'etape-type-id',
+  dateDebut: undefined,
+  dateFin: undefined,
+  duree: {
+    ans: null,
+    mois: null
+  },
+  surface: undefined,
+  amodiataires: [],
+  titulaires: [],
+  groupes: [],
+  substances: [],
+  geoSystemeIds: [],
+  geoSystemeOpposableId: null,
+  contenu: {
+    sectionId1: { elementId1: 'valeur', elementId2: 'valeur' },
+    sectionId2: {}
+  },
+  heritageProps: {},
+  heritageContenu: {
+    sectionId1: {
+      elementId1: { etape: { id: 'etape-id' }, actif: true },
+      elementId2: { etape: { id: 'etape-id' }, actif: false }
+    },
+    sectionId2: {
+      elementId1: { etape: { id: 'etape-id' }, actif: true }
+    }
+  }
+}
+
+const titreEtapeHeritageRes1 = {
+  heritageProps: {},
+  heritageContenu: {
+    sectionId1: {
+      elementId1: { etape: { id: 'etape-id' }, actif: true },
+      elementId2: { etape: { id: 'etape-id' }, actif: false }
+    },
+    sectionId2: {
+      elementId1: { etape: { id: 'etape-id' }, actif: true }
+    },
+    sectionId3: {}
+  },
+  contenu: {
+    sectionId1: { elementId1: 'valeur', elementId2: 'valeur' }
+  }
+}
+
+const titreEtapeHeritage2 = {
+  amodiataires: [],
+  date: '2020-01-01',
+  dateDebut: undefined,
+  dateFin: undefined,
+  duree: { ans: null, mois: null },
+  geoSystemeIds: [],
+  geoSystemeOpposableId: null,
+  groupes: [],
+  heritageProps: {},
+  incertitudes: { date: undefined },
+  statutId: '',
+  substances: [],
+  surface: undefined,
+  titreDemarcheId: 'demarche-id',
+  titulaires: [],
+  typeId: 'etape-type-id'
+}
+
+const titreEtapeHeritageRes2 = {
+  heritageProps: {},
+  heritageContenu: {},
+  contenu: {}
+}
+
 export {
   titreEtapeMetas,
   titreEtapeMetasRes,
   titreEtapeEdition,
-  titreEtapeCreation
+  titreEtapeCreation,
+  titreEtapeHeritage1,
+  titreEtapeHeritageRes1,
+  titreEtapeHeritage2,
+  titreEtapeHeritageRes2
 }

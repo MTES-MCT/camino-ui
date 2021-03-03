@@ -39,7 +39,7 @@ describe('textNumberFormat et textToNumberFormat', () => {
     ['-1,2ab c.,34', { negative: false, integer: false }, '1,234', 1.234],
     ['-1,2ab c.,34', { negative: true, integer: false }, '-1,234', -1.234],
     ['-1,2ab c.,34', { negative: true, integer: true }, '-1', -1],
-    ['azerty', { negative: true, integer: true }, '', undefined]
+    ['azerty', { negative: true, integer: true }, '', null]
   ]
 
   test.each(cases)(
