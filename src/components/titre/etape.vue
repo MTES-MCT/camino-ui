@@ -161,6 +161,7 @@ export default {
     hasProps() {
       return (
         !!this.etape.duree ||
+        !!this.etape.surface ||
         !!this.etape.dateDebut ||
         !!this.etape.dateFin ||
         !!(this.etape.points && this.etape.points.length) ||
