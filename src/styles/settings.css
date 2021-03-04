@@ -11,11 +11,10 @@ http://francoisromain.github.io/postcss-structure
   --color-inverse: #3d3d35;
   --color-neutral: #c6c4bc;
   --color-alt: #f0efe8;
-  --color-highlight: #b5d1d1;
-  --color-brand: #76b6bd;
+  --color-hilite: #b5d1d1;
   --color-error: #e82239;
   --color-warning: #ff891c;
-  --color-info: #5798aa;
+  --color-info: #76b6bd;
   --color-success: #6ea040;
 
   /* Base units    ------------------------------- */

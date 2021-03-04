@@ -3,7 +3,7 @@
     <div class="mb-xxl">
       <h3>Administration gestionnaire ou associée</h3>
 
-      <ul class="h6 italic list-prefix mb-s">
+      <ul class="h5 italic list-prefix mb-s">
         <li>
           L'utilisateur d'une administration <b>gestionnaire</b> peut créer et
           modifier des titres, démarches et étapes.
@@ -14,7 +14,7 @@
         </li>
       </ul>
 
-      <p class="h6 italic">Par domaine / type de titre.</p>
+      <p class="h5 italic">Par domaine / type de titre.</p>
 
       <div class="line width-full" />
       <div class="width-full-p">
@@ -59,7 +59,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   :disabled="!titreTypeNew.titreTypeTypeId"
                   @click="
                     titreTypeNew.gestionnaire = !titreTypeNew.gestionnaire
@@ -74,7 +74,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   :disabled="!titreTypeNew.titreTypeTypeId"
                   @click="titreTypeNew.associee = !titreTypeNew.associee"
                 >
@@ -102,7 +102,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   @click="
                     titreTypeUpdate(
                       titreType.id,
@@ -118,7 +118,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   @click="
                     titreTypeUpdate(
                       titreType.id,
@@ -142,7 +142,7 @@
     <div v-if="administration.type.id !== 'min'" class="mb-xxl">
       <h3>Restrictions de l'édition des titres, démarches et étapes</h3>
 
-      <div class="h6 italic">
+      <div class="h5 italic">
         <p class="mb-s">
           Par défaut, l'utilisateur d'une administration peut éditer :
         </p>
@@ -222,7 +222,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
                       !titreTypeTitreStatutNew.titreStatutId
@@ -240,7 +240,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
                       !titreTypeTitreStatutNew.titreStatutId
@@ -258,7 +258,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
                       !titreTypeTitreStatutNew.titreStatutId
@@ -303,7 +303,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   @click="
                     titreTypeTitreStatutUpdate(
                       ttts.titreType.id,
@@ -324,7 +324,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   @click="
                     titreTypeTitreStatutUpdate(
                       ttts.titreType.id,
@@ -345,7 +345,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   @click="
                     titreTypeTitreStatutUpdate(
                       ttts.titreType.id,
@@ -374,7 +374,7 @@
     <div v-if="administration.type.id !== 'min'" class="mb-xxl">
       <h3>Restrictions de la visibilité, édition et création des étapes</h3>
 
-      <div class="h6 italic">
+      <div class="h5 italic">
         <p class="mb-s">
           Par défaut, l'utilisateur d'une administration peut <b>voir</b>,
           <b>modifier</b> et <b>créer</b> les étapes :
@@ -454,7 +454,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
                       !titreTypeEtapeTypeNew.etapeTypeId
@@ -472,7 +472,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
                       !titreTypeEtapeTypeNew.etapeTypeId
@@ -490,7 +490,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
                       !titreTypeEtapeTypeNew.etapeTypeId
@@ -532,7 +532,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   @click="
                     titreTypeEtapeTypeUpdate(
                       ttet.titreType.id,
@@ -550,7 +550,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   @click="
                     titreTypeEtapeTypeUpdate(
                       ttet.titreType.id,
@@ -571,7 +571,7 @@
               </td>
               <td>
                 <button
-                  class="btn px-s py-xs rnd-xs"
+                  class="btn p-s rnd-xs"
                   @click="
                     titreTypeEtapeTypeUpdate(
                       ttet.titreType.id,

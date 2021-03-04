@@ -144,17 +144,26 @@ const etapeEditFormat = (etape, demarcheId) => {
 
   delete etape.administrations
 
-  const joinTable = ['titulaires', 'amodiataires', 'substances']
+  const entreprisesPropIds = ['titulaires', 'amodiataires']
 
-  joinTable.forEach(prop => {
-    etape[prop] = etape[prop]
-      ? etape[prop].reduce((r, { id }) => {
-          if (id) r.push({ id })
-
-          return r
-        }, [])
-      : []
+  entreprisesPropIds.forEach(propId => {
+    if (etape[propId]) {
+      etape[propId] = etape[propId].map(({ id, operateur }) => ({
+        id,
+        operateur
+      }))
+    } else {
+      etape[propId] = []
+    }
   })
+
+  if (etape.substances) {
+    etape.substances = etape.substances.map(({ id }) => ({
+      id
+    }))
+  } else {
+    etape.substances = []
+  }
 
   etape.duree = {
     ans: etape.duree ? Math.floor(etape.duree / 12) : null,

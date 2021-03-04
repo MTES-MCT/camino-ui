@@ -87,10 +87,7 @@ describe('etapeEditFormat', () => {
           statut: { id: 'etape-statut-id' },
           duree: 240,
           administrations: ['administration'],
-          titulaires: [
-            { id: 'titulaire-id', prop: 'titulaire-prop' },
-            { prop: 'titulaire-2-prop' }
-          ],
+          titulaires: [{ id: 'titulaire-id', prop: 'titulaire-prop' }],
           points: [
             {
               id: 'point-id-111',
@@ -132,7 +129,8 @@ describe('etapeEditFormat', () => {
             }
           ],
           contenu: { 'prop-id': 'prop-value' },
-          incertitudes: { amodiataires: true }
+          incertitudes: { amodiataires: true },
+          substances: [{ id: 'auru' }]
         },
 
         'demarche-id'
@@ -144,7 +142,7 @@ describe('etapeEditFormat', () => {
       statutId: 'etape-statut-id',
       duree: { ans: 20, mois: 0 },
       amodiataires: [],
-      titulaires: [{ id: 'titulaire-id' }],
+      titulaires: [{ id: 'titulaire-id', operateur: undefined }],
       geoSystemeIds: ['geo-systeme-id'],
       geoSystemeOpposableId: '',
       groupes: [
@@ -166,7 +164,7 @@ describe('etapeEditFormat', () => {
           ]
         ]
       ],
-      substances: [],
+      substances: [{ id: 'auru' }],
       contenu: { 'prop-id': 'prop-value' },
       incertitudes: { amodiataires: true }
     })

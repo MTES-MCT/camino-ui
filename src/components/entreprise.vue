@@ -28,7 +28,7 @@
         <div class="px-m pt-m border-b-s">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Siren</h6>
+              <h6>Siren</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ entreprise.legalSiren }}</p>
@@ -37,7 +37,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Forme juridique</h6>
+              <h6>Forme juridique</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ entreprise.legalForme }}</p>
@@ -46,7 +46,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
+              <h6>
                 Établissement{{
                   entreprise.etablissements.length > 1 ? 's' : ''
                 }}
@@ -66,7 +66,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Adresse</h6>
+              <h6>Adresse</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>
@@ -79,7 +79,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Téléphone</h6>
+              <h6>Téléphone</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -93,7 +93,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Email</h6>
+              <h6>Email</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -111,7 +111,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Site</h6>
+              <h6>Site</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -129,7 +129,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Archivée</h6>
+              <h6>Archivée</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ entreprise.archive ? 'Oui' : 'Non' }}</p>

@@ -3,10 +3,7 @@
     <div class="desktop-blob-1-2">
       <div class="rnd-b-s bg-alt pt px overflow-auto">
         <h4 class="mb">
-          <Pill
-            :color="`bg-domaine-${titre.domaine.id}`"
-            class="mono mr-s mt--m"
-          >
+          <Pill :color="`bg-domaine-${titre.domaine.id}`" class="mono mr-s">
             {{ titre.domaine.id }}
           </Pill>
           <span class="cap-first">
@@ -31,20 +28,23 @@
             </tr>
             <tr v-for="demarche in phases" :key="demarche.id">
               <td class="max-width-1">
-                <Dot :color="`bg-${demarche.phase.statut.couleur}`" />
+                <Dot
+                  class="mt-xs"
+                  :color="`bg-${demarche.phase.statut.couleur}`"
+                />
               </td>
               <td>
-                <span class="cap-first bold h5">
+                <span class="cap-first bold h6 mb-0">
                   {{ demarche.type.nom }}
                 </span>
               </td>
               <td>
-                <span class="h5">{{
+                <span class="h6 mb-0">{{
                   demarche.phase.dateDebut | dateFormat
                 }}</span>
               </td>
               <td>
-                <span class="h5">{{
+                <span class="h6 mb-0">{{
                   demarche.phase.dateFin | dateFormat
                 }}</span>
               </td>
@@ -76,8 +76,11 @@
           {{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}
         </h6>
         <ul class="list-prefix">
-          <li v-for="titulaire in titre.titulaires" :key="titulaire.id">
-            {{ titulaire.nom }}
+          <li v-for="t in titre.titulaires" :key="t.id">
+            {{ t.nom }}
+            <Tag v-if="t.operateur" :mini="true" color="bg-info"
+              >Opérateur
+            </Tag>
           </li>
         </ul>
       </div>
@@ -87,8 +90,11 @@
           {{ titre.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}
         </h6>
         <ul class="list-prefix">
-          <li v-for="amodiataire in titre.amodiataires" :key="amodiataire.id">
-            {{ amodiataire.nom }}
+          <li v-for="t in titre.amodiataires" :key="t.id">
+            {{ t.nom }}
+            <Tag v-if="t.operateur" :mini="true" color="bg-info"
+              >Opérateur
+            </Tag>
           </li>
         </ul>
       </div>
@@ -108,13 +114,14 @@
 
 <script>
 import Pill from '../_ui/pill.vue'
+import Tag from '../_ui/tag.vue'
 import TagList from '../_ui/tag-list.vue'
 import Dot from '../_ui/dot.vue'
 import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
 
 export default {
-  components: { Pill, Dot, TagList, Section, Statut },
+  components: { Pill, Dot, TagList, Section, Statut, Tag },
 
   props: {
     titre: {

@@ -24,14 +24,14 @@
     </ul>
     <button
       ref="button"
-      class="btn-border h5 px-s p-xs rnd-xs mr-xs"
+      class="btn-border small px-s p-xs rnd-xs mr-xs"
       @click="checkboxesSelect('none')"
     >
       Aucun
     </button>
     <button
       ref="button"
-      class="btn-border h5 px-s p-xs rnd-xs mr-xs"
+      class="btn-border small px-s p-xs rnd-xs mr-xs"
       @click="checkboxesSelect('all')"
     >
       Tous

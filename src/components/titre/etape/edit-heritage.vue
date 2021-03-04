@@ -1,35 +1,30 @@
 <template>
-  <div class="mb">
+  <div class="mb-s">
     <slot v-if="!prop.actif" name="write" />
     <div v-else>
       <slot v-if="hasHeritage" name="read" />
-      <p v-else class="mb-xs">Non renseigné</p>
-      <p
-        class="h5 italic"
-        :class="{
-          'mb-s': !(prop.etape.incertitudes && prop.etape.incertitudes[propId]),
-          'mb-0': prop.etape.incertitudes && prop.etape.incertitudes[propId]
-        }"
-      >
-        Hérité de :
-        <span class="cap-first">{{ prop.etape.type.nom }}</span> ({{
-          prop.etape.date | dateFormat
-        }})
-      </p>
-
-      <p class="mb-s">
+      <div v-else class="border p-s mb-s">
+        Non renseigné
+      </div>
+      <div class="mb-s">
         <Tag
           v-if="prop.etape.incertitudes && prop.etape.incertitudes[propId]"
           :mini="true"
           color="bg-info"
           >Incertain
         </Tag>
+      </div>
+      <p class="h5 italic mb-s">
+        Hérité de :
+        <span class="cap-first">{{ prop.etape.type.nom }}</span> ({{
+          prop.etape.date | dateFormat
+        }})
       </p>
     </div>
     <slot />
     <button
       v-if="prop.etape"
-      class="btn full-x rnd-xs py-s px-m h5"
+      class="btn full-x rnd-xs py-s px-m small mb-s"
       @click="prop.actif = !prop.actif"
     >
       {{ buttonText }}

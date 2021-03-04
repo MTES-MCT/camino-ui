@@ -20,7 +20,7 @@
         <div class="px-m pt-m border-b-s">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Type</h6>
+              <h6>Type</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -31,7 +31,7 @@
 
           <div v-if="administration.service" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Service</h6>
+              <h6>Service</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -42,7 +42,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Adresse</h6>
+              <h6>Adresse</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>
@@ -58,7 +58,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Téléphone</h6>
+              <h6>Téléphone</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -72,7 +72,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Email</h6>
+              <h6>Email</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -90,7 +90,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Site</h6>
+              <h6>Site</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -108,7 +108,7 @@
 
           <div v-if="administration.departement" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Département</h6>
+              <h6>Département</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -119,7 +119,7 @@
 
           <div v-if="administration.region" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Région</h6>
+              <h6>Région</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">

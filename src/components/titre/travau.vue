@@ -19,7 +19,7 @@
         >
           <button
             v-if="travaux.etapesCreation"
-            class="btn rnd-l-xs py-s px-m h5 flex mr-px"
+            class="btn rnd-l-xs py-s px-m small flex mr-px"
             :class="{
               'rnd-r-xs': !travaux.suppression && !travaux.modification
             }"

@@ -72,8 +72,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-xs">Durée (années / mois)</h6>
-        <p class="h6 italic mb-0">Optionnel</p>
+        <h6 class="mb-0">Durée (années / mois)</h6>
+        <p class="h5 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
         <div
@@ -102,8 +102,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-xs">Surface (Km²)</h6>
-        <p class="h6 italic mb-0">Optionnel</p>
+        <h6 class="mb-0">Surface (Km²)</h6>
+        <p class="h5 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
         <inputNumber

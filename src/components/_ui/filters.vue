@@ -38,7 +38,7 @@
             :filter.sync="filter"
           />
           <button
-            class="btn-border h5 px-s p-xs rnd-xs mb"
+            class="btn-border small px-s p-xs rnd-xs mb"
             @click="inputsErase"
           >
             Tout effacer

@@ -68,7 +68,7 @@ const titreEtapeCreation = {
 }
 
 const titreEtapeHeritage1 = {
-  date: '2020-01-01',
+  date: undefined,
   incertitudes: {
     date: undefined
   },

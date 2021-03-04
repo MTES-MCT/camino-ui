@@ -1,6 +1,6 @@
 <template>
   <button
-    class="cmn-activite-btn-remplir btn py-s px-m h5 flex mr-px"
+    class="cmn-activite-btn-remplir btn small py-s px-m flex mr-px"
     @click="activiteEditPopupOpen"
   >
     <div class="my-xxs">

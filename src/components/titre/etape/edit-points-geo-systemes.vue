@@ -30,20 +30,22 @@
 
       <div v-if="etapeGeoSystemeId" class="tablet-blobs">
         <div v-if="etape.geoSystemeIds.length > 1" class="tablet-blob-1-2">
-          <label class="h5 pt-s mb left">
-            <input
-              v-model="etape.geoSystemeOpposableId"
-              type="radio"
-              :value="etapeGeoSystemeId"
-            />
-            Opposable
-          </label>
+          <div class="h5 mb">
+            <label>
+              <input
+                v-model="etape.geoSystemeOpposableId"
+                type="radio"
+                :value="etapeGeoSystemeId"
+              />
+              Opposable
+            </label>
+          </div>
         </div>
       </div>
     </div>
     <button
       v-if="!etape.geoSystemeIds.some(id => !id)"
-      class="btn rnd-xs py-s px-m full-x flex h5 mb-s"
+      class="btn small rnd-xs py-s px-m full-x flex mb-s"
       @click="geoSystemeAdd"
     >
       <span class="mt-xxs">Ajouter un système géographique</span

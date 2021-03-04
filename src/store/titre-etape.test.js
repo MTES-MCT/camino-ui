@@ -121,7 +121,6 @@ describe('étapes', () => {
 
   test("récupère l'héritage d'une étape", async () => {
     store.state.titreEtape.current = {
-      date: '2020-01-01',
       typeId: 'etape-type-id',
       incertitudes: {},
       titreDemarcheId: 'demarche-id'

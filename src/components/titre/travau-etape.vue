@@ -1,7 +1,7 @@
 <template>
   <Accordion :opened="opened" class="mb-s" @close="close" @toggle="toggle">
     <template #title>
-      <h6 class="mt-xs">
+      <h6>
         {{ etape.date | dateFormat }}
       </h6>
       <h3 class="cap-first mb-s">

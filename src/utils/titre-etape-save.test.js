@@ -2,7 +2,7 @@ import { etapeSaveFormat } from './titre-etape-save'
 
 // dateFormat
 describe('etapeSaveFormat', () => {
-  test("formate une étape pour l'éditer", () => {
+  test("formate une étape pour l'enregistrer", () => {
     expect(
       etapeSaveFormat({
         id: 'etape-id',

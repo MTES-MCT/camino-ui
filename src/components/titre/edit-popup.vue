@@ -64,7 +64,7 @@
 
     <div>
       <h3 class="mb-s">Références</h3>
-      <p class="h6 italic mb-s">Optionnel</p>
+      <p class="h5 italic">Optionnel</p>
       <hr />
       <div
         v-for="(reference, index) in titre.references"

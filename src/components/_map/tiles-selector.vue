@@ -1,11 +1,11 @@
 <template>
   <Accordion :opened="opened" @close="close" @toggle="toggle">
     <template #title>
-      <span class="h5">Fond de carte</span>
+      <small>Fond de carte</small>
     </template>
     <ul class="list-sans mt-m px-m">
       <li v-for="tile in tiles" :key="tile.name">
-        <label class="h5 bold">
+        <label class="small bold">
           <input
             :value="tile.id"
             :checked="tile.id === tilesId"

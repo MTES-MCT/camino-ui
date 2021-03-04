@@ -50,7 +50,7 @@
             <li>
               <button
                 id="cmn-user-cerbere-login-popup-button-creer-votre-compte"
-                class="btn-border rnd-xs p-s h5 mr-s full-x mb-s"
+                class="btn-border small rnd-xs p-s mr-s full-x mb-s"
                 @click="userAddPopupOpen"
               >
                 Créer votre compte…
@@ -59,7 +59,7 @@
             <li>
               <button
                 id="cmn-user-login-popup-button-reinitialiser"
-                class="btn-border rnd-xs p-s h5 mr-s full-x mb-s"
+                class="btn-border small rnd-xs p-s mr-s full-x mb-s"
                 @click="userPasswordInitPopupOpen"
               >
                 Réinitialiser votre mot de passe…
@@ -69,7 +69,7 @@
             <li>
               <button
                 id="cmn-user-login-popup-button-reinitialiser"
-                class="btn-border rnd-xs p-s h5 mr-s full-x"
+                class="btn-border small rnd-xs p-s mr-s full-x"
                 @click="cerbereLogin"
               >
                 Se connecter avec Cerbère…

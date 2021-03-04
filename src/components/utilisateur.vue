@@ -63,7 +63,7 @@
         <div class="px-m pt-m">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Prénom</h6>
+              <h6>Prénom</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.prenom || '–' }}</p>
@@ -72,7 +72,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Nom</h6>
+              <h6>Nom</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.nom || '–' }}</p>
@@ -81,7 +81,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Email</h6>
+              <h6>Email</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.email || '–' }}</p>
@@ -90,7 +90,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Téléphone fixe</h6>
+              <h6>Téléphone fixe</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.telephoneFixe || '–' }}</p>
@@ -99,7 +99,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Téléphone mobile</h6>
+              <h6>Téléphone mobile</h6>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.telephoneMobile || '–' }}</p>
@@ -108,7 +108,7 @@
 
           <div v-if="utilisateur.permissionModification" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Permissions</h6>
+              <h6>Permissions</h6>
             </div>
             <div class="tablet-blob-3-4">
               <Pill v-if="utilisateur.permission" class="mb">
@@ -120,7 +120,7 @@
 
           <div v-if="utilisateur.entreprises.length" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">
+              <h6>
                 Entreprise{{ utilisateur.entreprises.length > 1 ? 's' : '' }}
               </h6>
             </div>
@@ -134,7 +134,7 @@
                 >
                   <RouterLink
                     :to="{ name: 'entreprise', params: { id: e.id } }"
-                    class="btn-border py-s px-m rnd-xs h5 mr-xs"
+                    class="btn-border small py-s px-m rnd-xs mr-xs"
                     tag="button"
                   >
                     {{ e.legalSiren ? `${e.nom} (${e.legalSiren})` : e.nom }}
@@ -146,7 +146,7 @@
 
           <div v-if="utilisateur.administrations.length" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6 class="mt-xs">Administration</h6>
+              <h6>Administration</h6>
             </div>
 
             <div class="tablet-blob-3-4">

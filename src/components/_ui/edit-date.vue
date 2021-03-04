@@ -11,12 +11,12 @@
 
     <div class="flex">
       <button
-        class="btn-border px-s py-xs flex-right rnd-xs mr-s h5"
+        class="btn-border small px-s py-xs flex-right rnd-xs mr-s"
         @click="editable = false"
       >
         Annuler
       </button>
-      <button class="btn-flash px-s py-xs rnd-xs h5" @click="validate">
+      <button class="btn-flash small px-s py-xs rnd-xs" @click="validate">
         Valider
       </button>
     </div>

@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <pill :color="`bg-${color}`">
-      {{ nom }}
-    </pill>
-  </div>
+  <Pill :color="`bg-${color}`">
+    {{ nom }}
+  </Pill>
 </template>
 
 <script>

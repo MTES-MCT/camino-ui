@@ -5,7 +5,7 @@
         Système
         <span
           v-if="geoSystemeOpposableId === geoSysteme.id"
-          class="bg-info py-xxs px-xs rnd-xs color-bg"
+          class="bg-info py-xxs px-xs rnd-xs color-bg ml-xxs"
           >Opposable</span
         >
       </h6>

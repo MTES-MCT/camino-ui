@@ -29,6 +29,7 @@ const fragmentTitreEntreprises = gql`
       dateDebut
       dateFin
     }
+    operateur
   }
 `
 
