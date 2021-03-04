@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 class="mb-s">Périmètre</h3>
-    <p class="h6 italic mb-s">Optionnel</p>
+    <p class="h5 italic">Optionnel</p>
 
     <EditHeritage
       :prop.sync="etape.heritageProps.points"
@@ -13,7 +13,7 @@
 
         <div v-if="etape.geoSystemeIds.length" class="mb-s">
           <hr />
-          <div class="h5 mb-s">
+          <div class="h5">
             <ul class="list-prefix">
               <li><b>Point</b> : paire de coordoonnées</li>
               <li><b>Contour ou lacune</b> : ensemble de points</li>
@@ -149,7 +149,7 @@
               </div>
 
               <button
-                class="btn-border rnd-s py-s px-m full-x mb-xs flex h5"
+                class="btn-border rnd-s py-s px-m full-x mb-xs flex small"
                 @click="pointAdd(groupeIndex, contourIndex)"
               >
                 <span class="mt-xxs">Ajouter un point</span
@@ -157,7 +157,7 @@
               </button>
 
               <button
-                class="btn-border rnd-s py-s px-m full-x mb-xs flex h5"
+                class="btn-border rnd-s py-s px-m full-x mb-xs flex small"
                 @click="lotAdd(groupeIndex, contourIndex)"
               >
                 <span class="mt-xxs">Ajouter un lot de points</span
@@ -191,10 +191,12 @@
             ><i class="icon-24 icon-plus flex-right" />
           </button>
 
-          <label v-if="pointsTotal.length" class="h5 left">
-            <input v-model="etape.incertitudes.points" type="checkbox" />
-            Incertain
-          </label>
+          <div class="h5">
+            <label v-if="pointsTotal.length">
+              <input v-model="etape.incertitudes.points" type="checkbox" />
+              Incertain
+            </label>
+          </div>
         </div>
       </template>
       <template #read>

@@ -3,14 +3,14 @@
     <div class="container">
       <div class="tablet-blobs">
         <div class="tablet-blob-2-3">
-          <h1 class="mt-xs mb-m">
+          <h1 class="mt-m mb-m">
             {{ titre.nom }}
           </h1>
         </div>
         <div class="tablet-blob-1-3 flex">
-          <div class="flex-right flex mb-s">
+          <div class="flex-right flex my-s">
             <button
-              class="btn-border rnd-l-xs px-m py-s h5 lh-2"
+              class="btn-border small rnd-l-xs px-m py-s lh-2"
               :class="{
                 'rnd-r-xs': !titre.suppression || !titre.modification,
                 'mr-px': titre.suppression || titre.modification

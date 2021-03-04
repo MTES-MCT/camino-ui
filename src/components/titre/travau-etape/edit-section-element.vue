@@ -2,10 +2,10 @@
   <div>
     <div class="tablet-blobs">
       <div v-if="element.nom" class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-xs">
+        <h6 class="mb-0">
           <span class="cap-first">{{ element.nom }}</span>
         </h6>
-        <p v-if="element.optionnel" class="h6 italic mb-0">Optionnel</p>
+        <p v-if="element.optionnel" class="h5 italic mb-0">Optionnel</p>
       </div>
 
       <EditSectionElementModifiable

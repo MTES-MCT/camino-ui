@@ -4,8 +4,8 @@
       <h4 class="mb-0">
         {{ entrepriseNameFind(entreprise) }}
       </h4>
-      <Tag v-if="entreprise.operateur" :color="'bg-highlight'" :mini="true">
-        Opé.
+      <Tag v-if="entreprise.operateur" :color="'bg-info'" :mini="true">
+        Opérateur
       </Tag>
     </template>
 

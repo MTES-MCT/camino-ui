@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn-alt px-m py-s h5 flex full-x flex border-b-s"
+    class="btn-alt small px-m py-s flex full-x flex border-b-s"
     @click="download"
   >
     <span class="mt-xxs">{{ format }}</span>

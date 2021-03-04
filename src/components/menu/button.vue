@@ -4,7 +4,7 @@
   >
     <button
       id="cmn-menu-button-button-menu"
-      class="btn-border pill h5 p-s"
+      class="btn-border small pill p-s"
       alt="Url"
       @click="menuToggle"
     >

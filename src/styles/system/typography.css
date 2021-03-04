@@ -29,7 +29,7 @@ pre {
 
 .h0 {
   typescale: 5 3;
-  color: var(--color-brand);
+  color: var(--color-info);
 }
 
 h1,
@@ -53,18 +53,21 @@ h4,
 }
 
 h5,
-.h5 {
+.h5,
+small,
+.small {
   typescale: -0.75 0.75;
+}
+
+h6,
+.h6 {
+  typescale: -0.75 1.25;
 }
 
 h6,
 .h6,
-small {
-  typescale: -0.75 0.75;
-}
-
-h6,
-h5 {
+h5,
+.h5 {
   margin-bottom: var(--unit-s);
 }
 
@@ -170,10 +173,6 @@ strong,
 i,
 .italic {
   font-style: italic;
-}
-
-label {
-  margin-bottom: var(--unit-s);
 }
 
 .lower {

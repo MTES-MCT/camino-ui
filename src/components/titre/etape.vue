@@ -1,7 +1,7 @@
 <template>
   <Accordion :opened="opened" class="mb-s" @close="close" @toggle="toggle">
     <template #title>
-      <h6 class="mt-xs">
+      <h6>
         {{ etape.date | dateFormat }}
         <Tag
           v-if="etape.incertitudes && etape.incertitudes.date"

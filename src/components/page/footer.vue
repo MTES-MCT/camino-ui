@@ -24,7 +24,7 @@
               />
             </div>
             <div class="blob-2-3">
-              <p class="h6 mb-0">
+              <p class="h5 mb-0">
                 Service de l’État incubé à la Fabrique numérique du Ministère de
                 la Transition écologique, membre du réseau
                 <a href="http://beta.gouv.fr">beta.gouv.fr</a>.

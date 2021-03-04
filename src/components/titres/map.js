@@ -52,7 +52,7 @@ const clusterBuild = domaineId =>
 
       return new L.DivIcon({
         html: domaineId.toUpperCase(),
-        className: `py-xs px-s pill h6 mono color-bg bold bg-domaine-${domaineId} leaflet-marker-cluster-${size}`,
+        className: `py-xs px-s pill small mono color-bg bold bg-domaine-${domaineId} leaflet-marker-cluster-${size}`,
         iconSize: null,
         iconAnchor: [0, 0]
       })

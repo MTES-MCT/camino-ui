@@ -2,11 +2,7 @@
   <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
     <template #title>
       <span>{{ administration.nom }}</span>
-      <Tag
-        v-if="administration.coordinateur"
-        :color="'bg-highlight'"
-        :mini="true"
-      >
+      <Tag v-if="administration.coordinateur" :color="'bg-info'" :mini="true">
         Coord.
       </Tag>
     </template>

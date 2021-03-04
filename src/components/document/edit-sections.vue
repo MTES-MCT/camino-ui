@@ -21,7 +21,7 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6 class="mb-xs">Description</h6>
-          <p v-if="modifiable" class="h6 italic mb-0">Optionnel</p>
+          <p v-if="modifiable" class="h5 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
@@ -46,7 +46,7 @@
         <div class="tablet-blob-2-3">
           <ul class="list-sans">
             <li v-for="visibilite in documentsVisibilites" :key="visibilite.id">
-              <label class="h5 bold">
+              <label class="small bold">
                 <input
                   :value="visibilite.id"
                   :checked="visibilite.id === visibiliteId"
@@ -84,11 +84,11 @@
           </button>
         </div>
         <div v-else-if="modifiable">
-          <label for="file" class="btn-border p-s full-x rnd-xs mt--xs"
+          <label for="file" class="btn-border small p-s full-x rnd-xs mb-s"
             >Choisir un fichier…</label
           >
           <input id="file" type="file" class="p-xs mb-0" @change="fileChange" />
-          <p class="h6 mb-s">30 Mo max.</p>
+          <p class="h5">30 Mo max.</p>
         </div>
         <p v-else class="color-warning pt-xs mb-0">
           À compléter pour valider
@@ -137,7 +137,7 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6 class="mb-xs">Jorf</h6>
-          <p class="h6 italic mb-0">Optionnel</p>
+          <p class="h5 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input v-model="document.jorf" type="text" class="p-s" />
@@ -154,7 +154,7 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6 class="mb-xs">Nor</h6>
-          <p class="h6 italic mb-0">Optionnel</p>
+          <p class="h5 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input v-model="document.nor" type="text" class="p-s" />
@@ -167,7 +167,7 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6 class="mb-xs">URI</h6>
-          <p class="h6 italic mb-0">Optionnel</p>
+          <p class="h5 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
@@ -185,7 +185,7 @@
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6 class="mb-xs">URL</h6>
-          <p class="h6 italic mb-0">Optionnel</p>
+          <p class="h5 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input

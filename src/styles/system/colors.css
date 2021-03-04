@@ -11,12 +11,8 @@
   color: var(--color-text);
 }
 
-.color-brand {
-  color: var(--color-brand);
-}
-
-.color-highlight {
-  color: var(--color-highlight);
+.color-hilite {
+  color: var(--color-hilite);
 }
 
 .color-alt {
@@ -51,8 +47,8 @@
   background-color: var(--color-bg);
 }
 
-.bg-highlight {
-  background-color: var(--color-highlight);
+.bg-hilite {
+  background-color: var(--color-hilite);
 }
 
 .bg-alt {

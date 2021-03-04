@@ -3,7 +3,7 @@
     <div>
       <div class="line-neutral width-full mb" />
       <button
-        class="btn rnd-xs py-s px-m full-x flex h5 mb"
+        class="btn rnd-xs py-s px-m full-x flex small mb"
         @click="travauxAddPopupOpen"
       >
         <span class="mt-xxs">Ajouter des travaux</span>

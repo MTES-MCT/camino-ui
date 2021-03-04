@@ -43,7 +43,7 @@ textarea {
 textarea:focus,
 input:focus,
 select:focus {
-  border-right: var(--unit-s) solid var(--color-highlight);
+  border-right: var(--unit-s) solid var(--color-hilite);
 }
 
 input[type='text'].bg-bg,

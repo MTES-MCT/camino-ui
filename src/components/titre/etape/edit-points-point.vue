@@ -8,15 +8,17 @@
       <div class="mb tablet-blob-2-3">
         <div class="flex">
           <h6>Description</h6>
-          <p class="h6 italic mb-0 flex-right mr-xs">Optionnel</p>
+          <p class="h5 italic mb-0 flex-right mr-xs">Optionnel</p>
         </div>
         <input v-model="point.description" type="text" class="p-s" />
       </div>
     </div>
 
-    <label class="h5 mb left">
-      <input v-model="point.subsidiaire" type="checkbox" /> Subsidiaire
-    </label>
+    <div class="h5 mb">
+      <label>
+        <input v-model="point.subsidiaire" type="checkbox" /> Subsidiaire
+      </label>
+    </div>
 
     <EditPointReference
       v-for="geoSysteme in geoSystemes"

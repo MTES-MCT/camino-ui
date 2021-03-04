@@ -5,7 +5,7 @@
     <button
       v-if="user"
       id="cmn-user-button-menu"
-      class="btn-border pill h5 p-s"
+      class="btn-border small pill p-s"
       alt="Url"
       @click="menuToggle"
     >
@@ -14,7 +14,7 @@
     <button
       v-else
       id="cmn-user-button-connexion"
-      class="btn-border pill h5 lh-2 py-s px-m"
+      class="btn-border small pill lh-2 py-s px-m"
       alt="Url"
       @click="popupOpen"
     >

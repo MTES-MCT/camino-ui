@@ -26,7 +26,7 @@
             <h6 class="mb-0">
               {{ labels[0] }}
             </h6>
-            <p class="h6 italic mb-0">
+            <p class="h5 italic mb-0">
               {{ geoSysteme.unite.nom }}
             </p>
           </div>
@@ -34,7 +34,7 @@
             <h6 class="mb-0">
               {{ labels[1] }}
             </h6>
-            <p class="h6 italic mb-0">
+            <p class="h5 italic mb-0">
               {{ geoSysteme.unite.nom }}
             </p>
           </div>

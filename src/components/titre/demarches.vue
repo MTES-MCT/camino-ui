@@ -3,7 +3,7 @@
     <div v-if="titre.demarchesCreation">
       <div class="line-neutral width-full mb" />
       <button
-        class="btn rnd-xs py-s px-m full-x flex h5 mb"
+        class="btn small rnd-xs py-s px-m full-x flex mb"
         @click="demarcheAddPopupOpen"
       >
         <span class="mt-xxs">Ajouter une démarche</span>

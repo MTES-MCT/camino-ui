@@ -2,11 +2,8 @@
   <div class="px-m pt-m border-b-s">
     <div v-if="etape.duree" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>Durée</h6>
-      </div>
-      <div class="tablet-blob-3-4">
-        <p>
-          <PropDuree :duree="etape.duree" />
+        <h6>
+          Durée
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.duree"
             :mini="true"
@@ -15,17 +12,19 @@
           >
             Incertain
           </Tag>
+        </h6>
+      </div>
+      <div class="tablet-blob-3-4">
+        <p>
+          <PropDuree :duree="etape.duree" />
         </p>
       </div>
     </div>
 
     <div v-if="etape.dateDebut" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>Date de début</h6>
-      </div>
-      <div class="tablet-blob-3-4">
-        <p>
-          {{ etape.dateDebut | dateFormat }}
+        <h6>
+          Date de début
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.dateDebut"
             :mini="true"
@@ -34,16 +33,18 @@
           >
             Incertain
           </Tag>
+        </h6>
+      </div>
+      <div class="tablet-blob-3-4">
+        <p>
+          {{ etape.dateDebut | dateFormat }}
         </p>
       </div>
     </div>
     <div v-if="etape.dateFin" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>Date d'échéance</h6>
-      </div>
-      <div class="tablet-blob-3-4">
-        <p>
-          {{ etape.dateFin | dateFormat }}
+        <h6>
+          Date d'échéance
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.dateFin"
             :mini="true"
@@ -52,16 +53,18 @@
           >
             Incertain
           </Tag>
+        </h6>
+      </div>
+      <div class="tablet-blob-3-4">
+        <p>
+          {{ etape.dateFin | dateFormat }}
         </p>
       </div>
     </div>
     <div v-if="etape.points && etape.points.length" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>Périmètre</h6>
-      </div>
-      <div class="tablet-blob-3-4">
-        <p>
-          inclus
+        <h6>
+          Périmètre
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.points"
             :mini="true"
@@ -70,17 +73,16 @@
           >
             Incertain
           </Tag>
-        </p>
+        </h6>
+      </div>
+      <div class="tablet-blob-3-4">
+        <Points :points="etape.points" />
       </div>
     </div>
     <div v-if="etape.surface" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>Surface</h6>
-      </div>
-      <div class="tablet-blob-3-4">
-        <p>
-          {{ numberFormat(etape.surface) }} km² environ
-
+        <h6>
+          Surface
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.surface"
             :mini="true"
@@ -89,7 +91,10 @@
           >
             Incertain
           </Tag>
-        </p>
+        </h6>
+      </div>
+      <div class="tablet-blob-3-4">
+        <p>{{ numberFormat(etape.surface) }} km² environ</p>
       </div>
     </div>
 
@@ -98,19 +103,23 @@
       class="tablet-blobs"
     >
       <div class="tablet-blob-1-4">
-        <h6>Titulaire{{ etape.titulaires.length > 1 ? 's' : '' }}</h6>
+        <h6>
+          Titulaire{{ etape.titulaires.length > 1 ? 's' : '' }}
+          <Tag
+            v-if="etape.incertitudes && etape.incertitudes.titulaires"
+            :mini="true"
+            color="bg-info ml-xs"
+          >
+            Incertain
+          </Tag>
+        </h6>
       </div>
       <div class="tablet-blob-3-4">
         <ul class="list-prefix mb">
           <li v-for="t in etape.titulaires" :key="t.id">
             {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
-            <Tag
-              v-if="etape.incertitudes && etape.incertitudes.titulaires"
-              :mini="true"
-              color="bg-info"
-              class="ml-xs"
-            >
-              Incertain
+            <Tag v-if="t.operateur" :mini="true" color="bg-info" class="ml-xs">
+              Opérateur
             </Tag>
           </li>
         </ul>
@@ -121,20 +130,22 @@
       class="tablet-blobs"
     >
       <div class="tablet-blob-1-4">
-        <h6>Amodiataire{{ etape.amodiataires.length > 1 ? 's' : '' }}</h6>
+        <h6>
+          Amodiataire{{ etape.amodiataires.length > 1 ? 's' : '' }}
+          <Tag
+            v-if="etape.incertitudes && etape.incertitudes.amodiataires"
+            :mini="true"
+            color="bg-info"
+            class="ml-xs"
+          >
+            Incertain
+          </Tag>
+        </h6>
       </div>
       <div class="tablet-blob-3-4">
         <ul class="list-prefix">
           <li v-for="t in etape.amodiataires" :key="t.id">
             {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
-            <Tag
-              v-if="etape.incertitudes && etape.incertitudes.amodiataires"
-              :mini="true"
-              color="bg-info"
-              class="ml-xs"
-            >
-              Incertain
-            </Tag>
           </li>
         </ul>
       </div>
@@ -144,18 +155,20 @@
       class="tablet-blobs"
     >
       <div class="tablet-blob-1-4">
-        <h6>Substance{{ etape.substances.length > 1 ? 's' : '' }}</h6>
+        <h6>
+          Substance{{ etape.substances.length > 1 ? 's' : '' }}
+          <Tag
+            v-if="etape.incertitudes && etape.incertitudes.substances"
+            :mini="true"
+            color="bg-info"
+            class="ml-xs"
+          >
+            Incertain
+          </Tag>
+        </h6>
       </div>
       <div class="tablet-blob-3-4">
         <TagList :elements="etape.substances.map(s => s.nom)" />
-        <Tag
-          v-if="etape.incertitudes && etape.incertitudes.substances"
-          :mini="true"
-          color="bg-info"
-          class="ml-xs"
-        >
-          Incertain
-        </Tag>
       </div>
     </div>
   </div>
@@ -164,14 +177,16 @@
 <script>
 import TagList from '../../_ui/tag-list.vue'
 import Tag from '../../_ui/tag.vue'
-import { etablissementNameFind } from '../../../utils/entreprise'
 import PropDuree from './prop-duree.vue'
+import Points from '../points.vue'
+import { etablissementNameFind } from '../../../utils/entreprise'
 
 export default {
   components: {
     TagList,
     Tag,
-    PropDuree
+    PropDuree,
+    Points
   },
   props: {
     etape: { type: Object, default: () => ({}) }
