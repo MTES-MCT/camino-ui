@@ -10,7 +10,7 @@
       </h4>
       <h2>
         L'accès aux informations sur les projets miniers
-        <br class="hide desktop-static" />est trop complexe.
+        <br class="hide desktop-static" />est trop complexe
       </h2>
       <span class="separator" />
       <p class="lead">
@@ -205,7 +205,7 @@
       </h4>
       <h2>
         D'ici 2022 l'ensemble des procédures du code minier devront être
-        numériques.
+        numériques
       </h2>
       <span class="separator" />
       <div class="tablet-blobs">
@@ -325,8 +325,8 @@
 
       <span class="separator" />
 
-      <div class="desktop-blobs">
-        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
+      <div class="tablet-blobs mb-xxl">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
@@ -336,16 +336,14 @@
             </div>
           </div>
 
-          <h3 class="mb-s">
+          <h3 class="mb-0">
             Guillaume Levieux
           </h3>
-          <h6>Intrapreneur</h6>
-          <blockquote>
-            Démontrer qu'un produit numérique construit par les agents publics
-            et avec les usagers permet de délivrer un meilleur service public.
-          </blockquote>
+          <h6 class="color">Intrapreneur</h6>
 
-          <ul class="list-prefix mb-0">
+          <p class="h5">Depuis Janvier 2018</p>
+
+          <ul class="list-prefix h5 mb-0">
             <li>
               <a href="https://www.linkedin.com/in/levieuxguillaume/"
                 >LinkedIn</a
@@ -354,7 +352,7 @@
           </ul>
         </div>
 
-        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
@@ -363,15 +361,13 @@
               />
             </div>
           </div>
-          <h3 class="mb-s">
+          <h3 class="mb-0">
             Joeffrey Arruyer
           </h3>
-          <h6>Coach Startup d'État</h6>
-          <blockquote>
-            Mettre en place avec Guillaume, les conditions optimales pour
-            l’accomplissement de sa mission.
-          </blockquote>
-          <ul class="list-prefix mb-0">
+          <h6 class="color">Coach</h6>
+
+          <p class="h5">Depuis Janvier 2018</p>
+          <ul class="list-prefix h5 mb-0">
             <li>
               <a href="https://www.linkedin.com/in/joeffrey-arruyer-5392a744"
                 >LinkedIn</a
@@ -380,7 +376,7 @@
           </ul>
         </div>
 
-        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
@@ -390,70 +386,20 @@
             </div>
           </div>
 
-          <h3 class="mb-s">
+          <h3 class="mb-0">
             François Romain
           </h3>
-          <h6>Développeur</h6>
-          <blockquote>
-            Contribuer à un service public plus ouvert et accessible.
-          </blockquote>
-          <ul class="list-prefix mb-0">
+          <h6 class="color">Développeur</h6>
+
+          <p class="h5">Depuis Mars 2018</p>
+          <ul class="list-prefix h5 mb-0">
             <li>
               <a href="https://francoisromain.com">Site</a>
             </li>
           </ul>
         </div>
 
-        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
-          <div class="p bg-semi pill mb">
-            <div class="pill overflow-hidden">
-              <img
-                src="../../../public/img/about/member-adrien-risser.jpg"
-                alt="Portrait Adrien Risser"
-              />
-            </div>
-          </div>
-
-          <h3 class="mb-s">
-            Adrien Risser
-          </h3>
-          <h6>Développeur</h6>
-          <blockquote>
-            Participer au bien commun, ligne de code par ligne de code.
-          </blockquote>
-          <ul class="list-prefix mb-0">
-            <li>
-              <a href="https://www.linkedin.com/in/adrienrisser">LinkedIn</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
-          <div class="p bg-semi pill mb">
-            <div class="pill overflow-hidden">
-              <img
-                src="../../../public/img/about/member-florent-chalvet.jpg"
-                alt="Portrait Florent Chalvet"
-              />
-            </div>
-          </div>
-
-          <h3 class="mb-s">
-            Florent Chalvet
-          </h3>
-          <h6>Développeur</h6>
-          <blockquote>
-            Assurer la qualité des données pour certifier celle du service
-            public.
-          </blockquote>
-          <ul class="list-prefix mb-0">
-            <li>
-              <a href="https://fr.linkedin.com/in/florent-chalvet">LinkedIn</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="desktop-blob-1-3 p bg-bg rnd shadow mb">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
@@ -463,14 +409,152 @@
             </div>
           </div>
 
-          <h3 class="mb-s">
+          <h3 class="mb-0">
             Nicolas Petitot
           </h3>
-          <h6>Développeur</h6>
-          <blockquote>
-            Participer à la transition numérique des services de l'Etat en
-            permettant l'ouverture et la valorisation des données
-          </blockquote>
+          <h6 class="color">Développeur</h6>
+
+          <p class="h5">Depuis Septembre 2019</p>
+        </div>
+
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="../../../public/img/about/member-vincent-maubert.jpg"
+                alt="Portrait Vincent Maubert"
+              />
+            </div>
+          </div>
+
+          <h3 class="mb-0">
+            Vincent Maubert
+          </h3>
+          <h6 class="color">Développeur</h6>
+
+          <p class="h5">Depuis Juin 2020</p>
+          <ul class="list-prefix h5 mb-0">
+            <li>
+              <a href="https://www.linkedin.com/in/vincent-maubert-63a4a79a/"
+                >LinkedIn</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="../../../public/img/about/member-felix-de-preneuf.jpg"
+                alt="Portrait Félix de Préneuf"
+              />
+            </div>
+          </div>
+
+          <h3 class="mb-0">
+            Félix de Préneuf
+          </h3>
+          <h6 class="color">Business Developer</h6>
+          <p class="h5">Depuis Juin 2020</p>
+          <ul class="list-prefix h5 mb-0">
+            <li>
+              <a
+                href="https://www.linkedin.com/in/f%C3%A9lix-de-pr%C3%A9neuf-792431154/"
+                >LinkedIn</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="../../../public/img/about/member-laure-engelvin.jpg"
+                alt="Portrait Félix de Préneuf"
+              />
+            </div>
+          </div>
+
+          <h3 class="mb-0">
+            Laure Engelvin
+          </h3>
+          <h6 class="color">Intrapreneuse</h6>
+          <p class="h5">Depuis Septembre 2020</p>
+        </div>
+      </div>
+      <h3>Ils ont travaillé sur Camino</h3>
+      <div class="tablet-blobs archive">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="../../../public/img/about/member-sandra-chakroun.jpg"
+                alt="Portrait Sandra Chakroun"
+              />
+            </div>
+          </div>
+
+          <h3 class="mb-0">
+            Sandra Chakroun
+          </h3>
+          <h6 class="color">Développeuse</h6>
+          <p class="h5">Entre Septembre et Décembre 2020</p>
+          <ul class="list-prefix h5 mb-0">
+            <li>
+              <a href="https://www.linkedin.com/in/sandra-chakroun/"
+                >LinkedIn</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="../../../public/img/about/member-adrien-risser.jpg"
+                alt="Portrait Adrien Risser"
+              />
+            </div>
+          </div>
+
+          <h3 class="mb-0">
+            Adrien Risser
+          </h3>
+          <h6 class="color">Développeur</h6>
+
+          <p class="h5">De Octobre 2018 à Août 2020</p>
+
+          <ul class="list-prefix h5 mb-0">
+            <li>
+              <a href="https://www.linkedin.com/in/adrienrisser">LinkedIn</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="../../../public/img/about/member-florent-chalvet.jpg"
+                alt="Portrait Florent Chalvet"
+              />
+            </div>
+          </div>
+
+          <h3 class="mb-0">
+            Florent Chalvet
+          </h3>
+          <h6 class="color">Développeur (stagiaire)</h6>
+
+          <p class="h5">De Mars 2019 à Août 2019</p>
+          <ul class="list-prefix h5 mb-0">
+            <li>
+              <a href="https://fr.linkedin.com/in/florent-chalvet">LinkedIn</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
