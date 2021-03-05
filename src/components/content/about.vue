@@ -471,14 +471,14 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="../../../public/img/about/member-laure-engelvin.jpg"
+                src="../../../public/img/about/member-laure-enjelvin.jpg"
                 alt="Portrait Félix de Préneuf"
               />
             </div>
           </div>
 
           <h3 class="mb-0">
-            Laure Engelvin
+            Laure Enjelvin
           </h3>
           <h6 class="color">Intrapreneuse</h6>
           <p class="h5">Depuis Septembre 2020</p>
