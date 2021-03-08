@@ -22,7 +22,7 @@
     <template #buttons>
       <button
         v-if="activite.suppression"
-        class="cmn-activite-btn-supprimer btn py-s px-m h5 flex mr-px"
+        class="cmn-activite-btn-supprimer btn small py-s px-m flex mr-px"
         title="supprimer l'activité'"
         @click="activiteRemovePopupOpen"
       >
