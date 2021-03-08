@@ -193,28 +193,42 @@ describe('étapes', () => {
 
   test('créé une étape', async () => {
     api.etapeCreer.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('titreEtape/upsert', { nom: 'champs' })
+    await store.dispatch('titreEtape/upsert', {
+      nom: 'champs',
+      incertitudes: {}
+    })
 
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la création d'une étape", async () => {
     api.etapeCreer.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('titreEtape/upsert', { nom: 'champs' })
+    await store.dispatch('titreEtape/upsert', {
+      nom: 'champs',
+      incertitudes: {}
+    })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('met à jour une étape', async () => {
     api.etapeModifier.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('titreEtape/upsert', { id: 14, nom: 'champs' })
+    await store.dispatch('titreEtape/upsert', {
+      id: 14,
+      nom: 'champs',
+      incertitudes: {}
+    })
 
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'une étape", async () => {
     api.etapeModifier.mockRejectedValue(new Error("erreur de l'api"))
-    await store.dispatch('titreEtape/upsert', { id: 14, nom: 'champs' })
+    await store.dispatch('titreEtape/upsert', {
+      id: 14,
+      nom: 'champs',
+      incertitudes: {}
+    })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
