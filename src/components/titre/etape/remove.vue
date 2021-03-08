@@ -17,7 +17,7 @@
       Souhaitez vous supprimer l'étape
       <span class="color-inverse">{{ etapeTypeNom }}</span> de la démarche
       <span class="color-inverse">{{ demarcheTypeNom }}</span> du titre
-      <span class="color-inverse">{{ titreNom }} ({{ titreType }})</span> ?
+      <span class="color-inverse">{{ titreNom }} ({{ titreTypeNom }})</span> ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
       <span class="bold"> Attention </span>: cette opération est définitive et
@@ -69,7 +69,7 @@ export default {
       type: String,
       default: ''
     },
-    titreType: {
+    titreTypeNom: {
       type: String,
       default: ''
     }
