@@ -1,8 +1,15 @@
-const referenceBuild = (geoSystemeId, coordonnees, opposable) => ({
-  geoSystemeId,
-  coordonnees: { x: coordonnees[0], y: coordonnees[1] },
-  opposable: opposable || null
-})
+const referenceBuild = (geoSystemeId, coordonnees, opposable) => {
+  const reference = {
+    geoSystemeId,
+    coordonnees: { x: coordonnees[0], y: coordonnees[1] }
+  }
+
+  if (opposable) {
+    reference.opposable = true
+  }
+
+  return reference
+}
 
 const pointReferencesBuild = (
   references,
@@ -82,7 +89,14 @@ const contourBuild = (
           geoSystemeOpposableId
         )
 
-        if (point.references.length) {
+        // si il y a au moins une référence
+        // si il y a plusieurs géo-système, au moins une référence doit être opposable
+        if (
+          point.references.length &&
+          (geoSystemeIds.length === 1 ||
+            (geoSystemeIds.length > 1 &&
+              !!point.references.find(r => r.opposable)))
+        ) {
           point.groupe = groupeIndex
           point.contour = contourIndex
           point.point = points.length + 1
@@ -199,9 +213,7 @@ const etapeSaveFormat = etape => {
   } else {
     etape.points = null
 
-    if (etape.incertitudes) {
-      etape.incertitudes.points = null
-    }
+    delete etape.incertitudes.points
   }
 
   delete etape.groupes
@@ -239,7 +251,7 @@ const etapeSaveFormat = etape => {
     })
   }
 
-  if (!etape.contenu) {
+  if (!etape.contenu || !Object.keys(etape.contenu).length) {
     delete etape.contenu
   }
 

@@ -21,11 +21,10 @@ describe('etapeSaveFormat', () => {
       })
     ).toEqual({
       amodiataires: [],
-      contenu: {},
       duree: null,
       dateFin: null,
       id: 'etape-id',
-      incertitudes: { points: null },
+      incertitudes: {},
       points: null,
       statutId: '',
       substances: [],
@@ -47,11 +46,16 @@ describe('etapeSaveFormat', () => {
           [
             [
               {
-                description: undefined,
-                nom: undefined,
-                references: { 'geo-systeme-id': [1.5, 1] },
-                lot: undefined,
-                subsidiaire: undefined
+                references: {
+                  'geo-systeme-id': [1.5, 1],
+                  'geo-systeme-id-2': [null, null]
+                }
+              },
+              {
+                references: {
+                  'geo-systeme-id': [null, null],
+                  'geo-systeme-id-2': [1.5, 1]
+                }
               }
             ]
           ]
@@ -66,7 +70,6 @@ describe('etapeSaveFormat', () => {
       })
     ).toEqual({
       amodiataires: [],
-      contenu: {},
       duree: 10,
       id: 'etape-id',
       incertitudes: {},
@@ -109,15 +112,11 @@ describe('etapeSaveFormat', () => {
           [
             [
               {
-                description: undefined,
-                nom: undefined,
                 references: { 'geo-systeme-id': [1.5, null] },
                 lot: undefined,
                 subsidiaire: undefined
               },
               {
-                description: undefined,
-                nom: undefined,
                 references: { 'geo-systeme-id': [1.5, 1] },
                 lot: undefined,
                 subsidiaire: undefined
@@ -162,8 +161,7 @@ describe('etapeSaveFormat', () => {
           references: [
             {
               coordonnees: { x: 1.5, y: 1 },
-              geoSystemeId: 'geo-systeme-id',
-              opposable: null
+              geoSystemeId: 'geo-systeme-id'
             }
           ]
         },
@@ -177,8 +175,7 @@ describe('etapeSaveFormat', () => {
           references: [
             {
               coordonnees: { x: 1.5, y: 3 },
-              geoSystemeId: 'geo-systeme-id',
-              opposable: null
+              geoSystemeId: 'geo-systeme-id'
             }
           ],
           subsidiaire: true
@@ -193,8 +190,7 @@ describe('etapeSaveFormat', () => {
           references: [
             {
               coordonnees: { x: 1.5, y: 4 },
-              geoSystemeId: 'geo-systeme-id',
-              opposable: null
+              geoSystemeId: 'geo-systeme-id'
             }
           ],
           subsidiaire: true
