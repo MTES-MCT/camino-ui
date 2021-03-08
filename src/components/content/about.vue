@@ -456,7 +456,7 @@
             Félix de Préneuf
           </h3>
           <h6 class="color">Business Developer</h6>
-          <p class="h5">Depuis Juin 2020</p>
+          <p class="h5">Depuis Septembre 2020</p>
           <ul class="list-prefix h5 mb-0">
             <li>
               <a
@@ -481,7 +481,7 @@
             Laure Enjelvin
           </h3>
           <h6 class="color">Intrapreneuse</h6>
-          <p class="h5">Depuis Septembre 2020</p>
+          <p class="h5">Depuis Décembre 2020</p>
         </div>
       </div>
       <h3>Ils ont travaillé sur Camino</h3>
