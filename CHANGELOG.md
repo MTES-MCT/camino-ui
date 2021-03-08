@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.63](https://github.com/MTES-MCT/camino-ui/compare/v0.22.62...v0.22.63) (2021-03-08)
+
+
+### Features
+
+* édite la propriété "opérateur" sur les entreprises ([#267](https://github.com/MTES-MCT/camino-ui/issues/267)) ([b2913f3](https://github.com/MTES-MCT/camino-ui/commit/b2913f30f91354024a3364a90f5b566fdd71b7e2))
+* hérite les contenus entres les étapes ([#261](https://github.com/MTES-MCT/camino-ui/issues/261)) ([318128a](https://github.com/MTES-MCT/camino-ui/commit/318128a52b327abab5d0592feeae07321fd7d92c))
+* met à jour les profils de l'équipe ([#207](https://github.com/MTES-MCT/camino-ui/issues/207)) ([e6ac29d](https://github.com/MTES-MCT/camino-ui/commit/e6ac29dd9d494a895dfb95de9c7bf16c5f73d696))
+
+
+### Bug Fixes
+
+* corrige une erreur si aucune référence de point n'est opposable ([#271](https://github.com/MTES-MCT/camino-ui/issues/271)) ([4d23989](https://github.com/MTES-MCT/camino-ui/commit/4d2398926126af7bd8101b7a253707965fde9397))
+* **etape:** affiche le type de titre dans la pop-up de suppression d'étape ([#270](https://github.com/MTES-MCT/camino-ui/issues/270)) ([2dc9527](https://github.com/MTES-MCT/camino-ui/commit/2dc9527f30308788247d77efe3db246a54bba605))
+* corrige la marge sur le bouton supprimer des activités ([633fd68](https://github.com/MTES-MCT/camino-ui/commit/633fd68272369adfbd5e14ffdd212c65ad7c8bdb))
+* **a-propos:** corrige le nom de l'intrapreneuse ([#268](https://github.com/MTES-MCT/camino-ui/issues/268)) ([354798d](https://github.com/MTES-MCT/camino-ui/commit/354798d6d928e82a5d6e07aa8ff5c4767c0cb9bc))
+* **a-propos:** corrige les dates d'arrivée ([#269](https://github.com/MTES-MCT/camino-ui/issues/269)) ([6e77086](https://github.com/MTES-MCT/camino-ui/commit/6e7708658012db9b0bae5452e0d237d5fd92a61b))
+* **coordonnees:** corrige l'erreur de saisie de coordonnées vides ([#264](https://github.com/MTES-MCT/camino-ui/issues/264)) ([a70188b](https://github.com/MTES-MCT/camino-ui/commit/a70188b8d832031a4d5625f4a297c8a47cfedee5))
+* **étape:** supprime l’ancienne colonne « ordre » des métas des statuts d’étapes ([#266](https://github.com/MTES-MCT/camino-ui/issues/266)) ([0cbf37a](https://github.com/MTES-MCT/camino-ui/commit/0cbf37a4c0a023d2903a2192e5a06d2991667f5a))
+* **rapport:** corrige l'onglet courant ('Droits miniers' par défaut) ([#265](https://github.com/MTES-MCT/camino-ui/issues/265)) ([0d3eefe](https://github.com/MTES-MCT/camino-ui/commit/0d3eefe691580f056c1880f58e93f8e2fbcb6956))
+* corrige la validation au clavier de la date d'une étape ([f126d48](https://github.com/MTES-MCT/camino-ui/commit/f126d48f8c8d74bc9133df178fee0877dd699e78))
+
 ### [0.22.62](https://github.com/MTES-MCT/camino-ui/compare/v0.22.61...v0.22.62) (2021-03-02)
 
 
