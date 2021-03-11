@@ -92,7 +92,7 @@
           <p class="word-break">
             <a
               :href="`mailto:${entreprise.email}`"
-              class="btn h6 bold py-xs px-s rnd"
+              class="btn small bold py-xs px-s rnd"
             >
               {{ entreprise.email }}
             </a>
@@ -105,7 +105,7 @@
         </div>
         <div class="large-blob-3-4">
           <p class="word-break">
-            <a :href="entreprise.url" class="btn h6 bold py-xs px-s rnd">
+            <a :href="entreprise.url" class="btn small bold py-xs px-s rnd">
               {{ entreprise.url }}
             </a>
           </p>

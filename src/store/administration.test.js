@@ -10,7 +10,8 @@ jest.mock('../api/administrations', () => ({
   administrationPermissionsMetas: jest.fn(),
   administrationTitreTypeUpdate: jest.fn(),
   administrationTitreTypeTitreStatutUpdate: jest.fn(),
-  administrationTitreTypeEtapeTypeUpdate: jest.fn()
+  administrationTitreTypeEtapeTypeUpdate: jest.fn(),
+  administrationActiviteTypeUpdate: jest.fn()
 }))
 
 const localVue = createLocalVue()
@@ -224,7 +225,7 @@ describe("état de l'administration consultée", () => {
     expect(actions.messageAdd).toHaveBeenCalled()
   })
 
-  test("retourne une erreur si l'API retourne une erreur lors de la modification des permissions (type de titre / statut de titre)", async () => {
+  test("retourne une erreur si l'API retourne une erreur lors de la modification des permissions (type de titre)", async () => {
     const apiMock = api.administrationTitreTypeUpdate.mockRejectedValue(
       new Error('erreur api')
     )
@@ -364,6 +365,57 @@ describe("état de l'administration consultée", () => {
         lectureInterdit: true,
         modificationInterdit: true,
         creationInterdit: true
+      }
+    })
+
+    expect(actions.reload).not.toHaveBeenCalled()
+    expect(mutations.messageAdd).toHaveBeenCalled()
+  })
+
+  test('modifie les restrictions (type des activités)', async () => {
+    const apiMock = api.administrationActiviteTypeUpdate.mockResolvedValue({
+      id: 71,
+      nom: 'nom admin'
+    })
+
+    await store.dispatch('administration/activiteTypeUpdate', {
+      administrationId: 'dea-guyane',
+      titreTypeId: 'grp',
+      lectureInterdit: true,
+      modificationInterdit: true
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      administrationActiviteType: {
+        administrationId: 'dea-guyane',
+        titreTypeId: 'grp',
+        lectureInterdit: true,
+        modificationInterdit: true
+      }
+    })
+
+    expect(actions.reload).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si l'API retourne une erreur lors de la modification des permissions (type de titre)", async () => {
+    const apiMock = api.administrationActiviteTypeUpdate.mockRejectedValue(
+      new Error('erreur api')
+    )
+
+    await store.dispatch('administration/activiteTypeUpdate', {
+      administrationId: 'dea-guyane',
+      titreTypeId: 'grp',
+      lectureInterdit: true,
+      modificationInterdit: true
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({
+      administrationActiviteType: {
+        administrationId: 'dea-guyane',
+        titreTypeId: 'grp',
+        lectureInterdit: true,
+        modificationInterdit: true
       }
     })
 

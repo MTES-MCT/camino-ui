@@ -3,18 +3,21 @@
     <div class="mb-xxl">
       <h3>Administration gestionnaire ou associée</h3>
 
-      <ul class="h5 italic list-prefix mb-s">
-        <li>
-          L'utilisateur d'une administration <b>gestionnaire</b> peut créer et
-          modifier des titres, démarches et étapes.
-        </li>
-        <li>
-          Une administration <b>associée</b> n'apparaît pas sur les pages des
-          titres.
-        </li>
-      </ul>
+      <div class="h5">
+        <ul class="list-prefix">
+          <li>
+            L'utilisateur d'une administration <b>gestionnaire</b> peut créer et
+            modifier des titres, démarches et étapes.
+          </li>
+          <li>
+            L'utilisateur d'une administration <b>associée</b> peut accèder aux
+            titres non-publics en lecture. Aussi, l'administration n'apparaît
+            pas sur les pages des titres.
+          </li>
+        </ul>
 
-      <p class="h5 italic">Par domaine / type de titre.</p>
+        <p>Par domaine / type de titre.</p>
+      </div>
 
       <div class="line width-full" />
       <div class="width-full-p">
@@ -38,7 +41,7 @@
                     :key="domaine.id"
                     :value="domaine.id"
                   >
-                    {{ domaine.id.toUpperCase() }} {{ domaine.nom.to }}
+                    {{ domaine.id.toUpperCase() }} {{ domaine.nom }}
                   </option>
                 </select>
               </td>
@@ -59,7 +62,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   :disabled="!titreTypeNew.titreTypeTypeId"
                   @click="
                     titreTypeNew.gestionnaire = !titreTypeNew.gestionnaire
@@ -74,7 +77,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   :disabled="!titreTypeNew.titreTypeTypeId"
                   @click="titreTypeNew.associee = !titreTypeNew.associee"
                 >
@@ -98,11 +101,13 @@
             >
               <td><CaminoDomaine :domaine-id="titreType.domaine.id" /></td>
               <td>
-                <span class="h6 bold cap-first">{{ titreType.type.nom }}</span>
+                <span class="small bold cap-first">{{
+                  titreType.type.nom
+                }}</span>
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   @click="
                     titreTypeUpdate(
                       titreType.id,
@@ -118,7 +123,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   @click="
                     titreTypeUpdate(
                       titreType.id,
@@ -142,14 +147,14 @@
     <div v-if="administration.type.id !== 'min'" class="mb-xxl">
       <h3>Restrictions de l'édition des titres, démarches et étapes</h3>
 
-      <div class="h5 italic">
+      <div class="h5">
         <p class="mb-s">
           Par défaut, l'utilisateur d'une administration peut éditer :
         </p>
         <ul class="list-prefix mb-s">
           <li>
             les <b>titres</b>, <b>démarches</b> et <b>étapes</b> des titres dont
-            l'administration est gestionnaire,
+            l'administration est gestionnaire ou associée,
           </li>
           <li>
             les <b>démarches</b> et <b>étapes</b> des titres auxquels
@@ -187,7 +192,7 @@
                     :key="domaine.id"
                     :value="domaine.id"
                   >
-                    {{ domaine.id.toUpperCase() }} {{ domaine.nom.to }}
+                    {{ domaine.id.toUpperCase() }} {{ domaine.nom }}
                   </option>
                 </select>
               </td>
@@ -222,7 +227,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
                       !titreTypeTitreStatutNew.titreStatutId
@@ -240,7 +245,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
                       !titreTypeTitreStatutNew.titreStatutId
@@ -258,7 +263,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
                       !titreTypeTitreStatutNew.titreStatutId
@@ -291,7 +296,7 @@
             >
               <td><CaminoDomaine :domaine-id="ttts.titreType.domaine.id" /></td>
               <td>
-                <span class="h6 cap-first bold">{{
+                <span class="small bold cap-first">{{
                   ttts.titreType.type.nom
                 }}</span>
               </td>
@@ -303,7 +308,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   @click="
                     titreTypeTitreStatutUpdate(
                       ttts.titreType.id,
@@ -324,7 +329,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   @click="
                     titreTypeTitreStatutUpdate(
                       ttts.titreType.id,
@@ -345,7 +350,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   @click="
                     titreTypeTitreStatutUpdate(
                       ttts.titreType.id,
@@ -374,18 +379,17 @@
     <div v-if="administration.type.id !== 'min'" class="mb-xxl">
       <h3>Restrictions de la visibilité, édition et création des étapes</h3>
 
-      <div class="h5 italic">
+      <div class="h5">
         <p class="mb-s">
           Par défaut, l'utilisateur d'une administration peut <b>voir</b>,
-          <b>modifier</b> et <b>créer</b> les étapes :
+          <b>modifier</b> et <b>créer</b> les étapes des titres :
         </p>
-        <ul class="list-prefix mb-s">
+        <ul class="list-prefix">
           <li>
-            des titres dont l'administration est gestionnaire,
+            dont l'administration est gestionnaire ou associée,
           </li>
           <li>
-            des titres auxquels l'administration est liée par la région ou le
-            département.
+            auxquels l'administration est liée par la région ou le département.
           </li>
         </ul>
         <p>
@@ -419,7 +423,7 @@
                     :key="domaine.id"
                     :value="domaine.id"
                   >
-                    {{ domaine.id.toUpperCase() }} {{ domaine.nom.to }}
+                    {{ domaine.id.toUpperCase() }} {{ domaine.nom }}
                   </option>
                 </select>
               </td>
@@ -454,7 +458,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
                       !titreTypeEtapeTypeNew.etapeTypeId
@@ -472,7 +476,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
                       !titreTypeEtapeTypeNew.etapeTypeId
@@ -490,7 +494,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
                       !titreTypeEtapeTypeNew.etapeTypeId
@@ -523,16 +527,18 @@
             >
               <td><CaminoDomaine :domaine-id="ttet.titreType.domaine.id" /></td>
               <td>
-                <span class="h6 cap-first bold">{{
+                <span class="small bold cap-first">{{
                   ttet.titreType.type.nom
                 }}</span>
               </td>
               <td>
-                <span class="h6 cap-first bold">{{ ttet.etapeType.nom }}</span>
+                <span class="small bold cap-first">{{
+                  ttet.etapeType.nom
+                }}</span>
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   @click="
                     titreTypeEtapeTypeUpdate(
                       ttet.titreType.id,
@@ -550,7 +556,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   @click="
                     titreTypeEtapeTypeUpdate(
                       ttet.titreType.id,
@@ -571,7 +577,7 @@
               </td>
               <td>
                 <button
-                  class="btn p-s rnd-xs"
+                  class="btn p-xs rnd-xs"
                   @click="
                     titreTypeEtapeTypeUpdate(
                       ttet.titreType.id,
@@ -584,6 +590,145 @@
                   "
                 >
                   <i v-if="ttet.creationInterdit" class="icon-24 icon-cross" />
+                  <i v-else class="icon-24 icon-square" />
+                </button>
+              </td>
+              <td />
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-xxl">
+      <h3>Restriction de la visibilité et de l'édition des activités</h3>
+
+      <div class="h5">
+        <p class="mb-s">
+          Par défaut, l'utilisateur d'une administration peut <b>voir</b> et
+          <b>modifier</b> les activités des titres :
+        </p>
+        <ul class="list-prefix">
+          <li>
+            dont l'administration est gestionnaire ou associée,
+          </li>
+          <li>
+            auxquels l'administration est liée par la région ou le département.
+          </li>
+        </ul>
+        <p>
+          Ce réglage permet de retreindre ces droits par type d'étape.
+        </p>
+      </div>
+
+      <div class="line width-full" />
+
+      <div class="width-full-p">
+        <div class="overflow-scroll-x mb">
+          <table>
+            <tr>
+              <th>Type d'activité</th>
+              <th>Visibilité</th>
+              <th>Modification</th>
+              <th />
+            </tr>
+            <tr>
+              <td>
+                <select
+                  v-model="activiteTypeNew.activiteTypeId"
+                  class="py-xs px-s mr-s"
+                >
+                  <option
+                    v-for="activiteType in activitesTypes"
+                    :key="activiteType.id"
+                    :value="activiteType.id"
+                  >
+                    {{ activiteType.id.toUpperCase() }} {{ activiteType.nom }}
+                  </option>
+                </select>
+              </td>
+              <td>
+                <button
+                  class="btn p-xs rnd-xs"
+                  :disabled="!activiteTypeNew.activiteTypeId"
+                  @click="
+                    activiteTypeNew.lectureInterdit = !activiteTypeNew.lectureInterdit
+                  "
+                >
+                  <i
+                    v-if="activiteTypeNew.lectureInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
+                </button>
+              </td>
+              <td>
+                <button
+                  class="btn p-xs rnd-xs"
+                  :disabled="!activiteTypeNew.activiteTypeId"
+                  @click="
+                    activiteTypeNew.modificationInterdit = !activiteTypeNew.modificationInterdit
+                  "
+                >
+                  <i
+                    v-if="activiteTypeNew.modificationInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
+                </button>
+              </td>
+              <td>
+                <button
+                  class="btn p-xs rnd-xs"
+                  :disabled="!activiteTypeNewActive"
+                  @click="activiteTypeNewUpdate"
+                >
+                  <i class="icon-24 icon-plus" />
+                </button>
+              </td>
+            </tr>
+            <tr
+              v-for="activiteType in administration.activitesTypes"
+              :key="activiteType.id"
+            >
+              <td>
+                <span class="cap-first">{{ activiteType.nom }}</span>
+              </td>
+              <td>
+                <button
+                  class="btn p-xs rnd-xs"
+                  @click="
+                    activiteTypeUpdate(
+                      activiteType.id,
+                      activiteType.modificationInterdit,
+                      activiteType.lectureInterdit,
+                      'modificationInterdit'
+                    )
+                  "
+                >
+                  <i
+                    v-if="activiteType.modificationInterdit"
+                    class="icon-24 icon-cross"
+                  />
+                  <i v-else class="icon-24 icon-square" />
+                </button>
+              </td>
+              <td>
+                <button
+                  class="btn p-xs rnd-xs"
+                  @click="
+                    activiteTypeUpdate(
+                      activiteType.id,
+                      activiteType.modificationInterdit,
+                      activiteType.lectureInterdit,
+                      'lectureInterdit'
+                    )
+                  "
+                >
+                  <i
+                    v-if="activiteType.lectureInterdit"
+                    class="icon-24 icon-cross"
+                  />
                   <i v-else class="icon-24 icon-square" />
                 </button>
               </td>
@@ -633,6 +778,11 @@ export default {
         lectureInterdit: false,
         modificationInterdit: false,
         creationInterdit: false
+      },
+      activiteTypeNew: {
+        activiteTypeId: null,
+        lectureInterdit: false,
+        modificationInterdit: false
       }
     }
   },
@@ -652,6 +802,10 @@ export default {
 
     etapesTypes() {
       return this.$store.state.administration.metas.etapesTypes
+    },
+
+    activitesTypes() {
+      return this.$store.state.administration.metas.activitesTypes
     },
 
     loaded() {
@@ -721,6 +875,14 @@ export default {
         (this.titreTypeEtapeTypeNew.lectureInterdit ||
           this.titreTypeEtapeTypeNew.modificationInterdit ||
           this.titreTypeEtapeTypeNew.creationInterdit)
+      )
+    },
+
+    activiteTypeNewActive() {
+      return (
+        this.activiteTypeNew.activiteTypeId &&
+        (this.activiteTypeNew.lectureInterdit ||
+          this.activiteTypeNew.modificationInterdit)
       )
     }
   },
@@ -801,6 +963,26 @@ export default {
       })
     },
 
+    async activiteTypeUpdate(
+      activiteTypeId,
+      lectureInterdit,
+      modificationInterdit,
+      type
+    ) {
+      if (type === 'lectureInterdit') {
+        lectureInterdit = !lectureInterdit
+      } else if (type === 'modificationInterdit') {
+        modificationInterdit = !modificationInterdit
+      }
+
+      await this.$store.dispatch('administration/activiteTypeUpdate', {
+        administrationId: this.administration.id,
+        activiteTypeId,
+        lectureInterdit,
+        modificationInterdit
+      })
+    },
+
     titreTypeNewUpdate() {
       if (this.titreTypeNewActive) {
         this.titreTypeUpdate(
@@ -856,6 +1038,23 @@ export default {
           lectureInterdit: false,
           modificationInterdit: false,
           creationInterdit: false
+        }
+      }
+    },
+
+    activiteTypeNewUpdate() {
+      if (this.activiteTypeNewActive) {
+        this.activiteTypeUpdate(
+          this.activiteTypeNew.activiteTypeId,
+          this.activiteTypeNew.lectureInterdit,
+          this.activiteTypeNew.modificationInterdit
+        )
+
+        this.activiteTypeNew = {
+          domaineId: null,
+          titreTypeTypeId: null,
+          lectureInterdit: false,
+          modificationInterdit: false
         }
       }
     }
