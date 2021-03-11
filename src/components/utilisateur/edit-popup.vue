@@ -126,7 +126,7 @@
                   `cmn-utilisateur-edit-popup-permission-button-${permission.id}`
                 "
                 :class="{ active: utilisateur.permissionId === permission.id }"
-                class="btn-flash py-xs px-s pill cap-first h6 mr-xs"
+                class="btn-flash small py-xs px-s pill cap-first mr-xs"
                 @click="permissionToggle(permission)"
               >
                 {{ permission.nom }}

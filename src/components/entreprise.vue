@@ -100,7 +100,7 @@
                 <a
                   v-if="entreprise.email"
                   :href="`mailto:${entreprise.email}`"
-                  class="btn h6 bold py-xs px-s rnd"
+                  class="btn small bold py-xs px-s rnd"
                 >
                   {{ entreprise.email }}
                 </a>
@@ -118,7 +118,7 @@
                 <a
                   v-if="entreprise.url"
                   :href="entreprise.url"
-                  class="btn h6 bold py-xs px-s rnd"
+                  class="btn small bold py-xs px-s rnd"
                 >
                   {{ entreprise.url }}
                 </a>

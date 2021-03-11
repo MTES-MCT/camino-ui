@@ -79,7 +79,7 @@
                 <a
                   v-if="administration.email"
                   :href="`mailto:${administration.email}`"
-                  class="btn h6 bold py-xs px-s rnd"
+                  class="btn small bold py-xs px-s rnd"
                 >
                   {{ administration.email }}
                 </a>
@@ -97,7 +97,7 @@
                 <a
                   v-if="administration.url"
                   :href="administration.url"
-                  class="btn h6 bold py-xs px-s rnd"
+                  class="btn small bold py-xs px-s rnd"
                 >
                   {{ administration.url }}
                 </a>

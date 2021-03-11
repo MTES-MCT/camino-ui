@@ -84,6 +84,14 @@ const fragmentAdministration = gql`
       creationInterdit
       modificationInterdit
     }
+
+    activitesTypes {
+      id
+      nom
+      lectureInterdit
+      modificationInterdit
+    }
+
     modification
   }
 

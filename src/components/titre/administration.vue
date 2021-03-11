@@ -53,7 +53,7 @@
           <p class="word-break">
             <a
               :href="`mailto:${administration.email}`"
-              class="btn h6 bold py-xs px-s rnd"
+              class="btn small bold py-xs px-s rnd"
             >
               {{ administration.email }}
             </a>
@@ -68,7 +68,7 @@
           <p class="word-break">
             <a
               :href="administration.url"
-              class="btn h6 bold py-xs px-s rnd"
+              class="btn small bold py-xs px-s rnd"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -6,6 +6,7 @@ import {
   administrationTitreTypeUpdate,
   administrationTitreTypeTitreStatutUpdate,
   administrationTitreTypeEtapeTypeUpdate,
+  administrationActiviteTypeUpdate,
   administrationPermissionsMetas
 } from '../api/administrations'
 
@@ -181,6 +182,35 @@ export const actions = {
       commit('messageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'administrationTitreTypeEtapeTypeUpdate', {
+        root: true
+      })
+    }
+  },
+
+  async activiteTypeUpdate({ commit, dispatch }, administrationActiviteType) {
+    try {
+      commit('loadingAdd', 'administrationActiviteTypeUpdate', {
+        root: true
+      })
+
+      const data = await administrationActiviteTypeUpdate({
+        administrationActiviteType
+      })
+
+      await dispatch(
+        'reload',
+        { name: 'administration', id: data.id },
+        { root: true }
+      )
+      dispatch(
+        'messageAdd',
+        { value: `l'administration a été mise à jour`, type: 'success' },
+        { root: true }
+      )
+    } catch (e) {
+      commit('messageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'administrationActiviteTypeUpdate', {
         root: true
       })
     }

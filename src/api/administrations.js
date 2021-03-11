@@ -49,6 +49,10 @@ const administrationPermissionsMetas = apiGraphQLFetch(
         id
         nom
       }
+      activitesTypes {
+        id
+        nom
+      }
     }
   `
 )
@@ -126,6 +130,20 @@ const administrationTitreTypeUpdate = apiGraphQLFetch(gql`
   ${fragmentAdministration}
 `)
 
+const administrationActiviteTypeUpdate = apiGraphQLFetch(gql`
+  mutation AdministrationActiviteTypeModifier(
+    $administrationActiviteType: InputAdministrationActiviteType!
+  ) {
+    administrationActiviteTypeModifier(
+      administrationActiviteType: $administrationActiviteType
+    ) {
+      ...administration
+    }
+  }
+
+  ${fragmentAdministration}
+`)
+
 const administrationTitreTypeTitreStatutUpdate = apiGraphQLFetch(gql`
   mutation AdministrationTitreTypeTitreStatutModifier(
     $administrationTitreTypeTitreStatut: InputAdministrationTitreTypeTitreStatut!
@@ -163,5 +181,6 @@ export {
   administrationTitreTypeUpdate,
   administrationTitreTypeTitreStatutUpdate,
   administrationTitreTypeEtapeTypeUpdate,
+  administrationActiviteTypeUpdate,
   administrationPermissionsMetas
 }
