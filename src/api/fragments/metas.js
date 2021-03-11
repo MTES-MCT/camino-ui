@@ -128,6 +128,15 @@ const fragmentPhaseStatut = gql`
   }
 `
 
+const fragmentDocumentType = gql`
+  fragment documentType on DocumentType {
+    id
+    nom
+    repertoire
+    optionnel
+  }
+`
+
 const fragmentEtapeType = gql`
   fragment etapeType on EtapeType {
     id
@@ -151,7 +160,12 @@ const fragmentEtapeType = gql`
       couleur
     }
     etapesCreation
+    documentsTypes {
+      ...documentType
+    }
   }
+
+  ${fragmentDocumentType}
 `
 
 const fragmentEtapeStatut = gql`
@@ -169,15 +183,6 @@ const fragmentAdministrationType = gql`
     id
     nom
     ordre
-  }
-`
-
-const fragmentDocumentType = gql`
-  fragment documentType on DocumentType {
-    id
-    nom
-    repertoire
-    optionnel
   }
 `
 

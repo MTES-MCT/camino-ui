@@ -28,16 +28,6 @@
         class="btn py-s px-m mr-px"
         @titre-event-track="eventTrack"
       />
-      <DocumentButtonAdd
-        :document="documentNew"
-        :title="documentPopupTitle"
-        :context="documentContext"
-        :repertoire="documentRepertoire"
-        :parent-id="etape.id"
-        :parent-type-id="etape.type.id"
-        class="btn py-s px-m mr-px"
-        @titre-event-track="eventTrack"
-      />
       <button
         v-if="etape.modification"
         class="btn py-s px-m mr-px"
@@ -113,7 +103,6 @@ import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
 import EditPopup from './etape/edit.vue'
 import RemovePopup from './etape/remove.vue'
-import DocumentButtonAdd from '../document/button-add.vue'
 import JustificatifsButtonAdd from '../justificatifs/button-add.vue'
 import EtapeProps from './etape/props.vue'
 import Documents from '../documents/list.vue'
@@ -127,7 +116,6 @@ export default {
     Accordion,
     Tag,
     Documents,
-    DocumentButtonAdd,
     JustificatifsButtonAdd,
     EtapeProps,
     Section,

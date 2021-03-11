@@ -105,6 +105,17 @@
           :etape.sync="etape"
         />
       </div>
+
+      <div v-if="etapeType.documentsTypes">
+        <DocumentsEdit
+          :documents.sync="etape.documents"
+          :parent-id="etape.id"
+          :parent-type-id="etapeType.id"
+          :documents-types="etapeType.documentsTypes"
+          repertoire="demarches"
+          @complete-update="documentsCompleteUpdate"
+        />
+      </div>
     </div>
 
     <template #footer>
@@ -147,6 +158,7 @@ import Popup from '../../_ui/popup.vue'
 import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
 import EditSections from './edit-sections.vue'
+import DocumentsEdit from '../../document/edit-multi.vue'
 
 export default {
   name: 'CaminoEtapeEditPopup',
@@ -156,7 +168,8 @@ export default {
     EtapeEditFondamentales,
     EtapeEditPoints,
     EditSections,
-    InputDate
+    InputDate,
+    DocumentsEdit
   },
 
   props: {
@@ -172,7 +185,8 @@ export default {
       events: { saveKeyUp: true },
       newDate: new Date().toISOString().slice(0, 10),
       metasLoaded: false,
-      heritageLoaded: false
+      heritageLoaded: false,
+      documentsComplete: false
     }
   },
 
@@ -212,7 +226,8 @@ export default {
         this.etape &&
         this.etape.typeId &&
         this.etape.date &&
-        this.etape.statutId
+        this.etape.statutId &&
+        this.documentsComplete
       )
     }
   },
@@ -256,6 +271,44 @@ export default {
 
     async save() {
       if (this.complete) {
+        // TODO
+        // if (this.etape.documents.length || this.documentsIds.length) {
+        //   this.etape.statut.id = 'enc'
+        //
+        //   const res = await this.$store.dispatch('titreEtape/update', {
+        //     etape: this.etape
+        //   })
+        //
+        //   if (res === 'success') {
+        //     // supprime les documents qui n'ont pas de fichier
+        //     for (const documentId of this.documentsIds) {
+        //       const document = this.etape.documents.find(
+        //           d => d.id === documentId
+        //       )
+        //
+        //       if (!document || !(document.fichier || document.fichierNouveau)) {
+        //         await this.$store.dispatch('document/remove', {
+        //           id: documentId
+        //         })
+        //       }
+        //     }
+        //
+        //     // met à jour ou ajoute les documents
+        //     for (const document of this.etape.documents) {
+        //       if (
+        //           (document.fichier || document.fichierNouveau) &&
+        //           document.date
+        //       ) {
+        //         if (document.id) {
+        //           await this.$store.dispatch('document/update', { document })
+        //         } else {
+        //           await this.$store.dispatch('document/add', { document })
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
+
         await this.$store.dispatch('titreEtape/upsert', this.etape)
 
         this.eventTrack({
@@ -297,6 +350,10 @@ export default {
       if (this.$matomo) {
         this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
+    },
+
+    documentsCompleteUpdate(documentsComplete) {
+      this.documentsComplete = documentsComplete
     },
 
     errorsRemove() {
