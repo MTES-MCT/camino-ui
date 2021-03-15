@@ -46,12 +46,6 @@ export default {
 
   created() {
     this.contenu = contenuBuild(this.sections, this.etape.contenu)
-  },
-
-  methods: {
-    elementsVisibleCheck(elements) {
-      return elements.some(e => e.valeur || e.valeur === 0 || !e.optionnel)
-    }
   }
 }
 </script>

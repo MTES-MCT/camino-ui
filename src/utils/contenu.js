@@ -72,10 +72,14 @@ const hasValeurCheck = (elementId, contenu) => {
   return false
 }
 
+const elementsVisibleCheck = (elements, contenu) =>
+  elements.some(e => hasValeurCheck(e.id, contenu) || !e.optionnel)
+
 export {
   contenuBuild,
   elementContenuBuild,
   contenuCompleteCheck,
   valeurFind,
-  hasValeurCheck
+  hasValeurCheck,
+  elementsVisibleCheck
 }
