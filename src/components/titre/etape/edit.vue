@@ -106,12 +106,12 @@
         />
       </div>
 
-      <div v-if="etapeType.documentsTypes">
+      <div v-if="etapeType.documentsTypes && documentsTypes">
         <DocumentsEdit
           :documents.sync="etape.documents"
           :parent-id="etape.id"
           :parent-type-id="etapeType.id"
-          :documents-types="etapeType.documentsTypes"
+          :documents-types="documentsTypes"
           repertoire="demarches"
           @complete-update="documentsCompleteUpdate"
         />
@@ -221,13 +221,19 @@ export default {
       return !this.etapeId && !this.metasLoaded
     },
 
+    documentsTypes() {
+      return this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
+    },
+
     complete() {
       return (
         this.etape &&
         this.etape.typeId &&
         this.etape.date &&
         this.etape.statutId &&
-        this.documentsComplete
+        (!this.documentsTypes?.length ||
+          this.documentsComplete ||
+          this.etape.statutId === 'aco')
       )
     }
   },
@@ -271,44 +277,6 @@ export default {
 
     async save() {
       if (this.complete) {
-        // TODO
-        // if (this.etape.documents.length || this.documentsIds.length) {
-        //   this.etape.statut.id = 'enc'
-        //
-        //   const res = await this.$store.dispatch('titreEtape/update', {
-        //     etape: this.etape
-        //   })
-        //
-        //   if (res === 'success') {
-        //     // supprime les documents qui n'ont pas de fichier
-        //     for (const documentId of this.documentsIds) {
-        //       const document = this.etape.documents.find(
-        //           d => d.id === documentId
-        //       )
-        //
-        //       if (!document || !(document.fichier || document.fichierNouveau)) {
-        //         await this.$store.dispatch('document/remove', {
-        //           id: documentId
-        //         })
-        //       }
-        //     }
-        //
-        //     // met à jour ou ajoute les documents
-        //     for (const document of this.etape.documents) {
-        //       if (
-        //           (document.fichier || document.fichierNouveau) &&
-        //           document.date
-        //       ) {
-        //         if (document.id) {
-        //           await this.$store.dispatch('document/update', { document })
-        //         } else {
-        //           await this.$store.dispatch('document/add', { document })
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
-
         await this.$store.dispatch('titreEtape/upsert', this.etape)
 
         this.eventTrack({

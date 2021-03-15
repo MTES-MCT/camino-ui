@@ -178,7 +178,10 @@ const pointsBuild = (groupes, geoSystemeIds, geoSystemeOpposableId) => {
 }
 
 const etapeSaveFormat = etape => {
+  // le stringify casse le fichier
+  const documents = etape.documents
   etape = JSON.parse(JSON.stringify(etape))
+  etape.documents = documents
 
   const propsIds = [
     'substances',

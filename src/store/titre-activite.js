@@ -31,7 +31,7 @@ export const actions = {
     }
   },
 
-  async update({ commit, dispatch, rootState }, { activite, context }) {
+  async update({ commit, dispatch, rootState }, { activite, context, depose }) {
     try {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
@@ -40,8 +40,9 @@ export const actions = {
         activite: {
           id: activite.id,
           contenu: activite.contenu,
-          statutId: activite.statut.id
-        }
+          documents: activite.documents
+        },
+        depose
       })
 
       if (context) {

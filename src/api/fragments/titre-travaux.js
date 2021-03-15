@@ -28,6 +28,7 @@ const fragmentTitreTravauxEtape = gql`
 
     modification
     suppression
+    documentsCreation
   }
 
   ${fragmentDocument}

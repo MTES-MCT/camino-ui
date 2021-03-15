@@ -191,47 +191,9 @@ export default {
         delete this.activite.contenu
       }
 
-      if (this.activite.documents.length || this.documentsIds.length) {
-        this.activite.statut.id = 'enc'
-
-        const res = await this.$store.dispatch('titreActivite/update', {
-          activite: this.activite
-        })
-
-        if (res === 'success') {
-          // supprime les documents qui n'ont pas de fichier
-          for (const documentId of this.documentsIds) {
-            const document = this.activite.documents.find(
-              d => d.id === documentId
-            )
-
-            if (!document || !(document.fichier || document.fichierNouveau)) {
-              await this.$store.dispatch('document/remove', {
-                id: documentId
-              })
-            }
-          }
-
-          // met à jour ou ajoute les documents
-          for (const document of this.activite.documents) {
-            if (
-              (document.fichier || document.fichierNouveau) &&
-              document.date
-            ) {
-              if (document.id) {
-                await this.$store.dispatch('document/update', { document })
-              } else {
-                await this.$store.dispatch('document/add', { document })
-              }
-            }
-          }
-        }
-      }
-
-      this.activite.statut.id = confirmation && this.complete ? 'dep' : 'enc'
-
       await this.$store.dispatch('titreActivite/update', {
         activite: this.activite,
+        depose: confirmation,
         context: this.context
       })
 

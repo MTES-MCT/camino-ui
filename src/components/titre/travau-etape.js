@@ -19,6 +19,22 @@ const etapeEditFormat = (etape, travauxId) => {
   delete etape.documents
   delete etape.modification
   delete etape.suppression
+  delete etape.documentsCreation
+
+  if (etape.documents) {
+    etape.documents.forEach(document => {
+      document.titreEtapeId = etape.id
+
+      document.typeId = document.type.id
+      document.fichierNouveau = null
+
+      delete document.type
+      delete document.modification
+      delete document.suppression
+    })
+  } else {
+    etape.documents = []
+  }
 
   return etape
 }
