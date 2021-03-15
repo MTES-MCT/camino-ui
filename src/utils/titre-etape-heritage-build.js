@@ -56,27 +56,33 @@ const etapeHeritageBuild = (stateEtape, apiEtape) => {
             newEtape.contenu[sectionId] = {}
           }
 
+          if (!newEtape.heritageContenu) {
+            newEtape.heritageContenu = {}
+          }
+
+          if (!newEtape.heritageContenu[sectionId]) {
+            newEtape.heritageContenu[sectionId] = {}
+          }
+
           if (
             stateEtape.heritageContenu &&
             stateEtape.heritageContenu[sectionId] &&
             stateEtape.heritageContenu[sectionId][elementId]
           ) {
-            newEtape.contenu[sectionId][elementId] =
+            if (
+              stateEtape.contenu[sectionId] &&
               stateEtape.contenu[sectionId][elementId]
+            ) {
+              newEtape.contenu[sectionId][elementId] =
+                stateEtape.contenu[sectionId][elementId]
+            }
+
             newEtape.heritageContenu[sectionId][elementId] =
               stateEtape.heritageContenu[sectionId][elementId]
           } else {
             if (apiEtape.contenu[sectionId]) {
               newEtape.contenu[sectionId][elementId] =
                 apiEtape.contenu[sectionId][elementId]
-            }
-
-            if (!newEtape.heritageContenu) {
-              newEtape.heritageContenu = {}
-            }
-
-            if (!newEtape.heritageContenu[sectionId]) {
-              newEtape.heritageContenu[sectionId] = {}
             }
 
             newEtape.heritageContenu[sectionId][elementId] =
