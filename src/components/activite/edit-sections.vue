@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="s in sections" :key="s.id">
-      <div v-if="modifiable || elementsVisibleCheck(s.elements)">
+      <div v-if="modifiable || elementsVisibleCheck(s.elements, contenu[s.id])">
         <h3 v-if="s.nom">{{ s.nom }}</h3>
 
         <EditSectionElement
@@ -20,10 +20,13 @@
 import {
   elementContenuBuild,
   contenuBuild,
-  contenuCompleteCheck
+  contenuCompleteCheck,
+  elementsVisibleCheck
 } from '../../utils/contenu'
 
 import EditSectionElement from './edit-section-element.vue'
+
+
 
 export default {
   components: {
@@ -67,8 +70,8 @@ export default {
   },
 
   methods: {
-    elementsVisibleCheck(elements) {
-      return elements.some(e => e.valeur || e.valeur === 0 || !e.optionnel)
+    elementsVisibleCheck(elements, contenu) {
+      return elementsVisibleCheck(elements, contenu)
     }
   }
 }
