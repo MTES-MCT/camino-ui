@@ -692,7 +692,9 @@
               :key="activiteType.id"
             >
               <td>
-                <span class="cap-first">{{ activiteType.nom }}</span>
+                <span class="cap-first"
+                  >{{ activiteType.nom }} ({{ activiteType.id.toUpperCase() }})
+                </span>
               </td>
               <td>
                 <button
@@ -700,14 +702,14 @@
                   @click="
                     activiteTypeUpdate(
                       activiteType.id,
-                      activiteType.modificationInterdit,
                       activiteType.lectureInterdit,
-                      'modificationInterdit'
+                      activiteType.modificationInterdit,
+                      'lectureInterdit'
                     )
                   "
                 >
                   <i
-                    v-if="activiteType.modificationInterdit"
+                    v-if="activiteType.lectureInterdit"
                     class="icon-24 icon-cross"
                   />
                   <i v-else class="icon-24 icon-square" />
@@ -719,14 +721,14 @@
                   @click="
                     activiteTypeUpdate(
                       activiteType.id,
-                      activiteType.modificationInterdit,
                       activiteType.lectureInterdit,
-                      'lectureInterdit'
+                      activiteType.modificationInterdit,
+                      'modificationInterdit'
                     )
                   "
                 >
                   <i
-                    v-if="activiteType.lectureInterdit"
+                    v-if="activiteType.modificationInterdit"
                     class="icon-24 icon-cross"
                   />
                   <i v-else class="icon-24 icon-square" />
