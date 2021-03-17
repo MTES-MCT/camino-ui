@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.64](https://github.com/MTES-MCT/camino-ui/compare/v0.22.63...v0.22.64) (2021-03-17)
+
+
+### Features
+
+* **administration:** édite les restrictions sur les types d'activités ([#272](https://github.com/MTES-MCT/camino-ui/issues/272)) ([d557260](https://github.com/MTES-MCT/camino-ui/commit/d55726089d09a60e83f77fd539746b6381c5c8b9))
+
+
+### Bug Fixes
+
+* **activités:** prévisualise les champs facultatifs ([#273](https://github.com/MTES-MCT/camino-ui/issues/273)) ([0939407](https://github.com/MTES-MCT/camino-ui/commit/0939407d181bc335844bff77a262a88adcd2cbea))
+* **administrations:** corrige l’interface pour définir les permissions d’une adminstrations ([#275](https://github.com/MTES-MCT/camino-ui/issues/275)) ([8ecf193](https://github.com/MTES-MCT/camino-ui/commit/8ecf193384ccb6a8cbcaf2f2c3fc8cb153526e32))
+* **édition d'étape:** corrige une erreur lors de l'initialisation de l'héritage ([#274](https://github.com/MTES-MCT/camino-ui/issues/274)) ([3354c5c](https://github.com/MTES-MCT/camino-ui/commit/3354c5cb197b264e8ab64400619e9c0c07d83c5d))
+
 ### [0.22.63](https://github.com/MTES-MCT/camino-ui/compare/v0.22.62...v0.22.63) (2021-03-08)
 
 
