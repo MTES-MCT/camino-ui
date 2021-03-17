@@ -24,6 +24,8 @@ const fragmentUtilisateur = gql`
     modification
     suppression
     permissionModification
+    entreprisesCreation
+    utilisateursCreation
 
     sections {
       activites

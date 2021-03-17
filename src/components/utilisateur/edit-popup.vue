@@ -392,6 +392,8 @@ export default {
         const utilisateur = JSON.parse(JSON.stringify(this.utilisateur))
 
         delete utilisateur.permissionModification
+        delete utilisateur.entreprisesCreation
+        delete utilisateur.utilisateursCreation
 
         if (this.utilisateurIsAdministration) {
           utilisateur.administrations = utilisateur.administrations.filter(
