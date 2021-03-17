@@ -14,7 +14,7 @@
     @url-load="urlLoad"
   >
     <button
-      v-if="permissionsCheck(['super', 'admin', 'editeur'])"
+      v-if="user.entreprisesCreation"
       slot="addButton"
       class="btn rnd-xs py-s px-m full-x flex mb-s h5"
       @click="addPopupOpen"
