@@ -2,11 +2,13 @@
   <div class="mb-xxl">
     <div class="line mb-xxl" />
     <div class="tablet-blobs mb">
-      <div class="tablet-blob-1-2 mb">
-        <h2 class="cap-first mb-m">
+      <div class="tablet-blob-1-2">
+        <h2 class="cap-first mb-s">
           {{ travaux.type.nom }}
         </h2>
-        <Statut :color="travaux.statut.couleur" :nom="travaux.statut.nom" />
+        <div class="mb-s">
+          <Statut :color="travaux.statut.couleur" :nom="travaux.statut.nom" />
+        </div>
       </div>
       <div class="tablet-blob-1-2 flex">
         <div
@@ -19,7 +21,7 @@
         >
           <button
             v-if="travaux.etapesCreation"
-            class="btn rnd-l-xs py-s px-m small flex mr-px"
+            class="btn small rnd-l-xs py-s px-m flex mr-px"
             :class="{
               'rnd-r-xs': !travaux.suppression && !travaux.modification
             }"
