@@ -19,10 +19,31 @@
             </button>
           </div>
         </div>
-        <div class="tablet-blob-1-2 mb-s">
+        <div class="desktop-blob-1-2 desktop-flex">
+          <div :class="{ active: markersVisible }" class="mb-s mr-xs">
+            <button
+              class="btn-border p-s rnd-s"
+              title="affiche / masque les marqueurs"
+              @click="markersVisible = !markersVisible"
+            >
+              <i class="icon-24 icon-markers-markers" />
+            </button>
+          </div>
+
+          <div :class="{ active: patternVisible }" class="mb-s mr-xs">
+            <button
+              class="btn-border p-s rnd-s"
+              title="affiche / masque la trame"
+              @click="patternVisible = !patternVisible"
+            >
+              <i class="icon-24 icon-pattern" />
+            </button>
+          </div>
+
           <MapTilesSelector
             :tiles="tiles"
             :tiles-id="tilesId"
+            class="flex-grow mb-s"
             @params-update="preferencesUpdate"
           />
         </div>
@@ -53,7 +74,9 @@ export default {
   data() {
     return {
       map: null,
-      zoom: 0
+      zoom: 0,
+      markersVisible: true,
+      patternVisible: true
     }
   },
 
@@ -69,40 +92,48 @@ export default {
     },
 
     geojsonLayers() {
+      const className = this.patternVisible
+        ? `svg-fill-pattern-${this.typeId}-${this.domaineId}`
+        : `svg-fill-domaine-${this.domaineId}`
+
       return [
         L.geoJSON(this.geojson, {
           style: {
             fillOpacity: 0.75,
             weight: 1,
             color: 'white',
-            className: `svg-fill-pattern-${this.typeId}-${this.domaineId}`
+            className
           }
         })
       ]
     },
 
     markerLayers() {
-      return this.points.reduce((markers, point) => {
-        if (!point.nom) {
+      if (this.markersVisible) {
+        return this.points.reduce((markers, point) => {
+          if (!point.nom) {
+            return markers
+          }
+
+          const icon = L.divIcon({
+            className: `small mono border-bg color-text py-xs px-s inline-block leaflet-marker-camino cap pill bg-bg`,
+            html: point.nom,
+            iconSize: null,
+            iconAnchor: [15.5, 38]
+          })
+
+          const titleMarker = L.marker(
+            [point.coordonnees.y, point.coordonnees.x],
+            { icon }
+          )
+
+          markers.push(titleMarker)
+
           return markers
-        }
+        }, [])
+      }
 
-        const icon = L.divIcon({
-          className: `small mono border-bg color-text py-xs px-s inline-block leaflet-marker-camino cap pill bg-bg`,
-          html: point.nom,
-          iconSize: null,
-          iconAnchor: [15.5, 38]
-        })
-
-        const titleMarker = L.marker(
-          [point.coordonnees.y, point.coordonnees.x],
-          { icon }
-        )
-
-        markers.push(titleMarker)
-
-        return markers
-      }, [])
+      return []
     },
 
     tiles() {
