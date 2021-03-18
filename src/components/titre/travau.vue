@@ -6,7 +6,7 @@
         <h2 class="cap-first mb-s">
           {{ travaux.type.nom }}
         </h2>
-        <div class="mb-s">
+        <div class="mb-s hide">
           <Statut :color="travaux.statut.couleur" :nom="travaux.statut.nom" />
         </div>
       </div>
