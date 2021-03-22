@@ -16,6 +16,7 @@ const etapeEditFormat = (etape, travauxId) => {
     mois: etape.duree ? Math.floor(etape.duree % 12) : null
   }
 
+  delete etape.documents
   delete etape.modification
   delete etape.suppression
 

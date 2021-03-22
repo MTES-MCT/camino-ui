@@ -15,7 +15,7 @@
       >
         Annuler
       </button>
-      <button class="btn-flash px-s py-xs rnd-xs h5" @click="validate">
+      <button class="btn-flash small px-s py-xs rnd-xs" @click="validate">
         Valider
       </button>
     </div>

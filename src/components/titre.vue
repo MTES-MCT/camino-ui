@@ -83,27 +83,30 @@
       @titre-event-track="eventTrack"
     />
 
-    <div v-if="tabs.length > 1" class="flex">
-      <div
-        v-for="tab in tabs"
-        :key="tab.id"
-        class="mr-xs"
-        :class="{ active: tabActiveId === tab.id }"
-      >
-        <button
-          :id="`cmn-titre-tab-${tab.id}`"
-          class="p-m btn-tab rnd-t-s"
-          @click="tabToggle(tab.id)"
+    <div v-if="tabs.length > 1">
+      <div class="flex">
+        <div
+          v-for="tab in tabs"
+          :key="tab.id"
+          class="mr-xs"
+          :class="{ active: tabActiveId === tab.id }"
         >
-          {{ tab.nom }}
-          <ActivitesPills
-            v-if="tab.id === 'activites'"
-            class="inline-block ml-s"
-            :activites-absentes="titre.activitesAbsentes"
-            :activites-en-construction="titre.activitesEnConstruction"
-          />
-        </button>
+          <button
+            :id="`cmn-titre-tab-${tab.id}`"
+            class="p-m btn-tab rnd-t-s"
+            @click="tabToggle(tab.id)"
+          >
+            {{ tab.nom }}
+            <ActivitesPills
+              v-if="tab.id === 'activites'"
+              class="inline-block ml-s"
+              :activites-absentes="titre.activitesAbsentes"
+              :activites-en-construction="titre.activitesEnConstruction"
+            />
+          </button>
+        </div>
       </div>
+      <div class="line-neutral width-full mb" />
     </div>
 
     <TitreDemarches
