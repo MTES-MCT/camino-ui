@@ -1,6 +1,5 @@
 <template>
   <div class="mb-xxl">
-    <div class="line width-full mb-xxl" />
     <div class="tablet-blobs mb">
       <div class="tablet-blob-1-2">
         <h2 class="cap-first mb-s">
@@ -59,6 +58,8 @@
       :demarche-id="demarche.id"
       @titre-event-track="eventTrack"
     />
+
+    <div class="line width-full my-xxl" />
   </div>
 </template>
 

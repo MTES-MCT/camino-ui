@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div>
-      <div class="line-neutral width-full mb" />
+    <div v-if="titre.travauxCreation">
       <button
-        class="btn rnd-xs py-s px-m full-x flex small mb"
+        class="btn small rnd-xs py-s px-m full-x flex mb"
         @click="travauxAddPopupOpen"
       >
         <span class="mt-xxs">Ajouter des travaux</span>
         <i class="icon-24 icon-plus flex-right" />
       </button>
+      <div class="line width-full mb-xxl" />
     </div>
 
     <TitreTravau

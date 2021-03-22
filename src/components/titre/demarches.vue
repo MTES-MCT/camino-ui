@@ -1,7 +1,6 @@
 <template>
   <div>
     <div v-if="titre.demarchesCreation">
-      <div class="line-neutral width-full mb" />
       <button
         class="btn small rnd-xs py-s px-m full-x flex mb"
         @click="demarcheAddPopupOpen"
@@ -9,6 +8,7 @@
         <span class="mt-xxs">Ajouter une démarche</span>
         <i class="icon-24 icon-plus flex-right" />
       </button>
+      <div class="line width-full mb-xxl" />
     </div>
 
     <TitreDemarche
