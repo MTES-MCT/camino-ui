@@ -27,7 +27,9 @@ const titresMetas = apiGraphQLFetch(
       domaines {
         id
         nom
-        titresCreation
+        titresTypes {
+          titresCreation
+        }
       }
 
       types {

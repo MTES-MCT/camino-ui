@@ -162,7 +162,9 @@ export default {
     },
 
     domaines() {
-      return this.$store.state.user.metas.domaines.filter(d => d.titresCreation)
+      return this.$store.state.user.metas.domaines.filter(d =>
+        d.titresTypes.some(dtt => dtt.titresCreation)
+      )
     },
 
     referencesTypes() {
