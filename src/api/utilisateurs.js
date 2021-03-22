@@ -20,7 +20,6 @@ const userMetas = apiGraphQLFetch(
         titresTypes {
           ...titreType
         }
-        titresCreation
       }
     }
 

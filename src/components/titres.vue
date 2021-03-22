@@ -131,8 +131,9 @@ export default {
     },
 
     modification() {
-      return this.$store.state.user.metas.domaines.filter(d => d.titresCreation)
-        .length
+      return this.$store.state.user.metas.domaines.some(d =>
+        d.titresTypes.some(dtt => dtt.titresCreation)
+      )
     },
 
     total() {
