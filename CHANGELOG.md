@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.65](https://github.com/MTES-MCT/camino-ui/compare/v0.22.64...v0.22.65) (2021-03-23)
+
+
+### Features
+
+* **carte:** ajoute une option pour masquer la trame ([#278](https://github.com/MTES-MCT/camino-ui/issues/278)) ([f127c94](https://github.com/MTES-MCT/camino-ui/commit/f127c94d243732d52b0f44a76b9965f4be0e9d91))
+* **travaux:** masque le statut ([f52fbc4](https://github.com/MTES-MCT/camino-ui/commit/f52fbc4dfd074b69c1e7dc0d4d39df98656e83b7))
+* met à jour les permissions ([#277](https://github.com/MTES-MCT/camino-ui/issues/277)) ([0819e12](https://github.com/MTES-MCT/camino-ui/commit/0819e12dbe8d344ad09f91583f8a5ca96dadb974))
+
+
+### Bug Fixes
+
+* **titres:** corrige l’affichage du bouton de création de titres ([#280](https://github.com/MTES-MCT/camino-ui/issues/280)) ([df91de9](https://github.com/MTES-MCT/camino-ui/commit/df91de9e5da30f4303016a36c5ec8f7ad3e80b72))
+* **travaux:** corrige des problèmes de mise en page ([#279](https://github.com/MTES-MCT/camino-ui/issues/279)) ([bb93650](https://github.com/MTES-MCT/camino-ui/commit/bb936506f8e5c34b81f9962e86c00fa9d32c756f))
+* **travaux:** corrige l'affichage du statut ([15bf4b3](https://github.com/MTES-MCT/camino-ui/commit/15bf4b34d1aa7e1c2c844a92b4de35b65c716c38))
+
 ### [0.22.64](https://github.com/MTES-MCT/camino-ui/compare/v0.22.63...v0.22.64) (2021-03-17)
 
 
