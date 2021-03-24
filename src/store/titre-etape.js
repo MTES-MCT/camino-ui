@@ -43,7 +43,6 @@ export const actions = {
       commit('metasSet', metas)
       commit('set', { etape: newEtape, titreDemarcheId })
     } catch (e) {
-      console.log(e)
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeMetasGet', { root: true })
@@ -61,7 +60,6 @@ export const actions = {
 
       commit('heritageSet', { etape: data, titreDemarcheId })
     } catch (e) {
-      console.log(e)
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeHeritageGet', {
