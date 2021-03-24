@@ -135,7 +135,8 @@ export default {
         typeId: null,
         statutId: null,
         duree: { ans: null, mois: null },
-        contenu: {}
+        contenu: {},
+        documents: []
       }
 
       this.$store.commit('popupOpen', {

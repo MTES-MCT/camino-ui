@@ -73,6 +73,7 @@ export const actions = {
         commit('popupLoad', null, { root: true })
       }
 
+      delete document.typeId
       await documentModifier({ document })
 
       if (context) {

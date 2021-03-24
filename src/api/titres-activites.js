@@ -46,8 +46,11 @@ const activitesMetas = apiGraphQLFetch(
 )
 
 const activiteModifier = apiGraphQLFetch(gql`
-  mutation ActiviteModifier($activite: InputActiviteModification!) {
-    activiteModifier(activite: $activite) {
+  mutation ActiviteModifier(
+    $activite: InputActiviteModification!
+    $depose: Boolean
+  ) {
+    activiteModifier(activite: $activite, depose: $depose) {
       ...activite
     }
   }

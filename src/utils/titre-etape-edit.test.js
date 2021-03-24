@@ -24,7 +24,8 @@ describe('etapeEditFormat', () => {
       groupes: [],
       substances: [],
       contenu: {},
-      incertitudes: {}
+      incertitudes: {},
+      documents: []
     })
 
     expect(
@@ -75,7 +76,8 @@ describe('etapeEditFormat', () => {
       ],
       substances: [],
       contenu: {},
-      incertitudes: {}
+      incertitudes: {},
+      documents: []
     })
 
     expect(
@@ -166,7 +168,52 @@ describe('etapeEditFormat', () => {
       ],
       substances: [{ id: 'auru' }],
       contenu: { 'prop-id': 'prop-value' },
-      incertitudes: { amodiataires: true }
+      incertitudes: { amodiataires: true },
+      documents: []
+    })
+  })
+
+  test('formate une étape avec des documents', () => {
+    expect(
+      etapeEditFormat(
+        {
+          __typename: 'etape',
+          id: 'etape-id',
+          documents: [
+            {
+              id: 'doc-id-111',
+              type: {
+                id: 'typeId'
+              },
+              modification: true,
+              suppression: true
+            }
+          ]
+        },
+
+        'demarche-id'
+      )
+    ).toEqual({
+      id: 'etape-id',
+      titreDemarcheId: 'demarche-id',
+      statutId: '',
+      duree: { ans: null, mois: null },
+      amodiataires: [],
+      titulaires: [],
+      geoSystemeIds: [],
+      geoSystemeOpposableId: null,
+      groupes: [],
+      substances: [],
+      contenu: {},
+      incertitudes: {},
+      documents: [
+        {
+          fichierNouveau: null,
+          id: 'doc-id-111',
+          titreEtapeId: 'etape-id',
+          typeId: 'typeId'
+        }
+      ]
     })
   })
 })

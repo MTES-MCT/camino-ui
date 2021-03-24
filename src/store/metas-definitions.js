@@ -53,6 +53,10 @@ import {
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,
   etapeTypeEtapeStatutSupprimer,
+  etapesTypesDocumentsTypes,
+  etapeTypeDocumentTypeModifier,
+  etapeTypeDocumentTypeCreer,
+  etapeTypeDocumentTypeSupprimer,
   travauxTypesEtapesTypes,
   travauxTypeEtapeTypeModifier,
   travauxTypeEtapeTypeCreer,
@@ -326,6 +330,19 @@ const metasIndex = {
       { id: 'ordre', nom: 'Ordre', type: Number }
     ],
     ids: ['etapeTypeId', 'etapeStatutId']
+  },
+  'etapes-types--documents-types': {
+    get: etapesTypesDocumentsTypes,
+    update: etapeTypeDocumentTypeModifier,
+    create: etapeTypeDocumentTypeCreer,
+    delete: etapeTypeDocumentTypeSupprimer,
+    nom: 'Types des étapes | Types des documents',
+    colonnes: [
+      { id: 'etapeTypeId', nom: "Id du type d'étape" },
+      { id: 'documentTypeId', nom: 'Id du type de documents' },
+      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
+    ],
+    ids: ['etapeTypeId', 'documentTypeId']
   },
   'travaux-types': {
     get: travauxTypes,

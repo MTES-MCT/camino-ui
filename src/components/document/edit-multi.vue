@@ -28,7 +28,7 @@ export default {
     modifiable: { type: Boolean, default: true },
     repertoire: { type: String, required: true },
     parentTypeId: { type: String, default: '' },
-    parentId: { type: String, required: true },
+    parentId: { type: String, default: undefined, required: false },
     documentsTypes: { type: Array, required: true }
   },
   data() {

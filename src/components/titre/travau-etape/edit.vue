@@ -121,6 +121,17 @@
       :element.sync="etape"
     />
 
+    <div v-if="etapeType.documentsTypes && documentsTypes.length">
+      <DocumentsEdit
+        :documents.sync="etape.documents"
+        :parent-id="etape.id"
+        :parent-type-id="etapeType.id"
+        :documents-types="documentsTypes"
+        repertoire="travaux"
+        @complete-update="documentsCompleteUpdate"
+      />
+    </div>
+
     <template #footer>
       <div v-if="!loading" class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
@@ -149,6 +160,7 @@ import InputDate from '../../_ui/input-date.vue'
 import InputNumber from '../../_ui/input-number.vue'
 import Popup from '../../_ui/popup.vue'
 import EditSections from './edit-sections.vue'
+import DocumentsEdit from '../../document/edit-multi.vue'
 
 import { etapeSaveFormat } from './edit'
 
@@ -159,7 +171,8 @@ export default {
     Popup,
     EditSections,
     InputDate,
-    InputNumber
+    InputNumber,
+    DocumentsEdit
   },
 
   props: {
@@ -172,7 +185,8 @@ export default {
 
   data() {
     return {
-      events: { saveKeyUp: true }
+      events: { saveKeyUp: true },
+      documentsComplete: false
     }
   },
 
@@ -199,8 +213,19 @@ export default {
       return this.etapeType.etapesStatuts
     },
 
+    documentsTypes() {
+      return this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
+    },
+
     complete() {
-      return this.etape.typeId && this.etape.date && this.etape.statutId
+      return (
+        this.etape.typeId &&
+        this.etape.date &&
+        this.etape.statutId &&
+        (!this.documentsTypes?.length ||
+          this.documentsComplete ||
+          this.etape.statutId === 'aco')
+      )
     }
   },
 
@@ -255,6 +280,10 @@ export default {
       } else {
         this.etape.statutId = null
       }
+    },
+
+    documentsCompleteUpdate(documentsComplete) {
+      this.documentsComplete = documentsComplete
     },
 
     errorsRemove() {

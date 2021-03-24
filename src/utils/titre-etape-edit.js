@@ -192,15 +192,30 @@ const etapeEditFormat = (etape, demarcheId) => {
     etape.contenu = {}
   }
 
+  if (etape.documents) {
+    etape.documents.forEach(document => {
+      document.titreEtapeId = etape.id
+
+      document.typeId = document.type.id
+      document.fichierNouveau = null
+
+      delete document.type
+      delete document.modification
+      delete document.suppression
+    })
+  } else {
+    etape.documents = []
+  }
+
   delete etape.pays
   delete etape.modification
   delete etape.suppression
   delete etape.points
   delete etape.geojsonPoints
   delete etape.geojsonMultiPolygon
-  delete etape.documents
   delete etape.justificatifs
   delete etape.justificatifsAssociation
+  delete etape.documentsCreation
 
   return etape
 }

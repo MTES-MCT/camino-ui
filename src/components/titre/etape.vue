@@ -29,6 +29,7 @@
         @titre-event-track="eventTrack"
       />
       <DocumentButtonAdd
+        v-if="etape.documentsCreation"
         :document="documentNew"
         :title="documentPopupTitle"
         :context="documentContext"

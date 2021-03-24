@@ -1,5 +1,7 @@
 const etapeSaveFormat = etape => {
+  const documents = etape.documents
   etape = JSON.parse(JSON.stringify(etape))
+  etape.documents = documents
 
   if (etape.duree.ans || etape.duree.mois) {
     etape.duree =

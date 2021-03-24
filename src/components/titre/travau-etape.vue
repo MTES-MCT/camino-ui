@@ -14,6 +14,7 @@
 
     <template v-if="etape.modification || etape.suppression" #buttons>
       <DocumentButtonAdd
+        v-if="etape.documentsCreation"
         :document="documentNew"
         :title="documentPopupTitle"
         :context="documentContext"

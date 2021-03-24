@@ -105,6 +105,17 @@
           :etape.sync="etape"
         />
       </div>
+
+      <div v-if="etapeType.documentsTypes && documentsTypes.length">
+        <DocumentsEdit
+          :documents.sync="etape.documents"
+          :parent-id="etape.id"
+          :parent-type-id="etapeType.id"
+          :documents-types="documentsTypes"
+          repertoire="demarches"
+          @complete-update="documentsCompleteUpdate"
+        />
+      </div>
     </div>
 
     <template #footer>
@@ -147,6 +158,7 @@ import Popup from '../../_ui/popup.vue'
 import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
 import EditSections from './edit-sections.vue'
+import DocumentsEdit from '../../document/edit-multi.vue'
 
 export default {
   name: 'CaminoEtapeEditPopup',
@@ -156,7 +168,8 @@ export default {
     EtapeEditFondamentales,
     EtapeEditPoints,
     EditSections,
-    InputDate
+    InputDate,
+    DocumentsEdit
   },
 
   props: {
@@ -172,7 +185,8 @@ export default {
       events: { saveKeyUp: true },
       newDate: new Date().toISOString().slice(0, 10),
       metasLoaded: false,
-      heritageLoaded: false
+      heritageLoaded: false,
+      documentsComplete: false
     }
   },
 
@@ -207,12 +221,19 @@ export default {
       return !this.etapeId && !this.metasLoaded
     },
 
+    documentsTypes() {
+      return this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
+    },
+
     complete() {
       return (
         this.etape &&
         this.etape.typeId &&
         this.etape.date &&
-        this.etape.statutId
+        this.etape.statutId &&
+        (!this.documentsTypes?.length ||
+          this.documentsComplete ||
+          this.etape.statutId === 'aco')
       )
     }
   },
@@ -297,6 +318,10 @@ export default {
       if (this.$matomo) {
         this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
+    },
+
+    documentsCompleteUpdate(documentsComplete) {
+      this.documentsComplete = documentsComplete
     },
 
     errorsRemove() {
