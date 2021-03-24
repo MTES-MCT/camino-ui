@@ -1,44 +1,7 @@
 import gql from 'graphql-tag'
 import { fragmentTitresEntreprises } from './entreprises'
 import { fragmentDocument } from './documents'
-import { fragmentDocumentType } from './metas'
-
-const fragmentActiviteType = gql`
-  fragment activiteType on ActiviteType {
-    id
-    nom
-    pays {
-      id
-      nom
-    }
-    frequence {
-      id
-      nom
-      trimestres {
-        id
-        nom
-        mois {
-          id
-          nom
-        }
-      }
-      mois {
-        id
-        nom
-      }
-      annees {
-        id
-        nom
-      }
-    }
-    sections
-    documentsTypes {
-      ...documentType
-    }
-  }
-
-  ${fragmentDocumentType}
-`
+import { fragmentActiviteType, fragmentActiviteStatut } from './metas-activites'
 
 const fragmentTitreActivite = gql`
   fragment titreActivite on Activite {
@@ -47,9 +10,7 @@ const fragmentTitreActivite = gql`
       ...activiteType
     }
     statut {
-      id
-      nom
-      couleur
+      ...activiteStatut
     }
     date
     annee
@@ -68,6 +29,8 @@ const fragmentTitreActivite = gql`
   }
 
   ${fragmentActiviteType}
+
+  ${fragmentActiviteStatut}
 
   ${fragmentDocument}
 `
@@ -164,19 +127,10 @@ const fragmentTitresActivite = gql`
     }
   }
 `
-const fragmentActiviteStatut = gql`
-  fragment activiteStatut on ActiviteStatut {
-    id
-    nom
-    couleur
-  }
-`
 
 export {
-  fragmentActiviteType,
   fragmentActivites,
   fragmentActivite,
   fragmentTitreActivite,
-  fragmentTitresActivite,
-  fragmentActiviteStatut
+  fragmentTitresActivite
 }

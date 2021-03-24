@@ -63,6 +63,25 @@ import {
   travauxTypeEtapeTypeSupprimer
 } from '../api/metas'
 
+import {
+  activitesTypes,
+  activiteTypeModifier,
+  activitesStatuts,
+  activiteStatutModifier,
+  activitesTypesTitresTypes,
+  activiteTypeTitreTypeModifier,
+  activiteTypeTitreTypeCreer,
+  activiteTypeTitreTypeSupprimer,
+  activitesTypesDocumentsTypes,
+  activiteTypeDocumentTypeModifier,
+  activiteTypeDocumentTypeCreer,
+  activiteTypeDocumentTypeSupprimer,
+  activitesTypesPays,
+  activiteTypePaysModifier,
+  activiteTypePaysCreer,
+  activiteTypePaysSupprimer
+} from '../api/metas-activites'
+
 const metasIndex = {
   definitions: {
     get: definitions,
@@ -457,6 +476,92 @@ const metasIndex = {
       },
       { id: 'definitionProj4', nom: 'Définition proj 4', type: String }
     ]
+  },
+  'activites-types': {
+    get: activitesTypes,
+    update: activiteTypeModifier,
+    nom: 'Types des activités',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      {
+        id: 'frequenceId',
+        nom: 'Id la fréquence',
+        type: Array,
+        elements: ['tri', 'ann', 'men']
+      },
+      { id: 'ordre', nom: 'Ordre', type: Number },
+      { id: 'sections', nom: 'Sections', type: 'json', optional: true },
+      {
+        id: 'dateDebut',
+        nom: 'Date de début',
+        type: Date,
+        class: ['min-width-12']
+      },
+      { id: 'delaiMois', nom: 'Délai', type: Number },
+      {
+        id: 'satisfactionUrl',
+        nom: 'Url voxusagers',
+        type: String,
+        optional: true
+      },
+      { id: 'email', nom: 'Email', type: String, optional: true }
+    ]
+  },
+  'activites-statuts': {
+    get: activitesStatuts,
+    update: activiteStatutModifier,
+    nom: 'Statuts des activités',
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String },
+      {
+        id: 'couleur',
+        nom: 'Couleur',
+        type: Array,
+        elements: ['warning', 'neutral', 'success', 'error']
+      }
+    ]
+  },
+
+  'activites-types--titres-types': {
+    get: activitesTypesTitresTypes,
+    update: activiteTypeTitreTypeModifier,
+    create: activiteTypeTitreTypeCreer,
+    delete: activiteTypeTitreTypeSupprimer,
+    nom: 'Types des activités | Types des titres',
+    colonnes: [
+      { id: 'activiteTypeId', nom: "Id du type d'activité" },
+      { id: 'titreTypeId', nom: 'Id du type de titre' }
+    ],
+    ids: ['activiteTypeId', 'titreTypeId']
+  },
+
+  'activites-types--documents-types': {
+    get: activitesTypesDocumentsTypes,
+    update: activiteTypeDocumentTypeModifier,
+    create: activiteTypeDocumentTypeCreer,
+    delete: activiteTypeDocumentTypeSupprimer,
+    nom: 'Types des activités | Types des documents',
+    colonnes: [
+      { id: 'activiteTypeId', nom: "Id du type d'activité" },
+      { id: 'documentTypeId', nom: 'Id du type de document' },
+      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
+    ],
+    ids: ['activiteTypeId', 'documentTypeId']
+  },
+
+  'activites-types--pays': {
+    get: activitesTypesPays,
+    update: activiteTypePaysModifier,
+    create: activiteTypePaysCreer,
+    delete: activiteTypePaysSupprimer,
+    nom: 'Types des activités | Pays',
+    colonnes: [
+      { id: 'activiteTypeId', nom: "Id du type d'activité" },
+      { id: 'paysId', nom: 'Id du pays' }
+    ],
+    ids: ['activiteTypeId', 'paysId']
   }
 }
 

@@ -1,49 +1,7 @@
 import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 
-import {
-  fragmentActivites,
-  fragmentActivite,
-  fragmentActiviteType,
-  fragmentActiviteStatut
-} from './fragments/titre-activite'
-
-import { fragmentTitreTypeType } from './fragments/metas'
-
-const activitesMetas = apiGraphQLFetch(
-  gql`
-    query MetasActivites {
-      activitesTypes {
-        ...activiteType
-      }
-      activitesStatuts {
-        ...activiteStatut
-      }
-      activitesAnnees
-
-      domaines {
-        id
-        nom
-      }
-
-      types {
-        ...titreTypeType
-      }
-
-      statuts {
-        id
-        nom
-        couleur
-      }
-    }
-
-    ${fragmentActiviteType}
-
-    ${fragmentActiviteStatut}
-
-    ${fragmentTitreTypeType}
-  `
-)
+import { fragmentActivites, fragmentActivite } from './fragments/titre-activite'
 
 const activiteModifier = apiGraphQLFetch(gql`
   mutation ActiviteModifier(
@@ -127,10 +85,4 @@ const activite = apiGraphQLFetch(
   `
 )
 
-export {
-  activite,
-  activites,
-  activiteModifier,
-  activitesMetas,
-  activiteSupprimer
-}
+export { activite, activites, activiteModifier, activiteSupprimer }
