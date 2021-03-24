@@ -106,7 +106,7 @@
         />
       </div>
 
-      <div v-if="etapeType.documentsTypes && documentsTypes">
+      <div v-if="etapeType.documentsTypes && documentsTypes.length">
         <DocumentsEdit
           :documents.sync="etape.documents"
           :parent-id="etape.id"
