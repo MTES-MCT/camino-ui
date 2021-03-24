@@ -18,7 +18,7 @@
         <h6>Type</h6>
       </div>
       <div class="mb tablet-blob-2-3">
-        <select v-model="document.typeId" class="p-s">
+        <select v-if="!document.id" v-model="document.typeId" class="p-s">
           <option
             v-for="documentType in documentsTypes"
             :key="documentType.id"
@@ -28,6 +28,9 @@
             {{ documentType.nom }}
           </option>
         </select>
+        <div v-else class="p-s">
+          {{ documentsTypes.find(d => d.id === document.typeId).nom }}
+        </div>
       </div>
     </div>
 
