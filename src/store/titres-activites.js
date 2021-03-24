@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
-import { activites, activitesMetas } from '../api/titres-activites'
+import { activites } from '../api/titres-activites'
+import { activitesMetas } from '../api/metas-activites'
 import { paramsBuild } from '../utils/'
 
 export const state = {

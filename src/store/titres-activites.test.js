@@ -1,12 +1,18 @@
 import titresActivites from './titres-activites'
-import * as api from '../api/titres-activites'
+import * as apiActivites from '../api/titres-activites'
+import * as apiMetasActivites from '../api/metas-activites'
 import { createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 
 jest.mock('../api/titres-activites', () => ({
-  activitesMetas: jest.fn(),
   activites: jest.fn()
 }))
+
+jest.mock('../api/metas-activites', () => ({
+  activitesMetas: jest.fn()
+}))
+
+const api = Object.assign({}, apiActivites, apiMetasActivites)
 
 console.info = jest.fn()
 
