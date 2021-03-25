@@ -25,7 +25,9 @@ export default {
     },
 
     $route: function (to, from) {
-      this.init()
+      if (to.query.vue !== from.query.vue) {
+        this.init()
+      }
     }
   },
 
