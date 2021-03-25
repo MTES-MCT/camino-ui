@@ -63,7 +63,7 @@
     <div class="line-neutral width-full" />
     <component
       :is="vueComponent"
-      v-if="vue && metasLoaded"
+      v-if="vue && metasLoaded && vueComponent"
       :titres="titres"
       :total="total"
       @loaded="urlLoad('component')"
@@ -185,6 +185,7 @@ export default {
     },
 
     vueClick(vue) {
+      console.log('--------------------------------')
       if (!this.loading) {
         this.vueSet(vue)
       }

@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { nextTick } from 'vue'
 import { paramsBuild, queryUpdate, queryClean } from './url.js'
+import { nextTick } from '@vue/runtime-core'
 
 export default {
   name: 'UiUrl',
@@ -18,35 +18,55 @@ export default {
 
   watch: {
     params: {
-      handler: function (params) {
-        this.update(params)
+      handler: async function (params) {
+        await this.update(params)
       },
       deep: true
     },
 
-    $route: function () {
-      this.init()
+    '$route.query': async function () {
+      // await this.update()
+      // let hasChanged = false
+      // Object.keys(this.values).forEach(id => {
+      //   const paramString = this.params[id] || null
+      //   const queryString = this.$route.query[id] || null
+      //   if (paramString !== queryString) {
+      //     hasChanged = true
+      //     console.log(
+      //       'url - watch - $route.query:',
+      //       hasChanged,
+      //       Object.keys(this.values),
+      //       id,
+      //       paramString,
+      //       queryString
+      //     )
+      //   }
+      // })
+      // if (hasChanged) {
+      //   // await this.init()
+      // }
     }
   },
 
-  created() {
-    this.init()
+  async created() {
+    await this.init()
 
     nextTick(() => {
       this.$emit('loaded')
     })
   },
 
-  unmounted() {
+  async unmounted() {
     const { query, updated } = queryClean(this.$route.query, this.values)
 
     if (updated) {
-      this.$router.replace({ query })
+      await this.$router.replace({ query })
     }
   },
 
   methods: {
-    init() {
+    async init() {
+      console.log('init', this.params)
       const { query, params } = paramsBuild(
         this.params,
         this.$route.query,
@@ -54,7 +74,7 @@ export default {
       )
 
       if (Object.keys(query).length) {
-        this.update(query)
+        await this.update(query)
       }
 
       if (Object.keys(params).length) {
@@ -62,7 +82,7 @@ export default {
       }
     },
 
-    update(params) {
+    async update(params) {
       const { query, status } = queryUpdate(
         params,
         this.$route.query,
@@ -70,9 +90,9 @@ export default {
       )
 
       if (status === 'updated') {
-        this.$router.push({ query })
+        await this.$router.push({ query })
       } else if (status === 'created') {
-        this.$router.replace({ query })
+        await this.$router.replace({ query })
       }
     }
   }
