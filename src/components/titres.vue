@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import { markRaw } from '@vue/reactivity'
 import Url from './_ui/url.vue'
 import Downloads from './_common/downloads.vue'
 import TitreEditPopup from './titre/edit-popup.vue'
@@ -88,8 +89,8 @@ export default {
   data() {
     return {
       vues: [
-        { id: 'carte', component: TitresMap, icon: 'globe' },
-        { id: 'liste', component: TitresTableUrl, icon: 'list' }
+        { id: 'carte', component: markRaw(TitresMap), icon: 'globe' },
+        { id: 'liste', component: markRaw(TitresTableUrl), icon: 'list' }
       ],
       vueUrlValues: {
         vue: { type: 'string', elements: ['carte', 'liste'] }

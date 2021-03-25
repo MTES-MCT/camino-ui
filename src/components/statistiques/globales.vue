@@ -161,6 +161,7 @@
 <script>
 import Loader from '../_ui/loader.vue'
 import LineChart from '../_charts/line.vue'
+import numberFormat from '@/utils/number-format'
 
 export default {
   name: 'CaminoStatistiques',
@@ -216,6 +217,10 @@ export default {
           }
         ]
       }
+    },
+
+    numberFormat(number) {
+      return numberFormat(number)
     }
   }
 }

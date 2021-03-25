@@ -56,7 +56,15 @@ const utilisateursLignesBuild = utilisateurs =>
       email: { value: utilisateur.email || '–', class: ['h5'] },
       permissions: {
         value: (utilisateur.permission && utilisateur.permission.nom) || '–',
-        class: ['bg-neutral', 'color-bg', 'pill', 'py-xs', 'px-s']
+        class: [
+          'bg-neutral',
+          'color-bg',
+          'pill',
+          'py-xs',
+          'px-s',
+          'small',
+          'bold'
+        ]
       },
       lien
     }

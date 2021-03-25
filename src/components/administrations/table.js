@@ -1,3 +1,4 @@
+import { markRaw } from '@vue/reactivity'
 import Tag from '../_ui/tag.vue'
 
 const administrationsColonnes = [
@@ -21,7 +22,7 @@ const administrationsLignesBuild = administrations =>
       abreviation: { value: administration.abreviation },
       nom: { value: administration.nom, class: 'h5' },
       type: {
-        component: Tag,
+        component: markRaw(Tag),
         props: { mini: true },
         class: 'mb--xs',
         value: administration.type.nom,

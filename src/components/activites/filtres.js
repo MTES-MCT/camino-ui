@@ -2,6 +2,7 @@ import FiltresStatuts from '../_common/filtres/statuts.vue'
 import FiltresDomaines from '../_common/filtres/domaines.vue'
 import FiltresTypes from '../_common/filtres/types.vue'
 import { elementsFormat } from '../../utils/index'
+import { markRaw } from '@vue/reactivity'
 
 const filtres = [
   {
@@ -45,7 +46,7 @@ const filtres = [
     type: 'checkboxes',
     value: [],
     elements: [],
-    component: FiltresDomaines,
+    component: markRaw(FiltresDomaines),
     elementsFormat
   },
   {
@@ -54,7 +55,7 @@ const filtres = [
     type: 'checkboxes',
     value: [],
     elements: [],
-    component: FiltresTypes,
+    component: markRaw(FiltresTypes),
     elementsFormat
   },
   {
@@ -63,7 +64,7 @@ const filtres = [
     type: 'checkboxes',
     value: [],
     elements: [],
-    component: FiltresStatuts,
+    component: markRaw(FiltresStatuts),
     elementsFormat
   },
   {
@@ -80,7 +81,7 @@ const filtres = [
     type: 'checkboxes',
     value: [],
     elements: [],
-    component: FiltresStatuts,
+    component: markRaw(FiltresStatuts),
     elementsFormat
   },
   {

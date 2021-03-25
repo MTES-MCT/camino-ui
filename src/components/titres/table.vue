@@ -1,5 +1,5 @@
 <template>
-  <Table
+  <Tablo
     :column="preferences.colonne"
     :columns="colonnes"
     :order="preferences.ordre"
@@ -10,14 +10,14 @@
 </template>
 
 <script>
-import Table from '../_ui/table.vue'
+import Tablo from '../_ui/table.vue'
 
 import { titresColonnes, titresLignesBuild } from './table.js'
 
 export default {
   name: 'Titres',
 
-  components: { Table },
+  components: { Tablo },
 
   props: {
     titres: { type: Array, required: true }

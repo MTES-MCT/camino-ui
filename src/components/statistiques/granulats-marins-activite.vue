@@ -18,9 +18,7 @@
           </p>
         </div>
         <div v-else>
-          <p class="h0 text-center">
-            -
-          </p>
+          <p class="h0 text-center">-</p>
         </div>
       </div>
       <div class="tablet-blob-1-2 mb-xl">
@@ -37,9 +35,7 @@
           </p>
         </div>
         <div v-else>
-          <p class="h0 text-center">
-            -
-          </p>
+          <p class="h0 text-center">-</p>
         </div>
       </div>
     </div>
@@ -72,6 +68,7 @@
 
 <script>
 import numberFormat from '@/utils/number-format'
+
 export default {
   name: 'IndicateursActiviteGranulatsMarins',
 
@@ -80,8 +77,10 @@ export default {
     enConstruction: { type: Boolean, default: false }
   },
 
-  numberFormat(number) {
-    return numberFormat(number)
+  methods: {
+    numberFormat(number) {
+      return numberFormat(number)
+    }
   }
 }
 </script>

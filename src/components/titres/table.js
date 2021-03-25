@@ -1,3 +1,4 @@
+import { markRaw } from '@vue/reactivity'
 import TagList from '../_ui/tag-list.vue'
 import List from '../_ui/list.vue'
 import CaminoDomaine from '../_common/domaine.vue'
@@ -67,27 +68,27 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
   titres.map(titre => {
     const columns = {
       nom: {
-        component: TitreNom,
+        component: markRaw(TitreNom),
         props: { nom: titre.nom },
         value: titre.nom
       },
       domaine: {
-        component: CaminoDomaine,
+        component: markRaw(CaminoDomaine),
         props: { domaineId: titre.domaine.id },
         value: titre.domaine.id
       },
       coordonnees: {
-        component: CoordonneesIcone,
+        component: markRaw(CoordonneesIcone),
         props: { coordonnees: titre.coordonnees },
         value: titre.coordonnees ? '·' : ''
       },
       type: {
-        component: TitreTypeTypeNom,
+        component: markRaw(TitreTypeTypeNom),
         props: { nom: titre.type.type.nom },
         value: titre.type.type.nom
       },
       statut: {
-        component: Statut,
+        component: markRaw(Statut),
         props: {
           color: titre.statut.couleur,
           nom: titre.statut.nom
@@ -95,13 +96,13 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
         value: titre.statut.nom
       },
       substances: {
-        component: TagList,
+        component: markRaw(TagList),
         props: { elements: titre.substances.map(s => s.nom) },
         class: 'mb--xs',
         value: titre.substances.map(s => s.nom).join(', ')
       },
       titulaires: {
-        component: List,
+        component: markRaw(List),
         props: {
           elements: titre.titulaires.map(({ nom }) => nom),
           mini: true
@@ -110,7 +111,7 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
         value: titre.titulaires.map(({ nom }) => nom).join(', ')
       },
       regions: {
-        component: List,
+        component: markRaw(List),
         props: {
           elements: titre.pays?.length
             ? titre.pays.flatMap(pay =>
@@ -122,7 +123,7 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
         class: 'mb--xs'
       },
       departements: {
-        component: List,
+        component: markRaw(List),
         props: {
           elements: titre.pays?.length
             ? titre.pays.flatMap(pay =>
@@ -149,7 +150,7 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
 
     if (activitesCol) {
       columns.activites = {
-        component: ActivitesPills,
+        component: markRaw(ActivitesPills),
         props: {
           activitesAbsentes: titre.activitesAbsentes,
           activitesEnConstruction: titre.activitesEnConstruction

@@ -137,7 +137,6 @@ export default {
 
     tilesAdd() {
       this.layers.tiles = this.tilesLayer
-      console.log(this.layers.tiles)
       this.layers.tiles.addTo(this.map)
     },
 

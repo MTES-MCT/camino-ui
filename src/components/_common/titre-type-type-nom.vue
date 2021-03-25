@@ -1,5 +1,5 @@
 <template>
-  <span class="small bold cap-first">{{ titreTypeTypeNom }}</span>
+  <span class="small bold cap-first">{{ nom }}</span>
 </template>
 <script>
 export default {
