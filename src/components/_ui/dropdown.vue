@@ -1,10 +1,9 @@
 <template>
   <div class="relative flex flex-direction-column dropdown">
-    <div class="absolute border bg-bg full-x overflow-hidden">
+    <div class="absolute border rnd-s bg-bg full-x overflow-hidden">
       <button
         :class="{
           'rnd-t-s': opened,
-          'rnd-s': !opened,
           'border-b-s': opened
         }"
         class="accordion-header flex btn-alt py-s px-m full-x"
