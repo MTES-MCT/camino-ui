@@ -1,10 +1,10 @@
-const paramsBuild = (params, values, query) =>
-  Object.keys(params).reduce(
-    ({ queryParams, eventParams }, id) => {
-      const paramValue = params[id]
+const paramsBuild = (sourceParams, queryParams, values) =>
+  Object.keys(sourceParams).reduce(
+    ({ query, params }, id) => {
+      const paramValue = sourceParams[id]
       const queryValue = valueClean(
         id,
-        valueParse(id, valueGet(id, query[id], values), values),
+        valueParse(id, valueGet(id, queryParams[id], values), values),
         values
       )
 
@@ -12,19 +12,64 @@ const paramsBuild = (params, values, query) =>
       const queryString = valueStringify(id, queryValue, values)
 
       if (!queryString && paramString) {
-        queryParams[id] = paramValue
-      } else if (queryString && queryString !== query[id]) {
+        query[id] = paramValue
+      } else if (queryString && queryString !== queryParams[id]) {
         // si le paramètre d'URL a été nettoyé, on le met à jour dans l'URL
-        queryParams[id] = queryValue
+        query[id] = queryValue
       }
 
       if (queryString && queryString !== paramString) {
-        eventParams[id] = queryValue
+        params[id] = queryValue
       }
 
-      return { queryParams, eventParams }
+      return { query, params }
     },
-    { queryParams: {}, eventParams: {} }
+    { query: {}, params: {} }
+  )
+
+const queryUpdate = (sourceParams, queryParams, values) => {
+  let status = 'unchanged'
+
+  const query = Object.keys(queryParams).reduce((query, id) => {
+    query[id] = valueStringify(
+      id,
+      valueParse(id, valueGet(id, queryParams[id], values), values),
+      values
+    )
+
+    return query
+  }, {})
+
+  Object.keys(sourceParams).forEach(id => {
+    const queryString = query[id] || null
+    const paramString = valueStringify(id, sourceParams[id], values)
+    // on compare avec null si le paramètre n'est pas dans la query
+    if (queryString !== paramString) {
+      status = queryString || status === 'updated' ? 'updated' : 'created'
+
+      if (paramString) {
+        query[id] = paramString
+      } else {
+        delete query[id]
+      }
+    }
+  })
+
+  return { query, status }
+}
+
+const queryClean = (queryParams, values) =>
+  Object.keys(queryParams).reduce(
+    ({ query, updated }, id) => {
+      if (values[id]) {
+        updated = true
+      } else {
+        query[id] = queryParams[id]
+      }
+
+      return { query, updated }
+    },
+    { query: {}, updated: false }
   )
 
 const valueStringify = (id, value, values) => {
@@ -186,4 +231,4 @@ const valueGet = (id, value, values) => {
   return value || null
 }
 
-export { paramsBuild, valueGet, valueParse, valueStringify }
+export { paramsBuild, queryUpdate, queryClean }

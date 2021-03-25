@@ -4,7 +4,7 @@
 
 <script>
 import { nextTick } from 'vue'
-import { paramsBuild, valueGet, valueParse, valueStringify } from './url.js'
+import { paramsBuild, queryUpdate, queryClean } from './url.js'
 
 export default {
   name: 'UiUrl',
@@ -18,16 +18,14 @@ export default {
 
   watch: {
     params: {
-      handler: function (params, old) {
+      handler: function (params) {
         this.update(params)
       },
       deep: true
     },
 
-    $route: function (to, from) {
-      if (to.query.vue !== from.query.vue) {
-        this.init()
-      }
+    $route: function () {
+      this.init()
     }
   },
 
@@ -40,18 +38,7 @@ export default {
   },
 
   unmounted() {
-    const { query, updated } = Object.keys(this.$route.query).reduce(
-      ({ query, updated }, id) => {
-        if (this.values[id]) {
-          updated = true
-        } else {
-          query[id] = this.$route.query[id]
-        }
-
-        return { query, updated }
-      },
-      { query: {}, updated: false }
-    )
+    const { query, updated } = queryClean(this.$route.query, this.values)
 
     if (updated) {
       this.$router.replace({ query })
@@ -60,52 +47,27 @@ export default {
 
   methods: {
     init() {
-      const { queryParams, eventParams } = paramsBuild(
+      const { query, params } = paramsBuild(
         this.params,
-        this.values,
-        this.$route.query
+        this.$route.query,
+        this.values
       )
 
-      if (Object.keys(queryParams).length) {
-        this.update(queryParams)
+      if (Object.keys(query).length) {
+        this.update(query)
       }
 
-      if (Object.keys(eventParams).length) {
-        this.$emit('params-update', eventParams)
+      if (Object.keys(params).length) {
+        this.$emit('params-update', params)
       }
     },
 
     update(params) {
-      const query = Object.keys(this.$route.query).reduce((query, id) => {
-        query[id] = valueStringify(
-          id,
-          valueParse(
-            id,
-            valueGet(id, this.$route.query[id], this.values),
-            this.values
-          ),
-          this.values
-        )
-
-        return query
-      }, {})
-
-      let status = 'unchanged'
-
-      Object.keys(params).forEach(id => {
-        const queryString = query[id] || null
-        const paramString = valueStringify(id, params[id], this.values)
-        // on compare avec null si le paramètre n'est pas dans la query
-        if (queryString !== paramString) {
-          status = queryString || status === 'updated' ? 'updated' : 'created'
-
-          if (paramString) {
-            query[id] = paramString
-          } else {
-            delete query[id]
-          }
-        }
-      })
+      const { query, status } = queryUpdate(
+        params,
+        this.$route.query,
+        this.values
+      )
 
       if (status === 'updated') {
         this.$router.push({ query })
