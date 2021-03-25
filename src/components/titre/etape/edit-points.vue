@@ -4,12 +4,12 @@
     <p class="h5 italic">Optionnel</p>
 
     <EditHeritage
-      :prop.sync="etape.heritageProps.points"
+      v-model:prop="etape.heritageProps.points"
       prop-id="points"
       :is-array="true"
     >
       <template #write>
-        <EtapeEditPointsGeoSysteme :etape.sync="etape" />
+        <EtapeEditPointsGeoSysteme v-model:etape="etape" />
 
         <div v-if="etape.geoSystemeIds.length" class="mb-s">
           <hr />
@@ -135,13 +135,13 @@
 
                 <EtapeEditPointsPoint
                   v-if="!point.lot"
-                  :point.sync="point"
+                  v-model="contourPoints[pointIndex]"
                   :geo-systeme-opposable-id="etape.geoSystemeOpposableId"
                   :geo-systeme-ids="etape.geoSystemeIds"
                 />
                 <EtapeEditPointsLot
                   v-else
-                  :point.sync="point"
+                  v-model="contourPoints[pointIndex]"
                   :geo-systeme-opposable-id="etape.geoSystemeOpposableId"
                   :geo-systeme-ids="etape.geoSystemeIds"
                   :events="events"

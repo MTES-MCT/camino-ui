@@ -1,5 +1,5 @@
 <template>
-  <liste
+  <Liste
     nom="entreprises"
     :filtres="filtres"
     :colonnes="colonnes"
@@ -13,24 +13,24 @@
     @preferences-update="preferencesUpdate"
     @url-load="urlLoad"
   >
-    <button
-      v-if="user && user.entreprisesCreation"
-      slot="addButton"
-      class="btn rnd-xs py-s px-m full-x flex mb-s h5"
-      @click="addPopupOpen"
-    >
-      <span class="mt-xxs">Ajouter une entreprise</span>
-      <i class="icon-24 icon-plus flex-right" />
-    </button>
+    <template v-if="user && user.entreprisesCreation" #addButton>
+      <button
+        class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+        @click="addPopupOpen"
+      >
+        <span class="mt-xxs">Ajouter une entreprise</span>
+        <i class="icon-24 icon-plus flex-right" />
+      </button>
+    </template>
 
-    <Downloads
-      v-if="entreprises.length"
-      slot="downloads"
-      :formats="['csv', 'xlsx', 'ods']"
-      section="entreprises"
-      class="flex-right full-x"
-    />
-  </liste>
+    <template v-if="entreprises.length" #downloads>
+      <Downloads
+        :formats="['csv', 'xlsx', 'ods']"
+        section="entreprises"
+        class="flex-right full-x"
+      />
+    </template>
+  </Liste>
 </template>
 
 <script>
@@ -87,12 +87,13 @@ export default {
     }
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('entreprises/reset')
   },
 
   methods: {
     urlLoad() {
+      console.log('urlLoad')
       this.$store.dispatch('entreprises/urlLoad')
     },
 

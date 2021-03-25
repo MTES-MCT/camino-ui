@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import {
   statistiquesGlobales,
   statistiquesGuyane,
@@ -37,7 +36,7 @@ export const actions = {
 
 export const mutations = {
   set(state, { section, data }) {
-    Vue.set(state, section, data)
+    state[section] = data
   }
 }
 

@@ -9,21 +9,21 @@
       </div>
 
       <EditHeritage
+        v-model:prop="heritage[element.id]"
         class="mb"
         :class="{
           'tablet-blob-2-3': element.nom,
           'tablet-blob-1': !element.nom
         }"
-        :prop.sync="heritage[element.id]"
         :prop-id="element.id"
         :section-id="sectionId"
         :is-array="element.type === 'checkboxes'"
       >
         <template #write>
           <EditSectionElementModifiable
+            v-model:contenu="contenu"
             class="mb-s"
             :element="element"
-            :contenu.sync="contenu"
           />
         </template>
         <template #read>

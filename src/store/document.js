@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   documentMetas,
   documentCreer,
@@ -124,7 +122,7 @@ export const actions = {
 export const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      state.metas[id] = data[id]
     })
   }
 }

@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-direction-column overflow-hidden rnd-s border bg-bg">
     <div
-      v-if="$slots.buttons"
+      v-if="slotButtons"
       class="accordion-header flex"
       :class="{
-        'rnd-t-s': opened || $slots.sub,
-        'rnd-s': !opened && !$slots.sub,
-        'border-b-s': opened || $slots.sub
+        'rnd-t-s': opened || slotSub,
+        'rnd-s': !opened && !slotSub,
+        'border-b-s': opened || slotSub
       }"
     >
       <div class="py-s px-m">
@@ -15,7 +15,7 @@
 
       <div class="overflow-hidden flex flex-end flex-right">
         <slot name="buttons" />
-        <button v-if="$slots.default" class="btn-alt py-s px-m" @click="toggle">
+        <button v-if="slotDefault" class="btn-alt py-s px-m" @click="toggle">
           <i
             class="icon-24"
             :class="{
@@ -31,11 +31,11 @@
     </div>
 
     <button
-      v-else-if="$slots.default && !$slots.buttons"
+      v-else-if="slotDefault && !slotButtons"
       :class="{
-        'rnd-t-s': opened || $slots.sub,
-        'rnd-s': !opened && !$slots.sub,
-        'border-b-s': opened || $slots.sub
+        'rnd-t-s': opened || slotSub,
+        'rnd-s': !opened && !slotSub,
+        'border-b-s': opened || slotSub
       }"
       class="accordion-header flex btn-alt py-s px-m"
       @click="toggle"
@@ -55,7 +55,7 @@
       <slot name="title" />
     </div>
 
-    <slot v-if="$slots.sub" name="sub" :class="{ 'border-b-s': opened }" />
+    <slot v-if="slotSub" name="sub" :class="{ 'border-b-s': opened }" />
 
     <div class="overflow-hidden">
       <Transition name="slide">
@@ -70,18 +70,20 @@ export default {
   name: 'UiSytemAccordion',
 
   props: {
-    iconOpenedClass: {
-      type: String,
-      default: 'icon-chevron-b'
-    },
+    iconOpenedClass: { type: String, default: 'icon-chevron-b' },
 
-    iconClosedClass: {
-      type: String,
-      default: 'icon-chevron-t'
-    },
+    iconClosedClass: { type: String, default: 'icon-chevron-t' },
 
-    opened: { type: Boolean, default: false }
+    opened: { type: Boolean, default: false },
+
+    slotSub: { type: Boolean, default: false },
+
+    slotButtons: { type: Boolean, default: false },
+
+    slotDefault: { type: Boolean, default: false }
   },
+
+  emits: ['toggle'],
 
   methods: {
     toggle() {

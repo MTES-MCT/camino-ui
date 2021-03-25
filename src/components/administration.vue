@@ -5,7 +5,7 @@
     <h1>
       {{ administration.abreviation }}
     </h1>
-    <Accordion class="mb-xxl" :sub="true">
+    <Accordion class="mb-xxl" :slot-sub="true" :slot-buttons="true">
       <template #title>
         <span class="cap-first">{{ administration.nom }}</span>
       </template>
@@ -143,7 +143,7 @@
       />
     </div>
 
-    <div v-if="permissionsCheck(['super'])" class="mb-xxl">
+    <div v-if="permissionsCheck(user, ['super'])" class="mb-xxl">
       <div class="line-neutral width-full mb-xxl" />
       <h2>Permissions</h2>
 
@@ -163,6 +163,7 @@ import {
   utilisateursColonnes,
   utilisateursLignesBuild
 } from './utilisateurs/table'
+import { permissionsCheck } from '@/utils'
 
 export default {
   components: {
@@ -210,7 +211,7 @@ export default {
     this.get()
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.$store.commit('administration/reset')
   },
 
@@ -243,6 +244,10 @@ export default {
         component: AdministrationEditPopup,
         props: { administration }
       })
+    },
+
+    permissionsCheck(user, permissions) {
+      return permissionsCheck(user, permissions)
     }
   }
 }

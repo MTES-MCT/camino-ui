@@ -43,26 +43,18 @@ import Entreprise from '../titre/entreprise.vue'
 import Administration from '../titre/administration.vue'
 
 export default {
-  components: {
-    Entreprise,
-    Administration
-  },
+  components: { Entreprise, Administration },
+
   props: {
-    titulaires: {
-      type: Array,
-      default: () => []
-    },
+    titulaires: { type: Array, default: () => [] },
 
-    amodiataires: {
-      type: Array,
-      default: () => []
-    },
+    amodiataires: { type: Array, default: () => [] },
 
-    administrations: {
-      type: Array,
-      default: () => []
-    }
+    administrations: { type: Array, default: () => [] }
   },
+
+  emits: ['titre-event-track'],
+
   methods: {
     eventTrack(event) {
       this.$emit('titre-event-track', event)

@@ -10,7 +10,7 @@
                 id="cmn-menu-menu-a-titres"
                 :to="{ name: 'titres' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('titres')"
+                @click="eventTrack('titres')"
               >
                 Titres miniers et autorisations
               </RouterLink>
@@ -24,7 +24,7 @@
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'demarches' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('demarches')"
+                @click="eventTrack('demarches')"
               >
                 Démarches
               </RouterLink>
@@ -40,7 +40,7 @@
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'activites' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('activites')"
+                @click="eventTrack('activites')"
               >
                 Activités
               </RouterLink>
@@ -56,7 +56,7 @@
                 id="cmn-menu-menu-a-administrations"
                 :to="{ name: 'administrations' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('administrations')"
+                @click="eventTrack('administrations')"
               >
                 Administrations
               </RouterLink>
@@ -68,7 +68,7 @@
                 id="cmn-menu-menu-a-entreprises"
                 :to="{ name: 'entreprises' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('entreprises')"
+                @click="eventTrack('entreprises')"
               >
                 Entreprises
               </RouterLink>
@@ -80,7 +80,7 @@
                 id="cmn-menu-menu-a-utilisateurs"
                 :to="{ name: 'utilisateurs' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('utilisateurs')"
+                @click="eventTrack('utilisateurs')"
               >
                 Utilisateurs
               </RouterLink>
@@ -96,7 +96,7 @@
                 id="cmn-menu-menu-a-glossaire"
                 :to="{ name: 'glossaire' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('glossaire')"
+                @click="eventTrack('glossaire')"
               >
                 Glossaire
               </RouterLink>
@@ -112,7 +112,7 @@
                 id="cmn-menu-menu-a-statistiques"
                 :to="{ name: 'statistiques' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('statistiques')"
+                @click="eventTrack('statistiques')"
               >
                 Statistiques
               </RouterLink>
@@ -124,7 +124,7 @@
                 id="cmn-menu-menu-a-metas"
                 :to="{ name: 'metas' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('metas')"
+                @click="eventTrack('metas')"
               >
                 Métas
               </RouterLink>

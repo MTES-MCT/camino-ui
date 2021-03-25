@@ -10,7 +10,7 @@
                 :key="user.id"
                 :to="{ name: 'utilisateur', params: { id: user.id } }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('profil')"
+                @click="eventTrack('profil')"
               >
                 {{ user.prenom || '–' }} {{ user.nom || '–' }}
                 <div v-if="user.entreprise" class="h5 color-neutral">

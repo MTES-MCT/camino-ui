@@ -6,7 +6,7 @@
       <EditSectionElement
         v-for="e in s.elements"
         :key="e.id"
-        :contenu.sync="contenu[s.id]"
+        v-model:contenu="contenu[s.id]"
         :element="e"
         :heritage="etape.heritageContenu[s.id]"
         :section-id="s.id"

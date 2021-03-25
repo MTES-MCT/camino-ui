@@ -19,6 +19,8 @@ export default {
     integer: { type: Boolean, default: false }
   },
 
+  emits: ['input'],
+
   computed: {
     valueFormatted() {
       if (!this.value) return this.value

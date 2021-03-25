@@ -13,7 +13,7 @@ import {
   leafletScaleAdd,
   leafletFeatureGroupGet,
   leafletCanvasLayerAdd
-} from './map.js'
+} from './leaflet.js'
 
 export default {
   props: {
@@ -22,6 +22,8 @@ export default {
     tilesLayer: { type: Object, default: () => leafletTileLayerDefault },
     canvasMarkers: { type: Array, default: () => [] }
   },
+
+  emits: ['map-update'],
 
   data() {
     return {
@@ -135,6 +137,7 @@ export default {
 
     tilesAdd() {
       this.layers.tiles = this.tilesLayer
+      console.log(this.layers.tiles)
       this.layers.tiles.addTo(this.map)
     },
 

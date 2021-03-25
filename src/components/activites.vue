@@ -14,13 +14,13 @@
     @preferences-update="preferencesUpdate"
     @url-load="urlLoad"
   >
-    <Downloads
-      v-if="activites.length"
-      slot="downloads"
-      :formats="['csv', 'xlsx', 'ods']"
-      section="activites"
-      class="flex-right full-x"
-    />
+    <template v-if="activites.length" #downloads>
+      <Downloads
+        :formats="['csv', 'xlsx', 'ods']"
+        section="activites"
+        class="flex-right full-x"
+      />
+    </template>
   </liste>
 </template>
 
@@ -86,7 +86,7 @@ export default {
     await this.metasGet()
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('titresActivites/reset')
   },
 

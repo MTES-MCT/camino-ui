@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   moi,
   utilisateurTokenCreer,
@@ -301,21 +299,21 @@ export const getters = {
 export const mutations = {
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      Vue.set(state.preferences[section], id, params[id])
+      state.preferences[section][id] = params[id]
     })
   },
 
   set(state, user) {
-    Vue.set(state, 'current', user)
+    state.current = user
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.current = null
   },
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      state.metas[id] = data[id]
     })
   }
 }

@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import metasIndex from './metas-definitions'
 
 export const state = {
@@ -42,19 +41,19 @@ export const getters = {
 
 export const mutations = {
   reset(state) {
-    Vue.set(state, 'list', [])
+    state.list = []
     state.total = 0
     state.loaded.url = false
   },
 
   set(state, data) {
-    Vue.set(state, 'list', data.elements)
-    Vue.set(state, 'total', data.total)
+    state.list = data.elements
+    state.total = data.total
   },
 
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      Vue.set(state.preferences[section], id, params[id])
+      state.preferences[section][id] = params[id]
     })
   },
 

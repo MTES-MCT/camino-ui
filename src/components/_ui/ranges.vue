@@ -1,5 +1,11 @@
 <template>
-  <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
+  <Accordion
+    class="mb"
+    :opened="opened"
+    :slot-default="true"
+    @close="close"
+    @toggle="toggle"
+  >
     <template #title> Éléments </template>
     <ul class="list-sans mt-m px-m">
       <li v-for="r in ranges" :key="r">
@@ -32,6 +38,8 @@ export default {
     ranges: { type: Array, default: () => [] },
     range: { type: Number, default: 200 }
   },
+
+  emits: ['range-update'],
 
   data() {
     return {

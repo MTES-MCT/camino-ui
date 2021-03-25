@@ -36,26 +36,25 @@
 </template>
 
 <script>
+import numberFormat from '@/utils/number-format'
 import TagList from '../_ui/tag-list.vue'
 
 export default {
   components: {
     TagList
   },
+
   props: {
-    pays: {
-      type: Array,
-      default: () => []
-    },
+    pays: { type: Array, default: () => [] },
 
-    forets: {
-      type: Array,
-      default: () => []
-    },
+    forets: { type: Array, default: () => [] },
 
-    surface: {
-      type: Number,
-      default: 0
+    surface: { type: Number, default: 0 }
+  },
+
+  methods: {
+    numberFormat(number) {
+      return numberFormat(number)
     }
   }
 }

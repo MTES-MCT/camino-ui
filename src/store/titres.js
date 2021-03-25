@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import { titresMetas, titresGeo, titres, titresGeoPolygon } from '../api/titres'
 import { paramsBuild } from '../utils/'
 
@@ -178,7 +176,7 @@ export const actions = {
 
 export const mutations = {
   reset(state) {
-    Vue.set(state, 'list', [])
+    state.list = []
     state.total = 0
     state.loaded.metas = false
     state.loaded.vue = false
@@ -188,8 +186,8 @@ export const mutations = {
   },
 
   set(state, data) {
-    Vue.set(state, 'list', data.elements)
-    Vue.set(state, 'total', data.total)
+    state.list = data.elements
+    state.total = data.total
   },
 
   metasSet(state, data) {
@@ -208,17 +206,14 @@ export const mutations = {
       }
 
       if (metaId) {
-        Vue.set(state.metas, id, data[id])
+        state.metas[id] = data[id]
       }
 
       if (paramsIds) {
         paramsIds.forEach(paramId => {
           const param = state.params.find(p => p.id === paramId)
-          Vue.set(
-            param,
-            'elements',
-            data[id].map(e => e.id)
-          )
+
+          param.elements = data[id].map(e => e.id)
         })
       }
     })
@@ -226,12 +221,12 @@ export const mutations = {
 
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      Vue.set(state.preferences[section], id, params[id])
+      state.preferences[section][id] = params[id]
     })
   },
 
   vueSet(state, vue) {
-    Vue.set(state, 'vue', vue)
+    state.vue = vue
   },
 
   loaded(state, section) {

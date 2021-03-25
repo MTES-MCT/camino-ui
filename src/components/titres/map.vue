@@ -1,6 +1,6 @@
 <template>
   <div class="width-full bg-alt">
-    <Map
+    <Mapo
       ref="map"
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
@@ -77,18 +77,18 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Map from '../_map/index.vue'
+import { nextTick } from 'vue'
+import Mapo from '../_map/index.vue'
 import MapTilesSelector from '../_map/tiles-selector.vue'
 import MapWarningBrgm from '../_map/warning-brgm.vue'
 import MapPattern from '../_map/pattern.vue'
-import { tilesBuild } from '../_map/map.js'
-import { zones, clustersBuild, layersBuild, geojsonBoundsGet } from './map.js'
+import { leafletTilesBuild, leafletGeojsonBoundsGet } from '../_map/leaflet.js'
+import { zones, clustersBuild, layersBuild } from './map.js'
 
 export default {
   components: {
     MapWarningBrgm,
-    Map,
+    Mapo,
     MapTilesSelector,
     MapPattern
   },
@@ -112,7 +112,7 @@ export default {
     tilesLayer() {
       const tiles = this.$store.getters['user/tilesActive']
 
-      return tilesBuild(tiles)
+      return leafletTilesBuild(tiles)
     },
 
     markerLayersId() {
@@ -140,7 +140,7 @@ export default {
     },
 
     bounds() {
-      return geojsonBoundsGet(this.zone)
+      return leafletGeojsonBoundsGet(this.zone)
     },
 
     domaines() {
@@ -180,7 +180,7 @@ export default {
     window.addEventListener('popstate', this.popState)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('popstate', this.popState)
   },
 
@@ -274,7 +274,7 @@ export default {
     },
 
     geojsonLayersDisplay() {
-      Vue.nextTick(() => {
+      nextTick(() => {
         this.geojsonLayers = []
         this.markers.forEach(marker => {
           if (

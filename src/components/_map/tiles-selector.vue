@@ -1,5 +1,10 @@
 <template>
-  <Accordion :opened="opened" @close="close" @toggle="toggle">
+  <Accordion
+    :opened="opened"
+    :slot-default="true"
+    @close="close"
+    @toggle="toggle"
+  >
     <template #title>
       <small>Fond de carte</small>
     </template>
@@ -38,6 +43,8 @@ export default {
       default: 'osm-fr'
     }
   },
+
+  emits: ['params-update'],
 
   data() {
     return {

@@ -97,7 +97,7 @@ export default {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 

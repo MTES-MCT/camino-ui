@@ -1,5 +1,12 @@
 <template>
-  <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
+  <Accordion
+    class="mb"
+    :opened="opened"
+    :slot-default="true"
+    :slot-buttons="true"
+    @close="close"
+    @toggle="toggle"
+  >
     <template #title>
       <h4 class="mb-0">
         {{ entrepriseNameFind(entreprise) }}
@@ -54,7 +61,7 @@
           <ul class="list-sans">
             <li v-for="e in entreprise.etablissements" :key="e.id">
               <h5 class="inline-block">
-                {{ e.dateDebut | dateFormat }}
+                {{ dateFormat(e.dateDebut) }}
               </h5>
               : {{ e.nom }}
             </li>
@@ -116,6 +123,7 @@
 </template>
 
 <script>
+import { dateFormat } from '@/utils'
 import Accordion from '../_ui/accordion.vue'
 import Tag from '../_ui/tag.vue'
 
@@ -131,6 +139,8 @@ export default {
       default: () => {}
     }
   },
+
+  emits: ['titre-event-track'],
 
   data() {
     return {
@@ -183,6 +193,10 @@ export default {
         action,
         nom: this.$route.params.id
       })
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }

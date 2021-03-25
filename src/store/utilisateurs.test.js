@@ -1,15 +1,12 @@
 import utilisateurs from './utilisateurs'
 import * as api from '../api/utilisateurs'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../api/utilisateurs', () => ({
   utilisateurs: jest.fn(),
   utilisateurMetas: jest.fn()
 }))
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 console.info = jest.fn()
 
@@ -71,6 +68,7 @@ describe('liste des utilisateurs', () => {
       apiError: jest.fn(),
       messageAdd: jest.fn()
     }
+
     mutations = {
       loadingAdd: jest.fn(),
       loadingRemove: jest.fn(),
@@ -78,11 +76,15 @@ describe('liste des utilisateurs', () => {
       popupMessageAdd: jest.fn(),
       popupClose: jest.fn()
     }
-    store = new Vuex.Store({
+
+    store = createStore({
       modules: { utilisateurs },
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   const permissions = [

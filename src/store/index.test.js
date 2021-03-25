@@ -1,6 +1,6 @@
 import { actions, mutations } from './index'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 import * as fileSaver from 'file-saver'
 import * as router from '../router'
 import { apiRestFetch } from '../api/_client'
@@ -37,9 +37,6 @@ jest.mock('../router', () => ({
   push: jest.fn()
 }))
 
-const localVue = createLocalVue()
-localVue.use(Vuex)
-
 console.info = jest.fn()
 
 jest.useFakeTimers()
@@ -73,12 +70,15 @@ describe("état général de l'application", () => {
       loaded: false
     }
 
-    store = new Vuex.Store({
+    store = createStore({
       modules,
       state,
       actions,
       mutations
     })
+
+    const app = createApp({})
+    app.use(store)
 
     localStorage.clear()
   })
@@ -110,8 +110,8 @@ describe("état général de l'application", () => {
     store.commit('popupOpen', { component, props })
     store.commit('popupClose')
 
-    expect(state.popup).toEqual({
-      component: null,
+    expect(state.popup).toMatchObject({
+      component: { _value: null },
       props: null,
       messages: [],
       loading: false
@@ -200,14 +200,14 @@ describe("état général de l'application", () => {
 
     await store.dispatch('menuToggle', component)
 
-    expect(state.menu.component).toEqual(component)
+    expect(state.menu.component).toMatchObject({ _value: component })
   })
 
   test('ouvre un nouveau menu', async () => {
     const component = { name: 'hello' }
     await store.dispatch('menuToggle', component)
 
-    expect(state.menu.component).toEqual(component)
+    expect(state.menu.component).toMatchObject({ _value: component })
   })
 
   test("recharge la page si l'id du titre n'a pas changé", async () => {
@@ -253,7 +253,7 @@ describe("état général de l'application", () => {
   test('supprime un message', async () => {
     const messageRemoveMock = jest.fn()
     mutations.messageRemove = messageRemoveMock
-    store = new Vuex.Store({ actions, state, mutations })
+    store = createStore({ actions, state, mutations })
     const message = { id: 14, message: 'message important' }
     await store.dispatch('messageAdd', message)
 
@@ -269,7 +269,7 @@ describe("état général de l'application", () => {
   test('télécharge du contenu', async () => {
     const messageAddMock = jest.fn()
     actions.messageAdd = messageAddMock
-    store = new Vuex.Store({ state, actions, mutations })
+    store = createStore({ state, actions, mutations })
 
     localStorage.setItem('accessToken', 'privateToken')
 
@@ -293,7 +293,7 @@ describe("état général de l'application", () => {
   test('retourne une erreur si le contenu est introuvable', async () => {
     const messageAddMock = jest.fn()
     actions.messageAdd = messageAddMock
-    store = new Vuex.Store({ state, actions, mutations })
+    store = createStore({ state, actions, mutations })
 
     const apiMock = apiRestFetch.mockResolvedValueOnce({
       data: 'truc',
@@ -316,7 +316,7 @@ describe("état général de l'application", () => {
     const apiErrorMock = jest.fn()
     actions.messageAdd = messageAddMock
     actions.apiError = apiErrorMock
-    store = new Vuex.Store({ state, actions, mutations })
+    store = createStore({ state, actions, mutations })
     const apiMock = apiRestFetch.mockResolvedValueOnce({
       data: 'truc',
       headers: { get: () => 'filename=' }

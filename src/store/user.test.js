@@ -1,5 +1,5 @@
-import Vuex from 'vuex'
-import { createLocalVue } from '@vue/test-utils'
+import { createStore } from 'vuex'
+import { createApp } from 'vue'
 import * as api from '../api/utilisateurs'
 
 import user from './user'
@@ -20,9 +20,6 @@ jest.mock('../api/utilisateurs', () => ({
 console.info = jest.fn()
 
 jest.mock('../router', () => [])
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe("état de l'utilisateur connecté", () => {
   let store
@@ -77,11 +74,15 @@ describe("état de l'utilisateur connecté", () => {
     }
 
     map = { state: { tiles: [{ id: 'osm-fr' }, { id: 'geoportail' }] } }
-    store = new Vuex.Store({
+
+    store = createStore({
       modules: { user, map },
       actions,
       mutations
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test("initialise les métas de l'utilisateur connecté", async () => {
@@ -118,7 +119,7 @@ describe("état de l'utilisateur connecté", () => {
     localStorage.setItem('accessToken', 'rene')
     const apiMock = api.moi.mockResolvedValue(userInfo)
 
-    store = new Vuex.Store({ modules: { user, map }, actions, mutations })
+    store = createStore({ modules: { user, map }, actions, mutations })
 
     await store.dispatch('user/identify')
 
@@ -292,7 +293,7 @@ describe("état de l'utilisateur connecté", () => {
   test('ajoute un utilisateur', async () => {
     const loginMock = jest.fn()
     user.actions.login = loginMock
-    store = new Vuex.Store({ modules: { user, map }, actions, mutations })
+    store = createStore({ modules: { user, map }, actions, mutations })
     const apiMock = api.utilisateurCreer.mockResolvedValue(userInfo)
     await store.dispatch('user/add', userInfo)
 
@@ -312,7 +313,7 @@ describe("état de l'utilisateur connecté", () => {
   test("retourne une erreur api lors de l'ajout d'un utilisateur", async () => {
     const loginMock = jest.fn()
     user.actions.login = loginMock
-    store = new Vuex.Store({ modules: { user, map }, actions, mutations })
+    store = createStore({ modules: { user, map }, actions, mutations })
     const apiMock = api.utilisateurCreer.mockRejectedValue(
       new Error("erreur dans l'api")
     )
@@ -348,7 +349,7 @@ describe("état de l'utilisateur connecté", () => {
   test("initialise le mot de passe d'un utilisateur", async () => {
     const tokensSetMock = jest.fn()
     user.actions.tokensSet = tokensSetMock
-    store = new Vuex.Store({ modules: { user, map }, actions, mutations })
+    store = createStore({ modules: { user, map }, actions, mutations })
     const apiMock = api.utilisateurMotDePasseInitialiser.mockResolvedValue({
       utilisateur: userInfo
     })
@@ -370,7 +371,7 @@ describe("état de l'utilisateur connecté", () => {
     const motDePasse2 = 'mignon'
     const loginMock = jest.fn()
     user.actions.login = loginMock
-    store = new Vuex.Store({ modules: { user, map }, actions, mutations })
+    store = createStore({ modules: { user, map }, actions, mutations })
     const apiMock = api.utilisateurMotDePasseInitialiser.mockRejectedValue(
       new Error("erreur dans l'api")
     )
@@ -416,7 +417,7 @@ describe("état de l'utilisateur connecté", () => {
 
   test("retourne true si l'utilisateur est connecté", () => {
     user.state.current = {}
-    store = new Vuex.Store({ modules: { user } })
+    store = createStore({ modules: { user } })
 
     expect(store.getters['user/preferencesConditions']).toBeTruthy()
   })

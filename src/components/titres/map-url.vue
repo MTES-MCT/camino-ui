@@ -27,6 +27,8 @@ export default {
     }
   },
 
+  emits: ['loaded'],
+
   data() {
     return {
       values: {

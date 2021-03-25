@@ -1,8 +1,8 @@
 <template>
   <Dropdown class="full-x" :opened="opened" @toggle="toggle">
-    <div slot="title">
+    <template #title>
       <span class="h5">Téléchargements</span>
-    </div>
+    </template>
     <div>
       <Download
         v-for="format in formats"

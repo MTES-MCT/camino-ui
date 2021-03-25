@@ -169,7 +169,8 @@ export default {
       geoTabs: [
         { id: 'carte', nom: 'Carte', icon: 'globe' },
         { id: 'points', nom: 'Points', icon: 'list' }
-      ]
+      ],
+      show: false
     }
   },
 
@@ -202,7 +203,7 @@ export default {
   },
 
   watch: {
-    tabs: function(tabs) {
+    tabs: function (tabs) {
       const tabsActivesIds = tabs.map(({ id }) => id)
 
       if (!tabsActivesIds.includes(this.tabActiveId)) {
@@ -218,7 +219,7 @@ export default {
     await this.get()
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.$store.commit('titre/reset')
   },
 

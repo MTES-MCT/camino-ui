@@ -65,6 +65,8 @@ export default {
     visibles: { type: Number, default: 1 }
   },
 
+  emits: ['page-update'],
+
   computed: {
     delta() {
       return Math.round((this.visibles - 1) / 2)

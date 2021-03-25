@@ -1,7 +1,7 @@
 import document from './document'
 import * as api from '../api/documents'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../api/documents', () => ({
   documentMetas: jest.fn(),
@@ -11,9 +11,6 @@ jest.mock('../api/documents', () => ({
 }))
 
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe('documents', () => {
   let store
@@ -43,7 +40,7 @@ describe('documents', () => {
       popupMessageAdd: jest.fn()
     }
 
-    store = new Vuex.Store({
+    store = createStore({
       actions,
       mutations,
       modules: {
@@ -54,6 +51,9 @@ describe('documents', () => {
         }
       }
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les métas pour éditer un document', async () => {

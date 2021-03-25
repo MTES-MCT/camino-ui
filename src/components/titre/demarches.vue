@@ -34,6 +34,8 @@ export default {
     demarches: { type: Array, default: () => [] }
   },
 
+  emits: ['titre-event-track'],
+
   computed: {
     titre() {
       return this.$store.state.titre.current

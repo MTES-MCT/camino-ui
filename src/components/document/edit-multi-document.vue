@@ -6,7 +6,7 @@
     <hr />
 
     <EditSections
-      :document.sync="document"
+      v-model:document="document"
       :modifiable="modifiable"
       :repertoire="repertoire"
     />

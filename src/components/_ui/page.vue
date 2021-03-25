@@ -1,6 +1,6 @@
 <template>
   <div class="page relative">
-    <div v-if="$slots.banner" class="banner">
+    <div v-if="slotBanner" class="banner">
       <div class="container py-m">
         <slot name="banner" />
       </div>
@@ -27,7 +27,7 @@
     </div>
 
     <Transition name="fade">
-      <div v-if="$slots.popup" class="absolute full bg-inverse-alpha z-2" />
+      <div v-if="slotPopup" class="absolute full bg-inverse-alpha z-2" />
     </Transition>
 
     <Transition name="slide-top">
@@ -44,6 +44,11 @@
 
 <script>
 export default {
-  name: 'UiPage'
+  name: 'UiPage',
+
+  props: {
+    slotBanner: { type: Boolean, default: false },
+    slotPopup: { type: Boolean, default: false }
+  }
 }
 </script>

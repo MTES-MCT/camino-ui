@@ -117,13 +117,13 @@
 
     <EditSections
       v-if="etapeType.sections"
+      v-model:element="etape"
       :sections="etapeType.sections"
-      :element.sync="etape"
     />
 
     <div v-if="etapeType.documentsTypes && documentsTypes.length">
       <DocumentsEdit
-        :documents.sync="etape.documents"
+        v-model:documents="etape.documents"
         :parent-id="etape.id"
         :parent-type-id="etapeType.id"
         :documents-types="documentsTypes"
@@ -234,7 +234,7 @@ export default {
     document.addEventListener('keyup', this.keyUp)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyUp)
   },
 

@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   utilisateurMetas,
   utilisateur,
@@ -230,19 +228,19 @@ export const actions = {
 
 export const mutations = {
   set(state, utilisateur) {
-    Vue.set(state, 'current', utilisateur)
+    state.current = utilisateur
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.current = null
   },
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       if (id === 'entreprises' || id === 'administrations') {
-        Vue.set(state.metas, id, data[id].elements)
+        state.metas[id] = data[id].elements
       } else {
-        Vue.set(state.metas, id, data[id])
+        state.metas[id] = data[id]
       }
     })
   }

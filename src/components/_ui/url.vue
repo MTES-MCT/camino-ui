@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import { nextTick } from 'vue'
 export default {
   name: 'UiUrl',
 
@@ -11,6 +11,8 @@ export default {
     values: { type: Object, required: true },
     params: { type: Object, required: true }
   },
+
+  emits: ['loaded', 'params-update'],
 
   watch: {
     params: {
@@ -28,12 +30,12 @@ export default {
   created() {
     this.init()
 
-    Vue.nextTick(() => {
+    nextTick(() => {
       this.$emit('loaded')
     })
   },
 
-  destroyed() {
+  unmounted() {
     const { query, updated } = Object.keys(this.$route.query).reduce(
       ({ query, updated }, id) => {
         if (this.values[id]) {

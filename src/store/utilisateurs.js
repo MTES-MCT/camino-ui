@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import { utilisateurs, utilisateurMetas } from '../api/utilisateurs'
 import { paramsBuild } from '../utils/'
 
@@ -101,8 +99,8 @@ export const actions = {
     { state, commit, dispatch },
     { section, params, pageReset }
   ) {
-    if (pageReset) {
-      commit('preferencesSet', { section: 'table', params: { page: 1 } })
+    if (section === 'table' && pageReset && state.preference.page !== 1) {
+      params.page = 1
     }
 
     commit('preferencesSet', { section, params })
@@ -124,15 +122,15 @@ export const actions = {
 
 export const mutations = {
   reset(state) {
-    Vue.set(state, 'list', [])
+    state.list = []
     state.total = 0
     state.loaded.url = false
     state.loaded.metas = false
   },
 
   set(state, data) {
-    Vue.set(state, 'list', data.elements)
-    Vue.set(state, 'total', data.total)
+    state.list = data.elements
+    state.total = data.total
   },
 
   metasSet(state, data) {
@@ -156,17 +154,14 @@ export const mutations = {
       }
 
       if (metaId) {
-        Vue.set(state.metas, metaId, data[id])
+        state.metas[metaId] = data[id]
       }
 
       if (paramsIds) {
         paramsIds.forEach(paramId => {
           const param = state.params.find(p => p.id === paramId)
-          Vue.set(
-            param,
-            'elements',
-            data[id].map(e => e.id)
-          )
+
+          param.elements = data[id].map(e => e.id)
         })
       }
     })
@@ -174,7 +169,7 @@ export const mutations = {
 
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      Vue.set(state.preferences[section], id, params[id])
+      state.preferences[section][id] = params[id]
     })
   },
 

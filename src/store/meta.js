@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import metasIndex from './metas-definitions'
 
 export const state = {
@@ -82,14 +81,14 @@ export const actions = {
 
 export const mutations = {
   reset(state) {
-    Vue.set(state, 'list', [])
+    state.list = []
     state.elements = []
     state.definition = {}
   },
 
   set(state, { elements, definition }) {
-    Vue.set(state, 'elements', elements)
-    Vue.set(state, 'definition', definition)
+    state.elements = elements
+    state.definition = definition
   }
 }
 

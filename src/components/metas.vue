@@ -64,7 +64,7 @@ export default {
     await this.init()
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('metas/reset')
   },
 

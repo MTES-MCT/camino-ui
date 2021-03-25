@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <template v-if="permissionsCheck(['super'])">
+    <template v-if="permissionsCheck(user, ['super'])">
       <hr />
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import { permissionsCheck } from '@/utils'
 import Popup from '../_ui/popup.vue'
 
 export default {
@@ -104,6 +105,10 @@ export default {
 
     messages() {
       return this.$store.state.popup.messages
+    },
+
+    user() {
+      return this.$store.state.user.current
     }
   },
 
@@ -112,7 +117,7 @@ export default {
     this.current = null
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 
@@ -137,6 +142,10 @@ export default {
 
     errorsRemove() {
       this.$store.commit('popupMessagesRemove')
+    },
+
+    permissionsCheck(user, permissions) {
+      return permissionsCheck(user, permissions)
     }
   }
 }

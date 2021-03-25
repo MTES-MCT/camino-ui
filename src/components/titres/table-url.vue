@@ -25,6 +25,8 @@ export default {
     total: { type: Number, required: true }
   },
 
+  emits: ['loaded'],
+
   computed: {
     preferences() {
       return this.$store.state.titres.preferences.table

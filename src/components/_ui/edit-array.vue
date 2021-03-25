@@ -29,6 +29,8 @@ export default {
     elements: { type: Array, required: true }
   },
 
+  emits: ['update'],
+
   data() {
     return {
       editable: false,

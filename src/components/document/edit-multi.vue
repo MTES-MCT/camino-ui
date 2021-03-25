@@ -2,9 +2,9 @@
   <div v-if="visible">
     <h3>Documents</h3>
     <Edit
-      v-for="document in documents"
+      v-for="(document, n) in documents"
       :key="document.id"
-      :document.sync="document"
+      v-model="documents[n]"
       :document-type="documentsTypes.find(dt => dt.id === document.typeId)"
       :modifiable="modifiable"
       :repertoire="repertoire"
@@ -31,6 +31,9 @@ export default {
     parentId: { type: String, default: undefined, required: false },
     documentsTypes: { type: Array, required: true }
   },
+
+  emits: ['complete-update'],
+
   data() {
     return {
       loaded: false

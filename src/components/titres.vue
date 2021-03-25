@@ -61,7 +61,7 @@
     </div>
 
     <div class="line-neutral width-full" />
-    <Component
+    <component
       :is="vueComponent"
       v-if="vue && metasLoaded"
       :titres="titres"
@@ -162,7 +162,7 @@ export default {
     await this.metasGet()
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('titres/reset')
   },
 

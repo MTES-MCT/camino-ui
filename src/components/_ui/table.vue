@@ -76,6 +76,8 @@ export default {
     column: { type: String, default: '' }
   },
 
+  emits: ['params-update'],
+
   watch: {
     columns: 'columnInit'
   },

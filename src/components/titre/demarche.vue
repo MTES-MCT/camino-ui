@@ -81,6 +81,8 @@ export default {
     type: { type: Object, default: () => ({}) }
   },
 
+  emits: ['titre-event-track'],
+
   computed: {
     titre() {
       return this.$store.state.titre.current

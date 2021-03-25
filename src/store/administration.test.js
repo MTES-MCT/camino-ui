@@ -1,7 +1,7 @@
 import administration from './administration'
-import { createLocalVue } from '@vue/test-utils'
+import { createApp } from 'vue'
 import * as api from '../api/administrations'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 
 jest.mock('../api/administrations', () => ({
   administration: jest.fn(),
@@ -13,9 +13,6 @@ jest.mock('../api/administrations', () => ({
   administrationTitreTypeEtapeTypeUpdate: jest.fn(),
   administrationActiviteTypeUpdate: jest.fn()
 }))
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 console.info = jest.fn()
 
@@ -51,11 +48,14 @@ describe("état de l'administration consultée", () => {
       reload: jest.fn(),
       messageAdd: jest.fn()
     }
-    store = new Vuex.Store({
+    store = createStore({
       modules: { administration },
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test("obtient les données d'un administration", async () => {

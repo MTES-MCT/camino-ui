@@ -1,5 +1,3 @@
-import Vue from 'vue'
-import Pill from '../_ui/pill.vue'
 import List from '../_ui/list.vue'
 
 const utilisateursColonnes = [
@@ -56,19 +54,10 @@ const utilisateursLignesBuild = utilisateurs =>
       prenom: { value: utilisateur.prenom || '–' },
       nom: { value: utilisateur.nom || '–' },
       email: { value: utilisateur.email || '–', class: ['h5'] },
-      permissions: utilisateur.permission
-        ? {
-            component: Vue.component('UtilisateurPermission', {
-              components: {
-                Pill
-              },
-              render(h) {
-                return h('Pill', utilisateur.permission.nom)
-              }
-            }),
-            value: utilisateur.permission.nom
-          }
-        : '',
+      permissions: {
+        value: (utilisateur.permission && utilisateur.permission.nom) || '–',
+        class: ['bg-neutral', 'color-bg', 'pill', 'py-xs', 'px-s']
+      },
       lien
     }
 

@@ -110,7 +110,7 @@
       </div>
       <div class="tablet-blob-3-4">
         <p>
-          {{ etape.dateDebut | dateFormat }}
+          {{ dateFormat(etape.dateDebut) }}
         </p>
       </div>
     </div>
@@ -130,7 +130,7 @@
       </div>
       <div class="tablet-blob-3-4">
         <p>
-          {{ etape.dateFin | dateFormat }}
+          {{ dateFormat(etape.dateFin) }}
         </p>
       </div>
     </div>
@@ -179,6 +179,8 @@ import Tag from '../../_ui/tag.vue'
 import PropDuree from './prop-duree.vue'
 import Points from '../points.vue'
 import { etablissementNameFind } from '../../../utils/entreprise'
+import { dateFormat } from '@/utils'
+import numberFormat from '@/utils/number-format'
 
 export default {
   components: {
@@ -207,6 +209,14 @@ export default {
   methods: {
     etablissementNameFind(etablissements, date) {
       return etablissementNameFind(etablissements, date)
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
+    },
+
+    numberFormat(number) {
+      return numberFormat(number)
     }
   }
 }

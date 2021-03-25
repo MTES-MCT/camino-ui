@@ -88,6 +88,8 @@ export default {
     metasLoaded: { type: Boolean, default: false }
   },
 
+  emits: ['preferences-update', 'url-load'],
+
   data() {
     return {
       loaded: {
@@ -158,6 +160,7 @@ export default {
 
     preferencesFiltresUpdateAndPageReset(params) {
       if (this.loaded.table && this.loaded.filtres) {
+        console.log('one')
         this.preferencesFiltresUpdate(params, true)
       }
     },

@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   activite,
   activiteModifier,
@@ -115,30 +113,30 @@ export const actions = {
 
 export const mutations = {
   set(state, entreprise) {
-    Vue.set(state, 'current', entreprise)
+    state.current = entreprise
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.current = null
   },
 
   open(state) {
     if (!state.opened) {
-      Vue.set(state, 'opened', true)
+      state.opened = true
     }
   },
 
   close(state) {
     if (state.opened) {
-      Vue.set(state, 'opened', false)
+      state.opened = false
     }
   },
 
   toggle(state) {
     if (state.opened) {
-      Vue.set(state, 'opened', false)
+      state.opened = false
     } else {
-      Vue.set(state, 'opened', true)
+      state.opened = true
     }
   }
 }

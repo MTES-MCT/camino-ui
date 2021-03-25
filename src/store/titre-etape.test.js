@@ -1,7 +1,7 @@
 import titreEtape from './titre-etape'
 import * as api from '../api/titres-etapes'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 import {
   titreEtapeMetas,
@@ -24,9 +24,6 @@ jest.mock('../api/titres-etapes', () => ({
 }))
 
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe('étapes', () => {
   let store
@@ -63,7 +60,7 @@ describe('étapes', () => {
       popupMessageAdd: jest.fn()
     }
 
-    store = new Vuex.Store({
+    store = createStore({
       actions,
       mutations,
       modules: {
@@ -71,6 +68,9 @@ describe('étapes', () => {
         titre: { namespaced: true, mutations: { open: jest.fn() } }
       }
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les métas pour éditer une étape', async () => {

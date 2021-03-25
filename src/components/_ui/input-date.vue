@@ -71,6 +71,8 @@ export default {
     padding: { type: String, default: 'p-s' }
   },
 
+  emits: ['input'],
+
   data() {
     return {
       modern: false, // uses browser default input type="date"

@@ -1,7 +1,7 @@
 import titreActivite from './titre-activite'
 import * as api from '../api/titres-activites'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../api/titres-activites', () => ({
   activiteSupprimer: jest.fn(),
@@ -9,9 +9,6 @@ jest.mock('../api/titres-activites', () => ({
   activite: jest.fn()
 }))
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe("état d'une activité", () => {
   let store
@@ -37,7 +34,7 @@ describe("état d'une activité", () => {
       popupLoad: jest.fn()
     }
 
-    store = new Vuex.Store({
+    store = createStore({
       modules: {
         titreActivite,
         titre: {
@@ -49,6 +46,9 @@ describe("état d'une activité", () => {
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('valide une activité', async () => {

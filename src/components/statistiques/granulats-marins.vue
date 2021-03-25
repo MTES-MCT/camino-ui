@@ -334,6 +334,7 @@ import Loader from '../_ui/loader.vue'
 import GranulatsMarinsActivite from './granulats-marins-activite.vue'
 import BarChart from '../_charts/bar.vue'
 import { suggestedMaxCalc, statsBarFormat } from './_utils'
+import numberFormat from '@/utils/number-format'
 
 export default {
   name: 'TableauBordGranulatsMarins',
@@ -435,6 +436,10 @@ export default {
 
     statsBarFormat(annees, id, bar, line, labelBar, labelLine) {
       return statsBarFormat(annees, id, bar, line, labelBar, labelLine)
+    },
+
+    numberFormat(number) {
+      return numberFormat(number)
     }
   }
 }

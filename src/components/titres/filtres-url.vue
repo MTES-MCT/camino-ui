@@ -32,6 +32,8 @@ export default {
     metasLoaded: { type: Boolean, required: true }
   },
 
+  emits: ['loaded'],
+
   data() {
     return {
       filtres

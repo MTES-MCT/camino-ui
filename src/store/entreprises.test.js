@@ -1,10 +1,7 @@
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 import * as api from '../api/entreprises'
 import entreprises from './entreprises'
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 jest.mock('../api/entreprises', () => ({
   entreprises: jest.fn()
@@ -67,11 +64,14 @@ describe("liste d'entreprises", () => {
       popupLoad: jest.fn()
     }
 
-    store = new Vuex.Store({
+    store = createStore({
       modules: { entreprises },
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('ajoute des entreprises', () => {

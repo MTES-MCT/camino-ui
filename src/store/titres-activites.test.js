@@ -1,8 +1,8 @@
 import titresActivites from './titres-activites'
 import * as apiActivites from '../api/titres-activites'
 import * as apiMetasActivites from '../api/metas-activites'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../api/titres-activites', () => ({
   activites: jest.fn()
@@ -15,9 +15,6 @@ jest.mock('../api/metas-activites', () => ({
 const api = Object.assign({}, apiActivites, apiMetasActivites)
 
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe("état d'une activité", () => {
   let store
@@ -104,12 +101,15 @@ describe("état d'une activité", () => {
       popupLoad: jest.fn()
     }
 
-    store = new Vuex.Store({
+    store = createStore({
       modules: { titresActivites },
       mutations,
       actions,
       state: { titre: { current: { id: 5 } } }
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   const activitesTypes = [{ id: 'grp', nom: "rapport trimestriel d'activité" }]

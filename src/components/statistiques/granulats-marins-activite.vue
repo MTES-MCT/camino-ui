@@ -71,12 +71,17 @@
 </template>
 
 <script>
+import numberFormat from '@/utils/number-format'
 export default {
   name: 'IndicateursActiviteGranulatsMarins',
 
   props: {
     statistiqueGranulatsMarins: { type: Object, required: true },
     enConstruction: { type: Boolean, default: false }
+  },
+
+  numberFormat(number) {
+    return numberFormat(number)
   }
 }
 </script>

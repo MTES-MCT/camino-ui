@@ -1,5 +1,10 @@
 const dateFormat = dateString => {
+  if (typeof dateString !== 'string') {
+    return ''
+  }
+
   const [y, m, d] = dateString.split('-')
+
   return `${d}/${m}/${y}`
   // .replace(/ *\([^)]*\) */g,'')
 }
@@ -29,8 +34,8 @@ const textToNumberFormat = text => {
   return Number.isNaN(number) ? null : number
 }
 
-const permissionsCheck = (userPermission, permissions) =>
-  permissions.includes(userPermission.id)
+const permissionsCheck = (user, permissions) =>
+  !!(user && user.permission && permissions.includes(user.permission.id))
 
 const typenameOmit = (key, value) => (key === '__typename' ? undefined : value)
 

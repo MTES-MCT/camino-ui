@@ -25,6 +25,8 @@ export default {
     page: { type: Number, default: 1 }
   },
 
+  emits: ['params-update'],
+
   computed: {
     rowsPages() {
       return this.rows

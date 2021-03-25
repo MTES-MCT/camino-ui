@@ -372,6 +372,7 @@ import GuyaneActivite from './guyane-activite.vue'
 import BarChart from '../_charts/bar.vue'
 import LineChart from '../_charts/line.vue'
 import { suggestedMaxCalc, statsBarFormat, statsLineFormat } from './_utils'
+import numberFormat from '@/utils/number-format'
 
 export default {
   name: 'TableauBordGuyane',
@@ -456,6 +457,10 @@ export default {
 
     statsBarFormat(annees, id, bar, line, labelBar, labelLine) {
       return statsBarFormat(annees, id, bar, line, labelBar, labelLine)
+    },
+
+    numberFormat(number) {
+      return numberFormat(number)
     }
   }
 }

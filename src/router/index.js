@@ -1,6 +1,4 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import VueMeta from 'vue-meta'
+import { createRouter, createWebHistory } from 'vue-router'
 import Titre from '../components/titre.vue'
 import Titres from '../components/titres.vue'
 import Demarches from '../components/demarches.vue'
@@ -41,10 +39,6 @@ const StatistiquesGranulatsMarins = () =>
   import(
     /* webpackChunkName: "stats" */ '../components/statistiques/granulats-marins.vue'
   )
-
-Vue.use(VueRouter)
-
-Vue.use(VueMeta, { keyName: 'page' })
 
 const routes = [
   {
@@ -203,8 +197,7 @@ const routes = [
     redirect: 'titres'
   },
   {
-    path: '/erreur',
-    alias: '*',
+    path: '/:pathMatch(.*)*',
     name: 'erreur',
     component: Error,
     props: {
@@ -216,10 +209,9 @@ const routes = [
   }
 ]
 
-const router = new VueRouter({
-  routes,
-  mode: 'history'
-})
+const history = createWebHistory()
+
+const router = createRouter({ routes, history })
 
 router.beforeEach(async (to, from, next) => {
   if (store.state.menu.component) {

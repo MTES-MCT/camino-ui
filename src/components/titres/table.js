@@ -1,8 +1,8 @@
-/* eslint-disable vue/one-component-per-file */
-import Vue from 'vue'
 import TagList from '../_ui/tag-list.vue'
 import List from '../_ui/list.vue'
 import CaminoDomaine from '../_common/domaine.vue'
+import TitreNom from '../_common/titre-nom.vue'
+import TitreTypeTypeNom from '../_common/titre-type-type-nom.vue'
 import CoordonneesIcone from '../_common/coordonnees-icone.vue'
 import ActivitesPills from '../activites/pills.vue'
 import Statut from '../_common/statut.vue'
@@ -67,11 +67,8 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
   titres.map(titre => {
     const columns = {
       nom: {
-        component: Vue.component('TitreNom', {
-          render(h) {
-            return h('p', { class: ['bold', 'mb-0'] }, titre.nom)
-          }
-        }),
+        component: TitreNom,
+        props: { nom: titre.nom },
         value: titre.nom
       },
       domaine: {
@@ -85,15 +82,8 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
         value: titre.coordonnees ? '·' : ''
       },
       type: {
-        component: Vue.component('TitreTypeNom', {
-          render(h) {
-            return h(
-              'p',
-              { class: ['h5', 'bold', 'cap-first', 'mb-0'] },
-              titre.type.type.nom
-            )
-          }
-        }),
+        component: TitreTypeTypeNom,
+        props: { nom: titre.type.type.nom },
         value: titre.type.type.nom
       },
       statut: {

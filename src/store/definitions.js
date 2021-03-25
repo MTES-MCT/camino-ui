@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   definitions,
   domaines,
@@ -67,11 +65,11 @@ export const actions = {
 
 export const mutations = {
   set(state, data) {
-    Vue.set(state, 'elements', data)
+    state.elements = data
   },
 
   entreesSet(state, data) {
-    Vue.set(state, 'entrees', data)
+    state.entrees = data
   }
 }
 

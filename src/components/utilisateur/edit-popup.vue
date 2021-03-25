@@ -16,7 +16,7 @@
       <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom.</p>
       <hr />
     </div>
-    <div v-if="permissionsCheck(['super', 'admin'])" class="tablet-blobs">
+    <div v-if="permissionsCheck(user, ['super', 'admin'])" class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Email</h6>
       </div>
@@ -270,6 +270,7 @@
 </template>
 
 <script>
+import { permissionsCheck } from '@/utils'
 import Popup from '../_ui/popup.vue'
 
 export default {
@@ -319,6 +320,10 @@ export default {
       return this.$store.state.utilisateur.metas.administrations
     },
 
+    user() {
+      return this.$store.state.user.current
+    },
+
     complete() {
       return this.action === 'create'
         ? this.utilisateur.nom &&
@@ -351,7 +356,7 @@ export default {
 
     administrationsDisabledIds() {
       return this.administrations.reduce((res, a) => {
-        if (!a.membre && !this.permissionsCheck(['super'])) {
+        if (!a.membre && !this.permissionsCheck(this.user, ['super'])) {
           res.push(a.id)
         }
 
@@ -360,7 +365,7 @@ export default {
     },
 
     administrationsFiltered() {
-      const a = this.permissionsCheck(['super'])
+      const a = this.permissionsCheck(this.user, ['super'])
         ? this.administrations
         : this.administrations.filter(a => a.membre)
 
@@ -378,7 +383,7 @@ export default {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 
@@ -466,6 +471,10 @@ export default {
       const administration = this.administrations.find(a => a.id === id)
 
       return administration.abreviation
+    },
+
+    permissionsCheck(user, permissions) {
+      return permissionsCheck(user, permissions)
     }
   }
 }

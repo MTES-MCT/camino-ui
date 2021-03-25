@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   entreprise,
   entrepriseCreer,
@@ -81,11 +79,11 @@ export const actions = {
 
 export const mutations = {
   set(state, entreprise) {
-    Vue.set(state, 'current', entreprise)
+    state.current = entreprise
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.current = null
   }
 }
 

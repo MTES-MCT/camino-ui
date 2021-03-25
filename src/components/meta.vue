@@ -202,7 +202,7 @@ export default {
     this.get()
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.$store.commit('meta/reset')
   },
 

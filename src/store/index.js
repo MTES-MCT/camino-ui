@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { shallowRef } from '@vue/reactivity'
+import { createStore } from 'vuex'
 import { saveAs } from 'file-saver'
 
 import router from '../router'
@@ -168,14 +168,12 @@ export const mutations = {
   },
 
   messageRemove(state, id) {
-    Vue.delete(
-      state.messages,
-      state.messages.findIndex(m => m.id === id)
-    )
+    const index = state.messages.findIndex(m => m.id === id)
+    state.messages.splice(index, 1)
   },
 
   popupOpen(state, { component, props }) {
-    state.popup.component = component
+    state.popup.component = shallowRef(component)
     state.popup.props = props
     state.popup.messages = []
   },
@@ -196,7 +194,7 @@ export const mutations = {
   },
 
   menuOpen(state, component) {
-    state.menu.component = component
+    state.menu.component = shallowRef(component)
   },
 
   menuClose(state) {
@@ -230,9 +228,7 @@ export const mutations = {
   }
 }
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+export default createStore({
   state,
   actions,
   mutations,

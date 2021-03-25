@@ -29,13 +29,15 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import { nextTick } from 'vue'
 import marked from 'marked'
 
 export default {
   props: {
     value: { type: String, required: true }
   },
+
+  emits: ['update'],
 
   data() {
     return {
@@ -65,7 +67,7 @@ export default {
         this.valueUpdated = this.value
         this.editable = !this.editable
 
-        Vue.nextTick(() => {
+        nextTick(() => {
           this.$refs.textarea.focus()
         })
       }

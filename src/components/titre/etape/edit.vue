@@ -89,26 +89,26 @@
 
         <EtapeEditFondamentales
           v-if="etapeType.fondamentale"
-          :etape.sync="etape"
+          v-model:etape="etape"
           :domaine-id="domaineId"
         />
 
         <EtapeEditPoints
           v-if="etapeType.fondamentale"
-          :etape.sync="etape"
-          :events.sync="events"
+          v-model:etape="etape"
+          v-model:events="events"
         />
 
         <EditSections
           v-if="etapeType.sections"
+          v-model:etape="etape"
           :sections="etapeType.sections"
-          :etape.sync="etape"
         />
       </div>
 
       <div v-if="etapeType.documentsTypes && documentsTypes.length">
         <DocumentsEdit
-          :documents.sync="etape.documents"
+          v-model:documents="etape.documents"
           :parent-id="etape.id"
           :parent-type-id="etapeType.id"
           :documents-types="documentsTypes"
@@ -248,7 +248,7 @@ export default {
     }
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyUp)
   },
 

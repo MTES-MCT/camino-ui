@@ -1,7 +1,7 @@
 import titreEtapeJustificatifs from './titre-etape-justificatifs'
 import * as api from '../api/titres-etapes'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../api/titres-etapes', () => ({
   etapeJustificatifsAssocier: jest.fn(),
@@ -10,9 +10,6 @@ jest.mock('../api/titres-etapes', () => ({
 }))
 
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe('justificatifs', () => {
   let store
@@ -43,7 +40,7 @@ describe('justificatifs', () => {
       popupMessageAdd: jest.fn()
     }
 
-    store = new Vuex.Store({
+    store = createStore({
       actions,
       mutations,
       modules: {
@@ -54,6 +51,9 @@ describe('justificatifs', () => {
         }
       }
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les métas pour associer un justificatif', async () => {

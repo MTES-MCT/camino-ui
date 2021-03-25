@@ -14,6 +14,8 @@ export default {
     value: { type: Boolean, required: true }
   },
 
+  emits: ['update'],
+
   data() {
     return {
       valueUpdated: ''

@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import {
   administration,
   administrationMetas,
@@ -221,21 +220,21 @@ export const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       if (id === 'administrationsTypes') {
-        Vue.set(state.metas, 'types', data[id])
+        state.metas.types = data[id]
       } else if (id === 'statuts') {
-        Vue.set(state.metas, 'titresStatuts', data[id])
+        state.metas.titresStatuts = data[id]
       } else {
-        Vue.set(state.metas, id, data[id])
+        state.metas[id] = data[id]
       }
     })
   },
 
   set(state, administration) {
-    Vue.set(state, 'current', administration)
+    state.current = administration
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.current = null
   }
 }
 

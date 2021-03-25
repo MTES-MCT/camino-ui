@@ -17,7 +17,7 @@
       <p class="h5 italic mb-s">
         Hérité de :
         <span class="cap-first">{{ prop.etape.type.nom }}</span> ({{
-          prop.etape.date | dateFormat
+          dateFormat(prop.etape.date)
         }})
       </p>
     </div>
@@ -35,6 +35,7 @@
 <script>
 import { hasValeurCheck } from '../../../utils/contenu'
 import Tag from '@/components/_ui/tag.vue'
+import { dateFormat } from '@/utils'
 
 export default {
   components: { Tag },
@@ -70,6 +71,10 @@ export default {
         this.prop.etape.incertitudes &&
         this.prop.etape.incertitudes[this.propId]
       )
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }

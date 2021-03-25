@@ -1,7 +1,7 @@
 import titres from './titres'
 import * as api from '../api/titres'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../api/titres', () => ({
   titres: jest.fn(),
@@ -11,9 +11,6 @@ jest.mock('../api/titres', () => ({
 }))
 
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe('liste des titres', () => {
   let actions
@@ -82,19 +79,25 @@ describe('liste des titres', () => {
         urls: false
       }
     }
+
     mutations = {
       loadingAdd: jest.fn(),
       loadingRemove: jest.fn()
     }
+
     actions = {
       apiError: jest.fn(),
       messageAdd: jest.fn()
     }
-    store = new Vuex.Store({
+
+    store = createStore({
       modules: { titres },
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les métas pour visualiser les titres', async () => {

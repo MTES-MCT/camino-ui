@@ -7,8 +7,8 @@
       </div>
 
       <EditHeritage
+        v-model:prop="etape.heritageProps.duree"
         class="tablet-blob-2-3"
-        :prop.sync="etape.heritageProps.duree"
         prop-id="duree"
       >
         <template #write>
@@ -53,8 +53,8 @@
         <p class="h5 italic mb-0">Optionnel</p>
       </div>
       <EditHeritage
+        v-model:prop="etape.heritageProps.dateDebut"
         class="tablet-blob-2-3"
-        :prop.sync="etape.heritageProps.dateDebut"
         prop-id="dateDebut"
       >
         <template #write>
@@ -82,8 +82,8 @@
         <p class="h5 italic mb-0">Optionnel</p>
       </div>
       <EditHeritage
+        v-model:prop="etape.heritageProps.dateFin"
         class="tablet-blob-2-3"
-        :prop.sync="etape.heritageProps.dateFin"
         prop-id="dateFin"
       >
         <template #write>
@@ -110,8 +110,8 @@
         <p class="h5 italic mb-0">Optionnel</p>
       </div>
       <EditHeritage
+        v-model:prop="etape.heritageProps.surface"
         class="tablet-blob-2-3"
-        :prop.sync="etape.heritageProps.surface"
         prop-id="surface"
       >
         <template #write>
@@ -141,7 +141,7 @@
     <h3 class="mb-s">Titulaires</h3>
     <p class="h5 italic">Optionnel</p>
     <EditHeritage
-      :prop.sync="etape.heritageProps.titulaires"
+      v-model:prop="etape.heritageProps.titulaires"
       prop-id="titulaires"
       :is-array="true"
     >
@@ -210,7 +210,7 @@
     <p class="h5 italic">Optionnel</p>
 
     <EditHeritage
-      :prop.sync="etape.heritageProps.amodiataires"
+      v-model:prop="etape.heritageProps.amodiataires"
       prop-id="amodiataires"
       :is-array="true"
     >
@@ -283,7 +283,7 @@
     <h3 class="mb-s">Substances</h3>
     <p class="h5 italic">Optionnel</p>
     <EditHeritage
-      :prop.sync="etape.heritageProps.substances"
+      v-model:prop="etape.heritageProps.substances"
       prop-id="substances"
       :is-array="true"
     >

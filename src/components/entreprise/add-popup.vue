@@ -100,7 +100,7 @@ export default {
     this.current = null
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 

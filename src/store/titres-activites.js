@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import { activites } from '../api/titres-activites'
 import { activitesMetas } from '../api/metas-activites'
 import { paramsBuild } from '../utils/'
@@ -117,8 +115,8 @@ export const actions = {
     { state, commit, dispatch },
     { section, params, pageReset }
   ) {
-    if (pageReset) {
-      commit('preferencesSet', { section: 'table', params: { page: 1 } })
+    if (section === 'table' && pageReset && state.preference.page !== 1) {
+      params.page = 1
     }
 
     commit('preferencesSet', { section, params })
@@ -140,15 +138,15 @@ export const actions = {
 
 export const mutations = {
   reset(state) {
-    Vue.set(state, 'list', [])
+    state.list = []
     state.total = 0
     state.loaded.metas = false
     state.loaded.url = false
   },
 
   set(state, data) {
-    Vue.set(state, 'list', data.elements)
-    Vue.set(state, 'total', data.total)
+    state.list = data.elements
+    state.total = data.total
   },
 
   metasSet(state, data) {
@@ -178,15 +176,11 @@ export const mutations = {
       if (metaId) {
         const param = state.params.find(p => p.id === metaId)
         if (param && param.type && param.type === 'numbers') {
-          Vue.set(
-            state.metas,
-            metaId,
-            data[id].map(annee => {
-              return { id: annee, nom: annee }
-            })
-          )
+          state.metas[metaId] = data[id].map(annee => {
+            return { id: annee, nom: annee }
+          })
         } else {
-          Vue.set(state.metas, metaId, data[id])
+          state.metas[metaId] = data[id]
         }
       }
 
@@ -194,13 +188,9 @@ export const mutations = {
         paramsIds.forEach(paramId => {
           const param = state.params.find(p => p.id === paramId)
           if (param && param.type && param.type === 'numbers') {
-            Vue.set(param, 'elements', data[id])
+            param.elements = data[id]
           } else {
-            Vue.set(
-              param,
-              'elements',
-              data[id].map(e => e.id)
-            )
+            param.elements = data[id].map(e => e.id)
           }
         })
       }
@@ -209,7 +199,7 @@ export const mutations = {
 
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      Vue.set(state.preferences[section], id, params[id])
+      state.preferences[section][id] = params[id]
     })
   },
 

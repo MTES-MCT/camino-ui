@@ -1,7 +1,7 @@
 <template>
   <div class="bg-alt width-full">
     <MapPattern :domaines-ids="[domaineId]" :types-ids="[typeId]" />
-    <Map
+    <Mapo
       ref="map"
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
@@ -53,16 +53,20 @@
 </template>
 
 <script>
-import L from 'leaflet'
-import Map from '../_map/index.vue'
+import Mapo from '../_map/index.vue'
 import MapTilesSelector from '../_map/tiles-selector.vue'
 import MapWarningBrgm from '../_map/warning-brgm.vue'
 import MapPattern from '../_map/pattern.vue'
 
-import { tilesBuild } from '../_map/map.js'
+import {
+  leafletTilesBuild,
+  leafletMarkerBuild,
+  leafletGeojsonBuild,
+  leafletDivIconBuild
+} from '../_map/leaflet.js'
 
 export default {
-  components: { MapPattern, MapWarningBrgm, Map, MapTilesSelector },
+  components: { MapPattern, MapWarningBrgm, Mapo, MapTilesSelector },
 
   props: {
     geojson: { type: Object, required: true },
@@ -70,6 +74,8 @@ export default {
     domaineId: { type: String, default: '' },
     typeId: { type: String, default: '' }
   },
+
+  emits: ['titre-event-track'],
 
   data() {
     return {
@@ -82,13 +88,13 @@ export default {
 
   computed: {
     bounds() {
-      return this.geojsonLayers[0].getBounds()
+      return this.geojsonLayers[0] ? this.geojsonLayers[0].getBounds() : [0, 0]
     },
 
     tilesLayer() {
       const tiles = this.$store.getters['user/tilesActive']
 
-      return tilesBuild(tiles)
+      return leafletTilesBuild(tiles)
     },
 
     geojsonLayers() {
@@ -96,16 +102,13 @@ export default {
         ? `svg-fill-pattern-${this.typeId}-${this.domaineId}`
         : `svg-fill-domaine-${this.domaineId}`
 
-      return [
-        L.geoJSON(this.geojson, {
-          style: {
-            fillOpacity: 0.75,
-            weight: 1,
-            color: 'white',
-            className
-          }
-        })
-      ]
+      const options = {
+        style: { fillOpacity: 0.75, weight: 1, color: 'white', className }
+      }
+
+      const geojsonLayer = leafletGeojsonBuild(this.geojson, options)
+
+      return [geojsonLayer]
     },
 
     markerLayers() {
@@ -115,19 +118,17 @@ export default {
             return markers
           }
 
-          const icon = L.divIcon({
+          const icon = leafletDivIconBuild({
             className: `small mono border-bg color-text py-xs px-s inline-block leaflet-marker-camino cap pill bg-bg`,
             html: point.nom,
             iconSize: null,
             iconAnchor: [15.5, 38]
           })
 
-          const titleMarker = L.marker(
-            [point.coordonnees.y, point.coordonnees.x],
-            { icon }
-          )
+          const latLng = [point.coordonnees.y, point.coordonnees.x]
+          const titreMarker = leafletMarkerBuild(latLng, icon)
 
-          markers.push(titleMarker)
+          markers.push(titreMarker)
 
           return markers
         }, [])
@@ -161,10 +162,8 @@ export default {
         action: 'titre-carte_choisirFond',
         nom: this.$route.params.id
       })
-      this.$store.dispatch('user/preferencesSet', {
-        section: 'carte',
-        params
-      })
+
+      this.$store.dispatch('user/preferencesSet', { section: 'carte', params })
     },
 
     centrerTrack() {

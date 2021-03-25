@@ -1,8 +1,15 @@
 <template>
-  <Accordion :opened="opened" class="mb-s" @close="close" @toggle="toggle">
+  <Accordion
+    :opened="opened"
+    class="mb-s"
+    :slot-default="true"
+    :slot-buttons="true"
+    @close="close"
+    @toggle="toggle"
+  >
     <template #title>
       <h6>
-        {{ etape.date | dateFormat }}
+        {{ dateFormat(etape.date) }}
         <Tag
           v-if="etape.incertitudes && etape.incertitudes.date"
           :mini="true"
@@ -118,6 +125,7 @@ import DocumentButtonAdd from '../document/button-add.vue'
 import JustificatifsButtonAdd from '../justificatifs/button-add.vue'
 import EtapeProps from './etape/props.vue'
 import Documents from '../documents/list.vue'
+import { dateFormat } from '@/utils'
 
 const cap = string => string[0].toUpperCase() + string.slice(1)
 
@@ -140,6 +148,8 @@ export default {
     demarcheType: { type: Object, required: true },
     demarcheId: { type: String, default: '' }
   },
+
+  emits: ['titre-event-track'],
 
   data() {
     return {
@@ -267,6 +277,10 @@ export default {
 
     eventTrack(event) {
       this.$emit('titre-event-track', event)
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }

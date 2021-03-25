@@ -1,7 +1,7 @@
 import titresDemarches from './titres-demarches'
 import * as api from '../api/titres-demarches'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../api/titres-demarches', () => ({
   demarchesMetas: jest.fn(),
@@ -9,9 +9,6 @@ jest.mock('../api/titres-demarches', () => ({
 }))
 
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe('liste des demarches', () => {
   let actions
@@ -103,11 +100,14 @@ describe('liste des demarches', () => {
       messageAdd: jest.fn()
     }
 
-    store = new Vuex.Store({
+    store = createStore({
       modules: { titresDemarches },
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les métas pour afficher des démarches', async () => {

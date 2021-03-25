@@ -13,13 +13,13 @@
     @preferences-update="preferencesUpdate"
     @url-load="urlLoad"
   >
-    <Downloads
-      v-if="administrations.length"
-      slot="downloads"
-      :formats="['csv', 'xlsx', 'ods']"
-      section="administrations"
-      class="flex-right full-x"
-    />
+    <template v-if="administrations.length" #downloads>
+      <Downloads
+        :formats="['csv', 'xlsx', 'ods']"
+        section="administrations"
+        class="flex-right full-x"
+      />
+    </template>
   </liste>
 </template>
 
@@ -87,7 +87,7 @@ export default {
     await this.metasGet()
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('administrations/reset')
   },
 

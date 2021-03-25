@@ -1,11 +1,18 @@
 <template>
-  <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
+  <Accordion
+    class="mb"
+    :opened="opened"
+    :slot-default="true"
+    @close="close"
+    @toggle="toggle"
+  >
     <template #title>
       <span>{{ administration.nom }}</span>
       <Tag v-if="administration.coordinateur" :color="'bg-info'" :mini="true">
         Coord.
       </Tag>
     </template>
+
     <div v-if="content" class="px-m pt-m">
       <div v-if="administration.service" class="large-blobs">
         <div class="large-blob-1-6">
@@ -97,6 +104,8 @@ export default {
       default: () => {}
     }
   },
+
+  emits: ['titre-event-track'],
 
   data() {
     return {

@@ -9,9 +9,7 @@
     @validate="validate"
     @toggle="toggle"
   />
-  <div v-else class="py-s px-m mb-s border rnd-s">
-    …
-  </div>
+  <div v-else class="py-s px-m mb-s border rnd-s">…</div>
 </template>
 
 <script>
@@ -27,6 +25,8 @@ export default {
     metas: { type: Object, default: () => ({}) },
     metasLoaded: { type: Boolean, required: true }
   },
+
+  emits: ['toggle', 'preferences-update'],
 
   data() {
     return {
@@ -49,7 +49,7 @@ export default {
   watch: {
     // si les metas changent (connexion / deconnexion user)
     metas: {
-      handler: function() {
+      handler: function () {
         if (this.metasLoaded) {
           this.validate()
         }
@@ -57,7 +57,7 @@ export default {
       deep: true
     },
 
-    metasLoaded: function(to, from) {
+    metasLoaded: function (to, from) {
       if (!from) {
         this.init()
       }
@@ -68,7 +68,7 @@ export default {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 

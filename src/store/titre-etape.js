@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { etapeEditFormat } from '../utils/titre-etape-edit'
 import { etapeSaveFormat } from '../utils/titre-etape-save'
 
@@ -124,22 +123,22 @@ export const actions = {
 export const mutations = {
   set(state, { etape, titreDemarcheId }) {
     const e = etapeEditFormat(etape, titreDemarcheId)
-    Vue.set(state, 'current', e)
+    state.current = e
   },
 
   heritageSet(state, { etape, titreDemarcheId }) {
     const apiEtape = etapeEditFormat(etape, titreDemarcheId)
     const newEtape = etapeHeritageBuild(state.current, apiEtape)
 
-    Vue.set(state, 'current', newEtape)
+    state.current = newEtape
   },
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       if (id === 'entreprises') {
-        Vue.set(state.metas, id, data[id].elements)
+        state.metas[id] = data[id].elements
       } else {
-        Vue.set(state.metas, id, data[id])
+        state.metas[id] = data[id]
       }
     })
   }

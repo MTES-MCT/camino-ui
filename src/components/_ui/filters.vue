@@ -2,7 +2,8 @@
   <Accordion
     ref="accordion"
     :opened="opened"
-    :sub="false"
+    :slot-sub="!!labels.length"
+    :slot-default="true"
     class="mb-s"
     @toggle="toggle"
   >
@@ -20,7 +21,7 @@
             @click="labelRemove(label)"
             >{{ label.name }} : {{ label.valueName || label.value }}
             <span class="inline-block align-y-top ml-xs"
-              ><i class="icon-16 icon-x"/></span
+              ><i class="icon-16 icon-x" /></span
           ></span>
         </div>
         <button class="flex-right btn-alt p-m" @click="labelsReset">
@@ -33,9 +34,10 @@
       <div class="tablet-blobs mt">
         <div v-if="inputs.length" class="tablet-blob-1-2 large-blob-1-3">
           <FiltersInput
-            v-for="filter in inputs"
-            :key="filter.id"
-            :filter.sync="filter"
+            v-for="(input, n) in inputs"
+            :key="input.id"
+            v-model="inputs[n]"
+            :filter="input"
           />
           <button
             class="btn-border small px-s p-xs rnd-xs mb"
@@ -46,24 +48,27 @@
         </div>
 
         <FiltersCheckboxes
-          v-for="filter in checkboxes"
+          v-for="(filter, n) in checkboxes"
           :key="filter.id"
-          :filter.sync="filter"
+          v-model="checkboxes[n]"
+          :filter="filter"
           class="tablet-blob-1-2 large-blob-1-3"
         />
 
         <FiltersSelects
-          v-for="filter in selects"
+          v-for="(filter, n) in selects"
           :key="filter.id"
-          :filter.sync="filter"
+          v-model="selects[n]"
+          :filter="filter"
           class="tablet-blob-1-2 large-blob-1-3"
         />
 
-        <Component
+        <component
           :is="filter.component"
-          v-for="filter in customs"
+          v-for="(filter, n) in customs"
           :key="filter.id"
-          :filter.sync="filter"
+          v-model="customs[n]"
+          :filter="filter"
           class="tablet-blob-1-2 large-blob-1-3"
         />
       </div>
@@ -99,6 +104,8 @@ export default {
     button: { type: String, default: 'Ok' },
     opened: { type: Boolean, default: false }
   },
+
+  emits: ['toggle', 'validate'],
 
   computed: {
     inputs() {

@@ -1,5 +1,5 @@
-import Vuex from 'vuex'
-import { createLocalVue } from '@vue/test-utils'
+import { createStore } from 'vuex'
+import { createApp } from 'vue'
 import * as router from '../router'
 import * as api from '../api/utilisateurs'
 
@@ -19,9 +19,6 @@ jest.mock('../api/utilisateurs', () => ({
 jest.mock('../router', () => ({
   push: jest.fn()
 }))
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 console.info = jest.fn()
 
@@ -52,6 +49,7 @@ describe("état de l'utilisateur consulté", () => {
         set: jest.fn()
       }
     }
+
     mutations = {
       loadingAdd: jest.fn(),
       loadingRemove: jest.fn(),
@@ -67,11 +65,15 @@ describe("état de l'utilisateur consulté", () => {
       reload: jest.fn(),
       messageAdd: jest.fn()
     }
-    store = new Vuex.Store({
+
+    store = createStore({
       modules: { utilisateur, user },
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les métas pour éditer un utilisateur', async () => {

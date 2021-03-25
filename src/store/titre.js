@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   titreMetas,
   titre,
@@ -132,36 +130,36 @@ export const actions = {
 
 export const mutations = {
   set(state, titre) {
-    Vue.set(state, 'current', titre)
+    state.current = titre
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.current = null
   },
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      state.metas[id] = data[id]
     })
   },
 
   open(state, { section, id }) {
     if (!state.opened[section][id]) {
-      Vue.set(state.opened[section], id, true)
+      state.opened[section][id] = true
     }
   },
 
   close(state, { section, id }) {
     if (state.opened[section][id]) {
-      Vue.set(state.opened[section], id, false)
+      state.opened[section][id] = false
     }
   },
 
   toggle(state, { section, id }) {
     if (state.opened[section][id]) {
-      Vue.set(state.opened[section], id, false)
+      state.opened[section][id] = false
     } else {
-      Vue.set(state.opened[section], id, true)
+      state.opened[section][id] = true
     }
   }
 }

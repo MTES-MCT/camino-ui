@@ -1,7 +1,7 @@
 import titreDemarche from './titre-demarche'
 import * as api from '../api/titres-demarches'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../api/titres-demarches', () => ({
   demarcheMetas: jest.fn(),
@@ -11,9 +11,6 @@ jest.mock('../api/titres-demarches', () => ({
 }))
 
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe('démarche', () => {
   let store
@@ -44,7 +41,10 @@ describe('démarche', () => {
       popupMessageAdd: jest.fn()
     }
 
-    store = new Vuex.Store({ actions, mutations, modules: { titreDemarche } })
+    store = createStore({ actions, mutations, modules: { titreDemarche } })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les métas pour éditer une démarche', async () => {

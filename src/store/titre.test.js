@@ -1,7 +1,7 @@
 import titre from './titre'
 import * as api from '../api/titres'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../router', () => ({
   push: () => {}
@@ -16,9 +16,6 @@ jest.mock('../api/titres', () => ({
 }))
 
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe('état du titre sélectionné', () => {
   let store
@@ -38,12 +35,14 @@ describe('état du titre sélectionné', () => {
         travaux: {}
       }
     }
+
     actions = {
       pageError: jest.fn(),
       apiError: jest.fn(),
       reload: jest.fn(),
       messageAdd: jest.fn()
     }
+
     mutations = {
       loadingAdd: jest.fn(),
       loadingRemove: jest.fn(),
@@ -52,11 +51,15 @@ describe('état du titre sélectionné', () => {
       popupClose: jest.fn(),
       popupMessageAdd: jest.fn()
     }
-    store = new Vuex.Store({
+
+    store = createStore({
       modules: { titre },
       actions,
       mutations
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les métas pour éditer un titre', async () => {
@@ -127,7 +130,7 @@ describe('état du titre sélectionné', () => {
   })
 
   test('met à jour un titre', async () => {
-    store = new Vuex.Store({ modules: { titre }, actions, mutations })
+    store = createStore({ modules: { titre }, actions, mutations })
     api.titreModifier.mockResolvedValue({ id: 83, nom: 'marne' })
     await store.dispatch('titre/titreUpdate', { id: 83, nom: 'marne' })
 

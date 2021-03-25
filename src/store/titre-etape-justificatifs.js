@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   etapeJustificatifsAssocier,
   etapeEntreprises,
@@ -93,7 +91,7 @@ export const actions = {
 
 export const mutations = {
   metasSet(state, data) {
-    Vue.set(state.metas, 'entreprises', data.elements)
+    state.metas.entreprises = data.elements
   }
 }
 
