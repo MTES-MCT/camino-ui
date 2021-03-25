@@ -76,8 +76,7 @@ export const actions = {
     commit('preferencesSet', { section, params })
 
     if (state.loaded.url) {
-      console.log('bam')
-      // await dispatch('get')
+      await dispatch('get')
     }
   },
 
@@ -103,9 +102,7 @@ export const mutations = {
 
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      if (state.preferences[section][id] !== params[id]) {
         state.preferences[section][id] = params[id]
-      }
     })
   },
 

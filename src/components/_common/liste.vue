@@ -160,7 +160,6 @@ export default {
 
     preferencesFiltresUpdateAndPageReset(params) {
       if (this.loaded.table && this.loaded.filtres) {
-        console.log('one')
         this.preferencesFiltresUpdate(params, true)
       }
     },

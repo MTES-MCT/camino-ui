@@ -6,7 +6,6 @@
     :lignes="lignes"
     :elements="entreprises"
     :preferences="preferences"
-    :metas="metas"
     :params="params"
     :total="total"
     :metas-loaded="true"
@@ -74,10 +73,6 @@ export default {
       return this.$store.state.entreprises.preferences
     },
 
-    metas() {
-      return this.$store.state.entreprises.metas
-    },
-
     params() {
       return this.$store.state.entreprises.params
     },
@@ -93,7 +88,6 @@ export default {
 
   methods: {
     urlLoad() {
-      console.log('urlLoad')
       this.$store.dispatch('entreprises/urlLoad')
     },
 
