@@ -4,7 +4,7 @@
     <Edit
       v-for="(document, n) in documents"
       :key="document.id"
-      v-model="documents[n]"
+      v-model:document="documents[n]"
       :document-type="documentsTypes.find(dt => dt.id === document.typeId)"
       :modifiable="modifiable"
       :repertoire="repertoire"

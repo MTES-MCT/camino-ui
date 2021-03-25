@@ -1,10 +1,10 @@
 <template>
   <input
     v-if="modern"
-    :value="value"
+    :value="modelValue"
     type="date"
     :class="padding"
-    @change="$emit('input', $event.target.value)"
+    @change="$emit('update:modelValue', $event.target.value)"
   />
   <div v-else class="blobs-mini">
     <div class="blob-mini-1-3">
@@ -50,7 +50,7 @@
 <script>
 export default {
   props: {
-    value: { type: String, default: '' },
+    modelValue: { type: String, default: '' },
     monthNames: {
       type: Array,
       default: () => [
@@ -71,7 +71,7 @@ export default {
     padding: { type: String, default: 'p-s' }
   },
 
-  emits: ['input'],
+  emits: ['update:modelValue'],
 
   data() {
     return {
@@ -107,8 +107,8 @@ export default {
   },
 
   created() {
-    if (this.value) {
-      const ids = this.value.split('-')
+    if (this.modelValue) {
+      const ids = this.modelValue.split('-')
       this.yearId = Number(ids[0])
       this.monthId = Number(ids[1])
       this.dayId = Number(ids[2])
@@ -143,7 +143,7 @@ export default {
         date = ''
       }
 
-      this.$emit('input', date)
+      this.$emit('update:modelValue', date)
     }
   }
 }
