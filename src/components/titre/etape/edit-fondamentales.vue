@@ -15,7 +15,7 @@
           <div class="tablet-blobs">
             <div class="tablet-blob-1-2">
               <inputNumber
-                v-model.number="etape.duree.ans"
+                v-model="etape.duree.ans"
                 :integer="true"
                 placeholder="années"
                 class="py-s mb-s"
@@ -23,7 +23,7 @@
             </div>
             <div class="tablet-blob-1-2">
               <inputNumber
-                v-model.number="etape.duree.mois"
+                v-model="etape.duree.mois"
                 :integer="true"
                 placeholder="mois"
                 class="p-s"
@@ -116,7 +116,7 @@
       >
         <template #write>
           <inputNumber
-            v-model.number="etape.surface"
+            v-model="etape.surface"
             min="0"
             placeholder="0"
             class="mb-s"

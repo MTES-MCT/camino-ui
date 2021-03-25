@@ -82,14 +82,14 @@
         >
           <div class="tablet-blob-1-2">
             <inputNumber
-              v-model.number="etape.duree.ans"
+              v-model="etape.duree.ans"
               placeholder="années"
               class="p-s mb-s"
             />
           </div>
           <div class="tablet-blob-1-2">
             <inputNumber
-              v-model.number="etape.duree.mois"
+              v-model="etape.duree.mois"
               placeholder="mois"
               class="p-s"
             />
@@ -107,7 +107,7 @@
       </div>
       <div class="tablet-blob-2-3">
         <inputNumber
-          v-model.number="etape.surface"
+          v-model="etape.surface"
           class="p-s"
           placeholder="0"
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
