@@ -196,10 +196,7 @@ export default {
   },
 
   watch: {
-    user: 'get',
-    '$route.params.id': async function () {
-      await this.get()
-    }
+    user: 'get'
   },
 
   async created() {

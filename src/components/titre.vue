@@ -210,8 +210,6 @@ export default {
         this.tabActiveId = tabsActivesIds[0]
       }
     },
-    $route: 'get',
-
     user: 'get'
   },
 
