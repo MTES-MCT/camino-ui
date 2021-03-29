@@ -381,11 +381,11 @@ const metasIndex = {
     delete: travauxTypeEtapeTypeSupprimer,
     nom: 'Types des travaux | Types des étapes',
     colonnes: [
-      { id: 'titreTypeId', nom: 'Id du type de titre' },
+      { id: 'travauxTypeId', nom: 'Id du type de travaux' },
       { id: 'etapeTypeId', nom: "Id du type d'étape" },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ],
-    ids: ['titreTypeId', 'etapeTypeId']
+    ids: ['travauxTypeId', 'etapeTypeId']
   },
   devises: {
     get: devises,
