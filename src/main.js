@@ -55,7 +55,7 @@ app.use(router)
 
 app.use(store)
 
-app.mount('#app')
+app.mount('app-root')
 
 // // only available during E2E tests
 // if (window.Cypress) {

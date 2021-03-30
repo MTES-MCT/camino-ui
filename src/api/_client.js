@@ -3,7 +3,7 @@ import { print } from 'graphql/language/printer'
 import { GraphQL } from 'graphql-react'
 
 // for safari 11
-import 'unfetch/polyfill'
+// import 'unfetch/polyfill'
 import { fragmentUtilisateurToken } from './fragments/utilisateur'
 
 const graphql = new GraphQL()
@@ -58,7 +58,7 @@ const graphQLCall = async (url, query, variables) => {
   return dataContent
 }
 
-let apiUrl
+let apiUrl = '/apiUrl'
 const apiUrlInit = async () => {
   const res = await fetch('/apiUrl')
   apiUrl = await res.text()

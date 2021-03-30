@@ -18,10 +18,7 @@
         <li>
           <div class="blobs">
             <div class="blob-1-3">
-              <img
-                class="sponsor"
-                src="../../../public/img/logo-fabriquenumerique.svg"
-              />
+              <img class="sponsor" src="/img/logo-fabriquenumerique.svg" />
             </div>
             <div class="blob-2-3">
               <p class="h5 mb-0">

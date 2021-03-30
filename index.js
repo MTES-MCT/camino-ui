@@ -17,13 +17,12 @@ const compression = require('compression')
 const app = express()
 const port = process.env.PORT
 const apiUrl = process.env.API_URL
-const apiUrlHostname = new URL(apiUrl).hostname
 const apiMatomoUrl = process.env.API_MATOMO_URL
 
 const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
   setHeaders: (res, path, stat) => {
     res.set({
-      'Content-Security-Policy': `default-src 'self'; script-src 'self' ${apiMatomoUrl} 'sha256-4RS22DYeB7U14dra4KcQYxmwt5HkOInieXK1NUMBmQI='; style-src 'self' 'sha256-yUOnKCENzSdKikR9gEEAu8IogIBNlifamnNNH1E31SE='; connect-src 'self' ${apiUrlHostname} sentry.io; img-src data: 'self' ${apiMatomoUrl} a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org  a.tile.openstreetmap.fr b.tile.openstreetmap.fr c.tile.openstreetmap.fr geoservices.brgm.fr wxs.ign.fr; frame-src app.mailjet.com;`,
+      'Content-Security-Policy': `default-src 'self'; script-src 'self' ${apiMatomoUrl} 'sha256-4RS22DYeB7U14dra4KcQYxmwt5HkOInieXK1NUMBmQI=' blob:; style-src 'self' 'sha256-kwpt3lQZ21rs4cld7/uEm9qI5yAbjYzx+9FGm/XmwNU='; connect-src 'self' ${apiUrl} sentry.io; img-src data: 'self' ${apiMatomoUrl} a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org  a.tile.openstreetmap.fr b.tile.openstreetmap.fr c.tile.openstreetmap.fr geoservices.brgm.fr wxs.ign.fr; frame-src app.mailjet.com;`,
       'X-Frame-Options': 'DENY',
       'X-Content-Type-Options': 'nosniff',
       'X-XSS-Protection': '1; mode=block',

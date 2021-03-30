@@ -1,4 +1,11 @@
 module.exports = {
-  presets: ['@vue/app'],
-  plugins: ['graphql-tag']
+  plugins: ['graphql-tag'],
+  env: {
+    test: {
+      sourceType: 'module',
+      presets: [
+        ['@babel/preset-env', { targets: { node: 'current', esmodules: true } }]
+      ]
+    }
+  }
 }

@@ -1,13 +1,9 @@
 <template>
   <div class="content">
-    <h1 class="mb-xl">
-      À propos
-    </h1>
+    <h1 class="mb-xl">À propos</h1>
     <hr class="mb-xl" />
     <div id="irritants" class="mb-xxl">
-      <h4 class="mb-s color-neutral">
-        Ce qu'il faut changer
-      </h4>
+      <h4 class="mb-s color-neutral">Ce qu'il faut changer</h4>
       <h2>
         L'accès aux informations sur les projets miniers
         <br class="hide desktop-static" />est trop complexe
@@ -200,9 +196,7 @@
     </div>
 
     <div id="activites" class="mb-xxl">
-      <h4 class="mb-s color-neutral">
-        Tous les projets miniers concernés
-      </h4>
+      <h4 class="mb-s color-neutral">Tous les projets miniers concernés</h4>
       <h2>
         D'ici 2022 l'ensemble des procédures du code minier devront être
         numériques
@@ -212,7 +206,7 @@
         <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <h3>Ressources minérales non-énergétiques</h3>
           <img
-            src="../../../public/img/about/gallery-non-energetique.jpg"
+            src="/img/about/gallery-non-energetique.jpg"
             alt="Mine de sel"
             class="mb"
           />
@@ -230,7 +224,7 @@
         <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <h3>Matières premières énergétiques</h3>
           <img
-            src="../../../public/img/about/gallery-energetique.jpg"
+            src="/img/about/gallery-energetique.jpg"
             alt="Forage"
             class="mb"
           />
@@ -248,7 +242,7 @@
           <h3>Stockages souterrains</h3>
 
           <img
-            src="../../../public/img/about/gallery-stockages.jpg"
+            src="/img/about/gallery-stockages.jpg"
             alt="Station de contrôle"
             class="mb"
           />
@@ -268,7 +262,7 @@
           <h3>Géothermie profonde</h3>
 
           <img
-            src="../../../public/img/about/gallery-geothermie.jpg"
+            src="/img/about/gallery-geothermie.jpg"
             alt="Centrale géothermique"
             class="mb"
           />
@@ -282,7 +276,7 @@
         <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <h3>Travaux miniers</h3>
           <img
-            src="../../../public/img/about/gallery-travaux.jpg"
+            src="/img/about/gallery-travaux.jpg"
             alt="Centrale géothermique"
             class="mb"
           />
@@ -299,7 +293,7 @@
           <h3>Après mines</h3>
 
           <img
-            src="../../../public/img/about/gallery-apresmine.jpg"
+            src="/img/about/gallery-apresmine.jpg"
             alt="Centrale géothermique"
             class="mb"
           />
@@ -317,9 +311,7 @@
     </div>
 
     <div id="fabricants" class="mb-xxl">
-      <h4 class="mb-s color-neutral">
-        Les fabricants
-      </h4>
+      <h4 class="mb-s color-neutral">Les fabricants</h4>
 
       <h2>Les membres de l'équipe Camino</h2>
 
@@ -330,15 +322,13 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="../../../public/img/about/member-guillaume-levieux.jpg"
+                src="/img/about/member-guillaume-levieux.jpg"
                 alt="Portrait Guillaume"
               />
             </div>
           </div>
 
-          <h3 class="mb-0">
-            Guillaume Levieux
-          </h3>
+          <h3 class="mb-0">Guillaume Levieux</h3>
           <h6 class="color">Intrapreneur</h6>
 
           <p class="h5">Depuis Janvier 2018</p>
@@ -356,14 +346,12 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="../../../public/img/about/member-joeffrey-arruyer.jpg"
+                src="/img/about/member-joeffrey-arruyer.jpg"
                 alt="Portrait Joeffrey"
               />
             </div>
           </div>
-          <h3 class="mb-0">
-            Joeffrey Arruyer
-          </h3>
+          <h3 class="mb-0">Joeffrey Arruyer</h3>
           <h6 class="color">Coach</h6>
 
           <p class="h5">Depuis Janvier 2018</p>
@@ -380,15 +368,13 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="../../../public/img/about/member-francois-romain.jpg"
+                src="/img/about/member-francois-romain.jpg"
                 alt="Portrait François Romain"
               />
             </div>
           </div>
 
-          <h3 class="mb-0">
-            François Romain
-          </h3>
+          <h3 class="mb-0">François Romain</h3>
           <h6 class="color">Développeur</h6>
 
           <p class="h5">Depuis Mars 2018</p>
@@ -403,15 +389,13 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="../../../public/img/about/member-nicolas-petitot.jpg"
+                src="/img/about/member-nicolas-petitot.jpg"
                 alt="Portrait Nicolas Petitot"
               />
             </div>
           </div>
 
-          <h3 class="mb-0">
-            Nicolas Petitot
-          </h3>
+          <h3 class="mb-0">Nicolas Petitot</h3>
           <h6 class="color">Développeur</h6>
 
           <p class="h5">Depuis Septembre 2019</p>
@@ -421,15 +405,13 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="../../../public/img/about/member-vincent-maubert.jpg"
+                src="/img/about/member-vincent-maubert.jpg"
                 alt="Portrait Vincent Maubert"
               />
             </div>
           </div>
 
-          <h3 class="mb-0">
-            Vincent Maubert
-          </h3>
+          <h3 class="mb-0">Vincent Maubert</h3>
           <h6 class="color">Développeur</h6>
 
           <p class="h5">Depuis Juin 2020</p>
@@ -446,15 +428,13 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="../../../public/img/about/member-felix-de-preneuf.jpg"
+                src="/img/about/member-felix-de-preneuf.jpg"
                 alt="Portrait Félix de Préneuf"
               />
             </div>
           </div>
 
-          <h3 class="mb-0">
-            Félix de Préneuf
-          </h3>
+          <h3 class="mb-0">Félix de Préneuf</h3>
           <h6 class="color">Business Developer</h6>
           <p class="h5">Depuis Septembre 2020</p>
           <ul class="list-prefix h5 mb-0">
@@ -471,15 +451,13 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="../../../public/img/about/member-laure-enjelvin.jpg"
+                src="/img/about/member-laure-enjelvin.jpg"
                 alt="Portrait Félix de Préneuf"
               />
             </div>
           </div>
 
-          <h3 class="mb-0">
-            Laure Enjelvin
-          </h3>
+          <h3 class="mb-0">Laure Enjelvin</h3>
           <h6 class="color">Intrapreneuse</h6>
           <p class="h5">Depuis Décembre 2020</p>
         </div>
@@ -490,15 +468,13 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="../../../public/img/about/member-sandra-chakroun.jpg"
+                src="/img/about/member-sandra-chakroun.jpg"
                 alt="Portrait Sandra Chakroun"
               />
             </div>
           </div>
 
-          <h3 class="mb-0">
-            Sandra Chakroun
-          </h3>
+          <h3 class="mb-0">Sandra Chakroun</h3>
           <h6 class="color">Développeuse</h6>
           <p class="h5">Entre Septembre et Décembre 2020</p>
           <ul class="list-prefix h5 mb-0">
@@ -514,15 +490,13 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="../../../public/img/about/member-adrien-risser.jpg"
+                src="/img/about/member-adrien-risser.jpg"
                 alt="Portrait Adrien Risser"
               />
             </div>
           </div>
 
-          <h3 class="mb-0">
-            Adrien Risser
-          </h3>
+          <h3 class="mb-0">Adrien Risser</h3>
           <h6 class="color">Développeur</h6>
 
           <p class="h5">De Octobre 2018 à Août 2020</p>
@@ -538,15 +512,13 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="../../../public/img/about/member-florent-chalvet.jpg"
+                src="/img/about/member-florent-chalvet.jpg"
                 alt="Portrait Florent Chalvet"
               />
             </div>
           </div>
 
-          <h3 class="mb-0">
-            Florent Chalvet
-          </h3>
+          <h3 class="mb-0">Florent Chalvet</h3>
           <h6 class="color">Développeur (stagiaire)</h6>
 
           <p class="h5">De Mars 2019 à Août 2019</p>
