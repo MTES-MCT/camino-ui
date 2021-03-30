@@ -21,7 +21,7 @@
 
     <Url
       :values="vueUrlValues"
-      :params="{ vue }"
+      :params="{ vueId }"
       @params-update="preferencesVueUpdate"
       @loaded="urlLoad('vue')"
     />
@@ -41,10 +41,10 @@
           v-for="v in vues"
           :key="v.id"
           class="mr-xs"
-          :class="{ active: vue === v.id }"
+          :class="{ active: vueId === v.id }"
         >
           <button
-            v-if="vue !== v.id"
+            v-if="vueId !== v.id"
             class="p-m btn-tab rnd-t-s"
             @click="vueClick(v.id)"
           >
@@ -61,19 +61,26 @@
     </div>
 
     <div class="line-neutral width-full" />
-    <component
-      :is="vueComponent"
-      v-if="vue && metasLoaded && vueComponent"
-      :titres="titres"
-      :total="total"
-      @loaded="urlLoad('component')"
-    />
+    <template v-if="metasLoaded">
+      <TitresMap
+        v-if="vueId === 'carte'"
+        :titres="titres"
+        :total="total"
+        @loaded="urlLoad('component')"
+      />
+
+      <TitresTableUrl
+        v-else-if="vueId === 'liste'"
+        :titres="titres"
+        :total="total"
+        @loaded="urlLoad('component')"
+      />
+    </template>
     <div v-else class="table-view mb-xxl mt">…</div>
   </div>
 </template>
 
 <script>
-import { markRaw } from '@vue/reactivity'
 import Url from './_ui/url.vue'
 import Downloads from './_common/downloads.vue'
 import TitreEditPopup from './titre/edit-popup.vue'
@@ -84,16 +91,16 @@ import Filtres from './titres/filtres-url.vue'
 export default {
   name: 'Titres',
 
-  components: { Url, Filtres, Downloads },
+  components: { Url, Filtres, Downloads, TitresMap, TitresTableUrl },
 
   data() {
     return {
       vues: [
-        { id: 'carte', component: markRaw(TitresMap), icon: 'globe' },
-        { id: 'liste', component: markRaw(TitresTableUrl), icon: 'list' }
+        { id: 'carte', icon: 'globe' },
+        { id: 'liste', icon: 'list' }
       ],
       vueUrlValues: {
-        vue: { type: 'string', elements: ['carte', 'liste'] }
+        vueId: { type: 'string', elements: ['carte', 'liste'] }
       }
     }
   },
@@ -123,12 +130,8 @@ export default {
       return this.$store.state.titres.preferences
     },
 
-    vue() {
-      return this.$store.state.titres.vue
-    },
-
-    vueComponent() {
-      return this.vues.find(v => v.id === this.vue).component
+    vueId() {
+      return this.$store.state.titres.vueId
     },
 
     modification() {
@@ -173,21 +176,21 @@ export default {
     },
 
     preferencesVueUpdate(params) {
-      this.vueSet(params.vue)
+      this.vueSet(params.vueId)
     },
 
-    async vueSet(vue) {
-      await this.$store.dispatch('titres/vueSet', vue)
+    async vueSet(vueId) {
+      await this.$store.dispatch('titres/vueSet', vueId)
 
       if (this.$matomo) {
-        this.$matomo.trackEvent('titres-vue', 'titres-vueId', vue)
+        this.$matomo.trackEvent('titres-vue', 'titres-vueId', vueId)
       }
     },
 
-    vueClick(vue) {
+    vueClick(vueId) {
       console.log('--------------------------------')
       if (!this.loading) {
-        this.vueSet(vue)
+        this.vueSet(vueId)
       }
     },
 

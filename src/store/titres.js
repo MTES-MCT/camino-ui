@@ -4,7 +4,7 @@ import { paramsBuild } from '../utils/'
 export const state = {
   list: [],
   total: 0,
-  vue: 'carte',
+  vueId: 'carte',
   metas: {
     domaines: [],
     types: [],
@@ -92,7 +92,7 @@ export const actions = {
 
       let data
 
-      if (state.vue === 'carte') {
+      if (state.vueId === 'carte') {
         const params = paramsBuild(
           state.params,
           Object.assign({}, state.preferences.filtres, state.preferences.carte)
@@ -143,17 +143,17 @@ export const actions = {
     }
   },
 
-  async vueSet({ state, commit, dispatch }, vue) {
-    if (vue === state.vue) return
+  async vueSet({ state, commit, dispatch }, vueId) {
+    if (vueId === state.vueId) return
 
     commit('set', { elements: [], total: 0 })
-    commit('vueSet', vue)
+    commit('vueSet', vueId)
 
-    // si la vue est 'carte'
+    // vueId est 'carte'
     // le composant `map.vue` émet un event `perimetre`
     // qui met à jour les préférences utilisateurs
     // et déclenche déjà un rechargement des titres
-    if (vue === 'carte') return
+    if (vueId === 'carte') return
 
     await dispatch('get')
   },
@@ -225,8 +225,8 @@ export const mutations = {
     })
   },
 
-  vueSet(state, vue) {
-    state.vue = vue
+  vueSet(state, vueId) {
+    state.vueId = vueId
   },
 
   loaded(state, section) {
