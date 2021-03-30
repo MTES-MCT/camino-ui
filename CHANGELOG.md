@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.66](https://github.com/MTES-MCT/camino-ui/compare/v0.22.65...v0.22.66) (2021-03-30)
+
+
+### Features
+
+* **activités:** édite les métas ([#282](https://github.com/MTES-MCT/camino-ui/issues/282)) ([b9e72cd](https://github.com/MTES-MCT/camino-ui/commit/b9e72cd5f3e0af96bb7827154e1d92c36807b93e))
+* **documents:** édite les types de documents pour chaque type d’étapes ([#276](https://github.com/MTES-MCT/camino-ui/issues/276)) ([1534318](https://github.com/MTES-MCT/camino-ui/commit/15343183f820122e85182794f13f13159bb13e13))
+
+
+### Bug Fixes
+
+* **entreprises:** corrige une erreur pourun utilisateur déconnecté ([#281](https://github.com/MTES-MCT/camino-ui/issues/281)) ([68d8dd8](https://github.com/MTES-MCT/camino-ui/commit/68d8dd80343024f8d7145e6ce4c12abd1d355182))
+* **métas:** corrige les métas de Types de travaux - Types d’étapes ([1e0a8c7](https://github.com/MTES-MCT/camino-ui/commit/1e0a8c7047ad981fc2a5ac56b81f4e676f53f1a1))
+
 ### [0.22.65](https://github.com/MTES-MCT/camino-ui/compare/v0.22.64...v0.22.65) (2021-03-23)
 
 
