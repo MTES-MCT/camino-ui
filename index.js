@@ -16,7 +16,7 @@ const compression = require('compression')
 
 const app = express()
 const port = process.env.PORT
-const apiUrl = process.env.API_URL
+const apiUrl = process.env.VITE_API_URL
 const apiMatomoUrl = process.env.API_MATOMO_URL
 
 const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {

@@ -6,15 +6,6 @@ const npmPackage = require('./package.json')
 export default defineConfig({
   plugins: [vue()],
   root: 'src',
-  server: {
-    proxy: {
-      '/apiUrl': {
-        target: 'http://localhost:4000',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/apiUrl/, '')
-      }
-    }
-  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
