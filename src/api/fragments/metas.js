@@ -204,9 +204,9 @@ const fragmentGeoSysteme = gql`
     unite {
       ...unite
     }
-
-    ${fragmentUnite}
   }
+  
+  ${fragmentUnite}
 `
 
 const fragmentTitreTypeTitreStatut = gql`
