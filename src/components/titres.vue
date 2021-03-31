@@ -63,14 +63,14 @@
     <div class="line-neutral width-full" />
     <template v-if="metasLoaded">
       <TitresMap
-        v-if="vueId === 'carte'"
+        v-if="$route.query.vueId === 'carte'"
         :titres="titres"
         :total="total"
         @loaded="urlLoad('component')"
       />
 
       <TitresTableUrl
-        v-else-if="vueId === 'liste'"
+        v-else-if="$route.query.vueId === 'liste'"
         :titres="titres"
         :total="total"
         @loaded="urlLoad('component')"

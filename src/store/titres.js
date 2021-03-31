@@ -226,6 +226,7 @@ export const mutations = {
   },
 
   vueSet(state, vueId) {
+    console.log('titres - vueSet')
     state.vueId = vueId
   },
 

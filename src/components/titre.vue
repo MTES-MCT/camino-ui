@@ -203,6 +203,7 @@ export default {
         this.tabActiveId = tabsActivesIds[0]
       }
     },
+
     user: 'get'
   },
 

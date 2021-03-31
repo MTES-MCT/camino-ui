@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { paramsBuild, queryUpdate, queryClean } from './url.js'
+import { paramsBuild, queryUpdate, queryClean, paramsCompare } from './url.js'
 import { nextTick } from '@vue/runtime-core'
 
 export default {
@@ -18,34 +18,39 @@ export default {
 
   watch: {
     params: {
-      handler: async function (params) {
-        await this.update(params)
+      handler: async function (newParams, oldParams) {
+        const hasChanged = paramsCompare(newParams, oldParams, this.values)
+        console.log('url - watch - params:', hasChanged, newParams, oldParams)
+
+        if (hasChanged) {
+          await this.update(newParams)
+        }
       },
       deep: true
-    },
-
-    '$route.query': async function () {
-      // await this.update()
-      // let hasChanged = false
-      // Object.keys(this.values).forEach(id => {
-      //   const paramString = this.params[id] || null
-      //   const queryString = this.$route.query[id] || null
-      //   if (paramString !== queryString) {
-      //     hasChanged = true
-      //     console.log(
-      //       'url - watch - $route.query:',
-      //       hasChanged,
-      //       Object.keys(this.values),
-      //       id,
-      //       paramString,
-      //       queryString
-      //     )
-      //   }
-      // })
-      // if (hasChanged) {
-      //   // await this.init()
-      // }
     }
+
+    // '$route.query': async function () {
+    //   // await this.update()
+    //   // let hasChanged = false
+    //   // Object.keys(this.values).forEach(id => {
+    //   //   const paramString = this.params[id] || null
+    //   //   const queryString = this.$route.query[id] || null
+    //   //   if (paramString !== queryString) {
+    //   //     hasChanged = true
+    //   //     console.log(
+    //   //       'url - watch - $route.query:',
+    //   //       hasChanged,
+    //   //       Object.keys(this.values),
+    //   //       id,
+    //   //       paramString,
+    //   //       queryString
+    //   //     )
+    //   //   }
+    //   // })
+    //   // if (hasChanged) {
+    //   //   // await this.init()
+    //   // }
+    // }
   },
 
   async created() {
@@ -58,23 +63,27 @@ export default {
 
   async unmounted() {
     const { query, updated } = queryClean(this.$route.query, this.values)
+    console.log('url - unmounted:', updated, query)
 
     if (updated) {
-      await this.$router.replace({ query })
+      const res = await this.$router.replace({ query })
+
+      console.log('url - unmounted - res:', res, this.$route.query)
     }
   },
 
   methods: {
     async init() {
-      console.log('init', this.params)
-      const { query, params } = paramsBuild(
+      const { queryParams, params } = paramsBuild(
         this.params,
         this.$route.query,
         this.values
       )
 
-      if (Object.keys(query).length) {
-        await this.update(query)
+      console.log('url - init:', this.params, queryParams, params)
+
+      if (Object.keys(queryParams).length) {
+        await this.update(queryParams)
       }
 
       if (Object.keys(params).length) {
@@ -89,11 +98,21 @@ export default {
         this.values
       )
 
+      console.log(
+        'url - update:',
+        status,
+        Object.keys(this.values),
+        query,
+        this.$route.query
+      )
+      let res
       if (status === 'updated') {
-        await this.$router.push({ query })
+        res = await this.$router.push({ query })
       } else if (status === 'created') {
-        await this.$router.replace({ query })
+        res = await this.$router.replace({ query })
       }
+
+      console.log('url - update - res:', res, this.$route.query)
     }
   }
 }

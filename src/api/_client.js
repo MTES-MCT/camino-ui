@@ -61,9 +61,9 @@ const graphQLCall = async (url, query, variables) => {
 let apiUrl
 const apiUrlInit = async () => {
   if (import.meta.env.PROD) {
-    const res = await fetch('/apiUrl');
+    const res = await fetch('/apiUrl')
     apiUrl = await res.text()
-  }else {
+  } else {
     apiUrl = import.meta.env.VITE_API_URL
   }
 }

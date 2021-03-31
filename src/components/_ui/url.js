@@ -1,70 +1,58 @@
-const paramsBuild = (sourceParams, queryParams, values) =>
-  Object.keys(sourceParams).reduce(
-    ({ query, params }, id) => {
-      const paramValue = sourceParams[id]
-      const queryValue = valueClean(
-        id,
-        valueParse(id, valueGet(id, queryParams[id], values), values),
-        values
-      )
+const paramsBuild = (sourceParams, sourceQuery, values) =>
+  Object.keys(values).reduce(
+    ({ queryParams, params }, id) => {
+      const paramValue = sourceParams[id] || null
+      const queryValue = valueParse(id, sourceQuery[id], values)
 
-      const paramString = valueStringify(id, paramValue, values)
-      const queryString = valueStringify(id, queryValue, values)
+      const paramString = paramValue && valueStringify(id, paramValue, values)
+      const queryString = queryValue && valueStringify(id, queryValue, values)
 
-      if (!queryString && paramString) {
-        query[id] = paramValue
-      } else if (queryString && queryString !== queryParams[id]) {
-        // si le paramètre d'URL a été nettoyé, on le met à jour dans l'URL
-        query[id] = queryValue
+      if (
+        queryString &&
+        (queryString !== paramString || queryString !== sourceQuery[id])
+      ) {
+        queryParams[id] = queryValue
+      } else if (paramString && queryString !== paramString) {
+        queryParams[id] = paramValue
       }
 
       if (queryString && queryString !== paramString) {
         params[id] = queryValue
       }
 
-      return { query, params }
+      return { queryParams, params }
     },
-    { query: {}, params: {} }
+    { queryParams: {}, params: {} }
   )
 
-const queryUpdate = (sourceParams, queryParams, values) => {
-  let status = 'unchanged'
+const queryUpdate = (sourceParams, sourceQuery, values) =>
+  Object.keys(values).reduce(
+    ({ query, status }, id) => {
+      const queryString = sourceQuery[id] || null
+      const paramString = valueStringify(id, sourceParams[id], values)
 
-  const query = Object.keys(queryParams).reduce((query, id) => {
-    query[id] = valueStringify(
-      id,
-      valueParse(id, valueGet(id, queryParams[id], values), values),
-      values
-    )
-
-    return query
-  }, {})
-
-  Object.keys(sourceParams).forEach(id => {
-    const queryString = query[id] || null
-    const paramString = valueStringify(id, sourceParams[id], values)
-    // on compare avec null si le paramètre n'est pas dans la query
-    if (queryString !== paramString) {
-      status = queryString || status === 'updated' ? 'updated' : 'created'
+      if (queryString !== paramString) {
+        status = queryString || status === 'updated' ? 'updated' : 'created'
+      }
 
       if (paramString) {
         query[id] = paramString
       } else {
         delete query[id]
       }
-    }
-  })
 
-  return { query, status }
-}
+      return { query, status }
+    },
+    { query: JSON.parse(JSON.stringify(sourceQuery)), status: 'unchanged' }
+  )
 
-const queryClean = (queryParams, values) =>
-  Object.keys(queryParams).reduce(
+const queryClean = (sourceQuery, values) =>
+  Object.keys(sourceQuery).reduce(
     ({ query, updated }, id) => {
       if (values[id]) {
         updated = true
       } else {
-        query[id] = queryParams[id]
+        query[id] = sourceQuery[id]
       }
 
       return { query, updated }
@@ -72,9 +60,31 @@ const queryClean = (queryParams, values) =>
     { query: {}, updated: false }
   )
 
-const valueStringify = (id, value, values) => {
-  if (!(id in values)) return value
+const paramsCompare = (newParams, oldParams, values) => {
+  let hasChanged = false
 
+  Object.keys(newParams).forEach(id => {
+    const newParamString = valueStringify(id, newParams[id], values)
+    const oldParamString = valueStringify(id, oldParams[id], values)
+
+    if (newParamString !== oldParamString) {
+      hasChanged = true
+    }
+  })
+
+  Object.keys(oldParams).forEach(id => {
+    const newParamString = valueStringify(id, newParams[id], values)
+    const oldParamString = valueStringify(id, oldParams[id], values)
+
+    if (newParamString !== oldParamString) {
+      hasChanged = true
+    }
+  })
+
+  return hasChanged
+}
+
+const valueStringify = (id, value, values) => {
   if (!value) return null
 
   if (
@@ -126,12 +136,6 @@ const valueStringify = (id, value, values) => {
 }
 
 const valueClean = (id, value, values) => {
-  if (!value) return null
-
-  if (!values[id] || !values[id].type) {
-    return value
-  }
-
   if (values[id].type === 'number') {
     if (values[id].max && value > values[id].max) {
       value = values[id].max
@@ -220,15 +224,7 @@ const valueParse = (id, value, values) => {
     return JSON.parse(value)
   }
 
-  return value
+  return valueClean(id, value, values)
 }
 
-const valueGet = (id, value, values) => {
-  if (!value) return null
-
-  if (!(id in values)) return value
-
-  return value || null
-}
-
-export { paramsBuild, queryUpdate, queryClean }
+export { paramsBuild, queryUpdate, queryClean, paramsCompare }
