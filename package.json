@@ -23,7 +23,7 @@
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
     "release": "git pull --rebase --tags upstream master && standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",
     "start": "node ./index.js",
-    "test": "jest --verbose ",
+    "test": "eslint && jest --verbose && codecov",
     "lint": "eslint --fix",
     "test:unit": "jest --watch --verbose"
   },
