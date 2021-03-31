@@ -26,6 +26,7 @@ describe('api client', () => {
     jest.resetModules()
     localStorage.setItem('accessToken', 'access_token')
     localStorage.setItem('refreshToken', 'refresh_token')
+    process.env.NODE_ENV = 'production';
   })
 
   afterEach(() => {

@@ -53,7 +53,7 @@ module.exports = {
   // globalTeardown: null,
 
   // A set of global variables that need to be available in all test environments
-  globals: { npmVersion: true },
+  globals: { npmVersion: true, window: {}},
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [

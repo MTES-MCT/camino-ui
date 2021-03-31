@@ -24,7 +24,7 @@ describe('liste des titres', () => {
     titres.state = {
       list: [],
       total: 0,
-      vue: 'carte',
+      vueId: 'carte',
       metas: {
         domaines: [],
         types: [],
@@ -228,7 +228,7 @@ describe('liste des titres', () => {
       elements: titresListe,
       total: 3
     })
-    store.state.titres.vue = 'liste'
+    store.state.titres.vueId = 'liste'
     store.state.titres.loaded.metas = true
     store.state.titres.loaded.urls = true
 
@@ -311,11 +311,11 @@ describe('liste des titres', () => {
       ordre: 'asc',
       colonne: 'nom'
     })
-    expect(store.state.titres.vue).toEqual('liste')
+    expect(store.state.titres.vueId).toEqual('liste')
     expect(store.state.titres.list).toEqual(titresListe)
     await store.dispatch('titres/vueSet', 'carte')
 
-    expect(store.state.titres.vue).toEqual('carte')
+    expect(store.state.titres.vueId).toEqual('carte')
     expect(apiMock).toHaveBeenCalledTimes(1)
   })
 })
