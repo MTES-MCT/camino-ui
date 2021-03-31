@@ -34,9 +34,8 @@
       <div class="tablet-blobs mt">
         <div v-if="inputs.length" class="tablet-blob-1-2 large-blob-1-3">
           <FiltersInput
-            v-for="(input, n) in inputs"
+            v-for="input in inputs"
             :key="input.id"
-            v-model="inputs[n]"
             :filter="input"
           />
           <button
@@ -48,26 +47,23 @@
         </div>
 
         <FiltersCheckboxes
-          v-for="(filter, n) in checkboxes"
+          v-for="filter in checkboxes"
           :key="filter.id"
-          v-model="checkboxes[n]"
           :filter="filter"
           class="tablet-blob-1-2 large-blob-1-3"
         />
 
         <FiltersSelects
-          v-for="(filter, n) in selects"
+          v-for="filter in selects"
           :key="filter.id"
-          v-model="selects[n]"
           :filter="filter"
           class="tablet-blob-1-2 large-blob-1-3"
         />
 
         <component
           :is="filter.component"
-          v-for="(filter, n) in customs"
+          v-for="filter in customs"
           :key="filter.id"
-          v-model="customs[n]"
           :filter="filter"
           class="tablet-blob-1-2 large-blob-1-3"
         />

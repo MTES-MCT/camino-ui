@@ -135,13 +135,13 @@
 
                 <EtapeEditPointsPoint
                   v-if="!point.lot"
-                  v-model="contourPoints[pointIndex]"
+                  v-model:point="contourPoints[pointIndex]"
                   :geo-systeme-opposable-id="etape.geoSystemeOpposableId"
                   :geo-systeme-ids="etape.geoSystemeIds"
                 />
                 <EtapeEditPointsLot
                   v-else
-                  v-model="contourPoints[pointIndex]"
+                  v-model:point="contourPoints[pointIndex]"
                   :geo-systeme-opposable-id="etape.geoSystemeOpposableId"
                   :geo-systeme-ids="etape.geoSystemeIds"
                   :events="events"
