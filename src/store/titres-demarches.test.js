@@ -15,6 +15,8 @@ describe('liste des demarches', () => {
   let mutations
   let store
   let demarchesListe
+  let route
+
   beforeEach(() => {
     demarchesListe = ['demarche-1', 'demarche-2', 'demarche-3']
     titresDemarches.state = {
@@ -28,7 +30,7 @@ describe('liste des demarches', () => {
         titresDomaines: [],
         titresStatuts: []
       },
-      params: [
+      definitions: [
         { id: 'typesIds', type: 'strings', elements: [] },
         { id: 'statutsIds', type: 'strings', elements: [] },
         { id: 'etapesInclues', type: 'objects', elements: [] },
@@ -61,7 +63,7 @@ describe('liste des demarches', () => {
           elements: ['asc', 'desc']
         }
       ],
-      preferences: {
+      params: {
         table: {
           page: 1,
           intervalle: 200,
@@ -94,11 +96,18 @@ describe('liste des demarches', () => {
 
     actions = {
       apiError: jest.fn(),
-      messageAdd: jest.fn()
+      messageAdd: jest.fn(),
+      urlQueryUpdate: jest.fn()
+    }
+
+    route = {
+      state: {
+        query: {}
+      }
     }
 
     store = createStore({
-      modules: { titresDemarches },
+      modules: { titresDemarches, route },
       mutations,
       actions
     })
@@ -107,7 +116,7 @@ describe('liste des demarches', () => {
     app.use(store)
   })
 
-  test('récupère les métas pour afficher des démarches', async () => {
+  test('initialise le composant', async () => {
     const apiMock = api.demarchesMetas
       .mockResolvedValueOnce({
         demarchesTypes: [{ id: 'id-demarchesTypes' }],
@@ -201,21 +210,21 @@ describe('liste des demarches', () => {
     expect(store.state.titresDemarches.elements).toEqual([])
   })
 
-  test('initialise les preferences de filtre', async () => {
+  test('initialise les paramètres de filtre', async () => {
     const section = 'filtres'
     const params = { noms: 'beta' }
     const apiMock = api.demarches.mockResolvedValue({})
     store.state.titresDemarches.initialized = true
 
-    await store.dispatch('titresDemarches/preferencesSet', { section, params })
+    await store.dispatch('titresDemarches/paramsSet', { section, params })
 
-    await store.dispatch('titresDemarches/preferencesSet', {
+    await store.dispatch('titresDemarches/paramsSet', {
       section,
       params,
       pageReset: true
     })
 
-    expect(store.state.titresDemarches.preferences.filtres.noms).toEqual('beta')
+    expect(store.state.titresDemarches.params.filtres.noms).toEqual('beta')
     expect(apiMock).toHaveBeenCalled()
   })
 })

@@ -20,6 +20,7 @@ describe("état d'une activité", () => {
   let store
   let mutations
   let actions
+  let route
 
   beforeEach(() => {
     titresActivites.state = {
@@ -33,7 +34,7 @@ describe("état d'une activité", () => {
         titresTypes: [],
         titresStatuts: []
       },
-      params: [
+      definitions: [
         { id: 'typesIds', type: 'strings', elements: [] },
         { id: 'statutsIds', type: 'strings', elements: [] },
         { id: 'annees', type: 'numbers', elements: [] },
@@ -58,7 +59,7 @@ describe("état d'une activité", () => {
           elements: ['asc', 'desc']
         }
       ],
-      preferences: {
+      params: {
         table: {
           page: 1,
           intervalle: 200,
@@ -86,7 +87,8 @@ describe("état d'une activité", () => {
       reload: jest.fn(),
       messageAdd: jest.fn(),
       apiError: jest.fn(),
-      pageError: jest.fn()
+      pageError: jest.fn(),
+      urlQueryUpdate: jest.fn()
     }
 
     mutations = {
@@ -98,8 +100,14 @@ describe("état d'une activité", () => {
       popupLoad: jest.fn()
     }
 
+    route = {
+      state: {
+        query: {}
+      }
+    }
+
     store = createStore({
-      modules: { titresActivites },
+      modules: { titresActivites, route },
       mutations,
       actions,
       state: { titre: { element: { id: 5 } } }
@@ -229,30 +237,28 @@ describe("état d'une activité", () => {
     expect(store.state.titresActivites.elements).toEqual([])
   })
 
-  test('initialise les preferences de filtre', async () => {
+  test('initialise les paramètres de filtre', async () => {
     const section = 'filtres'
     let params = { noms: 'alpha' }
     const apiMock = api.activites.mockResolvedValue({})
 
-    await store.dispatch('titresActivites/preferencesSet', { section, params })
+    await store.dispatch('titresActivites/paramsSet', { section, params })
 
     expect(apiMock).not.toHaveBeenCalled()
 
-    expect(store.state.titresActivites.preferences.filtres.noms).toEqual(
-      'alpha'
-    )
+    expect(store.state.titresActivites.params.filtres.noms).toEqual('alpha')
 
     params = { noms: 'beta' }
 
     store.commit('titresActivites/load', 'metas')
     store.commit('titresActivites/load', 'url')
-    await store.dispatch('titresActivites/preferencesSet', {
+    await store.dispatch('titresActivites/paramsSet', {
       section,
       params,
       pageReset: true
     })
 
-    expect(store.state.titresActivites.preferences.filtres.noms).toEqual('beta')
+    expect(store.state.titresActivites.params.filtres.noms).toEqual('beta')
     expect(apiMock).toHaveBeenCalled()
   })
 })

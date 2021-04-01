@@ -13,12 +13,13 @@ describe("liste d'entreprises", () => {
   let store
   let actions
   let mutations
+  let route
 
   beforeEach(() => {
     entreprises.state = {
       elements: [],
       total: 0,
-      params: [
+      definitions: [
         { id: 'page', type: 'number', min: 0 },
         { id: 'intervalle', type: 'number', min: 10, max: 500 },
         {
@@ -33,7 +34,7 @@ describe("liste d'entreprises", () => {
         },
         { id: 'noms', type: 'string' }
       ],
-      preferences: {
+      params: {
         table: {
           page: 1,
           intervalle: 200,
@@ -50,7 +51,8 @@ describe("liste d'entreprises", () => {
       reload: jest.fn(),
       messageAdd: jest.fn(),
       apiError: jest.fn(),
-      pageError: jest.fn()
+      pageError: jest.fn(),
+      urlQueryUpdate: jest.fn()
     }
 
     mutations = {
@@ -62,35 +64,20 @@ describe("liste d'entreprises", () => {
       popupLoad: jest.fn()
     }
 
+    route = {
+      state: {
+        query: {}
+      }
+    }
+
     store = createStore({
-      modules: { entreprises },
+      modules: { entreprises, route },
       mutations,
       actions
     })
 
     const app = createApp({})
     app.use(store)
-  })
-
-  test('ajoute des entreprises', () => {
-    const entreprisesListe = [
-      { nom: 'Petite Souris' },
-      { nom: 'Koala' },
-      { nom: 'Canard' },
-      { nom: 'Monstres & Cie' },
-      { nom: 'Escargot tout chaud' },
-      { nom: 'Koala' }
-    ]
-    store.commit('entreprises/set', { elements: entreprisesListe, total: 6 })
-
-    expect(store.state.entreprises.elements).toEqual([
-      { nom: 'Petite Souris' },
-      { nom: 'Koala' },
-      { nom: 'Canard' },
-      { nom: 'Monstres & Cie' },
-      { nom: 'Escargot tout chaud' },
-      { nom: 'Koala' }
-    ])
   })
 
   test('obtient la liste des entreprises', async () => {
@@ -128,13 +115,15 @@ describe("liste d'entreprises", () => {
     expect(actions.apiError).toHaveBeenCalled()
   })
 
-  test('initialise les preferences de filtre', async () => {
+  test('initialise les paramètres de filtre', async () => {
     const section = 'filtres'
     const params = { noms: 'alpha' }
-
     const apiMock = api.entreprises.mockResolvedValue({})
-    await store.dispatch('entreprises/preferencesSet', { section, params })
+    store.state.entreprises.initialized = true
+
+    await store.dispatch('entreprises/paramsSet', { section, params })
+
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.entreprises.preferences.filtres.noms).toEqual('alpha')
+    expect(store.state.entreprises.params.filtres.noms).toEqual('alpha')
   })
 })

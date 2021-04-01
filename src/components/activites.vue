@@ -6,12 +6,11 @@
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="activites"
-    :preferences="preferences"
     :metas="metas"
     :params="params"
     :total="total"
     :initialized="initialized"
-    @preferences-update="preferencesUpdate"
+    @params-update="paramsUpdate"
   >
     <template v-if="activites.length" #downloads>
       <Downloads
@@ -56,16 +55,12 @@ export default {
       return this.$store.state.titresActivites.total
     },
 
-    preferences() {
-      return this.$store.state.titresActivites.preferences
+    params() {
+      return this.$store.state.titresActivites.params
     },
 
     metas() {
       return this.$store.state.titresActivites.metas
-    },
-
-    params() {
-      return this.$store.state.titresActivites.params
     },
 
     lignes() {
@@ -78,7 +73,13 @@ export default {
   },
 
   watch: {
-    user: 'init'
+    user: 'init',
+
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('titresActivites/routeUpdate')
+      }
+    }
   },
 
   async created() {
@@ -99,8 +100,8 @@ export default {
       }
     },
 
-    async preferencesUpdate(options) {
-      await this.$store.dispatch(`titresActivites/preferencesSet`, options)
+    async paramsUpdate(options) {
+      await this.$store.dispatch(`titresActivites/paramsSet`, options)
     }
   }
 }

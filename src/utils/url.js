@@ -1,21 +1,21 @@
-const valueClean = (id, value, param) => {
-  if (param.type === 'number') {
-    if (param.max && value > param.max) {
-      value = param.max
-    } else if (param.min && value < param.min) {
-      value = param.min
+const valueClean = (value, definition) => {
+  if (definition.type === 'number') {
+    if (definition.max && value > definition.max) {
+      value = definition.max
+    } else if (definition.min && value < definition.min) {
+      value = definition.min
     }
 
     return value
   }
 
   if (
-    (param.type === 'strings' || param.type === 'numbers') &&
-    param.elements
+    (definition.type === 'strings' || definition.type === 'numbers') &&
+    definition.elements
   ) {
     value = value
       .reduce((acc, v) => {
-        if (param.elements.includes(v)) {
+        if (definition.elements.includes(v)) {
           acc.push(v)
         }
 
@@ -26,15 +26,17 @@ const valueClean = (id, value, param) => {
     return value
   }
 
-  if (param.type === 'tuple') {
+  if (definition.type === 'tuple') {
     return !Number(value[0]) || !Number(value[1]) ? null : value.map(Number)
   }
 
-  if (param.type === 'string') {
-    return param.elements && !param.elements.includes(value) ? null : value
+  if (definition.type === 'string') {
+    return definition.elements && !definition.elements.includes(value)
+      ? null
+      : value
   }
 
-  if (param.type === 'objects') {
+  if (definition.type === 'objects') {
     // TODO: retirer les valeurs incorrectes
 
     return value.length ? value : null
@@ -43,28 +45,28 @@ const valueClean = (id, value, param) => {
   return value
 }
 
-const valueParse = (id, value, params) => {
+const valueParse = (id, value, definitions) => {
   if (!value) return null
 
-  const param = params.find(p => p.id === id)
+  const definition = definitions.find(p => p.id === id)
 
-  if (!param || !param.type) {
+  if (!definition || !definition.type) {
     return value
   }
 
-  if (param.type === 'number') {
+  if (definition.type === 'number') {
     value = Number(value)
 
     return isNaN(value) ? null : value
   }
 
-  if (param.type === 'strings') {
+  if (definition.type === 'strings') {
     if (typeof value !== 'string') return null
 
     return value.split(',').sort()
   }
 
-  if (param.type === 'numbers') {
+  if (definition.type === 'numbers') {
     if (typeof value !== 'string') return null
 
     return value
@@ -73,41 +75,41 @@ const valueParse = (id, value, params) => {
       .sort()
   }
 
-  if (param.type === 'string') {
+  if (definition.type === 'string') {
     return value
   }
 
-  if (param.type === 'tuple') {
+  if (definition.type === 'tuple') {
     if (typeof value !== 'string') return null
 
     return value.split(',').slice(0, 2)
   }
 
-  if (param.type === 'objects') {
+  if (definition.type === 'objects') {
     return JSON.parse(value)
   }
 
-  return valueClean(id, value, param)
+  return valueClean(value, definition)
 }
 
-const valueStringify = (id, value, params) => {
+const valueStringify = (id, value, definitions) => {
   if (!value) return null
 
-  const param = params.find(p => p.id === id)
+  const definition = definitions.find(p => p.id === id)
 
   if (
-    param.type === 'strings' ||
-    param.type === 'tuple' ||
-    param.type === 'numbers'
+    definition.type === 'strings' ||
+    definition.type === 'tuple' ||
+    definition.type === 'numbers'
   ) {
     return value.length ? value.join(',') : null
   }
 
-  if (param.type === 'number') {
+  if (definition.type === 'number') {
     return value.toString()
   }
 
-  if (param.type === 'objects') {
+  if (definition.type === 'objects') {
     if (!value.length) return null
 
     // entrée <=
@@ -143,13 +145,13 @@ const valueStringify = (id, value, params) => {
   return value
 }
 
-const urlQueryParamsGet = (preferences, sourceQuery, params) =>
-  Object.keys(preferences).reduce((queryParams, id) => {
+const urlQueryParamsGet = (params, sourceQuery, definitions) =>
+  Object.keys(params).reduce((queryParams, id) => {
     const queryString = sourceQuery[id] || null
 
     if (queryString) {
-      const queryValue = valueParse(id, queryString, params)
-      const preferenceString = valueStringify(id, preferences[id], params)
+      const queryValue = valueParse(id, queryString, definitions)
+      const preferenceString = valueStringify(id, params[id], definitions)
 
       if (queryString !== preferenceString) {
         queryParams[id] = queryValue
@@ -159,11 +161,11 @@ const urlQueryParamsGet = (preferences, sourceQuery, params) =>
     return queryParams
   }, {})
 
-const urlQueryUpdate = (preferences, sourceQuery, params) =>
-  Object.keys(preferences).reduce(
+const urlQueryUpdate = (params, sourceQuery, definitions) =>
+  Object.keys(params).reduce(
     ({ query, status }, id) => {
       const queryString = sourceQuery[id] || null
-      const preferenceString = valueStringify(id, preferences[id], params)
+      const preferenceString = valueStringify(id, params[id], definitions)
 
       if (queryString !== preferenceString) {
         status = queryString || status === 'updated' ? 'updated' : 'created'

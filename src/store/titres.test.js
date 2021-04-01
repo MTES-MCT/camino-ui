@@ -33,7 +33,7 @@ describe('liste des titres', () => {
         types: [],
         statuts: []
       },
-      preferences: {
+      params: {
         table: {
           page: 1,
           intervalle: 200,
@@ -52,7 +52,7 @@ describe('liste des titres', () => {
           statutsIds: ['val']
         }
       },
-      params: [
+      definitions: [
         { id: 'typesIds', type: 'strings' },
         { id: 'domainesIds', type: 'strings' },
         { id: 'statutsIds', type: 'strings' },
@@ -74,7 +74,7 @@ describe('liste des titres', () => {
           elements: ['asc', 'desc']
         }
       ],
-      urlParams: [
+      urlDefinitions: [
         { id: 'zoom', type: 'number', min: 1, max: 18 },
         { id: 'centre', type: 'tuple' },
         { id: 'vueId', type: 'string', elements: ['carte', 'table'] }
@@ -167,7 +167,7 @@ describe('liste des titres', () => {
     })
 
     store.state.titres.initialized = true
-    store.state.titres.preferences.carte.zoom = 8
+    store.state.titres.params.carte.zoom = 8
 
     await store.dispatch('titres/get')
 
@@ -187,7 +187,7 @@ describe('liste des titres', () => {
     })
 
     store.state.titres.initialized = true
-    store.state.titres.preferences.carte.zoom = 7
+    store.state.titres.params.carte.zoom = 7
 
     await store.dispatch('titres/get')
 
@@ -245,16 +245,16 @@ describe('liste des titres', () => {
     expect(actions.apiError).toHaveBeenCalled()
   })
 
-  test('initialise les preferences de filtre', async () => {
+  test('initialise les paramètres de filtre', async () => {
     const section = 'filtres'
     const params = { domainesIds: 'h' }
-    await store.dispatch('titres/preferencesSet', { section, params })
+    await store.dispatch('titres/paramsSet', { section, params })
 
-    expect(store.state.titres.preferences.filtres.domainesIds).toEqual('h')
+    expect(store.state.titres.params.filtres.domainesIds).toEqual('h')
 
-    await store.dispatch('titres/preferencesSet', { section, params })
+    await store.dispatch('titres/paramsSet', { section, params })
 
-    await store.dispatch('titres/preferencesSet', {
+    await store.dispatch('titres/paramsSet', {
       section: 'carte',
       params: { zoom: 5 }
     })

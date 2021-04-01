@@ -12,8 +12,8 @@ export const state = {
 }
 
 export const actions = {
-  async preferencesSet({ commit }, { section, params }) {
-    commit('preferencesSet', { section, params })
+  async paramsSet({ commit }, { section, params }) {
+    commit('paramsSet', { section, params })
   }
 }
 
@@ -41,7 +41,7 @@ export const mutations = {
     state.total = data.total
   },
 
-  preferencesSet(state, { section, params }) {
+  paramsSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
       state.preferences[section][id] = params[id]
     })

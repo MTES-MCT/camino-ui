@@ -4,7 +4,6 @@
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="metas"
-    :preferences="preferences"
     :params="params"
     :total="metas.length"
     :initialized="true"
@@ -77,7 +76,7 @@ export default {
     },
 
     async preferencesUpdate(options) {
-      await this.$store.dispatch(`metas/preferencesSet`, options)
+      await this.$store.dispatch(`metas/paramsSet`, options)
     }
   }
 }

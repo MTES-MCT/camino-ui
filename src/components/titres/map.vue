@@ -164,7 +164,7 @@ export default {
     },
 
     preferences() {
-      return this.$store.state.titres.preferences.carte
+      return this.$store.state.titres.params.carte
     }
   },
 
@@ -225,7 +225,7 @@ export default {
           delete params.bbox
         }
 
-        this.$store.dispatch('titres/preferencesSet', {
+        this.$store.dispatch('titres/paramsSet', {
           section: 'carte',
           params
         })
@@ -234,7 +234,7 @@ export default {
 
     userPreferencesUpdate(params) {
       this.eventTrack()
-      this.$store.dispatch('user/preferencesSet', {
+      this.$store.dispatch('user/paramsSet', {
         section: 'carte',
         params
       })
@@ -251,7 +251,7 @@ export default {
     async mapFrame() {
       const params = { perimetre: [-180, -90, 180, 90] }
 
-      await this.$store.dispatch('titres/preferencesSet', {
+      await this.$store.dispatch('titres/paramsSet', {
         section: 'carte',
         params
       })

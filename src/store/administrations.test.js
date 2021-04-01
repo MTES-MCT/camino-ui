@@ -14,6 +14,7 @@ describe("liste d'administrations", () => {
   let store
   let actions
   let mutations
+  let route
 
   beforeEach(() => {
     administrations.state = {
@@ -22,7 +23,7 @@ describe("liste d'administrations", () => {
       metas: {
         types: []
       },
-      params: [
+      definitions: [
         { id: 'page', type: 'number', min: 0 },
         { id: 'intervalle', type: 'number', min: 10, max: 500 },
         {
@@ -38,7 +39,7 @@ describe("liste d'administrations", () => {
         { id: 'typesIds', type: 'strings', elements: [] },
         { id: 'noms', type: 'string' }
       ],
-      preferences: {
+      params: {
         table: { page: 1, intervalle: 200, ordre: 'asc', colonne: null },
         filtres: { noms: '', typesIds: [] }
       },
@@ -49,7 +50,8 @@ describe("liste d'administrations", () => {
       reload: jest.fn(),
       messageAdd: jest.fn(),
       apiError: jest.fn(),
-      pageError: jest.fn()
+      pageError: jest.fn(),
+      urlQueryUpdate: jest.fn()
     }
 
     mutations = {
@@ -61,8 +63,14 @@ describe("liste d'administrations", () => {
       popupLoad: jest.fn()
     }
 
+    route = {
+      state: {
+        query: {}
+      }
+    }
+
     store = createStore({
-      modules: { administrations },
+      modules: { administrations, route },
       mutations,
       actions
     })
@@ -96,7 +104,7 @@ describe("liste d'administrations", () => {
     ])
   })
 
-  test('récupère les métas pour visualiser les administrations', async () => {
+  test('initialise le composant', async () => {
     const apiMock = api.administrationsMetas.mockResolvedValue([
       { id: 'ope', nom: 'Opérateur' },
       { id: 'dea', nom: 'Déal' }
@@ -174,29 +182,25 @@ describe("liste d'administrations", () => {
     expect(actions.apiError).toHaveBeenCalled()
   })
 
-  test('initialise les preferences de filtre', async () => {
+  test('initialise les paramètres de filtre', async () => {
     const section = 'filtres'
     let params = { noms: 'ministère' }
     const apiMock = api.administrations.mockResolvedValue({})
 
-    await store.dispatch('administrations/preferencesSet', { section, params })
+    await store.dispatch('administrations/paramsSet', { section, params })
 
     expect(apiMock).not.toHaveBeenCalled()
 
-    expect(store.state.administrations.preferences.filtres.noms).toEqual(
-      'ministère'
-    )
+    expect(store.state.administrations.params.filtres.noms).toEqual('ministère')
 
     params = { noms: 'opérateur' }
 
-    await store.dispatch('administrations/preferencesSet', {
+    await store.dispatch('administrations/paramsSet', {
       section,
       params,
       pageReset: true
     })
 
-    expect(store.state.administrations.preferences.filtres.noms).toEqual(
-      'opérateur'
-    )
+    expect(store.state.administrations.params.filtres.noms).toEqual('opérateur')
   })
 })

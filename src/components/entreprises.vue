@@ -5,11 +5,10 @@
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="entreprises"
-    :preferences="preferences"
     :params="params"
     :total="total"
     :initialized="true"
-    @preferences-update="preferencesUpdate"
+    @params-update="paramsUpdate"
   >
     <template v-if="user && user.entreprisesCreation" #addButton>
       <button
@@ -68,16 +67,20 @@ export default {
       return this.$store.state.entreprises.total
     },
 
-    preferences() {
-      return this.$store.state.entreprises.preferences
-    },
-
     params() {
       return this.$store.state.entreprises.params
     },
 
     lignes() {
       return entreprisesLignesBuild(this.entreprises)
+    }
+  },
+
+  watch: {
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('entreprises/routeUpdate')
+      }
     }
   },
 
@@ -93,8 +96,9 @@ export default {
     async init() {
       await this.$store.dispatch('entreprises/init')
     },
-    async preferencesUpdate(options) {
-      await this.$store.dispatch(`entreprises/preferencesSet`, options)
+
+    async paramsUpdate(options) {
+      await this.$store.dispatch(`entreprises/paramsSet`, options)
     },
 
     addPopupOpen() {

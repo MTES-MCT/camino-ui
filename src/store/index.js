@@ -163,11 +163,11 @@ export const actions = {
     }
   },
 
-  async urlQueryUpdate({ commit, rootState }, { params, preferences }) {
+  async urlQueryUpdate({ rootState }, { params, definitions }) {
     const { status, query } = urlQueryUpdate(
-      preferences,
+      params,
       rootState.route.query,
-      params
+      definitions
     )
 
     if (status === 'updated') {

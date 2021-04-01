@@ -1,10 +1,11 @@
+import { urlQueryParamsGet } from '../utils/url'
 import { entreprises } from '../api/entreprises'
 import { paramsBuild } from '../utils/'
 
 export const state = {
   elements: [],
   total: 0,
-  params: [
+  definitions: [
     { id: 'page', type: 'number', min: 0 },
     { id: 'intervalle', type: 'number', min: 10, max: 500 },
     {
@@ -19,16 +20,14 @@ export const state = {
     },
     { id: 'noms', type: 'string' }
   ],
-  preferences: {
+  params: {
     table: {
       page: 1,
       intervalle: 200,
       ordre: 'asc',
       colonne: null
     },
-    filtres: {
-      noms: ''
-    }
+    filtres: { noms: '' }
   },
   initialized: false
 }
@@ -37,7 +36,10 @@ export const actions = {
   async init({ dispatch, commit }) {
     try {
       commit('loadingAdd', 'entreprisesInit', { root: true })
+
       if (!state.initialized) {
+        await dispatch('paramsFromQueryUpdate')
+
         commit('init')
       }
 
@@ -53,9 +55,13 @@ export const actions = {
     try {
       commit('loadingAdd', 'entreprisesGet', { root: true })
 
+      if (!state.initialized) return
+
+      await dispatch('urlQueryUpdate')
+
       const p = paramsBuild(
-        state.params,
-        Object.assign({}, state.preferences.filtres, state.preferences.table)
+        state.definitions,
+        Object.assign({}, state.params.filtres, state.params.table)
       )
 
       const data = await entreprises(p)
@@ -77,17 +83,60 @@ export const actions = {
     }
   },
 
-  async preferencesSet(
-    { state, commit, dispatch },
-    { section, params, pageReset }
-  ) {
-    if (section === 'table' && pageReset && state.preference.page !== 1) {
+  async paramsSet({ state, commit, dispatch }, { section, params, pageReset }) {
+    if (section === 'table' && pageReset && state.params.table.page !== 1) {
       params.page = 1
     }
 
-    commit('preferencesSet', { section, params })
+    commit('paramsSet', { section, params })
 
     await dispatch('get')
+  },
+
+  async routeUpdate({ dispatch }) {
+    const hasChanged = await dispatch('paramsFromQueryUpdate')
+
+    if (hasChanged) {
+      await dispatch('get')
+    }
+  },
+
+  async paramsFromQueryUpdate({ rootState, state, commit }) {
+    let hasChanged = false
+
+    const tableParams = urlQueryParamsGet(
+      state.params.table,
+      rootState.route.query,
+      state.definitions
+    )
+
+    if (Object.keys(tableParams).length) {
+      commit('paramsSet', { section: 'table', params: tableParams })
+      hasChanged = true
+    }
+
+    const filtresParams = urlQueryParamsGet(
+      state.params.filtres,
+      rootState.route.query,
+      state.definitions
+    )
+
+    if (Object.keys(filtresParams).length) {
+      commit('paramsSet', { section: 'filtres', params: filtresParams })
+      hasChanged = true
+    }
+
+    return hasChanged
+  },
+
+  async urlQueryUpdate({ state, dispatch }) {
+    const params = Object.assign(state.params.filtres, state.params.table)
+
+    await dispatch(
+      'urlQueryUpdate',
+      { params, definitions: state.definitions },
+      { root: true }
+    )
   }
 }
 
@@ -107,9 +156,9 @@ export const mutations = {
     state.total = data.total
   },
 
-  preferencesSet(state, { section, params }) {
+  paramsSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      state.preferences[section][id] = params[id]
+      state.params[section][id] = params[id]
     })
   },
 

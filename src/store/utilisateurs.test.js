@@ -14,6 +14,7 @@ describe('liste des utilisateurs', () => {
   let store
   let actions
   let mutations
+  let route
 
   beforeEach(() => {
     utilisateurs.state = {
@@ -24,7 +25,7 @@ describe('liste des utilisateurs', () => {
         administration: [],
         entreprise: []
       },
-      params: [
+      definitions: [
         { id: 'noms', type: 'string' },
         { id: 'emails', type: 'string' },
         { id: 'permissionIds', type: 'strings', elements: [] },
@@ -43,7 +44,7 @@ describe('liste des utilisateurs', () => {
           elements: ['asc', 'desc']
         }
       ],
-      preferences: {
+      params: {
         filtres: {
           noms: '',
           emails: '',
@@ -64,7 +65,8 @@ describe('liste des utilisateurs', () => {
     actions = {
       pageError: jest.fn(),
       apiError: jest.fn(),
-      messageAdd: jest.fn()
+      messageAdd: jest.fn(),
+      urlQueryUpdate: jest.fn()
     }
 
     mutations = {
@@ -75,8 +77,14 @@ describe('liste des utilisateurs', () => {
       popupClose: jest.fn()
     }
 
+    route = {
+      state: {
+        query: {}
+      }
+    }
+
     store = createStore({
-      modules: { utilisateurs },
+      modules: { utilisateurs, route },
       mutations,
       actions
     })
@@ -202,26 +210,26 @@ describe('liste des utilisateurs', () => {
     expect(store.state.utilisateurs.elements).toEqual([])
   })
 
-  test('initialise les preferences de filtre', async () => {
+  test('initialise les paramètres de filtre', async () => {
     const section = 'filtres'
     let params = { noms: 'alpha' }
     const apiMock = api.utilisateurs.mockResolvedValue({})
 
-    await store.dispatch('utilisateurs/preferencesSet', { section, params })
+    await store.dispatch('utilisateurs/paramsSet', { section, params })
 
     expect(apiMock).toHaveBeenCalled()
 
-    expect(store.state.utilisateurs.preferences.filtres.noms).toEqual('alpha')
+    expect(store.state.utilisateurs.params.filtres.noms).toEqual('alpha')
 
     params = { noms: 'beta' }
 
-    await store.dispatch('utilisateurs/preferencesSet', {
+    await store.dispatch('utilisateurs/paramsSet', {
       section,
       params,
       pageReset: true
     })
 
-    expect(store.state.utilisateurs.preferences.filtres.noms).toEqual('beta')
+    expect(store.state.utilisateurs.params.filtres.noms).toEqual('beta')
     expect(apiMock).toHaveBeenCalled()
   })
 })

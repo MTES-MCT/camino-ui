@@ -1,3 +1,4 @@
+import { urlQueryParamsGet } from '../utils/url'
 import { administrations, administrationsMetas } from '../api/administrations'
 import { paramsBuild } from '../utils/'
 
@@ -7,7 +8,7 @@ export const state = {
   metas: {
     types: []
   },
-  params: [
+  definitions: [
     { id: 'page', type: 'number', min: 0 },
     { id: 'intervalle', type: 'number', min: 10, max: 500 },
     { id: 'colonne', type: 'string', elements: ['nom', 'type', 'abreviation'] },
@@ -15,7 +16,7 @@ export const state = {
     { id: 'typesIds', type: 'strings', elements: [] },
     { id: 'noms', type: 'string' }
   ],
-  preferences: {
+  params: {
     table: { page: 1, intervalle: 200, ordre: 'asc', colonne: null },
     filtres: { noms: '', typesIds: [] }
   },
@@ -24,13 +25,16 @@ export const state = {
 
 export const actions = {
   async init({ state, commit, dispatch }) {
-    commit('loadingAdd', 'administrationsInit', { root: true })
-
     try {
+      commit('loadingAdd', 'administrationsInit', { root: true })
+
       const data = await administrationsMetas()
+
       commit('metasSet', { types: data })
 
       if (!state.initialized) {
+        await dispatch('paramsFromQueryUpdate')
+
         commit('init')
       }
 
@@ -44,13 +48,15 @@ export const actions = {
 
   async get({ state, dispatch, commit }) {
     try {
-      commit('loadingAdd', 'administrations', { root: true })
+      commit('loadingAdd', 'administrationsGet', { root: true })
 
       if (!state.initialized) return
 
+      await dispatch('urlQueryUpdate')
+
       const p = paramsBuild(
-        state.params,
-        Object.assign({}, state.preferences.filtres, state.preferences.table)
+        state.definitions,
+        Object.assign({}, state.params.filtres, state.params.table)
       )
 
       const data = await administrations(p)
@@ -68,23 +74,66 @@ export const actions = {
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
-      commit('loadingRemove', 'administrations', { root: true })
+      commit('loadingRemove', 'administrationsGet', { root: true })
     }
   },
 
-  async preferencesSet(
-    { state, commit, dispatch },
-    { section, params, pageReset }
-  ) {
-    if (section === 'table' && pageReset && state.preference.page !== 1) {
+  async paramsSet({ state, commit, dispatch }, { section, params, pageReset }) {
+    if (section === 'table' && pageReset && state.params.table.page !== 1) {
       params.page = 1
     }
 
-    commit('preferencesSet', { section, params })
+    commit('paramsSet', { section, params })
 
     if (state.initialized) {
       await dispatch('get')
     }
+  },
+
+  async routeUpdate({ dispatch }) {
+    const hasChanged = await dispatch('paramsFromQueryUpdate')
+
+    if (hasChanged) {
+      await dispatch('get')
+    }
+  },
+
+  async paramsFromQueryUpdate({ rootState, state, commit }) {
+    let hasChanged = false
+
+    const tableParams = urlQueryParamsGet(
+      state.params.table,
+      rootState.route.query,
+      state.definitions
+    )
+
+    if (Object.keys(tableParams).length) {
+      commit('paramsSet', { section: 'table', params: tableParams })
+      hasChanged = true
+    }
+
+    const filtresParams = urlQueryParamsGet(
+      state.params.filtres,
+      rootState.route.query,
+      state.definitions
+    )
+
+    if (Object.keys(filtresParams).length) {
+      commit('paramsSet', { section: 'filtres', params: filtresParams })
+      hasChanged = true
+    }
+
+    return hasChanged
+  },
+
+  async urlQueryUpdate({ state, dispatch }) {
+    const params = Object.assign(state.params.filtres, state.params.table)
+
+    await dispatch(
+      'urlQueryUpdate',
+      { params, definitions: state.definitions },
+      { root: true }
+    )
   }
 }
 
@@ -95,16 +144,16 @@ export const mutations = {
     state.initialized = false
   },
 
-  metasSet(state, data) {
-    Object.keys(data).forEach(id => {
+  metasSet(state, metas) {
+    Object.keys(metas).forEach(id => {
       const paramsIds = ['typesIds']
 
-      state.metas[id] = data[id]
+      state.metas[id] = metas[id]
 
       paramsIds.forEach(paramId => {
-        const param = state.params.find(p => p.id === paramId)
+        const definition = state.definitions.find(p => p.id === paramId)
 
-        param.elements = data[id].map(e => e.id)
+        definition.elements = metas[id].map(e => e.id)
       })
     })
   },
@@ -114,9 +163,9 @@ export const mutations = {
     state.total = total
   },
 
-  preferencesSet(state, { section, params }) {
+  paramsSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      state.preferences[section][id] = params[id]
+      state.params[section][id] = params[id]
     })
   },
 

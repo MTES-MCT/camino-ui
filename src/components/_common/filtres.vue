@@ -21,12 +21,12 @@ export default {
 
   props: {
     filtres: { type: Array, required: true },
-    preferences: { type: Object, required: true },
+    params: { type: Object, required: true },
     metas: { type: Object, default: () => ({}) },
     initialized: { type: Boolean, required: true }
   },
 
-  emits: ['toggle', 'preferences-update'],
+  emits: ['toggle', 'params-update'],
 
   data() {
     return {
@@ -73,8 +73,8 @@ export default {
   },
 
   methods: {
-    preferencesUpdate(params) {
-      this.$emit('preferences-update', params)
+    paramsUpdate(params) {
+      this.$emit('params-update', params)
     },
 
     toggle() {
@@ -127,12 +127,12 @@ export default {
         return params
       }, {})
 
-      this.preferencesUpdate(params)
+      this.paramsUpdate(params)
     },
 
     init() {
-      Object.keys(this.preferences).forEach(id => {
-        const preference = this.preferences[id]
+      Object.keys(this.params).forEach(id => {
+        const preference = this.params[id]
         const filtre = this.filtres.find(filtre => filtre.id === id)
 
         if (!filtre) return

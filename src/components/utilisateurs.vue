@@ -6,12 +6,11 @@
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="utilisateurs"
-    :preferences="preferences"
     :metas="metas"
     :params="params"
     :total="total"
     :initialized="initialized"
-    @preferences-update="preferencesUpdate"
+    @params-update="paramsUpdate"
   >
     <template v-if="user.utilisateursCreation" #addButton>
       <button
@@ -70,10 +69,6 @@ export default {
       return this.$store.state.utilisateurs.total
     },
 
-    preferences() {
-      return this.$store.state.utilisateurs.preferences
-    },
-
     metas() {
       return this.$store.state.utilisateurs.metas
     },
@@ -92,7 +87,13 @@ export default {
   },
 
   watch: {
-    user: 'init'
+    user: 'init',
+
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('utilisateurs/routeUpdate')
+      }
+    }
   },
 
   async created() {
@@ -117,8 +118,8 @@ export default {
       }
     },
 
-    async preferencesUpdate(options) {
-      await this.$store.dispatch(`utilisateurs/preferencesSet`, options)
+    async paramsUpdate(options) {
+      await this.$store.dispatch(`utilisateurs/paramsSet`, options)
     },
 
     addPopupOpen() {

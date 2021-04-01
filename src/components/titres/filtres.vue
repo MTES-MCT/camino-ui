@@ -3,8 +3,8 @@
     :filtres="filtres"
     :initialized="initialized"
     :metas="metas"
-    :preferences="preferences"
-    @preferences-update="preferencesFiltresUpdate"
+    :params="params"
+    @params-update="paramsFiltresUpdate"
     @toggle="filtresToggle"
   />
 </template>
@@ -35,8 +35,8 @@ export default {
       }
     },
 
-    preferences() {
-      return this.$store.state.titres.preferences.filtres
+    params() {
+      return this.$store.state.titres.params.filtres
     },
 
     params() {
@@ -45,13 +45,13 @@ export default {
   },
 
   methods: {
-    preferencesFiltresUpdate(params) {
-      this.$store.dispatch('titres/preferencesSet', {
+    paramsFiltresUpdate(params) {
+      this.$store.dispatch('titres/paramsSet', {
         section: 'filtres',
         params
       })
 
-      this.$store.dispatch('titres/preferencesSet', {
+      this.$store.dispatch('titres/paramsSet', {
         section: 'table',
         params: { page: 1 }
       })

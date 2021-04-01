@@ -87,9 +87,11 @@ export const actions = {
       const data = await utilisateurModifier({ utilisateur })
 
       commit('popupClose', null, { root: true })
+
       if (utilisateur.id === rootState.user.element.id) {
         commit('user/set', data, { root: true })
       }
+
       await dispatch(
         'reload',
         { name: 'utilisateur', id: data.id },

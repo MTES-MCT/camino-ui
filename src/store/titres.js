@@ -1,7 +1,6 @@
 import { urlQueryParamsGet } from '../utils/url'
 import { titresMetas, titresGeo, titres, titresGeoPolygon } from '../api/titres'
 import { paramsBuild } from '../utils/'
-import { nextTick } from '@vue/runtime-core'
 
 export const state = {
   elements: [],
@@ -12,7 +11,7 @@ export const state = {
     types: [],
     statuts: []
   },
-  params: [
+  definitions: [
     { id: 'typesIds', type: 'strings', elements: [] },
     { id: 'domainesIds', type: 'strings', elements: [] },
     { id: 'statutsIds', type: 'strings', elements: [] },
@@ -44,12 +43,12 @@ export const state = {
     },
     { id: 'perimetre', type: 'numbers' }
   ],
-  urlParams: [
+  urlDefinitions: [
     { id: 'zoom', type: 'number', min: 1, max: 18 },
     { id: 'centre', type: 'tuple' },
     { id: 'vueId', type: 'string', elements: ['carte', 'table'] }
   ],
-  preferences: {
+  params: {
     table: { page: 1, intervalle: 200, ordre: 'asc', colonne: 'nom' },
     carte: { perimetre: [0, 0, 0, 0], zoom: null, centre: [] },
     filtres: {
@@ -67,7 +66,7 @@ export const state = {
 }
 
 export const actions = {
-  async init({ state, commit, dispatch, rootState }) {
+  async init({ state, commit, dispatch }) {
     try {
       commit('loadingAdd', 'titresInit', { root: true })
 
@@ -76,7 +75,7 @@ export const actions = {
       commit('metasSet', data)
 
       if (!state.initialized) {
-        await dispatch('preferencesFromQueryUpdate')
+        await dispatch('paramsFromQueryUpdate')
 
         commit('init')
       }
@@ -91,122 +90,33 @@ export const actions = {
     }
   },
 
-  async preferencesFromQueryUpdate({ rootState, state, commit }) {
-    let hasChanged = false
-
-    const vueParams = urlQueryParamsGet(
-      { vueId: state.vueId },
-      rootState.route.query,
-      state.urlParams.filter(p => p.id === 'vueId')
-    )
-
-    if (vueParams.vueId) {
-      commit('set', { elements: [], total: 0 })
-      commit('vueSet', vueParams.vueId)
-      hasChanged = true
-    }
-
-    if (state.vueId === 'carte') {
-      const carteParams = urlQueryParamsGet(
-        {
-          zoom: state.preferences.carte.zoom,
-          centre: state.preferences.carte.centre
-        },
-        rootState.route.query,
-        state.urlParams
-      )
-
-      if (Object.keys(carteParams).length) {
-        commit('preferencesSet', { section: 'carte', params: carteParams })
-        hasChanged = true
-      }
-    }
-
-    if (state.vueId === 'table') {
-      const tableParams = urlQueryParamsGet(
-        state.preferences.table,
-        rootState.route.query,
-        state.params
-      )
-
-      if (Object.keys(tableParams).length) {
-        commit('preferencesSet', { section: 'table', params: tableParams })
-        hasChanged = true
-      }
-    }
-
-    const filtresParams = urlQueryParamsGet(
-      state.preferences.filtres,
-      rootState.route.query,
-      state.params
-    )
-
-    if (Object.keys(filtresParams).length) {
-      commit('preferencesSet', { section: 'filtres', params: filtresParams })
-      hasChanged = true
-    }
-
-    return hasChanged
-  },
-
-  async routeUpdate({ dispatch }) {
-    const hasChanged = await dispatch('preferencesFromQueryUpdate')
-
-    if (hasChanged) {
-      await dispatch('get')
-    }
-  },
-
   async get({ state, dispatch, commit }) {
     try {
       commit('loadingAdd', 'titres', { root: true })
 
       if (!state.initialized) return
 
+      await dispatch('urlQueryUpdate')
+
       let data
 
-      const vuePreferences =
-        state.vueId === 'carte'
-          ? {
-              zoom: state.preferences.carte.zoom,
-              centre: state.preferences.carte.centre
-            }
-          : state.preferences.table
-
-      const queryPreferences = Object.assign(
-        { vueId: state.vueId },
-        state.preferences.filtres,
-        vuePreferences
-      )
-
-      const queryParams = [...state.params, ...state.urlParams]
-
-      await dispatch(
-        'urlQueryUpdate',
-        {
-          preferences: queryPreferences,
-          params: queryParams
-        },
-        { root: true }
-      )
-
       if (state.vueId === 'carte') {
-        const params = paramsBuild(
-          state.params,
-          Object.assign({}, state.preferences.filtres, state.preferences.carte)
+        const definitions = paramsBuild(
+          state.definitions,
+          Object.assign({}, state.params.filtres, state.params.carte)
         )
 
-        if (state.preferences.carte.zoom > 7) {
-          data = await titresGeoPolygon(params)
+        if (state.params.carte.zoom > 7) {
+          data = await titresGeoPolygon(definitions)
         } else {
-          data = await titresGeo(params)
+          data = await titresGeo(definitions)
         }
       } else {
-        const params = paramsBuild(
-          state.params,
-          Object.assign({}, state.preferences.filtres, state.preferences.table)
+        const definitions = paramsBuild(
+          state.definitions,
+          Object.assign({}, state.params.filtres, state.params.table)
         )
-        data = await titres(params)
+        data = await titres(definitions)
       }
 
       commit('set', Object.freeze(data))
@@ -217,21 +127,21 @@ export const actions = {
     }
   },
 
-  async preferencesSet({ state, commit, dispatch }, { section, params }) {
-    const paramsNew = Object.keys(params).reduce((acc, id) => {
-      if (state.preferences[section][id] !== params[id]) {
+  async paramsSet({ state, commit, dispatch }, { section, params }) {
+    const newParams = Object.keys(params).reduce((acc, id) => {
+      if (state.params[section][id] !== params[id]) {
         acc[id] = params[id]
       }
 
       return acc
     }, {})
 
-    if (Object.keys(paramsNew).length) {
-      commit('preferencesSet', { section, params: paramsNew })
+    if (Object.keys(newParams).length) {
+      commit('paramsSet', { section, params: newParams })
 
       if (
         section === 'carte' &&
-        !Object.keys(paramsNew).includes('perimetre')
+        !Object.keys(newParams).includes('perimetre')
       ) {
         return
       }
@@ -253,6 +163,95 @@ export const actions = {
     if (vueId === 'carte') return
 
     await dispatch('get')
+  },
+
+  async routeUpdate({ dispatch }) {
+    const hasChanged = await dispatch('paramsFromQueryUpdate')
+
+    if (hasChanged) {
+      await dispatch('get')
+    }
+  },
+
+  async paramsFromQueryUpdate({ rootState, state, commit }) {
+    let hasChanged = false
+
+    const vueParams = urlQueryParamsGet(
+      { vueId: state.vueId },
+      rootState.route.query,
+      state.urlDefinitions.filter(p => p.id === 'vueId')
+    )
+
+    if (vueParams.vueId) {
+      commit('set', { elements: [], total: 0 })
+      commit('vueSet', vueParams.vueId)
+      hasChanged = true
+    }
+
+    if (state.vueId === 'carte') {
+      const carteParams = urlQueryParamsGet(
+        {
+          zoom: state.params.carte.zoom,
+          centre: state.params.carte.centre
+        },
+        rootState.route.query,
+        state.urlDefinitions
+      )
+
+      if (Object.keys(carteParams).length) {
+        commit('paramsSet', { section: 'carte', params: carteParams })
+        hasChanged = true
+      }
+    }
+
+    if (state.vueId === 'table') {
+      const tableParams = urlQueryParamsGet(
+        state.params.table,
+        rootState.route.query,
+        state.definitions
+      )
+
+      if (Object.keys(tableParams).length) {
+        commit('paramsSet', { section: 'table', params: tableParams })
+        hasChanged = true
+      }
+    }
+
+    const filtresParams = urlQueryParamsGet(
+      state.params.filtres,
+      rootState.route.query,
+      state.definitions
+    )
+
+    if (Object.keys(filtresParams).length) {
+      commit('paramsSet', {
+        section: 'filtres',
+        params: filtresParams
+      })
+      hasChanged = true
+    }
+
+    return hasChanged
+  },
+
+  async urlQueryUpdate({ state, dispatch }) {
+    const paramsVue =
+      state.vueId === 'carte'
+        ? {
+            zoom: state.params.carte.zoom,
+            centre: state.params.carte.centre
+          }
+        : state.params.table
+
+    const params = Object.assign(
+      { vueId: state.vueId },
+      state.params.filtres,
+      paramsVue
+    )
+
+    const definitions = [...state.definitions, ...state.urlDefinitions]
+
+    await dispatch('urlQueryUpdate', { params, definitions }, { root: true })
   }
 }
 
@@ -293,7 +292,7 @@ export const mutations = {
 
       if (paramsIds) {
         paramsIds.forEach(paramId => {
-          const param = state.params.find(p => p.id === paramId)
+          const param = state.definitions.find(p => p.id === paramId)
 
           param.elements = data[id].map(e => e.id)
         })
@@ -301,9 +300,9 @@ export const mutations = {
     })
   },
 
-  preferencesSet(state, { section, params }) {
+  paramsSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      state.preferences[section][id] = params[id]
+      state.params[section][id] = params[id]
     })
   },
 

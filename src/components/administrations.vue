@@ -1,16 +1,15 @@
 <template>
-  <liste
+  <Liste
     nom="administrations"
     :filtres="filtres"
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="administrations"
-    :preferences="preferences"
-    :metas="metas"
     :params="params"
+    :metas="metas"
     :total="total"
     :initialized="initialized"
-    @preferences-update="preferencesUpdate"
+    @params-update="paramsUpdate"
   >
     <template v-if="administrations.length" #downloads>
       <Downloads
@@ -19,7 +18,7 @@
         class="flex-right full-x"
       />
     </template>
-  </liste>
+  </Liste>
 </template>
 
 <script>
@@ -57,16 +56,12 @@ export default {
       return this.$store.state.administrations.total
     },
 
-    preferences() {
-      return this.$store.state.administrations.preferences
+    params() {
+      return this.$store.state.administrations.params
     },
 
     metas() {
       return this.$store.state.administrations.metas
-    },
-
-    params() {
-      return this.$store.state.administrations.params
     },
 
     lignes() {
@@ -79,7 +74,13 @@ export default {
   },
 
   watch: {
-    user: 'init'
+    user: 'init',
+
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('administrations/routeUpdate')
+      }
+    }
   },
 
   async created() {
@@ -95,8 +96,8 @@ export default {
       await this.$store.dispatch('administrations/init')
     },
 
-    async preferencesUpdate(options) {
-      await this.$store.dispatch(`administrations/preferencesSet`, options)
+    async paramsUpdate(options) {
+      await this.$store.dispatch(`administrations/paramsSet`, options)
     }
   }
 }

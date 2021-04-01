@@ -17,8 +17,8 @@
       :filtres="filtres"
       :initialized="initialized"
       :metas="metas"
-      :preferences="preferences.filtres"
-      @preferences-update="preferencesFiltresUpdate"
+      :params="params.filtres"
+      @params-update="paramsFiltresUpdate"
     />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
@@ -38,13 +38,13 @@
     <Table
       :columns="colonnes"
       :rows="lignes"
-      :column="preferences.table.colonne"
-      :range="preferences.table.intervalle"
-      :order="preferences.table.ordre"
-      :page="preferences.table.page"
+      :column="params.table.colonne"
+      :range="params.table.intervalle"
+      :order="params.table.ordre"
+      :page="params.table.page"
       :pagination="pagination"
       :total="total"
-      @params-update="preferencesTableUpdate"
+      @params-update="paramsTableUpdate"
     />
   </div>
 </template>
@@ -64,23 +64,13 @@ export default {
     colonnes: { type: Array, required: true },
     lignes: { type: Array, required: true },
     elements: { type: Array, required: true },
-    preferences: { type: Object, required: true },
+    params: { type: Object, required: true },
     metas: { type: Object, default: () => ({}) },
-    params: { type: Array, required: true },
     total: { type: Number, required: true },
     initialized: { type: Boolean, default: false }
   },
 
-  emits: ['preferences-update'],
-
-  data() {
-    return {
-      loaded: {
-        filtres: false,
-        table: false
-      }
-    }
-  },
+  emits: ['params-update'],
 
   computed: {
     resultat() {
@@ -92,37 +82,13 @@ export default {
       return `${res} résultat${this.elements.length > 1 ? 's' : ''}`
     },
 
-    // urlValuesFiltres() {
-    //   const paramsIds = Object.keys(this.preferences.filtres)
-
-    //   return this.params.reduce((p, param) => {
-    //     if (paramsIds.includes(param.id)) {
-    //       p[param.id] = param
-    //     }
-
-    //     return p
-    //   }, {})
-    // },
-
-    // urlValuesTable() {
-    //   const paramsIds = Object.keys(this.preferences.table)
-
-    //   return this.params.reduce((p, param) => {
-    //     if (paramsIds.includes(param.id)) {
-    //       p[param.id] = param
-    //     }
-
-    //     return p
-    //   }, {})
-    // },
-
     pagination() {
-      return !!this.preferences.table.page
+      return !!this.params.table.page
     }
   },
 
   methods: {
-    async preferencesTableUpdate(params) {
+    async paramsTableUpdate(params) {
       if (params.range) {
         params.intervalle = params.range
         delete params.range
@@ -138,17 +104,15 @@ export default {
         delete params.order
       }
 
-      await this.$emit('preferences-update', { section: 'table', params })
+      await this.$emit('params-update', { section: 'table', params })
     },
 
-    preferencesFiltresUpdate(params) {
-      if (this.loaded.table && this.loaded.filtres) {
-        this.$emit('preferences-update', {
-          section: 'filtres',
-          params,
-          pageReset: true
-        })
-      }
+    paramsFiltresUpdate(params) {
+      this.$emit('params-update', {
+        section: 'filtres',
+        params,
+        pageReset: true
+      })
     }
   }
 }

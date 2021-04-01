@@ -1,6 +1,7 @@
 import { activites } from '../api/titres-activites'
 import { activitesMetas } from '../api/metas-activites'
 import { paramsBuild } from '../utils/'
+import { urlQueryParamsGet } from '../utils/url'
 
 export const state = {
   elements: [],
@@ -13,7 +14,7 @@ export const state = {
     titresTypes: [],
     titresStatuts: []
   },
-  params: [
+  definitions: [
     { id: 'typesIds', type: 'strings', elements: [] },
     { id: 'statutsIds', type: 'strings', elements: [] },
     { id: 'annees', type: 'numbers', elements: [] },
@@ -38,7 +39,7 @@ export const state = {
       elements: ['asc', 'desc']
     }
   ],
-  preferences: {
+  params: {
     table: {
       page: 1,
       intervalle: 200,
@@ -72,6 +73,8 @@ export const actions = {
       commit('metasSet', data)
 
       if (!state.initialized) {
+        await dispatch('paramsFromQueryUpdate')
+
         commit('init')
       }
 
@@ -89,9 +92,11 @@ export const actions = {
 
       if (!state.initialized) return
 
+      await dispatch('urlQueryUpdate')
+
       const p = paramsBuild(
-        state.params,
-        Object.assign({}, state.preferences.filtres, state.preferences.table)
+        state.definitions,
+        Object.assign({}, state.params.filtres, state.params.table)
       )
 
       const data = await activites(p)
@@ -110,18 +115,61 @@ export const actions = {
     }
   },
 
-  async preferencesSet(
-    { state, commit, dispatch },
-    { section, params, pageReset }
-  ) {
-    if (section === 'table' && pageReset && state.preference.page !== 1) {
+  async paramsSet({ state, commit, dispatch }, { section, params, pageReset }) {
+    if (section === 'table' && pageReset && state.params.table.page !== 1) {
       params.page = 1
     }
 
-    commit('preferencesSet', { section, params })
+    commit('paramsSet', { section, params })
     if (state.initialized && state.initialized) {
       await dispatch('get')
     }
+  },
+
+  async routeUpdate({ dispatch }) {
+    const hasChanged = await dispatch('paramsFromQueryUpdate')
+
+    if (hasChanged) {
+      await dispatch('get')
+    }
+  },
+
+  async paramsFromQueryUpdate({ rootState, state, commit }) {
+    let hasChanged = false
+
+    const tableParams = urlQueryParamsGet(
+      state.params.table,
+      rootState.route.query,
+      state.definitions
+    )
+
+    if (Object.keys(tableParams).length) {
+      commit('paramsSet', { section: 'table', params: tableParams })
+      hasChanged = true
+    }
+
+    const filtresParams = urlQueryParamsGet(
+      state.params.filtres,
+      rootState.route.query,
+      state.definitions
+    )
+
+    if (Object.keys(filtresParams).length) {
+      commit('paramsSet', { section: 'filtres', params: filtresParams })
+      hasChanged = true
+    }
+
+    return hasChanged
+  },
+
+  async urlQueryUpdate({ state, dispatch }) {
+    const params = Object.assign(state.params.filtres, state.params.table)
+
+    await dispatch(
+      'urlQueryUpdate',
+      { params, definitions: state.definitions },
+      { root: true }
+    )
   }
 }
 
@@ -166,7 +214,7 @@ export const mutations = {
       }
 
       if (metaId) {
-        const param = state.params.find(p => p.id === metaId)
+        const param = state.definitions.find(p => p.id === metaId)
         if (param && param.type && param.type === 'numbers') {
           state.metas[metaId] = data[id].map(annee => {
             return { id: annee, nom: annee }
@@ -178,7 +226,7 @@ export const mutations = {
 
       if (paramsIds) {
         paramsIds.forEach(paramId => {
-          const param = state.params.find(p => p.id === paramId)
+          const param = state.definitions.find(p => p.id === paramId)
           if (param && param.type && param.type === 'numbers') {
             param.elements = data[id]
           } else {
@@ -189,9 +237,9 @@ export const mutations = {
     })
   },
 
-  preferencesSet(state, { section, params }) {
+  paramsSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      state.preferences[section][id] = params[id]
+      state.params[section][id] = params[id]
     })
   },
 

@@ -5,12 +5,11 @@
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="demarches"
-    :preferences="preferences"
     :metas="metas"
     :params="params"
     :total="total"
     :initialized="initialized"
-    @preferences-update="preferencesUpdate"
+    @params-update="paramsUpdate"
   >
     <template v-if="demarches.length" #downloads>
       <Downloads
@@ -55,10 +54,6 @@ export default {
       return this.$store.state.titresDemarches.total
     },
 
-    preferences() {
-      return this.$store.state.titresDemarches.preferences
-    },
-
     metas() {
       return this.$store.state.titresDemarches.metas
     },
@@ -77,7 +72,13 @@ export default {
   },
 
   watch: {
-    user: 'init'
+    user: 'init',
+
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('titresDemarches/routeUpdate')
+      }
+    }
   },
 
   async created() {
@@ -93,8 +94,8 @@ export default {
       await this.$store.dispatch('titresDemarches/init')
     },
 
-    async preferencesUpdate(options) {
-      await this.$store.dispatch(`titresDemarches/preferencesSet`, options)
+    async paramsUpdate(options) {
+      await this.$store.dispatch(`titresDemarches/paramsSet`, options)
 
       if (options.section === 'filtres') {
         this.eventTrack(options.params)

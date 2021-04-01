@@ -106,7 +106,7 @@ export default {
     },
 
     preferences() {
-      return this.$store.state.titres.preferences
+      return this.$store.state.titres.params
     },
 
     vueId() {
