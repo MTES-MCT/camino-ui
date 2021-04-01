@@ -41,6 +41,8 @@ export default {
   },
 
   watch: {
+    $route: 'get',
+
     user: 'get'
   },
 
