@@ -15,6 +15,7 @@ export default defineConfig({
     npmVersion: JSON.stringify(npmPackage.version)
   },
   build: {
-    outDir: '../dist'
+    outDir: '../dist',
+    chunkSizeWarningLimit: 550
   }
 })

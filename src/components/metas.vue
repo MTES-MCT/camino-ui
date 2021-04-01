@@ -7,9 +7,8 @@
     :preferences="preferences"
     :params="params"
     :total="metas.length"
-    :metas-loaded="true"
+    :initialized="true"
     @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
   >
   </liste>
 </template>
@@ -51,8 +50,8 @@ export default {
       return metasLignesBuild(this.metas)
     },
 
-    metasLoaded() {
-      return this.$store.state.metas.loaded.metas
+    initialized() {
+      return this.$store.state.metas.initialized
     }
   },
 
@@ -75,10 +74,6 @@ export default {
       } else {
         this.visible = true
       }
-    },
-
-    urlLoad() {
-      this.$store.dispatch('metas/urlLoad')
     },
 
     async preferencesUpdate(options) {

@@ -1,38 +1,24 @@
 <template>
-  <div>
-    <Url
-      v-if="metasLoaded"
-      :values="filtresUrlValues"
-      :params="preferences"
-      @params-update="preferencesFiltresUpdate"
-      @loaded="$emit('loaded')"
-    />
-
-    <Filtres
-      :filtres="filtres"
-      :metas-loaded="metasLoaded"
-      :metas="metas"
-      :preferences="preferences"
-      @preferences-update="preferencesFiltresUpdateAndPageReset"
-      @toggle="filtresToggle"
-    />
-  </div>
+  <Filtres
+    :filtres="filtres"
+    :initialized="initialized"
+    :metas="metas"
+    :preferences="preferences"
+    @preferences-update="preferencesFiltresUpdate"
+    @toggle="filtresToggle"
+  />
 </template>
 
 <script>
-import Url from '../_ui/url.vue'
 import Filtres from '../_common/filtres.vue'
-
 import filtres from './filtres.js'
 
 export default {
-  components: { Url, Filtres },
+  components: { Filtres },
 
   props: {
-    metasLoaded: { type: Boolean, required: true }
+    initialized: { type: Boolean, required: true }
   },
-
-  emits: ['loaded'],
 
   data() {
     return {
@@ -53,47 +39,24 @@ export default {
       return this.$store.state.titres.preferences.filtres
     },
 
-    filtresLoaded() {
-      return this.$store.state.titres.loaded.filtres
-    },
-
-    filtresUrlValues() {
-      const paramsIds = Object.keys(this.preferences)
-
-      return this.params.reduce((p, param) => {
-        if (paramsIds.includes(param.id)) {
-          p[param.id] = param
-        }
-
-        return p
-      }, {})
-    },
-
     params() {
       return this.$store.state.titres.params
     }
   },
 
   methods: {
-    preferencesFiltresUpdateAndPageReset(params) {
-      // tant que ce composant n'est pas chargé,
-      // les filtres ne peuvent pas modifier les préférences
-      if (this.filtresLoaded) {
-        this.preferencesFiltresUpdate(params)
-        this.$store.dispatch('titres/preferencesSet', {
-          section: 'table',
-          params: { page: 1 }
-        })
-
-        this.paramsEventTrack(params)
-      }
-    },
-
     preferencesFiltresUpdate(params) {
       this.$store.dispatch('titres/preferencesSet', {
         section: 'filtres',
         params
       })
+
+      this.$store.dispatch('titres/preferencesSet', {
+        section: 'table',
+        params: { page: 1 }
+      })
+
+      this.paramsEventTrack(params)
     },
 
     paramsEventTrack(params) {

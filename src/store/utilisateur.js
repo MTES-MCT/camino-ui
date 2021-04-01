@@ -21,8 +21,8 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit }) {
-    commit('loadingAdd', 'utilisateurMetasGet', { root: true })
+  async init({ commit }) {
+    commit('loadingAdd', 'utilisateurInit', { root: true })
 
     try {
       const data = await utilisateurMetas()
@@ -30,9 +30,8 @@ export const actions = {
       commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-      console.info(e)
     } finally {
-      commit('loadingRemove', 'utilisateurMetasGet', { root: true })
+      commit('loadingRemove', 'utilisateurInit', { root: true })
     }
   },
 
@@ -49,7 +48,6 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'utilisateur', { root: true })
     }

@@ -74,7 +74,6 @@ describe("état de l'administration consultée", () => {
     await store.dispatch('administration/get', 71)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
 
@@ -101,7 +100,7 @@ describe("état de l'administration consultée", () => {
       ]
     })
 
-    await store.dispatch('administration/metasGet')
+    await store.dispatch('administration/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.administration.metas).toEqual({
@@ -130,7 +129,7 @@ describe("état de l'administration consultée", () => {
       new Error('erreur api')
     )
 
-    await store.dispatch('administration/metasGet')
+    await store.dispatch('administration/init')
 
     expect(apiMock).toHaveBeenCalled()
 
@@ -172,7 +171,7 @@ describe("état de l'administration consultée", () => {
       etapesTypes: [{ id: 'dex', nom: 'décision expresse' }]
     })
 
-    await store.dispatch('administration/permissionsMetasGet')
+    await store.dispatch('administration/permissionsInit')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.administration.metas).toEqual({
@@ -192,7 +191,7 @@ describe("état de l'administration consultée", () => {
       new Error('erreur api')
     )
 
-    await store.dispatch('administration/permissionsMetasGet')
+    await store.dispatch('administration/permissionsInit')
 
     expect(apiMock).toHaveBeenCalled()
 

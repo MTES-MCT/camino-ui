@@ -23,7 +23,7 @@ describe("état d'une activité", () => {
 
   beforeEach(() => {
     titresActivites.state = {
-      list: [],
+      elements: [],
       total: 0,
       metas: {
         types: [],
@@ -79,10 +79,7 @@ describe("état d'une activité", () => {
           titresStatutsIds: []
         }
       },
-      loaded: {
-        metas: false,
-        url: false
-      }
+      initialized: false
     }
 
     actions = {
@@ -133,7 +130,7 @@ describe("état d'une activité", () => {
     { id: 'pr', nom: 'permis exclusif de recherches', exploitation: false }
   ]
 
-  test('récupère les métas pour afficher les activités', async () => {
+  test('initialise le composant', async () => {
     const apiMock = api.activitesMetas
       .mockResolvedValueOnce({
         activitesTypes,
@@ -146,7 +143,7 @@ describe("état d'une activité", () => {
       })
       .mockResolvedValueOnce({})
 
-    await store.dispatch('titresActivites/metasGet')
+    await store.dispatch('titresActivites/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titresActivites.metas).toEqual({
@@ -162,7 +159,7 @@ describe("état d'une activité", () => {
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
 
-    await store.dispatch('titresActivites/metasGet')
+    await store.dispatch('titresActivites/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titresActivites.metas).toEqual({
@@ -184,7 +181,7 @@ describe("état d'une activité", () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('titresActivites/metasGet')
+    await store.dispatch('titresActivites/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -196,42 +193,40 @@ describe("état d'une activité", () => {
       total: 3
     }
     const apiMock = api.activites.mockResolvedValueOnce(response)
+    store.state.titresActivites.initialized = true
 
-    store.commit('titresActivites/load', 'metas')
-    await store.dispatch('titresActivites/urlLoad')
+    await store.dispatch('titresActivites/get')
 
-    expect(store.state.titresActivites.loaded.url).toBeTruthy()
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titresActivites.list).toEqual(response.elements)
-
-    await store.dispatch('titresActivites/urlLoad')
+    expect(store.state.titresActivites.elements).toEqual(response.elements)
 
     expect(apiMock).toHaveBeenCalledTimes(1)
 
     store.commit('titresActivites/reset')
-    expect(store.state.titresActivites.list).toEqual([])
-    expect(store.state.titresActivites.loaded).toMatchObject({
-      url: false,
-      metas: false
-    })
+    expect(store.state.titresActivites.elements).toEqual([])
+    expect(store.state.titresActivites.initialized).toBeFalsy()
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
     const apiMock = api.activites.mockResolvedValue(null)
 
-    store.commit('titresActivites/load', 'metas')
-    await store.dispatch('titresActivites/urlLoad')
+    store.state.titresActivites.initialized = true
+
+    await store.dispatch('titresActivites/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titresActivites.list).toEqual([])
+    expect(store.state.titresActivites.elements).toEqual([])
   })
 
   test("retourne une erreur si l'api retourne une erreur", async () => {
     const apiMock = api.activites.mockRejectedValue('erreur api')
-    await store.dispatch('titresActivites/urlLoad')
 
-    expect(store.state.titresActivites.loaded.url).toBeTruthy()
-    expect(apiMock).not.toHaveBeenCalled()
+    store.state.titresActivites.initialized = true
+
+    await store.dispatch('titresActivites/get')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.titresActivites.elements).toEqual([])
   })
 
   test('initialise les preferences de filtre', async () => {

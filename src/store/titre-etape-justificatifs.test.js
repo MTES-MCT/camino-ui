@@ -69,10 +69,7 @@ describe('justificatifs', () => {
       ]
     })
 
-    await store.dispatch(
-      'titreEtapeJustificatifs/metasGet',
-      'titre-etape-id-01'
-    )
+    await store.dispatch('titreEtapeJustificatifs/init', 'titre-etape-id-01')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titreEtapeJustificatifs.metas.entreprises).toEqual([
@@ -93,7 +90,7 @@ describe('justificatifs', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('titreEtapeJustificatifs/metasGet', { etape: {} })
+    await store.dispatch('titreEtapeJustificatifs/init', { etape: {} })
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()

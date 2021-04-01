@@ -3,7 +3,7 @@ import { activitesMetas } from '../api/metas-activites'
 import { paramsBuild } from '../utils/'
 
 export const state = {
-  list: [],
+  elements: [],
   total: 0,
   metas: {
     types: [],
@@ -59,35 +59,35 @@ export const state = {
       titresStatutsIds: []
     }
   },
-  loaded: {
-    metas: false,
-    url: false
-  }
+  initialized: false
 }
 
 export const actions = {
-  async metasGet({ state, commit, dispatch }) {
+  async init({ state, commit, dispatch }) {
     try {
-      commit('loadingAdd', 'activitesMetasGet', { root: true })
+      commit('loadingAdd', 'activitesInit', { root: true })
 
       const data = await activitesMetas()
 
       commit('metasSet', data)
 
-      if (!state.loaded.metas) {
-        commit('load', 'metas')
+      if (!state.initialized) {
+        commit('init')
       }
+
+      await dispatch('get')
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
-      commit('loadingRemove', 'activitesMetasGet', { root: true })
+      commit('loadingRemove', 'activitesInit', { root: true })
     }
   },
 
   async get({ state, dispatch, commit }) {
     try {
       commit('loadingAdd', 'activitesGet', { root: true })
+
+      if (!state.initialized) return
 
       const p = paramsBuild(
         state.params,
@@ -105,7 +105,6 @@ export const actions = {
       commit('set', data)
     } catch (e) {
       dispatch('pageError', null, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'activitesGet', { root: true })
     }
@@ -120,32 +119,25 @@ export const actions = {
     }
 
     commit('preferencesSet', { section, params })
-    if (state.loaded.metas && state.loaded.url) {
+    if (state.initialized && state.initialized) {
       await dispatch('get')
-    }
-  },
-
-  async urlLoad({ state, commit, dispatch }) {
-    if (!state.loaded.url) {
-      commit('load', 'url')
-
-      if (state.loaded.metas) {
-        await dispatch('get')
-      }
     }
   }
 }
 
 export const mutations = {
+  init(state) {
+    state.initialized = true
+  },
+
   reset(state) {
-    state.list = []
+    state.elements = []
     state.total = 0
-    state.loaded.metas = false
-    state.loaded.url = false
+    state.initialized = false
   },
 
   set(state, data) {
-    state.list = data.elements
+    state.elements = data.elements
     state.total = data.total
   },
 
@@ -203,8 +195,8 @@ export const mutations = {
     })
   },
 
-  load(state, section) {
-    state.loaded[section] = true
+  load(state) {
+    state.initialized = true
   }
 }
 

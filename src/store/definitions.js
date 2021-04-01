@@ -38,7 +38,6 @@ export const actions = {
       commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'definitions', { root: true })
     }
@@ -56,7 +55,6 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'definition', { root: true })
     }

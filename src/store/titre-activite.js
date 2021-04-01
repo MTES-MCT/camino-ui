@@ -23,7 +23,6 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'activiteGet', { root: true })
     }

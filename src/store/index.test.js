@@ -38,7 +38,7 @@ jest.mock('../router', () => ({
 }))
 
 console.info = jest.fn()
-
+console.error = jest.fn()
 jest.useFakeTimers()
 
 describe("état général de l'application", () => {

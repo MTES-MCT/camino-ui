@@ -133,13 +133,13 @@
                   :key="e.id"
                   class="mb-xs"
                 >
-                  <RouterLink
+                  <router-link
                     :to="{ name: 'entreprise', params: { id: e.id } }"
                     class="btn-border small py-s px-m rnd-xs mr-xs"
                     tag="button"
                   >
                     {{ e.legalSiren ? `${e.nom} (${e.legalSiren})` : e.nom }}
-                  </RouterLink>
+                  </router-link>
                 </li>
               </ul>
             </div>

@@ -2,7 +2,7 @@ import { utilisateurs, utilisateurMetas } from '../api/utilisateurs'
 import { paramsBuild } from '../utils/'
 
 export const state = {
-  list: [],
+  elements: [],
   total: 0,
   metas: {
     permission: [],
@@ -43,35 +43,35 @@ export const state = {
       colonne: null
     }
   },
-  loaded: {
-    metas: false,
-    url: false
-  }
+  initialized: false
 }
 
 export const actions = {
-  async metasGet({ state, commit }) {
+  async init({ state, commit, dispatch }) {
     try {
-      commit('loadingAdd', 'utilisateursMetasGet', { root: true })
+      commit('loadingAdd', 'utilisateursInit', { root: true })
 
       const data = await utilisateurMetas()
 
       commit('metasSet', data)
 
-      if (!state.loaded.metas) {
-        commit('load', 'metas')
+      if (!state.initialized) {
+        commit('init')
       }
+
+      await dispatch('get')
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-      console.info(e)
+      dispatch('apiError', e, { root: true })
     } finally {
-      commit('loadingRemove', 'utilisateursMetasGet', { root: true })
+      commit('loadingRemove', 'utilisateursInit', { root: true })
     }
   },
 
-  async get({ dispatch, commit }) {
+  async get({ state, dispatch, commit }) {
     try {
       commit('loadingAdd', 'utilisateurs', { root: true })
+
+      if (!state.initialized) return
 
       const p = paramsBuild(
         state.params,
@@ -89,7 +89,6 @@ export const actions = {
       commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'utilisateurs', { root: true })
     }
@@ -104,32 +103,20 @@ export const actions = {
     }
 
     commit('preferencesSet', { section, params })
-    if (state.loaded.metas && state.loaded.url) {
-      await dispatch('get')
-    }
-  },
 
-  async urlLoad({ state, commit, dispatch }) {
-    if (!state.loaded.url) {
-      commit('load', 'url')
-
-      if (state.loaded.metas) {
-        await dispatch('get')
-      }
-    }
+    await dispatch('get')
   }
 }
 
 export const mutations = {
   reset(state) {
-    state.list = []
+    state.elements = []
     state.total = 0
-    state.loaded.url = false
-    state.loaded.metas = false
+    state.initialized = false
   },
 
   set(state, data) {
-    state.list = data.elements
+    state.elements = data.elements
     state.total = data.total
   },
 
@@ -173,8 +160,8 @@ export const mutations = {
     })
   },
 
-  load(state, section) {
-    state.loaded[section] = true
+  init(state) {
+    state.initialized = true
   }
 }
 

@@ -17,14 +17,7 @@
       </div>
     </div>
 
-    <Filtres :metas-loaded="metasLoaded" @loaded="urlLoad('filtres')" />
-
-    <Url
-      :values="vueUrlValues"
-      :params="{ vueId }"
-      @params-update="preferencesVueUpdate"
-      @loaded="urlLoad('vue')"
-    />
+    <Filtres :initialized="initialized" />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-3 flex mb-s">
@@ -61,47 +54,33 @@
     </div>
 
     <div class="line-neutral width-full" />
-    <template v-if="metasLoaded">
-      <TitresMap
-        v-if="$route.query.vueId === 'carte'"
-        :titres="titres"
-        :total="total"
-        @loaded="urlLoad('component')"
-      />
+    <template v-if="initialized">
+      <Map v-if="vueId === 'carte'" :titres="titres" />
 
-      <TitresTableUrl
-        v-else-if="$route.query.vueId === 'liste'"
-        :titres="titres"
-        :total="total"
-        @loaded="urlLoad('component')"
-      />
+      <Table v-else-if="vueId === 'table'" :titres="titres" :total="total" />
     </template>
     <div v-else class="table-view mb-xxl mt">…</div>
   </div>
 </template>
 
 <script>
-import Url from './_ui/url.vue'
 import Downloads from './_common/downloads.vue'
 import TitreEditPopup from './titre/edit-popup.vue'
-import TitresTableUrl from './titres/table-url.vue'
-import TitresMap from './titres/map-url.vue'
-import Filtres from './titres/filtres-url.vue'
+import Table from './titres/table-pagination.vue'
+import Map from './titres/map.vue'
+import Filtres from './titres/filtres.vue'
 
 export default {
   name: 'Titres',
 
-  components: { Url, Filtres, Downloads, TitresMap, TitresTableUrl },
+  components: { Filtres, Downloads, Map, Table },
 
   data() {
     return {
       vues: [
         { id: 'carte', icon: 'globe' },
-        { id: 'liste', icon: 'list' }
-      ],
-      vueUrlValues: {
-        vueId: { type: 'string', elements: ['carte', 'liste'] }
-      }
+        { id: 'table', icon: 'list' }
+      ]
     }
   },
 
@@ -111,7 +90,7 @@ export default {
     },
 
     titres() {
-      return this.$store.state.titres.list
+      return this.$store.state.titres.elements
     },
 
     metas() {
@@ -122,8 +101,8 @@ export default {
       }
     },
 
-    metasLoaded() {
-      return this.$store.state.titres.loaded.metas
+    initialized() {
+      return this.$store.state.titres.initialized
     },
 
     preferences() {
@@ -159,11 +138,17 @@ export default {
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'init',
+
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('titres/routeUpdate')
+      }
+    }
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
   },
 
   unmounted() {
@@ -171,12 +156,8 @@ export default {
   },
 
   methods: {
-    async metasGet() {
-      await this.$store.dispatch('titres/metasGet')
-    },
-
-    preferencesVueUpdate(params) {
-      this.vueSet(params.vueId)
+    async init() {
+      await this.$store.dispatch('titres/init')
     },
 
     async vueSet(vueId) {
@@ -188,7 +169,6 @@ export default {
     },
 
     vueClick(vueId) {
-      console.log('--------------------------------')
       if (!this.loading) {
         this.vueSet(vueId)
       }
@@ -206,10 +186,6 @@ export default {
       })
 
       this.eventTrack({ categorie: 'titre-sections', action: 'titre-ajouter' })
-    },
-
-    urlLoad(id) {
-      this.$store.dispatch('titres/loaded', id)
     },
 
     eventTrack(event) {

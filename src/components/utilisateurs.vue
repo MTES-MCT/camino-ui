@@ -10,9 +10,8 @@
     :metas="metas"
     :params="params"
     :total="total"
-    :metas-loaded="metasLoaded"
+    :initialized="initialized"
     @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
   >
     <template v-if="user.utilisateursCreation" #addButton>
       <button
@@ -64,7 +63,7 @@ export default {
     },
 
     utilisateurs() {
-      return this.$store.state.utilisateurs.list
+      return this.$store.state.utilisateurs.elements
     },
 
     total() {
@@ -87,17 +86,17 @@ export default {
       return utilisateursLignesBuild(this.utilisateurs)
     },
 
-    metasLoaded() {
-      return this.$store.state.utilisateurs.loaded.metas
+    initialized() {
+      return this.$store.state.utilisateurs.initialized
     }
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'init'
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
   },
 
   unmounted() {
@@ -105,7 +104,7 @@ export default {
   },
 
   methods: {
-    async metasGet() {
+    async init() {
       if (
         !this.user ||
         !this.user.sections ||
@@ -114,12 +113,8 @@ export default {
         await this.$store.dispatch('pageError')
       } else {
         this.visible = true
-        await this.$store.dispatch('utilisateurs/metasGet')
+        await this.$store.dispatch('utilisateurs/init')
       }
-    },
-
-    urlLoad() {
-      this.$store.dispatch('utilisateurs/urlLoad')
     },
 
     async preferencesUpdate(options) {

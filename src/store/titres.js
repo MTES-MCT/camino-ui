@@ -1,8 +1,10 @@
+import { urlQueryParamsGet } from '../utils/url'
 import { titresMetas, titresGeo, titres, titresGeoPolygon } from '../api/titres'
 import { paramsBuild } from '../utils/'
+import { nextTick } from '@vue/runtime-core'
 
 export const state = {
-  list: [],
+  elements: [],
   total: 0,
   vueId: 'carte',
   metas: {
@@ -42,6 +44,11 @@ export const state = {
     },
     { id: 'perimetre', type: 'numbers' }
   ],
+  urlParams: [
+    { id: 'zoom', type: 'number', min: 1, max: 18 },
+    { id: 'centre', type: 'tuple' },
+    { id: 'vueId', type: 'string', elements: ['carte', 'table'] }
+  ],
   preferences: {
     table: { page: 1, intervalle: 200, ordre: 'asc', colonne: 'nom' },
     carte: { perimetre: [0, 0, 0, 0], zoom: null, centre: [] },
@@ -56,41 +63,132 @@ export const state = {
       territoires: ''
     }
   },
-  loaded: {
-    metas: false,
-    vue: false,
-    filtres: false,
-    component: false,
-    urls: false
-  }
+  initialized: false
 }
 
 export const actions = {
-  async metasGet({ state, commit, dispatch }) {
-    commit('loadingAdd', 'titresMetasGet', { root: true })
-
+  async init({ state, commit, dispatch, rootState }) {
     try {
+      commit('loadingAdd', 'titresInit', { root: true })
+
       const data = await titresMetas()
 
       commit('metasSet', data)
 
-      if (!state.loaded.metas) {
-        commit('loaded', 'metas')
+      if (!state.initialized) {
+        await dispatch('preferencesFromQueryUpdate')
+
+        commit('init')
+      }
+
+      if (state.vueId === 'table') {
+        dispatch('get')
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
-      commit('loadingRemove', 'titresMetasGet', { root: true })
+      commit('loadingRemove', 'titresInit', { root: true })
+    }
+  },
+
+  async preferencesFromQueryUpdate({ rootState, state, commit }) {
+    let hasChanged = false
+
+    const vueParams = urlQueryParamsGet(
+      { vueId: state.vueId },
+      rootState.route.query,
+      state.urlParams.filter(p => p.id === 'vueId')
+    )
+
+    if (vueParams.vueId) {
+      commit('set', { elements: [], total: 0 })
+      commit('vueSet', vueParams.vueId)
+      hasChanged = true
+    }
+
+    if (state.vueId === 'carte') {
+      const carteParams = urlQueryParamsGet(
+        {
+          zoom: state.preferences.carte.zoom,
+          centre: state.preferences.carte.centre
+        },
+        rootState.route.query,
+        state.urlParams
+      )
+
+      if (Object.keys(carteParams).length) {
+        commit('preferencesSet', { section: 'carte', params: carteParams })
+        hasChanged = true
+      }
+    }
+
+    if (state.vueId === 'table') {
+      const tableParams = urlQueryParamsGet(
+        state.preferences.table,
+        rootState.route.query,
+        state.params
+      )
+
+      if (Object.keys(tableParams).length) {
+        commit('preferencesSet', { section: 'table', params: tableParams })
+        hasChanged = true
+      }
+    }
+
+    const filtresParams = urlQueryParamsGet(
+      state.preferences.filtres,
+      rootState.route.query,
+      state.params
+    )
+
+    if (Object.keys(filtresParams).length) {
+      commit('preferencesSet', { section: 'filtres', params: filtresParams })
+      hasChanged = true
+    }
+
+    return hasChanged
+  },
+
+  async routeUpdate({ dispatch, commit }) {
+    const hasChanged = await dispatch('preferencesFromQueryUpdate')
+
+    if (hasChanged) {
+      await dispatch('get')
     }
   },
 
   async get({ state, dispatch, commit }) {
     try {
-      if (!state.loaded.metas || !state.loaded.urls) return
-
       commit('loadingAdd', 'titres', { root: true })
 
+      if (!state.initialized) return
+
       let data
+
+      const vuePreferences =
+        state.vueId === 'carte'
+          ? {
+              zoom: state.preferences.carte.zoom,
+              centre: state.preferences.carte.centre
+            }
+          : state.preferences.table
+
+      const queryPreferences = Object.assign(
+        { vueId: state.vueId },
+        state.preferences.filtres,
+        vuePreferences
+      )
+
+      const queryParams = [...state.params, ...state.urlParams]
+
+      await dispatch(
+        'urlQueryUpdate',
+        {
+          preferences: queryPreferences,
+          params: queryParams
+        },
+        { root: true }
+      )
 
       if (state.vueId === 'carte') {
         const params = paramsBuild(
@@ -114,7 +212,6 @@ export const actions = {
       commit('set', Object.freeze(data))
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'titres', { root: true })
     }
@@ -156,38 +253,23 @@ export const actions = {
     if (vueId === 'carte') return
 
     await dispatch('get')
-  },
-
-  async loaded({ commit, state, dispatch }, id) {
-    commit('loaded', id)
-
-    if (
-      state.loaded.vue &&
-      state.loaded.component &&
-      state.loaded.filtres &&
-      !state.loaded.urls
-    ) {
-      state.loaded.urls = true
-
-      await dispatch('get')
-    }
   }
 }
 
 export const mutations = {
-  reset(state) {
-    state.list = []
-    state.total = 0
-    state.loaded.metas = false
-    state.loaded.vue = false
-    state.loaded.filtres = false
-    state.loaded.component = false
-    state.loaded.urls = false
+  init(state) {
+    state.initialized = true
   },
 
-  set(state, data) {
-    state.list = data.elements
-    state.total = data.total
+  reset(state) {
+    state.elements = []
+    state.total = 0
+    state.initialized = false
+  },
+
+  set(state, { elements, total }) {
+    state.elements = elements
+    state.total = total
   },
 
   metasSet(state, data) {
@@ -226,12 +308,7 @@ export const mutations = {
   },
 
   vueSet(state, vueId) {
-    console.log('titres - vueSet')
     state.vueId = vueId
-  },
-
-  loaded(state, section) {
-    state.loaded[section] = true
   }
 }
 

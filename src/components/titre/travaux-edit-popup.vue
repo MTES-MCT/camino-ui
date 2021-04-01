@@ -103,7 +103,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('titreTravaux/metasGet', this.travaux)
+      await this.$store.dispatch('titreTravaux/init', this.travaux)
     },
 
     async save() {

@@ -81,7 +81,7 @@ describe('étapes', () => {
       date: '2020-01-01'
     })
 
-    await store.dispatch('titreEtape/metasGet', {
+    await store.dispatch('titreEtape/init', {
       id: 'etape-id',
       titreDemarcheId: 'demarche-id'
     })
@@ -96,7 +96,7 @@ describe('étapes', () => {
   test('récupère les métas pour créer une étape', async () => {
     const apiMockMetas = api.titreEtapeMetas.mockResolvedValue(titreEtapeMetas)
 
-    await store.dispatch('titreEtape/metasGet', {
+    await store.dispatch('titreEtape/init', {
       titreDemarcheId: 'demarche-id',
       date: '2020-01-01'
     })
@@ -112,7 +112,7 @@ describe('étapes', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('titreEtape/metasGet', { etape: {} })
+    await store.dispatch('titreEtape/init', { etape: {} })
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()

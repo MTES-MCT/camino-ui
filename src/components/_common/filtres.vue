@@ -1,6 +1,6 @@
 <template>
   <Filters
-    v-if="metasLoaded"
+    v-if="initialized"
     class="flex-grow"
     button="Valider"
     :filters="filters"
@@ -23,7 +23,7 @@ export default {
     filtres: { type: Array, required: true },
     preferences: { type: Object, required: true },
     metas: { type: Object, default: () => ({}) },
-    metasLoaded: { type: Boolean, required: true }
+    initialized: { type: Boolean, required: true }
   },
 
   emits: ['toggle', 'preferences-update'],
@@ -49,15 +49,15 @@ export default {
   watch: {
     // si les metas changent (connexion / deconnexion user)
     metas: {
-      handler: function () {
-        if (this.metasLoaded) {
+      handler: function (ne, ol) {
+        if (this.initialized) {
           this.validate()
         }
       },
       deep: true
     },
 
-    metasLoaded: function (to, from) {
+    initialized: function (to, from) {
       if (!from) {
         this.init()
       }

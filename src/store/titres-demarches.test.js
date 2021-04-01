@@ -18,7 +18,7 @@ describe('liste des demarches', () => {
   beforeEach(() => {
     demarchesListe = ['demarche-1', 'demarche-2', 'demarche-3']
     titresDemarches.state = {
-      list: [],
+      elements: [],
       total: 0,
       metas: {
         types: [],
@@ -83,10 +83,7 @@ describe('liste des demarches', () => {
           titresTerritoires: ''
         }
       },
-      loaded: {
-        metas: false,
-        url: false
-      }
+      initialized: false
     }
 
     mutations = {
@@ -123,7 +120,7 @@ describe('liste des demarches', () => {
       })
       .mockResolvedValueOnce({})
 
-    await store.dispatch('titresDemarches/metasGet')
+    await store.dispatch('titresDemarches/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titresDemarches.metas).toEqual({
@@ -136,7 +133,7 @@ describe('liste des demarches', () => {
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
 
-    await store.dispatch('titresDemarches/metasGet')
+    await store.dispatch('titresDemarches/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titresDemarches.metas).toEqual({
@@ -155,7 +152,7 @@ describe('liste des demarches', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('titresDemarches/metasGet')
+    await store.dispatch('titresDemarches/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -167,62 +164,51 @@ describe('liste des demarches', () => {
       elements: demarchesListe
     })
 
-    store.commit('titresDemarches/load', 'metas')
-    await store.dispatch('titresDemarches/urlLoad')
+    store.state.titresDemarches.initialized = true
 
-    expect(store.state.titresDemarches.loaded.url).toBeTruthy()
+    await store.dispatch('titresDemarches/get')
+
+    expect(store.state.titresDemarches.initialized).toBeTruthy()
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titresDemarches.list).toEqual(demarchesListe)
-
-    await store.dispatch('titresDemarches/urlLoad')
+    expect(store.state.titresDemarches.elements).toEqual(demarchesListe)
 
     expect(apiMock).toHaveBeenCalledTimes(1)
 
     store.commit('titresDemarches/reset')
-    expect(store.state.titresDemarches.list).toEqual([])
-    expect(store.state.titresDemarches.loaded).toMatchObject({
-      url: false,
-      metas: false
-    })
+    expect(store.state.titresDemarches.elements).toEqual([])
+    expect(store.state.titresDemarches.initialized).toBeFalsy()
   })
 
   test("retourne une erreur si l'api ne repond pas", async () => {
     const apiMock = api.demarches.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
+    store.state.titresDemarches.initialized = true
 
-    store.commit('titresDemarches/load', 'metas')
-    await store.dispatch('titresDemarches/urlLoad')
+    await store.dispatch('titresDemarches/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.titresDemarches.list).toEqual([])
+    expect(store.state.titresDemarches.elements).toEqual([])
   })
 
   test("retourne une erreur si l'api retourne une erreur", async () => {
     const apiMock = api.demarches.mockRejectedValue('erreur api')
-    await store.dispatch('titresDemarches/urlLoad')
+    store.state.titresDemarches.initialized = true
 
-    expect(store.state.titresDemarches.loaded.url).toBeTruthy()
-    expect(apiMock).not.toHaveBeenCalled()
+    await store.dispatch('titresDemarches/get')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.titresDemarches.elements).toEqual([])
   })
 
   test('initialise les preferences de filtre', async () => {
     const section = 'filtres'
-    let params = { noms: 'alpha' }
+    const params = { noms: 'beta' }
     const apiMock = api.demarches.mockResolvedValue({})
+    store.state.titresDemarches.initialized = true
 
     await store.dispatch('titresDemarches/preferencesSet', { section, params })
 
-    expect(apiMock).not.toHaveBeenCalled()
-
-    expect(store.state.titresDemarches.preferences.filtres.noms).toEqual(
-      'alpha'
-    )
-
-    params = { noms: 'beta' }
-
-    store.commit('titresDemarches/load', 'metas')
-    store.commit('titresDemarches/load', 'url')
     await store.dispatch('titresDemarches/preferencesSet', {
       section,
       params,

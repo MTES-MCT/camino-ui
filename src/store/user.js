@@ -30,8 +30,8 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit, dispatch }) {
-    commit('loadingAdd', 'userMetasGet', { root: true })
+  async init({ commit, dispatch }) {
+    commit('loadingAdd', 'userInit', { root: true })
 
     try {
       const data = await userMetas()
@@ -39,9 +39,8 @@ export const actions = {
       commit('metasSet', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
-      commit('loadingRemove', 'userMetasGet', { root: true })
+      commit('loadingRemove', 'userInit', { root: true })
     }
   },
 

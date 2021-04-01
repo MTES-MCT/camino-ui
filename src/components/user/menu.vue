@@ -5,7 +5,7 @@
         <div class="tablet-blob-1-3 border-l pl-s">
           <ul class="list-sans mb-0">
             <li>
-              <RouterLink
+              <router-link
                 id="cmn-user-menu-a-utilisateur"
                 :key="user.id"
                 :to="{ name: 'utilisateur', params: { id: user.id } }"
@@ -16,7 +16,7 @@
                 <div v-if="user.entreprise" class="h5 color-neutral">
                   {{ user.entreprise.nom }}
                 </div>
-              </RouterLink>
+              </router-link>
             </li>
             <li>
               <button

@@ -1,5 +1,6 @@
 import './styles/styles.css'
 import { createApp } from 'vue'
+import { sync } from 'vuex-router-sync'
 import * as Sentry from '@sentry/browser'
 import * as SentryIntegrations from '@sentry/integrations'
 
@@ -9,8 +10,8 @@ import App from './app.vue'
 import router from './router'
 import store from './store'
 
-
 const app = createApp(App)
+sync(store, router)
 
 if (import.meta.env.PROD) {
   fetch('/sentryDsn')
@@ -53,12 +54,10 @@ if (import.meta.env.PROD) {
     .catch(e => console.error('erreur : matomo :', e))
 }
 
-
 // // only available during E2E tests
 // if (window.Cypress) {
 //   window.app = app
 // }
-
 
 app.use(router)
 

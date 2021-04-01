@@ -53,7 +53,7 @@ module.exports = {
   // globalTeardown: null,
 
   // A set of global variables that need to be available in all test environments
-  globals: { npmVersion: true, window: {}},
+  globals: { npmVersion: true, window: {} },
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
@@ -121,7 +121,7 @@ module.exports = {
   snapshotSerializers: ['jest-serializer-vue'],
 
   // The test environment that will be used for testing
-  // testEnvironment: 'node',
+  testEnvironment: 'jsdom',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

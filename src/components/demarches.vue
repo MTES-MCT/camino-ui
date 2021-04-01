@@ -9,9 +9,8 @@
     :metas="metas"
     :params="params"
     :total="total"
-    :metas-loaded="metasLoaded"
+    :initialized="initialized"
     @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
   >
     <template v-if="demarches.length" #downloads>
       <Downloads
@@ -49,7 +48,7 @@ export default {
     },
 
     demarches() {
-      return this.$store.state.titresDemarches.list
+      return this.$store.state.titresDemarches.elements
     },
 
     total() {
@@ -72,17 +71,17 @@ export default {
       return demarchesLignesBuild(this.demarches)
     },
 
-    metasLoaded() {
-      return this.$store.state.titresDemarches.loaded.metas
+    initialized() {
+      return this.$store.state.titresDemarches.initialized
     }
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'init'
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
   },
 
   unmounted() {
@@ -90,12 +89,8 @@ export default {
   },
 
   methods: {
-    async metasGet() {
-      await this.$store.dispatch('titresDemarches/metasGet')
-    },
-
-    urlLoad() {
-      this.$store.dispatch('titresDemarches/urlLoad')
+    async init() {
+      await this.$store.dispatch('titresDemarches/init')
     },
 
     async preferencesUpdate(options) {

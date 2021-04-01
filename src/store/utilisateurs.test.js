@@ -14,9 +14,10 @@ describe('liste des utilisateurs', () => {
   let store
   let actions
   let mutations
+
   beforeEach(() => {
     utilisateurs.state = {
-      list: [],
+      elements: [],
       total: 0,
       metas: {
         permission: [],
@@ -57,10 +58,7 @@ describe('liste des utilisateurs', () => {
           colonne: null
         }
       },
-      loaded: {
-        metas: false,
-        url: false
-      }
+      initialized: true
     }
 
     actions = {
@@ -123,7 +121,7 @@ describe('liste des utilisateurs', () => {
     ]
   }
 
-  test('récupère les métas pour afficher les utilisateurs', async () => {
+  test('initialise le composant', async () => {
     const apiMock = api.utilisateurMetas
       .mockResolvedValueOnce({
         permissions,
@@ -133,7 +131,7 @@ describe('liste des utilisateurs', () => {
       })
       .mockResolvedValueOnce({})
 
-    await store.dispatch('utilisateurs/metasGet')
+    await store.dispatch('utilisateurs/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.utilisateurs.metas).toEqual({
@@ -143,7 +141,7 @@ describe('liste des utilisateurs', () => {
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
 
-    await store.dispatch('utilisateurs/metasGet')
+    await store.dispatch('utilisateurs/init')
 
     expect(apiMock).toHaveBeenCalledTimes(2)
     expect(store.state.utilisateurs.metas).toEqual({
@@ -159,54 +157,49 @@ describe('liste des utilisateurs', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('utilisateurs/metasGet')
+    await store.dispatch('utilisateurs/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+    expect(actions.apiError).toHaveBeenCalled()
   })
 
   test('obtient la liste des utilisateurs', async () => {
     const elements = [{ id: 71, nom: 'toto', prenom: 'asticot' }]
     const apiMock = api.utilisateurs.mockResolvedValue({ elements })
+    store.state.utilisateurs.initialized = true
 
-    store.commit('utilisateurs/load', 'metas')
-    await store.dispatch('utilisateurs/urlLoad')
-
-    expect(store.state.utilisateurs.loaded.url).toBeTruthy()
+    await store.dispatch('utilisateurs/get')
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.utilisateurs.list).toEqual(elements)
-
-    await store.dispatch('utilisateurs/urlLoad')
+    expect(store.state.utilisateurs.elements).toEqual(elements)
 
     expect(apiMock).toHaveBeenCalledTimes(1)
 
     store.commit('utilisateurs/reset')
-    expect(store.state.utilisateurs.list).toEqual([])
-    expect(store.state.utilisateurs.loaded).toMatchObject({
-      url: false,
-      metas: false
-    })
+    expect(store.state.utilisateurs.elements).toEqual([])
+    expect(store.state.utilisateurs.initialized).toBeFalsy()
   })
 
   test("retourne une erreur si l'api ne repond pas", async () => {
     const apiMock = api.utilisateurs.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
+    store.state.utilisateurs.initialized = true
 
-    store.commit('utilisateurs/load', 'metas')
-    await store.dispatch('utilisateurs/urlLoad')
+    await store.dispatch('utilisateurs/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.utilisateurs.list).toEqual([])
+    expect(store.state.utilisateurs.elements).toEqual([])
   })
 
   test("retourne une erreur si l'api retourne une erreur", async () => {
     const apiMock = api.utilisateurs.mockRejectedValue('erreur api')
-    await store.dispatch('utilisateurs/urlLoad')
+    store.state.utilisateurs.initialized = true
 
-    expect(store.state.utilisateurs.loaded.url).toBeTruthy()
-    expect(apiMock).not.toHaveBeenCalled()
+    await store.dispatch('utilisateurs/get')
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(store.state.utilisateurs.elements).toEqual([])
   })
 
   test('initialise les preferences de filtre', async () => {
@@ -216,14 +209,12 @@ describe('liste des utilisateurs', () => {
 
     await store.dispatch('utilisateurs/preferencesSet', { section, params })
 
-    expect(apiMock).not.toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalled()
 
     expect(store.state.utilisateurs.preferences.filtres.noms).toEqual('alpha')
 
     params = { noms: 'beta' }
 
-    store.commit('utilisateurs/load', 'metas')
-    store.commit('utilisateurs/load', 'url')
     await store.dispatch('utilisateurs/preferencesSet', {
       section,
       params,

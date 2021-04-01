@@ -12,8 +12,8 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit }, travaux) {
-    commit('loadingAdd', 'travauxMetasGet', { root: true })
+  async init({ commit }, travaux) {
+    commit('loadingAdd', 'travauxInit', { root: true })
 
     try {
       const data = await travauxMetas(travaux)
@@ -22,7 +22,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'travauxMetasGet', { root: true })
+      commit('loadingRemove', 'travauxInit', { root: true })
     }
   },
 

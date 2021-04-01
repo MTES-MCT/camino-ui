@@ -65,7 +65,7 @@ export default {
 
   watch: {
     complete: {
-      handler: function(complete) {
+      handler: function (complete) {
         this.$emit('complete-update', complete)
       },
       immediate: true
@@ -83,7 +83,7 @@ export default {
         options.typeId = this.parentTypeId
       }
 
-      await this.$store.dispatch('document/metasGet', options)
+      await this.$store.dispatch('document/init', options)
 
       this.documentsTypes.forEach(dt => {
         if (!this.documents.find(d => d.typeId === dt.id)) {

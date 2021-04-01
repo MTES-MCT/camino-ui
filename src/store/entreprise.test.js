@@ -72,7 +72,7 @@ describe("état de l'entreprise sélectionnée", () => {
     await store.dispatch('entreprise/get', 71)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(console.info).toHaveBeenCalled()
+
     expect(actions.apiError).toHaveBeenCalled()
   })
 

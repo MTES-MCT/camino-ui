@@ -13,16 +13,16 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit }, options) {
+  async init({ commit }, options) {
     try {
-      commit('loadingAdd', 'documentMetasGet', { root: true })
+      commit('loadingAdd', 'documentInit', { root: true })
       const data = await documentMetas(options)
 
       commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'documentMetasGet', {
+      commit('loadingRemove', 'documentInit', {
         root: true
       })
     }

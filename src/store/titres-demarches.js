@@ -3,7 +3,7 @@ import { demarchesMetas, demarches } from '../api/titres-demarches'
 import { paramsBuild } from '../utils/'
 
 export const state = {
-  list: [],
+  elements: [],
   total: 0,
   metas: {
     types: [],
@@ -69,34 +69,35 @@ export const state = {
       titresTerritoires: ''
     }
   },
-  loaded: {
-    metas: false,
-    url: false
-  }
+  initialized: false
 }
 
 export const actions = {
-  async metasGet({ state, commit }) {
+  async init({ state, commit, dispatch }) {
     try {
-      commit('loadingAdd', 'demarchesMetasGet', { root: true })
+      commit('loadingAdd', 'demarchesInit', { root: true })
 
       const data = await demarchesMetas()
 
       commit('metasSet', data)
 
-      if (!state.loaded.metas) {
-        commit('load', 'metas')
+      if (!state.initialized) {
+        commit('init')
       }
+
+      await dispatch('get')
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'demarchesMetasGet', { root: true })
+      commit('loadingRemove', 'demarchesInit', { root: true })
     }
   },
 
   async get({ state, dispatch, commit }) {
     try {
       commit('loadingAdd', 'demarches', { root: true })
+
+      if (!state.initialized) return
 
       const p = paramsBuild(
         state.params,
@@ -116,7 +117,6 @@ export const actions = {
       commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'demarches', { root: true })
     }
@@ -131,32 +131,20 @@ export const actions = {
     }
 
     commit('preferencesSet', { section, params })
-    if (state.loaded.metas && state.loaded.url) {
-      await dispatch('get')
-    }
-  },
 
-  async urlLoad({ state, commit, dispatch }) {
-    if (!state.loaded.url) {
-      commit('load', 'url')
-
-      if (state.loaded.metas) {
-        await dispatch('get')
-      }
-    }
+    await dispatch('get')
   }
 }
 
 export const mutations = {
   reset(state) {
-    state.list = []
+    state.elements = []
     state.total = 0
-    state.loaded.metas = false
-    state.loaded.url = false
+    state.initialized = false
   },
 
   set(state, data) {
-    state.list = data.elements
+    state.elements = data.elements
     state.total = data.total
   },
 
@@ -204,8 +192,8 @@ export const mutations = {
     })
   },
 
-  load(state, section) {
-    state.loaded[section] = true
+  init(state) {
+    state.initialized = true
   }
 }
 

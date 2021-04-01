@@ -16,9 +16,9 @@
       </div>
     </div>
     <div class="tablet-blob-2-3 pt-m relative">
-      <RouterLink v-if="$route.name !== 'titres'" :to="{ name: 'titres' }">
+      <router-link v-if="$route.name !== 'titres'" :to="{ name: 'titres' }">
         <img src="/img/logo-camino.svg" class="logo" />
-      </RouterLink>
+      </router-link>
       <span v-else>
         <img src="/img/logo-camino.svg" class="logo" />
       </span>

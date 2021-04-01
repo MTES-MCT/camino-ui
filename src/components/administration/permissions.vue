@@ -230,7 +230,7 @@
                   class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
-                      !titreTypeTitreStatutNew.titreStatutId
+                    !titreTypeTitreStatutNew.titreStatutId
                   "
                   @click="
                     titreTypeTitreStatutNew.titresModificationInterdit = !titreTypeTitreStatutNew.titresModificationInterdit
@@ -248,7 +248,7 @@
                   class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
-                      !titreTypeTitreStatutNew.titreStatutId
+                    !titreTypeTitreStatutNew.titreStatutId
                   "
                   @click="
                     titreTypeTitreStatutNew.demarchesModificationInterdit = !titreTypeTitreStatutNew.demarchesModificationInterdit
@@ -266,7 +266,7 @@
                   class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
-                      !titreTypeTitreStatutNew.titreStatutId
+                    !titreTypeTitreStatutNew.titreStatutId
                   "
                   @click="
                     titreTypeTitreStatutNew.etapesModificationInterdit = !titreTypeTitreStatutNew.etapesModificationInterdit
@@ -385,9 +385,7 @@
           <b>modifier</b> et <b>créer</b> les étapes des titres :
         </p>
         <ul class="list-prefix">
-          <li>
-            dont l'administration est gestionnaire ou associée,
-          </li>
+          <li>dont l'administration est gestionnaire ou associée,</li>
           <li>
             auxquels l'administration est liée par la région ou le département.
           </li>
@@ -461,7 +459,7 @@
                   class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
-                      !titreTypeEtapeTypeNew.etapeTypeId
+                    !titreTypeEtapeTypeNew.etapeTypeId
                   "
                   @click="
                     titreTypeEtapeTypeNew.lectureInterdit = !titreTypeEtapeTypeNew.lectureInterdit
@@ -479,7 +477,7 @@
                   class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
-                      !titreTypeEtapeTypeNew.etapeTypeId
+                    !titreTypeEtapeTypeNew.etapeTypeId
                   "
                   @click="
                     titreTypeEtapeTypeNew.modificationInterdit = !titreTypeEtapeTypeNew.modificationInterdit
@@ -497,7 +495,7 @@
                   class="btn p-xs rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
-                      !titreTypeEtapeTypeNew.etapeTypeId
+                    !titreTypeEtapeTypeNew.etapeTypeId
                   "
                   @click="
                     titreTypeEtapeTypeNew.creationInterdit = !titreTypeEtapeTypeNew.creationInterdit
@@ -609,16 +607,12 @@
           <b>modifier</b> les activités des titres :
         </p>
         <ul class="list-prefix">
-          <li>
-            dont l'administration est gestionnaire ou associée,
-          </li>
+          <li>dont l'administration est gestionnaire ou associée,</li>
           <li>
             auxquels l'administration est liée par la région ou le département.
           </li>
         </ul>
-        <p>
-          Ce réglage permet de retreindre ces droits par type d'étape.
-        </p>
+        <p>Ce réglage permet de retreindre ces droits par type d'étape.</p>
       </div>
 
       <div class="line width-full" />
@@ -895,7 +889,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('administration/permissionsMetasGet')
+      await this.$store.dispatch('administration/permissionsInit')
     },
 
     async titreTypeUpdate(titreTypeId, gestionnaire, associee, type) {
@@ -1064,4 +1058,5 @@ export default {
 }
 </script>
 
-<style></style>template
+<style></style>
+template

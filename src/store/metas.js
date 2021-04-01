@@ -8,21 +8,12 @@ export const state = {
   ],
   preferences: {
     table: { ordre: 'asc', colonne: null }
-  },
-  loaded: {
-    url: false
   }
 }
 
 export const actions = {
   async preferencesSet({ commit }, { section, params }) {
     commit('preferencesSet', { section, params })
-  },
-
-  async urlLoad({ state, commit }) {
-    if (!state.loaded.url) {
-      commit('load', 'url')
-    }
   }
 }
 
@@ -41,13 +32,12 @@ export const getters = {
 
 export const mutations = {
   reset(state) {
-    state.list = []
+    state.elements = []
     state.total = 0
-    state.loaded.url = false
   },
 
   set(state, data) {
-    state.list = data.elements
+    state.elements = data.elements
     state.total = data.total
   },
 
@@ -55,10 +45,6 @@ export const mutations = {
     Object.keys(params).forEach(id => {
       state.preferences[section][id] = params[id]
     })
-  },
-
-  load(state, section) {
-    state.loaded[section] = true
   }
 }
 

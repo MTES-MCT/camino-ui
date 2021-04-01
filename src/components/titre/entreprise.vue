@@ -17,7 +17,7 @@
     </template>
 
     <template #buttons>
-      <RouterLink
+      <router-link
         :to="{ name: 'entreprise', params: { id: entreprise.id } }"
         class="btn-alt py-s px-m"
         tag="button"
@@ -26,7 +26,7 @@
           class="icon-24 icon-window-link"
           @click="eventTrack('titre-entreprise_acceder')"
         />
-      </RouterLink>
+      </router-link>
     </template>
 
     <div v-if="content" class="px-m pt-m">

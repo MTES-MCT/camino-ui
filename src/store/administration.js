@@ -22,8 +22,8 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit }) {
-    commit('loadingAdd', 'administrationMetasGet', { root: true })
+  async init({ commit }) {
+    commit('loadingAdd', 'administrationInit', { root: true })
 
     try {
       const data = await administrationMetas()
@@ -32,12 +32,12 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'administrationMetasGet', { root: true })
+      commit('loadingRemove', 'administrationInit', { root: true })
     }
   },
 
-  async permissionsMetasGet({ commit }) {
-    commit('loadingAdd', 'administrationPermissionsMetasGet', {
+  async permissionsInit({ commit }) {
+    commit('loadingAdd', 'administrationPermissionsInit', {
       root: true
     })
 
@@ -47,7 +47,7 @@ export const actions = {
     } catch (e) {
       commit('messageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'administrationPermissionsMetasGet', {
+      commit('loadingRemove', 'administrationPermissionsInit', {
         root: true
       })
     }
@@ -62,7 +62,6 @@ export const actions = {
       commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'administration', { root: true })
     }

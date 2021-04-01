@@ -151,7 +151,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('titreEtapeJustificatifs/metasGet', this.id)
+      await this.$store.dispatch('titreEtapeJustificatifs/init', this.id)
     },
 
     async save() {

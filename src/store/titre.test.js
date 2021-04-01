@@ -68,7 +68,7 @@ describe('état du titre sélectionné', () => {
       { id: 'dge', nom: 'DGEC' }
     ])
 
-    await store.dispatch('titre/metasGet')
+    await store.dispatch('titre/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titre.metas.referencesTypes).toEqual([
@@ -83,7 +83,7 @@ describe('état du titre sélectionné', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('titre/metasGet')
+    await store.dispatch('titre/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -112,7 +112,6 @@ describe('état du titre sélectionné', () => {
 
     expect(store.state.titre.current).toEqual(null)
     expect(actions.apiError).toHaveBeenCalled()
-    expect(console.info).toHaveBeenCalled()
   })
 
   test('crée un titre', async () => {

@@ -230,7 +230,7 @@ export default {
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
     document.addEventListener('keyup', this.keyUp)
   },
 
@@ -239,8 +239,8 @@ export default {
   },
 
   methods: {
-    async metasGet() {
-      await this.$store.dispatch('titreTravauxEtape/metasGet', this.etape)
+    async init() {
+      await this.$store.dispatch('titreTravauxEtape/init', this.etape)
     },
 
     async save() {

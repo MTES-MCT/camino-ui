@@ -27,7 +27,6 @@ export const actions = {
       commit('set', { section: section, data })
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'statistiquesGet', { root: true })
     }

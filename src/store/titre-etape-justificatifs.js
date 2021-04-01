@@ -11,8 +11,8 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit }, id) {
-    commit('loadingAdd', 'titreEtapeJustificatifsMetasGet', { root: true })
+  async init({ commit }, id) {
+    commit('loadingAdd', 'titreEtapeJustificatifsInit', { root: true })
 
     try {
       const data = await etapeEntreprises({
@@ -24,7 +24,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreEtapeJustificatifsMetasGet', {
+      commit('loadingRemove', 'titreEtapeJustificatifsInit', {
         root: true
       })
     }

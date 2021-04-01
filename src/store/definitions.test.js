@@ -146,7 +146,7 @@ describe('définitions du glossaire', () => {
     await store.dispatch('definitions/entreesGet', 'domaines')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(console.info).toHaveBeenCalled()
+
     expect(actions.apiError).toHaveBeenCalled()
   })
 })

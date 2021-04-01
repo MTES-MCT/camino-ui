@@ -10,9 +10,8 @@
     :metas="metas"
     :params="params"
     :total="total"
-    :metas-loaded="metasLoaded"
+    :initialized="initialized"
     @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
   >
     <template v-if="activites.length" #downloads>
       <Downloads
@@ -50,7 +49,7 @@ export default {
     },
 
     activites() {
-      return this.$store.state.titresActivites.list
+      return this.$store.state.titresActivites.elements
     },
 
     total() {
@@ -73,17 +72,17 @@ export default {
       return activitesLignesBuild(this.activites)
     },
 
-    metasLoaded() {
-      return this.$store.state.titresActivites.loaded.metas
+    initialized() {
+      return this.$store.state.titresActivites.initialized
     }
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'init'
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
   },
 
   unmounted() {
@@ -91,17 +90,13 @@ export default {
   },
 
   methods: {
-    async metasGet() {
+    async init() {
       if (!this.user || !this.user.sections || !this.user.sections.activites) {
         await this.$store.dispatch('pageError')
       } else {
         this.visible = true
-        await this.$store.dispatch('titresActivites/metasGet')
+        await this.$store.dispatch('titresActivites/init')
       }
-    },
-
-    urlLoad() {
-      this.$store.dispatch('titresActivites/urlLoad')
     },
 
     async preferencesUpdate(options) {

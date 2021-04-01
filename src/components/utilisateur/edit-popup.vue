@@ -122,9 +122,7 @@
               class="mb-xs"
             >
               <button
-                :id="
-                  `cmn-utilisateur-edit-popup-permission-button-${permission.id}`
-                "
+                :id="`cmn-utilisateur-edit-popup-permission-button-${permission.id}`"
                 :class="{ active: utilisateur.permissionId === permission.id }"
                 class="btn-flash small py-xs px-s pill cap-first mr-xs"
                 @click="permissionToggle(permission)"
@@ -213,7 +211,7 @@
                 :value="{ id: a.id }"
                 :disabled="
                   utilisateur.administrations.find(({ id }) => id === a.id) ||
-                    administrationsDisabledIds.includes(a.id)
+                  administrationsDisabledIds.includes(a.id)
                 "
               >
                 {{ `${a.abreviation}` }}
@@ -233,7 +231,7 @@
         <button
           v-if="
             !utilisateur.administrations.some(({ id }) => id === '') &&
-              utilisateurAdministrationsLength < 1
+            utilisateurAdministrationsLength < 1
           "
           id="cmn-utilisateur-edit-popup-administration-button-ajouter"
           class="btn rnd-xs py-s px-m full-x flex mb h5"
@@ -389,7 +387,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('utilisateur/metasGet')
+      await this.$store.dispatch('utilisateur/init')
     },
 
     async save() {

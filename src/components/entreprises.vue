@@ -8,9 +8,8 @@
     :preferences="preferences"
     :params="params"
     :total="total"
-    :metas-loaded="true"
+    :initialized="true"
     @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
   >
     <template v-if="user && user.entreprisesCreation" #addButton>
       <button
@@ -62,7 +61,7 @@ export default {
     },
 
     entreprises() {
-      return this.$store.state.entreprises.list
+      return this.$store.state.entreprises.elements
     },
 
     total() {
@@ -82,15 +81,18 @@ export default {
     }
   },
 
+  async created() {
+    await this.init()
+  },
+
   unmounted() {
     this.$store.commit('entreprises/reset')
   },
 
   methods: {
-    urlLoad() {
-      this.$store.dispatch('entreprises/urlLoad')
+    async init() {
+      await this.$store.dispatch('entreprises/init')
     },
-
     async preferencesUpdate(options) {
       await this.$store.dispatch(`entreprises/preferencesSet`, options)
     },

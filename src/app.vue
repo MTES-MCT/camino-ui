@@ -101,7 +101,7 @@ export default {
     },
 
     async get() {
-      await this.$store.dispatch('user/metasGet')
+      await this.$store.dispatch('user/init')
       if (!this.loaded) {
         this.loaded = true
       }

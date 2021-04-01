@@ -2,7 +2,7 @@ import { entreprises } from '../api/entreprises'
 import { paramsBuild } from '../utils/'
 
 export const state = {
-  list: [],
+  elements: [],
   total: 0,
   params: [
     { id: 'page', type: 'number', min: 0 },
@@ -30,12 +30,25 @@ export const state = {
       noms: ''
     }
   },
-  loaded: {
-    url: false
-  }
+  initialized: false
 }
 
 export const actions = {
+  async init({ dispatch, commit }) {
+    try {
+      commit('loadingAdd', 'entreprisesInit', { root: true })
+      if (!state.initialized) {
+        commit('init')
+      }
+
+      await dispatch('get')
+    } catch (e) {
+      dispatch('apiError', e, { root: true })
+    } finally {
+      commit('loadingRemove', 'entreprisesInit', { root: true })
+    }
+  },
+
   async get({ state, dispatch, commit }) {
     try {
       commit('loadingAdd', 'entreprisesGet', { root: true })
@@ -59,7 +72,6 @@ export const actions = {
       commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'entreprisesGet', { root: true })
     }
@@ -75,34 +87,29 @@ export const actions = {
 
     commit('preferencesSet', { section, params })
 
-    if (state.loaded.url) {
-      await dispatch('get')
-    }
-  },
-
-  async urlLoad({ state, commit, dispatch }) {
-    if (!state.loaded.url) {
-      commit('load', 'url')
-      await dispatch('get')
-    }
+    await dispatch('get')
   }
 }
 
 export const mutations = {
+  init(state) {
+    state.initialized = true
+  },
+
   reset(state) {
-    state.list = []
+    state.elements = []
     state.total = 0
-    state.loaded.url = false
+    state.initalized = false
   },
 
   set(state, data) {
-    state.list = data.elements
+    state.elements = data.elements
     state.total = data.total
   },
 
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-        state.preferences[section][id] = params[id]
+      state.preferences[section][id] = params[id]
     })
   },
 

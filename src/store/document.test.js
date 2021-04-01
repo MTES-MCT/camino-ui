@@ -64,7 +64,7 @@ describe('documents', () => {
       ]
     })
 
-    await store.dispatch('document/metasGet')
+    await store.dispatch('document/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.document.metas.documentsTypes).toEqual([
@@ -79,7 +79,7 @@ describe('documents', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('document/metasGet')
+    await store.dispatch('document/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()

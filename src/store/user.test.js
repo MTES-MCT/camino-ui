@@ -90,7 +90,7 @@ describe("état de l'utilisateur connecté", () => {
       version: '1.1.1'
     })
 
-    await store.dispatch('user/metasGet')
+    await store.dispatch('user/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.user.metas).toEqual({
@@ -107,7 +107,7 @@ describe("état de l'utilisateur connecté", () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('user/metasGet')
+    await store.dispatch('user/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()

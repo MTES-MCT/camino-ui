@@ -18,11 +18,14 @@ describe('liste des titres', () => {
   let store
   let titresCarte
   let titresListe
+  let route
+
   beforeEach(() => {
     titresCarte = ['pointe-a-pitre', 'marseille-sud', 'matignon', 'crique']
     titresListe = ['pointe-a-pitre', 'marseille-sud', 'matignon']
+
     titres.state = {
-      list: [],
+      elements: [],
       total: 0,
       vueId: 'carte',
       metas: {
@@ -71,13 +74,12 @@ describe('liste des titres', () => {
           elements: ['asc', 'desc']
         }
       ],
-      loaded: {
-        metas: false,
-        vue: false,
-        filtres: false,
-        component: false,
-        urls: false
-      }
+      urlParams: [
+        { id: 'zoom', type: 'number', min: 1, max: 18 },
+        { id: 'centre', type: 'tuple' },
+        { id: 'vueId', type: 'string', elements: ['carte', 'table'] }
+      ],
+      initialized: false
     }
 
     mutations = {
@@ -87,11 +89,18 @@ describe('liste des titres', () => {
 
     actions = {
       apiError: jest.fn(),
-      messageAdd: jest.fn()
+      messageAdd: jest.fn(),
+      urlQueryUpdate: jest.fn()
+    }
+
+    route = {
+      state: {
+        query: {}
+      }
     }
 
     store = createStore({
-      modules: { titres },
+      modules: { titres, route },
       mutations,
       actions
     })
@@ -100,7 +109,7 @@ describe('liste des titres', () => {
     app.use(store)
   })
 
-  test('récupère les métas pour visualiser les titres', async () => {
+  test('initialise le composant', async () => {
     const apiMock = api.titresMetas.mockResolvedValue({
       domaines: [
         { id: 'w', nom: 'granulats' },
@@ -117,7 +126,7 @@ describe('liste des titres', () => {
       truc: [{ id: 'id-truc' }]
     })
 
-    await store.dispatch('titres/metasGet')
+    await store.dispatch('titres/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titres.metas).toEqual({
@@ -135,9 +144,7 @@ describe('liste des titres', () => {
       ]
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(store.state.titres.loaded.metas).toBeTruthy()
-
-    await store.dispatch('titres/metasGet')
+    expect(store.state.titres.initialized).toBeTruthy()
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
@@ -145,40 +152,12 @@ describe('liste des titres', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('titres/metasGet')
+    await store.dispatch('titres/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
-    expect(store.state.titres.metasLoaded).toBeFalsy()
-  })
-
-  test('consigne les composants chargés et obtient la liste de titres', async () => {
-    const apiMock = api.titresGeo.mockResolvedValue({
-      elements: titresCarte,
-      total: 4
-    })
-
-    expect(store.state.titres.loaded.urls).toBeFalsy()
-
-    await store.dispatch('titres/loaded', 'metas')
-    await store.dispatch('titres/loaded', 'vue')
-    await store.dispatch('titres/loaded', 'component')
-    await store.dispatch('titres/loaded', 'filtres')
-
-    expect(store.state.titres.loaded.urls).toBeTruthy()
-    expect(apiMock).toHaveBeenNthCalledWith(1, {
-      noms: 's',
-      domainesIds: ['c', 'w'],
-      statutsIds: ['val'],
-      entreprises: 'fr-'
-    })
-
-    expect(store.state.titres.list).toEqual(titresCarte)
-
-    await store.dispatch('titres/loaded', 'filtres')
-
-    expect(apiMock).toHaveBeenCalledTimes(1)
+    expect(store.state.titres.initialized).toBeFalsy()
   })
 
   test('obtient la liste des titres dans la vue "carte"', async () => {
@@ -187,8 +166,7 @@ describe('liste des titres', () => {
       total: 4
     })
 
-    store.state.titres.loaded.metas = true
-    store.state.titres.loaded.urls = true
+    store.state.titres.initialized = true
     store.state.titres.preferences.carte.zoom = 8
 
     await store.dispatch('titres/get')
@@ -199,7 +177,7 @@ describe('liste des titres', () => {
       statutsIds: ['val'],
       entreprises: 'fr-'
     })
-    expect(store.state.titres.list).toEqual(titresCarte)
+    expect(store.state.titres.elements).toEqual(titresCarte)
   })
 
   test('obtient la liste des titres dans la vue "carte" sans les périmètres', async () => {
@@ -208,8 +186,7 @@ describe('liste des titres', () => {
       total: 4
     })
 
-    store.state.titres.loaded.metas = true
-    store.state.titres.loaded.urls = true
+    store.state.titres.initialized = true
     store.state.titres.preferences.carte.zoom = 7
 
     await store.dispatch('titres/get')
@@ -220,17 +197,16 @@ describe('liste des titres', () => {
       statutsIds: ['val'],
       entreprises: 'fr-'
     })
-    expect(store.state.titres.list).toEqual(titresCarte)
+    expect(store.state.titres.elements).toEqual(titresCarte)
   })
 
-  test('obtient la liste des titres dans la vue "liste"', async () => {
+  test('obtient la liste des titres dans la vue "table"', async () => {
     const apiMock = api.titres.mockResolvedValue({
       elements: titresListe,
       total: 3
     })
-    store.state.titres.vueId = 'liste'
-    store.state.titres.loaded.metas = true
-    store.state.titres.loaded.urls = true
+    store.state.titres.initialized = true
+    store.state.titres.vueId = 'table'
 
     await store.dispatch('titres/get')
 
@@ -244,25 +220,18 @@ describe('liste des titres', () => {
       ordre: 'asc',
       colonne: 'nom'
     })
-    expect(store.state.titres.list).toEqual(titresListe)
+    expect(store.state.titres.elements).toEqual(titresListe)
 
     store.commit('titres/reset')
-    expect(store.state.titres.list).toEqual([])
-    expect(store.state.titres.loaded).toMatchObject({
-      urls: false,
-      metas: false,
-      filtres: false,
-      component: false,
-      vue: false
-    })
+    expect(store.state.titres.elements).toEqual([])
+    expect(store.state.titres.initialized).toBeFalsy()
   })
 
   test("retourne une erreur si l'api ne repond pas", async () => {
     const apiMock = api.titresGeo.mockRejectedValue(
       new Error("l'api ne répond pas")
     )
-    store.state.titres.loaded.metas = true
-    store.state.titres.loaded.urls = true
+    store.state.titres.initialized = true
 
     await store.dispatch('titres/get')
 
@@ -272,7 +241,7 @@ describe('liste des titres', () => {
       statutsIds: ['val'],
       entreprises: 'fr-'
     })
-    expect(console.info).toHaveBeenCalled()
+
     expect(actions.apiError).toHaveBeenCalled()
   })
 
@@ -289,33 +258,5 @@ describe('liste des titres', () => {
       section: 'carte',
       params: { zoom: 5 }
     })
-  })
-
-  test('initialise la vue et obtient les titres', async () => {
-    const apiMock = api.titres.mockResolvedValue({
-      elements: titresListe,
-      total: 4
-    })
-    await store.dispatch('titres/vueSet', 'carte')
-
-    await store.dispatch('titres/loaded', 'metas')
-    await store.dispatch('titres/loaded', 'urls')
-    await store.dispatch('titres/vueSet', 'liste')
-    expect(apiMock).toHaveBeenNthCalledWith(1, {
-      noms: 's',
-      domainesIds: ['c', 'w'],
-      statutsIds: ['val'],
-      entreprises: 'fr-',
-      page: 1,
-      intervalle: 200,
-      ordre: 'asc',
-      colonne: 'nom'
-    })
-    expect(store.state.titres.vueId).toEqual('liste')
-    expect(store.state.titres.list).toEqual(titresListe)
-    await store.dispatch('titres/vueSet', 'carte')
-
-    expect(store.state.titres.vueId).toEqual('carte')
-    expect(apiMock).toHaveBeenCalledTimes(1)
   })
 })

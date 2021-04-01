@@ -7,12 +7,12 @@
         :key="definition.id"
         :class="{ active: slug === definition.slug }"
       >
-        <RouterLink
+        <router-link
           :to="{ name: 'definition', params: { slug: definition.slug } }"
           class="btn-menu text-decoration-none bold"
         >
           {{ definition.nom }}
-        </RouterLink>
+        </router-link>
       </li>
     </ul>
   </div>

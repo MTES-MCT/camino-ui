@@ -41,19 +41,19 @@
               </p>
             </div>
             <p class="h5 text-center">
-              <RouterLink
+              <router-link
                 :to="{
                   name: 'titres',
                   query: {
                     domainesIds: 'w',
                     typesIds: 'ar,ap,pr',
                     statutsIds: 'dmi,mod',
-                    vue: 'liste'
+                    vue: 'table'
                   }
                 }"
               >
                 Voir les titres
-              </RouterLink>
+              </router-link>
             </p>
           </div>
           <div class="tablet-blob-1-3">
@@ -62,19 +62,19 @@
             </p>
             <p class="bold text-center">Permis exclusifs de recherches</p>
             <p class="h5 text-center">
-              <RouterLink
+              <router-link
                 :to="{
                   name: 'titres',
                   query: {
                     domainesIds: 'w',
                     typesIds: 'pr',
                     statutsIds: 'val',
-                    vue: 'liste'
+                    vue: 'table'
                   }
                 }"
               >
                 Voir les titres
-              </RouterLink>
+              </router-link>
             </p>
           </div>
           <div class="tablet-blob-1-3">
@@ -114,19 +114,19 @@
               </p>
             </div>
             <p class="h5 text-center">
-              <RouterLink
+              <router-link
                 :to="{
                   name: 'titres',
                   query: {
                     domainesIds: 'w',
                     typesIds: 'ax,cx,px',
                     statutsIds: 'dmi,mod',
-                    vue: 'liste'
+                    vue: 'table'
                   }
                 }"
               >
                 Voir les titres
-              </RouterLink>
+              </router-link>
             </p>
           </div>
           <div class="tablet-blob-1-3">
@@ -134,29 +134,25 @@
               {{ statistiquesGranulatsMarins.titresValCxw }}
             </p>
             <div v-if="statistiquesGranulatsMarins.titresValCxw > 1">
-              <p class="bold text-center">
-                Concessions
-              </p>
+              <p class="bold text-center">Concessions</p>
             </div>
             <div v-else>
-              <p class="bold text-center">
-                Concession
-              </p>
+              <p class="bold text-center">Concession</p>
             </div>
             <p class="h5 text-center">
-              <RouterLink
+              <router-link
                 :to="{
                   name: 'titres',
                   query: {
                     domainesIds: 'w',
                     typesIds: 'cx',
                     statutsIds: 'val',
-                    vue: 'liste'
+                    vue: 'table'
                   }
                 }"
               >
                 Voir les titres
-              </RouterLink>
+              </router-link>
             </p>
           </div>
           <div class="tablet-blob-1-3">
@@ -217,9 +213,7 @@
     <div class="line-neutral width-full mb-xl" />
 
     <div id="evolution" class="mb-xxl">
-      <h2>
-        Titres octroyés et surface
-      </h2>
+      <h2>Titres octroyés et surface</h2>
       <span class="separator" />
       <p>
         Données contenues dans la base de données Camino, concernant
@@ -253,9 +247,7 @@
         </div>
       </div>
       <div v-if="pexAnneeCurrent">
-        <h3>
-          Nombre et surfaces des permis d'exploitation (PEX) octroyés
-        </h3>
+        <h3>Nombre et surfaces des permis d'exploitation (PEX) octroyés</h3>
         <hr />
         <div class="tablet-float-blobs clearfix">
           <div class="tablet-float-blob-1-3 mb-xl mt">
@@ -281,9 +273,7 @@
           </div>
         </div>
       </div>
-      <h3>
-        Nombre et surfaces des concessions octroyées
-      </h3>
+      <h3>Nombre et surfaces des concessions octroyées</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
@@ -308,9 +298,7 @@
           />
         </div>
       </div>
-      <h3>
-        Nombre et surface des concessions valides
-      </h3>
+      <h3>Nombre et surface des concessions valides</h3>
       <hr />
       <BarChart
         :data="

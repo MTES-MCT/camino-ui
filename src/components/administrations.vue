@@ -9,9 +9,8 @@
     :metas="metas"
     :params="params"
     :total="total"
-    :metas-loaded="metasLoaded"
+    :initialized="initialized"
     @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
   >
     <template v-if="administrations.length" #downloads>
       <Downloads
@@ -51,7 +50,7 @@ export default {
     },
 
     administrations() {
-      return this.$store.state.administrations.list
+      return this.$store.state.administrations.elements
     },
 
     total() {
@@ -74,17 +73,17 @@ export default {
       return administrationsLignesBuild(this.administrations)
     },
 
-    metasLoaded() {
-      return this.$store.state.administrations.loaded.metas
+    initialized() {
+      return this.$store.state.administrations.initialized
     }
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'init'
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
   },
 
   unmounted() {
@@ -92,12 +91,8 @@ export default {
   },
 
   methods: {
-    async metasGet() {
-      await this.$store.dispatch('administrations/metasGet')
-    },
-
-    urlLoad() {
-      this.$store.dispatch('administrations/urlLoad')
+    async init() {
+      await this.$store.dispatch('administrations/init')
     },
 
     async preferencesUpdate(options) {

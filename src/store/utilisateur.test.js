@@ -86,7 +86,7 @@ describe("état de l'utilisateur consulté", () => {
       administrations: { elements: ['adm-1'] }
     })
 
-    await store.dispatch('utilisateur/metasGet')
+    await store.dispatch('utilisateur/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.utilisateur.metas).toEqual({
@@ -105,7 +105,7 @@ describe("état de l'utilisateur consulté", () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('utilisateur/metasGet')
+    await store.dispatch('utilisateur/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -115,7 +115,7 @@ describe("état de l'utilisateur consulté", () => {
   test("retourne une erreur si l'api répond null", async () => {
     const apiMock = api.utilisateurMetas.mockResolvedValue(null)
 
-    await store.dispatch('utilisateur/metasGet')
+    await store.dispatch('utilisateur/init')
 
     expect(apiMock).toHaveBeenCalled()
   })
@@ -146,7 +146,7 @@ describe("état de l'utilisateur consulté", () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(console.info).toHaveBeenCalled()
+
     expect(actions.apiError).toHaveBeenCalled()
   })
 

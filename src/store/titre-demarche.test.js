@@ -53,7 +53,7 @@ describe('démarche', () => {
       { id: 'c', nom: 'carrières' }
     ])
 
-    await store.dispatch('titreDemarche/metasGet', { etape: {} })
+    await store.dispatch('titreDemarche/init', { etape: {} })
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titreDemarche.metas.types).toEqual([
@@ -68,7 +68,7 @@ describe('démarche', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('titreDemarche/metasGet', { etape: {} })
+    await store.dispatch('titreDemarche/init', { etape: {} })
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()

@@ -12,8 +12,8 @@ export const state = {
 }
 
 export const actions = {
-  async metasGet({ commit }, demarche) {
-    commit('loadingAdd', 'titreDemarcheMetasGet', { root: true })
+  async init({ commit }, demarche) {
+    commit('loadingAdd', 'titreDemarcheInit', { root: true })
 
     try {
       const data = await demarcheMetas(demarche)
@@ -22,7 +22,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemarcheMetasGet', { root: true })
+      commit('loadingRemove', 'titreDemarcheInit', { root: true })
     }
   },
 

@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver'
 
 import router from '../router'
 import { apiRestFetch } from '../api/_client'
+import { urlQueryUpdate } from '../utils/url'
 
 import titre from './titre'
 import titreDemarche from './titre-demarche'
@@ -74,6 +75,8 @@ export const actions = {
     setTimeout(() => {
       commit('messageRemove', id)
     }, 4500)
+
+    console.error(error)
   },
 
   pageError({ commit }) {
@@ -155,9 +158,22 @@ export const actions = {
         'apiError',
         `erreur de téléchargement : ${filePath}, ${e.message}`
       )
-      console.info(e)
     } finally {
       commit('loadingRemove', 'download', { root: true })
+    }
+  },
+
+  async urlQueryUpdate({ commit, rootState }, { params, preferences }) {
+    const { status, query } = urlQueryUpdate(
+      preferences,
+      rootState.route.query,
+      params
+    )
+
+    if (status === 'updated') {
+      router.push({ query })
+    } else if (status === 'created') {
+      router.replace({ query })
     }
   }
 }

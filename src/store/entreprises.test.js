@@ -16,7 +16,7 @@ describe("liste d'entreprises", () => {
 
   beforeEach(() => {
     entreprises.state = {
-      list: [],
+      elements: [],
       total: 0,
       params: [
         { id: 'page', type: 'number', min: 0 },
@@ -44,9 +44,7 @@ describe("liste d'entreprises", () => {
           noms: ''
         }
       },
-      loaded: {
-        url: false
-      }
+      initialized: false
     }
     actions = {
       reload: jest.fn(),
@@ -85,7 +83,7 @@ describe("liste d'entreprises", () => {
     ]
     store.commit('entreprises/set', { elements: entreprisesListe, total: 6 })
 
-    expect(store.state.entreprises.list).toEqual([
+    expect(store.state.entreprises.elements).toEqual([
       { nom: 'Petite Souris' },
       { nom: 'Koala' },
       { nom: 'Canard' },
@@ -101,59 +99,42 @@ describe("liste d'entreprises", () => {
       total: 1
     }
     const apiMock = api.entreprises.mockResolvedValue(response)
-    await store.dispatch('entreprises/urlLoad')
+    store.state.entreprises.initialized = true
+
+    await store.dispatch('entreprises/get')
 
     expect(apiMock).toHaveBeenCalled()
 
-    expect(store.state.entreprises.loaded.url).toBeTruthy()
-    expect(store.state.entreprises.list).toEqual(response.elements)
-
-    await store.dispatch('entreprises/urlLoad')
-    expect(apiMock).toHaveBeenCalledTimes(1)
-
-    store.commit('entreprises/reset')
-    expect(store.state.entreprises.list).toEqual([])
-    expect(store.state.entreprises.loaded).toMatchObject({
-      url: false
-    })
+    expect(store.state.entreprises.elements).toEqual(response.elements)
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
     const apiMock = api.entreprises.mockResolvedValue(null)
-    await store.dispatch('entreprises/urlLoad', 'url')
+    store.state.entreprises.initialized = true
+
+    await store.dispatch('entreprises/get')
+
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.entreprises.list).toEqual([])
+    expect(store.state.entreprises.elements).toEqual([])
   })
 
   test("retourne une erreur si l'api retourne une erreur", async () => {
     const apiMock = api.entreprises.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('entreprises/urlLoad', 'url')
+    store.state.entreprises.initialized = true
+
+    await store.dispatch('entreprises/get')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
 
   test('initialise les preferences de filtre', async () => {
     const section = 'filtres'
-    let params = { noms: 'alpha' }
+    const params = { noms: 'alpha' }
 
     const apiMock = api.entreprises.mockResolvedValue({})
     await store.dispatch('entreprises/preferencesSet', { section, params })
-    expect(apiMock).not.toHaveBeenCalled()
-    expect(store.state.entreprises.preferences.filtres.noms).toEqual('alpha')
-
-    params = { noms: 'beta' }
-    store.commit('entreprises/load', 'url')
-
-    expect(store.state.entreprises.loaded.url).toBeTruthy()
-    await store.dispatch('entreprises/preferencesSet', {
-      section,
-      params,
-      pageReset: true
-    })
-
     expect(apiMock).toHaveBeenCalled()
-    expect(store.state.entreprises.preferences.filtres.noms).toEqual('beta')
+    expect(store.state.entreprises.preferences.filtres.noms).toEqual('alpha')
   })
 })

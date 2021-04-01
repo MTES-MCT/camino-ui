@@ -116,7 +116,7 @@ export default {
       if (this.parentTypeId) {
         options.typeId = this.parentTypeId
       }
-      await this.$store.dispatch('document/metasGet', options)
+      await this.$store.dispatch('document/init', options)
     },
 
     async save() {
