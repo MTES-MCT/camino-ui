@@ -13,8 +13,8 @@
         <div
           v-if="
             travaux.modification ||
-              travaux.suppression ||
-              travaux.etapesCreation
+            travaux.suppression ||
+            travaux.etapesCreation
           "
           class="flex-right flex"
         >
@@ -83,7 +83,7 @@ export default {
 
   computed: {
     titre() {
-      return this.$store.state.titre.current
+      return this.$store.state.titre.element
     }
   },
 

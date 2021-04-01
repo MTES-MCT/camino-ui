@@ -97,7 +97,7 @@ export default {
 
   created() {
     document.addEventListener('keyup', this.keyup)
-    this.current = null
+    this.element = null
   },
 
   beforeUnmount() {

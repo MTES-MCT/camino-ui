@@ -128,7 +128,7 @@ export default {
 
   computed: {
     titre() {
-      return this.$store.state.titre.current
+      return this.$store.state.titre.element
     },
 
     opened() {
@@ -200,7 +200,7 @@ export default {
         component: EditPopup,
         props: {
           etape,
-          domaineId: this.$store.state.titre.current.domaine.id,
+          domaineId: this.$store.state.titre.element.domaine.id,
           travauxType: this.travauxType,
           titreNom: this.titre.nom
         }
@@ -221,7 +221,7 @@ export default {
           etapeId: this.etape.id,
           travauxTypeNom: this.travauxType.nom,
           titreNom: this.titre.nom,
-          titreType: this.$store.state.titre.current.type.nom
+          titreType: this.$store.state.titre.element.type.nom
         }
       })
 

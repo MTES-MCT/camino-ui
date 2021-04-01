@@ -149,7 +149,7 @@ export const actions = {
     return hasChanged
   },
 
-  async routeUpdate({ dispatch, commit }) {
+  async routeUpdate({ dispatch }) {
     const hasChanged = await dispatch('preferencesFromQueryUpdate')
 
     if (hasChanged) {

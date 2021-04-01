@@ -6,7 +6,7 @@ import {
 } from '../api/titres-travaux-etapes'
 
 export const state = {
-  current: null,
+  element: null,
   metas: {
     etapesTypes: []
   }

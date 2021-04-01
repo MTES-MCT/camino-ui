@@ -90,7 +90,7 @@ export default {
 
   methods: {
     async remove() {
-      await this.$store.dispatch('titre/titreRemove', this.titreId)
+      await this.$store.dispatch('titre/remove', this.titreId)
     },
 
     cancel() {

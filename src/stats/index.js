@@ -54,7 +54,7 @@ const install = (Vue, setupOptions = {}) => {
           const url = protocol + '//' + loc.host + to.path
           matomo.setCustomUrl(url)
 
-          matomo.customVariableVisitUser(options.store.state.user.current)
+          matomo.customVariableVisitUser(options.store.state.user.element)
           matomo.trackPageView(name)
 
           if (to.name !== from.name) {

@@ -181,7 +181,7 @@ export default {
 
   computed: {
     administration() {
-      return this.$store.state.administration.current
+      return this.$store.state.administration.element
     },
 
     utilisateurs() {
@@ -193,7 +193,7 @@ export default {
     },
 
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     loaded() {
@@ -202,7 +202,11 @@ export default {
   },
 
   watch: {
-    $route: 'get',
+    '$route.params.id': function (id) {
+      if (id) {
+        this.get()
+      }
+    },
 
     user: 'get'
   },

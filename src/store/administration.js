@@ -10,7 +10,7 @@ import {
 } from '../api/administrations'
 
 export const state = {
-  current: null,
+  element: null,
   metas: {
     types: [],
     regions: [],
@@ -229,11 +229,11 @@ export const mutations = {
   },
 
   set(state, administration) {
-    state.current = administration
+    state.element = administration
   },
 
   reset(state) {
-    state.current = null
+    state.element = null
   }
 }
 

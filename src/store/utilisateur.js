@@ -12,7 +12,7 @@ import {
 import router from '../router'
 
 export const state = {
-  current: null,
+  element: null,
   metas: {
     permissions: [],
     entreprises: [],
@@ -87,7 +87,7 @@ export const actions = {
       const data = await utilisateurModifier({ utilisateur })
 
       commit('popupClose', null, { root: true })
-      if (utilisateur.id === rootState.user.current.id) {
+      if (utilisateur.id === rootState.user.element.id) {
         commit('user/set', data, { root: true })
       }
       await dispatch(
@@ -202,7 +202,7 @@ export const actions = {
     try {
       const data = await utilisateurSupprimer({ id })
 
-      if (rootState.user.current.id === data.id) {
+      if (rootState.user.element.id === data.id) {
         await dispatch('user/logout', null, { root: true })
       }
       commit('popupClose', null, { root: true })
@@ -226,11 +226,11 @@ export const actions = {
 
 export const mutations = {
   set(state, utilisateur) {
-    state.current = utilisateur
+    state.element = utilisateur
   },
 
   reset(state) {
-    state.current = null
+    state.element = null
   },
 
   metasSet(state, data) {

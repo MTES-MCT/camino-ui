@@ -23,7 +23,7 @@ describe("état de l'administration consultée", () => {
 
   beforeEach(() => {
     administration.state = {
-      current: null,
+      element: null,
       metas: {
         types: [],
         regions: [],
@@ -64,7 +64,7 @@ describe("état de l'administration consultée", () => {
     await store.dispatch('administration/get', 71)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(store.state.administration.current).toEqual(administration)
+    expect(store.state.administration.element).toEqual(administration)
   })
 
   test("retourne une erreur de l'api dans l'obtention de l'administration", async () => {
@@ -81,7 +81,7 @@ describe("état de l'administration consultée", () => {
     store.commit('administration/set', { id: 71, nom: 'toto' })
     store.commit('administration/reset')
 
-    expect(store.state.administration.current).toBeNull()
+    expect(store.state.administration.element).toBeNull()
   })
 
   test('récupère les métas pour éditer une administration', async () => {

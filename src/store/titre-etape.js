@@ -12,7 +12,7 @@ import {
 import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
 
 export const state = {
-  current: null,
+  element: null,
   metas: {
     etapesTypes: [],
     devises: [],
@@ -53,7 +53,7 @@ export const actions = {
       commit('loadingAdd', 'titreEtapeHeritageGet', { root: true })
       const data = await etapeHeritage({
         titreDemarcheId,
-        date: state.current.date ? state.current.date : date,
+        date: state.element.date ? state.element.date : date,
         typeId
       })
 
@@ -123,14 +123,14 @@ export const actions = {
 export const mutations = {
   set(state, { etape, titreDemarcheId }) {
     const e = etapeEditFormat(etape, titreDemarcheId)
-    state.current = e
+    state.element = e
   },
 
   heritageSet(state, { etape, titreDemarcheId }) {
     const apiEtape = etapeEditFormat(etape, titreDemarcheId)
-    const newEtape = etapeHeritageBuild(state.current, apiEtape)
+    const newEtape = etapeHeritageBuild(state.element, apiEtape)
 
-    state.current = newEtape
+    state.element = newEtape
   },
 
   metasSet(state, data) {

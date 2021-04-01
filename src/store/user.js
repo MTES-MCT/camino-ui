@@ -15,7 +15,7 @@ import tiles from '../utils/map-tiles'
 import router from '../router'
 
 export const state = {
-  current: null,
+  element: null,
   metas: {
     domaines: [],
     version: null,
@@ -277,7 +277,7 @@ export const getters = {
   },
 
   preferencesConditions(state) {
-    if (state.current) {
+    if (state.element) {
       return true
     }
 
@@ -303,11 +303,11 @@ export const mutations = {
   },
 
   set(state, user) {
-    state.current = user
+    state.element = user
   },
 
   reset(state) {
-    state.current = null
+    state.element = null
   },
 
   metasSet(state, data) {

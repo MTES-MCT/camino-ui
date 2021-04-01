@@ -29,7 +29,7 @@ export default {
     },
 
     activitesCol() {
-      const user = this.$store.state.user.current
+      const user = this.$store.state.user.element
 
       return user && user.sections.activites
     },

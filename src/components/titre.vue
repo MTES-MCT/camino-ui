@@ -169,11 +169,11 @@ export default {
 
   computed: {
     titre() {
-      return this.$store.state.titre.current
+      return this.$store.state.titre.element
     },
 
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     loaded() {
@@ -203,7 +203,12 @@ export default {
         this.tabActiveId = tabsActivesIds[0]
       }
     },
-    $route: 'get',
+
+    '$route.params.id': function (id) {
+      if (id) {
+        this.get()
+      }
+    },
 
     user: 'get'
   },
@@ -225,7 +230,7 @@ export default {
       this.eventTrack({
         categorie: 'titre-sections',
         action: `titre-${tabId}_consulter`,
-        nom: this.$store.state.titre.current.id
+        nom: this.$store.state.titre.element.id
       })
 
       this.tabActiveId = tabId
@@ -235,7 +240,7 @@ export default {
       this.eventTrack({
         categorie: 'titre-sections',
         action: `titre-vue${tabId}_consulter`,
-        nom: this.$store.state.titre.current.id
+        nom: this.$store.state.titre.element.id
       })
 
       this.geoTabActiveId = tabId

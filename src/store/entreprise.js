@@ -7,7 +7,7 @@ import {
 import router from '../router'
 
 export const state = {
-  current: null
+  element: null
 }
 
 export const actions = {
@@ -78,11 +78,11 @@ export const actions = {
 
 export const mutations = {
   set(state, entreprise) {
-    state.current = entreprise
+    state.element = entreprise
   },
 
   reset(state) {
-    state.current = null
+    state.element = null
   }
 }
 

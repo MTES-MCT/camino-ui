@@ -46,7 +46,7 @@ describe("état de l'utilisateur connecté", () => {
     }
 
     user.state = {
-      current: null,
+      element: null,
       metas: {
         domaines: [],
         version: null,
@@ -123,7 +123,7 @@ describe("état de l'utilisateur connecté", () => {
 
     await store.dispatch('user/identify')
 
-    expect(store.state.user.current).toEqual({
+    expect(store.state.user.element).toEqual({
       id: 66,
       prenom: 'rene',
       nom: 'lataupe',
@@ -144,7 +144,7 @@ describe("état de l'utilisateur connecté", () => {
     expect(apiMock).toHaveBeenCalled()
     expect(localStorage.getItem('accessToken')).toBeNull()
     expect(localStorage.getItem('refreshToken')).toBeNull()
-    expect(store.state.user.current).toBeNull()
+    expect(store.state.user.element).toBeNull()
   })
 
   test('connecte un utilisateur', async () => {
@@ -161,7 +161,7 @@ describe("état de l'utilisateur connecté", () => {
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(localStorage.getItem('accessToken')).toEqual('rene')
     expect(localStorage.getItem('refreshToken')).toEqual('lataupe')
-    expect(store.state.user.current).toEqual({
+    expect(store.state.user.element).toEqual({
       id: 66,
       prenom: 'rene',
       nom: 'lataupe',
@@ -183,7 +183,7 @@ describe("état de l'utilisateur connecté", () => {
     expect(apiMock).toHaveBeenCalledWith({ email, motDePasse })
     expect(localStorage.getItem('accessToken')).toBeNull()
     expect(localStorage.getItem('refreshToken')).toBeNull()
-    expect(store.state.user.current).toBeNull()
+    expect(store.state.user.element).toBeNull()
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
@@ -228,7 +228,7 @@ describe("état de l'utilisateur connecté", () => {
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(localStorage.getItem('accessToken')).toEqual('rene')
     expect(localStorage.getItem('refreshToken')).toEqual('lataupe')
-    expect(store.state.user.current).toEqual({
+    expect(store.state.user.element).toEqual({
       id: 66,
       prenom: 'rene',
       nom: 'lataupe',
@@ -251,7 +251,7 @@ describe("état de l'utilisateur connecté", () => {
     expect(apiMock).toHaveBeenCalledWith({ ticket })
     expect(localStorage.getItem('accessToken')).toBeNull()
     expect(localStorage.getItem('refreshToken')).toBeNull()
-    expect(store.state.user.current).toBeNull()
+    expect(store.state.user.element).toBeNull()
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
@@ -265,7 +265,7 @@ describe("état de l'utilisateur connecté", () => {
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(localStorage.getItem('accessToken')).toBeNull()
     expect(localStorage.getItem('refreshToken')).toBeNull()
-    expect(store.state.user.current).toBeNull()
+    expect(store.state.user.element).toBeNull()
   })
 
   test('ajoute un email', async () => {
@@ -416,7 +416,7 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("retourne true si l'utilisateur est connecté", () => {
-    user.state.current = {}
+    user.state.element = {}
     store = createStore({ modules: { user } })
 
     expect(store.getters['user/preferencesConditions']).toBeTruthy()
@@ -440,12 +440,12 @@ describe("état de l'utilisateur connecté", () => {
       permission: 'admin'
     })
 
-    expect(store.state.user.current).toEqual({
+    expect(store.state.user.element).toEqual({
       id: 66,
       prenom: 'rene',
       nom: 'lataupe',
       permission: 'admin'
     })
-    expect(store.state.user.current.entreprise).toBeUndefined()
+    expect(store.state.user.element.entreprise).toBeUndefined()
   })
 })

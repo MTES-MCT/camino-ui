@@ -638,7 +638,7 @@ export default {
 
   computed: {
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     domaines() {

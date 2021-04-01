@@ -203,9 +203,9 @@ export default {
       })
 
       if (this.creation) {
-        await this.$store.dispatch('titre/titreAdd', titre)
+        await this.$store.dispatch('titre/add', titre)
       } else {
-        await this.$store.dispatch('titre/titreUpdate', titre)
+        await this.$store.dispatch('titre/update', titre)
       }
 
       this.eventTrack({

@@ -206,7 +206,7 @@ export default {
     },
 
     etape() {
-      return this.$store.state.titreEtape.current
+      return this.$store.state.titreEtape.element
     },
 
     etapeType() {

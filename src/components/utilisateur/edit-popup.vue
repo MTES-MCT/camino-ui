@@ -319,7 +319,7 @@ export default {
     },
 
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     complete() {

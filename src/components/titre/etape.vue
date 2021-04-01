@@ -159,7 +159,7 @@ export default {
 
   computed: {
     titre() {
-      return this.$store.state.titre.current
+      return this.$store.state.titre.element
     },
 
     etapeType() {
@@ -243,7 +243,7 @@ export default {
         props: {
           etapeId: this.etape.id,
           demarcheId: this.demarcheId,
-          domaineId: this.$store.state.titre.current.domaine.id,
+          domaineId: this.$store.state.titre.element.domaine.id,
           demarcheType: this.demarcheType,
           titreNom: this.titre.nom
         }
@@ -264,7 +264,7 @@ export default {
           etapeId: this.etape.id,
           demarcheTypeNom: this.demarcheType.nom,
           titreNom: this.titre.nom,
-          titreTypeNom: this.$store.state.titre.current.type.type.nom
+          titreTypeNom: this.$store.state.titre.element.type.type.nom
         }
       })
 

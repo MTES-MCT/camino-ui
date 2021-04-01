@@ -9,7 +9,7 @@ import {
 import router from '../router'
 
 export const state = {
-  current: null,
+  element: null,
   metas: {
     referencesTypes: [],
     domaines: []
@@ -54,12 +54,12 @@ export const actions = {
     }
   },
 
-  async titreAdd({ commit, dispatch }, titre) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreAdd', { root: true })
-
+  async add({ commit, dispatch }, titre) {
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'titreAdd', { root: true })
+
       const data = await titreCreer({ titre })
 
       commit('popupClose', null, { root: true })
@@ -79,12 +79,12 @@ export const actions = {
     }
   },
 
-  async titreUpdate({ commit, dispatch }, titre) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreUpdate', { root: true })
-
+  async update({ commit, dispatch }, titre) {
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'totreUpdate', { root: true })
+
       const data = await titreModifier({ titre })
 
       commit('popupClose', null, { root: true })
@@ -97,16 +97,16 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreUpdate', { root: true })
+      commit('loadingRemove', 'totreUpdate', { root: true })
     }
   },
 
-  async titreRemove({ commit, dispatch }, id) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreRemove', { root: true })
-
+  async remove({ commit, dispatch }, id) {
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'titreRemove', { root: true })
+
       await titreSupprimer({ id })
 
       commit('popupClose', null, { root: true })
@@ -129,11 +129,11 @@ export const actions = {
 
 export const mutations = {
   set(state, titre) {
-    state.current = titre
+    state.element = titre
   },
 
   reset(state) {
-    state.current = null
+    state.element = null
   },
 
   metasSet(state, data) {

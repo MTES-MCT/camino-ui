@@ -108,13 +108,13 @@ export default {
     },
 
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     }
   },
 
   created() {
     document.addEventListener('keyup', this.keyup)
-    this.current = null
+    this.element = null
   },
 
   beforeUnmount() {

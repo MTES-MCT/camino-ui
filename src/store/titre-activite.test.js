@@ -16,7 +16,7 @@ describe("état d'une activité", () => {
   let actions
 
   beforeEach(() => {
-    titreActivite.state = { current: null, opened: false }
+    titreActivite.state = { element: null, opened: false }
 
     actions = {
       reload: jest.fn(),
@@ -39,7 +39,7 @@ describe("état d'une activité", () => {
         titreActivite,
         titre: {
           namespaced: true,
-          state: { current: { id: 5 } },
+          state: { element: { id: 5 } },
           mutations: { open: jest.fn() }
         }
       },
@@ -69,7 +69,7 @@ describe("état d'une activité", () => {
 
   test('valide une activité sur une activité', async () => {
     api.activiteModifier.mockResolvedValue({ statut: { id: 'dep' } })
-    titreActivite.state.current = { id: 'activite-id' }
+    titreActivite.state.element = { id: 'activite-id' }
 
     await store.dispatch('titreActivite/update', {
       activite: {
@@ -134,7 +134,7 @@ describe("état d'une activité", () => {
 
     await store.dispatch('titreActivite/get', 27)
 
-    expect(store.state.titreActivite.current).toEqual({
+    expect(store.state.titreActivite.element).toEqual({
       id: 27,
       contenu: [],
       statut: { id: 'dep' }
@@ -165,7 +165,7 @@ describe("état d'une activité", () => {
     store.commit('titreActivite/set', { id: 71, nom: 'toto' })
     store.commit('titreActivite/reset')
 
-    expect(store.state.titreActivite.current).toBeNull()
+    expect(store.state.titreActivite.element).toBeNull()
   })
 
   test("ouvre et ferme l'activité", () => {

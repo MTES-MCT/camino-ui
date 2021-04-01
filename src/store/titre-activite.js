@@ -5,7 +5,7 @@ import {
 } from '../api/titres-activites'
 
 export const state = {
-  current: null,
+  element: null,
   opened: false
 }
 
@@ -112,11 +112,11 @@ export const actions = {
 
 export const mutations = {
   set(state, entreprise) {
-    state.current = entreprise
+    state.element = entreprise
   },
 
   reset(state) {
-    state.current = null
+    state.element = null
   },
 
   open(state) {

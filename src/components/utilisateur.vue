@@ -183,11 +183,11 @@ export default {
 
   computed: {
     utilisateur() {
-      return this.$store.state.utilisateur.current
+      return this.$store.state.utilisateur.element
     },
 
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     loaded() {
@@ -197,8 +197,11 @@ export default {
 
   watch: {
     user: 'get',
-    '$route.params.id': async function () {
-      await this.get()
+
+    '$route.params.id': function (id) {
+      if (id) {
+        this.get()
+      }
     }
   },
 

@@ -102,7 +102,7 @@ describe("état d'une activité", () => {
       modules: { titresActivites },
       mutations,
       actions,
-      state: { titre: { current: { id: 5 } } }
+      state: { titre: { element: { id: 5 } } }
     })
 
     const app = createApp({})
