@@ -11,7 +11,7 @@ import {
 } from '../api/titres-etapes'
 import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
 
-export const state = {
+const state = {
   element: null,
   metas: {
     etapesTypes: [],
@@ -23,7 +23,7 @@ export const state = {
   }
 }
 
-export const actions = {
+const actions = {
   async init({ commit }, { titreDemarcheId, id, date }) {
     try {
       commit('loadingAdd', 'titreEtapeInit', { root: true })
@@ -120,7 +120,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, { etape, titreDemarcheId }) {
     const e = etapeEditFormat(etape, titreDemarcheId)
     state.element = e

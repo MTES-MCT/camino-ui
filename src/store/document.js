@@ -5,14 +5,14 @@ import {
   documentSupprimer
 } from '../api/documents'
 
-export const state = {
+const state = {
   metas: {
     documentsTypes: [],
     documentsVisibilites: []
   }
 }
 
-export const actions = {
+const actions = {
   async init({ commit }, options) {
     try {
       commit('loadingAdd', 'documentInit', { root: true })
@@ -119,7 +119,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       state.metas[id] = data[id]

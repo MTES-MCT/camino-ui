@@ -1,8 +1,9 @@
 import { urlQueryParamsGet } from '../utils/url'
 import { titresMetas, titresGeo, titres, titresGeoPolygon } from '../api/titres'
 import { paramsBuild } from '../utils/'
+import { listeMutations } from './_liste-build'
 
-export const state = {
+const state = {
   elements: [],
   total: 0,
   vueId: 'carte',
@@ -12,9 +13,9 @@ export const state = {
     statuts: []
   },
   definitions: [
-    { id: 'typesIds', type: 'strings', elements: [] },
-    { id: 'domainesIds', type: 'strings', elements: [] },
-    { id: 'statutsIds', type: 'strings', elements: [] },
+    { id: 'typesIds', type: 'strings', values: [] },
+    { id: 'domainesIds', type: 'strings', values: [] },
+    { id: 'statutsIds', type: 'strings', values: [] },
     { id: 'substances', type: 'string' },
     { id: 'noms', type: 'string' },
     { id: 'entreprises', type: 'string' },
@@ -25,7 +26,7 @@ export const state = {
     {
       id: 'colonne',
       type: 'string',
-      elements: [
+      values: [
         'nom',
         'domaine',
         'type',
@@ -39,14 +40,14 @@ export const state = {
     {
       id: 'ordre',
       type: 'string',
-      elements: ['asc', 'desc']
+      values: ['asc', 'desc']
     },
     { id: 'perimetre', type: 'numbers' }
   ],
   urlDefinitions: [
     { id: 'zoom', type: 'number', min: 1, max: 18 },
     { id: 'centre', type: 'tuple' },
-    { id: 'vueId', type: 'string', elements: ['carte', 'table'] }
+    { id: 'vueId', type: 'string', values: ['carte', 'table'] }
   ],
   params: {
     table: { page: 1, intervalle: 200, ordre: 'asc', colonne: 'nom' },
@@ -65,7 +66,7 @@ export const state = {
   initialized: false
 }
 
-export const actions = {
+const actions = {
   async init({ state, commit, dispatch }) {
     try {
       commit('loadingAdd', 'titresInit', { root: true })
@@ -81,7 +82,7 @@ export const actions = {
       }
 
       if (state.vueId === 'table') {
-        dispatch('get')
+        await dispatch('get')
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -93,7 +94,6 @@ export const actions = {
   async get({ state, dispatch, commit }) {
     try {
       commit('loadingAdd', 'titres', { root: true })
-
       if (!state.initialized) return
 
       await dispatch('urlQueryUpdate')
@@ -155,7 +155,6 @@ export const actions = {
 
     commit('set', { elements: [], total: 0 })
     commit('vueSet', vueId)
-
     // vueId est 'carte'
     // le composant `map.vue` émet un event `perimetre`
     // qui met à jour les préférences utilisateurs
@@ -224,10 +223,7 @@ export const actions = {
     )
 
     if (Object.keys(filtresParams).length) {
-      commit('paramsSet', {
-        section: 'filtres',
-        params: filtresParams
-      })
+      commit('paramsSet', { section: 'filtres', params: filtresParams })
       hasChanged = true
     }
 
@@ -255,61 +251,31 @@ export const actions = {
   }
 }
 
-export const mutations = {
-  init(state) {
-    state.initialized = true
-  },
-
-  reset(state) {
-    state.elements = []
-    state.total = 0
-    state.initialized = false
-  },
-
-  set(state, { elements, total }) {
-    state.elements = elements
-    state.total = total
-  },
-
+const mutations = Object.assign({}, listeMutations, {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      let paramsIds
-      let metaId
+      let paramId
       if (id === 'types') {
-        metaId = id
-        paramsIds = ['typesIds']
+        paramId = 'typesIds'
       } else if (id === 'domaines') {
-        metaId = id
-        paramsIds = ['domainesIds']
+        paramId = 'domainesIds'
       } else if (id === 'statuts') {
-        metaId = id
-        paramsIds = ['statutsIds']
+        paramId = 'statutsIds'
       }
 
-      if (metaId) {
+      if (paramId) {
         state.metas[id] = data[id]
+        const definition = state.definitions.find(p => p.id === paramId)
+
+        definition.values = data[id].map(e => e.id)
       }
-
-      if (paramsIds) {
-        paramsIds.forEach(paramId => {
-          const param = state.definitions.find(p => p.id === paramId)
-
-          param.elements = data[id].map(e => e.id)
-        })
-      }
-    })
-  },
-
-  paramsSet(state, { section, params }) {
-    Object.keys(params).forEach(id => {
-      state.params[section][id] = params[id]
     })
   },
 
   vueSet(state, vueId) {
     state.vueId = vueId
   }
-}
+})
 
 export default {
   namespaced: true,

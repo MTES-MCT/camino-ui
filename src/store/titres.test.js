@@ -53,9 +53,9 @@ describe('liste des titres', () => {
         }
       },
       definitions: [
-        { id: 'typesIds', type: 'strings' },
-        { id: 'domainesIds', type: 'strings' },
-        { id: 'statutsIds', type: 'strings' },
+        { id: 'typesIds', type: 'strings', values: [] },
+        { id: 'domainesIds', type: 'strings', values: [] },
+        { id: 'statutsIds', type: 'strings', values: [] },
         { id: 'substances', type: 'string' },
         { id: 'noms', type: 'string' },
         { id: 'entreprises', type: 'string' },
@@ -66,18 +66,18 @@ describe('liste des titres', () => {
         {
           id: 'colonne',
           type: 'string',
-          elements: ['nom', 'domaine', 'type', 'statut', 'activitesTotal']
+          values: ['nom', 'domaine', 'type', 'statut', 'activitesTotal']
         },
         {
           id: 'ordre',
           type: 'string',
-          elements: ['asc', 'desc']
+          values: ['asc', 'desc']
         }
       ],
       urlDefinitions: [
         { id: 'zoom', type: 'number', min: 1, max: 18 },
         { id: 'centre', type: 'tuple' },
-        { id: 'vueId', type: 'string', elements: ['carte', 'table'] }
+        { id: 'vueId', type: 'string', values: ['carte', 'table'] }
       ],
       initialized: false
     }
@@ -94,6 +94,7 @@ describe('liste des titres', () => {
     }
 
     route = {
+      namespaced: true,
       state: {
         query: {}
       }
@@ -110,7 +111,7 @@ describe('liste des titres', () => {
   })
 
   test('initialise le composant', async () => {
-    const apiMock = api.titresMetas.mockResolvedValue({
+    const apiMetasMock = api.titresMetas.mockResolvedValue({
       domaines: [
         { id: 'w', nom: 'granulats' },
         { id: 'c', nom: 'carrières' }
@@ -126,9 +127,15 @@ describe('liste des titres', () => {
       truc: [{ id: 'id-truc' }]
     })
 
+    const apiMock = api.titres.mockResolvedValue({
+      elements: [{ id: 'titre-id', nom: 'Nom du titre' }],
+      total: 1
+    })
+
     await store.dispatch('titres/init')
 
-    expect(apiMock).toHaveBeenCalled()
+    expect(apiMetasMock).toHaveBeenCalled()
+    expect(apiMock).not.toHaveBeenCalled()
     expect(store.state.titres.metas).toEqual({
       domaines: [
         { id: 'w', nom: 'granulats' },
@@ -143,8 +150,19 @@ describe('liste des titres', () => {
         { id: 'afa', nom: '` faire`' }
       ]
     })
+
     expect(mutations.loadingRemove).toHaveBeenCalled()
     expect(store.state.titres.initialized).toBeTruthy()
+
+    store.state.titres.vueId = 'table'
+
+    await store.dispatch('titres/init')
+
+    expect(apiMock).toHaveBeenCalled()
+
+    expect(store.state.titres.elements).toEqual([
+      { id: 'titre-id', nom: 'Nom du titre' }
+    ])
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {
@@ -243,6 +261,84 @@ describe('liste des titres', () => {
     })
 
     expect(actions.apiError).toHaveBeenCalled()
+  })
+
+  test('change la vue et recharges les titres', async () => {
+    const apiTableMock = api.titres.mockResolvedValue({
+      elements: [{ id: 'titre-id', nom: 'Nom du titre' }],
+      total: 1
+    })
+    const apiGeoMock = api.titresGeo.mockResolvedValue({
+      elements: [{ id: 'titre-id-geo', nom: 'Nom du titre' }],
+      total: 1
+    })
+
+    store.state.titres.elements = [{ id: 'titre-id-init', nom: 'Nom du titre' }]
+
+    await store.dispatch('titres/vueSet', 'carte')
+
+    expect(store.state.titres.elements).toEqual([
+      { id: 'titre-id-init', nom: 'Nom du titre' }
+    ])
+
+    store.state.titres.initialized = true
+
+    await store.dispatch('titres/vueSet', 'table')
+
+    expect(apiTableMock).toHaveBeenCalled()
+    expect(store.state.titres.vueId).toEqual('table')
+
+    expect(store.state.titres.elements).toEqual([
+      { id: 'titre-id', nom: 'Nom du titre' }
+    ])
+
+    await store.dispatch('titres/vueSet', 'carte')
+
+    expect(apiGeoMock).not.toHaveBeenCalled()
+    expect(store.state.titres.vueId).toEqual('carte')
+    expect(store.state.titres.elements).toEqual([])
+  })
+
+  test("met à jour la liste si les paramètres d'url changent", async () => {
+    const apiTableMock = api.titres.mockResolvedValue({
+      elements: [{ id: 'titre-id-table', nom: 'Nom du titre' }],
+      total: 1
+    })
+    const apiGeoMock = api.titresGeo.mockResolvedValue({
+      elements: [{ id: 'titre-id-geo', nom: 'Nom du titre' }],
+      total: 1
+    })
+
+    await store.dispatch('titres/routeUpdate')
+
+    expect(apiTableMock).not.toHaveBeenCalled()
+    expect(store.state.titres.elements).toEqual([])
+
+    store.state.titres.initialized = true
+    route.state.query.vueId = 'table'
+    route.state.query.page = '4'
+    route.state.query.typesIds = 'cx'
+    await store.dispatch('titres/routeUpdate')
+
+    expect(apiTableMock).toHaveBeenCalled()
+
+    expect(store.state.titres.elements).toEqual([
+      { id: 'titre-id-table', nom: 'Nom du titre' }
+    ])
+
+    expect(store.state.titres.params.table.page).toEqual(4)
+
+    await store.dispatch('titres/routeUpdate')
+
+    route.state.query.vueId = 'carte'
+    route.state.query.zoom = 2
+    await store.dispatch('titres/routeUpdate')
+
+    expect(apiGeoMock).toHaveBeenCalled()
+
+    expect(store.state.titres.elements).toEqual([
+      { id: 'titre-id-geo', nom: 'Nom du titre' }
+    ])
   })
 
   test('initialise les paramètres de filtre', async () => {

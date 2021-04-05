@@ -23,12 +23,12 @@ const definitionsIndex = {
   'titres-types': titresTypesTypes
 }
 
-export const state = {
+const state = {
   elements: [],
   entrees: []
 }
 
-export const actions = {
+const actions = {
   async get({ dispatch, commit }) {
     commit('loadingAdd', 'definitions', { root: true })
 
@@ -61,7 +61,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, data) {
     state.elements = data
   },

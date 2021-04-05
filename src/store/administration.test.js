@@ -1,7 +1,7 @@
 import administration from './administration'
 import { createApp } from 'vue'
-import * as api from '../api/administrations'
 import { createStore } from 'vuex'
+import * as api from '../api/administrations'
 
 jest.mock('../api/administrations', () => ({
   administration: jest.fn(),

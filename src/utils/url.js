@@ -11,11 +11,11 @@ const valueClean = (value, definition) => {
 
   if (
     (definition.type === 'strings' || definition.type === 'numbers') &&
-    definition.elements
+    definition.values
   ) {
     value = value
       .reduce((acc, v) => {
-        if (definition.elements.includes(v)) {
+        if (definition.values.includes(v)) {
           acc.push(v)
         }
 
@@ -31,7 +31,7 @@ const valueClean = (value, definition) => {
   }
 
   if (definition.type === 'string') {
-    return definition.elements && !definition.elements.includes(value)
+    return definition.values && !definition.values.includes(value)
       ? null
       : value
   }

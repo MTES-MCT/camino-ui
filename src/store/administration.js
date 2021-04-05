@@ -9,7 +9,7 @@ import {
   administrationPermissionsMetas
 } from '../api/administrations'
 
-export const state = {
+const state = {
   element: null,
   metas: {
     types: [],
@@ -21,7 +21,7 @@ export const state = {
   }
 }
 
-export const actions = {
+const actions = {
   async init({ commit }) {
     commit('loadingAdd', 'administrationInit', { root: true })
 
@@ -215,7 +215,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       if (id === 'administrationsTypes') {

@@ -11,7 +11,7 @@ import {
 
 import router from '../router'
 
-export const state = {
+const state = {
   element: null,
   metas: {
     permissions: [],
@@ -20,7 +20,7 @@ export const state = {
   }
 }
 
-export const actions = {
+const actions = {
   async init({ commit }) {
     commit('loadingAdd', 'utilisateurInit', { root: true })
 
@@ -226,7 +226,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, utilisateur) {
     state.element = utilisateur
   },

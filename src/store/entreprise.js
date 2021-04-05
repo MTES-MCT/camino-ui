@@ -6,11 +6,11 @@ import {
 
 import router from '../router'
 
-export const state = {
+const state = {
   element: null
 }
 
-export const actions = {
+const actions = {
   async get({ commit, dispatch }, id) {
     commit('loadingAdd', 'entrepriseGet', { root: true })
     try {
@@ -76,7 +76,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, entreprise) {
     state.element = entreprise
   },

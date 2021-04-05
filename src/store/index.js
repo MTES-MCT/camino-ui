@@ -54,7 +54,7 @@ const modules = {
   definitions
 }
 
-export const state = {
+const state = {
   config: {},
   messages: [],
   popup: { component: null, props: null, messages: [], loading: false },
@@ -63,7 +63,7 @@ export const state = {
   loading: []
 }
 
-export const actions = {
+const actions = {
   apiError({ commit }, error) {
     const id = Date.now()
     commit('messageAdd', {
@@ -95,7 +95,9 @@ export const actions = {
   messageAdd({ commit }, message) {
     const id = Date.now()
     message.id = id
+
     commit('messageAdd', message)
+
     setTimeout(() => {
       commit('messageRemove', id)
     }, 4500)
@@ -178,7 +180,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   messageAdd(state, message) {
     state.messages.push(message)
   },
@@ -243,6 +245,8 @@ export const mutations = {
     }
   }
 }
+
+export { state, actions, mutations }
 
 export default createStore({
   state,

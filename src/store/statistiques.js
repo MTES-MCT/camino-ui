@@ -4,13 +4,13 @@ import {
   statistiquesGranulatsMarins
 } from '../api/statistiques'
 
-export const state = {
+const state = {
   globales: {},
   guyane: {},
   granulatsMarins: {}
 }
 
-export const actions = {
+const actions = {
   async get({ commit, dispatch }, section) {
     try {
       commit('loadingAdd', 'statistiquesGet', { root: true })
@@ -33,7 +33,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, { section, data }) {
     state[section] = data
   }

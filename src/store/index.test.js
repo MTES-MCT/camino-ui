@@ -50,12 +50,15 @@ describe("état général de l'application", () => {
     modules = {
       titre: {
         namespaced: true,
-        state: {
-          element: null
-        },
-
+        state: { element: null },
         actions: {
           get: jest.fn()
+        }
+      },
+      route: {
+        namespaced: true,
+        state: {
+          query: {}
         }
       }
     }
@@ -237,6 +240,36 @@ describe("état général de l'application", () => {
     await store.dispatch('reload', { name: 'titres' })
 
     expect(router.push).toHaveBeenCalled()
+  })
+
+  test("met à jour les paramètres d'url", async () => {
+    await store.dispatch('urlQueryUpdate', {
+      params: { typesIds: null },
+      definitions: [{ id: 'typesIds', type: 'strings', elements: [] }]
+    })
+
+    expect(router.push).not.toHaveBeenCalled()
+    expect(router.replace).not.toHaveBeenCalled()
+
+    await store.dispatch('urlQueryUpdate', {
+      params: { typesIds: ['pr', 'ar'] },
+      definitions: [{ id: 'typesIds', type: 'strings', elements: [] }]
+    })
+
+    expect(router.replace).toHaveBeenCalledWith({
+      query: { typesIds: 'pr,ar' }
+    })
+
+    store.state.route.query.typesIds = 'pr,ar'
+
+    await store.dispatch('urlQueryUpdate', {
+      params: { typesIds: ['cx'] },
+      definitions: [{ id: 'typesIds', type: 'strings', elements: [] }]
+    })
+
+    expect(router.push).toHaveBeenCalledWith({
+      query: { typesIds: 'cx' }
+    })
   })
 })
 

@@ -4,13 +4,13 @@ import {
   etapeJustificatifDissocier
 } from '../api/titres-etapes'
 
-export const state = {
+const state = {
   metas: {
     entreprises: []
   }
 }
 
-export const actions = {
+const actions = {
   async init({ commit }, id) {
     commit('loadingAdd', 'titreEtapeJustificatifsInit', { root: true })
 
@@ -89,7 +89,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   metasSet(state, data) {
     state.metas.entreprises = data.elements
   }

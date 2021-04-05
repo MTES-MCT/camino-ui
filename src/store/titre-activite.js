@@ -4,12 +4,12 @@ import {
   activiteSupprimer
 } from '../api/titres-activites'
 
-export const state = {
+const state = {
   element: null,
   opened: false
 }
 
-export const actions = {
+const actions = {
   async get({ commit, dispatch }, id) {
     commit('loadingAdd', 'activiteGet', { root: true })
 
@@ -110,7 +110,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, entreprise) {
     state.element = entreprise
   },

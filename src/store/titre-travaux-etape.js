@@ -5,14 +5,14 @@ import {
   travauxEtapeSupprimer
 } from '../api/titres-travaux-etapes'
 
-export const state = {
+const state = {
   element: null,
   metas: {
     etapesTypes: []
   }
 }
 
-export const actions = {
+const actions = {
   async init({ commit }, etape) {
     commit('loadingAdd', 'titreTravauxEtapeInit', { root: true })
 
@@ -96,7 +96,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       state.metas[id] = data[id]

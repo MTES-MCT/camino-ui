@@ -14,7 +14,7 @@ import tiles from '../utils/map-tiles'
 
 import router from '../router'
 
-export const state = {
+const state = {
   element: null,
   metas: {
     domaines: [],
@@ -29,7 +29,7 @@ export const state = {
   }
 }
 
-export const actions = {
+const actions = {
   async init({ commit, dispatch }) {
     commit('loadingAdd', 'userInit', { root: true })
 
@@ -269,7 +269,7 @@ export const actions = {
   }
 }
 
-export const getters = {
+const getters = {
   tilesActive(state) {
     return state.metas.tiles.find(
       ({ id }) => id === state.preferences.carte.tilesId
@@ -295,7 +295,7 @@ export const getters = {
   }
 }
 
-export const mutations = {
+const mutations = {
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
       state.preferences[section][id] = params[id]

@@ -8,7 +8,7 @@ import {
 
 import router from '../router'
 
-export const state = {
+const state = {
   element: null,
   metas: {
     referencesTypes: [],
@@ -21,7 +21,7 @@ export const state = {
   }
 }
 
-export const actions = {
+const actions = {
   async init({ commit }) {
     commit('loadingAdd', 'titreInit', { root: true })
 
@@ -127,7 +127,7 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, titre) {
     state.element = titre
   },

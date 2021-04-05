@@ -1,6 +1,6 @@
 import metasIndex from './metas-definitions'
 
-export const state = {
+const state = {
   total: 0,
   params: [
     { id: 'colonne', type: 'string', elements: ['id', 'nom'] },
@@ -11,13 +11,13 @@ export const state = {
   }
 }
 
-export const actions = {
+const actions = {
   async paramsSet({ commit }, { section, params }) {
     commit('paramsSet', { section, params })
   }
 }
 
-export const getters = {
+const getters = {
   elements(state) {
     const elements = Object.keys(metasIndex).map(id => ({
       id,
@@ -30,7 +30,7 @@ export const getters = {
   }
 }
 
-export const mutations = {
+const mutations = {
   reset(state) {
     state.elements = []
     state.total = 0
