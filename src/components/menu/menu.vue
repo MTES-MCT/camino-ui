@@ -10,7 +10,6 @@
                 id="cmn-menu-menu-a-titres"
                 :to="{ name: 'titres' }"
                 class="btn-menu text-decoration-none bold"
-                @click="eventTrack('titres')"
               >
                 Titres miniers et autorisations
               </router-link>
@@ -24,7 +23,6 @@
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'demarches' }"
                 class="btn-menu text-decoration-none bold"
-                @click="eventTrack('demarches')"
               >
                 Démarches
               </router-link>
@@ -40,7 +38,6 @@
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'activites' }"
                 class="btn-menu text-decoration-none bold"
-                @click="eventTrack('activites')"
               >
                 Activités
               </router-link>
@@ -56,7 +53,6 @@
                 id="cmn-menu-menu-a-administrations"
                 :to="{ name: 'administrations' }"
                 class="btn-menu text-decoration-none bold"
-                @click="eventTrack('administrations')"
               >
                 Administrations
               </router-link>
@@ -68,7 +64,6 @@
                 id="cmn-menu-menu-a-entreprises"
                 :to="{ name: 'entreprises' }"
                 class="btn-menu text-decoration-none bold"
-                @click="eventTrack('entreprises')"
               >
                 Entreprises
               </router-link>
@@ -80,7 +75,6 @@
                 id="cmn-menu-menu-a-utilisateurs"
                 :to="{ name: 'utilisateurs' }"
                 class="btn-menu text-decoration-none bold"
-                @click="eventTrack('utilisateurs')"
               >
                 Utilisateurs
               </router-link>
@@ -96,7 +90,6 @@
                 id="cmn-menu-menu-a-glossaire"
                 :to="{ name: 'glossaire' }"
                 class="btn-menu text-decoration-none bold"
-                @click="eventTrack('glossaire')"
               >
                 Glossaire
               </router-link>
@@ -112,7 +105,6 @@
                 id="cmn-menu-menu-a-statistiques"
                 :to="{ name: 'statistiques' }"
                 class="btn-menu text-decoration-none bold"
-                @click="eventTrack('statistiques')"
               >
                 Statistiques
               </router-link>
@@ -124,7 +116,6 @@
                 id="cmn-menu-menu-a-metas"
                 :to="{ name: 'metas' }"
                 class="btn-menu text-decoration-none bold"
-                @click="eventTrack('metas')"
               >
                 Métas
               </router-link>
@@ -152,14 +143,6 @@ export default {
 
     menu() {
       return this.$store.state.menu
-    }
-  },
-
-  methods: {
-    eventTrack(id) {
-      if (this.$matomo) {
-        this.$matomo.trackEvent('menu-sections', 'menu-section', id)
-      }
     }
   }
 }
