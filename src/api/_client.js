@@ -7,6 +7,7 @@ import 'cross-fetch/polyfill'
 import { fragmentUtilisateurToken } from './fragments/utilisateur'
 
 const graphql = new GraphQL()
+const apiUrl = '/apiUrl'
 
 const errorThrow = e => {
   const errorMessage = `API : ${e.message || e.status}`
@@ -15,9 +16,15 @@ const errorThrow = e => {
   throw errorMessage
 }
 
-const restCall = async (url, path) => {
+const authorizationGet = () => {
   const token = localStorage.getItem('accessToken')
   const authorization = token ? `Bearer ${token}` : ''
+
+  return authorization
+}
+
+const restCall = async (url, path) => {
+  const authorization = authorizationGet()
 
   const res = await fetch(`${url}/${path}`, {
     method: 'GET',
@@ -32,8 +39,7 @@ const restCall = async (url, path) => {
 }
 
 const graphQLCall = async (url, query, variables) => {
-  const token = localStorage.getItem('accessToken')
-  const authorization = token ? `Bearer ${token}` : ''
+  const authorization = authorizationGet()
 
   const res = await graphql.operate({
     operation: { query: print(query), variables },
@@ -58,21 +64,7 @@ const graphQLCall = async (url, query, variables) => {
   return dataContent
 }
 
-let apiUrl
-const apiUrlInit = async () => {
-  if (import.meta.env.PROD) {
-    const res = await fetch('/apiUrl');
-    apiUrl = await res.text();
-  } else {
-    apiUrl = import.meta.env.VITE_API_URL;
-  }
-}
-
 const apiFetch = async (call, query, variables) => {
-  if (!apiUrl) {
-    await apiUrlInit()
-  }
-
   try {
     return await call(apiUrl, query, variables)
   } catch (e) {
@@ -117,4 +109,4 @@ const tokenRefresh = async () => {
   }
 }
 
-export { apiGraphQLFetch, apiRestFetch, apiUrlInit }
+export { apiGraphQLFetch, apiRestFetch }
