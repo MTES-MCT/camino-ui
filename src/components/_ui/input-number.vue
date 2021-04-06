@@ -5,6 +5,7 @@
     pattern="([0-9]{1,3}[\s]?)*([.,][0-9]*)?"
     class="p-s text-right"
     @blur="textToNumberFormat($event.target)"
+    @keyup.enter="textToNumberFormat($event.target)"
   />
 </template>
 
