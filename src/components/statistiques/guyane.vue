@@ -36,7 +36,7 @@
                     typesIds: 'ar',
                     statutsIds: 'val,mod',
                     territoires: 'guyane',
-                    vue: 'table'
+                    vueId: 'table'
                   }
                 }"
               >
@@ -58,7 +58,7 @@
                     typesIds: 'pr',
                     statutsIds: 'val,mod',
                     territoires: 'guyane',
-                    vue: 'table'
+                    vueId: 'table'
                   }
                 }"
               >
@@ -95,7 +95,7 @@
                     typesIds: 'ax',
                     statutsIds: 'val,mod',
                     territoires: 'guyane',
-                    vue: 'table'
+                    vueId: 'table'
                   }
                 }"
               >
@@ -117,7 +117,7 @@
                     typesIds: 'px',
                     statutsIds: 'val,mod',
                     territoires: 'guyane',
-                    vue: 'table'
+                    vueId: 'table'
                   }
                 }"
               >
@@ -139,7 +139,7 @@
                     typesIds: 'cx',
                     statutsIds: 'val,mod',
                     territoires: 'guyane',
-                    vue: 'table'
+                    vueId: 'table'
                   }
                 }"
               >

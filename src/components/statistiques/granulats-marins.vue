@@ -48,7 +48,7 @@
                     domainesIds: 'w',
                     typesIds: 'ar,ap,pr',
                     statutsIds: 'dmi,mod',
-                    vue: 'table'
+                    vueId: 'table'
                   }
                 }"
               >
@@ -69,7 +69,7 @@
                     domainesIds: 'w',
                     typesIds: 'pr',
                     statutsIds: 'val',
-                    vue: 'table'
+                    vueId: 'table'
                   }
                 }"
               >
@@ -121,7 +121,7 @@
                     domainesIds: 'w',
                     typesIds: 'ax,cx,px',
                     statutsIds: 'dmi,mod',
-                    vue: 'table'
+                    vueId: 'table'
                   }
                 }"
               >
@@ -147,7 +147,7 @@
                     domainesIds: 'w',
                     typesIds: 'cx',
                     statutsIds: 'val',
-                    vue: 'table'
+                    vueId: 'table'
                   }
                 }"
               >
