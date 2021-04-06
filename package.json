@@ -109,7 +109,7 @@
     "vue": "^3.0.9",
     "vue-jest": "^5.0.0-alpha.8",
     "vue-meta": "^2.4.0",
-    "vue-router": "^4.0.5",
+    "vue-router": "^4.0.6",
     "vuex": "^4.0.0",
     "vuex-router-sync": "^6.0.0-rc.1"
   },
