@@ -1,5 +1,7 @@
 import gql from 'graphql-tag'
 
+import { apiGraphQLFetch, apiRestFetch } from './_client.js'
+
 jest.mock('./fragments/utilisateur', () => ({
   fragmentUtilisateurToken: gql`
     fragment utilisateurToken on UtilisateurToken {
@@ -22,11 +24,9 @@ describe('api client', () => {
   beforeEach(() => {
     delete window.location
     window.location = { reload: jest.fn() }
-    // permet de réinitialiser la variable globale apiUrl
-    jest.resetModules()
     localStorage.setItem('accessToken', 'access_token')
     localStorage.setItem('refreshToken', 'refresh_token')
-    process.env.NODE_ENV = 'production';
+    process.env.NODE_ENV = 'production'
   })
 
   afterEach(() => {
@@ -34,37 +34,27 @@ describe('api client', () => {
   })
 
   test('une réponse 200 du serveur ne génère pas d’erreur', async () => {
-    // réimporte totalement le module client pour réinitialiser la variable globale apiUrl
-    const client = require('./_client')
+    fetch.mockResponseOnce(JSON.stringify({ data: { key: 'value' } }), {
+      status: 200
+    })
 
-    fetch
-      .mockResponseOnce('http://apiurl')
-      .mockResponseOnce(JSON.stringify({ data: {} }), { status: 200 })
-
-    await client.apiGraphQLFetch(
-      gql`
-        query fakeQuery {
-          toto {
-            id
-          }
+    const res = await apiGraphQLFetch(gql`
+      query fakeQuery {
+        toto {
+          id
         }
-      `
-    )()
+      }
+    `)()
 
-    expect(window.location.reload).not.toHaveBeenCalled()
+    expect(res).toEqual('value')
   })
 
   test('une réponse 404 du serveur génère une erreur', async () => {
-    // réimporte totalement le module client pour réinitialiser la variable globale apiUrl
-    const client = require('./_client')
-
-    fetch
-      .mockResponseOnce('http://apiurl')
-      .mockResponse(JSON.stringify({ data: {} }), { status: 404 })
+    fetch.mockResponse(JSON.stringify({ data: {} }), { status: 404 })
 
     let error
     try {
-      await client.apiGraphQLFetch(
+      await apiGraphQLFetch(
         gql`
           query fakeQuery {
             toto {
@@ -82,11 +72,8 @@ describe('api client', () => {
   })
 
   test('une réponse 401 lance le rafraichissement du access token', async () => {
-    const client = require('./_client')
-
     const newAccessToken = 'new_access_token'
     fetch
-      .mockResponseOnce('http://apiurl')
       .mockResponseOnce(JSON.stringify({ data: {} }), { status: 401 })
       .mockResponseOnce(
         JSON.stringify({ data: { data: { accessToken: newAccessToken } } }),
@@ -94,7 +81,7 @@ describe('api client', () => {
       )
       .mockResponseOnce(JSON.stringify({ data: {} }), { status: 200 })
 
-    await client.apiGraphQLFetch(
+    await apiGraphQLFetch(
       gql`
         query fakeQuery {
           toto {
@@ -109,15 +96,11 @@ describe('api client', () => {
   })
 
   test('si le refreshToken n’est plus valide, on actualise la page', async () => {
-    const client = require('./_client')
-
-    fetch
-      .mockResponseOnce('http://apiurl')
-      .mockResponse(JSON.stringify({ data: {} }), { status: 401 })
+    fetch.mockResponse(JSON.stringify({ data: {} }), { status: 401 })
 
     let error
     try {
-      await client.apiGraphQLFetch(
+      await apiGraphQLFetch(
         gql`
           query fakeQuery {
             toto {
@@ -135,27 +118,19 @@ describe('api client', () => {
   })
 
   test('un appel REST avec une réponse 200 ne fait pas d’erreur', async () => {
-    const client = require('./_client')
+    fetch.mockResponse(JSON.stringify({ data: {} }), { status: 200 })
 
-    fetch
-      .mockResponseOnce('http://apiurl')
-      .mockResponse(JSON.stringify({ data: {} }), { status: 200 })
-
-    await client.apiRestFetch('path')
+    await apiRestFetch('path')
 
     expect(window.location.reload).not.toHaveBeenCalled()
   })
 
   test('un appel REST avec une réponse 404 fait une erreur', async () => {
-    const client = require('./_client')
-
-    fetch
-      .mockResponseOnce('http://apiurl')
-      .mockResponse(JSON.stringify({ data: {} }), { status: 404 })
+    fetch.mockResponse(JSON.stringify({ data: {} }), { status: 404 })
 
     let error
     try {
-      await client.apiRestFetch('path')
+      await apiRestFetch('path')
     } catch (e) {
       error = e
     }
