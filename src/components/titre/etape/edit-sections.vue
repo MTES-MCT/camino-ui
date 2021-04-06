@@ -16,7 +16,11 @@
 </template>
 
 <script>
-import { elementContenuBuild, contenuBuild } from '../../../utils/contenu'
+import {
+  elementContenuBuild,
+  contenuBuild,
+  contenuCompleteCheck
+} from '../../../utils/contenu'
 import EditSectionElement from './edit-section-element.vue'
 
 export default {
@@ -28,6 +32,7 @@ export default {
     sections: { type: Array, required: true },
     etape: { type: Object, required: true }
   },
+  emits: ['complete-update'],
 
   data() {
     return {
@@ -35,17 +40,27 @@ export default {
     }
   },
 
+  computed: {
+    complete() {
+      return contenuCompleteCheck(this.sections, this.contenu)
+    }
+  },
   watch: {
     contenu: {
-      handler: function(contenu) {
+      handler: function (contenu) {
         this.etape.contenu = elementContenuBuild(this.sections, contenu)
       },
       deep: true
+    },
+
+    complete: function (complete) {
+      this.$emit('complete-update', complete)
     }
   },
 
   created() {
     this.contenu = contenuBuild(this.sections, this.etape.contenu)
+    this.$emit('complete-update', this.complete)
   }
 }
 </script>
