@@ -70,7 +70,11 @@
           </button>
         </div>
         <div class="tablet-blob-2-3">
-          <button class="btn-flash rnd-xs p-s full-x" @click="save">
+          <button
+            ref="save-button"
+            class="btn-flash rnd-xs p-s full-x"
+            @click="save"
+          >
             Enregistrer
           </button>
         </div>
@@ -136,6 +140,7 @@ export default {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
+        this.$refs['save-button'].focus()
         this.save()
       }
     },

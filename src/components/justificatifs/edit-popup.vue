@@ -77,6 +77,7 @@
         </div>
         <div class="tablet-blob-2-3">
           <button
+            ref="save-button"
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!documentsTotal"
             @click="save"
@@ -155,11 +156,13 @@ export default {
     },
 
     async save() {
-      await this.$store.dispatch('titreEtapeJustificatifs/link', {
-        id: this.id,
-        documentsIds: this.documents.ids,
-        context: this.context
-      })
+      if (this.documentsTotal) {
+        await this.$store.dispatch('titreEtapeJustificatifs/link', {
+          id: this.id,
+          documentsIds: this.documents.ids,
+          context: this.context
+        })
+      }
     },
 
     cancel() {
@@ -171,7 +174,10 @@ export default {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
-        this.save()
+        if (this.documentsTotal) {
+          this.$refs['save-button'].focus()
+          this.save()
+        }
       }
     },
 

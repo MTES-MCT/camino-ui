@@ -114,6 +114,7 @@
         </div>
         <div class="tablet-blob-2-3">
           <button
+            ref="save-button"
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!complete"
             :class="{ disabled: !complete }"
@@ -197,22 +198,24 @@ export default {
     },
 
     async save() {
-      const titre = JSON.parse(JSON.stringify(this.titre))
-      titre.references = titre.references.filter(reference => {
-        return reference.nom
-      })
+      if (this.complete) {
+        const titre = JSON.parse(JSON.stringify(this.titre))
+        titre.references = titre.references.filter(reference => {
+          return reference.nom
+        })
 
-      if (this.creation) {
-        await this.$store.dispatch('titre/add', titre)
-      } else {
-        await this.$store.dispatch('titre/update', titre)
+        if (this.creation) {
+          await this.$store.dispatch('titre/add', titre)
+        } else {
+          await this.$store.dispatch('titre/update', titre)
+        }
+
+        this.eventTrack({
+          categorie: 'titre-sections',
+          action: 'titre-enregistrer',
+          nom: titre.id
+        })
       }
-
-      this.eventTrack({
-        categorie: 'titre-sections',
-        action: 'titre-enregistrer',
-        nom: titre.id
-      })
     },
 
     cancel() {
@@ -225,6 +228,7 @@ export default {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
         if (this.complete) {
+          this.$refs['save-button'].focus()
           this.save()
         }
       }
