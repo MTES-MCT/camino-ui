@@ -1,20 +1,18 @@
-import Vue from 'vue'
-
 import {
   etapeJustificatifsAssocier,
   etapeEntreprises,
   etapeJustificatifDissocier
 } from '../api/titres-etapes'
 
-export const state = {
+const state = {
   metas: {
     entreprises: []
   }
 }
 
-export const actions = {
-  async metasGet({ commit }, id) {
-    commit('loadingAdd', 'titreEtapeJustificatifsMetasGet', { root: true })
+const actions = {
+  async init({ commit }, id) {
+    commit('loadingAdd', 'titreEtapeJustificatifsInit', { root: true })
 
     try {
       const data = await etapeEntreprises({
@@ -26,7 +24,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreEtapeJustificatifsMetasGet', {
+      commit('loadingRemove', 'titreEtapeJustificatifsInit', {
         root: true
       })
     }
@@ -91,9 +89,9 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   metasSet(state, data) {
-    Vue.set(state.metas, 'entreprises', data.elements)
+    state.metas.entreprises = data.elements
   }
 }
 

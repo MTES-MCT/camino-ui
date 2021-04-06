@@ -1,26 +1,24 @@
 <template>
-  <liste
+  <Liste
     nom="administrations"
     :filtres="filtres"
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="administrations"
-    :preferences="preferences"
-    :metas="metas"
     :params="params"
+    :metas="metas"
     :total="total"
-    :metas-loaded="metasLoaded"
-    @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
+    :initialized="initialized"
+    @params-update="paramsUpdate"
   >
-    <Downloads
-      v-if="administrations.length"
-      slot="downloads"
-      :formats="['csv', 'xlsx', 'ods']"
-      section="administrations"
-      class="flex-right full-x"
-    />
-  </liste>
+    <template v-if="administrations.length" #downloads>
+      <Downloads
+        :formats="['csv', 'xlsx', 'ods']"
+        section="administrations"
+        class="flex-right full-x"
+      />
+    </template>
+  </Liste>
 </template>
 
 <script>
@@ -47,61 +45,59 @@ export default {
 
   computed: {
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     administrations() {
-      return this.$store.state.administrations.list
+      return this.$store.state.administrations.elements
     },
 
     total() {
       return this.$store.state.administrations.total
     },
 
-    preferences() {
-      return this.$store.state.administrations.preferences
+    params() {
+      return this.$store.state.administrations.params
     },
 
     metas() {
       return this.$store.state.administrations.metas
     },
 
-    params() {
-      return this.$store.state.administrations.params
-    },
-
     lignes() {
       return administrationsLignesBuild(this.administrations)
     },
 
-    metasLoaded() {
-      return this.$store.state.administrations.loaded.metas
+    initialized() {
+      return this.$store.state.administrations.initialized
     }
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'init',
+
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('administrations/routeUpdate')
+      }
+    }
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('administrations/reset')
   },
 
   methods: {
-    async metasGet() {
-      await this.$store.dispatch('administrations/metasGet')
+    async init() {
+      await this.$store.dispatch('administrations/init')
     },
 
-    urlLoad() {
-      this.$store.dispatch('administrations/urlLoad')
-    },
-
-    async preferencesUpdate(options) {
-      await this.$store.dispatch(`administrations/preferencesSet`, options)
+    async paramsUpdate(options) {
+      await this.$store.dispatch(`administrations/paramsSet`, options)
     }
   }
 }

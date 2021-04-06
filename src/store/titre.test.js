@@ -1,7 +1,7 @@
 import titre from './titre'
 import * as api from '../api/titres'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../router', () => ({
   push: () => {}
@@ -17,9 +17,6 @@ jest.mock('../api/titres', () => ({
 
 console.info = jest.fn()
 
-const localVue = createLocalVue()
-localVue.use(Vuex)
-
 describe('état du titre sélectionné', () => {
   let store
   let actions
@@ -27,7 +24,7 @@ describe('état du titre sélectionné', () => {
 
   beforeEach(() => {
     titre.state = {
-      current: null,
+      element: null,
       metas: {
         referencesTypes: [],
         domaines: []
@@ -38,12 +35,14 @@ describe('état du titre sélectionné', () => {
         travaux: {}
       }
     }
+
     actions = {
       pageError: jest.fn(),
       apiError: jest.fn(),
       reload: jest.fn(),
       messageAdd: jest.fn()
     }
+
     mutations = {
       loadingAdd: jest.fn(),
       loadingRemove: jest.fn(),
@@ -52,11 +51,15 @@ describe('état du titre sélectionné', () => {
       popupClose: jest.fn(),
       popupMessageAdd: jest.fn()
     }
-    store = new Vuex.Store({
+
+    store = createStore({
       modules: { titre },
       actions,
       mutations
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les métas pour éditer un titre', async () => {
@@ -65,7 +68,7 @@ describe('état du titre sélectionné', () => {
       { id: 'dge', nom: 'DGEC' }
     ])
 
-    await store.dispatch('titre/metasGet')
+    await store.dispatch('titre/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titre.metas.referencesTypes).toEqual([
@@ -80,7 +83,7 @@ describe('état du titre sélectionné', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('titre/metasGet')
+    await store.dispatch('titre/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -92,7 +95,7 @@ describe('état du titre sélectionné', () => {
     await store.dispatch('titre/get', 83)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 83 })
-    expect(store.state.titre.current).toEqual({ id: 83, nom: 'marne' })
+    expect(store.state.titre.element).toEqual({ id: 83, nom: 'marne' })
   })
 
   test("affiche une page d'erreur si l'id du titre retourne null", async () => {
@@ -107,29 +110,28 @@ describe('état du titre sélectionné', () => {
     api.titre.mockRejectedValue(new Error("erreur de l'api"))
     await store.dispatch('titre/get', 83)
 
-    expect(store.state.titre.current).toEqual(null)
+    expect(store.state.titre.element).toEqual(null)
     expect(actions.apiError).toHaveBeenCalled()
-    expect(console.info).toHaveBeenCalled()
   })
 
   test('crée un titre', async () => {
     api.titreCreer.mockResolvedValue({ id: 83, nom: 'marne' })
-    await store.dispatch('titre/titreAdd', { id: 83, nom: 'marne' })
+    await store.dispatch('titre/add', { id: 83, nom: 'marne' })
 
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la création dun titre", async () => {
     api.titreCreer.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('titre/titreAdd', { id: 83, nom: 'marne' })
+    await store.dispatch('titre/add', { id: 83, nom: 'marne' })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('met à jour un titre', async () => {
-    store = new Vuex.Store({ modules: { titre }, actions, mutations })
+    store = createStore({ modules: { titre }, actions, mutations })
     api.titreModifier.mockResolvedValue({ id: 83, nom: 'marne' })
-    await store.dispatch('titre/titreUpdate', { id: 83, nom: 'marne' })
+    await store.dispatch('titre/update', { id: 83, nom: 'marne' })
 
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(actions.reload).toHaveBeenCalled()
@@ -137,14 +139,14 @@ describe('état du titre sélectionné', () => {
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'un titre", async () => {
     api.titreModifier.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('titre/titreUpdate', { id: 83, nom: 'marne' })
+    await store.dispatch('titre/update', { id: 83, nom: 'marne' })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('supprime un titre', async () => {
     const apiMock = api.titreSupprimer.mockResolvedValue(true)
-    await store.dispatch('titre/titreRemove', 83)
+    await store.dispatch('titre/remove', 83)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 83 })
   })
@@ -153,7 +155,7 @@ describe('état du titre sélectionné', () => {
     const apiMock = api.titreSupprimer.mockRejectedValue(
       new Error("error de l'api")
     )
-    await store.dispatch('titre/titreRemove', 83)
+    await store.dispatch('titre/remove', 83)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 83 })
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
@@ -163,7 +165,7 @@ describe('état du titre sélectionné', () => {
     store.commit('titre/set', 83)
     store.commit('titre/reset')
 
-    expect(store.state.titre.current).toBeNull()
+    expect(store.state.titre.element).toBeNull()
   })
 
   test('ouvre et ferme une section', () => {

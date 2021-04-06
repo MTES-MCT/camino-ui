@@ -40,12 +40,12 @@
               </td>
               <td>
                 <span class="h6 mb-0">{{
-                  demarche.phase.dateDebut | dateFormat
+                  dateFormat(demarche.phase.dateDebut)
                 }}</span>
               </td>
               <td>
                 <span class="h6 mb-0">{{
-                  demarche.phase.dateFin | dateFormat
+                  dateFormat(demarche.phase.dateFin)
                 }}</span>
               </td>
             </tr>
@@ -119,6 +119,7 @@ import TagList from '../_ui/tag-list.vue'
 import Dot from '../_ui/dot.vue'
 import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
+import { dateFormat } from '@/utils'
 
 export default {
   components: { Pill, Dot, TagList, Section, Statut, Tag },
@@ -147,6 +148,12 @@ export default {
           )
         )
       )
+    }
+  },
+
+  methods: {
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }

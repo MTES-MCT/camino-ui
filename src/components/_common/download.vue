@@ -23,6 +23,8 @@ export default {
     }
   },
 
+  emits: ['clicked'],
+
   computed: {
     params() {
       return { format: this.format, ...this.$route.query }

@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import { etapeEditFormat } from '../utils/titre-etape-edit'
 import { etapeSaveFormat } from '../utils/titre-etape-save'
 
@@ -12,8 +11,8 @@ import {
 } from '../api/titres-etapes'
 import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
 
-export const state = {
-  current: null,
+const state = {
+  element: null,
   metas: {
     etapesTypes: [],
     devises: [],
@@ -24,10 +23,10 @@ export const state = {
   }
 }
 
-export const actions = {
-  async metasGet({ commit }, { titreDemarcheId, id, date }) {
+const actions = {
+  async init({ commit }, { titreDemarcheId, id, date }) {
     try {
-      commit('loadingAdd', 'titreEtapeMetasGet', { root: true })
+      commit('loadingAdd', 'titreEtapeInit', { root: true })
 
       let newEtape
 
@@ -45,7 +44,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreEtapeMetasGet', { root: true })
+      commit('loadingRemove', 'titreEtapeInit', { root: true })
     }
   },
 
@@ -54,7 +53,7 @@ export const actions = {
       commit('loadingAdd', 'titreEtapeHeritageGet', { root: true })
       const data = await etapeHeritage({
         titreDemarcheId,
-        date: state.current.date ? state.current.date : date,
+        date: state.element.date ? state.element.date : date,
         typeId
       })
 
@@ -121,25 +120,25 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, { etape, titreDemarcheId }) {
     const e = etapeEditFormat(etape, titreDemarcheId)
-    Vue.set(state, 'current', e)
+    state.element = e
   },
 
   heritageSet(state, { etape, titreDemarcheId }) {
     const apiEtape = etapeEditFormat(etape, titreDemarcheId)
-    const newEtape = etapeHeritageBuild(state.current, apiEtape)
+    const newEtape = etapeHeritageBuild(state.element, apiEtape)
 
-    Vue.set(state, 'current', newEtape)
+    state.element = newEtape
   },
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       if (id === 'entreprises') {
-        Vue.set(state.metas, id, data[id].elements)
+        state.metas[id] = data[id].elements
       } else {
-        Vue.set(state.metas, id, data[id])
+        state.metas[id] = data[id]
       }
     })
   }

@@ -23,7 +23,7 @@
     <EditPointReference
       v-for="geoSysteme in geoSystemes"
       :key="`${point.id}-${geoSysteme.id}`"
-      :point-references.sync="point.references"
+      v-model:point-references="point.references"
       :geo-systeme="geoSysteme"
       :geo-systeme-opposable-id="geoSystemeOpposableId"
     />

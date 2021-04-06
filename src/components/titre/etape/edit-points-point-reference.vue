@@ -17,7 +17,7 @@
     <div class="mb tablet-blob-1-3">
       <h6>X ({{ geoSysteme.unite.nom }})</h6>
       <inputNumber
-        v-model.trim.number="pointReference[0]"
+        v-model="pointReference[0]"
         :negative="true"
         placeholder="0,01"
       />
@@ -25,7 +25,7 @@
     <div class="mb tablet-blob-1-3">
       <h6>Y ({{ geoSysteme.unite.nom }})</h6>
       <inputNumber
-        v-model.trim.number="pointReference[1]"
+        v-model="pointReference[1]"
         :negative="true"
         placeholder="0,01"
       />

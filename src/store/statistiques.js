@@ -1,17 +1,16 @@
-import Vue from 'vue'
 import {
   statistiquesGlobales,
   statistiquesGuyane,
   statistiquesGranulatsMarins
 } from '../api/statistiques'
 
-export const state = {
+const state = {
   globales: {},
   guyane: {},
   granulatsMarins: {}
 }
 
-export const actions = {
+const actions = {
   async get({ commit, dispatch }, section) {
     try {
       commit('loadingAdd', 'statistiquesGet', { root: true })
@@ -28,16 +27,15 @@ export const actions = {
       commit('set', { section: section, data })
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'statistiquesGet', { root: true })
     }
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, { section, data }) {
-    Vue.set(state, section, data)
+    state[section] = data
   }
 }
 

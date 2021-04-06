@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   demarcheMetas,
   demarcheCreer,
@@ -7,15 +5,15 @@ import {
   demarcheSupprimer
 } from '../api/titres-demarches'
 
-export const state = {
+const state = {
   metas: {
     types: []
   }
 }
 
-export const actions = {
-  async metasGet({ commit }, demarche) {
-    commit('loadingAdd', 'titreDemarcheMetasGet', { root: true })
+const actions = {
+  async init({ commit }, demarche) {
+    commit('loadingAdd', 'titreDemarcheInit', { root: true })
 
     try {
       const data = await demarcheMetas(demarche)
@@ -24,7 +22,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemarcheMetasGet', { root: true })
+      commit('loadingRemove', 'titreDemarcheInit', { root: true })
     }
   },
 
@@ -95,10 +93,10 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      state.metas[id] = data[id]
     })
   }
 }

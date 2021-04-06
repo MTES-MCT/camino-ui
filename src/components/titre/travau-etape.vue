@@ -1,8 +1,15 @@
 <template>
-  <Accordion :opened="opened" class="mb-s" @close="close" @toggle="toggle">
+  <Accordion
+    :opened="opened"
+    class="mb-s"
+    :slot-default="true"
+    :slot-buttons="true"
+    @close="close"
+    @toggle="toggle"
+  >
     <template #title>
       <h6>
-        {{ etape.date | dateFormat }}
+        {{ dateFormat(etape.date) }}
       </h6>
       <h3 class="cap-first mb-s">
         {{ etape.type.nom }}
@@ -89,6 +96,7 @@ import Documents from '../documents/list.vue'
 import EtapeProps from './etape/props.vue'
 
 import { etapeEditFormat } from './travau-etape'
+import { dateFormat } from '@/utils'
 
 const cap = string => string[0].toUpperCase() + string.slice(1)
 
@@ -110,6 +118,8 @@ export default {
     travauxId: { type: String, default: '' }
   },
 
+  emits: ['titre-event-track'],
+
   data() {
     return {
       documentRepertoire: 'travaux'
@@ -118,7 +128,7 @@ export default {
 
   computed: {
     titre() {
-      return this.$store.state.titre.current
+      return this.$store.state.titre.element
     },
 
     opened() {
@@ -190,7 +200,7 @@ export default {
         component: EditPopup,
         props: {
           etape,
-          domaineId: this.$store.state.titre.current.domaine.id,
+          domaineId: this.$store.state.titre.element.domaine.id,
           travauxType: this.travauxType,
           titreNom: this.titre.nom
         }
@@ -211,7 +221,7 @@ export default {
           etapeId: this.etape.id,
           travauxTypeNom: this.travauxType.nom,
           titreNom: this.titre.nom,
-          titreType: this.$store.state.titre.current.type.nom
+          titreType: this.$store.state.titre.element.type.nom
         }
       })
 
@@ -224,6 +234,10 @@ export default {
 
     eventTrack(event) {
       this.$emit('titre-event-track', event)
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }

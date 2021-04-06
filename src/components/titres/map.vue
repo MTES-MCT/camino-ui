@@ -1,6 +1,6 @@
 <template>
   <div class="width-full bg-alt">
-    <Map
+    <Mapo
       ref="map"
       :tiles-layer="tilesLayer"
       :geojson-layers="geojsonLayers"
@@ -77,18 +77,18 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Map from '../_map/index.vue'
+import { nextTick } from 'vue'
+import Mapo from '../_map/index.vue'
 import MapTilesSelector from '../_map/tiles-selector.vue'
 import MapWarningBrgm from '../_map/warning-brgm.vue'
 import MapPattern from '../_map/pattern.vue'
-import { tilesBuild } from '../_map/map.js'
-import { zones, clustersBuild, layersBuild, geojsonBoundsGet } from './map.js'
+import { leafletTilesBuild, leafletGeojsonBoundsGet } from '../_map/leaflet.js'
+import { zones, clustersBuild, layersBuild } from './map.js'
 
 export default {
   components: {
     MapWarningBrgm,
-    Map,
+    Mapo,
     MapTilesSelector,
     MapPattern
   },
@@ -112,7 +112,7 @@ export default {
     tilesLayer() {
       const tiles = this.$store.getters['user/tilesActive']
 
-      return tilesBuild(tiles)
+      return leafletTilesBuild(tiles)
     },
 
     markerLayersId() {
@@ -140,7 +140,7 @@ export default {
     },
 
     bounds() {
-      return geojsonBoundsGet(this.zone)
+      return leafletGeojsonBoundsGet(this.zone)
     },
 
     domaines() {
@@ -164,7 +164,7 @@ export default {
     },
 
     preferences() {
-      return this.$store.state.titres.preferences.carte
+      return this.$store.state.titres.params.carte
     }
   },
 
@@ -180,7 +180,7 @@ export default {
     window.addEventListener('popstate', this.popState)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     window.removeEventListener('popstate', this.popState)
   },
 
@@ -225,7 +225,7 @@ export default {
           delete params.bbox
         }
 
-        this.$store.dispatch('titres/preferencesSet', {
+        this.$store.dispatch('titres/paramsSet', {
           section: 'carte',
           params
         })
@@ -234,7 +234,7 @@ export default {
 
     userPreferencesUpdate(params) {
       this.eventTrack()
-      this.$store.dispatch('user/preferencesSet', {
+      this.$store.dispatch('user/paramsSet', {
         section: 'carte',
         params
       })
@@ -251,7 +251,7 @@ export default {
     async mapFrame() {
       const params = { perimetre: [-180, -90, 180, 90] }
 
-      await this.$store.dispatch('titres/preferencesSet', {
+      await this.$store.dispatch('titres/paramsSet', {
         section: 'carte',
         params
       })
@@ -274,7 +274,7 @@ export default {
     },
 
     geojsonLayersDisplay() {
-      Vue.nextTick(() => {
+      nextTick(() => {
         this.geojsonLayers = []
         this.markers.forEach(marker => {
           if (

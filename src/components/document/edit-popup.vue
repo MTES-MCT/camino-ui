@@ -36,7 +36,7 @@
 
     <hr />
 
-    <EditSections :document.sync="document" :repertoire="repertoire" />
+    <EditSections v-model:document="document" :repertoire="repertoire" />
 
     <template #footer>
       <div class="tablet-blobs">
@@ -106,7 +106,7 @@ export default {
     await this.get()
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyUp)
   },
 
@@ -116,7 +116,7 @@ export default {
       if (this.parentTypeId) {
         options.typeId = this.parentTypeId
       }
-      await this.$store.dispatch('document/metasGet', options)
+      await this.$store.dispatch('document/init', options)
     },
 
     async save() {

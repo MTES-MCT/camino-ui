@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   travauxMetas,
   travauxCreer,
@@ -7,15 +5,15 @@ import {
   travauxSupprimer
 } from '../api/titres-travaux'
 
-export const state = {
+const state = {
   metas: {
     types: []
   }
 }
 
-export const actions = {
-  async metasGet({ commit }, travaux) {
-    commit('loadingAdd', 'travauxMetasGet', { root: true })
+const actions = {
+  async init({ commit }, travaux) {
+    commit('loadingAdd', 'travauxInit', { root: true })
 
     try {
       const data = await travauxMetas(travaux)
@@ -24,7 +22,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'travauxMetasGet', { root: true })
+      commit('loadingRemove', 'travauxInit', { root: true })
     }
   },
 
@@ -97,10 +95,10 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      state.metas[id] = data[id]
     })
   }
 }

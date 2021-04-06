@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div v-else-if="!metasLoaded"><p>Chargement en cours…</p></div>
+    <div v-else-if="!initialized"><p>Chargement en cours…</p></div>
 
     <div v-else>
       <div class="tablet-blobs">
@@ -89,26 +89,26 @@
 
         <EtapeEditFondamentales
           v-if="etapeType.fondamentale"
-          :etape.sync="etape"
+          v-model:etape="etape"
           :domaine-id="domaineId"
         />
 
         <EtapeEditPoints
           v-if="etapeType.fondamentale"
-          :etape.sync="etape"
-          :events.sync="events"
+          v-model:etape="etape"
+          v-model:events="events"
         />
 
         <EditSections
           v-if="etapeType.sections"
+          v-model:etape="etape"
           :sections="etapeType.sections"
-          :etape.sync="etape"
         />
       </div>
 
       <div v-if="etapeType.documentsTypes && documentsTypes.length">
         <DocumentsEdit
-          :documents.sync="etape.documents"
+          v-model:documents="etape.documents"
           :parent-id="etape.id"
           :parent-type-id="etapeType.id"
           :documents-types="documentsTypes"
@@ -131,7 +131,7 @@
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!newDate"
             :class="{ disabled: !newDate }"
-            @click="metasGet"
+            @click="init"
           >
             Valider
           </button>
@@ -184,7 +184,7 @@ export default {
     return {
       events: { saveKeyUp: true },
       newDate: new Date().toISOString().slice(0, 10),
-      metasLoaded: false,
+      initialized: false,
       heritageLoaded: false,
       documentsComplete: false
     }
@@ -206,7 +206,7 @@ export default {
     },
 
     etape() {
-      return this.$store.state.titreEtape.current
+      return this.$store.state.titreEtape.element
     },
 
     etapeType() {
@@ -218,7 +218,7 @@ export default {
     },
 
     dateIsVisible() {
-      return !this.etapeId && !this.metasLoaded
+      return !this.etapeId && !this.initialized
     },
 
     documentsTypes() {
@@ -242,25 +242,25 @@ export default {
     document.addEventListener('keyup', this.keyUp)
 
     if (this.etapeId) {
-      this.metasGet()
+      this.init()
 
       this.heritageLoaded = true
     }
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyUp)
   },
 
   methods: {
-    async metasGet() {
-      await this.$store.dispatch('titreEtape/metasGet', {
+    async init() {
+      await this.$store.dispatch('titreEtape/init', {
         titreDemarcheId: this.demarcheId,
         id: this.etapeId,
         date: this.newDate
       })
 
-      this.metasLoaded = true
+      this.initialized = true
     },
 
     async heritageGet() {
@@ -297,7 +297,7 @@ export default {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13 && this.events.saveKeyUp) {
         if (this.dateIsVisible && this.newDate) {
-          this.metasGet()
+          this.init()
         } else if (this.complete) {
           this.save()
         }

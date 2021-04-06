@@ -4,10 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="<%= webpackConfig.output.publicPath %>favicon.ico"
-    />
+    <link rel="shortcut icon" href="./favicon.ico" />
     <title>Camino | le cadastre minier numérique ouvert</title>
   </head>
 
@@ -39,7 +36,7 @@
         </li>
       </ul>
     </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <app-root></app-root>
+    <script type="module" src="/main.js"></script>
   </body>
 </html>

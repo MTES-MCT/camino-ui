@@ -226,7 +226,7 @@
                   class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
-                      !titreTypeTitreStatutNew.titreStatutId
+                    !titreTypeTitreStatutNew.titreStatutId
                   "
                   @click="
                     titreTypeTitreStatutNew.titresModificationInterdit = !titreTypeTitreStatutNew.titresModificationInterdit
@@ -244,7 +244,7 @@
                   class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
-                      !titreTypeTitreStatutNew.titreStatutId
+                    !titreTypeTitreStatutNew.titreStatutId
                   "
                   @click="
                     titreTypeTitreStatutNew.demarchesModificationInterdit = !titreTypeTitreStatutNew.demarchesModificationInterdit
@@ -262,7 +262,7 @@
                   class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeTitreStatutNew.titreTypeTypeId ||
-                      !titreTypeTitreStatutNew.titreStatutId
+                    !titreTypeTitreStatutNew.titreStatutId
                   "
                   @click="
                     titreTypeTitreStatutNew.etapesModificationInterdit = !titreTypeTitreStatutNew.etapesModificationInterdit
@@ -381,9 +381,7 @@
           <b>modifier</b> et <b>créer</b> les étapes :
         </p>
         <ul class="list-prefix mb-s">
-          <li>
-            des titres dont l'administration est gestionnaire,
-          </li>
+          <li>des titres dont l'administration est gestionnaire,</li>
           <li>
             des titres auxquels l'administration est liée par la région ou le
             département.
@@ -458,7 +456,7 @@
                   class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
-                      !titreTypeEtapeTypeNew.etapeTypeId
+                    !titreTypeEtapeTypeNew.etapeTypeId
                   "
                   @click="
                     titreTypeEtapeTypeNew.lectureInterdit = !titreTypeEtapeTypeNew.lectureInterdit
@@ -476,7 +474,7 @@
                   class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
-                      !titreTypeEtapeTypeNew.etapeTypeId
+                    !titreTypeEtapeTypeNew.etapeTypeId
                   "
                   @click="
                     titreTypeEtapeTypeNew.modificationInterdit = !titreTypeEtapeTypeNew.modificationInterdit
@@ -494,7 +492,7 @@
                   class="btn p-s rnd-xs"
                   :disabled="
                     !titreTypeEtapeTypeNew.titreTypeTypeId ||
-                      !titreTypeEtapeTypeNew.etapeTypeId
+                    !titreTypeEtapeTypeNew.etapeTypeId
                   "
                   @click="
                     titreTypeEtapeTypeNew.creationInterdit = !titreTypeEtapeTypeNew.creationInterdit
@@ -640,7 +638,7 @@ export default {
 
   computed: {
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     domaines() {
@@ -732,7 +730,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('administration/permissionsMetasGet')
+      await this.$store.dispatch('administration/permissionsInit')
     },
 
     async titreTypeUpdate(titreTypeId, gestionnaire, associee, type) {
@@ -864,4 +862,5 @@ export default {
 }
 </script>
 
-<style></style>template
+<style></style>
+template

@@ -178,7 +178,7 @@ export default {
     },
 
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     loaded() {
@@ -193,7 +193,11 @@ export default {
   },
 
   watch: {
-    $route: 'get',
+    '$route.params.id': function (id) {
+      if (id) {
+        this.get()
+      }
+    },
 
     user: 'get'
   },
@@ -202,7 +206,7 @@ export default {
     this.get()
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.$store.commit('meta/reset')
   },
 

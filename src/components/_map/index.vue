@@ -1,7 +1,7 @@
 <template>
   <div id="map" ref="map">
     <div class="absolute pl-s pr-l py-xs map-loader">
-      <div class="h6">Zoom: {{ zoom }}</div>
+      <div class="small">Zoom: {{ zoom }}</div>
     </div>
   </div>
 </template>
@@ -13,7 +13,7 @@ import {
   leafletScaleAdd,
   leafletFeatureGroupGet,
   leafletCanvasLayerAdd
-} from './map.js'
+} from './leaflet.js'
 
 export default {
   props: {
@@ -22,6 +22,8 @@ export default {
     tilesLayer: { type: Object, default: () => leafletTileLayerDefault },
     canvasMarkers: { type: Array, default: () => [] }
   },
+
+  emits: ['map-update'],
 
   data() {
     return {

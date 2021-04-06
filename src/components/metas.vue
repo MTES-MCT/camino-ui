@@ -4,12 +4,10 @@
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="metas"
-    :preferences="preferences"
     :params="params"
     :total="metas.length"
-    :metas-loaded="true"
+    :initialized="true"
     @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
   >
   </liste>
 </template>
@@ -32,7 +30,7 @@ export default {
 
   computed: {
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     metas() {
@@ -51,8 +49,8 @@ export default {
       return metasLignesBuild(this.metas)
     },
 
-    metasLoaded() {
-      return this.$store.state.metas.loaded.metas
+    initialized() {
+      return this.$store.state.metas.initialized
     }
   },
 
@@ -64,7 +62,7 @@ export default {
     await this.init()
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('metas/reset')
   },
 
@@ -77,12 +75,8 @@ export default {
       }
     },
 
-    urlLoad() {
-      this.$store.dispatch('metas/urlLoad')
-    },
-
     async preferencesUpdate(options) {
-      await this.$store.dispatch(`metas/preferencesSet`, options)
+      await this.$store.dispatch(`metas/paramsSet`, options)
     }
   }
 }

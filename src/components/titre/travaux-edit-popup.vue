@@ -97,13 +97,13 @@ export default {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
     async get() {
-      await this.$store.dispatch('titreTravaux/metasGet', this.travaux)
+      await this.$store.dispatch('titreTravaux/init', this.travaux)
     },
 
     async save() {

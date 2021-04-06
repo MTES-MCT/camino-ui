@@ -13,7 +13,6 @@ COPY index.js ./
 COPY vue.config.js ./
 COPY babel.config.js ./
 COPY src src/
-COPY public public/
 RUN npm run build
 
 FROM node:14.15-alpine as production-stage

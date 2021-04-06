@@ -55,6 +55,8 @@ export default {
     pagination: { type: Boolean, default: true }
   },
 
+  emits: ['params-update'],
+
   computed: {
     pages() {
       return Math.ceil(this.total / this.range)

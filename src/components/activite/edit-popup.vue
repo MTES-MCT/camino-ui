@@ -25,7 +25,7 @@
     </div>
 
     <EditSections
-      :element.sync="activite"
+      v-model:element="activite"
       :modifiable="modifiable"
       :sections="activite.sections"
       @complete-update="activiteCompleteUpdate"
@@ -33,7 +33,7 @@
 
     <div v-if="activite.documentsCreation && activite.type.documentsTypes">
       <DocumentsEdit
-        :documents.sync="activite.documents"
+        v-model:documents="activite.documents"
         :modifiable="modifiable"
         :parent-id="activite.id"
         :parent-type-id="activite.type.id"
@@ -162,7 +162,7 @@ export default {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 

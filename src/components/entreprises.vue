@@ -1,36 +1,33 @@
 <template>
-  <liste
+  <Liste
     nom="entreprises"
     :filtres="filtres"
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="entreprises"
-    :preferences="preferences"
-    :metas="metas"
     :params="params"
     :total="total"
-    :metas-loaded="true"
-    @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
+    :initialized="true"
+    @params-update="paramsUpdate"
   >
-    <button
-      v-if="user && user.entreprisesCreation"
-      slot="addButton"
-      class="btn rnd-xs py-s px-m full-x flex mb-s h5"
-      @click="addPopupOpen"
-    >
-      <span class="mt-xxs">Ajouter une entreprise</span>
-      <i class="icon-24 icon-plus flex-right" />
-    </button>
+    <template v-if="user && user.entreprisesCreation" #addButton>
+      <button
+        class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+        @click="addPopupOpen"
+      >
+        <span class="mt-xxs">Ajouter une entreprise</span>
+        <i class="icon-24 icon-plus flex-right" />
+      </button>
+    </template>
 
-    <Downloads
-      v-if="entreprises.length"
-      slot="downloads"
-      :formats="['csv', 'xlsx', 'ods']"
-      section="entreprises"
-      class="flex-right full-x"
-    />
-  </liste>
+    <template v-if="entreprises.length" #downloads>
+      <Downloads
+        :formats="['csv', 'xlsx', 'ods']"
+        section="entreprises"
+        class="flex-right full-x"
+      />
+    </template>
+  </Liste>
 </template>
 
 <script>
@@ -59,23 +56,15 @@ export default {
 
   computed: {
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     entreprises() {
-      return this.$store.state.entreprises.list
+      return this.$store.state.entreprises.elements
     },
 
     total() {
       return this.$store.state.entreprises.total
-    },
-
-    preferences() {
-      return this.$store.state.entreprises.preferences
-    },
-
-    metas() {
-      return this.$store.state.entreprises.metas
     },
 
     params() {
@@ -87,17 +76,29 @@ export default {
     }
   },
 
-  destroyed() {
+  watch: {
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('entreprises/routeUpdate')
+      }
+    }
+  },
+
+  async created() {
+    await this.init()
+  },
+
+  unmounted() {
     this.$store.commit('entreprises/reset')
   },
 
   methods: {
-    urlLoad() {
-      this.$store.dispatch('entreprises/urlLoad')
+    async init() {
+      await this.$store.dispatch('entreprises/init')
     },
 
-    async preferencesUpdate(options) {
-      await this.$store.dispatch(`entreprises/preferencesSet`, options)
+    async paramsUpdate(options) {
+      await this.$store.dispatch(`entreprises/paramsSet`, options)
     },
 
     addPopupOpen() {

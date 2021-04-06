@@ -1,3 +1,4 @@
+import { markRaw } from '@vue/reactivity'
 import Nom from '../_common/nom.vue'
 import Statut from '../_common/statut.vue'
 import CaminoDomaine from '../_common/domaine.vue'
@@ -22,17 +23,17 @@ const demarchesLignesBuild = demarches =>
     const columns = {
       titreNom: { value: demarche.titre.nom },
       titreDomaine: {
-        component: CaminoDomaine,
+        component: markRaw(CaminoDomaine),
         props: { domaineId: demarche.titre.domaine.id },
         value: demarche.titre.domaine.id
       },
       titreType: {
-        component: Nom,
+        component: markRaw(Nom),
         props: { nom: demarche.titre.type.type.nom },
         value: demarche.titre.type.type.nom
       },
       titreStatut: {
-        component: Statut,
+        component: markRaw(Statut),
         props: {
           color: demarche.titre.statut.couleur,
           nom: demarche.titre.statut.nom
@@ -40,12 +41,12 @@ const demarchesLignesBuild = demarches =>
         value: demarche.titre.statut.nom
       },
       type: {
-        component: Nom,
+        component: markRaw(Nom),
         props: { nom: demarche.type.nom },
         value: demarche.type.nom
       },
       statut: {
-        component: Statut,
+        component: markRaw(Statut),
         props: {
           color: demarche.statut.couleur,
           nom: demarche.statut.nom
@@ -53,7 +54,7 @@ const demarchesLignesBuild = demarches =>
         value: demarche.statut.nom
       },
       references: {
-        component: List,
+        component: markRaw(List),
         props: {
           elements: demarche.titre.references.map(
             ref => `${ref.type.nom} : ${ref.nom}`

@@ -1,7 +1,7 @@
 import definitions from './definitions'
 import * as api from '../api/metas'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../api/metas', () => ({
   definitions: jest.fn(),
@@ -16,9 +16,6 @@ jest.mock('../api/metas', () => ({
 }))
 
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe('définitions du glossaire', () => {
   let store
@@ -44,11 +41,14 @@ describe('définitions du glossaire', () => {
       popupClose: jest.fn()
     }
 
-    store = new Vuex.Store({
+    store = createStore({
       modules: { definitions },
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les définitions', async () => {
@@ -146,7 +146,7 @@ describe('définitions du glossaire', () => {
     await store.dispatch('definitions/entreesGet', 'domaines')
 
     expect(apiMock).toHaveBeenCalled()
-    expect(console.info).toHaveBeenCalled()
+
     expect(actions.apiError).toHaveBeenCalled()
   })
 })

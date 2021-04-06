@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   documentMetas,
   documentCreer,
@@ -7,24 +5,24 @@ import {
   documentSupprimer
 } from '../api/documents'
 
-export const state = {
+const state = {
   metas: {
     documentsTypes: [],
     documentsVisibilites: []
   }
 }
 
-export const actions = {
-  async metasGet({ commit }, options) {
+const actions = {
+  async init({ commit }, options) {
     try {
-      commit('loadingAdd', 'documentMetasGet', { root: true })
+      commit('loadingAdd', 'documentInit', { root: true })
       const data = await documentMetas(options)
 
       commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'documentMetasGet', {
+      commit('loadingRemove', 'documentInit', {
         root: true
       })
     }
@@ -121,10 +119,10 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      state.metas[id] = data[id]
     })
   }
 }

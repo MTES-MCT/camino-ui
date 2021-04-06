@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   utilisateurMetas,
   utilisateur,
@@ -13,8 +11,8 @@ import {
 
 import router from '../router'
 
-export const state = {
-  current: null,
+const state = {
+  element: null,
   metas: {
     permissions: [],
     entreprises: [],
@@ -22,9 +20,9 @@ export const state = {
   }
 }
 
-export const actions = {
-  async metasGet({ commit }) {
-    commit('loadingAdd', 'utilisateurMetasGet', { root: true })
+const actions = {
+  async init({ commit }) {
+    commit('loadingAdd', 'utilisateurInit', { root: true })
 
     try {
       const data = await utilisateurMetas()
@@ -32,9 +30,8 @@ export const actions = {
       commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-      console.info(e)
     } finally {
-      commit('loadingRemove', 'utilisateurMetasGet', { root: true })
+      commit('loadingRemove', 'utilisateurInit', { root: true })
     }
   },
 
@@ -51,7 +48,6 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'utilisateur', { root: true })
     }
@@ -91,9 +87,11 @@ export const actions = {
       const data = await utilisateurModifier({ utilisateur })
 
       commit('popupClose', null, { root: true })
-      if (utilisateur.id === rootState.user.current.id) {
+
+      if (utilisateur.id === rootState.user.element.id) {
         commit('user/set', data, { root: true })
       }
+
       await dispatch(
         'reload',
         { name: 'utilisateur', id: data.id },
@@ -206,7 +204,7 @@ export const actions = {
     try {
       const data = await utilisateurSupprimer({ id })
 
-      if (rootState.user.current.id === data.id) {
+      if (rootState.user.element.id === data.id) {
         await dispatch('user/logout', null, { root: true })
       }
       commit('popupClose', null, { root: true })
@@ -228,21 +226,21 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, utilisateur) {
-    Vue.set(state, 'current', utilisateur)
+    state.element = utilisateur
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.element = null
   },
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       if (id === 'entreprises' || id === 'administrations') {
-        Vue.set(state.metas, id, data[id].elements)
+        state.metas[id] = data[id].elements
       } else {
-        Vue.set(state.metas, id, data[id])
+        state.metas[id] = data[id]
       }
     })
   }

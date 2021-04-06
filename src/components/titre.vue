@@ -16,11 +16,6 @@
     <div v-if="titre.geojsonMultiPolygon && titre.points">
       <div class="tablet-blobs tablet-flex-direction-reverse">
         <div class="tablet-blob-1-2 flex mb-s">
-          <TitreDownloadCsv
-            v-if="titre.points.length"
-            :titre="titre"
-            class="mr-s flex-right"
-          />
           <TitreDownloadGeojson v-if="titre.points.length" :titre="titre" />
         </div>
 
@@ -142,7 +137,6 @@ import TitreDemarches from './titre/demarches.vue'
 import TitreTravaux from './titre/travaux.vue'
 import TitreActivitesList from './activites/list.vue'
 import TitrePoints from './titre/points.vue'
-import TitreDownloadCsv from './titre/download-csv.vue'
 import TitreDownloadGeojson from './titre/download-geojson.vue'
 
 export default {
@@ -157,7 +151,6 @@ export default {
     TitreDemarches,
     TitreActivitesList,
     TitrePoints,
-    TitreDownloadCsv,
     TitreDownloadGeojson,
     TitreTravaux
   },
@@ -169,17 +162,18 @@ export default {
       geoTabs: [
         { id: 'carte', nom: 'Carte', icon: 'globe' },
         { id: 'points', nom: 'Points', icon: 'list' }
-      ]
+      ],
+      show: false
     }
   },
 
   computed: {
     titre() {
-      return this.$store.state.titre.current
+      return this.$store.state.titre.element
     },
 
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     loaded() {
@@ -202,14 +196,19 @@ export default {
   },
 
   watch: {
-    tabs: function(tabs) {
+    tabs: function (tabs) {
       const tabsActivesIds = tabs.map(({ id }) => id)
 
       if (!tabsActivesIds.includes(this.tabActiveId)) {
         this.tabActiveId = tabsActivesIds[0]
       }
     },
-    $route: 'get',
+
+    '$route.params.id': function (id) {
+      if (id) {
+        this.get()
+      }
+    },
 
     user: 'get'
   },
@@ -218,7 +217,7 @@ export default {
     await this.get()
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.$store.commit('titre/reset')
   },
 
@@ -231,7 +230,7 @@ export default {
       this.eventTrack({
         categorie: 'titre-sections',
         action: `titre-${tabId}_consulter`,
-        nom: this.$store.state.titre.current.id
+        nom: this.$store.state.titre.element.id
       })
 
       this.tabActiveId = tabId
@@ -241,7 +240,7 @@ export default {
       this.eventTrack({
         categorie: 'titre-sections',
         action: `titre-vue${tabId}_consulter`,
-        nom: this.$store.state.titre.current.id
+        nom: this.$store.state.titre.element.id
       })
 
       this.geoTabActiveId = tabId

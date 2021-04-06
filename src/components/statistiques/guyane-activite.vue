@@ -93,12 +93,19 @@
 </template>
 
 <script>
+import numberFormat from '@/utils/number-format'
 export default {
   name: 'IndicateursActiviteGuyane',
 
   props: {
     statistiqueGuyane: { type: Object, required: true },
     enConstruction: { type: Boolean, default: false }
+  },
+
+  methods: {
+    numberFormat(number) {
+      return numberFormat(number)
+    }
   }
 }
 </script>

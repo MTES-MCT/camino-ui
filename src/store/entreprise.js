@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   entreprise,
   entrepriseCreer,
@@ -8,11 +6,11 @@ import {
 
 import router from '../router'
 
-export const state = {
-  current: null
+const state = {
+  element: null
 }
 
-export const actions = {
+const actions = {
   async get({ commit, dispatch }, id) {
     commit('loadingAdd', 'entrepriseGet', { root: true })
     try {
@@ -25,7 +23,6 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'entrepriseGet', { root: true })
     }
@@ -79,13 +76,13 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, entreprise) {
-    Vue.set(state, 'current', entreprise)
+    state.element = entreprise
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.element = null
   }
 }
 

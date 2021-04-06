@@ -22,7 +22,7 @@
       </span>
     </td>
     <td class="nowrap">
-      {{ document.date | dateFormat }}
+      {{ dateFormat(document.date) }}
     </td>
     <td>{{ document.description || '–' }}</td>
     <td class="flex text-right">
@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { cloneAndClean } from '../../utils/index'
+import { cloneAndClean, dateFormat } from '../../utils/index'
 import Tag from '../_ui/tag.vue'
 import DocumentEditPopup from '../document/edit-popup.vue'
 import DocumentRemovePopup from '../document/remove-popup.vue'
@@ -184,6 +184,10 @@ export default {
           context: this.context
         }
       })
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }

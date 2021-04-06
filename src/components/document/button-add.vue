@@ -17,6 +17,8 @@ export default {
     title: { type: String, required: true }
   },
 
+  emits: ['titre-event-track'],
+
   methods: {
     addPopupOpen() {
       this.$store.commit('popupOpen', {

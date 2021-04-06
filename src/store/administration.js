@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import {
   administration,
   administrationMetas,
@@ -10,8 +9,8 @@ import {
   administrationPermissionsMetas
 } from '../api/administrations'
 
-export const state = {
-  current: null,
+const state = {
+  element: null,
   metas: {
     types: [],
     regions: [],
@@ -22,9 +21,9 @@ export const state = {
   }
 }
 
-export const actions = {
-  async metasGet({ commit }) {
-    commit('loadingAdd', 'administrationMetasGet', { root: true })
+const actions = {
+  async init({ commit }) {
+    commit('loadingAdd', 'administrationInit', { root: true })
 
     try {
       const data = await administrationMetas()
@@ -33,12 +32,12 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'administrationMetasGet', { root: true })
+      commit('loadingRemove', 'administrationInit', { root: true })
     }
   },
 
-  async permissionsMetasGet({ commit }) {
-    commit('loadingAdd', 'administrationPermissionsMetasGet', {
+  async permissionsInit({ commit }) {
+    commit('loadingAdd', 'administrationPermissionsInit', {
       root: true
     })
 
@@ -48,7 +47,7 @@ export const actions = {
     } catch (e) {
       commit('messageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'administrationPermissionsMetasGet', {
+      commit('loadingRemove', 'administrationPermissionsInit', {
         root: true
       })
     }
@@ -63,7 +62,6 @@ export const actions = {
       commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'administration', { root: true })
     }
@@ -217,25 +215,25 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       if (id === 'administrationsTypes') {
-        Vue.set(state.metas, 'types', data[id])
+        state.metas.types = data[id]
       } else if (id === 'statuts') {
-        Vue.set(state.metas, 'titresStatuts', data[id])
+        state.metas.titresStatuts = data[id]
       } else {
-        Vue.set(state.metas, id, data[id])
+        state.metas[id] = data[id]
       }
     })
   },
 
   set(state, administration) {
-    Vue.set(state, 'current', administration)
+    state.element = administration
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.element = null
   }
 }
 

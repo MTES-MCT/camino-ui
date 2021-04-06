@@ -61,11 +61,11 @@ describe('textNumberFormat et textToNumberFormat', () => {
 describe('permissionsCheck', () => {
   const cases = [
     [
-      { id: 'admin' },
+      { permission: { id: 'admin' } },
       ['admin', 'defaut', 'editeur', 'entreprise', 'lecteur', 'super'],
       true
     ],
-    [{ id: 'super' }, ['admin', 'super'], true]
+    [{ permission: { id: 'super' } }, ['admin', 'super'], true]
   ]
 
   test.each(cases)(

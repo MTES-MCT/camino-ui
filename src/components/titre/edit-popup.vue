@@ -123,9 +123,7 @@
           </button>
         </div>
       </div>
-      <div v-else class="p-s full-x bold">
-        Enregistrement en cours…
-      </div>
+      <div v-else class="p-s full-x bold">Enregistrement en cours…</div>
     </template>
   </Popup>
 </template>
@@ -189,13 +187,13 @@ export default {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
     async get() {
-      await this.$store.dispatch('titre/metasGet')
+      await this.$store.dispatch('titre/init')
     },
 
     async save() {
@@ -205,9 +203,9 @@ export default {
       })
 
       if (this.creation) {
-        await this.$store.dispatch('titre/titreAdd', titre)
+        await this.$store.dispatch('titre/add', titre)
       } else {
-        await this.$store.dispatch('titre/titreUpdate', titre)
+        await this.$store.dispatch('titre/update', titre)
       }
 
       this.eventTrack({

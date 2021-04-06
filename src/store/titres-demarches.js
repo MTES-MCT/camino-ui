@@ -1,11 +1,8 @@
-import Vue from 'vue'
-
 import { demarchesMetas, demarches } from '../api/titres-demarches'
+import { listeActionsBuild, listeMutations } from './_liste-build'
 
-import { paramsBuild } from '../utils/'
-
-export const state = {
-  list: [],
+const state = {
+  elements: [],
   total: 0,
   metas: {
     types: [],
@@ -15,14 +12,14 @@ export const state = {
     titresDomaines: [],
     titresStatuts: []
   },
-  params: [
-    { id: 'typesIds', type: 'strings', elements: [] },
-    { id: 'statutsIds', type: 'strings', elements: [] },
-    { id: 'etapesInclues', type: 'objects', elements: [] },
-    { id: 'etapesExclues', type: 'objects', elements: [] },
-    { id: 'titresDomainesIds', type: 'strings', elements: [] },
-    { id: 'titresTypesIds', type: 'strings', elements: [] },
-    { id: 'titresStatutsIds', type: 'strings', elements: [] },
+  definitions: [
+    { id: 'typesIds', type: 'strings', values: [] },
+    { id: 'statutsIds', type: 'strings', values: [] },
+    { id: 'etapesInclues', type: 'objects', values: [] },
+    { id: 'etapesExclues', type: 'objects', values: [] },
+    { id: 'titresDomainesIds', type: 'strings', values: [] },
+    { id: 'titresTypesIds', type: 'strings', values: [] },
+    { id: 'titresStatutsIds', type: 'strings', values: [] },
     { id: 'titresNoms', type: 'string' },
     { id: 'titresEntreprises', type: 'string' },
     { id: 'titresSubstances', type: 'string' },
@@ -33,7 +30,7 @@ export const state = {
     {
       id: 'colonne',
       type: 'string',
-      elements: [
+      values: [
         'titreNom',
         'titreDomaine',
         'titreType',
@@ -46,10 +43,10 @@ export const state = {
     {
       id: 'ordre',
       type: 'string',
-      elements: ['asc', 'desc']
+      values: ['asc', 'desc']
     }
   ],
-  preferences: {
+  params: {
     table: {
       page: 1,
       intervalle: 200,
@@ -71,101 +68,22 @@ export const state = {
       titresTerritoires: ''
     }
   },
-  loaded: {
-    metas: false,
-    url: false
-  }
+  initialized: false
 }
 
-export const actions = {
-  async metasGet({ state, commit }) {
-    try {
-      commit('loadingAdd', 'demarchesMetasGet', { root: true })
+const actions = listeActionsBuild(
+  'titresDemarches',
+  'démarches',
+  demarches,
+  demarchesMetas
+)
 
-      const data = await demarchesMetas()
-
-      commit('metasSet', data)
-
-      if (!state.loaded.metas) {
-        commit('load', 'metas')
-      }
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'demarchesMetasGet', { root: true })
-    }
-  },
-
-  async get({ state, dispatch, commit }) {
-    try {
-      commit('loadingAdd', 'demarches', { root: true })
-
-      const p = paramsBuild(
-        state.params,
-        Object.assign({}, state.preferences.filtres, state.preferences.table)
-      )
-
-      const data = await demarches(p)
-      dispatch(
-        'messageAdd',
-        {
-          value: `demarches mises à jour`,
-          type: 'success'
-        },
-        { root: true }
-      )
-
-      commit('set', data)
-    } catch (e) {
-      dispatch('apiError', e, { root: true })
-      console.info(e)
-    } finally {
-      commit('loadingRemove', 'demarches', { root: true })
-    }
-  },
-
-  async preferencesSet(
-    { state, commit, dispatch },
-    { section, params, pageReset }
-  ) {
-    if (pageReset) {
-      commit('preferencesSet', { section: 'table', params: { page: 1 } })
-    }
-
-    commit('preferencesSet', { section, params })
-    if (state.loaded.metas && state.loaded.url) {
-      await dispatch('get')
-    }
-  },
-
-  async urlLoad({ state, commit, dispatch }) {
-    if (!state.loaded.url) {
-      commit('load', 'url')
-
-      if (state.loaded.metas) {
-        await dispatch('get')
-      }
-    }
-  }
-}
-
-export const mutations = {
-  reset(state) {
-    Vue.set(state, 'list', [])
-    state.total = 0
-    state.loaded.metas = false
-    state.loaded.url = false
-  },
-
-  set(state, data) {
-    Vue.set(state, 'list', data.elements)
-    Vue.set(state, 'total', data.total)
-  },
-
+const mutations = Object.assign({}, listeMutations, {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       let metaId
       let paramsIds
+
       if (id === 'demarchesTypes') {
         metaId = 'types'
         paramsIds = ['typesIds']
@@ -187,32 +105,18 @@ export const mutations = {
       }
 
       if (metaId) {
-        Vue.set(state.metas, metaId, data[id])
+        state.metas[metaId] = data[id]
       }
 
       if (paramsIds) {
         paramsIds.forEach(paramId => {
-          const param = state.params.find(p => p.id === paramId)
-          Vue.set(
-            param,
-            'elements',
-            data[id].map(e => e.id)
-          )
+          const definition = state.definitions.find(p => p.id === paramId)
+          definition.values = data[id].map(e => e.id)
         })
       }
     })
-  },
-
-  preferencesSet(state, { section, params }) {
-    Object.keys(params).forEach(id => {
-      Vue.set(state.preferences[section], id, params[id])
-    })
-  },
-
-  load(state, section) {
-    state.loaded[section] = true
   }
-}
+})
 
 export default {
   namespaced: true,

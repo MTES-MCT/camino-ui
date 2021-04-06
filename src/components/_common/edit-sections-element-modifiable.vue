@@ -2,14 +2,14 @@
   <div>
     <inputNumber
       v-if="element.type === 'number'"
-      v-model.trim.number="contenu[element.id]"
+      v-model="contenu[element.id]"
       class="p-s"
       placeholder="…"
     />
 
     <inputNumber
       v-if="element.type === 'integer'"
-      v-model.trim.number="contenu[element.id]"
+      v-model="contenu[element.id]"
       :integer="true"
       class="p-s"
       placeholder="…"

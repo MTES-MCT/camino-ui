@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   definitions,
   domaines,
@@ -25,12 +23,12 @@ const definitionsIndex = {
   'titres-types': titresTypesTypes
 }
 
-export const state = {
+const state = {
   elements: [],
   entrees: []
 }
 
-export const actions = {
+const actions = {
   async get({ dispatch, commit }) {
     commit('loadingAdd', 'definitions', { root: true })
 
@@ -40,7 +38,6 @@ export const actions = {
       commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'definitions', { root: true })
     }
@@ -58,20 +55,19 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'definition', { root: true })
     }
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, data) {
-    Vue.set(state, 'elements', data)
+    state.elements = data
   },
 
   entreesSet(state, data) {
-    Vue.set(state, 'entrees', data)
+    state.entrees = data
   }
 }
 

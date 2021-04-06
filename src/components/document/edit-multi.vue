@@ -2,9 +2,9 @@
   <div v-if="visible">
     <h3>Documents</h3>
     <Edit
-      v-for="document in documents"
+      v-for="(document, n) in documents"
       :key="document.id"
-      :document.sync="document"
+      v-model:document="documents[n]"
       :document-type="documentsTypes.find(dt => dt.id === document.typeId)"
       :modifiable="modifiable"
       :repertoire="repertoire"
@@ -31,6 +31,9 @@ export default {
     parentId: { type: String, default: undefined, required: false },
     documentsTypes: { type: Array, required: true }
   },
+
+  emits: ['complete-update'],
+
   data() {
     return {
       loaded: false
@@ -62,7 +65,7 @@ export default {
 
   watch: {
     complete: {
-      handler: function(complete) {
+      handler: function (complete) {
         this.$emit('complete-update', complete)
       },
       immediate: true
@@ -80,7 +83,7 @@ export default {
         options.typeId = this.parentTypeId
       }
 
-      await this.$store.dispatch('document/metasGet', options)
+      await this.$store.dispatch('document/init', options)
 
       this.documentsTypes.forEach(dt => {
         if (!this.documents.find(d => d.typeId === dt.id)) {

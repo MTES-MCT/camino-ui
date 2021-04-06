@@ -5,29 +5,29 @@
         <div class="tablet-blob-1-4 border-l pl-s">
           <ul class="list-sans mb-0">
             <li>
-              <RouterLink
+              <router-link
                 v-if="$route.name !== 'titres'"
                 id="cmn-menu-menu-a-titres"
                 :to="{ name: 'titres' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('titres')"
+                @click="eventTrack('titres')"
               >
                 Titres miniers et autorisations
-              </RouterLink>
+              </router-link>
               <div v-else class="bold color-neutral">
                 Titres miniers et autorisations
               </div>
             </li>
             <li>
-              <RouterLink
+              <router-link
                 v-if="$route.name !== 'demarches'"
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'demarches' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('demarches')"
+                @click="eventTrack('demarches')"
               >
                 Démarches
-              </RouterLink>
+              </router-link>
               <div v-else class="bold color-neutral">Démarches</div>
             </li>
           </ul>
@@ -35,15 +35,15 @@
         <div v-if="sections.activites" class="tablet-blob-1-4 border-l pl-s">
           <ul class="list-sans mb-0">
             <li v-if="sections.activites">
-              <RouterLink
+              <router-link
                 v-if="$route.name !== 'activites'"
                 id="cmn-menu-menu-a-activites"
                 :to="{ name: 'activites' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('activites')"
+                @click="eventTrack('activites')"
               >
                 Activités
-              </RouterLink>
+              </router-link>
               <div v-else class="bold color-neutral">Activités</div>
             </li>
           </ul>
@@ -51,39 +51,39 @@
         <div class="tablet-blob-1-4 border-l pl-s">
           <ul class="list-sans mb-0">
             <li v-if="sections.administrations">
-              <RouterLink
+              <router-link
                 v-if="$route.name !== 'administrations'"
                 id="cmn-menu-menu-a-administrations"
                 :to="{ name: 'administrations' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('administrations')"
+                @click="eventTrack('administrations')"
               >
                 Administrations
-              </RouterLink>
+              </router-link>
               <div v-else class="bold color-neutral">Administrations</div>
             </li>
             <li>
-              <RouterLink
+              <router-link
                 v-if="$route.name !== 'entreprises'"
                 id="cmn-menu-menu-a-entreprises"
                 :to="{ name: 'entreprises' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('entreprises')"
+                @click="eventTrack('entreprises')"
               >
                 Entreprises
-              </RouterLink>
+              </router-link>
               <div v-else class="bold color-neutral">Entreprises</div>
             </li>
             <li v-if="sections.utilisateurs">
-              <RouterLink
+              <router-link
                 v-if="$route.name !== 'utilisateurs'"
                 id="cmn-menu-menu-a-utilisateurs"
                 :to="{ name: 'utilisateurs' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('utilisateurs')"
+                @click="eventTrack('utilisateurs')"
               >
                 Utilisateurs
-              </RouterLink>
+              </router-link>
               <div v-else class="bold color-neutral">Utilisateurs</div>
             </li>
           </ul>
@@ -91,43 +91,43 @@
         <div class="tablet-blob-1-4 border-l pl-s">
           <ul class="list-sans mb-0">
             <li>
-              <RouterLink
+              <router-link
                 v-if="$route.name !== 'glossaire'"
                 id="cmn-menu-menu-a-glossaire"
                 :to="{ name: 'glossaire' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('glossaire')"
+                @click="eventTrack('glossaire')"
               >
                 Glossaire
-              </RouterLink>
+              </router-link>
               <div v-else class="bold color-neutral">Glossaire</div>
             </li>
             <li>
-              <RouterLink
+              <router-link
                 v-if="
                   $route.name !== 'statistiques' &&
-                    $route.name !== 'statistiques-globales' &&
-                    $route.name !== 'statistiques-guyane'
+                  $route.name !== 'statistiques-globales' &&
+                  $route.name !== 'statistiques-guyane'
                 "
                 id="cmn-menu-menu-a-statistiques"
                 :to="{ name: 'statistiques' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('statistiques')"
+                @click="eventTrack('statistiques')"
               >
                 Statistiques
-              </RouterLink>
+              </router-link>
               <div v-else class="bold color-neutral">Statistiques</div>
             </li>
             <li v-if="sections.metas">
-              <RouterLink
+              <router-link
                 v-if="$route.name !== 'metas'"
                 id="cmn-menu-menu-a-metas"
                 :to="{ name: 'metas' }"
                 class="btn-menu text-decoration-none bold"
-                @click.native="eventTrack('metas')"
+                @click="eventTrack('metas')"
               >
                 Métas
-              </RouterLink>
+              </router-link>
               <div v-else class="bold color-neutral">Métas</div>
             </li>
           </ul>
@@ -143,7 +143,7 @@ export default {
 
   computed: {
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     sections() {

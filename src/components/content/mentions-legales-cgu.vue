@@ -7,7 +7,7 @@
 
 <script>
 import MentionsLegales from './mentions-legales.vue'
-import Cgu from './cgu'
+import Cgu from './cgu.vue'
 
 export default {
   name: 'MentionsLegalesCgu',

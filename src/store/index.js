@@ -1,9 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { shallowRef } from '@vue/reactivity'
+import { createStore } from 'vuex'
 import { saveAs } from 'file-saver'
 
 import router from '../router'
 import { apiRestFetch } from '../api/_client'
+import { urlQueryUpdate } from '../utils/url'
 
 import titre from './titre'
 import titreDemarche from './titre-demarche'
@@ -53,7 +54,7 @@ const modules = {
   definitions
 }
 
-export const state = {
+const state = {
   config: {},
   messages: [],
   popup: { component: null, props: null, messages: [], loading: false },
@@ -62,7 +63,7 @@ export const state = {
   loading: []
 }
 
-export const actions = {
+const actions = {
   apiError({ commit }, error) {
     const id = Date.now()
     commit('messageAdd', {
@@ -74,6 +75,8 @@ export const actions = {
     setTimeout(() => {
       commit('messageRemove', id)
     }, 4500)
+
+    console.error(error)
   },
 
   pageError({ commit }) {
@@ -92,7 +95,9 @@ export const actions = {
   messageAdd({ commit }, message) {
     const id = Date.now()
     message.id = id
+
     commit('messageAdd', message)
+
     setTimeout(() => {
       commit('messageRemove', id)
     }, 4500)
@@ -113,7 +118,7 @@ export const actions = {
     if (!id) {
       router.push({ name })
     } else {
-      const idOld = rootState[name].current.id
+      const idOld = rootState[name].element.id
       if (id !== idOld) {
         router.replace({ name, params: { id } })
       } else {
@@ -155,27 +160,38 @@ export const actions = {
         'apiError',
         `erreur de téléchargement : ${filePath}, ${e.message}`
       )
-      console.info(e)
     } finally {
       commit('loadingRemove', 'download', { root: true })
+    }
+  },
+
+  async urlQueryUpdate({ rootState }, { params, definitions }) {
+    const { status, query } = urlQueryUpdate(
+      params,
+      rootState.route.query,
+      definitions
+    )
+
+    if (status === 'updated') {
+      router.push({ query })
+    } else if (status === 'created') {
+      router.replace({ query })
     }
   }
 }
 
-export const mutations = {
+const mutations = {
   messageAdd(state, message) {
     state.messages.push(message)
   },
 
   messageRemove(state, id) {
-    Vue.delete(
-      state.messages,
-      state.messages.findIndex(m => m.id === id)
-    )
+    const index = state.messages.findIndex(m => m.id === id)
+    state.messages.splice(index, 1)
   },
 
   popupOpen(state, { component, props }) {
-    state.popup.component = component
+    state.popup.component = shallowRef(component)
     state.popup.props = props
     state.popup.messages = []
   },
@@ -196,7 +212,7 @@ export const mutations = {
   },
 
   menuOpen(state, component) {
-    state.menu.component = component
+    state.menu.component = shallowRef(component)
   },
 
   menuClose(state) {
@@ -230,9 +246,9 @@ export const mutations = {
   }
 }
 
-Vue.use(Vuex)
+export { state, actions, mutations }
 
-export default new Vuex.Store({
+export default createStore({
   state,
   actions,
   mutations,

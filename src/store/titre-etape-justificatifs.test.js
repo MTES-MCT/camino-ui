@@ -1,7 +1,7 @@
 import titreEtapeJustificatifs from './titre-etape-justificatifs'
 import * as api from '../api/titres-etapes'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../api/titres-etapes', () => ({
   etapeJustificatifsAssocier: jest.fn(),
@@ -10,9 +10,6 @@ jest.mock('../api/titres-etapes', () => ({
 }))
 
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe('justificatifs', () => {
   let store
@@ -43,7 +40,7 @@ describe('justificatifs', () => {
       popupMessageAdd: jest.fn()
     }
 
-    store = new Vuex.Store({
+    store = createStore({
       actions,
       mutations,
       modules: {
@@ -54,6 +51,9 @@ describe('justificatifs', () => {
         }
       }
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les métas pour associer un justificatif', async () => {
@@ -69,10 +69,7 @@ describe('justificatifs', () => {
       ]
     })
 
-    await store.dispatch(
-      'titreEtapeJustificatifs/metasGet',
-      'titre-etape-id-01'
-    )
+    await store.dispatch('titreEtapeJustificatifs/init', 'titre-etape-id-01')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.titreEtapeJustificatifs.metas.entreprises).toEqual([
@@ -93,7 +90,7 @@ describe('justificatifs', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('titreEtapeJustificatifs/metasGet', { etape: {} })
+    await store.dispatch('titreEtapeJustificatifs/init', { etape: {} })
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()

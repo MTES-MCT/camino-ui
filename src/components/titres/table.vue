@@ -1,5 +1,5 @@
 <template>
-  <Table
+  <Tablo
     :column="preferences.colonne"
     :columns="colonnes"
     :order="preferences.ordre"
@@ -10,14 +10,14 @@
 </template>
 
 <script>
-import Table from '../_ui/table.vue'
+import Tablo from '../_ui/table.vue'
 
 import { titresColonnes, titresLignesBuild } from './table.js'
 
 export default {
   name: 'Titres',
 
-  components: { Table },
+  components: { Tablo },
 
   props: {
     titres: { type: Array, required: true }
@@ -25,11 +25,11 @@ export default {
 
   computed: {
     preferences() {
-      return this.$store.state.titres.preferences.table
+      return this.$store.state.titres.params.table
     },
 
     activitesCol() {
-      const user = this.$store.state.user.current
+      const user = this.$store.state.user.element
 
       return user && user.sections.activites
     },
@@ -67,7 +67,7 @@ export default {
         delete params.order
       }
 
-      this.$store.dispatch('titres/preferencesSet', {
+      this.$store.dispatch('titres/paramsSet', {
         section: 'table',
         params
       })

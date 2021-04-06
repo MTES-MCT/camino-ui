@@ -7,7 +7,7 @@
         <EditSectionElement
           v-for="e in s.elements"
           :key="e.id"
-          :contenu.sync="contenu[s.id]"
+          v-model:contenu="contenu[s.id]"
           :element="e"
           :modifiable="modifiable"
         />
@@ -26,8 +26,6 @@ import {
 
 import EditSectionElement from './edit-section-element.vue'
 
-
-
 export default {
   components: {
     EditSectionElement
@@ -38,6 +36,8 @@ export default {
     element: { type: Object, required: true },
     modifiable: { type: Boolean, default: true }
   },
+
+  emits: ['complete-update'],
 
   data() {
     return {

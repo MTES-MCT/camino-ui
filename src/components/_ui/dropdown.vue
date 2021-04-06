@@ -1,11 +1,10 @@
 <template>
   <div class="relative flex flex-direction-column dropdown">
-    <div class="absolute rnd-s border bg-bg full-x overflow-hidden">
+    <div class="absolute border rnd-s bg-bg full-x overflow-hidden">
       <button
         :class="{
-          'rnd-t-s': opened || $slots.sub,
-          'rnd-s': !opened && !$slots.sub,
-          'border-b-s': opened || $slots.sub
+          'rnd-t-s': opened,
+          'border-b-s': opened
         }"
         class="accordion-header flex btn-alt py-s px-m full-x"
         @click="openToggle"
@@ -35,21 +34,14 @@ export default {
   name: 'UiSytemDropdown',
 
   props: {
-    iconOpenedClass: {
-      type: String,
-      default: 'icon-chevron-b'
-    },
+    iconOpenedClass: { type: String, default: 'icon-chevron-b' },
 
-    iconClosedClass: {
-      type: String,
-      default: 'icon-chevron-t'
-    },
+    iconClosedClass: { type: String, default: 'icon-chevron-t' },
 
-    opened: {
-      type: Boolean,
-      default: false
-    }
+    opened: { type: Boolean, default: false }
   },
+
+  emits: ['toggle'],
 
   methods: {
     openToggle() {

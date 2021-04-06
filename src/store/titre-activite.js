@@ -1,17 +1,15 @@
-import Vue from 'vue'
-
 import {
   activite,
   activiteModifier,
   activiteSupprimer
 } from '../api/titres-activites'
 
-export const state = {
-  current: null,
+const state = {
+  element: null,
   opened: false
 }
 
-export const actions = {
+const actions = {
   async get({ commit, dispatch }, id) {
     commit('loadingAdd', 'activiteGet', { root: true })
 
@@ -25,7 +23,6 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'activiteGet', { root: true })
     }
@@ -113,32 +110,32 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, entreprise) {
-    Vue.set(state, 'current', entreprise)
+    state.element = entreprise
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.element = null
   },
 
   open(state) {
     if (!state.opened) {
-      Vue.set(state, 'opened', true)
+      state.opened = true
     }
   },
 
   close(state) {
     if (state.opened) {
-      Vue.set(state, 'opened', false)
+      state.opened = false
     }
   },
 
   toggle(state) {
     if (state.opened) {
-      Vue.set(state, 'opened', false)
+      state.opened = false
     } else {
-      Vue.set(state, 'opened', true)
+      state.opened = true
     }
   }
 }

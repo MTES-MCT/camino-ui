@@ -6,21 +6,19 @@
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="activites"
-    :preferences="preferences"
     :metas="metas"
     :params="params"
     :total="total"
-    :metas-loaded="metasLoaded"
-    @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
+    :initialized="initialized"
+    @params-update="paramsUpdate"
   >
-    <Downloads
-      v-if="activites.length"
-      slot="downloads"
-      :formats="['csv', 'xlsx', 'ods']"
-      section="activites"
-      class="flex-right full-x"
-    />
+    <template v-if="activites.length" #downloads>
+      <Downloads
+        :formats="['csv', 'xlsx', 'ods']"
+        section="activites"
+        class="flex-right full-x"
+      />
+    </template>
   </liste>
 </template>
 
@@ -46,66 +44,64 @@ export default {
 
   computed: {
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     activites() {
-      return this.$store.state.titresActivites.list
+      return this.$store.state.titresActivites.elements
     },
 
     total() {
       return this.$store.state.titresActivites.total
     },
 
-    preferences() {
-      return this.$store.state.titresActivites.preferences
+    params() {
+      return this.$store.state.titresActivites.params
     },
 
     metas() {
       return this.$store.state.titresActivites.metas
     },
 
-    params() {
-      return this.$store.state.titresActivites.params
-    },
-
     lignes() {
       return activitesLignesBuild(this.activites)
     },
 
-    metasLoaded() {
-      return this.$store.state.titresActivites.loaded.metas
+    initialized() {
+      return this.$store.state.titresActivites.initialized
     }
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'init',
+
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('titresActivites/routeUpdate')
+      }
+    }
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('titresActivites/reset')
   },
 
   methods: {
-    async metasGet() {
+    async init() {
       if (!this.user || !this.user.sections || !this.user.sections.activites) {
         await this.$store.dispatch('pageError')
       } else {
         this.visible = true
-        await this.$store.dispatch('titresActivites/metasGet')
+        await this.$store.dispatch('titresActivites/init')
       }
     },
 
-    urlLoad() {
-      this.$store.dispatch('titresActivites/urlLoad')
-    },
-
-    async preferencesUpdate(options) {
-      await this.$store.dispatch(`titresActivites/preferencesSet`, options)
+    async paramsUpdate(options) {
+      await this.$store.dispatch(`titresActivites/paramsSet`, options)
     }
   }
 }

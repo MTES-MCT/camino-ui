@@ -1,7 +1,7 @@
 import administration from './administration'
-import { createLocalVue } from '@vue/test-utils'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 import * as api from '../api/administrations'
-import Vuex from 'vuex'
 
 jest.mock('../api/administrations', () => ({
   administration: jest.fn(),
@@ -14,9 +14,6 @@ jest.mock('../api/administrations', () => ({
   administrationActiviteTypeUpdate: jest.fn()
 }))
 
-const localVue = createLocalVue()
-localVue.use(Vuex)
-
 console.info = jest.fn()
 
 describe("état de l'administration consultée", () => {
@@ -26,7 +23,7 @@ describe("état de l'administration consultée", () => {
 
   beforeEach(() => {
     administration.state = {
-      current: null,
+      element: null,
       metas: {
         types: [],
         regions: [],
@@ -51,11 +48,14 @@ describe("état de l'administration consultée", () => {
       reload: jest.fn(),
       messageAdd: jest.fn()
     }
-    store = new Vuex.Store({
+    store = createStore({
       modules: { administration },
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test("obtient les données d'un administration", async () => {
@@ -64,7 +64,7 @@ describe("état de l'administration consultée", () => {
     await store.dispatch('administration/get', 71)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(store.state.administration.current).toEqual(administration)
+    expect(store.state.administration.element).toEqual(administration)
   })
 
   test("retourne une erreur de l'api dans l'obtention de l'administration", async () => {
@@ -74,7 +74,6 @@ describe("état de l'administration consultée", () => {
     await store.dispatch('administration/get', 71)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(console.info).toHaveBeenCalled()
     expect(actions.apiError).toHaveBeenCalled()
   })
 
@@ -82,7 +81,7 @@ describe("état de l'administration consultée", () => {
     store.commit('administration/set', { id: 71, nom: 'toto' })
     store.commit('administration/reset')
 
-    expect(store.state.administration.current).toBeNull()
+    expect(store.state.administration.element).toBeNull()
   })
 
   test('récupère les métas pour éditer une administration', async () => {
@@ -101,7 +100,7 @@ describe("état de l'administration consultée", () => {
       ]
     })
 
-    await store.dispatch('administration/metasGet')
+    await store.dispatch('administration/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.administration.metas).toEqual({
@@ -130,7 +129,7 @@ describe("état de l'administration consultée", () => {
       new Error('erreur api')
     )
 
-    await store.dispatch('administration/metasGet')
+    await store.dispatch('administration/init')
 
     expect(apiMock).toHaveBeenCalled()
 
@@ -172,7 +171,7 @@ describe("état de l'administration consultée", () => {
       etapesTypes: [{ id: 'dex', nom: 'décision expresse' }]
     })
 
-    await store.dispatch('administration/permissionsMetasGet')
+    await store.dispatch('administration/permissionsInit')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.administration.metas).toEqual({
@@ -192,7 +191,7 @@ describe("état de l'administration consultée", () => {
       new Error('erreur api')
     )
 
-    await store.dispatch('administration/permissionsMetasGet')
+    await store.dispatch('administration/permissionsInit')
 
     expect(apiMock).toHaveBeenCalled()
 

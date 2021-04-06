@@ -8,9 +8,9 @@
         class="mr-xs"
         :class="{ active: tabActive === tab.id }"
       >
-        <RouterLink :to="{ name: tab.name }" class="p-m btn-tab rnd-t-s">
+        <router-link :to="{ name: tab.name }" class="p-m btn-tab rnd-t-s">
           {{ tab.nom }}
-        </RouterLink>
+        </router-link>
       </div>
     </div>
     <div class="line-neutral width-full" />

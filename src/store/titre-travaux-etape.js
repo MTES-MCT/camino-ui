@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   titreTravauxEtapeMetas,
   travauxEtapeCreer,
@@ -7,16 +5,16 @@ import {
   travauxEtapeSupprimer
 } from '../api/titres-travaux-etapes'
 
-export const state = {
-  current: null,
+const state = {
+  element: null,
   metas: {
     etapesTypes: []
   }
 }
 
-export const actions = {
-  async metasGet({ commit }, etape) {
-    commit('loadingAdd', 'titreTravauxEtapeMetasGet', { root: true })
+const actions = {
+  async init({ commit }, etape) {
+    commit('loadingAdd', 'titreTravauxEtapeInit', { root: true })
 
     try {
       const data = await titreTravauxEtapeMetas(etape)
@@ -25,7 +23,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreTravauxEtapeMetasGet', { root: true })
+      commit('loadingRemove', 'titreTravauxEtapeInit', { root: true })
     }
   },
 
@@ -98,10 +96,10 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      state.metas[id] = data[id]
     })
   }
 }

@@ -209,8 +209,9 @@
             :key="departement.id"
             :value="departement.id"
             :disabled="administration.departementId === departement.id"
-            >{{ departement.nom }}</option
           >
+            {{ departement.nom }}
+          </option>
         </select>
       </div>
     </div>
@@ -319,13 +320,13 @@ export default {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
     async get() {
-      await this.$store.dispatch('administration/metasGet')
+      await this.$store.dispatch('administration/init')
     },
 
     async save() {

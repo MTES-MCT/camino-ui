@@ -17,14 +17,7 @@
       </div>
     </div>
 
-    <Filtres :metas-loaded="metasLoaded" @loaded="urlLoad('filtres')" />
-
-    <Url
-      :values="vueUrlValues"
-      :params="{ vue }"
-      @params-update="preferencesVueUpdate"
-      @loaded="urlLoad('vue')"
-    />
+    <Filtres :initialized="initialized" />
 
     <div class="tablet-blobs tablet-flex-direction-reverse">
       <div class="tablet-blob-1-3 flex mb-s">
@@ -41,10 +34,10 @@
           v-for="v in vues"
           :key="v.id"
           class="mr-xs"
-          :class="{ active: vue === v.id }"
+          :class="{ active: vueId === v.id }"
         >
           <button
-            v-if="vue !== v.id"
+            v-if="vueId !== v.id"
             class="p-m btn-tab rnd-t-s"
             @click="vueClick(v.id)"
           >
@@ -61,49 +54,43 @@
     </div>
 
     <div class="line-neutral width-full" />
-    <Component
-      :is="vueComponent"
-      v-if="vue && metasLoaded"
-      :titres="titres"
-      :total="total"
-      @loaded="urlLoad('component')"
-    />
+    <template v-if="initialized">
+      <Map v-if="vueId === 'carte'" :titres="titres" />
+
+      <Table v-else-if="vueId === 'table'" :titres="titres" :total="total" />
+    </template>
     <div v-else class="table-view mb-xxl mt">…</div>
   </div>
 </template>
 
 <script>
-import Url from './_ui/url.vue'
 import Downloads from './_common/downloads.vue'
 import TitreEditPopup from './titre/edit-popup.vue'
-import TitresTableUrl from './titres/table-url.vue'
-import TitresMap from './titres/map-url.vue'
-import Filtres from './titres/filtres-url.vue'
+import Table from './titres/table-pagination.vue'
+import Map from './titres/map.vue'
+import Filtres from './titres/filtres.vue'
 
 export default {
   name: 'Titres',
 
-  components: { Url, Filtres, Downloads },
+  components: { Filtres, Downloads, Map, Table },
 
   data() {
     return {
       vues: [
-        { id: 'carte', component: TitresMap, icon: 'globe' },
-        { id: 'liste', component: TitresTableUrl, icon: 'list' }
-      ],
-      vueUrlValues: {
-        vue: { type: 'string', elements: ['carte', 'liste'] }
-      }
+        { id: 'carte', icon: 'globe' },
+        { id: 'table', icon: 'list' }
+      ]
     }
   },
 
   computed: {
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     titres() {
-      return this.$store.state.titres.list
+      return this.$store.state.titres.elements
     },
 
     metas() {
@@ -114,20 +101,16 @@ export default {
       }
     },
 
-    metasLoaded() {
-      return this.$store.state.titres.loaded.metas
+    initialized() {
+      return this.$store.state.titres.initialized
     },
 
     preferences() {
-      return this.$store.state.titres.preferences
+      return this.$store.state.titres.params
     },
 
-    vue() {
-      return this.$store.state.titres.vue
-    },
-
-    vueComponent() {
-      return this.vues.find(v => v.id === this.vue).component
+    vueId() {
+      return this.$store.state.titres.vueId
     },
 
     modification() {
@@ -155,37 +138,39 @@ export default {
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'init',
+
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('titres/routeUpdate')
+      }
+    }
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('titres/reset')
   },
 
   methods: {
-    async metasGet() {
-      await this.$store.dispatch('titres/metasGet')
+    async init() {
+      await this.$store.dispatch('titres/init')
     },
 
-    preferencesVueUpdate(params) {
-      this.vueSet(params.vue)
-    },
-
-    async vueSet(vue) {
-      await this.$store.dispatch('titres/vueSet', vue)
+    async vueSet(vueId) {
+      await this.$store.dispatch('titres/vueSet', vueId)
 
       if (this.$matomo) {
-        this.$matomo.trackEvent('titres-vue', 'titres-vueId', vue)
+        this.$matomo.trackEvent('titres-vue', 'titres-vueId', vueId)
       }
     },
 
-    vueClick(vue) {
+    vueClick(vueId) {
       if (!this.loading) {
-        this.vueSet(vue)
+        this.vueSet(vueId)
       }
     },
 
@@ -201,10 +186,6 @@ export default {
       })
 
       this.eventTrack({ categorie: 'titre-sections', action: 'titre-ajouter' })
-    },
-
-    urlLoad(id) {
-      this.$store.dispatch('titres/loaded', id)
     },
 
     eventTrack(event) {

@@ -17,11 +17,11 @@
 
 ## Technologies
 
-- [Vue.js](https://vuejs.org/)
+- [Vue.js](https://v3.vuejs.org/)
 - [Vuex](https://vuex.vuejs.org/)
 - [Leaflet.js](https://leafletjs.com/)
 - [graphql-react](https://github.com/jaydenseric/graphql-react)
-- [Vue-cli / webpack](https://cli.vuejs.org/)
+- [vite](https://vitejs.dev/)
 - [Babel](https://babeljs.io/)
 - [Postcss](https://postcss.org/)
 - [Postcss-preset-env](https://preset-env.cssdb.org/)

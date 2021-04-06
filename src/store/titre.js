@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   titreMetas,
   titre,
@@ -10,8 +8,8 @@ import {
 
 import router from '../router'
 
-export const state = {
-  current: null,
+const state = {
+  element: null,
   metas: {
     referencesTypes: [],
     domaines: []
@@ -23,9 +21,9 @@ export const state = {
   }
 }
 
-export const actions = {
-  async metasGet({ commit }) {
-    commit('loadingAdd', 'titreMetasGet', { root: true })
+const actions = {
+  async init({ commit }) {
+    commit('loadingAdd', 'titreInit', { root: true })
 
     try {
       const data = await titreMetas()
@@ -34,7 +32,7 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreMetasGet', { root: true })
+      commit('loadingRemove', 'titreInit', { root: true })
     }
   },
 
@@ -51,18 +49,17 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'titre', { root: true })
     }
   },
 
-  async titreAdd({ commit, dispatch }, titre) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreAdd', { root: true })
-
+  async add({ commit, dispatch }, titre) {
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'titreAdd', { root: true })
+
       const data = await titreCreer({ titre })
 
       commit('popupClose', null, { root: true })
@@ -82,12 +79,12 @@ export const actions = {
     }
   },
 
-  async titreUpdate({ commit, dispatch }, titre) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreUpdate', { root: true })
-
+  async update({ commit, dispatch }, titre) {
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'totreUpdate', { root: true })
+
       const data = await titreModifier({ titre })
 
       commit('popupClose', null, { root: true })
@@ -100,16 +97,16 @@ export const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreUpdate', { root: true })
+      commit('loadingRemove', 'totreUpdate', { root: true })
     }
   },
 
-  async titreRemove({ commit, dispatch }, id) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreRemove', { root: true })
-
+  async remove({ commit, dispatch }, id) {
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'titreRemove', { root: true })
+
       await titreSupprimer({ id })
 
       commit('popupClose', null, { root: true })
@@ -130,38 +127,38 @@ export const actions = {
   }
 }
 
-export const mutations = {
+const mutations = {
   set(state, titre) {
-    Vue.set(state, 'current', titre)
+    state.element = titre
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.element = null
   },
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      state.metas[id] = data[id]
     })
   },
 
   open(state, { section, id }) {
     if (!state.opened[section][id]) {
-      Vue.set(state.opened[section], id, true)
+      state.opened[section][id] = true
     }
   },
 
   close(state, { section, id }) {
     if (state.opened[section][id]) {
-      Vue.set(state.opened[section], id, false)
+      state.opened[section][id] = false
     }
   },
 
   toggle(state, { section, id }) {
     if (state.opened[section][id]) {
-      Vue.set(state.opened[section], id, false)
+      state.opened[section][id] = false
     } else {
-      Vue.set(state.opened[section], id, true)
+      state.opened[section][id] = true
     }
   }
 }

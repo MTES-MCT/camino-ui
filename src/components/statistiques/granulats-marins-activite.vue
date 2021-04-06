@@ -18,9 +18,7 @@
           </p>
         </div>
         <div v-else>
-          <p class="h0 text-center">
-            -
-          </p>
+          <p class="h0 text-center">-</p>
         </div>
       </div>
       <div class="tablet-blob-1-2 mb-xl">
@@ -37,9 +35,7 @@
           </p>
         </div>
         <div v-else>
-          <p class="h0 text-center">
-            -
-          </p>
+          <p class="h0 text-center">-</p>
         </div>
       </div>
     </div>
@@ -71,12 +67,20 @@
 </template>
 
 <script>
+import numberFormat from '@/utils/number-format'
+
 export default {
   name: 'IndicateursActiviteGranulatsMarins',
 
   props: {
     statistiqueGranulatsMarins: { type: Object, required: true },
     enConstruction: { type: Boolean, default: false }
+  },
+
+  methods: {
+    numberFormat(number) {
+      return numberFormat(number)
+    }
   }
 }
 </script>

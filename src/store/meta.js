@@ -1,12 +1,11 @@
-import Vue from 'vue'
 import metasIndex from './metas-definitions'
 
-export const state = {
+const state = {
   elements: [],
   definition: {}
 }
 
-export const actions = {
+const actions = {
   async get({ dispatch, commit }, id) {
     commit('loadingAdd', 'metaGet', { root: true })
 
@@ -19,7 +18,6 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'metaGet', { root: true })
     }
@@ -37,7 +35,6 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'metaUpdate', { root: true })
     }
@@ -55,7 +52,6 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'metaCreate', { root: true })
     }
@@ -73,23 +69,22 @@ export const actions = {
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
       commit('loadingRemove', 'metaDelete', { root: true })
     }
   }
 }
 
-export const mutations = {
+const mutations = {
   reset(state) {
-    Vue.set(state, 'list', [])
+    state.elements = []
     state.elements = []
     state.definition = {}
   },
 
   set(state, { elements, definition }) {
-    Vue.set(state, 'elements', elements)
-    Vue.set(state, 'definition', definition)
+    state.elements = elements
+    state.definition = definition
   }
 }
 

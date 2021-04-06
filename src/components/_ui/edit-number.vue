@@ -31,11 +31,13 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import { nextTick } from 'vue'
 export default {
   props: {
     value: { type: Number, default: 0 }
   },
+
+  emits: ['update'],
 
   data() {
     return {
@@ -67,7 +69,7 @@ export default {
         this.valueUpdated = this.value
         this.editable = !this.editable
 
-        Vue.nextTick(() => {
+        nextTick(() => {
           this.$refs.input.focus()
         })
       }

@@ -28,9 +28,12 @@ import InputDate from './input-date.vue'
 
 export default {
   components: { InputDate },
+
   props: {
     value: { type: String, required: true }
   },
+
+  emits: ['update'],
 
   data() {
     return {

@@ -1,4 +1,11 @@
-import L from 'leaflet'
+import {
+  leafletMarkerClusterGroupBuild,
+  leafletCoordinatesFind,
+  leafletGeojsonCenterFind,
+  leafletGeojsonBuild,
+  leafletMarkerBuild,
+  leafletIconBuild
+} from '../_map/leaflet.js'
 
 const zones = [
   {
@@ -39,36 +46,16 @@ const zones = [
   }
 ]
 
-const clusterBuild = domaineId =>
-  L.markerClusterGroup({
-    iconCreateFunction(cluster) {
-      const childCount = cluster.getChildCount()
-
-      let size
-      if (childCount < 5) size = 'xs'
-      else if (childCount < 15) size = 's'
-      else if (childCount < 40) size = 'm'
-      else size = 'l'
-
-      return new L.DivIcon({
-        html: domaineId.toUpperCase(),
-        className: `py-xs px-s pill small mono color-bg bold bg-domaine-${domaineId} leaflet-marker-cluster-${size}`,
-        iconSize: null,
-        iconAnchor: [0, 0]
-      })
-    },
-    disableClusteringAtZoom: 10,
-    animate: true,
-    spiderfyOnMaxZoom: false,
-    showCoverageOnHover: false,
-    maxClusterRadius(x) {
-      return 2048 / Math.pow(x, 2)
-    }
-  })
-
 const clustersBuild = domaines =>
   domaines.reduce((clusters, { id }) => {
-    clusters[id] = clusterBuild(id)
+    const divIconOptions = {
+      html: id.toUpperCase(),
+      className: `py-xs px-s pill small mono color-bg bold bg-domaine-${id}`,
+      iconSize: null,
+      iconAnchor: [0, 0]
+    }
+
+    clusters[id] = leafletMarkerClusterGroupBuild(divIconOptions)
 
     return clusters
   }, {})
@@ -93,22 +80,6 @@ const iconUrlFind = domaineId => {
   return 'data:image/svg+xml;base64,' + btoa(iconSvg)
 }
 
-const markerPositionFind = titre => {
-  if (titre.geojsonCentre) {
-    const coordinates = titre.geojsonCentre.geometry.coordinates
-    return {
-      lng: coordinates[0],
-      lat: coordinates[1]
-    }
-  }
-
-  if (titre.geojsonMultiPolygon) {
-    return L.geoJSON(titre.geojsonMultiPolygon)
-      .getBounds()
-      .getCenter()
-  }
-}
-
 const layersBuild = (titres, router) =>
   titres.reduce(
     ({ geojsons, markers }, titre) => {
@@ -116,11 +87,18 @@ const layersBuild = (titres, router) =>
         return { geojsons, markers }
 
       const domaineId = titre.domaine.id
-      const icon = L.icon({
+      const icon = leafletIconBuild({
         iconUrl: iconUrlFind(domaineId),
         iconSize: [32, 40],
         iconAnchor: [16, 40]
       })
+
+      const latLng = titre.geojsonCentre
+        ? leafletCoordinatesFind(titre.geojsonCentre)
+        : leafletGeojsonCenterFind(titre.geojsonMultiPolygon)
+
+      const marker = leafletMarkerBuild(latLng, icon)
+
       const popupHtmlTitulaires =
         titre.titulaires && titre.titulaires.length
           ? titre.titulaires.map(tt => `<li>${tt.nom}</li>`).join('')
@@ -148,22 +126,24 @@ const layersBuild = (titres, router) =>
         }
       }
 
-      const markerPosition = markerPositionFind(titre)
-      const marker = L.marker(markerPosition, { icon })
-
       marker.id = titre.id
       marker.domaineId = domaineId
       marker.bindPopup(popupHtml, popupOptions)
       marker.on(methods)
 
       const className = `svg-fill-pattern-${titre.type.type.id}-${domaineId}`
-      const geojson = L.geoJSON(titre.geojsonMultiPolygon, {
+      const geojsonOptions = {
         style: { fillOpacity: 0.75, weight: 1, color: 'white', className },
         onEachFeature: (feature, layer) => {
           layer.bindPopup(popupHtml, popupOptions)
           layer.on(methods)
         }
-      })
+      }
+
+      const geojson = leafletGeojsonBuild(
+        titre.geojsonMultiPolygon,
+        geojsonOptions
+      )
 
       if (marker) {
         markers.push(marker)
@@ -176,6 +156,4 @@ const layersBuild = (titres, router) =>
     { geojsons: {}, markers: [] }
   )
 
-const geojsonBoundsGet = zone => L.geoJSON(zone).getBounds()
-
-export { zones, clustersBuild, layersBuild, geojsonBoundsGet }
+export { zones, clustersBuild, layersBuild }

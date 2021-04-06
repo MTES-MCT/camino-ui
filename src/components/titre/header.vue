@@ -55,6 +55,8 @@ export default {
     }
   },
 
+  emits: ['titre-event-track'],
+
   methods: {
     editPopupOpen() {
       const titre = {}

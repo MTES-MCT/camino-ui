@@ -1,7 +1,6 @@
-import Vue from 'vue'
 import metasIndex from './metas-definitions'
 
-export const state = {
+const state = {
   total: 0,
   params: [
     { id: 'colonne', type: 'string', elements: ['id', 'nom'] },
@@ -9,25 +8,16 @@ export const state = {
   ],
   preferences: {
     table: { ordre: 'asc', colonne: null }
-  },
-  loaded: {
-    url: false
   }
 }
 
-export const actions = {
-  async preferencesSet({ commit }, { section, params }) {
-    commit('preferencesSet', { section, params })
-  },
-
-  async urlLoad({ state, commit }) {
-    if (!state.loaded.url) {
-      commit('load', 'url')
-    }
+const actions = {
+  async paramsSet({ commit }, { section, params }) {
+    commit('paramsSet', { section, params })
   }
 }
 
-export const getters = {
+const getters = {
   elements(state) {
     const elements = Object.keys(metasIndex).map(id => ({
       id,
@@ -40,26 +30,21 @@ export const getters = {
   }
 }
 
-export const mutations = {
+const mutations = {
   reset(state) {
-    Vue.set(state, 'list', [])
+    state.elements = []
     state.total = 0
-    state.loaded.url = false
   },
 
   set(state, data) {
-    Vue.set(state, 'list', data.elements)
-    Vue.set(state, 'total', data.total)
+    state.elements = data.elements
+    state.total = data.total
   },
 
-  preferencesSet(state, { section, params }) {
+  paramsSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      Vue.set(state.preferences[section], id, params[id])
+      state.preferences[section][id] = params[id]
     })
-  },
-
-  load(state, section) {
-    state.loaded[section] = true
   }
 }
 

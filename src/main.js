@@ -1,5 +1,6 @@
 import './styles/styles.css'
-import Vue from 'vue'
+import { createApp } from 'vue'
+import { sync } from 'vuex-router-sync'
 import * as Sentry from '@sentry/browser'
 import * as SentryIntegrations from '@sentry/integrations'
 
@@ -8,11 +9,11 @@ import App from './app.vue'
 
 import router from './router'
 import store from './store'
-import mixins from './mixins'
 
-import { dateFormat } from './utils'
+const app = createApp(App)
+sync(store, router)
 
-if (process.env.NODE_ENV === 'production') {
+if (import.meta.env.PROD) {
   fetch('/sentryDsn')
     .then(response => response.text())
     .then(dsn => {
@@ -21,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
         dsn,
         integrations: [
           new SentryIntegrations.Vue({
-            Vue,
+            Vue: app,
             attachProps: true
           }),
           new SentryIntegrations.RewriteFrames()
@@ -38,7 +39,7 @@ if (process.env.NODE_ENV === 'production') {
     .then(options => {
       if (!options || !options.host || !options.siteId)
         throw new Error('host et/ou siteId manquant(s)')
-      Vue.use(VueMatomo, {
+      app.use(VueMatomo, {
         host: options.host,
         siteId: options.siteId,
         router,
@@ -52,19 +53,14 @@ if (process.env.NODE_ENV === 'production') {
     })
     .catch(e => console.error('erreur : matomo :', e))
 }
-Vue.config.productionTip = false
 
-Vue.filter('dateFormat', dateFormat)
+// // only available during E2E tests
+// if (window.Cypress) {
+//   window.app = app
+// }
 
-Vue.mixin(mixins)
+app.use(router)
 
-const app = new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+app.use(store)
 
-// only available during E2E tests
-if (window.Cypress) {
-  window.app = app
-}
+app.mount('app-root')

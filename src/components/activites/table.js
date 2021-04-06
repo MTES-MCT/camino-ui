@@ -1,3 +1,4 @@
+import { markRaw } from '@vue/reactivity'
 import List from '../_ui/list.vue'
 import Statut from '../_common/statut.vue'
 
@@ -31,7 +32,7 @@ const activitesLignesBuild = activites =>
     const columns = {
       titre: { value: activite.titre.nom },
       titulaires: {
-        component: List,
+        component: markRaw(List),
         props: {
           elements: activite.titre.titulaires.map(({ nom }) => nom),
           mini: true
@@ -42,7 +43,7 @@ const activitesLignesBuild = activites =>
       annee: { value: activite.annee },
       periode: { value: activite.periode.nom },
       statut: {
-        component: Statut,
+        component: markRaw(Statut),
         props: {
           color: activite.statut.couleur,
           nom: activite.statut.nom

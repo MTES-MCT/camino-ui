@@ -1,8 +1,15 @@
 <template>
-  <Accordion :opened="opened" class="mb-s" @close="close" @toggle="toggle">
+  <Accordion
+    :opened="opened"
+    class="mb-s"
+    :slot-default="true"
+    :slot-buttons="true"
+    @close="close"
+    @toggle="toggle"
+  >
     <template #title>
       <h6>
-        {{ etape.date | dateFormat }}
+        {{ dateFormat(etape.date) }}
         <Tag
           v-if="etape.incertitudes && etape.incertitudes.date"
           :mini="true"
@@ -118,6 +125,7 @@ import DocumentButtonAdd from '../document/button-add.vue'
 import JustificatifsButtonAdd from '../justificatifs/button-add.vue'
 import EtapeProps from './etape/props.vue'
 import Documents from '../documents/list.vue'
+import { dateFormat } from '@/utils'
 
 const cap = string => string[0].toUpperCase() + string.slice(1)
 
@@ -141,6 +149,8 @@ export default {
     demarcheId: { type: String, default: '' }
   },
 
+  emits: ['titre-event-track'],
+
   data() {
     return {
       documentRepertoire: 'demarches'
@@ -149,7 +159,7 @@ export default {
 
   computed: {
     titre() {
-      return this.$store.state.titre.current
+      return this.$store.state.titre.element
     },
 
     etapeType() {
@@ -233,7 +243,7 @@ export default {
         props: {
           etapeId: this.etape.id,
           demarcheId: this.demarcheId,
-          domaineId: this.$store.state.titre.current.domaine.id,
+          domaineId: this.$store.state.titre.element.domaine.id,
           demarcheType: this.demarcheType,
           titreNom: this.titre.nom
         }
@@ -254,7 +264,7 @@ export default {
           etapeId: this.etape.id,
           demarcheTypeNom: this.demarcheType.nom,
           titreNom: this.titre.nom,
-          titreTypeNom: this.$store.state.titre.current.type.type.nom
+          titreTypeNom: this.$store.state.titre.element.type.type.nom
         }
       })
 
@@ -267,6 +277,10 @@ export default {
 
     eventTrack(event) {
       this.$emit('titre-event-track', event)
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }

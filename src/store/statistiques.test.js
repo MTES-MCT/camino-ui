@@ -1,7 +1,7 @@
 import statistiques from './statistiques'
 import * as api from '../api/statistiques'
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 
 jest.mock('../api/statistiques', () => ({
   statistiquesGlobales: jest.fn(),
@@ -10,9 +10,6 @@ jest.mock('../api/statistiques', () => ({
 }))
 
 console.info = jest.fn()
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 describe('page de statistiques', () => {
   let actions
@@ -68,11 +65,14 @@ describe('page de statistiques', () => {
     actions = {
       apiError: jest.fn()
     }
-    store = new Vuex.Store({
+    store = createStore({
       modules: { statistiques },
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les statistiques globales', async () => {

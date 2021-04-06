@@ -28,11 +28,11 @@ export default {
 
   computed: {
     preferences() {
-      return this.$store.state.titres.preferences.table
+      return this.$store.state.titres.params.table
     },
 
     activitesCol() {
-      const user = this.$store.state.user.current
+      const user = this.$store.state.user.element
 
       return user && user.sections.activites
     },
@@ -70,7 +70,7 @@ export default {
         delete params.order
       }
 
-      this.$store.dispatch('titres/preferencesSet', {
+      this.$store.dispatch('titres/paramsSet', {
         section: 'table',
         params
       })

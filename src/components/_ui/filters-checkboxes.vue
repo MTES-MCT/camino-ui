@@ -42,10 +42,7 @@
 <script>
 export default {
   props: {
-    filter: {
-      type: Object,
-      default: () => ({})
-    }
+    filter: { type: Object, default: () => ({}) }
   },
 
   methods: {

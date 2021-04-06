@@ -16,11 +16,11 @@
       </div>
     </div>
     <div class="tablet-blob-2-3 pt-m relative">
-      <RouterLink v-if="$route.name !== 'titres'" :to="{ name: 'titres' }">
-        <img src="../../../public/img/logo-camino.svg" class="logo" />
-      </RouterLink>
+      <router-link v-if="$route.name !== 'titres'" :to="{ name: 'titres' }">
+        <img src="/img/logo-camino.svg" class="logo" />
+      </router-link>
       <span v-else>
-        <img src="../../../public/img/logo-camino.svg" class="logo" />
+        <img src="/img/logo-camino.svg" class="logo" />
       </span>
       <p class="h5 camino-header-baseline absolute">
         Le cadastre minier numérique ouvert

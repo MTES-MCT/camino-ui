@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import { nextTick } from 'vue'
 import Chart from 'chart.js'
 
 export default {
@@ -30,7 +30,7 @@ export default {
   mounted() {
     this.canvas = this.$refs.canvas
 
-    Vue.nextTick(() => {
+    nextTick(() => {
       // eslint-disable-next-line no-new
       new Chart(this.canvas.getContext('2d'), {
         type: 'bar',

@@ -1,5 +1,5 @@
-import Vuex from 'vuex'
-import { createLocalVue } from '@vue/test-utils'
+import { createStore } from 'vuex'
+import { createApp } from 'vue'
 import * as router from '../router'
 import * as api from '../api/utilisateurs'
 
@@ -20,9 +20,6 @@ jest.mock('../router', () => ({
   push: jest.fn()
 }))
 
-const localVue = createLocalVue()
-localVue.use(Vuex)
-
 console.info = jest.fn()
 
 describe("état de l'utilisateur consulté", () => {
@@ -33,7 +30,7 @@ describe("état de l'utilisateur consulté", () => {
 
   beforeEach(() => {
     utilisateur.state = {
-      current: null,
+      element: null,
       metas: {
         permissions: [],
         entreprises: [],
@@ -43,7 +40,7 @@ describe("état de l'utilisateur consulté", () => {
     user = {
       namespaced: true,
       state: {
-        current: {}
+        element: {}
       },
       actions: {
         logout: jest.fn()
@@ -52,6 +49,7 @@ describe("état de l'utilisateur consulté", () => {
         set: jest.fn()
       }
     }
+
     mutations = {
       loadingAdd: jest.fn(),
       loadingRemove: jest.fn(),
@@ -67,11 +65,15 @@ describe("état de l'utilisateur consulté", () => {
       reload: jest.fn(),
       messageAdd: jest.fn()
     }
-    store = new Vuex.Store({
+
+    store = createStore({
       modules: { utilisateur, user },
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('récupère les métas pour éditer un utilisateur', async () => {
@@ -84,7 +86,7 @@ describe("état de l'utilisateur consulté", () => {
       administrations: { elements: ['adm-1'] }
     })
 
-    await store.dispatch('utilisateur/metasGet')
+    await store.dispatch('utilisateur/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(store.state.utilisateur.metas).toEqual({
@@ -103,7 +105,7 @@ describe("état de l'utilisateur consulté", () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('utilisateur/metasGet')
+    await store.dispatch('utilisateur/init')
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -113,7 +115,7 @@ describe("état de l'utilisateur consulté", () => {
   test("retourne une erreur si l'api répond null", async () => {
     const apiMock = api.utilisateurMetas.mockResolvedValue(null)
 
-    await store.dispatch('utilisateur/metasGet')
+    await store.dispatch('utilisateur/init')
 
     expect(apiMock).toHaveBeenCalled()
   })
@@ -125,7 +127,7 @@ describe("état de l'utilisateur consulté", () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(store.state.utilisateur.current).toEqual(utilisateur)
+    expect(store.state.utilisateur.element).toEqual(utilisateur)
   })
 
   test("affiche une page d'erreur si l'id de l'utilisateur retourne null", async () => {
@@ -144,7 +146,7 @@ describe("état de l'utilisateur consulté", () => {
 
     expect(apiMock).toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(console.info).toHaveBeenCalled()
+
     expect(actions.apiError).toHaveBeenCalled()
   })
 
@@ -152,7 +154,7 @@ describe("état de l'utilisateur consulté", () => {
     store.commit('utilisateur/set', { id: 71, nom: 'toto', prenom: 'asticot' })
     store.commit('utilisateur/reset')
 
-    expect(store.state.utilisateur.current).toBeNull()
+    expect(store.state.utilisateur.element).toBeNull()
   })
 
   test('ajoute un utilisateur', async () => {
@@ -192,7 +194,7 @@ describe("état de l'utilisateur consulté", () => {
   })
 
   test('modifie un utilisateur', async () => {
-    user.state.current = { id: 72 }
+    user.state.element = { id: 72 }
     const apiMock = api.utilisateurModifier.mockResolvedValue({
       id: 71,
       nom: 'Asticot',
@@ -214,7 +216,7 @@ describe("état de l'utilisateur consulté", () => {
   })
 
   test("modifie l'utilisateur actif", async () => {
-    user.state.current = { id: 71, nom: 'Ouistiti', prenom: 'Marcel' }
+    user.state.element = { id: 71, nom: 'Ouistiti', prenom: 'Marcel' }
     const apiMock = api.utilisateurModifier.mockResolvedValue({
       id: 71,
       nom: 'Asticot',
@@ -275,7 +277,7 @@ describe("état de l'utilisateur consulté", () => {
       prenom: 'asticot'
     })
 
-    user.state.current = { id: 71 }
+    user.state.element = { id: 71 }
     await store.dispatch('utilisateur/remove', 71)
 
     expect(apiMock).toHaveBeenCalled()

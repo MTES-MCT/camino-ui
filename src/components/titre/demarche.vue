@@ -13,8 +13,8 @@
         <div
           v-if="
             demarche.modification ||
-              demarche.suppression ||
-              demarche.etapesCreation
+            demarche.suppression ||
+            demarche.etapesCreation
           "
           class="flex-right flex"
         >
@@ -81,9 +81,11 @@ export default {
     type: { type: Object, default: () => ({}) }
   },
 
+  emits: ['titre-event-track'],
+
   computed: {
     titre() {
-      return this.$store.state.titre.current
+      return this.$store.state.titre.element
     }
   },
 

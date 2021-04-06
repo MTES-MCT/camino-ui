@@ -14,18 +14,20 @@ import numberFormat from '../../utils/number-format'
 
 export default {
   props: {
-    value: { type: Number, default: undefined },
+    modelValue: { type: Number, default: undefined },
     negative: { type: Boolean, default: false },
     integer: { type: Boolean, default: false }
   },
 
+  emits: ['update:modelValue'],
+
   computed: {
     valueFormatted() {
-      if (!this.value) return this.value
+      if (!this.modelValue) return this.modelValue
 
-      if (this.integer) return numberFormat(Math.floor(this.value))
+      if (this.integer) return numberFormat(Math.floor(this.modelValue))
 
-      return numberFormat(this.value)
+      return numberFormat(this.modelValue)
     }
   },
 
@@ -38,7 +40,7 @@ export default {
 
       const number = textToNumberFormat(target.value)
 
-      this.$emit('input', number)
+      this.$emit('update:modelValue', number)
     }
   }
 }

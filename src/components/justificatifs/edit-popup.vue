@@ -48,7 +48,7 @@
                     class="mr-s"
                     :value="document.id"
                   /><span class="bold">{{ document.type.nom }}</span> ({{
-                    document.date | dateFormat
+                    dateFormat(document.date)
                   }}){{
                     document.description ? ` : ${document.description}` : ''
                   }}
@@ -93,6 +93,7 @@
 <script>
 import Popup from '../_ui/popup.vue'
 import Messages from '../_ui/messages.vue'
+import { dateFormat } from '@/utils'
 
 export default {
   name: 'CaminoEtapeJustificatifsPopup',
@@ -144,13 +145,13 @@ export default {
     document.addEventListener('keyup', this.keyUp)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyUp)
   },
 
   methods: {
     async get() {
-      await this.$store.dispatch('titreEtapeJustificatifs/metasGet', this.id)
+      await this.$store.dispatch('titreEtapeJustificatifs/init', this.id)
     },
 
     async save() {
@@ -182,7 +183,11 @@ export default {
       })
     },
 
-    errorsRemove() {}
+    errorsRemove() {},
+
+    dateFormat(date) {
+      return dateFormat(date)
+    }
   }
 }
 </script>

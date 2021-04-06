@@ -1,6 +1,6 @@
 <template>
   <Filters
-    v-if="metasLoaded"
+    v-if="initialized"
     class="flex-grow"
     button="Valider"
     :filters="filters"
@@ -9,9 +9,7 @@
     @validate="validate"
     @toggle="toggle"
   />
-  <div v-else class="py-s px-m mb-s border rnd-s">
-    …
-  </div>
+  <div v-else class="py-s px-m mb-s border rnd-s">…</div>
 </template>
 
 <script>
@@ -23,10 +21,12 @@ export default {
 
   props: {
     filtres: { type: Array, required: true },
-    preferences: { type: Object, required: true },
+    params: { type: Object, required: true },
     metas: { type: Object, default: () => ({}) },
-    metasLoaded: { type: Boolean, required: true }
+    initialized: { type: Boolean, required: true }
   },
+
+  emits: ['toggle', 'params-update'],
 
   data() {
     return {
@@ -49,15 +49,15 @@ export default {
   watch: {
     // si les metas changent (connexion / deconnexion user)
     metas: {
-      handler: function() {
-        if (this.metasLoaded) {
+      handler: function (ne, ol) {
+        if (this.initialized) {
           this.validate()
         }
       },
       deep: true
     },
 
-    metasLoaded: function(to, from) {
+    initialized: function (to, from) {
       if (!from) {
         this.init()
       }
@@ -68,13 +68,13 @@ export default {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
-    preferencesUpdate(params) {
-      this.$emit('preferences-update', params)
+    paramsUpdate(params) {
+      this.$emit('params-update', params)
     },
 
     toggle() {
@@ -127,12 +127,12 @@ export default {
         return params
       }, {})
 
-      this.preferencesUpdate(params)
+      this.paramsUpdate(params)
     },
 
     init() {
-      Object.keys(this.preferences).forEach(id => {
-        const preference = this.preferences[id]
+      Object.keys(this.params).forEach(id => {
+        const preference = this.params[id]
         const filtre = this.filtres.find(filtre => filtre.id === id)
 
         if (!filtre) return

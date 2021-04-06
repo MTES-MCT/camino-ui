@@ -24,7 +24,7 @@
           </div>
         </div>
 
-        <RouterLink
+        <router-link
           v-for="row in rows"
           :key="row.id"
           :to="row.link"
@@ -40,8 +40,8 @@
               :is="row.columns[col.id].component"
               v-if="
                 row.columns[col.id] &&
-                  row.columns[col.id].component &&
-                  row.columns[col.id].slot
+                row.columns[col.id].component &&
+                row.columns[col.id].slot
               "
               v-bind="row.columns[col.id].props"
               :class="row.columns[col.id].class"
@@ -59,7 +59,7 @@
               >{{ row.columns[col.id].value }}</span
             >
           </div>
-        </RouterLink>
+        </router-link>
       </div>
     </div>
   </div>
@@ -75,6 +75,8 @@ export default {
     order: { type: String, default: 'asc' },
     column: { type: String, default: '' }
   },
+
+  emits: ['params-update'],
 
   watch: {
     columns: 'columnInit'

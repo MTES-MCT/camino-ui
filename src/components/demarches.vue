@@ -5,21 +5,19 @@
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="demarches"
-    :preferences="preferences"
     :metas="metas"
     :params="params"
     :total="total"
-    :metas-loaded="metasLoaded"
-    @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
+    :initialized="initialized"
+    @params-update="paramsUpdate"
   >
-    <Downloads
-      v-if="demarches.length"
-      slot="downloads"
-      :formats="['csv', 'xlsx', 'ods']"
-      section="demarches"
-      class="flex-right full-x"
-    />
+    <template v-if="demarches.length" #downloads>
+      <Downloads
+        :formats="['csv', 'xlsx', 'ods']"
+        section="demarches"
+        class="flex-right full-x"
+      />
+    </template>
   </liste>
 </template>
 
@@ -45,19 +43,15 @@ export default {
 
   computed: {
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     demarches() {
-      return this.$store.state.titresDemarches.list
+      return this.$store.state.titresDemarches.elements
     },
 
     total() {
       return this.$store.state.titresDemarches.total
-    },
-
-    preferences() {
-      return this.$store.state.titresDemarches.preferences
     },
 
     metas() {
@@ -72,34 +66,36 @@ export default {
       return demarchesLignesBuild(this.demarches)
     },
 
-    metasLoaded() {
-      return this.$store.state.titresDemarches.loaded.metas
+    initialized() {
+      return this.$store.state.titresDemarches.initialized
     }
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'init',
+
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('titresDemarches/routeUpdate')
+      }
+    }
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('titresDemarches/reset')
   },
 
   methods: {
-    async metasGet() {
-      await this.$store.dispatch('titresDemarches/metasGet')
+    async init() {
+      await this.$store.dispatch('titresDemarches/init')
     },
 
-    urlLoad() {
-      this.$store.dispatch('titresDemarches/urlLoad')
-    },
-
-    async preferencesUpdate(options) {
-      await this.$store.dispatch(`titresDemarches/preferencesSet`, options)
+    async paramsUpdate(options) {
+      await this.$store.dispatch(`titresDemarches/paramsSet`, options)
 
       if (options.section === 'filtres') {
         this.eventTrack(options.params)

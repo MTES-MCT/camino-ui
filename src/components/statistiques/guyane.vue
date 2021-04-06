@@ -28,7 +28,7 @@
             </p>
             <p class="bold text-center">Autorisations de recherche</p>
             <p class="h5 text-center">
-              <RouterLink
+              <router-link
                 :to="{
                   name: 'titres',
                   query: {
@@ -36,12 +36,12 @@
                     typesIds: 'ar',
                     statutsIds: 'val,mod',
                     territoires: 'guyane',
-                    vue: 'liste'
+                    vue: 'table'
                   }
                 }"
               >
                 Voir les titres
-              </RouterLink>
+              </router-link>
             </p>
           </div>
           <div class="tablet-blob-1-4">
@@ -50,7 +50,7 @@
             </p>
             <p class="bold text-center">Permis exclusifs de recherches</p>
             <p class="h5 text-center">
-              <RouterLink
+              <router-link
                 :to="{
                   name: 'titres',
                   query: {
@@ -58,12 +58,12 @@
                     typesIds: 'pr',
                     statutsIds: 'val,mod',
                     territoires: 'guyane',
-                    vue: 'liste'
+                    vue: 'table'
                   }
                 }"
               >
                 Voir les titres
-              </RouterLink>
+              </router-link>
             </p>
           </div>
           <div class="tablet-blob-1-2">
@@ -87,7 +87,7 @@
             </p>
             <p class="bold text-center">Autorisations d'exploitation</p>
             <p class="h5 text-center">
-              <RouterLink
+              <router-link
                 :to="{
                   name: 'titres',
                   query: {
@@ -95,12 +95,12 @@
                     typesIds: 'ax',
                     statutsIds: 'val,mod',
                     territoires: 'guyane',
-                    vue: 'liste'
+                    vue: 'table'
                   }
                 }"
               >
                 Voir les titres
-              </RouterLink>
+              </router-link>
             </p>
           </div>
           <div class="tablet-blob-1-4">
@@ -109,7 +109,7 @@
             </p>
             <p class="bold text-center">Permis d'exploitation</p>
             <p class="h5 text-center">
-              <RouterLink
+              <router-link
                 :to="{
                   name: 'titres',
                   query: {
@@ -117,12 +117,12 @@
                     typesIds: 'px',
                     statutsIds: 'val,mod',
                     territoires: 'guyane',
-                    vue: 'liste'
+                    vue: 'table'
                   }
                 }"
               >
                 Voir les titres
-              </RouterLink>
+              </router-link>
             </p>
           </div>
           <div class="tablet-blob-1-4">
@@ -131,7 +131,7 @@
             </p>
             <p class="bold text-center">Concessions</p>
             <p class="h5 text-center">
-              <RouterLink
+              <router-link
                 :to="{
                   name: 'titres',
                   query: {
@@ -139,12 +139,12 @@
                     typesIds: 'cx',
                     statutsIds: 'val,mod',
                     territoires: 'guyane',
-                    vue: 'liste'
+                    vue: 'table'
                   }
                 }"
               >
                 Voir les titres
-              </RouterLink>
+              </router-link>
             </p>
           </div>
           <div class="tablet-blob-1-4">
@@ -191,9 +191,7 @@
     />
     <div class="line-neutral width-full mb-xl" />
     <div id="evolution" class="mb-xxl">
-      <h2>
-        Évolution de l’activité sur le domaine minier de Guyane
-      </h2>
+      <h2>Évolution de l’activité sur le domaine minier de Guyane</h2>
       <span class="separator" />
       <p>
         Les données affichées ici sont celles contenues dans la base de donnée
@@ -372,6 +370,7 @@ import GuyaneActivite from './guyane-activite.vue'
 import BarChart from '../_charts/bar.vue'
 import LineChart from '../_charts/line.vue'
 import { suggestedMaxCalc, statsBarFormat, statsLineFormat } from './_utils'
+import numberFormat from '@/utils/number-format'
 
 export default {
   name: 'TableauBordGuyane',
@@ -456,6 +455,10 @@ export default {
 
     statsBarFormat(annees, id, bar, line, labelBar, labelLine) {
       return statsBarFormat(annees, id, bar, line, labelBar, labelLine)
+    },
+
+    numberFormat(number) {
+      return numberFormat(number)
     }
   }
 }

@@ -17,9 +17,9 @@
       >
         <EditSectionElementModifiable
           v-if="modifiable"
+          v-model:contenu="contenu"
           :class="{ 'mb-s': element.description }"
           :element="element"
-          :contenu.sync="contenu"
         />
 
         <p v-else-if="hasValeur" class="py-xs mb-0">{{ valeur }}</p>

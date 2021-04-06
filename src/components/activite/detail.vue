@@ -1,8 +1,15 @@
 <template>
-  <Accordion :opened="opened" sub="true" @close="close" @toggle="toggle">
+  <Accordion
+    :opened="opened"
+    sub="true"
+    :slot-default="true"
+    :slot-buttons="true"
+    @close="close"
+    @toggle="toggle"
+  >
     <template #title>
       <h6>
-        {{ activite.date | dateFormat }} |
+        {{ dateFormat(activite.date) }} |
         <span class="cap-first"
           ><span v-if="activite.periode && activite.periode.nom"
             >{{ activite.periode.nom }}
@@ -40,7 +47,7 @@
         <h6>
           Date de {{ activite.statut.id === 'dep' ? 'dépôt' : 'modification' }}
         </h6>
-        <p>{{ activite.dateSaisie | dateFormat }}</p>
+        <p>{{ dateFormat(activite.dateSaisie) }}</p>
       </div>
 
       <Section
@@ -77,6 +84,7 @@ import Statut from '../_common/statut.vue'
 
 import Documents from '../documents/list.vue'
 import RemovePopup from './remove-popup.vue'
+import { dateFormat } from '@/utils'
 
 export default {
   components: {
@@ -152,6 +160,10 @@ export default {
           context: this.context
         }
       })
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }

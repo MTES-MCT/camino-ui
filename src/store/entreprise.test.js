@@ -1,10 +1,7 @@
-import { createLocalVue } from '@vue/test-utils'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
+import { createStore } from 'vuex'
 import * as api from '../api/entreprises'
 import entreprise from './entreprise'
-
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 jest.mock('../router', () => ({
   push: () => {},
@@ -25,7 +22,7 @@ describe("état de l'entreprise sélectionnée", () => {
   let mutations
 
   beforeEach(() => {
-    entreprise.state = { current: null }
+    entreprise.state = { element: null }
     actions = {
       pageError: jest.fn(),
       apiError: jest.fn(),
@@ -42,11 +39,14 @@ describe("état de l'entreprise sélectionnée", () => {
       popupMessageAdd: jest.fn()
     }
 
-    store = new Vuex.Store({
+    store = createStore({
       modules: { entreprise },
       mutations,
       actions
     })
+
+    const app = createApp({})
+    app.use(store)
   })
 
   test('obtient une entreprise', async () => {
@@ -54,7 +54,7 @@ describe("état de l'entreprise sélectionnée", () => {
     await store.dispatch('entreprise/get', 71)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(store.state.entreprise.current).toEqual({ id: 71, nom: 'toto' })
+    expect(store.state.entreprise.element).toEqual({ id: 71, nom: 'toto' })
   })
 
   test("affiche une page d'erreur si l'id de l'entreprise retourne null", async () => {
@@ -72,7 +72,7 @@ describe("état de l'entreprise sélectionnée", () => {
     await store.dispatch('entreprise/get', 71)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
-    expect(console.info).toHaveBeenCalled()
+
     expect(actions.apiError).toHaveBeenCalled()
   })
 
@@ -80,7 +80,7 @@ describe("état de l'entreprise sélectionnée", () => {
     store.commit('entreprise/set', { id: 71, nom: 'toto' })
     store.commit('entreprise/reset')
 
-    expect(store.state.entreprise.current).toBeNull()
+    expect(store.state.entreprise.element).toBeNull()
   })
 
   test('ajoute une entreprise', async () => {

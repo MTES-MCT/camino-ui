@@ -12,7 +12,7 @@
       }}
     </h1>
 
-    <Accordion class="mb" :sub="true">
+    <Accordion class="mb" :slot-sub="true" :slot-buttons="true">
       <template #title>
         <span class="cap-first"> Profil </span>
       </template>
@@ -20,7 +20,8 @@
       <template v-if="utilisateur.modification" #buttons>
         <button
           v-if="
-            (user && user.id === utilisateur.id) || permissionsCheck('super')
+            (user && user.id === utilisateur.id) ||
+            permissionsCheck(user, 'super')
           "
           id="cmn-utilisateur-button-password-popup"
           class="btn-alt py-s px-m"
@@ -132,13 +133,13 @@
                   :key="e.id"
                   class="mb-xs"
                 >
-                  <RouterLink
+                  <router-link
                     :to="{ name: 'entreprise', params: { id: e.id } }"
                     class="btn-border small py-s px-m rnd-xs mr-xs"
                     tag="button"
                   >
                     {{ e.legalSiren ? `${e.nom} (${e.legalSiren})` : e.nom }}
-                  </RouterLink>
+                  </router-link>
                 </li>
               </ul>
             </div>
@@ -164,7 +165,7 @@
 </template>
 
 <script>
-import { cloneAndClean } from '../utils/index'
+import { cloneAndClean, permissionsCheck } from '../utils/index'
 import Accordion from './_ui/accordion.vue'
 import Pill from './_ui/pill.vue'
 import Loader from './_ui/loader.vue'
@@ -182,11 +183,11 @@ export default {
 
   computed: {
     utilisateur() {
-      return this.$store.state.utilisateur.current
+      return this.$store.state.utilisateur.element
     },
 
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     loaded() {
@@ -196,8 +197,11 @@ export default {
 
   watch: {
     user: 'get',
-    '$route.params.id': async function() {
-      await this.get()
+
+    '$route.params.id': function (id) {
+      if (id) {
+        this.get()
+      }
     }
   },
 
@@ -205,7 +209,7 @@ export default {
     await this.get()
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.$store.commit('utilisateur/reset')
   },
 
@@ -264,6 +268,10 @@ export default {
       this.$store.commit('popupOpen', {
         component: UtilisateurEmailPopup
       })
+    },
+
+    permissionsCheck(user, permissions) {
+      return permissionsCheck(user, permissions)
     }
   }
 }

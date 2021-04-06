@@ -6,31 +6,29 @@
     :colonnes="colonnes"
     :lignes="lignes"
     :elements="utilisateurs"
-    :preferences="preferences"
     :metas="metas"
     :params="params"
     :total="total"
-    :metas-loaded="metasLoaded"
-    @preferences-update="preferencesUpdate"
-    @url-load="urlLoad"
+    :initialized="initialized"
+    @params-update="paramsUpdate"
   >
-    <button
-      v-if="user.utilisateursCreation"
-      slot="addButton"
-      class="btn rnd-xs py-s px-m full-x flex mb-s h5"
-      @click="addPopupOpen"
-    >
-      <span class="mt-xxs">Ajouter un utilisateur</span>
-      <i class="icon-24 icon-plus flex-right" />
-    </button>
+    <template v-if="user.utilisateursCreation" #addButton>
+      <button
+        class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+        @click="addPopupOpen"
+      >
+        <span class="mt-xxs">Ajouter un utilisateur</span>
+        <i class="icon-24 icon-plus flex-right" />
+      </button>
+    </template>
 
-    <Downloads
-      v-if="utilisateurs.length"
-      slot="downloads"
-      :formats="['csv', 'xlsx', 'ods']"
-      section="utilisateurs"
-      class="flex-right full-x"
-    />
+    <template v-if="utilisateurs.length" #downloads>
+      <Downloads
+        :formats="['csv', 'xlsx', 'ods']"
+        section="utilisateurs"
+        class="flex-right full-x"
+      />
+    </template>
   </liste>
 </template>
 
@@ -60,19 +58,15 @@ export default {
 
   computed: {
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     utilisateurs() {
-      return this.$store.state.utilisateurs.list
+      return this.$store.state.utilisateurs.elements
     },
 
     total() {
       return this.$store.state.utilisateurs.total
-    },
-
-    preferences() {
-      return this.$store.state.utilisateurs.preferences
     },
 
     metas() {
@@ -87,25 +81,31 @@ export default {
       return utilisateursLignesBuild(this.utilisateurs)
     },
 
-    metasLoaded() {
-      return this.$store.state.utilisateurs.loaded.metas
+    initialized() {
+      return this.$store.state.utilisateurs.initialized
     }
   },
 
   watch: {
-    user: 'metasGet'
+    user: 'init',
+
+    '$route.query': {
+      handler: function () {
+        this.$store.dispatch('utilisateurs/routeUpdate')
+      }
+    }
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
   },
 
-  destroyed() {
+  unmounted() {
     this.$store.commit('utilisateurs/reset')
   },
 
   methods: {
-    async metasGet() {
+    async init() {
       if (
         !this.user ||
         !this.user.sections ||
@@ -114,16 +114,12 @@ export default {
         await this.$store.dispatch('pageError')
       } else {
         this.visible = true
-        await this.$store.dispatch('utilisateurs/metasGet')
+        await this.$store.dispatch('utilisateurs/init')
       }
     },
 
-    urlLoad() {
-      this.$store.dispatch('utilisateurs/urlLoad')
-    },
-
-    async preferencesUpdate(options) {
-      await this.$store.dispatch(`utilisateurs/preferencesSet`, options)
+    async paramsUpdate(options) {
+      await this.$store.dispatch(`utilisateurs/paramsSet`, options)
     },
 
     addPopupOpen() {

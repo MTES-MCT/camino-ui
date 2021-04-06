@@ -5,7 +5,7 @@
     <h1>
       {{ nom }}
     </h1>
-    <Accordion class="mb-xxl" :sub="true">
+    <Accordion class="mb-xxl" :slot-sub="true" :slot-buttons="true">
       <template #title>
         <span class="cap-first"> Profil </span>
       </template>
@@ -56,7 +56,7 @@
               <ul class="list-sans">
                 <li v-for="e in entreprise.etablissements" :key="e.id">
                   <h5 class="inline-block">
-                    {{ e.dateDebut | dateFormat }}
+                    {{ dateFormat(e.dateDebut) }}
                   </h5>
                   : {{ e.nom }}
                 </li>
@@ -143,7 +143,7 @@
             :bouton-modification="entreprise.modification"
             :bouton-suppression="
               entreprise.modification &&
-                permissionsCheck(['super', 'admin', 'editeur'])
+              permissionsCheck(user, ['super', 'admin', 'editeur'])
             "
             :context="{ id: entreprise.id, name: 'entreprise' }"
             :documents="entreprise.documents"
@@ -193,6 +193,7 @@ import TitresTable from './titres/table.vue'
 import EntrepriseEditPopup from './entreprise/edit-popup.vue'
 import DocumentAddButton from './document/button-add.vue'
 import Documents from './documents/list.vue'
+import { dateFormat, permissionsCheck } from '../utils/index'
 
 import {
   utilisateursColonnes,
@@ -217,7 +218,7 @@ export default {
 
   computed: {
     entreprise() {
-      return this.$store.state.entreprise.current
+      return this.$store.state.entreprise.element
     },
 
     nom() {
@@ -241,7 +242,7 @@ export default {
     },
 
     user() {
-      return this.$store.state.user.current
+      return this.$store.state.user.element
     },
 
     loaded() {
@@ -269,7 +270,11 @@ export default {
   },
 
   watch: {
-    $route: 'get',
+    '$route.params.id': function (id) {
+      if (id) {
+        this.get()
+      }
+    },
 
     user: 'get'
   },
@@ -278,7 +283,7 @@ export default {
     this.get()
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     this.$store.commit('entreprise/reset')
   },
 
@@ -302,6 +307,14 @@ export default {
           entreprise
         }
       })
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
+    },
+
+    permissionsCheck(user, permissions) {
+      return permissionsCheck(user, permissions)
     }
   }
 }

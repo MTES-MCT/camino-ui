@@ -6,7 +6,7 @@
       </div>
     </template>
 
-    <div v-if="!permissionsCheck('super')">
+    <div v-if="!permissionsCheck(user, 'super')">
       <div class="tablet-blobs">
         <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Mot de passe actuel</h6>
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import { permissionsCheck } from '@/utils'
 import Popup from '../_ui/popup.vue'
 
 export default {
@@ -110,11 +111,15 @@ export default {
       return this.$store.state.popup.messages
     },
 
+    user() {
+      return this.$store.state.user.element
+    },
+
     complete() {
       return (
         this.motDePasseNouveau1 &&
         this.motDePasseNouveau2 &&
-        (this.permissionsCheck('super') || this.motDePasse)
+        (this.permissionsCheck(this.user, 'super') || this.motDePasse)
       )
     }
   },
@@ -123,7 +128,7 @@ export default {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 
@@ -160,6 +165,10 @@ export default {
 
     permissionToggle(permission) {
       this.utilisateur.permission = permission
+    },
+
+    permissionsCheck(user, permissions) {
+      return permissionsCheck(user, permissions)
     }
   }
 }

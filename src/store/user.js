@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import {
   moi,
   utilisateurTokenCreer,
@@ -16,8 +14,8 @@ import tiles from '../utils/map-tiles'
 
 import router from '../router'
 
-export const state = {
-  current: null,
+const state = {
+  element: null,
   metas: {
     domaines: [],
     version: null,
@@ -31,9 +29,9 @@ export const state = {
   }
 }
 
-export const actions = {
-  async metasGet({ commit, dispatch }) {
-    commit('loadingAdd', 'userMetasGet', { root: true })
+const actions = {
+  async init({ commit, dispatch }) {
+    commit('loadingAdd', 'userInit', { root: true })
 
     try {
       const data = await userMetas()
@@ -41,9 +39,8 @@ export const actions = {
       commit('metasSet', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
-      console.info(e)
     } finally {
-      commit('loadingRemove', 'userMetasGet', { root: true })
+      commit('loadingRemove', 'userInit', { root: true })
     }
   },
 
@@ -272,7 +269,7 @@ export const actions = {
   }
 }
 
-export const getters = {
+const getters = {
   tilesActive(state) {
     return state.metas.tiles.find(
       ({ id }) => id === state.preferences.carte.tilesId
@@ -280,7 +277,7 @@ export const getters = {
   },
 
   preferencesConditions(state) {
-    if (state.current) {
+    if (state.element) {
       return true
     }
 
@@ -298,24 +295,24 @@ export const getters = {
   }
 }
 
-export const mutations = {
+const mutations = {
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      Vue.set(state.preferences[section], id, params[id])
+      state.preferences[section][id] = params[id]
     })
   },
 
   set(state, user) {
-    Vue.set(state, 'current', user)
+    state.element = user
   },
 
   reset(state) {
-    Vue.set(state, 'current', null)
+    state.element = null
   },
 
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
-      Vue.set(state.metas, id, data[id])
+      state.metas[id] = data[id]
     })
   }
 }

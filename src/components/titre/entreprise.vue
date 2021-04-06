@@ -1,5 +1,12 @@
 <template>
-  <Accordion class="mb" :opened="opened" @close="close" @toggle="toggle">
+  <Accordion
+    class="mb"
+    :opened="opened"
+    :slot-default="true"
+    :slot-buttons="true"
+    @close="close"
+    @toggle="toggle"
+  >
     <template #title>
       <h4 class="mb-0">
         {{ entrepriseNameFind(entreprise) }}
@@ -10,7 +17,7 @@
     </template>
 
     <template #buttons>
-      <RouterLink
+      <router-link
         :to="{ name: 'entreprise', params: { id: entreprise.id } }"
         class="btn-alt py-s px-m"
         tag="button"
@@ -19,7 +26,7 @@
           class="icon-24 icon-window-link"
           @click="eventTrack('titre-entreprise_acceder')"
         />
-      </RouterLink>
+      </router-link>
     </template>
 
     <div v-if="content" class="px-m pt-m">
@@ -54,7 +61,7 @@
           <ul class="list-sans">
             <li v-for="e in entreprise.etablissements" :key="e.id">
               <h5 class="inline-block">
-                {{ e.dateDebut | dateFormat }}
+                {{ dateFormat(e.dateDebut) }}
               </h5>
               : {{ e.nom }}
             </li>
@@ -116,6 +123,7 @@
 </template>
 
 <script>
+import { dateFormat } from '@/utils'
 import Accordion from '../_ui/accordion.vue'
 import Tag from '../_ui/tag.vue'
 
@@ -131,6 +139,8 @@ export default {
       default: () => {}
     }
   },
+
+  emits: ['titre-event-track'],
 
   data() {
     return {
@@ -183,6 +193,10 @@ export default {
         action,
         nom: this.$route.params.id
       })
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }

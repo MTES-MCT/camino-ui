@@ -82,14 +82,14 @@
         >
           <div class="tablet-blob-1-2">
             <inputNumber
-              v-model.number="etape.duree.ans"
+              v-model="etape.duree.ans"
               placeholder="années"
               class="p-s mb-s"
             />
           </div>
           <div class="tablet-blob-1-2">
             <inputNumber
-              v-model.number="etape.duree.mois"
+              v-model="etape.duree.mois"
               placeholder="mois"
               class="p-s"
             />
@@ -107,7 +107,7 @@
       </div>
       <div class="tablet-blob-2-3">
         <inputNumber
-          v-model.number="etape.surface"
+          v-model="etape.surface"
           class="p-s"
           placeholder="0"
           :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
@@ -117,13 +117,13 @@
 
     <EditSections
       v-if="etapeType.sections"
+      v-model:element="etape"
       :sections="etapeType.sections"
-      :element.sync="etape"
     />
 
     <div v-if="etapeType.documentsTypes && documentsTypes.length">
       <DocumentsEdit
-        :documents.sync="etape.documents"
+        v-model:documents="etape.documents"
         :parent-id="etape.id"
         :parent-type-id="etapeType.id"
         :documents-types="documentsTypes"
@@ -230,17 +230,17 @@ export default {
   },
 
   async created() {
-    await this.metasGet()
+    await this.init()
     document.addEventListener('keyup', this.keyUp)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyUp)
   },
 
   methods: {
-    async metasGet() {
-      await this.$store.dispatch('titreTravauxEtape/metasGet', this.etape)
+    async init() {
+      await this.$store.dispatch('titreTravauxEtape/init', this.etape)
     },
 
     async save() {

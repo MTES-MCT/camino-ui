@@ -16,7 +16,7 @@
       <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom.</p>
       <hr />
     </div>
-    <div v-if="permissionsCheck(['super', 'admin'])" class="tablet-blobs">
+    <div v-if="permissionsCheck(user, ['super', 'admin'])" class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Email</h6>
       </div>
@@ -122,9 +122,7 @@
               class="mb-xs"
             >
               <button
-                :id="
-                  `cmn-utilisateur-edit-popup-permission-button-${permission.id}`
-                "
+                :id="`cmn-utilisateur-edit-popup-permission-button-${permission.id}`"
                 :class="{ active: utilisateur.permissionId === permission.id }"
                 class="btn-flash small py-xs px-s pill cap-first mr-xs"
                 @click="permissionToggle(permission)"
@@ -213,7 +211,7 @@
                 :value="{ id: a.id }"
                 :disabled="
                   utilisateur.administrations.find(({ id }) => id === a.id) ||
-                    administrationsDisabledIds.includes(a.id)
+                  administrationsDisabledIds.includes(a.id)
                 "
               >
                 {{ `${a.abreviation}` }}
@@ -233,7 +231,7 @@
         <button
           v-if="
             !utilisateur.administrations.some(({ id }) => id === '') &&
-              utilisateurAdministrationsLength < 1
+            utilisateurAdministrationsLength < 1
           "
           id="cmn-utilisateur-edit-popup-administration-button-ajouter"
           class="btn rnd-xs py-s px-m full-x flex mb h5"
@@ -270,6 +268,7 @@
 </template>
 
 <script>
+import { permissionsCheck } from '@/utils'
 import Popup from '../_ui/popup.vue'
 
 export default {
@@ -319,6 +318,10 @@ export default {
       return this.$store.state.utilisateur.metas.administrations
     },
 
+    user() {
+      return this.$store.state.user.element
+    },
+
     complete() {
       return this.action === 'create'
         ? this.utilisateur.nom &&
@@ -351,7 +354,7 @@ export default {
 
     administrationsDisabledIds() {
       return this.administrations.reduce((res, a) => {
-        if (!a.membre && !this.permissionsCheck(['super'])) {
+        if (!a.membre && !this.permissionsCheck(this.user, ['super'])) {
           res.push(a.id)
         }
 
@@ -360,7 +363,7 @@ export default {
     },
 
     administrationsFiltered() {
-      const a = this.permissionsCheck(['super'])
+      const a = this.permissionsCheck(this.user, ['super'])
         ? this.administrations
         : this.administrations.filter(a => a.membre)
 
@@ -378,13 +381,13 @@ export default {
     document.addEventListener('keyup', this.keyup)
   },
 
-  beforeDestroy() {
+  beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
   },
 
   methods: {
     async get() {
-      await this.$store.dispatch('utilisateur/metasGet')
+      await this.$store.dispatch('utilisateur/init')
     },
 
     async save() {
@@ -466,6 +469,10 @@ export default {
       const administration = this.administrations.find(a => a.id === id)
 
       return administration.abreviation
+    },
+
+    permissionsCheck(user, permissions) {
+      return permissionsCheck(user, permissions)
     }
   }
 }
