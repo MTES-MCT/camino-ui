@@ -1,5 +1,5 @@
 <template>
-  <liste
+  <Liste
     nom="métas"
     :colonnes="colonnes"
     :lignes="lignes"
@@ -7,9 +7,8 @@
     :params="params"
     :total="metas.length"
     :initialized="true"
-    @preferences-update="preferencesUpdate"
-  >
-  </liste>
+    @params-update="paramsUpdate"
+  />
 </template>
 
 <script>
@@ -75,7 +74,7 @@ export default {
       }
     },
 
-    async preferencesUpdate(options) {
+    async paramsUpdate(options) {
       await this.$store.dispatch(`metas/paramsSet`, options)
     }
   }
