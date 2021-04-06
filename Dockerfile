@@ -10,7 +10,7 @@ COPY package*.json ./
 RUN npm ci
 
 COPY index.js ./
-COPY vue.config.js ./
+COPY vite.config.js ./
 COPY babel.config.js ./
 COPY src src/
 RUN npm run build
