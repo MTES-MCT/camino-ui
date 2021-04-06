@@ -8,7 +8,7 @@ services:
       VIRTUAL_HOST: ${URL}
       VIRTUAL_PORT: ${PORT}
       PORT: ${PORT}
-      VITE_API_URL: ${VITE_API_URL}
+      API_URL: ${API_URL}
       API_MATOMO_URL: ${API_MATOMO_URL}
       API_MATOMO_ID: ${API_MATOMO_ID}
     networks:

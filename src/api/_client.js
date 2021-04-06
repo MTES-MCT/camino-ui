@@ -6,6 +6,7 @@ import { GraphQL } from 'graphql-react'
 import 'cross-fetch/polyfill'
 import { fragmentUtilisateurToken } from './fragments/utilisateur'
 
+const apiUrl = '/apiUrl'
 const graphql = new GraphQL()
 
 const errorThrow = e => {
@@ -58,21 +59,7 @@ const graphQLCall = async (url, query, variables) => {
   return dataContent
 }
 
-let apiUrl
-const apiUrlInit = async () => {
-  if (import.meta.env.PROD) {
-    const res = await fetch('/apiUrl');
-    apiUrl = await res.text();
-  } else {
-    apiUrl = import.meta.env.VITE_API_URL;
-  }
-}
-
 const apiFetch = async (call, query, variables) => {
-  if (!apiUrl) {
-    await apiUrlInit()
-  }
-
   try {
     return await call(apiUrl, query, variables)
   } catch (e) {
@@ -117,4 +104,4 @@ const tokenRefresh = async () => {
   }
 }
 
-export { apiGraphQLFetch, apiRestFetch, apiUrlInit }
+export { apiGraphQLFetch, apiRestFetch }
