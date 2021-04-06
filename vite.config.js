@@ -2,8 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import npmPackage from './package.json'
-
-const apiUrl = 'http://localhost:4000'
+require('dotenv').config()
 
 export default defineConfig({
   plugins: [vue()],
@@ -22,7 +21,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/apiUrl': apiUrl
+      '/apiUrl': process.env.API_URL
     }
   }
 })
