@@ -128,9 +128,9 @@ const actions = {
   },
 
   async download({ dispatch, commit }, filePath) {
-    commit('loadingAdd', 'download', { root: true })
-
     try {
+      commit('loadingAdd', 'download')
+
       const res = await apiRestFetch(filePath)
 
       // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
@@ -161,7 +161,7 @@ const actions = {
         `erreur de téléchargement : ${filePath}, ${e.message}`
       )
     } finally {
-      commit('loadingRemove', 'download', { root: true })
+      commit('loadingRemove', 'download')
     }
   },
 

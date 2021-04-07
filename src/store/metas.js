@@ -2,11 +2,11 @@ import metasIndex from './metas-definitions'
 
 const state = {
   total: 0,
-  params: [
+  definitions: [
     { id: 'colonne', type: 'string', elements: ['id', 'nom'] },
     { id: 'ordre', type: 'string', elements: ['asc', 'desc'] }
   ],
-  preferences: {
+  params: {
     table: { ordre: 'asc', colonne: null }
   }
 }
@@ -24,9 +24,7 @@ const getters = {
       nom: metasIndex[id].nom
     }))
 
-    return state.preferences.table.ordre === 'desc'
-      ? elements.reverse()
-      : elements
+    return state.params.table.ordre === 'desc' ? elements.reverse() : elements
   }
 }
 
