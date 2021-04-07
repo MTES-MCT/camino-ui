@@ -98,6 +98,7 @@
     "postcss-normalize": "^9.0.0",
     "postcss-preset-env": "^6.7.0",
     "postcss-typescale": "^0.2.3",
+    "prettier": "^2.2.1",
     "rbush": "^3.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -122,9 +123,9 @@
     "extends": [
       "plugin:vue/vue3-recommended",
       "standard",
-      "prettier",
       "prettier/standard",
-      "prettier/vue"
+      "prettier/vue",
+      "plugin:prettier/recommended"
     ],
     "rules": {
       "vue/no-mutating-props": 0,

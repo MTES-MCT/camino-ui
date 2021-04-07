@@ -3,9 +3,9 @@
     <template #header>
       <div>
         <h5>
-          <span class="cap-first"> {{ titreNom }} </span
-          ><span class="color-neutral"> | </span
-          ><span class="cap-first">
+          <span class="cap-first"> {{ titreNom }} </span>
+          <span class="color-neutral"> | </span>
+          <span class="cap-first">
             {{ demarcheType.nom }}
           </span>
         </h5>
@@ -24,7 +24,9 @@
       </div>
     </div>
 
-    <div v-else-if="!initialized"><p>Chargement en cours…</p></div>
+    <div v-else-if="!initialized">
+      <p>Chargement en cours…</p>
+    </div>
 
     <div v-else>
       <div class="tablet-blobs">
@@ -103,6 +105,7 @@
           v-if="etapeType.sections"
           v-model:etape="etape"
           :sections="etapeType.sections"
+          @complete-update="sectionsCompleteUpdate"
         />
       </div>
 
@@ -161,6 +164,7 @@ import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
 import EditSections from './edit-sections.vue'
 import DocumentsEdit from '../../document/edit-multi.vue'
+import { contenuBuild } from '@/utils/contenu'
 
 export default {
   name: 'CaminoEtapeEditPopup',
@@ -188,7 +192,8 @@ export default {
       newDate: new Date().toISOString().slice(0, 10),
       initialized: false,
       heritageLoaded: false,
-      documentsComplete: false
+      documentsComplete: false,
+      sectionsComplete: false
     }
   },
 
@@ -233,8 +238,8 @@ export default {
         this.etape.typeId &&
         this.etape.date &&
         this.etape.statutId &&
-        (!this.documentsTypes?.length ||
-          this.documentsComplete ||
+        (((!this.documentsTypes?.length || this.documentsComplete) &&
+          this.sectionsComplete) ||
           this.etape.statutId === 'aco')
       )
     }
@@ -326,6 +331,10 @@ export default {
 
     documentsCompleteUpdate(documentsComplete) {
       this.documentsComplete = documentsComplete
+    },
+
+    sectionsCompleteUpdate(complete) {
+      this.sectionsComplete = complete
     },
 
     errorsRemove() {
