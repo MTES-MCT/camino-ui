@@ -102,9 +102,9 @@
         />
 
         <EditSections
-          v-if="etapeType.sections"
+          v-if="etape.sections"
           v-model:etape="etape"
-          :sections="etapeType.sections"
+          :sections="etape.sections"
           @complete-update="sectionsCompleteUpdate"
         />
       </div>
@@ -164,7 +164,6 @@ import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
 import EditSections from './edit-sections.vue'
 import DocumentsEdit from '../../document/edit-multi.vue'
-import { contenuBuild } from '@/utils/contenu'
 
 export default {
   name: 'CaminoEtapeEditPopup',

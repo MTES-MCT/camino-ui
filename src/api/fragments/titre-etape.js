@@ -196,6 +196,9 @@ const fragmentTitreEtapeHeritage = gql`
     dateFin
     duree
     surface
+    type {
+      sections
+    }
 
     titulaires {
       ...titreEntreprises

@@ -131,6 +131,7 @@ const etapeEditFormat = (etape, demarcheId) => {
 
   if (etape.type) {
     etape.typeId = etape.type.id
+    etape.sections = etape.type.sections
 
     delete etape.type
   }
