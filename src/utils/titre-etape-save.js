@@ -254,6 +254,8 @@ const etapeSaveFormat = etape => {
     })
   }
 
+  delete etape.sections
+
   if (!etape.contenu || !Object.keys(etape.contenu).length) {
     delete etape.contenu
   }
