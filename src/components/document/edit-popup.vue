@@ -52,6 +52,7 @@
         <div class="tablet-blob-2-3">
           <button
             v-if="!loading"
+            ref="save-button"
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!document.typeId || !document.date"
             @click="save"
@@ -148,6 +149,7 @@ export default {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
+        this.$refs['save-button'].focus()
         this.save()
       }
     },

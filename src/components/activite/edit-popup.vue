@@ -61,6 +61,7 @@
         <div class="tablet-blob-2-3">
           <button
             id="cmn-titre-activite-edit-popup-button-previsualiser"
+            ref="preview-button"
             class="btn-flash rnd-xs p-s full-x"
             @click="preview"
           >
@@ -84,6 +85,7 @@
             <div class="tablet-blob-1-2 mb tablet-mb-0">
               <button
                 id="cmn-titre-activite-edit-popup-button-enregistrer"
+                ref="save-button"
                 class="rnd-xs p-s full-x"
                 :class="{ 'btn-flash': !complete, 'btn-border': complete }"
                 @click="save(false)"
@@ -93,6 +95,7 @@
             </div>
             <div class="tablet-blob-1-2">
               <button
+                ref="validate-button"
                 class="btn-flash rnd-xs p-s full-x"
                 :disabled="!complete"
                 :class="{ disabled: !complete }"
@@ -184,7 +187,7 @@ export default {
       this.modifiable = true
     },
 
-    async save(confirmation) {
+    async save(depose) {
       this.errorsRemove()
 
       if (!this.activite.contenu) {
@@ -193,7 +196,7 @@ export default {
 
       await this.$store.dispatch('titreActivite/update', {
         activite: this.activite,
-        depose: confirmation,
+        depose,
         context: this.context
       })
 
@@ -218,11 +221,14 @@ export default {
         }
       } else if ((e.which || e.keyCode) === 13) {
         if (this.modifiable) {
+          this.$refs['preview-button'].focus()
           this.preview()
         } else {
           if (this.complete) {
+            this.$refs['validate-button'].focus()
             this.save(true)
           } else {
+            this.$refs['save-button'].focus()
             this.save(false)
           }
         }

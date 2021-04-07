@@ -45,6 +45,7 @@
         </div>
         <div class="tablet-blob-2-3">
           <button
+            ref="save-button"
             :disabled="!complete"
             :class="{ disabled: !complete }"
             class="btn-flash rnd-xs p-s full-x"
@@ -138,6 +139,7 @@ export default {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13) {
         if (this.complete) {
+          this.$refs['save-button'].focus()
           this.save()
         }
       }

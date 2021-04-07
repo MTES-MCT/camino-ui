@@ -128,6 +128,7 @@
         <div class="tablet-blob-2-3">
           <button
             v-if="dateIsVisible"
+            ref="init-button"
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!newDate"
             :class="{ disabled: !newDate }"
@@ -137,6 +138,7 @@
           </button>
           <button
             v-else
+            ref="save-button"
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!complete"
             :class="{ disabled: !complete }"
@@ -297,8 +299,10 @@ export default {
         this.cancel()
       } else if ((e.which || e.keyCode) === 13 && this.events.saveKeyUp) {
         if (this.dateIsVisible && this.newDate) {
+          this.$refs['init-button'].focus()
           this.init()
         } else if (this.complete) {
+          this.$refs['save-button'].focus()
           this.save()
         }
       }

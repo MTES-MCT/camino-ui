@@ -119,6 +119,7 @@
       <div class="tablet-blob-2-3">
         <button
           id="cmn-user-add-button-enregistrer"
+          ref="save-button"
           :disabled="!complete"
           :class="{ disabled: !complete }"
           class="btn-flash rnd-xs p-s full-x"
@@ -179,6 +180,7 @@ export default {
     keyup(e) {
       if ((e.which || e.keyCode) === 13) {
         if (this.complete) {
+          this.$refs['save-button'].focus()
           this.save()
         }
       }
