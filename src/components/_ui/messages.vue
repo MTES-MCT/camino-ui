@@ -16,10 +16,7 @@
 <script>
 export default {
   props: {
-    messages: {
-      type: Array,
-      default: () => []
-    }
+    messages: { type: Array, default: () => [] }
   }
 }
 </script>

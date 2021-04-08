@@ -4,7 +4,6 @@
       <div v-if="!apiError" class="flex">
         <div class="flex-right">
           <div class="mt-m tablet-mb-m flex">
-            <div v-if="loading" class="loader" />
             <div v-if="loaded" class="ml-xs">
               <MenuButton />
             </div>
@@ -15,16 +14,29 @@
         </div>
       </div>
     </div>
-    <div class="tablet-blob-2-3 pt-m relative">
-      <router-link v-if="$route.name !== 'titres'" :to="{ name: 'titres' }">
-        <img src="/img/logo-camino.svg" class="logo" />
+    <div class="tablet-blob-2-3 pt-m">
+      <router-link
+        v-if="$route.name !== 'titres'"
+        :to="{ name: 'titres' }"
+        class="flex text-decoration-none"
+      >
+        <img src="/img/logo-rf.svg" class="logo mr" />
+        <div>
+          <p class="mb-0 mt-xs title">Cadastre minier</p>
+          <p class="h5 mb-0 bold">
+            camino<span class="color-neutral">.beta.gouv.fr</span>
+          </p>
+        </div>
       </router-link>
-      <span v-else>
-        <img src="/img/logo-camino.svg" class="logo" />
+      <span v-else class="flex">
+        <img src="/img/logo-rf.svg" class="logo mr" />
+        <div>
+          <p class="mb-0 mt-xs title">Cadastre minier</p>
+          <p class="h5 mb-0 bold">
+            camino<span class="color-neutral">.beta.gouv.fr</span>
+          </p>
+        </div>
       </span>
-      <p class="h5 camino-header-baseline absolute">
-        Le cadastre minier numérique ouvert
-      </p>
     </div>
   </div>
 </template>
@@ -42,19 +54,12 @@ export default {
   },
 
   props: {
-    loaded: {
-      type: Boolean,
-      default: false
-    }
+    loaded: { type: Boolean, default: false }
   },
 
   computed: {
     apiError() {
       return this.$store.state.apiError
-    },
-
-    loading() {
-      return this.$store.state.loading.length > 0
     }
   }
 }

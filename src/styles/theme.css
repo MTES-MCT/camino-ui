@@ -16,7 +16,11 @@ html {
 }
 
 .logo {
-  height: calc(var(--unit) * 4);
+  height: calc(var(--unit) * 2.333333);
+}
+
+.title {
+  typescale: 2.5 1.5;
 }
 
 .map:not(.leaflet-pseudo-fullscreen) {
@@ -69,7 +73,7 @@ html {
 }
 
 .banner {
-  background-color: var(--color-alt);
+  background: #f7f7da;
   z-index: 1;
   border-bottom: dashed 1px var(--color-text);
 }
@@ -117,6 +121,16 @@ html {
   border-top-style: solid;
   border-top-color: var(--color-alt);
   margin-top: calc(-1 * var(--unit-xxs));
+}
+
+.loaders {
+  z-index: 3;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  right: auto;
+  border-radius: var(--unit);
+  background-color: color-mod(var(--color-inverse) alpha(50%));
 }
 
 .map-loader {
@@ -270,7 +284,7 @@ h6.color {
 
   .map-view {
     min-height: calc(24 * var(--unit));
-    height: calc(100vh - (16.5 * var(--unit)));
+    height: calc(100vh - (15 * var(--unit)));
   }
 
   .table-view {
@@ -318,5 +332,8 @@ h6.color {
   .popup-content {
     height: calc(100% - 8 * var(--unit));
     flex: 1 1 auto;
+  }
+
+  .loaders {
   }
 }
