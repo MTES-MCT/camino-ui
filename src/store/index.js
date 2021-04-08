@@ -60,7 +60,11 @@ const state = {
   popup: { component: null, props: null, messages: [], loading: false },
   error: null,
   menu: { component: null },
-  loading: []
+  loading: [],
+  fileLoading: {
+    loaded: 0,
+    total: 0
+  }
 }
 
 const actions = {
@@ -129,8 +133,6 @@ const actions = {
 
   async download({ dispatch, commit }, filePath) {
     try {
-      commit('loadingAdd', 'download')
-
       const res = await apiRestFetch(filePath)
 
       // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
@@ -146,7 +148,25 @@ const actions = {
 
       if (!name) throw new Error('nom de fichier manquant')
 
-      const body = await res.blob()
+      // progress
+      const total = res.headers.get('content-length')
+      const reader = res.body.getReader()
+      let loaded = 0
+      const chunks = []
+
+      while (true) {
+        const { done, value } = await reader.read()
+
+        if (done) break
+
+        chunks.push(value)
+        loaded += value.length
+
+        commit('fileLoad', { loaded, total })
+      }
+
+      const body = new Blob(chunks)
+
       saveAs(body, name)
 
       dispatch('messageAdd', {
@@ -156,12 +176,13 @@ const actions = {
 
       return name
     } catch (e) {
+      console.log(e)
       dispatch(
         'apiError',
         `erreur de téléchargement : ${filePath}, ${e.message}`
       )
     } finally {
-      commit('loadingRemove', 'download')
+      commit('fileLoad', { loaded: 0, total: 0 })
     }
   },
 
@@ -243,6 +264,11 @@ const mutations = {
     if (index > -1) {
       state.loading.splice(index, 1)
     }
+  },
+
+  fileLoad(state, { loaded, total }) {
+    state.fileLoading.loaded = loaded
+    state.fileLoading.total = total
   }
 }
 

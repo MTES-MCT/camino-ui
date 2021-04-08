@@ -1,26 +1,12 @@
 <template>
   <div class="page relative">
-    <div v-if="slotBanner" class="banner">
-      <div class="container py-m">
-        <slot name="banner" />
-      </div>
-    </div>
+    <slot name="banner" />
 
     <Transition name="slide" mode="out-in">
       <slot name="menu" />
     </Transition>
 
-    <header class="header">
-      <div class="container">
-        <slot name="header" />
-      </div>
-    </header>
-
-    <main class="main">
-      <div class="container">
-        <slot />
-      </div>
-    </main>
+    <slot />
 
     <div class="messages">
       <slot name="messages" />
@@ -34,11 +20,9 @@
       <slot name="popup" />
     </Transition>
 
-    <footer class="footer">
-      <div class="container">
-        <slot name="footer" />
-      </div>
-    </footer>
+    <Transition name="fade">
+      <slot name="loader" />
+    </Transition>
   </div>
 </template>
 
@@ -47,7 +31,6 @@ export default {
   name: 'UiPage',
 
   props: {
-    slotBanner: { type: Boolean, default: false },
     slotPopup: { type: Boolean, default: false }
   }
 }

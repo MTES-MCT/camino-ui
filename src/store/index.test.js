@@ -70,7 +70,11 @@ describe("état général de l'application", () => {
       error: null,
       menu: { component: null },
       loading: [],
-      loaded: false
+      loaded: false,
+      fileLoading: {
+        loaded: 0,
+        total: 0
+      }
     }
 
     store = createStore({
@@ -278,7 +282,14 @@ describe("état général de l'application", () => {
   let store
 
   beforeEach(() => {
-    state = { messages: [], loading: [] }
+    state = {
+      messages: [],
+      loading: [],
+      fileLoading: {
+        loaded: 0,
+        total: 0
+      }
+    }
 
     localStorage.clear()
   })
@@ -309,7 +320,12 @@ describe("état général de l'application", () => {
     const apiMock = apiRestFetch.mockResolvedValueOnce({
       data: 'truc',
       headers: { get: () => 'filename=nom-du-fichier.pdf' },
-      blob: async () => 'fileContent'
+      blob: async () => 'fileContent',
+      body: {
+        getReader: () => ({
+          read: () => ({ done: true, value: '' })
+        })
+      }
     })
 
     const section = 'titres'

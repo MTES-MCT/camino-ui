@@ -79,7 +79,7 @@
 
 .slide-bottom-enter-from,
 .slide-bottom-leave-to {
-  transform: translateY(90%);
+  transform: translateY(100%);
   opacity: 0;
 }
 

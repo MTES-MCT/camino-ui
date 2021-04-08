@@ -25,7 +25,7 @@ html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   background-color: var(--color-bg);
-  color: var(--color-text);
+  color: var(--color-inverse);
   font-family: system-ui;
   typescale: 0 1;
 }
