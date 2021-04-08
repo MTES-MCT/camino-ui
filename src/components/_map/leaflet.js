@@ -52,11 +52,11 @@ const leafletTilesBuild = tiles =>
         attribution: tiles.attribution
       })
 
-const leafletScaleAdd = map => L.control.scale({ imperial: false }).addTo(map)
+const leafletScaleBuild = () => L.control.scale({ imperial: false })
 
 const leafletFeatureGroupGet = markers => new L.FeatureGroup(markers)
 
-const leafletCanvasLayerAdd = options => new L.MarkersCanvas(options)
+const leafletCanvasLayerBuild = options => new L.MarkersCanvas(options)
 
 const leafletMarkerBuild = (latLng, icon) => L.marker(latLng, { icon })
 
@@ -105,10 +105,10 @@ const leafletGeojsonBoundsGet = zone => L.geoJSON(zone).getBounds()
 export {
   leafletMap,
   leafletTileLayerDefault,
-  leafletScaleAdd,
+  leafletScaleBuild,
   leafletTilesBuild,
   leafletFeatureGroupGet,
-  leafletCanvasLayerAdd,
+  leafletCanvasLayerBuild,
   leafletMarkerBuild,
   leafletGeojsonBuild,
   leafletMarkerClusterGroupBuild,

@@ -7,12 +7,14 @@
 </template>
 
 <script>
+import { toRaw } from 'vue'
+
 import {
   leafletMap,
   leafletTileLayerDefault,
-  leafletScaleAdd,
+  leafletScaleBuild,
   leafletFeatureGroupGet,
-  leafletCanvasLayerAdd
+  leafletCanvasLayerBuild
 } from './leaflet.js'
 
 export default {
@@ -127,7 +129,8 @@ export default {
     },
 
     scaleAdd() {
-      leafletScaleAdd(this.map)
+      const scale = leafletScaleBuild()
+      scale.addTo(toRaw(this.map))
     },
 
     tilesUpdate() {
@@ -137,13 +140,13 @@ export default {
 
     tilesAdd() {
       this.layers.tiles = this.tilesLayer
-      this.layers.tiles.addTo(this.map)
+      this.layers.tiles.addTo(toRaw(this.map))
     },
 
     geojsonsAdd() {
       this.geojsonLayers.forEach(l => {
         this.layers.geojsons.push(l)
-        l.addTo(this.map)
+        l.addTo(toRaw(this.map))
       })
     },
 
@@ -183,8 +186,8 @@ export default {
 
     layersCanvasAdd() {
       this.map.createPane('canvas')
-      this.layers.canvas = leafletCanvasLayerAdd({ pane: 'canvas' })
-      this.layers.canvas.addTo(this.map)
+      this.layers.canvas = leafletCanvasLayerBuild({ pane: 'canvas' })
+      this.layers.canvas.addTo(toRaw(this.map))
     }
   }
 }
