@@ -71,8 +71,10 @@ export default {
         this.prop.etape.incertitudes &&
         this.prop.etape.incertitudes[this.propId]
       )
-    },
+    }
+  },
 
+  methods:{
     dateFormat(date) {
       return dateFormat(date)
     }
