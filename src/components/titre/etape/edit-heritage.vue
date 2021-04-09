@@ -3,9 +3,7 @@
     <slot v-if="!prop.actif" name="write" />
     <div v-else>
       <slot v-if="hasHeritage" name="read" />
-      <div v-else class="border p-s mb-s">
-        Non renseigné
-      </div>
+      <div v-else class="border p-s mb-s">Non renseigné</div>
       <div class="mb-s">
         <Tag
           v-if="prop.etape.incertitudes && prop.etape.incertitudes[propId]"
@@ -63,18 +61,9 @@ export default {
       }
 
       return hasValeurCheck(this.propId, contenu)
-    },
-
-    hasIncertitude() {
-      return (
-        !this.sectionId &&
-        this.prop.etape.incertitudes &&
-        this.prop.etape.incertitudes[this.propId]
-      )
     }
   },
-
-  methods:{
+  methods: {
     dateFormat(date) {
       return dateFormat(date)
     }

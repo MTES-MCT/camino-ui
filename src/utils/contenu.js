@@ -21,19 +21,33 @@ const elementContenuBuild = (sections, contenu) =>
     return elementContenu
   }, null)
 
+const elementsCompleteCheck = (elements, sectionContenu, complete) =>
+  elements.reduce((sectionComplete, e) => {
+    if (!sectionComplete || !sectionContenu || e.optionnel)
+      return sectionComplete
+
+    let elementComplete
+    if (e.type === 'checkboxes' && sectionContenu[e.id].length) {
+      elementComplete = true
+    } else if (e.type === 'multiple') {
+      elementComplete =
+        sectionContenu[e.id].length &&
+        sectionContenu[e.id].reduce((acc, element) => {
+          return acc && elementsCompleteCheck(e.elements, element, true)
+        }, true)
+    } else {
+      elementComplete =
+        sectionContenu[e.id] !== undefined &&
+        sectionContenu[e.id] !== null &&
+        sectionContenu[e.id] !== ''
+    }
+
+    return sectionComplete && elementComplete
+  }, complete)
+
 const contenuCompleteCheck = (sections, contenu) =>
   sections.reduce(
-    (complete, s) =>
-      s.elements.reduce((sectionComplete, e) => {
-        if (!contenu[s.id]) return sectionComplete
-
-        const value =
-          e.type === 'checkboxes'
-            ? contenu[s.id][e.id].length || null
-            : contenu[s.id][e.id]
-
-        return sectionComplete && !!(value || value === 0 || e.optionnel)
-      }, complete),
+    (complete, s) => elementsCompleteCheck(s.elements, contenu[s.id], complete),
     true
   )
 

@@ -7,8 +7,18 @@
     <div
       :class="{ 'tablet-blob-2-3': element.nom, 'tablet-blob-1': !element.nom }"
     >
-      <p class="cap-first" :class="{ 'mb-s': element.description }">
+      <p
+        v-if="element.type !== 'multiple'"
+        class="cap-first"
+        :class="{ 'mb-s': element.description }"
+      >
         {{ valeur }}
+      </p>
+      <p v-else>
+        <SectionElementMultiple
+          :contenu="contenu[element.id]"
+          :element="element"
+        />
       </p>
       <!-- eslint-disable vue/no-v-html -->
       <p v-if="element.description" class="h5">
@@ -20,8 +30,11 @@
 
 <script>
 import { valeurFind } from '../../utils/contenu'
+import SectionElementMultiple from './section-element-multiple.vue'
 
 export default {
+  name: 'SectionElement',
+  components: { SectionElementMultiple },
   props: {
     element: { type: Object, required: true },
     contenu: { type: Object, required: true }
