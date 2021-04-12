@@ -69,7 +69,7 @@
 
       <hr />
 
-      <div v-if="heritageLoaded">
+      <div v-if="heritageLoaded && etapesStatuts">
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3 tablet-pt-s pb-s">
             <h6>Statut</h6>
@@ -90,13 +90,13 @@
         <hr />
 
         <EtapeEditFondamentales
-          v-if="etapeType.fondamentale"
+          v-if="etapeType && etapeType.fondamentale"
           v-model:etape="etape"
           :domaine-id="domaineId"
         />
 
         <EtapeEditPoints
-          v-if="etapeType.fondamentale"
+          v-if="etapeType && etapeType.fondamentale"
           v-model:etape="etape"
           v-model:events="events"
         />
@@ -109,7 +109,9 @@
         />
       </div>
 
-      <div v-if="etapeType.documentsTypes && documentsTypes.length">
+      <div
+        v-if="etapeType && etapeType.documentsTypes && documentsTypes.length"
+      >
         <DocumentsEdit
           v-model:documents="etape.documents"
           :parent-id="etape.id"
@@ -216,11 +218,11 @@ export default {
     },
 
     etapeType() {
-      return this.etapeTypes.find(et => et.id === this.etape.typeId) || {}
+      return this.etapeTypes.find(et => et.id === this.etape.typeId)
     },
 
     etapesStatuts() {
-      return this.etapeType.etapesStatuts
+      return this.etapeType && this.etapeType.etapesStatuts
     },
 
     dateIsVisible() {
@@ -228,7 +230,10 @@ export default {
     },
 
     documentsTypes() {
-      return this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
+      return (
+        this.etapeType &&
+        this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
+      )
     },
 
     complete() {
@@ -315,7 +320,7 @@ export default {
     async typeUpdate() {
       await this.heritageGet()
 
-      if (this.etapesStatuts.length === 1) {
+      if (this.etapesStatuts?.length === 1) {
         this.etape.statutId = this.etapesStatuts[0].id
       } else {
         this.etape.statutId = null

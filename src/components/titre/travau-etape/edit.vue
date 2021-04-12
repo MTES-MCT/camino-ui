@@ -35,7 +35,7 @@
 
     <hr />
 
-    <div v-if="etape.typeId">
+    <div v-if="etape.typeId && etapesStatuts">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Statut</h6>
@@ -116,12 +116,12 @@
     </div>
 
     <EditSections
-      v-if="etapeType.sections"
+      v-if="etapeType && etapeType.sections"
       v-model:element="etape"
       :sections="etapeType.sections"
     />
 
-    <div v-if="etapeType.documentsTypes && documentsTypes.length">
+    <div v-if="etapeType && etapeType.documentsTypes && documentsTypes.length">
       <DocumentsEdit
         v-model:documents="etape.documents"
         :parent-id="etape.id"
@@ -207,15 +207,18 @@ export default {
     },
 
     etapeType() {
-      return this.etapeTypes.find(et => et.id === this.etape.typeId) || {}
+      return this.etapeTypes.find(et => et.id === this.etape.typeId)
     },
 
     etapesStatuts() {
-      return this.etapeType.etapesStatuts
+      return this.etapeType && this.etapeType.etapesStatuts
     },
 
     documentsTypes() {
-      return this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
+      return (
+        this.etapeType &&
+        this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
+      )
     },
 
     complete() {
@@ -277,7 +280,7 @@ export default {
     },
 
     typeUpdate() {
-      if (this.etapesStatuts.length === 1) {
+      if (this.etapesStatuts?.length === 1) {
         this.etape.statutId = this.etapesStatuts[0].id
       } else {
         this.etape.statutId = null
