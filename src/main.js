@@ -14,12 +14,13 @@ const app = createApp(App)
 sync(store, router)
 
 if (import.meta.env.PROD) {
-  fetch('/sentryDsn')
-    .then(response => response.text())
-    .then(dsn => {
-      if (!dsn) throw new Error('dsn manquant')
+  fetch('/sentryOptions')
+    .then(response => response.json())
+    .then(options => {
+      if (!options.dsn) throw new Error('dsn manquant')
       Sentry.init({
-        dsn,
+        dsn: options.dsn,
+        environment: options.environment ? options.environment : 'production',
         integrations: [
           new SentryIntegrations.Vue({
             Vue: app,
