@@ -256,7 +256,10 @@ export default {
         params
       })
 
-      this.$refs.map.allFit()
+      if (this.$refs.map) {
+        // le traitement au dessus peut-être très long et l’utilisateur a pu changer de page
+        this.$refs.map.allFit()
+      }
     },
 
     boundsFit() {
