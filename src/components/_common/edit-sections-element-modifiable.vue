@@ -86,17 +86,26 @@
         </option>
       </select>
     </div>
+
+    <div v-else-if="element.type === 'multiple'">
+      <EditSectionElementMultiple
+        v-model:contenu="contenu[element.id]"
+        :element="element"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
+import EditSectionElementMultiple from './edit-sections-element-multiple.vue'
 
 export default {
   components: {
     InputDate,
-    InputNumber
+    InputNumber,
+    EditSectionElementMultiple
   },
 
   props: {
@@ -114,12 +123,12 @@ export default {
     // si l'élément est un bouton radio
     // et que le contenu pour cet élément est vide
     // alors on met la valeur par défaut `false`
-    if (
-      this.contenu &&
-      this.element.type === 'radio' &&
-      this.contenu[this.element.id] === undefined
-    ) {
-      this.contenu[this.element.id] = false
+    if (this.contenu && this.contenu[this.element.id] === undefined) {
+      if (this.element.type === 'radio') {
+        this.contenu[this.element.id] = false
+      } else if (this.element.type === 'multiple') {
+        this.contenu[this.element.id] = []
+      }
     }
   }
 }
