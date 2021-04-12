@@ -1,5 +1,9 @@
 <template>
-  <div v-for="(e, index) in contenu" :key="index" class="bg-alt rnd-s p-s m-s">
+  <div
+    v-for="(e, index) in contenu"
+    :key="index"
+    class="border rnd-xs p-m mb-s"
+  >
     <SectionElement
       v-for="c in element.elements"
       :key="c.id"
