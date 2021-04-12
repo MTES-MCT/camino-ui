@@ -127,7 +127,7 @@ export default {
       if (this.element.type === 'radio') {
         this.contenu[this.element.id] = false
       } else if (this.element.type === 'multiple') {
-        this.contenu[this.element.id] = [{}]
+        this.contenu[this.element.id] = []
       }
     }
   }
