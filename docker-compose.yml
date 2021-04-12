@@ -14,6 +14,7 @@ services:
       API_MATOMO_URL: ${API_MATOMO_URL}
       API_MATOMO_ID: ${API_MATOMO_ID}
       API_SENTRY_URL: ${API_SENTRY_URL}
+      ENV: ${ENV}
     expose:
       - ${PORT}
     networks:

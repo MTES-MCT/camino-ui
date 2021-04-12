@@ -11,6 +11,7 @@ services:
       API_URL: ${API_URL}
       API_MATOMO_URL: ${API_MATOMO_URL}
       API_MATOMO_ID: ${API_MATOMO_ID}
+      ENV: ${ENV}
     networks:
       - default
       - nginx-proxy

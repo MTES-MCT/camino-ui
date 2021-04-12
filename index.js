@@ -40,7 +40,12 @@ app.use(
     pathRewrite: { '^/apiUrl': '' }
   })
 )
-app.use('/sentryDsn', (req, res) => res.send(process.env.API_SENTRY_URL))
+app.use('/sentryOptions', (req, res) =>
+  res.json({
+    dsn: process.env.API_SENTRY_URL,
+    environment: process.env.ENV
+  })
+)
 app.use('/matomoOptions', (req, res) =>
   res.json({
     host: apiMatomoUrl,
