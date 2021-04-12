@@ -234,7 +234,7 @@ export default {
 
     userPreferencesUpdate(params) {
       this.eventTrack()
-      this.$store.dispatch('user/paramsSet', {
+      this.$store.dispatch('user/preferencesSet', {
         section: 'carte',
         params
       })
