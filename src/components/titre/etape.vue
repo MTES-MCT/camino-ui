@@ -78,6 +78,7 @@
           :section="s"
           :contenu="etape.contenu ? etape.contenu[s.id] : {}"
           :date="etape.date"
+          @file-download="fileDownload"
         />
       </div>
 
@@ -287,6 +288,13 @@ export default {
 
     dateFormat(date) {
       return dateFormat(date)
+    },
+
+    async fileDownload(fichier) {
+      await this.$store.dispatch(
+        'download',
+        `etape/${this.etape.id}/${fichier}`
+      )
     }
   }
 }

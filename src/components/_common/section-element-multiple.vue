@@ -9,6 +9,7 @@
       :key="c.id"
       :element="c"
       :contenu="e"
+      @file-download="fileDownload"
     />
   </div>
 </template>
@@ -23,6 +24,13 @@ export default {
   props: {
     element: { type: Object, required: true },
     contenu: { type: Object, required: true }
+  },
+  emits: ['file-download'],
+
+  methods: {
+    fileDownload(fichier) {
+      this.$emit('file-download', fichier)
+    }
   }
 }
 </script>

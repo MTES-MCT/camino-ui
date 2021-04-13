@@ -139,11 +139,13 @@ const actions = {
       const contentDisposition = res.headers.get('Content-disposition')
 
       const name = contentDisposition
-        ? contentDisposition
-            .split(';')
-            .find(n => n.includes('filename='))
-            .replace('filename=', '')
-            .trim()
+        ? decodeURIComponent(
+            contentDisposition
+              .split(';')
+              .find(n => n.includes('filename='))
+              .replace('filename=', '')
+              .trim()
+          )
         : ''
 
       if (!name) throw new Error('nom de fichier manquant')
