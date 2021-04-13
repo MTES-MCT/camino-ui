@@ -21,6 +21,7 @@ if (import.meta.env.PROD) {
       Sentry.init({
         dsn: options.dsn,
         environment: options.environment ? options.environment : 'production',
+        autoSessionTracking: false,
         integrations: [
           new SentryIntegrations.Vue({
             Vue: app,
