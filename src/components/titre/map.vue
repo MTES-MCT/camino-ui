@@ -163,7 +163,7 @@ export default {
         nom: this.$route.params.id
       })
 
-      this.$store.dispatch('user/paramsSet', { section: 'carte', params })
+      this.$store.dispatch('user/preferencesSet', { section: 'carte', params })
     },
 
     centrerTrack() {
