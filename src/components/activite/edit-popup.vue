@@ -7,10 +7,11 @@
             {{ activite.type.nom }}
           </span>
         </h6>
-        <h2 class="cap-first mb-0">
+        <h2 class="cap-first mb-s">
           <span v-if="activite.periode">{{ activite.periode.nom }}</span>
           {{ activite.annee }}
         </h2>
+        <div v-html="activite.type.description"></div>
       </div>
     </template>
 
