@@ -4,7 +4,7 @@
       {{
         contenuElement && contenuElement.name
           ? contenuElement.name
-          : contenuElement
+          : contenuElement.slice(5)
       }}
     </p>
     <div class="flex-right">
@@ -17,16 +17,15 @@
     </div>
   </div>
   <div v-else>
-    <label for="file" class="btn-border small p-s full-x rnd-xs mb-s"
-      >Choisir un fichier…</label
-    >
-    <input
-      id="file"
-      type="file"
-      class="p-xs mb-0"
-      accept="application/pdf"
-      @change="fileChange"
-    />
+    <label class="btn-border small p-s full-x rnd-xs mb-s"
+      >Choisir un fichier…
+      <input
+        type="file"
+        class="p-xs mb-0"
+        accept="application/pdf"
+        @change="fileChange"
+      />
+    </label>
     <p class="h5">30 Mo max.</p>
   </div>
 </template>

@@ -83,10 +83,10 @@
           </button>
         </div>
         <div v-else-if="modifiable">
-          <label for="file" class="btn-border small p-s full-x rnd-xs mb-s"
-            >Choisir un fichier…</label
-          >
-          <input id="file" type="file" class="p-xs mb-0" @change="fileChange" />
+          <label class="btn-border small p-s full-x rnd-xs mb-s"
+            >Choisir un fichier…
+            <input type="file" class="p-xs mb-0" @change="fileChange" />
+          </label>
           <p class="h5">30 Mo max.</p>
         </div>
         <p v-else class="color-warning pt-s mb-0">À compléter pour valider</p>
