@@ -4,14 +4,12 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Date</h6>
       </div>
-      <div class="tablet-blob-2-3">
+      <div class="tablet-blob-2-3 tablet-pt-s">
         <InputDate v-if="modifiable" v-model="document.date" class="mb" />
         <p v-else-if="document.date" class="pt-xs">
           {{ document.date }}
         </p>
-        <p v-else class="color-warning pt-xs">
-          À compléter pour valider
-        </p>
+        <p v-else class="color-warning pt-xs">À compléter pour valider</p>
       </div>
     </div>
 
@@ -66,13 +64,14 @@
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6>Fichier</h6>
+        <p v-if="optionnel" class="h5 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
         <div v-if="document.fichier || document.fichierNouveau" class="flex">
           <p class="mb-0">
             {{
               (document.fichierNouveau && document.fichierNouveau.name) ||
-                `${document.id}.${document.fichierTypeId}`
+              `${document.id}.${document.fichierTypeId}`
             }}
           </p>
           <button
@@ -90,9 +89,7 @@
           <input id="file" type="file" class="p-xs mb-0" @change="fileChange" />
           <p class="h5">30 Mo max.</p>
         </div>
-        <p v-else class="color-warning pt-xs mb-0">
-          À compléter pour valider
-        </p>
+        <p v-else class="color-warning pt-s mb-0">À compléter pour valider</p>
       </div>
     </div>
 
@@ -103,7 +100,7 @@
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h6>Type de fichier</h6>
         </div>
-        <div class="mb tablet-blob-2-3">
+        <div class="tablet-blob-2-3 tablet-pt-s mb">
           <select
             v-if="modifiable"
             v-model="document.fichierTypeId"
@@ -121,9 +118,7 @@
           <p v-else-if="document.fichierTypeId" class="pt-xs mb-0">
             {{ document.fichierTypeId }}
           </p>
-          <p v-else class="color-warning pt-xs mb-0">
-            À compléter pour valider
-          </p>
+          <p v-else class="color-warning pt-s mb-0">À compléter pour valider</p>
         </div>
       </div>
       <hr />
@@ -208,15 +203,13 @@ import InputDate from '../_ui/input-date.vue'
 import Messages from '../_ui/messages.vue'
 
 export default {
-  components: {
-    Messages,
-    InputDate
-  },
+  components: { Messages, InputDate },
 
   props: {
     document: { type: Object, required: true },
     modifiable: { type: Boolean, default: true },
-    repertoire: { type: String, required: true }
+    repertoire: { type: String, required: true },
+    optionnel: { type: Boolean, default: false }
   },
 
   data() {

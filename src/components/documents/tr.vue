@@ -116,7 +116,7 @@ export default {
 
   props: {
     title: { type: String, default: '' },
-    document: { type: Object, default: () => {} },
+    document: { type: Object, required: true },
     parentId: { type: String, required: true },
     parentTypeId: { type: String, default: '' },
     context: { type: Object, required: true },

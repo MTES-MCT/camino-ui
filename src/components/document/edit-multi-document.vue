@@ -9,6 +9,7 @@
       v-model:document="document"
       :modifiable="modifiable"
       :repertoire="repertoire"
+      :optionnel="documentType.optionnel"
     />
   </div>
 </template>

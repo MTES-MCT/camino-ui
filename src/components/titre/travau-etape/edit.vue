@@ -3,9 +3,9 @@
     <template #header>
       <div>
         <h5>
-          <span class="cap-first"> {{ titreNom }} </span
-          ><span class="color-neutral"> | </span
-          ><span class="cap-first">
+          <span class="cap-first"> {{ titreNom }} </span>
+          <span class="color-neutral"> | </span>
+          <span class="cap-first">
             {{ travauxType.nom }}
           </span>
         </h5>
@@ -186,7 +186,6 @@ export default {
 
   data() {
     return {
-      events: { saveKeyUp: true },
       documentsComplete: false
     }
   },
@@ -271,7 +270,7 @@ export default {
     keyUp(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
-      } else if ((e.which || e.keyCode) === 13 && this.events.saveKeyUp) {
+      } else if ((e.which || e.keyCode) === 13) {
         if (this.complete) {
           this.$refs['save-button'].focus()
           this.save()

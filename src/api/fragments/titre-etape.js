@@ -4,7 +4,7 @@ import { fragmentTitreEntreprises } from './entreprises'
 import { fragmentTitreSubstance } from './substance'
 import { fragmentPoint } from './point'
 import { fragmentPays } from './pays'
-import { fragmentUnite } from './metas'
+import { fragmentDocumentType, fragmentUnite } from './metas'
 
 import { fragmentDocument } from './documents'
 
@@ -126,6 +126,9 @@ const fragmentTitreEtape = gql`
       id
       nom
       sections
+      documentsTypes {
+        ...documentType
+      }
     }
     statut {
       id
@@ -188,6 +191,8 @@ const fragmentTitreEtape = gql`
   ${fragmentHeritageProps}
 
   ${fragmentIncertitudes}
+
+  ${fragmentDocumentType}
 `
 
 const fragmentTitreEtapeHeritage = gql`

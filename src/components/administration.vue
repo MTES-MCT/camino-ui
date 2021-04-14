@@ -111,7 +111,7 @@
               <h6>Département</h6>
             </div>
             <div class="tablet-blob-3-4">
-              <p class="word-break">
+              <p>
                 {{ administration.departement.nom }}
               </p>
             </div>
@@ -122,8 +122,18 @@
               <h6>Région</h6>
             </div>
             <div class="tablet-blob-3-4">
-              <p class="word-break">
+              <p>
                 {{ administration.region.nom }}
+              </p>
+            </div>
+          </div>
+
+          <div v-if="permissionsCheck(user, ['super'])" class="tablet-blobs">
+            <div class="tablet-blob-1-4" />
+            <div class="tablet-blob-3-4">
+              <p class="h5 mb">
+                Un utilisateur d'une <b>administration locale</b> peut créer et
+                modifier le contenu des titres du territoire concerné.
               </p>
             </div>
           </div>

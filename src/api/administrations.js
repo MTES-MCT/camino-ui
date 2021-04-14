@@ -41,14 +41,17 @@ const administrationPermissionsMetas = apiGraphQLFetch(
           }
         }
       }
+
       statuts {
         id
         nom
       }
+
       etapesTypes {
         id
         nom
       }
+
       activitesTypes {
         id
         nom

@@ -27,7 +27,7 @@
           />
         </template>
         <template #read>
-          <p v-if="element.type !== 'multiple'" class="py-xs mb-0">
+          <p v-if="element.type !== 'multiple'" class="pt-s py-xs mb-0">
             {{ valeur }}
           </p>
           <SectionElementMultiple

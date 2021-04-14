@@ -14,9 +14,9 @@ const state = {
 
 const actions = {
   async init({ commit }, etape) {
-    commit('loadingAdd', 'titreTravauxEtapeInit', { root: true })
-
     try {
+      commit('loadingAdd', 'titreTravauxEtapeInit', { root: true })
+
       const data = await titreTravauxEtapeMetas(etape)
 
       commit('metasSet', { etapesTypes: data })

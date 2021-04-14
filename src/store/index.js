@@ -176,7 +176,6 @@ const actions = {
 
       return name
     } catch (e) {
-      console.log(e)
       dispatch(
         'apiError',
         `erreur de téléchargement : ${filePath}, ${e.message}`
