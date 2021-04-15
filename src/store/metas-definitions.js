@@ -4,7 +4,6 @@ import {
   titresTypesTypes,
   titresStatuts,
   demarchesTypes,
-  travauxTypes,
   demarchesStatuts,
   etapesTypes,
   etapesStatuts,
@@ -14,7 +13,6 @@ import {
   titreTypeTypeModifier,
   titreStatutModifier,
   demarcheTypeModifier,
-  travauxTypeModifier,
   demarcheStatutModifier,
   phaseStatutModifier,
   etapeTypeModifier,
@@ -56,12 +54,17 @@ import {
   etapesTypesDocumentsTypes,
   etapeTypeDocumentTypeModifier,
   etapeTypeDocumentTypeCreer,
-  etapeTypeDocumentTypeSupprimer,
+  etapeTypeDocumentTypeSupprimer
+} from '../api/metas'
+
+import {
+  travauxTypes,
+  travauxTypeModifier,
   travauxTypesTravauxEtapesTypes,
   travauxTypeTravauxEtapeTypeModifier,
   travauxTypeTravauxEtapeTypeCreer,
   travauxTypeTravauxEtapeTypeSupprimer
-} from '../api/metas'
+} from '../api/metas-travaux'
 
 import {
   activitesTypes,

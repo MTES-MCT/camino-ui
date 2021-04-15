@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 
 import { fragmentTitre } from './fragments/titre'
-import { fragmentTravauxType } from './fragments/metas'
+import { fragmentTravauxType } from './fragments/metas-travaux'
 
 const travauxMetas = apiGraphQLFetch(
   gql`

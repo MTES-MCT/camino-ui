@@ -10,7 +10,6 @@ import {
   fragmentPhaseStatut,
   fragmentEtapeType,
   fragmentEtapeStatut,
-  fragmentTravauxType,
   fragmentDevise,
   fragmentUnite,
   fragmentAdministrationType,
@@ -23,7 +22,6 @@ import {
   fragmentTitreTypeDemarcheType,
   fragmentTitreTypeDemarcheTypeEtapeType,
   fragmentEtapeTypeEtapeStatut,
-  fragmentTravauxTypeTravauxEtapeType,
   fragmentEtapeTypeDocumentType
 } from './fragments/metas'
 
@@ -135,28 +133,6 @@ const demarcheTypeModifier = apiGraphQLFetch(gql`
   }
 
   ${fragmentDemarcheType}
-`)
-
-const travauxTypes = apiGraphQLFetch(
-  gql`
-    query TravauxTypes {
-      travauxTypes {
-        ...travauxType
-      }
-    }
-
-    ${fragmentTravauxType}
-  `
-)
-
-const travauxTypeModifier = apiGraphQLFetch(gql`
-  mutation TravauxTypeModifier($element: InputTravauxType!) {
-    travauxTypeModifier(travauxType: $element) {
-      ...travauxType
-    }
-  }
-
-  ${fragmentTravauxType}
 `)
 
 const demarchesStatuts = apiGraphQLFetch(
@@ -688,56 +664,6 @@ const etapeTypeDocumentTypeSupprimer = apiGraphQLFetch(gql`
   ${fragmentEtapeTypeDocumentType}
 `)
 
-const travauxTypesTravauxEtapesTypes = apiGraphQLFetch(
-  gql`
-    query travauxTypesTravauxEtapesTypes {
-      travauxTypesTravauxEtapesTypes {
-        ...travauxTypeTravauxEtapeType
-      }
-    }
-
-    ${fragmentTravauxTypeTravauxEtapeType}
-  `
-)
-
-const travauxTypeTravauxEtapeTypeModifier = apiGraphQLFetch(gql`
-  mutation travauxTypeTravauxEtapeTypeModifier(
-    $element: InputTravauxTypeTravauxEtapeType!
-  ) {
-    travauxTypeTravauxEtapeTypeModifier(travauxTypeTravauxEtapeType: $element) {
-      ...travauxTypeTravauxEtapeType
-    }
-  }
-
-  ${fragmentTravauxTypeTravauxEtapeType}
-`)
-
-const travauxTypeTravauxEtapeTypeCreer = apiGraphQLFetch(gql`
-  mutation travauxTypeTravauxEtapeTypeCreer(
-    $element: InputTravauxTypeTravauxEtapeType!
-  ) {
-    travauxTypeTravauxEtapeTypeCreer(travauxTypeTravauxEtapeType: $element) {
-      ...travauxTypeTravauxEtapeType
-    }
-  }
-
-  ${fragmentTravauxTypeTravauxEtapeType}
-`)
-
-const travauxTypeTravauxEtapeTypeSupprimer = apiGraphQLFetch(gql`
-  mutation travauxTypeTravauxEtapeTypeSupprimer(
-    $element: InputTravauxTypeTravauxEtapeType!
-  ) {
-    travauxTypeTravauxEtapeTypeSupprimer(
-      travauxTypeTravauxEtapeType: $element
-    ) {
-      ...travauxTypeTravauxEtapeType
-    }
-  }
-
-  ${fragmentTravauxTypeTravauxEtapeType}
-`)
-
 export {
   definitions,
   definitionModifier,
@@ -749,8 +675,6 @@ export {
   titreStatutModifier,
   demarchesTypes,
   demarcheTypeModifier,
-  travauxTypes,
-  travauxTypeModifier,
   demarchesStatuts,
   demarcheStatutModifier,
   phasesStatuts,
@@ -797,9 +721,5 @@ export {
   etapesTypesDocumentsTypes,
   etapeTypeDocumentTypeModifier,
   etapeTypeDocumentTypeCreer,
-  etapeTypeDocumentTypeSupprimer,
-  travauxTypesTravauxEtapesTypes,
-  travauxTypeTravauxEtapeTypeModifier,
-  travauxTypeTravauxEtapeTypeCreer,
-  travauxTypeTravauxEtapeTypeSupprimer
+  etapeTypeDocumentTypeSupprimer
 }
