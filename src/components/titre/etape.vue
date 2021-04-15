@@ -19,7 +19,9 @@
           Incertain
         </Tag>
       </h6>
+
       <h3 class="cap-first mb-s">{{ etape.type.nom }}</h3>
+
       <div class="mb-xs">
         <Statut :color="etape.statut.couleur" :nom="etape.statut.nom" />
       </div>
@@ -35,6 +37,7 @@
         class="btn py-s px-m mr-px"
         @titre-event-track="eventTrack"
       />
+
       <DocumentButtonAdd
         v-if="etape.documentsCreation"
         :document="documentNew"
@@ -46,6 +49,7 @@
         class="btn py-s px-m mr-px"
         @titre-event-track="eventTrack"
       />
+
       <button
         v-if="etape.modification"
         class="btn py-s px-m mr-px"
@@ -53,6 +57,7 @@
       >
         <i class="icon-24 icon-pencil" />
       </button>
+
       <button
         v-if="etape.suppression"
         class="btn py-s px-m mr-px"
@@ -83,6 +88,7 @@
           :bouton-modification="etape.modification"
           :context="documentContext"
           :documents="etape.documents"
+          :documents-types="etape.type.documentsTypes"
           :etiquette="etape.modification"
           :parent-id="etape.id"
           :parent-type-id="etape.type.id"

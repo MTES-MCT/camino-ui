@@ -20,23 +20,27 @@
       <div class="mb tablet-blob-2-3">
         <select v-if="!document.id" v-model="document.typeId" class="p-s">
           <option
-            v-for="documentType in documentsTypes"
-            :key="documentType.id"
-            :value="documentType.id"
-            :disabled="document.typeId === documentType.id"
+            v-for="dt in documentsTypes"
+            :key="dt.id"
+            :value="dt.id"
+            :disabled="document.typeId === dt.id"
           >
-            {{ documentType.nom }}
+            {{ dt.nom }}
           </option>
         </select>
-        <div v-else class="p-s">
-          {{ documentsTypes.find(d => d.id === document.typeId).nom }}
+        <div v-else-if="documentType" class="p-s">
+          {{ documentType.nom }}
         </div>
       </div>
     </div>
 
     <hr />
 
-    <EditSections v-model:document="document" :repertoire="repertoire" />
+    <EditSections
+      v-model:document="document"
+      :repertoire="repertoire"
+      :optionnel="documentType ? documentType.optionnel : false"
+    />
 
     <template #footer>
       <div class="tablet-blobs">
@@ -99,6 +103,13 @@ export default {
 
     documentsTypes() {
       return this.$store.state.document.metas.documentsTypes
+    },
+
+    documentType() {
+      return (
+        this.documentsTypes &&
+        this.documentsTypes.find(d => d.id === this.document.typeId)
+      )
     }
   },
 

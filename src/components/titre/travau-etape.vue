@@ -11,6 +11,7 @@
       <h6>
         {{ dateFormat(etape.date) }}
       </h6>
+
       <h3 class="cap-first mb-s">
         {{ etape.type.nom }}
       </h3>

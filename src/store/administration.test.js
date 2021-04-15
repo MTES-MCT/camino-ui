@@ -30,7 +30,8 @@ describe("état de l'administration consultée", () => {
         departements: [],
         domaines: [],
         titresStatuts: [],
-        etapesTypes: []
+        etapesTypes: [],
+        activitesTypes: []
       }
     }
     mutations = {
@@ -118,7 +119,8 @@ describe("état de l'administration consultée", () => {
       ],
       domaines: [],
       titresStatuts: [],
-      etapesTypes: []
+      etapesTypes: [],
+      activitesTypes: []
     })
 
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -178,6 +180,7 @@ describe("état de l'administration consultée", () => {
       types: [],
       regions: [],
       departements: [],
+      activitesTypes: [],
       domaines: [{ id: 'm', nom: 'minéraux et métaux' }],
       titresStatuts: [{ id: 'val', nom: 'valide' }],
       etapesTypes: [{ id: 'dex', nom: 'décision expresse' }]

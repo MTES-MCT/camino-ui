@@ -17,7 +17,8 @@ const state = {
     departements: [],
     domaines: [],
     titresStatuts: [],
-    etapesTypes: []
+    etapesTypes: [],
+    activitesTypes: []
   }
 }
 

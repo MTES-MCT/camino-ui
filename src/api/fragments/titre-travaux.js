@@ -1,6 +1,10 @@
 import gql from 'graphql-tag'
 
-import { fragmentTravauxType, fragmentDemarcheStatut } from './metas'
+import {
+  fragmentTravauxType,
+  fragmentDemarcheStatut,
+  fragmentDocumentType
+} from './metas'
 
 import { fragmentDocument } from './documents'
 
@@ -15,6 +19,9 @@ const fragmentTitreTravauxEtape = gql`
       id
       nom
       sections
+      documentsTypes {
+        ...documentType
+      }
     }
     statut {
       id
@@ -32,6 +39,8 @@ const fragmentTitreTravauxEtape = gql`
   }
 
   ${fragmentDocument}
+
+  ${fragmentDocumentType}
 `
 
 const fragmentTitreTravaux = gql`

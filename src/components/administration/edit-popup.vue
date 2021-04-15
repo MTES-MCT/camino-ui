@@ -173,34 +173,33 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Lien</h6>
+        <h6 class="mb-0">Administration locale</h6>
         <p class="h5 italic mb-0">Optionnel</p>
       </div>
-      <div class="mb tablet-blob-2-3">
-        <label v-for="lien in liens" :key="lien.id">
-          <input
-            v-model="lienCurrent"
-            :name="lien.id"
-            :value="lien.id"
-            type="radio"
-            class="p-s"
-          />
-          {{ lien.nom }}
-        </label>
+      <div class="mb tablet-blob-2-3 tablet-pt-s">
+        <p class="mb-s">
+          <label v-for="lien in liens" :key="lien.id" class="mr-s">
+            <input
+              v-model="lienCurrent"
+              :name="lien.id"
+              :value="lien.id"
+              type="radio"
+              class="p-s"
+            />
+            {{ lien.nom }}
+          </label>
+        </p>
 
         <p class="h5 italic mb-0">
-          Donne le droit de création et d'édition des démarches et étapes sur
-          les titres liés à ce territoire.
+          Un utilisateur d'une administration locale peut créer et modifier le
+          contenu des titres du territoire concerné.
         </p>
       </div>
     </div>
 
-    <hr />
-
     <div v-if="lienCurrent === 'departement'" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6 class="mb-0">Département</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
         <select v-model="administration.departementId" class="p-s">
@@ -219,7 +218,6 @@
     <div v-if="lienCurrent === 'region'" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h6 class="mb-0">Région</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
         <select v-model="administration.regionId" class="p-s">

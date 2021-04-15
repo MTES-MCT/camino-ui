@@ -57,10 +57,10 @@ import {
   etapeTypeDocumentTypeModifier,
   etapeTypeDocumentTypeCreer,
   etapeTypeDocumentTypeSupprimer,
-  travauxTypesEtapesTypes,
-  travauxTypeEtapeTypeModifier,
-  travauxTypeEtapeTypeCreer,
-  travauxTypeEtapeTypeSupprimer
+  travauxTypesTravauxEtapesTypes,
+  travauxTypeTravauxEtapeTypeModifier,
+  travauxTypeTravauxEtapeTypeCreer,
+  travauxTypeTravauxEtapeTypeSupprimer
 } from '../api/metas'
 
 import {
@@ -375,17 +375,17 @@ const metasIndex = {
     ]
   },
   'travaux-types--etapes-types': {
-    get: travauxTypesEtapesTypes,
-    update: travauxTypeEtapeTypeModifier,
-    create: travauxTypeEtapeTypeCreer,
-    delete: travauxTypeEtapeTypeSupprimer,
+    get: travauxTypesTravauxEtapesTypes,
+    update: travauxTypeTravauxEtapeTypeModifier,
+    create: travauxTypeTravauxEtapeTypeCreer,
+    delete: travauxTypeTravauxEtapeTypeSupprimer,
     nom: 'Types des travaux | Types des étapes',
     colonnes: [
       { id: 'travauxTypeId', nom: 'Id du type de travaux' },
-      { id: 'etapeTypeId', nom: "Id du type d'étape" },
+      { id: 'travauxEtapeTypeId', nom: "Id du type d'étape de travaux" },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ],
-    ids: ['travauxTypeId', 'etapeTypeId']
+    ids: ['travauxTypeId', 'travauxEtapeTypeId']
   },
   devises: {
     get: devises,

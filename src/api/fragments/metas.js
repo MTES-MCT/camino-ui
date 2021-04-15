@@ -205,7 +205,7 @@ const fragmentGeoSysteme = gql`
       ...unite
     }
   }
-  
+
   ${fragmentUnite}
 `
 
@@ -258,10 +258,10 @@ const fragmentEtapeTypeDocumentType = gql`
   }
 `
 
-const fragmentTravauxTypeEtapeType = gql`
-  fragment travauxTypeEtapeType on TravauxTypeEtapeType {
+const fragmentTravauxTypeTravauxEtapeType = gql`
+  fragment travauxTypeTravauxEtapeType on TravauxTypeTravauxEtapeType {
     travauxTypeId
-    etapeTypeId
+    travauxEtapeTypeId
     ordre
   }
 `
@@ -290,5 +290,5 @@ export {
   fragmentTitreTypeDemarcheTypeEtapeType,
   fragmentEtapeTypeEtapeStatut,
   fragmentEtapeTypeDocumentType,
-  fragmentTravauxTypeEtapeType
+  fragmentTravauxTypeTravauxEtapeType
 }

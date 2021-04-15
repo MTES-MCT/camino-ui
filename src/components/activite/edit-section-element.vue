@@ -9,7 +9,6 @@
       </div>
 
       <div
-        class="mb"
         :class="{
           'tablet-blob-2-3': element.nom,
           'tablet-blob-1': !element.nom
@@ -18,22 +17,21 @@
         <EditSectionElementModifiable
           v-if="modifiable"
           v-model:contenu="contenu"
-          :class="{ 'mb-s': element.description }"
+          class="mb-s"
           :element="element"
         />
 
-        <p v-else-if="hasValeur" class="py-xs mb-0">{{ valeur }}</p>
-        <p v-else-if="!element.optionnel" class="color-warning pt-xs mb-0">
+        <p v-else-if="hasValeur" class="pt-s py-xs mb-0">{{ valeur }}</p>
+        <p v-else-if="!element.optionnel" class="color-warning pt-s mb-0">
           À compléter pour valider
         </p>
 
+        <!-- eslint-disable vue/no-v-html -->
         <p
           v-if="(element.description && modifiable) || hasValeur"
-          class="h5 mb-0"
-        >
-          <!-- eslint-disable vue/no-v-html -->
-          <span v-html="element.description" />
-        </p>
+          class="h5"
+          v-html="element.description"
+        />
       </div>
     </div>
 

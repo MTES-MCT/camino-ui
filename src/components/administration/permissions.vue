@@ -6,17 +6,17 @@
       <div class="h5">
         <ul class="list-prefix">
           <li>
-            L'utilisateur d'une administration <b>gestionnaire</b> peut créer et
-            modifier des titres, démarches et étapes.
+            Un utilisateur d'une <b>administration gestionnaire</b> peut créer
+            et modifier les titres et leur contenu.
           </li>
           <li>
-            L'utilisateur d'une administration <b>associée</b> peut accèder aux
-            titres non-publics en lecture. Aussi, l'administration n'apparaît
-            pas sur les pages des titres.
+            Un utilisateur d'une <b>administration associée</b> peut voir les
+            titres non-publics. Cette administration n'apparaît pas sur les
+            pages des titres.
           </li>
         </ul>
 
-        <p>Par domaine / type de titre.</p>
+        <p>Accorde ces droits par domaine / type de titre.</p>
       </div>
 
       <div class="line width-full" />
@@ -148,22 +148,19 @@
       <h3>Restrictions de l'édition des titres, démarches et étapes</h3>
 
       <div class="h5">
-        <p class="mb-s">
-          Par défaut, l'utilisateur d'une administration peut éditer :
-        </p>
+        <p class="mb-s">Par défaut :</p>
         <ul class="list-prefix mb-s">
           <li>
-            les <b>titres</b>, <b>démarches</b> et <b>étapes</b> des titres dont
-            l'administration est gestionnaire ou associée,
+            Un utilisateur d'une administration gestionnaire peut modifier les
+            titres, démarches et étapes.
           </li>
           <li>
-            les <b>démarches</b> et <b>étapes</b> des titres auxquels
-            l'administration est liée par la région ou le département.
+            Un utilisateur d'une administration locale peut modifier les
+            démarches et étapes.
           </li>
         </ul>
         <p>
-          Ce réglage permet de retreindre ces droits par domaine / type de titre
-          / statut de titre.
+          Restreint ces droits par domaine / type de titre / statut de titre.
         </p>
       </div>
 
@@ -381,19 +378,10 @@
 
       <div class="h5">
         <p class="mb-s">
-          Par défaut, l'utilisateur d'une administration peut <b>voir</b>,
-          <b>modifier</b> et <b>créer</b> les étapes des titres :
+          Par défaut, un utilisateur d'une administration gestionnaire ou locale
+          peut voir, modifier et créer des étapes des titre.
         </p>
-        <ul class="list-prefix">
-          <li>dont l'administration est gestionnaire ou associée,</li>
-          <li>
-            auxquels l'administration est liée par la région ou le département.
-          </li>
-        </ul>
-        <p>
-          Ce réglage permet de retreindre ces droits par domaine / type de titre
-          / type d'étape.
-        </p>
+        <p>Restreint ces droits par domaine / type de titre / type d'étape.</p>
       </div>
 
       <div class="line width-full" />
@@ -603,16 +591,11 @@
 
       <div class="h5">
         <p class="mb-s">
-          Par défaut, l'utilisateur d'une administration peut <b>voir</b> et
-          <b>modifier</b> les activités des titres :
+          Par défaut, un utilisateur d'une administration gestionnaire ou locale
+          peut voir et modifier les activités des titres.
         </p>
-        <ul class="list-prefix">
-          <li>dont l'administration est gestionnaire ou associée,</li>
-          <li>
-            auxquels l'administration est liée par la région ou le département.
-          </li>
-        </ul>
-        <p>Ce réglage permet de retreindre ces droits par type d'étape.</p>
+
+        <p>Restreint ces droits par type d'étape.</p>
       </div>
 
       <div class="line width-full" />

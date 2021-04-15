@@ -21,8 +21,8 @@ const titreEtapeMetas = apiGraphQLFetch(
     query TitreEtapeMetas($titreDemarcheId: ID!, $date: String!, $id: ID) {
       etapesTypes(
         titreDemarcheId: $titreDemarcheId
-        date: $date
         titreEtapeId: $id
+        date: $date
       ) {
         ...etapeType
       }

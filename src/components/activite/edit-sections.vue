@@ -1,17 +1,15 @@
 <template>
   <div>
-    <div v-for="s in sections" :key="s.id">
-      <div v-if="modifiable || elementsVisibleCheck(s.elements, contenu[s.id])">
-        <h3 v-if="s.nom">{{ s.nom }}</h3>
+    <div v-for="s in sectionsFiltered" :key="s.id">
+      <h3 v-if="s.nom">{{ s.nom }}</h3>
 
-        <EditSectionElement
-          v-for="e in s.elements"
-          :key="e.id"
-          v-model:contenu="contenu[s.id]"
-          :element="e"
-          :modifiable="modifiable"
-        />
-      </div>
+      <EditSectionElement
+        v-for="e in s.elements"
+        :key="e.id"
+        v-model:contenu="contenu[s.id]"
+        :element="e"
+        :modifiable="modifiable"
+      />
     </div>
   </div>
 </template>
@@ -48,18 +46,26 @@ export default {
   computed: {
     complete() {
       return contenuCompleteCheck(this.sections, this.contenu)
+    },
+
+    sectionsFiltered() {
+      return this.modifiable
+        ? this.sections
+        : this.sections.filter(s =>
+            elementsVisibleCheck(s.elements, this.contenu[s.id])
+          )
     }
   },
 
   watch: {
     contenu: {
-      handler: function(contenu) {
+      handler: function (contenu) {
         this.element.contenu = elementContenuBuild(this.sections, contenu)
       },
       deep: true
     },
 
-    complete: function(complete) {
+    complete: function (complete) {
       this.$emit('complete-update', complete)
     }
   },
