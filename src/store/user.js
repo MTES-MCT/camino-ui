@@ -62,9 +62,10 @@ const actions = {
     try {
       const data = await utilisateurTokenCreer({ email, motDePasse })
 
-      const { utilisateur } = data
-
       dispatch('tokensSet', data)
+
+      const utilisateur = await moi()
+
       commit('set', utilisateur)
       commit('popupClose', null, { root: true })
       dispatch(
