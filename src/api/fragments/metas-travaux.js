@@ -38,8 +38,26 @@ const fragmentTravauxTypeTravauxEtapeType = gql`
   }
 `
 
+const fragmentTravauxEtapeTypeDocumentType = gql`
+  fragment travauxEtapeTypeDocumentType on TravauxEtapeTypeDocumentType {
+    travauxEtapeTypeId
+    documentTypeId
+    optionnel
+  }
+`
+
+const fragmentTravauxEtapeTypeEtapeStatut = gql`
+  fragment travauxEtapeTypeEtapeStatut on TravauxEtapeTypeEtapeStatut {
+    travauxEtapeTypeId
+    etapeStatutId
+    ordre
+  }
+`
+
 export {
   fragmentTravauxType,
   fragmentTravauxEtapeType,
-  fragmentTravauxTypeTravauxEtapeType
+  fragmentTravauxTypeTravauxEtapeType,
+  fragmentTravauxEtapeTypeDocumentType,
+  fragmentTravauxEtapeTypeEtapeStatut
 }
