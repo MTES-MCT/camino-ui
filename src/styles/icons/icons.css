@@ -236,6 +236,17 @@
   );
 }
 
+.icon-file {
+  background-image: svg-load(
+    './svgs/16-file.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
 .icon-file-plus {
   background-image: svg-load(
     './svgs/24-file-plus.svg',

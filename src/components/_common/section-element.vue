@@ -7,21 +7,21 @@
     <div
       :class="{ 'tablet-blob-3-4': element.nom, 'tablet-blob-1': !element.nom }"
     >
-      <div v-if="element.type === 'file'" class="flex">
-        <p>
+      <div v-if="element.type === 'file'" class="flex h5 pb-xs">
+        <span class="mt-xs flex bold">
+          <i class="icon-16 icon-file mr-xs" />
           {{
             contenu[element.id] ? contenu[element.id].slice(5) : 'Aucun fichier'
           }}
-        </p>
-        <div class="ml-s">
-          <button
-            v-if="contenu[element.id]"
-            class="btn-border py-xs px-s rnd-xs"
-            @click="fileDownload(contenu[element.id])"
-          >
-            <i class="icon-24 icon-download" />
-          </button>
-        </div>
+        </span>
+
+        <button
+          v-if="contenu[element.id]"
+          class="btn-border py-xs px-s rnd-xs flex-right mt--xs"
+          @click="fileDownload(contenu[element.id])"
+        >
+          <i class="icon-24 icon-download" />
+        </button>
       </div>
 
       <SectionElementMultiple

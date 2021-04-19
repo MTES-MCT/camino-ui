@@ -181,8 +181,8 @@
           <button
             v-if="
               etape.groupes.length &&
-                etape.groupes[0].length &&
-                etape.groupes[0][0].length
+              etape.groupes[0].length &&
+              etape.groupes[0][0].length
             "
             class="btn rnd-s py-s px-m full-x mb-s flex h5"
             @click="groupeAdd"
@@ -246,10 +246,15 @@ export default {
   },
 
   watch: {
-    'etape.geoSystemeIds': 'etapeGeoSystemeOpposableIdUpdate',
+    'etape.geoSystemeIds': {
+      handler() {
+        this.etapeGeoSystemeOpposableIdUpdate()
+      },
+      deep: true
+    },
 
     etape: {
-      handler: function(etape) {
+      handler: function (etape) {
         if (
           !etape.groupes ||
           !etape.groupes[0] ||

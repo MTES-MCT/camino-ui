@@ -89,7 +89,6 @@
           :bouton-modification="etape.modification"
           :context="documentContext"
           :documents="etape.documents"
-          :documents-types="etape.type.documentsTypes"
           :etiquette="etape.modification"
           :parent-id="etape.id"
           :parent-type-id="etape.type.id"

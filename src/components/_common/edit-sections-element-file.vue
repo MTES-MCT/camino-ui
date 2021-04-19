@@ -1,13 +1,13 @@
 <template>
   <div v-if="contenuElement" class="flex">
-    <p class="mb-0">
+    <p class="mb-0 h5 bold">
       {{
         contenuElement && contenuElement.name
           ? contenuElement.name
           : contenuElement.slice(5)
       }}
     </p>
-    <div class="flex-right">
+    <div class="flex-right mt--xs">
       <button
         class="btn-border py-s px-m my--xs rnd-xs flex-right"
         @click="fileRemove"
