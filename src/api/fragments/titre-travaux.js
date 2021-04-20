@@ -1,10 +1,8 @@
 import gql from 'graphql-tag'
 
-import {
-  fragmentTravauxType,
-  fragmentDemarcheStatut,
-  fragmentDocumentType
-} from './metas'
+import { fragmentDemarcheStatut, fragmentDocumentType } from './metas'
+
+import { fragmentTravauxType } from './metas-travaux'
 
 import { fragmentDocument } from './documents'
 

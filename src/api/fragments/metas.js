@@ -84,16 +84,6 @@ const fragmentDemarcheType = gql`
     titreTypeId
   }
 `
-
-const fragmentTravauxType = gql`
-  fragment travauxType on TravauxType {
-    id
-    nom
-    ordre
-    travauxCreation
-  }
-`
-
 const fragmentDomaine = gql`
   fragment domaine on Domaine {
     id
@@ -258,14 +248,6 @@ const fragmentEtapeTypeDocumentType = gql`
   }
 `
 
-const fragmentTravauxTypeTravauxEtapeType = gql`
-  fragment travauxTypeTravauxEtapeType on TravauxTypeTravauxEtapeType {
-    travauxTypeId
-    travauxEtapeTypeId
-    ordre
-  }
-`
-
 export {
   fragmentTitreTypeType,
   fragmentTitreStatut,
@@ -277,7 +259,6 @@ export {
   fragmentDemarcheType,
   fragmentDemarcheStatut,
   fragmentTitreType,
-  fragmentTravauxType,
   fragmentDomaine,
   fragmentDefinition,
   fragmentPhaseStatut,
@@ -289,6 +270,5 @@ export {
   fragmentTitreTypeDemarcheType,
   fragmentTitreTypeDemarcheTypeEtapeType,
   fragmentEtapeTypeEtapeStatut,
-  fragmentEtapeTypeDocumentType,
-  fragmentTravauxTypeTravauxEtapeType
+  fragmentEtapeTypeDocumentType
 }

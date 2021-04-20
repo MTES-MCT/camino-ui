@@ -7,13 +7,12 @@ const state = {
 
 const actions = {
   async get({ dispatch, commit }, id) {
-    commit('loadingAdd', 'metaGet', { root: true })
-
     try {
+      commit('loadingAdd', 'metaGet', { root: true })
+
       if (metasIndex[id]) {
         const definition = metasIndex[id]
         const elements = await definition.get()
-
         commit('set', { elements, definition })
       }
     } catch (e) {
@@ -24,9 +23,9 @@ const actions = {
   },
 
   async update({ dispatch, commit }, { id, element }) {
-    commit('loadingAdd', 'metaUpdate', { root: true })
-
     try {
+      commit('loadingAdd', 'metaUpdate', { root: true })
+
       if (metasIndex[id]) {
         const definition = metasIndex[id]
         const elements = await definition.update({ element })
@@ -41,9 +40,9 @@ const actions = {
   },
 
   async create({ dispatch, commit }, { id, element }) {
-    commit('loadingAdd', 'metaCreate', { root: true })
-
     try {
+      commit('loadingAdd', 'metaCreate', { root: true })
+
       if (metasIndex[id]) {
         const definition = metasIndex[id]
         const elements = await definition.create({ element })

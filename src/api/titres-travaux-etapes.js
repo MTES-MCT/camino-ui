@@ -2,17 +2,17 @@ import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 
 import { fragmentTitre } from './fragments/titre'
-import { fragmentEtapeType } from './fragments/metas'
+import { fragmentTravauxEtapeType } from './fragments/metas-travaux'
 
 const titreTravauxEtapeMetas = apiGraphQLFetch(
   gql`
     query MetasTravauxEtape($titreTravauxId: ID!) {
       travauxEtapesTypes(titreTravauxId: $titreTravauxId) {
-        ...etapeType
+        ...travauxEtapeType
       }
     }
 
-    ${fragmentEtapeType}
+    ${fragmentTravauxEtapeType}
   `
 )
 
