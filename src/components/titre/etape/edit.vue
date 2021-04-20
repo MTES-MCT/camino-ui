@@ -54,7 +54,7 @@
           <h6>Type</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <select class="p-s" @change="typeUpdate($event)">
+          <select :value="null" class="p-s" @change="typeUpdate($event)">
             <option
               v-for="eType in etapeTypes"
               :key="eType.id"
@@ -317,6 +317,7 @@ export default {
     },
 
     async typeUpdate(event) {
+      this.etape.typeId = null
       await this.heritageGet(event.target.value)
 
       this.etape.typeId = event.target.value
