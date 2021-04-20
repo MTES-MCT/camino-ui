@@ -12,11 +12,11 @@ const state = {
 }
 
 const actions = {
-  async init({ commit }, travaux) {
+  async init({ commit }) {
     commit('loadingAdd', 'travauxInit', { root: true })
 
     try {
-      const data = await travauxMetas(travaux)
+      const data = await travauxMetas()
 
       commit('metasSet', { types: data })
     } catch (e) {

@@ -16,6 +16,7 @@ const actions = {
   async init({ commit }, options) {
     try {
       commit('loadingAdd', 'documentInit', { root: true })
+
       const data = await documentMetas(options)
 
       commit('metasSet', data)

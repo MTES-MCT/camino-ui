@@ -492,13 +492,7 @@ const metasIndex = {
     nom: 'Types des documents',
     colonnes: [
       { id: 'id', nom: 'Id' },
-      { id: 'nom', nom: 'Nom', type: String },
-      {
-        id: 'repertoire',
-        nom: 'Répertoire',
-        type: Array,
-        elements: ['demarches', 'travaux', 'activites']
-      }
+      { id: 'nom', nom: 'Nom', type: String }
     ]
   },
   'references-types': {
