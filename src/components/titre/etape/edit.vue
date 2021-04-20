@@ -54,7 +54,11 @@
           <h6>Type</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <select :value="null" class="p-s" @change="typeUpdate($event)">
+          <select
+            :value="etape.typeId"
+            class="p-s"
+            @change="typeUpdate($event)"
+          >
             <option
               v-for="eType in etapeTypes"
               :key="eType.id"
@@ -253,7 +257,7 @@ export default {
     document.addEventListener('keyup', this.keyUp)
 
     if (this.etapeId) {
-      this.init()
+      await this.init()
 
       this.heritageLoaded = true
     }
@@ -285,6 +289,18 @@ export default {
       this.heritageLoaded = true
     },
 
+    async typeUpdate(event) {
+      this.etape.typeId = event.target.value
+
+      await this.heritageGet(this.etape.typeId)
+
+      if (this.etapesStatuts?.length === 1) {
+        this.etape.statutId = this.etapesStatuts[0].id
+      } else {
+        this.etape.statutId = null
+      }
+    },
+
     async save() {
       if (this.complete) {
         await this.$store.dispatch('titreEtape/upsert', this.etape)
@@ -313,18 +329,6 @@ export default {
           this.$refs['save-button'].focus()
           this.save()
         }
-      }
-    },
-
-    async typeUpdate(event) {
-      this.etape.typeId = null
-      await this.heritageGet(event.target.value)
-
-      this.etape.typeId = event.target.value
-      if (this.etapesStatuts?.length === 1) {
-        this.etape.statutId = this.etapesStatuts[0].id
-      } else {
-        this.etape.statutId = null
       }
     },
 

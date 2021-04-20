@@ -140,6 +140,7 @@ export default {
           demarcheId: this.demarche.id,
           demarcheType: this.demarche.type,
           titreNom: this.titre.nom,
+          typeId: null,
           creation: true
         }
       })
