@@ -65,14 +65,17 @@
     />
 
     <div v-else-if="element.type === 'checkboxes'">
-      <label v-for="value in valeurs" :key="value.id">
-        <input
-          v-model="contenu[element.id]"
-          type="checkbox"
-          :value="value.id"
-        />
-        {{ value.nom }}
-      </label>
+      <div v-for="value in valeurs" :key="value.id">
+        <label>
+          <input
+            v-model="contenu[element.id]"
+            type="checkbox"
+            :value="value.id"
+            class="mr-s"
+          />
+          <span class="cap-first">{{ value.nom }}</span>
+        </label>
+      </div>
     </div>
 
     <div v-else-if="element.type === 'select'">

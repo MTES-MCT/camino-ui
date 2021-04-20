@@ -26,9 +26,12 @@ const elementsCompleteCheck = (elements, sectionContenu, complete) =>
     if (!sectionComplete || !sectionContenu || e.optionnel)
       return sectionComplete
 
-    let elementComplete
-    if (e.type === 'checkboxes' && sectionContenu[e.id].length) {
-      elementComplete = true
+    let elementComplete = false
+
+    if (e.type === 'checkboxes') {
+      if (sectionContenu[e.id].length) {
+        elementComplete = true
+      }
     } else if (e.type === 'multiple') {
       elementComplete =
         sectionContenu[e.id].length &&
@@ -42,14 +45,15 @@ const elementsCompleteCheck = (elements, sectionContenu, complete) =>
         sectionContenu[e.id] !== ''
     }
 
-    return sectionComplete && elementComplete
+    return elementComplete
   }, complete)
 
 const contenuCompleteCheck = (sections, contenu) =>
-  sections.reduce(
-    (complete, s) => elementsCompleteCheck(s.elements, contenu[s.id], complete),
-    true
-  )
+  sections.reduce((complete, s) => {
+    if (!complete) return false
+
+    return elementsCompleteCheck(s.elements, contenu[s.id], complete)
+  }, true)
 
 const valeurFind = ({ id, type, valeurs }, contenu) => {
   if (contenu[id] === undefined) {
