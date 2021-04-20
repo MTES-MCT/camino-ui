@@ -122,7 +122,6 @@ const fragmentDocumentType = gql`
   fragment documentType on DocumentType {
     id
     nom
-    repertoire
     optionnel
   }
 `
