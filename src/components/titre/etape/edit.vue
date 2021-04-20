@@ -54,7 +54,7 @@
           <h6>Type</h6>
         </div>
         <div class="mb tablet-blob-2-3">
-          <select v-model="etape.typeId" class="p-s" @change="typeUpdate">
+          <select class="p-s" @change="typeUpdate($event)">
             <option
               v-for="eType in etapeTypes"
               :key="eType.id"
@@ -274,12 +274,11 @@ export default {
       this.initialized = true
     },
 
-    async heritageGet() {
+    async heritageGet(typeId) {
       this.heritageLoaded = false
-
       await this.$store.dispatch('titreEtape/heritageGet', {
         titreDemarcheId: this.demarcheId,
-        typeId: this.etape.typeId,
+        typeId: typeId,
         date: this.newDate
       })
 
@@ -317,9 +316,10 @@ export default {
       }
     },
 
-    async typeUpdate() {
-      await this.heritageGet()
+    async typeUpdate(event) {
+      await this.heritageGet(event.target.value)
 
+      this.etape.typeId = event.target.value
       if (this.etapesStatuts?.length === 1) {
         this.etape.statutId = this.etapesStatuts[0].id
       } else {
