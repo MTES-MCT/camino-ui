@@ -1,7 +1,7 @@
 <template>
   <Popup :messages="messages">
     <template #header>
-      <h2 class="mb-0">Modification de l’email</h2>
+      <h2>Modification de l’email</h2>
     </template>
 
     <div class="tablet-blobs">

@@ -9,7 +9,7 @@
             {{ travauxType.nom }}
           </span>
         </h5>
-        <h2 class="cap-first mb-0">
+        <h2 class="cap-first">
           {{ creation ? "Ajout d'une " : "Modification de l'" }}étape
         </h2>
       </div>

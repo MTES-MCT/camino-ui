@@ -2,7 +2,7 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h2 class="mb-0">Modification d'une entreprise</h2>
+        <h2>Modification d'une entreprise</h2>
       </div>
     </template>
 

@@ -9,7 +9,7 @@
             {{ demarcheType.nom }}
           </span>
         </h5>
-        <h2 class="cap-first mb-0">
+        <h2 class="cap-first">
           {{ etapeId ? "Modification de l'" : "Ajout d'une " }}étape
         </h2>
       </div>

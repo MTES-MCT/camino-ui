@@ -2,7 +2,7 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h2 class="mb-0">
+        <h2>
           {{ creation ? "Ajout d'une " : "Modification de l'" }}administration
         </h2>
       </div>

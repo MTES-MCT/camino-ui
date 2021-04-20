@@ -9,7 +9,7 @@
             {{ titreTypeNom }}
           </span>
         </h5>
-        <h2 class="cap-first mb-0">Suppression de la démarche</h2>
+        <h2 class="cap-first">Suppression de la démarche</h2>
       </div>
     </template>
 

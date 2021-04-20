@@ -1,15 +1,13 @@
 <template>
   <Popup :messages="messages">
     <template #header>
-      <div>
-        <h2 class="mb-0">
-          {{
-            action === 'create'
-              ? "Création d'un compte utilisateur"
-              : 'Modification du compte utilisateur'
-          }}
-        </h2>
-      </div>
+      <h2>
+        {{
+          action === 'create'
+            ? "Création d'un compte utilisateur"
+            : 'Modification du compte utilisateur'
+        }}
+      </h2>
     </template>
 
     <div v-if="action === 'create'">

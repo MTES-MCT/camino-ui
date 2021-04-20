@@ -7,7 +7,7 @@
             {{ title }}
           </span>
         </h5>
-        <h2 class="cap-first mb-0">
+        <h2 class="cap-first">
           {{ creation ? "Ajout d'un" : 'Modification du' }} document
         </h2>
       </div>

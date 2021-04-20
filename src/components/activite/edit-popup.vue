@@ -7,12 +7,19 @@
             {{ activite.type.nom }}
           </span>
         </h6>
-        <h2 class="cap-first mb-0">
+        <h2 class="cap-first">
           <span v-if="activite.periode">{{ activite.periode.nom }}</span>
           {{ activite.annee }}
         </h2>
       </div>
     </template>
+
+    <!-- eslint-disable vue/no-v-html -->
+    <div
+      v-if="activite.type.description"
+      class="h5 mb cap-first"
+      v-html="activite.type.description"
+    />
 
     <div v-if="modifiable" class="p-s bg-info color-bg mb">
       Besoin d'aide pour remplir ce rapport ?

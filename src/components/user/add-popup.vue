@@ -1,9 +1,7 @@
 <template>
   <Popup :messages="messages">
     <template #header>
-      <div>
-        <h2 class="mb-0">Création d'un compte utilisateur</h2>
-      </div>
+      <h2>Création d'un compte utilisateur</h2>
     </template>
 
     <div>

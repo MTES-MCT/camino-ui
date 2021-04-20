@@ -9,7 +9,7 @@
             {{ demarcheTypeNom }}
           </span>
         </h5>
-        <h2 class="cap-first mb-0">Suppression de l'étape</h2>
+        <h2 class="cap-first">Suppression de l'étape</h2>
       </div>
     </template>
 

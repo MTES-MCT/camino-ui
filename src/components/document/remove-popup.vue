@@ -7,7 +7,7 @@
             {{ title }}
           </span>
         </h5>
-        <h2 class="cap-first mb-0">Suppression du document</h2>
+        <h2 class="cap-first">Suppression du document</h2>
       </div>
     </template>
 

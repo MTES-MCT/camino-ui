@@ -9,9 +9,7 @@
             {{ travauxTypeNom }}
           </span>
         </h5>
-        <h2 class="cap-first mb-0">
-          Suppression de l'étape
-        </h2>
+        <h2 class="cap-first">Suppression de l'étape</h2>
       </div>
     </template>
 
@@ -39,9 +37,7 @@
           </button>
         </div>
       </div>
-      <div v-else class="p-s full-x bold">
-        Suppression en cours…
-      </div>
+      <div v-else class="p-s full-x bold">Suppression en cours…</div>
     </template>
   </Popup>
 </template>

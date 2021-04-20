@@ -1,6 +1,6 @@
 <template>
   <div class="popup fixed shadow full bg-bg">
-    <div class="popup-header px-l pt-l pb">
+    <div class="popup-header px-l pt-l">
       <slot name="header" />
     </div>
     <div class="popup-content px-l pt">
