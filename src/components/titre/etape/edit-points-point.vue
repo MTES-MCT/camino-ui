@@ -8,7 +8,7 @@
       <div class="mb tablet-blob-2-3">
         <div class="flex">
           <h6>Description</h6>
-          <p class="h5 italic mb-0 flex-right mr-xs">Optionnel</p>
+          <p class="h5 italic mb-0 flex-right mt-xs">Optionnel</p>
         </div>
         <input v-model="point.description" type="text" class="p-s" />
       </div>

@@ -2,8 +2,8 @@
   <div>
     <div class="mb">
       <div class="flex">
-        <h6 class="mb-0">Description</h6>
-        <p class="h5 italic mb-0 flex-right mr-xs">Optionnel</p>
+        <h6>Description</h6>
+        <p class="h5 italic mb-0 flex-right mt-xs">Optionnel</p>
       </div>
       <input v-model="point.description" type="text" class="p-s" />
     </div>

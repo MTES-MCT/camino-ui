@@ -9,6 +9,7 @@
       :key="e.id"
       :element="e"
       :contenu="contenu"
+      @file-download="fileDownload"
     />
   </div>
 </template>
@@ -28,6 +29,8 @@ export default {
     date: { type: String, default: '' }
   },
 
+  emits: ['file-download'],
+
   computed: {
     elements() {
       return this.section.elements.filter(
@@ -37,6 +40,12 @@ export default {
           ((!e.dateDebut || e.dateDebut < this.date) &&
             (!e.dateFin || e.dateFin >= this.date))
       )
+    }
+  },
+
+  methods: {
+    fileDownload(fichier) {
+      this.$emit('file-download', fichier)
     }
   }
 }

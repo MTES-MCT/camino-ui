@@ -1,12 +1,11 @@
 <template>
   <div>
-    <div v-if="contenu.length" class="rnd-m mb-xs p-xs bg-alt">
-      <div
-        v-for="(e, index) in contenu"
-        :key="e.id"
-        class="rnd-s p-s bg-bg"
-        :class="{ 'mb-xs': index !== contenu.length - 1 }"
-      >
+    <div
+      v-for="(e, index) in contenu"
+      :key="e.id"
+      class="rnd-m mb-s p-xs bg-alt"
+    >
+      <div class="rnd-s p-s bg-bg">
         <div class="flex">
           <h4 class="mt-s">{{ index + 1 }}</h4>
           <div class="flex-right">
@@ -20,7 +19,7 @@
             <h6 class="mb-0">
               <span class="cap-first">{{ prop.nom }}</span>
             </h6>
-            <p v-if="prop.optionnel" class="h5 italic mb-0 flex-right lh-1-25">
+            <p v-if="prop.optionnel" class="h5 italic mb-s flex-right lh-1-25">
               Optionnel
             </p>
           </div>

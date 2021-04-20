@@ -1,6 +1,6 @@
 <template>
   <tr class="h5">
-    <td class="nowrap">
+    <td class="nowrap pt-m">
       <span class="bold">{{ document.type.nom }}</span>
       <span v-if="etiquette">
         <Tag
@@ -21,10 +21,10 @@
         </Tag>
       </span>
     </td>
-    <td class="nowrap">
+    <td class="nowrap pt-m">
       {{ dateFormat(document.date) }}
     </td>
-    <td>{{ document.description || '–' }}</td>
+    <td class="pt-m">{{ document.description || '–' }}</td>
     <td class="flex text-right">
       <button
         v-if="boutonDissociation"

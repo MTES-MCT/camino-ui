@@ -78,6 +78,7 @@
           :section="s"
           :contenu="etape.contenu ? etape.contenu[s.id] : {}"
           :date="etape.date"
+          @file-download="fileDownload"
         />
       </div>
 
@@ -88,7 +89,6 @@
           :bouton-modification="etape.modification"
           :context="documentContext"
           :documents="etape.documents"
-          :documents-types="etape.type.documentsTypes"
           :etiquette="etape.modification"
           :parent-id="etape.id"
           :parent-type-id="etape.type.id"
@@ -287,6 +287,13 @@ export default {
 
     dateFormat(date) {
       return dateFormat(date)
+    },
+
+    async fileDownload(fichier) {
+      await this.$store.dispatch(
+        'download',
+        `etape/${this.etape.id}/${fichier}`
+      )
     }
   }
 }

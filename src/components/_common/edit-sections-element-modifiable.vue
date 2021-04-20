@@ -93,6 +93,13 @@
         :element="element"
       />
     </div>
+
+    <div v-else-if="element.type === 'file'">
+      <EditSectionsElementFile
+        v-model:contenu="contenu"
+        :element-id="element.id"
+      />
+    </div>
   </div>
 </template>
 
@@ -100,9 +107,11 @@
 import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
 import EditSectionElementMultiple from './edit-sections-element-multiple.vue'
+import EditSectionsElementFile from './edit-sections-element-file.vue'
 
 export default {
   components: {
+    EditSectionsElementFile,
     InputDate,
     InputNumber,
     EditSectionElementMultiple
