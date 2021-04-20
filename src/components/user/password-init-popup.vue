@@ -1,9 +1,7 @@
 <template>
   <Popup :messages="messages">
     <template #header>
-      <div>
-        <h2 class="mb-0">Réinitialisation du mot de passe</h2>
-      </div>
+      <h2>Réinitialisation du mot de passe</h2>
     </template>
 
     <p>

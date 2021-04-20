@@ -1,9 +1,7 @@
 <template>
   <Popup :messages="messages">
     <template #header>
-      <div>
-        <h2 class="mb-0">Suppression du compte utilisateur</h2>
-      </div>
+      <h2>Suppression du compte utilisateur</h2>
     </template>
 
     <p class="bold">

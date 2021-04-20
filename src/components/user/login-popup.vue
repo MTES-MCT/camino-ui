@@ -1,7 +1,7 @@
 <template>
   <Popup :messages="messages">
     <template #header>
-      <h2 class="mb-0 mt-xs">Connexion</h2>
+      <h2>Connexion</h2>
     </template>
 
     <div class="tablet-blobs mb">

@@ -5,9 +5,7 @@
         <h5 class="cap-first">
           {{ title }}
         </h5>
-        <h2 class="cap-first mb-0">
-          Association de justificatifs d'entreprise
-        </h2>
+        <h2 class="cap-first">Association de justificatifs d'entreprise</h2>
       </div>
     </template>
 

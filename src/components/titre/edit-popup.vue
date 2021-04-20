@@ -2,7 +2,7 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h2 class="cap-first mb-0">
+        <h2 class="cap-first">
           {{ creation ? "Ajout d'un" : 'Modification du' }} titre
         </h2>
       </div>

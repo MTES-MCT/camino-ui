@@ -9,7 +9,7 @@
             {{ periodeNom }}
           </span>
         </h5>
-        <h2 class="cap-first mb-0">Suppression de l'activité</h2>
+        <h2 class="cap-first">Suppression de l'activité</h2>
       </div>
     </template>
 
