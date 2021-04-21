@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.67](https://github.com/MTES-MCT/camino-ui/compare/v0.22.66...v0.22.67) (2021-04-21)
+
+
+### Features
+
+* **activités:** affiche une description pour les types d'activité ([#300](https://github.com/MTES-MCT/camino-ui/issues/300)) ([8b18ee4](https://github.com/MTES-MCT/camino-ui/commit/8b18ee47f98edf611fe62ba89a651641e3de6971))
+* **fichier:** prend en compte les nouveaux éléments de type fichier ([#301](https://github.com/MTES-MCT/camino-ui/issues/301)) ([3202c87](https://github.com/MTES-MCT/camino-ui/commit/3202c87f8200dd24679112ac96d86ac4dd03963a))
+* ajoute des étapes de travaux ([#302](https://github.com/MTES-MCT/camino-ui/issues/302)) ([85a2009](https://github.com/MTES-MCT/camino-ui/commit/85a2009ae4ab6d57c860fc510f22a9fdfa4ea3af))
+* ajoute un indicateur de chargement de fichier ([#291](https://github.com/MTES-MCT/camino-ui/issues/291)) ([bab9c9d](https://github.com/MTES-MCT/camino-ui/commit/bab9c9de0635ab772507d8f07842c3e607224589))
+* édite les méta-données des travaux ([#303](https://github.com/MTES-MCT/camino-ui/issues/303)) ([9fdeee1](https://github.com/MTES-MCT/camino-ui/commit/9fdeee148390d277cde7e2a7617c85099a92fc6c))
+* **étapes:** vérifie si toutes les sections obligatoires sont renseignées ([#286](https://github.com/MTES-MCT/camino-ui/issues/286)) ([0c05f19](https://github.com/MTES-MCT/camino-ui/commit/0c05f19d7de5ebc1a0d7990819d15fa414f3f9d5))
+* **map:** corrige le sélecteur de fond de carte sur la page d'un titre ([#299](https://github.com/MTES-MCT/camino-ui/issues/299)) ([f9427d6](https://github.com/MTES-MCT/camino-ui/commit/f9427d6a5e67b70b392b33b86167872f589d8570))
+* **sections:** permet d’avoir des éléments multiple dans les sections ([#293](https://github.com/MTES-MCT/camino-ui/issues/293)) ([cde4999](https://github.com/MTES-MCT/camino-ui/commit/cde49999a52c2b3b63ab7de67ee47e265dedc024))
+* **sections:** récupère les sections du type d’étape lors de la récupération de l’héritage ([#289](https://github.com/MTES-MCT/camino-ui/issues/289)) ([7e9c706](https://github.com/MTES-MCT/camino-ui/commit/7e9c706f6832712afe9de2fdce25a56e35932eaf))
+
+
+### Bug Fixes
+
+* **activités:** corrige la vérification de complétion ([a296008](https://github.com/MTES-MCT/camino-ui/commit/a29600891c568f556e5ea91da9902c49d620956e))
+* **carte:** corrige une erreur quand l’utilisateur change de page pendant un chargement ([#297](https://github.com/MTES-MCT/camino-ui/issues/297)) ([3766ec6](https://github.com/MTES-MCT/camino-ui/commit/3766ec67f1d42ff53391f1e46927d8672c4265bb))
+* **dateformat:** corrige l'erreur sur dateFormat (édition d'étapes) ([#292](https://github.com/MTES-MCT/camino-ui/issues/292)) ([5eeac56](https://github.com/MTES-MCT/camino-ui/commit/5eeac564004d2981ef4cf4fd5d7d87367ececc5c))
+* **démarches:** corrige le sélecteur de types d'étape ([818f9c3](https://github.com/MTES-MCT/camino-ui/commit/818f9c3616e9816e37e92d12492ecf30edb5555a))
+* **documents:** corrige une erreur pendant le chargement des métas ([#294](https://github.com/MTES-MCT/camino-ui/issues/294)) ([b8712d7](https://github.com/MTES-MCT/camino-ui/commit/b8712d7f171545c55393c93c0fa4821a30edeaeb))
+* **documents:** supprime la colonne répertoire ([#306](https://github.com/MTES-MCT/camino-ui/issues/306)) ([533c07d](https://github.com/MTES-MCT/camino-ui/commit/533c07db83f39d99cfb7b1b424a740546298995f))
+* **etape:** corrige l’erreur pendant le changement de type d’étape ([#305](https://github.com/MTES-MCT/camino-ui/issues/305)) ([7161886](https://github.com/MTES-MCT/camino-ui/commit/7161886120f93cbc569a33dc5dfd6fff9464ead0))
+* **étape:** corrige le changement de type lors de l'édition ([1fa4800](https://github.com/MTES-MCT/camino-ui/commit/1fa4800facab7887fb1cee95ea835031523b8922))
+* **étape:** corrige le sélecteur de type ([b95ad9b](https://github.com/MTES-MCT/camino-ui/commit/b95ad9bbba1c373ca61608612b26b7e244136608))
+* **étape:** corrige le sélection des types disponibles lors de la création d’une étape ([1ebfd6b](https://github.com/MTES-MCT/camino-ui/commit/1ebfd6bb8fd08785f0df2a58742afe6c91dd11cb))
+* **map:** corrige les sélecteurs de fond de carte et de type de marker ([#296](https://github.com/MTES-MCT/camino-ui/issues/296)) ([99a6c30](https://github.com/MTES-MCT/camino-ui/commit/99a6c307e241771efd7fb169d74bff2dc14b3d16))
+* corrige l'affichage des métas et le téléchargement ([#287](https://github.com/MTES-MCT/camino-ui/issues/287)) ([da3262f](https://github.com/MTES-MCT/camino-ui/commit/da3262fe110d7af8cffb82074070851332fd2891))
+* corrige le zoom sur leaflet ([#290](https://github.com/MTES-MCT/camino-ui/issues/290)) ([bcddee7](https://github.com/MTES-MCT/camino-ui/commit/bcddee7df9a1d2073ddb3bf9b52e02edaa53b24f))
+* corrige les liens depuis la page statistiques ([893fa7f](https://github.com/MTES-MCT/camino-ui/commit/893fa7f3ea479637fa8fd2f3b41715b143abf737))
+* formate le contenu des champs lors de la validation au clavier ([#288](https://github.com/MTES-MCT/camino-ui/issues/288)) ([e8874a7](https://github.com/MTES-MCT/camino-ui/commit/e8874a7efa8de9acf99daa3380f11ef97eb7a3c7))
+* **menu:** corrige temporairement le menu en attendant la nouvelle version du routeur ([3fc9e4c](https://github.com/MTES-MCT/camino-ui/commit/3fc9e4c035685a0430298eff15a2005b55d23ab8))
+
 ### [0.22.66](https://github.com/MTES-MCT/camino-ui/compare/v0.22.65...v0.22.66) (2021-03-30)
 
 
