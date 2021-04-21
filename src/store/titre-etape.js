@@ -126,6 +126,10 @@ const mutations = {
     state.element = e
   },
 
+  reset(state) {
+    state.element = null
+  },
+
   heritageSet(state, { etape, titreDemarcheId }) {
     const apiEtape = etapeEditFormat(etape, titreDemarcheId)
     const newEtape = etapeHeritageBuild(state.element, apiEtape)

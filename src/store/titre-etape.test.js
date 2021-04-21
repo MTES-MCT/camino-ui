@@ -154,7 +154,9 @@ describe('étapes', () => {
       heritageProps: {}
     }
 
-    const apiMock3 = api.etapeHeritage.mockResolvedValue({})
+    const apiMock3 = api.etapeHeritage.mockResolvedValue({
+      type: { id: 'new-etape-type-id' }
+    })
     await store.dispatch('titreEtape/heritageGet', {
       typeId: 'etape-type-id',
       titreDemarcheId: 'demarche-id',
@@ -167,7 +169,7 @@ describe('étapes', () => {
       incertitudes: { date: undefined },
       statutId: '',
       titreDemarcheId: 'demarche-id',
-      typeId: 'etape-type-id'
+      typeId: 'new-etape-type-id'
     })
 
     const apiMock4 = api.etapeHeritage.mockResolvedValue(titreEtapeHeritageRes2)
@@ -200,6 +202,10 @@ describe('étapes', () => {
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
+
+    store.commit('titreEtape/reset')
+
+    expect(store.state.titreEtape.element).toBeNull()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la création d'une étape", async () => {

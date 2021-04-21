@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div v-else-if="!initialized">
+    <div v-else-if="!etape">
       <p>Chargement en cours…</p>
     </div>
 
@@ -195,7 +195,6 @@ export default {
     return {
       events: { saveKeyUp: true },
       newDate: new Date().toISOString().slice(0, 10),
-      initialized: false,
       heritageLoaded: false,
       documentsComplete: false,
       sectionsComplete: false
@@ -230,7 +229,7 @@ export default {
     },
 
     dateIsVisible() {
-      return !this.etapeId && !this.initialized
+      return !this.etapeId && !this.etape
     },
 
     documentsTypes() {
@@ -267,6 +266,10 @@ export default {
     document.removeEventListener('keyup', this.keyUp)
   },
 
+  unmounted() {
+    this.$store.commit('titreEtape/reset')
+  },
+
   methods: {
     async init() {
       await this.$store.dispatch('titreEtape/init', {
@@ -274,8 +277,6 @@ export default {
         id: this.etapeId,
         date: this.newDate
       })
-
-      this.initialized = true
     },
 
     async heritageGet(typeId) {
@@ -290,9 +291,7 @@ export default {
     },
 
     async typeUpdate(event) {
-      this.etape.typeId = event.target.value
-
-      await this.heritageGet(this.etape.typeId)
+      await this.heritageGet(event.target.value)
 
       if (this.etapesStatuts?.length === 1) {
         this.etape.statutId = this.etapesStatuts[0].id

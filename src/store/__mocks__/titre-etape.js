@@ -76,7 +76,7 @@ const titreEtapeHeritage1 = {
   },
   statutId: '',
   titreDemarcheId: 'demarche-id',
-  typeId: 'etape-type-id',
+  typeId: 'new-etape-type-id',
   dateDebut: undefined,
   dateFin: undefined,
   duree: {
@@ -107,6 +107,9 @@ const titreEtapeHeritage1 = {
 }
 
 const titreEtapeHeritageRes1 = {
+  type: {
+    id: 'new-etape-type-id'
+  },
   heritageProps: {},
   heritageContenu: {
     sectionId1: {
@@ -139,10 +142,13 @@ const titreEtapeHeritage2 = {
   surface: undefined,
   titreDemarcheId: 'demarche-id',
   titulaires: [],
-  typeId: 'etape-type-id'
+  typeId: 'new-etape-type-id'
 }
 
 const titreEtapeHeritageRes2 = {
+  type: {
+    id: 'new-etape-type-id'
+  },
   heritageProps: {},
   heritageContenu: {},
   contenu: {}

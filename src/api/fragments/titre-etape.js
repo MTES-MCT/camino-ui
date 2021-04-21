@@ -202,6 +202,7 @@ const fragmentTitreEtapeHeritage = gql`
     duree
     surface
     type {
+      id
       sections
     }
 

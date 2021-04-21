@@ -2,7 +2,7 @@ const etapeHeritageBuild = (stateEtape, apiEtape) => {
   const newEtape = {
     id: stateEtape.id,
     date: stateEtape.date,
-    typeId: stateEtape.typeId,
+    typeId: apiEtape.typeId,
     statutId: '',
     incertitudes: { date: stateEtape.incertitudes.date },
     titreDemarcheId: stateEtape.titreDemarcheId,
@@ -72,6 +72,7 @@ const etapeHeritageBuild = (stateEtape, apiEtape) => {
             stateEtape.heritageContenu[sectionId][elementId]
           ) {
             if (
+              stateEtape.contenu &&
               stateEtape.contenu[sectionId] &&
               stateEtape.contenu[sectionId][elementId]
             ) {

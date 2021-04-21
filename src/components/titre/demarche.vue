@@ -139,9 +139,7 @@ export default {
           domaineId: this.titre.domaine.id,
           demarcheId: this.demarche.id,
           demarcheType: this.demarche.type,
-          titreNom: this.titre.nom,
-          typeId: null,
-          creation: true
+          titreNom: this.titre.nom
         }
       })
 
