@@ -2,7 +2,7 @@
   <Accordion
     :opened="opened"
     class="mb-s"
-    :slot-default="true"
+    :slot-default="hasSections || hasProps || hasDocuments"
     :slot-buttons="true"
     @close="close"
     @toggle="toggle"
