@@ -17,7 +17,7 @@
     <!-- eslint-disable vue/no-v-html -->
     <div
       v-if="activite.type.description"
-      class="h5 mb cap-first"
+      class="h5"
       v-html="activite.type.description"
     />
 

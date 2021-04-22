@@ -535,7 +535,13 @@ const metasIndex = {
         elements: ['tri', 'ann', 'men']
       },
       { id: 'ordre', nom: 'Ordre', type: Number },
-      { id: 'description', nom: 'Description', type: String, optional: true },
+      {
+        id: 'description',
+        nom: 'Description',
+        type: String,
+        optional: true,
+        class: ['min-width-12']
+      },
       { id: 'sections', nom: 'Sections', type: 'json', optional: true },
       {
         id: 'dateDebut',
