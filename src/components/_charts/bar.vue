@@ -4,22 +4,32 @@
 
 <script>
 import { nextTick } from 'vue'
-import Chart from 'chart.js'
+import {
+  Chart,
+  LinearScale,
+  BarController,
+  CategoryScale,
+  BarElement,
+  LineController,
+  PointElement,
+  LineElement
+} from 'chart.js'
+
+Chart.register(
+  LinearScale,
+  BarController,
+  CategoryScale,
+  BarElement,
+  LineController,
+  PointElement,
+  LineElement
+)
 
 export default {
   props: {
-    data: {
-      type: Object,
-      default: () => ({})
-    },
-    aspectRatio: {
-      type: Number,
-      default: 3.33
-    },
-    suggestedMax: {
-      type: Number,
-      default: 0
-    }
+    data: { type: Object, default: () => ({}) },
+    aspectRatio: { type: Number, default: 1.33 },
+    suggestedMax: { type: Number, default: 0 }
   },
   data() {
     return {
@@ -36,26 +46,21 @@ export default {
         type: 'bar',
         data: this.data,
         options: {
+          locale: 'fr-FR',
           aspectRatio: this.aspectRatio,
           scales: {
-            yAxes: [
-              {
-                id: 'bar',
-                display: true,
-                ticks: {
-                  beginAtZero: true,
-                  suggestedMax: this.suggestedMax
-                }
-              },
-              {
-                id: 'line',
-                display: true,
-                ticks: {
-                  beginAtZero: true
-                },
-                position: 'right'
-              }
-            ]
+            bar: {
+              id: 'bar',
+              display: true,
+              min: 0,
+              suggestedMax: this.suggestedMax
+            },
+            line: {
+              id: 'line',
+              display: true,
+              min: 0,
+              position: 'right'
+            }
           }
         }
       })

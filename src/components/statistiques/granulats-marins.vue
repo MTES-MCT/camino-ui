@@ -183,14 +183,14 @@
     <div class="tablet-pt-s pb-s">
       <BarChart
         :data="
-          statsBarFormat(
-            statsAnneesAfter2010,
-            'granulatsExtrait',
-            'volumeGranulatsExtrait',
-            'masseGranulatsExtrait',
-            'Volume de production annuelle de granulats marins en m³',
-            'Tonnage produit'
-          )
+          statsBarFormat({
+            annees: statsAnneesAfter2010,
+            id: 'granulatsExtrait',
+            bar: 'volumeGranulatsExtrait',
+            line: 'masseGranulatsExtrait',
+            labelBar: 'Volume de production annuelle de granulats marins en m³',
+            labelLine: 'Tonnage produit'
+          })
         "
         :suggested-max="suggestedMaxProduction"
       />
@@ -233,14 +233,14 @@
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
             :data="
-              statsBarFormat(
-                statistiquesGranulatsMarins.annees,
-                'titresPrw',
-                'quantite',
-                'surface',
-                'Permis de recherches',
-                'Surface des permis de recherches (ha)'
-              )
+              statsBarFormat({
+                annees: statistiquesGranulatsMarins.annees,
+                id: 'titresPrw',
+                bar: 'quantite',
+                line: 'surface',
+                labelBar: 'Permis de recherches',
+                labelLine: 'Surface des permis de recherches (ha)'
+              })
             "
             :suggested-max="suggestedMaxTitres"
           />
@@ -259,14 +259,14 @@
           <div class="tablet-float-blob-2-3 relative mb-xl">
             <BarChart
               :data="
-                statsBarFormat(
-                  statistiquesGranulatsMarins.annees,
-                  'titresPxw',
-                  'quantite',
-                  'surface',
-                  'Permis d\'exploitation',
-                  'Surface des permis d\'exploitation (ha)'
-                )
+                statsBarFormat({
+                  annees: statistiquesGranulatsMarins.annees,
+                  id: 'titresPxw',
+                  bar: 'quantite',
+                  line: 'surface',
+                  labelBar: 'Permis d\'exploitation',
+                  labelLine: 'Surface des permis d\'exploitation (ha)'
+                })
               "
               :suggested-max="suggestedMaxTitres"
             />
@@ -285,14 +285,14 @@
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
             :data="
-              statsBarFormat(
-                statistiquesGranulatsMarins.annees,
-                'titresCxw',
-                'quantite',
-                'surface',
-                'Concessions',
-                'Surfaces des concessions (ha)'
-              )
+              statsBarFormat({
+                annees: statistiquesGranulatsMarins.annees,
+                id: 'titresCxw',
+                bar: 'quantite',
+                line: 'surface',
+                labelBar: 'Concessions',
+                labelLine: 'Surfaces des concessions (ha)'
+              })
             "
             :suggested-max="suggestedMaxTitres"
           />
@@ -302,14 +302,14 @@
       <hr />
       <BarChart
         :data="
-          statsBarFormat(
-            statistiquesGranulatsMarins.annees,
-            'concessionsValides',
-            'quantite',
-            'surface',
-            'Concessions',
-            'Surfaces des concessions (ha)'
-          )
+          statsBarFormat({
+            annees: statistiquesGranulatsMarins.annees,
+            id: 'concessionsValides',
+            bar: 'quantite',
+            line: 'surface',
+            labelBar: 'Concessions',
+            labelLine: 'Surfaces des concessions (ha)'
+          })
         "
         :suggested-max="suggestedMaxTitres"
       />
@@ -422,8 +422,8 @@ export default {
       this.anneeActive = Number(event.target.value)
     },
 
-    statsBarFormat(annees, id, bar, line, labelBar, labelLine) {
-      return statsBarFormat(annees, id, bar, line, labelBar, labelLine)
+    statsBarFormat({ annees, id, bar, line, labelBar, labelLine }) {
+      return statsBarFormat({ annees, id, bar, line, labelBar, labelLine })
     },
 
     numberFormat(number) {

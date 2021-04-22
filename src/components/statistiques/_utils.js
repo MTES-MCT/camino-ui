@@ -10,7 +10,7 @@ const suggestedMaxCalc = (annees, ids) => {
   return quantiteMax > 10 ? quantiteMax : 10
 }
 
-const statsBarFormat = (annees, id, bar, line, labelBar, labelLine) => {
+const statsBarFormat = ({ annees, id, bar, line, labelBar, labelLine }) => {
   return annees.reduce(
     (acc, statsAnnee) => {
       acc.id = id
@@ -25,14 +25,6 @@ const statsBarFormat = (annees, id, bar, line, labelBar, labelLine) => {
       labels: [],
       datasets: [
         {
-          type: 'bar',
-          label: labelBar,
-          yAxisID: 'bar',
-          legendPosition: 'left',
-          data: [],
-          backgroundColor: 'rgb(118, 182, 189)'
-        },
-        {
           type: 'line',
           label: labelLine,
           yAxisID: 'line',
@@ -40,13 +32,21 @@ const statsBarFormat = (annees, id, bar, line, labelBar, labelLine) => {
           data: [],
           backgroundColor: 'rgba(55, 111, 170, 0.2)',
           borderColor: 'rgb(55, 111, 170)'
+        },
+        {
+          type: 'bar',
+          label: labelBar,
+          yAxisID: 'bar',
+          legendPosition: 'left',
+          data: [],
+          backgroundColor: 'rgb(118, 182, 189)'
         }
       ]
     }
   )
 }
 
-const statsLineFormat = (annees, id, label) => {
+const statsLineFormat = ({ annees, id, label }) => {
   return annees.reduce(
     (acc, statsAnnee) => {
       acc.labels.push(statsAnnee.annee)
