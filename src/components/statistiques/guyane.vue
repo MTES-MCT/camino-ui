@@ -215,11 +215,11 @@
           <div class="tablet-float-blob-2-3 relative mb-xl">
             <LineChart
               :data="
-                statsLineFormat(
-                  statistiquesGuyane.annees,
-                  'orNet',
-                  'Or net extrait en Kg'
-                )
+                statsLineFormat({
+                  annees: statistiquesGuyane.annees,
+                  id: 'orNet',
+                  label: 'Or net extrait en Kg'
+                })
               "
             />
           </div>
@@ -240,14 +240,14 @@
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
             :data="
-              statsBarFormat(
-                statistiquesGuyane.annees,
-                'titresArm',
-                'quantite',
-                'surface',
-                'Autorisations de recherche',
-                'Surface des autorisations de recherche (ha)'
-              )
+              statsBarFormat({
+                annees: statistiquesGuyane.annees,
+                id: 'titresArm',
+                bar: 'quantite',
+                line: 'surface',
+                labelBar: 'Autorisations de recherche',
+                labelLine: 'Surface des autorisations de recherche (ha)'
+              })
             "
             :suggested-max="suggestedMaxTitres"
           />
@@ -267,14 +267,14 @@
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
             :data="
-              statsBarFormat(
-                statistiquesGuyane.annees,
-                'titresPrm',
-                'quantite',
-                'surface',
-                'Permis de recherches',
-                'Surface des permis de recherches (ha)'
-              )
+              statsBarFormat({
+                annees: statistiquesGuyane.annees,
+                id: 'titresPrm',
+                bar: 'quantite',
+                line: 'surface',
+                labelBar: 'Permis de recherches',
+                labelLine: 'Surface des permis de recherches (ha)'
+              })
             "
             :suggested-max="suggestedMaxTitres"
           />
@@ -295,14 +295,14 @@
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
             :data="
-              statsBarFormat(
-                statistiquesGuyane.annees,
-                'titresAxm',
-                'quantite',
-                'surface',
-                'Autorisations d\'exploitation',
-                'Surface des autorisations de recherche (ha)'
-              )
+              statsBarFormat({
+                annees: statistiquesGuyane.annees,
+                id: 'titresAxm',
+                bar: 'quantite',
+                line: 'surface',
+                labelBar: 'Autorisations d\'exploitation',
+                labelLine: 'Surface des autorisations de recherche (ha)'
+              })
             "
             :suggested-max="suggestedMaxTitres"
           />
@@ -322,14 +322,14 @@
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
             :data="
-              statsBarFormat(
-                statistiquesGuyane.annees,
-                'titresPxm',
-                'quantite',
-                'surface',
-                'Permis d\'exploitation',
-                'Surface des permis d\'exploitation (ha)'
-              )
+              statsBarFormat({
+                annees: statistiquesGuyane.annees,
+                id: 'titresPxm',
+                bar: 'quantite',
+                line: 'surface',
+                labelBar: 'Permis d\'exploitation',
+                labelLine: 'Surface des permis d\'exploitation (ha)'
+              })
             "
             :suggested-max="suggestedMaxTitres"
           />
@@ -347,14 +347,14 @@
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
             :data="
-              statsBarFormat(
-                statistiquesGuyane.annees,
-                'titresCxm',
-                'quantite',
-                'surface',
-                'Concessions',
-                'Surface des concessions (ha)'
-              )
+              statsBarFormat({
+                annees: statistiquesGuyane.annees,
+                id: 'titresCxm',
+                bar: 'quantite',
+                line: 'surface',
+                labelBar: 'Concessions',
+                labelLine: 'Surface des concessions (ha)'
+              })
             "
             :suggested-max="suggestedMaxTitres"
           />
@@ -449,12 +449,12 @@ export default {
       this.tabActive = tabId
     },
 
-    statsLineFormat(annees, id, label) {
-      return statsLineFormat(annees, id, label)
+    statsLineFormat({ annees, id, label }) {
+      return statsLineFormat({ annees, id, label })
     },
 
-    statsBarFormat(annees, id, bar, line, labelBar, labelLine) {
-      return statsBarFormat(annees, id, bar, line, labelBar, labelLine)
+    statsBarFormat({ annees, id, bar, line, labelBar, labelLine }) {
+      return statsBarFormat({ annees, id, bar, line, labelBar, labelLine })
     },
 
     numberFormat(number) {

@@ -3,7 +3,21 @@
 </template>
 
 <script>
-import Chart from 'chart.js'
+import {
+  Chart,
+  LinearScale,
+  LineController,
+  CategoryScale,
+  PointElement,
+  LineElement
+} from 'chart.js'
+Chart.register(
+  LinearScale,
+  LineController,
+  CategoryScale,
+  PointElement,
+  LineElement
+)
 
 export default {
   props: {
@@ -26,9 +40,10 @@ export default {
       type: 'line',
       data: this.data,
       options: {
+        locale: 'fr-FR',
         aspectRatio: 1.33,
         scales: {
-          yAxes: [
+          y: [
             {
               ticks: {
                 beginAtZero: true
