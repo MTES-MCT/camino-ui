@@ -45,7 +45,7 @@
     <div>
       <!-- eslint-disable vue/no-v-html -->
       <div v-if="activite.type.description" class="border-b-s px-m pt-m">
-        <p class="cap-first h5 mb" v-html="activite.type.description" />
+        <div class="h5" v-html="activite.type.description" />
       </div>
       <div v-if="activite.dateSaisie" class="border-b-s px-m pt-m">
         <h6>
