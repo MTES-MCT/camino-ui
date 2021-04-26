@@ -113,11 +113,10 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
       regions: {
         component: markRaw(List),
         props: {
-          elements: titre.pays?.length
-            ? titre.pays.flatMap(pay =>
-                pay.regions?.length ? pay.regions.map(({ nom }) => nom) : []
-              )
-            : [],
+          elements: titre.pays?.reduce(
+            (acc, pay) => acc.concat(pay.regions?.map(({ nom }) => nom)),
+            []
+          ),
           mini: true
         },
         class: 'mb--xs'
@@ -125,15 +124,17 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
       departements: {
         component: markRaw(List),
         props: {
-          elements: titre.pays?.length
-            ? titre.pays.flatMap(pay =>
-                pay.regions?.length
-                  ? pay.regions.flatMap(region =>
-                      region.departements.map(({ nom }) => nom)
-                    )
-                  : []
-              )
-            : [],
+          elements: titre.pays?.reduce(
+            (pays, pay) =>
+              pays.concat(
+                pay.regions?.reduce(
+                  (regions, region) =>
+                    regions.concat(region.departements?.map(({ nom }) => nom)),
+                  []
+                )
+              ),
+            []
+          ),
           mini: true
         },
         class: 'mb--xs'
