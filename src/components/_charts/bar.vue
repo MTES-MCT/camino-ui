@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { nextTick } from 'vue'
 import {
   Chart,
   LinearScale,
@@ -12,7 +11,10 @@ import {
   BarElement,
   LineController,
   PointElement,
-  LineElement
+  LineElement,
+  Filler,
+  Legend,
+  Tooltip
 } from 'chart.js'
 
 Chart.register(
@@ -22,15 +24,19 @@ Chart.register(
   BarElement,
   LineController,
   PointElement,
-  LineElement
+  LineElement,
+  Filler,
+  Legend,
+  Tooltip
 )
 
 export default {
   props: {
-    data: { type: Object, default: () => ({}) },
+    data: { type: Object, required: true },
     aspectRatio: { type: Number, default: 1.33 },
     suggestedMax: { type: Number, default: 0 }
   },
+
   data() {
     return {
       canvas: null
@@ -40,30 +46,22 @@ export default {
   mounted() {
     this.canvas = this.$refs.canvas
 
-    nextTick(() => {
-      // eslint-disable-next-line no-new
-      new Chart(this.canvas.getContext('2d'), {
-        type: 'bar',
-        data: this.data,
-        options: {
-          locale: 'fr-FR',
-          aspectRatio: this.aspectRatio,
-          scales: {
-            bar: {
-              id: 'bar',
-              display: true,
-              min: 0,
-              suggestedMax: this.suggestedMax
-            },
-            line: {
-              id: 'line',
-              display: true,
-              min: 0,
-              position: 'right'
-            }
-          }
+    // eslint-disable-next-line no-new
+    new Chart(this.canvas.getContext('2d'), {
+      type: 'bar',
+      data: this.data,
+      options: {
+        locale: 'fr-FR',
+        aspectRatio: this.aspectRatio,
+        responsive: true,
+        scales: {
+          bar: { id: 'bar', min: 0, suggestedMax: this.suggestedMax },
+          line: { id: 'line', min: 0, position: 'right' }
+        },
+        plugins: {
+          legend: { position: 'top' }
         }
-      })
+      }
     })
   }
 }

@@ -1,35 +1,41 @@
-// Valeur max des abscisses : doit être la même pour certains graphes afin de comparer visuelement les données
-// = max des quantités tous graph confondus parmis les ids sur l'ensemble des années requises si supérieur à 10, sinon 10
-// ids : liste des id à prendre en compte
-// start : année de départ de la liste
-const suggestedMaxCalc = (annees, ids) => {
-  const quantiteMax = Math.max(
-    ...annees.map(annee => Math.max(...ids.map(id => annee[id].quantite)))
+const suggestedMaxCalc = (annees, ids) =>
+  Math.max(
+    ...annees.reduce((acc, annee) => {
+      acc.push(...ids.map(id => annee[id].quantite))
+
+      return acc
+    }, [])
   )
 
-  return quantiteMax > 10 ? quantiteMax : 10
-}
-
-const statsBarFormat = ({ annees, id, bar, line, labelBar, labelLine }) => {
-  return annees.reduce(
-    (acc, statsAnnee) => {
-      acc.id = id
-      acc.labels.push(statsAnnee.annee)
-      acc.datasets[0].data.push(statsAnnee[id][bar])
-      acc.datasets[1].data.push(statsAnnee[id][line])
+const statsBarFormat = ({
+  annees,
+  id,
+  bar,
+  line,
+  labelX,
+  labelBar,
+  labelLine
+}) =>
+  annees.reduce(
+    (acc, stats) => {
+      acc.labels.push(stats[labelX])
+      const dataLine = id ? stats[id][line] : stats[line]
+      const dataBar = id ? stats[id][bar] : stats[bar]
+      acc.datasets[0].data.push(dataLine)
+      acc.datasets[1].data.push(dataBar)
 
       return acc
     },
     {
-      id: '',
       labels: [],
       datasets: [
         {
           type: 'line',
           label: labelLine,
-          yAxisID: 'line',
-          legendPosition: 'right',
           data: [],
+          yAxisID: 'line',
+          fill: 'start',
+          tension: 0.5,
           backgroundColor: 'rgba(55, 111, 170, 0.2)',
           borderColor: 'rgb(55, 111, 170)'
         },
@@ -37,20 +43,18 @@ const statsBarFormat = ({ annees, id, bar, line, labelBar, labelLine }) => {
           type: 'bar',
           label: labelBar,
           yAxisID: 'bar',
-          legendPosition: 'left',
           data: [],
           backgroundColor: 'rgb(118, 182, 189)'
         }
       ]
     }
   )
-}
 
-const statsLineFormat = ({ annees, id, label }) => {
-  return annees.reduce(
-    (acc, statsAnnee) => {
-      acc.labels.push(statsAnnee.annee)
-      acc.datasets[0].data.push(statsAnnee[id])
+const statsLineFormat = ({ stats, id, labelX, labelY }) =>
+  stats.reduce(
+    (acc, stat) => {
+      acc.labels.push(stat[labelX])
+      acc.datasets[0].data.push(stat[id])
 
       return acc
     },
@@ -58,14 +62,15 @@ const statsLineFormat = ({ annees, id, label }) => {
       labels: [],
       datasets: [
         {
-          label,
+          label: labelY,
           data: [],
+          fill: 'start',
+          tension: 0.5,
           backgroundColor: 'rgba(118, 182, 189, 0.2)',
           borderColor: 'rgb(118, 182, 189)'
         }
       ]
     }
   )
-}
 
 export { suggestedMaxCalc, statsBarFormat, statsLineFormat }

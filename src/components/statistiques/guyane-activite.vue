@@ -62,8 +62,8 @@
           {{ numberFormat(statistiqueGuyane.effectifs) }}
         </p>
         <p>
-          Salariés mobilisés sur les exploitations minières de Guyane
-          (équivalent temps plein).
+          Salariés mobilisés sur les exploitations minières (équivalent temps
+          plein).
         </p>
       </div>
     </div>

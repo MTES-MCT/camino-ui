@@ -85,10 +85,8 @@ const statistiquesGranulatsMarins = apiGraphQLFetch(gql`
           quantite
           surface
         }
-        granulatsExtrait {
-          volumeGranulatsExtrait
-          masseGranulatsExtrait
-        }
+        volume
+        masse
         activitesDeposesQuantite
         activitesDeposesRatio
         concessionsValides {

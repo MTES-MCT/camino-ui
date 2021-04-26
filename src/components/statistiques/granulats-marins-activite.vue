@@ -8,12 +8,7 @@
         <h4 class="text-center">Production nette en volume</h4>
         <div v-if="statistiqueGranulatsMarins.activitesDeposesQuantite > 3">
           <p class="h0 text-center">
-            {{
-              numberFormat(
-                statistiqueGranulatsMarins.granulatsExtrait
-                  .volumeGranulatsExtrait
-              )
-            }}
+            {{ numberFormat(statistiqueGranulatsMarins.volume) }}
             m³
           </p>
         </div>
@@ -25,12 +20,7 @@
         <h4 class="text-center">Production nette en masse</h4>
         <div v-if="statistiqueGranulatsMarins.activitesDeposesQuantite > 3">
           <p class="h0 text-center">
-            {{
-              numberFormat(
-                statistiqueGranulatsMarins.granulatsExtrait
-                  .masseGranulatsExtrait
-              )
-            }}
+            {{ numberFormat(statistiqueGranulatsMarins.masse) }}
             t
           </p>
         </div>
