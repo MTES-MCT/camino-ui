@@ -37,10 +37,6 @@ export default {
 
     params() {
       return this.$store.state.titres.params.filtres
-    },
-
-    params() {
-      return this.$store.state.titres.params
     }
   },
 

@@ -94,6 +94,7 @@ const actions = {
   async get({ state, dispatch, commit }) {
     try {
       commit('loadingAdd', 'titres', { root: true })
+
       if (!state.initialized) return
 
       await dispatch('urlQueryUpdate')
