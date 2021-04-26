@@ -9,8 +9,11 @@
       class="map map-view mb-s"
       @map-update="titresPreferencesUpdate"
     />
+
     <MapPattern :domaines-ids="domainesIds" :types-ids="typesIds" />
+
     <MapWarningBrgm :zoom="preferences.zoom" :tiles-id="tilesId" />
+
     <div class="container overflow-auto">
       <div class="desktop-blobs">
         <div class="desktop-blob-1-2 desktop-flex">

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import marked from 'marked'
+import snarkdown from 'snarkdown'
 import DefinitionEntree from './definition-entree.vue'
 import MapPattern from '../_map/pattern.vue'
 
@@ -40,7 +40,7 @@ export default {
     },
 
     descriptionHtml() {
-      return marked(this.definition.description)
+      return snarkdown(this.definition.description)
     }
   },
 

@@ -11,14 +11,8 @@
 <script>
 export default {
   props: {
-    tilesId: {
-      type: String,
-      default: ''
-    },
-    zoom: {
-      type: Number,
-      default: 0
-    }
+    tilesId: { type: String, default: '' },
+    zoom: { type: Number, default: 0 }
   },
 
   computed: {

@@ -1,6 +1,7 @@
 <template>
   <div class="bg-alt width-full">
     <MapPattern :domaines-ids="[domaineId]" :types-ids="[typeId]" />
+
     <Mapo
       ref="map"
       :tiles-layer="tilesLayer"
@@ -9,7 +10,9 @@
       :bounds="bounds"
       class="map map-detail mb-s"
     />
+
     <MapWarningBrgm :zoom="zoom" :tiles-id="tilesId" />
+
     <div class="container overflow-auto">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-2 mb-s">

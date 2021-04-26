@@ -21,5 +21,7 @@
   "peacock.color": "#42b883",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "vetur.experimental.templateInterpolationService": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

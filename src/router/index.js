@@ -1,44 +1,37 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Titre from '../components/titre.vue'
-import Titres from '../components/titres.vue'
-import Demarches from '../components/demarches.vue'
-import Utilisateur from '../components/utilisateur.vue'
-import Utilisateurs from '../components/utilisateurs.vue'
-import Entreprise from '../components/entreprise.vue'
-import Entreprises from '../components/entreprises.vue'
-import Administration from '../components/administration.vue'
-import Administrations from '../components/administrations.vue'
-import Meta from '../components/meta.vue'
-import Metas from '../components/metas.vue'
-import Activite from '../components/activite.vue'
-import Activites from '../components/activites.vue'
-import Glossaire from '../components/glossaire.vue'
-import Error from '../components/error.vue'
-import Contacts from '../components/content/contacts.vue'
-import About from '../components/content/about.vue'
-import Accessibilite from '../components/content/accessibilite.vue'
-import Contribution from '../components/content/contribution.vue'
-import MentionsLegalesCGU from '../components/content/mentions-legales-cgu.vue'
-import Cgu1 from '../components/content/cgu-1-0-0.vue'
-import UserPasswordInit from '../components/user/password-init.vue'
-import UserAdd from '../components/user/add.vue'
-import Definition from '../components/glossaire/definition.vue'
 import store from '../store'
 
+const Titre = () => import('../components/titre.vue')
+const Titres = () => import('../components/titres.vue')
+const Demarches = () => import('../components/demarches.vue')
+const Utilisateur = () => import('../components/utilisateur.vue')
+const Utilisateurs = () => import('../components/utilisateurs.vue')
+const Entreprise = () => import('../components/entreprise.vue')
+const Entreprises = () => import('../components/entreprises.vue')
+const Administration = () => import('../components/administration.vue')
+const Administrations = () => import('../components/administrations.vue')
+const Meta = () => import('../components/meta.vue')
+const Metas = () => import('../components/metas.vue')
+const Activite = () => import('../components/activite.vue')
+const Activites = () => import('../components/activites.vue')
+const Glossaire = () => import('../components/glossaire.vue')
+const Error = () => import('../components/error.vue')
+const UserPasswordInit = () => import('../components/user/password-init.vue')
+const UserAdd = () => import('../components/user/add.vue')
+const Definition = () => import('../components/glossaire/definition.vue')
+const Contacts = () => import('../components/content/contacts.vue')
+const About = () => import('../components/content/about.vue')
+const Accessibilite = () => import('../components/content/accessibilite.vue')
+const Contribution = () => import('../components/content/contribution.vue')
+const MentionsLegalesCGU = () =>
+  import('../components/content/mentions-legales-cgu.vue')
+const Cgu1 = () => import('../components/content/cgu-1-0-0.vue')
 const StatistiquesGlobales = () =>
-  import(
-    /* webpackChunkName: "stats" */ '../components/statistiques/globales.vue'
-  )
-const Statistiques = () =>
-  import(/* webpackChunkName: "stats" */ '../components/statistiques.vue')
-const StatistiquesGuyane = () =>
-  import(
-    /* webpackChunkName: "stats" */ '../components/statistiques/guyane.vue'
-  )
+  import('../components/statistiques/globales.vue')
+const Statistiques = () => import('../components/statistiques.vue')
+const StatistiquesGuyane = () => import('../components/statistiques/guyane.vue')
 const StatistiquesGranulatsMarins = () =>
-  import(
-    /* webpackChunkName: "stats" */ '../components/statistiques/granulats-marins.vue'
-  )
+  import('../components/statistiques/granulats-marins.vue')
 
 const routes = [
   {

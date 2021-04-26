@@ -30,7 +30,7 @@
 
 <script>
 import { nextTick } from 'vue'
-import marked from 'marked'
+import snarkdown from 'snarkdown'
 
 export default {
   props: {
@@ -48,7 +48,7 @@ export default {
 
   computed: {
     valueHtml() {
-      return marked(this.valueUpdated)
+      return snarkdown(this.valueUpdated)
     }
   },
 

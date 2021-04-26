@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import marked from 'marked'
+import snarkdown from 'snarkdown'
 import Pill from '../_ui/pill.vue'
 import Statut from '../_common/statut.vue'
 
@@ -51,7 +51,7 @@ export default {
     },
 
     descriptionHtml() {
-      return marked(this.entree.description)
+      return snarkdown(this.entree.description)
     }
   }
 }
