@@ -2,7 +2,7 @@
   <Loader v-if="!loaded" class="content" />
   <div v-else class="content">
     <div id="etat" class="mb-xxl mt">
-      <h2>État du domaine minier en Guyane en temps réel</h2>
+      <h2>État du domaine minier en temps réel</h2>
       <span class="separator" />
       <p>
         Les données affichées ici sont celles contenues dans la base de donnée
@@ -160,7 +160,7 @@
       </div>
     </div>
 
-    <h2>Indicateurs annuels de production et d’activité minière légales</h2>
+    <h2>Production et activité minière légales</h2>
     <span class="separator" />
     <p class="mb-xl">
       Les données affichées ici sont celles contenues dans la base de donnée
@@ -191,7 +191,7 @@
     />
     <div class="line-neutral width-full mb-xl" />
     <div id="evolution" class="mb-xxl">
-      <h2>Évolution de l’activité sur le domaine minier de Guyane</h2>
+      <h2>Activité</h2>
       <span class="separator" />
       <p>
         Les données affichées ici sont celles contenues dans la base de donnée
@@ -216,26 +216,24 @@
             <LineChart
               :data="
                 statsLineFormat({
-                  annees: statistiquesGuyane.annees,
+                  stats: statistiquesGuyane.annees,
                   id: 'orNet',
-                  label: 'Or net extrait en Kg'
+                  labelX: 'annee',
+                  labelY: 'Or net extrait en Kg'
                 })
               "
             />
           </div>
         </div>
       </div>
-      <h3>
-        Évolution du nombre et des surfaces des autorisations de recherche
-        octroyées
-      </h3>
+      <h3>Autorisations de recherche octroyées</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
             {{ statistiques[anneeCurrent - 1].titresArm.quantite }}
           </p>
-          <p>autorisations de recherches octroyées l’an dernier</p>
+          <p>Autorisations de recherches octroyées l’an dernier</p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
@@ -245,6 +243,7 @@
                 id: 'titresArm',
                 bar: 'quantite',
                 line: 'surface',
+                labelX: 'annee',
                 labelBar: 'Autorisations de recherche',
                 labelLine: 'Surface des autorisations de recherche (ha)'
               })
@@ -253,16 +252,14 @@
           />
         </div>
       </div>
-      <h3>
-        Évolution du nombre et des surfaces des permis de recherches octroyés
-      </h3>
+      <h3>Permis de recherches octroyés</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
             {{ statistiques[anneeCurrent - 1].titresPrm.quantite }}
           </p>
-          <p>permis exclusifs de recherches octroyés l’an dernier</p>
+          <p>Permis exclusifs de recherches octroyés l’an dernier</p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
@@ -272,6 +269,7 @@
                 id: 'titresPrm',
                 bar: 'quantite',
                 line: 'surface',
+                labelX: 'annee',
                 labelBar: 'Permis de recherches',
                 labelLine: 'Surface des permis de recherches (ha)'
               })
@@ -280,17 +278,14 @@
           />
         </div>
       </div>
-      <h3>
-        Évolution du nombre et des surfaces des autorisations d'exploitation
-        octroyées
-      </h3>
+      <h3>Autorisations d'exploitation octroyées</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
             {{ statistiques[anneeCurrent - 1].titresAxm.quantite }}
           </p>
-          <p>autorisations d’exploitation octroyées l’an dernier</p>
+          <p>Autorisations d’exploitation octroyées l’an dernier</p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
@@ -300,6 +295,7 @@
                 id: 'titresAxm',
                 bar: 'quantite',
                 line: 'surface',
+                labelX: 'annee',
                 labelBar: 'Autorisations d\'exploitation',
                 labelLine: 'Surface des autorisations de recherche (ha)'
               })
@@ -308,16 +304,14 @@
           />
         </div>
       </div>
-      <h3>
-        Évolution du nombre et des surfaces des permis d'exploitation octroyés
-      </h3>
+      <h3>Permis d'exploitation octroyés</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
           <p class="h0 text-center">
             {{ statistiques[anneeCurrent - 1].titresPxm.quantite }}
           </p>
-          <p>permis d’exploitation octroyés l’an dernier</p>
+          <p>Permis d’exploitation octroyés l’an dernier</p>
         </div>
         <div class="tablet-float-blob-2-3 relative mb-xl">
           <BarChart
@@ -327,6 +321,7 @@
                 id: 'titresPxm',
                 bar: 'quantite',
                 line: 'surface',
+                labelX: 'annee',
                 labelBar: 'Permis d\'exploitation',
                 labelLine: 'Surface des permis d\'exploitation (ha)'
               })
@@ -335,7 +330,7 @@
           />
         </div>
       </div>
-      <h3>Évolution du nombre et des surfaces des concessions octroyées</h3>
+      <h3>Concessions octroyées</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
@@ -352,6 +347,7 @@
                 id: 'titresCxm',
                 bar: 'quantite',
                 line: 'surface',
+                labelX: 'annee',
                 labelBar: 'Concessions',
                 labelLine: 'Surface des concessions (ha)'
               })
@@ -449,12 +445,20 @@ export default {
       this.tabActive = tabId
     },
 
-    statsLineFormat({ annees, id, label }) {
-      return statsLineFormat({ annees, id, label })
+    statsLineFormat({ stats, id, labelX, labelY }) {
+      return statsLineFormat({ stats, id, labelX, labelY })
     },
 
-    statsBarFormat({ annees, id, bar, line, labelBar, labelLine }) {
-      return statsBarFormat({ annees, id, bar, line, labelBar, labelLine })
+    statsBarFormat({ annees, id, bar, line, labelX, labelBar, labelLine }) {
+      return statsBarFormat({
+        annees,
+        id,
+        bar,
+        line,
+        labelX,
+        labelBar,
+        labelLine
+      })
     },
 
     numberFormat(number) {

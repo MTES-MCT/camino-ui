@@ -40,7 +40,16 @@
           </div>
         </div>
         <div class="tablet-float-blob-2-3 mb-xxl">
-          <LineChart :data="statsFormat('recherches', 'recherches')" />
+          <LineChart
+            :data="
+              statsLineFormat({
+                stats: statistiques['recherches'],
+                labelY: 'recherches',
+                labelX: 'mois',
+                id: 'quantite'
+              })
+            "
+          />
         </div>
       </div>
     </div>
@@ -72,7 +81,16 @@
           </p>
         </div>
         <div class="tablet-float-blob-2-3 mb-xxl">
-          <LineChart :data="statsFormat('titresModifies', 'Mises à jour')" />
+          <LineChart
+            :data="
+              statsLineFormat({
+                stats: statistiques['titresModifies'],
+                labelY: 'recherches',
+                labelX: 'mois',
+                id: 'quantite'
+              })
+            "
+          />
         </div>
       </div>
       <div class="desktop-blobs">
@@ -162,6 +180,7 @@
 import Loader from '../_ui/loader.vue'
 import LineChart from '../_charts/line.vue'
 import numberFormat from '@/utils/number-format'
+import { statsLineFormat } from './_utils'
 
 export default {
   name: 'CaminoStatistiques',
@@ -205,18 +224,8 @@ export default {
       }
     },
 
-    statsFormat(id, label) {
-      return {
-        labels: this.statistiques[id].map(recherche => recherche.mois),
-        datasets: [
-          {
-            label,
-            data: this.statistiques[id].map(recherche => recherche.quantite),
-            backgroundColor: 'rgba(118, 182, 189, 0.2)',
-            borderColor: 'rgb(118, 182, 189)'
-          }
-        ]
-      }
+    statsLineFormat({ stats, id, labelX, labelY }) {
+      return statsLineFormat({ stats, id, labelX, labelY })
     },
 
     numberFormat(number) {

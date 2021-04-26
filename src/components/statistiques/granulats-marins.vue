@@ -2,7 +2,7 @@
   <Loader v-if="!loaded" class="content" />
   <div v-else class="content">
     <div id="etat" class="mb-xxl mt">
-      <h2>État du domaine minier sur les granulats marins en temps réel</h2>
+      <h2>État du domaine minier en temps réel</h2>
       <span class="separator" />
       <p>
         Les données affichées ici sont celles contenues dans la base de donnée
@@ -173,7 +173,7 @@
 
     <div class="line-neutral width-full mb" />
 
-    <h2>Production annuelle de granulats marins</h2>
+    <h2>Production annuelle</h2>
     <span class="separator" />
     <p class="mb-xl">
       Données contenues dans la base de données Camino, stabilisées pour l’année
@@ -185,11 +185,11 @@
         :data="
           statsBarFormat({
             annees: statsAnneesAfter2010,
-            id: 'granulatsExtrait',
-            bar: 'volumeGranulatsExtrait',
-            line: 'masseGranulatsExtrait',
-            labelBar: 'Volume de production annuelle de granulats marins en m³',
-            labelLine: 'Tonnage produit'
+            bar: 'volume',
+            line: 'masse',
+            labelX: 'annee',
+            labelBar: 'Volume en m³',
+            labelLine: 'Tonnage'
           })
         "
         :suggested-max="suggestedMaxProduction"
@@ -219,9 +219,7 @@
         Données contenues dans la base de données Camino, concernant
         exclusivement le territoire français.
       </p>
-      <h3>
-        Nombre et surfaces des permis exclusif de recherche (PER) octroyés
-      </h3>
+      <h3>Permis exclusif de recherche (PER) octroyés</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
@@ -238,6 +236,7 @@
                 id: 'titresPrw',
                 bar: 'quantite',
                 line: 'surface',
+                labelX: 'annee',
                 labelBar: 'Permis de recherches',
                 labelLine: 'Surface des permis de recherches (ha)'
               })
@@ -247,14 +246,14 @@
         </div>
       </div>
       <div v-if="pexAnneeCurrent">
-        <h3>Nombre et surfaces des permis d'exploitation (PEX) octroyés</h3>
+        <h3>Permis d'exploitation (PEX) octroyés</h3>
         <hr />
         <div class="tablet-float-blobs clearfix">
           <div class="tablet-float-blob-1-3 mb-xl mt">
             <p class="h0 text-center">
               {{ statistiques[anneeCurrent - 1].titresPxw.quantite }}
             </p>
-            <p>permis d’exploitation octroyés l’an dernier</p>
+            <p>Permis d’exploitation octroyés l’an dernier</p>
           </div>
           <div class="tablet-float-blob-2-3 relative mb-xl">
             <BarChart
@@ -264,6 +263,7 @@
                   id: 'titresPxw',
                   bar: 'quantite',
                   line: 'surface',
+                  labelX: 'annee',
                   labelBar: 'Permis d\'exploitation',
                   labelLine: 'Surface des permis d\'exploitation (ha)'
                 })
@@ -273,7 +273,7 @@
           </div>
         </div>
       </div>
-      <h3>Nombre et surfaces des concessions octroyées</h3>
+      <h3>Concessions octroyées</h3>
       <hr />
       <div class="tablet-float-blobs clearfix">
         <div class="tablet-float-blob-1-3 mb-xl mt">
@@ -290,6 +290,7 @@
                 id: 'titresCxw',
                 bar: 'quantite',
                 line: 'surface',
+                labelX: 'annee',
                 labelBar: 'Concessions',
                 labelLine: 'Surfaces des concessions (ha)'
               })
@@ -298,7 +299,7 @@
           />
         </div>
       </div>
-      <h3>Nombre et surface des concessions valides</h3>
+      <h3>Concessions valides</h3>
       <hr />
       <BarChart
         :data="
@@ -307,6 +308,7 @@
             id: 'concessionsValides',
             bar: 'quantite',
             line: 'surface',
+            labelX: 'annee',
             labelBar: 'Concessions',
             labelLine: 'Surfaces des concessions (ha)'
           })
@@ -371,12 +373,13 @@ export default {
       return suggestedMaxCalc(this.statistiquesGranulatsMarins.annees, [
         'titresPrw',
         'titresPxw',
-        'titresCxw'
+        'titresCxw',
+        'concessionsValides'
       ])
     },
 
     suggestedMaxProduction() {
-      return suggestedMaxCalc(this.statsAnneesAfter2010, ['granulatsExtrait'])
+      return Math.max(...this.statsAnneesAfter2010.map(annee => annee.volume))
     },
 
     statsAnneesAfter2010() {
@@ -422,8 +425,16 @@ export default {
       this.anneeActive = Number(event.target.value)
     },
 
-    statsBarFormat({ annees, id, bar, line, labelBar, labelLine }) {
-      return statsBarFormat({ annees, id, bar, line, labelBar, labelLine })
+    statsBarFormat({ annees, id, bar, line, labelX, labelBar, labelLine }) {
+      return statsBarFormat({
+        annees,
+        id,
+        bar,
+        line,
+        labelX,
+        labelBar,
+        labelLine
+      })
     },
 
     numberFormat(number) {

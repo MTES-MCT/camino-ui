@@ -9,23 +9,28 @@ import {
   LineController,
   CategoryScale,
   PointElement,
-  LineElement
+  LineElement,
+  Filler,
+  Legend,
+  Tooltip
 } from 'chart.js'
+
 Chart.register(
   LinearScale,
   LineController,
   CategoryScale,
   PointElement,
-  LineElement
+  LineElement,
+  Filler,
+  Legend,
+  Tooltip
 )
 
 export default {
   props: {
-    data: {
-      type: Object,
-      default: () => ({})
-    }
+    data: { type: Object, required: true }
   },
+
   data() {
     return {
       canvas: null
@@ -41,16 +46,7 @@ export default {
       data: this.data,
       options: {
         locale: 'fr-FR',
-        aspectRatio: 1.33,
-        scales: {
-          y: [
-            {
-              ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        }
+        aspectRatio: 1.33
       }
     })
   }
