@@ -70,6 +70,7 @@ describe('listes', () => {
       state: { query: {} }
     }
 
+    // eslint-disable-next-line vue/one-component-per-file
     const app = createApp({})
 
     store = createStore({
@@ -242,6 +243,7 @@ describe('listes sans metas', () => {
       }
     }
 
+    // eslint-disable-next-line vue/one-component-per-file
     const app = createApp({})
 
     store = createStore({

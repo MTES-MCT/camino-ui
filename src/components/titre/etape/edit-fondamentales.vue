@@ -158,7 +158,7 @@
                 :value="entreprise.id"
                 :disabled="
                   etape.titulaires.find(t => t.id === entreprise.id) ||
-                    etape.amodiataires.find(a => a.id === entreprise.id)
+                  etape.amodiataires.find(a => a.id === entreprise.id)
                 "
               >
                 {{ `${entreprise.nom} (${entreprise.id})` }}
@@ -223,13 +223,11 @@
             <select v-model="amodiataire.id" class="p-s mr-s">
               <option
                 v-for="entreprise in entreprises"
-                :key="
-                  `amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`
-                "
+                :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
                 :value="entreprise.id"
                 :disabled="
                   etape.amodiataires.find(a => a.id === entreprise.id) ||
-                    etape.titulaires.find(t => t.id === entreprise.id)
+                  etape.titulaires.find(t => t.id === entreprise.id)
                 "
               >
                 {{ entreprise.nom }} ({{ entreprise.id }})
@@ -404,7 +402,7 @@ export default {
 
   watch: {
     etape: {
-      handler: function(etape) {
+      handler: function (etape) {
         if (!etape.duree) {
           etape.incertitudes.duree = false
         }

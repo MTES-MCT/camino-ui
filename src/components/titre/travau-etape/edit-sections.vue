@@ -35,7 +35,7 @@ export default {
 
   watch: {
     contenu: {
-      handler: function(contenu) {
+      handler: function (contenu) {
         this.etape.contenu = elementContenuBuild(this.sections, contenu)
       },
       deep: true
