@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.68](https://github.com/MTES-MCT/camino-ui/compare/v0.22.67...v0.22.68) (2021-04-27)
+
+
+### Features
+
+* affiche les descriptions des types d'activités ([#307](https://github.com/MTES-MCT/camino-ui/issues/307)) ([71c05ca](https://github.com/MTES-MCT/camino-ui/commit/71c05caaa8c99f695f321825c03269ed47fb2360))
+
+
+### Bug Fixes
+
+* **titres:** initialise les filtres en fonction des paramètres d'url ([499829d](https://github.com/MTES-MCT/camino-ui/commit/499829db5ee32bde125e57cbe4e09a5cb78c9f76))
+* corrige l'affichage des stats ([#309](https://github.com/MTES-MCT/camino-ui/issues/309)) ([0315cac](https://github.com/MTES-MCT/camino-ui/commit/0315cacdc69aa46a353930a21915d6d760246977))
+* masque le bouton d'ouverture d'une étape si elle est vide ([05a2403](https://github.com/MTES-MCT/camino-ui/commit/05a240377ef13fa386a6e7809f7fecffb3d03718))
+* rend compatible avec les vieilles versions de firefox ([#310](https://github.com/MTES-MCT/camino-ui/issues/310)) ([48a7c12](https://github.com/MTES-MCT/camino-ui/commit/48a7c1265e44635295cfcd1ec76627132ebaa8fb))
+* **statistiques:** corrige l'affichage des graphs ([#308](https://github.com/MTES-MCT/camino-ui/issues/308)) ([d7daa64](https://github.com/MTES-MCT/camino-ui/commit/d7daa6401062810583c33ca3ae49c063e25f433b))
+
 ### [0.22.67](https://github.com/MTES-MCT/camino-ui/compare/v0.22.66...v0.22.67) (2021-04-21)
 
 
