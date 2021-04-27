@@ -1,4 +1,4 @@
-import { urlQueryParamsGet, urlQueryUpdate } from './url.js'
+import { urlQueryParamsGet } from './url.js'
 
 describe('urlQueryParamsGet', () => {
   test('récupère les paramètres de requête qui ont changé', () => {

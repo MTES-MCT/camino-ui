@@ -1,6 +1,4 @@
 import titresActivites from './titres-activites'
-import * as apiActivites from '../api/titres-activites'
-import * as apiMetasActivites from '../api/metas-activites'
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
 
@@ -11,8 +9,6 @@ jest.mock('../api/titres-activites', () => ({
 jest.mock('../api/metas-activites', () => ({
   activitesMetas: jest.fn()
 }))
-
-const api = Object.assign({}, apiActivites, apiMetasActivites)
 
 console.info = jest.fn()
 

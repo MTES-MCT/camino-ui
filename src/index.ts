@@ -56,11 +56,6 @@ if (import.meta.env.PROD) {
     .catch(e => console.error('erreur : matomo :', e))
 }
 
-// // only available during E2E tests
-// if (window.Cypress) {
-//   window.app = app
-// }
-
 app.use(router)
 
 app.use(store)

@@ -4,8 +4,5 @@
 .env.production
 /dist
 /coverage
-cypress.env.json
 node_modules
-/cypress/screenshots
-/cypress/videos
 /.idea/
