@@ -23,8 +23,8 @@
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
     "release": "git pull --rebase --tags upstream master && standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",
     "start": "node ./index.js",
-    "test": "eslint && jest --verbose && codecov",
-    "lint": "eslint --fix",
+    "test": "eslint --ext .js,.ts,.vue src && jest --verbose && codecov",
+    "lint": "eslint --fix --ext .js,.ts,.vue src",
     "test:unit": "jest --watch --verbose"
   },
   "dependencies": {
@@ -44,6 +44,7 @@
     "@types/leaflet": "^1.7.0",
     "@types/leaflet.markercluster": "^1.4.4",
     "@types/webpack-env": "^1.16.0",
+    "@typescript-eslint/parser": "^4.22.0",
     "@vitejs/plugin-vue": "^1.2.2",
     "@vue/compiler-sfc": "^3.0.11",
     "@vue/eslint-config-prettier": "^6.0.0",
@@ -134,7 +135,7 @@
       "vue/valid-v-bind-sync": 0
     },
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@typescript-eslint/parser"
     },
     "plugins": [
       "prettier",

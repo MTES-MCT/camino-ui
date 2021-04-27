@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1 class="mt-m">
-      Glossaire
-    </h1>
+    <h1 class="mt-m">Glossaire</h1>
 
     <hr class="mb-xl" />
 
@@ -13,9 +11,7 @@
       <div class="desktop-blob-2-3">
         <Router-view v-if="slug" :slug="slug" :definition="definition" />
         <div v-else>
-          <h3>
-            Définitions des termes utilisés dans Camino.
-          </h3>
+          <h3>Définitions des termes utilisés dans Camino.</h3>
         </div>
       </div>
     </div>
