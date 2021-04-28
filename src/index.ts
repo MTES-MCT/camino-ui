@@ -10,6 +10,14 @@ import App from './app.vue'
 import router from './router'
 import store from './store'
 
+import { ResizeObserver as Polyfill } from '@juggle/resize-observer'
+
+// le polyfill ResizeObserver est nécessaire pour chart.js sur Firefox 60
+// on devrait pourvoir l'injecter dans vite.config, mais ça ne marche pas…
+// plugins.legacy({additionalLegacyPolyfills: ['@juggle/resize-observer']})
+
+if (!window.ResizeObserver) window.ResizeObserver = Polyfill
+
 const app = createApp(App)
 sync(store, router)
 

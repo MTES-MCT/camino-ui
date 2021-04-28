@@ -128,7 +128,13 @@
             </div>
           </div>
 
-          <div v-if="permissionsCheck(user, ['super'])" class="tablet-blobs">
+          <div
+            v-if="
+              permissionsCheck(user, ['super']) &&
+              (administration.region || administration.departement)
+            "
+            class="tablet-blobs"
+          >
             <div class="tablet-blob-1-4" />
             <div class="tablet-blob-3-4">
               <p class="h5 mb">
