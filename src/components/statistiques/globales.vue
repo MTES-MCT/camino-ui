@@ -85,7 +85,7 @@
             :data="
               statsLineFormat({
                 stats: statistiques['titresModifies'],
-                labelY: 'recherches',
+                labelY: 'titres modifiés',
                 labelX: 'mois',
                 id: 'quantite'
               })

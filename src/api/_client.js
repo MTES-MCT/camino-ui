@@ -1,9 +1,8 @@
+import fetch from 'unfetch'
 import gql from 'graphql-tag'
 import { print } from 'graphql/language/printer'
 import { GraphQL } from 'graphql-react'
 
-// for safari 11
-import 'cross-fetch/polyfill'
 import { fragmentUtilisateurToken } from './fragments/utilisateur'
 
 const graphql = new GraphQL()

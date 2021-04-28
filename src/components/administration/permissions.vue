@@ -144,7 +144,7 @@
       </div>
     </div>
 
-    <div v-if="administration.type.id !== 'min'" class="mb-xxl">
+    <div v-if="administration.type.id" class="mb-xxl">
       <h3>Restrictions de l'édition des titres, démarches et étapes</h3>
 
       <div class="h5">
@@ -373,7 +373,7 @@
       </div>
     </div>
 
-    <div v-if="administration.type.id !== 'min'" class="mb-xxl">
+    <div v-if="administration.type.id" class="mb-xxl">
       <h3>Restrictions de la visibilité, édition et création des étapes</h3>
 
       <div class="h5">
