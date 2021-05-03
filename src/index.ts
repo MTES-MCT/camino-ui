@@ -8,7 +8,6 @@ import * as SentryIntegrations from '@sentry/integrations'
 // on devrait pourvoir l'injecter dans vite.config, mais ça ne marche pas…
 // plugins.legacy({additionalLegacyPolyfills: ['@juggle/resize-observer']})
 import { ResizeObserver as resizeObserverPolyfill } from '@juggle/resize-observer'
-import fetch from 'unfetch'
 
 import VueMatomo from './stats'
 import App from './app.vue'

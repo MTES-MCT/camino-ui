@@ -150,24 +150,33 @@ const actions = {
 
       if (!name) throw new Error('nom de fichier manquant')
 
-      // progress
-      const total = res.headers.get('content-length')
-      const reader = res.body.getReader()
-      let loaded = 0
-      const chunks = []
+      let body
 
-      while (true) {
-        const { done, value } = await reader.read()
+      // si le navigateur supporte l'API Web Streams
+      if (res.body) {
+        // progress
 
-        if (done) break
+        const total = res.headers.get('content-length')
+        const reader = res.body.getReader()
+        let loaded = 0
+        const chunks = []
 
-        chunks.push(value)
-        loaded += value.length
+        while (true) {
+          const { done, value } = await reader.read()
 
-        commit('fileLoad', { loaded, total })
+          if (done) break
+
+          chunks.push(value)
+          loaded += value.length
+
+          commit('fileLoad', { loaded, total })
+        }
+
+        body = new Blob(chunks)
+      } else {
+        commit('loadingAdd', 'fileLoading')
+        body = await res.blob()
       }
-
-      const body = new Blob(chunks)
 
       saveAs(body, name)
 
@@ -183,6 +192,7 @@ const actions = {
         `erreur de téléchargement : ${filePath}, ${e.message}`
       )
     } finally {
+      commit('loadingRemove', 'fileLoading')
       commit('fileLoad', { loaded: 0, total: 0 })
     }
   },

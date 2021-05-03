@@ -1,4 +1,3 @@
-import fetch from 'unfetch'
 import gql from 'graphql-tag'
 import { print } from 'graphql/language/printer'
 import { GraphQL } from 'graphql-react'
