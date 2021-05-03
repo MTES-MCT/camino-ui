@@ -41,7 +41,7 @@ const mutations = {
 
   paramsSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
-      state.preferences[section][id] = params[id]
+      state.params[section][id] = params[id]
     })
   }
 }
