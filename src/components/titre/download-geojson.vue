@@ -1,12 +1,11 @@
 <template>
-  <Download :name="titre.id" type="geojson" :content-build="contentBuild">
+  <Download :name="titre.id" section="titre" format="geojson">
     geojson
   </Download>
 </template>
 
 <script>
 import Download from '../_common/download-client.vue'
-import { cloneAndClean } from '../../utils/index'
 
 export default {
   components: {
@@ -17,26 +16,6 @@ export default {
     titre: {
       type: Object,
       default: () => {}
-    }
-  },
-
-  methods: {
-    contentBuild() {
-      return JSON.stringify(
-        {
-          type: 'FeatureCollection',
-          properties: {
-            id: this.titre.id,
-            nom: this.titre.nom
-          },
-          features: cloneAndClean([
-            this.titre.geojsonMultiPolygon,
-            ...this.titre.geojsonPoints.features
-          ])
-        },
-        null,
-        2
-      )
     }
   }
 }
