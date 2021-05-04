@@ -179,6 +179,9 @@ describe('etapeEditFormat', () => {
         {
           __typename: 'etape',
           id: 'etape-id',
+          type: {
+            id: 'mfm'
+          },
           documents: [
             {
               id: 'doc-id-111',
@@ -204,7 +207,13 @@ describe('etapeEditFormat', () => {
       geoSystemeOpposableId: null,
       groupes: [],
       substances: [],
-      contenu: {},
+      typeId: 'mfm',
+      sections: undefined,
+      contenu: {
+        arm: {
+          mecanise: true
+        }
+      },
       incertitudes: {},
       documents: [
         {
