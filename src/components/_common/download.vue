@@ -1,10 +1,7 @@
 <template>
-  <button
-    class="btn-alt small px-m py-s flex full-x flex border-b-s"
-    @click="download"
-  >
+  <button class="flex" @click="download">
     <span class="mt-xxs">{{ format }}</span>
-    <div class="flex flex-right">
+    <div class="flex-right">
       <i class="icon-24 icon-download" />
     </div>
   </button>
@@ -13,21 +10,18 @@
 <script>
 export default {
   props: {
-    section: {
-      type: String,
-      required: true
-    },
-    format: {
-      type: String,
-      required: true
-    }
+    section: { type: String, required: true },
+
+    format: { type: String, required: true },
+
+    query: { type: Object, default: () => ({}) }
   },
 
   emits: ['clicked'],
 
   computed: {
     params() {
-      return { format: this.format, ...this.$route.query }
+      return { format: this.format, ...this.query }
     }
   },
 
@@ -35,6 +29,7 @@ export default {
     async download() {
       this.$emit('clicked')
       const params = new URLSearchParams(this.params).toString()
+
       const name = await this.$store.dispatch(
         'download',
         `${this.section}?${params}`

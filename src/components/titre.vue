@@ -16,7 +16,15 @@
     <div v-if="titre.geojsonMultiPolygon && titre.points">
       <div class="tablet-blobs tablet-flex-direction-reverse">
         <div class="tablet-blob-1-2 flex mb-s">
-          <TitreDownloadGeojson v-if="titre.points.length" :titre="titre" />
+          <Download
+            v-if="titre.points.length"
+            :query="{ id: titre.id }"
+            section="titre"
+            format="geojson"
+            class="btn-border small pill pl pr-m py-s flex-right"
+          >
+            geojson
+          </Download>
         </div>
 
         <div class="tablet-blob-1-2 flex">
@@ -126,9 +134,10 @@
 
 <script>
 import Loader from './_ui/loader.vue'
+import Download from './_common/download.vue'
 import ActivitesPills from './activites/pills.vue'
-import TitreHeader from './titre/header.vue'
 
+import TitreHeader from './titre/header.vue'
 import TitreInfos from './titre/infos.vue'
 import TitreMap from './titre/map.vue'
 import TitreTerritoires from './titre/territoires.vue'
@@ -137,7 +146,6 @@ import TitreDemarches from './titre/demarches.vue'
 import TitreTravaux from './titre/travaux.vue'
 import TitreActivitesList from './activites/list.vue'
 import TitrePoints from './titre/points.vue'
-import TitreDownloadGeojson from './titre/download-geojson.vue'
 
 export default {
   components: {
@@ -151,7 +159,7 @@ export default {
     TitreDemarches,
     TitreActivitesList,
     TitrePoints,
-    TitreDownloadGeojson,
+    Download,
     TitreTravaux
   },
 

@@ -8,7 +8,9 @@
         v-for="format in formats"
         :key="format"
         :format="format"
+        class="btn-alt small px-m py-s full-x border-b-s"
         :section="section"
+        :query="$route.query"
         @clicked="toggle"
       />
     </div>
@@ -26,15 +28,9 @@ export default {
   },
 
   props: {
-    formats: {
-      type: Array,
-      required: true
-    },
+    formats: { type: Array, required: true },
 
-    section: {
-      type: String,
-      required: true
-    }
+    section: { type: String, required: true }
   },
 
   data() {
