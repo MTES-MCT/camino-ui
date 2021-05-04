@@ -187,10 +187,8 @@ const actions = {
 
       return name
     } catch (e) {
-      dispatch(
-        'apiError',
-        `erreur de téléchargement : ${filePath}, ${e.message}`
-      )
+      console.log(e)
+      dispatch('apiError', `téléchargement : ${filePath}, ${e}`)
     } finally {
       commit('loadingRemove', 'fileLoading')
       commit('fileLoad', { loaded: 0, total: 0 })

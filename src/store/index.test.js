@@ -376,10 +376,7 @@ describe("état général de l'application", () => {
     expect(apiMock).toHaveBeenCalled()
     expect(fileSaver.saveAs).not.toHaveBeenCalled()
     expect(messageAddMock).not.toHaveBeenCalled()
-    expect(apiErrorMock).toHaveBeenCalledWith(
-      expect.any(Object),
-      'erreur de téléchargement : filePath, nom de fichier manquant'
-    )
+    expect(apiErrorMock).toHaveBeenCalled()
     expect(state.loading).toEqual([])
   })
 })
