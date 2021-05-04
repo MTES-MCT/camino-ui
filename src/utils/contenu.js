@@ -23,7 +23,12 @@ const elementContenuBuild = (sections, contenu) =>
 
 const elementsCompleteCheck = (elements, sectionContenu, complete) =>
   elements.reduce((sectionComplete, e) => {
-    if (!sectionComplete || !sectionContenu || e.optionnel)
+    if (
+      !sectionComplete ||
+      !sectionContenu ||
+      e.optionnel ||
+      ['radio', 'checkbox'].includes(e.type)
+    )
       return sectionComplete
 
     let elementComplete = false
