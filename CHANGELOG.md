@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.69](https://github.com/MTES-MCT/camino-ui/compare/v0.22.68...v0.22.69) (2021-05-04)
+
+
+### Bug Fixes
+
+* **métas:** corrige une erreur lorsqu'on clique sur une entête ([#315](https://github.com/MTES-MCT/camino-ui/issues/315)) ([531c4e0](https://github.com/MTES-MCT/camino-ui/commit/531c4e02b7a57ea0de6de0f5ea2f86a466028024))
+* corrige le téléchargement de fichier sur ff60 ([1d86964](https://github.com/MTES-MCT/camino-ui/commit/1d869640fdd5b55e0295c8c085d39b21c0478868))
+* **contenu:** corrige une erreur lors de l’utilisation de champ multiple dans les étapes ([6c0d29f](https://github.com/MTES-MCT/camino-ui/commit/6c0d29fac090904e6931a93c737c8580efdcc498))
+
 ### [0.22.68](https://github.com/MTES-MCT/camino-ui/compare/v0.22.67...v0.22.68) (2021-04-27)
 
 
