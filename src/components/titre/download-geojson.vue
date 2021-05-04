@@ -1,11 +1,16 @@
 <template>
-  <Download :name="titre.id" section="titre" format="geojson">
+  <Download
+    :query="{ id: titreId }"
+    section="titre"
+    format="geojson"
+    class="btn-border small pill pl pr-m py-s flex"
+  >
     geojson
   </Download>
 </template>
 
 <script>
-import Download from '../_common/download-client.vue'
+import Download from '../_common/download.vue'
 
 export default {
   components: {
@@ -13,10 +18,7 @@ export default {
   },
 
   props: {
-    titre: {
-      type: Object,
-      default: () => {}
-    }
+    titreId: { type: String, required: true }
   }
 }
 </script>

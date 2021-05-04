@@ -16,7 +16,11 @@
     <div v-if="titre.geojsonMultiPolygon && titre.points">
       <div class="tablet-blobs tablet-flex-direction-reverse">
         <div class="tablet-blob-1-2 flex mb-s">
-          <TitreDownloadGeojson v-if="titre.points.length" :titre="titre" />
+          <TitreDownloadGeojson
+            v-if="titre.points.length"
+            :titre-id="titre.id"
+            class="flex-right"
+          />
         </div>
 
         <div class="tablet-blob-1-2 flex">

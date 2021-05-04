@@ -133,6 +133,7 @@ const actions = {
 
   async download({ dispatch, commit }, filePath) {
     try {
+      commit('loadingAdd', 'fileLoading')
       const res = await apiRestFetch(filePath)
 
       // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
@@ -161,6 +162,8 @@ const actions = {
         let loaded = 0
         const chunks = []
 
+        commit('loadingRemove', 'fileLoading')
+
         while (true) {
           const { done, value } = await reader.read()
 
@@ -174,7 +177,6 @@ const actions = {
 
         body = new Blob(chunks)
       } else {
-        commit('loadingAdd', 'fileLoading')
         body = await res.blob()
       }
 
