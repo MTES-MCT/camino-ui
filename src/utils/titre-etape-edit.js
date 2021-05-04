@@ -190,6 +190,11 @@ const etapeEditFormat = (etape, demarcheId) => {
 
   if (!etape.contenu) {
     etape.contenu = {}
+
+    // permet de mettre une valeur par défaut à la mécanisation des demandes mécanisées
+    if (etape.typeId === 'mfm') {
+      etape.contenu.arm = { mecanise: true }
+    }
   }
 
   if (etape.documents) {
