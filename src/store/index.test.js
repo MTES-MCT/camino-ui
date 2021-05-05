@@ -10,6 +10,7 @@ jest.mock('../api/_client', () => ({ apiRestFetch: jest.fn() }))
 jest.mock('./titre', () => ({ titre: jest.fn() }))
 jest.mock('./titres', () => ({ titres: jest.fn() }))
 jest.mock('./titre-demarche', () => ({ titreDemarche: jest.fn() }))
+jest.mock('./titre-demande', () => ({ titreDemande: jest.fn() }))
 jest.mock('./titre-etape', () => ({ titreEtape: jest.fn() }))
 jest.mock('./titre-etape-justificatifs', () => ({
   titreEtapeJustificatifs: jest.fn()

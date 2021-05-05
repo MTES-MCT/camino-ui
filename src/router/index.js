@@ -32,6 +32,7 @@ const Statistiques = () => import('../components/statistiques.vue')
 const StatistiquesGuyane = () => import('../components/statistiques/guyane.vue')
 const StatistiquesGranulatsMarins = () =>
   import('../components/statistiques/granulats-marins.vue')
+const TitreDemande = () => import('../components/titre-demande.vue')
 
 const routes = [
   {
@@ -181,6 +182,13 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/deposer-une-demande',
+    name: 'titre-demande',
+    component: TitreDemande
+  },
+  // url /stats : demande de Samuel
+  // pour avoir une uniformité entre toutes les start-ups
   {
     path: '/stats',
     redirect: 'statistiques'

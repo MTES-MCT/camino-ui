@@ -21,9 +21,15 @@ const userMetas = apiGraphQLFetch(
           ...titreType
         }
       }
+
+      entreprisesTitresCreation {
+        ...entreprises
+      }
     }
 
     ${fragmentTitreType}
+
+    ${fragmentEntreprises}
   `
 )
 
