@@ -5,6 +5,26 @@ import { GraphQL } from 'graphql-react'
 import { fragmentUtilisateurToken } from './fragments/utilisateur'
 
 const graphql = new GraphQL()
+
+graphql.on('cache', eventData => {
+  // vérifie que l’application est toujours à jour
+  const headersEntries = Array.from(eventData.response.headers.entries())
+  if (headersEntries) {
+    const versionHeaderEntry = headersEntries.find(
+      h => h[0].toLowerCase() === 'X-Camino-Version'.toLowerCase()
+    )
+
+    if (versionHeaderEntry) {
+      const version = versionHeaderEntry[1]
+
+      // eslint-disable-next-line no-undef
+      if (version !== npmVersion) {
+        window.location.reload()
+      }
+    }
+  }
+})
+
 const apiUrl = '/apiUrl'
 
 const errorThrow = e => {

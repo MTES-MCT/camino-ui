@@ -14,6 +14,7 @@ const express = require('express')
 const history = require('connect-history-api-fallback')
 const compression = require('compression')
 const { createProxyMiddleware } = require('http-proxy-middleware')
+const { version } = require('./package.json')
 
 const app = express()
 const port = process.env.PORT
@@ -30,6 +31,11 @@ const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
       'Access-Control-Allow-Origin': '*'
     })
   }
+})
+
+app.use('/apiUrl', (req, res, next) => {
+  res.set('X-Camino-Version', version)
+  next()
 })
 
 app.use(
@@ -56,6 +62,7 @@ app.use('/matomoOptions', (req, res) =>
 app.use(compression())
 app.use('/', staticFileMiddleware)
 app.use('/', history())
+// https://stackoverflow.com/a/52327421/2112538
 app.use('/', staticFileMiddleware)
 
 app.listen(port, () => {
