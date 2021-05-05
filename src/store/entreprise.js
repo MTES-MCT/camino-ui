@@ -1,16 +1,38 @@
 import {
   entreprise,
   entrepriseCreer,
-  entrepriseModifier
+  entrepriseModifier,
+  entrepriseTitreTypeUpdate,
+  entreprisePermissionsMetas
 } from '../api/entreprises'
 
 import router from '../router'
 
 const state = {
-  element: null
+  element: null,
+  metas: {
+    domaines: []
+  }
 }
 
 const actions = {
+  async permissionsInit({ commit }) {
+    commit('loadingAdd', 'entreprisePermissionsInit', {
+      root: true
+    })
+
+    try {
+      const data = await entreprisePermissionsMetas()
+      commit('metasSet', { domaines: data })
+    } catch (e) {
+      commit('messageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'entreprisePermissionsInit', {
+        root: true
+      })
+    }
+  },
+
   async get({ commit, dispatch }, id) {
     commit('loadingAdd', 'entrepriseGet', { root: true })
     try {
@@ -73,10 +95,45 @@ const actions = {
     } finally {
       commit('loadingRemove', 'entrepriseUpdate', { root: true })
     }
+  },
+
+  async titreTypeUpdate({ commit, dispatch }, entrepriseTitreType) {
+    try {
+      commit('loadingAdd', 'entrepriseTitreTypeUpdate', {
+        root: true
+      })
+
+      const data = await entrepriseTitreTypeUpdate({
+        entrepriseTitreType
+      })
+
+      await dispatch(
+        'reload',
+        { name: 'entreprise', id: data.id },
+        { root: true }
+      )
+      dispatch(
+        'messageAdd',
+        { value: `l'entreprise a été mise à jour`, type: 'success' },
+        { root: true }
+      )
+    } catch (e) {
+      commit('messageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'entrepriseTitreTypeUpdate', {
+        root: true
+      })
+    }
   }
 }
 
 const mutations = {
+  metasSet(state, data) {
+    Object.keys(data).forEach(id => {
+      state.metas[id] = data[id]
+    })
+  },
+
   set(state, entreprise) {
     state.element = entreprise
   },

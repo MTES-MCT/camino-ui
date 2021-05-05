@@ -99,9 +99,14 @@
               v-for="titreType in administration.titresTypes"
               :key="titreType.id"
             >
-              <td><CaminoDomaine :domaine-id="titreType.domaine.id" /></td>
               <td>
-                <span class="small bold cap-first">{{
+                <CaminoDomaine
+                  :domaine-id="titreType.domaine.id"
+                  class="mt-s"
+                />
+              </td>
+              <td>
+                <span class="small bold cap-first mt-s">{{
                   titreType.type.nom
                 }}</span>
               </td>
@@ -291,9 +296,14 @@
               v-for="ttts in administration.titresTypesTitresStatuts"
               :key="`${ttts.titreType.id}-${ttts.titreStatut.id}`"
             >
-              <td><CaminoDomaine :domaine-id="ttts.titreType.domaine.id" /></td>
               <td>
-                <span class="small bold cap-first">{{
+                <CaminoDomaine
+                  :domaine-id="ttts.titreType.domaine.id"
+                  class="mt-s"
+                />
+              </td>
+              <td>
+                <span class="small bold cap-first mt-s">{{
                   ttts.titreType.type.nom
                 }}</span>
               </td>
@@ -301,6 +311,7 @@
                 <Statut
                   :color="ttts.titreStatut.couleur"
                   :nom="ttts.titreStatut.nom"
+                  class="mt-s"
                 />
               </td>
               <td>
@@ -511,14 +522,19 @@
               v-for="ttet in administration.titresTypesEtapesTypes"
               :key="`${ttet.titreType.id}-${ttet.etapeType.id}`"
             >
-              <td><CaminoDomaine :domaine-id="ttet.titreType.domaine.id" /></td>
               <td>
-                <span class="small bold cap-first">{{
+                <CaminoDomaine
+                  :domaine-id="ttet.titreType.domaine.id"
+                  class="mt-s"
+                />
+              </td>
+              <td>
+                <span class="small bold cap-first mt-s">{{
                   ttet.titreType.type.nom
                 }}</span>
               </td>
               <td>
-                <span class="small bold cap-first">{{
+                <span class="small bold cap-first mt-s">{{
                   ttet.etapeType.nom
                 }}</span>
               </td>

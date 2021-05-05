@@ -189,7 +189,6 @@ const actions = {
 
       return name
     } catch (e) {
-      console.log(e)
       dispatch('apiError', `téléchargement : ${filePath}, ${e}`)
     } finally {
       commit('loadingRemove', 'fileLoading')

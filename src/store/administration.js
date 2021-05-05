@@ -12,10 +12,10 @@ import {
 const state = {
   element: null,
   metas: {
+    domaines: [],
     types: [],
     regions: [],
     departements: [],
-    domaines: [],
     titresStatuts: [],
     etapesTypes: [],
     activitesTypes: []
