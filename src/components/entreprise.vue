@@ -182,6 +182,13 @@
       <div class="line width-full" />
       <TitresTable :titres="amodiataireTitres" />
     </div>
+
+    <div v-if="permissionsCheck(user, ['super'])" class="mb-xxl">
+      <div class="line-neutral width-full mb-xxl" />
+      <h2>Permissions</h2>
+
+      <EntreprisePermission :entreprise="entreprise" />
+    </div>
   </div>
 </template>
 
@@ -194,6 +201,7 @@ import EntrepriseEditPopup from './entreprise/edit-popup.vue'
 import DocumentAddButton from './document/button-add.vue'
 import Documents from './documents/list.vue'
 import { dateFormat, permissionsCheck } from '../utils/index'
+import EntreprisePermission from './entreprise/permissions.vue'
 
 import {
   utilisateursColonnes,
@@ -207,7 +215,8 @@ export default {
     Table,
     TitresTable,
     DocumentAddButton,
-    Documents
+    Documents,
+    EntreprisePermission
   },
 
   data() {
