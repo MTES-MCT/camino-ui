@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { toRaw } from 'vue'
+import { markRaw } from 'vue'
 
 import {
   leafletMap,
@@ -60,7 +60,7 @@ export default {
 
   methods: {
     init() {
-      this.map = leafletMap(this.$refs.map)
+      this.map = markRaw(leafletMap(this.$refs.map))
 
       this.map.on('moveend', () => {
         if (this.updateBboxOnly) {
@@ -130,7 +130,7 @@ export default {
 
     scaleAdd() {
       const scale = leafletScaleBuild()
-      scale.addTo(toRaw(this.map))
+      scale.addTo(this.map)
     },
 
     tilesUpdate() {
@@ -140,13 +140,13 @@ export default {
 
     tilesAdd() {
       this.layers.tiles = this.tilesLayer
-      this.layers.tiles.addTo(toRaw(this.map))
+      this.layers.tiles.addTo(this.map)
     },
 
     geojsonsAdd() {
       this.geojsonLayers.forEach(l => {
         this.layers.geojsons.push(l)
-        l.addTo(toRaw(this.map))
+        l.addTo(this.map)
       })
     },
 
@@ -187,7 +187,7 @@ export default {
     layersCanvasAdd() {
       this.map.createPane('canvas')
       this.layers.canvas = leafletCanvasLayerBuild({ pane: 'canvas' })
-      this.layers.canvas.addTo(toRaw(this.map))
+      this.layers.canvas.addTo(this.map)
     }
   }
 }
