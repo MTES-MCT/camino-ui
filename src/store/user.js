@@ -14,6 +14,8 @@ import tiles from '../utils/map-tiles'
 
 import router from '../router'
 
+import { oneData } from '../utils'
+
 const state = {
   element: null,
   metas: {
@@ -49,7 +51,7 @@ const actions = {
   async identify({ commit, dispatch }) {
     try {
       commit('loadingAdd', 'userMoi', { root: true })
-      const data = await moi()
+      const data = oneData(await moi())
 
       commit('set', data)
 
@@ -69,7 +71,7 @@ const actions = {
 
       commit('popupMessagesRemove', null, { root: true })
 
-      const data = await utilisateurTokenCreer({ email, motDePasse })
+      const data = oneData(await utilisateurTokenCreer({ email, motDePasse }))
       const { utilisateur } = data
 
       dispatch('tokensSet', data)

@@ -128,8 +128,10 @@ describe('liste des titres', () => {
     })
 
     const apiMock = api.titres.mockResolvedValue({
-      elements: [{ id: 'titre-id', nom: 'Nom du titre' }],
-      total: 1
+      titres: {
+        elements: [{ id: 'titre-id', nom: 'Nom du titre' }],
+        total: 1
+      }
     })
 
     await store.dispatch('titres/init')
@@ -180,8 +182,10 @@ describe('liste des titres', () => {
 
   test('obtient la liste des titres dans la vue "carte"', async () => {
     const apiMock = api.titresGeoPolygon.mockResolvedValue({
-      elements: titresCarte,
-      total: 4
+      titres: {
+        elements: titresCarte,
+        total: 4
+      }
     })
 
     store.state.titres.initialized = true
@@ -200,8 +204,10 @@ describe('liste des titres', () => {
 
   test('obtient la liste des titres dans la vue "carte" sans les périmètres', async () => {
     const apiMock = api.titresGeo.mockResolvedValue({
-      elements: titresCarte,
-      total: 4
+      titres: {
+        elements: titresCarte,
+        total: 4
+      }
     })
 
     store.state.titres.initialized = true
@@ -220,8 +226,10 @@ describe('liste des titres', () => {
 
   test('obtient la liste des titres dans la vue "table"', async () => {
     const apiMock = api.titres.mockResolvedValue({
-      elements: titresListe,
-      total: 3
+      titres: {
+        elements: titresListe,
+        total: 3
+      }
     })
     store.state.titres.initialized = true
     store.state.titres.vueId = 'table'
@@ -265,12 +273,16 @@ describe('liste des titres', () => {
 
   test('change la vue et recharges les titres', async () => {
     const apiTableMock = api.titres.mockResolvedValue({
-      elements: [{ id: 'titre-id', nom: 'Nom du titre' }],
-      total: 1
+      titres: {
+        elements: [{ id: 'titre-id', nom: 'Nom du titre' }],
+        total: 1
+      }
     })
     const apiGeoMock = api.titresGeo.mockResolvedValue({
-      elements: [{ id: 'titre-id-geo', nom: 'Nom du titre' }],
-      total: 1
+      titres: {
+        elements: [{ id: 'titre-id-geo', nom: 'Nom du titre' }],
+        total: 1
+      }
     })
 
     store.state.titres.elements = [{ id: 'titre-id-init', nom: 'Nom du titre' }]
@@ -301,12 +313,16 @@ describe('liste des titres', () => {
 
   test("met à jour la liste si les paramètres d'url changent", async () => {
     const apiTableMock = api.titres.mockResolvedValue({
-      elements: [{ id: 'titre-id-table', nom: 'Nom du titre' }],
-      total: 1
+      titres: {
+        elements: [{ id: 'titre-id-table', nom: 'Nom du titre' }],
+        total: 1
+      }
     })
     const apiGeoMock = api.titresGeo.mockResolvedValue({
-      elements: [{ id: 'titre-id-geo', nom: 'Nom du titre' }],
-      total: 1
+      titres: {
+        elements: [{ id: 'titre-id-geo', nom: 'Nom du titre' }],
+        total: 1
+      }
     })
 
     await store.dispatch('titres/routeUpdate')

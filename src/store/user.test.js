@@ -117,7 +117,7 @@ describe("état de l'utilisateur connecté", () => {
 
   test("identifie l'utilisateur si un token valide est présent", async () => {
     localStorage.setItem('accessToken', 'rene')
-    const apiMock = api.moi.mockResolvedValue(userInfo)
+    const apiMock = api.moi.mockResolvedValue({ moi: userInfo })
 
     store = createStore({ modules: { user, map }, actions, mutations })
 
@@ -149,9 +149,11 @@ describe("état de l'utilisateur connecté", () => {
 
   test('connecte un utilisateur', async () => {
     const apiMock = api.utilisateurTokenCreer.mockResolvedValue({
-      accessToken: 'rene',
-      refreshToken: 'lataupe',
-      utilisateur: userInfo
+      utilisateurTokenCreer: {
+        accessToken: 'rene',
+        refreshToken: 'lataupe',
+        utilisateur: userInfo
+      }
     })
 
     await store.dispatch('user/login', { email, motDePasse })

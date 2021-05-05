@@ -120,7 +120,7 @@ const actions = {
         data = await titres(definitions)
       }
 
-      commit('set', Object.freeze(data))
+      commit('set', Object.freeze(data.titres))
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {

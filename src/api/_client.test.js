@@ -46,7 +46,7 @@ describe('api client', () => {
       }
     `)()
 
-    expect(res).toEqual('value')
+    expect(res).toMatchObject({ key: 'value' })
   })
 
   test('une réponse 404 du serveur génère une erreur', async () => {
@@ -76,7 +76,7 @@ describe('api client', () => {
     fetch
       .mockResponseOnce(JSON.stringify({ data: {} }), { status: 401 })
       .mockResponseOnce(
-        JSON.stringify({ data: { data: { accessToken: newAccessToken } } }),
+        JSON.stringify({ data: { accessToken: newAccessToken } }),
         { status: 200 }
       )
       .mockResponseOnce(JSON.stringify({ data: {} }), { status: 200 })

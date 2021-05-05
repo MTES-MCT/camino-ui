@@ -43,7 +43,7 @@ const actions = {
       const data = await titre({ id })
 
       if (data) {
-        commit('set', data)
+        commit('set', data.titre)
       } else {
         dispatch('pageError', null, { root: true })
       }
