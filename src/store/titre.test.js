@@ -91,7 +91,9 @@ describe('état du titre sélectionné', () => {
   })
 
   test('retourne un titre', async () => {
-    const apiMock = api.titre.mockResolvedValue({ id: 83, nom: 'marne' })
+    const apiMock = api.titre.mockResolvedValue({
+      titre: { id: 83, nom: 'marne' }
+    })
     await store.dispatch('titre/get', 83)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 83 })

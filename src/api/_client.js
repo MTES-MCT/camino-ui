@@ -74,12 +74,7 @@ const graphQLCall = async (url, query, variables) => {
   if (value.httpError) throw value.httpError
   if (value.parseError) throw value.parseError
 
-  const data = value.data
-
-  const keys = Object.keys(data)
-  const dataContent = keys.length === 1 ? data[keys[0]] : data
-
-  return dataContent
+  return value.data
 }
 
 const apiFetch = async (call, query, variables) => {
