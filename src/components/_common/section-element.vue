@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import { dateFormat } from '@/utils'
 import { valeurFind } from '../../utils/contenu'
 import SectionElementMultiple from './section-element-multiple.vue'
 
@@ -58,9 +57,7 @@ export default {
 
   computed: {
     valeur() {
-      const valeur = valeurFind(this.element, this.contenu)
-
-      return this.element.type === 'date' ? dateFormat(valeur) : valeur
+      return valeurFind(this.element, this.contenu)
     }
   },
 
