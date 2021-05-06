@@ -1,4 +1,5 @@
 import numberFormat from './number-format'
+import { dateFormat } from './index'
 
 const contenuBuild = (sections, elementContenu) =>
   sections.reduce((contenu, section) => {
@@ -57,7 +58,7 @@ const contenuCompleteCheck = (sections, contenu) =>
   }, true)
 
 const valeurFind = ({ id, type, valeurs }, contenu) => {
-  if (contenu[id] === undefined) {
+  if (contenu[id] === undefined || contenu[id] === '') {
     return '–'
   }
 
@@ -71,6 +72,10 @@ const valeurFind = ({ id, type, valeurs }, contenu) => {
 
   if (type === 'select') {
     return valeurs.find(v => v.id === contenu[id]).nom
+  }
+
+  if (type === 'date') {
+    return dateFormat(contenu[id])
   }
 
   if (contenu[id] === true) return 'Oui'
