@@ -196,7 +196,6 @@
             <select
               id="cmn-utilisateur-edit-popup-administration-select"
               v-model="utilisateur.administrations[n]"
-              type="text"
               class="p-s mr-s"
               :class="{
                 '': !administrationsDisabledIds.includes(administration.id)

@@ -97,18 +97,17 @@ export default {
 
       if (permissionsCheck(this.user, ['entreprise'])) {
         return this.entreprise.titresTypes.reduce((domaines, tt) => {
-          tt.domaines.forEach(d => {
-            if (!domaines.find(({ id }) => d.id === id)) {
-              domaines.push(d)
-            }
+          if (!domaines.find(({ id }) => tt.domaine.id === id)) {
+            tt.domaine.titresTypes = []
+            domaines.push(tt.domaine)
+          }
 
-            const domaine = domaines.find(({ id }) => d.id === id)
+          const domaine = domaines.find(({ id }) => tt.domaine.id === id)
 
-            domaine.titresTypes.push({
-              id: tt.id,
-              type: tt.type,
-              titresCreation: tt.titresCreation
-            })
+          domaine.titresTypes.push({
+            id: tt.id,
+            type: tt.type,
+            titresCreation: tt.titresCreation
           })
 
           return domaines
