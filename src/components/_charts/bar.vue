@@ -33,7 +33,7 @@ Chart.register(
 export default {
   props: {
     data: { type: Object, required: true },
-    aspectRatio: { type: Number, default: 1.33 },
+    aspectRatio: { type: Number, default: 2.5 },
     suggestedMax: { type: Number, default: 0 }
   },
 
@@ -59,7 +59,9 @@ export default {
           line: { id: 'line', min: 0, position: 'right' }
         },
         plugins: {
-          legend: { position: 'top' }
+          legend: {
+            reverse: true
+          }
         }
       }
     })

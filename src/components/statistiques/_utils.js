@@ -1,11 +1,16 @@
-const suggestedMaxCalc = (annees, ids) =>
-  Math.max(
-    ...annees.reduce((acc, annee) => {
-      acc.push(...ids.map(id => annee[id].quantite))
+const suggestedMaxCalc = (annees, ids, titreType) => {
+  return titreType &&
+    ids.includes(titreType) &&
+    Math.max(...annees.map(annee => annee[titreType].quantite)) <= 10
+    ? 10
+    : Math.max(
+        ...annees.reduce((acc, annee) => {
+          acc.push(...ids.map(id => annee[id].quantite))
 
-      return acc
-    }, [])
-  )
+          return acc
+        }, [])
+      )
+}
 
 const statsBarFormat = ({
   annees,

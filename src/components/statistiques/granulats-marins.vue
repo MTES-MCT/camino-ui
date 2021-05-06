@@ -241,7 +241,7 @@
                 labelLine: 'Surface des permis de recherches (ha)'
               })
             "
-            :suggested-max="suggestedMaxTitres"
+            :suggested-max="suggestedMaxTitres('titresPrw')"
           />
         </div>
       </div>
@@ -268,7 +268,7 @@
                   labelLine: 'Surface des permis d\'exploitation (ha)'
                 })
               "
-              :suggested-max="suggestedMaxTitres"
+              :suggested-max="suggestedMaxTitres('titresPxw')"
             />
           </div>
         </div>
@@ -295,7 +295,7 @@
                 labelLine: 'Surfaces des concessions (ha)'
               })
             "
-            :suggested-max="suggestedMaxTitres"
+            :suggested-max="suggestedMaxTitres('titresCxw')"
           />
         </div>
       </div>
@@ -313,7 +313,7 @@
             labelLine: 'Surfaces des concessions (ha)'
           })
         "
-        :suggested-max="suggestedMaxTitres"
+        :suggested-max="suggestedMaxTitres('concessionsValides')"
       />
     </div>
   </div>
@@ -367,15 +367,6 @@ export default {
           enConstruction: id === this.anneeCurrent - 1 // l'année en cours n'étant pas affichée, seule l'année précédente est affichée à partir du 1er avril de l'année courante
         }
       })
-    },
-
-    suggestedMaxTitres() {
-      return suggestedMaxCalc(this.statistiquesGranulatsMarins.annees, [
-        'titresPrw',
-        'titresPxw',
-        'titresCxw',
-        'concessionsValides'
-      ])
     },
 
     suggestedMaxProduction() {
@@ -439,6 +430,14 @@ export default {
 
     numberFormat(number) {
       return numberFormat(number)
+    },
+
+    suggestedMaxTitres(titreType) {
+      return suggestedMaxCalc(
+        this.statistiquesGranulatsMarins.annees,
+        ['titresPrw', 'titresPxw', 'titresCxw', 'concessionsValides'],
+        titreType
+      )
     }
   }
 }
