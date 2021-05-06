@@ -103,39 +103,68 @@ const titreEtapeCreation = {
 }
 
 const titreEtapeHeritage1 = {
-  id: 'etape-id',
-  titreDemarcheId: 'demarche-id',
-  date: '2020-01-02',
-  incertitudes: {
-    date: undefined
-  },
-  statutId: '',
-  typeId: 'new-etape-type-id',
-  dateDebut: undefined,
-  dateFin: undefined,
-  duree: {
-    ans: null,
-    mois: null
-  },
-  surface: undefined,
-  amodiataires: [],
-  titulaires: [],
-  groupes: [],
-  substances: [],
-  geoSystemeIds: [],
-  geoSystemeOpposableId: null,
-  contenu: {
-    sectionId1: { elementId1: 'valeur', elementId2: 'valeur' },
-    sectionId2: {}
-  },
-  heritageProps: {},
-  heritageContenu: {
-    sectionId1: {
-      elementId1: { etape: { id: 'etape-id' }, actif: true },
-      elementId2: { etape: { id: 'etape-id' }, actif: false }
+  etapeHeritage: {
+    id: 'etape-id',
+    titreDemarcheId: 'demarche-id',
+    date: '2020-01-02',
+    incertitudes: {
+      date: undefined
     },
-    sectionId2: {
-      elementId1: { etape: { id: 'etape-id' }, actif: true }
+    statutId: '',
+    typeId: 'new-etape-type-id',
+    dateDebut: undefined,
+    dateFin: undefined,
+    duree: {
+      ans: null,
+      mois: null
+    },
+    surface: undefined,
+    amodiataires: [],
+    titulaires: [],
+    groupes: [],
+    substances: [],
+    geoSystemeIds: [],
+    geoSystemeOpposableId: null,
+    contenu: {
+      sectionId1: { elementId1: 'valeur', elementId2: 'valeur' },
+      sectionId2: {}
+    },
+    heritageProps: {},
+    heritageContenu: {
+      sectionId1: {
+        elementId1: { etape: { id: 'etape-id' }, actif: true },
+        elementId2: { etape: { id: 'etape-id' }, actif: false }
+      },
+      statutId: '',
+      titreDemarcheId: 'demarche-id',
+      typeId: 'new-etape-type-id',
+      dateDebut: undefined,
+      dateFin: undefined,
+      duree: {
+        ans: null,
+        mois: null
+      },
+      surface: undefined,
+      amodiataires: [],
+      titulaires: [],
+      groupes: [],
+      substances: [],
+      geoSystemeIds: [],
+      geoSystemeOpposableId: null,
+      contenu: {
+        sectionId1: { elementId1: 'valeur', elementId2: 'valeur' },
+        sectionId2: {}
+      },
+      heritageProps: {},
+      heritageContenu: {
+        sectionId1: {
+          elementId1: { etape: { id: 'etape-id' }, actif: true },
+          elementId2: { etape: { id: 'etape-id' }, actif: false }
+        },
+        sectionId2: {
+          elementId1: { etape: { id: 'etape-id' }, actif: true }
+        }
+      }
     }
   },
   documents: []

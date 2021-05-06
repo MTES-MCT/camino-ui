@@ -108,19 +108,19 @@ const actions = {
         )
 
         if (state.params.carte.zoom > 7) {
-          data = await titresGeoPolygon(definitions)
+          data = (await titresGeoPolygon(definitions)).titres
         } else {
-          data = await titresGeo(definitions)
+          data = (await titresGeo(definitions)).titres
         }
       } else {
         const definitions = paramsBuild(
           state.definitions,
           Object.assign({}, state.params.filtres, state.params.table)
         )
-        data = await titres(definitions)
+        data = (await titres(definitions)).titres
       }
 
-      commit('set', Object.freeze(data.titres))
+      commit('set', Object.freeze(data))
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {

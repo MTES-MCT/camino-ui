@@ -52,7 +52,7 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'titreEtapeRemove', { root: true })
-      const data = await etapeSupprimer({ id })
+      const data = (await etapeSupprimer({ id })).etatSupprimer
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
