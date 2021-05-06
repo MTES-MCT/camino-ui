@@ -59,6 +59,29 @@ export default {
 
       return domaine && domaine.titresTypes.filter(tt => tt.titresCreation)
     }
+  },
+
+  watch: {
+    domaines: 'domainesUpdate',
+    titresTypes: 'titresTypesUpdate'
+  },
+
+  created() {
+    this.domainesUpdate()
+  },
+
+  methods: {
+    domainesUpdate() {
+      if (this.domaines?.length === 1) {
+        this.element.domaineId = this.domaines[0].id
+      }
+    },
+
+    titresTypesUpdate() {
+      if (this.titresTypes?.length === 1) {
+        this.element.typeId = this.titresTypes[0].id
+      }
+    }
   }
 }
 </script>

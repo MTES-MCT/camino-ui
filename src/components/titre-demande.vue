@@ -7,7 +7,7 @@
       <h6>Entreprise</h6>
     </div>
     <div class="tablet-blob-2-3">
-      <select class="p-s" @change="entrepriseUpdate">
+      <select class="p-s" :value="entreprise?.id" @change="entrepriseUpdate">
         <option
           v-for="entreprise in entreprises"
           :key="entreprise.id"
@@ -125,6 +125,12 @@ export default {
 
     loading() {
       return this.$store.state.loading.includes('titreDemandeAdd')
+    }
+  },
+
+  created() {
+    if (this.entreprises?.length === 1) {
+      this.newTitre.entrepriseId = this.entreprises[0].id
     }
   },
 
