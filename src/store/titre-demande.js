@@ -1,12 +1,22 @@
 import { titreDemandeCreer } from '../api/titre-demande'
+import router from '../router'
 
 const actions = {
   async save({ commit, dispatch }, titreDemande) {
     try {
       commit('loadingAdd', 'titreDemandeAdd', { root: true })
+
       const data = await titreDemandeCreer({ titreDemande })
 
-      console.log(data)
+      router.push({ name: 'titre', params: { id: data.titreId } })
+      dispatch(
+        'messageAdd',
+        {
+          value: 'la demande de titre a été créée',
+          type: 'success'
+        },
+        { root: true }
+      )
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {

@@ -12,7 +12,7 @@
           v-for="entreprise in entreprises"
           :key="entreprise.id"
           :value="entreprise.id"
-          :disabled="newDemande.entrepriseId === entreprise.id"
+          :disabled="newTitre.entrepriseId === entreprise.id"
         >
           {{ entreprise.nom }}
         </option>
@@ -20,39 +20,27 @@
     </div>
   </div>
 
-  <div v-if="newDemande.entrepriseId" class="tablet-blobs">
-    <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-      <h6>Type de titre</h6>
-    </div>
-    <div class="tablet-blob-2-3">
-      <select v-model="newDemande.titreTypeId" class="p-s">
-        <option
-          v-for="titreType in entreprise.titresTypes"
-          :key="titreType.id"
-          :value="titreType.id"
-          :disabled="newDemande.titreTypeId === titreType.id"
-        >
-          {{ titreType.domaine.id.toUpperCase() }} | {{ titreType.type.nom }}
-        </option>
-      </select>
-    </div>
-  </div>
+  <TitreTypeSelect
+    v-if="newTitre.entrepriseId"
+    v-model:element="newTitre"
+    :domaines="domaines"
+  />
 
-  <div v-if="newDemande.titreTypeId" class="tablet-blobs">
+  <div v-if="newTitre.typeId" class="tablet-blobs">
     <div class="tablet-blob-1-3 tablet-pt-s pb-s">
       <h6>Nom</h6>
     </div>
     <div class="tablet-blob-2-3">
-      <input v-model="newDemande.nom" type="text" class="p-s" />
+      <input v-model="newTitre.nom" type="text" class="p-s" />
     </div>
   </div>
 
-  <div v-if="newDemande.titreTypeId === 'arm'" class="tablet-blobs">
+  <div v-if="newTitre.typeId === 'arm'" class="tablet-blobs">
     <div class="tablet-blob-1-3 tablet-pt-s pb-s">
       <h6>Prospection mécanisée</h6>
     </div>
     <div class="tablet-blob-2-3">
-      <input v-model="newDemande.mecanise" type="checkbox" class="pb-s" />
+      <input v-model="newTitre.mecanise" type="checkbox" class="pb-s" />
     </div>
   </div>
 
@@ -76,27 +64,63 @@
 </template>
 
 <script>
+import { permissionsCheck } from '@/utils'
+
+import TitreTypeSelect from './_common/titre-type-select.vue'
+
 export default {
+  components: { TitreTypeSelect },
+
   data() {
     return {
-      newDemande: {}
+      newTitre: {}
     }
   },
 
   computed: {
+    user() {
+      return this.$store.state.user.element
+    },
+
     entreprises() {
       return this.$store.state.user.metas.entreprisesTitresCreation
     },
 
     entreprise() {
-      return this.entreprises.find(e => e.id === this.newDemande.entrepriseId)
+      return this.entreprises.find(e => e.id === this.newTitre.entrepriseId)
+    },
+
+    domaines() {
+      if (permissionsCheck(this.user, ['super', 'admin', 'editeur'])) {
+        return this.$store.state.user.metas.domaines
+      }
+
+      if (permissionsCheck(this.user, ['entreprise'])) {
+        return this.entreprise.titresTypes.reduce((domaines, tt) => {
+          tt.domaines.forEach(d => {
+            if (!domaines.find(({ id }) => d.id === id)) {
+              domaines.push(d)
+            }
+
+            const domaine = domaines.find(({ id }) => d.id === id)
+
+            domaine.titresTypes.push({
+              id: tt.id,
+              type: tt.type,
+              titresCreation: tt.titresCreation
+            })
+          })
+
+          return domaines
+        }, [])
+      }
+
+      return []
     },
 
     complete() {
       return (
-        this.newDemande.entrepriseId &&
-        this.newDemande.titreTypeId &&
-        this.newDemande.nom
+        this.newTitre.entrepriseId && this.newTitre.typeId && this.newTitre.nom
       )
     },
 
@@ -107,11 +131,11 @@ export default {
 
   methods: {
     entrepriseUpdate(event) {
-      this.newDemande = { entrepriseId: event.target.value }
+      this.newTitre = { entrepriseId: event.target.value }
     },
 
     save() {
-      this.$store.dispatch('titreDemande/save', this.newDemande)
+      this.$store.dispatch('titreDemande/save', this.newTitre)
     }
   }
 }

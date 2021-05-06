@@ -1,0 +1,64 @@
+<template>
+  <div>
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Domaine</h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <select v-model="element.domaineId" class="p-s mr">
+          <option
+            v-for="domaine in domaines"
+            :key="domaine.id"
+            :value="domaine.id"
+          >
+            {{ domaine.nom }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <hr />
+  </div>
+
+  <div>
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h6>Type</h6>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <select
+          v-model="element.typeId"
+          class="p-s mr"
+          :disabled="!titresTypes"
+        >
+          <option
+            v-for="titreType in titresTypes"
+            :key="titreType.id"
+            :value="titreType.id"
+          >
+            {{ titreType.type.nom }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <hr />
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    element: { type: Object, required: true },
+    domaines: { type: Array, required: true }
+  },
+
+  computed: {
+    titresTypes() {
+      const domaine = this.domaines.find(
+        ({ id }) => id === this.element.domaineId
+      )
+
+      return domaine && domaine.titresTypes.filter(tt => tt.titresCreation)
+    }
+  }
+}
+</script>
