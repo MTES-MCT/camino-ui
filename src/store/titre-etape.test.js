@@ -186,7 +186,9 @@ describe('étapes', () => {
     }
 
     const apiMock3 = api.etapeHeritage.mockResolvedValue({
-      type: { id: 'new-etape-type-id' }
+      etapeHeritage: {
+        type: { id: 'new-etape-type-id' }
+      }
     })
     await store.dispatch('titreEtape/heritageGet', {
       typeId: 'etape-type-id',
