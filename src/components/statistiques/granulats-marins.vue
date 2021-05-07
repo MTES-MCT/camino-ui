@@ -301,20 +301,30 @@
       </div>
       <h3>Concessions valides</h3>
       <hr />
-      <BarChart
-        :data="
-          statsBarFormat({
-            annees: statistiquesGranulatsMarins.annees,
-            id: 'concessionsValides',
-            bar: 'quantite',
-            line: 'surface',
-            labelX: 'annee',
-            labelBar: 'Concessions',
-            labelLine: 'Surfaces des concessions (ha)'
-          })
-        "
-        :suggested-max="suggestedMaxTitres('concessionsValides')"
-      />
+      <div class="tablet-float-blobs clearfix">
+        <div class="tablet-float-blob-1-3 mb-xl mt">
+          <p class="h0 text-center">
+            {{ statistiques[anneeCurrent - 1].concessionsValides.quantite }}
+          </p>
+          <p>Concessions valides l’an dernier</p>
+        </div>
+        <div class="tablet-float-blob-2-3 relative mb-xl">
+          <BarChart
+            :data="
+              statsBarFormat({
+                annees: statistiquesGranulatsMarins.annees,
+                id: 'concessionsValides',
+                bar: 'quantite',
+                line: 'surface',
+                labelX: 'annee',
+                labelBar: 'Concessions',
+                labelLine: 'Surfaces des concessions (ha)'
+              })
+            "
+            :suggested-max="suggestedMaxTitres('concessionsValides')"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
