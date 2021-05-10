@@ -241,7 +241,7 @@
                 labelLine: 'Surface des permis de recherches (ha)'
               })
             "
-            :suggested-max="suggestedMaxTitres"
+            :suggested-max="suggestedMaxTitres('titresPrw')"
           />
         </div>
       </div>
@@ -268,7 +268,7 @@
                   labelLine: 'Surface des permis d\'exploitation (ha)'
                 })
               "
-              :suggested-max="suggestedMaxTitres"
+              :suggested-max="suggestedMaxTitres('titresPxw')"
             />
           </div>
         </div>
@@ -295,26 +295,36 @@
                 labelLine: 'Surfaces des concessions (ha)'
               })
             "
-            :suggested-max="suggestedMaxTitres"
+            :suggested-max="suggestedMaxTitres('titresCxw')"
           />
         </div>
       </div>
       <h3>Concessions valides</h3>
       <hr />
-      <BarChart
-        :data="
-          statsBarFormat({
-            annees: statistiquesGranulatsMarins.annees,
-            id: 'concessionsValides',
-            bar: 'quantite',
-            line: 'surface',
-            labelX: 'annee',
-            labelBar: 'Concessions',
-            labelLine: 'Surfaces des concessions (ha)'
-          })
-        "
-        :suggested-max="suggestedMaxTitres"
-      />
+      <div class="tablet-float-blobs clearfix">
+        <div class="tablet-float-blob-1-3 mb-xl mt">
+          <p class="h0 text-center">
+            {{ statistiques[anneeCurrent - 1].concessionsValides.quantite }}
+          </p>
+          <p>Concessions valides l’an dernier</p>
+        </div>
+        <div class="tablet-float-blob-2-3 relative mb-xl">
+          <BarChart
+            :data="
+              statsBarFormat({
+                annees: statistiquesGranulatsMarins.annees,
+                id: 'concessionsValides',
+                bar: 'quantite',
+                line: 'surface',
+                labelX: 'annee',
+                labelBar: 'Concessions',
+                labelLine: 'Surfaces des concessions (ha)'
+              })
+            "
+            :suggested-max="suggestedMaxTitres('concessionsValides')"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -367,15 +377,6 @@ export default {
           enConstruction: id === this.anneeCurrent - 1 // l'année en cours n'étant pas affichée, seule l'année précédente est affichée à partir du 1er avril de l'année courante
         }
       })
-    },
-
-    suggestedMaxTitres() {
-      return suggestedMaxCalc(this.statistiquesGranulatsMarins.annees, [
-        'titresPrw',
-        'titresPxw',
-        'titresCxw',
-        'concessionsValides'
-      ])
     },
 
     suggestedMaxProduction() {
@@ -439,6 +440,21 @@ export default {
 
     numberFormat(number) {
       return numberFormat(number)
+    },
+
+    suggestedMaxTitres(titreType) {
+      const annees = this.statistiquesGranulatsMarins.annees
+      const ids = ['titresPrw', 'titresPxw', 'titresCxw', 'concessionsValides']
+      // si le nombre maximum de titres est inférieur à 10
+      if (
+        titreType &&
+        ids.includes(titreType) &&
+        Math.max(...annees.map(annee => annee[titreType].quantite)) <= 10
+      ) {
+        return 10
+      }
+
+      return suggestedMaxCalc(annees, ids)
     }
   }
 }
