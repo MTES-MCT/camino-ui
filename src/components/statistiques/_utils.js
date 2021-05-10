@@ -1,21 +1,11 @@
-const suggestedMaxCalc = (annees, ids, titreType) => {
-  // si le type de titre est spécifié, et que le nombre maximum de titres de ce type toute année confondue est au plus 10, on fixe la borne maximale à 10...
-  if (
-    titreType &&
-    ids.includes(titreType) &&
-    Math.max(...annees.map(annee => annee[titreType].quantite)) <= 10
-  ) {
-    return 10
-  }
-  // sinon on calcule le max de tous les graphs toute année confondue
-  return Math.max(
+const suggestedMaxCalc = (annees, ids) =>
+  Math.max(
     ...annees.reduce((acc, annee) => {
       acc.push(...ids.map(id => annee[id].quantite))
 
       return acc
     }, [])
   )
-}
 
 const statsBarFormat = ({
   annees,

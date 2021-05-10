@@ -443,11 +443,18 @@ export default {
     },
 
     suggestedMaxTitres(titreType) {
-      return suggestedMaxCalc(
-        this.statistiquesGranulatsMarins.annees,
-        ['titresPrw', 'titresPxw', 'titresCxw', 'concessionsValides'],
-        titreType
-      )
+      const annees = this.statistiquesGranulatsMarins.annees
+      const ids = ['titresPrw', 'titresPxw', 'titresCxw', 'concessionsValides']
+      // si le nombre maximum de titres est inférieur à 10
+      if (
+        titreType &&
+        ids.includes(titreType) &&
+        Math.max(...annees.map(annee => annee[titreType].quantite)) <= 10
+      ) {
+        return 10
+      }
+
+      return suggestedMaxCalc(annees, ids)
     }
   }
 }
