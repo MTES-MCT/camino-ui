@@ -7,14 +7,18 @@
       <h6>Entreprise</h6>
     </div>
     <div class="tablet-blob-2-3">
-      <select class="p-s" :value="entreprise?.id" @change="entrepriseUpdate">
+      <select
+        class="p-s"
+        :value="newTitre?.entrepriseId"
+        @change="entrepriseUpdate"
+      >
         <option
-          v-for="entreprise in entreprises"
-          :key="entreprise.id"
-          :value="entreprise.id"
-          :disabled="newTitre.entrepriseId === entreprise.id"
+          v-for="e in entreprises"
+          :key="e.id"
+          :value="e.id"
+          :disabled="newTitre.entrepriseId === e.id"
         >
-          {{ entreprise.nom }}
+          {{ e.nom }}
         </option>
       </select>
     </div>
@@ -42,6 +46,50 @@
     <div class="tablet-blob-2-3">
       <input v-model="newTitre.mecanise" type="checkbox" class="pb-s" />
     </div>
+  </div>
+
+  <div v-if="newTitre.entrepriseId && !entrepriseCheck">
+    <h3 class="mb-s">Références</h3>
+    <p class="h5 italic">Optionnel</p>
+    <hr />
+    <div
+      v-for="(reference, index) in newTitre.references"
+      :key="index"
+      class="flex full-x mb-s"
+    >
+      <select v-model="reference.typeId" class="p-s mr-s">
+        <option
+          v-for="referenceType in referencesTypes"
+          :key="referenceType.id"
+          :value="referenceType.id"
+        >
+          {{ referenceType.nom }}
+        </option>
+      </select>
+      <input
+        v-model="reference.nom"
+        type="text"
+        class="p-s mr-s"
+        placeholder="valeur"
+      />
+      <div class="flex-right">
+        <button class="btn py-s px-m rnd-xs" @click="referenceRemove(index)">
+          <i class="icon-24 icon-minus" />
+        </button>
+      </div>
+    </div>
+
+    <button
+      v-if="
+        newTitre.references &&
+        !newTitre.references.find(r => !r.typeId || !r.nom)
+      "
+      class="btn rnd-xs py-s px-m full-x mb flex h5"
+      @click="referenceAdd"
+    >
+      <span class="mt-xxs">Ajouter une référence</span
+      ><i class="icon-24 icon-plus flex-right" />
+    </button>
   </div>
 
   <div class="tablet-blobs">
@@ -90,6 +138,10 @@ export default {
       return this.entreprises.find(e => e.id === this.newTitre.entrepriseId)
     },
 
+    entrepriseCheck() {
+      return permissionsCheck(this.user, ['entreprise'])
+    },
+
     domaines() {
       if (permissionsCheck(this.user, ['super', 'admin', 'editeur'])) {
         return this.$store.state.user.metas.domaines
@@ -117,6 +169,10 @@ export default {
       return []
     },
 
+    referencesTypes() {
+      return this.$store.state.titreDemande.metas.referencesTypes
+    },
+
     complete() {
       return (
         this.newTitre.entrepriseId && this.newTitre.typeId && this.newTitre.nom
@@ -124,11 +180,15 @@ export default {
     },
 
     loading() {
-      return this.$store.state.loading.includes('titreDemandeAdd')
+      return (
+        this.$store.state.loading.includes('titreDemandeAdd') ||
+        this.$store.state.loading.includes('titreDemandeInit')
+      )
     }
   },
 
-  created() {
+  async created() {
+    await this.$store.dispatch('titreDemande/init')
     if (this.entreprises?.length === 1) {
       this.newTitre.entrepriseId = this.entreprises[0].id
     }
@@ -136,11 +196,19 @@ export default {
 
   methods: {
     entrepriseUpdate(event) {
-      this.newTitre = { entrepriseId: event.target.value }
+      this.newTitre = { entrepriseId: event.target.value, references: [] }
     },
 
     save() {
       this.$store.dispatch('titreDemande/save', this.newTitre)
+    },
+
+    referenceAdd() {
+      this.newTitre.references.push({ typeId: '', nom: '' })
+    },
+
+    referenceRemove(index) {
+      this.newTitre.references.splice(index, 1)
     }
   }
 }

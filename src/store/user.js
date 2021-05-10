@@ -37,8 +37,6 @@ const actions = {
     try {
       const data = await userMetas({ titresCreation: true })
 
-      console.log(data)
-
       commit('metasSet', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
