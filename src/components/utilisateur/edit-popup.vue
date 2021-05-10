@@ -146,7 +146,6 @@
             <select
               id="cmn-utilisateur-edit-popup-entreprise-select"
               v-model="utilisateur.entreprises[n]"
-              type="text"
               class="p-s mr-s"
             >
               <option
