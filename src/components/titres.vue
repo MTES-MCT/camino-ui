@@ -8,7 +8,7 @@
       <div class="desktop-blob-1-3">
         <button
           v-if="titresDemandeCreation"
-          class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+          class="btn rnd-xs py-s px-m full-x flex mb-s h5 hide"
           @click="titreDemandeOpen"
         >
           <span class="mt-xxs">Ajouter une demande de titre</span>
