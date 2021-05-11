@@ -48,10 +48,12 @@ describe('démarche', () => {
   })
 
   test('récupère les métas pour éditer une démarche', async () => {
-    const apiMock = api.demarcheMetas.mockReturnValueOnce([
-      { id: 'w', nom: 'granulats' },
-      { id: 'c', nom: 'carrières' }
-    ])
+    const apiMock = api.demarcheMetas.mockReturnValueOnce({
+      demarchesTypes: [
+        { id: 'w', nom: 'granulats' },
+        { id: 'c', nom: 'carrières' }
+      ]
+    })
 
     await store.dispatch('titreDemarche/init', { etape: {} })
 
