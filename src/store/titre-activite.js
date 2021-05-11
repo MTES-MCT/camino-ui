@@ -33,14 +33,16 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'activiteUpdate', { root: true })
-      const data = await activiteModifier({
-        activite: {
-          id: activite.id,
-          contenu: activite.contenu,
-          documents: activite.documents
-        },
-        depose
-      })
+      const data = (
+        await activiteModifier({
+          activite: {
+            id: activite.id,
+            contenu: activite.contenu,
+            documents: activite.documents
+          },
+          depose
+        })
+      ).activiteModifier
 
       if (route) {
         commit('popupClose', null, { root: true })
@@ -82,7 +84,7 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'activiteRemove', { root: true })
-      const data = await activiteSupprimer({ id })
+      const data = (await activiteSupprimer({ id })).activiteSupprimer
 
       commit('popupClose', null, { root: true })
       if (route.name === 'titre') {
