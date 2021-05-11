@@ -20,47 +20,7 @@
       <hr />
     </div>
 
-    <div>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Domaine</h6>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <select v-model="titre.domaineId" class="p-s mr">
-            <option
-              v-for="domaine in domaines"
-              :key="domaine.id"
-              :value="domaine.id"
-              :disabled="titre.domaineId === domaine.id"
-            >
-              {{ domaine.nom }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <hr />
-    </div>
-
-    <div>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Type</h6>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <select v-model="titre.typeId" class="p-s mr" :disabled="!types">
-            <option
-              v-for="type in types"
-              :key="type.id"
-              :value="type.id"
-              :disabled="titre.typeId === type.id"
-            >
-              {{ type.type.nom }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <hr />
-    </div>
+    <TitreTypeSelect v-model:element="titre" :domaines="domaines" />
 
     <div>
       <h3 class="mb-s">Références</h3>
@@ -132,11 +92,14 @@
 <script>
 import Popup from '../_ui/popup.vue'
 
+import TitreTypeSelect from '../_common/titre-type-select.vue'
+
 export default {
   name: 'CaminoDemarcheEditPopup',
 
   components: {
-    Popup
+    Popup,
+    TitreTypeSelect
   },
 
   props: {
@@ -168,14 +131,6 @@ export default {
 
     referencesTypes() {
       return this.$store.state.titre.metas.referencesTypes
-    },
-
-    types() {
-      const domaine = this.domaines.find(
-        ({ id }) => id === this.titre.domaineId
-      )
-
-      return domaine && domaine.titresTypes.filter(tt => tt.titresCreation)
     },
 
     complete() {

@@ -7,6 +7,18 @@ const fragmentEntreprises = gql`
     paysId
     legalSiren
     legalEtranger
+    titresTypes {
+      id
+      domaine {
+        id
+        nom
+      }
+      type {
+        id
+        nom
+      }
+      titresCreation
+    }
   }
 `
 

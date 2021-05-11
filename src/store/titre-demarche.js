@@ -13,9 +13,8 @@ const state = {
 
 const actions = {
   async init({ commit }, demarche) {
-    commit('loadingAdd', 'titreDemarcheInit', { root: true })
-
     try {
+      commit('loadingAdd', 'titreDemarcheInit', { root: true })
       const data = await demarcheMetas(demarche)
 
       commit('metasSet', { types: data })
@@ -27,11 +26,10 @@ const actions = {
   },
 
   async add({ commit, dispatch }, demarche) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheAdd', { root: true })
-
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'titreDemarcheAdd', { root: true })
       const data = await demarcheCreer({ demarche })
 
       commit('popupClose', null, { root: true })
@@ -49,11 +47,10 @@ const actions = {
   },
 
   async update({ commit, dispatch }, demarche) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheUpdate', { root: true })
-
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'titreDemarcheUpdate', { root: true })
       const data = await demarcheModifier({ demarche })
 
       commit('popupClose', null, { root: true })
@@ -71,11 +68,10 @@ const actions = {
   },
 
   async remove({ commit, dispatch }, id) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreDemarcheRemove', { root: true })
-
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'titreDemarcheRemove', { root: true })
       const data = await demarcheSupprimer({ id })
 
       commit('popupClose', null, { root: true })

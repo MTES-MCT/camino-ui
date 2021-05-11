@@ -14,7 +14,7 @@
             <tr>
               <th>Domaine</th>
               <th>Type de titre</th>
-              <th>titresCreation</th>
+              <th>Création de titres</th>
               <th />
             </tr>
             <tr>

@@ -7,9 +7,17 @@
 
       <div class="desktop-blob-1-3">
         <button
-          v-if="modification"
+          v-if="titresDemandeCreation"
+          class="btn rnd-xs py-s px-m full-x flex mb-s h5 hide"
+          @click="titreDemandeOpen"
+        >
+          <span class="mt-xxs">Ajouter une demande de titre</span>
+          <i class="icon-24 icon-plus flex-right" />
+        </button>
+        <button
+          v-if="titresCreation"
           class="btn rnd-xs py-s px-m full-x flex mb-s h5"
-          @click="addPopupOpen"
+          @click="titreAddPopupOpen"
         >
           <span class="mt-xxs">Ajouter un titre</span>
           <i class="icon-24 icon-plus flex-right" />
@@ -113,10 +121,14 @@ export default {
       return this.$store.state.titres.vueId
     },
 
-    modification() {
+    titresCreation() {
       return this.$store.state.user.metas.domaines.some(d =>
         d.titresTypes.some(dtt => dtt.titresCreation)
       )
+    },
+
+    titresDemandeCreation() {
+      return this.$store.state.user.metas.entreprisesTitresCreation.length
     },
 
     total() {
@@ -174,7 +186,7 @@ export default {
       }
     },
 
-    addPopupOpen() {
+    titreAddPopupOpen() {
       const titre = { references: [] }
 
       this.$store.commit('popupOpen', {
@@ -186,6 +198,10 @@ export default {
       })
 
       this.eventTrack({ categorie: 'titre-sections', action: 'titre-ajouter' })
+    },
+
+    titreDemandeOpen() {
+      this.$router.push({ name: 'titre-demande' })
     },
 
     eventTrack(event) {

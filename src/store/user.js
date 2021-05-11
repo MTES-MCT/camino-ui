@@ -22,7 +22,8 @@ const state = {
     /* global npmVersion */
     // @ts-ignore
     versionUi: `${npmVersion}`,
-    tiles
+    tiles,
+    entreprisesTitresCreation: []
   },
   preferences: {
     carte: { tilesId: 'osm-fr', markerLayersId: 'clusters' }
@@ -34,7 +35,7 @@ const actions = {
     commit('loadingAdd', 'userInit', { root: true })
 
     try {
-      const data = await userMetas()
+      const data = await userMetas({ titresCreation: true })
 
       commit('metasSet', data)
     } catch (e) {
