@@ -52,7 +52,9 @@ describe("état d'une activité", () => {
   })
 
   test('valide une activité', async () => {
-    api.activiteModifier.mockResolvedValue({ statut: { id: 'dep' } })
+    api.activiteModifier.mockResolvedValue({
+      activiteModifier: { statut: { id: 'dep' } }
+    })
 
     const res = await store.dispatch('titreActivite/update', {
       activite: {
@@ -68,7 +70,9 @@ describe("état d'une activité", () => {
   })
 
   test('valide une activité sur une activité', async () => {
-    api.activiteModifier.mockResolvedValue({ statut: { id: 'dep' } })
+    api.activiteModifier.mockResolvedValue({
+      activiteModifier: { statut: { id: 'dep' } }
+    })
     titreActivite.state.element = { id: 'activite-id' }
 
     await store.dispatch('titreActivite/update', {
@@ -88,7 +92,9 @@ describe("état d'une activité", () => {
   })
 
   test('enregistre une activité sur un titre', async () => {
-    api.activiteModifier.mockResolvedValue({ statut: { id: 'enc' } })
+    api.activiteModifier.mockResolvedValue({
+      activiteModifier: { statut: { id: 'enc' } }
+    })
 
     await store.dispatch('titreActivite/update', {
       activite: {
@@ -198,7 +204,7 @@ describe("état d'une activité", () => {
   })
 
   test('supprime une activité', async () => {
-    api.activiteSupprimer.mockResolvedValue({ id: 71 })
+    api.activiteSupprimer.mockResolvedValue({ activiteSupprimer: { id: 71 } })
     await store.dispatch('titreActivite/remove', {
       id: 71,
       route: { name: 'titre', id: 'titre-id' }
