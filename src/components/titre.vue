@@ -213,7 +213,7 @@ export default {
     },
 
     '$route.params.id': function (id) {
-      if (id) {
+      if (this.$route.name === 'titre' && id) {
         this.get()
       }
     },

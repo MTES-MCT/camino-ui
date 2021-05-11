@@ -75,12 +75,20 @@
         <h6>
           {{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}
         </h6>
-        <ul class="list-prefix">
-          <li v-for="t in titre.titulaires" :key="t.id">
-            {{ t.nom }}
-            <Tag v-if="t.operateur" :mini="true" color="bg-info"
-              >Opérateur
-            </Tag>
+        <ul class="list-inline">
+          <li v-for="e in titre.titulaires" :key="e.id" class="mb-xs mr-xs">
+            <router-link
+              :to="{ name: 'entreprise', params: { id: e.id } }"
+              class="btn-border small p-s rnd-xs mr-xs"
+              tag="button"
+            >
+              <span class="mr-xs">{{
+                e.legalSiren ? `${e.nom} (${e.legalSiren})` : e.nom
+              }}</span>
+              <Tag v-if="e.operateur" :mini="true" color="bg-info"
+                >Opérateur
+              </Tag>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -90,11 +98,19 @@
           {{ titre.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}
         </h6>
         <ul class="list-prefix">
-          <li v-for="t in titre.amodiataires" :key="t.id">
-            {{ t.nom }}
-            <Tag v-if="t.operateur" :mini="true" color="bg-info"
-              >Opérateur
-            </Tag>
+          <li v-for="e in titre.amodiataires" :key="e.id">
+            <router-link
+              :to="{ name: 'entreprise', params: { id: e.id } }"
+              class="btn-border small p-s rnd-xs mr-xs"
+              tag="button"
+            >
+              <span class="mr-xs">{{
+                e.legalSiren ? `${e.nom} (${e.legalSiren})` : e.nom
+              }}</span>
+              <Tag v-if="e.operateur" :mini="true" color="bg-info"
+                >Opérateur
+              </Tag>
+            </router-link>
           </li>
         </ul>
       </div>

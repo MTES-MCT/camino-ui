@@ -280,7 +280,7 @@ export default {
 
   watch: {
     '$route.params.id': function (id) {
-      if (id) {
+      if (this.$route.name === 'entreprise' && id) {
         this.get()
       }
     },
@@ -288,8 +288,8 @@ export default {
     user: 'get'
   },
 
-  created() {
-    this.get()
+  async created() {
+    await this.get()
   },
 
   beforeUnmount() {

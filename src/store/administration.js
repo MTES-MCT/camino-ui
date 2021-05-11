@@ -24,9 +24,9 @@ const state = {
 
 const actions = {
   async init({ commit }) {
-    commit('loadingAdd', 'administrationInit', { root: true })
-
     try {
+      commit('loadingAdd', 'administrationInit', { root: true })
+
       const data = await administrationMetas()
 
       commit('metasSet', data)
@@ -38,11 +38,11 @@ const actions = {
   },
 
   async permissionsInit({ commit }) {
-    commit('loadingAdd', 'administrationPermissionsInit', {
-      root: true
-    })
-
     try {
+      commit('loadingAdd', 'administrationPermissionsInit', {
+        root: true
+      })
+
       const data = await administrationPermissionsMetas()
       commit('metasSet', data)
     } catch (e) {
@@ -55,9 +55,9 @@ const actions = {
   },
 
   async get({ commit, dispatch }, id) {
-    commit('loadingAdd', 'administration', { root: true })
-
     try {
+      commit('loadingAdd', 'administration', { root: true })
+
       const data = await administration({ id })
 
       commit('set', data)

@@ -34,8 +34,9 @@ const actions = {
   },
 
   async get({ commit, dispatch }, id) {
-    commit('loadingAdd', 'entrepriseGet', { root: true })
     try {
+      commit('loadingAdd', 'entrepriseGet', { root: true })
+
       const data = await entreprise({ id })
 
       if (data) {
