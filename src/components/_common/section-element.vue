@@ -1,13 +1,13 @@
 <template>
   <div class="tablet-blobs">
     <div v-if="element.nom" class="tablet-blob-1-4">
-      <h6>{{ element.nom }}</h6>
+      <h5>{{ element.nom }}</h5>
     </div>
 
     <div
       :class="{ 'tablet-blob-3-4': element.nom, 'tablet-blob-1': !element.nom }"
     >
-      <div v-if="element.type === 'file'" class="flex h5 pb-xs">
+      <div v-if="element.type === 'file'" class="flex h6 pb-xs">
         <span class="mt-xs flex bold">
           <i class="icon-16 icon-file mr-xs" />
           {{
@@ -35,7 +35,7 @@
         {{ valeur }}
       </p>
       <!-- eslint-disable vue/no-v-html -->
-      <p v-if="element.description" class="h5">
+      <p v-if="element.description" class="h6">
         <span v-html="element.description" />
       </p>
     </div>

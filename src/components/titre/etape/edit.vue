@@ -2,13 +2,13 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h5>
+        <h6>
           <span class="cap-first"> {{ titreNom }} </span>
           <span class="color-neutral"> | </span>
           <span class="cap-first">
             {{ demarcheType.nom }}
           </span>
-        </h5>
+        </h6>
         <h2 class="cap-first">
           {{ etapeId ? "Modification de l'" : "Ajout d'une " }}étape
         </h2>
@@ -17,7 +17,7 @@
 
     <div v-if="dateIsVisible" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Date</h6>
+        <h5>Date</h5>
       </div>
       <div class="tablet-blob-2-3">
         <InputDate v-model="newDate" class="mb" />
@@ -31,14 +31,14 @@
     <div v-else>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Date</h6>
+          <h5>Date</h5>
         </div>
         <div class="tablet-blob-2-3">
           <InputDate
             v-model="etape.date"
             :class="{ 'mb-s': etape.date, mb: !etape.date }"
           />
-          <div class="h5">
+          <div class="h6">
             <label v-if="etape.date">
               <input v-model="etape.incertitudes.date" type="checkbox" />
               Incertain
@@ -51,7 +51,7 @@
 
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Type</h6>
+          <h5>Type</h5>
         </div>
         <div class="mb tablet-blob-2-3">
           <select
@@ -76,7 +76,7 @@
       <div v-if="heritageLoaded && etapesStatuts">
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-            <h6>Statut</h6>
+            <h5>Statut</h5>
           </div>
           <div class="mb tablet-blob-2-3">
             <select v-model="etape.statutId" class="p-s">

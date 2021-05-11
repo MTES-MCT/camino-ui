@@ -2,8 +2,8 @@
   <div>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Durée (années / mois)</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Durée (années / mois)</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
 
       <EditHeritage
@@ -30,7 +30,7 @@
               />
             </div>
           </div>
-          <div v-if="etape.duree.ans || etape.duree.mois" class="h5">
+          <div v-if="etape.duree.ans || etape.duree.mois" class="h6">
             <label>
               <input v-model="etape.incertitudes.duree" type="checkbox" />
               Incertain
@@ -49,8 +49,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Date de début</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Date de début</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <EditHeritage
         v-model:prop="etape.heritageProps.dateDebut"
@@ -59,7 +59,7 @@
       >
         <template #write>
           <InputDate v-model="etape.dateDebut" class="mb-s" />
-          <div v-if="etape.dateDebut" class="h5">
+          <div v-if="etape.dateDebut" class="h6">
             <label>
               <input v-model="etape.incertitudes.dateDebut" type="checkbox" />
               Incertain
@@ -78,8 +78,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Date d'échéance</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Date d'échéance</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <EditHeritage
         v-model:prop="etape.heritageProps.dateFin"
@@ -88,7 +88,7 @@
       >
         <template #write>
           <InputDate v-model="etape.dateFin" class="mb-s" />
-          <div v-if="etape.dateFin" class="h5">
+          <div v-if="etape.dateFin" class="h6">
             <label>
               <input v-model="etape.incertitudes.dateFin" type="checkbox" />
               Incertain
@@ -106,8 +106,8 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Surface (Km²)</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Surface (Km²)</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <EditHeritage
         v-model:prop="etape.heritageProps.surface"
@@ -121,7 +121,7 @@
             placeholder="0"
             class="mb-s"
           />
-          <div v-if="etape.surface" class="h5">
+          <div v-if="etape.surface" class="h6">
             <label>
               <input v-model="etape.incertitudes.surface" type="checkbox" />
               Incertain
@@ -139,7 +139,7 @@
     <hr />
 
     <h3 class="mb-s">Titulaires</h3>
-    <p class="h5 italic">Optionnel</p>
+    <p class="h6 italic">Optionnel</p>
     <EditHeritage
       v-model:prop="etape.heritageProps.titulaires"
       prop-id="titulaires"
@@ -168,7 +168,7 @@
               <i class="icon-24 icon-minus" />
             </button>
           </div>
-          <div class="h5 mb">
+          <div class="h6 mb">
             <label v-if="titulaire.id">
               <input v-model="titulaire.operateur" type="checkbox" /> Opérateur
             </label>
@@ -183,7 +183,7 @@
           <span class="mt-xxs">Ajouter un titulaire</span
           ><i class="icon-24 icon-plus flex-right" />
         </button>
-        <div v-if="titulairesLength" class="h5">
+        <div v-if="titulairesLength" class="h6">
           <label>
             <input v-model="etape.incertitudes.titulaires" type="checkbox" />
             Incertain
@@ -207,7 +207,7 @@
     <hr />
 
     <h3 class="mb-s">Amodiataires</h3>
-    <p class="h5 italic">Optionnel</p>
+    <p class="h6 italic">Optionnel</p>
 
     <EditHeritage
       v-model:prop="etape.heritageProps.amodiataires"
@@ -237,7 +237,7 @@
               <i class="icon-24 icon-minus" />
             </button>
           </div>
-          <div v-if="amodiataire.id" class="h5 mb">
+          <div v-if="amodiataire.id" class="h6 mb">
             <label>
               <input v-model="amodiataire.operateur" type="checkbox" />
               Opérateur
@@ -254,7 +254,7 @@
           ><i class="icon-24 icon-plus flex-right" />
         </button>
 
-        <div v-if="amodiatairesLength" class="h5">
+        <div v-if="amodiatairesLength" class="h6">
           <label>
             <input v-model="etape.incertitudes.amodiataires" type="checkbox" />
             Incertain
@@ -279,7 +279,7 @@
     <hr />
 
     <h3 class="mb-s">Substances</h3>
-    <p class="h5 italic">Optionnel</p>
+    <p class="h6 italic">Optionnel</p>
     <EditHeritage
       v-model:prop="etape.heritageProps.substances"
       prop-id="substances"
@@ -336,7 +336,7 @@
           ><i class="icon-24 icon-plus flex-right" />
         </button>
 
-        <div v-if="substancesLength" class="h5">
+        <div v-if="substancesLength" class="h6">
           <label>
             <input v-model="etape.incertitudes.substances" type="checkbox" />
             Incertain

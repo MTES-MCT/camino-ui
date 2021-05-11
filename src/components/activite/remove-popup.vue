@@ -2,13 +2,13 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h5>
+        <h6>
           <span class="cap-first"> {{ typeNom }} </span
           ><span class="color-neutral"> | </span
           ><span class="cap-first">
             {{ periodeNom }}
           </span>
-        </h5>
+        </h6>
         <h2 class="cap-first">Suppression de l'activité</h2>
       </div>
     </template>

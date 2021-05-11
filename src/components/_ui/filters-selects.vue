@@ -1,6 +1,6 @@
 <template>
   <div class="mb">
-    <h6>{{ filter.name }}</h6>
+    <h5>{{ filter.name }}</h5>
     <hr class="mb-s" />
 
     <div v-for="(value, n) in filter.value" :key="n">
@@ -23,7 +23,7 @@
     </div>
     <button
       v-if="!filter.value || !filter.value.some(v => v === '')"
-      class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+      class="btn small rnd-xs py-s px-m full-x flex mb-s"
       @click="valueAdd"
     >
       <span class="mt-xxs">{{ filter.buttonAdd }}</span

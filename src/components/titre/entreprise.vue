@@ -32,7 +32,7 @@
     <div v-if="content" class="px-m pt-m">
       <div v-if="entreprise.legalSiren" class="large-blobs">
         <div class="large-blob-1-4">
-          <h6>Siren</h6>
+          <h5>Siren</h5>
         </div>
         <div class="large-blob-3-4">
           <p>{{ entreprise.legalSiren }}</p>
@@ -41,7 +41,7 @@
 
       <div v-if="entreprise.legalForme" class="large-blobs">
         <div class="large-blob-1-4">
-          <h6>Forme juridique</h6>
+          <h5>Forme juridique</h5>
         </div>
         <div class="large-blob-3-4">
           <p>{{ entreprise.legalForme }}</p>
@@ -53,16 +53,16 @@
         class="large-blobs"
       >
         <div class="large-blob-1-4">
-          <h6>
+          <h5>
             Établissement{{ entreprise.etablissements.length > 1 ? 's' : '' }}
-          </h6>
+          </h5>
         </div>
         <div class="large-blob-3-4">
           <ul class="list-sans">
             <li v-for="e in entreprise.etablissements" :key="e.id">
-              <h5 class="inline-block">
+              <h6 class="inline-block">
                 {{ dateFormat(e.dateDebut) }}
-              </h5>
+              </h6>
               : {{ e.nom }}
             </li>
           </ul>
@@ -71,7 +71,7 @@
 
       <div v-if="entreprise.adresse" class="large-blobs">
         <div class="large-blob-1-4">
-          <h6>Adresse</h6>
+          <h5>Adresse</h5>
         </div>
         <div class="large-blob-3-4">
           <p>
@@ -83,7 +83,7 @@
       </div>
       <div v-if="entreprise.telephone" class="large-blobs">
         <div class="large-blob-1-4">
-          <h6>Téléphone</h6>
+          <h5>Téléphone</h5>
         </div>
         <div class="large-blob-3-4">
           <p class="word-break">
@@ -93,7 +93,7 @@
       </div>
       <div v-if="entreprise.email" class="large-blobs">
         <div class="large-blob-1-4">
-          <h6>Email</h6>
+          <h5>Email</h5>
         </div>
         <div class="large-blob-3-4">
           <p class="word-break">
@@ -108,7 +108,7 @@
       </div>
       <div v-if="entreprise.url" class="large-blobs">
         <div class="large-blob-1-4">
-          <h6>Site</h6>
+          <h5>Site</h5>
         </div>
         <div class="large-blob-3-4">
           <p class="word-break">

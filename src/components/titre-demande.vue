@@ -4,7 +4,7 @@
 
   <div class="tablet-blobs">
     <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-      <h6>Entreprise</h6>
+      <h5>Entreprise</h5>
     </div>
     <div class="tablet-blob-2-3">
       <select
@@ -32,7 +32,7 @@
 
   <div v-if="newTitre.typeId" class="tablet-blobs">
     <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-      <h6>Nom</h6>
+      <h5>Nom</h5>
     </div>
     <div class="tablet-blob-2-3">
       <input v-model="newTitre.nom" type="text" class="p-s" />
@@ -41,7 +41,7 @@
 
   <div v-if="newTitre.typeId === 'arm'" class="tablet-blobs">
     <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-      <h6>Prospection mécanisée</h6>
+      <h5>Prospection mécanisée</h5>
     </div>
     <div class="tablet-blob-2-3">
       <input v-model="newTitre.mecanise" type="checkbox" class="pb-s" />
@@ -50,7 +50,7 @@
 
   <div v-if="newTitre.entrepriseId && !entrepriseCheck">
     <h3 class="mb-s">Références</h3>
-    <p class="h5 italic">Optionnel</p>
+    <p class="h6 italic">Optionnel</p>
     <hr />
     <div
       v-for="(reference, index) in newTitre.references"
@@ -84,7 +84,7 @@
         newTitre.references &&
         !newTitre.references.find(r => !r.typeId || !r.nom)
       "
-      class="btn rnd-xs py-s px-m full-x mb flex h5"
+      class="btn small rnd-xs py-s px-m full-x mb flex"
       @click="referenceAdd"
     >
       <span class="mt-xxs">Ajouter une référence</span

@@ -14,7 +14,7 @@
   >
     <template v-if="user.utilisateursCreation" #addButton>
       <button
-        class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+        class="btn small rnd-xs py-s px-m full-x flex mb-s"
         @click="addPopupOpen"
       >
         <span class="mt-xxs">Ajouter un utilisateur</span>

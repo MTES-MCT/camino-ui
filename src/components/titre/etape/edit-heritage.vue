@@ -12,7 +12,7 @@
           >Incertain
         </Tag>
       </div>
-      <p class="h5 italic mb-s">
+      <p class="h6 italic mb-s">
         Hérité de :
         <span class="cap-first">{{ prop.etape.type.nom }}</span> ({{
           dateFormat(prop.etape.date)

@@ -1,7 +1,7 @@
 <template>
   <Loader v-if="!loaded" />
   <div v-else>
-    <h6>Activité</h6>
+    <h5>Activité</h5>
     <h1 class="cap-first">
       {{ activite.titre.nom }}
     </h1>

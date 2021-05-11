@@ -1,5 +1,5 @@
 <template>
-  <tr class="h5">
+  <tr class="h6">
     <td class="nowrap pt-m">
       <span class="bold">{{ document.type.nom }}</span>
       <span v-if="etiquette">

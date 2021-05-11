@@ -23,18 +23,18 @@
       <div class="tablet-blob-1-2 flex flex-align-items-stretch">
         <div class="blobs-packed flex-grow flex-align-items-stretch mb-s">
           <div class="blob-packed-1-2 full-y border-l pl-s pt-xs">
-            <h6 class="mb-0">
+            <h5 class="mb-0">
               {{ labels[0] }}
-            </h6>
-            <p class="h5 italic mb-0">
+            </h5>
+            <p class="h6 italic mb-0">
               {{ geoSysteme.unite.nom }}
             </p>
           </div>
           <div class="blob-packed-1-2 full-y border-l pl-s pt-xs">
-            <h6 class="mb-0">
+            <h5 class="mb-0">
               {{ labels[1] }}
-            </h6>
-            <p class="h5 italic mb-0">
+            </h5>
+            <p class="h6 italic mb-0">
               {{ geoSysteme.unite.nom }}
             </p>
           </div>
@@ -65,7 +65,7 @@
               </h4>
               <p
                 v-if="point.description || point.subsidiaire"
-                class="mb-s h5 flex-grow pt-xxs"
+                class="mb-s h6 flex-grow pt-xxs"
               >
                 <Tag
                   v-if="point.subsidiaire && !point.lot"

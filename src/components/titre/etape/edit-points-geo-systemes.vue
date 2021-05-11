@@ -30,7 +30,7 @@
 
       <div v-if="etapeGeoSystemeId" class="tablet-blobs">
         <div v-if="etape.geoSystemeIds.length > 1" class="tablet-blob-1-2">
-          <div class="h5 mb">
+          <div class="h6 mb">
             <label>
               <input
                 v-model="etape.geoSystemeOpposableId"

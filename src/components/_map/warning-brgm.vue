@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="brgmWarning"
-    class="bg-warning px py-s color-bg mb-s h5 bold mx-- mt--s"
+    class="bg-warning px py-s color-bg mb-s h6 bold mx-- mt--s"
   >
     Fond de carte visible aux niveaux de zoom 12 à 16 en métropole (hors
     Gironde, Lot et Garonne, Dordogne, Charente Maritime et Vienne).

@@ -2,19 +2,19 @@
   <div>
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3">
-        <h6>Nom</h6>
+        <h5>Nom</h5>
         <input v-model.lazy="point.nom" type="text" class="p-s" />
       </div>
       <div class="mb tablet-blob-2-3">
         <div class="flex">
-          <h6>Description</h6>
-          <p class="h5 italic mb-0 flex-right mt-xs">Optionnel</p>
+          <h5>Description</h5>
+          <p class="h6 italic mb-0 flex-right mt-xs">Optionnel</p>
         </div>
         <input v-model="point.description" type="text" class="p-s" />
       </div>
     </div>
 
-    <div class="h5 mb">
+    <div class="h6 mb">
       <label>
         <input v-model="point.subsidiaire" type="checkbox" /> Subsidiaire
       </label>

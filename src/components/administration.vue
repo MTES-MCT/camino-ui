@@ -1,7 +1,7 @@
 <template>
   <Loader v-if="!loaded" />
   <div v-else>
-    <h6>Administration</h6>
+    <h5>Administration</h5>
     <h1>
       {{ administration.abreviation }}
     </h1>
@@ -20,7 +20,7 @@
         <div class="px-m pt-m border-b-s">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Type</h6>
+              <h5>Type</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -31,7 +31,7 @@
 
           <div v-if="administration.service" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Service</h6>
+              <h5>Service</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -42,7 +42,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Adresse</h6>
+              <h5>Adresse</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>
@@ -58,7 +58,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Téléphone</h6>
+              <h5>Téléphone</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -72,7 +72,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Email</h6>
+              <h5>Email</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -90,7 +90,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Site</h6>
+              <h5>Site</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -108,7 +108,7 @@
 
           <div v-if="administration.departement" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Département</h6>
+              <h5>Département</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>
@@ -119,7 +119,7 @@
 
           <div v-if="administration.region" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Région</h6>
+              <h5>Région</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>
@@ -137,7 +137,7 @@
           >
             <div class="tablet-blob-1-4" />
             <div class="tablet-blob-3-4">
-              <p class="h5 mb">
+              <p class="h6 mb">
                 Un utilisateur d'une <b>administration locale</b> peut créer et
                 modifier le contenu des titres du territoire concerné.
               </p>

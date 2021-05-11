@@ -27,7 +27,7 @@
       </div>
 
       <div class="tablet-blob-2-3 flex">
-        <div class="py-m h6 bold mb-xs">
+        <div class="py-m h5 bold mb-xs">
           {{ resultat }}
         </div>
       </div>

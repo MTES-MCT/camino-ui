@@ -16,7 +16,7 @@
     <div v-if="content" class="px-m pt-m">
       <div v-if="administration.service" class="large-blobs">
         <div class="large-blob-1-6">
-          <h6>Service</h6>
+          <h5>Service</h5>
         </div>
         <div class="large-blob-5-6">
           <p>
@@ -29,7 +29,7 @@
         class="large-blobs"
       >
         <div class="large-blob-1-6">
-          <h6>Adresse</h6>
+          <h5>Adresse</h5>
         </div>
         <div class="large-blob-5-6">
           <p>
@@ -44,7 +44,7 @@
       </div>
       <div v-if="administration.telephone" class="large-blobs">
         <div class="large-blob-1-6">
-          <h6>Téléphone</h6>
+          <h5>Téléphone</h5>
         </div>
         <div class="large-blob-5-6">
           <p class="word-break">
@@ -54,7 +54,7 @@
       </div>
       <div v-if="administration.email" class="large-blobs">
         <div class="large-blob-1-6">
-          <h6>Email</h6>
+          <h5>Email</h5>
         </div>
         <div class="large-blob-5-6">
           <p class="word-break">
@@ -69,7 +69,7 @@
       </div>
       <div v-if="administration.url" class="large-blobs">
         <div class="large-blob-1-6">
-          <h6>Site</h6>
+          <h5>Site</h5>
         </div>
         <div class="large-blob-5-6">
           <p class="word-break">

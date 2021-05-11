@@ -7,8 +7,8 @@
 
       <div class="desktop-blob-1-3">
         <button
-          v-if="titresDemandeCreation"
-          class="btn rnd-xs py-s px-m full-x flex mb-s h5 hide"
+          v-if="titresDemandeCreation && false"
+          class="btn small rnd-xs py-s px-m full-x flex"
           @click="titreDemandeOpen"
         >
           <span class="mt-xxs">Ajouter une demande de titre</span>
@@ -16,7 +16,7 @@
         </button>
         <button
           v-if="titresCreation"
-          class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+          class="btn small rnd-xs py-s px-m full-x flex"
           @click="titreAddPopupOpen"
         >
           <span class="mt-xxs">Ajouter un titre</span>
@@ -55,7 +55,7 @@
             <i :class="`icon-${v.icon}`" class="icon-24" />
           </div>
         </div>
-        <div class="pl-m pt-m h6 bold">
+        <div class="pl-m pt-m h5 bold">
           {{ resultat }}
         </div>
       </div>

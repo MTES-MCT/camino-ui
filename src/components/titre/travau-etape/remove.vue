@@ -2,13 +2,13 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h5>
+        <h6>
           <span class="cap-first"> {{ titreNom }} </span
           ><span class="color-neutral"> | </span
           ><span class="cap-first">
             {{ travauxTypeNom }}
           </span>
-        </h5>
+        </h6>
         <h2 class="cap-first">Suppression de l'étape</h2>
       </div>
     </template>

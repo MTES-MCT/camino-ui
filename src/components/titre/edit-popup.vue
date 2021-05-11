@@ -11,7 +11,7 @@
     <div>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Nom</h6>
+          <h5>Nom</h5>
         </div>
         <div class="mb tablet-blob-2-3">
           <input v-model="titre.nom" type="text" class="p-s" />
@@ -24,7 +24,7 @@
 
     <div>
       <h3 class="mb-s">Références</h3>
-      <p class="h5 italic">Optionnel</p>
+      <p class="h6 italic">Optionnel</p>
       <hr />
       <div
         v-for="(reference, index) in titre.references"
@@ -57,7 +57,7 @@
         v-if="
           titre.references && !titre.references.find(r => !r.typeId || !r.nom)
         "
-        class="btn rnd-xs py-s px-m full-x mb flex h5"
+        class="btn rnd-xs py-s px-m full-x mb flex h6"
         @click="referenceAdd"
       >
         <span class="mt-xxs">Ajouter une référence</span

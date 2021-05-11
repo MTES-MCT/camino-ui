@@ -10,7 +10,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Email</h6>
+        <h5>Email</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <div class="py-s mb-xs">
@@ -23,7 +23,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Mot de passe</h6>
+        <h5>Mot de passe</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -33,7 +33,7 @@
           class="p-s mb-s"
           placeholder="Mot de passe"
         />
-        <p class="h5 mb-0">8 caractères minimum.</p>
+        <p class="h6 mb-0">8 caractères minimum.</p>
       </div>
     </div>
 
@@ -41,7 +41,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Prénom</h6>
+        <h5>Prénom</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -57,7 +57,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Nom</h6>
+        <h5>Nom</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -73,7 +73,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Téléphone fixe</h6>
+        <h5>Téléphone fixe</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -88,7 +88,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Téléphone mobile</h6>
+        <h5>Téléphone mobile</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input

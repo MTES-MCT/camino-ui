@@ -2,7 +2,7 @@
   <div>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Domaine</h6>
+        <h5>Domaine</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <select v-model="element.domaineId" class="p-s mr">
@@ -22,7 +22,7 @@
   <div>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Type</h6>
+        <h5>Type</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <select

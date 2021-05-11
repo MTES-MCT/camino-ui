@@ -27,7 +27,7 @@
               {{ statistiquesGuyane.titresArm }}
             </p>
             <p class="bold text-center">Autorisations de recherche</p>
-            <p class="h5 text-center">
+            <p class="h6 text-center">
               <router-link
                 :to="{
                   name: 'titres',
@@ -49,7 +49,7 @@
               {{ statistiquesGuyane.titresPrm }}
             </p>
             <p class="bold text-center">Permis exclusifs de recherches</p>
-            <p class="h5 text-center">
+            <p class="h6 text-center">
               <router-link
                 :to="{
                   name: 'titres',
@@ -86,7 +86,7 @@
               {{ statistiquesGuyane.titresAxm }}
             </p>
             <p class="bold text-center">Autorisations d'exploitation</p>
-            <p class="h5 text-center">
+            <p class="h6 text-center">
               <router-link
                 :to="{
                   name: 'titres',
@@ -108,7 +108,7 @@
               {{ statistiquesGuyane.titresPxm }}
             </p>
             <p class="bold text-center">Permis d'exploitation</p>
-            <p class="h5 text-center">
+            <p class="h6 text-center">
               <router-link
                 :to="{
                   name: 'titres',
@@ -130,7 +130,7 @@
               {{ statistiquesGuyane.titresCxm }}
             </p>
             <p class="bold text-center">Concessions</p>
-            <p class="h5 text-center">
+            <p class="h6 text-center">
               <router-link
                 :to="{
                   name: 'titres',

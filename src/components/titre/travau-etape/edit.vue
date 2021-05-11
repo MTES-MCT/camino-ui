@@ -2,13 +2,13 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h5>
+        <h6>
           <span class="cap-first"> {{ titreNom }} </span>
           <span class="color-neutral"> | </span>
           <span class="cap-first">
             {{ travauxType.nom }}
           </span>
-        </h5>
+        </h6>
         <h2 class="cap-first">
           {{ creation ? "Ajout d'une " : "Modification de l'" }}étape
         </h2>
@@ -17,7 +17,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Type</h6>
+        <h5>Type</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <select v-model="etape.typeId" class="p-s" @change="typeUpdate">
@@ -38,7 +38,7 @@
     <div v-if="etape.typeId && etapesStatuts">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Statut</h6>
+          <h5>Statut</h5>
         </div>
         <div class="mb tablet-blob-2-3">
           <select v-model="etape.statutId" class="p-s">
@@ -58,7 +58,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Date</h6>
+        <h5>Date</h5>
       </div>
       <div class="tablet-blob-2-3">
         <InputDate
@@ -72,8 +72,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Durée (années / mois)</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Durée (années / mois)</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
         <div
@@ -102,8 +102,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Surface (Km²)</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Surface (Km²)</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
         <inputNumber

@@ -2,11 +2,11 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h5>
+        <h6>
           <span class="cap-first">
             {{ title }}
           </span>
-        </h5>
+        </h6>
         <h2 class="cap-first">Dissociation du justificatif</h2>
       </div>
     </template>

@@ -5,7 +5,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Nouveau mot de passe</h6>
+        <h5>Nouveau mot de passe</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -14,14 +14,14 @@
           class="p-s mb-s"
           placeholder="Mot de passe"
         />
-        <p class="h5 mb-0">8 caractères minimum.</p>
+        <p class="h6 mb-0">8 caractères minimum.</p>
       </div>
     </div>
     <hr />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Nouveau mot de passe (vérification)</h6>
+        <h5>Nouveau mot de passe (vérification)</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input

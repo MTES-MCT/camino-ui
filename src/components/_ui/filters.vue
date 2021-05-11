@@ -17,7 +17,7 @@
           <span
             v-for="label in labels"
             :key="`${label.id}-${label.valueName}`"
-            class="rnd-m box btn-flash h5 pl-s pr-xs py-xs bold mr-xs mb-xs"
+            class="rnd-m box btn-flash h6 pl-s pr-xs py-xs bold mr-xs mb-xs"
             @click="labelRemove(label)"
             >{{ label.name }} : {{ label.valueName || label.value }}
             <span class="inline-block align-y-top ml-xs"

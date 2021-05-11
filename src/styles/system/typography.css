@@ -13,7 +13,7 @@ h1,
 h2,
 h3,
 h4,
-h5,
+h6,
 ul,
 ol,
 dl,
@@ -53,21 +53,21 @@ h4,
 }
 
 h5,
-.h5,
-small,
-.small {
-  typescale: -0.75 0.75;
-}
-
-h6,
-.h6 {
+.h5 {
   typescale: -0.75 1.25;
 }
 
 h6,
 .h6,
+small,
+.small {
+  typescale: -0.75 0.75;
+}
+
 h5,
-.h5 {
+.h5,
+h6,
+.h6 {
   margin-bottom: var(--unit-s);
 }
 
@@ -76,17 +76,17 @@ h1,
 h2,
 h3,
 h4,
-h5,
-h6 {
+h6,
+h5 {
   font-weight: 700;
   letter-spacing: -0.02rem;
 }
 
-h6 {
+h5 {
   color: var(--color-neutral);
 }
 
-.btn-border:hover h6 {
+.btn-border:hover h5 {
   color: var(--color-bg);
 }
 

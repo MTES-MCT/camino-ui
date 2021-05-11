@@ -3,7 +3,7 @@
     <Loader />
   </div>
   <div v-else>
-    <h6>Utilisateur</h6>
+    <h5>Utilisateur</h5>
     <h1>
       {{
         utilisateur
@@ -64,7 +64,7 @@
         <div class="px-m pt-m">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Prénom</h6>
+              <h5>Prénom</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.prenom || '–' }}</p>
@@ -73,7 +73,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Nom</h6>
+              <h5>Nom</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.nom || '–' }}</p>
@@ -82,7 +82,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Email</h6>
+              <h5>Email</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.email || '–' }}</p>
@@ -91,7 +91,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Téléphone fixe</h6>
+              <h5>Téléphone fixe</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.telephoneFixe || '–' }}</p>
@@ -100,7 +100,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Téléphone mobile</h6>
+              <h5>Téléphone mobile</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ utilisateur.telephoneMobile || '–' }}</p>
@@ -109,7 +109,7 @@
 
           <div v-if="utilisateur.permissionModification" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Permissions</h6>
+              <h5>Permissions</h5>
             </div>
             <div class="tablet-blob-3-4">
               <Pill v-if="utilisateur.permission" class="mb">
@@ -121,9 +121,9 @@
 
           <div v-if="utilisateur.entreprises.length" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>
+              <h5>
                 Entreprise{{ utilisateur.entreprises.length > 1 ? 's' : '' }}
-              </h6>
+              </h5>
             </div>
 
             <div class="tablet-blob-3-4">
@@ -147,7 +147,7 @@
 
           <div v-if="utilisateur.administrations.length" class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Administration</h6>
+              <h5>Administration</h5>
             </div>
 
             <div class="tablet-blob-3-4">

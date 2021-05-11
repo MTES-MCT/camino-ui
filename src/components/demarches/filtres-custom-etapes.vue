@@ -1,6 +1,6 @@
 <template>
   <div class="mb">
-    <h6>{{ filter.name }}</h6>
+    <h5>{{ filter.name }}</h5>
     <hr class="mb-s" />
 
     <div v-for="(value, n) in filter.value" :key="n">
@@ -23,8 +23,8 @@
       <div v-if="value.typeId">
         <div class="blobs mb-s">
           <div class="blob-1-4">
-            <h6 class="mb-0">Statut</h6>
-            <p class="h5 italic mb-0">Optionnel</p>
+            <h5 class="mb-0">Statut</h5>
+            <p class="h6 italic mb-0">Optionnel</p>
           </div>
           <div class="blob-3-4">
             <select
@@ -45,8 +45,8 @@
         </div>
         <div class="blobs mb-s">
           <div class="blob-1-4">
-            <h6 class="mb-0">Après le</h6>
-            <p class="h5 italic mb-0">Optionnel</p>
+            <h5 class="mb-0">Après le</h5>
+            <p class="h6 italic mb-0">Optionnel</p>
           </div>
           <div class="blob-3-4">
             <InputDate v-model="filter.value[n].dateDebut" />
@@ -54,8 +54,8 @@
         </div>
         <div class="blobs mb-s">
           <div class="blob-1-4">
-            <h6 class="mb-0">Avant le</h6>
-            <p class="h5 italic mb-0">Optionnel</p>
+            <h5 class="mb-0">Avant le</h5>
+            <p class="h6 italic mb-0">Optionnel</p>
           </div>
           <div class="blob-3-4">
             <InputDate v-model="filter.value[n].dateFin" />
@@ -66,7 +66,7 @@
     </div>
     <button
       v-if="!filter.value || !filter.value.some(v => v.typeId === '')"
-      class="btn rnd-xs py-s px-m full-x flex mb-s h5"
+      class="btn rnd-xs py-s px-m full-x flex mb-s h6"
       @click="valueAdd"
     >
       <span class="mt-xxs">Ajouter un type d'étape</span

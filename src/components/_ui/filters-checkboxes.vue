@@ -1,6 +1,6 @@
 <template>
   <div class="mb">
-    <h6>{{ filter.name }}</h6>
+    <h5>{{ filter.name }}</h5>
     <hr class="mb-s" />
 
     <ul class="list-sans">
@@ -18,7 +18,7 @@
             v-if="filter.component"
             :element="element"
           />
-          <span v-else class="cap-first h5 bold">{{ element.nom }}</span>
+          <span v-else class="cap-first h6 bold">{{ element.nom }}</span>
         </label>
       </li>
     </ul>

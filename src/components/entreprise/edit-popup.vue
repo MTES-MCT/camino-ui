@@ -8,7 +8,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Téléphone</h6>
+        <h5>Téléphone</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -23,7 +23,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Adresse électronique</h6>
+        <h5>Adresse électronique</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -38,7 +38,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Site internet</h6>
+        <h5>Site internet</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -54,7 +54,7 @@
       <hr />
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Archivée</h6>
+          <h5>Archivée</h5>
         </div>
         <div class="mb tablet-blob-2-3">
           <input v-model="entreprise.archive" type="checkbox" class="p-s" />
