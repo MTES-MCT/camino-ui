@@ -1,9 +1,7 @@
 import { cloneAndClean } from '../../utils/index'
 
-const etapeEditFormat = (etape, travauxId) => {
+const etapeEditFormat = etape => {
   etape = cloneAndClean(etape)
-
-  etape.titreTravauxId = travauxId
 
   etape.typeId = etape.type.id
   delete etape.type

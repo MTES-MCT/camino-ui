@@ -38,17 +38,16 @@
       @complete-update="activiteCompleteUpdate"
     />
 
-    <div v-if="activite.documentsCreation && activite.type.documentsTypes">
-      <DocumentsEdit
-        v-model:documents="activite.documents"
-        :modifiable="modifiable"
-        :parent-id="activite.id"
-        :parent-type-id="activite.type.id"
-        :documents-types="activite.type.documentsTypes"
-        repertoire="activites"
-        @complete-update="documentsCompleteUpdate"
-      />
-    </div>
+    <DocumentsEdit
+      v-if="activite.documentsCreation && activite.type.documentsTypes"
+      v-model:documents="activite.documents"
+      :modifiable="modifiable"
+      :parent-id="activite.id"
+      :parent-type-id="activite.type.id"
+      :documents-types="activite.type.documentsTypes"
+      repertoire="activites"
+      @complete-update="documentsCompleteUpdate"
+    />
 
     <div
       v-if="!modifiable && complete"

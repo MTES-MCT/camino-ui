@@ -25,6 +25,7 @@ const fragmentIncertitudes = gql`
 const fragmentHeritageTitreEtape = gql`
   fragment heritageEtape on Etape {
     id
+    titreDemarcheId
     ordre
     date
     dateDebut
@@ -116,6 +117,7 @@ const fragmentHeritageProps = gql`
 const fragmentTitreEtape = gql`
   fragment etape on Etape {
     id
+    titreDemarcheId
     ordre
     date
     dateDebut

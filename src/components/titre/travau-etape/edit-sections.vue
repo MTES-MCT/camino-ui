@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { elementContenuBuild, contenuBuild } from '../../../utils/contenu'
+import { elementContenuBuild, contenuBuild } from '@/utils/contenu'
 import EditSectionElement from './edit-section-element.vue'
 
 export default {

@@ -174,11 +174,11 @@
 </template>
 
 <script>
-import TagList from '../../_ui/tag-list.vue'
-import Tag from '../../_ui/tag.vue'
+import TagList from '../_ui/tag-list.vue'
+import Tag from '../_ui/tag.vue'
 import PropDuree from './prop-duree.vue'
-import Points from '../points.vue'
-import { etablissementNameFind } from '../../../utils/entreprise'
+import Points from '../_common/points.vue'
+import { etablissementNameFind } from '../../utils/entreprise'
 import { dateFormat } from '@/utils'
 import numberFormat from '@/utils/number-format'
 

@@ -121,16 +121,15 @@
       :sections="etapeType.sections"
     />
 
-    <div v-if="etapeType && etapeType.documentsTypes && documentsTypes.length">
-      <DocumentsEdit
-        v-model:documents="etape.documents"
-        :parent-id="etape.id"
-        :parent-type-id="etapeType.id"
-        :documents-types="documentsTypes"
-        repertoire="travaux"
-        @complete-update="documentsCompleteUpdate"
-      />
-    </div>
+    <DocumentsEdit
+      v-if="etapeType && etapeType.documentsTypes && documentsTypes.length"
+      v-model:documents="etape.documents"
+      :parent-id="etape.id"
+      :parent-type-id="etapeType.id"
+      :documents-types="documentsTypes"
+      repertoire="travaux"
+      @complete-update="documentsCompleteUpdate"
+    />
 
     <template #footer>
       <div v-if="!loading" class="tablet-blobs">

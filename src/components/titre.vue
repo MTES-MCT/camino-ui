@@ -145,7 +145,7 @@ import TitreRepertoire from './titre/repertoire.vue'
 import TitreDemarches from './titre/demarches.vue'
 import TitreTravaux from './titre/travaux.vue'
 import TitreActivitesList from './activites/list.vue'
-import TitrePoints from './titre/points.vue'
+import TitrePoints from './_common/points.vue'
 
 export default {
   components: {

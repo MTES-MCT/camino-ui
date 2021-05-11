@@ -71,60 +71,14 @@
         </div>
       </div>
 
-      <hr />
-
-      <div v-if="heritageLoaded && etapesStatuts">
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-            <h5>Statut</h5>
-          </div>
-          <div class="mb tablet-blob-2-3">
-            <select v-model="etape.statutId" class="p-s">
-              <option
-                v-for="etapeStatut in etapesStatuts"
-                :key="etapeStatut.id"
-                :value="etapeStatut.id"
-                :disabled="etape.statutId === etapeStatut.id"
-              >
-                {{ etapeStatut.nom }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <hr />
-
-        <EtapeEditFondamentales
-          v-if="etapeType && etapeType.fondamentale"
-          v-model:etape="etape"
-          :domaine-id="domaineId"
-        />
-
-        <EtapeEditPoints
-          v-if="etapeType && etapeType.fondamentale"
-          v-model:etape="etape"
-          v-model:events="events"
-        />
-
-        <EditSections
-          v-if="etape.sections"
-          v-model:etape="etape"
-          :sections="etape.sections"
-          @complete-update="sectionsCompleteUpdate"
-        />
-      </div>
-
-      <div
-        v-if="etapeType && etapeType.documentsTypes && documentsTypes.length"
-      >
-        <DocumentsEdit
-          v-model:documents="etape.documents"
-          :parent-id="etape.id"
-          :parent-type-id="etapeType.id"
-          :documents-types="documentsTypes"
-          repertoire="demarches"
-          @complete-update="documentsCompleteUpdate"
-        />
-      </div>
+      <Edit
+        v-if="heritageLoaded"
+        v-model:etape="etape"
+        :etape-types="etapeTypes"
+        :domaine-id="domaineId"
+        :events="events"
+        @edit-complete-update="editCompleteUpdate"
+      />
     </div>
 
     <template #footer>
@@ -164,23 +118,17 @@
 </template>
 
 <script>
-import InputDate from '../../_ui/input-date.vue'
-import Popup from '../../_ui/popup.vue'
-import EtapeEditFondamentales from './edit-fondamentales.vue'
-import EtapeEditPoints from './edit-points.vue'
-import EditSections from './edit-sections.vue'
-import DocumentsEdit from '../../document/edit-multi.vue'
+import InputDate from '../_ui/input-date.vue'
+import Popup from '../_ui/popup.vue'
+import Edit from './edit.vue'
 
 export default {
   name: 'CaminoEtapeEditPopup',
 
   components: {
     Popup,
-    EtapeEditFondamentales,
-    EtapeEditPoints,
-    EditSections,
     InputDate,
-    DocumentsEdit
+    Edit
   },
 
   props: {
@@ -195,9 +143,9 @@ export default {
     return {
       events: { saveKeyUp: true },
       newDate: new Date().toISOString().slice(0, 10),
-      heritageLoaded: false,
-      documentsComplete: false,
-      sectionsComplete: false
+      editComplete: false,
+
+      heritageLoaded: false
     }
   },
 
@@ -224,10 +172,6 @@ export default {
       return this.etapeTypes.find(et => et.id === this.etape.typeId)
     },
 
-    etapesStatuts() {
-      return this.etapeType && this.etapeType.etapesStatuts
-    },
-
     dateIsVisible() {
       return !this.etapeId && !this.etape
     },
@@ -240,15 +184,7 @@ export default {
     },
 
     complete() {
-      return (
-        this.etape &&
-        this.etape.typeId &&
-        this.etape.date &&
-        this.etape.statutId &&
-        (((!this.documentsTypes?.length || this.documentsComplete) &&
-          this.sectionsComplete) ||
-          this.etape.statutId === 'aco')
-      )
+      return this.etape && this.etape.date && this.editComplete
     }
   },
 
@@ -277,27 +213,6 @@ export default {
         id: this.etapeId,
         date: this.newDate
       })
-    },
-
-    async heritageGet(typeId) {
-      this.heritageLoaded = false
-      await this.$store.dispatch('titreEtape/heritageGet', {
-        titreDemarcheId: this.demarcheId,
-        typeId: typeId,
-        date: this.newDate
-      })
-
-      this.heritageLoaded = true
-    },
-
-    async typeUpdate(event) {
-      await this.heritageGet(event.target.value)
-
-      if (this.etapesStatuts?.length === 1) {
-        this.etape.statutId = this.etapesStatuts[0].id
-      } else {
-        this.etape.statutId = null
-      }
     },
 
     async save() {
@@ -337,12 +252,27 @@ export default {
       }
     },
 
-    documentsCompleteUpdate(documentsComplete) {
-      this.documentsComplete = documentsComplete
+    editCompleteUpdate(complete) {
+      this.editComplete = complete
     },
 
-    sectionsCompleteUpdate(complete) {
-      this.sectionsComplete = complete
+    async typeUpdate(event) {
+      const typeId = event.target.value
+
+      this.heritageLoaded = false
+      await this.$store.dispatch('titreEtape/heritageGet', {
+        titreDemarcheId: this.demarcheId,
+        typeId,
+        date: this.newDate
+      })
+
+      this.heritageLoaded = true
+
+      if (this.etapesStatuts?.length === 1) {
+        this.etape.statutId = this.etapesStatuts[0].id
+      } else {
+        this.etape.statutId = null
+      }
     },
 
     errorsRemove() {

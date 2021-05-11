@@ -29,18 +29,25 @@ const actions = {
       commit('loadingAdd', 'titreEtapeInit', { root: true })
 
       let newEtape
+      let metasParams
 
+      // modification
       if (id) {
         newEtape = await etape({ id })
-        date = newEtape.date
+        metasParams = {
+          titreDemarcheId: newEtape.titreDemarcheId,
+          id: newEtape.id,
+          date: newEtape.date
+        }
       } else {
-        newEtape = { date }
+        newEtape = { date, titreDemarcheId }
+        metasParams = { titreDemarcheId, date }
       }
 
-      const metas = await titreEtapeMetas({ titreDemarcheId, id, date })
+      const metas = await titreEtapeMetas(metasParams)
 
       commit('metasSet', metas)
-      commit('set', { etape: newEtape, titreDemarcheId })
+      commit('set', { etape: newEtape })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -57,7 +64,7 @@ const actions = {
         typeId
       })
 
-      commit('heritageSet', { etape: data, titreDemarcheId })
+      commit('heritageSet', { etape: data })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -121,8 +128,8 @@ const actions = {
 }
 
 const mutations = {
-  set(state, { etape, titreDemarcheId }) {
-    const e = etapeEditFormat(etape, titreDemarcheId)
+  set(state, { etape }) {
+    const e = etapeEditFormat(etape)
     state.element = e
   },
 
@@ -130,8 +137,8 @@ const mutations = {
     state.element = null
   },
 
-  heritageSet(state, { etape, titreDemarcheId }) {
-    const apiEtape = etapeEditFormat(etape, titreDemarcheId)
+  heritageSet(state, { etape }) {
+    const apiEtape = etapeEditFormat(etape)
     const newEtape = etapeHeritageBuild(state.element, apiEtape)
 
     state.element = newEtape

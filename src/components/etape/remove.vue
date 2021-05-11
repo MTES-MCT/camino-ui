@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import Popup from '../../_ui/popup.vue'
+import Popup from '../_ui/popup.vue'
 
 export default {
   name: 'CaminoEtapeRemovePopup',
