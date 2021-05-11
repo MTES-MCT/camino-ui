@@ -23,9 +23,9 @@ const state = {
 
 const actions = {
   async init({ commit }) {
-    commit('loadingAdd', 'titreInit', { root: true })
-
     try {
+      commit('loadingAdd', 'titreInit', { root: true })
+
       const data = await titreMetas()
 
       commit('metasSet', { referencesTypes: data })
@@ -37,9 +37,9 @@ const actions = {
   },
 
   async get({ commit, dispatch }, id) {
-    commit('loadingAdd', 'titre', { root: true })
-
     try {
+      commit('loadingAdd', 'titre', { root: true })
+
       const data = await titre({ id })
 
       if (data) {

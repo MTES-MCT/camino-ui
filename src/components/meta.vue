@@ -194,7 +194,7 @@ export default {
 
   watch: {
     '$route.params.id': function (id) {
-      if (id) {
+      if (this.$route.name === 'meta' && id) {
         this.get()
       }
     },

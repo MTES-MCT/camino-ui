@@ -219,7 +219,7 @@ export default {
 
   watch: {
     '$route.params.id': function (id) {
-      if (id) {
+      if (this.$route.name === 'administration' && id) {
         this.get()
       }
     },

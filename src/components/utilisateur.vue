@@ -135,7 +135,7 @@
                 >
                   <router-link
                     :to="{ name: 'entreprise', params: { id: e.id } }"
-                    class="btn-border small py-s px-m rnd-xs mr-xs"
+                    class="btn-border small p-s rnd-xs mr-xs"
                     tag="button"
                   >
                     {{ e.legalSiren ? `${e.nom} (${e.legalSiren})` : e.nom }}
@@ -199,7 +199,7 @@ export default {
     user: 'get',
 
     '$route.params.id': function (id) {
-      if (id) {
+      if (this.$route.name === 'utilisateur' && id) {
         this.get()
       }
     }
