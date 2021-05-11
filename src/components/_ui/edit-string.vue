@@ -48,7 +48,7 @@ export default {
 
   computed: {
     valueHtml() {
-      return snarkdown(this.valueUpdated)
+      return snarkdown(this.valueUpdated.replace(/\[/g, '').replace(/\]/g, ''))
     }
   },
 
