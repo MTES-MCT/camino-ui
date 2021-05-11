@@ -8,7 +8,7 @@
     @toggle="toggle"
   >
     <template #title>
-      <h6>
+      <h5>
         {{ dateFormat(activite.date) }} |
         <span class="cap-first"
           ><span v-if="activite.periode && activite.periode.nom"
@@ -16,7 +16,7 @@
           </span>
           {{ activite.annee }}</span
         >
-      </h6>
+      </h5>
       <h3 class="mb-s">
         <span class="cap-first">{{ activite.type.nom }}</span>
       </h3>
@@ -45,12 +45,12 @@
     <div>
       <!-- eslint-disable vue/no-v-html -->
       <div v-if="activite.type.description" class="border-b-s px-m pt-m">
-        <div class="h5" v-html="activite.type.description" />
+        <div class="h6" v-html="activite.type.description" />
       </div>
       <div v-if="activite.dateSaisie" class="border-b-s px-m pt-m">
-        <h6>
+        <h5>
           Date de {{ activite.statut.id === 'dep' ? 'dépôt' : 'modification' }}
-        </h6>
+        </h5>
         <p>{{ dateFormat(activite.dateSaisie) }}</p>
       </div>
 

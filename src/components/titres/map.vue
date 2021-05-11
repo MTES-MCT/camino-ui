@@ -19,7 +19,10 @@
         <div class="desktop-blob-1-2 desktop-flex">
           <div class="mb-s">
             <span class="mr-s">
-              <button class="btn-border rnd-m px-s py-xs h5" @click="mapFrame">
+              <button
+                class="btn-border small rnd-m px-s py-xs"
+                @click="mapFrame"
+              >
                 Tout afficher
               </button>
             </span>
@@ -27,7 +30,7 @@
           <ul class="list-inline pill-list mb-s">
             <li v-for="z in zones" :key="z.id" class="mr-px mb-px">
               <button
-                class="btn-border pill-item px-s py-xs h5"
+                class="btn-border small pill-item px-s py-xs"
                 @click="mapCenter(z.id)"
               >
                 {{ z.name }}

@@ -6,7 +6,7 @@
 
     <div class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Nouvel email</h6>
+        <h5>Nouvel email</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input

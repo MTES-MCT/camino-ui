@@ -2,7 +2,7 @@
   <div>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Date</h6>
+        <h5>Date</h5>
       </div>
       <div class="tablet-blob-2-3 tablet-pt-s">
         <InputDate v-if="modifiable" v-model="document.date" class="mb" />
@@ -18,8 +18,8 @@
     <div v-if="modifiable || document.description">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6 class="mb-xs">Description</h6>
-          <p v-if="modifiable" class="h5 italic mb-0">Optionnel</p>
+          <h5 class="mb-xs">Description</h5>
+          <p v-if="modifiable" class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
@@ -39,7 +39,7 @@
     <div v-if="documentsVisibilites.length > 1 && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3">
-          <h6>Visibilité</h6>
+          <h5>Visibilité</h5>
         </div>
         <div class="tablet-blob-2-3">
           <ul class="list-sans">
@@ -63,8 +63,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Fichier</h6>
-        <p v-if="optionnel" class="h5 italic mb-0">Optionnel</p>
+        <h5>Fichier</h5>
+        <p v-if="optionnel" class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
         <div v-if="document.fichier || document.fichierNouveau" class="flex">
@@ -87,7 +87,7 @@
             >Choisir un fichier…
             <input type="file" class="p-xs mb-0" @change="fileChange" />
           </label>
-          <p class="h5">30 Mo max.</p>
+          <p class="h6">30 Mo max.</p>
         </div>
         <p v-else class="color-warning pt-s mb-0">À compléter pour valider</p>
       </div>
@@ -98,7 +98,7 @@
     <div v-if="document.fichierNouveau">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Type de fichier</h6>
+          <h5>Type de fichier</h5>
         </div>
         <div class="tablet-blob-2-3 tablet-pt-s mb">
           <select
@@ -131,8 +131,8 @@
     >
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6 class="mb-xs">Jorf</h6>
-          <p class="h5 italic mb-0">Optionnel</p>
+          <h5 class="mb-xs">Jorf</h5>
+          <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input v-model="document.jorf" type="text" class="p-s" />
@@ -148,8 +148,8 @@
     >
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6 class="mb-xs">Nor</h6>
-          <p class="h5 italic mb-0">Optionnel</p>
+          <h5 class="mb-xs">Nor</h5>
+          <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input v-model="document.nor" type="text" class="p-s" />
@@ -161,8 +161,8 @@
     <div v-if="repertoire === 'demarches' && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6 class="mb-xs">URI</h6>
-          <p class="h5 italic mb-0">Optionnel</p>
+          <h5 class="mb-xs">URI</h5>
+          <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
@@ -179,8 +179,8 @@
     <div v-if="repertoire === 'demarches' && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6 class="mb-xs">URL</h6>
-          <p class="h5 italic mb-0">Optionnel</p>
+          <h5 class="mb-xs">URL</h5>
+          <p class="h6 italic mb-0">Optionnel</p>
         </div>
         <div class="mb tablet-blob-2-3">
           <input

@@ -40,7 +40,7 @@
                 instance)
               </p>
             </div>
-            <p class="h5 text-center">
+            <p class="h6 text-center">
               <router-link
                 :to="{
                   name: 'titres',
@@ -61,7 +61,7 @@
               {{ statistiquesGranulatsMarins.titresValPrw }}
             </p>
             <p class="bold text-center">Permis exclusifs de recherches</p>
-            <p class="h5 text-center">
+            <p class="h6 text-center">
               <router-link
                 :to="{
                   name: 'titres',
@@ -113,7 +113,7 @@
                 instance)
               </p>
             </div>
-            <p class="h5 text-center">
+            <p class="h6 text-center">
               <router-link
                 :to="{
                   name: 'titres',
@@ -139,7 +139,7 @@
             <div v-else>
               <p class="bold text-center">Concession</p>
             </div>
-            <p class="h5 text-center">
+            <p class="h6 text-center">
               <router-link
                 :to="{
                   name: 'titres',
@@ -197,7 +197,7 @@
     </div>
 
     <div class="line-neutral width-full mb-xl" />
-    <h6>Sélectionner une année</h6>
+    <h5>Sélectionner une année</h5>
 
     <select v-model="anneeActive" class="p-s mb-l full" @change="anneeSelect">
       <option v-for="annee in annees" :key="annee.id" :value="annee.id">

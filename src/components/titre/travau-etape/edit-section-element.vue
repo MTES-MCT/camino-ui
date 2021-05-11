@@ -2,10 +2,10 @@
   <div>
     <div class="tablet-blobs">
       <div v-if="element.nom" class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">
+        <h5 class="mb-0">
           <span class="cap-first">{{ element.nom }}</span>
-        </h6>
-        <p v-if="element.optionnel" class="h5 italic mb-0">Optionnel</p>
+        </h5>
+        <p v-if="element.optionnel" class="h6 italic mb-0">Optionnel</p>
       </div>
 
       <EditSectionElementModifiable
@@ -16,7 +16,7 @@
 
       <p
         v-if="(element.description && modifiable) || hasValeur"
-        class="h5 mb-0"
+        class="h6 mb-0"
       >
         <!-- eslint-disable vue/no-v-html -->
         <span v-html="element.description" />

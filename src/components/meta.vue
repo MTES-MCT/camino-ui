@@ -1,7 +1,7 @@
 <template>
   <Loader v-if="!loaded" />
   <div v-else>
-    <h6>Métas</h6>
+    <h5>Métas</h5>
     <h1>
       <span class="cap-first">{{ definition.nom }}</span>
     </h1>

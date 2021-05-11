@@ -2,11 +2,11 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h5>
+        <h6>
           <span class="cap-first">
             {{ title }}
           </span>
-        </h5>
+        </h6>
         <h2 class="cap-first">
           {{ creation ? "Ajout d'un" : 'Modification du' }} document
         </h2>
@@ -15,7 +15,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Type</h6>
+        <h5>Type</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <select v-if="!document.id" v-model="document.typeId" class="p-s">

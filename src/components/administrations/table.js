@@ -20,7 +20,7 @@ const administrationsLignesBuild = administrations =>
   administrations.map(administration => {
     const columns = {
       abreviation: { value: administration.abreviation },
-      nom: { value: administration.nom, class: 'h5' },
+      nom: { value: administration.nom, class: 'h6' },
       type: {
         component: markRaw(Tag),
         props: { mini: true },

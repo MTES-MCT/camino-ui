@@ -2,7 +2,7 @@
   <div class="tablet-blobs mb-xl">
     <div class="tablet-blob-1-4">
       <div v-if="surface">
-        <h6>Surface</h6>
+        <h5>Surface</h5>
         <p>{{ numberFormat(surface) }} km² environ</p>
       </div>
     </div>
@@ -10,24 +10,24 @@
       v-if="(pays && pays.length) || (forets && forets.length)"
       class="tablet-blob-3-4"
     >
-      <h6>Territoires</h6>
+      <h5>Territoires</h5>
       <template v-if="pays && pays.length">
         <div v-for="region in pays[0].regions" :key="region.id">
           <div v-for="departement in region.departements" :key="departement.id">
-            <h5 class="mb-s">
+            <h6 class="mb-s">
               {{
                 pays[0].nom === 'République Française'
                   ? region.nom + ' / ' + departement.nom
                   : region.nom
               }}
-            </h5>
+            </h6>
             <TagList :elements="departement.communes.map(c => c.nom)" />
           </div>
         </div>
       </template>
       <div v-if="forets && forets.length">
         <div>
-          <h5 class="mb-s">Forêts</h5>
+          <h6 class="mb-s">Forêts</h6>
           <TagList :elements="forets.map(f => f.nom)" />
         </div>
       </div>

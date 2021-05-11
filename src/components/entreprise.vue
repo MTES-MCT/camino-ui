@@ -1,7 +1,7 @@
 <template>
   <Loader v-if="!loaded" />
   <div v-else>
-    <h6>Entreprise</h6>
+    <h5>Entreprise</h5>
     <h1>
       {{ nom }}
     </h1>
@@ -28,7 +28,7 @@
         <div class="px-m pt-m border-b-s">
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Siren</h6>
+              <h5>Siren</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ entreprise.legalSiren }}</p>
@@ -37,7 +37,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Forme juridique</h6>
+              <h5>Forme juridique</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ entreprise.legalForme }}</p>
@@ -46,18 +46,18 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>
+              <h5>
                 Établissement{{
                   entreprise.etablissements.length > 1 ? 's' : ''
                 }}
-              </h6>
+              </h5>
             </div>
             <div class="tablet-blob-3-4">
               <ul class="list-sans">
                 <li v-for="e in entreprise.etablissements" :key="e.id">
-                  <h5 class="inline-block">
+                  <h6 class="inline-block">
                     {{ dateFormat(e.dateDebut) }}
-                  </h5>
+                  </h6>
                   : {{ e.nom }}
                 </li>
               </ul>
@@ -66,7 +66,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Adresse</h6>
+              <h5>Adresse</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>
@@ -79,7 +79,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Téléphone</h6>
+              <h5>Téléphone</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -93,7 +93,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Email</h6>
+              <h5>Email</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -111,7 +111,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Site</h6>
+              <h5>Site</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p class="word-break">
@@ -129,7 +129,7 @@
 
           <div class="tablet-blobs">
             <div class="tablet-blob-1-4">
-              <h6>Archivée</h6>
+              <h5>Archivée</h5>
             </div>
             <div class="tablet-blob-3-4">
               <p>{{ entreprise.archive ? 'Oui' : 'Non' }}</p>

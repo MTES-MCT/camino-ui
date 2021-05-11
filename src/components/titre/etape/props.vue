@@ -5,7 +5,7 @@
       class="tablet-blobs"
     >
       <div class="tablet-blob-1-4">
-        <h6>
+        <h5>
           Substance{{ etape.substances.length > 1 ? 's' : '' }}
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.substances"
@@ -15,7 +15,7 @@
           >
             Incertain
           </Tag>
-        </h6>
+        </h5>
       </div>
       <div class="tablet-blob-3-4">
         <TagList :elements="etape.substances.map(s => s.nom)" />
@@ -26,7 +26,7 @@
       class="tablet-blobs"
     >
       <div class="tablet-blob-1-4">
-        <h6>
+        <h5>
           Titulaire{{ etape.titulaires.length > 1 ? 's' : '' }}
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.titulaires"
@@ -35,7 +35,7 @@
           >
             Incertain
           </Tag>
-        </h6>
+        </h5>
       </div>
       <div class="tablet-blob-3-4">
         <ul class="list-prefix mb">
@@ -53,7 +53,7 @@
       class="tablet-blobs"
     >
       <div class="tablet-blob-1-4">
-        <h6>
+        <h5>
           Amodiataire{{ etape.amodiataires.length > 1 ? 's' : '' }}
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.amodiataires"
@@ -63,7 +63,7 @@
           >
             Incertain
           </Tag>
-        </h6>
+        </h5>
       </div>
       <div class="tablet-blob-3-4">
         <ul class="list-prefix">
@@ -75,7 +75,7 @@
     </div>
     <div v-if="etape.duree" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>
+        <h5>
           Durée
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.duree"
@@ -85,7 +85,7 @@
           >
             Incertain
           </Tag>
-        </h6>
+        </h5>
       </div>
       <div class="tablet-blob-3-4">
         <p>
@@ -96,7 +96,7 @@
 
     <div v-if="etape.dateDebut" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>
+        <h5>
           Date de début
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.dateDebut"
@@ -106,7 +106,7 @@
           >
             Incertain
           </Tag>
-        </h6>
+        </h5>
       </div>
       <div class="tablet-blob-3-4">
         <p>
@@ -116,7 +116,7 @@
     </div>
     <div v-if="etape.dateFin" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>
+        <h5>
           Date d'échéance
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.dateFin"
@@ -126,7 +126,7 @@
           >
             Incertain
           </Tag>
-        </h6>
+        </h5>
       </div>
       <div class="tablet-blob-3-4">
         <p>
@@ -136,7 +136,7 @@
     </div>
     <div v-if="etape.surface" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>
+        <h5>
           Surface
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.surface"
@@ -146,7 +146,7 @@
           >
             Incertain
           </Tag>
-        </h6>
+        </h5>
       </div>
       <div class="tablet-blob-3-4">
         <p>{{ numberFormat(etape.surface) }} km² environ</p>
@@ -154,7 +154,7 @@
     </div>
     <div v-if="etape.points && etape.points.length" class="tablet-blobs">
       <div class="tablet-blob-1-4">
-        <h6>
+        <h5>
           Périmètre
           <Tag
             v-if="etape.incertitudes && etape.incertitudes.points"
@@ -164,7 +164,7 @@
           >
             Incertain
           </Tag>
-        </h6>
+        </h5>
       </div>
       <div class="tablet-blob-3-4">
         <Points :points="etape.points" />

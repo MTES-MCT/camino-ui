@@ -1,6 +1,6 @@
 <template>
   <div v-if="contenuElement" class="flex">
-    <p class="mb-0 h5 bold">
+    <p class="mb-0 h6 bold">
       {{
         contenuElement && contenuElement.name
           ? contenuElement.name
@@ -26,7 +26,7 @@
         @change="fileChange"
       />
     </label>
-    <p class="h5">30 Mo max.</p>
+    <p class="h6">30 Mo max.</p>
   </div>
 </template>
 

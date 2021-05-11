@@ -2,9 +2,9 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h5 class="cap-first">
+        <h6 class="cap-first">
           {{ title }}
-        </h5>
+        </h6>
         <h2 class="cap-first">Association de justificatifs d'entreprise</h2>
       </div>
     </template>
@@ -30,14 +30,14 @@
           class="tablet-blobs"
         >
           <div class="tablet-blob-1-3 pb-s">
-            <h6>Documents</h6>
+            <h5>Documents</h5>
           </div>
           <div class="tablet-blob-2-3">
             <ul class="list-sans mb-0">
               <li
                 v-for="document in entreprise.documents"
                 :key="document.id"
-                class="h5"
+                class="h6"
               >
                 <label>
                   <input
@@ -55,7 +55,7 @@
             </ul>
           </div>
         </div>
-        <div v-else class="h5 italic">
+        <div v-else class="h6 italic">
           Cette entreprise n'a pas de documents associés.
         </div>
       </div>

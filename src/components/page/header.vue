@@ -25,7 +25,7 @@
           <p class="mb-0 mt-xs title">
             camino<span class="color-neutral">.beta.gouv.fr</span>
           </p>
-          <p class="h5 mb-0 bold color-text">
+          <p class="h6 mb-0 bold color-text">
             Le cadastre minier numérique ouvert
           </p>
         </div>
@@ -36,7 +36,7 @@
           <p class="mb-0 mt-xs title">
             camino<span class="color-neutral">.beta.gouv.fr</span>
           </p>
-          <p class="h5 mb-0 bold color-text">
+          <p class="h6 mb-0 bold color-text">
             Le cadastre minier numérique ouvert
           </p>
         </div>

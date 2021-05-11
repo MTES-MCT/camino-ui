@@ -16,10 +16,10 @@
         </div>
         <div v-for="prop in element.elements" :key="prop.id" class="mb-s">
           <div class="flex">
-            <h6 class="mb-0">
+            <h5 class="mb-0">
               <span class="cap-first">{{ prop.nom }}</span>
-            </h6>
-            <p v-if="prop.optionnel" class="h5 italic mb-s flex-right lh-1-25">
+            </h5>
+            <p v-if="prop.optionnel" class="h6 italic mb-s flex-right lh-1-25">
               Optionnel
             </p>
           </div>

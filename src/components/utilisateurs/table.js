@@ -53,7 +53,7 @@ const utilisateursLignesBuild = utilisateurs =>
     const columns = {
       prenom: { value: utilisateur.prenom || '–' },
       nom: { value: utilisateur.nom || '–' },
-      email: { value: utilisateur.email || '–', class: ['h5'] },
+      email: { value: utilisateur.email || '–', class: ['h6'] },
       permissions: {
         value: (utilisateur.permission && utilisateur.permission.nom) || '–',
         class: [

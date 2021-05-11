@@ -1,5 +1,5 @@
 <template>
-  <p class="h5 bold cap-first mb-0">
+  <p class="h6 bold cap-first mb-0">
     {{ nom }}
   </p>
 </template>

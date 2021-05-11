@@ -2,11 +2,11 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h5>
+        <h6>
           <span class="cap-first">{{ titreNom }}</span
           ><span class="color-neutral"> | </span
           ><span class="cap-first">{{ titreTypeNom }} </span>
-        </h5>
+        </h6>
         <h2 class="cap-first">
           {{ creation ? 'Ajout de' : 'Modification des' }} travaux
         </h2>
@@ -15,7 +15,7 @@
     <div>
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Type</h6>
+          <h5>Type</h5>
         </div>
         <div class="mb tablet-blob-2-3">
           <select v-model="travaux.typeId" class="p-s mr">

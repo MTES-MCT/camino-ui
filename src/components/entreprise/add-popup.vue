@@ -8,7 +8,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Pays</h6>
+        <h5>Pays</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <select v-model="entreprise.paysId" class="p-s mr" :disabled="true">
@@ -20,7 +20,7 @@
     </div>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Siren</h6>
+        <h5>Siren</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <div>

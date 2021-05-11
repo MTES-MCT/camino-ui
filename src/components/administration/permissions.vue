@@ -3,7 +3,7 @@
     <div class="mb-xxl">
       <h3>Administration gestionnaire ou associée</h3>
 
-      <div class="h5">
+      <div class="h6">
         <ul class="list-prefix">
           <li>
             Un utilisateur d'une <b>administration gestionnaire</b> peut créer
@@ -152,7 +152,7 @@
     <div v-if="administration.type.id" class="mb-xxl">
       <h3>Restrictions de l'édition des titres, démarches et étapes</h3>
 
-      <div class="h5">
+      <div class="h6">
         <p class="mb-s">Par défaut :</p>
         <ul class="list-prefix mb-s">
           <li>
@@ -387,7 +387,7 @@
     <div v-if="administration.type.id" class="mb-xxl">
       <h3>Restrictions de la visibilité, édition et création des étapes</h3>
 
-      <div class="h5">
+      <div class="h6">
         <p class="mb-s">
           Par défaut, un utilisateur d'une administration gestionnaire ou locale
           peut voir, modifier et créer des étapes des titre.
@@ -605,7 +605,7 @@
     <div class="mb-xxl">
       <h3>Restriction de la visibilité et de l'édition des activités</h3>
 
-      <div class="h5">
+      <div class="h6">
         <p class="mb-s">
           Par défaut, un utilisateur d'une administration gestionnaire ou locale
           peut voir et modifier les activités des titres.

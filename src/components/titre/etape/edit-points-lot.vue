@@ -2,15 +2,15 @@
   <div>
     <div class="mb">
       <div class="flex">
-        <h6>Description</h6>
-        <p class="h5 italic mb-0 flex-right mt-xs">Optionnel</p>
+        <h5>Description</h5>
+        <p class="h6 italic mb-0 flex-right mt-xs">Optionnel</p>
       </div>
       <input v-model="point.description" type="text" class="p-s" />
     </div>
 
-    <h6>
+    <h5>
       Coordonnées en {{ etapeGeoSysteme.nom }} ({{ etapeGeoSysteme.unite.nom }})
-    </h6>
+    </h5>
     <textarea
       class="p-s mb-s mono"
       :value="point.references.join('\n')"
@@ -19,7 +19,7 @@
       @focus="pointsLotEdit"
     />
 
-    <div class="h5 p-s">
+    <div class="h6 p-s">
       <ul class="list-prefix">
         <li>Ce champ contient une paire de coordonnées par ligne.</li>
         <li>

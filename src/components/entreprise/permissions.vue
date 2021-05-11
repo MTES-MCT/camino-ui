@@ -3,7 +3,7 @@
     <div class="mb-xxl">
       <h3>Création de demandes de titres</h3>
 
-      <div class="h5">
+      <div class="h6">
         <p>Droit de faire des demande de titres par domaine / type de titre.</p>
       </div>
 

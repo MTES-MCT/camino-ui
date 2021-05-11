@@ -1,7 +1,7 @@
 <template>
   <div v-if="visible">
     <h4 :class="{ 'mb-s': documentType.optionnel }">{{ documentType.nom }}</h4>
-    <p v-if="documentType.optionnel" class="h5 italic mb">Optionnel</p>
+    <p v-if="documentType.optionnel" class="h6 italic mb">Optionnel</p>
 
     <hr />
 

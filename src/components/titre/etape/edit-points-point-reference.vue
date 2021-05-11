@@ -1,21 +1,21 @@
 <template>
   <div class="tablet-blobs">
     <div class="mb tablet-blob-1-3">
-      <h6>
+      <h5>
         Système
         <span
           v-if="geoSystemeOpposableId === geoSysteme.id"
           class="bg-info py-xxs px-xs rnd-xs color-bg ml-xxs"
           >Opposable</span
         >
-      </h6>
+      </h5>
 
-      <p class="py-s mb-0 h5 bold">
+      <p class="py-s mb-0 h6 bold">
         {{ geoSysteme.nom }}
       </p>
     </div>
     <div class="mb tablet-blob-1-3">
-      <h6>X ({{ geoSysteme.unite.nom }})</h6>
+      <h5>X ({{ geoSysteme.unite.nom }})</h5>
       <inputNumber
         v-model="pointReference[0]"
         :negative="true"
@@ -23,7 +23,7 @@
       />
     </div>
     <div class="mb tablet-blob-1-3">
-      <h6>Y ({{ geoSysteme.unite.nom }})</h6>
+      <h5>Y ({{ geoSysteme.unite.nom }})</h5>
       <inputNumber
         v-model="pointReference[1]"
         :negative="true"

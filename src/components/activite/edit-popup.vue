@@ -2,11 +2,11 @@
   <Popup :messages="messages">
     <template #header>
       <div>
-        <h6>
+        <h5>
           <span class="cap-first">
             {{ activite.type.nom }}
           </span>
-        </h6>
+        </h5>
         <h2 class="cap-first">
           <span v-if="activite.periode">{{ activite.periode.nom }}</span>
           {{ activite.annee }}
@@ -17,7 +17,7 @@
     <!-- eslint-disable vue/no-v-html -->
     <div
       v-if="activite.type.description"
-      class="h5"
+      class="h6"
       v-html="activite.type.description"
     />
 

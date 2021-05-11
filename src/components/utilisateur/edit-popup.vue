@@ -16,7 +16,7 @@
     </div>
     <div v-if="permissionsCheck(user, ['super', 'admin'])" class="tablet-blobs">
       <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Email</h6>
+        <h5>Email</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -32,7 +32,7 @@
       <hr />
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Mot de passe</h6>
+          <h5>Mot de passe</h5>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
@@ -41,7 +41,7 @@
             class="p-s mb-s"
             placeholder="Mot de passe"
           />
-          <p class="h5 mb-0">8 caractères minimum.</p>
+          <p class="h6 mb-0">8 caractères minimum.</p>
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Prénom</h6>
+        <h5>Prénom</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -64,7 +64,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Nom</h6>
+        <h5>Nom</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -79,7 +79,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Téléphone fixe</h6>
+        <h5>Téléphone fixe</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -94,7 +94,7 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Téléphone mobile</h6>
+        <h5>Téléphone mobile</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -110,7 +110,7 @@
       <hr />
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h6>Permissions</h6>
+          <h5>Permissions</h5>
         </div>
         <div class="mb tablet-blob-2-3">
           <ul class="list-inline mb-0">
@@ -170,7 +170,7 @@
         <button
           v-if="!utilisateur.entreprises.some(({ id }) => id === '')"
           id="cmn-utilisateur-edit-popup-entreprise-button-ajouter"
-          class="btn rnd-xs py-s px-m full-x flex mb h5"
+          class="btn small rnd-xs py-s px-m full-x flex mb"
           @click="entrepriseAdd"
         >
           <span class="mt-xxs">Ajouter une entreprise</span
@@ -230,7 +230,7 @@
             utilisateurAdministrationsLength < 1
           "
           id="cmn-utilisateur-edit-popup-administration-button-ajouter"
-          class="btn rnd-xs py-s px-m full-x flex mb h5"
+          class="btn small rnd-xs py-s px-m full-x flex mb"
           @click="administrationAdd"
         >
           <span class="mt-xxs">Ajouter une administration</span

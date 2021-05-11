@@ -2,10 +2,10 @@
   <div>
     <div class="tablet-blobs">
       <div v-if="element.nom" class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">
+        <h5 class="mb-0">
           <span class="cap-first">{{ element.nom }}</span>
-        </h6>
-        <p v-if="element.optionnel" class="h5 italic mb-0">Optionnel</p>
+        </h5>
+        <p v-if="element.optionnel" class="h6 italic mb-0">Optionnel</p>
       </div>
 
       <EditHeritage
@@ -38,7 +38,7 @@
         </template>
 
         <!-- eslint-disable vue/no-v-html -->
-        <p v-if="element.description" class="h5" v-html="element.description" />
+        <p v-if="element.description" class="h6" v-html="element.description" />
       </EditHeritage>
     </div>
 

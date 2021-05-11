@@ -1,7 +1,7 @@
 <template>
   <Dropdown class="full-x" :opened="opened" @toggle="toggle">
     <template #title>
-      <span class="h5">Téléchargements</span>
+      <span class="h6">Téléchargements</span>
     </template>
     <div>
       <Download

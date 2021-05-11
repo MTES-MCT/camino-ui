@@ -34,17 +34,17 @@
                 />
               </td>
               <td>
-                <span class="cap-first bold h6 mb-0">
+                <span class="cap-first bold h5 mb-0">
                   {{ demarche.type.nom }}
                 </span>
               </td>
               <td>
-                <span class="h6 mb-0">{{
+                <span class="h5 mb-0">{{
                   dateFormat(demarche.phase.dateDebut)
                 }}</span>
               </td>
               <td>
-                <span class="h6 mb-0">{{
+                <span class="h5 mb-0">{{
                   dateFormat(demarche.phase.dateFin)
                 }}</span>
               </td>
@@ -53,7 +53,7 @@
         </div>
 
         <div v-if="titre.references && titre.references.length" class="mb">
-          <ul class="list-prefix h5">
+          <ul class="list-prefix h6">
             <li v-for="reference in titre.references" :key="reference.nom">
               <span v-if="reference.type" class="word-break fixed-width bold">
                 {{ reference.type.nom }}
@@ -67,14 +67,14 @@
 
     <div class="desktop-blob-1-2 mt">
       <div v-if="titre.substances && titre.substances.length > 0" class="mb">
-        <h6>Substances</h6>
+        <h5>Substances</h5>
         <TagList :elements="titre.substances.map(s => s.nom)" />
       </div>
 
       <div v-if="titre.titulaires.length" class="mb">
-        <h6>
+        <h5>
           {{ titre.titulaires.length > 1 ? 'Titulaires' : 'Titulaire' }}
-        </h6>
+        </h5>
         <ul class="list-inline">
           <li v-for="e in titre.titulaires" :key="e.id" class="mb-xs mr-xs">
             <router-link
@@ -94,9 +94,9 @@
       </div>
 
       <div v-if="titre.amodiataires.length" class="mb">
-        <h6>
+        <h5>
           {{ titre.amodiataires.length > 1 ? 'Amodiataires' : 'Amodiataire' }}
-        </h6>
+        </h5>
         <ul class="list-prefix">
           <li v-for="e in titre.amodiataires" :key="e.id">
             <router-link

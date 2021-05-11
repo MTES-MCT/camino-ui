@@ -10,7 +10,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Nom</h6>
+        <h5>Nom</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input v-model="administration.nom" type="text" class="p-s" />
@@ -21,7 +21,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Type</h6>
+        <h5>Type</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <select v-model="administration.typeId" class="p-s">
@@ -41,7 +41,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6>Abréviation</h6>
+        <h5>Abréviation</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <input v-model="administration.abreviation" type="text" class="p-s" />
@@ -52,8 +52,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Service</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Service</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
         <input v-model="administration.service" type="text" class="p-s" />
@@ -64,8 +64,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Téléphone</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Téléphone</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -80,8 +80,8 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Adresse électronique</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Adresse électronique</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -96,8 +96,8 @@
     <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Site internet</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Site internet</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
         <input
@@ -113,8 +113,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Adresse 1</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Adresse 1</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
         <input v-model="administration.adresse1" type="text" class="p-s" />
@@ -125,8 +125,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Adresse 2</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Adresse 2</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
         <input v-model="administration.adresse2" type="text" class="p-s" />
@@ -137,8 +137,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Code Postal</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Code Postal</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
         <input v-model="administration.codePostal" type="text" class="p-s" />
@@ -149,8 +149,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Commune</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Commune</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
         <input v-model="administration.commune" type="text" class="p-s" />
@@ -161,8 +161,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Cedex</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Cedex</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3">
         <input v-model="administration.cedex" type="text" class="p-s" />
@@ -173,8 +173,8 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Administration locale</h6>
-        <p class="h5 italic mb-0">Optionnel</p>
+        <h5 class="mb-0">Administration locale</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="mb tablet-blob-2-3 tablet-pt-s">
         <p class="mb-s">
@@ -190,7 +190,7 @@
           </label>
         </p>
 
-        <p class="h5 italic mb-0">
+        <p class="h6 italic mb-0">
           Un utilisateur d'une administration locale peut créer et modifier le
           contenu des titres du territoire concerné.
         </p>
@@ -199,7 +199,7 @@
 
     <div v-if="lienCurrent === 'departement'" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Département</h6>
+        <h5 class="mb-0">Département</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <select v-model="administration.departementId" class="p-s">
@@ -217,7 +217,7 @@
 
     <div v-if="lienCurrent === 'region'" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h6 class="mb-0">Région</h6>
+        <h5 class="mb-0">Région</h5>
       </div>
       <div class="mb tablet-blob-2-3">
         <select v-model="administration.regionId" class="p-s">

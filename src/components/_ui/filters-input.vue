@@ -1,6 +1,6 @@
 <template>
   <div class="mb">
-    <h6>{{ filter.name }}</h6>
+    <h5>{{ filter.name }}</h5>
     <hr class="mb-s" />
 
     <input
