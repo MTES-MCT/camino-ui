@@ -42,7 +42,7 @@ const actions = {
       const data = await utilisateur({ id })
 
       if (data) {
-        commit('set', data)
+        commit('set', data.utilisateur)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -58,7 +58,7 @@ const actions = {
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'utilisateurAdd', { root: true })
     try {
-      const data = await utilisateurCreer({ utilisateur })
+      const data = (await utilisateurCreer({ utilisateur })).utilisateurCreer
 
       commit('popupClose', null, { root: true })
 
@@ -84,7 +84,8 @@ const actions = {
     commit('loadingAdd', 'utilisateurUpdate', { root: true })
 
     try {
-      const data = await utilisateurModifier({ utilisateur })
+      const data = (await utilisateurModifier({ utilisateur }))
+        .utilisateurModifier
 
       commit('popupClose', null, { root: true })
 
@@ -149,7 +150,7 @@ const actions = {
     commit('loadingAdd', 'utilisateurEmailVerification', { root: true })
 
     try {
-      await utilisateurEmailMessageEnvoyer({
+      const data = await utilisateurEmailMessageEnvoyer({
         email
       })
 
@@ -202,7 +203,7 @@ const actions = {
     commit('loadingAdd', 'utilisateurRemove', { root: true })
 
     try {
-      const data = await utilisateurSupprimer({ id })
+      const data = (await utilisateurSupprimer({ id })).utilisateurSupprimer
 
       if (rootState.user.element.id === data.id) {
         await dispatch('user/logout', null, { root: true })
