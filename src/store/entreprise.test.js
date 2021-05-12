@@ -58,7 +58,12 @@ describe("état de l'entreprise sélectionnée", () => {
   })
 
   test('obtient une entreprise', async () => {
-    const apiMock = api.entreprise.mockResolvedValue({ id: 71, nom: 'toto' })
+    const apiMock = api.entreprise.mockResolvedValue({
+      entreprise: {
+        id: 71,
+        nom: 'toto'
+      }
+    })
     await store.dispatch('entreprise/get', 71)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
@@ -85,7 +90,7 @@ describe("état de l'entreprise sélectionnée", () => {
   })
 
   test("supprime les données d'entreprise", () => {
-    store.commit('entreprise/set', { id: 71, nom: 'toto' })
+    store.commit('entreprise/set', { entreprise: { id: 71, nom: 'toto' } })
     store.commit('entreprise/reset')
 
     expect(store.state.entreprise.element).toBeNull()
@@ -93,8 +98,10 @@ describe("état de l'entreprise sélectionnée", () => {
 
   test('ajoute une entreprise', async () => {
     const apiMock = api.entrepriseCreer.mockResolvedValue({
-      id: 71,
-      nom: 'toto'
+      entrepriseCreer: {
+        id: 71,
+        nom: 'toto'
+      }
     })
 
     await store.dispatch('entreprise/add', {
@@ -132,8 +139,10 @@ describe("état de l'entreprise sélectionnée", () => {
 
   test('modifie une entreprise', async () => {
     const apiMock = api.entrepriseModifier.mockResolvedValue({
-      id: 71,
-      nom: 'toto'
+      entrepriseModifier: {
+        id: 71,
+        nom: 'toto'
+      }
     })
 
     await store.dispatch('entreprise/update', {
@@ -170,9 +179,9 @@ describe("état de l'entreprise sélectionnée", () => {
   })
 
   test('récupère les métas pour éditer les permissions', async () => {
-    const apiMock = api.entreprisePermissionsMetas.mockResolvedValue([
-      { id: 'm', nom: 'minéraux et métaux' }
-    ])
+    const apiMock = api.entreprisePermissionsMetas.mockResolvedValue({
+      domaines: [{ id: 'm', nom: 'minéraux et métaux' }]
+    })
 
     await store.dispatch('entreprise/permissionsInit')
 
@@ -198,8 +207,10 @@ describe("état de l'entreprise sélectionnée", () => {
 
   test('modifie les permissions (type de titres)', async () => {
     const apiMock = api.entrepriseTitreTypeUpdate.mockResolvedValue({
-      id: 71,
-      nom: 'nom admin'
+      entrepriseTitreTypeModifier: {
+        id: 71,
+        nom: 'nom admin'
+      }
     })
 
     await store.dispatch('entreprise/titreTypeUpdate', {

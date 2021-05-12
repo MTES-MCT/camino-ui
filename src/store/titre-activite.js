@@ -17,7 +17,7 @@ const actions = {
       const data = await activite({ id })
 
       if (data) {
-        commit('set', data)
+        commit('set', data.activite)
       } else {
         dispatch('pageError', null, { root: true })
       }

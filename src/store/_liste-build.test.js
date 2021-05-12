@@ -90,8 +90,10 @@ describe('listes', () => {
     const apiMetasMock = listeMetasGet.mockResolvedValue(types)
 
     const apiMock = listeElementsGet.mockResolvedValue({
-      elements: [{ id: 'el-1', nom: 'élement 1' }],
-      total: 1
+      key: {
+        elements: [{ id: 'el-1', nom: 'élement 1' }],
+        total: 1
+      }
     })
 
     await store.dispatch('liste/init')
@@ -139,8 +141,10 @@ describe('listes', () => {
 
   test('modifie les paramètres de filtre', async () => {
     const apiMock = listeElementsGet.mockResolvedValue({
-      elements: [{ id: 'el-1', nom: 'élement 1' }],
-      total: 1
+      key: {
+        elements: [{ id: 'el-1', nom: 'élement 1' }],
+        total: 1
+      }
     })
 
     store.state.liste.params.table.page = 2
@@ -175,8 +179,10 @@ describe('listes', () => {
 
   test("met à jour la liste si les paramètres d'url changent", async () => {
     const apiMock = listeElementsGet.mockResolvedValue({
-      elements: [{ id: 'el-1', nom: 'élement 1' }],
-      total: 1
+      key: {
+        elements: [{ id: 'el-1', nom: 'élement 1' }],
+        total: 1
+      }
     })
 
     await store.dispatch('liste/routeUpdate')
@@ -257,8 +263,10 @@ describe('listes sans metas', () => {
 
   test('initialise une liste sans metas', async () => {
     const apiMock = listeElementsGet.mockResolvedValue({
-      elements: [{ id: 'el-1', nom: 'élement 1' }],
-      total: 1
+      key: {
+        elements: [{ id: 'el-1', nom: 'élement 1' }],
+        total: 1
+      }
     })
 
     await store.dispatch('liste/init')
