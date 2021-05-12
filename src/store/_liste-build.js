@@ -41,7 +41,7 @@ const listeActionsBuild = (id, name, elements, metas) => ({
 
       const data = await elements(p)
 
-      commit('set', data)
+      commit('set', data[Object.keys(data)[0]])
 
       dispatch(
         'messageAdd',

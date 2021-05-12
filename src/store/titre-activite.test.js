@@ -133,9 +133,11 @@ describe("état d'une activité", () => {
 
   test('retourne une activité', async () => {
     api.activite.mockResolvedValue({
-      id: 27,
-      contenu: [],
-      statut: { id: 'dep' }
+      activite: {
+        id: 27,
+        contenu: [],
+        statut: { id: 'dep' }
+      }
     })
 
     await store.dispatch('titreActivite/get', 27)
