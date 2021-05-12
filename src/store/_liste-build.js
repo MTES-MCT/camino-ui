@@ -9,7 +9,7 @@ const listeActionsBuild = (id, name, elements, metas) => ({
       if (metas) {
         const data = await metas()
 
-        commit('metasSet', data)
+        commit('metasSet', data[Object.keys(data)[0]])
       }
 
       if (!state.initialized) {

@@ -61,7 +61,7 @@ describe("état de l'administration consultée", () => {
 
   test("obtient les données d'un administration", async () => {
     const administration = { id: 71, nom: 'toto' }
-    const apiMock = api.administration.mockResolvedValue(administration)
+    const apiMock = api.administration.mockResolvedValue({ administration })
     await store.dispatch('administration/get', 71)
 
     expect(apiMock).toHaveBeenCalledWith({ id: 71 })
@@ -79,7 +79,9 @@ describe("état de l'administration consultée", () => {
   })
 
   test("supprime les données d'administration", () => {
-    store.commit('administration/set', { id: 71, nom: 'toto' })
+    store.commit('administration/set', {
+      administration: { id: 71, nom: 'toto' }
+    })
     store.commit('administration/reset')
 
     expect(store.state.administration.element).toBeNull()
@@ -140,8 +142,10 @@ describe("état de l'administration consultée", () => {
 
   test('modifie une administration', async () => {
     const apiMock = api.administrationModifier.mockResolvedValue({
-      id: 71,
-      nom: 'nom admin'
+      administrationModifier: {
+        id: 71,
+        nom: 'nom admin'
+      }
     })
 
     await store.dispatch('administration/update', { id: 71, nom: 'nom admin' })
@@ -203,8 +207,10 @@ describe("état de l'administration consultée", () => {
 
   test('modifie les permissions (type de titres)', async () => {
     const apiMock = api.administrationTitreTypeUpdate.mockResolvedValue({
-      id: 71,
-      nom: 'nom admin'
+      administrationTitreTypeModifier: {
+        id: 71,
+        nom: 'nom admin'
+      }
     })
 
     await store.dispatch('administration/titreTypeUpdate', {
@@ -253,11 +259,14 @@ describe("état de l'administration consultée", () => {
   })
 
   test('modifie les permissions (type de titres / statut de titre)', async () => {
-    const apiMock =
-      api.administrationTitreTypeTitreStatutUpdate.mockResolvedValue({
-        id: 71,
-        nom: 'nom admin'
-      })
+    const apiMock = api.administrationTitreTypeTitreStatutUpdate.mockResolvedValue(
+      {
+        administrationTitreTypeTitreStatutModifier: {
+          id: 71,
+          nom: 'nom admin'
+        }
+      }
+    )
 
     await store.dispatch('administration/titreTypeTitreStatutUpdate', {
       administrationId: 'dea-guyane',
@@ -284,10 +293,9 @@ describe("état de l'administration consultée", () => {
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la modification des permissions (type de titre / statut de titre)", async () => {
-    const apiMock =
-      api.administrationTitreTypeTitreStatutUpdate.mockRejectedValue(
-        new Error('erreur api')
-      )
+    const apiMock = api.administrationTitreTypeTitreStatutUpdate.mockRejectedValue(
+      new Error('erreur api')
+    )
 
     await store.dispatch('administration/titreTypeTitreStatutUpdate', {
       administrationId: 'dea-guyane',
@@ -314,11 +322,14 @@ describe("état de l'administration consultée", () => {
   })
 
   test("modifie les permissions (type de titre / type d'étape)", async () => {
-    const apiMock =
-      api.administrationTitreTypeEtapeTypeUpdate.mockResolvedValue({
-        id: 71,
-        nom: 'nom admin'
-      })
+    const apiMock = api.administrationTitreTypeEtapeTypeUpdate.mockResolvedValue(
+      {
+        administrationTitreTypeEtapeTypeModifier: {
+          id: 71,
+          nom: 'nom admin'
+        }
+      }
+    )
 
     await store.dispatch('administration/titresTypeEtapeTypeUpdate', {
       administrationId: 'dea-guyane',
@@ -345,10 +356,9 @@ describe("état de l'administration consultée", () => {
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la modification des permissions (type de titre / type d'étape)", async () => {
-    const apiMock =
-      api.administrationTitreTypeEtapeTypeUpdate.mockRejectedValue(
-        new Error('erreur api')
-      )
+    const apiMock = api.administrationTitreTypeEtapeTypeUpdate.mockRejectedValue(
+      new Error('erreur api')
+    )
 
     await store.dispatch('administration/titresTypeEtapeTypeUpdate', {
       administrationId: 'dea-guyane',
@@ -376,8 +386,10 @@ describe("état de l'administration consultée", () => {
 
   test('modifie les restrictions (type des activités)', async () => {
     const apiMock = api.administrationActiviteTypeUpdate.mockResolvedValue({
-      id: 71,
-      nom: 'nom admin'
+      administrationActiviteTypeModifier: {
+        id: 71,
+        nom: 'nom admin'
+      }
     })
 
     await store.dispatch('administration/activiteTypeUpdate', {

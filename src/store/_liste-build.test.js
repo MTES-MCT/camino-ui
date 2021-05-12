@@ -87,7 +87,7 @@ describe('listes', () => {
       { id: 'ope', nom: 'Opérateur' },
       { id: 'dea', nom: 'Déal' }
     ]
-    const apiMetasMock = listeMetasGet.mockResolvedValue(types)
+    const apiMetasMock = listeMetasGet.mockResolvedValue({ key: types })
 
     const apiMock = listeElementsGet.mockResolvedValue({
       key: {
