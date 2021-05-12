@@ -109,14 +109,10 @@
                   :elements="colonne.elements"
                   @update="update($event, element, colonne.id)"
                 />
-                <EditString
+                <EditJson
                   v-else-if="definition.update && colonne.type === 'json'"
-                  :value="
-                    element[colonne.id]
-                      ? JSON.stringify(element[colonne.id])
-                      : ''
-                  "
-                  @update="update(JSON.parse($event), element, colonne.id)"
+                  :value="element[colonne.id]"
+                  @update="update($event, element, colonne.id)"
                 />
                 <EditString
                   v-else-if="definition.update && colonne.type === String"
@@ -145,6 +141,7 @@
 <script>
 import Loader from './_ui/loader.vue'
 import EditString from './_ui/edit-string.vue'
+import EditJson from './_ui/edit-json.vue'
 import EditNumber from './_ui/edit-number.vue'
 import EditArray from './_ui/edit-array.vue'
 import EditBoolean from './_ui/edit-boolean.vue'
@@ -159,7 +156,8 @@ export default {
     EditArray,
     EditBoolean,
     EditDate,
-    InputDate
+    InputDate,
+    EditJson
   },
 
   data() {
