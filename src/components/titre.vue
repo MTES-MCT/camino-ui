@@ -18,8 +18,8 @@
         <div class="tablet-blob-1-2 flex mb-s">
           <Download
             v-if="titre.points.length"
-            :query="{ id: titre.id }"
-            section="titre"
+            :params="titre.id"
+            section="titres"
             format="geojson"
             class="btn-border small pill pl pr-m py-s flex-right"
           >

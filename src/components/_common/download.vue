@@ -14,26 +14,26 @@ export default {
 
     format: { type: String, required: true },
 
-    query: { type: Object, default: () => ({}) }
+    query: { type: Object, default: () => ({}) },
+
+    params: { type: String, default: '' }
   },
 
   emits: ['clicked'],
 
-  computed: {
-    params() {
-      return { format: this.format, ...this.query }
-    }
-  },
-
   methods: {
     async download() {
       this.$emit('clicked')
-      const params = new URLSearchParams(this.params).toString()
+      const query = new URLSearchParams({
+        format: this.format,
+        ...this.query
+      }).toString()
 
-      const name = await this.$store.dispatch(
-        'download',
-        `${this.section}?${params}`
-      )
+      const url = this.params
+        ? `${this.section}/${this.params}?${query}`
+        : `${this.section}?${query}`
+
+      const name = await this.$store.dispatch('download', url)
 
       this.linkTrack(name)
     },
