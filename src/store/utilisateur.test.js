@@ -127,7 +127,7 @@ describe("état de l'utilisateur consulté", () => {
 
   test('retourne un utilisateur', async () => {
     const utilisateur = { id: 71, nom: 'toto', prenom: 'asticot' }
-    const apiMock = api.utilisateur.mockResolvedValue(utilisateur)
+    const apiMock = api.utilisateur.mockResolvedValue({ utilisateur })
     await store.dispatch('utilisateur/get', 71)
 
     expect(apiMock).toHaveBeenCalled()
@@ -156,7 +156,9 @@ describe("état de l'utilisateur consulté", () => {
   })
 
   test("supprime les données d'utilisateur", () => {
-    store.commit('utilisateur/set', { id: 71, nom: 'toto', prenom: 'asticot' })
+    store.commit('utilisateur/set', {
+      utilisateur: { id: 71, nom: 'toto', prenom: 'asticot' }
+    })
     store.commit('utilisateur/reset')
 
     expect(store.state.utilisateur.element).toBeNull()
@@ -164,9 +166,11 @@ describe("état de l'utilisateur consulté", () => {
 
   test('ajoute un utilisateur', async () => {
     const apiMock = api.utilisateurCreer.mockResolvedValue({
-      id: 71,
-      nom: 'toto',
-      prenom: 'asticot'
+      utilisateurCreer: {
+        id: 71,
+        nom: 'toto',
+        prenom: 'asticot'
+      }
     })
     await store.dispatch('utilisateur/add', {
       id: 71,
@@ -201,9 +205,11 @@ describe("état de l'utilisateur consulté", () => {
   test('modifie un utilisateur', async () => {
     user.state.element = { id: 72 }
     const apiMock = api.utilisateurModifier.mockResolvedValue({
-      id: 71,
-      nom: 'Asticot',
-      prenom: 'Julien'
+      utilisateurModifier: {
+        id: 71,
+        nom: 'Asticot',
+        prenom: 'Julien'
+      }
     })
     await store.dispatch('utilisateur/update', {
       id: 71,
@@ -223,9 +229,11 @@ describe("état de l'utilisateur consulté", () => {
   test("modifie l'utilisateur actif", async () => {
     user.state.element = { id: 71, nom: 'Ouistiti', prenom: 'Marcel' }
     const apiMock = api.utilisateurModifier.mockResolvedValue({
-      id: 71,
-      nom: 'Asticot',
-      prenom: 'Julien'
+      utilisateurModifier: {
+        id: 71,
+        nom: 'Asticot',
+        prenom: 'Julien'
+      }
     })
     await store.dispatch('utilisateur/update', {
       id: 71,
@@ -262,9 +270,11 @@ describe("état de l'utilisateur consulté", () => {
 
   test('supprime un utilisateur', async () => {
     const apiMock = api.utilisateurSupprimer.mockResolvedValue({
-      id: 71,
-      nom: 'toto',
-      prenom: 'asticot'
+      utilisateurSupprimer: {
+        id: 71,
+        nom: 'toto',
+        prenom: 'asticot'
+      }
     })
     await store.dispatch('utilisateur/remove', 46)
 
@@ -277,9 +287,11 @@ describe("état de l'utilisateur consulté", () => {
 
   test('supprime un utilisateur et le déconnecte', async () => {
     const apiMock = api.utilisateurSupprimer.mockResolvedValue({
-      id: 71,
-      nom: 'toto',
-      prenom: 'asticot'
+      utilisateurSupprimer: {
+        id: 71,
+        nom: 'toto',
+        prenom: 'asticot'
+      }
     })
 
     user.state.element = { id: 71 }
