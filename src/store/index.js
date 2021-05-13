@@ -86,7 +86,7 @@ const actions = {
   },
 
   pageError({ commit }) {
-    commit('errorAdd', {
+    commit('errorUpdate', {
       type: 'error',
       value: `Erreur: page introuvable`
     })
@@ -94,7 +94,7 @@ const actions = {
 
   errorRemove({ state, commit }) {
     if (state.error) {
-      commit('errorRemove')
+      commit('errorUpdate', null)
     }
   },
 
@@ -236,12 +236,8 @@ const mutations = {
     state.popup.loading = false
   },
 
-  errorAdd(state, error) {
+  errorUpdate(state, error) {
     state.error = error
-  },
-
-  errorRemove(state) {
-    state.error = null
   },
 
   menuOpen(state, component) {

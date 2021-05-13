@@ -187,14 +187,26 @@ export default {
     }
   },
 
+  watch: {
+    entreprises: 'init'
+  },
+
   async created() {
-    await this.$store.dispatch('titreDemande/init')
-    if (this.entreprises?.length === 1) {
-      this.newTitre.entrepriseId = this.entreprises[0].id
-    }
+    await this.init()
   },
 
   methods: {
+    async init() {
+      if (!this.entreprises.length) {
+        await this.$store.dispatch('pageError')
+      }
+
+      await this.$store.dispatch('titreDemande/init')
+      if (this.entreprises?.length === 1) {
+        this.newTitre.entrepriseId = this.entreprises[0].id
+      }
+    },
+
     entrepriseUpdate(event) {
       this.newTitre = { entrepriseId: event.target.value, references: [] }
     },

@@ -1,19 +1,18 @@
 <template>
   <div class="tablet-blobs header-blobs mb">
-    <div class="tablet-blob-1-3">
-      <div v-if="!apiError" class="flex">
-        <div class="flex-right">
-          <div class="mt-m tablet-mb-m flex">
-            <div v-if="loaded" class="ml-xs">
-              <MenuButton />
-            </div>
-            <div v-if="loaded" class="ml-xs">
-              <UserButton />
-            </div>
+    <div class="tablet-blob-1-3 flex">
+      <div v-if="!apiError && loaded" class="flex-right">
+        <div class="mt-m tablet-mb-m flex">
+          <div class="ml-xs">
+            <MenuButton />
+          </div>
+          <div class="ml-xs">
+            <UserButton />
           </div>
         </div>
       </div>
     </div>
+
     <div class="tablet-blob-2-3 pt-m">
       <router-link
         v-if="$route.name !== 'titres'"
@@ -30,6 +29,7 @@
           </p>
         </div>
       </router-link>
+
       <span v-else class="flex">
         <img src="/img/logo-rf.svg" class="logo mr" />
         <div>

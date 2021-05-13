@@ -10,7 +10,6 @@ describe('etapeEditFormat', () => {
       })
     ).toEqual({
       id: 'etape-id',
-      titreDemarcheId: 'demarche-id',
       statutId: '',
       duree: { ans: null, mois: null },
       amodiataires: [],
@@ -46,7 +45,6 @@ describe('etapeEditFormat', () => {
       })
     ).toEqual({
       id: 'etape-id',
-      titreDemarcheId: 'demarche-id',
       statutId: '',
       duree: { ans: null, mois: null },
       amodiataires: [],
@@ -127,7 +125,6 @@ describe('etapeEditFormat', () => {
       })
     ).toEqual({
       id: 'etape-id',
-      titreDemarcheId: 'demarche-id',
       typeId: 'etape-type-id',
       statutId: 'etape-statut-id',
       duree: { ans: 20, mois: 0 },
@@ -182,7 +179,6 @@ describe('etapeEditFormat', () => {
       })
     ).toEqual({
       id: 'etape-id',
-      titreDemarcheId: 'demarche-id',
       statutId: '',
       duree: { ans: null, mois: null },
       amodiataires: [],

@@ -27,14 +27,15 @@ const state = {
   },
   preferences: {
     carte: { tilesId: 'osm-fr', markerLayersId: 'clusters' }
-  }
+  },
+  loaded: false
 }
 
 const actions = {
   async init({ commit, dispatch }) {
-    commit('loadingAdd', 'userInit', { root: true })
-
     try {
+      commit('loadingAdd', 'userInit', { root: true })
+
       const data = await userMetas({ titresCreation: true })
 
       commit('metasSet', data)
@@ -47,22 +48,28 @@ const actions = {
 
   async identify({ commit, dispatch }) {
     try {
+      commit('loadingAdd', 'userMoi', { root: true })
       const data = await moi()
 
       commit('set', data)
+
+      await dispatch('init')
     } catch (e) {
       dispatch('tokensRemove')
       commit('reset')
+    } finally {
+      commit('loadingRemove', 'userMoi', { root: true })
+      commit('load')
     }
   },
 
   async login({ commit, dispatch }, { email, motDePasse }) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('loadingAdd', 'utilisateurLogin', { root: true })
-
     try {
-      const data = await utilisateurTokenCreer({ email, motDePasse })
+      commit('loadingAdd', 'userLogin', { root: true })
 
+      commit('popupMessagesRemove', null, { root: true })
+
+      const data = await utilisateurTokenCreer({ email, motDePasse })
       const { utilisateur } = data
 
       dispatch('tokensSet', data)
@@ -76,21 +83,23 @@ const actions = {
         },
         { root: true }
       )
+
+      await dispatch('init')
       dispatch('errorRemove', null, { root: true })
     } catch (e) {
       dispatch('tokensRemove')
       commit('reset')
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'utilisateurLogin', { root: true })
+      commit('loadingRemove', 'userLogin', { root: true })
     }
   },
 
   async cerbereUrlGet({ commit }, url) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('loadingAdd', 'cerbereUrlGet', { root: true })
-
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('loadingAdd', 'cerbereUrlGet', { root: true })
+
       const data = await utilisateurCerbereUrlObtenir({ url })
 
       return data
@@ -102,17 +111,15 @@ const actions = {
   },
 
   async cerbereLogin({ commit, dispatch }, { ticket }) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('loadingAdd', 'cerbereLogin', { root: true })
-
     try {
+      commit('loadingAdd', 'userCerbereLogin', { root: true })
+
       const data = await utilisateurCerbereTokenCreer({ ticket })
 
       const { utilisateur } = data
 
       dispatch('tokensSet', data)
       commit('set', utilisateur)
-      commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
         {
@@ -121,13 +128,15 @@ const actions = {
         },
         { root: true }
       )
+
+      await dispatch('init')
       dispatch('errorRemove', null, { root: true })
     } catch (e) {
       dispatch('tokensRemove')
       commit('reset')
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'cerbereLogin', { root: true })
+      commit('loadingRemove', 'userCerbereLogin', { root: true })
+      commit('load')
     }
   },
 
@@ -143,10 +152,10 @@ const actions = {
   },
 
   async addEmail({ commit, dispatch }, email) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('loadingAdd', 'utilisateurAddEmail', { root: true })
-
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('loadingAdd', 'userAddEmail', { root: true })
+
       await utilisateurCreationMessageEnvoyer({ email })
 
       commit('popupClose', null, { root: true })
@@ -161,14 +170,14 @@ const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'utilisateurAddEmail', { root: true })
+      commit('loadingRemove', 'userAddEmail', { root: true })
     }
   },
 
   async add({ commit, dispatch }, utilisateur) {
-    commit('loadingAdd', 'userAdd', { root: true })
-
     try {
+      commit('loadingAdd', 'userAdd', { root: true })
+
       const data = await utilisateurCreer({ utilisateur })
 
       if (data) {
@@ -196,10 +205,10 @@ const actions = {
   },
 
   async passwordInitEmail({ commit, dispatch }, email) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('loadingAdd', 'utilisateurPasswordInitEmail', { root: true })
-
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('loadingAdd', 'utilisateurPasswordInitEmail', { root: true })
+
       const data = await utilisateurMotDePasseMessageEnvoyer({
         email
       })
@@ -215,9 +224,9 @@ const actions = {
   },
 
   async passwordInit({ commit, dispatch }, { motDePasse1, motDePasse2 }) {
-    commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
-
     try {
+      commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
+
       const data = await utilisateurMotDePasseInitialiser({
         motDePasse1,
         motDePasse2
@@ -297,6 +306,10 @@ const getters = {
 }
 
 const mutations = {
+  load(state) {
+    state.loaded = true
+  },
+
   preferencesSet(state, { section, params }) {
     Object.keys(params).forEach(id => {
       state.preferences[section][id] = params[id]
@@ -309,6 +322,8 @@ const mutations = {
 
   reset(state) {
     state.element = null
+    state.metas.entreprisesTitresCreation = []
+    state.metas.domaines = []
   },
 
   metasSet(state, data) {

@@ -80,15 +80,13 @@ export default {
     Error
   },
 
-  data() {
-    return {
-      loaded: false
-    }
-  },
-
   computed: {
     user() {
       return this.$store.state.user.element
+    },
+
+    loaded() {
+      return this.$store.state.user.loaded
     },
 
     error() {
@@ -116,16 +114,8 @@ export default {
     }
   },
 
-  watch: {
-    user: 'get'
-  },
-
   async created() {
     await this.init()
-
-    if (!this.user) {
-      await this.get()
-    }
 
     this.viewTrack()
   },
@@ -147,13 +137,6 @@ export default {
         await this.$store.dispatch('user/cerbereLogin', { ticket })
       } else {
         await this.$store.dispatch('user/identify')
-      }
-    },
-
-    async get() {
-      await this.$store.dispatch('user/init')
-      if (!this.loaded) {
-        this.loaded = true
       }
     },
 

@@ -102,8 +102,9 @@
           rel="noopener noreferrer"
           class="text-decoration-none"
         >
-          UI v.{{ versionUi }} </a
-        >|
+          UI v.{{ versionUi }}
+        </a>
+        |
         <a
           href="https://github.com/MTES-MCT/camino-api/blob/master/CHANGELOG.md"
           target="_blank"
