@@ -34,9 +34,8 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
       },
       { nom, description, contour, groupe, references, lot, subsidiaire }
     ) => {
-      const { pointReferences, pointGeoSystemesIndex } = referencesBuild(
-        references
-      )
+      const { pointReferences, pointGeoSystemesIndex } =
+        referencesBuild(references)
 
       const lotGeoSystemeId =
         geoSystemeOpposableId || Object.keys(pointGeoSystemesIndex)[0]

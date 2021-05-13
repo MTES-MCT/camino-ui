@@ -384,9 +384,10 @@ export default {
     },
 
     statsAnneesAfter2010() {
-      const statsAnneesAfter2010 = this.statistiquesGranulatsMarins.annees.filter(
-        annee => annee.annee >= 2010 && annee.annee < this.anneeCurrent
-      )
+      const statsAnneesAfter2010 =
+        this.statistiquesGranulatsMarins.annees.filter(
+          annee => annee.annee >= 2010 && annee.annee < this.anneeCurrent
+        )
 
       // affichage des données de l'année n-2 à partir du 1er avril de l'année en cours
       const toggleDate = new Date(this.anneeCurrent, 3, 1)
@@ -401,9 +402,10 @@ export default {
     },
 
     pexAnneeCurrent() {
-      const statistiquesGranulatsMarinsAnneeCurrent = this.statistiquesGranulatsMarins.annees.find(
-        annee => annee.annee === this.anneeCurrent
-      )
+      const statistiquesGranulatsMarinsAnneeCurrent =
+        this.statistiquesGranulatsMarins.annees.find(
+          annee => annee.annee === this.anneeCurrent
+        )
       return statistiquesGranulatsMarinsAnneeCurrent.titresPxw.quantite > 0
     }
   },

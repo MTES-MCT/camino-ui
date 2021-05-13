@@ -1,4 +1,8 @@
 {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   "eslint.validate": ["html", "javascript", "vue", "vue-html"],
   "vetur.format.enable": false,
   "vetur.validation.template": false,
@@ -19,9 +23,6 @@
     "statusBar.foreground": "#15202b"
   },
   "peacock.color": "#42b883",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
   "vetur.experimental.templateInterpolationService": true,
   "typescript.tsdk": "node_modules/typescript/lib"
 }

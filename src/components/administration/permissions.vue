@@ -235,7 +235,8 @@
                     !titreTypeTitreStatutNew.titreStatutId
                   "
                   @click="
-                    titreTypeTitreStatutNew.titresModificationInterdit = !titreTypeTitreStatutNew.titresModificationInterdit
+                    titreTypeTitreStatutNew.titresModificationInterdit =
+                      !titreTypeTitreStatutNew.titresModificationInterdit
                   "
                 >
                   <i
@@ -253,7 +254,8 @@
                     !titreTypeTitreStatutNew.titreStatutId
                   "
                   @click="
-                    titreTypeTitreStatutNew.demarchesModificationInterdit = !titreTypeTitreStatutNew.demarchesModificationInterdit
+                    titreTypeTitreStatutNew.demarchesModificationInterdit =
+                      !titreTypeTitreStatutNew.demarchesModificationInterdit
                   "
                 >
                   <i
@@ -271,7 +273,8 @@
                     !titreTypeTitreStatutNew.titreStatutId
                   "
                   @click="
-                    titreTypeTitreStatutNew.etapesModificationInterdit = !titreTypeTitreStatutNew.etapesModificationInterdit
+                    titreTypeTitreStatutNew.etapesModificationInterdit =
+                      !titreTypeTitreStatutNew.etapesModificationInterdit
                   "
                 >
                   <i
@@ -461,7 +464,8 @@
                     !titreTypeEtapeTypeNew.etapeTypeId
                   "
                   @click="
-                    titreTypeEtapeTypeNew.lectureInterdit = !titreTypeEtapeTypeNew.lectureInterdit
+                    titreTypeEtapeTypeNew.lectureInterdit =
+                      !titreTypeEtapeTypeNew.lectureInterdit
                   "
                 >
                   <i
@@ -479,7 +483,8 @@
                     !titreTypeEtapeTypeNew.etapeTypeId
                   "
                   @click="
-                    titreTypeEtapeTypeNew.modificationInterdit = !titreTypeEtapeTypeNew.modificationInterdit
+                    titreTypeEtapeTypeNew.modificationInterdit =
+                      !titreTypeEtapeTypeNew.modificationInterdit
                   "
                 >
                   <i
@@ -497,7 +502,8 @@
                     !titreTypeEtapeTypeNew.etapeTypeId
                   "
                   @click="
-                    titreTypeEtapeTypeNew.creationInterdit = !titreTypeEtapeTypeNew.creationInterdit
+                    titreTypeEtapeTypeNew.creationInterdit =
+                      !titreTypeEtapeTypeNew.creationInterdit
                   "
                 >
                   <i
@@ -645,7 +651,8 @@
                   class="btn p-xs rnd-xs"
                   :disabled="!activiteTypeNew.activiteTypeId"
                   @click="
-                    activiteTypeNew.lectureInterdit = !activiteTypeNew.lectureInterdit
+                    activiteTypeNew.lectureInterdit =
+                      !activiteTypeNew.lectureInterdit
                   "
                 >
                   <i
@@ -660,7 +667,8 @@
                   class="btn p-xs rnd-xs"
                   :disabled="!activiteTypeNew.activiteTypeId"
                   @click="
-                    activiteTypeNew.modificationInterdit = !activiteTypeNew.modificationInterdit
+                    activiteTypeNew.modificationInterdit =
+                      !activiteTypeNew.modificationInterdit
                   "
                 >
                   <i

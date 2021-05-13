@@ -23,8 +23,8 @@
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
     "release": "git pull --rebase --tags upstream master && standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",
     "start": "node ./index.js",
-    "test": "eslint --ext .js,.ts,.vue src && jest --verbose && codecov",
-    "lint": "eslint --fix --ext .js,.ts,.vue src",
+    "test": "prettier --check src && eslint --ext .js,.ts,.vue src && jest --verbose && codecov",
+    "lint": "prettier --write src && eslint --fix --ext .js,.ts,.vue src",
     "test:unit": "jest --watch --verbose"
   },
   "dependencies": {
@@ -65,11 +65,11 @@
     "cz-conventional-changelog": "^3.3.0",
     "email-validator": "^2.0.4",
     "eslint": "^7.25.0",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^7.9.0",
@@ -128,9 +128,9 @@
     "extends": [
       "plugin:vue/vue3-recommended",
       "standard",
+      "prettier",
       "prettier/standard",
-      "prettier/vue",
-      "plugin:prettier/recommended"
+      "prettier/vue"
     ],
     "rules": {
       "vue/no-mutating-props": 0,
@@ -140,7 +140,6 @@
       "parser": "@typescript-eslint/parser"
     },
     "plugins": [
-      "prettier",
       "jest"
     ]
   },

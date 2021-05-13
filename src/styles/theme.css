@@ -191,7 +191,7 @@ html {
 }
 
 .lh-1-25 {
-  line-height: calc(var(--unit)*1.25);
+  line-height: calc(var(--unit) * 1.25);
 }
 
 ul.li-mb-s > li {

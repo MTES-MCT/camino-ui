@@ -191,9 +191,8 @@ describe("état de l'utilisateur connecté", () => {
     const url = encodeURIComponent('http://camino.test')
     const returnUrl = `https://url-cerbere.tld/login?TARGET=${url}`
 
-    const apiMock = api.utilisateurCerbereUrlObtenir.mockResolvedValue(
-      returnUrl
-    )
+    const apiMock =
+      api.utilisateurCerbereUrlObtenir.mockResolvedValue(returnUrl)
 
     const cerbereUrl = await store.dispatch('user/cerbereUrlGet', url)
 
@@ -269,9 +268,8 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test('ajoute un email', async () => {
-    const apiMock = api.utilisateurCreationMessageEnvoyer.mockResolvedValue(
-      email
-    )
+    const apiMock =
+      api.utilisateurCreationMessageEnvoyer.mockResolvedValue(email)
     await store.dispatch('user/addEmail', email)
 
     expect(apiMock).toHaveBeenCalledWith({ email })
@@ -325,9 +323,8 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("crée l'email d'un utilisateur", async () => {
-    const apiMock = api.utilisateurMotDePasseMessageEnvoyer.mockResolvedValue(
-      userInfo
-    )
+    const apiMock =
+      api.utilisateurMotDePasseMessageEnvoyer.mockResolvedValue(userInfo)
     await store.dispatch('user/passwordInitEmail', email)
 
     expect(apiMock).toHaveBeenCalledWith({ email })

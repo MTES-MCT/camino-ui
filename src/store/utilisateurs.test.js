@@ -56,8 +56,7 @@ describe('liste des utilisateurs', () => {
       elements: [
         {
           id: 'dre-nouvelle-aquitaine-01',
-          nom:
-            "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Nouvelle-Aquitaine - Siège de Poitiers"
+          nom: "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Nouvelle-Aquitaine - Siège de Poitiers"
         },
         { id: 'ope-onf-973-01', nom: 'Office national des forêts' }
       ]

@@ -43,8 +43,9 @@ export default {
   computed: {
     complete() {
       return this.documents.every(d => {
-        const optionnel = this.documentsTypes.find(dt => dt.id === d.typeId)
-          .optionnel
+        const optionnel = this.documentsTypes.find(
+          dt => dt.id === d.typeId
+        ).optionnel
 
         return (
           optionnel ||

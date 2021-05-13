@@ -76,9 +76,8 @@ describe('page de statistiques', () => {
   })
 
   test('récupère les statistiques globales', async () => {
-    const apiMock = api.statistiquesGlobales.mockResolvedValue(
-      statistiquesGlobales
-    )
+    const apiMock =
+      api.statistiquesGlobales.mockResolvedValue(statistiquesGlobales)
     await store.dispatch('statistiques/get', 'globales')
 
     expect(mutations.loadingAdd).toHaveBeenCalled()
