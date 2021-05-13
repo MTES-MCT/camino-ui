@@ -228,7 +228,6 @@ export default {
     },
 
     cancel() {
-      this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
@@ -267,16 +266,6 @@ export default {
       })
 
       this.heritageLoaded = true
-
-      if (this.etapesStatuts?.length === 1) {
-        this.etape.statutId = this.etapesStatuts[0].id
-      } else {
-        this.etape.statutId = null
-      }
-    },
-
-    errorsRemove() {
-      // this.$store.commit('utilisateur/loginMessagesRemove')
     }
   }
 }

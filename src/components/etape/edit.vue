@@ -110,7 +110,14 @@ export default {
   },
 
   watch: {
-    complete: 'completeUpdate'
+    complete: 'completeUpdate',
+    etapesStatuts: function () {
+      if (this.etapesStatuts?.length === 1) {
+        this.etape.statutId = this.etapesStatuts[0].id
+      } else {
+        this.etape.statutId = null
+      }
+    }
   },
 
   created() {

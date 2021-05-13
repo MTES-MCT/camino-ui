@@ -34,11 +34,10 @@ export default {
   computed: {
     visible() {
       return (
-        this.documentType &&
-        (this.modifiable ||
-          !this.documentType.optionnel ||
-          this.document.fichier ||
-          this.document.fichierNouveau)
+        this.modifiable ||
+        !this.documentType.optionnel ||
+        this.document.fichier ||
+        this.document.fichierNouveau
       )
     }
   }

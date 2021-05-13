@@ -120,10 +120,6 @@
                   @update="update($event, element, colonne.id)"
                 />
                 <div v-else>{{ element[colonne.id] }}</div>
-
-                <div v-if="colonne.type === 'json'">
-                  {{ element[colonne.id] }}
-                </div>
               </td>
               <td v-if="definition.delete || definition.create">
                 <button

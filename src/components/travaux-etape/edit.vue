@@ -156,11 +156,11 @@
 </template>
 
 <script>
-import InputDate from '../../_ui/input-date.vue'
-import InputNumber from '../../_ui/input-number.vue'
-import Popup from '../../_ui/popup.vue'
+import InputDate from '../_ui/input-date.vue'
+import InputNumber from '../_ui/input-number.vue'
+import Popup from '../_ui/popup.vue'
 import EditSections from './edit-sections.vue'
-import DocumentsEdit from '../../document/edit-multi.vue'
+import DocumentsEdit from '../document/edit-multi.vue'
 
 import { etapeSaveFormat } from './edit'
 

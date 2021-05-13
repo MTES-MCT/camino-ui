@@ -1,7 +1,7 @@
 <template>
   <div v-if="visible">
     <h3>Documents</h3>
-    <div v-for="(document, n) in documents" :key="document.id">
+    <template v-for="(document, n) in documents" :key="document.id">
       <Edit
         v-if="documentsTypes.find(dt => dt.id === document.typeId)"
         v-model:document="documents[n]"
@@ -9,7 +9,7 @@
         :modifiable="modifiable"
         :repertoire="repertoire"
       />
-    </div>
+    </template>
   </div>
 </template>
 
