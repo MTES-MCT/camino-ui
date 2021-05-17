@@ -195,7 +195,6 @@ export default {
     },
 
     editCompleteUpdate(complete) {
-      console.log('complete')
       this.editComplete = complete
     },
 

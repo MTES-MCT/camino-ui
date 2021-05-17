@@ -154,7 +154,6 @@ export default {
 
   methods: {
     async init() {
-      console.log('init')
       await this.$store.dispatch('titreEtape/init', {
         id: this.$route.params.id
       })

@@ -69,7 +69,7 @@ export default {
   components: { InputDate },
   props: {
     etape: { type: Object, required: true },
-    etapeType: { type: Object, required: true },
+    etapeType: { type: Object, default: () => ({}) },
     etapeTypes: { type: Array, required: true }
   },
 
