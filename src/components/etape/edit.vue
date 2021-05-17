@@ -1,25 +1,13 @@
 <template>
-  <div v-if="etapesStatuts" class="tablet-blobs">
-    <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-      <h5>Statut</h5>
-    </div>
-    <div class="mb tablet-blob-2-3">
-      <select v-model="etape.statutId" class="p-s">
-        <option
-          v-for="etapeStatut in etapesStatuts"
-          :key="etapeStatut.id"
-          :value="etapeStatut.id"
-          :disabled="etape.statutId === etapeStatut.id"
-        >
-          {{ etapeStatut.nom }}
-        </option>
-      </select>
-    </div>
-  </div>
-  <hr />
+  <EtapeEditType
+    v-model:etape="etape"
+    :etape-types="etapeTypes"
+    :etape-type="etapeType"
+    @type-update="typeUpdate"
+  />
 
   <EtapeEditFondamentales
-    v-if="etapeType && etapeType.fondamentale"
+    v-if="heritageLoaded && etapeType && etapeType.fondamentale"
     v-model:etape="etape"
     :domaine-id="domaineId"
   />
@@ -31,24 +19,25 @@
   />
 
   <EditSections
-    v-if="etape.sections"
+    v-if="heritageLoaded && etape.sections"
     v-model:etape="etape"
     :sections="etape.sections"
     @complete-update="sectionsCompleteUpdate"
   />
 
   <DocumentsEdit
-    v-if="etapeType.documentsTypes"
-    v-model:documents="etape.documents"
+    v-if="heritageLoaded && documentsTypes && documentsTypes.length"
+    v-model:documents="documents"
     :parent-id="etape.id"
     :parent-type-id="etapeType.id"
-    :documents-types="etapeType.documentsTypes"
+    :documents-types="documentsTypes"
     repertoire="demarches"
     @complete-update="documentsCompleteUpdate"
   />
 </template>
 
 <script>
+import EtapeEditType from './edit-type.vue'
 import EtapeEditFondamentales from './edit-fondamentales.vue'
 import EtapeEditPoints from './edit-points.vue'
 import EditSections from './edit-sections.vue'
@@ -56,6 +45,7 @@ import DocumentsEdit from '../document/edit-multi.vue'
 
 export default {
   components: {
+    EtapeEditType,
     EtapeEditFondamentales,
     EtapeEditPoints,
     EditSections,
@@ -66,29 +56,23 @@ export default {
     etape: { type: Object, required: true },
     etapeTypes: { type: Array, required: true },
     events: { type: Object, required: true },
-    domaineId: { type: String, default: '' }
+    domaineId: { type: String, required: true },
+    heritageLoaded: { type: Boolean, required: true }
   },
 
-  emits: ['edit-complete-update'],
+  emits: ['edit-complete-update', 'type-update'],
 
   data() {
     return {
       documentsComplete: false,
-      sectionsComplete: false
+      sectionsComplete: false,
+      documents: []
     }
   },
 
   computed: {
     etapeType() {
       return this.etapeTypes.find(et => et.id === this.etape.typeId)
-    },
-
-    etapesStatuts() {
-      return this.etapeType && this.etapeType.etapesStatuts
-    },
-
-    dateIsVisible() {
-      return !this.etapeId && !this.etape
     },
 
     documentsTypes() {
@@ -111,16 +95,35 @@ export default {
 
   watch: {
     complete: 'completeUpdate',
-    etapesStatuts: function () {
-      if (this.etapesStatuts?.length === 1) {
-        this.etape.statutId = this.etapesStatuts[0].id
-      } else {
-        this.etape.statutId = null
-      }
+
+    documents: {
+      handler: function () {
+        // on a besoin d'une usine à gaz
+        // pour conserver les documents optionnels et obligatoires
+        // on enlève les documents sans id
+        this.etape.documents = this.etape.documents.filter(d => d.id)
+
+        // on met à jour les documents qui ont un id
+        this.etape.documents = this.etape.documents.map(d => {
+          const document = this.documents.find(ed => ed.id === d.id)
+
+          return document || d
+        })
+
+        // on met à jour les documents sans id
+        this.etape.documents = this.etape.documents.concat(
+          this.documents.filter(d => !d.id)
+        )
+      },
+      deep: true
     }
   },
 
   created() {
+    this.documents = this.etape.documents.filter(d =>
+      this.documentsTypes.find(dt => dt.id === d.typeId)
+    )
+
     this.completeUpdate()
   },
 
@@ -135,6 +138,10 @@ export default {
 
     sectionsCompleteUpdate(complete) {
       this.sectionsComplete = complete
+    },
+
+    typeUpdate(typeId) {
+      this.$emit('type-update', typeId)
     }
   }
 }

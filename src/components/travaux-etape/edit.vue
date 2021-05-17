@@ -165,7 +165,7 @@ import DocumentsEdit from '../document/edit-multi.vue'
 import { etapeSaveFormat } from './edit'
 
 export default {
-  name: 'CaminoEtapeEditPopup',
+  name: 'CaminoEtapeEdit',
 
   components: {
     Popup,
