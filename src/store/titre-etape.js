@@ -20,7 +20,8 @@ const state = {
     geoSystemes: [],
     substances: [],
     entreprises: []
-  }
+  },
+  heritageLoaded: false
 }
 
 const actions = {
@@ -48,6 +49,10 @@ const actions = {
 
       commit('metasSet', metas)
       commit('set', { etape: newEtape })
+
+      if (id) {
+        commit('heritageLoaded', true)
+      }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -58,6 +63,8 @@ const actions = {
   async heritageGet({ commit, state }, { titreDemarcheId, typeId, date }) {
     try {
       commit('loadingAdd', 'titreEtapeHeritageGet', { root: true })
+      commit('heritageLoaded', false)
+
       const data = await etapeHeritage({
         titreDemarcheId,
         date: state.element.date ? state.element.date : date,
@@ -65,6 +72,7 @@ const actions = {
       })
 
       commit('heritageSet', { etape: data })
+      commit('heritageLoaded', true)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -142,6 +150,10 @@ const mutations = {
     const newEtape = etapeHeritageBuild(state.element, apiEtape)
 
     state.element = newEtape
+  },
+
+  heritageLoaded(state, loaded) {
+    state.heritageLoaded = loaded
   },
 
   metasSet(state, data) {

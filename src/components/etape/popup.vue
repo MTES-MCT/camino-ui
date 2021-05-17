@@ -28,58 +28,16 @@
       <p>Chargement en cours…</p>
     </div>
 
-    <div v-else>
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h5>Date</h5>
-        </div>
-        <div class="tablet-blob-2-3">
-          <InputDate
-            v-model="etape.date"
-            :class="{ 'mb-s': etape.date, mb: !etape.date }"
-          />
-          <div class="h6">
-            <label v-if="etape.date">
-              <input v-model="etape.incertitudes.date" type="checkbox" />
-              Incertain
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <hr />
-
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h5>Type</h5>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <select
-            :value="etape.typeId"
-            class="p-s"
-            @change="typeUpdate($event)"
-          >
-            <option
-              v-for="eType in etapeTypes"
-              :key="eType.id"
-              :value="eType.id"
-              :disabled="etape.typeId === eType.id"
-            >
-              {{ eType.nom }}
-            </option>
-          </select>
-        </div>
-      </div>
-
-      <Edit
-        v-if="heritageLoaded"
-        v-model:etape="etape"
-        :etape-types="etapeTypes"
-        :domaine-id="domaineId"
-        :events="events"
-        @edit-complete-update="editCompleteUpdate"
-      />
-    </div>
+    <Edit
+      v-else
+      v-model:etape="etape"
+      :etape-types="etapeTypes"
+      :domaine-id="domaineId"
+      :events="events"
+      :heritage-loaded="heritageLoaded"
+      @edit-complete-update="editCompleteUpdate"
+      @type-update="typeUpdate"
+    />
 
     <template #footer>
       <div v-if="!loading" class="tablet-blobs">
@@ -123,19 +81,15 @@ import Popup from '../_ui/popup.vue'
 import Edit from './edit.vue'
 
 export default {
-  name: 'CaminoEtapeEditPopup',
+  name: 'CaminoEtapePopup',
 
-  components: {
-    Popup,
-    InputDate,
-    Edit
-  },
+  components: { Popup, InputDate, Edit },
 
   props: {
     etapeId: { type: String, default: null },
     demarcheId: { type: String, required: true },
     demarcheType: { type: Object, default: () => ({}) },
-    domaineId: { type: String, default: '' },
+    domaineId: { type: String, required: true },
     titreNom: { type: String, default: '' }
   },
 
@@ -143,9 +97,7 @@ export default {
     return {
       events: { saveKeyUp: true },
       newDate: new Date().toISOString().slice(0, 10),
-      editComplete: false,
-
-      heritageLoaded: false
+      editComplete: false
     }
   },
 
@@ -168,23 +120,16 @@ export default {
       return this.$store.state.titreEtape.element
     },
 
-    etapeType() {
-      return this.etapeTypes.find(et => et.id === this.etape.typeId)
-    },
-
     dateIsVisible() {
       return !this.etapeId && !this.etape
     },
 
-    documentsTypes() {
-      return (
-        this.etapeType &&
-        this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
-      )
-    },
-
     complete() {
       return this.etape && this.etape.date && this.editComplete
+    },
+
+    heritageLoaded() {
+      return this.$store.state.titreEtape.heritageLoaded
     }
   },
 
@@ -193,8 +138,6 @@ export default {
 
     if (this.etapeId) {
       await this.init()
-
-      this.heritageLoaded = true
     }
   },
 
@@ -252,20 +195,16 @@ export default {
     },
 
     editCompleteUpdate(complete) {
+      console.log('complete')
       this.editComplete = complete
     },
 
-    async typeUpdate(event) {
-      const typeId = event.target.value
-
-      this.heritageLoaded = false
+    async typeUpdate(typeId) {
       await this.$store.dispatch('titreEtape/heritageGet', {
         titreDemarcheId: this.demarcheId,
         typeId,
         date: this.newDate
       })
-
-      this.heritageLoaded = true
     }
   }
 }

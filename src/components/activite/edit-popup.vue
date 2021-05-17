@@ -39,7 +39,11 @@
     />
 
     <DocumentsEdit
-      v-if="activite.documentsCreation && activite.type.documentsTypes"
+      v-if="
+        activite.documentsCreation &&
+        activite.type.documentsTypes &&
+        activite.type.documentsTypes.length
+      "
       v-model:documents="activite.documents"
       :modifiable="modifiable"
       :parent-id="activite.id"
@@ -159,7 +163,9 @@ export default {
     complete() {
       return (
         this.activiteComplete &&
-        (this.documentsComplete || !this.activite.documentsCreation)
+        (!this.activite.type.documentsTypes?.length ||
+          this.documentsComplete ||
+          !this.activite.documentsCreation)
       )
     }
   },

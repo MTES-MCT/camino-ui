@@ -8,53 +8,46 @@
         {{ demarcheType.nom }}
       </span>
     </h6>
-    <h2>"Modification de l'étape</h2>
+    <h2>Modification de l'étape</h2>
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Date</h5>
-      </div>
-      <div class="tablet-blob-2-3">
-        <InputDate
-          v-model="etape.date"
-          :class="{ 'mb-s': etape.date, mb: !etape.date }"
-        />
-        <div class="h6">
-          <label v-if="etape.date">
-            <input v-model="etape.incertitudes.date" type="checkbox" />
-            Incertain
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <hr />
-
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Type</h5>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <select :value="etape.typeId" class="p-s" @change="typeUpdate($event)">
-          <option
-            v-for="eType in etapeTypes"
-            :key="eType.id"
-            :value="eType.id"
-            :disabled="etape.typeId === eType.id"
-          >
-            {{ eType.nom }}
-          </option>
-        </select>
-      </div>
-    </div>
-
-    <Edit
-      v-if="heritageLoaded"
+    <EtapeEditType
       v-model:etape="etape"
       :etape-types="etapeTypes"
+      :etape-type="etapeType"
+      @type-update="typeUpdate"
+    />
+
+    <EtapeEditFondamentales
+      v-if="heritageLoaded && etapeType && etapeType.fondamentale"
+      v-model:etape="etape"
       :domaine-id="domaineId"
-      :events="events"
-      @edit-complete-update="editCompleteUpdate"
+    />
+
+    <EtapeEditPoints
+      v-if="etapeType && etapeType.fondamentale"
+      v-model:etape="etape"
+      v-model:events="events"
+    />
+
+    <EditSections
+      v-if="heritageLoaded && etape.sections"
+      v-model:etape="etape"
+      :sections="etape.sections"
+      @complete-update="sectionsCompleteUpdate"
+    />
+
+    <DocumentsEdit
+      v-if="
+        heritageLoaded &&
+        etapeType.documentsTypes &&
+        etapeType.documentsTypes.length
+      "
+      v-model:documents="etape.documents"
+      :parent-id="etape.id"
+      :parent-type-id="etapeType.id"
+      :documents-types="etapeType.documentsTypes"
+      repertoire="demarches"
+      @complete-update="documentsCompleteUpdate"
     />
 
     <div v-if="!loading" class="tablet-blobs">
@@ -62,7 +55,7 @@
       <div class="tablet-blob-2-3">
         <button
           ref="save-button"
-          class="btn-flash rnd-xs p-s full-x"
+          class="btn-flash rnd-xs p-s full-x mb"
           :disabled="!complete"
           :class="{ disabled: !complete }"
           @click="save"
@@ -76,13 +69,21 @@
 </template>
 
 <script>
-import InputDate from './_ui/input-date.vue'
-import Edit from './etape/edit.vue'
+import Loader from './_ui/loader.vue'
+import EtapeEditType from './etape/edit-type.vue'
+import EtapeEditFondamentales from './etape/edit-fondamentales.vue'
+import EtapeEditPoints from './etape/edit-points.vue'
+import EditSections from './etape/edit-sections.vue'
+import DocumentsEdit from './document/edit-multi.vue'
 
 export default {
   components: {
-    InputDate,
-    Edit
+    Loader,
+    EtapeEditType,
+    EtapeEditFondamentales,
+    EtapeEditPoints,
+    EditSections,
+    DocumentsEdit
   },
 
   // props: {
@@ -95,35 +96,45 @@ export default {
 
   data() {
     return {
+      titreNom: 'titre-nom',
+      demarcheType: {},
+      domaineId: 'c',
       events: { saveKeyUp: true },
-      editComplete: false
+      heritageLoaded: true,
+      documentsComplete: false,
+      sectionsComplete: false
     }
   },
 
   computed: {
+    etape() {
+      return this.$store.state.titreEtape.element
+    },
+
     etapeTypes() {
       return this.$store.state.titreEtape.metas.etapesTypes.filter(
         t => t.etapesCreation
       )
     },
 
-    etape() {
-      return this.$store.state.titreEtape.element
-    },
-
     etapeType() {
       return this.etapeTypes.find(et => et.id === this.etape.typeId)
     },
 
-    documentsTypes() {
+    complete() {
       return (
-        this.etapeType &&
-        this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
+        this.etape &&
+        this.etape.date &&
+        this.etape.typeId &&
+        this.etape.statutId &&
+        (this.etape.statutId === 'aco' ||
+          ((!this.etapeType.documentsTypes?.length || this.documentsComplete) &&
+            this.sectionsComplete))
       )
     },
 
-    complete() {
-      return this.etape && this.etape.date && this.editComplete
+    loading() {
+      return this.$store.state.loading.includes('titreEtapeUpdate')
     }
   },
 
@@ -143,6 +154,7 @@ export default {
 
   methods: {
     async init() {
+      console.log('init')
       await this.$store.dispatch('titreEtape/init', {
         id: this.$route.params.id
       })
@@ -153,7 +165,7 @@ export default {
         await this.$store.dispatch('titreEtape/upsert', this.etape)
 
         this.eventTrack({
-          categorie: 'titre-sections',
+          categorie: 'titre-etape',
           action: 'titre-etape-enregistrer',
           nom: this.etape.id
         })
@@ -177,28 +189,16 @@ export default {
       }
     },
 
-    editCompleteUpdate(complete) {
-      this.editComplete = complete
+    documentsCompleteUpdate(complete) {
+      this.documentsComplete = complete
     },
 
-    async typeUpdate(event) {
-      const typeId = event.target.value
+    sectionsCompleteUpdate(complete) {
+      this.sectionsComplete = complete
+    },
 
-      this.heritageLoaded = false
-
-      await this.$store.dispatch('titreEtape/heritageGet', {
-        titreDemarcheId: this.demarcheId,
-        typeId,
-        date: this.newDate
-      })
-
-      this.heritageLoaded = true
-
-      if (this.etapesStatuts?.length === 1) {
-        this.etape.statutId = this.etapesStatuts[0].id
-      } else {
-        this.etape.statutId = null
-      }
+    typeUpdate(typeId) {
+      this.$emit('type-update', typeId)
     }
   }
 }
