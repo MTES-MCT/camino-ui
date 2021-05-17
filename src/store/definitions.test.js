@@ -81,7 +81,7 @@ describe('définitions du glossaire', () => {
       }
     ]
 
-    const apiMock = api.definitions.mockResolvedValue(response)
+    const apiMock = api.definitions.mockResolvedValue({ definitions: response })
 
     await store.dispatch('definitions/get')
 
@@ -101,7 +101,7 @@ describe('définitions du glossaire', () => {
   })
 
   test("retourne une erreur 404 si l'api retourne null", async () => {
-    const apiMock = api.definitions.mockResolvedValue(null)
+    const apiMock = api.definitions.mockResolvedValue({ definitions: null })
     await store.dispatch('definitions/get')
 
     expect(apiMock).toHaveBeenCalled()
@@ -120,7 +120,7 @@ describe('définitions du glossaire', () => {
       }
     ]
 
-    const apiMock = api.domaines.mockResolvedValue(response)
+    const apiMock = api.domaines.mockResolvedValue({ domaines: response })
 
     await store.dispatch('definitions/entreesGet', 'domaines')
 
