@@ -126,14 +126,6 @@ describe("état général de l'application", () => {
     })
   })
 
-  test('supprime les erreurs', () => {
-    const error = 'erreur api'
-    store.commit('errorAdd', error)
-    store.commit('errorRemove')
-
-    expect(state.error).toBeNull()
-  })
-
   test('ajoute un message de la pop-up', () => {
     const message = 'message très important'
     store.commit('popupMessageAdd', message)
@@ -187,7 +179,7 @@ describe("état général de l'application", () => {
   })
 
   test('supprime une erreur', async () => {
-    store.commit('errorAdd', { id: 'erreur-test' })
+    store.commit('errorUpdate', { id: 'erreur-test' })
     await store.dispatch('errorRemove')
 
     expect(state.error).toEqual(null)

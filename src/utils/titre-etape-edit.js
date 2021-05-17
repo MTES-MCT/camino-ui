@@ -123,10 +123,9 @@ const etapeGroupesBuild = points => {
   }
 }
 
-const etapeEditFormat = (etape, demarcheId) => {
+const etapeEditFormat = etape => {
   etape = cloneAndClean(etape)
 
-  etape.titreDemarcheId = demarcheId
   if (etape.type) {
     etape.typeId = etape.type.id
     etape.sections = etape.type.sections

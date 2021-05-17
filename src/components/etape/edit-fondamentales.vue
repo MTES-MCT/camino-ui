@@ -359,14 +359,14 @@
 </template>
 
 <script>
-import Tag from '../../_ui/tag.vue'
-import TagList from '../../_ui/tag-list.vue'
-import InputDate from '../../_ui/input-date.vue'
-import InputNumber from '../../_ui/input-number.vue'
+import Tag from '../_ui/tag.vue'
+import TagList from '../_ui/tag-list.vue'
+import InputDate from '../_ui/input-date.vue'
+import InputNumber from '../_ui/input-number.vue'
 import EditHeritage from './edit-heritage.vue'
 import PropDuree from './prop-duree.vue'
 
-import { etablissementNameFind } from '../../../utils/entreprise'
+import { etablissementNameFind } from '@/utils/entreprise'
 
 export default {
   components: { InputDate, InputNumber, EditHeritage, Tag, TagList, PropDuree },

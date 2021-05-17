@@ -90,13 +90,13 @@
 import Accordion from '../_ui/accordion.vue'
 import Statut from '../_common/statut.vue'
 import Section from '../_common/section.vue'
-import EditPopup from './travau-etape/edit.vue'
-import RemovePopup from './travau-etape/remove.vue'
+import EditPopup from '../travaux-etape/edit.vue'
+import RemovePopup from '../travaux-etape/remove.vue'
 import DocumentButtonAdd from '../document/button-add.vue'
 import Documents from '../documents/list.vue'
-import EtapeProps from './etape/props.vue'
+import EtapeProps from '../etape/props.vue'
 
-import { etapeEditFormat } from './travau-etape'
+import { etapeEditFormat } from './travaux-etape.js'
 import { dateFormat } from '@/utils'
 
 const cap = string => string[0].toUpperCase() + string.slice(1)
@@ -195,7 +195,8 @@ export default {
     },
 
     editPopupOpen() {
-      const etape = etapeEditFormat(this.etape, this.travauxId)
+      const etape = etapeEditFormat(this.etape)
+      etape.titreTravauxId = this.travauxId
 
       this.$store.commit('popupOpen', {
         component: EditPopup,

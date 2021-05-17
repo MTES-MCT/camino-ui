@@ -223,7 +223,6 @@ describe("état de l'utilisateur connecté", () => {
     await store.dispatch('user/cerbereLogin', { ticket })
 
     expect(apiMock).toHaveBeenCalledWith({ ticket })
-    expect(mutations.popupClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(localStorage.getItem('accessToken')).toEqual('rene')
     expect(localStorage.getItem('refreshToken')).toEqual('lataupe')
@@ -251,7 +250,6 @@ describe("état de l'utilisateur connecté", () => {
     expect(localStorage.getItem('accessToken')).toBeNull()
     expect(localStorage.getItem('refreshToken')).toBeNull()
     expect(store.state.user.element).toBeNull()
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('déconnecte un utilisateur', async () => {

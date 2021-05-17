@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { hasValeurCheck } from '../../../utils/contenu'
+import { hasValeurCheck } from '@/utils/contenu'
 import Tag from '@/components/_ui/tag.vue'
 import { dateFormat } from '@/utils'
 

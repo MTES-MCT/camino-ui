@@ -24,34 +24,41 @@
     </div>
   </div>
 
+  <hr />
+
   <TitreTypeSelect
     v-if="newTitre.entrepriseId"
     v-model:element="newTitre"
     :domaines="domaines"
   />
 
-  <div v-if="newTitre.typeId" class="tablet-blobs">
-    <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-      <h5>Nom</h5>
+  <div v-if="newTitre.typeId">
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h5>Nom</h5>
+      </div>
+      <div class="tablet-blob-2-3">
+        <input v-model="newTitre.nom" type="text" class="p-s" />
+      </div>
     </div>
-    <div class="tablet-blob-2-3">
-      <input v-model="newTitre.nom" type="text" class="p-s" />
-    </div>
+    <hr />
   </div>
 
-  <div v-if="newTitre.typeId === 'arm'" class="tablet-blobs">
-    <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-      <h5>Prospection mécanisée</h5>
+  <div v-if="newTitre.typeId === 'arm'">
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h5>Prospection mécanisée</h5>
+      </div>
+      <div class="tablet-blob-2-3">
+        <input v-model="newTitre.mecanise" type="checkbox" class="pb-s" />
+      </div>
     </div>
-    <div class="tablet-blob-2-3">
-      <input v-model="newTitre.mecanise" type="checkbox" class="pb-s" />
-    </div>
+    <hr />
   </div>
 
-  <div v-if="newTitre.entrepriseId && !entrepriseCheck">
+  <div v-if="newTitre.typeId && newTitre.entrepriseId && !entrepriseCheck">
     <h3 class="mb-s">Références</h3>
     <p class="h6 italic">Optionnel</p>
-    <hr />
     <div
       v-for="(reference, index) in newTitre.references"
       :key="index"
@@ -90,9 +97,11 @@
       <span class="mt-xxs">Ajouter une référence</span
       ><i class="icon-24 icon-plus flex-right" />
     </button>
+
+    <hr />
   </div>
 
-  <div class="tablet-blobs">
+  <div class="tablet-blobs mb">
     <div class="tablet-blob-1-3" />
     <div class="tablet-blob-2-3">
       <button
@@ -100,9 +109,8 @@
         id="cmn-titre-activite-edit-popup-button-enregistrer"
         ref="save-button"
         :disabled="!complete"
-        class="rnd-xs p-s full-x"
-        :class="{ 'btn-flash': !complete, 'btn-border': complete }"
-        @click="save(false)"
+        class="btn-flash rnd-xs p-s full-x"
+        @click="save"
       >
         Enregistrer
       </button>
@@ -180,21 +188,30 @@ export default {
     },
 
     loading() {
-      return (
-        this.$store.state.loading.includes('titreDemandeAdd') ||
-        this.$store.state.loading.includes('titreDemandeInit')
-      )
+      return this.$store.state.loading.includes('titreDemandeAdd')
     }
+  },
+
+  watch: {
+    entreprises: 'init'
   },
 
   async created() {
-    await this.$store.dispatch('titreDemande/init')
-    if (this.entreprises?.length === 1) {
-      this.newTitre.entrepriseId = this.entreprises[0].id
-    }
+    await this.init()
   },
 
   methods: {
+    async init() {
+      if (!this.entreprises.length) {
+        await this.$store.dispatch('pageError')
+      }
+
+      await this.$store.dispatch('titreDemande/init')
+      if (this.entreprises?.length === 1) {
+        this.newTitre.entrepriseId = this.entreprises[0].id
+      }
+    },
+
     entrepriseUpdate(event) {
       this.newTitre = { entrepriseId: event.target.value, references: [] }
     },

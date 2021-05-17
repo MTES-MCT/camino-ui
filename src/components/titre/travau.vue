@@ -63,8 +63,8 @@
 
 <script>
 import Statut from '../_common/statut.vue'
-import EtapeEditPopup from './travau-etape/edit.vue'
-import TitreTravauxEtape from './travau-etape.vue'
+import EtapeEditPopup from '../travaux-etape/edit.vue'
+import TitreTravauxEtape from './travaux-etape.vue'
 import EditPopup from './travaux-edit-popup.vue'
 import RemovePopup from './travaux-remove-popup.vue'
 

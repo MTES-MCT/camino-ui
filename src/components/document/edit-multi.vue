@@ -1,15 +1,15 @@
 <template>
   <div v-if="visible">
     <h3>Documents</h3>
-    <Edit
-      v-for="(document, n) in documents"
-      :key="document.id"
-      v-model:document="documents[n]"
-      :document-type="documentsTypes.find(dt => dt.id === document.typeId)"
-      :modifiable="modifiable"
-      :repertoire="repertoire"
-    >
-    </Edit>
+    <template v-for="(document, n) in documents" :key="document.id">
+      <Edit
+        v-if="documentsTypes.find(dt => dt.id === document.typeId)"
+        v-model:document="documents[n]"
+        :document-type="documentsTypes.find(dt => dt.id === document.typeId)"
+        :modifiable="modifiable"
+        :repertoire="repertoire"
+      />
+    </template>
   </div>
 </template>
 
@@ -42,16 +42,19 @@ export default {
 
   computed: {
     complete() {
-      return this.documents.every(d => {
-        const optionnel = this.documentsTypes.find(
-          dt => dt.id === d.typeId
-        ).optionnel
+      return (
+        !this.documentsTypes.length ||
+        this.documents.every(d => {
+          const optionnel = this.documentsTypes.find(
+            dt => dt.id === d.typeId
+          ).optionnel
 
-        return (
-          optionnel ||
-          !!((d.fichier || d.fichierNouveau) && d.fichierTypeId && d.date)
-        )
-      })
+          return (
+            optionnel ||
+            !!((d.fichier || d.fichierNouveau) && d.fichierTypeId && d.date)
+          )
+        })
+      )
     },
 
     visible() {
@@ -75,6 +78,8 @@ export default {
 
   async created() {
     await this.get()
+
+    this.$emit('complete-update', this.complete)
   },
 
   methods: {

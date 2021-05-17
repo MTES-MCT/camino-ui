@@ -4,17 +4,12 @@ import { etapeEditFormat } from './titre-etape-edit'
 describe('etapeEditFormat', () => {
   test("formate une étape pour l'éditer", () => {
     expect(
-      etapeEditFormat(
-        {
-          __typename: 'etape',
-          id: 'etape-id'
-        },
-
-        'demarche-id'
-      )
+      etapeEditFormat({
+        __typename: 'etape',
+        id: 'etape-id'
+      })
     ).toEqual({
       id: 'etape-id',
-      titreDemarcheId: 'demarche-id',
       statutId: '',
       duree: { ans: null, mois: null },
       amodiataires: [],
@@ -29,32 +24,27 @@ describe('etapeEditFormat', () => {
     })
 
     expect(
-      etapeEditFormat(
-        {
-          __typename: 'etape',
-          id: 'etape-id',
-          points: [
-            {
-              id: 'point-id-111',
-              groupe: 1,
-              contour: 1,
-              point: 1,
-              references: [
-                {
-                  opposable: true,
-                  geoSysteme: { id: 'geo-systeme-id' },
-                  coordonnees: { x: 1.5, y: 1 }
-                }
-              ]
-            }
-          ]
-        },
-
-        'demarche-id'
-      )
+      etapeEditFormat({
+        __typename: 'etape',
+        id: 'etape-id',
+        points: [
+          {
+            id: 'point-id-111',
+            groupe: 1,
+            contour: 1,
+            point: 1,
+            references: [
+              {
+                opposable: true,
+                geoSysteme: { id: 'geo-systeme-id' },
+                coordonnees: { x: 1.5, y: 1 }
+              }
+            ]
+          }
+        ]
+      })
     ).toEqual({
       id: 'etape-id',
-      titreDemarcheId: 'demarche-id',
       statutId: '',
       duree: { ans: null, mois: null },
       amodiataires: [],
@@ -81,65 +71,60 @@ describe('etapeEditFormat', () => {
     })
 
     expect(
-      etapeEditFormat(
-        {
-          __typename: 'etape',
-          id: 'etape-id',
-          type: { id: 'etape-type-id' },
-          statut: { id: 'etape-statut-id' },
-          duree: 240,
-          administrations: ['administration'],
-          titulaires: [{ id: 'titulaire-id', prop: 'titulaire-prop' }],
-          points: [
-            {
-              id: 'point-id-111',
-              groupe: 1,
-              contour: 1,
-              point: 1,
-              references: [
-                {
-                  geoSysteme: { id: 'geo-systeme-id' },
-                  coordonnees: { x: 1.5, y: 1 }
-                }
-              ]
-            },
-            {
-              id: 'point-id-113',
-              groupe: 1,
-              contour: 1,
-              point: 3,
-              lot: 1,
-              references: [
-                {
-                  geoSysteme: { id: 'geo-systeme-id' },
-                  coordonnees: { x: 1.5, y: 3 }
-                }
-              ]
-            },
-            {
-              id: 'point-id-114',
-              groupe: 1,
-              contour: 1,
-              point: 4,
-              lot: 1,
-              references: [
-                {
-                  geoSysteme: { id: 'geo-systeme-id' },
-                  coordonnees: { x: 1.5, y: 4 }
-                }
-              ]
-            }
-          ],
-          contenu: { 'prop-id': 'prop-value' },
-          incertitudes: { amodiataires: true },
-          substances: [{ id: 'auru' }]
-        },
-
-        'demarche-id'
-      )
+      etapeEditFormat({
+        __typename: 'etape',
+        id: 'etape-id',
+        type: { id: 'etape-type-id' },
+        statut: { id: 'etape-statut-id' },
+        duree: 240,
+        administrations: ['administration'],
+        titulaires: [{ id: 'titulaire-id', prop: 'titulaire-prop' }],
+        points: [
+          {
+            id: 'point-id-111',
+            groupe: 1,
+            contour: 1,
+            point: 1,
+            references: [
+              {
+                geoSysteme: { id: 'geo-systeme-id' },
+                coordonnees: { x: 1.5, y: 1 }
+              }
+            ]
+          },
+          {
+            id: 'point-id-113',
+            groupe: 1,
+            contour: 1,
+            point: 3,
+            lot: 1,
+            references: [
+              {
+                geoSysteme: { id: 'geo-systeme-id' },
+                coordonnees: { x: 1.5, y: 3 }
+              }
+            ]
+          },
+          {
+            id: 'point-id-114',
+            groupe: 1,
+            contour: 1,
+            point: 4,
+            lot: 1,
+            references: [
+              {
+                geoSysteme: { id: 'geo-systeme-id' },
+                coordonnees: { x: 1.5, y: 4 }
+              }
+            ]
+          }
+        ],
+        contenu: { 'prop-id': 'prop-value' },
+        incertitudes: { amodiataires: true },
+        substances: [{ id: 'auru' }]
+      })
     ).toEqual({
       id: 'etape-id',
-      titreDemarcheId: 'demarche-id',
       typeId: 'etape-type-id',
       statutId: 'etape-statut-id',
       duree: { ans: 20, mois: 0 },
@@ -175,30 +160,25 @@ describe('etapeEditFormat', () => {
 
   test('formate une étape avec des documents', () => {
     expect(
-      etapeEditFormat(
-        {
-          __typename: 'etape',
-          id: 'etape-id',
-          type: {
-            id: 'mfm'
-          },
-          documents: [
-            {
-              id: 'doc-id-111',
-              type: {
-                id: 'typeId'
-              },
-              modification: true,
-              suppression: true
-            }
-          ]
+      etapeEditFormat({
+        __typename: 'etape',
+        id: 'etape-id',
+        type: {
+          id: 'mfm'
         },
-
-        'demarche-id'
-      )
+        documents: [
+          {
+            id: 'doc-id-111',
+            type: {
+              id: 'typeId'
+            },
+            modification: true,
+            suppression: true
+          }
+        ]
+      })
     ).toEqual({
       id: 'etape-id',
-      titreDemarcheId: 'demarche-id',
       statutId: '',
       duree: { ans: null, mois: null },
       amodiataires: [],

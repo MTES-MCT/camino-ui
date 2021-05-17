@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import { valeurFind, hasValeurCheck } from '../../../utils/contenu'
-import EditSectionElementModifiable from '../../_common/edit-sections-element-modifiable.vue'
+import { valeurFind, hasValeurCheck } from '@/utils/contenu'
+import EditSectionElementModifiable from '../_common/edit-sections-element-modifiable.vue'
 
 export default {
   components: {

@@ -213,7 +213,7 @@ import EtapeEditPointsGeoSysteme from './edit-points-geo-systemes.vue'
 import EtapeEditPointsPoint from './edit-points-point.vue'
 import EtapeEditPointsLot from './edit-points-lot.vue'
 import EditHeritage from './edit-heritage.vue'
-import Points from '../points.vue'
+import Points from '../_common/points.vue'
 
 export default {
   components: {

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import InputNumber from '../../_ui/input-number.vue'
+import InputNumber from '../_ui/input-number.vue'
 
 export default {
   components: { InputNumber },

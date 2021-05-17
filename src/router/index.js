@@ -33,6 +33,7 @@ const StatistiquesGuyane = () => import('../components/statistiques/guyane.vue')
 const StatistiquesGranulatsMarins = () =>
   import('../components/statistiques/granulats-marins.vue')
 const TitreDemande = () => import('../components/titre-demande.vue')
+const EtapeEdit = () => import('../components/etape-edit.vue')
 
 const routes = [
   {
@@ -186,6 +187,11 @@ const routes = [
     path: '/deposer-une-demande-de-titre',
     name: 'titre-demande',
     component: TitreDemande
+  },
+  {
+    path: '/etapes/:id/editer',
+    name: 'etape-edition',
+    component: EtapeEdit
   },
   // url /stats : demande de Samuel
   // pour avoir une uniformité entre toutes les start-ups

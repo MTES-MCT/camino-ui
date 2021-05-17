@@ -47,11 +47,11 @@
 </template>
 
 <script>
-import { valeurFind, hasValeurCheck } from '../../../utils/contenu'
-import EditSectionElementModifiable from '../../_common/edit-sections-element-modifiable.vue'
+import { valeurFind, hasValeurCheck } from '@/utils/contenu'
+import EditSectionElementModifiable from '../_common/edit-sections-element-modifiable.vue'
 
 import EditHeritage from './edit-heritage.vue'
-import SectionElementMultiple from '../../_common/section-element-multiple.vue'
+import SectionElementMultiple from '../_common/section-element-multiple.vue'
 
 export default {
   components: {

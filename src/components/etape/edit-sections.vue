@@ -20,7 +20,7 @@ import {
   elementContenuBuild,
   contenuBuild,
   contenuCompleteCheck
-} from '../../../utils/contenu'
+} from '@/utils/contenu'
 import EditSectionElement from './edit-section-element.vue'
 
 export default {
@@ -45,6 +45,7 @@ export default {
       return contenuCompleteCheck(this.sections, this.contenu)
     }
   },
+
   watch: {
     contenu: {
       handler: function (contenu) {
