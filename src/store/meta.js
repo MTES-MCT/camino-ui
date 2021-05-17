@@ -1,4 +1,5 @@
 import metasIndex from './metas-definitions'
+import { oneData } from '../utils'
 
 const state = {
   elements: [],
@@ -13,7 +14,10 @@ const actions = {
       if (metasIndex[id]) {
         const definition = metasIndex[id]
         const elements = await definition.get()
-        commit('set', { elements, definition })
+        commit('set', {
+          elements: oneData(elements),
+          definition
+        })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -30,7 +34,10 @@ const actions = {
         const definition = metasIndex[id]
         const elements = await definition.update({ element })
 
-        commit('set', { elements, definition })
+        commit('set', {
+          elements: oneData(elements),
+          definition
+        })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -47,7 +54,10 @@ const actions = {
         const definition = metasIndex[id]
         const elements = await definition.create({ element })
 
-        commit('set', { elements, definition })
+        commit('set', {
+          elements: oneData(elements),
+          definition
+        })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -64,7 +74,10 @@ const actions = {
         const definition = metasIndex[id]
         const elements = await definition.delete({ element })
 
-        commit('set', { elements, definition })
+        commit('set', {
+          elements: oneData(elements),
+          definition
+        })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
