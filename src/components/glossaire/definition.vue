@@ -45,16 +45,18 @@ export default {
   },
 
   watch: {
-    $route: 'entreesGet'
+    '$route.params.slug': function (slug) {
+      this.entreesGet(slug)
+    }
   },
 
   async created() {
-    await this.entreesGet()
+    await this.entreesGet(this.slug)
   },
 
   methods: {
-    async entreesGet() {
-      await this.$store.dispatch('definitions/entreesGet', this.slug)
+    async entreesGet(slug) {
+      await this.$store.dispatch('definitions/entreesGet', slug)
     }
   }
 }
