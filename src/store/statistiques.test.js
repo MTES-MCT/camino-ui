@@ -76,8 +76,9 @@ describe('page de statistiques', () => {
   })
 
   test('récupère les statistiques globales', async () => {
-    const apiMock =
-      api.statistiquesGlobales.mockResolvedValue(statistiquesGlobales)
+    const apiMock = api.statistiquesGlobales.mockResolvedValue({
+      statistiquesGlobales
+    })
     await store.dispatch('statistiques/get', 'globales')
 
     expect(mutations.loadingAdd).toHaveBeenCalled()
@@ -87,7 +88,9 @@ describe('page de statistiques', () => {
   })
 
   test('récupère les statistiques de guyane', async () => {
-    const apiMock = api.statistiquesGuyane.mockResolvedValue(statistiquesGuyane)
+    const apiMock = api.statistiquesGuyane.mockResolvedValue({
+      statistiquesGuyane
+    })
     await store.dispatch('statistiques/get', 'guyane')
 
     expect(mutations.loadingAdd).toHaveBeenCalled()
@@ -99,9 +102,9 @@ describe('page de statistiques', () => {
   })
 
   test('récupère les statistiques sur les granulats marins', async () => {
-    const apiMock = api.statistiquesGranulatsMarins.mockResolvedValue(
+    const apiMock = api.statistiquesGranulatsMarins.mockResolvedValue({
       statistiquesGranulatsMarins
-    )
+    })
     await store.dispatch('statistiques/get', 'granulatsMarins')
 
     expect(mutations.loadingAdd).toHaveBeenCalled()

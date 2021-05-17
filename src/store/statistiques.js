@@ -24,7 +24,7 @@ const actions = {
         data = await statistiquesGranulatsMarins()
       }
 
-      commit('set', { section: section, data })
+      commit('set', { section: section, data: data[Object.keys(data)[0]] })
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
