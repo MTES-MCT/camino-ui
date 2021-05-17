@@ -11,7 +11,7 @@ import {
 } from '../api/metas'
 
 const definitionsIndex = {
-  domaines: domaines,
+  domaines,
   'titre-minier': '',
   'autorisation-miniere': '',
   'demarches-statuts': demarchesStatuts,
@@ -35,7 +35,7 @@ const actions = {
     try {
       const data = await definitions()
 
-      commit('set', data)
+      commit('set', data.definitions)
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
@@ -49,7 +49,8 @@ const actions = {
     try {
       if (definitionsIndex[slug]) {
         const data = await definitionsIndex[slug]()
-        commit('entreesSet', data)
+
+        commit('entreesSet', data[Object.keys(data)[0]])
       } else {
         commit('entreesSet', [])
       }
