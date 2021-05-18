@@ -10,6 +10,25 @@
       :modifiable="modifiable"
       :repertoire="repertoire"
     />
+
+    <div v-if="modifiable && ajoutable">
+      <h4>Nouveau document</h4>
+      <select v-model="newDocumentTypeId" class="p-s mb-s rnd-xs">
+        <option v-for="dt in documentsTypes" :key="dt.id" :value="dt.id">
+          {{ dt.nom }}
+        </option>
+      </select>
+
+      <button
+        v-if="newDocumentTypeId"
+        class="btn p-s mb-s full-x rnd-xs"
+        @click="documentAdd(newDocumentTypeId)"
+      >
+        Ajouter un document
+      </button>
+    </div>
+
+    <hr />
   </div>
 </template>
 
@@ -26,9 +45,9 @@ export default {
   props: {
     documents: { type: Array, required: true },
     modifiable: { type: Boolean, default: true },
+    ajoutable: { type: Boolean, default: true },
     repertoire: { type: String, required: true },
-    parentTypeId: { type: String, default: '' },
-    parentId: { type: String, default: undefined, required: false },
+    parentId: { type: String, required: true },
     documentsTypes: { type: Array, required: true }
   },
 
@@ -36,7 +55,7 @@ export default {
 
   data() {
     return {
-      loaded: false
+      newDocumentTypeId: null
     }
   },
 
@@ -56,10 +75,9 @@ export default {
 
     visible() {
       return (
-        this.loaded &&
-        (this.modifiable ||
-          this.documentsTypes.some(dt => !dt.optionnel) ||
-          this.documents.some(d => d.fichier || d.fichierNouveau))
+        this.modifiable ||
+        this.documentsTypes.some(dt => !dt.optionnel) ||
+        this.documents.some(d => d.fichier || d.fichierNouveau)
       )
     }
   },
@@ -71,6 +89,7 @@ export default {
       },
       immediate: true
     },
+
     documentsTypes: {
       handler: 'init',
       deep: true
@@ -85,41 +104,55 @@ export default {
 
   methods: {
     async init() {
-      this.loaded = false
-      const options = { repertoire: this.repertoire }
-      if (this.parentTypeId) {
-        options.typeId = this.parentTypeId
-      }
+      // supprime les documents dont le documenTType n'existe pas
+      this.documents.forEach(d => {
+        const documentsTypesIds = this.documentsTypes.map(({ id }) => id)
+        if (!documentsTypesIds.includes(d.typeId)) {
+          const index = this.documents.findIndex(({ id }) => id === d.id)
 
-      await this.$store.dispatch('document/init', options)
-
-      this.documentsTypes.forEach(dt => {
-        if (!this.documents.find(d => d.typeId === dt.id)) {
-          const documentNew = {
-            typeId: dt.id,
-            entreprisesLecture: false,
-            publicLecture: false,
-            fichier: null,
-            fichierNouveau: null,
-            fichierTypeId: null,
-            date: ''
+          if (index > -1) {
+            this.documents.splice(index, 1)
           }
-
-          if (this.repertoire === 'demarches') {
-            documentNew.titreEtapeId = this.parentId
-          } else if (this.repertoire === 'activites') {
-            documentNew.titreActiviteId = this.parentId
-          } else if (this.repertoire === 'entreprises') {
-            documentNew.titreEntrepriseId = this.parentId
-          } else if (this.repertoire === 'travaux') {
-            documentNew.titreTravauxEtapeId = this.parentId
-          }
-
-          this.documents.push(documentNew)
         }
       })
 
-      this.loaded = true
+      // crée les documents dont le type est obligatoires si ils n'existent pas
+      this.documentsTypes.forEach(dt => {
+        if (
+          !dt.optionnel &&
+          !this.documents.find(({ typeId }) => typeId === dt.id)
+        ) {
+          this.documentAdd(dt.id)
+        }
+      })
+    },
+
+    documentAdd(documentTypeId) {
+      const documentNew = {
+        typeId: documentTypeId,
+        entreprisesLecture: false,
+        publicLecture: false,
+        fichier: null,
+        fichierNouveau: null,
+        fichierTypeId: null,
+        date: ''
+      }
+
+      if (this.repertoire === 'demarches') {
+        documentNew.titreEtapeId = this.parentId
+      } else if (this.repertoire === 'activites') {
+        documentNew.titreActiviteId = this.parentId
+      } else if (this.repertoire === 'entreprises') {
+        documentNew.titreEntrepriseId = this.parentId
+      } else if (this.repertoire === 'travaux') {
+        documentNew.titreTravauxEtapeId = this.parentId
+      }
+
+      this.documents.push(documentNew)
+
+      if (this.newDocumentTypeId) {
+        this.newDocumentTypeId = null
+      }
     }
   }
 }

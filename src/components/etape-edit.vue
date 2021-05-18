@@ -75,10 +75,9 @@
       @next="next"
     >
       <DocumentsEdit
-        v-model:documents="documentsObligatoires"
+        v-model:documents="etape.documents"
         :parent-id="etape.id"
-        :parent-type-id="etapeType.id"
-        :documents-types="documentsTypesObligatoires"
+        :documents-types="etapeType.documentsTypes"
         repertoire="demarches"
         @complete-update="documentsCompleteUpdate"
       />
@@ -132,8 +131,7 @@ export default {
       sectionsComplete: false,
       opened: {
         1: true
-      },
-      documentsObligatoires: []
+      }
     }
   },
 
@@ -166,13 +164,6 @@ export default {
 
     etapeType() {
       return this.etapeTypes.find(et => et.id === this.etape.typeId)
-    },
-
-    documentsTypesObligatoires() {
-      return (
-        this.etapeType &&
-        this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
-      )
     },
 
     stepCount() {
@@ -216,31 +207,7 @@ export default {
     },
 
     stepEditDocumentsVisible() {
-      return this.heritageLoaded && this.documentsTypesObligatoires?.length
-    }
-  },
-
-  watch: {
-    documentsObligatoires: {
-      handler: function () {
-        // on a besoin d'une usine à gaz
-        // pour conserver les documents optionnels et obligatoires
-        // on enlève les documents sans id
-        this.etape.documents = this.etape.documents.filter(d => d.id)
-
-        // on met à jour les documents qui ont un id
-        this.etape.documents = this.etape.documents.map(d => {
-          const document = this.documentsObligatoires.find(ed => ed.id === d.id)
-
-          return document || d
-        })
-
-        // on met à jour les documents sans id
-        this.etape.documents = this.etape.documents.concat(
-          this.documentsObligatoires.filter(d => !d.id)
-        )
-      },
-      deep: true
+      return this.heritageLoaded && this.etapeType.documentsTypes?.length
     }
   },
 
@@ -263,10 +230,6 @@ export default {
       await this.$store.dispatch('titreEtape/init', {
         id: this.$route.params.id
       })
-
-      this.documentsObligatoires = this.etape.documents.filter(d =>
-        this.documentsTypesObligatoires.find(dt => dt.id === d.typeId)
-      )
     },
 
     async save() {

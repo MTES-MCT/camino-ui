@@ -23,9 +23,7 @@ const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'documentInit', {
-        root: true
-      })
+      commit('loadingRemove', 'documentInit', { root: true })
     }
   },
 
