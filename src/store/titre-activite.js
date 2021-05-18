@@ -4,6 +4,8 @@ import {
   activiteSupprimer
 } from '../api/titres-activites'
 
+import { oneData } from '../utils'
+
 const state = {
   element: null,
   opened: false
@@ -14,10 +16,10 @@ const actions = {
     commit('loadingAdd', 'activiteGet', { root: true })
 
     try {
-      const data = await activite({ id })
+      const data = oneData(await activite({ id }))
 
       if (data) {
-        commit('set', data.activite)
+        commit('set', data)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -33,7 +35,7 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'activiteUpdate', { root: true })
-      const data = (
+      const data = oneData(
         await activiteModifier({
           activite: {
             id: activite.id,
@@ -42,7 +44,7 @@ const actions = {
           },
           depose
         })
-      ).activiteModifier
+      )
 
       if (route) {
         commit('popupClose', null, { root: true })
@@ -84,7 +86,7 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'activiteRemove', { root: true })
-      const data = (await activiteSupprimer({ id })).activiteSupprimer
+      const data = oneData(await activiteSupprimer({ id }))
 
       commit('popupClose', null, { root: true })
       if (route.name === 'titre') {

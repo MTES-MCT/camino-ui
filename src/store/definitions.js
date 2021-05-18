@@ -10,6 +10,8 @@ import {
   titresTypesTypes
 } from '../api/metas'
 
+import { oneData } from '../utils'
+
 const definitionsIndex = {
   domaines,
   'titre-minier': '',
@@ -33,9 +35,9 @@ const actions = {
     commit('loadingAdd', 'definitions', { root: true })
 
     try {
-      const data = await definitions()
+      const data = oneData(await definitions())
 
-      commit('set', data.definitions)
+      commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
@@ -48,9 +50,9 @@ const actions = {
 
     try {
       if (definitionsIndex[slug]) {
-        const data = await definitionsIndex[slug]()
+        const data = oneData(await definitionsIndex[slug]())
 
-        commit('entreesSet', data[Object.keys(data)[0]])
+        commit('entreesSet', data)
       } else {
         commit('entreesSet', [])
       }

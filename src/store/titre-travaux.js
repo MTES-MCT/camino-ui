@@ -5,6 +5,8 @@ import {
   travauxSupprimer
 } from '../api/titres-travaux'
 
+import { oneData } from '../utils'
+
 const state = {
   metas: {
     types: []
@@ -16,9 +18,9 @@ const actions = {
     commit('loadingAdd', 'travauxInit', { root: true })
 
     try {
-      const data = await travauxMetas()
+      const data = oneData(await travauxMetas())
 
-      commit('metasSet', { types: data.travauxTypes })
+      commit('metasSet', { types: data })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -32,7 +34,7 @@ const actions = {
     commit('loadingAdd', 'titreTravauxAdd', { root: true })
 
     try {
-      const data = (await travauxCreer({ travaux })).travauxCreer
+      const data = oneData(await travauxCreer({ travaux }))
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
@@ -54,7 +56,7 @@ const actions = {
     commit('loadingAdd', 'titreTravauxUpdate', { root: true })
 
     try {
-      const data = (await travauxModifier({ travaux })).travauxModifier
+      const data = oneData(await travauxModifier({ travaux }))
 
       commit('popupClose', null, { root: true })
 
@@ -78,7 +80,7 @@ const actions = {
     commit('loadingAdd', 'titreTravauxRemove', { root: true })
 
     try {
-      const data = (await travauxSupprimer({ id })).travauxSupprimer
+      const data = oneData(await travauxSupprimer({ id }))
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })

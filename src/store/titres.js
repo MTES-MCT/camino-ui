@@ -3,6 +3,8 @@ import { titresMetas, titresGeo, titres, titresGeoPolygon } from '../api/titres'
 import { paramsBuild } from '../utils/'
 import { listeMutations } from './_liste-build'
 
+import { oneData } from '../utils'
+
 const state = {
   elements: [],
   total: 0,
@@ -108,16 +110,16 @@ const actions = {
         )
 
         if (state.params.carte.zoom > 7) {
-          data = (await titresGeoPolygon(definitions)).titres
+          data = oneData(await titresGeoPolygon(definitions))
         } else {
-          data = (await titresGeo(definitions)).titres
+          data = oneData(await titresGeo(definitions))
         }
       } else {
         const definitions = paramsBuild(
           state.definitions,
           Object.assign({}, state.params.filtres, state.params.table)
         )
-        data = (await titres(definitions)).titres
+        data = oneData(await titres(definitions))
       }
 
       commit('set', Object.freeze(data))

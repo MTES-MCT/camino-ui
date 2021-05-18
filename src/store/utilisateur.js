@@ -11,6 +11,8 @@ import {
 
 import router from '../router'
 
+import { oneData } from '../utils'
+
 const state = {
   element: null,
   metas: {
@@ -39,10 +41,10 @@ const actions = {
     commit('loadingAdd', 'utilisateur', { root: true })
 
     try {
-      const data = await utilisateur({ id })
+      const data = oneData(await utilisateur({ id }))
 
       if (data) {
-        commit('set', data.utilisateur)
+        commit('set', data)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -58,7 +60,7 @@ const actions = {
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'utilisateurAdd', { root: true })
     try {
-      const data = (await utilisateurCreer({ utilisateur })).utilisateurCreer
+      const data = oneData(await utilisateurCreer({ utilisateur }))
 
       commit('popupClose', null, { root: true })
 
@@ -84,8 +86,7 @@ const actions = {
     commit('loadingAdd', 'utilisateurUpdate', { root: true })
 
     try {
-      const data = (await utilisateurModifier({ utilisateur }))
-        .utilisateurModifier
+      const data = oneData(await utilisateurModifier({ utilisateur }))
 
       commit('popupClose', null, { root: true })
 
@@ -150,9 +151,11 @@ const actions = {
     commit('loadingAdd', 'utilisateurEmailVerification', { root: true })
 
     try {
-      const data = await utilisateurEmailMessageEnvoyer({
-        email
-      })
+      const data = oneData(
+        await utilisateurEmailMessageEnvoyer({
+          email
+        })
+      )
 
       commit('popupClose', null, { root: true })
       dispatch(
@@ -203,7 +206,7 @@ const actions = {
     commit('loadingAdd', 'utilisateurRemove', { root: true })
 
     try {
-      const data = (await utilisateurSupprimer({ id })).utilisateurSupprimer
+      const data = oneData(await utilisateurSupprimer({ id }))
 
       if (rootState.user.element.id === data.id) {
         await dispatch('user/logout', null, { root: true })
