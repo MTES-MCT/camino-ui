@@ -125,9 +125,11 @@ export default {
   methods: {
     async get() {
       const options = { repertoire: this.repertoire }
+
       if (this.parentTypeId) {
         options.typeId = this.parentTypeId
       }
+
       await this.$store.dispatch('document/init', options)
     },
 
