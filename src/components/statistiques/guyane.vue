@@ -400,6 +400,14 @@ export default {
     tabs() {
       return [
         {
+          id: this.anneeCurrent - 4,
+          nom: (this.anneeCurrent - 4).toString()
+        },
+        {
+          id: this.anneeCurrent - 3,
+          nom: (this.anneeCurrent - 3).toString()
+        },
+        {
           id: this.anneeCurrent - 2,
           nom: (this.anneeCurrent - 2).toString()
         },
