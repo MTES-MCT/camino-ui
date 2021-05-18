@@ -8,6 +8,8 @@ import {
 
 import router from '../router'
 
+import { oneData } from '../utils'
+
 const state = {
   element: null,
   metas: {
@@ -22,9 +24,9 @@ const actions = {
     })
 
     try {
-      const data = await entreprisePermissionsMetas()
+      const data = oneData(await entreprisePermissionsMetas())
 
-      commit('metasSet', { domaines: data.domaines })
+      commit('metasSet', { domaines: data })
     } catch (e) {
       commit('messageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -38,10 +40,10 @@ const actions = {
     try {
       commit('loadingAdd', 'entrepriseGet', { root: true })
 
-      const data = await entreprise({ id })
+      const data = oneData(await entreprise({ id }))
 
       if (data) {
-        commit('set', data.entreprise)
+        commit('set', data)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -57,7 +59,7 @@ const actions = {
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'entrepriseAdd', { root: true })
     try {
-      const data = (await entrepriseCreer({ entreprise })).entrepriseCreer
+      const data = oneData(await entrepriseCreer({ entreprise }))
 
       commit('popupClose', null, { root: true })
 
@@ -79,7 +81,7 @@ const actions = {
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'entrepriseUpdate', { root: true })
     try {
-      const data = (await entrepriseModifier({ entreprise })).entrepriseModifier
+      const data = oneData(await entrepriseModifier({ entreprise }))
 
       commit('popupClose', null, { root: true })
 
@@ -107,11 +109,11 @@ const actions = {
         root: true
       })
 
-      const data = (
+      const data = oneData(
         await entrepriseTitreTypeUpdate({
           entrepriseTitreType
         })
-      ).entrepriseTitreTypeModifier
+      )
 
       await dispatch(
         'reload',

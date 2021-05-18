@@ -9,6 +9,8 @@ import {
   administrationPermissionsMetas
 } from '../api/administrations'
 
+import { oneData } from '../utils'
+
 const state = {
   element: null,
   metas: {
@@ -58,9 +60,9 @@ const actions = {
     try {
       commit('loadingAdd', 'administration', { root: true })
 
-      const data = await administration({ id })
+      const data = oneData(await administration({ id }))
 
-      commit('set', data.administration)
+      commit('set', data)
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
@@ -73,8 +75,7 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'administrationUpdate', { root: true })
-      const data = (await administrationModifier({ administration }))
-        .administrationModifier
+      const data = oneData(await administrationModifier({ administration }))
 
       commit('popupClose', null, { root: true })
       await dispatch(
@@ -100,11 +101,11 @@ const actions = {
         root: true
       })
 
-      const data = (
+      const data = oneData(
         await administrationTitreTypeUpdate({
           administrationTitreType
         })
-      ).administrationTitreTypeModifier
+      )
 
       await dispatch(
         'reload',
@@ -134,11 +135,11 @@ const actions = {
         root: true
       })
 
-      const data = (
+      const data = oneData(
         await administrationTitreTypeTitreStatutUpdate({
           administrationTitreTypeTitreStatut
         })
-      ).administrationTitreTypeTitreStatutModifier
+      )
 
       await dispatch(
         'reload',
@@ -168,11 +169,11 @@ const actions = {
         root: true
       })
 
-      const data = (
+      const data = oneData(
         await administrationTitreTypeEtapeTypeUpdate({
           administrationTitreTypeEtapeType
         })
-      ).administrationTitreTypeEtapeTypeModifier
+      )
 
       await dispatch(
         'reload',
@@ -199,11 +200,11 @@ const actions = {
         root: true
       })
 
-      const data = (
+      const data = oneData(
         await administrationActiviteTypeUpdate({
           administrationActiviteType
         })
-      ).administrationActiviteTypeModifier
+      )
 
       await dispatch(
         'reload',

@@ -1,5 +1,6 @@
 import { urlQueryParamsGet } from '../utils/url'
 import { paramsBuild } from '../utils'
+import { oneData } from '../utils'
 
 const listeActionsBuild = (id, name, elements, metas) => ({
   async init({ state, commit, dispatch }) {
@@ -7,9 +8,9 @@ const listeActionsBuild = (id, name, elements, metas) => ({
       commit('loadingAdd', `${id}Init`, { root: true })
 
       if (metas) {
-        const data = await metas()
+        const data = oneData(await metas())
 
-        commit('metasSet', data[Object.keys(data)[0]])
+        commit('metasSet', data)
       }
 
       if (!state.initialized) {
@@ -39,9 +40,9 @@ const listeActionsBuild = (id, name, elements, metas) => ({
         Object.assign({}, state.params.filtres, state.params.table)
       )
 
-      const data = await elements(p)
+      const data = oneData(await elements(p))
 
-      commit('set', data[Object.keys(data)[0]])
+      commit('set', data)
 
       dispatch(
         'messageAdd',

@@ -104,7 +104,7 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('loadingAdd', 'cerbereUrlGet', { root: true })
 
-      const data = await utilisateurCerbereUrlObtenir({ url })
+      const data = oneData(await utilisateurCerbereUrlObtenir({ url }))
 
       return data
     } catch (e) {
@@ -118,7 +118,7 @@ const actions = {
     try {
       commit('loadingAdd', 'userCerbereLogin', { root: true })
 
-      const data = await utilisateurCerbereTokenCreer({ ticket })
+      const data = oneData(await utilisateurCerbereTokenCreer({ ticket }))
 
       const { utilisateur } = data
 
@@ -182,7 +182,7 @@ const actions = {
     try {
       commit('loadingAdd', 'userAdd', { root: true })
 
-      const data = await utilisateurCreer({ utilisateur })
+      const data = oneData(await utilisateurCreer({ utilisateur }))
 
       if (data) {
         dispatch(
@@ -213,9 +213,11 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('loadingAdd', 'utilisateurPasswordInitEmail', { root: true })
 
-      const data = await utilisateurMotDePasseMessageEnvoyer({
-        email
-      })
+      const data = oneData(
+        await utilisateurMotDePasseMessageEnvoyer({
+          email
+        })
+      )
       commit('popupClose', null, { root: true })
       dispatch('messageAdd', { value: data, type: 'success' }, { root: true })
     } catch (e) {
@@ -231,10 +233,12 @@ const actions = {
     try {
       commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
 
-      const data = await utilisateurMotDePasseInitialiser({
-        motDePasse1,
-        motDePasse2
-      })
+      const data = oneData(
+        await utilisateurMotDePasseInitialiser({
+          motDePasse1,
+          motDePasse2
+        })
+      )
 
       dispatch(
         'messageAdd',

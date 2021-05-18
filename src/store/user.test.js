@@ -194,8 +194,9 @@ describe("état de l'utilisateur connecté", () => {
     const url = encodeURIComponent('http://camino.test')
     const returnUrl = `https://url-cerbere.tld/login?TARGET=${url}`
 
-    const apiMock =
-      api.utilisateurCerbereUrlObtenir.mockResolvedValue(returnUrl)
+    const apiMock = api.utilisateurCerbereUrlObtenir.mockResolvedValue({
+      utilisateurCerbereUrlObtenir: returnUrl
+    })
 
     const cerbereUrl = await store.dispatch('user/cerbereUrlGet', url)
 
@@ -218,9 +219,11 @@ describe("état de l'utilisateur connecté", () => {
 
   test('connecte un utilisateur avec Cerbère', async () => {
     const apiMock = api.utilisateurCerbereTokenCreer.mockResolvedValue({
-      accessToken: 'rene',
-      refreshToken: 'lataupe',
-      utilisateur: userInfo
+      utilisateurCerbereTokenCreer: {
+        accessToken: 'rene',
+        refreshToken: 'lataupe',
+        utilisateur: userInfo
+      }
     })
 
     await store.dispatch('user/cerbereLogin', { ticket })
@@ -269,8 +272,9 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test('ajoute un email', async () => {
-    const apiMock =
-      api.utilisateurCreationMessageEnvoyer.mockResolvedValue(email)
+    const apiMock = api.utilisateurCreationMessageEnvoyer.mockResolvedValue({
+      utilisateurCreationMessageEnvoyer: email
+    })
     await store.dispatch('user/addEmail', email)
 
     expect(apiMock).toHaveBeenCalledWith({ email })
@@ -293,7 +297,9 @@ describe("état de l'utilisateur connecté", () => {
     const loginMock = jest.fn()
     user.actions.login = loginMock
     store = createStore({ modules: { user, map }, actions, mutations })
-    const apiMock = api.utilisateurCreer.mockResolvedValue(userInfo)
+    const apiMock = api.utilisateurCreer.mockResolvedValue({
+      utilisateurCreer: userInfo
+    })
     await store.dispatch('user/add', userInfo)
 
     expect(apiMock).toHaveBeenCalledWith({ utilisateur: userInfo })
@@ -324,8 +330,9 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("crée l'email d'un utilisateur", async () => {
-    const apiMock =
-      api.utilisateurMotDePasseMessageEnvoyer.mockResolvedValue(userInfo)
+    const apiMock = api.utilisateurMotDePasseMessageEnvoyer.mockResolvedValue({
+      utilisateurMotDePasseMessageEnvoyer: userInfo
+    })
     await store.dispatch('user/passwordInitEmail', email)
 
     expect(apiMock).toHaveBeenCalledWith({ email })
@@ -349,7 +356,7 @@ describe("état de l'utilisateur connecté", () => {
     user.actions.tokensSet = tokensSetMock
     store = createStore({ modules: { user, map }, actions, mutations })
     const apiMock = api.utilisateurMotDePasseInitialiser.mockResolvedValue({
-      utilisateur: userInfo
+      utilisateurMotDePasseInitialiser: userInfo
     })
     await store.dispatch('user/passwordInit', {
       motDePasse1: motDePasse,

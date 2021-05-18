@@ -4,6 +4,8 @@ import {
   statistiquesGranulatsMarins
 } from '../api/statistiques'
 
+import { oneData } from '../utils'
+
 const state = {
   globales: {},
   guyane: {},
@@ -17,14 +19,14 @@ const actions = {
 
       let data
       if (section === 'globales') {
-        data = await statistiquesGlobales()
+        data = oneData(await statistiquesGlobales())
       } else if (section === 'guyane') {
-        data = await statistiquesGuyane()
+        data = oneData(await statistiquesGuyane())
       } else if (section === 'granulatsMarins') {
-        data = await statistiquesGranulatsMarins()
+        data = oneData(await statistiquesGranulatsMarins())
       }
 
-      commit('set', { section: section, data: data[Object.keys(data)[0]] })
+      commit('set', { section: section, data })
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
