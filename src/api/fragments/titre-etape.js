@@ -243,7 +243,7 @@ const fragmentTitreEtapeHeritage = gql`
 `
 
 const fragmentTitreEtapeEdit = gql`
-  fragment etape on Etape {
+  fragment etapeEdit on Etape {
     id
     titreDemarcheId
     demarche {

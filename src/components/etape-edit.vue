@@ -10,45 +10,79 @@
     </h6>
     <h2>Modification de l'étape</h2>
 
-    <EtapeEditType
-      v-model:etape="etape"
-      :etape-types="etapeTypes"
-      :etape-type="etapeType"
-      @type-update="typeUpdate"
-    />
+    <EtapeEditAccordion
+      :step-id="1"
+      title="Type d’étape"
+      :opened="opened"
+      @toggle="toggle"
+      @next="next"
+    >
+      <EtapeEditType
+        v-model:etape="etape"
+        :etape-types="etapeTypes"
+        :etape-type="etapeType"
+        @type-update="typeUpdate"
+      />
+    </EtapeEditAccordion>
 
-    <EtapeEditFondamentales
-      v-if="heritageLoaded && etapeType && etapeType.fondamentale"
-      v-model:etape="etape"
-      :domaine-id="domaineId"
-    />
+    <EtapeEditAccordion
+      v-if="stepEditFondamentalesVisible"
+      :step-id="2"
+      title="Propriétés fondamentales"
+      :opened="opened"
+      :has-next-button="stepCount !== 2"
+      @toggle="toggle"
+      @next="next"
+    >
+      <EtapeEditFondamentales v-model:etape="etape" :domaine-id="domaineId" />
+    </EtapeEditAccordion>
 
-    <EtapeEditPoints
-      v-if="etapeType && etapeType.fondamentale"
-      v-model:etape="etape"
-      v-model:events="events"
-    />
+    <EtapeEditAccordion
+      v-if="stepEditFondamentalesVisible"
+      :step-id="3"
+      title="Périmètre"
+      :opened="opened"
+      :has-next-button="stepCount !== 3"
+      @toggle="toggle"
+      @next="next"
+    >
+      <EtapeEditPoints v-model:etape="etape" v-model:events="events" />
+    </EtapeEditAccordion>
 
-    <EditSections
-      v-if="heritageLoaded && etape.sections"
-      v-model:etape="etape"
-      :sections="etape.sections"
-      @complete-update="sectionsCompleteUpdate"
-    />
+    <EtapeEditAccordion
+      v-if="stepEditSectionsVisible"
+      :step-id="4"
+      title="Section spécifiques"
+      :opened="opened"
+      :has-next-button="stepCount !== 4"
+      @toggle="toggle"
+      @next="next"
+    >
+      <EditSections
+        v-model:etape="etape"
+        :sections="etape.sections"
+        @complete-update="sectionsCompleteUpdate"
+      />
+    </EtapeEditAccordion>
 
-    <DocumentsEdit
-      v-if="
-        heritageLoaded &&
-        etapeType.documentsTypes &&
-        etapeType.documentsTypes.length
-      "
-      v-model:documents="etape.documents"
-      :parent-id="etape.id"
-      :parent-type-id="etapeType.id"
-      :documents-types="etapeType.documentsTypes"
-      repertoire="demarches"
-      @complete-update="documentsCompleteUpdate"
-    />
+    <EtapeEditAccordion
+      v-if="stepEditDocumentsVisible"
+      :step-id="5"
+      title="Documents"
+      :opened="opened"
+      :has-next-button="stepCount !== 5"
+      @toggle="toggle"
+      @next="next"
+    >
+      <DocumentsEdit
+        v-model:documents="documentsObligatoires"
+        :parent-id="etape.id"
+        :parent-type-id="etapeType.id"
+        :documents-types="documentsTypesObligatoires"
+        repertoire="demarches"
+        @complete-update="documentsCompleteUpdate"
+      />
+    </EtapeEditAccordion>
 
     <div v-if="!loading" class="tablet-blobs">
       <div class="tablet-blob-1-3 mb tablet-mb-0"></div>
@@ -71,10 +105,12 @@
 <script>
 import Loader from './_ui/loader.vue'
 import EtapeEditType from './etape/edit-type.vue'
+import EtapeEditAccordion from './etape/edit-accordion.vue'
 import EtapeEditFondamentales from './etape/edit-fondamentales.vue'
 import EtapeEditPoints from './etape/edit-points.vue'
 import EditSections from './etape/edit-sections.vue'
 import DocumentsEdit from './document/edit-multi.vue'
+import { nextTick } from 'vue'
 
 export default {
   components: {
@@ -83,7 +119,8 @@ export default {
     EtapeEditFondamentales,
     EtapeEditPoints,
     EditSections,
-    DocumentsEdit
+    DocumentsEdit,
+    EtapeEditAccordion
   },
 
   emits: ['type-update'],
@@ -91,15 +128,22 @@ export default {
   data() {
     return {
       events: { saveKeyUp: true },
-      heritageLoaded: true,
       documentsComplete: false,
-      sectionsComplete: false
+      sectionsComplete: false,
+      opened: {
+        1: true
+      },
+      documentsObligatoires: []
     }
   },
 
   computed: {
     etape() {
       return this.$store.state.titreEtape.element
+    },
+
+    heritageLoaded() {
+      return this.$store.state.titreEtape.heritageLoaded
     },
 
     demarcheType() {
@@ -124,6 +168,27 @@ export default {
       return this.etapeTypes.find(et => et.id === this.etape.typeId)
     },
 
+    documentsTypesObligatoires() {
+      return (
+        this.etapeType &&
+        this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
+      )
+    },
+
+    stepCount() {
+      let stepCount = 1
+      if (this.stepEditFondamentalesVisible) {
+        stepCount += 2
+      }
+      if (this.stepEditSectionsVisible) {
+        stepCount++
+      }
+      if (this.stepEditDocumentsVisible) {
+        stepCount++
+      }
+      return stepCount
+    },
+
     complete() {
       return (
         this.etape &&
@@ -138,6 +203,44 @@ export default {
 
     loading() {
       return this.$store.state.loading.includes('titreEtapeUpdate')
+    },
+
+    stepEditFondamentalesVisible() {
+      return (
+        this.heritageLoaded && this.etapeType && this.etapeType.fondamentale
+      )
+    },
+
+    stepEditSectionsVisible() {
+      return this.heritageLoaded && this.etape.sections?.length
+    },
+
+    stepEditDocumentsVisible() {
+      return this.heritageLoaded && this.documentsTypesObligatoires?.length
+    }
+  },
+
+  watch: {
+    documentsObligatoires: {
+      handler: function () {
+        // on a besoin d'une usine à gaz
+        // pour conserver les documents optionnels et obligatoires
+        // on enlève les documents sans id
+        this.etape.documents = this.etape.documents.filter(d => d.id)
+
+        // on met à jour les documents qui ont un id
+        this.etape.documents = this.etape.documents.map(d => {
+          const document = this.documentsObligatoires.find(ed => ed.id === d.id)
+
+          return document || d
+        })
+
+        // on met à jour les documents sans id
+        this.etape.documents = this.etape.documents.concat(
+          this.documentsObligatoires.filter(d => !d.id)
+        )
+      },
+      deep: true
     }
   },
 
@@ -160,6 +263,10 @@ export default {
       await this.$store.dispatch('titreEtape/init', {
         id: this.$route.params.id
       })
+
+      this.documentsObligatoires = this.etape.documents.filter(d =>
+        this.documentsTypesObligatoires.find(dt => dt.id === d.typeId)
+      )
     },
 
     async save() {
@@ -200,7 +307,35 @@ export default {
     },
 
     typeUpdate(typeId) {
-      this.$emit('type-update', typeId)
+      this.$store.dispatch('titreEtape/heritageGet', {
+        typeId
+      })
+    },
+
+    toggle(stepId) {
+      if (!this.opened[stepId]) {
+        this.opened[stepId] = false
+      }
+
+      Object.keys(this.opened).forEach(key => {
+        if (stepId.toString() === key) {
+          this.opened[stepId] = !this.opened[stepId]
+        } else {
+          this.opened[key] = false
+        }
+      })
+
+      this.scrollToStep(stepId)
+    },
+
+    next(stepId) {
+      this.toggle(stepId + 1)
+    },
+
+    scrollToStep(stepId) {
+      nextTick(() => {
+        document.getElementById('step' + stepId).scrollIntoView()
+      })
     }
   }
 }

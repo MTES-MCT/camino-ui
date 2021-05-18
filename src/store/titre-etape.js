@@ -66,8 +66,8 @@ const actions = {
       commit('heritageLoaded', false)
 
       const data = await etapeHeritage({
-        titreDemarcheId,
-        date: state.element.date ? state.element.date : date,
+        titreDemarcheId: state.element.titreDemarcheId || titreDemarcheId,
+        date: state.element.date || date,
         typeId
       })
 
