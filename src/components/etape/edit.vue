@@ -26,11 +26,15 @@
   />
 
   <DocumentsEdit
-    v-if="heritageLoaded && documentsTypes && documentsTypes.length"
-    v-model:documents="documents"
+    v-if="
+      heritageLoaded &&
+      documentsTypesObligatoires &&
+      documentsTypesObligatoires.length
+    "
+    v-model:documents="documentsObligatoires"
     :parent-id="etape.id"
     :parent-type-id="etapeType.id"
-    :documents-types="documentsTypes"
+    :documents-types="documentsTypesObligatoires"
     repertoire="demarches"
     @complete-update="documentsCompleteUpdate"
   />
@@ -66,7 +70,7 @@ export default {
     return {
       documentsComplete: false,
       sectionsComplete: false,
-      documents: []
+      documentsObligatoires: []
     }
   },
 
@@ -75,7 +79,7 @@ export default {
       return this.etapeTypes.find(et => et.id === this.etape.typeId)
     },
 
-    documentsTypes() {
+    documentsTypesObligatoires() {
       return (
         this.etapeType &&
         this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
@@ -87,7 +91,8 @@ export default {
         this.etape.typeId &&
         this.etape.statutId &&
         (this.etape.statutId === 'aco' ||
-          ((!this.documentsTypes?.length || this.documentsComplete) &&
+          ((!this.documentsTypesObligatoires?.length ||
+            this.documentsComplete) &&
             this.sectionsComplete))
       )
     }
@@ -96,7 +101,7 @@ export default {
   watch: {
     complete: 'completeUpdate',
 
-    documents: {
+    documentsObligatoires: {
       handler: function () {
         // on a besoin d'une usine à gaz
         // pour conserver les documents optionnels et obligatoires
@@ -105,14 +110,14 @@ export default {
 
         // on met à jour les documents qui ont un id
         this.etape.documents = this.etape.documents.map(d => {
-          const document = this.documents.find(ed => ed.id === d.id)
+          const document = this.documentsObligatoires.find(ed => ed.id === d.id)
 
           return document || d
         })
 
         // on met à jour les documents sans id
         this.etape.documents = this.etape.documents.concat(
-          this.documents.filter(d => !d.id)
+          this.documentsObligatoires.filter(d => !d.id)
         )
       },
       deep: true
@@ -120,8 +125,8 @@ export default {
   },
 
   created() {
-    this.documents = this.etape.documents.filter(d =>
-      this.documentsTypes.find(dt => dt.id === d.typeId)
+    this.documentsObligatoires = this.etape.documents.filter(d =>
+      this.documentsTypesObligatoires.find(dt => dt.id === d.typeId)
     )
 
     this.completeUpdate()

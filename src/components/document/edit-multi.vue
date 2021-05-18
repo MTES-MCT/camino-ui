@@ -1,6 +1,7 @@
 <template>
   <div v-if="visible">
     <h3>Documents</h3>
+
     <Edit
       v-for="(document, n) in documents"
       :key="document.id"
@@ -69,17 +70,22 @@ export default {
         this.$emit('complete-update', complete)
       },
       immediate: true
+    },
+    documentsTypes: {
+      handler: 'init',
+      deep: true
     }
   },
 
   async created() {
-    await this.get()
+    await this.init()
 
     this.$emit('complete-update', this.complete)
   },
 
   methods: {
-    async get() {
+    async init() {
+      this.loaded = false
       const options = { repertoire: this.repertoire }
       if (this.parentTypeId) {
         options.typeId = this.parentTypeId

@@ -67,7 +67,7 @@ const titreEtapeMetas = apiGraphQLFetch(
 const etape = apiGraphQLFetch(gql`
   query Etape($id: ID!) {
     etape(id: $id) {
-      ...etape
+      ...etapeEdit
     }
   }
 
