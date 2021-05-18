@@ -22,6 +22,7 @@ const fragmentIncertitudes = gql`
   }
 `
 
+// fragment qui représente l’étape dont on hérite sur une prop
 const fragmentHeritageTitreEtape = gql`
   fragment heritageEtape on Etape {
     id
@@ -117,7 +118,6 @@ const fragmentHeritageProps = gql`
 const fragmentTitreEtape = gql`
   fragment etape on Etape {
     id
-    titreDemarcheId
     ordre
     date
     dateDebut
@@ -242,4 +242,102 @@ const fragmentTitreEtapeHeritage = gql`
   ${fragmentHeritageProps}
 `
 
-export { fragmentTitreEtape, fragmentTitreEtapeHeritage }
+const fragmentTitreEtapeEdit = gql`
+  fragment etape on Etape {
+    id
+    titreDemarcheId
+    demarche {
+      type {
+        nom
+      }
+      titre {
+        nom
+        domaine {
+          id
+        }
+      }
+    }
+    ordre
+    date
+    dateDebut
+    dateFin
+    duree
+    surface
+    type {
+      id
+      nom
+      sections
+      documentsTypes {
+        ...documentType
+      }
+    }
+    statut {
+      id
+      nom
+      couleur
+    }
+    administrations {
+      ...titreAdministrations
+    }
+    titulaires {
+      ...titreEntreprises
+    }
+    amodiataires {
+      ...titreEntreprises
+    }
+    points {
+      ...point
+    }
+    substances {
+      ...titreSubstance
+    }
+    documents {
+      ...document
+    }
+    justificatifs {
+      ...document
+    }
+    incertitudes {
+      ...incertitudes
+    }
+    heritageProps {
+      ...heritageProps
+    }
+    pays {
+      ...pays
+    }
+    contenu
+    heritageContenu
+
+    modification
+    suppression
+    justificatifsAssociation
+    documentsCreation
+  }
+
+  ${fragmentTitreAdministrations}
+
+  ${fragmentTitreEntreprises}
+
+  ${fragmentPoint}
+
+  ${fragmentTitreSubstance}
+
+  ${fragmentPays}
+
+  ${fragmentUnite}
+
+  ${fragmentDocument}
+
+  ${fragmentHeritageProps}
+
+  ${fragmentIncertitudes}
+
+  ${fragmentDocumentType}
+`
+
+export {
+  fragmentTitreEtape,
+  fragmentTitreEtapeHeritage,
+  fragmentTitreEtapeEdit
+}

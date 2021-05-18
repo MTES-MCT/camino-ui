@@ -185,6 +185,8 @@ const etapeSaveFormat = etape => {
   etape.documents = documents
   etape.contenu = contenu
 
+  delete etape.demarche
+
   const propsIds = [
     'substances',
     'titulaires',
