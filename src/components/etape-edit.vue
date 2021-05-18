@@ -88,19 +88,8 @@ export default {
 
   emits: ['type-update'],
 
-  // props: {
-  //   etapeId: { type: String, default: null },
-  //   demarcheId: { type: String, required: true },
-  //   demarcheType: { type: Object, default: () => ({}) },
-  //   domaineId: { type: String, default: '' },
-  //   titreNom: { type: String, default: '' }
-  // },
-
   data() {
     return {
-      titreNom: 'titre-nom',
-      demarcheType: {},
-      domaineId: 'c',
       events: { saveKeyUp: true },
       heritageLoaded: true,
       documentsComplete: false,
@@ -111,6 +100,18 @@ export default {
   computed: {
     etape() {
       return this.$store.state.titreEtape.element
+    },
+
+    demarcheType() {
+      return this.etape.demarche.type
+    },
+
+    titreNom() {
+      return this.etape.demarche.titre.nom
+    },
+
+    domaineId() {
+      return this.etape.demarche.titre.domaine.id
     },
 
     etapeTypes() {
