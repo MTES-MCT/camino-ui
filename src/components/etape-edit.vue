@@ -15,6 +15,7 @@
       title="Type d’étape"
       :opened="opened"
       :has-next-button="!stepLastCheck('type')"
+      :complete="stepTypeComplete"
       @toggle="toggle"
       @next="next"
     >
@@ -32,6 +33,7 @@
       title="Propriétés fondamentales"
       :opened="opened"
       :has-next-button="!stepLastCheck('fondamentales')"
+      :complete="true"
       @toggle="toggle"
       @next="next"
     >
@@ -44,6 +46,7 @@
       title="Périmètre"
       :opened="opened"
       :has-next-button="!stepLastCheck('points')"
+      :complete="true"
       @toggle="toggle"
       @next="next"
     >
@@ -56,6 +59,7 @@
       title="Section spécifiques"
       :opened="opened"
       :has-next-button="!stepLastCheck('sections')"
+      :complete="stepSectionsComplete"
       @toggle="toggle"
       @next="next"
     >
@@ -72,6 +76,7 @@
       title="Documents"
       :opened="opened"
       :has-next-button="!stepLastCheck('documents')"
+      :complete="stepDocumentsComplete"
       @toggle="toggle"
       @next="next"
     >
@@ -168,18 +173,34 @@ export default {
 
     complete() {
       return (
-        this.etape &&
-        this.etape.date &&
-        this.etape.typeId &&
-        this.etape.statutId &&
-        (this.etape.statutId === 'aco' ||
-          ((!this.etapeType.documentsTypes?.length || this.documentsComplete) &&
-            (!this.etape.sections?.length || this.sectionsComplete)))
+        this.stepTypeComplete &&
+        this.stepSectionsComplete &&
+        this.stepDocumentsComplete
       )
     },
 
     loading() {
       return this.$store.state.loading.includes('titreEtapeUpdate')
+    },
+
+    stepTypeComplete() {
+      return !!(this.etape && this.etape.date && this.etape.typeId)
+    },
+
+    stepSectionsComplete() {
+      return (
+        this.etape.statutId === 'aco' ||
+        !this.etape.sections?.length ||
+        this.sectionsComplete
+      )
+    },
+
+    stepDocumentsComplete() {
+      return (
+        this.etape.statutId === 'aco' ||
+        !this.etapeType.documentsTypes?.length ||
+        this.documentsComplete
+      )
     },
 
     stepIndex() {
