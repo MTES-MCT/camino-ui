@@ -35,7 +35,7 @@ const actions = {
 
       const data = await titreDemandeCreer({ titreDemande })
 
-      router.push({
+      await router.push({
         name: 'etape-edition',
         params: { id: data.titreEtapeId }
       })

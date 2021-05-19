@@ -101,7 +101,7 @@ const actions = {
 
       commit('popupClose', null, { root: true })
       if (redirect) {
-        router.push({
+        await router.push({
           name: 'titre',
           params: { id: data.id }
         })

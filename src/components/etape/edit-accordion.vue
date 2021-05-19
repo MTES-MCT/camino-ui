@@ -1,17 +1,16 @@
 <template>
   <Accordion
-    :id="'step' + stepId"
     class="mb-s"
     :slot-default="true"
-    :opened="opened[stepId]"
+    :opened="opened"
     @toggle="toggle"
   >
     <template #title>
-      <span class="cap-first"> {{ title }} </span>
+      <span class="cap-first"> {{ step.name }} </span>
     </template>
     <div class="px pt">
       <div><slot /></div>
-      <div v-if="hasNextButton">
+      <div v-if="step.hasNextButton">
         <button
           class="btn-flash p-s rnd-xs full-x mb"
           :disabled="!complete"
@@ -31,10 +30,8 @@ import Accordion from '../_ui/accordion.vue'
 export default {
   components: { Accordion },
   props: {
-    stepId: { type: String, required: true },
-    opened: { type: Object, required: true },
-    hasNextButton: { type: Boolean, default: () => true },
-    title: { type: String, required: true },
+    step: { type: Object, required: true },
+    opened: { type: Boolean, required: true },
     complete: { type: Boolean, required: true }
   },
 
@@ -42,11 +39,11 @@ export default {
 
   methods: {
     toggle() {
-      this.$emit('toggle', this.stepId)
+      this.$emit('toggle')
     },
 
     next() {
-      this.$emit('next', this.stepId)
+      this.$emit('next')
     }
   }
 }

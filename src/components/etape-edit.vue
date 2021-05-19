@@ -11,13 +11,12 @@
     <h2>Modification de l'étape</h2>
 
     <EtapeEditAccordion
-      step-id="type"
-      title="Type d’étape"
-      :opened="opened"
-      :has-next-button="!stepLastCheck('type')"
+      id="step-type"
+      :step="stepType"
+      :opened="opened['type']"
       :complete="stepTypeComplete"
-      @toggle="toggle"
-      @next="next"
+      @toggle="toggle('type')"
+      @next="next('type')"
     >
       <EtapeEditType
         v-model:etape="etape"
@@ -28,40 +27,37 @@
     </EtapeEditAccordion>
 
     <EtapeEditAccordion
-      v-if="stepVisible('fondamentales')"
-      step-id="fondamentales"
-      title="Propriétés fondamentales"
-      :opened="opened"
-      :has-next-button="!stepLastCheck('fondamentales')"
+      v-if="stepFondamentales"
+      id="step-fondamentales"
+      :step="stepFondamentales"
+      :opened="opened['fondamentales']"
       :complete="true"
-      @toggle="toggle"
-      @next="next"
+      @toggle="toggle('fondamentales')"
+      @next="next('fondamentales')"
     >
       <EtapeEditFondamentales v-model:etape="etape" :domaine-id="domaineId" />
     </EtapeEditAccordion>
 
     <EtapeEditAccordion
-      v-if="stepVisible('points')"
-      step-id="points"
-      title="Périmètre"
-      :opened="opened"
-      :has-next-button="!stepLastCheck('points')"
+      v-if="stepPoints"
+      id="step-points"
+      :step="stepPoints"
+      :opened="opened['points']"
       :complete="true"
-      @toggle="toggle"
-      @next="next"
+      @toggle="toggle('points')"
+      @next="next('points')"
     >
       <EtapeEditPoints v-model:etape="etape" v-model:events="events" />
     </EtapeEditAccordion>
 
     <EtapeEditAccordion
-      v-if="stepVisible('sections')"
-      step-id="sections"
-      title="Section spécifiques"
-      :opened="opened"
-      :has-next-button="!stepLastCheck('sections')"
+      v-if="stepSections"
+      id="step-sections"
+      :step="stepSections"
+      :opened="opened['sections']"
       :complete="stepSectionsComplete"
-      @toggle="toggle"
-      @next="next"
+      @toggle="toggle('sections')"
+      @next="next('sections')"
     >
       <EditSections
         v-model:etape="etape"
@@ -71,14 +67,13 @@
     </EtapeEditAccordion>
 
     <EtapeEditAccordion
-      v-if="stepVisible('documents')"
-      step-id="documents"
-      title="Documents"
-      :opened="opened"
-      :has-next-button="!stepLastCheck('documents')"
+      v-if="stepDocuments"
+      id="step-documents"
+      :step="stepDocuments"
+      :opened="opened['documents']"
       :complete="stepDocumentsComplete"
-      @toggle="toggle"
-      @next="next"
+      @toggle="toggle('documents')"
+      @next="next('documents')"
     >
       <DocumentsEdit
         v-model:documents="etape.documents"
@@ -89,10 +84,11 @@
       />
     </EtapeEditAccordion>
 
-    <div v-if="!loading" class="tablet-blobs">
+    <div class="tablet-blobs">
       <div class="tablet-blob-1-3 mb tablet-mb-0"></div>
       <div class="tablet-blob-2-3">
         <button
+          v-if="!loading"
           ref="save-button"
           class="btn-flash rnd-xs p-s full-x mb"
           :disabled="!complete"
@@ -101,9 +97,9 @@
         >
           Enregistrer
         </button>
+        <div v-else class="p-s bold">Enregistrement en cours…</div>
       </div>
     </div>
-    <div v-else class="p-s full-x bold">Enregistrement en cours…</div>
   </div>
 </template>
 
@@ -135,7 +131,11 @@ export default {
       documentsComplete: false,
       sectionsComplete: false,
       opened: {
-        type: true
+        type: true,
+        fondamentales: false,
+        points: false,
+        sections: false,
+        documents: false
       }
     }
   },
@@ -203,30 +203,50 @@ export default {
       )
     },
 
-    stepIndex() {
-      const stepIndex = {
-        count: 1,
-        ids: ['type']
-      }
+    steps() {
+      const steps = [{ id: 'type', name: "Type de l'étape" }]
 
       if (this.heritageLoaded && this.etapeType?.fondamentale) {
-        stepIndex.count++
-        stepIndex.ids.push('fondamentales')
-        stepIndex.count++
-        stepIndex.ids.push('points')
+        steps[steps.length - 1].hasNextButton = true
+        steps.push({
+          id: 'fondamentales',
+          name: 'Propriétés fondamentales',
+          hasNextButton: true
+        })
+        steps.push({ id: 'points', name: 'Périmètre' })
       }
 
       if (this.heritageLoaded && this.etape.sections?.length) {
-        stepIndex.count++
-        stepIndex.ids.push('sections')
+        steps[steps.length - 1].hasNextButton = true
+        steps.push({ id: 'sections', name: 'Propriétés spécifiques' })
       }
 
       if (this.heritageLoaded && this.etapeType?.documentsTypes?.length) {
-        stepIndex.count++
-        stepIndex.ids.push('documents')
+        steps[steps.length - 1].hasNextButton = true
+        steps.push({ id: 'documents', name: 'Documents' })
       }
 
-      return stepIndex
+      return steps
+    },
+
+    stepType() {
+      return this.steps.find(s => s.id === 'type')
+    },
+
+    stepFondamentales() {
+      return this.steps.find(s => s.id === 'fondamentales')
+    },
+
+    stepPoints() {
+      return this.steps.find(s => s.id === 'points')
+    },
+
+    stepSections() {
+      return this.steps.find(s => s.id === 'sections')
+    },
+
+    stepDocuments() {
+      return this.steps.find(s => s.id === 'documents')
     }
   },
 
@@ -298,41 +318,34 @@ export default {
     },
 
     toggle(stepId) {
-      if (!this.opened[stepId]) {
-        this.opened[stepId] = false
-      }
-
-      Object.keys(this.opened).forEach(key => {
-        if (stepId.toString() === key) {
-          this.opened[stepId] = !this.opened[stepId]
-        } else {
-          this.opened[key] = false
-        }
-      })
+      this.opened[stepId] = !this.opened[stepId]
 
       this.scrollToStep(stepId)
     },
 
     next(stepId) {
-      const index = this.stepIndex.ids.indexOf(stepId)
+      const index = this.steps.findIndex(s => s.id === stepId)
+      const stepNext = this.steps[index + 1]
 
-      this.toggle(this.stepIndex.ids[index + 1])
+      if (stepNext) {
+        this.steps.forEach(({ id }) => {
+          if (stepNext.id === id) {
+            this.opened[id] = true
+          } else {
+            this.opened[id] = false
+          }
+        })
+      }
+
+      this.scrollToStep(stepId)
     },
 
     scrollToStep(stepId) {
       setTimeout(() => {
         document
-          .getElementById('step' + stepId)
+          .getElementById(`step-${stepId}`)
           .scrollIntoView({ behavior: 'smooth' })
       }, 500)
-    },
-
-    stepVisible(id) {
-      return this.stepIndex.ids.includes(id)
-    },
-
-    stepLastCheck(id) {
-      return this.stepIndex.ids.indexOf(id) + 1 === this.stepIndex.ids.length
     }
   }
 }
