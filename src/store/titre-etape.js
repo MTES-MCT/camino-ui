@@ -1,6 +1,8 @@
 import { etapeEditFormat } from '../utils/titre-etape-edit'
 import { etapeSaveFormat } from '../utils/titre-etape-save'
 
+import router from '../router'
+
 import {
   etape,
   etapeHeritage,
@@ -82,7 +84,7 @@ const actions = {
     }
   },
 
-  async upsert({ commit, dispatch }, etape) {
+  async upsert({ commit, dispatch }, { etape, redirect }) {
     try {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
@@ -98,13 +100,24 @@ const actions = {
       }
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-      commit('titre/open', { section: 'etapes', id: etape.id }, { root: true })
-      dispatch(
-        'messageAdd',
-        { value: `le titre a été mis à jour`, type: 'success' },
-        { root: true }
-      )
+      if (redirect) {
+        router.push({
+          name: 'titre',
+          params: { id: data.id }
+        })
+      } else {
+        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        commit(
+          'titre/open',
+          { section: 'etapes', id: etape.id },
+          { root: true }
+        )
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
+      }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
