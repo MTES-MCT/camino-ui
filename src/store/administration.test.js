@@ -259,14 +259,13 @@ describe("état de l'administration consultée", () => {
   })
 
   test('modifie les permissions (type de titres / statut de titre)', async () => {
-    const apiMock = api.administrationTitreTypeTitreStatutUpdate.mockResolvedValue(
-      {
+    const apiMock =
+      api.administrationTitreTypeTitreStatutUpdate.mockResolvedValue({
         administrationTitreTypeTitreStatutModifier: {
           id: 71,
           nom: 'nom admin'
         }
-      }
-    )
+      })
 
     await store.dispatch('administration/titreTypeTitreStatutUpdate', {
       administrationId: 'dea-guyane',
@@ -293,9 +292,10 @@ describe("état de l'administration consultée", () => {
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la modification des permissions (type de titre / statut de titre)", async () => {
-    const apiMock = api.administrationTitreTypeTitreStatutUpdate.mockRejectedValue(
-      new Error('erreur api')
-    )
+    const apiMock =
+      api.administrationTitreTypeTitreStatutUpdate.mockRejectedValue(
+        new Error('erreur api')
+      )
 
     await store.dispatch('administration/titreTypeTitreStatutUpdate', {
       administrationId: 'dea-guyane',
@@ -322,14 +322,13 @@ describe("état de l'administration consultée", () => {
   })
 
   test("modifie les permissions (type de titre / type d'étape)", async () => {
-    const apiMock = api.administrationTitreTypeEtapeTypeUpdate.mockResolvedValue(
-      {
+    const apiMock =
+      api.administrationTitreTypeEtapeTypeUpdate.mockResolvedValue({
         administrationTitreTypeEtapeTypeModifier: {
           id: 71,
           nom: 'nom admin'
         }
-      }
-    )
+      })
 
     await store.dispatch('administration/titresTypeEtapeTypeUpdate', {
       administrationId: 'dea-guyane',
@@ -356,9 +355,10 @@ describe("état de l'administration consultée", () => {
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la modification des permissions (type de titre / type d'étape)", async () => {
-    const apiMock = api.administrationTitreTypeEtapeTypeUpdate.mockRejectedValue(
-      new Error('erreur api')
-    )
+    const apiMock =
+      api.administrationTitreTypeEtapeTypeUpdate.mockRejectedValue(
+        new Error('erreur api')
+      )
 
     await store.dispatch('administration/titresTypeEtapeTypeUpdate', {
       administrationId: 'dea-guyane',
