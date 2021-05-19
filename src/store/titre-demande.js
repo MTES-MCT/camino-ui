@@ -35,7 +35,11 @@ const actions = {
 
       const data = await titreDemandeCreer({ titreDemande })
 
-      router.push({ name: 'titre', params: { id: data.titreId } })
+      router.push({
+        name: 'etape-edition',
+        params: { id: data.titreEtapeId }
+      })
+
       dispatch(
         'messageAdd',
         {

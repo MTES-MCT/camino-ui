@@ -158,7 +158,7 @@ const routes = [
   },
   {
     path: '/creation-de-compte',
-    name: 'creation-de-compte',
+    name: 'account-creation',
     component: UserAdd
   },
   {
@@ -184,12 +184,12 @@ const routes = [
     ]
   },
   {
-    path: '/deposer-une-demande-de-titre',
-    name: 'titre-demande',
+    path: '/demande-de-titre',
+    name: 'titre-creation',
     component: TitreDemande
   },
   {
-    path: '/etapes/:id/editer',
+    path: '/etapes/:id/edition',
     name: 'etape-edition',
     component: EtapeEdit
   },

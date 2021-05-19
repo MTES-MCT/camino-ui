@@ -125,6 +125,7 @@ const actions = {
       router.push({ name })
     } else {
       const idOld = rootState[name].element.id
+
       if (id !== idOld) {
         router.replace({ name, params: { id } })
       } else {

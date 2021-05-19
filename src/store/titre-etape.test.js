@@ -13,6 +13,11 @@ import {
   titreEtapeHeritageRes2,
   titreEtapeHeritage2
 } from './__mocks__/titre-etape'
+import router from '../router'
+
+jest.mock('../router', () => ({
+  push: jest.fn()
+}))
 
 jest.mock('../api/titres-etapes', () => ({
   etape: jest.fn(),
@@ -197,15 +202,31 @@ describe('étapes', () => {
   test('créé une étape', async () => {
     api.etapeCreer.mockResolvedValue({ id: 14, nom: 'champs' })
     await store.dispatch('titreEtape/upsert', {
-      nom: 'champs',
-      incertitudes: {}
+      etape: {
+        nom: 'champs',
+        incertitudes: {}
+      }
     })
 
+    expect(router.push).not.toHaveBeenCalled()
     expect(mutations.popupClose).toHaveBeenCalled()
 
     store.commit('titreEtape/reset')
 
     expect(store.state.titreEtape.element).toBeNull()
+  })
+
+  test('redirige après la création d’une étape', async () => {
+    api.etapeCreer.mockResolvedValue({ id: 14, nom: 'champs' })
+    await store.dispatch('titreEtape/upsert', {
+      etape: {
+        nom: 'champs',
+        incertitudes: {}
+      },
+      redirect: true
+    })
+
+    expect(router.push).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la création d'une étape", async () => {
@@ -221,11 +242,14 @@ describe('étapes', () => {
   test('met à jour une étape', async () => {
     api.etapeModifier.mockResolvedValue({ id: 14, nom: 'champs' })
     await store.dispatch('titreEtape/upsert', {
-      id: 14,
-      nom: 'champs',
-      incertitudes: {}
+      etape: {
+        id: 14,
+        nom: 'champs',
+        incertitudes: {}
+      }
     })
 
+    expect(router.push).not.toHaveBeenCalled()
     expect(mutations.popupClose).toHaveBeenCalled()
   })
 

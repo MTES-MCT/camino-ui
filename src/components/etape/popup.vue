@@ -160,7 +160,7 @@ export default {
 
     async save() {
       if (this.complete) {
-        await this.$store.dispatch('titreEtape/upsert', this.etape)
+        await this.$store.dispatch('titreEtape/upsert', { etape: this.etape })
 
         this.eventTrack({
           categorie: 'titre-sections',

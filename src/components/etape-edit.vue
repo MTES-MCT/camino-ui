@@ -110,7 +110,6 @@ import EtapeEditFondamentales from './etape/edit-fondamentales.vue'
 import EtapeEditPoints from './etape/edit-points.vue'
 import EditSections from './etape/edit-sections.vue'
 import DocumentsEdit from './document/edit-multi.vue'
-import { nextTick } from 'vue'
 
 export default {
   components: {
@@ -233,7 +232,10 @@ export default {
 
     async save() {
       if (this.complete) {
-        await this.$store.dispatch('titreEtape/upsert', this.etape)
+        await this.$store.dispatch('titreEtape/upsert', {
+          etape: this.etape,
+          redirect: true
+        })
 
         this.eventTrack({
           categorie: 'titre-etape',
