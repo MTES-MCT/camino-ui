@@ -154,13 +154,14 @@ export default {
       await this.$store.dispatch('titreEtape/init', {
         titreDemarcheId: this.demarcheId,
         id: this.etapeId,
-        date: this.newDate
+        date: this.newDate,
+        fromPopup: true
       })
     },
 
     async save() {
       if (this.complete) {
-        await this.$store.dispatch('titreEtape/upsert', this.etape)
+        await this.$store.dispatch('titreEtape/upsert', { etape: this.etape })
 
         this.eventTrack({
           categorie: 'titre-sections',

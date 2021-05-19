@@ -1,64 +1,66 @@
 <template>
-  <div class="tablet-blobs">
-    <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-      <h5>Date</h5>
-    </div>
-    <div class="tablet-blob-2-3">
-      <InputDate
-        v-model="etape.date"
-        :class="{ 'mb-s': etape.date, mb: !etape.date }"
-      />
-      <div class="h6">
-        <label v-if="etape.date">
-          <input v-model="etape.incertitudes.date" type="checkbox" />
-          Incertain
-        </label>
-      </div>
-    </div>
-  </div>
-
-  <hr />
-
-  <div class="tablet-blobs">
-    <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-      <h5>Type</h5>
-    </div>
-    <div class="mb tablet-blob-2-3">
-      <select :value="etape.typeId" class="p-s" @change="typeUpdate($event)">
-        <option
-          v-for="eType in etapeTypes"
-          :key="eType.id"
-          :value="eType.id"
-          :disabled="etape.typeId === eType.id"
-        >
-          {{ eType.nom }}
-        </option>
-      </select>
-    </div>
-  </div>
-
-  <hr />
-
-  <div v-if="etapesStatuts">
+  <div>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Statut</h5>
+        <h5>Date</h5>
+      </div>
+      <div class="tablet-blob-2-3">
+        <InputDate
+          v-model="etape.date"
+          :class="{ 'mb-s': etape.date, mb: !etape.date }"
+        />
+        <div class="h6">
+          <label v-if="etape.date">
+            <input v-model="etape.incertitudes.date" type="checkbox" />
+            Incertain
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h5>Type</h5>
       </div>
       <div class="mb tablet-blob-2-3">
-        <select v-model="etape.statutId" class="p-s">
+        <select :value="etape.typeId" class="p-s" @change="typeUpdate($event)">
           <option
-            v-for="etapeStatut in etapesStatuts"
-            :key="etapeStatut.id"
-            :value="etapeStatut.id"
-            :disabled="etape.statutId === etapeStatut.id"
+            v-for="eType in etapeTypes"
+            :key="eType.id"
+            :value="eType.id"
+            :disabled="etape.typeId === eType.id"
           >
-            {{ etapeStatut.nom }}
+            {{ eType.nom }}
           </option>
         </select>
       </div>
     </div>
 
     <hr />
+
+    <div v-if="etapesStatuts">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h5>Statut</h5>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <select v-model="etape.statutId" class="p-s">
+            <option
+              v-for="etapeStatut in etapesStatuts"
+              :key="etapeStatut.id"
+              :value="etapeStatut.id"
+              :disabled="etape.statutId === etapeStatut.id"
+            >
+              {{ etapeStatut.nom }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <hr />
+    </div>
   </div>
 </template>
 

@@ -1,6 +1,8 @@
 import { etapeEditFormat } from '../utils/titre-etape-edit'
 import { etapeSaveFormat } from '../utils/titre-etape-save'
 
+import router from '../router'
+
 import {
   etape,
   etapeHeritage,
@@ -25,7 +27,7 @@ const state = {
 }
 
 const actions = {
-  async init({ commit }, { titreDemarcheId, id, date }) {
+  async init({ commit, dispatch }, { titreDemarcheId, id, date, fromPopup }) {
     try {
       commit('loadingAdd', 'titreEtapeInit', { root: true })
 
@@ -39,6 +41,10 @@ const actions = {
           titreDemarcheId: newEtape.titreDemarcheId,
           id: newEtape.id,
           date: newEtape.date
+        }
+
+        if (!newEtape?.modification) {
+          throw new Error()
         }
       } else {
         newEtape = { date, titreDemarcheId }
@@ -54,7 +60,11 @@ const actions = {
         commit('heritageLoaded', true)
       }
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      if (fromPopup) {
+        commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
     } finally {
       commit('loadingRemove', 'titreEtapeInit', { root: true })
     }
@@ -66,8 +76,8 @@ const actions = {
       commit('heritageLoaded', false)
 
       const data = await etapeHeritage({
-        titreDemarcheId,
-        date: state.element.date ? state.element.date : date,
+        titreDemarcheId: state.element.titreDemarcheId || titreDemarcheId,
+        date: state.element.date || date,
         typeId
       })
 
@@ -82,7 +92,7 @@ const actions = {
     }
   },
 
-  async upsert({ commit, dispatch }, etape) {
+  async upsert({ commit, dispatch }, { etape, redirect }) {
     try {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
@@ -98,13 +108,24 @@ const actions = {
       }
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-      commit('titre/open', { section: 'etapes', id: etape.id }, { root: true })
-      dispatch(
-        'messageAdd',
-        { value: `le titre a été mis à jour`, type: 'success' },
-        { root: true }
-      )
+      if (redirect) {
+        await router.push({
+          name: 'titre',
+          params: { id: data.id }
+        })
+      } else {
+        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+        commit(
+          'titre/open',
+          { section: 'etapes', id: etape.id },
+          { root: true }
+        )
+        dispatch(
+          'messageAdd',
+          { value: `le titre a été mis à jour`, type: 'success' },
+          { root: true }
+        )
+      }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

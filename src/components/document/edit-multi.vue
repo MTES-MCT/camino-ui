@@ -1,6 +1,7 @@
 <template>
   <div v-if="visible">
     <h3>Documents</h3>
+
     <Edit
       v-for="(document, n) in documents"
       :key="document.id"
@@ -8,7 +9,36 @@
       :document-type="documentsTypes.find(dt => dt.id === document.typeId)"
       :modifiable="modifiable"
       :repertoire="repertoire"
+      :supprimable="supprimable(document.typeId)"
+      @remove="documentRemove(n)"
     />
+
+    <div v-if="modifiable && ajoutable">
+      <h4 class="mb-s">Nouveau document</h4>
+      <div class="blobs-mini">
+        <div class="blob-mini-1-2">
+          <select v-model="newDocumentTypeId" class="p-s mb-s rnd-xs">
+            <option v-for="dt in documentsTypes" :key="dt.id" :value="dt.id">
+              {{ dt.nom }}
+            </option>
+          </select>
+        </div>
+
+        <div class="blob-mini-1-2">
+          <button
+            class="btn p-s mb-s full-x rnd-xs flex"
+            :class="{ disabled: !newDocumentTypeId }"
+            :disabled="!newDocumentTypeId"
+            @click="documentAdd(newDocumentTypeId)"
+          >
+            Ajouter un document
+            <i class="icon-24 icon-plus flex-right" />
+          </button>
+        </div>
+      </div>
+
+      <hr />
+    </div>
   </div>
 </template>
 
@@ -25,9 +55,9 @@ export default {
   props: {
     documents: { type: Array, required: true },
     modifiable: { type: Boolean, default: true },
+    ajoutable: { type: Boolean, default: true },
     repertoire: { type: String, required: true },
-    parentTypeId: { type: String, default: '' },
-    parentId: { type: String, default: undefined, required: false },
+    parentId: { type: String, required: true },
     documentsTypes: { type: Array, required: true }
   },
 
@@ -35,7 +65,7 @@ export default {
 
   data() {
     return {
-      loaded: false
+      newDocumentTypeId: null
     }
   },
 
@@ -55,10 +85,9 @@ export default {
 
     visible() {
       return (
-        this.loaded &&
-        (this.modifiable ||
-          this.documentsTypes.some(dt => !dt.optionnel) ||
-          this.documents.some(d => d.fichier || d.fichierNouveau))
+        this.modifiable ||
+        this.documentsTypes.some(dt => !dt.optionnel) ||
+        this.documents.some(d => d.fichier || d.fichierNouveau)
       )
     }
   },
@@ -69,51 +98,91 @@ export default {
         this.$emit('complete-update', complete)
       },
       immediate: true
+    },
+
+    documentsTypes: {
+      handler: 'init',
+      deep: true
     }
   },
 
   async created() {
-    await this.get()
-
-    this.$emit('complete-update', this.complete)
+    await this.init()
   },
 
   methods: {
-    async get() {
-      const options = { repertoire: this.repertoire }
-      if (this.parentTypeId) {
-        options.typeId = this.parentTypeId
-      }
+    async init() {
+      // supprime les documents dont le documenTType n'existe pas
+      this.documents.forEach(d => {
+        const documentsTypesIds = this.documentsTypes.map(({ id }) => id)
+        if (!documentsTypesIds.includes(d.typeId)) {
+          const index = this.documents.findIndex(({ id }) => id === d.id)
 
-      await this.$store.dispatch('document/init', options)
-
-      this.documentsTypes.forEach(dt => {
-        if (!this.documents.find(d => d.typeId === dt.id)) {
-          const documentNew = {
-            typeId: dt.id,
-            entreprisesLecture: false,
-            publicLecture: false,
-            fichier: null,
-            fichierNouveau: null,
-            fichierTypeId: null,
-            date: ''
+          if (index > -1) {
+            this.documents.splice(index, 1)
           }
-
-          if (this.repertoire === 'demarches') {
-            documentNew.titreEtapeId = this.parentId
-          } else if (this.repertoire === 'activites') {
-            documentNew.titreActiviteId = this.parentId
-          } else if (this.repertoire === 'entreprises') {
-            documentNew.titreEntrepriseId = this.parentId
-          } else if (this.repertoire === 'travaux') {
-            documentNew.titreTravauxEtapeId = this.parentId
-          }
-
-          this.documents.push(documentNew)
         }
       })
 
-      this.loaded = true
+      // crée les documents dont le type est obligatoires si ils n'existent pas
+      this.documentsTypes.forEach(dt => {
+        if (
+          !dt.optionnel &&
+          !this.documents.find(({ typeId }) => typeId === dt.id)
+        ) {
+          this.documentAdd(dt.id)
+        }
+      })
+    },
+
+    documentAdd(documentTypeId) {
+      const documentNew = {
+        typeId: documentTypeId,
+        entreprisesLecture: false,
+        publicLecture: false,
+        fichier: null,
+        fichierNouveau: null,
+        fichierTypeId: null,
+        date: ''
+      }
+
+      if (this.repertoire === 'demarches') {
+        documentNew.titreEtapeId = this.parentId
+      } else if (this.repertoire === 'activites') {
+        documentNew.titreActiviteId = this.parentId
+      } else if (this.repertoire === 'entreprises') {
+        documentNew.titreEntrepriseId = this.parentId
+      } else if (this.repertoire === 'travaux') {
+        documentNew.titreTravauxEtapeId = this.parentId
+      }
+
+      this.documents.push(documentNew)
+
+      if (this.newDocumentTypeId) {
+        this.newDocumentTypeId = null
+      }
+    },
+
+    documentRemove(index) {
+      this.documents.splice(index, 1)
+    },
+
+    supprimable(typeId) {
+      const documentType = this.documentsTypes.find(dt => dt.id === typeId)
+
+      if (documentType.optionnel) {
+        return true
+      }
+
+      const documentsWithSameType = this.documents.filter(
+        d => d.typeId === typeId
+      )
+
+      if (documentsWithSameType.length > 1) {
+        return true
+      }
+
+      return false
     }
   }
 }

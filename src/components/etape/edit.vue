@@ -26,11 +26,15 @@
   />
 
   <DocumentsEdit
-    v-if="heritageLoaded && documentsTypes && documentsTypes.length"
-    v-model:documents="documents"
+    v-if="
+      heritageLoaded &&
+      etapeType.documentsTypes &&
+      etapeType.documentsTypes.length
+    "
+    v-model:documents="etape.documents"
     :parent-id="etape.id"
     :parent-type-id="etapeType.id"
-    :documents-types="documentsTypes"
+    :documents-types="etapeType.documentsTypes"
     repertoire="demarches"
     @complete-update="documentsCompleteUpdate"
   />
@@ -65,8 +69,7 @@ export default {
   data() {
     return {
       documentsComplete: false,
-      sectionsComplete: false,
-      documents: []
+      sectionsComplete: false
     }
   },
 
@@ -75,55 +78,22 @@ export default {
       return this.etapeTypes.find(et => et.id === this.etape.typeId)
     },
 
-    documentsTypes() {
-      return (
-        this.etapeType &&
-        this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
-      )
-    },
-
     complete() {
       return (
         this.etape.typeId &&
         this.etape.statutId &&
         (this.etape.statutId === 'aco' ||
-          ((!this.documentsTypes?.length || this.documentsComplete) &&
+          ((!this.etapeType.documentsTypes?.length || this.documentsComplete) &&
             this.sectionsComplete))
       )
     }
   },
 
   watch: {
-    complete: 'completeUpdate',
-
-    documents: {
-      handler: function () {
-        // on a besoin d'une usine à gaz
-        // pour conserver les documents optionnels et obligatoires
-        // on enlève les documents sans id
-        this.etape.documents = this.etape.documents.filter(d => d.id)
-
-        // on met à jour les documents qui ont un id
-        this.etape.documents = this.etape.documents.map(d => {
-          const document = this.documents.find(ed => ed.id === d.id)
-
-          return document || d
-        })
-
-        // on met à jour les documents sans id
-        this.etape.documents = this.etape.documents.concat(
-          this.documents.filter(d => !d.id)
-        )
-      },
-      deep: true
-    }
+    complete: 'completeUpdate'
   },
 
   created() {
-    this.documents = this.etape.documents.filter(d =>
-      this.documentsTypes.find(dt => dt.id === d.typeId)
-    )
-
     this.completeUpdate()
   },
 

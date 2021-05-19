@@ -11,7 +11,7 @@ import {
 import { fragmentSubstance } from './fragments/substance'
 import { fragmentEntreprise } from './fragments/entreprise'
 import {
-  fragmentTitreEtape,
+  fragmentTitreEtapeEdit,
   fragmentTitreEtapeHeritage
 } from './fragments/titre-etape'
 import { fragmentEntreprises } from './fragments/entreprises'
@@ -67,11 +67,11 @@ const titreEtapeMetas = apiGraphQLFetch(
 const etape = apiGraphQLFetch(gql`
   query Etape($id: ID!) {
     etape(id: $id) {
-      ...etape
+      ...etapeEdit
     }
   }
 
-  ${fragmentTitreEtape}
+  ${fragmentTitreEtapeEdit}
 `)
 
 const etapeHeritage = apiGraphQLFetch(gql`

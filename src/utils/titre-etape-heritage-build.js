@@ -6,6 +6,7 @@ const etapeHeritageBuild = (stateEtape, apiEtape) => {
     statutId: '',
     incertitudes: { date: stateEtape.incertitudes.date },
     titreDemarcheId: stateEtape.titreDemarcheId,
+    demarche: stateEtape.demarche,
     documents: stateEtape.documents,
     sections: apiEtape.sections
   }
