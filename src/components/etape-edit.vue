@@ -86,6 +86,8 @@ export default {
     DocumentsEdit
   },
 
+  emits: ['type-update'],
+
   // props: {
   //   etapeId: { type: String, default: null },
   //   demarcheId: { type: String, required: true },
