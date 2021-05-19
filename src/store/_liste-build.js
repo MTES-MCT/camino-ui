@@ -1,6 +1,5 @@
 import { urlQueryParamsGet } from '../utils/url'
-import { paramsBuild } from '../utils'
-import { oneData } from '../utils'
+import { paramsBuild, oneData } from '../utils'
 
 const listeActionsBuild = (id, name, elements, metas) => ({
   async init({ state, commit, dispatch }) {
