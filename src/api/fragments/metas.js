@@ -247,6 +247,14 @@ const fragmentEtapeTypeDocumentType = gql`
   }
 `
 
+const fragmentEtapeTypeJustificatifType = gql`
+  fragment etapeTypeJustificatifType on EtapeTypeJustificatifType {
+    etapeTypeId
+    documentTypeId
+    optionnel
+  }
+`
+
 export {
   fragmentTitreTypeType,
   fragmentTitreStatut,
@@ -269,5 +277,6 @@ export {
   fragmentTitreTypeDemarcheType,
   fragmentTitreTypeDemarcheTypeEtapeType,
   fragmentEtapeTypeEtapeStatut,
-  fragmentEtapeTypeDocumentType
+  fragmentEtapeTypeDocumentType,
+  fragmentEtapeTypeJustificatifType
 }
