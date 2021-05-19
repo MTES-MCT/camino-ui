@@ -166,7 +166,7 @@ const actions = {
     commit('loadingAdd', 'titreEtapeRemove', { root: true })
 
     try {
-      const data = (await etapeSupprimer({ id })).etapeSupprimer
+      const data = oneData(await etapeSupprimer({ id }))
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
