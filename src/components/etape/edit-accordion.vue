@@ -9,11 +9,15 @@
     <template #title>
       <span class="cap-first"> {{ title }} </span>
     </template>
-
     <div class="px pt">
       <div><slot /></div>
       <div v-if="hasNextButton">
-        <button class="btn-flash p-s rnd-xs full-x mb" @click="next">
+        <button
+          class="btn-flash p-s rnd-xs full-x mb"
+          :disabled="!complete"
+          :class="{ disabled: !complete }"
+          @click="next"
+        >
           Suivant
         </button>
       </div>
@@ -30,7 +34,8 @@ export default {
     stepId: { type: String, required: true },
     opened: { type: Object, required: true },
     hasNextButton: { type: Boolean, default: () => true },
-    title: { type: String, required: true }
+    title: { type: String, required: true },
+    complete: { type: Boolean, required: true }
   },
 
   emits: ['toggle', 'next'],
