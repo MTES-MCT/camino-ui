@@ -152,11 +152,9 @@ const actions = {
     commit('loadingAdd', 'utilisateurEmailVerification', { root: true })
 
     try {
-      const data = oneData(
-        await utilisateurEmailMessageEnvoyer({
-          email
-        })
-      )
+      await utilisateurEmailMessageEnvoyer({
+        email
+      })
 
       commit('popupClose', null, { root: true })
       dispatch(

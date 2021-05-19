@@ -1,9 +1,7 @@
 import { urlQueryParamsGet } from '../utils/url'
 import { titresMetas, titresGeo, titres, titresGeoPolygon } from '../api/titres'
-import { paramsBuild } from '../utils/'
+import { paramsBuild, oneData } from '../utils/'
 import { listeMutations } from './_liste-build'
-
-import { oneData } from '../utils'
 
 const state = {
   elements: [],
