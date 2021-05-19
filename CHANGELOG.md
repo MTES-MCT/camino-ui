@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.70](https://github.com/MTES-MCT/camino-ui/compare/v0.22.69...v0.22.70) (2021-05-19)
+
+
+### Features
+
+* ajoute une demande de titre ([#325](https://github.com/MTES-MCT/camino-ui/issues/325)) ([bd84dfc](https://github.com/MTES-MCT/camino-ui/commit/bd84dfc111db57c5e2f088c2e83ddf313dfed7a3))
+* ajoute une interface d'édition des étapes ([#330](https://github.com/MTES-MCT/camino-ui/issues/330)) ([ae259d3](https://github.com/MTES-MCT/camino-ui/commit/ae259d304d1676c25f29dc84aac6e8bc237c19b4))
+* édite une étape ([#334](https://github.com/MTES-MCT/camino-ui/issues/334)) ([eafe749](https://github.com/MTES-MCT/camino-ui/commit/eafe74926735cce8c624f92ac8faaa86d6941cb0))
+* **entreprise:** ajoute une propriété titresCreation ([#323](https://github.com/MTES-MCT/camino-ui/issues/323)) ([fb4f6ce](https://github.com/MTES-MCT/camino-ui/commit/fb4f6cea70b81ca0b8fa9114f802713521e7d033))
+* vérifie si l’application est à jour à chaque appel à l’API ([#322](https://github.com/MTES-MCT/camino-ui/issues/322)) ([b18f292](https://github.com/MTES-MCT/camino-ui/commit/b18f2924cd9d741ccbc34ffd994c59b8edbd35eb))
+* **demande:** initialise la mécanisation des demandes mécanisées ([#318](https://github.com/MTES-MCT/camino-ui/issues/318)) ([62ad238](https://github.com/MTES-MCT/camino-ui/commit/62ad2381c626dc953d050c7170b898bb189b552e))
+
+
+### Bug Fixes
+
+* **glossaire:** corrige l'affichage des définitions du glossaire ([#333](https://github.com/MTES-MCT/camino-ui/issues/333)) ([078abc2](https://github.com/MTES-MCT/camino-ui/commit/078abc2eb1ee8fdc8f8aaae21f95c0b5acbd7da8))
+* **statistiques:** ajoute les années 2017 et 2018 ([#332](https://github.com/MTES-MCT/camino-ui/issues/332)) ([b19828e](https://github.com/MTES-MCT/camino-ui/commit/b19828e2227891665e981aef634c44cdb005ed3e))
+* corrige l'édition des champs json ([#331](https://github.com/MTES-MCT/camino-ui/issues/331)) ([5efab2e](https://github.com/MTES-MCT/camino-ui/commit/5efab2e81a975f3344e974d9bbed0d1e905dc23e))
+* corrige le lien vers une page entreprise ([#327](https://github.com/MTES-MCT/camino-ui/issues/327)) ([7527058](https://github.com/MTES-MCT/camino-ui/commit/752705875a899b44b30242d2eda63759aa8d4c23))
+* **étape:** corrige l’affichage des dates dans les sections ([#326](https://github.com/MTES-MCT/camino-ui/issues/326)) ([66ab32d](https://github.com/MTES-MCT/camino-ui/commit/66ab32d50a9c4938609aa242885f4af23c7de1b7))
+* **étapes:** les éléments de type radio et checkbox ne sont plus optionnels ([#320](https://github.com/MTES-MCT/camino-ui/issues/320)) ([e2b2c72](https://github.com/MTES-MCT/camino-ui/commit/e2b2c72d16875544ae307fa06c8c6fb1392ae0e7))
+* **map:** corrige les erreurs de type 'this._map is null' lors des zooms ([#321](https://github.com/MTES-MCT/camino-ui/issues/321)) ([c0f86fa](https://github.com/MTES-MCT/camino-ui/commit/c0f86fa67f0d1970bb8b93a974fc58d738588316))
+* **stats:** corrige les échelles et légendes des pages statistiques ([#319](https://github.com/MTES-MCT/camino-ui/issues/319)) ([bb1cf80](https://github.com/MTES-MCT/camino-ui/commit/bb1cf80272affac65accdec4f4782645df05fb44))
+* formate la date dans une section ([#317](https://github.com/MTES-MCT/camino-ui/issues/317)) ([ba452f1](https://github.com/MTES-MCT/camino-ui/commit/ba452f161d65274e959d15f10af4bbbc7cdaa856))
+
 ### [0.22.69](https://github.com/MTES-MCT/camino-ui/compare/v0.22.68...v0.22.69) (2021-05-04)
 
 
