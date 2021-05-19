@@ -154,7 +154,8 @@ export default {
       await this.$store.dispatch('titreEtape/init', {
         titreDemarcheId: this.demarcheId,
         id: this.etapeId,
-        date: this.newDate
+        date: this.newDate,
+        fromPopup: true
       })
     },
 

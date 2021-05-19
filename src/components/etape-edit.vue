@@ -141,6 +141,14 @@ export default {
   },
 
   computed: {
+    user() {
+      return this.$store.state.user.element
+    },
+
+    entreprises() {
+      return this.$store.state.user.metas.entreprisesTitresCreation
+    },
+
     etape() {
       return this.$store.state.titreEtape.element
     },
@@ -250,10 +258,14 @@ export default {
     }
   },
 
-  async created() {
-    document.addEventListener('keyup', this.keyUp)
+  watch: {
+    user: 'init'
+  },
 
+  async created() {
     await this.init()
+
+    document.addEventListener('keyup', this.keyUp)
   },
 
   beforeUnmount() {
@@ -320,7 +332,9 @@ export default {
     toggle(stepId) {
       this.opened[stepId] = !this.opened[stepId]
 
-      this.scrollToStep(stepId)
+      if (this.opened[stepId]) {
+        this.scrollToStep(stepId)
+      }
     },
 
     next(stepId) {

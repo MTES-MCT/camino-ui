@@ -83,7 +83,8 @@ describe('étapes', () => {
     const apiMockEtape = api.etape.mockResolvedValue({
       id: 'etape-id',
       titreDemarcheId: 'demarche-id',
-      date: '2020-01-01'
+      date: '2020-01-01',
+      modification: true
     })
 
     await store.dispatch('titreEtape/init', {
@@ -96,6 +97,24 @@ describe('étapes', () => {
     expect(store.state.titreEtape.metas).toEqual(titreEtapeMetasRes)
     expect(store.state.titreEtape.element).toEqual(titreEtapeEdition)
     expect(mutations.loadingRemove).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur si on n'a pas les droits", async () => {
+    const apiMockMetas = api.titreEtapeMetas.mockResolvedValue(titreEtapeMetas)
+    const apiMockEtape = api.etape.mockResolvedValue({
+      id: 'etape-id',
+      titreDemarcheId: 'demarche-id',
+      date: '2020-01-01'
+    })
+
+    await store.dispatch('titreEtape/init', {
+      id: 'etape-id',
+      titreDemarcheId: 'demarche-id'
+    })
+
+    expect(apiMockMetas).not.toHaveBeenCalled()
+    expect(apiMockEtape).toHaveBeenCalled()
+    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test('récupère les métas pour créer une étape', async () => {
@@ -117,11 +136,17 @@ describe('étapes', () => {
       new Error("erreur de l'api")
     )
 
-    await store.dispatch('titreEtape/init', { etape: {} })
+    await store.dispatch('titreEtape/init', { etape: {}, fromPopup: true })
 
     expect(apiMock).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
+
+    await store.dispatch('titreEtape/init', { etape: {} })
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(actions.pageError).toHaveBeenCalled()
   })
 
   test("récupère l'héritage d'une étape", async () => {

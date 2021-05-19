@@ -9,7 +9,7 @@ const state = {
 }
 
 const actions = {
-  async init({ commit }) {
+  async init({ commit, dispatch }) {
     commit('loadingAdd', 'titreDemandeInit', { root: true })
 
     try {
@@ -17,7 +17,7 @@ const actions = {
 
       commit('metasSet', { referencesTypes: data })
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      dispatch('apiError', e, { root: true })
     } finally {
       commit('loadingRemove', 'titreDemandeInit', { root: true })
     }

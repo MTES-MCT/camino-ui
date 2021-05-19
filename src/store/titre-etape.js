@@ -27,7 +27,7 @@ const state = {
 }
 
 const actions = {
-  async init({ commit }, { titreDemarcheId, id, date }) {
+  async init({ commit, dispatch }, { titreDemarcheId, id, date, fromPopup }) {
     try {
       commit('loadingAdd', 'titreEtapeInit', { root: true })
 
@@ -41,6 +41,10 @@ const actions = {
           titreDemarcheId: newEtape.titreDemarcheId,
           id: newEtape.id,
           date: newEtape.date
+        }
+
+        if (!newEtape?.modification) {
+          throw new Error()
         }
       } else {
         newEtape = { date, titreDemarcheId }
@@ -56,7 +60,11 @@ const actions = {
         commit('heritageLoaded', true)
       }
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      if (fromPopup) {
+        commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      } else {
+        dispatch('pageError', null, { root: true })
+      }
     } finally {
       commit('loadingRemove', 'titreEtapeInit', { root: true })
     }
