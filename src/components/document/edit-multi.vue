@@ -9,26 +9,36 @@
       :document-type="documentsTypes.find(dt => dt.id === document.typeId)"
       :modifiable="modifiable"
       :repertoire="repertoire"
+      :supprimable="supprimable(document.typeId)"
+      @remove="documentRemove(n)"
     />
 
     <div v-if="modifiable && ajoutable">
-      <h4>Nouveau document</h4>
-      <select v-model="newDocumentTypeId" class="p-s mb-s rnd-xs">
-        <option v-for="dt in documentsTypes" :key="dt.id" :value="dt.id">
-          {{ dt.nom }}
-        </option>
-      </select>
+      <h4 class="mb-s">Nouveau document</h4>
+      <div class="blobs-mini">
+        <div class="blob-mini-1-2">
+          <select v-model="newDocumentTypeId" class="p-s mb-s rnd-xs">
+            <option v-for="dt in documentsTypes" :key="dt.id" :value="dt.id">
+              {{ dt.nom }}
+            </option>
+          </select>
+        </div>
 
-      <button
-        v-if="newDocumentTypeId"
-        class="btn p-s mb-s full-x rnd-xs"
-        @click="documentAdd(newDocumentTypeId)"
-      >
-        Ajouter un document
-      </button>
+        <div class="blob-mini-1-2">
+          <button
+            class="btn p-s mb-s full-x rnd-xs flex"
+            :class="{ disabled: !newDocumentTypeId }"
+            :disabled="!newDocumentTypeId"
+            @click="documentAdd(newDocumentTypeId)"
+          >
+            Ajouter un document
+            <i class="icon-24 icon-plus flex-right" />
+          </button>
+        </div>
+      </div>
+
+      <hr />
     </div>
-
-    <hr />
   </div>
 </template>
 
@@ -98,8 +108,6 @@ export default {
 
   async created() {
     await this.init()
-
-    this.$emit('complete-update', this.complete)
   },
 
   methods: {
@@ -153,6 +161,28 @@ export default {
       if (this.newDocumentTypeId) {
         this.newDocumentTypeId = null
       }
+    },
+
+    documentRemove(index) {
+      this.documents.splice(index, 1)
+    },
+
+    supprimable(typeId) {
+      const documentType = this.documentsTypes.find(dt => dt.id === typeId)
+
+      if (documentType.optionnel) {
+        return true
+      }
+
+      const documentsWithSameType = this.documents.filter(
+        d => d.typeId === typeId
+      )
+
+      if (documentsWithSameType.length > 1) {
+        return true
+      }
+
+      return false
     }
   }
 }

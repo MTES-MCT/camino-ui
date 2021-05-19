@@ -10,10 +10,10 @@
       <span class="cap-first"> {{ title }} </span>
     </template>
 
-    <div class="p">
+    <div class="px pt">
       <div><slot /></div>
       <div v-if="hasNextButton">
-        <button class="btn-flash p-s rnd-xs full-x" @click="next">
+        <button class="btn-flash p-s rnd-xs full-x mb" @click="next">
           Suivant
         </button>
       </div>
@@ -27,7 +27,7 @@ import Accordion from '../_ui/accordion.vue'
 export default {
   components: { Accordion },
   props: {
-    stepId: { type: Number, required: true },
+    stepId: { type: String, required: true },
     opened: { type: Object, required: true },
     hasNextButton: { type: Boolean, default: () => true },
     title: { type: String, required: true }

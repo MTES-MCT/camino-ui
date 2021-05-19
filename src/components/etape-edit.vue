@@ -11,9 +11,10 @@
     <h2>Modification de l'étape</h2>
 
     <EtapeEditAccordion
-      :step-id="1"
+      step-id="type"
       title="Type d’étape"
       :opened="opened"
+      :has-next-button="!stepLastCheck('type')"
       @toggle="toggle"
       @next="next"
     >
@@ -26,11 +27,11 @@
     </EtapeEditAccordion>
 
     <EtapeEditAccordion
-      v-if="stepEditFondamentalesVisible"
-      :step-id="2"
+      v-if="stepVisible('fondamentales')"
+      step-id="fondamentales"
       title="Propriétés fondamentales"
       :opened="opened"
-      :has-next-button="stepCount !== 2"
+      :has-next-button="!stepLastCheck('fondamentales')"
       @toggle="toggle"
       @next="next"
     >
@@ -38,11 +39,11 @@
     </EtapeEditAccordion>
 
     <EtapeEditAccordion
-      v-if="stepEditFondamentalesVisible"
-      :step-id="3"
+      v-if="stepVisible('points')"
+      step-id="points"
       title="Périmètre"
       :opened="opened"
-      :has-next-button="stepCount !== 3"
+      :has-next-button="!stepLastCheck('points')"
       @toggle="toggle"
       @next="next"
     >
@@ -50,11 +51,11 @@
     </EtapeEditAccordion>
 
     <EtapeEditAccordion
-      v-if="stepEditSectionsVisible"
-      :step-id="4"
+      v-if="stepVisible('sections')"
+      step-id="sections"
       title="Section spécifiques"
       :opened="opened"
-      :has-next-button="stepCount !== 4"
+      :has-next-button="!stepLastCheck('sections')"
       @toggle="toggle"
       @next="next"
     >
@@ -66,11 +67,11 @@
     </EtapeEditAccordion>
 
     <EtapeEditAccordion
-      v-if="stepEditDocumentsVisible"
-      :step-id="5"
+      v-if="stepVisible('documents')"
+      step-id="documents"
       title="Documents"
       :opened="opened"
-      :has-next-button="stepCount !== 5"
+      :has-next-button="!stepLastCheck('documents')"
       @toggle="toggle"
       @next="next"
     >
@@ -130,7 +131,7 @@ export default {
       documentsComplete: false,
       sectionsComplete: false,
       opened: {
-        1: true
+        type: true
       }
     }
   },
@@ -166,20 +167,6 @@ export default {
       return this.etapeTypes.find(et => et.id === this.etape.typeId)
     },
 
-    stepCount() {
-      let stepCount = 1
-      if (this.stepEditFondamentalesVisible) {
-        stepCount += 2
-      }
-      if (this.stepEditSectionsVisible) {
-        stepCount++
-      }
-      if (this.stepEditDocumentsVisible) {
-        stepCount++
-      }
-      return stepCount
-    },
-
     complete() {
       return (
         this.etape &&
@@ -188,7 +175,7 @@ export default {
         this.etape.statutId &&
         (this.etape.statutId === 'aco' ||
           ((!this.etapeType.documentsTypes?.length || this.documentsComplete) &&
-            this.sectionsComplete))
+            (!this.etape.sections?.length || this.sectionsComplete)))
       )
     },
 
@@ -196,18 +183,30 @@ export default {
       return this.$store.state.loading.includes('titreEtapeUpdate')
     },
 
-    stepEditFondamentalesVisible() {
-      return (
-        this.heritageLoaded && this.etapeType && this.etapeType.fondamentale
-      )
-    },
+    stepIndex() {
+      const stepIndex = {
+        count: 1,
+        ids: ['type']
+      }
 
-    stepEditSectionsVisible() {
-      return this.heritageLoaded && this.etape.sections?.length
-    },
+      if (this.heritageLoaded && this.etapeType?.fondamentale) {
+        stepIndex.count++
+        stepIndex.ids.push('fondamentales')
+        stepIndex.count++
+        stepIndex.ids.push('points')
+      }
 
-    stepEditDocumentsVisible() {
-      return this.heritageLoaded && this.etapeType.documentsTypes?.length
+      if (this.heritageLoaded && this.etape.sections?.length) {
+        stepIndex.count++
+        stepIndex.ids.push('sections')
+      }
+
+      if (this.heritageLoaded && this.etapeType?.documentsTypes?.length) {
+        stepIndex.count++
+        stepIndex.ids.push('documents')
+      }
+
+      return stepIndex
     }
   },
 
@@ -292,13 +291,25 @@ export default {
     },
 
     next(stepId) {
-      this.toggle(stepId + 1)
+      const index = this.stepIndex.ids.indexOf(stepId)
+
+      this.toggle(this.stepIndex.ids[index + 1])
     },
 
     scrollToStep(stepId) {
-      nextTick(() => {
-        document.getElementById('step' + stepId).scrollIntoView()
-      })
+      setTimeout(() => {
+        document
+          .getElementById('step' + stepId)
+          .scrollIntoView({ behavior: 'smooth' })
+      }, 500)
+    },
+
+    stepVisible(id) {
+      return this.stepIndex.ids.includes(id)
+    },
+
+    stepLastCheck(id) {
+      return this.stepIndex.ids.indexOf(id) + 1 === this.stepIndex.ids.length
     }
   }
 }
