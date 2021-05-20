@@ -26,12 +26,12 @@
 
         <div class="blob-mini-1-2">
           <button
-            class="btn p-s mb-s full-x rnd-xs flex"
+            class="btn small py-s px-m mb-s full-x rnd-xs flex"
             :class="{ disabled: !newDocumentTypeId }"
             :disabled="!newDocumentTypeId"
             @click="documentAdd(newDocumentTypeId)"
           >
-            Ajouter un document
+            <span class="mt-xxs">Ajouter un document</span>
             <i class="icon-24 icon-plus flex-right" />
           </button>
         </div>

@@ -4,7 +4,7 @@
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h5>Date</h5>
       </div>
-      <div class="tablet-blob-2-3 tablet-pt-s">
+      <div class="tablet-blob-2-3">
         <InputDate v-if="modifiable" v-model="document.date" class="mb" />
         <p v-else-if="document.date" class="pt-xs">
           {{ document.date }}
@@ -100,7 +100,7 @@
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h5>Type de fichier</h5>
         </div>
-        <div class="tablet-blob-2-3 tablet-pt-s mb">
+        <div class="tablet-blob-2-3 mb">
           <select
             v-if="modifiable"
             v-model="document.fichierTypeId"

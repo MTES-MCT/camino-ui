@@ -3,6 +3,8 @@
     v-model:etape="etape"
     :etape-types="etapeTypes"
     :etape-type="etapeType"
+    :restricted="restricted"
+    :etape-is-demande="etapeIsDemande"
     @type-update="typeUpdate"
   />
 
@@ -61,7 +63,9 @@ export default {
     etapeTypes: { type: Array, required: true },
     events: { type: Object, required: true },
     domaineId: { type: String, required: true },
-    heritageLoaded: { type: Boolean, required: true }
+    heritageLoaded: { type: Boolean, required: true },
+    restricted: { type: Boolean, default: true },
+    etapeIsDemande: { type: Boolean, default: false }
   },
 
   emits: ['edit-complete-update', 'type-update'],

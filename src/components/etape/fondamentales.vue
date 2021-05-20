@@ -1,5 +1,5 @@
 <template>
-  <div class="px-m pt-m border-b-s">
+  <div>
     <div
       v-if="etape.substances && etape.substances.length"
       class="tablet-blobs"
@@ -174,13 +174,13 @@
 </template>
 
 <script>
+import { dateFormat } from '@/utils'
+import numberFormat from '@/utils/number-format'
+import { etablissementNameFind } from '../../utils/entreprise'
 import TagList from '../_ui/tag-list.vue'
 import Tag from '../_ui/tag.vue'
 import PropDuree from './prop-duree.vue'
 import Points from '../_common/points.vue'
-import { etablissementNameFind } from '../../utils/entreprise'
-import { dateFormat } from '@/utils'
-import numberFormat from '@/utils/number-format'
 
 export default {
   components: {
@@ -189,9 +189,11 @@ export default {
     PropDuree,
     Points
   },
+
   props: {
-    etape: { type: Object, default: () => ({}) }
+    etape: { type: Object, required: true }
   },
+
   computed: {
     incertitudesLength() {
       return (

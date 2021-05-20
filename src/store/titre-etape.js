@@ -1,5 +1,7 @@
 import { etapeEditFormat } from '../utils/titre-etape-edit'
 import { etapeSaveFormat } from '../utils/titre-etape-save'
+import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
+import { etapeFormat } from '../utils/titre-etape-format'
 
 import router from '../router'
 
@@ -11,7 +13,6 @@ import {
   etapeModifier,
   etapeSupprimer
 } from '../api/titres-etapes'
-import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
 
 const state = {
   element: null,
@@ -92,7 +93,7 @@ const actions = {
     }
   },
 
-  async upsert({ commit, dispatch }, { etape, redirect }) {
+  async upsert({ commit, dispatch }, { etape, fromPopup, depose }) {
     try {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
@@ -102,13 +103,14 @@ const actions = {
 
       let data
       if (etapeFormatted.id) {
-        data = await etapeModifier({ etape: etapeFormatted })
+        data = await etapeModifier({ etape: etapeFormatted, depose })
       } else {
-        data = await etapeCreer({ etape: etapeFormatted })
+        data = await etapeCreer({ etape: etapeFormatted, depose })
       }
 
       commit('popupClose', null, { root: true })
-      if (redirect) {
+
+      if (!fromPopup) {
         await router.push({
           name: 'titre',
           params: { id: data.id }
@@ -156,6 +158,12 @@ const actions = {
   }
 }
 
+const getters = {
+  etapeFormatted(state) {
+    return etapeFormat(state.element, state.metas)
+  }
+}
+
 const mutations = {
   set(state, { etape }) {
     const e = etapeEditFormat(etape)
@@ -192,5 +200,6 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
+  getters
 }

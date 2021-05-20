@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="tablet-blobs">
+    <div v-if="!restricted" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h5>Date</h5>
       </div>
@@ -40,7 +40,7 @@
 
     <hr />
 
-    <div v-if="etapesStatuts">
+    <div v-if="etapesStatuts && !etapeIsDemande">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h5>Statut</h5>
@@ -72,7 +72,9 @@ export default {
   props: {
     etape: { type: Object, required: true },
     etapeType: { type: Object, default: () => ({}) },
-    etapeTypes: { type: Array, required: true }
+    etapeTypes: { type: Array, required: true },
+    restricted: { type: Boolean, default: true },
+    etapeIsDemande: { type: Boolean, default: false }
   },
 
   emits: ['type-update'],

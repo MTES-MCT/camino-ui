@@ -35,7 +35,7 @@ const pointReferencesBuild = (
     return pointReferences
   }, [])
 
-const lotPointsBuild = (
+const pointsLotBuild = (
   { references, description },
   pointsLength,
   lot,
@@ -104,7 +104,7 @@ const contourBuild = (
         }
       } else if (point.references.length) {
         points = points.concat(
-          lotPointsBuild(
+          pointsLotBuild(
             point,
             points.length,
             lotIndex,
@@ -177,6 +177,8 @@ const pointsBuild = (groupes, geoSystemeIds, geoSystemeOpposableId) => {
   return points
 }
 
+const dureeBuild = (ans, mois) => (ans ? ans * 12 : 0) + (mois || 0)
+
 const etapeSaveFormat = etape => {
   // le stringify casse le fichier
   const documents = etape.documents
@@ -228,9 +230,7 @@ const etapeSaveFormat = etape => {
   delete etape.geoSystemeIds
 
   if (etape.duree && (etape.duree.ans || etape.duree.mois)) {
-    etape.duree =
-      (etape.duree.ans ? etape.duree.ans * 12 : 0) +
-      (etape.duree.mois ? etape.duree.mois : 0)
+    etape.duree = dureeBuild(etape.duree.ans, etape.duree.mois)
   } else {
     etape.duree = null
   }
@@ -271,4 +271,4 @@ const etapeSaveFormat = etape => {
   return etape
 }
 
-export { etapeSaveFormat }
+export { etapeSaveFormat, pointsBuild, dureeBuild }

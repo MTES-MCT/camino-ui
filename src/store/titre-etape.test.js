@@ -247,8 +247,7 @@ describe('étapes', () => {
       etape: {
         nom: 'champs',
         incertitudes: {}
-      },
-      redirect: true
+      }
     })
 
     expect(router.push).toHaveBeenCalled()
@@ -258,7 +257,8 @@ describe('étapes', () => {
     api.etapeCreer.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('titreEtape/upsert', {
       nom: 'champs',
-      incertitudes: {}
+      incertitudes: {},
+      fromPopup: true
     })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()

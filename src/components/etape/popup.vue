@@ -35,6 +35,8 @@
       :domaine-id="domaineId"
       :events="events"
       :heritage-loaded="heritageLoaded"
+      :restricted="!userIsAdmin"
+      :etape-is-demande="etapeIsDemande"
       @edit-complete-update="editCompleteUpdate"
       @type-update="typeUpdate"
     />
@@ -46,9 +48,8 @@
             Annuler
           </button>
         </div>
-        <div class="tablet-blob-2-3">
+        <div v-if="dateIsVisible" class="tablet-blob-2-3">
           <button
-            v-if="dateIsVisible"
             ref="init-button"
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!newDate"
@@ -57,15 +58,32 @@
           >
             Valider
           </button>
+        </div>
+        <button
+          v-else
+          ref="save-button"
+          class="rnd-xs p-s full-x"
+          :disabled="!complete"
+          :class="{
+            'tablet-blob-2-3': !etapeIsDemande,
+            'tablet-blob-1-3': etapeIsDemande,
+            'btn-flash': !etapeIsDemande,
+            btn: etapeIsDemande,
+            disabled: !complete
+          }"
+          @click="save(false)"
+        >
+          Enregistrer
+        </button>
+        <div v-if="!dateIsVisible && etapeIsDemande" class="tablet-blob-1-3">
           <button
-            v-else
-            ref="save-button"
+            ref="save-depose-button"
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!complete"
             :class="{ disabled: !complete }"
-            @click="save"
+            @click="save(true)"
           >
-            Enregistrer
+            Déposer
           </button>
         </div>
       </div>
@@ -76,6 +94,7 @@
 </template>
 
 <script>
+import { permissionsCheck } from '@/utils'
 import InputDate from '../_ui/input-date.vue'
 import Popup from '../_ui/popup.vue'
 import Edit from './edit.vue'
@@ -102,6 +121,10 @@ export default {
   },
 
   computed: {
+    user() {
+      return this.$store.state.user.element
+    },
+
     loading() {
       return this.$store.state.popup.loading
     },
@@ -130,6 +153,14 @@ export default {
 
     heritageLoaded() {
       return this.$store.state.titreEtape.heritageLoaded
+    },
+
+    userIsAdmin() {
+      return permissionsCheck(this.user, ['super', 'admin', 'editeur'])
+    },
+
+    etapeIsDemande() {
+      return !!this.etape && ['mfr', 'mfm'].includes(this.etape.typeId)
     }
   },
 
@@ -159,9 +190,13 @@ export default {
       })
     },
 
-    async save() {
+    async save(depose) {
       if (this.complete) {
-        await this.$store.dispatch('titreEtape/upsert', { etape: this.etape })
+        await this.$store.dispatch('titreEtape/upsert', {
+          etape: this.etape,
+          fromPopup: true,
+          depose
+        })
 
         this.eventTrack({
           categorie: 'titre-sections',
@@ -182,9 +217,12 @@ export default {
         if (this.dateIsVisible && this.newDate) {
           this.$refs['init-button'].focus()
           this.init()
-        } else if (this.complete) {
+        } else if (this.complete && !this.etapeIsDemande) {
+          this.$refs['save-depose-button'].focus()
+          this.save(true)
+        } else if (this.complete && this.etapeIsDemande) {
           this.$refs['save-button'].focus()
-          this.save()
+          this.save(false)
         }
       }
     },

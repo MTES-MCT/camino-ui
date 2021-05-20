@@ -176,7 +176,7 @@
         <h5 class="mb-0">Administration locale</h5>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
-      <div class="mb tablet-blob-2-3 tablet-pt-s">
+      <div class="mb tablet-blob-2-3">
         <p class="mb-s">
           <label v-for="lien in liens" :key="lien.id" class="mr-s">
             <input

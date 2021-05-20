@@ -2,7 +2,7 @@
   <Loader v-if="!etape" />
   <div v-else>
     <h6>
-      <span class="cap-first"> {{ titreNom }} </span>
+      <span class="cap-first"> {{ titre.nom }} </span>
       <span class="color-neutral"> | </span>
       <span class="cap-first">
         {{ demarcheType.nom }}
@@ -10,117 +10,181 @@
     </h6>
     <h2>Modification de l'étape</h2>
 
-    <EtapeEditAccordion
-      id="step-type"
-      :step="stepType"
-      :opened="opened['type']"
-      :complete="stepTypeComplete"
-      @toggle="toggle('type')"
-      @next="next('type')"
-    >
-      <EtapeEditType
-        v-model:etape="etape"
-        :etape-types="etapeTypes"
-        :etape-type="etapeType"
-        @type-update="typeUpdate"
+    <div v-if="modifiable" class="mb">
+      <EtapeEditAccordion
+        id="step-type"
+        :step="stepType"
+        :opened="opened['type']"
+        :complete="stepTypeComplete"
+        @toggle="toggle('type')"
+        @next="next('type')"
+      >
+        <EtapeEditType
+          v-model:etape="etape"
+          :etape-types="etapeTypes"
+          :etape-type="etapeType"
+          :restricted="!userIsAdmin"
+          :etape-is-demande="etapeIsDemande"
+          @type-update="typeUpdate"
+        />
+      </EtapeEditAccordion>
+
+      <EtapeEditAccordion
+        v-if="stepFondamentales"
+        id="step-fondamentales"
+        :step="stepFondamentales"
+        :opened="opened['fondamentales']"
+        :complete="true"
+        @toggle="toggle('fondamentales')"
+        @next="next('fondamentales')"
+      >
+        <EtapeEditFondamentales v-model:etape="etape" :domaine-id="domaineId" />
+      </EtapeEditAccordion>
+
+      <EtapeEditAccordion
+        v-if="stepPoints"
+        id="step-points"
+        :step="stepPoints"
+        :opened="opened['points']"
+        :complete="true"
+        @toggle="toggle('points')"
+        @next="next('points')"
+      >
+        <EtapeEditPoints v-model:etape="etape" v-model:events="events" />
+      </EtapeEditAccordion>
+
+      <EtapeEditAccordion
+        v-if="stepSections"
+        id="step-sections"
+        :step="stepSections"
+        :opened="opened['sections']"
+        :complete="stepSectionsComplete"
+        @toggle="toggle('sections')"
+        @next="next('sections')"
+      >
+        <EditSections
+          v-model:etape="etape"
+          :sections="etape.sections"
+          @complete-update="sectionsCompleteUpdate"
+        />
+      </EtapeEditAccordion>
+
+      <EtapeEditAccordion
+        v-if="stepDocuments"
+        id="step-documents"
+        :step="stepDocuments"
+        :opened="opened['documents']"
+        :complete="stepDocumentsComplete"
+        @toggle="toggle('documents')"
+        @next="next('documents')"
+      >
+        <DocumentsEdit
+          v-model:documents="etape.documents"
+          :parent-id="etape.id"
+          :documents-types="etapeType.documentsTypes"
+          repertoire="demarches"
+          @complete-update="documentsCompleteUpdate"
+        />
+      </EtapeEditAccordion>
+
+      <EtapeEditAccordion
+          v-if="stepJustificatifs"
+          id="step-justificatifs"
+          :step="stepJustificatifs"
+          :opened="opened['justificatifs']"
+          :complete="stepJustificatifsComplete"
+          @toggle="toggle('justificatifs')"
+          @next="next('justificatifs')"
+      >
+        <JustificatifsEdit
+            v-model:etape="etape"
+            :justificatifs-types="etapeType.justificatifsTypes"
+            @complete-update="justificatifsCompleteUpdate"
+        />
+      </EtapeEditAccordion>
+    </div>
+
+    <div v-else class="mb">
+      <Detail
+        :etape="etapeFormatted"
+        :has-fondamentales="hasFondamentales"
+        :has-sections="hasSections"
+        :has-documents="hasDocuments"
+        :document-context="documentContext"
+        :document-popup-title="documentPopupTitle"
+        :document-repertoire="documentRepertoire"
+        @file-download="fileDownload"
+        @titre-event-track="eventTrack"
       />
-    </EtapeEditAccordion>
+    </div>
 
-    <EtapeEditAccordion
-      v-if="stepFondamentales"
-      id="step-fondamentales"
-      :step="stepFondamentales"
-      :opened="opened['fondamentales']"
-      :complete="true"
-      @toggle="toggle('fondamentales')"
-      @next="next('fondamentales')"
-    >
-      <EtapeEditFondamentales v-model:etape="etape" :domaine-id="domaineId" />
-    </EtapeEditAccordion>
-
-    <EtapeEditAccordion
-      v-if="stepPoints"
-      id="step-points"
-      :step="stepPoints"
-      :opened="opened['points']"
-      :complete="true"
-      @toggle="toggle('points')"
-      @next="next('points')"
-    >
-      <EtapeEditPoints v-model:etape="etape" v-model:events="events" />
-    </EtapeEditAccordion>
-
-    <EtapeEditAccordion
-      v-if="stepSections"
-      id="step-sections"
-      :step="stepSections"
-      :opened="opened['sections']"
-      :complete="stepSectionsComplete"
-      @toggle="toggle('sections')"
-      @next="next('sections')"
-    >
-      <EditSections
-        v-model:etape="etape"
-        :sections="etape.sections"
-        @complete-update="sectionsCompleteUpdate"
-      />
-    </EtapeEditAccordion>
-
-    <EtapeEditAccordion
-      v-if="stepDocuments"
-      id="step-documents"
-      :step="stepDocuments"
-      :opened="opened['documents']"
-      :complete="stepDocumentsComplete"
-      @toggle="toggle('documents')"
-      @next="next('documents')"
-    >
-      <DocumentsEdit
-        v-model:documents="etape.documents"
-        :parent-id="etape.id"
-        :documents-types="etapeType.documentsTypes"
-        repertoire="demarches"
-        @complete-update="documentsCompleteUpdate"
-      />
-    </EtapeEditAccordion>
-
-    <EtapeEditAccordion
-      v-if="stepJustificatifs"
-      id="step-justificatifs"
-      :step="stepJustificatifs"
-      :opened="opened['justificatifs']"
-      :complete="stepJustificatifsComplete"
-      @toggle="toggle('justificatifs')"
-      @next="next('justificatifs')"
-    >
-      <JustificatifsEdit
-        v-model:etape="etape"
-        :justificatifs-types="etapeType.justificatifsTypes"
-        @complete-update="justificatifsCompleteUpdate"
-      />
-    </EtapeEditAccordion>
-
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 mb tablet-mb-0" />
+    <div v-if="modifiable" class="tablet-blobs mb">
+      <div class="tablet-blob-1-3" />
       <div class="tablet-blob-2-3">
         <button
-          v-if="!loading"
-          ref="save-button"
-          class="btn-flash rnd-xs p-s full-x mb"
-          :disabled="!complete"
-          :class="{ disabled: !complete }"
-          @click="save"
+          id="cmn-titre-activite-edit-popup-button-previsualiser"
+          ref="preview-button"
+          class="btn-flash rnd-xs p-s full-x"
+          @click="preview"
         >
-          Enregistrer
+          Prévisualiser
         </button>
-        <div v-else class="p-s bold">Enregistrement en cours…</div>
+      </div>
+    </div>
+
+    <div v-else-if="!loading" class="tablet-blobs mb">
+      <div class="tablet-blob-1-3">
+        <button class="btn-border rnd-xs p-s full-x mb-s" @click="edit">
+          Modifier
+        </button>
+      </div>
+
+      <div class="tablet-blob-2-3">
+        <div class="tablet-blobs">
+          <div
+            :class="{
+              'tablet-blob-1': !etapeIsDemande,
+              'tablet-blob-1-2': etapeIsDemande
+            }"
+          >
+            <button
+              ref="save-button"
+              class="btn-flash rnd-xs p-s full-x mb-s"
+              :disabled="!complete"
+              :class="{ disabled: !complete }"
+              @click="save"
+            >
+              Enregistrer
+            </button>
+          </div>
+          <div v-if="etapeIsDemande" class="tablet-blob-1-2">
+            <button
+              ref="save-button"
+              class="btn-flash rnd-xs p-s full-x"
+              :disabled="!complete"
+              :class="{ disabled: !complete }"
+              @click="save"
+            >
+              Déposer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-else class="tablet-blobs">
+      <div class="tablet-blob-1-3" />
+      <div class="tablet-blob-2-3">
+        <div class="p-s bold">Enregistrement en cours…</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { cap, permissionsCheck } from '@/utils'
 import Loader from './_ui/loader.vue'
+import Detail from './etape/detail.vue'
 import EtapeEditType from './etape/edit-type.vue'
 import EtapeEditAccordion from './etape/edit-accordion.vue'
 import EtapeEditFondamentales from './etape/edit-fondamentales.vue'
@@ -137,6 +201,7 @@ export default {
     EtapeEditPoints,
     EditSections,
     DocumentsEdit,
+    Detail,
     JustificatifsEdit,
     EtapeEditAccordion
   },
@@ -157,7 +222,9 @@ export default {
         sections: false,
         documents: false,
         justificatifs: false
-      }
+      },
+      modifiable: true,
+      documentRepertoire: 'demarches'
     }
   },
 
@@ -174,6 +241,10 @@ export default {
       return this.$store.state.titreEtape.element
     },
 
+    etapeFormatted() {
+      return this.$store.getters['titreEtape/etapeFormatted']
+    },
+
     heritageLoaded() {
       return this.$store.state.titreEtape.heritageLoaded
     },
@@ -182,8 +253,8 @@ export default {
       return this.etape.demarche.type
     },
 
-    titreNom() {
-      return this.etape.demarche.titre.nom
+    titre() {
+      return this.etape.demarche.titre
     },
 
     domaineId() {
@@ -214,7 +285,11 @@ export default {
     },
 
     stepTypeComplete() {
-      return !!(this.etape && this.etape.date && this.etape.typeId)
+      if (this.userIsAdmin) {
+        return !!(this.etape && this.etape.date && this.etape.typeId)
+      }
+
+      return this.etape.typeId
     },
 
     stepSectionsComplete() {
@@ -292,8 +367,51 @@ export default {
       return this.steps.find(s => s.id === 'documents')
     },
 
-    stepJustificatifs() {
-      return this.steps.find(s => s.id === 'justificatifs')
+  stepJustificatifs() {
+    return this.steps.find(s => s.id === 'justificatifs')
+  },
+
+    userIsAdmin() {
+      return permissionsCheck(this.user, ['super', 'admin', 'editeur'])
+    },
+
+    etapeIsDemande() {
+      return ['mfr', 'mfm'].includes(this.etape.typeId)
+    },
+
+    hasFondamentales() {
+      return (
+        !!this.etape.duree ||
+        !!this.etape.surface ||
+        !!this.etape.dateDebut ||
+        !!this.etape.dateFin ||
+        !!(this.etape.points && this.etape.points.length) ||
+        !!(this.etape.substances && this.etape.substances.length) ||
+        !!(this.etape.titulaires && this.etape.titulaires.length) ||
+        !!(this.etape.amodiataires && this.etape.amodiataires.length)
+      )
+    },
+
+    hasSections() {
+      return !!this.etapeType.sections?.length
+    },
+
+    hasDocuments() {
+      return this.etape.documents && !!this.etape.documents.length
+    },
+
+    documentContext() {
+      return {
+        name: 'titre',
+        section: 'etapes',
+        id: this.titre.id
+      }
+    },
+
+    documentPopupTitle() {
+      return `${cap(this.titre.nom)} | ${cap(this.demarcheType.nom)} | ${cap(
+        this.etapeType.nom
+      )}`
     }
   },
 
@@ -325,8 +443,7 @@ export default {
     async save() {
       if (this.complete) {
         await this.$store.dispatch('titreEtape/upsert', {
-          etape: this.etape,
-          redirect: true
+          etape: this.etape
         })
 
         this.eventTrack({
@@ -352,6 +469,13 @@ export default {
       if (this.$matomo) {
         this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
+    },
+
+    async fileDownload(fichier) {
+      await this.$store.dispatch(
+        'download',
+        `etape/${this.etape.id}/${fichier}`
+      )
     },
 
     documentsCompleteUpdate(complete) {
@@ -403,6 +527,15 @@ export default {
           .getElementById(`step-${stepId}`)
           .scrollIntoView({ behavior: 'smooth' })
       }, 500)
+    },
+
+    preview() {
+      this.modifiable = false
+    },
+
+    edit() {
+      // this.errorsRemove()
+      this.modifiable = true
     }
   }
 }

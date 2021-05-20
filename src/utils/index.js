@@ -65,6 +65,8 @@ const paramsBuild = (apiParams, preferences) =>
     return params
   }, {})
 
+const cap = string => string[0].toUpperCase() + string.slice(1)
+
 export {
   dateFormat,
   permissionsCheck,
@@ -72,5 +74,6 @@ export {
   textToNumberFormat,
   cloneAndClean,
   elementsFormat,
-  paramsBuild
+  paramsBuild,
+  cap
 }
