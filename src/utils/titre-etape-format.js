@@ -73,6 +73,16 @@ const etapeFormat = (etapeEdited, metas) => {
 
   etape.incertitudes = etapeEdited.incertitudes
 
+  if (etape.type && etapeEdited.justificatifs?.length) {
+    const documents = etape.titulaires
+      .concat(etape.amodiataires)
+      .filter(e => !!e)
+      .flatMap(entreprise => entreprise.documents)
+    etape.justificatifs = etapeEdited.justificatifs.map(documentId =>
+      documents.find(d => d.id === documentId)
+    )
+  }
+
   return etape
 }
 
