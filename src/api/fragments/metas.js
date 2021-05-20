@@ -152,6 +152,9 @@ const fragmentEtapeType = gql`
     documentsTypes {
       ...documentType
     }
+    justificatifsTypes {
+      ...documentType
+    }
   }
 
   ${fragmentDocumentType}

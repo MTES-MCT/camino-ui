@@ -20,7 +20,8 @@ describe('etapeEditFormat', () => {
       substances: [],
       contenu: {},
       incertitudes: {},
-      documents: []
+      documents: [],
+      justificatifs: []
     })
 
     expect(
@@ -41,7 +42,8 @@ describe('etapeEditFormat', () => {
               }
             ]
           }
-        ]
+        ],
+        justificatifs: [{ id: 'toto', nom: 'name' }]
       })
     ).toEqual({
       id: 'etape-id',
@@ -67,7 +69,8 @@ describe('etapeEditFormat', () => {
       substances: [],
       contenu: {},
       incertitudes: {},
-      documents: []
+      documents: [],
+      justificatifs: ['toto']
     })
 
     expect(
@@ -154,7 +157,8 @@ describe('etapeEditFormat', () => {
       substances: [{ id: 'auru' }],
       contenu: { 'prop-id': 'prop-value' },
       incertitudes: { amodiataires: true },
-      documents: []
+      documents: [],
+      justificatifs: []
     })
   })
 
@@ -202,7 +206,8 @@ describe('etapeEditFormat', () => {
           titreEtapeId: 'etape-id',
           typeId: 'typeId'
         }
-      ]
+      ],
+      justificatifs: []
     })
   })
 })

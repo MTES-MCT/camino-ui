@@ -14,7 +14,7 @@ import {
   fragmentTitreEtapeEdit,
   fragmentTitreEtapeHeritage
 } from './fragments/titre-etape'
-import { fragmentEntreprises } from './fragments/entreprises'
+import { fragmentEtapeMetasEntreprises } from './fragments/entreprises'
 
 const titreEtapeMetas = apiGraphQLFetch(
   gql`
@@ -45,7 +45,7 @@ const titreEtapeMetas = apiGraphQLFetch(
 
       entreprises(archive: false, etapeId: $id) {
         elements {
-          ...entreprises
+          ...etapeMetasEntreprises
         }
       }
     }
@@ -58,7 +58,7 @@ const titreEtapeMetas = apiGraphQLFetch(
 
     ${fragmentSubstance}
 
-    ${fragmentEntreprises}
+    ${fragmentEtapeMetasEntreprises}
 
     ${fragmentGeoSysteme}
   `

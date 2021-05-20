@@ -210,13 +210,18 @@ const etapeEditFormat = etape => {
     etape.documents = []
   }
 
+  if (etape.justificatifs) {
+    etape.justificatifs = etape.justificatifs.map(({ id }) => id)
+  } else {
+    etape.justificatifs = []
+  }
+
   delete etape.pays
   delete etape.modification
   delete etape.suppression
   delete etape.points
   delete etape.geojsonPoints
   delete etape.geojsonMultiPolygon
-  delete etape.justificatifs
   delete etape.justificatifsAssociation
   delete etape.documentsCreation
 

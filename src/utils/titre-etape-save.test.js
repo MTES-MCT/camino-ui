@@ -17,7 +17,8 @@ describe('etapeSaveFormat', () => {
         groupes: [],
         substances: [],
         contenu: {},
-        incertitudes: {}
+        incertitudes: {},
+        justificatifs: ['toto']
       })
     ).toEqual({
       amodiataires: [],
@@ -29,7 +30,8 @@ describe('etapeSaveFormat', () => {
       statutId: '',
       substances: [],
       titreDemarcheId: 'demarche-id',
-      titulaires: []
+      titulaires: [],
+      justificatifs: [{ id: 'toto' }]
     })
 
     expect(

@@ -267,9 +267,6 @@ const fragmentTitreEtapeEdit = gql`
       id
       nom
       sections
-      documentsTypes {
-        ...documentType
-      }
     }
     statut {
       id
@@ -295,7 +292,7 @@ const fragmentTitreEtapeEdit = gql`
       ...document
     }
     justificatifs {
-      ...document
+      id
     }
     incertitudes {
       ...incertitudes
@@ -332,8 +329,6 @@ const fragmentTitreEtapeEdit = gql`
   ${fragmentHeritageProps}
 
   ${fragmentIncertitudes}
-
-  ${fragmentDocumentType}
 `
 
 export {

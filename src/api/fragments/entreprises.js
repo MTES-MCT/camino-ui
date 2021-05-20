@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import { fragmentDocument } from './documents'
 
 const fragmentEntreprises = gql`
   fragment entreprises on Entreprise {
@@ -20,6 +21,18 @@ const fragmentEntreprises = gql`
       titresCreation
     }
   }
+`
+
+const fragmentEtapeMetasEntreprises = gql`
+  fragment etapeMetasEntreprises on Entreprise {
+    id
+    nom
+    documents {
+      ...document
+    }
+  }
+
+  ${fragmentDocument}
 `
 
 const fragmentTitreEntreprises = gql`
@@ -60,5 +73,6 @@ const fragmentTitresEntreprises = gql`
 export {
   fragmentEntreprises,
   fragmentTitreEntreprises,
-  fragmentTitresEntreprises
+  fragmentTitresEntreprises,
+  fragmentEtapeMetasEntreprises
 }
