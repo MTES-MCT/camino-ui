@@ -105,6 +105,19 @@
     </div>
 
     <div v-else class="mb">
+      <h5 v-if="userIsAdmin" class="mb-0">{{ etape.date }}</h5>
+      <h3 class="cap-first">{{ etapeType.nom }}</h3>
+
+      <div v-if="!etapeIsDemande" class="mb">
+        <Statut
+          :color="etapeFormatted.statut.couleur"
+          :nom="etapeFormatted.statut.nom"
+          class="mb-xs"
+        />
+      </div>
+
+      <hr />
+
       <Detail
         :etape="etapeFormatted"
         :has-fondamentales="hasFondamentales"
@@ -112,8 +125,6 @@
         :has-documents="hasDocuments"
         :document-context="documentContext"
         :document-popup-title="documentPopupTitle"
-        :document-repertoire="documentRepertoire"
-        @file-download="fileDownload"
         @titre-event-track="eventTrack"
       />
     </div>
@@ -127,7 +138,7 @@
           class="btn-flash rnd-xs p-s full-x"
           @click="preview"
         >
-          Prévisualiser
+          Prévisualiser…
         </button>
       </div>
     </div>
@@ -135,7 +146,7 @@
     <div v-else-if="!loading" class="tablet-blobs mb">
       <div class="tablet-blob-1-3">
         <button class="btn-border rnd-xs p-s full-x mb-s" @click="edit">
-          Modifier
+          Modifier…
         </button>
       </div>
 
@@ -152,18 +163,18 @@
               class="btn-flash rnd-xs p-s full-x mb-s"
               :disabled="!complete"
               :class="{ disabled: !complete }"
-              @click="save"
+              @click="save(false)"
             >
               Enregistrer
             </button>
           </div>
           <div v-if="etapeIsDemande" class="tablet-blob-1-2">
             <button
-              ref="save-button"
+              ref="save-depose-button"
               class="btn-flash rnd-xs p-s full-x"
               :disabled="!complete"
               :class="{ disabled: !complete }"
-              @click="save"
+              @click="save(true)"
             >
               Déposer
             </button>
@@ -184,6 +195,7 @@
 <script>
 import { cap, permissionsCheck } from '@/utils'
 import Loader from './_ui/loader.vue'
+import Statut from './_common/statut.vue'
 import Detail from './etape/detail.vue'
 import EtapeEditType from './etape/edit-type.vue'
 import EtapeEditAccordion from './etape/edit-accordion.vue'
@@ -201,6 +213,7 @@ export default {
     EtapeEditPoints,
     EditSections,
     DocumentsEdit,
+    Statut,
     Detail,
     JustificatifsEdit,
     EtapeEditAccordion
@@ -223,8 +236,7 @@ export default {
         documents: false,
         justificatifs: false
       },
-      modifiable: true,
-      documentRepertoire: 'demarches'
+      modifiable: true
     }
   },
 
@@ -286,10 +298,12 @@ export default {
 
     stepTypeComplete() {
       if (this.userIsAdmin) {
-        return !!(this.etape && this.etape.date && this.etape.typeId)
+        return this.etapeIsDemande
+          ? !!(this.etape?.typeId && this.etape.date)
+          : !!(this.etape?.typeId && this.etape.date && this.etape.statutId)
       }
 
-      return this.etape.typeId
+      return !!this.etape?.typeId
     },
 
     stepSectionsComplete() {
@@ -440,10 +454,11 @@ export default {
       })
     },
 
-    async save() {
+    async save(depose) {
       if (this.complete) {
         await this.$store.dispatch('titreEtape/upsert', {
-          etape: this.etape
+          etape: this.etape,
+          depose
         })
 
         this.eventTrack({
@@ -460,8 +475,15 @@ export default {
         this.events.saveKeyUp &&
         this.complete
       ) {
-        this.$refs['save-button'].focus()
-        this.save()
+        if (this.modifiable) {
+          this.preview()
+        } else if (!this.loading && this.etapeIsDemande) {
+          this.$refs['save-depose-button'].focus()
+          this.save(true)
+        } else if (!this.loading && this.etapeIsDemande) {
+          this.$refs['save-button'].focus()
+          this.save(false)
+        }
       }
     },
 
@@ -469,13 +491,6 @@ export default {
       if (this.$matomo) {
         this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
-    },
-
-    async fileDownload(fichier) {
-      await this.$store.dispatch(
-        'download',
-        `etape/${this.etape.id}/${fichier}`
-      )
     },
 
     documentsCompleteUpdate(complete) {

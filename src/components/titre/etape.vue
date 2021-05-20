@@ -43,7 +43,7 @@
         :document="documentNew"
         :title="documentPopupTitle"
         :context="documentContext"
-        :repertoire="documentRepertoire"
+        repertoire="demarches"
         :parent-id="etape.id"
         :parent-type-id="etape.type.id"
         class="btn py-s px-m mr-px"
@@ -76,9 +76,7 @@
       :has-documents="hasDocuments"
       :document-context="documentContext"
       :document-popup-title="documentPopupTitle"
-      :document-repertoire="documentRepertoire"
       :framed="true"
-      @file-download="fileDownload"
       @titre-event-track="eventTrack"
     />
   </Accordion>
@@ -114,12 +112,6 @@ export default {
   },
 
   emits: ['titre-event-track'],
-
-  data() {
-    return {
-      documentRepertoire: 'demarches'
-    }
-  },
 
   computed: {
     titre() {
@@ -245,13 +237,6 @@ export default {
 
     dateFormat(date) {
       return dateFormat(date)
-    },
-
-    async fileDownload(fichier) {
-      await this.$store.dispatch(
-        'download',
-        `etape/${this.etape.id}/${fichier}`
-      )
     }
   }
 }

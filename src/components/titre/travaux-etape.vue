@@ -26,7 +26,7 @@
         :document="documentNew"
         :title="documentPopupTitle"
         :context="documentContext"
-        :repertoire="documentRepertoire"
+        repertoire="travaux"
         :parent-id="etape.id"
         :parent-type-id="etape.type.id"
         class="btn py-s px-m mr-px"
@@ -82,7 +82,7 @@
           :etiquette="etape.modification"
           :parent-id="etape.id"
           :parent-type-id="etape.type.id"
-          :repertoire="documentRepertoire"
+          repertoire="travaux"
           :title="documentPopupTitle"
           class="px-m"
           @titre-event-track="eventTrack"
@@ -126,12 +126,6 @@ export default {
   },
 
   emits: ['titre-event-track'],
-
-  data() {
-    return {
-      documentRepertoire: 'travaux'
-    }
-  },
 
   computed: {
     titre() {

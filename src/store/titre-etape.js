@@ -95,9 +95,12 @@ const actions = {
 
   async upsert({ commit, dispatch }, { etape, fromPopup, depose }) {
     try {
-      commit('popupMessagesRemove', null, { root: true })
-      commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'titreEtapeUpdate', { root: true })
+
+      if (fromPopup) {
+        commit('popupMessagesRemove', null, { root: true })
+        commit('popupLoad', null, { root: true })
+      }
 
       const etapeFormatted = etapeSaveFormat(etape)
 
@@ -108,14 +111,13 @@ const actions = {
         data = await etapeCreer({ etape: etapeFormatted, depose })
       }
 
-      commit('popupClose', null, { root: true })
-
       if (!fromPopup) {
         await router.push({
           name: 'titre',
           params: { id: data.id }
         })
       } else {
+        commit('popupClose', null, { root: true })
         await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
         commit(
           'titre/open',

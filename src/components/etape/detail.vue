@@ -28,7 +28,7 @@
         :etiquette="etape.modification"
         :parent-id="etape.id"
         :parent-type-id="etape.type.id"
-        :repertoire="documentRepertoire"
+        repertoire="demarches"
         :title="documentPopupTitle"
         @titre-event-track="eventTrack"
       />
@@ -47,7 +47,7 @@
         :etiquette="etape.modification"
         :parent-id="etape.id"
         :parent-type-id="etape.type.id"
-        :repertoire="documentRepertoire"
+        repertoire="'entreprises'"
         :title="documentPopupTitle"
         class="px-m"
         @titre-event-track="eventTrack"
@@ -76,7 +76,6 @@ export default {
     hasDocuments: { type: Boolean, required: true },
     etape: { type: Object, required: true },
     documentContext: { type: Object, required: true },
-    documentRepertoire: { type: String, required: true },
     documentPopupTitle: { type: String, required: true },
     framed: { type: Boolean, default: false }
   },
@@ -84,8 +83,11 @@ export default {
   emits: ['file-download', 'titre-event-track'],
 
   methods: {
-    fileDownload() {
-      this.$emit('file-download')
+    async fileDownload(fichier) {
+      await this.$store.dispatch(
+        'download',
+        `etape/${this.etape.id}/${fichier}`
+      )
     },
 
     eventTrack() {

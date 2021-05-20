@@ -230,7 +230,8 @@ describe('étapes', () => {
       etape: {
         nom: 'champs',
         incertitudes: {}
-      }
+      },
+      fromPopup: true
     })
 
     expect(router.push).not.toHaveBeenCalled()
@@ -271,7 +272,8 @@ describe('étapes', () => {
         id: 14,
         nom: 'champs',
         incertitudes: {}
-      }
+      },
+      fromPopup: true
     })
 
     expect(router.push).not.toHaveBeenCalled()

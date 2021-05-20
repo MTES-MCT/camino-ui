@@ -13,8 +13,16 @@ const etapeFormat = (etapeEdited, metas) => {
     )
   }
 
-  if (etape.duree && (etape.duree.ans || etape.duree.mois)) {
-    etape.duree = dureeBuild(etape.duree.ans, etape.duree.mois)
+  if (etapeEdited.duree && (etapeEdited.duree.ans || etapeEdited.duree.mois)) {
+    etape.duree = dureeBuild(etapeEdited.duree.ans, etapeEdited.duree.mois)
+  }
+
+  if (etapeEdited.dateDebut) {
+    etape.dateDebut = etapeEdited.dateDebut
+  }
+
+  if (etapeEdited.dateFin) {
+    etape.dateFin = etapeEdited.dateFin
   }
 
   if (etapeEdited.substances.length) {
@@ -62,6 +70,8 @@ const etapeFormat = (etapeEdited, metas) => {
       d.modification = true
     })
   }
+
+  etape.incertitudes = etapeEdited.incertitudes
 
   return etape
 }
