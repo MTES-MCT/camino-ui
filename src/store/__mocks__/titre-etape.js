@@ -50,7 +50,8 @@ const titreEtapeEdition = {
   incertitudes: {},
   statutId: '',
   substances: [],
-  documents: []
+  documents: [],
+  justificatifs: []
 }
 
 const titreEtapeCreation = {
@@ -66,7 +67,8 @@ const titreEtapeCreation = {
   incertitudes: {},
   statutId: '',
   substances: [],
-  documents: []
+  documents: [],
+  justificatifs: []
 }
 
 const titreEtapeHeritage1 = {

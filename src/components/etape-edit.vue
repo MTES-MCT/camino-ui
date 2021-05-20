@@ -84,8 +84,24 @@
       />
     </EtapeEditAccordion>
 
+    <EtapeEditAccordion
+      v-if="stepJustificatifs"
+      id="step-justificatifs"
+      :step="stepJustificatifs"
+      :opened="opened['justificatifs']"
+      :complete="stepJustificatifsComplete"
+      @toggle="toggle('justificatifs')"
+      @next="next('justificatifs')"
+    >
+      <JustificatifsEdit
+        v-model:etape="etape"
+        :justificatifs-types="etapeType.justificatifsTypes"
+        @complete-update="justificatifsCompleteUpdate"
+      />
+    </EtapeEditAccordion>
+
     <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 mb tablet-mb-0"></div>
+      <div class="tablet-blob-1-3 mb tablet-mb-0" />
       <div class="tablet-blob-2-3">
         <button
           v-if="!loading"
@@ -111,6 +127,7 @@ import EtapeEditFondamentales from './etape/edit-fondamentales.vue'
 import EtapeEditPoints from './etape/edit-points.vue'
 import EditSections from './etape/edit-sections.vue'
 import DocumentsEdit from './document/edit-multi.vue'
+import JustificatifsEdit from './etape/edit-justificatifs.vue'
 
 export default {
   components: {
@@ -120,6 +137,7 @@ export default {
     EtapeEditPoints,
     EditSections,
     DocumentsEdit,
+    JustificatifsEdit,
     EtapeEditAccordion
   },
 
@@ -128,14 +146,17 @@ export default {
   data() {
     return {
       events: { saveKeyUp: true },
-      documentsComplete: false,
       sectionsComplete: false,
+      documentsComplete: false,
+      justificatifsComplete: false,
+      justificatifs: false,
       opened: {
         type: true,
         fondamentales: false,
         points: false,
         sections: false,
-        documents: false
+        documents: false,
+        justificatifs: false
       }
     }
   },
@@ -183,7 +204,8 @@ export default {
       return (
         this.stepTypeComplete &&
         this.stepSectionsComplete &&
-        this.stepDocumentsComplete
+        this.stepDocumentsComplete &&
+        this.stepJustificatifsComplete
       )
     },
 
@@ -211,6 +233,14 @@ export default {
       )
     },
 
+    stepJustificatifsComplete() {
+      return (
+        this.etape.statutId === 'aco' ||
+        !this.etapeType.justificatifsTypes?.length ||
+        this.justificatifsComplete
+      )
+    },
+
     steps() {
       const steps = [{ id: 'type', name: "Type de l'étape" }]
 
@@ -234,6 +264,11 @@ export default {
         steps.push({ id: 'documents', name: 'Documents' })
       }
 
+      if (this.heritageLoaded && this.etapeType?.justificatifsTypes?.length) {
+        steps[steps.length - 1].hasNextButton = true
+        steps.push({ id: 'justificatifs', name: 'Justificatifs' })
+      }
+
       return steps
     },
 
@@ -255,6 +290,10 @@ export default {
 
     stepDocuments() {
       return this.steps.find(s => s.id === 'documents')
+    },
+
+    stepJustificatifs() {
+      return this.steps.find(s => s.id === 'justificatifs')
     }
   },
 
@@ -317,6 +356,10 @@ export default {
 
     documentsCompleteUpdate(complete) {
       this.documentsComplete = complete
+    },
+
+    justificatifsCompleteUpdate(complete) {
+      this.justificatifsComplete = complete
     },
 
     sectionsCompleteUpdate(complete) {

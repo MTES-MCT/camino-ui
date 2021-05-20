@@ -8,6 +8,7 @@ const etapeHeritageBuild = (stateEtape, apiEtape) => {
     titreDemarcheId: stateEtape.titreDemarcheId,
     demarche: stateEtape.demarche,
     documents: stateEtape.documents,
+    justificatifs: stateEtape.justificatifs,
     sections: apiEtape.sections
   }
 
