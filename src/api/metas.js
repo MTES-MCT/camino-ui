@@ -22,7 +22,8 @@ import {
   fragmentTitreTypeDemarcheType,
   fragmentTitreTypeDemarcheTypeEtapeType,
   fragmentEtapeTypeEtapeStatut,
-  fragmentEtapeTypeDocumentType
+  fragmentEtapeTypeDocumentType,
+  fragmentEtapeTypeJustificatifType
 } from './fragments/metas'
 
 const definitions = apiGraphQLFetch(
@@ -664,6 +665,54 @@ const etapeTypeDocumentTypeSupprimer = apiGraphQLFetch(gql`
   ${fragmentEtapeTypeDocumentType}
 `)
 
+const etapesTypesJustificatifsTypes = apiGraphQLFetch(
+  gql`
+    query EtapesTypesJustificatifsTypes {
+      etapesTypesJustificatifsTypes {
+        ...etapeTypeJustificatifType
+      }
+    }
+
+    ${fragmentEtapeTypeJustificatifType}
+  `
+)
+
+const etapeTypeJustificatifTypeModifier = apiGraphQLFetch(gql`
+  mutation EtapeTypeJustificatifTypeModifier(
+    $element: InputEtapeTypeJustificatifType!
+  ) {
+    etapeTypeJustificatifTypeModifier(etapeTypeJustificatifType: $element) {
+      ...etapeTypeJustificatifType
+    }
+  }
+
+  ${fragmentEtapeTypeJustificatifType}
+`)
+
+const etapeTypeJustificatifTypeCreer = apiGraphQLFetch(gql`
+  mutation EtapeTypeJustificatifTypeCreer(
+    $element: InputEtapeTypeJustificatifType!
+  ) {
+    etapeTypeJustificatifTypeCreer(etapeTypeJustificatifType: $element) {
+      ...etapeTypeJustificatifType
+    }
+  }
+
+  ${fragmentEtapeTypeJustificatifType}
+`)
+
+const etapeTypeJustificatifTypeSupprimer = apiGraphQLFetch(gql`
+  mutation EtapeTypeJustificatifTypeSupprimer(
+    $element: InputEtapeTypeJustificatifType!
+  ) {
+    etapeTypeJustificatifTypeSupprimer(etapeTypeJustificatifType: $element) {
+      ...etapeTypeJustificatifType
+    }
+  }
+
+  ${fragmentEtapeTypeJustificatifType}
+`)
+
 export {
   definitions,
   definitionModifier,
@@ -721,5 +770,9 @@ export {
   etapesTypesDocumentsTypes,
   etapeTypeDocumentTypeModifier,
   etapeTypeDocumentTypeCreer,
-  etapeTypeDocumentTypeSupprimer
+  etapeTypeDocumentTypeSupprimer,
+  etapesTypesJustificatifsTypes,
+  etapeTypeJustificatifTypeModifier,
+  etapeTypeJustificatifTypeCreer,
+  etapeTypeJustificatifTypeSupprimer
 }

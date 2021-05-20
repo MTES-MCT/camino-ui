@@ -54,7 +54,11 @@ import {
   etapesTypesDocumentsTypes,
   etapeTypeDocumentTypeModifier,
   etapeTypeDocumentTypeCreer,
-  etapeTypeDocumentTypeSupprimer
+  etapeTypeDocumentTypeSupprimer,
+  etapesTypesJustificatifsTypes,
+  etapeTypeJustificatifTypeModifier,
+  etapeTypeJustificatifTypeCreer,
+  etapeTypeJustificatifTypeSupprimer
 } from '../api/metas'
 
 import {
@@ -372,6 +376,19 @@ const metasIndex = {
     colonnes: [
       { id: 'etapeTypeId', nom: "Id du type d'étape" },
       { id: 'documentTypeId', nom: 'Id du type de documents' },
+      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
+    ],
+    ids: ['etapeTypeId', 'documentTypeId']
+  },
+  'etapes-types--justificatifs-types': {
+    get: etapesTypesJustificatifsTypes,
+    update: etapeTypeJustificatifTypeModifier,
+    create: etapeTypeJustificatifTypeCreer,
+    delete: etapeTypeJustificatifTypeSupprimer,
+    nom: 'Types des étapes | Types des justificatifs',
+    colonnes: [
+      { id: 'etapeTypeId', nom: "Id du type d'étape" },
+      { id: 'documentTypeId', nom: 'Id du type de justificatifs' },
       { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
     ],
     ids: ['etapeTypeId', 'documentTypeId']
