@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!restricted" class="tablet-blobs">
+    <div v-if="userIsAdmin" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h5>Date</h5>
       </div>
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import { permissionsCheck } from '@/utils'
 import InputDate from '../_ui/input-date.vue'
 
 export default {
@@ -73,15 +74,28 @@ export default {
     etape: { type: Object, required: true },
     etapeType: { type: Object, default: () => ({}) },
     etapeTypes: { type: Array, required: true },
-    restricted: { type: Boolean, default: true },
     etapeIsDemande: { type: Boolean, default: false }
   },
 
-  emits: ['type-update'],
+  emits: ['type-update', 'complete-update'],
 
   computed: {
     etapesStatuts() {
       return this.etapeType && this.etapeType.etapesStatuts
+    },
+
+    complete() {
+      if (this.userIsAdmin) {
+        return this.etapeIsDemande
+          ? !!(this.etape?.typeId && this.etape.date)
+          : !!(this.etape?.typeId && this.etape.date && this.etape.statutId)
+      }
+
+      return !!this.etape?.typeId
+    },
+
+    userIsAdmin() {
+      return permissionsCheck(this.user, ['super', 'admin', 'editeur'])
     }
   },
 
@@ -92,13 +106,23 @@ export default {
       } else {
         this.etape.statutId = null
       }
-    }
+    },
+
+    complete: 'completeUpdate'
+  },
+
+  created() {
+    this.completeUpdate()
   },
 
   methods: {
     async typeUpdate(event) {
       const typeId = event.target.value
       this.$emit('type-update', typeId)
+    },
+
+    completeUpdate() {
+      this.$emit('complete-update', this.complete)
     }
   }
 }

@@ -35,9 +35,8 @@
       :domaine-id="domaineId"
       :events="events"
       :heritage-loaded="heritageLoaded"
-      :restricted="!userIsAdmin"
       :etape-is-demande="etapeIsDemande"
-      @edit-complete-update="editCompleteUpdate"
+      @complete-update="completeUpdate"
       @type-update="typeUpdate"
     />
 
@@ -155,10 +154,6 @@ export default {
       return this.$store.state.titreEtape.heritageLoaded
     },
 
-    userIsAdmin() {
-      return permissionsCheck(this.user, ['super', 'admin', 'editeur'])
-    },
-
     etapeIsDemande() {
       return !!this.etape && ['mfr', 'mfm'].includes(this.etape.typeId)
     }
@@ -218,11 +213,11 @@ export default {
           this.$refs['init-button'].focus()
           this.init()
         } else if (this.complete && !this.etapeIsDemande) {
-          this.$refs['save-depose-button'].focus()
-          this.save(true)
-        } else if (this.complete && this.etapeIsDemande) {
           this.$refs['save-button'].focus()
           this.save(false)
+        } else if (this.complete && this.etapeIsDemande) {
+          this.$refs['save-depose-button'].focus()
+          this.save(true)
         }
       }
     },
@@ -233,7 +228,7 @@ export default {
       }
     },
 
-    editCompleteUpdate(complete) {
+    completeUpdate(complete) {
       this.editComplete = complete
     },
 

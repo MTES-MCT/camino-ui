@@ -3,9 +3,9 @@
     v-model:etape="etape"
     :etape-types="etapeTypes"
     :etape-type="etapeType"
-    :restricted="restricted"
     :etape-is-demande="etapeIsDemande"
     @type-update="typeUpdate"
+    @complete-update="typeCompleteUpdate"
   />
 
   <EtapeEditFondamentales
@@ -15,7 +15,7 @@
   />
 
   <EtapeEditPoints
-    v-if="etapeType && etapeType.fondamentale"
+    v-if="etapeType?.fondamentale"
     v-model:etape="etape"
     v-model:events="events"
   />
@@ -28,11 +28,7 @@
   />
 
   <DocumentsEdit
-    v-if="
-      heritageLoaded &&
-      etapeType.documentsTypes &&
-      etapeType.documentsTypes.length
-    "
+    v-if="heritageLoaded && etapeType?.documentsTypes.length"
     v-model:documents="etape.documents"
     :parent-id="etape.id"
     :parent-type-id="etapeType.id"
@@ -64,16 +60,16 @@ export default {
     events: { type: Object, required: true },
     domaineId: { type: String, required: true },
     heritageLoaded: { type: Boolean, required: true },
-    restricted: { type: Boolean, default: true },
     etapeIsDemande: { type: Boolean, default: false }
   },
 
-  emits: ['edit-complete-update', 'type-update'],
+  emits: ['complete-update', 'type-update'],
 
   data() {
     return {
       documentsComplete: false,
-      sectionsComplete: false
+      sectionsComplete: false,
+      typeComplete: false
     }
   },
 
@@ -84,11 +80,9 @@ export default {
 
     complete() {
       return (
-        this.etape.typeId &&
-        this.etape.statutId &&
-        (this.etape.statutId === 'aco' ||
-          ((!this.etapeType.documentsTypes?.length || this.documentsComplete) &&
-            this.sectionsComplete))
+        this.typeComplete &&
+        (!this.etapeType.documentsTypes?.length || this.documentsComplete) &&
+        (!this.etape.sections.length || this.sectionsComplete)
       )
     }
   },
@@ -103,7 +97,7 @@ export default {
 
   methods: {
     completeUpdate() {
-      this.$emit('edit-complete-update', this.complete)
+      this.$emit('complete-update', this.complete)
     },
 
     documentsCompleteUpdate(complete) {
@@ -112,6 +106,10 @@ export default {
 
     sectionsCompleteUpdate(complete) {
       this.sectionsComplete = complete
+    },
+
+    typeCompleteUpdate(complete) {
+      this.typeComplete = complete
     },
 
     typeUpdate(typeId) {

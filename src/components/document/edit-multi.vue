@@ -93,12 +93,7 @@ export default {
   },
 
   watch: {
-    complete: {
-      handler: function (complete) {
-        this.$emit('complete-update', complete)
-      },
-      immediate: true
-    },
+    complete: 'completeUpdate',
 
     documentsTypes: {
       handler: 'init',
@@ -108,6 +103,8 @@ export default {
 
   async created() {
     await this.init()
+
+    this.completeUpdate()
   },
 
   methods: {
@@ -183,6 +180,10 @@ export default {
       }
 
       return false
+    },
+
+    completeUpdate() {
+      this.$emit('complete-update', this.complete)
     }
   }
 }

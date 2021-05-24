@@ -15,7 +15,7 @@
         id="step-type"
         :step="stepType"
         :opened="opened['type']"
-        :complete="stepTypeComplete"
+        :complete="typeComplete"
         @toggle="toggle('type')"
         @next="next('type')"
       >
@@ -23,9 +23,9 @@
           v-model:etape="etape"
           :etape-types="etapeTypes"
           :etape-type="etapeType"
-          :restricted="!userIsAdmin"
           :etape-is-demande="etapeIsDemande"
           @type-update="typeUpdate"
+          @complete-update="typeCompleteUpdate"
         />
       </EtapeEditAccordion>
 
@@ -88,24 +88,24 @@
       </EtapeEditAccordion>
 
       <EtapeEditAccordion
-          v-if="stepJustificatifs"
-          id="step-justificatifs"
-          :step="stepJustificatifs"
-          :opened="opened['justificatifs']"
-          :complete="stepJustificatifsComplete"
-          @toggle="toggle('justificatifs')"
-          @next="next('justificatifs')"
+        v-if="stepJustificatifs"
+        id="step-justificatifs"
+        :step="stepJustificatifs"
+        :opened="opened['justificatifs']"
+        :complete="stepJustificatifsComplete"
+        @toggle="toggle('justificatifs')"
+        @next="next('justificatifs')"
       >
         <JustificatifsEdit
-            v-model:etape="etape"
-            :justificatifs-types="etapeType.justificatifsTypes"
-            @complete-update="justificatifsCompleteUpdate"
+          v-model:etape="etape"
+          :justificatifs-types="etapeType.justificatifsTypes"
+          @complete-update="justificatifsCompleteUpdate"
         />
       </EtapeEditAccordion>
     </div>
 
     <div v-else class="mb">
-      <h5 v-if="userIsAdmin" class="mb-0">{{ etape.date }}</h5>
+      <h5 v-if="etape.date" class="mb-0">{{ etape.date }}</h5>
       <h3 class="cap-first">{{ etapeType.nom }}</h3>
 
       <div v-if="!etapeIsDemande" class="mb">
@@ -193,7 +193,7 @@
 </template>
 
 <script>
-import { cap, permissionsCheck } from '@/utils'
+import { cap } from '@/utils'
 import Loader from './_ui/loader.vue'
 import Statut from './_common/statut.vue'
 import Detail from './etape/detail.vue'
@@ -227,6 +227,7 @@ export default {
       sectionsComplete: false,
       documentsComplete: false,
       justificatifsComplete: false,
+      typeComplete: false,
       justificatifs: false,
       opened: {
         type: true,
@@ -285,7 +286,7 @@ export default {
 
     complete() {
       return (
-        this.stepTypeComplete &&
+        this.typeComplete &&
         this.stepSectionsComplete &&
         this.stepDocumentsComplete &&
         this.stepJustificatifsComplete
@@ -296,36 +297,26 @@ export default {
       return this.$store.state.loading.includes('titreEtapeUpdate')
     },
 
-    stepTypeComplete() {
-      if (this.userIsAdmin) {
-        return this.etapeIsDemande
-          ? !!(this.etape?.typeId && this.etape.date)
-          : !!(this.etape?.typeId && this.etape.date && this.etape.statutId)
-      }
-
-      return !!this.etape?.typeId
-    },
-
     stepSectionsComplete() {
       return (
-        this.etape.statutId === 'aco' ||
         !this.etape.sections?.length ||
+        this.etape.statutId === 'aco' ||
         this.sectionsComplete
       )
     },
 
     stepDocumentsComplete() {
       return (
-        this.etape.statutId === 'aco' ||
         !this.etapeType.documentsTypes?.length ||
+        this.etape.statutId === 'aco' ||
         this.documentsComplete
       )
     },
 
     stepJustificatifsComplete() {
       return (
-        this.etape.statutId === 'aco' ||
         !this.etapeType.justificatifsTypes?.length ||
+        this.etape.statutId === 'aco' ||
         this.justificatifsComplete
       )
     },
@@ -381,12 +372,8 @@ export default {
       return this.steps.find(s => s.id === 'documents')
     },
 
-  stepJustificatifs() {
-    return this.steps.find(s => s.id === 'justificatifs')
-  },
-
-    userIsAdmin() {
-      return permissionsCheck(this.user, ['super', 'admin', 'editeur'])
+    stepJustificatifs() {
+      return this.steps.find(s => s.id === 'justificatifs')
     },
 
     etapeIsDemande() {
@@ -503,6 +490,10 @@ export default {
 
     sectionsCompleteUpdate(complete) {
       this.sectionsComplete = complete
+    },
+
+    typeCompleteUpdate(complete) {
+      this.typeComplete = complete
     },
 
     typeUpdate(typeId) {

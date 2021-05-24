@@ -68,7 +68,7 @@
         </template>
         <template #read>
           <div class="border p-s mb-s bold">
-            {{ etape.heritageProps.dateDebut.etape.dateDebut }}
+            {{ dateFormat(etape.heritageProps.dateDebut.etape.dateDebut) }}
           </div>
         </template>
       </EditHeritage>
@@ -97,7 +97,7 @@
         </template>
         <template #read>
           <div class="border p-s mb-s bold">
-            {{ etape.heritageProps.dateFin.etape.dateFin }}
+            {{ dateFormat(etape.heritageProps.dateFin.etape.dateFin) }}
           </div>
         </template>
       </EditHeritage>
@@ -359,6 +359,7 @@
 </template>
 
 <script>
+import { dateFormat } from '@/utils/index'
 import Tag from '../_ui/tag.vue'
 import TagList from '../_ui/tag-list.vue'
 import InputDate from '../_ui/input-date.vue'
@@ -473,6 +474,10 @@ export default {
 
     etablissementNameFind() {
       return etablissementNameFind()
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }

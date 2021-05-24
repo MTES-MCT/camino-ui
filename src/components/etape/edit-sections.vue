@@ -32,6 +32,7 @@ export default {
     sections: { type: Array, required: true },
     etape: { type: Object, required: true }
   },
+
   emits: ['complete-update'],
 
   data() {
@@ -54,14 +55,18 @@ export default {
       deep: true
     },
 
-    complete: function (complete) {
-      this.$emit('complete-update', complete)
-    }
+    complete: 'completeUpdate'
   },
 
   created() {
     this.contenu = contenuBuild(this.sections, this.etape.contenu)
-    this.$emit('complete-update', this.complete)
+    this.completeUpdate()
+  },
+
+  methods: {
+    completeUpdate() {
+      this.$emit('complete-update', this.complete)
+    }
   }
 }
 </script>
