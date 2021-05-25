@@ -71,7 +71,10 @@ const actions = {
     }
   },
 
-  async heritageGet({ commit, state }, { titreDemarcheId, typeId, date }) {
+  async heritageGet(
+    { commit, state, dispatch },
+    { titreDemarcheId, typeId, date, fromPopup }
+  ) {
     try {
       commit('loadingAdd', 'titreEtapeHeritageGet', { root: true })
       commit('heritageLoaded', false)
@@ -82,10 +85,21 @@ const actions = {
         typeId
       })
 
-      commit('heritageSet', { etape: data })
+      const apiEtape = etapeEditFormat(data)
+      const etapeType = state.metas.etapesTypes.find(
+        et => et.id === apiEtape.typeId
+      )
+      const newEtape = etapeHeritageBuild(state.element, apiEtape, etapeType)
+
+      commit('heritageSet', { etape: newEtape })
       commit('heritageLoaded', true)
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      console.log(e)
+      if (fromPopup) {
+        commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      } else {
+        dispatch('apiError', e, { root: true })
+      }
     } finally {
       commit('loadingRemove', 'titreEtapeHeritageGet', {
         root: true
@@ -102,13 +116,13 @@ const actions = {
         commit('popupLoad', null, { root: true })
       }
 
-      const etapeFormatted = etapeSaveFormat(etape)
+      const etapeEditFormatted = etapeSaveFormat(etape)
 
       let data
-      if (etapeFormatted.id) {
-        data = await etapeModifier({ etape: etapeFormatted, depose })
+      if (etapeEditFormatted.id) {
+        data = await etapeModifier({ etape: etapeEditFormatted, depose })
       } else {
-        data = await etapeCreer({ etape: etapeFormatted, depose })
+        data = await etapeCreer({ etape: etapeEditFormatted, depose })
       }
 
       if (!fromPopup) {
@@ -161,7 +175,7 @@ const actions = {
 }
 
 const getters = {
-  etapeFormatted(state) {
+  etapeEditFormatted(state) {
     return etapeFormat(state.element, state.metas)
   }
 }
@@ -177,10 +191,7 @@ const mutations = {
   },
 
   heritageSet(state, { etape }) {
-    const apiEtape = etapeEditFormat(etape)
-    const newEtape = etapeHeritageBuild(state.element, apiEtape)
-
-    state.element = newEtape
+    state.element = etape
   },
 
   heritageLoaded(state, loaded) {

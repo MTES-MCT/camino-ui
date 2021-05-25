@@ -16,15 +16,15 @@
     <div v-if="modifiable && ajoutable">
       <h4 class="mb-s">Nouveau document</h4>
       <div class="blobs-mini">
-        <div class="blob-mini-1-2">
-          <select v-model="newDocumentTypeId" class="p-s mb-s rnd-xs">
+        <div class="blob-mini-1-3">
+          <select v-model="newDocumentTypeId" class="p-s mb-s">
             <option v-for="dt in documentsTypes" :key="dt.id" :value="dt.id">
               {{ dt.nom }}
             </option>
           </select>
         </div>
 
-        <div class="blob-mini-1-2">
+        <div class="blob-mini-2-3">
           <button
             class="btn small py-s px-m mb-s full-x rnd-xs flex"
             :class="{ disabled: !newDocumentTypeId }"
@@ -109,7 +109,7 @@ export default {
 
   methods: {
     async init() {
-      // supprime les documents dont le documenTType n'existe pas
+      // supprime les documents dont le documentType n'existe pas
       this.documents.forEach(d => {
         const documentsTypesIds = this.documentsTypes.map(({ id }) => id)
         if (!documentsTypesIds.includes(d.typeId)) {

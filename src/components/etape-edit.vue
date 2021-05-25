@@ -8,7 +8,10 @@
         {{ demarcheType.nom }}
       </span>
     </h6>
+
     <h2>Modification de l'étape</h2>
+
+    {{ heritageLoaded }}
 
     <div v-if="modifiable" class="mb">
       <EtapeEditAccordion
@@ -21,6 +24,7 @@
       >
         <EtapeEditType
           v-model:etape="etape"
+          :user="user"
           :etape-types="etapeTypes"
           :etape-type="etapeType"
           :etape-is-demande="etapeIsDemande"
@@ -97,8 +101,9 @@
         @next="next('justificatifs')"
       >
         <JustificatifsEdit
-          v-model:etape="etape"
+          v-model:justificatifs="etape.justificatifs"
           :justificatifs-types="etapeType.justificatifsTypes"
+          :entreprises="entreprises"
           @complete-update="justificatifsCompleteUpdate"
         />
       </EtapeEditAccordion>
@@ -110,8 +115,8 @@
 
       <div v-if="!etapeIsDemande" class="mb">
         <Statut
-          :color="etapeFormatted.statut.couleur"
-          :nom="etapeFormatted.statut.nom"
+          :color="etapeEditFormatted.statut.couleur"
+          :nom="etapeEditFormatted.statut.nom"
           class="mb-xs"
         />
       </div>
@@ -119,7 +124,7 @@
       <hr />
 
       <Detail
-        :etape="etapeFormatted"
+        :etape="etapeEditFormatted"
         :has-fondamentales="hasFondamentales"
         :has-sections="hasSections"
         :has-documents="hasDocuments"
@@ -247,15 +252,20 @@ export default {
     },
 
     entreprises() {
-      return this.$store.state.user.metas.entreprisesTitresCreation
+      const titulaireIds = this.etape.titulaires.map(({ id }) => id)
+      const amodiatairesIds = this.etape.amodiataires.map(({ id }) => id)
+
+      return this.$store.state.titreEtape.metas.entreprises.filter(
+        ({ id }) => titulaireIds.includes(id) || amodiatairesIds.includes(id)
+      )
     },
 
     etape() {
       return this.$store.state.titreEtape.element
     },
 
-    etapeFormatted() {
-      return this.$store.getters['titreEtape/etapeFormatted']
+    etapeEditFormatted() {
+      return this.$store.getters['titreEtape/etapeEditFormatted']
     },
 
     heritageLoaded() {
@@ -496,8 +506,8 @@ export default {
       this.typeComplete = complete
     },
 
-    typeUpdate(typeId) {
-      this.$store.dispatch('titreEtape/heritageGet', {
+    async typeUpdate(typeId) {
+      await this.$store.dispatch('titreEtape/heritageGet', {
         typeId
       })
     },

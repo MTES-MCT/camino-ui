@@ -210,9 +210,7 @@ const etapeEditFormat = etape => {
     etape.documents = []
   }
 
-  if (etape.justificatifs) {
-    etape.justificatifs = etape.justificatifs.map(({ id }) => id)
-  } else {
+  if (!etape.justificatifs) {
     etape.justificatifs = []
   }
 

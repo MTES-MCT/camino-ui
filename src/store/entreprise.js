@@ -81,11 +81,13 @@ const actions = {
       const data = await entrepriseModifier({ entreprise })
 
       commit('popupClose', null, { root: true })
+
       await dispatch(
         'reload',
         { name: 'entreprise', id: data.id },
         { root: true }
       )
+
       dispatch(
         'messageAdd',
         { value: `l'entreprise a été mise à jour`, type: 'success' },

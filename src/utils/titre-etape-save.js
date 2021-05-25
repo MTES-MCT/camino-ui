@@ -264,10 +264,6 @@ const etapeSaveFormat = etape => {
     delete etape.contenu
   }
 
-  if (etape.justificatifs) {
-    etape.justificatifs = etape.justificatifs.map(id => ({ id }))
-  }
-
   return etape
 }
 

@@ -31,6 +31,7 @@
     <Edit
       v-else
       v-model:etape="etape"
+      :user="user"
       :etape-types="etapeTypes"
       :domaine-id="domaineId"
       :events="events"
@@ -93,7 +94,6 @@
 </template>
 
 <script>
-import { permissionsCheck } from '@/utils'
 import InputDate from '../_ui/input-date.vue'
 import Popup from '../_ui/popup.vue'
 import Edit from './edit.vue'

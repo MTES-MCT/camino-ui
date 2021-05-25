@@ -308,4 +308,31 @@ describe('étapes', () => {
     expect(apiMock).toHaveBeenCalledWith({ id: 14 })
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
+
+  test('formatte une étape en édition', () => {
+    store.state.titreEtape = {
+      element: {
+        id: 'titre-etape-id',
+        typeId: 'etape-type-id',
+        substances: [{ id: 'substance-id' }],
+        titulaires: [{ id: 'entreprise-id-1' }],
+        amodiataires: [{ id: 'entreprise-id-2' }]
+      },
+
+      metas: {
+        etapesTypes: [{ id: 'etape-type-id' }],
+        substances: [{ id: 'substance-id' }],
+        entreprises: [{ id: 'entreprise-id-1' }, { id: 'entreprise-id-2' }]
+      }
+    }
+    expect(store.getters['titreEtape/etapeEditFormatted']).toEqual({
+      id: 'titre-etape-id',
+      modification: false,
+      incertitudes: undefined,
+      type: { id: 'etape-type-id' },
+      substances: [{ id: 'substance-id' }],
+      titulaires: [{ id: 'entreprise-id-1' }],
+      amodiataires: [{ id: 'entreprise-id-2' }]
+    })
+  })
 })

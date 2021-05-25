@@ -16,9 +16,9 @@
           </label>
         </div>
       </div>
-    </div>
 
-    <hr />
+      <hr />
+    </div>
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -71,6 +71,7 @@ import InputDate from '../_ui/input-date.vue'
 export default {
   components: { InputDate },
   props: {
+    user: { type: Object, default: null },
     etape: { type: Object, required: true },
     etapeType: { type: Object, default: () => ({}) },
     etapeTypes: { type: Array, required: true },

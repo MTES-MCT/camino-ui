@@ -1,6 +1,7 @@
 <template>
   <EtapeEditType
     v-model:etape="etape"
+    :user="user"
     :etape-types="etapeTypes"
     :etape-type="etapeType"
     :etape-is-demande="etapeIsDemande"
@@ -55,6 +56,7 @@ export default {
   },
 
   props: {
+    user: { type: Object, default: null },
     etape: { type: Object, required: true },
     etapeTypes: { type: Array, required: true },
     events: { type: Object, required: true },

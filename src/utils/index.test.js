@@ -11,8 +11,8 @@ import {
 // dateFormat
 describe('dateFormat', () => {
   const cases = [
-    ['2020-01-01', '01/01/2020'],
-    ['2020-11-16', '16/11/2020']
+    ['2020-01-01', '01 / 01 / 2020'],
+    ['2020-11-16', '16 / 11 / 2020']
   ]
 
   test.each(cases)('formate la date %s en %s', (input, output) => {
