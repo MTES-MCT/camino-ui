@@ -49,7 +49,6 @@
         :parent-type-id="etape.type.id"
         repertoire="'entreprises'"
         :title="documentPopupTitle"
-        class="px-m"
         @titre-event-track="eventTrack"
       />
 
