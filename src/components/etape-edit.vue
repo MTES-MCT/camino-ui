@@ -11,14 +11,13 @@
 
     <h2>Modification de l'étape</h2>
 
-    {{ heritageLoaded }}
-
     <div v-if="modifiable" class="mb">
       <EtapeEditAccordion
         id="step-type"
         :step="stepType"
         :opened="opened['type']"
         :complete="typeComplete"
+        :en-construction="enConstruction"
         @toggle="toggle('type')"
         @next="next('type')"
       >
@@ -39,6 +38,7 @@
         :step="stepFondamentales"
         :opened="opened['fondamentales']"
         :complete="true"
+        :en-construction="enConstruction"
         @toggle="toggle('fondamentales')"
         @next="next('fondamentales')"
       >
@@ -51,6 +51,7 @@
         :step="stepPoints"
         :opened="opened['points']"
         :complete="true"
+        :en-construction="enConstruction"
         @toggle="toggle('points')"
         @next="next('points')"
       >
@@ -63,6 +64,7 @@
         :step="stepSections"
         :opened="opened['sections']"
         :complete="stepSectionsComplete"
+        :en-construction="enConstruction"
         @toggle="toggle('sections')"
         @next="next('sections')"
       >
@@ -79,6 +81,7 @@
         :step="stepDocuments"
         :opened="opened['documents']"
         :complete="stepDocumentsComplete"
+        :en-construction="enConstruction"
         @toggle="toggle('documents')"
         @next="next('documents')"
       >
@@ -97,6 +100,7 @@
         :step="stepJustificatifs"
         :opened="opened['justificatifs']"
         :complete="stepJustificatifsComplete"
+        :en-construction="enConstruction"
         @toggle="toggle('justificatifs')"
         @next="next('justificatifs')"
       >
@@ -156,24 +160,21 @@
       </div>
 
       <div class="tablet-blob-2-3">
-        <div class="tablet-blobs">
-          <div
-            :class="{
-              'tablet-blob-1': !etapeIsDemande,
-              'tablet-blob-1-2': etapeIsDemande
-            }"
-          >
+        <div v-if="etapeIsDemande" class="tablet-blobs">
+          <div class="tablet-blob-1-2">
             <button
-              ref="save-button"
+              ref="en-construction-button"
               class="btn-flash rnd-xs p-s full-x mb-s"
-              :disabled="!complete"
-              :class="{ disabled: !complete }"
+              :disabled="!typeComplete"
+              :class="{
+                disabled: !typeComplete
+              }"
               @click="save(false)"
             >
-              Enregistrer
+              En construction
             </button>
           </div>
-          <div v-if="etapeIsDemande" class="tablet-blob-1-2">
+          <div class="tablet-blob-1-2">
             <button
               ref="save-depose-button"
               class="btn-flash rnd-xs p-s full-x"
@@ -182,6 +183,21 @@
               @click="save(true)"
             >
               Déposer
+            </button>
+          </div>
+        </div>
+        <div v-else class="tablet-blobs">
+          <div class="tablet-blob-1-2">
+            <button
+              ref="save-button"
+              class="btn-flash rnd-xs p-s full-x mb-s"
+              :disabled="!complete"
+              :class="{
+                disabled: !complete
+              }"
+              @click="save"
+            >
+              Valider
             </button>
           </div>
         </div>
@@ -294,6 +310,10 @@ export default {
       return this.etapeTypes.find(et => et.id === this.etape.typeId)
     },
 
+    enConstruction() {
+      return this.etape.statutId === 'aco'
+    },
+
     complete() {
       return (
         this.typeComplete &&
@@ -308,26 +328,16 @@ export default {
     },
 
     stepSectionsComplete() {
-      return (
-        !this.etape.sections?.length ||
-        this.etape.statutId === 'aco' ||
-        this.sectionsComplete
-      )
+      return !this.etape.sections?.length || this.sectionsComplete
     },
 
     stepDocumentsComplete() {
-      return (
-        !this.etapeType.documentsTypes?.length ||
-        this.etape.statutId === 'aco' ||
-        this.documentsComplete
-      )
+      return !this.etapeType.documentsTypes?.length || this.documentsComplete
     },
 
     stepJustificatifsComplete() {
       return (
-        !this.etapeType.justificatifsTypes?.length ||
-        this.etape.statutId === 'aco' ||
-        this.justificatifsComplete
+        !this.etapeType.justificatifsTypes?.length || this.justificatifsComplete
       )
     },
 
@@ -452,7 +462,10 @@ export default {
     },
 
     async save(depose) {
-      if (this.complete) {
+      if (
+        (this.etapeIsDemande && !depose && this.typeComplete) ||
+        this.complete
+      ) {
         await this.$store.dispatch('titreEtape/upsert', {
           etape: this.etape,
           depose
@@ -474,12 +487,15 @@ export default {
       ) {
         if (this.modifiable) {
           this.preview()
-        } else if (!this.loading && this.etapeIsDemande) {
+        } else if (!this.loading && this.etapeIsDemande && this.complete) {
           this.$refs['save-depose-button'].focus()
           this.save(true)
-        } else if (!this.loading && this.etapeIsDemande) {
-          this.$refs['save-button'].focus()
+        } else if (!this.loading && this.etapeIsDemande && this.typeComplete) {
+          this.$refs['en-construction-button'].focus()
           this.save(false)
+        } else if (!this.loading && this.complete) {
+          this.$refs['save-button'].focus()
+          this.save()
         }
       }
     },
