@@ -91,7 +91,7 @@ import EditPopup from '../etape/popup.vue'
 import RemovePopup from '../etape/remove.vue'
 import Detail from '../etape/detail.vue'
 import DocumentButtonAdd from '../document/button-add.vue'
-import JustificatifsButtonAdd from '../justificatifs/button-add.vue'
+import JustificatifsButtonAdd from '../etape/justificatifs/button-add.vue'
 
 export default {
   name: 'CaminoTitreEtape',

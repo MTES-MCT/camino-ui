@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import Popup from '../_ui/popup.vue'
-import Messages from '../_ui/messages.vue'
+import Popup from '../../_ui/popup.vue'
+import Messages from '../../_ui/messages.vue'
 
 export default {
   name: 'CaminoEtapeJustificatifUnlinkPopup',
