@@ -67,7 +67,7 @@
       </button>
     </template>
 
-    <Detail
+    <Preview
       v-if="hasSections || hasFondamentales || hasDocuments"
       class="px-m pt-m"
       :etape="etape"
@@ -89,7 +89,7 @@ import Tag from '../_ui/tag.vue'
 import Statut from '../_common/statut.vue'
 import EditPopup from '../etape/popup.vue'
 import RemovePopup from '../etape/remove.vue'
-import Detail from '../etape/detail.vue'
+import Preview from '../etape/preview.vue'
 import DocumentButtonAdd from '../document/button-add.vue'
 import JustificatifsButtonAdd from '../etape/justificatifs/button-add.vue'
 
@@ -102,7 +102,7 @@ export default {
     DocumentButtonAdd,
     JustificatifsButtonAdd,
     Statut,
-    Detail
+    Preview
   },
 
   props: {

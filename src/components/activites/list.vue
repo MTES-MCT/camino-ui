@@ -2,7 +2,7 @@
   <div>
     <div v-for="annee in activitesByYear" :key="annee.id">
       <h2>{{ annee.id }}</h2>
-      <ActiviteDetail
+      <Preview
         v-for="activite in annee.activites"
         :key="activite.id"
         :activite="activite"
@@ -15,12 +15,10 @@
 </template>
 
 <script>
-import ActiviteDetail from '../activite/detail.vue'
+import Preview from '../activite/preview.vue'
 
 export default {
-  components: {
-    ActiviteDetail
-  },
+  components: { Preview },
 
   props: {
     activites: { type: Array, default: () => [] },

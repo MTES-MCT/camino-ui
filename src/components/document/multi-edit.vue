@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import Edit from './edit-multi-document.vue'
+import Edit from './multi-document-edit.vue'
 
 export default {
   name: 'CaminoDocumentEditMulti',

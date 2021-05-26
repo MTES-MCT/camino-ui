@@ -3,13 +3,13 @@
     <h3 class="mb-s">Périmètre</h3>
     <p class="h6 italic">Optionnel</p>
 
-    <EditHeritage
+    <HeritageEdit
       v-model:prop="etape.heritageProps.points"
       prop-id="points"
       :is-array="true"
     >
       <template #write>
-        <EtapeEditPointsGeoSysteme v-model:etape="etape" />
+        <GeoSystemeEdit v-model:etape="etape" />
 
         <div v-if="etape.geoSystemeIds.length" class="mb-s">
           <hr />
@@ -133,13 +133,13 @@
                   </div>
                 </div>
 
-                <EtapeEditPointsPoint
+                <PointEdit
                   v-if="!point.lot"
                   v-model:point="contourPoints[pointIndex]"
                   :geo-systeme-opposable-id="etape.geoSystemeOpposableId"
                   :geo-systeme-ids="etape.geoSystemeIds"
                 />
-                <EtapeEditPointsLot
+                <PointsLotEdit
                   v-else
                   v-model:point="contourPoints[pointIndex]"
                   :geo-systeme-opposable-id="etape.geoSystemeOpposableId"
@@ -202,25 +202,25 @@
       <template #read>
         <Points :points="etape.heritageProps.points.etape.points" />
       </template>
-    </EditHeritage>
+    </HeritageEdit>
 
     <hr />
   </div>
 </template>
 
 <script>
-import EtapeEditPointsGeoSysteme from './edit-points-geo-systemes.vue'
-import EtapeEditPointsPoint from './edit-points-point.vue'
-import EtapeEditPointsLot from './edit-points-lot.vue'
-import EditHeritage from './edit-heritage.vue'
+import GeoSystemeEdit from './points-geo-systemes-edit.vue'
+import PointEdit from './points-point-edit.vue'
+import PointsLotEdit from './points-lot-edit.vue'
+import HeritageEdit from './heritage-edit.vue'
 import Points from '../_common/points.vue'
 
 export default {
   components: {
-    EtapeEditPointsGeoSysteme,
-    EtapeEditPointsPoint,
-    EtapeEditPointsLot,
-    EditHeritage,
+    GeoSystemeEdit,
+    PointEdit,
+    PointsLotEdit,
+    HeritageEdit,
     Points
   },
 

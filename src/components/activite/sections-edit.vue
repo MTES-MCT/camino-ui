@@ -3,7 +3,7 @@
     <div v-for="s in sectionsFiltered" :key="s.id">
       <h3 v-if="s.nom">{{ s.nom }}</h3>
 
-      <EditSectionElement
+      <SectionElementEdit
         v-for="e in s.elements"
         :key="e.id"
         v-model:contenu="contenu[s.id]"
@@ -22,12 +22,10 @@ import {
   elementsVisibleCheck
 } from '../../utils/contenu'
 
-import EditSectionElement from './edit-section-element.vue'
+import SectionElementEdit from './section-element-edit.vue'
 
 export default {
-  components: {
-    EditSectionElement
-  },
+  components: { SectionElementEdit },
 
   props: {
     sections: { type: Array, required: true },

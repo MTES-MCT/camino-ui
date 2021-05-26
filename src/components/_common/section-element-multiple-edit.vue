@@ -23,10 +23,7 @@
               Optionnel
             </p>
           </div>
-          <EditSectionElementModifiable
-            :contenu="contenu[index]"
-            :element="prop"
-          />
+          <SectionElementEdit :contenu="contenu[index]" :element="prop" />
         </div>
       </div>
     </div>
@@ -43,8 +40,8 @@ import { defineAsyncComponent } from 'vue'
 
 export default {
   components: {
-    EditSectionElementModifiable: defineAsyncComponent(() =>
-      import('./edit-sections-element-modifiable.vue')
+    SectionElementEdit: defineAsyncComponent(() =>
+      import('./section-element-edit.vue')
     )
   },
 

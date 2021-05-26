@@ -6,7 +6,7 @@
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
 
-      <EditHeritage
+      <HeritageEdit
         v-model:prop="etape.heritageProps.duree"
         class="tablet-blob-2-3"
         prop-id="duree"
@@ -42,7 +42,7 @@
             <PropDuree :duree="etape.heritageProps.duree.etape.duree" />
           </div>
         </template>
-      </EditHeritage>
+      </HeritageEdit>
     </div>
 
     <hr />
@@ -52,7 +52,7 @@
         <h5 class="mb-0">Date de début</h5>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
-      <EditHeritage
+      <HeritageEdit
         v-model:prop="etape.heritageProps.dateDebut"
         class="tablet-blob-2-3"
         prop-id="dateDebut"
@@ -71,7 +71,7 @@
             {{ dateFormat(etape.heritageProps.dateDebut.etape.dateDebut) }}
           </div>
         </template>
-      </EditHeritage>
+      </HeritageEdit>
     </div>
 
     <hr />
@@ -81,7 +81,7 @@
         <h5 class="mb-0">Date d'échéance</h5>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
-      <EditHeritage
+      <HeritageEdit
         v-model:prop="etape.heritageProps.dateFin"
         class="tablet-blob-2-3"
         prop-id="dateFin"
@@ -100,7 +100,7 @@
             {{ dateFormat(etape.heritageProps.dateFin.etape.dateFin) }}
           </div>
         </template>
-      </EditHeritage>
+      </HeritageEdit>
     </div>
 
     <hr />
@@ -109,7 +109,7 @@
         <h5 class="mb-0">Surface (Km²)</h5>
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
-      <EditHeritage
+      <HeritageEdit
         v-model:prop="etape.heritageProps.surface"
         class="tablet-blob-2-3"
         prop-id="surface"
@@ -133,14 +133,14 @@
             {{ etape.heritageProps.surface.etape.surface }}
           </div>
         </template>
-      </EditHeritage>
+      </HeritageEdit>
     </div>
 
     <hr />
 
     <h3 class="mb-s">Titulaires</h3>
     <p class="h6 italic">Optionnel</p>
-    <EditHeritage
+    <HeritageEdit
       v-model:prop="etape.heritageProps.titulaires"
       prop-id="titulaires"
       :is-array="true"
@@ -203,13 +203,13 @@
           </li>
         </ul>
       </template>
-    </EditHeritage>
+    </HeritageEdit>
     <hr />
 
     <h3 class="mb-s">Amodiataires</h3>
     <p class="h6 italic">Optionnel</p>
 
-    <EditHeritage
+    <HeritageEdit
       v-model:prop="etape.heritageProps.amodiataires"
       prop-id="amodiataires"
       :is-array="true"
@@ -274,13 +274,13 @@
           </li>
         </ul>
       </template>
-    </EditHeritage>
+    </HeritageEdit>
 
     <hr />
 
     <h3 class="mb-s">Substances</h3>
     <p class="h6 italic">Optionnel</p>
-    <EditHeritage
+    <HeritageEdit
       v-model:prop="etape.heritageProps.substances"
       prop-id="substances"
       :is-array="true"
@@ -352,7 +352,7 @@
           "
         />
       </template>
-    </EditHeritage>
+    </HeritageEdit>
 
     <hr />
   </div>
@@ -364,13 +364,13 @@ import Tag from '../_ui/tag.vue'
 import TagList from '../_ui/tag-list.vue'
 import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
-import EditHeritage from './edit-heritage.vue'
+import HeritageEdit from './heritage-edit.vue'
 import PropDuree from './prop-duree.vue'
 
 import { etablissementNameFind } from '@/utils/entreprise'
 
 export default {
-  components: { InputDate, InputNumber, EditHeritage, Tag, TagList, PropDuree },
+  components: { InputDate, InputNumber, HeritageEdit, Tag, TagList, PropDuree },
 
   props: {
     etape: { type: Object, default: () => ({}) },

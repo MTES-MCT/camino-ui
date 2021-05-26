@@ -91,14 +91,14 @@
     </div>
 
     <div v-else-if="element.type === 'multiple'">
-      <EditSectionElementMultiple
+      <SectionElementMultipleEdit
         v-model:contenu="contenu[element.id]"
         :element="element"
       />
     </div>
 
     <div v-else-if="element.type === 'file'">
-      <EditSectionsElementFile
+      <SectionElementFileEdit
         v-model:contenu="contenu"
         :element-id="element.id"
       />
@@ -109,15 +109,15 @@
 <script>
 import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
-import EditSectionElementMultiple from './edit-sections-element-multiple.vue'
-import EditSectionsElementFile from './edit-sections-element-file.vue'
+import SectionElementMultipleEdit from './section-element-multiple-edit.vue'
+import SectionElementFileEdit from './section-element-file-edit.vue'
 
 export default {
   components: {
-    EditSectionsElementFile,
     InputDate,
     InputNumber,
-    EditSectionElementMultiple
+    SectionElementMultipleEdit,
+    SectionElementFileEdit
   },
 
   props: {
