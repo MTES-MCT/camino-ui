@@ -236,7 +236,8 @@ export default {
       await this.$store.dispatch('titreEtape/heritageGet', {
         titreDemarcheId: this.demarcheId,
         typeId,
-        date: this.newDate
+        date: this.newDate,
+        fromPopup: true
       })
     }
   }

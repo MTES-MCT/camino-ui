@@ -94,7 +94,6 @@ const actions = {
       commit('heritageSet', { etape: newEtape })
       commit('heritageLoaded', true)
     } catch (e) {
-      console.log(e)
       if (fromPopup) {
         commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
       } else {

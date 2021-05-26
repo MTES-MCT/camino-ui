@@ -213,12 +213,13 @@ describe('étapes', () => {
     expect(store.state.titreEtape.element).toEqual(titreEtapeHeritage2)
   })
 
-  test("retourne une erreur si l'API retourne une erreur lors de la création d'une étape", async () => {
+  test("retourne une erreur si l'API retourne une erreur lors de la récupération de l'héritage", async () => {
     api.etapeHeritage.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('titreEtape/heritageGet', {
       typeId: 'etape-type-id',
       titreDemarcheId: 'demarche-id',
-      date: '2020-01-02'
+      date: '2020-01-02',
+      fromPopup: true
     })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
@@ -314,6 +315,7 @@ describe('étapes', () => {
       element: {
         id: 'titre-etape-id',
         typeId: 'etape-type-id',
+        duree: null,
         substances: [{ id: 'substance-id' }],
         titulaires: [{ id: 'entreprise-id-1' }],
         amodiataires: [{ id: 'entreprise-id-2' }]

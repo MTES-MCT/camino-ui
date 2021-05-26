@@ -7,7 +7,6 @@ const etapeFormat = (etapeEdited, metas) => {
 
     dateDebut: etapeEdited.dateDebut,
     dateFin: etapeEdited.dateFin,
-    duree: dureeBuild(etapeEdited.duree.ans, etapeEdited.duree.mois),
     surface: etapeEdited.surface,
 
     incertitudes: etapeEdited.incertitudes,
@@ -24,6 +23,10 @@ const etapeFormat = (etapeEdited, metas) => {
     etape.statut = etape.type.etapesStatuts.find(
       es => es.id === etapeEdited.statutId
     )
+  }
+
+  if (etapeEdited.duree) {
+    etape.duree = dureeBuild(etapeEdited.duree.ans, etapeEdited.duree.mois)
   }
 
   if (etapeEdited.substances.length) {
