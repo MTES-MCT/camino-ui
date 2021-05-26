@@ -45,7 +45,9 @@ const actions = {
           { value: `le document a été ajouté`, type: 'success' },
           { root: true }
         )
+
         await dispatch('reload', context, { root: true })
+
         if (context.name === 'titre') {
           const section = context.section
           let id

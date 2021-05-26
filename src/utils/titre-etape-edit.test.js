@@ -70,7 +70,7 @@ describe('etapeEditFormat', () => {
       contenu: {},
       incertitudes: {},
       documents: [],
-      justificatifs: ['toto']
+      justificatifs: [{ id: 'toto', nom: 'name' }]
     })
 
     expect(

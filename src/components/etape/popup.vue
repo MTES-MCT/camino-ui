@@ -31,11 +31,13 @@
     <Edit
       v-else
       v-model:etape="etape"
+      :user="user"
       :etape-types="etapeTypes"
       :domaine-id="domaineId"
       :events="events"
       :heritage-loaded="heritageLoaded"
-      @edit-complete-update="editCompleteUpdate"
+      :etape-is-demande="etapeIsDemande"
+      @complete-update="completeUpdate"
       @type-update="typeUpdate"
     />
 
@@ -46,9 +48,8 @@
             Annuler
           </button>
         </div>
-        <div class="tablet-blob-2-3">
+        <div v-if="dateIsVisible" class="tablet-blob-2-3">
           <button
-            v-if="dateIsVisible"
             ref="init-button"
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!newDate"
@@ -57,15 +58,32 @@
           >
             Valider
           </button>
+        </div>
+        <button
+          v-else
+          ref="save-button"
+          class="rnd-xs p-s full-x"
+          :disabled="!complete"
+          :class="{
+            'tablet-blob-2-3': !etapeIsDemande,
+            'tablet-blob-1-3': etapeIsDemande,
+            'btn-flash': !etapeIsDemande,
+            btn: etapeIsDemande,
+            disabled: !complete
+          }"
+          @click="save(false)"
+        >
+          Enregistrer
+        </button>
+        <div v-if="!dateIsVisible && etapeIsDemande" class="tablet-blob-1-3">
           <button
-            v-else
-            ref="save-button"
+            ref="save-depose-button"
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!complete"
             :class="{ disabled: !complete }"
-            @click="save"
+            @click="save(true)"
           >
-            Enregistrer
+            Déposer
           </button>
         </div>
       </div>
@@ -102,6 +120,10 @@ export default {
   },
 
   computed: {
+    user() {
+      return this.$store.state.user.element
+    },
+
     loading() {
       return this.$store.state.popup.loading
     },
@@ -130,6 +152,10 @@ export default {
 
     heritageLoaded() {
       return this.$store.state.titreEtape.heritageLoaded
+    },
+
+    etapeIsDemande() {
+      return !!this.etape && ['mfr', 'mfm'].includes(this.etape.typeId)
     }
   },
 
@@ -159,9 +185,13 @@ export default {
       })
     },
 
-    async save() {
+    async save(depose) {
       if (this.complete) {
-        await this.$store.dispatch('titreEtape/upsert', { etape: this.etape })
+        await this.$store.dispatch('titreEtape/upsert', {
+          etape: this.etape,
+          fromPopup: true,
+          depose
+        })
 
         this.eventTrack({
           categorie: 'titre-sections',
@@ -182,9 +212,12 @@ export default {
         if (this.dateIsVisible && this.newDate) {
           this.$refs['init-button'].focus()
           this.init()
-        } else if (this.complete) {
+        } else if (this.complete && !this.etapeIsDemande) {
           this.$refs['save-button'].focus()
-          this.save()
+          this.save(false)
+        } else if (this.complete && this.etapeIsDemande) {
+          this.$refs['save-depose-button'].focus()
+          this.save(true)
         }
       }
     },
@@ -195,7 +228,7 @@ export default {
       }
     },
 
-    editCompleteUpdate(complete) {
+    completeUpdate(complete) {
       this.editComplete = complete
     },
 
@@ -203,7 +236,8 @@ export default {
       await this.$store.dispatch('titreEtape/heritageGet', {
         titreDemarcheId: this.demarcheId,
         typeId,
-        date: this.newDate
+        date: this.newDate,
+        fromPopup: true
       })
     }
   }

@@ -75,7 +75,7 @@
             class="btn-flash rnd-xs p-s full-x"
             @click="preview"
           >
-            Prévisualiser
+            Prévisualiser…
           </button>
         </div>
       </div>
@@ -87,7 +87,7 @@
             class="btn-border rnd-xs p-s full-x"
             @click="edit"
           >
-            Modifier
+            Modifier…
           </button>
         </div>
         <div class="tablet-blob-2-3">

@@ -16,22 +16,22 @@
     <div v-if="modifiable && ajoutable">
       <h4 class="mb-s">Nouveau document</h4>
       <div class="blobs-mini">
-        <div class="blob-mini-1-2">
-          <select v-model="newDocumentTypeId" class="p-s mb-s rnd-xs">
+        <div class="blob-mini-1-3">
+          <select v-model="newDocumentTypeId" class="p-s mb-s">
             <option v-for="dt in documentsTypes" :key="dt.id" :value="dt.id">
               {{ dt.nom }}
             </option>
           </select>
         </div>
 
-        <div class="blob-mini-1-2">
+        <div class="blob-mini-2-3">
           <button
-            class="btn p-s mb-s full-x rnd-xs flex"
+            class="btn small py-s px-m mb-s full-x rnd-xs flex"
             :class="{ disabled: !newDocumentTypeId }"
             :disabled="!newDocumentTypeId"
             @click="documentAdd(newDocumentTypeId)"
           >
-            Ajouter un document
+            <span class="mt-xxs">Ajouter un document</span>
             <i class="icon-24 icon-plus flex-right" />
           </button>
         </div>
@@ -93,12 +93,7 @@ export default {
   },
 
   watch: {
-    complete: {
-      handler: function (complete) {
-        this.$emit('complete-update', complete)
-      },
-      immediate: true
-    },
+    complete: 'completeUpdate',
 
     documentsTypes: {
       handler: 'init',
@@ -108,11 +103,13 @@ export default {
 
   async created() {
     await this.init()
+
+    this.completeUpdate()
   },
 
   methods: {
     async init() {
-      // supprime les documents dont le documenTType n'existe pas
+      // supprime les documents dont le documentType n'existe pas
       this.documents.forEach(d => {
         const documentsTypesIds = this.documentsTypes.map(({ id }) => id)
         if (!documentsTypesIds.includes(d.typeId)) {
@@ -183,6 +180,10 @@ export default {
       }
 
       return false
+    },
+
+    completeUpdate() {
+      this.$emit('complete-update', this.complete)
     }
   }
 }

@@ -5,8 +5,7 @@ const dateFormat = dateString => {
 
   const [y, m, d] = dateString.split('-')
 
-  return `${d}/${m}/${y}`
-  // .replace(/ *\([^)]*\) */g,'')
+  return `${d} / ${m} / ${y}`
 }
 
 const textNumberFormat = (text, options) => {
@@ -65,6 +64,8 @@ const paramsBuild = (apiParams, preferences) =>
     return params
   }, {})
 
+const cap = string => string[0].toUpperCase() + string.slice(1)
+
 export {
   dateFormat,
   permissionsCheck,
@@ -72,5 +73,6 @@ export {
   textToNumberFormat,
   cloneAndClean,
   elementsFormat,
-  paramsBuild
+  paramsBuild,
+  cap
 }

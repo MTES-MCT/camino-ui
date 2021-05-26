@@ -213,12 +213,13 @@ describe('étapes', () => {
     expect(store.state.titreEtape.element).toEqual(titreEtapeHeritage2)
   })
 
-  test("retourne une erreur si l'API retourne une erreur lors de la création d'une étape", async () => {
+  test("retourne une erreur si l'API retourne une erreur lors de la récupération de l'héritage", async () => {
     api.etapeHeritage.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('titreEtape/heritageGet', {
       typeId: 'etape-type-id',
       titreDemarcheId: 'demarche-id',
-      date: '2020-01-02'
+      date: '2020-01-02',
+      fromPopup: true
     })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
@@ -230,7 +231,8 @@ describe('étapes', () => {
       etape: {
         nom: 'champs',
         incertitudes: {}
-      }
+      },
+      fromPopup: true
     })
 
     expect(router.push).not.toHaveBeenCalled()
@@ -247,8 +249,7 @@ describe('étapes', () => {
       etape: {
         nom: 'champs',
         incertitudes: {}
-      },
-      redirect: true
+      }
     })
 
     expect(router.push).toHaveBeenCalled()
@@ -258,7 +259,8 @@ describe('étapes', () => {
     api.etapeCreer.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('titreEtape/upsert', {
       nom: 'champs',
-      incertitudes: {}
+      incertitudes: {},
+      fromPopup: true
     })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
@@ -271,7 +273,8 @@ describe('étapes', () => {
         id: 14,
         nom: 'champs',
         incertitudes: {}
-      }
+      },
+      fromPopup: true
     })
 
     expect(router.push).not.toHaveBeenCalled()
@@ -305,5 +308,33 @@ describe('étapes', () => {
 
     expect(apiMock).toHaveBeenCalledWith({ id: 14 })
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test('formatte une étape en édition', () => {
+    store.state.titreEtape = {
+      element: {
+        id: 'titre-etape-id',
+        typeId: 'etape-type-id',
+        duree: null,
+        substances: [{ id: 'substance-id' }],
+        titulaires: [{ id: 'entreprise-id-1' }],
+        amodiataires: [{ id: 'entreprise-id-2' }]
+      },
+
+      metas: {
+        etapesTypes: [{ id: 'etape-type-id' }],
+        substances: [{ id: 'substance-id' }],
+        entreprises: [{ id: 'entreprise-id-1' }, { id: 'entreprise-id-2' }]
+      }
+    }
+    expect(store.getters['titreEtape/etapeEditFormatted']).toEqual({
+      id: 'titre-etape-id',
+      modification: false,
+      incertitudes: undefined,
+      type: { id: 'etape-type-id' },
+      substances: [{ id: 'substance-id' }],
+      titulaires: [{ id: 'entreprise-id-1' }],
+      amodiataires: [{ id: 'entreprise-id-2' }]
+    })
   })
 })

@@ -107,7 +107,7 @@ import { cloneAndClean, dateFormat } from '../../utils/index'
 import Tag from '../_ui/tag.vue'
 import DocumentEditPopup from '../document/edit-popup.vue'
 import DocumentRemovePopup from '../document/remove-popup.vue'
-import JustificatifUnlinkPopup from '../justificatifs/unlink-popup.vue'
+import JustificatifUnlinkPopup from '../etape/justificatifs/unlink-popup.vue'
 
 export default {
   components: {

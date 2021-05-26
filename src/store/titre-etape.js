@@ -1,5 +1,7 @@
 import { etapeEditFormat } from '../utils/titre-etape-edit'
 import { etapeSaveFormat } from '../utils/titre-etape-save'
+import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
+import { etapeFormat } from '../utils/titre-etape-format'
 
 import router from '../router'
 
@@ -11,7 +13,6 @@ import {
   etapeModifier,
   etapeSupprimer
 } from '../api/titres-etapes'
-import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
 
 const state = {
   element: null,
@@ -70,7 +71,10 @@ const actions = {
     }
   },
 
-  async heritageGet({ commit, state }, { titreDemarcheId, typeId, date }) {
+  async heritageGet(
+    { commit, state, dispatch },
+    { titreDemarcheId, typeId, date, fromPopup }
+  ) {
     try {
       commit('loadingAdd', 'titreEtapeHeritageGet', { root: true })
       commit('heritageLoaded', false)
@@ -81,10 +85,20 @@ const actions = {
         typeId
       })
 
-      commit('heritageSet', { etape: data })
+      const apiEtape = etapeEditFormat(data)
+      const etapeType = state.metas.etapesTypes.find(
+        et => et.id === apiEtape.typeId
+      )
+      const newEtape = etapeHeritageBuild(state.element, apiEtape, etapeType)
+
+      commit('heritageSet', { etape: newEtape })
       commit('heritageLoaded', true)
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      if (fromPopup) {
+        commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      } else {
+        dispatch('apiError', e, { root: true })
+      }
     } finally {
       commit('loadingRemove', 'titreEtapeHeritageGet', {
         root: true
@@ -92,28 +106,31 @@ const actions = {
     }
   },
 
-  async upsert({ commit, dispatch }, { etape, redirect }) {
+  async upsert({ commit, dispatch }, { etape, fromPopup, depose }) {
     try {
-      commit('popupMessagesRemove', null, { root: true })
-      commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
-      const etapeFormatted = etapeSaveFormat(etape)
-
-      let data
-      if (etapeFormatted.id) {
-        data = await etapeModifier({ etape: etapeFormatted })
-      } else {
-        data = await etapeCreer({ etape: etapeFormatted })
+      if (fromPopup) {
+        commit('popupMessagesRemove', null, { root: true })
+        commit('popupLoad', null, { root: true })
       }
 
-      commit('popupClose', null, { root: true })
-      if (redirect) {
+      const etapeEditFormatted = etapeSaveFormat(etape)
+
+      let data
+      if (etapeEditFormatted.id) {
+        data = await etapeModifier({ etape: etapeEditFormatted, depose })
+      } else {
+        data = await etapeCreer({ etape: etapeEditFormatted, depose })
+      }
+
+      if (!fromPopup) {
         await router.push({
           name: 'titre',
           params: { id: data.id }
         })
       } else {
+        commit('popupClose', null, { root: true })
         await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
         commit(
           'titre/open',
@@ -156,6 +173,12 @@ const actions = {
   }
 }
 
+const getters = {
+  etapeEditFormatted(state) {
+    return etapeFormat(state.element, state.metas)
+  }
+}
+
 const mutations = {
   set(state, { etape }) {
     const e = etapeEditFormat(etape)
@@ -167,10 +190,7 @@ const mutations = {
   },
 
   heritageSet(state, { etape }) {
-    const apiEtape = etapeEditFormat(etape)
-    const newEtape = etapeHeritageBuild(state.element, apiEtape)
-
-    state.element = newEtape
+    state.element = etape
   },
 
   heritageLoaded(state, loaded) {
@@ -192,5 +212,6 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
+  getters
 }

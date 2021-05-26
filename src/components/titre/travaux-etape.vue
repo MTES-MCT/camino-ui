@@ -26,7 +26,7 @@
         :document="documentNew"
         :title="documentPopupTitle"
         :context="documentContext"
-        :repertoire="documentRepertoire"
+        repertoire="travaux"
         :parent-id="etape.id"
         :parent-type-id="etape.type.id"
         class="btn py-s px-m mr-px"
@@ -50,10 +50,16 @@
 
     <div
       v-if="
-        hasSections || hasProps || (etape.documents && etape.documents.length)
+        hasSections ||
+        hasFondamentales ||
+        (etape.documents && etape.documents.length)
       "
     >
-      <EtapeProps v-if="hasProps" :etape="etape" />
+      <EtapeFondamentales
+        v-if="hasFondamentales"
+        :etape="etape"
+        class="px-m pt-m border-b-s"
+      />
 
       <div v-if="hasSections" class="border-b-s">
         <Section
@@ -76,7 +82,7 @@
           :etiquette="etape.modification"
           :parent-id="etape.id"
           :parent-type-id="etape.type.id"
-          :repertoire="documentRepertoire"
+          repertoire="travaux"
           :title="documentPopupTitle"
           class="px-m"
           @titre-event-track="eventTrack"
@@ -94,7 +100,7 @@ import EditPopup from '../travaux-etape/edit.vue'
 import RemovePopup from '../travaux-etape/remove.vue'
 import DocumentButtonAdd from '../document/button-add.vue'
 import Documents from '../documents/list.vue'
-import EtapeProps from '../etape/props.vue'
+import EtapeFondamentales from '../etape/fondamentales.vue'
 
 import { etapeEditFormat } from './travaux-etape.js'
 import { dateFormat } from '@/utils'
@@ -110,7 +116,7 @@ export default {
     DocumentButtonAdd,
     Statut,
     Section,
-    EtapeProps
+    EtapeFondamentales
   },
 
   props: {
@@ -120,12 +126,6 @@ export default {
   },
 
   emits: ['titre-event-track'],
-
-  data() {
-    return {
-      documentRepertoire: 'travaux'
-    }
-  },
 
   computed: {
     titre() {
@@ -143,7 +143,7 @@ export default {
       )
     },
 
-    hasProps() {
+    hasFondamentales() {
       return !!this.etape.duree
     },
 

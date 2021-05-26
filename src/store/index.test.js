@@ -211,21 +211,21 @@ describe("état général de l'application", () => {
   })
 
   test("recharge la page si l'id du titre n'a pas changé", async () => {
-    store.state.titre.element = { id: 'titre-id', nom: 'Nom du titre' }
+    store.state.route.params = { id: 'titre-id' }
     await store.dispatch('reload', { name: 'titre', id: 'titre-id' })
 
     expect(modules.titre.actions.get).toHaveBeenCalled()
   })
 
   test("charge la nouvelle page si l'id du titre a changé", async () => {
-    store.state.titre.element = { id: 'titre-id', nom: 'Nom du titre' }
+    store.state.route.params = { id: 'id-test' }
     await store.dispatch('reload', { name: 'titre', id: 'titre-id-new' })
 
     expect(router.replace).toHaveBeenCalled()
   })
 
   test("ne recharge pas la page si l'id n'a pas changé", async () => {
-    store.state.titre.element = { id: 'id-test', nom: 'marne' }
+    store.state.route.params = { id: 'id-test' }
     await store.dispatch('reload', { name: 'titre', id: 'id-test' })
 
     expect(router.replace).not.toHaveBeenCalled()

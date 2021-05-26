@@ -2,7 +2,7 @@
   <Accordion
     :opened="opened"
     class="mb-s"
-    :slot-default="hasSections || hasProps || hasDocuments"
+    :slot-default="hasSections || hasFondamentales || hasDocuments"
     :slot-buttons="true"
     @close="close"
     @toggle="toggle"
@@ -43,7 +43,7 @@
         :document="documentNew"
         :title="documentPopupTitle"
         :context="documentContext"
-        :repertoire="documentRepertoire"
+        repertoire="demarches"
         :parent-id="etape.id"
         :parent-type-id="etape.type.id"
         class="btn py-s px-m mr-px"
@@ -67,73 +67,31 @@
       </button>
     </template>
 
-    <div v-if="hasSections || hasProps || hasDocuments">
-      <EtapeProps v-if="hasProps" :etape="etape" />
-
-      <div v-if="hasSections" class="border-b-s">
-        <Section
-          v-for="s in etape.type.sections"
-          :key="s.id"
-          class="border-b-s px-m pt-m"
-          :section="s"
-          :contenu="etape.contenu ? etape.contenu[s.id] : {}"
-          :date="etape.date"
-          @file-download="fileDownload"
-        />
-      </div>
-
-      <div v-if="etape.documents.length" class="border-b-s">
-        <h4 class="px-m pt mb-s">Documents</h4>
-        <Documents
-          :bouton-suppression="etape.modification"
-          :bouton-modification="etape.modification"
-          :context="documentContext"
-          :documents="etape.documents"
-          :etiquette="etape.modification"
-          :parent-id="etape.id"
-          :parent-type-id="etape.type.id"
-          :repertoire="documentRepertoire"
-          :title="documentPopupTitle"
-          class="px-m"
-          @titre-event-track="eventTrack"
-        />
-      </div>
-
-      <div v-if="etape.justificatifs.length">
-        <h4 class="px-m pt mb-s">Justificatifs</h4>
-        <Documents
-          :bouton-dissociation="etape.modification"
-          :bouton-modification="false"
-          :bouton-suppression="false"
-          :context="documentContext"
-          :documents="etape.justificatifs"
-          :etiquette="etape.modification"
-          :parent-id="etape.id"
-          :parent-type-id="etape.type.id"
-          :repertoire="documentRepertoire"
-          :title="documentPopupTitle"
-          class="px-m"
-          @titre-event-track="eventTrack"
-        />
-      </div>
-    </div>
+    <Detail
+      v-if="hasSections || hasFondamentales || hasDocuments"
+      class="px-m pt-m"
+      :etape="etape"
+      :has-fondamentales="hasFondamentales"
+      :has-sections="hasSections"
+      :has-documents="hasDocuments"
+      :document-context="documentContext"
+      :document-popup-title="documentPopupTitle"
+      :framed="true"
+      @titre-event-track="eventTrack"
+    />
   </Accordion>
 </template>
 
 <script>
+import { dateFormat, cap } from '@/utils'
 import Accordion from '../_ui/accordion.vue'
 import Tag from '../_ui/tag.vue'
-import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
 import EditPopup from '../etape/popup.vue'
 import RemovePopup from '../etape/remove.vue'
+import Detail from '../etape/detail.vue'
 import DocumentButtonAdd from '../document/button-add.vue'
-import JustificatifsButtonAdd from '../justificatifs/button-add.vue'
-import EtapeProps from '../etape/props.vue'
-import Documents from '../documents/list.vue'
-import { dateFormat } from '@/utils'
-
-const cap = string => string[0].toUpperCase() + string.slice(1)
+import JustificatifsButtonAdd from '../etape/justificatifs/button-add.vue'
 
 export default {
   name: 'CaminoTitreEtape',
@@ -141,12 +99,10 @@ export default {
   components: {
     Accordion,
     Tag,
-    Documents,
     DocumentButtonAdd,
     JustificatifsButtonAdd,
-    EtapeProps,
-    Section,
-    Statut
+    Statut,
+    Detail
   },
 
   props: {
@@ -156,12 +112,6 @@ export default {
   },
 
   emits: ['titre-event-track'],
-
-  data() {
-    return {
-      documentRepertoire: 'demarches'
-    }
-  },
 
   computed: {
     titre() {
@@ -175,7 +125,7 @@ export default {
       )
     },
 
-    hasProps() {
+    hasFondamentales() {
       return (
         !!this.etape.duree ||
         !!this.etape.surface ||
@@ -189,7 +139,7 @@ export default {
     },
 
     hasSections() {
-      return !!this.etape.type.sections.length
+      return !!this.etape.type.sections?.length
     },
 
     hasDocuments() {
@@ -287,13 +237,6 @@ export default {
 
     dateFormat(date) {
       return dateFormat(date)
-    },
-
-    async fileDownload(fichier) {
-      await this.$store.dispatch(
-        'download',
-        `etape/${this.etape.id}/${fichier}`
-      )
     }
   }
 }

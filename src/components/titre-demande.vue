@@ -50,7 +50,11 @@
         <h5>Prospection mécanisée</h5>
       </div>
       <div class="tablet-blob-2-3">
-        <input v-model="newTitre.mecanise" type="checkbox" class="pb-s" />
+        <input
+          v-model="newTitre.mecanise"
+          type="checkbox"
+          class="p-s mt-s mb-s"
+        />
       </div>
     </div>
     <hr />
