@@ -14,7 +14,7 @@
           'tablet-blob-1': !element.nom
         }"
       >
-        <EditSectionElementModifiable
+        <SectionElementEdit
           v-if="modifiable"
           v-model:contenu="contenu"
           class="mb-s"
@@ -41,12 +41,10 @@
 
 <script>
 import { valeurFind, hasValeurCheck } from '../../utils/contenu'
-import EditSectionElementModifiable from '../_common/edit-sections-element-modifiable.vue'
+import SectionElementEdit from '../_common/section-element-edit.vue'
 
 export default {
-  components: {
-    EditSectionElementModifiable
-  },
+  components: { SectionElementEdit },
 
   props: {
     contenu: { type: Object, required: true },

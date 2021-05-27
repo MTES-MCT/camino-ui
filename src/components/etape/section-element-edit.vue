@@ -8,7 +8,7 @@
         <p v-if="element.optionnel" class="h6 italic mb-0">Optionnel</p>
       </div>
 
-      <EditHeritage
+      <HeritageEdit
         v-model:prop="heritage[element.id]"
         class="mb"
         :class="{
@@ -20,7 +20,7 @@
         :is-array="element.type === 'checkboxes'"
       >
         <template #write>
-          <EditSectionElementModifiable
+          <SectionElementEdit
             v-model:contenu="contenu"
             class="mb-s"
             :element="element"
@@ -39,7 +39,7 @@
 
         <!-- eslint-disable vue/no-v-html -->
         <p v-if="element.description" class="h6" v-html="element.description" />
-      </EditHeritage>
+      </HeritageEdit>
     </div>
 
     <hr />
@@ -48,16 +48,15 @@
 
 <script>
 import { valeurFind, hasValeurCheck } from '@/utils/contenu'
-import EditSectionElementModifiable from '../_common/edit-sections-element-modifiable.vue'
-
-import EditHeritage from './edit-heritage.vue'
+import SectionElementEdit from '../_common/section-element-edit.vue'
+import HeritageEdit from './heritage-edit.vue'
 import SectionElementMultiple from '../_common/section-element-multiple.vue'
 
 export default {
   components: {
     SectionElementMultiple,
-    EditSectionElementModifiable,
-    EditHeritage
+    SectionElementEdit,
+    HeritageEdit
   },
 
   props: {

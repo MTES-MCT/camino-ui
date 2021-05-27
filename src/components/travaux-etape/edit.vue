@@ -115,7 +115,7 @@
       </div>
     </div>
 
-    <EditSections
+    <SectionsEdit
       v-if="etapeType && etapeType.sections"
       v-model:element="etape"
       :sections="etapeType.sections"
@@ -158,8 +158,8 @@
 import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
 import Popup from '../_ui/popup.vue'
-import EditSections from './edit-sections.vue'
-import DocumentsEdit from '../document/edit-multi.vue'
+import SectionsEdit from './sections-edit.vue'
+import DocumentsEdit from '../document/multi-edit.vue'
 
 import { etapeSaveFormat } from './edit'
 
@@ -168,7 +168,7 @@ export default {
 
   components: {
     Popup,
-    EditSections,
+    SectionsEdit,
     InputDate,
     InputNumber,
     DocumentsEdit

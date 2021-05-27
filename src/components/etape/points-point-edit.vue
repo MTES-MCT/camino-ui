@@ -20,7 +20,7 @@
       </label>
     </div>
 
-    <EditPointReference
+    <PointReferenceEdit
       v-for="geoSysteme in geoSystemes"
       :key="`${point.id}-${geoSysteme.id}`"
       v-model:point-references="point.references"
@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import EditPointReference from './edit-points-point-reference.vue'
+import PointReferenceEdit from './points-point-reference-edit.vue'
 
 export default {
-  components: { EditPointReference },
+  components: { PointReferenceEdit },
 
   props: {
     point: { type: Object, default: () => ({}) },

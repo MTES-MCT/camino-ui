@@ -12,7 +12,7 @@
     <h2>Modification de l'étape</h2>
 
     <div v-if="modifiable" class="mb">
-      <EtapeEditAccordion
+      <Accordion
         id="step-type"
         :step="stepType"
         :opened="opened['type']"
@@ -30,9 +30,9 @@
           @type-update="typeUpdate"
           @complete-update="typeCompleteUpdate"
         />
-      </EtapeEditAccordion>
+      </Accordion>
 
-      <EtapeEditAccordion
+      <Accordion
         v-if="stepFondamentales"
         id="step-fondamentales"
         :step="stepFondamentales"
@@ -43,9 +43,9 @@
         @next="next('fondamentales')"
       >
         <EtapeEditFondamentales v-model:etape="etape" :domaine-id="domaineId" />
-      </EtapeEditAccordion>
+      </Accordion>
 
-      <EtapeEditAccordion
+      <Accordion
         v-if="stepPoints"
         id="step-points"
         :step="stepPoints"
@@ -56,9 +56,9 @@
         @next="next('points')"
       >
         <EtapeEditPoints v-model:etape="etape" v-model:events="events" />
-      </EtapeEditAccordion>
+      </Accordion>
 
-      <EtapeEditAccordion
+      <Accordion
         v-if="stepSections"
         id="step-sections"
         :step="stepSections"
@@ -73,9 +73,9 @@
           :sections="etape.sections"
           @complete-update="sectionsCompleteUpdate"
         />
-      </EtapeEditAccordion>
+      </Accordion>
 
-      <EtapeEditAccordion
+      <Accordion
         v-if="stepDocuments"
         id="step-documents"
         :step="stepDocuments"
@@ -92,9 +92,9 @@
           repertoire="demarches"
           @complete-update="documentsCompleteUpdate"
         />
-      </EtapeEditAccordion>
+      </Accordion>
 
-      <EtapeEditAccordion
+      <Accordion
         v-if="stepJustificatifs"
         id="step-justificatifs"
         :step="stepJustificatifs"
@@ -110,7 +110,7 @@
           :entreprises="entreprises"
           @complete-update="justificatifsCompleteUpdate"
         />
-      </EtapeEditAccordion>
+      </Accordion>
     </div>
 
     <div v-else class="mb">
@@ -127,7 +127,7 @@
 
       <hr />
 
-      <Detail
+      <Preview
         :etape="etapeEditFormatted"
         :has-fondamentales="hasFondamentales"
         :has-sections="hasSections"
@@ -217,14 +217,14 @@
 import { cap } from '@/utils'
 import Loader from './_ui/loader.vue'
 import Statut from './_common/statut.vue'
-import Detail from './etape/detail.vue'
-import EtapeEditType from './etape/edit-type.vue'
-import EtapeEditAccordion from './etape/edit-accordion.vue'
-import EtapeEditFondamentales from './etape/edit-fondamentales.vue'
-import EtapeEditPoints from './etape/edit-points.vue'
-import EditSections from './etape/edit-sections.vue'
-import DocumentsEdit from './document/edit-multi.vue'
-import JustificatifsEdit from './etape/edit-justificatifs.vue'
+import Preview from './etape/preview.vue'
+import EtapeEditType from './etape/type-edit.vue'
+import Accordion from './etape/accordion.vue'
+import EtapeEditFondamentales from './etape/fondamentales-edit.vue'
+import EtapeEditPoints from './etape/points-edit.vue'
+import EditSections from './etape/sections-edit.vue'
+import DocumentsEdit from './document/multi-edit.vue'
+import JustificatifsEdit from './etape/justificatifs-edit.vue'
 
 export default {
   components: {
@@ -235,9 +235,9 @@ export default {
     EditSections,
     DocumentsEdit,
     Statut,
-    Detail,
+    Preview,
     JustificatifsEdit,
-    EtapeEditAccordion
+    Accordion
   },
 
   emits: ['type-update'],

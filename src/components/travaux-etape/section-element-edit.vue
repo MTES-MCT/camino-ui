@@ -8,7 +8,7 @@
         <p v-if="element.optionnel" class="h6 italic mb-0">Optionnel</p>
       </div>
 
-      <EditSectionElementModifiable
+      <SectionElementEdit
         v-model:contenu="contenu"
         :class="{ 'mb-s': element.description }"
         :element="element"
@@ -29,11 +29,11 @@
 
 <script>
 import { valeurFind, hasValeurCheck } from '@/utils/contenu'
-import EditSectionElementModifiable from '../_common/edit-sections-element-modifiable.vue'
+import SectionElementEdit from '../_common/section-element-edit.vue'
 
 export default {
   components: {
-    EditSectionElementModifiable
+    SectionElementEdit
   },
 
   props: {

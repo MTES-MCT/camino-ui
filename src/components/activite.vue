@@ -6,7 +6,7 @@
       {{ activite.titre.nom }}
     </h1>
 
-    <ActiviteDetail
+    <Preview
       :key="activite.id"
       :activite="activite"
       :context="{ name: 'titreActivite', id: activite.id }"
@@ -17,14 +17,10 @@
 
 <script>
 import Loader from './_ui/loader.vue'
-
-import ActiviteDetail from './activite/detail.vue'
+import Preview from './activite/preview.vue'
 
 export default {
-  components: {
-    Loader,
-    ActiviteDetail
-  },
+  components: { Loader, Preview },
 
   computed: {
     activite() {

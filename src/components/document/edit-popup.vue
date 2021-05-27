@@ -36,7 +36,7 @@
 
     <hr />
 
-    <EditSections
+    <SectionsEdit
       v-model:document="document"
       :repertoire="repertoire"
       :optionnel="documentType ? documentType.optionnel : false"
@@ -73,14 +73,14 @@
 
 <script>
 import Popup from '../_ui/popup.vue'
-import EditSections from './edit-sections.vue'
+import SectionsEdit from './sections-edit.vue'
 
 export default {
   name: 'CaminoDocumentEditPopup',
 
   components: {
     Popup,
-    EditSections
+    SectionsEdit
   },
 
   props: {

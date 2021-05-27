@@ -11,7 +11,7 @@
 
 <script>
 import { cloneAndClean } from '../../utils/index'
-import activiteEditPopup from '../activite/edit-popup.vue'
+import EditPopup from './edit-popup.vue'
 
 export default {
   props: {
@@ -56,7 +56,7 @@ export default {
       })
 
       this.$store.commit('popupOpen', {
-        component: activiteEditPopup,
+        component: EditPopup,
         props: {
           activite,
           context: this.context

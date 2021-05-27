@@ -1,5 +1,5 @@
 <template>
-  <EtapeEditType
+  <TypeEdit
     v-model:etape="etape"
     :user="user"
     :etape-types="etapeTypes"
@@ -9,19 +9,19 @@
     @complete-update="typeCompleteUpdate"
   />
 
-  <EtapeEditFondamentales
+  <FondamentalesEdit
     v-if="heritageLoaded && etapeType && etapeType.fondamentale"
     v-model:etape="etape"
     :domaine-id="domaineId"
   />
 
-  <EtapeEditPoints
+  <PointsEdit
     v-if="etapeType?.fondamentale"
     v-model:etape="etape"
     v-model:events="events"
   />
 
-  <EditSections
+  <SectionsEdit
     v-if="heritageLoaded && etape.sections"
     v-model:etape="etape"
     :sections="etape.sections"
@@ -40,18 +40,18 @@
 </template>
 
 <script>
-import EtapeEditType from './edit-type.vue'
-import EtapeEditFondamentales from './edit-fondamentales.vue'
-import EtapeEditPoints from './edit-points.vue'
-import EditSections from './edit-sections.vue'
-import DocumentsEdit from '../document/edit-multi.vue'
+import TypeEdit from './type-edit.vue'
+import FondamentalesEdit from './fondamentales-edit.vue'
+import PointsEdit from './points-edit.vue'
+import SectionsEdit from './sections-edit.vue'
+import DocumentsEdit from '../document/multi-edit.vue'
 
 export default {
   components: {
-    EtapeEditType,
-    EtapeEditFondamentales,
-    EtapeEditPoints,
-    EditSections,
+    TypeEdit,
+    FondamentalesEdit,
+    PointsEdit,
+    SectionsEdit,
     DocumentsEdit
   },
 

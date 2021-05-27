@@ -31,7 +31,7 @@
       </router-link>
     </div>
 
-    <EditSections
+    <SectionsEdit
       v-model:element="activite"
       :modifiable="modifiable"
       :sections="activite.sections"
@@ -124,15 +124,15 @@
 
 <script>
 import Popup from '../_ui/popup.vue'
-import EditSections from './edit-sections.vue'
-import DocumentsEdit from '../document/edit-multi.vue'
+import SectionsEdit from './sections-edit.vue'
+import DocumentsEdit from '../document/multi-edit.vue'
 
 export default {
   name: 'CaminoTitreActivitesRapportEditPopup',
 
   components: {
     Popup,
-    EditSections,
+    SectionsEdit,
     DocumentsEdit
   },
 

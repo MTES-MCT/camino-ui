@@ -15,7 +15,7 @@
 
     <hr />
 
-    <EditSections
+    <SectionsEdit
       v-model:document="document"
       :modifiable="modifiable"
       :repertoire="repertoire"
@@ -25,14 +25,12 @@
 </template>
 
 <script>
-import EditSections from './edit-sections.vue'
+import SectionsEdit from './sections-edit.vue'
 
 export default {
   name: 'CaminoDocumentEditMulti',
 
-  components: {
-    EditSections
-  },
+  components: { SectionsEdit },
 
   props: {
     document: { type: Object, required: true },
