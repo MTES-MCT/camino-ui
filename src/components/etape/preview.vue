@@ -1,7 +1,8 @@
 <template>
   <div>
     <div v-if="hasFondamentales">
-      <EtapeFondamentales :etape="etape" />
+      <Fondamentales :etape="etape" />
+      <Points :etape="etape" />
       <hr :class="{ 'mx--': framed }" />
     </div>
 
@@ -30,7 +31,6 @@
         :parent-type-id="etape.type.id"
         repertoire="demarches"
         :title="documentPopupTitle"
-        @titre-event-track="eventTrack"
       />
 
       <hr :class="{ 'mx--': framed }" />
@@ -49,7 +49,6 @@
         :parent-type-id="etape.type.id"
         repertoire="'entreprises'"
         :title="documentPopupTitle"
-        @titre-event-track="eventTrack"
       />
 
       <hr :class="{ 'mx--': framed }" />
@@ -58,13 +57,15 @@
 </template>
 
 <script>
-import EtapeFondamentales from './fondamentales.vue'
+import Fondamentales from './fondamentales.vue'
+import Points from './points.vue'
 import Section from '../_common/section.vue'
 import Documents from '../documents/list.vue'
 
 export default {
   components: {
-    EtapeFondamentales,
+    Fondamentales,
+    Points,
     Documents,
     Section
   },

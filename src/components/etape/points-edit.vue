@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 class="mb-s">Périmètre</h3>
+    <h4 v-if="showTitle" class="mb-s">Périmètre</h4>
     <p class="h6 italic">Optionnel</p>
 
     <HeritageEdit
@@ -226,7 +226,8 @@ export default {
 
   props: {
     etape: { type: Object, default: () => ({}) },
-    events: { type: Object, default: () => ({ saveKeyUp: true }) }
+    events: { type: Object, default: () => ({ saveKeyUp: true }) },
+    showTitle: { type: Boolean, default: true }
   },
 
   computed: {

@@ -87,7 +87,7 @@
             >Choisir un fichier…
             <input type="file" class="p-xs mb-0" @change="fileChange" />
           </label>
-          <p class="h6">30 Mo max.</p>
+          <p class="h5 italic">30 Mo max.</p>
         </div>
         <p v-else class="color-warning pt-s mb-0">À compléter pour valider</p>
       </div>

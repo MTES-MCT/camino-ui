@@ -1,14 +1,4 @@
 <template>
-  <TypeEdit
-    v-model:etape="etape"
-    :user="user"
-    :etape-types="etapeTypes"
-    :etape-type="etapeType"
-    :etape-is-demande="etapeIsDemande"
-    @type-update="typeUpdate"
-    @complete-update="typeCompleteUpdate"
-  />
-
   <FondamentalesEdit
     v-if="heritageLoaded && etapeType && etapeType.fondamentale"
     v-model:etape="etape"
@@ -40,7 +30,6 @@
 </template>
 
 <script>
-import TypeEdit from './type-edit.vue'
 import FondamentalesEdit from './fondamentales-edit.vue'
 import PointsEdit from './points-edit.vue'
 import SectionsEdit from './sections-edit.vue'
@@ -48,7 +37,6 @@ import DocumentsEdit from '../document/multi-edit.vue'
 
 export default {
   components: {
-    TypeEdit,
     FondamentalesEdit,
     PointsEdit,
     SectionsEdit,
@@ -56,33 +44,25 @@ export default {
   },
 
   props: {
-    user: { type: Object, default: null },
     etape: { type: Object, required: true },
-    etapeTypes: { type: Array, required: true },
+    etapeType: { type: Object, required: true },
     events: { type: Object, required: true },
     domaineId: { type: String, required: true },
-    heritageLoaded: { type: Boolean, required: true },
-    etapeIsDemande: { type: Boolean, default: false }
+    heritageLoaded: { type: Boolean, required: true }
   },
 
-  emits: ['complete-update', 'type-update'],
+  emits: ['complete-update'],
 
   data() {
     return {
       documentsComplete: false,
-      sectionsComplete: false,
-      typeComplete: false
+      sectionsComplete: false
     }
   },
 
   computed: {
-    etapeType() {
-      return this.etapeTypes.find(et => et.id === this.etape.typeId)
-    },
-
     complete() {
       return (
-        this.typeComplete &&
         (!this.etapeType.documentsTypes?.length || this.documentsComplete) &&
         (!this.etape.sections.length || this.sectionsComplete)
       )
@@ -108,14 +88,6 @@ export default {
 
     sectionsCompleteUpdate(complete) {
       this.sectionsComplete = complete
-    },
-
-    typeCompleteUpdate(complete) {
-      this.typeComplete = complete
-    },
-
-    typeUpdate(typeId) {
-      this.$emit('type-update', typeId)
     }
   }
 }

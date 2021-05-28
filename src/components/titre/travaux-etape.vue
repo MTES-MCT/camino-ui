@@ -85,7 +85,6 @@
           repertoire="travaux"
           :title="documentPopupTitle"
           class="px-m"
-          @titre-event-track="eventTrack"
         />
       </div>
     </div>

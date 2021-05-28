@@ -9,27 +9,54 @@
       </span>
     </h6>
 
-    <h2>Modification de l'étape</h2>
+    <h1>Modification de l'étape</h1>
 
-    <div v-if="modifiable" class="mb">
+    <div class="mb">
       <Accordion
         id="step-type"
         :step="stepType"
         :opened="opened['type']"
+        :modifiable="modifiable"
         :complete="typeComplete"
         :en-construction="enConstruction"
         @toggle="toggle('type')"
         @next="next('type')"
       >
-        <EtapeEditType
-          v-model:etape="etape"
-          :user="user"
-          :etape-types="etapeTypes"
-          :etape-type="etapeType"
-          :etape-is-demande="etapeIsDemande"
-          @type-update="typeUpdate"
-          @complete-update="typeCompleteUpdate"
-        />
+        <template #write>
+          <TypeEdit
+            v-model:etape="etape"
+            :user="user"
+            :etape-types="etapeTypes"
+            :etape-type="etapeType"
+            :etape-is-demande="etapeIsDemande"
+            @type-update="typeUpdate"
+            @complete-update="typeCompleteUpdate"
+          />
+        </template>
+        <template #read>
+          <div v-if="etape.date" class="tablet-blobs">
+            <div class="tablet-blob-1-4"><h5>Date</h5></div>
+            <div class="tablet-blob-3-4">{{ etape.date }}</div>
+          </div>
+
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4"><h5>Type</h5></div>
+            <div class="tablet-blob-3-4">
+              <span class="cap-first">{{ etapeType.nom }}</span>
+            </div>
+          </div>
+
+          <div v-if="!etapeIsDemande" class="tablet-blobs">
+            <div class="tablet-blob-1-4"><h5>Statut</h5></div>
+            <div class="tablet-blob-3-4">
+              <Statut
+                :color="etapeEditFormatted.statut.couleur"
+                :nom="etapeEditFormatted.statut.nom"
+                class="mb-xs"
+              />
+            </div>
+          </div>
+        </template>
       </Accordion>
 
       <Accordion
@@ -37,12 +64,18 @@
         id="step-fondamentales"
         :step="stepFondamentales"
         :opened="opened['fondamentales']"
+        :modifiable="modifiable"
         :complete="true"
         :en-construction="enConstruction"
         @toggle="toggle('fondamentales')"
         @next="next('fondamentales')"
       >
-        <EtapeEditFondamentales v-model:etape="etape" :domaine-id="domaineId" />
+        <template #write>
+          <FondamentalesEdit v-model:etape="etape" :domaine-id="domaineId" />
+        </template>
+        <template #read>
+          <Fondamentales :etape="etapeEditFormatted" />
+        </template>
       </Accordion>
 
       <Accordion
@@ -50,12 +83,26 @@
         id="step-points"
         :step="stepPoints"
         :opened="opened['points']"
+        :modifiable="modifiable"
         :complete="true"
         :en-construction="enConstruction"
         @toggle="toggle('points')"
         @next="next('points')"
       >
-        <EtapeEditPoints v-model:etape="etape" v-model:events="events" />
+        <template #write>
+          <PointsEdit
+            v-model:etape="etape"
+            v-model:events="events"
+            :show-title="false"
+          />
+        </template>
+        <template #read>
+          <Points
+            v-if="etapeEditFormatted.points"
+            :etape="etapeEditFormatted"
+          />
+          <p v-else class="h5 italic">Non renseigné</p>
+        </template>
       </Accordion>
 
       <Accordion
@@ -63,16 +110,31 @@
         id="step-sections"
         :step="stepSections"
         :opened="opened['sections']"
+        :modifiable="modifiable"
         :complete="stepSectionsComplete"
         :en-construction="enConstruction"
         @toggle="toggle('sections')"
         @next="next('sections')"
       >
-        <EditSections
-          v-model:etape="etape"
-          :sections="etape.sections"
-          @complete-update="sectionsCompleteUpdate"
-        />
+        <template #write>
+          <SectionsEdit
+            v-model:etape="etape"
+            :sections="etape.sections"
+            @complete-update="sectionsCompleteUpdate"
+          />
+        </template>
+        <template #read>
+          <Section
+            v-for="s in etapeEditFormatted.type.sections"
+            :key="s.id"
+            :section="s"
+            :contenu="
+              etapeEditFormatted.contenu ? etapeEditFormatted.contenu[s.id] : {}
+            "
+            :date="etapeEditFormatted.date"
+            @file-download="fileDownload"
+          />
+        </template>
       </Accordion>
 
       <Accordion
@@ -80,18 +142,30 @@
         id="step-documents"
         :step="stepDocuments"
         :opened="opened['documents']"
+        :modifiable="modifiable"
         :complete="stepDocumentsComplete"
         :en-construction="enConstruction"
         @toggle="toggle('documents')"
         @next="next('documents')"
       >
-        <DocumentsEdit
-          v-model:documents="etape.documents"
-          :parent-id="etape.id"
-          :documents-types="etapeType.documentsTypes"
-          repertoire="demarches"
-          @complete-update="documentsCompleteUpdate"
-        />
+        <template #write>
+          <DocumentsEdit
+            v-model:documents="etape.documents"
+            :parent-id="etape.id"
+            :documents-types="etapeType.documentsTypes"
+            repertoire="demarches"
+            :show-title="false"
+            @complete-update="documentsCompleteUpdate"
+          />
+        </template>
+        <template #read>
+          <Documents
+            v-if="etapeEditFormatted.documents.length"
+            :documents="etapeEditFormatted.documents"
+            :etiquette="true"
+          />
+          <p v-else class="h5 italic">Non renseigné</p>
+        </template>
       </Accordion>
 
       <Accordion
@@ -99,50 +173,36 @@
         id="step-justificatifs"
         :step="stepJustificatifs"
         :opened="opened['justificatifs']"
+        :modifiable="modifiable"
         :complete="stepJustificatifsComplete"
         :en-construction="enConstruction"
         @toggle="toggle('justificatifs')"
         @next="next('justificatifs')"
       >
-        <JustificatifsEdit
-          v-model:justificatifs="etape.justificatifs"
-          :justificatifs-types="etapeType.justificatifsTypes"
-          :entreprises="entreprises"
-          @complete-update="justificatifsCompleteUpdate"
-        />
+        <template #write>
+          <JustificatifsEdit
+            v-model:justificatifs="etape.justificatifs"
+            :justificatifs-types="etapeType.justificatifsTypes"
+            :entreprises="entreprises"
+            @complete-update="justificatifsCompleteUpdate"
+          />
+        </template>
+        <template #read>
+          <Documents
+            v-if="etapeEditFormatted.justificatifs.length"
+            :documents="etapeEditFormatted.justificatifs"
+            :etiquette="true"
+          />
+          <p v-else class="h5 italic">Non renseigné</p>
+        </template>
       </Accordion>
-    </div>
-
-    <div v-else class="mb">
-      <h5 v-if="etape.date" class="mb-0">{{ etape.date }}</h5>
-      <h3 class="cap-first">{{ etapeType.nom }}</h3>
-
-      <div v-if="!etapeIsDemande" class="mb">
-        <Statut
-          :color="etapeEditFormatted.statut.couleur"
-          :nom="etapeEditFormatted.statut.nom"
-          class="mb-xs"
-        />
-      </div>
-
-      <hr />
-
-      <Preview
-        :etape="etapeEditFormatted"
-        :has-fondamentales="hasFondamentales"
-        :has-sections="hasSections"
-        :has-documents="hasDocuments"
-        :document-context="documentContext"
-        :document-popup-title="documentPopupTitle"
-        @titre-event-track="eventTrack"
-      />
     </div>
 
     <div v-if="modifiable" class="tablet-blobs mb">
       <div class="tablet-blob-1-3" />
       <div class="tablet-blob-2-3">
         <button
-          id="cmn-titre-activite-edit-popup-button-previsualiser"
+          id="cmn-etape-edit-button-previsualiser"
           ref="preview-button"
           class="btn-flash rnd-xs p-s full-x"
           @click="preview"
@@ -154,7 +214,11 @@
 
     <div v-else-if="!loading" class="tablet-blobs mb">
       <div class="tablet-blob-1-3">
-        <button class="btn-border rnd-xs p-s full-x mb-s" @click="edit">
+        <button
+          ref="modifier-button"
+          class="btn-border rnd-xs p-s full-x mb-s"
+          @click="edit"
+        >
           Modifier…
         </button>
       </div>
@@ -164,10 +228,12 @@
           <div class="tablet-blob-1-2">
             <button
               ref="en-construction-button"
-              class="btn-flash rnd-xs p-s full-x mb-s"
+              class="rnd-xs p-s full-x mb-s"
               :disabled="!typeComplete"
               :class="{
-                disabled: !typeComplete
+                disabled: !typeComplete,
+                'btn-flash': !complete,
+                btn: complete
               }"
               @click="save(false)"
             >
@@ -186,28 +252,23 @@
             </button>
           </div>
         </div>
-        <div v-else class="tablet-blobs">
-          <div class="tablet-blob-1-2">
-            <button
-              ref="save-button"
-              class="btn-flash rnd-xs p-s full-x mb-s"
-              :disabled="!complete"
-              :class="{
-                disabled: !complete
-              }"
-              @click="save"
-            >
-              Valider
-            </button>
-          </div>
-        </div>
+        <button
+          v-else
+          ref="save-button"
+          class="btn-flash rnd-xs p-s full-x mb-s"
+          :disabled="!complete"
+          :class="{ disabled: !complete }"
+          @click="save"
+        >
+          Valider
+        </button>
       </div>
     </div>
 
     <div v-else class="tablet-blobs">
       <div class="tablet-blob-1-3" />
       <div class="tablet-blob-2-3">
-        <div class="p-s bold">Enregistrement en cours…</div>
+        <div class="p-s bold mb">Enregistrement en cours…</div>
       </div>
     </div>
   </div>
@@ -217,27 +278,36 @@
 import { cap } from '@/utils'
 import Loader from './_ui/loader.vue'
 import Statut from './_common/statut.vue'
-import Preview from './etape/preview.vue'
-import EtapeEditType from './etape/type-edit.vue'
+import TypeEdit from './etape/type-edit.vue'
 import Accordion from './etape/accordion.vue'
-import EtapeEditFondamentales from './etape/fondamentales-edit.vue'
-import EtapeEditPoints from './etape/points-edit.vue'
-import EditSections from './etape/sections-edit.vue'
+import FondamentalesEdit from './etape/fondamentales-edit.vue'
+
+import Fondamentales from './etape/fondamentales.vue'
+
+import PointsEdit from './etape/points-edit.vue'
+import Points from './etape/points.vue'
+import SectionsEdit from './etape/sections-edit.vue'
+import Section from './_common/section.vue'
+
 import DocumentsEdit from './document/multi-edit.vue'
 import JustificatifsEdit from './etape/justificatifs-edit.vue'
+import Documents from './documents/list.vue'
 
 export default {
   components: {
     Loader,
-    EtapeEditType,
-    EtapeEditFondamentales,
-    EtapeEditPoints,
-    EditSections,
-    DocumentsEdit,
+    Accordion,
+    TypeEdit,
     Statut,
-    Preview,
+    FondamentalesEdit,
+    Fondamentales,
+    PointsEdit,
+    Points,
+    SectionsEdit,
+    Section,
+    DocumentsEdit,
     JustificatifsEdit,
-    Accordion
+    Documents
   },
 
   emits: ['type-update'],
@@ -342,13 +412,13 @@ export default {
     },
 
     steps() {
-      const steps = [{ id: 'type', name: "Type de l'étape" }]
+      const steps = [{ id: 'type', name: 'Type' }]
 
       if (this.heritageLoaded && this.etapeType?.fondamentale) {
         steps[steps.length - 1].hasNextButton = true
         steps.push({
           id: 'fondamentales',
-          name: 'Propriétés fondamentales',
+          name: 'Propriétés',
           hasNextButton: true
         })
         steps.push({ id: 'points', name: 'Périmètre' })
@@ -421,14 +491,6 @@ export default {
       return this.etape.documents && !!this.etape.documents.length
     },
 
-    documentContext() {
-      return {
-        name: 'titre',
-        section: 'etapes',
-        id: this.titre.id
-      }
-    },
-
     documentPopupTitle() {
       return `${cap(this.titre.nom)} | ${cap(this.demarcheType.nom)} | ${cap(
         this.etapeType.nom
@@ -480,7 +542,12 @@ export default {
     },
 
     keyUp(e) {
-      if (
+      if ((e.which || e.keyCode) === 27) {
+        if (this.modifiable) {
+          this.$refs['modifier-button'].focus()
+          this.edit()
+        }
+      } else if (
         (e.which || e.keyCode) === 13 &&
         this.events.saveKeyUp &&
         this.complete
@@ -566,8 +633,14 @@ export default {
     },
 
     edit() {
-      // this.errorsRemove()
       this.modifiable = true
+    },
+
+    async fileDownload(fichier) {
+      await this.$store.dispatch(
+        'download',
+        `etape/${this.etape.id}/${fichier}`
+      )
     }
   }
 }

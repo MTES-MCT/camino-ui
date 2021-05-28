@@ -34,16 +34,16 @@ export default {
   },
 
   props: {
+    documents: { type: Array, default: () => [] },
+    etiquette: { type: Boolean, default: false },
     boutonDissociation: { type: Boolean, default: false },
     boutonModification: { type: Boolean, default: false },
     boutonSuppression: { type: Boolean, default: false },
-    context: { type: Object, required: true },
-    etiquette: { type: Boolean, default: true },
-    documents: { type: Array, default: () => [] },
-    parentId: { type: String, required: true },
+    context: { type: Object, default: () => ({}) },
+    parentId: { type: String, default: '' },
     parentTypeId: { type: String, default: '' },
-    repertoire: { type: String, required: true },
-    title: { type: String, required: true }
+    repertoire: { type: String, default: '' },
+    title: { type: String, default: '' }
   }
 }
 </script>

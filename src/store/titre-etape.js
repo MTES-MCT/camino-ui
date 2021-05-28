@@ -144,7 +144,11 @@ const actions = {
         )
       }
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      if (fromPopup) {
+        commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      } else {
+        dispatch('apiError', e, { root: true })
+      }
     } finally {
       commit('loadingRemove', 'titreEtapeUpdate', { root: true })
     }

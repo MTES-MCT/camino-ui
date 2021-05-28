@@ -26,7 +26,7 @@
         @change="fileChange"
       />
     </label>
-    <p class="h6">30 Mo max.</p>
+    <p class="h5 italic">30 Mo max.</p>
   </div>
 </template>
 
