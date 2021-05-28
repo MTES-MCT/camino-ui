@@ -1,6 +1,6 @@
 <template>
   <div v-if="visible">
-    <h3>Documents</h3>
+    <h3 v-if="showTitle">Documents</h3>
 
     <Edit
       v-for="(document, n) in documents"
@@ -58,7 +58,8 @@ export default {
     ajoutable: { type: Boolean, default: true },
     repertoire: { type: String, required: true },
     parentId: { type: String, required: true },
-    documentsTypes: { type: Array, required: true }
+    documentsTypes: { type: Array, required: true },
+    showTitle: { type: Boolean, default: true }
   },
 
   emits: ['complete-update'],

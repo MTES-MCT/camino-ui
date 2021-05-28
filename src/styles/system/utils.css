@@ -78,6 +78,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   align-items: flex-end;
 }
 
+.flex-center {
+  align-items: center;
+}
+
 .flex-self-start {
   align-self: flex-start;
 }

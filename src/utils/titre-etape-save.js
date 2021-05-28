@@ -179,12 +179,28 @@ const pointsBuild = (groupes, geoSystemeIds, geoSystemeOpposableId) => {
 
 const dureeBuild = (ans, mois) => (ans ? ans * 12 : 0) + (mois || 0)
 
+const documentFormat = (document, fichierNouveau) => {
+  delete document.type
+  delete document.suppression
+  delete document.modification
+  document.fichierNouveau = fichierNouveau
+
+  return document
+}
+
+const documentsFormat = (documents, fichiersNouveaux) =>
+  documents.map((d, i) => documentFormat(d, fichiersNouveaux[i]))
+
 const etapeSaveFormat = etape => {
   // le stringify casse le fichier
-  const documents = etape.documents
+
+  const fichiersNouveaux =
+    etape.documents && etape.documents.map(d => d.fichierNouveau)
+
   const contenu = etape.contenu
   etape = JSON.parse(JSON.stringify(etape))
-  etape.documents = documents
+  etape.documents =
+    etape.documents && documentsFormat(etape.documents, fichiersNouveaux)
   etape.contenu = contenu
 
   delete etape.demarche

@@ -2,28 +2,33 @@
   <Accordion
     class="mb-s"
     :slot-default="true"
-    :opened="opened"
+    :opened="opened || !modifiable"
     @toggle="toggle"
   >
     <template #title>
-      <span class="cap-first">{{ step.name }}</span>
-      <Tag v-if="!complete" :mini="true" color="bg-warning" class="ml-s"
-        >Incomplet</Tag
-      >
+      <div class="flex flex-center">
+        <h2 class="cap-first mb-0">{{ step.name }}</h2>
+        <Tag v-if="!complete" :mini="true" color="bg-warning" class="ml-s mt-xs"
+          >Incomplet</Tag
+        >
+      </div>
     </template>
 
     <div class="px pt">
-      <div><slot /></div>
-      <div v-if="step.hasNextButton">
-        <button
-          class="btn-flash p-s rnd-xs full-x mb"
-          :disabled="!complete && !enConstruction"
-          :class="{ disabled: !complete && !enConstruction }"
-          @click="next"
-        >
-          Suivant
-        </button>
+      <div v-if="modifiable">
+        <div><slot name="write" /></div>
+        <div v-if="step.hasNextButton">
+          <button
+            class="btn-flash p-s rnd-xs full-x mb"
+            :disabled="!complete && !enConstruction"
+            :class="{ disabled: !complete && !enConstruction }"
+            @click="next"
+          >
+            Suivant
+          </button>
+        </div>
       </div>
+      <slot v-else name="read" />
     </div>
   </Accordion>
 </template>
@@ -38,6 +43,7 @@ export default {
   props: {
     step: { type: Object, required: true },
     opened: { type: Boolean, required: true },
+    modifiable: { type: Boolean, default: true },
     complete: { type: Boolean, required: true },
     enConstruction: { type: Boolean, required: true }
   },

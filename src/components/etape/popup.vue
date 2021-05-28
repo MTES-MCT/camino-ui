@@ -28,18 +28,26 @@
       <p>Chargement en cours…</p>
     </div>
 
-    <Edit
-      v-else
-      v-model:etape="etape"
-      :user="user"
-      :etape-types="etapeTypes"
-      :domaine-id="domaineId"
-      :events="events"
-      :heritage-loaded="heritageLoaded"
-      :etape-is-demande="etapeIsDemande"
-      @complete-update="completeUpdate"
-      @type-update="typeUpdate"
-    />
+    <div v-else>
+      <TypeEdit
+        v-model:etape="etape"
+        :user="user"
+        :etape-types="etapeTypes"
+        :etape-type="etapeType"
+        :etape-is-demande="etapeIsDemande"
+        @type-update="typeUpdate"
+        @complete-update="typeCompleteUpdate"
+      />
+
+      <Edit
+        v-model:etape="etape"
+        :etape-type="etapeType"
+        :domaine-id="domaineId"
+        :events="events"
+        :heritage-loaded="heritageLoaded"
+        @complete-update="completeUpdate"
+      />
+    </div>
 
     <template #footer>
       <div v-if="!loading" class="tablet-blobs">
@@ -48,8 +56,9 @@
             Annuler
           </button>
         </div>
-        <div v-if="dateIsVisible" class="tablet-blob-2-3">
+        <div class="tablet-blob-2-3">
           <button
+            v-if="dateIsVisible"
             ref="init-button"
             class="btn-flash rnd-xs p-s full-x"
             :disabled="!newDate"
@@ -58,32 +67,45 @@
           >
             Valider
           </button>
-        </div>
-        <button
-          v-else
-          ref="save-button"
-          class="rnd-xs p-s full-x"
-          :disabled="!complete"
-          :class="{
-            'tablet-blob-2-3': !etapeIsDemande,
-            'tablet-blob-1-3': etapeIsDemande,
-            'btn-flash': !etapeIsDemande,
-            btn: etapeIsDemande,
-            disabled: !complete
-          }"
-          @click="save(false)"
-        >
-          Enregistrer
-        </button>
-        <div v-if="!dateIsVisible && etapeIsDemande" class="tablet-blob-1-3">
+          <div v-else-if="etapeIsDemande" class="tablet-blobs">
+            <div class="tablet-blob-1-2">
+              <button
+                ref="en-construction-button"
+                class="rnd-xs p-s full-x mb-s"
+                :disabled="!typeComplete"
+                :class="{
+                  disabled: !typeComplete,
+                  'btn-flash': !complete,
+                  btn: complete
+                }"
+                @click="save(false)"
+              >
+                En construction
+              </button>
+            </div>
+            <div class="tablet-blob-1-2">
+              <button
+                ref="save-depose-button"
+                class="btn-flash rnd-xs p-s full-x"
+                :disabled="!complete"
+                :class="{ disabled: !complete }"
+                @click="save(true)"
+              >
+                Déposer
+              </button>
+            </div>
+          </div>
           <button
-            ref="save-depose-button"
-            class="btn-flash rnd-xs p-s full-x"
+            v-else
+            ref="save-button"
+            class="btn-flash rnd-xs p-s full-x mb-s"
             :disabled="!complete"
-            :class="{ disabled: !complete }"
-            @click="save(true)"
+            :class="{
+              disabled: !complete
+            }"
+            @click="save"
           >
-            Déposer
+            Valider
           </button>
         </div>
       </div>
@@ -98,10 +120,12 @@ import InputDate from '../_ui/input-date.vue'
 import Popup from '../_ui/popup.vue'
 import Edit from './edit.vue'
 
+import TypeEdit from './type-edit.vue'
+
 export default {
   name: 'CaminoEtapePopup',
 
-  components: { Popup, InputDate, Edit },
+  components: { Popup, InputDate, Edit, TypeEdit },
 
   props: {
     etapeId: { type: String, default: null },
@@ -115,7 +139,8 @@ export default {
     return {
       events: { saveKeyUp: true },
       newDate: new Date().toISOString().slice(0, 10),
-      editComplete: false
+      editComplete: false,
+      typeComplete: false
     }
   },
 
@@ -138,6 +163,10 @@ export default {
       )
     },
 
+    etapeType() {
+      return this.etapeTypes.find(et => et.id === this.etape.typeId)
+    },
+
     etape() {
       return this.$store.state.titreEtape.element
     },
@@ -147,7 +176,9 @@ export default {
     },
 
     complete() {
-      return this.etape && this.etape.date && this.editComplete
+      return (
+        this.etape && this.etape.date && this.typeComplete && this.editComplete
+      )
     },
 
     heritageLoaded() {
@@ -186,7 +217,10 @@ export default {
     },
 
     async save(depose) {
-      if (this.complete) {
+      if (
+        (this.etapeIsDemande && !depose && this.typeComplete) ||
+        this.complete
+      ) {
         await this.$store.dispatch('titreEtape/upsert', {
           etape: this.etape,
           fromPopup: true,
@@ -226,6 +260,10 @@ export default {
       if (this.$matomo) {
         this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
+    },
+
+    typeCompleteUpdate(complete) {
+      this.typeComplete = complete
     },
 
     completeUpdate(complete) {

@@ -284,9 +284,12 @@ describe('étapes', () => {
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'une étape", async () => {
     api.etapeModifier.mockRejectedValue(new Error("erreur de l'api"))
     await store.dispatch('titreEtape/upsert', {
-      id: 14,
-      nom: 'champs',
-      incertitudes: {}
+      etape: {
+        id: 14,
+        nom: 'champs',
+        incertitudes: {}
+      },
+      fromPopup: true
     })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()

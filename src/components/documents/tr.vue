@@ -27,21 +27,21 @@
     <td class="pt-m">{{ document.description || '–' }}</td>
     <td class="flex text-right">
       <button
-        v-if="boutonDissociation"
+        v-if="dissociable"
         class="btn rnd-l-xs py-s px-m my--xs mr-px"
         @click="unlinkPopupOpen"
       >
         <i class="icon-24 icon-unlink" />
       </button>
       <button
-        v-if="boutonModification"
+        v-if="modifiable"
         class="btn rnd-l-xs py-s px-m my--xs mr-px"
         @click="editPopupOpen"
       >
         <i class="icon-24 icon-pencil" />
       </button>
       <button
-        v-if="boutonSuppression"
+        v-if="supprimable"
         class="btn py-s px-m my--xs"
         :class="{
           'rnd-r-xs': !document.url && !document.uri && !document.fichier
@@ -55,8 +55,7 @@
         class="btn-border py-s px-m my--xs"
         :class="{
           'rnd-r-xs': !document.url && !document.uri,
-          'rnd-l-xs':
-            !boutonModification && !boutonSuppression && !boutonDissociation
+          'rnd-l-xs': !modifiable && !supprimable && !dissociable
         }"
         @click="download"
       >
@@ -68,10 +67,7 @@
         :class="{
           'rnd-r-xs': !document.uri,
           'rnd-l-xs':
-            !document.fichier &&
-            !boutonModification &&
-            !boutonSuppression &&
-            !boutonDissociation
+            !document.fichier && !modifiable && !supprimable && !dissociable
         }"
         :href="document.url"
         target="_blank"
@@ -88,8 +84,8 @@
             !document.url &&
             !document.fichier &&
             !boutonModification &&
-            !boutonSuppression &&
-            !boutonDissociation
+            !supprimable &&
+            !dissociable
         }"
         :href="document.uri"
         target="_blank"
@@ -115,16 +111,42 @@ export default {
   },
 
   props: {
-    title: { type: String, default: '' },
     document: { type: Object, required: true },
-    parentId: { type: String, required: true },
-    parentTypeId: { type: String, default: '' },
-    context: { type: Object, required: true },
-    repertoire: { type: String, required: true },
-    boutonSuppression: { type: Boolean, default: false },
-    boutonModification: { type: Boolean, default: false },
+    etiquette: { type: Boolean, default: false },
     boutonDissociation: { type: Boolean, default: false },
-    etiquette: { type: Boolean, default: true }
+    boutonModification: { type: Boolean, default: false },
+    boutonSuppression: { type: Boolean, default: false },
+    context: { type: Object, default: () => ({}) },
+    parentId: { type: String, default: '' },
+    parentTypeId: { type: String, default: '' },
+    repertoire: { type: String, default: '' },
+    title: { type: String, default: '' }
+  },
+
+  computed: {
+    supprimable() {
+      return this.boutonSuppression && this.title && this.context.name
+    },
+
+    modifiable() {
+      return (
+        this.boutonModification &&
+        this.title &&
+        this.context.name &&
+        this.parentId &&
+        this.repertoire &&
+        this.parentTypeId
+      )
+    },
+
+    dissociable() {
+      return (
+        this.boutonDissociation &&
+        this.title &&
+        this.parentId &&
+        this.context.name
+      )
+    }
   },
 
   methods: {
