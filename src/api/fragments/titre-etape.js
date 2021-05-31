@@ -246,17 +246,6 @@ const fragmentTitreEtapeEdit = gql`
   fragment etapeEdit on Etape {
     id
     titreDemarcheId
-    demarche {
-      type {
-        nom
-      }
-      titre {
-        nom
-        domaine {
-          id
-        }
-      }
-    }
     ordre
     date
     dateDebut

@@ -8,7 +8,7 @@ import { urlQueryUpdate } from '../utils/url'
 
 import titre from './titre'
 import titreDemarche from './titre-demarche'
-import titreDemande from './titre-demande'
+import titreCreation from './titre-creation'
 import titreEtape from './titre-etape'
 import titreEtapeJustificatifs from './titre-etape-justificatifs'
 import titreTravaux from './titre-travaux'
@@ -33,7 +33,7 @@ import definitions from './definitions'
 const modules = {
   titre,
   titreDemarche,
-  titreDemande,
+  titreCreation,
   titreEtape,
   titreEtapeJustificatifs,
   document,

@@ -27,13 +27,6 @@
     <td class="pt-m">{{ document.description || '–' }}</td>
     <td class="flex text-right">
       <button
-        v-if="dissociable"
-        class="btn rnd-l-xs py-s px-m my--xs mr-px"
-        @click="unlinkPopupOpen"
-      >
-        <i class="icon-24 icon-unlink" />
-      </button>
-      <button
         v-if="modifiable"
         class="btn rnd-l-xs py-s px-m my--xs mr-px"
         @click="editPopupOpen"
@@ -103,7 +96,6 @@ import { cloneAndClean, dateFormat } from '../../utils/index'
 import Tag from '../_ui/tag.vue'
 import DocumentEditPopup from '../document/edit-popup.vue'
 import DocumentRemovePopup from '../document/remove-popup.vue'
-import JustificatifUnlinkPopup from '../etape/justificatifs/unlink-popup.vue'
 
 export default {
   components: {
@@ -189,18 +181,6 @@ export default {
       this.$store.commit('popupOpen', {
         component: DocumentRemovePopup,
         props: {
-          title: this.title,
-          document: this.document,
-          context: this.context
-        }
-      })
-    },
-
-    unlinkPopupOpen() {
-      this.$store.commit('popupOpen', {
-        component: JustificatifUnlinkPopup,
-        props: {
-          id: this.parentId,
           title: this.title,
           document: this.document,
           context: this.context

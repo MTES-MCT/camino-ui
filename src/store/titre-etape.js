@@ -9,6 +9,7 @@ import {
   etape,
   etapeHeritage,
   titreEtapeMetas,
+  titreEtapeEtapesTypes,
   etapeCreer,
   etapeModifier,
   etapeSupprimer
@@ -17,6 +18,7 @@ import {
 const state = {
   element: null,
   metas: {
+    demarche: null,
     etapesTypes: [],
     devises: [],
     unites: [],
@@ -24,64 +26,90 @@ const state = {
     substances: [],
     entreprises: []
   },
-  heritageLoaded: false
+  heritageLoaded: false,
+  loaded: false
 }
 
 const actions = {
-  async init({ commit, dispatch }, { titreDemarcheId, id, date, fromPopup }) {
+  async init({ commit, state, dispatch }, { titreDemarcheId, id }) {
+    if (id) {
+      await dispatch('get', { id })
+
+      titreDemarcheId = state.element.titreDemarcheId
+    }
+
+    await dispatch('metasGet', { titreDemarcheId, id })
+
+    if (id) {
+      await dispatch('dateUpdate', { date: state.element.date })
+    }
+
+    commit('load')
+  },
+
+  async metasGet({ commit, dispatch }, { titreDemarcheId, id }) {
     try {
-      commit('loadingAdd', 'titreEtapeInit', { root: true })
+      commit('loadingAdd', 'titreEtapeMetasGet', { root: true })
 
-      let newEtape
-      let metasParams
-
-      // modification
-      if (id) {
-        newEtape = await etape({ id })
-        metasParams = {
-          titreDemarcheId: newEtape.titreDemarcheId,
-          id: newEtape.id,
-          date: newEtape.date
-        }
-
-        if (!newEtape?.modification) {
-          throw new Error()
-        }
-      } else {
-        newEtape = { date, titreDemarcheId }
-        metasParams = { titreDemarcheId, date }
-      }
-
-      const metas = await titreEtapeMetas(metasParams)
+      const metas = await titreEtapeMetas({
+        titreDemarcheId,
+        id
+      })
 
       commit('metasSet', metas)
-      commit('set', { etape: newEtape })
-
-      if (id) {
-        commit('heritageLoaded', true)
-      }
     } catch (e) {
-      if (fromPopup) {
-        commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-      } else {
-        dispatch('pageError', null, { root: true })
-      }
+      dispatch('pageError', null, { root: true })
     } finally {
-      commit('loadingRemove', 'titreEtapeInit', { root: true })
+      commit('loadingRemove', 'titreEtapeMetasGet', { root: true })
     }
   },
 
-  async heritageGet(
-    { commit, state, dispatch },
-    { titreDemarcheId, typeId, date, fromPopup }
-  ) {
+  async get({ commit, dispatch }, { id }) {
+    try {
+      commit('loadingAdd', 'titreEtapeGet', { root: true })
+
+      const newEtape = await etape({ id })
+
+      if (!newEtape?.modification) {
+        throw new Error()
+      }
+
+      commit('set', { etape: newEtape })
+      commit('heritageLoaded', true)
+    } catch (e) {
+      dispatch('pageError', null, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeGet', { root: true })
+    }
+  },
+
+  async dateUpdate({ state, commit, dispatch }, { date }) {
+    try {
+      commit('loadingAdd', 'titreEtapeEtapesTypesGet', { root: true })
+      const metas = await titreEtapeEtapesTypes({
+        id: state.element?.id,
+        date,
+        titreDemarcheId: state.metas.demarche.id
+      })
+
+      const etape = { ...state.element, date }
+      commit('metasSet', { etapesTypes: metas })
+      commit('set', { etape })
+    } catch (e) {
+      dispatch('pageError', null, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeEtapesTypesGet', { root: true })
+    }
+  },
+
+  async heritageGet({ commit, state, dispatch }, { typeId }) {
     try {
       commit('loadingAdd', 'titreEtapeHeritageGet', { root: true })
       commit('heritageLoaded', false)
 
       const data = await etapeHeritage({
-        titreDemarcheId: state.element.titreDemarcheId || titreDemarcheId,
-        date: state.element.date || date,
+        titreDemarcheId: state.metas.demarche.id,
+        date: state.element.date,
         typeId
       })
 
@@ -94,11 +122,7 @@ const actions = {
       commit('heritageSet', { etape: newEtape })
       commit('heritageLoaded', true)
     } catch (e) {
-      if (fromPopup) {
-        commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-      } else {
-        dispatch('apiError', e, { root: true })
-      }
+      dispatch('apiError', e, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeHeritageGet', {
         root: true
@@ -106,16 +130,12 @@ const actions = {
     }
   },
 
-  async upsert({ commit, dispatch }, { etape, fromPopup, depose }) {
+  async upsert({ state, commit, dispatch }, { etape, depose }) {
     try {
       commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
-      if (fromPopup) {
-        commit('popupMessagesRemove', null, { root: true })
-        commit('popupLoad', null, { root: true })
-      }
-
       const etapeEditFormatted = etapeSaveFormat(etape)
+      etapeEditFormatted.titreDemarcheId = state.metas.demarche.id
 
       let data
       if (etapeEditFormatted.id) {
@@ -124,31 +144,12 @@ const actions = {
         data = await etapeCreer({ etape: etapeEditFormatted, depose })
       }
 
-      if (!fromPopup) {
-        await router.push({
-          name: 'titre',
-          params: { id: data.id }
-        })
-      } else {
-        commit('popupClose', null, { root: true })
-        await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-        commit(
-          'titre/open',
-          { section: 'etapes', id: etape.id },
-          { root: true }
-        )
-        dispatch(
-          'messageAdd',
-          { value: `le titre a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      }
+      await router.push({
+        name: 'titre',
+        params: { id: data.id }
+      })
     } catch (e) {
-      if (fromPopup) {
-        commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-      } else {
-        dispatch('apiError', e, { root: true })
-      }
+      dispatch('apiError', e, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeUpdate', { root: true })
     }
@@ -184,8 +185,13 @@ const getters = {
 }
 
 const mutations = {
+  load(state) {
+    state.loaded = true
+  },
+
   set(state, { etape }) {
     const e = etapeEditFormat(etape)
+
     state.element = e
   },
 

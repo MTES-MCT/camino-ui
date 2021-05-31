@@ -57,7 +57,7 @@ export default {
     modifiable: { type: Boolean, default: true },
     ajoutable: { type: Boolean, default: true },
     repertoire: { type: String, required: true },
-    parentId: { type: String, required: true },
+    parentId: { type: String, default: '' },
     documentsTypes: { type: Array, required: true },
     showTitle: { type: Boolean, default: true }
   },
@@ -144,14 +144,16 @@ export default {
         date: ''
       }
 
-      if (this.repertoire === 'demarches') {
-        documentNew.titreEtapeId = this.parentId
-      } else if (this.repertoire === 'activites') {
-        documentNew.titreActiviteId = this.parentId
-      } else if (this.repertoire === 'entreprises') {
-        documentNew.titreEntrepriseId = this.parentId
-      } else if (this.repertoire === 'travaux') {
-        documentNew.titreTravauxEtapeId = this.parentId
+      if (this.parentId) {
+        if (this.repertoire === 'demarches') {
+          documentNew.titreEtapeId = this.parentId
+        } else if (this.repertoire === 'activites') {
+          documentNew.titreActiviteId = this.parentId
+        } else if (this.repertoire === 'entreprises') {
+          documentNew.titreEntrepriseId = this.parentId
+        } else if (this.repertoire === 'travaux') {
+          documentNew.titreTravauxEtapeId = this.parentId
+        }
       }
 
       this.documents.push(documentNew)

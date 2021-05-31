@@ -24,7 +24,7 @@
             :class="{
               'rnd-r-xs': !demarche.suppression && !demarche.modification
             }"
-            @click="etapeAddPopupOpen"
+            @click="etapeAdd"
           >
             <span class="mt-xxs">Ajouter une étape</span>
           </button>
@@ -65,7 +65,6 @@
 
 <script>
 import Statut from '../_common/statut.vue'
-import EtapeEditPopup from '../etape/popup.vue'
 import TitreEtape from './etape.vue'
 import EditPopup from './demarche-edit-popup.vue'
 import RemovePopup from './demarche-remove-popup.vue'
@@ -132,15 +131,10 @@ export default {
       })
     },
 
-    etapeAddPopupOpen() {
-      this.$store.commit('popupOpen', {
-        component: EtapeEditPopup,
-        props: {
-          domaineId: this.titre.domaine.id,
-          demarcheId: this.demarche.id,
-          demarcheType: this.demarche.type,
-          titreNom: this.titre.nom
-        }
+    etapeAdd() {
+      this.$router.push({
+        name: 'etape-creation',
+        query: { 'demarche-id': this.demarche.id }
       })
 
       this.eventTrack({
