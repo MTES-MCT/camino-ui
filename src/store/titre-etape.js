@@ -32,19 +32,34 @@ const state = {
 
 const actions = {
   async init({ commit, state, dispatch }, { titreDemarcheId, id }) {
-    if (id) {
-      await dispatch('get', { id })
+    try {
+      commit('loadingAdd', 'titreEtapeInit', { root: true })
 
-      titreDemarcheId = state.element.titreDemarcheId
+      if (id) {
+        const newEtape = await etape({ id })
+
+        if (!newEtape?.modification) {
+          throw new Error()
+        }
+
+        commit('set', { etape: etapeEditFormat(newEtape) })
+        commit('heritageLoaded', true)
+
+        titreDemarcheId = state.element.titreDemarcheId
+      }
+
+      await dispatch('metasGet', { titreDemarcheId, id })
+
+      if (id) {
+        await dispatch('dateUpdate', { date: state.element.date })
+      }
+
+      commit('load')
+    } catch (e) {
+      dispatch('pageError', null, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeInit', { root: true })
     }
-
-    await dispatch('metasGet', { titreDemarcheId, id })
-
-    if (id) {
-      await dispatch('dateUpdate', { date: state.element.date })
-    }
-
-    commit('load')
   },
 
   async metasGet({ commit, dispatch }, { titreDemarcheId, id }) {
@@ -61,25 +76,6 @@ const actions = {
       dispatch('pageError', null, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeMetasGet', { root: true })
-    }
-  },
-
-  async get({ commit, dispatch }, { id }) {
-    try {
-      commit('loadingAdd', 'titreEtapeGet', { root: true })
-
-      const newEtape = await etape({ id })
-
-      if (!newEtape?.modification) {
-        throw new Error()
-      }
-
-      commit('set', { etape: newEtape })
-      commit('heritageLoaded', true)
-    } catch (e) {
-      dispatch('pageError', null, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreEtapeGet', { root: true })
     }
   },
 
@@ -190,9 +186,7 @@ const mutations = {
   },
 
   set(state, { etape }) {
-    const e = etapeEditFormat(etape)
-
-    state.element = e
+    state.element = etape
   },
 
   reset(state) {

@@ -60,22 +60,6 @@ const demarcheMetas = apiGraphQLFetch(
   `
 )
 
-const demarche = apiGraphQLFetch(gql`
-  query Demarche($id: ID!) {
-    demarche(id: $id) {
-      type {
-        nom
-      }
-      titre {
-        nom
-        domaine {
-          id
-        }
-      }
-    }
-  }
-`)
-
 const demarches = apiGraphQLFetch(
   gql`
     query Demarches(
@@ -158,7 +142,6 @@ const demarcheSupprimer = apiGraphQLFetch(gql`
 export {
   demarchesMetas,
   demarches,
-  demarche,
   demarcheMetas,
   demarcheCreer,
   demarcheModifier,

@@ -1,8 +1,4 @@
 const titreEtapeMetas = {
-  etapesTypes: [
-    { id: 'w', nom: 'granulats' },
-    { id: 'c', nom: 'carrières' }
-  ],
   geoSystemes: [
     { id: 'ifr', nom: 'Ifremer' },
     { id: 'dge', nom: 'DGEC' }
@@ -15,6 +11,11 @@ const titreEtapeMetas = {
       { id: 'ent-1', nom: '1' },
       { id: 'ent-2', nom: '2' }
     ]
+  },
+  demarche: {
+    id: 'demarche-id',
+    type: { nom: 'nom de la démarche' },
+    titre: { nom: 'nom du titre', domaine: { id: 'm' } }
   }
 }
 
@@ -33,8 +34,38 @@ const titreEtapeMetasRes = {
   entreprises: [
     { id: 'ent-1', nom: '1' },
     { id: 'ent-2', nom: '2' }
-  ]
+  ],
+  demarche: {
+    id: 'demarche-id',
+    type: { nom: 'nom de la démarche' },
+    titre: { nom: 'nom du titre', domaine: { id: 'm' } }
+  }
 }
+
+const titreEtapeMetasRes2 = {
+  geoSystemes: [
+    { id: 'ifr', nom: 'Ifremer' },
+    { id: 'dge', nom: 'DGEC' }
+  ],
+  unites: [],
+  devises: [],
+  substances: [],
+  entreprises: [
+    { id: 'ent-1', nom: '1' },
+    { id: 'ent-2', nom: '2' }
+  ],
+  demarche: {
+    id: 'demarche-id',
+    type: { nom: 'nom de la démarche' },
+    titre: { nom: 'nom du titre', domaine: { id: 'm' } }
+  },
+  etapesTypes: []
+}
+
+const titreEtapeEtapesTypes = [
+  { id: 'w', nom: 'granulats' },
+  { id: 'c', nom: 'carrières' }
+]
 
 const titreEtapeEdition = {
   id: 'etape-id',
@@ -72,12 +103,13 @@ const titreEtapeCreation = {
 }
 
 const titreEtapeHeritage1 = {
-  date: undefined,
+  id: 'etape-id',
+  titreDemarcheId: 'demarche-id',
+  date: '2020-01-02',
   incertitudes: {
     date: undefined
   },
   statutId: '',
-  titreDemarcheId: 'demarche-id',
   typeId: 'new-etape-type-id',
   dateDebut: undefined,
   dateFin: undefined,
@@ -158,7 +190,9 @@ const titreEtapeHeritageRes2 = {
 
 export {
   titreEtapeMetas,
+  titreEtapeEtapesTypes,
   titreEtapeMetasRes,
+  titreEtapeMetasRes2,
   titreEtapeEdition,
   titreEtapeCreation,
   titreEtapeHeritage1,
