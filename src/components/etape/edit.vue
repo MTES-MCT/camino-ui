@@ -215,6 +215,7 @@ export default {
 
   props: {
     etape: { type: Object, required: true },
+    domaineId: { type: String, required: true },
 
     user: { type: Object, required: true },
     modifiable: { type: Boolean, required: true },
@@ -243,14 +244,6 @@ export default {
   },
 
   computed: {
-    titre() {
-      return this.etape.demarche.titre
-    },
-
-    domaineId() {
-      return this.etape.demarche.titre.domaine.id
-    },
-
     etapeTypes() {
       return this.$store.state.titreEtape.metas.etapesTypes.filter(
         t => t.etapesCreation

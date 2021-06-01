@@ -25,6 +25,7 @@
       :user="user"
       :modifiable="modifiable"
       :etape-is-demande="etapeIsDemande"
+      :domaine-id="domaineId"
       @complete-update="completeUpdate"
       @type-complete-update="typeCompleteUpdate"
     />
@@ -168,6 +169,10 @@ export default {
 
     titre() {
       return this.demarche ? this.demarche.titre : ''
+    },
+
+    domaineId() {
+      return this.titre ? this.titre.domaine.id : ''
     },
 
     loading() {

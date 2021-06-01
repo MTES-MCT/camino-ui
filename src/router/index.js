@@ -42,6 +42,11 @@ const routes = [
     component: Titres
   },
   {
+    path: '/titres/creation',
+    name: 'titre-creation',
+    component: TitreCreation
+  },
+  {
     path: '/titres/:id',
     name: 'titre',
     component: Titre
@@ -182,11 +187,6 @@ const routes = [
         component: StatistiquesGranulatsMarins
       }
     ]
-  },
-  {
-    path: '/demande-de-titre',
-    name: 'titre-creation',
-    component: TitreCreation
   },
   {
     path: '/etapes/creation',
