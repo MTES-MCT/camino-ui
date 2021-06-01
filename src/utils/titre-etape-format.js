@@ -32,19 +32,47 @@ const etapeFormat = (etapeEdited, metas) => {
   if (etapeEdited.substances?.length) {
     etape.substances = etapeEdited.substances
       .filter(({ id }) => id)
-      .map(s => metas.substances.find(({ id }) => id === s.id))
+      .map(s => {
+        const substance = metas.substances.find(({ id }) => id === s.id)
+
+        return JSON.parse(JSON.stringify(substance))
+      })
   }
 
   if (etapeEdited.titulaires?.length) {
     etape.titulaires = etapeEdited.titulaires
       .filter(({ id }) => id)
-      .map(s => metas.entreprises.find(({ id }) => id === s.id))
+      .map(e => {
+        const entreprise = metas.entreprises.find(({ id }) => id === e.id)
+
+        return JSON.parse(JSON.stringify(entreprise))
+      })
+
+    etape.titulaires.forEach(e => {
+      const entreprise = etapeEdited.titulaires.find(t => t.id === e.id)
+
+      if (entreprise && entreprise.operateur) {
+        e.operateur = true
+      }
+    })
   }
 
   if (etapeEdited.amodiataires?.length) {
     etape.amodiataires = etapeEdited.amodiataires
       .filter(({ id }) => id)
-      .map(s => metas.entreprises.find(({ id }) => id === s.id))
+      .map(e => {
+        const entreprise = metas.entreprises.find(({ id }) => id === e.id)
+
+        return JSON.parse(JSON.stringify(entreprise))
+      })
+
+    etape.amodiataires.forEach(e => {
+      const entreprise = etapeEdited.titulaires.find(t => t.id === e.id)
+
+      if (entreprise && entreprise.operateur) {
+        e.operateur = true
+      }
+    })
   }
 
   if (etapeEdited.geoSystemeIds?.length && etapeEdited.groupes?.length) {
@@ -64,15 +92,17 @@ const etapeFormat = (etapeEdited, metas) => {
   if (etape.type && etapeEdited.documents?.length) {
     const documentsTypes = etape.type.documentsTypes
 
-    etape.documents = etapeEdited.documents.filter(d => {
-      const documentType = documentsTypes.find(dt => dt.id === d.typeId)
+    etape.documents = etapeEdited.documents
+      .filter(d => {
+        const documentType = documentsTypes.find(dt => dt.id === d.typeId)
 
-      return (
-        d.date &&
-        (documentType.optionnel ||
-          !!((d.fichier || d.fichierNouveau) && d.fichierTypeId))
-      )
-    })
+        return (
+          d.date &&
+          (documentType.optionnel ||
+            !!((d.fichier || d.fichierNouveau) && d.fichierTypeId))
+        )
+      })
+      .map(d => JSON.parse(JSON.stringify(d)))
 
     etape.documents.forEach(d => {
       d.type = etape.type.documentsTypes.find(dt => dt.id === d.typeId)

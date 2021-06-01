@@ -24,7 +24,7 @@
       <template #read>
         <div v-if="etape.date" class="tablet-blobs">
           <div class="tablet-blob-1-4"><h5>Date</h5></div>
-          <div class="tablet-blob-3-4">{{ etape.date }}</div>
+          <div class="tablet-blob-3-4">{{ dateFormat(etape.date) }}</div>
         </div>
 
         <div class="tablet-blobs">
@@ -184,6 +184,7 @@
 </template>
 
 <script>
+import { dateFormat } from '@/utils/index'
 import Accordion from './accordion.vue'
 import TypeEdit from './type-edit.vue'
 import Statut from '../_common/statut.vue'
@@ -448,6 +449,10 @@ export default {
         'download',
         `etape/${this.etape.id}/${fichier}`
       )
+    },
+
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }
