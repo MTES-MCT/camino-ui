@@ -12,8 +12,8 @@
         prop-id="duree"
       >
         <template #write>
-          <div class="tablet-blobs">
-            <div class="tablet-blob-1-2">
+          <div class="blobs-mini">
+            <div class="blob-mini-1-2">
               <inputNumber
                 v-model="etape.duree.ans"
                 :integer="true"
@@ -21,7 +21,7 @@
                 class="py-s mb-s"
               />
             </div>
-            <div class="tablet-blob-1-2">
+            <div class="blob-mini-1-2">
               <inputNumber
                 v-model="etape.duree.mois"
                 :integer="true"
@@ -32,7 +32,11 @@
           </div>
           <div v-if="etape.duree.ans || etape.duree.mois" class="h6">
             <label>
-              <input v-model="etape.incertitudes.duree" type="checkbox" />
+              <input
+                v-model="etape.incertitudes.duree"
+                type="checkbox"
+                class="mr-xs"
+              />
               Incertain
             </label>
           </div>
@@ -61,7 +65,11 @@
           <InputDate v-model="etape.dateDebut" class="mb-s" />
           <div v-if="etape.dateDebut" class="h6">
             <label>
-              <input v-model="etape.incertitudes.dateDebut" type="checkbox" />
+              <input
+                v-model="etape.incertitudes.dateDebut"
+                type="checkbox"
+                class="mr-xs"
+              />
               Incertain
             </label>
           </div>
@@ -90,7 +98,11 @@
           <InputDate v-model="etape.dateFin" class="mb-s" />
           <div v-if="etape.dateFin" class="h6">
             <label>
-              <input v-model="etape.incertitudes.dateFin" type="checkbox" />
+              <input
+                v-model="etape.incertitudes.dateFin"
+                type="checkbox"
+                class="mr-xs"
+              />
               Incertain
             </label>
           </div>
@@ -123,7 +135,11 @@
           />
           <div v-if="etape.surface" class="h6">
             <label>
-              <input v-model="etape.incertitudes.surface" type="checkbox" />
+              <input
+                v-model="etape.incertitudes.surface"
+                type="checkbox"
+                class="mr-xs"
+              />
               Incertain
             </label>
           </div>
@@ -170,7 +186,12 @@
           </div>
           <div class="h6 mb">
             <label v-if="titulaire.id">
-              <input v-model="titulaire.operateur" type="checkbox" /> Opérateur
+              <input
+                v-model="titulaire.operateur"
+                type="checkbox"
+                class="mr-xs"
+              />
+              Opérateur
             </label>
           </div>
         </div>
@@ -185,7 +206,11 @@
         </button>
         <div v-if="titulairesLength" class="h6">
           <label>
-            <input v-model="etape.incertitudes.titulaires" type="checkbox" />
+            <input
+              v-model="etape.incertitudes.titulaires"
+              type="checkbox"
+              class="mr-xs"
+            />
             Incertain
           </label>
         </div>
@@ -197,8 +222,8 @@
             :key="t.id"
           >
             {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
-            <Tag v-if="t.operateur" :mini="true" color="bg-info"
-              >Opérateur
+            <Tag v-if="t.operateur" :mini="true" color="bg-info" class="ml-xs">
+              Opérateur
             </Tag>
           </li>
         </ul>
@@ -239,7 +264,11 @@
           </div>
           <div v-if="amodiataire.id" class="h6 mb">
             <label>
-              <input v-model="amodiataire.operateur" type="checkbox" />
+              <input
+                v-model="amodiataire.operateur"
+                type="checkbox"
+                class="mr-xs"
+              />
               Opérateur
             </label>
           </div>
@@ -256,7 +285,11 @@
 
         <div v-if="amodiatairesLength" class="h6">
           <label>
-            <input v-model="etape.incertitudes.amodiataires" type="checkbox" />
+            <input
+              v-model="etape.incertitudes.amodiataires"
+              type="checkbox"
+              class="mr-xs"
+            />
             Incertain
           </label>
         </div>
@@ -268,8 +301,8 @@
             :key="t.id"
           >
             {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
-            <Tag v-if="t.operateur" :mini="true" color="bg-info"
-              >Opérateur
+            <Tag v-if="t.operateur" :mini="true" color="bg-info" class="ml-xs">
+              Opérateur
             </Tag>
           </li>
         </ul>
@@ -338,7 +371,11 @@
 
         <div v-if="substancesLength" class="h6">
           <label>
-            <input v-model="etape.incertitudes.substances" type="checkbox" />
+            <input
+              v-model="etape.incertitudes.substances"
+              type="checkbox"
+              class="mr-xs"
+            />
             Incertain
           </label>
         </div>

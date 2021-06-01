@@ -54,7 +54,8 @@ h4,
 
 h5,
 .h5 {
-  typescale: -0.75 1.25;
+  margin-top: var(--unit-xs);
+  typescale: -0.75 0.75;
 }
 
 h6,

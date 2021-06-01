@@ -88,7 +88,10 @@ const actions = {
         titreDemarcheId: state.metas.demarche.id
       })
 
-      const etape = { ...state.element, date }
+      const etape = state.element ? state.element : etapeEditFormat({})
+
+      etape.date = date
+
       commit('metasSet', { etapesTypes: metas })
       commit('set', { etape })
     } catch (e) {
@@ -191,6 +194,17 @@ const mutations = {
 
   reset(state) {
     state.element = null
+    state.metas = {
+      demarche: null,
+      etapesTypes: [],
+      devises: [],
+      unites: [],
+      geoSystemes: [],
+      substances: [],
+      entreprises: []
+    }
+    state.heritageLoaded = false
+    state.loaded = false
   },
 
   heritageSet(state, { etape }) {

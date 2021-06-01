@@ -2,7 +2,12 @@
   <Loader v-if="!loaded" />
   <div v-else>
     <h6>
-      <span class="cap-first"> {{ titre.nom }} </span>
+      <router-link
+        :to="{ name: 'titre', params: { id: titre.id } }"
+        class="cap-first"
+      >
+        {{ titre.nom }}
+      </router-link>
       <span class="color-neutral"> | </span>
       <span class="cap-first">
         {{ demarcheType.nom }}
@@ -29,6 +34,14 @@
       @complete-update="completeUpdate"
       @type-complete-update="typeCompleteUpdate"
     />
+
+    <div
+      v-if="etapeIsDemande && !modifiable"
+      id="cmn-titre-activite-edit-popup-warning"
+      class="p-s bg-warning color-bg bold mb"
+    >
+      Une fois déposée cette étape ne sera plus modifiable.
+    </div>
 
     <div v-if="loading" class="tablet-blobs">
       <div class="tablet-blob-1-3" />
@@ -185,7 +198,7 @@ export default {
     },
 
     etapeIsDemande() {
-      return this.etape.typeId === 'mfr'
+      return this.etape && this.etape.typeId === 'mfr'
     }
   },
 
@@ -271,10 +284,12 @@ export default {
 
     preview() {
       this.modifiable = false
+      this.scrollToTop()
     },
 
     edit() {
       this.modifiable = true
+      this.scrollToTop()
     },
 
     completeUpdate(complete) {
@@ -289,6 +304,12 @@ export default {
       await this.$store.dispatch('titreEtape/dateUpdate', {
         date: this.newDate
       })
+    },
+
+    scrollToTop() {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }, 500)
     }
   }
 }

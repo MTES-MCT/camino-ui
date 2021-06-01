@@ -34,7 +34,7 @@
     />
 
     <div v-else-if="element.type === 'radio'">
-      <label>
+      <label class="mr">
         <input
           v-model="contenu[element.id]"
           :name="element.id"

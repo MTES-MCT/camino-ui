@@ -85,8 +85,13 @@
               <span class="mr-xs">{{
                 e.legalSiren ? `${e.nom} (${e.legalSiren})` : e.nom
               }}</span>
-              <Tag v-if="e.operateur" :mini="true" color="bg-info"
-                >Opérateur
+              <Tag
+                v-if="e.operateur"
+                :mini="true"
+                color="bg-info"
+                class="ml-xs"
+              >
+                Opérateur
               </Tag>
             </router-link>
           </li>
@@ -107,8 +112,13 @@
               <span class="mr-xs">{{
                 e.legalSiren ? `${e.nom} (${e.legalSiren})` : e.nom
               }}</span>
-              <Tag v-if="e.operateur" :mini="true" color="bg-info"
-                >Opérateur
+              <Tag
+                v-if="e.operateur"
+                :mini="true"
+                color="bg-info"
+                class="ml-xs"
+              >
+                Opérateur
               </Tag>
             </router-link>
           </li>

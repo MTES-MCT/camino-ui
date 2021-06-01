@@ -11,7 +11,11 @@
         />
         <div class="h6">
           <label v-if="etape.date">
-            <input v-model="etape.incertitudes.date" type="checkbox" />
+            <input
+              v-model="etape.incertitudes.date"
+              type="checkbox"
+              class="mr-xs"
+            />
             Incertain
           </label>
         </div>

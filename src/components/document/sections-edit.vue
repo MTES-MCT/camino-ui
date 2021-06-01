@@ -63,7 +63,7 @@
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Fichier</h5>
+        <h5 class="mb-xs">Fichier</h5>
         <p v-if="optionnel" class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
