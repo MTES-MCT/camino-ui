@@ -7,19 +7,11 @@
 
       <div class="desktop-blob-1-3">
         <button
-          v-if="titresDemandeCreation && false"
+          v-if="titresDemandeCreation"
           class="btn small rnd-xs py-s px-m full-x flex"
           @click="titreDemandeOpen"
         >
-          <span class="mt-xxs">Ajouter une demande de titre</span>
-          <i class="icon-24 icon-plus flex-right" />
-        </button>
-        <button
-          v-if="titresCreation"
-          class="btn small rnd-xs py-s px-m full-x flex"
-          @click="titreAddPopupOpen"
-        >
-          <span class="mt-xxs">Ajouter un titre</span>
+          <span class="mt-xxs">Demander un titre…</span>
           <i class="icon-24 icon-plus flex-right" />
         </button>
       </div>
@@ -73,7 +65,6 @@
 
 <script>
 import Downloads from './_common/downloads.vue'
-import TitreEditPopup from './titre/edit-popup.vue'
 import Table from './titres/table-pagination.vue'
 import Map from './titres/map.vue'
 import Filtres from './titres/filtres.vue'
@@ -184,20 +175,6 @@ export default {
       if (!this.loading) {
         this.vueSet(vueId)
       }
-    },
-
-    titreAddPopupOpen() {
-      const titre = { references: [] }
-
-      this.$store.commit('popupOpen', {
-        component: TitreEditPopup,
-        props: {
-          titre,
-          creation: true
-        }
-      })
-
-      this.eventTrack({ categorie: 'titre-sections', action: 'titre-ajouter' })
     },
 
     titreDemandeOpen() {
