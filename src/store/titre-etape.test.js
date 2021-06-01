@@ -6,12 +6,13 @@ import { createStore } from 'vuex'
 import {
   titreEtapeMetas,
   titreEtapeMetasRes,
+  titreEtapeMetasRes2,
   titreEtapeEdition,
-  titreEtapeCreation,
   titreEtapeHeritage1,
   titreEtapeHeritageRes1,
   titreEtapeHeritageRes2,
-  titreEtapeHeritage2
+  titreEtapeHeritage2,
+  titreEtapeEtapesTypes
 } from './__mocks__/titre-etape'
 import router from '../router'
 
@@ -23,6 +24,7 @@ jest.mock('../api/titres-etapes', () => ({
   etape: jest.fn(),
   etapeHeritage: jest.fn(),
   titreEtapeMetas: jest.fn(),
+  titreEtapeEtapesTypes: jest.fn(),
   etapeCreer: jest.fn(),
   etapeModifier: jest.fn(),
   etapeSupprimer: jest.fn()
@@ -39,13 +41,16 @@ describe('étapes', () => {
     titreEtape.state = {
       element: null,
       metas: {
+        demarche: null,
         etapesTypes: [],
         devises: [],
         unites: [],
         geoSystemes: [],
         substances: [],
         entreprises: []
-      }
+      },
+      heritageLoaded: false,
+      loaded: false
     }
 
     actions = {
@@ -80,6 +85,9 @@ describe('étapes', () => {
 
   test('récupère les métas pour éditer une étape', async () => {
     const apiMockMetas = api.titreEtapeMetas.mockResolvedValue(titreEtapeMetas)
+    const apiMockEtapesTypes = api.titreEtapeEtapesTypes.mockResolvedValue(
+      titreEtapeEtapesTypes
+    )
     const apiMockEtape = api.etape.mockResolvedValue({
       id: 'etape-id',
       titreDemarcheId: 'demarche-id',
@@ -94,13 +102,13 @@ describe('étapes', () => {
 
     expect(apiMockMetas).toHaveBeenCalled()
     expect(apiMockEtape).toHaveBeenCalled()
+    expect(apiMockEtapesTypes).toHaveBeenCalled()
     expect(store.state.titreEtape.metas).toEqual(titreEtapeMetasRes)
     expect(store.state.titreEtape.element).toEqual(titreEtapeEdition)
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
   test("retourne une erreur si on n'a pas les droits", async () => {
-    const apiMockMetas = api.titreEtapeMetas.mockResolvedValue(titreEtapeMetas)
     const apiMockEtape = api.etape.mockResolvedValue({
       id: 'etape-id',
       titreDemarcheId: 'demarche-id',
@@ -112,7 +120,6 @@ describe('étapes', () => {
       titreDemarcheId: 'demarche-id'
     })
 
-    expect(apiMockMetas).not.toHaveBeenCalled()
     expect(apiMockEtape).toHaveBeenCalled()
     expect(actions.pageError).toHaveBeenCalled()
   })
@@ -121,13 +128,11 @@ describe('étapes', () => {
     const apiMockMetas = api.titreEtapeMetas.mockResolvedValue(titreEtapeMetas)
 
     await store.dispatch('titreEtape/init', {
-      titreDemarcheId: 'demarche-id',
-      date: '2020-01-01'
+      titreDemarcheId: 'demarche-id'
     })
 
     expect(apiMockMetas).toHaveBeenCalled()
-    expect(store.state.titreEtape.metas).toEqual(titreEtapeMetasRes)
-    expect(store.state.titreEtape.element).toEqual(titreEtapeCreation)
+    expect(store.state.titreEtape.metas).toEqual(titreEtapeMetasRes2)
     expect(mutations.loadingRemove).toHaveBeenCalled()
   })
 
@@ -135,12 +140,6 @@ describe('étapes', () => {
     const apiMock = api.titreEtapeMetas.mockRejectedValue(
       new Error("erreur de l'api")
     )
-
-    await store.dispatch('titreEtape/init', { etape: {}, fromPopup: true })
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
 
     await store.dispatch('titreEtape/init', { etape: {} })
 
@@ -151,16 +150,18 @@ describe('étapes', () => {
 
   test("récupère l'héritage d'une étape", async () => {
     store.state.titreEtape.element = {
+      id: 'etape-id',
       typeId: 'etape-type-id',
       incertitudes: {},
+      date: '2020-01-02',
       titreDemarcheId: 'demarche-id'
     }
 
+    store.state.titreEtape.metas.demarche = { id: 'demarche-id' }
+
     const apiMock1 = api.etapeHeritage.mockResolvedValue(titreEtapeHeritageRes1)
     await store.dispatch('titreEtape/heritageGet', {
-      typeId: 'etape-type-id',
-      titreDemarcheId: 'demarche-id',
-      date: '2020-01-02'
+      typeId: 'etape-type-id'
     })
 
     expect(apiMock1).toHaveBeenCalled()
@@ -168,9 +169,7 @@ describe('étapes', () => {
 
     const apiMock2 = api.etapeHeritage.mockResolvedValue(titreEtapeHeritageRes1)
     await store.dispatch('titreEtape/heritageGet', {
-      typeId: 'etape-type-id',
-      titreDemarcheId: 'demarche-id',
-      date: '2020-01-02'
+      typeId: 'etape-type-id'
     })
 
     expect(apiMock2).toHaveBeenCalled()
@@ -218,32 +217,14 @@ describe('étapes', () => {
     await store.dispatch('titreEtape/heritageGet', {
       typeId: 'etape-type-id',
       titreDemarcheId: 'demarche-id',
-      date: '2020-01-02',
-      fromPopup: true
+      date: '2020-01-02'
     })
 
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+    expect(actions.apiError).toHaveBeenCalled()
   })
 
   test('créé une étape', async () => {
-    api.etapeCreer.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('titreEtape/upsert', {
-      etape: {
-        nom: 'champs',
-        incertitudes: {}
-      },
-      fromPopup: true
-    })
-
-    expect(router.push).not.toHaveBeenCalled()
-    expect(mutations.popupClose).toHaveBeenCalled()
-
-    store.commit('titreEtape/reset')
-
-    expect(store.state.titreEtape.element).toBeNull()
-  })
-
-  test('redirige après la création d’une étape', async () => {
+    store.state.titreEtape.metas.demarche = { id: 'demarche-id' }
     api.etapeCreer.mockResolvedValue({ id: 14, nom: 'champs' })
     await store.dispatch('titreEtape/upsert', {
       etape: {
@@ -253,32 +234,34 @@ describe('étapes', () => {
     })
 
     expect(router.push).toHaveBeenCalled()
+
+    store.commit('titreEtape/reset')
+
+    expect(store.state.titreEtape.element).toBeNull()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la création d'une étape", async () => {
     api.etapeCreer.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('titreEtape/upsert', {
       nom: 'champs',
-      incertitudes: {},
-      fromPopup: true
+      incertitudes: {}
     })
 
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+    expect(actions.apiError).toHaveBeenCalled()
   })
 
   test('met à jour une étape', async () => {
+    store.state.titreEtape.metas.demarche = { id: 'demarche-id' }
     api.etapeModifier.mockResolvedValue({ id: 14, nom: 'champs' })
     await store.dispatch('titreEtape/upsert', {
       etape: {
         id: 14,
         nom: 'champs',
         incertitudes: {}
-      },
-      fromPopup: true
+      }
     })
 
-    expect(router.push).not.toHaveBeenCalled()
-    expect(mutations.popupClose).toHaveBeenCalled()
+    expect(router.push).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'une étape", async () => {
@@ -288,11 +271,10 @@ describe('étapes', () => {
         id: 14,
         nom: 'champs',
         incertitudes: {}
-      },
-      fromPopup: true
+      }
     })
 
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+    expect(actions.apiError).toHaveBeenCalled()
   })
 
   test('supprime une étape', async () => {

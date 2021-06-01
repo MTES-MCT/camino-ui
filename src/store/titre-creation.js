@@ -10,7 +10,7 @@ const state = {
 
 const actions = {
   async init({ commit, dispatch }) {
-    commit('loadingAdd', 'titreDemandeInit', { root: true })
+    commit('loadingAdd', 'titreCreationInit', { root: true })
 
     try {
       const data = await titreMetas()
@@ -19,13 +19,13 @@ const actions = {
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemandeInit', { root: true })
+      commit('loadingRemove', 'titreCreationInit', { root: true })
     }
   },
 
   async save({ commit, dispatch }, titreDemande) {
     try {
-      commit('loadingAdd', 'titreDemandeAdd', { root: true })
+      commit('loadingAdd', 'titreCreationAdd', { root: true })
 
       if (titreDemande.references) {
         titreDemande.references = titreDemande.references.filter(
@@ -51,7 +51,7 @@ const actions = {
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
-      commit('loadingRemove', 'titreDemandeAdd', { root: true })
+      commit('loadingRemove', 'titreCreationAdd', { root: true })
     }
   }
 }

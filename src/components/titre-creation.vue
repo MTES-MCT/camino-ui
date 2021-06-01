@@ -9,14 +9,14 @@
     <div class="tablet-blob-2-3">
       <select
         class="p-s"
-        :value="newTitre?.entrepriseId"
+        :value="titreDemande?.entrepriseId"
         @change="entrepriseUpdate"
       >
         <option
           v-for="e in entreprises"
           :key="e.id"
           :value="e.id"
-          :disabled="newTitre.entrepriseId === e.id"
+          :disabled="titreDemande.entrepriseId === e.id"
         >
           {{ e.nom }}
         </option>
@@ -27,44 +27,30 @@
   <hr />
 
   <TitreTypeSelect
-    v-if="newTitre.entrepriseId"
-    v-model:element="newTitre"
+    v-if="titreDemande.entrepriseId"
+    v-model:element="titreDemande"
     :domaines="domaines"
   />
 
-  <div v-if="newTitre.typeId">
+  <div v-if="titreDemande.typeId">
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h5>Nom</h5>
       </div>
       <div class="tablet-blob-2-3">
-        <input v-model="newTitre.nom" type="text" class="p-s" />
+        <input v-model="titreDemande.nom" type="text" class="p-s" />
       </div>
     </div>
     <hr />
   </div>
 
-  <div v-if="newTitre.typeId === 'arm'">
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Prospection mécanisée</h5>
-      </div>
-      <div class="tablet-blob-2-3">
-        <input
-          v-model="newTitre.mecanise"
-          type="checkbox"
-          class="p-s mt-s mb-s"
-        />
-      </div>
-    </div>
-    <hr />
-  </div>
-
-  <div v-if="newTitre.typeId && newTitre.entrepriseId && !entrepriseCheck">
+  <div
+    v-if="titreDemande.typeId && titreDemande.entrepriseId && !entrepriseCheck"
+  >
     <h3 class="mb-s">Références</h3>
     <p class="h6 italic">Optionnel</p>
     <div
-      v-for="(reference, index) in newTitre.references"
+      v-for="(reference, index) in titreDemande.references"
       :key="index"
       class="flex full-x mb-s"
     >
@@ -92,8 +78,8 @@
 
     <button
       v-if="
-        newTitre.references &&
-        !newTitre.references.find(r => !r.typeId || !r.nom)
+        titreDemande.references &&
+        !titreDemande.references.find(r => !r.typeId || !r.nom)
       "
       class="btn small rnd-xs py-s px-m full-x mb flex"
       @click="referenceAdd"
@@ -133,7 +119,7 @@ export default {
 
   data() {
     return {
-      newTitre: {}
+      titreDemande: {}
     }
   },
 
@@ -147,7 +133,7 @@ export default {
     },
 
     entreprise() {
-      return this.entreprises.find(e => e.id === this.newTitre.entrepriseId)
+      return this.entreprises.find(e => e.id === this.titreDemande.entrepriseId)
     },
 
     entrepriseCheck() {
@@ -182,17 +168,19 @@ export default {
     },
 
     referencesTypes() {
-      return this.$store.state.titreDemande.metas.referencesTypes
+      return this.$store.state.titreCreation.metas.referencesTypes
     },
 
     complete() {
       return (
-        this.newTitre.entrepriseId && this.newTitre.typeId && this.newTitre.nom
+        this.titreDemande.entrepriseId &&
+        this.titreDemande.typeId &&
+        this.titreDemande.nom
       )
     },
 
     loading() {
-      return this.$store.state.loading.includes('titreDemandeAdd')
+      return this.$store.state.loading.includes('titreCreationAdd')
     }
   },
 
@@ -210,27 +198,27 @@ export default {
         await this.$store.dispatch('pageError')
       }
 
-      await this.$store.dispatch('titreDemande/init')
+      await this.$store.dispatch('titreCreation/init')
 
       if (this.entreprises?.length === 1) {
-        this.newTitre.entrepriseId = this.entreprises[0].id
+        this.titreDemande.entrepriseId = this.entreprises[0].id
       }
     },
 
     entrepriseUpdate(event) {
-      this.newTitre = { entrepriseId: event.target.value, references: [] }
+      this.titreDemande = { entrepriseId: event.target.value, references: [] }
     },
 
     save() {
-      this.$store.dispatch('titreDemande/save', this.newTitre)
+      this.$store.dispatch('titreCreation/save', this.titreDemande)
     },
 
     referenceAdd() {
-      this.newTitre.references.push({ typeId: '', nom: '' })
+      this.titreDemande.references.push({ typeId: '', nom: '' })
     },
 
     referenceRemove(index) {
-      this.newTitre.references.splice(index, 1)
+      this.titreDemande.references.splice(index, 1)
     }
   }
 }

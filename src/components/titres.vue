@@ -201,7 +201,7 @@ export default {
     },
 
     titreDemandeOpen() {
-      this.$router.push({ name: 'titre-demande' })
+      this.$router.push({ name: 'titre-creation' })
     },
 
     eventTrack(event) {

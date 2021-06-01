@@ -29,29 +29,25 @@ const etapeFormat = (etapeEdited, metas) => {
     etape.duree = dureeBuild(etapeEdited.duree.ans, etapeEdited.duree.mois)
   }
 
-  if (etapeEdited.substances.length) {
+  if (etapeEdited.substances?.length) {
     etape.substances = etapeEdited.substances
       .filter(({ id }) => id)
       .map(s => metas.substances.find(({ id }) => id === s.id))
   }
 
-  if (etapeEdited.titulaires.length) {
+  if (etapeEdited.titulaires?.length) {
     etape.titulaires = etapeEdited.titulaires
       .filter(({ id }) => id)
       .map(s => metas.entreprises.find(({ id }) => id === s.id))
   }
 
-  if (etapeEdited.amodiataires.length) {
+  if (etapeEdited.amodiataires?.length) {
     etape.amodiataires = etapeEdited.amodiataires
       .filter(({ id }) => id)
       .map(s => metas.entreprises.find(({ id }) => id === s.id))
   }
 
-  if (
-    etapeEdited.geoSystemeIds &&
-    etapeEdited.geoSystemeIds.length &&
-    etapeEdited.groupes.length
-  ) {
+  if (etapeEdited.geoSystemeIds?.length && etapeEdited.groupes?.length) {
     etape.points = pointsBuild(
       etapeEdited.groupes,
       etapeEdited.geoSystemeIds,

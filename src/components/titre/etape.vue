@@ -28,32 +28,10 @@
     </template>
 
     <template v-if="etape.modification || etape.suppression" #buttons>
-      <JustificatifsButtonAdd
-        v-if="etape.justificatifsAssociation"
-        :id="etape.id"
-        :context="documentContext"
-        :title="documentPopupTitle"
-        :documents="{ ids: etape.justificatifs.map(j => j.id) }"
-        class="btn py-s px-m mr-px"
-        @titre-event-track="eventTrack"
-      />
-
-      <DocumentButtonAdd
-        v-if="etape.documentsCreation"
-        :document="documentNew"
-        :title="documentPopupTitle"
-        :context="documentContext"
-        repertoire="demarches"
-        :parent-id="etape.id"
-        :parent-type-id="etape.type.id"
-        class="btn py-s px-m mr-px"
-        @titre-event-track="eventTrack"
-      />
-
       <button
         v-if="etape.modification"
         class="btn py-s px-m mr-px"
-        @click="editPopupOpen"
+        @click="etapeEdit"
       >
         <i class="icon-24 icon-pencil" />
       </button>
@@ -87,11 +65,8 @@ import { dateFormat, cap } from '@/utils'
 import Accordion from '../_ui/accordion.vue'
 import Tag from '../_ui/tag.vue'
 import Statut from '../_common/statut.vue'
-import EditPopup from '../etape/popup.vue'
 import RemovePopup from '../etape/remove.vue'
 import Preview from '../etape/preview.vue'
-import DocumentButtonAdd from '../document/button-add.vue'
-import JustificatifsButtonAdd from '../etape/justificatifs/button-add.vue'
 
 export default {
   name: 'CaminoTitreEtape',
@@ -99,8 +74,6 @@ export default {
   components: {
     Accordion,
     Tag,
-    DocumentButtonAdd,
-    JustificatifsButtonAdd,
     Statut,
     Preview
   },
@@ -193,16 +166,10 @@ export default {
       })
     },
 
-    editPopupOpen() {
-      this.$store.commit('popupOpen', {
-        component: EditPopup,
-        props: {
-          etapeId: this.etape.id,
-          demarcheId: this.demarcheId,
-          domaineId: this.$store.state.titre.element.domaine.id,
-          demarcheType: this.demarcheType,
-          titreNom: this.titre.nom
-        }
+    etapeEdit() {
+      this.$router.push({
+        name: 'etape-edition',
+        params: { id: this.etape.id }
       })
 
       this.eventTrack({
