@@ -83,8 +83,9 @@ const contourBuild = (
   const { points } = contour.reduce(
     ({ points, lotIndex }, point) => {
       if (!point.lot) {
-        point.references = pointReferencesBuild(
-          point.references,
+        const newPoint = JSON.parse(JSON.stringify(point))
+        newPoint.references = pointReferencesBuild(
+          newPoint.references,
           geoSystemeIds,
           geoSystemeOpposableId
         )
@@ -92,15 +93,15 @@ const contourBuild = (
         // si il y a au moins une référence
         // si il y a plusieurs géo-système, au moins une référence doit être opposable
         if (
-          point.references.length &&
+          newPoint.references.length &&
           (geoSystemeIds.length === 1 ||
             (geoSystemeIds.length > 1 &&
-              !!point.references.find(r => r.opposable)))
+              !!newPoint.references.find(r => r.opposable)))
         ) {
-          point.groupe = groupeIndex
-          point.contour = contourIndex
-          point.point = points.length + 1
-          points.push(point)
+          newPoint.groupe = groupeIndex
+          newPoint.contour = contourIndex
+          newPoint.point = points.length + 1
+          points.push(newPoint)
         }
       } else if (point.references.length) {
         points = points.concat(
