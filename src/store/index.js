@@ -134,6 +134,18 @@ const actions = {
     }
   },
 
+  async downloadDocument({ dispatch }, document) {
+    if (document.fichierNouveau) {
+      saveAs(document.fichierNouveau)
+      dispatch('messageAdd', {
+        type: 'success',
+        value: `fichier téléchargé : ${document.fichierNouveau.name}`
+      })
+    } else {
+      await dispatch('download', `fichiers/${document.id}`)
+    }
+  },
+
   async download({ dispatch, commit }, filePath) {
     try {
       commit('loadingAdd', 'fileLoading')

@@ -102,7 +102,11 @@ const etapeFormat = (etapeEdited, metas) => {
             !!((d.fichier || d.fichierNouveau) && d.fichierTypeId))
         )
       })
-      .map(d => JSON.parse(JSON.stringify(d)))
+      .map(d => {
+        const dCopy = JSON.parse(JSON.stringify(d))
+        dCopy.fichierNouveau = d.fichierNouveau
+        return dCopy
+      })
 
     etape.documents.forEach(d => {
       d.type = etape.type.documentsTypes.find(dt => dt.id === d.typeId)

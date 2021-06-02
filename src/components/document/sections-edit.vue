@@ -74,13 +74,20 @@
               `${document.id}.${document.fichierTypeId}`
             }}
           </p>
-          <button
-            v-if="modifiable"
-            class="btn-border py-s px-m my--xs rnd-xs flex-right"
-            @click="fileRemove"
-          >
-            <i class="icon-24 icon-trash" />
-          </button>
+          <div v-if="modifiable" class="flex-right">
+            <button
+              class="btn-border py-s px-m my--xs rnd-l-xs"
+              @click="fileRemove"
+            >
+              <i class="icon-24 icon-trash" />
+            </button>
+            <button
+              class="btn-border py-s px-m my--xs rnd-r-xs"
+              @click="fileDownload"
+            >
+              <i class="icon-24 icon-download" />
+            </button>
+          </div>
         </div>
         <div v-else-if="modifiable">
           <label class="btn-border small p-s full-x rnd-xs mb-s"
@@ -271,6 +278,10 @@ export default {
       this.document.fichierNouveau = null
       this.document.fichierTypeId = null
       this.warnings = []
+    },
+
+    fileDownload() {
+      this.$store.dispatch('downloadDocument', this.document)
     },
 
     visibiliteUpdate(id) {
