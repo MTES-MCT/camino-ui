@@ -63,10 +63,6 @@ export default {
   computed: {
     geoSystemes() {
       return this.$store.state.titreEtape.metas.geoSystemes
-    },
-
-    geoSystemesLength() {
-      return this.etape.geoSystemeIds.length
     }
   },
 

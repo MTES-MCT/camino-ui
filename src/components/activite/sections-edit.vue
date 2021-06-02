@@ -71,12 +71,6 @@ export default {
   created() {
     this.contenu = contenuBuild(this.sections, this.element.contenu)
     this.$emit('complete-update', this.complete)
-  },
-
-  methods: {
-    elementsVisibleCheck(elements, contenu) {
-      return elementsVisibleCheck(elements, contenu)
-    }
   }
 }
 </script>
