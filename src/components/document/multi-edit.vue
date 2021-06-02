@@ -73,12 +73,11 @@ export default {
   computed: {
     complete() {
       return this.documents.every(d => {
-        const optionnel = this.documentsTypes.find(
-          dt => dt.id === d.typeId
-        ).optionnel
+        const documentType = this.documentsTypes.find(dt => dt.id === d.typeId)
 
         return (
-          optionnel ||
+          !documentType ||
+          documentType.optionnel ||
           !!((d.fichier || d.fichierNouveau) && d.fichierTypeId && d.date)
         )
       })

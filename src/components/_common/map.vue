@@ -13,7 +13,7 @@
 
     <MapWarningBrgm :zoom="zoom" :tiles-id="tilesId" />
 
-    <div class="overflow-auto" :class="{ container: isMain }">
+    <div :class="{ container: isMain }">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-2" :class="{ 'px-s': !isMain }">
           <div class="flex mb-s">

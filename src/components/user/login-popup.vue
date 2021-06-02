@@ -35,49 +35,47 @@
           </button>
         </div>
         <div class="tablet-blob-2-3">
-          <ul class="list-sans mb-0">
-            <li>
-              <button
-                id="cmn-user-login-popup-button-se-connecter"
-                :disabled="!complete"
-                :class="{ disabled: !complete }"
-                class="btn-flash rnd-xs p-s full-x mb"
-                @click="login"
-              >
-                Se connecter
-              </button>
-            </li>
-            <li>
-              <button
-                id="cmn-user-cerbere-login-popup-button-creer-votre-compte"
-                class="btn-border small rnd-xs p-s mr-s full-x mb-s"
-                @click="userAddPopupOpen"
-              >
-                Créer votre compte…
-              </button>
-            </li>
-            <li>
-              <button
-                id="cmn-user-login-popup-button-reinitialiser"
-                class="btn-border small rnd-xs p-s mr-s full-x mb-s"
-                @click="userPasswordInitPopupOpen"
-              >
-                Réinitialiser votre mot de passe…
-              </button>
-            </li>
-
-            <li>
-              <button
-                id="cmn-user-login-popup-button-reinitialiser"
-                class="btn-border small rnd-xs p-s mr-s full-x"
-                @click="cerbereLogin"
-              >
-                Se connecter avec Cerbère…
-              </button>
-            </li>
-          </ul>
+          <button
+            id="cmn-user-login-popup-button-se-connecter"
+            :disabled="!complete"
+            :class="{ disabled: !complete }"
+            class="btn-flash rnd-xs p-s full-x mb"
+            @click="login"
+          >
+            Se connecter
+          </button>
         </div>
       </div>
+      <ul class="list-inline mb-0">
+        <li>
+          <button
+            id="cmn-user-cerbere-login-popup-button-creer-votre-compte"
+            class="btn-border small rnd-xs py-xs px-s mr-s mb-s tablet-mb-0"
+            @click="userAddPopupOpen"
+          >
+            Créer un compte…
+          </button>
+        </li>
+        <li>
+          <button
+            id="cmn-user-login-popup-button-reinitialiser"
+            class="btn-border small rnd-xs py-xs px-s mr-s mb-s tablet-mb-0"
+            @click="userPasswordInitPopupOpen"
+          >
+            Réinitialiser son mot de passe…
+          </button>
+        </li>
+
+        <li>
+          <button
+            id="cmn-user-login-popup-button-reinitialiser"
+            class="btn-border small rnd-xs py-xs px-s mr-s"
+            @click="cerbereLogin"
+          >
+            Se connecter avec Cerbère…
+          </button>
+        </li>
+      </ul>
     </template>
   </Popup>
 </template>

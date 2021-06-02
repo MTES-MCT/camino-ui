@@ -3,7 +3,7 @@
     :opened="opened"
     class="mb-s"
     :slot-default="hasSections || hasFondamentales || hasDocuments"
-    :slot-buttons="true"
+    :slot-buttons="etape.modification || etape.suppression"
     @close="close"
     @toggle="toggle"
   >

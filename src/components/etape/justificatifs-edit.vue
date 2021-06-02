@@ -104,9 +104,7 @@
       </div>
     </div>
   </div>
-  <div v-else>
-    Il n'y a pas de titulaire ou d'amodiataire associé à cette étape.
-  </div>
+  <p v-else>Aucun titulaire ou d'amodiataire associé à cette étape.</p>
 </template>
 
 <script>
