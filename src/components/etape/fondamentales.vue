@@ -174,20 +174,6 @@ export default {
     etape: { type: Object, required: true }
   },
 
-  computed: {
-    incertitudesLength() {
-      return (
-        this.etape.incertitudes &&
-        Object.keys(this.etape.incertitudes).reduce((res, i) => {
-          if (this.etape.incertitudes[i] && i !== '__typename') {
-            res++
-          }
-          return res
-        }, 0)
-      )
-    }
-  },
-
   methods: {
     etablissementNameFind(etablissements, date) {
       return etablissementNameFind(etablissements, date)
