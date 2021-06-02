@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.71](https://github.com/MTES-MCT/camino-ui/compare/v0.22.70...v0.22.71) (2021-06-02)
+
+
+### Features
+
+* affiche la carte sur les étapes ([#347](https://github.com/MTES-MCT/camino-ui/issues/347)) ([36f9cdf](https://github.com/MTES-MCT/camino-ui/commit/36f9cdf88857ed18dff2df7b28fe19a7444b6857))
+* **documents:** permet de télécharger les documents dans la page de l’étape ([#346](https://github.com/MTES-MCT/camino-ui/issues/346)) ([b98d78e](https://github.com/MTES-MCT/camino-ui/commit/b98d78e8e4955bacfd19b54d7e8d4908733b0d68))
+* affiche le bouton pour déposer une demande de titre ([#343](https://github.com/MTES-MCT/camino-ui/issues/343)) ([20661e1](https://github.com/MTES-MCT/camino-ui/commit/20661e10cf360d48930920d9727db4a16893bb39))
+* améliore l'affichage de la prévisualisation d'étape ([#341](https://github.com/MTES-MCT/camino-ui/issues/341)) ([cb9dcb2](https://github.com/MTES-MCT/camino-ui/commit/cb9dcb24e7343cab20293144087e27535a2eae08))
+* prévisualise l'étape avant validation ([#339](https://github.com/MTES-MCT/camino-ui/issues/339)) ([132ee46](https://github.com/MTES-MCT/camino-ui/commit/132ee46c733923f2e2550c2171733254adc5e6b9))
+* utilise la nouvelle interface pour créer les étapes ([#342](https://github.com/MTES-MCT/camino-ui/issues/342)) ([3081882](https://github.com/MTES-MCT/camino-ui/commit/308188227a98c9349a3eeaf532d7ad1674022611))
+* **étape:** ajoute les propriétés manquantes dans page d’édition d’une étape ([#335](https://github.com/MTES-MCT/camino-ui/issues/335)) ([67add21](https://github.com/MTES-MCT/camino-ui/commit/67add218534e22bf98d151ce2abfb02adc58701e))
+* **justificatifs:** ajoute l’édition des métas des justificatifs ([#337](https://github.com/MTES-MCT/camino-ui/issues/337)) ([20361ce](https://github.com/MTES-MCT/camino-ui/commit/20361ce333c38a988e08b5628a064dd9e10e4dbc))
+* **justificatifs:** ajoute un bloc permettant de lier les justificatifs dans une étape ([#338](https://github.com/MTES-MCT/camino-ui/issues/338)) ([8474623](https://github.com/MTES-MCT/camino-ui/commit/8474623febba34805ef9d735c7d51113ceb1e310))
+
+
+### Bug Fixes
+
+* corrige l'édition de l'étape ([#345](https://github.com/MTES-MCT/camino-ui/issues/345)) ([c563d4c](https://github.com/MTES-MCT/camino-ui/commit/c563d4c834eddfe8deb568994c6daeee812d93c0)), closes [#343](https://github.com/MTES-MCT/camino-ui/issues/343)
+* élargi la popup ([#350](https://github.com/MTES-MCT/camino-ui/issues/350)) ([3428c4f](https://github.com/MTES-MCT/camino-ui/commit/3428c4f5ed0e1ebcadb86ddb03f71518d73fcfcd))
+* **points:** corrige l’enregistrement des points renseignés sur une étape ([#344](https://github.com/MTES-MCT/camino-ui/issues/344)) ([5d25f5b](https://github.com/MTES-MCT/camino-ui/commit/5d25f5bf8886e9bf0d05aabe888a1c7526e502ff))
+
 ### [0.22.70](https://github.com/MTES-MCT/camino-ui/compare/v0.22.69...v0.22.70) (2021-05-19)
 
 
