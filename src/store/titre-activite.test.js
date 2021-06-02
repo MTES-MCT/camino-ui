@@ -60,7 +60,7 @@ describe("état d'une activité", () => {
         contenu: [],
         statut: { id: 'dep' }
       },
-      context: null
+      route: null
     })
 
     expect(mutations.loadingRemove).toHaveBeenCalled()
@@ -77,7 +77,7 @@ describe("état d'une activité", () => {
         contenu: [],
         statut: { id: 'dep' }
       },
-      context: 'titreActivite'
+      route: 'titreActivite'
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
@@ -96,7 +96,7 @@ describe("état d'une activité", () => {
         contenu: [],
         statut: { id: 'enc' }
       },
-      context: { name: 'titre' }
+      route: { name: 'titre' }
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
@@ -115,7 +115,7 @@ describe("état d'une activité", () => {
         contenu: [],
         statut: { id: 'dep' }
       },
-      context: { name: 'titre' }
+      route: { name: 'titre' }
     })
 
     expect(apiMock).toHaveBeenCalled()
@@ -201,17 +201,17 @@ describe("état d'une activité", () => {
     api.activiteSupprimer.mockResolvedValue({ id: 71 })
     await store.dispatch('titreActivite/remove', {
       id: 71,
-      context: { name: 'titre', id: 'titre-id' }
+      route: { name: 'titre', id: 'titre-id' }
     })
 
     await store.dispatch('titreActivite/remove', {
       id: 71,
-      context: { name: 'titreActivite', id: 'activite-id' }
+      route: { name: 'titreActivite', id: 'activite-id' }
     })
 
     await store.dispatch('titreActivite/remove', {
       id: 71,
-      context: { id: 'activite-id' }
+      route: { id: 'activite-id' }
     })
 
     expect(api.activiteSupprimer).toHaveBeenCalled()

@@ -28,7 +28,7 @@ const actions = {
     }
   },
 
-  async update({ commit, dispatch, rootState }, { activite, context, depose }) {
+  async update({ commit, dispatch, rootState }, { activite, route, depose }) {
     try {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
@@ -42,7 +42,7 @@ const actions = {
         depose
       })
 
-      if (context) {
+      if (route) {
         commit('popupClose', null, { root: true })
 
         await dispatch(
@@ -57,7 +57,7 @@ const actions = {
           { root: true }
         )
 
-        if (context.name === 'titre') {
+        if (route.name === 'titre') {
           commit(
             'titre/open',
             { section: 'activites', id: activite.id },
@@ -66,7 +66,7 @@ const actions = {
         } else {
           commit('open')
         }
-        await dispatch('reload', context, { root: true })
+        await dispatch('reload', route, { root: true })
       }
 
       return 'success'
@@ -77,7 +77,7 @@ const actions = {
     }
   },
 
-  async remove({ commit, dispatch }, { id, context }) {
+  async remove({ commit, dispatch }, { id, route }) {
     try {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
@@ -85,13 +85,13 @@ const actions = {
       const data = await activiteSupprimer({ id })
 
       commit('popupClose', null, { root: true })
-      if (context.name === 'titre') {
+      if (route.name === 'titre') {
         await dispatch(
           'reload',
-          { name: 'titre', id: context.id },
+          { name: 'titre', id: route.id },
           { root: true }
         )
-      } else if (context.name === 'titreActivite') {
+      } else if (route.name === 'titreActivite') {
         await dispatch('reload', { name: 'activites' }, { root: true })
       }
 

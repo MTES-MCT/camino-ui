@@ -52,7 +52,7 @@
       :has-fondamentales="hasFondamentales"
       :has-sections="hasSections"
       :has-documents="hasDocuments"
-      :document-context="documentContext"
+      :route="route"
       :document-popup-title="documentPopupTitle"
       :domaine-id="domaineId"
       :titre-type-id="titreTypeId"
@@ -121,7 +121,7 @@ export default {
       return this.etape.documents && !!this.etape.documents.length
     },
 
-    documentContext() {
+    route() {
       return {
         name: 'titre',
         section: 'etapes',

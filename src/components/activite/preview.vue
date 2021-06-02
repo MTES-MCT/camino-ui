@@ -38,7 +38,7 @@
       <ActiviteButton
         v-if="activite.modification"
         :activite="activite"
-        :context="context"
+        :route="route"
       />
     </template>
 
@@ -67,7 +67,7 @@
         v-if="activite.documents && activite.documents.length"
         :bouton-suppression="activite.modification"
         :bouton-modification="activite.modification"
-        :context="context"
+        :route="route"
         :documents="activite.documents"
         :etiquette="activite.modification"
         :parent-id="activite.id"
@@ -101,7 +101,7 @@ export default {
 
   props: {
     activite: { type: Object, required: true },
-    context: { type: Object, required: true }
+    route: { type: Object, required: true }
   },
 
   computed: {
@@ -122,7 +122,7 @@ export default {
     },
 
     opened() {
-      if (this.context.name === 'titre') {
+      if (this.route.name === 'titre') {
         return this.$store.state.titre.opened.activites[this.activite.id]
       }
 
@@ -132,7 +132,7 @@ export default {
 
   methods: {
     close() {
-      if (this.context.name === 'titre') {
+      if (this.route.name === 'titre') {
         this.$store.commit('titre/close', {
           section: 'activites',
           id: this.activite.id
@@ -143,7 +143,7 @@ export default {
     },
 
     toggle() {
-      if (this.context.name === 'titre') {
+      if (this.route.name === 'titre') {
         this.$store.commit('titre/toggle', {
           section: 'activites',
           id: this.activite.id
@@ -161,7 +161,7 @@ export default {
           typeNom: this.activite.type.nom,
           annee: this.activite.annee,
           periodeNom: this.activite.periode.nom,
-          context: this.context
+          route: this.route
         }
       })
     },

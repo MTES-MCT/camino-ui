@@ -6,7 +6,7 @@
         v-for="activite in annee.activites"
         :key="activite.id"
         :activite="activite"
-        :context="{ name: 'titre', id: titreId }"
+        :route="{ name: 'titre', id: titreId }"
         class="mb-s"
       />
       <div class="line width-full my-xxl" />

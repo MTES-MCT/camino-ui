@@ -247,7 +247,7 @@ export default {
   props: {
     etape: { type: Object, required: true },
     domaineId: { type: String, required: true },
-
+    events: { type: Object, required: true },
     user: { type: Object, required: true },
     modifiable: { type: Boolean, required: true },
     etapeIsDemande: { type: Boolean, required: true }
@@ -257,7 +257,6 @@ export default {
 
   data() {
     return {
-      events: { saveKeyUp: true },
       sectionsComplete: false,
       documentsComplete: false,
       justificatifsComplete: false,

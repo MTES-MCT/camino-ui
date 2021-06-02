@@ -7,6 +7,25 @@
     >
       <div class="flex">
         <h4>{{ e.nom }}</h4>
+        <DocumentAddButton
+          :document="{
+            entrepriseId: eId,
+            entreprisesLecture: true,
+            publicLecture: false,
+            fichier: null,
+            fichierNouveau: null,
+            fichierTypeId: null,
+            typeId: ''
+          }"
+          :mutation="{
+            name: 'titreEtape/entrepriseDocumentAdd',
+            params: { entrepriseId: eId }
+          }"
+          :parent-id="eId"
+          :title="e.nom"
+          repertoire="entreprises"
+          class="btn rnd-xs py-xs px-m flex-right mt--s mb-xs"
+        />
 
         <button
           class="btn-alt rnd-xs py-s px-m flex-right mt--s mb-xs hide"
@@ -109,8 +128,11 @@
 
 <script>
 import { dateFormat } from '@/utils'
+import DocumentAddButton from '../document/button-add.vue'
 
 export default {
+  components: { DocumentAddButton },
+
   props: {
     justificatifs: { type: Array, required: true },
     justificatifsTypes: { type: Array, required: true },

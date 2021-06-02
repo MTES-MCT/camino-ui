@@ -88,29 +88,33 @@ describe('documents', () => {
 
   test('ajoute un document', async () => {
     api.documentCreer.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('document/add', {
+    await store.dispatch('document/upsert', {
       document: { id: 14, nom: 'champs' },
-      context: { name: 'titre', id: 'titre-id', section: 'etapes' }
+      route: { name: 'titre', id: 'titre-id', section: 'etapes' },
+      creation: true
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
 
-    await store.dispatch('document/add', {
+    await store.dispatch('document/upsert', {
       document: { id: 14, nom: 'champs' },
-      context: { name: 'titre', id: 'titre-id', section: 'travaux' }
+      route: { name: 'titre', id: 'titre-id', section: 'travaux' },
+      creation: true
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
 
-    await store.dispatch('document/add', {
-      document: { id: 14, nom: 'champs' }
+    await store.dispatch('document/upsert', {
+      document: { id: 14, nom: 'champs' },
+      creation: true
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
 
-    await store.dispatch('document/add', {
+    await store.dispatch('document/upsert', {
       document: { id: 14, nom: 'champs' },
-      context: 'something'
+      route: 'something',
+      creation: true
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
@@ -118,8 +122,9 @@ describe('documents', () => {
 
   test("retourne une erreur si l'API retourne une erreur lors de l'ajout d'un document", async () => {
     api.documentCreer.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('document/add', {
-      document: { id: 14, nom: 'champs' }
+    await store.dispatch('document/upsert', {
+      document: { id: 14, nom: 'champs' },
+      creation: true
     })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
@@ -127,13 +132,13 @@ describe('documents', () => {
 
   test('met à jour un document', async () => {
     api.documentModifier.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('document/update', {
+    await store.dispatch('document/upsert', {
       document: { id: 14, nom: 'champs' },
-      context: { name: 'titre', id: 'titre-id' }
+      route: { name: 'titre', id: 'titre-id' }
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
-    await store.dispatch('document/update', {
+    await store.dispatch('document/upsert', {
       document: { id: 14, nom: 'champs' }
     })
 
@@ -142,7 +147,7 @@ describe('documents', () => {
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'un document", async () => {
     api.documentModifier.mockRejectedValue(new Error("erreur de l'api"))
-    await store.dispatch('document/update', {
+    await store.dispatch('document/upsert', {
       document: { id: 14, nom: 'champs' }
     })
 
@@ -153,7 +158,7 @@ describe('documents', () => {
     const apiMock = api.documentSupprimer.mockResolvedValue(true)
     await store.dispatch('document/remove', {
       id: 62,
-      context: { name: 'titre', id: 'titre-id' }
+      route: { name: 'titre', id: 'titre-id' }
     })
 
     expect(apiMock).toHaveBeenCalledWith({ id: 62 })

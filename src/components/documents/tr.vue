@@ -108,7 +108,7 @@ export default {
     boutonDissociation: { type: Boolean, default: false },
     boutonModification: { type: Boolean, default: false },
     boutonSuppression: { type: Boolean, default: false },
-    context: { type: Object, default: () => ({}) },
+    route: { type: Object, default: () => ({}) },
     parentId: { type: String, default: '' },
     parentTypeId: { type: String, default: '' },
     repertoire: { type: String, default: '' },
@@ -117,14 +117,14 @@ export default {
 
   computed: {
     supprimable() {
-      return this.boutonSuppression && this.title && this.context.name
+      return this.boutonSuppression && this.title && this.route.name
     },
 
     modifiable() {
       return (
         this.boutonModification &&
         this.title &&
-        this.context.name &&
+        this.route.name &&
         this.parentId &&
         this.repertoire &&
         this.parentTypeId
@@ -136,7 +136,7 @@ export default {
         this.boutonDissociation &&
         this.title &&
         this.parentId &&
-        this.context.name
+        this.route.name
       )
     }
   },
@@ -169,7 +169,7 @@ export default {
         component: DocumentEditPopup,
         props: {
           title: this.title,
-          context: this.context,
+          route: this.route,
           document,
           repertoire: this.repertoire,
           parentTypeId: this.parentTypeId
@@ -183,7 +183,7 @@ export default {
         props: {
           title: this.title,
           document: this.document,
-          context: this.context
+          route: this.route
         }
       })
     },

@@ -58,7 +58,7 @@
             v-if="!loading"
             ref="save-button"
             class="btn-flash rnd-xs p-s full-x"
-            :disabled="!document.typeId || !document.date"
+            :disabled="!complete"
             @click="save"
           >
             Enregistrer
@@ -85,7 +85,8 @@ export default {
 
   props: {
     title: { type: String, required: true },
-    context: { type: Object, required: true },
+    route: { type: Object, default: null },
+    mutation: { type: Object, default: null },
     creation: { type: Boolean, default: false },
     document: { type: Object, required: true },
     repertoire: { type: String, required: true },
@@ -95,6 +96,10 @@ export default {
   computed: {
     loading() {
       return this.$store.state.popup.loading
+    },
+
+    complete() {
+      return this.document.typeId && this.document.date
     },
 
     messages() {
@@ -134,17 +139,12 @@ export default {
     },
 
     async save() {
-      if (this.creation) {
-        await this.$store.dispatch('document/add', {
-          document: this.document,
-          context: this.context
-        })
-      } else {
-        await this.$store.dispatch('document/update', {
-          document: this.document,
-          context: this.context
-        })
-      }
+      await this.$store.dispatch('document/upsert', {
+        document: this.document,
+        route: this.route,
+        mutation: this.mutation,
+        creation: this.creation
+      })
 
       this.eventTrack({
         categorie: 'titre-sections',
@@ -161,7 +161,7 @@ export default {
     keyUp(e) {
       if ((e.which || e.keyCode) === 27) {
         this.cancel()
-      } else if ((e.which || e.keyCode) === 13) {
+      } else if ((e.which || e.keyCode) === 13 && this.complete) {
         this.$refs['save-button'].focus()
         this.save()
       }

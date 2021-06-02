@@ -32,7 +32,7 @@
       <Documents
         :bouton-suppression="etape.modification"
         :bouton-modification="etape.modification"
-        :context="documentContext"
+        :route="route"
         :documents="etape.documents"
         :etiquette="etape.modification"
         :parent-id="etape.id"
@@ -50,7 +50,7 @@
         :bouton-dissociation="etape.modification"
         :bouton-modification="false"
         :bouton-suppression="false"
-        :context="documentContext"
+        :route="route"
         :documents="etape.justificatifs"
         :etiquette="etape.modification"
         :parent-id="etape.id"
@@ -83,7 +83,7 @@ export default {
     hasSections: { type: Boolean, required: true },
     hasDocuments: { type: Boolean, required: true },
     etape: { type: Object, required: true },
-    documentContext: { type: Object, required: true },
+    route: { type: Object, required: true },
     documentPopupTitle: { type: String, required: true },
     domaineId: { type: String, required: true },
     titreTypeId: { type: String, required: true }
