@@ -105,12 +105,6 @@ export default {
       this.boundsFit(featureGroup.getBounds())
     },
 
-    zoomSet(zoom) {
-      if (zoom !== this.zoom) {
-        this.map.setZoom(zoom)
-      }
-    },
-
     positionSet({ zoom, center }) {
       this.updateBboxOnly = true
       this.map.setView(center, zoom)

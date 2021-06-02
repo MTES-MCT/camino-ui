@@ -39,7 +39,7 @@
           <div class="tablet-blob-3-4">{{ dateFormat(etape.date) }}</div>
         </div>
 
-        <div class="tablet-blobs">
+        <div v-if="etapeType" class="tablet-blobs">
           <div class="tablet-blob-1-4">
             <h5>
               Type
@@ -58,7 +58,10 @@
           </div>
         </div>
 
-        <div v-if="!etapeIsDemande" class="tablet-blobs">
+        <div
+          v-if="!etapeIsDemande && etapeEditFormatted.statut"
+          class="tablet-blobs"
+        >
           <div class="tablet-blob-1-4"><h5>Statut</h5></div>
           <div class="tablet-blob-3-4">
             <Statut
