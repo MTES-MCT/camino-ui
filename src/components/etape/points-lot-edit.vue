@@ -21,18 +21,13 @@
 
     <div class="h6 p-s">
       <ul class="list-prefix">
-        <li>Ce champ contient une paire de coordonnées par ligne.</li>
         <li>
-          Les coordonnées sont au format décimal, quelle que soit l'unité.
+          Une paire de coordonnées
+          <span class="mono bg-alt p-xxs color-text">x;y</span>
+          par ligne, séparées par un point-virgule, sans espace.
         </li>
-        <li>
-          Les coordonnées
-          <span class="mono bg-alt p-xxs color-text">x;y</span> sont séparées
-          par un point-virgule, sans espace.
-        </li>
-        <li>
-          Le séparateur entre les unités et les décimales est une virgule.
-        </li>
+        <li>Au format décimal, quelle que soit l'unité.</li>
+        <li>Unités et décimales séparées par une virgule.</li>
       </ul>
       <p class="mb-s">
         Exemple:

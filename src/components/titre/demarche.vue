@@ -55,7 +55,8 @@
       :key="etape.id"
       :etape="etape"
       :demarche-type="demarche.type"
-      :demarche-id="demarche.id"
+      :domaine-id="domaineId"
+      :titre-type-id="titreType.type.id"
       @titre-event-track="eventTrack"
     />
 
@@ -76,33 +77,30 @@ export default {
   },
 
   props: {
-    demarche: { type: Object, default: () => ({}) },
-    type: { type: Object, default: () => ({}) }
+    demarche: { type: Object, required: true },
+    titreNom: { type: String, required: true },
+    titreId: { type: String, required: true },
+    titreType: { type: Object, required: true },
+    domaineId: { type: String, required: true }
   },
 
   emits: ['titre-event-track'],
-
-  computed: {
-    titre() {
-      return this.$store.state.titre.element
-    }
-  },
 
   methods: {
     editPopupOpen() {
       const demarche = {}
 
       demarche.typeId = this.demarche.type.id
-      demarche.titreId = this.titre.id
+      demarche.titreId = this.titreId
       demarche.id = this.demarche.id
 
       this.$store.commit('popupOpen', {
         component: EditPopup,
         props: {
           demarche,
-          types: this.type.demarchesTypes,
-          titreTypeNom: this.type.type.nom,
-          titreNom: this.titre.nom
+          types: this.titreType.demarchesTypes,
+          titreTypeNom: this.titreType.type.nom,
+          titreNom: this.titreNom
         }
       })
 
@@ -119,8 +117,8 @@ export default {
         props: {
           id: this.demarche.id,
           typeNom: this.demarche.type.nom,
-          titreNom: this.titre.nom,
-          titreTypeNom: this.titre.type.type.nom
+          titreNom: this.titreNom,
+          titreTypeNom: this.titreType.type.nom
         }
       })
 

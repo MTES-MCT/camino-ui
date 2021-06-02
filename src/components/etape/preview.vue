@@ -2,8 +2,16 @@
   <div>
     <div v-if="hasFondamentales">
       <Fondamentales :etape="etape" />
-      <Points :etape="etape" />
-      <hr :class="{ 'mx--': framed }" />
+
+      <Perimetre
+        v-if="etape.points && etape.points.length"
+        :points="etape.points"
+        :domaine-id="domaineId"
+        :titre-type-id="titreTypeId"
+        :geojson-multi-polygon="etape.geojsonMultiPolygon"
+        :incertitude="!!etape.incertitudes?.points"
+      />
+      <hr class="mx--" />
     </div>
 
     <div v-if="hasSections">
@@ -16,7 +24,7 @@
         @file-download="fileDownload"
       />
 
-      <hr :class="{ 'mx--': framed }" />
+      <hr class="mx--" />
     </div>
 
     <div v-if="etape.documents?.length">
@@ -33,7 +41,7 @@
         :title="documentPopupTitle"
       />
 
-      <hr :class="{ 'mx--': framed }" />
+      <hr class="mx--" />
     </div>
 
     <div v-if="etape.justificatifs?.length">
@@ -51,21 +59,21 @@
         :title="documentPopupTitle"
       />
 
-      <hr :class="{ 'mx--': framed }" />
+      <hr class="mx--" />
     </div>
   </div>
 </template>
 
 <script>
 import Fondamentales from './fondamentales.vue'
-import Points from './points.vue'
+import Perimetre from './perimetre.vue'
 import Section from '../_common/section.vue'
 import Documents from '../documents/list.vue'
 
 export default {
   components: {
     Fondamentales,
-    Points,
+    Perimetre,
     Documents,
     Section
   },
@@ -77,7 +85,8 @@ export default {
     etape: { type: Object, required: true },
     documentContext: { type: Object, required: true },
     documentPopupTitle: { type: String, required: true },
-    framed: { type: Boolean, default: false }
+    domaineId: { type: String, required: true },
+    titreTypeId: { type: String, required: true }
   },
 
   emits: ['file-download', 'titre-event-track'],
@@ -88,10 +97,6 @@ export default {
         'download',
         `etape/${this.etape.id}/${fichier}`
       )
-    },
-
-    eventTrack() {
-      this.$emit('titre-event-track')
     }
   }
 }
