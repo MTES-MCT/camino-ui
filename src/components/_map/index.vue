@@ -1,5 +1,5 @@
 <template>
-  <div id="map" ref="map">
+  <div ref="map">
     <div class="absolute pl-s pr-l py-xs map-loader">
       <div class="small">Zoom: {{ zoom }}</div>
     </div>
@@ -99,7 +99,7 @@ export default {
       this.map.fitBounds(bounds)
     },
 
-    allFit(bounds) {
+    allFit() {
       const featureGroup = leafletFeatureGroupGet(this.layers.markers)
       this.updateCenterAndZoomOnly = true
       this.boundsFit(featureGroup.getBounds())

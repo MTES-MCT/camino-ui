@@ -3,6 +3,7 @@ import { fragmentTitreAdministrations } from './administrations'
 import { fragmentTitreEntreprises } from './entreprises'
 import { fragmentTitreSubstance } from './substance'
 import { fragmentPoint } from './point'
+import { fragmentGeojsonMultiPolygon } from './geojson'
 import { fragmentPays } from './pays'
 import { fragmentDocumentType, fragmentUnite } from './metas'
 
@@ -149,6 +150,9 @@ const fragmentTitreEtape = gql`
     points {
       ...point
     }
+    geojsonMultiPolygon {
+      ...geojsonMultiPolygon
+    }
     substances {
       ...titreSubstance
     }
@@ -181,6 +185,8 @@ const fragmentTitreEtape = gql`
   ${fragmentTitreEntreprises}
 
   ${fragmentPoint}
+
+  ${fragmentGeojsonMultiPolygon}
 
   ${fragmentTitreSubstance}
 

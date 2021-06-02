@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-alt width-full">
-    <MapPattern :domaines-ids="[domaineId]" :types-ids="[typeId]" />
+  <div class="bg-alt">
+    <MapPattern :domaines-ids="[domaineId]" :types-ids="[titreTypeId]" />
 
     <Mapo
       ref="map"
@@ -13,10 +13,10 @@
 
     <MapWarningBrgm :zoom="zoom" :tiles-id="tilesId" />
 
-    <div class="container overflow-auto">
+    <div class="overflow-auto" :class="{ container: isMain }">
       <div class="tablet-blobs">
-        <div class="tablet-blob-1-2 mb-s">
-          <div class="flex">
+        <div class="tablet-blob-1-2" :class="{ 'px-s': !isMain }">
+          <div class="flex mb-s">
             <button class="btn-border pill px-m py-s" @click="centrerTrack">
               Centrer
             </button>
@@ -44,6 +44,7 @@
           </div>
 
           <MapTilesSelector
+            v-if="isMain"
             :tiles="tiles"
             :tiles-id="tilesId"
             class="flex-grow mb-s"
@@ -74,8 +75,9 @@ export default {
   props: {
     geojson: { type: Object, required: true },
     points: { type: Array, default: () => [] },
-    domaineId: { type: String, default: '' },
-    typeId: { type: String, default: '' }
+    domaineId: { type: String, required: true },
+    titreTypeId: { type: String, required: true },
+    isMain: { type: Boolean, default: false }
   },
 
   emits: ['titre-event-track'],
@@ -102,7 +104,7 @@ export default {
 
     geojsonLayers() {
       const className = this.patternVisible
-        ? `svg-fill-pattern-${this.typeId}-${this.domaineId}`
+        ? `svg-fill-pattern-${this.titreTypeId}-${this.domaineId}`
         : `svg-fill-domaine-${this.domaineId}`
 
       const options = {

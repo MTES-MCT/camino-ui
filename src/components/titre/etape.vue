@@ -54,7 +54,8 @@
       :has-documents="hasDocuments"
       :document-context="documentContext"
       :document-popup-title="documentPopupTitle"
-      :framed="true"
+      :domaine-id="domaineId"
+      :titre-type-id="titreTypeId"
       @titre-event-track="eventTrack"
     />
   </Accordion>
@@ -81,7 +82,8 @@ export default {
   props: {
     etape: { type: Object, required: true },
     demarcheType: { type: Object, required: true },
-    demarcheId: { type: String, default: '' }
+    domaineId: { type: String, required: true },
+    titreTypeId: { type: String, required: true }
   },
 
   emits: ['titre-event-track'],

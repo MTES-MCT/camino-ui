@@ -23,12 +23,36 @@
       </template>
       <template #read>
         <div v-if="etape.date" class="tablet-blobs">
-          <div class="tablet-blob-1-4"><h5>Date</h5></div>
+          <div class="tablet-blob-1-4">
+            <h5>
+              Date
+              <Tag
+                v-if="etape.incertitudes && etape.incertitudes.date"
+                :mini="true"
+                color="bg-info"
+                class="ml-xs"
+              >
+                Incertain
+              </Tag>
+            </h5>
+          </div>
           <div class="tablet-blob-3-4">{{ dateFormat(etape.date) }}</div>
         </div>
 
         <div class="tablet-blobs">
-          <div class="tablet-blob-1-4"><h5>Type</h5></div>
+          <div class="tablet-blob-1-4">
+            <h5>
+              Type
+              <Tag
+                v-if="etape.incertitudes && etape.incertitudes.type"
+                :mini="true"
+                color="bg-info"
+                class="ml-xs"
+              >
+                Incertain
+              </Tag>
+            </h5>
+          </div>
           <div class="tablet-blob-3-4">
             <span class="cap-first">{{ etapeType.nom }}</span>
           </div>
@@ -185,6 +209,8 @@
 
 <script>
 import { dateFormat } from '@/utils/index'
+
+import Tag from '../_ui/tag.vue'
 import Accordion from './accordion.vue'
 import TypeEdit from './type-edit.vue'
 import Statut from '../_common/statut.vue'
@@ -211,7 +237,8 @@ export default {
     Section,
     DocumentsEdit,
     JustificatifsEdit,
-    Documents
+    Documents,
+    Tag
   },
 
   props: {
