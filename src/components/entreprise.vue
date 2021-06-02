@@ -145,7 +145,7 @@
               entreprise.modification &&
               permissionsCheck(user, ['super', 'admin', 'editeur'])
             "
-            :route="{ id: entreprise.id, name: 'entreprise' }"
+            :route="route"
             :documents="entreprise.documents"
             :etiquette="entreprise.modification"
             :parent-id="entreprise.id"

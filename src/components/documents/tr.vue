@@ -126,8 +126,7 @@ export default {
         this.title &&
         this.route.name &&
         this.parentId &&
-        this.repertoire &&
-        this.parentTypeId
+        this.repertoire
       )
     },
 
