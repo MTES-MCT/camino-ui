@@ -13,7 +13,7 @@
         {{ demarcheType.nom }}
       </span>
     </h6>
-    <h1>Modification de l'étape</h1>
+    <h1>Étape</h1>
 
     <div v-if="dateIsVisible" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
@@ -31,6 +31,7 @@
       :modifiable="modifiable"
       :etape-is-demande="etapeIsDemande"
       :domaine-id="domaineId"
+      :titre-type-id="titreType.type.id"
       @complete-update="completeUpdate"
       @type-complete-update="typeCompleteUpdate"
     />
@@ -186,6 +187,10 @@ export default {
 
     domaineId() {
       return this.titre ? this.titre.domaine.id : ''
+    },
+
+    titreType() {
+      return this.titre ? this.titre.type : ''
     },
 
     loading() {

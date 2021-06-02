@@ -190,9 +190,21 @@ export default {
 
   async created() {
     await this.init()
+
+    document.addEventListener('keyup', this.keyUp)
+  },
+
+  beforeUnmount() {
+    document.removeEventListener('keyup', this.keyUp)
   },
 
   methods: {
+    keyUp(e) {
+      if ((e.which || e.keyCode) === 13 && this.complete && !this.loading) {
+        this.$refs['save-button'].focus()
+        this.save()
+      }
+    },
     async init() {
       if (!this.entreprises.length) {
         await this.$store.dispatch('pageError')

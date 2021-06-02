@@ -15,7 +15,10 @@
       v-for="demarche in demarches"
       :key="demarche.id"
       :demarche="demarche"
-      :type="titre.type"
+      :domaine-id="titre.domaine.id"
+      :titre-type="titre.type"
+      :titre-nom="titre.nom"
+      :titre-id="titre.id"
       @titre-event-track="eventTrack"
     />
   </div>

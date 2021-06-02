@@ -50,6 +50,11 @@ const titreEtapeMetas = apiGraphQLFetch(
           domaine {
             id
           }
+          type {
+            type {
+              id
+            }
+          }
         }
       }
 

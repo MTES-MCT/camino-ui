@@ -13,63 +13,17 @@
 
     <TitreInfos :titre="titre" class="mb" />
 
-    <div v-if="titre.geojsonMultiPolygon && titre.points">
-      <div class="tablet-blobs tablet-flex-direction-reverse">
-        <div class="tablet-blob-1-2 flex mb-s">
-          <Download
-            v-if="titre.points.length"
-            :params="titre.id"
-            section="titres"
-            format="geojson"
-            class="btn-border small pill pl pr-m py-s flex-right"
-          >
-            geojson
-          </Download>
-        </div>
-
-        <div class="tablet-blob-1-2 flex">
-          <div
-            v-for="tab in geoTabs"
-            :key="tab.id"
-            class="mr-xs"
-            :class="{ active: geoTabActiveId === tab.id }"
-          >
-            <button
-              v-if="geoTabActiveId !== tab.id"
-              class="p-m btn-tab rnd-t-s"
-              @click="geoTabToggle(tab.id)"
-            >
-              <i :class="`icon-${tab.icon}`" class="icon-24" />
-            </button>
-            <div v-else class="p-m span-tab rnd-t-s">
-              <i :class="`icon-${tab.icon}`" class="icon-24" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="line-neutral width-full" />
-
-      <TitreMap
-        v-if="titre.geojsonMultiPolygon && geoTabActiveId === 'carte'"
-        :geojson="titre.geojsonMultiPolygon"
-        :points="titre.points"
-        :domaine-id="titre.domaine.id"
-        :type-id="titre.type.type.id"
-        @titre-event-track="eventTrack"
-      />
-
-      <div
-        v-if="titre.points && geoTabActiveId === 'points'"
-        class="points width-full bg-alt"
-      >
-        <div class="container bg-bg py">
-          <TitrePoints :points="titre.points" />
-        </div>
-      </div>
-
-      <div class="line width-full mb" />
-    </div>
+    <Perimetre
+      v-if="titre.geojsonMultiPolygon && titre.points"
+      :titre-id="titre.id"
+      :domaine-id="titre.domaine.id"
+      :titre-type-id="titre.type.type.id"
+      :points="titre.points"
+      :is-main="true"
+      :tab-id="geoTabId"
+      :geojson-multi-polygon="titre.geojsonMultiPolygon"
+      @tab-update="geoTabUpdate"
+    />
 
     <TitreTerritoires
       :pays="titre.pays"
@@ -92,12 +46,12 @@
           v-for="tab in tabs"
           :key="tab.id"
           class="mr-xs"
-          :class="{ active: tabActiveId === tab.id }"
+          :class="{ active: tabId === tab.id }"
         >
           <button
             :id="`cmn-titre-tab-${tab.id}`"
             class="p-m btn-tab rnd-t-s"
-            @click="tabToggle(tab.id)"
+            @click="tabUpdate(tab.id)"
           >
             {{ tab.nom }}
             <ActivitesPills
@@ -113,19 +67,19 @@
     </div>
 
     <TitreDemarches
-      v-if="tabActiveId === 'demarches'"
+      v-if="tabId === 'demarches'"
       :demarches="titre.demarches"
       @titre-event-track="eventTrack"
     />
 
     <TitreActivitesList
-      v-if="titre.activites.length && tabActiveId === 'activites'"
+      v-if="titre.activites.length && tabId === 'activites'"
       :activites="titre.activites"
       :titre-id="titre.id"
     />
 
     <TitreTravaux
-      v-if="tabActiveId === 'travaux'"
+      v-if="tabId === 'travaux'"
       :travaux="titre.travaux"
       @titre-event-track="eventTrack"
     />
@@ -134,18 +88,16 @@
 
 <script>
 import Loader from './_ui/loader.vue'
-import Download from './_common/download.vue'
+import Perimetre from './_common/perimetre.vue'
 import ActivitesPills from './activites/pills.vue'
 
 import TitreHeader from './titre/header.vue'
 import TitreInfos from './titre/infos.vue'
-import TitreMap from './titre/map.vue'
 import TitreTerritoires from './titre/territoires.vue'
 import TitreRepertoire from './titre/repertoire.vue'
 import TitreDemarches from './titre/demarches.vue'
 import TitreTravaux from './titre/travaux.vue'
 import TitreActivitesList from './activites/list.vue'
-import TitrePoints from './_common/points.vue'
 
 export default {
   components: {
@@ -153,24 +105,18 @@ export default {
     ActivitesPills,
     TitreHeader,
     TitreInfos,
-    TitreMap,
     TitreTerritoires,
     TitreRepertoire,
     TitreDemarches,
     TitreActivitesList,
-    TitrePoints,
-    Download,
-    TitreTravaux
+    TitreTravaux,
+    Perimetre
   },
 
   data() {
     return {
-      tabActiveId: 'demarches',
-      geoTabActiveId: 'carte',
-      geoTabs: [
-        { id: 'carte', nom: 'Carte', icon: 'globe' },
-        { id: 'points', nom: 'Points', icon: 'list' }
-      ],
+      tabId: 'demarches',
+      geoTabId: 'carte',
       show: false
     }
   },
@@ -205,10 +151,10 @@ export default {
 
   watch: {
     tabs: function (tabs) {
-      const tabsActivesIds = tabs.map(({ id }) => id)
+      const tabIds = tabs.map(({ id }) => id)
 
-      if (!tabsActivesIds.includes(this.tabActiveId)) {
-        this.tabActiveId = tabsActivesIds[0]
+      if (!tabIds.includes(this.tabId)) {
+        this.tabId = tabIds[0]
       }
     },
 
@@ -234,24 +180,24 @@ export default {
       await this.$store.dispatch('titre/get', this.$route.params.id)
     },
 
-    tabToggle(tabId) {
+    tabUpdate(tabId) {
       this.eventTrack({
         categorie: 'titre-sections',
         action: `titre-${tabId}_consulter`,
         nom: this.$store.state.titre.element.id
       })
 
-      this.tabActiveId = tabId
+      this.tabId = tabId
     },
 
-    geoTabToggle(tabId) {
+    geoTabUpdate(tabId) {
       this.eventTrack({
         categorie: 'titre-sections',
         action: `titre-vue${tabId}_consulter`,
         nom: this.$store.state.titre.element.id
       })
 
-      this.geoTabActiveId = tabId
+      this.geoTabId = tabId
     },
 
     eventTrack(event) {
