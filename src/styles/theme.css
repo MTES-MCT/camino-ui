@@ -322,7 +322,7 @@ h6.color {
   }
 
   .popup {
-    width: calc(2 * var(--col-width) - var(--gutter));
+    width: calc(2.5 * var(--col-width) - var(--gutter));
     max-height: calc(100% - 4 * var(--unit));
     transform: translate(-50%, 0);
     top: calc(var(--unit) * 2);

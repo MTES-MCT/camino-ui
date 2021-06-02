@@ -1,42 +1,44 @@
 <template>
   <div v-if="geoSysteme">
-    <div class="tablet-blobs px flex-align-items-stretch">
-      <div class="tablet-blob-1-2">
-        <select
-          v-if="geoSystemes.length > 1"
-          v-model="geoSystemeId"
-          class="p-s mr-s mb-s"
-        >
-          <option
-            v-for="systeme in geoSystemes"
-            :key="systeme.id"
-            :value="systeme.id"
+    <div class="px">
+      <div class="tablet-blobs flex-align-items-stretch">
+        <div class="tablet-blob-1-2">
+          <select
+            v-if="geoSystemes.length > 1"
+            v-model="geoSystemeId"
+            class="p-s mr-s mb-s"
           >
-            {{ systeme.nom }} - {{ systeme.id }}
-            {{ systeme.id === geoSystemeOpposableId ? '(opposable)' : '' }}
-          </option>
-        </select>
-        <div v-else class="full-x p-s bg-alt mb-s">
-          {{ geoSysteme.nom }} ({{ geoSysteme.id }})
-        </div>
-      </div>
-      <div class="tablet-blob-1-2 flex flex-align-items-stretch">
-        <div class="blobs-packed flex-grow flex-align-items-stretch mb-s">
-          <div class="blob-packed-1-2 full-y border-l pl-s pt-xs">
-            <h5 class="mb-0">
-              {{ labels[0] }}
-            </h5>
-            <p class="h6 italic mb-0">
-              {{ geoSysteme.unite.nom }}
-            </p>
+            <option
+              v-for="systeme in geoSystemes"
+              :key="systeme.id"
+              :value="systeme.id"
+            >
+              {{ systeme.nom }} - {{ systeme.id }}
+              {{ systeme.id === geoSystemeOpposableId ? '(opposable)' : '' }}
+            </option>
+          </select>
+          <div v-else class="full-x p-s bg-alt mb-s">
+            {{ geoSysteme.nom }} ({{ geoSysteme.id }})
           </div>
-          <div class="blob-packed-1-2 full-y border-l pl-s pt-xs">
-            <h5 class="mb-0">
-              {{ labels[1] }}
-            </h5>
-            <p class="h6 italic mb-0">
-              {{ geoSysteme.unite.nom }}
-            </p>
+        </div>
+        <div class="tablet-blob-1-2 flex flex-align-items-stretch">
+          <div class="blobs-packed flex-grow flex-align-items-stretch mb-s">
+            <div class="blob-packed-1-2 full-y border-l pl-s pt-xs">
+              <h5 class="mb-0">
+                {{ labels[0] }}
+              </h5>
+              <p class="h6 italic mb-0">
+                {{ geoSysteme.unite.nom }}
+              </p>
+            </div>
+            <div class="blob-packed-1-2 full-y border-l pl-s pt-xs">
+              <h5 class="mb-0">
+                {{ labels[1] }}
+              </h5>
+              <p class="h6 italic mb-0">
+                {{ geoSysteme.unite.nom }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
