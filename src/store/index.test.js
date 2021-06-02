@@ -303,6 +303,47 @@ describe("état général de l'application", () => {
     expect(messageRemoveMock).toHaveBeenCalled()
   })
 
+  test('télécharge un document du serveur', async () => {
+    const messageAddMock = jest.fn()
+    actions.messageAdd = messageAddMock
+    store = createStore({ state, actions, mutations })
+
+    localStorage.setItem('accessToken', 'privateToken')
+
+    const apiMock = apiRestFetch.mockResolvedValueOnce({
+      data: 'truc',
+      headers: { get: () => 'filename=nom-du-fichier.pdf' },
+      blob: async () => 'fileContent',
+      body: {
+        getReader: () => ({
+          read: () => ({ done: true, value: '' })
+        })
+      }
+    })
+
+    await store.dispatch('downloadDocument', { id: 'toot' })
+
+    expect(apiMock).toHaveBeenCalled()
+    expect(fileSaver.saveAs).toHaveBeenCalled()
+    expect(messageAddMock).toHaveBeenCalled()
+    expect(state.loading).toEqual([])
+  })
+
+  test('télécharge un nouveau document depuis le navigateur', async () => {
+    const messageAddMock = jest.fn()
+    actions.messageAdd = messageAddMock
+    store = createStore({ state, actions, mutations })
+
+    await store.dispatch('downloadDocument', {
+      fichierNouveau: { name: 'document-titre' }
+    })
+
+    expect(apiRestFetch).not.toHaveBeenCalled()
+    expect(fileSaver.saveAs).toHaveBeenCalled()
+    expect(messageAddMock).toHaveBeenCalled()
+    expect(state.loading).toEqual([])
+  })
+
   test('télécharge du contenu', async () => {
     const messageAddMock = jest.fn()
     actions.messageAdd = messageAddMock

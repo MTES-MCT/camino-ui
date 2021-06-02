@@ -44,7 +44,7 @@
         <i class="icon-24 icon-trash" />
       </button>
       <button
-        v-if="document.fichier"
+        v-if="document.fichier || document.fichierNouveau"
         class="btn-border py-s px-m my--xs"
         :class="{
           'rnd-r-xs': !document.url && !document.uri,
@@ -143,7 +143,7 @@ export default {
 
   methods: {
     async download() {
-      await this.$store.dispatch('download', `fichiers/${this.document.id}`)
+      await this.$store.dispatch('downloadDocument', this.document)
     },
 
     editPopupOpen() {
