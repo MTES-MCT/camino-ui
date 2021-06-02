@@ -130,10 +130,6 @@ export default {
   },
 
   computed: {
-    justificatifsTypesIds() {
-      return this.justificatifsTypes.map(({ id }) => id)
-    },
-
     complete() {
       const justificatifs = []
 

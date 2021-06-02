@@ -175,7 +175,7 @@ export default {
 
         query.authentification = 'cerbere'
 
-        this.$router.replace({ query })
+        await this.$router.replace({ query })
       }
 
       const currentUrlEncoded = encodeURIComponent(window.location.href)
