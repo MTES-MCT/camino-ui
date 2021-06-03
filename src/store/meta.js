@@ -1,5 +1,4 @@
 import metasIndex from './metas-definitions'
-import { oneData } from '../utils'
 
 const state = {
   elements: [],
