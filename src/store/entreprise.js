@@ -23,9 +23,8 @@ const actions = {
 
     try {
       const data = await entreprisePermissionsMetas()
-      console.log('permissionsInit data :>> ', data)
 
-      commit('metasSet', { domaines: data })
+      commit('metasSet', { domaines: data ? data.domaines : null })
     } catch (e) {
       commit('messageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -40,10 +39,9 @@ const actions = {
       commit('loadingAdd', 'entrepriseGet', { root: true })
 
       const data = await entreprise({ id })
-      console.log('get data :>> ', data)
 
       if (data) {
-        commit('set', data)
+        commit('set', data ? data.entreprise : null)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -59,8 +57,7 @@ const actions = {
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'entrepriseAdd', { root: true })
     try {
-      const data = await entrepriseCreer({ entreprise })
-      console.log('add data :>> ', data)
+      const data = (await entrepriseCreer({ entreprise })).entrepriseCreer
 
       commit('popupClose', null, { root: true })
 
@@ -82,8 +79,7 @@ const actions = {
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'entrepriseUpdate', { root: true })
     try {
-      const data = await entrepriseModifier({ entreprise })
-      console.log('update data :>> ', data)
+      const data = (await entrepriseModifier({ entreprise })).entrepriseModifier
 
       commit('popupClose', null, { root: true })
 
@@ -111,11 +107,11 @@ const actions = {
         root: true
       })
 
-      const data = await entrepriseTitreTypeUpdate({
-        entrepriseTitreType
-      })
-
-      console.log('titreTypeUpdate data :>> ', data)
+      const data = (
+        await entrepriseTitreTypeUpdate({
+          entrepriseTitreType
+        })
+      ).entrepriseTitreTypeModifier
 
       await dispatch(
         'reload',
