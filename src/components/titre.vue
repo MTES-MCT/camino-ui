@@ -69,7 +69,7 @@
     <TitreDemarches
       v-if="tabId === 'demarches'"
       :demarches="titre.demarches"
-      @titre-event-track="eventTrack"
+      @event-track="eventTrack"
     />
 
     <TitreActivitesList

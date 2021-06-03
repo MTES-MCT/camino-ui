@@ -5,7 +5,12 @@ import { fragmentTitreSubstance } from './substance'
 import { fragmentPoint } from './point'
 import { fragmentGeojsonMultiPolygon } from './geojson'
 import { fragmentPays } from './pays'
-import { fragmentDocumentType, fragmentUnite } from './metas'
+import {
+  fragmentDemarcheType,
+  fragmentDocumentType,
+  fragmentTitreType,
+  fragmentUnite
+} from './metas'
 
 import { fragmentDocument } from './documents'
 
@@ -24,7 +29,7 @@ const fragmentIncertitudes = gql`
 `
 
 // fragment qui représente l’étape dont on hérite sur une prop
-const fragmentHeritageTitreEtape = gql`
+const fragmentHeritageEtape = gql`
   fragment heritageEtape on Etape {
     id
     titreDemarcheId
@@ -113,11 +118,11 @@ const fragmentHeritageProps = gql`
     actif
   }
 
-  ${fragmentHeritageTitreEtape}
+  ${fragmentHeritageEtape}
 `
 
 const fragmentTitreEtape = gql`
-  fragment etape on Etape {
+  fragment titreEtape on Etape {
     id
     ordre
     date
@@ -202,7 +207,7 @@ const fragmentTitreEtape = gql`
   ${fragmentDocumentType}
 `
 
-const fragmentTitreEtapeHeritage = gql`
+const fragmentEtapeHeritage = gql`
   fragment etapeHeritage on EtapeHeritage {
     dateDebut
     dateFin
@@ -247,10 +252,27 @@ const fragmentTitreEtapeHeritage = gql`
   ${fragmentHeritageProps}
 `
 
-const fragmentTitreEtapeEdit = gql`
-  fragment etapeEdit on Etape {
+const fragmentEtape = gql`
+  fragment etape on Etape {
     id
     titreDemarcheId
+    demarche {
+      id
+      type {
+        ...demarcheType
+      }
+      titre {
+        id
+        nom
+        domaine {
+          id
+          nom
+        }
+        type {
+          ...titreType
+        }
+      }
+    }
     ordre
     date
     dateDebut
@@ -279,6 +301,9 @@ const fragmentTitreEtapeEdit = gql`
     points {
       ...point
     }
+    geojsonMultiPolygon {
+      ...geojsonMultiPolygon
+    }
     substances {
       ...titreSubstance
     }
@@ -286,7 +311,7 @@ const fragmentTitreEtapeEdit = gql`
       ...document
     }
     justificatifs {
-      id
+      ...document
     }
     incertitudes {
       ...incertitudes
@@ -305,11 +330,17 @@ const fragmentTitreEtapeEdit = gql`
     documentsCreation
   }
 
+  ${fragmentDemarcheType}
+
+  ${fragmentTitreType}
+
   ${fragmentTitreAdministrations}
 
   ${fragmentTitreEntreprises}
 
   ${fragmentPoint}
+
+  ${fragmentGeojsonMultiPolygon}
 
   ${fragmentTitreSubstance}
 
@@ -324,8 +355,4 @@ const fragmentTitreEtapeEdit = gql`
   ${fragmentIncertitudes}
 `
 
-export {
-  fragmentTitreEtape,
-  fragmentTitreEtapeHeritage,
-  fragmentTitreEtapeEdit
-}
+export { fragmentTitreEtape, fragmentEtapeHeritage, fragmentEtape }

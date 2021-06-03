@@ -19,7 +19,7 @@
       :titre-type="titre.type"
       :titre-nom="titre.nom"
       :titre-id="titre.id"
-      @titre-event-track="eventTrack"
+      @event-track="eventTrack"
     />
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
     demarches: { type: Array, default: () => [] }
   },
 
-  emits: ['titre-event-track'],
+  emits: ['event-track'],
 
   computed: {
     titre() {
@@ -70,7 +70,7 @@ export default {
     },
 
     eventTrack(event) {
-      this.$emit('titre-event-track', event)
+      this.$emit('event-track', event)
     }
   }
 }

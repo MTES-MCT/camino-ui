@@ -4,74 +4,20 @@
       id="step-type"
       :step="stepType"
       :opened="opened['type']"
-      :modifiable="modifiable"
       :complete="typeComplete"
       :en-construction="enConstruction"
       @toggle="toggle('type')"
       @next="next('type')"
     >
-      <template #write>
-        <TypeEdit
-          v-model:etape="etape"
-          :user="user"
-          :etape-types="etapeTypes"
-          :etape-type="etapeType"
-          :etape-is-demande="etapeIsDemande"
-          @type-update="typeUpdate"
-          @complete-update="typeCompleteUpdate"
-        />
-      </template>
-      <template #read>
-        <div v-if="etape.date" class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h5>
-              Date
-              <Tag
-                v-if="etape.incertitudes && etape.incertitudes.date"
-                :mini="true"
-                color="bg-info"
-                class="ml-xs"
-              >
-                Incertain
-              </Tag>
-            </h5>
-          </div>
-          <div class="tablet-blob-3-4">{{ dateFormat(etape.date) }}</div>
-        </div>
-
-        <div v-if="etapeType" class="tablet-blobs">
-          <div class="tablet-blob-1-4">
-            <h5>
-              Type
-              <Tag
-                v-if="etape.incertitudes && etape.incertitudes.type"
-                :mini="true"
-                color="bg-info"
-                class="ml-xs"
-              >
-                Incertain
-              </Tag>
-            </h5>
-          </div>
-          <div class="tablet-blob-3-4">
-            <span class="cap-first">{{ etapeType.nom }}</span>
-          </div>
-        </div>
-
-        <div
-          v-if="!etapeIsDemande && etapeEditFormatted.statut"
-          class="tablet-blobs"
-        >
-          <div class="tablet-blob-1-4"><h5>Statut</h5></div>
-          <div class="tablet-blob-3-4">
-            <Statut
-              :color="etapeEditFormatted.statut.couleur"
-              :nom="etapeEditFormatted.statut.nom"
-              class="mb-xs"
-            />
-          </div>
-        </div>
-      </template>
+      <TypeEdit
+        v-model:etape="etape"
+        :user="user"
+        :etape-types="etapeTypes"
+        :etape-type="etapeType"
+        :etape-is-demande="etapeIsDemande"
+        @type-update="typeUpdate"
+        @complete-update="typeCompleteUpdate"
+      />
     </Accordion>
 
     <Accordion
@@ -79,18 +25,12 @@
       id="step-fondamentales"
       :step="stepFondamentales"
       :opened="opened['fondamentales']"
-      :modifiable="modifiable"
       :complete="true"
       :en-construction="enConstruction"
       @toggle="toggle('fondamentales')"
       @next="next('fondamentales')"
     >
-      <template #write>
-        <FondamentalesEdit v-model:etape="etape" :domaine-id="domaineId" />
-      </template>
-      <template #read>
-        <Fondamentales :etape="etapeEditFormatted" />
-      </template>
+      <FondamentalesEdit v-model:etape="etape" :domaine-id="domaineId" />
     </Accordion>
 
     <Accordion
@@ -98,23 +38,16 @@
       id="step-points"
       :step="stepPoints"
       :opened="opened['points']"
-      :modifiable="modifiable"
       :complete="true"
       :en-construction="enConstruction"
       @toggle="toggle('points')"
       @next="next('points')"
     >
-      <template #write>
-        <PointsEdit
-          v-model:etape="etape"
-          v-model:events="events"
-          :show-title="false"
-        />
-      </template>
-      <template #read>
-        <Points v-if="etapeEditFormatted.points" :etape="etapeEditFormatted" />
-        <p v-else class="h5 italic">Non renseigné</p>
-      </template>
+      <PointsEdit
+        v-model:etape="etape"
+        v-model:events="events"
+        :show-title="false"
+      />
     </Accordion>
 
     <Accordion
@@ -122,31 +55,16 @@
       id="step-sections"
       :step="stepSections"
       :opened="opened['sections']"
-      :modifiable="modifiable"
       :complete="stepSectionsComplete"
       :en-construction="enConstruction"
       @toggle="toggle('sections')"
       @next="next('sections')"
     >
-      <template #write>
-        <SectionsEdit
-          v-model:etape="etape"
-          :sections="etape.sections"
-          @complete-update="sectionsCompleteUpdate"
-        />
-      </template>
-      <template #read>
-        <Section
-          v-for="s in etapeEditFormatted.type.sections"
-          :key="s.id"
-          :section="s"
-          :contenu="
-            etapeEditFormatted.contenu ? etapeEditFormatted.contenu[s.id] : {}
-          "
-          :date="etapeEditFormatted.date"
-          @file-download="fileDownload"
-        />
-      </template>
+      <SectionsEdit
+        v-model:etape="etape"
+        :sections="etape.sections"
+        @complete-update="sectionsCompleteUpdate"
+      />
     </Accordion>
 
     <Accordion
@@ -154,29 +72,18 @@
       id="step-documents"
       :step="stepDocuments"
       :opened="opened['documents']"
-      :modifiable="modifiable"
       :complete="stepDocumentsComplete"
       :en-construction="enConstruction"
       @toggle="toggle('documents')"
       @next="next('documents')"
     >
-      <template #write>
-        <DocumentsEdit
-          v-model:documents="etape.documents"
-          :documents-types="etapeType.documentsTypes"
-          repertoire="demarches"
-          :show-title="false"
-          @complete-update="documentsCompleteUpdate"
-        />
-      </template>
-      <template #read>
-        <Documents
-          v-if="etapeEditFormatted.documents?.length"
-          :documents="etapeEditFormatted.documents"
-          :etiquette="true"
-        />
-        <p v-else class="h5 italic">Non renseigné</p>
-      </template>
+      <DocumentsEdit
+        v-model:documents="etape.documents"
+        :documents-types="etapeType.documentsTypes"
+        repertoire="demarches"
+        :show-title="false"
+        @complete-update="documentsCompleteUpdate"
+      />
     </Accordion>
 
     <Accordion
@@ -184,64 +91,39 @@
       id="step-justificatifs"
       :step="stepJustificatifs"
       :opened="opened['justificatifs']"
-      :modifiable="modifiable"
       :complete="stepJustificatifsComplete"
       :en-construction="enConstruction"
       @toggle="toggle('justificatifs')"
       @next="next('justificatifs')"
     >
-      <template #write>
-        <JustificatifsEdit
-          v-model:justificatifs="etape.justificatifs"
-          :justificatifs-types="etapeType.justificatifsTypes"
-          :entreprises="entreprises"
-          @complete-update="justificatifsCompleteUpdate"
-        />
-      </template>
-      <template #read>
-        <Documents
-          v-if="etapeEditFormatted.justificatifs?.length"
-          :documents="etapeEditFormatted.justificatifs"
-          :etiquette="true"
-        />
-        <p v-else class="h5 italic">Non renseigné</p>
-      </template>
+      <JustificatifsEdit
+        v-model:justificatifs="etape.justificatifs"
+        :justificatifs-types="etapeType.justificatifsTypes"
+        :entreprises="entreprises"
+        @complete-update="justificatifsCompleteUpdate"
+      />
     </Accordion>
   </div>
 </template>
 
 <script>
-import { dateFormat } from '@/utils/index'
-
-import Tag from '../_ui/tag.vue'
 import Accordion from './accordion.vue'
 import TypeEdit from './type-edit.vue'
-import Statut from '../_common/statut.vue'
 import FondamentalesEdit from './fondamentales-edit.vue'
-import Fondamentales from './fondamentales.vue'
 import PointsEdit from './points-edit.vue'
-import Points from './points.vue'
-import Section from '../_common/section.vue'
 import SectionsEdit from './sections-edit.vue'
 import DocumentsEdit from '../document/multi-edit.vue'
 import JustificatifsEdit from './justificatifs-edit.vue'
-import Documents from '../documents/list.vue'
 
 export default {
   components: {
     Accordion,
     TypeEdit,
-    Statut,
     FondamentalesEdit,
-    Fondamentales,
     PointsEdit,
-    Points,
     SectionsEdit,
-    Section,
     DocumentsEdit,
-    JustificatifsEdit,
-    Documents,
-    Tag
+    JustificatifsEdit
   },
 
   props: {
@@ -249,7 +131,6 @@ export default {
     domaineId: { type: String, required: true },
     events: { type: Object, required: true },
     user: { type: Object, required: true },
-    modifiable: { type: Boolean, required: true },
     etapeIsDemande: { type: Boolean, required: true }
   },
 
@@ -275,7 +156,7 @@ export default {
 
   computed: {
     etapeTypes() {
-      return this.$store.state.titreEtape.metas.etapesTypes.filter(
+      return this.$store.state.titreEtapeEdition.metas.etapesTypes.filter(
         t => t.etapesCreation
       )
     },
@@ -288,17 +169,13 @@ export default {
       const titulaireIds = this.etape.titulaires.map(({ id }) => id)
       const amodiatairesIds = this.etape.amodiataires.map(({ id }) => id)
 
-      return this.$store.state.titreEtape.metas.entreprises.filter(
+      return this.$store.state.titreEtapeEdition.metas.entreprises.filter(
         ({ id }) => titulaireIds.includes(id) || amodiatairesIds.includes(id)
       )
     },
 
-    etapeEditFormatted() {
-      return this.$store.getters['titreEtape/etapeEditFormatted']
-    },
-
     heritageLoaded() {
-      return this.$store.state.titreEtape.heritageLoaded
+      return this.$store.state.titreEtapeEdition.heritageLoaded
     },
 
     enConstruction() {
@@ -382,27 +259,6 @@ export default {
 
     stepJustificatifs() {
       return this.steps.find(s => s.id === 'justificatifs')
-    },
-
-    hasFondamentales() {
-      return (
-        !!this.etape.duree ||
-        !!this.etape.surface ||
-        !!this.etape.dateDebut ||
-        !!this.etape.dateFin ||
-        !!(this.etape.points && this.etape.points.length) ||
-        !!(this.etape.substances && this.etape.substances.length) ||
-        !!(this.etape.titulaires && this.etape.titulaires.length) ||
-        !!(this.etape.amodiataires && this.etape.amodiataires.length)
-      )
-    },
-
-    hasSections() {
-      return !!this.etapeType.sections?.length
-    },
-
-    hasDocuments() {
-      return this.etape.documents && !!this.etape.documents.length
     }
   },
 
@@ -471,17 +327,6 @@ export default {
           .getElementById(`step-${stepId}`)
           .scrollIntoView({ behavior: 'smooth' })
       }, 500)
-    },
-
-    async fileDownload(fichier) {
-      await this.$store.dispatch(
-        'download',
-        `etape/${this.etape.id}/${fichier}`
-      )
-    },
-
-    dateFormat(date) {
-      return dateFormat(date)
     }
   }
 }

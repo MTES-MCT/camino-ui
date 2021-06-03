@@ -1,9 +1,8 @@
 <template>
   <Accordion
     class="mb-s"
-    :slot-default="modifiable"
-    :slot-sub="!modifiable"
     :opened="opened"
+    :slot-default="true"
     @toggle="toggle"
   >
     <template #title>
@@ -20,8 +19,8 @@
       </div>
     </template>
 
-    <div v-if="modifiable" class="px pt">
-      <div><slot name="write" /></div>
+    <div class="px pt">
+      <div><slot /></div>
       <div v-if="step.hasNextButton">
         <button
           class="btn-flash p-s rnd-xs full-x mb"
@@ -33,9 +32,6 @@
         </button>
       </div>
     </div>
-    <template #sub
-      ><div class="px"><slot name="read" /></div
-    ></template>
   </Accordion>
 </template>
 
@@ -49,7 +45,6 @@ export default {
   props: {
     step: { type: Object, required: true },
     opened: { type: Boolean, required: true },
-    modifiable: { type: Boolean, default: true },
     complete: { type: Boolean, required: true },
     enConstruction: { type: Boolean, required: true }
   },
