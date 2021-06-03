@@ -8,8 +8,6 @@ import {
 
 import router from '../router'
 
-import { oneData } from '../utils'
-
 const state = {
   element: null,
   metas: {
@@ -24,7 +22,8 @@ const actions = {
     })
 
     try {
-      const data = oneData(await entreprisePermissionsMetas())
+      const data = await entreprisePermissionsMetas()
+      console.log('permissionsInit data :>> ', data)
 
       commit('metasSet', { domaines: data })
     } catch (e) {
@@ -40,7 +39,8 @@ const actions = {
     try {
       commit('loadingAdd', 'entrepriseGet', { root: true })
 
-      const data = oneData(await entreprise({ id }))
+      const data = await entreprise({ id })
+      console.log('get data :>> ', data)
 
       if (data) {
         commit('set', data)
@@ -59,7 +59,8 @@ const actions = {
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'entrepriseAdd', { root: true })
     try {
-      const data = oneData(await entrepriseCreer({ entreprise }))
+      const data = await entrepriseCreer({ entreprise })
+      console.log('add data :>> ', data)
 
       commit('popupClose', null, { root: true })
 
@@ -81,7 +82,8 @@ const actions = {
     commit('popupLoad', null, { root: true })
     commit('loadingAdd', 'entrepriseUpdate', { root: true })
     try {
-      const data = oneData(await entrepriseModifier({ entreprise }))
+      const data = await entrepriseModifier({ entreprise })
+      console.log('update data :>> ', data)
 
       commit('popupClose', null, { root: true })
 
@@ -109,11 +111,11 @@ const actions = {
         root: true
       })
 
-      const data = oneData(
-        await entrepriseTitreTypeUpdate({
-          entrepriseTitreType
-        })
-      )
+      const data = await entrepriseTitreTypeUpdate({
+        entrepriseTitreType
+      })
+
+      console.log('titreTypeUpdate data :>> ', data)
 
       await dispatch(
         'reload',
