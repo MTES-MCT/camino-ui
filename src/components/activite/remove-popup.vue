@@ -57,7 +57,7 @@ export default {
     typeNom: { type: String, required: true },
     periodeNom: { type: String, required: true },
     annee: { type: Number, required: true },
-    context: { type: Object, required: true }
+    route: { type: Object, required: true }
   },
 
   computed: {
@@ -82,7 +82,7 @@ export default {
     async remove() {
       await this.$store.dispatch('titreActivite/remove', {
         id: this.activiteId,
-        context: this.context
+        route: this.route
       })
     },
 

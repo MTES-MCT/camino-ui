@@ -215,7 +215,6 @@ const etapeEditFormat = etape => {
   delete etape.points
   delete etape.geojsonPoints
   delete etape.geojsonMultiPolygon
-  delete etape.justificatifsAssociation
   delete etape.documentsCreation
 
   return etape

@@ -9,7 +9,8 @@ import DocumentEditPopup from './edit-popup.vue'
 
 export default {
   props: {
-    context: { type: Object, required: true },
+    route: { type: Object, default: null },
+    mutation: { type: Object, default: null },
     document: { type: Object, required: true },
     parentId: { type: String, required: true },
     parentTypeId: { type: String, default: '' },
@@ -24,7 +25,8 @@ export default {
       this.$store.commit('popupOpen', {
         component: DocumentEditPopup,
         props: {
-          context: this.context,
+          route: this.route,
+          mutation: this.mutation,
           creation: true,
           document: this.document,
           parentTypeId: this.parentTypeId,

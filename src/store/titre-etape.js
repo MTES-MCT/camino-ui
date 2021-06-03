@@ -223,6 +223,14 @@ const mutations = {
         state.metas[id] = data[id]
       }
     })
+  },
+
+  entrepriseDocumentAdd(state, { entrepriseId, document }) {
+    const entreprise = state.metas.entreprises.find(
+      ({ id }) => id === entrepriseId
+    )
+
+    entreprise.documents.push(document)
   }
 }
 

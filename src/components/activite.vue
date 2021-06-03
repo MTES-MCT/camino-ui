@@ -9,7 +9,7 @@
     <Preview
       :key="activite.id"
       :activite="activite"
-      :context="{ name: 'titreActivite', id: activite.id }"
+      :route="{ name: 'titreActivite', id: activite.id }"
       class="mb"
     />
   </div>

@@ -32,6 +32,7 @@
       :etape-is-demande="etapeIsDemande"
       :domaine-id="domaineId"
       :titre-type-id="titreType.type.id"
+      :events="events"
       @complete-update="completeUpdate"
       @type-complete-update="typeCompleteUpdate"
     />
@@ -148,7 +149,8 @@ export default {
       modifiable: true,
       complete: false,
       typeComplete: false,
-      newDate: new Date().toISOString().slice(0, 10)
+      newDate: new Date().toISOString().slice(0, 10),
+      events: { saveKeyUp: true }
     }
   },
 
@@ -204,6 +206,10 @@ export default {
 
     etapeIsDemande() {
       return this.etape && this.etape.typeId === 'mfr'
+    },
+
+    isPopupOpen() {
+      return !!this.$store.state.popup.component
     }
   },
 
@@ -259,7 +265,7 @@ export default {
     },
 
     keyUp(e) {
-      if ((e.which || e.keyCode) === 27) {
+      if ((e.which || e.keyCode) === 27 && !this.isPopupOpen) {
         if (this.modifiable) {
           this.$refs['modifier-button'].focus()
           this.edit()
@@ -267,7 +273,8 @@ export default {
       } else if (
         (e.which || e.keyCode) === 13 &&
         this.events.saveKeyUp &&
-        this.complete
+        this.complete &&
+        !this.isPopupOpen
       ) {
         if (this.dateIsVisible && this.newDate) {
           this.$refs['date-button'].focus()

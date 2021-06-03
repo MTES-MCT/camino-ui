@@ -13,7 +13,7 @@
         :document="document"
         :parent-id="parentId"
         :parent-type-id="parentTypeId"
-        :context="context"
+        :route="route"
         :repertoire="repertoire"
         :title="title"
         :etiquette="etiquette"
@@ -39,7 +39,7 @@ export default {
     boutonDissociation: { type: Boolean, default: false },
     boutonModification: { type: Boolean, default: false },
     boutonSuppression: { type: Boolean, default: false },
-    context: { type: Object, default: () => ({}) },
+    route: { type: Object, default: () => ({}) },
     parentId: { type: String, default: '' },
     parentTypeId: { type: String, default: '' },
     repertoire: { type: String, default: '' },

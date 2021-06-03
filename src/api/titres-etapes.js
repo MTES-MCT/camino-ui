@@ -162,26 +162,6 @@ const etapeEntreprises = apiGraphQLFetch(
   `
 )
 
-const etapeJustificatifsAssocier = apiGraphQLFetch(gql`
-  mutation etapeJustificatifsAssocier($id: ID!, $documentsIds: [ID]!) {
-    etapeJustificatifsAssocier(id: $id, documentsIds: $documentsIds) {
-      ...titre
-    }
-  }
-
-  ${fragmentTitre}
-`)
-
-const etapeJustificatifDissocier = apiGraphQLFetch(gql`
-  mutation etapeJustificatifDissocier($id: ID!, $documentId: ID) {
-    etapeJustificatifDissocier(id: $id, documentId: $documentId) {
-      ...titre
-    }
-  }
-
-  ${fragmentTitre}
-`)
-
 export {
   etape,
   etapeHeritage,
@@ -190,7 +170,5 @@ export {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
-  etapeJustificatifsAssocier,
-  etapeJustificatifDissocier,
   etapeEntreprises
 }

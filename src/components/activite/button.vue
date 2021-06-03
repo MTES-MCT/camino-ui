@@ -16,7 +16,7 @@ import EditPopup from './edit-popup.vue'
 export default {
   props: {
     activite: { type: Object, default: () => ({}) },
-    context: { type: Object, required: true }
+    route: { type: Object, required: true }
   },
 
   computed: {
@@ -59,7 +59,7 @@ export default {
         component: EditPopup,
         props: {
           activite,
-          context: this.context
+          route: this.route
         }
       })
     }

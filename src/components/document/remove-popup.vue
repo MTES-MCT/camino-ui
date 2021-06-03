@@ -59,7 +59,7 @@ export default {
 
   props: {
     title: { type: String, default: '' },
-    context: { type: Object, required: true },
+    route: { type: Object, required: true },
     document: { type: Object, default: () => ({}) }
   },
 
@@ -85,7 +85,7 @@ export default {
     async remove() {
       await this.$store.dispatch('document/remove', {
         id: this.document.id,
-        context: this.context
+        route: this.route
       })
     },
 

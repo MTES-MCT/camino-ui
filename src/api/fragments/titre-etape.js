@@ -176,7 +176,6 @@ const fragmentTitreEtape = gql`
 
     modification
     suppression
-    justificatifsAssociation
     documentsCreation
   }
 
@@ -303,7 +302,6 @@ const fragmentTitreEtapeEdit = gql`
 
     modification
     suppression
-    justificatifsAssociation
     documentsCreation
   }
 

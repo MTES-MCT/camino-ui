@@ -25,7 +25,7 @@
         v-if="etape.documentsCreation"
         :document="documentNew"
         :title="documentPopupTitle"
-        :context="documentContext"
+        :route="route"
         repertoire="travaux"
         :parent-id="etape.id"
         :parent-type-id="etape.type.id"
@@ -77,7 +77,7 @@
         <Documents
           :bouton-suppression="etape.modification"
           :bouton-modification="etape.modification"
-          :context="documentContext"
+          :route="route"
           :documents="etape.documents"
           :etiquette="etape.modification"
           :parent-id="etape.id"
@@ -150,7 +150,7 @@ export default {
       return this.etape.type.sections
     },
 
-    documentContext() {
+    route() {
       return {
         name: 'titre',
         section: 'travaux',

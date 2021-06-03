@@ -7,73 +7,81 @@
     >
       <div class="flex">
         <h4>{{ e.nom }}</h4>
-
-        <button
-          class="btn-alt rnd-xs py-s px-m flex-right mt--s mb-xs hide"
-          tag="button"
-          @click="
-            $router.push({
-              name: 'entreprise',
-              params: { id: eId }
-            })
-          "
-        >
-          <i class="icon-24 icon-window-link" />
-        </button>
+        <DocumentAddButton
+          :document="{
+            entrepriseId: eId,
+            entreprisesLecture: true,
+            publicLecture: false,
+            fichier: null,
+            fichierNouveau: null,
+            fichierTypeId: null,
+            typeId: ''
+          }"
+          :mutation="{
+            name: 'titreEtape/entrepriseDocumentAdd',
+            params: { entrepriseId: eId }
+          }"
+          :parent-id="eId"
+          :title="e.nom"
+          repertoire="entreprises"
+          class="btn py-s px-m rnd-xs flex-right mt--s mb-s"
+        />
       </div>
 
-      <hr />
+      <hr class="mb-s" />
 
-      <div
-        v-for="(j, index) in e.justificatifs"
-        :key="index"
-        class="tablet-blobs"
-      >
-        <div class="tablet-blob-1-3">
-          <h5>{{ j.type.nom }}</h5>
-        </div>
-        <div class="tablet-blob-2-3">
-          <div v-if="j.documents.length" class="flex mb-s">
-            <select
-              class="p-s"
-              :class="{
-                'mr-s':
+      <div v-for="(j, index) in e.justificatifs" :key="index">
+        <div class="tablet-blobs">
+          <div class="tablet-blob-1-3">
+            <h5 class="mt-s">{{ j.type.nom }}</h5>
+          </div>
+          <div class="tablet-blob-2-3">
+            <div class="flex mb-s">
+              <select
+                v-if="j.documents.length"
+                class="p-s"
+                :class="{
+                  'mr-s':
+                    j.type.optionnel ||
+                    documentsWithSameType(j.type.id, e.justificatifs)
+                }"
+                :value="j.id"
+                @change="justificatifsUpdate(j, $event)"
+              >
+                <option
+                  v-for="d in j.documents"
+                  :key="d.id"
+                  :value="d.id"
+                  :disabled="justificatifs.some(j => j.id === d.id)"
+                >
+                  {{ d.type.nom }} : {{ d.description }} ({{
+                    dateFormat(d.date)
+                  }})
+                </option>
+              </select>
+
+              <p v-else class="h5 italic mb-s mt-s">
+                Cette entreprise n'a aucun document de ce type.
+              </p>
+
+              <button
+                v-if="
                   j.type.optionnel ||
                   documentsWithSameType(j.type.id, e.justificatifs)
-              }"
-              :value="j.id"
-              @change="justificatifsUpdate(j, $event)"
-            >
-              <option
-                v-for="d in j.documents"
-                :key="d.id"
-                :value="d.id"
-                :disabled="justificatifs.some(j => j.id === d.id)"
+                "
+                class="btn py-s px-m rnd-xs flex-right"
+                @click="justificatifRemove(eId, index)"
               >
-                {{ d.type.nom }} : {{ d.description }} ({{
-                  dateFormat(d.date)
-                }})
-              </option>
-            </select>
-
-            <button
-              v-if="
-                j.type.optionnel ||
-                documentsWithSameType(j.type.id, e.justificatifs)
-              "
-              class="btn py-s px-m rnd-xs"
-              @click="justificatifRemove(eId, index)"
-            >
-              <i class="icon-24 icon-minus" />
-            </button>
-          </div>
-          <div v-else class="h5 italic">
-            Cette entreprise n'a aucun document de ce type.
+                <i class="icon-24 icon-minus" />
+              </button>
+            </div>
           </div>
         </div>
+        <hr class="mb-s" />
       </div>
 
       <div>
+        <h5 class="mt">Nouveau justificatif</h5>
         <div class="blobs-mini">
           <div class="blob-mini-1-3">
             <select v-model="newJustificatifTypeIdIndex[eId]" class="p-s mb-s">
@@ -94,7 +102,7 @@
               :disabled="!newJustificatifTypeIdIndex[eId]"
               @click="justificatifAdd(eId)"
             >
-              <span class="mt-xxs">Ajouter un document</span>
+              <span class="mt-xxs">Ajouter un justificatif</span>
               <i class="icon-24 icon-plus flex-right" />
             </button>
           </div>
@@ -109,8 +117,11 @@
 
 <script>
 import { dateFormat } from '@/utils'
+import DocumentAddButton from '../document/button-add.vue'
 
 export default {
+  components: { DocumentAddButton },
+
   props: {
     justificatifs: { type: Array, required: true },
     justificatifsTypes: { type: Array, required: true },

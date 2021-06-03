@@ -138,7 +138,7 @@ export default {
 
   props: {
     activite: { type: Object, required: true },
-    context: { type: Object, required: true }
+    route: { type: Object, required: true }
   },
 
   data() {
@@ -209,7 +209,7 @@ export default {
       await this.$store.dispatch('titreActivite/update', {
         activite: this.activite,
         depose,
-        context: this.context
+        route: this.route
       })
 
       this.eventTrack({

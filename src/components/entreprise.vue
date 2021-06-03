@@ -12,7 +12,7 @@
 
       <template v-if="entreprise.modification" #buttons>
         <DocumentAddButton
-          :context="documentContext"
+          :route="route"
           :document="documentNew"
           :parent-id="entreprise.id"
           :title="nom"
@@ -145,7 +145,7 @@
               entreprise.modification &&
               permissionsCheck(user, ['super', 'admin', 'editeur'])
             "
-            :context="{ id: entreprise.id, name: 'entreprise' }"
+            :route="route"
             :documents="entreprise.documents"
             :etiquette="entreprise.modification"
             :parent-id="entreprise.id"
@@ -270,7 +270,7 @@ export default {
       }
     },
 
-    documentContext() {
+    route() {
       return {
         id: this.entreprise.id,
         name: 'entreprise'
