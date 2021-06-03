@@ -10,8 +10,6 @@ import {
   titresTypesTypes
 } from '../api/metas'
 
-import { oneData } from '../utils'
-
 const definitionsIndex = {
   domaines,
   'titre-minier': '',
@@ -25,6 +23,17 @@ const definitionsIndex = {
   'titres-types': titresTypesTypes
 }
 
+const definitionsKeys = {
+  domaines: 'domaines',
+  'demarches-statuts': 'demarchesStatuts',
+  'demarches-types': 'demarchesTypes',
+  'etapes-types': 'etapesTypes',
+  'etapes-statuts': 'etapesStatuts',
+  'substances-legales': 'substancesLegales',
+  'titres-statuts': 'statuts',
+  'titres-types': 'types'
+}
+
 const state = {
   elements: [],
   entrees: []
@@ -35,9 +44,9 @@ const actions = {
     commit('loadingAdd', 'definitions', { root: true })
 
     try {
-      const data = oneData(await definitions())
+      const data = await definitions()
 
-      commit('set', data)
+      commit('set', data ? data.definitions : null)
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
@@ -50,7 +59,7 @@ const actions = {
 
     try {
       if (definitionsIndex[slug]) {
-        const data = oneData(await definitionsIndex[slug]())
+        const data = (await definitionsIndex[slug]())[definitionsKeys[slug]]
 
         commit('entreesSet', data)
       } else {
