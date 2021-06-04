@@ -16,8 +16,6 @@ import tiles from '../utils/map-tiles'
 
 import router from '../router'
 
-import { oneData } from '../utils'
-
 const state = {
   element: null,
   metas: {
@@ -53,9 +51,9 @@ const actions = {
   async identify({ commit, dispatch }) {
     try {
       commit('loadingAdd', 'userMoi', { root: true })
-      const data = oneData(await moi())
+      const data = await moi()
 
-      commit('set', data)
+      commit('set', data ? data.moi : null)
 
       await dispatch('init')
     } catch (e) {
@@ -73,7 +71,8 @@ const actions = {
 
       commit('popupMessagesRemove', null, { root: true })
 
-      const data = oneData(await utilisateurTokenCreer({ email, motDePasse }))
+      const data = (await utilisateurTokenCreer({ email, motDePasse }))
+        .utilisateurTokenCreer
       const { utilisateur } = data
 
       dispatch('tokensSet', data)
@@ -104,7 +103,8 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('loadingAdd', 'cerbereUrlGet', { root: true })
 
-      const data = oneData(await utilisateurCerbereUrlObtenir({ url }))
+      const data = (await utilisateurCerbereUrlObtenir({ url }))
+        .utilisateurCerbereUrlObtenir
 
       return data
     } catch (e) {
@@ -118,7 +118,8 @@ const actions = {
     try {
       commit('loadingAdd', 'userCerbereLogin', { root: true })
 
-      const data = oneData(await utilisateurCerbereTokenCreer({ ticket }))
+      const data = (await utilisateurCerbereTokenCreer({ ticket }))
+        .utilisateurCerbereTokenCreer
 
       const { utilisateur } = data
 
@@ -182,7 +183,7 @@ const actions = {
     try {
       commit('loadingAdd', 'userAdd', { root: true })
 
-      const data = oneData(await utilisateurCreer({ utilisateur }))
+      const data = (await utilisateurCreer({ utilisateur })).utilisateurCreer
 
       if (data) {
         dispatch(
@@ -213,11 +214,11 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('loadingAdd', 'utilisateurPasswordInitEmail', { root: true })
 
-      const data = oneData(
+      const data = (
         await utilisateurMotDePasseMessageEnvoyer({
           email
         })
-      )
+      ).utilisateurMotDePasseMessageEnvoyer
       commit('popupClose', null, { root: true })
       dispatch('messageAdd', { value: data, type: 'success' }, { root: true })
     } catch (e) {
@@ -233,12 +234,12 @@ const actions = {
     try {
       commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
 
-      const data = oneData(
+      const data = (
         await utilisateurMotDePasseInitialiser({
           motDePasse1,
           motDePasse2
         })
-      )
+      ).utilisateurMotDePasseInitialiser
 
       dispatch(
         'messageAdd',

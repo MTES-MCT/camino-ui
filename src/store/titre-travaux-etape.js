@@ -5,8 +5,6 @@ import {
   travauxEtapeSupprimer
 } from '../api/titres-travaux-etapes'
 
-import { oneData } from '../utils'
-
 const state = {
   element: null,
   metas: {
@@ -19,9 +17,9 @@ const actions = {
     try {
       commit('loadingAdd', 'titreTravauxEtapeInit', { root: true })
 
-      const data = oneData(await titreTravauxEtapeMetas(etape))
+      const data = await titreTravauxEtapeMetas(etape)
 
-      commit('metasSet', { etapesTypes: data })
+      commit('metasSet', { etapesTypes: data ? data.travauxEtapesTypes : null })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -35,7 +33,7 @@ const actions = {
     commit('loadingAdd', 'titreTravauxEtapeAdd', { root: true })
 
     try {
-      const data = oneData(await travauxEtapeCreer({ etape }))
+      const data = (await travauxEtapeCreer({ etape })).travauxEtapeCreer
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
@@ -58,7 +56,7 @@ const actions = {
     commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
     try {
-      const data = oneData(await travauxEtapeModifier({ etape }))
+      const data = (await travauxEtapeModifier({ etape })).travauxEtapeModifier
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
@@ -81,7 +79,7 @@ const actions = {
     commit('loadingAdd', 'titreEtapeRemove', { root: true })
 
     try {
-      const data = oneData(await travauxEtapeSupprimer({ id }))
+      const data = (await travauxEtapeSupprimer({ id })).travauxEtapeSupprimer
 
       commit('popupClose', null, { root: true })
       dispatch(

@@ -11,7 +11,9 @@ const actions = {
     try {
       commit('loadingAdd', 'titreEtapeGet', { root: true })
 
-      const newEtape = await etape({ id })
+      if (id) {
+        const res = await etape({ id })
+        const newEtape = res ? res.etape : null
 
       if (!newEtape) {
         dispatch('pageError', null, { root: true })
