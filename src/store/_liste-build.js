@@ -8,7 +8,6 @@ const listeActionsBuild = (id, name, elements, metas) => ({
 
       if (metas) {
         const metasData = await metas()
-        console.log('metas metasData :>> ', metasData)
         let data = metasData
         if (name === 'administrations') {
           data = metasData.administrationsTypes
@@ -44,9 +43,12 @@ const listeActionsBuild = (id, name, elements, metas) => ({
         Object.assign({}, state.params.filtres, state.params.table)
       )
 
-      const data = await elements(p)
+      const res = await elements(p)
+      let data = null
+      if (name === 'administrations') data = res.administrations
+      if (name === 'activités') data = res.activites
 
-      commit('set', data ? data[Object.keys(data).find(k => k === name)] : null)
+      commit('set', data)
 
       dispatch(
         'messageAdd',

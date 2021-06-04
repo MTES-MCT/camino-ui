@@ -39,6 +39,8 @@ const actions = {
 
       if (id) {
         const newEtape = oneData(await etape({ id }))
+        // const res = await etape({ id })
+        // const newEtape = res ? res.etape : null
 
         if (!newEtape?.modification) {
           throw new Error()
@@ -48,6 +50,7 @@ const actions = {
         commit('heritageLoaded', true)
 
         titreDemarcheId = state.element.titreDemarcheId
+        console.log('titreDemarcheId :>> ', titreDemarcheId)
       }
 
       await dispatch('metasGet', { titreDemarcheId, id })
