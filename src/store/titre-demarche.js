@@ -5,8 +5,6 @@ import {
   demarcheSupprimer
 } from '../api/titres-demarches'
 
-import { oneData } from '../utils'
-
 const state = {
   metas: {
     types: []
@@ -17,9 +15,9 @@ const actions = {
   async init({ commit }, demarche) {
     try {
       commit('loadingAdd', 'titreDemarcheInit', { root: true })
-      const data = oneData(await demarcheMetas(demarche))
+      const data = await demarcheMetas(demarche)
 
-      commit('metasSet', { types: data })
+      commit('metasSet', { types: data ? data.demarchesTypes : null })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -32,7 +30,7 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'titreDemarcheAdd', { root: true })
-      const data = oneData(await demarcheCreer({ demarche }))
+      const data = (await demarcheCreer({ demarche })).demarcheCreer
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
@@ -53,7 +51,7 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'titreDemarcheUpdate', { root: true })
-      const data = oneData(await demarcheModifier({ demarche }))
+      const data = (await demarcheModifier({ demarche })).demarcheModifier
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
@@ -74,7 +72,7 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'titreDemarcheRemove', { root: true })
-      const data = oneData(await demarcheSupprimer({ id }))
+      const data = (await demarcheSupprimer({ id })).demarcheSupprimer
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
