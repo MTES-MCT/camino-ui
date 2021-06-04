@@ -65,6 +65,8 @@
           id="cmn-etape-edit-button-enregistrer"
           ref="save-button"
           class="btn-flash rnd-xs p-s full-x"
+          :disabled="!isFormComplete"
+          :class="isFormComplete"
           @click="save"
         >
           Enregistrer
@@ -147,11 +149,18 @@ export default {
     },
 
     etapeIsDemande() {
-      return this.editedEtape?.typeId === 'mfr'
+      return (
+        this.editedEtape?.typeId === 'mfr' &&
+        this.editedEtape?.statutId !== 'dep'
+      )
     },
 
     isPopupOpen() {
       return !!this.$store.state.popup.component
+    },
+
+    isFormComplete() {
+      return (this.etapeIsDemande && this.typeComplete) || this.complete
     }
   },
 
@@ -183,7 +192,7 @@ export default {
     },
 
     async save() {
-      if ((this.etapeIsDemande && this.typeComplete) || this.complete) {
+      if (this.isFormComplete) {
         await this.$store.dispatch('titreEtapeEdition/upsert', {
           etape: this.editedEtape
         })
@@ -212,10 +221,7 @@ export default {
         if (this.dateIsVisible && this.newDate) {
           this.$refs['date-button'].focus()
           this.dateUpdate()
-        } else if (
-          !this.loading &&
-          ((this.etapeIsDemande && this.typeComplete) || this.complete)
-        ) {
+        } else if (!this.loading && this.isFormComplete) {
           this.$refs['save-button'].focus()
           this.save()
         }

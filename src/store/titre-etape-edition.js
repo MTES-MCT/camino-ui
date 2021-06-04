@@ -148,6 +148,10 @@ const actions = {
         name: 'titre',
         params: { id: data.id }
       })
+
+      if (etape.typeId === 'mfr' && etape.statutId !== 'dep') {
+        // TODO ouvrir l’étape et scroller vers celle-c
+      }
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {

@@ -44,8 +44,8 @@ export default {
 
   computed: {
     geoSystemes() {
-      return this.$store.state.titreEtape.metas.geoSystemes.filter(({ id }) =>
-        this.geoSystemeIds.includes(id)
+      return this.$store.state.titreEtapeEdition.metas.geoSystemes.filter(
+        ({ id }) => this.geoSystemeIds.includes(id)
       )
     }
   }

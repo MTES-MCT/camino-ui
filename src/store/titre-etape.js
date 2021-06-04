@@ -1,4 +1,5 @@
-import { etape } from '../api/titres-etapes'
+import { etape, etapeDeposer } from '../api/titres-etapes'
+import router from '../router'
 
 const stateInitial = {
   element: null
@@ -22,6 +23,23 @@ const actions = {
       dispatch('pageError', null, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeGet', { root: true })
+    }
+  },
+
+  async depose({ commit, dispatch }, etapeId) {
+    try {
+      commit('loadingAdd', 'titreEtapeDepose', { root: true })
+
+      const { id } = await etapeDeposer({ id: etapeId })
+
+      await router.push({
+        name: 'titre',
+        params: { id }
+      })
+    } catch (e) {
+      dispatch('pageError', null, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeDepose', { root: true })
     }
   }
 }

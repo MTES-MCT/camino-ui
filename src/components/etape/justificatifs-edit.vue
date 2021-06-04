@@ -18,7 +18,7 @@
             typeId: ''
           }"
           :mutation="{
-            name: 'titreEtape/entrepriseDocumentAdd',
+            name: 'titreEtapeEdition/entrepriseDocumentAdd',
             params: { entrepriseId: eId }
           }"
           :parent-id="eId"

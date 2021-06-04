@@ -115,8 +115,8 @@ const etapeHeritage = apiGraphQLFetch(gql`
 `)
 
 const etapeCreer = apiGraphQLFetch(gql`
-  mutation EtapeCreer($etape: InputEtapeCreation!, $depose: Boolean) {
-    etapeCreer(etape: $etape, depose: $depose) {
+  mutation EtapeCreer($etape: InputEtapeCreation!) {
+    etapeCreer(etape: $etape) {
       ...titre
     }
   }
@@ -125,8 +125,8 @@ const etapeCreer = apiGraphQLFetch(gql`
 `)
 
 const etapeModifier = apiGraphQLFetch(gql`
-  mutation EtapeModifier($etape: InputEtapeModification!, $depose: Boolean) {
-    etapeModifier(etape: $etape, depose: $depose) {
+  mutation EtapeModifier($etape: InputEtapeModification!) {
+    etapeModifier(etape: $etape) {
       ...titre
     }
   }
@@ -142,6 +142,14 @@ const etapeSupprimer = apiGraphQLFetch(gql`
   }
 
   ${fragmentTitre}
+`)
+
+const etapeDeposer = apiGraphQLFetch(gql`
+  mutation EtapeDeposer($id: ID!) {
+    etapeDeposer(id: $id) {
+      id
+    }
+  }
 `)
 
 const etapeEntreprises = apiGraphQLFetch(
@@ -167,5 +175,6 @@ export {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
+  etapeDeposer,
   etapeEntreprises
 }

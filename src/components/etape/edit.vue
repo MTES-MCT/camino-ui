@@ -289,7 +289,7 @@ export default {
     },
 
     async typeUpdate(typeId) {
-      await this.$store.dispatch('titreEtape/heritageGet', { typeId })
+      await this.$store.dispatch('titreEtapeEdition/heritageGet', { typeId })
     },
 
     completeUpdate() {
