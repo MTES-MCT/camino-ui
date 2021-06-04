@@ -195,7 +195,7 @@ export default {
     },
 
     etapeIsDemandeEnConstruction() {
-      return this.etape.type.id === 'mfr' && this.etape.statut.id === 'enc'
+      return this.etape.type.id === 'mfr' && this.etape.statut.id === 'aco'
     }
   },
 

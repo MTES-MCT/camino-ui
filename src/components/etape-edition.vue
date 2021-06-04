@@ -147,7 +147,7 @@ export default {
     },
 
     etapeIsDemande() {
-      return this.editedEtape && this.editedEtape.typeId === 'mfr'
+      return this.editedEtape?.typeId === 'mfr'
     },
 
     isPopupOpen() {
