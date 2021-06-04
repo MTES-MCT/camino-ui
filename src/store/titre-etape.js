@@ -15,8 +15,6 @@ import {
   etapeSupprimer
 } from '../api/titres-etapes'
 
-import { oneData } from '../utils'
-
 const state = {
   element: null,
   metas: {
@@ -38,9 +36,8 @@ const actions = {
       commit('loadingAdd', 'titreEtapeInit', { root: true })
 
       if (id) {
-        const newEtape = oneData(await etape({ id }))
-        // const res = await etape({ id })
-        // const newEtape = res ? res.etape : null
+        const res = await etape({ id })
+        const newEtape = res ? res.etape : null
 
         if (!newEtape?.modification) {
           throw new Error()
@@ -111,15 +108,13 @@ const actions = {
       commit('loadingAdd', 'titreEtapeHeritageGet', { root: true })
       commit('heritageLoaded', false)
 
-      const data = oneData(
-        await etapeHeritage({
-          titreDemarcheId: state.metas.demarche.id,
-          date: state.element.date,
-          typeId
-        })
-      )
+      const data = await etapeHeritage({
+        titreDemarcheId: state.metas.demarche.id,
+        date: state.element.date,
+        typeId
+      })
 
-      const apiEtape = etapeEditFormat(data)
+      const apiEtape = etapeEditFormat(data ? data.etapeHeritage : null)
       const etapeType = state.metas.etapesTypes.find(
         et => et.id === apiEtape.typeId
       )
@@ -145,11 +140,11 @@ const actions = {
 
       let data
       if (etapeEditFormatted.id) {
-        data = oneData(
-          await etapeModifier({ etape: etapeEditFormatted, depose })
-        )
+        data = (await etapeModifier({ etape: etapeEditFormatted, depose }))
+          .etapeModifier
       } else {
-        data = oneData(await etapeCreer({ etape: etapeEditFormatted, depose }))
+        data = (await etapeCreer({ etape: etapeEditFormatted, depose }))
+          .etapeCreer
       }
 
       await router.push({
@@ -169,7 +164,7 @@ const actions = {
     commit('loadingAdd', 'titreEtapeRemove', { root: true })
 
     try {
-      const data = oneData(await etapeSupprimer({ id }))
+      const data = (await etapeSupprimer({ id })).etapeSupprimer
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })

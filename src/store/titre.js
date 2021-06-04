@@ -8,8 +8,6 @@ import {
 
 import router from '../router'
 
-import { oneData } from '../utils'
-
 const state = {
   element: null,
   metas: {
@@ -42,10 +40,10 @@ const actions = {
     try {
       commit('loadingAdd', 'titre', { root: true })
 
-      const data = oneData(await titre({ id }))
+      const data = await titre({ id })
 
       if (data) {
-        commit('set', data)
+        commit('set', data ? data.titre : null)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -62,7 +60,7 @@ const actions = {
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'titreAdd', { root: true })
 
-      const data = oneData(await titreCreer({ titre }))
+      const data = (await titreCreer({ titre })).titreCreer
 
       commit('popupClose', null, { root: true })
       router.push({ name: 'titre', params: { id: data.id } })
@@ -87,7 +85,7 @@ const actions = {
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'totreUpdate', { root: true })
 
-      const data = oneData(await titreModifier({ titre }))
+      const data = (await titreModifier({ titre })).titreModifier
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })

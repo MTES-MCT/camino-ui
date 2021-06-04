@@ -1,6 +1,6 @@
 import { urlQueryParamsGet } from '../utils/url'
 import { titresMetas, titresGeo, titres, titresGeoPolygon } from '../api/titres'
-import { paramsBuild, oneData } from '../utils/'
+import { paramsBuild } from '../utils/'
 import { listeMutations } from './_liste-build'
 
 const state = {
@@ -108,19 +108,19 @@ const actions = {
         )
 
         if (state.params.carte.zoom > 7) {
-          data = oneData(await titresGeoPolygon(definitions))
+          data = await titresGeoPolygon(definitions)
         } else {
-          data = oneData(await titresGeo(definitions))
+          data = await titresGeo(definitions)
         }
       } else {
         const definitions = paramsBuild(
           state.definitions,
           Object.assign({}, state.params.filtres, state.params.table)
         )
-        data = oneData(await titres(definitions))
+        data = await titres(definitions)
       }
 
-      commit('set', Object.freeze(data))
+      commit('set', Object.freeze(data ? data.titres : null))
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
