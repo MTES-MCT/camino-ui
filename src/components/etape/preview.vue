@@ -23,7 +23,7 @@
       <h3 class="cap-first mb-s">{{ etape.type.nom }}</h3>
 
       <div class="mb-xs">
-        <Statut :color="etape.statut.couleur" :nom="etape.statut.nom" />
+        <Statut :color="etape.statut.couleur" :nom="statutNom" />
       </div>
     </template>
 
@@ -31,6 +31,8 @@
       <button
         v-if="etapeIsDemandeEnConstruction"
         class="btn py-s px-m mr-px small"
+        :disabled="!etape.deposable"
+        :class="{ disabled: !etape.deposable }"
         @click="etapeDepot"
       >
         Déposer…
@@ -196,6 +198,12 @@ export default {
 
     hasDocuments() {
       return this.etape.documents && !!this.etape.documents.length
+    },
+
+    statutNom() {
+      return this.etapeIsDemandeEnConstruction && !this.etape.deposable
+        ? `${this.etape.statut.nom} (incomplet)`
+        : this.etape.statut.nom
     }
   },
 

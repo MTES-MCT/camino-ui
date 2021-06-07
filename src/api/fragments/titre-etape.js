@@ -182,6 +182,7 @@ const fragmentTitreEtape = gql`
     modification
     suppression
     documentsCreation
+    deposable
   }
 
   ${fragmentTitreAdministrations}
