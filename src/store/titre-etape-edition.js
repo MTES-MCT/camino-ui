@@ -144,14 +144,9 @@ const actions = {
         data = await etapeCreer({ etape: etapeEditFormatted })
       }
 
-      await router.push({
-        name: 'titre',
-        params: { id: data.id }
-      })
+      await router.push({ name: 'titre', params: { id: data.id } })
 
-      if (etape.typeId === 'mfr' && etape.statutId !== 'dep') {
-        // TODO ouvrir l’étape et scroller vers celle-c
-      }
+      commit('titre/open', { section: 'etapes', id: etape.id }, { root: true })
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {

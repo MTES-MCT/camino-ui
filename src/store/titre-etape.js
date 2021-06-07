@@ -30,12 +30,9 @@ const actions = {
     try {
       commit('loadingAdd', 'titreEtapeDepose', { root: true })
 
-      const { id } = await etapeDeposer({ id: etapeId })
+      const data = await etapeDeposer({ id: etapeId })
 
-      await router.push({
-        name: 'titre',
-        params: { id }
-      })
+      await router.push({ name: 'titre', params: { id: data.id } })
     } catch (e) {
       dispatch('pageError', null, { root: true })
     } finally {

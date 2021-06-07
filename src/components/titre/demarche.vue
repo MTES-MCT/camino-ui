@@ -71,7 +71,7 @@
 
 <script>
 import Statut from '../_common/statut.vue'
-import TitreEtape from '../etape/titre-etape.vue'
+import TitreEtape from '../etape/preview.vue'
 import EditPopup from './demarche-edit-popup.vue'
 import RemovePopup from './demarche-remove-popup.vue'
 
