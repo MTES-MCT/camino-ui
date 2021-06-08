@@ -14,7 +14,6 @@ import {
   titreEtapeHeritage2,
   titreEtapeEtapesTypes
 } from './__mocks__/titre-etape'
-import router from '../router'
 
 jest.mock('../router', () => ({
   push: jest.fn()
@@ -237,8 +236,6 @@ describe('étapes', () => {
       }
     })
 
-    expect(router.push).toHaveBeenCalled()
-
     store.commit('titreEtape/reset')
 
     expect(store.state.titreEtape.element).toBeNull()
@@ -264,8 +261,6 @@ describe('étapes', () => {
         incertitudes: {}
       }
     })
-
-    expect(router.push).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'une étape", async () => {
