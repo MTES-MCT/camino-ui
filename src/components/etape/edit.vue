@@ -79,10 +79,8 @@
       @next="next('documents')"
     >
       <DocumentsEdit
-        v-model:documents="etape.documents"
-        :documents-types="etapeType.documentsTypes"
-        repertoire="demarches"
-        :show-title="false"
+        :documents="etape.documents"
+        :etape-type-id="etapeType.id"
         @complete-update="documentsCompleteUpdate"
       />
     </Accordion>
@@ -113,7 +111,7 @@ import TypeEdit from './type-edit.vue'
 import FondamentalesEdit from './fondamentales-edit.vue'
 import PointsEdit from './points-edit.vue'
 import SectionsEdit from './sections-edit.vue'
-import DocumentsEdit from '../document/multi-edit.vue'
+import DocumentsEdit from './documents-edit.vue'
 import JustificatifsEdit from './justificatifs-edit.vue'
 import { permissionsCheck } from '../../utils'
 

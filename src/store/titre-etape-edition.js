@@ -206,6 +206,10 @@ const mutations = {
     )
 
     entreprise.documents.push(document)
+  },
+
+  documentAdd(state, { document }) {
+    state.element.documents.push(document)
   }
 }
 
