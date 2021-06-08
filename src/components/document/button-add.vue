@@ -12,7 +12,6 @@ export default {
     route: { type: Object, default: null },
     mutation: { type: Object, default: null },
     document: { type: Object, required: true },
-    parentId: { type: String, required: true },
     parentTypeId: { type: String, default: '' },
     repertoire: { type: String, required: true },
     title: { type: String, required: true }
@@ -25,10 +24,9 @@ export default {
       this.$store.commit('popupOpen', {
         component: DocumentEditPopup,
         props: {
-          route: this.route,
-          mutation: this.mutation,
-          creation: true,
           document: this.document,
+          mutation: this.mutation,
+          route: this.route,
           parentTypeId: this.parentTypeId,
           repertoire: this.repertoire,
           title: this.title

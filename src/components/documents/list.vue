@@ -14,12 +14,14 @@
         :parent-id="parentId"
         :parent-type-id="parentTypeId"
         :route="route"
+        :mutation="mutation"
         :repertoire="repertoire"
         :title="title"
         :etiquette="etiquette"
         :bouton-suppression="boutonSuppression && document.suppression"
         :bouton-modification="boutonModification && document.modification"
         :bouton-dissociation="boutonDissociation"
+        :manquant-show="manquantShow"
       />
     </table>
   </div>
@@ -39,11 +41,13 @@ export default {
     boutonDissociation: { type: Boolean, default: false },
     boutonModification: { type: Boolean, default: false },
     boutonSuppression: { type: Boolean, default: false },
-    route: { type: Object, default: () => ({}) },
+    route: { type: Object, default: null },
+    mutation: { type: Object, default: null },
     parentId: { type: String, default: '' },
     parentTypeId: { type: String, default: '' },
     repertoire: { type: String, default: '' },
-    title: { type: String, default: '' }
+    title: { type: String, default: '' },
+    manquantShow: { type: Boolean, default: false }
   }
 }
 </script>

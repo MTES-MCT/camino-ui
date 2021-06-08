@@ -81,6 +81,8 @@
       <DocumentsEdit
         :documents="etape.documents"
         :etape-type-id="etapeType.id"
+        :documents-types="etapeType.documentsTypes"
+        :user-is-admin="userIsAdmin"
         @complete-update="documentsCompleteUpdate"
       />
     </Accordion>
@@ -274,7 +276,7 @@ export default {
     },
 
     userIsAdmin() {
-      return permissionsCheck(this.user, ['super', 'admin', 'editeur'])
+      return this.$store.getters['user/userIsAdmin']
     }
   },
 

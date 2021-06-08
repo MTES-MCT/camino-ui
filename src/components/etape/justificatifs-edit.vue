@@ -21,7 +21,6 @@
             name: 'titreEtapeEdition/entrepriseDocumentAdd',
             params: { entrepriseId: eId }
           }"
-          :parent-id="eId"
           :title="e.nom"
           repertoire="entreprises"
           class="btn py-s px-m rnd-xs flex-right mt--s mb-s"

@@ -15,6 +15,7 @@
     </h6>
     <h1>Étape</h1>
 
+    {{ editedEtape.documents }}
     <div v-if="dateIsVisible" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h5>Date</h5>

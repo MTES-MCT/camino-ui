@@ -8,7 +8,7 @@
           </span>
         </h6>
         <h2 class="cap-first">
-          {{ creation ? "Ajout d'un" : 'Modification du' }} document
+          {{ document.id ? "Ajout d'un" : 'Modification du' }} document
         </h2>
       </div>
     </template>
@@ -87,7 +87,6 @@ export default {
     title: { type: String, required: true },
     route: { type: Object, default: null },
     mutation: { type: Object, default: null },
-    creation: { type: Boolean, default: false },
     document: { type: Object, required: true },
     repertoire: { type: String, required: true },
     parentTypeId: { type: String, default: '' }
@@ -142,8 +141,7 @@ export default {
       await this.$store.dispatch('document/upsert', {
         document: this.document,
         route: this.route,
-        mutation: this.mutation,
-        creation: this.creation
+        mutation: this.mutation
       })
 
       this.eventTrack({

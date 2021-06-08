@@ -90,31 +90,27 @@ describe('documents', () => {
     api.documentCreer.mockResolvedValue({ id: 14, nom: 'champs' })
     await store.dispatch('document/upsert', {
       document: { id: 14, nom: 'champs' },
-      route: { name: 'titre', id: 'titre-id', section: 'etapes' },
-      creation: true
+      route: { name: 'titre', id: 'titre-id', section: 'etapes' }
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
 
     await store.dispatch('document/upsert', {
       document: { id: 14, nom: 'champs' },
-      route: { name: 'titre', id: 'titre-id', section: 'travaux' },
-      creation: true
+      route: { name: 'titre', id: 'titre-id', section: 'travaux' }
+    })
+
+    expect(mutations.popupClose).toHaveBeenCalled()
+
+    await store.dispatch('document/upsert', {
+      document: { id: 14, nom: 'champs' }
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
 
     await store.dispatch('document/upsert', {
       document: { id: 14, nom: 'champs' },
-      creation: true
-    })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-
-    await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' },
-      route: 'something',
-      creation: true
+      route: 'something'
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
@@ -123,8 +119,7 @@ describe('documents', () => {
   test("retourne une erreur si l'API retourne une erreur lors de l'ajout d'un document", async () => {
     api.documentCreer.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' },
-      creation: true
+      document: { id: 14, nom: 'champs' }
     })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()

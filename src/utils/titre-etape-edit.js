@@ -196,10 +196,6 @@ const etapeEditFormat = etape => {
 
       document.typeId = document.type.id
       document.fichierNouveau = null
-
-      delete document.type
-      delete document.modification
-      delete document.suppression
     })
   } else {
     etape.documents = []

@@ -20,6 +20,13 @@
           Entreprise
         </Tag>
       </span>
+      <Tag
+        v-if="manquant && manquantShow"
+        color="bg-warning"
+        class="ml-xs"
+        :mini="true"
+        >Fichier manquant</Tag
+      >
     </td>
     <td class="nowrap pt-m">
       {{ dateFormat(document.date) }}
@@ -27,14 +34,14 @@
     <td class="pt-m">{{ document.description || '–' }}</td>
     <td class="flex text-right">
       <button
-        v-if="modifiable"
+        v-if="boutonModification"
         class="btn rnd-l-xs py-s px-m my--xs mr-px"
         @click="editPopupOpen"
       >
         <i class="icon-24 icon-pencil" />
       </button>
       <button
-        v-if="supprimable"
+        v-if="boutonSuppression"
         class="btn py-s px-m my--xs"
         :class="{
           'rnd-r-xs': !document.url && !document.uri && !document.fichier
@@ -48,7 +55,8 @@
         class="btn-border py-s px-m my--xs"
         :class="{
           'rnd-r-xs': !document.url && !document.uri,
-          'rnd-l-xs': !modifiable && !supprimable && !dissociable
+          'rnd-l-xs':
+            !boutonModification && !boutonSuppression && !boutonDissociation
         }"
         @click="download"
       >
@@ -60,7 +68,10 @@
         :class="{
           'rnd-r-xs': !document.uri,
           'rnd-l-xs':
-            !document.fichier && !modifiable && !supprimable && !dissociable
+            !document.fichier &&
+            !boutonModification &&
+            !boutonSuppression &&
+            !boutonDissociation
         }"
         :href="document.url"
         target="_blank"
@@ -77,8 +88,8 @@
             !document.url &&
             !document.fichier &&
             !boutonModification &&
-            !supprimable &&
-            !dissociable
+            !boutonSuppression &&
+            !boutonDissociation
         }"
         :href="document.uri"
         target="_blank"
@@ -108,34 +119,22 @@ export default {
     boutonDissociation: { type: Boolean, default: false },
     boutonModification: { type: Boolean, default: false },
     boutonSuppression: { type: Boolean, default: false },
-    route: { type: Object, default: () => ({}) },
+    route: { type: Object, default: null },
+    mutation: { type: Object, default: null },
     parentId: { type: String, default: '' },
     parentTypeId: { type: String, default: '' },
     repertoire: { type: String, default: '' },
-    title: { type: String, default: '' }
+    title: { type: String, default: '' },
+    manquantShow: { type: Boolean, default: false }
   },
 
   computed: {
-    supprimable() {
-      return this.boutonSuppression && this.title && this.route.name
-    },
-
-    modifiable() {
-      return (
-        this.boutonModification &&
-        this.title &&
-        this.route.name &&
-        this.parentId &&
-        this.repertoire
-      )
-    },
-
-    dissociable() {
-      return (
-        this.boutonDissociation &&
-        this.title &&
-        this.parentId &&
-        this.route.name
+    manquant() {
+      return !(
+        this.document.fichier ||
+        this.document.fichierNouveau ||
+        this.document.uri ||
+        this.document.url
       )
     }
   },
@@ -147,14 +146,16 @@ export default {
 
     editPopupOpen() {
       const document = cloneAndClean(this.document)
-      if (this.repertoire === 'demarches') {
-        document.titreEtapeId = this.parentId
-      } else if (this.repertoire === 'activites') {
-        document.titreActiviteId = this.parentId
-      } else if (this.repertoire === 'entreprises') {
-        document.entrepriseId = this.parentId
-      } else if (this.repertoire === 'travaux') {
-        document.titreTravauxEtapeId = this.parentId
+      if (this.parentId) {
+        if (this.repertoire === 'demarches') {
+          document.titreEtapeId = this.parentId
+        } else if (this.repertoire === 'activites') {
+          document.titreActiviteId = this.parentId
+        } else if (this.repertoire === 'entreprises') {
+          document.entrepriseId = this.parentId
+        } else if (this.repertoire === 'travaux') {
+          document.titreTravauxEtapeId = this.parentId
+        }
       }
 
       document.typeId = document.type.id
@@ -169,6 +170,7 @@ export default {
         props: {
           title: this.title,
           route: this.route,
+          mutation: this.mutation,
           document,
           repertoire: this.repertoire,
           parentTypeId: this.parentTypeId
