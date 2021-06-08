@@ -1,5 +1,5 @@
 <template>
-  <List
+  <Documents
     :documents="documents"
     :bouton-modification="true"
     :bouton-suppression="true"
@@ -8,6 +8,8 @@
     }"
     :manquant-show="true"
     repertoire="demarches"
+    :title="documentPopupTitle"
+    :temporaire="true"
   />
 
   <DocumentAddButton
@@ -27,22 +29,24 @@
     repertoire="demarches"
     class="btn py-s px-m rnd-xs flex-right mt--s mb-s"
     :parent-type-id="etapeTypeId"
+    :temporaire="true"
   />
 </template>
 
 <script>
 import DocumentAddButton from '../document/button-add.vue'
-import List from '../documents/list.vue'
+import Documents from '../documents/list.vue'
 import { TODAY } from '@/utils'
 
 export default {
-  components: { DocumentAddButton, List },
+  components: { DocumentAddButton, Documents },
 
   props: {
     documents: { type: Array, required: true },
     etapeTypeId: { type: String, required: true },
     documentsTypes: { type: Array, required: true },
-    userIsAdmin: { type: Boolean, required: true }
+    userIsAdmin: { type: Boolean, required: true },
+    documentPopupTitle: { type: String, required: true }
   },
 
   emits: ['complete-update'],
@@ -76,27 +80,6 @@ export default {
   },
 
   methods: {
-    documentAdd(documentTypeId) {
-      const documentNew = {
-        id: documentTypeId,
-        typeId: documentTypeId,
-        entreprisesLecture: !this.userIsAdmin,
-        publicLecture: false,
-        fichier: null,
-        fichierNouveau: null,
-        fichierTypeId: null,
-        date: this.today,
-        modification: true,
-        suppression: true
-      }
-
-      this.documents.push(documentNew)
-
-      if (this.newDocumentTypeId) {
-        this.newDocumentTypeId = null
-      }
-    },
-
     completeUpdate() {
       this.$emit('complete-update', this.complete)
     }

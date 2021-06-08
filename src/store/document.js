@@ -27,7 +27,10 @@ const actions = {
     }
   },
 
-  async upsert({ commit, dispatch }, { document, route, mutation }) {
+  async upsert(
+    { commit, dispatch },
+    { document, route, mutation, temporaire }
+  ) {
     try {
       commit('loadingAdd', 'documentUpsert', { root: true })
 
@@ -40,13 +43,9 @@ const actions = {
 
       let d
 
-      // dans la création d’une étape, les documents obligatoires sont crées avec un id égal à leur typeId
-      if (document.id === document.typeId) {
+      if (temporaire) {
         delete document.id
       }
-      delete document.type
-      delete document.modification
-      delete document.suppression
 
       if (!document.id) {
         d = await documentCreer({ document })
@@ -78,7 +77,12 @@ const actions = {
           commit('titre/open', { section, id }, { root: true })
         }
       } else if (mutation) {
-        const params = { ...mutation.params, document: d, idOld }
+        const params = { ...mutation.params, document: d }
+
+        if (temporaire) {
+          params.idOld = idOld
+        }
+
         commit(mutation.name, params, { root: true })
       }
     } catch (e) {

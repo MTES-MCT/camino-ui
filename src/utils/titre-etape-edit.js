@@ -190,15 +190,10 @@ const etapeEditFormat = etape => {
     etape.contenu = {}
   }
 
-  if (etape.documents) {
-    etape.documents.forEach(document => {
-      document.titreEtapeId = etape.id
-
-      document.typeId = document.type.id
-      document.fichierNouveau = null
-    })
-  } else {
+  if (!etape.documents) {
     etape.documents = []
+  } else {
+    etape.documents = etape.documents.map(documentEtapeFormat)
   }
 
   if (!etape.justificatifs) {
@@ -216,4 +211,11 @@ const etapeEditFormat = etape => {
   return etape
 }
 
-export { etapeEditFormat, etapeGroupesBuild }
+const documentEtapeFormat = document => {
+  document.typeId = document.type.id
+  document.fichierNouveau = null
+
+  return document
+}
+
+export { etapeEditFormat, etapeGroupesBuild, documentEtapeFormat }

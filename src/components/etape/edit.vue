@@ -13,7 +13,7 @@
       <TypeEdit
         v-model:etape="etape"
         :user-is-admin="userIsAdmin"
-        :etape-types="etapeTypes"
+        :etapes-types="etapesTypes"
         :etape-type="etapeType"
         :etape-is-demande-en-construction="etapeIsDemandeEnConstruction"
         @type-update="typeUpdate"
@@ -83,6 +83,7 @@
         :etape-type-id="etapeType.id"
         :documents-types="etapeType.documentsTypes"
         :user-is-admin="userIsAdmin"
+        :document-popup-title="documentPopupTitle"
         @complete-update="documentsCompleteUpdate"
       />
     </Accordion>
@@ -115,7 +116,6 @@ import PointsEdit from './points-edit.vue'
 import SectionsEdit from './sections-edit.vue'
 import DocumentsEdit from './documents-edit.vue'
 import JustificatifsEdit from './justificatifs-edit.vue'
-import { permissionsCheck } from '../../utils'
 
 export default {
   components: {
@@ -130,10 +130,12 @@ export default {
 
   props: {
     etape: { type: Object, required: true },
+    etapeType: { type: Object, required: true },
     domaineId: { type: String, required: true },
     events: { type: Object, required: true },
     user: { type: Object, required: true },
-    etapeIsDemandeEnConstruction: { type: Boolean, required: true }
+    etapeIsDemandeEnConstruction: { type: Boolean, required: true },
+    documentPopupTitle: { type: String, required: true }
   },
 
   emits: ['complete-update', 'type-complete-update'],
@@ -157,14 +159,10 @@ export default {
   },
 
   computed: {
-    etapeTypes() {
+    etapesTypes() {
       return this.$store.state.titreEtapeEdition.metas.etapesTypes.filter(
         t => t.etapesCreation
       )
-    },
-
-    etapeType() {
-      return this.etapeTypes.find(et => et.id === this.etape.typeId)
     },
 
     entreprises() {

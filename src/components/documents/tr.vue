@@ -115,17 +115,18 @@ export default {
 
   props: {
     document: { type: Object, required: true },
-    etiquette: { type: Boolean, default: false },
-    boutonDissociation: { type: Boolean, default: false },
-    boutonModification: { type: Boolean, default: false },
-    boutonSuppression: { type: Boolean, default: false },
+    repertoire: { type: String, required: true },
+    title: { type: String, required: true },
     route: { type: Object, default: null },
     mutation: { type: Object, default: null },
     parentId: { type: String, default: '' },
     parentTypeId: { type: String, default: '' },
-    repertoire: { type: String, default: '' },
-    title: { type: String, default: '' },
-    manquantShow: { type: Boolean, default: false }
+    etiquette: { type: Boolean, default: false },
+    boutonDissociation: { type: Boolean, default: false },
+    boutonModification: { type: Boolean, default: false },
+    boutonSuppression: { type: Boolean, default: false },
+    manquantShow: { type: Boolean, default: false },
+    temporaire: { type: Boolean, default: false }
   },
 
   computed: {
@@ -173,7 +174,8 @@ export default {
           mutation: this.mutation,
           document,
           repertoire: this.repertoire,
-          parentTypeId: this.parentTypeId
+          parentTypeId: this.parentTypeId,
+          temporaire: this.temporaire
         }
       })
     },

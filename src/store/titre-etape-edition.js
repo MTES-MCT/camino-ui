@@ -1,5 +1,5 @@
 import { TODAY } from '../utils'
-import { etapeEditFormat } from '../utils/titre-etape-edit'
+import { documentEtapeFormat, etapeEditFormat } from '../utils/titre-etape-edit'
 import { etapeSaveFormat } from '../utils/titre-etape-save'
 import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
 
@@ -7,11 +7,11 @@ import router from '../router'
 
 import {
   etape,
-  etapeHeritage,
-  titreEtapeMetas,
-  titreEtapeEtapesTypes,
   etapeCreer,
-  etapeModifier
+  etapeHeritage,
+  etapeModifier,
+  titreEtapeEtapesTypes,
+  titreEtapeMetas
 } from '../api/titres-etapes'
 
 const state = {
@@ -269,33 +269,29 @@ const mutations = {
   },
 
   documentAdd(state, { document, idOld }) {
-    const documentType = document.type
-
+    document = documentEtapeFormat(document)
     if (idOld) {
-      if (!documentType.optionnel) {
-        const documents = state.element.documents.filter(
-          d => d.typeId === documentType.id
-        )
-
-        document.suppression = documents.length > 1
-      } else {
-        document.suppression = true
-      }
       const index = state.element.documents.findIndex(({ id }) => id === idOld)
       state.element.documents[index] = document
     } else {
-      const documents = state.element.documents.filter(
-        d => d.typeId === documentType.id
-      )
-      for (const d of documents) {
-        d.suppression = true
-        const index = state.element.documents.findIndex(({ id }) => id === d.id)
-        state.element.documents[index] = d
-      }
-
-      document.suppression = true
       state.element.documents.push(document)
     }
+
+    const etapeType = state.metas.etapesTypes.find(
+      et => et.id === state.element.typeId
+    )
+
+    // on met à jour la propriété de suppression de chaque document
+    state.element.documents.forEach(d => {
+      const documentType = etapeType.documentsTypes.find(
+        ({ id }) => id === d.type.id
+      )
+      d.suppression =
+        !documentType ||
+        documentType.optionnel ||
+        state.element.documents.filter(({ type }) => type.id === d.typeId)
+          .length > 1
+    })
   }
 }
 
