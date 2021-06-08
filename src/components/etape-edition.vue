@@ -26,24 +26,15 @@
 
     <Edit
       v-else
-      :etape="etape"
+      :etape="editedEtape"
       :user="user"
-      :modifiable="modifiable"
-      :etape-is-demande="etapeIsDemande"
-      :domaine-id="domaineId"
-      :titre-type-id="titreType.type.id"
       :events="events"
+      :etape-is-demande-en-construction="etapeIsDemandeEnConstruction"
+      :domaine-id="domaineId"
+      :titre-type-id="titreTypeTypeId"
       @complete-update="completeUpdate"
       @type-complete-update="typeCompleteUpdate"
     />
-
-    <div
-      v-if="etapeIsDemande && !modifiable"
-      id="cmn-titre-activite-edit-popup-warning"
-      class="p-s bg-warning color-bg bold mb"
-    >
-      Une fois déposée cette étape ne sera plus modifiable.
-    </div>
 
     <div v-if="loading" class="tablet-blobs">
       <div class="tablet-blob-1-3" />
@@ -67,69 +58,18 @@
       </div>
     </div>
 
-    <div v-else-if="modifiable" class="tablet-blobs mb">
+    <div v-else class="tablet-blobs mb">
       <div class="tablet-blob-1-3" />
       <div class="tablet-blob-2-3">
         <button
-          id="cmn-etape-edit-button-previsualiser"
-          ref="preview-button"
-          class="btn-flash rnd-xs p-s full-x"
-          @click="preview"
-        >
-          Prévisualiser…
-        </button>
-      </div>
-    </div>
-
-    <div v-else class="tablet-blobs mb">
-      <div class="tablet-blob-1-3">
-        <button
-          ref="modifier-button"
-          class="btn-border rnd-xs p-s full-x mb-s"
-          @click="edit"
-        >
-          Modifier…
-        </button>
-      </div>
-
-      <div class="tablet-blob-2-3">
-        <div v-if="etapeIsDemande" class="tablet-blobs">
-          <div class="tablet-blob-1-2">
-            <button
-              ref="en-construction-button"
-              class="rnd-xs p-s full-x mb-s"
-              :disabled="!typeComplete"
-              :class="{
-                disabled: !typeComplete,
-                'btn-flash': !complete,
-                btn: complete
-              }"
-              @click="save(false)"
-            >
-              En construction
-            </button>
-          </div>
-          <div class="tablet-blob-1-2">
-            <button
-              ref="save-depose-button"
-              class="btn-flash rnd-xs p-s full-x"
-              :disabled="!complete"
-              :class="{ disabled: !complete }"
-              @click="save(true)"
-            >
-              Déposer
-            </button>
-          </div>
-        </div>
-        <button
-          v-else
+          id="cmn-etape-edit-button-enregistrer"
           ref="save-button"
-          class="btn-flash rnd-xs p-s full-x mb-s"
-          :disabled="!complete"
-          :class="{ disabled: !complete }"
-          @click="save()"
+          class="btn-flash rnd-xs p-s full-x"
+          :disabled="!isFormComplete"
+          :class="isFormComplete"
+          @click="save"
         >
-          Valider
+          Enregistrer
         </button>
       </div>
     </div>
@@ -137,6 +77,7 @@
 </template>
 
 <script>
+import { dateFormat } from '@/utils'
 import Loader from './_ui/loader.vue'
 import InputDate from './_ui/input-date.vue'
 import Edit from './etape/edit.vue'
@@ -146,7 +87,6 @@ export default {
 
   data() {
     return {
-      modifiable: true,
       complete: false,
       typeComplete: false,
       newDate: new Date().toISOString().slice(0, 10),
@@ -156,7 +96,7 @@ export default {
 
   computed: {
     loaded() {
-      return this.$store.state.titreEtape.loaded
+      return this.$store.state.titreEtapeEdition.loaded
     },
 
     user() {
@@ -167,16 +107,12 @@ export default {
       return this.$route.params.id
     },
 
-    etape() {
-      return this.$store.state.titreEtape.element
+    editedEtape() {
+      return this.$store.state.titreEtapeEdition.element
     },
 
     demarche() {
-      return this.$store.state.titreEtape.metas.demarche
-    },
-
-    dateIsVisible() {
-      return !this.etape?.date
+      return this.$store.state.titreEtapeEdition.metas.demarche
     },
 
     demarcheType() {
@@ -195,6 +131,14 @@ export default {
       return this.titre ? this.titre.type : ''
     },
 
+    titreTypeTypeId() {
+      return this.titreType ? this.titreType.type.id : ''
+    },
+
+    dateIsVisible() {
+      return !this.editedEtape.date
+    },
+
     loading() {
       return (
         this.$store.state.loading.includes('titreEtapeUpdate') ||
@@ -204,12 +148,22 @@ export default {
       )
     },
 
-    etapeIsDemande() {
-      return this.etape && this.etape.typeId === 'mfr'
+    etapeIsDemandeEnConstruction() {
+      return (
+        this.editedEtape?.typeId === 'mfr' &&
+        this.editedEtape?.statutId !== 'dep'
+      )
     },
 
     isPopupOpen() {
       return !!this.$store.state.popup.component
+    },
+
+    isFormComplete() {
+      return (
+        (this.etapeIsDemandeEnConstruction && this.typeComplete) ||
+        this.complete
+      )
     }
   },
 
@@ -228,32 +182,28 @@ export default {
   },
 
   unmounted() {
-    this.$store.commit('titreEtape/reset')
+    this.$store.commit('titreEtapeEdition/reset')
   },
 
   methods: {
     async init() {
-      await this.$store.dispatch('titreEtape/init', {
+      await this.$store.dispatch('titreEtapeEdition/init', {
         titreDemarcheId: this.$route.query['demarche-id'],
         id: this.etapeId,
         date: this.newDate
       })
     },
 
-    async save(depose) {
-      if (
-        (this.etapeIsDemande && !depose && this.typeComplete) ||
-        this.complete
-      ) {
-        await this.$store.dispatch('titreEtape/upsert', {
-          etape: this.etape,
-          depose
+    async save() {
+      if (this.isFormComplete) {
+        await this.$store.dispatch('titreEtapeEdition/upsert', {
+          etape: this.editedEtape
         })
 
         this.eventTrack({
           categorie: 'titre-etape',
           action: 'titre-etape-enregistrer',
-          nom: this.etape.id
+          nom: this.editedEtape.id
         })
       }
     },
@@ -265,12 +215,7 @@ export default {
     },
 
     keyUp(e) {
-      if ((e.which || e.keyCode) === 27 && !this.isPopupOpen) {
-        if (this.modifiable) {
-          this.$refs['modifier-button'].focus()
-          this.edit()
-        }
-      } else if (
+      if (
         (e.which || e.keyCode) === 13 &&
         this.events.saveKeyUp &&
         this.complete &&
@@ -279,29 +224,11 @@ export default {
         if (this.dateIsVisible && this.newDate) {
           this.$refs['date-button'].focus()
           this.dateUpdate()
-        } else if (this.modifiable) {
-          this.preview()
-        } else if (!this.loading && this.etapeIsDemande && this.complete) {
-          this.$refs['save-depose-button'].focus()
-          this.save(true)
-        } else if (!this.loading && this.etapeIsDemande && this.typeComplete) {
-          this.$refs['en-construction-button'].focus()
-          this.save(false)
-        } else if (!this.loading && this.complete) {
+        } else if (!this.loading && this.isFormComplete) {
           this.$refs['save-button'].focus()
           this.save()
         }
       }
-    },
-
-    preview() {
-      this.modifiable = false
-      this.scrollToTop()
-    },
-
-    edit() {
-      this.modifiable = true
-      this.scrollToTop()
     },
 
     completeUpdate(complete) {
@@ -313,15 +240,13 @@ export default {
     },
 
     async dateUpdate() {
-      await this.$store.dispatch('titreEtape/dateUpdate', {
+      await this.$store.dispatch('titreEtapeEdition/dateUpdate', {
         date: this.newDate
       })
     },
 
-    scrollToTop() {
-      setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-      }, 500)
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 }

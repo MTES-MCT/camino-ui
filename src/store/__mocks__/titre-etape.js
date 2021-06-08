@@ -67,7 +67,7 @@ const titreEtapeEtapesTypes = [
   { id: 'c', nom: 'carrières' }
 ]
 
-const titreEtapeEdition = {
+const titreEtapeEdited = {
   id: 'etape-id',
   titreDemarcheId: 'demarche-id',
   date: '2020-01-01',
@@ -193,7 +193,7 @@ export {
   titreEtapeEtapesTypes,
   titreEtapeMetasRes,
   titreEtapeMetasRes2,
-  titreEtapeEdition,
+  titreEtapeEdited,
   titreEtapeCreation,
   titreEtapeHeritage1,
   titreEtapeHeritageRes1,

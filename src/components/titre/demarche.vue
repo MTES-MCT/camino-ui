@@ -26,7 +26,7 @@
             }"
             @click="etapeAdd"
           >
-            <span class="mt-xxs">Ajouter une étape</span>
+            <span class="mt-xxs">Ajouter une étape…</span>
           </button>
           <button
             v-if="demarche.modification"
@@ -55,9 +55,14 @@
       :key="etape.id"
       :etape="etape"
       :demarche-type="demarche.type"
+      :titre-type-type="titreType.type"
       :domaine-id="domaineId"
-      :titre-type-id="titreType.type.id"
-      @titre-event-track="eventTrack"
+      :titre-id="titreId"
+      :titre-nom="titreNom"
+      :opened="etapeOpened[etape.id]"
+      @event-track="eventTrack"
+      @close="etapeClose(etape.id)"
+      @toggle="etapeToggle(etape.id)"
     />
 
     <div class="line width-full my-xxl" />
@@ -66,7 +71,7 @@
 
 <script>
 import Statut from '../_common/statut.vue'
-import TitreEtape from './etape.vue'
+import TitreEtape from '../etape/preview.vue'
 import EditPopup from './demarche-edit-popup.vue'
 import RemovePopup from './demarche-remove-popup.vue'
 
@@ -85,6 +90,12 @@ export default {
   },
 
   emits: ['titre-event-track'],
+
+  computed: {
+    etapeOpened() {
+      return this.$store.state.titre.opened.etapes
+    }
+  },
 
   methods: {
     editPopupOpen() {
@@ -140,6 +151,14 @@ export default {
         action: 'titre-etape_ajouter',
         nom: this.$route.params.id
       })
+    },
+
+    etapeClose(id) {
+      this.$store.commit('titre/close', { section: 'etapes', id })
+    },
+
+    etapeToggle(id) {
+      this.$store.commit('titre/toggle', { section: 'etapes', id })
     },
 
     eventTrack(event) {

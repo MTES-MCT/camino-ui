@@ -33,6 +33,7 @@ const StatistiquesGuyane = () => import('../components/statistiques/guyane.vue')
 const StatistiquesGranulatsMarins = () =>
   import('../components/statistiques/granulats-marins.vue')
 const TitreCreation = () => import('../components/titre-creation.vue')
+const Etape = () => import('../components/etape.vue')
 const EtapeEdition = () => import('../components/etape-edition.vue')
 
 const routes = [
@@ -55,6 +56,21 @@ const routes = [
     path: '/demarches',
     name: 'demarches',
     component: Demarches
+  },
+  {
+    path: '/etapes/:id',
+    name: 'etape',
+    component: Etape
+  },
+  {
+    path: '/etapes/creation',
+    name: 'etape-creation',
+    component: EtapeEdition
+  },
+  {
+    path: '/etapes/:id/edition',
+    name: 'etape-edition',
+    component: EtapeEdition
   },
   {
     path: '/utilisateurs',
@@ -187,16 +203,6 @@ const routes = [
         component: StatistiquesGranulatsMarins
       }
     ]
-  },
-  {
-    path: '/etapes/creation',
-    name: 'etape-creation',
-    component: EtapeEdition
-  },
-  {
-    path: '/etapes/:id/edition',
-    name: 'etape-edition',
-    component: EtapeEdition
   },
   // url /stats : demande de Samuel
   // pour avoir une uniformité entre toutes les start-ups

@@ -23,7 +23,7 @@ const fragmentTitreDemarche = gql`
       }
     }
     etapes {
-      ...etape
+      ...titreEtape
     }
 
     modification

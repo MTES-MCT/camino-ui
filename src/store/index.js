@@ -10,6 +10,7 @@ import titre from './titre'
 import titreDemarche from './titre-demarche'
 import titreCreation from './titre-creation'
 import titreEtape from './titre-etape'
+import titreEtapeEdition from './titre-etape-edition'
 import titreTravaux from './titre-travaux'
 import titreTravauxEtape from './titre-travaux-etape'
 import document from './document'
@@ -34,6 +35,7 @@ const modules = {
   titreDemarche,
   titreCreation,
   titreEtape,
+  titreEtapeEdition,
   document,
   titres,
   titresDemarches,
