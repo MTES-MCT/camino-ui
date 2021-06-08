@@ -26,7 +26,7 @@
             }"
             @click="etapeAdd"
           >
-            <span class="mt-xxs">Ajouter une étape</span>
+            <span class="mt-xxs">Ajouter une étape…</span>
           </button>
           <button
             v-if="demarche.modification"

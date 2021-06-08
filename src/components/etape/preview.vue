@@ -30,12 +30,12 @@
     <template v-if="etape.modification || etape.suppression" #buttons>
       <button
         v-if="etapeIsDemandeEnConstruction"
-        class="btn py-s px-m mr-px small"
+        class="btn py-s px-m flex mr-px small"
         :disabled="!etape.deposable"
         :class="{ disabled: !etape.deposable }"
         @click="etapeDepot"
       >
-        Déposer…
+        <span class="mt-xxs mb-xxs">Déposer…</span>
       </button>
 
       <button
@@ -129,6 +129,7 @@ import Accordion from '../_ui/accordion.vue'
 import Tag from '../_ui/tag.vue'
 import Statut from '../_common/statut.vue'
 import RemovePopup from './remove.vue'
+import DeposePopup from './depose-popup.vue'
 
 export default {
   components: {
@@ -234,9 +235,11 @@ export default {
     },
 
     etapeDepot() {
-      this.$router.push({
-        name: 'etape-depot',
-        params: { id: this.etape.id }
+      this.$store.commit('popupOpen', {
+        component: DeposePopup,
+        props: {
+          etape: this.etape
+        }
       })
 
       this.eventTrack({

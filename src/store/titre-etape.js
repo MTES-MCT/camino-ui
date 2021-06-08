@@ -1,5 +1,4 @@
-import { etape, etapeDeposer } from '../api/titres-etapes'
-import router from '../router'
+import { etape, etapeDeposer, etapeSupprimer } from '../api/titres-etapes'
 
 const stateInitial = {
   element: null
@@ -15,12 +14,12 @@ const actions = {
       const newEtape = await etape({ id })
 
       if (!newEtape) {
-        throw new Error()
+        dispatch('pageError', null, { root: true })
       }
 
       commit('set', { etape: newEtape })
     } catch (e) {
-      dispatch('pageError', null, { root: true })
+      dispatch('apiError', e, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeGet', { root: true })
     }
@@ -28,24 +27,49 @@ const actions = {
 
   async depose({ commit, dispatch }, etapeId) {
     try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'titreEtapeDepose', { root: true })
 
       const data = await etapeDeposer({ id: etapeId })
 
-      await router.push({ name: 'titre', params: { id: data.id } })
+      commit('popupClose', null, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      dispatch(
+        'messageAdd',
+        { value: `la demande a été déposée`, type: 'success' },
+        { root: true }
+      )
     } catch (e) {
-      dispatch('pageError', null, { root: true })
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeDepose', { root: true })
+    }
+  },
+
+  async remove({ commit, dispatch }, id) {
+    try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'titreEtapeRemove', { root: true })
+      const data = await etapeSupprimer({ id })
+
+      commit('popupClose', null, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      dispatch(
+        'messageAdd',
+        { value: `le titre a été mis à jour`, type: 'success' },
+        { root: true }
+      )
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreEtapeRemove', { root: true })
     }
   }
 }
 
 const mutations = {
-  load(state) {
-    state.loaded = true
-  },
-
   set(state, { etape }) {
     state.element = etape
   }

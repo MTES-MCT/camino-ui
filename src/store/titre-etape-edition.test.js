@@ -276,22 +276,4 @@ describe('étapes', () => {
 
     expect(actions.apiError).toHaveBeenCalled()
   })
-
-  test('supprime une étape', async () => {
-    const apiMock = api.etapeSupprimer.mockResolvedValue(14)
-    await store.dispatch('titreEtapeEdition/remove', 14)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 14 })
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur lors de la suppression d'une étape", async () => {
-    const apiMock = api.etapeSupprimer.mockRejectedValue(
-      new Error("erreur de l'api")
-    )
-    await store.dispatch('titreEtapeEdition/remove', 14)
-
-    expect(apiMock).toHaveBeenCalledWith({ id: 14 })
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
 })
