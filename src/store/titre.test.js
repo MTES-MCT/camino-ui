@@ -131,12 +131,10 @@ describe('état du titre sélectionné', () => {
   })
 
   test('met à jour un titre', async () => {
-    store = createStore({ modules: { titre }, actions, mutations })
     api.titreModifier.mockResolvedValue({ id: 83, nom: 'marne' })
     await store.dispatch('titre/update', { id: 83, nom: 'marne' })
 
     expect(mutations.popupClose).toHaveBeenCalled()
-    expect(actions.reload).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'un titre", async () => {

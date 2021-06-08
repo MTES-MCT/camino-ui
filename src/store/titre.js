@@ -60,7 +60,8 @@ const actions = {
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'titreAdd', { root: true })
 
-      const data = (await titreCreer({ titre })).titreCreer
+      const res = await titreCreer({ titre })
+      const data = res ? res.titreCreer : null
 
       commit('popupClose', null, { root: true })
       router.push({ name: 'titre', params: { id: data.id } })
@@ -85,7 +86,8 @@ const actions = {
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'totreUpdate', { root: true })
 
-      const data = (await titreModifier({ titre })).titreModifier
+      const res = await titreModifier({ titre })
+      const data = res ? res.titreModifier : null
 
       commit('popupClose', null, { root: true })
       await dispatch('reload', { name: 'titre', id: data.id }, { root: true })

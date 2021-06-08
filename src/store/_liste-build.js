@@ -44,7 +44,9 @@ const listeActionsBuild = (id, name, elements, metas) => ({
       )
 
       const res = await elements(p)
+
       let data = null
+      if (name === 'élements') data = res.elements
       if (name === 'activités') data = res.activites
       if (name === 'administrations') data = res.administrations
       if (name === 'utilisateurs') data = res.utilisateurs

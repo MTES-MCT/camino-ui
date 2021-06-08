@@ -87,10 +87,10 @@ describe('listes', () => {
       { id: 'ope', nom: 'Opérateur' },
       { id: 'dea', nom: 'Déal' }
     ]
-    const apiMetasMock = listeMetasGet.mockResolvedValue({ key: types })
+    const apiMetasMock = listeMetasGet.mockResolvedValue(types)
 
     const apiMock = listeElementsGet.mockResolvedValue({
-      key: {
+      elements: {
         elements: [{ id: 'el-1', nom: 'élement 1' }],
         total: 1
       }
@@ -141,7 +141,7 @@ describe('listes', () => {
 
   test('modifie les paramètres de filtre', async () => {
     const apiMock = listeElementsGet.mockResolvedValue({
-      key: {
+      elements: {
         elements: [{ id: 'el-1', nom: 'élement 1' }],
         total: 1
       }
@@ -179,7 +179,7 @@ describe('listes', () => {
 
   test("met à jour la liste si les paramètres d'url changent", async () => {
     const apiMock = listeElementsGet.mockResolvedValue({
-      key: {
+      elements: {
         elements: [{ id: 'el-1', nom: 'élement 1' }],
         total: 1
       }
@@ -263,7 +263,7 @@ describe('listes sans metas', () => {
 
   test('initialise une liste sans metas', async () => {
     const apiMock = listeElementsGet.mockResolvedValue({
-      key: {
+      elements: {
         elements: [{ id: 'el-1', nom: 'élement 1' }],
         total: 1
       }

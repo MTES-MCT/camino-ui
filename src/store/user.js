@@ -71,8 +71,8 @@ const actions = {
 
       commit('popupMessagesRemove', null, { root: true })
 
-      const data = (await utilisateurTokenCreer({ email, motDePasse }))
-        .utilisateurTokenCreer
+      const res = await utilisateurTokenCreer({ email, motDePasse })
+      const data = res ? res.utilisateurTokenCreer : null
       const { utilisateur } = data
 
       dispatch('tokensSet', data)
@@ -103,8 +103,8 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('loadingAdd', 'cerbereUrlGet', { root: true })
 
-      const data = (await utilisateurCerbereUrlObtenir({ url }))
-        .utilisateurCerbereUrlObtenir
+      const res = await utilisateurCerbereUrlObtenir({ url })
+      const data = res ? res.utilisateurCerbereUrlObtenir : null
 
       return data
     } catch (e) {
@@ -118,8 +118,8 @@ const actions = {
     try {
       commit('loadingAdd', 'userCerbereLogin', { root: true })
 
-      const data = (await utilisateurCerbereTokenCreer({ ticket }))
-        .utilisateurCerbereTokenCreer
+      const res = await utilisateurCerbereTokenCreer({ ticket })
+      const data = res ? res.utilisateurCerbereTokenCreer : null
 
       const { utilisateur } = data
 
@@ -183,7 +183,8 @@ const actions = {
     try {
       commit('loadingAdd', 'userAdd', { root: true })
 
-      const data = (await utilisateurCreer({ utilisateur })).utilisateurCreer
+      const res = await utilisateurCreer({ utilisateur })
+      const data = res ? res.utilisateurCreer : null
 
       if (data) {
         dispatch(
@@ -214,11 +215,9 @@ const actions = {
       commit('popupMessagesRemove', null, { root: true })
       commit('loadingAdd', 'utilisateurPasswordInitEmail', { root: true })
 
-      const data = (
-        await utilisateurMotDePasseMessageEnvoyer({
-          email
-        })
-      ).utilisateurMotDePasseMessageEnvoyer
+      const res = await utilisateurMotDePasseMessageEnvoyer({ email })
+      const data = res ? res.utilisateurMotDePasseMessageEnvoyer : null
+
       commit('popupClose', null, { root: true })
       dispatch('messageAdd', { value: data, type: 'success' }, { root: true })
     } catch (e) {
@@ -234,12 +233,11 @@ const actions = {
     try {
       commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
 
-      const data = (
-        await utilisateurMotDePasseInitialiser({
-          motDePasse1,
-          motDePasse2
-        })
-      ).utilisateurMotDePasseInitialiser
+      const res = await utilisateurMotDePasseInitialiser({
+        motDePasse1,
+        motDePasse2
+      })
+      const data = res ? res.utilisateurMotDePasseInitialiser : null
 
       dispatch(
         'messageAdd',
