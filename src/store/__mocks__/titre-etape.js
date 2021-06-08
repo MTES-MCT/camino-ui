@@ -20,10 +20,6 @@ const titreEtapeMetas = {
 }
 
 const titreEtapeMetasRes = {
-  etapesTypes: [
-    { id: 'w', nom: 'granulats' },
-    { id: 'c', nom: 'carrières' }
-  ],
   geoSystemes: [
     { id: 'ifr', nom: 'Ifremer' },
     { id: 'dge', nom: 'DGEC' }
@@ -103,41 +99,39 @@ const titreEtapeCreation = {
 }
 
 const titreEtapeHeritage1 = {
-  etapeHeritage: {
-    id: 'etape-id',
-    titreDemarcheId: 'demarche-id',
-    date: '2020-01-02',
-    incertitudes: {
-      date: undefined
+  id: 'etape-id',
+  titreDemarcheId: 'demarche-id',
+  date: '2020-01-02',
+  incertitudes: {
+    date: undefined
+  },
+  statutId: '',
+  typeId: 'new-etape-type-id',
+  dateDebut: undefined,
+  dateFin: undefined,
+  duree: {
+    ans: null,
+    mois: null
+  },
+  surface: undefined,
+  amodiataires: [],
+  titulaires: [],
+  groupes: [],
+  substances: [],
+  geoSystemeIds: [],
+  geoSystemeOpposableId: null,
+  contenu: {
+    sectionId1: { elementId1: 'valeur', elementId2: 'valeur' },
+    sectionId2: {}
+  },
+  heritageProps: {},
+  heritageContenu: {
+    sectionId1: {
+      elementId1: { etape: { id: 'etape-id' }, actif: true },
+      elementId2: { etape: { id: 'etape-id' }, actif: false }
     },
-    statutId: '',
-    typeId: 'new-etape-type-id',
-    dateDebut: undefined,
-    dateFin: undefined,
-    duree: {
-      ans: null,
-      mois: null
-    },
-    surface: undefined,
-    amodiataires: [],
-    titulaires: [],
-    groupes: [],
-    substances: [],
-    geoSystemeIds: [],
-    geoSystemeOpposableId: null,
-    contenu: {
-      sectionId1: { elementId1: 'valeur', elementId2: 'valeur' },
-      sectionId2: {}
-    },
-    heritageProps: {},
-    heritageContenu: {
-      sectionId1: {
-        elementId1: { etape: { id: 'etape-id' }, actif: true },
-        elementId2: { etape: { id: 'etape-id' }, actif: false }
-      },
-      sectionId2: {
-        elementId1: { etape: { id: 'etape-id' }, actif: true }
-      }
+    sectionId2: {
+      elementId1: { etape: { id: 'etape-id' }, actif: true }
     }
   }
 }
@@ -157,25 +151,6 @@ const titreEtapeHeritageRes1 = {
         elementId1: { etape: { id: 'etape-id' }, actif: true }
       },
       sectionId3: {}
-    },
-    contenu: {
-      sectionId1: { elementId1: 'valeur', elementId2: 'valeur' }
-    }
-  }
-}
-
-const titreEtapeHeritageRes1 = {
-  type: {
-    id: 'new-etape-type-id'
-  },
-  heritageProps: {},
-  heritageContenu: {
-    sectionId1: {
-      elementId1: { etape: { id: 'etape-id' }, actif: true },
-      elementId2: { etape: { id: 'etape-id' }, actif: false }
-    },
-    sectionId2: {
-      elementId1: { etape: { id: 'etape-id' }, actif: true }
     },
     contenu: {
       sectionId1: { elementId1: 'valeur', elementId2: 'valeur' }

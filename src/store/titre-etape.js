@@ -47,7 +47,6 @@ const actions = {
         commit('heritageLoaded', true)
 
         titreDemarcheId = state.element.titreDemarcheId
-        console.log('titreDemarcheId :>> ', titreDemarcheId)
       }
 
       await dispatch('metasGet', { titreDemarcheId, id })
@@ -94,7 +93,7 @@ const actions = {
 
       etape.date = date
 
-      commit('metasSet', { etapesTypes: metas })
+      commit('metasSet', { etapesTypes: metas ? metas.etapesTypes : null })
       commit('set', { etape })
     } catch (e) {
       dispatch('pageError', null, { root: true })
