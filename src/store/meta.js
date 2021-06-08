@@ -199,7 +199,6 @@ const actions = {
       if (metasIndex[id]) {
         const definition = metasIndex[id]
         const res = await definition.delete({ element })
-        console.log('res :>> ', res)
         let elements = null
         if (res) {
           if (id === 'titres-types') elements = res['titreTypeSupprimer']
