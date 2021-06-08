@@ -1,6 +1,7 @@
 <template>
   <div class="mb">
     <Accordion
+      v-if="stepType"
       id="step-type"
       :step="stepType"
       :opened="opened['type']"
@@ -11,7 +12,7 @@
     >
       <TypeEdit
         v-model:etape="etape"
-        :user="user"
+        :user="userIsAdmin"
         :etape-types="etapeTypes"
         :etape-type="etapeType"
         :etape-is-demande="etapeIsDemande"
@@ -114,6 +115,7 @@ import PointsEdit from './points-edit.vue'
 import SectionsEdit from './sections-edit.vue'
 import DocumentsEdit from '../document/multi-edit.vue'
 import JustificatifsEdit from './justificatifs-edit.vue'
+import { permissionsCheck } from '../../utils'
 
 export default {
   components: {
@@ -207,10 +209,16 @@ export default {
     },
 
     steps() {
-      const steps = [{ id: 'type', name: 'Type' }]
+      const steps = []
+
+      if (this.userIsAdmin) {
+        steps.push({ id: 'type', name: 'Type' })
+      }
 
       if (this.heritageLoaded && this.etapeType?.fondamentale) {
-        steps[steps.length - 1].hasNextButton = true
+        if (steps.length > 0) {
+          steps[steps.length - 1].hasNextButton = true
+        }
         steps.push({
           id: 'fondamentales',
           name: 'Propriétés',
@@ -220,17 +228,23 @@ export default {
       }
 
       if (this.heritageLoaded && this.etape.sections?.length) {
-        steps[steps.length - 1].hasNextButton = true
+        if (steps.length > 0) {
+          steps[steps.length - 1].hasNextButton = true
+        }
         steps.push({ id: 'sections', name: 'Propriétés spécifiques' })
       }
 
       if (this.heritageLoaded && this.etapeType?.documentsTypes?.length) {
-        steps[steps.length - 1].hasNextButton = true
+        if (steps.length > 0) {
+          steps[steps.length - 1].hasNextButton = true
+        }
         steps.push({ id: 'documents', name: 'Documents' })
       }
 
       if (this.heritageLoaded && this.etapeType?.justificatifsTypes?.length) {
-        steps[steps.length - 1].hasNextButton = true
+        if (steps.length > 0) {
+          steps[steps.length - 1].hasNextButton = true
+        }
         steps.push({ id: 'justificatifs', name: 'Justificatifs' })
       }
 
@@ -259,6 +273,10 @@ export default {
 
     stepJustificatifs() {
       return this.steps.find(s => s.id === 'justificatifs')
+    },
+
+    userIsAdmin() {
+      return permissionsCheck(this.user, ['super', 'admin', 'editeur'])
     }
   },
 
@@ -267,6 +285,7 @@ export default {
   },
 
   created() {
+    this.typeCompleteUpdate()
     this.completeUpdate()
   },
 
@@ -284,7 +303,7 @@ export default {
     },
 
     typeCompleteUpdate(complete) {
-      this.typeComplete = complete
+      this.typeComplete = complete || !this.stepType
       this.$emit('type-complete-update', this.typeComplete)
     },
 

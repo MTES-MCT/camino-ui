@@ -69,13 +69,12 @@
 </template>
 
 <script>
-import { permissionsCheck } from '@/utils'
 import InputDate from '../_ui/input-date.vue'
 
 export default {
   components: { InputDate },
   props: {
-    user: { type: Object, default: null },
+    userIsAdmin: { type: Boolean, required: true },
     etape: { type: Object, required: true },
     etapeType: { type: Object, default: () => ({}) },
     etapeTypes: { type: Array, required: true },
@@ -97,10 +96,6 @@ export default {
       }
 
       return !!this.etape?.typeId
-    },
-
-    userIsAdmin() {
-      return permissionsCheck(this.user, ['super', 'admin', 'editeur'])
     }
   },
 

@@ -10,8 +10,7 @@ import {
   titreEtapeMetas,
   titreEtapeEtapesTypes,
   etapeCreer,
-  etapeModifier,
-  etapeSupprimer
+  etapeModifier
 } from '../api/titres-etapes'
 
 const state = {
