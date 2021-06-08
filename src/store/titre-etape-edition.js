@@ -143,7 +143,11 @@ const actions = {
         data = await etapeCreer({ etape: etapeEditFormatted })
       }
 
-      await router.push({ name: 'titre', params: { id: data.id } })
+      await router.push({
+        name: 'titre',
+        params: { id: data.id },
+        hash: `#${etape.id}`
+      })
 
       commit('titre/open', { section: 'etapes', id: etape.id }, { root: true })
     } catch (e) {

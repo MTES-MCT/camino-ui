@@ -12,10 +12,10 @@
     >
       <TypeEdit
         v-model:etape="etape"
-        :user="userIsAdmin"
+        :user-is-admin="userIsAdmin"
         :etape-types="etapeTypes"
         :etape-type="etapeType"
-        :etape-is-demande="etapeIsDemande"
+        :etape-is-demande-en-construction="etapeIsDemandeEnConstruction"
         @type-update="typeUpdate"
         @complete-update="typeCompleteUpdate"
       />
@@ -133,7 +133,7 @@ export default {
     domaineId: { type: String, required: true },
     events: { type: Object, required: true },
     user: { type: Object, required: true },
-    etapeIsDemande: { type: Boolean, required: true }
+    etapeIsDemandeEnConstruction: { type: Boolean, required: true }
   },
 
   emits: ['complete-update', 'type-complete-update'],

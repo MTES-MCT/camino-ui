@@ -29,7 +29,7 @@
       :etape="editedEtape"
       :user="user"
       :events="events"
-      :etape-is-demande="etapeIsDemande"
+      :etape-is-demande-en-construction="etapeIsDemandeEnConstruction"
       :domaine-id="domaineId"
       :titre-type-id="titreTypeTypeId"
       @complete-update="completeUpdate"
@@ -148,7 +148,7 @@ export default {
       )
     },
 
-    etapeIsDemande() {
+    etapeIsDemandeEnConstruction() {
       return (
         this.editedEtape?.typeId === 'mfr' &&
         this.editedEtape?.statutId !== 'dep'
@@ -160,7 +160,10 @@ export default {
     },
 
     isFormComplete() {
-      return (this.etapeIsDemande && this.typeComplete) || this.complete
+      return (
+        (this.etapeIsDemandeEnConstruction && this.typeComplete) ||
+        this.complete
+      )
     }
   },
 

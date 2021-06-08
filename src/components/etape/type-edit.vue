@@ -44,7 +44,7 @@
 
     <hr />
 
-    <div v-if="etapesStatuts && !etapeIsDemande">
+    <div v-if="etapesStatuts && !etapeIsDemandeEnConstruction">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h5>Statut</h5>
@@ -78,7 +78,7 @@ export default {
     etape: { type: Object, required: true },
     etapeType: { type: Object, default: () => ({}) },
     etapeTypes: { type: Array, required: true },
-    etapeIsDemande: { type: Boolean, default: false }
+    etapeIsDemandeEnConstruction: { type: Boolean, default: false }
   },
 
   emits: ['type-update', 'complete-update'],
@@ -90,7 +90,7 @@ export default {
 
     complete() {
       if (this.userIsAdmin) {
-        return this.etapeIsDemande
+        return this.etapeIsDemandeEnConstruction
           ? !!(this.etape?.typeId && this.etape.date)
           : !!(this.etape?.typeId && this.etape.date && this.etape.statutId)
       }

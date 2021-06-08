@@ -169,6 +169,18 @@ export default {
 
   async created() {
     await this.get()
+
+    if (this.$route.hash) {
+      const yOffset = -88
+      const id = this.$route.hash.substring(1)
+      const element = document.getElementById(id)
+      if (element) {
+        const y =
+          element.getBoundingClientRect().top + window.pageYOffset + yOffset
+
+        window.scrollTo({ top: y })
+      }
+    }
   },
 
   beforeUnmount() {

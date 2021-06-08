@@ -1,5 +1,6 @@
 <template>
   <Accordion
+    :id="etape.id"
     :opened="opened"
     class="mb-s"
     :slot-default="hasSections || hasFondamentales || hasDocuments"
