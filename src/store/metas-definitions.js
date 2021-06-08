@@ -177,9 +177,7 @@ const metasIndex = {
     nom: 'Types des titres | Statuts des titres',
     colonnes: [
       { id: 'titreTypeId', nom: 'Id du type de titre' },
-      { id: 'titreTypeName', nom: 'nom du type de titre' },
       { id: 'titreStatutId', nom: 'Id du statut de titre' },
-      { id: 'titreStatutName', nom: 'nom du statut de titre' },
       { id: 'publicLecture', nom: 'Public', type: Boolean, optional: true }
     ],
     ids: ['titreTypeId', 'titreStatutId']
