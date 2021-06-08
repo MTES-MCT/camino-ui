@@ -142,8 +142,18 @@ const metasIndex = {
     nom: 'Domaines | Types des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
-      { id: 'domaineId', nom: 'Id du domaine' },
-      { id: 'typeId', nom: 'Id du type' },
+      {
+        id: 'type',
+        nom: 'Id - Nom du type',
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'domaine',
+        nom: 'Id - Nom du domaine',
+        fields: ['id', 'nom'],
+        type: Object
+      },
       {
         id: 'contenuIds',
         nom: "Type d'étape des propriétés",
@@ -177,9 +187,7 @@ const metasIndex = {
     nom: 'Types des titres | Statuts des titres',
     colonnes: [
       { id: 'titreTypeId', nom: 'Id du type de titre' },
-      { id: 'titreTypeName', nom: 'nom du type de titre' },
       { id: 'titreStatutId', nom: 'Id du statut de titre' },
-      { id: 'titreStatutName', nom: 'nom du statut de titre' },
       { id: 'publicLecture', nom: 'Public', type: Boolean, optional: true }
     ],
     ids: ['titreTypeId', 'titreStatutId']

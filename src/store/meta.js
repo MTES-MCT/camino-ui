@@ -61,6 +61,7 @@ const actions = {
             elements = res.activitesTypesDocumentsTypes
           if (id === 'activites-types--pays') elements = res.activitesTypesPays
         }
+        console.log('elements :>> ', elements)
         commit('set', {
           elements,
           definition

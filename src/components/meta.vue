@@ -88,38 +88,45 @@
 
             <tr v-for="element in elements" :key="elementKeyFind(element)">
               <td v-for="colonne in definition.colonnes" :key="colonne.id">
-                <EditNumber
-                  v-if="definition.update && colonne.type === Number"
+                <EditObject
+                  v-if="colonne.type === Object"
                   :value="element[colonne.id]"
-                  @update="update($event, element, colonne.id)"
+                  :fields="colonne.fields"
                 />
-                <EditDate
-                  v-else-if="definition.update && colonne.type === Date"
-                  :value="element[colonne.id] || ''"
-                  @update="update($event, element, colonne.id)"
-                />
-                <EditBoolean
-                  v-else-if="definition.update && colonne.type === Boolean"
-                  :value="element[colonne.id] || false"
-                  @update="update($event, element, colonne.id)"
-                />
-                <EditArray
-                  v-else-if="definition.update && colonne.type === Array"
-                  :value="element[colonne.id] || ''"
-                  :elements="colonne.elements"
-                  @update="update($event, element, colonne.id)"
-                />
-                <EditJson
-                  v-else-if="definition.update && colonne.type === 'json'"
-                  :value="element[colonne.id]"
-                  @update="update($event, element, colonne.id)"
-                />
-                <EditString
-                  v-else-if="definition.update && colonne.type === String"
-                  :value="element[colonne.id] || ''"
-                  @update="update($event, element, colonne.id)"
-                />
-                <div v-else>{{ element[colonne.id] }}</div>
+                <div v-else>
+                  <EditNumber
+                    v-if="definition.update && colonne.type === Number"
+                    :value="element[colonne.id]"
+                    @update="update($event, element, colonne.id)"
+                  />
+                  <EditDate
+                    v-else-if="definition.update && colonne.type === Date"
+                    :value="element[colonne.id] || ''"
+                    @update="update($event, element, colonne.id)"
+                  />
+                  <EditBoolean
+                    v-else-if="definition.update && colonne.type === Boolean"
+                    :value="element[colonne.id] || false"
+                    @update="update($event, element, colonne.id)"
+                  />
+                  <EditArray
+                    v-else-if="definition.update && colonne.type === Array"
+                    :value="element[colonne.id] || ''"
+                    :elements="colonne.elements"
+                    @update="update($event, element, colonne.id)"
+                  />
+                  <EditJson
+                    v-else-if="definition.update && colonne.type === 'json'"
+                    :value="element[colonne.id]"
+                    @update="update($event, element, colonne.id)"
+                  />
+                  <EditString
+                    v-else-if="definition.update && colonne.type === String"
+                    :value="element[colonne.id] || ''"
+                    @update="update($event, element, colonne.id)"
+                  />
+                  <div v-else>{{ element[colonne.id] }}</div>
+                </div>
               </td>
               <td v-if="definition.delete || definition.create">
                 <button
@@ -147,6 +154,7 @@ import EditArray from './_ui/edit-array.vue'
 import EditBoolean from './_ui/edit-boolean.vue'
 import EditDate from './_ui/edit-date.vue'
 import InputDate from './_ui/input-date.vue'
+import EditObject from './_ui/edit-object.vue'
 
 export default {
   components: {
@@ -157,7 +165,8 @@ export default {
     EditBoolean,
     EditDate,
     InputDate,
-    EditJson
+    EditJson,
+    EditObject
   },
 
   data() {
