@@ -14,7 +14,7 @@ import {
   etapeSupprimer
 } from '../api/titres-etapes'
 
-const stateInitial = {
+const state = {
   element: null,
   metas: {
     demarche: null,
@@ -28,8 +28,6 @@ const stateInitial = {
   heritageLoaded: false,
   loaded: false
 }
-
-const state = JSON.parse(JSON.stringify(stateInitial))
 
 const actions = {
   async init({ commit, state, dispatch }, { titreDemarcheId, id }) {
@@ -47,6 +45,8 @@ const actions = {
         commit('heritageLoaded', true)
 
         titreDemarcheId = state.element.titreDemarcheId
+      } else {
+        commit('set', { etape: etapeEditFormat({}) })
       }
 
       await dispatch('metasGet', { titreDemarcheId, id })
@@ -89,7 +89,7 @@ const actions = {
         titreDemarcheId: state.metas.demarche.id
       })
 
-      const etape = state.element ? state.element : etapeEditFormat({})
+      const etape = state.element
 
       etape.date = date
 
@@ -187,7 +187,18 @@ const mutations = {
   },
 
   reset(state) {
-    state = JSON.parse(JSON.stringify(stateInitial))
+    state.element = null
+    state.metas = {
+      demarche: null,
+      etapesTypes: [],
+      devises: [],
+      unites: [],
+      geoSystemes: [],
+      substances: [],
+      entreprises: []
+    }
+    state.heritageLoaded = false
+    state.loaded = false
   },
 
   heritageSet(state, { etape }) {
