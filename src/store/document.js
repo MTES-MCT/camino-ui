@@ -27,10 +27,7 @@ const actions = {
     }
   },
 
-  async upsert(
-    { commit, dispatch },
-    { document, route, mutation, temporaire }
-  ) {
+  async upsert({ commit, dispatch }, { document, route, action, temporaire }) {
     try {
       commit('loadingAdd', 'documentUpsert', { root: true })
 
@@ -54,7 +51,7 @@ const actions = {
         d = await documentModifier({ document })
       }
 
-      if (route || mutation) {
+      if (route || action) {
         commit('popupClose', null, { root: true })
 
         dispatch(
@@ -76,14 +73,14 @@ const actions = {
 
           commit('titre/open', { section, id }, { root: true })
         }
-      } else if (mutation) {
-        const params = { ...mutation.params, document: d }
+      } else if (action) {
+        const params = { ...action.params, document: d }
 
         if (temporaire) {
           params.idOld = idOld
         }
 
-        commit(mutation.name, params, { root: true })
+        await dispatch(action.name, params, { root: true })
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })

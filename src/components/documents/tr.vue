@@ -118,7 +118,8 @@ export default {
     repertoire: { type: String, required: true },
     title: { type: String, required: true },
     route: { type: Object, default: null },
-    mutation: { type: Object, default: null },
+    addAction: { type: Object, default: null },
+    removeAction: { type: Object, default: null },
     parentId: { type: String, default: '' },
     parentTypeId: { type: String, default: '' },
     etiquette: { type: Boolean, default: false },
@@ -171,7 +172,7 @@ export default {
         props: {
           title: this.title,
           route: this.route,
-          mutation: this.mutation,
+          action: this.addAction,
           document,
           repertoire: this.repertoire,
           parentTypeId: this.parentTypeId,
@@ -181,14 +182,22 @@ export default {
     },
 
     removePopupOpen() {
-      this.$store.commit('popupOpen', {
-        component: DocumentRemovePopup,
-        props: {
-          title: this.title,
-          document: this.document,
-          route: this.route
-        }
-      })
+      if (this.removeAction) {
+        this.$store.dispatch(
+          this.removeAction.name,
+          { id: this.document.id },
+          { root: true }
+        )
+      } else {
+        this.$store.commit('popupOpen', {
+          component: DocumentRemovePopup,
+          props: {
+            title: this.title,
+            document: this.document,
+            route: this.route
+          }
+        })
+      }
     },
 
     dateFormat(date) {

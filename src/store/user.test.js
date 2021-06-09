@@ -461,4 +461,21 @@ describe("état de l'utilisateur connecté", () => {
     await store.dispatch('user/newsletterSubscribe', 'shitty email')
     expect(apiMock).toHaveBeenCalled()
   })
+
+  test.each`
+    permissionId    | isAdmin
+    ${'super'}      | ${true}
+    ${'admin'}      | ${true}
+    ${'editeur'}    | ${true}
+    ${'entreprise'} | ${false}
+    ${undefined}    | ${false}
+  `('ajoute des jours à une date', ({ permissionId, isAdmin }) => {
+    store.commit('user/set', {
+      id: 66,
+      prenom: 'rene',
+      nom: 'lataupe',
+      permission: { id: permissionId }
+    })
+    expect(store.getters['user/userIsAdmin']).toEqual(isAdmin)
+  })
 })

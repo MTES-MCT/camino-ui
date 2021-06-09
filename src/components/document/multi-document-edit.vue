@@ -19,7 +19,7 @@
       v-model:document="document"
       :modifiable="modifiable"
       :repertoire="repertoire"
-      :optionnel="documentType.optionnel"
+      :user-is-admin="userIsAdmin"
     />
   </div>
 </template>
@@ -43,6 +43,10 @@ export default {
   emits: ['remove'],
 
   computed: {
+    userIsAdmin() {
+      return this.$store.getters['user/userIsAdmin']
+    },
+
     visible() {
       return (
         this.modifiable ||

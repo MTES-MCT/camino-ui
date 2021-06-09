@@ -3,8 +3,11 @@
     :documents="documents"
     :bouton-modification="true"
     :bouton-suppression="true"
-    :mutation="{
+    :add-action="{
       name: 'titreEtapeEdition/documentAdd'
+    }"
+    :remove-action="{
+      name: 'titreEtapeEdition/documentRemove'
     }"
     :manquant-show="true"
     repertoire="demarches"
@@ -22,7 +25,7 @@
       fichierTypeId: null,
       typeId: ''
     }"
-    :mutation="{
+    :action="{
       name: 'titreEtapeEdition/documentAdd'
     }"
     title="Nouveau document"

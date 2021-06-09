@@ -27,7 +27,8 @@ describe('documents', () => {
       pageError: jest.fn(),
       apiError: jest.fn(),
       reload: jest.fn(),
-      messageAdd: jest.fn()
+      messageAdd: jest.fn(),
+      test: jest.fn()
     }
 
     mutations = {
@@ -119,7 +120,7 @@ describe('documents', () => {
   test("retourne une erreur si l'API retourne une erreur lors de l'ajout d'un document", async () => {
     api.documentCreer.mockRejectedValue(new Error('erreur api'))
     await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' }
+      document: { nom: 'champs' }
     })
 
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
@@ -138,6 +139,30 @@ describe('documents', () => {
     })
 
     expect(mutations.popupClose).toHaveBeenCalled()
+  })
+
+  test('ajoute un nouveau document si c’est un document temporaire', async () => {
+    const apiMock = api.documentCreer.mockResolvedValue({
+      id: 14,
+      nom: 'champs'
+    })
+    await store.dispatch('document/upsert', {
+      document: { id: 14, nom: 'champs' },
+      route: { name: 'titre', id: 'titre-id' },
+      temporaire: true
+    })
+
+    expect(apiMock).toHaveBeenCalledWith({ document: { nom: 'champs' } })
+  })
+
+  test('applique une action au lieu d’être redirigé', async () => {
+    await store.dispatch('document/upsert', {
+      document: { id: 14, nom: 'champs' },
+      action: { name: 'test' },
+      temporaire: true
+    })
+
+    expect(actions.test).toHaveBeenCalled()
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de la mise à jour d'un document", async () => {

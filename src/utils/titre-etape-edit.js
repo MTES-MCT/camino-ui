@@ -217,5 +217,4 @@ const documentEtapeFormat = document => {
 
   return document
 }
-
 export { etapeEditFormat, etapeGroupesBuild, documentEtapeFormat }

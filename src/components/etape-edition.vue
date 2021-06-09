@@ -173,9 +173,9 @@ export default {
     },
 
     documentPopupTitle() {
-      return `${cap(this.titre.nom)} | ${cap(this.demarcheType.nom)} | ${cap(
-        this.etapeType.nom
-      )}`
+      return `${cap(this.titre.nom)} | ${cap(this.demarcheType.nom)} | ${
+        this.etapeType ? cap(this.etapeType.nom) : ''
+      }`
     }
   },
 

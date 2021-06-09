@@ -158,7 +158,7 @@ describe('etapeEditFormat', () => {
       substances: [{ id: 'auru' }],
       contenu: { 'prop-id': 'prop-value' },
       incertitudes: { amodiataires: true },
-      documents: [{ fichierNouveau: null, typeId: 'act' }],
+      documents: [{ fichierNouveau: null, typeId: 'act', type: { id: 'act' } }],
       justificatifs: []
     })
   })

@@ -130,7 +130,7 @@ export default {
 
   props: {
     etape: { type: Object, required: true },
-    etapeType: { type: Object, required: true },
+    etapeType: { type: Object, default: null },
     domaineId: { type: String, required: true },
     events: { type: Object, required: true },
     user: { type: Object, required: true },

@@ -39,7 +39,7 @@
     <SectionsEdit
       v-model:document="document"
       :repertoire="repertoire"
-      :optionnel="documentType ? documentType.optionnel : false"
+      :user-is-admin="userIsAdmin"
     />
 
     <template #footer>
@@ -86,7 +86,7 @@ export default {
   props: {
     title: { type: String, required: true },
     route: { type: Object, default: null },
-    mutation: { type: Object, default: null },
+    action: { type: Object, default: null },
     document: { type: Object, required: true },
     repertoire: { type: String, required: true },
     parentTypeId: { type: String, default: '' },
@@ -99,7 +99,14 @@ export default {
     },
 
     complete() {
-      return this.document.typeId && this.document.date
+      return (
+        this.document.typeId &&
+        this.document.date &&
+        (this.document.uri ||
+          this.document.url ||
+          this.document.fichier ||
+          this.document.fichierNouveau)
+      )
     },
 
     messages() {
@@ -115,6 +122,10 @@ export default {
         this.documentsTypes &&
         this.documentsTypes.find(d => d.id === this.document.typeId)
       )
+    },
+
+    userIsAdmin() {
+      return this.$store.getters['user/userIsAdmin']
     }
   },
 
@@ -142,7 +153,7 @@ export default {
       await this.$store.dispatch('document/upsert', {
         document: this.document,
         route: this.route,
-        mutation: this.mutation,
+        action: this.action,
         temporaire: this.temporaire
       })
 

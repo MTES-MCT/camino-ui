@@ -60,7 +60,7 @@ const actions = {
 
       if (id) {
         await dispatch('dateUpdate', { date: state.element.date })
-        await dispatch('documentInit')
+        await dispatch('documentInit', state.element.documents)
       }
 
       commit('load')
@@ -127,7 +127,7 @@ const actions = {
       const newEtape = etapeHeritageBuild(state.element, apiEtape, etapeType)
 
       commit('heritageSet', { etape: newEtape })
-      await dispatch('documentInit')
+      await dispatch('documentInit', state.element.documents)
 
       commit('heritageLoaded', true)
     } catch (e) {
@@ -140,13 +140,16 @@ const actions = {
     }
   },
 
-  async documentInit({ state, getters, commit, rootGetters }) {
+  async documentInit({ state, getters, commit, rootGetters }, documents) {
     if (!getters.etapeType) {
       commit('documentsSet', [])
     } else {
       const documentsTypes = getters.etapeType.documentsTypes
+      // supprime tous les documents temporaires
+      documents = documents.filter(d => d.id !== d.typeId)
+
       // supprime les documents dont le documentType n'existe pas
-      const documents = state.element.documents.filter(d => {
+      documents = documents.filter(d => {
         const documentsTypesIds = documentsTypes.map(({ id }) => id)
         if (!documentsTypesIds.includes(d.typeId)) {
           return false
@@ -177,8 +180,32 @@ const actions = {
         }
       })
 
+      documents.forEach(d => {
+        d.suppression = d.id !== d.typeId
+      })
+
       commit('documentsSet', documents)
     }
+  },
+
+  async documentAdd({ state, dispatch }, { document, idOld }) {
+    document = documentEtapeFormat(document)
+    const documents = state.element.documents
+    if (idOld) {
+      const index = documents.findIndex(({ id }) => id === idOld)
+      documents[index] = document
+    } else {
+      documents.push(document)
+    }
+
+    await dispatch('documentInit', documents)
+  },
+
+  async documentRemove({ state, dispatch }, { id }) {
+    await dispatch(
+      'documentInit',
+      state.element.documents.filter(d => d.id !== id)
+    )
   },
 
   async upsert({ state, commit, dispatch }, { etape }) {
@@ -223,10 +250,6 @@ const mutations = {
     state.element.date = date
   },
 
-  documentsSet(state, documents) {
-    state.element.documents = documents
-  },
-
   reset(state) {
     state.element = null
     state.metas = {
@@ -268,30 +291,8 @@ const mutations = {
     entreprise.documents.push(document)
   },
 
-  documentAdd(state, { document, idOld }) {
-    document = documentEtapeFormat(document)
-    if (idOld) {
-      const index = state.element.documents.findIndex(({ id }) => id === idOld)
-      state.element.documents[index] = document
-    } else {
-      state.element.documents.push(document)
-    }
-
-    const etapeType = state.metas.etapesTypes.find(
-      et => et.id === state.element.typeId
-    )
-
-    // on met à jour la propriété de suppression de chaque document
-    state.element.documents.forEach(d => {
-      const documentType = etapeType.documentsTypes.find(
-        ({ id }) => id === d.type.id
-      )
-      d.suppression =
-        !documentType ||
-        documentType.optionnel ||
-        state.element.documents.filter(({ type }) => type.id === d.typeId)
-          .length > 1
-    })
+  documentsSet(state, documents) {
+    state.element.documents = documents
   }
 }
 

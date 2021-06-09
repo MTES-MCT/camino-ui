@@ -14,7 +14,8 @@
         :parent-id="parentId"
         :parent-type-id="parentTypeId"
         :route="route"
-        :mutation="mutation"
+        :add-action="addAction"
+        :remove-action="removeAction"
         :repertoire="repertoire"
         :title="title"
         :etiquette="etiquette"
@@ -41,7 +42,8 @@ export default {
     repertoire: { type: String, required: true },
     title: { type: String, required: true },
     route: { type: Object, default: null },
-    mutation: { type: Object, default: null },
+    addAction: { type: Object, default: null },
+    removeAction: { type: Object, default: null },
     parentId: { type: String, default: '' },
     parentTypeId: { type: String, default: '' },
     etiquette: { type: Boolean, default: false },

@@ -15,27 +15,6 @@
 
     <hr />
 
-    <div v-if="modifiable || document.description">
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h5 class="mb-xs">Description</h5>
-          <p v-if="modifiable" class="h6 italic mb-0">Optionnel</p>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <input
-            v-if="modifiable"
-            v-model="document.description"
-            type="text"
-            class="p-s"
-          />
-          <p v-else-if="document.description" class="pt-xs mb-0">
-            {{ document.description }}
-          </p>
-        </div>
-      </div>
-      <hr />
-    </div>
-
     <div v-if="documentsVisibilites.length > 1 && modifiable">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3">
@@ -64,7 +43,7 @@
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h5 class="mb-xs">Fichier</h5>
-        <p v-if="optionnel" class="h6 italic mb-0">Optionnel</p>
+        <p v-if="userIsAdmin" class="h6 italic mb-0">Optionnel</p>
       </div>
       <div class="tablet-blob-2-3">
         <div v-if="document.fichier || document.fichierNouveau" class="flex">
@@ -165,7 +144,7 @@
       <hr />
     </div>
 
-    <div v-if="repertoire === 'demarches' && modifiable">
+    <div v-if="repertoire === 'demarches' && modifiable && userIsAdmin">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h5 class="mb-xs">URI</h5>
@@ -183,7 +162,7 @@
       <hr />
     </div>
 
-    <div v-if="repertoire === 'demarches' && modifiable">
+    <div v-if="repertoire === 'demarches' && modifiable && userIsAdmin">
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h5 class="mb-xs">URL</h5>
@@ -196,6 +175,27 @@
             class="p-s"
             placeholder="https://…"
           />
+        </div>
+      </div>
+      <hr />
+    </div>
+
+    <div v-if="modifiable || document.description">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h5 class="mb-xs">Description</h5>
+          <p v-if="modifiable" class="h6 italic mb-0">Optionnel</p>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input
+            v-if="modifiable"
+            v-model="document.description"
+            type="text"
+            class="p-s"
+          />
+          <p v-else-if="document.description" class="pt-xs mb-0">
+            {{ document.description }}
+          </p>
         </div>
       </div>
       <hr />
@@ -216,7 +216,7 @@ export default {
     document: { type: Object, required: true },
     modifiable: { type: Boolean, default: true },
     repertoire: { type: String, required: true },
-    optionnel: { type: Boolean, default: false }
+    userIsAdmin: { type: Boolean, default: false }
   },
 
   data() {
