@@ -19,13 +19,13 @@ const actions = {
       let data
       if (section === 'globales') {
         res = await statistiquesGlobales()
-        data = res?res.statistiquesGlobales
+        data = res ? res.statistiquesGlobales : null
       } else if (section === 'guyane') {
         res = await statistiquesGuyane()
-        data = res?res.statistiquesGuyane
+        data = res ? res.statistiquesGuyane : null
       } else if (section === 'granulatsMarins') {
         res = await statistiquesGranulatsMarins()
-        data = res?res.statistiquesGranulatsMarins
+        data = res ? res.statistiquesGranulatsMarins : null
       }
 
       commit('set', { section: section, data })
