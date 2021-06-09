@@ -67,7 +67,6 @@ const paramsBuild = (apiParams, preferences) =>
   }, {})
 
 const cap = string => string[0].toUpperCase() + string.slice(1)
-const oneData = data => (data ? Object.values(data).shift() : null)
 
 export {
   dateFormat,
