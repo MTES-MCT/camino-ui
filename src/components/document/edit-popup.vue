@@ -8,7 +8,7 @@
           </span>
         </h6>
         <h2 class="cap-first">
-          {{ document.id ? "Ajout d'un" : 'Modification du' }} document
+          {{ document.id ? 'Modification du' : "Ajout d'un" }} document
         </h2>
       </div>
     </template>

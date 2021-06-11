@@ -1,6 +1,7 @@
 <template>
-  <button @click="addPopupOpen">
-    <i class="icon-24 icon-file-plus" />
+  <button class="flex small" @click="addPopupOpen">
+    <span v-if="large" class="mt-xxs mr-s">Ajouter un document</span>
+    <i class="icon-24 icon-file-plus flex-right" />
   </button>
 </template>
 
@@ -14,7 +15,8 @@ export default {
     document: { type: Object, required: true },
     parentTypeId: { type: String, default: '' },
     repertoire: { type: String, required: true },
-    title: { type: String, required: true }
+    title: { type: String, required: true },
+    large: { type: Boolean, default: false }
   },
 
   emits: ['titre-event-track'],

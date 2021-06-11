@@ -31,10 +31,8 @@ const actions = {
     try {
       commit('loadingAdd', 'documentUpsert', { root: true })
 
-      if (route) {
-        commit('popupMessagesRemove', null, { root: true })
-        commit('popupLoad', null, { root: true })
-      }
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
 
       const idOld = document.id
 
@@ -51,15 +49,13 @@ const actions = {
         d = await documentModifier({ document })
       }
 
-      if (route || action) {
-        commit('popupClose', null, { root: true })
+      commit('popupClose', null, { root: true })
 
-        dispatch(
-          'messageAdd',
-          { value: `le document a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      }
+      dispatch(
+        'messageAdd',
+        { value: `le document a été mis à jour`, type: 'success' },
+        { root: true }
+      )
 
       if (route) {
         await dispatch('reload', route, { root: true })

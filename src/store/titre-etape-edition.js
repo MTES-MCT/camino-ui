@@ -234,6 +234,10 @@ const actions = {
     } finally {
       commit('loadingRemove', 'titreEtapeUpdate', { root: true })
     }
+  },
+
+  entrepriseDocumentAdd({ commit }, { entrepriseId, document }) {
+    commit('entrepriseDocumentAdd', { entrepriseId, document })
   }
 }
 

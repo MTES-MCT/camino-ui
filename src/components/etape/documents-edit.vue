@@ -1,14 +1,11 @@
 <template>
   <Documents
+    v-if="documents.length"
     :documents="documents"
     :bouton-modification="true"
     :bouton-suppression="true"
-    :add-action="{
-      name: 'titreEtapeEdition/documentAdd'
-    }"
-    :remove-action="{
-      name: 'titreEtapeEdition/documentRemove'
-    }"
+    :add-action="{ name: 'titreEtapeEdition/documentAdd' }"
+    :remove-action="{ name: 'titreEtapeEdition/documentRemove' }"
     :manquant-show="true"
     repertoire="demarches"
     :title="documentPopupTitle"
@@ -25,14 +22,13 @@
       fichierTypeId: null,
       typeId: ''
     }"
-    :action="{
-      name: 'titreEtapeEdition/documentAdd'
-    }"
-    title="Nouveau document"
+    :action="{ name: 'titreEtapeEdition/documentAdd' }"
+    :title="documentPopupTitle"
     repertoire="demarches"
-    class="btn py-s px-m rnd-xs flex-right mt--s mb-s"
+    class="btn py-s px-m rnd-xs mt--s mb-s full-x"
     :parent-type-id="etapeTypeId"
     :temporaire="true"
+    :large="true"
   />
 </template>
 
