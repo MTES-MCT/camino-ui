@@ -22,8 +22,8 @@
             </div>
             <div class="blob-2-3">
               <p class="h6 mb-0">
-                Service de l’État incubé à la Fabrique numérique du Ministère de
-                la Transition écologique, membre du réseau
+                La Fabrique numérique du Ministère de la Transition écologique,
+                membre du réseau
                 <a href="http://beta.gouv.fr">beta.gouv.fr</a>.
               </p>
             </div>
@@ -73,7 +73,7 @@
     </div>
 
     <div class="tablet-blob-1-2 desktop-blob-1-3 flex flex-direction-column">
-      <NewsletterForm class="mb-xxs" />
+      <NewsletterForm v-if="newsletterForm" class="mb-xxs" />
       <ul class="list-prefix text-decoration-none li-mb-s">
         <li>
           <a
@@ -133,6 +133,10 @@ export default {
 
     versionUi() {
       return this.$store.state.user.metas.versionUi
+    },
+
+    newsletterForm() {
+      return !this.$store.state.user.element?.newsletter
     }
   }
 }

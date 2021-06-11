@@ -20,6 +20,7 @@ const fragmentUtilisateur = gql`
     permission {
       ...permission
     }
+    newsletter
 
     modification
     suppression

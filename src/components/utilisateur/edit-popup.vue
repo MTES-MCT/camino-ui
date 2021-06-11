@@ -10,232 +10,264 @@
       </h2>
     </template>
 
-    <div v-if="action === 'create'">
-      <p>Renseignez au moins l'email, le mot de passe, le prénom et le nom.</p>
-      <hr />
-    </div>
-    <div v-if="permissionsCheck(user, ['super', 'admin'])" class="tablet-blobs">
-      <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Email</h5>
+    <Loader v-if="!loaded" />
+    <div v-else>
+      <div v-if="action === 'create'">
+        <p>
+          Renseignez au moins l'email, le mot de passe, le prénom et le nom.
+        </p>
+        <hr />
       </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model="utilisateur.email"
-          type="email"
-          class="p-s"
-          placeholder="Email"
-        />
-      </div>
-    </div>
-
-    <div v-if="action === 'create'">
-      <hr />
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h5>Mot de passe</h5>
+      <div
+        v-if="permissionsCheck(user, ['super', 'admin'])"
+        class="tablet-blobs"
+      >
+        <div class="mb tablet-blob-1-3 tablet-pt-s pb-s">
+          <h5>Email</h5>
         </div>
         <div class="mb tablet-blob-2-3">
           <input
-            v-model="utilisateur.motDePasse"
-            type="password"
-            class="p-s mb-s"
-            placeholder="Mot de passe"
+            v-model="utilisateur.email"
+            type="email"
+            class="p-s"
+            placeholder="Email"
           />
-          <p class="h6 mb-0">8 caractères minimum.</p>
         </div>
       </div>
-    </div>
 
-    <hr />
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Prénom</h5>
+      <div v-if="action === 'create'">
+        <hr />
+        <div class="tablet-blobs">
+          <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+            <h5>Mot de passe</h5>
+          </div>
+          <div class="mb tablet-blob-2-3">
+            <input
+              v-model="utilisateur.motDePasse"
+              type="password"
+              class="p-s mb-s"
+              placeholder="Mot de passe"
+            />
+            <p class="h6 mb-0">8 caractères minimum.</p>
+          </div>
+        </div>
       </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model="utilisateur.prenom"
-          type="text"
-          class="p-s"
-          placeholder="Prénom"
-        />
-      </div>
-    </div>
 
-    <hr />
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Nom</h5>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model="utilisateur.nom"
-          type="text"
-          class="p-s"
-          placeholder="Nom"
-        />
-      </div>
-    </div>
-
-    <hr />
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Téléphone fixe</h5>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model="utilisateur.telephoneFixe"
-          type="text"
-          class="p-s"
-          placeholder="0100000000"
-        />
-      </div>
-    </div>
-
-    <hr />
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Téléphone mobile</h5>
-      </div>
-      <div class="mb tablet-blob-2-3">
-        <input
-          v-model="utilisateur.telephoneMobile"
-          type="text"
-          class="p-s"
-          placeholder="0100000000"
-        />
-      </div>
-    </div>
-
-    <div v-if="utilisateur.permissionModification">
       <hr />
       <div class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h5>Permissions</h5>
+          <h5>Prénom</h5>
         </div>
         <div class="mb tablet-blob-2-3">
-          <ul class="list-inline mb-0">
-            <li
-              v-for="permission in permissions"
-              :key="permission.id"
-              class="mb-xs"
-            >
-              <button
-                :id="`cmn-utilisateur-edit-popup-permission-button-${permission.id}`"
-                :class="{ active: utilisateur.permissionId === permission.id }"
-                class="btn-flash small py-xs px-s pill cap-first mr-xs"
-                @click="permissionToggle(permission)"
-              >
-                {{ permission.nom }}
-              </button>
-            </li>
-          </ul>
+          <input
+            v-model="utilisateur.prenom"
+            type="text"
+            class="p-s"
+            placeholder="Prénom"
+          />
         </div>
       </div>
 
-      <div v-if="utilisateurIsEntreprise">
+      <hr />
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h5>Nom</h5>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input
+            v-model="utilisateur.nom"
+            type="text"
+            class="p-s"
+            placeholder="Nom"
+          />
+        </div>
+      </div>
+
+      <hr />
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h5>Téléphone fixe</h5>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input
+            v-model="utilisateur.telephoneFixe"
+            type="text"
+            class="p-s"
+            placeholder="0100000000"
+          />
+        </div>
+      </div>
+
+      <hr />
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h5>Téléphone mobile</h5>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <input
+            v-model="utilisateur.telephoneMobile"
+            type="text"
+            class="p-s"
+            placeholder="0100000000"
+          />
+        </div>
+      </div>
+
+      <div v-if="utilisateur.permissionModification">
         <hr />
-        <h3 class="mb-s">Entreprises</h3>
-        <div v-for="(entreprise, n) in utilisateur.entreprises" :key="n">
-          <div
-            class="flex full-x"
-            :class="{
-              'mb-s': utilisateurEntreprisesLength,
-              mb: !utilisateurEntreprisesLength
-            }"
-          >
-            <select
-              id="cmn-utilisateur-edit-popup-entreprise-select"
-              v-model="utilisateur.entreprises[n]"
-              class="p-s mr-s"
-            >
-              <option
-                v-for="e in entreprises"
-                :key="e.id"
-                :value="{ id: e.id }"
-                :disabled="
-                  utilisateur.entreprises.find(({ id }) => id === e.id)
-                "
+        <div class="tablet-blobs">
+          <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+            <h5>Permissions</h5>
+          </div>
+          <div class="mb tablet-blob-2-3">
+            <ul class="list-inline mb-0 tablet-pt-s">
+              <li
+                v-for="permission in permissions"
+                :key="permission.id"
+                class="mb-xs"
               >
-                {{ e.nom }}
-              </option>
-            </select>
-            <div class="flex-right">
-              <button class="btn py-s px-m rnd-xs" @click="entrepriseRemove(n)">
-                <i class="icon-24 icon-minus" />
-              </button>
-            </div>
+                <button
+                  :id="`cmn-utilisateur-edit-popup-permission-button-${permission.id}`"
+                  :class="{
+                    active: utilisateur.permissionId === permission.id
+                  }"
+                  class="btn-flash small py-xs px-s pill cap-first mr-xs"
+                  @click="permissionToggle(permission)"
+                >
+                  {{ permission.nom }}
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <button
-          v-if="!utilisateur.entreprises.some(({ id }) => id === '')"
-          id="cmn-utilisateur-edit-popup-entreprise-button-ajouter"
-          class="btn small rnd-xs py-s px-m full-x flex mb"
-          @click="entrepriseAdd"
-        >
-          <span class="mt-xxs">Ajouter une entreprise</span
-          ><i class="icon-24 icon-plus flex-right" />
-        </button>
-      </div>
-
-      <div v-if="utilisateurIsAdministration">
-        <hr />
-        <h3 class="mb-s">Administrations</h3>
-        <div
-          v-for="(administration, n) in utilisateur.administrations"
-          :key="n"
-        >
-          <div
-            v-if="administrationsDisabledIds.includes(administration.id)"
-            class="p-s bg-alt mb-s"
-          >
-            {{ administrationNameFind(administration.id) }}
-          </div>
-          <div v-else class="flex full-x mb">
-            <select
-              id="cmn-utilisateur-edit-popup-administration-select"
-              v-model="utilisateur.administrations[n]"
-              class="p-s mr-s"
+        <div v-if="utilisateurIsEntreprise">
+          <hr />
+          <h3 class="mb-s">Entreprises</h3>
+          <div v-for="(entreprise, n) in utilisateur.entreprises" :key="n">
+            <div
+              class="flex full-x"
               :class="{
-                '': !administrationsDisabledIds.includes(administration.id)
+                'mb-s': utilisateurEntreprisesLength,
+                mb: !utilisateurEntreprisesLength
               }"
-              :disabled="administrationsDisabledIds.includes(administration.id)"
             >
-              <option
-                v-for="a in administrationsFiltered"
-                :key="a.id"
-                :value="{ id: a.id }"
-                :disabled="
-                  utilisateur.administrations.find(({ id }) => id === a.id) ||
-                  administrationsDisabledIds.includes(a.id)
-                "
+              <select
+                id="cmn-utilisateur-edit-popup-entreprise-select"
+                v-model="utilisateur.entreprises[n]"
+                class="p-s mr-s"
               >
-                {{ `${a.abreviation}` }}
-              </option>
-            </select>
-            <div class="flex-right">
-              <button
-                class="btn py-s px-m rnd-xs"
-                @click="administrationRemove(n)"
-              >
-                <i class="icon-24 icon-minus" />
-              </button>
+                <option
+                  v-for="e in entreprises"
+                  :key="e.id"
+                  :value="{ id: e.id }"
+                  :disabled="
+                    utilisateur.entreprises.find(({ id }) => id === e.id)
+                  "
+                >
+                  {{ e.nom }}
+                </option>
+              </select>
+              <div class="flex-right">
+                <button
+                  class="btn py-s px-m rnd-xs"
+                  @click="entrepriseRemove(n)"
+                >
+                  <i class="icon-24 icon-minus" />
+                </button>
+              </div>
             </div>
           </div>
+
+          <button
+            v-if="!utilisateur.entreprises.some(({ id }) => id === '')"
+            id="cmn-utilisateur-edit-popup-entreprise-button-ajouter"
+            class="btn small rnd-xs py-s px-m full-x flex mb"
+            @click="entrepriseAdd"
+          >
+            <span class="mt-xxs">Ajouter une entreprise</span
+            ><i class="icon-24 icon-plus flex-right" />
+          </button>
         </div>
 
-        <button
-          v-if="
-            !utilisateur.administrations.some(({ id }) => id === '') &&
-            utilisateurAdministrationsLength < 1
-          "
-          id="cmn-utilisateur-edit-popup-administration-button-ajouter"
-          class="btn small rnd-xs py-s px-m full-x flex mb"
-          @click="administrationAdd"
-        >
-          <span class="mt-xxs">Ajouter une administration</span
-          ><i class="icon-24 icon-plus flex-right" />
-        </button>
+        <div v-if="utilisateurIsAdministration">
+          <hr />
+          <h3 class="mb-s">Administrations</h3>
+          <div
+            v-for="(administration, n) in utilisateur.administrations"
+            :key="n"
+          >
+            <div
+              v-if="administrationsDisabledIds.includes(administration.id)"
+              class="p-s bg-alt mb-s"
+            >
+              {{ administrationNameFind(administration.id) }}
+            </div>
+            <div v-else class="flex full-x mb">
+              <select
+                id="cmn-utilisateur-edit-popup-administration-select"
+                v-model="utilisateur.administrations[n]"
+                class="p-s mr-s"
+                :class="{
+                  '': !administrationsDisabledIds.includes(administration.id)
+                }"
+                :disabled="
+                  administrationsDisabledIds.includes(administration.id)
+                "
+              >
+                <option
+                  v-for="a in administrationsFiltered"
+                  :key="a.id"
+                  :value="{ id: a.id }"
+                  :disabled="
+                    utilisateur.administrations.find(({ id }) => id === a.id) ||
+                    administrationsDisabledIds.includes(a.id)
+                  "
+                >
+                  {{ `${a.abreviation}` }}
+                </option>
+              </select>
+              <div class="flex-right">
+                <button
+                  class="btn py-s px-m rnd-xs"
+                  @click="administrationRemove(n)"
+                >
+                  <i class="icon-24 icon-minus" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button
+            v-if="
+              !utilisateur.administrations.some(({ id }) => id === '') &&
+              utilisateurAdministrationsLength < 1
+            "
+            id="cmn-utilisateur-edit-popup-administration-button-ajouter"
+            class="btn small rnd-xs py-s px-m full-x flex mb"
+            @click="administrationAdd"
+          >
+            <span class="mt-xxs">Ajouter une administration</span
+            ><i class="icon-24 icon-plus flex-right" />
+          </button>
+        </div>
+      </div>
+
+      <hr />
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h5>Newsletter</h5>
+        </div>
+        <div class="mb tablet-blob-2-3">
+          <label class="tablet-pt-s">
+            <input
+              v-model="utilisateur.newsletter"
+              type="checkbox"
+              class="p-s mt-s mb-s mr-xs"
+            />
+            <span v-if="utilisateur.newsletter">Inscrit</span>
+          </label>
+        </div>
       </div>
     </div>
 
@@ -267,13 +299,12 @@
 <script>
 import { permissionsCheck } from '@/utils'
 import Popup from '../_ui/popup.vue'
+import Loader from '../_ui/loader.vue'
 
 export default {
   name: 'CaminoUtilisateurEditPopup',
 
-  components: {
-    Popup
-  },
+  components: { Popup, Loader },
 
   props: {
     utilisateur: {
@@ -297,6 +328,10 @@ export default {
   computed: {
     loading() {
       return this.$store.state.popup.loading
+    },
+
+    loaded() {
+      return this.$store.state.utilisateur.metasLoaded
     },
 
     messages() {
@@ -380,6 +415,10 @@ export default {
 
   beforeUnmount() {
     document.removeEventListener('keyup', this.keyup)
+  },
+
+  unmounted() {
+    this.$store.commit('utilisateur/metasReset')
   },
 
   methods: {

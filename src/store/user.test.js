@@ -14,7 +14,8 @@ jest.mock('../api/utilisateurs', () => ({
   utilisateurMotDePasseMessageEnvoyer: jest.fn(),
   utilisateurCreationMessageEnvoyer: jest.fn(),
   utilisateurCreer: jest.fn(),
-  userMetas: jest.fn()
+  userMetas: jest.fn(),
+  newsletterInscrire: jest.fn()
 }))
 
 console.info = jest.fn()
@@ -442,5 +443,22 @@ describe("état de l'utilisateur connecté", () => {
       permission: 'admin'
     })
     expect(store.state.user.element.entreprise).toBeUndefined()
+  })
+
+  test('inscrit un email à la newsletter', async () => {
+    const apiMock = api.newsletterInscrire.mockResolvedValue('succès')
+
+    await store.dispatch('user/newsletterSubscribe', 'email@domain.tld')
+
+    expect(apiMock).toHaveBeenCalled()
+  })
+
+  test("retourne une erreur de l'api lors de l'inscription d'un email à la newsletter", async () => {
+    const apiMock = api.newsletterInscrire.mockRejectedValue(
+      new Error("erreur dans l'api")
+    )
+
+    await store.dispatch('user/newsletterSubscribe', 'shitty email')
+    expect(apiMock).toHaveBeenCalled()
   })
 })

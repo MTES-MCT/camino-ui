@@ -35,7 +35,8 @@ describe("état de l'utilisateur consulté", () => {
         permissions: [],
         entreprises: [],
         administrations: []
-      }
+      },
+      metasLoaded: false
     }
     user = {
       namespaced: true,
@@ -98,6 +99,10 @@ describe("état de l'utilisateur consulté", () => {
       administrations: ['adm-1']
     })
     expect(mutations.loadingRemove).toHaveBeenCalled()
+
+    store.commit('utilisateur/metasReset')
+
+    expect(store.state.utilisateur.metasLoaded).toBeFalsy()
   })
 
   test("retourne une erreur si l'api ne répond pas", async () => {

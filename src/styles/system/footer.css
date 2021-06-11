@@ -32,6 +32,18 @@ body {
   color: var(--color-neutral);
 }
 
+.footer input {
+  color: var(--color-text);
+}
+
+.footer a {
+  color: var(--color-alt);
+
+  &:hover {
+    color: var(--color-bg);
+  }
+}
+
 @media (--viewport-desktop) {
   .footer {
     height: var(--footer-height);
