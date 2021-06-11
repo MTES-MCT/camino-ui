@@ -115,7 +115,17 @@
               <Pill v-if="utilisateur.permission" class="mb">
                 {{ utilisateur.permission.nom }}
               </Pill>
-              <div v-else class="mb">–</div>
+              <p v-else>–</p>
+            </div>
+          </div>
+
+          <div class="tablet-blobs">
+            <div class="tablet-blob-1-4">
+              <h5>Newsletter</h5>
+            </div>
+            <div class="tablet-blob-3-4">
+              <p v-if="utilisateur.newsletter">Inscrit</p>
+              <p v-else>–</p>
             </div>
           </div>
 

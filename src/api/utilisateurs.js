@@ -238,6 +238,12 @@ const utilisateurEmailModifier = apiGraphQLFetch(gql`
   ${fragmentUtilisateurToken}
 `)
 
+const newsletterInscrire = apiGraphQLFetch(gql`
+  mutation NewsletterInscrire($email: String!) {
+    newsletterInscrire(email: $email)
+  }
+`)
+
 export {
   userMetas,
   utilisateurMetas,
@@ -255,5 +261,6 @@ export {
   utilisateurMotDePasseMessageEnvoyer,
   utilisateurCreationMessageEnvoyer,
   utilisateurEmailMessageEnvoyer,
-  utilisateurEmailModifier
+  utilisateurEmailModifier,
+  newsletterInscrire
 }

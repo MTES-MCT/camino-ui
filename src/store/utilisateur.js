@@ -17,7 +17,8 @@ const state = {
     permissions: [],
     entreprises: [],
     administrations: []
-  }
+  },
+  metasLoaded: false
 }
 
 const actions = {
@@ -235,6 +236,15 @@ const mutations = {
     state.element = null
   },
 
+  metasReset(state) {
+    state.metas = {
+      permissions: [],
+      entreprises: [],
+      administrations: []
+    }
+    state.metasLoaded = false
+  },
+
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       if (id === 'entreprises' || id === 'administrations') {
@@ -243,6 +253,8 @@ const mutations = {
         state.metas[id] = data[id]
       }
     })
+
+    state.metasLoaded = true
   }
 }
 

@@ -73,7 +73,7 @@
     </div>
 
     <div class="tablet-blob-1-2 desktop-blob-1-3 flex flex-direction-column">
-      <NewsletterForm class="mb-xxs" />
+      <NewsletterForm v-if="newsletterForm" class="mb-xxs" />
       <ul class="list-prefix text-decoration-none li-mb-s">
         <li>
           <a
@@ -133,6 +133,10 @@ export default {
 
     versionUi() {
       return this.$store.state.user.metas.versionUi
+    },
+
+    newsletterForm() {
+      return !this.$store.state.user.element?.newsletter
     }
   }
 }

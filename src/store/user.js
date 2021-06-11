@@ -7,7 +7,8 @@ import {
   utilisateurCreer,
   utilisateurMotDePasseMessageEnvoyer,
   utilisateurMotDePasseInitialiser,
-  userMetas
+  userMetas,
+  newsletterInscrire
 } from '../api/utilisateurs'
 
 import tiles from '../utils/map-tiles'
@@ -276,6 +277,23 @@ const actions = {
   tokensRemove() {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
+  },
+
+  async newsletterSubscribe({ commit, dispatch }, email) {
+    try {
+      commit('loadingAdd', 'newsletterSubscribe', { root: true })
+
+      const message = await newsletterInscrire({
+        email
+      })
+
+      dispatch('messageAdd', { value: message, type: 'info' }, { root: true })
+    } catch (e) {
+      dispatch('messageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'newsletterSubscribe', { root: true
+      })
+    }
   }
 }
 

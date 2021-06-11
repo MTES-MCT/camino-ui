@@ -140,14 +140,6 @@ html {
   top: 0;
 }
 
-.footer a {
-  color: var(--color-alt);
-
-  &:hover {
-    color: var(--color-bg);
-  }
-}
-
 .lead {
   typescale: 1 1.25;
   margin: var(--unit-xl) var(--unit);
