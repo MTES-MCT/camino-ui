@@ -291,8 +291,7 @@ const actions = {
     } catch (e) {
       dispatch('messageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'newsletterSubscribe', { root: true
-      })
+      commit('loadingRemove', 'newsletterSubscribe', { root: true })
     }
   }
 }

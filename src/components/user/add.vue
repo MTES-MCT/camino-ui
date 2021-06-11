@@ -101,6 +101,23 @@
     </div>
 
     <hr />
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h5>Newsletter</h5>
+      </div>
+      <div class="mb tablet-blob-2-3">
+        <label class="tablet-pt-s">
+          <input
+            v-model="utilisateur.newsletter"
+            type="checkbox"
+            class="p-s mt-s mb-s mr-xs"
+          />
+          <span v-if="utilisateur.newsletter">Inscrit</span>
+        </label>
+      </div>
+    </div>
+
+    <hr />
 
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s" />

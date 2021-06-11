@@ -3,7 +3,7 @@
     <h5>Newsletter</h5>
 
     <div class="blobs-mini mb">
-      <div class="blob-mini-1-2">
+      <div class="blob-mini-2-3">
         <input
           v-model="email"
           type="text"
@@ -11,7 +11,7 @@
           class="p-s rnd-l-xs small"
         />
       </div>
-      <div class="blob-mini-1-2">
+      <div class="blob-mini-1-3">
         <button class="btn rnd-r-xs p-s full-x small" @click="subscribe">
           S'inscrire
         </button>
