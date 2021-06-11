@@ -1,6 +1,7 @@
 <template>
-  <button @click="addPopupOpen">
-    <i class="icon-24 icon-file-plus" />
+  <button class="flex small" @click="addPopupOpen">
+    <span v-if="large" class="mt-xxs mr-s">Ajouter un document</span>
+    <i class="icon-24 icon-file-plus flex-right" />
   </button>
 </template>
 
@@ -10,12 +11,12 @@ import DocumentEditPopup from './edit-popup.vue'
 export default {
   props: {
     route: { type: Object, default: null },
-    mutation: { type: Object, default: null },
+    action: { type: Object, default: null },
     document: { type: Object, required: true },
-    parentId: { type: String, required: true },
     parentTypeId: { type: String, default: '' },
     repertoire: { type: String, required: true },
-    title: { type: String, required: true }
+    title: { type: String, required: true },
+    large: { type: Boolean, default: false }
   },
 
   emits: ['titre-event-track'],
@@ -25,10 +26,9 @@ export default {
       this.$store.commit('popupOpen', {
         component: DocumentEditPopup,
         props: {
-          route: this.route,
-          mutation: this.mutation,
-          creation: true,
           document: this.document,
+          action: this.action,
+          route: this.route,
           parentTypeId: this.parentTypeId,
           repertoire: this.repertoire,
           title: this.title

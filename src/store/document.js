@@ -27,33 +27,35 @@ const actions = {
     }
   },
 
-  async upsert({ commit, dispatch }, { document, route, creation, mutation }) {
+  async upsert({ commit, dispatch }, { document, route, action, temporaire }) {
     try {
       commit('loadingAdd', 'documentUpsert', { root: true })
 
-      if (route) {
-        commit('popupMessagesRemove', null, { root: true })
-        commit('popupLoad', null, { root: true })
-      }
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+
+      const idOld = document.id
 
       let d
 
-      if (creation) {
+      if (temporaire) {
+        delete document.id
+      }
+
+      if (!document.id) {
         d = await documentCreer({ document })
       } else {
         delete document.typeId
         d = await documentModifier({ document })
       }
 
-      if (route || mutation) {
-        commit('popupClose', null, { root: true })
+      commit('popupClose', null, { root: true })
 
-        dispatch(
-          'messageAdd',
-          { value: `le document a été mis à jour`, type: 'success' },
-          { root: true }
-        )
-      }
+      dispatch(
+        'messageAdd',
+        { value: `le document a été mis à jour`, type: 'success' },
+        { root: true }
+      )
 
       if (route) {
         await dispatch('reload', route, { root: true })
@@ -67,9 +69,14 @@ const actions = {
 
           commit('titre/open', { section, id }, { root: true })
         }
-      } else if (mutation) {
-        const params = { ...mutation.params, document: d }
-        commit(mutation.name, params, { root: true })
+      } else if (action) {
+        const params = { ...action.params, document: d }
+
+        if (temporaire) {
+          params.idOld = idOld
+        }
+
+        await dispatch(action.name, params, { root: true })
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })

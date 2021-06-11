@@ -17,12 +17,12 @@
             fichierTypeId: null,
             typeId: ''
           }"
-          :mutation="{
+          :action="{
             name: 'titreEtapeEdition/entrepriseDocumentAdd',
             params: { entrepriseId: eId }
           }"
-          :parent-id="eId"
           :title="e.nom"
+          :large="true"
           repertoire="entreprises"
           class="btn py-s px-m rnd-xs flex-right mt--s mb-s"
         />
@@ -81,7 +81,7 @@
       </div>
 
       <div>
-        <h5 class="mt">Nouveau justificatif</h5>
+        <h5 class="mt">Sélectionner un document existant</h5>
         <div class="blobs-mini">
           <div class="blob-mini-1-3">
             <select v-model="newJustificatifTypeIdIndex[eId]" class="p-s mb-s">

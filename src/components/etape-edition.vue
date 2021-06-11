@@ -32,6 +32,8 @@
       :etape-is-demande-en-construction="etapeIsDemandeEnConstruction"
       :domaine-id="domaineId"
       :titre-type-id="titreTypeTypeId"
+      :document-popup-title="documentPopupTitle"
+      :etape-type="etapeType"
       @complete-update="completeUpdate"
       @type-complete-update="typeCompleteUpdate"
     />
@@ -77,7 +79,7 @@
 </template>
 
 <script>
-import { dateFormat } from '@/utils'
+import { cap, dateFormat } from '@/utils'
 import Loader from './_ui/loader.vue'
 import InputDate from './_ui/input-date.vue'
 import Edit from './etape/edit.vue'
@@ -111,16 +113,20 @@ export default {
       return this.$store.state.titreEtapeEdition.element
     },
 
+    etapeType() {
+      return this.$store.getters['titreEtapeEdition/etapeType']
+    },
+
     demarche() {
       return this.$store.state.titreEtapeEdition.metas.demarche
     },
 
     demarcheType() {
-      return this.demarche ? this.demarche.type : ''
+      return this.demarche.type
     },
 
     titre() {
-      return this.demarche ? this.demarche.titre : ''
+      return this.demarche.titre
     },
 
     domaineId() {
@@ -164,6 +170,12 @@ export default {
         (this.etapeIsDemandeEnConstruction && this.typeComplete) ||
         this.complete
       )
+    },
+
+    documentPopupTitle() {
+      return `${cap(this.titre.nom)} | ${cap(this.demarcheType.nom)} | ${
+        this.etapeType ? cap(this.etapeType.nom) : ''
+      }`
     }
   },
 

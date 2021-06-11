@@ -195,6 +195,7 @@ const documentsFormat = (documents, fichiersNouveaux) =>
 const etapeSaveFormat = etape => {
   // le stringify casse le fichier
 
+  etape.documents = etape.documents?.filter(d => d.id !== d.typeId)
   const fichiersNouveaux =
     etape.documents && etape.documents.map(d => d.fichierNouveau)
 

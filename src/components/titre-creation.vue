@@ -8,7 +8,7 @@
     </div>
     <div class="tablet-blob-2-3">
       <select
-        class="p-s"
+        class="p-s mb"
         :value="titreDemande?.entrepriseId"
         @change="entrepriseUpdate"
       >
@@ -38,7 +38,7 @@
         <h5>Nom</h5>
       </div>
       <div class="tablet-blob-2-3">
-        <input v-model="titreDemande.nom" type="text" class="p-s" />
+        <input v-model="titreDemande.nom" type="text" class="p-s mb" />
       </div>
     </div>
     <hr />

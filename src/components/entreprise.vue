@@ -14,7 +14,6 @@
         <DocumentAddButton
           :route="route"
           :document="documentNew"
-          :parent-id="entreprise.id"
           :title="nom"
           repertoire="entreprises"
           class="btn py-s px-m mr-px"

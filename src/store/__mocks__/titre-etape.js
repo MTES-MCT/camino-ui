@@ -137,7 +137,8 @@ const titreEtapeHeritage1 = {
     sectionId2: {
       elementId1: { etape: { id: 'etape-id' }, actif: true }
     }
-  }
+  },
+  documents: []
 }
 
 const titreEtapeHeritageRes1 = {
@@ -161,22 +162,13 @@ const titreEtapeHeritageRes1 = {
 }
 
 const titreEtapeHeritage2 = {
-  amodiataires: [],
   date: '2020-01-01',
-  dateDebut: undefined,
-  dateFin: undefined,
-  duree: { ans: null, mois: null },
-  geoSystemeIds: [],
-  geoSystemeOpposableId: null,
-  groupes: [],
-  heritageProps: {},
   incertitudes: { date: undefined },
   statutId: '',
-  substances: [],
-  surface: undefined,
   titreDemarcheId: 'demarche-id',
-  titulaires: [],
-  typeId: 'new-etape-type-id'
+  typeId: 'new-etape-type-id',
+  documents: [],
+  id: undefined
 }
 
 const titreEtapeHeritageRes2 = {

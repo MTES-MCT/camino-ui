@@ -1,4 +1,5 @@
-import { etapeEditFormat } from '../utils/titre-etape-edit'
+import { TODAY } from '../utils'
+import { documentEtapeFormat, etapeEditFormat } from '../utils/titre-etape-edit'
 import { etapeSaveFormat } from '../utils/titre-etape-save'
 import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
 
@@ -6,11 +7,11 @@ import router from '../router'
 
 import {
   etape,
-  etapeHeritage,
-  titreEtapeMetas,
-  titreEtapeEtapesTypes,
   etapeCreer,
-  etapeModifier
+  etapeHeritage,
+  etapeModifier,
+  titreEtapeEtapesTypes,
+  titreEtapeMetas
 } from '../api/titres-etapes'
 
 const state = {
@@ -28,6 +29,12 @@ const state = {
   loaded: false
 }
 
+const getters = {
+  etapeType(state) {
+    return state.metas.etapesTypes.find(et => et.id === state.element.typeId)
+  }
+}
+
 const actions = {
   async init({ commit, state, dispatch }, { titreDemarcheId, id }) {
     try {
@@ -40,22 +47,25 @@ const actions = {
           throw new Error()
         }
 
-        commit('set', { etape: etapeEditFormat(newEtape) })
+        commit('set', etapeEditFormat(newEtape))
+
         commit('heritageLoaded', true)
 
         titreDemarcheId = state.element.titreDemarcheId
       } else {
-        commit('set', { etape: etapeEditFormat({}) })
+        commit('set', etapeEditFormat({}))
       }
 
       await dispatch('metasGet', { titreDemarcheId, id })
 
       if (id) {
         await dispatch('dateUpdate', { date: state.element.date })
+        await dispatch('documentInit', state.element.documents)
       }
 
       commit('load')
     } catch (e) {
+      console.log(e)
       dispatch('pageError', null, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeInit', { root: true })
@@ -73,6 +83,7 @@ const actions = {
 
       commit('metasSet', metas)
     } catch (e) {
+      console.log(e)
       dispatch('pageError', null, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeMetasGet', { root: true })
@@ -88,13 +99,10 @@ const actions = {
         titreDemarcheId: state.metas.demarche.id
       })
 
-      const etape = state.element
-
-      etape.date = date
-
       commit('metasSet', { etapesTypes: metas })
-      commit('set', { etape })
+      commit('dateSet', date)
     } catch (e) {
+      console.log(e)
       dispatch('pageError', null, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeEtapesTypesGet', { root: true })
@@ -119,14 +127,85 @@ const actions = {
       const newEtape = etapeHeritageBuild(state.element, apiEtape, etapeType)
 
       commit('heritageSet', { etape: newEtape })
+      await dispatch('documentInit', state.element.documents)
+
       commit('heritageLoaded', true)
     } catch (e) {
+      console.log(e)
       dispatch('apiError', e, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeHeritageGet', {
         root: true
       })
     }
+  },
+
+  async documentInit({ state, getters, commit, rootGetters }, documents) {
+    if (!getters.etapeType) {
+      commit('documentsSet', [])
+    } else {
+      const documentsTypes = getters.etapeType.documentsTypes
+      // supprime tous les documents temporaires
+      documents = documents.filter(d => d.id !== d.typeId)
+
+      // supprime les documents dont le documentType n'existe pas
+      documents = documents.filter(d => {
+        const documentsTypesIds = documentsTypes.map(({ id }) => id)
+        if (!documentsTypesIds.includes(d.typeId)) {
+          return false
+        }
+
+        return true
+      })
+
+      // crée les documents dont le type est obligatoires si ils n'existent pas
+      documentsTypes.forEach(documentType => {
+        if (
+          !documentType.optionnel &&
+          !documents.find(({ typeId }) => typeId === documentType.id)
+        ) {
+          documents.push({
+            id: documentType.id,
+            typeId: documentType.id,
+            type: documentType,
+            entreprisesLecture: rootGetters['user/userIsAdmin'],
+            publicLecture: false,
+            fichier: null,
+            fichierNouveau: null,
+            fichierTypeId: null,
+            date: TODAY,
+            modification: true,
+            suppression: false
+          })
+        }
+      })
+
+      documents.forEach(d => {
+        d.suppression = d.id !== d.typeId
+      })
+
+      commit('documentsSet', documents)
+    }
+  },
+
+  async documentAdd({ state, dispatch }, { document, idOld }) {
+    document = documentEtapeFormat(document)
+    const documents = state.element.documents
+    if (idOld) {
+      const index = documents.findIndex(({ id }) => id === idOld)
+      documents[index] = document
+    } else {
+      documents.push(document)
+    }
+
+    await dispatch('documentInit', documents)
+  },
+
+  async documentRemove({ state, dispatch }, { id }) {
+    await dispatch(
+      'documentInit',
+      state.element.documents.filter(d => d.id !== id)
+    )
   },
 
   async upsert({ state, commit, dispatch }, { etape }) {
@@ -155,6 +234,10 @@ const actions = {
     } finally {
       commit('loadingRemove', 'titreEtapeUpdate', { root: true })
     }
+  },
+
+  entrepriseDocumentAdd({ commit }, { entrepriseId, document }) {
+    commit('entrepriseDocumentAdd', { entrepriseId, document })
   }
 }
 
@@ -163,8 +246,12 @@ const mutations = {
     state.loaded = true
   },
 
-  set(state, { etape }) {
+  set(state, etape) {
     state.element = etape
+  },
+
+  dateSet(state, date) {
+    state.element.date = date
   },
 
   reset(state) {
@@ -206,12 +293,17 @@ const mutations = {
     )
 
     entreprise.documents.push(document)
+  },
+
+  documentsSet(state, documents) {
+    state.element.documents = documents
   }
 }
 
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations
 }

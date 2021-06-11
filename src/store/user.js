@@ -11,6 +11,7 @@ import {
   newsletterInscrire
 } from '../api/utilisateurs'
 
+import { permissionsCheck } from '../utils'
 import tiles from '../utils/map-tiles'
 
 import router from '../router'
@@ -319,6 +320,10 @@ const getters = {
     }
 
     return false
+  },
+
+  userIsAdmin(state) {
+    return permissionsCheck(state.element, ['super', 'admin', 'editeur'])
   }
 }
 

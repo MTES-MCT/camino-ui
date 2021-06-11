@@ -31,7 +31,7 @@
       <div class="mb tablet-blob-2-3">
         <select :value="etape.typeId" class="p-s" @change="typeUpdate($event)">
           <option
-            v-for="eType in etapeTypes"
+            v-for="eType in etapesTypes"
             :key="eType.id"
             :value="eType.id"
             :disabled="etape.typeId === eType.id"
@@ -77,7 +77,7 @@ export default {
     userIsAdmin: { type: Boolean, required: true },
     etape: { type: Object, required: true },
     etapeType: { type: Object, default: () => ({}) },
-    etapeTypes: { type: Array, required: true },
+    etapesTypes: { type: Array, required: true },
     etapeIsDemandeEnConstruction: { type: Boolean, default: false }
   },
 
