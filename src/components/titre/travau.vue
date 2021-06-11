@@ -49,7 +49,7 @@
     </div>
 
     <TitreTravauxEtape
-      v-for="etape in travaux.etapes"
+      v-for="etape in travaux.travauxEtapes"
       :key="etape.id"
       :etape="etape"
       :travaux-type="travaux.type"
