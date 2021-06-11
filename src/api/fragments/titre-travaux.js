@@ -51,7 +51,7 @@ const fragmentTitreTravaux = gql`
     statut {
       ...demarcheStatut
     }
-    etapes {
+    travauxEtapes {
       ...titreTravauxEtape
     }
 
