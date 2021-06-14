@@ -29,6 +29,8 @@ const cache = new Cache()
 const loading = new Loading()
 
 const errorThrow = e => {
+  if (e.message === 'aborted') throw new Error('aborted')
+
   const errorMessage = `API : ${e.message || e.status}`
   console.error(e)
 
@@ -60,24 +62,25 @@ const restCall = async (url, path) => {
 const graphQLCall = async (url, query, variables) => {
   const authorization = authorizationGet()
 
+  const abortController = new AbortController()
+
   const fetchOptions = fetchOptionsGraphQL({
     query: print(query),
-    variables,
-    headers: { authorization }
+    variables
   })
+
+  fetchOptions.signal = abortController.signal
+  fetchOptions.headers = Object.assign(fetchOptions.headers, { authorization })
 
   const cacheKey = query.definitions[0].name.value
 
   if (loading.store[cacheKey]) {
     loading.store[cacheKey].forEach(a => {
-      console.log(loading.store[cacheKey])
       a.abortController.abort()
     })
   }
 
   const req = fetchGraphQL(url, fetchOptions)
-
-  const abortController = new AbortController()
 
   const loadingCacheValue = new LoadingCacheValue(
     loading,
@@ -89,9 +92,12 @@ const graphQLCall = async (url, query, variables) => {
 
   const res = await loadingCacheValue.promise
 
-  console.log(res)
   if (res.errors?.length) {
-    throw new Error(res.errors)
+    res.errors.forEach(e => {
+      if (e.extensions.client) throw new Error('aborted')
+
+      throw new Error('api error')
+    })
   }
 
   // reload page if npmVersion has changed
