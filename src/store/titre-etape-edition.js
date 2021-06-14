@@ -293,6 +293,7 @@ const mutations = {
     )
 
     entreprise.documents.push(document)
+    state.element.justificatifs.push({ id: document.id })
   },
 
   documentsSet(state, documents) {
