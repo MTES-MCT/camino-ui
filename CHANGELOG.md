@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.72](https://github.com/MTES-MCT/camino-ui/compare/v0.22.71...v0.22.72) (2021-06-14)
+
+
+### Features
+
+* **étape:** permet d’ajouter à la volée les documents dans une étape ([#353](https://github.com/MTES-MCT/camino-ui/issues/353)) ([42ea50e](https://github.com/MTES-MCT/camino-ui/commit/42ea50e85c40fd1c291eb3064e1832e6b18c7461))
+* ajoute un document d'entreprise lors de l'édition d'une étape ([#351](https://github.com/MTES-MCT/camino-ui/issues/351)) ([93c1593](https://github.com/MTES-MCT/camino-ui/commit/93c159368ca0c74c887e45dda79317fb72d35e76))
+* améliore l'ergonomie de la dépose de demande ([#352](https://github.com/MTES-MCT/camino-ui/issues/352)) ([393aa6e](https://github.com/MTES-MCT/camino-ui/commit/393aa6e1fdfdcbb1636155a579d4f25fcd654bc9))
+* supprime le widget mailjet ([#354](https://github.com/MTES-MCT/camino-ui/issues/354)) ([c8081e5](https://github.com/MTES-MCT/camino-ui/commit/c8081e582e8c17da2ba2daa88fc2d20fbf9f1fc0))
+
 ### [0.22.71](https://github.com/MTES-MCT/camino-ui/compare/v0.22.70...v0.22.71) (2021-06-02)
 
 
