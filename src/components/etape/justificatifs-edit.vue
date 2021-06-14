@@ -30,7 +30,7 @@
 
       <hr class="mb-s" />
 
-      <div v-for="(j, index) in e.justificatifs" :key="index">
+      <div v-for="j in e.justificatifs" :key="j.id">
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3">
             <h5 class="mt-s">{{ j.type.nom }}</h5>
@@ -162,7 +162,9 @@ export default {
 
     entreprises: { handler: 'init', deep: true },
 
-    justificatifsTypes: { handler: 'init', deep: true }
+    justificatifsTypes: { handler: 'init', deep: true },
+
+    justificatifs: { handler: 'indexCalculate', deep: true }
   },
 
   created() {
@@ -173,6 +175,11 @@ export default {
 
   methods: {
     init() {
+      this.indexCalculate()
+      this.justificatifsReset()
+    },
+
+    indexCalculate() {
       this.entreprisesJustificatifsIndex = {}
 
       this.entreprises.forEach(e => {
@@ -214,8 +221,6 @@ export default {
           }
         })
       })
-
-      this.justificatifsReset()
     },
 
     justificatifAdd(entrepriseId) {
