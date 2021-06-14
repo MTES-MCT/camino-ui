@@ -53,7 +53,7 @@
               `${document.id}.${document.fichierTypeId}`
             }}
           </p>
-          <div v-if="modifiable" class="flex-right">
+          <div v-if="modifiable" class="flex-right flex flex-center pl-s">
             <button
               class="btn-border py-s px-m my--xs rnd-l-xs"
               @click="fileRemove"
