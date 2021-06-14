@@ -1,31 +1,32 @@
 import gql from 'graphql-tag'
 import { print } from 'graphql/language/printer'
-import { GraphQL } from 'graphql-react'
-
+import fetchOptionsGraphQL from 'graphql-react/public/fetchOptionsGraphQL.js'
+import fetchGraphQL from 'graphql-react/public/fetchGraphQL.js'
+import Cache from 'graphql-react/public/Cache.js'
+import Loading from 'graphql-react/public/Loading.js'
+import LoadingCacheValue from 'graphql-react/public/LoadingCacheValue.js'
 import { fragmentUtilisateurToken } from './fragments/utilisateur'
 
-const graphql = new GraphQL()
-
-graphql.on('cache', eventData => {
+const refresh = headers => {
   // vérifie que l’application est toujours à jour
-  const headersEntries = Array.from(eventData.response.headers.entries())
+  const headersEntries = Array.from(headers.entries())
   if (headersEntries) {
     const versionHeaderEntry = headersEntries.find(
       h => h[0].toLowerCase() === 'X-Camino-Version'.toLowerCase()
     )
-
     if (versionHeaderEntry) {
       const version = versionHeaderEntry[1]
-
       // eslint-disable-next-line no-undef
       if (version !== npmVersion) {
         window.location.reload()
       }
     }
   }
-})
+}
 
 const apiUrl = '/apiUrl'
+const cache = new Cache()
+const loading = new Loading()
 
 const errorThrow = e => {
   const errorMessage = `API : ${e.message || e.status}`
@@ -59,22 +60,44 @@ const restCall = async (url, path) => {
 const graphQLCall = async (url, query, variables) => {
   const authorization = authorizationGet()
 
-  const res = await graphql.operate({
-    operation: { query: print(query), variables },
-    fetchOptionsOverride: options => {
-      options.url = url
-      options.headers = Object.assign(options.headers, { authorization })
-    }
+  const fetchOptions = fetchOptionsGraphQL({
+    query: print(query),
+    variables,
+    headers: { authorization }
   })
 
-  const value = await res.cacheValuePromise
+  const cacheKey = query.definitions[0].name.value
 
-  if (value.graphQLErrors) throw value.graphQLErrors[0]
-  if (value.fetchError) throw value.fetchError
-  if (value.httpError) throw value.httpError
-  if (value.parseError) throw value.parseError
+  if (loading.store[cacheKey]) {
+    loading.store[cacheKey].forEach(a => {
+      console.log(loading.store[cacheKey])
+      a.abortController.abort()
+    })
+  }
 
-  const data = value.data
+  const req = fetchGraphQL(url, fetchOptions)
+
+  const abortController = new AbortController()
+
+  const loadingCacheValue = new LoadingCacheValue(
+    loading,
+    cache,
+    cacheKey,
+    req,
+    abortController
+  )
+
+  const res = await loadingCacheValue.promise
+
+  console.log(res)
+  if (res.errors?.length) {
+    throw new Error(res.errors)
+  }
+
+  // reload page if npmVersion has changed
+  refresh(res.response.headers)
+
+  const data = res.data
 
   const keys = Object.keys(data)
   const dataContent = keys.length === 1 ? data[keys[0]] : data
