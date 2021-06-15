@@ -1,10 +1,15 @@
 <template>
+  <h2>Activité</h2>
   <Loader v-if="!loaded" />
   <div v-else>
-    <h5>Activité</h5>
-    <h1 class="cap-first">
-      {{ activite.titre.nom }}
-    </h1>
+    <h6>
+      <router-link
+        :to="{ name: 'titre', params: { id: activite.titre.id } }"
+        class="cap-first"
+      >
+        {{ activite.titre.nom }}
+      </router-link>
+    </h6>
 
     <Preview
       :key="activite.id"

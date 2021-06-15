@@ -114,6 +114,7 @@ export {
   contenuBuild,
   elementContenuBuild,
   contenuCompleteCheck,
+  elementsCompleteCheck,
   valeurFind,
   hasValeurCheck,
   elementsVisibleCheck

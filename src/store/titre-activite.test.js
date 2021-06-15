@@ -5,7 +5,7 @@ import { createStore } from 'vuex'
 
 jest.mock('../api/titres-activites', () => ({
   activiteSupprimer: jest.fn(),
-  activiteModifier: jest.fn(),
+  activiteDeposer: jest.fn(),
   activite: jest.fn()
 }))
 console.info = jest.fn()
@@ -49,80 +49,6 @@ describe("état d'une activité", () => {
 
     const app = createApp({})
     app.use(store)
-  })
-
-  test('valide une activité', async () => {
-    api.activiteModifier.mockResolvedValue({ statut: { id: 'dep' } })
-
-    const res = await store.dispatch('titreActivite/update', {
-      activite: {
-        id: 27,
-        contenu: [],
-        statut: { id: 'dep' }
-      },
-      route: null
-    })
-
-    expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(res).toEqual('success')
-  })
-
-  test('valide une activité sur une activité', async () => {
-    api.activiteModifier.mockResolvedValue({ statut: { id: 'dep' } })
-    titreActivite.state.element = { id: 'activite-id' }
-
-    await store.dispatch('titreActivite/update', {
-      activite: {
-        id: 27,
-        contenu: [],
-        statut: { id: 'dep' }
-      },
-      route: 'titreActivite'
-    })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-    expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalledTimes(1)
-    expect(actions.reload).toHaveBeenCalledTimes(1)
-    expect(store.state.titreActivite.opened).toBeTruthy()
-  })
-
-  test('enregistre une activité sur un titre', async () => {
-    api.activiteModifier.mockResolvedValue({ statut: { id: 'enc' } })
-
-    await store.dispatch('titreActivite/update', {
-      activite: {
-        id: 27,
-        contenu: [],
-        statut: { id: 'enc' }
-      },
-      route: { name: 'titre' }
-    })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-    expect(mutations.loadingRemove).toHaveBeenCalled()
-    expect(actions.messageAdd).toHaveBeenCalled()
-    expect(actions.reload).toHaveBeenCalled()
-  })
-
-  test("erreur dans l'api lors de l'enregistrement d'une activité", async () => {
-    const apiMock = api.activiteModifier.mockRejectedValue(
-      new Error("l'api ne répond pas")
-    )
-    await store.dispatch('titreActivite/update', {
-      activite: {
-        id: 27,
-        contenu: [],
-        statut: { id: 'dep' }
-      },
-      route: { name: 'titre' }
-    })
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({
-      activite: { id: 27, contenu: [], documents: undefined }
-    })
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
 
   test('retourne une activité', async () => {
@@ -197,21 +123,29 @@ describe("état d'une activité", () => {
     expect(store.state.titreActivite.opened).toBeFalsy()
   })
 
-  test('supprime une activité', async () => {
+  test('supprime une activité et redirige sur le titre', async () => {
     api.activiteSupprimer.mockResolvedValue({ id: 71 })
     await store.dispatch('titreActivite/remove', {
       id: 71,
       route: { name: 'titre', id: 'titre-id' }
     })
 
-    await store.dispatch('titreActivite/remove', {
-      id: 71,
-      route: { name: 'titreActivite', id: 'activite-id' }
+    expect(actions.reload).toHaveBeenCalledWith(expect.anything(), {
+      name: 'titre',
+      id: 'titre-id'
     })
+    expect(api.activiteSupprimer).toHaveBeenCalled()
+  })
+
+  test('supprime une activité et redirige sur la liste des activités', async () => {
+    api.activiteSupprimer.mockResolvedValue({ id: 71 })
 
     await store.dispatch('titreActivite/remove', {
-      id: 71,
-      route: { id: 'activite-id' }
+      id: 71
+    })
+
+    expect(actions.reload).toHaveBeenCalledWith(expect.anything(), {
+      name: 'activites'
     })
 
     expect(api.activiteSupprimer).toHaveBeenCalled()
@@ -225,5 +159,30 @@ describe("état d'une activité", () => {
 
     expect(api.activiteSupprimer).toHaveBeenCalled()
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test('dépose une activité', async () => {
+    api.activiteDeposer.mockResolvedValue({ id: 12 })
+
+    await store.dispatch('titreActivite/depose', {
+      id: 12,
+      route: null
+    })
+
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(actions.messageAdd).toHaveBeenCalled()
+  })
+
+  test('dépose une activité retourne une erreur', async () => {
+    api.activiteDeposer.mockRejectedValue(new Error("l'api ne répond pas"))
+
+    await store.dispatch('titreActivite/depose', {
+      id: 12,
+      route: null
+    })
+
+    expect(mutations.loadingRemove).toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+    expect(actions.messageAdd).not.toHaveBeenCalled()
   })
 })

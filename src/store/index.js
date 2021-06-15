@@ -26,6 +26,7 @@ import metas from './metas'
 import meta from './meta'
 import user from './user'
 import titreActivite from './titre-activite'
+import titreActiviteEdition from './titre-activite-edition'
 import titresActivites from './titres-activites'
 import statistiques from './statistiques'
 import definitions from './definitions'
@@ -51,6 +52,7 @@ const modules = {
   metas,
   user,
   titreActivite,
+  titreActiviteEdition,
   titresActivites,
   statistiques,
   definitions

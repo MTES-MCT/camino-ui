@@ -4,26 +4,27 @@ import { apiGraphQLFetch } from './_client'
 import { fragmentActivites, fragmentActivite } from './fragments/titre-activite'
 
 const activiteModifier = apiGraphQLFetch(gql`
-  mutation ActiviteModifier(
-    $activite: InputActiviteModification!
-    $depose: Boolean
-  ) {
-    activiteModifier(activite: $activite, depose: $depose) {
-      ...activite
+  mutation ActiviteModifier($activite: InputActiviteModification!) {
+    activiteModifier(activite: $activite) {
+      id
     }
   }
+`)
 
-  ${fragmentActivite}
+const activiteDeposer = apiGraphQLFetch(gql`
+  mutation ActiviteDeposer($id: ID!) {
+    activiteDeposer(id: $id) {
+      id
+    }
+  }
 `)
 
 const activiteSupprimer = apiGraphQLFetch(gql`
   mutation ActiviteSupprimer($id: ID!) {
     activiteSupprimer(id: $id) {
-      ...activite
+      id
     }
   }
-
-  ${fragmentActivite}
 `)
 
 const activites = apiGraphQLFetch(
@@ -85,4 +86,10 @@ const activite = apiGraphQLFetch(
   `
 )
 
-export { activite, activites, activiteModifier, activiteSupprimer }
+export {
+  activite,
+  activites,
+  activiteModifier,
+  activiteSupprimer,
+  activiteDeposer
+}

@@ -1,6 +1,6 @@
 import {
   activite,
-  activiteModifier,
+  activiteDeposer,
   activiteSupprimer
 } from '../api/titres-activites'
 
@@ -28,84 +28,57 @@ const actions = {
     }
   },
 
-  async update({ commit, dispatch, rootState }, { activite, route, depose }) {
-    try {
-      commit('popupMessagesRemove', null, { root: true })
-      commit('popupLoad', null, { root: true })
-      commit('loadingAdd', 'activiteUpdate', { root: true })
-      const data = await activiteModifier({
-        activite: {
-          id: activite.id,
-          contenu: activite.contenu,
-          documents: activite.documents
-        },
-        depose
-      })
-
-      if (route) {
-        commit('popupClose', null, { root: true })
-
-        await dispatch(
-          'messageAdd',
-          {
-            value:
-              data.statut.id === 'dep'
-                ? `l'activité a été validée`
-                : `l'activité a été enregistrée`,
-            type: 'success'
-          },
-          { root: true }
-        )
-
-        if (route.name === 'titre') {
-          commit(
-            'titre/open',
-            { section: 'activites', id: activite.id },
-            { root: true }
-          )
-        } else {
-          commit('open')
-        }
-        await dispatch('reload', route, { root: true })
-      }
-
-      return 'success'
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'activiteUpdate', { root: true })
-    }
-  },
-
   async remove({ commit, dispatch }, { id, route }) {
     try {
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
       commit('loadingAdd', 'activiteRemove', { root: true })
-      const data = await activiteSupprimer({ id })
+      await activiteSupprimer({ id })
 
       commit('popupClose', null, { root: true })
-      if (route.name === 'titre') {
-        await dispatch(
-          'reload',
-          { name: 'titre', id: route.id },
-          { root: true }
-        )
-      } else if (route.name === 'titreActivite') {
-        await dispatch('reload', { name: 'activites' }, { root: true })
-      }
+
+      await dispatch('reloadRoute', route)
 
       dispatch(
         'messageAdd',
         { value: `l'activité à été supprimée`, type: 'success' },
         { root: true }
       )
-
-      return data
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'activiteRemove', { root: true })
+    }
+  },
+
+  async reloadRoute({ dispatch }, route) {
+    if (route?.id) {
+      await dispatch('reload', route, { root: true })
+    } else {
+      await dispatch('reload', { name: 'activites' }, { root: true })
+    }
+  },
+
+  async depose({ commit, dispatch }, { id, route }) {
+    try {
+      commit('popupMessagesRemove', null, { root: true })
+      commit('popupLoad', null, { root: true })
+      commit('loadingAdd', 'titreActiviteDepose', { root: id })
+
+      await activiteDeposer({ id })
+
+      commit('popupClose', null, { root: true })
+
+      await dispatch('reloadRoute', route)
+      dispatch(
+        'messageAdd',
+        { value: `la demande a été déposée`, type: 'success' },
+        { root: true }
+      )
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreActiviteDepose', { root: true })
     }
   }
 }
@@ -132,11 +105,7 @@ const mutations = {
   },
 
   toggle(state) {
-    if (state.opened) {
-      state.opened = false
-    } else {
-      state.opened = true
-    }
+    state.opened = !state.opened
   }
 }
 

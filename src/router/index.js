@@ -35,6 +35,7 @@ const StatistiquesGranulatsMarins = () =>
 const TitreCreation = () => import('../components/titre-creation.vue')
 const Etape = () => import('../components/etape.vue')
 const EtapeEdition = () => import('../components/etape-edition.vue')
+const ActiviteEdition = () => import('../components/activite-edition.vue')
 
 const routes = [
   {
@@ -121,6 +122,11 @@ const routes = [
     path: '/activites/:id',
     name: 'activite',
     component: Activite
+  },
+  {
+    path: '/activites/:id/edition',
+    name: 'activite-edition',
+    component: ActiviteEdition
   },
   {
     path: '/glossaire',

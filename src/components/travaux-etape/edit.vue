@@ -121,14 +121,14 @@
       :sections="etapeType.sections"
     />
 
-    <DocumentsEdit
-      v-if="etapeType && etapeType.documentsTypes && documentsTypes.length"
-      v-model:documents="etape.documents"
-      :parent-id="etape.id"
-      :documents-types="documentsTypes"
-      repertoire="travaux"
-      @complete-update="documentsCompleteUpdate"
-    />
+    <!--    <DocumentsEdit-->
+    <!--      v-if="etapeType && etapeType.documentsTypes && documentsTypes.length"-->
+    <!--      v-model:documents="etape.documents"-->
+    <!--      :parent-id="etape.id"-->
+    <!--      :documents-types="documentsTypes"-->
+    <!--      repertoire="travaux"-->
+    <!--      @complete-update="documentsCompleteUpdate"-->
+    <!--    />-->
 
     <template #footer>
       <div v-if="!loading" class="tablet-blobs">
@@ -159,19 +159,15 @@ import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
 import Popup from '../_ui/popup.vue'
 import SectionsEdit from './sections-edit.vue'
-import DocumentsEdit from '../document/multi-edit.vue'
 
 import { etapeSaveFormat } from './edit'
 
 export default {
-  name: 'CaminoEtapeEdit',
-
   components: {
     Popup,
     SectionsEdit,
     InputDate,
-    InputNumber,
-    DocumentsEdit
+    InputNumber
   },
 
   props: {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="s in sectionsFiltered" :key="s.id">
+    <div v-for="s in sections" :key="s.id">
       <h3 v-if="s.nom">{{ s.nom }}</h3>
 
       <SectionElementEdit
@@ -8,7 +8,6 @@
         :key="e.id"
         v-model:contenu="contenu[s.id]"
         :element="e"
-        :modifiable="modifiable"
       />
     </div>
   </div>
@@ -18,8 +17,7 @@
 import {
   elementContenuBuild,
   contenuBuild,
-  contenuCompleteCheck,
-  elementsVisibleCheck
+  contenuCompleteCheck
 } from '../../utils/contenu'
 
 import SectionElementEdit from './section-element-edit.vue'
@@ -29,8 +27,7 @@ export default {
 
   props: {
     sections: { type: Array, required: true },
-    element: { type: Object, required: true },
-    modifiable: { type: Boolean, default: true }
+    element: { type: Object, required: true }
   },
 
   emits: ['complete-update'],
@@ -44,14 +41,6 @@ export default {
   computed: {
     complete() {
       return contenuCompleteCheck(this.sections, this.contenu)
-    },
-
-    sectionsFiltered() {
-      return this.modifiable
-        ? this.sections
-        : this.sections.filter(s =>
-            elementsVisibleCheck(s.elements, this.contenu[s.id])
-          )
     }
   },
 
