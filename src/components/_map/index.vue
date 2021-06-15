@@ -176,6 +176,11 @@ export default {
       })
       this.layers.canvas.clear()
       this.layers.canvas.addMarkers(markers)
+      if (!markers.length) {
+        this.layers.canvas._canvas.classList.add('hide')
+      } else {
+        this.layers.canvas._canvas.classList.remove('hide')
+      }
     },
 
     layersCanvasAdd() {
