@@ -215,8 +215,14 @@ const fragmentTitreTypeTitreStatut = gql`
 
 const fragmentTitreTypeDemarcheType = gql`
   fragment titreTypeDemarcheType on TitreTypeDemarcheType {
-    titreTypeId
-    demarcheTypeId
+    titreType {
+      id
+      nom
+    }
+    demarcheType {
+      id
+      nom
+    }
     dureeMax
     acceptationImplicite
     delaiImplicite

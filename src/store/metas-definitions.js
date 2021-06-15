@@ -216,8 +216,18 @@ const metasIndex = {
     delete: titreTypeDemarcheTypeSupprimer,
     nom: 'Types des titres | Types des démarches',
     colonnes: [
-      { id: 'titreTypeId', nom: 'Id du type de titre' },
-      { id: 'demarcheTypeId', nom: 'Id du type de démarche' },
+      {
+        id: 'titreType',
+        nom: 'Id - Nom du type de titre',
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'demarcheType',
+        nom: 'Id - nom du type de démarche',
+        fields: ['id', 'nom'],
+        type: Object
+      },
       { id: 'dureeMax', nom: 'Durée maximale', type: Number, optional: true },
       {
         id: 'delaiImplicite',
