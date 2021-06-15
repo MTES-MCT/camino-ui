@@ -15,8 +15,9 @@ const actions = {
         const res = await etape({ id })
         const newEtape = res ? res.etape : null
 
-      if (!newEtape) {
-        dispatch('pageError', null, { root: true })
+        if (!newEtape) {
+          dispatch('pageError', null, { root: true })
+        }
       }
 
       commit('set', { etape: newEtape })
