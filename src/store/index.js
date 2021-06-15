@@ -71,7 +71,10 @@ const state = {
 
 const actions = {
   apiError({ commit }, error) {
+    if (error.message === 'aborted') return
+
     const id = Date.now()
+
     commit('messageAdd', {
       id,
       type: 'error',
