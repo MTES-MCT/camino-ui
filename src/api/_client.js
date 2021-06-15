@@ -31,10 +31,7 @@ const loading = new Loading()
 const errorThrow = e => {
   if (e.message === 'aborted') throw new Error('aborted')
 
-  const errorMessage = `API : ${e.message || e.status}`
-  console.error(e)
-
-  throw errorMessage
+  throw new Error(e.message || e.status)
 }
 
 const authorizationGet = () => {
@@ -61,9 +58,7 @@ const restCall = async (url, path) => {
 
 const graphQLCall = async (url, query, variables) => {
   const authorization = authorizationGet()
-
   const abortController = new AbortController()
-
   const fetchOptions = fetchOptionsGraphQL({
     query: print(query),
     variables
@@ -94,9 +89,10 @@ const graphQLCall = async (url, query, variables) => {
 
   if (res.errors?.length) {
     res.errors.forEach(e => {
-      if (e.extensions.client) throw new Error('aborted')
+      if (e.extensions && e.extensions.client && e.message === 'FETCH_ERROR')
+        throw new Error('aborted')
 
-      throw new Error('api error')
+      throw new Error(e.message)
     })
   }
 
@@ -115,7 +111,7 @@ const apiFetch = async (call, query, variables) => {
   try {
     return await call(apiUrl, query, variables)
   } catch (e) {
-    if (e.status === 401) {
+    if (e.status === 401 || e.message === 'HTTP 401 status.') {
       await tokenRefresh()
       return await call(apiUrl, query, variables)
     } else {
