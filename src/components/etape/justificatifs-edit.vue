@@ -30,7 +30,7 @@
 
       <hr class="mb-s" />
 
-      <div v-for="(j, index) in e.justificatifs" :key="index">
+      <div v-for="j in e.justificatifs" :key="j.id">
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3">
             <h5 class="mt-s">{{ j.type.nom }}</h5>
@@ -65,12 +65,9 @@
               </p>
 
               <button
-                v-if="
-                  j.type.optionnel ||
-                  documentsWithSameType(j.type.id, e.justificatifs)
-                "
-                class="btn py-s px-m rnd-xs flex-right"
-                @click="justificatifRemove(eId, index)"
+                v-if="j.id"
+                class="btn py-s px-m ml-s rnd-xs flex-right"
+                @click="justificatifRemove(eId, j.id)"
               >
                 <i class="icon-24 icon-minus" />
               </button>
@@ -159,20 +156,24 @@ export default {
 
   watch: {
     complete: 'completeUpdate',
-
-    entreprises: { handler: 'init', deep: true },
-
-    justificatifsTypes: { handler: 'init', deep: true }
+    entreprises: { handler: 'reset', deep: true },
+    justificatifsTypes: { handler: 'reset', deep: true },
+    justificatifs: { handler: 'indexReset', deep: true }
   },
 
   created() {
-    this.init()
+    this.indexReset()
 
     this.completeUpdate()
   },
 
   methods: {
-    init() {
+    reset() {
+      this.indexReset()
+      this.justificatifsReset()
+    },
+
+    indexReset() {
       this.entreprisesJustificatifsIndex = {}
 
       this.entreprises.forEach(e => {
@@ -214,8 +215,6 @@ export default {
           }
         })
       })
-
-      this.justificatifsReset()
     },
 
     justificatifAdd(entrepriseId) {
@@ -245,13 +244,13 @@ export default {
       this.justificatifsReset()
     },
 
-    justificatifRemove(entrepriseId, index) {
-      this.entreprisesJustificatifsIndex[entrepriseId].justificatifs.splice(
-        index,
+    justificatifRemove(entrepriseId, id) {
+      this.justificatifs.splice(
+        this.justificatifs.indexOf(justificatif => id !== justificatif.id),
         1
       )
 
-      this.justificatifsReset()
+      this.indexReset()
     },
 
     justificatifsReset() {
