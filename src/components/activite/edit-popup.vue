@@ -46,7 +46,7 @@
       "
       v-model:documents="activite.documents"
       :modifiable="modifiable"
-      :ajoutable="false"
+      :ajoutable="true"
       :parent-id="activite.id"
       :documents-types="activite.type.documentsTypes"
       repertoire="activites"
