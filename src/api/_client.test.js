@@ -67,7 +67,7 @@ describe('api client', () => {
       error = e
     }
 
-    expect(error).toBe('API : 404')
+    expect(error.message).toBe('HTTP 404 status.')
     expect(window.location.reload).not.toHaveBeenCalled()
   })
 
@@ -113,7 +113,7 @@ describe('api client', () => {
       error = e
     }
 
-    expect(error.status).toBe(401)
+    expect(error.message).toBe('HTTP 401 status.')
     expect(window.location.reload).toHaveBeenCalled()
   })
 
@@ -135,7 +135,7 @@ describe('api client', () => {
       error = e
     }
 
-    expect(error).toBe('API : 404')
+    expect(error.message).toBe('404')
     expect(window.location.reload).not.toHaveBeenCalled()
   })
 })

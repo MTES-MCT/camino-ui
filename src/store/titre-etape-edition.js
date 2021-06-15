@@ -65,7 +65,6 @@ const actions = {
 
       commit('load')
     } catch (e) {
-      console.log(e)
       dispatch('pageError', null, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeInit', { root: true })
@@ -83,7 +82,6 @@ const actions = {
 
       commit('metasSet', metas)
     } catch (e) {
-      console.log(e)
       dispatch('pageError', null, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeMetasGet', { root: true })
@@ -102,7 +100,6 @@ const actions = {
       commit('metasSet', { etapesTypes: metas })
       commit('dateSet', date)
     } catch (e) {
-      console.log(e)
       dispatch('pageError', null, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeEtapesTypesGet', { root: true })
@@ -131,7 +128,6 @@ const actions = {
 
       commit('heritageLoaded', true)
     } catch (e) {
-      console.log(e)
       dispatch('apiError', e, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeHeritageGet', {
