@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.73](https://github.com/MTES-MCT/camino-ui/compare/v0.22.72...v0.22.73) (2021-06-15)
+
+
+### Bug Fixes
+
+* **activités:** permet d’ajouter les fichiers sur les activités ([e0c58ac](https://github.com/MTES-MCT/camino-ui/commit/e0c58ac840f38e10a2bc3311da6365abcd66aef2))
+* **documents:** corrige le style des boutons dans la popup d’édition d’un document ([39c3c2a](https://github.com/MTES-MCT/camino-ui/commit/39c3c2a11110f02effba303e7c76b0ae70d39b3a))
+
 ### [0.22.72](https://github.com/MTES-MCT/camino-ui/compare/v0.22.71...v0.22.72) (2021-06-14)
 
 
