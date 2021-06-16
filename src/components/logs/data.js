@@ -8,7 +8,7 @@ const logs = [
       prenom: 'Junior',
       permission: { id: 'entreprise' }
     },
-    actionId: 'modification',
+    action: { id: 'mod', nom: 'modification' },
     changes: {
       contenu: {
         travaux: {
@@ -27,7 +27,6 @@ const logs = [
       }
     },
     activite: {
-      typeId: 'grp',
       type: {
         id: 'grp',
         nom: "rapport trimestriel d'exploitation d'or en Guyane"
@@ -37,6 +36,92 @@ const logs = [
         annee: 2021
       },
       id: 'm-ax-affluent-crique-korossibo-2021-grp-2021-01'
+    },
+    publicLecture: false,
+    entrepriseLecture: true
+  },
+  {
+    id: 'hash-9584536',
+    date: '2020-10-01-10-07',
+    utilisateur: {
+      id: 'utilisateur-id',
+      nom: 'Torres du 973',
+      prenom: 'Junior',
+      permission: { id: 'entreprise' }
+    },
+    action: { id: 'cre', nom: 'création' },
+    changes: {
+      statutId: 'dep'
+    },
+    etape: {
+      type: {
+        id: 'mfr',
+        nom: 'demande'
+      },
+      demarche: {
+        type: { id: 'oct', nom: 'octroi' },
+        titre: {
+          id: 'm-ax-crique-ipoucin-ouest-1-2020',
+          nom: 'Crique Ipoucin Ouest 1'
+        }
+      }
+    },
+    publicLecture: false,
+    entrepriseLecture: true
+  },
+  {
+    id: 'hash-8362452',
+    date: '2020-10-01-10-04',
+    utilisateur: {
+      id: 'utilisateur-id',
+      nom: 'Ortelli',
+      prenom: 'Adrien',
+      permission: { id: 'admin' },
+      administration: {
+        id: 'onf',
+        abreviation: 'Onf'
+      }
+    },
+    action: { id: 'sup', nom: 'suppression' },
+    etape: {
+      type: {
+        id: 'mfr',
+        nom: 'demande'
+      },
+      demarche: {
+        type: { id: 'oct', nom: 'octroi' },
+        titre: {
+          id: 'm-ax-crique-ipoucin-ouest-1-2020',
+          nom: 'Crique Ipoucin Ouest 1'
+        }
+      }
+    },
+    publicLecture: false,
+    entrepriseLecture: true
+  },
+
+  {
+    id: 'hash-788778235',
+    date: '2020-10-01-10-00',
+    utilisateur: {
+      id: 'utilisateur-id',
+      nom: 'Camino',
+      prenom: '',
+      permission: { id: 'admin' }
+    },
+    action: { id: 'mod', nom: 'modification' },
+    etape: {
+      type: {
+        id: 'mfr',
+        nom: 'demande'
+      },
+      demarche: {
+        type: { id: 'oct', nom: 'octroi' },
+        titre: {
+          id: 'm-ax-crique-ipoucin-ouest-1-2020',
+          nom: 'Crique Ipoucin Ouest 1'
+        }
+      }
     },
     publicLecture: false,
     entrepriseLecture: true

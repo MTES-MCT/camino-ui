@@ -30,7 +30,7 @@ const activitesColonnes = [
 const activitesLignesBuild = activites =>
   activites.map(activite => {
     const columns = {
-      titre: { value: activite.titre.nom },
+      titre: { value: activite.titre.nom, class: 'bold' },
       titulaires: {
         component: markRaw(List),
         props: {
