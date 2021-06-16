@@ -30,7 +30,8 @@ describe('liste des demarches', () => {
         { id: 'titresDomainesIds', type: 'strings', values: [] },
         { id: 'titresTypesIds', type: 'strings', values: [] },
         { id: 'titresStatutsIds', type: 'strings', values: [] }
-      ]
+      ],
+      useUrl: true
     }
 
     store = createStore({

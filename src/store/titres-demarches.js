@@ -68,7 +68,8 @@ const state = {
       titresTerritoires: ''
     }
   },
-  initialized: false
+  initialized: false,
+  useUrl: true
 }
 
 const actions = listeActionsBuild(

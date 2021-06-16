@@ -32,7 +32,8 @@ describe("état d'une activité", () => {
         { id: 'titresTypesIds', type: 'strings', values: [] },
         { id: 'titresDomainesIds', type: 'strings', values: [] },
         { id: 'titresStatutsIds', type: 'strings', values: [] }
-      ]
+      ],
+      useUrl: true
     }
 
     store = createStore({

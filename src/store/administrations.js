@@ -19,7 +19,8 @@ const state = {
     table: { page: 1, intervalle: 200, ordre: 'asc', colonne: null },
     filtres: { noms: '', typesIds: [] }
   },
-  initialized: false
+  initialized: false,
+  useUrl: true
 }
 
 const actions = listeActionsBuild(

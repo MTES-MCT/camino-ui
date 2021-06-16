@@ -35,6 +35,7 @@ const StatistiquesGranulatsMarins = () =>
 const TitreCreation = () => import('../components/titre-creation.vue')
 const Etape = () => import('../components/etape.vue')
 const EtapeEdition = () => import('../components/etape-edition.vue')
+const Dashboard = () => import('../components/dashboard.vue')
 
 const routes = [
   {
@@ -181,6 +182,11 @@ const routes = [
     path: '/creation-de-compte',
     name: 'account-creation',
     component: UserAdd
+  },
+  {
+    path: '/tableau-de-bord',
+    name: 'dashboard',
+    component: Dashboard
   },
   {
     path: '/statistiques',

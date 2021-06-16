@@ -5,9 +5,15 @@ const dateFormat = dateString => {
     return ''
   }
 
-  const [y, m, d] = dateString.split('-')
+  const [y, m, d, h, n] = dateString.split('-')
 
-  return `${d} / ${m} / ${y}`
+  let date = `${d} / ${m} / ${y}`
+
+  if (h && n) {
+    date = `${date} ${h}:${n}`
+  }
+
+  return date
 }
 
 const textNumberFormat = (text, options) => {

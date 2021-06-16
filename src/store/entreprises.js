@@ -28,7 +28,8 @@ const state = {
     },
     filtres: { noms: '' }
   },
-  initialized: false
+  initialized: false,
+  useUrl: true
 }
 
 const actions = listeActionsBuild('entreprises', 'entreprises', entreprises)

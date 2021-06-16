@@ -15,7 +15,8 @@ describe("liste d'administrations", () => {
   beforeEach(() => {
     administrations.state = {
       metas: { types: [] },
-      definitions: [{ id: 'typesIds', type: 'strings', values: [] }]
+      definitions: [{ id: 'typesIds', type: 'strings', values: [] }],
+      useUrl: true
     }
 
     store = createStore({

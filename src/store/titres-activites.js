@@ -59,7 +59,8 @@ const state = {
       titresStatutsIds: []
     }
   },
-  initialized: false
+  initialized: false,
+  useUrl: true
 }
 
 const actions = listeActionsBuild(

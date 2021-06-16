@@ -102,7 +102,7 @@
         class="btn-flash rnd-xs p-s full-x"
         @click="save"
       >
-        Créer le titre
+        Demander le titre
       </button>
       <div v-else class="p-s full-x bold">Enregistrement en cours…</div>
     </div>

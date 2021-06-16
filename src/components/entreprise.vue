@@ -164,7 +164,6 @@
         class="width-full-p"
         :columns="utilisateursColonnes"
         :rows="utilisateursLignes"
-        :utilisateurs="utilisateurs"
       />
     </div>
 

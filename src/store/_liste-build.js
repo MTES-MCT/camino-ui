@@ -13,7 +13,9 @@ const listeActionsBuild = (id, name, elements, metas) => ({
       }
 
       if (!state.initialized) {
-        await dispatch('paramsFromQueryUpdate')
+        if (state.useUrl) {
+          await dispatch('paramsFromQueryUpdate')
+        }
 
         commit('init')
       }
@@ -32,12 +34,16 @@ const listeActionsBuild = (id, name, elements, metas) => ({
 
       if (!state.initialized) return
 
-      await dispatch('urlQueryUpdate')
+      if (state.useUrl) {
+        await dispatch('urlQueryUpdate')
+      }
 
       const p = paramsBuild(
         state.definitions,
         Object.assign({}, state.params.filtres, state.params.table)
       )
+
+      console.log(p)
 
       const data = await elements(p)
 
@@ -139,6 +145,10 @@ const listeMutations = {
 
   init(state) {
     state.initialized = true
+  },
+
+  useUrlUpdate(state, useUrl) {
+    state.useUrl = useUrl
   }
 }
 

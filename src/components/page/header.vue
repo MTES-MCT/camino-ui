@@ -21,11 +21,9 @@
       >
         <img src="/img/logo-rf.svg" class="logo mr" />
         <div>
-          <p class="mb-0 mt-xs title">
-            camino<span class="color-neutral">.beta.gouv.fr</span>
-          </p>
+          <p class="mb-0 mt-xs title">Cadastre minier</p>
           <p class="h6 mb-0 bold color-text">
-            Le cadastre minier numérique ouvert
+            camino<span class="color-neutral">.beta.gouv.fr</span>
           </p>
         </div>
       </router-link>
@@ -33,11 +31,9 @@
       <span v-else class="flex">
         <img src="/img/logo-rf.svg" class="logo mr" />
         <div>
-          <p class="mb-0 mt-xs title">
-            camino<span class="color-neutral">.beta.gouv.fr</span>
-          </p>
+          <p class="mb-0 mt-xs title">Cadastre minier</p>
           <p class="h6 mb-0 bold color-text">
-            Le cadastre minier numérique ouvert
+            camino<span class="color-neutral">.beta.gouv.fr</span>
           </p>
         </div>
       </span>

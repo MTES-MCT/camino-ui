@@ -43,7 +43,8 @@ const state = {
       colonne: null
     }
   },
-  initialized: false
+  initialized: false,
+  useUrl: true
 }
 
 const actions = listeActionsBuild(

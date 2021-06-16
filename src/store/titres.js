@@ -63,7 +63,8 @@ const state = {
       territoires: ''
     }
   },
-  initialized: false
+  initialized: false,
+  useUrl: true
 }
 
 const actions = {
@@ -76,7 +77,9 @@ const actions = {
       commit('metasSet', data)
 
       if (!state.initialized) {
-        await dispatch('paramsFromQueryUpdate')
+        if (state.useUrl) {
+          await dispatch('paramsFromQueryUpdate')
+        }
 
         commit('init')
       }
@@ -97,7 +100,9 @@ const actions = {
 
       if (!state.initialized) return
 
-      await dispatch('urlQueryUpdate')
+      if (state.useUrl) {
+        await dispatch('urlQueryUpdate')
+      }
 
       let data
 
