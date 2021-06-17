@@ -180,31 +180,45 @@ const pointsBuild = (groupes, geoSystemeIds, geoSystemeOpposableId) => {
 
 const dureeBuild = (ans, mois) => (ans ? ans * 12 : 0) + (mois || 0)
 
-const documentFormat = (document, fichierNouveau) => {
-  delete document.type
-  delete document.suppression
-  delete document.modification
-  document.fichierNouveau = fichierNouveau
+const demarcheOrTravauxEtapeSaveFormat = etape => {
+  etape.justificatifIds = etape.justificatifs?.map(({ id }) => id)
+  etape.documentIds = etape.documents
+    ?.filter(d => d.id !== d.typeId)
+    .map(({ id }) => id)
 
-  return document
+  delete etape.justificatifs
+  delete etape.documents
+  delete etape.sections
+
+  if (!etape.contenu || !Object.keys(etape.contenu).length) {
+    delete etape.contenu
+  }
+
+  if (etape.duree && (etape.duree.ans || etape.duree.mois)) {
+    etape.duree = dureeBuild(etape.duree.ans, etape.duree.mois)
+  } else {
+    etape.duree = null
+  }
+
+  const props = ['date', 'dateDebut', 'dateFin', 'surface', 'duree']
+
+  props.forEach(prop => {
+    if (etape[prop] === '') {
+      etape[prop] = null
+    }
+  })
+
+  delete etape.documentsCreation
+  delete etape.suppression
+  delete etape.modification
+
+  return etape
 }
 
-const documentsFormat = (documents, fichiersNouveaux) =>
-  documents.map((d, i) => documentFormat(d, fichiersNouveaux[i]))
-
 const etapeSaveFormat = etape => {
-  // le stringify casse le fichier
-
-  etape.justificatifs = etape.justificatifs?.map(({ id }) => ({ id }))
-  etape.documents = etape.documents?.filter(d => d.id !== d.typeId)
-  const fichiersNouveaux =
-    etape.documents && etape.documents.map(d => d.fichierNouveau)
-
-  const contenu = etape.contenu
   etape = JSON.parse(JSON.stringify(etape))
-  etape.documents =
-    etape.documents && documentsFormat(etape.documents, fichiersNouveaux)
-  etape.contenu = contenu
+
+  etape = demarcheOrTravauxEtapeSaveFormat(etape)
 
   delete etape.demarche
 
@@ -241,26 +255,14 @@ const etapeSaveFormat = etape => {
   } else {
     etape.points = null
 
-    delete etape.incertitudes.points
+    if (etape.incertitudes) {
+      delete etape.incertitudes.points
+    }
   }
 
   delete etape.groupes
   delete etape.geoSystemeOpposableId
   delete etape.geoSystemeIds
-
-  if (etape.duree && (etape.duree.ans || etape.duree.mois)) {
-    etape.duree = dureeBuild(etape.duree.ans, etape.duree.mois)
-  } else {
-    etape.duree = null
-  }
-
-  const props = ['date', 'dateDebut', 'dateFin', 'surface', 'duree']
-
-  props.forEach(prop => {
-    if (etape[prop] === '') {
-      etape[prop] = null
-    }
-  })
 
   if (etape.heritageProps) {
     Object.keys(etape.heritageProps).forEach(id => {
@@ -277,13 +279,12 @@ const etapeSaveFormat = etape => {
     })
   }
 
-  delete etape.sections
-
-  if (!etape.contenu || !Object.keys(etape.contenu).length) {
-    delete etape.contenu
-  }
-
   return etape
 }
 
-export { etapeSaveFormat, pointsBuild, dureeBuild }
+export {
+  etapeSaveFormat,
+  pointsBuild,
+  dureeBuild,
+  demarcheOrTravauxEtapeSaveFormat
+}

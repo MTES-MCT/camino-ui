@@ -30,6 +30,21 @@ const fragmentTitreTravauxEtape = gql`
     documents {
       ...document
     }
+    travaux {
+      id
+      type {
+        nom
+      }
+      titre {
+        id
+        nom
+        type {
+          type {
+            nom
+          }
+        }
+      }
+    }
 
     modification
     suppression
@@ -65,4 +80,4 @@ const fragmentTitreTravaux = gql`
   ${fragmentDemarcheStatut}
 `
 
-export { fragmentTitreTravaux }
+export { fragmentTitreTravaux, fragmentTitreTravauxEtape }

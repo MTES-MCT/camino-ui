@@ -77,7 +77,7 @@
           ref="save-button"
           class="btn-flash rnd-xs p-s full-x"
           :disabled="!isFormComplete"
-          :class="isFormComplete"
+          :class="{ disabled: !isFormComplete }"
           @click="save"
         >
           Enregistrer

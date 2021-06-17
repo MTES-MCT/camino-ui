@@ -153,7 +153,7 @@ export default {
     opened: { type: Boolean, default: false }
   },
 
-  emits: ['event-track', 'close', 'toggle'],
+  emits: ['close', 'toggle'],
 
   computed: {
     etapeType() {
@@ -270,7 +270,9 @@ export default {
     },
 
     eventTrack(event) {
-      this.$emit('event-track', event)
+      if (this.$matomo) {
+        this.$matomo.trackEvent(event.categorie, event.action, event.nom)
+      }
     }
   }
 }

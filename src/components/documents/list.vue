@@ -40,7 +40,7 @@ export default {
   props: {
     documents: { type: Array, required: true },
     repertoire: { type: String, required: true },
-    title: { type: String, required: true },
+    title: { type: String, default: '' },
     route: { type: Object, default: null },
     addAction: { type: Object, default: null },
     removeAction: { type: Object, default: null },

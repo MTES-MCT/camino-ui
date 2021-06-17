@@ -15,9 +15,9 @@
 
     <p class="bold">
       Souhaitez vous supprimer l'étape de travaux
-      <span class="color-inverse">{{ etapeTypeNom }}</span> de la démarche
-      <span class="color-inverse">{{ travauxTypeNom }}</span> du titre
-      <span class="color-inverse">{{ titreNom }} ({{ titreType }})</span> ?
+      <span class="color-inverse">{{ travauxEtapeTypeNom }}</span> de la
+      démarche <span class="color-inverse">{{ travauxTypeNom }}</span> du titre
+      <span class="color-inverse">{{ titreNom }} ({{ titreTypeNom }})</span> ?
     </p>
     <div class="bg-warning color-bg p-s mb-l">
       <span class="bold"> Attention </span>: cette opération est définitive et
@@ -53,11 +53,11 @@ export default {
   },
 
   props: {
-    etapeTypeNom: { type: String, default: '' },
+    travauxEtapeTypeNom: { type: String, default: '' },
     travauxTypeNom: { type: String, default: '' },
-    etapeId: { type: String, default: '' },
+    travauxEtapeId: { type: String, default: '' },
     titreNom: { type: String, default: '' },
-    titreType: { type: String, default: '' }
+    titreTypeNom: { type: String, default: '' }
   },
 
   computed: {
@@ -80,11 +80,13 @@ export default {
 
   methods: {
     async remove() {
-      await this.$store.dispatch('titreTravauxEtape/remove', this.etapeId)
+      await this.$store.dispatch(
+        'titreTravauxEtape/remove',
+        this.travauxEtapeId
+      )
     },
 
     cancel() {
-      this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
@@ -94,10 +96,6 @@ export default {
       } else if ((e.which || e.keyCode) === 13) {
         this.remove()
       }
-    },
-
-    errorsRemove() {
-      // this.$store.commit('utilisateur/loginMessagesRemove')
     }
   }
 }

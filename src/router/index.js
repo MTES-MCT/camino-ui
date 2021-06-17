@@ -35,6 +35,9 @@ const StatistiquesGranulatsMarins = () =>
 const TitreCreation = () => import('../components/titre-creation.vue')
 const Etape = () => import('../components/etape.vue')
 const EtapeEdition = () => import('../components/etape-edition.vue')
+const TravauxEtape = () => import('../components/travaux-etape.vue')
+const TravauxEtapeEdition = () =>
+  import('../components/travaux-etape-edition.vue')
 const ActiviteEdition = () => import('../components/activite-edition.vue')
 
 const routes = [
@@ -72,6 +75,21 @@ const routes = [
     path: '/etapes/:id/edition',
     name: 'etape-edition',
     component: EtapeEdition
+  },
+  {
+    path: '/travaux-etapes/:id',
+    name: 'travaux-etape',
+    component: TravauxEtape
+  },
+  {
+    path: '/travaux-etapes/creation',
+    name: 'travaux-etape-creation',
+    component: TravauxEtapeEdition
+  },
+  {
+    path: '/travaux-etapes/:id/edition',
+    name: 'travaux-etape-edition',
+    component: TravauxEtapeEdition
   },
   {
     path: '/utilisateurs',

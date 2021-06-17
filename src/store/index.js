@@ -13,6 +13,7 @@ import titreEtape from './titre-etape'
 import titreEtapeEdition from './titre-etape-edition'
 import titreTravaux from './titre-travaux'
 import titreTravauxEtape from './titre-travaux-etape'
+import titreTravauxEtapeEdition from './titre-travaux-etape-edition'
 import document from './document'
 import titres from './titres'
 import titresDemarches from './titres-demarches'
@@ -42,6 +43,7 @@ const modules = {
   titresDemarches,
   titreTravaux,
   titreTravauxEtape,
+  titreTravauxEtapeEdition,
   utilisateur,
   utilisateurs,
   entreprise,

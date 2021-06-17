@@ -1,82 +1,35 @@
 import {
-  titreTravauxEtapeMetas,
-  travauxEtapeCreer,
-  travauxEtapeModifier,
+  titreTravauxEtape,
   travauxEtapeSupprimer
 } from '../api/titres-travaux-etapes'
 
 const state = {
-  element: null,
-  metas: {
-    etapesTypes: []
-  }
+  element: null
 }
 
 const actions = {
-  async init({ commit }, etape) {
+  async get({ commit, dispatch }, id) {
     try {
-      commit('loadingAdd', 'titreTravauxEtapeInit', { root: true })
+      commit('loadingAdd', 'titreTravauxEtapeGet', { root: true })
 
-      const data = await titreTravauxEtapeMetas(etape)
+      const travauxEtape = await titreTravauxEtape({ id })
 
-      commit('metasSet', { etapesTypes: data })
+      if (!travauxEtape) {
+        dispatch('pageError', null, { root: true })
+      }
+
+      commit('set', { travauxEtape })
     } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      dispatch('apiError', e, { root: true })
     } finally {
-      commit('loadingRemove', 'titreTravauxEtapeInit', { root: true })
-    }
-  },
-
-  async add({ commit, dispatch }, etape) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreTravauxEtapeAdd', { root: true })
-
-    try {
-      const data = await travauxEtapeCreer({ etape })
-
-      commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-      commit('titre/open', { section: 'travaux', id: etape.id }, { root: true })
-      dispatch(
-        'messageAdd',
-        { value: `le titre a été mis à jour`, type: 'success' },
-        { root: true }
-      )
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreTravauxEtapeAdd', { root: true })
-    }
-  },
-
-  async update({ commit, dispatch }, etape) {
-    commit('popupMessagesRemove', null, { root: true })
-    commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreEtapeUpdate', { root: true })
-
-    try {
-      const data = await travauxEtapeModifier({ etape })
-
-      commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
-      commit('titre/open', { section: 'travaux', id: etape.id }, { root: true })
-      dispatch(
-        'messageAdd',
-        { value: `le titre a été mis à jour`, type: 'success' },
-        { root: true }
-      )
-    } catch (e) {
-      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'titreEtapeUpdate', { root: true })
+      commit('loadingRemove', 'titreTravauxEtapeGet', { root: true })
     }
   },
 
   async remove({ commit, dispatch }, id) {
     commit('popupMessagesRemove', null, { root: true })
     commit('popupLoad', null, { root: true })
-    commit('loadingAdd', 'titreEtapeRemove', { root: true })
+    commit('loadingAdd', 'titreTravauxEtapeRemove', { root: true })
 
     try {
       const data = await travauxEtapeSupprimer({ id })
@@ -91,16 +44,14 @@ const actions = {
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
-      commit('loadingRemove', 'titreEtapeRemove', { root: true })
+      commit('loadingRemove', 'titreTravauxEtapeRemove', { root: true })
     }
   }
 }
 
 const mutations = {
-  metasSet(state, data) {
-    Object.keys(data).forEach(id => {
-      state.metas[id] = data[id]
-    })
+  set(state, { travauxEtape }) {
+    state.element = travauxEtape
   }
 }
 

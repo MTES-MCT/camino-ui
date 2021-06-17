@@ -10,15 +10,14 @@
       </router-link>
       <span class="color-neutral"> | </span>
       <span class="cap-first">
-        {{ demarcheType.nom }}
+        {{ travauxType.nom }}
       </span>
     </h6>
 
     <Preview
-      :etape="etape"
-      :demarche-type="demarcheType"
+      :travaux-etape="travauxEtape"
+      :travaux-type="travauxType"
       :titre-type-type="titreTypeType"
-      :domaine-id="domaineId"
       :titre-nom="titre.nom"
       :titre-id="titre.id"
       :opened="opened"
@@ -27,11 +26,11 @@
 </template>
 
 <script>
-import Preview from './etape/preview.vue'
 import Loader from './_ui/loader.vue'
+import Preview from './travaux-etape/preview.vue'
 
 export default {
-  components: { Preview, Loader },
+  components: { Loader, Preview },
 
   data() {
     return {
@@ -43,26 +42,20 @@ export default {
     user() {
       return this.$store.state.user.element
     },
-    etapeId() {
-      return this.$route.params.id
-    },
-    etape() {
-      return this.$store.state.titreEtape.element
+    travauxEtape() {
+      return this.$store.state.titreTravauxEtape.element
     },
     loaded() {
-      return !!this.etape
+      return !!this.travauxEtape
     },
-    demarche() {
-      return this.etape.demarche
+    travaux() {
+      return this.travauxEtape.travaux
     },
-    demarcheType() {
-      return this.demarche ? this.demarche.type : ''
+    travauxType() {
+      return this.travaux ? this.travaux.type : ''
     },
     titre() {
-      return this.demarche ? this.demarche.titre : ''
-    },
-    domaineId() {
-      return this.titre ? this.titre.domaine.id : ''
+      return this.travaux ? this.travaux.titre : ''
     },
     titreType() {
       return this.titre ? this.titre.type : ''
@@ -73,7 +66,7 @@ export default {
   },
   watch: {
     '$route.params.id': function (id) {
-      if (this.$route.name === 'etape' && id) {
+      if (this.$route.name === 'travaux-etape' && id) {
         this.get()
       }
     },
@@ -86,7 +79,7 @@ export default {
 
   methods: {
     async get() {
-      await this.$store.dispatch('titreEtape/get', this.$route.params.id)
+      await this.$store.dispatch('titreTravauxEtape/get', this.$route.params.id)
     }
   }
 }

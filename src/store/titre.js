@@ -18,6 +18,33 @@ const state = {
     etapes: {},
     activites: {},
     travaux: {}
+  },
+  tabId: 'demarches'
+}
+
+const getters = {
+  tabId(state, getters) {
+    const tabIds = getters.tabs.map(({ id }) => id)
+
+    if (!tabIds.includes(state.tabId)) {
+      return tabIds[0]
+    }
+
+    return state.tabId
+  },
+
+  tabs(state) {
+    const tabs = [{ id: 'demarches', nom: 'Droits miniers' }]
+
+    if (state.element?.activites?.length) {
+      tabs.push({ id: 'activites', nom: 'Activités' })
+    }
+
+    if (state.element?.travaux?.length || state.element?.travauxCreation) {
+      tabs.push({ id: 'travaux', nom: 'Travaux' })
+    }
+
+    return tabs
   }
 }
 
@@ -146,6 +173,8 @@ const mutations = {
     if (!state.opened[section][id]) {
       state.opened[section][id] = true
     }
+
+    state.tabId = section
   },
 
   close(state, { section, id }) {
@@ -155,11 +184,11 @@ const mutations = {
   },
 
   toggle(state, { section, id }) {
-    if (state.opened[section][id]) {
-      state.opened[section][id] = false
-    } else {
-      state.opened[section][id] = true
-    }
+    state.opened[section][id] = !state.opened[section][id]
+  },
+
+  openTab(state, tabId) {
+    state.tabId = tabId
   }
 }
 
@@ -167,5 +196,6 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
+  getters
 }
