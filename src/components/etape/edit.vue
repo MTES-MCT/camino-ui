@@ -31,7 +31,12 @@
       @toggle="toggle('fondamentales')"
       @next="next('fondamentales')"
     >
-      <FondamentalesEdit v-model:etape="etape" :domaine-id="domaineId" />
+      <FondamentalesEdit
+        v-model:etape="etape"
+        :domaine-id="domaineId"
+        :titre-type-id="titreTypeId"
+        :user-is-admin="userIsAdmin"
+      />
     </Accordion>
 
     <Accordion
@@ -132,6 +137,7 @@ export default {
     etape: { type: Object, required: true },
     etapeType: { type: Object, default: null },
     domaineId: { type: String, required: true },
+    titreTypeId: { type: String, required: true },
     events: { type: Object, required: true },
     user: { type: Object, required: true },
     etapeIsDemandeEnConstruction: { type: Boolean, required: true },

@@ -51,71 +51,74 @@
 
     <hr />
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5 class="mb-0">Date de début</h5>
-        <p class="h6 italic mb-0">Optionnel</p>
+    <div v-if="dateIsVisible">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h5 class="mb-0">Date de début</h5>
+          <p class="h6 italic mb-0">Optionnel</p>
+        </div>
+        <HeritageEdit
+          v-model:prop="etape.heritageProps.dateDebut"
+          class="tablet-blob-2-3"
+          prop-id="dateDebut"
+        >
+          <template #write>
+            <InputDate v-model="etape.dateDebut" class="mb-s" />
+            <div v-if="etape.dateDebut" class="h6">
+              <label>
+                <input
+                  v-model="etape.incertitudes.dateDebut"
+                  type="checkbox"
+                  class="mr-xs"
+                />
+                Incertain
+              </label>
+            </div>
+          </template>
+          <template #read>
+            <div class="border p-s mb-s bold">
+              {{ dateFormat(etape.heritageProps.dateDebut.etape.dateDebut) }}
+            </div>
+          </template>
+        </HeritageEdit>
       </div>
-      <HeritageEdit
-        v-model:prop="etape.heritageProps.dateDebut"
-        class="tablet-blob-2-3"
-        prop-id="dateDebut"
-      >
-        <template #write>
-          <InputDate v-model="etape.dateDebut" class="mb-s" />
-          <div v-if="etape.dateDebut" class="h6">
-            <label>
-              <input
-                v-model="etape.incertitudes.dateDebut"
-                type="checkbox"
-                class="mr-xs"
-              />
-              Incertain
-            </label>
-          </div>
-        </template>
-        <template #read>
-          <div class="border p-s mb-s bold">
-            {{ dateFormat(etape.heritageProps.dateDebut.etape.dateDebut) }}
-          </div>
-        </template>
-      </HeritageEdit>
+      <hr />
     </div>
 
-    <hr />
-
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5 class="mb-0">Date d'échéance</h5>
-        <p class="h6 italic mb-0">Optionnel</p>
+    <div v-if="dateIsVisible">
+      <div class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h5 class="mb-0">Date d'échéance</h5>
+          <p class="h6 italic mb-0">Optionnel</p>
+        </div>
+        <HeritageEdit
+          v-model:prop="etape.heritageProps.dateFin"
+          class="tablet-blob-2-3"
+          prop-id="dateFin"
+        >
+          <template #write>
+            <InputDate v-model="etape.dateFin" class="mb-s" />
+            <div v-if="etape.dateFin" class="h6">
+              <label>
+                <input
+                  v-model="etape.incertitudes.dateFin"
+                  type="checkbox"
+                  class="mr-xs"
+                />
+                Incertain
+              </label>
+            </div>
+          </template>
+          <template #read>
+            <div class="border p-s mb-s bold">
+              {{ dateFormat(etape.heritageProps.dateFin.etape.dateFin) }}
+            </div>
+          </template>
+        </HeritageEdit>
       </div>
-      <HeritageEdit
-        v-model:prop="etape.heritageProps.dateFin"
-        class="tablet-blob-2-3"
-        prop-id="dateFin"
-      >
-        <template #write>
-          <InputDate v-model="etape.dateFin" class="mb-s" />
-          <div v-if="etape.dateFin" class="h6">
-            <label>
-              <input
-                v-model="etape.incertitudes.dateFin"
-                type="checkbox"
-                class="mr-xs"
-              />
-              Incertain
-            </label>
-          </div>
-        </template>
-        <template #read>
-          <div class="border p-s mb-s bold">
-            {{ dateFormat(etape.heritageProps.dateFin.etape.dateFin) }}
-          </div>
-        </template>
-      </HeritageEdit>
+      <hr />
     </div>
 
-    <hr />
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h5 class="mb-0">Surface (Km²)</h5>
@@ -411,10 +414,20 @@ export default {
 
   props: {
     etape: { type: Object, default: () => ({}) },
-    domaineId: { type: String, default: '' }
+    domaineId: { type: String, default: '' },
+    titreTypeId: { type: String, required: true },
+    userIsAdmin: { type: Boolean, required: true }
   },
 
   computed: {
+    isArm() {
+      return this.domaineId === 'm' && this.titreTypeId === 'ar'
+    },
+
+    dateIsVisible() {
+      return !this.isArm || this.userIsAdmin
+    },
+
     entreprises() {
       return this.$store.state.titreEtapeEdition.metas.entreprises
     },
