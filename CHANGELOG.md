@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.74](https://github.com/MTES-MCT/camino-ui/compare/v0.22.73...v0.22.74) (2021-06-21)
+
+
+### Features
+
+* **étape:** n'affiche pas les dates pour les entreprises sur des arms ([c2000e4](https://github.com/MTES-MCT/camino-ui/commit/c2000e483d4bb30dec6db386610d332a2157473c))
+* **justificatifs:** sélectionne le justificatif qui vient juste d’être ajouté via la popup ([#357](https://github.com/MTES-MCT/camino-ui/issues/357)) ([737f84e](https://github.com/MTES-MCT/camino-ui/commit/737f84efe05fed5dd19edec3b485d9d32eabf421))
+
+
+### Bug Fixes
+
+* **carte:** rend les périmètres des titres cliquables quand les marqueurs sont cachés ([#359](https://github.com/MTES-MCT/camino-ui/issues/359)) ([065c53b](https://github.com/MTES-MCT/camino-ui/commit/065c53b0ddf9b27c4f959e40b2af5bb1e14cfd96))
+
 ### [0.22.73](https://github.com/MTES-MCT/camino-ui/compare/v0.22.72...v0.22.73) (2021-06-15)
 
 
