@@ -63,18 +63,6 @@ if (import.meta.env.PROD) {
     .catch(e => console.error('erreur : matomo :', e))
 }
 
-VueMatomo(app, {
-  host: 'https://stats.preprod.camino.beta.gouv.fr',
-  siteId: 6,
-  router,
-  store,
-  requireConsent: false,
-  trackInitialView: true,
-  trackerFileName: 'piwik',
-  enableHeartBeatTimer: true,
-  enableLinkTracking: true
-})
-
 app.use(router)
 
 app.use(store)
