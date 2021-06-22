@@ -10,7 +10,7 @@ const defaultOptions = {
   heartBeatTimerInterval: 60
 }
 
-const install = (app, setupOptions = {}) => {
+const install = (Vue, setupOptions = {}) => {
   const options = Object.assign({}, defaultOptions, setupOptions)
 
   bootstrap(options)
@@ -24,7 +24,7 @@ const install = (app, setupOptions = {}) => {
       matomo.customVariablePageTitre = pageTitre(matomo)
 
       // bind matomo to Vue
-      app.config.globalProperties.$matomo = matomo
+      Vue.prototype.$matomo = matomo
 
       if (options.requireConsent) {
         matomo.requireConsent()
