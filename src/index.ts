@@ -65,7 +65,7 @@ if (import.meta.env.PROD) {
 
 VueMatomo(app, {
   host: 'https://stats.preprod.camino.beta.gouv.fr',
-  siteId: 4,
+  siteId: 6,
   router,
   store,
   requireConsent: false,
