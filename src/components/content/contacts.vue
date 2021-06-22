@@ -10,7 +10,7 @@
       <h4>Par email</h4>
       <ul class="list-prefix">
         <li>
-          <a href="mailto:camino@beta.gouv.fr"> camino@beta.gouv.fr </a>
+          <a href="mailto:camino@beta.gouv.fr">camino@beta.gouv.fr</a>
         </li>
       </ul>
 

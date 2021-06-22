@@ -15,6 +15,15 @@
     </h6>
     <h1>Étape</h1>
 
+    <div v-if="armHelpVisible" class="p-s bg-info color-bg mb">
+      Besoin d'aide pour déposer votre demande d'ARM ? Contactez-nous au
+      <a class="color-bg" href="tel:+33763429218">07.63.42.92.18</a>, ou par
+      mail :
+      <a class="color-bg" href="mailto:camino@beta.gouv.fr"
+        >camino@beta.gouv.fr</a
+      >
+    </div>
+
     <div v-if="dateIsVisible" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h5>Date</h5>
@@ -176,6 +185,18 @@ export default {
       return `${cap(this.titre.nom)} | ${cap(this.demarcheType.nom)} | ${
         this.etapeType ? cap(this.etapeType.nom) : ''
       }`
+    },
+
+    userIsAdmin() {
+      return this.$store.getters['user/userIsAdmin']
+    },
+
+    armHelpVisible() {
+      return (
+        !this.userIsAdmin &&
+        this.domaineId === 'm' &&
+        this.titreTypeTypeId === 'ar'
+      )
     }
   },
 
