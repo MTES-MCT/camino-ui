@@ -72,11 +72,17 @@ const valeurFind = ({ id, type, valeurs }, contenu) => {
   }
 
   if (type === 'checkboxes') {
-    return contenu[id].map(id => valeurs.find(e => e.id === id).nom).join(', ')
+    return contenu[id]
+      .map(id => {
+        const valeur = valeurs.find(e => e.id === id)
+        return valeur ? valeur.nom : undefined
+      })
+      .filter(valeur => !!valeur)
+      .join(', ')
   }
 
   if (type === 'select') {
-    return valeurs.find(v => v.id === contenu[id]).nom
+    return valeurs.find(v => v.id === contenu[id])?.nom
   }
 
   if (type === 'date') {
