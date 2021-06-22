@@ -48,7 +48,7 @@ if (import.meta.env.PROD) {
     .then(options => {
       if (!options || !options.host || !options.siteId)
         throw new Error('host et/ou siteId manquant(s)')
-      app.use(VueMatomo, {
+      VueMatomo(app, {
         host: options.host,
         siteId: options.siteId,
         router,
