@@ -88,8 +88,13 @@
 
             <tr v-for="element in elements" :key="elementKeyFind(element)">
               <td v-for="colonne in definition.colonnes" :key="colonne.id">
+                <EditObject
+                  v-if="definition.update && colonne.type === Object"
+                  :value="element[colonne.id]"
+                  :fields="colonne.fields"
+                />
                 <EditNumber
-                  v-if="definition.update && colonne.type === Number"
+                  v-else-if="definition.update && colonne.type === Number"
                   :value="element[colonne.id]"
                   @update="update($event, element, colonne.id)"
                 />
@@ -147,6 +152,7 @@ import EditArray from './_ui/edit-array.vue'
 import EditBoolean from './_ui/edit-boolean.vue'
 import EditDate from './_ui/edit-date.vue'
 import InputDate from './_ui/input-date.vue'
+import EditObject from './_ui/edit-object.vue'
 
 export default {
   components: {
@@ -157,7 +163,8 @@ export default {
     EditBoolean,
     EditDate,
     InputDate,
-    EditJson
+    EditJson,
+    EditObject
   },
 
   data() {

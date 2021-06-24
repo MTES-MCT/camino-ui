@@ -142,8 +142,18 @@ const metasIndex = {
     nom: 'Domaines | Types des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
-      { id: 'domaineId', nom: 'Id du domaine' },
-      { id: 'typeId', nom: 'Id du type' },
+      {
+        id: 'domaine',
+        nom: 'Id - Nom du domaine',
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'type',
+        nom: 'Id - Nom du type',
+        fields: ['id', 'nom'],
+        type: Object
+      },
       {
         id: 'contenuIds',
         nom: "Type d'étape des propriétés",
@@ -176,8 +186,18 @@ const metasIndex = {
     delete: titreTypeTitreStatutSupprimer,
     nom: 'Types des titres | Statuts des titres',
     colonnes: [
-      { id: 'titreTypeId', nom: 'Id du type de titre' },
-      { id: 'titreStatutId', nom: 'Id du statut de titre' },
+      {
+        id: 'titreType',
+        nom: 'Id - Nom du type de titre',
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'titreStatut',
+        nom: 'Id - Nom du statut de titre',
+        fields: ['id', 'nom'],
+        type: Object
+      },
       { id: 'publicLecture', nom: 'Public', type: Boolean, optional: true }
     ],
     ids: ['titreTypeId', 'titreStatutId']
@@ -206,8 +226,18 @@ const metasIndex = {
     delete: titreTypeDemarcheTypeSupprimer,
     nom: 'Types des titres | Types des démarches',
     colonnes: [
-      { id: 'titreTypeId', nom: 'Id du type de titre' },
-      { id: 'demarcheTypeId', nom: 'Id du type de démarche' },
+      {
+        id: 'titreType',
+        nom: 'Id - Nom du type de titre',
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'demarcheType',
+        nom: 'Id - Nom du type de démarche',
+        fields: ['id', 'nom'],
+        type: Object
+      },
       { id: 'dureeMax', nom: 'Durée maximale', type: Number, optional: true },
       {
         id: 'delaiImplicite',
@@ -330,9 +360,24 @@ const metasIndex = {
     delete: titreTypeDemarcheTypeEtapeTypeSupprimer,
     nom: 'Types des titres | Types des démarches | types des étapes',
     colonnes: [
-      { id: 'titreTypeId', nom: 'Id du type de titre' },
-      { id: 'demarcheTypeId', nom: 'Id du type de démarche' },
-      { id: 'etapeTypeId', nom: "Id du type d'étape" },
+      {
+        id: 'titreType',
+        nom: 'Id - Nom du type de titre',
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'demarcheType',
+        nom: 'Id - Nom du type de démarche',
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'etapeType',
+        nom: "Id - Nom du type d'étape",
+        fields: ['id', 'nom'],
+        type: Object
+      },
       { id: 'sections', nom: 'Sections', type: 'json', optional: true },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ],
@@ -361,8 +406,18 @@ const metasIndex = {
     delete: etapeTypeEtapeStatutSupprimer,
     nom: 'Types des étapes | Statuts des étapes',
     colonnes: [
-      { id: 'etapeTypeId', nom: "Id du type d'étape" },
-      { id: 'etapeStatutId', nom: "Id du statut d'étape" },
+      {
+        id: 'etapeType',
+        nom: "Id - Nom du type d'étape",
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'etapeStatut',
+        nom: "Id - Nom du statut d'étape",
+        fields: ['id', 'nom'],
+        type: Object
+      },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ],
     ids: ['etapeTypeId', 'etapeStatutId']
@@ -374,8 +429,18 @@ const metasIndex = {
     delete: etapeTypeDocumentTypeSupprimer,
     nom: 'Types des étapes | Types des documents',
     colonnes: [
-      { id: 'etapeTypeId', nom: "Id du type d'étape" },
-      { id: 'documentTypeId', nom: 'Id du type de documents' },
+      {
+        id: 'etapeType',
+        nom: "Id - Nom du type d'étape",
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'documentType',
+        nom: 'Id - Nom du type de documents',
+        fields: ['id', 'nom'],
+        type: Object
+      },
       { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
     ],
     ids: ['etapeTypeId', 'documentTypeId']
@@ -387,8 +452,18 @@ const metasIndex = {
     delete: etapeTypeJustificatifTypeSupprimer,
     nom: 'Types des étapes | Types des justificatifs',
     colonnes: [
-      { id: 'etapeTypeId', nom: "Id du type d'étape" },
-      { id: 'documentTypeId', nom: 'Id du type de justificatifs' },
+      {
+        id: 'etapeType',
+        nom: "Id - Nom du type d'étape",
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'documentType',
+        nom: 'Id - Nom du type de justificatifs',
+        fields: ['id', 'nom'],
+        type: Object
+      },
       { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
     ],
     ids: ['etapeTypeId', 'documentTypeId']
@@ -422,8 +497,18 @@ const metasIndex = {
     delete: travauxTypeTravauxEtapeTypeSupprimer,
     nom: 'Types des travaux | Types des étapes de travaux',
     colonnes: [
-      { id: 'travauxTypeId', nom: 'Id du type de travaux' },
-      { id: 'travauxEtapeTypeId', nom: "Id du type d'étape de travaux" },
+      {
+        id: 'travauxType',
+        nom: 'Id - Nom du type de travaux',
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'travauxEtapeType',
+        nom: "Id - Nom du type d'étape de travaux",
+        fields: ['id', 'nom'],
+        type: Object
+      },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ],
     ids: ['travauxTypeId', 'travauxEtapeTypeId']
@@ -435,8 +520,18 @@ const metasIndex = {
     delete: travauxEtapeTypeDocumentTypeSupprimer,
     nom: 'Types des étapes de travaux | Types des documents',
     colonnes: [
-      { id: 'travauxEtapeTypeId', nom: "Id du type d'étape de travaux" },
-      { id: 'documentTypeId', nom: 'Id du type de document' },
+      {
+        id: 'travauxEtapeType',
+        nom: "Id - Nom du type d'étape de travaux",
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'documentType',
+        nom: 'Id - Nom du type de document',
+        fields: ['id', 'nom'],
+        type: Object
+      },
       { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
     ],
     ids: ['travauxEtapeTypeId', 'documentTypeId']
@@ -448,8 +543,18 @@ const metasIndex = {
     delete: travauxEtapeTypeEtapeStatutSupprimer,
     nom: 'Types des étapes de travaux | Statuts des étapes',
     colonnes: [
-      { id: 'travauxEtapeTypeId', nom: "Id du type d'étape de travaux" },
-      { id: 'etapeStatutId', nom: "Id statut d'étape" },
+      {
+        id: 'travauxEtapeType',
+        nom: "Id - Nom du type d'étape de travaux",
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'etapeStatut',
+        nom: "Id - Nom du statut d'étape",
+        fields: ['id', 'nom'],
+        type: Object
+      },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ],
     ids: ['travauxEtapeTypeId', 'etapeStatutId']
@@ -599,8 +704,18 @@ const metasIndex = {
     delete: activiteTypeTitreTypeSupprimer,
     nom: 'Types des activités | Types des titres',
     colonnes: [
-      { id: 'activiteTypeId', nom: "Id du type d'activité" },
-      { id: 'titreTypeId', nom: 'Id du type de titre' }
+      {
+        id: 'activiteType',
+        nom: "Id - Nom du type d'activité",
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'titreType',
+        nom: 'Id - Nom du type de titre',
+        fields: ['id', 'nom'],
+        type: Object
+      }
     ],
     ids: ['activiteTypeId', 'titreTypeId']
   },
@@ -612,8 +727,18 @@ const metasIndex = {
     delete: activiteTypeDocumentTypeSupprimer,
     nom: 'Types des activités | Types des documents',
     colonnes: [
-      { id: 'activiteTypeId', nom: "Id du type d'activité" },
-      { id: 'documentTypeId', nom: 'Id du type de document' },
+      {
+        id: 'activiteType',
+        nom: "Id - Nom du type d'activité",
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'documentType',
+        nom: 'Id - Nom du type de document',
+        fields: ['id', 'nom'],
+        type: Object
+      },
       { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
     ],
     ids: ['activiteTypeId', 'documentTypeId']
@@ -626,8 +751,18 @@ const metasIndex = {
     delete: activiteTypePaysSupprimer,
     nom: 'Types des activités | Pays',
     colonnes: [
-      { id: 'activiteTypeId', nom: "Id du type d'activité" },
-      { id: 'paysId', nom: 'Id du pays' }
+      {
+        id: 'activiteType',
+        nom: "Id - Nom du type d'activité",
+        fields: ['id', 'nom'],
+        type: Object
+      },
+      {
+        id: 'pays',
+        nom: 'Id - Nom du pays',
+        fields: ['id', 'nom'],
+        type: Object
+      }
     ],
     ids: ['activiteTypeId', 'paysId']
   }
