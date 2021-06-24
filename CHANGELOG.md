@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.75](https://github.com/MTES-MCT/camino-ui/compare/v0.22.74...v0.22.75) (2021-06-24)
+
+
+### Features
+
+* **arm:** ajoute un message d'aide sur la demande d'ARM à destination des entreprises ([ccfc05d](https://github.com/MTES-MCT/camino-ui/commit/ccfc05d1f6217ca910cb7afac944a2a2e486c042))
+
+
+### Bug Fixes
+
+* **activités:** corrige l'affichage des Statuts des travaux ([3c8e8f4](https://github.com/MTES-MCT/camino-ui/commit/3c8e8f4e023eeb66ce88fc17305e80262719053d))
+* **étape:** corrige l’enregistrement des étapes avec des justificatifs ([d5e1f61](https://github.com/MTES-MCT/camino-ui/commit/d5e1f618ec05b25003cf9b316c1535761d0bbbc0))
+* **matomo:** corrige la configuration matomo avec vue 3 ([#363](https://github.com/MTES-MCT/camino-ui/issues/363)) ([2c99a1a](https://github.com/MTES-MCT/camino-ui/commit/2c99a1ab5c69ffdcb09f2c89707da0584c1104f9))
+
 ### [0.22.74](https://github.com/MTES-MCT/camino-ui/compare/v0.22.73...v0.22.74) (2021-06-21)
 
 
