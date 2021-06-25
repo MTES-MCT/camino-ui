@@ -7,23 +7,6 @@ import Loading from 'graphql-react/public/Loading.js'
 import LoadingCacheValue from 'graphql-react/public/LoadingCacheValue.js'
 import { fragmentUtilisateurToken } from './fragments/utilisateur'
 
-const refresh = headers => {
-  // vérifie que l’application est toujours à jour
-  const headersEntries = Array.from(headers.entries())
-  if (headersEntries) {
-    const versionHeaderEntry = headersEntries.find(
-      h => h[0].toLowerCase() === 'X-Camino-Version'.toLowerCase()
-    )
-    if (versionHeaderEntry) {
-      const version = versionHeaderEntry[1]
-      // eslint-disable-next-line no-undef
-      if (version !== npmVersion) {
-        window.location.reload()
-      }
-    }
-  }
-}
-
 const apiUrl = '/apiUrl'
 const cache = new Cache()
 const loading = new Loading()
@@ -100,9 +83,6 @@ const graphQLCall = async (url, query, variables) => {
       throw new Error(e.message)
     })
   }
-
-  // reload page if npmVersion has changed
-  refresh(res.response.headers)
 
   const data = res.data
 

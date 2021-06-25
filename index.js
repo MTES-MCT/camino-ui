@@ -33,11 +33,6 @@ const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
   }
 })
 
-app.use('/apiUrl', (req, res, next) => {
-  res.set('X-Camino-Version', version)
-  next()
-})
-
 app.use(
   '/apiUrl',
   createProxyMiddleware({
