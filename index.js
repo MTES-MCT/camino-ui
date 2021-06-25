@@ -59,6 +59,23 @@ app.use('/matomoOptions', (req, res) =>
   })
 )
 
+const sendVersion = context => {
+  const headers = {
+    'Content-Type': 'text/event-stream',
+    Connection: 'keep-alive',
+    'Cache-Control': 'no-cache'
+  }
+
+  context.writeHead(200, headers)
+  context.write(`id: ${Date.now()}\n`)
+  context.write(`event: version\n`)
+  context.write(`data: ${version}\n\n`)
+}
+
+app.get('/stream/version', async (req, res) => {
+  sendVersion(res)
+})
+
 app.use(compression())
 app.use('/', staticFileMiddleware)
 app.use('/', history())
