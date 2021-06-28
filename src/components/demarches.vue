@@ -24,7 +24,7 @@
 <script>
 import Liste from './_common/liste.vue'
 import Downloads from './_common/downloads.vue'
-
+import paramsEventTrack from '../utils/matomo.js'
 import filtres from './demarches/filtres'
 
 import { demarchesColonnes, demarchesLignesBuild } from './demarches/table'
@@ -44,6 +44,10 @@ export default {
   computed: {
     user() {
       return this.$store.state.user.element
+    },
+
+    definitions() {
+      return this.$store.state.titresDemarches.definitions
     },
 
     demarches() {
@@ -103,26 +107,13 @@ export default {
     },
 
     eventTrack(params) {
-      if (this.$matomo) {
-        this.params.forEach(({ type, id }) => {
-          let values = []
-          if (type === 'string' && params[id]) {
-            values = params[id].split(' ').map(p => p.replace("'", ' '))
-          } else if (type === 'strings' && params[id]) {
-            values = params[id]
-          } else if (type === 'objects' && params[id]) {
-            values = params[id].map(e => e.typeId)
-          }
-          values.forEach(value => {
-            this.$matomo.trackEvent(
-              'demarches-filtres',
-              `demarches-filtres-${id}`,
-              value
-            )
-            this.$matomo.trackSiteSearch(value, id)
-          })
-        })
-      }
+      paramsEventTrack(
+        params,
+        this.definitions,
+        this.$matomo,
+        'demarches',
+        'filtres'
+      )
     }
   }
 }
