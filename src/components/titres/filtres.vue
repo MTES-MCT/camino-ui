@@ -12,6 +12,7 @@
 <script>
 import Filtres from '../_common/filtres.vue'
 import filtres from './filtres.js'
+import paramsEventTrack from '../../utils/matomo.js'
 
 export default {
   components: { Filtres },
@@ -37,6 +38,10 @@ export default {
 
     params() {
       return this.$store.state.titres.params.filtres
+    },
+
+    definitions() {
+      return this.$store.state.titres.definitions
     }
   },
 
@@ -56,28 +61,13 @@ export default {
     },
 
     paramsEventTrack(params) {
-      if (this.$matomo) {
-        if (params) {
-          this.params.forEach(({ type, id }) => {
-            let values = []
-            if (type === 'string' && params[id]) {
-              values = params[id].split(' ').map(p => p.replace("'", ' '))
-            } else if (type === 'strings' && params[id]) {
-              values = params[id]
-            }
-            values.forEach(value => {
-              this.$matomo.trackEvent(
-                'titres-filtres',
-                `titres-filtres-${id}`,
-                value
-              )
-              this.$matomo.trackSiteSearch(value, id)
-            })
-          })
-        } else {
-          this.$matomo.trackEvent('titres', 'filtres', 'filtres-titres')
-        }
-      }
+      paramsEventTrack(
+        params,
+        this.definitions,
+        this.$matomo,
+        'titres',
+        'filtres'
+      )
     },
 
     filtresToggle(opened) {
