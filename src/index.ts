@@ -61,6 +61,15 @@ if (import.meta.env.PROD) {
       })
     })
     .catch(e => console.error('erreur : matomo :', e))
+
+  const eventSource = new EventSource('/stream/version')
+
+  eventSource.addEventListener('version', event => {
+    if (event.data !== npmVersion) {
+      eventSource.close()
+      window.location.reload()
+    }
+  })
 }
 
 app.use(router)
