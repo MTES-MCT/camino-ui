@@ -89,8 +89,7 @@ export default {
     action: { type: Object, default: null },
     document: { type: Object, required: true },
     repertoire: { type: String, required: true },
-    parentTypeId: { type: String, default: '' },
-    temporaire: { type: Boolean, default: false }
+    parentTypeId: { type: String, default: '' }
   },
 
   computed: {
@@ -153,8 +152,7 @@ export default {
       await this.$store.dispatch('document/upsert', {
         document: this.document,
         route: this.route,
-        action: this.action,
-        temporaire: this.temporaire
+        action: this.action
       })
 
       this.eventTrack({

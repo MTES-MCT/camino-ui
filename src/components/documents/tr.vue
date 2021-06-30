@@ -126,8 +126,7 @@ export default {
     boutonDissociation: { type: Boolean, default: false },
     boutonModification: { type: Boolean, default: false },
     boutonSuppression: { type: Boolean, default: false },
-    manquantShow: { type: Boolean, default: false },
-    temporaire: { type: Boolean, default: false }
+    manquantShow: { type: Boolean, default: false }
   },
 
   computed: {
@@ -175,8 +174,7 @@ export default {
           action: this.addAction,
           document,
           repertoire: this.repertoire,
-          parentTypeId: this.parentTypeId,
-          temporaire: this.temporaire
+          parentTypeId: this.parentTypeId
         }
       })
     },

@@ -147,19 +147,19 @@ describe('documents', () => {
       nom: 'champs'
     })
     await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' },
-      route: { name: 'titre', id: 'titre-id' },
-      temporaire: true
+      document: { id: 14, nom: 'champs', typeId: 14 },
+      route: { name: 'titre', id: 'titre-id' }
     })
 
-    expect(apiMock).toHaveBeenCalledWith({ document: { nom: 'champs' } })
+    expect(apiMock).toHaveBeenCalledWith({
+      document: { nom: 'champs', typeId: 14 }
+    })
   })
 
   test('applique une action au lieu d’être redirigé', async () => {
     await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' },
-      action: { name: 'test' },
-      temporaire: true
+      document: { id: 14, nom: 'champs', typeId: 14 },
+      action: { name: 'test' }
     })
 
     expect(actions.test).toHaveBeenCalled()

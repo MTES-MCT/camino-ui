@@ -9,7 +9,6 @@
     :manquant-show="true"
     :repertoire="repertoire"
     :title="documentPopupTitle"
-    :temporaire="true"
   />
 
   <DocumentAddButton
@@ -28,7 +27,6 @@
     :repertoire="repertoire"
     class="btn py-s px-m rnd-xs mt--s mb-s full-x"
     :parent-type-id="parentTypeId"
-    :temporaire="true"
     :large="true"
   />
 </template>

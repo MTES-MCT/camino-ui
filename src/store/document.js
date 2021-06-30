@@ -27,7 +27,7 @@ const actions = {
     }
   },
 
-  async upsert({ commit, dispatch }, { document, route, action, temporaire }) {
+  async upsert({ commit, dispatch }, { document, route, action }) {
     try {
       commit('loadingAdd', 'documentUpsert', { root: true })
 
@@ -38,6 +38,7 @@ const actions = {
 
       let d
 
+      const temporaire = document.id === document.typeId
       if (temporaire) {
         delete document.id
       }
@@ -72,7 +73,7 @@ const actions = {
       } else if (action) {
         const params = { ...action.params, document: d }
 
-        if (temporaire) {
+        if (idOld) {
           params.idOld = idOld
         }
 
