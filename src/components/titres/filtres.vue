@@ -12,7 +12,7 @@
 <script>
 import Filtres from '../_common/filtres.vue'
 import filtres from './filtres.js'
-import paramsEventTrack from '../../utils/matomo.js'
+import paramsEventTrack from '../../utils/matomo-tracker.js'
 
 export default {
   components: { Filtres },
