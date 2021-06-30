@@ -5,7 +5,9 @@
     </template>
 
     <div class="tablet-blobs mb">
-      <div class="tablet-blob-1-3 py-s">Email</div>
+      <label for="cmn-user-login-popup-input-email" class="tablet-blob-1-3 py-s"
+        >Email</label
+      >
       <div class="tablet-blob-2-3">
         <input
           id="cmn-user-login-popup-input-email"
@@ -16,7 +18,11 @@
       </div>
     </div>
     <div class="tablet-blobs mb">
-      <div class="tablet-blob-1-3 py-s">Mot de passe</div>
+      <label
+        for="cmn-user-login-popup-input-mot-de-passe"
+        class="tablet-blob-1-3 py-s"
+        >Mot de passe</label
+      >
       <div class="tablet-blob-2-3">
         <input
           id="cmn-user-login-popup-input-mot-de-passe"
