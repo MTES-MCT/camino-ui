@@ -1,24 +1,10 @@
 <template>
   <Popup :messages="messages">
     <template #header>
-      <div>
-        <h6>
-          <span class="cap-first"> {{ titreNom }} </span
-          ><span class="color-neutral"> | </span
-          ><span class="cap-first">
-            {{ travauxTypeNom }}
-          </span>
-        </h6>
-        <h2 class="cap-first">Suppression de l'étape</h2>
-      </div>
+      <h2>Dépôt d’une activité</h2>
     </template>
 
-    <p class="bold">
-      Souhaitez vous supprimer l'étape de travaux
-      <span class="color-inverse">{{ travauxEtapeTypeNom }}</span> de la
-      démarche <span class="color-inverse">{{ travauxTypeNom }}</span> du titre
-      <span class="color-inverse">{{ titreNom }} ({{ titreTypeNom }})</span> ?
-    </p>
+    <p class="bold">Souhaitez vous déposer cette activité ?</p>
     <div class="bg-warning color-bg p-s mb-l">
       <span class="bold"> Attention </span>: cette opération est définitive et
       ne peut pas être annulée.
@@ -32,12 +18,16 @@
           </button>
         </div>
         <div class="tablet-blob-2-3">
-          <button class="btn-flash rnd-xs p-s full-x" @click="remove">
-            Supprimer
+          <button
+            id="cmn-etape-remove-popup-button-supprimer"
+            class="btn-flash rnd-xs p-s full-x"
+            @click="depose"
+          >
+            Déposer
           </button>
         </div>
       </div>
-      <div v-else class="p-s full-x bold">Suppression en cours…</div>
+      <div v-else class="p-s full-x bold">Dépôt en cours…</div>
     </template>
   </Popup>
 </template>
@@ -46,18 +36,13 @@
 import Popup from '../_ui/popup.vue'
 
 export default {
-  name: 'CaminoTravauxEtapeRemovePopup',
-
   components: {
     Popup
   },
 
   props: {
-    travauxEtapeTypeNom: { type: String, default: '' },
-    travauxTypeNom: { type: String, default: '' },
-    travauxEtapeId: { type: String, default: '' },
-    titreNom: { type: String, default: '' },
-    titreTypeNom: { type: String, default: '' }
+    activite: { type: Object, required: true },
+    route: { type: Object, required: true }
   },
 
   computed: {
@@ -79,15 +64,20 @@ export default {
   },
 
   methods: {
-    async remove() {
-      await this.$store.dispatch(
-        'titreTravauxEtape/remove',
-        this.travauxEtapeId
-      )
+    async depose() {
+      await this.$store.dispatch('titreActivite/depose', {
+        id: this.activite.id,
+        route: this.route
+      })
     },
 
     cancel() {
+      this.errorsRemove()
       this.$store.commit('popupClose')
+    },
+
+    errorsRemove() {
+      this.$store.commit('popupMessagesRemove')
     },
 
     keyup(e) {

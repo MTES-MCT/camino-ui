@@ -1,4 +1,3 @@
-import { TODAY } from '../utils'
 import { documentEtapeFormat, etapeEditFormat } from '../utils/titre-etape-edit'
 import { etapeSaveFormat } from '../utils/titre-etape-save'
 import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
@@ -13,6 +12,7 @@ import {
   titreEtapeEtapesTypes,
   titreEtapeMetas
 } from '../api/titres-etapes'
+import { documentsRequiredAdd } from '../utils/documents'
 
 const state = {
   element: null,
@@ -141,44 +141,12 @@ const actions = {
       commit('documentsSet', [])
     } else {
       const documentsTypes = getters.etapeType.documentsTypes
-      // supprime tous les documents temporaires
-      documents = documents.filter(d => d.id !== d.typeId)
 
-      // supprime les documents dont le documentType n'existe pas
-      documents = documents.filter(d => {
-        const documentsTypesIds = documentsTypes.map(({ id }) => id)
-        if (!documentsTypesIds.includes(d.typeId)) {
-          return false
-        }
-
-        return true
-      })
-
-      // crée les documents dont le type est obligatoires si ils n'existent pas
-      documentsTypes.forEach(documentType => {
-        if (
-          !documentType.optionnel &&
-          !documents.find(({ typeId }) => typeId === documentType.id)
-        ) {
-          documents.push({
-            id: documentType.id,
-            typeId: documentType.id,
-            type: documentType,
-            entreprisesLecture: rootGetters['user/userIsAdmin'],
-            publicLecture: false,
-            fichier: null,
-            fichierNouveau: null,
-            fichierTypeId: null,
-            date: TODAY,
-            modification: true,
-            suppression: false
-          })
-        }
-      })
-
-      documents.forEach(d => {
-        d.suppression = d.id !== d.typeId
-      })
+      documents = documentsRequiredAdd(
+        documents,
+        documentsTypes,
+        rootGetters['user/userIsAdmin']
+      )
 
       commit('documentsSet', documents)
     }
@@ -186,7 +154,7 @@ const actions = {
 
   async documentAdd({ state, dispatch }, { document, idOld }) {
     document = documentEtapeFormat(document)
-    const documents = state.element.documents
+    const documents = state.element.documents || []
     if (idOld) {
       const index = documents.findIndex(({ id }) => id === idOld)
       documents[index] = document

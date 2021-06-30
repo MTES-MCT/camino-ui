@@ -13,6 +13,7 @@ import titreEtape from './titre-etape'
 import titreEtapeEdition from './titre-etape-edition'
 import titreTravaux from './titre-travaux'
 import titreTravauxEtape from './titre-travaux-etape'
+import titreTravauxEtapeEdition from './titre-travaux-etape-edition'
 import document from './document'
 import titres from './titres'
 import titresDemarches from './titres-demarches'
@@ -26,6 +27,7 @@ import metas from './metas'
 import meta from './meta'
 import user from './user'
 import titreActivite from './titre-activite'
+import titreActiviteEdition from './titre-activite-edition'
 import titresActivites from './titres-activites'
 import statistiques from './statistiques'
 import definitions from './definitions'
@@ -41,6 +43,7 @@ const modules = {
   titresDemarches,
   titreTravaux,
   titreTravauxEtape,
+  titreTravauxEtapeEdition,
   utilisateur,
   utilisateurs,
   entreprise,
@@ -51,6 +54,7 @@ const modules = {
   metas,
   user,
   titreActivite,
+  titreActiviteEdition,
   titresActivites,
   statistiques,
   definitions

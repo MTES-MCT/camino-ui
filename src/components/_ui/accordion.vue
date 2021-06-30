@@ -57,7 +57,7 @@
 
     <slot v-if="slotSub" name="sub" :class="{ 'border-b-s': opened }" />
 
-    <div class="overflow-hidden">
+    <div v-if="slotDefault" class="overflow-hidden">
       <Transition name="slide">
         <div v-show="opened">
           <slot />

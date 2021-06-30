@@ -84,11 +84,13 @@
       @next="next('documents')"
     >
       <DocumentsEdit
-        :documents="etape.documents"
-        :etape-type-id="etapeType.id"
-        :documents-types="etapeType.documentsTypes"
-        :user-is-admin="userIsAdmin"
+        v-model:documents="etape.documents"
+        :add-action="{ name: 'titreEtapeEdition/documentAdd' }"
+        :remove-action="{ name: 'titreEtapeEdition/documentRemove' }"
+        repertoire="demarches"
         :document-popup-title="documentPopupTitle"
+        :parent-type-id="etapeType.id"
+        :documents-types="etapeType.documentsTypes"
         @complete-update="documentsCompleteUpdate"
       />
     </Accordion>
@@ -119,7 +121,7 @@ import TypeEdit from './type-edit.vue'
 import FondamentalesEdit from './fondamentales-edit.vue'
 import PointsEdit from './points-edit.vue'
 import SectionsEdit from './sections-edit.vue'
-import DocumentsEdit from './documents-edit.vue'
+import DocumentsEdit from '../document/multi-edit.vue'
 import JustificatifsEdit from './justificatifs-edit.vue'
 
 export default {

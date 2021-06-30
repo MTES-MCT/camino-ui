@@ -3,15 +3,24 @@
     class="cmn-activite-btn-remplir btn small py-s px-m flex mr-px"
     @click="activiteEditPopupOpen"
   >
-    <div class="my-xxs">
+    <div v-if="buttonText" class="my-xxs">
       {{ buttonText }}
     </div>
+    <i v-else class="icon-24 icon-pencil" />
+  </button>
+  <button
+    v-if="activite.statut.id === 'enc'"
+    class="cmn-activite-btn-depose btn small py-s px-m flex mr-px"
+    :disabled="!activite.deposable"
+    :class="{ disabled: !activite.deposable }"
+    @click="activiteDepotPopupOpen"
+  >
+    <span class="mt-xxs mb-xxs">Déposer…</span>
   </button>
 </template>
 
 <script>
-import { cloneAndClean } from '../../utils/index'
-import EditPopup from './edit-popup.vue'
+import DeposePopup from './depose-popup.vue'
 
 export default {
   props: {
@@ -21,46 +30,40 @@ export default {
 
   computed: {
     buttonText() {
+      if (this.activite.deposable || this.activite.statut.id === 'dep') {
+        return null
+      }
       return this.activite.statut.id === 'abs' ? 'Remplir…' : 'Compléter…'
     }
   },
 
   methods: {
-    activiteEditPopupOpen() {
-      const activite = cloneAndClean(this.activite)
-
-      activite.contenu = this.activite.sections.reduce((sections, s) => {
-        sections[s.id] = s.elements.reduce((elements, e) => {
-          const value =
-            this.activite.contenu &&
-            this.activite.contenu[s.id] &&
-            this.activite.contenu[s.id][e.id]
-
-          elements[e.id] = value || e.type !== 'checkboxes' ? value : []
-
-          return elements
-        }, {})
-
-        return sections
-      }, {})
-
-      activite.documents.forEach(document => {
-        document.titreActiviteId = this.activite.id
-
-        document.typeId = document.type.id
-        document.fichierNouveau = null
-
-        delete document.type
-        delete document.modification
-        delete document.suppression
-      })
-
+    activiteDepotPopupOpen() {
       this.$store.commit('popupOpen', {
-        component: EditPopup,
+        component: DeposePopup,
         props: {
-          activite,
+          activite: this.activite,
           route: this.route
         }
+      })
+
+      this.eventTrack({
+        categorie: 'titre-activite',
+        action: 'titre-activite_depot',
+        nom: this.$route.params.id
+      })
+    },
+
+    eventTrack(event) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent(event.categorie, event.action, event.nom)
+      }
+    },
+
+    activiteEditPopupOpen() {
+      this.$router.push({
+        name: 'activite-edition',
+        params: { id: this.activite.id }
       })
     }
   }

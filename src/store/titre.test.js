@@ -196,4 +196,24 @@ describe('état du titre sélectionné', () => {
 
     expect(store.state.titre.opened.activites['activite-id']).toBeFalsy()
   })
+
+  test('une seule tab est visible par défaut', () => {
+    expect(store.getters['titre/tabs']).toMatchObject([{ id: 'demarches' }])
+  })
+
+  test('la tab des activités est visible si il existe au moins une activité', () => {
+    store.state.titre.element = { activites: [{}] }
+    expect(store.getters['titre/tabs']).toMatchObject([
+      { id: 'demarches' },
+      { id: 'activites' }
+    ])
+  })
+
+  test('la tab des travaux est visible si il existe au moins un travaux', () => {
+    store.state.titre.element = { travaux: [{}] }
+    expect(store.getters['titre/tabs']).toMatchObject([
+      { id: 'demarches' },
+      { id: 'travaux' }
+    ])
+  })
 })

@@ -20,11 +20,7 @@
       <h3 class="mb-s">
         <span class="cap-first">{{ activite.type.nom }}</span>
       </h3>
-      <Statut
-        :color="activite.statut.couleur"
-        :nom="activite.statut.nom"
-        class="mb-xs"
-      />
+      <Statut :color="activite.statut.couleur" :nom="statutNom" class="mb-xs" />
     </template>
     <template #buttons>
       <button
@@ -127,6 +123,12 @@ export default {
       }
 
       return this.$store.state.titreActivite.opened
+    },
+
+    statutNom() {
+      return this.activite.statut.id === 'enc' && !this.activite.deposable
+        ? `${this.activite.statut.nom} (incomplet)`
+        : this.activite.statut.nom
     }
   },
 

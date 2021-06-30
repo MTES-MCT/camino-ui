@@ -22,6 +22,7 @@ const fragmentTitreActivite = gql`
     suppression
     modification
     documentsCreation
+    deposable
 
     documents {
       ...document
@@ -66,6 +67,7 @@ const fragmentActivites = gql`
     suppression
     modification
     documentsCreation
+    deposable
   }
 
   ${fragmentActiviteType}
@@ -108,6 +110,7 @@ const fragmentActivite = gql`
     suppression
     modification
     documentsCreation
+    deposable
   }
 
   ${fragmentActiviteType}
@@ -125,6 +128,7 @@ const fragmentTitresActivite = gql`
       id
       couleur
     }
+    deposable
   }
 `
 

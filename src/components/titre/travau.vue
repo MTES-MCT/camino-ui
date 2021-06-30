@@ -24,7 +24,7 @@
             :class="{
               'rnd-r-xs': !travaux.suppression && !travaux.modification
             }"
-            @click="etapeAddPopupOpen"
+            @click="etapeAdd"
           >
             <span class="mt-xxs">Ajouter une étape</span>
           </button>
@@ -32,7 +32,7 @@
             v-if="travaux.modification"
             class="btn py-s px-m mr-px"
             :class="{ 'rnd-l-xs': !travaux.etapesCreation }"
-            @click="editPopupOpen"
+            @click="edit"
           >
             <i class="icon-24 icon-pencil" />
           </button>
@@ -49,12 +49,17 @@
     </div>
 
     <TitreTravauxEtape
-      v-for="etape in travaux.travauxEtapes"
-      :key="etape.id"
-      :etape="etape"
+      v-for="travauxEtape in travaux.travauxEtapes"
+      :key="travauxEtape.id"
+      :travaux-etape="travauxEtape"
       :travaux-type="travaux.type"
       :travaux-id="travaux.id"
-      @titre-event-track="eventTrack"
+      :titre-id="titre.id"
+      :titre-nom="titre.nom"
+      :titre-type-type="titre.type.type"
+      :opened="etapeOpened[travauxEtape.id]"
+      @close="travauxEtapeClose(travauxEtape.id)"
+      @toggle="travauxEtapeToggle(travauxEtape.id)"
     />
 
     <div class="line width-full my-xxl" />
@@ -63,8 +68,7 @@
 
 <script>
 import Statut from '../_common/statut.vue'
-import EtapeEditPopup from '../travaux-etape/edit.vue'
-import TitreTravauxEtape from './travaux-etape.vue'
+import TitreTravauxEtape from '../travaux-etape/preview.vue'
 import EditPopup from './travaux-edit-popup.vue'
 import RemovePopup from './travaux-remove-popup.vue'
 
@@ -84,6 +88,9 @@ export default {
   computed: {
     titre() {
       return this.$store.state.titre.element
+    },
+    etapeOpened() {
+      return this.$store.state.titre.opened.travaux
     }
   },
 
@@ -130,37 +137,29 @@ export default {
       })
     },
 
-    etapeAddPopupOpen() {
-      const etape = {
-        ordre: 0,
-        titreTravauxId: this.travaux.id,
-        typeId: null,
-        statutId: null,
-        duree: { ans: null, mois: null },
-        contenu: {},
-        documents: []
-      }
-
-      this.$store.commit('popupOpen', {
-        component: EtapeEditPopup,
-        props: {
-          etape,
-          domaineId: this.titre.domaine.id,
-          travauxType: this.travaux.type,
-          titreNom: this.titre.nom,
-          creation: true
-        }
+    etapeAdd() {
+      this.$router.push({
+        name: 'travaux-etape-creation',
+        query: { 'travaux-id': this.travaux.id }
       })
 
       this.eventTrack({
         categorie: 'titre-sections',
-        action: 'titre-etape_ajouter',
+        action: 'titre-travaux-etape_ajouter',
         nom: this.$route.params.id
       })
     },
 
     eventTrack(event) {
       this.$emit('titre-event-track', event)
+    },
+
+    travauxEtapeClose(id) {
+      this.$store.commit('titre/close', { section: 'travaux', id })
+    },
+
+    travauxEtapeToggle(id) {
+      this.$store.commit('titre/toggle', { section: 'travaux', id })
     }
   }
 }

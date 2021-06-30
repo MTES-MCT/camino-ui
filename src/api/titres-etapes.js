@@ -127,21 +127,17 @@ const etapeCreer = apiGraphQLFetch(gql`
 const etapeModifier = apiGraphQLFetch(gql`
   mutation EtapeModifier($etape: InputEtapeModification!) {
     etapeModifier(etape: $etape) {
-      ...titre
+      id
     }
   }
-
-  ${fragmentTitre}
 `)
 
 const etapeSupprimer = apiGraphQLFetch(gql`
   mutation EtapeSupprimer($id: ID!) {
     etapeSupprimer(id: $id) {
-      ...titre
+      id
     }
   }
-
-  ${fragmentTitre}
 `)
 
 const etapeDeposer = apiGraphQLFetch(gql`

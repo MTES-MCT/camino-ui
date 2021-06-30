@@ -6,6 +6,9 @@
           <span class="cap-first">{{ element.nom }}</span>
         </h5>
         <p v-if="element.optionnel" class="h6 italic mb-0">Optionnel</p>
+        <Tag v-else-if="!complete" color="bg-warning" :mini="true"
+          >Incomplet</Tag
+        >
       </div>
 
       <div
@@ -15,20 +18,14 @@
         }"
       >
         <SectionElementEdit
-          v-if="modifiable"
           v-model:contenu="contenu"
           class="mb-s"
           :element="element"
         />
 
-        <p v-else-if="hasValeur" class="pt-s py-xs mb-0">{{ valeur }}</p>
-        <p v-else-if="!element.optionnel" class="color-warning pt-s mb-0">
-          À compléter pour valider
-        </p>
-
         <!-- eslint-disable vue/no-v-html -->
         <p
-          v-if="(element.description && modifiable) || hasValeur"
+          v-if="element.description || hasValeur"
           class="h6"
           v-html="element.description"
         />
@@ -40,16 +37,20 @@
 </template>
 
 <script>
-import { valeurFind, hasValeurCheck } from '../../utils/contenu'
+import {
+  valeurFind,
+  hasValeurCheck,
+  elementsCompleteCheck
+} from '../../utils/contenu'
 import SectionElementEdit from '../_common/section-element-edit.vue'
+import Tag from '../_ui/tag.vue'
 
 export default {
-  components: { SectionElementEdit },
+  components: { SectionElementEdit, Tag },
 
   props: {
     contenu: { type: Object, required: true },
-    element: { type: Object, required: true },
-    modifiable: { type: Boolean, default: true }
+    element: { type: Object, required: true }
   },
 
   computed: {
@@ -59,6 +60,10 @@ export default {
 
     valeur() {
       return valeurFind(this.element, this.contenu)
+    },
+
+    complete() {
+      return elementsCompleteCheck([this.element], this.contenu, true)
     }
   }
 }

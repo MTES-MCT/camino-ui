@@ -115,7 +115,6 @@ export default {
 
   data() {
     return {
-      tabId: 'demarches',
       geoTabId: 'carte',
       show: false
     }
@@ -135,29 +134,15 @@ export default {
     },
 
     tabs() {
-      const tabs = [{ id: 'demarches', nom: 'Droits miniers' }]
+      return this.$store.getters['titre/tabs']
+    },
 
-      if (this.titre?.activites?.length) {
-        tabs.push({ id: 'activites', nom: 'Activités' })
-      }
-
-      if (this.titre?.travaux?.length || this.titre?.travauxCreation) {
-        tabs.push({ id: 'travaux', nom: 'Travaux' })
-      }
-
-      return tabs
+    tabId() {
+      return this.$store.getters['titre/tabId']
     }
   },
 
   watch: {
-    tabs: function (tabs) {
-      const tabIds = tabs.map(({ id }) => id)
-
-      if (!tabIds.includes(this.tabId)) {
-        this.tabId = tabIds[0]
-      }
-    },
-
     '$route.params.id': function (id) {
       if (this.$route.name === 'titre' && id) {
         this.get()
@@ -199,7 +184,7 @@ export default {
         nom: this.$store.state.titre.element.id
       })
 
-      this.tabId = tabId
+      this.$store.commit('titre/openTab', tabId)
     },
 
     geoTabUpdate(tabId) {

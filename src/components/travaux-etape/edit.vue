@@ -1,173 +1,134 @@
 <template>
-  <Popup :messages="messages">
-    <template #header>
-      <div>
-        <h6>
-          <span class="cap-first"> {{ titreNom }} </span>
-          <span class="color-neutral"> | </span>
-          <span class="cap-first">
-            {{ travauxType.nom }}
-          </span>
-        </h6>
-        <h2 class="cap-first">
-          {{ creation ? "Ajout d'une " : "Modification de l'" }}étape
-        </h2>
-      </div>
-    </template>
+  <div class="tablet-blobs">
+    <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+      <h5>Type</h5>
+    </div>
+    <div class="mb tablet-blob-2-3">
+      <select v-model="etape.typeId" class="p-s" @change="typeUpdate">
+        <option
+          v-for="eType in etapeTypes"
+          :key="eType.id"
+          :value="eType.id"
+          :disabled="etape.typeId === eType.id"
+        >
+          {{ eType.nom }}
+        </option>
+      </select>
+    </div>
+  </div>
 
+  <hr />
+
+  <div v-if="etape.typeId && etapesStatuts">
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Type</h5>
+        <h5>Statut</h5>
       </div>
       <div class="mb tablet-blob-2-3">
-        <select v-model="etape.typeId" class="p-s" @change="typeUpdate">
+        <select v-model="etape.statutId" class="p-s">
           <option
-            v-for="eType in etapeTypes"
-            :key="eType.id"
-            :value="eType.id"
-            :disabled="etape.typeId === eType.id"
+            v-for="etapeStatut in etapesStatuts"
+            :key="etapeStatut.id"
+            :value="etapeStatut.id"
+            :disabled="etape.statutId === etapeStatut.id"
           >
-            {{ eType.nom }}
+            {{ etapeStatut.nom }}
           </option>
         </select>
       </div>
     </div>
-
     <hr />
+  </div>
 
-    <div v-if="etape.typeId && etapesStatuts">
-      <div class="tablet-blobs">
-        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-          <h5>Statut</h5>
-        </div>
-        <div class="mb tablet-blob-2-3">
-          <select v-model="etape.statutId" class="p-s">
-            <option
-              v-for="etapeStatut in etapesStatuts"
-              :key="etapeStatut.id"
-              :value="etapeStatut.id"
-              :disabled="etape.statutId === etapeStatut.id"
-            >
-              {{ etapeStatut.nom }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <hr />
+  <div class="tablet-blobs">
+    <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+      <h5>Date</h5>
     </div>
-
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Date</h5>
-      </div>
-      <div class="tablet-blob-2-3">
-        <InputDate
-          v-model="etape.date"
-          :class="{ 'mb-s': etape.date, mb: !etape.date }"
-        />
-      </div>
+    <div class="tablet-blob-2-3">
+      <InputDate
+        v-model="etape.date"
+        :class="{ 'mb-s': etape.date, mb: !etape.date }"
+      />
     </div>
+  </div>
 
-    <hr />
+  <hr />
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5 class="mb-0">Durée (années / mois)</h5>
-        <p class="h6 italic mb-0">Optionnel</p>
-      </div>
-      <div class="tablet-blob-2-3">
-        <div
-          class="tablet-blobs"
-          :class="{ 'mb-s': !etape.duree.ans && !etape.duree.mois }"
-        >
-          <div class="tablet-blob-1-2">
-            <inputNumber
-              v-model="etape.duree.ans"
-              placeholder="années"
-              class="p-s mb-s"
-            />
-          </div>
-          <div class="tablet-blob-1-2">
-            <inputNumber
-              v-model="etape.duree.mois"
-              placeholder="mois"
-              class="p-s"
-            />
-          </div>
+  <div class="tablet-blobs">
+    <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+      <h5 class="mb-0">Durée (années / mois)</h5>
+      <p class="h6 italic mb-0">Optionnel</p>
+    </div>
+    <div class="tablet-blob-2-3">
+      <div
+        class="tablet-blobs"
+        :class="{ 'mb-s': !etape.duree.ans && !etape.duree.mois }"
+      >
+        <div class="tablet-blob-1-2">
+          <inputNumber
+            v-model="etape.duree.ans"
+            placeholder="années"
+            class="p-s mb-s"
+          />
+        </div>
+        <div class="tablet-blob-1-2">
+          <inputNumber
+            v-model="etape.duree.mois"
+            placeholder="mois"
+            class="p-s"
+          />
         </div>
       </div>
     </div>
+  </div>
 
-    <hr />
+  <hr />
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5 class="mb-0">Surface (Km²)</h5>
-        <p class="h6 italic mb-0">Optionnel</p>
-      </div>
-      <div class="tablet-blob-2-3">
-        <inputNumber
-          v-model="etape.surface"
-          class="p-s"
-          placeholder="0"
-          :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
-        />
-      </div>
+  <div class="tablet-blobs">
+    <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+      <h5 class="mb-0">Surface (Km²)</h5>
+      <p class="h6 italic mb-0">Optionnel</p>
     </div>
+    <div class="tablet-blob-2-3">
+      <inputNumber
+        v-model="etape.surface"
+        class="p-s"
+        placeholder="0"
+        :class="{ 'mb-s': etape.surface, mb: !etape.surface }"
+      />
+    </div>
+  </div>
 
-    <SectionsEdit
-      v-if="etapeType && etapeType.sections"
-      v-model:element="etape"
-      :sections="etapeType.sections"
-    />
-
+  <SectionsEdit
+    v-if="etapeType && etapeType.sections"
+    v-model:element="etape"
+    :sections="etapeType.sections"
+  />
+  <div
+    v-if="etapeType && etapeType.documentsTypes && etape.documents"
+    class="mt-s"
+  >
     <DocumentsEdit
-      v-if="etapeType && etapeType.documentsTypes && documentsTypes.length"
       v-model:documents="etape.documents"
-      :parent-id="etape.id"
-      :documents-types="documentsTypes"
+      :add-action="{ name: 'titreTravauxEtapeEdition/documentAdd' }"
+      :remove-action="{ name: 'titreTravauxEtapeEdition/documentRemove' }"
       repertoire="travaux"
+      :document-popup-title="documentPopupTitle"
+      :parent-type-id="etapeType.id"
+      :documents-types="etapeType.documentsTypes"
       @complete-update="documentsCompleteUpdate"
     />
-
-    <template #footer>
-      <div v-if="!loading" class="tablet-blobs">
-        <div class="tablet-blob-1-3 mb tablet-mb-0">
-          <button class="btn-border rnd-xs p-s full-x" @click="cancel">
-            Annuler
-          </button>
-        </div>
-        <div class="tablet-blob-2-3">
-          <button
-            ref="save-button"
-            :disabled="!complete"
-            :class="{ disabled: !complete }"
-            class="btn-flash rnd-xs p-s full-x"
-            @click="save"
-          >
-            Enregistrer
-          </button>
-        </div>
-      </div>
-      <div v-else class="p-s full-x bold">Enregistrement en cours…</div>
-    </template>
-  </Popup>
+  </div>
 </template>
 
 <script>
 import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
-import Popup from '../_ui/popup.vue'
 import SectionsEdit from './sections-edit.vue'
 import DocumentsEdit from '../document/multi-edit.vue'
 
-import { etapeSaveFormat } from './edit'
-
 export default {
-  name: 'CaminoEtapeEdit',
-
   components: {
-    Popup,
     SectionsEdit,
     InputDate,
     InputNumber,
@@ -176,11 +137,9 @@ export default {
 
   props: {
     etape: { type: Object, default: () => ({}) },
-    travauxType: { type: Object, default: () => ({}) },
-    domaineId: { type: String, default: '' },
-    titreNom: { type: String, default: '' },
-    creation: { type: Boolean, default: false }
+    documentPopupTitle: { type: String, required: true }
   },
+  emits: ['complete-update'],
 
   data() {
     return {
@@ -189,16 +148,8 @@ export default {
   },
 
   computed: {
-    loading() {
-      return this.$store.state.popup.loading
-    },
-
-    messages() {
-      return this.$store.state.popup.messages
-    },
-
     etapeTypes() {
-      return this.$store.state.titreTravauxEtape.metas.etapesTypes.filter(
+      return this.$store.state.titreTravauxEtapeEdition.metas.travauxEtapesTypes.filter(
         t => t.etapesCreation
       )
     },
@@ -211,85 +162,40 @@ export default {
       return this.etapeType && this.etapeType.etapesStatuts
     },
 
-    documentsTypes() {
-      return (
-        this.etapeType &&
-        this.etapeType.documentsTypes.filter(dt => !dt.optionnel)
-      )
-    },
-
     complete() {
       return (
         this.etape.typeId &&
         this.etape.date &&
         this.etape.statutId &&
-        (!this.documentsTypes?.length ||
-          this.documentsComplete ||
-          this.etape.statutId === 'aco')
+        (!this.etapeType.documentsTypes?.length || this.documentsComplete)
       )
     }
   },
 
-  async created() {
-    await this.init()
-    document.addEventListener('keyup', this.keyUp)
+  watch: {
+    complete: 'completeUpdate'
   },
 
-  beforeUnmount() {
-    document.removeEventListener('keyup', this.keyUp)
+  created() {
+    this.completeUpdate()
   },
 
   methods: {
-    async init() {
-      await this.$store.dispatch('titreTravauxEtape/init', this.etape)
-    },
-
-    async save() {
-      if (this.complete) {
-        const etape = etapeSaveFormat(this.etape)
-
-        if (!this.etape.contenu) {
-          delete this.etape.contenu
-        }
-
-        if (this.creation) {
-          await this.$store.dispatch('titreTravauxEtape/add', etape)
-        } else {
-          await this.$store.dispatch('titreTravauxEtape/update', etape)
-        }
-      }
-    },
-
-    cancel() {
-      this.errorsRemove()
-      this.$store.commit('popupClose')
-    },
-
-    keyUp(e) {
-      if ((e.which || e.keyCode) === 27) {
-        this.cancel()
-      } else if ((e.which || e.keyCode) === 13) {
-        if (this.complete) {
-          this.$refs['save-button'].focus()
-          this.save()
-        }
-      }
-    },
-
-    typeUpdate() {
+    async typeUpdate() {
       if (this.etapesStatuts?.length === 1) {
         this.etape.statutId = this.etapesStatuts[0].id
       } else {
         this.etape.statutId = null
       }
+      await this.$store.dispatch('titreTravauxEtapeEdition/documentInit')
     },
 
     documentsCompleteUpdate(documentsComplete) {
       this.documentsComplete = documentsComplete
     },
 
-    errorsRemove() {
-      // this.$store.commit('utilisateur/loginMessagesRemove')
+    completeUpdate() {
+      this.$emit('complete-update', this.complete)
     }
   }
 }
