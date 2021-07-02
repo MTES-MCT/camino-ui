@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.76](https://github.com/MTES-MCT/camino-ui/compare/v0.22.75...v0.22.76) (2021-07-02)
+
+
+### Features
+
+* **autoupdate:** met à jour le site automatiquement après la livraison d'une nouvelle version ([#365](https://github.com/MTES-MCT/camino-ui/issues/365)) ([b7cb2a8](https://github.com/MTES-MCT/camino-ui/commit/b7cb2a8bf32ca5654b80efbe99d6ad17033405e0))
+* **connexion:** utilise des labels pour les champs du formulaire de connexion ([5ba4f2c](https://github.com/MTES-MCT/camino-ui/commit/5ba4f2c84b46e8a055c381e49dda69f58f9bd3fc))
+
+
+### Bug Fixes
+
+* **documents:** corrige la modification d’un document sans modifier le fichier ([a494748](https://github.com/MTES-MCT/camino-ui/commit/a494748b5f40ae27dc576ad33e3ce5424b6cc116))
+* **filtres:** corrige le tracking des filtres vers matomo ([#364](https://github.com/MTES-MCT/camino-ui/issues/364)) ([d3a1750](https://github.com/MTES-MCT/camino-ui/commit/d3a1750f723ae7b48726c4a3ba57f149cab2e1a0))
+* **firefox:** renomme le fichier de matomo pour corriger le lancement en dev avec Firefox ([6e91e04](https://github.com/MTES-MCT/camino-ui/commit/6e91e045920edf84e312bfe60b56d3dc39b8d2a6))
+* **matomo:** corrige la content security policy pour Matomo ([29fd35b](https://github.com/MTES-MCT/camino-ui/commit/29fd35b89bd175514abc20e66c9dbdf64004640e))
+
 ### [0.22.75](https://github.com/MTES-MCT/camino-ui/compare/v0.22.74...v0.22.75) (2021-06-24)
 
 
