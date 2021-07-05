@@ -8,7 +8,6 @@
       :complete="typeComplete"
       :en-construction="enConstruction"
       @toggle="toggle('type')"
-      @next="next('type')"
     >
       <TypeEdit
         v-model:etape="etape"
@@ -29,7 +28,6 @@
       :complete="true"
       :en-construction="enConstruction"
       @toggle="toggle('fondamentales')"
-      @next="next('fondamentales')"
     >
       <FondamentalesEdit
         v-model:etape="etape"
@@ -47,7 +45,6 @@
       :complete="true"
       :en-construction="enConstruction"
       @toggle="toggle('points')"
-      @next="next('points')"
     >
       <PointsEdit
         v-model:etape="etape"
@@ -64,7 +61,6 @@
       :complete="stepSectionsComplete"
       :en-construction="enConstruction"
       @toggle="toggle('sections')"
-      @next="next('sections')"
     >
       <SectionsEdit
         v-model:etape="etape"
@@ -81,7 +77,6 @@
       :complete="stepDocumentsComplete"
       :en-construction="enConstruction"
       @toggle="toggle('documents')"
-      @next="next('documents')"
     >
       <DocumentsEdit
         v-model:documents="etape.documents"
@@ -103,7 +98,6 @@
       :complete="stepJustificatifsComplete"
       :en-construction="enConstruction"
       @toggle="toggle('justificatifs')"
-      @next="next('justificatifs')"
     >
       <JustificatifsEdit
         v-model:justificatifs="etape.justificatifs"
@@ -327,23 +321,6 @@ export default {
       if (this.opened[stepId]) {
         this.scrollToStep(stepId)
       }
-    },
-
-    next(stepId) {
-      const index = this.steps.findIndex(s => s.id === stepId)
-      const stepNext = this.steps[index + 1]
-
-      if (stepNext) {
-        this.steps.forEach(({ id }) => {
-          if (stepNext.id === id) {
-            this.opened[id] = true
-          } else {
-            this.opened[id] = false
-          }
-        })
-      }
-
-      this.scrollToStep(stepId)
     },
 
     scrollToStep(stepId) {

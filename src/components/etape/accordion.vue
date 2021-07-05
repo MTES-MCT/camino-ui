@@ -21,16 +21,6 @@
 
     <div class="px pt">
       <div><slot /></div>
-      <div v-if="step.hasNextButton">
-        <button
-          class="btn-flash p-s rnd-xs full-x mb"
-          :disabled="!complete && !enConstruction"
-          :class="{ disabled: !complete && !enConstruction }"
-          @click="next"
-        >
-          Suivant
-        </button>
-      </div>
     </div>
   </Accordion>
 </template>
@@ -49,15 +39,11 @@ export default {
     enConstruction: { type: Boolean, required: true }
   },
 
-  emits: ['toggle', 'next'],
+  emits: ['toggle'],
 
   methods: {
     toggle() {
       this.$emit('toggle')
-    },
-
-    next() {
-      this.$emit('next')
     }
   }
 }
