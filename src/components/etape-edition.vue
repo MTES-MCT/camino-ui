@@ -257,7 +257,11 @@ export default {
         if (this.dateIsVisible && this.newDate) {
           this.$refs['date-button'].focus()
           this.dateUpdate()
-        } else if (!this.loading && this.isFormComplete) {
+        } else if (
+          !this.dateIsVisible &&
+          !this.loading &&
+          this.isFormComplete
+        ) {
           this.$refs['save-button'].focus()
           this.save()
         }

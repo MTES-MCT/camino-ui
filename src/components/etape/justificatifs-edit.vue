@@ -3,34 +3,15 @@
     <div
       v-for="(e, eId) in entreprisesJustificatifsIndex"
       :key="eId"
-      class="mb-xl"
+      class="mb-xs"
     >
       <div class="flex">
         <h4>{{ e.nom }}</h4>
-        <DocumentAddButton
-          :document="{
-            entrepriseId: eId,
-            entreprisesLecture: true,
-            publicLecture: false,
-            fichier: null,
-            fichierNouveau: null,
-            fichierTypeId: null,
-            typeId: ''
-          }"
-          :action="{
-            name: 'titreEtapeEdition/entrepriseDocumentAdd',
-            params: { entrepriseId: eId }
-          }"
-          :title="e.nom"
-          :large="true"
-          repertoire="entreprises"
-          class="btn py-s px-m rnd-xs flex-right mt--s mb-s"
-        />
       </div>
 
       <hr class="mb-s" />
 
-      <div v-for="j in e.justificatifs" :key="j.id">
+      <div v-for="(j, index) in e.justificatifs" :key="j.id">
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3">
             <h5 class="mt-s">{{ j.type.nom }}</h5>
@@ -38,36 +19,31 @@
           <div class="tablet-blob-2-3">
             <div class="flex mb-s">
               <select
-                v-if="j.documents.length"
                 class="p-s"
-                :class="{
-                  'mr-s':
-                    j.type.optionnel ||
-                    documentsWithSameType(j.type.id, e.justificatifs)
-                }"
                 :value="j.id"
-                @change="justificatifsUpdate(j, $event)"
+                @change="justificatifsUpdate(j, e.nom, eId, $event)"
               >
-                <option
-                  v-for="d in j.documents"
-                  :key="d.id"
-                  :value="d.id"
-                  :disabled="justificatifs.some(j => j.id === d.id)"
-                >
-                  {{ d.type.nom }} : {{ d.description }} ({{
-                    dateFormat(d.date)
-                  }})
+                <template v-if="j.documents.length">
+                  <option
+                    v-for="d in j.documents"
+                    :key="d.id"
+                    :value="d.id"
+                    :disabled="justificatifs.some(j => j.id === d.id)"
+                  >
+                    {{ d.type.nom }} : {{ d.description }} ({{
+                      dateFormat(d.date)
+                    }})
+                  </option>
+                </template>
+                <option v-else></option>
+                <option value="newDocument">
+                  Ajouter un nouveau justificatif
                 </option>
               </select>
 
-              <p v-else class="h5 italic mb-s mt-s">
-                Cette entreprise n'a aucun document de ce type.
-              </p>
-
               <button
-                v-if="j.id"
                 class="btn py-s px-m ml-s rnd-xs flex-right"
-                @click="justificatifRemove(eId, j.id)"
+                @click="justificatifRemove(eId, index)"
               >
                 <i class="icon-24 icon-minus" />
               </button>
@@ -78,10 +54,19 @@
       </div>
 
       <div>
-        <h5 class="mt">Sélectionner un document existant</h5>
-        <div class="blobs-mini">
-          <div class="blob-mini-1-3">
-            <select v-model="newJustificatifTypeIdIndex[eId]" class="p-s mb-s">
+        <div class="tablet-blobs">
+          <div class="tablet-blob-1-3">
+            <h5 class="mt-s">Ajouter un justificatif existant</h5>
+          </div>
+          <div class="tablet-blob-2-3">
+            <select
+              class="p-s mb-s"
+              value="undefined"
+              @change="justificatifAdd(eId, $event)"
+            >
+              <option value="undefined" :disabled="true">
+                Sélectionner un type de justificatif
+              </option>
               <option
                 v-for="jt in justificatifsTypes"
                 :key="jt.id"
@@ -91,21 +76,7 @@
               </option>
             </select>
           </div>
-
-          <div class="blob-mini-2-3">
-            <button
-              class="btn small py-s px-m mb-s full-x rnd-xs flex"
-              :class="{ disabled: !newJustificatifTypeIdIndex[eId] }"
-              :disabled="!newJustificatifTypeIdIndex[eId]"
-              @click="justificatifAdd(eId)"
-            >
-              <span class="mt-xxs">Ajouter un justificatif</span>
-              <i class="icon-24 icon-plus flex-right" />
-            </button>
-          </div>
         </div>
-
-        <hr />
       </div>
     </div>
   </div>
@@ -114,11 +85,9 @@
 
 <script>
 import { dateFormat } from '@/utils'
-import DocumentAddButton from '../document/button-add.vue'
+import DocumentEditPopup from '../document/edit-popup.vue'
 
 export default {
-  components: { DocumentAddButton },
-
   props: {
     justificatifs: { type: Array, required: true },
     justificatifsTypes: { type: Array, required: true },
@@ -130,8 +99,7 @@ export default {
   data() {
     return {
       entreprisesJustificatifsIndex: {},
-      entreprisesDocumentsIndex: {},
-      newJustificatifTypeIdIndex: {}
+      entreprisesDocumentsIndex: {}
     }
   },
 
@@ -217,8 +185,8 @@ export default {
       })
     },
 
-    justificatifAdd(entrepriseId) {
-      const typeId = this.newJustificatifTypeIdIndex[entrepriseId]
+    justificatifAdd(entrepriseId, event) {
+      const typeId = event.target.value
       const type = this.justificatifsTypes.find(jt => jt.id === typeId)
       const documents = this.entreprisesDocumentsIndex[entrepriseId][typeId]
 
@@ -228,7 +196,7 @@ export default {
         documents
       })
 
-      this.newJustificatifTypeIdIndex[entrepriseId] = null
+      event.target.value = undefined
     },
 
     dateFormat(date) {
@@ -239,18 +207,42 @@ export default {
       this.$emit('complete-update', this.complete)
     },
 
-    justificatifsUpdate(justificatif, event) {
-      justificatif.id = event.target.value
-      this.justificatifsReset()
+    justificatifsUpdate(justificatif, entrepriseNom, entrepriseId, event) {
+      if (event.target.value === 'newDocument') {
+        event.target.value = null
+        this.$store.commit('popupOpen', {
+          component: DocumentEditPopup,
+          props: {
+            document: {
+              entrepriseId,
+              entreprisesLecture: true,
+              publicLecture: false,
+              fichier: null,
+              fichierNouveau: null,
+              fichierTypeId: null,
+              typeId: justificatif.type.id
+            },
+            action: {
+              name: 'titreEtapeEdition/entrepriseDocumentAdd',
+              params: { entrepriseId }
+            },
+            repertoire: 'entreprises',
+            title: entrepriseNom
+          }
+        })
+      } else {
+        justificatif.id = event.target.value
+        this.justificatifsReset()
+      }
     },
 
-    justificatifRemove(entrepriseId, id) {
-      this.justificatifs.splice(
-        this.justificatifs.indexOf(justificatif => id !== justificatif.id),
+    justificatifRemove(entrepriseId, index) {
+      this.entreprisesJustificatifsIndex[entrepriseId].justificatifs.splice(
+        index,
         1
       )
 
-      this.indexReset()
+      this.justificatifsReset()
     },
 
     justificatifsReset() {
@@ -265,10 +257,6 @@ export default {
           }
         )
       })
-    },
-
-    documentsWithSameType(typeId, justificatifs) {
-      return justificatifs.filter(j => j.type.id === typeId).length > 1
     }
   }
 }
