@@ -11,10 +11,46 @@
 
       <hr class="mb-s" />
 
-      <div v-for="(j, index) in e.justificatifs" :key="j.id">
+      <div>
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3">
+            <h5 class="mt-s">Ajouter un justificatif existant</h5>
+          </div>
+          <div class="tablet-blob-2-3">
+            <select
+              class="p-s mb-s"
+              value="undefined"
+              @change="justificatifAdd(eId, $event)"
+            >
+              <option value="undefined" :disabled="true">
+                Sélectionner un type de justificatif
+              </option>
+              <option
+                v-for="jt in justificatifsTypes"
+                :key="jt.id"
+                :value="jt.id"
+              >
+                {{ jt.nom }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <hr class="mb-s" />
+
+      <div v-for="(j, index) in e.justificatifs" :key="j.id">
+        <div class="tablet-blobs">
+          <div class="tablet-blob-1-3 flex flex-center">
             <h5 class="mt-s">{{ j.type.nom }}</h5>
+            <Tag
+              v-if="!j.id"
+              :mini="true"
+              color="bg-warning"
+              class="ml-s mt-xs"
+            >
+              Manquant
+            </Tag>
           </div>
           <div class="tablet-blob-2-3">
             <div class="flex mb-s">
@@ -50,33 +86,6 @@
             </div>
           </div>
         </div>
-        <hr class="mb-s" />
-      </div>
-
-      <div>
-        <div class="tablet-blobs">
-          <div class="tablet-blob-1-3">
-            <h5 class="mt-s">Ajouter un justificatif existant</h5>
-          </div>
-          <div class="tablet-blob-2-3">
-            <select
-              class="p-s mb-s"
-              value="undefined"
-              @change="justificatifAdd(eId, $event)"
-            >
-              <option value="undefined" :disabled="true">
-                Sélectionner un type de justificatif
-              </option>
-              <option
-                v-for="jt in justificatifsTypes"
-                :key="jt.id"
-                :value="jt.id"
-              >
-                {{ jt.nom }}
-              </option>
-            </select>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -86,8 +95,10 @@
 <script>
 import { dateFormat } from '@/utils'
 import DocumentEditPopup from '../document/edit-popup.vue'
+import Tag from '../_ui/tag.vue'
 
 export default {
+  components: { Tag },
   props: {
     justificatifs: { type: Array, required: true },
     justificatifsTypes: { type: Array, required: true },
