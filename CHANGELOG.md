@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.77](https://github.com/MTES-MCT/camino-ui/compare/v0.22.76...v0.22.77) (2021-07-07)
+
+
+### Features
+
+* **justificatifs:** améliore l’interface pour éditer les justificatifs d’une étape ([#368](https://github.com/MTES-MCT/camino-ui/issues/368)) ([375f12a](https://github.com/MTES-MCT/camino-ui/commit/375f12a66acbd0f6d2ebfefb17b3ce8fcb06e9f0))
+
+
+### Bug Fixes
+
+* **étape:** redirige vers l’étape que si on a son identifiant ([6b30d56](https://github.com/MTES-MCT/camino-ui/commit/6b30d56ad102bb245164e75e6a0e251748acc729))
+
 ### [0.22.76](https://github.com/MTES-MCT/camino-ui/compare/v0.22.75...v0.22.76) (2021-07-02)
 
 
