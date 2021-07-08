@@ -62,6 +62,19 @@
                     {{ element }}
                   </option>
                 </select>
+                <select
+                  v-else-if="colonne.type === 'entities'"
+                  v-model="elementNew[colonne.id]"
+                  class="py-xs px-s mb-s"
+                >
+                  <option
+                    v-for="entity in entitiesGet(colonne)"
+                    :key="entity.id"
+                    :value="entity.id"
+                  >
+                    {{ entityLabelGet(colonne, entity) }}
+                  </option>
+                </select>
                 <textarea
                   v-else-if="colonne.type === String || colonne.type === 'json'"
                   v-model="elementNew[colonne.id]"
@@ -93,6 +106,9 @@
                   :value="element[colonne.id]"
                   :fields="colonne.fields"
                 />
+                <div v-if="definition.update && colonne.type === 'entities'">
+                  {{ entityLabelGet(colonne, element[colonne.id]) }}
+                </div>
                 <EditNumber
                   v-else-if="definition.update && colonne.type === Number"
                   :value="element[colonne.id]"
@@ -153,6 +169,7 @@ import EditBoolean from './_ui/edit-boolean.vue'
 import EditDate from './_ui/edit-date.vue'
 import InputDate from './_ui/input-date.vue'
 import EditObject from './_ui/edit-object.vue'
+import metasIndex from '../store/metas-definitions'
 
 export default {
   components: {
@@ -180,6 +197,10 @@ export default {
 
     definition() {
       return this.$store.state.meta.definition
+    },
+
+    entities() {
+      return this.$store.state.meta.entities
     },
 
     user() {
@@ -263,6 +284,14 @@ export default {
       if (!this.definition.ids) return element.id
 
       return this.definition.ids.map(id => element[id]).join('-')
+    },
+
+    entitiesGet(colonne) {
+      return this.entities[colonne.entities]
+    },
+
+    entityLabelGet(colonne, entity) {
+      return metasIndex[colonne.entities].labelGet(entity)
     }
   }
 }

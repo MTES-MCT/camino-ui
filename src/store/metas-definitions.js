@@ -140,6 +140,8 @@ const metasIndex = {
     create: titreTypeCreer,
     delete: titreTypeSupprimer,
     nom: 'Domaines | Types des titres',
+    labelGet: titreType =>
+      `${titreType.type.nom} - ${titreType.domaine.nom} - ${titreType.id}`,
     colonnes: [
       { id: 'id', nom: 'Id' },
       {
@@ -166,6 +168,7 @@ const metasIndex = {
     get: titresStatuts,
     update: titreStatutModifier,
     nom: 'Statuts des titres',
+    labelGet: titreStatut => `${titreStatut.nom} - ${titreStatut.id}`,
     colonnes: [
       { id: 'id', nom: 'Id' },
       { id: 'nom', nom: 'Nom', type: String },
@@ -189,14 +192,14 @@ const metasIndex = {
       {
         id: 'titreType',
         nom: 'Id - Nom du type de titre',
-        fields: ['id', 'type.nom', 'domaine.nom'],
-        type: Object
+        type: 'entities',
+        entities: 'titres-types'
       },
       {
         id: 'titreStatut',
         nom: 'Id - Nom du statut de titre',
-        fields: ['id', 'nom'],
-        type: Object
+        type: 'entities',
+        entities: 'titres-statuts'
       },
       { id: 'publicLecture', nom: 'Public', type: Boolean, optional: true }
     ],
