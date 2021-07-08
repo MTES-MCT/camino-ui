@@ -189,7 +189,7 @@ const metasIndex = {
       {
         id: 'titreType',
         nom: 'Id - Nom du type de titre',
-        fields: ['id', 'nom'],
+        fields: ['id', 'type.nom', 'domaine.nom'],
         type: Object
       },
       {

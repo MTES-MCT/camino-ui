@@ -10,7 +10,16 @@ export default {
   },
   computed: {
     label() {
-      return this.fields.map(f => this.value[f]).join(' - ')
+      const object = (field, parent) => {
+        const splits = field.split('.', 2)
+        if (splits.length > 1) {
+          return object(splits[1], parent[splits[0]])
+        }
+
+        return parent[field]
+      }
+
+      return this.fields.map(f => object(f, this.value)).join(' - ')
     }
   }
 }

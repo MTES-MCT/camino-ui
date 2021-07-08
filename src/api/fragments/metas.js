@@ -207,12 +207,16 @@ const fragmentGeoSysteme = gql`
 
 const fragmentTitreTypeTitreStatut = gql`
   fragment titreTypeTitreStatut on TitreTypeTitreStatut {
-    titreTypeId
     titreType {
       id
-      nom
+      type {
+        nom
+      }
+
+      domaine {
+        nom
+      }
     }
-    titreStatutId
     titreStatut {
       id
       nom
