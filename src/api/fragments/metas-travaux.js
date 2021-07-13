@@ -33,15 +33,7 @@ const fragmentTravauxEtapeType = gql`
 const fragmentTravauxTypeTravauxEtapeType = gql`
   fragment travauxTypeTravauxEtapeType on TravauxTypeTravauxEtapeType {
     travauxTypeId
-    travauxType {
-      id
-      nom
-    }
     travauxEtapeTypeId
-    travauxEtapeType {
-      id
-      nom
-    }
     ordre
   }
 `
@@ -49,15 +41,7 @@ const fragmentTravauxTypeTravauxEtapeType = gql`
 const fragmentTravauxEtapeTypeDocumentType = gql`
   fragment travauxEtapeTypeDocumentType on TravauxEtapeTypeDocumentType {
     travauxEtapeTypeId
-    travauxEtapeType {
-      id
-      nom
-    }
     documentTypeId
-    documentType {
-      id
-      nom
-    }
     optionnel
   }
 `
@@ -65,15 +49,7 @@ const fragmentTravauxEtapeTypeDocumentType = gql`
 const fragmentTravauxEtapeTypeEtapeStatut = gql`
   fragment travauxEtapeTypeEtapeStatut on TravauxEtapeTypeEtapeStatut {
     travauxEtapeTypeId
-    travauxEtapeType {
-      id
-      nom
-    }
     etapeStatutId
-    etapeStatut {
-      id
-      nom
-    }
     ordre
   }
 `

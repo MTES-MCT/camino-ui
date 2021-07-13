@@ -1,7 +1,9 @@
 <template>
   <Loader v-if="!loaded" />
   <div v-else>
-    <h5>Métas</h5>
+    <router-link :to="{ name: 'metas' }">
+      <h5>Métas</h5>
+    </router-link>
     <h1>
       <span class="cap-first">{{ definition.nom }}</span>
     </h1>
@@ -101,13 +103,8 @@
 
             <tr v-for="element in elements" :key="elementKeyFind(element)">
               <td v-for="colonne in definition.colonnes" :key="colonne.id">
-                <EditObject
-                  v-if="definition.update && colonne.type === Object"
-                  :value="element[colonne.id]"
-                  :fields="colonne.fields"
-                />
                 <div v-if="definition.update && colonne.type === 'entities'">
-                  {{ entityLabelGet(colonne, element[colonne.id]) }}
+                  {{ entityIdLabelGet(colonne, element[colonne.id]) }}
                 </div>
                 <EditNumber
                   v-else-if="definition.update && colonne.type === Number"
@@ -168,7 +165,6 @@ import EditArray from './_ui/edit-array.vue'
 import EditBoolean from './_ui/edit-boolean.vue'
 import EditDate from './_ui/edit-date.vue'
 import InputDate from './_ui/input-date.vue'
-import EditObject from './_ui/edit-object.vue'
 import metasIndex from '../store/metas-definitions'
 
 export default {
@@ -180,8 +176,7 @@ export default {
     EditBoolean,
     EditDate,
     InputDate,
-    EditJson,
-    EditObject
+    EditJson
   },
 
   data() {
@@ -290,8 +285,15 @@ export default {
       return this.entities[colonne.entities]
     },
 
+    entityIdLabelGet(colonne, entityId) {
+      const entity = this.entities[colonne.entities]?.find(
+        ({ id }) => entityId === id
+      )
+      return this.entityLabelGet(colonne, entity)
+    },
+
     entityLabelGet(colonne, entity) {
-      return metasIndex[colonne.entities].labelGet(entity)
+      return entity ? metasIndex[colonne.entities].labelGet(entity) : ''
     }
   }
 }

@@ -207,20 +207,8 @@ const fragmentGeoSysteme = gql`
 
 const fragmentTitreTypeTitreStatut = gql`
   fragment titreTypeTitreStatut on TitreTypeTitreStatut {
-    titreType {
-      id
-      type {
-        nom
-      }
-
-      domaine {
-        nom
-      }
-    }
-    titreStatut {
-      id
-      nom
-    }
+    titreTypeId
+    titreStatutId
     publicLecture
   }
 `
@@ -228,15 +216,7 @@ const fragmentTitreTypeTitreStatut = gql`
 const fragmentTitreTypeDemarcheType = gql`
   fragment titreTypeDemarcheType on TitreTypeDemarcheType {
     titreTypeId
-    titreType {
-      id
-      nom
-    }
     demarcheTypeId
-    demarcheType {
-      id
-      nom
-    }
     dureeMax
     acceptationImplicite
     delaiImplicite
@@ -251,20 +231,8 @@ const fragmentTitreTypeDemarcheType = gql`
 const fragmentTitreTypeDemarcheTypeEtapeType = gql`
   fragment titreTypeDemarcheTypeEtapeType on TitreTypeDemarcheTypeEtapeType {
     titreTypeId
-    titreType {
-      id
-      nom
-    }
     demarcheTypeId
-    demarcheType {
-      id
-      nom
-    }
     etapeTypeId
-    etapeType {
-      id
-      nom
-    }
     ordre
     sections
   }
@@ -273,15 +241,7 @@ const fragmentTitreTypeDemarcheTypeEtapeType = gql`
 const fragmentEtapeTypeEtapeStatut = gql`
   fragment etapeTypeEtapeStatut on EtapeTypeEtapeStatut {
     etapeTypeId
-    etapeType {
-      id
-      nom
-    }
     etapeStatutId
-    etapeStatut {
-      id
-      nom
-    }
     ordre
   }
 `
@@ -289,15 +249,7 @@ const fragmentEtapeTypeEtapeStatut = gql`
 const fragmentEtapeTypeDocumentType = gql`
   fragment etapeTypeDocumentType on EtapeTypeDocumentType {
     etapeTypeId
-    etapeType {
-      id
-      nom
-    }
     documentTypeId
-    documentType {
-      id
-      nom
-    }
     optionnel
   }
 `
@@ -305,15 +257,7 @@ const fragmentEtapeTypeDocumentType = gql`
 const fragmentEtapeTypeJustificatifType = gql`
   fragment etapeTypeJustificatifType on EtapeTypeJustificatifType {
     etapeTypeId
-    etapeType {
-      id
-      nom
-    }
     documentTypeId
-    documentType {
-      id
-      nom
-    }
     optionnel
   }
 `

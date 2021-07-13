@@ -56,30 +56,14 @@ const fragmentActiviteStatut = gql`
 const fragmentActiviteTypeTitreType = gql`
   fragment activiteTypeTitreType on ActiviteTypeTitreType {
     activiteTypeId
-    activiteType {
-      id
-      nom
-    }
     titreTypeId
-    titreType {
-      id
-      nom
-    }
   }
 `
 
 const fragmentActiviteTypeDocumentType = gql`
   fragment activiteTypeDocumentType on ActiviteTypeDocumentType {
     activiteTypeId
-    activiteType {
-      id
-      nom
-    }
     documentTypeId
-    documentType {
-      id
-      nom
-    }
     optionnel
   }
 `
@@ -87,15 +71,7 @@ const fragmentActiviteTypeDocumentType = gql`
 const fragmentActiviteTypePays = gql`
   fragment activiteTypePays on ActiviteTypePays {
     activiteTypeId
-    activiteType {
-      id
-      nom
-    }
     paysId
-    pays {
-      id
-      nom
-    }
   }
 `
 
