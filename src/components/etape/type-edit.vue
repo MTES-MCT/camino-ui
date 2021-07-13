@@ -29,12 +29,12 @@
         <h5>Type</h5>
       </div>
       <div class="mb tablet-blob-2-3">
-        <select :value="etape.typeId" class="p-s" @change="typeUpdate($event)">
+        <select :value="etapeType?.id" class="p-s" @change="typeUpdate($event)">
           <option
             v-for="eType in etapesTypes"
             :key="eType.id"
             :value="eType.id"
-            :disabled="etape.typeId === eType.id"
+            :disabled="etapeType?.id === eType.id"
           >
             {{ eType.nom }}
           </option>
@@ -91,11 +91,11 @@ export default {
     complete() {
       if (this.userIsAdmin) {
         return this.etapeIsDemandeEnConstruction
-          ? !!(this.etape?.typeId && this.etape.date)
-          : !!(this.etape?.typeId && this.etape.date && this.etape.statutId)
+          ? !!(this.etapeType && this.etape.date)
+          : !!(this.etapeType && this.etape.date && this.etape.statutId)
       }
 
-      return !!this.etape?.typeId
+      return !!this.etapeType.id
     }
   },
 

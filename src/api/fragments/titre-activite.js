@@ -21,7 +21,6 @@ const fragmentTitreActivite = gql`
 
     suppression
     modification
-    documentsCreation
     deposable
 
     documents {
@@ -66,7 +65,6 @@ const fragmentActivites = gql`
 
     suppression
     modification
-    documentsCreation
     deposable
   }
 
@@ -109,7 +107,6 @@ const fragmentActivite = gql`
 
     suppression
     modification
-    documentsCreation
     deposable
   }
 

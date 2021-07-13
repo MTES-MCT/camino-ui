@@ -64,7 +64,7 @@
     >
       <SectionsEdit
         v-model:etape="etape"
-        :sections="etape.sections"
+        :sections="etape.type.sections"
         @complete-update="sectionsCompleteUpdate"
       />
     </Accordion>
@@ -85,7 +85,7 @@
         repertoire="demarches"
         :document-popup-title="documentPopupTitle"
         :parent-type-id="etapeType.id"
-        :documents-types="etapeType.documentsTypes"
+        :documents-types="etape.type.documentsTypes"
         @complete-update="documentsCompleteUpdate"
       />
     </Accordion>
@@ -194,7 +194,7 @@ export default {
     },
 
     stepSectionsComplete() {
-      return !this.etape.sections?.length || this.sectionsComplete
+      return !this.etape.type.sections?.length || this.sectionsComplete
     },
 
     stepDocumentsComplete() {
@@ -227,7 +227,7 @@ export default {
         steps.push({ id: 'points', name: 'Périmètre' })
       }
 
-      if (this.heritageLoaded && this.etape.sections?.length) {
+      if (this.heritageLoaded && this.etape.type.sections?.length) {
         if (steps.length > 0) {
           steps[steps.length - 1].hasNextButton = true
         }

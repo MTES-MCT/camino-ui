@@ -1,30 +1,27 @@
-const etapeHeritageBuild = (stateEtape, apiEtape, etapeType) => {
+const etapeHeritageBuild = (stateEtape, apiEtape) => {
   const newEtape = {
     id: stateEtape.id,
     date: stateEtape.date,
     typeId: apiEtape.typeId,
+    type: apiEtape.type,
     statutId: '',
     incertitudes: { date: stateEtape.incertitudes.date },
     titreDemarcheId: stateEtape.titreDemarcheId
   }
 
-  if (apiEtape.sections) {
-    newEtape.sections = apiEtape.sections
-  }
-
   if (stateEtape.documents) {
-    const documentsTypesIds = etapeType.documentsTypes.map(({ id }) => id)
+    const documentsTypesIds = apiEtape.type.documentsTypes?.map(({ id }) => id)
     newEtape.documents = stateEtape.documents.filter(document =>
-      documentsTypesIds.includes(document.typeId)
+      documentsTypesIds?.includes(document.typeId)
     )
   }
 
   if (stateEtape.justificatifs) {
-    const justificatifsTypesIds = etapeType.justificatifsTypes.map(
+    const justificatifsTypesIds = apiEtape.type.justificatifsTypes?.map(
       ({ id }) => id
     )
     newEtape.justificatifs = stateEtape.justificatifs.filter(justificatif =>
-      justificatifsTypesIds.includes(justificatif.typeId)
+      justificatifsTypesIds?.includes(justificatif.typeId)
     )
   }
 
