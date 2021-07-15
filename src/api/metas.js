@@ -369,6 +369,17 @@ const referenceTypeModifier = apiGraphQLFetch(gql`
   ${fragmentReferenceType}
 `)
 
+const pays = apiGraphQLFetch(
+  gql`
+    query pays {
+      pays {
+        id
+        nom
+      }
+    }
+  `
+)
+
 const geoSystemes = apiGraphQLFetch(
   gql`
     query GeoSystemes {
@@ -745,6 +756,7 @@ export {
   documentTypeModifier,
   referencesTypes,
   referenceTypeModifier,
+  pays,
   geoSystemes,
   geoSystemeModifier,
   titresTypes,

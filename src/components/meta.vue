@@ -1,7 +1,9 @@
 <template>
   <Loader v-if="!loaded" />
   <div v-else>
-    <h5>Métas</h5>
+    <router-link :to="{ name: 'metas' }">
+      <h5>Métas</h5>
+    </router-link>
     <h1>
       <span class="cap-first">{{ definition.nom }}</span>
     </h1>
@@ -62,6 +64,19 @@
                     {{ element }}
                   </option>
                 </select>
+                <select
+                  v-else-if="colonne.type === 'entities'"
+                  v-model="elementNew[colonne.id]"
+                  class="py-xs px-s mb-s"
+                >
+                  <option
+                    v-for="entity in entitiesGet(colonne)"
+                    :key="entity.id"
+                    :value="entity.id"
+                  >
+                    {{ entityLabelGet(colonne, entity) }}
+                  </option>
+                </select>
                 <textarea
                   v-else-if="colonne.type === String || colonne.type === 'json'"
                   v-model="elementNew[colonne.id]"
@@ -88,8 +103,11 @@
 
             <tr v-for="element in elements" :key="elementKeyFind(element)">
               <td v-for="colonne in definition.colonnes" :key="colonne.id">
+                <div v-if="definition.update && colonne.type === 'entities'">
+                  {{ entityIdLabelGet(colonne, element[colonne.id]) }}
+                </div>
                 <EditNumber
-                  v-if="definition.update && colonne.type === Number"
+                  v-else-if="definition.update && colonne.type === Number"
                   :value="element[colonne.id]"
                   @update="update($event, element, colonne.id)"
                 />
@@ -147,6 +165,7 @@ import EditArray from './_ui/edit-array.vue'
 import EditBoolean from './_ui/edit-boolean.vue'
 import EditDate from './_ui/edit-date.vue'
 import InputDate from './_ui/input-date.vue'
+import metasIndex from '../store/metas-definitions'
 
 export default {
   components: {
@@ -173,6 +192,10 @@ export default {
 
     definition() {
       return this.$store.state.meta.definition
+    },
+
+    entities() {
+      return this.$store.state.meta.entities
     },
 
     user() {
@@ -256,6 +279,21 @@ export default {
       if (!this.definition.ids) return element.id
 
       return this.definition.ids.map(id => element[id]).join('-')
+    },
+
+    entitiesGet(colonne) {
+      return this.entities[colonne.entities]
+    },
+
+    entityIdLabelGet(colonne, entityId) {
+      const entity = this.entities[colonne.entities]?.find(
+        ({ id }) => entityId === id
+      )
+      return this.entityLabelGet(colonne, entity)
+    },
+
+    entityLabelGet(colonne, entity) {
+      return entity ? metasIndex[colonne.entities].labelGet(entity) : ''
     }
   }
 }

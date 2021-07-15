@@ -58,7 +58,8 @@ import {
   etapesTypesJustificatifsTypes,
   etapeTypeJustificatifTypeModifier,
   etapeTypeJustificatifTypeCreer,
-  etapeTypeJustificatifTypeSupprimer
+  etapeTypeJustificatifTypeSupprimer,
+  pays
 } from '../api/metas'
 
 import {
@@ -99,6 +100,8 @@ import {
   activiteTypePaysSupprimer
 } from '../api/metas-activites'
 
+const labelGet = entity => (entity ? `${entity.id} - ${entity.nom}` : '')
+
 const metasIndex = {
   definitions: {
     get: definitions,
@@ -115,6 +118,7 @@ const metasIndex = {
   domaines: {
     get: domaines,
     update: domaineModifier,
+    labelGet,
     nom: 'Domaines',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -126,6 +130,7 @@ const metasIndex = {
   'titres-types-types': {
     get: titresTypesTypes,
     update: titreTypeTypeModifier,
+    labelGet,
     nom: 'Types des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -139,11 +144,23 @@ const metasIndex = {
     update: titreTypeModifier,
     create: titreTypeCreer,
     delete: titreTypeSupprimer,
+    labelGet: titreType =>
+      `${titreType.id} - ${titreType.type.nom}- ${titreType.domaine.nom} `,
     nom: 'Domaines | Types des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
-      { id: 'domaineId', nom: 'Id du domaine' },
-      { id: 'typeId', nom: 'Id du type' },
+      {
+        id: 'domaineId',
+        nom: 'Id - Nom du domaine',
+        type: 'entities',
+        entities: 'domaines'
+      },
+      {
+        id: 'typeId',
+        nom: 'Id - Nom du type',
+        type: 'entities',
+        entities: 'titres-types-types'
+      },
       {
         id: 'contenuIds',
         nom: "Type d'étape des propriétés",
@@ -155,6 +172,7 @@ const metasIndex = {
   'titres-statuts': {
     get: titresStatuts,
     update: titreStatutModifier,
+    labelGet,
     nom: 'Statuts des titres',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -176,8 +194,18 @@ const metasIndex = {
     delete: titreTypeTitreStatutSupprimer,
     nom: 'Types des titres | Statuts des titres',
     colonnes: [
-      { id: 'titreTypeId', nom: 'Id du type de titre' },
-      { id: 'titreStatutId', nom: 'Id du statut de titre' },
+      {
+        id: 'titreTypeId',
+        nom: 'Id - Nom du type de titre',
+        type: 'entities',
+        entities: 'titres-types'
+      },
+      {
+        id: 'titreStatutId',
+        nom: 'Id - Nom du statut de titre',
+        type: 'entities',
+        entities: 'titres-statuts'
+      },
       { id: 'publicLecture', nom: 'Public', type: Boolean, optional: true }
     ],
     ids: ['titreTypeId', 'titreStatutId']
@@ -185,6 +213,7 @@ const metasIndex = {
   'demarches-types': {
     get: demarchesTypes,
     update: demarcheTypeModifier,
+    labelGet,
     nom: 'Types des démarches',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -206,8 +235,18 @@ const metasIndex = {
     delete: titreTypeDemarcheTypeSupprimer,
     nom: 'Types des titres | Types des démarches',
     colonnes: [
-      { id: 'titreTypeId', nom: 'Id du type de titre' },
-      { id: 'demarcheTypeId', nom: 'Id du type de démarche' },
+      {
+        id: 'titreTypeId',
+        nom: 'Id - Nom du type de titre',
+        type: 'entities',
+        entities: 'titres-types'
+      },
+      {
+        id: 'demarcheTypeId',
+        nom: 'Id - Nom du type de démarche',
+        type: 'entities',
+        entities: 'demarches-types'
+      },
       { id: 'dureeMax', nom: 'Durée maximale', type: Number, optional: true },
       {
         id: 'delaiImplicite',
@@ -268,6 +307,7 @@ const metasIndex = {
   'etapes-types': {
     get: etapesTypes,
     update: etapeTypeModifier,
+    labelGet,
     nom: 'Types des étapes',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -330,9 +370,24 @@ const metasIndex = {
     delete: titreTypeDemarcheTypeEtapeTypeSupprimer,
     nom: 'Types des titres | Types des démarches | types des étapes',
     colonnes: [
-      { id: 'titreTypeId', nom: 'Id du type de titre' },
-      { id: 'demarcheTypeId', nom: 'Id du type de démarche' },
-      { id: 'etapeTypeId', nom: "Id du type d'étape" },
+      {
+        id: 'titreTypeId',
+        nom: 'Id - Nom du type de titre',
+        type: 'entities',
+        entities: 'titres-types'
+      },
+      {
+        id: 'demarcheTypeId',
+        nom: 'Id - Nom du type de démarche',
+        type: 'entities',
+        entities: 'demarches-types'
+      },
+      {
+        id: 'etapeTypeId',
+        nom: "Id - Nom du type d'étape",
+        type: 'entities',
+        entities: 'etapes-types'
+      },
       { id: 'sections', nom: 'Sections', type: 'json', optional: true },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ],
@@ -341,6 +396,7 @@ const metasIndex = {
   'etapes-statuts': {
     get: etapesStatuts,
     update: etapeStatutModifier,
+    labelGet,
     nom: 'Statuts des étapes',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -361,8 +417,18 @@ const metasIndex = {
     delete: etapeTypeEtapeStatutSupprimer,
     nom: 'Types des étapes | Statuts des étapes',
     colonnes: [
-      { id: 'etapeTypeId', nom: "Id du type d'étape" },
-      { id: 'etapeStatutId', nom: "Id du statut d'étape" },
+      {
+        id: 'etapeTypeId',
+        nom: "Id - Nom du type d'étape",
+        type: 'entities',
+        entities: 'etapes-types'
+      },
+      {
+        id: 'etapeStatutId',
+        nom: "Id - Nom du statut d'étape",
+        type: 'entities',
+        entities: 'etapes-statuts'
+      },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ],
     ids: ['etapeTypeId', 'etapeStatutId']
@@ -374,8 +440,18 @@ const metasIndex = {
     delete: etapeTypeDocumentTypeSupprimer,
     nom: 'Types des étapes | Types des documents',
     colonnes: [
-      { id: 'etapeTypeId', nom: "Id du type d'étape" },
-      { id: 'documentTypeId', nom: 'Id du type de documents' },
+      {
+        id: 'etapeTypeId',
+        nom: "Id - Nom du type d'étape",
+        type: 'entities',
+        entities: 'etapes-types'
+      },
+      {
+        id: 'documentTypeId',
+        nom: 'Id - Nom du type de documents',
+        type: 'entities',
+        entities: 'documents-types'
+      },
       { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
     ],
     ids: ['etapeTypeId', 'documentTypeId']
@@ -387,8 +463,18 @@ const metasIndex = {
     delete: etapeTypeJustificatifTypeSupprimer,
     nom: 'Types des étapes | Types des justificatifs',
     colonnes: [
-      { id: 'etapeTypeId', nom: "Id du type d'étape" },
-      { id: 'documentTypeId', nom: 'Id du type de justificatifs' },
+      {
+        id: 'etapeTypeId',
+        nom: "Id - Nom du type d'étape",
+        type: 'entities',
+        entities: 'etapes-types'
+      },
+      {
+        id: 'documentTypeId',
+        nom: 'Id - Nom du type de justificatifs',
+        type: 'entities',
+        entities: 'documents-types'
+      },
       { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
     ],
     ids: ['etapeTypeId', 'documentTypeId']
@@ -396,6 +482,7 @@ const metasIndex = {
   'travaux-types': {
     get: travauxTypes,
     update: travauxTypeModifier,
+    labelGet,
     nom: 'Types des travaux',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -407,6 +494,7 @@ const metasIndex = {
   'travaux-etapes-types': {
     get: travauxEtapesTypes,
     update: travauxEtapeTypeModifier,
+    labelGet,
     nom: 'Types des étapes de travaux',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -422,8 +510,18 @@ const metasIndex = {
     delete: travauxTypeTravauxEtapeTypeSupprimer,
     nom: 'Types des travaux | Types des étapes de travaux',
     colonnes: [
-      { id: 'travauxTypeId', nom: 'Id du type de travaux' },
-      { id: 'travauxEtapeTypeId', nom: "Id du type d'étape de travaux" },
+      {
+        id: 'travauxTypeId',
+        nom: 'Id - Nom du type de travaux',
+        type: 'entities',
+        entities: 'travaux-types'
+      },
+      {
+        id: 'travauxEtapeTypeId',
+        nom: "Id - Nom du type d'étape de travaux",
+        type: 'entities',
+        entities: 'travaux-etapes-types'
+      },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ],
     ids: ['travauxTypeId', 'travauxEtapeTypeId']
@@ -435,8 +533,18 @@ const metasIndex = {
     delete: travauxEtapeTypeDocumentTypeSupprimer,
     nom: 'Types des étapes de travaux | Types des documents',
     colonnes: [
-      { id: 'travauxEtapeTypeId', nom: "Id du type d'étape de travaux" },
-      { id: 'documentTypeId', nom: 'Id du type de document' },
+      {
+        id: 'travauxEtapeTypeId',
+        nom: "Id - Nom du type d'étape de travaux",
+        type: 'entities',
+        entities: 'travaux-etapes-types'
+      },
+      {
+        id: 'documentTypeId',
+        nom: 'Id - Nom du type de document',
+        type: 'entities',
+        entities: 'documents-types'
+      },
       { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
     ],
     ids: ['travauxEtapeTypeId', 'documentTypeId']
@@ -448,8 +556,18 @@ const metasIndex = {
     delete: travauxEtapeTypeEtapeStatutSupprimer,
     nom: 'Types des étapes de travaux | Statuts des étapes',
     colonnes: [
-      { id: 'travauxEtapeTypeId', nom: "Id du type d'étape de travaux" },
-      { id: 'etapeStatutId', nom: "Id statut d'étape" },
+      {
+        id: 'travauxEtapeTypeId',
+        nom: "Id - Nom du type d'étape de travaux",
+        type: 'entities',
+        entities: 'travaux-etapes-types'
+      },
+      {
+        id: 'etapeStatutId',
+        nom: "Id - Nom du statut d'étape",
+        type: 'entities',
+        entities: 'etapes-statuts'
+      },
       { id: 'ordre', nom: 'Ordre', type: Number }
     ],
     ids: ['travauxEtapeTypeId', 'etapeStatutId']
@@ -506,6 +624,7 @@ const metasIndex = {
   'documents-types': {
     get: documentsTypes,
     update: documentTypeModifier,
+    labelGet,
     nom: 'Types des documents',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -538,9 +657,19 @@ const metasIndex = {
       { id: 'definitionProj4', nom: 'Définition proj 4', type: String }
     ]
   },
+  pays: {
+    get: pays,
+    nom: 'Pays',
+    labelGet,
+    colonnes: [
+      { id: 'id', nom: 'Id' },
+      { id: 'nom', nom: 'Nom', type: String }
+    ]
+  },
   'activites-types': {
     get: activitesTypes,
     update: activiteTypeModifier,
+    labelGet,
     nom: 'Types des activités',
     colonnes: [
       { id: 'id', nom: 'Id' },
@@ -599,8 +728,18 @@ const metasIndex = {
     delete: activiteTypeTitreTypeSupprimer,
     nom: 'Types des activités | Types des titres',
     colonnes: [
-      { id: 'activiteTypeId', nom: "Id du type d'activité" },
-      { id: 'titreTypeId', nom: 'Id du type de titre' }
+      {
+        id: 'activiteTypeId',
+        nom: "Id - Nom du type d'activité",
+        type: 'entities',
+        entities: 'activites-types'
+      },
+      {
+        id: 'titreTypeId',
+        nom: 'Id - Nom du type de titre',
+        type: 'entities',
+        entities: 'titres-types'
+      }
     ],
     ids: ['activiteTypeId', 'titreTypeId']
   },
@@ -612,8 +751,18 @@ const metasIndex = {
     delete: activiteTypeDocumentTypeSupprimer,
     nom: 'Types des activités | Types des documents',
     colonnes: [
-      { id: 'activiteTypeId', nom: "Id du type d'activité" },
-      { id: 'documentTypeId', nom: 'Id du type de document' },
+      {
+        id: 'activiteTypeId',
+        nom: "Id - Nom du type d'activité",
+        type: 'entities',
+        entities: 'activites-types'
+      },
+      {
+        id: 'documentTypeId',
+        nom: 'Id - Nom du type de document',
+        type: 'entities',
+        entities: 'documents-types'
+      },
       { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
     ],
     ids: ['activiteTypeId', 'documentTypeId']
@@ -626,8 +775,18 @@ const metasIndex = {
     delete: activiteTypePaysSupprimer,
     nom: 'Types des activités | Pays',
     colonnes: [
-      { id: 'activiteTypeId', nom: "Id du type d'activité" },
-      { id: 'paysId', nom: 'Id du pays' }
+      {
+        id: 'activiteTypeId',
+        nom: "Id - Nom du type d'activité",
+        type: 'entities',
+        entities: 'activites-types'
+      },
+      {
+        id: 'paysId',
+        nom: 'Id - Nom du pays',
+        type: 'entities',
+        entities: 'pays'
+      }
     ],
     ids: ['activiteTypeId', 'paysId']
   }

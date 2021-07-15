@@ -35,6 +35,10 @@ const fragmentTitreType = gql`
     type {
       ...titreTypeType
     }
+    domaine {
+      id
+      nom
+    }
     titresCreation
     contenuIds
   }
