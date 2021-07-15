@@ -20,7 +20,7 @@
       <div class="mb tablet-blob-2-3">
         <select v-if="!document.id" v-model="document.typeId" class="p-s">
           <option
-            v-for="dt in documentsTypes"
+            v-for="dt in types"
             :key="dt.id"
             :value="dt.id"
             :disabled="document.typeId === dt.id"
@@ -89,7 +89,8 @@ export default {
     action: { type: Object, default: null },
     document: { type: Object, required: true },
     repertoire: { type: String, required: true },
-    parentTypeId: { type: String, default: '' }
+    parentTypeId: { type: String, default: '' },
+    documentsTypes: { type: Array, default: null }
   },
 
   computed: {
@@ -112,15 +113,15 @@ export default {
       return this.$store.state.popup.messages
     },
 
-    documentsTypes() {
+    types() {
+      if (this.documentsTypes) {
+        return this.documentsTypes
+      }
       return this.$store.state.document.metas.documentsTypes
     },
 
     documentType() {
-      return (
-        this.documentsTypes &&
-        this.documentsTypes.find(d => d.id === this.document.typeId)
-      )
+      return this.types && this.types.find(d => d.id === this.document.typeId)
     },
 
     userIsAdmin() {
@@ -139,13 +140,15 @@ export default {
 
   methods: {
     async get() {
-      const options = { repertoire: this.repertoire }
+      if (!this.documentsTypes) {
+        const options = { repertoire: this.repertoire }
 
-      if (this.parentTypeId) {
-        options.typeId = this.parentTypeId
+        if (this.parentTypeId) {
+          options.typeId = this.parentTypeId
+        }
+
+        await this.$store.dispatch('document/init', options)
       }
-
-      await this.$store.dispatch('document/init', options)
     },
 
     async save() {

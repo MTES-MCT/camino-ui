@@ -23,7 +23,8 @@ import {
   fragmentTitreTypeDemarcheTypeEtapeType,
   fragmentEtapeTypeEtapeStatut,
   fragmentEtapeTypeDocumentType,
-  fragmentEtapeTypeJustificatifType
+  fragmentEtapeTypeJustificatifType,
+  fragmentTitreTypeDemarcheTypeEtapeTypeDocumentType
 } from './fragments/metas'
 
 const definitions = apiGraphQLFetch(
@@ -588,6 +589,60 @@ const titreTypeDemarcheTypeEtapeTypeSupprimer = apiGraphQLFetch(gql`
   ${fragmentTitreTypeDemarcheTypeEtapeType}
 `)
 
+const titresTypesDemarchesTypesEtapesTypesDocumentsTypes = apiGraphQLFetch(
+  gql`
+    query titresTypesDemarchesTypesEtapesTypesDocumentsTypes {
+      titresTypesDemarchesTypesEtapesTypesDocumentsTypes {
+        ...titreTypeDemarcheTypeEtapeTypeDocumentType
+      }
+    }
+
+    ${fragmentTitreTypeDemarcheTypeEtapeTypeDocumentType}
+  `
+)
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeModifier = apiGraphQLFetch(gql`
+  mutation TitreTypeDemarcheTypeEtapeTypeDocumentTypeModifier(
+    $element: InputTitreTypeDemarcheTypeEtapeTypeDocumentType!
+  ) {
+    titreTypeDemarcheTypeEtapeTypeDocumentTypeModifier(
+      titreTypeDemarcheTypeEtapeTypeDocumentType: $element
+    ) {
+      ...titreTypeDemarcheTypeEtapeTypeDocumentType
+    }
+  }
+
+  ${fragmentTitreTypeDemarcheTypeEtapeTypeDocumentType}
+`)
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeCreer = apiGraphQLFetch(gql`
+  mutation TitreTypeDemarcheTypeEtapeTypeDocumentTypeCreer(
+    $element: InputTitreTypeDemarcheTypeEtapeTypeDocumentType!
+  ) {
+    titreTypeDemarcheTypeEtapeTypeDocumentTypeCreer(
+      titreTypeDemarcheTypeEtapeTypeDocumentType: $element
+    ) {
+      ...titreTypeDemarcheTypeEtapeTypeDocumentType
+    }
+  }
+
+  ${fragmentTitreTypeDemarcheTypeEtapeTypeDocumentType}
+`)
+
+const titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer = apiGraphQLFetch(gql`
+  mutation TitreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer(
+    $element: InputTitreTypeDemarcheTypeEtapeTypeDocumentType!
+  ) {
+    titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer(
+      titreTypeDemarcheTypeEtapeTypeDocumentType: $element
+    ) {
+      ...titreTypeDemarcheTypeEtapeTypeDocumentType
+    }
+  }
+
+  ${fragmentTitreTypeDemarcheTypeEtapeTypeDocumentType}
+`)
+
 const etapesTypesEtapesStatuts = apiGraphQLFetch(
   gql`
     query EtapesTypesEtapesStatuts {
@@ -775,6 +830,10 @@ export {
   titreTypeDemarcheTypeEtapeTypeModifier,
   titreTypeDemarcheTypeEtapeTypeCreer,
   titreTypeDemarcheTypeEtapeTypeSupprimer,
+  titresTypesDemarchesTypesEtapesTypesDocumentsTypes,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer,
   etapesTypesEtapesStatuts,
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,

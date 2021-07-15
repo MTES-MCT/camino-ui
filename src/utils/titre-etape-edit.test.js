@@ -129,7 +129,7 @@ describe('etapeEditFormat', () => {
       })
     ).toEqual({
       id: 'etape-id',
-      typeId: 'etape-type-id',
+      type: { id: 'etape-type-id' },
       statutId: 'etape-statut-id',
       duree: { ans: 20, mois: 0 },
       amodiataires: [],

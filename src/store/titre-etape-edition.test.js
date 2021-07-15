@@ -202,7 +202,9 @@ describe('étapes', () => {
       incertitudes: { date: undefined },
       statutId: '',
       titreDemarcheId: 'demarche-id',
-      typeId: 'new-etape-type-id',
+      type: {
+        id: 'new-etape-type-id'
+      },
       documents: []
     })
 
@@ -239,11 +241,12 @@ describe('étapes', () => {
 
   test('créé une étape', async () => {
     store.state.titreEtapeEdition.metas.demarche = { id: 'demarche-id' }
-    api.etapeCreer.mockResolvedValue({ id: 14, nom: 'champs' })
+    api.etapeCreer.mockResolvedValue({ id: 14, nom: 'champs', type: {} })
     await store.dispatch('titreEtapeEdition/upsert', {
       etape: {
         nom: 'champs',
-        incertitudes: {}
+        incertitudes: {},
+        type: {}
       }
     })
 
@@ -266,12 +269,13 @@ describe('étapes', () => {
 
   test('met à jour une étape', async () => {
     store.state.titreEtapeEdition.metas.demarche = { id: 'demarche-id' }
-    api.etapeModifier.mockResolvedValue({ id: 14, nom: 'champs' })
+    api.etapeModifier.mockResolvedValue({ id: 14, nom: 'champs', type: {} })
     await store.dispatch('titreEtapeEdition/upsert', {
       etape: {
         id: 14,
         nom: 'champs',
-        incertitudes: {}
+        incertitudes: {},
+        type: {}
       }
     })
 
@@ -293,10 +297,13 @@ describe('étapes', () => {
 
   test('ajoute un nouveau document', async () => {
     const type = { id: 'type-id', optionnel: false }
-    store.state.titreEtapeEdition.element = { documents: [], typeId: 'mfr' }
+    store.state.titreEtapeEdition.element = {
+      documents: [],
+      type: { id: 'mfr', documentsTypes: [type] }
+    }
 
     store.state.titreEtapeEdition.metas = {
-      etapesTypes: [{ id: 'mfr', documentsTypes: [type] }]
+      etapesTypes: [{ id: 'mfr' }]
     }
     await store.dispatch('titreEtapeEdition/documentAdd', {
       document: { id: 'document-id', type }
@@ -309,11 +316,11 @@ describe('étapes', () => {
     const type = { id: 'type-id', optionnel: false }
     store.state.titreEtapeEdition.element = {
       documents: [{ id: 'document-id1' }],
-      typeId: 'mfr'
+      type: { id: 'mfr', documentsTypes: [type] }
     }
 
     store.state.titreEtapeEdition.metas = {
-      etapesTypes: [{ id: 'mfr', documentsTypes: [type] }]
+      etapesTypes: [{ id: 'mfr' }]
     }
     await store.dispatch('titreEtapeEdition/documentAdd', {
       document: { id: 'document-id2', type },
@@ -333,11 +340,11 @@ describe('étapes', () => {
         { id: 'document-id1', type, typeId: type.id },
         { id: 'document-id2', type, typeId: type.id }
       ],
-      typeId: 'mfr'
+      type: { id: 'mfr', documentsTypes: [type] }
     }
 
     store.state.titreEtapeEdition.metas = {
-      etapesTypes: [{ id: 'mfr', documentsTypes: [type] }]
+      etapesTypes: [{ id: 'mfr' }]
     }
     await store.dispatch('titreEtapeEdition/documentRemove', {
       id: 'document-id2'

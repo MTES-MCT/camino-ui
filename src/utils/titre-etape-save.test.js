@@ -6,6 +6,7 @@ describe('etapeSaveFormat', () => {
     expect(
       etapeSaveFormat({
         id: 'etape-id',
+        type: { id: 'mfr' },
         titreDemarcheId: 'demarche-id',
         statutId: '',
         dateFin: '',
@@ -29,12 +30,14 @@ describe('etapeSaveFormat', () => {
       statutId: '',
       substances: [],
       titreDemarcheId: 'demarche-id',
-      titulaires: []
+      titulaires: [],
+      typeId: 'mfr'
     })
 
     expect(
       etapeSaveFormat({
         id: 'etape-id',
+        type: { id: 'mfr' },
         titreDemarcheId: 'demarche-id',
         statutId: '',
         duree: { ans: 0, mois: 10 },
@@ -94,14 +97,15 @@ describe('etapeSaveFormat', () => {
       heritageProps: { 'prop-id': { actif: true } },
       heritageContenu: {
         'section-id': { 'element-id': { actif: true } }
-      }
+      },
+      typeId: 'mfr'
     })
 
     expect(
       etapeSaveFormat({
         id: 'etape-id',
         titreDemarcheId: 'demarche-id',
-        typeId: 'etape-type-id',
+        type: { id: 'etape-type-id' },
         statutId: 'etape-statut-id',
         duree: { ans: 20, mois: 0 },
         amodiataires: [],
@@ -145,7 +149,8 @@ describe('etapeSaveFormat', () => {
         ],
         substances: [{ id: 'substance-id-1' }],
         contenu: { 'prop-id': 'prop-value' },
-        incertitudes: { amodiataires: true }
+        incertitudes: { amodiataires: true },
+        documents: [{ id: 'tmp', typeId: 'tmp' }, { id: 'doc-id' }]
       })
     ).toEqual({
       amodiataires: [],
@@ -200,7 +205,8 @@ describe('etapeSaveFormat', () => {
       substances: [{ id: 'substance-id-1', ordre: 1 }],
       titreDemarcheId: 'demarche-id',
       titulaires: [{ id: 'titulaire-id' }],
-      typeId: 'etape-type-id'
+      typeId: 'etape-type-id',
+      documentIds: ['doc-id']
     })
   })
 })

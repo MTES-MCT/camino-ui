@@ -16,7 +16,8 @@ export default {
     parentTypeId: { type: String, default: '' },
     repertoire: { type: String, required: true },
     title: { type: String, required: true },
-    large: { type: Boolean, default: false }
+    large: { type: Boolean, default: false },
+    documentsTypes: { type: Array, default: null }
   },
 
   emits: ['titre-event-track'],
@@ -31,7 +32,8 @@ export default {
           route: this.route,
           parentTypeId: this.parentTypeId,
           repertoire: this.repertoire,
-          title: this.title
+          title: this.title,
+          documentsTypes: this.documentsTypes
         }
       })
 

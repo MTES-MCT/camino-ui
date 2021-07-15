@@ -110,7 +110,9 @@ const titreEtapeHeritage1 = {
     date: undefined
   },
   statutId: '',
-  typeId: 'new-etape-type-id',
+  type: {
+    id: 'new-etape-type-id'
+  },
   dateDebut: undefined,
   dateFin: undefined,
   duree: {
@@ -162,13 +164,25 @@ const titreEtapeHeritageRes1 = {
 }
 
 const titreEtapeHeritage2 = {
+  amodiataires: [],
   date: '2020-01-01',
-  incertitudes: { date: undefined },
-  statutId: '',
-  titreDemarcheId: 'demarche-id',
-  typeId: 'new-etape-type-id',
   documents: [],
-  id: undefined
+  duree: {
+    ans: null,
+    mois: null
+  },
+  geoSystemeIds: [],
+  geoSystemeOpposableId: null,
+  groupes: [],
+  heritageProps: {},
+  incertitudes: {},
+  statutId: '',
+  substances: [],
+  titreDemarcheId: 'demarche-id',
+  titulaires: [],
+  type: {
+    id: 'new-etape-type-id'
+  }
 }
 
 const titreEtapeHeritageRes2 = {
