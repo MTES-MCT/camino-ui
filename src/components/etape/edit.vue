@@ -101,7 +101,7 @@
     >
       <JustificatifsEdit
         v-model:justificatifs="etape.justificatifs"
-        :justificatifs-types="etapeType.justificatifsTypes"
+        :justificatifs-types="etape.type.justificatifsTypes"
         :entreprises="entreprises"
         @complete-update="justificatifsCompleteUpdate"
       />
@@ -198,12 +198,12 @@ export default {
     },
 
     stepDocumentsComplete() {
-      return !this.etapeType?.documentsTypes?.length || this.documentsComplete
+      return !this.etape.type.documentsTypes?.length || this.documentsComplete
     },
 
     stepJustificatifsComplete() {
       return (
-        !this.etapeType?.justificatifsTypes?.length ||
+        !this.etape.type.justificatifsTypes?.length ||
         this.justificatifsComplete
       )
     },
@@ -234,14 +234,14 @@ export default {
         steps.push({ id: 'sections', name: 'Propriétés spécifiques' })
       }
 
-      if (this.heritageLoaded && this.etapeType?.documentsTypes?.length) {
+      if (this.heritageLoaded && this.etape.type.documentsTypes?.length) {
         if (steps.length > 0) {
           steps[steps.length - 1].hasNextButton = true
         }
         steps.push({ id: 'documents', name: 'Documents' })
       }
 
-      if (this.heritageLoaded && this.etapeType?.justificatifsTypes?.length) {
+      if (this.heritageLoaded && this.etape.type.justificatifsTypes?.length) {
         if (steps.length > 0) {
           steps[steps.length - 1].hasNextButton = true
         }
