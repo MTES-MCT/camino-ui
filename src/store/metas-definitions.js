@@ -63,7 +63,11 @@ import {
   titresTypesDemarchesTypesEtapesTypesDocumentsTypes,
   titreTypeDemarcheTypeEtapeTypeDocumentTypeCreer,
   titreTypeDemarcheTypeEtapeTypeDocumentTypeModifier,
-  titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer
+  titreTypeDemarcheTypeEtapeTypeDocumentTypeSupprimer,
+  titresTypesDemarchesTypesEtapesTypesJustificatifsTypes,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeSupprimer
 } from '../api/metas'
 
 import {
@@ -425,6 +429,41 @@ const metasIndex = {
       {
         id: 'documentTypeId',
         nom: 'Id - Nom du type de document',
+        type: 'entities',
+        entities: 'documents-types'
+      },
+      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
+    ],
+    ids: ['titreTypeId', 'demarcheTypeId', 'etapeTypeId', 'documentTypeId']
+  },
+  'titres-types--demarches-types--etapes-types--justificatifs-types': {
+    get: titresTypesDemarchesTypesEtapesTypesJustificatifsTypes,
+    create: titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreer,
+    update: titreTypeDemarcheTypeEtapeTypeJustificatifTypeModifier,
+    delete: titreTypeDemarcheTypeEtapeTypeJustificatifTypeSupprimer,
+    nom: 'Types des titres | Types des démarches | Types des étapes | Types des justificatifs',
+    colonnes: [
+      {
+        id: 'titreTypeId',
+        nom: 'Id - Nom du type de titre',
+        type: 'entities',
+        entities: 'titres-types'
+      },
+      {
+        id: 'demarcheTypeId',
+        nom: 'Id - Nom du type de démarche',
+        type: 'entities',
+        entities: 'demarches-types'
+      },
+      {
+        id: 'etapeTypeId',
+        nom: "Id - Nom du type d'étape",
+        type: 'entities',
+        entities: 'etapes-types'
+      },
+      {
+        id: 'documentTypeId',
+        nom: 'Id - Nom du type de justificatif',
         type: 'entities',
         entities: 'documents-types'
       },

@@ -137,6 +137,9 @@ const fragmentTitreEtape = gql`
       documentsTypes {
         ...documentType
       }
+      justificatifsTypes {
+        ...documentType
+      }
     }
     statut {
       id
@@ -219,6 +222,9 @@ const fragmentEtapeHeritage = gql`
       documentsTypes {
         ...documentType
       }
+      justificatifsTypes {
+        ...documentType
+      }
     }
 
     titulaires {
@@ -288,6 +294,9 @@ const fragmentEtape = gql`
       id
       sections
       documentsTypes {
+        ...documentType
+      }
+      justificatifsTypes {
         ...documentType
       }
     }

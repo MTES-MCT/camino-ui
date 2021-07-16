@@ -4,7 +4,6 @@ import { apiGraphQLFetch } from './_client'
 import { fragmentTitre } from './fragments/titre'
 import {
   fragmentDevise,
-  fragmentDocumentType,
   fragmentGeoSysteme,
   fragmentUnite
 } from './fragments/metas'
@@ -35,13 +34,8 @@ const titreEtapeEtapesTypes = apiGraphQLFetch(
           couleur
         }
         etapesCreation
-        justificatifsTypes {
-          ...documentType
-        }
       }
     }
-
-    ${fragmentDocumentType}
   `
 )
 
