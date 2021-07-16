@@ -126,13 +126,6 @@ const etapeGroupesBuild = points => {
 const etapeEditFormat = etape => {
   etape = cloneAndClean(etape)
 
-  if (etape.type) {
-    etape.typeId = etape.type.id
-    etape.sections = etape.type.sections
-
-    delete etape.type
-  }
-
   if (etape.statut) {
     etape.statutId = etape.statut.id
     delete etape.statut
@@ -206,7 +199,6 @@ const etapeEditFormat = etape => {
   delete etape.points
   delete etape.geojsonPoints
   delete etape.geojsonMultiPolygon
-  delete etape.documentsCreation
 
   return etape
 }

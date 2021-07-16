@@ -28,6 +28,7 @@
     class="btn py-s px-m rnd-xs mt--s mb-s full-x"
     :parent-type-id="parentTypeId"
     :large="true"
+    :documents-types="documentsTypes"
   />
 </template>
 
@@ -65,7 +66,12 @@ export default {
         return (
           !documentType ||
           documentType.optionnel ||
-          !!((d.fichier || d.fichierNouveau) && d.fichierTypeId && d.date)
+          !!(
+            (d.fichier ||
+              d.fichierNouveau ||
+              (this.userIsAdmin && (d.uri || d.url))) &&
+            d.date
+          )
         )
       })
     },

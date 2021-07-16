@@ -165,8 +165,7 @@ export default {
 
     etapeIsDemandeEnConstruction() {
       return (
-        this.editedEtape?.typeId === 'mfr' &&
-        this.editedEtape?.statutId !== 'dep'
+        this.etapeType?.id === 'mfr' && this.editedEtape?.statutId !== 'dep'
       )
     },
 

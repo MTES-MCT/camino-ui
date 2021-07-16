@@ -31,7 +31,10 @@ const state = {
 
 const getters = {
   etapeType(state) {
-    return state.metas.etapesTypes.find(et => et.id === state.element.typeId)
+    if (state.element?.type) {
+      return state.metas.etapesTypes.find(et => et.id === state.element.type.id)
+    }
+    return null
   }
 }
 
@@ -118,10 +121,7 @@ const actions = {
       })
 
       const apiEtape = etapeEditFormat(data)
-      const etapeType = state.metas.etapesTypes.find(
-        et => et.id === apiEtape.typeId
-      )
-      const newEtape = etapeHeritageBuild(state.element, apiEtape, etapeType)
+      const newEtape = etapeHeritageBuild(state.element, apiEtape)
 
       commit('heritageSet', { etape: newEtape })
       await dispatch('documentInit', state.element.documents)
@@ -137,10 +137,10 @@ const actions = {
   },
 
   async documentInit({ state, getters, commit, rootGetters }, documents) {
-    if (!getters.etapeType) {
+    if (!state.element.type) {
       commit('documentsSet', [])
     } else {
-      const documentsTypes = getters.etapeType.documentsTypes
+      const documentsTypes = state.element.type.documentsTypes
 
       documents = documentsRequiredAdd(
         documents,

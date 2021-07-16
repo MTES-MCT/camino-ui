@@ -4,7 +4,6 @@ import { apiGraphQLFetch } from './_client'
 import { fragmentTitre } from './fragments/titre'
 import {
   fragmentDevise,
-  fragmentEtapeType,
   fragmentGeoSysteme,
   fragmentUnite
 } from './fragments/metas'
@@ -25,11 +24,18 @@ const titreEtapeEtapesTypes = apiGraphQLFetch(
         titreEtapeId: $id
         date: $date
       ) {
-        ...etapeType
+        id
+        nom
+        description
+        fondamentale
+        etapesStatuts {
+          id
+          nom
+          couleur
+        }
+        etapesCreation
       }
     }
-
-    ${fragmentEtapeType}
   `
 )
 

@@ -137,6 +137,9 @@ const fragmentTitreEtape = gql`
       documentsTypes {
         ...documentType
       }
+      justificatifsTypes {
+        ...documentType
+      }
     }
     statut {
       id
@@ -181,7 +184,6 @@ const fragmentTitreEtape = gql`
 
     modification
     suppression
-    documentsCreation
     deposable
   }
 
@@ -217,6 +219,12 @@ const fragmentEtapeHeritage = gql`
     type {
       id
       sections
+      documentsTypes {
+        ...documentType
+      }
+      justificatifsTypes {
+        ...documentType
+      }
     }
 
     titulaires {
@@ -251,6 +259,8 @@ const fragmentEtapeHeritage = gql`
   ${fragmentTitreSubstance}
 
   ${fragmentHeritageProps}
+
+  ${fragmentDocumentType}
 `
 
 const fragmentEtape = gql`
@@ -282,8 +292,13 @@ const fragmentEtape = gql`
     surface
     type {
       id
-      nom
       sections
+      documentsTypes {
+        ...documentType
+      }
+      justificatifsTypes {
+        ...documentType
+      }
     }
     statut {
       id
@@ -328,7 +343,6 @@ const fragmentEtape = gql`
 
     modification
     suppression
-    documentsCreation
   }
 
   ${fragmentDemarcheType}
@@ -354,6 +368,8 @@ const fragmentEtape = gql`
   ${fragmentHeritageProps}
 
   ${fragmentIncertitudes}
+
+  ${fragmentDocumentType}
 `
 
 export { fragmentTitreEtape, fragmentEtapeHeritage, fragmentEtape }

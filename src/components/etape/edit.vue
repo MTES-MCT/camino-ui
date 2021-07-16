@@ -64,7 +64,7 @@
     >
       <SectionsEdit
         v-model:etape="etape"
-        :sections="etape.sections"
+        :sections="etape.type.sections"
         @complete-update="sectionsCompleteUpdate"
       />
     </Accordion>
@@ -85,7 +85,7 @@
         repertoire="demarches"
         :document-popup-title="documentPopupTitle"
         :parent-type-id="etapeType.id"
-        :documents-types="etapeType.documentsTypes"
+        :documents-types="etape.type.documentsTypes"
         @complete-update="documentsCompleteUpdate"
       />
     </Accordion>
@@ -101,7 +101,7 @@
     >
       <JustificatifsEdit
         v-model:justificatifs="etape.justificatifs"
-        :justificatifs-types="etapeType.justificatifsTypes"
+        :justificatifs-types="etape.type.justificatifsTypes"
         :entreprises="entreprises"
         @complete-update="justificatifsCompleteUpdate"
       />
@@ -194,16 +194,16 @@ export default {
     },
 
     stepSectionsComplete() {
-      return !this.etape.sections?.length || this.sectionsComplete
+      return !this.etape.type.sections?.length || this.sectionsComplete
     },
 
     stepDocumentsComplete() {
-      return !this.etapeType?.documentsTypes?.length || this.documentsComplete
+      return !this.etape.type.documentsTypes?.length || this.documentsComplete
     },
 
     stepJustificatifsComplete() {
       return (
-        !this.etapeType?.justificatifsTypes?.length ||
+        !this.etape.type.justificatifsTypes?.length ||
         this.justificatifsComplete
       )
     },
@@ -227,21 +227,21 @@ export default {
         steps.push({ id: 'points', name: 'Périmètre' })
       }
 
-      if (this.heritageLoaded && this.etape.sections?.length) {
+      if (this.heritageLoaded && this.etape.type.sections?.length) {
         if (steps.length > 0) {
           steps[steps.length - 1].hasNextButton = true
         }
         steps.push({ id: 'sections', name: 'Propriétés spécifiques' })
       }
 
-      if (this.heritageLoaded && this.etapeType?.documentsTypes?.length) {
+      if (this.heritageLoaded && this.etape.type.documentsTypes?.length) {
         if (steps.length > 0) {
           steps[steps.length - 1].hasNextButton = true
         }
         steps.push({ id: 'documents', name: 'Documents' })
       }
 
-      if (this.heritageLoaded && this.etapeType?.justificatifsTypes?.length) {
+      if (this.heritageLoaded && this.etape.type.justificatifsTypes?.length) {
         if (steps.length > 0) {
           steps[steps.length - 1].hasNextButton = true
         }

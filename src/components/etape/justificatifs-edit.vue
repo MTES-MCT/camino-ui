@@ -238,6 +238,7 @@ export default {
               params: { entrepriseId }
             },
             repertoire: 'entreprises',
+            documentsTypes: this.justificatifsTypes,
             title: entrepriseNom
           }
         })
