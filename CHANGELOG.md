@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.78](https://github.com/MTES-MCT/camino-ui/compare/v0.22.77...v0.22.78) (2021-07-21)
+
+
+### Features
+
+* **étape:** améliore la gestion des documents sur les étapes ([#369](https://github.com/MTES-MCT/camino-ui/issues/369)) ([b065c4e](https://github.com/MTES-MCT/camino-ui/commit/b065c4e77cc1b9093c720b17effb5cfce07a1d35))
+* **metas:** affiche l'id et le nom des metas dans les relations ([#367](https://github.com/MTES-MCT/camino-ui/issues/367)) ([84f8e0e](https://github.com/MTES-MCT/camino-ui/commit/84f8e0e21ef5dba652c41a3a26f807ab13d03bee))
+
 ### [0.22.77](https://github.com/MTES-MCT/camino-ui/compare/v0.22.76...v0.22.77) (2021-07-07)
 
 
