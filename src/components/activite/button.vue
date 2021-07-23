@@ -63,7 +63,7 @@ export default {
     activiteEditPopupOpen() {
       this.$router.push({
         name: 'activite-edition',
-        params: { id: this.activite.id }
+        params: { id: this.activite.slug }
       })
     }
   }

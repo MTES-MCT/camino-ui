@@ -188,7 +188,7 @@ const actions = {
 
       const routerOptions = {
         name: 'titre',
-        params: { id: data.id }
+        params: { id: data.slug }
       }
 
       if (etape.id) {

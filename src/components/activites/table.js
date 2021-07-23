@@ -54,7 +54,7 @@ const activitesLignesBuild = activites =>
 
     return {
       id: activite.id,
-      link: { name: 'activite', params: { id: activite.id } },
+      link: { name: 'activite', params: { id: activite.slug } },
       columns
     }
   })

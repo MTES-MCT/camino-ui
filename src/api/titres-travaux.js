@@ -1,7 +1,6 @@
 import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 
-import { fragmentTitre } from './fragments/titre'
 import { fragmentTravauxType } from './fragments/metas-travaux'
 
 const travauxMetas = apiGraphQLFetch(
@@ -19,31 +18,25 @@ const travauxMetas = apiGraphQLFetch(
 const travauxCreer = apiGraphQLFetch(gql`
   mutation TravauxCreer($travaux: InputTravauxCreation!) {
     travauxCreer(travaux: $travaux) {
-      ...titre
+      slug
     }
   }
-
-  ${fragmentTitre}
 `)
 
 const travauxModifier = apiGraphQLFetch(gql`
   mutation TravauxModifier($travaux: InputTravauxModification!) {
     travauxModifier(travaux: $travaux) {
-      ...titre
+      slug
     }
   }
-
-  ${fragmentTitre}
 `)
 
 const travauxSupprimer = apiGraphQLFetch(gql`
   mutation TravauxSupprimer($id: ID!) {
     travauxSupprimer(id: $id) {
-      ...titre
+      slug
     }
   }
-
-  ${fragmentTitre}
 `)
 
 export { travauxMetas, travauxCreer, travauxModifier, travauxSupprimer }

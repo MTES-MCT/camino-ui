@@ -129,7 +129,7 @@ const actions = {
 
       await router.push({
         name: 'titre',
-        params: { id: data.id }
+        params: { id: data.slug }
       })
 
       commit('titre/open', { section: 'travaux', id: etape.id }, { root: true })

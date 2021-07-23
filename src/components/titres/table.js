@@ -162,7 +162,7 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
 
     return {
       id: titre.id,
-      link: { name: 'titre', params: { id: titre.id } },
+      link: { name: 'titre', params: { id: titre.slug } },
       columns
     }
   })

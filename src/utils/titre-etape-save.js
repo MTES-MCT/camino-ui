@@ -186,8 +186,11 @@ const demarcheOrTravauxEtapeSaveFormat = etape => {
     ?.filter(d => d.id !== d.typeId)
     .map(({ id }) => id)
 
-  etape.typeId = etape.type.id
+  if (etape.type) {
+    etape.typeId = etape.type.id
+  }
   delete etape.type
+  delete etape.slug
   delete etape.justificatifs
   delete etape.documents
 

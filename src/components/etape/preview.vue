@@ -225,7 +225,7 @@ export default {
     etapeEdit() {
       this.$router.push({
         name: 'etape-edition',
-        params: { id: this.etape.id }
+        params: { id: this.etape.slug }
       })
 
       this.eventTrack({

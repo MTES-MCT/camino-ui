@@ -33,7 +33,7 @@ const actions = {
       const data = await demarcheCreer({ demarche })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.slug }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
@@ -54,7 +54,7 @@ const actions = {
       const data = await demarcheModifier({ demarche })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.slug }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
@@ -75,7 +75,7 @@ const actions = {
       const data = await demarcheSupprimer({ id })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.slug }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },

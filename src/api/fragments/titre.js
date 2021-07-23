@@ -19,6 +19,7 @@ import { fragmentGeojsonPoints, fragmentGeojsonMultiPolygon } from './geojson'
 const fragmentTitre = gql`
   fragment titre on Titre {
     id
+    slug
     nom
     type {
       ...titreType
@@ -120,6 +121,7 @@ const fragmentTitre = gql`
 const fragmentTitres = gql`
   fragment titres on Titre {
     id
+    slug
     nom
     type {
       ...titreType
@@ -175,6 +177,7 @@ const fragmentTitres = gql`
 const fragmentTitreGeo = gql`
   fragment titreGeo on Titre {
     id
+    slug
     nom
     type {
       ...titreType
@@ -228,6 +231,7 @@ const fragmentTitresGeoPolygon = gql`
 const fragmentDemarchesTitre = gql`
   fragment demarchesTitre on Titre {
     id
+    slug
     nom
     type {
       ...titreType
