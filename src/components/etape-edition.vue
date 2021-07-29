@@ -3,7 +3,7 @@
   <div v-else>
     <h6>
       <router-link
-        :to="{ name: 'titre', params: { id: titre.id } }"
+        :to="{ name: 'titre', params: { id: titre.slug } }"
         class="cap-first"
       >
         {{ titre.nom }}

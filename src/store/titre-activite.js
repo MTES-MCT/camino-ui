@@ -18,6 +18,7 @@ const actions = {
 
       if (data) {
         commit('set', data)
+        history.replaceState({}, null, data.slug)
       } else {
         dispatch('pageError', null, { root: true })
       }

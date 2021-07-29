@@ -124,6 +124,7 @@ const fragmentHeritageProps = gql`
 const fragmentTitreEtape = gql`
   fragment titreEtape on Etape {
     id
+    slug
     ordre
     date
     dateDebut
@@ -266,6 +267,7 @@ const fragmentEtapeHeritage = gql`
 const fragmentEtape = gql`
   fragment etape on Etape {
     id
+    slug
     titreDemarcheId
     demarche {
       id
@@ -274,6 +276,7 @@ const fragmentEtape = gql`
       }
       titre {
         id
+        slug
         nom
         domaine {
           id
@@ -292,6 +295,7 @@ const fragmentEtape = gql`
     surface
     type {
       id
+      nom
       sections
       documentsTypes {
         ...documentType

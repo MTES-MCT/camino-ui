@@ -112,7 +112,7 @@ const layersBuild = (titres, router) =>
         autoPan: false
       }
 
-      const titreRoute = { name: 'titre', params: { id: titre.id } }
+      const titreRoute = { name: 'titre', params: { id: titre.slug } }
 
       const methods = {
         click() {

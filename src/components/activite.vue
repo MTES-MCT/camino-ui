@@ -4,7 +4,7 @@
   <div v-else>
     <h6>
       <router-link
-        :to="{ name: 'titre', params: { id: activite.titre.id } }"
+        :to="{ name: 'titre', params: { id: activite.titre.slug } }"
         class="cap-first"
       >
         {{ activite.titre.nom }}
@@ -14,7 +14,7 @@
     <Preview
       :key="activite.id"
       :activite="activite"
-      :route="{ name: 'titreActivite', id: activite.id }"
+      :route="{ name: 'titreActivite', id: activite.slug }"
       class="mb"
     />
   </div>

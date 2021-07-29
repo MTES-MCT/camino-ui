@@ -18,6 +18,7 @@ const actions = {
       }
 
       commit('set', { etape: newEtape })
+      history.replaceState({}, null, newEtape.slug)
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
@@ -34,7 +35,7 @@ const actions = {
       const data = await etapeDeposer({ id: etapeId })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.slug }, { root: true })
       dispatch(
         'messageAdd',
         { value: `la demande a été déposée`, type: 'success' },
@@ -55,7 +56,7 @@ const actions = {
       const data = await etapeSupprimer({ id })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.slug }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },

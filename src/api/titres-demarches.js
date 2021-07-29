@@ -1,7 +1,6 @@
 import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 
-import { fragmentTitre } from './fragments/titre'
 import { fragmentDemarcheType } from './fragments/metas'
 import { fragmentDemarches } from './fragments/titres-demarches'
 
@@ -112,31 +111,25 @@ const demarches = apiGraphQLFetch(
 const demarcheCreer = apiGraphQLFetch(gql`
   mutation DemarcheCreer($demarche: InputDemarcheCreation!) {
     demarcheCreer(demarche: $demarche) {
-      ...titre
+      slug
     }
   }
-
-  ${fragmentTitre}
 `)
 
 const demarcheModifier = apiGraphQLFetch(gql`
   mutation DemarcheModifier($demarche: InputDemarcheModification!) {
     demarcheModifier(demarche: $demarche) {
-      ...titre
+      slug
     }
   }
-
-  ${fragmentTitre}
 `)
 
 const demarcheSupprimer = apiGraphQLFetch(gql`
   mutation DemarcheSupprimer($id: ID!) {
     demarcheSupprimer(id: $id) {
-      ...titre
+      slug
     }
   }
-
-  ${fragmentTitre}
 `)
 
 export {

@@ -71,6 +71,8 @@ const actions = {
 
       if (data) {
         commit('set', data)
+        // remplace l’id de l’url par le slug
+        history.replaceState({}, null, data.slug)
       } else {
         dispatch('pageError', null, { root: true })
       }
@@ -90,7 +92,7 @@ const actions = {
       const data = await titreCreer({ titre })
 
       commit('popupClose', null, { root: true })
-      router.push({ name: 'titre', params: { id: data.id } })
+      router.push({ name: 'titre', params: { id: data.slug } })
       dispatch(
         'messageAdd',
         {
@@ -115,7 +117,7 @@ const actions = {
       const data = await titreModifier({ titre })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.slug }, { root: true })
       dispatch(
         'messageAdd',
         { value: 'le titre a été mis à jour', type: 'success' },

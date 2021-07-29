@@ -67,7 +67,7 @@ const demarchesLignesBuild = demarches =>
 
     return {
       id: demarche.id,
-      link: { name: 'titre', params: { id: demarche.titre.id } },
+      link: { name: 'titre', params: { id: demarche.titre.slug } },
       columns
     }
   })

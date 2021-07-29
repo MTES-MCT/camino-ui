@@ -1,14 +1,12 @@
 import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 
-import { fragmentTitre } from './fragments/titre'
 import {
   fragmentDevise,
   fragmentGeoSysteme,
   fragmentUnite
 } from './fragments/metas'
 import { fragmentSubstance } from './fragments/substance'
-import { fragmentEntreprise } from './fragments/entreprise'
 import { fragmentEtape, fragmentEtapeHeritage } from './fragments/titre-etape'
 import { fragmentEtapeMetasEntreprises } from './fragments/entreprises'
 
@@ -49,6 +47,7 @@ const titreEtapeMetas = apiGraphQLFetch(
         }
         titre {
           id
+          slug
           nom
           domaine {
             id
@@ -123,17 +122,15 @@ const etapeHeritage = apiGraphQLFetch(gql`
 const etapeCreer = apiGraphQLFetch(gql`
   mutation EtapeCreer($etape: InputEtapeCreation!) {
     etapeCreer(etape: $etape) {
-      ...titre
+      slug
     }
   }
-
-  ${fragmentTitre}
 `)
 
 const etapeModifier = apiGraphQLFetch(gql`
   mutation EtapeModifier($etape: InputEtapeModification!) {
     etapeModifier(etape: $etape) {
-      id
+      slug
     }
   }
 `)
@@ -141,7 +138,7 @@ const etapeModifier = apiGraphQLFetch(gql`
 const etapeSupprimer = apiGraphQLFetch(gql`
   mutation EtapeSupprimer($id: ID!) {
     etapeSupprimer(id: $id) {
-      id
+      slug
     }
   }
 `)
@@ -149,25 +146,10 @@ const etapeSupprimer = apiGraphQLFetch(gql`
 const etapeDeposer = apiGraphQLFetch(gql`
   mutation EtapeDeposer($id: ID!) {
     etapeDeposer(id: $id) {
-      id
+      slug
     }
   }
 `)
-
-const etapeEntreprises = apiGraphQLFetch(
-  gql`
-    query EtapeEntreprises($etapeId: ID!, $etapeUniquement: Boolean) {
-      entreprises(etapeId: $etapeId, etapeUniquement: $etapeUniquement) {
-        elements {
-          ...entreprise
-        }
-        total
-      }
-    }
-
-    ${fragmentEntreprise}
-  `
-)
 
 export {
   etape,
@@ -177,6 +159,5 @@ export {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
-  etapeDeposer,
-  etapeEntreprises
+  etapeDeposer
 }

@@ -66,4 +66,12 @@ export default [
     layers: 'SCAN_H_GEOL50',
     attribution: 'BRGM'
   }
+  // {
+  //   id: 'sdom-zones',
+  //   name: 'SDOM (Schéma Départemental d’Orientation Minière)',
+  //   type: 'wms',
+  //   url: 'https://datacarto.geoguyane.fr/wms',
+  //   layers: 'zone_0_s_973,zone_1_s_973,zone_2_s_973',
+  //   attribution: 'GéoGuyane'
+  // }
 ]

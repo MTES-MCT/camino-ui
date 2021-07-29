@@ -35,7 +35,7 @@ const actions = {
       const data = await travauxCreer({ travaux })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.slug }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },
@@ -64,7 +64,7 @@ const actions = {
         { root: true }
       )
 
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.slug }, { root: true })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
@@ -81,7 +81,7 @@ const actions = {
       const data = await travauxSupprimer({ id })
 
       commit('popupClose', null, { root: true })
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.slug }, { root: true })
       dispatch(
         'messageAdd',
         { value: `le titre a été mis à jour`, type: 'success' },

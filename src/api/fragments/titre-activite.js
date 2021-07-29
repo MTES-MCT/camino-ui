@@ -6,6 +6,7 @@ import { fragmentActiviteType, fragmentActiviteStatut } from './metas-activites'
 const fragmentTitreActivite = gql`
   fragment titreActivite on Activite {
     id
+    slug
     type {
       ...activiteType
     }
@@ -38,6 +39,7 @@ const fragmentTitreActivite = gql`
 const fragmentActivites = gql`
   fragment activites on Activite {
     id
+    slug
     titre {
       id
       nom
@@ -76,8 +78,10 @@ const fragmentActivites = gql`
 const fragmentActivite = gql`
   fragment activite on Activite {
     id
+    slug
     titre {
       id
+      slug
       nom
       titulaires {
         ...titresEntreprises
@@ -120,6 +124,7 @@ const fragmentActivite = gql`
 const fragmentTitresActivite = gql`
   fragment titresActivite on Activite {
     id
+    slug
     date
     statut {
       id

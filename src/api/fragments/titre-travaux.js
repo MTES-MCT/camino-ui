@@ -9,6 +9,7 @@ import { fragmentDocument } from './documents'
 const fragmentTitreTravauxEtape = gql`
   fragment titreTravauxEtape on TravauxEtape {
     id
+    slug
     ordre
     date
     duree

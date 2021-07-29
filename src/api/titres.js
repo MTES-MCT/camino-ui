@@ -173,31 +173,25 @@ const titres = apiGraphQLFetch(
 const titreCreer = apiGraphQLFetch(gql`
   mutation TitreCreer($titre: InputTitreCreation!) {
     titreCreer(titre: $titre) {
-      ...titre
+      slug
     }
   }
-
-  ${fragmentTitre}
 `)
 
 const titreModifier = apiGraphQLFetch(gql`
   mutation TitreModifier($titre: InputTitreModification!) {
     titreModifier(titre: $titre) {
-      ...titre
+      slug
     }
   }
-
-  ${fragmentTitre}
 `)
 
 const titreSupprimer = apiGraphQLFetch(gql`
   mutation TitreSupprimer($id: ID!) {
     titreSupprimer(id: $id) {
-      ...titre
+      slug
     }
   }
-
-  ${fragmentTitre}
 `)
 
 export {

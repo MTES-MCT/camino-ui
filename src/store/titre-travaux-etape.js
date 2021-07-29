@@ -40,7 +40,7 @@ const actions = {
         { value: `le titre a été mis à jour`, type: 'success' },
         { root: true }
       )
-      await dispatch('reload', { name: 'titre', id: data.id }, { root: true })
+      await dispatch('reload', { name: 'titre', id: data.slug }, { root: true })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

@@ -48,7 +48,7 @@ const titreTravauxEtapeMetas = apiGraphQLFetch(
 const travauxEtapeCreer = apiGraphQLFetch(gql`
   mutation TravauxEtapeCreer($etape: InputTravauxEtapeCreation!) {
     travauxEtapeCreer(etape: $etape) {
-      id
+      slug
     }
   }
 `)
@@ -56,7 +56,7 @@ const travauxEtapeCreer = apiGraphQLFetch(gql`
 const travauxEtapeModifier = apiGraphQLFetch(gql`
   mutation TravauxEtapeModifier($etape: InputTravauxEtapeModification!) {
     travauxEtapeModifier(etape: $etape) {
-      id
+      slug
     }
   }
 `)
@@ -64,7 +64,7 @@ const travauxEtapeModifier = apiGraphQLFetch(gql`
 const travauxEtapeSupprimer = apiGraphQLFetch(gql`
   mutation TravauxEtapeSupprimer($id: ID!) {
     travauxEtapeSupprimer(id: $id) {
-      id
+      slug
     }
   }
 `)
