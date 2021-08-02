@@ -6,6 +6,7 @@ import { fragmentDemarcheType, fragmentDemarcheStatut } from './metas'
 const fragmentDemarches = gql`
   fragment demarches on Demarche {
     id
+    slug
     ordre
     titre {
       ...demarchesTitre
