@@ -130,26 +130,28 @@
   position: relative;
 }
 
-.tooltip span {
-  position: absolute;
-  color: var(--color-alt);
-  background: var(--color-neutral);
+.tooltip .tooltip-content {
+  width: 250px;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   text-align: center;
-  border-radius: var(--unit-xs);
-  top: calc(var(--unit-xl) * -1);
-  right: 0;
-  padding: var(--unit-xs);
-  z-index: 999;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--unit-s);
+
+  position: absolute;
+  left: 150%;
+  z-index: 1;
+  padding: var(--unit-s);
 }
 
-.tooltip span::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  right: var(--unit);
-  border-top: var(--unit-xs) solid var(--color-neutral);
-  border-right: var(--unit-xs) solid transparent;
-  border-left: var(--unit-xs) solid transparent;
+.tooltip .tooltip span::after,
+.tooltip .tooltip-content {
+  visibility: hidden;
+}
+
+.tooltip:hover .tooltip span::after,
+.tooltip:hover .tooltip-content {
+  visibility: visible;
 }
 
 .shadow {

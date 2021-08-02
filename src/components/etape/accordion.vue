@@ -16,6 +16,10 @@
         >
           Incomplet
         </Tag>
+
+        <HelpTooltip v-if="step.help" class="ml-m">
+          {{ step.help }}
+        </HelpTooltip>
       </div>
     </template>
 
@@ -27,11 +31,12 @@
 
 <script>
 import Accordion from '../_ui/accordion.vue'
+import HelpTooltip from '../_ui/help-tooltip.vue'
 
 import Tag from '../_ui/tag.vue'
 
 export default {
-  components: { Accordion, Tag },
+  components: { Accordion, Tag, HelpTooltip },
   props: {
     step: { type: Object, required: true },
     opened: { type: Boolean, required: true },

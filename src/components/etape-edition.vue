@@ -71,7 +71,18 @@
 
     <div v-else class="tablet-blobs mb">
       <div class="tablet-blob-1-3" />
-      <div class="tablet-blob-2-3">
+      <div class="tablet-blob-2-3 flex flex-center">
+        <HelpTooltip v-if="armHelpVisible" class="mr-m">
+          Vous pouvez à tout moment enregistrer votre demande. Le dépôt du
+          dossier d’ARM et de toutes les pièces peut être réalisé en plusieurs
+          fois. Vous pourrez compléter votre demande en cliquant sur
+          <span class="inline-block"><i class="icon-24 icon-pencil" /></span>.
+          Si vous avez ajouté tous les documents spécifiques à la demande d’ARM
+          et justificatifs d’entreprise, et que vous considérez que votre
+          demande est complète, vous pouvez la déposer à l’étape suivante en
+          cliquant sur « Déposer … ». L’ONF et le PTMG seront ainsi notifiés et
+          pourront instruire votre demande.
+        </HelpTooltip>
         <button
           id="cmn-etape-edit-button-enregistrer"
           ref="save-button"
@@ -92,9 +103,10 @@ import { cap, dateFormat } from '@/utils'
 import Loader from './_ui/loader.vue'
 import InputDate from './_ui/input-date.vue'
 import Edit from './etape/edit.vue'
+import HelpTooltip from './_ui/help-tooltip.vue'
 
 export default {
-  components: { Loader, Edit, InputDate },
+  components: { Loader, Edit, InputDate, HelpTooltip },
 
   data() {
     return {
@@ -194,7 +206,8 @@ export default {
       return (
         !this.userIsAdmin &&
         this.domaineId === 'm' &&
-        this.titreTypeTypeId === 'ar'
+        this.titreTypeTypeId === 'ar' &&
+        this.etapeType.id === 'mfr'
       )
     }
   },

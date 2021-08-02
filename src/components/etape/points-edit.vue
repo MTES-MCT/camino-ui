@@ -1,7 +1,6 @@
 <template>
   <div>
     <h4 v-if="showTitle" class="mb-s">Périmètre</h4>
-    <p class="h6 italic">Optionnel</p>
 
     <HeritageEdit
       v-model:prop="etape.heritageProps.points"
@@ -229,6 +228,7 @@ export default {
     events: { type: Object, default: () => ({ saveKeyUp: true }) },
     showTitle: { type: Boolean, default: true }
   },
+  emits: ['complete-update'],
 
   computed: {
     pointsTotal() {
@@ -243,10 +243,15 @@ export default {
 
         return pointsTotal
       }, [])
+    },
+
+    complete() {
+      return this.etape.type.id !== 'mfr' || this.pointsTotal?.length > 3
     }
   },
 
   watch: {
+    complete: 'completeUpdate',
     'etape.geoSystemeIds': {
       handler() {
         this.etapeGeoSystemeOpposableIdUpdate()
@@ -267,6 +272,10 @@ export default {
       },
       deep: true
     }
+  },
+
+  created() {
+    this.completeUpdate()
   },
 
   methods: {
@@ -400,6 +409,10 @@ export default {
 
     groupeRemove(groupeIndex) {
       this.etape.groupes.splice(groupeIndex, 1)
+    },
+
+    completeUpdate() {
+      this.$emit('complete-update', this.complete)
     }
   }
 }

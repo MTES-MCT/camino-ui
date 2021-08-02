@@ -25,7 +25,7 @@
       id="step-fondamentales"
       :step="stepFondamentales"
       :opened="opened['fondamentales']"
-      :complete="true"
+      :complete="stepFondamentalesComplete"
       :en-construction="enConstruction"
       @toggle="toggle('fondamentales')"
     >
@@ -34,6 +34,7 @@
         :domaine-id="domaineId"
         :titre-type-id="titreTypeId"
         :user-is-admin="userIsAdmin"
+        @complete-update="fondamentalesCompleteUpdate"
       />
     </Accordion>
 
@@ -42,7 +43,7 @@
       id="step-points"
       :step="stepPoints"
       :opened="opened['points']"
-      :complete="true"
+      :complete="stepPerimetreComplete"
       :en-construction="enConstruction"
       @toggle="toggle('points')"
     >
@@ -50,6 +51,7 @@
         v-model:etape="etape"
         v-model:events="events"
         :show-title="false"
+        @complete-update="perimetreCompleteUpdate"
       />
     </Accordion>
 
@@ -144,6 +146,8 @@ export default {
 
   data() {
     return {
+      fondamentalesComplete: false,
+      perimetreComplete: false,
       sectionsComplete: false,
       documentsComplete: false,
       justificatifsComplete: false,
@@ -156,7 +160,8 @@ export default {
         sections: false,
         documents: false,
         justificatifs: false
-      }
+      },
+      help: {}
     }
   },
 
@@ -187,65 +192,75 @@ export default {
     complete() {
       return (
         this.typeComplete &&
+        this.stepFondamentalesComplete &&
+        this.stepPerimetreComplete &&
         this.stepSectionsComplete &&
         this.stepDocumentsComplete &&
         this.stepJustificatifsComplete
       )
     },
 
+    stepFondamentalesComplete() {
+      return !this.stepFondamentales || this.fondamentalesComplete
+    },
+
+    stepPerimetreComplete() {
+      return !this.stepFondamentales || this.perimetreComplete
+    },
+
     stepSectionsComplete() {
-      return !this.etape.type.sections?.length || this.sectionsComplete
+      return !this.stepSections || this.sectionsComplete
     },
 
     stepDocumentsComplete() {
-      return !this.etape.type.documentsTypes?.length || this.documentsComplete
+      return !this.stepDocuments || this.documentsComplete
     },
 
     stepJustificatifsComplete() {
-      return (
-        !this.etape.type.justificatifsTypes?.length ||
-        this.justificatifsComplete
-      )
+      return !this.stepJustificatifs || this.justificatifsComplete
     },
 
     steps() {
       const steps = []
 
       if (this.userIsAdmin) {
-        steps.push({ id: 'type', name: 'Type' })
+        steps.push({
+          id: 'type',
+          name: 'Type'
+        })
       }
 
       if (this.heritageLoaded && this.etapeType?.fondamentale) {
-        if (steps.length > 0) {
-          steps[steps.length - 1].hasNextButton = true
-        }
         steps.push({
           id: 'fondamentales',
-          name: 'Propriétés',
-          hasNextButton: true
+          name: 'Propriétés'
         })
-        steps.push({ id: 'points', name: 'Périmètre' })
+        steps.push({
+          id: 'points',
+          name: 'Périmètre'
+        })
       }
 
       if (this.heritageLoaded && this.etape.type.sections?.length) {
-        if (steps.length > 0) {
-          steps[steps.length - 1].hasNextButton = true
-        }
         steps.push({ id: 'sections', name: 'Propriétés spécifiques' })
       }
 
       if (this.heritageLoaded && this.etape.type.documentsTypes?.length) {
-        if (steps.length > 0) {
-          steps[steps.length - 1].hasNextButton = true
-        }
-        steps.push({ id: 'documents', name: 'Documents' })
+        steps.push({
+          id: 'documents',
+          name: 'Documents spécifiques à la demande'
+        })
       }
 
       if (this.heritageLoaded && this.etape.type.justificatifsTypes?.length) {
-        if (steps.length > 0) {
-          steps[steps.length - 1].hasNextButton = true
-        }
-        steps.push({ id: 'justificatifs', name: 'Justificatifs' })
+        steps.push({ id: 'justificatifs', name: 'Justificatifs d’entreprise' })
+      }
+
+      const titreTypeHelp = this.help[this.titreTypeId + this.domaineId]
+      if (titreTypeHelp) {
+        steps.forEach(step => {
+          step.help = titreTypeHelp[step.id]
+        })
       }
 
       return steps
@@ -287,9 +302,34 @@ export default {
   created() {
     this.typeCompleteUpdate()
     this.completeUpdate()
+
+    if (this.etapeType?.id === 'mfr') {
+      this.help.arm = {
+        fondamentales:
+          'Le renseignement d’une ou plusieurs substances est obligatoire.',
+        points:
+          'Pour la Guyane, le système géographique de référence est le RGFG95 / UTM zone 22N (2972). Pour le renseigner, cliquez sur « ajouter un système géographique » et choisissez le système RGFG95. Vous pouvez ensuite cliquer sur « ajouter un point », renseigner le nom, (le décrire si besoin) et renseigner les coordonnées (l’abscisse « X » en coordonnées cartésiennes correspond à la longitude en coordonnées géographiques et l’ordonnée « Y » correspond à une  latitude ). Vous devez reproduire cette étape pour tous les sommets du ou des périmètres du titre. La surface du titre est calculée automatiquement d’après les sommets renseignés.',
+        sections:
+          'Ce bloc permet de savoir si la prospection est mécanisée ou non et s’il y a des franchissements de cours d’eau (si oui, combien ?)',
+        documents:
+          'Toutes les pièces obligatoires, spécifiques à la demande, doivent être déposées dans cette rubrique en format pdf.',
+        justificatifs:
+          "Les justificatifs sont des documents propres à l'entreprise, et pourront être réutilisés pour la création d'un autre dossier et mis à jour si nécessaire. Ces justificatifs sont consultables dans la fiche entreprise de votre société. Cette section permet de protéger et de centraliser les informations d'ordre privé relatives à la société et à son personnel."
+      }
+
+      this.help.axm = this.help.arm
+    }
   },
 
   methods: {
+    fondamentalesCompleteUpdate(complete) {
+      this.fondamentalesComplete = complete
+    },
+
+    perimetreCompleteUpdate(complete) {
+      this.perimetreComplete = complete
+    },
+
     documentsCompleteUpdate(complete) {
       this.documentsComplete = complete
     },
