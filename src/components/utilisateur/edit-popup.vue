@@ -403,11 +403,6 @@ export default {
     }
   },
 
-  watch: {
-    utilisateurIsEntreprise: 'get',
-    utilisateurIsAdministration: 'get'
-  },
-
   created() {
     this.get()
     document.addEventListener('keyup', this.keyup)
