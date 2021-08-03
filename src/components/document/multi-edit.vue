@@ -85,7 +85,7 @@ export default {
     complete: 'completeUpdate'
   },
 
-  async created() {
+  created() {
     this.completeUpdate()
   },
 

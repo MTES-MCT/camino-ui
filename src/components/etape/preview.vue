@@ -23,8 +23,12 @@
 
       <h3 class="cap-first mb-s">{{ etape.type.nom }}</h3>
 
-      <div class="mb-xs">
+      <div class="mb-xs flex flex-center">
         <Statut :color="etape.statut.couleur" :nom="statutNom" />
+
+        <HelpTooltip v-if="demandeHelp" class="ml-m">{{
+          demandeHelp
+        }}</HelpTooltip>
       </div>
     </template>
 
@@ -131,9 +135,11 @@ import Tag from '../_ui/tag.vue'
 import Statut from '../_common/statut.vue'
 import RemovePopup from './remove.vue'
 import DeposePopup from './depose-popup.vue'
+import HelpTooltip from '../_ui/help-tooltip.vue'
 
 export default {
   components: {
+    HelpTooltip,
     Accordion,
     Tag,
     Statut,
@@ -156,13 +162,6 @@ export default {
   emits: ['close', 'toggle'],
 
   computed: {
-    etapeType() {
-      return (
-        this.demarcheType.etapesTypes.find(et => et.id === this.etape.typeId) ||
-        {}
-      )
-    },
-
     route() {
       return {
         name: 'titre',
@@ -206,6 +205,27 @@ export default {
       return this.etapeIsDemandeEnConstruction && !this.etape.deposable
         ? `${this.etape.statut.nom} (incomplet)`
         : this.etape.statut.nom
+    },
+
+    userIsAdmin() {
+      return this.$store.getters['user/userIsAdmin']
+    },
+
+    demandeHelp() {
+      if (!this.userIsAdmin && this.etapre.type.id === 'mfr') {
+        if (
+          this.domaineId === 'm' &&
+          ['ar', 'ax'].includes(this.titreTypeType.id)
+        ) {
+          if (this.etape.statut.id === 'aco') {
+            return 'Si vous avez ajouté tous les documents spécifiques à la demande et justificatifs d’entreprise, et que vous considérez que votre demande est complète, vous pouvez la déposer en cliquant sur « Déposer … ». L’ONF et le PTMG seront ainsi notifiés et pourront instruire votre demande.'
+          } else {
+            return 'Votre demande est bien déposée. L’ONF et le PTMG instruisent votre demande.'
+          }
+        }
+      }
+
+      return null
     }
   },
 

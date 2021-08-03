@@ -35,7 +35,7 @@
   <div v-if="titreDemande.typeId">
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>Nom</h5>
+        <h5>Nom du titre</h5>
       </div>
       <div class="tablet-blob-2-3">
         <input v-model="titreDemande.nom" type="text" class="p-s mb" />

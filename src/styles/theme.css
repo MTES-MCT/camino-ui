@@ -167,7 +167,6 @@ html {
   flex-direction: column;
   align-items: stretch;
   flex-wrap: wrap;
-  overflow: hidden;
 }
 
 .dropdown {
