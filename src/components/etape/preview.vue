@@ -212,7 +212,7 @@ export default {
     },
 
     demandeHelp() {
-      if (!this.userIsAdmin && this.etapre.type.id === 'mfr') {
+      if (!this.userIsAdmin && this.etape.type.id === 'mfr') {
         if (
           this.domaineId === 'm' &&
           ['ar', 'ax'].includes(this.titreTypeType.id)
