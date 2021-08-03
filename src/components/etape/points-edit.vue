@@ -8,6 +8,14 @@
       :is-array="true"
     >
       <template #write>
+        <button
+          class="btn small rnd-xs py-s px-m full-x flex mb-s"
+          @click="pointsImport"
+        >
+          <span class="mt-xxs">Importer depuis un fichier…</span
+          ><i class="icon-24 icon-file-plus flex-right" />
+        </button>
+
         <GeoSystemeEdit v-model:etape="etape" />
 
         <div v-if="etape.geoSystemeIds.length" class="mb-s">
@@ -212,6 +220,7 @@ import GeoSystemeEdit from './points-geo-systemes-edit.vue'
 import PointEdit from './points-point-edit.vue'
 import PointsLotEdit from './points-lot-edit.vue'
 import HeritageEdit from './heritage-edit.vue'
+import PointsImportPopup from './points-import-popup.vue'
 import Points from '../_common/points.vue'
 
 export default {
@@ -413,6 +422,12 @@ export default {
 
     completeUpdate() {
       this.$emit('complete-update', this.complete)
+    },
+
+    pointsImport() {
+      this.$store.commit('popupOpen', {
+        component: PointsImportPopup
+      })
     }
   }
 }

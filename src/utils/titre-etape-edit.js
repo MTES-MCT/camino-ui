@@ -123,6 +123,22 @@ const etapeGroupesBuild = points => {
   }
 }
 
+const etapePointsFormat = (etape, points) => {
+  if (points && points.length) {
+    const { groupes, geoSystemes, geoSystemeOpposableId } =
+      etapeGroupesBuild(points)
+
+    etape.groupes = groupes
+    etape.geoSystemeIds = geoSystemes.map(({ id }) => id)
+    etape.geoSystemeOpposableId = geoSystemeOpposableId
+  } else {
+    etape.groupes = []
+    etape.geoSystemeIds = []
+    etape.geoSystemeOpposableId = null
+  }
+  return etape
+}
+
 const etapeEditFormat = etape => {
   etape = cloneAndClean(etape)
 
@@ -161,19 +177,7 @@ const etapeEditFormat = etape => {
     mois: etape.duree ? Math.floor(etape.duree % 12) : null
   }
 
-  if (etape.points && etape.points.length) {
-    const { groupes, geoSystemes, geoSystemeOpposableId } = etapeGroupesBuild(
-      etape.points
-    )
-
-    etape.groupes = groupes
-    etape.geoSystemeIds = geoSystemes.map(({ id }) => id)
-    etape.geoSystemeOpposableId = geoSystemeOpposableId
-  } else {
-    etape.groupes = []
-    etape.geoSystemeIds = []
-    etape.geoSystemeOpposableId = null
-  }
+  etape = etapePointsFormat(etape, etape.points)
 
   if (!etape.incertitudes) {
     etape.incertitudes = {}
@@ -209,4 +213,9 @@ const documentEtapeFormat = document => {
 
   return document
 }
-export { etapeEditFormat, etapeGroupesBuild, documentEtapeFormat }
+export {
+  etapeEditFormat,
+  etapeGroupesBuild,
+  documentEtapeFormat,
+  etapePointsFormat
+}

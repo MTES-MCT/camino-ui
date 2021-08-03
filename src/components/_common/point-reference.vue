@@ -17,18 +17,15 @@
 import numberFormat from '../../utils/number-format'
 export default {
   props: {
-    pointReferences: { type: Object, required: true },
-    geoSystemeId: { type: String, required: true }
+    references: { type: Array, required: true }
   },
 
   computed: {
     pointReference() {
-      const reference = this.pointReferences[this.geoSystemeId]
-
-      if (reference) {
+      if (this.references) {
         return [
-          numberFormat(this.round(reference[0])),
-          numberFormat(this.round(reference[1]))
+          numberFormat(this.round(this.references[0])),
+          numberFormat(this.round(this.references[1]))
         ]
       }
 
@@ -38,7 +35,7 @@ export default {
 
   methods: {
     round(v) {
-      return Math.round(v * 1000000) / 1000000
+      return Math.round(Number.parseFloat(v) * 1000000) / 1000000
     }
   }
 }
