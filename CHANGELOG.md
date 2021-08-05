@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.81](https://github.com/MTES-MCT/camino-ui/compare/v0.22.80...v0.22.81) (2021-08-05)
+
+
+### Features
+
+* **métas:** permet d'ajouter des métas pour les travaux ([ebf44d1](https://github.com/MTES-MCT/camino-ui/commit/ebf44d157265ad1d4b33078c8f3f1a46668e09d4))
+
 ### [0.22.80](https://github.com/MTES-MCT/camino-ui/compare/v0.22.79...v0.22.80) (2021-08-05)
 
 
