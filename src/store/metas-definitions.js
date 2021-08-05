@@ -86,7 +86,9 @@ import {
   travauxEtapesTypesEtapesStatuts,
   travauxEtapeTypeEtapeStatutModifier,
   travauxEtapeTypeEtapeStatutCreer,
-  travauxEtapeTypeEtapeStatutSupprimer
+  travauxEtapeTypeEtapeStatutSupprimer,
+  travauxTypeCreer,
+  travauxEtapeTypeCreer
 } from '../api/metas-travaux'
 
 import {
@@ -559,6 +561,7 @@ const metasIndex = {
   },
   'travaux-types': {
     get: travauxTypes,
+    create: travauxTypeCreer,
     update: travauxTypeModifier,
     labelGet,
     nom: 'Types des travaux',
@@ -571,6 +574,7 @@ const metasIndex = {
   },
   'travaux-etapes-types': {
     get: travauxEtapesTypes,
+    create: travauxEtapeTypeCreer,
     update: travauxEtapeTypeModifier,
     labelGet,
     nom: 'Types des étapes de travaux',

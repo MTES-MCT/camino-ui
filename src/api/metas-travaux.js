@@ -20,6 +20,16 @@ const travauxTypes = apiGraphQLFetch(
   `
 )
 
+const travauxTypeCreer = apiGraphQLFetch(gql`
+  mutation TravauxTypeCreer($element: InputTravauxType!) {
+    travauxTypeCreer(travauxType: $element) {
+      ...travauxType
+    }
+  }
+
+  ${fragmentTravauxType}
+`)
+
 const travauxTypeModifier = apiGraphQLFetch(gql`
   mutation TravauxTypeModifier($element: InputTravauxType!) {
     travauxTypeModifier(travauxType: $element) {
@@ -41,6 +51,16 @@ const travauxEtapesTypes = apiGraphQLFetch(
     ${fragmentTravauxEtapeType}
   `
 )
+
+const travauxEtapeTypeCreer = apiGraphQLFetch(gql`
+  mutation TravauxEtapeTypeCreer($element: InputTravauxEtapeType!) {
+    travauxEtapeTypeCreer(travauxEtapeType: $element) {
+      ...travauxEtapeType
+    }
+  }
+
+  ${fragmentTravauxEtapeType}
+`)
 
 const travauxEtapeTypeModifier = apiGraphQLFetch(gql`
   mutation TravauxEtapeTypeModifier($element: InputTravauxEtapeType!) {
@@ -206,8 +226,10 @@ const travauxEtapeTypeEtapeStatutSupprimer = apiGraphQLFetch(gql`
 
 export {
   travauxTypes,
+  travauxTypeCreer,
   travauxTypeModifier,
   travauxEtapesTypes,
+  travauxEtapeTypeCreer,
   travauxEtapeTypeModifier,
   travauxTypesTravauxEtapesTypes,
   travauxTypeTravauxEtapeTypeModifier,
