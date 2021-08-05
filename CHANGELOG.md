@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.80](https://github.com/MTES-MCT/camino-ui/compare/v0.22.79...v0.22.80) (2021-08-05)
+
+
+### Features
+
+* **arm:** simplifie le formulaire d'ajout de demande d'ARM pour les opérateurs ([#371](https://github.com/MTES-MCT/camino-ui/issues/371)) ([b244895](https://github.com/MTES-MCT/camino-ui/commit/b2448950f0423fe8a4e5471d102722d570998c90))
+
+
+### Bug Fixes
+
+* **démarche:** utilise le slug pour ajouter une nouvelle étape à une démarche ([c1551c2](https://github.com/MTES-MCT/camino-ui/commit/c1551c258d6abb12d66796b1048512daaa873bec))
+* **étape:** corrige l’affichage de l’aide sur les demandes d’ARM ([572ac0b](https://github.com/MTES-MCT/camino-ui/commit/572ac0bb425e8fec6fe63d82a86652511d0a6726))
+* **utilisateurs:** supprime les requêtes inutiles pendant la modification d'un utilisateur ([32d4934](https://github.com/MTES-MCT/camino-ui/commit/32d49344c6d8021f25db9840ab7ced5d5989e9df))
+
 ### [0.22.79](https://github.com/MTES-MCT/camino-ui/compare/v0.22.78...v0.22.79) (2021-08-02)
 
 ### [0.22.78](https://github.com/MTES-MCT/camino-ui/compare/v0.22.77...v0.22.78) (2021-07-21)
