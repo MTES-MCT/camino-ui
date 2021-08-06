@@ -81,10 +81,14 @@
               </p>
             </div>
             <div v-if="!point.lot" class="tablet-blob-1-2">
-              <pointReference
-                :geo-systeme-id="geoSystemeId"
-                :point-references="point.references"
-              />
+              <pointReference :references="point.references[geoSystemeId]" />
+            </div>
+            <div v-else class="tablet-blob-1-2">
+              <div v-for="reference in point.references" :key="reference">
+                <pointReference
+                  :references="reference.replaceAll(',', '.').split(';')"
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -1,4 +1,8 @@
-import { documentEtapeFormat, etapeEditFormat } from '../utils/titre-etape-edit'
+import {
+  documentEtapeFormat,
+  etapeEditFormat,
+  etapePointsFormat
+} from '../utils/titre-etape-edit'
 import { etapeSaveFormat } from '../utils/titre-etape-save'
 import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
 
@@ -13,6 +17,7 @@ import {
   titreEtapeMetas
 } from '../api/titres-etapes'
 import { documentsRequiredAdd } from '../utils/documents'
+import { pointsImporter } from '../api/geojson'
 
 const state = {
   element: null,
@@ -202,6 +207,30 @@ const actions = {
       dispatch('apiError', e, { root: true })
     } finally {
       commit('loadingRemove', 'titreEtapeUpdate', { root: true })
+    }
+  },
+
+  async pointsImport({ state, commit, dispatch }, { file, geoSystemeId }) {
+    try {
+      commit('loadingAdd', 'pointsImport', { root: true })
+
+      const points = await pointsImporter({ file, geoSystemeId })
+      const etape = etapePointsFormat(state.element, points)
+
+      commit('set', etape)
+      commit('popupClose', null, { root: true })
+      dispatch(
+        'messageAdd',
+        {
+          value: `${points.length} points ont été importés avec succès`,
+          type: 'success'
+        },
+        { root: true }
+      )
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'pointsImport', { root: true })
     }
   },
 
