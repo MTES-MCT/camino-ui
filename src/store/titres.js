@@ -118,6 +118,12 @@ const actions = {
           Object.assign({}, state.params.filtres, state.params.table)
         )
         data = await titres(definitions)
+        if (!data.elements.length && data.total) {
+          commit('paramsSet', { section: 'table', params: { page: 1 } })
+          await dispatch('urlQueryUpdate')
+          await dispatch('routeUpdate')
+          return
+        }
       }
 
       commit('set', Object.freeze(data))

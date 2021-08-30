@@ -41,6 +41,13 @@ const listeActionsBuild = (id, name, elements, metas) => ({
 
       const data = await elements(p)
 
+      if (!data.elements.length && data.total) {
+        commit('paramsSet', { section: 'table', params: { page: 1 } })
+        await dispatch('urlQueryUpdate')
+        await dispatch('routeUpdate')
+        return
+      }
+
       commit('set', data)
 
       dispatch(
