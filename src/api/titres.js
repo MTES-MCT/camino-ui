@@ -188,9 +188,7 @@ const titreModifier = apiGraphQLFetch(gql`
 
 const titreSupprimer = apiGraphQLFetch(gql`
   mutation TitreSupprimer($id: ID!) {
-    titreSupprimer(id: $id) {
-      slug
-    }
+    titreSupprimer(id: $id)
   }
 `)
 
