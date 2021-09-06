@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.82](https://github.com/MTES-MCT/camino-ui/compare/v0.22.81...v0.22.82) (2021-09-06)
+
+
+### Features
+
+* **périmètre:** permet l’import du périmètre d’un titre via un fichier shape ou geojson ([#372](https://github.com/MTES-MCT/camino-ui/issues/372)) ([f74ba54](https://github.com/MTES-MCT/camino-ui/commit/f74ba54859b5113a6fae3156095cd708dcdd83db))
+* **titre:** optimise la suppression d'un titre ([c51bbf5](https://github.com/MTES-MCT/camino-ui/commit/c51bbf5a5acde028e997d531ba0223ee8d27d846))
+
+
+### Bug Fixes
+
+* **pagination:** réinitialise la pagination si la page courante n'existe pas ([069964d](https://github.com/MTES-MCT/camino-ui/commit/069964dbfc09db84b0ae95f81401ad93b020110b))
+
 ### [0.22.81](https://github.com/MTES-MCT/camino-ui/compare/v0.22.80...v0.22.81) (2021-08-05)
 
 
