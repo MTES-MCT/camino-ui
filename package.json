@@ -21,7 +21,7 @@
     "commit": "npx git-cz",
     "dev": "vite",
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
-    "release": "git pull --rebase --tags upstream master && standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",
+    "release": "git pull --rebase --tags origin master && standard-version && git push --follow-tags origin master && npx conventional-github-releaser",
     "start": "node ./index.js",
     "test": "prettier --check src && eslint --ext .js,.ts,.vue src && jest --verbose && codecov",
     "lint": "prettier --write src && eslint --fix --ext .js,.ts,.vue src",
