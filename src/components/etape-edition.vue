@@ -69,7 +69,34 @@
       </div>
     </div>
 
-    <div v-else class="tablet-blobs mb">
+    <div v-else class="tablet-blobs mb" ref="save-btn-container">
+      <div class="tablet-blob-1-3" />
+      <div class="tablet-blob-2-3 flex flex-center">
+        <HelpTooltip v-if="armHelpVisible" class="mr-m">
+          Vous pouvez à tout moment enregistrer votre demande. Le dépôt du
+          dossier d’ARM et de toutes les pièces peut être réalisé en plusieurs
+          fois. Vous pourrez compléter votre demande en cliquant sur
+          <span class="inline-block"><i class="icon-24 icon-pencil" /></span>.
+          Si vous avez ajouté tous les documents spécifiques à la demande d’ARM
+          et justificatifs d’entreprise, et que vous considérez que votre
+          demande est complète, vous pouvez la déposer à l’étape suivante en
+          cliquant sur « Déposer … ». L’ONF et le PTMG seront ainsi notifiés et
+          pourront instruire votre demande.
+        </HelpTooltip>
+        <button
+          id="cmn-etape-edit-button-enregistrer"
+          ref="save-button"
+          class="btn-flash rnd-xs p-s full-x"
+          :disabled="!isFormComplete"
+          :class="{ disabled: !isFormComplete }"
+          @click="save"
+        >
+          Enregistrer
+        </button>
+      </div>
+    </div>
+
+    <div class="tablet-blobs sticky" :class="{ 'active': isButtonSticky }" ref="save-btn-sticky-container">
       <div class="tablet-blob-1-3" />
       <div class="tablet-blob-2-3 flex flex-center">
         <HelpTooltip v-if="armHelpVisible" class="mr-m">
@@ -104,6 +131,7 @@ import Loader from './_ui/loader.vue'
 import InputDate from './_ui/input-date.vue'
 import Edit from './etape/edit.vue'
 import HelpTooltip from './_ui/help-tooltip.vue'
+// import debounce from 'lodash.debounce'
 
 export default {
   components: { Loader, Edit, InputDate, HelpTooltip },
@@ -112,6 +140,8 @@ export default {
     return {
       complete: false,
       typeComplete: false,
+      isButtonSticky: false,
+      containerWidth: 0,
       newDate: new Date().toISOString().slice(0, 10),
       events: { saveKeyUp: true }
     }
@@ -220,10 +250,14 @@ export default {
     await this.init()
 
     document.addEventListener('keyup', this.keyUp)
+    document.addEventListener('scroll', this.handleStickyBtn)
+    document.addEventListener('resize', this.handleStickyBtn)
   },
 
   beforeUnmount() {
     document.removeEventListener('keyup', this.keyUp)
+    document.removeEventListener('scroll', this.handleStickyBtn)
+    document.removeEventListener('resize', this.handleStickyBtn)
   },
 
   unmounted() {
@@ -280,6 +314,20 @@ export default {
       }
     },
 
+    handleStickyBtn(e) {
+      const sticky = this.$refs['save-btn-container']
+      const bottomBounds = sticky.getBoundingClientRect().y + sticky.getBoundingClientRect().height
+      this.isButtonSticky = window.innerHeight < bottomBounds
+      this.adaptStickyBtnWidth()
+    },
+
+    adaptStickyBtnWidth() {
+      if (!this.isButtonSticky) return;
+      const originalWidth = this.$refs['save-btn-container']?.getBoundingClientRect().width
+      const sticky = this.$refs['save-btn-sticky-container']
+      sticky.style.width = originalWidth + 'px';
+    },
+
     completeUpdate(complete) {
       this.complete = complete
     },
@@ -300,3 +348,23 @@ export default {
   }
 }
 </script>
+
+<style>
+.sticky {
+  background: white;
+  height: 70px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+  bottom: 0;
+  position: fixed;
+  opacity: 0;
+  will-change: opacity;
+  pointer-events: none;
+}
+
+.active {
+  transition: opacity 0.25s ease-out;
+  opacity: 1;
+  pointer-events: auto;
+}
+</style>
