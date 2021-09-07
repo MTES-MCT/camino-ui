@@ -1,10 +1,10 @@
 <template>
   <Loader v-if="!loaded" />
   <div v-else>
-    <div v-if="titre.doublonTitreId" class="p-m bg-warning color-bg mb">
+    <div v-if="titre.doublonTitre?.id" class="p-m bg-warning color-bg mb">
       Ce titre est un doublon. Le titre déjà existant est :
-      <a class="color-bg" :href="`/titres/${titre.doublonTitreId}`">{{
-        titre.doublonTitreId
+      <a class="color-bg" :href="`/titres/${titre.doublonTitre.id}`">{{
+        titre.doublonTitre.nom
       }}</a
       >.
     </div>
