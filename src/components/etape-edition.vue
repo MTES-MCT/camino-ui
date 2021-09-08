@@ -45,6 +45,7 @@
       :etape-type="etapeType"
       @complete-update="completeUpdate"
       @type-complete-update="typeCompleteUpdate"
+      @change="editChange"
     />
 
     <div v-if="loading" class="tablet-blobs">
@@ -69,31 +70,20 @@
       </div>
     </div>
 
-    <div v-else class="tablet-blobs mb">
+    <div
+      v-else
+      ref="save-btn-container"
+      class="tablet-blobs pb-m pt-m bg-bg b-0 sticky"
+    >
       <div class="tablet-blob-1-3" />
-      <div class="tablet-blob-2-3 flex flex-center">
-        <HelpTooltip v-if="armHelpVisible" class="mr-m">
-          Vous pouvez à tout moment enregistrer votre demande. Le dépôt du
-          dossier d’ARM et de toutes les pièces peut être réalisé en plusieurs
-          fois. Vous pourrez compléter votre demande en cliquant sur
-          <span class="inline-block"><i class="icon-24 icon-pencil" /></span>.
-          Si vous avez ajouté tous les documents spécifiques à la demande d’ARM
-          et justificatifs d’entreprise, et que vous considérez que votre
-          demande est complète, vous pouvez la déposer à l’étape suivante en
-          cliquant sur « Déposer … ». L’ONF et le PTMG seront ainsi notifiés et
-          pourront instruire votre demande.
-        </HelpTooltip>
-        <button
-          id="cmn-etape-edit-button-enregistrer"
-          ref="save-button"
-          class="btn-flash rnd-xs p-s full-x"
-          :disabled="!isFormComplete"
-          :class="{ disabled: !isFormComplete }"
-          @click="save"
-        >
-          Enregistrer
-        </button>
-      </div>
+      <FormSaveBtn
+        ref="save-btn"
+        :arm-help-visible="armHelpVisible"
+        :on-save="save"
+        :disabled="!isFormComplete"
+        class="tablet-blob-2-3 flex flex-center"
+        @click="save"
+      />
     </div>
   </div>
 </template>
@@ -103,15 +93,25 @@ import { cap, dateFormat } from '@/utils'
 import Loader from './_ui/loader.vue'
 import InputDate from './_ui/input-date.vue'
 import Edit from './etape/edit.vue'
-import HelpTooltip from './_ui/help-tooltip.vue'
+import FormSaveBtn from './etape/form-save-btn.vue'
 
 export default {
-  components: { Loader, Edit, InputDate, HelpTooltip },
+  components: { Loader, Edit, InputDate, FormSaveBtn },
+
+  beforeRouteLeave(_, __, next) {
+    if (this.isFormDirty && !confirm(this.promptMsg)) {
+      next(false)
+    } else {
+      next()
+    }
+  },
 
   data() {
     return {
       complete: false,
+      isFormDirty: false,
       typeComplete: false,
+      promptMsg: 'Quitter le formulaire sans enregistrer les changements ?',
       newDate: new Date().toISOString().slice(0, 10),
       events: { saveKeyUp: true }
     }
@@ -220,10 +220,12 @@ export default {
     await this.init()
 
     document.addEventListener('keyup', this.keyUp)
+    window.addEventListener('beforeunload', this.beforeWindowUnload)
   },
 
   beforeUnmount() {
     document.removeEventListener('keyup', this.keyUp)
+    window.removeEventListener('beforeunload', this.beforeWindowUnload)
   },
 
   unmounted() {
@@ -239,7 +241,15 @@ export default {
       })
     },
 
+    beforeWindowUnload(e) {
+      if (!this.isFormDirty) return true
+      e.returnValue = this.promptMsg
+      return this.promptMsg
+    },
+
     async save() {
+      this.isFormDirty = false
+
       if (this.isFormComplete) {
         await this.$store.dispatch('titreEtapeEdition/upsert', {
           etape: this.editedEtape
@@ -274,7 +284,7 @@ export default {
           !this.loading &&
           this.isFormComplete
         ) {
-          this.$refs['save-button'].focus()
+          this.$refs['save-btn'].focusBtn()
           this.save()
         }
       }
@@ -286,6 +296,11 @@ export default {
 
     typeCompleteUpdate(complete) {
       this.typeComplete = complete
+    },
+
+    editChange() {
+      if (!this.loaded) return
+      this.isFormDirty = true
     },
 
     async dateUpdate() {

@@ -122,6 +122,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   position: absolute;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .center {
   left: 50%;
   transform: translate(-50%, 0);
@@ -194,6 +198,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 .h-0 {
   height: 0;
   overflow: hidden;
+}
+
+.b-0 {
+  bottom: 0;
 }
 
 .z-2 {

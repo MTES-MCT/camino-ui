@@ -142,7 +142,7 @@ export default {
     documentPopupTitle: { type: String, required: true }
   },
 
-  emits: ['complete-update', 'type-complete-update'],
+  emits: ['complete-update', 'type-complete-update', 'change'],
 
   data() {
     return {
@@ -296,7 +296,14 @@ export default {
   },
 
   watch: {
-    complete: 'completeUpdate'
+    complete: 'completeUpdate',
+
+    etape: {
+      handler: function () {
+        this.$emit('change')
+      },
+      deep: true
+    }
   },
 
   created() {
@@ -361,6 +368,8 @@ export default {
       if (this.opened[stepId]) {
         this.scrollToStep(stepId)
       }
+
+      this.$emit('change')
     },
 
     scrollToStep(stepId) {
