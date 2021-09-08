@@ -69,26 +69,14 @@
       </div>
     </div>
 
-    <div v-else ref="save-btn-container" class="tablet-blobs mb">
-      <div class="tablet-blob-1-3" />
-      <FormSaveBtn
-        ref="save-btn"
-        :arm-help-visible="armHelpVisible"
-        :on-save="save"
-        :disabled="!isFormComplete"
-        class="tablet-blob-2-3 flex flex-center"
-        @click="save"
-      />
-    </div>
-
     <div
-      ref="save-btn-sticky-container"
-      :class="{ 'is-active': isButtonSticky }"
-      class="tablet-blobs is-sticky"
+      v-else
+      ref="save-btn-container"
+      class="tablet-blobs pb-m pt-m bg-bg sticky"
     >
       <div class="tablet-blob-1-3" />
       <FormSaveBtn
-        ref="save-btn-sticky"
+        ref="save-btn"
         :arm-help-visible="armHelpVisible"
         :on-save="save"
         :disabled="!isFormComplete"
@@ -344,20 +332,6 @@ export default {
 
 <style>
 .is-sticky {
-  background: white;
-  height: 70px;
-  padding-top: 0px;
-  margin-bottom: 0px;
   bottom: 0;
-  position: fixed;
-  opacity: 0;
-  will-change: opacity;
-  pointer-events: none;
-}
-
-.is-active {
-  transition: opacity 0.25s ease-out;
-  opacity: 1;
-  pointer-events: auto;
 }
 </style>
