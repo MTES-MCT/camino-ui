@@ -71,56 +71,25 @@
 
     <div v-else class="tablet-blobs mb" ref="save-btn-container">
       <div class="tablet-blob-1-3" />
-      <div class="tablet-blob-2-3 flex flex-center">
-        <HelpTooltip v-if="armHelpVisible" class="mr-m">
-          Vous pouvez à tout moment enregistrer votre demande. Le dépôt du
-          dossier d’ARM et de toutes les pièces peut être réalisé en plusieurs
-          fois. Vous pourrez compléter votre demande en cliquant sur
-          <span class="inline-block"><i class="icon-24 icon-pencil" /></span>.
-          Si vous avez ajouté tous les documents spécifiques à la demande d’ARM
-          et justificatifs d’entreprise, et que vous considérez que votre
-          demande est complète, vous pouvez la déposer à l’étape suivante en
-          cliquant sur « Déposer … ». L’ONF et le PTMG seront ainsi notifiés et
-          pourront instruire votre demande.
-        </HelpTooltip>
-        <button
-          id="cmn-etape-edit-button-enregistrer"
-          ref="save-button"
-          class="btn-flash rnd-xs p-s full-x"
-          :disabled="!isFormComplete"
-          :class="{ disabled: !isFormComplete }"
-          @click="save"
-        >
-          Enregistrer
-        </button>
-      </div>
+      <FormSaveBtn
+        :arm-help-visible="armHelpVisible"
+        :on-save="save"
+        :disabled="!isFormComplete"
+        class="tablet-blob-2-3 flex flex-center"
+        @click="save"
+      />
     </div>
 
-    <div class="tablet-blobs sticky" :class="{ 'active': isButtonSticky }" ref="save-btn-sticky-container">
+    <div ref="save-btn-sticky-container" :class="{ 'is-active': isButtonSticky }" class="tablet-blobs sticky">
       <div class="tablet-blob-1-3" />
-      <div class="tablet-blob-2-3 flex flex-center">
-        <HelpTooltip v-if="armHelpVisible" class="mr-m">
-          Vous pouvez à tout moment enregistrer votre demande. Le dépôt du
-          dossier d’ARM et de toutes les pièces peut être réalisé en plusieurs
-          fois. Vous pourrez compléter votre demande en cliquant sur
-          <span class="inline-block"><i class="icon-24 icon-pencil" /></span>.
-          Si vous avez ajouté tous les documents spécifiques à la demande d’ARM
-          et justificatifs d’entreprise, et que vous considérez que votre
-          demande est complète, vous pouvez la déposer à l’étape suivante en
-          cliquant sur « Déposer … ». L’ONF et le PTMG seront ainsi notifiés et
-          pourront instruire votre demande.
-        </HelpTooltip>
-        <button
-          id="cmn-etape-edit-button-enregistrer"
-          ref="save-button"
-          class="btn-flash rnd-xs p-s full-x"
-          :disabled="!isFormComplete"
-          :class="{ disabled: !isFormComplete }"
-          @click="save"
-        >
-          Enregistrer
-        </button>
-      </div>
+      <FormSaveBtn
+        :arm-help-visible="armHelpVisible"
+        :on-save="save"
+        :disabled="!isFormComplete"
+        class="tablet-blob-2-3 flex flex-center"
+        @click="save"
+      />
+
     </div>
   </div>
 </template>
@@ -131,10 +100,17 @@ import Loader from './_ui/loader.vue'
 import InputDate from './_ui/input-date.vue'
 import Edit from './etape/edit.vue'
 import HelpTooltip from './_ui/help-tooltip.vue'
+import FormSaveBtn from './etape/form-save-btn.vue'
 // import debounce from 'lodash.debounce'
 
 export default {
-  components: { Loader, Edit, InputDate, HelpTooltip },
+  components: {
+    Loader,
+    Edit,
+    InputDate,
+    HelpTooltip,
+    FormSaveBtn,
+  },
 
   data() {
     return {
@@ -362,7 +338,7 @@ export default {
   pointer-events: none;
 }
 
-.active {
+.is-active {
   transition: opacity 0.25s ease-out;
   opacity: 1;
   pointer-events: auto;
