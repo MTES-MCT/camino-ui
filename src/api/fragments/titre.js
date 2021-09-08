@@ -92,7 +92,10 @@ const fragmentTitre = gql`
     suppression
     demarchesCreation
     travauxCreation
-    doublonTitreId
+    doublonTitre {
+      id
+      nom
+    }
   }
 
   ${fragmentTitreAdministrations}
