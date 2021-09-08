@@ -112,7 +112,7 @@ module.exports = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: ['./src/store/__mocks__/setupJest.js'],
+  setupFiles: ['./src/__mocks__/setupJest.js'],
 
   // The path to a module that runs some code to configure or set up the testing framework before each test
   // setupTestFrameworkScriptFile: null,
