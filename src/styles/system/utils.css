@@ -200,6 +200,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   overflow: hidden;
 }
 
+.b-0 {
+  bottom: 0;
+}
+
 .z-2 {
   z-index: 2;
 }
@@ -209,5 +213,5 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
 }
 
 .b-0 {
-  bottom: 0
+  bottom: 0;
 }

@@ -72,7 +72,7 @@
     <div
       v-else
       ref="save-btn-container"
-      class="tablet-blobs pb-m pt-m bg-bg sticky"
+      class="tablet-blobs pb-m pt-m bg-bg b-0 sticky"
     >
       <div class="tablet-blob-1-3" />
       <FormSaveBtn
@@ -298,15 +298,6 @@ export default {
       const bottomBounds =
         sticky.getBoundingClientRect().y + sticky.getBoundingClientRect().height
       this.isButtonSticky = window.innerHeight < bottomBounds
-      this.adaptStickyBtnWidth()
-    },
-
-    adaptStickyBtnWidth() {
-      if (!this.isButtonSticky) return
-      const originalWidth =
-        this.$refs['save-btn-container']?.getBoundingClientRect().width
-      const sticky = this.$refs['save-btn-sticky-container']
-      sticky.style.width = originalWidth + 'px'
     },
 
     completeUpdate(complete) {
@@ -329,9 +320,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.is-sticky {
-  bottom: 0;
-}
-</style>
