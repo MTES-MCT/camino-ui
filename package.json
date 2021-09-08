@@ -23,9 +23,10 @@
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
     "release": "git pull --rebase --tags origin master && standard-version && git push --follow-tags origin master && npx conventional-github-releaser",
     "start": "node ./index.js",
-    "test": "cross-env NODE_ENV=test && prettier --check src && eslint --ext .js,.ts,.vue src && jest --verbose && codecov",
-    "lint": "prettier --write src && eslint --fix --ext .js,.ts,.vue src",
-    "test:watch": "jest --watch --verbose"
+    "test:full": "cross-env NODE_ENV=test && prettier --check src && eslint --ext .js,.ts,.vue src && jest --verbose && codecov",
+    "test:watch": "jest --watch --verbose",
+    "test": "jest --verbose",
+    "lint": "prettier --write src && eslint --fix --ext .js,.ts,.vue src"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -41,7 +42,7 @@
     "@sentry/browser": "^6.9.0",
     "@sentry/integrations": "^6.9.0",
     "@types/graphql-react": "^8.1.2",
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^26.0.24",
     "@types/leaflet": "^1.7.4",
     "@types/leaflet.markercluster": "^1.4.5",
     "@types/webpack-env": "^1.16.2",
@@ -51,6 +52,7 @@
     "@vue/compiler-sfc": "^3.1.1",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-standard": "^6.0.0",
+    "@vue/test-utils": "^2.0.0-rc.14",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.0.2",
@@ -111,6 +113,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^22.0.0",
+    "ts-jest": "^27.0.5",
     "typescript": "^4.3.5",
     "vite": "^2.3.7",
     "vue": "^3.0.9",

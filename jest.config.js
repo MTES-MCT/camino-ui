@@ -61,7 +61,7 @@ module.exports = {
   // ],
 
   // An array of file extensions your modules use
-  moduleFileExtensions: ['js', 'jsx', 'json', 'vue'],
+  moduleFileExtensions: ['js', 'jsx', 'json', 'vue' , 'ts', 'tsx'],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
@@ -83,6 +83,7 @@ module.exports = {
 
   // A preset that is used as a base for Jest's configuration
   // preset: null,
+  preset: 'ts-jest',
 
   // Run tests from one or more projects
   // projects: null,
@@ -130,6 +131,9 @@ module.exports = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
+  testMatch: [
+    '<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}',
+  ],
   // testMatch: [
   //   "**/__tests__/**/*.js?(x)",
   //   "**/?(*.)+(spec|test).js?(x)"
@@ -142,7 +146,7 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/'],
 
   // The regexp pattern Jest uses to detect test files
-  // testRegex: "",
+  // testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
 
   // This option allows the use of a custom results processor
   // testResultsProcessor: null,
@@ -159,9 +163,10 @@ module.exports = {
   // A map from regular expressions to paths to transformers
   transform: {
     '^.+\\.vue$': 'vue-jest',
+    '^.+\\.js?$': 'babel-jest',
+    '^.+\\.tsx?$': 'ts-jest',
     '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$':
-      'jest-transform-stub',
-    '^.+\\.js?$': 'babel-jest'
+      'jest-transform-stub'
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
