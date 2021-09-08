@@ -45,6 +45,7 @@
       :etape-type="etapeType"
       @complete-update="completeUpdate"
       @type-complete-update="typeCompleteUpdate"
+      @change="editChange"
     />
 
     <div v-if="loading" class="tablet-blobs">
@@ -96,19 +97,24 @@ import FormSaveBtn from './etape/form-save-btn.vue'
 import debounce from 'lodash.debounce'
 
 export default {
-  components: {
-    Loader,
-    Edit,
-    InputDate,
-    FormSaveBtn
+  components: { Loader, Edit, InputDate, FormSaveBtn },
+
+  beforeRouteLeave(_, __, next) {
+    if (this.isFormDirty && !confirm(this.promptMsg)) {
+      next(false)
+    } else {
+      next()
+    }
   },
 
   data() {
     return {
       complete: false,
+      monitorChanges: false,
+      isFormDirty: false,
       typeComplete: false,
       isButtonSticky: false,
-      containerWidth: 0,
+      promptMsg: 'Quitter le formulaire sans enregistrer les changements ?',
       newDate: new Date().toISOString().slice(0, 10),
       events: { saveKeyUp: true }
     }
@@ -229,12 +235,14 @@ export default {
     document.addEventListener('keyup', this.keyUp)
     document.addEventListener('scroll', this.handleStickyBtnDebounced)
     document.addEventListener('resize', this.handleStickyBtnDebounced)
+    window.addEventListener('beforeunload', this.beforeWindowUnload)
   },
 
   beforeUnmount() {
     document.removeEventListener('keyup', this.keyUp)
     document.removeEventListener('scroll', this.handleStickyBtnDebounced)
     document.removeEventListener('resize', this.handleStickyBtnDebounced)
+    window.removeEventListener('beforeunload', this.beforeWindowUnload)
   },
 
   unmounted() {
@@ -248,9 +256,21 @@ export default {
         id: this.etapeId,
         date: this.newDate
       })
+
+      // Surveille les changements *après* l'init sur le store
+      // pour ignorer les changements initiaux
+      this.monitorChanges = true
+    },
+
+    beforeWindowUnload(e) {
+      if (!this.isFormDirty) return true
+      e.returnValue = this.promptMsg
+      return this.promptMsg
     },
 
     async save() {
+      this.isFormDirty = false
+
       if (this.isFormComplete) {
         await this.$store.dispatch('titreEtapeEdition/upsert', {
           etape: this.editedEtape
@@ -306,6 +326,11 @@ export default {
 
     typeCompleteUpdate(complete) {
       this.typeComplete = complete
+    },
+
+    editChange() {
+      if (!this.monitorChanges) return
+      this.isFormDirty = true
     },
 
     async dateUpdate() {
