@@ -13,7 +13,6 @@
     </HelpTooltip>
     <button
       id="cmn-etape-edit-button-enregistrer"
-      ref="save-button"
       class="btn-flash rnd-xs p-s full-x"
       :disabled="$attrs.disabled"
       :class="{ disabled: $attrs.disabled }"

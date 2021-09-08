@@ -72,6 +72,7 @@
     <div v-else class="tablet-blobs mb" ref="save-btn-container">
       <div class="tablet-blob-1-3" />
       <FormSaveBtn
+        ref="save-btn"
         :arm-help-visible="armHelpVisible"
         :on-save="save"
         :disabled="!isFormComplete"
@@ -80,9 +81,10 @@
       />
     </div>
 
-    <div ref="save-btn-sticky-container" :class="{ 'is-active': isButtonSticky }" class="tablet-blobs sticky">
+    <div ref="save-btn-sticky-container" :class="{ 'is-active': isButtonSticky }" class="tablet-blobs is-sticky">
       <div class="tablet-blob-1-3" />
       <FormSaveBtn
+        ref="save-btn-sticky"
         :arm-help-visible="armHelpVisible"
         :on-save="save"
         :disabled="!isFormComplete"
@@ -101,7 +103,7 @@ import InputDate from './_ui/input-date.vue'
 import Edit from './etape/edit.vue'
 import HelpTooltip from './_ui/help-tooltip.vue'
 import FormSaveBtn from './etape/form-save-btn.vue'
-// import debounce from 'lodash.debounce'
+import debounce from 'lodash.debounce'
 
 export default {
   components: {
@@ -215,6 +217,16 @@ export default {
         this.titreTypeTypeId === 'ar' &&
         this.etapeType.id === 'mfr'
       )
+    },
+
+    saveBtn() {
+      return this.isButtonSticky
+        ? this.$refs['save-btn-sticky']
+        : this.$refs['save-btn']
+    },
+
+    handleStickyBtnDebounced() {
+      return debounce(this.handleStickyBtn)
     }
   },
 
@@ -226,14 +238,14 @@ export default {
     await this.init()
 
     document.addEventListener('keyup', this.keyUp)
-    document.addEventListener('scroll', this.handleStickyBtn)
-    document.addEventListener('resize', this.handleStickyBtn)
+    document.addEventListener('scroll', this.handleStickyBtnDebounced)
+    document.addEventListener('resize', this.handleStickyBtnDebounced)
   },
 
   beforeUnmount() {
     document.removeEventListener('keyup', this.keyUp)
-    document.removeEventListener('scroll', this.handleStickyBtn)
-    document.removeEventListener('resize', this.handleStickyBtn)
+    document.removeEventListener('scroll', this.handleStickyBtnDebounced)
+    document.removeEventListener('resize', this.handleStickyBtnDebounced)
   },
 
   unmounted() {
@@ -284,14 +296,16 @@ export default {
           !this.loading &&
           this.isFormComplete
         ) {
-          this.$refs['save-button'].focus()
+          this.saveBtn.focusBtn()
           this.save()
         }
       }
     },
 
-    handleStickyBtn(e) {
+    handleStickyBtn() {
       const sticky = this.$refs['save-btn-container']
+      if (!sticky) return
+
       const bottomBounds = sticky.getBoundingClientRect().y + sticky.getBoundingClientRect().height
       this.isButtonSticky = window.innerHeight < bottomBounds
       this.adaptStickyBtnWidth()
@@ -326,7 +340,7 @@ export default {
 </script>
 
 <style>
-.sticky {
+.is-sticky {
   background: white;
   height: 70px;
   padding-top: 0px;
