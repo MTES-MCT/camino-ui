@@ -94,7 +94,6 @@ import Loader from './_ui/loader.vue'
 import InputDate from './_ui/input-date.vue'
 import Edit from './etape/edit.vue'
 import FormSaveBtn from './etape/form-save-btn.vue'
-import debounce from 'lodash.debounce'
 
 export default {
   components: { Loader, Edit, InputDate, FormSaveBtn },
@@ -113,7 +112,6 @@ export default {
       monitorChanges: false,
       isFormDirty: false,
       typeComplete: false,
-      isButtonSticky: false,
       promptMsg: 'Quitter le formulaire sans enregistrer les changements ?',
       newDate: new Date().toISOString().slice(0, 10),
       events: { saveKeyUp: true }
@@ -212,16 +210,6 @@ export default {
         this.titreTypeTypeId === 'ar' &&
         this.etapeType.id === 'mfr'
       )
-    },
-
-    saveBtn() {
-      return this.isButtonSticky
-        ? this.$refs['save-btn-sticky']
-        : this.$refs['save-btn']
-    },
-
-    handleStickyBtnDebounced() {
-      return debounce(this.handleStickyBtn)
     }
   },
 
@@ -233,15 +221,11 @@ export default {
     await this.init()
 
     document.addEventListener('keyup', this.keyUp)
-    document.addEventListener('scroll', this.handleStickyBtnDebounced)
-    document.addEventListener('resize', this.handleStickyBtnDebounced)
     window.addEventListener('beforeunload', this.beforeWindowUnload)
   },
 
   beforeUnmount() {
     document.removeEventListener('keyup', this.keyUp)
-    document.removeEventListener('scroll', this.handleStickyBtnDebounced)
-    document.removeEventListener('resize', this.handleStickyBtnDebounced)
     window.removeEventListener('beforeunload', this.beforeWindowUnload)
   },
 
@@ -305,19 +289,10 @@ export default {
           !this.loading &&
           this.isFormComplete
         ) {
-          this.saveBtn.focusBtn()
+          this.$refs['save-btn'].focusBtn()
           this.save()
         }
       }
-    },
-
-    handleStickyBtn() {
-      const sticky = this.$refs['save-btn-container']
-      if (!sticky) return
-
-      const bottomBounds =
-        sticky.getBoundingClientRect().y + sticky.getBoundingClientRect().height
-      this.isButtonSticky = window.innerHeight < bottomBounds
     },
 
     completeUpdate(complete) {
