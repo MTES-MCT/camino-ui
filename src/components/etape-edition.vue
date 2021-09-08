@@ -109,7 +109,6 @@ export default {
   data() {
     return {
       complete: false,
-      monitorChanges: false,
       isFormDirty: false,
       typeComplete: false,
       promptMsg: 'Quitter le formulaire sans enregistrer les changements ?',
@@ -240,10 +239,6 @@ export default {
         id: this.etapeId,
         date: this.newDate
       })
-
-      // Surveille les changements *après* l'init sur le store
-      // pour ignorer les changements initiaux
-      this.monitorChanges = true
     },
 
     beforeWindowUnload(e) {
@@ -304,7 +299,7 @@ export default {
     },
 
     editChange() {
-      if (!this.monitorChanges) return
+      if (!this.loaded) return
       this.isFormDirty = true
     },
 
