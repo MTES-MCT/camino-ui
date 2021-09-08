@@ -171,11 +171,13 @@ export default {
     },
 
     keyUp(e) {
-      if ((e.which || e.keyCode) === 27) {
-        this.cancel()
-      } else if ((e.which || e.keyCode) === 13 && this.complete) {
-        this.$refs['save-button'].focus()
-        this.save()
+      if (!this.loading) {
+        if ((e.which || e.keyCode) === 27) {
+          this.cancel()
+        } else if ((e.which || e.keyCode) === 13 && this.complete) {
+          this.$refs['save-button'].focus()
+          this.save()
+        }
       }
     },
 
