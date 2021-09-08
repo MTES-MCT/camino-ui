@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <div v-else class="tablet-blobs mb" ref="save-btn-container">
+    <div v-else ref="save-btn-container" class="tablet-blobs mb">
       <div class="tablet-blob-1-3" />
       <FormSaveBtn
         ref="save-btn"
@@ -81,7 +81,11 @@
       />
     </div>
 
-    <div ref="save-btn-sticky-container" :class="{ 'is-active': isButtonSticky }" class="tablet-blobs is-sticky">
+    <div
+      ref="save-btn-sticky-container"
+      :class="{ 'is-active': isButtonSticky }"
+      class="tablet-blobs is-sticky"
+    >
       <div class="tablet-blob-1-3" />
       <FormSaveBtn
         ref="save-btn-sticky"
@@ -91,7 +95,6 @@
         class="tablet-blob-2-3 flex flex-center"
         @click="save"
       />
-
     </div>
   </div>
 </template>
@@ -101,7 +104,6 @@ import { cap, dateFormat } from '@/utils'
 import Loader from './_ui/loader.vue'
 import InputDate from './_ui/input-date.vue'
 import Edit from './etape/edit.vue'
-import HelpTooltip from './_ui/help-tooltip.vue'
 import FormSaveBtn from './etape/form-save-btn.vue'
 import debounce from 'lodash.debounce'
 
@@ -110,8 +112,7 @@ export default {
     Loader,
     Edit,
     InputDate,
-    HelpTooltip,
-    FormSaveBtn,
+    FormSaveBtn
   },
 
   data() {
@@ -306,16 +307,18 @@ export default {
       const sticky = this.$refs['save-btn-container']
       if (!sticky) return
 
-      const bottomBounds = sticky.getBoundingClientRect().y + sticky.getBoundingClientRect().height
+      const bottomBounds =
+        sticky.getBoundingClientRect().y + sticky.getBoundingClientRect().height
       this.isButtonSticky = window.innerHeight < bottomBounds
       this.adaptStickyBtnWidth()
     },
 
     adaptStickyBtnWidth() {
-      if (!this.isButtonSticky) return;
-      const originalWidth = this.$refs['save-btn-container']?.getBoundingClientRect().width
+      if (!this.isButtonSticky) return
+      const originalWidth =
+        this.$refs['save-btn-container']?.getBoundingClientRect().width
       const sticky = this.$refs['save-btn-sticky-container']
-      sticky.style.width = originalWidth + 'px';
+      sticky.style.width = originalWidth + 'px'
     },
 
     completeUpdate(complete) {
