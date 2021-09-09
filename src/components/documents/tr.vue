@@ -1,7 +1,12 @@
 <template>
   <tr class="h6">
-    <td class="nowrap pt-m">
+    <td class="nowrap pt-m flex flex-center">
       <span class="bold">{{ document.type.nom }}</span>
+      <span>
+        <HelpTooltip v-if="helpShow && document.type.description" class="ml-xs">
+          {{ document.type.description }}
+        </HelpTooltip>
+      </span>
       <span v-if="etiquette">
         <Tag
           v-if="document.publicLecture"
@@ -107,10 +112,12 @@ import { cloneAndClean, dateFormat } from '../../utils/index'
 import Tag from '../_ui/tag.vue'
 import DocumentEditPopup from '../document/edit-popup.vue'
 import DocumentRemovePopup from '../document/remove-popup.vue'
+import HelpTooltip from '../_ui/help-tooltip.vue'
 
 export default {
   components: {
-    Tag
+    Tag,
+    HelpTooltip
   },
 
   props: {
@@ -126,7 +133,8 @@ export default {
     boutonDissociation: { type: Boolean, default: false },
     boutonModification: { type: Boolean, default: false },
     boutonSuppression: { type: Boolean, default: false },
-    manquantShow: { type: Boolean, default: false }
+    manquantShow: { type: Boolean, default: false },
+    helpShow: { type: Boolean, default: false }
   },
 
   computed: {

@@ -23,6 +23,7 @@
         :bouton-modification="boutonModification && document.modification"
         :bouton-dissociation="boutonDissociation"
         :manquant-show="manquantShow"
+        :help-show="helpShow"
       />
     </table>
   </div>
@@ -49,7 +50,8 @@ export default {
     boutonDissociation: { type: Boolean, default: false },
     boutonModification: { type: Boolean, default: false },
     boutonSuppression: { type: Boolean, default: false },
-    manquantShow: { type: Boolean, default: false }
+    manquantShow: { type: Boolean, default: false },
+    helpShow: { type: Boolean, default: false }
   }
 }
 </script>

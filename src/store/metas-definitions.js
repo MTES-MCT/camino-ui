@@ -434,7 +434,8 @@ const metasIndex = {
         type: 'entities',
         entities: 'documents-types'
       },
-      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
+      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true },
+      { id: 'description', nom: 'Description', type: String, optional: true }
     ],
     ids: ['titreTypeId', 'demarcheTypeId', 'etapeTypeId', 'documentTypeId']
   },
@@ -469,7 +470,8 @@ const metasIndex = {
         type: 'entities',
         entities: 'documents-types'
       },
-      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
+      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true },
+      { id: 'description', nom: 'Description', type: String, optional: true }
     ],
     ids: ['titreTypeId', 'demarcheTypeId', 'etapeTypeId', 'documentTypeId']
   },
@@ -532,7 +534,8 @@ const metasIndex = {
         type: 'entities',
         entities: 'documents-types'
       },
-      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
+      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true },
+      { id: 'description', nom: 'Description', type: String, optional: true }
     ],
     ids: ['etapeTypeId', 'documentTypeId']
   },
@@ -555,7 +558,8 @@ const metasIndex = {
         type: 'entities',
         entities: 'documents-types'
       },
-      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
+      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true },
+      { id: 'description', nom: 'Description', type: String, optional: true }
     ],
     ids: ['etapeTypeId', 'documentTypeId']
   },
@@ -710,7 +714,8 @@ const metasIndex = {
     nom: 'Types des documents',
     colonnes: [
       { id: 'id', nom: 'Id' },
-      { id: 'nom', nom: 'Nom', type: String }
+      { id: 'nom', nom: 'Nom', type: String },
+      { id: 'description', nom: 'Description', type: String, optional: true }
     ]
   },
   'references-types': {

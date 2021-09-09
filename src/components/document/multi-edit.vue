@@ -7,6 +7,7 @@
     :add-action="addAction"
     :remove-action="removeAction"
     :manquant-show="true"
+    :help-show="true"
     :repertoire="repertoire"
     :title="documentPopupTitle"
   />
