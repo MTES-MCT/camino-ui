@@ -147,6 +147,13 @@ const actions = {
     } else {
       const documentsTypes = state.element.type.documentsTypes
 
+      // si la démarche est mécanisée il faut ajouter des documents obligatoires
+      if (state.element.contenu && state.element.contenu.arm) {
+        documentsTypes
+          .filter(dt => ['doe', 'dep'].includes(dt.id))
+          .forEach(dt => (dt.optionnel = !state.element.contenu.arm.mecanise))
+      }
+
       documents = documentsRequiredAdd(
         documents,
         documentsTypes,

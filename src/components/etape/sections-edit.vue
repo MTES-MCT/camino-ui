@@ -33,8 +33,7 @@ export default {
     etape: { type: Object, required: true }
   },
 
-  emits: ['complete-update'],
-
+  emits: ['complete-update', 'sections-update'],
   data() {
     return {
       contenu: {}
@@ -51,6 +50,7 @@ export default {
     contenu: {
       handler: function (contenu) {
         this.etape.contenu = elementContenuBuild(this.sections, contenu)
+        this.$emit('sections-update')
       },
       deep: true
     },

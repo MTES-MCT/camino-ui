@@ -68,6 +68,7 @@
         v-model:etape="etape"
         :sections="etape.type.sections"
         @complete-update="sectionsCompleteUpdate"
+        @sections-update="sectionsUpdate"
       />
     </Accordion>
 
@@ -347,6 +348,13 @@ export default {
 
     sectionsCompleteUpdate(complete) {
       this.sectionsComplete = complete
+    },
+
+    async sectionsUpdate() {
+      await this.$store.dispatch(
+        'titreEtapeEdition/documentInit',
+        this.etape.documents
+      )
     },
 
     typeCompleteUpdate(complete) {
