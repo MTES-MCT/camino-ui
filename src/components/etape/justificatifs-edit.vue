@@ -43,12 +43,12 @@
         <div class="tablet-blobs">
           <div class="tablet-blob-1-3 flex flex-center">
             <h5 class="mt-s">{{ j.type.nom }}</h5>
-            <Tag
-              v-if="!j.id"
-              :mini="true"
-              color="bg-warning"
-              class="ml-s mt-xs"
-            >
+            <span>
+              <HelpTooltip v-if="j.type.description" class="ml-xs">
+                {{ j.type.description }}
+              </HelpTooltip>
+            </span>
+            <Tag v-if="!j.id" :mini="true" color="bg-warning" class="ml-xs">
               Manquant
             </Tag>
           </div>
@@ -96,9 +96,10 @@
 import { dateFormat } from '@/utils'
 import DocumentEditPopup from '../document/edit-popup.vue'
 import Tag from '../_ui/tag.vue'
+import HelpTooltip from '../_ui/help-tooltip.vue'
 
 export default {
-  components: { Tag },
+  components: { Tag, HelpTooltip },
   props: {
     justificatifs: { type: Array, required: true },
     justificatifsTypes: { type: Array, required: true },

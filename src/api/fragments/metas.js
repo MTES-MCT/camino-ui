@@ -127,6 +127,7 @@ const fragmentDocumentType = gql`
     id
     nom
     optionnel
+    description
   }
 `
 
@@ -245,6 +246,7 @@ const fragmentTitreTypeDemarcheTypeEtapeTypeDocumentType = gql`
     etapeTypeId
     documentTypeId
     optionnel
+    description
   }
 `
 
@@ -261,6 +263,7 @@ const fragmentEtapeTypeDocumentType = gql`
     etapeTypeId
     documentTypeId
     optionnel
+    description
   }
 `
 
@@ -269,6 +272,7 @@ const fragmentEtapeTypeJustificatifType = gql`
     etapeTypeId
     documentTypeId
     optionnel
+    description
   }
 `
 
