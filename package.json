@@ -121,7 +121,7 @@
     "vue": "^3.0.9",
     "vue-meta": "^2.4.0",
     "vue-router": "^4.0.6",
-    "vue3-jest": "*",
+    "vue3-jest": "27.0.0-alpha.2",
     "vuex": "^4.0.0",
     "vuex-router-sync": "^6.0.0-rc.1"
   },
