@@ -23,9 +23,9 @@
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
     "release": "git pull --rebase --tags origin master && standard-version && git push --follow-tags origin master && npx conventional-github-releaser",
     "start": "node ./index.js",
-    "test:full": "cross-env NODE_ENV=test && prettier --check src && eslint --ext .js,.ts,.vue src && jest --verbose && codecov",
+    "test": "cross-env NODE_ENV=test && prettier --check src && eslint --ext .js,.ts,.vue src && jest --verbose && codecov",
     "test:watch": "jest --watch --verbose",
-    "test": "jest --verbose",
+    "test:simple": "jest --verbose",
     "lint": "prettier --write src && eslint --fix --ext .js,.ts,.vue src"
   },
   "dependencies": {
