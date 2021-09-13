@@ -322,24 +322,15 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="/img/about/member-guillaume-levieux.jpg"
-                alt="Portrait Guillaume"
+                src="/img/about/member-laure-enjelvin.jpg"
+                alt="Portrait Félix de Préneuf"
               />
             </div>
           </div>
 
-          <h3 class="mb-0">Guillaume Levieux</h3>
-          <h5 class="color">Intrapreneur</h5>
-
-          <p class="h6">Depuis Janvier 2018</p>
-
-          <ul class="list-prefix h6 mb-0">
-            <li>
-              <a href="https://www.linkedin.com/in/levieuxguillaume/"
-                >LinkedIn</a
-              >
-            </li>
-          </ul>
+          <h3 class="mb-0">Laure Enjelvin</h3>
+          <h5 class="color">Intrapreneuse</h5>
+          <p class="h6">Depuis Décembre 2020</p>
         </div>
 
         <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
@@ -362,43 +353,6 @@
               >
             </li>
           </ul>
-        </div>
-
-        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
-          <div class="p bg-semi pill mb">
-            <div class="pill overflow-hidden">
-              <img
-                src="/img/about/member-francois-romain.jpg"
-                alt="Portrait François Romain"
-              />
-            </div>
-          </div>
-
-          <h3 class="mb-0">François Romain</h3>
-          <h5 class="color">Développeur</h5>
-
-          <p class="h6">Depuis Mars 2018</p>
-          <ul class="list-prefix h6 mb-0">
-            <li>
-              <a href="https://francoisromain.com">Site</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
-          <div class="p bg-semi pill mb">
-            <div class="pill overflow-hidden">
-              <img
-                src="/img/about/member-nicolas-petitot.jpg"
-                alt="Portrait Nicolas Petitot"
-              />
-            </div>
-          </div>
-
-          <h3 class="mb-0">Nicolas Petitot</h3>
-          <h5 class="color">Développeur</h5>
-
-          <p class="h6">Depuis Septembre 2019</p>
         </div>
 
         <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
@@ -451,23 +405,6 @@
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
               <img
-                src="/img/about/member-laure-enjelvin.jpg"
-                alt="Portrait Félix de Préneuf"
-              />
-            </div>
-          </div>
-
-          <h3 class="mb-0">Laure Enjelvin</h3>
-          <h5 class="color">Intrapreneuse</h5>
-          <p class="h6">Depuis Décembre 2020</p>
-        </div>
-      </div>
-      <h3>Ils ont travaillé sur Camino</h3>
-      <div class="tablet-blobs archive">
-        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
-          <div class="p bg-semi pill mb">
-            <div class="pill overflow-hidden">
-              <img
                 src="/img/about/member-sandra-chakroun.jpg"
                 alt="Portrait Sandra Chakroun"
               />
@@ -476,7 +413,7 @@
 
           <h3 class="mb-0">Sandra Chakroun</h3>
           <h5 class="color">Développeuse</h5>
-          <p class="h6">Entre Septembre et Décembre 2020</p>
+          <p class="h6">Depuis Septembre 2020</p>
           <ul class="list-prefix h6 mb-0">
             <li>
               <a href="https://www.linkedin.com/in/sandra-chakroun/"
@@ -485,7 +422,67 @@
             </li>
           </ul>
         </div>
+      </div>
+      <h3>Ils ont travaillé sur Camino</h3>
+      <div class="tablet-blobs archive">
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="/img/about/member-nicolas-petitot.jpg"
+                alt="Portrait Nicolas Petitot"
+              />
+            </div>
+          </div>
 
+          <h3 class="mb-0">Nicolas Petitot</h3>
+          <h5 class="color">Développeur</h5>
+
+          <p class="h6">De Septembre 2019 à Août 2021</p>
+        </div>
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="/img/about/member-francois-romain.jpg"
+                alt="Portrait François Romain"
+              />
+            </div>
+          </div>
+
+          <h3 class="mb-0">François Romain</h3>
+          <h5 class="color">Développeur</h5>
+
+          <p class="h6">De Mars 2018 à Juin 2021</p>
+          <ul class="list-prefix h6 mb-0">
+            <li>
+              <a href="https://francoisromain.com">Site</a>
+            </li>
+          </ul>
+        </div>
+        <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
+          <div class="p bg-semi pill mb">
+            <div class="pill overflow-hidden">
+              <img
+                src="/img/about/member-guillaume-levieux.jpg"
+                alt="Portrait Guillaume"
+              />
+            </div>
+          </div>
+
+          <h3 class="mb-0">Guillaume Levieux</h3>
+          <h5 class="color">Intrapreneur</h5>
+
+          <p class="h6">De Janvier 2018 à Janvier 2021</p>
+
+          <ul class="list-prefix h6 mb-0">
+            <li>
+              <a href="https://www.linkedin.com/in/levieuxguillaume/"
+                >LinkedIn</a
+              >
+            </li>
+          </ul>
+        </div>
         <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
