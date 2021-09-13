@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.83](https://github.com/MTES-MCT/camino-ui/compare/v0.22.82...v0.22.83) (2021-09-13)
+
+
+### Features
+
+* **documents:** ajoute une description sur les types de documents ([#377](https://github.com/MTES-MCT/camino-ui/issues/377)) ([e93bf5e](https://github.com/MTES-MCT/camino-ui/commit/e93bf5e9bb858de4644b498c10ee438b6697c951))
+
+
+### Bug Fixes
+
+* **étape:** repenser l'UX du bouton Enregistrer sur le formulaire ([#374](https://github.com/MTES-MCT/camino-ui/issues/374)) ([310c6b1](https://github.com/MTES-MCT/camino-ui/commit/310c6b1980472a6872103da28c658b540552ed01))
+* **fichier:** désactive les raccourcis clavier pendant le téléversement d’un fichier ([#378](https://github.com/MTES-MCT/camino-ui/issues/378)) ([f59f56c](https://github.com/MTES-MCT/camino-ui/commit/f59f56c1d877b64fbd4ad3235aeedf9d693812c9))
+* **titre:** ajoute les documents obligatoires pour les ARM mécanisées ([#375](https://github.com/MTES-MCT/camino-ui/issues/375)) ([f538277](https://github.com/MTES-MCT/camino-ui/commit/f53827795823c8cd2e95775175970a5338f57a79))
+* **titre:** corrige l'affichage du lien du titre en doublon ([#373](https://github.com/MTES-MCT/camino-ui/issues/373)) ([f5a0e64](https://github.com/MTES-MCT/camino-ui/commit/f5a0e64029a2fec0ee4f0e88b141a9b4410e83a4))
+
 ### [0.22.82](https://github.com/MTES-MCT/camino-ui/compare/v0.22.81...v0.22.82) (2021-09-06)
 
 
