@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run test:simple
+cross-env NODE_ENV=test npm run test:simple
