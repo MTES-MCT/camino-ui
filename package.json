@@ -24,8 +24,8 @@
     "release": "git pull --rebase --tags origin master && standard-version && git push --follow-tags origin master && npx conventional-github-releaser",
     "start": "node ./index.js",
     "test": "cross-env NODE_ENV=test && prettier --check src && eslint --ext .js,.ts,.vue src && jest --verbose && codecov",
-    "test:watch": "jest --watch --verbose",
-    "test:simple": "jest --verbose",
+    "test:watch": "cross-env NODE_ENV=test jest --watch --verbose",
+    "test:simple": "cross-env NODE_ENV=test jest --verbose",
     "lint": "prettier --write src && eslint --fix --ext .js,.ts,.vue src"
   },
   "dependencies": {
