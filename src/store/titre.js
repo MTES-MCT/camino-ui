@@ -158,9 +158,11 @@ const actions = {
 
 const mutations = {
   set(state, titre) {
-    titre?.demarches?.forEach(demarche => demarche?.etapes?.forEach(etp => {
-      etp.incertitudes = etp.incertitudes || {}
-    }))
+    titre?.demarches?.forEach(demarche =>
+      demarche?.etapes?.forEach(etp => {
+        etp.incertitudes = etp.incertitudes || {}
+      })
+    )
 
     state.element = titre
   },
