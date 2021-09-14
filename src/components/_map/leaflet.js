@@ -33,6 +33,7 @@ const leafletTileLayerDefault = L.tileLayer(
 const leafletMap = map =>
   L.map(map, {
     // zoomControl: true,
+    zoomAnimation: false,
     doubleClickZoom: false,
     minZoom: 1,
     gestureHandling: true,
