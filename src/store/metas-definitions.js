@@ -67,7 +67,8 @@ import {
   titresTypesDemarchesTypesEtapesTypesJustificatifsTypes,
   titreTypeDemarcheTypeEtapeTypeJustificatifTypeCreer,
   titreTypeDemarcheTypeEtapeTypeJustificatifTypeModifier,
-  titreTypeDemarcheTypeEtapeTypeJustificatifTypeSupprimer
+  titreTypeDemarcheTypeEtapeTypeJustificatifTypeSupprimer,
+  documentTypeCreer
 } from '../api/metas'
 
 import {
@@ -709,6 +710,7 @@ const metasIndex = {
   },
   'documents-types': {
     get: documentsTypes,
+    create: documentTypeCreer,
     update: documentTypeModifier,
     labelGet,
     nom: 'Types des documents',

@@ -338,6 +338,16 @@ const documentsTypes = apiGraphQLFetch(
   `
 )
 
+const documentTypeCreer = apiGraphQLFetch(gql`
+  mutation documentTypeCreer($element: InputDocumentType!) {
+    documentTypeCreer(documentType: $element) {
+      ...documentType
+    }
+  }
+
+  ${fragmentDocumentType}
+`)
+
 const documentTypeModifier = apiGraphQLFetch(gql`
   mutation documentTypeModifier($element: InputDocumentType!) {
     documentTypeModifier(documentType: $element) {
@@ -864,6 +874,7 @@ export {
   administrationTypeModifier,
   permissionModifier,
   documentsTypes,
+  documentTypeCreer,
   documentTypeModifier,
   referencesTypes,
   referenceTypeModifier,
