@@ -6,6 +6,8 @@ import Cache from 'graphql-react/public/Cache.js'
 import Loading from 'graphql-react/public/Loading.js'
 import LoadingCacheValue from 'graphql-react/public/LoadingCacheValue.js'
 import { fragmentUtilisateurToken } from './fragments/utilisateur'
+import Uppy from '@uppy/core'
+import Tus from '@uppy/tus'
 
 const apiUrl = '/apiUrl'
 const cache = new Cache()
@@ -42,6 +44,16 @@ const restCall = async (url, path) => {
   }
 
   return res
+}
+
+const restUpload = document => {
+  const uppy = new Uppy({ autoProceed: true })
+  uppy.use(Tus, { endpoint: 'http://localhost:4000/uploads' })
+  uppy.addFile({
+    name: document.name,
+    data: document
+  })
+  return uppy
 }
 
 const graphQLCall = async (url, query, variables) => {
@@ -137,4 +149,4 @@ const tokenRefresh = async () => {
   }
 }
 
-export { apiGraphQLFetch, apiRestFetch }
+export { apiGraphQLFetch, apiRestFetch, restUpload }

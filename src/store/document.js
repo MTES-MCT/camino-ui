@@ -1,14 +1,20 @@
 import {
   documentMetas,
-  documentCreer,
-  documentModifier,
+  // documentCreer,
+  // documentModifier,
   documentSupprimer
 } from '../api/documents'
+
+import { restUpload } from '../api/_client'
 
 const state = {
   metas: {
     documentsTypes: [],
     documentsVisibilites: []
+  },
+  upload: {
+    isActive: false,
+    percent: 0
   }
 }
 
@@ -36,48 +42,68 @@ const actions = {
 
       const idOld = document.id
 
-      let d
-
       const temporaire = document.id === document.typeId
       if (temporaire) {
         delete document.id
       }
 
       if (!document.id) {
-        d = await documentCreer({ document })
+        const { fichierNouveau } = document
+        if (!fichierNouveau) return
+
+        let uploadedFile
+
+        commit('uploadStart')
+
+        const upload = restUpload(fichierNouveau)
+        upload.on('progress', progress => {
+          commit('uploadProgress', progress)
+        })
+        upload.on('complete', async result => {
+          commit('uploadStop')
+
+          const { successful, failed } = result
+          if (failed.length) {
+            throw new Error('Échec du téléversement')
+          }
+
+          commit('uploadStop')
+          uploadedFile = successful[0]
+          console.log(uploadedFile)
+
+          commit('popupClose', null, { root: true })
+
+          dispatch(
+            'messageAdd',
+            { value: `le document a été mis à jour`, type: 'success' },
+            { root: true }
+          )
+
+          if (route) {
+            await dispatch('reload', route, { root: true })
+
+            if (route.name === 'titre') {
+              const section = route.section
+              let id
+
+              if (section === 'etapes') id = document.titreEtapeId
+              if (section === 'travaux') id = document.titreTravauxEtapeId
+
+              commit('titre/open', { section, id }, { root: true })
+            }
+          } else if (action) {
+            const params = { ...action.params, document: uploadedFile.data }
+
+            if (idOld) {
+              params.idOld = idOld
+            }
+
+            await dispatch(action.name, params, { root: true })
+          }
+        })
       } else {
         delete document.typeId
-        d = await documentModifier({ document })
-      }
-
-      commit('popupClose', null, { root: true })
-
-      dispatch(
-        'messageAdd',
-        { value: `le document a été mis à jour`, type: 'success' },
-        { root: true }
-      )
-
-      if (route) {
-        await dispatch('reload', route, { root: true })
-
-        if (route.name === 'titre') {
-          const section = route.section
-          let id
-
-          if (section === 'etapes') id = document.titreEtapeId
-          if (section === 'travaux') id = document.titreTravauxEtapeId
-
-          commit('titre/open', { section, id }, { root: true })
-        }
-      } else if (action) {
-        const params = { ...action.params, document: d }
-
-        if (idOld) {
-          params.idOld = idOld
-        }
-
-        await dispatch(action.name, params, { root: true })
+        // d = await documentModifier({ document })
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
@@ -119,6 +145,19 @@ const mutations = {
     Object.keys(data).forEach(id => {
       state.metas[id] = data[id]
     })
+  },
+
+  uploadStart(state) {
+    state.upload.percent = 0
+    state.upload.isActive = true
+  },
+
+  uploadStop(state) {
+    state.upload.isActive = false
+  },
+
+  uploadProgress(state, percent) {
+    state.upload.percent = percent
   }
 }
 

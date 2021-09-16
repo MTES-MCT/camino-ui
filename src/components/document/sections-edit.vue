@@ -69,10 +69,10 @@
           </div>
         </div>
         <div v-else-if="modifiable">
-          <label class="btn-border small p-s full-x rnd-xs mb-s"
-            >Choisir un fichier…
-            <input type="file" class="p-xs mb-0" @change="fileChange" />
-          </label>
+          <InputFile
+            class="btn-border small p-s full-x rnd-xs mb-s"
+            @change="fileChange"
+          />
           <p class="h5 italic">30 Mo max.</p>
         </div>
         <p v-else class="color-warning pt-s mb-0">À compléter pour valider</p>
@@ -207,10 +207,11 @@
 
 <script>
 import InputDate from '../_ui/input-date.vue'
+import InputFile from '../_ui/input-file.vue'
 import Messages from '../_ui/messages.vue'
 
 export default {
-  components: { Messages, InputDate },
+  components: { Messages, InputFile, InputDate },
 
   props: {
     document: { type: Object, required: true },
