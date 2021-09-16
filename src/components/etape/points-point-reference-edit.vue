@@ -17,7 +17,7 @@
     <div class="mb tablet-blob-1-3">
       <h5>X ({{ geoSysteme.unite.nom }})</h5>
       <inputNumber
-        v-model="pointReference[0]"
+        v-model="pointReference.x"
         :negative="true"
         placeholder="0,01"
       />
@@ -25,7 +25,7 @@
     <div class="mb tablet-blob-1-3">
       <h5>Y ({{ geoSysteme.unite.nom }})</h5>
       <inputNumber
-        v-model="pointReference[1]"
+        v-model="pointReference.y"
         :negative="true"
         placeholder="0,01"
       />
@@ -47,7 +47,7 @@ export default {
 
   computed: {
     pointReference() {
-      return this.pointReferences[this.geoSysteme.id] || [null, null]
+      return this.pointReferences[this.geoSysteme.id]
     }
   }
 }

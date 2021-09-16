@@ -4,11 +4,11 @@ const referencesBuild = references =>
   references.reduce(
     (
       { pointGeoSystemesIndex, pointReferences },
-      { geoSysteme, coordonnees }
+      { geoSysteme, coordonnees, id }
     ) => {
       pointGeoSystemesIndex[geoSysteme.id] = geoSysteme
 
-      pointReferences[geoSysteme.id] = [coordonnees.x, coordonnees.y]
+      pointReferences[geoSysteme.id] = { id, ...coordonnees }
 
       return { pointGeoSystemesIndex, pointReferences }
     },
@@ -32,7 +32,7 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
         contourIndexPrevious,
         groupeIndexPrevious
       },
-      { nom, description, contour, groupe, references, lot, subsidiaire }
+      { nom, description, contour, groupe, references, lot, subsidiaire, id }
     ) => {
       const { pointReferences, pointGeoSystemesIndex } =
         referencesBuild(references)
@@ -49,8 +49,6 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
       ) {
         groupes[groupe - 1][contour - 1][pointIndex - 1].references.push(
           pointReferences[lotGeoSystemeId]
-            .map(coordonnee => coordonnee.toString().replace('.', ','))
-            .join(';')
         )
       } else {
         if (!groupes[groupe - 1]) {
@@ -62,16 +60,11 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
         }
 
         const point = {
+          id,
           description,
           lot,
           subsidiaire,
-          references: lot
-            ? [
-                pointReferences[lotGeoSystemeId]
-                  .map(coordonnee => coordonnee.toString().replace('.', ','))
-                  .join(';')
-              ]
-            : pointReferences
+          references: lot ? [pointReferences[lotGeoSystemeId]] : pointReferences
         }
 
         if (!lot) {

@@ -1,7 +1,11 @@
-const referenceBuild = (geoSystemeId, coordonnees, opposable) => {
+const referenceBuild = (id, x, y, geoSystemeId, opposable) => {
   const reference = {
+    id,
     geoSystemeId,
-    coordonnees: { x: coordonnees[0], y: coordonnees[1] }
+    coordonnees: {
+      x,
+      y
+    }
   }
 
   if (opposable) {
@@ -19,14 +23,16 @@ const pointReferencesBuild = (
   Object.keys(references).reduce((pointReferences, geoSystemeId) => {
     if (
       geoSystemeIds.includes(geoSystemeId) &&
-      references[geoSystemeId][0] &&
-      references[geoSystemeId][1] &&
+      references[geoSystemeId].x &&
+      references[geoSystemeId].y &&
       geoSystemeId
     ) {
       pointReferences.push(
         referenceBuild(
+          references[geoSystemeId].id,
+          references[geoSystemeId].x,
+          references[geoSystemeId].y,
           geoSystemeId,
-          references[geoSystemeId],
           geoSystemeIds.length > 1 && geoSystemeId === geoSystemeOpposableId
         )
       )
@@ -44,10 +50,8 @@ const pointsLotBuild = (
   opposable,
   geoSystemeId
 ) =>
-  references.reduce((points, coordonnees) => {
-    // exemple de format valide: 1,2;2,3
-    const isValid =
-      coordonnees && coordonnees.match(/(-?\d+(,\d+)?);\s*(-?\d+(,\d+)?)/g)
+  references.reduce((points, { x, y, id }) => {
+    const isValid = x && y
 
     if (isValid) {
       const point = {
@@ -58,13 +62,7 @@ const pointsLotBuild = (
         groupe,
         contour,
         point: pointsLength + points.length + 1,
-        references: [
-          referenceBuild(
-            geoSystemeId,
-            coordonnees.split(';').map(c => parseFloat(c.replace(/,/g, '.'))),
-            opposable
-          )
-        ]
+        references: [referenceBuild(id, x, y, geoSystemeId, opposable)]
       }
 
       points.push(point)
