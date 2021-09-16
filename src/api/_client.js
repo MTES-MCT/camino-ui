@@ -13,6 +13,8 @@ const apiUrl = '/apiUrl'
 const cache = new Cache()
 const loading = new Loading()
 
+const MEGA_BYTE = 1048576
+
 const errorThrow = e => {
   if (
     e.message === 'aborted' ||
@@ -46,14 +48,47 @@ const restCall = async (url, path) => {
   return res
 }
 
-const restUpload = document => {
-  const uppy = new Uppy({ autoProceed: true })
-  uppy.use(Tus, { endpoint: 'http://localhost:4000/uploads' })
+const uploadCall = async (apiUrl, query, document) => {
+  const uppy = new Uppy({
+    autoProceed: true
+  })
+
+  uppy.use(Tus, {
+    chunkSize: MEGA_BYTE * 2,
+    endpoint: `${apiUrl}/${query}`
+  })
+
   uppy.addFile({
     name: document.name,
-    data: document
+    data: document,
+    meta: {
+      documentId: document.id
+    }
   })
-  return uppy
+
+  const progress = cb => uppy.on('progress', percent => cb(percent))
+
+  const complete = () => {
+    return new Promise((resolve, reject) => {
+      uppy.on('complete', result => {
+        const { successful, failed } = result
+
+        if (failed.length || !successful.length) {
+          reject(errorThrow(new Error('Échec du téléversement')))
+        }
+
+        const {
+          response: { uploadURL }
+        } = successful[0]
+        resolve(uploadURL)
+      })
+    })
+  }
+
+  return {
+    progress,
+    complete
+  }
 }
 
 const graphQLCall = async (url, query, variables) => {
@@ -122,6 +157,8 @@ const apiGraphQLFetch = query => async variables =>
 
 const apiRestFetch = path => apiFetch(restCall, path)
 
+const apiUploadFetch = document => apiFetch(uploadCall, 'uploads', document)
+
 const utilisateurTokenRafraichir = gql`
   mutation UtilisateurTokenRafraichir($refreshToken: String!) {
     utilisateurTokenRafraichir(refreshToken: $refreshToken) {
@@ -149,4 +186,4 @@ const tokenRefresh = async () => {
   }
 }
 
-export { apiGraphQLFetch, apiRestFetch, restUpload }
+export { apiGraphQLFetch, apiRestFetch, apiUploadFetch }
