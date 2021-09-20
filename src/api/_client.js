@@ -63,7 +63,8 @@ const uploadCall = async (apiUrl, query, document) => {
     data: document,
     meta: {
       documentId: document.id
-    }
+    },
+    retryDelays: [1000, 3000, 5000, 7000]
   })
 
   const progress = cb => uppy.on('progress', percent => cb(percent))

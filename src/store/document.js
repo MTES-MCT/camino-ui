@@ -11,10 +11,6 @@ const state = {
   metas: {
     documentsTypes: [],
     documentsVisibilites: []
-  },
-  upload: {
-    isActive: false,
-    percent: 0
   }
 }
 
@@ -51,16 +47,23 @@ const actions = {
         const { fichierNouveau } = document
         if (!fichierNouveau) return
 
-        commit('uploadStart')
-
         fichierNouveau.id = `${document.date}-${document.typeId}-${uuidv4()}`
 
         const upload = await apiUploadFetch(fichierNouveau)
-        upload.progress(percent => commit('uploadProgress', percent))
+
+        commit('loadingRemove', null, { root: true })
+        upload.progress(progress =>
+          commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
+        )
 
         await upload.complete()
 
-        commit('uploadStop')
+        setTimeout(() => {
+          commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
+        }, 250)
+        setTimeout(() => {
+          commit('popupClose', null, { root: true })
+        }, 500)
 
         // Offre une traçabilité du document téléversé sur le serveur
         // (pour les opérations de renommage, stockage de données en base)
@@ -72,8 +75,6 @@ const actions = {
         delete document.fichierNouveau
 
         const updatedDocument = await documentCreer({ document })
-
-        commit('popupClose', null, { root: true })
 
         dispatch(
           'messageAdd',
@@ -148,18 +149,9 @@ const mutations = {
     })
   },
 
-  uploadStart(state) {
-    state.upload.percent = 0
-    state.upload.isActive = true
-  },
-
-  uploadStop(state) {
-    state.upload.isActive = false
-  },
-
-  uploadProgress(state, percent) {
-    console.log(percent)
-    state.upload.percent = percent
+  uploadProgress(state, progress) {
+    console.log(progress)
+    state.upload.progress = progress
   }
 }
 
