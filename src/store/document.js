@@ -4,8 +4,7 @@ import {
   // documentModifier,
   documentSupprimer
 } from '../api/documents'
-import { v4 as uuidv4 } from 'uuid'
-import { apiUploadFetch } from '../api/_client'
+import { uploadCall } from '../api/_client'
 
 const state = {
   metas: {
@@ -31,8 +30,6 @@ const actions = {
 
   async upsert({ commit, dispatch }, { document, route, action }) {
     try {
-      commit('loadingAdd', 'documentUpsert', { root: true })
-
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
 
@@ -47,34 +44,19 @@ const actions = {
         const { fichierNouveau } = document
         if (!fichierNouveau) return
 
-        fichierNouveau.id = `${document.date}-${document.typeId}-${uuidv4()}`
-
-        const upload = await apiUploadFetch(fichierNouveau)
-
-        commit('loadingRemove', null, { root: true })
-        upload.progress(progress =>
-          commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
-        )
-
-        await upload.complete()
-
-        setTimeout(() => {
-          commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
-        }, 250)
-        setTimeout(() => {
-          commit('popupClose', null, { root: true })
-        }, 500)
-
-        // Offre une traçabilité du document téléversé sur le serveur
-        // (pour les opérations de renommage, stockage de données en base)
-        document.id = fichierNouveau.id
-        delete fichierNouveau.id
-        document.fichierHasNew = true
-
         // Pour ne pas uploader de fichier via GraphQL
         delete document.fichierNouveau
 
         const updatedDocument = await documentCreer({ document })
+
+        await uploadCall(fichierNouveau, updatedDocument.id, progress => {
+          commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
+        })
+
+        setTimeout(() => {
+          commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
+          commit('popupClose', null, { root: true })
+        }, 500)
 
         dispatch(
           'messageAdd',
@@ -109,8 +91,6 @@ const actions = {
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'documentUpsert', { root: true })
     }
   },
 

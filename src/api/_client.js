@@ -13,7 +13,7 @@ const apiUrl = '/apiUrl'
 const cache = new Cache()
 const loading = new Loading()
 
-const MEGA_BYTE = 1048576
+const CHUNK_SIZE = 1048576 // 1 Mo
 
 const errorThrow = e => {
   if (
@@ -48,48 +48,57 @@ const restCall = async (url, path) => {
   return res
 }
 
-const uploadCall = async (apiUrl, query, document) => {
+const uploadCall = async (file, documentId, progressCb) => {
   const uppy = new Uppy({
     autoProceed: true
   })
 
   uppy.use(Tus, {
-    chunkSize: MEGA_BYTE * 2,
-    endpoint: `${apiUrl}/${query}`
+    chunkSize: CHUNK_SIZE,
+    endpoint: 'http://localhost:4000/uploads',
+    onBeforeRequest: req => {
+      req.setHeader('Authorization', authorizationGet())
+    },
+    onShouldRetry: async error => {
+      const status = error.originalResponse
+        ? error.originalResponse.getStatus()
+        : 0
+      if (status === 401) {
+        await tokenRefresh()
+        return true
+      }
+
+      return false
+    },
+    onChunkComplete: (_, bytesAccepted, bytesTotal) => {
+      progressCb((bytesAccepted / bytesTotal) * 100)
+    }
   })
 
   uppy.addFile({
-    name: document.name,
-    data: document,
+    name: file.name,
+    data: file,
     meta: {
-      documentId: document.id
-    },
-    retryDelays: [1000, 3000, 5000, 7000]
+      documentId
+    }
   })
 
-  const progress = cb => uppy.on('progress', percent => cb(percent))
+  progressCb(0)
 
-  const complete = () => {
-    return new Promise((resolve, reject) => {
-      uppy.on('complete', result => {
-        const { successful, failed } = result
+  return new Promise((resolve, reject) => {
+    uppy.on('complete', result => {
+      const { successful, failed } = result
 
-        if (failed.length || !successful.length) {
-          reject(errorThrow(new Error('Échec du téléversement')))
-        }
+      if (failed.length || !successful.length) {
+        reject(errorThrow(new Error('Échec du téléversement')))
+      }
 
-        const {
-          response: { uploadURL }
-        } = successful[0]
-        resolve(uploadURL)
-      })
+      const {
+        response: { uploadURL }
+      } = successful[0]
+      resolve(uploadURL)
     })
-  }
-
-  return {
-    progress,
-    complete
-  }
+  })
 }
 
 const graphQLCall = async (url, query, variables) => {
@@ -158,8 +167,6 @@ const apiGraphQLFetch = query => async variables =>
 
 const apiRestFetch = path => apiFetch(restCall, path)
 
-const apiUploadFetch = document => apiFetch(uploadCall, 'uploads', document)
-
 const utilisateurTokenRafraichir = gql`
   mutation UtilisateurTokenRafraichir($refreshToken: String!) {
     utilisateurTokenRafraichir(refreshToken: $refreshToken) {
@@ -187,4 +194,4 @@ const tokenRefresh = async () => {
   }
 }
 
-export { apiGraphQLFetch, apiRestFetch, apiUploadFetch }
+export { apiGraphQLFetch, apiRestFetch, uploadCall }

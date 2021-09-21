@@ -287,14 +287,10 @@ const mutations = {
   },
 
   loadingRemove(state, name) {
-    if (name) {
-      const index = state.loading.indexOf(name)
+    const index = state.loading.indexOf(name)
 
-      if (index > -1) {
-        state.loading.splice(index, 1)
-      }
-    } else {
-      Object.assign(state, { loading: [] })
+    if (index > -1) {
+      state.loading.splice(index, 1)
     }
   },
 
