@@ -55,7 +55,7 @@ const uploadCall = async (file, documentId, progressCb) => {
 
   uppy.use(Tus, {
     chunkSize: CHUNK_SIZE,
-    endpoint: 'http://localhost:4000/uploads',
+    endpoint: `${apiUrl}/televersement`,
     onBeforeRequest: req => {
       req.setHeader('Authorization', authorizationGet())
     },
