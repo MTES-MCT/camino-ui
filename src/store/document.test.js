@@ -12,6 +12,8 @@ jest.mock('../api/documents', () => ({
 
 jest.mock('../api/_client')
 
+jest.useFakeTimers()
+
 console.info = jest.fn()
 
 describe('documents', () => {
@@ -97,8 +99,6 @@ describe('documents', () => {
       route: { name: 'titre', id: 'titre-id', section: 'etapes' }
     })
 
-    jest.setTimeout(600)
-
     expect(mutations.popupClose).toHaveBeenCalled()
 
     await store.dispatch('document/upsert', {
@@ -137,6 +137,7 @@ describe('documents', () => {
       document: { id: 14, nom: 'champs' },
       route: { name: 'titre', id: 'titre-id' }
     })
+    jest.runAllTimers()
 
     expect(mutations.popupClose).toHaveBeenCalled()
     await store.dispatch('document/upsert', {
