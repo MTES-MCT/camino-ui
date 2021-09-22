@@ -45,6 +45,8 @@ const actions = {
       const { fichierNouveau } = document
       delete document.fichierNouveau
 
+      document.fichier = true
+
       if (!document.id) {
         d = await documentCreer({ document })
       } else {

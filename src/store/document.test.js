@@ -159,7 +159,7 @@ describe('documents', () => {
     })
 
     expect(apiMock).toHaveBeenCalledWith({
-      document: { nom: 'champs', typeId: 14 }
+      document: { nom: 'champs', typeId: 14, fichier: true }
     })
   })
 
