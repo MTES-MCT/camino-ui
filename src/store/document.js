@@ -42,6 +42,9 @@ const actions = {
         delete document.id
       }
 
+      const { fichierNouveau } = document
+      delete document.fichierNouveau
+
       if (!document.id) {
         d = await documentCreer({ document })
       } else {
@@ -49,7 +52,7 @@ const actions = {
         d = await documentModifier({ document })
       }
 
-      await uploadCall(document.fichierNouveau, d.id, progress => {
+      await uploadCall(fichierNouveau, d.id, progress => {
         commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
       })
 
