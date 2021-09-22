@@ -35,12 +35,12 @@ const actions = {
 
       const idOld = document.id
 
+      let d
+
       const temporaire = document.id === document.typeId
       if (temporaire) {
         delete document.id
       }
-
-      let d
 
       if (!document.id) {
         d = await documentCreer({ document })
@@ -126,7 +126,6 @@ const mutations = {
   },
 
   uploadProgress(state, progress) {
-    console.log(progress)
     state.upload.progress = progress
   }
 }

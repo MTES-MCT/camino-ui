@@ -95,9 +95,10 @@ describe('documents', () => {
   test('ajoute un document', async () => {
     api.documentCreer.mockResolvedValue({ id: 14, nom: 'champs' })
     await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' },
+      document: { nom: 'champs' },
       route: { name: 'titre', id: 'titre-id', section: 'etapes' }
     })
+    jest.runAllTimers()
 
     expect(mutations.popupClose).toHaveBeenCalled()
 
