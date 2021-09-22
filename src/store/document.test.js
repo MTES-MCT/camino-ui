@@ -10,6 +10,8 @@ jest.mock('../api/documents', () => ({
   documentSupprimer: jest.fn()
 }))
 
+jest.mock('../api/_client')
+
 console.info = jest.fn()
 
 describe('documents', () => {
@@ -38,7 +40,8 @@ describe('documents', () => {
       popupLoad: jest.fn(),
       popupMessagesRemove: jest.fn(),
       popupClose: jest.fn(),
-      popupMessageAdd: jest.fn()
+      popupMessageAdd: jest.fn(),
+      fileLoad: jest.fn()
     }
 
     store = createStore({
@@ -93,6 +96,8 @@ describe('documents', () => {
       document: { id: 14, nom: 'champs' },
       route: { name: 'titre', id: 'titre-id', section: 'etapes' }
     })
+
+    jest.setTimeout(600)
 
     expect(mutations.popupClose).toHaveBeenCalled()
 

@@ -49,10 +49,7 @@ const actions = {
         d = await documentModifier({ document })
       }
 
-      const { fichierNouveau } = document
-      if (!fichierNouveau) return
-
-      await uploadCall(fichierNouveau, d.id, progress => {
+      await uploadCall(document.fichierNouveau, d.id, progress => {
         commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
       })
 
