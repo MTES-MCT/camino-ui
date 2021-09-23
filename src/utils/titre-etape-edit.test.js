@@ -38,7 +38,8 @@ describe('etapeEditFormat', () => {
               {
                 opposable: true,
                 geoSysteme: { id: 'geo-systeme-id' },
-                coordonnees: { x: 1.5, y: 1 }
+                coordonnees: { x: 1.5, y: 1 },
+                id: 'ref'
               }
             ]
           }
@@ -57,9 +58,10 @@ describe('etapeEditFormat', () => {
         [
           [
             {
+              id: 'point-id-111',
               description: undefined,
               nom: undefined,
-              references: { 'geo-systeme-id': [1.5, 1] },
+              references: { 'geo-systeme-id': { id: 'ref', x: 1.5, y: 1 } },
               lot: undefined,
               subsidiaire: undefined
             }
@@ -91,7 +93,8 @@ describe('etapeEditFormat', () => {
             references: [
               {
                 geoSysteme: { id: 'geo-systeme-id' },
-                coordonnees: { x: 1.5, y: 1 }
+                coordonnees: { x: 1.5, y: 1 },
+                id: 'ref'
               }
             ]
           },
@@ -104,7 +107,8 @@ describe('etapeEditFormat', () => {
             references: [
               {
                 geoSysteme: { id: 'geo-systeme-id' },
-                coordonnees: { x: 1.5, y: 3 }
+                coordonnees: { x: 1.5, y: 3 },
+                id: 'ref3'
               }
             ]
           },
@@ -117,7 +121,8 @@ describe('etapeEditFormat', () => {
             references: [
               {
                 geoSysteme: { id: 'geo-systeme-id' },
-                coordonnees: { x: 1.5, y: 4 }
+                coordonnees: { x: 1.5, y: 4 },
+                id: 'ref2'
               }
             ]
           }
@@ -140,15 +145,20 @@ describe('etapeEditFormat', () => {
         [
           [
             {
+              id: 'point-id-111',
               description: undefined,
               nom: undefined,
-              references: { 'geo-systeme-id': [1.5, 1] },
+              references: { 'geo-systeme-id': { id: 'ref', x: 1.5, y: 1 } },
               lot: undefined,
               subsidiaire: undefined
             },
             {
+              id: 'point-id-113',
               description: undefined,
-              references: ['1,5;3', '1,5;4'],
+              references: [
+                { id: 'ref3', x: 1.5, y: 3 },
+                { id: 'ref2', x: 1.5, y: 4 }
+              ],
               lot: 1,
               subsidiaire: undefined
             }

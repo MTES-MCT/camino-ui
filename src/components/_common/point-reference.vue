@@ -17,15 +17,15 @@
 import numberFormat from '../../utils/number-format'
 export default {
   props: {
-    references: { type: Array, required: true }
+    references: { type: Object, required: true }
   },
 
   computed: {
     pointReference() {
-      if (this.references) {
+      if (this.references && this.references.x && this.references.y) {
         return [
-          numberFormat(this.round(this.references[0])),
-          numberFormat(this.round(this.references[1]))
+          numberFormat(this.round(this.references.x)),
+          numberFormat(this.round(this.references.y))
         ]
       }
 

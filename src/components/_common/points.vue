@@ -85,9 +85,7 @@
             </div>
             <div v-else class="tablet-blob-1-2">
               <div v-for="reference in point.references" :key="reference">
-                <pointReference
-                  :references="reference.replaceAll(',', '.').split(';')"
-                />
+                <pointReference :references="reference" />
               </div>
             </div>
           </div>
