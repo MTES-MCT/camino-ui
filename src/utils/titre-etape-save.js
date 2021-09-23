@@ -1,11 +1,14 @@
 const referenceBuild = (id, x, y, geoSystemeId, opposable) => {
   const reference = {
-    id,
     geoSystemeId,
     coordonnees: {
       x,
       y
     }
+  }
+
+  if (id) {
+    reference.id = id
   }
 
   if (opposable) {
