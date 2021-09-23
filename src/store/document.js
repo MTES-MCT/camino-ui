@@ -42,19 +42,23 @@ const actions = {
         delete document.id
       }
 
-      const { fichierNouveau } = document
-      delete document.fichierNouveau
-
       document.fichier = true
 
+      // Il faut envoyer les données de "document" sans sa propriété "fichierNouveau"
+      // pour ne pas téléverser le fichier via GQL. Mais transformer "document" ici altère
+      // le rendu de la UI. Elle pointe vers la référence de "document.fichierNouveau"
+      // pour afficher le nom du fichier. On en crée donc une copie.
+      const documentToSend = Object.assign({}, document)
+      delete documentToSend.fichierNouveau
+
       if (!document.id) {
-        d = await documentCreer({ document })
+        d = await documentCreer({ document: documentToSend })
       } else {
         delete document.typeId
-        d = await documentModifier({ document })
+        d = await documentModifier({ document: documentToSend })
       }
 
-      await uploadCall(fichierNouveau, d.id, progress => {
+      await uploadCall(document.fichierNouveau, d.id, progress => {
         commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
       })
 
