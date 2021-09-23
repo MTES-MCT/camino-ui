@@ -8,7 +8,11 @@ const referencesBuild = references =>
     ) => {
       pointGeoSystemesIndex[geoSysteme.id] = geoSysteme
 
-      pointReferences[geoSysteme.id] = { id, ...coordonnees }
+      pointReferences[geoSysteme.id] = { ...coordonnees }
+
+      if (id) {
+        pointReferences[geoSysteme.id].id = id
+      }
 
       return { pointGeoSystemesIndex, pointReferences }
     },
@@ -60,11 +64,14 @@ const groupeBuild = (points, geoSystemeOpposableId) =>
         }
 
         const point = {
-          id,
           description,
           lot,
           subsidiaire,
           references: lot ? [pointReferences[lotGeoSystemeId]] : pointReferences
+        }
+
+        if (id) {
+          point.id = id
         }
 
         if (!lot) {
