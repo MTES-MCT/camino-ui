@@ -4,7 +4,7 @@ import {
   documentModifier,
   documentSupprimer
 } from '../api/documents'
-import { uploadCall } from '../api/_client'
+import { uploadCall } from '../api/_upload'
 
 const state = {
   metas: {
@@ -62,10 +62,8 @@ const actions = {
         commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
       })
 
-      setTimeout(() => {
-        commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
-        commit('popupClose', null, { root: true })
-      }, 500)
+      commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
+      commit('popupClose', null, { root: true })
 
       dispatch(
         'messageAdd',

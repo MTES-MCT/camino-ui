@@ -10,9 +10,7 @@ jest.mock('../api/documents', () => ({
   documentSupprimer: jest.fn()
 }))
 
-jest.mock('../api/_client')
-
-jest.useFakeTimers()
+jest.mock('../api/_upload')
 
 console.info = jest.fn()
 
@@ -98,7 +96,6 @@ describe('documents', () => {
       document: { nom: 'champs' },
       route: { name: 'titre', id: 'titre-id', section: 'etapes' }
     })
-    jest.runAllTimers()
 
     expect(mutations.popupClose).toHaveBeenCalled()
 
@@ -138,7 +135,6 @@ describe('documents', () => {
       document: { id: 14, nom: 'champs' },
       route: { name: 'titre', id: 'titre-id' }
     })
-    jest.runAllTimers()
 
     expect(mutations.popupClose).toHaveBeenCalled()
     await store.dispatch('document/upsert', {
