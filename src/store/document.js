@@ -54,7 +54,7 @@ const actions = {
       if (!document.id) {
         d = await documentCreer({ document: documentToSend })
       } else {
-        delete document.typeId
+        delete documentToSend.typeId
         d = await documentModifier({ document: documentToSend })
       }
 
