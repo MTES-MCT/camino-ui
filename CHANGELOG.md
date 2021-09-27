@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.22.84](https://github.com/MTES-MCT/camino-ui/compare/v0.22.83...v0.22.84) (2021-09-27)
+
+
+### Features
+
+* **àpropos:** mise à jour de la page « à propos » de l’équipe ([#380](https://github.com/MTES-MCT/camino-ui/issues/380)) ([9198266](https://github.com/MTES-MCT/camino-ui/commit/9198266a36f290e6bee30165be24ccb265ec52e7))
+* **logs:** affiche les modifications effectuées par les utilisateurs ([#386](https://github.com/MTES-MCT/camino-ui/issues/386)) ([29c1ed7](https://github.com/MTES-MCT/camino-ui/commit/29c1ed73a0a3833ace701c6f1918ee4667181089))
+* **métas:** permet l’ajout d’un nouveau type de document dans les métas ([#382](https://github.com/MTES-MCT/camino-ui/issues/382)) ([3397c15](https://github.com/MTES-MCT/camino-ui/commit/3397c15b2da42f0b0a7a58a5b726738517b37599))
+
+
+### Bug Fixes
+
+* **étape:** corrige l’import d’un périmètre d’une étape ([#387](https://github.com/MTES-MCT/camino-ui/issues/387)) ([2e7b020](https://github.com/MTES-MCT/camino-ui/commit/2e7b0208ddabe719d8abc330b3604d6d325dd011))
+* **map:** corrige nullité de '_latLngToNewLayerPoint' et 'this._map' ([#384](https://github.com/MTES-MCT/camino-ui/issues/384)) ([ba73630](https://github.com/MTES-MCT/camino-ui/commit/ba7363027603e47099b981f5effabc294320c457))
+* **tests:** corrige les scripts de tests locaux 'simple' et 'watch' ([#383](https://github.com/MTES-MCT/camino-ui/issues/383)) ([7fdb23d](https://github.com/MTES-MCT/camino-ui/commit/7fdb23d220df01427308d29baa8198ffa5672c4f))
+
 ### [0.22.83](https://github.com/MTES-MCT/camino-ui/compare/v0.22.82...v0.22.83) (2021-09-13)
 
 
