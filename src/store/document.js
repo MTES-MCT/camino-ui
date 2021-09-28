@@ -86,7 +86,6 @@ const actions = {
           let id
 
           if (section === 'etapes') id = document.titreEtapeId
-          if (section === 'travaux') id = document.titreTravauxEtapeId
 
           commit('titre/open', { section, id }, { root: true })
         }

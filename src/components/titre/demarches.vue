@@ -1,11 +1,18 @@
 <template>
   <div>
-    <div v-if="titre.demarchesCreation">
+    <div
+      v-if="
+        tabId === 'travaux' ? titre.travauxCreation : titre.demarchesCreation
+      "
+    >
       <button
         class="btn small rnd-xs py-s px-m full-x flex mb"
         @click="demarcheAddPopupOpen"
       >
-        <span class="mt-xxs">Ajouter une démarche</span>
+        <span class="mt-xxs"
+          >Ajouter une démarche
+          {{ tabId === 'travaux' ? 'de travaux' : '' }}</span
+        >
         <i class="icon-24 icon-plus flex-right" />
       </button>
       <div class="line width-full mb-xxl" />
@@ -19,6 +26,7 @@
       :titre-type="titre.type"
       :titre-nom="titre.nom"
       :titre-id="titre.id"
+      :tab-id="tabId"
       @event-track="eventTrack"
     />
   </div>
@@ -34,7 +42,8 @@ export default {
   },
 
   props: {
-    demarches: { type: Array, default: () => [] }
+    demarches: { type: Array, default: () => [] },
+    tabId: { type: String, required: true }
   },
 
   emits: ['event-track'],
@@ -58,13 +67,14 @@ export default {
           demarche,
           titreTypeNom: this.titre.type.type.nom,
           titreNom: this.titre.nom,
-          creation: true
+          creation: true,
+          tabId: this.tabId
         }
       })
 
       this.eventTrack({
         categorie: 'titre-sections',
-        action: 'titre-demarche_ajouter',
+        action: `titre-${this.tabId}_ajouter`,
         nom: this.$route.params.id
       })
     },

@@ -124,6 +124,7 @@
 </template>
 
 <script>
+// TODO: upload de fichier -> fusionner les sous-répertoires (table "document" => fusionner demarche_id, travaux_id)
 import { dateFormat, cap } from '@/utils'
 import Perimetre from './perimetre.vue'
 import Fondamentales from './fondamentales.vue'
@@ -177,6 +178,7 @@ export default {
     },
 
     etapeIsDemandeEnConstruction() {
+      if (this.demarcheType.travaux) return false
       return this.etape.type.id === 'mfr' && this.etape.statut.id === 'aco'
     },
 
@@ -212,6 +214,7 @@ export default {
     },
 
     demandeHelp() {
+      if (this.demarcheType.travaux) return null
       if (!this.userIsAdmin && this.etape.type.id === 'mfr') {
         if (
           this.domaineId === 'm' &&

@@ -86,7 +86,8 @@ export default {
     titreNom: { type: String, required: true },
     titreId: { type: String, required: true },
     titreType: { type: Object, required: true },
-    domaineId: { type: String, required: true }
+    domaineId: { type: String, required: true },
+    tabId: { type: String, required: true }
   },
 
   emits: ['titre-event-track'],
@@ -98,6 +99,7 @@ export default {
   },
 
   methods: {
+    // TODO: adapter nom des événements pour travaux ou démarches
     editPopupOpen() {
       const demarche = {}
 
@@ -111,7 +113,8 @@ export default {
           demarche,
           types: this.titreType.demarchesTypes,
           titreTypeNom: this.titreType.type.nom,
-          titreNom: this.titreNom
+          titreNom: this.titreNom,
+          tabId: this.tabId
         }
       })
 

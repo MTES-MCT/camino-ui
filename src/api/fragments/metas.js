@@ -86,6 +86,7 @@ const fragmentDemarcheType = gql`
     renouvelable
     demarchesCreation
     titreTypeId
+    travaux
   }
 `
 const fragmentDomaine = gql`

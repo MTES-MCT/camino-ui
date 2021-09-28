@@ -68,7 +68,8 @@
 
     <TitreDemarches
       v-if="tabId === 'demarches'"
-      :demarches="titre.demarches"
+      :demarches="demarches"
+      :tab-id="tabId"
       @event-track="eventTrack"
     />
 
@@ -78,9 +79,10 @@
       :titre-id="titre.id"
     />
 
-    <TitreTravaux
+    <TitreDemarches
       v-if="tabId === 'travaux'"
-      :travaux="titre.travaux"
+      :demarches="travaux"
+      :tab-id="tabId"
       @titre-event-track="eventTrack"
     />
   </div>
@@ -96,7 +98,6 @@ import TitreInfos from './titre/infos.vue'
 import TitreTerritoires from './titre/territoires.vue'
 import TitreRepertoire from './titre/repertoire.vue'
 import TitreDemarches from './titre/demarches.vue'
-import TitreTravaux from './titre/travaux.vue'
 import TitreActivitesList from './activites/list.vue'
 
 export default {
@@ -109,7 +110,6 @@ export default {
     TitreRepertoire,
     TitreDemarches,
     TitreActivitesList,
-    TitreTravaux,
     Perimetre
   },
 
@@ -139,6 +139,14 @@ export default {
 
     tabId() {
       return this.$store.getters['titre/tabId']
+    },
+
+    demarches() {
+      return this.$store.getters['titre/demarches']
+    },
+
+    travaux() {
+      return this.$store.getters['titre/travaux']
     }
   },
 
@@ -180,7 +188,7 @@ export default {
     tabUpdate(tabId) {
       this.eventTrack({
         categorie: 'titre-sections',
-        action: `titre-${tabId}_consulter`,
+        action: `titre-${this.tabId}_consulter`,
         nom: this.$store.state.titre.element.id
       })
 
@@ -190,7 +198,7 @@ export default {
     geoTabUpdate(tabId) {
       this.eventTrack({
         categorie: 'titre-sections',
-        action: `titre-vue${tabId}_consulter`,
+        action: `titre-vue${this.tabId}_consulter`,
         nom: this.$store.state.titre.element.id
       })
 
