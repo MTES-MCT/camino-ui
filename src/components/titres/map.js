@@ -104,7 +104,13 @@ const layersBuild = (titres, router) =>
           ? titre.titulaires.map(tt => `<li>${tt.nom}</li>`).join('')
           : ''
 
-      const popupHtml = `<h4 class="mb-s">${titre.nom}</h4><div class="mb-m"><span class="rnd py-xxs px-s cap-first mb-0 bold color-bg h6 bg-${titre.statut.couleur}">${titre.statut.nom}</span></div><ul class="list-prefix h6">${popupHtmlTitulaires}</ul>`
+      const popupHtml = `<h4 class="mb-s">${
+        titre.nom ? titre.nom : ''
+      }</h4><div class="mb-m"><span class="rnd py-xxs px-s cap-first mb-0 bold color-bg h6 bg-${
+        titre.statut.couleur
+      }">${
+        titre.statut.nom
+      }</span></div><ul class="list-prefix h6">${popupHtmlTitulaires}</ul>`
 
       const popupOptions = {
         closeButton: false,
@@ -112,11 +118,15 @@ const layersBuild = (titres, router) =>
         autoPan: false
       }
 
-      const titreRoute = { name: 'titre', params: { id: titre.slug } }
+      const titreRoute = titre.slug
+        ? { name: 'titre', params: { id: titre.slug } }
+        : null
 
       const methods = {
         click() {
-          router.push(titreRoute)
+          if (titreRoute) {
+            router.push(titreRoute)
+          }
         },
         mouseover(e) {
           this.openPopup()

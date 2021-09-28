@@ -97,18 +97,18 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
       },
       substances: {
         component: markRaw(TagList),
-        props: { elements: titre.substances.map(s => s.nom) },
+        props: { elements: titre.substances?.map(s => s.nom) },
         class: 'mb--xs',
-        value: titre.substances.map(s => s.nom).join(', ')
+        value: titre.substances?.map(s => s.nom).join(', ')
       },
       titulaires: {
         component: markRaw(List),
         props: {
-          elements: titre.titulaires.map(({ nom }) => nom),
+          elements: titre.titulaires?.map(({ nom }) => nom),
           mini: true
         },
         class: 'mb--xs',
-        value: titre.titulaires.map(({ nom }) => nom).join(', ')
+        value: titre.titulaires?.map(({ nom }) => nom).join(', ')
       },
       regions: {
         component: markRaw(List),
@@ -142,7 +142,9 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
       references: {
         component: List,
         props: {
-          elements: titre.references.map(ref => `${ref.type.nom} : ${ref.nom}`),
+          elements: titre.references?.map(
+            ref => `${ref.type.nom} : ${ref.nom}`
+          ),
           mini: true
         },
         class: 'mb--xs'
