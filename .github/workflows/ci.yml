@@ -1,10 +1,11 @@
 name: CI
 on:
-  push:
   pull_request:
   release:
+    types: [published]
+  push:
     branches:
-      - master
+      - develop
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -29,7 +30,7 @@ jobs:
           CI: true
 
   build:
-    if: github.ref == 'refs/heads/master' || github.event_name == 'release'
+    if: github.ref == 'refs/heads/develop' || github.event_name == 'release'
     needs: test
     runs-on: ubuntu-latest
     strategy:
@@ -40,11 +41,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Build Docker image
-        run: docker build . --tag caminofr/camino-ui:master
+        run: docker build . --tag caminofr/camino-ui:develop
       - name: Push Docker image to the Docker Hub
         run: |
           docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
-          docker push caminofr/camino-ui:master
+          docker push caminofr/camino-ui:develop
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -74,11 +75,13 @@ jobs:
       - name: Add the release tag
         run: |
           docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
-          docker pull caminofr/camino-ui:master
-          docker tag caminofr/camino-ui:master caminofr/camino-ui:$VERSION
+          docker pull caminofr/camino-ui:develop
+          docker tag caminofr/camino-ui:develop caminofr/camino-ui:$VERSION
           docker push caminofr/camino-ui:$VERSION
-          docker tag caminofr/camino-ui:master caminofr/camino-ui:latest
+          docker tag caminofr/camino-ui:develop caminofr/camino-ui:latest
           docker push caminofr/camino-ui:latest
+          docker tag caminofr/camino-ui:develop caminofr/camino-ui:master
+          docker push caminofr/camino-ui:master
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
