@@ -24,7 +24,7 @@ const apiMatomoUrl = process.env.API_MATOMO_URL
 const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
   setHeaders: (res, path, stat) => {
     res.set({
-      'Content-Security-Policy': `default-src 'none'; script-src 'self' ${apiMatomoUrl}; style-src 'self'; connect-src 'self' ${apiUrl} sentry.io ${apiMatomoUrl}; img-src data: 'self' a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org  a.tile.openstreetmap.fr b.tile.openstreetmap.fr c.tile.openstreetmap.fr geoservices.brgm.fr wxs.ign.fr; base-uri 'none'; form-action 'self'; frame-ancestors 'none';`,
+      'Content-Security-Policy': `default-src 'self'; script-src 'self' ${apiMatomoUrl} 'sha256-4RS22DYeB7U14dra4KcQYxmwt5HkOInieXK1NUMBmQI=' blob:; style-src 'self' 'sha256-kwpt3lQZ21rs4cld7/uEm9qI5yAbjYzx+9FGm/XmwNU='; connect-src 'self' ${apiUrl} sentry.io ${apiMatomoUrl}; img-src data: 'self' ${apiMatomoUrl} a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org  a.tile.openstreetmap.fr b.tile.openstreetmap.fr c.tile.openstreetmap.fr geoservices.brgm.fr wxs.ign.fr;`,
       'X-Frame-Options': 'DENY',
       'X-Content-Type-Options': 'nosniff',
       'X-XSS-Protection': '1; mode=block',
