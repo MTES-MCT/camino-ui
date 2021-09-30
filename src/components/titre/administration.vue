@@ -8,9 +8,6 @@
   >
     <template #title>
       <span>{{ administration.nom }}</span>
-      <Tag v-if="administration.coordinateur" :color="'bg-info'" :mini="true">
-        Coord.
-      </Tag>
     </template>
 
     <div v-if="content" class="px-m pt-m">
@@ -90,12 +87,10 @@
 
 <script>
 import Accordion from '../_ui/accordion.vue'
-import Tag from '../_ui/tag.vue'
 
 export default {
   components: {
-    Accordion,
-    Tag
+    Accordion
   },
 
   props: {
