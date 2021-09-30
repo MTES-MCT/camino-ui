@@ -79,7 +79,6 @@
       <FormSaveBtn
         ref="save-btn"
         :arm-help-visible="armHelpVisible"
-        :on-save="save"
         :disabled="!isFormComplete"
         class="tablet-blob-2-3 flex flex-center"
         @click="save"

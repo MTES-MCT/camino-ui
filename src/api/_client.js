@@ -137,4 +137,10 @@ const tokenRefresh = async () => {
   }
 }
 
-export { apiGraphQLFetch, apiRestFetch }
+export {
+  apiGraphQLFetch,
+  apiRestFetch,
+  authorizationGet,
+  tokenRefresh,
+  errorThrow
+}

@@ -11,6 +11,7 @@ const fragmentDocument = gql`
     description
     fichier
     fichierTypeId
+    titreEtapeId
     url
     uri
     jorf

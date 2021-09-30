@@ -10,6 +10,8 @@ jest.mock('../api/documents', () => ({
   documentSupprimer: jest.fn()
 }))
 
+jest.mock('../api/_upload')
+
 console.info = jest.fn()
 
 describe('documents', () => {
@@ -38,7 +40,8 @@ describe('documents', () => {
       popupLoad: jest.fn(),
       popupMessagesRemove: jest.fn(),
       popupClose: jest.fn(),
-      popupMessageAdd: jest.fn()
+      popupMessageAdd: jest.fn(),
+      fileLoad: jest.fn()
     }
 
     store = createStore({
@@ -90,7 +93,7 @@ describe('documents', () => {
   test('ajoute un document', async () => {
     api.documentCreer.mockResolvedValue({ id: 14, nom: 'champs' })
     await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' },
+      document: { nom: 'champs' },
       route: { name: 'titre', id: 'titre-id', section: 'etapes' }
     })
 
@@ -152,7 +155,7 @@ describe('documents', () => {
     })
 
     expect(apiMock).toHaveBeenCalledWith({
-      document: { nom: 'champs', typeId: 14 }
+      document: { nom: 'champs', typeId: 14, fichier: true }
     })
   })
 
