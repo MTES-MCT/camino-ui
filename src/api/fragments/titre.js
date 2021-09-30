@@ -53,6 +53,9 @@ const fragmentTitre = gql`
     administrations {
       ...titreAdministrations
     }
+    titresAdministrations {
+      id
+    }
     titulaires {
       ...titreEntreprises
     }

@@ -324,6 +324,10 @@ const getters = {
 
   userIsAdmin(state) {
     return permissionsCheck(state.element, ['super', 'admin', 'editeur'])
+  },
+
+  userIsSuper(state) {
+    return permissionsCheck(state.element, ['super'])
   }
 }
 
