@@ -82,6 +82,7 @@ const titresGeoPolygon = apiGraphQLFetch(
         references: $references
         territoires: $territoires
         perimetre: $perimetre
+        demandeEnCours: true
       ) {
         elements {
           ...titresGeoPolygon
@@ -117,6 +118,7 @@ const titresGeo = apiGraphQLFetch(
         references: $references
         territoires: $territoires
         perimetre: $perimetre
+        demandeEnCours: true
       ) {
         elements {
           ...titresGeo
