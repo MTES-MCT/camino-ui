@@ -12,7 +12,8 @@ const state = {
   element: null,
   metas: {
     referencesTypes: [],
-    domaines: []
+    domaines: [],
+    administrations: []
   },
   opened: {
     etapes: {},
@@ -55,7 +56,8 @@ const actions = {
 
       const data = await titreMetas()
 
-      commit('metasSet', { referencesTypes: data })
+      commit('metasSet', { referencesTypes: data.referencesTypes })
+      commit('metasSet', { administrations: data.administrations.elements })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {

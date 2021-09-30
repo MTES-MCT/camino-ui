@@ -65,6 +65,43 @@
       </button>
     </div>
 
+    <div v-if="userIsSuper">
+      <h3 class="mb-s">Administrations</h3>
+      <p class="h6 italic">Administrations ajoutées manuellement au titre</p>
+      <hr />
+      <div
+        v-for="(administration, index) in titre.titresAdministrations"
+        :key="index"
+        class="flex full-x mb-s"
+      >
+        <select v-model="administration.id" class="p-s mr-s">
+          <option v-for="a in administrations" :key="a.id" :value="a.id">
+            {{ a.nom }}
+          </option>
+        </select>
+        <div class="flex-right">
+          <button
+            class="btn py-s px-m rnd-xs"
+            @click="administrationRemove(index)"
+          >
+            <i class="icon-24 icon-minus" />
+          </button>
+        </div>
+      </div>
+
+      <button
+        v-if="
+          titre.titresAdministrations &&
+          !titre.titresAdministrations.find(r => !r.id)
+        "
+        class="btn rnd-xs py-s px-m full-x mb flex h6"
+        @click="administrationAdd"
+      >
+        <span class="mt-xxs">Ajouter une administration</span
+        ><i class="icon-24 icon-plus flex-right" />
+      </button>
+    </div>
+
     <template #footer>
       <div v-if="!loading" class="tablet-blobs">
         <div class="tablet-blob-1-3 mb tablet-mb-0">
@@ -133,8 +170,16 @@ export default {
       return this.$store.state.titre.metas.referencesTypes
     },
 
+    administrations() {
+      return this.$store.state.titre.metas.administrations
+    },
+
     complete() {
       return !!this.titre.nom && !!this.titre.typeId && !!this.titre.domaineId
+    },
+
+    userIsSuper() {
+      return this.$store.getters['user/userIsSuper']
     }
   },
 
@@ -199,6 +244,14 @@ export default {
 
     referenceRemove(index) {
       this.titre.references.splice(index, 1)
+    },
+
+    administrationAdd() {
+      this.titre.titresAdministrations.push({ id: '' })
+    },
+
+    administrationRemove(index) {
+      this.titre.titresAdministrations.splice(index, 1)
     },
 
     eventTrack(event) {

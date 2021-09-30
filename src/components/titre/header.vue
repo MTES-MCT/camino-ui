@@ -68,6 +68,7 @@ export default {
         typeId: reference.type.id,
         nom: reference.nom
       }))
+      titre.titresAdministrations = this.titre.titresAdministrations
 
       this.$store.commit('popupOpen', {
         component: EditPopup,
