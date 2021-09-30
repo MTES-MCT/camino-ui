@@ -4,6 +4,7 @@ import {
   documentModifier,
   documentSupprimer
 } from '../api/documents'
+import { uploadCall } from '../api/_upload'
 
 const state = {
   metas: {
@@ -29,27 +30,46 @@ const actions = {
 
   async upsert({ commit, dispatch }, { document, route, action }) {
     try {
-      commit('loadingAdd', 'documentUpsert', { root: true })
-
       commit('popupMessagesRemove', null, { root: true })
       commit('popupLoad', null, { root: true })
 
       const idOld = document.id
 
       let d
+      let titreEtapeIdForEdit = null
 
-      const temporaire = document.id === document.typeId
-      if (temporaire) {
+      const isTemporary = document.id === document.typeId
+      if (isTemporary) {
         delete document.id
       }
 
+      document.fichier = true
+
+      // Il faut envoyer les données de "document" sans sa propriété "fichierNouveau"
+      // pour ne pas téléverser le fichier via GQL. Mais transformer "document" ici altère
+      // le rendu de la UI. Elle pointe vers la référence de "document.fichierNouveau"
+      // pour afficher le nom du fichier. On en crée donc une copie.
+      const documentToSend = Object.assign({}, document)
+      delete documentToSend.fichierNouveau
+
       if (!document.id) {
-        d = await documentCreer({ document })
+        d = await documentCreer({ document: documentToSend })
       } else {
-        delete document.typeId
-        d = await documentModifier({ document })
+        delete documentToSend.typeId
+        d = await documentModifier({ document: documentToSend })
+        titreEtapeIdForEdit = d.titreEtapeId // nécessaire en modification pour accéder au bon chemin
       }
 
+      await uploadCall(
+        document.fichierNouveau,
+        titreEtapeIdForEdit,
+        d.id,
+        progress => {
+          commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
+        }
+      )
+
+      commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
       commit('popupClose', null, { root: true })
 
       dispatch(
@@ -81,8 +101,6 @@ const actions = {
       }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-    } finally {
-      commit('loadingRemove', 'documentUpsert', { root: true })
     }
   },
 
@@ -119,6 +137,10 @@ const mutations = {
     Object.keys(data).forEach(id => {
       state.metas[id] = data[id]
     })
+  },
+
+  uploadProgress(state, progress) {
+    state.upload.progress = progress
   }
 }
 

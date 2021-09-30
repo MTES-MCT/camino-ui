@@ -17,21 +17,21 @@
     </div>
   </div>
   <div v-else>
-    <label class="btn-border small p-s full-x rnd-xs mb-s"
-      >Choisir un fichier…
-      <input
-        type="file"
-        class="p-xs mb-0"
-        accept="application/pdf"
-        @change="fileChange"
-      />
-    </label>
+    <InputFile
+      class="btn-border small p-s full-x rnd-xs mb-s"
+      accept="application/pdf"
+      @change="fileChange"
+    />
     <p class="h5 italic">30 Mo max.</p>
   </div>
 </template>
 
 <script>
+import InputFile from '../_ui/input-file.vue'
+
 export default {
+  components: { InputFile },
+
   props: {
     contenu: { type: [Object], required: true },
     elementId: { type: String, required: true }

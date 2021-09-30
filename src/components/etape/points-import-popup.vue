@@ -22,15 +22,11 @@
     </div>
 
     <div v-if="geoSystemeId">
-      <label class="btn-border small bg-alt p-s full-x rnd-xs mb-s"
-        >Choisir un fichier…
-        <input
-          type="file"
-          class="p-xs mb-0"
-          accept=".shp,.geojson"
-          @change="fileChange"
-        />
-      </label>
+      <InputFile
+        class="btn-border small bg-alt p-s full-x rnd-xs mb-s"
+        accept=".shp,.geojson"
+        @change="fileChange"
+      />
       <p class="h6 italic mt-0">
         Seul les fichiers Shape (.shp) et GeoJson (.geojson) sont acceptés.
       </p>
@@ -49,11 +45,13 @@
 </template>
 
 <script>
+import InputFile from '../_ui/input-file.vue'
 import Popup from '../_ui/popup.vue'
 
 export default {
   components: {
-    Popup
+    Popup,
+    InputFile
   },
 
   data: function () {
