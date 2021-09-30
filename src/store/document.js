@@ -36,9 +36,10 @@ const actions = {
       const idOld = document.id
 
       let d
+      let titreEtapeIdForEdit = null
 
-      const temporaire = document.id === document.typeId
-      if (temporaire) {
+      const isTemporary = document.id === document.typeId
+      if (isTemporary) {
         delete document.id
       }
 
@@ -56,11 +57,17 @@ const actions = {
       } else {
         delete documentToSend.typeId
         d = await documentModifier({ document: documentToSend })
+        titreEtapeIdForEdit = d.titreEtapeId // nécessaire en modification pour accéder au bon chemin
       }
 
-      await uploadCall(document.fichierNouveau, d.id, progress => {
-        commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
-      })
+      await uploadCall(
+        document.fichierNouveau,
+        titreEtapeIdForEdit,
+        d.id,
+        progress => {
+          commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
+        }
+      )
 
       commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
       commit('popupClose', null, { root: true })

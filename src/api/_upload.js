@@ -5,7 +5,7 @@ import { authorizationGet, tokenRefresh, errorThrow } from './_client'
 const CHUNK_SIZE = 1048576 // 1 Mo
 const apiUrl = '/apiUrl'
 
-const uploadCall = async (file, documentId, progressCb) => {
+const uploadCall = async (file, titreEtapeId, documentId, progressCb) => {
   const uppy = new Uppy({
     autoProceed: true
   })
@@ -32,12 +32,18 @@ const uploadCall = async (file, documentId, progressCb) => {
     }
   })
 
+  const meta = {
+    documentId
+  }
+
+  if (titreEtapeId) {
+    meta.titreEtapeId = titreEtapeId
+  }
+
   uppy.addFile({
     name: file.name,
     data: file,
-    meta: {
-      documentId
-    }
+    meta
   })
 
   progressCb(0)
