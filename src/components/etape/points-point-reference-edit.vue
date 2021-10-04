@@ -48,6 +48,8 @@ export default {
   computed: {
     pointReference() {
       return this.pointReferences[this.geoSysteme.id]
+        ? this.pointReferences[this.geoSysteme.id]
+        : { id: undefined, x: 0, y: 0 }
     }
   }
 }
