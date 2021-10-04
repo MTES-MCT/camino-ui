@@ -17,6 +17,15 @@ http://francoisromain.github.io/postcss-structure
   --color-info: #76b6bd;
   --color-success: #6ea040;
 
+  /* Basée sur le DSFR (https://vue-dsfr.netlify.app/) */
+  --dsfr-bf500: #000091;
+  --dsfr-color-hover: rgba(0, 0, 221, 1);
+  --dsfr-color-active: rgba(41, 41, 255, 1);
+  --dsfr-block-color-hover: hsla(0, 0%, 87.8%, 1);
+  --dsfr-block-color-active: hsla(0, 0%, 76.1%, 1);
+  --dsfr-g600-g400: #cecece;
+  --dsfr-g200: #383838;
+
   /* Base units    ------------------------------- */
 
   /* font-size: 1rem = 16 px */

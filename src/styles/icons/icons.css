@@ -84,6 +84,7 @@
 
 .btn-alt .icon-plus,
 .btn:hover .icon-plus,
+.btn-primary .icon-plus,
 .btn-alt:hover .icon-plus,
 .btn-border:hover .icon-plus {
   background-image: svg-load('./svgs/24-plus.svg',
