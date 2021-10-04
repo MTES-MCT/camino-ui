@@ -12,7 +12,7 @@
   button-border-width: 0;
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
   button-background: var(--color-alt) var(--color-neutral)
-    var(--dsfr-block-color-hover);
+    var(--color-neutral);
   button-class: active disabled true;
 }
 
@@ -23,40 +23,40 @@
 .btn-primary {
   button-border: var(--unit-px) var(--dsfr-bf500) var(--color-neutral)
     var(--dsfr-color-hover);
-  button-color: var(--color-bg) var(--color-bg) var(--color-bg);
+  button-color: var(--color-text) var(--color-bg) var(--color-bg);
   button-background: var(--dsfr-bf500) var(--color-neutral)
     var(--dsfr-color-hover);
 }
 
 .btn-border {
-  button-border: var(--unit-px) var(--color-alt) var(--color-neutral)
-    var(--dsfr-block-color-hover);
+  button-border: var(--unit-px) var(--color-neutral) var(--color-neutral)
+    var(--color-neutral);
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
   button-background: var(--color-bg) var(--color-neutral)
-    var(--dsfr-block-color-hover);
+    var(--color-neutral);
   button-class: active disabled true;
 }
 
 .btn-tab {
   button-border: var(--unit-px) var(--color-alt) var(--color-neutral)
-    var(--dsfr-block-color-hover);
+    var(--color-neutral);
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
   button-background: var(--color-transparent) var(--color-neutral)
-    var(--dsfr-block-color-hover);
+    var(--color-neutral);
   button-class: active disabled;
 }
 
 .btn-alt {
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
   button-background: var(--color-bg) var(--color-neutral)
-    var(--dsfr-block-color-hover);
+    var(--color-neutral);
   button-class: active disabled false;
 }
 
 .btn-flash {
   button-color: var(--color-bg) var(--color-bg) var(--color-bg);
   button-background: var(--color-neutral) var(--color-inverse)
-    var(--dsfr-block-color-hover);
+    var(--color-neutral);
   button-class: active disabled false;
 }
 
