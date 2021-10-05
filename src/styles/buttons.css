@@ -11,8 +11,7 @@
 @button default {
   button-border-width: 0;
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
-  button-background: var(--color-alt) var(--color-neutral)
-    var(--color-neutral);
+  button-background: var(--color-alt) var(--color-neutral) var(--color-neutral);
   button-class: active disabled true;
 }
 
@@ -23,7 +22,7 @@
 .btn-primary {
   button-border: var(--unit-px) var(--dsfr-bf500) var(--color-neutral)
     var(--dsfr-color-hover);
-  button-color: var(--color-text) var(--color-bg) var(--color-bg);
+  button-color: var(--color-bg) var(--color-bg) var(--color-bg);
   button-background: var(--dsfr-bf500) var(--color-neutral)
     var(--dsfr-color-hover);
 }
@@ -32,8 +31,7 @@
   button-border: var(--unit-px) var(--color-neutral) var(--color-neutral)
     var(--color-neutral);
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
-  button-background: var(--color-bg) var(--color-neutral)
-    var(--color-neutral);
+  button-background: var(--color-bg) var(--color-neutral) var(--color-neutral);
   button-class: active disabled true;
 }
 
@@ -48,8 +46,7 @@
 
 .btn-alt {
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
-  button-background: var(--color-bg) var(--color-neutral)
-    var(--color-neutral);
+  button-background: var(--color-bg) var(--color-neutral) var(--color-neutral);
   button-class: active disabled false;
 }
 
