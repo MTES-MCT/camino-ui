@@ -35,7 +35,7 @@
     <template v-if="etape.modification || etape.suppression" #buttons>
       <button
         v-if="etapeIsDemandeEnConstruction"
-        class="btn py-s px-m flex mr-px small"
+        class="btn btn-primary py-s px-m flex mr-px small"
         :disabled="!etape.deposable"
         :class="{ disabled: !etape.deposable }"
         @click="etapeDepot"
