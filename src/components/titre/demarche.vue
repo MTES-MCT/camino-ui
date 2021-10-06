@@ -95,11 +95,16 @@ export default {
   computed: {
     etapeOpened() {
       return this.$store.state.titre.opened.etapes
+    },
+
+    eventPrefix() {
+      return this.tabId && this.tabId === 'travaux'
+        ? 'titre-travaux'
+        : 'titre-demarche'
     }
   },
 
   methods: {
-    // TODO: adapter nom des événements pour travaux ou démarches
     editPopupOpen() {
       const demarche = {}
 
@@ -120,7 +125,7 @@ export default {
 
       this.eventTrack({
         categorie: 'titre-sections',
-        action: 'titre-demarche_editer',
+        action: `${this.eventPrefix}_editer`,
         nom: this.$route.params.id
       })
     },
@@ -138,7 +143,7 @@ export default {
 
       this.eventTrack({
         categorie: 'titre-sections',
-        action: 'titre-demarche_supprimer',
+        action: `${this.eventPrefix}_supprimer`,
         nom: this.$route.params.id
       })
     },
