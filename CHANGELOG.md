@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.23.0](https://github.com/MTES-MCT/camino-ui/compare/v0.22.84...v0.23.0) (2021-10-06)
+
+
+### Features
+
+* **titre:** permet d’ajouter manuellement une administration sur un titre ([#391](https://github.com/MTES-MCT/camino-ui/issues/391)) ([789cb43](https://github.com/MTES-MCT/camino-ui/commit/789cb43af05808378230088bae3a62092e5b4e8c))
+* **titres:** affiche sur la carte les périmètres des ARM en cours de demande pour les entreprises ([#389](https://github.com/MTES-MCT/camino-ui/issues/389)) ([aa2cc17](https://github.com/MTES-MCT/camino-ui/commit/aa2cc17615fc58abd04a8c7ae805c72d821629b4))
+* **upload:** renforce les capacités de téléversement ([#385](https://github.com/MTES-MCT/camino-ui/issues/385)) ([4340e8c](https://github.com/MTES-MCT/camino-ui/commit/4340e8c73274e9f83cc03e46de44d0ca967aefd6))
+
+
+### Bug Fixes
+
+* **accueil:** corrige le lien de l’accueil quand on est sur une page introuvable ([#396](https://github.com/MTES-MCT/camino-ui/issues/396)) ([3fcb34d](https://github.com/MTES-MCT/camino-ui/commit/3fcb34de1c471674a3a208205b10ccb192025ccc))
+* **etape:** corrige bug d'accès à référence de pointReference ([#394](https://github.com/MTES-MCT/camino-ui/issues/394)) ([a0c34ee](https://github.com/MTES-MCT/camino-ui/commit/a0c34eeef5c76d0238ee14ebe74848d7600314c2))
+* **étape:** corrige l’ajout manuel d’un périmètre sur une étape ([#388](https://github.com/MTES-MCT/camino-ui/issues/388)) ([2ea9683](https://github.com/MTES-MCT/camino-ui/commit/2ea968312a56e4b4653cf5e880d407510d1d339b))
+* **git:** corrige husky ([#392](https://github.com/MTES-MCT/camino-ui/issues/392)) ([de9d455](https://github.com/MTES-MCT/camino-ui/commit/de9d4552a839c93e71026e797d94aea25517ff09))
+
 ### [0.22.84](https://github.com/MTES-MCT/camino-ui/compare/v0.22.83...v0.22.84) (2021-09-27)
 
 
