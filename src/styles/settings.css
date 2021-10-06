@@ -76,8 +76,7 @@ http://francoisromain.github.io/postcss-structure
   --border-color: var(--color-neutral);
   --border-width: var(--unit-px);
 
-  --select-backround-image: svg-load(
-    './icons/svgs/24-chevron-b.svg',
+  --select-backround-image: svg-load('./icons/svgs/24-chevron-b.svg',
     fill=none,
     stroke= '#666',
     stroke-linecap=round,

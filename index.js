@@ -15,16 +15,21 @@ const history = require('connect-history-api-fallback')
 const compression = require('compression')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 const { version } = require('./package.json')
+const { cspHashes } = require('@vitejs/plugin-legacy')
 
 const app = express()
 const port = process.env.PORT
 const apiUrl = process.env.API_URL
 const apiMatomoUrl = process.env.API_MATOMO_URL
 
+const hashes = cspHashes.map(hash => `'sha256-${hash}'`).join(' ')
+
 const staticFileMiddleware = express.static(path.join(__dirname, 'dist'), {
+  // à cause des CSP et du polyfill « dynamic import », les modules es6 ne sont pas utilisés
+  // https://github.com/GoogleChromeLabs/dynamic-import-polyfill#content-security-policy-csp
   setHeaders: (res, path, stat) => {
     res.set({
-      'Content-Security-Policy': `default-src 'none'; script-src 'self' ${apiMatomoUrl} 'sha256-MS6/3FCg4WjP9gwgaBGwLpRCY6fZBgwmhVCdrPrNf3E=' 'sha256-tQjf8gvb2ROOMapIxFvFAYBeUJ0v1HCbOcSmDNXGtDo=' blob:; style-src 'self'; connect-src 'self' ${apiUrl} sentry.io ${apiMatomoUrl}; img-src data: 'self' a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org  a.tile.openstreetmap.fr b.tile.openstreetmap.fr c.tile.openstreetmap.fr geoservices.brgm.fr wxs.ign.fr; base-uri 'none'; form-action 'self'; frame-ancestors 'none';`,
+      'Content-Security-Policy': `default-src 'none'; script-src 'self' ${apiMatomoUrl} ${hashes} blob:; style-src 'self' 'sha256-7xDnHaGnHqUuOveZcDmUuQLwLQQrPfpiE+SZwZeGMuM='; connect-src 'self' ${apiUrl} sentry.io ${apiMatomoUrl}; img-src data: 'self' a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org  a.tile.openstreetmap.fr b.tile.openstreetmap.fr c.tile.openstreetmap.fr geoservices.brgm.fr wxs.ign.fr; base-uri 'none'; form-action 'self'; frame-ancestors 'none';`,
       'X-Frame-Options': 'DENY',
       'X-Content-Type-Options': 'nosniff',
       'X-XSS-Protection': '1; mode=block',
