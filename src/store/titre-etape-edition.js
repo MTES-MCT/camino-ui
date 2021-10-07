@@ -184,7 +184,7 @@ const actions = {
     )
   },
 
-  async upsert({ state, commit, dispatch }, { etape }) {
+  async upsert({ state, commit, dispatch }, { etape, tabId }) {
     try {
       commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
@@ -200,7 +200,7 @@ const actions = {
 
       const routerOptions = {
         name: 'titre',
-        params: { id: data.slug }
+        params: { id: data.slug, tabId }
       }
 
       if (etape.id) {
