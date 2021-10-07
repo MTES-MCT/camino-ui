@@ -10,7 +10,7 @@
   </button>
   <button
     v-if="activite.statut.id === 'enc'"
-    class="cmn-activite-btn-depose btn small py-s px-m flex mr-px"
+    class="cmn-activite-btn-depose btn btn-primary small py-s px-m flex mr-px"
     :disabled="!activite.deposable"
     :class="{ disabled: !activite.deposable }"
     @click="activiteDepotPopupOpen"

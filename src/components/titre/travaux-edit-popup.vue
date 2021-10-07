@@ -44,7 +44,7 @@
             ref="save-button"
             :disabled="!complete"
             :class="{ disabled: !complete }"
-            class="btn-flash rnd-xs p-s full-x"
+            class="btn-primary rnd-xs p-s full-x"
             @click="save"
           >
             Enregistrer
