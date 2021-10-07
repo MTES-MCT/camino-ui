@@ -124,7 +124,6 @@
 </template>
 
 <script>
-// TODO: upload de fichier -> fusionner les sous-répertoires (table "document" => fusionner demarche_id, travaux_id)
 import { dateFormat, cap } from '@/utils'
 import Perimetre from './perimetre.vue'
 import Fondamentales from './fondamentales.vue'
