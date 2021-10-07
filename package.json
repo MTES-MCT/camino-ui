@@ -36,8 +36,7 @@
     "connect-history-api-fallback": "^1.6.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "http-proxy-middleware": "^2.0.1",
-    "@vitejs/plugin-legacy": "^1.6.1"
+    "http-proxy-middleware": "^2.0.1"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.15.6",
@@ -179,11 +178,7 @@
     }
   },
   "browserslist": [
-    ">0.5%",
-    "not op_mini all",
-    "not IE 11",
-    "Firefox >= 60",
-    "iOS >= 9"
+    "supports es6-module"
   ],
   "config": {
     "commitizen": {
