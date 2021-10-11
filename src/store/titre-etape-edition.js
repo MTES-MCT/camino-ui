@@ -184,7 +184,7 @@ const actions = {
     )
   },
 
-  async upsert({ state, commit, dispatch }, { etape, tabId }) {
+  async upsert({ state, commit, dispatch }, { etape }) {
     try {
       commit('loadingAdd', 'titreEtapeUpdate', { root: true })
 
@@ -197,6 +197,9 @@ const actions = {
       } else {
         data = await etapeCreer({ etape: etapeEditFormatted })
       }
+
+      const tabId =
+        state.metas.demarche.type.travaux === true ? 'travaux' : 'demarches'
 
       const routerOptions = {
         name: 'titre',
