@@ -28,7 +28,7 @@
 }
 
 .btn-border {
-  button-border: var(--unit-px) var(--color-neutral) var(--color-neutral)
+  button-border: var(--unit-px) var(--color-alt) var(--color-neutral)
     var(--color-neutral);
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
   button-background: var(--color-bg) var(--color-neutral) var(--color-neutral);
