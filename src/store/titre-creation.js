@@ -1,6 +1,6 @@
 import { titreDemandeCreer } from '../api/titre-demande'
 import router from '../router'
-import { titreMetas } from '../api/titres'
+import { titreCreationMetas } from '../api/titres'
 
 const state = {
   metas: {
@@ -13,7 +13,7 @@ const actions = {
     commit('loadingAdd', 'titreCreationInit', { root: true })
 
     try {
-      const data = await titreMetas()
+      const data = await titreCreationMetas()
 
       commit('metasSet', { referencesTypes: data })
     } catch (e) {
