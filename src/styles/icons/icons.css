@@ -456,6 +456,7 @@
 }
 
 .btn:hover .icon-pencil,
+.btn-primary .icon-pencil,
 .btn-alt:hover .icon-pencil,
 .btn-border:hover .icon-pencil {
   background-image: svg-load('./svgs/24-pencil.svg',

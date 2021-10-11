@@ -20,7 +20,7 @@
         <div class="tablet-blob-2-3">
           <button
             id="cmn-etape-remove-popup-button-supprimer"
-            class="btn-flash rnd-xs p-s full-x"
+            class="btn-primary rnd-xs p-s full-x"
             @click="depose"
           >
             Déposer
