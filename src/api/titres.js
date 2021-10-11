@@ -27,6 +27,18 @@ const titreMetas = apiGraphQLFetch(
   `
 )
 
+const titreCreationMetas = apiGraphQLFetch(
+  gql`
+    query MetasTitre {
+      referencesTypes {
+        ...referenceType
+      }
+    }
+
+    ${fragmentReferenceType}
+  `
+)
+
 const titresMetas = apiGraphQLFetch(
   gql`
     query TitresMetas {
@@ -202,6 +214,7 @@ const titreSupprimer = apiGraphQLFetch(gql`
 
 export {
   titreMetas,
+  titreCreationMetas,
   titresMetas,
   titre,
   titres,
