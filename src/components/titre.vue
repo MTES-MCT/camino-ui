@@ -157,12 +157,6 @@ export default {
       }
     },
 
-    loaded: function () {
-      const tabId = this.$route.params.tabId
-      if (!tabId) return
-      this.$store.commit('titre/openTab', tabId)
-    },
-
     user: 'get'
   },
 

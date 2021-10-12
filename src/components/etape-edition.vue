@@ -253,8 +253,7 @@ export default {
 
       if (this.isFormComplete) {
         await this.$store.dispatch('titreEtapeEdition/upsert', {
-          etape: this.editedEtape,
-          tabId: this.$route.query['tab-id']
+          etape: this.editedEtape
         })
 
         this.eventTrack({

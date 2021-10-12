@@ -151,7 +151,7 @@ export default {
     etapeAdd() {
       this.$router.push({
         name: 'etape-creation',
-        query: { 'demarche-id': this.demarche.slug, 'tab-id': this.tabId }
+        query: { 'demarche-id': this.demarche.slug }
       })
 
       this.eventTrack({
