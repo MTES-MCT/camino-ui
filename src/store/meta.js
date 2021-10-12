@@ -1,26 +1,44 @@
 import metasIndex from './metas-definitions'
+import { nextTick } from 'vue'
 
 const state = {
-  elements: [],
-  definition: {},
-  entities: {}
+  elementsIndex: {},
+  elementsSelectedIndex: {}
+}
+
+const idsFind = (element, definition) =>
+  definition.ids
+    ? definition.ids.reduce((ids, id) => {
+        ids[id] = element[id]
+
+        return ids
+      }, {})
+    : { id: element.id }
+
+const getters = {
+  elements: state => id => state.elementsIndex[id],
+  elementSelected: state => id => state.elementsSelectedIndex[id]
 }
 
 const actions = {
-  async get({ dispatch, commit }, id) {
+  async get({ dispatch, commit, state }, id) {
     try {
       commit('loadingAdd', 'metaGet', { root: true })
 
       if (metasIndex[id]) {
         const definition = metasIndex[id]
         const elements = await definition.get()
-        commit('set', { elements, definition })
+        commit('set', { id, elements })
 
-        for (const colonne of metasIndex[id].colonnes) {
-          if (colonne.type === 'entities' && colonne.entities) {
+        for (const colonne of definition.colonnes) {
+          if (
+            colonne.type === 'entities' &&
+            colonne.entities &&
+            !state.elementsIndex[colonne.entities]
+          ) {
             const entities = await metasIndex[colonne.entities].get()
 
-            commit('setEntities', { id: colonne.entities, entities })
+            commit('set', { id: colonne.entities, elements: entities })
           }
         }
       }
@@ -31,15 +49,20 @@ const actions = {
     }
   },
 
-  async update({ dispatch, commit }, { id, element }) {
+  async update({ dispatch, commit, state }, { id, element, partialElement }) {
     try {
       commit('loadingAdd', 'metaUpdate', { root: true })
 
       if (metasIndex[id]) {
         const definition = metasIndex[id]
-        const elements = await definition.update({ element })
+        const elements = await definition.update({
+          element: {
+            ...partialElement,
+            ...idsFind(element, definition)
+          }
+        })
 
-        commit('set', { elements, definition })
+        commit('set', { id, elements })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -56,7 +79,8 @@ const actions = {
         const definition = metasIndex[id]
         const elements = await definition.create({ element })
 
-        commit('set', { elements, definition })
+        commit('set', { id, elements })
+        commit('elementSelectedSet', { id, element })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -65,15 +89,27 @@ const actions = {
     }
   },
 
-  async delete({ dispatch, commit }, { id, element }) {
+  elementSelect({ dispatch, commit }, { id, element }) {
+    commit('elementSelectedSet', { id, element: null })
+    nextTick(() => {
+      commit('elementSelectedSet', { id, element })
+    })
+  },
+
+  async delete({ dispatch, commit, state }, { id, element }) {
     commit('loadingAdd', 'metaDelete', { root: true })
 
     try {
       if (metasIndex[id]) {
         const definition = metasIndex[id]
-        const elements = await definition.delete({ element })
+        const elements = await definition.delete({
+          element: {
+            ...idsFind(element, definition)
+          }
+        })
 
-        commit('set', { elements, definition })
+        commit('set', { id, elements })
+        commit('elementSelectedSet', { id, element: null })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -85,18 +121,16 @@ const actions = {
 
 const mutations = {
   reset(state) {
-    state.elements = []
-    state.definition = {}
-    state.entities = {}
+    state.elementsIndex = {}
+    state.elementsSelectedIndex = {}
   },
 
-  set(state, { elements, definition }) {
-    state.elements = elements
-    state.definition = definition
+  set(state, { id, elements }) {
+    state.elementsIndex[id] = elements
   },
 
-  setEntities(state, { id, entities }) {
-    state.entities[id] = entities
+  elementSelectedSet(state, { id, element }) {
+    state.elementsSelectedIndex[id] = element
   }
 }
 
@@ -104,5 +138,6 @@ export default {
   namespaced: true,
   state,
   actions,
-  mutations
+  mutations,
+  getters
 }

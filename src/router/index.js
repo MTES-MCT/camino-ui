@@ -11,6 +11,7 @@ const Entreprises = () => import('../components/entreprises.vue')
 const Administration = () => import('../components/administration.vue')
 const Administrations = () => import('../components/administrations.vue')
 const Meta = () => import('../components/meta.vue')
+const MetaDemarche = () => import('../components/meta-demarche.vue')
 const Metas = () => import('../components/metas.vue')
 const Activite = () => import('../components/activite.vue')
 const Activites = () => import('../components/activites.vue')
@@ -107,6 +108,11 @@ const routes = [
     path: '/metas',
     name: 'metas',
     component: Metas
+  },
+  {
+    path: '/metas/demarche',
+    name: 'meta-demarche',
+    component: MetaDemarche
   },
   {
     path: '/metas/:id',

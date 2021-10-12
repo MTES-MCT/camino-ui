@@ -768,6 +768,11 @@ const metasIndex = {
       }
     ],
     ids: ['activiteTypeId', 'paysId']
+  },
+
+  demarche: {
+    nom: 'Démarche',
+    linkName: 'meta-demarche'
   }
 }
 

@@ -32,40 +32,9 @@
                 :key="colonne.id"
                 :class="colonne.class"
               >
-                <input
-                  v-if="colonne.type === Number"
-                  v-model.number="elementNew[colonne.id]"
-                  type="number"
-                  class="px-s py-xs mb-s text-right"
-                  min="1"
-                />
-                <InputDate
-                  v-else-if="colonne.type === Date"
-                  v-model="elementNew[colonne.id]"
-                  class="mb-s"
-                  :padding="'px-s py-xs'"
-                />
-                <input
-                  v-else-if="colonne.type === Boolean"
-                  v-model="elementNew[colonne.id]"
-                  type="checkbox"
-                  class="px-s py-xs mb-s"
-                />
+                <!--                FIXME bouger ça dans MetaInput-->
                 <select
-                  v-else-if="colonne.type === Array"
-                  v-model="elementNew[colonne.id]"
-                  class="py-xs px-s mb-s"
-                >
-                  <option
-                    v-for="element in colonne.elements"
-                    :key="element"
-                    :value="element"
-                  >
-                    {{ element }}
-                  </option>
-                </select>
-                <select
-                  v-else-if="colonne.type === 'entities'"
+                  v-if="colonne.type === 'entities'"
                   v-model="elementNew[colonne.id]"
                   class="py-xs px-s mb-s"
                 >
@@ -77,18 +46,8 @@
                     {{ entityLabelGet(colonne, entity) }}
                   </option>
                 </select>
-                <textarea
-                  v-else-if="colonne.type === String || colonne.type === 'json'"
-                  v-model="elementNew[colonne.id]"
-                  rows="1"
-                  class="px-s py-xs mb-s"
-                />
-                <input
-                  v-else
-                  v-model="elementNew[colonne.id]"
-                  type="text"
-                  class="px-s py-xs mb-s"
-                />
+                <MetaInput v-else v-model:element="element" :colonne="colonne">
+                </MetaInput>
               </td>
               <td>
                 <button
@@ -103,40 +62,18 @@
 
             <tr v-for="element in elements" :key="elementKeyFind(element)">
               <td v-for="colonne in definition.colonnes" :key="colonne.id">
-                <div v-if="definition.update && colonne.type === 'entities'">
-                  {{ entityIdLabelGet(colonne, element[colonne.id]) }}
-                </div>
-                <EditNumber
-                  v-else-if="definition.update && colonne.type === Number"
-                  :value="element[colonne.id]"
-                  @update="update($event, element, colonne.id)"
-                />
-                <EditDate
-                  v-else-if="definition.update && colonne.type === Date"
-                  :value="element[colonne.id] || ''"
-                  @update="update($event, element, colonne.id)"
-                />
-                <EditBoolean
-                  v-else-if="definition.update && colonne.type === Boolean"
-                  :value="element[colonne.id] || false"
-                  @update="update($event, element, colonne.id)"
-                />
-                <EditArray
-                  v-else-if="definition.update && colonne.type === Array"
-                  :value="element[colonne.id] || ''"
-                  :elements="colonne.elements"
-                  @update="update($event, element, colonne.id)"
-                />
-                <EditJson
-                  v-else-if="definition.update && colonne.type === 'json'"
-                  :value="element[colonne.id]"
-                  @update="update($event, element, colonne.id)"
-                />
-                <EditString
-                  v-else-if="definition.update && colonne.type === String"
-                  :value="element[colonne.id] || ''"
-                  @update="update($event, element, colonne.id)"
-                />
+                <template v-if="definition.update">
+                  <div v-if="colonne.type === 'entities'">
+                    {{ entityIdLabelGet(colonne, element[colonne.id]) }}
+                  </div>
+                  <MetaLabelOrInput
+                    v-else
+                    :colonne="colonne"
+                    :element="element"
+                    @update="update"
+                  >
+                  </MetaLabelOrInput>
+                </template>
                 <div v-else>{{ element[colonne.id] }}</div>
               </td>
               <td v-if="definition.delete || definition.create">
@@ -158,25 +95,15 @@
 
 <script>
 import Loader from './_ui/loader.vue'
-import EditString from './_ui/edit-string.vue'
-import EditJson from './_ui/edit-json.vue'
-import EditNumber from './_ui/edit-number.vue'
-import EditArray from './_ui/edit-array.vue'
-import EditBoolean from './_ui/edit-boolean.vue'
-import EditDate from './_ui/edit-date.vue'
-import InputDate from './_ui/input-date.vue'
 import metasIndex from '../store/metas-definitions'
+import MetaLabelOrInput from './metas/meta-label-or-input.vue'
+import MetaInput from './metas/meta-input.vue'
 
 export default {
   components: {
     Loader,
-    EditString,
-    EditNumber,
-    EditArray,
-    EditBoolean,
-    EditDate,
-    InputDate,
-    EditJson
+    MetaLabelOrInput,
+    MetaInput
   },
 
   data() {
@@ -186,16 +113,20 @@ export default {
   },
 
   computed: {
+    id() {
+      return this.$route.params.id
+    },
+
     elements() {
-      return this.$store.state.meta.elements
+      return this.$store.getters['meta/elements'](this.id)
     },
 
     definition() {
-      return this.$store.state.meta.definition
+      return metasIndex[this.id]
     },
 
     entities() {
-      return this.$store.state.meta.entities
+      return this.$store.state.meta.elementsIndex
     },
 
     user() {
@@ -236,21 +167,22 @@ export default {
       if (!this.user || !this.user.sections || !this.user.sections.metas) {
         await this.$store.dispatch('pageError')
       } else {
-        await this.$store.dispatch('meta/get', this.$route.params.id)
+        await this.$store.dispatch('meta/get', this.id)
       }
     },
 
     async update(content, element, colonneId) {
       await this.$store.dispatch('meta/update', {
-        id: this.$route.params.id,
-        element: { [colonneId]: content, ...this.idsFind(element) }
+        id: this.id,
+        partialElement: { [colonneId]: content },
+        element
       })
     },
 
     async create() {
       await this.$store
         .dispatch('meta/create', {
-          id: this.$route.params.id,
+          id: this.id,
           element: this.elementNew
         })
         .then(_ => {
@@ -260,19 +192,9 @@ export default {
 
     async remove(element) {
       await this.$store.dispatch('meta/delete', {
-        id: this.$route.params.id,
-        element: this.idsFind(element)
+        id: this.id,
+        element
       })
-    },
-
-    idsFind(element) {
-      return this.definition.ids
-        ? this.definition.ids.reduce((ids, id) => {
-            ids[id] = element[id]
-
-            return ids
-          }, {})
-        : { id: element.id }
     },
 
     elementKeyFind(element) {
