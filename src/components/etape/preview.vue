@@ -177,7 +177,6 @@ export default {
     },
 
     etapeIsDemandeEnConstruction() {
-      if (this.demarcheType.travaux) return false
       return this.etape.type.id === 'mfr' && this.etape.statut.id === 'aco'
     },
 
@@ -213,7 +212,6 @@ export default {
     },
 
     demandeHelp() {
-      if (this.demarcheType.travaux) return null
       if (!this.userIsAdmin && this.etape.type.id === 'mfr') {
         if (
           this.domaineId === 'm' &&

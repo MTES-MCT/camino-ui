@@ -215,7 +215,13 @@ const metasIndex = {
       { id: 'substances', nom: 'Substances', type: Boolean, optional: true },
       { id: 'titulaires', nom: 'Titulaires', type: Boolean, optional: true },
       { id: 'exception', nom: 'Exception', type: Boolean, optional: true },
-      { id: 'renouvelable', nom: 'Renouvelable', type: Boolean, optional: true }
+      {
+        id: 'renouvelable',
+        nom: 'Renouvelable',
+        type: Boolean,
+        optional: true
+      },
+      { id: 'travaux', nom: 'Travaux', type: Boolean, optional: true }
     ]
   },
   'titres-types--demarches-types': {

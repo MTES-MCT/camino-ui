@@ -175,7 +175,6 @@ export default {
     },
 
     etapeIsDemandeEnConstruction() {
-      if (this.demarcheType.travaux) return false
       return (
         this.etapeType?.id === 'mfr' && this.editedEtape?.statutId !== 'dep'
       )
@@ -203,7 +202,6 @@ export default {
     },
 
     armHelpVisible() {
-      if (this.demarcheType.travaux) return false
       return (
         !this.userIsAdmin &&
         this.domaineId === 'm' &&
