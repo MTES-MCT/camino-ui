@@ -18,7 +18,9 @@
 
         <span class="ml-m">
           <ButtonPlus
-            v-if="definition.create  && (rootComponent || definitionsTree.joinTable)"
+            v-if="
+              definition.create && (rootComponent || definitionsTree.joinTable)
+            "
             class="btn rnd-xs p-s"
             @click="elementCreate"
           />
@@ -47,6 +49,7 @@
         :key="definitionChild.joinTable"
         :definitions-tree="definitionChild"
         :foreign-keys="foreignKeysNew"
+        :root-component="false"
       />
     </template>
   </template>
@@ -68,7 +71,7 @@ export default defineComponent({
   props: {
     definitionsTree: { type: Object, required: true },
     foreignKeys: { type: Object, default: () => ({}) },
-    rootComponent: { type: Boolean, default: false }
+    rootComponent: { type: Boolean, default: true }
   },
   data() {
     return {

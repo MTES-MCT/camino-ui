@@ -20,34 +20,22 @@ export default defineComponent({
   data() {
     return {
       definitionsTree: {
-        id: 'etapes-types',
-        foreignKey: 'etapeTypeId',
+        id: 'titres-types',
+        foreignKey: 'titreTypeId',
         definitions: [
           {
-            id: 'etapes-statuts',
-            foreignKey: 'etapeStatutId',
-            joinTable: 'etapes-types--etapes-statuts',
-            definitions: []
+            id: 'titres-statuts',
+            foreignKey: 'titreStatutId',
+            joinTable: 'titre-types--titres-statuts'
           },
           {
-            id: 'documents-types',
-            foreignKey: 'documentTypeId',
-            joinTable: 'etapes-types--documents-types',
-            definitions: []
-          },
-          {
-            id: 'documents-types',
-            foreignKey: 'documentTypeId',
-            joinTable: 'etapes-types--justificatifs-types',
-            definitions: []
-          },
-          {
-            id: 'titres-types',
-            foreignKey: 'titreTypeId',
+            id: 'demarches-types',
+            foreignKey: 'demarcheTypeId',
+            joinTable: 'titres-types--demarches-types',
             definitions: [
               {
-                id: 'demarches-types',
-                foreignKey: 'demarcheTypeId',
+                id: 'etapes-types',
+                foreignKey: 'etapeTypeId',
                 joinTable: 'titres-types--demarches-types--etapes-types',
                 definitions: [
                   {
