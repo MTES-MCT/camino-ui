@@ -6,7 +6,7 @@
       </div>
 
       <div class="mb tablet-blob-2-3">
-        <select :value="null" class="p-s" @change="selectChange">
+        <select :value="elementSelected?.id" class="p-s" @change="selectChange">
           <option
             v-for="element in elements"
             :key="element.id"
@@ -102,9 +102,11 @@ export default defineComponent({
         )
         .map(joinRow => joinRow[this.definitionsTree.foreignKey])
 
-      return this.$store.getters['meta/elements'](
-        this.definitionsTree.id
-      ).filter(({ id }) => elementIdsFiltered.includes(id))
+      return (
+        this.$store.getters['meta/elements'](this.definitionsTree.id)?.filter(
+          ({ id }) => elementIdsFiltered.includes(id)
+        ) || []
+      )
     },
 
     colonnesToEdit() {
@@ -147,14 +149,15 @@ export default defineComponent({
     this.loaded = true
   },
 
+  async unmounted() {
+    await this.elementSelect(null)
+  },
+
   methods: {
     async selectChange(event) {
       const elementId = event.target.value
       const element = this.elements.find(({ id }) => id === elementId)
-      await this.$store.dispatch('meta/elementSelect', {
-        id: this.definitionsTree.joinTable || this.definitionsTree.id,
-        element
-      })
+      await this.elementSelect(element)
     },
     async update(content: string, element: any, colonneId: string) {
       await this.$store.dispatch('meta/update', {
@@ -166,6 +169,12 @@ export default defineComponent({
     labelGet(element: any) {
       return metasIndex[this.definitionsTree.id].labelGet(element)
     },
+    async elementSelect(element) {
+      await this.$store.dispatch('meta/elementSelect', {
+        id: this.definitionsTree.joinTable || this.definitionsTree.id,
+        element
+      })
+    },
     async elementDelete(element) {
       await this.$store.dispatch('meta/delete', {
         id: this.definitionsTree.joinTable || this.definitionsTree.id,
@@ -176,8 +185,10 @@ export default defineComponent({
       this.$store.commit('popupOpen', {
         component: MetaCreatePopup,
         props: {
-          id: this.definitionsTree.joinTable || this.definitionsTree.id,
-          foreignKeys: this.foreignKeys
+          id: this.definitionsTree.id,
+          joinTable: this.definitionsTree.joinTable || this.definitionsTree.id,
+          foreignKeys: this.foreignKeys,
+          foreignKey: this.definitionsTree.foreignKey
         }
       })
     }

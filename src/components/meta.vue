@@ -32,21 +32,7 @@
                 :key="colonne.id"
                 :class="colonne.class"
               >
-                <!--                FIXME bouger ça dans MetaInput-->
-                <select
-                  v-if="colonne.type === 'entities'"
-                  v-model="elementNew[colonne.id]"
-                  class="py-xs px-s mb-s"
-                >
-                  <option
-                    v-for="entity in entitiesGet(colonne)"
-                    :key="entity.id"
-                    :value="entity.id"
-                  >
-                    {{ entityLabelGet(colonne, entity) }}
-                  </option>
-                </select>
-                <MetaInput v-else v-model:element="element" :colonne="colonne">
+                <MetaInput v-model:element="element" :colonne="colonne">
                 </MetaInput>
               </td>
               <td>
@@ -138,9 +124,9 @@ export default {
     },
 
     elementNewComplete() {
-      return this.definition.colonnes.reduce((acc, c) => {
-        return acc && (!!this.elementNew[c.id] || c.optional)
-      }, true)
+      return this.definition.colonnes.every(
+        c => !!this.elementNew[c.id] || c.optional
+      )
     }
   },
 
@@ -203,18 +189,10 @@ export default {
       return this.definition.ids.map(id => element[id]).join('-')
     },
 
-    entitiesGet(colonne) {
-      return this.entities[colonne.entities]
-    },
-
     entityIdLabelGet(colonne, entityId) {
       const entity = this.entities[colonne.entities]?.find(
         ({ id }) => entityId === id
       )
-      return this.entityLabelGet(colonne, entity)
-    },
-
-    entityLabelGet(colonne, entity) {
       return entity ? metasIndex[colonne.entities].labelGet(entity) : ''
     }
   }

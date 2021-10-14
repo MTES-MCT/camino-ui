@@ -59,7 +59,9 @@ export default defineComponent({
 
   props: {
     id: { type: String, required: true },
-    foreignKeys: { type: Object, required: true }
+    foreignKeys: { type: Object, required: true },
+    joinTable: { type: String, required: true },
+    foreignKey: { type: String, required: true }
   },
 
   data() {
@@ -78,15 +80,17 @@ export default defineComponent({
     },
 
     colonnesToEdit() {
-      return metasIndex[this.id].colonnes.filter(
-        // FIXME virer les foreignKeys déjà renseignées
-        colonne => colonne.type !== 'entities'
+      const keys = Object.keys(this.foreignKeys)
+
+      return metasIndex[this.joinTable].colonnes.filter(
+        colonne => !keys.includes(colonne.id)
       )
     },
 
     complete() {
-      // TODO
-      return true
+      return metasIndex[this.joinTable].colonnes.every(
+        c => !!this.element[c.id] || c.optional
+      )
     }
   },
 
@@ -104,8 +108,11 @@ export default defineComponent({
       if (this.complete) {
         await this.$store.dispatch('meta/create', {
           id: this.id,
-          element: this.element
+          element: this.element,
+          joinTable: this.joinTable,
+          foreignKey: this.foreignKey
         })
+        this.$store.commit('popupClose')
       }
     },
 

@@ -1,8 +1,21 @@
 <template>
   <div>
     <slot></slot>
+    <select
+      v-if="colonne.type === 'entities'"
+      v-model="element[colonne.id]"
+      class="py-xs px-s mb-s"
+    >
+      <option
+        v-for="entity in entitiesGet(colonne)"
+        :key="entity.id"
+        :value="entity.id"
+      >
+        {{ entityLabelGet(colonne, entity) }}
+      </option>
+    </select>
     <input
-      v-if="colonne.type === Number"
+      v-else-if="colonne.type === Number"
       v-model.number="element[colonne.id]"
       type="number"
       class="px-s py-xs mb-s text-right"
@@ -47,12 +60,28 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import InputDate from '@/components/_ui/input-date.vue'
+import metasIndex from '@/store/metas-definitions'
 
 export default defineComponent({
   components: { InputDate },
   props: {
     colonne: { type: Object, required: true },
     element: { type: Object, required: true }
+  },
+
+  computed: {
+    entities() {
+      return this.$store.state.meta.elementsIndex
+    }
+  },
+
+  methods: {
+    entitiesGet(colonne) {
+      return this.entities[colonne.entities]
+    },
+    entityLabelGet(colonne, entity) {
+      return entity ? metasIndex[colonne.entities].labelGet(entity) : ''
+    }
   }
 })
 </script>

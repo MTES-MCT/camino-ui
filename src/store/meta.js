@@ -71,16 +71,27 @@ const actions = {
     }
   },
 
-  async create({ dispatch, commit }, { id, element }) {
+  async create(
+    { dispatch, commit, state },
+    { id, element, joinTable, foreignKey }
+  ) {
     try {
       commit('loadingAdd', 'metaCreate', { root: true })
 
-      if (metasIndex[id]) {
-        const definition = metasIndex[id]
+      if (metasIndex[joinTable]) {
+        const definition = metasIndex[joinTable]
         const elements = await definition.create({ element })
 
-        commit('set', { id, elements })
-        commit('elementSelectedSet', { id, element })
+        commit('set', { id: joinTable, elements })
+
+        const elementSelected = state.elementsIndex[id].find(
+          e => e.id === element[foreignKey]
+        )
+
+        dispatch('elementSelect', {
+          id: joinTable,
+          element: elementSelected
+        })
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -91,9 +102,11 @@ const actions = {
 
   elementSelect({ dispatch, commit }, { id, element }) {
     commit('elementSelectedSet', { id, element: null })
-    nextTick(() => {
-      commit('elementSelectedSet', { id, element })
-    })
+    if (element) {
+      nextTick(() => {
+        commit('elementSelectedSet', { id, element })
+      })
+    }
   },
 
   async delete({ dispatch, commit, state }, { id, element }) {
@@ -126,11 +139,14 @@ const mutations = {
   },
 
   set(state, { id, elements }) {
-    state.elementsIndex[id] = elements
+    state.elementsIndex = { ...state.elementsIndex, [id]: elements }
   },
 
   elementSelectedSet(state, { id, element }) {
-    state.elementsSelectedIndex[id] = element
+    state.elementsSelectedIndex = {
+      ...state.elementsSelectedIndex,
+      [id]: element
+    }
   }
 }
 
