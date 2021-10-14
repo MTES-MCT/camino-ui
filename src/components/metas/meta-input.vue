@@ -66,7 +66,8 @@ export default defineComponent({
   components: { InputDate },
   props: {
     colonne: { type: Object, required: true },
-    element: { type: Object, required: true }
+    element: { type: Object, required: true },
+    joinTable: { type: String, default: '' }
   },
 
   computed: {
@@ -77,7 +78,21 @@ export default defineComponent({
 
   methods: {
     entitiesGet(colonne) {
-      return this.entities[colonne.entities]
+      const entities = this.entities[colonne.entities]
+      if (!this.joinTable) {
+        return entities
+      }
+
+      const definitions = metasIndex[this.joinTable]
+      const idsUsed = this.entities[this.joinTable]
+        .filter(e =>
+          definitions.ids.every(
+            id => id === colonne.id || e[id] === this.element[id]
+          )
+        )
+        .map(e => e[colonne.id])
+
+      return entities.filter(e => !idsUsed.includes(e.id))
     },
     entityLabelGet(colonne, entity) {
       return entity ? metasIndex[colonne.entities].labelGet(entity) : ''

@@ -12,6 +12,7 @@
         :key="colonne.id"
         v-model:element="element"
         :colonne="colonne"
+        :join-table="joinTable"
         class="blob-1-4"
       >
         {{ colonne.nom }}
