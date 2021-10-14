@@ -773,6 +773,11 @@ const metasIndex = {
   demarche: {
     nom: 'Démarche',
     linkName: 'meta-demarche'
+  },
+
+  etape: {
+    nom: 'Étape',
+    linkName: 'meta-etape'
   }
 }
 

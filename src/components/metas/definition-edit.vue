@@ -18,7 +18,7 @@
 
         <span class="ml-m">
           <ButtonPlus
-            v-if="definition.create"
+            v-if="definition.create  && (rootComponent || definitionsTree.joinTable)"
             class="btn rnd-xs p-s"
             @click="elementCreate"
           />
@@ -27,20 +27,21 @@
     </div>
 
     <template v-if="elementSelected">
-      <button v-if="definition.delete" @click="elementDelete(elementToEdit)">
-        Supprimer
-      </button>
-      <MetaLabelOrInput
-        v-for="colonne of colonnesToEdit"
-        :key="colonne.id"
-        :colonne="colonne"
-        :element="elementToEdit"
-        @update="update"
-      >
-        {{ colonne.nom }}
-      </MetaLabelOrInput>
+      <template v-if="rootComponent || definitionsTree.joinTable">
+        <button v-if="definition.delete" @click="elementDelete(elementToEdit)">
+          Supprimer
+        </button>
+        <MetaLabelOrInput
+          v-for="colonne of colonnesToEdit"
+          :key="colonne.id"
+          :colonne="colonne"
+          :element="elementToEdit"
+          @update="update"
+        >
+          {{ colonne.nom }}
+        </MetaLabelOrInput>
+      </template>
       <span class="separator" />
-
       <DefinitionEdit
         v-for="definitionChild of definitionsTree.definitions"
         :key="definitionChild.joinTable"
@@ -66,7 +67,8 @@ export default defineComponent({
   },
   props: {
     definitionsTree: { type: Object, required: true },
-    foreignKeys: { type: Object, default: () => ({}) }
+    foreignKeys: { type: Object, default: () => ({}) },
+    rootComponent: { type: Boolean, default: false }
   },
   data() {
     return {
