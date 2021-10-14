@@ -72,27 +72,6 @@ import {
 } from '../api/metas'
 
 import {
-  travauxTypes,
-  travauxTypeModifier,
-  travauxEtapesTypes,
-  travauxEtapeTypeModifier,
-  travauxTypesTravauxEtapesTypes,
-  travauxTypeTravauxEtapeTypeModifier,
-  travauxTypeTravauxEtapeTypeCreer,
-  travauxTypeTravauxEtapeTypeSupprimer,
-  travauxEtapesTypesDocumentsTypes,
-  travauxEtapeTypeDocumentTypeModifier,
-  travauxEtapeTypeDocumentTypeCreer,
-  travauxEtapeTypeDocumentTypeSupprimer,
-  travauxEtapesTypesEtapesStatuts,
-  travauxEtapeTypeEtapeStatutModifier,
-  travauxEtapeTypeEtapeStatutCreer,
-  travauxEtapeTypeEtapeStatutSupprimer,
-  travauxTypeCreer,
-  travauxEtapeTypeCreer
-} from '../api/metas-travaux'
-
-import {
   activitesTypes,
   activiteTypeModifier,
   activitesStatuts,
@@ -236,7 +215,13 @@ const metasIndex = {
       { id: 'substances', nom: 'Substances', type: Boolean, optional: true },
       { id: 'titulaires', nom: 'Titulaires', type: Boolean, optional: true },
       { id: 'exception', nom: 'Exception', type: Boolean, optional: true },
-      { id: 'renouvelable', nom: 'Renouvelable', type: Boolean, optional: true }
+      {
+        id: 'renouvelable',
+        nom: 'Renouvelable',
+        type: Boolean,
+        optional: true
+      },
+      { id: 'travaux', nom: 'Travaux', type: Boolean, optional: true }
     ]
   },
   'titres-types--demarches-types': {
@@ -563,101 +548,6 @@ const metasIndex = {
       { id: 'description', nom: 'Description', type: String, optional: true }
     ],
     ids: ['etapeTypeId', 'documentTypeId']
-  },
-  'travaux-types': {
-    get: travauxTypes,
-    create: travauxTypeCreer,
-    update: travauxTypeModifier,
-    labelGet,
-    nom: 'Types des travaux',
-    colonnes: [
-      { id: 'id', nom: 'Id' },
-      { id: 'nom', nom: 'Nom', type: String },
-      { id: 'description', nom: 'Description', type: String, optional: true },
-      { id: 'ordre', nom: 'Ordre', type: Number }
-    ]
-  },
-  'travaux-etapes-types': {
-    get: travauxEtapesTypes,
-    create: travauxEtapeTypeCreer,
-    update: travauxEtapeTypeModifier,
-    labelGet,
-    nom: 'Types des étapes de travaux',
-    colonnes: [
-      { id: 'id', nom: 'Id' },
-      { id: 'nom', nom: 'Nom', type: String },
-      { id: 'description', nom: 'Description', type: String, optional: true },
-      { id: 'ordre', nom: 'Ordre', type: Number }
-    ]
-  },
-  'travaux-types--travaux-etapes-types': {
-    get: travauxTypesTravauxEtapesTypes,
-    update: travauxTypeTravauxEtapeTypeModifier,
-    create: travauxTypeTravauxEtapeTypeCreer,
-    delete: travauxTypeTravauxEtapeTypeSupprimer,
-    nom: 'Types des travaux | Types des étapes de travaux',
-    colonnes: [
-      {
-        id: 'travauxTypeId',
-        nom: 'Id - Nom du type de travaux',
-        type: 'entities',
-        entities: 'travaux-types'
-      },
-      {
-        id: 'travauxEtapeTypeId',
-        nom: "Id - Nom du type d'étape de travaux",
-        type: 'entities',
-        entities: 'travaux-etapes-types'
-      },
-      { id: 'ordre', nom: 'Ordre', type: Number }
-    ],
-    ids: ['travauxTypeId', 'travauxEtapeTypeId']
-  },
-  'travaux-etapes-types--documents-types': {
-    get: travauxEtapesTypesDocumentsTypes,
-    update: travauxEtapeTypeDocumentTypeModifier,
-    create: travauxEtapeTypeDocumentTypeCreer,
-    delete: travauxEtapeTypeDocumentTypeSupprimer,
-    nom: 'Types des étapes de travaux | Types des documents',
-    colonnes: [
-      {
-        id: 'travauxEtapeTypeId',
-        nom: "Id - Nom du type d'étape de travaux",
-        type: 'entities',
-        entities: 'travaux-etapes-types'
-      },
-      {
-        id: 'documentTypeId',
-        nom: 'Id - Nom du type de document',
-        type: 'entities',
-        entities: 'documents-types'
-      },
-      { id: 'optionnel', nom: 'Optionnel', type: Boolean, optional: true }
-    ],
-    ids: ['travauxEtapeTypeId', 'documentTypeId']
-  },
-  'travaux-etapes-types--etapes-statuts': {
-    get: travauxEtapesTypesEtapesStatuts,
-    update: travauxEtapeTypeEtapeStatutModifier,
-    create: travauxEtapeTypeEtapeStatutCreer,
-    delete: travauxEtapeTypeEtapeStatutSupprimer,
-    nom: 'Types des étapes de travaux | Statuts des étapes',
-    colonnes: [
-      {
-        id: 'travauxEtapeTypeId',
-        nom: "Id - Nom du type d'étape de travaux",
-        type: 'entities',
-        entities: 'travaux-etapes-types'
-      },
-      {
-        id: 'etapeStatutId',
-        nom: "Id - Nom du statut d'étape",
-        type: 'entities',
-        entities: 'etapes-statuts'
-      },
-      { id: 'ordre', nom: 'Ordre', type: Number }
-    ],
-    ids: ['travauxEtapeTypeId', 'etapeStatutId']
   },
   devises: {
     get: devises,

@@ -86,7 +86,8 @@ export default {
     titreNom: { type: String, required: true },
     titreId: { type: String, required: true },
     titreType: { type: Object, required: true },
-    domaineId: { type: String, required: true }
+    domaineId: { type: String, required: true },
+    tabId: { type: String, required: true }
   },
 
   emits: ['titre-event-track'],
@@ -94,6 +95,12 @@ export default {
   computed: {
     etapeOpened() {
       return this.$store.state.titre.opened.etapes
+    },
+
+    eventPrefix() {
+      return this.tabId && this.tabId === 'travaux'
+        ? 'titre-travaux'
+        : 'titre-demarche'
     }
   },
 
@@ -111,13 +118,14 @@ export default {
           demarche,
           types: this.titreType.demarchesTypes,
           titreTypeNom: this.titreType.type.nom,
-          titreNom: this.titreNom
+          titreNom: this.titreNom,
+          tabId: this.tabId
         }
       })
 
       this.eventTrack({
         categorie: 'titre-sections',
-        action: 'titre-demarche_editer',
+        action: `${this.eventPrefix}_editer`,
         nom: this.$route.params.id
       })
     },
@@ -135,7 +143,7 @@ export default {
 
       this.eventTrack({
         categorie: 'titre-sections',
-        action: 'titre-demarche_supprimer',
+        action: `${this.eventPrefix}_supprimer`,
         nom: this.$route.params.id
       })
     },

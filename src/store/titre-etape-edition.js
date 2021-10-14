@@ -198,6 +198,9 @@ const actions = {
         data = await etapeCreer({ etape: etapeEditFormatted })
       }
 
+      const tabId =
+        state.metas.demarche?.type?.travaux === true ? 'travaux' : 'demarches'
+
       const routerOptions = {
         name: 'titre',
         params: { id: data.slug }
@@ -210,6 +213,7 @@ const actions = {
       await router.push(routerOptions)
 
       commit('titre/open', { section: 'etapes', id: etape.id }, { root: true })
+      commit('titre/openTab', tabId, { root: true })
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {

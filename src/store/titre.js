@@ -46,6 +46,14 @@ const getters = {
     }
 
     return tabs
+  },
+
+  demarches(state) {
+    return state.element.demarches.filter(d => !d.type.travaux)
+  },
+
+  travaux(state) {
+    return state.element.demarches.filter(d => d.type.travaux)
   }
 }
 

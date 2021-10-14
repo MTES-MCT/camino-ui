@@ -43,6 +43,7 @@ const titreEtapeMetas = apiGraphQLFetch(
       demarche(id: $titreDemarcheId) {
         id
         type {
+          travaux
           nom
         }
         titre {

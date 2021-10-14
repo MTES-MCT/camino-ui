@@ -12,7 +12,7 @@
           </span>
         </h6>
         <h2 class="cap-first">
-          {{ creation ? "Ajout d'une" : 'Modification de la' }} démarche
+          {{ label }}
         </h2>
       </div>
     </template>
@@ -74,7 +74,8 @@ export default {
     demarche: { type: Object, default: () => ({}) },
     titreNom: { type: String, default: '' },
     titreTypeNom: { type: String, default: '' },
-    creation: { type: Boolean, default: false }
+    creation: { type: Boolean, default: false },
+    tabId: { type: String, required: true }
   },
 
   computed: {
@@ -82,14 +83,20 @@ export default {
       return this.$store.state.popup.loading
     },
 
+    label() {
+      return `${
+        this.creation ? "Ajout d'une" : 'Modification de la'
+      } démarche ${this.tabId === 'travaux' ? 'de travaux' : ''}`
+    },
+
     messages() {
       return this.$store.state.popup.messages
     },
 
     types() {
-      return this.$store.state.titreDemarche.metas.types.filter(
-        t => t.demarchesCreation
-      )
+      return this.$store.state.titreDemarche.metas.types
+        .filter(t => (this.tabId === 'travaux' ? t.travaux : !t.travaux))
+        .filter(t => t.demarchesCreation)
     },
 
     complete() {
@@ -123,14 +130,13 @@ export default {
 
         this.eventTrack({
           categorie: 'titre-sections',
-          action: 'titre-demarche-enregistrer',
+          action: `titre-${this.tabId}-enregistrer`,
           nom: demarche.id
         })
       }
     },
 
     cancel() {
-      this.errorsRemove()
       this.$store.commit('popupClose')
     },
 
@@ -149,10 +155,6 @@ export default {
       if (this.$matomo) {
         this.$matomo.trackEvent(event.categorie, event.action, event.nom)
       }
-    },
-
-    errorsRemove() {
-      // this.$store.commit('utilisateur/loginMessagesRemove')
     }
   }
 }
