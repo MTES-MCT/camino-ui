@@ -1,9 +1,16 @@
 <template>
   <div class="desktop-blobs">
     <div class="desktop-blob-2-3">
-      <h1 class="mt-xs mb-m cap-first">métas</h1>
+      <router-link :to="{ name: 'metas' }">
+        <h5>Métas</h5>
+      </router-link>
+      <h1>
+        <span class="cap-first">Démarche</span>
+      </h1>
     </div>
   </div>
+
+  <div class="line-neutral width-full mb-m" />
 
   <DefinitionEdit :definitions-tree="definitionsTree" />
 </template>

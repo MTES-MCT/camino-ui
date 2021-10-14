@@ -1,11 +1,12 @@
 <template>
-  <template v-if="loaded">
+  <Loader v-if="!loaded" />
+  <template v-else>
     <div class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h4>{{ title }}</h4>
       </div>
 
-      <div class="mb tablet-blob-2-3 flex">
+      <div class="mb tablet-blob-2-3" :class="{ flex: hasButtonPlus }">
         <select :value="elementSelected?.id" class="p-s" @change="selectChange">
           <option
             v-for="element in elements"
@@ -18,9 +19,7 @@
 
         <span class="ml-m">
           <ButtonPlus
-            v-if="
-              definition.create && (rootComponent || definitionsTree.joinTable)
-            "
+            v-if="hasButtonPlus"
             class="btn rnd-xs p-s"
             @click="elementCreate"
           />
@@ -33,15 +32,17 @@
         <button v-if="definition.delete" @click="elementDelete(elementToEdit)">
           Supprimer
         </button>
-        <MetaLabelOrInput
-          v-for="colonne of colonnesToEdit"
-          :key="colonne.id"
-          :colonne="colonne"
-          :element="elementToEdit"
-          @update="update"
-        >
-          {{ colonne.nom }}
-        </MetaLabelOrInput>
+        <div class="tablet-blobs">
+          <MetaLabelOrInput
+            v-for="colonne of colonnesToEdit"
+            :key="colonne.id"
+            :colonne="colonne"
+            :element="elementToEdit"
+            @update="update"
+          >
+            {{ colonne.nom }}
+          </MetaLabelOrInput>
+        </div>
       </template>
       <span class="separator" />
       <DefinitionEdit
@@ -79,6 +80,9 @@ export default defineComponent({
     }
   },
   computed: {
+    hasButtonPlus() {
+      return this.definition.create && (this.rootComponent || this.definitionsTree.joinTable)
+    },
     title() {
       return (
         this.definition.colonnes.find(
