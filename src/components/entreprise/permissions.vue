@@ -63,13 +63,10 @@
                 </button>
               </td>
               <td>
-                <button
-                  class="btn p-xs rnd-xs"
+                <ButtonPlus
                   :disabled="!titreTypeNewActive"
                   @click="titreTypeNewUpdate"
-                >
-                  <i class="icon-24 icon-plus" />
-                </button>
+                />
               </td>
             </tr>
             <tr v-for="titreType in entreprise.titresTypes" :key="titreType.id">

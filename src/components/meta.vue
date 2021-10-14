@@ -36,13 +36,10 @@
                 </MetaInput>
               </td>
               <td>
-                <button
-                  class="btn p-xs rnd-xs"
+                <ButtonPlus
                   :disabled="!elementNewComplete"
                   @click="create"
-                >
-                  <i class="icon-24 icon-plus" />
-                </button>
+                />
               </td>
             </tr>
 
@@ -84,12 +81,14 @@ import Loader from './_ui/loader.vue'
 import metasIndex from '../store/metas-definitions'
 import MetaLabelOrInput from './metas/meta-label-or-input.vue'
 import MetaInput from './metas/meta-input.vue'
+import ButtonPlus from './_ui/button-plus.vue'
 
 export default {
   components: {
     Loader,
     MetaLabelOrInput,
-    MetaInput
+    MetaInput,
+    ButtonPlus
   },
 
   data() {

@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button class="btn rnd-xs p-s">
     <i class="icon-24 icon-plus" />
   </button>
 </template>

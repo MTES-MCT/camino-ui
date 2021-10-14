@@ -86,13 +86,10 @@
                 </button>
               </td>
               <td>
-                <button
-                  class="btn p-xs rnd-xs"
+                <ButtonPlus
                   :disabled="!titreTypeNewActive"
                   @click="titreTypeNewUpdate"
-                >
-                  <i class="icon-24 icon-plus" />
-                </button>
+                />
               </td>
             </tr>
             <tr
@@ -285,13 +282,10 @@
                 </button>
               </td>
               <td>
-                <button
-                  class="btn p-xs rnd-xs"
+                <ButtonPlus
                   :disabled="!titreTypeTitreStatutNewActive"
                   @click="titreTypeTitreStatutNewUpdate"
-                >
-                  <i class="icon-24 icon-plus" />
-                </button>
+                />
               </td>
             </tr>
 
@@ -514,13 +508,10 @@
                 </button>
               </td>
               <td>
-                <button
-                  class="btn p-xs rnd-xs"
+                <ButtonPlus
                   :disabled="!titreTypeEtapeTypeNewActive"
                   @click="titreTypeEtapeTypeNewUpdate"
-                >
-                  <i class="icon-24 icon-plus" />
-                </button>
+                />
               </td>
             </tr>
 
@@ -679,13 +670,10 @@
                 </button>
               </td>
               <td>
-                <button
-                  class="btn p-xs rnd-xs"
+                <ButtonPlus
                   :disabled="!activiteTypeNewActive"
                   @click="activiteTypeNewUpdate"
-                >
-                  <i class="icon-24 icon-plus" />
-                </button>
+                />
               </td>
             </tr>
             <tr
@@ -747,6 +735,7 @@
 <script>
 import CaminoDomaine from '../_common/domaine.vue'
 import Statut from '../_common/statut.vue'
+import ButtonPlus from '../_ui/button-plus.vue'
 
 export default {
   components: {

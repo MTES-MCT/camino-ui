@@ -20,7 +20,6 @@
         <span class="ml-m">
           <ButtonPlus
             v-if="hasButtonPlus"
-            class="btn rnd-xs p-s"
             @click="elementCreate"
           />
         </span>
@@ -29,9 +28,6 @@
 
     <template v-if="elementSelected">
       <template v-if="rootComponent || definitionsTree.joinTable">
-        <button v-if="definition.delete" @click="elementDelete(elementToEdit)">
-          Supprimer
-        </button>
         <div class="tablet-blobs">
           <MetaLabelOrInput
             v-for="colonne of colonnesToEdit"
@@ -42,6 +38,15 @@
           >
             {{ colonne.nom }}
           </MetaLabelOrInput>
+        </div>
+        <div class="flex blobs">
+          <button
+            v-if="definition.delete"
+            class="btn rnd-xs p-s flex-right blob-1-4"
+            @click="elementDelete(elementToEdit)"
+          >
+            Supprimer
+          </button>
         </div>
       </template>
       <span class="separator" />
