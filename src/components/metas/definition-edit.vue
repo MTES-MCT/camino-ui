@@ -1,12 +1,22 @@
 <template>
   <template v-if="loaded">
-    <div>{{ title }}</div>
+    <div class="tablet-blobs">
+      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h4>{{ title }}</h4>
+      </div>
 
-    <select :value="null" @change="selectChange">
-      <option v-for="element in elements" :key="element.id" :value="element.id">
-        {{ labelGet(element) }}
-      </option>
-    </select>
+      <div class="mb tablet-blob-2-3">
+        <select :value="null" class="p-s" @change="selectChange">
+          <option
+            v-for="element in elements"
+            :key="element.id"
+            :value="element.id"
+          >
+            {{ labelGet(element) }}
+          </option>
+        </select>
+      </div>
+    </div>
 
     <button v-if="definition.create" @click="elementCreate">Ajouter</button>
 
@@ -29,12 +39,12 @@
 
       <span class="separator" />
 
-      <definition-edit
+      <DefinitionEdit
         v-for="definitionChild of definitionsTree.definitions"
         :key="definitionChild.joinTable"
         :definitions-tree="definitionChild"
         :foreign-keys="foreignKeysNew"
-      ></definition-edit>
+      />
     </template>
   </template>
 </template>

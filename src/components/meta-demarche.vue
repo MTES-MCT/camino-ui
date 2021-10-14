@@ -1,5 +1,11 @@
 <template>
-  <definition-edit :definitions-tree="definitionsTree"></definition-edit>
+  <div class="desktop-blobs">
+    <div class="desktop-blob-2-3">
+      <h1 class="mt-xs mb-m cap-first">métas</h1>
+    </div>
+  </div>
+
+  <DefinitionEdit :definitions-tree="definitionsTree" />
 </template>
 
 <script lang="ts">
