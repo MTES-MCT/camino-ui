@@ -24,19 +24,15 @@
       <button v-if="definition.delete" @click="elementDelete(elementToEdit)">
         Supprimer
       </button>
-      <div class="blobs">
-        <MetaLabelOrInput
-          v-for="colonne of colonnesToEdit"
-          :key="colonne.id"
-          :colonne="colonne"
-          :element="elementToEdit"
-          class="blob-1-4"
-          @update="update"
-        >
-          {{ colonne.nom }}
-        </MetaLabelOrInput>
-      </div>
-
+      <MetaLabelOrInput
+        v-for="colonne of colonnesToEdit"
+        :key="colonne.id"
+        :colonne="colonne"
+        :element="elementToEdit"
+        @update="update"
+      >
+        {{ colonne.nom }}
+      </MetaLabelOrInput>
       <span class="separator" />
 
       <DefinitionEdit
