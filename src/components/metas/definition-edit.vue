@@ -5,7 +5,7 @@
         <h4>{{ title }}</h4>
       </div>
 
-      <div class="mb tablet-blob-2-3">
+      <div class="mb tablet-blob-2-3 flex">
         <select :value="elementSelected?.id" class="p-s" @change="selectChange">
           <option
             v-for="element in elements"
@@ -15,10 +15,16 @@
             {{ labelGet(element) }}
           </option>
         </select>
+
+        <span class="ml-m">
+          <ButtonPlus
+            v-if="definition.create"
+            class="btn rnd-xs p-s"
+            @click="elementCreate"
+          />
+        </span>
       </div>
     </div>
-
-    <button v-if="definition.create" @click="elementCreate">Ajouter</button>
 
     <template v-if="elementSelected">
       <button v-if="definition.delete" @click="elementDelete(elementToEdit)">
@@ -50,11 +56,13 @@ import { defineComponent } from 'vue'
 import metasIndex from '@/store/metas-definitions'
 import MetaCreatePopup from './meta-create-popup.vue'
 import MetaLabelOrInput from '@/components/metas/meta-label-or-input.vue'
+import ButtonPlus from '@/components/_ui/button-plus.vue'
 
 export default defineComponent({
   name: 'DefinitionEdit',
   components: {
-    MetaLabelOrInput
+    MetaLabelOrInput,
+    ButtonPlus
   },
   props: {
     definitionsTree: { type: Object, required: true },
