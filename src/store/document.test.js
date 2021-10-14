@@ -155,7 +155,7 @@ describe('documents', () => {
     })
 
     expect(apiMock).toHaveBeenCalledWith({
-      document: { nom: 'champs', typeId: 14, fichier: true }
+      document: { nom: 'champs', id: 14, typeId: 14, fichier: true }
     })
   })
 

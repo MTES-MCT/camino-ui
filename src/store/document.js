@@ -54,6 +54,7 @@ const actions = {
 
       if (!document.id) {
         d = await documentCreer({ document: documentToSend })
+        documentToSend.id = d.id
       } else {
         delete documentToSend.typeId
         d = await documentModifier({ document: documentToSend })
@@ -63,7 +64,7 @@ const actions = {
       await uploadCall(
         document.fichierNouveau,
         titreEtapeIdForEdit,
-        d.id,
+        documentToSend,
         progress => {
           commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
         }
