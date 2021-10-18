@@ -1,20 +1,14 @@
 <template>
-  <div class="desktop-blobs">
-    <div class="desktop-blob-2-3">
-      <h1 class="mt-xs mb-m cap-first">métas</h1>
-    </div>
-  </div>
-
-  <DefinitionEdit :definitions-tree="definitionsTree" />
+  <Metas title="Titre" :definitions-tree="definitionsTree" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import DefinitionEdit from '@/components/metas/definition-edit.vue'
+import Metas from '@/components/metas/meta-page-template.vue'
 
 export default defineComponent({
   components: {
-    DefinitionEdit
+    Metas
   },
 
   data() {
