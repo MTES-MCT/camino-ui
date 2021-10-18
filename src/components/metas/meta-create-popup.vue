@@ -13,7 +13,7 @@
         v-model:element="element"
         :colonne="colonne"
         :join-table="joinTable"
-        class="blob-1-4"
+        class="blob-1-2"
       >
         {{ colonne.nom }}
       </MetaInput>

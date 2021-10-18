@@ -43,8 +43,8 @@
           <button
             v-if="definition.delete"
             class="btn py-s px-m btn rnd-xs p-s flex-right"
-            @click="elementDelete(elementToEdit)"
             title="supprimer"
+            @click="elementDelete(elementToEdit)"
           >
             <i class="icon-24 icon-trash" />
           </button>
