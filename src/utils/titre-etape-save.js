@@ -181,7 +181,9 @@ const pointsBuild = (groupes, geoSystemeIds, geoSystemeOpposableId) => {
 
 const dureeBuild = (ans, mois) => (ans ? ans * 12 : 0) + (mois || 0)
 
-const demarcheOrTravauxEtapeSaveFormat = etape => {
+const etapeSaveFormat = etape => {
+  etape = JSON.parse(JSON.stringify(etape))
+
   etape.justificatifIds = etape.justificatifs?.map(({ id }) => id)
   etape.documentIds = etape.documents
     ?.filter(d => d.id !== d.typeId)
@@ -215,14 +217,6 @@ const demarcheOrTravauxEtapeSaveFormat = etape => {
 
   delete etape.suppression
   delete etape.modification
-
-  return etape
-}
-
-const etapeSaveFormat = etape => {
-  etape = JSON.parse(JSON.stringify(etape))
-
-  etape = demarcheOrTravauxEtapeSaveFormat(etape)
 
   delete etape.demarche
 
@@ -286,9 +280,4 @@ const etapeSaveFormat = etape => {
   return etape
 }
 
-export {
-  etapeSaveFormat,
-  pointsBuild,
-  dureeBuild,
-  demarcheOrTravauxEtapeSaveFormat
-}
+export { etapeSaveFormat, pointsBuild, dureeBuild }
