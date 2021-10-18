@@ -141,13 +141,13 @@ const metasIndex = {
       { id: 'id', nom: 'Id' },
       {
         id: 'domaineId',
-        nom: 'Id - Nom du domaine',
+        nom: 'Domaine',
         type: 'entities',
         entities: 'domaines'
       },
       {
         id: 'typeId',
-        nom: 'Id - Nom du type',
+        nom: 'Type',
         type: 'entities',
         entities: 'titres-types-types'
       },
@@ -186,13 +186,13 @@ const metasIndex = {
     colonnes: [
       {
         id: 'titreTypeId',
-        nom: 'Id - Nom du type de titre',
+        nom: 'Type de titre',
         type: 'entities',
         entities: 'titres-types'
       },
       {
         id: 'titreStatutId',
-        nom: 'Id - Nom du statut de titre',
+        nom: 'Statut de titre',
         type: 'entities',
         entities: 'titres-statuts'
       },
@@ -233,13 +233,13 @@ const metasIndex = {
     colonnes: [
       {
         id: 'titreTypeId',
-        nom: 'Id - Nom du type de titre',
+        nom: 'Type de titre',
         type: 'entities',
         entities: 'titres-types'
       },
       {
         id: 'demarcheTypeId',
-        nom: 'Id - Nom du type de démarche',
+        nom: 'Type de démarche',
         type: 'entities',
         entities: 'demarches-types'
       },
@@ -368,19 +368,19 @@ const metasIndex = {
     colonnes: [
       {
         id: 'titreTypeId',
-        nom: 'Id - Nom du type de titre',
+        nom: 'Type de titre',
         type: 'entities',
         entities: 'titres-types'
       },
       {
         id: 'demarcheTypeId',
-        nom: 'Id - Nom du type de démarche',
+        nom: 'Type de démarche',
         type: 'entities',
         entities: 'demarches-types'
       },
       {
         id: 'etapeTypeId',
-        nom: "Id - Nom du type d'étape",
+        nom: "Type d'étape",
         type: 'entities',
         entities: 'etapes-types'
       },
@@ -398,25 +398,25 @@ const metasIndex = {
     colonnes: [
       {
         id: 'titreTypeId',
-        nom: 'Id - Nom du type de titre',
+        nom: 'Type de titre',
         type: 'entities',
         entities: 'titres-types'
       },
       {
         id: 'demarcheTypeId',
-        nom: 'Id - Nom du type de démarche',
+        nom: 'Type de démarche',
         type: 'entities',
         entities: 'demarches-types'
       },
       {
         id: 'etapeTypeId',
-        nom: "Id - Nom du type d'étape",
+        nom: "Type d'étape",
         type: 'entities',
         entities: 'etapes-types'
       },
       {
         id: 'documentTypeId',
-        nom: 'Id - Nom du type de document',
+        nom: 'Type de document',
         type: 'entities',
         entities: 'documents-types'
       },
@@ -434,25 +434,25 @@ const metasIndex = {
     colonnes: [
       {
         id: 'titreTypeId',
-        nom: 'Id - Nom du type de titre',
+        nom: 'Type de titre',
         type: 'entities',
         entities: 'titres-types'
       },
       {
         id: 'demarcheTypeId',
-        nom: 'Id - Nom du type de démarche',
+        nom: 'Type de démarche',
         type: 'entities',
         entities: 'demarches-types'
       },
       {
         id: 'etapeTypeId',
-        nom: "Id - Nom du type d'étape",
+        nom: "Type d'étape",
         type: 'entities',
         entities: 'etapes-types'
       },
       {
         id: 'documentTypeId',
-        nom: 'Id - Nom du type de justificatif',
+        nom: 'Type de justificatif',
         type: 'entities',
         entities: 'documents-types'
       },
@@ -487,13 +487,13 @@ const metasIndex = {
     colonnes: [
       {
         id: 'etapeTypeId',
-        nom: "Id - Nom du type d'étape",
+        nom: "Type d'étape",
         type: 'entities',
         entities: 'etapes-types'
       },
       {
         id: 'etapeStatutId',
-        nom: "Id - Nom du statut d'étape",
+        nom: "Statut d'étape",
         type: 'entities',
         entities: 'etapes-statuts'
       },
@@ -510,13 +510,13 @@ const metasIndex = {
     colonnes: [
       {
         id: 'etapeTypeId',
-        nom: "Id - Nom du type d'étape",
+        nom: "Type d'étape",
         type: 'entities',
         entities: 'etapes-types'
       },
       {
         id: 'documentTypeId',
-        nom: 'Id - Nom du type de documents',
+        nom: 'Type de documents',
         type: 'entities',
         entities: 'documents-types'
       },
@@ -534,13 +534,13 @@ const metasIndex = {
     colonnes: [
       {
         id: 'etapeTypeId',
-        nom: "Id - Nom du type d'étape",
+        nom: "Type d'étape",
         type: 'entities',
         entities: 'etapes-types'
       },
       {
         id: 'documentTypeId',
-        nom: 'Id - Nom du type de justificatifs',
+        nom: 'Type de justificatifs',
         type: 'entities',
         entities: 'documents-types'
       },
@@ -709,13 +709,13 @@ const metasIndex = {
     colonnes: [
       {
         id: 'activiteTypeId',
-        nom: "Id - Nom du type d'activité",
+        nom: "Type d'activité",
         type: 'entities',
         entities: 'activites-types'
       },
       {
         id: 'titreTypeId',
-        nom: 'Id - Nom du type de titre',
+        nom: 'Type de titre',
         type: 'entities',
         entities: 'titres-types'
       }
@@ -732,13 +732,13 @@ const metasIndex = {
     colonnes: [
       {
         id: 'activiteTypeId',
-        nom: "Id - Nom du type d'activité",
+        nom: "Type d'activité",
         type: 'entities',
         entities: 'activites-types'
       },
       {
         id: 'documentTypeId',
-        nom: 'Id - Nom du type de document',
+        nom: 'Type de document',
         type: 'entities',
         entities: 'documents-types'
       },
@@ -756,18 +756,38 @@ const metasIndex = {
     colonnes: [
       {
         id: 'activiteTypeId',
-        nom: "Id - Nom du type d'activité",
+        nom: "Type d'activité",
         type: 'entities',
         entities: 'activites-types'
       },
       {
         id: 'paysId',
-        nom: 'Id - Nom du pays',
+        nom: 'Pays',
         type: 'entities',
         entities: 'pays'
       }
     ],
     ids: ['activiteTypeId', 'paysId']
+  },
+
+  titre: {
+    nom: 'Titre',
+    linkName: 'meta-titre'
+  },
+
+  demarche: {
+    nom: 'Démarche',
+    linkName: 'meta-demarche'
+  },
+
+  etape: {
+    nom: 'Étape',
+    linkName: 'meta-etape'
+  },
+
+  activite: {
+    nom: 'Activité',
+    linkName: 'meta-activite'
   }
 }
 

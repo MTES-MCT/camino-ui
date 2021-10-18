@@ -11,9 +11,11 @@ const metasLignesBuild = metas =>
       nom: { value: meta.nom }
     }
 
+    const linkName = meta.linkName || 'meta'
+
     return {
       id: meta.id,
-      link: { name: 'meta', params: { id: meta.id } },
+      link: { name: linkName, params: { id: meta.id } },
       columns
     }
   })

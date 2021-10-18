@@ -2,7 +2,7 @@
   <!-- eslint-disable vue/no-v-html -->
   <div
     v-if="!editable"
-    class="border p-s pointer content-editable"
+    class="border p-l pointer content-editable"
     @click="editableMake"
     v-html="valueHtml"
   />

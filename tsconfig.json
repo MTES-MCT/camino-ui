@@ -21,6 +21,7 @@
         "./src/*"
       ]
     },
+    "allowJs": true
   },
   "exclude": ["node_modules", "**/node_modules/*", "dist", "example/dist"],
   "include": ["./src/**/*"]

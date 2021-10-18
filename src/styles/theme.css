@@ -61,8 +61,7 @@ html {
   height: var(--unit-xs);
   margin-top: calc(var(--unit) * 2);
   margin-bottom: calc(var(--unit) * 2);
-  background: #76b6bd;
-  background: linear-gradient(to right, #b5d1d1, #76b6bd);
+  background: var(--dsfr-bf500);
 }
 
 .sticky-header {

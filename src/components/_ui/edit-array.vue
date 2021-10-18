@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!editable" class="border p-s pointer" @click="editableMake">
+  <div v-if="!editable" class="border p-m pointer" @click="editableMake">
     {{ value }}
   </div>
   <div v-else>

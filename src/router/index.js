@@ -11,6 +11,10 @@ const Entreprises = () => import('../components/entreprises.vue')
 const Administration = () => import('../components/administration.vue')
 const Administrations = () => import('../components/administrations.vue')
 const Meta = () => import('../components/meta.vue')
+const MetaTitre = () => import('../components/meta-titre.vue')
+const MetaDemarche = () => import('../components/meta-demarche.vue')
+const MetaEtape = () => import('../components/meta-etape.vue')
+const MetaActivite = () => import('../components/meta-activite.vue')
 const Metas = () => import('../components/metas.vue')
 const Activite = () => import('../components/activite.vue')
 const Activites = () => import('../components/activites.vue')
@@ -107,6 +111,26 @@ const routes = [
     path: '/metas',
     name: 'metas',
     component: Metas
+  },
+  {
+    path: '/metas/titre',
+    name: 'meta-titre',
+    component: MetaTitre
+  },
+  {
+    path: '/metas/demarche',
+    name: 'meta-demarche',
+    component: MetaDemarche
+  },
+  {
+    path: '/metas/etape',
+    name: 'meta-etape',
+    component: MetaEtape
+  },
+  {
+    path: '/metas/activite',
+    name: 'meta-activite',
+    component: MetaActivite
   },
   {
     path: '/metas/:id',

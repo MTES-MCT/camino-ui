@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="!editable"
-    class="border p-s pointer text-right"
+    class="border p-m pointer text-right"
     @click="editableMake"
   >
     {{ value }}

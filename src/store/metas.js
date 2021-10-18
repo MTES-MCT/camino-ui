@@ -21,7 +21,8 @@ const getters = {
   elements(state) {
     const elements = Object.keys(metasIndex).map(id => ({
       id,
-      nom: metasIndex[id].nom
+      nom: metasIndex[id].nom,
+      linkName: metasIndex[id].linkName
     }))
 
     return state.params.table.ordre === 'desc' ? elements.reverse() : elements
