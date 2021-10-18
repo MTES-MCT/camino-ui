@@ -26,7 +26,7 @@
     <div v-if="elementSelected" class="mb-xl">
       <div
         v-if="rootComponent || definitionsTree.joinTable"
-        class="rnd-s border bg-bg p-m"
+        class="rnd-s border p-m"
       >
         <div class="tablet-blobs">
           <MetaLabelOrInput
@@ -39,13 +39,14 @@
             {{ colonne.nom }}
           </MetaLabelOrInput>
         </div>
-        <div class="flex blobs">
+        <div class="flex blobs pr-m">
           <button
             v-if="definition.delete"
-            class="btn rnd-xs p-s flex-right blob-1-4"
+            class="btn py-s px-m btn rnd-xs p-s flex-right"
             @click="elementDelete(elementToEdit)"
+            title="supprimer"
           >
-            Supprimer
+            <i class="icon-24 icon-trash" />
           </button>
         </div>
       </div>
