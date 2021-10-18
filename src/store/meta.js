@@ -49,7 +49,7 @@ const actions = {
     }
   },
 
-  async update({ dispatch, commit, state }, { id, element, partialElement }) {
+  async update({ dispatch, commit }, { id, element, partialElement }) {
     try {
       commit('loadingAdd', 'metaUpdate', { root: true })
 
@@ -63,6 +63,14 @@ const actions = {
         })
 
         commit('set', { id, elements })
+        dispatch(
+          'messageAdd',
+          {
+            value: "l'élément a été mis à jour",
+            type: 'success'
+          },
+          { root: true }
+        )
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -92,6 +100,15 @@ const actions = {
           id: joinTable,
           element: elementSelected
         })
+
+        dispatch(
+          'messageAdd',
+          {
+            value: "l'élément a été créée",
+            type: 'success'
+          },
+          { root: true }
+        )
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
@@ -100,7 +117,7 @@ const actions = {
     }
   },
 
-  elementSelect({ dispatch, commit }, { id, element }) {
+  elementSelect({ commit }, { id, element }) {
     commit('elementSelectedSet', { id, element: null })
     if (element) {
       nextTick(() => {
@@ -109,7 +126,7 @@ const actions = {
     }
   },
 
-  async delete({ dispatch, commit, state }, { id, element }) {
+  async delete({ dispatch, commit }, { id, element }) {
     commit('loadingAdd', 'metaDelete', { root: true })
 
     try {
@@ -123,6 +140,14 @@ const actions = {
 
         commit('set', { id, elements })
         commit('elementSelectedSet', { id, element: null })
+        dispatch(
+          'messageAdd',
+          {
+            value: "l'élément a été effacé",
+            type: 'success'
+          },
+          { root: true }
+        )
       }
     } catch (e) {
       dispatch('apiError', e, { root: true })
