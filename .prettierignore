@@ -2,4 +2,5 @@
 /dist/**
 /tests/unit/coverage/**
 src/styles/icons/icons.css
+src/styles/system/forms.css
 src/styles/settings.css
