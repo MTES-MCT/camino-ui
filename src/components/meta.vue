@@ -36,10 +36,7 @@
                 </MetaInput>
               </td>
               <td>
-                <ButtonPlus
-                  :disabled="!elementNewComplete"
-                  @click="create"
-                />
+                <ButtonPlus :disabled="!elementNewComplete" @click="create" />
               </td>
             </tr>
 

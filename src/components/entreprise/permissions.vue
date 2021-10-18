@@ -110,10 +110,12 @@
 
 <script>
 import CaminoDomaine from '../_common/domaine.vue'
+import ButtonPlus from '../_common/ButtonPlus.vue'
 
 export default {
   components: {
-    CaminoDomaine
+    CaminoDomaine,
+    ButtonPlus
   },
 
   props: {

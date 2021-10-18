@@ -740,7 +740,8 @@ import ButtonPlus from '../_ui/button-plus.vue'
 export default {
   components: {
     CaminoDomaine,
-    Statut
+    Statut,
+    ButtonPlus
   },
 
   props: {

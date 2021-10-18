@@ -18,16 +18,16 @@
         </select>
 
         <span class="ml-m">
-          <ButtonPlus
-            v-if="hasButtonPlus"
-            @click="elementCreate"
-          />
+          <ButtonPlus v-if="hasButtonPlus" @click="elementCreate" />
         </span>
       </div>
     </div>
 
-    <template v-if="elementSelected">
-      <template v-if="rootComponent || definitionsTree.joinTable">
+    <div v-if="elementSelected" class="mb-xl">
+      <div
+        v-if="rootComponent || definitionsTree.joinTable"
+        class="rnd-s border bg-bg p-m"
+      >
         <div class="tablet-blobs">
           <MetaLabelOrInput
             v-for="colonne of colonnesToEdit"
@@ -48,16 +48,20 @@
             Supprimer
           </button>
         </div>
-      </template>
-      <span class="separator" />
-      <DefinitionEdit
+      </div>
+      <div
         v-for="definitionChild of definitionsTree.definitions"
         :key="definitionChild.joinTable"
-        :definitions-tree="definitionChild"
-        :foreign-keys="foreignKeysNew"
-        :root-component="false"
-      />
-    </template>
+        class="pl-l"
+      >
+        <span class="separator" />
+        <DefinitionEdit
+          :definitions-tree="definitionChild"
+          :foreign-keys="foreignKeysNew"
+          :root-component="false"
+        />
+      </div>
+    </div>
   </template>
 </template>
 
@@ -86,7 +90,10 @@ export default defineComponent({
   },
   computed: {
     hasButtonPlus() {
-      return this.definition.create && (this.rootComponent || this.definitionsTree.joinTable)
+      return (
+        this.definition.create &&
+        (this.rootComponent || this.definitionsTree.joinTable)
+      )
     },
     title() {
       return (
