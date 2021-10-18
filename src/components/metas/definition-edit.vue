@@ -206,6 +206,12 @@ export default defineComponent({
       })
     },
     async elementDelete(element) {
+      if (
+        !window.confirm(
+          'Voulez-vous supprimer cet élément ? Cette action ne peut pas être annulée.'
+        )
+      )
+        return
       await this.$store.dispatch('meta/delete', {
         id: this.definitionsTree.joinTable || this.definitionsTree.id,
         element
