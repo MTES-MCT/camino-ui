@@ -79,15 +79,6 @@ http://francoisromain.github.io/postcss-structure
   /* hr */
   --border-color: var(--color-neutral);
   --border-width: var(--unit-px);
-
-  --select-backround-image: svg-load('./icons/svgs/24-chevron-b.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-miterlimit=10,
-    stroke-width=1px
-  );
 }
 
 /* media queries: x * col-width + gutter */
