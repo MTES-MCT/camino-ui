@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-direction-column rnd-s border bg-bg">
+  <div class="flex flex-direction-column rnd-s border bg-bg overflow-hidden">
     <div
       v-if="slotButtons"
       class="accordion-header flex"
