@@ -159,6 +159,12 @@
       />
     </div>
 
+    <div>
+      <div class="line-neutral width-full mb-xxl" />
+      <h2>Emails</h2>
+      <AdministrationActiviteTypeEmail :administration="administration" />
+    </div>
+
     <div v-if="permissionsCheck(user, ['super'])" class="mb-xxl">
       <div class="line-neutral width-full mb-xxl" />
       <h2>Permissions</h2>
@@ -174,6 +180,7 @@ import Loader from './_ui/loader.vue'
 import Table from './_ui/table.vue'
 import AdministrationEditPopup from './administration/edit-popup.vue'
 import AdministrationPermission from './administration/permissions.vue'
+import AdministrationActiviteTypeEmail from './administration/activites-types-emails.vue'
 
 import {
   utilisateursColonnes,
@@ -186,7 +193,8 @@ export default {
     Accordion,
     Loader,
     Table,
-    AdministrationPermission
+    AdministrationPermission,
+    AdministrationActiviteTypeEmail
   },
 
   data() {
@@ -237,6 +245,7 @@ export default {
 
   methods: {
     async get() {
+      await this.$store.dispatch('administration/init')
       await this.$store.dispatch('administration/get', this.$route.params.id)
     },
 

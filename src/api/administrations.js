@@ -21,6 +21,11 @@ const administrationMetas = apiGraphQLFetch(
         id
         nom
       }
+
+      activitesTypes {
+        id
+        nom
+      }
     }
 
     ${fragmentAdministrationType}
@@ -48,11 +53,6 @@ const administrationPermissionsMetas = apiGraphQLFetch(
       }
 
       etapesTypes {
-        id
-        nom
-      }
-
-      activitesTypes {
         id
         nom
       }

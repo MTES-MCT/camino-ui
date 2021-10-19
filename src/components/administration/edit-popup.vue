@@ -315,7 +315,6 @@ export default {
       this.lienCurrent = 'departement'
     }
 
-    this.get()
     document.addEventListener('keyup', this.keyup)
   },
 
@@ -324,10 +323,6 @@ export default {
   },
 
   methods: {
-    async get() {
-      await this.$store.dispatch('administration/init')
-    },
-
     async save() {
       const administration = JSON.parse(JSON.stringify(this.administration))
 

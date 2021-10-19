@@ -28,6 +28,7 @@ const actions = {
       commit('loadingAdd', 'administrationInit', { root: true })
 
       const data = await administrationMetas()
+      console.log(data)
 
       commit('metasSet', data)
     } catch (e) {
