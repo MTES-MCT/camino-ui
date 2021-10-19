@@ -14,7 +14,7 @@
     <button
       id="cmn-etape-edit-button-enregistrer"
       ref="save-btn"
-      class="btn-primary rnd-xs p-s full-x"
+      class="btn btn-primary rnd-xs p-s full-x"
       :disabled="$attrs.disabled"
       :class="{ disabled: $attrs.disabled }"
       @click="$emit('click')"

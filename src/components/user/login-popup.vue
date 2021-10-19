@@ -45,7 +45,7 @@
             id="cmn-user-login-popup-button-se-connecter"
             :disabled="!complete"
             :class="{ disabled: !complete }"
-            class="btn-primary rnd-xs p-s full-x mb"
+            class="btn btn-primary rnd-xs p-s full-x mb"
             @click="login"
           >
             Se connecter

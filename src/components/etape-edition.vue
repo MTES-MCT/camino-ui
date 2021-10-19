@@ -60,7 +60,7 @@
       <div class="tablet-blob-2-3">
         <button
           ref="date-button"
-          class="btn-primary rnd-xs p-s full-x"
+          class="btn btn-primary rnd-xs p-s full-x"
           :disabled="!newDate"
           :class="{ disabled: !newDate }"
           @click="dateUpdate"

@@ -25,6 +25,7 @@
   button-color: var(--color-bg) var(--color-bg) var(--color-bg);
   button-background: var(--dsfr-bf500) var(--color-neutral)
     var(--dsfr-color-hover);
+  button-class: active disabled true;
 }
 
 .btn-border {
