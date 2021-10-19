@@ -26,6 +26,9 @@
   button-background: var(--dsfr-bf500) var(--color-neutral)
     var(--dsfr-color-hover);
   button-class: active disabled true;
+  border-radius: var(--unit-xs);
+  padding: var(--unit-s);
+  width: 100%;
 }
 
 .btn-border {

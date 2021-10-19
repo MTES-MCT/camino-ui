@@ -58,7 +58,7 @@
         <button
           id="cmn-etape-edit-button-enregistrer"
           ref="save-button"
-          class="btn btn-primary rnd-xs p-s full-x"
+          class="btn btn-primary"
           @click="save"
         >
           Enregistrer

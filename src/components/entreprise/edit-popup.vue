@@ -70,11 +70,7 @@
           </button>
         </div>
         <div class="tablet-blob-2-3">
-          <button
-            ref="save-button"
-            class="btn btn-primary rnd-xs p-s full-x"
-            @click="save"
-          >
+          <button ref="save-button" class="btn btn-primary" @click="save">
             Enregistrer
           </button>
         </div>
