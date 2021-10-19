@@ -47,7 +47,7 @@
       </div>
       <div class="tablet-blob-2-3">
         <div v-if="document.fichier || document.fichierNouveau" class="flex">
-          <p class="mb-0">
+          <p class="mb-0 word-break">
             {{
               (document.fichierNouveau && document.fichierNouveau.name) ||
               `${document.id}.${document.fichierTypeId}`
