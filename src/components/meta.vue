@@ -32,7 +32,7 @@
                 :key="colonne.id"
                 :class="colonne.class"
               >
-                <MetaInput v-model:element="element" :colonne="colonne">
+                <MetaInput v-model:element="elementNew" :colonne="colonne">
                 </MetaInput>
               </td>
               <td>
