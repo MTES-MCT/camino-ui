@@ -112,7 +112,7 @@
         <div class="tablet-blob-2-3">
           <button
             ref="save-button"
-            class="btn-primary rnd-xs p-s full-x"
+            class="btn btn-primary"
             :disabled="!complete"
             :class="{ disabled: !complete }"
             @click="save"

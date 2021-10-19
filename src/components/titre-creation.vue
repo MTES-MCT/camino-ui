@@ -99,7 +99,7 @@
         id="cmn-titre-activite-edit-popup-button-enregistrer"
         ref="save-button"
         :disabled="!complete"
-        class="btn-primary rnd-xs p-s full-x"
+        class="btn btn-primary"
         @click="save"
       >
         Créer le titre
