@@ -130,6 +130,17 @@
               </router-link>
               <div v-else class="bold color-neutral">Métas</div>
             </li>
+            <li v-if="sections.journaux">
+              <router-link
+                v-if="$route.name !== 'journaux'"
+                id="cmn-menu-menu-a-journaux"
+                :to="{ name: 'journaux' }"
+                class="btn-menu text-decoration-none bold"
+              >
+                Journaux
+              </router-link>
+              <div v-else class="bold color-neutral">Journaux</div>
+            </li>
           </ul>
         </div>
       </div>

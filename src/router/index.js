@@ -40,6 +40,7 @@ const TitreCreation = () => import('../components/titre-creation.vue')
 const Etape = () => import('../components/etape.vue')
 const EtapeEdition = () => import('../components/etape-edition.vue')
 const ActiviteEdition = () => import('../components/activite-edition.vue')
+const Journaux = () => import('../components/journaux.vue')
 
 const routes = [
   {
@@ -234,6 +235,7 @@ const routes = [
       }
     ]
   },
+  { path: '/journaux', name: 'journaux', component: Journaux },
   // url /stats : demande de Samuel
   // pour avoir une uniformité entre toutes les start-ups
   {

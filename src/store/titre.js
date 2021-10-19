@@ -34,7 +34,7 @@ const getters = {
     return state.tabId
   },
 
-  tabs(state) {
+  tabs(state, getters, rootState, rootGetters) {
     const tabs = [{ id: 'demarches', nom: 'Droits miniers' }]
 
     if (state.element?.activites?.length) {
@@ -43,6 +43,10 @@ const getters = {
 
     if (state.element?.travaux?.length || state.element?.travauxCreation) {
       tabs.push({ id: 'travaux', nom: 'Travaux' })
+    }
+
+    if (rootGetters['user/userIsSuper']) {
+      tabs.push({ id: 'journaux', nom: 'Journaux' })
     }
 
     return tabs

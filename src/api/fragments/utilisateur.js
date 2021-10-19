@@ -33,6 +33,7 @@ const fragmentUtilisateur = gql`
       administrations
       utilisateurs
       metas
+      journaux
     }
   }
 
