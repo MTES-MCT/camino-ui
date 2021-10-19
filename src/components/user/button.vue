@@ -14,7 +14,7 @@
     <button
       v-else
       id="cmn-user-button-connexion"
-      class="btn btn-primary small pill lh-2 py-s px-m"
+      class="btn btn-primary small lh-2"
       alt="Url"
       @click="popupOpen"
     >
