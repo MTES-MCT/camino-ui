@@ -148,10 +148,24 @@ const administrationActiviteTypeUpdate = apiGraphQLFetch(gql`
 `)
 
 const administrationActiviteTypeEmailUpdate = apiGraphQLFetch(gql`
-  mutation administrationActiviteTypeEmailCreer(
+  mutation AdministrationActiviteTypeEmailCreer(
     $administrationActiviteTypeEmail: InputAdministrationActiviteTypeEmail!
   ) {
     administrationActiviteTypeEmailCreer(
+      administrationActiviteTypeEmail: $administrationActiviteTypeEmail
+    ) {
+      ...administration
+    }
+  }
+
+  ${fragmentAdministration}
+`)
+
+const administrationActiviteTypeEmailDelete = apiGraphQLFetch(gql`
+  mutation AdministrationActiviteTypeEmailEffacer(
+    $administrationActiviteTypeEmail: InputAdministrationActiviteTypeEmail!
+  ) {
+    administrationActiviteTypeEmailEffacer(
       administrationActiviteTypeEmail: $administrationActiviteTypeEmail
     ) {
       ...administration
@@ -200,5 +214,6 @@ export {
   administrationTitreTypeEtapeTypeUpdate,
   administrationActiviteTypeUpdate,
   administrationActiviteTypeEmailUpdate,
+  administrationActiviteTypeEmailDelete,
   administrationPermissionsMetas
 }

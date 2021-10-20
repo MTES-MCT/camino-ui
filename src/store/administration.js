@@ -7,6 +7,7 @@ import {
   administrationTitreTypeEtapeTypeUpdate,
   administrationActiviteTypeUpdate,
   administrationActiviteTypeEmailUpdate,
+  administrationActiviteTypeEmailDelete,
   administrationPermissionsMetas
 } from '../api/administrations'
 
@@ -240,6 +241,37 @@ const actions = {
       commit('messageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'administrationActiviteTypeEmailUpdate', {
+        root: true
+      })
+    }
+  },
+
+  async activiteTypeEmailDelete(
+    { commit, dispatch },
+    administrationActiviteTypeEmail
+  ) {
+    try {
+      commit('loadingAdd', 'administrationActiviteTypeEmailDelete', {
+        root: true
+      })
+
+      const data = await administrationActiviteTypeEmailDelete({
+        administrationActiviteTypeEmail
+      })
+      await dispatch(
+        'reload',
+        { name: 'administration', id: data.id },
+        { root: true }
+      )
+      dispatch(
+        'messageAdd',
+        { value: `l'email a été retiré`, type: 'success' },
+        { root: true }
+      )
+    } catch (e) {
+      commit('messageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'administrationActiviteTypeEmailDelete', {
         root: true
       })
     }

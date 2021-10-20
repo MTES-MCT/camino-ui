@@ -44,6 +44,7 @@
             </td>
             <td>
               <ButtonPlus
+                class="py-s px-m"
                 :disabled="!activiteTypeNewActive"
                 @click="activiteTypeEmailUpdate"
               />
@@ -54,12 +55,20 @@
             :key="activiteType.id + activiteType.email"
           >
             <td>
-              <span class="cap-first"
-                >{{ activiteType.nom }} ({{ activiteType.id.toUpperCase() }})
+              <span class="cap-first">
+                {{ activiteType.nom }} ({{ activiteType.id.toUpperCase() }})
               </span>
             </td>
             <td>
               {{ activiteType.email }}
+            </td>
+            <td>
+              <button
+                class="btn-border py-s px-m my--xs rnd-xs flex-right"
+                @click="activiteTypeEmailDelete(activiteType)"
+              >
+                <i class="icon-24 icon-trash" />
+              </button>
             </td>
           </tr>
         </table>
@@ -112,6 +121,18 @@ export default defineComponent({
       await this.$store.dispatch('administration/activiteTypeEmailUpdate', {
         administrationId: this.administration.id,
         activiteTypeId,
+        email
+      })
+    },
+
+    async activiteTypeEmailDelete(activiteType: {
+      email: string
+      activiteTypeId: string
+    }) {
+      const { email, id } = activiteType
+      await this.$store.dispatch('administration/activiteTypeEmailDelete', {
+        administrationId: this.administration.id,
+        activiteTypeId: id,
         email
       })
     }
