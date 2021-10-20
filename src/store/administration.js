@@ -214,6 +214,24 @@ const actions = {
         root: true
       })
     }
+  },
+
+  async activiteTypeEmailUpdate(
+    { commit, dispatch },
+    { administrationId, activiteTypeId, email }
+  ) {
+    try {
+      // TODO
+      commit('loadingAdd', 'administrationActiviteEmailUpdate', {
+        root: true
+      })
+    } catch (e) {
+      commit('messageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'administrationActiviteEmailUpdate', {
+        root: true
+      })
+    }
   }
 }
 

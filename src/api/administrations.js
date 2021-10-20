@@ -147,6 +147,9 @@ const administrationActiviteTypeUpdate = apiGraphQLFetch(gql`
   ${fragmentAdministration}
 `)
 
+// TODO
+// const administrationActiviteEmailUpdate = ...
+
 const administrationTitreTypeTitreStatutUpdate = apiGraphQLFetch(gql`
   mutation AdministrationTitreTypeTitreStatutModifier(
     $administrationTitreTypeTitreStatut: InputAdministrationTitreTypeTitreStatut!

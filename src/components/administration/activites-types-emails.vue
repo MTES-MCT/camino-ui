@@ -4,7 +4,8 @@
 
     <div class="h6">
       <p class="mb-s">
-        Lors d’un dépôt d’une activité d’un type en particulier, quels sont les emails à notifier ?
+        Lors d’un dépôt d’une activité d’un type en particulier, quels sont les
+        emails à notifier ?
       </p>
     </div>
 
@@ -22,7 +23,7 @@
             <td>
               <select
                 v-model="activiteTypeNew.activiteTypeId"
-                class="py-xs px-s mr-s"
+                class="py-xs px-s mr-s mt-xs"
               >
                 <option
                   v-for="activiteType in activitesTypes"
@@ -34,12 +35,17 @@
               </select>
             </td>
             <td>
-              <input type="text" v-model="activiteTypeNew.email"/>
+              <input
+                v-model="activiteTypeNew.email"
+                type="email"
+                class="py-xs mt-xs"
+                placeholder="Email"
+              />
             </td>
             <td>
               <ButtonPlus
                 :disabled="!activiteTypeNewActive"
-                @click="activiteTypeNewUpdate"
+                @click="activiteTypeEmailUpdate"
               />
             </td>
           </tr>
@@ -60,16 +66,20 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script lang="ts">
 import ButtonPlus from '../_ui/button-plus.vue'
+import emailValidator from 'email-validator'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   components: {
     ButtonPlus
+  },
+
+  props: {
+    administration: { type: Object, required: true }
   },
 
   data() {
@@ -81,13 +91,28 @@ export default defineComponent({
     }
   },
 
-  props: {
-    administration: { type: Object, required: true }
-  },
-
   computed: {
     activitesTypes() {
       return this.$store.state.administration.metas.activitesTypes
+    },
+
+    activiteTypeNewActive() {
+      return (
+        this.activiteTypeNew.activiteTypeId &&
+        this.activiteTypeNew.email &&
+        emailValidator.validate(this.activiteTypeNew.email)
+      )
+    }
+  },
+
+  methods: {
+    async activiteTypeEmailUpdate(activiteTypeId: string, email: string) {
+      if (!this.activiteTypeNewActive) return
+      await this.$store.dispatch('administration/activiteTypeEmailUpdate', {
+        administrationId: this.administration.id,
+        activiteTypeId,
+        email
+      })
     }
   }
 })
