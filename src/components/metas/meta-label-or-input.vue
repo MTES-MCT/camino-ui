@@ -1,47 +1,37 @@
 <template>
-  <div class="tablet-blob-1-2">
-    <div class="tablet-blobs mb-s">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5>
-          <slot></slot>
-        </h5>
-      </div>
-      <div class="tablet-blob-2-3">
-        <EditNumber
-          v-if="colonne.type === Number"
-          :value="element[colonne.id]"
-          @update="$emit('update', $event, element, colonne.id)"
-        />
-        <EditDate
-          v-else-if="colonne.type === Date"
-          :value="element[colonne.id] || ''"
-          @update="$emit('update', $event, element, colonne.id)"
-        />
-        <EditBoolean
-          v-else-if="colonne.type === Boolean"
-          :value="element[colonne.id] || false"
-          class="mt-m"
-          @update="$emit('update', $event, element, colonne.id)"
-        />
-        <EditArray
-          v-else-if="colonne.type === Array"
-          :value="element[colonne.id] || ''"
-          :elements="colonne.elements"
-          @update="$emit('update', $event, element, colonne.id)"
-        />
-        <EditJson
-          v-else-if="colonne.type === 'json'"
-          :value="element[colonne.id]"
-          @update="$emit('update', $event, element, colonne.id)"
-        />
-        <EditString
-          v-else-if="colonne.type === String"
-          :value="element[colonne.id] || ''"
-          @update="$emit('update', $event, element, colonne.id)"
-        />
-      </div>
-    </div>
-  </div>
+  <EditNumber
+    v-if="colonne.type === Number"
+    :value="element[colonne.id]"
+    @update="$emit('update', $event, element, colonne.id)"
+  />
+  <EditDate
+    v-else-if="colonne.type === Date"
+    :value="element[colonne.id] || ''"
+    @update="$emit('update', $event, element, colonne.id)"
+  />
+  <EditBoolean
+    v-else-if="colonne.type === Boolean"
+    :value="element[colonne.id] || false"
+    class="mt-m"
+    @update="$emit('update', $event, element, colonne.id)"
+  />
+  <EditArray
+    v-else-if="colonne.type === Array"
+    :value="element[colonne.id] || ''"
+    :elements="colonne.elements"
+    @update="$emit('update', $event, element, colonne.id)"
+  />
+  <EditJson
+    v-else-if="colonne.type === 'json'"
+    :value="element[colonne.id]"
+    @update="$emit('update', $event, element, colonne.id)"
+  />
+  <EditString
+    v-else-if="colonne.type === String"
+    :value="element[colonne.id] || ''"
+    @update="$emit('update', $event, element, colonne.id)"
+  />
+  <div v-else>{{ element[colonne.id] || '' }}</div>
 </template>
 
 <script lang="ts">

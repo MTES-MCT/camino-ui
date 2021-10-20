@@ -165,7 +165,9 @@ export default {
       await this.$store
         .dispatch('meta/create', {
           id: this.id,
-          element: this.elementNew
+          element: this.elementNew,
+          joinTable: this.id,
+          foreignKey: 'id'
         })
         .then(_ => {
           this.elementNew = {}
