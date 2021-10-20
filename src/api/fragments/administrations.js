@@ -23,6 +23,7 @@ const fragmentAdministrations = gql`
     abreviation
     service
     membre
+    emailsModification
     type {
       nom
     }

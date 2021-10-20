@@ -91,10 +91,6 @@ const fragmentAdministration = gql`
       lectureInterdit
       modificationInterdit
     }
-    activitesTypesEmails {
-      id
-      email
-    }
 
     modification
   }

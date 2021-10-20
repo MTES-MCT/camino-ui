@@ -17,7 +17,7 @@
           <tr>
             <th>Type d'activité</th>
             <th>Email</th>
-            <th />
+            <th width="1">Actions</th>
           </tr>
           <tr>
             <td>
@@ -55,6 +55,7 @@
             :key="activiteType.id + activiteType.email"
           >
             <td>
+              <!-- TODO: activiteType.nom ? -->
               <span class="cap-first">
                 {{ activiteType.nom }} ({{ activiteType.id.toUpperCase() }})
               </span>

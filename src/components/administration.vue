@@ -160,6 +160,7 @@
     </div>
 
     <div>
+      {{administration.utilisateurs}}
       <div class="line-neutral width-full mb-xxl" />
       <h2>Emails</h2>
       <AdministrationActiviteTypeEmail :administration="administration" />
