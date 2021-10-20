@@ -6,6 +6,7 @@ import {
   administrationTitreTypeTitreStatutUpdate,
   administrationTitreTypeEtapeTypeUpdate,
   administrationActiviteTypeUpdate,
+  administrationActiviteEmailUpdate,
   administrationPermissionsMetas
 } from '../api/administrations'
 
@@ -218,13 +219,26 @@ const actions = {
 
   async activiteTypeEmailUpdate(
     { commit, dispatch },
-    { administrationId, activiteTypeId, email }
+    administrationActiviteEmail
   ) {
     try {
-      // TODO
       commit('loadingAdd', 'administrationActiviteEmailUpdate', {
         root: true
       })
+
+      const data = await administrationActiviteEmailUpdate({
+        administrationActiviteEmail
+      })
+      await dispatch(
+        'reload',
+        { name: 'administration', id: data.id },
+        { root: true }
+      )
+      dispatch(
+        'messageAdd',
+        { value: `l'email a été ajouté pour notifications`, type: 'success' },
+        { root: true }
+      )
     } catch (e) {
       commit('messageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
