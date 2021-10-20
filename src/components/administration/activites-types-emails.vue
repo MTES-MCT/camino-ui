@@ -106,8 +106,9 @@ export default defineComponent({
   },
 
   methods: {
-    async activiteTypeEmailUpdate(activiteTypeId: string, email: string) {
+    async activiteTypeEmailUpdate() {
       if (!this.activiteTypeNewActive) return
+      const { email, activiteTypeId } = this.activiteTypeNew
       await this.$store.dispatch('administration/activiteTypeEmailUpdate', {
         administrationId: this.administration.id,
         activiteTypeId,

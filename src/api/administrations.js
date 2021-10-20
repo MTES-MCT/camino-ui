@@ -149,7 +149,7 @@ const administrationActiviteTypeUpdate = apiGraphQLFetch(gql`
 
 const administrationActiviteTypeEmailUpdate = apiGraphQLFetch(gql`
   mutation administrationActiviteTypeEmailCreer(
-    $administrationActiviteTypeEmail: InputadministrationActiviteTypeEmail!
+    $administrationActiviteTypeEmail: InputAdministrationActiviteTypeEmail!
   ) {
     administrationActiviteTypeEmailCreer(
       administrationActiviteTypeEmail: $administrationActiviteTypeEmail

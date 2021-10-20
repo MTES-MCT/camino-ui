@@ -27,10 +27,7 @@ const actions = {
   async init({ commit }) {
     try {
       commit('loadingAdd', 'administrationInit', { root: true })
-
       const data = await administrationMetas()
-      console.log(data)
-
       commit('metasSet', data)
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
