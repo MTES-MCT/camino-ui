@@ -29,15 +29,27 @@
         class="rnd-s border p-m"
       >
         <div class="tablet-blobs">
-          <MetaLabelOrInput
+          <div
             v-for="colonne of colonnesToEdit"
             :key="colonne.id"
-            :colonne="colonne"
-            :element="elementToEdit"
-            @update="update"
+            class="tablet-blob-1-2"
           >
-            {{ colonne.nom }}
-          </MetaLabelOrInput>
+            <div class="tablet-blobs mb-s">
+              <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+                <h5>
+                  {{ colonne.nom }}
+                </h5>
+              </div>
+              <div class="tablet-blob-2-3">
+                <MetaLabelOrInput
+                  :colonne="colonne"
+                  :element="elementToEdit"
+                  @update="update"
+                >
+                </MetaLabelOrInput>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="flex blobs pr-m">
           <button
@@ -72,12 +84,14 @@ import metasIndex from '@/store/metas-definitions'
 import MetaCreatePopup from './meta-create-popup.vue'
 import MetaLabelOrInput from '@/components/metas/meta-label-or-input.vue'
 import ButtonPlus from '@/components/_ui/button-plus.vue'
+import Loader from '@/components/_ui/loader.vue'
 
 export default defineComponent({
   name: 'DefinitionEdit',
   components: {
     MetaLabelOrInput,
-    ButtonPlus
+    ButtonPlus,
+    Loader
   },
   props: {
     definitionsTree: { type: Object, required: true },
@@ -93,7 +107,8 @@ export default defineComponent({
     hasButtonPlus() {
       return (
         this.definition.create &&
-        (this.rootComponent || this.definitionsTree.joinTable)
+        !this.rootComponent &&
+        this.definitionsTree.joinTable
       )
     },
     title() {

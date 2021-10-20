@@ -7,16 +7,28 @@
     </template>
 
     <div class="blobs">
-      <MetaInput
+      <div
         v-for="colonne of colonnesToEdit"
         :key="colonne.id"
-        v-model:element="element"
-        :colonne="colonne"
-        :join-table="joinTable"
-        class="blob-1-2"
+        class="tablet-blob-1-2"
       >
-        {{ colonne.nom }}
-      </MetaInput>
+        <div class="tablet-blobs mb-s">
+          <div class="tablet-blob-1-3 pb-s">
+            <h5>
+              {{ colonne.nom }}
+            </h5>
+          </div>
+          <div class="tablet-blob-2-3">
+            <MetaInput
+              v-model:element="element"
+              :colonne="colonne"
+              :join-table="joinTable"
+              class="blob-1-2"
+            >
+            </MetaInput>
+          </div>
+        </div>
+      </div>
     </div>
 
     <template #footer>

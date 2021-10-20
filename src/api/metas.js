@@ -430,31 +430,37 @@ const titresTypes = apiGraphQLFetch(
 const titreTypeModifier = apiGraphQLFetch(gql`
   mutation TitreTypeModifier($element: InputTitreTypeModification!) {
     titreTypeModifier(titreType: $element) {
-      ...titreType
+      id
+      typeId
+      domaineId
+      titresCreation
+      contenuIds
     }
   }
-
-  ${fragmentTitreType}
 `)
 
 const titreTypeCreer = apiGraphQLFetch(gql`
   mutation TitreTypeCreer($element: InputTitreTypeCreation!) {
     titreTypeCreer(titreType: $element) {
-      ...titreType
+      id
+      typeId
+      domaineId
+      titresCreation
+      contenuIds
     }
   }
-
-  ${fragmentTitreType}
 `)
 
 const titreTypeSupprimer = apiGraphQLFetch(gql`
   mutation TitreTypeSupprimer($element: InputTitreTypeModification!) {
     titreTypeSupprimer(titreType: $element) {
-      ...titreType
+      id
+      typeId
+      domaineId
+      titresCreation
+      contenuIds
     }
   }
-
-  ${fragmentTitreType}
 `)
 
 const titresTypesTitresStatuts = apiGraphQLFetch(
