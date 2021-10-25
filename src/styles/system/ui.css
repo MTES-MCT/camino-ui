@@ -24,6 +24,10 @@
   border-radius: var(--unit);
 }
 
+.rnd-0 {
+  border-radius: 0;
+}
+
 .rnd-s {
   border-radius: var(--unit-s);
 }
