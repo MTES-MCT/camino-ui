@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.24.0](https://github.com/MTES-MCT/camino-ui/compare/v0.23.0...v0.24.0) (2021-10-25)
+
+
+### Features
+
+* **buttons:** améliore l'UX avec des boutons plus clairs ([#395](https://github.com/MTES-MCT/camino-ui/issues/395)) ([b912222](https://github.com/MTES-MCT/camino-ui/commit/b91222207721ef941918b1065e8d702bbda386a7))
+* **login:** applique le style CTA aux boutons de connexion ([#404](https://github.com/MTES-MCT/camino-ui/issues/404)) ([08eb0d6](https://github.com/MTES-MCT/camino-ui/commit/08eb0d6e1d518d89fa211e97d9e1ef02c25dc451))
+* **métas:** ajoute une nouvelle page de métas permettant de configurer une démarche ([#401](https://github.com/MTES-MCT/camino-ui/issues/401)) ([ae6790d](https://github.com/MTES-MCT/camino-ui/commit/ae6790ddab133cbd4e18dca292d260a0cd25197d))
+
+
+### Bug Fixes
+
+* **button:** corrige le design de boutons après régression ([#412](https://github.com/MTES-MCT/camino-ui/issues/412)) ([f544a52](https://github.com/MTES-MCT/camino-ui/commit/f544a52140dab0cd4d85239eee8b5259cd9a654d))
+* **buttons:** corrige la fonte sur le bouton primary ([#406](https://github.com/MTES-MCT/camino-ui/issues/406)) ([bb07c75](https://github.com/MTES-MCT/camino-ui/commit/bb07c7531dc065cdf64503bfb79e3117817210da))
+* **buttons:** restaure les couleurs de btn-border, ajoute les CTAs manquants ([#400](https://github.com/MTES-MCT/camino-ui/issues/400)) ([dd2cd9c](https://github.com/MTES-MCT/camino-ui/commit/dd2cd9c0d9eceab243e0caf65c3e60e88468748d))
+* **css:** corrige un problème d'import SVG dans le CSS ([#403](https://github.com/MTES-MCT/camino-ui/issues/403)) ([9192d0d](https://github.com/MTES-MCT/camino-ui/commit/9192d0dc714c12e7d17190592417e6c752db4213))
+* **document:** corrige une régression sur l'upload de doc d'entreprise ([#402](https://github.com/MTES-MCT/camino-ui/issues/402)) ([30f0a9c](https://github.com/MTES-MCT/camino-ui/commit/30f0a9cde3a8966dc0327ee705b4e78fce1a1e0d))
+* **étape:** corrige l’arrondi du bouton pour déplier une étape ([#409](https://github.com/MTES-MCT/camino-ui/issues/409)) ([f5b0f0c](https://github.com/MTES-MCT/camino-ui/commit/f5b0f0c9de2b876519bb59ab6efafd4d7984679f))
+* **métas:** corrige certains bugs graphiques dans les pages métas ([#410](https://github.com/MTES-MCT/camino-ui/issues/410)) ([30b3184](https://github.com/MTES-MCT/camino-ui/commit/30b31841806ccec979716c5a5871788e6eae87a7))
+* corrige les problèmes de layout en utilisant word-break ([#407](https://github.com/MTES-MCT/camino-ui/issues/407)) ([e74a880](https://github.com/MTES-MCT/camino-ui/commit/e74a880c8f8ebff89b6c17b708a9e5dda423ec83))
+* **métas:** corrige les pages de métas ([#408](https://github.com/MTES-MCT/camino-ui/issues/408)) ([9cdbfb2](https://github.com/MTES-MCT/camino-ui/commit/9cdbfb296437195dafbc1f0e575ecfcc9ac97b3e))
+* **titre:** corrige l’ajout de références lors de la création d’un titre ([#399](https://github.com/MTES-MCT/camino-ui/issues/399)) ([6608791](https://github.com/MTES-MCT/camino-ui/commit/6608791b76de7b0623112e1ef211a659d635622b))
+
 ## [0.23.0](https://github.com/MTES-MCT/camino-ui/compare/v0.22.84...v0.23.0) (2021-10-06)
 
 
