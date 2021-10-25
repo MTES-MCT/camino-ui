@@ -1,6 +1,6 @@
 <template>
   <button
-    class="cmn-activite-btn-remplir btn small flex"
+    class="cmn-activite-btn-remplir btn small flex py-s px-m rnd-0"
     :class="{ 'btn-primary': activite.statut.id !== 'enc' }"
     @click="activiteEditPopupOpen"
   >
@@ -11,7 +11,7 @@
   </button>
   <button
     v-if="activite.statut.id === 'enc'"
-    class="cmn-activite-btn-depose btn btn-primary small flex"
+    class="cmn-activite-btn-depose btn btn-primary small flex rnd-0"
     :disabled="!activite.deposable"
     :class="{ disabled: !activite.deposable }"
     @click="activiteDepotPopupOpen"
