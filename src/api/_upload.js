@@ -33,9 +33,9 @@ const uploadCall = async (file, document, progressCb, successCb) => {
       progressCb((bytesAccepted / bytesTotal) * 100)
     },
     onError: function (err) {
-      console.log("Error", err)
-      console.log("Request", err.originalRequest)
-      console.log("Response", err.originalResponse)
+      console.log('Error', err)
+      console.log('Request', err.originalRequest)
+      console.log('Response', err.originalResponse)
     }
   })
 

@@ -68,11 +68,17 @@ const actions = {
           const idTmpFile = uploadURL.substring(uploadURL.lastIndexOf('/') + 1)
 
           const idOld = document.id
+          let d
+
           try {
             if (!document.id) {
-              await documentCreer({ document: { ...documentToSend, nomTemporaire: idTmpFile } })
+              d = await documentCreer({
+                document: { ...documentToSend, nomTemporaire: idTmpFile }
+              })
             } else {
-              await documentModifier({ document: { ...documentToSend, nomTemporaire: idTmpFile } })
+              d = await documentModifier({
+                document: { ...documentToSend, nomTemporaire: idTmpFile }
+              })
             }
 
             commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
@@ -83,29 +89,33 @@ const actions = {
               { value: `le document a été mis à jour`, type: 'success' },
               { root: true }
             )
+
+            if (route) {
+              await dispatch('reload', route, { root: true })
+
+              if (route.name === 'titre') {
+                const section = route.section
+                let id
+
+                if (section === 'etapes') id = document.titreEtapeId
+
+                commit('titre/open', { section, id }, { root: true })
+              }
+            } else if (action) {
+              const params = { ...action.params, document: d }
+
+              if (idOld) {
+                params.idOld = idOld
+              }
+
+              await dispatch(action.name, params, { root: true })
+            }
           } catch (e) {
-            commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
-          }
-
-          if (route) {
-            await dispatch('reload', route, { root: true })
-
-            if (route.name === 'titre') {
-              const section = route.section
-              let id
-
-              if (section === 'etapes') id = document.titreEtapeId
-
-              commit('titre/open', { section, id }, { root: true })
-            }
-          } else if (action) {
-            const params = { ...action.params, document: d }
-
-            if (idOld) {
-              params.idOld = idOld
-            }
-
-            await dispatch(action.name, params, { root: true })
+            commit(
+              'popupMessageAdd',
+              { value: e, type: 'error' },
+              { root: true }
+            )
           }
         }
       )
