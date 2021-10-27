@@ -5,10 +5,12 @@ import { authorizationGet, tokenRefresh, errorThrow } from './_client'
 const CHUNK_SIZE = 1048576 // 1 Mo
 const apiUrl = '/apiUrl'
 
-const uploadCall = async (file, titreEtapeId, document, progressCb) => {
+const uploadCall = async (file, document, progressCb, successCb) => {
   const uppy = new Uppy({
     autoProceed: true
   })
+
+  uppy.on('complete', successCb)
 
   uppy.use(Tus, {
     chunkSize: CHUNK_SIZE,
@@ -29,15 +31,16 @@ const uploadCall = async (file, titreEtapeId, document, progressCb) => {
     },
     onChunkComplete: (_, bytesAccepted, bytesTotal) => {
       progressCb((bytesAccepted / bytesTotal) * 100)
+    },
+    onError: function (err) {
+      console.log("Error", err)
+      console.log("Request", err.originalRequest)
+      console.log("Response", err.originalResponse)
     }
   })
 
   const meta = {
     document: JSON.stringify(document)
-  }
-
-  if (titreEtapeId) {
-    meta.titreEtapeId = titreEtapeId
   }
 
   uppy.addFile({
