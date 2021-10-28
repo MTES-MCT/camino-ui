@@ -74,7 +74,7 @@
     />
 
     <TitreActivitesList
-      v-if="titre.activites.length && tabId === 'activites'"
+      v-if="tabId === 'activites'"
       :activites="titre.activites"
       :titre-id="titre.id"
     />
@@ -85,6 +85,8 @@
       :tab-id="tabId"
       @titre-event-track="eventTrack"
     />
+
+    <Journaux v-if="tabId === 'journaux'" :titre-id="titre.id" />
   </div>
 </template>
 
@@ -99,6 +101,7 @@ import TitreTerritoires from './titre/territoires.vue'
 import TitreRepertoire from './titre/repertoire.vue'
 import TitreDemarches from './titre/demarches.vue'
 import TitreActivitesList from './activites/list.vue'
+import Journaux from './journaux/journaux.vue'
 
 export default {
   components: {
@@ -110,7 +113,8 @@ export default {
     TitreRepertoire,
     TitreDemarches,
     TitreActivitesList,
-    Perimetre
+    Perimetre,
+    Journaux
   },
 
   data() {
