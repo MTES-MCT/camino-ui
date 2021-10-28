@@ -76,12 +76,12 @@ const actions = {
                 document: { ...documentToSend, nomTemporaire: idTmpFile }
               })
             } else {
+              delete documentToSend.typeId
               d = await documentModifier({
                 document: { ...documentToSend, nomTemporaire: idTmpFile }
               })
             }
 
-            commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
             commit('popupClose', null, { root: true })
 
             dispatch(
@@ -121,6 +121,8 @@ const actions = {
       )
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
     }
   },
 
