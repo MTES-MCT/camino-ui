@@ -47,82 +47,76 @@ const actions = {
       const documentToSend = Object.assign({}, document)
       delete documentToSend.fichierNouveau
 
-      // 1 - Commencer par l'upload
-      // 2 - Récupérer nom du fichier temporaire d'upload terminé quand event de fin lancé
-      // 3 - Modifier InputDocumentCreation pour accueillir champ du nom temporaire
-      // 4 - Invoquer documentCreer avec ce champ
-      // 5 - Dans le resolver du même nom, effectuer la transformation de path
+      await uploadCall(document.fichierNouveau, documentToSend, progress => {
+        commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
+      }).then(async uploadURL => {
+        const idTmpFile = uploadURL.substring(uploadURL.lastIndexOf('/') + 1)
 
-      await uploadCall(
-        document.fichierNouveau,
-        documentToSend,
-        progress => {
-          commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
-        },
-        async ({ successful, failed }) => {
-          if (failed.length > 0) {
-            throw new Error('le téléversement a échoué')
+        const idOld = document.id
+        let documentReturned
+
+        try {
+          if (!document.id) {
+            documentReturned = await documentCreer({
+              document: { ...documentToSend, nomTemporaire: idTmpFile }
+            })
+          } else {
+            delete documentToSend.typeId
+            documentReturned = await documentModifier({
+              document: { ...documentToSend, nomTemporaire: idTmpFile }
+            })
           }
 
-          const [{ uploadURL }] = successful
-          const idTmpFile = uploadURL.substring(uploadURL.lastIndexOf('/') + 1)
+          dispatch(
+            'messageAdd',
+            { value: `le document a été mis à jour`, type: 'success' },
+            { root: true }
+          )
 
-          const idOld = document.id
-          let d
+          dispatch('refreshAfterUpsert', {
+            route,
+            idOld,
+            titreEtapeId: document.titreEtapeId,
+            document: documentReturned,
+            action
+          })
 
-          try {
-            if (!document.id) {
-              d = await documentCreer({
-                document: { ...documentToSend, nomTemporaire: idTmpFile }
-              })
-            } else {
-              delete documentToSend.typeId
-              d = await documentModifier({
-                document: { ...documentToSend, nomTemporaire: idTmpFile }
-              })
-            }
-
-            commit('popupClose', null, { root: true })
-
-            dispatch(
-              'messageAdd',
-              { value: `le document a été mis à jour`, type: 'success' },
-              { root: true }
-            )
-
-            if (route) {
-              await dispatch('reload', route, { root: true })
-
-              if (route.name === 'titre') {
-                const section = route.section
-                let id
-
-                if (section === 'etapes') id = document.titreEtapeId
-
-                commit('titre/open', { section, id }, { root: true })
-              }
-            } else if (action) {
-              const params = { ...action.params, document: d }
-
-              if (idOld) {
-                params.idOld = idOld
-              }
-
-              await dispatch(action.name, params, { root: true })
-            }
-          } catch (e) {
-            commit(
-              'popupMessageAdd',
-              { value: e, type: 'error' },
-              { root: true }
-            )
-          }
+          // Ne ferme la popup automatiquement que si tout s'est passé sans erreur
+          commit('popupClose', null, { root: true })
+        } catch (e) {
+          commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
         }
-      )
+      })
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
+    }
+  },
+
+  async refreshAfterUpsert(
+    { commit, dispatch },
+    { route, idOld, titreEtapeId, document, action }
+  ) {
+    if (route) {
+      await dispatch('reload', route, { root: true })
+
+      if (route.name === 'titre') {
+        const section = route.section
+        let id
+
+        if (section === 'etapes') id = titreEtapeId
+
+        commit('titre/open', { section, id }, { root: true })
+      }
+    } else if (action) {
+      const params = { ...action.params, document }
+
+      if (idOld) {
+        params.idOld = idOld
+      }
+
+      await dispatch(action.name, params, { root: true })
     }
   },
 
