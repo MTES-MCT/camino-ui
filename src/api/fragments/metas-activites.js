@@ -38,7 +38,6 @@ const fragmentActiviteType = gql`
       ...documentType
     }
     satisfactionUrl
-    email
     description
   }
 
