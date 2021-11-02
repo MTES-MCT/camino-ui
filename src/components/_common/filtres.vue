@@ -1,9 +1,9 @@
 <template>
   <Filters
     v-if="initialized"
+    v-model:filters="filters"
     class="flex-grow"
     button="Valider"
-    :filters="filters"
     :opened="opened"
     title="Filtres"
     @validate="validate"
@@ -30,19 +30,8 @@ export default {
 
   data() {
     return {
-      opened: false
-    }
-  },
-
-  computed: {
-    filters() {
-      return this.filtres.map(filtre => {
-        if (filtre.elementsFormat) {
-          filtre.elements = filtre.elementsFormat(filtre.id, this.metas)
-        }
-
-        return filtre
-      })
+      opened: false,
+      filters: []
     }
   },
 
@@ -104,7 +93,7 @@ export default {
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
       // formate les valeurs des filtres
-      const params = this.filtres.reduce((params, filtre) => {
+      const params = this.filters.reduce((params, filtre) => {
         let value
 
         if (
@@ -131,9 +120,21 @@ export default {
     },
 
     init() {
+      // On recopie la props pour ne pas la modifier,
+      // elle doit être modifiée seulement par le store
+      this.filters = this.filtres.map(filtre => {
+        const filter = { ...filtre }
+
+        if (filtre.elementsFormat) {
+          filter.elements = filtre.elementsFormat(filtre.id, this.metas)
+        }
+
+        return filter
+      })
+
       Object.keys(this.params).forEach(id => {
         const preference = this.params[id]
-        const filtre = this.filtres.find(filtre => filtre.id === id)
+        const filtre = this.filters.find(filtre => filtre.id === id)
 
         if (!filtre) return
 
