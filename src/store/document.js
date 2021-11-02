@@ -47,46 +47,49 @@ const actions = {
       const documentToSend = Object.assign({}, document)
       delete documentToSend.fichierNouveau
 
-      await uploadCall(document.fichierNouveau, documentToSend, progress => {
-        commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
-      }).then(async uploadURL => {
-        const idTmpFile = uploadURL.substring(uploadURL.lastIndexOf('/') + 1)
-
-        const idOld = document.id
-        let documentReturned
-
-        try {
-          if (!document.id) {
-            documentReturned = await documentCreer({
-              document: { ...documentToSend, nomTemporaire: idTmpFile }
-            })
-          } else {
-            delete documentToSend.typeId
-            documentReturned = await documentModifier({
-              document: { ...documentToSend, nomTemporaire: idTmpFile }
-            })
-          }
-
-          dispatch(
-            'messageAdd',
-            { value: `le document a été mis à jour`, type: 'success' },
-            { root: true }
-          )
-
-          dispatch('refreshAfterUpsert', {
-            route,
-            idOld,
-            titreEtapeId: document.titreEtapeId,
-            document: documentReturned,
-            action
-          })
-
-          // Ne ferme la popup automatiquement que si tout s'est passé sans erreur
-          commit('popupClose', null, { root: true })
-        } catch (e) {
-          commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      const uploadURL = await uploadCall(
+        document.fichierNouveau,
+        documentToSend,
+        progress => {
+          commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
         }
-      })
+      )
+
+      const idTmpFile = uploadURL.substring(uploadURL.lastIndexOf('/') + 1)
+      const idOld = document.id
+      let documentReturned
+
+      try {
+        if (!document.id) {
+          documentReturned = await documentCreer({
+            document: { ...documentToSend, nomTemporaire: idTmpFile }
+          })
+        } else {
+          delete documentToSend.typeId
+          documentReturned = await documentModifier({
+            document: { ...documentToSend, nomTemporaire: idTmpFile }
+          })
+        }
+
+        dispatch(
+          'messageAdd',
+          { value: `le document a été mis à jour`, type: 'success' },
+          { root: true }
+        )
+
+        dispatch('refreshAfterUpsert', {
+          route,
+          idOld,
+          titreEtapeId: document.titreEtapeId,
+          document: documentReturned,
+          action
+        })
+
+        // Ne ferme la popup automatiquement que si tout s'est passé sans erreur
+        commit('popupClose', null, { root: true })
+      } catch (e) {
+        commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+      }
     } catch (e) {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
