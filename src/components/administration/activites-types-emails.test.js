@@ -94,4 +94,45 @@ describe('ActivitesTypesEmails', () => {
     expect(wrapper.find('input').exists()).toBe(true)
     expect(wrapper.findComponent(ButtonPlus).exists()).toBe(true)
   })
+
+  test('rend le bouton de suppression visible uniquement lorsque les propriétés emailsModification et emailsLecture sont true', () => {
+    let wrapper = shallowMount(ActivitesTypesEmails, {
+      props: {
+        activitesTypes,
+        administration: {
+          ...administration,
+          emailsLecture: true,
+          emailsModification: false
+        }
+      }
+    })
+
+    expect(wrapper.find('button > .icon-trash').exists()).toBe(false)
+
+    wrapper = shallowMount(ActivitesTypesEmails, {
+      props: {
+        activitesTypes,
+        administration: {
+          ...administration,
+          emailsLecture: false,
+          emailsModification: true
+        }
+      }
+    })
+
+    expect(wrapper.find('button > .icon-trash').exists()).toBe(false)
+
+    wrapper = shallowMount(ActivitesTypesEmails, {
+      props: {
+        activitesTypes,
+        administration: {
+          ...administration,
+          emailsLecture: true,
+          emailsModification: true
+        }
+      }
+    })
+
+    expect(wrapper.find('button > .icon-trash').exists()).toBe(true)
+  })
 })
