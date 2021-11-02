@@ -17,9 +17,9 @@
           <tr>
             <th>Type d'activité</th>
             <th>Email</th>
-            <th width="1">Actions</th>
+            <th v-if="administration.emailsModification" width="1">Actions</th>
           </tr>
-          <tr>
+          <tr v-if="administration.emailsModification">
             <td>
               <select
                 v-model="activiteTypeNew.activiteTypeId"
@@ -62,7 +62,7 @@
             <td>
               {{ activiteType.email }}
             </td>
-            <td>
+            <td v-if="administration.emailsModification">
               <button
                 class="btn-border py-s px-m my--xs rnd-xs flex-right"
                 @click="activiteTypeEmailDelete(activiteType)"
