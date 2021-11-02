@@ -6,7 +6,7 @@
     :elements="metas"
     :params="params"
     :total="metas.length"
-    :initialized="true"
+    :initialized="initialized"
     @params-update="paramsUpdate"
   />
 </template>

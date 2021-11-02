@@ -7,7 +7,7 @@
     :elements="entreprises"
     :params="params"
     :total="total"
-    :initialized="true"
+    :initialized="initialized"
     @params-update="paramsUpdate"
   >
     <template v-if="user && user.entreprisesCreation" #addButton>
@@ -73,6 +73,10 @@ export default {
 
     lignes() {
       return entreprisesLignesBuild(this.entreprises)
+    },
+
+    initialized() {
+      return this.$store.state.entreprises.initialized
     }
   },
 
