@@ -162,10 +162,10 @@ const administrationActiviteTypeEmailUpdate = apiGraphQLFetch(gql`
 `)
 
 const administrationActiviteTypeEmailDelete = apiGraphQLFetch(gql`
-  mutation AdministrationActiviteTypeEmailEffacer(
+  mutation AdministrationActiviteTypeEmailSupprimer(
     $administrationActiviteTypeEmail: InputAdministrationActiviteTypeEmail!
   ) {
-    administrationActiviteTypeEmailEffacer(
+    administrationActiviteTypeEmailSupprimer(
       administrationActiviteTypeEmail: $administrationActiviteTypeEmail
     ) {
       ...administration

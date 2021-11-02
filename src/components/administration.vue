@@ -162,7 +162,12 @@
     <div v-if="administration.emailsLecture">
       <div class="line-neutral width-full mb-xxl" />
       <h2>Emails</h2>
-      <AdministrationActiviteTypeEmail :administration="administration" />
+      <AdministrationActiviteTypeEmail
+        :administration="administration"
+        :activites-types="$store.state.administration.metas.activitesTypes"
+        @emailUpdate="activiteTypeEmailUpdate"
+        @emailDelete="activiteTypeEmailDelete"
+      />
     </div>
 
     <div v-if="permissionsCheck(user, ['super'])" class="mb-xxl">
@@ -277,6 +282,22 @@ export default {
 
     permissionsCheck(user, permissions) {
       return permissionsCheck(user, permissions)
+    },
+
+    async activiteTypeEmailUpdate({ administrationId, activiteTypeId, email }) {
+      await this.$store.dispatch('administration/activiteTypeEmailUpdate', {
+        administrationId,
+        activiteTypeId,
+        email
+      })
+    },
+
+    async activiteTypeEmailDelete({ administrationId, activiteTypeId, email }) {
+      await this.$store.dispatch('administration/activiteTypeEmailDelete', {
+        administrationId,
+        activiteTypeId,
+        email
+      })
     }
   }
 }

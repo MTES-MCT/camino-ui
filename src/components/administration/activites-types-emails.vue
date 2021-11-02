@@ -88,8 +88,11 @@ export default defineComponent({
   },
 
   props: {
-    administration: { type: Object, required: true }
+    administration: { type: Object, required: true },
+    activitesTypes: { type: Array, required: true, default: () => [] }
   },
+
+  emits: ['emailUpdate', 'emailDelete'],
 
   data() {
     return {
@@ -101,10 +104,6 @@ export default defineComponent({
   },
 
   computed: {
-    activitesTypes() {
-      return this.$store.state.administration.metas.activitesTypes
-    },
-
     activiteTypeNewActive() {
       return (
         this.activiteTypeNew.activiteTypeId &&
@@ -118,7 +117,7 @@ export default defineComponent({
     async activiteTypeEmailUpdate() {
       if (!this.activiteTypeNewActive) return
       const { email, activiteTypeId } = this.activiteTypeNew
-      await this.$store.dispatch('administration/activiteTypeEmailUpdate', {
+      this.$emit('emailUpdate', {
         administrationId: this.administration.id,
         activiteTypeId,
         email
@@ -130,7 +129,7 @@ export default defineComponent({
       activiteTypeId: string
     }) {
       const { email, id } = activiteType
-      await this.$store.dispatch('administration/activiteTypeEmailDelete', {
+      this.$emit('emailDelete', {
         administrationId: this.administration.id,
         activiteTypeId: id,
         email
