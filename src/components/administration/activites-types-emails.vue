@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-xxl">
+  <div v-if="administration.emailsLecture" class="mb-xxl">
     <h3>Emails à notifier lors du dépôt d’un type d’activité</h3>
 
     <div class="h6">
