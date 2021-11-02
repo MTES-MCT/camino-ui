@@ -7,7 +7,7 @@
     :filtres="filtres"
     :params="params"
     :total="total"
-    :initialized="true"
+    :initialized="initialized"
     @params-update="paramsUpdate"
   />
 </template>
@@ -32,6 +32,9 @@ export default defineComponent({
     },
     params() {
       return this.$store.state.journaux.params
+    },
+    initialized() {
+      return this.$store.state.journaux.initialized
     },
     colonnes() {
       const colonnes = [
@@ -98,10 +101,12 @@ export default defineComponent({
   },
 
   async created() {
-    this.paramsUpdate({
-      section: 'filtres',
-      params: { titreId: this.titreId }
-    })
+    if (this.titreId) {
+      this.paramsUpdate({
+        section: 'filtres',
+        params: { titreId: this.titreId }
+      })
+    }
     await this.init()
   },
 
