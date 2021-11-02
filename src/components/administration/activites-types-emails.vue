@@ -55,8 +55,6 @@
             :key="activiteType.id + activiteType.email"
           >
             <td>
-              <!-- TODO: activiteType.nom ? -->
-              {{ activiteType }}
               <span class="cap-first">
                 {{ activiteType.nom }} ({{ activiteType.id.toUpperCase() }})
               </span>
