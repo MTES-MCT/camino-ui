@@ -680,8 +680,7 @@ const metasIndex = {
         nom: 'Url voxusagers',
         type: String,
         optional: true
-      },
-      { id: 'email', nom: 'Email', type: String, optional: true }
+      }
     ]
   },
   'activites-statuts': {

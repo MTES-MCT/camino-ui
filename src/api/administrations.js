@@ -21,6 +21,11 @@ const administrationMetas = apiGraphQLFetch(
         id
         nom
       }
+
+      activitesTypes {
+        id
+        nom
+      }
     }
 
     ${fragmentAdministrationType}
@@ -48,11 +53,6 @@ const administrationPermissionsMetas = apiGraphQLFetch(
       }
 
       etapesTypes {
-        id
-        nom
-      }
-
-      activitesTypes {
         id
         nom
       }
@@ -147,6 +147,30 @@ const administrationActiviteTypeUpdate = apiGraphQLFetch(gql`
   ${fragmentAdministration}
 `)
 
+const administrationActiviteTypeEmailUpdate = apiGraphQLFetch(gql`
+  mutation AdministrationActiviteTypeEmailCreer(
+    $administrationActiviteTypeEmail: InputAdministrationActiviteTypeEmail!
+  ) {
+    administrationActiviteTypeEmailCreer(
+      administrationActiviteTypeEmail: $administrationActiviteTypeEmail
+    ) {
+      id
+    }
+  }
+`)
+
+const administrationActiviteTypeEmailDelete = apiGraphQLFetch(gql`
+  mutation AdministrationActiviteTypeEmailSupprimer(
+    $administrationActiviteTypeEmail: InputAdministrationActiviteTypeEmail!
+  ) {
+    administrationActiviteTypeEmailSupprimer(
+      administrationActiviteTypeEmail: $administrationActiviteTypeEmail
+    ) {
+      id
+    }
+  }
+`)
+
 const administrationTitreTypeTitreStatutUpdate = apiGraphQLFetch(gql`
   mutation AdministrationTitreTypeTitreStatutModifier(
     $administrationTitreTypeTitreStatut: InputAdministrationTitreTypeTitreStatut!
@@ -185,5 +209,7 @@ export {
   administrationTitreTypeTitreStatutUpdate,
   administrationTitreTypeEtapeTypeUpdate,
   administrationActiviteTypeUpdate,
+  administrationActiviteTypeEmailUpdate,
+  administrationActiviteTypeEmailDelete,
   administrationPermissionsMetas
 }

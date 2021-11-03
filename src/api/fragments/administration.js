@@ -19,6 +19,13 @@ const fragmentAdministration = gql`
     url
     telephone
     email
+    emailsModification
+    emailsLecture
+    activitesTypesEmails {
+      id
+      nom
+      email
+    }
     utilisateurs {
       ...utilisateur
     }
