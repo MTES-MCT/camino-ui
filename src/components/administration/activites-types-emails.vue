@@ -122,6 +122,8 @@ export default defineComponent({
         activiteTypeId,
         email
       })
+      this.activiteTypeNew.activiteTypeId = null
+      this.activiteTypeNew.email = null
     },
 
     async activiteTypeEmailDelete(activiteType: {

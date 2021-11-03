@@ -164,7 +164,7 @@
       <h2>Emails</h2>
       <AdministrationActiviteTypeEmail
         :administration="administration"
-        :activites-types="$store.state.administration.metas.activitesTypes"
+        :activites-types="activitesTypes"
         @emailUpdate="activiteTypeEmailUpdate"
         @emailDelete="activiteTypeEmailDelete"
       />
@@ -227,6 +227,10 @@ export default {
 
     loaded() {
       return !!this.administration
+    },
+
+    activitesTypes() {
+      return this.$store.state.administration.metas.activitesTypes
     }
   },
 
