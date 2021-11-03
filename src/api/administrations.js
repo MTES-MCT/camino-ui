@@ -154,11 +154,9 @@ const administrationActiviteTypeEmailUpdate = apiGraphQLFetch(gql`
     administrationActiviteTypeEmailCreer(
       administrationActiviteTypeEmail: $administrationActiviteTypeEmail
     ) {
-      ...administration
+      id
     }
   }
-
-  ${fragmentAdministration}
 `)
 
 const administrationActiviteTypeEmailDelete = apiGraphQLFetch(gql`
@@ -168,11 +166,9 @@ const administrationActiviteTypeEmailDelete = apiGraphQLFetch(gql`
     administrationActiviteTypeEmailSupprimer(
       administrationActiviteTypeEmail: $administrationActiviteTypeEmail
     ) {
-      ...administration
+      id
     }
   }
-
-  ${fragmentAdministration}
 `)
 
 const administrationTitreTypeTitreStatutUpdate = apiGraphQLFetch(gql`

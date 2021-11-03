@@ -224,14 +224,10 @@ const actions = {
         root: true
       })
 
-      const data = await administrationActiviteTypeEmailUpdate({
+      const { id } = await administrationActiviteTypeEmailUpdate({
         administrationActiviteTypeEmail
       })
-      await dispatch(
-        'reload',
-        { name: 'administration', id: data.id },
-        { root: true }
-      )
+      await dispatch('reload', { name: 'administration', id }, { root: true })
       dispatch(
         'messageAdd',
         { value: `l'email a été ajouté pour notifications`, type: 'success' },
@@ -255,14 +251,10 @@ const actions = {
         root: true
       })
 
-      const data = await administrationActiviteTypeEmailDelete({
+      const { id } = await administrationActiviteTypeEmailDelete({
         administrationActiviteTypeEmail
       })
-      await dispatch(
-        'reload',
-        { name: 'administration', id: data.id },
-        { root: true }
-      )
+      await dispatch('reload', { name: 'administration', id }, { root: true })
       dispatch(
         'messageAdd',
         { value: `l'email a été retiré`, type: 'success' },
