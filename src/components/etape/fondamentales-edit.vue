@@ -3,7 +3,7 @@
     <div v-if="!isArm || userIsAdmin" class="tablet-blobs">
       <div class="tablet-blob-1-3 tablet-pt-s pb-s">
         <h5 class="mb-0">Durée (années / mois)</h5>
-        <p class="h6 italic mb-0">Optionnel</p>
+        <p v-if="dureeOptionalCheck" class="h6 italic mb-0">Optionnel</p>
       </div>
 
       <HeritageEdit
@@ -461,8 +461,18 @@ export default {
       return this.etape.substances.filter(({ id }) => id).length
     },
 
+    dureeOptionalCheck() {
+      return (!this.isArm && !this.isAxm) || this.etape.type.id !== 'mfr'
+    },
+
     complete() {
-      return this.etape.type.id !== 'mfr' || this.substancesLength > 0
+      return (
+        this.etape.type.id !== 'mfr' ||
+        (this.substancesLength > 0 &&
+          (this.dureeOptionalCheck ||
+            this.etape.duree.ans ||
+            this.etape.duree.mois))
+      )
     }
   },
 
