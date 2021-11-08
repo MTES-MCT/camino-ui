@@ -65,13 +65,15 @@ export default [
     url: 'https://geoservices.brgm.fr/geologie',
     layers: 'SCAN_H_GEOL50',
     attribution: 'BRGM'
+  },
+  {
+    id: 'sdom-zones',
+    name: 'SDOM (Schéma Départemental d’Orientation Minière)',
+    type: 'wms',
+    url: 'https://datacarto.geoguyane.fr/wms/SDOM_GUYANE',
+    layers:
+      'ZONE2activiteminiereautoriseesouscontrainte,ZONE1activiteminiereinterditesaufexploitationsouterraineetrecherchesaeriennes,ZONE0activiteminiereinterdite,Zone0potentielle,LimitesdescommunesdeGuyane',
+    attribution: 'GéoGuyane',
+    version: '1.3.0'
   }
-  // {
-  //   id: 'sdom-zones',
-  //   name: 'SDOM (Schéma Départemental d’Orientation Minière)',
-  //   type: 'wms',
-  //   url: 'https://datacarto.geoguyane.fr/wms',
-  //   layers: 'zone_0_s_973,zone_1_s_973,zone_2_s_973',
-  //   attribution: 'GéoGuyane'
-  // }
 ]

@@ -47,7 +47,8 @@ const leafletTilesBuild = tiles =>
     ? L.tileLayer.wms(tiles.url, {
         layers: tiles.layers,
         format: 'image/png',
-        attribution: tiles.attribution
+        attribution: tiles.attribution,
+        version: tiles.version || undefined
       })
     : L.tileLayer(tiles.url, {
         attribution: tiles.attribution
