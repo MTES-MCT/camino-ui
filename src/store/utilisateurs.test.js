@@ -27,7 +27,15 @@ describe('liste des utilisateurs', () => {
     }
 
     store = createStore({
-      modules: { utilisateurs }
+      modules: {
+        utilisateurs,
+        titre: {
+          namespaced: true,
+          actions: {
+            openTab: jest.fn()
+          }
+        }
+      }
     })
 
     const app = createApp({})
