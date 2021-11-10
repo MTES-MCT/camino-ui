@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.25.0](https://github.com/MTES-MCT/camino-ui/compare/v0.24.0...v0.25.0) (2021-11-10)
+
+
+### Features
+
+* **administration:** notification par email sur activités ([#411](https://github.com/MTES-MCT/camino-ui/issues/411)) ([585ec55](https://github.com/MTES-MCT/camino-ui/commit/585ec550481154022da0ce64142ec8c5275e26b8))
+* **étape:** rend la durée obligatoire pour les demandes d’ARM et d’AXM ([#418](https://github.com/MTES-MCT/camino-ui/issues/418)) ([578d5a1](https://github.com/MTES-MCT/camino-ui/commit/578d5a1f42a28fda11dbd9c2920631b6ced4cf64))
+* **historique:** ajoute une nouvelle page pour afficher les différentes actions sur les titres ([#415](https://github.com/MTES-MCT/camino-ui/issues/415)) ([fff138e](https://github.com/MTES-MCT/camino-ui/commit/fff138ec7a976d8cf8cdfd9883a04973cd53efb9))
+* **sdom:** ajout du fond de carte SDOM Guyane ([#420](https://github.com/MTES-MCT/camino-ui/issues/420)) ([383e662](https://github.com/MTES-MCT/camino-ui/commit/383e662dcbae761d386f9846389c703eb7767411))
+
+
+### Bug Fixes
+
+* **carte:** corrige l’affichage des marqueurs quand celui-ci est large ([#419](https://github.com/MTES-MCT/camino-ui/issues/419)) ([06b7c80](https://github.com/MTES-MCT/camino-ui/commit/06b7c808eebce7d5f159be0fd0b60525cf0c6bd4))
+* **liste:** corrige certains bugs avec le filtrage des listes ([d96c419](https://github.com/MTES-MCT/camino-ui/commit/d96c419911fe88e0f663eb67546f3307e181a500))
+* **liste:** corrige l’initialisation des filtres dans certaines listes ([4043ed9](https://github.com/MTES-MCT/camino-ui/commit/4043ed95ab7134f1901e5d4b174a172dc38e98bb))
+
 ## [0.24.0](https://github.com/MTES-MCT/camino-ui/compare/v0.23.0...v0.24.0) (2021-10-25)
 
 
