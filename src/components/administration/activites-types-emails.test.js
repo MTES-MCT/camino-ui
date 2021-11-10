@@ -24,8 +24,8 @@ describe('ActivitesTypesEmails', () => {
   }
 
   const activitesTypes = [
-    { id: 'grx', nom: 'GRX' },
-    { id: 'pma', nom: 'PMA' }
+    { id: 'grx', nom: 'grx' },
+    { id: 'pma', nom: 'pma' }
   ]
 
   test('rend la section email visible seulement lorsque la propriété emailsLecture est true', () => {
@@ -134,5 +134,18 @@ describe('ActivitesTypesEmails', () => {
     })
 
     expect(wrapper.find('button > .icon-trash').exists()).toBe(true)
+  })
+
+  test('#activiteTypeLabelize retourne le nom et le type dans un texte commençant par une majuscule et le type en capital', () => {
+    const wrapper = shallowMount(ActivitesTypesEmails, {
+      props: {
+        activitesTypes,
+        administration: {
+          ...administration
+        }
+      }
+    })
+
+    expect(wrapper.vm.activiteTypeLabelize(activitesTypes[0])).toBe('Grx (GRX)')
   })
 })

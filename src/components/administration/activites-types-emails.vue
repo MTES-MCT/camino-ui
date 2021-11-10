@@ -139,10 +139,13 @@ export default defineComponent({
     },
 
     activiteTypeLabelize(activiteType) {
-      return `${activiteType.nom
-        .charAt(0)
-        .toUpperCase()}${activiteType.nom.slice(1)}
-      (${activiteType.id.toUpperCase()})`
+      return (
+        activiteType.nom.charAt(0).toUpperCase() +
+        activiteType.nom.slice(1) +
+        ' (' +
+        activiteType.id.toUpperCase() +
+        ')'
+      )
     }
   }
 })
