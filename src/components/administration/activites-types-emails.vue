@@ -40,6 +40,7 @@
                 type="email"
                 class="py-xs mt-xs"
                 placeholder="Email"
+                @keyup.enter="activiteTypeEmailUpdate"
               />
             </td>
             <td>
