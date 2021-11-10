@@ -24,8 +24,8 @@ describe('ActivitesTypesEmails', () => {
   }
 
   const activitesTypes = [
-    { id: 'grx', npm: 'GRX' },
-    { id: 'pma', npm: 'PMA' }
+    { id: 'grx', nom: 'GRX' },
+    { id: 'pma', nom: 'PMA' }
   ]
 
   test('rend la section email visible seulement lorsque la propriété emailsLecture est true', () => {
