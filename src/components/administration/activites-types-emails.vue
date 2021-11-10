@@ -30,7 +30,7 @@
                   :key="activiteType.id"
                   :value="activiteType.id"
                 >
-                  {{ activiteType.id.toUpperCase() }} {{ activiteType.nom }}
+                  {{ activiteTypeLabelize(activiteType) }}
                 </option>
               </select>
             </td>
@@ -57,7 +57,7 @@
           >
             <td>
               <span class="cap-first">
-                {{ activiteType.nom }} ({{ activiteType.id.toUpperCase() }})
+                {{ activiteTypeLabelize(activiteType) }}
               </span>
             </td>
             <td>
@@ -137,6 +137,16 @@ export default defineComponent({
         activiteTypeId: id,
         email
       })
+    },
+
+    activiteTypeLabelize(activiteType) {
+      return (
+        activiteType.nom.charAt(0).toUpperCase() +
+        activiteType.nom.slice(1) +
+        ' (' +
+        activiteType.id.toUpperCase() +
+        ')'
+      )
     }
   }
 })
