@@ -1,5 +1,6 @@
 import document from './document'
 import * as api from '../api/documents'
+import * as upload from '../api/_upload'
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
 
@@ -59,7 +60,6 @@ describe('documents', () => {
     const app = createApp({})
     app.use(store)
   })
-
   test('récupère les métas pour éditer un document', async () => {
     const apiMock = api.documentMetas.mockResolvedValueOnce({
       documentsTypes: [
@@ -91,75 +91,97 @@ describe('documents', () => {
   })
 
   test('ajoute un document', async () => {
-    api.documentCreer.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('document/upsert', {
-      document: { nom: 'champs' },
-      route: { name: 'titre', id: 'titre-id', section: 'etapes' }
-    })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-
-    await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' },
-      route: { name: 'titre', id: 'titre-id', section: 'travaux' }
-    })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-
-    await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' }
-    })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-
-    await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' },
-      route: 'something'
-    })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test("retourne une erreur si l'API retourne une erreur lors de l'ajout d'un document", async () => {
-    api.documentCreer.mockRejectedValue(new Error('erreur api'))
-    await store.dispatch('document/upsert', {
-      document: { nom: 'champs' }
-    })
-
-    expect(mutations.popupMessageAdd).toHaveBeenCalled()
-  })
-
-  test('met à jour un document', async () => {
-    api.documentModifier.mockResolvedValue({ id: 14, nom: 'champs' })
-    await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' },
-      route: { name: 'titre', id: 'titre-id' }
-    })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-    await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs' }
-    })
-
-    expect(mutations.popupClose).toHaveBeenCalled()
-  })
-
-  test('ajoute un nouveau document si c’est un document temporaire', async () => {
+    const document = { nom: 'champs', id: 14, typeId: 14, fichier: true }
     const apiMock = api.documentCreer.mockResolvedValue({
       id: 14,
       nom: 'champs'
     })
+    // eslint-disable-next-line no-import-assign
+    upload.uploadCall = jest.fn().mockImplementation(async () => {
+      await api.documentCreer({ document })
+    })
+
     await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs', typeId: 14 },
+      document,
+      route: { name: 'titre', id: 'titre-id', section: 'etapes' }
+    })
+    expect(upload.uploadCall).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ document })
+
+    await store.dispatch('document/upsert', {
+      document,
+      route: { name: 'titre', id: 'titre-id', section: 'travaux' }
+    })
+    expect(upload.uploadCall).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ document })
+
+    await store.dispatch('document/upsert', {
+      document,
+      route: 'something'
+    })
+    expect(upload.uploadCall).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ document })
+  })
+
+  test("retourne une erreur si l'API retourne une erreur lors de l'ajout d'un document", async () => {
+    api.documentCreer.mockRejectedValueOnce(() => new Error('erreur api'))
+    await store.dispatch('document/upsert', {
+      document: { nom: 'champs' }
+    })
+
+    expect(upload.uploadCall).toHaveBeenCalled()
+    expect(mutations.popupMessageAdd).toHaveBeenCalled()
+  })
+
+  test('met à jour un document', async () => {
+    const document = { id: 14, nom: 'champs' }
+    const apiMock = api.documentModifier.mockResolvedValue({ ...document })
+    // eslint-disable-next-line no-import-assign
+    upload.uploadCall = jest.fn().mockImplementation(async () => {
+      await api.documentModifier({ document })
+    })
+    await store.dispatch('document/upsert', {
+      document,
       route: { name: 'titre', id: 'titre-id' }
     })
 
-    expect(apiMock).toHaveBeenCalledWith({
-      document: { nom: 'champs', id: 14, typeId: 14, fichier: true }
+    await store.dispatch('document/upsert', { document })
+
+    expect(upload.uploadCall).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ document })
+  })
+
+  test('ajoute un nouveau document si c’est un document temporaire', async () => {
+    const document = { nom: 'champs', id: 14, typeId: 14, fichier: true }
+    const apiMock = api.documentCreer.mockResolvedValue({
+      id: 14,
+      nom: 'champs'
     })
+    // eslint-disable-next-line no-import-assign
+    upload.uploadCall = jest.fn().mockImplementation(async () => {
+      await api.documentCreer({ document })
+    })
+
+    await store.dispatch('document/upsert', {
+      document,
+      route: { name: 'titre', id: 'titre-id' }
+    })
+    expect(upload.uploadCall).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ document })
   })
 
   test('applique une action au lieu d’être redirigé', async () => {
+    api.documentCreer.mockImplementationOnce(async () => {
+      await store.dispatch('document/refreshAfterUpsert', {
+        action: { name: 'test' }
+      })
+    })
+
+    // eslint-disable-next-line no-import-assign
+    upload.uploadCall = jest.fn().mockImplementation(async () => {
+      await api.documentCreer({ document })
+    })
+
     await store.dispatch('document/upsert', {
       document: { id: 14, nom: 'champs', typeId: 14 },
       action: { name: 'test' }

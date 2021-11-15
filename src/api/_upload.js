@@ -5,7 +5,7 @@ import { authorizationGet, tokenRefresh, errorThrow } from './_client'
 const CHUNK_SIZE = 1048576 // 1 Mo
 const apiUrl = '/apiUrl'
 
-const uploadCall = async (file, titreEtapeId, document, progressCb) => {
+const uploadCall = async (file, document, progressCb) => {
   const uppy = new Uppy({
     autoProceed: true
   })
@@ -36,10 +36,6 @@ const uploadCall = async (file, titreEtapeId, document, progressCb) => {
     document: JSON.stringify(document)
   }
 
-  if (titreEtapeId) {
-    meta.titreEtapeId = titreEtapeId
-  }
-
   uppy.addFile({
     name: file.name,
     data: file,
@@ -56,9 +52,7 @@ const uploadCall = async (file, titreEtapeId, document, progressCb) => {
         reject(errorThrow(new Error('Échec du téléversement')))
       }
 
-      const {
-        response: { uploadURL }
-      } = successful[0]
+      const [{ uploadURL }] = successful
       resolve(uploadURL)
     })
   })
