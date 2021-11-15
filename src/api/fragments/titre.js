@@ -84,6 +84,10 @@ const fragmentTitre = gql`
       nom
     }
 
+    sdomZones {
+      nom
+    }
+
     contenu
 
     modification

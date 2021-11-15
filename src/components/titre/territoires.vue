@@ -25,10 +25,16 @@
           </div>
         </div>
       </template>
-      <div v-if="forets && forets.length">
+      <div v-if="forets?.length">
         <div>
           <h6 class="mb-s">Forêts</h6>
           <TagList :elements="forets.map(f => f.nom)" />
+        </div>
+      </div>
+      <div v-if="sdomZones?.length">
+        <div>
+          <h6 class="mb-s">Zones du SDOM</h6>
+          <TagList :elements="sdomZones.map(f => f.nom)" />
         </div>
       </div>
     </div>
@@ -48,6 +54,8 @@ export default {
     pays: { type: Array, default: () => [] },
 
     forets: { type: Array, default: () => [] },
+
+    sdomZones: { type: Array, default: () => [] },
 
     surface: { type: Number, default: 0 }
   },
