@@ -77,12 +77,20 @@
                 </option>
               </select>
 
-              <button
-                class="btn py-s px-m ml-s rnd-xs flex-right"
-                @click="justificatifRemove(eId, index)"
-              >
-                <i class="icon-24 icon-minus" />
-              </button>
+              <div v-if="j.id" class="flex-right flex flex-center ml-s">
+                <button
+                  class="btn-border py-s px-m rnd-l-xs"
+                  @click="justificatifRemove(eId, index)"
+                >
+                  <i class="icon-24 icon-trash" />
+                </button>
+                <button
+                  class="btn-border py-s px-m rnd-r-xs"
+                  @click="justificatifDownload(eId, index)"
+                >
+                  <i class="icon-24 icon-download" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -256,6 +264,12 @@ export default {
       )
 
       this.justificatifsReset()
+    },
+
+    async justificatifDownload(entrepriseId, index) {
+      const document =
+        this.entreprisesJustificatifsIndex[entrepriseId].justificatifs[index]
+      await this.$store.dispatch('downloadDocument', document)
     },
 
     justificatifsReset() {
