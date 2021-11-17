@@ -51,20 +51,16 @@ const actions = {
       let documentReturned
 
       if (document.fichierNouveau) {
-        uploadURL = await uploadCall(
-          document.fichierNouveau,
-          progress => {
-            commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
-          }
-        )
+        uploadURL = await uploadCall(document.fichierNouveau, progress => {
+          commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
+        })
       }
 
-      const nomTemporaire = uploadURL ?
-        uploadURL.substring(uploadURL.lastIndexOf('/') + 1) :
-        null
+      const nomTemporaire = uploadURL
+        ? uploadURL.substring(uploadURL.lastIndexOf('/') + 1)
+        : null
 
       const idOld = document.id
-
       try {
         if (!document.id) {
           documentReturned = await documentCreer({

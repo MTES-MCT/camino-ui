@@ -11,7 +11,9 @@ jest.mock('../api/documents', () => ({
   documentSupprimer: jest.fn()
 }))
 
-jest.mock('../api/_upload')
+jest.mock('../api/_upload', () => ({
+  uploadCall: jest.fn()
+}))
 
 console.info = jest.fn()
 
@@ -21,6 +23,8 @@ describe('documents', () => {
   let mutations
 
   beforeEach(() => {
+    jest.resetAllMocks()
+
     document.state = {
       metas: { documentsTypes: [] },
       preferences: { types: [] }
@@ -91,14 +95,15 @@ describe('documents', () => {
   })
 
   test('ajoute un document', async () => {
-    const document = { nom: 'champs', id: 14, typeId: 14, fichier: true }
+    let document = {
+      nom: 'champs',
+      typeId: 1,
+      fichier: true,
+      fichierNouveau: new Blob(),
+      nomTemporaire: null
+    }
     const apiMock = api.documentCreer.mockResolvedValue({
-      id: 14,
       nom: 'champs'
-    })
-    // eslint-disable-next-line no-import-assign
-    upload.uploadCall = jest.fn().mockImplementation(async () => {
-      await api.documentCreer({ document })
     })
 
     await store.dispatch('document/upsert', {
@@ -106,27 +111,39 @@ describe('documents', () => {
       route: { name: 'titre', id: 'titre-id', section: 'etapes' }
     })
     expect(upload.uploadCall).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ document })
+    const sentDocument = { ...document }
+    delete sentDocument.fichierNouveau
+    expect(apiMock).toHaveBeenCalledWith({ document: sentDocument })
 
-    await store.dispatch('document/upsert', {
-      document,
-      route: { name: 'titre', id: 'titre-id', section: 'travaux' }
-    })
-    expect(upload.uploadCall).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ document })
+    jest.resetAllMocks()
 
     await store.dispatch('document/upsert', {
       document,
       route: 'something'
     })
     expect(upload.uploadCall).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ document: sentDocument })
+
+    jest.resetAllMocks()
+
+    document = {
+      nom: 'champs',
+      typeId: 1,
+      fichier: true,
+      nomTemporaire: null
+    }
+    await store.dispatch('document/upsert', {
+      document,
+      route: { name: 'titre', id: 'titre-id', section: 'travaux' }
+    })
+    expect(upload.uploadCall).not.toHaveBeenCalled()
     expect(apiMock).toHaveBeenCalledWith({ document })
   })
 
   test("retourne une erreur si l'API retourne une erreur lors de l'ajout d'un document", async () => {
     api.documentCreer.mockRejectedValueOnce(() => new Error('erreur api'))
     await store.dispatch('document/upsert', {
-      document: { nom: 'champs' }
+      document: { nom: 'champs', fichierNouveau: new Blob() }
     })
 
     expect(upload.uploadCall).toHaveBeenCalled()
@@ -134,40 +151,78 @@ describe('documents', () => {
   })
 
   test('met à jour un document', async () => {
-    const document = { id: 14, nom: 'champs' }
-    const apiMock = api.documentModifier.mockResolvedValue({ ...document })
-    // eslint-disable-next-line no-import-assign
-    upload.uploadCall = jest.fn().mockImplementation(async () => {
-      await api.documentModifier({ document })
+    let document = {
+      nom: 'champs',
+      id: 14,
+      typeId: 1,
+      fichier: true,
+      fichierNouveau: new Blob(),
+      nomTemporaire: null
+    }
+    const apiMock = api.documentModifier.mockResolvedValue({
+      id: 14,
+      nom: 'champs'
     })
+
     await store.dispatch('document/upsert', {
       document,
-      route: { name: 'titre', id: 'titre-id' }
+      route: { name: 'titre', id: 'titre-id', section: 'etapes' }
     })
-
-    await store.dispatch('document/upsert', { document })
-
     expect(upload.uploadCall).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ document })
+    let sentDocument = { ...document }
+    delete sentDocument.fichierNouveau
+    delete sentDocument.typeId
+    expect(apiMock).toHaveBeenCalledWith({ document: sentDocument })
+
+    jest.resetAllMocks()
+
+    await store.dispatch('document/upsert', {
+      document,
+      route: 'something'
+    })
+    expect(upload.uploadCall).toHaveBeenCalled()
+    expect(apiMock).toHaveBeenCalledWith({ document: sentDocument })
+
+    jest.resetAllMocks()
+
+    document = {
+      nom: 'champs',
+      id: 14,
+      typeId: 1,
+      fichier: true,
+      nomTemporaire: null
+    }
+    await store.dispatch('document/upsert', {
+      document,
+      route: { name: 'titre', id: 'titre-id', section: 'travaux' }
+    })
+    expect(upload.uploadCall).not.toHaveBeenCalled()
+    sentDocument = { ...document }
+    delete sentDocument.typeId
+    expect(apiMock).toHaveBeenCalledWith({ document: sentDocument })
   })
 
   test('ajoute un nouveau document si c’est un document temporaire', async () => {
-    const document = { nom: 'champs', id: 14, typeId: 14, fichier: true }
+    const document = {
+      nom: 'champs',
+      typeId: 1,
+      fichier: true,
+      fichierNouveau: new Blob(),
+      nomTemporaire: null
+    }
     const apiMock = api.documentCreer.mockResolvedValue({
       id: 14,
       nom: 'champs'
     })
-    // eslint-disable-next-line no-import-assign
-    upload.uploadCall = jest.fn().mockImplementation(async () => {
-      await api.documentCreer({ document })
-    })
 
     await store.dispatch('document/upsert', {
       document,
       route: { name: 'titre', id: 'titre-id' }
     })
     expect(upload.uploadCall).toHaveBeenCalled()
-    expect(apiMock).toHaveBeenCalledWith({ document })
+    const sentDocument = { ...document }
+    delete sentDocument.fichierNouveau
+    expect(apiMock).toHaveBeenCalledWith({ document: sentDocument })
   })
 
   test('applique une action au lieu d’être redirigé', async () => {
@@ -177,13 +232,8 @@ describe('documents', () => {
       })
     })
 
-    // eslint-disable-next-line no-import-assign
-    upload.uploadCall = jest.fn().mockImplementation(async () => {
-      await api.documentCreer({ document })
-    })
-
     await store.dispatch('document/upsert', {
-      document: { id: 14, nom: 'champs', typeId: 14 },
+      document: { id: 14, nom: 'champs', typeId: 1 },
       action: { name: 'test' }
     })
 
