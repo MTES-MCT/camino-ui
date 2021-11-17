@@ -5,11 +5,22 @@ import { fragmentPoint } from './fragments/point'
 const pointsImporter = apiGraphQLFetch(gql`
   query PointsImporter($file: FileUpload!, $geoSystemeId: String!) {
     pointsImporter(fileUpload: $file, geoSystemeId: $geoSystemeId) {
-      ...point
+      points {
+        ...point
+      }
+      surface
     }
   }
 
   ${fragmentPoint}
 `)
 
-export { pointsImporter }
+const surfaceCalculer = apiGraphQLFetch(gql`
+  query SurfaceCalculer($points: [InputPoint]!) {
+    surfaceCalculer(points: $points) {
+      surface
+    }
+  }
+`)
+
+export { pointsImporter, surfaceCalculer }

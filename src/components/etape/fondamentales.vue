@@ -62,25 +62,6 @@
       </div>
     </div>
 
-    <div v-if="etape.surface" class="tablet-blobs">
-      <div class="tablet-blob-1-4">
-        <h5>
-          Surface
-          <Tag
-            v-if="etape.incertitudes && etape.incertitudes.surface"
-            :mini="true"
-            color="bg-info"
-            class="ml-xs"
-          >
-            Incertain
-          </Tag>
-        </h5>
-      </div>
-      <div class="tablet-blob-3-4">
-        <p>{{ numberFormat(etape.surface) }} km² environ</p>
-      </div>
-    </div>
-
     <div
       v-if="etape.titulaires && etape.titulaires.length"
       class="tablet-blobs"
@@ -161,7 +142,6 @@
 
 <script>
 import { dateFormat } from '@/utils'
-import numberFormat from '@/utils/number-format'
 import { etablissementNameFind } from '../../utils/entreprise'
 import TagList from '../_ui/tag-list.vue'
 import Tag from '../_ui/tag.vue'
@@ -181,10 +161,6 @@ export default {
 
     dateFormat(date) {
       return dateFormat(date)
-    },
-
-    numberFormat(number) {
-      return numberFormat(number)
     }
   }
 }
