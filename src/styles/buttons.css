@@ -50,7 +50,8 @@
 
 .btn-alt {
   button-color: var(--color-text) var(--color-bg) var(--color-bg);
-  button-background: var(--color-bg) var(--color-neutral) var(--color-neutral);
+  button-background: var(--color-transparent) var(--color-neutral)
+    var(--color-neutral);
   button-class: active disabled false;
 }
 

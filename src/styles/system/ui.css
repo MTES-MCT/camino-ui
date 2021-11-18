@@ -66,6 +66,10 @@
   border-bottom-right-radius: var(--unit-s);
 }
 
+.rnd-br-s {
+  border-bottom-right-radius: var(--unit-s);
+}
+
 .rnd-xs {
   border-radius: var(--unit-xs);
 }
