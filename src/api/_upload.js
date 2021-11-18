@@ -5,7 +5,7 @@ import { authorizationGet, tokenRefresh, errorThrow } from './_client'
 const CHUNK_SIZE = 1048576 // 1 Mo
 const apiUrl = '/apiUrl'
 
-const uploadCall = async (file, document, progressCb) => {
+const uploadCall = async (file, progressCb) => {
   const uppy = new Uppy({
     autoProceed: true
   })
@@ -32,14 +32,9 @@ const uploadCall = async (file, document, progressCb) => {
     }
   })
 
-  const meta = {
-    document: JSON.stringify(document)
-  }
-
   uppy.addFile({
     name: file.name,
-    data: file,
-    meta
+    data: file
   })
 
   progressCb(0)

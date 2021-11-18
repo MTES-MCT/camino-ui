@@ -47,27 +47,29 @@ const actions = {
       const documentToSend = Object.assign({}, document)
       delete documentToSend.fichierNouveau
 
-      const uploadURL = await uploadCall(
-        document.fichierNouveau,
-        documentToSend,
-        progress => {
-          commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
-        }
-      )
-
-      const idTmpFile = uploadURL.substring(uploadURL.lastIndexOf('/') + 1)
-      const idOld = document.id
+      let uploadURL
       let documentReturned
 
+      if (document.fichierNouveau) {
+        uploadURL = await uploadCall(document.fichierNouveau, progress => {
+          commit('fileLoad', { loaded: progress, total: 100 }, { root: true })
+        })
+      }
+
+      const nomTemporaire = uploadURL
+        ? uploadURL.substring(uploadURL.lastIndexOf('/') + 1)
+        : null
+
+      const idOld = document.id
       try {
         if (!document.id) {
           documentReturned = await documentCreer({
-            document: { ...documentToSend, nomTemporaire: idTmpFile }
+            document: { ...documentToSend, nomTemporaire }
           })
         } else {
           delete documentToSend.typeId
           documentReturned = await documentModifier({
-            document: { ...documentToSend, nomTemporaire: idTmpFile }
+            document: { ...documentToSend, nomTemporaire }
           })
         }
 
