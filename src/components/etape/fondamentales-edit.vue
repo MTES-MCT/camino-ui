@@ -287,44 +287,6 @@
       <hr />
     </div>
 
-    <div class="tablet-blobs">
-      <div class="tablet-blob-1-3 tablet-pt-s pb-s">
-        <h5 class="mb-0">Surface (Km²)</h5>
-        <p class="h6 italic mb-0">Optionnel</p>
-      </div>
-      <HeritageEdit
-        v-model:prop="etape.heritageProps.surface"
-        class="tablet-blob-2-3"
-        prop-id="surface"
-      >
-        <template #write>
-          <inputNumber
-            v-model="etape.surface"
-            min="0"
-            placeholder="0"
-            class="mb-s"
-          />
-          <div v-if="etape.surface" class="h6">
-            <label>
-              <input
-                v-model="etape.incertitudes.surface"
-                type="checkbox"
-                class="mr-xs"
-              />
-              Incertain
-            </label>
-          </div>
-        </template>
-        <template #read>
-          <div class="border p-s mb-s bold">
-            {{ etape.heritageProps.surface.etape.surface }}
-          </div>
-        </template>
-      </HeritageEdit>
-    </div>
-
-    <hr />
-
     <h3 class="mb-s">Substances</h3>
     <HeritageEdit
       v-model:prop="etape.heritageProps.substances"
@@ -482,10 +444,6 @@ export default {
       handler: function (etape) {
         if (!etape.duree) {
           etape.incertitudes.duree = false
-        }
-
-        if (!etape.surface) {
-          etape.incertitudes.surface = false
         }
 
         if (!etape.dateDebut) {

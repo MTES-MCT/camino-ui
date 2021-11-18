@@ -213,6 +213,53 @@
 
     <hr />
   </div>
+
+  <div class="tablet-blobs">
+    <div class="tablet-blob-1-3 tablet-pt-s pb-s flex">
+      <div>
+        <h5 class="mb-0">Surface (Km²)</h5>
+        <p class="h6 italic mb-0">Optionnel</p>
+      </div>
+      <button
+        class="flex-right btn-border pill p-s tooltip"
+        @click="surfaceRefresh"
+      >
+        <h6 class="tooltip-content">
+          Recalculer automatiquement la surface à partir du périmètre
+        </h6>
+        <i class="icon-24 icon-refresh" />
+      </button>
+    </div>
+    <HeritageEdit
+      v-model:prop="etape.heritageProps.surface"
+      class="tablet-blob-2-3"
+      prop-id="surface"
+    >
+      <template #write>
+        <inputNumber
+          v-model="etape.surface"
+          min="0"
+          placeholder="0"
+          class="mb-s"
+        />
+        <div v-if="etape.surface" class="h6">
+          <label>
+            <input
+              v-model="etape.incertitudes.surface"
+              type="checkbox"
+              class="mr-xs"
+            />
+            Incertain
+          </label>
+        </div>
+      </template>
+      <template #read>
+        <div class="border p-s mb-s bold">
+          {{ etape.heritageProps.surface.etape.surface }}
+        </div>
+      </template>
+    </HeritageEdit>
+  </div>
 </template>
 
 <script>
@@ -222,6 +269,7 @@ import PointsLotEdit from './points-lot-edit.vue'
 import HeritageEdit from './heritage-edit.vue'
 import PointsImportPopup from './points-import-popup.vue'
 import Points from '../_common/points.vue'
+import InputNumber from '../_ui/input-number.vue'
 
 export default {
   components: {
@@ -229,7 +277,8 @@ export default {
     PointEdit,
     PointsLotEdit,
     HeritageEdit,
-    Points
+    Points,
+    InputNumber
   },
 
   props: {
@@ -277,6 +326,10 @@ export default {
           !etape.groupes[0][0].length
         ) {
           etape.incertitudes.points = false
+        }
+
+        if (!etape.surface) {
+          etape.incertitudes.surface = false
         }
       },
       deep: true
@@ -428,6 +481,10 @@ export default {
       this.$store.commit('popupOpen', {
         component: PointsImportPopup
       })
+    },
+
+    surfaceRefresh() {
+      this.$store.dispatch('titreEtapeEdition/surfaceRefresh', this.etape)
     }
   }
 }

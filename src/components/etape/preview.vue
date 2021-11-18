@@ -66,7 +66,7 @@
 
         <Perimetre
           v-if="etape.points && etape.points.length"
-          :points="etape.points"
+          :etape="etape"
           :domaine-id="domaineId"
           :titre-type-id="titreTypeType.id"
           :geojson-multi-polygon="etape.geojsonMultiPolygon"

@@ -3,7 +3,7 @@ import {
   etapeEditFormat,
   etapePointsFormat
 } from '../utils/titre-etape-edit'
-import { etapeSaveFormat } from '../utils/titre-etape-save'
+import { etapeSaveFormat, pointsBuild } from '../utils/titre-etape-save'
 import { etapeHeritageBuild } from '../utils/titre-etape-heritage-build'
 
 import router from '../router'
@@ -17,7 +17,7 @@ import {
   titreEtapeMetas
 } from '../api/titres-etapes'
 import { documentsRequiredAdd } from '../utils/documents'
-import { pointsImporter } from '../api/geojson'
+import { pointsImporter, surfaceCalculer } from '../api/geojson'
 
 const state = {
   element: null,
@@ -225,8 +225,9 @@ const actions = {
     try {
       commit('loadingAdd', 'pointsImport', { root: true })
 
-      const points = await pointsImporter({ file, geoSystemeId })
+      const { points, surface } = await pointsImporter({ file, geoSystemeId })
       const etape = etapePointsFormat(state.element, points)
+      etape.surface = surface
 
       commit('set', etape)
       commit('popupClose', null, { root: true })
@@ -242,6 +243,50 @@ const actions = {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'pointsImport', { root: true })
+    }
+  },
+
+  async surfaceRefresh({ state, commit, dispatch }, etape) {
+    try {
+      commit('loadingAdd', 'surfaceRefresh', { root: true })
+
+      if (
+        etape.geoSystemeIds &&
+        etape.geoSystemeIds.length &&
+        etape.groupes.length
+      ) {
+        const points = pointsBuild(
+          etape.groupes,
+          etape.geoSystemeIds,
+          etape.geoSystemeOpposableId || etape.geoSystemeIds[0]
+        )
+        const { surface } = await surfaceCalculer({ points })
+        state.element.surface = surface
+
+        commit('set', state.element)
+        commit('popupClose', null, { root: true })
+        dispatch(
+          'messageAdd',
+          {
+            value: `la surface a été recalculée à partir du périmètre`,
+            type: 'success'
+          },
+          { root: true }
+        )
+      } else {
+        dispatch(
+          'messageAdd',
+          {
+            value: `la surface ne peut-être calculée car le périmètre est invalide`,
+            type: 'warning'
+          },
+          { root: true }
+        )
+      }
+    } catch (e) {
+      commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'surfaceRefresh', { root: true })
     }
   },
 
