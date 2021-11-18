@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-direction-column rnd-s border bg-bg overflow-hidden">
+  <div class="flex flex-direction-column rnd-s border bg-bg">
     <div
       v-if="slotButtons"
       class="accordion-header flex"
@@ -15,7 +15,12 @@
 
       <div class="overflow-hidden flex flex-end flex-right">
         <slot name="buttons" />
-        <button v-if="slotDefault" class="btn-alt py-s px-m" @click="toggle">
+        <button
+          v-if="slotDefault"
+          class="btn-alt py-s px-m"
+          :class="{ 'rnd-br-s': !opened }"
+          @click="toggle"
+        >
           <i
             class="icon-24"
             :class="{
