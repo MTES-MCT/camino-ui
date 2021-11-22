@@ -20,7 +20,7 @@
         </div>
       </button>
 
-      <div class="overflow-hidden">
+      <div :class="{ 'overflow-hidden': !opened, opened: opened }">
         <Transition name="slide">
           <slot v-if="opened" />
         </Transition>

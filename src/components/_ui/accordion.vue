@@ -62,7 +62,7 @@
 
     <slot v-if="slotSub" name="sub" :class="{ 'border-b-s': opened }" />
 
-    <div v-if="slotDefault" class="overflow-hidden">
+    <div v-if="slotDefault" :class="{ 'overflow-hidden': isOverflowHidden }">
       <Transition name="slide">
         <div v-show="opened">
           <slot />
@@ -91,6 +91,22 @@ export default {
   },
 
   emits: ['toggle'],
+
+  data() {
+    return {
+      isOverflowHidden: true
+    }
+  },
+
+  watch: {
+    opened(isOpened) {
+      // Overflow "hidden" est nécessaire pour l'animation d'ouverture/fermeture,
+      // mais est retiré pour éviter un bug visuel avec les infobulles.
+      // Le timeout est nécessaire pour ajuster l'overflow dans l'état requis,
+      // tout en permettant à l'animation d'ouverture de se jouer correctement.
+      setTimeout(() => (this.isOverflowHidden = !isOpened), isOpened ? 1000 : 0)
+    }
+  },
 
   methods: {
     toggle() {
