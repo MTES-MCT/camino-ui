@@ -221,6 +221,7 @@
         <p class="h6 italic mb-0">Optionnel</p>
       </div>
       <button
+        v-if="!etape.heritageProps.surface.actif"
         class="flex-right btn-border pill p-s tooltip"
         @click="surfaceRefresh"
       >
