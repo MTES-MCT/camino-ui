@@ -62,7 +62,7 @@
 
     <slot v-if="slotSub" name="sub" :class="{ 'border-b-s': opened }" />
 
-    <div v-if="slotDefault" class="overflow-hidden">
+    <div v-if="slotDefault" :class="{ 'overflow-hidden': isOverflowHidden }">
       <Transition name="slide">
         <div v-show="opened">
           <slot />
@@ -91,6 +91,18 @@ export default {
   },
 
   emits: ['toggle'],
+
+  data() {
+    return {
+      isOverflowHidden: true
+    }
+  },
+
+  watch: {
+    opened(isOpened) {
+      setTimeout(() => (this.isOverflowHidden = !isOpened), isOpened ? 1000 : 0)
+    }
+  },
 
   methods: {
     toggle() {
