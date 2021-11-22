@@ -100,6 +100,10 @@ export default {
 
   watch: {
     opened(isOpened) {
+      // Overflow "hidden" est nécessaire pour l'animation d'ouverture/fermeture,
+      // mais est retiré pour éviter un bug visuel avec les infobulles.
+      // Le timeout est nécessaire pour ajuster l'overflow dans l'état requis,
+      // tout en permettant à l'animation d'ouverture de se jouer correctement.
       setTimeout(() => (this.isOverflowHidden = !isOpened), isOpened ? 1000 : 0)
     }
   },
