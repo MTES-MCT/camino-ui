@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.26.0](https://github.com/MTES-MCT/camino-ui/compare/v0.25.0...v0.26.0) (2021-11-23)
+
+
+### Features
+
+* **étape:** calcule automatiquement la surface à partir du périmètre ([#426](https://github.com/MTES-MCT/camino-ui/issues/426)) ([33d60c8](https://github.com/MTES-MCT/camino-ui/commit/33d60c89183a7c64fe2eede6c48abdb1dea7d6fb))
+* **sdom:** affiche les zones du SDOM sur les titres ([#424](https://github.com/MTES-MCT/camino-ui/issues/424)) ([3961490](https://github.com/MTES-MCT/camino-ui/commit/3961490aa904cbebee6bcfe6ca4279385bf34e09))
+
+
+### Bug Fixes
+
+* **accordion:** corrige le rognage de l'infobulle ([#428](https://github.com/MTES-MCT/camino-ui/issues/428)) ([9f135ca](https://github.com/MTES-MCT/camino-ui/commit/9f135ca050cdee993b5f184878755a90781b6bad))
+* **accordion:** corriger l'overflow pour les infobulles ([#429](https://github.com/MTES-MCT/camino-ui/issues/429)) ([c3b5449](https://github.com/MTES-MCT/camino-ui/commit/c3b5449c0e7a28a4304452d66f6769e93118725a))
+* **administrations:** harmonise étiquette affichée pour type activité ([#421](https://github.com/MTES-MCT/camino-ui/issues/421)) ([047c51a](https://github.com/MTES-MCT/camino-ui/commit/047c51ac5b433f180a4f63ba3cc798c0e3b74c79))
+* **document:** corrige l'erreur dans modifications de document ([#427](https://github.com/MTES-MCT/camino-ui/issues/427)) ([ee25009](https://github.com/MTES-MCT/camino-ui/commit/ee250094849a94473e203810ecfb73861bd56d87))
+* **email:** ajoute un email à la liste avec le bouton entrée ([#422](https://github.com/MTES-MCT/camino-ui/issues/422)) ([0b532db](https://github.com/MTES-MCT/camino-ui/commit/0b532dbd8b6170c43c158eacb1acbfb099f33cda))
+* **justificatifs:** permet de télécharger les justificatifs pendant l’édition d’une étape ([#425](https://github.com/MTES-MCT/camino-ui/issues/425)) ([3cb707e](https://github.com/MTES-MCT/camino-ui/commit/3cb707e6e61790f5d59671e6b8699e9beeb86607))
+* **surface:** désactive l’héritage de la surface lors de l’import d’un nouveau périmètre ([#430](https://github.com/MTES-MCT/camino-ui/issues/430)) ([ada72c4](https://github.com/MTES-MCT/camino-ui/commit/ada72c4178dcc18c278fe57acc4983d5c0854992))
+* **upload:** corrige la séquence de téléversement pour éviter les fichiers perdus ([#414](https://github.com/MTES-MCT/camino-ui/issues/414)) ([cc01c8b](https://github.com/MTES-MCT/camino-ui/commit/cc01c8b0cc250e908a330d358932a173ece90afc))
+
 ## [0.25.0](https://github.com/MTES-MCT/camino-ui/compare/v0.24.0...v0.25.0) (2021-11-10)
 
 
