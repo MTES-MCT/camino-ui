@@ -227,6 +227,8 @@ const actions = {
 
       const { points, surface } = await pointsImporter({ file, geoSystemeId })
       const etape = etapePointsFormat(state.element, points)
+      // pour modifier la surface, on doit désactiver l’héritage
+      etape.heritageProps.surface.actif = false
       etape.surface = surface
 
       commit('set', etape)
