@@ -2,11 +2,16 @@
   <div v-if="administration.emailsLecture" class="mb-xxl">
     <h3>Emails à notifier lors du dépôt d’un type d’activité</h3>
 
-    <div class="h6">
-      <p class="mb-s">
-        Lors d’un dépôt d’une activité d’un type en particulier, quels sont les
-        emails à notifier ?
-      </p>
+    <div class="tablet-blob-3-4">
+      <div class="h6">
+        <ul class="list-prefix">
+          <li>Les <strong>DREAL, DEAL et DGTM</strong> sont notifiées pour tous les dépôts d'activité.</li>
+          <li>Les <strong>autres administrations</strong> (préfecture, DIRM, préfet maritime...) sont notifiées uniquement si la production annuelle est non nulle.</li>
+        </ul>
+
+        <p>Lors d’un dépôt d’une activité d’un type en particulier, quels sont les
+        emails à notifier ?</p>
+      </div>
     </div>
 
     <div class="line width-full" />
