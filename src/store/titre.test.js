@@ -12,7 +12,8 @@ jest.mock('../api/titres', () => ({
   titre: jest.fn(),
   titreCreer: jest.fn(),
   titreModifier: jest.fn(),
-  titreSupprimer: jest.fn()
+  titreSupprimer: jest.fn(),
+  utilisateurTitreAbonner: jest.fn()
 }))
 
 console.info = jest.fn()

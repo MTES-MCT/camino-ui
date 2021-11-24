@@ -98,6 +98,7 @@ const fragmentTitre = gql`
       id
       nom
     }
+    abonnement
   }
 
   ${fragmentTitreAdministrations}

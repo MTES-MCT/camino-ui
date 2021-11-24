@@ -2,22 +2,36 @@
   <div class="sticky-header width-full">
     <div class="container">
       <div class="tablet-blobs">
-        <div class="tablet-blob-2-3">
+        <div class="tablet-blob-1-2">
           <h1 class="mt-m mb-m">
             {{ titre.nom }}
           </h1>
         </div>
-        <div class="tablet-blob-1-3 flex">
+        <div class="tablet-blob-1-2 flex">
           <div class="flex-right flex my-s">
             <button
-              class="btn-border small rnd-l-xs px-m py-s lh-2"
+              v-if="user"
+              class="btn small rnd-0 rnd-l-xs px-m py-s lh-2 mr-px"
               :class="{
+                'btn-primary': !titre.abonnement,
+                'btn-secondary': titre.abonnement
+              }"
+              @click="subscribe(!titre.abonnement)"
+            >
+              <span class="mt-xs">{{
+                titre.abonnement ? 'Se désabonner' : 'S’abonner'
+              }}</span>
+            </button>
+            <button
+              class="btn-border small px-m py-s lh-2"
+              :class="{
+                'rnd-l-xs': !user,
                 'rnd-r-xs': !titre.suppression || !titre.modification,
                 'mr-px': titre.suppression || titre.modification
               }"
               @click="emailSend"
             >
-              <span class="mt-xs">Signaler une erreur…</span>
+              <span class="mt-xs nowrap">Signaler une erreur…</span>
             </button>
             <button
               v-if="titre.modification"
@@ -57,6 +71,11 @@ export default {
 
   emits: ['titre-event-track'],
 
+  computed: {
+    user() {
+      return this.$store.state.user.element
+    }
+  },
   methods: {
     editPopupOpen() {
       const titre = {}
@@ -107,7 +126,14 @@ export default {
         action: 'titre-erreur_signaler',
         nom: this.$route.params.id
       })
-      window.location.href = `mailto:camino@beta.gouv.fr?subject=Erreur ${this.$route.params.id}&body=Bonjour, j'ai repéré une erreur sur le titre ${this.$route.params.id} : `
+      window.location.href = `mailto:camino@beta.gouv.fr?subject=Erreur ${this.$route.params.id}&body=Bonjour, j'ai repéré une erreur sur le titre ${window.location.href} : `
+    },
+
+    subscribe(abonner) {
+      this.$store.dispatch('titre/subscribe', {
+        titreId: this.titre.id,
+        abonner
+      })
     },
 
     eventTrack(event) {

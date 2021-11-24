@@ -7,6 +7,7 @@ import {
 } from '../api/titres'
 
 import router from '../router'
+import { utilisateurTitreAbonner } from '../api/utilisateurs-titres'
 
 const state = {
   element: null,
@@ -166,6 +167,30 @@ const actions = {
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'titreRemove', { root: true })
+    }
+  },
+
+  async subscribe({ state, commit, dispatch }, { titreId, abonner }) {
+    try {
+      commit('loadingAdd', 'titreSubscribe', { root: true })
+
+      await utilisateurTitreAbonner({ titreId, abonner })
+
+      state.element.abonnement = abonner
+      commit('set', state.element)
+
+      dispatch(
+        'messageAdd',
+        {
+          value: `Vous êtes ${abonner ? 'abonné' : 'désabonné'} à ce titre`,
+          type: 'success'
+        },
+        { root: true }
+      )
+    } catch (e) {
+      dispatch('apiError', e, { root: true })
+    } finally {
+      commit('loadingRemove', 'titreSubscribe', { root: true })
     }
   }
 }
