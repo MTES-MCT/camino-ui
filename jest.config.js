@@ -61,7 +61,7 @@ module.exports = {
   // ],
 
   // An array of file extensions your modules use
-  moduleFileExtensions: ['js', 'jsx', 'json', 'vue' , 'ts', 'tsx'],
+  moduleFileExtensions: ['js', 'jsx', 'json', 'vue', 'ts', 'tsx'],
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
@@ -131,9 +131,7 @@ module.exports = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: [
-    '<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}',
-  ],
+  testMatch: ['<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}'],
   // testMatch: [
   //   "**/__tests__/**/*.js?(x)",
   //   "**/?(*.)+(spec|test).js?(x)"
@@ -183,8 +181,5 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname'
-  ]
+  watchPlugins: []
 }

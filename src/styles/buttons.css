@@ -31,6 +31,17 @@
   width: 100%;
 }
 
+.btn-secondary {
+  button-border: var(--unit-px) var(--dsfr-bf500) var(--color-neutral)
+    var(--dsfr-color-hover);
+  button-color: var(--dsfr-bf500) var(--dsfr-bf500) var(--dsfr-bf500);
+  button-background: var(--color-bg) var(--color-neutral) var(--color-alt);
+  button-class: active disabled true;
+  border-radius: var(--unit-xs);
+  padding: var(--unit-s);
+  width: 100%;
+}
+
 .btn-border {
   button-border: var(--unit-px) var(--color-alt) var(--color-neutral)
     var(--color-neutral);
