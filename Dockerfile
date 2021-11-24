@@ -7,6 +7,8 @@ ENV dir /app
 WORKDIR $dir
 
 COPY package*.json ./
+# On désactive husky
+RUN npm set-script prepare ""
 RUN npm ci
 
 COPY index.js ./
