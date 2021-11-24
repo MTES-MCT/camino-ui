@@ -4,21 +4,12 @@
 
     <div class="tablet-blob-3-4">
       <div class="h6">
-        <ul class="list-prefix">
-          <li v-if="isFullyNotifiable">
-            Les <strong>DREAL, DEAL et DGTM</strong> sont notifiées pour tous
-            les dépôts d'activité.
-          </li>
-          <li v-else>
-            Les <strong>administrations</strong> (préfecture, DIRM, préfet
-            maritime...) sont notifiées uniquement si la production annuelle est
-            non nulle.
-          </li>
-        </ul>
-
         <p>
-          Lors d’un dépôt d’une activité d’un type en particulier, quels sont
-          les emails à notifier ?
+          Lors d’un dépôt d’une activité d’un type en particulier<span
+            v-if="!isFullyNotifiable"
+          >
+            (si la production annuelle est non nulle)</span
+          >, quels sont les emails à notifier ?
         </p>
       </div>
     </div>
