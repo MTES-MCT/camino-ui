@@ -34,6 +34,7 @@
         :domaine-id="domaineId"
         :titre-type-id="titreTypeId"
         :user-is-admin="userIsAdmin"
+        :user-is-super="userIsSuper"
         @complete-update="fondamentalesCompleteUpdate"
       />
     </Accordion>
@@ -293,6 +294,10 @@ export default {
 
     userIsAdmin() {
       return this.$store.getters['user/userIsAdmin']
+    },
+
+    userIsSuper() {
+      return this.$store.getters['user/userIsSuper']
     }
   },
 

@@ -52,8 +52,8 @@
     </div>
 
     <div v-if="(!isArm && !isAxm) || userIsAdmin">
-      <div v-if="!userIsAdmin" class="tablet-blobs">
-        <div v-if="!userIsAdmin" class="tablet-blob-1-3 tablet-pt-s pb-s">
+      <div v-if="canSeeAllDates" class="tablet-blobs">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h5 class="mb-0">Date de début</h5>
           <p class="h6 italic mb-0">Optionnel</p>
         </div>
@@ -83,7 +83,7 @@
         </HeritageEdit>
       </div>
 
-      <div v-if="!userIsAdmin" class="tablet-blobs">
+      <div v-if="canSeeAllDates" class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h5 class="mb-0">Date d'échéance</h5>
           <p class="h6 italic mb-0">Optionnel</p>
@@ -197,97 +197,93 @@
       </HeritageEdit>
       <hr />
 
-      <div v-if="!userIsAdmin">
-        <h3 class="mb-s">Amodiataires</h3>
-        <p class="h6 italic">Optionnel</p>
+      <h3 class="mb-s">Amodiataires</h3>
+      <p class="h6 italic">Optionnel</p>
 
-        <HeritageEdit
-          v-model:prop="etape.heritageProps.amodiataires"
-          prop-id="amodiataires"
-          :is-array="true"
-        >
-          <template #write>
-            <div
-              v-for="(amodiataire, n) in etape.amodiataires"
-              :key="`amodiataire-${amodiataire.id}`"
-            >
-              <div class="flex mb-s">
-                <select v-model="amodiataire.id" class="p-s mr-s">
-                  <option
-                    v-for="entreprise in entreprises"
-                    :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
-                    :value="entreprise.id"
-                    :disabled="
-                      etape.amodiataires.find(a => a.id === entreprise.id) ||
-                      etape.titulaires.find(t => t.id === entreprise.id)
-                    "
-                  >
-                    {{ entreprise.nom }} ({{ entreprise.id }})
-                  </option>
-                </select>
-                <button
-                  class="btn py-s px-m rnd-xs"
-                  @click="amodiataireRemove(n)"
+      <HeritageEdit
+        v-model:prop="etape.heritageProps.amodiataires"
+        prop-id="amodiataires"
+        :is-array="true"
+      >
+        <template #write>
+          <div
+            v-for="(amodiataire, n) in etape.amodiataires"
+            :key="`amodiataire-${amodiataire.id}`"
+          >
+            <div class="flex mb-s">
+              <select v-model="amodiataire.id" class="p-s mr-s">
+                <option
+                  v-for="entreprise in entreprises"
+                  :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
+                  :value="entreprise.id"
+                  :disabled="
+                    etape.amodiataires.find(a => a.id === entreprise.id) ||
+                    etape.titulaires.find(t => t.id === entreprise.id)
+                  "
                 >
-                  <i class="icon-24 icon-minus" />
-                </button>
-              </div>
-              <div v-if="amodiataire.id" class="h6 mb">
-                <label>
-                  <input
-                    v-model="amodiataire.operateur"
-                    type="checkbox"
-                    class="mr-xs"
-                  />
-                  Opérateur
-                </label>
-              </div>
+                  {{ entreprise.nom }} ({{ entreprise.id }})
+                </option>
+              </select>
+              <button
+                class="btn py-s px-m rnd-xs"
+                @click="amodiataireRemove(n)"
+              >
+                <i class="icon-24 icon-minus" />
+              </button>
             </div>
-
-            <button
-              v-if="!etape.amodiataires.some(({ id }) => id === '')"
-              class="btn small rnd-xs py-s px-m full-x flex mb-s"
-              @click="amodiataireAdd"
-            >
-              <span class="mt-xxs">Ajouter un amodiataire</span
-              ><i class="icon-24 icon-plus flex-right" />
-            </button>
-
-            <div v-if="amodiatairesLength" class="h6">
+            <div v-if="amodiataire.id" class="h6 mb">
               <label>
                 <input
-                  v-model="etape.incertitudes.amodiataires"
+                  v-model="amodiataire.operateur"
                   type="checkbox"
                   class="mr-xs"
                 />
-                Incertain
+                Opérateur
               </label>
             </div>
-          </template>
-          <template #read>
-            <ul class="list-prefix">
-              <li
-                v-for="t in etape.heritageProps.amodiataires.etape.amodiataires"
-                :key="t.id"
-              >
-                {{
-                  etablissementNameFind(t.etablissements, etape.date) || t.nom
-                }}
-                <Tag
-                  v-if="t.operateur"
-                  :mini="true"
-                  color="bg-info"
-                  class="ml-xs"
-                >
-                  Opérateur
-                </Tag>
-              </li>
-            </ul>
-          </template>
-        </HeritageEdit>
+          </div>
 
-        <hr />
-      </div>
+          <button
+            v-if="!etape.amodiataires.some(({ id }) => id === '')"
+            class="btn small rnd-xs py-s px-m full-x flex mb-s"
+            @click="amodiataireAdd"
+          >
+            <span class="mt-xxs">Ajouter un amodiataire</span
+            ><i class="icon-24 icon-plus flex-right" />
+          </button>
+
+          <div v-if="amodiatairesLength" class="h6">
+            <label>
+              <input
+                v-model="etape.incertitudes.amodiataires"
+                type="checkbox"
+                class="mr-xs"
+              />
+              Incertain
+            </label>
+          </div>
+        </template>
+        <template #read>
+          <ul class="list-prefix">
+            <li
+              v-for="t in etape.heritageProps.amodiataires.etape.amodiataires"
+              :key="t.id"
+            >
+              {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
+              <Tag
+                v-if="t.operateur"
+                :mini="true"
+                color="bg-info"
+                class="ml-xs"
+              >
+                Opérateur
+              </Tag>
+            </li>
+          </ul>
+        </template>
+      </HeritageEdit>
+
+      <hr />
     </div>
 
     <h3 class="mb-s">Substances</h3>
@@ -374,7 +370,7 @@
 </template>
 
 <script>
-import { dateFormat } from '@/utils/index'
+import { dateFormat } from '../../utils/index'
 import Tag from '../_ui/tag.vue'
 import TagList from '../_ui/tag-list.vue'
 import InputDate from '../_ui/input-date.vue'
@@ -391,7 +387,8 @@ export default {
     etape: { type: Object, default: () => ({}) },
     domaineId: { type: String, default: '' },
     titreTypeId: { type: String, required: true },
-    userIsAdmin: { type: Boolean, required: true }
+    userIsAdmin: { type: Boolean, required: true },
+    userIsSuper: { type: Boolean, required: true }
   },
   emits: ['complete-update'],
 
@@ -428,6 +425,21 @@ export default {
 
     dureeOptionalCheck() {
       return (!this.isArm && !this.isAxm) || this.etape.type.id !== 'mfr'
+    },
+
+    canSeeAllDates() {
+      if (this.userIsSuper) {
+        return true
+      }
+
+      if (
+        this.etape.type?.id === 'mfr' &&
+        ['arm', 'axm'].includes(this.titreTypeId)
+      ) {
+        return false
+      }
+
+      return true
     },
 
     complete() {
