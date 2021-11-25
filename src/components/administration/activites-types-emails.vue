@@ -2,11 +2,15 @@
   <div v-if="administration.emailsLecture" class="mb-xxl">
     <h3>Emails à notifier lors du dépôt d’un type d’activité</h3>
 
-    <div class="h6">
-      <p class="mb-s">
-        Lors d’un dépôt d’une activité d’un type en particulier, quels sont les
-        emails à notifier ?
-      </p>
+    <div class="tablet-blob-3-4">
+      <div class="h6">
+        <p>
+          Lors d’un dépôt d’une activité d’un type en particulier
+          <span v-if="!isFullyNotifiable">
+            <strong>si la production annuelle est non nulle</strong></span
+          >, quels sont les emails à notifier ?
+        </p>
+      </div>
     </div>
 
     <div class="line width-full" />
@@ -111,6 +115,10 @@ export default defineComponent({
         this.activiteTypeNew.email &&
         emailValidator.validate(this.activiteTypeNew.email)
       )
+    },
+
+    isFullyNotifiable() {
+      return ['dea', 'dre', 'min'].includes(this.administration?.type?.id)
     }
   },
 
