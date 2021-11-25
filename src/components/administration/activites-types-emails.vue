@@ -119,7 +119,7 @@ export default defineComponent({
     },
 
     isFullyNotifiable() {
-      return ['dea', 'dre'].includes(this.administration?.type?.id)
+      return ['dea', 'dre', 'min'].includes(this.administration?.type?.id)
     }
   },
 
