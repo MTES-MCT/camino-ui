@@ -22,8 +22,8 @@ const zones = [
     name: 'Guyane',
     type: 'LineString',
     coordinates: [
-      [-55, 4],
-      [-50, 7]
+      [-55, 6],
+      [-51, 2]
     ]
   },
   {
