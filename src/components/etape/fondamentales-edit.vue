@@ -83,9 +83,8 @@
         </HeritageEdit>
       </div>
 
-      <hr v-if="canSeeAllDates" />
-
       <div v-if="canSeeAllDates" class="tablet-blobs">
+        <hr />
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h5 class="mb-0">Date d'échéance</h5>
           <p class="h6 italic mb-0">Optionnel</p>
