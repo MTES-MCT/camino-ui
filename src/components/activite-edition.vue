@@ -19,9 +19,17 @@
         {{ activite.annee }}</span
       >
     </h5>
-    <h3 class="mb-s">
-      <span class="cap-first">{{ activite.type.nom }}</span>
-    </h3>
+
+    <div class="flex">
+      <h3 class="mb-s">
+        <span class="cap-first">{{ activite.type.nom }}</span>
+      </h3>
+
+      <HelpTooltip v-if="isGrp" class="ml-m">
+        Tous les champs doivent être remplis même s’il n’y a pas eu
+        d’extraction. Le cas échéant, indiquer seulement 0, puis enregistrer.
+      </HelpTooltip>
+    </div>
 
     <!-- eslint-disable vue/no-v-html -->
     <div
@@ -71,11 +79,12 @@
 <script>
 import { dateFormat } from '@/utils'
 import Loader from './_ui/loader.vue'
+import HelpTooltip from './_ui/help-tooltip.vue'
 import SectionsEdit from './activite/sections-edit.vue'
 import DocumentsEdit from './document/multi-edit.vue'
 
 export default {
-  components: { Loader, SectionsEdit, DocumentsEdit },
+  components: { Loader, SectionsEdit, DocumentsEdit, HelpTooltip },
 
   data() {
     return {
@@ -98,6 +107,10 @@ export default {
 
     activite() {
       return this.$store.state.titreActiviteEdition.element
+    },
+
+    isGrp() {
+      return this.activite.type.id === 'grp'
     },
 
     loading() {

@@ -17,9 +17,18 @@
           {{ activite.annee }}</span
         >
       </h5>
-      <h3 class="mb-s">
-        <span class="cap-first">{{ activite.type.nom }}</span>
-      </h3>
+      <div class="flex">
+        <h3 class="mb-s">
+          <span class="cap-first">{{ activite.type.nom }}</span>
+        </h3>
+        <HelpTooltip
+          v-if="isEnConstruction && isActiviteDeposable"
+          class="ml-m"
+        >
+          Si votre déclaration est complète, cliquer sur déposer. Cliquer sur le
+          crayon pour modifier.
+        </HelpTooltip>
+      </div>
       <Statut :color="activite.statut.couleur" :nom="statutNom" class="mb-xs" />
     </template>
     <template #buttons>
@@ -79,6 +88,7 @@
 <script>
 import ActiviteButton from './button.vue'
 import Accordion from '../_ui/accordion.vue'
+import HelpTooltip from '../_ui/help-tooltip.vue'
 import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
 
@@ -92,7 +102,8 @@ export default {
     Accordion,
     Section,
     Statut,
-    Documents
+    Documents,
+    HelpTooltip
   },
 
   props: {
@@ -126,9 +137,17 @@ export default {
     },
 
     statutNom() {
-      return this.activite.statut.id === 'enc' && !this.activite.deposable
+      return this.isEnConstruction && !this.isActiviteDeposable
         ? `${this.activite.statut.nom} (incomplet)`
         : this.activite.statut.nom
+    },
+
+    isEnConstruction() {
+      return this.activite.statut.id === 'enc'
+    },
+
+    isActiviteDeposable() {
+      return this.activite.deposable
     }
   },
 
