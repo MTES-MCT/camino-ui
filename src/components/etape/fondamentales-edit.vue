@@ -83,6 +83,8 @@
         </HeritageEdit>
       </div>
 
+      <hr v-if="canSeeAllDates" />
+
       <div v-if="canSeeAllDates" class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h5 class="mb-0">Date d'échéance</h5>
@@ -195,93 +197,99 @@
           </ul>
         </template>
       </HeritageEdit>
-      <hr />
 
-      <h3 class="mb-s">Amodiataires</h3>
-      <p class="h6 italic">Optionnel</p>
+      <template v-if="canAddAmodiataires">
+        <hr />
 
-      <HeritageEdit
-        v-model:prop="etape.heritageProps.amodiataires"
-        prop-id="amodiataires"
-        :is-array="true"
-      >
-        <template #write>
-          <div
-            v-for="(amodiataire, n) in etape.amodiataires || []"
-            :key="`amodiataire-${amodiataire.id}`"
-          >
-            <div class="flex mb-s">
-              <select v-model="amodiataire.id" class="p-s mr-s">
-                <option
-                  v-for="entreprise in entreprises"
-                  :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
-                  :value="entreprise.id"
-                  :disabled="
-                    etape.amodiataires.find(a => a.id === entreprise.id) ||
-                    etape.titulaires.find(t => t.id === entreprise.id)
-                  "
+        <h3 class="mb-s">Amodiataires</h3>
+        <p class="h6 italic">Optionnel</p>
+
+        <HeritageEdit
+          v-model:prop="etape.heritageProps.amodiataires"
+          prop-id="amodiataires"
+          :is-array="true"
+        >
+          <template #write>
+            <div
+              v-for="(amodiataire, n) in etape.amodiataires || []"
+              :key="`amodiataire-${amodiataire.id}`"
+            >
+              <div class="flex mb-s">
+                <select v-model="amodiataire.id" class="p-s mr-s">
+                  <option
+                    v-for="entreprise in entreprises"
+                    :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
+                    :value="entreprise.id"
+                    :disabled="
+                      etape.amodiataires.find(a => a.id === entreprise.id) ||
+                      etape.titulaires.find(t => t.id === entreprise.id)
+                    "
+                  >
+                    {{ entreprise.nom }} ({{ entreprise.id }})
+                  </option>
+                </select>
+                <button
+                  class="btn py-s px-m rnd-xs"
+                  @click="amodiataireRemove(n)"
                 >
-                  {{ entreprise.nom }} ({{ entreprise.id }})
-                </option>
-              </select>
-              <button
-                class="btn py-s px-m rnd-xs"
-                @click="amodiataireRemove(n)"
-              >
-                <i class="icon-24 icon-minus" />
-              </button>
+                  <i class="icon-24 icon-minus" />
+                </button>
+              </div>
+              <div v-if="amodiataire.id" class="h6 mb">
+                <label>
+                  <input
+                    v-model="amodiataire.operateur"
+                    type="checkbox"
+                    class="mr-xs"
+                  />
+                  Opérateur
+                </label>
+              </div>
             </div>
-            <div v-if="amodiataire.id" class="h6 mb">
+
+            <button
+              v-if="!etape.amodiataires?.some(({ id }) => id === '')"
+              id="amodiataire-ajouter"
+              class="btn small rnd-xs py-s px-m full-x flex mb-s"
+              @click="amodiataireAdd"
+            >
+              <span class="mt-xxs">Ajouter un amodiataire</span
+              ><i class="icon-24 icon-plus flex-right" />
+            </button>
+
+            <div v-if="amodiatairesLength" class="h6">
               <label>
                 <input
-                  v-model="amodiataire.operateur"
+                  v-model="etape.incertitudes.amodiataires"
                   type="checkbox"
                   class="mr-xs"
                 />
-                Opérateur
+                Incertain
               </label>
             </div>
-          </div>
-
-          <button
-            v-if="!etape.amodiataires?.some(({ id }) => id === '')"
-            class="btn small rnd-xs py-s px-m full-x flex mb-s"
-            @click="amodiataireAdd"
-          >
-            <span class="mt-xxs">Ajouter un amodiataire</span
-            ><i class="icon-24 icon-plus flex-right" />
-          </button>
-
-          <div v-if="amodiatairesLength" class="h6">
-            <label>
-              <input
-                v-model="etape.incertitudes.amodiataires"
-                type="checkbox"
-                class="mr-xs"
-              />
-              Incertain
-            </label>
-          </div>
-        </template>
-        <template #read>
-          <ul class="list-prefix">
-            <li
-              v-for="t in etape.heritageProps.amodiataires.etape.amodiataires"
-              :key="t.id"
-            >
-              {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
-              <Tag
-                v-if="t.operateur"
-                :mini="true"
-                color="bg-info"
-                class="ml-xs"
+          </template>
+          <template #read>
+            <ul class="list-prefix">
+              <li
+                v-for="t in etape.heritageProps.amodiataires.etape.amodiataires"
+                :key="t.id"
               >
-                Opérateur
-              </Tag>
-            </li>
-          </ul>
-        </template>
-      </HeritageEdit>
+                {{
+                  etablissementNameFind(t.etablissements, etape.date) || t.nom
+                }}
+                <Tag
+                  v-if="t.operateur"
+                  :mini="true"
+                  color="bg-info"
+                  class="ml-xs"
+                >
+                  Opérateur
+                </Tag>
+              </li>
+            </ul>
+          </template>
+        </HeritageEdit>
+      </template>
 
       <hr />
     </div>
@@ -432,6 +440,10 @@ export default {
       }
 
       return true
+    },
+
+    canAddAmodiataires() {
+      return !this.isArm && !this.isAxm
     },
 
     complete() {

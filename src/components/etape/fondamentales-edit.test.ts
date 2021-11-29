@@ -83,7 +83,7 @@ describe('FondamentalesEdit', () => {
     }
   )
 
-  test('affiches les éléments de dates dans le formulaire seulement si #canSeeAllDates est true', () => {
+  test('affiche les éléments de dates dans le formulaire seulement si #canSeeAllDates est true', () => {
     let wrapper = mount(FondamentalesEdit, {
       props: {
         etape,
@@ -167,5 +167,83 @@ describe('FondamentalesEdit', () => {
     expect(wrapper.vm.canSeeAllDates).toBe(true)
     expect(wrapper.html().includes('Date de début')).toBe(true)
     expect(wrapper.html().includes("Date d'échéance")).toBe(true)
+  })
+
+  test("#canAddAmodiataires retourne true si ce n'est ni un arm ni un axm, false sinon", () => {
+    let wrapper = mount(FondamentalesEdit, {
+      props: {
+        etape,
+        titreTypeId: 'ar',
+        domaineId: 'm',
+        userIsAdmin: true,
+        userIsSuper: false,
+        substances: []
+      }
+    })
+    expect(wrapper.vm.canAddAmodiataires).toBe(false)
+
+    wrapper = mount(FondamentalesEdit, {
+      props: {
+        etape,
+        titreTypeId: 'ax',
+        domaineId: 'm',
+        userIsAdmin: true,
+        userIsSuper: false,
+        substances: []
+      }
+    })
+    expect(wrapper.vm.canAddAmodiataires).toBe(false)
+
+    wrapper = mount(FondamentalesEdit, {
+      props: {
+        etape,
+        titreTypeId: 'ni arm',
+        domaineId: 'ni axm',
+        userIsAdmin: true,
+        userIsSuper: false,
+        substances: []
+      }
+    })
+    expect(wrapper.vm.canAddAmodiataires).toBe(true)
+  })
+
+  test('affiche les éléments liés aux amodiataires dans le formulaire seulement si #canAddAmodiataires est true', () => {
+    let wrapper = mount(FondamentalesEdit, {
+      props: {
+        etape,
+        titreTypeId: 'ni arm',
+        domaineId: 'ni axm',
+        userIsAdmin: true,
+        userIsSuper: false,
+        substances: []
+      }
+    })
+    const addButton = wrapper.find('button#amodiataire-ajouter')
+    expect(addButton.exists()).toBe(true)
+    expect(addButton.text()).toBe('Ajouter un amodiataire')
+
+    wrapper = mount(FondamentalesEdit, {
+      props: {
+        etape,
+        titreTypeId: 'ar',
+        domaineId: 'm',
+        userIsAdmin: true,
+        userIsSuper: false,
+        substances: []
+      }
+    })
+    expect(wrapper.find('button#amodiataire-ajouter').exists()).toBe(false)
+
+    wrapper = mount(FondamentalesEdit, {
+      props: {
+        etape,
+        titreTypeId: 'ax',
+        domaineId: 'm',
+        userIsAdmin: true,
+        userIsSuper: false,
+        substances: []
+      }
+    })
+    expect(wrapper.find('button#amodiataire-ajouter').exists()).toBe(false)
   })
 })
