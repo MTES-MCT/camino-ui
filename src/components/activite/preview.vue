@@ -21,11 +21,8 @@
         <h3 class="mb-s">
           <span class="cap-first">{{ activite.type.nom }}</span>
         </h3>
-        <HelpTooltip
-          v-if="isEnConstruction && isActiviteDeposable"
-          class="ml-m"
-        >
-          Si votre déclaration est complète, cliquer sur déposer. Cliquer sur le
+        <HelpTooltip v-if="shouldDisplayHelp" class="ml-m">
+          Si votre déclaration est complète, cliquez sur déposer. Cliquez sur le
           crayon pour modifier.
         </HelpTooltip>
       </div>
@@ -156,7 +153,15 @@ export default {
     },
 
     isActiviteDeposable() {
-      return this.activite.deposable
+      return this.activite.deposable === true
+    },
+
+    shouldDisplayHelp() {
+      return (
+        this.isEnConstruction &&
+        this.isActiviteDeposable &&
+        ['grp', 'gra'].includes(this.activite.type.id)
+      )
     }
   },
 

@@ -25,7 +25,7 @@
         <span class="cap-first">{{ activite.type.nom }}</span>
       </h3>
 
-      <HelpTooltip v-if="isGrp" class="ml-m">
+      <HelpTooltip v-if="shouldDisplayHelp" class="ml-m">
         Tous les champs doivent être remplis même s’il n’y a pas eu
         d’extraction. Le cas échéant, indiquer seulement 0, puis enregistrer.
       </HelpTooltip>
@@ -109,8 +109,8 @@ export default {
       return this.$store.state.titreActiviteEdition.element
     },
 
-    isGrp() {
-      return this.activite.type.id === 'grp'
+    shouldDisplayHelp() {
+      return ['grp', 'gra'].includes(this.activite.type.id)
     },
 
     loading() {
