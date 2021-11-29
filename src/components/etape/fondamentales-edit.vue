@@ -135,7 +135,7 @@
                   :value="entreprise.id"
                   :disabled="
                     etape.titulaires.find(t => t.id === entreprise.id) ||
-                    etape.amodiataires.find(a => a.id === entreprise.id)
+                    etape.amodiataires?.find(a => a.id === entreprise.id)
                   "
                 >
                   {{ `${entreprise.nom} (${entreprise.id})` }}
@@ -207,7 +207,7 @@
       >
         <template #write>
           <div
-            v-for="(amodiataire, n) in etape.amodiataires"
+            v-for="(amodiataire, n) in etape.amodiataires || []"
             :key="`amodiataire-${amodiataire.id}`"
           >
             <div class="flex mb-s">
@@ -244,7 +244,7 @@
           </div>
 
           <button
-            v-if="!etape.amodiataires.some(({ id }) => id === '')"
+            v-if="!etape.amodiataires?.some(({ id }) => id === '')"
             class="btn small rnd-xs py-s px-m full-x flex mb-s"
             @click="amodiataireAdd"
           >
@@ -358,9 +358,7 @@
       <template #read>
         <TagList
           class="mb-s"
-          :elements="
-            etape.heritageProps.substances.etape.substances.map(s => s.nom)
-          "
+          :elements="etape.heritageProps.substances.etape.substances.map(s => s.nom)"
         />
       </template>
     </HeritageEdit>
@@ -388,7 +386,8 @@ export default {
     domaineId: { type: String, default: '' },
     titreTypeId: { type: String, required: true },
     userIsAdmin: { type: Boolean, required: true },
-    userIsSuper: { type: Boolean, required: true }
+    userIsSuper: { type: Boolean, required: true },
+    substances: { type: Array, required: true }
   },
   emits: ['complete-update'],
 
@@ -405,18 +404,12 @@ export default {
       return this.$store.state.titreEtapeEdition.metas.entreprises
     },
 
-    substances() {
-      return this.$store.state.titreEtapeEdition.metas.substances.filter(su =>
-        su.legales.find(sl => sl.domaine.id === this.domaineId)
-      )
-    },
-
     titulairesLength() {
       return this.etape.titulaires.filter(({ id }) => id).length
     },
 
     amodiatairesLength() {
-      return this.etape.amodiataires.filter(({ id }) => id).length
+      return this.etape.amodiataires?.filter(({ id }) => id).length || 0
     },
 
     substancesLength() {
@@ -470,7 +463,7 @@ export default {
           etape.incertitudes.titulaires = false
         }
 
-        if (!etape.amodiataires.length) {
+        if (!etape.amodiataires?.length) {
           etape.incertitudes.amodiataires = false
         }
 
@@ -495,11 +488,11 @@ export default {
       this.etape.titulaires.splice(index, 1)
     },
     amodiataireAdd() {
-      this.etape.amodiataires.push({ id: '' })
+      this.etape.amodiataires?.push({ id: '' })
     },
 
     amodiataireRemove(index) {
-      this.etape.amodiataires.splice(index, 1)
+      this.etape.amodiataires?.splice(index, 1)
     },
 
     substanceAdd() {
@@ -536,4 +529,3 @@ export default {
   }
 }
 </script>
-'
