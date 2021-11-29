@@ -358,7 +358,9 @@
       <template #read>
         <TagList
           class="mb-s"
-          :elements="etape.heritageProps.substances.etape.substances.map(s => s.nom)"
+          :elements="
+            etape.heritageProps.substances.etape.substances.map(s => s.nom)
+          "
         />
       </template>
     </HeritageEdit>

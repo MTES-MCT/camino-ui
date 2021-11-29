@@ -58,27 +58,30 @@ describe('FondamentalesEdit', () => {
   }
 
   test.each`
-    titreTypeId | domaineId | userIsSuper | expected
-    ${'ar'}          | ${'m'}         | ${false}       | ${false}
-    ${'ar'}          | ${'m'}         | ${true}        | ${true}
-    ${'ax'}          | ${'m'}         | ${false}       | ${false}
-    ${'ax'}          | ${'m'}         | ${true}        | ${true}
-    ${'ni axm'}      | ${' ni arm'}   | ${false}        | ${true}
-    ${'ni axm'}      | ${' ni arm'}   | ${true}        | ${true}
-  `('#canSeeAllDates retourne $expected si utilisateur super => $userIsSuper et démarche est $titreTypeId$domaineId', ({ titreTypeId, domaineId, userIsSuper, expected }) => {
-    // ARM + utilisateur non-super
-    const wrapper = shallowMount(FondamentalesEdit, {
-      props: {
-        etape,
-        titreTypeId,
-        domaineId,
-        userIsAdmin: true,
-        userIsSuper,
-        substances: []
-      }
-    })
-    expect(wrapper.vm.canSeeAllDates).toBe(expected)
-  })
+    titreTypeId | domaineId    | userIsSuper | expected
+    ${'ar'}     | ${'m'}       | ${false}    | ${false}
+    ${'ar'}     | ${'m'}       | ${true}     | ${true}
+    ${'ax'}     | ${'m'}       | ${false}    | ${false}
+    ${'ax'}     | ${'m'}       | ${true}     | ${true}
+    ${'ni axm'} | ${' ni arm'} | ${false}    | ${true}
+    ${'ni axm'} | ${' ni arm'} | ${true}     | ${true}
+  `(
+    '#canSeeAllDates retourne $expected si utilisateur super => $userIsSuper et démarche est $titreTypeId$domaineId',
+    ({ titreTypeId, domaineId, userIsSuper, expected }) => {
+      // ARM + utilisateur non-super
+      const wrapper = shallowMount(FondamentalesEdit, {
+        props: {
+          etape,
+          titreTypeId,
+          domaineId,
+          userIsAdmin: true,
+          userIsSuper,
+          substances: []
+        }
+      })
+      expect(wrapper.vm.canSeeAllDates).toBe(expected)
+    }
+  )
 
   test('affiches les éléments de dates dans le formulaire seulement si #canSeeAllDates est true', () => {
     let wrapper = mount(FondamentalesEdit, {
