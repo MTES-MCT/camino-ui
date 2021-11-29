@@ -69,7 +69,7 @@ module.exports = {
       '<rootDir>/src/__mocks__/file-mock.js',
     // '^vue$': 'vue/dist/vue.runtime.min.js',
     // '^.+\\.(css)$': '<rootDir>/src/__mocks__/css.js',
-    '§@/(.*)$': '<rootDir>/src/$1'
+    '@/(.*)$': '<rootDir>/src/$1'
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
