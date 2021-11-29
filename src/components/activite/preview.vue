@@ -93,7 +93,6 @@ import Section from '../_common/section.vue'
 import Statut from '../_common/statut.vue'
 
 import Documents from '../documents/list.vue'
-import RemovePopup from './remove-popup.vue'
 import { dateFormat } from '@/utils'
 
 export default {
@@ -108,8 +107,18 @@ export default {
 
   props: {
     activite: { type: Object, required: true },
-    route: { type: Object, required: true }
+    route: { type: Object, required: true },
+    openedActivite: { type: Boolean, required: true },
+    openedTitreActivite: { type: Boolean, required: true }
   },
+
+  emits: [
+    'close:titre',
+    'close:activite',
+    'toggle:titre',
+    'toggle:activite',
+    'popup'
+  ],
 
   computed: {
     documentNew() {
@@ -130,10 +139,10 @@ export default {
 
     opened() {
       if (this.route.name === 'titre') {
-        return this.$store.state.titre.opened.activites[this.activite.id]
+        return this.openedActivite
       }
 
-      return this.$store.state.titreActivite.opened
+      return this.openedTitreActivite
     },
 
     statutNom() {
@@ -153,38 +162,17 @@ export default {
 
   methods: {
     close() {
-      if (this.route.name === 'titre') {
-        this.$store.commit('titre/close', {
-          section: 'activites',
-          id: this.activite.id
-        })
-      } else {
-        this.$store.commit('titreActivite/close')
-      }
+      this.$emit(this.route.name === 'titre' ? 'close:titre' : 'close:activite')
     },
 
     toggle() {
-      if (this.route.name === 'titre') {
-        this.$store.commit('titre/toggle', {
-          section: 'activites',
-          id: this.activite.id
-        })
-      } else {
-        this.$store.commit('titreActivite/toggle')
-      }
+      this.$emit(
+        this.route.name === 'titre' ? 'toggle:titre' : 'toggle:activite'
+      )
     },
 
     activiteRemovePopupOpen() {
-      this.$store.commit('popupOpen', {
-        component: RemovePopup,
-        props: {
-          activiteId: this.activite.id,
-          typeNom: this.activite.type.nom,
-          annee: this.activite.annee,
-          periodeNom: this.activite.periode.nom,
-          route: this.route
-        }
-      })
+      this.$emit('popup')
     },
 
     dateFormat(date) {
