@@ -432,10 +432,7 @@ export default {
         return true
       }
 
-      if (
-        this.etape.type?.id === 'mfr' &&
-        ['arm', 'axm'].includes(this.titreTypeId)
-      ) {
+      if (this.etape.type?.id === 'mfr' && (this.isArm || this.isAxm)) {
         return false
       }
 
@@ -539,3 +536,4 @@ export default {
   }
 }
 </script>
+'
