@@ -34,6 +34,8 @@
         :domaine-id="domaineId"
         :titre-type-id="titreTypeId"
         :user-is-admin="userIsAdmin"
+        :user-is-super="userIsSuper"
+        :substances="substances"
         @complete-update="fondamentalesCompleteUpdate"
       />
     </Accordion>
@@ -293,6 +295,16 @@ export default {
 
     userIsAdmin() {
       return this.$store.getters['user/userIsAdmin']
+    },
+
+    userIsSuper() {
+      return this.$store.getters['user/userIsSuper']
+    },
+
+    substances() {
+      return this.$store.state.titreEtapeEdition.metas.substances.filter(su =>
+        su.legales.find(sl => sl.domaine.id === this.domaineId)
+      )
     }
   },
 

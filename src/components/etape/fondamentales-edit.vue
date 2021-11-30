@@ -52,7 +52,7 @@
     </div>
 
     <div v-if="(!isArm && !isAxm) || userIsAdmin">
-      <div class="tablet-blobs">
+      <div v-if="canSeeAllDates" class="tablet-blobs">
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h5 class="mb-0">Date de début</h5>
           <p class="h6 italic mb-0">Optionnel</p>
@@ -82,9 +82,9 @@
           </template>
         </HeritageEdit>
       </div>
-      <hr />
 
-      <div class="tablet-blobs">
+      <div v-if="canSeeAllDates" class="tablet-blobs">
+        <hr />
         <div class="tablet-blob-1-3 tablet-pt-s pb-s">
           <h5 class="mb-0">Date d'échéance</h5>
           <p class="h6 italic mb-0">Optionnel</p>
@@ -136,7 +136,7 @@
                   :value="entreprise.id"
                   :disabled="
                     etape.titulaires.find(t => t.id === entreprise.id) ||
-                    etape.amodiataires.find(a => a.id === entreprise.id)
+                    etape.amodiataires?.find(a => a.id === entreprise.id)
                   "
                 >
                   {{ `${entreprise.nom} (${entreprise.id})` }}
@@ -196,93 +196,99 @@
           </ul>
         </template>
       </HeritageEdit>
-      <hr />
 
-      <h3 class="mb-s">Amodiataires</h3>
-      <p class="h6 italic">Optionnel</p>
+      <template v-if="canAddAmodiataires">
+        <hr />
 
-      <HeritageEdit
-        v-model:prop="etape.heritageProps.amodiataires"
-        prop-id="amodiataires"
-        :is-array="true"
-      >
-        <template #write>
-          <div
-            v-for="(amodiataire, n) in etape.amodiataires"
-            :key="`amodiataire-${amodiataire.id}`"
-          >
-            <div class="flex mb-s">
-              <select v-model="amodiataire.id" class="p-s mr-s">
-                <option
-                  v-for="entreprise in entreprises"
-                  :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
-                  :value="entreprise.id"
-                  :disabled="
-                    etape.amodiataires.find(a => a.id === entreprise.id) ||
-                    etape.titulaires.find(t => t.id === entreprise.id)
-                  "
+        <h3 class="mb-s">Amodiataires</h3>
+        <p class="h6 italic">Optionnel</p>
+
+        <HeritageEdit
+          v-model:prop="etape.heritageProps.amodiataires"
+          prop-id="amodiataires"
+          :is-array="true"
+        >
+          <template #write>
+            <div
+              v-for="(amodiataire, n) in etape.amodiataires || []"
+              :key="`amodiataire-${amodiataire.id}`"
+            >
+              <div class="flex mb-s">
+                <select v-model="amodiataire.id" class="p-s mr-s">
+                  <option
+                    v-for="entreprise in entreprises"
+                    :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
+                    :value="entreprise.id"
+                    :disabled="
+                      etape.amodiataires.find(a => a.id === entreprise.id) ||
+                      etape.titulaires.find(t => t.id === entreprise.id)
+                    "
+                  >
+                    {{ entreprise.nom }} ({{ entreprise.id }})
+                  </option>
+                </select>
+                <button
+                  class="btn py-s px-m rnd-xs"
+                  @click="amodiataireRemove(n)"
                 >
-                  {{ entreprise.nom }} ({{ entreprise.id }})
-                </option>
-              </select>
-              <button
-                class="btn py-s px-m rnd-xs"
-                @click="amodiataireRemove(n)"
-              >
-                <i class="icon-24 icon-minus" />
-              </button>
+                  <i class="icon-24 icon-minus" />
+                </button>
+              </div>
+              <div v-if="amodiataire.id" class="h6 mb">
+                <label>
+                  <input
+                    v-model="amodiataire.operateur"
+                    type="checkbox"
+                    class="mr-xs"
+                  />
+                  Opérateur
+                </label>
+              </div>
             </div>
-            <div v-if="amodiataire.id" class="h6 mb">
+
+            <button
+              v-if="!etape.amodiataires?.some(({ id }) => id === '')"
+              id="amodiataire-ajouter"
+              class="btn small rnd-xs py-s px-m full-x flex mb-s"
+              @click="amodiataireAdd"
+            >
+              <span class="mt-xxs">Ajouter un amodiataire</span
+              ><i class="icon-24 icon-plus flex-right" />
+            </button>
+
+            <div v-if="amodiatairesLength" class="h6">
               <label>
                 <input
-                  v-model="amodiataire.operateur"
+                  v-model="etape.incertitudes.amodiataires"
                   type="checkbox"
                   class="mr-xs"
                 />
-                Opérateur
+                Incertain
               </label>
             </div>
-          </div>
-
-          <button
-            v-if="!etape.amodiataires.some(({ id }) => id === '')"
-            class="btn small rnd-xs py-s px-m full-x flex mb-s"
-            @click="amodiataireAdd"
-          >
-            <span class="mt-xxs">Ajouter un amodiataire</span
-            ><i class="icon-24 icon-plus flex-right" />
-          </button>
-
-          <div v-if="amodiatairesLength" class="h6">
-            <label>
-              <input
-                v-model="etape.incertitudes.amodiataires"
-                type="checkbox"
-                class="mr-xs"
-              />
-              Incertain
-            </label>
-          </div>
-        </template>
-        <template #read>
-          <ul class="list-prefix">
-            <li
-              v-for="t in etape.heritageProps.amodiataires.etape.amodiataires"
-              :key="t.id"
-            >
-              {{ etablissementNameFind(t.etablissements, etape.date) || t.nom }}
-              <Tag
-                v-if="t.operateur"
-                :mini="true"
-                color="bg-info"
-                class="ml-xs"
+          </template>
+          <template #read>
+            <ul class="list-prefix">
+              <li
+                v-for="t in etape.heritageProps.amodiataires.etape.amodiataires"
+                :key="t.id"
               >
-                Opérateur
-              </Tag>
-            </li>
-          </ul>
-        </template>
-      </HeritageEdit>
+                {{
+                  etablissementNameFind(t.etablissements, etape.date) || t.nom
+                }}
+                <Tag
+                  v-if="t.operateur"
+                  :mini="true"
+                  color="bg-info"
+                  class="ml-xs"
+                >
+                  Opérateur
+                </Tag>
+              </li>
+            </ul>
+          </template>
+        </HeritageEdit>
+      </template>
 
       <hr />
     </div>
@@ -371,7 +377,7 @@
 </template>
 
 <script>
-import { dateFormat } from '@/utils/index'
+import { dateFormat } from '../../utils/index'
 import Tag from '../_ui/tag.vue'
 import TagList from '../_ui/tag-list.vue'
 import InputDate from '../_ui/input-date.vue'
@@ -388,7 +394,9 @@ export default {
     etape: { type: Object, default: () => ({}) },
     domaineId: { type: String, default: '' },
     titreTypeId: { type: String, required: true },
-    userIsAdmin: { type: Boolean, required: true }
+    userIsAdmin: { type: Boolean, required: true },
+    userIsSuper: { type: Boolean, required: true },
+    substances: { type: Array, required: true }
   },
   emits: ['complete-update'],
 
@@ -405,18 +413,12 @@ export default {
       return this.$store.state.titreEtapeEdition.metas.entreprises
     },
 
-    substances() {
-      return this.$store.state.titreEtapeEdition.metas.substances.filter(su =>
-        su.legales.find(sl => sl.domaine.id === this.domaineId)
-      )
-    },
-
     titulairesLength() {
       return this.etape.titulaires.filter(({ id }) => id).length
     },
 
     amodiatairesLength() {
-      return this.etape.amodiataires.filter(({ id }) => id).length
+      return this.etape.amodiataires?.filter(({ id }) => id).length || 0
     },
 
     substancesLength() {
@@ -425,6 +427,22 @@ export default {
 
     dureeOptionalCheck() {
       return (!this.isArm && !this.isAxm) || this.etape.type.id !== 'mfr'
+    },
+
+    canSeeAllDates() {
+      if (this.userIsSuper) {
+        return true
+      }
+
+      if (this.etape.type?.id === 'mfr' && (this.isArm || this.isAxm)) {
+        return false
+      }
+
+      return true
+    },
+
+    canAddAmodiataires() {
+      return !this.isArm && !this.isAxm
     },
 
     complete() {
@@ -458,7 +476,7 @@ export default {
           etape.incertitudes.titulaires = false
         }
 
-        if (!etape.amodiataires.length) {
+        if (!etape.amodiataires?.length) {
           etape.incertitudes.amodiataires = false
         }
 
@@ -483,11 +501,11 @@ export default {
       this.etape.titulaires.splice(index, 1)
     },
     amodiataireAdd() {
-      this.etape.amodiataires.push({ id: '' })
+      this.etape.amodiataires?.push({ id: '' })
     },
 
     amodiataireRemove(index) {
-      this.etape.amodiataires.splice(index, 1)
+      this.etape.amodiataires?.splice(index, 1)
     },
 
     substanceAdd() {
