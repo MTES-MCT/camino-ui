@@ -17,7 +17,11 @@ import {
   titreEtapeMetas
 } from '../api/titres-etapes'
 import { documentsRequiredAdd } from '../utils/documents'
-import { pointsImporter, surfaceCalculer } from '../api/geojson'
+import {
+  pointsImporter,
+  surfaceCalculer,
+  titreEtapeSDOMZones
+} from '../api/geojson'
 
 const state = {
   element: null,
@@ -28,7 +32,9 @@ const state = {
     unites: [],
     geoSystemes: [],
     substances: [],
-    entreprises: []
+    entreprises: [],
+    documentsTypes: [],
+    sdomZonesDocumentTypeIds: []
   },
   heritageLoaded: false,
   loaded: false
@@ -40,6 +46,31 @@ const getters = {
       return state.metas.etapesTypes.find(et => et.id === state.element.type.id)
     }
     return null
+  },
+
+  documentsTypes(state) {
+    if (!state.element.type || !state.element.type.documentsTypes) {
+      return []
+    }
+
+    const documentsTypes = JSON.parse(
+      JSON.stringify(state.element.type.documentsTypes)
+    )
+
+    // si la démarche est mécanisée il faut ajouter des documents obligatoires
+    if (state.element.contenu && state.element.contenu.arm) {
+      documentsTypes
+        .filter(dt => ['doe', 'dep'].includes(dt.id))
+        .forEach(dt => (dt.optionnel = !state.element.contenu.arm.mecanise))
+    }
+
+    if (state.metas.sdomZonesDocumentTypeIds?.length) {
+      documentsTypes
+        .filter(dt => state.metas.sdomZonesDocumentTypeIds.includes(dt.id))
+        .forEach(dt => (dt.optionnel = false))
+    }
+
+    return documentsTypes
   }
 }
 
@@ -68,6 +99,12 @@ const actions = {
 
       if (id) {
         await dispatch('dateUpdate', { date: state.element.date })
+
+        const { documentTypeIds } = await titreEtapeSDOMZones({
+          titreEtapeId: id
+        })
+        commit('metasSet', { sdomZonesDocumentTypeIds: documentTypeIds })
+
         await dispatch('documentInit', state.element.documents)
       }
 
@@ -145,18 +182,9 @@ const actions = {
     if (!state.element.type) {
       commit('documentsSet', [])
     } else {
-      const documentsTypes = state.element.type.documentsTypes
-
-      // si la démarche est mécanisée il faut ajouter des documents obligatoires
-      if (state.element.contenu && state.element.contenu.arm) {
-        documentsTypes
-          .filter(dt => ['doe', 'dep'].includes(dt.id))
-          .forEach(dt => (dt.optionnel = !state.element.contenu.arm.mecanise))
-      }
-
       documents = documentsRequiredAdd(
         documents,
-        documentsTypes,
+        getters.documentsTypes,
         rootGetters['user/userIsAdmin']
       )
 
@@ -225,13 +253,20 @@ const actions = {
     try {
       commit('loadingAdd', 'pointsImport', { root: true })
 
-      const { points, surface } = await pointsImporter({ file, geoSystemeId })
+      const { points, surface, documentTypeIds } = await pointsImporter({
+        file,
+        geoSystemeId,
+        titreTypeId: state.metas.demarche.titre.type.id,
+        etapeTypeId: state.element.type.id
+      })
       const etape = etapePointsFormat(state.element, points)
       // pour modifier la surface, on doit désactiver l’héritage
       etape.heritageProps.surface.actif = false
       etape.surface = surface
-
       commit('set', etape)
+
+      commit('metasSet', { sdomZonesDocumentTypeIds: documentTypeIds })
+      await dispatch('documentInit', state.element.documents)
       commit('popupClose', null, { root: true })
       dispatch(
         'messageAdd',
@@ -262,10 +297,17 @@ const actions = {
           etape.geoSystemeIds,
           etape.geoSystemeOpposableId || etape.geoSystemeIds[0]
         )
-        const { surface } = await surfaceCalculer({ points })
+        const { surface, documentTypeIds } = await surfaceCalculer({
+          points,
+          titreTypeId: state.metas.demarche.titre.type.id,
+          etapeTypeId: etape.type.id
+        })
         state.element.surface = surface
-
         commit('set', state.element)
+
+        commit('metasSet', { sdomZonesDocumentTypeIds: documentTypeIds })
+        await dispatch('documentInit', state.element.documents)
+
         commit('popupClose', null, { root: true })
         dispatch(
           'messageAdd',
@@ -319,7 +361,9 @@ const mutations = {
       unites: [],
       geoSystemes: [],
       substances: [],
-      entreprises: []
+      entreprises: [],
+      documentsTypes: [],
+      sdomZonesDocumentTypeIds: []
     }
     state.heritageLoaded = false
     state.loaded = false
