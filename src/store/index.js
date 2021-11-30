@@ -56,6 +56,55 @@ const modules = {
   journaux
 }
 
+const fetchFile = async (filePath, commit) => {
+  const res = await apiRestFetch(filePath)
+
+  // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
+  const contentDisposition = res.headers.get('Content-disposition')
+  const name = contentDisposition
+    ? decodeURIComponent(
+        contentDisposition
+          .split(';')
+          .find(n => n.includes('filename='))
+          .replace('filename=', '')
+          .trim()
+      )
+    : ''
+
+  if (!name) throw new Error('nom de fichier manquant')
+
+  let body
+
+  // si le navigateur supporte l'API Web Streams
+  if (res.body) {
+    // progress
+
+    const total = res.headers.get('content-length')
+    const reader = res.body.getReader()
+    let loaded = 0
+    const chunks = []
+
+    commit('loadingRemove', 'fileLoading')
+
+    while (true) {
+      const { done, value } = await reader.read()
+
+      if (done) break
+
+      chunks.push(value)
+      loaded += value.length
+
+      commit('fileLoad', { loaded, total })
+    }
+
+    body = new Blob(chunks)
+  } else {
+    body = await res.blob()
+  }
+
+  return { body, name }
+}
+
 const state = {
   config: {},
   messages: [],
@@ -137,6 +186,21 @@ const actions = {
     }
   },
 
+  async visualizeDocument({ dispatch, commit }, document) {
+    const filePath = `fichiers/${document.id}`
+
+    try {
+      commit('loadingAdd', 'fileLoading')
+      const { body } = await fetchFile(filePath, commit)
+      return body
+    } catch (e) {
+      dispatch('apiError', `téléchargement : ${filePath}, ${e}`)
+    } finally {
+      commit('loadingRemove', 'fileLoading')
+      commit('fileLoad', { loaded: 0, total: 0 })
+    }
+  },
+
   async downloadDocument({ dispatch }, document) {
     if (document.fichierNouveau) {
       saveAs(document.fichierNouveau)
@@ -152,52 +216,8 @@ const actions = {
   async download({ dispatch, commit }, filePath) {
     try {
       commit('loadingAdd', 'fileLoading')
-      const res = await apiRestFetch(filePath)
 
-      // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
-      const contentDisposition = res.headers.get('Content-disposition')
-
-      const name = contentDisposition
-        ? decodeURIComponent(
-            contentDisposition
-              .split(';')
-              .find(n => n.includes('filename='))
-              .replace('filename=', '')
-              .trim()
-          )
-        : ''
-
-      if (!name) throw new Error('nom de fichier manquant')
-
-      let body
-
-      // si le navigateur supporte l'API Web Streams
-      if (res.body) {
-        // progress
-
-        const total = res.headers.get('content-length')
-        const reader = res.body.getReader()
-        let loaded = 0
-        const chunks = []
-
-        commit('loadingRemove', 'fileLoading')
-
-        while (true) {
-          const { done, value } = await reader.read()
-
-          if (done) break
-
-          chunks.push(value)
-          loaded += value.length
-
-          commit('fileLoad', { loaded, total })
-        }
-
-        body = new Blob(chunks)
-      } else {
-        body = await res.blob()
-      }
-
+      const { body, name } = await fetchFile(filePath, commit)
       saveAs(body, name)
 
       dispatch('messageAdd', {

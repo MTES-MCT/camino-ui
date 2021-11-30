@@ -19,6 +19,7 @@
         :repertoire="repertoire"
         :title="title"
         :etiquette="etiquette"
+        :bouton-visualisation="true"
         :bouton-suppression="boutonSuppression && document.suppression"
         :bouton-modification="boutonModification && document.modification"
         :bouton-dissociation="boutonDissociation"

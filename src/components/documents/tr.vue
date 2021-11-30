@@ -57,11 +57,21 @@
       </button>
       <button
         v-if="document.fichier || document.fichierNouveau"
+        class="btn-border ml-auto py-s px-m my--xs"
+        @click="previewPopupOpen"
+      >
+        <i class="icon-24 icon-view" />
+      </button>
+      <button
+        v-if="document.fichier || document.fichierNouveau"
         class="btn-border py-s px-m my--xs"
         :class="{
           'rnd-r-xs': !document.url && !document.uri,
           'rnd-l-xs':
-            !boutonModification && !boutonSuppression && !boutonDissociation
+            !boutonVisualisation &&
+            !boutonModification &&
+            !boutonSuppression &&
+            !boutonDissociation
         }"
         @click="download"
       >
@@ -74,6 +84,7 @@
           'rnd-r-xs': !document.uri,
           'rnd-l-xs':
             !document.fichier &&
+            !boutonVisualisation &&
             !boutonModification &&
             !boutonSuppression &&
             !boutonDissociation
@@ -92,6 +103,7 @@
           'rnd-l-xs':
             !document.url &&
             !document.fichier &&
+            !boutonVisualisation &&
             !boutonModification &&
             !boutonSuppression &&
             !boutonDissociation
@@ -113,6 +125,7 @@ import Tag from '../_ui/tag.vue'
 import DocumentEditPopup from '../document/edit-popup.vue'
 import DocumentRemovePopup from '../document/remove-popup.vue'
 import HelpTooltip from '../_ui/help-tooltip.vue'
+import DocumentPreviewPopup from '../document/preview-popup.vue'
 
 export default {
   components: {
@@ -130,6 +143,7 @@ export default {
     parentId: { type: String, default: '' },
     parentTypeId: { type: String, default: '' },
     etiquette: { type: Boolean, default: false },
+    boutonVisualisation: { type: Boolean, default: true },
     boutonDissociation: { type: Boolean, default: false },
     boutonModification: { type: Boolean, default: false },
     boutonSuppression: { type: Boolean, default: false },
@@ -151,6 +165,15 @@ export default {
   methods: {
     async download() {
       await this.$store.dispatch('downloadDocument', this.document)
+    },
+
+    previewPopupOpen() {
+      this.$store.commit('popupOpen', {
+        component: DocumentPreviewPopup,
+        props: {
+          document: this.document
+        }
+      })
     },
 
     editPopupOpen() {
