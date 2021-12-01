@@ -214,6 +214,6 @@
   "lint-staged": {
     "*.{js,ts,vue}": "eslint --cache --fix",
     "*.css": "stylelint --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{js,css}": "prettier --write"
   }
 }
