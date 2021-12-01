@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.27.0](https://github.com/MTES-MCT/camino-ui/compare/v0.26.0...v0.27.0) (2021-12-01)
+
+
+### Features
+
+* **page/admin:** complète les informations sur l'envoi des emails ([#432](https://github.com/MTES-MCT/camino-ui/issues/432)) ([6b555f7](https://github.com/MTES-MCT/camino-ui/commit/6b555f7dd9a055ee0a8d02a358ae3e72592614e3))
+* **proprietes:** masque l'affichage des dates début/fin pour admin ([#434](https://github.com/MTES-MCT/camino-ui/issues/434)) ([a596e80](https://github.com/MTES-MCT/camino-ui/commit/a596e80dc142f69aa5b4c0e7dc8d8510d3e72338))
+* **titre:** permet aux utilisateurs de s’abonner à un titre ([#433](https://github.com/MTES-MCT/camino-ui/issues/433)) ([41684e1](https://github.com/MTES-MCT/camino-ui/commit/41684e12bce44d1b5c7155f0ac4c906936097f98))
+
+
+### Bug Fixes
+
+* **guyane:** corrige les coordonnées de la Guyane sur la carte ([#436](https://github.com/MTES-MCT/camino-ui/issues/436)) ([77bdbf3](https://github.com/MTES-MCT/camino-ui/commit/77bdbf368fb9c3152f9c565dc407a1af9f271126))
+
 ## [0.26.0](https://github.com/MTES-MCT/camino-ui/compare/v0.25.0...v0.26.0) (2021-11-23)
 
 
