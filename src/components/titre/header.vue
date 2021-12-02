@@ -18,9 +18,10 @@
               }"
               @click="subscribe(!titre.abonnement)"
             >
-              <span class="mt-xs">{{
-                titre.abonnement ? 'Se désabonner' : 'S’abonner'
-              }}</span>
+              <span class="mt-xs"
+                >{{ titre.abonnement ? 'Se désabonner' : 'S’abonner' }} au
+                titre</span
+              >
             </button>
             <button
               class="btn-border small px-m py-s lh-2"
