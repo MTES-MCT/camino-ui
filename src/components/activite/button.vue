@@ -1,7 +1,7 @@
 <template>
   <button
     class="cmn-activite-btn-remplir btn small flex py-s px-m rnd-0"
-    :class="{ 'btn-primary': activite.statut.id !== 'enc' }"
+    :class="{ 'btn-primary': activite.statut.id !== 'enc' && buttonText }"
     @click="activiteEditPopupOpen"
   >
     <div v-if="buttonText" class="my-xxs">
