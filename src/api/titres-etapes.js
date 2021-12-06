@@ -54,6 +54,7 @@ const titreEtapeMetas = apiGraphQLFetch(
             id
           }
           type {
+            id
             type {
               id
             }

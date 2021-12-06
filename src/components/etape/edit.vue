@@ -90,7 +90,7 @@
         repertoire="demarches"
         :document-popup-title="documentPopupTitle"
         :parent-type-id="etapeType.id"
-        :documents-types="etape.type.documentsTypes"
+        :documents-types="documentsTypes"
         @complete-update="documentsCompleteUpdate"
       />
     </Accordion>
@@ -173,6 +173,10 @@ export default {
       return this.$store.state.titreEtapeEdition.metas.etapesTypes.filter(
         t => t.etapesCreation
       )
+    },
+
+    documentsTypes() {
+      return this.$store.getters['titreEtapeEdition/documentsTypes']
     },
 
     entreprises() {
