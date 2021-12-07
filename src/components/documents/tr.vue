@@ -56,9 +56,10 @@
         <i class="icon-24 icon-trash" />
       </button>
       <button
-        v-if="document.fichier || document.fichierNouveau"
-        class="btn-border ml-auto py-s px-m my--xs"
-        @click="previewPopupOpen"
+        v-if="boutonVisualisation && document.fichier"
+        class="btn-border flex-right py-s px-m my--xs"
+        :class="{ 'rnd-l-xs': !boutonSuppression && !boutonModification }"
+        @click="previewPdf"
       >
         <i class="icon-24 icon-view" />
       </button>
@@ -125,7 +126,6 @@ import Tag from '../_ui/tag.vue'
 import DocumentEditPopup from '../document/edit-popup.vue'
 import DocumentRemovePopup from '../document/remove-popup.vue'
 import HelpTooltip from '../_ui/help-tooltip.vue'
-import DocumentPreviewPopup from '../document/preview-popup.vue'
 
 export default {
   components: {
@@ -151,6 +151,12 @@ export default {
     helpShow: { type: Boolean, default: false }
   },
 
+  data() {
+    return {
+      fileReader: null
+    }
+  },
+
   computed: {
     manquant() {
       return !(
@@ -162,17 +168,47 @@ export default {
     }
   },
 
+  beforeUnmount() {
+    this.fileReader?.removeEventListener('load', this.onReaderDone)
+    this.fileReader?.removeEventListener('error', this.onReaderError)
+  },
+
   methods: {
     async download() {
       await this.$store.dispatch('downloadDocument', this.document)
     },
 
-    previewPopupOpen() {
-      this.$store.commit('popupOpen', {
-        component: DocumentPreviewPopup,
-        props: {
-          document: this.document
-        }
+    async previewPdf() {
+      try {
+        const blob = await this.$store.dispatch(
+          'visualizeDocument',
+          this.document
+        )
+        this.fileReader = new FileReader()
+        this.fileReader.addEventListener('load', this.onReaderDone)
+        this.fileReader.addEventListener('error', this.onReaderError)
+        this.fileReader.readAsDataURL(blob)
+      } catch (e) {
+        this.$store.commit('popupMessageAdd', {
+          value: "Erreur : le fichier n'a pas pu être téléchargé pour être lu.",
+          type: 'error'
+        })
+      }
+    },
+
+    async onReaderDone() {
+      // La solution moderne (blob -> createObjectURL -> open) ne fonctionne pas sur Safari.
+      const newTab = window.open()
+      newTab.document.body.innerHTML = `<object id="pdf" data="${this.fileReader.result.replace(
+        'octet-stream',
+        'pdf'
+      )}" type="application/pdf" style="margin:-10px;width:100vw;height:100vh"></object>`
+    },
+
+    onReaderError() {
+      this.$store.commit('popupMessageAdd', {
+        value: "Une erreur s'est produite lors de la lecture du fichier",
+        type: 'error'
       })
     },
 

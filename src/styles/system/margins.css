@@ -80,10 +80,6 @@
   margin-left: var(--unit);
 }
 
-.ml-auto {
-  margin-left: auto;
-}
-
 .ml-xxs {
   margin-left: var(--unit-xxs);
 }
