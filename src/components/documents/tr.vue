@@ -184,6 +184,9 @@ export default {
           'visualizeDocument',
           this.document
         )
+
+        // On récupère un blob en octet-stream
+        // qu'on doit décomposer et reconstruire pour être décodable en PDF
         this.fileReader = new FileReader()
         this.fileReader.addEventListener('load', this.onReaderDone)
         this.fileReader.addEventListener('error', this.onReaderError)
@@ -196,13 +199,37 @@ export default {
       }
     },
 
+    convertBase64ToPdfBlob(dataStr) {
+      const sliceSize = 512 // ~ meilleures performances pour le découpage
+      const byteCharacters = atob(
+        dataStr.replace('data:application/octet-stream;base64,', '')
+      )
+      const byteArrays = []
+
+      for (
+        let offset = 0;
+        offset < byteCharacters.length;
+        offset += sliceSize
+      ) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize)
+
+        const byteNumbers = new Array(slice.length)
+        for (let i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i)
+        }
+
+        const byteArray = new Uint8Array(byteNumbers)
+        byteArrays.push(byteArray)
+      }
+
+      const blob = new Blob(byteArrays, { type: 'application/pdf' })
+      return blob
+    },
+
     async onReaderDone() {
-      // La solution moderne (blob -> createObjectURL -> open) ne fonctionne pas sur Safari.
-      const newTab = window.open()
-      newTab.document.body.innerHTML = `<object id="pdf" data="${this.fileReader.result.replace(
-        'octet-stream',
-        'pdf'
-      )}" type="application/pdf" style="margin:-10px;width:100vw;height:100vh"></object>`
+      const blob = this.convertBase64ToPdfBlob(this.fileReader.result)
+      const blobUrl = URL.createObjectURL(blob)
+      window.open(blobUrl)
     },
 
     onReaderError() {
