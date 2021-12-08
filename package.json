@@ -96,6 +96,7 @@
     "jest-util": "^27.4.2",
     "json2csv": "^5.0.6",
     "jsondiffpatch": "^0.4.1",
+    "jszip": "^3.7.1",
     "leaflet": "1.7.1",
     "leaflet-fullscreen": "^1.0.2",
     "leaflet-gesture-handling": "^1.2.2",

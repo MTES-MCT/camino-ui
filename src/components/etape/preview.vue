@@ -119,17 +119,30 @@
 
         <hr class="mx--" />
       </div>
+
+      <div v-if="etape.type.id === 'mfr'" class="flex">
+        <span class="small bold mb-0 mt-s flex-grow text-right mr-l pt-xs">
+          Télécharger l'ensemble de la demande dans un fichier .zip
+        </span>
+        <button
+          class="btn-border rnd-xs flex-right py-s px-m mb-m"
+          @click="downloadZipDemande"
+        >
+          <i class="icon-24 icon-download" />
+        </button>
+      </div>
     </div>
   </Accordion>
 </template>
 
 <script>
+import JSZip from 'jszip'
 import { dateFormat, cap } from '@/utils'
 import Perimetre from './perimetre.vue'
 import Fondamentales from './fondamentales.vue'
 import Section from '../_common/section.vue'
 import Documents from '../documents/list.vue'
-
+import { saveAs } from 'file-saver'
 import Accordion from '../_ui/accordion.vue'
 import Tag from '../_ui/tag.vue'
 import Statut from '../_common/statut.vue'
@@ -240,6 +253,36 @@ export default {
 
     toggle() {
       this.$emit('toggle')
+    },
+
+    async downloadZipDemande() {
+      const zip = new JSZip()
+      const name = `demande-${this.etape.slug}-${this.etape.date}`
+
+      try {
+        for (const document of this.etape.documents) {
+          const filePath = `fichiers/${document.id}`
+          const { body } = await this.$store.dispatch('fetchFile', filePath)
+          const pdf = new Blob([body], { type: 'application/pdf' })
+          zip.file(name + '/' + document.id + '.pdf', pdf)
+        }
+        // Les appels à "fetchFile" ont invoqué des actions "fileLoad".
+        // Retire les jauges pour faire apparaître l'UI de chargement
+        // classique durant la création du zip.
+        this.$store.commit('fileLoad', { loaded: 0, total: 0 })
+        this.$store.commit('loadingAdd', name)
+
+        const zipFile = await zip.generateAsync({ type: 'blob' })
+        saveAs(zipFile, name + '.zip')
+      } catch (e) {
+        this.$store.dispatch(
+          'apiError',
+          'Erreur lors de la création du fichier'
+        )
+      } finally {
+        this.$store.commit('loadingRemove', name)
+        this.$store.commit('fileLoad', { loaded: 0, total: 0 })
+      }
     },
 
     etapeEdit() {
