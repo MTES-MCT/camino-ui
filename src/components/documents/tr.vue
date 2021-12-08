@@ -168,11 +168,6 @@ export default {
     }
   },
 
-  beforeUnmount() {
-    this.fileReader?.removeEventListener('load', this.onReaderDone)
-    this.fileReader?.removeEventListener('error', this.onReaderError)
-  },
-
   methods: {
     async download() {
       await this.$store.dispatch('downloadDocument', this.document)
@@ -180,63 +175,20 @@ export default {
 
     async previewPdf() {
       try {
-        const blob = await this.$store.dispatch(
+        // On obtient un blob d'octet-stream qu'on convertit en blob de pdf
+        const octetBlob = await this.$store.dispatch(
           'visualizeDocument',
           this.document
         )
-
-        // On récupère un blob en octet-stream
-        // qu'on doit décomposer et reconstruire pour être décodable en PDF
-        this.fileReader = new FileReader()
-        this.fileReader.addEventListener('load', this.onReaderDone)
-        this.fileReader.addEventListener('error', this.onReaderError)
-        this.fileReader.readAsDataURL(blob)
+        const pdfBlob = new Blob([octetBlob], { type: 'application/pdf' })
+        const blobUrl = URL.createObjectURL(pdfBlob)
+        window.open(blobUrl)
       } catch (e) {
         this.$store.commit('popupMessageAdd', {
           value: "Erreur : le fichier n'a pas pu être téléchargé pour être lu.",
           type: 'error'
         })
       }
-    },
-
-    convertBase64ToPdfBlob(dataStr) {
-      const sliceSize = 512 // ~ meilleures performances pour le découpage
-      const byteCharacters = atob(
-        dataStr.replace('data:application/octet-stream;base64,', '')
-      )
-      const byteArrays = []
-
-      for (
-        let offset = 0;
-        offset < byteCharacters.length;
-        offset += sliceSize
-      ) {
-        const slice = byteCharacters.slice(offset, offset + sliceSize)
-
-        const byteNumbers = new Array(slice.length)
-        for (let i = 0; i < slice.length; i++) {
-          byteNumbers[i] = slice.charCodeAt(i)
-        }
-
-        const byteArray = new Uint8Array(byteNumbers)
-        byteArrays.push(byteArray)
-      }
-
-      const blob = new Blob(byteArrays, { type: 'application/pdf' })
-      return blob
-    },
-
-    async onReaderDone() {
-      const blob = this.convertBase64ToPdfBlob(this.fileReader.result)
-      const blobUrl = URL.createObjectURL(blob)
-      window.open(blobUrl)
-    },
-
-    onReaderError() {
-      this.$store.commit('popupMessageAdd', {
-        value: "Une erreur s'est produite lors de la lecture du fichier",
-        type: 'error'
-      })
     },
 
     editPopupOpen() {
