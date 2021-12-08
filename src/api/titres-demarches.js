@@ -49,8 +49,8 @@ const demarchesMetas = apiGraphQLFetch(
 
 const demarcheMetas = apiGraphQLFetch(
   gql`
-    query MetasDemarche($titreId: ID!, $id: ID) {
-      demarchesTypes(titreId: $titreId, titreDemarcheId: $id) {
+    query MetasDemarche($titreId: ID!) {
+      demarchesTypes(titreId: $titreId) {
         ...demarcheType
       }
     }
