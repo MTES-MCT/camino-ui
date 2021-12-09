@@ -1,7 +1,17 @@
-import { etape, etapeDeposer, etapeSupprimer } from '../api/titres-etapes'
+import {
+  etape,
+  etapeDeposer,
+  etapeSupprimer,
+  etapeTelecharger
+} from '../api/titres-etapes'
+
+import { saveAs } from 'file-saver'
+
+import { streamToBlob } from '../utils/stream'
 
 const stateInitial = {
-  element: null
+  element: null,
+  isDownloading: false
 }
 
 const state = JSON.parse(JSON.stringify(stateInitial))
@@ -67,12 +77,54 @@ const actions = {
     } finally {
       commit('loadingRemove', 'titreEtapeRemove', { root: true })
     }
+  },
+
+  async downloadDemande({ commit, dispatch }, { etapeId, name }) {
+    try {
+      commit('loadingAdd', 'fileLoading', { root: true })
+      commit('isDownloading', true)
+
+      const res = await etapeTelecharger(etapeId)
+
+      if (!res.ok) {
+        dispatch(
+          'messageAdd',
+          {
+            value: `le fichier .zip n'a pas pu être téléchargé`,
+            type: 'error'
+          },
+          { root: true }
+        )
+        return
+      }
+
+      const body = await streamToBlob(res, commit)
+      saveAs(body, `${name}.zip`)
+
+      dispatch(
+        'messageAdd',
+        {
+          type: 'success',
+          value: `fichier téléchargé : ${name}`
+        },
+        { root: true }
+      )
+    } catch (e) {
+      dispatch('apiError', e, { root: true })
+    } finally {
+      commit('loadingRemove', 'fileLoading', { root: true })
+      commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
+      commit('isDownloading', false)
+    }
   }
 }
 
 const mutations = {
   set(state, { etape }) {
     state.element = etape
+  },
+  isDownloading(state, isDownloading) {
+    state.isDownloading = isDownloading
   }
 }
 
