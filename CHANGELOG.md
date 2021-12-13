@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.28.0](https://github.com/MTES-MCT/camino-ui/compare/v0.27.0...v0.28.0) (2021-12-13)
+
+
+### Features
+
+* **activites:** commence l'implémentation des infobulles à Preview et ActiviteEdition pour types 'gra' et 'grp' ([f91c188](https://github.com/MTES-MCT/camino-ui/commit/f91c18854eaa728d4112fe188a457be94e35ec4d))
+* **activites:** termine l'implémentation des infobulles à Preview et ActiviteEdition pour types 'gra' et 'grp' ([63658f4](https://github.com/MTES-MCT/camino-ui/commit/63658f4c952ee2f0286939e4bc689807a8f386e4))
+* **sdom:** vérifie les documents obligatoires en fonction des zones de SDOM ([#438](https://github.com/MTES-MCT/camino-ui/issues/438)) ([b186388](https://github.com/MTES-MCT/camino-ui/commit/b18638867dff2e3a8e725351d71c006f67189bad))
+
+
+### Bug Fixes
+
+* **abonnement:** précise l’intitulé du bouton pour s’abonner à un titre ([8c0cbaa](https://github.com/MTES-MCT/camino-ui/commit/8c0cbaa8067074e2fb0e8896af4e86bcc3a5e0d9))
+* **acitvites:** retire l'attribut 'primaire' des boutons d'éditions sur la liste ([26891c8](https://github.com/MTES-MCT/camino-ui/commit/26891c818f3e6e4f2ed3935b5e061851ce15dc25))
+
 ## [0.27.0](https://github.com/MTES-MCT/camino-ui/compare/v0.26.0...v0.27.0) (2021-12-01)
 
 
