@@ -42,7 +42,7 @@ const getters = {
       tabs.push({ id: 'activites', nom: 'Activités' })
     }
 
-    if (state.element?.travaux?.length || state.element?.travauxCreation) {
+    if (getters.travaux.length || state.element?.travauxCreation) {
       tabs.push({ id: 'travaux', nom: 'Travaux' })
     }
 
@@ -54,11 +54,11 @@ const getters = {
   },
 
   demarches(state) {
-    return state.element.demarches.filter(d => !d.type.travaux)
+    return state.element?.demarches?.filter(d => !d.type.travaux) || []
   },
 
   travaux(state) {
-    return state.element.demarches.filter(d => d.type.travaux)
+    return state.element?.demarches?.filter(d => d.type.travaux) || []
   }
 }
 
