@@ -74,34 +74,7 @@ const fetchFile = async (filePath, commit) => {
 
   if (!name) throw new Error('nom de fichier manquant')
 
-  let body
-
-  // si le navigateur supporte l'API Web Streams
-  if (res.body) {
-    // progress
-
-    const total = res.headers.get('content-length')
-    const reader = res.body.getReader()
-    let loaded = 0
-    const chunks = []
-
-    commit('loadingRemove', 'fileLoading')
-
-    while (true) {
-      const { done, value } = await reader.read()
-
-      if (done) break
-
-      chunks.push(value)
-      loaded += value.length
-
-      commit('fileLoad', { loaded, total })
-    }
-
-    body = new Blob(chunks)
-  } else {
-    body = await res.blob()
-  }
+  const body = await streamToBlob(res, commit)
 
   return { body, name }
 }
