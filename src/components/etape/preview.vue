@@ -120,14 +120,14 @@
         <hr class="mx--" />
       </div>
 
-      <div v-if="etape.type.id === 'mfr'" class="flex">
+      <div v-if="canDownloadZip" class="flex">
         <span class="small bold mb-0 mt-s flex-grow text-right mr-l pt-xs">
           Télécharger l'ensemble de la demande dans un fichier .zip
         </span>
         <button
           class="btn-border rnd-xs flex-right py-s px-m mb-m"
           :disabled="isDownloading"
-          @click="downloadDemande"
+          @click="demandeDownload"
         >
           <i class="icon-24 icon-download" />
         </button>
@@ -175,8 +175,8 @@ export default {
   emits: ['close', 'toggle'],
 
   computed: {
-    ...mapState('titreEtape', {
-      isDownloading: state => state.isDownloading
+    ...mapState({
+      isDownloading: state => Boolean(state.loading.length)
     }),
 
     route() {
@@ -228,6 +228,14 @@ export default {
       return this.$store.getters['user/userIsAdmin']
     },
 
+    canDownloadZip() {
+      return (
+        this.etape.type.id === 'mfr' &&
+        this.etape.documents?.length &&
+        this.etape.justificatifs?.length
+      )
+    },
+
     demandeHelp() {
       if (!this.userIsAdmin && this.etape.type.id === 'mfr') {
         if (
@@ -259,8 +267,8 @@ export default {
       this.$emit('toggle')
     },
 
-    async downloadDemande() {
-      this.$store.dispatch('titreEtape/downloadDemande', {
+    async demandeDownload() {
+      this.$store.dispatch('titreEtape/demandeDownload', {
         etapeId: this.etape.id,
         name: `demande-${this.etape.slug}-${this.etape.date}`
       })

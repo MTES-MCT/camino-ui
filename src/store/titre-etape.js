@@ -10,8 +10,7 @@ import { saveAs } from 'file-saver'
 import { streamToBlob } from '../utils/stream'
 
 const stateInitial = {
-  element: null,
-  isDownloading: false
+  element: null
 }
 
 const state = JSON.parse(JSON.stringify(stateInitial))
@@ -79,10 +78,9 @@ const actions = {
     }
   },
 
-  async downloadDemande({ commit, dispatch }, { etapeId, name }) {
+  async demandeDownload({ commit, dispatch }, { etapeId, name }) {
     try {
       commit('loadingAdd', 'fileLoading', { root: true })
-      commit('isDownloading', true)
 
       const res = await etapeTelecharger(etapeId)
 
@@ -114,7 +112,6 @@ const actions = {
     } finally {
       commit('loadingRemove', 'fileLoading', { root: true })
       commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
-      commit('isDownloading', false)
     }
   }
 }
@@ -122,9 +119,6 @@ const actions = {
 const mutations = {
   set(state, { etape }) {
     state.element = etape
-  },
-  isDownloading(state, isDownloading) {
-    state.isDownloading = isDownloading
   }
 }
 

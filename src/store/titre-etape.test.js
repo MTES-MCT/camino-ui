@@ -37,9 +37,6 @@ describe('étapes', () => {
       ...titreEtape,
       state: {
         element: null
-      },
-      mutations: {
-        isDownloading: jest.fn()
       }
     }
 
@@ -151,10 +148,9 @@ describe('étapes', () => {
     const etapeId = 'foo'
     const name = 'bar'
 
-    await store.dispatch('titreEtape/downloadDemande', { etapeId, name })
+    await store.dispatch('titreEtape/demandeDownload', { etapeId, name })
 
     expect(apiMock).toHaveBeenCalledWith(etapeId)
-    expect(titreEtapeMock.mutations.isDownloading).toHaveBeenCalled()
     expect(mutations.loadingAdd).toHaveBeenCalled()
     expect(mutations.loadingRemove).toHaveBeenCalled()
     expect(streamToBlob).toHaveBeenCalled()
@@ -168,7 +164,7 @@ describe('étapes', () => {
 
     const etapeId = 'foo'
 
-    await store.dispatch('titreEtape/downloadDemande', {
+    await store.dispatch('titreEtape/demandeDownload', {
       etapeId,
       name: 'bar'
     })
