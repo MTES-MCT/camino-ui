@@ -1,0 +1,12 @@
+{
+  "upgrade": true,
+  "reject": [
+    "eslint",
+    "eslint-plugin-vue",
+    "typescript",
+    "postcss-button",
+    "postcss-grid-fluid" ,
+    "postcss-typescale",
+    "graphql-react"
+  ]
+}
