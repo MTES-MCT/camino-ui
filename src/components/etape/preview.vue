@@ -119,6 +119,19 @@
 
         <hr class="mx--" />
       </div>
+
+      <div v-if="canDownloadZip" class="flex">
+        <span class="small bold mb-0 mt-s flex-grow text-right mr-l pt-xs">
+          Télécharger l'ensemble de la demande dans un fichier .zip
+        </span>
+        <button
+          class="btn-border rnd-xs flex-right py-s px-m mb-m"
+          :disabled="isDownloading"
+          @click="demandeDownload"
+        >
+          <i class="icon-24 icon-download" />
+        </button>
+      </div>
     </div>
   </Accordion>
 </template>
@@ -129,13 +142,13 @@ import Perimetre from './perimetre.vue'
 import Fondamentales from './fondamentales.vue'
 import Section from '../_common/section.vue'
 import Documents from '../documents/list.vue'
-
 import Accordion from '../_ui/accordion.vue'
 import Tag from '../_ui/tag.vue'
 import Statut from '../_common/statut.vue'
 import RemovePopup from './remove.vue'
 import DeposePopup from './depose-popup.vue'
 import HelpTooltip from '../_ui/help-tooltip.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -162,6 +175,10 @@ export default {
   emits: ['close', 'toggle'],
 
   computed: {
+    ...mapState({
+      isDownloading: state => state.loading.includes('demandeDownload')
+    }),
+
     route() {
       return {
         name: 'titre',
@@ -201,6 +218,10 @@ export default {
       return this.etape.documents && !!this.etape.documents.length
     },
 
+    hasJustificatifs() {
+      return this.etape.justificatifs && !!this.etape.justificatifs.length
+    },
+
     statutNom() {
       return this.etapeIsDemandeEnConstruction && !this.etape.deposable
         ? `${this.etape.statut.nom} (incomplet)`
@@ -209,6 +230,13 @@ export default {
 
     userIsAdmin() {
       return this.$store.getters['user/userIsAdmin']
+    },
+
+    canDownloadZip() {
+      return (
+        this.etape.type.id === 'mfr' &&
+        (this.hasDocuments || this.hasJustificatifs)
+      )
     },
 
     demandeHelp() {
@@ -240,6 +268,13 @@ export default {
 
     toggle() {
       this.$emit('toggle')
+    },
+
+    async demandeDownload() {
+      this.$store.dispatch('titreEtape/demandeDownload', {
+        etapeId: this.etape.id,
+        name: `demande-${this.etape.slug}-${this.etape.date}`
+      })
     },
 
     etapeEdit() {

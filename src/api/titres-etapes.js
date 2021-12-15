@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { apiGraphQLFetch } from './_client'
+import { apiGraphQLFetch, apiRestFetch } from './_client'
 
 import {
   fragmentDevise,
@@ -153,6 +153,8 @@ const etapeDeposer = apiGraphQLFetch(gql`
   }
 `)
 
+const etapeTelecharger = etapeId => apiRestFetch(`etape/zip/${etapeId}`)
+
 export {
   etape,
   etapeHeritage,
@@ -161,5 +163,6 @@ export {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
-  etapeDeposer
+  etapeDeposer,
+  etapeTelecharger
 }
