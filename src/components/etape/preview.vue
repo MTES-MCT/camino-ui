@@ -218,6 +218,10 @@ export default {
       return this.etape.documents && !!this.etape.documents.length
     },
 
+    hasJustificatifs() {
+      return this.etape.justificatifs && !!this.etape.justificatifs.length
+    },
+
     statutNom() {
       return this.etapeIsDemandeEnConstruction && !this.etape.deposable
         ? `${this.etape.statut.nom} (incomplet)`
@@ -231,8 +235,7 @@ export default {
     canDownloadZip() {
       return (
         this.etape.type.id === 'mfr' &&
-        this.etape.documents?.length &&
-        this.etape.justificatifs?.length
+        (this.hasDocuments || this.hasJustificatifs)
       )
     },
 
