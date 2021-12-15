@@ -1,4 +1,4 @@
-const streamToBlob = async (response, commit = null) => {
+const streamToBlob = async (response, loadEventId, commit = null) => {
   let body
 
   if (response.body) {
@@ -8,7 +8,7 @@ const streamToBlob = async (response, commit = null) => {
     const chunks = []
 
     if (commit) {
-      commit('loadingRemove', 'fileLoading', { root: true })
+      commit('loadingRemove', loadEventId, { root: true })
     }
 
     while (true) {

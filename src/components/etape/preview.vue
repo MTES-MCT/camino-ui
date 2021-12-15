@@ -176,7 +176,7 @@ export default {
 
   computed: {
     ...mapState({
-      isDownloading: state => Boolean(state.loading.length)
+      isDownloading: state => state.loading.includes('demandeDownload')
     }),
 
     route() {

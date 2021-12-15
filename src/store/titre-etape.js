@@ -80,7 +80,7 @@ const actions = {
 
   async demandeDownload({ commit, dispatch }, { etapeId, name }) {
     try {
-      commit('loadingAdd', 'fileLoading', { root: true })
+      commit('loadingAdd', 'demandeDownload', { root: true })
 
       const res = await etapeTelecharger(etapeId)
 
@@ -96,7 +96,7 @@ const actions = {
         return
       }
 
-      const body = await streamToBlob(res, commit)
+      const body = await streamToBlob(res, 'demandeDownload', commit)
       saveAs(body, `${name}.zip`)
 
       dispatch(
@@ -110,7 +110,7 @@ const actions = {
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
-      commit('loadingRemove', 'fileLoading', { root: true })
+      commit('loadingRemove', 'demandeDownload', { root: true })
       commit('fileLoad', { loaded: 0, total: 0 }, { root: true })
     }
   }

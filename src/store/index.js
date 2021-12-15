@@ -74,7 +74,7 @@ const fetchFile = async (filePath, commit) => {
 
   if (!name) throw new Error('nom de fichier manquant')
 
-  const body = await streamToBlob(res, commit)
+  const body = await streamToBlob(res, 'fileLoading', commit)
 
   return { body, name }
 }
