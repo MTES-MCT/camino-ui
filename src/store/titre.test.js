@@ -205,7 +205,7 @@ describe('état du titre sélectionné', () => {
   })
 
   test('la tab des activités est visible si il existe au moins une activité', () => {
-    store.state.titre.element = { activites: [{}] }
+    store.state.titre.element = { activites: [{}], demarches: [] }
     expect(store.getters['titre/tabs']).toMatchObject([
       { id: 'demarches' },
       { id: 'activites' }
@@ -213,7 +213,9 @@ describe('état du titre sélectionné', () => {
   })
 
   test('la tab des travaux est visible si il existe au moins un travaux', () => {
-    store.state.titre.element = { travaux: [{}] }
+    store.state.titre.element = {
+      demarches: [{ type: { travaux: true } }]
+    }
     expect(store.getters['titre/tabs']).toMatchObject([
       { id: 'demarches' },
       { id: 'travaux' }
