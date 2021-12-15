@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.29.0](https://github.com/MTES-MCT/camino-ui/compare/v0.28.0...v0.29.0) (2021-12-15)
+
+
+### Features
+
+* **demande:** permet le téléchargement des documents de l'étape Demande en .zip ([#442](https://github.com/MTES-MCT/camino-ui/issues/442)) ([70743d1](https://github.com/MTES-MCT/camino-ui/commit/70743d12d87e9b794b0f12c5a6f97bc0c4359657))
+* **document:** implémente la préviz des document PDFs dans un nouvel onglet ([e2e266a](https://github.com/MTES-MCT/camino-ui/commit/e2e266a9bb8f7cb15c4ece280dc9515f9bc12b59))
+* **document:** implémente la préviz des documents avec PDF.js ([8ceb0cf](https://github.com/MTES-MCT/camino-ui/commit/8ceb0cf2a9e3a2a067077d95d56e36a565443bc7))
+
+
+### Bug Fixes
+
+* **document:** permet l'ouverture de gros fichier PDF sur tous les navigateurs ([11ef475](https://github.com/MTES-MCT/camino-ui/commit/11ef475a3cc24f39ba273cc3abc66dea95637c42))
+* **travaux:** corrige la visibilité de l’onglet travaux pour les administrations locales ([#444](https://github.com/MTES-MCT/camino-ui/issues/444)) ([b00440f](https://github.com/MTES-MCT/camino-ui/commit/b00440f850a42eeae32e24d353838687004ef2fa))
+
 ## [0.28.0](https://github.com/MTES-MCT/camino-ui/compare/v0.27.0...v0.28.0) (2021-12-13)
 
 
