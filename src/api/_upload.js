@@ -1,6 +1,6 @@
 import Uppy from '@uppy/core'
 import Tus from '@uppy/tus'
-import { authorizationGet, tokenRefresh, errorThrow } from './_client'
+import { errorThrow } from './_client'
 
 const CHUNK_SIZE = 1048576 // 1 Mo
 const apiUrl = '/apiUrl'
@@ -13,18 +13,7 @@ const uploadCall = async (file, progressCb) => {
   uppy.use(Tus, {
     chunkSize: CHUNK_SIZE,
     endpoint: `${apiUrl}/televersement`,
-    onBeforeRequest: req => {
-      req.setHeader('Authorization', authorizationGet())
-    },
-    onShouldRetry: async error => {
-      const status = error.originalResponse
-        ? error.originalResponse.getStatus()
-        : 0
-      if (status === 401) {
-        await tokenRefresh()
-        return true
-      }
-
+    onShouldRetry: () => {
       return false
     },
     onChunkComplete: (_, bytesAccepted, bytesTotal) => {

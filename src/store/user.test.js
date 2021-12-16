@@ -6,7 +6,8 @@ import user from './user'
 import tiles from '../utils/map-tiles'
 
 jest.mock('../api/utilisateurs', () => ({
-  utilisateurTokenCreer: jest.fn(),
+  utilisateurConnecter: jest.fn(),
+  utilisateurDeconnecter: jest.fn(),
   utilisateurCerbereUrlObtenir: jest.fn(),
   utilisateurCerbereTokenCreer: jest.fn(),
   moi: jest.fn(),
@@ -117,7 +118,6 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("identifie l'utilisateur si un token valide est présent", async () => {
-    localStorage.setItem('accessToken', 'rene')
     const apiMock = api.moi.mockResolvedValue(userInfo)
 
     store = createStore({ modules: { user, map }, actions, mutations })
@@ -137,31 +137,21 @@ describe("état de l'utilisateur connecté", () => {
 
   test("retourne une erreur de l'api lors de l'obtention de l'utilisateur", async () => {
     const apiMock = api.moi.mockRejectedValue(new Error("erreur dans l'api"))
-    localStorage.setItem('accessToken', 'rene')
-    localStorage.setItem('refreshToken', 'lataupe')
     store.commit('user/set', userInfo)
     await store.dispatch('user/identify', { email, motDePasse })
 
     expect(apiMock).toHaveBeenCalled()
-    expect(localStorage.getItem('accessToken')).toBeNull()
-    expect(localStorage.getItem('refreshToken')).toBeNull()
     expect(store.state.user.element).toBeNull()
   })
 
   test('connecte un utilisateur', async () => {
-    const apiMock = api.utilisateurTokenCreer.mockResolvedValue({
-      accessToken: 'rene',
-      refreshToken: 'lataupe',
-      utilisateur: userInfo
-    })
+    const apiMock = api.utilisateurConnecter.mockResolvedValue(userInfo)
 
     await store.dispatch('user/login', { email, motDePasse })
 
     expect(apiMock).toHaveBeenCalledWith({ email, motDePasse })
     expect(mutations.popupClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
-    expect(localStorage.getItem('accessToken')).toEqual('rene')
-    expect(localStorage.getItem('refreshToken')).toEqual('lataupe')
     expect(store.state.user.element).toEqual({
       id: 66,
       prenom: 'rene',
@@ -173,17 +163,13 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("retourne une erreur de l'api lors de la connection d'un utilisateur", async () => {
-    localStorage.setItem('accessToken', 'rene')
-    localStorage.setItem('refreshToken', 'lataupe')
     store.commit('user/set', userInfo)
-    const apiMock = api.utilisateurTokenCreer.mockRejectedValue(
+    const apiMock = api.utilisateurConnecter.mockRejectedValue(
       new Error("erreur dans l'api")
     )
     await store.dispatch('user/login', { email, motDePasse })
 
     expect(apiMock).toHaveBeenCalledWith({ email, motDePasse })
-    expect(localStorage.getItem('accessToken')).toBeNull()
-    expect(localStorage.getItem('refreshToken')).toBeNull()
     expect(store.state.user.element).toBeNull()
     expect(mutations.popupMessageAdd).toHaveBeenCalled()
   })
@@ -215,18 +201,12 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test('connecte un utilisateur avec Cerbère', async () => {
-    const apiMock = api.utilisateurCerbereTokenCreer.mockResolvedValue({
-      accessToken: 'rene',
-      refreshToken: 'lataupe',
-      utilisateur: userInfo
-    })
+    const apiMock = api.utilisateurCerbereTokenCreer.mockResolvedValue(userInfo)
 
     await store.dispatch('user/cerbereLogin', { ticket })
 
     expect(apiMock).toHaveBeenCalledWith({ ticket })
     expect(actions.messageAdd).toHaveBeenCalled()
-    expect(localStorage.getItem('accessToken')).toEqual('rene')
-    expect(localStorage.getItem('refreshToken')).toEqual('lataupe')
     expect(store.state.user.element).toEqual({
       id: 66,
       prenom: 'rene',
@@ -238,8 +218,6 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("retourne une erreur de l'api lors de la connection d'un utilisateur avec Cerbère", async () => {
-    localStorage.setItem('accessToken', 'rene')
-    localStorage.setItem('refreshToken', 'lataupe')
     store.commit('user/set', userInfo)
     const apiMock = api.utilisateurCerbereTokenCreer.mockRejectedValue(
       new Error("erreur dans l'api")
@@ -248,21 +226,18 @@ describe("état de l'utilisateur connecté", () => {
     await store.dispatch('user/cerbereLogin', { ticket })
 
     expect(apiMock).toHaveBeenCalledWith({ ticket })
-    expect(localStorage.getItem('accessToken')).toBeNull()
-    expect(localStorage.getItem('refreshToken')).toBeNull()
     expect(store.state.user.element).toBeNull()
   })
 
   test('déconnecte un utilisateur', async () => {
-    localStorage.setItem('accessToken', 'value')
-    localStorage.setItem('refreshToken', 'value')
+    const apiMock = api.utilisateurDeconnecter.mockResolvedValue()
+
     store.commit('user/set', userInfo)
     await store.dispatch('user/logout')
 
+    expect(apiMock).toHaveBeenCalled()
     expect(mutations.menuClose).toHaveBeenCalled()
     expect(actions.messageAdd).toHaveBeenCalled()
-    expect(localStorage.getItem('accessToken')).toBeNull()
-    expect(localStorage.getItem('refreshToken')).toBeNull()
     expect(store.state.user.element).toBeNull()
   })
 
@@ -343,12 +318,9 @@ describe("état de l'utilisateur connecté", () => {
   })
 
   test("initialise le mot de passe d'un utilisateur", async () => {
-    const tokensSetMock = jest.fn()
-    user.actions.tokensSet = tokensSetMock
     store = createStore({ modules: { user, map }, actions, mutations })
-    const apiMock = api.utilisateurMotDePasseInitialiser.mockResolvedValue({
-      utilisateur: userInfo
-    })
+    const apiMock =
+      api.utilisateurMotDePasseInitialiser.mockResolvedValue(userInfo)
     await store.dispatch('user/passwordInit', {
       motDePasse1: motDePasse,
       motDePasse2: motDePasse
@@ -359,7 +331,6 @@ describe("état de l'utilisateur connecté", () => {
       motDePasse2: motDePasse
     })
     expect(actions.messageAdd).toHaveBeenCalledTimes(2)
-    expect(tokensSetMock).toHaveBeenCalled()
   })
 
   test("retourne une erreur api dans la création du mot de passe de l'utilisateur", async () => {

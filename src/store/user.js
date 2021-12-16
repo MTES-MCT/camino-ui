@@ -1,6 +1,6 @@
 import {
   moi,
-  utilisateurTokenCreer,
+  utilisateurConnecter,
   utilisateurCerbereTokenCreer,
   utilisateurCerbereUrlObtenir,
   utilisateurCreationMessageEnvoyer,
@@ -8,7 +8,8 @@ import {
   utilisateurMotDePasseMessageEnvoyer,
   utilisateurMotDePasseInitialiser,
   userMetas,
-  newsletterInscrire
+  newsletterInscrire,
+  utilisateurDeconnecter
 } from '../api/utilisateurs'
 
 import { permissionsCheck } from '../utils'
@@ -57,7 +58,6 @@ const actions = {
 
       await dispatch('init')
     } catch (e) {
-      dispatch('tokensRemove')
       commit('reset')
     } finally {
       commit('loadingRemove', 'userMoi', { root: true })
@@ -71,10 +71,8 @@ const actions = {
 
       commit('popupMessagesRemove', null, { root: true })
 
-      const data = await utilisateurTokenCreer({ email, motDePasse })
-      const { utilisateur } = data
+      const utilisateur = await utilisateurConnecter({ email, motDePasse })
 
-      dispatch('tokensSet', data)
       commit('set', utilisateur)
       commit('popupClose', null, { root: true })
       dispatch(
@@ -89,14 +87,12 @@ const actions = {
       await dispatch('init')
       dispatch('errorRemove', null, { root: true })
     } catch (e) {
-      dispatch('tokensRemove')
       commit('reset')
       commit('popupMessageAdd', { value: e, type: 'error' }, { root: true })
     } finally {
       commit('loadingRemove', 'userLogin', { root: true })
     }
   },
-
   async cerbereUrlGet({ commit }, url) {
     try {
       commit('popupMessagesRemove', null, { root: true })
@@ -116,11 +112,8 @@ const actions = {
     try {
       commit('loadingAdd', 'userCerbereLogin', { root: true })
 
-      const data = await utilisateurCerbereTokenCreer({ ticket })
+      const utilisateur = await utilisateurCerbereTokenCreer({ ticket })
 
-      const { utilisateur } = data
-
-      dispatch('tokensSet', data)
       commit('set', utilisateur)
       dispatch(
         'messageAdd',
@@ -134,7 +127,6 @@ const actions = {
       await dispatch('init')
       dispatch('errorRemove', null, { root: true })
     } catch (e) {
-      dispatch('tokensRemove')
       commit('reset')
     } finally {
       commit('loadingRemove', 'userCerbereLogin', { root: true })
@@ -143,14 +135,27 @@ const actions = {
   },
 
   async logout({ commit, dispatch }) {
-    commit('menuClose', null, { root: true })
-    dispatch('tokensRemove')
-    commit('reset')
-    dispatch(
-      'messageAdd',
-      { value: `vous êtes déconnecté`, type: 'success' },
-      { root: true }
-    )
+    try {
+      commit('loadingAdd', 'userLogout', { root: true })
+
+      commit('popupMessagesRemove', null, { root: true })
+
+      await utilisateurDeconnecter()
+
+      dispatch(
+        'messageAdd',
+        { value: `vous êtes déconnecté`, type: 'success' },
+        { root: true }
+      )
+
+      commit('menuClose', null, { root: true })
+      commit('reset')
+      dispatch('errorRemove', null, { root: true })
+    } catch (e) {
+      dispatch('messageAdd', { value: e, type: 'error' }, { root: true })
+    } finally {
+      commit('loadingRemove', 'userLogout', { root: true })
+    }
   },
 
   async addEmail({ commit, dispatch }, email) {
@@ -229,7 +234,7 @@ const actions = {
     try {
       commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
 
-      const data = await utilisateurMotDePasseInitialiser({
+      const utilisateur = await utilisateurMotDePasseInitialiser({
         motDePasse1,
         motDePasse2
       })
@@ -245,12 +250,11 @@ const actions = {
 
       router.push({ name: 'titres' })
 
-      dispatch('tokensSet', data)
-      commit('set', data.utilisateur)
+      commit('set', utilisateur)
       dispatch(
         'messageAdd',
         {
-          value: `bienvenue ${data.utilisateur.prenom} ${data.utilisateur.nom}`,
+          value: `bienvenue ${utilisateur.prenom} ${utilisateur.nom}`,
           type: 'success'
         },
         { root: true }
@@ -268,16 +272,6 @@ const actions = {
     } else {
       commit('preferencesSet', { section, params })
     }
-  },
-
-  tokensSet(_, tokens) {
-    localStorage.setItem('accessToken', tokens.accessToken)
-    localStorage.setItem('refreshToken', tokens.refreshToken)
-  },
-
-  tokensRemove() {
-    localStorage.removeItem('accessToken')
-    localStorage.removeItem('refreshToken')
   },
 
   async newsletterSubscribe({ commit, dispatch }, email) {
