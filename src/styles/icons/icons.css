@@ -29,6 +29,7 @@
   height: var(--unit);
   display: block;
   background-repeat: no-repeat;
+  background-position: top center;
 }
 
 .icon-48 {
@@ -425,22 +426,18 @@
 
 .icon-user {
   background-image: svg-load('./svgs/24-user.svg',
-    fill=none,
-    stroke= '#666',
+    fill='#666',
     stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    stroke-linejoin=round
   );
 }
 
 .btn-border:hover .icon-user,
 .active .btn-border .icon-user {
   background-image: svg-load('./svgs/24-user.svg',
-    fill=none,
-    stroke= 'white',
+    fill=white,
     stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    stroke-linejoin=round
   );
 }
 
@@ -817,7 +814,7 @@
 }
 
 .icon-help {
-  background-image: svg-load('./svgs/24-help.svg',
+  background-image: svg-load('./svgs/info.svg',
     fill= '#666',
     stroke-width=1.25px
   );
