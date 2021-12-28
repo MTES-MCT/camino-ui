@@ -1,10 +1,7 @@
 import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 
-import {
-  fragmentUtilisateur,
-  fragmentUtilisateurToken
-} from './fragments/utilisateur'
+import { fragmentUtilisateur } from './fragments/utilisateur'
 import { fragmentPermission, fragmentTitreType } from './fragments/metas'
 import { fragmentEntreprises } from './fragments/entreprises'
 import { fragmentAdministrations } from './fragments/administrations'
@@ -108,24 +105,30 @@ const utilisateurs = apiGraphQLFetch(
   `
 )
 
-const utilisateurTokenCreer = apiGraphQLFetch(gql`
-  mutation UtilisateurTokenCreer($email: String!, $motDePasse: String!) {
-    utilisateurTokenCreer(email: $email, motDePasse: $motDePasse) {
-      ...utilisateurToken
+const utilisateurConnecter = apiGraphQLFetch(gql`
+  mutation utilisateurConnecter($email: String!, $motDePasse: String!) {
+    utilisateurConnecter(email: $email, motDePasse: $motDePasse) {
+      ...utilisateur
     }
   }
 
-  ${fragmentUtilisateurToken}
+  ${fragmentUtilisateur}
+`)
+
+const utilisateurDeconnecter = apiGraphQLFetch(gql`
+  mutation utilisateurDeconnecter {
+    utilisateurDeconnecter
+  }
 `)
 
 const utilisateurCerbereTokenCreer = apiGraphQLFetch(gql`
   mutation UtilisateurCerbereTokenCreer($ticket: String!) {
     utilisateurCerbereTokenCreer(ticket: $ticket) {
-      ...utilisateurToken
+      ...utilisateur
     }
   }
 
-  ${fragmentUtilisateurToken}
+  ${fragmentUtilisateur}
 `)
 
 const utilisateurCerbereUrlObtenir = apiGraphQLFetch(gql`
@@ -203,11 +206,11 @@ const utilisateurMotDePasseInitialiser = apiGraphQLFetch(gql`
       motDePasse1: $motDePasse1
       motDePasse2: $motDePasse2
     ) {
-      ...utilisateurToken
+      ...utilisateur
     }
   }
 
-  ${fragmentUtilisateurToken}
+  ${fragmentUtilisateur}
 `)
 
 const utilisateurMotDePasseMessageEnvoyer = apiGraphQLFetch(gql`
@@ -231,11 +234,11 @@ const utilisateurEmailMessageEnvoyer = apiGraphQLFetch(gql`
 const utilisateurEmailModifier = apiGraphQLFetch(gql`
   mutation UtilisateurEmailModifier($emailToken: String!) {
     utilisateurEmailModifier(emailToken: $emailToken) {
-      ...utilisateurToken
+      ...utilisateur
     }
   }
 
-  ${fragmentUtilisateurToken}
+  ${fragmentUtilisateur}
 `)
 
 const newsletterInscrire = apiGraphQLFetch(gql`
@@ -250,7 +253,8 @@ export {
   utilisateur,
   utilisateurs,
   moi,
-  utilisateurTokenCreer,
+  utilisateurConnecter,
+  utilisateurDeconnecter,
   utilisateurCerbereTokenCreer,
   utilisateurCerbereUrlObtenir,
   utilisateurModifier,

@@ -38,6 +38,10 @@ export default defineConfig({
         target: process.env.API_URL,
         changeOrigin: true,
         rewrite: path => path.replace(/^\/apiUrl/, '')
+      },
+      '/televersement': {
+        target: process.env.API_URL,
+        changeOrigin: true
       }
     }
   }

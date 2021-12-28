@@ -44,16 +44,4 @@ const fragmentUtilisateur = gql`
   ${fragmentPermission}
 `
 
-const fragmentUtilisateurToken = gql`
-  fragment utilisateurToken on UtilisateurToken {
-    utilisateur {
-      ...utilisateur
-    }
-    accessToken
-    refreshToken
-  }
-
-  ${fragmentUtilisateur}
-`
-
-export { fragmentUtilisateur, fragmentUtilisateurToken }
+export { fragmentUtilisateur }

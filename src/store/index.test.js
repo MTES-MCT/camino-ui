@@ -308,8 +308,6 @@ describe("état général de l'application", () => {
     actions.messageAdd = messageAddMock
     store = createStore({ state, actions, mutations })
 
-    localStorage.setItem('accessToken', 'privateToken')
-
     const apiMock = apiRestFetch.mockResolvedValueOnce({
       data: 'truc',
       headers: { get: () => 'filename=nom-du-fichier.pdf' },
@@ -348,8 +346,6 @@ describe("état général de l'application", () => {
     const messageAddMock = jest.fn()
     actions.messageAdd = messageAddMock
     store = createStore({ state, actions, mutations })
-
-    localStorage.setItem('accessToken', 'privateToken')
 
     const apiMock = apiRestFetch.mockResolvedValueOnce({
       data: 'truc',
