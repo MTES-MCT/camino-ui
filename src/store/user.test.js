@@ -374,7 +374,7 @@ describe("état de l'utilisateur connecté", () => {
   test('retourne le fond de carte actif', () => {
     expect(store.getters['user/tilesActive']).toEqual({
       id: 'osm-fr',
-      name: 'osm / fr',
+      name: 'OSM / fr',
       type: 'tiles',
       url: 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
       attribution:

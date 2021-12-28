@@ -1,7 +1,7 @@
 export default [
   {
     id: 'osm-mapnik',
-    name: 'osm / mapnik',
+    name: 'OSM / mapnik',
     type: 'tiles',
     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     attribution:
@@ -9,7 +9,7 @@ export default [
   },
   {
     id: 'osm-fr',
-    name: 'osm / fr',
+    name: 'OSM / fr',
     type: 'tiles',
     url: 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
     attribution:
@@ -17,7 +17,7 @@ export default [
   },
   {
     id: 'osm-hot',
-    name: 'osm / hot',
+    name: 'OSM / hot',
     type: 'tiles',
     url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
     attribution:
@@ -25,7 +25,7 @@ export default [
   },
   {
     id: 'geoportail-ign-map',
-    name: 'Géoportail / carte Ign',
+    name: 'Géoportail / Carte IGN',
     type: 'tiles',
     url: 'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.MAPS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
     attribution: 'IGN-F/Geoportail'
@@ -39,9 +39,9 @@ export default [
   },
   {
     id: 'geoportail-ign-plan',
-    name: 'Géoportail / plan Ign',
+    name: 'Géoportail / Plan IGN',
     type: 'tiles',
-    url: 'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGN&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
+    url: 'https://wxs.ign.fr/ff8nyjqym1ym7bz3mw6mpehc/geoportail/wmts?layer=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&style=normal&tilematrixset=PM&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}',
     attribution: 'IGN-F/Geoportail'
   },
   {
@@ -68,7 +68,7 @@ export default [
   },
   {
     id: 'sdom-zones',
-    name: 'SDOM (Schéma Départemental d’Orientation Minière)',
+    name: 'SDOM (schéma départemental d’orientation minière)',
     type: 'wms',
     url: 'https://datacarto.geoguyane.fr/wms/SDOM_GUYANE',
     layers:
