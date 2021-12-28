@@ -54,6 +54,7 @@ if (import.meta.env.PROD) {
         router,
         store,
         requireConsent: false,
+        disableCookies: true,
         trackInitialView: true,
         trackerFileName: 'piwik',
         enableHeartBeatTimer: true,
