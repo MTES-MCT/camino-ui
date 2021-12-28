@@ -3,6 +3,7 @@ import { visitUser, pageTitre } from './custom-variables'
 
 const defaultOptions = {
   requireConsent: false,
+  disableCookies: true,
   trackInitialView: true,
   trackerFileName: 'piwik',
   enableHeartBeatTimer: false,
@@ -32,6 +33,10 @@ const install = (app, setupOptions = {}) => {
 
       if (options.enableHeartBeatTimer) {
         matomo.enableHeartBeatTimer()
+      }
+
+      if (options.disableCookies) {
+        matomo.disableCookies()
       }
 
       if (options.enableLinkTracking) {
