@@ -33,11 +33,13 @@
     <div class="px-m">
       <div class="tablet-blobs mt">
         <div v-if="inputs.length" class="tablet-blob-1-2 large-blob-1-3">
-          <FiltersInput
-            v-for="input in inputs"
-            :key="input.id"
-            :filter="input"
-          />
+          <template v-for="input in inputs" :key="input.id">
+            <FiltersInputAutocomplete
+              v-if="input.id === 'substances'"
+              :filter="input"
+            />
+            <FiltersInput v-else :filter="input" />
+          </template>
           <button
             class="btn-border small px-s p-xs rnd-xs mb"
             @click="inputsErase"
@@ -85,13 +87,15 @@ import Accordion from './accordion.vue'
 import FiltersInput from './filters-input.vue'
 import FiltersCheckboxes from './filters-checkboxes.vue'
 import FiltersSelects from './filters-selects.vue'
+import FiltersInputAutocomplete from './filters-input-autocomplete.vue'
 
 export default {
   components: {
     Accordion,
     FiltersInput,
     FiltersCheckboxes,
-    FiltersSelects
+    FiltersSelects,
+    FiltersInputAutocomplete
   },
 
   props: {

@@ -3,6 +3,8 @@
 -------------------------------
 */
 
+@import '../../../node_modules/choices.js/public/assets/styles/choices.css';
+
 input[type='text'],
 input[type='email'],
 input[type='search'],
@@ -13,6 +15,7 @@ input[type='date'],
 input[type='url'],
 select,
 textarea,
+.choices__inner,
 .input {
   width: 100%;
   border: 0 none;
@@ -42,9 +45,10 @@ textarea {
   height: auto;
 }
 
-textarea:focus,
-input:focus,
-select:focus {
+textarea:not(.choices__input):focus,
+input:not(.choices__input):focus,
+select:not(.choices__input):focus,
+.choices.is-focused {
   border-right: var(--unit-s) solid var(--dsfr-bf500);
 }
 
@@ -89,4 +93,13 @@ select.bg-bg:disabled {
 
 [type='file'] {
   display: none;
+}
+
+.choices[data-type*=select-multiple] .choices__button,
+.choices[data-type*=text] .choices__button {
+  border-left: 1px solid white;
+}
+.choices__list--multiple .choices__item {
+  background-color: var(--dsfr-bf500);
+  border: 1px solid var(--dsfr-bf500);
 }
