@@ -42,6 +42,15 @@ app.use(
     pathRewrite: { '^/apiUrl': '' }
   })
 )
+
+app.use(
+  '/televersement',
+  createProxyMiddleware({
+    target: apiUrl,
+    changeOrigin: true
+  })
+)
+
 app.use('/sentryOptions', (req, res) =>
   res.json({
     dsn: process.env.API_SENTRY_URL,
