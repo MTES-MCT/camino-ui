@@ -1,7 +1,7 @@
 <template>
   <button class="flex" @click="download">
     <span class="mt-xxs">{{ format }}</span>
-    <div class="flex-right">
+    <div class="flex-right pl-xs">
       <i class="icon-24 icon-download" />
     </div>
   </button>

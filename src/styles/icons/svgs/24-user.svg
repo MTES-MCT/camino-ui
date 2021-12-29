@@ -1,6 +1,6 @@
 <svg width="16px" height="21px" viewBox="0 0 16 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd">
-        <g id="user-line">
+    <g stroke="none" stroke-width="1" fill-rule="evenodd">
+        <g>
             <path d="M8,13 C12.418278,13 16,16.581722 16,21 L14,21 C14,17.6862915 11.3137085,15 8,15 C4.6862915,15 2,17.6862915 2,21 L0,21 C0,16.581722 3.581722,13 8,13 Z M8,0 C11.315,0 14,2.685 14,6 C14,9.315 11.315,12 8,12 C4.685,12 2,9.315 2,6 C2,2.685 4.685,0 8,0 Z M8,2 C5.79,2 4,3.79 4,6 C4,8.21 5.79,10 8,10 C10.21,10 12,8.21 12,6 C12,3.79 10.21,2 8,2 Z"></path>
         </g>
     </g>

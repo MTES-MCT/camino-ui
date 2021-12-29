@@ -8,7 +8,7 @@
         v-for="format in formats"
         :key="format"
         :format="format"
-        class="btn-alt small px-m py-s full-x border-b-s"
+        class="btn-alt small px-s py-s full-x border-b-s"
         :section="section"
         :query="$route.query"
         @clicked="toggle"

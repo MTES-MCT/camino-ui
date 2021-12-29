@@ -75,11 +75,7 @@
 
 .icon-plus {
   background-image: svg-load('./svgs/24-plus.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='#666'
   );
 }
 
@@ -89,11 +85,7 @@
 .btn-alt:hover .icon-plus,
 .btn-border:hover .icon-plus {
   background-image: svg-load('./svgs/24-plus.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='white'
   );
 }
 
@@ -179,32 +171,20 @@
 
 .icon-minus {
   background-image: svg-load('./svgs/24-minus.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='#666'
   );
 }
 
 .btn:hover .icon-minus,
 .btn-border:hover .icon-minus {
   background-image: svg-load('./svgs/24-minus.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='white'
   );
 }
 
 .icon-chevron-b {
   background-image: svg-load('./svgs/24-chevron-b.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='#666'
   );
 }
 
@@ -212,21 +192,13 @@
 .btn:hover .icon-chevron-b,
 .btn-alt:hover .icon-chevron-b {
   background-image: svg-load('./svgs/24-chevron-b.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='white'
   );
 }
 
 .icon-chevron-t {
   background-image: svg-load('./svgs/24-chevron-t.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='#666'
   );
 }
 
@@ -234,11 +206,7 @@
 .btn:hover .icon-chevron-t,
 .btn-alt:hover .icon-chevron-t {
   background-image: svg-load('./svgs/24-chevron-t.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='white'
   );
 }
 
@@ -356,21 +324,13 @@
 
 .icon-download {
   background-image: svg-load('./svgs/24-download.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='#666'
   );
 }
 .btn-border:hover .icon-download,
 .btn-alt:hover .icon-download {
   background-image: svg-load('./svgs/24-download.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='white'
   );
 }
 
@@ -443,22 +403,14 @@
 
 .icon-menu {
   background-image: svg-load('./svgs/24-menu.svg',
-    fill=none,
-    stroke='#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='#666'
   );
 }
 
 .btn-border:hover .icon-menu,
 .active .btn-border .icon-menu {
   background-image: svg-load('./svgs/24-menu.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='white'
   );
 }
 
@@ -559,43 +511,27 @@
 
 .icon-globe {
   background-image: svg-load('./svgs/globe-3.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='#666'
   );
 }
 
 .span-tab .icon-globe,
 .btn-tab:hover .icon-globe {
   background-image: svg-load('./svgs/globe-3.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='white'
   );
 }
 
 .icon-list {
   background-image: svg-load('./svgs/list-bullets.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='#666'
   );
 }
 
 .span-tab .icon-list,
 .btn-tab:hover .icon-list {
   background-image: svg-load('./svgs/list-bullets.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='white'
   );
 }
 
@@ -661,64 +597,40 @@
 
 .icon-markers-clusters {
   background-image: svg-load('./svgs/24-markers-grouped.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='#666'
   );
 }
 
 .icon-markers-markers {
   background-image: svg-load('./svgs/24-markers-ungrouped.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='#666'
   );
 }
 
 .icon-markers-none {
   background-image: svg-load('./svgs/24-markers-none.svg',
-    fill=none,
-    stroke= '#666',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='#666'
   );
 }
 
 .btn-border:hover .icon-markers-clusters,
 .active .icon-markers-clusters {
   background-image: svg-load('./svgs/24-markers-grouped.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='white'
   );
 }
 
 .btn-border:hover .icon-markers-markers,
 .active .icon-markers-markers {
   background-image: svg-load('./svgs/24-markers-ungrouped.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='white'
   );
 }
 
 .btn-border:hover .icon-markers-none,
 .active .icon-markers-none {
   background-image: svg-load('./svgs/24-markers-none.svg',
-    fill=none,
-    stroke= 'white',
-    stroke-linecap=round,
-    stroke-linejoin=round,
-    stroke-width=1.25px
+    fill='white'
   );
 }
 
@@ -822,8 +734,6 @@
 
 .btn-alt:hover .icon-help {
   background-image: svg-load('./svgs/24-help.svg',
-    fill=white,
-    stroke= 'white',
     stroke-width=1.25px
   );
 }
