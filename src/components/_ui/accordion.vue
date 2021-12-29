@@ -42,7 +42,7 @@
         'rnd-s': !opened && !slotSub,
         'border-b-s': opened || slotSub
       }"
-      class="accordion-header flex btn-alt py-s px-m"
+      class="accordion-header flex btn-alt py-s px-s"
       @click="toggle"
     >
       <div>

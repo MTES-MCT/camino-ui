@@ -6,7 +6,7 @@
           'rnd-t-s': opened,
           'border-b-s': opened
         }"
-        class="accordion-header flex btn-alt py-s px-m full-x"
+        class="accordion-header flex btn-alt py-s px-s full-x"
         @click="openToggle"
       >
         <div>
