@@ -79,6 +79,7 @@
       <FormSaveBtn
         ref="save-btn"
         :arm-help-visible="armHelpVisible"
+        :messages="messages"
         :disabled="!isFormComplete"
         class="tablet-blob-2-3 flex flex-center"
         @click="save"
@@ -139,6 +140,10 @@ export default {
 
     demarche() {
       return this.$store.state.titreEtapeEdition.metas.demarche
+    },
+
+    messages() {
+      return this.$store.state.titreEtapeEdition.metas.messages || []
     },
 
     demarcheType() {

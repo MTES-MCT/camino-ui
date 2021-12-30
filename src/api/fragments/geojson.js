@@ -38,4 +38,16 @@ const fragmentGeojsonPoints = gql`
   ${fragmentPointReference}
 `
 
-export { fragmentGeojsonPoints, fragmentGeojsonMultiPolygon }
+const fragmentPerimetreInformations = gql`
+  fragment perimetreInformations on PerimetreInformations {
+    surface
+    documentTypeIds
+    messages
+  }
+`
+
+export {
+  fragmentGeojsonPoints,
+  fragmentGeojsonMultiPolygon,
+  fragmentPerimetreInformations
+}

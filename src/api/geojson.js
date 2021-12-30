@@ -1,18 +1,19 @@
 import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 import { fragmentPoint } from './fragments/point'
+import { fragmentPerimetreInformations } from '@/api/fragments/geojson'
 
 const pointsImporter = apiGraphQLFetch(gql`
   query PointsImporter(
     $file: FileUpload!
     $geoSystemeId: String!
-    $titreTypeId: String!
+    $titreId: String!
     $etapeTypeId: String!
   ) {
     pointsImporter(
       fileUpload: $file
       geoSystemeId: $geoSystemeId
-      titreTypeId: $titreTypeId
+      titreId: $titreId
       etapeTypeId: $etapeTypeId
     ) {
       points {
@@ -20,35 +21,43 @@ const pointsImporter = apiGraphQLFetch(gql`
       }
       surface
       documentTypeIds
+      messages
     }
   }
 
   ${fragmentPoint}
 `)
 
-const surfaceCalculer = apiGraphQLFetch(gql`
-  query SurfaceCalculer(
+const perimetreInformations = apiGraphQLFetch(gql`
+  query PerimetreInformations(
     $points: [InputPoint]!
-    $titreTypeId: String!
+    $titreId: String!
     $etapeTypeId: String!
   ) {
-    surfaceCalculer(
+    perimetreInformations(
       points: $points
-      titreTypeId: $titreTypeId
+      titreId: $titreId
       etapeTypeId: $etapeTypeId
     ) {
-      surface
-      documentTypeIds
+      ...perimetreInformations
     }
   }
+
+  ${fragmentPerimetreInformations}
 `)
 
-const titreEtapeSDOMZones = apiGraphQLFetch(gql`
-  query TitreEtapeSDOMZones($titreEtapeId: String!) {
-    titreEtapeSDOMZones(titreEtapeId: $titreEtapeId) {
-      documentTypeIds
+const titreEtapePerimetreInformations = apiGraphQLFetch(gql`
+  query TitreEtapePerimetreInformations($titreEtapeId: String!) {
+    titreEtapePerimetreInformations(titreEtapeId: $titreEtapeId) {
+      ...perimetreInformations
     }
   }
+
+  ${fragmentPerimetreInformations}
 `)
 
-export { pointsImporter, surfaceCalculer, titreEtapeSDOMZones }
+export {
+  pointsImporter,
+  perimetreInformations,
+  titreEtapePerimetreInformations
+}
