@@ -1,6 +1,7 @@
 import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 import { fragmentPoint } from './fragments/point'
+import { fragmentGeojsonInformations } from '@/api/fragments/geojson'
 
 const pointsImporter = apiGraphQLFetch(gql`
   query PointsImporter(
@@ -18,12 +19,12 @@ const pointsImporter = apiGraphQLFetch(gql`
       points {
         ...point
       }
-      surface
-      documentTypeIds
+      ...geojsonInformations
     }
   }
 
   ${fragmentPoint}
+  ${fragmentGeojsonInformations}
 `)
 
 const surfaceCalculer = apiGraphQLFetch(gql`
@@ -37,18 +38,21 @@ const surfaceCalculer = apiGraphQLFetch(gql`
       titreTypeId: $titreTypeId
       etapeTypeId: $etapeTypeId
     ) {
-      surface
-      documentTypeIds
+      ...geojsonInformations
     }
   }
+
+  ${fragmentGeojsonInformations}
 `)
 
 const titreEtapeSDOMZones = apiGraphQLFetch(gql`
   query TitreEtapeSDOMZones($titreEtapeId: String!) {
     titreEtapeSDOMZones(titreEtapeId: $titreEtapeId) {
-      documentTypeIds
+      ...geojsonInformations
     }
   }
+
+  ${fragmentGeojsonInformations}
 `)
 
 export { pointsImporter, surfaceCalculer, titreEtapeSDOMZones }

@@ -34,7 +34,8 @@ const state = {
     substances: [],
     entreprises: [],
     documentsTypes: [],
-    sdomZonesDocumentTypeIds: []
+    sdomZonesDocumentTypeIds: [],
+    messages: []
   },
   heritageLoaded: false,
   loaded: false
@@ -100,10 +101,13 @@ const actions = {
       if (id) {
         await dispatch('dateUpdate', { date: state.element.date })
 
-        const { documentTypeIds } = await titreEtapeSDOMZones({
+        const { documentTypeIds, messages } = await titreEtapeSDOMZones({
           titreEtapeId: id
         })
-        commit('metasSet', { sdomZonesDocumentTypeIds: documentTypeIds })
+        commit('metasSet', {
+          sdomZonesDocumentTypeIds: documentTypeIds,
+          messages
+        })
 
         await dispatch('documentInit', state.element.documents)
       }
@@ -253,19 +257,23 @@ const actions = {
     try {
       commit('loadingAdd', 'pointsImport', { root: true })
 
-      const { points, surface, documentTypeIds } = await pointsImporter({
-        file,
-        geoSystemeId,
-        titreTypeId: state.metas.demarche.titre.type.id,
-        etapeTypeId: state.element.type.id
-      })
+      const { points, surface, documentTypeIds, messages } =
+        await pointsImporter({
+          file,
+          geoSystemeId,
+          titreTypeId: state.metas.demarche.titre.type.id,
+          etapeTypeId: state.element.type.id
+        })
       const etape = etapePointsFormat(state.element, points)
       // pour modifier la surface, on doit désactiver l’héritage
       etape.heritageProps.surface.actif = false
       etape.surface = surface
       commit('set', etape)
 
-      commit('metasSet', { sdomZonesDocumentTypeIds: documentTypeIds })
+      commit('metasSet', {
+        sdomZonesDocumentTypeIds: documentTypeIds,
+        messages
+      })
       await dispatch('documentInit', state.element.documents)
       commit('popupClose', null, { root: true })
       dispatch(
@@ -297,7 +305,7 @@ const actions = {
           etape.geoSystemeIds,
           etape.geoSystemeOpposableId || etape.geoSystemeIds[0]
         )
-        const { surface, documentTypeIds } = await surfaceCalculer({
+        const { surface, documentTypeIds, messages } = await surfaceCalculer({
           points,
           titreTypeId: state.metas.demarche.titre.type.id,
           etapeTypeId: etape.type.id
@@ -305,7 +313,10 @@ const actions = {
         state.element.surface = surface
         commit('set', state.element)
 
-        commit('metasSet', { sdomZonesDocumentTypeIds: documentTypeIds })
+        commit('metasSet', {
+          sdomZonesDocumentTypeIds: documentTypeIds,
+          messages
+        })
         await dispatch('documentInit', state.element.documents)
 
         commit('popupClose', null, { root: true })
@@ -363,7 +374,8 @@ const mutations = {
       substances: [],
       entreprises: [],
       documentsTypes: [],
-      sdomZonesDocumentTypeIds: []
+      sdomZonesDocumentTypeIds: [],
+      messages: []
     }
     state.heritageLoaded = false
     state.loaded = false
