@@ -19,8 +19,8 @@ import {
 import { documentsRequiredAdd } from '../utils/documents'
 import {
   pointsImporter,
-  surfaceCalculer,
-  titreEtapeSDOMZones
+  perimetreInformations,
+  titreEtapePerimetreInformations
 } from '../api/geojson'
 
 const state = {
@@ -101,9 +101,11 @@ const actions = {
       if (id) {
         await dispatch('dateUpdate', { date: state.element.date })
 
-        const { documentTypeIds, messages } = await titreEtapeSDOMZones({
-          titreEtapeId: id
-        })
+        const { documentTypeIds, messages } =
+          await titreEtapePerimetreInformations({
+            titreEtapeId: id
+          })
+
         commit('metasSet', {
           sdomZonesDocumentTypeIds: documentTypeIds,
           messages
@@ -171,6 +173,15 @@ const actions = {
 
       commit('heritageSet', { etape: newEtape })
       await dispatch('documentInit', state.element.documents)
+
+      const { messages } = await perimetreInformations({
+        points: [],
+        titreId: state.metas.demarche.titre.id,
+        etapeTypeId: typeId
+      })
+      commit('metasSet', {
+        messages
+      })
 
       commit('heritageLoaded', true)
     } catch (e) {
@@ -261,7 +272,7 @@ const actions = {
         await pointsImporter({
           file,
           geoSystemeId,
-          titreTypeId: state.metas.demarche.titre.type.id,
+          titreId: state.metas.demarche.titre.id,
           etapeTypeId: state.element.type.id
         })
       const etape = etapePointsFormat(state.element, points)
@@ -305,11 +316,12 @@ const actions = {
           etape.geoSystemeIds,
           etape.geoSystemeOpposableId || etape.geoSystemeIds[0]
         )
-        const { surface, documentTypeIds, messages } = await surfaceCalculer({
-          points,
-          titreTypeId: state.metas.demarche.titre.type.id,
-          etapeTypeId: etape.type.id
-        })
+        const { surface, documentTypeIds, messages } =
+          await perimetreInformations({
+            points,
+            titreId: state.metas.demarche.titre.id,
+            etapeTypeId: etape.type.id
+          })
         state.element.surface = surface
         commit('set', state.element)
 

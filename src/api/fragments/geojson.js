@@ -38,8 +38,8 @@ const fragmentGeojsonPoints = gql`
   ${fragmentPointReference}
 `
 
-const fragmentGeojsonInformations = gql`
-  fragment geojsonInformations on GeojsonInformations {
+const fragmentPerimetreInformations = gql`
+  fragment perimetreInformations on PerimetreInformations {
     surface
     documentTypeIds
     messages
@@ -49,5 +49,5 @@ const fragmentGeojsonInformations = gql`
 export {
   fragmentGeojsonPoints,
   fragmentGeojsonMultiPolygon,
-  fragmentGeojsonInformations
+  fragmentPerimetreInformations
 }

@@ -1,58 +1,63 @@
 import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 import { fragmentPoint } from './fragments/point'
-import { fragmentGeojsonInformations } from '@/api/fragments/geojson'
+import { fragmentPerimetreInformations } from '@/api/fragments/geojson'
 
 const pointsImporter = apiGraphQLFetch(gql`
   query PointsImporter(
     $file: FileUpload!
     $geoSystemeId: String!
-    $titreTypeId: String!
+    $titreId: String!
     $etapeTypeId: String!
   ) {
     pointsImporter(
       fileUpload: $file
       geoSystemeId: $geoSystemeId
-      titreTypeId: $titreTypeId
+      titreId: $titreId
       etapeTypeId: $etapeTypeId
     ) {
       points {
         ...point
       }
-      ...geojsonInformations
+      surface
+      documentTypeIds
+      messages
     }
   }
 
   ${fragmentPoint}
-  ${fragmentGeojsonInformations}
 `)
 
-const surfaceCalculer = apiGraphQLFetch(gql`
-  query SurfaceCalculer(
+const perimetreInformations = apiGraphQLFetch(gql`
+  query PerimetreInformations(
     $points: [InputPoint]!
-    $titreTypeId: String!
+    $titreId: String!
     $etapeTypeId: String!
   ) {
-    surfaceCalculer(
+    perimetreInformations(
       points: $points
-      titreTypeId: $titreTypeId
+      titreId: $titreId
       etapeTypeId: $etapeTypeId
     ) {
-      ...geojsonInformations
+      ...perimetreInformations
     }
   }
 
-  ${fragmentGeojsonInformations}
+  ${fragmentPerimetreInformations}
 `)
 
-const titreEtapeSDOMZones = apiGraphQLFetch(gql`
-  query TitreEtapeSDOMZones($titreEtapeId: String!) {
-    titreEtapeSDOMZones(titreEtapeId: $titreEtapeId) {
-      ...geojsonInformations
+const titreEtapePerimetreInformations = apiGraphQLFetch(gql`
+  query TitreEtapePerimetreInformations($titreEtapeId: String!) {
+    titreEtapePerimetreInformations(titreEtapeId: $titreEtapeId) {
+      ...perimetreInformations
     }
   }
 
-  ${fragmentGeojsonInformations}
+  ${fragmentPerimetreInformations}
 `)
 
-export { pointsImporter, surfaceCalculer, titreEtapeSDOMZones }
+export {
+  pointsImporter,
+  perimetreInformations,
+  titreEtapePerimetreInformations
+}
