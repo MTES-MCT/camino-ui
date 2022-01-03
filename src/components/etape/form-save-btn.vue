@@ -1,12 +1,12 @@
 <template>
   <div v-bind="$attrs">
     <div class="flex flex-direction-column full-x">
-      <ul
-        v-if="messages?.length"
-        class="bg-warning color-bg list-sans p-s bold"
-      >
-        <li v-for="message in messages" :key="message">
-          {{ message }}
+      <ul v-if="alertes?.length" class="bg-warning color-bg list-none p-s bold">
+        <li v-for="alerte in alertes" :key="alerte" class="flex">
+          {{ alerte.message }}
+          <a v-if="alerte.url" :href="alerte.url" target="_blank" class="ml-s">
+            <i class="icon-24 icon-window-link" />
+          </a>
         </li>
       </ul>
       <div>
@@ -48,7 +48,7 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    messages: { type: Array, default: () => [] }
+    alertes: { type: Array, default: () => [] }
   },
 
   emits: ['click'],

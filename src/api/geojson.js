@@ -1,7 +1,10 @@
 import gql from 'graphql-tag'
 import { apiGraphQLFetch } from './_client'
 import { fragmentPoint } from './fragments/point'
-import { fragmentPerimetreInformations } from '@/api/fragments/geojson'
+import {
+  fragmentPerimetreAlerte,
+  fragmentPerimetreInformations
+} from '@/api/fragments/geojson'
 
 const pointsImporter = apiGraphQLFetch(gql`
   query PointsImporter(
@@ -21,11 +24,14 @@ const pointsImporter = apiGraphQLFetch(gql`
       }
       surface
       documentTypeIds
-      messages
+      alertes {
+        ...perimetreAlerte
+      }
     }
   }
 
   ${fragmentPoint}
+  ${fragmentPerimetreAlerte}
 `)
 
 const perimetreInformations = apiGraphQLFetch(gql`
