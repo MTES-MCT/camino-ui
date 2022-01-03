@@ -38,16 +38,28 @@ const fragmentGeojsonPoints = gql`
   ${fragmentPointReference}
 `
 
+const fragmentPerimetreAlerte = gql`
+  fragment perimetreAlerte on PerimetreAlerte {
+    message
+    url
+  }
+`
+
 const fragmentPerimetreInformations = gql`
   fragment perimetreInformations on PerimetreInformations {
     surface
     documentTypeIds
-    messages
+    alertes {
+      ...perimetreAlerte
+    }
   }
+
+  ${fragmentPerimetreAlerte}
 `
 
 export {
   fragmentGeojsonPoints,
   fragmentGeojsonMultiPolygon,
-  fragmentPerimetreInformations
+  fragmentPerimetreInformations,
+  fragmentPerimetreAlerte
 }

@@ -35,7 +35,7 @@ const state = {
     entreprises: [],
     documentsTypes: [],
     sdomZonesDocumentTypeIds: [],
-    messages: []
+    alertes: []
   },
   heritageLoaded: false,
   loaded: false
@@ -101,14 +101,14 @@ const actions = {
       if (id) {
         await dispatch('dateUpdate', { date: state.element.date })
 
-        const { documentTypeIds, messages } =
+        const { documentTypeIds, alertes } =
           await titreEtapePerimetreInformations({
             titreEtapeId: id
           })
 
         commit('metasSet', {
           sdomZonesDocumentTypeIds: documentTypeIds,
-          messages
+          alertes
         })
 
         await dispatch('documentInit', state.element.documents)
@@ -174,13 +174,13 @@ const actions = {
       commit('heritageSet', { etape: newEtape })
       await dispatch('documentInit', state.element.documents)
 
-      const { messages } = await perimetreInformations({
+      const { alertes } = await perimetreInformations({
         points: [],
         titreId: state.metas.demarche.titre.id,
         etapeTypeId: typeId
       })
       commit('metasSet', {
-        messages
+        alertes
       })
 
       commit('heritageLoaded', true)
@@ -268,7 +268,7 @@ const actions = {
     try {
       commit('loadingAdd', 'pointsImport', { root: true })
 
-      const { points, surface, documentTypeIds, messages } =
+      const { points, surface, documentTypeIds, alertes } =
         await pointsImporter({
           file,
           geoSystemeId,
@@ -283,7 +283,7 @@ const actions = {
 
       commit('metasSet', {
         sdomZonesDocumentTypeIds: documentTypeIds,
-        messages
+        alertes
       })
       await dispatch('documentInit', state.element.documents)
       commit('popupClose', null, { root: true })
@@ -316,7 +316,7 @@ const actions = {
           etape.geoSystemeIds,
           etape.geoSystemeOpposableId || etape.geoSystemeIds[0]
         )
-        const { surface, documentTypeIds, messages } =
+        const { surface, documentTypeIds, alertes } =
           await perimetreInformations({
             points,
             titreId: state.metas.demarche.titre.id,
@@ -327,7 +327,7 @@ const actions = {
 
         commit('metasSet', {
           sdomZonesDocumentTypeIds: documentTypeIds,
-          messages
+          alertes
         })
         await dispatch('documentInit', state.element.documents)
 
@@ -387,7 +387,7 @@ const mutations = {
       entreprises: [],
       documentsTypes: [],
       sdomZonesDocumentTypeIds: [],
-      messages: []
+      alertes: []
     }
     state.heritageLoaded = false
     state.loaded = false
