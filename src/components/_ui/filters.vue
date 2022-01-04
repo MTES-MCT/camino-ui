@@ -34,7 +34,7 @@
       <div class="tablet-blobs mt">
         <div v-if="inputs.length" class="tablet-blob-1-2 large-blob-1-3">
           <template v-for="input in inputs" :key="input.id">
-            <FiltersInputAutocomplete
+            <FiltersInputAutocompleteContainer
               v-if="input.id === 'substances'"
               :filter="input"
             />
@@ -87,7 +87,7 @@ import Accordion from './accordion.vue'
 import FiltersInput from './filters-input.vue'
 import FiltersCheckboxes from './filters-checkboxes.vue'
 import FiltersSelects from './filters-selects.vue'
-import FiltersInputAutocomplete from './filters-input-autocomplete.vue'
+import FiltersInputAutocompleteContainer from './filters-input-autocomplete.vue'
 
 export default {
   components: {
@@ -95,7 +95,7 @@ export default {
     FiltersInput,
     FiltersCheckboxes,
     FiltersSelects,
-    FiltersInputAutocomplete
+    FiltersInputAutocompleteContainer
   },
 
   props: {

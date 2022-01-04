@@ -15,15 +15,20 @@ export default {
       default: () => []
     },
     modelValue: {
-      type: String,
-      default: ''
+      type: Array,
+      default: () => []
+    },
+    maxItems: {
+      type: Number,
+      default: -1
     }
   },
   emits: ['update:modelValue'],
 
   data() {
     return {
-      autocompleter: null
+      autocompleter: null,
+      values: []
     }
   },
 
@@ -35,12 +40,21 @@ export default {
           this.setChoices()
         }
       }
+    },
+    // Met à jour le rendu des chips dans Choices.js
+    // par rapport à la valeur via v-model.
+    modelValue: {
+      handler(val) {
+        if (!val || val[0] === '') {
+          this.autocompleter.removeActiveItems()
+        }
+      }
     }
   },
 
   mounted() {
     this.autocompleter = new Choices(this.$refs.select, {
-      maxItemCount: 1,
+      maxItemCount: this.maxItems,
       removeItemButton: true,
       loadingText: 'Chargement...',
       noResultsText: 'Aucun résultat',
@@ -51,12 +65,10 @@ export default {
       },
       maxItemText: maxItemCount => {
         return `${maxItemCount} choix maximum`
-      },
-      valueComparer: (value1, value2) => {
-        return value1 === value2
       }
     })
     this.$refs.select.addEventListener('addItem', this.handleSelectChange)
+    this.$refs.select.addEventListener('removeItem', this.handleSelectChange)
   },
 
   unmounted: function () {
@@ -65,7 +77,25 @@ export default {
 
   methods: {
     handleSelectChange(e) {
-      this.$emit('update:modelValue', e.target.value)
+      const itemIndex = this.values.findIndex(v => v.id === e.detail.id)
+
+      switch (e.type) {
+        case 'addItem':
+          if (Boolean(this.values.find(v => v.id === e.detail.id)) === false) {
+            this.values.push(e.detail)
+          }
+          break
+
+        case 'removeItem':
+          if (itemIndex >= 0) {
+            this.values.splice(itemIndex, 1)
+          }
+          break
+
+        default:
+          throw new Error("erreur d'autocomplete")
+      }
+      this.$emit('update:modelValue', this.values)
     },
 
     setChoices() {

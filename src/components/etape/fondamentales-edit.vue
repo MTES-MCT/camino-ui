@@ -209,44 +209,61 @@
           :is-array="true"
         >
           <template #write>
-            <div
-              v-for="(amodiataire, n) in etape.amodiataires || []"
-              :key="`amodiataire-${amodiataire.id}`"
-            >
-              <div class="flex mb-s">
-                <select v-model="amodiataire.id" class="p-s mr-s">
-                  <option
-                    v-for="entreprise in entreprises"
-                    :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
-                    :value="entreprise.id"
-                    :disabled="
-                      etape.amodiataires.find(a => a.id === entreprise.id) ||
-                      etape.titulaires.find(t => t.id === entreprise.id)
-                    "
+            <!-- <div
+                v-for="(amodiataire, n) in etape.amodiataires || []"
+                :key="`amodiataire-${amodiataire.id}`"
+              >
+                <div class="flex mb-s">
+                  <div class="flex-grow mr-s">
+                    <AmodiatairesInputAutocomplete
+                      v-model="amodiataire.id"
+                      :entreprises="entreprisesList"
+                    />
+                  </div>
+                  <button
+                    class="btn py-s px-m rnd-xs"
+                    @click="amodiataireRemove(n)"
                   >
-                    {{ entreprise.nom }} ({{ entreprise.id }})
-                  </option>
-                </select>
-                <button
-                  class="btn py-s px-m rnd-xs"
-                  @click="amodiataireRemove(n)"
-                >
-                  <i class="icon-24 icon-minus" />
-                </button>
+                    <i class="icon-24 icon-minus" />
+                  </button>
+                </div>
+                <div v-if="amodiataire.id" class="h6 mb">
+                  <label>
+                    <input
+                      v-model="amodiataire.operateur"
+                      type="checkbox"
+                      class="mr-xs"
+                    />
+                    Opérateur
+                  </label>
+                </div>
+              </div> -->
+            <div class="flex mb-s">
+              <div class="flex-grow">
+                <AmodiatairesInputAutocomplete
+                  v-model="amodiatairesIds"
+                  :entreprises="entreprisesList"
+                />
               </div>
-              <div v-if="amodiataire.id" class="h6 mb">
-                <label>
-                  <input
-                    v-model="amodiataire.operateur"
-                    type="checkbox"
-                    class="mr-xs"
-                  />
-                  Opérateur
-                </label>
-              </div>
+              <!-- <button
+                class="btn py-s px-m rnd-xs"
+                @click="amodiataireRemove(n)"
+              >
+                <i class="icon-24 icon-minus" />
+              </button> -->
             </div>
+            <!-- <div v-if="amodiataire.id" class="h6 mb">
+              <label>
+                <input
+                  v-model="amodiataire.operateur"
+                  type="checkbox"
+                  class="mr-xs"
+                />
+                Opérateur
+              </label>
+            </div> -->
 
-            <button
+            <!-- <button
               v-if="!etape.amodiataires?.some(({ id }) => id === '')"
               id="amodiataire-ajouter"
               class="btn small rnd-xs py-s px-m full-x flex mb-s"
@@ -254,7 +271,7 @@
             >
               <span class="mt-xxs">Ajouter un amodiataire</span
               ><i class="icon-24 icon-plus flex-right" />
-            </button>
+            </button> -->
 
             <div v-if="amodiatairesLength" class="h6">
               <label>
@@ -384,11 +401,20 @@ import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
 import HeritageEdit from './heritage-edit.vue'
 import PropDuree from './prop-duree.vue'
+import AmodiatairesInputAutocomplete from './amodiataire-input-autocomplete.vue'
 
 import { etablissementNameFind } from '@/utils/entreprise'
 
 export default {
-  components: { InputDate, InputNumber, HeritageEdit, Tag, TagList, PropDuree },
+  components: {
+    InputDate,
+    InputNumber,
+    HeritageEdit,
+    Tag,
+    TagList,
+    PropDuree,
+    AmodiatairesInputAutocomplete
+  },
 
   props: {
     etape: { type: Object, default: () => ({}) },
@@ -399,6 +425,12 @@ export default {
     substances: { type: Array, required: true }
   },
   emits: ['complete-update'],
+
+  data() {
+    return {
+      amodiatairesIds: []
+    }
+  },
 
   computed: {
     isArm() {
@@ -453,6 +485,16 @@ export default {
             this.etape.duree.ans ||
             this.etape.duree.mois))
       )
+    },
+
+    entreprisesList() {
+      return this.entreprises.filter(entr => {
+        return (
+          Boolean(this.etape.amodiataires.find(a => a.id === entr.id)) ===
+            false &&
+          Boolean(this.etape.titulaires.find(t => t.id === entr.id)) === false
+        )
+      })
     }
   },
 

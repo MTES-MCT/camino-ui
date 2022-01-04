@@ -3,16 +3,24 @@
     <h5>{{ filter.name }}</h5>
     <hr class="mb-s" />
 
-    <AutocompleteInput v-model="filter.value" :items="items" class="p-s" />
+    <InputAutocomplete
+      :model-value="[filter.value]"
+      :items="items"
+      :max-items="1"
+      class="p-s"
+      @update:model-value="
+        filter.value = $event.length ? $event[0].value : null
+      "
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import AutocompleteInput from './autocomplete-input.vue'
+import InputAutocomplete from './input-autocomplete.vue'
 
 export default defineComponent({
-  components: { AutocompleteInput },
+  components: { InputAutocomplete },
 
   props: {
     filter: {
@@ -27,8 +35,8 @@ export default defineComponent({
     }
   },
 
-  mounted() {
-    this.fetchItems()
+  async mounted() {
+    await this.fetchItems()
   },
 
   methods: {
