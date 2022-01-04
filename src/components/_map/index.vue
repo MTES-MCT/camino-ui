@@ -1,7 +1,19 @@
 <template>
   <div ref="map">
-    <div class="absolute pl-s pr-l py-xs map-loader">
+    <div class="absolute p-s map-loader">
       <div class="small">Zoom: {{ zoom }}</div>
+
+      <div v-if="legends?.length" class="mt-xs">
+        <div
+          v-for="(legend, index) in legends"
+          :key="legend.label"
+          class="flex flex-center"
+          :class="{ 'mb-xs': index !== legends.length - 1 }"
+        >
+          <i class="icon-map-legend" :class="legend.icon" />
+          : {{ legend.label }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +34,8 @@ export default {
     geojsonLayers: { type: Array, default: () => [] },
     markerLayers: { type: Array, default: () => [] },
     tilesLayer: { type: Object, default: () => leafletTileLayerDefault },
-    canvasMarkers: { type: Array, default: () => [] }
+    canvasMarkers: { type: Array, default: () => [] },
+    legends: { type: Array, default: () => [] }
   },
 
   emits: ['map-update'],

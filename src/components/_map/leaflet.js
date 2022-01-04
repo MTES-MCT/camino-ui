@@ -54,6 +54,23 @@ const leafletTilesBuild = tiles =>
         attribution: tiles.attribution
       })
 
+const leafletTilesLegendGet = tiles => {
+  // on ne peut pas écrire les SVG à la volée à cause des CSPs
+  if (tiles.id === 'sdom-zones') {
+    return [
+      { icon: 'icon-map-legend-sdom-zone-0', label: 'Zone 0' },
+      {
+        icon: 'icon-map-legend-sdom-zone-0-potentielle',
+        label: 'Zone 0 potentielle'
+      },
+      { icon: 'icon-map-legend-sdom-zone-1', label: 'Zone 1' },
+      { icon: 'icon-map-legend-sdom-zone-2', label: 'Zone 2' }
+    ]
+  }
+
+  return []
+}
+
 const leafletScaleBuild = () => L.control.scale({ imperial: false })
 
 const leafletFeatureGroupGet = markers => new L.FeatureGroup(markers)
@@ -109,6 +126,7 @@ export {
   leafletTileLayerDefault,
   leafletScaleBuild,
   leafletTilesBuild,
+  leafletTilesLegendGet,
   leafletFeatureGroupGet,
   leafletCanvasLayerBuild,
   leafletMarkerBuild,

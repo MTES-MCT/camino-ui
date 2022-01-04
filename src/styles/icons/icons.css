@@ -80,8 +80,8 @@
 }
 
 .btn-alt .icon-plus,
-.btn:hover .icon-plus,
 .btn-primary .icon-plus,
+.btn:hover .icon-plus,
 .btn-alt:hover .icon-plus,
 .btn-border:hover .icon-plus {
   background-image: svg-load('./svgs/24-plus.svg',
@@ -327,6 +327,7 @@
     fill='#666'
   );
 }
+
 .btn-border:hover .icon-download,
 .btn-alt:hover .icon-download {
   background-image: svg-load('./svgs/24-download.svg',
@@ -424,8 +425,8 @@
   );
 }
 
-.btn:hover .icon-pencil,
 .btn-primary .icon-pencil,
+.btn:hover .icon-pencil,
 .btn-alt:hover .icon-pencil,
 .btn-border:hover .icon-pencil {
   background-image: svg-load('./svgs/24-pencil.svg',
@@ -613,22 +614,22 @@
   );
 }
 
-.btn-border:hover .icon-markers-clusters,
-.active .icon-markers-clusters {
+.active .icon-markers-clusters,
+.btn-border:hover .icon-markers-clusters{
   background-image: svg-load('./svgs/24-markers-grouped.svg',
     fill='white'
   );
 }
 
-.btn-border:hover .icon-markers-markers,
-.active .icon-markers-markers {
+.active .icon-markers-markers,
+.btn-border:hover .icon-markers-markers{
   background-image: svg-load('./svgs/24-markers-ungrouped.svg',
     fill='white'
   );
 }
 
-.btn-border:hover .icon-markers-none,
-.active .icon-markers-none {
+.active .icon-markers-none,
+.btn-border:hover .icon-markers-none{
   background-image: svg-load('./svgs/24-markers-none.svg',
     fill='white'
   );
@@ -644,8 +645,8 @@
   );
 }
 
-.btn-border:hover .icon-pattern,
-.active .icon-pattern {
+.active .icon-pattern,
+.btn-border:hover .icon-pattern{
   background-image: svg-load('./svgs/24-pattern.svg',
     fill= 'white',
     stroke=none,
@@ -729,6 +730,36 @@
   background-image: svg-load('./svgs/info.svg',
     fill= '#666',
     stroke-width=1.25px
+  );
+}
+
+.icon-map-legend {
+  height: calc(var(--unit) * 1);
+  width: calc(var(--unit) * 2);
+  background-repeat: no-repeat;
+}
+
+.icon-map-legend-sdom-zone-0 {
+  background-image: svg-load('./svgs/map-legend-sdom-zone.svg',
+    fill='#0000ff'
+  );
+}
+
+.icon-map-legend-sdom-zone-0-potentielle {
+  background-image: svg-load('./svgs/map-legend-sdom-zone.svg',
+  fill='url(#texture_diagonal)'
+  );
+}
+
+.icon-map-legend-sdom-zone-1 {
+  background-image: svg-load('./svgs/map-legend-sdom-zone.svg',
+  fill='#00ff7f'
+  );
+}
+
+.icon-map-legend-sdom-zone-2 {
+  background-image: svg-load('./svgs/map-legend-sdom-zone.svg',
+  fill='#ffaa00'
   );
 }
 

@@ -8,6 +8,7 @@
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
       :bounds="bounds"
+      :legends="legends"
       class="map map-detail mb-s"
     />
 
@@ -66,7 +67,8 @@ import {
   leafletTilesBuild,
   leafletMarkerBuild,
   leafletGeojsonBuild,
-  leafletDivIconBuild
+  leafletDivIconBuild,
+  leafletTilesLegendGet
 } from '../_map/leaflet.js'
 
 export default {
@@ -96,10 +98,16 @@ export default {
       return this.geojsonLayers[0] ? this.geojsonLayers[0].getBounds() : [0, 0]
     },
 
-    tilesLayer() {
-      const tiles = this.$store.getters['user/tilesActive']
+    tilesActive() {
+      return this.$store.getters['user/tilesActive']
+    },
 
-      return leafletTilesBuild(tiles)
+    tilesLayer() {
+      return leafletTilesBuild(this.tilesActive)
+    },
+
+    legends() {
+      return leafletTilesLegendGet(this.tilesActive)
     },
 
     geojsonLayers() {

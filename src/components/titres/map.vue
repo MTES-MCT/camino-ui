@@ -6,6 +6,7 @@
       :geojson-layers="geojsonLayers"
       :marker-layers="markerLayers"
       :canvas-markers="canvasMarkers"
+      :legends="legends"
       class="map map-view mb-s"
       @map-update="titresPreferencesUpdate"
     />
@@ -88,8 +89,12 @@ import Mapo from '../_map/index.vue'
 import MapTilesSelector from '../_map/tiles-selector.vue'
 import MapWarningBrgm from '../_map/warning-brgm.vue'
 import MapPattern from '../_map/pattern.vue'
-import { leafletTilesBuild, leafletGeojsonBoundsGet } from '../_map/leaflet.js'
-import { zones, clustersBuild, layersBuild } from './map.js'
+import {
+  leafletGeojsonBoundsGet,
+  leafletTilesBuild,
+  leafletTilesLegendGet
+} from '../_map/leaflet.js'
+import { clustersBuild, layersBuild, zones } from './map.js'
 
 export default {
   components: {
@@ -115,12 +120,15 @@ export default {
   },
 
   computed: {
-    tilesLayer() {
-      const tiles = this.$store.getters['user/tilesActive']
-
-      return leafletTilesBuild(tiles)
+    tilesActive() {
+      return this.$store.getters['user/tilesActive']
     },
-
+    tilesLayer() {
+      return leafletTilesBuild(this.tilesActive)
+    },
+    legends() {
+      return leafletTilesLegendGet(this.tilesActive)
+    },
     markerLayersId() {
       return this.$store.state.user.preferences.carte.markerLayersId
     },

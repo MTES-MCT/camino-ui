@@ -86,6 +86,10 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   align-self: flex-start;
 }
 
+.flex-self-end {
+  align-self: flex-end;
+}
+
 .flex-direction-column {
   flex-direction: column;
 }
@@ -142,6 +146,7 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   width: 100%;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .full-x- {
   width: 99%;
 }
@@ -208,6 +213,7 @@ http://cssmojo.com/the-very-latest-clearfix-reloaded/
   z-index: 2;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .z--100 {
   z-index: -100;
 }
