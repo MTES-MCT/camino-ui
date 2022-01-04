@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "vite build --emptyOutDir",
-    "commit": "npx git-cz",
+    "commit": "lint-staged && git-cz",
     "dev": "vite",
     "dev:update": "npm-check-updates && npm install && npm audit fix",
     "release": "git checkout develop && git pull --rebase --tags origin develop && standard-version --release-as minor && git push --follow-tags origin develop && git checkout master && git pull --rebase origin master && git merge --ff origin develop && git push origin master && conventional-github-releaser",

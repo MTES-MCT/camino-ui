@@ -54,6 +54,39 @@ const leafletTilesBuild = tiles =>
         attribution: tiles.attribution
       })
 
+const leafletTilesLegendGet = tiles => {
+  if (tiles.id === 'sdom-zones') {
+    return [
+      { fill: '#0000ff', label: 'Zone 0' },
+      {
+        fill: 'url(#texture_diagonal)',
+        defs: `<pattern
+                id="texture_diagonal"
+                x="0"
+                y="0"
+                width="10%"
+                height="10%"
+                patternTransform="rotate(45 0 0)"
+                patternUnits="userSpaceOnUse"
+              >
+                <line
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="10"
+                  style="stroke: #0000ff; stroke-width: 2"
+                />
+              </pattern>`,
+        label: 'Zone 0 potentielle'
+      },
+      { fill: '#00ff7f', label: 'Zone 1' },
+      { fill: '#ffaa00', label: 'Zone 2' }
+    ]
+  }
+
+  return []
+}
+
 const leafletScaleBuild = () => L.control.scale({ imperial: false })
 
 const leafletFeatureGroupGet = markers => new L.FeatureGroup(markers)
@@ -109,6 +142,7 @@ export {
   leafletTileLayerDefault,
   leafletScaleBuild,
   leafletTilesBuild,
+  leafletTilesLegendGet,
   leafletFeatureGroupGet,
   leafletCanvasLayerBuild,
   leafletMarkerBuild,
