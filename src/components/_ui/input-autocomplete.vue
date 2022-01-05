@@ -95,6 +95,7 @@ export default {
         default:
           throw new Error("erreur d'autocomplete")
       }
+      console.log(this.values)
       this.$emit('update:modelValue', this.values)
     },
 

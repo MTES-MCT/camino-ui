@@ -4,13 +4,10 @@
     <hr class="mb-s" />
 
     <InputAutocomplete
-      :model-value="[filter.value]"
+      :model-value="filter.value.split(', ')"
       :items="items"
-      :max-items="1"
       class="p-s"
-      @update:model-value="
-        filter.value = $event.length ? $event[0].value : null
-      "
+      @update:model-value="filter.value = $event.map(e => e.value).join(', ')"
     />
   </div>
 </template>

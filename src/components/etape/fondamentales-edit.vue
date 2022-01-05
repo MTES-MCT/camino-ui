@@ -209,50 +209,44 @@
           :is-array="true"
         >
           <template #write>
-            <!-- <div
-                v-for="(amodiataire, n) in etape.amodiataires || []"
-                :key="`amodiataire-${amodiataire.id}`"
-              >
-                <div class="flex mb-s">
-                  <div class="flex-grow mr-s">
-                    <AmodiatairesInputAutocomplete
-                      v-model="amodiataire.id"
-                      :entreprises="entreprisesList"
-                    />
-                  </div>
-                  <button
-                    class="btn py-s px-m rnd-xs"
-                    @click="amodiataireRemove(n)"
-                  >
-                    <i class="icon-24 icon-minus" />
-                  </button>
+            <div
+              v-for="(amodiataire, n) in etape.amodiataires || []"
+              :key="`amodiataire-${amodiataire.id}`"
+            >
+              <div class="flex mb-s">
+                <div class="flex-grow">
+                  <AmodiatairesInputAutocomplete
+                    v-model="amodiataires"
+                    :entreprises="entreprisesList"
+                  />
                 </div>
-                <div v-if="amodiataire.id" class="h6 mb">
-                  <label>
-                    <input
-                      v-model="amodiataire.operateur"
-                      type="checkbox"
-                      class="mr-xs"
-                    />
-                    Opérateur
-                  </label>
-                </div>
-              </div> -->
-            <div class="flex mb-s">
-              <div class="flex-grow">
-                <AmodiatairesInputAutocomplete
-                  v-model="amodiatairesIds"
-                  :entreprises="entreprisesList"
-                />
+                <button
+                  class="btn py-s px-m rnd-xs"
+                  @click="amodiataireRemove(n)"
+                >
+                  <i class="icon-24 icon-minus" />
+                </button>
               </div>
-              <!-- <button
+              <div v-if="amodiataire.id" class="h6 mb">
+                <label>
+                  <input
+                    v-model="amodiataire.operateur"
+                    type="checkbox"
+                    class="mr-xs"
+                  />
+                  Opérateur
+                </label>
+              </div>
+            </div>
+            <div class="flex mb-s">
+              <button
                 class="btn py-s px-m rnd-xs"
                 @click="amodiataireRemove(n)"
               >
                 <i class="icon-24 icon-minus" />
-              </button> -->
+              </button>
             </div>
-            <!-- <div v-if="amodiataire.id" class="h6 mb">
+            <div v-if="amodiataire.id" class="h6 mb">
               <label>
                 <input
                   v-model="amodiataire.operateur"
@@ -261,7 +255,7 @@
                 />
                 Opérateur
               </label>
-            </div> -->
+            </div>
 
             <!-- <button
               v-if="!etape.amodiataires?.some(({ id }) => id === '')"
@@ -428,7 +422,7 @@ export default {
 
   data() {
     return {
-      amodiatairesIds: []
+      amodiataires: []
     }
   },
 
