@@ -15,13 +15,8 @@
       :key="activite.id"
       :activite="activite"
       :route="route"
-      :opened-activite="openedActivite"
-      :opened-titre-activite="openedTitreActivite"
+      :initial-opened="true"
       class="mb"
-      @close:titre="titreClose"
-      @close:activite="titreActiviteClose"
-      @toggle:titre="toggleTitre"
-      @toggle:activite="toggleTitreActivite"
       @popup="popupOpen"
     />
   </div>
@@ -46,14 +41,6 @@ export default {
 
     loaded() {
       return !!this.activite
-    },
-
-    openedActivite() {
-      return this.$store.state.titre.opened.activites[this.activite.id]
-    },
-
-    openedTitreActivite() {
-      return this.$store.state.titreActivite.opened
     },
 
     route() {
@@ -82,28 +69,6 @@ export default {
   methods: {
     async get() {
       await this.$store.dispatch('titreActivite/get', this.$route.params.id)
-    },
-
-    titreClose() {
-      this.$store.commit('titre/close', {
-        section: 'activites',
-        id: this.activite.id
-      })
-    },
-
-    titreActiviteClose() {
-      this.$store.commit('titreActivite/close')
-    },
-
-    toggleTitre() {
-      this.$store.commit('titre/toggle', {
-        section: 'activites',
-        id: this.activite.id
-      })
-    },
-
-    toggleTitreActivite() {
-      this.$store.commit('titreActivite/toggle')
     },
 
     popupOpen() {

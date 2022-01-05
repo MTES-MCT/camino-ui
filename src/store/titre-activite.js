@@ -5,8 +5,7 @@ import {
 } from '../api/titres-activites'
 
 const state = {
-  element: null,
-  opened: false
+  element: null
 }
 
 const actions = {
@@ -91,22 +90,6 @@ const mutations = {
 
   reset(state) {
     state.element = null
-  },
-
-  open(state) {
-    if (!state.opened) {
-      state.opened = true
-    }
-  },
-
-  close(state) {
-    if (state.opened) {
-      state.opened = false
-    }
-  },
-
-  toggle(state) {
-    state.opened = !state.opened
   }
 }
 

@@ -29,8 +29,7 @@ describe('Activite > Preview', () => {
         route: {
           name: 'name'
         },
-        openedActivite: false,
-        openedTitreActivite: false
+        initialOpened: false
       }
     })
 
@@ -50,8 +49,7 @@ describe('Activite > Preview', () => {
         route: {
           name: 'name'
         },
-        openedActivite: false,
-        openedTitreActivite: false
+        initialOpened: false
       }
     })
     expect(wrapper.props('activite').statut.id).toBe('enc')
@@ -70,8 +68,7 @@ describe('Activite > Preview', () => {
         route: {
           name: 'name'
         },
-        openedActivite: false,
-        openedTitreActivite: false
+        initialOpened: false
       }
     })
     expect(wrapper.props('activite').statut.id).not.toBe('enc')
@@ -86,8 +83,7 @@ describe('Activite > Preview', () => {
         route: {
           name: 'name'
         },
-        openedActivite: false,
-        openedTitreActivite: false
+        initialOpened: false
       }
     })
     expect(wrapper.props('activite').statut.id).toBe('enc')
@@ -102,8 +98,7 @@ describe('Activite > Preview', () => {
         route: {
           name: 'name'
         },
-        openedActivite: false,
-        openedTitreActivite: false
+        initialOpened: false
       }
     })
     expect(wrapper.props('activite').statut.id).toBe('enc')
@@ -118,8 +113,7 @@ describe('Activite > Preview', () => {
         route: {
           name: 'name'
         },
-        openedActivite: false,
-        openedTitreActivite: false
+        initialOpened: false
       }
     })
     expect(wrapper.props('activite').statut.id).toBe('enc')

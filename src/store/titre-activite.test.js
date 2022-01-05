@@ -16,7 +16,7 @@ describe("état d'une activité", () => {
   let actions
 
   beforeEach(() => {
-    titreActivite.state = { element: null, opened: false }
+    titreActivite.state = { element: null }
 
     actions = {
       reload: jest.fn(),
@@ -92,35 +92,6 @@ describe("état d'une activité", () => {
     store.commit('titreActivite/reset')
 
     expect(store.state.titreActivite.element).toBeNull()
-  })
-
-  test("ouvre et ferme l'activité", () => {
-    store.commit('titreActivite/open')
-
-    expect(store.state.titreActivite.opened).toBeTruthy()
-
-    store.commit('titreActivite/open')
-
-    expect(store.state.titreActivite.opened).toBeTruthy()
-
-    store.commit('titreActivite/close')
-
-    expect(store.state.titreActivite.opened).toBeFalsy()
-
-    store.commit('titreActivite/close')
-
-    expect(store.state.titreActivite.opened).toBeFalsy()
-  })
-
-  test("permute l'ouverture de l'activité", () => {
-    expect(store.state.titreActivite.opened).toBeFalsy()
-    store.commit('titreActivite/toggle')
-
-    expect(store.state.titreActivite.opened).toBeTruthy()
-
-    store.commit('titreActivite/toggle')
-
-    expect(store.state.titreActivite.opened).toBeFalsy()
   })
 
   test('supprime une activité et redirige sur le titre', async () => {
