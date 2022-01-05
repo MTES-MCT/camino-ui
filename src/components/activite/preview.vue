@@ -105,17 +105,14 @@ export default {
   props: {
     activite: { type: Object, required: true },
     route: { type: Object, required: true },
-    openedActivite: { type: Boolean, required: true },
-    openedTitreActivite: { type: Boolean, required: true }
+    initialOpened: { type: Boolean, default: false }
   },
 
-  emits: [
-    'close:titre',
-    'close:activite',
-    'toggle:titre',
-    'toggle:activite',
-    'popup'
-  ],
+  emits: ['popup'],
+
+  data: () => ({
+    opened: false
+  }),
 
   computed: {
     documentNew() {
@@ -132,14 +129,6 @@ export default {
 
     documentPopupTitle() {
       return `${this.activite.type.nom} | ${this.activite.periode.nom} ${this.activite.annee}`
-    },
-
-    opened() {
-      if (this.route.name === 'titre') {
-        return this.openedActivite
-      }
-
-      return this.openedTitreActivite
     },
 
     statutNom() {
@@ -165,15 +154,17 @@ export default {
     }
   },
 
+  created() {
+    this.opened = this.initialOpened
+  },
+
   methods: {
     close() {
-      this.$emit(this.route.name === 'titre' ? 'close:titre' : 'close:activite')
+      this.opened = false
     },
 
     toggle() {
-      this.$emit(
-        this.route.name === 'titre' ? 'toggle:titre' : 'toggle:activite'
-      )
+      this.opened = !this.opened
     },
 
     activiteRemovePopupOpen() {
