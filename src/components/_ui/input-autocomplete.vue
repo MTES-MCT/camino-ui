@@ -1,5 +1,5 @@
 <template>
-  <select ref="select" multiple>
+  <select ref="select" :multiple="isMultiple">
     <slot />
   </select>
 </template>
@@ -9,21 +9,29 @@ import Choices from 'choices.js'
 
 export default {
   props: {
-    items: {
+    options: {
       type: Array,
       required: true,
       default: () => []
     },
-    modelValue: {
+    selected: {
       type: Array,
       default: () => []
     },
     maxItems: {
       type: Number,
       default: -1
+    },
+    labelProp: {
+      type: String,
+      default: 'label'
+    },
+    valueProp: {
+      type: String,
+      default: 'value'
     }
   },
-  emits: ['update:modelValue'],
+  emits: ['update:selected'],
 
   data() {
     return {
@@ -32,20 +40,24 @@ export default {
     }
   },
 
+  computed: {
+    isMultiple() {
+      return this.maxItems === -1 || this.maxItems > 1 || null
+    }
+  },
+
   watch: {
-    items: {
-      immediate: true,
-      handler(items) {
-        if (items.length) {
-          this.setChoices()
-        }
+    options: {
+      deep: true,
+      handler() {
+        this.optionsSet()
       }
     },
     // Met à jour le rendu des chips dans Choices.js
-    // par rapport à la valeur via v-model.
-    modelValue: {
+    selected: {
       handler(val) {
-        if (!val || val[0] === '') {
+        if (!val || !val.length || val[0] === '') {
+          console.log(this.selected)
           this.autocompleter.removeActiveItems()
         }
       }
@@ -55,6 +67,7 @@ export default {
   mounted() {
     this.autocompleter = new Choices(this.$refs.select, {
       maxItemCount: this.maxItems,
+      shouldSort: false,
       removeItemButton: true,
       loadingText: 'Chargement...',
       noResultsText: 'Aucun résultat',
@@ -69,6 +82,11 @@ export default {
     })
     this.$refs.select.addEventListener('addItem', this.handleSelectChange)
     this.$refs.select.addEventListener('removeItem', this.handleSelectChange)
+
+    setTimeout(() => {
+      this.optionsSet()
+      this.autocompleter.setChoiceByValue(this.selected.map(c => c))
+    }, 500)
   },
 
   unmounted: function () {
@@ -76,6 +94,17 @@ export default {
   },
 
   methods: {
+    optionsSet() {
+      if (this.options.length && this.autocompleter) {
+        this.autocompleter.setChoices(
+          this.options,
+          this.valueProp,
+          this.labelProp,
+          true
+        )
+      }
+    },
+
     handleSelectChange(e) {
       const itemIndex = this.values.findIndex(v => v.id === e.detail.id)
 
@@ -95,14 +124,7 @@ export default {
         default:
           throw new Error("erreur d'autocomplete")
       }
-      console.log(this.values)
-      this.$emit('update:modelValue', this.values)
-    },
-
-    setChoices() {
-      if (this.autocompleter) {
-        this.autocompleter.setChoices(this.items, 'text', 'text', true)
-      }
+      this.$emit('update:selected', this.values)
     }
   }
 }

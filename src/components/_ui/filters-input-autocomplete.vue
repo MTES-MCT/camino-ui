@@ -4,10 +4,12 @@
     <hr class="mb-s" />
 
     <InputAutocomplete
-      :model-value="filter.value.split(', ')"
-      :items="items"
+      :selected="filter.value.split(', ')"
+      :options="options"
+      value-prop="text"
+      label-prop="text"
       class="p-s"
-      @update:model-value="filter.value = $event.map(e => e.value).join(', ')"
+      @update:selected="filter.value = $event.map(e => e.value).join(', ')"
     />
   </div>
 </template>
@@ -28,7 +30,7 @@ export default defineComponent({
 
   data() {
     return {
-      items: []
+      options: []
     }
   },
 
@@ -47,7 +49,7 @@ export default defineComponent({
           'definitions/entreesGet',
           'substances-legales'
         )
-        this.items =
+        this.options =
           this.$store.state.definitions.entrees.length > 0
             ? this.$store.state.definitions.entrees.map(e => ({
                 id: e.id,

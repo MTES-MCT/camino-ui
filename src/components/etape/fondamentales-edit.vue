@@ -211,13 +211,14 @@
           <template #write>
             <div
               v-for="(amodiataire, n) in etape.amodiataires || []"
-              :key="`amodiataire-${amodiataire.id}`"
+              :key="`amodiataire-${n}`"
             >
               <div class="flex mb-s">
-                <div class="flex-grow">
-                  <AmodiatairesInputAutocomplete
-                    v-model="amodiataires"
+                <div class="mr-s flex-grow">
+                  <AmodiataireInputAutocomplete
+                    v-model:amodiataire-id="amodiataire.id"
                     :entreprises="entreprisesList"
+                    :max-items="1"
                   />
                 </div>
                 <button
@@ -238,26 +239,8 @@
                 </label>
               </div>
             </div>
-            <div class="flex mb-s">
-              <button
-                class="btn py-s px-m rnd-xs"
-                @click="amodiataireRemove(n)"
-              >
-                <i class="icon-24 icon-minus" />
-              </button>
-            </div>
-            <div v-if="amodiataire.id" class="h6 mb">
-              <label>
-                <input
-                  v-model="amodiataire.operateur"
-                  type="checkbox"
-                  class="mr-xs"
-                />
-                Opérateur
-              </label>
-            </div>
 
-            <!-- <button
+            <button
               v-if="!etape.amodiataires?.some(({ id }) => id === '')"
               id="amodiataire-ajouter"
               class="btn small rnd-xs py-s px-m full-x flex mb-s"
@@ -265,7 +248,7 @@
             >
               <span class="mt-xxs">Ajouter un amodiataire</span
               ><i class="icon-24 icon-plus flex-right" />
-            </button> -->
+            </button>
 
             <div v-if="amodiatairesLength" class="h6">
               <label>
@@ -395,7 +378,7 @@ import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
 import HeritageEdit from './heritage-edit.vue'
 import PropDuree from './prop-duree.vue'
-import AmodiatairesInputAutocomplete from './amodiataire-input-autocomplete.vue'
+import AmodiataireInputAutocomplete from './amodiataire-input-autocomplete.vue'
 
 import { etablissementNameFind } from '@/utils/entreprise'
 
@@ -407,7 +390,7 @@ export default {
     Tag,
     TagList,
     PropDuree,
-    AmodiatairesInputAutocomplete
+    AmodiataireInputAutocomplete
   },
 
   props: {
@@ -419,12 +402,6 @@ export default {
     substances: { type: Array, required: true }
   },
   emits: ['complete-update'],
-
-  data() {
-    return {
-      amodiataires: []
-    }
-  },
 
   computed: {
     isArm() {

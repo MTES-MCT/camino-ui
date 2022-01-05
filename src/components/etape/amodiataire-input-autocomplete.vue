@@ -1,52 +1,59 @@
 <template>
-  <InputAutocomplete :items="items" @update:model-value="updateHandler" />
+  <InputAutocomplete
+    :selected="[amodiataireId]"
+    :options="options"
+    value-prop="id"
+    label-prop="label"
+    @update:selected="
+      $emit('update:amodiataireId', $event.length ? $event[0].value : '')
+    "
+  />
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import InputAutocomplete from '../_ui/input-autocomplete.vue'
 
-interface Entreprise {
+interface IEntreprise {
   id: string
-  name: string
+  nom: string
+}
+
+interface IItem {
+  id: string
+  label: string
 }
 
 export default defineComponent({
   components: { InputAutocomplete },
 
   props: {
-    modelValue: {
-      type: [] as PropType<string[]>,
+    amodiataireId: {
+      type: String,
       required: true,
-      default: [] as string[]
+      default: ''
     },
     entreprises: {
-      type: Array,
+      type: Array as PropType<Array<IEntreprise>>,
       required: true,
       default: () => []
     }
   },
 
-  emits: ['update:modelValue'],
+  emits: ['update:amodiataireId'],
 
   data() {
     return {
-      items: [] as Entreprise[]
+      amodiataires: [] as IEntreprise[]
     }
   },
 
-  mounted() {
-    this.setItems()
-  },
-
-  methods: {
-    setItems() {
-      this.items = this.entreprises.map(e => ({ id: e.id, text: e.nom }))
-    },
-
-    updateHandler(event) {
-      const amodiataires = [...this.modelValue]
-      console.log(event, amodiataires)
+  computed: {
+    options(): IItem[] {
+      return this.entreprises.map(e => ({
+        id: e.id,
+        label: e.nom + ' (' + e.id + ')'
+      }))
     }
   }
 })
