@@ -9,7 +9,7 @@
           </a>
         </li>
       </ul>
-      <div>
+      <div class="flex flex-center">
         <HelpTooltip v-if="armHelpVisible" class="mr-m">
           Vous pouvez à tout moment enregistrer votre demande. Le dépôt du
           dossier d’ARM et de toutes les pièces peut être réalisé en plusieurs
