@@ -24,7 +24,8 @@ textarea,
   color: inherit;
 }
 
-select {
+select,
+.choices__inner {
   background-image: svg-load('../icons/svgs/24-chevron-b.svg',
     fill='#666'
   );
@@ -102,4 +103,42 @@ select.bg-bg:disabled {
 .choices__list--multiple .choices__item {
   background-color: var(--color-inverse);
   border: 1px solid var(--color-inverse);
+}
+
+
+.choices[data-type*=select-one]::after {
+  display: none;
+}
+
+.choices[data-type*=select-one] .choices__inner {
+  padding-bottom: 0;
+  padding: var(--unit-s);
+}
+
+.choices__list--single {
+  padding: 0;
+}
+
+.choices[data-type*=select-one] .choices__button {
+  margin-right: 40px;
+}
+
+.choices__button {
+  background-image: svg-load('../icons/svgs/24-close.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.choices__button:hover {
+  background-image: svg-load('../icons/svgs/24-close.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
 }

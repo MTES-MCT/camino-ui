@@ -1,12 +1,12 @@
 <template>
   <InputAutocomplete
-    :selected="[amodiataireId]"
+    :selected="amodiataireId?.split()"
     :options="options"
     value-prop="id"
     label-prop="label"
-    @update:selected="
-      $emit('update:amodiataireId', $event.length ? $event[0].value : '')
-    "
+    :max-items="1"
+    :options-disabled="optionsDisabled"
+    @update:selected="$emit('update:amodiataireId', $event.length ? $event[0].value : '')"
   />
 </template>
 
@@ -34,6 +34,11 @@ export default defineComponent({
       default: ''
     },
     entreprises: {
+      type: Array as PropType<Array<IEntreprise>>,
+      required: true,
+      default: () => []
+    },
+    optionsDisabled: {
       type: Array as PropType<Array<IEntreprise>>,
       required: true,
       default: () => []

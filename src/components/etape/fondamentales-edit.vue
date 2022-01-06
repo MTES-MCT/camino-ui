@@ -217,8 +217,8 @@
                 <div class="mr-s flex-grow">
                   <AmodiataireInputAutocomplete
                     v-model:amodiataire-id="amodiataire.id"
-                    :entreprises="entreprisesList"
-                    :max-items="1"
+                    :entreprises="entreprises"
+                    :options-disabled="entreprisesDisabled"
                   />
                 </div>
                 <button
@@ -404,6 +404,13 @@ export default {
   emits: ['complete-update'],
 
   computed: {
+    entreprisesDisabled() {
+      return this.entreprises.filter(entr => {
+        return this.etape.amodiataires.find(a => a.id === entr.id) ||
+          this.etape.titulaires.find(t => t.id === entr.id)
+      })
+    },
+
     isArm() {
       return this.domaineId === 'm' && this.titreTypeId === 'ar'
     },
@@ -456,16 +463,6 @@ export default {
             this.etape.duree.ans ||
             this.etape.duree.mois))
       )
-    },
-
-    entreprisesList() {
-      return this.entreprises.filter(entr => {
-        return (
-          Boolean(this.etape.amodiataires.find(a => a.id === entr.id)) ===
-            false &&
-          Boolean(this.etape.titulaires.find(t => t.id === entr.id)) === false
-        )
-      })
     }
   },
 

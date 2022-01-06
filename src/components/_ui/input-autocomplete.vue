@@ -1,7 +1,5 @@
 <template>
-  <select ref="select" :multiple="isMultiple">
-    <slot />
-  </select>
+  <select ref="select" :multiple="isMultiple" />
 </template>
 
 <script>
@@ -29,14 +27,18 @@ export default {
     valueProp: {
       type: String,
       default: 'value'
+    },
+    optionsDisabled: {
+      type: Array,
+      required: true,
+      default: () => []
     }
   },
   emits: ['update:selected'],
 
   data() {
     return {
-      autocompleter: null,
-      values: []
+      autocompleter: null
     }
   },
 
@@ -53,15 +55,17 @@ export default {
         this.optionsSet()
       }
     },
-    // Met à jour le rendu des chips dans Choices.js
-    selected: {
-      handler(val) {
-        if (!val || !val.length || val[0] === '') {
-          console.log(this.selected)
-          this.autocompleter.removeActiveItems()
-        }
-      }
-    }
+    // selected() {
+    //   this.optionsSet()
+    // }
+    // selected: {
+    //   handler(val) {
+    //     // Retire toute sélection dans Choices.js si les données sont vides.
+    //     if (this.autocompleter && (!val || !val.length || val[0] === '')) {
+    //       this.autocompleter.removeActiveItems()
+    //     }
+    //   }
+    // }
   },
 
   mounted() {
@@ -83,10 +87,9 @@ export default {
     this.$refs.select.addEventListener('addItem', this.handleSelectChange)
     this.$refs.select.addEventListener('removeItem', this.handleSelectChange)
 
-    setTimeout(() => {
-      this.optionsSet()
-      this.autocompleter.setChoiceByValue(this.selected.map(c => c))
-    }, 500)
+    // Choices.js n'informe pas de son état "initialized"
+    // et peut se finaliser après l'arrivée de donnée.
+    setTimeout(this.optionsSet, 500)
   },
 
   unmounted: function () {
@@ -97,7 +100,10 @@ export default {
     optionsSet() {
       if (this.options.length && this.autocompleter) {
         this.autocompleter.setChoices(
-          this.options,
+          this.options.map(o => ({ ...o,
+            selected: this.selected.includes(o[this.valueProp]),
+            // disabled: this.optionsDisabled.map(o => o[this.valueProp]).includes(o[this.valueProp]),
+          })),
           this.valueProp,
           this.labelProp,
           true
@@ -106,25 +112,26 @@ export default {
     },
 
     handleSelectChange(e) {
-      const itemIndex = this.values.findIndex(v => v.id === e.detail.id)
+      const values = [...this.selected]
+      const itemIndex = values.findIndex(v => v === e.detail.value)
 
       switch (e.type) {
         case 'addItem':
-          if (Boolean(this.values.find(v => v.id === e.detail.id)) === false) {
-            this.values.push(e.detail)
+          if (itemIndex === -1) {
+            values.push(e.detail.value)
           }
           break
 
         case 'removeItem':
           if (itemIndex >= 0) {
-            this.values.splice(itemIndex, 1)
+            values.splice(itemIndex, 1)
           }
           break
 
         default:
           throw new Error("erreur d'autocomplete")
       }
-      this.$emit('update:selected', this.values)
+      this.$emit('update:selected', values)
     }
   }
 }

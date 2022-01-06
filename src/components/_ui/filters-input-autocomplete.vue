@@ -4,12 +4,13 @@
     <hr class="mb-s" />
 
     <InputAutocomplete
-      :selected="filter.value.split(', ')"
+      :selected="values"
       :options="options"
-      value-prop="text"
+      :options-disabled="values"
+      value-prop="id"
       label-prop="text"
       class="p-s"
-      @update:selected="filter.value = $event.map(e => e.value).join(', ')"
+      @update:selected="handler"
     />
   </div>
 </template>
@@ -38,9 +39,17 @@ export default defineComponent({
     await this.fetchItems()
   },
 
+  computed: {
+    values() {
+      return this.filter.value.split(', ').filter(v => v !== '')
+    }
+  },
+
   methods: {
-    // A privilégier au dépend d'une computed property,
-    // pour pallier aux problèmes de réactivité entre Vue et Choices.js
+    handler(e) {
+      console.log(e)
+      this.filter.value = e.join(', ')
+    },
     async fetchItems() {
       const id = this.filter.id
 
