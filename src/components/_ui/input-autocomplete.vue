@@ -30,7 +30,6 @@ export default {
     },
     optionsDisabled: {
       type: Array,
-      required: true,
       default: () => []
     }
   },
@@ -49,23 +48,19 @@ export default {
   },
 
   watch: {
-    options: {
-      deep: true,
+    optionSelected: {
       handler() {
         this.optionsSet()
       }
     },
-    // selected() {
-    //   this.optionsSet()
-    // }
-    // selected: {
-    //   handler(val) {
-    //     // Retire toute sélection dans Choices.js si les données sont vides.
-    //     if (this.autocompleter && (!val || !val.length || val[0] === '')) {
-    //       this.autocompleter.removeActiveItems()
-    //     }
-    //   }
-    // }
+    selected: {
+      handler() {
+        this.autocompleter.removeHighlightedItems()
+        this.selected.forEach(choice =>
+          this.autocompleter.setChoiceByValue(choice)
+        )
+      }
+    }
   },
 
   mounted() {
@@ -99,14 +94,17 @@ export default {
   methods: {
     optionsSet() {
       if (this.options.length && this.autocompleter) {
+        this.autocompleter.clearChoices()
         this.autocompleter.setChoices(
-          this.options.map(o => ({ ...o,
+          this.options.map(o => ({
+            ...o,
             selected: this.selected.includes(o[this.valueProp]),
-            // disabled: this.optionsDisabled.map(o => o[this.valueProp]).includes(o[this.valueProp]),
+            disabled: this.optionsDisabled
+              .map(o => o[this.valueProp])
+              .includes(o[this.valueProp])
           })),
           this.valueProp,
-          this.labelProp,
-          true
+          this.labelProp
         )
       }
     },
@@ -119,19 +117,20 @@ export default {
         case 'addItem':
           if (itemIndex === -1) {
             values.push(e.detail.value)
+            this.$emit('update:selected', values)
           }
           break
 
         case 'removeItem':
           if (itemIndex >= 0) {
             values.splice(itemIndex, 1)
+            this.$emit('update:selected', values)
           }
           break
 
         default:
           throw new Error("erreur d'autocomplete")
       }
-      this.$emit('update:selected', values)
     }
   }
 }

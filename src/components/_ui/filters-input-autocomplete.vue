@@ -6,8 +6,7 @@
     <InputAutocomplete
       :selected="values"
       :options="options"
-      :options-disabled="values"
-      value-prop="id"
+      value-prop="text"
       label-prop="text"
       class="p-s"
       @update:selected="handler"
@@ -35,19 +34,18 @@ export default defineComponent({
     }
   },
 
-  async mounted() {
-    await this.fetchItems()
-  },
-
   computed: {
     values() {
       return this.filter.value.split(', ').filter(v => v !== '')
     }
   },
 
+  async mounted() {
+    await this.fetchItems()
+  },
+
   methods: {
     handler(e) {
-      console.log(e)
       this.filter.value = e.join(', ')
     },
     async fetchItems() {
@@ -61,7 +59,6 @@ export default defineComponent({
         this.options =
           this.$store.state.definitions.entrees.length > 0
             ? this.$store.state.definitions.entrees.map(e => ({
-                id: e.id,
                 text: e.nom
               }))
             : []

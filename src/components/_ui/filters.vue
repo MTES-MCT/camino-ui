@@ -30,7 +30,7 @@
       </div>
     </template>
 
-    <div class="px-m">
+    <div v-if="opened" class="px-m">
       <div class="tablet-blobs mt">
         <div v-if="inputs.length" class="tablet-blob-1-2 large-blob-1-3">
           <template v-for="input in inputs" :key="input.id">

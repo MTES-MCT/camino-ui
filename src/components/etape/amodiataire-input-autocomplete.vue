@@ -1,12 +1,15 @@
 <template>
   <InputAutocomplete
+    v-if="options?.length"
     :selected="amodiataireId?.split()"
     :options="options"
     value-prop="id"
     label-prop="label"
     :max-items="1"
     :options-disabled="optionsDisabled"
-    @update:selected="$emit('update:amodiataireId', $event.length ? $event[0].value : '')"
+    @update:selected="
+      $emit('update:amodiataireId', $event.length ? $event[0].value : '')
+    "
   />
 </template>
 
