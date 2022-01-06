@@ -733,6 +733,13 @@
   );
 }
 
+
+.btn-alt:hover .icon-help {
+  background-image: svg-load('./svgs/info.svg',
+  stroke-width=1.25px
+  );
+}
+
 .icon-map-legend {
   height: calc(var(--unit) * 1);
   width: calc(var(--unit) * 2);
@@ -760,11 +767,5 @@
 .icon-map-legend-sdom-zone-2 {
   background-image: svg-load('./svgs/map-legend-sdom-zone.svg',
   fill='#ffaa00'
-  );
-}
-
-.btn-alt:hover .icon-help {
-  background-image: svg-load('./svgs/24-help.svg',
-    stroke-width=1.25px
   );
 }
