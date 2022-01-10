@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-import { apiGraphQLFetch, apiRestFetch } from './_client.js'
+import { apiGraphQLFetch } from './_client.js'
 
 jest.mock('./fragments/utilisateur', () => ({
   fragmentUtilisateur: gql`
@@ -62,28 +62,6 @@ describe('api client', () => {
     }
 
     expect(error.message).toBe('HTTP 404 status.')
-    expect(window.location.reload).not.toHaveBeenCalled()
-  })
-
-  test('un appel REST avec une réponse 200 ne fait pas d’erreur', async () => {
-    fetch.mockResponse(JSON.stringify({ data: {} }), { status: 200 })
-
-    await apiRestFetch('path')
-
-    expect(window.location.reload).not.toHaveBeenCalled()
-  })
-
-  test('un appel REST avec une réponse 404 fait une erreur', async () => {
-    fetch.mockResponse(JSON.stringify({ data: {} }), { status: 404 })
-
-    let error
-    try {
-      await apiRestFetch('path')
-    } catch (e) {
-      error = e
-    }
-
-    expect(error.message).toBe('404')
     expect(window.location.reload).not.toHaveBeenCalled()
   })
 })

@@ -126,7 +126,6 @@
         </span>
         <button
           class="btn-border rnd-xs flex-right py-s px-m mb-m"
-          :disabled="isDownloading"
           @click="demandeDownload"
         >
           <i class="icon-24 icon-download" />
@@ -148,7 +147,6 @@ import Statut from '../_common/statut.vue'
 import RemovePopup from './remove.vue'
 import DeposePopup from './depose-popup.vue'
 import HelpTooltip from '../_ui/help-tooltip.vue'
-import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -175,10 +173,6 @@ export default {
   emits: ['close', 'toggle'],
 
   computed: {
-    ...mapState({
-      isDownloading: state => state.loading.includes('demandeDownload')
-    }),
-
     route() {
       return {
         name: 'titre',
@@ -271,10 +265,7 @@ export default {
     },
 
     async demandeDownload() {
-      this.$store.dispatch('titreEtape/demandeDownload', {
-        etapeId: this.etape.id,
-        name: `demande-${this.etape.slug}-${this.etape.date}`
-      })
+      await this.$store.dispatch('download', `/etape/zip/${this.etape.id}`)
     },
 
     etapeEdit() {

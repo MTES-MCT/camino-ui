@@ -20,18 +20,6 @@ const errorThrow = e => {
   throw new Error(e.message || e.status)
 }
 
-const restCall = async (url, path) => {
-  const res = await fetch(`${url}/${path}`, {
-    method: 'GET'
-  })
-
-  if (res.status !== 200) {
-    throw res
-  }
-
-  return res
-}
-
 const graphQLCall = async (url, query, variables) => {
   const abortController = new AbortController()
   const fetchOptions = fetchOptionsGraphQL({
@@ -78,9 +66,9 @@ const graphQLCall = async (url, query, variables) => {
   return dataContent
 }
 
-const apiFetch = async (call, query, variables) => {
+const apiGraphQLFetch = query => async variables => {
   try {
-    return await call(apiUrl, query, variables)
+    return await graphQLCall(apiUrl, query, variables)
   } catch (e) {
     if (e.status === 401 || e.message === 'HTTP 401 status.') {
       // la session a été invalidée par un administrateur
@@ -93,9 +81,4 @@ const apiFetch = async (call, query, variables) => {
   }
 }
 
-const apiGraphQLFetch = query => async variables =>
-  apiFetch(graphQLCall, query, variables)
-
-const apiRestFetch = path => apiFetch(restCall, path)
-
-export { apiGraphQLFetch, apiRestFetch, errorThrow }
+export { apiGraphQLFetch, errorThrow }

@@ -3,10 +3,8 @@ import { createApp } from 'vue'
 import { createStore } from 'vuex'
 import * as fileSaver from 'file-saver'
 import * as router from '../router'
-import { apiRestFetch } from '../api/_client'
 
 jest.mock('file-saver', () => ({ saveAs: jest.fn() }))
-jest.mock('../api/_client', () => ({ apiRestFetch: jest.fn() }))
 jest.mock('./titre', () => ({ titre: jest.fn() }))
 jest.mock('./titres', () => ({ titres: jest.fn() }))
 jest.mock('./titre-demarche', () => ({ titreDemarche: jest.fn() }))
@@ -308,21 +306,9 @@ describe("état général de l'application", () => {
     actions.messageAdd = messageAddMock
     store = createStore({ state, actions, mutations })
 
-    const apiMock = apiRestFetch.mockResolvedValueOnce({
-      data: 'truc',
-      headers: { get: () => 'filename=nom-du-fichier.pdf' },
-      blob: async () => 'fileContent',
-      body: {
-        getReader: () => ({
-          read: () => ({ done: true, value: '' })
-        })
-      }
-    })
-
     await store.dispatch('downloadDocument', { id: 'toot' })
 
-    expect(apiMock).toHaveBeenCalled()
-    expect(fileSaver.saveAs).toHaveBeenCalled()
+    expect(fileSaver.saveAs).toHaveBeenCalledWith('/apiUrl/fichiers/toot')
     expect(messageAddMock).toHaveBeenCalled()
     expect(state.loading).toEqual([])
   })
@@ -336,7 +322,6 @@ describe("état général de l'application", () => {
       fichierNouveau: { name: 'document-titre' }
     })
 
-    expect(apiRestFetch).not.toHaveBeenCalled()
     expect(fileSaver.saveAs).toHaveBeenCalled()
     expect(messageAddMock).toHaveBeenCalled()
     expect(state.loading).toEqual([])
@@ -347,66 +332,15 @@ describe("état général de l'application", () => {
     actions.messageAdd = messageAddMock
     store = createStore({ state, actions, mutations })
 
-    const apiMock = apiRestFetch.mockResolvedValueOnce({
-      data: 'truc',
-      headers: { get: () => 'filename=nom-du-fichier.pdf' },
-      blob: async () => 'fileContent',
-      body: {
-        getReader: () => ({
-          read: () => ({ done: true, value: '' })
-        })
-      }
-    })
-
     const section = 'titres'
     const params = { typeIds: ['m', 'w'] }
 
-    await store.dispatch('download', `${section}?${params}`)
+    await store.dispatch('download', `/${section}?${params}`)
 
-    expect(apiMock).toHaveBeenCalled()
-    expect(fileSaver.saveAs).toHaveBeenCalled()
+    expect(fileSaver.saveAs).toHaveBeenCalledWith(
+      `/apiUrl/${section}?${params}`
+    )
     expect(messageAddMock).toHaveBeenCalled()
-    expect(state.loading).toEqual([])
-  })
-
-  test('retourne une erreur si le contenu est introuvable', async () => {
-    const messageAddMock = jest.fn()
-    actions.messageAdd = messageAddMock
-    store = createStore({ state, actions, mutations })
-
-    const apiMock = apiRestFetch.mockResolvedValueOnce({
-      data: 'truc',
-      headers: { get: () => undefined }
-    })
-
-    const section = 'titres'
-    const params = { typeIds: ['m', 'w'] }
-
-    await store.dispatch('download', { section, params })
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(fileSaver.saveAs).not.toHaveBeenCalled()
-    expect(messageAddMock).not.toHaveBeenCalled()
-    expect(state.loading).toEqual([])
-  })
-
-  test("retourne une erreur si le contenu n'a pas de nom", async () => {
-    const messageAddMock = jest.fn()
-    const apiErrorMock = jest.fn()
-    actions.messageAdd = messageAddMock
-    actions.apiError = apiErrorMock
-    store = createStore({ state, actions, mutations })
-    const apiMock = apiRestFetch.mockResolvedValueOnce({
-      data: 'truc',
-      headers: { get: () => 'filename=' }
-    })
-
-    await store.dispatch('download', 'filePath')
-
-    expect(apiMock).toHaveBeenCalled()
-    expect(fileSaver.saveAs).not.toHaveBeenCalled()
-    expect(messageAddMock).not.toHaveBeenCalled()
-    expect(apiErrorMock).toHaveBeenCalled()
     expect(state.loading).toEqual([])
   })
 })

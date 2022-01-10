@@ -30,22 +30,17 @@ export default {
       }).toString()
 
       const url = this.params
-        ? `${this.section}/${this.params}?${query}`
-        : `${this.section}?${query}`
+        ? `/${this.section}/${this.params}?${query}`
+        : `/${this.section}?${query}`
 
-      const name = await this.$store.dispatch('download', url)
+      await this.$store.dispatch('download', url)
 
-      this.linkTrack(name)
+      this.linkTrack(url)
     },
 
-    linkTrack(name) {
+    linkTrack(url) {
       if (this.$matomo) {
-        let protocol = location.protocol
-        if (protocol.slice(-1) !== ':') {
-          protocol += ':'
-        }
-
-        this.$matomo.trackLink(`${protocol}//${name}`, 'download')
+        this.$matomo.trackLink(`${window.location.origin}${url}`, 'download')
       }
     }
   }
