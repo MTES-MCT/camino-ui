@@ -9,7 +9,7 @@
       value-prop="text"
       label-prop="text"
       class="p-s"
-      @update:selected="handler"
+      @update:selected="updateHandler"
     />
   </div>
 </template>
@@ -45,7 +45,7 @@ export default defineComponent({
   },
 
   methods: {
-    handler(e) {
+    updateHandler(e) {
       this.filter.value = e.join(', ')
     },
     async fetchItems() {

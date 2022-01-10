@@ -49,21 +49,31 @@ export default {
 
   watch: {
     optionsDisabled: {
-      handler() {
+      deep: true,
+      handler(val) {
+        console.log('optionsDisabled', val)
         this.optionsSet()
       }
     },
-    selected: {
-      deep: true,
-      handler(val) {
-        if (!val.length) {
-          this.autocompleter.removeActiveItems()
-        }
-        this.selected.forEach(choice =>
-          this.autocompleter.setChoiceByValue(choice)
-        )
-      }
-    }
+    // Aucune garantie d'avoir la liste d'options prête pour la méthode `callbackOnInit`
+    // lors de l'instantiation de Choices.js. Nécessité de lier la génération du DOM
+    // à la présence effective des options.
+    // options: {
+    //   immediate: true,
+    //   handler(options) {
+    //     if (options.length) {
+    //       this.optionsSet()
+    //     }
+    //   }
+    // },
+    // selected: {
+    //   handler(val) {
+    //     this.autocompleter.removeActiveItems()
+    //     this.selected.forEach(choice =>
+    //       this.autocompleter.setChoiceByValue(choice)s
+    //     )
+    //   }
+    // }
   },
 
   mounted() {
@@ -80,14 +90,19 @@ export default {
       },
       maxItemText: maxItemCount => {
         return `${maxItemCount} choix maximum`
+      },
+      // Malgré la redondance avec le watch sur `options`, il est nécessaire
+      // de conserver ce callback dans le cas ou `optionsSet` a précédemment
+      // été appelé sans effet dû à l'absence d'instance de Choices.js.
+      callbackOnInit: async () => {
+        await this.$nextTick()
+        this.optionsSet()
       }
     })
-    this.$refs.select.addEventListener('addItem', this.handleSelectChange)
-    this.$refs.select.addEventListener('removeItem', this.handleSelectChange)
-
-    // Choices.js n'informe pas de son état "initialized"
-    // et peut se finaliser après l'arrivée de donnée.
-    setTimeout(this.optionsSet, 500)
+    this.autocompleter.passedElement.element.addEventListener(
+      'change',
+      () => this.$emit('update:selected', this.autocompleter.getValue(true))
+    )
   },
 
   unmounted: function () {
@@ -112,25 +127,29 @@ export default {
       }
     },
 
-    handleSelectChange(e) {
-      const values = [...this.selected]
-      const itemIndex = values.findIndex(v => v === e.detail.value)
+    changeEventsHandler(e) {
+      // this.$emit('update:')
+      // console.log(e, this.autocompleter.getValue(true));
+      // const values = [...this.selected]
+      // const itemIndex = values.findIndex(v => v === e.detail.value)
 
-      switch (e.type) {
-        case 'addItem':
-          if (itemIndex === -1) {
-            values.push(e.detail.value)
-            this.$emit('update:selected', values)
-          }
-          break
+      // switch (e.type) {
+      //   case 'addItem':
+      //     if (itemIndex === -1) {
+      //       values.push(e.detail.value)
+      //       this.$emit('update:selected', values)
+      //     }
+      //     console.log(e.type, this.selected, values)
+      //     break
 
-        case 'removeItem':
-          if (itemIndex >= 0) {
-            values.splice(itemIndex, 1)
-            this.$emit('update:selected', values)
-          }
-          break
-      }
+      //   case 'removeItem':
+      //     if (itemIndex >= 0) {
+      //       values.splice(itemIndex, 1)
+      //       this.$emit('update:selected', values)
+      //     }
+      //     console.log(e.type, this.selected, values)
+      //     break
+      // }
     }
   }
 }

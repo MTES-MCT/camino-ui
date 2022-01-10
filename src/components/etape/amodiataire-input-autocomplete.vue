@@ -5,11 +5,9 @@
     :options="options"
     value-prop="id"
     label-prop="label"
-    :max-items="1"
+    :max-items="-1"
     :options-disabled="optionsDisabled"
-    @update:selected="
-      $emit('update:amodiataireId', $event.length ? $event[0].value : '')
-    "
+    @update:selected="updateHandler"
   />
 </template>
 
@@ -62,6 +60,21 @@ export default defineComponent({
         id: e.id,
         label: e.nom + ' (' + e.id + ')'
       }))
+    }
+  },
+
+  methods: {
+    updateHandler(e) {
+      this.$emit('update:amodiataireId', e.length ? e[0] : null)
+      // if (e.length) {
+      //   console.log(e[0])
+      //   this.$emit('update:amodiataireId', e[0])
+      // }
+      // const amodiataireId = e.length ? e[0] : ''
+      // if (amodiataireId !== this.amodiataireId) {
+      //   console.log('>>>>>>>>>', amodiataireId)
+      //   this.$emit('update:amodiataireId', amodiataireId)
+      // }
     }
   }
 })

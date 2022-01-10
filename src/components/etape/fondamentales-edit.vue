@@ -209,6 +209,7 @@
           :is-array="true"
         >
           <template #write>
+            {{etape.amodiataires}}
             <div
               v-for="(amodiataire, n) in etape.amodiataires || []"
               :key="`amodiataire-${n}`"
@@ -406,8 +407,10 @@ export default {
   computed: {
     entreprisesDisabled() {
       return this.entreprises.filter(entr => {
-        return this.etape.amodiataires.find(a => a.id === entr.id) ||
+        return (
+          this.etape.amodiataires.find(a => a.id === entr.id) ||
           this.etape.titulaires.find(t => t.id === entr.id)
+        )
       })
     },
 
