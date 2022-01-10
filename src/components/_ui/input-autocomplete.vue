@@ -48,14 +48,17 @@ export default {
   },
 
   watch: {
-    optionSelected: {
+    optionsDisabled: {
       handler() {
         this.optionsSet()
       }
     },
     selected: {
-      handler() {
-        this.autocompleter.removeHighlightedItems()
+      deep: true,
+      handler(val) {
+        if (!val.length) {
+          this.autocompleter.removeActiveItems()
+        }
         this.selected.forEach(choice =>
           this.autocompleter.setChoiceByValue(choice)
         )
@@ -94,7 +97,6 @@ export default {
   methods: {
     optionsSet() {
       if (this.options.length && this.autocompleter) {
-        this.autocompleter.clearChoices()
         this.autocompleter.setChoices(
           this.options.map(o => ({
             ...o,
@@ -104,7 +106,8 @@ export default {
               .includes(o[this.valueProp])
           })),
           this.valueProp,
-          this.labelProp
+          this.labelProp,
+          true
         )
       }
     },
@@ -127,9 +130,6 @@ export default {
             this.$emit('update:selected', values)
           }
           break
-
-        default:
-          throw new Error("erreur d'autocomplete")
       }
     }
   }
