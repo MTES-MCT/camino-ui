@@ -267,18 +267,24 @@ describe("état de l'utilisateur connecté", () => {
     user.actions.login = loginMock
     store = createStore({ modules: { user, map }, actions, mutations })
     const apiMock = api.utilisateurCreer.mockResolvedValue(userInfo)
-    await store.dispatch('user/add', userInfo)
+    await store.dispatch('user/add', { utilisateur: userInfo, token: 'token' })
 
-    expect(apiMock).toHaveBeenCalledWith({ utilisateur: userInfo })
+    expect(apiMock).toHaveBeenCalledWith({
+      utilisateur: userInfo,
+      token: 'token'
+    })
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(loginMock).toHaveBeenCalled()
   })
 
   test("n'ajoute pas d'utilisateur", async () => {
     const apiMock = api.utilisateurCreer.mockResolvedValue(null)
-    await store.dispatch('user/add', userInfo)
+    await store.dispatch('user/add', { utilisateur: userInfo, token: 'token' })
 
-    expect(apiMock).toHaveBeenCalledWith({ utilisateur: userInfo })
+    expect(apiMock).toHaveBeenCalledWith({
+      utilisateur: userInfo,
+      token: 'token'
+    })
     expect(actions.messageAdd).not.toHaveBeenCalled()
   })
 
@@ -289,9 +295,12 @@ describe("état de l'utilisateur connecté", () => {
     const apiMock = api.utilisateurCreer.mockRejectedValue(
       new Error("erreur dans l'api")
     )
-    await store.dispatch('user/add', userInfo)
+    await store.dispatch('user/add', { utilisateur: userInfo, token: 'token' })
 
-    expect(apiMock).toHaveBeenCalledWith({ utilisateur: userInfo })
+    expect(apiMock).toHaveBeenCalledWith({
+      utilisateur: userInfo,
+      token: 'token'
+    })
     expect(actions.messageAdd).toHaveBeenCalled()
     expect(loginMock).not.toHaveBeenCalled()
   })
