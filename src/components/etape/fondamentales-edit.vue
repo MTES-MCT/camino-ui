@@ -240,15 +240,12 @@
               </div>
             </div>
 
-            <button
-              v-if="!etape.amodiataires?.some(({ id }) => id === '')"
-              id="amodiataire-ajouter"
-              class="btn small rnd-xs py-s px-m full-x flex mb-s"
-              @click="amodiataireAdd"
-            >
-              <span class="mt-xxs">Ajouter un amodiataire</span
-              ><i class="icon-24 icon-plus flex-right" />
-            </button>
+            <AmodiataireInputAutocomplete
+              :amodiataire-id="amodiataireSelected"
+              :entreprises="entreprises"
+              :options-disabled="entreprisesDisabled"
+              @update:amodiataire-id="amodiataireAdd"
+            />
 
             <div v-if="amodiatairesLength" class="h6">
               <label>
@@ -403,6 +400,10 @@ export default {
   },
   emits: ['complete-update'],
 
+  data: () => ({
+    amodiataireSelected: null
+  }),
+
   computed: {
     entreprisesDisabled() {
       return this.entreprises.filter(entr => {
@@ -512,9 +513,6 @@ export default {
     titulaireRemove(index) {
       this.etape.titulaires.splice(index, 1)
     },
-    amodiataireAdd() {
-      this.etape.amodiataires?.push({ id: '' })
-    },
 
     amodiataireRemove(index) {
       this.etape.amodiataires?.splice(index, 1)
@@ -550,6 +548,13 @@ export default {
 
     completeUpdate() {
       this.$emit('complete-update', this.complete)
+    },
+
+    amodiataireAdd(amodiataireId) {
+      if (amodiataireId) {
+        this.etape.amodiataires.push({ id: amodiataireId })
+        this.amodiataireSelected = null
+      }
     }
   }
 }

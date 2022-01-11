@@ -7,6 +7,7 @@
     label-prop="label"
     :max-items="1"
     :options-disabled="optionsDisabled"
+    placeholder="Sélectionner un amodiataire"
     @update:selected="updateHandler"
   />
 </template>
@@ -31,7 +32,6 @@ export default defineComponent({
   props: {
     amodiataireId: {
       type: String,
-      required: true,
       default: ''
     },
     entreprises: {
@@ -50,7 +50,9 @@ export default defineComponent({
 
   computed: {
     selected() {
-      return this.amodiataireId ? [this.amodiataireId] : []
+      return this.amodiataireId && this.amodiataireId !== ''
+        ? [this.amodiataireId]
+        : undefined
     },
     options(): IItem[] {
       return this.entreprises.map(e => ({

@@ -31,6 +31,10 @@ export default {
     optionsDisabled: {
       type: Array,
       default: () => []
+    },
+    placeholder: {
+      type: String,
+      default: ''
     }
   },
   emits: ['update:selected'],
@@ -96,14 +100,28 @@ export default {
   methods: {
     optionsSet() {
       if (this.options.length && this.autocompleter) {
-        this.autocompleter.setChoices(
-          this.options.map(o => ({
+        const options = []
+
+        if (this.placeholder) {
+          options.push({
+            [this.valueProp]: '',
+            [this.labelProp]: this.placeholder,
+            selected: !this.selected || !this.selected.length,
+            disabled: true,
+            placeholder: true
+          })
+        }
+        options.push(
+          ...this.options.map(o => ({
             ...o,
             selected: this.selected.includes(o[this.valueProp]),
             disabled: this.optionsDisabled
               .map(o => o[this.valueProp])
               .includes(o[this.valueProp])
-          })),
+          }))
+        )
+        this.autocompleter.setChoices(
+          options,
           this.valueProp,
           this.labelProp,
           true
