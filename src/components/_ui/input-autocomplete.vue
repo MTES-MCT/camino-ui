@@ -35,6 +35,10 @@ export default {
     placeholder: {
       type: String,
       default: ''
+    },
+    disableEnter: {
+      type: Boolean,
+      default: false
     }
   },
   emits: ['update:selected'],
@@ -91,6 +95,10 @@ export default {
     this.autocompleter.passedElement.element.addEventListener('change', () => {
       this.$emit('update:selected', this.autocompleter.getValue(true))
     })
+
+    if (this.disableEnter) {
+      this.autocompleter._onEnterKey = () => null
+    }
   },
 
   unmounted: function () {
