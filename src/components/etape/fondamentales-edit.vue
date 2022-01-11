@@ -124,58 +124,14 @@
         :is-array="true"
       >
         <template #write>
-          <div
-            v-for="(titulaire, n) in etape.titulaires"
-            :key="`titluaire-${titulaire.id}`"
-          >
-            <div class="flex mb-s">
-              <select v-model="titulaire.id" class="p-s mr-s">
-                <option
-                  v-for="entreprise in entreprises"
-                  :key="`titulaire-${titulaire.id}-entreprise-${entreprise.id}`"
-                  :value="entreprise.id"
-                  :disabled="
-                    etape.titulaires.find(t => t.id === entreprise.id) ||
-                    etape.amodiataires?.find(a => a.id === entreprise.id)
-                  "
-                >
-                  {{ `${entreprise.nom} (${entreprise.id})` }}
-                </option>
-              </select>
-              <button class="btn py-s px-m rnd-xs" @click="titulaireRemove(n)">
-                <i class="icon-24 icon-minus" />
-              </button>
-            </div>
-            <div class="h6 mb">
-              <label v-if="titulaire.id">
-                <input
-                  v-model="titulaire.operateur"
-                  type="checkbox"
-                  class="mr-xs"
-                />
-                Opérateur
-              </label>
-            </div>
-          </div>
-
-          <button
-            v-if="!etape.titulaires.some(({ id }) => id === '')"
-            class="btn small rnd-xs py-s px-m full-x flex mb-s"
-            @click="titulaireAdd"
-          >
-            <span class="mt-xxs">Ajouter un titulaire</span
-            ><i class="icon-24 icon-plus flex-right" />
-          </button>
-          <div v-if="titulairesLength" class="h6">
-            <label>
-              <input
-                v-model="etape.incertitudes.titulaires"
-                type="checkbox"
-                class="mr-xs"
-              />
-              Incertain
-            </label>
-          </div>
+          <AutocompleteGroup
+            :model-elements="etape.titulaires"
+            :options="entreprises"
+            :options-disabled="entreprisesDisabled"
+            :incertitudes="etape.incertitudes.titulaires"
+            :operateur="true"
+            placeholder="Sélectionner un titulaire"
+          />
         </template>
         <template #read>
           <ul class="list-prefix">
@@ -215,6 +171,7 @@
               :options-disabled="entreprisesDisabled"
               :incertitudes="etape.incertitudes.amodiataires"
               :operateur="true"
+              placeholder="Sélectionner un amodiataire"
             />
           </template>
           <template #read>

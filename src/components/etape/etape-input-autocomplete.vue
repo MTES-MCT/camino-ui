@@ -7,7 +7,7 @@
     label-prop="label"
     :max-items="1"
     :options-disabled="optionsDisabled"
-    placeholder="Sélectionner un amodiataire"
+    :placeholder="placeholder"
     @update:selected="$emit('update:modelElementId', $event)"
   />
 </template>
@@ -43,6 +43,10 @@ export default defineComponent({
       type: Array as PropType<Array<IOption>>,
       required: true,
       default: () => []
+    },
+    placeholder: {
+      type: String,
+      default: ''
     }
   },
 

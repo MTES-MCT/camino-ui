@@ -6,6 +6,7 @@
           v-model:model-element-id="element.id"
           :options="options"
           :options-disabled="optionsDisabled"
+          :placeholder="placeholder"
         />
       </div>
       <button class="btn py-s px-m rnd-xs" @click="elementRemove(n)">
@@ -24,6 +25,7 @@
     :model-element-id="elementSelected"
     :options="options"
     :options-disabled="optionsDisabled"
+    :placeholder="placeholder"
     @update:model-element-id="elementAdd"
   />
 
@@ -75,6 +77,10 @@ export default defineComponent({
     operateur: {
       type: Boolean,
       default: false
+    },
+    placeholder: {
+      type: String,
+      default: ''
     }
   },
 
