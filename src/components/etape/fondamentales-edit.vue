@@ -209,54 +209,13 @@
           :is-array="true"
         >
           <template #write>
-            <div
-              v-for="(amodiataire, n) in etape.amodiataires || []"
-              :key="`amodiataire-${n}`"
-            >
-              <div class="flex mb-s">
-                <div class="mr-s flex-grow">
-                  <AmodiataireInputAutocomplete
-                    v-model:amodiataire-id="amodiataire.id"
-                    :entreprises="entreprises"
-                    :options-disabled="entreprisesDisabled"
-                  />
-                </div>
-                <button
-                  class="btn py-s px-m rnd-xs"
-                  @click="amodiataireRemove(n)"
-                >
-                  <i class="icon-24 icon-minus" />
-                </button>
-              </div>
-              <div v-if="amodiataire.id" class="h6 mb">
-                <label>
-                  <input
-                    v-model="amodiataire.operateur"
-                    type="checkbox"
-                    class="mr-xs"
-                  />
-                  Opérateur
-                </label>
-              </div>
-            </div>
-
-            <AmodiataireInputAutocomplete
-              :amodiataire-id="amodiataireSelected"
-              :entreprises="entreprises"
+            <AutocompleteGroup
+              :model-elements="etape.amodiataires || []"
+              :options="entreprises"
               :options-disabled="entreprisesDisabled"
-              @update:amodiataire-id="amodiataireAdd"
+              :incertitudes="etape.incertitudes.amodiataires"
+              :operateur="true"
             />
-
-            <div v-if="amodiatairesLength" class="h6">
-              <label>
-                <input
-                  v-model="etape.incertitudes.amodiataires"
-                  type="checkbox"
-                  class="mr-xs"
-                />
-                Incertain
-              </label>
-            </div>
           </template>
           <template #read>
             <ul class="list-prefix">
@@ -375,7 +334,8 @@ import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
 import HeritageEdit from './heritage-edit.vue'
 import PropDuree from './prop-duree.vue'
-import AmodiataireInputAutocomplete from './amodiataire-input-autocomplete.vue'
+// import AmodiataireInputAutocomplete from './amodiataire-input-autocomplete.vue'
+import AutocompleteGroup from './autocomplete-group.vue'
 
 import { etablissementNameFind } from '@/utils/entreprise'
 
@@ -387,7 +347,7 @@ export default {
     Tag,
     TagList,
     PropDuree,
-    AmodiataireInputAutocomplete
+    AutocompleteGroup
   },
 
   props: {

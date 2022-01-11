@@ -2,13 +2,13 @@
   <InputAutocomplete
     v-if="options?.length"
     :selected="selected"
-    :options="options"
+    :options="formattedOptions"
     value-prop="id"
     label-prop="label"
     :max-items="1"
     :options-disabled="optionsDisabled"
     placeholder="Sélectionner un amodiataire"
-    @update:selected="updateHandler"
+    @update:selected="$emit('update:modelElementId', $event)"
   />
 </template>
 
@@ -16,7 +16,7 @@
 import { defineComponent, PropType } from 'vue'
 import InputAutocomplete from '../_ui/input-autocomplete.vue'
 
-interface IEntreprise {
+interface IOption {
   id: string
   nom: string
 }
@@ -30,41 +30,35 @@ export default defineComponent({
   components: { InputAutocomplete },
 
   props: {
-    amodiataireId: {
+    modelElementId: {
       type: String,
       default: ''
     },
-    entreprises: {
-      type: Array as PropType<Array<IEntreprise>>,
+    options: {
+      type: Array as PropType<Array<IOption>>,
       required: true,
       default: () => []
     },
     optionsDisabled: {
-      type: Array as PropType<Array<IEntreprise>>,
+      type: Array as PropType<Array<IOption>>,
       required: true,
       default: () => []
     }
   },
 
-  emits: ['update:amodiataireId'],
+  emits: ['update:modelElementId'],
 
   computed: {
     selected() {
-      return this.amodiataireId && this.amodiataireId !== ''
-        ? [this.amodiataireId]
+      return this.modelElementId && this.modelElementId !== ''
+        ? [this.modelElementId]
         : undefined
     },
-    options(): IItem[] {
-      return this.entreprises.map(e => ({
+    formattedOptions(): IItem[] {
+      return this.options.map(e => ({
         id: e.id,
         label: e.nom + ' (' + e.id + ')'
       }))
-    }
-  },
-
-  methods: {
-    updateHandler(e: any) {
-      this.$emit('update:amodiataireId', e)
     }
   }
 })
