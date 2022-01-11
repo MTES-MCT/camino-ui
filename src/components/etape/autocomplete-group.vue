@@ -88,8 +88,14 @@ export default defineComponent({
     elementSelected: null
   }),
 
+  computed: {
+    modelElementsLength() {
+      return this.modelElements.filter(({ id }) => id).length || 0
+    }
+  },
+
   methods: {
-    elementAdd(elementId) {
+    elementAdd(elementId: string) {
       if (elementId) {
         this.modelElements.push({ id: elementId })
         this.elementSelected = null
