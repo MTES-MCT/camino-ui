@@ -59,7 +59,7 @@
         v-if="boutonVisualisation && document.fichier"
         class="btn-border flex-right py-s px-m my--xs"
         :class="{ 'rnd-l-xs': !boutonSuppression && !boutonModification }"
-        @click="previewPdf"
+        @click="previewPopupOpen"
       >
         <i class="icon-24 icon-view" />
       </button>
@@ -126,6 +126,7 @@ import Tag from '../_ui/tag.vue'
 import DocumentEditPopup from '../document/edit-popup.vue'
 import DocumentRemovePopup from '../document/remove-popup.vue'
 import HelpTooltip from '../_ui/help-tooltip.vue'
+import DocumentPreviewPopup from '../document/preview-popup.vue'
 
 export default {
   components: {
@@ -173,22 +174,13 @@ export default {
       await this.$store.dispatch('downloadDocument', this.document)
     },
 
-    async previewPdf() {
-      try {
-        // On obtient un blob d'octet-stream qu'on convertit en blob de pdf
-        const octetBlob = await this.$store.dispatch(
-          'visualizeDocument',
-          this.document
-        )
-        const pdfBlob = new Blob([octetBlob], { type: 'application/pdf' })
-        const blobUrl = URL.createObjectURL(pdfBlob)
-        window.open(blobUrl)
-      } catch (e) {
-        this.$store.commit('popupMessageAdd', {
-          value: "Erreur : le fichier n'a pas pu être téléchargé pour être lu.",
-          type: 'error'
-        })
-      }
+    previewPopupOpen() {
+      this.$store.commit('popupOpen', {
+        component: DocumentPreviewPopup,
+        props: {
+          document: this.document
+        }
+      })
     },
 
     editPopupOpen() {

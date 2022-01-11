@@ -3,9 +3,7 @@ import { createStore } from 'vuex'
 import { saveAs } from 'file-saver'
 
 import router from '../router'
-import { apiRestFetch } from '../api/_client'
 import { urlQueryUpdate } from '../utils/url'
-import { streamToBlob } from '../utils/stream'
 
 import titre from './titre'
 import titreDemarche from './titre-demarche'
@@ -55,28 +53,6 @@ const modules = {
   statistiques,
   definitions,
   journaux
-}
-
-const fetchFile = async (filePath, commit) => {
-  const res = await apiRestFetch(filePath)
-
-  // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
-  const contentDisposition = res.headers.get('Content-disposition')
-  const name = contentDisposition
-    ? decodeURIComponent(
-        contentDisposition
-          .split(';')
-          .find(n => n.includes('filename='))
-          .replace('filename=', '')
-          .trim()
-      )
-    : ''
-
-  if (!name) throw new Error('nom de fichier manquant')
-
-  const body = await streamToBlob(res, 'fileLoading', commit)
-
-  return { body, name }
 }
 
 const state = {
@@ -160,21 +136,6 @@ const actions = {
     }
   },
 
-  async visualizeDocument({ dispatch, commit }, document) {
-    const filePath = `fichiers/${document.id}`
-
-    try {
-      commit('loadingAdd', 'fileLoading')
-      const { body } = await fetchFile(filePath, commit)
-      return body
-    } catch (e) {
-      dispatch('apiError', `téléchargement : ${filePath}, ${e}`)
-    } finally {
-      commit('loadingRemove', 'fileLoading')
-      commit('fileLoad', { loaded: 0, total: 0 })
-    }
-  },
-
   async downloadDocument({ dispatch }, document) {
     if (document.fichierNouveau) {
       saveAs(document.fichierNouveau)
@@ -183,41 +144,20 @@ const actions = {
         value: `fichier téléchargé : ${document.fichierNouveau.name}`
       })
     } else {
-      await dispatch('download', `fichiers/${document.id}`)
+      await dispatch('download', `/fichiers/${document.id}`)
     }
   },
 
-  async download({ dispatch, commit }, filePath) {
+  async download({ dispatch, commit }, path) {
     try {
-      commit('loadingAdd', 'fileLoading')
-      const res = await apiRestFetch(filePath)
-
-      // https://gist.github.com/nerdyman/5de9cbe640eb1fbe052df43bcec91fad
-      const contentDisposition = res.headers.get('Content-disposition')
-
-      const name = contentDisposition
-        ? decodeURIComponent(
-            contentDisposition
-              .split(';')
-              .find(n => n.includes('filename='))
-              .replace('filename=', '')
-              .trim()
-          )
-        : ''
-
-      if (!name) throw new Error('nom de fichier manquant')
-
-      const body = await streamToBlob(res, commit)
-      saveAs(body, name)
+      saveAs(`/apiUrl${path}`)
 
       dispatch('messageAdd', {
         type: 'success',
-        value: `fichier téléchargé : ${name}`
+        value: `fichier téléchargé`
       })
-
-      return name
     } catch (e) {
-      dispatch('apiError', `téléchargement : ${filePath}, ${e}`)
+      dispatch('apiError', `téléchargement : ${path}, ${e}`)
     } finally {
       commit('loadingRemove', 'fileLoading')
       commit('fileLoad', { loaded: 0, total: 0 })
