@@ -100,7 +100,8 @@ select.bg-bg:disabled {
 .choices[data-type*=text] .choices__button {
   border-left: 1px solid white;
 }
-.choices__list--multiple .choices__item {
+.choices__list--multiple .choices__item,
+.choices__list--multiple .choices__item.is-highlighted {
   background-color: var(--color-inverse);
   border: 1px solid var(--color-inverse);
 }
