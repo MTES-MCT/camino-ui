@@ -4,6 +4,7 @@
     <hr class="mb-s" />
 
     <InputAutocomplete
+      v-if="options?.length"
       :selected="values"
       :options="options"
       value-prop="text"

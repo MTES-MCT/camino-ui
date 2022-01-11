@@ -209,7 +209,6 @@
           :is-array="true"
         >
           <template #write>
-            {{etape.amodiataires}}
             <div
               v-for="(amodiataire, n) in etape.amodiataires || []"
               :key="`amodiataire-${n}`"

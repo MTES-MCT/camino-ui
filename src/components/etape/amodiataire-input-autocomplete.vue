@@ -1,11 +1,11 @@
 <template>
   <InputAutocomplete
     v-if="options?.length"
-    :selected="amodiataireId?.split()"
+    :selected="selected"
     :options="options"
     value-prop="id"
     label-prop="label"
-    :max-items="-1"
+    :max-items="1"
     :options-disabled="optionsDisabled"
     @update:selected="updateHandler"
   />
@@ -48,13 +48,10 @@ export default defineComponent({
 
   emits: ['update:amodiataireId'],
 
-  data() {
-    return {
-      amodiataires: [] as IEntreprise[]
-    }
-  },
-
   computed: {
+    selected() {
+      return this.amodiataireId ? [this.amodiataireId] : []
+    },
     options(): IItem[] {
       return this.entreprises.map(e => ({
         id: e.id,
@@ -64,17 +61,8 @@ export default defineComponent({
   },
 
   methods: {
-    updateHandler(e) {
-      this.$emit('update:amodiataireId', e.length ? e[0] : null)
-      // if (e.length) {
-      //   console.log(e[0])
-      //   this.$emit('update:amodiataireId', e[0])
-      // }
-      // const amodiataireId = e.length ? e[0] : ''
-      // if (amodiataireId !== this.amodiataireId) {
-      //   console.log('>>>>>>>>>', amodiataireId)
-      //   this.$emit('update:amodiataireId', amodiataireId)
-      // }
+    updateHandler(e: any) {
+      this.$emit('update:amodiataireId', e)
     }
   }
 })
