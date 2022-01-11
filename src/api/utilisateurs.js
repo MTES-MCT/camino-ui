@@ -158,8 +158,11 @@ const utilisateurModifier = apiGraphQLFetch(gql`
 `)
 
 const utilisateurCreer = apiGraphQLFetch(gql`
-  mutation UtilisateurCreer($utilisateur: InputUtilisateurCreation!) {
-    utilisateurCreer(utilisateur: $utilisateur) {
+  mutation UtilisateurCreer(
+    $utilisateur: InputUtilisateurCreation!
+    $token: String
+  ) {
+    utilisateurCreer(utilisateur: $utilisateur, token: $token) {
       ...utilisateur
     }
   }

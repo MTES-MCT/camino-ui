@@ -181,11 +181,11 @@ const actions = {
     }
   },
 
-  async add({ commit, dispatch }, utilisateur) {
+  async add({ commit, dispatch }, { utilisateur, token }) {
     try {
       commit('loadingAdd', 'userAdd', { root: true })
 
-      const data = await utilisateurCreer({ utilisateur })
+      const data = await utilisateurCreer({ utilisateur, token })
 
       if (data) {
         dispatch(
