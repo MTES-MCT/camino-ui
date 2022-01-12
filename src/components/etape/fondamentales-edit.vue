@@ -291,7 +291,6 @@ import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
 import HeritageEdit from './heritage-edit.vue'
 import PropDuree from './prop-duree.vue'
-// import AmodiataireInputAutocomplete from './amodiataire-input-autocomplete.vue'
 import AutocompleteGroup from './autocomplete-group.vue'
 
 import { etablissementNameFind } from '@/utils/entreprise'
@@ -316,10 +315,6 @@ export default {
     substances: { type: Array, required: true }
   },
   emits: ['complete-update'],
-
-  data: () => ({
-    amodiataireSelected: null
-  }),
 
   computed: {
     entreprisesDisabled() {
@@ -465,13 +460,6 @@ export default {
 
     completeUpdate() {
       this.$emit('complete-update', this.complete)
-    },
-
-    amodiataireAdd(amodiataireId) {
-      if (amodiataireId) {
-        this.etape.amodiataires.push({ id: amodiataireId })
-        this.amodiataireSelected = null
-      }
     }
   }
 }
