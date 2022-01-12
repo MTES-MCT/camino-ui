@@ -129,9 +129,21 @@
             :options="entreprises"
             :options-disabled="entreprisesDisabled"
             :incertitudes="etape.incertitudes.titulaires"
-            :operateur="true"
             placeholder="Sélectionner un titulaire"
-          />
+          >
+            <template #default="{ modelElement }">
+              <div v-if="modelElement && modelElement.id" class="h6 mb">
+                <label>
+                  <input
+                    v-model="modelElement.operateur"
+                    type="checkbox"
+                    class="mr-xs"
+                  />
+                  Opérateur
+                </label>
+              </div>
+            </template>
+          </AutocompleteGroup>
         </template>
         <template #read>
           <ul class="list-prefix">
@@ -170,9 +182,21 @@
               :options="entreprises"
               :options-disabled="entreprisesDisabled"
               :incertitudes="etape.incertitudes.amodiataires"
-              :operateur="true"
               placeholder="Sélectionner un amodiataire"
-            />
+            >
+              <template #default="{ modelElement }">
+                <div v-if="modelElement && modelElement.id" class="h6 mb">
+                  <label>
+                    <input
+                      v-model="modelElement.operateur"
+                      type="checkbox"
+                      class="mr-xs"
+                    />
+                    Opérateur
+                  </label>
+                </div>
+              </template>
+            </AutocompleteGroup>
           </template>
           <template #read>
             <ul class="list-prefix">

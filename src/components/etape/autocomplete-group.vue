@@ -13,12 +13,7 @@
         <i class="icon-24 icon-minus" />
       </button>
     </div>
-    <div v-if="element.id && operateur" class="h6 mb">
-      <label>
-        <input v-model="element.operateur" type="checkbox" class="mr-xs" />
-        Opérateur
-      </label>
-    </div>
+    <slot :modelElement="element" />
   </div>
 
   <EtapeInputAutocomplete
@@ -43,7 +38,6 @@ import EtapeInputAutocomplete from './etape-input-autocomplete.vue'
 
 interface IModelElement {
   id: string
-  operateur?: boolean
 }
 
 interface IOption {
@@ -73,10 +67,6 @@ export default defineComponent({
       type: Array as PropType<Array<IOption>>,
       required: true,
       default: () => []
-    },
-    operateur: {
-      type: Boolean,
-      default: false
     },
     placeholder: {
       type: String,
