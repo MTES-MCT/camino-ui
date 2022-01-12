@@ -7,10 +7,10 @@
       v-if="options?.length"
       :selected="values"
       :options="options"
-      :disable-enter="true"
       value-prop="text"
       label-prop="text"
       class="p-s"
+      @opened="$emit('opened', $event)"
       @update:selected="updateHandler"
     />
   </div>
@@ -29,6 +29,8 @@ export default defineComponent({
       default: () => ({})
     }
   },
+
+  emits: ['opened'],
 
   data() {
     return {

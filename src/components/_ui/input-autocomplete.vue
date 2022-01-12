@@ -35,13 +35,9 @@ export default {
     placeholder: {
       type: String,
       default: ''
-    },
-    disableEnter: {
-      type: Boolean,
-      default: false
     }
   },
-  emits: ['update:selected'],
+  emits: ['update:selected', 'opened'],
 
   data() {
     return {
@@ -95,10 +91,18 @@ export default {
     this.autocompleter.passedElement.element.addEventListener('change', () => {
       this.$emit('update:selected', this.autocompleter.getValue(true))
     })
-
-    if (this.disableEnter) {
-      this.autocompleter._onEnterKey = () => null
-    }
+    this.autocompleter.passedElement.element.addEventListener(
+      'showDropdown',
+      () => {
+        this.$emit('opened', true)
+      }
+    )
+    this.autocompleter.passedElement.element.addEventListener(
+      'hideDropdown',
+      () => {
+        this.$emit('opened', false)
+      }
+    )
   },
 
   unmounted: function () {
