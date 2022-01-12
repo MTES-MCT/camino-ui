@@ -104,6 +104,7 @@ select.bg-bg:disabled {
 .choices__list--multiple .choices__item.is-highlighted {
   background-color: var(--color-inverse);
   border: 1px solid var(--color-inverse);
+  font-weight: bold;
 }
 
 
