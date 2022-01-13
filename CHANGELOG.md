@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.30.0](https://github.com/MTES-MCT/camino-ui/compare/v0.29.0...v0.30.0) (2022-01-13)
+
+
+### Features
+
+* **authentification:** utilise les cookies pour gérer l’authentification ([#446](https://github.com/MTES-MCT/camino-ui/issues/446)) ([35dc059](https://github.com/MTES-MCT/camino-ui/commit/35dc059baeebc5bb0f6ae50bbb0c4ee32ae37318))
+* **carte:** ajoute la légende sur le fond de carte du Sdom ([#455](https://github.com/MTES-MCT/camino-ui/issues/455)) ([ec1ae65](https://github.com/MTES-MCT/camino-ui/commit/ec1ae6508db4a845c9b9ffeeec0f5f3ccb07532e))
+* **cookies:** supprime les cookies Matomo ([#447](https://github.com/MTES-MCT/camino-ui/issues/447)) ([fb63230](https://github.com/MTES-MCT/camino-ui/commit/fb63230d3caf96a924789f57284d1a1706b87c9a))
+* **étape:** affiche des messages lors de l’édition d’une étape ([#452](https://github.com/MTES-MCT/camino-ui/issues/452)) ([4617808](https://github.com/MTES-MCT/camino-ui/commit/46178087f0d8c2ed99954c6604c7df1f9cb22213))
+* **icons:** met à jour l'icône d'aide ([c296563](https://github.com/MTES-MCT/camino-ui/commit/c2965637804a616129119566eef6772c694bc793))
+* **icons:** met à jours les icônes de la page d'accueil selon le DSFR ([2dbf293](https://github.com/MTES-MCT/camino-ui/commit/2dbf2935aba216a0601a07c1667a6dde0a9e184a))
+* **ign:** met à jour le flux pour afficher le plan IGN ([#448](https://github.com/MTES-MCT/camino-ui/issues/448)) ([95c7de8](https://github.com/MTES-MCT/camino-ui/commit/95c7de87c69f360966d3434ae38cf5af6e29ec47))
+* **pdf:** ajoute les CSP nécessaires pour les prévisualisation des PDFs ([e3db23f](https://github.com/MTES-MCT/camino-ui/commit/e3db23f21400f74b63a462ba85bc7cc9f34a7695))
+* **téléchargement:** utilise directement l’url pour télécharger les fichiers ([#460](https://github.com/MTES-MCT/camino-ui/issues/460)) ([f7701dd](https://github.com/MTES-MCT/camino-ui/commit/f7701ddbb51c9c376dc7fa26a80dcedb6dd59f64))
+* **titres:** transforme les messages en alertes qui contiennent un message et peut-être un lien ([#454](https://github.com/MTES-MCT/camino-ui/issues/454)) ([47902ca](https://github.com/MTES-MCT/camino-ui/commit/47902ca8b43876b7f24340c549223b5a502cab23))
+
+
+### Bug Fixes
+
+* **activites:** corrige la prévisualisation des activités ([#456](https://github.com/MTES-MCT/camino-ui/issues/456)) ([c70f7ed](https://github.com/MTES-MCT/camino-ui/commit/c70f7edc14bfe094401dbe06fef29e88a52117e8))
+* **aide:** corrige l’affichage de l’aide sur le bouton enregistrer d’une étape ([#457](https://github.com/MTES-MCT/camino-ui/issues/457)) ([e132c9f](https://github.com/MTES-MCT/camino-ui/commit/e132c9f867c4f7e9e9510117d3c96cec8d4a1bf4))
+* **icone:** corrige l’icone du globe, sa taille est définie par la CSS et non par le SVG ([#458](https://github.com/MTES-MCT/camino-ui/issues/458)) ([3f37a52](https://github.com/MTES-MCT/camino-ui/commit/3f37a52d291fe22a2174f5acf22c0078d0a13004))
+* **téléversement:** corrige le téléversement suite à la mise en place des cookies ([#449](https://github.com/MTES-MCT/camino-ui/issues/449)) ([add4a0b](https://github.com/MTES-MCT/camino-ui/commit/add4a0bf3e49fc0bb9af54524baa6f262cb0b782))
+* **utilisateur:** corrige la création d’utilisateur en passant correctement le jeton ([#459](https://github.com/MTES-MCT/camino-ui/issues/459)) ([f7cb1c3](https://github.com/MTES-MCT/camino-ui/commit/f7cb1c3266943bc07cef577cf9f72a8ee6bdde4a))
+
 ## [0.29.0](https://github.com/MTES-MCT/camino-ui/compare/v0.28.0...v0.29.0) (2021-12-15)
 
 
