@@ -21,7 +21,7 @@
             <li>
               <router-link
                 v-if="$route.name !== 'demarches'"
-                id="cmn-menu-menu-a-activites"
+                id="cmn-menu-menu-a-demarches"
                 :to="{ name: 'demarches' }"
                 class="btn-menu text-decoration-none bold"
                 @click="eventTrack('demarches')"
@@ -29,6 +29,18 @@
                 Démarches
               </router-link>
               <div v-else class="bold color-neutral">Démarches</div>
+            </li>
+            <li>
+              <router-link
+                v-if="$route.name !== 'travaux'"
+                id="cmn-menu-menu-a-travaux"
+                :to="{ name: 'travaux' }"
+                class="btn-menu text-decoration-none bold"
+                @click="eventTrack('travaux')"
+              >
+                Travaux
+              </router-link>
+              <div v-else class="bold color-neutral">Travaux</div>
             </li>
           </ul>
         </div>
