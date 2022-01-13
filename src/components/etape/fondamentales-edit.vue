@@ -125,17 +125,16 @@
       >
         <template #write>
           <AutocompleteGroup
-            :model-elements="etape.titulaires"
+            :entities="etape.titulaires"
             :options="entreprises"
             :options-disabled="entreprisesDisabled"
-            :incertitudes="etape.incertitudes.titulaires"
             placeholder="Sélectionner un titulaire"
           >
-            <template #default="{ modelElement }">
-              <div v-if="modelElement && modelElement.id" class="h6 mb">
+            <template #default="{ entity }">
+              <div v-if="entity && entity.id" class="h6 mb">
                 <label>
                   <input
-                    v-model="modelElement.operateur"
+                    v-model="entity.operateur"
                     type="checkbox"
                     class="mr-xs"
                   />
@@ -144,6 +143,16 @@
               </div>
             </template>
           </AutocompleteGroup>
+          <div v-if="titulairesLength" class="h6">
+            <label>
+              <input
+                v-model="etape.incertitudes.titulaires"
+                type="checkbox"
+                class="mr-xs"
+              />
+              Incertain
+            </label>
+          </div>
         </template>
         <template #read>
           <ul class="list-prefix">
@@ -178,17 +187,16 @@
         >
           <template #write>
             <AutocompleteGroup
-              :model-elements="etape.amodiataires || []"
+              :entities="etape.amodiataires || []"
               :options="entreprises"
               :options-disabled="entreprisesDisabled"
-              :incertitudes="etape.incertitudes.amodiataires"
               placeholder="Sélectionner un amodiataire"
             >
-              <template #default="{ modelElement }">
-                <div v-if="modelElement && modelElement.id" class="h6 mb">
+              <template #default="{ entity }">
+                <div v-if="entity && entity.id" class="h6 mb">
                   <label>
                     <input
-                      v-model="modelElement.operateur"
+                      v-model="entity.operateur"
                       type="checkbox"
                       class="mr-xs"
                     />
@@ -197,6 +205,16 @@
                 </div>
               </template>
             </AutocompleteGroup>
+            <div v-if="amodiatairesLength" class="h6">
+              <label>
+                <input
+                  v-model="etape.incertitudes.amodiataires"
+                  type="checkbox"
+                  class="mr-xs"
+                />
+                Incertain
+              </label>
+            </div>
           </template>
           <template #read>
             <ul class="list-prefix">

@@ -8,7 +8,7 @@
     :max-items="1"
     :options-disabled="optionsDisabled"
     :placeholder="placeholder"
-    @update:selected="$emit('update:modelElementId', $event)"
+    @update:selected="$emit('update:entityId', $event)"
   />
 </template>
 
@@ -30,7 +30,7 @@ export default defineComponent({
   components: { InputAutocomplete },
 
   props: {
-    modelElementId: {
+    entityId: {
       type: String,
       default: ''
     },
@@ -50,13 +50,11 @@ export default defineComponent({
     }
   },
 
-  emits: ['update:modelElementId'],
+  emits: ['update:entityId'],
 
   computed: {
     selected() {
-      return this.modelElementId && this.modelElementId !== ''
-        ? [this.modelElementId]
-        : undefined
+      return this.entityId && this.entityId !== '' ? [this.entityId] : undefined
     },
     formattedOptions(): IItem[] {
       return this.options.map(e => ({

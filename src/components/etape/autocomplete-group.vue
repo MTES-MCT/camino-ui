@@ -1,40 +1,33 @@
 <template>
-  <div v-for="(element, n) in modelElements || []" :key="`element-${n}`">
+  <div v-for="(entity, n) in entities || []" :key="`entity-${n}`">
     <div class="flex mb-s">
       <div class="mr-s flex-grow">
-        <EtapeInputAutocomplete
-          v-model:model-element-id="element.id"
+        <EntityInputAutocomplete
+          v-model:entity-id="entity.id"
           :options="options"
           :options-disabled="optionsDisabled"
           :placeholder="placeholder"
         />
       </div>
-      <button class="btn py-s px-m rnd-xs" @click="elementRemove(n)">
+      <button class="btn py-s px-m rnd-xs" @click="entityRemove(n)">
         <i class="icon-24 icon-minus" />
       </button>
     </div>
-    <slot :modelElement="element" />
+    <slot :entity="entity" />
   </div>
 
-  <EtapeInputAutocomplete
-    :model-element-id="elementSelected"
+  <EntityInputAutocomplete
+    :entity-id="entitySelected"
     :options="options"
     :options-disabled="optionsDisabled"
     :placeholder="placeholder"
-    @update:model-element-id="elementAdd"
+    @update:entity-id="entityAdd"
   />
-
-  <div v-if="modelElementsLength" class="h6">
-    <label>
-      <input v-model="incertitudes" type="checkbox" class="mr-xs" />
-      Incertain
-    </label>
-  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import EtapeInputAutocomplete from './etape-input-autocomplete.vue'
+import EntityInputAutocomplete from './entity-input-autocomplete.vue'
 
 interface IModelElement {
   id: string
@@ -46,17 +39,13 @@ interface IOption {
 }
 
 export default defineComponent({
-  components: { EtapeInputAutocomplete },
+  components: { EntityInputAutocomplete },
 
   props: {
-    modelElements: {
+    entities: {
       type: Array as PropType<Array<IModelElement>>,
       required: true,
       default: () => []
-    },
-    incertitudes: {
-      type: Boolean,
-      default: false
     },
     options: {
       type: Array as PropType<Array<IOption>>,
@@ -75,20 +64,14 @@ export default defineComponent({
   },
 
   data: () => ({
-    elementSelected: null
+    entitySelected: null
   }),
 
-  computed: {
-    modelElementsLength() {
-      return this.modelElements.filter(({ id }) => id).length || 0
-    }
-  },
-
   methods: {
-    elementAdd(elementId: string) {
-      if (elementId) {
-        this.modelElements.push({ id: elementId })
-        this.elementSelected = null
+    entityAdd(entityId: string) {
+      if (entityId) {
+        this.entities.push({ id: entityId })
+        this.entitySelected = null
       }
     }
   }
