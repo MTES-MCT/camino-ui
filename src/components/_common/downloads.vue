@@ -11,6 +11,7 @@
         class="btn-alt small px-s py-s full-x border-b-s"
         :section="section"
         :query="$route.query"
+        :params="params"
         @clicked="toggle"
       />
     </div>
@@ -30,7 +31,9 @@ export default {
   props: {
     formats: { type: Array, required: true },
 
-    section: { type: String, required: true }
+    section: { type: String, required: true },
+
+    params: { type: Object, default: () => ({}) }
   },
 
   data() {

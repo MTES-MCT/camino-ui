@@ -16,7 +16,7 @@ export default {
 
     query: { type: Object, default: () => ({}) },
 
-    params: { type: String, default: '' }
+    params: { type: Object, default: () => ({}) }
   },
 
   emits: ['clicked'],
@@ -26,12 +26,11 @@ export default {
       this.$emit('clicked')
       const query = new URLSearchParams({
         format: this.format,
-        ...this.query
+        ...this.query,
+        ...this.params
       }).toString()
 
-      const url = this.params
-        ? `/${this.section}/${this.params}?${query}`
-        : `/${this.section}?${query}`
+      const url = `/${this.section}?${query}`
 
       await this.$store.dispatch('download', url)
 

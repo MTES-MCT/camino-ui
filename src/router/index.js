@@ -4,6 +4,7 @@ import store from '../store'
 const Titre = () => import('../components/titre.vue')
 const Titres = () => import('../components/titres.vue')
 const Demarches = () => import('../components/demarches.vue')
+const Travaux = () => import('../components/travaux.vue')
 const Utilisateur = () => import('../components/utilisateur.vue')
 const Utilisateurs = () => import('../components/utilisateurs.vue')
 const Entreprise = () => import('../components/entreprise.vue')
@@ -62,6 +63,11 @@ const routes = [
     path: '/demarches',
     name: 'demarches',
     component: Demarches
+  },
+  {
+    path: '/travaux',
+    name: 'travaux',
+    component: Travaux
   },
   {
     path: '/etapes/:id',
