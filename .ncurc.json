@@ -3,6 +3,7 @@
   "reject": [
     "eslint",
     "eslint-plugin-vue",
+    "eslint-plugin-promise",
     "typescript",
     "postcss-button",
     "postcss-grid-fluid" ,
