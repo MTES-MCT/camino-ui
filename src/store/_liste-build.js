@@ -2,12 +2,12 @@ import { urlQueryParamsGet } from '../utils/url'
 import { paramsBuild } from '../utils'
 
 const listeActionsBuild = (id, name, elements, metas) => ({
-  async init({ state, commit, dispatch }) {
+  async init({ state, commit, dispatch }, params = {}) {
     try {
       commit('loadingAdd', `${id}Init`, { root: true })
 
       if (metas) {
-        const data = await metas()
+        const data = await metas(params)
 
         commit('metasSet', data)
       }
@@ -18,7 +18,7 @@ const listeActionsBuild = (id, name, elements, metas) => ({
         commit('init')
       }
 
-      await dispatch('get')
+      await dispatch('get', params)
     } catch (e) {
       dispatch('apiError', e, { root: true })
     } finally {
@@ -26,7 +26,7 @@ const listeActionsBuild = (id, name, elements, metas) => ({
     }
   },
 
-  async get({ state, dispatch, commit }) {
+  async get({ state, dispatch, commit }, params) {
     try {
       commit('loadingAdd', `${id}Get`, { root: true })
 
@@ -39,7 +39,7 @@ const listeActionsBuild = (id, name, elements, metas) => ({
         Object.assign({}, state.params.filtres, state.params.table)
       )
 
-      const data = await elements(p)
+      const data = await elements({ ...p, ...params })
 
       if (!data.elements.length && data.total) {
         commit('paramsSet', { section: 'table', params: { page: 1 } })

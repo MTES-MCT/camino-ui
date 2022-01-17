@@ -79,6 +79,39 @@ const actions = listeActionsBuild(
 )
 
 const mutations = Object.assign({}, listeMutations, {
+  reset(state) {
+    listeMutations.reset(state)
+    state.metas = {
+      types: [],
+      statuts: [],
+      etapesTypes: [],
+      titresTypes: [],
+      titresDomaines: [],
+      titresStatuts: []
+    }
+    state.params = {
+      table: {
+        page: 1,
+        intervalle: 200,
+        ordre: 'asc',
+        colonne: null
+      },
+      filtres: {
+        typesIds: [],
+        statutsIds: [],
+        etapesInclues: [],
+        etapesExclues: [],
+        titresDomainesIds: [],
+        titresTypesIds: [],
+        titresStatutsIds: [],
+        titresNoms: '',
+        titresEntreprises: '',
+        titresSubstances: '',
+        titresReferences: '',
+        titresTerritoires: ''
+      }
+    }
+  },
   metasSet(state, data) {
     Object.keys(data).forEach(id => {
       let metaId
