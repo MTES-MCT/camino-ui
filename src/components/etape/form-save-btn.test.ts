@@ -8,14 +8,14 @@ describe('FormSaveBtn', () => {
     expect(wrapper.findAll('button')).toHaveLength(1)
   })
 
-  test('rend un HelpTooltip uniquement si la prop "armHelpVisible" est définie à true', () => {
+  test('rend un HelpTooltip uniquement si la prop "helpVisible" est définie à true', () => {
     let wrapper = shallowMount(FormSaveBtn, {
-      props: { armHelpVisible: false }
+      props: { helpVisible: false }
     })
     expect(wrapper.findAllComponents(HelpTooltip)).toHaveLength(0)
 
     wrapper = shallowMount(FormSaveBtn, {
-      props: { armHelpVisible: true }
+      props: { helpVisible: true }
     })
     expect(wrapper.findAllComponents(HelpTooltip)).toHaveLength(1)
   })
