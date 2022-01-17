@@ -219,6 +219,7 @@ const fragmentEtapeHeritage = gql`
     surface
     type {
       id
+      nom
       sections
       documentsTypes {
         ...documentType
