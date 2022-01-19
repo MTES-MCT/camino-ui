@@ -115,6 +115,15 @@
         </a>
       </p>
     </div>
+
+    <div
+      data-tf-popover="ttGCZsC6"
+      data-tf-button-color="#000091"
+      data-tf-button-text="Lancer le questionnaire"
+      data-tf-iframe-props="title=CAMINO - QUESTIONNAIRE DE SATISFACTION"
+      data-tf-medium="snippet"
+      style="all: unset"
+    />
   </div>
 </template>
 
