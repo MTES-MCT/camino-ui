@@ -37,6 +37,7 @@
     "graphql-react": "faut configurer Jest pour qu’il puisse interpréter les .mjs"
   },
   "dependencies": {
+    "choices.js": "^9.1.0",
     "compression": "^1.7.4",
     "connect-history-api-fallback": "^1.6.0",
     "dotenv": "^14.1.0",

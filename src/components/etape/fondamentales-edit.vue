@@ -124,48 +124,25 @@
         :is-array="true"
       >
         <template #write>
-          <div
-            v-for="(titulaire, n) in etape.titulaires"
-            :key="`titluaire-${titulaire.id}`"
+          <AutocompleteGroup
+            :entities="etape.titulaires"
+            :options="entreprises"
+            :options-disabled="entreprisesDisabled"
+            placeholder="Sélectionner un titulaire"
           >
-            <div class="flex mb-s">
-              <select v-model="titulaire.id" class="p-s mr-s">
-                <option
-                  v-for="entreprise in entreprises"
-                  :key="`titulaire-${titulaire.id}-entreprise-${entreprise.id}`"
-                  :value="entreprise.id"
-                  :disabled="
-                    etape.titulaires.find(t => t.id === entreprise.id) ||
-                    etape.amodiataires?.find(a => a.id === entreprise.id)
-                  "
-                >
-                  {{ `${entreprise.nom} (${entreprise.id})` }}
-                </option>
-              </select>
-              <button class="btn py-s px-m rnd-xs" @click="titulaireRemove(n)">
-                <i class="icon-24 icon-minus" />
-              </button>
-            </div>
-            <div class="h6 mb">
-              <label v-if="titulaire.id">
-                <input
-                  v-model="titulaire.operateur"
-                  type="checkbox"
-                  class="mr-xs"
-                />
-                Opérateur
-              </label>
-            </div>
-          </div>
-
-          <button
-            v-if="!etape.titulaires.some(({ id }) => id === '')"
-            class="btn small rnd-xs py-s px-m full-x flex mb-s"
-            @click="titulaireAdd"
-          >
-            <span class="mt-xxs">Ajouter un titulaire</span
-            ><i class="icon-24 icon-plus flex-right" />
-          </button>
+            <template #default="{ entity }">
+              <div v-if="entity && entity.id" class="h6 mb">
+                <label>
+                  <input
+                    v-model="entity.operateur"
+                    type="checkbox"
+                    class="mr-xs"
+                  />
+                  Opérateur
+                </label>
+              </div>
+            </template>
+          </AutocompleteGroup>
           <div v-if="titulairesLength" class="h6">
             <label>
               <input
@@ -209,53 +186,25 @@
           :is-array="true"
         >
           <template #write>
-            <div
-              v-for="(amodiataire, n) in etape.amodiataires || []"
-              :key="`amodiataire-${amodiataire.id}`"
+            <AutocompleteGroup
+              :entities="etape.amodiataires || []"
+              :options="entreprises"
+              :options-disabled="entreprisesDisabled"
+              placeholder="Sélectionner un amodiataire"
             >
-              <div class="flex mb-s">
-                <select v-model="amodiataire.id" class="p-s mr-s">
-                  <option
-                    v-for="entreprise in entreprises"
-                    :key="`amodiataire-${amodiataire.id}-entreprise-${entreprise.id}`"
-                    :value="entreprise.id"
-                    :disabled="
-                      etape.amodiataires.find(a => a.id === entreprise.id) ||
-                      etape.titulaires.find(t => t.id === entreprise.id)
-                    "
-                  >
-                    {{ entreprise.nom }} ({{ entreprise.id }})
-                  </option>
-                </select>
-                <button
-                  class="btn py-s px-m rnd-xs"
-                  @click="amodiataireRemove(n)"
-                >
-                  <i class="icon-24 icon-minus" />
-                </button>
-              </div>
-              <div v-if="amodiataire.id" class="h6 mb">
-                <label>
-                  <input
-                    v-model="amodiataire.operateur"
-                    type="checkbox"
-                    class="mr-xs"
-                  />
-                  Opérateur
-                </label>
-              </div>
-            </div>
-
-            <button
-              v-if="!etape.amodiataires?.some(({ id }) => id === '')"
-              id="amodiataire-ajouter"
-              class="btn small rnd-xs py-s px-m full-x flex mb-s"
-              @click="amodiataireAdd"
-            >
-              <span class="mt-xxs">Ajouter un amodiataire</span
-              ><i class="icon-24 icon-plus flex-right" />
-            </button>
-
+              <template #default="{ entity }">
+                <div v-if="entity && entity.id" class="h6 mb">
+                  <label>
+                    <input
+                      v-model="entity.operateur"
+                      type="checkbox"
+                      class="mr-xs"
+                    />
+                    Opérateur
+                  </label>
+                </div>
+              </template>
+            </AutocompleteGroup>
             <div v-if="amodiatairesLength" class="h6">
               <label>
                 <input
@@ -384,11 +333,20 @@ import InputDate from '../_ui/input-date.vue'
 import InputNumber from '../_ui/input-number.vue'
 import HeritageEdit from './heritage-edit.vue'
 import PropDuree from './prop-duree.vue'
+import AutocompleteGroup from './autocomplete-group.vue'
 
 import { etablissementNameFind } from '@/utils/entreprise'
 
 export default {
-  components: { InputDate, InputNumber, HeritageEdit, Tag, TagList, PropDuree },
+  components: {
+    InputDate,
+    InputNumber,
+    HeritageEdit,
+    Tag,
+    TagList,
+    PropDuree,
+    AutocompleteGroup
+  },
 
   props: {
     etape: { type: Object, default: () => ({}) },
@@ -401,6 +359,15 @@ export default {
   emits: ['complete-update'],
 
   computed: {
+    entreprisesDisabled() {
+      return this.entreprises.filter(entr => {
+        return (
+          this.etape.amodiataires.find(a => a.id === entr.id) ||
+          this.etape.titulaires.find(t => t.id === entr.id)
+        )
+      })
+    },
+
     isArm() {
       return this.domaineId === 'm' && this.titreTypeId === 'ar'
     },
@@ -499,9 +466,6 @@ export default {
 
     titulaireRemove(index) {
       this.etape.titulaires.splice(index, 1)
-    },
-    amodiataireAdd() {
-      this.etape.amodiataires?.push({ id: '' })
     },
 
     amodiataireRemove(index) {
