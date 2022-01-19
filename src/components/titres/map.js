@@ -82,10 +82,11 @@ const iconUrlFind = domaineId => {
 
 const layersBuild = (titres, router) =>
   titres.reduce(
-    ({ geojsons, markers }, titre) => {
+    ({ geojsons, markers }, titre, index) => {
       if (!titre.geojsonMultiPolygon && !titre.geojsonCentre)
         return { geojsons, markers }
 
+      const titreId = titre.id || index
       const domaineId = titre.domaine.id
       const icon = leafletIconBuild({
         iconUrl: iconUrlFind(domaineId),
@@ -136,7 +137,7 @@ const layersBuild = (titres, router) =>
         }
       }
 
-      marker.id = titre.id
+      marker.id = titreId
       marker.domaineId = domaineId
       marker.bindPopup(popupHtml, popupOptions)
       marker.on(methods)
@@ -159,7 +160,7 @@ const layersBuild = (titres, router) =>
         markers.push(marker)
       }
 
-      geojsons[titre.id] = geojson
+      geojsons[titreId] = geojson
 
       return { geojsons, markers }
     },
