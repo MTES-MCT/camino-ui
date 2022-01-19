@@ -2,6 +2,19 @@ import { shallowMount, mount } from '@vue/test-utils'
 import FondamentalesEdit from './fondamentales-edit.vue'
 
 describe('FondamentalesEdit', () => {
+  const $store = {
+    state: {
+      titreEtapeEdition: {
+        metas: {
+          entreprises: [
+            { id: 'foo', nom: 'bar' },
+            { id: 'baz', nom: 'quux' }
+          ]
+        }
+      }
+    }
+  }
+
   const etape = {
     id: 'aZHafFDDBksskCO0ZFuaMlPA',
     type: {
@@ -15,12 +28,14 @@ describe('FondamentalesEdit', () => {
       dateDebut: false,
       dateFin: false,
       amodiataires: false,
+      titulaires: false,
       substances: false,
       points: false,
       surface: false
     },
     substances: [],
     titulaires: [],
+    amodiataires: [],
     heritageProps: {
       dateDebut: {
         etape: null,
@@ -70,6 +85,11 @@ describe('FondamentalesEdit', () => {
     ({ titreTypeId, domaineId, userIsSuper, expected }) => {
       // ARM + utilisateur non-super
       const wrapper = shallowMount(FondamentalesEdit, {
+        global: {
+          stubs: {
+            AutocompleteGroup: true
+          }
+        },
         props: {
           etape,
           titreTypeId,
@@ -85,6 +105,14 @@ describe('FondamentalesEdit', () => {
 
   test('affiche les éléments de dates dans le formulaire seulement si #canSeeAllDates est true', () => {
     let wrapper = mount(FondamentalesEdit, {
+      global: {
+        stubs: {
+          AutocompleteGroup: true
+        },
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ar',
@@ -99,6 +127,14 @@ describe('FondamentalesEdit', () => {
     expect(wrapper.html().includes("Date d'échéance")).toBe(false)
 
     wrapper = mount(FondamentalesEdit, {
+      global: {
+        stubs: {
+          AutocompleteGroup: true
+        },
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ar',
@@ -113,6 +149,14 @@ describe('FondamentalesEdit', () => {
     expect(wrapper.html().includes("Date d'échéance")).toBe(true)
 
     wrapper = mount(FondamentalesEdit, {
+      global: {
+        stubs: {
+          AutocompleteGroup: true
+        },
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ax',
@@ -127,6 +171,14 @@ describe('FondamentalesEdit', () => {
     expect(wrapper.html().includes("Date d'échéance")).toBe(false)
 
     wrapper = mount(FondamentalesEdit, {
+      global: {
+        stubs: {
+          AutocompleteGroup: true
+        },
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ax',
@@ -141,6 +193,14 @@ describe('FondamentalesEdit', () => {
     expect(wrapper.html().includes("Date d'échéance")).toBe(true)
 
     wrapper = mount(FondamentalesEdit, {
+      global: {
+        stubs: {
+          AutocompleteGroup: true
+        },
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ni axm',
@@ -155,6 +215,14 @@ describe('FondamentalesEdit', () => {
     expect(wrapper.html().includes("Date d'échéance")).toBe(true)
 
     wrapper = mount(FondamentalesEdit, {
+      global: {
+        stubs: {
+          AutocompleteGroup: true
+        },
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ni axm',
@@ -171,6 +239,14 @@ describe('FondamentalesEdit', () => {
 
   test("#canAddAmodiataires retourne true si ce n'est ni un arm ni un axm, false sinon", () => {
     let wrapper = mount(FondamentalesEdit, {
+      global: {
+        stubs: {
+          AutocompleteGroup: true
+        },
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ar',
@@ -183,6 +259,14 @@ describe('FondamentalesEdit', () => {
     expect(wrapper.vm.canAddAmodiataires).toBe(false)
 
     wrapper = mount(FondamentalesEdit, {
+      global: {
+        stubs: {
+          AutocompleteGroup: true
+        },
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ax',
@@ -195,6 +279,14 @@ describe('FondamentalesEdit', () => {
     expect(wrapper.vm.canAddAmodiataires).toBe(false)
 
     wrapper = mount(FondamentalesEdit, {
+      global: {
+        stubs: {
+          AutocompleteGroup: true
+        },
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ni arm',
@@ -209,6 +301,11 @@ describe('FondamentalesEdit', () => {
 
   test('affiche les éléments liés aux amodiataires dans le formulaire seulement si #canAddAmodiataires est true', () => {
     let wrapper = mount(FondamentalesEdit, {
+      global: {
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ni arm',
@@ -218,11 +315,17 @@ describe('FondamentalesEdit', () => {
         substances: []
       }
     })
-    const addButton = wrapper.find('button#amodiataire-ajouter')
-    expect(addButton.exists()).toBe(true)
-    expect(addButton.text()).toBe('Ajouter un amodiataire')
+    expect(wrapper.find('.choices').exists()).toBe(true)
 
     wrapper = mount(FondamentalesEdit, {
+      global: {
+        stubs: {
+          AutocompleteGroup: true
+        },
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ar',
@@ -232,9 +335,17 @@ describe('FondamentalesEdit', () => {
         substances: []
       }
     })
-    expect(wrapper.find('button#amodiataire-ajouter').exists()).toBe(false)
+    expect(wrapper.find('.choices').exists()).toBe(false)
 
     wrapper = mount(FondamentalesEdit, {
+      global: {
+        stubs: {
+          AutocompleteGroup: true
+        },
+        mocks: {
+          $store
+        }
+      },
       props: {
         etape,
         titreTypeId: 'ax',
@@ -244,6 +355,6 @@ describe('FondamentalesEdit', () => {
         substances: []
       }
     })
-    expect(wrapper.find('button#amodiataire-ajouter').exists()).toBe(false)
+    expect(wrapper.find('.choices').exists()).toBe(false)
   })
 })

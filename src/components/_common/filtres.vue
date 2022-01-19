@@ -53,14 +53,6 @@ export default {
     }
   },
 
-  created() {
-    document.addEventListener('keyup', this.keyup)
-  },
-
-  beforeUnmount() {
-    document.removeEventListener('keyup', this.keyup)
-  },
-
   methods: {
     paramsUpdate(params) {
       this.$emit('params-update', params)
@@ -75,12 +67,6 @@ export default {
 
     close() {
       this.opened = false
-    },
-
-    keyup(e) {
-      if ((e.which || e.keyCode) === 13 && this.opened) {
-        this.validate()
-      }
     },
 
     validate() {

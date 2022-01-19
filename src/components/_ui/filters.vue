@@ -30,14 +30,17 @@
       </div>
     </template>
 
-    <div class="px-m">
+    <div v-if="opened" class="px-m">
       <div class="tablet-blobs mt">
         <div v-if="inputs.length" class="tablet-blob-1-2 large-blob-1-3">
-          <FiltersInput
-            v-for="input in inputs"
-            :key="input.id"
-            :filter="input"
-          />
+          <template v-for="input in inputs" :key="input.id">
+            <FiltersInputAutocomplete
+              v-if="input.id === 'substances'"
+              :filter="input"
+              @opened="selectOpened = $event"
+            />
+            <FiltersInput v-else :filter="input" />
+          </template>
           <button
             class="btn-border small px-s p-xs rnd-xs mb"
             @click="inputsErase"
@@ -85,13 +88,15 @@ import Accordion from './accordion.vue'
 import FiltersInput from './filters-input.vue'
 import FiltersCheckboxes from './filters-checkboxes.vue'
 import FiltersSelects from './filters-selects.vue'
+import FiltersInputAutocomplete from './filters-input-autocomplete.vue'
 
 export default {
   components: {
     Accordion,
     FiltersInput,
     FiltersCheckboxes,
-    FiltersSelects
+    FiltersSelects,
+    FiltersInputAutocomplete
   },
 
   props: {
@@ -102,6 +107,8 @@ export default {
   },
 
   emits: ['toggle', 'validate'],
+
+  data: () => ({ selectOpened: false }),
 
   computed: {
     inputs() {
@@ -158,7 +165,21 @@ export default {
     }
   },
 
+  created() {
+    document.addEventListener('keyup', this.keyup)
+  },
+
+  beforeUnmount() {
+    document.removeEventListener('keyup', this.keyup)
+  },
+
   methods: {
+    keyup(e) {
+      if ((e.which || e.keyCode) === 13 && this.opened && !this.selectOpened) {
+        this.validate()
+      }
+    },
+
     inputsErase() {
       this.inputs.forEach(filter => {
         filter.value = ''

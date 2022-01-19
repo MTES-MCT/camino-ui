@@ -3,6 +3,8 @@
 -------------------------------
 */
 
+@import '../../../node_modules/choices.js/public/assets/styles/choices.css';
+
 input[type='text'],
 input[type='email'],
 input[type='search'],
@@ -13,6 +15,7 @@ input[type='date'],
 input[type='url'],
 select,
 textarea,
+.choices__inner,
 .input {
   width: 100%;
   border: 0 none;
@@ -21,7 +24,8 @@ textarea,
   color: inherit;
 }
 
-select {
+select,
+.choices__inner {
   background-image: svg-load('../icons/svgs/24-chevron-b.svg',
     fill='#666'
   );
@@ -42,9 +46,10 @@ textarea {
   height: auto;
 }
 
-textarea:focus,
-input:focus,
-select:focus {
+textarea:not(.choices__input):focus,
+input:not(.choices__input):focus,
+select:not(.choices__input):focus,
+.choices.is-focused {
   border-right: var(--unit-s) solid var(--dsfr-bf500);
 }
 
@@ -89,4 +94,53 @@ select.bg-bg:disabled {
 
 [type='file'] {
   display: none;
+}
+
+.choices[data-type*=select-multiple] .choices__button,
+.choices[data-type*=text] .choices__button {
+  border-left: 1px solid white;
+}
+.choices__list--multiple .choices__item,
+.choices__list--multiple .choices__item.is-highlighted {
+  background-color: var(--color-inverse);
+  border: 1px solid var(--color-inverse);
+  font-weight: bold;
+}
+
+
+.choices[data-type*=select-one]::after {
+  display: none;
+}
+
+.choices[data-type*=select-one] .choices__inner {
+  padding-bottom: 0;
+  padding: var(--unit-s);
+}
+
+.choices__list--single {
+  padding: 0;
+}
+
+.choices[data-type*=select-one] .choices__button {
+  margin-right: 40px;
+}
+
+.choices__button {
+  background-image: svg-load('../icons/svgs/24-close.svg',
+    fill=none,
+    stroke= '#666',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
+}
+
+.choices__button:hover {
+  background-image: svg-load('../icons/svgs/24-close.svg',
+    fill=none,
+    stroke= 'white',
+    stroke-linecap=round,
+    stroke-linejoin=round,
+    stroke-width=1.25px
+  );
 }
