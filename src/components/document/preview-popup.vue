@@ -64,8 +64,8 @@ export default defineComponent({
   }
 })
 </script>
-<style>
-.popup-content {
+<style scoped>
+:deep(.popup-content) {
   overflow-y: hidden;
 }
 </style>
