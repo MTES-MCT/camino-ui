@@ -94,7 +94,8 @@ export default {
 
   data() {
     return {
-      isOverflowHidden: true
+      isOverflowHidden: true,
+      animationTimeout: null
     }
   },
 
@@ -104,7 +105,15 @@ export default {
       // mais est retiré pour éviter un bug visuel avec les infobulles.
       // Le timeout est nécessaire pour ajuster l'overflow dans l'état requis,
       // tout en permettant à l'animation d'ouverture de se jouer correctement.
-      setTimeout(() => (this.isOverflowHidden = !isOpened), isOpened ? 1000 : 0)
+      if (!isOpened) {
+        clearTimeout(this.animationTimeout)
+        this.isOverflowHidden = true
+      } else {
+        this.animationTimeout = setTimeout(
+          () => (this.isOverflowHidden = false),
+          1000
+        )
+      }
     }
   },
 
