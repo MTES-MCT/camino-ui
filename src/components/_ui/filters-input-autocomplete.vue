@@ -67,6 +67,16 @@ export default defineComponent({
               }))
             : []
       }
+
+      if (id === 'entreprises') {
+        await this.$store.dispatch('entreprises/init')
+        this.options =
+          this.$store.state.entreprises.elements.length > 0
+            ? this.$store.state.entreprises.elements.map(e => ({
+                text: e.nom
+              }))
+            : []
+      }
     }
   }
 })

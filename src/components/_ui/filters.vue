@@ -35,7 +35,7 @@
         <div v-if="inputs.length" class="tablet-blob-1-2 large-blob-1-3">
           <template v-for="input in inputs" :key="input.id">
             <FiltersInputAutocomplete
-              v-if="input.id === 'substances'"
+              v-if="['substances', 'entreprises'].includes(input.id)"
               :filter="input"
               @opened="selectOpened = $event"
             />
