@@ -269,6 +269,25 @@ const history = createWebHistory()
 
 const router = createRouter({ routes, history })
 
+router.isReady().then(async () => {
+  const ticket =
+    router.currentRoute.value.query.authentification === 'cerbere' &&
+    router.currentRoute.value.query.ticket
+
+  if (ticket) {
+    const query = { ...router.currentRoute.value.query }
+
+    delete query.ticket
+    delete query.authentification
+    delete query.TARGET
+
+    await router.replace({ query })
+    await store.dispatch('user/cerbereLogin', { ticket })
+  } else {
+    await store.dispatch('user/identify')
+  }
+})
+
 router.beforeEach(async (to, from, next) => {
   if (store.state.menu.component) {
     store.commit('menuClose')

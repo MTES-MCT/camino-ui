@@ -123,7 +123,7 @@ const utilisateurDeconnecter = apiGraphQLFetch(gql`
 
 const utilisateurCerbereTokenCreer = apiGraphQLFetch(gql`
   mutation UtilisateurCerbereTokenCreer($ticket: String!) {
-    utilisateurCerbereTokenCreer(ticket: $ticket) {
+    utilisateurCerbereConnecter(ticket: $ticket) {
       ...utilisateur
     }
   }
