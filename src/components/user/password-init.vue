@@ -80,7 +80,8 @@ export default {
       if (this.complete) {
         this.$store.dispatch('user/passwordInit', {
           motDePasse1: this.motDePasse1,
-          motDePasse2: this.motDePasse2
+          motDePasse2: this.motDePasse2,
+          token: this.$route.query.token
         })
       }
     },

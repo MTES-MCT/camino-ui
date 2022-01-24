@@ -230,13 +230,17 @@ const actions = {
     }
   },
 
-  async passwordInit({ commit, dispatch }, { motDePasse1, motDePasse2 }) {
+  async passwordInit(
+    { commit, dispatch },
+    { motDePasse1, motDePasse2, token }
+  ) {
     try {
       commit('loadingAdd', 'utilisateurPasswordInit', { root: true })
 
       const utilisateur = await utilisateurMotDePasseInitialiser({
         motDePasse1,
-        motDePasse2
+        motDePasse2,
+        token
       })
 
       dispatch(
