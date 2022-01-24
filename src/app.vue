@@ -115,31 +115,10 @@ export default {
   },
 
   async created() {
-    await this.init()
-
     this.viewTrack()
   },
 
   methods: {
-    async init() {
-      const ticket =
-        this.$route.query.authentification === 'cerbere' &&
-        this.$route.query.ticket
-
-      if (ticket) {
-        const query = { ...this.$route.query }
-
-        delete query.ticket
-        delete query.authentification
-        delete query.TARGET
-
-        this.$router.replace({ query })
-        await this.$store.dispatch('user/cerbereLogin', { ticket })
-      } else {
-        await this.$store.dispatch('user/identify')
-      }
-    },
-
     viewTrack() {
       if (this.$matomo) {
         this.$matomo.customVariableVisitUser(this.user)
