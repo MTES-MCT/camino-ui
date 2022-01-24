@@ -204,10 +204,12 @@ const utilisateurMotDePasseInitialiser = apiGraphQLFetch(gql`
   mutation UtilisateurMotDePasseInitialiser(
     $motDePasse1: String!
     $motDePasse2: String!
+    $token: String!
   ) {
     utilisateurMotDePasseInitialiser(
       motDePasse1: $motDePasse1
       motDePasse2: $motDePasse2
+      token: $token
     ) {
       ...utilisateur
     }
