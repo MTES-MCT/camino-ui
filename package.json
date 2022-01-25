@@ -21,8 +21,6 @@
     "commit": "lint-staged && git-cz",
     "dev": "vite",
     "dev:update": "npm-check-updates && npm install && npm audit fix",
-    "release": "git checkout develop && git pull --rebase --tags origin develop && standard-version --release-as minor && git push --follow-tags origin develop && git checkout master && git pull --rebase origin master && git merge --ff origin develop && git push origin master && conventional-github-releaser",
-    "release:hotfix": "git pull --rebase --tags origin master && standard-version --release-as patch && git push --follow-tags origin master && conventional-github-releaser && git checkout develop && git pull --rebase origin develop && git rebase origin master && git push origin develop",
     "start": "node ./index.js",
     "test": "cross-env NODE_ENV=test && prettier --check src && eslint --ext .js,.ts,.vue src && jest --verbose && codecov",
     "test:watch": "cross-env NODE_ENV=test jest --watch --verbose",
@@ -50,6 +48,8 @@
     "@juggle/resize-observer": "^3.3.1",
     "@mapbox/stylelint-processor-arbitrary-tags": "^0.4.0",
     "@rollup/plugin-inject": "^4.0.4",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@sentry/browser": "^6.16.1",
     "@sentry/integrations": "^6.16.1",
     "@types/jest": "^27.4.0",
@@ -71,7 +71,6 @@
     "chart.js": "^3.7.0",
     "codecov": "^3.8.3",
     "commitizen": "^4.2.4",
-    "conventional-github-releaser": "^3.1.5",
     "core-js": "^3.20.3",
     "cross-env": "^7.0.3",
     "cross-fetch": "^3.1.4",
@@ -118,6 +117,7 @@
     "postcss-typescale": "^0.2.3",
     "prettier": "^2.5.1",
     "rbush": "^3.0.1",
+    "semantic-release": "^19.0.2",
     "snarkdown": "^2.0.0",
     "standard-version": "^9.3.2",
     "stylelint": "^14.2.0",
@@ -215,5 +215,17 @@
     "*.{js,ts,vue}": "eslint --cache --fix",
     "*.css": "stylelint --fix",
     "*.{js,css}": "prettier --write"
+  },
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/github",
+      "@semantic-release/git"
+    ]
   }
 }

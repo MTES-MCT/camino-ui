@@ -1,0 +1,21 @@
+name: Release Docker images
+on:
+  release:
+    types: [published]
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Build Docker image
+        run: docker build -t caminofr/camino-ui:$VERSION -t caminofr/camino-ui:latest -t caminofr/camino-ui:master .
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+      - name: Build and Push Docker image to the Docker Hub
+        run: |
+          docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
+          docker push caminofr/camino-ui --all-tags
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
