@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.31.0](https://github.com/MTES-MCT/camino-ui/compare/v0.30.0...v0.31.0) (2022-01-25)
+
+
+### Features
+
+* **autocomplete:** implémente un input d'autocomplétion ([#451](https://github.com/MTES-MCT/camino-ui/issues/451)) ([3c4b352](https://github.com/MTES-MCT/camino-ui/commit/3c4b3524e26a7bd8516b0213e4942a1f5d47b968))
+* **axm:** ajoute l’aide lors d’une demande d’AXM par l’opérateur ([#463](https://github.com/MTES-MCT/camino-ui/issues/463)) ([fcb6233](https://github.com/MTES-MCT/camino-ui/commit/fcb6233823b6d9b7169e8572434b94ae914c1267))
+* **étape:** modifie le libellé des documents spécifiques à l’étape courante ([#461](https://github.com/MTES-MCT/camino-ui/issues/461)) ([816c2df](https://github.com/MTES-MCT/camino-ui/commit/816c2df22f3b7c96647b20f480a615d45d4a7a41))
+* **travaux:** ajoute une nouvelle page dédiée aux démarches de travaux ([#462](https://github.com/MTES-MCT/camino-ui/issues/462)) ([ad4943b](https://github.com/MTES-MCT/camino-ui/commit/ad4943b8187b680b25a0847d12fe2afb81c8c776))
+
+
+### Bug Fixes
+
+* **autocomplete:** harmonise la couleur highlight ([#468](https://github.com/MTES-MCT/camino-ui/issues/468)) ([3961677](https://github.com/MTES-MCT/camino-ui/commit/39616778ac624fd48fad6405c8380ef46b7621be))
+* **cerbère:** corrige la connexion via Cerbère ([#470](https://github.com/MTES-MCT/camino-ui/issues/470)) ([4342e56](https://github.com/MTES-MCT/camino-ui/commit/4342e5612ceb4ad8225920807565d801ae718efd))
+* **connexion:** corrige la réinitialisation du mot de passe ([#472](https://github.com/MTES-MCT/camino-ui/issues/472)) ([8c58ac8](https://github.com/MTES-MCT/camino-ui/commit/8c58ac8bcd679abeb3af079addce02714ff9c7c6))
+* **dropdown:** corrige le bug de superposition ([#465](https://github.com/MTES-MCT/camino-ui/issues/465)) ([8fd6404](https://github.com/MTES-MCT/camino-ui/commit/8fd64047a5dc514a82cc43aa0a487954311ff7be))
+* **popup:** corrige la barre verticale dans les popups ([#466](https://github.com/MTES-MCT/camino-ui/issues/466)) ([87ad7da](https://github.com/MTES-MCT/camino-ui/commit/87ad7daf55b9ba1fca23a977cb1970a97341f2d0))
+* **titres:** affiche correctement les périmètres les titres en cours de demande pour les opérateurs ([#467](https://github.com/MTES-MCT/camino-ui/issues/467)) ([d7bf03e](https://github.com/MTES-MCT/camino-ui/commit/d7bf03ef0fdb8ede3bb6bb979c3f03b13c65dbd1))
+* **travaux:** corrige le filtrage des travaux ([#473](https://github.com/MTES-MCT/camino-ui/issues/473)) ([7fe6fc0](https://github.com/MTES-MCT/camino-ui/commit/7fe6fc0421f5164c8dcf819a96e04f144d0b0f8f))
+
 ## [0.30.0](https://github.com/MTES-MCT/camino-ui/compare/v0.29.0...v0.30.0) (2022-01-13)
 
 
