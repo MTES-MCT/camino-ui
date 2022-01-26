@@ -47,6 +47,7 @@ export default {
 
   methods: {
     paramsFiltresUpdate(params) {
+      console.log(params)
       this.$store.dispatch('titres/paramsSet', {
         section: 'filtres',
         params

@@ -163,7 +163,8 @@ const titres = apiGraphQLFetch(
       $noms: String
       $entreprises: String
       $references: String
-      $territoires: String
+      $territoires: String,
+      $substancesIds: [ID!]
     ) {
       titres(
         intervalle: $intervalle
@@ -177,7 +178,8 @@ const titres = apiGraphQLFetch(
         noms: $noms
         entreprises: $entreprises
         references: $references
-        territoires: $territoires
+        territoires: $territoires,
+        substancesIds: $substancesIds
       ) {
         elements {
           ...titres

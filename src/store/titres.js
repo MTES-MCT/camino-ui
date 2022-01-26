@@ -59,6 +59,7 @@ const state = {
       noms: '',
       entreprises: '',
       substances: '',
+      substancesIds: '',
       references: '',
       territoires: ''
     }

@@ -7,7 +7,7 @@
       v-if="options?.length"
       :selected="values"
       :options="options"
-      value-prop="text"
+      value-prop="id"
       label-prop="text"
       class="p-s"
       @opened="$emit('opened', $event)"
@@ -63,7 +63,8 @@ export default defineComponent({
         this.options =
           this.$store.state.definitions.entrees.length > 0
             ? this.$store.state.definitions.entrees.map(e => ({
-                text: e.nom
+                text: e.nom,
+                id: e.id
               }))
             : []
       }

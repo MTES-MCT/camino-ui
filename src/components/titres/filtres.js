@@ -23,6 +23,13 @@ const filtres = [
     placeholder: 'Or, Argent, Ag, …'
   },
   {
+    id: 'substancesIds',
+    type: 'input',
+    value: '',
+    name: 'Substances',
+    placeholder: 'Or, Argent, Ag, …'
+  },
+  {
     id: 'references',
     type: 'input',
     value: '',
