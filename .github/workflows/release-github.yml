@@ -1,0 +1,27 @@
+name: Release Github
+on:
+  push:
+    branches:
+      - master
+jobs:
+  release-github:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'lts/*'
+      - name: Install dependencies
+        run: |
+          npm set-script prepare ""
+          npm ci
+      - name: Release
+        env:
+          #On ne peut pas utiliser le GITHUB_TOKEN par défaut, car il ne déclenche pas les workflows
+          #https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#triggering-a-workflow-from-a-workflow
+          GITHUB_TOKEN: ${{ secrets.VMAUBERT_PERSONAL_TOKEN }}
+        run: npx semantic-release
