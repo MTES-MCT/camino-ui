@@ -55,15 +55,7 @@
       >
         <i class="icon-24 icon-trash" />
       </button>
-      <button
-        v-if="boutonVisualisation && document.fichier"
-        class="btn-border flex-right py-s px-m my--xs"
-        :class="{ 'rnd-l-xs': !boutonSuppression && !boutonModification }"
-        @click="previewPopupOpen"
-      >
-        <i class="icon-24 icon-view" />
-      </button>
-      <button
+      <a
         v-if="document.fichier || document.fichierNouveau"
         class="btn-border py-s px-m my--xs"
         :class="{
@@ -74,10 +66,12 @@
             !boutonSuppression &&
             !boutonDissociation
         }"
-        @click="download"
+        :href="`/apiUrl/fichiers/${document.id}`"
+        :download="document.nom"
+        target="_blank"
       >
         <i class="icon-24 icon-download" />
-      </button>
+      </a>
       <a
         v-if="document.url"
         class="btn-border py-s px-m my--xs"
@@ -126,7 +120,6 @@ import Tag from '../_ui/tag.vue'
 import DocumentEditPopup from '../document/edit-popup.vue'
 import DocumentRemovePopup from '../document/remove-popup.vue'
 import HelpTooltip from '../_ui/help-tooltip.vue'
-import DocumentPreviewPopup from '../document/preview-popup.vue'
 
 export default {
   components: {
@@ -170,19 +163,6 @@ export default {
   },
 
   methods: {
-    async download() {
-      await this.$store.dispatch('downloadDocument', this.document)
-    },
-
-    previewPopupOpen() {
-      this.$store.commit('popupOpen', {
-        component: DocumentPreviewPopup,
-        props: {
-          document: this.document
-        }
-      })
-    },
-
     editPopupOpen() {
       const document = cloneAndClean(this.document)
       if (this.parentId) {
