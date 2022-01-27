@@ -22,7 +22,11 @@
           <h5>Type</h5>
         </div>
         <div class="mb tablet-blob-2-3">
-          <select v-model="demarche.typeId" class="p-s mr">
+          <select
+            v-model="demarche.typeId"
+            class="p-s mr"
+            :disabled="!creation"
+          >
             <option
               v-for="demarcheType in types"
               :key="demarcheType.id"
@@ -33,6 +37,17 @@
             </option>
           </select>
         </div>
+      </div>
+      <div class="tablet-blobs mb-s">
+        <div class="tablet-blob-1-3 tablet-pt-s pb-s">
+          <h5>Description</h5>
+          <p class="h6 italic mb-0 flex-right mt-xs">Optionnel</p>
+        </div>
+        <input
+          v-model="demarche.description"
+          type="text"
+          class="tablet-blob-2-3 p-s"
+        />
       </div>
     </div>
 
