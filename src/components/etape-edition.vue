@@ -10,7 +10,7 @@
       </router-link>
       <span class="color-neutral"> | </span>
       <span class="cap-first">
-        {{ demarcheType.nom }}
+        {{ demarcheType.nom }} {{ demarcheDescription }}
       </span>
     </h6>
     <h1>Étape</h1>
@@ -140,6 +140,10 @@ export default {
 
     demarche() {
       return this.$store.state.titreEtapeEdition.metas.demarche
+    },
+
+    demarcheDescription() {
+      return this.demarche?.description ? `(${this.demarche.description})` : ''
     },
 
     alertes() {

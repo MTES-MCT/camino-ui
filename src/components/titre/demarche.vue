@@ -2,9 +2,14 @@
   <div class="mb-xxl">
     <div class="tablet-blobs mb">
       <div class="tablet-blob-1-2">
-        <h2 class="cap-first mb-s">
-          {{ demarche.type.nom }}
-        </h2>
+        <div class="flex mb-s flex-center">
+          <h2 class="cap-first">
+            {{ demarche.type.nom }}
+          </h2>
+          <h3 v-if="demarche.description" class="ml-s">
+            ({{ demarche.description }})
+          </h3>
+        </div>
         <div class="mb-s">
           <Statut :color="demarche.statut.couleur" :nom="demarche.statut.nom" />
         </div>
@@ -108,6 +113,7 @@ export default {
     editPopupOpen() {
       const demarche = {}
 
+      demarche.description = this.demarche.description
       demarche.typeId = this.demarche.type.id
       demarche.titreId = this.titreId
       demarche.id = this.demarche.id
