@@ -29,11 +29,7 @@ export default {
 
   computed: {
     metas() {
-      return {
-        domaines: this.$store.state.titres.metas.domaines,
-        types: this.$store.state.titres.metas.types,
-        statuts: this.$store.state.titres.metas.statuts
-      }
+      return this.$store.state.titres.metas
     },
 
     params() {

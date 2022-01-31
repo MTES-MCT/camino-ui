@@ -7,8 +7,8 @@
       v-if="options?.length"
       :selected="values"
       :options="options"
-      value-prop="text"
-      label-prop="text"
+      value-prop="id"
+      label-prop="nom"
       class="p-s"
       @opened="$emit('opened', $event)"
       @update:selected="updateHandler"
@@ -32,41 +32,18 @@ export default defineComponent({
 
   emits: ['opened'],
 
-  data() {
-    return {
-      options: []
-    }
-  },
-
   computed: {
     values() {
-      return this.filter.value.split(', ').filter(v => v !== '')
+      return this.filter.value
+    },
+    options() {
+      return this.filter.elements
     }
-  },
-
-  async mounted() {
-    await this.fetchItems()
   },
 
   methods: {
     updateHandler(e) {
-      this.filter.value = e.join(', ')
-    },
-    async fetchItems() {
-      const id = this.filter.id
-
-      if (id === 'substances') {
-        await this.$store.dispatch(
-          'definitions/entreesGet',
-          'substances-legales'
-        )
-        this.options =
-          this.$store.state.definitions.entrees.length > 0
-            ? this.$store.state.definitions.entrees.map(e => ({
-                text: e.nom
-              }))
-            : []
-      }
+      this.filter.value = e
     }
   }
 })

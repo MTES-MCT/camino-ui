@@ -35,12 +35,13 @@
         <div v-if="inputs.length" class="tablet-blob-1-2 large-blob-1-3">
           <template v-for="input in inputs" :key="input.id">
             <FiltersInputAutocomplete
-              v-if="input.id === 'substances'"
+              v-if="input.type === 'autocomplete'"
               :filter="input"
               @opened="selectOpened = $event"
             />
             <FiltersInput v-else :filter="input" />
           </template>
+
           <button
             class="btn-border small px-s p-xs rnd-xs mb"
             @click="inputsErase"
@@ -112,7 +113,9 @@ export default {
 
   computed: {
     inputs() {
-      return this.filters.filter(({ type }) => type === 'input')
+      return this.filters.filter(
+        ({ type }) => type === 'input' || type === 'autocomplete'
+      )
     },
 
     checkboxes() {
@@ -132,7 +135,9 @@ export default {
         let labels = []
 
         if (
-          (f.type === 'checkboxes' || f.type === 'select') &&
+          (f.type === 'checkboxes' ||
+            f.type === 'select' ||
+            f.type === 'autocomplete') &&
           f.value.length
         ) {
           labels = f.value.map(v => {
@@ -201,7 +206,8 @@ export default {
         if (
           filter.type === 'checkboxes' ||
           filter.type === 'select' ||
-          filter.type === 'custom'
+          filter.type === 'custom' ||
+          filter.type === 'autocomplete'
         ) {
           const index = filter.value.indexOf(label.value)
           if (index > -1) {
