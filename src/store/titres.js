@@ -10,13 +10,14 @@ const state = {
   metas: {
     domaines: [],
     types: [],
-    statuts: []
+    statuts: [],
+    substancesLegales: []
   },
   definitions: [
     { id: 'typesIds', type: 'strings', values: [] },
     { id: 'domainesIds', type: 'strings', values: [] },
     { id: 'statutsIds', type: 'strings', values: [] },
-    { id: 'substances', type: 'string' },
+    { id: 'substancesLegalesIds', type: 'strings', values: [] },
     { id: 'noms', type: 'string' },
     { id: 'entreprises', type: 'string' },
     { id: 'references', type: 'string' },
@@ -56,9 +57,9 @@ const state = {
       typesIds: [],
       domainesIds: [],
       statutsIds: [],
+      substancesLegalesIds: [],
       noms: '',
       entreprises: '',
-      substances: '',
       references: '',
       territoires: ''
     }
@@ -268,6 +269,8 @@ const mutations = Object.assign({}, listeMutations, {
         paramId = 'domainesIds'
       } else if (id === 'statuts') {
         paramId = 'statutsIds'
+      } else if (id === 'substancesLegales') {
+        paramId = 'substancesLegalesIds'
       }
 
       if (paramId) {

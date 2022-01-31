@@ -16,11 +16,12 @@ const filtres = [
     placeholder: 'Nom ou siret'
   },
   {
-    id: 'substances',
-    type: 'input',
-    value: '',
+    id: 'substancesLegalesIds',
+    type: 'autocomplete',
+    value: [],
     name: 'Substances',
-    placeholder: 'Or, Argent, Ag, …'
+    elements: [],
+    elementsFormat
   },
   {
     id: 'references',
