@@ -422,7 +422,9 @@
             </li>
           </ul>
         </div>
-
+      </div>
+      <h3>Ils ont travaillé sur Camino</h3>
+      <div class="tablet-blobs archive">
         <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
@@ -435,16 +437,13 @@
 
           <h3 class="mb-0">Davy Braun</h3>
           <h5 class="color">Développeur</h5>
-          <p class="h6">Depuis Septembre 2021</p>
+          <p class="h6">De Septembre 2021 à Janvier 2022</p>
           <ul class="list-prefix h6 mb-0">
             <li>
               <a href="https://www.linkedin.com/in/davybraun/">LinkedIn</a>
             </li>
           </ul>
         </div>
-      </div>
-      <h3>Ils ont travaillé sur Camino</h3>
-      <div class="tablet-blobs archive">
         <div class="tablet-blob-1-2 desktop-blob-1-3 p bg-bg rnd shadow mb">
           <div class="p bg-semi pill mb">
             <div class="pill overflow-hidden">
