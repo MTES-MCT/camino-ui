@@ -34,7 +34,7 @@ export default defineComponent({
 
   computed: {
     values() {
-      return this.filter.value
+      return this.filter.value || []
     },
     options() {
       return this.filter.elements
