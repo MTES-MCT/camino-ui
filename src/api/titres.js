@@ -64,6 +64,13 @@ const titresMetas = apiGraphQLFetch(
         id
         nom
       }
+
+      entreprises {
+        elements {
+          id
+          nom
+        }
+      }
     }
 
     ${fragmentTitreTypeType}
@@ -90,7 +97,7 @@ const titresGeoPolygon = apiGraphQLFetch(
       $statutsIds: [ID!]
       $substancesLegalesIds: [ID!]
       $noms: String
-      $entreprises: String
+      $entreprisesIds: [ID!]
       $references: String
       $territoires: String
       $perimetre: [Float!]
@@ -101,7 +108,7 @@ const titresGeoPolygon = apiGraphQLFetch(
         statutsIds: $statutsIds
         substancesLegalesIds: $substancesLegalesIds
         noms: $noms
-        entreprises: $entreprises
+        entreprisesIds: $entreprisesIds
         references: $references
         territoires: $territoires
         perimetre: $perimetre
@@ -126,7 +133,7 @@ const titresGeo = apiGraphQLFetch(
       $statutsIds: [ID!]
       $substancesLegalesIds: [ID!]
       $noms: String
-      $entreprises: String
+      $entreprisesIds: [ID!]
       $references: String
       $territoires: String
       $perimetre: [Float!]
@@ -137,7 +144,7 @@ const titresGeo = apiGraphQLFetch(
         statutsIds: $statutsIds
         substancesLegalesIds: $substancesLegalesIds
         noms: $noms
-        entreprises: $entreprises
+        entreprisesIds: $entreprisesIds
         references: $references
         territoires: $territoires
         perimetre: $perimetre
@@ -166,7 +173,7 @@ const titres = apiGraphQLFetch(
       $statutsIds: [ID!]
       $substancesLegalesIds: [ID!]
       $noms: String
-      $entreprises: String
+      $entreprisesIds: [ID!]
       $references: String
       $territoires: String
     ) {
@@ -180,7 +187,7 @@ const titres = apiGraphQLFetch(
         statutsIds: $statutsIds
         substancesLegalesIds: $substancesLegalesIds
         noms: $noms
-        entreprises: $entreprises
+        entreprisesIds: $entreprisesIds
         references: $references
         territoires: $territoires
       ) {

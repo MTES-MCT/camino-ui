@@ -19,7 +19,7 @@ const state = {
     { id: 'statutsIds', type: 'strings', values: [] },
     { id: 'substancesLegalesIds', type: 'strings', values: [] },
     { id: 'noms', type: 'string' },
-    { id: 'entreprises', type: 'string' },
+    { id: 'entreprisesIds', type: 'strings', values: [] },
     { id: 'references', type: 'string' },
     { id: 'territoires', type: 'string' },
     { id: 'page', type: 'number', value: 1, min: 0 },
@@ -59,7 +59,7 @@ const state = {
       statutsIds: [],
       substancesLegalesIds: [],
       noms: '',
-      entreprises: '',
+      entreprisesIds: '',
       references: '',
       territoires: ''
     }
@@ -271,6 +271,9 @@ const mutations = Object.assign({}, listeMutations, {
         paramId = 'statutsIds'
       } else if (id === 'substancesLegales') {
         paramId = 'substancesLegalesIds'
+      } else if (id === 'entreprises') {
+        paramId = 'entreprisesIds'
+        data[id] = data[id].elements
       }
 
       if (paramId) {

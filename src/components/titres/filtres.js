@@ -9,18 +9,17 @@ import { elementsFormat } from '../../utils/index'
 const filtres = [
   { id: 'noms', type: 'input', value: '', name: 'Noms', placeholder: '…' },
   {
-    id: 'entreprises',
-    type: 'input',
-    value: '',
+    id: 'entreprisesIds',
+    type: 'autocomplete',
+    value: [],
     name: 'Entreprises',
-    placeholder: 'Nom ou siret'
+    elementsFormat
   },
   {
     id: 'substancesLegalesIds',
     type: 'autocomplete',
     value: [],
     name: 'Substances',
-    elements: [],
     elementsFormat
   },
   {
