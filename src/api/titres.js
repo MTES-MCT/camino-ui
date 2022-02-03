@@ -92,22 +92,22 @@ const titre = apiGraphQLFetch(
 const titresGeoPolygon = apiGraphQLFetch(
   gql`
     query Titres(
+      $titresIds: [ID!]
       $typesIds: [ID!]
       $domainesIds: [ID!]
       $statutsIds: [ID!]
       $substancesLegalesIds: [ID!]
-      $noms: String
       $entreprisesIds: [ID!]
       $references: String
       $territoires: String
       $perimetre: [Float!]
     ) {
       titres(
+        ids: $titresIds
         typesIds: $typesIds
         domainesIds: $domainesIds
         statutsIds: $statutsIds
         substancesLegalesIds: $substancesLegalesIds
-        noms: $noms
         entreprisesIds: $entreprisesIds
         references: $references
         territoires: $territoires
@@ -128,22 +128,22 @@ const titresGeoPolygon = apiGraphQLFetch(
 const titresGeo = apiGraphQLFetch(
   gql`
     query Titres(
+      $titresIds: [ID!]
       $typesIds: [ID!]
       $domainesIds: [ID!]
       $statutsIds: [ID!]
       $substancesLegalesIds: [ID!]
-      $noms: String
       $entreprisesIds: [ID!]
       $references: String
       $territoires: String
       $perimetre: [Float!]
     ) {
       titres(
+        ids: $titresIds
         typesIds: $typesIds
         domainesIds: $domainesIds
         statutsIds: $statutsIds
         substancesLegalesIds: $substancesLegalesIds
-        noms: $noms
         entreprisesIds: $entreprisesIds
         references: $references
         territoires: $territoires
@@ -168,6 +168,7 @@ const titres = apiGraphQLFetch(
       $page: Int
       $colonne: String
       $ordre: String
+      $titresIds: [ID!]
       $typesIds: [ID!]
       $domainesIds: [ID!]
       $statutsIds: [ID!]
@@ -182,6 +183,7 @@ const titres = apiGraphQLFetch(
         page: $page
         colonne: $colonne
         ordre: $ordre
+        ids: $titresIds
         typesIds: $typesIds
         domainesIds: $domainesIds
         statutsIds: $statutsIds
@@ -199,6 +201,19 @@ const titres = apiGraphQLFetch(
     }
 
     ${fragmentTitres}
+  `
+)
+
+const titresRechercher = apiGraphQLFetch(
+  gql`
+    query Titres($intervalle: Int, $noms: String) {
+      titres(intervalle: $intervalle, noms: $noms) {
+        elements {
+          id
+          nom
+        }
+      }
+    }
   `
 )
 
@@ -234,5 +249,6 @@ export {
   titresGeoPolygon,
   titreCreer,
   titreModifier,
-  titreSupprimer
+  titreSupprimer,
+  titresRechercher
 }

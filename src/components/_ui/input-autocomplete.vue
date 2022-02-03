@@ -37,7 +37,7 @@ export default {
       default: ''
     }
   },
-  emits: ['update:selected', 'opened'],
+  emits: ['update:selected', 'opened', 'search'],
 
   data() {
     return {
@@ -58,6 +58,12 @@ export default {
         this.optionsSet()
       }
     },
+    options: {
+      deep: true,
+      handler() {
+        this.optionsSet()
+      }
+    },
     selected: {
       handler() {
         this.autocompleter.removeActiveItems()
@@ -70,22 +76,19 @@ export default {
 
   mounted() {
     this.autocompleter = new Choices(this.$refs.select, {
+      searchResultLimit: 100,
       maxItemCount: this.maxItems,
       shouldSort: false,
       removeItemButton: true,
       loadingText: 'Chargement...',
       noResultsText: 'Aucun résultat',
-      noChoicesText: 'Aucun choix à proposer',
+      noChoicesText: 'Veuillez saisir votre recherche',
       itemSelectText: 'Choisir',
       addItemText: value => {
         return `Appuyez sur Entrée pour ajouter <b>"${value}"</b>`
       },
       maxItemText: maxItemCount => {
         return `${maxItemCount} choix maximum`
-      },
-      callbackOnInit: async () => {
-        await this.$nextTick()
-        this.optionsSet()
       }
     })
     this.autocompleter.passedElement.element.addEventListener('change', () => {
@@ -103,6 +106,11 @@ export default {
         this.$emit('opened', false)
       }
     )
+    this.autocompleter.passedElement.element.addEventListener('search', e => {
+      this.$emit('search', e.detail.value)
+    })
+
+    this.$nextTick().then(() => this.optionsSet())
   },
 
   unmounted: function () {
@@ -112,10 +120,10 @@ export default {
   methods: {
     optionsSet() {
       if (this.options.length && this.autocompleter) {
-        const options = []
+        const newOptions = []
 
         if (this.placeholder) {
-          options.push({
+          newOptions.push({
             [this.valueProp]: '',
             [this.labelProp]: this.placeholder,
             selected: !this.selected || !this.selected.length,
@@ -123,7 +131,7 @@ export default {
             placeholder: true
           })
         }
-        options.push(
+        newOptions.push(
           ...this.options.map(o => ({
             ...o,
             selected: this.selected.includes(o[this.valueProp]),
@@ -132,11 +140,12 @@ export default {
               .includes(o[this.valueProp])
           }))
         )
+        this.autocompleter.clearStore()
         this.autocompleter.setChoices(
-          options,
+          newOptions,
           this.valueProp,
           this.labelProp,
-          true
+          false
         )
       }
     }

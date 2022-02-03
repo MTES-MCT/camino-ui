@@ -85,10 +85,10 @@ export default {
         if (
           filtre.type === 'custom' ||
           filtre.type === 'select' ||
-          filtre.type === 'checkboxes'
+          filtre.type === 'checkboxes' ||
+          filtre.type === 'autocomplete'
         ) {
-          // on crée une copie pour éviter les modifications par référence
-          value = valuesClean(JSON.parse(JSON.stringify(filtre.value)))
+          value = valuesClean(filtre.value)
         } else {
           value = filtre.value
         }
@@ -106,16 +106,12 @@ export default {
     },
 
     init() {
-      // On recopie la props pour ne pas la modifier,
-      // elle doit être modifiée seulement par le store
       this.filters = this.filtres.map(filtre => {
-        const filter = { ...filtre }
-
         if (filtre.elementsFormat) {
-          filter.elements = filtre.elementsFormat(filtre.id, this.metas)
+          filtre.elements = filtre.elementsFormat(filtre.id, this.metas)
         }
 
-        return filter
+        return filtre
       })
 
       Object.keys(this.params).forEach(id => {
@@ -124,16 +120,7 @@ export default {
 
         if (!filtre) return
 
-        if (
-          (filtre.type === 'custom' ||
-            filtre.type === 'select' ||
-            filtre.type === 'checkboxes') &&
-          preference
-        ) {
-          filtre.value = JSON.parse(JSON.stringify(preference))
-        } else {
-          filtre.value = preference
-        }
+        filtre.value = preference
       })
     }
   }
