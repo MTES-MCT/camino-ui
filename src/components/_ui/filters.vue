@@ -18,9 +18,10 @@
             v-for="label in labels"
             :key="`${label.id}-${label.valueName}`"
             class="rnd-m box btn-flash h6 pl-s pr-xs py-xs bold mr-xs mb-xs"
+            :class="{ 'pr-xs': !opened, 'pr-s': opened }"
             @click="labelRemove(label)"
             >{{ label.name }} : {{ label.valueName || label.value }}
-            <span class="inline-block align-y-top ml-xs"
+            <span v-if="!opened" class="inline-block align-y-top ml-xs"
               ><i class="icon-16 icon-x" /></span
           ></span>
         </div>
@@ -30,7 +31,7 @@
       </div>
     </template>
 
-    <div v-if="opened" class="px-m">
+    <div class="px-m">
       <div class="tablet-blobs mt">
         <div v-if="inputs.length" class="tablet-blob-1-2 large-blob-1-3">
           <template v-for="input in inputs" :key="input.id">
@@ -200,25 +201,25 @@ export default {
     },
 
     labelRemove(label) {
-      const filter = this.filters.find(({ id }) => id === label.id)
-
-      if (Array.isArray(filter.value)) {
-        if (
-          filter.type === 'checkboxes' ||
-          filter.type === 'select' ||
-          filter.type === 'custom' ||
-          filter.type === 'autocomplete'
-        ) {
-          const index = filter.value.indexOf(label.value)
-          if (index > -1) {
-            filter.value.splice(index, 1)
-          }
-        }
-      } else {
-        filter.value = ''
-      }
-
       if (!this.opened) {
+        const filter = this.filters.find(({ id }) => id === label.id)
+
+        if (Array.isArray(filter.value)) {
+          if (
+            filter.type === 'checkboxes' ||
+            filter.type === 'select' ||
+            filter.type === 'custom' ||
+            filter.type === 'autocomplete'
+          ) {
+            const index = filter.value.indexOf(label.value)
+            if (index > -1) {
+              filter.value.splice(index, 1)
+            }
+          }
+        } else {
+          filter.value = ''
+        }
+
         this.validate()
       }
     },
