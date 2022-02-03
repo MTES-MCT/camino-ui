@@ -100,6 +100,10 @@ select.bg-bg:disabled {
 .choices[data-type*=text] .choices__button {
   border-left: 1px solid white;
 }
+
+.choices__list > .choices__list{
+  max-height: 100%;
+}
 .choices__list--multiple .choices__item,
 .choices__list--multiple .choices__item.is-highlighted {
   background-color: var(--color-inverse);

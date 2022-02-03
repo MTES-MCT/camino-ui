@@ -208,7 +208,8 @@
       ]
     },
     "ignoreFiles": [
-      "./dist/**/*"
+      "./dist/**/*",
+      "src/styles/system/forms.css"
     ]
   },
   "lint-staged": {
