@@ -4,7 +4,7 @@
     <hr class="mb-s" />
 
     <InputAutocomplete
-      v-if="options?.length"
+      v-if="options?.length || lazyLoaded"
       :selected="values"
       :options="options"
       value-prop="id"
@@ -12,6 +12,7 @@
       class="p-s"
       @opened="$emit('opened', $event)"
       @update:selected="updateHandler"
+      @search="search"
     />
   </div>
 </template>
@@ -30,7 +31,11 @@ export default defineComponent({
     }
   },
 
-  emits: ['opened'],
+  emits: ['opened', 'search'],
+
+  data: () => ({
+    lazyLoaded: false
+  }),
 
   computed: {
     values() {
@@ -40,10 +45,42 @@ export default defineComponent({
       return this.filter.elements
     }
   },
-
+  async created() {
+    if (
+      this.filter.type === 'autocomplete' &&
+      this.filter.lazy &&
+      this.filter.value?.length
+    ) {
+      const result = await this.filter.load(this.filter.value)
+      this.filter.elements = result.elements
+    }
+    if (this.filter.lazy) {
+      this.lazyLoaded = true
+    }
+  },
   methods: {
-    updateHandler(e) {
+    updateHandler(e: string[]) {
       this.filter.value = e
+    },
+
+    async search(value: string) {
+      if (this.filter.lazy) {
+        const result = await this.filter.search(value)
+
+        // Si les options déjà selectionnées ne sont plus disponibles dans la nouvelle
+        // liste d’options, on les ajoute à la nouvelle liste pour conserver notre sélection
+        const options = [...result.elements]
+        this.filter.value?.forEach((optionId: string) => {
+          if (!options || !options.some(o => o.id === optionId)) {
+            const oldOption = this.filter.elements.find(
+              (o: { id: string }) => o.id === optionId
+            )
+            options.push(oldOption)
+          }
+        })
+
+        this.filter.elements = options
+      }
     }
   }
 })

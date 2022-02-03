@@ -5,9 +5,19 @@ import FiltresStatuts from '../_common/filtres/statuts.vue'
 import FiltresTypes from '../_common/filtres/types.vue'
 
 import { elementsFormat } from '../../utils/index'
+import { titres, titresRechercher } from '@/api/titres'
 
 const filtres = [
-  { id: 'noms', type: 'input', value: '', name: 'Noms', placeholder: '…' },
+  {
+    id: 'titresIds',
+    type: 'autocomplete',
+    value: [],
+    elements: [],
+    name: 'Noms',
+    lazy: true,
+    search: value => titresRechercher({ noms: value, intervalle: 10 }),
+    load: value => titres({ titresIds: value })
+  },
   {
     id: 'entreprisesIds',
     type: 'autocomplete',

@@ -33,7 +33,8 @@ const graphQLCall = async (url, query, variables) => {
 
   if (loading.store[cacheKey]) {
     loading.store[cacheKey].forEach(a => {
-      a.abortController.abort()
+      // FIXME à cause de l’autocomplete dans les filtres sur la home, ceci pose problème
+      // a.abortController.abort()
     })
   }
 

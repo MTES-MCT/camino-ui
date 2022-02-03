@@ -18,7 +18,7 @@ const state = {
     { id: 'domainesIds', type: 'strings', values: [] },
     { id: 'statutsIds', type: 'strings', values: [] },
     { id: 'substancesLegalesIds', type: 'strings', values: [] },
-    { id: 'noms', type: 'string' },
+    { id: 'titresIds', type: 'strings', values: [] },
     { id: 'entreprisesIds', type: 'strings', values: [] },
     { id: 'references', type: 'string' },
     { id: 'territoires', type: 'string' },
@@ -58,7 +58,7 @@ const state = {
       domainesIds: [],
       statutsIds: [],
       substancesLegalesIds: [],
-      noms: '',
+      titresIds: [],
       entreprisesIds: '',
       references: '',
       territoires: ''
