@@ -34,6 +34,7 @@ const fragmentUtilisateur = gql`
       utilisateurs
       metas
       journaux
+      travaux
     }
   }
 

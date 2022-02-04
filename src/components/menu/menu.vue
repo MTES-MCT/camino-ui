@@ -30,7 +30,7 @@
               </router-link>
               <div v-else class="bold color-neutral">Démarches</div>
             </li>
-            <li>
+            <li v-if="sections.travaux">
               <router-link
                 v-if="$route.name !== 'travaux'"
                 id="cmn-menu-menu-a-travaux"
