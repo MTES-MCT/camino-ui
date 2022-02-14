@@ -355,15 +355,33 @@ export default {
     },
 
     complete() {
-      return this.action === 'create'
-        ? this.utilisateur.nom &&
+      const formComplete =
+        this.action === 'create'
+          ? this.utilisateur.nom &&
             this.utilisateur.prenom &&
             this.utilisateur.email &&
             this.utilisateur.motDePasse
-        : this.utilisateur.nom &&
+          : this.utilisateur.nom &&
             this.utilisateur.prenom &&
             this.utilisateur.id &&
             this.utilisateur.email
+
+      if (!formComplete) {
+        return false
+      }
+
+      if (this.utilisateurIsEntreprise && !this.utilisateurEntreprisesLength) {
+        return false
+      }
+
+      if (
+        this.utilisateurIsAdministration &&
+        !this.utilisateurAdministrationsLength
+      ) {
+        return false
+      }
+
+      return true
     },
 
     utilisateurEntreprisesLength() {
