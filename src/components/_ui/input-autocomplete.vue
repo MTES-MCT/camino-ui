@@ -35,6 +35,10 @@ export default {
     placeholder: {
       type: String,
       default: ''
+    },
+    removeItemButton: {
+      type: Boolean,
+      default: true
     }
   },
   emits: ['update:selected', 'opened', 'search'],
@@ -79,7 +83,7 @@ export default {
       searchResultLimit: 100,
       maxItemCount: this.maxItems,
       shouldSort: false,
-      removeItemButton: true,
+      removeItemButton: this.removeItemButton,
       loadingText: 'Chargement...',
       noResultsText: 'Aucun résultat',
       noChoicesText: 'Veuillez saisir votre recherche',

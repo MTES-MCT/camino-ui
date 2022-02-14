@@ -8,6 +8,7 @@
     :max-items="1"
     :options-disabled="optionsDisabled"
     :placeholder="placeholder"
+    :remove-item-button="removeItemButton"
     @update:selected="$emit('update:entityId', $event)"
   />
 </template>
@@ -47,6 +48,10 @@ export default defineComponent({
     placeholder: {
       type: String,
       default: ''
+    },
+    removeItemButton: {
+      type: Boolean,
+      default: true
     }
   },
 

@@ -7,6 +7,7 @@
           :options="options"
           :options-disabled="optionsDisabled"
           :placeholder="placeholder"
+          :remove-item-button="false"
         />
       </div>
       <button class="btn py-s px-m rnd-xs" @click="entityRemove(n)">
@@ -21,6 +22,7 @@
     :options="options"
     :options-disabled="optionsDisabled"
     :placeholder="placeholder"
+    :remove-item-button="false"
     @update:entity-id="entityAdd"
   />
 </template>
@@ -73,6 +75,10 @@ export default defineComponent({
         this.entities.push({ id: entityId })
         this.entitySelected = null
       }
+    },
+
+    entityRemove(entityIndex: number) {
+      this.entities.splice(entityIndex, 1)
     }
   }
 })
