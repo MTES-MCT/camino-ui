@@ -16,7 +16,6 @@ jobs:
           node-version: '16.12'
       - name: Test units
         run: |
-          npm set-script prepare ""
           npm ci
           npm run build
           npm test
