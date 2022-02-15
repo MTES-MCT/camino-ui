@@ -16,9 +16,7 @@ jobs:
         with:
           node-version: 'lts/*'
       - name: Install dependencies
-        run: |
-          npm set-script prepare ""
-          npm ci
+        run: npm ci
       - name: Release
         env:
           #On ne peut pas utiliser le GITHUB_TOKEN par défaut, car il ne déclenche pas les workflows
