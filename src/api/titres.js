@@ -214,7 +214,22 @@ const titresRechercher = apiGraphQLFetch(
         }
       }
     }
-  `
+  `,
+  'titresRechercher'
+)
+
+const titresFiltres = apiGraphQLFetch(
+  gql`
+    query Titres($titresIds: [ID!]) {
+      titres(ids: $titresIds) {
+        elements {
+          id
+          nom
+        }
+      }
+    }
+  `,
+  'titresFiltres'
 )
 
 const titreCreer = apiGraphQLFetch(gql`
@@ -250,5 +265,6 @@ export {
   titreCreer,
   titreModifier,
   titreSupprimer,
-  titresRechercher
+  titresRechercher,
+  titresFiltres
 }
