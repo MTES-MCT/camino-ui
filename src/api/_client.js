@@ -20,7 +20,12 @@ const errorThrow = e => {
   throw new Error(e.message || e.status)
 }
 
-const graphQLCall = async (url, query, variables) => {
+const graphQLCall = async (
+  url,
+  query,
+  variables,
+  cacheKey = query.definitions[0].name.value
+) => {
   const abortController = new AbortController()
   const fetchOptions = fetchOptionsGraphQL({
     query: print(query),
@@ -29,12 +34,9 @@ const graphQLCall = async (url, query, variables) => {
 
   fetchOptions.signal = abortController.signal
 
-  const cacheKey = query.definitions[0].name.value
-
   if (loading.store[cacheKey]) {
     loading.store[cacheKey].forEach(a => {
-      // FIXME à cause de l’autocomplete dans les filtres sur la home, ceci pose problème
-      // a.abortController.abort()
+      a.abortController.abort()
     })
   }
 
@@ -67,9 +69,9 @@ const graphQLCall = async (url, query, variables) => {
   return dataContent
 }
 
-const apiGraphQLFetch = query => async variables => {
+const apiGraphQLFetch = (query, cacheKey) => async variables => {
   try {
-    return await graphQLCall(apiUrl, query, variables)
+    return await graphQLCall(apiUrl, query, variables, cacheKey)
   } catch (e) {
     if (e.status === 401 || e.message === 'HTTP 401 status.') {
       // la session a été invalidée par un administrateur
