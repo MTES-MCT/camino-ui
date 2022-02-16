@@ -6,7 +6,7 @@
       <SectionElementEdit
         v-for="e in s.elements"
         :key="e.id"
-        v-model:contenu="contenu[s.id]"
+        v-model:contenu="content[s.id]"
         :element="e"
       />
     </div>
@@ -27,27 +27,30 @@ export default {
 
   props: {
     sections: { type: Array, required: true },
-    element: { type: Object, required: true }
+    contenu: { type: [Object, null], required: true }
   },
 
-  emits: ['complete-update'],
+  emits: ['complete-update', 'contenu-update'],
 
   data() {
     return {
-      contenu: {}
+      content: {}
     }
   },
 
   computed: {
     complete() {
-      return contenuCompleteCheck(this.sections, this.contenu)
+      return contenuCompleteCheck(this.sections, this.content)
     }
   },
 
   watch: {
-    contenu: {
-      handler: function (contenu) {
-        this.element.contenu = elementContenuBuild(this.sections, contenu)
+    content: {
+      handler: function (content) {
+        this.$emit(
+          'contenu-update',
+          elementContenuBuild(this.sections, content)
+        )
       },
       deep: true
     },
@@ -58,7 +61,7 @@ export default {
   },
 
   created() {
-    this.contenu = contenuBuild(this.sections, this.element.contenu)
+    this.content = contenuBuild(this.sections, this.contenu)
     this.$emit('complete-update', this.complete)
   }
 }
