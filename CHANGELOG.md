@@ -1,3 +1,24 @@
+# [0.32.0](https://github.com/MTES-MCT/camino-ui/compare/v0.31.0...v0.32.0) (2022-02-21)
+
+
+### Bug Fixes
+
+* **étape:** corrige la possibilité de supprimer un titulaire d’une étape ([9677572](https://github.com/MTES-MCT/camino-ui/commit/9677572774b8b9ee3db7ece7a8a6966781c54d68))
+
+
+### Features
+
+* **àpropos:** déplace Davy dans la liste des anciens de Camino ([#477](https://github.com/MTES-MCT/camino-ui/issues/477)) ([d43e2de](https://github.com/MTES-MCT/camino-ui/commit/d43e2deb1ecb45e9be54829f01273308051fdb7f))
+* **démarche:** ajoute la possibilité de mettre une description sur une démarche ([#476](https://github.com/MTES-MCT/camino-ui/issues/476)) ([962888f](https://github.com/MTES-MCT/camino-ui/commit/962888fde959e20be018e026afd6e3f6d2b76626))
+* **document:** utilise les paramètres du navigateur pour télécharger les documents ([#475](https://github.com/MTES-MCT/camino-ui/issues/475)) ([054cfb0](https://github.com/MTES-MCT/camino-ui/commit/054cfb075ddda93b33454ba7e3292d09d38af6f0))
+* **graphql:** réactive le cache sur les requêtes GraphQL ([#481](https://github.com/MTES-MCT/camino-ui/issues/481)) ([bb2738b](https://github.com/MTES-MCT/camino-ui/commit/bb2738b83af5a6e72ec1f65e499925da10a6d5e2))
+* **titres:** permet de filtrer les titres avec l’identifiant unique d’une entreprise ([c313a6d](https://github.com/MTES-MCT/camino-ui/commit/c313a6d51ff6fdcb2c64e1465b4f681ca27089de))
+* **titres:** permet de filtrer les titres par une liste d’identifiants uniques ([21f246e](https://github.com/MTES-MCT/camino-ui/commit/21f246e602c37096cbd0eda46815ed588d38b89b))
+* **titres:** utilise l’identifiant unique des substances pour filtrer les titres ([0166057](https://github.com/MTES-MCT/camino-ui/commit/0166057bfc69067add7fe75121b42415a0b5374a))
+* **travaux:** rend visible la liste des travaux que par les administrations ([#479](https://github.com/MTES-MCT/camino-ui/issues/479)) ([8380e5b](https://github.com/MTES-MCT/camino-ui/commit/8380e5bc600ca46cd4c8e6772b895a6d23595c01))
+* **typeform:** ajoute un formulaire de satisfaction ([#482](https://github.com/MTES-MCT/camino-ui/issues/482)) ([c59ba5a](https://github.com/MTES-MCT/camino-ui/commit/c59ba5a50b42731196002d997dd47a9232c59f2f))
+* **utilisateur:** ne peut pas créer d’utilisateur d’une administration/entreprise sans entité ([e2633cd](https://github.com/MTES-MCT/camino-ui/commit/e2633cd9cc0a61ab9cd00a330864e78441f4d99d))
+
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
