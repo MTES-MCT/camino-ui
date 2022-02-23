@@ -163,13 +163,15 @@
                 ><i class="icon-24 icon-plus flex-right" />
               </button>
 
-              <button
-                class="btn-border rnd-s py-s px-m full-x mb-xs flex small"
-                @click="lotAdd(groupeIndex, contourIndex)"
-              >
-                <span class="mt-xxs">Ajouter un lot de points</span
-                ><i class="icon-24 icon-plus flex-right" />
-              </button>
+              <!--              Désactivation de cette fonctionnalité pour vérifier dans un premier temps
+                                si les utilisateurs se plaignent de sa disparition-->
+              <!--              <button>-->
+              <!--                class="btn-border rnd-s py-s px-m full-x mb-xs flex small"-->
+              <!--                @click="lotAdd(groupeIndex, contourIndex)"-->
+              <!--              >-->
+              <!--                <span class="mt-xxs">Ajouter un lot de points</span-->
+              <!--                ><i class="icon-24 icon-plus flex-right" />-->
+              <!--              </button>-->
             </div>
             <button
               v-if="groupeContours.length && groupeContours[0].length"
