@@ -182,7 +182,9 @@ const pointsBuild = (groupes, geoSystemeIds, geoSystemeOpposableId) => {
 const dureeBuild = (ans, mois) => (ans ? ans * 12 : 0) + (mois || 0)
 
 const etapeSaveFormat = etape => {
+  const decisionsAnnexesContenu = etape.decisionsAnnexesContenu
   etape = JSON.parse(JSON.stringify(etape))
+  etape.decisionsAnnexesContenu = decisionsAnnexesContenu
 
   etape.justificatifIds = etape.justificatifs?.map(({ id }) => id)
   etape.documentIds = etape.documents
@@ -200,6 +202,15 @@ const etapeSaveFormat = etape => {
   if (!etape.contenu || !Object.keys(etape.contenu).length) {
     delete etape.contenu
   }
+
+  if (
+    !etape.decisionsAnnexesContenu ||
+    !Object.keys(etape.decisionsAnnexesContenu).length
+  ) {
+    delete etape.decisionsAnnexesContenu
+  }
+
+  delete etape.decisionsAnnexesSections
 
   if (etape.duree && (etape.duree.ans || etape.duree.mois)) {
     etape.duree = dureeBuild(etape.duree.ans, etape.duree.mois)

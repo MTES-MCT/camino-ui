@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 v-if="section.nom && entete">
+    <h4 v-if="section.nom && entete" class="cap-first">
       {{ section.nom }}
     </h4>
 

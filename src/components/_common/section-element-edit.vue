@@ -1,124 +1,52 @@
 <template>
   <div>
-    <inputNumber
-      v-if="element.type === 'number'"
-      v-model="contenu[element.id]"
-      class="p-s"
-      placeholder="…"
-    />
+    <div class="tablet-blobs">
+      <div v-if="element.nom" class="tablet-blob-1-3 tablet-pt-s pb-s">
+        <h5 class="mb-0">
+          <span class="cap-first">{{ element.nom }}</span>
+        </h5>
+        <p v-if="element.optionnel" class="h6 italic mb-0">Optionnel</p>
+        <Tag v-else-if="!complete" color="bg-warning" :mini="true"
+          >Incomplet</Tag
+        >
+      </div>
 
-    <inputNumber
-      v-if="element.type === 'integer'"
-      v-model="contenu[element.id]"
-      :integer="true"
-      class="p-s"
-      placeholder="…"
-    />
-
-    <InputDate
-      v-else-if="element.type === 'date'"
-      v-model="contenu[element.id]"
-    />
-
-    <textarea
-      v-else-if="element.type === 'textarea'"
-      v-model="contenu[element.id]"
-      class="p-s"
-    />
-
-    <input
-      v-else-if="element.type === 'text'"
-      v-model="contenu[element.id]"
-      type="text"
-      class="p-s"
-    />
-
-    <div v-else-if="element.type === 'radio'">
-      <label class="mr">
-        <input
-          v-model="contenu[element.id]"
-          :name="element.id"
-          :value="true"
-          type="radio"
-          class="p-s mt-s mb-s"
+      <div
+        :class="{
+          'tablet-blob-2-3': element.nom,
+          'tablet-blob-1': !element.nom
+        }"
+      >
+        <SectionElementEdit
+          v-model:contenu="contenu"
+          class="mb-s"
+          :element="element"
         />
-        Oui
-      </label>
 
-      <label>
-        <input
-          v-model="contenu[element.id]"
-          :name="element.id"
-          :value="false"
-          type="radio"
-          class="p-s mt-s mb-s"
+        <!-- eslint-disable vue/no-v-html -->
+        <p
+          v-if="element.description || hasValeur"
+          class="h6"
+          v-html="element.description"
         />
-        Non
-      </label>
-    </div>
-
-    <input
-      v-else-if="element.type === 'checkbox'"
-      v-model="contenu[element.id]"
-      type="checkbox"
-      class="p-s mt-s mb-s"
-    />
-
-    <div v-else-if="element.type === 'checkboxes'">
-      <div v-for="value in valeurs" :key="value.id">
-        <label>
-          <input
-            v-model="contenu[element.id]"
-            type="checkbox"
-            :value="value.id"
-            class="mr-s"
-          />
-          <span class="cap-first">{{ value.nom }}</span>
-        </label>
       </div>
     </div>
 
-    <div v-else-if="element.type === 'select'">
-      <select
-        v-if="valeurs && valeurs.length"
-        v-model="contenu[element.id]"
-        class="p-s mr-s"
-      >
-        <option v-for="value in valeurs" :key="value.id" :value="value.id">
-          {{ value.nom }}
-        </option>
-      </select>
-    </div>
-
-    <div v-else-if="element.type === 'multiple'">
-      <SectionElementMultipleEdit
-        v-model:contenu="contenu[element.id]"
-        :element="element"
-      />
-    </div>
-
-    <div v-else-if="element.type === 'file'">
-      <SectionElementFileEdit
-        v-model:contenu="contenu"
-        :element-id="element.id"
-      />
-    </div>
+    <hr />
   </div>
 </template>
 
 <script>
-import InputDate from '../_ui/input-date.vue'
-import InputNumber from '../_ui/input-number.vue'
-import SectionElementMultipleEdit from './section-element-multiple-edit.vue'
-import SectionElementFileEdit from './section-element-file-edit.vue'
+import {
+  valeurFind,
+  hasValeurCheck,
+  elementsCompleteCheck
+} from '../../utils/contenu'
+import SectionElementEdit from './section-element-input-edit.vue'
+import Tag from '../_ui/tag.vue'
 
 export default {
-  components: {
-    InputDate,
-    InputNumber,
-    SectionElementMultipleEdit,
-    SectionElementFileEdit
-  },
+  components: { SectionElementEdit, Tag },
 
   props: {
     contenu: { type: Object, required: true },
@@ -126,21 +54,16 @@ export default {
   },
 
   computed: {
-    valeurs() {
-      return this.element.valeurs
-    }
-  },
+    hasValeur() {
+      return hasValeurCheck(this.element.id, this.contenu)
+    },
 
-  created() {
-    // si l'élément est un bouton radio
-    // et que le contenu pour cet élément est vide
-    // alors on met la valeur par défaut `false`
-    if (this.contenu && this.contenu[this.element.id] === undefined) {
-      if (this.element.type === 'radio') {
-        this.contenu[this.element.id] = false
-      } else if (this.element.type === 'multiple') {
-        this.contenu[this.element.id] = []
-      }
+    valeur() {
+      return valeurFind(this.element, this.contenu)
+    },
+
+    complete() {
+      return elementsCompleteCheck([this.element], this.contenu, true)
     }
   }
 }

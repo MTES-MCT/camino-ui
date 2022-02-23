@@ -48,7 +48,7 @@
 
 <script>
 import { valeurFind, hasValeurCheck } from '@/utils/contenu'
-import SectionElementEdit from '../_common/section-element-edit.vue'
+import SectionElementEdit from '../_common/section-element-input-edit.vue'
 import HeritageEdit from './heritage-edit.vue'
 import SectionElementMultiple from '../_common/section-element-multiple.vue'
 
