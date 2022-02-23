@@ -17,7 +17,6 @@
       :route="route"
       :initial-opened="true"
       class="mb"
-      @popup="popupOpen"
     />
   </div>
 </template>
@@ -25,7 +24,6 @@
 <script>
 import Loader from './_ui/loader.vue'
 import Preview from './activite/preview.vue'
-import RemovePopup from './activite/remove-popup.vue'
 
 export default {
   components: { Loader, Preview },
@@ -69,19 +67,6 @@ export default {
   methods: {
     async get() {
       await this.$store.dispatch('titreActivite/get', this.$route.params.id)
-    },
-
-    popupOpen() {
-      this.$store.commit('popupOpen', {
-        component: RemovePopup,
-        props: {
-          activiteId: this.activite.id,
-          typeNom: this.activite.type.nom,
-          annee: this.activite.annee,
-          periodeNom: this.activite.periode.nom,
-          route: this.route
-        }
-      })
     }
   }
 }

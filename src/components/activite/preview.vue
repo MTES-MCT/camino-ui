@@ -91,6 +91,7 @@ import Statut from '../_common/statut.vue'
 
 import Documents from '../documents/list.vue'
 import { dateFormat } from '@/utils'
+import RemovePopup from './remove-popup.vue'
 
 export default {
   components: {
@@ -168,7 +169,16 @@ export default {
     },
 
     activiteRemovePopupOpen() {
-      this.$emit('popup')
+      this.$store.commit('popupOpen', {
+        component: RemovePopup,
+        props: {
+          activiteId: this.activite.id,
+          typeNom: this.activite.type.nom,
+          annee: this.activite.annee,
+          periodeNom: this.activite.periode.nom,
+          route: this.route
+        }
+      })
     },
 
     dateFormat(date) {
