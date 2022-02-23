@@ -111,6 +111,21 @@
         @complete-update="justificatifsCompleteUpdate"
       />
     </Accordion>
+
+    <Accordion
+      v-if="stepDecisionsAnnexes"
+      id="step-decisionsAnnexes"
+      :step="stepDecisionsAnnexes"
+      :opened="opened['decisionsAnnexes']"
+      :complete="stepDecisionsAnnexesComplete"
+      :en-construction="enConstruction"
+      @toggle="toggle('decisionsAnnexes')"
+    >
+      <DecisionsAnnexesEdit
+        :etape="etape"
+        @complete-update="decisionsAnnexesComplete = $event"
+      />
+    </Accordion>
   </div>
 </template>
 
@@ -122,9 +137,11 @@ import PointsEdit from './points-edit.vue'
 import SectionsEdit from './sections-edit.vue'
 import DocumentsEdit from '../document/multi-edit.vue'
 import JustificatifsEdit from './justificatifs-edit.vue'
+import DecisionsAnnexesEdit from './decisions-annexes-edit.vue'
 
 export default {
   components: {
+    DecisionsAnnexesEdit,
     Accordion,
     TypeEdit,
     FondamentalesEdit,
@@ -154,6 +171,7 @@ export default {
       sectionsComplete: false,
       documentsComplete: false,
       justificatifsComplete: false,
+      decisionsAnnexesComplete: false,
       typeComplete: false,
       justificatifs: false,
       opened: {
@@ -162,7 +180,8 @@ export default {
         points: false,
         sections: false,
         documents: false,
-        justificatifs: false
+        justificatifs: false,
+        decisionsAnnexes: false
       },
       help: {}
     }
@@ -203,7 +222,8 @@ export default {
         this.stepPerimetreComplete &&
         this.stepSectionsComplete &&
         this.stepDocumentsComplete &&
-        this.stepJustificatifsComplete
+        this.stepJustificatifsComplete &&
+        this.stepDecisionsAnnexesComplete
       )
     },
 
@@ -225,6 +245,10 @@ export default {
 
     stepJustificatifsComplete() {
       return !this.stepJustificatifs || this.justificatifsComplete
+    },
+
+    stepDecisionsAnnexesComplete() {
+      return !this.stepDecisionsAnnexes || this.decisionsAnnexesComplete
     },
 
     steps() {
@@ -263,6 +287,10 @@ export default {
         steps.push({ id: 'justificatifs', name: 'Justificatifs d’entreprise' })
       }
 
+      if (this.etape.decisionsAnnexesSections) {
+        steps.push({ id: 'decisionsAnnexes', name: 'Décisions annexes' })
+      }
+
       const titreTypeHelp = this.help[this.titreTypeId + this.domaineId]
       if (titreTypeHelp) {
         steps.forEach(step => {
@@ -295,6 +323,10 @@ export default {
 
     stepJustificatifs() {
       return this.steps.find(s => s.id === 'justificatifs')
+    },
+
+    stepDecisionsAnnexes() {
+      return this.steps.find(s => s.id === 'decisionsAnnexes')
     },
 
     userIsAdmin() {

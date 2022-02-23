@@ -120,6 +120,20 @@
         <hr class="mx--" />
       </div>
 
+      <div
+        v-if="etape.decisionsAnnexesSections && etape.decisionsAnnexesContenu"
+      >
+        <Section
+          v-for="s in etape.decisionsAnnexesSections"
+          :key="s.id"
+          :section="s"
+          :contenu="etape.decisionsAnnexesContenu[s.id] || {}"
+          :etape-id="etape.id"
+        />
+
+        <hr class="mx--" />
+      </div>
+
       <div v-if="canDownloadZip" class="flex">
         <span class="small bold mb-0 mt-s flex-grow text-right mr-l pt-xs">
           Télécharger l'ensemble de la demande dans un fichier .zip

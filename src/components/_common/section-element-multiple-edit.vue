@@ -41,7 +41,7 @@ import { defineAsyncComponent } from 'vue'
 export default {
   components: {
     SectionElementEdit: defineAsyncComponent(() =>
-      import('./section-element-edit.vue')
+      import('./section-element-input-edit.vue')
     )
   },
 

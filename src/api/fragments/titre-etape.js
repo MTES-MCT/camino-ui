@@ -182,6 +182,8 @@ const fragmentTitreEtape = gql`
     }
     contenu
     heritageContenu
+    decisionsAnnexesSections
+    decisionsAnnexesContenu
 
     modification
     suppression
@@ -345,6 +347,8 @@ const fragmentEtape = gql`
     }
     contenu
     heritageContenu
+    decisionsAnnexesSections
+    decisionsAnnexesContenu
 
     modification
     suppression

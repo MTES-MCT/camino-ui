@@ -48,7 +48,11 @@
       </router-link>
     </div>
 
-    <SectionsEdit v-model:element="activite" :sections="activite.sections" />
+    <SectionsEdit
+      :contenu="activite.contenu"
+      :sections="activite.sections"
+      @contenu-update="activite.contenu = $event"
+    />
 
     <DocumentsEdit
       v-model:documents="activite.documents"
@@ -80,7 +84,7 @@
 import { dateFormat } from '@/utils'
 import Loader from './_ui/loader.vue'
 import HelpTooltip from './_ui/help-tooltip.vue'
-import SectionsEdit from './activite/sections-edit.vue'
+import SectionsEdit from './_common/sections-edit.vue'
 import DocumentsEdit from './document/multi-edit.vue'
 
 export default {
