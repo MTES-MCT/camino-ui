@@ -1,3 +1,16 @@
+# [0.33.0](https://github.com/MTES-MCT/camino-ui/compare/v0.32.0...v0.33.0) (2022-03-01)
+
+
+### Bug Fixes
+
+* **activité:** corrige la suppression d’une activité ([#488](https://github.com/MTES-MCT/camino-ui/issues/488)) ([8e0a2df](https://github.com/MTES-MCT/camino-ui/commit/8e0a2dfe6b68699e1e474176bb5443437fcbe80d))
+
+
+### Features
+
+* **étapes:** ajoute la sections décisions annexes lors de l’édition d’une étape ([#486](https://github.com/MTES-MCT/camino-ui/issues/486)) ([f1f65b1](https://github.com/MTES-MCT/camino-ui/commit/f1f65b18e4dbccb15c19c510d5abe312522cda2d))
+* **périmètre:** désactive la saisie de lot de points ([#487](https://github.com/MTES-MCT/camino-ui/issues/487)) ([2f9bced](https://github.com/MTES-MCT/camino-ui/commit/2f9bced2c065a16dc6446e91455f3142094f7328))
+
 # [0.32.0](https://github.com/MTES-MCT/camino-ui/compare/v0.31.0...v0.32.0) (2022-02-21)
 
 
