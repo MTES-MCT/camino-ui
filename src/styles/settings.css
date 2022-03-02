@@ -7,7 +7,7 @@ http://francoisromain.github.io/postcss-structure
   /* Colors        ------------------------------- */
   --color-text: #666;
   --color-bg: white;
-  --color-transparent: rgba(248, 247, 243, 0);
+  --color-transparent: rgb(248 247 243 / 0%);
   --color-inverse: #3d3d35;
   --color-neutral: #c6c4bc;
   --color-alt: #f0efe8;
@@ -19,7 +19,8 @@ http://francoisromain.github.io/postcss-structure
 
   /* Basée sur le DSFR (https://vue-dsfr.netlify.app/) */
   --dsfr-bf500: #000091;
-  --dsfr-color-hover: rgba(0, 0, 221, 1);
+  --dsfr-g600: #6a6a6a;
+  --dsfr-color-hover: rgb(0 0 221 / 100%);
 
   /* Base units    ------------------------------- */
 
@@ -52,8 +53,6 @@ http://francoisromain.github.io/postcss-structure
 
   /* xxl: 3.75rem = 60 px */
   --unit-xxl: calc(var(--unit) * 2.5);
-
-  /*  */
   --unit-infinity: 9999px;
 
   /* Lists         ------------------------------- */
