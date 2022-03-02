@@ -22,6 +22,14 @@ textarea,
   background-color: var(--color-alt);
   height: auto;
   color: inherit;
+  &:not(.choices__input) {
+    box-shadow: 0 2px 0 0 var(--dsfr-g600);
+  }
+
+}
+
+.choices{
+  box-shadow: 0 2px 0 0 var(--dsfr-g600);
 }
 
 select,
