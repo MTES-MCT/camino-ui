@@ -139,7 +139,7 @@
 </template>
 
 <script>
-import Pill from '../_ui/pill.vue'
+import Pill from '../_ui/pill.tsx'
 import Tag from '../_ui/tag.vue'
 import TagList from '../_ui/tag-list.vue'
 import Dot from '../_ui/dot.vue'
