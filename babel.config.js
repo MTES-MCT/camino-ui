@@ -1,5 +1,5 @@
 module.exports = {
-  plugins: ['graphql-tag'],
+  plugins: ['graphql-tag', '@vue/babel-plugin-jsx'],
   env: {
     test: {
       plugins: ['babel-plugin-transform-vite-meta-env'],
