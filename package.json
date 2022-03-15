@@ -27,7 +27,9 @@
     "test:watch": "cross-env NODE_ENV=test jest --watch --verbose",
     "test:simple": "cross-env NODE_ENV=test jest --verbose",
     "lint": "prettier --write src && eslint --fix --ext .js,.ts,.vue src",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "@comment dependencies": {
     "eslint": "eslint et eslint-plugin-vue, bloqués à 0.7.x https://github.com/xjamundx/eslint-plugin-promise/issues/218",
@@ -53,6 +55,11 @@
     "@semantic-release/git": "^10.0.1",
     "@sentry/browser": "^6.17.9",
     "@sentry/integrations": "^6.17.9",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/addon-storyshots": "^6.4.19",
+    "@storybook/vue3": "^6.4.19",
     "@types/jest": "^27.4.0",
     "@types/leaflet": "^1.7.9",
     "@types/leaflet.markercluster": "^1.4.6",
@@ -66,6 +73,7 @@
     "@vue/test-utils": "^2.0.0-rc.17",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^27.5.1",
+    "babel-loader": "^8.2.3",
     "babel-plugin-graphql-tag": "^3.3.0",
     "babel-preset-vite": "^1.0.4",
     "chalk": "^5.0.0",
@@ -128,6 +136,7 @@
     "typescript": "^4.4.4",
     "vite": "^2.8.4",
     "vue": "^3.2.31",
+    "vue-loader": "^16.8.3",
     "vue-meta": "^2.4.0",
     "vue-router": "^4.0.12",
     "vue3-jest": "27.0.0-alpha.2",
