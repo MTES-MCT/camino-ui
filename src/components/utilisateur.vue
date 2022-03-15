@@ -177,7 +177,7 @@
 <script>
 import { cloneAndClean, permissionsCheck } from '../utils/index'
 import Accordion from './_ui/accordion.vue'
-import Pill from './_ui/pill.tsx'
+import Pill from './_ui/pill.vue'
 import Loader from './_ui/loader.vue'
 import UtilisateurEditPopup from './utilisateur/edit-popup.vue'
 import UtilisateurRemovePopup from './utilisateur/remove-popup.vue'

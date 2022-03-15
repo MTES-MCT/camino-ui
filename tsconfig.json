@@ -7,7 +7,6 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "jsx": "preserve",
     "lib": [
       "esnext",
       "dom"
