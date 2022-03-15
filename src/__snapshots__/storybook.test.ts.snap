@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Ui/Pill Error 1`] = `
+<span
+  class="cap-first small bold"
+>
+  <span
+    class="bg-neutral color-bg pill py-xs px-s"
+  >
+    
+    hello
+    
+  </span>
+</span>
+`;
+
+exports[`Storyshots Ui/Pill Primary 1`] = `
+<span
+  class="cap-first small bold"
+>
+  <span
+    class="bg-neutral color-bg pill py-xs px-s"
+  >
+    
+    hello
+    
+  </span>
+</span>
+`;

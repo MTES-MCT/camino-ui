@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Pill from '../../_ui/pill.tsx'
+import Pill from '../../_ui/pill.vue'
 
 export default {
   components: {

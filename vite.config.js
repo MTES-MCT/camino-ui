@@ -1,13 +1,12 @@
 import 'dotenv/config'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
 import path from 'path'
 import npmPackage from './package.json'
 import inject from '@rollup/plugin-inject'
 
 export default defineConfig({
-  plugins: [vue(), vueJsx()],
+  plugins: [vue()],
   root: 'src',
   resolve: {
     alias: {

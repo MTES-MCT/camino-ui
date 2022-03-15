@@ -32,7 +32,7 @@
 
 <script>
 import snarkdown from 'snarkdown'
-import Pill from '../_ui/pill.tsx'
+import Pill from '../_ui/pill.vue'
 import Statut from '../_common/statut.vue'
 
 export default {
