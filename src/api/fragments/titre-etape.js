@@ -186,7 +186,6 @@ const fragmentTitreEtape = gql`
     decisionsAnnexesContenu
 
     modification
-    suppression
     deposable
   }
 
@@ -351,7 +350,6 @@ const fragmentEtape = gql`
     decisionsAnnexesContenu
 
     modification
-    suppression
   }
 
   ${fragmentDemarcheType}

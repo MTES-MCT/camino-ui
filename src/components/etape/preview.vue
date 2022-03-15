@@ -4,7 +4,7 @@
     :opened="opened"
     class="mb-s"
     :slot-default="hasSections || hasFondamentales || hasDocuments"
-    :slot-buttons="etape.modification || etape.suppression"
+    :slot-buttons="etape.modification"
     @close="close"
     @toggle="toggle"
   >
@@ -32,7 +32,7 @@
       </div>
     </template>
 
-    <template v-if="etape.modification || etape.suppression" #buttons>
+    <template v-if="etape.modification" #buttons>
       <button
         v-if="etapeIsDemandeEnConstruction"
         class="btn btn-primary flex small rnd-0"
@@ -43,19 +43,11 @@
         <span class="mt-xxs mb-xxs">Déposer…</span>
       </button>
 
-      <button
-        v-if="etape.modification"
-        class="btn py-s px-m mr-px"
-        @click="etapeEdit"
-      >
+      <button class="btn py-s px-m mr-px" @click="etapeEdit">
         <i class="icon-24 icon-pencil" />
       </button>
 
-      <button
-        v-if="etape.suppression"
-        class="btn py-s px-m mr-px"
-        @click="removePopupOpen"
-      >
+      <button class="btn py-s px-m mr-px" @click="removePopupOpen">
         <i class="icon-24 icon-trash" />
       </button>
     </template>
