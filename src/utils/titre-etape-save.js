@@ -226,7 +226,6 @@ const etapeSaveFormat = etape => {
     }
   })
 
-  delete etape.suppression
   delete etape.modification
 
   delete etape.demarche
