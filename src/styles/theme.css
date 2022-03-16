@@ -233,14 +233,6 @@ h6.color {
   color: var(--color-info);
 }
 
-.archive img {
-  filter: grayscale(100%);
-}
-
-.archive h6.color {
-  color: var(--color-neutral);
-}
-
 @media (--viewport-tablet) {
   .tablet-pt-s {
     padding-top: var(--unit-s);
