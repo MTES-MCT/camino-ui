@@ -3,11 +3,11 @@
     <div class="tablet-blob-1-3 flex">
       <div v-if="!apiError && loaded" class="flex-right">
         <div class="mt-m tablet-mb-m flex">
-          <div class="ml-xs">
-            <MenuButton />
+          <div class="ml-xs flex">
+            <UserButton />
           </div>
           <div class="ml-xs">
-            <UserButton />
+            <MenuButton />
           </div>
         </div>
       </div>

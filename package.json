@@ -56,8 +56,8 @@
     "@sentry/browser": "^6.17.9",
     "@sentry/integrations": "^6.17.9",
     "@storybook/addon-actions": "^6.4.19",
-    "@storybook/addon-essentials": "^6.4.19",
-    "@storybook/addon-links": "^6.4.19",
+    "@storybook/addon-controls": "^6.4.19",
+    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addon-storyshots": "^6.4.19",
     "@storybook/vue3": "^6.4.19",
     "@types/jest": "^27.4.0",
@@ -97,6 +97,7 @@
     "graphql": "^16.3.0",
     "graphql-react": "^15.0.0",
     "graphql-tag": "^2.12.6",
+    "html-webpack-plugin": "^5.5.0",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "jest-fetch-mock": "^3.0.3",
@@ -136,10 +137,10 @@
     "typescript": "^4.4.4",
     "vite": "^2.8.4",
     "vue": "^3.2.31",
-    "vue-loader": "^16.8.3",
+    "vue-loader": "^17.0.0",
     "vue-meta": "^2.4.0",
     "vue-router": "^4.0.12",
-    "vue3-jest": "27.0.0-alpha.2",
+    "@vue/vue3-jest": "27.0.0-alpha.4",
     "vuex": "^4.0.2",
     "vuex-router-sync": "^6.0.0-rc.1"
   },
@@ -148,6 +149,10 @@
     "env": {
       "node": true,
       "jest/globals": true
+    },
+    "globals": {
+      "defineProps": "readonly",
+      "defineEmits": "readonly"
     },
     "extends": [
       "plugin:vue/vue3-recommended",

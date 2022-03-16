@@ -140,6 +140,8 @@ const actions = {
 
       commit('popupMessagesRemove', null, { root: true })
 
+      await router.push({ name: 'homepage' })
+
       await utilisateurDeconnecter()
 
       dispatch(
