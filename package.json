@@ -215,6 +215,12 @@
             "/button-/"
           ]
         }
+      ],
+      "function-no-unknown": [
+        true,
+        {
+          "ignoreFunctions": ["color-mod", "alpha"]
+        }
       ]
     },
     "ignoreFiles": [

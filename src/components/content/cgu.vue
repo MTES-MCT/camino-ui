@@ -178,12 +178,6 @@
         https://github.com/MTES-MCT/camino-api.
       </li>
     </ul>
-    <h3>Crédits photo</h3>
-    <p>
-      Les photos présentes sur la page A propos sont à créditer aux auteurs
-      suivants : © bastan ; © BRGM ; © Joeffrey Arruyer ; © Guillaume Levieux ;
-      © François Romain ; © Adrien Risser ; © Florent Chalvet.
-    </p>
     <h3>Vie privée</h3>
     <h4>Données à caractère personnel</h4>
     <p>
