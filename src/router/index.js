@@ -249,8 +249,9 @@ const routes = [
     redirect: 'statistiques'
   },
   {
+    name: 'homepage',
     path: '/',
-    redirect: 'titres'
+    redirect: { name: 'titres' }
   },
   {
     path: '/:pathMatch(.*)*',

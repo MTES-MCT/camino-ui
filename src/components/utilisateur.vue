@@ -4,13 +4,23 @@
   </div>
   <div v-else>
     <h5>Utilisateur</h5>
-    <h1>
-      {{
-        utilisateur
-          ? `${utilisateur.prenom || '–'} ${utilisateur.nom || '–'}`
-          : '–'
-      }}
-    </h1>
+    <div class="flex">
+      <h1>
+        {{
+          utilisateur
+            ? `${utilisateur.prenom || '–'} ${utilisateur.nom || '–'}`
+            : '–'
+        }}
+      </h1>
+
+      <button
+        id="cmn-user-menu-button-deconnexion"
+        class="btn-menu text-decoration-none bold p-0 flex-right"
+        @click="logout"
+      >
+        Déconnexion
+      </button>
+    </div>
 
     <Accordion class="mb" :slot-sub="true" :slot-buttons="true">
       <template #title>
@@ -42,21 +52,21 @@
         </button>
 
         <button
-          id="cmn-utilisateur-button-popup-supprimer"
-          class="btn-alt py-s px-m"
-          title="supprimer le compte utilisateur"
-          @click="removePopupOpen"
-        >
-          <i class="icon-24 icon-trash" />
-        </button>
-
-        <button
           id="cmn-utilisateur-button-popup-editer"
           class="btn-alt py-s px-m"
           title="modifier le compte utilisateur"
           @click="editPopupOpen"
         >
           <i class="icon-24 icon-pencil" />
+        </button>
+
+        <button
+          id="cmn-utilisateur-button-popup-supprimer"
+          class="btn-alt py-s px-m"
+          title="supprimer le compte utilisateur"
+          @click="removePopupOpen"
+        >
+          <i class="icon-24 icon-trash" />
         </button>
       </template>
 
@@ -224,6 +234,16 @@ export default {
   },
 
   methods: {
+    logout() {
+      this.eventTrack('deconnexion')
+      this.$store.dispatch('user/logout')
+    },
+    eventTrack(id) {
+      if (this.$matomo) {
+        this.$matomo.trackEvent('menu-utilisateur', 'menu-utilisateur', id)
+      }
+    },
+
     async get() {
       await this.$store.dispatch('utilisateur/get', this.$route.params.id)
     },

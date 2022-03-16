@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Ui/Pill Error 1`] = `
+exports[`Automated Storybook Snapshots Ui/Pill Error 1`] = `
 <span
   class="cap-first small bold"
 >
   <span
-    class="bg-neutral color-bg pill py-xs px-s"
+    class="bg-error color-bg pill py-xs px-s"
   >
     
-    hello
+    Hello
     
   </span>
 </span>
 `;
 
-exports[`Storyshots Ui/Pill Primary 1`] = `
+exports[`Automated Storybook Snapshots Ui/Pill Primary 1`] = `
 <span
   class="cap-first small bold"
 >
@@ -22,7 +22,7 @@ exports[`Storyshots Ui/Pill Primary 1`] = `
     class="bg-neutral color-bg pill py-xs px-s"
   >
     
-    hello
+    Hello
     
   </span>
 </span>
