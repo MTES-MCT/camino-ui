@@ -1,38 +1,18 @@
 <template>
-  <div
-    :class="{ active: menu.component && menu.component.name === 'UserMenu' }"
-  >
-    <button
-      v-if="user"
-      id="cmn-user-button-menu"
-      class="btn-border small pill p-s"
-      alt="Url"
-      @click="menuToggle"
-    >
-      <i class="icon-24 icon-user" />
-    </button>
-    <button
-      v-else
-      id="cmn-user-button-connexion"
-      class="btn btn-primary small lh-2"
-      alt="Url"
-      @click="popupOpen"
-    >
-      Connexion
-    </button>
-  </div>
+  <pure-button
+    :menu-active="menu.component && menu.component.name === 'UserMenu'"
+    :user="user"
+    @onConnectionClicked="popupOpen"
+    @onUserClicked="goToUser"
+  />
 </template>
 
 <script>
 import UserLoginPopup from './login-popup.vue'
-import UserMenu from './menu.vue'
+import PureButton from './pure-button.vue'
 
 export default {
-  data() {
-    return {
-      popupVisible: false
-    }
-  },
+  components: { PureButton },
 
   computed: {
     user() {
@@ -47,15 +27,9 @@ export default {
     popupOpen() {
       this.$store.commit('popupOpen', { component: UserLoginPopup })
     },
-    popupClose() {
-      this.$store.commit('popupClose')
-    },
-    logout() {
-      this.$store.dispatch('user/logout')
-    },
-    menuToggle() {
+    goToUser() {
       this.eventTrack()
-      this.$store.dispatch('menuToggle', UserMenu)
+      this.$router.push({ name: 'utilisateur', params: { id: this.user.id } })
     },
     eventTrack() {
       if (this.$matomo) {

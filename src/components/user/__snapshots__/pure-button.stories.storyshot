@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Automated Storybook Snapshots Components/User/Button Connected 1`] = `
+<div
+  class="flex"
+>
+  <button
+    aria-label="profil utilisateur"
+    class="btn-menu text-decoration-none bold p-0"
+    id="cmn-user-button-menu"
+  >
+    prenom Nom
+  </button>
+</div>
+`;
+
+exports[`Automated Storybook Snapshots Components/User/Button Not Connected 1`] = `
+<div
+  class="flex"
+>
+  <button
+    class="btn btn-primary small lh-2"
+    id="cmn-user-button-connexion"
+  >
+     Connexion 
+  </button>
+</div>
+`;

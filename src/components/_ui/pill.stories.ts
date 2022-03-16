@@ -1,4 +1,5 @@
 import Pill from './pill.vue'
+import { Story } from '@storybook/vue3'
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
@@ -9,12 +10,21 @@ export default {
   }
 }
 
-export const Primary = () => ({
+type Props = {
+  color?: string
+}
+
+const Template: Story<Props> = (args: Props) => ({
   components: { Pill },
-  template: '<pill>hello</pill>'
+  setup() {
+    return { args }
+  },
+  template: '<Pill v-bind="args">Hello</Pill>'
 })
 
-export const Error = () => ({
-  components: { Pill },
-  template: '<pill color="bg-error">hello</pill>'
-})
+export const Primary = Template.bind({})
+
+export const Error = Template.bind({})
+Error.args = {
+  color: 'bg-error'
+}
