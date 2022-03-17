@@ -1,3 +1,18 @@
+# [0.34.0](https://github.com/MTES-MCT/camino-ui/compare/v0.33.0...v0.34.0) (2022-03-17)
+
+
+### Bug Fixes
+
+* **carte:** corrige les fonds de cartes IGN et supprime les fonds de cartes obsolètes ([#493](https://github.com/MTES-MCT/camino-ui/issues/493)) ([93cf770](https://github.com/MTES-MCT/camino-ui/commit/93cf770dc4535cad7c3500b21a9385bccaeab206))
+
+
+### Features
+
+* **apropos:** remplace l’équipe de la page « À propos » par un lien vers la page de l’incubateur ([#494](https://github.com/MTES-MCT/camino-ui/issues/494)) ([a0d8774](https://github.com/MTES-MCT/camino-ui/commit/a0d87741859f92cae9d0780b852add588ef17f38))
+* **étapes:** autorise les utilisateurs pouvant modifier à supprimer aussi une étape ([#491](https://github.com/MTES-MCT/camino-ui/issues/491)) ([863697c](https://github.com/MTES-MCT/camino-ui/commit/863697ca548b64ddf156f57d081ccd9752a711db))
+* **login:** mettre le nom de l’utilisateur connecté à la place du bouton 'bonhomme' ([#495](https://github.com/MTES-MCT/camino-ui/issues/495)) ([e41f9fc](https://github.com/MTES-MCT/camino-ui/commit/e41f9fc681418f0b026573233674f7d0ddf14758))
+* **style:** ajoute une barre horizontale sous les champs d’édition ([78c4294](https://github.com/MTES-MCT/camino-ui/commit/78c4294050ba3eff73551a1d1ca6c6a12396436c))
+
 # [0.33.0](https://github.com/MTES-MCT/camino-ui/compare/v0.32.0...v0.33.0) (2022-03-01)
 
 
