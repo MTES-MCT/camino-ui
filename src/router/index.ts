@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import store from '../store'
 
+const Dashboard = () => import('../components/dashboard.vue')
 const Titre = () => import('../components/titre.vue')
 const Titres = () => import('../components/titres.vue')
 const Demarches = () => import('../components/demarches.vue')
@@ -43,7 +44,12 @@ const EtapeEdition = () => import('../components/etape-edition.vue')
 const ActiviteEdition = () => import('../components/activite-edition.vue')
 const Journaux = () => import('../components/journaux.vue')
 
-const routes = [
+const routes: RouteRecordRaw[] = [
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Dashboard
+  },
   {
     path: '/titres',
     name: 'titres',
@@ -207,12 +213,12 @@ const routes = [
   },
   {
     path: '/email',
-    beforeEnter: (to, from, next) => {
+    beforeEnter: to => {
       store.dispatch('utilisateur/emailUpdate', {
         emailToken: to.query.token
       })
-      next('/')
-    }
+    },
+    redirect: { name: 'homepage' }
   },
   {
     path: '/creation-de-compte',
@@ -251,7 +257,7 @@ const routes = [
   {
     name: 'homepage',
     path: '/',
-    redirect: { name: 'titres' }
+    redirect: { name: 'dashboard' }
   },
   {
     path: '/:pathMatch(.*)*',
@@ -268,28 +274,34 @@ const routes = [
 
 const history = createWebHistory()
 
-const router = createRouter({ routes, history })
-
-router.isReady().then(async () => {
-  const ticket =
-    router.currentRoute.value.query.authentification === 'cerbere' &&
-    router.currentRoute.value.query.ticket
-
-  if (ticket) {
-    const query = { ...router.currentRoute.value.query }
-
-    delete query.ticket
-    delete query.authentification
-    delete query.TARGET
-
-    await router.replace({ query })
-    await store.dispatch('user/cerbereLogin', { ticket })
-  } else {
-    await store.dispatch('user/identify')
-  }
+const router = createRouter({
+  routes,
+  history,
+  linkActiveClass: 'active',
+  linkExactActiveClass: 'exact-active'
 })
 
+router.isReady().then(async () => {})
+
 router.beforeEach(async (to, from, next) => {
+  if (!store.getters['user/isLoaded']) {
+    const ticket =
+      router.currentRoute.value.query.authentification === 'cerbere' &&
+      router.currentRoute.value.query.ticket
+
+    if (ticket) {
+      const query = { ...router.currentRoute.value.query }
+
+      delete query.ticket
+      delete query.authentification
+      delete query.TARGET
+
+      await router.replace({ query })
+      await store.dispatch('user/cerbereLogin', { ticket })
+    } else {
+      await store.dispatch('user/identify')
+    }
+  }
   if (store.state.menu.component) {
     store.commit('menuClose')
   }

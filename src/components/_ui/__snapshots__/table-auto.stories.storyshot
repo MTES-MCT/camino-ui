@@ -1,0 +1,659 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Automated Storybook Snapshots Ui/TableAuto Simple 1`] = `
+<div>
+  <div
+    class="overflow-scroll-x mb"
+  >
+    <div
+      class="table"
+    >
+      <div
+        class="tr"
+      >
+        
+        <div
+          class="th nowrap min-width-8"
+        >
+          <button
+            class="btn-menu full-x p-0"
+          >
+            Nom 
+            <i
+              class="icon-24 right icon-chevron-b"
+            />
+          </button>
+        </div>
+        <div
+          class="th nowrap"
+        >
+          <button
+            class="btn-menu full-x p-0"
+          >
+            – 
+            <!--v-if-->
+          </button>
+        </div>
+        <div
+          class="th nowrap min-width-8"
+        >
+          <button
+            class="btn-menu full-x p-0"
+          >
+            Type 
+            <!--v-if-->
+          </button>
+        </div>
+        <div
+          class="th nowrap nowrap min-width-5"
+        >
+          <button
+            class="btn-menu full-x p-0"
+          >
+            Statut 
+            <!--v-if-->
+          </button>
+        </div>
+        <div
+          class="th nowrap"
+        >
+          <button
+            class="btn-menu full-x p-0"
+          >
+            Test 
+            <!--v-if-->
+          </button>
+        </div>
+        
+      </div>
+      
+      <router-link
+        class="tr tr-link text-decoration-none"
+        to="[object Object]"
+      >
+        
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="bold"
+          >
+            220222_0
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class="cap-first small bold mono"
+          >
+            <span
+              class="bg-domaine-m color-bg pill py-xs px-s"
+            >
+              
+              m
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="small bold cap-first"
+          >
+            Autorisation de recherches
+          </span>
+        </div>
+        <div
+          class="td nowrap min-width-5"
+        >
+          <span
+            class="cap-first small bold"
+          >
+            <span
+              class="bg-warning color-bg pill py-xs px-s"
+            >
+              
+              Demande initiale 0
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class=""
+          >
+            Test value 0
+          </span>
+        </div>
+        
+      </router-link>
+      <router-link
+        class="tr tr-link text-decoration-none"
+        to="[object Object]"
+      >
+        
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="bold"
+          >
+            220222_1
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class="cap-first small bold mono"
+          >
+            <span
+              class="bg-domaine-m color-bg pill py-xs px-s"
+            >
+              
+              m
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="small bold cap-first"
+          >
+            Autorisation de recherches
+          </span>
+        </div>
+        <div
+          class="td nowrap min-width-5"
+        >
+          <span
+            class="cap-first small bold"
+          >
+            <span
+              class="bg-warning color-bg pill py-xs px-s"
+            >
+              
+              Demande initiale 1
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class=""
+          >
+            Test value 1
+          </span>
+        </div>
+        
+      </router-link>
+      <router-link
+        class="tr tr-link text-decoration-none"
+        to="[object Object]"
+      >
+        
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="bold"
+          >
+            220222_2
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class="cap-first small bold mono"
+          >
+            <span
+              class="bg-domaine-m color-bg pill py-xs px-s"
+            >
+              
+              m
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="small bold cap-first"
+          >
+            Autorisation de recherches
+          </span>
+        </div>
+        <div
+          class="td nowrap min-width-5"
+        >
+          <span
+            class="cap-first small bold"
+          >
+            <span
+              class="bg-warning color-bg pill py-xs px-s"
+            >
+              
+              Demande initiale 2
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class=""
+          >
+            Test value 2
+          </span>
+        </div>
+        
+      </router-link>
+      <router-link
+        class="tr tr-link text-decoration-none"
+        to="[object Object]"
+      >
+        
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="bold"
+          >
+            220222_3
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class="cap-first small bold mono"
+          >
+            <span
+              class="bg-domaine-m color-bg pill py-xs px-s"
+            >
+              
+              m
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="small bold cap-first"
+          >
+            Autorisation de recherches
+          </span>
+        </div>
+        <div
+          class="td nowrap min-width-5"
+        >
+          <span
+            class="cap-first small bold"
+          >
+            <span
+              class="bg-warning color-bg pill py-xs px-s"
+            >
+              
+              Demande initiale 3
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class=""
+          >
+            Test value 3
+          </span>
+        </div>
+        
+      </router-link>
+      
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Automated Storybook Snapshots Ui/TableAuto Sorted By Status Asc 1`] = `
+<div>
+  <div
+    class="overflow-scroll-x mb"
+  >
+    <div
+      class="table"
+    >
+      <div
+        class="tr"
+      >
+        
+        <div
+          class="th nowrap min-width-8"
+        >
+          <button
+            class="btn-menu full-x p-0"
+          >
+            Nom 
+            <!--v-if-->
+          </button>
+        </div>
+        <div
+          class="th nowrap"
+        >
+          <button
+            class="btn-menu full-x p-0"
+          >
+            – 
+            <!--v-if-->
+          </button>
+        </div>
+        <div
+          class="th nowrap min-width-8"
+        >
+          <button
+            class="btn-menu full-x p-0"
+          >
+            Type 
+            <!--v-if-->
+          </button>
+        </div>
+        <div
+          class="th nowrap nowrap min-width-5"
+        >
+          <button
+            class="btn-menu full-x p-0"
+          >
+            Statut 
+            <i
+              class="icon-24 right icon-chevron-t"
+            />
+          </button>
+        </div>
+        <div
+          class="th nowrap"
+        >
+          <button
+            class="btn-menu full-x p-0"
+          >
+            Test 
+            <!--v-if-->
+          </button>
+        </div>
+        
+      </div>
+      
+      <router-link
+        class="tr tr-link text-decoration-none"
+        to="[object Object]"
+      >
+        
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="bold"
+          >
+            220222_3
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class="cap-first small bold mono"
+          >
+            <span
+              class="bg-domaine-m color-bg pill py-xs px-s"
+            >
+              
+              m
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="small bold cap-first"
+          >
+            Autorisation de recherches
+          </span>
+        </div>
+        <div
+          class="td nowrap min-width-5"
+        >
+          <span
+            class="cap-first small bold"
+          >
+            <span
+              class="bg-warning color-bg pill py-xs px-s"
+            >
+              
+              Demande initiale 3
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class=""
+          >
+            Test value 3
+          </span>
+        </div>
+        
+      </router-link>
+      <router-link
+        class="tr tr-link text-decoration-none"
+        to="[object Object]"
+      >
+        
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="bold"
+          >
+            220222_2
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class="cap-first small bold mono"
+          >
+            <span
+              class="bg-domaine-m color-bg pill py-xs px-s"
+            >
+              
+              m
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="small bold cap-first"
+          >
+            Autorisation de recherches
+          </span>
+        </div>
+        <div
+          class="td nowrap min-width-5"
+        >
+          <span
+            class="cap-first small bold"
+          >
+            <span
+              class="bg-warning color-bg pill py-xs px-s"
+            >
+              
+              Demande initiale 2
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class=""
+          >
+            Test value 2
+          </span>
+        </div>
+        
+      </router-link>
+      <router-link
+        class="tr tr-link text-decoration-none"
+        to="[object Object]"
+      >
+        
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="bold"
+          >
+            220222_1
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class="cap-first small bold mono"
+          >
+            <span
+              class="bg-domaine-m color-bg pill py-xs px-s"
+            >
+              
+              m
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="small bold cap-first"
+          >
+            Autorisation de recherches
+          </span>
+        </div>
+        <div
+          class="td nowrap min-width-5"
+        >
+          <span
+            class="cap-first small bold"
+          >
+            <span
+              class="bg-warning color-bg pill py-xs px-s"
+            >
+              
+              Demande initiale 1
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class=""
+          >
+            Test value 1
+          </span>
+        </div>
+        
+      </router-link>
+      <router-link
+        class="tr tr-link text-decoration-none"
+        to="[object Object]"
+      >
+        
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="bold"
+          >
+            220222_0
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class="cap-first small bold mono"
+          >
+            <span
+              class="bg-domaine-m color-bg pill py-xs px-s"
+            >
+              
+              m
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td min-width-8"
+        >
+          <span
+            class="small bold cap-first"
+          >
+            Autorisation de recherches
+          </span>
+        </div>
+        <div
+          class="td nowrap min-width-5"
+        >
+          <span
+            class="cap-first small bold"
+          >
+            <span
+              class="bg-warning color-bg pill py-xs px-s"
+            >
+              
+              Demande initiale 0
+              
+            </span>
+          </span>
+        </div>
+        <div
+          class="td"
+        >
+          <span
+            class=""
+          >
+            Test value 0
+          </span>
+        </div>
+        
+      </router-link>
+      
+    </div>
+  </div>
+</div>
+`;

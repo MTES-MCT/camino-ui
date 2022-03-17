@@ -14,7 +14,7 @@
 <script>
 import Table from '../_ui/table-pagination.vue'
 
-import { titresColonnes, titresLignesBuild } from './table.js'
+import { titresColonnes, titresLignesBuild } from './table-utils'
 
 export default {
   name: 'Titres',

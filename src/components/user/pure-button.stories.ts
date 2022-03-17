@@ -1,8 +1,9 @@
 import PureButton from './pure-button.vue'
 import { action } from '@storybook/addon-actions'
 import { User } from '@/components/user/user'
-import { Story } from '@storybook/vue3'
-export default {
+import { Meta, Story } from '@storybook/vue3'
+
+const meta: Meta = {
   title: 'Components/User/Button',
   component: PureButton,
   argTypes: {
@@ -10,6 +11,8 @@ export default {
     menuActive: Boolean
   }
 }
+export default meta
+
 type Props = {
   user: User
   menuActive: boolean

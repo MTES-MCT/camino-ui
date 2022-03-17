@@ -140,7 +140,7 @@ a {
     color: var(--color-text);
   }
 
-  &.active {
+  &.active.exact-active {
     color: var(--color-neutral);
   }
 }
@@ -158,7 +158,7 @@ a.color-bg {
     color: var(--color-bg);
   }
 
-  &.active {
+  &.active.exact-active {
     color: var(--color-neutral);
   }
 }

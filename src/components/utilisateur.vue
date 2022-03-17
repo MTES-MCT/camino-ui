@@ -201,7 +201,9 @@ export default {
     Pill,
     Loader
   },
-
+  data: () => ({
+    userUnwatch: null
+  }),
   computed: {
     utilisateur() {
       return this.$store.state.utilisateur.element
@@ -216,17 +218,13 @@ export default {
     }
   },
 
-  watch: {
-    user: 'get',
-
-    '$route.params.id': function (id) {
+  async created() {
+    this.userUnwatch = this.$watch('user', this.get)
+    this.$watch('$route.params.id', function (id) {
       if (this.$route.name === 'utilisateur' && id) {
         this.get()
       }
-    }
-  },
-
-  async created() {
+    })
     await this.get()
   },
 
@@ -235,9 +233,11 @@ export default {
   },
 
   methods: {
-    logout() {
+    async logout() {
       this.eventTrack('deconnexion')
-      this.$store.dispatch('user/logout')
+      this.userUnwatch()
+      await this.$store.dispatch('user/logout')
+      await this.$router.push({ name: 'homepage', force: true })
     },
     eventTrack(id) {
       if (this.$matomo) {

@@ -1,33 +1,22 @@
 <template>
-  <Tablo
-    :column="preferences.colonne"
-    :columns="colonnes"
-    :order="preferences.ordre"
-    :rows="lignes"
-    class="width-full-p"
-    @params-update="preferencesUpdate"
-  />
+  <AutoTable :columns="colonnes" :rows="lignes" class="width-full-p" />
 </template>
 
 <script>
-import Tablo from '../_ui/table.vue'
+import AutoTable from '../_ui/table-auto.vue'
 
-import { titresColonnes, titresLignesBuild } from './table.js'
+import { titresColonnes, titresLignesBuild } from './table-utils.js'
 
 export default {
   name: 'Titres',
 
-  components: { Tablo },
+  components: { AutoTable },
 
   props: {
     titres: { type: Array, required: true }
   },
 
   computed: {
-    preferences() {
-      return this.$store.state.titres.params.table
-    },
-
     activitesCol() {
       const user = this.$store.state.user.element
 
@@ -42,43 +31,6 @@ export default {
 
     lignes() {
       return titresLignesBuild(this.titres, this.activitesCol)
-    },
-
-    pages() {
-      const pages = Math.ceil(this.lignes.length / this.preferences.intervalle)
-      return pages || 0
-    }
-  },
-
-  methods: {
-    preferencesUpdate(params) {
-      if (params.range) {
-        params.intervalle = params.range
-        delete params.range
-      }
-
-      if (params.column) {
-        params.colonne = params.column
-        delete params.column
-      }
-
-      if (params.order) {
-        params.ordre = params.order
-        delete params.order
-      }
-
-      this.$store.dispatch('titres/paramsSet', {
-        section: 'table',
-        params
-      })
-    },
-
-    pageUpdate(page) {
-      this.preferencesUpdate({ page })
-    },
-
-    intervalleUpdate(range) {
-      this.preferencesUpdate({ range, page: 1 })
     }
   }
 }

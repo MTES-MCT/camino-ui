@@ -1,14 +1,15 @@
 import Pill from './pill.vue'
-import { Story } from '@storybook/vue3'
+import { Meta, Story } from '@storybook/vue3'
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
-export default {
+const meta: Meta = {
   title: 'Ui/Pill',
   component: Pill,
   argTypes: {
     color: String
   }
 }
+export default meta
 
 type Props = {
   color?: string

@@ -1,71 +1,75 @@
-import { urlQueryParamsGet } from '../utils/url'
-import { titresMetas, titresGeo, titres, titresGeoPolygon } from '../api/titres'
-import { paramsBuild } from '../utils/'
-import { listeMutations } from './_liste-build'
+import { urlQueryParamsGet } from '@/utils/url'
+import { titresMetas, titresGeo, titres, titresGeoPolygon } from '@/api/titres'
+import { paramsBuild } from '@/utils'
+import { listeMutationsWithDefaultState } from './_liste-build'
 
-const state = {
-  elements: [],
-  total: 0,
-  vueId: 'carte',
-  metas: {
-    domaines: [],
-    types: [],
-    statuts: [],
-    substancesLegales: []
-  },
-  definitions: [
-    { id: 'typesIds', type: 'strings', values: [] },
-    { id: 'domainesIds', type: 'strings', values: [] },
-    { id: 'statutsIds', type: 'strings', values: [] },
-    { id: 'substancesLegalesIds', type: 'strings', values: [] },
-    { id: 'titresIds', type: 'strings', values: [] },
-    { id: 'entreprisesIds', type: 'strings', values: [] },
-    { id: 'references', type: 'string' },
-    { id: 'territoires', type: 'string' },
-    { id: 'page', type: 'number', value: 1, min: 0 },
-    { id: 'intervalle', type: 'number', min: 10, max: 500 },
-    {
-      id: 'colonne',
-      type: 'string',
-      values: [
-        'nom',
-        'domaine',
-        'type',
-        'statut',
-        'activitesTotal',
-        'substances',
-        'titulaires',
-        'references'
-      ]
+const getDefaultState = () => {
+  return {
+    elements: [],
+    total: 0,
+    vueId: 'carte',
+    metas: {
+      domaines: [],
+      types: [],
+      statuts: [],
+      substancesLegales: []
     },
-    {
-      id: 'ordre',
-      type: 'string',
-      values: ['asc', 'desc']
+    definitions: [
+      { id: 'typesIds', type: 'strings', values: [] },
+      { id: 'domainesIds', type: 'strings', values: [] },
+      { id: 'statutsIds', type: 'strings', values: [] },
+      { id: 'substancesLegalesIds', type: 'strings', values: [] },
+      { id: 'titresIds', type: 'strings', values: [] },
+      { id: 'entreprisesIds', type: 'strings', values: [] },
+      { id: 'references', type: 'string' },
+      { id: 'territoires', type: 'string' },
+      { id: 'page', type: 'number', value: 1, min: 0 },
+      { id: 'intervalle', type: 'number', min: 10, max: 500 },
+      {
+        id: 'colonne',
+        type: 'string',
+        values: [
+          'nom',
+          'domaine',
+          'type',
+          'statut',
+          'activitesTotal',
+          'substances',
+          'titulaires',
+          'references'
+        ]
+      },
+      {
+        id: 'ordre',
+        type: 'string',
+        values: ['asc', 'desc']
+      },
+      { id: 'perimetre', type: 'numbers' }
+    ],
+    urlDefinitions: [
+      { id: 'zoom', type: 'number', min: 1, max: 18 },
+      { id: 'centre', type: 'tuple' },
+      { id: 'vueId', type: 'string', values: ['carte', 'table'] }
+    ],
+    params: {
+      table: { page: 1, intervalle: 200, ordre: 'asc', colonne: 'nom' },
+      carte: { perimetre: [0, 0, 0, 0], zoom: null, centre: [] },
+      filtres: {
+        typesIds: [],
+        domainesIds: [],
+        statutsIds: [],
+        substancesLegalesIds: [],
+        titresIds: [],
+        entreprisesIds: '',
+        references: '',
+        territoires: ''
+      }
     },
-    { id: 'perimetre', type: 'numbers' }
-  ],
-  urlDefinitions: [
-    { id: 'zoom', type: 'number', min: 1, max: 18 },
-    { id: 'centre', type: 'tuple' },
-    { id: 'vueId', type: 'string', values: ['carte', 'table'] }
-  ],
-  params: {
-    table: { page: 1, intervalle: 200, ordre: 'asc', colonne: 'nom' },
-    carte: { perimetre: [0, 0, 0, 0], zoom: null, centre: [] },
-    filtres: {
-      typesIds: [],
-      domainesIds: [],
-      statutsIds: [],
-      substancesLegalesIds: [],
-      titresIds: [],
-      entreprisesIds: '',
-      references: '',
-      territoires: ''
-    }
-  },
-  initialized: false
+    initialized: false
+  }
 }
+
+const state = getDefaultState()
 
 const actions = {
   async init({ state, commit, dispatch }) {
@@ -259,36 +263,40 @@ const actions = {
   }
 }
 
-const mutations = Object.assign({}, listeMutations, {
-  metasSet(state, data) {
-    Object.keys(data).forEach(id => {
-      let paramId
-      if (id === 'types') {
-        paramId = 'typesIds'
-      } else if (id === 'domaines') {
-        paramId = 'domainesIds'
-      } else if (id === 'statuts') {
-        paramId = 'statutsIds'
-      } else if (id === 'substancesLegales') {
-        paramId = 'substancesLegalesIds'
-      } else if (id === 'entreprises') {
-        paramId = 'entreprisesIds'
-        data[id] = data[id].elements
-      }
+const mutations = Object.assign(
+  {},
+  listeMutationsWithDefaultState(getDefaultState),
+  {
+    metasSet(state, data) {
+      Object.keys(data).forEach(id => {
+        let paramId
+        if (id === 'types') {
+          paramId = 'typesIds'
+        } else if (id === 'domaines') {
+          paramId = 'domainesIds'
+        } else if (id === 'statuts') {
+          paramId = 'statutsIds'
+        } else if (id === 'substancesLegales') {
+          paramId = 'substancesLegalesIds'
+        } else if (id === 'entreprises') {
+          paramId = 'entreprisesIds'
+          data[id] = data[id].elements
+        }
 
-      if (paramId) {
-        state.metas[id] = data[id]
-        const definition = state.definitions.find(p => p.id === paramId)
+        if (paramId) {
+          state.metas[id] = data[id]
+          const definition = state.definitions.find(p => p.id === paramId)
 
-        definition.values = data[id].map(e => e.id)
-      }
-    })
-  },
+          definition.values = data[id].map(e => e.id)
+        }
+      })
+    },
 
-  vueSet(state, vueId) {
-    state.vueId = vueId
+    vueSet(state, vueId) {
+      state.vueId = vueId
+    }
   }
-})
+)
 
 export default {
   namespaced: true,

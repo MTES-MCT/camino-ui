@@ -14,11 +14,7 @@
     </div>
 
     <div class="tablet-blob-2-3 pt-m">
-      <router-link
-        v-if="$route.name !== 'titres'"
-        :to="{ name: 'titres' }"
-        class="flex text-decoration-none"
-      >
+      <router-link :to="{ name: 'homepage' }" class="flex text-decoration-none">
         <img src="/img/logo-rf.svg" class="logo mr" />
         <div>
           <p class="mb-0 mt-xs title">
@@ -29,18 +25,6 @@
           </p>
         </div>
       </router-link>
-
-      <span v-else class="flex">
-        <img src="/img/logo-rf.svg" class="logo mr" />
-        <div>
-          <p class="mb-0 mt-xs title">
-            camino<span class="color-neutral">.beta.gouv.fr</span>
-          </p>
-          <p class="h6 mb-0 bold color-text">
-            Le cadastre minier numérique ouvert
-          </p>
-        </div>
-      </span>
     </div>
   </div>
 </template>

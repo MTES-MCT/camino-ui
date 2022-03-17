@@ -140,8 +140,6 @@ const actions = {
 
       commit('popupMessagesRemove', null, { root: true })
 
-      await router.push({ name: 'homepage' })
-
       await utilisateurDeconnecter()
 
       dispatch(
@@ -298,6 +296,15 @@ const actions = {
 }
 
 const getters = {
+  user(state) {
+    return state.element
+  },
+  hasEntreprises(state) {
+    return state?.element?.entreprises?.length > 0
+  },
+  isLoaded(state) {
+    return state.loaded
+  },
   tilesActive(state) {
     return state.metas.tiles.find(
       ({ id }) => id === state.preferences.carte.tilesId

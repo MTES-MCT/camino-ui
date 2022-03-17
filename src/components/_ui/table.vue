@@ -90,9 +90,9 @@ export default {
     sort(colId) {
       if (this.column === colId) {
         const order = this.order === 'asc' ? 'desc' : 'asc'
-        this.update({ order })
+        this.update({ order, column: this.column })
       } else {
-        this.update({ column: colId })
+        this.update({ column: colId, order: this.order })
       }
     },
 

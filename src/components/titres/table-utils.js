@@ -66,6 +66,24 @@ const titresColonnes = [
 
 const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
   titres.map(titre => {
+    const regions = titre.pays?.reduce(
+      (acc, pay) => acc.concat(pay.regions?.map(({ nom }) => nom)),
+      []
+    )
+    const departements = titre.pays?.reduce(
+      (pays, pay) =>
+        pays.concat(
+          pay.regions?.reduce(
+            (regions, region) =>
+              regions.concat(region.departements?.map(({ nom }) => nom)),
+            []
+          )
+        ),
+      []
+    )
+    const references = titre.references?.map(
+      ref => `${ref.type.nom} : ${ref.nom}`
+    )
     const columns = {
       nom: {
         component: markRaw(TitreNom),
@@ -113,41 +131,29 @@ const titresLignesBuild = (titres, activitesCol, ordre = 'asc') =>
       regions: {
         component: markRaw(List),
         props: {
-          elements: titre.pays?.reduce(
-            (acc, pay) => acc.concat(pay.regions?.map(({ nom }) => nom)),
-            []
-          ),
+          elements: regions,
           mini: true
         },
-        class: 'mb--xs'
+        class: 'mb--xs',
+        value: regions
       },
       departements: {
         component: markRaw(List),
         props: {
-          elements: titre.pays?.reduce(
-            (pays, pay) =>
-              pays.concat(
-                pay.regions?.reduce(
-                  (regions, region) =>
-                    regions.concat(region.departements?.map(({ nom }) => nom)),
-                  []
-                )
-              ),
-            []
-          ),
+          elements: departements,
           mini: true
         },
-        class: 'mb--xs'
+        class: 'mb--xs',
+        value: departements
       },
       references: {
         component: List,
         props: {
-          elements: titre.references?.map(
-            ref => `${ref.type.nom} : ${ref.nom}`
-          ),
+          elements: references,
           mini: true
         },
-        class: 'mb--xs'
+        class: 'mb--xs',
+        value: references
       }
     }
 
