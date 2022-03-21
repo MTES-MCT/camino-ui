@@ -14,6 +14,7 @@
       </h1>
 
       <button
+        v-if="user && user.id === utilisateur.id"
         id="cmn-user-menu-button-deconnexion"
         class="btn-menu text-decoration-none bold p-0 flex-right"
         @click="logout"
