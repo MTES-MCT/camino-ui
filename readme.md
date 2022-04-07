@@ -1,3 +1,5 @@
+# Projet archivé, nouvelle adresse https://github.com/MTES-MCT/camino
+
 # Camino UI
 
 [![Tests status][ci-img]][ci] [![codecov][codecov-img]][codecov] [![Dependency Status][dep-img]][dep]
